@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WordFun</title>
+  <style>
+    :root {
+      --bg: #2b241f;           /* dark coffee */
+      --panel: #352d2a;        /* warm dark card */
+      --panel-2: #42372f;      /* deeper panel */
+      --muted: #cbbfb2;        /* warm gray */
+      --text: #efe7de;         /* paper ink */
+      --accent: #8bd3c7;       /* cozy brown */
+      --accent-2: #b98e64;     /* spare accent */
+      --good: #6bbf99;         /* green */
+      --bad: #cf6e5b;          /* terracotta red */
+      --warn: #c99a4a;         /* amber */
+      --tile: 64px;            /* fixed tile size */
+      --rack-gap: 10px;        /* default rack gap */
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      -webkit-font-smoothing: antialiased;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    header {
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: var(--panel);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      position: sticky; top: 0; z-index: 5;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: .4px;
+      font-weight: 650;
+      display: flex; align-items: center; gap: 10px;
+    }
+    header h1 .pill { background: linear-gradient(135deg, var(--accent), #7dd3fc); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; text-shadow: 0 2px 12px rgba(125,211,252,0.18); }
+
+    .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    button, .file-label {
+      background: var(--panel-2);
+      color: var(--text);
+      border: 1px solid rgba(0,0,0,0.12);
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 600;
+      letter-spacing: .2px;
+      cursor: pointer;
+      transition: transform .08s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease, color .2s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      user-select: none;
+    }
+    button:hover, .file-label:hover { border-color: rgba(255,255,255,0.22); }
+    button:active, .file-label:active { transform: translateY(1px); }
+    button[disabled] { opacity: .5; cursor: not-allowed; }
+
+    /* Highlighted primary action */
+    button.primary { background: var(--panel-2); color: var(--accent); border-color: var(--accent); box-shadow: 0 2px 6px rgba(0,0,0,0.06);} 
+    button.primary:hover { background: var(--accent); color: #fff; transform: translateY(-1px);} 
+
+    .file-input { display: none; }
+    .file-label { display: inline-flex; gap: 8px; align-items: center; }
+
+    .wrap {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 16px;
+      padding: 18px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+    }
+
+    .status {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .stat {
+      background: var(--panel-2);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 12px;
+      padding: 10px 12px;
+      text-align: center;
+    }
+    .stat .label { font-size: 12px; color: var(--muted); }
+    .stat .value { font-size: 18px; font-weight: 700; margin-top: 4px; }
+
+    .rack {
+      min-height: 110px;
+      border-radius: 14px;
+      padding: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: center; justify-content: center; align-items: center;
+      gap: var(--rack-gap, 10px);
+      background: var(--panel-2);
+      border: 1px dashed rgba(0,0,0,0.12);
+    }
+
+    .word-slot {
+      min-height: 110px;
+      border-radius: 14px;
+      padding: 10px;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: var(--tile);
+      gap: 10px;
+      align-content: start;
+      background: var(--panel-2);
+      border: 1px dashed rgba(0,0,0,0.12);
+    
+    }
+
+    .word-slot { margin-top: 14px; position: relative; }
+    .word-slot::after {
+      content: attr(data-placeholder);
+      position: absolute; inset: 0; display: grid; place-items: center;
+      color: rgba(229,231,235,0.25); font-weight: 600; letter-spacing: .5px; pointer-events: none;
+    }
+
+    .tile {
+      display: grid; place-items: center;
+      background: #fffdfa;
+      color: #1c1a18;
+      border-radius: 10px;
+      width: var(--tile);
+      aspect-ratio: 1 / 1; /* always square */
+      box-shadow: 0 6px 14px rgba(0,0,0,0.12), inset 0 -2px 0 rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.15);
+      font-weight: 900;
+      font-size: 22px;
+      letter-spacing: 0.5px;
+      cursor: grab;
+      user-select: none;
+      position: relative;
+      transition: transform .12s ease, box-shadow .2s ease, filter .2s ease, background .2s;
+    }
+    .tile:active { cursor: grabbing; }
+    .tile .pts {
+      position: absolute; right: 8px; bottom: 6px;
+      font-size: 12px; font-weight: 800; opacity: .8;
+    }
+    .tile.dragging { filter: drop-shadow(0 16px 28px rgba(0,0,0,0.45)); transform: scale(1.05); z-index: 3; }
+
+    @keyframes tilePulse { 0%{ transform: scale(1); } 50%{ transform: scale(1.14); box-shadow: 0 0 0 3px rgba(211,165,106,.3), 0 6px 14px rgba(0,0,0,.18), inset 0 -2px 0 rgba(0,0,0,0.05);} 100%{ transform: scale(1); } }
+    .tile.pulse { animation: tilePulse 200ms ease; }
+
+    .tally{ position:absolute; top:8px; right:10px; min-width:64px; padding:6px 10px; border-radius:10px; background:var(--panel-2); border:1px solid rgba(0,0,0,0.12); text-align:center; font-weight:800; opacity:0; transform: translateY(2px); transition: opacity .2s ease, transform .2s ease; }
+    .tally.show{ opacity:1; transform: translateY(0); }
+    
+
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+
+    .log {
+      margin-top: 16px; min-height: 46px; display: grid; place-items: center;
+      border-radius: 10px;
+      background: var(--panel);
+      border: 1px solid rgba(0,0,0,0.08);
+      padding: 10px 12px; text-align: center;
+      font-weight: 600;
+    }
+    .log.good { color: var(--good); }
+    .log.bad { color: var(--bad); }
+    .log.warn { color: var(--warn); }
+
+    aside.panel { display: grid; gap: 14px; align-content: start; }
+    .bag-wrap { max-height: 60vh; overflow: auto; padding: 0; scrollbar-gutter: stable both-edges; }
+    .bag-safe { padding: 14px 12px; }
+    .bag-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(26px, 1fr)); gap: 6px; overflow: visible; }
+    .mini-tile { display:grid; place-items:center; background:#fffdfa; color:#1c1a18; border:1px solid rgba(0,0,0,0.15); border-radius:6px; width:100%; aspect-ratio:1/1; font-weight:900; font-size:11px; position:relative; padding-bottom:8px; box-shadow:0 2px 6px rgba(0,0,0,0.12), inset 0 -1px 0 rgba(0,0,0,0.05); transition: transform .12s ease, filter .2s ease; transform-origin:center; will-change: transform; }
+    .mini-tile .pts { position:absolute; right:2px; bottom:1px; font-size:7px; font-weight:800; opacity:.85; line-height:1; }
+    .mini-tile:hover { transform: scale(1.8); z-index:10; filter: drop-shadow(0 10px 18px rgba(0,0,0,0.35)); }
+    .bag-cell {
+      background: var(--panel);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 10px;
+      padding: 8px;
+      display: grid; gap: 2px;
+      text-align: center;
+      font-weight: 700;
+    }
+    .bag-cell .l { font-size: 14px; opacity: .9; }
+    .bag-cell .c { font-size: 13px; color: var(--muted); }
+
+    .trinkets-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
+    .trinket { background: var(--panel); border:1px solid rgba(0,0,0,0.08); border-radius:10px; padding:8px; display:flex; align-items:center; gap:8px; }
+    .trinket .icon { font-size:18px; }
+    .trinket .meta { display:grid; }
+    .trinket .name { font-weight:700; font-size:13px; line-height:1.1; }
+    .trinket .desc { font-size:12px; color: var(--muted); }
+
+    .hidden{display:none}
+    .modal{position:fixed; inset:0; background:rgba(0,0,0,.55); display:none; place-items:center; z-index:50}
+    .modal.show{display:grid}
+    .shop{background:var(--panel); border:1px solid rgba(0,0,0,0.12); border-radius:16px; padding:18px; width:min(980px,95vw); max-height:90vh; overflow:auto; box-shadow:0 30px 80px rgba(0,0,0,.45)}
+    .shop h2{margin:0 0 8px 0; font-size:18px; color:var(--accent)}
+    .shop p{margin:4px 0 14px 0; color:var(--muted)}
+    .shop-grid{display:grid; grid-template-columns:1fr; gap:10px}
+    .shop-btn{background:var(--panel-2); border:1px solid rgba(0,0,0,.12); padding:10px 12px; border-radius:10px; text-align:left; font-weight:700}
+    .shop-btn:hover{border-color:var(--accent);} 
+    /* Expanded shop layout */
+    .shop-sections{ display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+    @media (max-width: 900px){ .shop-sections{ grid-template-columns: 1fr; } }
+    .shop-legend{ font-size:12px; color: var(--muted); margin: 2px 0 8px; }
+    .swap-zone{ margin-top:8px; }
+    .swap-zone .label{ font-size:12px; color: var(--muted); margin: 4px 0 6px; }
+    .swap-row{ display:grid; grid-template-columns: repeat(8, var(--tile)); gap:10px; justify-content:center; padding:8px; background: var(--panel); border:1px dashed rgba(0,0,0,0.12); border-radius:12px; }
+    .shop-actions{ display:flex; gap:10px; align-items:center; justify-content:flex-end; margin-top:12px; }
+    @keyframes btnShake { 0%{transform:translateX(0)} 25%{transform:translateX(-2px)} 50%{transform:translateX(2px)} 75%{transform:translateX(-1px)} 100%{transform:translateX(0)} }
+    .shake{ animation: btnShake 180ms ease; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><span class="pill">WordFun</span></h1>
+    <div class="controls">
+      <label class="file-label" title="Load a custom word list (.txt, one word per line)">
+        <input id="fileInput" class="file-input" type="file" accept=".txt" />
+        📄 Load word list
+      </label>
+      <button id="resetBtn" title="Start a fresh game">Reset</button>
+      <button id="devShopBtn" title="Open the shop for testing">Load shop</button>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <main class="panel">
+      <div class="status">
+        <div class="stat"><div class="label">Round</div><div id="round" class="value">1/5</div></div>
+        <div class="stat"><div class="label">Score</div><div id="score" class="value">0/30</div></div>
+        <div class="stat"><div class="label">Stage</div><div id="stage" class="value">1</div></div>
+        <div class="stat"><div class="label">Funds</div><div id="funds" class="value">$0</div></div>
+        <div class="stat"><div class="label">Dictionary</div><div id="dictStatus" class="value">loading…</div></div>
+      </div>
+
+      <div id="rack" class="rack" aria-label="Rack" role="list"></div>
+      <div id="word" class="word-slot" aria-label="Word" role="list" data-placeholder="Drag tiles to build a word"><div id="tally" class="tally" aria-live="polite"></div></div>
+
+      <div class="actions">
+        <button id="clearBtn" title="Clear current word (Esc)">Clear</button>
+        <button id="shuffleRackBtn" title="Shuffle rack">Shuffle rack</button>
+        <button id="drawBtn" title="Redraw all tiles">Redraw tiles</button>
+        <button id="submitBtn" class="primary" title="Submit the assembled word (Enter)">Submit</button>
+      </div>
+
+      <div id="log" class="log">Welcome. Load your wordlist.txt or place it next to this HTML file and the game will try to fetch it automatically.</div>
+    </main>
+
+    <aside class="panel">
+      <div id="bagHeader" style="font-weight:700">Bag (— remaining)</div>
+      <div class="bag-wrap"><div class="bag-safe"><div id="bagGrid" class="bag-grid"></div></div></div>
+      <div id="trinketsHeader" style="font-weight:700; margin-top:6px">Trinkets (1/5)</div>
+      <div id="trinketsGrid" class="trinkets-grid"></div>
+      <div style="font-size:12px; color:var(--muted); line-height:1.35">
+        Tip: put <code>wordlist.txt</code> next to this file and serve a local folder using <code>python -m http.server</code>, then open this page. Or click “Load word list”. Your chosen list will be remembered locally.
+      </div>
+    </aside>
+  </div>
+
+  <div id="shopModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="shopTitle">
+    <div class="shop">
+      <h2 id="shopTitle">Shop</h2>
+      <p>Round clear! Reward: $<span id="shopReward">0</span>. Choose one upgrade:</p>
+      <div class="shop-grid">
+        <button id="upgTile" class="shop-btn">+1 point to a random rack tile</button>
+        <button id="upgReplace" class="shop-btn">+1 Replace use next round</button>
+        <button id="upgCash" class="shop-btn">Gain $1</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  'use strict';
+  // --- Points & Bag ---
+  const TILE_POINTS = { A:1,B:3,C:3,D:2,E:1,F:4,G:2,H:4,I:1,J:8,K:5,L:1,M:3,N:1,O:1,P:3,QU:10,R:1,S:1,T:1,U:1,V:4,W:4,X:8,Y:4,Z:10,"ING":4,"ED":3,"TCH":8,"!":1 };
+  const BAG_COUNTS = { A:4,B:1,C:1,D:1,E:5,F:1,G:1,H:1,I:4,J:1,K:1,L:3,M:1,N:4,O:4,P:1,QU:1,R:4,S:4,T:4,U:2,V:1,W:1,X:1,Y:1,Z:1 };
+  let rackSize = 10;
+
+  // --- State ---
+  let bag = [];
+  let rack = [];         // [{id, letter, points}]
+  let wordTiles = [];
+  let score = 0;
+  let nextId = 1;
+
+  // Rounds
+  let round = 1;
+  const HANDS_PER_ROUND = 5;
+  let handsLeft = HANDS_PER_ROUND;
+  let roundScore = 0;
+  let funds = 0;
+  let replacesLeft = 3;         // per round
+  let extraReplacesNext = 0;    // shop bonus applied next round
+  let inShop = false;
+  let targetScore = 30;
+  const computeTarget = (r) => 30 + (r - 1) * 15;
+
+  // Dictionary
+  let DICT = new Set();
+  let dictLoaded = false;
+
+  // animation state must be defined before first render to avoid TDZ
+  let isAnimating = false;
+  const ANIM_PER_TILE = 220;
+  const ANIM_HOLD = 500;
+
+  // Trinkets
+  const TRINKET_CAP = 5;
+  let trinkets = [ { id:'pocket-link', emoji:'🔗', name:'Pocket link', desc:'Does nothing' } ];
+
+  // --- Shop state & helpers ---
+  let swapBagOriginal = [], swapBag = [], swapOffer = [];
+  let shopRefreshCost = 1;
+  const SHOP_SPECIALS = [ {L:'ING', pts:4}, {L:'ED', pts:3}, {L:'TCH', pts:8}, {L:'!', pts:1} ];
+  function makeShopPool(){
+    const pool = [];
+    for (const [L,c] of Object.entries(BAG_COUNTS)) for (let i=0;i<Math.max(1,c);i++) pool.push(L);
+    SHOP_SPECIALS.forEach(s=>{ for(let i=0;i<3;i++) pool.push(s.L); });
+    return pool;
+  }
+  const SHOP_POOL = makeShopPool();
+  function sampleFromArray(arr, n){ const copy=[...arr]; const out=[]; const m=Math.min(n, copy.length); for(let i=0;i<m;i++){ const j=Math.floor(Math.random()*copy.length); out.push(copy.splice(j,1)[0]); } return out; }
+  function sampleFromBag(n){ return sampleFromArray(bag, Math.min(n, bag.length)); }
+  function makeShopTile(L, zone, idx){
+    const el = document.createElement('div');
+    el.className = 'tile';
+    el.draggable = true;
+    el.dataset.zone = zone; el.dataset.idx = String(idx);
+    const pts = TILE_POINTS[L];
+    el.innerHTML = `${L}<span class="pts">${pts}</span>`;
+    el.addEventListener('dragstart', ev=>{ ev.dataTransfer.setData('text/plain', JSON.stringify({zone, idx})); });
+    el.addEventListener('dragover', ev=> ev.preventDefault());
+    el.addEventListener('drop', ev=>{
+      ev.preventDefault();
+      const data = JSON.parse(ev.dataTransfer.getData('text/plain')||'{}');
+      if(!data || data.zone===zone) return;
+      const srcArr = data.zone==='bag' ? swapBag : swapOffer;
+      const dstArr = zone==='bag' ? swapBag : swapOffer;
+      const sIdx = Number(data.idx), dIdx = idx;
+      const tmp = dstArr[dIdx]; dstArr[dIdx] = srcArr[sIdx]; srcArr[sIdx] = tmp;
+      renderShopSwap();
+    });
+    return el;
+  }
+  function renderShopSwap(){
+    const a = document.getElementById('swapBagRow');
+    const b = document.getElementById('swapOfferRow');
+    if(!a || !b) return;
+    a.innerHTML=''; b.innerHTML='';
+    swapBag.forEach((L,i)=> a.appendChild(makeShopTile(L,'bag',i)) );
+    swapOffer.forEach((L,i)=> b.appendChild(makeShopTile(L,'offer',i)) );
+  }
+  function applySwaps(){
+    for(let i=0;i<swapBagOriginal.length;i++){
+      const orig = swapBagOriginal[i];
+      const now = swapBag[i];
+      if(orig!==now){ const k = bag.findIndex(x=>x===orig); if(k>=0) bag.splice(k,1); bag.push(now); }
+    }
+    shuffle(bag);
+  }
+
+  // --- Helpers ---
+  const shuffle = (arr)=>{ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; };
+  function buildInitialBag(){
+    const full = [];
+    for (const [L,c] of Object.entries(BAG_COUNTS)) for (let i=0;i<c;i++) full.push(L);
+    shuffle(full);
+    return full; // 54 tiles
+  }
+
+  // --- Elements ---
+  const elRack = document.getElementById('rack');
+  const elWord = document.getElementById('word');
+  const elScore = document.getElementById('score');
+  const elRound = document.getElementById('round');
+  const elFunds = document.getElementById('funds');
+  const elStage = document.getElementById('stage');
+  const elBagHeader = document.getElementById('bagHeader');
+  const elBagGrid = document.getElementById('bagGrid');
+  const elLog = document.getElementById('log');
+  const elDictStatus = document.getElementById('dictStatus');
+  const elTally = document.getElementById('tally');
+  const elTrinketsHeader = document.getElementById('trinketsHeader');
+  const elTrinketsGrid = document.getElementById('trinketsGrid');
+
+  const btnDraw = document.getElementById('drawBtn');          // Replace word
+  const btnShuffleRack = document.getElementById('shuffleRackBtn');
+  const btnClear = document.getElementById('clearBtn');
+  const btnSubmit = document.getElementById('submitBtn');
+  const btnReset = document.getElementById('resetBtn');
+  const fileInput = document.getElementById('fileInput');
+
+  // --- Tile UI ---
+  function makeTileEl(tile, fromWhere){
+    const el = document.createElement('div');
+    el.className = 'tile';
+    el.draggable = true;
+    el.setAttribute('role','listitem');
+    el.dataset.id = String(tile.id);
+    el.dataset.letter = tile.letter;
+    el.dataset.points = String(tile.points);
+    el.innerHTML = `${tile.letter}<span class="pts">${tile.points}</span>`;
+    el.addEventListener('dragstart', (ev)=>{
+      el.classList.add('dragging');
+      ev.dataTransfer.setData('text/plain', JSON.stringify({ id: tile.id, from: fromWhere }));
+    });
+    el.addEventListener('dragend', ()=> el.classList.remove('dragging'));
+    return el;
+  }
+
+  // --- Rendering ---
+  function renderAll(){
+    // Rack
+    elRack.innerHTML = '';
+    rack.forEach(t => elRack.appendChild(makeTileEl(t,'rack')));
+    // Centered rack with adaptive gap
+    const gapVal = rack.length <= 10 ? '14px' : (rack.length <= 12 ? '10px' : (rack.length <= 14 ? '8px' : '6px'));
+    elRack.style.setProperty('--rack-gap', gapVal);
+    // Word
+    elWord.innerHTML = '';
+    elWord.dataset.placeholder = wordTiles.length ? '' : 'Drag tiles to build a word';
+    wordTiles.forEach(t => elWord.appendChild(makeTileEl(t,'word')));
+    if (elTally) elWord.appendChild(elTally);
+    // Stats
+  const currentHand = Math.min(HANDS_PER_ROUND, HANDS_PER_ROUND - handsLeft + 1);
+  elRound.textContent = `${currentHand}/${HANDS_PER_ROUND}`;
+  elScore.textContent = `${roundScore}/${targetScore}`;
+  elFunds.textContent = `$${funds}`;
+  if (elStage) elStage.textContent = String(round);
+  renderBagGrid();
+  renderTrinkets();
+    // Buttons
+    btnDraw.textContent = `Redraw tiles (${replacesLeft} left)`;
+    btnDraw.disabled = (replacesLeft<=0 || inShop || isAnimating || (rack.length===0 && wordTiles.length===0));
+    btnSubmit.disabled = !wordTiles.length || inShop || isAnimating;
+    btnClear.disabled = !wordTiles.length || inShop || isAnimating;
+    btnShuffleRack.disabled = rack.length<2 || inShop || isAnimating;
+    saveState();
+  }
+
+  function renderBagGrid(){
+    if (elBagHeader) elBagHeader.textContent = `Bag (${bag.length} remaining)`;
+    elBagGrid.innerHTML='';
+    const sorted = [...bag].sort((a,b)=> a.localeCompare(b));
+    for (const L of sorted){
+      const cell = document.createElement('div');
+      cell.className = 'mini-tile';
+      cell.title = `${L} (${TILE_POINTS[L]} pts)`;
+      cell.innerHTML = `${L}<span class="pts">${TILE_POINTS[L]}</span>`;
+      elBagGrid.appendChild(cell);
+    }
+  }
+
+  function renderDictStatus(){ elDictStatus.textContent = dictLoaded ? `${DICT.size.toLocaleString()}` : '—'; }
+
+  function renderTrinkets(){
+    if (elTrinketsHeader) elTrinketsHeader.textContent = `Trinkets (${trinkets.length}/${TRINKET_CAP})`;
+    if (!elTrinketsGrid) return;
+    elTrinketsGrid.innerHTML = '';
+    trinkets.forEach(t=>{
+      const item = document.createElement('div');
+      item.className = 'trinket';
+      item.innerHTML = `<div class="icon">${t.emoji}</div><div class="meta"><div class="name">${t.name}</div><div class="desc">${t.desc}</div></div>`;
+      elTrinketsGrid.appendChild(item);
+    });
+  }
+
+  // --- Persistence ---
+  function saveState(){
+    const state = { bag, rack, wordTiles, score, nextId, round, handsLeft, roundScore, funds, replacesLeft, extraReplacesNext, inShop:false, targetScore, rackSize, trinkets };
+    try{ localStorage.setItem('wordfun_state', JSON.stringify(state)); }catch(e){ /* ignore quota */ }
+  }
+  function loadState(){
+    try{
+      const raw = localStorage.getItem('wordfun_state');
+      if(!raw) return false;
+      const s = JSON.parse(raw);
+      if(!Array.isArray(s.bag) || !Array.isArray(s.rack) || !Array.isArray(s.wordTiles)) return false;
+      bag = s.bag; rack = s.rack; wordTiles = s.wordTiles;
+      score = s.score||0; nextId = s.nextId||1; round = s.round||1;
+      handsLeft = (s.handsLeft==null)?HANDS_PER_ROUND:s.handsLeft; roundScore = s.roundScore||0; funds = s.funds||0;
+      replacesLeft = (s.replacesLeft==null)?3:s.replacesLeft; extraReplacesNext = s.extraReplacesNext||0;
+      inShop = false; targetScore = s.targetScore||computeTarget(round);
+      rackSize = s.rackSize||rackSize; trinkets = s.trinkets||trinkets;
+      return true;
+    }catch(e){ return false; }
+  }
+
+  // --- Movement helpers ---
+  function moveTileRackToWord(id){ const i=rack.findIndex(t=>t.id===id); if(i>=0){ wordTiles.push(rack.splice(i,1)[0]); renderAll(); } }
+  function moveTileWordToRack(id){ const i=wordTiles.findIndex(t=>t.id===id); if(i>=0){ rack.push(wordTiles.splice(i,1)[0]); renderAll(); } }
+
+  function getInsertIndex(containerEl, clientX, clientY){
+    const tiles=[...containerEl.querySelectorAll('.tile')];
+    if (!tiles.length) return 0;
+    let bestIdx = tiles.length;
+    let bestDist = Infinity;
+    for (let i=0;i<tiles.length;i++){
+      const b=tiles[i].getBoundingClientRect();
+      const cx = b.left + b.width/2;
+      const cy = b.top + b.height/2;
+      const dx = cx - clientX;
+      const dy = cy - clientY;
+      const d = dx*dx + dy*dy;
+      if (d < bestDist){ bestDist = d; bestIdx = clientX < cx ? i : i+1; }
+    }
+    return Math.max(0, Math.min(bestIdx, tiles.length));
+  }
+
+  function insertFromRackToWord(id, index){ const i=rack.findIndex(t=>t.id===id); if(i>=0){ const tile=rack.splice(i,1)[0]; wordTiles.splice(index,0,tile); renderAll(); } }
+  function insertFromWordToRack(id, index){ const i=wordTiles.findIndex(t=>t.id===id); if(i>=0){ const tile=wordTiles.splice(i,1)[0]; rack.splice(index,0,tile); renderAll(); } }
+  function moveTileWithinWord(id, index){ const i=wordTiles.findIndex(t=>t.id===id); if(i>=0){ const [tile]=wordTiles.splice(i,1); if(index>i) index--; wordTiles.splice(index,0,tile); renderAll(); } }
+  function moveTileWithinRack(id, index){ const i=rack.findIndex(t=>t.id===id); if(i>=0){ const [tile]=rack.splice(i,1); if(index>i) index--; rack.splice(index,0,tile); renderAll(); } }
+
+  // --- Drag & drop zones ---
+  ;['dragover','drop'].forEach(evt=>{
+    elRack.addEventListener(evt,(e)=>{
+      e.preventDefault();
+      if(evt==='drop'){
+        const data=JSON.parse(e.dataTransfer.getData('text/plain')||'{}');
+        const idx=getInsertIndex(elRack,e.clientX,e.clientY);
+        if(data.from==='rack') moveTileWithinRack(data.id, idx);
+        if(data.from==='word') insertFromWordToRack(data.id, idx);
+      }
+    });
+    elWord.addEventListener(evt,(e)=>{
+      e.preventDefault();
+      if(evt==='drop'){
+        const data=JSON.parse(e.dataTransfer.getData('text/plain')||'{}');
+        const idx=getInsertIndex(elWord,e.clientX,e.clientY);
+        if(data.from==='rack') insertFromRackToWord(data.id, idx);
+        if(data.from==='word') moveTileWithinWord(data.id, idx);
+      }
+    });
+  });
+
+  // --- Bag & rack ops ---
+  function drawUpToRackSize(){
+    while(rack.length < rackSize && bag.length){
+      const L=bag.pop();
+      rack.push({id:nextId++, letter:L, points:TILE_POINTS[L]});
+    }
+    renderAll();
+    if(!bag.length && !rack.length && !wordTiles.length){ log('Bag empty. Game over. Press Reset to start again.','warn'); }
+  }
+  function clearWord(){ rack.push(...wordTiles.splice(0)); renderAll(); }
+  function shuffleRack(){ shuffle(rack); renderAll(); }
+
+  function getWordString(){ return wordTiles.map(t=> t.letter==='!' ? '' : t.letter).join(''); }
+  function getWordScore(){ return wordTiles.reduce((s,t)=>s+t.points,0); }
+
+  function redrawAllTiles(){
+    if (replacesLeft <= 0){ log('No redraws left this round.','warn'); return; }
+    // Return everything to the bag
+    rack.forEach(t=> bag.push(t.letter));
+    wordTiles.forEach(t=> bag.push(t.letter));
+    rack.length = 0;
+    wordTiles.length = 0;
+    replacesLeft -= 1;
+    shuffle(bag);
+    drawUpToRackSize();
+    log('Redrew all tiles.','');
+  }
+
+  async function submitWord(){
+    if (isAnimating) return;
+    const w=getWordString(); if(!w) return;
+    const W=w.toUpperCase();
+    if (!dictLoaded){ log('Dictionary not loaded yet — cannot validate.','warn'); return; }
+    if (!DICT.has(W)){ log(`“${w}” is not in the dictionary.`,'bad'); return; }
+
+    // Animate per-letter tally
+    isAnimating = true; renderAll();
+    let running = 0;
+    if (elTally){ elTally.textContent = '+0'; elTally.classList.add('show'); }
+    const tilesSnapshot = [...wordTiles];
+    for (const t of tilesSnapshot){
+      const el = elWord.querySelector(`[data-id="${t.id}"]`);
+      if (el){ el.classList.add('pulse'); }
+      running += t.points;
+      elScore.textContent = `${roundScore + running}/${targetScore}`;
+      await sleep(ANIM_PER_TILE);
+      if (el){ el.classList.remove('pulse'); }
+    }
+
+    await sleep(ANIM_HOLD);
+    const pts = tilesSnapshot.reduce((s,t)=>s+t.points,0);
+    score += pts; roundScore += pts; handsLeft = Math.max(0, handsLeft-1);
+    wordTiles.length = 0; drawUpToRackSize();
+    log(`Accepted “${w}” for ${pts} points.`,'good');
+    if (roundScore >= targetScore){ const reward = 3 + handsLeft; funds += reward; openShop(reward); }
+    else if (handsLeft === 0){ endRoundFail(); }
+    if (elTally){ elTally.classList.remove('show'); elTally.textContent=''; }
+    isAnimating = false; renderAll();
+  }
+
+  // --- Shop mechanics ---
+  function openShop(reward){
+    inShop = true;
+    const modal = document.getElementById('shopModal');
+    const shell = modal?.querySelector('.shop');
+    if (shell){
+      shell.innerHTML = `
+        <h2 id="shopTitle">Shop</h2>
+        <div class="shop-sections">
+          <section class="shop-trinkets">
+            <h3 style="margin:0 0 6px 0">Trinkets</h3>
+            <div class="shop-legend">Passive effects and consumables — coming soon.</div>
+            <div id="shopTrinkets" class="trinkets-grid"></div>
+          </section>
+          <section class="shop-swap">
+            <h3 style="margin:0 0 6px 0">Tile swap</h3>
+            <div class="shop-legend">Drag tiles between your bag and the shop to swap. <span style="float:right">Funds: $<span id="shopFunds">${funds}</span></span></div>
+            <div class="swap-zone">
+              <div class="label">Your bag</div>
+              <div id="swapBagRow" class="swap-row"></div>
+            </div>
+            <div class="swap-zone">
+              <div class="label">Shop offers</div>
+              <div id="swapOfferRow" class="swap-row"></div>
+            </div>
+            <div class="shop-actions">
+              <button id="swapRefreshBtn" class="shop-btn">Refresh offers ($<span id="refreshCost">1</span>)</button>
+              <div style="flex:1"></div>
+              <button id="swapApplyBtn" class="primary">Apply & Close</button>
+              <button id="swapCloseBtn">Close</button>
+            </div>
+          </section>
+        </div>`;
+    }
+
+    // Init swap arrays for this session
+    swapBagOriginal = sampleFromBag(8);
+    swapBag = [...swapBagOriginal];
+    swapOffer = sampleFromArray(SHOP_POOL, 8);
+    shopRefreshCost = 1;
+
+    renderShopSwap();
+    if (modal) modal.classList.add('show');
+
+    // Wire buttons and keep UI state in sync
+    const refreshBtn = document.getElementById('swapRefreshBtn');
+    const rc = document.getElementById('refreshCost');
+    const sf = document.getElementById('shopFunds');
+    const setRefreshState = ()=>{
+      if (rc) rc.textContent = String(shopRefreshCost);
+      if (refreshBtn){
+        refreshBtn.disabled = funds < shopRefreshCost;
+        refreshBtn.title = funds < shopRefreshCost ? `Need $${shopRefreshCost}` : '';
+      }
+      if (sf) sf.textContent = String(funds);
+    };
+    setRefreshState();
+
+    document.getElementById('swapCloseBtn')?.addEventListener('click', ()=>{ closeShop(); renderAll(); });
+    document.getElementById('swapApplyBtn')?.addEventListener('click', ()=>{ applySwaps(); closeShop(); renderAll(); });
+    refreshBtn?.addEventListener('click', ()=>{
+      if (funds >= shopRefreshCost){
+        funds -= shopRefreshCost;
+        shopRefreshCost *= 2;
+        swapOffer = sampleFromArray(SHOP_POOL, 8);
+        renderShopSwap();
+        setRefreshState();
+        renderAll();
+      } else {
+        refreshBtn.classList.add('shake');
+        setTimeout(()=> refreshBtn.classList.remove('shake'), 220);
+      }
+    });
+  }
+function closeShop(){
+    const modal = document.getElementById('shopModal');
+    if (modal) modal.classList.remove('show');
+    inShop = false;
+  }
+  function advanceRound(){
+    round += 1;
+    handsLeft = HANDS_PER_ROUND;
+    replacesLeft = 3 + extraReplacesNext; extraReplacesNext = 0;
+    roundScore = 0; targetScore = computeTarget(round);
+    drawUpToRackSize();
+    log(`Round ${round} — target ${targetScore}.`,'');
+    renderAll();
+  }
+  function endRoundFail(){ log('Out of hands — round failed. Press Reset to start again.','bad'); }
+
+  // --- Dictionary loading ---
+  function adoptWordlist(text){
+    // Robust split and sanitize
+    const words = text.replace(/\r/g,'').split(/\n+/).map(w=>w.trim()).filter(Boolean);
+    DICT = new Set(words.map(w=>w.toUpperCase()));
+    dictLoaded = true;
+    renderDictStatus();
+  }
+
+  function tryLoadFromLocal(){
+    try{
+      const saved = localStorage.getItem('wordfun_wordlist');
+      if(saved){ adoptWordlist(saved); log(`Loaded saved dictionary (${DICT.size.toLocaleString()} words).`, 'good'); return true; }
+    }catch(e){ /* quota blocked or disabled */ }
+    return false;
+  }
+
+  async function tryFetchWordlist(){
+    // If previously saved, use that immediately for instant startup
+    const hadSaved = tryLoadFromLocal();
+
+    // Attempt fetch only when running over http(s); file:// will fail CORS
+    if (location.protocol.startsWith('http')){
+      try{
+        const res = await fetch('wordlist.txt',{cache:'no-store'});
+        if(!res.ok) throw new Error('no wordlist');
+        const text = await res.text();
+        adoptWordlist(text);
+        log(`Loaded wordlist.txt with ${DICT.size.toLocaleString()} words.`,'good');
+        try{ localStorage.setItem('wordfun_wordlist', text); }catch(e){ /* ignore quota */ }
+        return;
+      }catch(e){ /* fall through */ }
+    }
+
+    if(!hadSaved){
+      const fallback = `test\nwords\nword\nboard\nletter\nletters\nquiz\nquizzy\nplay\ngame\nread\nwrite\nstone\nnotes\nroad\nroads\ntrain\nrails\nrail\nme\nyou\nhe\nshe\nwe\nbe\nbee`;
+      adoptWordlist(fallback);
+      log('No wordlist.txt found yet. Using a tiny built‑in list. Click “Load word list” to replace it.','warn');
+    }
+  }
+
+  // File input
+  fileInput.addEventListener('change',(e)=>{
+    const file = e.target.files?.[0]; if(!file) return;
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      const text = String(reader.result||'');
+      adoptWordlist(text);
+      log(`Loaded custom list: ${DICT.size.toLocaleString()} words.`,'good');
+      try{ localStorage.setItem('wordfun_wordlist', text); }catch(err){ /* ignore quota */ }
+    };
+    reader.readAsText(file);
+  });
+
+  const sleep = (ms)=> new Promise(r=>setTimeout(r,ms));
+
+  // --- Keyboard ---
+  document.addEventListener('keydown',(e)=>{
+    if (inShop || isAnimating) return; // ignore during shop/anim
+    if (e.key==='Enter'){ submitWord(); return; }
+    if (e.key==='Backspace'){ e.preventDefault(); const t=wordTiles.pop(); if(t) rack.push(t); renderAll(); return; }
+    if (e.key==='Escape'){ clearWord(); return; }
+    const L=e.key.toUpperCase();
+    if (L==='Q'){ const t=rack.find(t=>t.letter==='QU'); if(t) moveTileRackToWord(t.id); return; }
+    if (TILE_POINTS[L]){ const t=rack.find(t=>t.letter===L); if(t) moveTileRackToWord(t.id); }
+  });
+
+  // --- Controls ---
+  btnDraw.addEventListener('click', redrawAllTiles);
+  btnShuffleRack.addEventListener('click', shuffleRack);
+  btnClear.addEventListener('click', clearWord);
+  btnSubmit.addEventListener('click', submitWord);
+  btnReset.addEventListener('click', resetGame);
+  document.getElementById('devShopBtn')?.addEventListener('click', ()=>{ if (funds < 10) funds = 10; openShop(0); renderAll(); });
+
+  // Shop buttons
+  document.getElementById('upgTile')?.addEventListener('click',()=>{ if(rack.length){ const i=Math.floor(Math.random()*rack.length); rack[i].points += 1; } closeShop(); advanceRound(); });
+  document.getElementById('upgReplace')?.addEventListener('click',()=>{ extraReplacesNext += 1; closeShop(); advanceRound(); });
+  document.getElementById('upgCash')?.addEventListener('click',()=>{ funds += 1; closeShop(); advanceRound(); });
+
+  // --- Logging ---
+  function log(msg, kind){ elLog.className='log '+(kind||''); elLog.textContent=msg; }
+
+  // --- Reset ---
+  function resetGame(){
+    bag = buildInitialBag();
+    rack = [];
+    wordTiles = [];
+    score = 0; nextId = 1;
+    round = 1; handsLeft = HANDS_PER_ROUND; roundScore = 0; funds = 0; replacesLeft = 3; extraReplacesNext = 0; inShop = false;
+    targetScore = computeTarget(round);
+    renderAll();
+    drawUpToRackSize();
+    log('New game. Build a word…','');
+  }
+
+  // --- Init ---
+  (async function init(){
+    await tryFetchWordlist();
+    if (!loadState()) { resetGame(); } else { renderAll(); log('Resumed game.',''); }
+    window.addEventListener('beforeunload', saveState);
+  })();
+  </script>
+</body>
+</html>
