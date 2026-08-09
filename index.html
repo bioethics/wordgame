@@ -49,13 +49,10 @@
       </div>
     </section>
 
-    <!-- Score readout -->
+    <!-- Score readout: Points × the colour multipliers = total -->
     <section id="readout" class="readout readout--idle" aria-live="polite">
       <div class="slab slab--points"><span class="slab-label">Points</span><span id="roPoints" class="slab-num">0</span></div>
       <span class="ro-op">×</span>
-      <div class="slab slab--mult"><span class="slab-label">Mult</span><span id="roMult" class="slab-num">1</span></div>
-      <span class="ro-op">=</span>
-      <div class="ro-total-wrap"><span id="roTotal" class="ro-total">0</span></div>
       <div class="ro-chips" aria-label="Colour multipliers">
         <span id="chip-crimson" class="chip chip--crimson" title="Crimson multiplier">×1</span>
         <span id="chip-azure"   class="chip chip--azure"   title="Azure multiplier">×1</span>
@@ -63,6 +60,8 @@
         <span id="chip-amber"   class="chip chip--amber"   title="Amber multiplier">×1</span>
         <span id="chip-purple"  class="chip chip--purple"  title="Purple-trim multiplier">×1</span>
       </div>
+      <span class="ro-op">=</span>
+      <div class="ro-total-wrap"><span id="roTotal" class="ro-total">0</span></div>
     </section>
 
     <!-- Word groove -->

@@ -19,11 +19,10 @@ import {
   renderFoundry, renderDictStatus, readoutEls, renderChips, setChip,
   updateReadoutPreview, log, showBanner, showOverlay, hideOverlay,
   showGameOver, showVictory, openInspector, closeInspector, makeTileEl, coinHTML,
-  showPatronPopover, hidePopover, renderDraft,
+  showPatronPopover, hidePopover, renderDraft, updateDraftSelection,
 } from './render.js';
 import {
-  draft, openDraft, closeDraft, restoreDraft, toggleDraftPick,
-  draftComplete, applyDraft,
+  draft, openDraft, closeDraft, restoreDraft, toggleDraftPick, applyDraft,
 } from './draft.js';
 import {
   sleep, dur, flyClone, popReveal, floatText, tweenNum, setNum, fmtMult,
@@ -114,12 +113,12 @@ async function submitWord() {
   const ro = readoutEls();
 
   // Start the readout from zero so the build-up reads clearly
-  setNum(ro.points, 0); setNum(ro.mult, 1, fmtMult); setNum(ro.total, 0);
+  setNum(ro.points, 0); setNum(ro.total, 0);
   renderChips(null);
   ro.root.classList.remove('readout--idle');
   ro.root.classList.add('readout--live');
 
-  let pointsSoFar = 0, multSoFar = 1;
+  let pointsSoFar = 0;
 
   // ── Pass 1: each tile pops and pays its Points ─────────────────────────────
   let i = 0;
@@ -163,10 +162,9 @@ async function submitWord() {
       }
     }
     sfx.chime();
-    floatText($('word'), `${label} ×${step.mult}`, `fl-set fl-set--${step.colour}`, { dy: -60 });
+    floatText($('word'), `${label} ×${fmtMult(step.mult)}`, `fl-set fl-set--${step.colour}`, { dy: -60 });
     setChip(ro.chip(step.colour), step.mult);
-    multSoFar *= step.mult;
-    tweenNum(ro.mult, multSoFar, { fmt: fmtMult });
+    pulse(ro.chip(step.colour), 'chip--pop', 420);
     await sleep(ANIM.stepColour);
   }
 
@@ -178,8 +176,7 @@ async function submitWord() {
       floatText(card, p.text, p.points ? 'fl-points' : 'fl-mult', { dy: -44 });
     }
     if (p.points) { pointsSoFar += p.points; tweenNum(ro.points, pointsSoFar); sfx.tick(8); }
-    if (p.mult)   { multSoFar += p.mult; tweenNum(ro.mult, multSoFar, { fmt: fmtMult }); sfx.mult(); }
-    if (p.xmult)  { multSoFar *= p.xmult; tweenNum(ro.mult, multSoFar, { fmt: fmtMult }); sfx.mult(); }
+    if (p.mult || p.xmult) sfx.mult();
     await sleep(ANIM.stepPatron);
   }
 
@@ -622,7 +619,9 @@ async function beginRun() {
   await animateDraw(drawn);
   state.isAnimating = false;
   renderAll();
-  log(`Painted ${painted.join(', ')}.  Page 1 — quota ${state.quota}.`);
+  log(painted.length
+    ? `Painted ${painted.join(', ')}.  Page 1 — quota ${state.quota}.`
+    : `Page 1 — quota ${state.quota}.`);
 }
 
 $('draftModal')?.addEventListener('click', e => {
@@ -630,11 +629,11 @@ $('draftModal')?.addEventListener('click', e => {
   if (pickEl) {
     if (toggleDraftPick(pickEl.dataset.draft, Number(pickEl.dataset.idx))) sfx.draw();
     else sfx.bad();
-    renderDraft();
+    updateDraftSelection();   // in place — never rebuilds the sheet
     persist();
     return;
   }
-  if (e.target.closest('#btnDraftBegin') && draftComplete()) beginRun();
+  if (e.target.closest('#btnDraftBegin')) beginRun();
 });
 
 (async function init() {

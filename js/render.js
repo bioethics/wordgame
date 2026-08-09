@@ -271,7 +271,6 @@ export function updateReadoutPreview(script) {
   if (!ro) return;
   ro.classList.toggle('readout--idle', !script);
   setNum($('roPoints'), script ? script.points : 0);
-  setNum($('roMult'), script ? script.mult : 1, fmtMult);
   setNum($('roTotal'), script ? script.total : 0);
   renderChips(script?.colourSteps);
 }
@@ -294,7 +293,7 @@ export function setChip(el, mult) {
 
 // Imperative access for the scoring cinematic
 export const readoutEls = () => ({
-  points: $('roPoints'), mult: $('roMult'), total: $('roTotal'),
+  points: $('roPoints'), total: $('roTotal'),
   root: $('readout'), coins: $('coinCount'),
   chip: c => $(`chip-${c}`),
 });
@@ -590,23 +589,18 @@ export function tileTraits(t) {
   ].filter(Boolean).join(' · ') || 'Plain';
 }
 
+// Built once when the draft opens. Selection afterwards only patches classes
+// and labels (see updateDraftSelection) — rebuilding the markup on every tap
+// destroyed scroll position and made picking on a phone miserable.
 export function renderDraft() {
   const m = $('draftModal');
   if (!m) return;
-  if (!draft.open) { m.classList.remove('show'); return; }
-
-  const chosen = (kind, i) => draft.picked[kind].includes(i);
-  const full   = kind => draft.picked[kind].length >= draftLimit(kind);
-  const count  = kind => {
-    const n = draft.picked[kind].length, max = draftLimit(kind);
-    return n === max ? `${max} of ${max} chosen ✓` : `choose ${max - n} more`;
-  };
+  if (!draft.open) { m.classList.remove('show'); m.innerHTML = ''; return; }
 
   const patronCards = draft.patrons.map((id, i) => {
     const def = patronById(id);
     return `
-      <div class="offer-patron offer-patron--${def.rarity} pickable ${chosen('patron', i) ? 'picked' : ''} ${!chosen('patron', i) && full('patron') ? 'pick-locked' : ''}"
-           data-draft="patron" data-idx="${i}">
+      <div class="offer-patron offer-patron--${def.rarity} pickable" data-draft="patron" data-idx="${i}">
         <span class="op-emoji">${def.emoji}</span>
         <div class="op-body">
           <div class="op-name">${def.name} <span class="op-rarity">${def.rarity}</span></div>
@@ -617,8 +611,7 @@ export function renderDraft() {
   }).join('');
 
   const paintCards = draft.paints.map((colour, i) => `
-    <div class="offer-paint pickable ${chosen('paint', i) ? 'picked' : ''} ${!chosen('paint', i) && full('paint') ? 'pick-locked' : ''}"
-         data-draft="paint" data-idx="${i}">
+    <div class="offer-paint pickable" data-draft="paint" data-idx="${i}">
       <span class="paint-pot paint-pot--${colour}"></span>
       <div class="op-body">
         <div class="op-name">${COLOURS[colour].label}</div>
@@ -628,8 +621,7 @@ export function renderDraft() {
     </div>`).join('');
 
   const tileCards = draft.tiles.map((t, i) => `
-    <div class="offer-tile pickable ${chosen('tile', i) ? 'picked' : ''} ${!chosen('tile', i) && full('tile') ? 'pick-locked' : ''}"
-         data-draft="tile" data-idx="${i}">
+    <div class="offer-tile pickable" data-draft="tile" data-idx="${i}">
       <div class="offer-tile-slot" data-draft-tile="${i}"></div>
       <div class="offer-tile-traits">${tileTraits(t)}</div>
       <span class="pick-mark">✓</span>
@@ -640,24 +632,22 @@ export function renderDraft() {
       <div class="sheet-head">
         <div>
           <h2>Set up the press</h2>
-          <p class="sheet-note">Free picks before the first page.</p>
+          <p class="sheet-note">Free picks before the first page — take as many or as few as you like.</p>
         </div>
       </div>
 
-      <h3 class="foundry-sec">Patron <span class="foundry-sub">${count('patron')}</span></h3>
+      <h3 class="foundry-sec">Patron <span class="foundry-sub" data-count="patron"></span></h3>
       <div class="offer-list">${patronCards}</div>
 
-      <h3 class="foundry-sec">Paint <span class="foundry-sub">${count('paint')} — each paints ${PAINT_PER_POT} random letters</span></h3>
+      <h3 class="foundry-sec">Paint <span class="foundry-sub" data-count="paint"></span></h3>
       <div class="draft-paints">${paintCards}</div>
 
-      <h3 class="foundry-sec">Tiles <span class="foundry-sub">${count('tile')}</span></h3>
+      <h3 class="foundry-sec">Tiles <span class="foundry-sub" data-count="tile"></span></h3>
       <div class="offer-tiles offer-tiles--draft">${tileCards}</div>
 
       <div class="foundry-foot">
         <div class="foundry-spacer"></div>
-        <button class="btn btn-print btn-big" id="btnDraftBegin" ${draftComplete() ? '' : 'disabled'}>
-          ${draftComplete() ? 'Begin the run ❧' : 'Choose all three'}
-        </button>
+        <button class="btn btn-print btn-big" id="btnDraftBegin">Begin the run ❧</button>
       </div>
     </div>`;
   m.classList.add('show');
@@ -666,6 +656,32 @@ export function renderDraft() {
     const slot = m.querySelector(`[data-draft-tile="${i}"]`);
     if (slot) slot.appendChild(makeTileEl({ ...t, id: '' }, 'draft'));
   });
+
+  updateDraftSelection();
+}
+
+// Patch picked/locked state in place — no reflow of the whole sheet, so the
+// page doesn't scroll out from under your thumb.
+export function updateDraftSelection() {
+  const m = $('draftModal');
+  if (!m || !draft.open) return;
+
+  for (const el of m.querySelectorAll('[data-draft]')) {
+    const kind = el.dataset.draft;
+    const idx  = Number(el.dataset.idx);
+    const picked = draft.picked[kind].includes(idx);
+    const full   = draft.picked[kind].length >= draftLimit(kind);
+    el.classList.toggle('picked', picked);
+    el.classList.toggle('pick-locked', !picked && full);
+  }
+
+  for (const el of m.querySelectorAll('[data-count]')) {
+    const kind = el.dataset.count;
+    const n = draft.picked[kind].length, max = draftLimit(kind);
+    el.textContent = n === max ? `${max} of ${max} ✓` : `${n} of ${max}`;
+    el.classList.toggle('foundry-sub--done', n === max);
+  }
+
 }
 
 // ─── Utility ──────────────────────────────────────────────────────────────────

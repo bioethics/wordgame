@@ -2,7 +2,7 @@ import { state, owns, paintRandomFaces, unpaintedFaces } from './state.js';
 import {
   BAG_COUNTS, LIGATURES, TILE_POINTS, TRIMS, NICKS, COLOURS,
   PATRON_SLOTS, TILE_BASE_PRICE, SMELT_COST, REROLL_BASE,
-  PAINT_PRICE, PAINT_PER_POT,
+  PAINT_PRICE, PAINT_PER_POT, DRAFT,
   makeTileTemplate,
 } from './constants.js';
 import { PATRON_DEFS, RARITY_WEIGHT, patronById } from './patrons.js';
@@ -39,6 +39,44 @@ function dualPairsFor(letter) {
   const pts = TILE_POINTS[letter] ?? 1;
   return Object.keys(TILE_POINTS)
     .filter(l => l !== letter && l.length === 1 && Math.abs(TILE_POINTS[l] - pts) <= 2);
+}
+
+// ─── Feature helpers ──────────────────────────────────────────────────────────
+// A tile's "features" are the things that make it worth owning. Counting and
+// topping them up lets the draft offer genuinely loaded tiles.
+
+export function featureCount(t) {
+  return (t.colour ? 1 : 0) + (t.trim ? 1 : 0) + (t.nick ? 1 : 0)
+       + (t.letterType === 'dual' ? 1 : 0) + (LIGATURES.includes(t.letter) ? 1 : 0);
+}
+
+// Add one feature the tile doesn't already have. Returns false when it's full.
+export function addRandomFeature(tmpl) {
+  const missing = [];
+  if (!tmpl.colour) missing.push('colour');
+  if (!tmpl.trim)   missing.push('trim');
+  if (!tmpl.nick)   missing.push('nick');
+  if (tmpl.letterType !== 'dual' && !LIGATURES.includes(tmpl.letter)) missing.push('dual');
+
+  while (missing.length) {
+    const f = missing.splice(Math.floor(Math.random() * missing.length), 1)[0];
+    if (f === 'colour') { tmpl.colour = pick(Object.keys(COLOURS)); return true; }
+    if (f === 'trim')   { tmpl.trim   = pick(Object.keys(TRIMS));   return true; }
+    if (f === 'nick')   { tmpl.nick   = pick(Object.keys(NICKS));   return true; }
+    if (f === 'dual') {
+      const pairs = dualPairsFor(tmpl.letter);
+      if (pairs.length) { tmpl.letterType = 'dual'; tmpl.altLetter = pick(pairs); return true; }
+      // no valid partner for this letter — fall through and try another feature
+    }
+  }
+  return false;
+}
+
+// A tile guaranteed to carry at least `min` features.
+export function randomLoadedTile(min = 2) {
+  const tmpl = randomTileOffer().template;
+  while (featureCount(tmpl) < min && addRandomFeature(tmpl)) { /* top up */ }
+  return tmpl;
 }
 
 export function randomTileOffer() {

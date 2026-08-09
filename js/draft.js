@@ -3,9 +3,9 @@
 // is applied to the collection before page 1's bag is shuffled.
 
 import { state, paintRandomFaces } from './state.js';
-import { DRAFT, COLOURS, LIGATURES, PAINT_PER_POT } from './constants.js';
+import { DRAFT, COLOURS, PAINT_PER_POT } from './constants.js';
 import { PATRON_DEFS, RARITY_WEIGHT } from './patrons.js';
-import { randomTileOffer } from './foundry.js';
+import { randomLoadedTile } from './foundry.js';
 
 export const draft = {
   open:    false,
@@ -17,13 +17,12 @@ export const draft = {
 
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 
-// Draft tiles are always worth looking at — reroll past bare ones.
-function specialTile() {
-  for (let i = 0; i < 40; i++) {
-    const t = randomTileOffer().template;
-    if (t.trim || t.nick || t.colour || t.letterType === 'dual' || LIGATURES.includes(t.letter)) return t;
-  }
-  return randomTileOffer().template;
+// Draft tiles are loaded — most carry two features, some three or four, so the
+// spread is full of combinations (paint + trim, ligature + nick, and so on).
+function draftTile() {
+  const r = Math.random();
+  const min = r < 0.55 ? 2 : r < 0.88 ? 3 : 4;
+  return randomLoadedTile(min);
 }
 
 function samplePatrons(n) {
@@ -44,7 +43,7 @@ export function openDraft() {
   draft.open    = true;
   draft.patrons = samplePatrons(DRAFT.patrons.show);
   draft.paints  = Object.keys(COLOURS).slice(0, DRAFT.paints.show);
-  draft.tiles   = Array.from({ length: DRAFT.tiles.show }, specialTile);
+  draft.tiles   = Array.from({ length: DRAFT.tiles.show }, draftTile);
   draft.picked  = { patron: [], paint: [], tile: [] };
   state.inDraft = true;
 }
