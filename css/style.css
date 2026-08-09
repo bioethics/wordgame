@@ -1300,6 +1300,53 @@ header {
   overflow: auto;
 }
 
+/* ─── Opening draft ───────────────────────────────────────────────────────────── */
+.sheet--draft { width: min(860px, 96vw); }
+.sheet--draft .foundry-sec { margin-top: 18px; }
+.sheet--draft .foundry-sec:first-of-type { margin-top: 4px; }
+
+.draft-paints {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 9px;
+}
+.offer-tiles--draft { grid-template-columns: repeat(5, 1fr); }
+
+.pickable {
+  position: relative;
+  cursor: pointer;
+  transition:
+    transform calc(0.12s / var(--aspd)),
+    box-shadow calc(0.12s / var(--aspd)),
+    opacity calc(0.12s / var(--aspd));
+}
+.pickable:hover:not(.pick-locked) { transform: translateY(-2px); }
+
+.pickable .pick-mark {
+  position: absolute;
+  top: -8px; right: -8px;
+  width: 23px; height: 23px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 900;
+  background: #2f6e3e;
+  color: #eafff0;
+  border: 1.5px solid rgba(0, 0, 0, 0.35);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity calc(0.14s / var(--aspd)), transform calc(0.14s / var(--aspd));
+}
+.pickable.picked .pick-mark { opacity: 1; transform: scale(1); }
+.pickable.picked {
+  outline: 2.5px solid #2f6e3e;
+  outline-offset: 2px;
+  box-shadow: 0 0 16px rgba(47, 110, 62, 0.35);
+}
+.pick-locked { opacity: 0.4; cursor: default; }
+
 /* ─── Settings ────────────────────────────────────────────────────────────────── */
 .set-row {
   display: grid;
@@ -1605,6 +1652,10 @@ input[type='checkbox'] {
   .foundry-foot .btn { flex: 1 1 auto; justify-content: center; }
   .run-stats { grid-template-columns: 1fr 1fr; }
   .set-row { grid-template-columns: 1fr; gap: 6px; }
+
+  .offer-tiles--draft { grid-template-columns: repeat(2, 1fr); }
+  .draft-paints { grid-template-columns: 1fr; }
+  .sheet--draft .foundry-sec { margin-top: 14px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

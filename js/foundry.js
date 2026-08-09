@@ -41,7 +41,7 @@ function dualPairsFor(letter) {
     .filter(l => l !== letter && l.length === 1 && Math.abs(TILE_POINTS[l] - pts) <= 2);
 }
 
-function randomTileOffer() {
+export function randomTileOffer() {
   const letter = pick(LETTER_POOL);
   const tmpl = makeTileTemplate(letter);
 

@@ -19,10 +19,14 @@ import {
   renderFoundry, renderDictStatus, readoutEls, renderChips, setChip,
   updateReadoutPreview, log, showBanner, showOverlay, hideOverlay,
   showGameOver, showVictory, openInspector, closeInspector, makeTileEl, coinHTML,
-  showPatronPopover, hidePopover,
+  showPatronPopover, hidePopover, renderDraft,
 } from './render.js';
 import {
-  sleep, dur, flyClone, popReveal, floatText, tweenNum, setNum,
+  draft, openDraft, closeDraft, restoreDraft, toggleDraftPick,
+  draftComplete, applyDraft,
+} from './draft.js';
+import {
+  sleep, dur, flyClone, popReveal, floatText, tweenNum, setNum, fmtMult,
   pulse, sparkleBurst, sfx, applySpeedCSS,
 } from './anim.js';
 import { initInput } from './drag.js';
@@ -110,7 +114,7 @@ async function submitWord() {
   const ro = readoutEls();
 
   // Start the readout from zero so the build-up reads clearly
-  setNum(ro.points, 0); setNum(ro.mult, 1); setNum(ro.total, 0);
+  setNum(ro.points, 0); setNum(ro.mult, 1, fmtMult); setNum(ro.total, 0);
   renderChips(null);
   ro.root.classList.remove('readout--idle');
   ro.root.classList.add('readout--live');
@@ -162,7 +166,7 @@ async function submitWord() {
     floatText($('word'), `${label} ×${step.mult}`, `fl-set fl-set--${step.colour}`, { dy: -60 });
     setChip(ro.chip(step.colour), step.mult);
     multSoFar *= step.mult;
-    tweenNum(ro.mult, multSoFar);
+    tweenNum(ro.mult, multSoFar, { fmt: fmtMult });
     await sleep(ANIM.stepColour);
   }
 
@@ -174,8 +178,8 @@ async function submitWord() {
       floatText(card, p.text, p.points ? 'fl-points' : 'fl-mult', { dy: -44 });
     }
     if (p.points) { pointsSoFar += p.points; tweenNum(ro.points, pointsSoFar); sfx.tick(8); }
-    if (p.mult)   { multSoFar += p.mult; tweenNum(ro.mult, multSoFar); sfx.mult(); }
-    if (p.xmult)  { multSoFar *= p.xmult; tweenNum(ro.mult, multSoFar); sfx.mult(); }
+    if (p.mult)   { multSoFar += p.mult; tweenNum(ro.mult, multSoFar, { fmt: fmtMult }); sfx.mult(); }
+    if (p.xmult)  { multSoFar *= p.xmult; tweenNum(ro.mult, multSoFar, { fmt: fmtMult }); sfx.mult(); }
     await sleep(ANIM.stepPatron);
   }
 
@@ -367,7 +371,7 @@ async function doExchange() {
 // ─── Keyboard ─────────────────────────────────────────────────────────────────
 
 document.addEventListener('keydown', e => {
-  if (state.inFoundry || state.isAnimating || state.gameOver) return;
+  if (state.inFoundry || state.inDraft || state.isAnimating || state.gameOver) return;
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
   if ($('settingsModal')?.classList.contains('show')) return;
   if ($('inspectorModal')?.classList.contains('show')) {
@@ -599,6 +603,18 @@ async function startFreshRun() {
   closeFoundry();
   renderFoundry();
   newRun();
+  openDraft();
+  renderAll();
+  renderDraft();
+}
+
+// Leaving the draft → the run proper begins
+async function beginRun() {
+  const { painted } = applyDraft();
+  closeDraft();
+  renderDraft();
+
+  startPage();          // reshuffle the bag now the drafted tiles have joined
   state.isAnimating = true;
   renderAll();
   await showBanner(`Chapter ${roman(1)}`, chapterTitle(1), 1250);
@@ -606,8 +622,20 @@ async function startFreshRun() {
   await animateDraw(drawn);
   state.isAnimating = false;
   renderAll();
-  log(`Page 1 — quota ${state.quota}.`);
+  log(`Painted ${painted.join(', ')}.  Page 1 — quota ${state.quota}.`);
 }
+
+$('draftModal')?.addEventListener('click', e => {
+  const pickEl = e.target.closest('[data-draft]');
+  if (pickEl) {
+    if (toggleDraftPick(pickEl.dataset.draft, Number(pickEl.dataset.idx))) sfx.draw();
+    else sfx.bad();
+    renderDraft();
+    persist();
+    return;
+  }
+  if (e.target.closest('#btnDraftBegin') && draftComplete()) beginRun();
+});
 
 (async function init() {
   loadSettings();
@@ -622,6 +650,10 @@ async function startFreshRun() {
     await startFreshRun();
   } else {
     if (state.gameOver) { renderAll(); showGameOver(); }
+    else if (restored.draft) {
+      restoreDraft(restored.draft);
+      renderAll(); renderDraft();
+    }
     else if (restored.foundry) {
       restoreFoundry(restored.foundry);
       renderAll(); renderFoundry();

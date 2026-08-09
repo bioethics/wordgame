@@ -18,7 +18,10 @@ export function applySpeedCSS() {
 const fx = () => document.getElementById('fx');
 
 // ─── Flying tile clones ───────────────────────────────────────────────────────
-// Clone `el`, place the clone at fromRect, fly it to toRect with a slight arc.
+// Clone `el`, fly it from the centre of fromRect to the centre of toRect with a
+// slight arc. The clone always keeps the *element's own* size — the from/to
+// rects only supply positions, and they're often other things entirely (the
+// bag button, the spent tray) whose shape must not stretch the tile.
 
 export function flyClone(el, fromRect, toRect, {
   duration = 430, scaleFrom = 1, scaleTo = 1, fade = false, arc = 26,
@@ -26,14 +29,18 @@ export function flyClone(el, fromRect, toRect, {
   const layer = fx();
   if (!layer) return Promise.resolve();
 
+  const own = el.getBoundingClientRect();
+  const w = own.width  || fromRect.width;
+  const h = own.height || fromRect.height;
+
   const clone = el.cloneNode(true);
   clone.classList.add('fly-clone');
   clone.classList.remove('tile--ghost', 'tile--selected', 'tile--held', 'drag-ghost');
   Object.assign(clone.style, {
-    left:  `${fromRect.left}px`,
-    top:   `${fromRect.top}px`,
-    width: `${fromRect.width}px`,
-    height:`${fromRect.height}px`,
+    left:  `${fromRect.left + fromRect.width / 2 - w / 2}px`,
+    top:   `${fromRect.top + fromRect.height / 2 - h / 2}px`,
+    width: `${w}px`,
+    height:`${h}px`,
   });
   layer.appendChild(clone);
 
@@ -130,6 +137,10 @@ export function setNum(el, v, fmt = x => Math.round(x).toString()) {
   el._val = v;
   el.textContent = fmt(v);
 }
+
+// Multipliers can be fractional (a purple trim is worth ×0.5 of a step), so
+// they get their own formatter: 2 → "2", 1.5 → "1.5".
+export const fmtMult = v => String(Math.round(v * 100) / 100);
 
 // ─── Pulses & sparkles ────────────────────────────────────────────────────────
 

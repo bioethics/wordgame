@@ -7,7 +7,8 @@ import {
 import { patronById } from './patrons.js';
 import { computeScore } from './scoring.js';
 import { foundry, foundrySnapshot, tilePrice } from './foundry.js';
-import { setNum, tweenNum, sleep, dur } from './anim.js';
+import { draft, draftLimit, draftComplete, draftSnapshot } from './draft.js';
+import { setNum, tweenNum, sleep, dur, fmtMult } from './anim.js';
 
 const $ = id => document.getElementById(id);
 
@@ -145,7 +146,10 @@ export function renderAll() {
 }
 
 export function persist() {
-  saveState(state.inFoundry ? { _foundry: foundrySnapshot() } : {});
+  saveState(
+    state.inDraft   ? { _draft: draftSnapshot() } :
+    state.inFoundry ? { _foundry: foundrySnapshot() } : {}
+  );
 }
 
 // ─── Patron shelf ─────────────────────────────────────────────────────────────
@@ -267,7 +271,7 @@ export function updateReadoutPreview(script) {
   if (!ro) return;
   ro.classList.toggle('readout--idle', !script);
   setNum($('roPoints'), script ? script.points : 0);
-  setNum($('roMult'), script ? script.mult : 1);
+  setNum($('roMult'), script ? script.mult : 1, fmtMult);
   setNum($('roTotal'), script ? script.total : 0);
   renderChips(script?.colourSteps);
 }
@@ -283,7 +287,8 @@ export function renderChips(colourSteps = null) {
 }
 
 export function setChip(el, mult) {
-  el.textContent = `×${mult}`;
+  if (!el) return;
+  el.textContent = `×${fmtMult(mult)}`;
   el.classList.toggle('chip--on', mult > 1);
 }
 
@@ -297,7 +302,7 @@ export const readoutEls = () => ({
 // ─── Buttons ──────────────────────────────────────────────────────────────────
 
 export function renderButtons() {
-  const blocked = state.inFoundry || state.isAnimating || state.gameOver;
+  const blocked = state.inFoundry || state.inDraft || state.isAnimating || state.gameOver;
   const sel = selectedCount();
 
   setDisabled('btnPrint',    !state.word.length || blocked);
@@ -479,22 +484,12 @@ function foundryShopHTML() {
       </div>`;
   }).join('') || '<p class="sheet-note">No patrons calling today.</p>';
 
-  const trimShort = { gold: 'pays 1 Coin', silver: '+6 Points', copper: 'refreshes 1 Exchange', purple: 'fifth ×multiplier' };
-  const nickShort = { right: '×3 Points rightward', left: '×3 Points leftward', side: '×5 Points beside it' };
   const tileCards = foundry.tileOffers.map((o, i) => {
     const afford = state.coins >= o.price;
-    const t = o.template;
-    const traits = [
-      t.colour ? `${COLOURS[t.colour].label} paint` : '',
-      t.trim ? `${TRIMS[t.trim].label} trim (${trimShort[t.trim]})` : '',
-      t.nick ? `${NICKS[t.nick].label} (${nickShort[t.nick]})` : '',
-      t.letterType === 'dual' ? `Dual ${t.letter}/${t.altLetter}` : '',
-      LIGATURES.includes(t.letter) ? 'Ligature' : '',
-    ].filter(Boolean).join(' · ') || 'Plain';
     return `
       <div class="offer-tile ${o.sold ? 'offer--sold' : ''}">
         <div class="offer-tile-slot" data-offer-tile="${i}"></div>
-        <div class="offer-tile-traits">${traits}</div>
+        <div class="offer-tile-traits">${tileTraits(o.template)}</div>
         ${o.sold
           ? '<span class="op-sold">bought</span>'
           : `<button class="btn-price" data-buy-tile="${i}" ${afford ? '' : 'disabled'}>${coinHTML(o.price)}</button>`}
@@ -578,6 +573,99 @@ function foundryCaseHTML() {
         </button>
       </div>
     </div>`;
+}
+
+// ─── Opening draft ────────────────────────────────────────────────────────────
+
+const TRIM_SHORT = { gold: 'Gold · 1 Coin', silver: 'Silver · +6 Points', copper: 'Copper · +1 Exchange', purple: 'Purple · ×1.5' };
+const NICK_SHORT = { right: 'Nick » ×3 right', left: 'Nick « ×3 left', side: 'Nick «» ×5 both sides' };
+
+export function tileTraits(t) {
+  return [
+    t.colour ? `${COLOURS[t.colour].label} paint` : '',
+    t.trim ? TRIM_SHORT[t.trim] : '',
+    t.nick ? NICK_SHORT[t.nick] : '',
+    t.letterType === 'dual' ? `Dual ${t.letter}/${t.altLetter}` : '',
+    LIGATURES.includes(t.letter) ? 'Ligature' : '',
+  ].filter(Boolean).join(' · ') || 'Plain';
+}
+
+export function renderDraft() {
+  const m = $('draftModal');
+  if (!m) return;
+  if (!draft.open) { m.classList.remove('show'); return; }
+
+  const chosen = (kind, i) => draft.picked[kind].includes(i);
+  const full   = kind => draft.picked[kind].length >= draftLimit(kind);
+  const count  = kind => {
+    const n = draft.picked[kind].length, max = draftLimit(kind);
+    return n === max ? `${max} of ${max} chosen ✓` : `choose ${max - n} more`;
+  };
+
+  const patronCards = draft.patrons.map((id, i) => {
+    const def = patronById(id);
+    return `
+      <div class="offer-patron offer-patron--${def.rarity} pickable ${chosen('patron', i) ? 'picked' : ''} ${!chosen('patron', i) && full('patron') ? 'pick-locked' : ''}"
+           data-draft="patron" data-idx="${i}">
+        <span class="op-emoji">${def.emoji}</span>
+        <div class="op-body">
+          <div class="op-name">${def.name} <span class="op-rarity">${def.rarity}</span></div>
+          <div class="op-desc">${def.desc}</div>
+        </div>
+        <span class="pick-mark">✓</span>
+      </div>`;
+  }).join('');
+
+  const paintCards = draft.paints.map((colour, i) => `
+    <div class="offer-paint pickable ${chosen('paint', i) ? 'picked' : ''} ${!chosen('paint', i) && full('paint') ? 'pick-locked' : ''}"
+         data-draft="paint" data-idx="${i}">
+      <span class="paint-pot paint-pot--${colour}"></span>
+      <div class="op-body">
+        <div class="op-name">${COLOURS[colour].label}</div>
+        <div class="op-desc">Paints ${PAINT_PER_POT} letters</div>
+      </div>
+      <span class="pick-mark">✓</span>
+    </div>`).join('');
+
+  const tileCards = draft.tiles.map((t, i) => `
+    <div class="offer-tile pickable ${chosen('tile', i) ? 'picked' : ''} ${!chosen('tile', i) && full('tile') ? 'pick-locked' : ''}"
+         data-draft="tile" data-idx="${i}">
+      <div class="offer-tile-slot" data-draft-tile="${i}"></div>
+      <div class="offer-tile-traits">${tileTraits(t)}</div>
+      <span class="pick-mark">✓</span>
+    </div>`).join('');
+
+  m.innerHTML = `
+    <div class="sheet sheet--draft">
+      <div class="sheet-head">
+        <div>
+          <h2>Set up the press</h2>
+          <p class="sheet-note">Free picks before the first page.</p>
+        </div>
+      </div>
+
+      <h3 class="foundry-sec">Patron <span class="foundry-sub">${count('patron')}</span></h3>
+      <div class="offer-list">${patronCards}</div>
+
+      <h3 class="foundry-sec">Paint <span class="foundry-sub">${count('paint')} — each paints ${PAINT_PER_POT} random letters</span></h3>
+      <div class="draft-paints">${paintCards}</div>
+
+      <h3 class="foundry-sec">Tiles <span class="foundry-sub">${count('tile')}</span></h3>
+      <div class="offer-tiles offer-tiles--draft">${tileCards}</div>
+
+      <div class="foundry-foot">
+        <div class="foundry-spacer"></div>
+        <button class="btn btn-print btn-big" id="btnDraftBegin" ${draftComplete() ? '' : 'disabled'}>
+          ${draftComplete() ? 'Begin the run ❧' : 'Choose all three'}
+        </button>
+      </div>
+    </div>`;
+  m.classList.add('show');
+
+  draft.tiles.forEach((t, i) => {
+    const slot = m.querySelector(`[data-draft-tile="${i}"]`);
+    if (slot) slot.appendChild(makeTileEl({ ...t, id: '' }, 'draft'));
+  });
 }
 
 // ─── Utility ──────────────────────────────────────────────────────────────────

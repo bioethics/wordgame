@@ -36,7 +36,7 @@ function insertIndex(container, clientX) {
   return Math.max(0, Math.min(best, tiles.length));
 }
 
-const blocked = () => state.inFoundry || state.isAnimating || state.gameOver;
+const blocked = () => state.inFoundry || state.inDraft || state.isAnimating || state.gameOver;
 
 // ─── Press / drag state ────────────────────────────────────────────────────────
 

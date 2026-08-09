@@ -45,8 +45,13 @@ export const TRIMS = {
   gold:   { label: 'Gold',   desc: 'Pays 1 Coin when printed',            price: 2 },
   silver: { label: 'Silver', desc: '+6 Points when printed',              price: 2 },
   copper: { label: 'Copper', desc: 'Refreshes 1 Exchange when printed',   price: 3 },
-  purple: { label: 'Purple', desc: 'Its own ×multiplier — every purple trim in the word raises it by 1', price: 4 },
+  purple: { label: 'Purple', desc: 'Its own ×multiplier — every purple trim in the word raises it by 0.5', price: 4 },
 };
+
+// A purple trim is worth half a step, where a painted letter is worth a whole
+// one: one purple trim gives ×1.5, two ×2, three ×2.5. It's the cheaper half of
+// a tile that can also carry paint, and it's the multiplier patrons will add to.
+export const PURPLE_TRIM_STEP = 0.5;
 
 // ─── Nicks (grooves cut into a tile's edge) ───────────────────────────────────
 export const NICKS = {
@@ -131,9 +136,12 @@ export function makeTileTemplate(letter, overrides = {}) {
   };
 }
 
-// A few painted tiles in the starting collection so the colour multipliers
-// show themselves early.
-export const STARTER_COLOURED = [
-  ['A', 'crimson'], ['A', 'crimson'],
-  ['E', 'azure'],   ['E', 'azure'],
-];
+// ─── Opening draft ────────────────────────────────────────────────────────────
+// Before the first page you kit out the press: pick from a free spread, no
+// coins involved. (The starting collection ships unpainted — the two paints
+// picked here are what gets the colour multipliers going.)
+export const DRAFT = {
+  patrons: { show: 3,  pick: 1 },
+  paints:  { show: 4,  pick: 2 },
+  tiles:   { show: 10, pick: 4 },
+};

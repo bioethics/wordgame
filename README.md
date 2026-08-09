@@ -41,9 +41,9 @@ score = Points × Mult
 - **Points** — the sum of every tile's value (after trims and nicks).
 - **Mult** — the product of the five colour multipliers. Each colour starts at
   ×1 and every painted letter of that colour in the word raises it by 1
-  (×2, ×3, …). Purple trims raise a fifth multiplier the same way. Spreading
-  colours multiplies together: one letter each of two colours is ×2×2 = ×4,
-  where two of the same colour is only ×3.
+  (×2, ×3, …); purple trims raise a fifth multiplier in half-steps (×1.5, ×2,
+  ×2.5, …). Spreading colours multiplies together: one letter each of two
+  colours is ×2×2 = ×4, where two of the same colour is only ×3.
 
 The readout shows a live projection — including a chip per colour — and
 hovering (or long-pressing) a tile shows exactly what it contributes. On
@@ -58,13 +58,18 @@ optional **trim** and **nick**.
 | Layer | Options |
 | --- | --- |
 | Paint | crimson / azure / jade / amber — each raises its colour's multiplier by 1 |
-| Trim | **Gold** pays 1 Coin · **Silver** +6 Points · **Copper** refreshes 1 Exchange · **Purple** raises the fifth multiplier |
+| Trim | **Gold** pays 1 Coin · **Silver** +6 Points · **Copper** refreshes 1 Exchange · **Purple** raises the fifth multiplier by 0.5 |
 | Nick | **Right »** ×3 Points to everything on its right · **Left «** ×3 to its left · **Side «»** ×5 to both neighbours |
 | Letterform | Dual tiles hold two letters (flip to switch; each face painted independently) · Ligatures ING · ED · TCH are one piece of type |
 
 Nicks stack multiplicatively when several cover the same tile. A dual tile
 shares its trim and nick across both faces; only the letters and their paint
 swap.
+
+**The opening draft** — before page 1 you kit out the press from a free
+spread: 1 patron of 3, 2 paints of 4, 4 tiles of 10. No coins involved. The
+starting collection ships unpainted, so those two paints are where colour
+enters the run.
 
 **The Shop** (between pages) offers patrons, tiles, and **paint pots** — a pot
 paints 3 random unpainted letters in your collection its colour. Tiles live in
@@ -88,15 +93,16 @@ beyond.
 | --- | --- |
 | Quota curve (base, growth, page factors) | `js/constants.js` → `quotaFor`, `QUOTA_BASE`, `QUOTA_GROWTH` |
 | Trim effects & prices | `js/constants.js` → `TRIMS` (effects live in `js/scoring.js`) |
+| Purple trim step size | `js/constants.js` → `PURPLE_TRIM_STEP` |
 | Nick multipliers & prices | `js/constants.js` → `NICKS` |
 | Paint pot price / letters per pot | `js/constants.js` → `PAINT_PRICE`, `PAINT_PER_POT` |
+| Opening draft spread & pick counts | `js/constants.js` → `DRAFT` |
 | Shop offer probabilities | `js/foundry.js` → `randomTileOffer` |
 | Rewards & interest | `js/constants.js` → `REWARD` |
 | Words / exchanges / seats per page | `js/constants.js` |
 | Patron roster, costs, effects | `js/patrons.js` |
 | Animation step timings | `js/constants.js` → `ANIM` (all divided by the Settings speed slider) |
 | Chapter names | `js/constants.js` → `CHAPTER_NAMES` |
-| Starting painted tiles | `js/constants.js` → `STARTER_COLOURED` |
 
 ## Architecture
 
@@ -106,6 +112,7 @@ beyond.
 | `js/scoring.js` | pure score computation — returns a step-by-step *script* the UI replays |
 | `js/patrons.js` | patron definitions |
 | `js/foundry.js` | shop state: offers, buying, painting, smelting, rerolls |
+| `js/draft.js` | the opening draft: free spread, picks, applying them |
 | `js/render.js` | all DOM construction (board, readout, modals, popovers, overlays) |
 | `js/anim.js` | flights, floaters, tweens, sparkles, WebAudio sfx — every duration respects the speed setting |
 | `js/main.js` | orchestration: submit cinematic, page/chapter flow, input, settings |

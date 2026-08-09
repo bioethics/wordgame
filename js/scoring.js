@@ -1,4 +1,4 @@
-import { TILE_POINTS, TRIMS, NICKS, COLOURS, REWARD, isDeadline } from './constants.js';
+import { TILE_POINTS, TRIMS, NICKS, COLOURS, PURPLE_TRIM_STEP, REWARD, isDeadline } from './constants.js';
 import { PATRON_DEFS, patronById } from './patrons.js';
 import { state, owns, getActiveLetter, getActiveColour } from './state.js';
 
@@ -17,9 +17,7 @@ import { state, owns, getActiveLetter, getActiveColour } from './state.js';
 //
 // score = Points × Mult, where Mult is the product of the colour multipliers:
 // each colour starts ×1 and every painted letter of that colour adds +1.
-// Purple trims raise a fifth multiplier the same way.
-
-const COLOUR_ORDER = [...Object.keys(COLOURS), 'purple'];
+// Purple trims raise a fifth multiplier in half-steps (+0.5 each).
 
 export function computeScore(wordTiles) {
   if (!wordTiles?.length) return null;
@@ -72,23 +70,30 @@ export function computeScore(wordTiles) {
 
   let points = contrib.reduce((a, b) => a + b, 0);
 
-  // ── Pass 3: colour multipliers (letters, then purple trims) ────────────────
+  // ── Pass 3: colour multipliers (painted letters, then purple trims) ────────
   const byColour = {};
+  const purpleIds = [];
   wordTiles.forEach(t => {
     const c = getActiveColour(t);
     if (c) (byColour[c] ??= []).push(t.id);
-    if (t.trim === 'purple') (byColour.purple ??= []).push(t.id);
+    if (t.trim === 'purple') purpleIds.push(t.id);
   });
 
   let mult = 1;
   const colourSteps = [];
-  for (const colour of COLOUR_ORDER) {
+  for (const colour of Object.keys(COLOURS)) {
     const ids = byColour[colour];
     if (!ids?.length) continue;
     const m = ids.length + 1;
     colourSteps.push({ colour, ids, count: ids.length, mult: m });
     mult *= m;
   }
+  if (purpleIds.length) {
+    const m = 1 + purpleIds.length * PURPLE_TRIM_STEP;
+    colourSteps.push({ colour: 'purple', ids: purpleIds, count: purpleIds.length, mult: m });
+    mult *= m;
+  }
+  mult = Math.round(mult * 1000) / 1000;   // keep half-steps off floating-point drift
 
   // ── Pass 4: patrons (in the order you seated them) ──────────────────────────
   const patronSteps = [];

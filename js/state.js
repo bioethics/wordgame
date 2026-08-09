@@ -1,6 +1,6 @@
 import {
   RACK_SIZE, WORDS_PER_PAGE, EXCHANGES_PER_PAGE, STARTING_COINS,
-  BAG_COUNTS, TILE_POINTS, STARTER_COLOURED,
+  BAG_COUNTS, TILE_POINTS,
   quotaFor, makeTileTemplate,
 } from './constants.js';
 
@@ -46,15 +46,11 @@ function templateToTile(template) {
   };
 }
 
+// Plain and unpainted — the opening draft is where colour enters the run.
 function buildStarterCollection() {
   const col = [];
   for (const [L, count] of Object.entries(BAG_COUNTS)) {
     for (let i = 0; i < count; i++) col.push(makeTileTemplate(L));
-  }
-  // Tint a few starter tiles so colour sets show themselves early
-  for (const [L, colour] of STARTER_COLOURED) {
-    const t = col.find(c => c.letter === L && !c.colour);
-    if (t) t.colour = colour;
   }
   return col;
 }
@@ -105,6 +101,7 @@ export const state = {
 
   endless:   false,
   inFoundry: false,
+  inDraft:   false,      // the opening draft is up
   isAnimating: false,
   exchangeMode: false,   // rack taps select tiles for exchange
   gameOver:  false,
@@ -134,10 +131,10 @@ export function loadState() {
     const s = JSON.parse(raw);
     if (s._v !== SAVE_VERSION) return null;
     if (!Array.isArray(s.collection) || !Array.isArray(s.rack)) return null;
-    const { _nextId: savedId, _v, _foundry, ...fields } = s;
+    const { _nextId: savedId, _v, _foundry, _draft, ...fields } = s;
     Object.assign(state, fields, { isAnimating: false, exchangeMode: false });
     if (savedId) _nextId = savedId;
-    return { foundry: _foundry ?? null };
+    return { foundry: _foundry ?? null, draft: _draft ?? null };
   } catch { return null; }
 }
 
@@ -159,7 +156,8 @@ export function newRun() {
     coins: STARTING_COINS, patrons: [], scavengerPoints: 0,
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
-    endless: false, inFoundry: false, isAnimating: false, exchangeMode: false, gameOver: false,
+    endless: false, inFoundry: false, inDraft: false,
+    isAnimating: false, exchangeMode: false, gameOver: false,
   });
   startPage();
 }
