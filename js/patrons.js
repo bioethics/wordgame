@@ -104,17 +104,17 @@ export const PATRON_DEFS = [
   },
   {
     id: 'calligrapher', name: 'The Calligrapher', emoji: '✒️', rarity: 'uncommon', cost: 7,
-    desc: 'Each coloured tile gains +4 Points.',
+    desc: 'Each painted letter gains +4 Points.',
     when: 'score',
     effect({ tiles, addPoints }) {
-      const n = tiles.filter(t => t.colour).length;
+      const n = tiles.filter(t => (t.activeVariant === 1 ? t.altColour : t.colour)).length;
       if (n) addPoints(n * 4);
     },
   },
   {
     id: 'magpie', name: 'The Magpie', emoji: '🐦', rarity: 'uncommon', cost: 7,
-    desc: 'Gilded tiles pay double Coins.',
-    when: 'meta',   // read directly during scoring of gilded tiles
+    desc: 'Gold-trimmed tiles pay double Coins.',
+    when: 'meta',   // read directly during scoring of gold trims
   },
 
   // ── Rares ───────────────────────────────────────────────────────────────────
@@ -125,15 +125,6 @@ export const PATRON_DEFS = [
     effect({ word, xMult }) { if (word.length === 3) xMult(3); },
   },
   {
-    id: 'blacksmith', name: 'The Blacksmith', emoji: '⚒️', rarity: 'rare', cost: 8,
-    desc: 'Each Bold tile gives +2 Mult.',
-    when: 'score',
-    effect({ tiles, addMult }) {
-      const n = tiles.filter(t => t.cast === 'bold').length;
-      if (n) addMult(n * 2);
-    },
-  },
-  {
     id: 'economist', name: 'The Economist', emoji: '📈', rarity: 'rare', cost: 8,
     desc: '+1 Mult for every 5 Coins you hold (max +4).',
     when: 'score',
@@ -141,11 +132,6 @@ export const PATRON_DEFS = [
       const n = Math.min(4, Math.floor(state.coins / 5));
       if (n) addMult(n);
     },
-  },
-  {
-    id: 'chromatist', name: 'The Chromatist', emoji: '🎨', rarity: 'rare', cost: 9,
-    desc: 'Colour set bonuses are doubled.',
-    when: 'meta',   // applied inside set-bonus maths
   },
   {
     id: 'astronomer', name: 'The Astronomer', emoji: '🔭', rarity: 'rare', cost: 9,

@@ -6,7 +6,7 @@ import {
 
 const SAVE_KEY     = 'folio_save_v1';
 const SETTINGS_KEY = 'folio_settings_v1';
-const SAVE_VERSION = 2;   // v2: tile `ink` → `colour`, scavengerInk → scavengerPoints
+const SAVE_VERSION = 3;   // v3: trims/nicks replace casts/auras, per-face paint, colour multipliers
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -27,6 +27,12 @@ export function getActiveLetter(tile) {
     return tile.altLetter;
   }
   return tile.letter;
+}
+
+// The paint on the face currently showing (dual faces are painted independently)
+export function getActiveColour(tile) {
+  if (tile.letterType === 'dual' && tile.activeVariant === 1) return tile.altColour;
+  return tile.colour;
 }
 
 // Convert a bag template into a full rack tile
@@ -87,6 +93,7 @@ export const state = {
   pageScore: 0,
   wordsLeft: WORDS_PER_PAGE,
   exchanges: EXCHANGES_PER_PAGE,
+  exchangesMax: EXCHANGES_PER_PAGE,   // copper trims refresh up to this
   wordsPrinted: 0,  // words printed this page
 
   coins:   STARTING_COINS,
@@ -147,7 +154,8 @@ export function newRun() {
     bag: [], rack: [], word: [], tray: [],
     chapter: 1, page: 1,
     quota: quotaFor(1, 1), pageScore: 0,
-    wordsLeft: WORDS_PER_PAGE, exchanges: EXCHANGES_PER_PAGE, wordsPrinted: 0,
+    wordsLeft: WORDS_PER_PAGE, exchanges: EXCHANGES_PER_PAGE,
+    exchangesMax: EXCHANGES_PER_PAGE, wordsPrinted: 0,
     coins: STARTING_COINS, patrons: [], scavengerPoints: 0,
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
@@ -167,7 +175,8 @@ export function startPage() {
   state.pageScore    = 0;
   state.wordsPrinted = 0;
   state.wordsLeft    = WORDS_PER_PAGE;
-  state.exchanges    = EXCHANGES_PER_PAGE + (owns('quartermaster') ? 1 : 0);
+  state.exchangesMax = EXCHANGES_PER_PAGE + (owns('quartermaster') ? 1 : 0);
+  state.exchanges    = state.exchangesMax;
   state.scavengerPoints = 0;
   state.exchangeMode = false;
 }
@@ -235,6 +244,28 @@ export function toggleDualVariant(id) {
   if (!tile || tile.letterType !== 'dual') return;
   tile.activeVariant = tile.activeVariant === 0 ? 1 : 0;
   tile.basePoints = TILE_POINTS[getActiveLetter(tile)] ?? 1;
+}
+
+// ─── Painting ─────────────────────────────────────────────────────────────────
+
+// Every unpainted letter face in the collection (dual faces count separately).
+export function unpaintedFaces() {
+  const faces = [];
+  for (const t of state.collection) {
+    if (!t.colour) faces.push({ tile: t, face: 0 });
+    if (t.letterType === 'dual' && !t.altColour) faces.push({ tile: t, face: 1 });
+  }
+  return faces;
+}
+
+// Paint `count` random unpainted faces. Returns the letters painted.
+export function paintRandomFaces(colour, count) {
+  const faces = shuffle(unpaintedFaces()).slice(0, count);
+  return faces.map(({ tile, face }) => {
+    if (face === 0) tile.colour = colour;
+    else            tile.altColour = colour;
+    return face === 0 ? tile.letter : tile.altLetter;
+  });
 }
 
 // ─── Tile movement ────────────────────────────────────────────────────────────

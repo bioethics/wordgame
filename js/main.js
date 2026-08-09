@@ -6,17 +6,17 @@ import {
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
-  chapterTitle, roman, isDeadline, COLOURS,
+  chapterTitle, roman, isDeadline, COLOURS, NICKS,
 } from './constants.js';
 import { DICT, dictLoaded, loadDict, loadCustom } from './dict.js';
 import { computeScore, computeReward } from './scoring.js';
 import {
   foundry, openFoundry, restoreFoundry, closeFoundry,
-  buyPatron, sellPatron, buyTile, smeltTile, rerollFoundry,
+  buyPatron, sellPatron, buyTile, buyPaint, smeltTile, rerollFoundry,
 } from './foundry.js';
 import {
   renderAll, renderRack, renderWord, renderCounts, renderButtons, persist,
-  renderFoundry, renderDictStatus, readoutEls, setReadoutSets,
+  renderFoundry, renderDictStatus, readoutEls, renderChips, setChip,
   updateReadoutPreview, log, showBanner, showOverlay, hideOverlay,
   showGameOver, showVictory, openInspector, closeInspector, makeTileEl, coinHTML,
   showPatronPopover, hidePopover,
@@ -111,7 +111,7 @@ async function submitWord() {
 
   // Start the readout from zero so the build-up reads clearly
   setNum(ro.points, 0); setNum(ro.mult, 1); setNum(ro.total, 0);
-  setReadoutSets(null);
+  renderChips(null);
   ro.root.classList.remove('readout--idle');
   ro.root.classList.add('readout--live');
 
@@ -124,46 +124,46 @@ async function submitWord() {
     if (el) {
       pulse(el, 'tile--scoring', 360);
       floatText(el, `+${step.points}`, 'fl-points');
-      if (step.mult)  { floatText(el, '+1 Mult', 'fl-mult', { dy: -70 }); }
-      if (step.coins) { floatText(el, `+${coinHTML(step.coins)}`, 'fl-coin', { dy: -70 }); sfx.coin(); }
+      if (step.refresh) { floatText(el, '↻ Exchange', 'fl-refresh', { dy: -70 }); }
+      if (step.coins)   { floatText(el, `+${coinHTML(step.coins)}`, 'fl-coin', { dy: -70 }); sfx.coin(); }
     }
     sfx.tick(i++);
     pointsSoFar += step.points;
     tweenNum(ro.points, pointsSoFar);
-    if (step.mult) { multSoFar += step.mult; tweenNum(ro.mult, multSoFar); }
     await sleep(ANIM.stepTile);
   }
 
-  // ── Pass 2: auras double their targets ─────────────────────────────────────
-  for (const aura of script.auraSteps) {
-    const src = wordTileEl(aura.sourceId);
-    if (src) pulse(src, 'tile--aura-firing', 480);
+  // ── Pass 2: nicks multiply their targets ───────────────────────────────────
+  for (const nick of script.nickSteps) {
+    const src = wordTileEl(nick.sourceId);
+    if (src) pulse(src, 'tile--nick-firing', 480);
     sfx.aura();
-    for (const hit of aura.hits) {
+    for (const hit of nick.hits) {
       const el = wordTileEl(hit.id);
-      if (el) { pulse(el, 'tile--aura-hit', 460); floatText(el, '×2', 'fl-aura'); }
+      if (el) { pulse(el, 'tile--nick-hit', 460); floatText(el, `×${NICKS[nick.kind].mult}`, 'fl-aura'); }
       pointsSoFar += hit.delta;
     }
     tweenNum(ro.points, pointsSoFar);
-    await sleep(ANIM.stepAura);
+    await sleep(ANIM.stepNick);
   }
 
-  // ── Pass 3: colour set bonuses → tween Mult ────────────────────────────────
-  for (const set of script.setSteps) {
-    for (const id of set.ids) {
+  // ── Pass 3: colour multipliers ─────────────────────────────────────────────
+  for (const step of script.colourSteps) {
+    const glow = COLOURS[step.colour]?.glyph ?? '#8a5fb0';
+    const label = COLOURS[step.colour]?.label ?? 'Purple';
+    for (const id of step.ids) {
       const el = wordTileEl(id);
       if (el) {
-        el.style.setProperty('--glow', COLOURS[set.colour].onLight);
+        el.style.setProperty('--glow', glow);
         pulse(el, 'tile--set-glow', 620);
       }
     }
     sfx.chime();
-    const delta = set.bonus * (script.chromed ? 2 : 1);
-    const deltaStr = Number.isInteger(delta) ? `${delta}` : delta.toFixed(1);
-    floatText($('word'), `${COLOURS[set.colour].label} set ×${set.count} · +${deltaStr} Mult${script.chromed ? ' (Chromatist)' : ''}`, `fl-set fl-set--${set.colour}`, { dy: -60 });
-    multSoFar += delta;
+    floatText($('word'), `${label} ×${step.mult}`, `fl-set fl-set--${step.colour}`, { dy: -60 });
+    setChip(ro.chip(step.colour), step.mult);
+    multSoFar *= step.mult;
     tweenNum(ro.mult, multSoFar);
-    await sleep(ANIM.stepSet);
+    await sleep(ANIM.stepColour);
   }
 
   // ── Pass 4: patrons weigh in ───────────────────────────────────────────────
@@ -196,6 +196,7 @@ async function submitWord() {
   state.pageScore  += script.total;
   state.totalScore += script.total;
   state.coins      += script.coins;
+  state.exchanges   = Math.min(state.exchangesMax, state.exchanges + script.refresh);
   state.wordsLeft   = Math.max(0, state.wordsLeft - 1);
   state.wordsPrinted += 1;
   state.scavengerPoints = 0;
@@ -207,8 +208,9 @@ async function submitWord() {
   state.tray.push(...printed);
   state.word.length = 0;
 
-  let msg = `”${script.word}” — ${script.points} Points × ${script.mult} Mult = ${script.total}.`;
-  if (script.coins) msg += `  +${script.coins} Coin${script.coins > 1 ? 's' : ''} from gilded type.`;
+  let msg = `”${script.word}” — ${script.points} × ${script.mult} = ${script.total}.`;
+  if (script.coins)   msg += `  +${script.coins} Coin${script.coins > 1 ? 's' : ''}.`;
+  if (script.refresh) msg += `  +${script.refresh} Exchange${script.refresh > 1 ? 's' : ''}.`;
   log(msg, 'good');
 
   // Word tiles fly to the tray…
@@ -239,7 +241,7 @@ function renderAllStable() {
   persist();
 }
 
-// ─── Page completion → Foundry ────────────────────────────────────────────────
+// ─── Page completion → Shop ────────────────────────────────────────────────
 
 async function pageComplete() {
   state.isAnimating = true;
@@ -256,7 +258,7 @@ async function pageComplete() {
   renderFoundry();
 }
 
-// ─── Leaving the Foundry → next page ──────────────────────────────────────────
+// ─── Leaving the Shop → next page ──────────────────────────────────────────
 
 async function beginNextPage() {
   closeFoundry();
@@ -306,7 +308,7 @@ async function advancePage() {
   state.isAnimating = false;
   renderAll();
   log(isDeadline(state.page)
-    ? `The Deadline — meet a quota of ${state.quota} to close the chapter.`
+    ? `The Deadline — quota ${state.quota}.`
     : `Page ${state.page} — quota ${state.quota}.`);
 }
 
@@ -330,7 +332,7 @@ async function doExchange() {
   if (!state.exchangeMode) {
     if (state.exchanges <= 0) { log('No exchanges left this page.', 'warn'); return; }
     state.exchangeMode = true;
-    log('Tap the tiles you want to swap out, then press the button again.');
+    log('Tap tiles to swap, then press again.');
     renderAll();
     return;
   }
@@ -353,7 +355,7 @@ async function doExchange() {
   renderAll();
 
   let msg = `Exchanged ${result.removed.length} tile${result.removed.length > 1 ? 's' : ''}.`;
-  if (owns('scavenger')) msg += '  The Scavenger adds +12 Points to your next word.';
+  if (owns('scavenger')) msg += '  +12 Points next word (Scavenger).';
   if (!result.drawn.length && !state.bag.length) msg += '  The bag is empty.';
   log(msg);
 
@@ -455,7 +457,7 @@ document.addEventListener('pointerdown', e => {
 });
 window.addEventListener('scroll', () => hidePopover(), { capture: true, passive: true });
 
-// Foundry delegation
+// Shop delegation
 $('foundryModal')?.addEventListener('click', e => {
   const buyP = e.target.closest('[data-buy-patron]');
   if (buyP) {
@@ -469,7 +471,15 @@ $('foundryModal')?.addEventListener('click', e => {
   if (buyT) {
     const r = buyTile(Number(buyT.dataset.buyTile));
     if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
-    else { sfx.coin(); log('New type cast into your collection — it joins the bag next page.', 'good'); }
+    else { sfx.coin(); log('New tile joins the bag next page.', 'good'); }
+    renderAll(); renderFoundry();
+    return;
+  }
+  const buyPt = e.target.closest('[data-buy-paint]');
+  if (buyPt) {
+    const r = buyPaint(Number(buyPt.dataset.buyPaint));
+    if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
+    else { sfx.coin(); log(`Painted ${r.painted.join(', ')} ${COLOURS[r.colour].label.toLowerCase()}.`, 'good'); }
     renderAll(); renderFoundry();
     return;
   }
@@ -596,7 +606,7 @@ async function startFreshRun() {
   await animateDraw(drawn);
   state.isAnimating = false;
   renderAll();
-  log(`Welcome to the print house. Build words, meet the quota of ${state.quota}, and the Foundry opens.`);
+  log(`Page 1 — quota ${state.quota}.`);
 }
 
 (async function init() {
@@ -615,11 +625,11 @@ async function startFreshRun() {
     else if (restored.foundry) {
       restoreFoundry(restored.foundry);
       renderAll(); renderFoundry();
-      log('Welcome back — the Foundry kept your place.');
+      log('Welcome back.');
     } else {
       drawUpToRackSize();   // top up in case a save landed mid-draw
       renderAll();
-      log('Welcome back. The press is warm.');
+      log('Welcome back.');
     }
   }
 

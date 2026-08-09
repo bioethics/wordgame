@@ -1,12 +1,13 @@
-import { state, owns } from './state.js';
+import { state, owns, paintRandomFaces, unpaintedFaces } from './state.js';
 import {
-  BAG_COUNTS, LIGATURES, TILE_POINTS, CASTS, AURAS, COLOURS,
+  BAG_COUNTS, LIGATURES, TILE_POINTS, TRIMS, NICKS, COLOURS,
   PATRON_SLOTS, TILE_BASE_PRICE, SMELT_COST, REROLL_BASE,
+  PAINT_PRICE, PAINT_PER_POT,
   makeTileTemplate,
 } from './constants.js';
 import { PATRON_DEFS, RARITY_WEIGHT, patronById } from './patrons.js';
 
-// ─── Foundry state (ephemeral between pages) ──────────────────────────────────
+// ─── Shop state (ephemeral between pages) ─────────────────────────────────────
 
 export const foundry = {
   open: false,
@@ -15,6 +16,7 @@ export const foundry = {
   rewardTotal: 0,
   patronOffers: [],      // [{ id, sold }]
   tileOffers: [],        // [{ template, price, sold }]
+  paintOffers: [],       // [{ colour, price, sold }]
   rerollCost: REROLL_BASE,
   smeltSel: -1,          // selected collection index in case view
 };
@@ -44,13 +46,12 @@ function randomTileOffer() {
   const tmpl = makeTileTemplate(letter);
 
   const r = Math.random();
-  if      (r < 0.40) tmpl.cast = 'plain';
-  else if (r < 0.56) tmpl.cast = 'gilded';
-  else if (r < 0.72) tmpl.cast = 'bold';
-  else if (r < 0.86) tmpl.cast = 'master';
-  else if (r < 0.94) tmpl.cast = 'resonant';
+  if      (r < 0.15) tmpl.trim = 'gold';
+  else if (r < 0.28) tmpl.trim = 'silver';
+  else if (r < 0.40) tmpl.trim = 'copper';
+  else if (r < 0.50) tmpl.trim = 'purple';
 
-  if (Math.random() < 0.15) tmpl.aura   = pick(Object.keys(AURAS));
+  if (Math.random() < 0.15) tmpl.nick   = pick(Object.keys(NICKS));
   if (Math.random() < 0.30) tmpl.colour = pick(Object.keys(COLOURS));
 
   if (Math.random() < 0.10 && !LIGATURES.includes(letter)) {
@@ -61,8 +62,8 @@ function randomTileOffer() {
     }
   }
 
-  // A bare plain tile is a dull purchase — give it some colour half the time
-  if (tmpl.cast === 'plain' && !tmpl.aura && !tmpl.colour && tmpl.letterType === 'normal') {
+  // A completely bare tile is a dull purchase — paint it half the time
+  if (!tmpl.trim && !tmpl.nick && !tmpl.colour && tmpl.letterType === 'normal') {
     if (Math.random() < 0.5) tmpl.colour = pick(Object.keys(COLOURS));
   }
 
@@ -71,9 +72,10 @@ function randomTileOffer() {
 
 export function tilePrice(tmpl) {
   let p = TILE_BASE_PRICE;
-  p += CASTS[tmpl.cast]?.price ?? 0;
-  if (tmpl.aura) p += AURAS[tmpl.aura]?.price ?? 0;
+  if (tmpl.trim) p += TRIMS[tmpl.trim]?.price ?? 0;
+  if (tmpl.nick) p += NICKS[tmpl.nick]?.price ?? 0;
   if (tmpl.colour) p += 1;
+  if (tmpl.altColour) p += 1;
   if (tmpl.letterType === 'dual') p += 1;
   if (LIGATURES.includes(tmpl.letter)) p += 1;
   return p;
@@ -95,9 +97,21 @@ function weightedPatronSample(n) {
   return out;
 }
 
+function rollPaintOffers() {
+  const colours = [...Object.keys(COLOURS)];
+  const out = [];
+  for (let i = 0; i < 2 && colours.length; i++) {
+    const c = pick(colours);
+    colours.splice(colours.indexOf(c), 1);
+    out.push({ colour: c, price: PAINT_PRICE, sold: false });
+  }
+  return out;
+}
+
 function rollOffers() {
   foundry.patronOffers = weightedPatronSample(3);
   foundry.tileOffers   = Array.from({ length: 4 }, randomTileOffer);
+  foundry.paintOffers  = rollPaintOffers();
 }
 
 // ─── Open / close ─────────────────────────────────────────────────────────────
@@ -113,9 +127,10 @@ export function openFoundry(rewardParts, rewardTotal) {
   rollOffers();
 }
 
-// Restore a foundry snapshot from a saved game
+// Restore a shop snapshot from a saved game
 export function restoreFoundry(snapshot) {
   Object.assign(foundry, snapshot, { open: true });
+  foundry.paintOffers ??= [];
   state.inFoundry = true;
 }
 
@@ -161,6 +176,17 @@ export function buyTile(idx) {
   state.collection.push(JSON.parse(JSON.stringify(offer.template)));
   offer.sold = true;
   return { ok: true, template: offer.template };
+}
+
+export function buyPaint(idx) {
+  const offer = foundry.paintOffers[idx];
+  if (!offer || offer.sold)        return { ok: false, reason: 'Not available.' };
+  if (!unpaintedFaces().length)    return { ok: false, reason: 'Every letter is already painted.' };
+  if (state.coins < offer.price)   return { ok: false, reason: `You need ${offer.price} Coins.` };
+  state.coins -= offer.price;
+  const painted = paintRandomFaces(offer.colour, PAINT_PER_POT);
+  offer.sold = true;
+  return { ok: true, colour: offer.colour, painted };
 }
 
 export function smeltTile(collectionIdx) {

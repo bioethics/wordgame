@@ -54,10 +54,15 @@
       <div class="slab slab--points"><span class="slab-label">Points</span><span id="roPoints" class="slab-num">0</span></div>
       <span class="ro-op">×</span>
       <div class="slab slab--mult"><span class="slab-label">Mult</span><span id="roMult" class="slab-num">1</span></div>
-      <span id="roSetsOp" class="ro-op hidden">×</span>
-      <div id="roSetsSlab" class="slab slab--sets hidden"><span class="slab-label">Sets</span><span id="roSets" class="slab-num">×1</span></div>
       <span class="ro-op">=</span>
       <div class="ro-total-wrap"><span id="roTotal" class="ro-total">0</span></div>
+      <div class="ro-chips" aria-label="Colour multipliers">
+        <span id="chip-crimson" class="chip chip--crimson" title="Crimson multiplier">×1</span>
+        <span id="chip-azure"   class="chip chip--azure"   title="Azure multiplier">×1</span>
+        <span id="chip-jade"    class="chip chip--jade"    title="Jade multiplier">×1</span>
+        <span id="chip-amber"   class="chip chip--amber"   title="Amber multiplier">×1</span>
+        <span id="chip-purple"  class="chip chip--purple"  title="Purple-trim multiplier">×1</span>
+      </div>
     </section>
 
     <!-- Word groove -->
@@ -119,8 +124,8 @@
     </div>
   </div>
 
-  <!-- Foundry -->
-  <div id="foundryModal" class="modal" role="dialog" aria-modal="true" aria-label="The Foundry"></div>
+  <!-- Shop -->
+  <div id="foundryModal" class="modal" role="dialog" aria-modal="true" aria-label="The Shop"></div>
 
   <!-- Inspector (bag / tray) -->
   <div id="inspectorModal" class="modal" role="dialog" aria-modal="true" aria-label="Tile inspector"></div>
@@ -170,7 +175,7 @@
         <summary>Developer</summary>
         <div class="dev-row">
           <button id="devCoins" class="btn btn-quiet">+20 Coins</button>
-          <button id="devFoundry" class="btn btn-quiet">Open Foundry</button>
+          <button id="devFoundry" class="btn btn-quiet">Open Shop</button>
           <button id="devWinPage" class="btn btn-quiet">Clear page</button>
         </div>
       </details>

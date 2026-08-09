@@ -1,8 +1,8 @@
-import { state, settings, saveState, getActiveLetter, selectedCount } from './state.js';
+import { state, settings, saveState, getActiveLetter, getActiveColour, selectedCount } from './state.js';
 import {
-  TILE_POINTS, CASTS, AURAS, COLOURS, LIGATURES,
-  PATRON_SLOTS, WORDS_PER_PAGE, EXCHANGES_PER_PAGE, PAGES_PER_CHAPTER,
-  SMELT_COST, chapterTitle, roman, isDeadline,
+  TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES,
+  PATRON_SLOTS, WORDS_PER_PAGE, PAGES_PER_CHAPTER,
+  SMELT_COST, PAINT_PER_POT, chapterTitle, roman, isDeadline,
 } from './constants.js';
 import { patronById } from './patrons.js';
 import { computeScore } from './scoring.js';
@@ -23,21 +23,18 @@ export function makeTileEl(tile, zone, { mini = false } = {}) {
   div.dataset.zone = zone;
 
   if (tile.selected)              div.classList.add('tile--selected');
-  if (tile.cast !== 'plain')      div.classList.add(`tile--${tile.cast}`);
-  if (tile.colour)                div.classList.add('tile--coloured');
-  if (tile.aura)                  div.classList.add(`tile--aura-${tile.aura}`);
+  if (tile.trim)                  div.classList.add(`tile--trim-${tile.trim}`);
+  if (tile.nick)                  div.classList.add(`tile--nick-${tile.nick}`);
 
   const active = getActiveLetter(tile);
-  const darkCast = ['bold', 'master', 'resonant'].includes(tile.cast);
+  const paint  = getActiveColour(tile);
 
-  // Letter
+  // Letter (painted in its colour)
   const letter = document.createElement('span');
   letter.className = 'tile-letter';
   letter.dataset.len = active.length;
   letter.textContent = active;
-  if (tile.colour) {
-    letter.style.color = darkCast ? COLOURS[tile.colour].onDark : COLOURS[tile.colour].onLight;
-  }
+  if (paint) letter.style.color = COLOURS[paint].glyph;
   div.appendChild(letter);
 
   // Point value (bottom-right)
@@ -46,39 +43,27 @@ export function makeTileEl(tile, zone, { mini = false } = {}) {
   pts.textContent = TILE_POINTS[active] ?? tile.basePoints ?? 1;
   div.appendChild(pts);
 
-  // Colour droplet (top-left)
-  if (tile.colour) {
-    const drop = document.createElement('span');
-    drop.className = `tile-drop tile-drop--${tile.colour}`;
-    div.appendChild(drop);
-  }
-
-  // Dual-letter hint (top-right)
+  // Dual-letter hint (top-right), painted in the other face's colour
   if (tile.letterType === 'dual' && tile.altLetter) {
+    const otherLetter = tile.activeVariant === 1 ? tile.letter : tile.altLetter;
+    const otherPaint  = tile.activeVariant === 1 ? tile.colour : tile.altColour;
     const alt = document.createElement('span');
     alt.className = 'tile-alt';
-    alt.textContent = `⇄${tile.activeVariant === 1 ? tile.letter : tile.altLetter}`;
+    alt.textContent = `⇄${otherLetter}`;
+    if (otherPaint) alt.style.color = COLOURS[otherPaint].glyph;
     div.appendChild(alt);
   }
 
-  // Cast badge (bottom-left)
-  if (tile.cast !== 'plain') {
-    const badge = document.createElement('span');
-    badge.className = 'tile-cast';
-    badge.textContent = CASTS[tile.cast].badge;
-    div.appendChild(badge);
-  }
-
-  // Aura chevrons (edge-mounted)
-  if (tile.aura === 'crescendo' || tile.aura === 'halo') {
+  // Nick tabs on the edges
+  if (tile.nick === 'right' || tile.nick === 'side') {
     const a = document.createElement('span');
-    a.className = 'tile-chev tile-chev--r';
+    a.className = 'tile-nicktab tile-nicktab--r';
     a.textContent = '»';
     div.appendChild(a);
   }
-  if (tile.aura === 'echo' || tile.aura === 'halo') {
+  if (tile.nick === 'left' || tile.nick === 'side') {
     const a = document.createElement('span');
-    a.className = 'tile-chev tile-chev--l';
+    a.className = 'tile-nicktab tile-nicktab--l';
     a.textContent = '«';
     div.appendChild(a);
   }
@@ -89,12 +74,17 @@ export function makeTileEl(tile, zone, { mini = false } = {}) {
 
 export function tileTitleLines(tile, breakdown = null) {
   const active = getActiveLetter(tile);
+  const paint  = getActiveColour(tile);
   const lines = [`${active} — ${TILE_POINTS[active] ?? 1} Points`];
-  if (tile.cast !== 'plain') lines.push(`${CASTS[tile.cast].label}: ${CASTS[tile.cast].desc}`);
-  if (tile.aura)             lines.push(`${AURAS[tile.aura].label}: ${AURAS[tile.aura].desc}`);
-  if (tile.colour)           lines.push(`${COLOURS[tile.colour].label} — matching colours in a word add Mult (+0.5/+1/+2/+3/+4)`);
-  if (tile.letterType === 'dual') lines.push(`Dual cast — flips to ${tile.activeVariant === 1 ? tile.letter : tile.altLetter}`);
-  if (breakdown)             lines.push(`This word: ${breakdown.parts.join(', ')} → ${breakdown.final} Points`);
+  if (paint)     lines.push(`Painted ${COLOURS[paint].label} — raises the ${COLOURS[paint].label} multiplier by 1`);
+  if (tile.trim) lines.push(`${TRIMS[tile.trim].label} trim: ${TRIMS[tile.trim].desc}`);
+  if (tile.nick) lines.push(`${NICKS[tile.nick].label}: ${NICKS[tile.nick].desc}`);
+  if (tile.letterType === 'dual') {
+    const otherLetter = tile.activeVariant === 1 ? tile.letter : tile.altLetter;
+    const otherPaint  = tile.activeVariant === 1 ? tile.colour : tile.altColour;
+    lines.push(`Dual — flips to ${otherLetter}${otherPaint ? ` (${COLOURS[otherPaint].label})` : ''}`);
+  }
+  if (breakdown) lines.push(`This word: ${breakdown.parts.join(', ')} → ${breakdown.final} Points`);
   return lines;
 }
 
@@ -180,7 +170,7 @@ function renderShelf() {
         <button class="patron-x" data-sell="${def.id}" title="Dismiss ${def.name} for ${Math.floor(def.cost / 2)} Coins">✕</button>`;
     } else {
       slot.className = 'patron patron--empty';
-      slot.title = 'An empty seat — invite patrons at the Foundry';
+      slot.title = 'An empty seat — invite patrons at the Shop';
       slot.innerHTML = `<span class="patron-empty-mark">❧</span>`;
     }
     shelf.appendChild(slot);
@@ -212,7 +202,8 @@ function renderStatus() {
   $('quotaCard')?.classList.toggle('quota-card--deadline', deadline);
 
   renderPips('wordPips', WORDS_PER_PAGE, state.wordsLeft, 'pip--word');
-  renderPips('exchangePips', Math.max(EXCHANGES_PER_PAGE + 1, state.exchanges), state.exchanges, 'pip--swap', EXCHANGES_PER_PAGE + 1);
+  const exMax = Math.max(state.exchangesMax ?? 2, state.exchanges);
+  renderPips('exchangePips', exMax, state.exchanges, 'pip--swap');
 
   const coinsEl = $('coinCount');
   if (coinsEl) setNum(coinsEl, state.coins);
@@ -267,7 +258,9 @@ export function renderCounts() {
   $('bagBtn')?.classList.toggle('pouch--empty', state.bag.length === 0);
 }
 
-// ─── Readout (Points × Mult = total) ──────────────────────────────────────────
+// ─── Readout (Points × Mult = total, plus the five colour multipliers) ────────
+
+export const CHIP_COLOURS = [...Object.keys(COLOURS), 'purple'];
 
 export function updateReadoutPreview(script) {
   const ro = $('readout');
@@ -275,23 +268,30 @@ export function updateReadoutPreview(script) {
   ro.classList.toggle('readout--idle', !script);
   setNum($('roPoints'), script ? script.points : 0);
   setNum($('roMult'), script ? script.mult : 1);
-  setReadoutSets(null);
   setNum($('roTotal'), script ? script.total : 0);
+  renderChips(script?.colourSteps);
 }
 
-export function setReadoutSets(mult) {
-  const slab = $('roSetsSlab'), op = $('roSetsOp');
-  if (!slab || !op) return;
-  const show = mult != null && mult > 1;
-  slab.classList.toggle('hidden', !show);
-  op.classList.toggle('hidden', !show);
-  if (show) setNum($('roSets'), mult, v => `×${(Math.round(v * 100) / 100)}`);
+// One ×N chip per colour (and purple trim); dim while ×1
+export function renderChips(colourSteps = null) {
+  for (const c of CHIP_COLOURS) {
+    const el = $(`chip-${c}`);
+    if (!el) continue;
+    const step = colourSteps?.find(s => s.colour === c);
+    setChip(el, step ? step.mult : 1);
+  }
+}
+
+export function setChip(el, mult) {
+  el.textContent = `×${mult}`;
+  el.classList.toggle('chip--on', mult > 1);
 }
 
 // Imperative access for the scoring cinematic
 export const readoutEls = () => ({
-  points: $('roPoints'), mult: $('roMult'), sets: $('roSets'), total: $('roTotal'),
+  points: $('roPoints'), mult: $('roMult'), total: $('roTotal'),
   root: $('readout'), coins: $('coinCount'),
+  chip: c => $(`chip-${c}`),
 });
 
 // ─── Buttons ──────────────────────────────────────────────────────────────────
@@ -420,8 +420,8 @@ export function openInspector(kind) {
         <button class="x" data-close-inspector>✕</button>
       </div>
       <p class="sheet-note">${kind === 'bag'
-        ? 'Tiles still waiting to be drawn this page. The whole collection returns to the bag when a new page begins.'
-        : 'Tiles already printed or exchanged this page.'}</p>
+        ? 'Waiting to be drawn. The whole collection returns to the bag each page.'
+        : 'Printed or exchanged this page.'}</p>
       <div class="mini-grid" id="inspectorGrid"></div>
     </div>`;
   const grid = m.querySelector('#inspectorGrid');
@@ -434,7 +434,7 @@ export function closeInspector() {
   $('inspectorModal')?.classList.remove('show');
 }
 
-// ─── Foundry ──────────────────────────────────────────────────────────────────
+// ─── Shop ──────────────────────────────────────────────────────────────────
 
 export function renderFoundry() {
   const m = $('foundryModal');
@@ -479,25 +479,40 @@ function foundryShopHTML() {
       </div>`;
   }).join('') || '<p class="sheet-note">No patrons calling today.</p>';
 
+  const trimShort = { gold: 'pays 1 Coin', silver: '+6 Points', copper: 'refreshes 1 Exchange', purple: 'fifth ×multiplier' };
+  const nickShort = { right: '×3 Points rightward', left: '×3 Points leftward', side: '×5 Points beside it' };
   const tileCards = foundry.tileOffers.map((o, i) => {
     const afford = state.coins >= o.price;
     const t = o.template;
-    const auraShort = { crescendo: '×2 Points to its right', echo: '×2 Points to its left', halo: '×2 Points beside it' };
-    const castShort = { gilded: 'pays 1 Coin', bold: '×2 Points', master: '+6 Points', resonant: '+1 Mult' };
     const traits = [
-      CASTS[t.cast].label ? `${CASTS[t.cast].label} (${castShort[t.cast]})` : '',
-      t.aura ? `${AURAS[t.aura].label} (${auraShort[t.aura]})` : '',
-      t.colour ? `${COLOURS[t.colour].label} (colour sets add Mult)` : '',
+      t.colour ? `${COLOURS[t.colour].label} paint` : '',
+      t.trim ? `${TRIMS[t.trim].label} trim (${trimShort[t.trim]})` : '',
+      t.nick ? `${NICKS[t.nick].label} (${nickShort[t.nick]})` : '',
       t.letterType === 'dual' ? `Dual ${t.letter}/${t.altLetter}` : '',
       LIGATURES.includes(t.letter) ? 'Ligature' : '',
-    ].filter(Boolean).join(' · ') || 'Plain cast';
+    ].filter(Boolean).join(' · ') || 'Plain';
     return `
       <div class="offer-tile ${o.sold ? 'offer--sold' : ''}">
         <div class="offer-tile-slot" data-offer-tile="${i}"></div>
         <div class="offer-tile-traits">${traits}</div>
         ${o.sold
-          ? '<span class="op-sold">cast</span>'
+          ? '<span class="op-sold">bought</span>'
           : `<button class="btn-price" data-buy-tile="${i}" ${afford ? '' : 'disabled'}>${coinHTML(o.price)}</button>`}
+      </div>`;
+  }).join('');
+
+  const paintCards = foundry.paintOffers.map((o, i) => {
+    const afford = state.coins >= o.price;
+    return `
+      <div class="offer-paint offer-paint--${o.colour} ${o.sold ? 'offer--sold' : ''}">
+        <span class="paint-pot paint-pot--${o.colour}"></span>
+        <div class="op-body">
+          <div class="op-name">${COLOURS[o.colour].label} paint</div>
+          <div class="op-desc">Paints ${PAINT_PER_POT} random unpainted letters</div>
+        </div>
+        ${o.sold
+          ? '<span class="op-sold">used</span>'
+          : `<button class="btn-price" data-buy-paint="${i}" ${afford ? '' : 'disabled'}>${coinHTML(o.price)}</button>`}
       </div>`;
   }).join('');
 
@@ -514,8 +529,8 @@ function foundryShopHTML() {
     <div class="sheet sheet--foundry">
       <div class="sheet-head">
         <div>
-          <h2 class="foundry-title">The Foundry</h2>
-          <p class="sheet-note">Fresh type is cast between pages. Coins: <b id="foundryCoins">${state.coins}</b></p>
+          <h2 class="foundry-title">The Shop</h2>
+          <p class="sheet-note">Coins: <b id="foundryCoins">${state.coins}</b></p>
         </div>
         ${rewardHTML()}
       </div>
@@ -526,18 +541,20 @@ function foundryShopHTML() {
           <div class="offer-list">${patronCards}</div>
         </section>
         <section class="foundry-col">
-          <h3 class="foundry-sec">New type <span class="foundry-sub">cast into your collection</span></h3>
+          <h3 class="foundry-sec">Tiles</h3>
           <div class="offer-tiles">${tileCards}</div>
+          <h3 class="foundry-sec foundry-sec--paint">Paint</h3>
+          <div class="offer-list">${paintCards}</div>
         </section>
       </div>
 
       <div class="foundry-foot">
         <button class="btn btn-quiet" id="btnReroll" ${state.coins < foundry.rerollCost ? 'disabled' : ''}>
-          Recast offers ${coinHTML(foundry.rerollCost)}
+          New offers ${coinHTML(foundry.rerollCost)}
         </button>
         <button class="btn btn-quiet" id="btnOpenCase">Type case · smelt ${coinHTML(SMELT_COST)}</button>
         <div class="foundry-spacer"></div>
-        <button class="btn btn-print" id="btnFoundryContinue">Begin the next page ❧</button>
+        <button class="btn btn-print" id="btnFoundryContinue">Next page ❧</button>
       </div>
     </div>`;
 }
@@ -549,12 +566,12 @@ function foundryCaseHTML() {
       <div class="sheet-head">
         <div>
           <h2 class="foundry-title">Your type case</h2>
-          <p class="sheet-note">${state.collection.length} tiles. Select one and smelt it down for ${SMELT_COST} Coins to thin your collection. Coins: <b id="foundryCoins">${state.coins}</b></p>
+          <p class="sheet-note">${state.collection.length} tiles. Smelting one costs ${SMELT_COST} Coins. Coins: <b id="foundryCoins">${state.coins}</b></p>
         </div>
       </div>
       <div class="mini-grid mini-grid--case" id="caseGrid"></div>
       <div class="foundry-foot">
-        <button class="btn btn-quiet" id="btnCaseBack">← Back to the Foundry</button>
+        <button class="btn btn-quiet" id="btnCaseBack">← Back to the Shop</button>
         <div class="foundry-spacer"></div>
         <button class="btn btn-danger" id="btnSmeltConfirm" ${sel ? '' : 'disabled'}>
           ${sel ? `Smelt “${sel.letter}${sel.letterType === 'dual' ? '/' + sel.altLetter : ''}” for ${SMELT_COST} Coins` : 'Select a tile to smelt'}

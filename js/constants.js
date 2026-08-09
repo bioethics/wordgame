@@ -1,8 +1,12 @@
 // ─── Letterforms ──────────────────────────────────────────────────────────────
-// Bag tiles are stored as template objects so they can carry cast/aura/colour
+// Bag tiles are stored as template objects so they can carry trim/nick/colour
 // info before being assigned an id when drawn to the rack.
-// Template shape: { letter, letterType, altLetter, activeVariant, cast, aura, colour }
+// Template shape: { letter, letterType, altLetter, activeVariant,
+//                   colour, altColour, trim, nick }
 // Rack tile shape: { ...template, id, basePoints, selected }
+//
+// A dual tile's two faces are painted independently (colour / altColour);
+// trim and nick belong to the tile and apply to both faces.
 
 export const TILE_POINTS = {
   A:1, B:3, C:3, D:2, E:1, F:4, G:2, H:4,
@@ -21,40 +25,40 @@ export const BAG_COUNTS = {
 // Multi-letter "ligature" tiles (cast as a single piece of type)
 export const LIGATURES = ['ING', 'ED', 'TCH'];
 
-// ─── Casts (the metal a tile is cast in) ──────────────────────────────────────
-export const CASTS = {
-  plain:    { label: '',         badge: '',  desc: '', price: 0 },
-  gilded:   { label: 'Gilded',   badge: 'G', desc: 'Pays 1 Coin when printed',   price: 2 },
-  bold:     { label: 'Bold',     badge: 'B', desc: 'Scores ×2 Points',           price: 3 },
-  master:   { label: 'Master',   badge: 'M', desc: '+6 Points when printed',     price: 2 },
-  resonant: { label: 'Resonant', badge: 'R', desc: '+1 Mult when printed',       price: 4 },
-};
-
-// ─── Auras (positional engravings) ────────────────────────────────────────────
-export const AURAS = {
-  crescendo: { symbol: '»',  label: 'Crescendo', desc: 'Doubles the Points of every tile to its right',     price: 4 },
-  echo:      { symbol: '«',  label: 'Echo',      desc: 'Doubles the Points of every tile to its left',      price: 4 },
-  halo:      { symbol: '«»', label: 'Halo',      desc: 'Doubles the Points of the tiles directly beside it', price: 3 },
-};
-
-// ─── Colours (set bonuses) ────────────────────────────────────────────────────
+// ─── Colours (letter paint) ───────────────────────────────────────────────────
+// Each colour has its own multiplier, ×1 by default. Every painted letter of
+// that colour in the word raises it by +1 (×2, ×3, …). The word's Mult is the
+// product of all colour multipliers, so spreading colours multiplies together.
 export const COLOURS = {
-  crimson: { label: 'Crimson', onLight: '#b23a2e', onDark: '#ff9d8e' },
-  azure:   { label: 'Azure',   onLight: '#2e6fb2', onDark: '#8ec6ff' },
-  jade:    { label: 'Jade',    onLight: '#2d8a5c', onDark: '#90e8ba' },
-  amber:   { label: 'Amber',   onLight: '#a87010', onDark: '#ffd68c' },
+  crimson: { label: 'Crimson', glyph: '#b23a2e', bright: '#ff9d8e' },
+  azure:   { label: 'Azure',   glyph: '#2e6fb2', bright: '#8ec6ff' },
+  jade:    { label: 'Jade',    glyph: '#2d8a5c', bright: '#90e8ba' },
+  amber:   { label: 'Amber',   glyph: '#a87010', bright: '#ffd68c' },
 };
 
-// Mult bonus for N tiles of the same colour in one word.
-// Added directly to Mult (not a separate multiplier). Accelerating ladder.
-// Index by count; the last entry covers everything beyond it.
-export const COLOUR_SET_BONUS = [0, 0.5, 1.0, 2.0, 3.0, 4.0];
-export const colourSetBonus = n => COLOUR_SET_BONUS[Math.min(n, COLOUR_SET_BONUS.length - 1)];
+export const PAINT_PRICE     = 3;   // one pot
+export const PAINT_PER_POT   = 3;   // letters painted per pot (random, unpainted)
+
+// ─── Trims (the ring around a tile's edge) ────────────────────────────────────
+// Purple is trim-only: a fifth multiplier that stacks with the letter colours.
+export const TRIMS = {
+  gold:   { label: 'Gold',   desc: 'Pays 1 Coin when printed',            price: 2 },
+  silver: { label: 'Silver', desc: '+6 Points when printed',              price: 2 },
+  copper: { label: 'Copper', desc: 'Refreshes 1 Exchange when printed',   price: 3 },
+  purple: { label: 'Purple', desc: 'Its own ×multiplier — every purple trim in the word raises it by 1', price: 4 },
+};
+
+// ─── Nicks (grooves cut into a tile's edge) ───────────────────────────────────
+export const NICKS = {
+  right: { symbol: '»',  label: 'Right nick', mult: 3, desc: '×3 Points to every tile on its right', price: 4 },
+  left:  { symbol: '«',  label: 'Left nick',  mult: 3, desc: '×3 Points to every tile on its left',  price: 4 },
+  side:  { symbol: '«»', label: 'Side nick',  mult: 5, desc: '×5 Points to the tiles directly beside it', price: 5 },
+};
 
 // ─── Run structure ────────────────────────────────────────────────────────────
 export const RACK_SIZE          = 10;
 export const WORDS_PER_PAGE     = 5;
-export const EXCHANGES_PER_PAGE = 3;
+export const EXCHANGES_PER_PAGE = 2;
 export const PATRON_SLOTS       = 5;
 export const PAGES_PER_CHAPTER  = 3;
 export const FINAL_CHAPTER      = 10;
@@ -104,8 +108,8 @@ export const REROLL_BASE     = 2;
 // ─── Animation base timings (ms, divided by the speed setting) ────────────────
 export const ANIM = {
   stepTile:   300,
-  stepAura:   430,
-  stepSet:    560,
+  stepNick:   430,
+  stepColour: 560,
   stepPatron: 460,
   holdTotal:  820,
   fly:        430,
@@ -119,15 +123,16 @@ export function makeTileTemplate(letter, overrides = {}) {
     letterType:    'normal',   // 'normal' | 'dual'
     altLetter:     null,
     activeVariant: 0,          // 0 = letter, 1 = altLetter
-    cast:          'plain',
-    aura:          null,
-    colour:        null,
+    colour:        null,       // paint on the front face
+    altColour:     null,       // paint on a dual tile's other face
+    trim:          null,       // gold | silver | copper | purple
+    nick:          null,       // right | left | side
     ...overrides,
   };
 }
 
-// A few coloured tiles in the starting collection so the set mechanic
-// shows itself early.
+// A few painted tiles in the starting collection so the colour multipliers
+// show themselves early.
 export const STARTER_COLOURED = [
   ['A', 'crimson'], ['A', 'crimson'],
   ['E', 'azure'],   ['E', 'azure'],

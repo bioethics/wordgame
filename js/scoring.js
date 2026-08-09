@@ -1,19 +1,25 @@
-import { TILE_POINTS, AURAS, colourSetBonus, REWARD, isDeadline } from './constants.js';
+import { TILE_POINTS, TRIMS, NICKS, COLOURS, REWARD, isDeadline } from './constants.js';
 import { PATRON_DEFS, patronById } from './patrons.js';
-import { state, owns, getActiveLetter } from './state.js';
+import { state, owns, getActiveLetter, getActiveColour } from './state.js';
 
 // ─── Score a word ─────────────────────────────────────────────────────────────
 // Pure (no state mutation). Returns a "script" describing every step of the
 // score so the UI can replay it tile by tile:
 //
 // {
-//   word, points, mult, total, coins,
-//   tileSteps:   [{ id, points, coins, mult, notes[] }]     — one per tile, in order
-//   auraSteps:   [{ sourceId, kind, hits: [{ id, delta }] }]
-//   setSteps:    [{ colour, ids, count, bonus }]
+//   word, points, mult, total, coins, refresh,
+//   tileSteps:   [{ id, points, coins, refresh }]           — one per tile, in order
+//   nickSteps:   [{ sourceId, kind, hits: [{ id, delta }] }]
+//   colourSteps: [{ colour, ids, count, mult }]              — incl. 'purple' (trim)
 //   patronSteps: [{ id, text, points?, mult?, xmult? }]
 //   perTile:     Map(id → { final, parts[] })                — for tooltips
 // }
+//
+// score = Points × Mult, where Mult is the product of the colour multipliers:
+// each colour starts ×1 and every painted letter of that colour adds +1.
+// Purple trims raise a fifth multiplier the same way.
+
+const COLOUR_ORDER = [...Object.keys(COLOURS), 'purple'];
 
 export function computeScore(wordTiles) {
   if (!wordTiles?.length) return null;
@@ -21,67 +27,68 @@ export function computeScore(wordTiles) {
   const word = wordTiles.map(t => getActiveLetter(t)).join('').toUpperCase();
   const n = wordTiles.length;
 
-  // ── Pass 1: each tile's own Points (base × cast), plus coin/mult side effects ─
+  // ── Pass 1: each tile's own Points, plus trim side effects ─────────────────
   const contrib   = [];
   const tileSteps = [];
   const noteMap   = wordTiles.map(() => []);
-  let mult = 1;
   let coins = 0;
+  let refresh = 0;
 
   wordTiles.forEach((t, i) => {
     const base = TILE_POINTS[getActiveLetter(t)] ?? t.basePoints ?? 1;
     let points = base;
     noteMap[i].push(`base ${base}`);
 
-    if (t.cast === 'bold')   { points *= 2; noteMap[i].push('Bold ×2'); }
-    if (t.cast === 'master') { points += 6; noteMap[i].push('Master +6'); }
+    if (t.trim === 'silver') { points += 6; noteMap[i].push('Silver +6'); }
 
-    let stepCoins = 0, stepMult = 0;
-    if (t.cast === 'gilded')   { stepCoins = owns('magpie') ? 2 : 1; coins += stepCoins; }
-    if (t.cast === 'resonant') { stepMult = 1; mult += 1; }
+    let stepCoins = 0, stepRefresh = 0;
+    if (t.trim === 'gold')   { stepCoins = owns('magpie') ? 2 : 1; coins += stepCoins; }
+    if (t.trim === 'copper') { stepRefresh = 1; refresh += 1; }
 
     contrib[i] = points;
-    tileSteps.push({ id: t.id, points, coins: stepCoins, mult: stepMult });
+    tileSteps.push({ id: t.id, points, coins: stepCoins, refresh: stepRefresh });
   });
 
-  // ── Pass 2: auras double their targets (stacking multiplicatively) ──────────
-  const auraSteps = [];
+  // ── Pass 2: nicks multiply their targets (stacking multiplicatively) ───────
+  const nickSteps = [];
   wordTiles.forEach((t, i) => {
-    if (!t.aura) return;
+    if (!t.nick) return;
     const targets = [];
-    if (t.aura === 'crescendo') for (let j = i + 1; j < n; j++) targets.push(j);
-    if (t.aura === 'echo')      for (let j = 0; j < i; j++)     targets.push(j);
-    if (t.aura === 'halo') {
+    if (t.nick === 'right') for (let j = i + 1; j < n; j++) targets.push(j);
+    if (t.nick === 'left')  for (let j = 0; j < i; j++)     targets.push(j);
+    if (t.nick === 'side') {
       if (i > 0)     targets.push(i - 1);
       if (i < n - 1) targets.push(i + 1);
     }
+    const m = NICKS[t.nick].mult;
     const hits = targets.map(j => {
-      const delta = contrib[j];
-      contrib[j] *= 2;
-      noteMap[j].push(`×2 ${AURAS[t.aura].label}`);
+      const delta = contrib[j] * (m - 1);
+      contrib[j] *= m;
+      noteMap[j].push(`×${m} nick`);
       return { id: wordTiles[j].id, delta };
     }).filter(h => h.delta > 0);
-    if (hits.length) auraSteps.push({ sourceId: t.id, kind: t.aura, hits });
+    if (hits.length) nickSteps.push({ sourceId: t.id, kind: t.nick, hits });
   });
 
   let points = contrib.reduce((a, b) => a + b, 0);
 
-  // ── Pass 3: colour set bonuses → add directly to Mult ──────────────────────
+  // ── Pass 3: colour multipliers (letters, then purple trims) ────────────────
   const byColour = {};
-  wordTiles.forEach(t => { if (t.colour) (byColour[t.colour] ??= []).push(t.id); });
+  wordTiles.forEach(t => {
+    const c = getActiveColour(t);
+    if (c) (byColour[c] ??= []).push(t.id);
+    if (t.trim === 'purple') (byColour.purple ??= []).push(t.id);
+  });
 
-  let bonusSum = 0;
-  const setSteps = [];
-  for (const [colour, ids] of Object.entries(byColour)) {
-    const bonus = colourSetBonus(ids.length);
-    if (bonus > 0) {
-      setSteps.push({ colour, ids, count: ids.length, bonus });
-      bonusSum += bonus;
-    }
+  let mult = 1;
+  const colourSteps = [];
+  for (const colour of COLOUR_ORDER) {
+    const ids = byColour[colour];
+    if (!ids?.length) continue;
+    const m = ids.length + 1;
+    colourSteps.push({ colour, ids, count: ids.length, mult: m });
+    mult *= m;
   }
-  const chromed = bonusSum > 0 && owns('chromatist');
-  if (chromed) bonusSum *= 2;
-  mult += bonusSum;
 
   // ── Pass 4: patrons (in the order you seated them) ──────────────────────────
   const patronSteps = [];
@@ -112,8 +119,8 @@ export function computeScore(wordTiles) {
   });
 
   return {
-    word, points, mult, setBonus: bonusSum, chromed, total, coins,
-    tileSteps, auraSteps, setSteps, patronSteps, perTile,
+    word, points, mult, total, coins, refresh,
+    tileSteps, nickSteps, colourSteps, patronSteps, perTile,
   };
 }
 
