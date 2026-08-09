@@ -28,7 +28,7 @@ export function flyClone(el, fromRect, toRect, {
 
   const clone = el.cloneNode(true);
   clone.classList.add('fly-clone');
-  clone.classList.remove('tile--ghost', 'tile--selected', 'dragging');
+  clone.classList.remove('tile--ghost', 'tile--selected', 'tile--held', 'drag-ghost');
   Object.assign(clone.style, {
     left:  `${fromRect.left}px`,
     top:   `${fromRect.top}px`,
@@ -195,7 +195,7 @@ function blip(freq, { time = 0.08, type = 'triangle', gain = 0.09, when = 0, sli
 
 export const sfx = {
   tick(i = 0)  { blip(480 + i * 52, { time: 0.07, type: 'triangle', gain: 0.07 }); },
-  press()      { blip(170, { time: 0.13, type: 'sawtooth', gain: 0.05, slide: -40 }); },
+  mult()       { blip(170, { time: 0.13, type: 'sawtooth', gain: 0.05, slide: -40 }); },
   aura()       { blip(740, { time: 0.10, type: 'sine', gain: 0.06, slide: 220 }); },
   chime()      { blip(660, { time: 0.16, type: 'sine', gain: 0.05 });
                  blip(880, { time: 0.18, type: 'sine', gain: 0.05, when: 0.07 }); },

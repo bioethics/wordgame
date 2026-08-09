@@ -1,4 +1,4 @@
-import { TILE_POINTS, AURAS, inkSetBonus, REWARD, isDeadline } from './constants.js';
+import { TILE_POINTS, AURAS, colourSetBonus, REWARD, isDeadline } from './constants.js';
 import { PATRON_DEFS, patronById } from './patrons.js';
 import { state, owns, getActiveLetter } from './state.js';
 
@@ -7,12 +7,12 @@ import { state, owns, getActiveLetter } from './state.js';
 // score so the UI can replay it tile by tile:
 //
 // {
-//   word, ink, press, setMult, total, coins,
-//   tileSteps:   [{ id, ink, coins, press, notes[] }]      — one per tile, in order
+//   word, points, mult, total, coins,
+//   tileSteps:   [{ id, points, coins, mult, notes[] }]     — one per tile, in order
 //   auraSteps:   [{ sourceId, kind, hits: [{ id, delta }] }]
-//   setSteps:    [{ ink, ids, count, bonus }]
-//   patronSteps: [{ id, text, ink?, press?, mult? }]
-//   perTile:     Map(id → { final, parts[] })               — for tooltips
+//   setSteps:    [{ colour, ids, count, bonus }]
+//   patronSteps: [{ id, text, points?, mult?, xmult? }]
+//   perTile:     Map(id → { final, parts[] })                — for tooltips
 // }
 
 export function computeScore(wordTiles) {
@@ -21,27 +21,27 @@ export function computeScore(wordTiles) {
   const word = wordTiles.map(t => getActiveLetter(t)).join('').toUpperCase();
   const n = wordTiles.length;
 
-  // ── Pass 1: each tile's own Ink (base × cast), plus coin/press side effects ─
+  // ── Pass 1: each tile's own Points (base × cast), plus coin/mult side effects ─
   const contrib   = [];
   const tileSteps = [];
   const noteMap   = wordTiles.map(() => []);
-  let press = 1;
+  let mult = 1;
   let coins = 0;
 
   wordTiles.forEach((t, i) => {
     const base = TILE_POINTS[getActiveLetter(t)] ?? t.basePoints ?? 1;
-    let ink = base;
+    let points = base;
     noteMap[i].push(`base ${base}`);
 
-    if (t.cast === 'bold')   { ink *= 2; noteMap[i].push('Bold ×2'); }
-    if (t.cast === 'master') { ink += 6; noteMap[i].push('Master +6'); }
+    if (t.cast === 'bold')   { points *= 2; noteMap[i].push('Bold ×2'); }
+    if (t.cast === 'master') { points += 6; noteMap[i].push('Master +6'); }
 
-    let stepCoins = 0, stepPress = 0;
+    let stepCoins = 0, stepMult = 0;
     if (t.cast === 'gilded')   { stepCoins = owns('magpie') ? 2 : 1; coins += stepCoins; }
-    if (t.cast === 'resonant') { stepPress = 1; press += 1; }
+    if (t.cast === 'resonant') { stepMult = 1; mult += 1; }
 
-    contrib[i] = ink;
-    tileSteps.push({ id: t.id, ink, coins: stepCoins, press: stepPress });
+    contrib[i] = points;
+    tileSteps.push({ id: t.id, points, coins: stepCoins, mult: stepMult });
   });
 
   // ── Pass 2: auras double their targets (stacking multiplicatively) ──────────
@@ -64,38 +64,38 @@ export function computeScore(wordTiles) {
     if (hits.length) auraSteps.push({ sourceId: t.id, kind: t.aura, hits });
   });
 
-  let ink = contrib.reduce((a, b) => a + b, 0);
+  let points = contrib.reduce((a, b) => a + b, 0);
 
-  // ── Pass 3: ink set bonuses → add directly to Press ────────────────────────
-  const byInk = {};
-  wordTiles.forEach(t => { if (t.ink) (byInk[t.ink] ??= []).push(t.id); });
+  // ── Pass 3: colour set bonuses → add directly to Mult ──────────────────────
+  const byColour = {};
+  wordTiles.forEach(t => { if (t.colour) (byColour[t.colour] ??= []).push(t.id); });
 
   let bonusSum = 0;
   const setSteps = [];
-  for (const [colour, ids] of Object.entries(byInk)) {
-    const bonus = inkSetBonus(ids.length);
+  for (const [colour, ids] of Object.entries(byColour)) {
+    const bonus = colourSetBonus(ids.length);
     if (bonus > 0) {
-      setSteps.push({ ink: colour, ids, count: ids.length, bonus });
+      setSteps.push({ colour, ids, count: ids.length, bonus });
       bonusSum += bonus;
     }
   }
   const chromed = bonusSum > 0 && owns('chromatist');
   if (chromed) bonusSum *= 2;
-  press += bonusSum;
+  mult += bonusSum;
 
   // ── Pass 4: patrons (in the order you seated them) ──────────────────────────
   const patronSteps = [];
   let current = null;
   const ctx = {
     word, tiles: wordTiles, state,
-    addInk(v)    { ink   += v; patronSteps.push({ id: current, text: `+${v} Ink`,   ink: v }); },
-    addPress(v)  { press += v; patronSteps.push({ id: current, text: `+${v} Press`, press: v }); },
-    multPress(v) { press *= v; patronSteps.push({ id: current, text: `×${v} Press`, mult: v }); },
+    addPoints(v) { points += v; patronSteps.push({ id: current, text: `+${v} Points`, points: v }); },
+    addMult(v)   { mult += v;   patronSteps.push({ id: current, text: `+${v} Mult`,   mult: v }); },
+    xMult(v)     { mult *= v;   patronSteps.push({ id: current, text: `×${v} Mult`,   xmult: v }); },
   };
 
-  if (state.scavengerInk > 0 && owns('scavenger')) {
-    ink += state.scavengerInk;
-    patronSteps.push({ id: 'scavenger', text: `+${state.scavengerInk} Ink`, ink: state.scavengerInk });
+  if (state.scavengerPoints > 0 && owns('scavenger')) {
+    points += state.scavengerPoints;
+    patronSteps.push({ id: 'scavenger', text: `+${state.scavengerPoints} Points`, points: state.scavengerPoints });
   }
 
   for (const p of state.patrons) {
@@ -103,7 +103,7 @@ export function computeScore(wordTiles) {
     if (def?.when === 'score') { current = p.id; def.effect(ctx); }
   }
 
-  const total = Math.round(ink * press);
+  const total = Math.round(points * mult);
 
   // ── Per-tile breakdown for tooltips ─────────────────────────────────────────
   const perTile = new Map();
@@ -112,7 +112,7 @@ export function computeScore(wordTiles) {
   });
 
   return {
-    word, ink, press, setBonus: bonusSum, chromed, total, coins,
+    word, points, mult, setBonus: bonusSum, chromed, total, coins,
     tileSteps, auraSteps, setSteps, patronSteps, perTile,
   };
 }

@@ -1,11 +1,12 @@
 import {
   state, settings, loadSettings, saveSettings, loadState, clearSave,
   newRun, startPage, drawUpToRackSize, clearWord, shuffleRack,
-  exchangeSelected, getWordString, moveRackToWord, owns,
+  exchangeSelected, getWordString, moveRackToWord, owns, clearAllSelected,
+  toggleDualVariant,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
-  chapterTitle, roman, isDeadline, INKS,
+  chapterTitle, roman, isDeadline, COLOURS,
 } from './constants.js';
 import { DICT, dictLoaded, loadDict, loadCustom } from './dict.js';
 import { computeScore, computeReward } from './scoring.js';
@@ -18,12 +19,14 @@ import {
   renderFoundry, renderDictStatus, readoutEls, setReadoutSets,
   updateReadoutPreview, log, showBanner, showOverlay, hideOverlay,
   showGameOver, showVictory, openInspector, closeInspector, makeTileEl, coinHTML,
+  showPatronPopover, hidePopover,
 } from './render.js';
 import {
   sleep, dur, flyClone, popReveal, floatText, tweenNum, setNum,
   pulse, sparkleBurst, sfx, applySpeedCSS,
 } from './anim.js';
-import { initDrag } from './drag.js';
+import { initInput } from './drag.js';
+import { patronById } from './patrons.js';
 
 const $ = id => document.getElementById(id);
 const rect = el => el?.getBoundingClientRect();
@@ -72,12 +75,25 @@ async function animateDiscard(rects) {
   await Promise.all(flights);
 }
 
+// ─── Exchange mode ────────────────────────────────────────────────────────────
+
+function cancelExchangeMode(quiet = false) {
+  if (!state.exchangeMode) return false;
+  state.exchangeMode = false;
+  clearAllSelected();
+  if (!quiet) log('Exchange cancelled.');
+  renderAll();
+  return true;
+}
+
 // ─── Submit (PRINT) ───────────────────────────────────────────────────────────
 
 async function submitWord() {
   if (state.isAnimating || state.inFoundry || state.gameOver) return;
   const w = getWordString();
   if (!w) return;
+  hidePopover();
+  cancelExchangeMode(true);
 
   if (!dictLoaded) { log('The dictionary is still loading…', 'warn'); return; }
   if (!DICT.has(w.toUpperCase())) {
@@ -94,27 +110,27 @@ async function submitWord() {
   const ro = readoutEls();
 
   // Start the readout from zero so the build-up reads clearly
-  setNum(ro.ink, 0); setNum(ro.press, 1); setNum(ro.total, 0);
+  setNum(ro.points, 0); setNum(ro.mult, 1); setNum(ro.total, 0);
   setReadoutSets(null);
   ro.root.classList.remove('readout--idle');
   ro.root.classList.add('readout--live');
 
-  let inkSoFar = 0, pressSoFar = 1;
+  let pointsSoFar = 0, multSoFar = 1;
 
-  // ── Pass 1: each tile pops and pays its Ink ────────────────────────────────
+  // ── Pass 1: each tile pops and pays its Points ─────────────────────────────
   let i = 0;
   for (const step of script.tileSteps) {
     const el = wordTileEl(step.id);
     if (el) {
       pulse(el, 'tile--scoring', 360);
-      floatText(el, `+${step.ink}`, 'fl-ink');
-      if (step.press) { floatText(el, '+1 Press', 'fl-press', { dy: -70 }); }
+      floatText(el, `+${step.points}`, 'fl-points');
+      if (step.mult)  { floatText(el, '+1 Mult', 'fl-mult', { dy: -70 }); }
       if (step.coins) { floatText(el, `+${coinHTML(step.coins)}`, 'fl-coin', { dy: -70 }); sfx.coin(); }
     }
     sfx.tick(i++);
-    inkSoFar += step.ink;
-    tweenNum(ro.ink, inkSoFar);
-    if (step.press) { pressSoFar += step.press; tweenNum(ro.press, pressSoFar); }
+    pointsSoFar += step.points;
+    tweenNum(ro.points, pointsSoFar);
+    if (step.mult) { multSoFar += step.mult; tweenNum(ro.mult, multSoFar); }
     await sleep(ANIM.stepTile);
   }
 
@@ -126,27 +142,27 @@ async function submitWord() {
     for (const hit of aura.hits) {
       const el = wordTileEl(hit.id);
       if (el) { pulse(el, 'tile--aura-hit', 460); floatText(el, '×2', 'fl-aura'); }
-      inkSoFar += hit.delta;
+      pointsSoFar += hit.delta;
     }
-    tweenNum(ro.ink, inkSoFar);
+    tweenNum(ro.points, pointsSoFar);
     await sleep(ANIM.stepAura);
   }
 
-  // ── Pass 3: ink set bonuses → tween Press ─────────────────────────────────
+  // ── Pass 3: colour set bonuses → tween Mult ────────────────────────────────
   for (const set of script.setSteps) {
     for (const id of set.ids) {
       const el = wordTileEl(id);
       if (el) {
-        el.style.setProperty('--glow', INKS[set.ink].onLight);
+        el.style.setProperty('--glow', COLOURS[set.colour].onLight);
         pulse(el, 'tile--set-glow', 620);
       }
     }
     sfx.chime();
     const delta = set.bonus * (script.chromed ? 2 : 1);
     const deltaStr = Number.isInteger(delta) ? `${delta}` : delta.toFixed(1);
-    floatText($('word'), `${INKS[set.ink].label} set ×${set.count} · +${deltaStr} Press${script.chromed ? ' (Chromatist)' : ''}`, `fl-set fl-set--${set.ink}`, { dy: -60 });
-    pressSoFar += delta;
-    tweenNum(ro.press, pressSoFar);
+    floatText($('word'), `${COLOURS[set.colour].label} set ×${set.count} · +${deltaStr} Mult${script.chromed ? ' (Chromatist)' : ''}`, `fl-set fl-set--${set.colour}`, { dy: -60 });
+    multSoFar += delta;
+    tweenNum(ro.mult, multSoFar);
     await sleep(ANIM.stepSet);
   }
 
@@ -155,11 +171,11 @@ async function submitWord() {
     const card = document.querySelector(`#shelf .patron[data-patron="${p.id}"]`);
     if (card) {
       pulse(card, 'patron--firing', 520);
-      floatText(card, p.text, p.ink ? 'fl-ink' : 'fl-press', { dy: -44 });
+      floatText(card, p.text, p.points ? 'fl-points' : 'fl-mult', { dy: -44 });
     }
-    if (p.ink)   { inkSoFar += p.ink; tweenNum(ro.ink, inkSoFar); sfx.tick(8); }
-    if (p.press) { pressSoFar += p.press; tweenNum(ro.press, pressSoFar); sfx.press(); }
-    if (p.mult)  { pressSoFar *= p.mult; tweenNum(ro.press, pressSoFar); sfx.press(); }
+    if (p.points) { pointsSoFar += p.points; tweenNum(ro.points, pointsSoFar); sfx.tick(8); }
+    if (p.mult)   { multSoFar += p.mult; tweenNum(ro.mult, multSoFar); sfx.mult(); }
+    if (p.xmult)  { multSoFar *= p.xmult; tweenNum(ro.mult, multSoFar); sfx.mult(); }
     await sleep(ANIM.stepPatron);
   }
 
@@ -182,7 +198,7 @@ async function submitWord() {
   state.coins      += script.coins;
   state.wordsLeft   = Math.max(0, state.wordsLeft - 1);
   state.wordsPrinted += 1;
-  state.scavengerInk = 0;
+  state.scavengerPoints = 0;
   state.stats.words += 1;
   if (script.total > state.stats.bestScore) {
     state.stats.bestScore = script.total;
@@ -191,7 +207,7 @@ async function submitWord() {
   state.tray.push(...printed);
   state.word.length = 0;
 
-  let msg = `”${script.word}” — ${script.ink} Ink × ${script.press} Press = ${script.total}.`;
+  let msg = `”${script.word}” — ${script.points} Points × ${script.mult} Mult = ${script.total}.`;
   if (script.coins) msg += `  +${script.coins} Coin${script.coins > 1 ? 's' : ''} from gilded type.`;
   log(msg, 'good');
 
@@ -308,14 +324,23 @@ async function gameLost() {
 
 async function doExchange() {
   if (state.isAnimating || state.inFoundry || state.gameOver) return;
+  hidePopover();
 
-  const selectedEls = [...document.querySelectorAll('#rack .tile--selected')];
-  const result = exchangeSelected();
-  if (!result) {
-    if (state.exchanges <= 0) log('No exchanges left this page.', 'warn');
-    else log('Click tiles in the rack to choose which to exchange.', 'warn');
+  // First press arms the mode; tiles are then tapped to select.
+  if (!state.exchangeMode) {
+    if (state.exchanges <= 0) { log('No exchanges left this page.', 'warn'); return; }
+    state.exchangeMode = true;
+    log('Tap the tiles you want to swap out, then press the button again.');
+    renderAll();
     return;
   }
+
+  const selectedEls = [...document.querySelectorAll('#rack .tile--selected')];
+  if (!selectedEls.length) { cancelExchangeMode(); return; }
+
+  const result = exchangeSelected();
+  if (!result) { cancelExchangeMode(); return; }
+  state.exchangeMode = false;
 
   state.isAnimating = true;
   renderButtons();
@@ -328,7 +353,7 @@ async function doExchange() {
   renderAll();
 
   let msg = `Exchanged ${result.removed.length} tile${result.removed.length > 1 ? 's' : ''}.`;
-  if (owns('scavenger')) msg += '  The Scavenger adds +12 Ink to your next word.';
+  if (owns('scavenger')) msg += '  The Scavenger adds +12 Points to your next word.';
   if (!result.drawn.length && !state.bag.length) msg += '  The bag is empty.';
   log(msg);
 
@@ -349,7 +374,11 @@ document.addEventListener('keydown', e => {
   }
 
   if (e.key === 'Enter')  { submitWord(); return; }
-  if (e.key === 'Escape') { clearWord(); renderAll(); return; }
+  if (e.key === 'Escape') {
+    hidePopover();
+    if (!cancelExchangeMode()) { clearWord(); renderAll(); }
+    return;
+  }
   if (e.key === ' ')      { e.preventDefault(); shuffleRack(); renderAll(); return; }
 
   if (e.key === 'Backspace') {
@@ -371,7 +400,11 @@ document.addEventListener('keydown', e => {
 // ─── Buttons & delegation ─────────────────────────────────────────────────────
 
 $('btnPrint')?.addEventListener('click', submitWord);
-$('btnClear')?.addEventListener('click', () => { if (!state.isAnimating) { clearWord(); renderAll(); } });
+$('btnClear')?.addEventListener('click', () => {
+  if (state.isAnimating) return;
+  hidePopover();
+  if (!cancelExchangeMode()) { clearWord(); renderAll(); }
+});
 $('btnShuffle')?.addEventListener('click', () => { if (!state.isAnimating) { shuffleRack(); renderAll(); } });
 $('btnExchange')?.addEventListener('click', doExchange);
 
@@ -382,18 +415,45 @@ $('inspectorModal')?.addEventListener('click', e => {
   if (e.target.closest('[data-close-inspector]') || e.target.id === 'inspectorModal') closeInspector();
 });
 
-// Patron shelf: dismiss
-$('shelf')?.addEventListener('click', e => {
-  const sell = e.target.closest('[data-sell]');
-  if (!sell || state.isAnimating) return;
-  const id = sell.dataset.sell;
+// Patron shelf: ✕ dismisses (desktop hover); tapping the card shows its boon
+function dismissPatron(id) {
   const r = sellPatron(id);
   if (r.ok) {
     log(`${r.def.name} departs with thanks — ${r.refund} Coin${r.refund !== 1 ? 's' : ''} returned.`);
     renderAll();
     if (state.inFoundry) renderFoundry();
   }
+}
+
+$('shelf')?.addEventListener('click', e => {
+  if (state.isAnimating) return;
+  const sell = e.target.closest('[data-sell]');
+  if (sell) { dismissPatron(sell.dataset.sell); return; }
+  const card = e.target.closest('.patron[data-patron]');
+  if (card) {
+    const def = patronById(card.dataset.patron);
+    if (def) showPatronPopover(def, card);
+  }
 });
+
+// Popover actions (flip a dual tile, dismiss a patron)
+$('popover')?.addEventListener('click', e => {
+  const sell = e.target.closest('[data-sell]');
+  if (sell) { hidePopover(); if (!state.isAnimating) dismissPatron(sell.dataset.sell); return; }
+  const flip = e.target.closest('[data-flip]');
+  if (flip) {
+    hidePopover();
+    if (state.isAnimating || state.inFoundry || state.gameOver) return;
+    toggleDualVariant(Number(flip.dataset.flip));
+    renderAll();
+  }
+});
+
+// Dismiss the popover on any press outside it, and on scroll
+document.addEventListener('pointerdown', e => {
+  if (!e.target.closest('#popover')) hidePopover();
+});
+window.addEventListener('scroll', () => hidePopover(), { capture: true, passive: true });
 
 // Foundry delegation
 $('foundryModal')?.addEventListener('click', e => {
@@ -542,7 +602,7 @@ async function startFreshRun() {
 (async function init() {
   loadSettings();
   applySpeedCSS();
-  initDrag();
+  initInput();
 
   renderDictStatus('loading', 0);
   loadDict((status, count) => renderDictStatus(status, count));
@@ -562,6 +622,9 @@ async function startFreshRun() {
       log('Welcome back. The press is warm.');
     }
   }
+
+  // Console access for tinkering & automated tests
+  window.folio = { state, settings };
 
   window.addEventListener('beforeunload', persist);
 })();

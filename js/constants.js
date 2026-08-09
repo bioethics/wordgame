@@ -1,7 +1,7 @@
 // ─── Letterforms ──────────────────────────────────────────────────────────────
-// Bag tiles are stored as template objects so they can carry cast/aura/ink
+// Bag tiles are stored as template objects so they can carry cast/aura/colour
 // info before being assigned an id when drawn to the rack.
-// Template shape: { letter, letterType, altLetter, activeVariant, cast, aura, ink }
+// Template shape: { letter, letterType, altLetter, activeVariant, cast, aura, colour }
 // Rack tile shape: { ...template, id, basePoints, selected }
 
 export const TILE_POINTS = {
@@ -24,32 +24,32 @@ export const LIGATURES = ['ING', 'ED', 'TCH'];
 // ─── Casts (the metal a tile is cast in) ──────────────────────────────────────
 export const CASTS = {
   plain:    { label: '',         badge: '',  desc: '', price: 0 },
-  gilded:   { label: 'Gilded',   badge: 'G', desc: 'Pays 1 Coin when printed',  price: 2 },
-  bold:     { label: 'Bold',     badge: 'B', desc: 'Prints double Ink',          price: 3 },
-  master:   { label: 'Master',   badge: 'M', desc: '+6 Ink when printed',        price: 2 },
-  resonant: { label: 'Resonant', badge: 'R', desc: '+1 Press when printed',      price: 4 },
+  gilded:   { label: 'Gilded',   badge: 'G', desc: 'Pays 1 Coin when printed',   price: 2 },
+  bold:     { label: 'Bold',     badge: 'B', desc: 'Scores ×2 Points',           price: 3 },
+  master:   { label: 'Master',   badge: 'M', desc: '+6 Points when printed',     price: 2 },
+  resonant: { label: 'Resonant', badge: 'R', desc: '+1 Mult when printed',       price: 4 },
 };
 
 // ─── Auras (positional engravings) ────────────────────────────────────────────
 export const AURAS = {
-  crescendo: { symbol: '»',  label: 'Crescendo', desc: 'Doubles the Ink of every tile to its right',     price: 4 },
-  echo:      { symbol: '«',  label: 'Echo',      desc: 'Doubles the Ink of every tile to its left',      price: 4 },
-  halo:      { symbol: '«»', label: 'Halo',      desc: 'Doubles the Ink of the tiles directly beside it', price: 3 },
+  crescendo: { symbol: '»',  label: 'Crescendo', desc: 'Doubles the Points of every tile to its right',     price: 4 },
+  echo:      { symbol: '«',  label: 'Echo',      desc: 'Doubles the Points of every tile to its left',      price: 4 },
+  halo:      { symbol: '«»', label: 'Halo',      desc: 'Doubles the Points of the tiles directly beside it', price: 3 },
 };
 
-// ─── Coloured inks (set bonuses) ──────────────────────────────────────────────
-export const INKS = {
+// ─── Colours (set bonuses) ────────────────────────────────────────────────────
+export const COLOURS = {
   crimson: { label: 'Crimson', onLight: '#b23a2e', onDark: '#ff9d8e' },
   azure:   { label: 'Azure',   onLight: '#2e6fb2', onDark: '#8ec6ff' },
   jade:    { label: 'Jade',    onLight: '#2d8a5c', onDark: '#90e8ba' },
   amber:   { label: 'Amber',   onLight: '#a87010', onDark: '#ffd68c' },
 };
 
-// Press bonus for N tiles of the same ink colour in one word.
-// Added directly to Press (not a separate multiplier). Accelerating ladder.
+// Mult bonus for N tiles of the same colour in one word.
+// Added directly to Mult (not a separate multiplier). Accelerating ladder.
 // Index by count; the last entry covers everything beyond it.
-export const INK_SET_BONUS = [0, 0.5, 1.0, 2.0, 3.0, 4.0];
-export const inkSetBonus = n => INK_SET_BONUS[Math.min(n, INK_SET_BONUS.length - 1)];
+export const COLOUR_SET_BONUS = [0, 0.5, 1.0, 2.0, 3.0, 4.0];
+export const colourSetBonus = n => COLOUR_SET_BONUS[Math.min(n, COLOUR_SET_BONUS.length - 1)];
 
 // ─── Run structure ────────────────────────────────────────────────────────────
 export const RACK_SIZE          = 10;
@@ -121,14 +121,14 @@ export function makeTileTemplate(letter, overrides = {}) {
     activeVariant: 0,          // 0 = letter, 1 = altLetter
     cast:          'plain',
     aura:          null,
-    ink:           null,
+    colour:        null,
     ...overrides,
   };
 }
 
 // A few coloured tiles in the starting collection so the set mechanic
 // shows itself early.
-export const STARTER_INKED = [
+export const STARTER_COLOURED = [
   ['A', 'crimson'], ['A', 'crimson'],
   ['E', 'azure'],   ['E', 'azure'],
 ];

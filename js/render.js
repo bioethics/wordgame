@@ -1,6 +1,6 @@
 import { state, settings, saveState, getActiveLetter, selectedCount } from './state.js';
 import {
-  TILE_POINTS, CASTS, AURAS, INKS, LIGATURES,
+  TILE_POINTS, CASTS, AURAS, COLOURS, LIGATURES,
   PATRON_SLOTS, WORDS_PER_PAGE, EXCHANGES_PER_PAGE, PAGES_PER_CHAPTER,
   SMELT_COST, chapterTitle, roman, isDeadline,
 } from './constants.js';
@@ -19,13 +19,12 @@ export function makeTileEl(tile, zone, { mini = false } = {}) {
   const div = document.createElement('div');
   div.className = mini ? 'tile tile--mini' : 'tile';
   div.setAttribute('role', 'listitem');
-  div.draggable = !mini;
   div.dataset.id   = tile.id ?? '';
   div.dataset.zone = zone;
 
   if (tile.selected)              div.classList.add('tile--selected');
   if (tile.cast !== 'plain')      div.classList.add(`tile--${tile.cast}`);
-  if (tile.ink)                   div.classList.add('tile--inked');
+  if (tile.colour)                div.classList.add('tile--coloured');
   if (tile.aura)                  div.classList.add(`tile--aura-${tile.aura}`);
 
   const active = getActiveLetter(tile);
@@ -36,8 +35,8 @@ export function makeTileEl(tile, zone, { mini = false } = {}) {
   letter.className = 'tile-letter';
   letter.dataset.len = active.length;
   letter.textContent = active;
-  if (tile.ink) {
-    letter.style.color = darkCast ? INKS[tile.ink].onDark : INKS[tile.ink].onLight;
+  if (tile.colour) {
+    letter.style.color = darkCast ? COLOURS[tile.colour].onDark : COLOURS[tile.colour].onLight;
   }
   div.appendChild(letter);
 
@@ -47,10 +46,10 @@ export function makeTileEl(tile, zone, { mini = false } = {}) {
   pts.textContent = TILE_POINTS[active] ?? tile.basePoints ?? 1;
   div.appendChild(pts);
 
-  // Ink droplet (top-left)
-  if (tile.ink) {
+  // Colour droplet (top-left)
+  if (tile.colour) {
     const drop = document.createElement('span');
-    drop.className = `tile-drop tile-drop--${tile.ink}`;
+    drop.className = `tile-drop tile-drop--${tile.colour}`;
     div.appendChild(drop);
   }
 
@@ -84,19 +83,63 @@ export function makeTileEl(tile, zone, { mini = false } = {}) {
     div.appendChild(a);
   }
 
-  div.title = tileTitle(tile);
+  div.title = tileTitleLines(tile).join('\n');
   return div;
 }
 
-export function tileTitle(tile, breakdown = null) {
+export function tileTitleLines(tile, breakdown = null) {
   const active = getActiveLetter(tile);
-  const lines = [`${active} — ${TILE_POINTS[active] ?? 1} Ink`];
+  const lines = [`${active} — ${TILE_POINTS[active] ?? 1} Points`];
   if (tile.cast !== 'plain') lines.push(`${CASTS[tile.cast].label}: ${CASTS[tile.cast].desc}`);
   if (tile.aura)             lines.push(`${AURAS[tile.aura].label}: ${AURAS[tile.aura].desc}`);
-  if (tile.ink)              lines.push(`${INKS[tile.ink].label} ink — matching tiles in a word add to Press (+0.5/+1/+2/+3/+4)`);
-  if (tile.letterType === 'dual') lines.push(`Dual cast — right-click to flip to ${tile.activeVariant === 1 ? tile.letter : tile.altLetter}`);
-  if (breakdown)             lines.push(`This word: ${breakdown.parts.join(', ')} → ${breakdown.final} Ink`);
-  return lines.join('\n');
+  if (tile.colour)           lines.push(`${COLOURS[tile.colour].label} — matching colours in a word add Mult (+0.5/+1/+2/+3/+4)`);
+  if (tile.letterType === 'dual') lines.push(`Dual cast — flips to ${tile.activeVariant === 1 ? tile.letter : tile.altLetter}`);
+  if (breakdown)             lines.push(`This word: ${breakdown.parts.join(', ')} → ${breakdown.final} Points`);
+  return lines;
+}
+
+export const tileTitle = (tile, breakdown = null) => tileTitleLines(tile, breakdown).join('\n');
+
+// ─── Popover (tap/long-press replacement for hover tooltips) ──────────────────
+
+export function showPopover(anchorEl, html) {
+  const pop = $('popover');
+  if (!pop || !anchorEl) return;
+  pop.innerHTML = html;
+  pop.classList.remove('hidden');
+
+  const a = anchorEl.getBoundingClientRect();
+  const p = pop.getBoundingClientRect();
+  let left = a.left + a.width / 2 - p.width / 2;
+  left = Math.max(8, Math.min(left, innerWidth - p.width - 8));
+  let top = a.top - p.height - 10;                 // prefer above…
+  if (top < 8) top = a.bottom + 10;                // …else below
+  top = Math.max(8, Math.min(top, innerHeight - p.height - 8));
+  pop.style.left = `${left}px`;
+  pop.style.top  = `${top}px`;
+}
+
+export function showTilePopover(tile, anchorEl, breakdown = null) {
+  const [head, ...rest] = tileTitleLines(tile, breakdown);
+  const flip = tile.letterType === 'dual'
+    ? `<button class="btn btn-quiet tip-btn" data-flip="${tile.id}">Flip to ${tile.activeVariant === 1 ? tile.letter : tile.altLetter}</button>`
+    : '';
+  showPopover(anchorEl, `
+    <div class="tip-head">${head}</div>
+    ${rest.map(l => `<div class="tip-line">${l}</div>`).join('')}
+    ${flip}`);
+}
+
+export function showPatronPopover(def, anchorEl) {
+  showPopover(anchorEl, `
+    <div class="tip-head">${def.emoji} ${def.name} <span class="op-rarity">${def.rarity}</span></div>
+    <div class="tip-line">${def.desc}</div>
+    <button class="btn btn-quiet tip-btn" data-sell="${def.id}">Dismiss for ${coinHTML(Math.floor(def.cost / 2))}</button>`);
+}
+
+export function hidePopover() {
+  const pop = $('popover');
+  if (pop && !pop.classList.contains('hidden')) pop.classList.add('hidden');
 }
 
 // ─── Main render ───────────────────────────────────────────────────────────────
@@ -121,6 +164,7 @@ function renderShelf() {
   const shelf = $('shelf');
   if (!shelf) return;
   shelf.innerHTML = '';
+  shelf.classList.toggle('shelf--empty', state.patrons.length === 0);
 
   for (let i = 0; i < PATRON_SLOTS; i++) {
     const slot = document.createElement('div');
@@ -193,6 +237,7 @@ export function renderRack(ghostIds = null) {
   const el = $('rack');
   if (!el) return;
   el.innerHTML = '';
+  el.classList.toggle('rack--exchange', state.exchangeMode);
   state.rack.forEach(t => {
     const tileEl = makeTileEl(t, 'rack');
     if (ghostIds?.has(t.id)) tileEl.classList.add('tile--ghost');
@@ -222,14 +267,14 @@ export function renderCounts() {
   $('bagBtn')?.classList.toggle('pouch--empty', state.bag.length === 0);
 }
 
-// ─── Readout (Ink × Press × Sets = total) ─────────────────────────────────────
+// ─── Readout (Points × Mult = total) ──────────────────────────────────────────
 
 export function updateReadoutPreview(script) {
   const ro = $('readout');
   if (!ro) return;
   ro.classList.toggle('readout--idle', !script);
-  setNum($('roInk'), script ? script.ink : 0);
-  setNum($('roPress'), script ? script.press : 1);
+  setNum($('roPoints'), script ? script.points : 0);
+  setNum($('roMult'), script ? script.mult : 1);
   setReadoutSets(null);
   setNum($('roTotal'), script ? script.total : 0);
 }
@@ -245,7 +290,7 @@ export function setReadoutSets(mult) {
 
 // Imperative access for the scoring cinematic
 export const readoutEls = () => ({
-  ink: $('roInk'), press: $('roPress'), sets: $('roSets'), total: $('roTotal'),
+  points: $('roPoints'), mult: $('roMult'), sets: $('roSets'), total: $('roTotal'),
   root: $('readout'), coins: $('coinCount'),
 });
 
@@ -256,14 +301,19 @@ export function renderButtons() {
   const sel = selectedCount();
 
   setDisabled('btnPrint',    !state.word.length || blocked);
-  setDisabled('btnClear',    !state.word.length || blocked);
+  setDisabled('btnClear',    (!state.word.length && !state.exchangeMode) || blocked);
   setDisabled('btnShuffle',  state.rack.length < 2 || blocked);
-  setDisabled('btnExchange', state.exchanges <= 0 || sel === 0 || blocked);
+  setDisabled('btnExchange', (!state.exchangeMode && state.exchanges <= 0) || blocked);
 
   const ex = $('btnExchange');
   if (ex) {
+    ex.classList.toggle('btn-exchange--armed', state.exchangeMode);
     ex.querySelector('.btn-label').textContent =
-      sel > 0 ? `Exchange ${sel}` : 'Exchange';
+      !state.exchangeMode ? 'Exchange'
+      : sel > 0           ? `Swap ${sel}`
+      :                     'Cancel';
+    ex.querySelector('kbd').textContent =
+      state.exchangeMode ? 'tap tiles, then confirm' : 'swap tiles for new';
   }
 }
 
@@ -432,10 +482,12 @@ function foundryShopHTML() {
   const tileCards = foundry.tileOffers.map((o, i) => {
     const afford = state.coins >= o.price;
     const t = o.template;
+    const auraShort = { crescendo: '×2 Points to its right', echo: '×2 Points to its left', halo: '×2 Points beside it' };
+    const castShort = { gilded: 'pays 1 Coin', bold: '×2 Points', master: '+6 Points', resonant: '+1 Mult' };
     const traits = [
-      CASTS[t.cast].label,
-      t.aura ? AURAS[t.aura].label : '',
-      t.ink ? INKS[t.ink].label + ' ink' : '',
+      CASTS[t.cast].label ? `${CASTS[t.cast].label} (${castShort[t.cast]})` : '',
+      t.aura ? `${AURAS[t.aura].label} (${auraShort[t.aura]})` : '',
+      t.colour ? `${COLOURS[t.colour].label} (colour sets add Mult)` : '',
       t.letterType === 'dual' ? `Dual ${t.letter}/${t.altLetter}` : '',
       LIGATURES.includes(t.letter) ? 'Ligature' : '',
     ].filter(Boolean).join(' · ') || 'Plain cast';

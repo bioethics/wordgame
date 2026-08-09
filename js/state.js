@@ -1,12 +1,12 @@
 import {
   RACK_SIZE, WORDS_PER_PAGE, EXCHANGES_PER_PAGE, STARTING_COINS,
-  BAG_COUNTS, TILE_POINTS, STARTER_INKED,
+  BAG_COUNTS, TILE_POINTS, STARTER_COLOURED,
   quotaFor, makeTileTemplate,
 } from './constants.js';
 
 const SAVE_KEY     = 'folio_save_v1';
 const SETTINGS_KEY = 'folio_settings_v1';
-const SAVE_VERSION = 1;
+const SAVE_VERSION = 2;   // v2: tile `ink` → `colour`, scavengerInk → scavengerPoints
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -45,10 +45,10 @@ function buildStarterCollection() {
   for (const [L, count] of Object.entries(BAG_COUNTS)) {
     for (let i = 0; i < count; i++) col.push(makeTileTemplate(L));
   }
-  // Tint a few starter tiles so ink sets show themselves early
-  for (const [L, ink] of STARTER_INKED) {
-    const t = col.find(c => c.letter === L && !c.ink);
-    if (t) t.ink = ink;
+  // Tint a few starter tiles so colour sets show themselves early
+  for (const [L, colour] of STARTER_COLOURED) {
+    const t = col.find(c => c.letter === L && !c.colour);
+    if (t) t.colour = colour;
   }
   return col;
 }
@@ -91,7 +91,7 @@ export const state = {
 
   coins:   STARTING_COINS,
   patrons: [],      // [{ id }]
-  scavengerInk: 0,  // pending bonus from The Scavenger
+  scavengerPoints: 0,  // pending bonus from The Scavenger
 
   totalScore: 0,
   stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
@@ -99,6 +99,7 @@ export const state = {
   endless:   false,
   inFoundry: false,
   isAnimating: false,
+  exchangeMode: false,   // rack taps select tiles for exchange
   gameOver:  false,
 };
 
@@ -127,7 +128,7 @@ export function loadState() {
     if (s._v !== SAVE_VERSION) return null;
     if (!Array.isArray(s.collection) || !Array.isArray(s.rack)) return null;
     const { _nextId: savedId, _v, _foundry, ...fields } = s;
-    Object.assign(state, fields, { isAnimating: false });
+    Object.assign(state, fields, { isAnimating: false, exchangeMode: false });
     if (savedId) _nextId = savedId;
     return { foundry: _foundry ?? null };
   } catch { return null; }
@@ -147,10 +148,10 @@ export function newRun() {
     chapter: 1, page: 1,
     quota: quotaFor(1, 1), pageScore: 0,
     wordsLeft: WORDS_PER_PAGE, exchanges: EXCHANGES_PER_PAGE, wordsPrinted: 0,
-    coins: STARTING_COINS, patrons: [], scavengerInk: 0,
+    coins: STARTING_COINS, patrons: [], scavengerPoints: 0,
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
-    endless: false, inFoundry: false, isAnimating: false, gameOver: false,
+    endless: false, inFoundry: false, isAnimating: false, exchangeMode: false, gameOver: false,
   });
   startPage();
 }
@@ -167,7 +168,8 @@ export function startPage() {
   state.wordsPrinted = 0;
   state.wordsLeft    = WORDS_PER_PAGE;
   state.exchanges    = EXCHANGES_PER_PAGE + (owns('quartermaster') ? 1 : 0);
-  state.scavengerInk = 0;
+  state.scavengerPoints = 0;
+  state.exchangeMode = false;
 }
 
 // ─── Tile operations ──────────────────────────────────────────────────────────
@@ -205,7 +207,7 @@ export function exchangeSelected() {
     state.tray.push(t);
   }
   state.exchanges -= 1;
-  if (owns('scavenger')) state.scavengerInk += 12;
+  if (owns('scavenger')) state.scavengerPoints += 12;
 
   const drawn = drawUpToRackSize();
   return { removed: selected, drawn };

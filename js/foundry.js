@@ -1,6 +1,6 @@
 import { state, owns } from './state.js';
 import {
-  BAG_COUNTS, LIGATURES, TILE_POINTS, CASTS, AURAS, INKS,
+  BAG_COUNTS, LIGATURES, TILE_POINTS, CASTS, AURAS, COLOURS,
   PATRON_SLOTS, TILE_BASE_PRICE, SMELT_COST, REROLL_BASE,
   makeTileTemplate,
 } from './constants.js';
@@ -50,8 +50,8 @@ function randomTileOffer() {
   else if (r < 0.86) tmpl.cast = 'master';
   else if (r < 0.94) tmpl.cast = 'resonant';
 
-  if (Math.random() < 0.15) tmpl.aura = pick(Object.keys(AURAS));
-  if (Math.random() < 0.30) tmpl.ink  = pick(Object.keys(INKS));
+  if (Math.random() < 0.15) tmpl.aura   = pick(Object.keys(AURAS));
+  if (Math.random() < 0.30) tmpl.colour = pick(Object.keys(COLOURS));
 
   if (Math.random() < 0.10 && !LIGATURES.includes(letter)) {
     const pairs = dualPairsFor(letter);
@@ -62,8 +62,8 @@ function randomTileOffer() {
   }
 
   // A bare plain tile is a dull purchase — give it some colour half the time
-  if (tmpl.cast === 'plain' && !tmpl.aura && !tmpl.ink && tmpl.letterType === 'normal') {
-    if (Math.random() < 0.5) tmpl.ink = pick(Object.keys(INKS));
+  if (tmpl.cast === 'plain' && !tmpl.aura && !tmpl.colour && tmpl.letterType === 'normal') {
+    if (Math.random() < 0.5) tmpl.colour = pick(Object.keys(COLOURS));
   }
 
   return { template: tmpl, price: tilePrice(tmpl), sold: false };
@@ -73,7 +73,7 @@ export function tilePrice(tmpl) {
   let p = TILE_BASE_PRICE;
   p += CASTS[tmpl.cast]?.price ?? 0;
   if (tmpl.aura) p += AURAS[tmpl.aura]?.price ?? 0;
-  if (tmpl.ink) p += 1;
+  if (tmpl.colour) p += 1;
   if (tmpl.letterType === 'dual') p += 1;
   if (LIGATURES.includes(tmpl.letter)) p += 1;
   return p;

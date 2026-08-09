@@ -13,6 +13,13 @@ export function adoptWordlist(text) {
 }
 
 export async function loadDict(onStatus) {
+  // A bundled build (single-file/artifact) embeds the list as a global
+  if (typeof window !== 'undefined' && window.FOLIO_WORDLIST) {
+    adoptWordlist(window.FOLIO_WORDLIST);
+    onStatus('loaded', DICT.size);
+    return;
+  }
+
   // Use cached copy immediately so first paint isn't blocked
   try {
     const saved = localStorage.getItem(DICT_KEY);

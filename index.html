@@ -2,8 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#150e18" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>Folio — a word-forging game</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❦</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -46,9 +51,9 @@
 
     <!-- Score readout -->
     <section id="readout" class="readout readout--idle" aria-live="polite">
-      <div class="slab slab--ink"><span class="slab-label">Ink</span><span id="roInk" class="slab-num">0</span></div>
+      <div class="slab slab--points"><span class="slab-label">Points</span><span id="roPoints" class="slab-num">0</span></div>
       <span class="ro-op">×</span>
-      <div class="slab slab--press"><span class="slab-label">Press</span><span id="roPress" class="slab-num">1</span></div>
+      <div class="slab slab--mult"><span class="slab-label">Mult</span><span id="roMult" class="slab-num">1</span></div>
       <span id="roSetsOp" class="ro-op hidden">×</span>
       <div id="roSetsSlab" class="slab slab--sets hidden"><span class="slab-label">Sets</span><span id="roSets" class="slab-num">×1</span></div>
       <span class="ro-op">=</span>
@@ -85,8 +90,8 @@
 
     <!-- Actions -->
     <section class="action-row">
-      <button id="btnExchange" class="btn btn-exchange" title="Send selected tiles to the spent tray and draw replacements">
-        <span class="btn-label">Exchange</span><kbd>click tiles</kbd>
+      <button id="btnExchange" class="btn btn-exchange" title="Swap tiles for fresh ones from the bag">
+        <span class="btn-label">Exchange</span><kbd>swap tiles for new</kbd>
       </button>
       <button id="btnShuffle" class="btn btn-quiet"><span class="btn-label">Shuffle</span><kbd>space</kbd></button>
       <button id="btnClear" class="btn btn-quiet"><span class="btn-label">Clear</span><kbd>esc</kbd></button>
@@ -100,6 +105,9 @@
 
   <!-- FX layer (floaters, flying tiles, sparkles) -->
   <div id="fx" aria-hidden="true"></div>
+
+  <!-- Popover (tap/long-press tile & patron details) -->
+  <div id="popover" class="tip-pop hidden" role="tooltip"></div>
 
   <!-- Banner -->
   <div id="banner" aria-live="polite">
