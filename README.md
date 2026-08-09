@@ -59,7 +59,7 @@ optional **trim** and **nick**.
 | --- | --- |
 | Paint | crimson / azure / jade / amber — each raises its colour's multiplier by 1 |
 | Trim | **Gold** pays 1 Coin · **Silver** +6 Points · **Copper** refreshes 1 Exchange · **Purple** raises the fifth multiplier by 0.5 |
-| Nick | **Right »** ×3 Points to everything on its right · **Left «** ×3 to its left · **Side «»** ×5 to both neighbours |
+| Nick | A notch cut into the tile's edge; the notched side is the direction. **Right** ×3 Points to everything on its right · **Left** ×3 to its left · **Side** (both edges notched) ×5 to both neighbours |
 | Letterform | Dual tiles hold two letters (flip to switch; each face painted independently) · Ligatures ING · ED · TCH are one piece of type |
 
 Nicks stack multiplicatively when several cover the same tile. A dual tile
@@ -97,7 +97,7 @@ beyond.
 | Nick multipliers & prices | `js/constants.js` → `NICKS` |
 | Paint pot price / letters per pot | `js/constants.js` → `PAINT_PRICE`, `PAINT_PER_POT` |
 | Opening draft spread & pick counts | `js/constants.js` → `DRAFT` |
-| Shop offer probabilities | `js/foundry.js` → `randomTileOffer` |
+| How loaded offered tiles are | `js/constants.js` → `FEATURE_CHAIN_CHANCE`, `MAX_FEATURES` (one feature free, then keep rolling); generation in `js/foundry.js` → `randomSpecialTile` |
 | Rewards & interest | `js/constants.js` → `REWARD` |
 | Words / exchanges / seats per page | `js/constants.js` |
 | Patron roster, costs, effects | `js/patrons.js` |

@@ -39,6 +39,14 @@ export const COLOURS = {
 export const PAINT_PRICE     = 3;   // one pot
 export const PAINT_PER_POT   = 3;   // letters painted per pot (random, unpainted)
 
+// ─── Special-tile generation ──────────────────────────────────────────────────
+// Every offered tile gets one feature outright, then keeps rolling for another
+// at this chance until it fails or runs out of slots (paint / trim / nick /
+// dual — a ligature letter counts as one of them). At 0.5 that's roughly
+// 50% one feature · 25% two · 12% three · 6% four.
+export const FEATURE_CHAIN_CHANCE = 0.5;
+export const MAX_FEATURES         = 4;
+
 // ─── Trims (the ring around a tile's edge) ────────────────────────────────────
 // Purple is trim-only: a fifth multiplier that stacks with the letter colours.
 export const TRIMS = {

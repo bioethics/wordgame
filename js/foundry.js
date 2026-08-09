@@ -2,7 +2,7 @@ import { state, owns, paintRandomFaces, unpaintedFaces } from './state.js';
 import {
   BAG_COUNTS, LIGATURES, TILE_POINTS, TRIMS, NICKS, COLOURS,
   PATRON_SLOTS, TILE_BASE_PRICE, SMELT_COST, REROLL_BASE,
-  PAINT_PRICE, PAINT_PER_POT, DRAFT,
+  PAINT_PRICE, PAINT_PER_POT, FEATURE_CHAIN_CHANCE, MAX_FEATURES,
   makeTileTemplate,
 } from './constants.js';
 import { PATRON_DEFS, RARITY_WEIGHT, patronById } from './patrons.js';
@@ -72,39 +72,24 @@ export function addRandomFeature(tmpl) {
   return false;
 }
 
-// A tile guaranteed to carry at least `min` features.
-export function randomLoadedTile(min = 2) {
-  const tmpl = randomTileOffer().template;
-  while (featureCount(tmpl) < min && addRandomFeature(tmpl)) { /* top up */ }
+
+// How many features this tile gets: one for free, then keep rolling.
+function rollFeatureCount(floor = 1) {
+  let n = 1;
+  while (n < MAX_FEATURES && Math.random() < FEATURE_CHAIN_CHANCE) n++;
+  return Math.max(floor, n);
+}
+
+// A tile worth offering: never bare, occasionally loaded.
+export function randomSpecialTile(floor = 1) {
+  const tmpl = makeTileTemplate(pick(LETTER_POOL));
+  const target = rollFeatureCount(floor);
+  while (featureCount(tmpl) < target && addRandomFeature(tmpl)) { /* keep adding */ }
   return tmpl;
 }
 
 export function randomTileOffer() {
-  const letter = pick(LETTER_POOL);
-  const tmpl = makeTileTemplate(letter);
-
-  const r = Math.random();
-  if      (r < 0.15) tmpl.trim = 'gold';
-  else if (r < 0.28) tmpl.trim = 'silver';
-  else if (r < 0.40) tmpl.trim = 'copper';
-  else if (r < 0.50) tmpl.trim = 'purple';
-
-  if (Math.random() < 0.15) tmpl.nick   = pick(Object.keys(NICKS));
-  if (Math.random() < 0.30) tmpl.colour = pick(Object.keys(COLOURS));
-
-  if (Math.random() < 0.10 && !LIGATURES.includes(letter)) {
-    const pairs = dualPairsFor(letter);
-    if (pairs.length) {
-      tmpl.letterType = 'dual';
-      tmpl.altLetter  = pick(pairs);
-    }
-  }
-
-  // A completely bare tile is a dull purchase — paint it half the time
-  if (!tmpl.trim && !tmpl.nick && !tmpl.colour && tmpl.letterType === 'normal') {
-    if (Math.random() < 0.5) tmpl.colour = pick(Object.keys(COLOURS));
-  }
-
+  const tmpl = randomSpecialTile();
   return { template: tmpl, price: tilePrice(tmpl), sold: false };
 }
 

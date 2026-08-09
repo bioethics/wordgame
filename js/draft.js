@@ -5,7 +5,7 @@
 import { state, paintRandomFaces } from './state.js';
 import { DRAFT, COLOURS, PAINT_PER_POT } from './constants.js';
 import { PATRON_DEFS, RARITY_WEIGHT } from './patrons.js';
-import { randomLoadedTile } from './foundry.js';
+import { randomSpecialTile } from './foundry.js';
 
 export const draft = {
   open:    false,
@@ -17,13 +17,9 @@ export const draft = {
 
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 
-// Draft tiles are loaded — most carry two features, some three or four, so the
-// spread is full of combinations (paint + trim, ligature + nick, and so on).
-function draftTile() {
-  const r = Math.random();
-  const min = r < 0.55 ? 2 : r < 0.88 ? 3 : 4;
-  return randomLoadedTile(min);
-}
+// Same generator as the shop — pass a floor here to make the opening spread
+// richer than what's on sale later.
+const draftTile = () => randomSpecialTile();
 
 function samplePatrons(n) {
   const pool = [];

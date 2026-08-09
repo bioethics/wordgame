@@ -55,17 +55,16 @@ export function makeTileEl(tile, zone, { mini = false } = {}) {
     div.appendChild(alt);
   }
 
-  // Nick tabs on the edges
+  // Nicks are notches bitten out of the tile's edge (the mask does the cutting;
+  // these elements only paint the shaded lip around each notch).
   if (tile.nick === 'right' || tile.nick === 'side') {
     const a = document.createElement('span');
-    a.className = 'tile-nicktab tile-nicktab--r';
-    a.textContent = '»';
+    a.className = 'tile-nick tile-nick--r';
     div.appendChild(a);
   }
   if (tile.nick === 'left' || tile.nick === 'side') {
     const a = document.createElement('span');
-    a.className = 'tile-nicktab tile-nicktab--l';
-    a.textContent = '«';
+    a.className = 'tile-nick tile-nick--l';
     div.appendChild(a);
   }
 
