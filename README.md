@@ -60,8 +60,8 @@ optional **trim** and **nick**.
 | --- | --- |
 | Paint | crimson / azure / jade / amber — each raises its colour's multiplier by 1 |
 | Trim | **Gold** pays 1 Coin · **Silver** +6 Points · **Copper** refreshes 1 Discard · **Mercury** slips back into the bag instead of the discard pile · **Purple** raises the fifth multiplier by 0.5 |
-| Nick | A notch cut into one edge; the notched side is the direction. **Right** ×3 Points to everything on its right · **Left** ×3 to its left. Nicks don't stack — a letter is multiplied once at most, and letters caught by one are badged ×3 while you compose. |
-| Letterform | Dual tiles hold two letters (flip to switch; each face painted independently) · Ligatures ING · ED · TCH are one piece of type |
+| Nick | A notch cut into one edge; the notched side is the direction. **Right** ×3 Points to everything on its right · **Left** ×3 to its left. Nicks don't stack — a letter is multiplied once at most. While you compose, an affected tile's corner number becomes the multiplied value, restyled, rippling outward from the notch. |
+| Letterform | Dual tiles hold two letters (flip to switch; each face painted independently) · Ligatures ING · ED · TCH spell several letters from one tile |
 
 A dual tile shares its trim and nick across both faces; only the letters and
 their paint swap.

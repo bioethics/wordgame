@@ -16,7 +16,9 @@ export const coinHTML = n => `<span class="coin"></span>${n}`;
 
 // ─── Tile element factory ──────────────────────────────────────────────────────
 
-export function makeTileEl(tile, zone, { mini = false, nickMult = 0 } = {}) {
+// pts: override the number in the corner (the word groove passes the tile's
+// actual contribution, so nicks and silver trims change the number itself).
+export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   const div = document.createElement('div');
   div.className = mini ? 'tile tile--mini' : 'tile';
   div.setAttribute('role', 'listitem');
@@ -38,11 +40,14 @@ export function makeTileEl(tile, zone, { mini = false, nickMult = 0 } = {}) {
   if (paint) letter.style.color = COLOURS[paint].glyph;
   div.appendChild(letter);
 
-  // Point value (bottom-right)
-  const pts = document.createElement('span');
-  pts.className = 'tile-pts';
-  pts.textContent = TILE_POINTS[active] ?? tile.basePoints ?? 1;
-  div.appendChild(pts);
+  // Point value (bottom-right). When an override is given and it beats the
+  // letter's face value, the number itself carries the news.
+  const base = TILE_POINTS[active] ?? tile.basePoints ?? 1;
+  const ptsEl = document.createElement('span');
+  ptsEl.className = 'tile-pts';
+  ptsEl.textContent = pts ?? base;
+  if (pts != null && pts !== base) ptsEl.classList.add('tile-pts--boosted');
+  div.appendChild(ptsEl);
 
   // Dual-letter hint (top-right), painted in the other face's colour
   if (tile.letterType === 'dual' && tile.altLetter) {
@@ -63,15 +68,6 @@ export function makeTileEl(tile, zone, { mini = false, nickMult = 0 } = {}) {
     div.appendChild(a);
   }
 
-  // Caught in a nick's shadow: say so, and by how much
-  if (nickMult > 1) {
-    div.classList.add('tile--nicked');
-    const badge = document.createElement('span');
-    badge.className = 'tile-boost';
-    badge.textContent = `×${nickMult}`;
-    div.appendChild(badge);
-  }
-
   div.title = tileTitleLines(tile).join('\n');
   return div;
 }
@@ -90,11 +86,11 @@ export function tileFeatures(tile) {
     const otherPaint  = tile.activeVariant === 1 ? tile.colour : tile.altColour;
     out.push({
       head: `Dual letter`,
-      body: `Holds ${tile.letter} and ${tile.altLetter} on one piece of type — flip it to play ${otherLetter} instead${otherPaint ? `, which is painted ${COLOURS[otherPaint].label}` : ''}. Each face is painted separately.`,
+      body: `Holds ${tile.letter} and ${tile.altLetter} on one tile — flip it to play ${otherLetter} instead${otherPaint ? `, which is painted ${COLOURS[otherPaint].label}` : ''}. Each face is painted separately.`,
     });
   }
   if (LIGATURES.includes(tile.letter)) {
-    out.push({ head: 'Ligature', body: `${tile.letter} is cast as a single piece of type, so it fills one slot in the word but spells all ${tile.letter.length} letters.` });
+    out.push({ head: 'Ligature', body: `One tile that spells ${tile.letter} — it fills a single slot in the word.` });
   }
   return out;
 }
@@ -138,7 +134,7 @@ export function showTilePopover(tile, anchorEl, breakdown = null, { canFlip = tr
     <div class="tip-head">${active} <span class="tip-pts">${TILE_POINTS[active] ?? 1} Points</span></div>
     ${feats.length
       ? feats.map(f => `<div class="tip-feat"><b>${f.head}</b>${f.body}</div>`).join('')
-      : '<div class="tip-line">A plain piece of type.</div>'}
+      : '<div class="tip-line">A plain tile.</div>'}
     ${breakdown ? `<div class="tip-line tip-calc">In this word: ${breakdown.parts.join(' · ')} → <b>${breakdown.final} Points</b></div>` : ''}
     ${flip}`);
 }
@@ -263,6 +259,11 @@ export function renderRack(ghostIds = null) {
   });
 }
 
+// Displayed contributions from the previous render, so number changes can be
+// animated rather than silently swapped.
+let _lastWordPts = new Map();
+const RIPPLE_STEP = 70;   // ms between neighbours as a nick's effect spreads
+
 export function renderWord() {
   const el = $('word');
   if (!el) return;
@@ -270,12 +271,36 @@ export function renderWord() {
   el.dataset.placeholder = state.word.length ? '' : 'compose a word…';
 
   const script = computeScore(state.word);
+
+  // Ripple order: distance from the nick that claimed each letter, so the
+  // new numbers wash outward starting beside the notch.
+  const posOf = new Map(state.word.map((t, i) => [t.id, i]));
+  const delayOf = new Map();
+  for (const step of script?.nickSteps ?? []) {
+    const src = posOf.get(step.sourceId);
+    for (const hit of step.hits) {
+      delayOf.set(hit.id, (Math.abs(posOf.get(hit.id) - src) - 1) * RIPPLE_STEP);
+    }
+  }
+
+  const nowPts = new Map();
   state.word.forEach(t => {
-    const tileEl = makeTileEl(t, 'word', { nickMult: script?.nickAffected.get(t.id) ?? 0 });
     const bd = script?.perTile.get(t.id);
+    const shown = bd?.final ?? null;
+    const tileEl = makeTileEl(t, 'word', { pts: shown });
     if (bd) tileEl.title = tileTitle(t, bd);
+    nowPts.set(t.id, shown);
+
+    // A number that just changed announces itself
+    if (shown != null && _lastWordPts.get(t.id) !== shown) {
+      const ptsEl = tileEl.querySelector('.tile-pts');
+      ptsEl.classList.add('pts-pop');
+      ptsEl.style.animationDelay = `${(delayOf.get(t.id) ?? 0) / (settings.animSpeed || 1)}ms`;
+    }
     el.appendChild(tileEl);
   });
+  _lastWordPts = nowPts;
+
   updateReadoutPreview(script);
 }
 
@@ -650,7 +675,7 @@ function foundryShopHTML() {
         <button class="btn btn-quiet" id="btnReroll" ${state.coins < foundry.rerollCost ? 'disabled' : ''}>
           New offers ${coinHTML(foundry.rerollCost)}
         </button>
-        <button class="btn btn-quiet" id="btnOpenCase">Type case · smelt ${coinHTML(SMELT_COST)}</button>
+        <button class="btn btn-quiet" id="btnOpenCase">Collection · smelt ${coinHTML(SMELT_COST)}</button>
         <div class="foundry-spacer"></div>
         <button class="btn btn-print" id="btnFoundryContinue">Next page ❧</button>
       </div>
@@ -663,7 +688,7 @@ function foundryCaseHTML() {
     <div class="sheet sheet--foundry">
       <div class="sheet-head">
         <div>
-          <h2 class="foundry-title">Your type case</h2>
+          <h2 class="foundry-title">Your collection</h2>
           <p class="sheet-note">${state.collection.length} tiles. Smelting one costs ${SMELT_COST} Coins. Coins: <b id="foundryCoins">${state.coins}</b></p>
         </div>
       </div>

@@ -22,7 +22,7 @@ export const BAG_COUNTS = {
   QU:1, R:4, S:4, T:4, U:2, V:1, W:1, X:1, Y:1, Z:1,
 };
 
-// Multi-letter "ligature" tiles (cast as a single piece of type)
+// Multi-letter "ligature" tiles — one tile that spells several letters
 export const LIGATURES = ['ING', 'ED', 'TCH'];
 
 // ─── Colours (letter paint) ───────────────────────────────────────────────────

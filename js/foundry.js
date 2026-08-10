@@ -214,7 +214,7 @@ export function buyPaint(idx) {
 
 export function smeltTile(collectionIdx) {
   if (collectionIdx < 0 || collectionIdx >= state.collection.length) return { ok: false };
-  if (state.collection.length <= 12) return { ok: false, reason: 'Your type case is too small to smelt further.' };
+  if (state.collection.length <= 12) return { ok: false, reason: 'Your collection is too small to smelt further.' };
   if (state.coins < SMELT_COST)      return { ok: false, reason: `Smelting costs ${SMELT_COST} Coins.` };
   state.coins -= SMELT_COST;
   const [removed] = state.collection.splice(collectionIdx, 1);

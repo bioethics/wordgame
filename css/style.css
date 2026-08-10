@@ -1356,28 +1356,30 @@ header {
   overflow: auto;
 }
 
-/* ─── Nick-affected letters ───────────────────────────────────────────────────── */
-/* A letter standing in a nick's shadow says so: warm rim, and the exact
-   multiplier in the corner the trim badge used to occupy. */
-.tile--nicked {
-  box-shadow:
-    inset 0 0 0 2px rgba(217, 166, 75, 0.85),
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.7),
-    0 5px 0 -1px #b3955e,
-    0 0 14px rgba(217, 166, 75, 0.45),
-    0 9px 16px rgba(0, 0, 0, 0.5);
-}
-.tile-boost {
-  position: absolute;
-  left: 4px; bottom: 3px;
-  font-size: 10px;
+/* ─── Boosted values ──────────────────────────────────────────────────────────── */
+/* In the word groove, a tile's corner number is what it will actually pay.
+   When that beats the letter's face value (a nick's reach, a silver trim),
+   the number itself changes — larger, brass, glowing. */
+.tile-pts--boosted {
+  opacity: 1;
+  font-size: 13px;
   font-weight: 900;
-  line-height: 1;
   color: #8a5f1d;
-  text-shadow: 0 1px 0 rgba(255, 245, 215, 0.8);
-  font-variant-numeric: tabular-nums;
+  text-shadow: 0 1px 0 rgba(255, 245, 215, 0.9), 0 0 8px rgba(217, 166, 75, 0.7);
 }
-.tile--mini .tile-boost { font-size: 8px; left: 3px; bottom: 2px; }
+.tile--mini .tile-pts--boosted { font-size: 10px; }
+
+/* A number that just changed announces itself; renderWord staggers the
+   delays so the change ripples outward from the nick that caused it. */
+.pts-pop {
+  animation: ptsPop calc(0.5s / var(--aspd)) cubic-bezier(.3, 1.6, .5, 1) both;
+  transform-origin: bottom right;
+}
+@keyframes ptsPop {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(2.1); filter: brightness(1.5); }
+  100% { transform: scale(1); }
+}
 
 /* ─── Ledger ──────────────────────────────────────────────────────────────────── */
 .btn-icon--ledger { position: relative; font-size: 15px; }

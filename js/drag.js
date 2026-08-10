@@ -209,7 +209,7 @@ export function initInput() {
 export const initDrag = initInput;
 
 // ─── Inspecting things outside the board ───────────────────────────────────────
-// Shop offers, draft cards and the type case explain themselves on hover (mouse)
+// Shop offers, draft cards and the collection explain themselves on hover (mouse)
 // or long-press (touch) rather than carrying a summary line underneath. Anything
 // with a .tile inside, or with data-tip-head/body, is inspectable.
 
