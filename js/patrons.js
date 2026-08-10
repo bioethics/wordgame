@@ -1,7 +1,7 @@
 // Patrons of the print house. Each grants a standing boon.
 //
 // when: 'score' — effect(ctx) runs while a word is scored.
-//       'meta'  — handled explicitly elsewhere (page start, page reward, exchanges).
+//       'meta'  — handled explicitly elsewhere (page start, page reward, discards).
 //
 // Score ctx: { word, tiles, state, addPoints(n), addMult(n), xMult(n) }
 // The add/x helpers record an animation step automatically.
@@ -58,7 +58,7 @@ export const PATRON_DEFS = [
   },
   {
     id: 'quartermaster', name: 'The Quartermaster', emoji: '🎒', rarity: 'uncommon', cost: 5,
-    desc: 'Begin each page with an extra Exchange.',
+    desc: 'Begin each page with an extra Discard.',
     when: 'meta',
   },
   {
@@ -147,8 +147,8 @@ export const PATRON_DEFS = [
   },
   {
     id: 'scavenger', name: 'The Scavenger', emoji: '🦝', rarity: 'rare', cost: 9,
-    desc: 'Each Exchange grants your next word +12 Points.',
-    when: 'meta',   // accrues on exchange, consumed by scoring
+    desc: 'Each Discard grants your next word +12 Points.',
+    when: 'meta',   // accrues on discard, consumed by scoring
   },
   {
     id: 'mirror', name: 'The Mirror', emoji: '🪞', rarity: 'rare', cost: 12,

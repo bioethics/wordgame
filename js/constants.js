@@ -36,6 +36,9 @@ export const COLOURS = {
   amber:   { label: 'Amber',   glyph: '#a87010', bright: '#ffd68c' },
 };
 
+export const colourDesc = c =>
+  `Every ${COLOURS[c].label} letter in a word raises the ${COLOURS[c].label} multiplier by 1 — one gives ×2, two ×3, and so on. The word’s Mult is all five multipliers multiplied together, so spreading colours beats stacking one.`;
+
 export const PAINT_PRICE     = 3;   // one pot
 export const PAINT_PER_POT   = 3;   // letters painted per pot (random, unpainted)
 
@@ -50,10 +53,16 @@ export const MAX_FEATURES         = 4;
 // ─── Trims (the ring around a tile's edge) ────────────────────────────────────
 // Purple is trim-only: a fifth multiplier that stacks with the letter colours.
 export const TRIMS = {
-  gold:   { label: 'Gold',   desc: 'Pays 1 Coin when printed',            price: 2 },
-  silver: { label: 'Silver', desc: '+6 Points when printed',              price: 2 },
-  copper: { label: 'Copper', desc: 'Refreshes 1 Exchange when printed',   price: 3 },
-  purple: { label: 'Purple', desc: 'Its own ×multiplier — every purple trim in the word raises it by 0.5', price: 4 },
+  gold:    { label: 'Gold',    price: 2,
+             desc: 'Pays you 1 Coin every time it is printed.' },
+  silver:  { label: 'Silver',  price: 2,
+             desc: 'Worth +6 Points on top of the letter’s own value.' },
+  copper:  { label: 'Copper',  price: 3,
+             desc: 'Printing it gives back one spent Discard, up to the page’s limit.' },
+  mercury: { label: 'Mercury', price: 3,
+             desc: 'Slips back into the bag instead of the discard pile, so it can be drawn again this page.' },
+  purple:  { label: 'Purple',  price: 4,
+             desc: 'Feeds a fifth multiplier of its own. Each purple trim in the word raises it by 0.5 — ×1.5, ×2, ×2.5 and so on.' },
 };
 
 // A purple trim is worth half a step, where a painted letter is worth a whole
@@ -61,17 +70,21 @@ export const TRIMS = {
 // a tile that can also carry paint, and it's the multiplier patrons will add to.
 export const PURPLE_TRIM_STEP = 0.5;
 
-// ─── Nicks (grooves cut into a tile's edge) ───────────────────────────────────
+// ─── Nicks (a notch cut out of one edge of the tile) ──────────────────────────
+// Nicks do not stack: a letter is multiplied at most once however many nicks
+// point at it. Where two compete, the earlier tile in the word claims it.
+export const NICK_MULT = 3;
 export const NICKS = {
-  right: { symbol: '»',  label: 'Right nick', mult: 3, desc: '×3 Points to every tile on its right', price: 4 },
-  left:  { symbol: '«',  label: 'Left nick',  mult: 3, desc: '×3 Points to every tile on its left',  price: 4 },
-  side:  { symbol: '«»', label: 'Side nick',  mult: 5, desc: '×5 Points to the tiles directly beside it', price: 5 },
+  right: { label: 'Right nick', mult: NICK_MULT, price: 4,
+           desc: `Multiplies the Points of every letter to its right by ${NICK_MULT}. Nicks don’t stack — each letter is multiplied once at most.` },
+  left:  { label: 'Left nick',  mult: NICK_MULT, price: 4,
+           desc: `Multiplies the Points of every letter to its left by ${NICK_MULT}. Nicks don’t stack — each letter is multiplied once at most.` },
 };
 
 // ─── Run structure ────────────────────────────────────────────────────────────
 export const RACK_SIZE          = 10;
 export const WORDS_PER_PAGE     = 5;
-export const EXCHANGES_PER_PAGE = 2;
+export const DISCARDS_PER_PAGE  = 2;
 export const PATRON_SLOTS       = 5;
 export const PAGES_PER_CHAPTER  = 3;
 export const FINAL_CHAPTER      = 10;

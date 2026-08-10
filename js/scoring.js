@@ -8,8 +8,9 @@ import { state, owns, getActiveLetter, getActiveColour } from './state.js';
 //
 // {
 //   word, points, mult, total, coins, refresh,
-//   tileSteps:   [{ id, points, coins, refresh }]           — one per tile, in order
-//   nickSteps:   [{ sourceId, kind, hits: [{ id, delta }] }]
+//   tileSteps:   [{ id, points, coins, refresh, returns }]  — one per tile, in order
+//   nickSteps:   [{ sourceId, kind, mult, hits: [{ id, delta }] }]
+//   nickAffected: Map(id → mult)                             — for the live preview
 //   colourSteps: [{ colour, ids, count, mult }]              — incl. 'purple' (trim)
 //   patronSteps: [{ id, text, points?, mult?, xmult? }]
 //   perTile:     Map(id → { final, parts[] })                — for tooltips
@@ -44,28 +45,37 @@ export function computeScore(wordTiles) {
     if (t.trim === 'copper') { stepRefresh = 1; refresh += 1; }
 
     contrib[i] = points;
-    tileSteps.push({ id: t.id, points, coins: stepCoins, refresh: stepRefresh });
+    tileSteps.push({
+      id: t.id, points, coins: stepCoins, refresh: stepRefresh,
+      returns: t.trim === 'mercury',
+    });
   });
 
-  // ── Pass 2: nicks multiply their targets (stacking multiplicatively) ───────
+  // ── Pass 2: nicks multiply their targets ──────────────────────────────────
+  // Nicks don't stack. Each letter is multiplied at most once no matter how
+  // many nicks point at it; earlier tiles in the word claim their targets
+  // first, so a second nick covering the same ground simply does nothing.
   const nickSteps = [];
+  const nickAffected = new Map();
+  const claimed = new Set();
   wordTiles.forEach((t, i) => {
     if (!t.nick) return;
     const targets = [];
     if (t.nick === 'right') for (let j = i + 1; j < n; j++) targets.push(j);
     if (t.nick === 'left')  for (let j = 0; j < i; j++)     targets.push(j);
-    if (t.nick === 'side') {
-      if (i > 0)     targets.push(i - 1);
-      if (i < n - 1) targets.push(i + 1);
-    }
-    const m = NICKS[t.nick].mult;
-    const hits = targets.map(j => {
+
+    const m = NICKS[t.nick]?.mult ?? 1;
+    const hits = [];
+    for (const j of targets) {
+      if (claimed.has(j)) continue;
+      claimed.add(j);
       const delta = contrib[j] * (m - 1);
       contrib[j] *= m;
       noteMap[j].push(`×${m} nick`);
-      return { id: wordTiles[j].id, delta };
-    }).filter(h => h.delta > 0);
-    if (hits.length) nickSteps.push({ sourceId: t.id, kind: t.nick, hits });
+      nickAffected.set(wordTiles[j].id, m);
+      if (delta > 0) hits.push({ id: wordTiles[j].id, delta });
+    }
+    if (hits.length) nickSteps.push({ sourceId: t.id, kind: t.nick, mult: m, hits });
   });
 
   let points = contrib.reduce((a, b) => a + b, 0);
@@ -125,7 +135,7 @@ export function computeScore(wordTiles) {
 
   return {
     word, points, mult, total, coins, refresh,
-    tileSteps, nickSteps, colourSteps, patronSteps, perTile,
+    tileSteps, nickSteps, nickAffected, colourSteps, patronSteps, perTile,
   };
 }
 

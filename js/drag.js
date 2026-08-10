@@ -1,7 +1,7 @@
 // Unified pointer input for the rack and word groove — one code path for
 // mouse and touch alike:
 //
-//   tap        rack tile → play it into the word (or select it, in exchange mode)
+//   tap        rack tile → play it into the word (or select it, in discard mode)
 //              word tile → return it to the rack
 //   drag       move/reorder tiles between rack and word
 //   long-press inspect a tile (popover with its effects; flip button for duals)
@@ -13,8 +13,10 @@ import {
   reorderWord, reorderRack,
   toggleSelected, toggleDualVariant,
 } from './state.js';
-import { renderAll, showTilePopover, hidePopover } from './render.js';
+import { renderAll, showTilePopover, showPopover, hidePopover } from './render.js';
 import { computeScore } from './scoring.js';
+import { foundry } from './foundry.js';
+import { draft } from './draft.js';
 
 const DRAG_THRESHOLD = 8;     // px of travel before a press becomes a drag
 const LONG_PRESS_MS  = 450;
@@ -37,6 +39,9 @@ function insertIndex(container, clientX) {
 }
 
 const blocked = () => state.inFoundry || state.inDraft || state.isAnimating || state.gameOver;
+
+// Rack taps mean "select for discard" while discard mode is armed
+const selectingToDiscard = () => state.discardMode;
 
 // ─── Press / drag state ────────────────────────────────────────────────────────
 
@@ -121,8 +126,8 @@ function releasePress(commit) {
   if (commit && !wasDrag && !popped && !blocked()) {
     // A plain tap
     if (press.zone === 'rack') {
-      if (state.exchangeMode) toggleSelected(press.id);
-      else                    moveRackToWord(press.id);
+      if (selectingToDiscard()) toggleSelected(press.id);
+      else                      moveRackToWord(press.id);
     } else {
       moveWordToRack(press.id);
     }
@@ -202,3 +207,84 @@ export function initInput() {
 
 // Kept for compatibility with older callers
 export const initDrag = initInput;
+
+// ─── Inspecting things outside the board ───────────────────────────────────────
+// Shop offers, draft cards and the type case explain themselves on hover (mouse)
+// or long-press (touch) rather than carrying a summary line underneath. Anything
+// with a .tile inside, or with data-tip-head/body, is inspectable.
+
+const HOVER_DELAY = 260;
+let _hoverTimer = null, _holdTimer = null, _held = null;
+
+function tipTargetOf(el) {
+  return el.closest('[data-tip-head]') || el.closest('.offer-tile, [data-draft="tile"], [data-case-idx]');
+}
+
+function showTipFor(target) {
+  if (!target) return false;
+  const head = target.dataset.tipHead;
+  if (head) {
+    showPopover(target, `<div class="tip-head">${head}</div><div class="tip-feat">${target.dataset.tipBody ?? ''}</div>`);
+    return true;
+  }
+  const tileEl = target.matches('.tile') ? target : target.querySelector('.tile');
+  const tmpl = tileEl && templateFor(tileEl);
+  if (!tmpl) return false;
+  showTilePopover(tmpl, tileEl, null, { canFlip: false });
+  return true;
+}
+
+// Recover the template a preview tile was built from
+function templateFor(tileEl) {
+  const caseIdx = tileEl.closest('[data-case-idx]')?.dataset.caseIdx;
+  if (caseIdx != null) return state.collection[Number(caseIdx)];
+  const offer = tileEl.closest('[data-offer="tile"]')?.dataset.idx;
+  if (offer != null) return foundry.tileOffers[Number(offer)]?.template;
+  const drafted = tileEl.closest('[data-draft="tile"]')?.dataset.idx;
+  if (drafted != null) return draft.tiles[Number(drafted)];
+  return null;
+}
+
+export function initInspect() {
+  const roots = ['foundryModal', 'draftModal', 'inspectorModal']
+    .map(id => document.getElementById(id)).filter(Boolean);
+
+  for (const root of roots) {
+    root.addEventListener('pointerover', e => {
+      if (e.pointerType === 'touch') return;          // touch uses long-press
+      const target = tipTargetOf(e.target);
+      clearTimeout(_hoverTimer);
+      if (!target) { hidePopover(); return; }
+      _hoverTimer = setTimeout(() => showTipFor(target), HOVER_DELAY);
+    });
+    root.addEventListener('pointerout', e => {
+      if (e.pointerType === 'touch') return;
+      if (!tipTargetOf(e.relatedTarget ?? document.body)) { clearTimeout(_hoverTimer); hidePopover(); }
+    });
+
+    root.addEventListener('pointerdown', e => {
+      if (e.pointerType !== 'touch') return;
+      const target = tipTargetOf(e.target);
+      if (!target) return;
+      _held = null;
+      _holdTimer = setTimeout(() => {
+        if (showTipFor(target)) {
+          _held = target;                              // swallow the click that follows
+          if (navigator.vibrate) navigator.vibrate(12);
+        }
+      }, LONG_PRESS_MS);
+    });
+    root.addEventListener('pointerup',     () => clearTimeout(_holdTimer));
+    root.addEventListener('pointercancel', () => { clearTimeout(_holdTimer); _held = null; });
+    root.addEventListener('pointermove',   () => clearTimeout(_holdTimer));
+
+    // A long-press that opened a popover must not also count as a pick/buy
+    root.addEventListener('click', e => {
+      if (_held && (_held === e.target || _held.contains(e.target))) {
+        e.stopPropagation();
+        e.preventDefault();
+        _held = null;
+      }
+    }, true);
+  }
+}

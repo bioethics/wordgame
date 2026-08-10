@@ -588,9 +588,15 @@ header {
 .tray-slats { fill: none; stroke: #241708; stroke-width: 1.6; opacity: 0.6; }
 .pouch--empty .pouch-svg { opacity: 0.55; filter: grayscale(0.4); }
 
+.pouch-icon {
+  position: relative;
+  display: inline-flex;
+  line-height: 0;
+}
+
 .pouch-count {
   position: absolute;
-  top: -2px; right: -2px;
+  top: -3px; right: -8px;
   min-width: 23px;
   padding: 2px 5px;
   border-radius: 999px;
@@ -598,9 +604,11 @@ header {
   color: #3a2606;
   font-weight: 800;
   font-size: 12px;
+  line-height: 1.25;          /* .pouch-icon zeroes it for the SVG — restore it here */
   border: 1.5px solid rgba(58, 38, 6, 0.5);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
   font-variant-numeric: tabular-nums;
+  z-index: 2;
 }
 .pouch-label {
   font-size: 9.5px;
@@ -935,7 +943,7 @@ header {
 
 .btn-quiet { background: linear-gradient(180deg, rgba(60, 40, 55, 0.7), rgba(40, 25, 38, 0.7)); }
 
-.btn-exchange {
+.btn-discard {
   background: linear-gradient(180deg, #2c4a78, #1d3354);
   border-color: rgba(141, 184, 255, 0.35);
   color: #d6e6ff;
@@ -1007,6 +1015,7 @@ header {
 .fl-aura   { color: var(--brass-hi); }
 .fl-coin    { color: var(--brass-hi); font-size: 18px; }
 .fl-refresh { color: #f0a86e; font-size: 17px; }
+.fl-return  { color: #b9e3ff; font-size: 17px; }
 .fl-set   { font-size: 19px; }
 .fl-set--crimson { color: #ff9d8e; }
 .fl-set--azure   { color: #8ec6ff; }
@@ -1255,25 +1264,28 @@ header {
   gap: 11px;
 }
 .offer-tile {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 7px;
+  gap: 9px;
   padding: 13px 10px 12px;
   border-radius: 11px;
   background: rgba(255, 250, 235, 0.55);
   border: 1px solid rgba(138, 95, 29, 0.4);
   box-shadow: 0 2px 7px rgba(100, 70, 20, 0.15);
 }
-.offer-tile .tile { cursor: default; }
-.offer-tile-traits {
-  font-size: 10.5px;
-  font-weight: 600;
-  text-align: center;
-  color: #5c4a2e;
-  min-height: 26px;
-  line-height: 1.3;
-  max-width: 150px;
+.offer-tile .tile { cursor: help; }
+
+/* Sold state is a class toggle, so buying never rebuilds the sheet. The label
+   is given the price button's exact metrics so swapping them shifts nothing. */
+.offer-patron .op-sold, .offer-tile .op-sold, .offer-paint .op-sold { display: none; }
+.offer--sold .op-sold { display: inline-flex; }
+.offer--sold .btn-price { display: none; }
+.btn-price, .offer--sold .op-sold {
+  min-height: 34px;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Paint pot offers */
@@ -1342,6 +1354,86 @@ header {
   border: 1px dashed rgba(120, 90, 40, 0.35);
   max-height: 46vh;
   overflow: auto;
+}
+
+/* ─── Nick-affected letters ───────────────────────────────────────────────────── */
+/* A letter standing in a nick's shadow says so: warm rim, and the exact
+   multiplier in the corner the trim badge used to occupy. */
+.tile--nicked {
+  box-shadow:
+    inset 0 0 0 2px rgba(217, 166, 75, 0.85),
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.7),
+    0 5px 0 -1px #b3955e,
+    0 0 14px rgba(217, 166, 75, 0.45),
+    0 9px 16px rgba(0, 0, 0, 0.5);
+}
+.tile-boost {
+  position: absolute;
+  left: 4px; bottom: 3px;
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 1;
+  color: #8a5f1d;
+  text-shadow: 0 1px 0 rgba(255, 245, 215, 0.8);
+  font-variant-numeric: tabular-nums;
+}
+.tile--mini .tile-boost { font-size: 8px; left: 3px; bottom: 2px; }
+
+/* ─── Ledger ──────────────────────────────────────────────────────────────────── */
+.btn-icon--ledger { position: relative; font-size: 15px; }
+.icon-count {
+  position: absolute;
+  bottom: -3px; right: -4px;
+  min-width: 17px;
+  padding: 1px 4px;
+  border-radius: 999px;
+  background: var(--brass);
+  color: #3a2606;
+  font-size: 9.5px;
+  font-weight: 800;
+  line-height: 1.3;
+  border: 1.5px solid rgba(58, 38, 6, 0.5);
+  font-variant-numeric: tabular-nums;
+}
+
+.sheet--ledger { width: min(560px, 94vw); }
+.ledger-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+  max-height: 62vh;
+  overflow: auto;
+}
+.ledger-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: baseline;
+  gap: 12px;
+  padding: 7px 11px;
+  border-radius: 8px;
+  background: rgba(120, 90, 40, 0.09);
+  border: 1px solid rgba(138, 95, 29, 0.22);
+}
+.ledger-row--best {
+  background: rgba(217, 166, 75, 0.2);
+  border-color: rgba(138, 95, 29, 0.55);
+}
+.ledger-word {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+.ledger-where { font-size: 10.5px; color: var(--parch-dim); }
+.ledger-score {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: 15px;
+  min-width: 58px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
 }
 
 /* ─── Opening draft ───────────────────────────────────────────────────────────── */
@@ -1552,7 +1644,7 @@ input[type='checkbox'] {
 }
 
 /* ─── Exchange mode ───────────────────────────────────────────────────────────── */
-.rack--exchange {
+.rack--discard {
   outline: 2.5px dashed var(--warn);
   outline-offset: 3px;
   box-shadow:
@@ -1562,7 +1654,7 @@ input[type='checkbox'] {
     0 10px 26px rgba(0, 0, 0, 0.45);
 }
 
-.btn-exchange--armed {
+.btn-discard--armed {
   filter: brightness(1.25);
   box-shadow: 0 3px 0 #101e33, 0 0 0 2.5px var(--warn), 0 0 18px rgba(255, 193, 105, 0.45);
 }
@@ -1588,13 +1680,39 @@ input[type='checkbox'] {
   from { transform: translateY(4px) scale(0.97); opacity: 0; }
   to   { transform: none; opacity: 1; }
 }
+.tip-pop { max-width: 300px; }
 .tip-head {
   font-family: var(--serif);
   font-weight: 700;
-  font-size: 14.5px;
-  margin-bottom: 3px;
+  font-size: 15px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.tip-pts {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--parch-dim);
 }
 .tip-line { color: #5c4a2e; margin-top: 3px; }
+.tip-feat {
+  margin-top: 7px;
+  padding-top: 7px;
+  border-top: 1px dashed rgba(120, 90, 40, 0.3);
+  color: #5c4a2e;
+}
+.tip-feat b {
+  display: block;
+  color: var(--parch-ink);
+  font-family: var(--serif);
+  font-size: 13px;
+  margin-bottom: 1px;
+}
+.tip-calc { margin-top: 7px; font-weight: 600; }
 .tip-btn {
   margin-top: 9px;
   width: 100%;
@@ -1713,6 +1831,14 @@ input[type='checkbox'] {
   .offer-tiles--draft { grid-template-columns: repeat(2, 1fr); }
   .draft-paints { grid-template-columns: 1fr; }
   .sheet--draft .foundry-sec { margin-top: 14px; }
+
+  /* the shop head is a title beside a reward tally — too wide for a phone */
+  .sheet-head { flex-direction: column; align-items: stretch; gap: 8px; }
+  .reward-line { justify-content: flex-start; max-width: none; }
+  .sheet--foundry .sheet-head .x, .sheet--inspector .sheet-head .x { align-self: flex-end; margin-top: -28px; }
+  .ledger-row { grid-template-columns: 1fr auto; row-gap: 2px; }
+  .ledger-where { grid-column: 1; }
+  .ledger-score { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
 }
 
 @media (prefers-reduced-motion: reduce) {

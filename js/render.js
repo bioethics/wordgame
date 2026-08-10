@@ -2,7 +2,7 @@ import { state, settings, saveState, getActiveLetter, getActiveColour, selectedC
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES,
   PATRON_SLOTS, WORDS_PER_PAGE, PAGES_PER_CHAPTER,
-  SMELT_COST, PAINT_PER_POT, chapterTitle, roman, isDeadline,
+  SMELT_COST, PAINT_PER_POT, colourDesc, chapterTitle, roman, isDeadline,
 } from './constants.js';
 import { patronById } from './patrons.js';
 import { computeScore } from './scoring.js';
@@ -16,7 +16,7 @@ export const coinHTML = n => `<span class="coin"></span>${n}`;
 
 // ─── Tile element factory ──────────────────────────────────────────────────────
 
-export function makeTileEl(tile, zone, { mini = false } = {}) {
+export function makeTileEl(tile, zone, { mini = false, nickMult = 0 } = {}) {
   const div = document.createElement('div');
   div.className = mini ? 'tile tile--mini' : 'tile';
   div.setAttribute('role', 'listitem');
@@ -57,33 +57,52 @@ export function makeTileEl(tile, zone, { mini = false } = {}) {
 
   // Nicks are notches bitten out of the tile's edge (the mask does the cutting;
   // these elements only paint the shaded lip around each notch).
-  if (tile.nick === 'right' || tile.nick === 'side') {
+  if (tile.nick) {
     const a = document.createElement('span');
-    a.className = 'tile-nick tile-nick--r';
+    a.className = `tile-nick tile-nick--${tile.nick === 'right' ? 'r' : 'l'}`;
     div.appendChild(a);
   }
-  if (tile.nick === 'left' || tile.nick === 'side') {
-    const a = document.createElement('span');
-    a.className = 'tile-nick tile-nick--l';
-    div.appendChild(a);
+
+  // Caught in a nick's shadow: say so, and by how much
+  if (nickMult > 1) {
+    div.classList.add('tile--nicked');
+    const badge = document.createElement('span');
+    badge.className = 'tile-boost';
+    badge.textContent = `×${nickMult}`;
+    div.appendChild(badge);
   }
 
   div.title = tileTitleLines(tile).join('\n');
   return div;
 }
 
-export function tileTitleLines(tile, breakdown = null) {
-  const active = getActiveLetter(tile);
-  const paint  = getActiveColour(tile);
-  const lines = [`${active} — ${TILE_POINTS[active] ?? 1} Points`];
-  if (paint)     lines.push(`Painted ${COLOURS[paint].label} — raises the ${COLOURS[paint].label} multiplier by 1`);
-  if (tile.trim) lines.push(`${TRIMS[tile.trim].label} trim: ${TRIMS[tile.trim].desc}`);
-  if (tile.nick) lines.push(`${NICKS[tile.nick].label}: ${NICKS[tile.nick].desc}`);
+// Every feature a tile carries, spelled out in full. These lines are the tile's
+// only explanation now — nothing is summarised under shop cards any more — so
+// they say what a thing does rather than naming it.
+export function tileFeatures(tile) {
+  const paint = getActiveColour(tile);
+  const out = [];
+  if (paint) out.push({ head: `${COLOURS[paint].label} paint`, body: colourDesc(paint) });
+  if (tile.trim) out.push({ head: `${TRIMS[tile.trim].label} trim`, body: TRIMS[tile.trim].desc });
+  if (tile.nick) out.push({ head: NICKS[tile.nick]?.label ?? 'Nick', body: NICKS[tile.nick]?.desc ?? '' });
   if (tile.letterType === 'dual') {
     const otherLetter = tile.activeVariant === 1 ? tile.letter : tile.altLetter;
     const otherPaint  = tile.activeVariant === 1 ? tile.colour : tile.altColour;
-    lines.push(`Dual — flips to ${otherLetter}${otherPaint ? ` (${COLOURS[otherPaint].label})` : ''}`);
+    out.push({
+      head: `Dual letter`,
+      body: `Holds ${tile.letter} and ${tile.altLetter} on one piece of type — flip it to play ${otherLetter} instead${otherPaint ? `, which is painted ${COLOURS[otherPaint].label}` : ''}. Each face is painted separately.`,
+    });
   }
+  if (LIGATURES.includes(tile.letter)) {
+    out.push({ head: 'Ligature', body: `${tile.letter} is cast as a single piece of type, so it fills one slot in the word but spells all ${tile.letter.length} letters.` });
+  }
+  return out;
+}
+
+export function tileTitleLines(tile, breakdown = null) {
+  const active = getActiveLetter(tile);
+  const lines = [`${active} — ${TILE_POINTS[active] ?? 1} Points`];
+  for (const f of tileFeatures(tile)) lines.push(`${f.head}: ${f.body}`);
   if (breakdown) lines.push(`This word: ${breakdown.parts.join(', ')} → ${breakdown.final} Points`);
   return lines;
 }
@@ -109,14 +128,18 @@ export function showPopover(anchorEl, html) {
   pop.style.top  = `${top}px`;
 }
 
-export function showTilePopover(tile, anchorEl, breakdown = null) {
-  const [head, ...rest] = tileTitleLines(tile, breakdown);
-  const flip = tile.letterType === 'dual'
+export function showTilePopover(tile, anchorEl, breakdown = null, { canFlip = true } = {}) {
+  const active = getActiveLetter(tile);
+  const feats = tileFeatures(tile);
+  const flip = canFlip && tile.letterType === 'dual' && tile.id
     ? `<button class="btn btn-quiet tip-btn" data-flip="${tile.id}">Flip to ${tile.activeVariant === 1 ? tile.letter : tile.altLetter}</button>`
     : '';
   showPopover(anchorEl, `
-    <div class="tip-head">${head}</div>
-    ${rest.map(l => `<div class="tip-line">${l}</div>`).join('')}
+    <div class="tip-head">${active} <span class="tip-pts">${TILE_POINTS[active] ?? 1} Points</span></div>
+    ${feats.length
+      ? feats.map(f => `<div class="tip-feat"><b>${f.head}</b>${f.body}</div>`).join('')
+      : '<div class="tip-line">A plain piece of type.</div>'}
+    ${breakdown ? `<div class="tip-line tip-calc">In this word: ${breakdown.parts.join(' · ')} → <b>${breakdown.final} Points</b></div>` : ''}
     ${flip}`);
 }
 
@@ -205,11 +228,12 @@ function renderStatus() {
   $('quotaCard')?.classList.toggle('quota-card--deadline', deadline);
 
   renderPips('wordPips', WORDS_PER_PAGE, state.wordsLeft, 'pip--word');
-  const exMax = Math.max(state.exchangesMax ?? 2, state.exchanges);
-  renderPips('exchangePips', exMax, state.exchanges, 'pip--swap');
+  const dMax = Math.max(state.discardsMax ?? 2, state.discards);
+  renderPips('discardPips', dMax, state.discards, 'pip--swap');
 
   const coinsEl = $('coinCount');
   if (coinsEl) setNum(coinsEl, state.coins);
+  setText('ledgerCount', state.ledger?.length ?? 0);
 }
 
 function renderPips(id, total, filled, cls, maxShown = total) {
@@ -231,7 +255,7 @@ export function renderRack(ghostIds = null) {
   const el = $('rack');
   if (!el) return;
   el.innerHTML = '';
-  el.classList.toggle('rack--exchange', state.exchangeMode);
+  el.classList.toggle('rack--discard', state.discardMode);
   state.rack.forEach(t => {
     const tileEl = makeTileEl(t, 'rack');
     if (ghostIds?.has(t.id)) tileEl.classList.add('tile--ghost');
@@ -247,7 +271,7 @@ export function renderWord() {
 
   const script = computeScore(state.word);
   state.word.forEach(t => {
-    const tileEl = makeTileEl(t, 'word');
+    const tileEl = makeTileEl(t, 'word', { nickMult: script?.nickAffected.get(t.id) ?? 0 });
     const bd = script?.perTile.get(t.id);
     if (bd) tileEl.title = tileTitle(t, bd);
     el.appendChild(tileEl);
@@ -257,7 +281,7 @@ export function renderWord() {
 
 export function renderCounts() {
   setText('bagCount', state.bag.length);
-  setText('trayCount', state.tray.length);
+  setText('discardCount', state.discardPile.length);
   $('bagBtn')?.classList.toggle('pouch--empty', state.bag.length === 0);
 }
 
@@ -304,19 +328,19 @@ export function renderButtons() {
   const sel = selectedCount();
 
   setDisabled('btnPrint',    !state.word.length || blocked);
-  setDisabled('btnClear',    (!state.word.length && !state.exchangeMode) || blocked);
+  setDisabled('btnClear',    (!state.word.length && !state.discardMode) || blocked);
   setDisabled('btnShuffle',  state.rack.length < 2 || blocked);
-  setDisabled('btnExchange', (!state.exchangeMode && state.exchanges <= 0) || blocked);
+  setDisabled('btnDiscard',  (!state.discardMode && state.discards <= 0) || blocked);
 
-  const ex = $('btnExchange');
-  if (ex) {
-    ex.classList.toggle('btn-exchange--armed', state.exchangeMode);
-    ex.querySelector('.btn-label').textContent =
-      !state.exchangeMode ? 'Exchange'
-      : sel > 0           ? `Swap ${sel}`
-      :                     'Cancel';
-    ex.querySelector('kbd').textContent =
-      state.exchangeMode ? 'tap tiles, then confirm' : 'swap tiles for new';
+  const d = $('btnDiscard');
+  if (d) {
+    d.classList.toggle('btn-discard--armed', state.discardMode);
+    d.querySelector('.btn-label').textContent =
+      !state.discardMode ? 'Discard'
+      : sel > 0          ? `Discard ${sel}`
+      :                    'Cancel';
+    d.querySelector('kbd').textContent =
+      state.discardMode ? 'tap tiles, then confirm' : 'swap tiles for new';
   }
 }
 
@@ -412,9 +436,9 @@ export function showVictory() {
 export function openInspector(kind) {
   const m = $('inspectorModal');
   if (!m) return;
-  const items = kind === 'bag' ? state.bag : state.tray;
+  const items = kind === 'bag' ? state.bag : state.discardPile;
   const title = kind === 'bag' ? `In the bag — ${items.length} tile${items.length === 1 ? '' : 's'}`
-                               : `Spent tray — ${items.length} tile${items.length === 1 ? '' : 's'}`;
+                               : `Discard pile — ${items.length} tile${items.length === 1 ? '' : 's'}`;
   const sorted = [...items].sort((a, b) => a.letter.localeCompare(b.letter));
   m.innerHTML = `
     <div class="sheet sheet--inspector">
@@ -424,7 +448,7 @@ export function openInspector(kind) {
       </div>
       <p class="sheet-note">${kind === 'bag'
         ? 'Waiting to be drawn. The whole collection returns to the bag each page.'
-        : 'Printed or exchanged this page.'}</p>
+        : 'Printed or discarded this page.'}</p>
       <div class="mini-grid" id="inspectorGrid"></div>
     </div>`;
   const grid = m.querySelector('#inspectorGrid');
@@ -433,30 +457,127 @@ export function openInspector(kind) {
   m.classList.add('show');
 }
 
+// ─── Ledger (every word printed this run) ─────────────────────────────────────
+
+export function openLedger() {
+  const m = $('ledgerModal');
+  if (!m) return;
+  const rows = [...(state.ledger ?? [])].reverse();
+  const best = state.stats.bestScore;
+
+  const body = rows.length
+    ? `<ol class="ledger-list">${rows.map(r => `
+        <li class="ledger-row${r.score === best ? ' ledger-row--best' : ''}">
+          <span class="ledger-word">${r.word}</span>
+          <span class="ledger-where">ch ${roman(r.chapter)} · p${r.page}</span>
+          <span class="ledger-score">${r.score.toLocaleString()}</span>
+        </li>`).join('')}</ol>`
+    : '<p class="sheet-note">Nothing printed yet.</p>';
+
+  m.innerHTML = `
+    <div class="sheet sheet--ledger">
+      <div class="sheet-head">
+        <div>
+          <h2>The ledger</h2>
+          <p class="sheet-note">${rows.length} word${rows.length === 1 ? '' : 's'} printed · ${state.totalScore.toLocaleString()} total${best ? ` · best ${state.stats.bestWord} at ${best.toLocaleString()}` : ''}</p>
+        </div>
+        <button class="x" data-close-ledger>✕</button>
+      </div>
+      ${body}
+    </div>`;
+  m.classList.add('show');
+}
+
+export function closeLedger() {
+  $('ledgerModal')?.classList.remove('show');
+}
+
 export function closeInspector() {
   $('inspectorModal')?.classList.remove('show');
 }
 
 // ─── Shop ──────────────────────────────────────────────────────────────────
 
+// Full build. Only for opening the shop, switching view, or rerolling —
+// buying patches in place (see updateFoundryState) so a purchase never throws
+// away your scroll position.
 export function renderFoundry() {
   const m = $('foundryModal');
   if (!m) return;
-  if (!foundry.open) { m.classList.remove('show'); return; }
+  if (!foundry.open) { m.classList.remove('show'); m.innerHTML = ''; return; }
 
   m.innerHTML = foundry.view === 'case' ? foundryCaseHTML() : foundryShopHTML();
   m.classList.add('show');
 
-  if (foundry.view === 'case') {
-    const grid = m.querySelector('#caseGrid');
-    state.collection.forEach((tmpl, i) => {
-      const el = makeTileEl({ ...tmpl, id: '' }, 'case', { mini: true });
-      el.dataset.caseIdx = i;
-      if (i === foundry.smeltSel) el.classList.add('tile--smelt-sel');
-      grid.appendChild(el);
+  if (foundry.view === 'case') renderCaseGrid();
+  else {
+    foundry.tileOffers.forEach((o, i) => {
+      const slot = m.querySelector(`[data-offer-tile="${i}"]`);
+      if (slot && !slot.children.length) slot.appendChild(makeTileEl({ ...o.template, id: '' }, 'offer'));
     });
+    updateFoundryState();
   }
 }
+
+function renderCaseGrid() {
+  const grid = $('caseGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  state.collection.forEach((tmpl, i) => {
+    const el = makeTileEl({ ...tmpl, id: '' }, 'case', { mini: true });
+    el.dataset.caseIdx = i;
+    if (i === foundry.smeltSel) el.classList.add('tile--smelt-sel');
+    grid.appendChild(el);
+  });
+}
+
+// Sold state, prices you can and can't afford, the coin count — all patched
+// without rebuilding the sheet.
+export function updateFoundryState() {
+  const m = $('foundryModal');
+  if (!m || !foundry.open) return;
+
+  setText('foundryCoins', state.coins);
+
+  const seatsFull = state.patrons.length >= PATRON_SLOTS;
+  for (const card of m.querySelectorAll('[data-offer]')) {
+    const kind = card.dataset.offer;
+    const idx  = Number(card.dataset.idx);
+    const offer = kind === 'patron' ? foundry.patronOffers[idx]
+                : kind === 'tile'   ? foundry.tileOffers[idx]
+                :                     foundry.paintOffers[idx];
+    if (!offer) continue;
+    const cost = kind === 'patron' ? patronById(offer.id).cost : offer.price;
+    const afford = state.coins >= cost && (kind !== 'patron' || !seatsFull);
+    card.classList.toggle('offer--sold', !!offer.sold);
+    const btn = card.querySelector('.btn-price');
+    if (btn) btn.disabled = offer.sold || !afford;
+  }
+
+  const seats = m.querySelector('[data-seats]');
+  if (seats) seats.textContent = `${state.patrons.length}/${PATRON_SLOTS} seated${seatsFull ? ' — table full' : ''}`;
+
+  const reroll = m.querySelector('#btnReroll');
+  if (reroll) reroll.disabled = state.coins < foundry.rerollCost;
+}
+
+// The case view's selection, patched in place
+export function updateCaseSelection() {
+  const m = $('foundryModal');
+  if (!m) return;
+  for (const el of m.querySelectorAll('[data-case-idx]')) {
+    el.classList.toggle('tile--smelt-sel', Number(el.dataset.caseIdx) === foundry.smeltSel);
+  }
+  const sel = foundry.smeltSel >= 0 ? state.collection[foundry.smeltSel] : null;
+  const btn = m.querySelector('#btnSmeltConfirm');
+  if (btn) {
+    btn.disabled = !sel;
+    btn.textContent = sel
+      ? `Smelt “${sel.letter}${sel.letterType === 'dual' ? '/' + sel.altLetter : ''}” for ${SMELT_COST} Coins`
+      : 'Select a tile to smelt';
+  }
+}
+export { renderCaseGrid };
 
 function rewardHTML() {
   if (!foundry.rewardParts?.length) return '';
@@ -466,55 +587,39 @@ function rewardHTML() {
 }
 
 function foundryShopHTML() {
-  const patronCards = foundry.patronOffers.map(o => {
+  const patronCards = foundry.patronOffers.map((o, i) => {
     const def = patronById(o.id);
-    const afford = state.coins >= def.cost && state.patrons.length < PATRON_SLOTS;
     return `
-      <div class="offer-patron offer-patron--${def.rarity} ${o.sold ? 'offer--sold' : ''}">
+      <div class="offer-patron offer-patron--${def.rarity}" data-offer="patron" data-idx="${i}">
         <span class="op-emoji">${def.emoji}</span>
         <div class="op-body">
           <div class="op-name">${def.name} <span class="op-rarity">${def.rarity}</span></div>
           <div class="op-desc">${def.desc}</div>
         </div>
-        ${o.sold
-          ? '<span class="op-sold">seated</span>'
-          : `<button class="btn-price" data-buy-patron="${def.id}" ${afford ? '' : 'disabled'}>${coinHTML(def.cost)}</button>`}
+        <span class="op-sold">seated</span>
+        <button class="btn-price" data-buy-patron="${def.id}">${coinHTML(def.cost)}</button>
       </div>`;
   }).join('') || '<p class="sheet-note">No patrons calling today.</p>';
 
-  const tileCards = foundry.tileOffers.map((o, i) => {
-    const afford = state.coins >= o.price;
-    return `
-      <div class="offer-tile ${o.sold ? 'offer--sold' : ''}">
+  // Nothing is summarised under the tile any more — hover or long-press it.
+  const tileCards = foundry.tileOffers.map((o, i) => `
+      <div class="offer-tile" data-offer="tile" data-idx="${i}">
         <div class="offer-tile-slot" data-offer-tile="${i}"></div>
-        <div class="offer-tile-traits">${tileTraits(o.template)}</div>
-        ${o.sold
-          ? '<span class="op-sold">bought</span>'
-          : `<button class="btn-price" data-buy-tile="${i}" ${afford ? '' : 'disabled'}>${coinHTML(o.price)}</button>`}
-      </div>`;
-  }).join('');
+        <span class="op-sold">bought</span>
+        <button class="btn-price" data-buy-tile="${i}">${coinHTML(o.price)}</button>
+      </div>`).join('');
 
-  const paintCards = foundry.paintOffers.map((o, i) => {
-    const afford = state.coins >= o.price;
-    return `
-      <div class="offer-paint offer-paint--${o.colour} ${o.sold ? 'offer--sold' : ''}">
+  const paintCards = foundry.paintOffers.map((o, i) => `
+      <div class="offer-paint offer-paint--${o.colour}" data-offer="paint" data-idx="${i}"
+           data-tip-head="${COLOURS[o.colour].label} paint"
+           data-tip-body="${colourDesc(o.colour)} A pot paints ${PAINT_PER_POT} random unpainted letters in your collection.">
         <span class="paint-pot paint-pot--${o.colour}"></span>
         <div class="op-body">
           <div class="op-name">${COLOURS[o.colour].label} paint</div>
-          <div class="op-desc">Paints ${PAINT_PER_POT} random unpainted letters</div>
         </div>
-        ${o.sold
-          ? '<span class="op-sold">used</span>'
-          : `<button class="btn-price" data-buy-paint="${i}" ${afford ? '' : 'disabled'}>${coinHTML(o.price)}</button>`}
-      </div>`;
-  }).join('');
-
-  setTimeout(() => {  // mount tile previews after innerHTML
-    foundry.tileOffers.forEach((o, i) => {
-      const slot = document.querySelector(`[data-offer-tile="${i}"]`);
-      if (slot && !slot.children.length) slot.appendChild(makeTileEl({ ...o.template, id: '' }, 'offer'));
-    });
-  }, 0);
+        <span class="op-sold">used</span>
+        <button class="btn-price" data-buy-paint="${i}">${coinHTML(o.price)}</button>
+      </div>`).join('');
 
   const fullSeats = state.patrons.length >= PATRON_SLOTS;
 
@@ -530,7 +635,7 @@ function foundryShopHTML() {
 
       <div class="foundry-grid">
         <section class="foundry-col">
-          <h3 class="foundry-sec">Patrons <span class="foundry-sub">${state.patrons.length}/${PATRON_SLOTS} seated${fullSeats ? ' — table full' : ''}</span></h3>
+          <h3 class="foundry-sec">Patrons <span class="foundry-sub" data-seats>${state.patrons.length}/${PATRON_SLOTS} seated${fullSeats ? ' — table full' : ''}</span></h3>
           <div class="offer-list">${patronCards}</div>
         </section>
         <section class="foundry-col">
@@ -575,22 +680,6 @@ function foundryCaseHTML() {
 
 // ─── Opening draft ────────────────────────────────────────────────────────────
 
-const TRIM_SHORT = { gold: 'Gold · 1 Coin', silver: 'Silver · +6 Points', copper: 'Copper · +1 Exchange', purple: 'Purple · ×1.5' };
-const NICK_SHORT = { right: 'Nick » ×3 right', left: 'Nick « ×3 left', side: 'Nick «» ×5 both sides' };
-
-export function tileTraits(t) {
-  return [
-    t.colour ? `${COLOURS[t.colour].label} paint` : '',
-    t.trim ? TRIM_SHORT[t.trim] : '',
-    t.nick ? NICK_SHORT[t.nick] : '',
-    t.letterType === 'dual' ? `Dual ${t.letter}/${t.altLetter}` : '',
-    LIGATURES.includes(t.letter) ? 'Ligature' : '',
-  ].filter(Boolean).join(' · ') || 'Plain';
-}
-
-// Built once when the draft opens. Selection afterwards only patches classes
-// and labels (see updateDraftSelection) — rebuilding the markup on every tap
-// destroyed scroll position and made picking on a phone miserable.
 export function renderDraft() {
   const m = $('draftModal');
   if (!m) return;
@@ -610,11 +699,12 @@ export function renderDraft() {
   }).join('');
 
   const paintCards = draft.paints.map((colour, i) => `
-    <div class="offer-paint pickable" data-draft="paint" data-idx="${i}">
+    <div class="offer-paint pickable" data-draft="paint" data-idx="${i}"
+         data-tip-head="${COLOURS[colour].label} paint"
+         data-tip-body="${colourDesc(colour)} A pot paints ${PAINT_PER_POT} random unpainted letters in your collection.">
       <span class="paint-pot paint-pot--${colour}"></span>
       <div class="op-body">
         <div class="op-name">${COLOURS[colour].label}</div>
-        <div class="op-desc">Paints ${PAINT_PER_POT} letters</div>
       </div>
       <span class="pick-mark">✓</span>
     </div>`).join('');
@@ -622,7 +712,6 @@ export function renderDraft() {
   const tileCards = draft.tiles.map((t, i) => `
     <div class="offer-tile pickable" data-draft="tile" data-idx="${i}">
       <div class="offer-tile-slot" data-draft-tile="${i}"></div>
-      <div class="offer-tile-traits">${tileTraits(t)}</div>
       <span class="pick-mark">✓</span>
     </div>`).join('');
 

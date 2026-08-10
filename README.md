@@ -46,8 +46,9 @@ score = Points × Mult
   colours is ×2×2 = ×4, where two of the same colour is only ×3.
 
 The readout shows a live projection — including a chip per colour — and
-hovering (or long-pressing) a tile shows exactly what it contributes. On
-print, the score replays tile by tile: Points land, nicks fire, each colour's
+hovering or long-pressing any tile, on the board or in the shop or the draft,
+spells out everything it does. Nothing is summarised beneath shop cards; the
+tile itself is the documentation. On print, the score replays tile by tile: Points land, nicks fire, each colour's
 multiplier lights up, then the patrons weigh in.
 
 ## The pieces
@@ -58,13 +59,12 @@ optional **trim** and **nick**.
 | Layer | Options |
 | --- | --- |
 | Paint | crimson / azure / jade / amber — each raises its colour's multiplier by 1 |
-| Trim | **Gold** pays 1 Coin · **Silver** +6 Points · **Copper** refreshes 1 Exchange · **Purple** raises the fifth multiplier by 0.5 |
-| Nick | A notch cut into the tile's edge; the notched side is the direction. **Right** ×3 Points to everything on its right · **Left** ×3 to its left · **Side** (both edges notched) ×5 to both neighbours |
+| Trim | **Gold** pays 1 Coin · **Silver** +6 Points · **Copper** refreshes 1 Discard · **Mercury** slips back into the bag instead of the discard pile · **Purple** raises the fifth multiplier by 0.5 |
+| Nick | A notch cut into one edge; the notched side is the direction. **Right** ×3 Points to everything on its right · **Left** ×3 to its left. Nicks don't stack — a letter is multiplied once at most, and letters caught by one are badged ×3 while you compose. |
 | Letterform | Dual tiles hold two letters (flip to switch; each face painted independently) · Ligatures ING · ED · TCH are one piece of type |
 
-Nicks stack multiplicatively when several cover the same tile. A dual tile
-shares its trim and nick across both faces; only the letters and their paint
-swap.
+A dual tile shares its trim and nick across both faces; only the letters and
+their paint swap.
 
 **The opening draft** — before page 1 you kit out the press from a free
 spread: 1 patron of 3, 2 paints of 4, 4 tiles of 10. No coins involved. The
@@ -74,16 +74,16 @@ enters the run.
 **The Shop** (between pages) offers patrons, tiles, and **paint pots** — a pot
 paints 3 random unpainted letters in your collection its colour. Tiles live in
 your **collection**; each page the whole collection shuffles into the **bag**,
-and printed or exchanged tiles wait in the **spent tray**.
+and printed or discarded tiles wait in the **discard pile**.
 
 **Patrons** grant standing boons — up to five seats, dismissable for half
 their cost (hover for the ✕, or tap the patron on touch).
 
-**Exchanging** — press *Exchange* to arm it, tap the tiles to swap out, then
+**Discarding** — press *Discard* to arm it, tap the tiles to throw away, then
 press it again to confirm (press with nothing selected to cancel).
 
 **Run structure** — 10 chapters × 3 pages; the third page of each chapter is a
-Deadline with a steeper quota and a coin bonus. 5 words and 2 exchanges per
+Deadline with a steeper quota and a coin bonus. 5 words and 2 discards per
 page. Clearing chapter X wins the run; the appendices (endless mode) continue
 beyond.
 
@@ -94,12 +94,12 @@ beyond.
 | Quota curve (base, growth, page factors) | `js/constants.js` → `quotaFor`, `QUOTA_BASE`, `QUOTA_GROWTH` |
 | Trim effects & prices | `js/constants.js` → `TRIMS` (effects live in `js/scoring.js`) |
 | Purple trim step size | `js/constants.js` → `PURPLE_TRIM_STEP` |
-| Nick multipliers & prices | `js/constants.js` → `NICKS` |
+| Nick multiplier & prices | `js/constants.js` → `NICK_MULT`, `NICKS` |
 | Paint pot price / letters per pot | `js/constants.js` → `PAINT_PRICE`, `PAINT_PER_POT` |
 | Opening draft spread & pick counts | `js/constants.js` → `DRAFT` |
 | How loaded offered tiles are | `js/constants.js` → `FEATURE_CHAIN_CHANCE`, `MAX_FEATURES` (one feature free, then keep rolling); generation in `js/foundry.js` → `randomSpecialTile` |
 | Rewards & interest | `js/constants.js` → `REWARD` |
-| Words / exchanges / seats per page | `js/constants.js` |
+| Words / discards / seats per page | `js/constants.js` |
 | Patron roster, costs, effects | `js/patrons.js` |
 | Animation step timings | `js/constants.js` → `ANIM` (all divided by the Settings speed slider) |
 | Chapter names | `js/constants.js` → `CHAPTER_NAMES` |
@@ -108,7 +108,7 @@ beyond.
 
 | File | Role |
 | --- | --- |
-| `js/state.js` | game state, save/load (`folio_save_v1`, schema v3), settings, tile ops, painting |
+| `js/state.js` | game state, save/load (`folio_save_v1`, schema v4), settings, tile ops, painting, the ledger |
 | `js/scoring.js` | pure score computation — returns a step-by-step *script* the UI replays |
 | `js/patrons.js` | patron definitions |
 | `js/foundry.js` | shop state: offers, buying, painting, smelting, rerolls |
@@ -123,5 +123,6 @@ Scoring is deliberately pure (`computeScore` never mutates state), so the same
 function powers the live preview, the tooltips, and the replayed cinematic —
 they can't disagree.
 
-A *Developer* section in Settings has shortcuts: +20 Coins, open the Shop,
+The **ledger** (❦ in the header) lists every word printed this run with its
+score. A *Developer* section in Settings has shortcuts: +20 Coins, open the Shop,
 clear the current page. The console exposes `window.folio = { state, settings }`.

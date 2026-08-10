@@ -1,12 +1,12 @@
 import {
-  RACK_SIZE, WORDS_PER_PAGE, EXCHANGES_PER_PAGE, STARTING_COINS,
+  RACK_SIZE, WORDS_PER_PAGE, DISCARDS_PER_PAGE, STARTING_COINS,
   BAG_COUNTS, TILE_POINTS,
   quotaFor, makeTileTemplate,
 } from './constants.js';
 
 const SAVE_KEY     = 'folio_save_v1';
 const SETTINGS_KEY = 'folio_settings_v1';
-const SAVE_VERSION = 3;   // v3: trims/nicks replace casts/auras, per-face paint, colour multipliers
+const SAVE_VERSION = 4;   // v4: exchanges → discards, tray → discardPile, side nick removed, ledger
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -81,15 +81,15 @@ export const state = {
   bag:  [],         // template[] — undrawn tiles this page
   rack: [],         // tile[]
   word: [],         // tile[]
-  tray: [],         // tile[]    — printed / exchanged this page
+  discardPile: [],  // tile[]    — printed or discarded this page
 
   chapter: 1,
   page:    1,
   quota:   quotaFor(1, 1),
   pageScore: 0,
   wordsLeft: WORDS_PER_PAGE,
-  exchanges: EXCHANGES_PER_PAGE,
-  exchangesMax: EXCHANGES_PER_PAGE,   // copper trims refresh up to this
+  discards: DISCARDS_PER_PAGE,
+  discardsMax: DISCARDS_PER_PAGE,   // copper trims refresh up to this
   wordsPrinted: 0,  // words printed this page
 
   coins:   STARTING_COINS,
@@ -98,12 +98,13 @@ export const state = {
 
   totalScore: 0,
   stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
+  ledger: [],       // { word, score, chapter, page } for every word printed this run
 
   endless:   false,
   inFoundry: false,
   inDraft:   false,      // the opening draft is up
   isAnimating: false,
-  exchangeMode: false,   // rack taps select tiles for exchange
+  discardMode: false,    // rack taps select tiles to discard
   gameOver:  false,
 };
 
@@ -132,7 +133,7 @@ export function loadState() {
     if (s._v !== SAVE_VERSION) return null;
     if (!Array.isArray(s.collection) || !Array.isArray(s.rack)) return null;
     const { _nextId: savedId, _v, _foundry, _draft, ...fields } = s;
-    Object.assign(state, fields, { isAnimating: false, exchangeMode: false });
+    Object.assign(state, fields, { isAnimating: false, discardMode: false });
     if (savedId) _nextId = savedId;
     return { foundry: _foundry ?? null, draft: _draft ?? null };
   } catch { return null; }
@@ -148,16 +149,17 @@ export function newRun() {
   _nextId = 1;
   Object.assign(state, {
     collection: buildStarterCollection(),
-    bag: [], rack: [], word: [], tray: [],
+    bag: [], rack: [], word: [], discardPile: [],
     chapter: 1, page: 1,
     quota: quotaFor(1, 1), pageScore: 0,
-    wordsLeft: WORDS_PER_PAGE, exchanges: EXCHANGES_PER_PAGE,
-    exchangesMax: EXCHANGES_PER_PAGE, wordsPrinted: 0,
+    wordsLeft: WORDS_PER_PAGE, discards: DISCARDS_PER_PAGE,
+    discardsMax: DISCARDS_PER_PAGE, wordsPrinted: 0,
     coins: STARTING_COINS, patrons: [], scavengerPoints: 0,
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
+    ledger: [],
     endless: false, inFoundry: false, inDraft: false,
-    isAnimating: false, exchangeMode: false, gameOver: false,
+    isAnimating: false, discardMode: false, gameOver: false,
   });
   startPage();
 }
@@ -168,15 +170,15 @@ export function startPage() {
   state.bag  = shuffle([...state.collection]);
   state.rack = [];
   state.word = [];
-  state.tray = [];
+  state.discardPile = [];
   state.quota        = quotaFor(state.chapter, state.page);
   state.pageScore    = 0;
   state.wordsPrinted = 0;
   state.wordsLeft    = WORDS_PER_PAGE;
-  state.exchangesMax = EXCHANGES_PER_PAGE + (owns('quartermaster') ? 1 : 0);
-  state.exchanges    = state.exchangesMax;
+  state.discardsMax = DISCARDS_PER_PAGE + (owns('quartermaster') ? 1 : 0);
+  state.discards    = state.discardsMax;
   state.scavengerPoints = 0;
-  state.exchangeMode = false;
+  state.discardMode = false;
 }
 
 // ─── Tile operations ──────────────────────────────────────────────────────────
@@ -200,10 +202,10 @@ export function shuffleRack() {
   shuffle(state.rack);
 }
 
-// Exchange the selected rack tiles: they go to the tray (spent),
+// Discard the selected rack tiles: they go to the discard pile and
 // replacements come from the bag. Returns { removed, drawn } or null.
-export function exchangeSelected() {
-  if (state.exchanges <= 0) return null;
+export function discardSelected() {
+  if (state.discards <= 0) return null;
   const selected = state.rack.filter(t => t.selected);
   if (!selected.length) return null;
 
@@ -211,9 +213,9 @@ export function exchangeSelected() {
     const i = state.rack.indexOf(t);
     if (i >= 0) state.rack.splice(i, 1);
     t.selected = false;
-    state.tray.push(t);
+    state.discardPile.push(t);
   }
-  state.exchanges -= 1;
+  state.discards -= 1;
   if (owns('scavenger')) state.scavengerPoints += 12;
 
   const drawn = drawUpToRackSize();
@@ -222,6 +224,31 @@ export function exchangeSelected() {
 
 export function getWordString() {
   return state.word.map(t => getActiveLetter(t)).join('');
+}
+
+// Where a printed tile goes. Mercury trims slip back into the bag — dropped in
+// at a random depth so they aren't simply redrawn on the next turn.
+export function retirePrinted(tiles) {
+  const toBag = [], toPile = [];
+  for (const t of tiles) {
+    if (t.trim === 'mercury') {
+      const { id, selected, basePoints, ...template } = t;
+      const at = Math.floor(Math.random() * (state.bag.length + 1));
+      state.bag.splice(at, 0, template);
+      toBag.push(t);
+    } else {
+      state.discardPile.push(t);
+      toPile.push(t);
+    }
+  }
+  return { toBag, toPile };
+}
+
+// ─── Ledger ───────────────────────────────────────────────────────────────────
+
+export function recordWord(word, score) {
+  state.ledger ??= [];
+  state.ledger.push({ word, score, chapter: state.chapter, page: state.page });
 }
 
 // ─── Selection ────────────────────────────────────────────────────────────────

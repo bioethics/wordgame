@@ -21,6 +21,7 @@
     <span id="dictDot" class="dict-dot" title="Dictionary"></span>
     <div class="header-spacer"></div>
     <div class="coin-purse" title="Coins"><span class="coin coin--lg"></span><span id="coinCount">0</span></div>
+    <button id="ledgerBtn" class="btn-icon btn-icon--ledger" title="The ledger — every word printed this run">❦<span id="ledgerCount" class="icon-count">0</span></button>
     <button id="settingsBtn" class="btn-icon" title="Settings">⚙</button>
   </header>
 
@@ -45,7 +46,7 @@
       </div>
       <div class="status-card pips-card">
         <div class="pips-row"><span class="pips-label">Words</span><span id="wordPips" class="pips"></span></div>
-        <div class="pips-row"><span class="pips-label">Exchanges</span><span id="exchangePips" class="pips"></span></div>
+        <div class="pips-row"><span class="pips-label">Discards</span><span id="discardPips" class="pips"></span></div>
       </div>
     </section>
 
@@ -70,32 +71,36 @@
     <!-- Bag · rack · tray -->
     <section class="rack-row">
       <button id="bagBtn" class="pouch" title="The bag — tiles waiting to be drawn. Click to peek inside.">
-        <svg viewBox="0 0 48 52" class="pouch-svg" aria-hidden="true">
-          <path d="M16 12 Q14 6 18 4 L30 4 Q34 6 32 12 Q44 18 44 34 Q44 48 24 48 Q4 48 4 34 Q4 18 16 12 Z" class="pouch-body"/>
-          <path d="M15 12 Q24 17 33 12" class="pouch-cinch"/>
-          <path d="M18 4 L30 4" class="pouch-cinch"/>
-        </svg>
-        <span id="bagCount" class="pouch-count">0</span>
+        <span class="pouch-icon">
+          <svg viewBox="0 0 48 52" class="pouch-svg" aria-hidden="true">
+            <path d="M16 12 Q14 6 18 4 L30 4 Q34 6 32 12 Q44 18 44 34 Q44 48 24 48 Q4 48 4 34 Q4 18 16 12 Z" class="pouch-body"/>
+            <path d="M15 12 Q24 17 33 12" class="pouch-cinch"/>
+            <path d="M18 4 L30 4" class="pouch-cinch"/>
+          </svg>
+          <span id="bagCount" class="pouch-count">0</span>
+        </span>
         <span class="pouch-label">Bag</span>
       </button>
 
       <div id="rack" class="rack" role="list" aria-label="Tile rack"></div>
 
-      <button id="trayBtn" class="pouch" title="The spent tray — tiles printed or exchanged this page. Click to inspect.">
-        <svg viewBox="0 0 52 52" class="pouch-svg" aria-hidden="true">
-          <path d="M6 22 L13 10 L39 10 L46 22 L46 40 Q46 44 42 44 L10 44 Q6 44 6 40 Z" class="tray-body"/>
-          <path d="M6 22 L46 22" class="pouch-cinch"/>
-          <path d="M20 10 L20 22 M32 10 L32 22" class="tray-slats"/>
-        </svg>
-        <span id="trayCount" class="pouch-count">0</span>
-        <span class="pouch-label">Spent</span>
+      <button id="discardBtn" class="pouch" title="The discard pile — tiles printed or discarded this page. Click to inspect.">
+        <span class="pouch-icon">
+          <svg viewBox="0 0 52 52" class="pouch-svg" aria-hidden="true">
+            <path d="M6 22 L13 10 L39 10 L46 22 L46 40 Q46 44 42 44 L10 44 Q6 44 6 40 Z" class="tray-body"/>
+            <path d="M6 22 L46 22" class="pouch-cinch"/>
+            <path d="M20 10 L20 22 M32 10 L32 22" class="tray-slats"/>
+          </svg>
+          <span id="discardCount" class="pouch-count">0</span>
+        </span>
+        <span class="pouch-label">Discard</span>
       </button>
     </section>
 
     <!-- Actions -->
     <section class="action-row">
-      <button id="btnExchange" class="btn btn-exchange" title="Swap tiles for fresh ones from the bag">
-        <span class="btn-label">Exchange</span><kbd>swap tiles for new</kbd>
+      <button id="btnDiscard" class="btn btn-discard" title="Throw tiles away and draw fresh ones from the bag">
+        <span class="btn-label">Discard</span><kbd>swap tiles for new</kbd>
       </button>
       <button id="btnShuffle" class="btn btn-quiet"><span class="btn-label">Shuffle</span><kbd>space</kbd></button>
       <button id="btnClear" class="btn btn-quiet"><span class="btn-label">Clear</span><kbd>esc</kbd></button>
@@ -129,7 +134,10 @@
   <!-- Shop -->
   <div id="foundryModal" class="modal" role="dialog" aria-modal="true" aria-label="The Shop"></div>
 
-  <!-- Inspector (bag / tray) -->
+  <!-- Ledger (words printed this run) -->
+  <div id="ledgerModal" class="modal" role="dialog" aria-modal="true" aria-label="The ledger"></div>
+
+  <!-- Inspector (bag / discard pile) -->
   <div id="inspectorModal" class="modal" role="dialog" aria-modal="true" aria-label="Tile inspector"></div>
 
   <!-- Game over / victory -->

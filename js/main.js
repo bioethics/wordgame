@@ -1,8 +1,8 @@
 import {
   state, settings, loadSettings, saveSettings, loadState, clearSave,
   newRun, startPage, drawUpToRackSize, clearWord, shuffleRack,
-  exchangeSelected, getWordString, moveRackToWord, owns, clearAllSelected,
-  toggleDualVariant,
+  discardSelected, getWordString, moveRackToWord, owns, clearAllSelected,
+  toggleDualVariant, retirePrinted, recordWord,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
@@ -20,6 +20,7 @@ import {
   updateReadoutPreview, log, showBanner, showOverlay, hideOverlay,
   showGameOver, showVictory, openInspector, closeInspector, makeTileEl, coinHTML,
   showPatronPopover, hidePopover, renderDraft, updateDraftSelection,
+  updateFoundryState, updateCaseSelection, renderCaseGrid, openLedger, closeLedger,
 } from './render.js';
 import {
   draft, openDraft, closeDraft, restoreDraft, toggleDraftPick, applyDraft,
@@ -28,7 +29,7 @@ import {
   sleep, dur, flyClone, popReveal, floatText, tweenNum, setNum, fmtMult,
   pulse, sparkleBurst, sfx, applySpeedCSS,
 } from './anim.js';
-import { initInput } from './drag.js';
+import { initInput, initInspect } from './drag.js';
 import { patronById } from './patrons.js';
 
 const $ = id => document.getElementById(id);
@@ -37,7 +38,7 @@ const rect = el => el?.getBoundingClientRect();
 // ─── Tile flight helpers ───────────────────────────────────────────────────────
 
 const bagRect  = () => rect($('bagBtn'))  ?? { left: 40, top: 300, width: 60, height: 60 };
-const trayRect = () => rect($('trayBtn')) ?? { left: innerWidth - 100, top: 300, width: 60, height: 60 };
+const pileRect = () => rect($('discardBtn')) ?? { left: innerWidth - 100, top: 300, width: 60, height: 60 };
 
 const wordTileEl = id => document.querySelector(`#word .tile[data-id="${id}"]`);
 const rackTileEl = id => document.querySelector(`#rack .tile[data-id="${id}"]`);
@@ -62,29 +63,29 @@ async function animateDraw(drawn) {
   await Promise.all(flights);
 }
 
-// Fly tiles (already removed from state) from their old positions to the tray.
-// Sources may still be in the DOM (e.g. exchanged rack tiles) — hide them so
+// Fly tiles (already removed from state) to wherever they went — the discard
+// pile by default, or the bag for Mercury trims.
+// Sources may still be in the DOM (e.g. discarded rack tiles) — hide them so
 // only the flying clone is visible.
-async function animateDiscard(rects) {
-  const to = trayRect();
+async function animateDiscard(rects, to = pileRect(), bump = 'discardBtn') {
   const flights = [];
   for (const { el, r } of rects) {
     sfx.discard();
     flights.push(flyClone(el, r, to, { duration: ANIM.fly, scaleTo: 0.25, fade: true }));
     el.style.visibility = 'hidden';
-    pulse($('trayBtn'), 'pouch--bump', 300);
+    pulse($(bump), 'pouch--bump', 300);
     await sleep(ANIM.stagger);
   }
   await Promise.all(flights);
 }
 
-// ─── Exchange mode ────────────────────────────────────────────────────────────
+// ─── Discard mode ─────────────────────────────────────────────────────────────
 
-function cancelExchangeMode(quiet = false) {
-  if (!state.exchangeMode) return false;
-  state.exchangeMode = false;
+function cancelDiscardMode(quiet = false) {
+  if (!state.discardMode) return false;
+  state.discardMode = false;
   clearAllSelected();
-  if (!quiet) log('Exchange cancelled.');
+  if (!quiet) log('Discard cancelled.');
   renderAll();
   return true;
 }
@@ -96,7 +97,7 @@ async function submitWord() {
   const w = getWordString();
   if (!w) return;
   hidePopover();
-  cancelExchangeMode(true);
+  cancelDiscardMode(true);
 
   if (!dictLoaded) { log('The dictionary is still loading…', 'warn'); return; }
   if (!DICT.has(w.toUpperCase())) {
@@ -127,7 +128,8 @@ async function submitWord() {
     if (el) {
       pulse(el, 'tile--scoring', 360);
       floatText(el, `+${step.points}`, 'fl-points');
-      if (step.refresh) { floatText(el, '↻ Exchange', 'fl-refresh', { dy: -70 }); }
+      if (step.refresh) { floatText(el, '↻ Discard', 'fl-refresh', { dy: -70 }); }
+      if (step.returns) { floatText(el, '↩ to bag', 'fl-return', { dy: -88 }); }
       if (step.coins)   { floatText(el, `+${coinHTML(step.coins)}`, 'fl-coin', { dy: -70 }); sfx.coin(); }
     }
     sfx.tick(i++);
@@ -189,15 +191,13 @@ async function submitWord() {
 
   // ── Commit ─────────────────────────────────────────────────────────────────
   const printed = [...state.word];
-  const outRects = printed
-    .map(t => ({ el: wordTileEl(t.id), id: t.id }))
-    .filter(x => x.el)
-    .map(x => ({ el: x.el, r: rect(x.el) }));
+  const rectOf = new Map(printed.map(t => [t.id, wordTileEl(t.id)]).filter(([, el]) => el)
+    .map(([id, el]) => [id, { el, r: rect(el) }]));
 
   state.pageScore  += script.total;
   state.totalScore += script.total;
   state.coins      += script.coins;
-  state.exchanges   = Math.min(state.exchangesMax, state.exchanges + script.refresh);
+  state.discards    = Math.min(state.discardsMax, state.discards + script.refresh);
   state.wordsLeft   = Math.max(0, state.wordsLeft - 1);
   state.wordsPrinted += 1;
   state.scavengerPoints = 0;
@@ -206,31 +206,40 @@ async function submitWord() {
     state.stats.bestScore = script.total;
     state.stats.bestWord  = script.word;
   }
-  state.tray.push(...printed);
+  recordWord(script.word, script.total);
+
+  // Mercury trims slip back into the bag; everything else is discarded
+  const { toBag, toPile } = retirePrinted(printed);
   state.word.length = 0;
 
-  let msg = `”${script.word}” — ${script.points} × ${script.mult} = ${script.total}.`;
+  let msg = `”${script.word}” — ${script.points} × ${fmtMult(script.mult)} = ${script.total}.`;
   if (script.coins)   msg += `  +${script.coins} Coin${script.coins > 1 ? 's' : ''}.`;
-  if (script.refresh) msg += `  +${script.refresh} Exchange${script.refresh > 1 ? 's' : ''}.`;
+  if (script.refresh) msg += `  +${script.refresh} Discard${script.refresh > 1 ? 's' : ''}.`;
+  if (toBag.length)   msg += `  ${toBag.length} slipped back into the bag.`;
   log(msg, 'good');
 
-  // Word tiles fly to the tray…
+  // Tiles fly to wherever they actually went
   renderWord();
-  await animateDiscard(outRects);
+  const pick = list => list.map(t => rectOf.get(t.id)).filter(Boolean);
+  await animateDiscard(pick(toPile));
+  if (toBag.length) await animateDiscard(pick(toBag), bagRect(), 'bagBtn');
 
   // …the page score banks…
   renderAllStable();
 
-  // …and fresh tiles arrive from the bag.
+  // ── Outcomes ───────────────────────────────────────────────────────────────
+  // Check the quota BEFORE topping the rack up: announcing "page complete"
+  // straight after dealing a fresh hand you never get to use reads as a bug.
+  if (state.pageScore >= state.quota) { state.isAnimating = false; await pageComplete(); return; }
+  if (state.wordsLeft === 0)          { state.isAnimating = false; await gameLost(); return; }
+
+  // …and only now do fresh tiles arrive from the bag.
   const drawn = drawUpToRackSize();
   await animateDraw(drawn);
 
   state.isAnimating = false;
   renderAll();
 
-  // ── Outcomes ───────────────────────────────────────────────────────────────
-  if (state.pageScore >= state.quota)            { await pageComplete(); return; }
-  if (state.wordsLeft === 0)                     { await gameLost(); return; }
   if (state.rack.length === 0 && !state.bag.length) { await gameLost(); return; }
 }
 
@@ -323,39 +332,38 @@ async function gameLost() {
   showGameOver();
 }
 
-// ─── Exchange ─────────────────────────────────────────────────────────────────
+// ─── Discard ──────────────────────────────────────────────────────────────────
 
-async function doExchange() {
+async function doDiscard() {
   if (state.isAnimating || state.inFoundry || state.gameOver) return;
   hidePopover();
 
   // First press arms the mode; tiles are then tapped to select.
-  if (!state.exchangeMode) {
-    if (state.exchanges <= 0) { log('No exchanges left this page.', 'warn'); return; }
-    state.exchangeMode = true;
-    log('Tap tiles to swap, then press again.');
+  if (!state.discardMode) {
+    if (state.discards <= 0) { log('No discards left this page.', 'warn'); return; }
+    state.discardMode = true;
+    log('Tap tiles to discard, then press again.');
     renderAll();
     return;
   }
 
   const selectedEls = [...document.querySelectorAll('#rack .tile--selected')];
-  if (!selectedEls.length) { cancelExchangeMode(); return; }
+  if (!selectedEls.length) { cancelDiscardMode(); return; }
 
-  const result = exchangeSelected();
-  if (!result) { cancelExchangeMode(); return; }
-  state.exchangeMode = false;
+  const result = discardSelected();
+  if (!result) { cancelDiscardMode(); return; }
+  state.discardMode = false;
 
   state.isAnimating = true;
   renderButtons();
 
-  const outRects = selectedEls.map(el => ({ el, r: rect(el) }));
-  await animateDiscard(outRects);
+  await animateDiscard(selectedEls.map(el => ({ el, r: rect(el) })));
   await animateDraw(result.drawn);
 
   state.isAnimating = false;
   renderAll();
 
-  let msg = `Exchanged ${result.removed.length} tile${result.removed.length > 1 ? 's' : ''}.`;
+  let msg = `Discarded ${result.removed.length} tile${result.removed.length > 1 ? 's' : ''}.`;
   if (owns('scavenger')) msg += '  +12 Points next word (Scavenger).';
   if (!result.drawn.length && !state.bag.length) msg += '  The bag is empty.';
   log(msg);
@@ -379,7 +387,7 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Enter')  { submitWord(); return; }
   if (e.key === 'Escape') {
     hidePopover();
-    if (!cancelExchangeMode()) { clearWord(); renderAll(); }
+    if (!cancelDiscardMode()) { clearWord(); renderAll(); }
     return;
   }
   if (e.key === ' ')      { e.preventDefault(); shuffleRack(); renderAll(); return; }
@@ -406,13 +414,18 @@ $('btnPrint')?.addEventListener('click', submitWord);
 $('btnClear')?.addEventListener('click', () => {
   if (state.isAnimating) return;
   hidePopover();
-  if (!cancelExchangeMode()) { clearWord(); renderAll(); }
+  if (!cancelDiscardMode()) { clearWord(); renderAll(); }
 });
 $('btnShuffle')?.addEventListener('click', () => { if (!state.isAnimating) { shuffleRack(); renderAll(); } });
-$('btnExchange')?.addEventListener('click', doExchange);
+$('btnDiscard')?.addEventListener('click', doDiscard);
 
 $('bagBtn')?.addEventListener('click', () => { if (!state.isAnimating) openInspector('bag'); });
-$('trayBtn')?.addEventListener('click', () => { if (!state.isAnimating) openInspector('tray'); });
+$('discardBtn')?.addEventListener('click', () => { if (!state.isAnimating) openInspector('discard'); });
+
+$('ledgerBtn')?.addEventListener('click', () => { if (!state.isAnimating) openLedger(); });
+$('ledgerModal')?.addEventListener('click', e => {
+  if (e.target.closest('[data-close-ledger]') || e.target.id === 'ledgerModal') closeLedger();
+});
 
 $('inspectorModal')?.addEventListener('click', e => {
   if (e.target.closest('[data-close-inspector]') || e.target.id === 'inspectorModal') closeInspector();
@@ -465,7 +478,7 @@ $('foundryModal')?.addEventListener('click', e => {
     const r = buyPatron(buyP.dataset.buyPatron);
     if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
     else { sfx.coin(); log(`${r.def.name} takes a seat at your table.`, 'good'); }
-    renderAll(); renderFoundry();
+    renderAll(); updateFoundryState();
     return;
   }
   const buyT = e.target.closest('[data-buy-tile]');
@@ -473,7 +486,7 @@ $('foundryModal')?.addEventListener('click', e => {
     const r = buyTile(Number(buyT.dataset.buyTile));
     if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
     else { sfx.coin(); log('New tile joins the bag next page.', 'good'); }
-    renderAll(); renderFoundry();
+    renderAll(); updateFoundryState();
     return;
   }
   const buyPt = e.target.closest('[data-buy-paint]');
@@ -481,7 +494,7 @@ $('foundryModal')?.addEventListener('click', e => {
     const r = buyPaint(Number(buyPt.dataset.buyPaint));
     if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
     else { sfx.coin(); log(`Painted ${r.painted.join(', ')} ${COLOURS[r.colour].label.toLowerCase()}.`, 'good'); }
-    renderAll(); renderFoundry();
+    renderAll(); updateFoundryState();
     return;
   }
   if (e.target.closest('#btnReroll')) {
@@ -500,14 +513,14 @@ $('foundryModal')?.addEventListener('click', e => {
   if (caseTile) {
     const idx = Number(caseTile.dataset.caseIdx);
     foundry.smeltSel = foundry.smeltSel === idx ? -1 : idx;
-    renderFoundry();
+    updateCaseSelection();
     return;
   }
   if (e.target.closest('#btnSmeltConfirm')) {
     const r = smeltTile(foundry.smeltSel);
     if (!r.ok) { if (r.reason) log(r.reason, 'warn'); sfx.bad(); }
     else { sfx.discard(); log(`Smelted a “${r.removed.letter}” tile down for scrap.`); }
-    renderAll(); renderFoundry();
+    renderAll(); renderCaseGrid(); updateCaseSelection();
     return;
   }
   if (e.target.closest('#btnFoundryContinue')) beginNextPage();
@@ -640,6 +653,7 @@ $('draftModal')?.addEventListener('click', e => {
   loadSettings();
   applySpeedCSS();
   initInput();
+  initInspect();
 
   renderDictStatus('loading', 0);
   loadDict((status, count) => renderDictStatus(status, count));
