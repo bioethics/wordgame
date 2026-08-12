@@ -197,7 +197,7 @@ function renderShelf() {
         <button class="patron-x" data-sell="${def.id}" title="Dismiss ${def.name} for ${Math.floor(def.cost / 2)} Coins">✕</button>`;
     } else {
       slot.className = 'patron patron--empty';
-      slot.title = 'An empty seat — invite patrons at the Shop';
+      slot.title = 'An empty seat — invite patrons at the Market';
       slot.innerHTML = `<span class="patron-empty-mark">❧</span>`;
     }
     shelf.appendChild(slot);
@@ -226,7 +226,7 @@ function renderSundries() {
     } else {
       const slot = document.createElement('div');
       slot.className = 'sundry sundry--empty';
-      slot.title = 'An empty spot on the workbench — buy sundries at the Shop';
+      slot.title = 'An empty spot on the workbench — buy sundries at the Market';
       slot.innerHTML = `<span class="sundry-empty-mark">✒</span>`;
       bench.appendChild(slot);
     }
@@ -686,11 +686,14 @@ function foundryShopHTML() {
   const fullSeats = state.patrons.length >= PATRON_SLOTS;
   const fullBench = state.sundries.length >= SUNDRY_SLOTS;
 
+  const returning = foundry.returning ? ' sheet--return' : '';
+  foundry.returning = false;
+
   return `
-    <div class="sheet sheet--foundry">
+    <div class="sheet sheet--foundry sheet--market${returning}">
       <div class="sheet-head">
         <div>
-          <h2 class="foundry-title">The Shop</h2>
+          <h2 class="foundry-title">The Market</h2>
           <div class="foundry-purse"><span class="coin coin--lg"></span><b id="foundryCoins">${state.coins}</b></div>
         </div>
         ${rewardHTML()}
@@ -739,7 +742,7 @@ function foundryStallHTML() {
     <div class="painter-colours">
       ${Object.keys(COLOURS).map(c => `
         <button class="paint-swatch paint-swatch--${c}" data-stall-colour="${c}"
-                title="${COLOURS[c].label}" data-tip-head="${COLOURS[c].label}" data-tip-body="${colourDesc(c)}"></button>`).join('')}
+                title="${COLOURS[c].label} — ${colourDesc(c)}"></button>`).join('')}
     </div>` : '';
 
   const body = foundry.activeStall === 'gilder'
@@ -751,7 +754,7 @@ function foundryStallHTML() {
     : '';
 
   return `
-    <div class="sheet sheet--foundry sheet--stall awning--${foundry.activeStall}">
+    <div class="sheet sheet--foundry sheet--market sheet--stall awning--${foundry.activeStall}">
       <div class="sheet-head">
         <div>
           <h2 class="foundry-title">${def.emoji} ${def.name}</h2>
@@ -762,7 +765,7 @@ function foundryStallHTML() {
       ${note}
       ${body}
       <div class="foundry-foot">
-        <button class="btn btn-quiet" id="btnStallBack">← Back to the Shop</button>
+        <button class="btn btn-quiet" id="btnStallBack">← Back to the market</button>
         <div class="foundry-spacer"></div>
         <button class="btn ${foundry.activeStall === 'smelter' ? 'btn-danger' : 'btn-print'}" id="btnStallConfirm" disabled></button>
       </div>
@@ -877,7 +880,7 @@ export function updateStallState() {
 
 function foundryCollectionHTML() {
   return `
-    <div class="sheet sheet--foundry">
+    <div class="sheet sheet--foundry sheet--market">
       <div class="sheet-head">
         <div>
           <h2 class="foundry-title">Your collection</h2>
@@ -886,7 +889,7 @@ function foundryCollectionHTML() {
       </div>
       <div class="mini-grid mini-grid--case" id="collectionGrid"></div>
       <div class="foundry-foot">
-        <button class="btn btn-quiet" id="btnCollectionBack">← Back to the Shop</button>
+        <button class="btn btn-quiet" id="btnCollectionBack">← Back to the market</button>
         <div class="foundry-spacer"></div>
       </div>
     </div>`;

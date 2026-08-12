@@ -2,7 +2,7 @@
 
 *A word-forging roguelike.* You run a small print house: draw letter tiles from
 the bag, compose words, and **PRINT** them to meet each page's quota. Clear
-pages, survive each chapter's **Deadline**, spend your coins at **the Shop**,
+pages, survive each chapter's **Deadline**, spend your coins at **the Market**,
 and finish all ten chapters of the folio.
 
 ## Running it
@@ -46,8 +46,8 @@ score = Points × Mult
   colours is ×2×2 = ×4, where two of the same colour is only ×3.
 
 The readout shows a live projection — including a chip per colour — and
-hovering or long-pressing any tile, on the board or in the shop or the draft,
-spells out everything it does. Nothing is summarised beneath shop cards; the
+hovering or long-pressing any tile, on the board or in the market or the draft,
+spells out everything it does. Nothing is summarised beneath market cards; the
 tile itself is the documentation. On print, the score replays tile by tile: Points land, nicks fire, each colour's
 multiplier lights up, then the patrons weigh in.
 
@@ -71,7 +71,7 @@ spread: 1 patron of 3, 2 paints of 4, 4 tiles of 10. No coins involved. The
 starting collection ships unpainted, so those two paints are where colour
 enters the run.
 
-**The Shop** (between pages) keeps a fixed layout with churning contents:
+**The Market** (between pages) keeps a fixed layout with churning contents:
 3 patrons, 4 tiles, 2 **sundries**, and 2 **stalls** drawn from a roster of
 five. *New offers* re-rolls the patrons, tiles and sundries; the stalls stay
 put. Tiles live in your **collection**; each page the whole collection
@@ -89,7 +89,7 @@ paint pots survive only in the opening draft.)
 6 of your untrimmed tiles; commission your favourite), the **Stereotyper**
 (clone any tile), and the **Restorer** (strip a tile back to bare metal).
 Every purchase doubles that stall's price for the rest of the visit; prices
-reset when the next shop opens. The Smelter starts at 2 Coins, the rest at 1.
+reset when the next market opens. The Smelter starts at 2 Coins, the rest at 1.
 
 **Patrons** grant standing boons — up to five seats, dismissable for half
 their cost (hover for the ✕, or tap the patron on touch).
@@ -128,7 +128,7 @@ beyond.
 | `js/state.js` | game state, save/load (`folio_save_v1`, schema v5), settings, tile ops, painting, sundries, the ledger |
 | `js/scoring.js` | pure score computation — returns a step-by-step *script* the UI replays |
 | `js/patrons.js` | patron definitions |
-| `js/foundry.js` | shop state: offers, buying, sundries, stalls, rerolls |
+| `js/foundry.js` | market state: offers, buying, sundries, stalls, rerolls |
 | `js/draft.js` | the opening draft: free spread, picks, applying them |
 | `js/render.js` | all DOM construction (board, readout, modals, popovers, overlays) |
 | `js/anim.js` | flights, floaters, tweens, sparkles, WebAudio sfx — every duration respects the speed setting |
@@ -141,5 +141,5 @@ function powers the live preview, the tooltips, and the replayed cinematic —
 they can't disagree.
 
 The **ledger** (❦ in the header) lists every word printed this run with its
-score. A *Developer* section in Settings has shortcuts: +20 Coins, open the Shop,
+score. A *Developer* section in Settings has shortcuts: +20 Coins, open the Market,
 clear the current page. The console exposes `window.folio = { state, settings }`.

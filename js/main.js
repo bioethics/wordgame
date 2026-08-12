@@ -527,29 +527,48 @@ document.addEventListener('pointerdown', e => {
 });
 window.addEventListener('scroll', () => hidePopover(), { capture: true, passive: true });
 
-// Shop delegation
+// A bought thing flies out of the market to wherever it now lives — the
+// clones ride the #fx layer, which sits above the modal.
+function flyPurchase(fromEl, toEl, opts = {}) {
+  if (!fromEl || !toEl) return;
+  flyClone(fromEl, rect(fromEl), rect(toEl), { duration: ANIM.fly, scaleTo: 0.3, fade: true, ...opts });
+}
+
+// Market delegation
 $('foundryModal')?.addEventListener('click', e => {
   const buyP = e.target.closest('[data-buy-patron]');
   if (buyP) {
+    const card = buyP.closest('[data-offer]');
     const r = buyPatron(buyP.dataset.buyPatron);
     if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
-    else { sfx.coin(); log(`${r.def.name} takes a seat at your table.`, 'good'); }
+    else {
+      sfx.coin(); log(`${r.def.name} takes a seat at your table.`, 'good');
+      flyPurchase(card, $('shelf'), { scaleTo: 0.2 });
+    }
     renderAll(); updateFoundryState();
     return;
   }
   const buyT = e.target.closest('[data-buy-tile]');
   if (buyT) {
+    const card = buyT.closest('[data-offer]');
     const r = buyTile(Number(buyT.dataset.buyTile));
     if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
-    else { sfx.coin(); log('New tile joins the bag next page.', 'good'); }
+    else {
+      sfx.coin(); log('New tile joins the bag next page.', 'good');
+      flyPurchase(card?.querySelector('.tile'), $('bagBtn'));
+    }
     renderAll(); updateFoundryState();
     return;
   }
   const buyS = e.target.closest('[data-buy-sundry]');
   if (buyS) {
+    const card = buyS.closest('[data-offer]');
     const r = buySundry(Number(buyS.dataset.buySundry));
     if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
-    else { sfx.coin(); log(`A tube of ${COLOURS[r.offer.colour].label} joins your workbench.`, 'good'); }
+    else {
+      sfx.coin(); log(`A tube of ${COLOURS[r.offer.colour].label} joins your workbench.`, 'good');
+      flyPurchase(card?.querySelector('.paint-tube'), $('sundries'), { scaleTo: 0.6 });
+    }
     renderAll(); updateFoundryState();
     return;
   }
@@ -569,7 +588,7 @@ $('foundryModal')?.addEventListener('click', e => {
     return;
   }
   if (e.target.closest('#btnStallBack')) {
-    foundry.view = 'shop'; foundry.activeStall = null; renderFoundry();
+    foundry.view = 'shop'; foundry.activeStall = null; foundry.returning = true; renderFoundry();
     return;
   }
   const stallTile = e.target.closest('[data-stall-tid]');
@@ -633,7 +652,7 @@ $('foundryModal')?.addEventListener('click', e => {
     return;
   }
   if (e.target.closest('#btnCollectionBack')) {
-    foundry.view = 'shop'; renderFoundry();
+    foundry.view = 'shop'; foundry.returning = true; renderFoundry();
     return;
   }
   if (e.target.closest('#btnFoundryContinue')) beginNextPage();
