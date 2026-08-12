@@ -71,10 +71,25 @@ spread: 1 patron of 3, 2 paints of 4, 4 tiles of 10. No coins involved. The
 starting collection ships unpainted, so those two paints are where colour
 enters the run.
 
-**The Shop** (between pages) offers patrons, tiles, and **paint pots** — a pot
-paints 3 random unpainted letters in your collection its colour. Tiles live in
-your **collection**; each page the whole collection shuffles into the **bag**,
-and printed or discarded tiles wait in the **discard pile**.
+**The Shop** (between pages) keeps a fixed layout with churning contents:
+3 patrons, 4 tiles, 2 **sundries**, and 2 **stalls** drawn from a roster of
+five. *New offers* re-rolls the patrons, tiles and sundries; the stalls stay
+put. Tiles live in your **collection**; each page the whole collection
+shuffles into the **bag**, and printed or discarded tiles wait in the
+**discard pile**.
+
+**Sundries** are consumables kept on the **workbench** (two slots, beside the
+patron shelf). The first kind is the **paint tube**: tap it mid-page, tap up
+to 2 tiles anywhere on the board — rack or half-composed word alike — and tap
+the tube again to paint them its colour, permanently. (The random-scatter
+paint pots survive only in the opening draft.)
+
+**Stalls** are services: the **Smelter** (trash a tile), the **Painter**
+(paint any letter a colour of your choice), the **Gilder** (proposes trims on
+6 of your untrimmed tiles; commission your favourite), the **Stereotyper**
+(clone any tile), and the **Restorer** (strip a tile back to bare metal).
+Every purchase doubles that stall's price for the rest of the visit; prices
+reset when the next shop opens. The Smelter starts at 2 Coins, the rest at 1.
 
 **Patrons** grant standing boons — up to five seats, dismissable for half
 their cost (hover for the ✕, or tap the patron on touch).
@@ -95,7 +110,9 @@ beyond.
 | Trim effects & prices | `js/constants.js` → `TRIMS` (effects live in `js/scoring.js`) |
 | Purple trim step size | `js/constants.js` → `PURPLE_TRIM_STEP` |
 | Nick multiplier & prices | `js/constants.js` → `NICK_MULT`, `NICKS` |
-| Paint pot price / letters per pot | `js/constants.js` → `PAINT_PRICE`, `PAINT_PER_POT` |
+| Tube price / tiles per tube / workbench slots | `js/constants.js` → `TUBE_PRICE`, `TUBE_TILES`, `SUNDRY_SLOTS` |
+| Stall roster, base prices, gilder range | `js/constants.js` → `STALL_DEFS`, `STALLS_PER_SHOP`, `GILDER_RANGE`, `SMELT_MIN_COLLECTION` |
+| Letters per draft paint pot | `js/constants.js` → `PAINT_PER_POT` |
 | Opening draft spread & pick counts | `js/constants.js` → `DRAFT` |
 | How loaded offered tiles are | `js/constants.js` → `FEATURE_CHAIN_CHANCE`, `MAX_FEATURES` (one feature free, then keep rolling); generation in `js/foundry.js` → `randomSpecialTile` |
 | Rewards & interest | `js/constants.js` → `REWARD` |
@@ -108,10 +125,10 @@ beyond.
 
 | File | Role |
 | --- | --- |
-| `js/state.js` | game state, save/load (`folio_save_v1`, schema v4), settings, tile ops, painting, the ledger |
+| `js/state.js` | game state, save/load (`folio_save_v1`, schema v5), settings, tile ops, painting, sundries, the ledger |
 | `js/scoring.js` | pure score computation — returns a step-by-step *script* the UI replays |
 | `js/patrons.js` | patron definitions |
-| `js/foundry.js` | shop state: offers, buying, painting, smelting, rerolls |
+| `js/foundry.js` | shop state: offers, buying, sundries, stalls, rerolls |
 | `js/draft.js` | the opening draft: free spread, picks, applying them |
 | `js/render.js` | all DOM construction (board, readout, modals, popovers, overlays) |
 | `js/anim.js` | flights, floaters, tweens, sparkles, WebAudio sfx — every duration respects the speed setting |

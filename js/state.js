@@ -1,12 +1,12 @@
 import {
   RACK_SIZE, WORDS_PER_PAGE, DISCARDS_PER_PAGE, STARTING_COINS,
-  BAG_COUNTS, TILE_POINTS,
+  BAG_COUNTS, TILE_POINTS, TUBE_TILES,
   quotaFor, makeTileTemplate,
 } from './constants.js';
 
 const SAVE_KEY     = 'folio_save_v1';
 const SETTINGS_KEY = 'folio_settings_v1';
-const SAVE_VERSION = 4;   // v4: exchanges → discards, tray → discardPile, side nick removed, ledger
+const SAVE_VERSION = 5;   // v5: template tids, sundries, stalls replace paint pots & flat smelting
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -20,6 +20,19 @@ export function shuffle(arr) {
 
 let _nextId = 1;
 export const nextId = () => _nextId++;
+
+// Collection templates carry a stable id (tid) so live rack tiles, stall
+// selections and gilder proposals can all point back at the owned tile —
+// painting a tile mid-word has to reach the template it was drawn from.
+let _nextTid = 1;
+const nextTid = () => _nextTid++;
+
+// Deep-copy a template into a collection-ready tile with a fresh tid.
+// Every route into the collection (draft picks, shop buys, the Stereotyper)
+// goes through here so no two owned tiles ever share a tid.
+export function adoptTemplate(tmpl) {
+  return { ...JSON.parse(JSON.stringify(tmpl)), tid: nextTid() };
+}
 
 // The letter this tile is currently acting as
 export function getActiveLetter(tile) {
@@ -50,7 +63,7 @@ function templateToTile(template) {
 function buildStarterCollection() {
   const col = [];
   for (const [L, count] of Object.entries(BAG_COUNTS)) {
-    for (let i = 0; i < count; i++) col.push(makeTileTemplate(L));
+    for (let i = 0; i < count; i++) col.push(adoptTemplate(makeTileTemplate(L)));
   }
   return col;
 }
@@ -94,6 +107,7 @@ export const state = {
 
   coins:   STARTING_COINS,
   patrons: [],      // [{ id }]
+  sundries: [],     // [{ kind: 'tube', colour }] — the workbench, max SUNDRY_SLOTS
   scavengerPoints: 0,  // pending bonus from The Scavenger
 
   totalScore: 0,
@@ -105,6 +119,7 @@ export const state = {
   inDraft:   false,      // the opening draft is up
   isAnimating: false,
   discardMode: false,    // rack taps select tiles to discard
+  sundryMode: -1,        // index of the armed sundry; board taps select its targets
   gameOver:  false,
 };
 
@@ -115,10 +130,11 @@ export const owns = id => state.patrons.some(p => p.id === id);
 export function saveState(extra = {}) {
   try {
     const rack = state.rack.map(t => ({ ...t, selected: false }));
+    const word = state.word.map(t => ({ ...t, selected: false }));
     const s = {
-      ...state, rack,
-      isAnimating: false,
-      _nextId, _v: SAVE_VERSION,
+      ...state, rack, word,
+      isAnimating: false, sundryMode: -1,
+      _nextId, _nextTid, _v: SAVE_VERSION,
       ...extra,                       // e.g. a foundry snapshot
     };
     localStorage.setItem(SAVE_KEY, JSON.stringify(s));
@@ -132,9 +148,11 @@ export function loadState() {
     const s = JSON.parse(raw);
     if (s._v !== SAVE_VERSION) return null;
     if (!Array.isArray(s.collection) || !Array.isArray(s.rack)) return null;
-    const { _nextId: savedId, _v, _foundry, _draft, ...fields } = s;
-    Object.assign(state, fields, { isAnimating: false, discardMode: false });
-    if (savedId) _nextId = savedId;
+    const { _nextId: savedId, _nextTid: savedTid, _v, _foundry, _draft, ...fields } = s;
+    Object.assign(state, fields, { isAnimating: false, discardMode: false, sundryMode: -1 });
+    state.sundries ??= [];
+    if (savedId)  _nextId  = savedId;
+    if (savedTid) _nextTid = savedTid;
     return { foundry: _foundry ?? null, draft: _draft ?? null };
   } catch { return null; }
 }
@@ -147,6 +165,7 @@ export function clearSave() {
 
 export function newRun() {
   _nextId = 1;
+  _nextTid = 1;
   Object.assign(state, {
     collection: buildStarterCollection(),
     bag: [], rack: [], word: [], discardPile: [],
@@ -154,12 +173,12 @@ export function newRun() {
     quota: quotaFor(1, 1), pageScore: 0,
     wordsLeft: WORDS_PER_PAGE, discards: DISCARDS_PER_PAGE,
     discardsMax: DISCARDS_PER_PAGE, wordsPrinted: 0,
-    coins: STARTING_COINS, patrons: [], scavengerPoints: 0,
+    coins: STARTING_COINS, patrons: [], sundries: [], scavengerPoints: 0,
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
     ledger: [],
     endless: false, inFoundry: false, inDraft: false,
-    isAnimating: false, discardMode: false, gameOver: false,
+    isAnimating: false, discardMode: false, sundryMode: -1, gameOver: false,
   });
   startPage();
 }
@@ -179,6 +198,7 @@ export function startPage() {
   state.discards    = state.discardsMax;
   state.scavengerPoints = 0;
   state.discardMode = false;
+  state.sundryMode = -1;
 }
 
 // ─── Tile operations ──────────────────────────────────────────────────────────
@@ -260,9 +280,53 @@ export function toggleSelected(id) {
 
 export function clearAllSelected() {
   state.rack.forEach(t => { t.selected = false; });
+  state.word.forEach(t => { t.selected = false; });
 }
 
 export const selectedCount = () => state.rack.filter(t => t.selected).length;
+
+// ─── Sundries (the workbench) ─────────────────────────────────────────────────
+
+export const sundrySelected = () =>
+  [...state.word, ...state.rack].filter(t => t.selected);
+
+// While a tube is armed, board taps select its targets — rack and word alike.
+// Returns 'on' | 'off' | 'full' so the caller can explain a refused pick.
+export function toggleSundrySelect(id) {
+  const tile = state.rack.find(t => t.id === id) ?? state.word.find(t => t.id === id);
+  if (!tile) return 'off';
+  if (tile.selected) { tile.selected = false; return 'off'; }
+  if (sundrySelected().length >= TUBE_TILES) return 'full';
+  tile.selected = true;
+  return 'on';
+}
+
+// Spend the armed tube on the selected tiles. The live tile's showing face is
+// painted, and the change is written through to the collection template it was
+// drawn from — the paint is permanent, not just for this page.
+export function applySundry(idx) {
+  const sundry = state.sundries[idx];
+  if (!sundry) return null;
+  const targets = sundrySelected().slice(0, TUBE_TILES);
+  if (!targets.length) return null;
+
+  const letters = [];
+  for (const t of targets) {
+    const altFace = t.letterType === 'dual' && t.activeVariant === 1;
+    if (altFace) t.altColour = sundry.colour;
+    else         t.colour    = sundry.colour;
+    const tmpl = state.collection.find(c => c.tid === t.tid);
+    if (tmpl) {
+      if (altFace) tmpl.altColour = sundry.colour;
+      else         tmpl.colour    = sundry.colour;
+    }
+    t.selected = false;
+    letters.push(getActiveLetter(t));
+  }
+  state.sundries.splice(idx, 1);
+  state.sundryMode = -1;
+  return { colour: sundry.colour, letters, ids: targets.map(t => t.id) };
+}
 
 export function toggleDualVariant(id) {
   const tile = state.rack.find(t => t.id === id) ?? state.word.find(t => t.id === id);

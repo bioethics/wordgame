@@ -2,17 +2,18 @@ import {
   state, settings, loadSettings, saveSettings, loadState, clearSave,
   newRun, startPage, drawUpToRackSize, clearWord, shuffleRack,
   discardSelected, getWordString, moveRackToWord, owns, clearAllSelected,
-  toggleDualVariant, retirePrinted, recordWord,
+  toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected,
 } from './state.js';
 import {
-  TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
+  TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES, TRIMS,
   chapterTitle, roman, isDeadline, COLOURS, NICKS,
 } from './constants.js';
 import { DICT, dictLoaded, loadDict, loadCustom } from './dict.js';
 import { computeScore, computeReward } from './scoring.js';
 import {
   foundry, openFoundry, restoreFoundry, closeFoundry,
-  buyPatron, sellPatron, buyTile, buyPaint, smeltTile, rerollFoundry,
+  buyPatron, sellPatron, buyTile, buySundry, rerollFoundry,
+  stallSmelt, stallPaint, stallGild, stallClone, stallRestore,
 } from './foundry.js';
 import {
   renderAll, renderRack, renderWord, renderCounts, renderButtons, persist,
@@ -20,7 +21,7 @@ import {
   updateReadoutPreview, log, showBanner, showOverlay, hideOverlay,
   showGameOver, showVictory, openInspector, closeInspector, makeTileEl, coinHTML,
   showPatronPopover, hidePopover, renderDraft, updateDraftSelection,
-  updateFoundryState, updateCaseSelection, renderCaseGrid, openLedger, closeLedger,
+  updateFoundryState, updateStallState, openLedger, closeLedger,
 } from './render.js';
 import {
   draft, openDraft, closeDraft, restoreDraft, toggleDraftPick, applyDraft,
@@ -90,6 +91,17 @@ function cancelDiscardMode(quiet = false) {
   return true;
 }
 
+// ─── Sundry mode (an armed paint tube) ────────────────────────────────────────
+
+function cancelSundryMode(quiet = false) {
+  if (state.sundryMode < 0) return false;
+  state.sundryMode = -1;
+  clearAllSelected();
+  if (!quiet) log('The tube goes back on the workbench.');
+  renderAll();
+  return true;
+}
+
 // ─── Submit (PRINT) ───────────────────────────────────────────────────────────
 
 async function submitWord() {
@@ -98,6 +110,7 @@ async function submitWord() {
   if (!w) return;
   hidePopover();
   cancelDiscardMode(true);
+  cancelSundryMode(true);
 
   if (!dictLoaded) { log('The dictionary is still loading…', 'warn'); return; }
   if (!DICT.has(w.toUpperCase())) {
@@ -341,6 +354,7 @@ async function doDiscard() {
   // First press arms the mode; tiles are then tapped to select.
   if (!state.discardMode) {
     if (state.discards <= 0) { log('No discards left this page.', 'warn'); return; }
+    cancelSundryMode(true);
     state.discardMode = true;
     log('Tap tiles to discard, then press again.');
     renderAll();
@@ -387,7 +401,7 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Enter')  { submitWord(); return; }
   if (e.key === 'Escape') {
     hidePopover();
-    if (!cancelDiscardMode()) { clearWord(); renderAll(); }
+    if (!cancelSundryMode() && !cancelDiscardMode()) { clearWord(); renderAll(); }
     return;
   }
   if (e.key === ' ')      { e.preventDefault(); shuffleRack(); renderAll(); return; }
@@ -414,10 +428,52 @@ $('btnPrint')?.addEventListener('click', submitWord);
 $('btnClear')?.addEventListener('click', () => {
   if (state.isAnimating) return;
   hidePopover();
-  if (!cancelDiscardMode()) { clearWord(); renderAll(); }
+  if (!cancelSundryMode() && !cancelDiscardMode()) { clearWord(); renderAll(); }
 });
 $('btnShuffle')?.addEventListener('click', () => { if (!state.isAnimating) { shuffleRack(); renderAll(); } });
 $('btnDiscard')?.addEventListener('click', doDiscard);
+
+// The workbench: first tap arms a tube, board taps pick its targets, a second
+// tap on the tube paints them (or puts it away if nothing is chosen).
+$('sundries')?.addEventListener('click', async e => {
+  if (state.isAnimating || state.inFoundry || state.inDraft || state.gameOver) return;
+  const slot = e.target.closest('[data-sundry]');
+  if (!slot) return;
+  hidePopover();
+  const idx = Number(slot.dataset.sundry);
+
+  if (state.sundryMode !== idx) {
+    cancelDiscardMode(true);
+    cancelSundryMode(true);
+    clearAllSelected();
+    state.sundryMode = idx;
+    const s = state.sundries[idx];
+    log(`Tap up to ${TUBE_TILES} tiles to paint ${COLOURS[s.colour].label}, then tap the tube again.`);
+    renderAll();
+    return;
+  }
+
+  // Second tap on the armed tube: paint the selection, or stand down.
+  if (!sundrySelected().length) { cancelSundryMode(); return; }
+  const result = applySundry(idx);
+  if (!result) { cancelSundryMode(); return; }
+
+  state.isAnimating = true;
+  renderAll();
+  sfx.chime();
+  for (const id of result.ids) {
+    const el = wordTileEl(id) ?? rackTileEl(id);
+    if (el) {
+      el.style.setProperty('--glow', COLOURS[result.colour].glyph);
+      pulse(el, 'tile--set-glow', 620);
+      floatText(el, COLOURS[result.colour].label, `fl-set fl-set--${result.colour}`);
+    }
+  }
+  await sleep(ANIM.stepColour);
+  state.isAnimating = false;
+  renderAll();
+  log(`Painted ${result.letters.join(', ')} ${COLOURS[result.colour].label.toLowerCase()} — for good.`, 'good');
+});
 
 $('bagBtn')?.addEventListener('click', () => { if (!state.isAnimating) openInspector('bag'); });
 $('discardBtn')?.addEventListener('click', () => { if (!state.isAnimating) openInspector('discard'); });
@@ -489,11 +545,11 @@ $('foundryModal')?.addEventListener('click', e => {
     renderAll(); updateFoundryState();
     return;
   }
-  const buyPt = e.target.closest('[data-buy-paint]');
-  if (buyPt) {
-    const r = buyPaint(Number(buyPt.dataset.buyPaint));
+  const buyS = e.target.closest('[data-buy-sundry]');
+  if (buyS) {
+    const r = buySundry(Number(buyS.dataset.buySundry));
     if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
-    else { sfx.coin(); log(`Painted ${r.painted.join(', ')} ${COLOURS[r.colour].label.toLowerCase()}.`, 'good'); }
+    else { sfx.coin(); log(`A tube of ${COLOURS[r.offer.colour].label} joins your workbench.`, 'good'); }
     renderAll(); updateFoundryState();
     return;
   }
@@ -501,26 +557,83 @@ $('foundryModal')?.addEventListener('click', e => {
     if (rerollFoundry()) { sfx.draw(); renderAll(); renderFoundry(); }
     return;
   }
-  if (e.target.closest('#btnOpenCase')) {
-    foundry.view = 'case'; foundry.smeltSel = -1; renderFoundry();
+
+  // ── Stalls ──────────────────────────────────────────────────────────────────
+  const visit = e.target.closest('[data-visit-stall]');
+  if (visit) {
+    foundry.view = 'stall';
+    foundry.activeStall = visit.dataset.visitStall;
+    foundry.stallSel = -1;
+    foundry.stallColour = null;
+    renderFoundry();
     return;
   }
-  if (e.target.closest('#btnCaseBack')) {
-    foundry.view = 'shop'; renderFoundry();
+  if (e.target.closest('#btnStallBack')) {
+    foundry.view = 'shop'; foundry.activeStall = null; renderFoundry();
     return;
   }
-  const caseTile = e.target.closest('[data-case-idx]');
-  if (caseTile) {
-    const idx = Number(caseTile.dataset.caseIdx);
-    foundry.smeltSel = foundry.smeltSel === idx ? -1 : idx;
-    updateCaseSelection();
+  const stallTile = e.target.closest('[data-stall-tid]');
+  if (stallTile && !stallTile.classList.contains('tile--stall-locked')) {
+    const tid = Number(stallTile.dataset.stallTid);
+    foundry.stallSel = foundry.stallSel === tid ? -1 : tid;
+    updateStallState();
     return;
   }
-  if (e.target.closest('#btnSmeltConfirm')) {
-    const r = smeltTile(foundry.smeltSel);
+  const gilderCard = e.target.closest('[data-gilder-idx]');
+  if (gilderCard) {
+    const idx = Number(gilderCard.dataset.gilderIdx);
+    foundry.stallSel = foundry.stallSel === idx ? -1 : idx;
+    updateStallState();
+    return;
+  }
+  const swatch = e.target.closest('[data-stall-colour]');
+  if (swatch) {
+    foundry.stallColour = swatch.dataset.stallColour;
+    updateStallState();
+    return;
+  }
+  if (e.target.closest('#btnStallConfirm')) {
+    let r, msg;
+    switch (foundry.activeStall) {
+      case 'smelter':
+        r = stallSmelt(foundry.stallSel);
+        if (r.ok) msg = `The Smelter feeds a “${r.removed.letter}” tile to the furnace.`;
+        break;
+      case 'painter':
+        r = stallPaint(foundry.stallSel, foundry.stallColour);
+        if (r.ok) msg = `The Painter coats “${r.tmpl.letter}” in ${COLOURS[r.colour].label.toLowerCase()}.`;
+        break;
+      case 'gilder':
+        r = stallGild(foundry.stallSel);
+        if (r.ok) msg = `The Gilder lays a ${TRIMS[r.trim].label} trim on “${r.tmpl.letter}” — new proposals are out.`;
+        break;
+      case 'stereotyper':
+        r = stallClone(foundry.stallSel);
+        if (r.ok) msg = `The Stereotyper casts a perfect copy of “${r.tmpl.letter}”.`;
+        break;
+      case 'restorer':
+        r = stallRestore(foundry.stallSel);
+        if (r.ok) msg = `The Restorer strips “${r.tmpl.letter}” back to bare metal.`;
+        break;
+      default:
+        r = { ok: false };
+    }
     if (!r.ok) { if (r.reason) log(r.reason, 'warn'); sfx.bad(); }
-    else { sfx.discard(); log(`Smelted a “${r.removed.letter}” tile down for scrap.`); }
-    renderAll(); renderCaseGrid(); updateCaseSelection();
+    else {
+      if (foundry.activeStall === 'smelter') sfx.discard(); else sfx.coin();
+      log(msg, 'good');
+    }
+    renderAll(); renderFoundry();   // full rebuild: the price and grid both changed
+    return;
+  }
+
+  // ── Collection (read-only) ──────────────────────────────────────────────────
+  if (e.target.closest('#btnOpenCollection')) {
+    foundry.view = 'collection'; renderFoundry();
+    return;
+  }
+  if (e.target.closest('#btnCollectionBack')) {
+    foundry.view = 'shop'; renderFoundry();
     return;
   }
   if (e.target.closest('#btnFoundryContinue')) beginNextPage();

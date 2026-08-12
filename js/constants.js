@@ -39,8 +39,47 @@ export const COLOURS = {
 export const colourDesc = c =>
   `Every ${COLOURS[c].label} letter in a word raises the ${COLOURS[c].label} multiplier by 1 — one gives ×2, two ×3, and so on. The word’s Mult is all five multipliers multiplied together, so spreading colours beats stacking one.`;
 
-export const PAINT_PRICE     = 3;   // one pot
-export const PAINT_PER_POT   = 3;   // letters painted per pot (random, unpainted)
+export const PAINT_PER_POT   = 3;   // letters painted per draft pot (random, unpainted)
+
+// ─── Sundries (consumables kept on the workbench) ─────────────────────────────
+// Bought at the Shop, spent mid-page. A paint tube is the first kind: arm it,
+// pick up to TUBE_TILES tiles on the board, and they're painted that colour —
+// permanently, right where they sit.
+export const SUNDRY_SLOTS  = 2;   // tubes the workbench can hold
+export const SUNDRY_OFFERS = 2;   // sundries offered per shop
+export const TUBE_PRICE    = 3;
+export const TUBE_TILES    = 2;   // tiles painted per tube
+
+// ─── Stalls ───────────────────────────────────────────────────────────────────
+// Two pitch up at each shop, drawn from the roster below. A stall's price
+// starts at its base and doubles with every purchase, then resets when the
+// next shop opens — the Smelter alone starts dearer.
+export const STALLS_PER_SHOP = 2;
+export const GILDER_RANGE    = 6;    // trim proposals laid out at a time
+export const SMELT_MIN_COLLECTION = 12;
+
+export const STALL_DEFS = {
+  smelter: {
+    name: 'The Smelter', emoji: '🔥', base: 2,
+    desc: 'Feeds a tile of your choosing to the furnace — struck from the collection for good.',
+  },
+  painter: {
+    name: 'The Painter', emoji: '🖌️', base: 1,
+    desc: 'Paints any one letter whichever colour you choose, over any old coat.',
+  },
+  gilder: {
+    name: 'The Gilder', emoji: '⚜️', base: 1,
+    desc: 'Lays out trim proposals for six of your untrimmed tiles — commission the one you like.',
+  },
+  stereotyper: {
+    name: 'The Stereotyper', emoji: '🗜️', base: 1,
+    desc: 'Casts an exact duplicate of any tile you own, features and all.',
+  },
+  restorer: {
+    name: 'The Restorer', emoji: '🧼', base: 1,
+    desc: 'Strips a tile back to bare metal — paint, trim and nick all lifted.',
+  },
+};
 
 // ─── Special-tile generation ──────────────────────────────────────────────────
 // Every offered tile gets one feature outright, then keeps rolling for another
@@ -127,7 +166,6 @@ export const REWARD = {
   interestCap:  3,   // …capped here
 };
 
-export const SMELT_COST      = 2;
 export const TILE_BASE_PRICE = 2;
 export const REROLL_BASE     = 2;
 

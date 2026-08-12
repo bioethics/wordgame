@@ -1,8 +1,10 @@
-import { state, owns, paintRandomFaces, unpaintedFaces } from './state.js';
+import { state, adoptTemplate, shuffle } from './state.js';
 import {
   BAG_COUNTS, LIGATURES, TILE_POINTS, TRIMS, NICKS, COLOURS,
-  PATRON_SLOTS, TILE_BASE_PRICE, SMELT_COST, REROLL_BASE,
-  PAINT_PRICE, PAINT_PER_POT, FEATURE_CHAIN_CHANCE, MAX_FEATURES,
+  PATRON_SLOTS, TILE_BASE_PRICE, REROLL_BASE,
+  SUNDRY_SLOTS, SUNDRY_OFFERS, TUBE_PRICE,
+  STALL_DEFS, STALLS_PER_SHOP, GILDER_RANGE, SMELT_MIN_COLLECTION,
+  FEATURE_CHAIN_CHANCE, MAX_FEATURES,
   makeTileTemplate,
 } from './constants.js';
 import { PATRON_DEFS, RARITY_WEIGHT, patronById } from './patrons.js';
@@ -11,14 +13,17 @@ import { PATRON_DEFS, RARITY_WEIGHT, patronById } from './patrons.js';
 
 export const foundry = {
   open: false,
-  view: 'shop',          // 'shop' | 'case' (smelting view)
+  view: 'shop',          // 'shop' | 'stall' | 'collection'
   rewardParts: [],
   rewardTotal: 0,
   patronOffers: [],      // [{ id, sold }]
   tileOffers: [],        // [{ template, price, sold }]
-  paintOffers: [],       // [{ colour, price, sold }]
+  sundryOffers: [],      // [{ kind: 'tube', colour, price, sold }]
+  stalls: [],            // [{ id, uses, proposals? }] — this visit's two stalls
+  activeStall: null,     // stall id while view === 'stall'
+  stallSel: -1,          // selected tid (gilder: proposal index)
+  stallColour: null,     // the painter's chosen colour
   rerollCost: REROLL_BASE,
-  smeltSel: -1,          // selected collection index in case view
 };
 
 // ─── Offer generation ─────────────────────────────────────────────────────────
@@ -120,21 +125,46 @@ function weightedPatronSample(n) {
   return out;
 }
 
-function rollPaintOffers() {
-  const colours = [...Object.keys(COLOURS)];
-  const out = [];
-  for (let i = 0; i < 2 && colours.length; i++) {
-    const c = pick(colours);
-    colours.splice(colours.indexOf(c), 1);
-    out.push({ colour: c, price: PAINT_PRICE, sold: false });
-  }
-  return out;
+function rollSundryOffers() {
+  return shuffle([...Object.keys(COLOURS)])
+    .slice(0, SUNDRY_OFFERS)
+    .map(colour => ({ kind: 'tube', colour, price: TUBE_PRICE, sold: false }));
 }
 
+// Re-rolled by "New offers"; the stalls are not.
 function rollOffers() {
   foundry.patronOffers = weightedPatronSample(3);
   foundry.tileOffers   = Array.from({ length: 4 }, randomTileOffer);
-  foundry.paintOffers  = rollPaintOffers();
+  foundry.sundryOffers = rollSundryOffers();
+}
+
+// ─── Stalls ───────────────────────────────────────────────────────────────────
+
+export const stallById   = id => foundry.stalls.find(s => s.id === id);
+export const stallPrice  = stall => (STALL_DEFS[stall.id]?.base ?? 1) * 2 ** stall.uses;
+
+// The gilder's spread: up to GILDER_RANGE untrimmed tiles, each with a
+// proposed trim attached. Re-rolled after every commission.
+export function rollGilderProposals() {
+  const untrimmed = state.collection.filter(t => !t.trim);
+  return shuffle([...untrimmed])
+    .slice(0, GILDER_RANGE)
+    .map(t => ({ tid: t.tid, trim: pick(Object.keys(TRIMS)) }));
+}
+
+// Smelting can orphan a gilder proposal mid-visit
+function pruneGilderProposals() {
+  const gilder = stallById('gilder');
+  if (!gilder?.proposals) return;
+  gilder.proposals = gilder.proposals.filter(p =>
+    state.collection.some(t => t.tid === p.tid && !t.trim));
+}
+
+function rollStalls() {
+  const ids = shuffle([...Object.keys(STALL_DEFS)]).slice(0, STALLS_PER_SHOP);
+  foundry.stalls = ids.map(id =>
+    id === 'gilder' ? { id, uses: 0, proposals: rollGilderProposals() }
+                    : { id, uses: 0 });
 }
 
 // ─── Open / close ─────────────────────────────────────────────────────────────
@@ -146,14 +176,18 @@ export function openFoundry(rewardParts, rewardTotal) {
   foundry.rewardParts = rewardParts;
   foundry.rewardTotal = rewardTotal;
   foundry.rerollCost = REROLL_BASE;
-  foundry.smeltSel = -1;
+  foundry.activeStall = null;
+  foundry.stallSel = -1;
+  foundry.stallColour = null;
   rollOffers();
+  rollStalls();
 }
 
 // Restore a shop snapshot from a saved game
 export function restoreFoundry(snapshot) {
   Object.assign(foundry, snapshot, { open: true });
-  foundry.paintOffers ??= [];
+  foundry.sundryOffers ??= [];
+  foundry.stalls ??= [];
   state.inFoundry = true;
 }
 
@@ -196,30 +230,20 @@ export function buyTile(idx) {
   if (!offer || offer.sold)        return { ok: false, reason: 'Not available.' };
   if (state.coins < offer.price)   return { ok: false, reason: `You need ${offer.price} Coins.` };
   state.coins -= offer.price;
-  state.collection.push(JSON.parse(JSON.stringify(offer.template)));
+  state.collection.push(adoptTemplate(offer.template));
   offer.sold = true;
   return { ok: true, template: offer.template };
 }
 
-export function buyPaint(idx) {
-  const offer = foundry.paintOffers[idx];
-  if (!offer || offer.sold)        return { ok: false, reason: 'Not available.' };
-  if (!unpaintedFaces().length)    return { ok: false, reason: 'Every letter is already painted.' };
-  if (state.coins < offer.price)   return { ok: false, reason: `You need ${offer.price} Coins.` };
+export function buySundry(idx) {
+  const offer = foundry.sundryOffers[idx];
+  if (!offer || offer.sold)                       return { ok: false, reason: 'Not available.' };
+  if (state.sundries.length >= SUNDRY_SLOTS)      return { ok: false, reason: 'Your workbench is full.' };
+  if (state.coins < offer.price)                  return { ok: false, reason: `You need ${offer.price} Coins.` };
   state.coins -= offer.price;
-  const painted = paintRandomFaces(offer.colour, PAINT_PER_POT);
+  state.sundries.push({ kind: offer.kind, colour: offer.colour });
   offer.sold = true;
-  return { ok: true, colour: offer.colour, painted };
-}
-
-export function smeltTile(collectionIdx) {
-  if (collectionIdx < 0 || collectionIdx >= state.collection.length) return { ok: false };
-  if (state.collection.length <= 12) return { ok: false, reason: 'Your collection is too small to smelt further.' };
-  if (state.coins < SMELT_COST)      return { ok: false, reason: `Smelting costs ${SMELT_COST} Coins.` };
-  state.coins -= SMELT_COST;
-  const [removed] = state.collection.splice(collectionIdx, 1);
-  foundry.smeltSel = -1;
-  return { ok: true, removed };
+  return { ok: true, offer };
 }
 
 export function rerollFoundry() {
@@ -228,4 +252,80 @@ export function rerollFoundry() {
   foundry.rerollCost += 1;
   rollOffers();
   return true;
+}
+
+// ─── Stall purchases ──────────────────────────────────────────────────────────
+// Each returns { ok, ... } like the buys above. On success the stall's price
+// doubles (uses += 1) and the selection is cleared for the next round.
+
+// Shared preamble: resolve the stall, its price, and the targeted tile.
+function stallTarget(stallId, tid) {
+  const stall = stallById(stallId);
+  const tmpl  = state.collection.find(t => t.tid === tid);
+  if (!stall || !tmpl) return null;
+  return { stall, tmpl, price: stallPrice(stall) };
+}
+
+function payStall(stall, price) {
+  state.coins -= price;
+  stall.uses += 1;
+  foundry.stallSel = -1;
+}
+
+export function stallSmelt(tid) {
+  const t = stallTarget('smelter', tid);
+  if (!t)                            return { ok: false, reason: 'Not available.' };
+  if (state.collection.length <= SMELT_MIN_COLLECTION)
+                                     return { ok: false, reason: 'Your collection is too small to smelt further.' };
+  if (state.coins < t.price)         return { ok: false, reason: `You need ${t.price} Coins.` };
+  payStall(t.stall, t.price);
+  state.collection.splice(state.collection.indexOf(t.tmpl), 1);
+  pruneGilderProposals();
+  return { ok: true, removed: t.tmpl, price: t.price };
+}
+
+export function stallPaint(tid, colour) {
+  const t = stallTarget('painter', tid);
+  if (!t || !COLOURS[colour])        return { ok: false, reason: 'Pick a tile and a colour.' };
+  if (state.coins < t.price)         return { ok: false, reason: `You need ${t.price} Coins.` };
+  payStall(t.stall, t.price);
+  t.tmpl.colour = colour;            // the front face; a dual's other face keeps its coat
+  return { ok: true, tmpl: t.tmpl, colour, price: t.price };
+}
+
+export function stallGild(proposalIdx) {
+  const stall = stallById('gilder');
+  const proposal = stall?.proposals?.[proposalIdx];
+  const tmpl = proposal && state.collection.find(t => t.tid === proposal.tid);
+  if (!tmpl || tmpl.trim)            return { ok: false, reason: 'Not available.' };
+  const price = stallPrice(stall);
+  if (state.coins < price)           return { ok: false, reason: `You need ${price} Coins.` };
+  payStall(stall, price);
+  tmpl.trim = proposal.trim;
+  stall.proposals = rollGilderProposals();
+  return { ok: true, tmpl, trim: proposal.trim, price };
+}
+
+export function stallClone(tid) {
+  const t = stallTarget('stereotyper', tid);
+  if (!t)                            return { ok: false, reason: 'Not available.' };
+  if (state.coins < t.price)         return { ok: false, reason: `You need ${t.price} Coins.` };
+  payStall(t.stall, t.price);
+  state.collection.push(adoptTemplate(t.tmpl));
+  return { ok: true, tmpl: t.tmpl, price: t.price };
+}
+
+export const restorable = tmpl =>
+  !!(tmpl.colour || tmpl.altColour || tmpl.trim || tmpl.nick);
+
+export function stallRestore(tid) {
+  const t = stallTarget('restorer', tid);
+  if (!t || !restorable(t.tmpl))     return { ok: false, reason: 'That tile is already bare.' };
+  if (state.coins < t.price)         return { ok: false, reason: `You need ${t.price} Coins.` };
+  payStall(t.stall, t.price);
+  t.tmpl.colour = null;
+  t.tmpl.altColour = null;
+  t.tmpl.trim = null;
+  t.tmpl.nick = null;
+  return { ok: true, tmpl: t.tmpl, price: t.price };
 }

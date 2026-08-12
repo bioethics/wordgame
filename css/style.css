@@ -184,7 +184,14 @@ header {
   align-content: center;
 }
 
-/* ─── Patron shelf ────────────────────────────────────────────────────────────── */
+/* ─── Patron shelf · sundries workbench ───────────────────────────────────────── */
+.shelf-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: stretch;
+}
+
 .shelf {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -268,6 +275,130 @@ header {
 }
 .patron:hover .patron-x { opacity: 1; }
 .patron-x:hover { transform: scale(1.15); }
+
+/* ── The workbench: sundries bought at the Shop, spent mid-page ──────────────── */
+.sundries {
+  display: grid;
+  grid-template-columns: repeat(2, 74px);
+  gap: 10px;
+  padding: 10px 12px 12px;
+  background: linear-gradient(180deg, var(--wood-light) 0%, var(--wood) 18%, var(--wood-dark) 100%);
+  border-radius: var(--r-md);
+  border: 1px solid rgba(0, 0, 0, 0.45);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 220, 170, 0.18),
+    inset 0 -6px 12px rgba(0, 0, 0, 0.35),
+    0 10px 26px rgba(0, 0, 0, 0.45);
+}
+
+.sundry {
+  position: relative;
+  min-height: 64px;
+  border-radius: var(--r-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 7px 5px 6px;
+  font-family: var(--sans);
+  transition: transform calc(0.12s / var(--aspd)), box-shadow calc(0.15s / var(--aspd));
+}
+.sundry--crimson { --paintcol: var(--crimson); }
+.sundry--azure   { --paintcol: var(--azure); }
+.sundry--jade    { --paintcol: var(--jade); }
+.sundry--amber   { --paintcol: var(--amber); }
+
+button.sundry {
+  background: linear-gradient(170deg, var(--parch) 0%, var(--parch-2) 100%);
+  color: var(--parch-ink);
+  border: 1px solid var(--brass-dark);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 248, 226, 0.6),
+    inset 0 0 0 3.5px rgba(138, 95, 29, 0.35),
+    0 4px 10px rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+}
+button.sundry:hover { transform: translateY(-2px); }
+
+.sundry--armed {
+  transform: translateY(-3px);
+  outline: 2.5px solid var(--paintcol, var(--warn));
+  outline-offset: 2px;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 248, 226, 0.6),
+    0 0 18px var(--paintcol, var(--warn)),
+    0 6px 12px rgba(0, 0, 0, 0.45);
+}
+.sundry--armed:hover { transform: translateY(-3px); }
+
+.sundry--empty {
+  border: 1.5px dashed rgba(243, 222, 184, 0.22);
+  color: rgba(243, 222, 184, 0.3);
+  font-size: 15px;
+  gap: 2px;
+}
+.sundry--empty::after {
+  content: 'sundry';
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: rgba(243, 222, 184, 0.28);
+}
+
+.sundry-name {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 10.5px;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+/* A squeeze-tube of paint: crimped metal shoulder up top, colour below */
+.paint-tube {
+  width: 17px; height: 26px;
+  border-radius: 3px 3px 7px 7px;
+  border: 1.5px solid rgba(40, 25, 10, 0.55);
+  position: relative;
+  margin-top: 6px;
+  box-shadow:
+    inset -3px -4px 6px rgba(0, 0, 0, 0.22),
+    inset 2px 2px 3px rgba(255, 255, 255, 0.38);
+}
+.paint-tube::before {
+  content: '';
+  position: absolute;
+  top: -7px; left: 50%;
+  transform: translateX(-50%);
+  width: 9px; height: 6px;
+  border-radius: 2px 2px 0 0;
+  background: linear-gradient(180deg, #cfc8b8, #a49d8d);
+  border: 1.5px solid rgba(40, 25, 10, 0.5);
+}
+.paint-tube--crimson { background: var(--crimson); }
+.paint-tube--azure   { background: var(--azure); }
+.paint-tube--jade    { background: var(--jade); }
+.paint-tube--amber   { background: var(--amber); }
+
+/* While a tube is armed, both board zones take on its colour, and picked
+   tiles glow that colour under a brush mark instead of the discard arrows. */
+.zone--painting {
+  outline: 2.5px dashed var(--paintcol, var(--warn));
+  outline-offset: 3px;
+}
+.zone--painting .tile--selected {
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.85),
+    0 5px 0 -1px #b3955e,
+    0 0 0 2.5px var(--paintcol, var(--warn)),
+    0 0 18px var(--paintcol, var(--warn)),
+    0 12px 20px rgba(0, 0, 0, 0.5);
+}
+.zone--painting .tile--selected::after {
+  content: '🖌';
+  font-size: 13px;
+}
 
 .patron--firing {
   animation: patronFire calc(0.52s / var(--aspd)) ease;
@@ -847,11 +978,19 @@ header {
 .tile--mini.tile--trim-copper { box-shadow: inset 0 0 0 2px #c47a3d, 0 3px 6px rgba(0,0,0,0.35); }
 .tile--mini.tile--trim-purple { box-shadow: inset 0 0 0 2px #8a5fb0, 0 3px 6px rgba(0,0,0,0.35); }
 
-.tile--smelt-sel {
+/* A stall's chosen tile */
+.tile--stall-sel {
   outline: 2.5px solid var(--bad);
   outline-offset: 2px;
   transform: translateY(-3px);
   box-shadow: 0 0 16px rgba(255, 112, 102, 0.5), 0 6px 12px rgba(0,0,0,0.4);
+}
+
+/* Tiles a stall has no use for (the Restorer and bare metal) */
+.tile--stall-locked {
+  opacity: 0.35;
+  cursor: default;
+  filter: grayscale(0.4);
 }
 
 /* Scoring states */
@@ -1288,8 +1427,9 @@ header {
   justify-content: center;
 }
 
-/* Paint pot offers */
+/* Sundry offers (paint tubes) — .paint-pot survives for the opening draft */
 .foundry-sec--paint { margin-top: 16px; }
+.offer-paint .paint-tube { margin-top: 2px; }
 .offer-paint {
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -1322,6 +1462,73 @@ header {
 .paint-pot--azure   { background: var(--azure); }
 .paint-pot--jade    { background: var(--jade); }
 .paint-pot--amber   { background: var(--amber); }
+
+/* ── Stalls — market pitches under a striped awning ──────────────────────────── */
+.foundry-stalls { margin-top: 22px; }
+
+.stall-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11px;
+}
+@media (max-width: 780px) { .stall-row { grid-template-columns: 1fr; } }
+
+.offer-stall {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 15px 13px 11px;
+  border-radius: 11px;
+  background: rgba(255, 250, 235, 0.55);
+  border: 1px solid rgba(138, 95, 29, 0.5);
+  box-shadow: 0 2px 7px rgba(100, 70, 20, 0.15);
+}
+.offer-stall::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: repeating-linear-gradient(90deg,
+    rgba(178, 58, 46, 0.75) 0 14px,
+    rgba(242, 231, 203, 0.9) 14px 28px);
+  border-bottom: 1px solid rgba(138, 95, 29, 0.35);
+}
+
+.stall-emoji { font-size: 26px; line-height: 1; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.2)); }
+
+.stall-warn { margin: -6px 0 10px; color: #8a3a32; font-weight: 600; }
+
+/* The Painter's colour choice */
+.painter-colours {
+  display: flex;
+  gap: 10px;
+  margin: 2px 0 12px;
+}
+.paint-swatch {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 2px solid rgba(40, 25, 10, 0.5);
+  cursor: pointer;
+  box-shadow: inset 0 -6px 8px rgba(0, 0, 0, 0.2), inset 0 2px 3px rgba(255, 255, 255, 0.4);
+  transition: transform calc(0.12s / var(--aspd)), outline-color calc(0.12s / var(--aspd));
+}
+.paint-swatch--crimson { background: var(--crimson); }
+.paint-swatch--azure   { background: var(--azure); }
+.paint-swatch--jade    { background: var(--jade); }
+.paint-swatch--amber   { background: var(--amber); }
+.paint-swatch:hover { transform: translateY(-2px); }
+.paint-swatch--sel {
+  outline: 2.5px solid #2f6e3e;
+  outline-offset: 2px;
+  transform: scale(1.1);
+}
+
+/* The Gilder's spread of trim proposals */
+.gilder-grid { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 600px) { .gilder-grid { grid-template-columns: repeat(2, 1fr); } }
 
 .foundry-foot {
   display: flex;
@@ -1748,6 +1955,8 @@ input[type='checkbox'] {
   .quota-card { grid-column: 1 / -1; order: -1; }
   .shelf { grid-template-columns: repeat(5, 1fr); gap: 6px; }
   .patron-name { display: none; }
+  .sundries { grid-template-columns: repeat(2, 52px); gap: 6px; }
+  .sundry-name { display: none; }
   :root { --tile-w: 52px; --tile-h: 56px; }
   .tile-letter { font-size: 22px; }
   .rack-row { grid-template-columns: 1fr; }
@@ -1773,11 +1982,17 @@ input[type='checkbox'] {
 
   /* The shelf keeps a constant height whether seats are filled or empty, so
      seating your first patron doesn't shove the board down. */
+  .shelf-row { gap: 5px; }
   .shelf { padding: 6px 6px 7px; gap: 5px; }
   .patron { min-height: 40px; padding: 4px 3px 3px; }
   .patron-emoji { font-size: 19px; }
   .patron--empty::after { display: none; }
   .patron--empty { font-size: 13px; }
+  .sundries { grid-template-columns: repeat(2, 40px); gap: 4px; padding: 6px 6px 7px; }
+  .sundry { min-height: 40px; padding: 4px 3px 3px; }
+  .sundry--empty::after { display: none; }
+  .paint-tube { width: 13px; height: 20px; margin-top: 5px; }
+  .paint-tube::before { width: 7px; height: 5px; top: -6px; }
 
   .status-card { padding: 5px 11px; }
   .chapter-card, .pips-card { min-width: 0; }

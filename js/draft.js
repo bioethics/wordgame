@@ -2,7 +2,7 @@
 // patron, two paints, and four tiles; no coins change hands. Everything picked
 // is applied to the collection before page 1's bag is shuffled.
 
-import { state, paintRandomFaces } from './state.js';
+import { state, paintRandomFaces, adoptTemplate } from './state.js';
 import { DRAFT, COLOURS, PAINT_PER_POT } from './constants.js';
 import { PATRON_DEFS, RARITY_WEIGHT } from './patrons.js';
 import { randomSpecialTile } from './foundry.js';
@@ -70,7 +70,7 @@ export const draftComplete = () =>
 // Tiles join the collection first so the paints can land on them too.
 export function applyDraft() {
   for (const i of draft.picked.tile) {
-    state.collection.push(JSON.parse(JSON.stringify(draft.tiles[i])));
+    state.collection.push(adoptTemplate(draft.tiles[i]));
   }
   const painted = [];
   for (const i of draft.picked.paint) {

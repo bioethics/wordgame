@@ -11,9 +11,10 @@ import {
   state,
   moveRackToWord, moveWordToRack,
   reorderWord, reorderRack,
-  toggleSelected, toggleDualVariant,
+  toggleSelected, toggleSundrySelect, toggleDualVariant,
 } from './state.js';
-import { renderAll, showTilePopover, showPopover, hidePopover } from './render.js';
+import { TUBE_TILES } from './constants.js';
+import { renderAll, showTilePopover, showPopover, hidePopover, log } from './render.js';
 import { computeScore } from './scoring.js';
 import { foundry } from './foundry.js';
 import { draft } from './draft.js';
@@ -40,8 +41,10 @@ function insertIndex(container, clientX) {
 
 const blocked = () => state.inFoundry || state.inDraft || state.isAnimating || state.gameOver;
 
-// Rack taps mean "select for discard" while discard mode is armed
+// Rack taps mean "select for discard" while discard mode is armed;
+// any board tap means "select for the tube" while a sundry is armed.
 const selectingToDiscard = () => state.discardMode;
+const selectingForSundry = () => state.sundryMode >= 0;
 
 // ─── Press / drag state ────────────────────────────────────────────────────────
 
@@ -125,7 +128,11 @@ function releasePress(commit) {
 
   if (commit && !wasDrag && !popped && !blocked()) {
     // A plain tap
-    if (press.zone === 'rack') {
+    if (selectingForSundry()) {
+      if (toggleSundrySelect(press.id) === 'full') {
+        log(`A tube covers ${TUBE_TILES} tiles at most — deselect one first.`, 'warn');
+      }
+    } else if (press.zone === 'rack') {
       if (selectingToDiscard()) toggleSelected(press.id);
       else                      moveRackToWord(press.id);
     } else {
@@ -217,7 +224,8 @@ const HOVER_DELAY = 260;
 let _hoverTimer = null, _holdTimer = null, _held = null;
 
 function tipTargetOf(el) {
-  return el.closest('[data-tip-head]') || el.closest('.offer-tile, [data-draft="tile"], [data-case-idx]');
+  return el.closest('[data-tip-head]')
+      || el.closest('.offer-tile, [data-draft="tile"], [data-stall-tid], [data-tid]');
 }
 
 function showTipFor(target) {
@@ -236,8 +244,15 @@ function showTipFor(target) {
 
 // Recover the template a preview tile was built from
 function templateFor(tileEl) {
-  const caseIdx = tileEl.closest('[data-case-idx]')?.dataset.caseIdx;
-  if (caseIdx != null) return state.collection[Number(caseIdx)];
+  const tid = tileEl.closest('[data-stall-tid]')?.dataset.stallTid
+           ?? tileEl.closest('[data-tid]')?.dataset.tid;
+  if (tid != null) return state.collection.find(t => t.tid === Number(tid));
+  const gilded = tileEl.closest('[data-gilder-idx]')?.dataset.gilderIdx;
+  if (gilded != null) {
+    const p = foundry.stalls.find(s => s.id === 'gilder')?.proposals?.[Number(gilded)];
+    const tmpl = p && state.collection.find(t => t.tid === p.tid);
+    return tmpl ? { ...tmpl, trim: p.trim } : null;
+  }
   const offer = tileEl.closest('[data-offer="tile"]')?.dataset.idx;
   if (offer != null) return foundry.tileOffers[Number(offer)]?.template;
   const drafted = tileEl.closest('[data-draft="tile"]')?.dataset.idx;

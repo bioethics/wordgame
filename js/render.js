@@ -2,11 +2,15 @@ import { state, settings, saveState, getActiveLetter, getActiveColour, selectedC
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES,
   PATRON_SLOTS, WORDS_PER_PAGE, PAGES_PER_CHAPTER,
-  SMELT_COST, PAINT_PER_POT, colourDesc, chapterTitle, roman, isDeadline,
+  PAINT_PER_POT, SUNDRY_SLOTS, TUBE_TILES,
+  STALL_DEFS, SMELT_MIN_COLLECTION,
+  colourDesc, chapterTitle, roman, isDeadline,
 } from './constants.js';
 import { patronById } from './patrons.js';
 import { computeScore } from './scoring.js';
-import { foundry, foundrySnapshot, tilePrice } from './foundry.js';
+import {
+  foundry, foundrySnapshot, tilePrice, stallById, stallPrice, restorable,
+} from './foundry.js';
 import { draft, draftLimit, draftComplete, draftSnapshot } from './draft.js';
 import { setNum, tweenNum, sleep, dur, fmtMult } from './anim.js';
 
@@ -155,6 +159,7 @@ export function hidePopover() {
 
 export function renderAll() {
   renderShelf();
+  renderSundries();
   renderStatus();
   renderRack();
   renderWord();
@@ -196,6 +201,36 @@ function renderShelf() {
       slot.innerHTML = `<span class="patron-empty-mark">❧</span>`;
     }
     shelf.appendChild(slot);
+  }
+}
+
+// ─── Sundries (the workbench beside the shelf) ────────────────────────────────
+// Fixed slot count so buying or spending a tube never reflows the board.
+
+function renderSundries() {
+  const bench = $('sundries');
+  if (!bench) return;
+  bench.innerHTML = '';
+
+  for (let i = 0; i < SUNDRY_SLOTS; i++) {
+    const s = state.sundries?.[i];
+    if (s) {
+      const slot = document.createElement('button');
+      slot.className = `sundry sundry--${s.colour}${state.sundryMode === i ? ' sundry--armed' : ''}`;
+      slot.dataset.sundry = i;
+      slot.title = `Tube of ${COLOURS[s.colour].label} — tap it, tap up to ${TUBE_TILES} tiles on the board, `
+                 + `then tap the tube again to paint them. The paint is permanent.`;
+      slot.innerHTML = `
+        <span class="paint-tube paint-tube--${s.colour}"></span>
+        <span class="sundry-name">${COLOURS[s.colour].label}</span>`;
+      bench.appendChild(slot);
+    } else {
+      const slot = document.createElement('div');
+      slot.className = 'sundry sundry--empty';
+      slot.title = 'An empty spot on the workbench — buy sundries at the Shop';
+      slot.innerHTML = `<span class="sundry-empty-mark">✒</span>`;
+      bench.appendChild(slot);
+    }
   }
 }
 
@@ -247,11 +282,19 @@ function renderPips(id, total, filled, cls, maxShown = total) {
 // ─── Zones ────────────────────────────────────────────────────────────────────
 
 // ghostIds: tiles rendered invisible so a fly-in animation can reveal them
+// The armed tube tints both board zones with its own colour
+function applyPaintingMode(el) {
+  const tube = state.sundryMode >= 0 ? state.sundries[state.sundryMode] : null;
+  el.classList.toggle('zone--painting', !!tube);
+  if (tube) el.style.setProperty('--paintcol', COLOURS[tube.colour].glyph);
+}
+
 export function renderRack(ghostIds = null) {
   const el = $('rack');
   if (!el) return;
   el.innerHTML = '';
   el.classList.toggle('rack--discard', state.discardMode);
+  applyPaintingMode(el);
   state.rack.forEach(t => {
     const tileEl = makeTileEl(t, 'rack');
     if (ghostIds?.has(t.id)) tileEl.classList.add('tile--ghost');
@@ -269,6 +312,7 @@ export function renderWord() {
   if (!el) return;
   el.innerHTML = '';
   el.dataset.placeholder = state.word.length ? '' : 'compose a word…';
+  applyPaintingMode(el);
 
   const script = computeScore(state.word);
 
@@ -523,37 +567,31 @@ export function closeInspector() {
 
 // ─── Shop ──────────────────────────────────────────────────────────────────
 
-// Full build. Only for opening the shop, switching view, or rerolling —
-// buying patches in place (see updateFoundryState) so a purchase never throws
-// away your scroll position.
+// Full build. Only for opening the shop, switching view, or completing a stall
+// purchase — buying offers patches in place (see updateFoundryState) so a
+// purchase never throws away your scroll position.
 export function renderFoundry() {
   const m = $('foundryModal');
   if (!m) return;
   if (!foundry.open) { m.classList.remove('show'); m.innerHTML = ''; return; }
 
-  m.innerHTML = foundry.view === 'case' ? foundryCaseHTML() : foundryShopHTML();
+  m.innerHTML = foundry.view === 'stall'      ? foundryStallHTML()
+              : foundry.view === 'collection' ? foundryCollectionHTML()
+              :                                 foundryShopHTML();
   m.classList.add('show');
 
-  if (foundry.view === 'case') renderCaseGrid();
-  else {
+  if (foundry.view === 'stall') {
+    renderStallBody();
+    updateStallState();
+  } else if (foundry.view === 'collection') {
+    renderCollectionGrid();
+  } else {
     foundry.tileOffers.forEach((o, i) => {
       const slot = m.querySelector(`[data-offer-tile="${i}"]`);
       if (slot && !slot.children.length) slot.appendChild(makeTileEl({ ...o.template, id: '' }, 'offer'));
     });
     updateFoundryState();
   }
-}
-
-function renderCaseGrid() {
-  const grid = $('caseGrid');
-  if (!grid) return;
-  grid.innerHTML = '';
-  state.collection.forEach((tmpl, i) => {
-    const el = makeTileEl({ ...tmpl, id: '' }, 'case', { mini: true });
-    el.dataset.caseIdx = i;
-    if (i === foundry.smeltSel) el.classList.add('tile--smelt-sel');
-    grid.appendChild(el);
-  });
 }
 
 // Sold state, prices you can and can't afford, the coin count — all patched
@@ -565,15 +603,18 @@ export function updateFoundryState() {
   setText('foundryCoins', state.coins);
 
   const seatsFull = state.patrons.length >= PATRON_SLOTS;
+  const benchFull = state.sundries.length >= SUNDRY_SLOTS;
   for (const card of m.querySelectorAll('[data-offer]')) {
     const kind = card.dataset.offer;
     const idx  = Number(card.dataset.idx);
     const offer = kind === 'patron' ? foundry.patronOffers[idx]
                 : kind === 'tile'   ? foundry.tileOffers[idx]
-                :                     foundry.paintOffers[idx];
+                :                     foundry.sundryOffers[idx];
     if (!offer) continue;
     const cost = kind === 'patron' ? patronById(offer.id).cost : offer.price;
-    const afford = state.coins >= cost && (kind !== 'patron' || !seatsFull);
+    const afford = state.coins >= cost
+      && (kind !== 'patron' || !seatsFull)
+      && (kind !== 'sundry' || !benchFull);
     card.classList.toggle('offer--sold', !!offer.sold);
     const btn = card.querySelector('.btn-price');
     if (btn) btn.disabled = offer.sold || !afford;
@@ -581,28 +622,12 @@ export function updateFoundryState() {
 
   const seats = m.querySelector('[data-seats]');
   if (seats) seats.textContent = `${state.patrons.length}/${PATRON_SLOTS} seated${seatsFull ? ' — table full' : ''}`;
+  const bench = m.querySelector('[data-bench]');
+  if (bench) bench.textContent = `${state.sundries.length}/${SUNDRY_SLOTS} on the workbench${benchFull ? ' — full' : ''}`;
 
   const reroll = m.querySelector('#btnReroll');
   if (reroll) reroll.disabled = state.coins < foundry.rerollCost;
 }
-
-// The case view's selection, patched in place
-export function updateCaseSelection() {
-  const m = $('foundryModal');
-  if (!m) return;
-  for (const el of m.querySelectorAll('[data-case-idx]')) {
-    el.classList.toggle('tile--smelt-sel', Number(el.dataset.caseIdx) === foundry.smeltSel);
-  }
-  const sel = foundry.smeltSel >= 0 ? state.collection[foundry.smeltSel] : null;
-  const btn = m.querySelector('#btnSmeltConfirm');
-  if (btn) {
-    btn.disabled = !sel;
-    btn.textContent = sel
-      ? `Smelt “${sel.letter}${sel.letterType === 'dual' ? '/' + sel.altLetter : ''}” for ${SMELT_COST} Coins`
-      : 'Select a tile to smelt';
-  }
-}
-export { renderCaseGrid };
 
 function rewardHTML() {
   if (!foundry.rewardParts?.length) return '';
@@ -634,19 +659,33 @@ function foundryShopHTML() {
         <button class="btn-price" data-buy-tile="${i}">${coinHTML(o.price)}</button>
       </div>`).join('');
 
-  const paintCards = foundry.paintOffers.map((o, i) => `
-      <div class="offer-paint offer-paint--${o.colour}" data-offer="paint" data-idx="${i}"
-           data-tip-head="${COLOURS[o.colour].label} paint"
-           data-tip-body="${colourDesc(o.colour)} A pot paints ${PAINT_PER_POT} random unpainted letters in your collection.">
-        <span class="paint-pot paint-pot--${o.colour}"></span>
+  const sundryCards = foundry.sundryOffers.map((o, i) => `
+      <div class="offer-paint offer-paint--${o.colour}" data-offer="sundry" data-idx="${i}"
+           data-tip-head="Tube of ${COLOURS[o.colour].label}"
+           data-tip-body="Kept on your workbench for use mid-page: tap it, choose up to ${TUBE_TILES} tiles on the board, and they're painted ${COLOURS[o.colour].label} — permanently, over any old coat. ${colourDesc(o.colour)}">
+        <span class="paint-tube paint-tube--${o.colour}"></span>
         <div class="op-body">
-          <div class="op-name">${COLOURS[o.colour].label} paint</div>
+          <div class="op-name">Tube of ${COLOURS[o.colour].label}</div>
         </div>
-        <span class="op-sold">used</span>
-        <button class="btn-price" data-buy-paint="${i}">${coinHTML(o.price)}</button>
+        <span class="op-sold">bought</span>
+        <button class="btn-price" data-buy-sundry="${i}">${coinHTML(o.price)}</button>
       </div>`).join('');
 
+  const stallCards = foundry.stalls.map(s => {
+    const def = STALL_DEFS[s.id];
+    return `
+      <div class="offer-stall" data-stall-card="${s.id}">
+        <span class="stall-emoji">${def.emoji}</span>
+        <div class="op-body">
+          <div class="op-name">${def.name}</div>
+          <div class="op-desc">${def.desc}</div>
+        </div>
+        <button class="btn-price" data-visit-stall="${s.id}">Visit · ${coinHTML(stallPrice(s))}</button>
+      </div>`;
+  }).join('');
+
   const fullSeats = state.patrons.length >= PATRON_SLOTS;
+  const fullBench = state.sundries.length >= SUNDRY_SLOTS;
 
   return `
     <div class="sheet sheet--foundry">
@@ -666,41 +705,202 @@ function foundryShopHTML() {
         <section class="foundry-col">
           <h3 class="foundry-sec">Tiles</h3>
           <div class="offer-tiles">${tileCards}</div>
-          <h3 class="foundry-sec foundry-sec--paint">Paint</h3>
-          <div class="offer-list">${paintCards}</div>
+          <h3 class="foundry-sec foundry-sec--paint">Sundries <span class="foundry-sub" data-bench>${state.sundries.length}/${SUNDRY_SLOTS} on the workbench${fullBench ? ' — full' : ''}</span></h3>
+          <div class="offer-list">${sundryCards}</div>
         </section>
       </div>
 
+      <section class="foundry-stalls">
+        <h3 class="foundry-sec">Stalls <span class="foundry-sub">two pitch up each visit — every purchase doubles that stall's price until the next shop</span></h3>
+        <div class="stall-row">${stallCards}</div>
+      </section>
+
       <div class="foundry-foot">
-        <button class="btn btn-quiet" id="btnReroll" ${state.coins < foundry.rerollCost ? 'disabled' : ''}>
+        <button class="btn btn-quiet" id="btnReroll" title="Re-rolls patrons, tiles and sundries — the stalls stay put"
+          ${state.coins < foundry.rerollCost ? 'disabled' : ''}>
           New offers ${coinHTML(foundry.rerollCost)}
         </button>
-        <button class="btn btn-quiet" id="btnOpenCase">Collection · smelt ${coinHTML(SMELT_COST)}</button>
+        <button class="btn btn-quiet" id="btnOpenCollection">Your collection</button>
         <div class="foundry-spacer"></div>
         <button class="btn btn-print" id="btnFoundryContinue">Next page ❧</button>
       </div>
     </div>`;
 }
 
-function foundryCaseHTML() {
-  const sel = foundry.smeltSel >= 0 ? state.collection[foundry.smeltSel] : null;
+// ─── Stall view ───────────────────────────────────────────────────────────────
+
+const tileName = t => `“${t.letter}${t.letterType === 'dual' ? '/' + t.altLetter : ''}”`;
+
+function foundryStallHTML() {
+  const stall = stallById(foundry.activeStall);
+  const def = STALL_DEFS[foundry.activeStall];
+  if (!stall || !def) return foundryShopHTML();
+
+  const painterColours = foundry.activeStall === 'painter' ? `
+    <div class="painter-colours">
+      ${Object.keys(COLOURS).map(c => `
+        <button class="paint-swatch paint-swatch--${c}" data-stall-colour="${c}"
+                title="${COLOURS[c].label}" data-tip-head="${COLOURS[c].label}" data-tip-body="${colourDesc(c)}"></button>`).join('')}
+    </div>` : '';
+
+  const body = foundry.activeStall === 'gilder'
+    ? `<div class="offer-tiles gilder-grid" id="stallGilderGrid"></div>`
+    : `${painterColours}<div class="mini-grid mini-grid--case" id="stallGrid"></div>`;
+
+  const note = foundry.activeStall === 'smelter' && state.collection.length <= SMELT_MIN_COLLECTION
+    ? `<p class="sheet-note stall-warn">The furnace refuses — a collection of ${state.collection.length} tiles is too small to smelt further.</p>`
+    : '';
+
+  return `
+    <div class="sheet sheet--foundry">
+      <div class="sheet-head">
+        <div>
+          <h2 class="foundry-title">${def.emoji} ${def.name}</h2>
+          <p class="sheet-note">${def.desc} Every purchase doubles the price for the rest of this visit. Coins: <b id="foundryCoins">${state.coins}</b></p>
+        </div>
+      </div>
+      ${note}
+      ${body}
+      <div class="foundry-foot">
+        <button class="btn btn-quiet" id="btnStallBack">← Back to the Shop</button>
+        <div class="foundry-spacer"></div>
+        <button class="btn ${foundry.activeStall === 'smelter' ? 'btn-danger' : 'btn-print'}" id="btnStallConfirm" disabled></button>
+      </div>
+    </div>`;
+}
+
+// Fill the stall's grid — collection minis for most stalls, full-size trim
+// previews for the gilder — after the sheet HTML has landed.
+function renderStallBody() {
+  const stall = stallById(foundry.activeStall);
+  if (!stall) return;
+
+  if (foundry.activeStall === 'gilder') {
+    const grid = $('stallGilderGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    const proposals = stall.proposals ?? [];
+    if (!proposals.length) {
+      grid.innerHTML = '<p class="sheet-note">Nothing to propose — every tile you own already wears a trim.</p>';
+      return;
+    }
+    proposals.forEach((p, i) => {
+      const tmpl = state.collection.find(t => t.tid === p.tid);
+      if (!tmpl) return;
+      const card = document.createElement('div');
+      card.className = 'offer-tile pickable';
+      card.dataset.gilderIdx = i;
+      card.innerHTML = `<span class="pick-mark">✓</span>`;
+      const slot = document.createElement('div');
+      slot.className = 'offer-tile-slot';
+      slot.appendChild(makeTileEl({ ...tmpl, trim: p.trim, id: '' }, 'gild'));
+      card.prepend(slot);
+      grid.appendChild(card);
+    });
+    return;
+  }
+
+  const grid = $('stallGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  state.collection.forEach(tmpl => {
+    const el = makeTileEl({ ...tmpl, id: '' }, 'stall', { mini: true });
+    el.dataset.stallTid = tmpl.tid;
+    if (foundry.activeStall === 'restorer' && !restorable(tmpl)) {
+      el.classList.add('tile--stall-locked');
+    }
+    grid.appendChild(el);
+  });
+}
+
+// Selection, colour choice, and the confirm button — patched in place so a
+// tap never rebuilds the sheet under your thumb.
+export function updateStallState() {
+  const m = $('foundryModal');
+  if (!m || foundry.view !== 'stall') return;
+  const stall = stallById(foundry.activeStall);
+  if (!stall) return;
+  const price = stallPrice(stall);
+
+  for (const el of m.querySelectorAll('[data-stall-tid]')) {
+    el.classList.toggle('tile--stall-sel', Number(el.dataset.stallTid) === foundry.stallSel);
+  }
+  for (const el of m.querySelectorAll('[data-gilder-idx]')) {
+    el.classList.toggle('picked', Number(el.dataset.gilderIdx) === foundry.stallSel);
+  }
+  for (const el of m.querySelectorAll('[data-stall-colour]')) {
+    el.classList.toggle('paint-swatch--sel', el.dataset.stallColour === foundry.stallColour);
+  }
+
+  const btn = m.querySelector('#btnStallConfirm');
+  if (!btn) return;
+
+  const sel = foundry.stallSel >= 0 && foundry.activeStall !== 'gilder'
+    ? state.collection.find(t => t.tid === foundry.stallSel) : null;
+  const priceTag = `for ${price} Coin${price === 1 ? '' : 's'}`;
+  let label = '', ready = false;
+
+  switch (foundry.activeStall) {
+    case 'smelter':
+      label = sel ? `Smelt ${tileName(sel)} ${priceTag}` : 'Select a tile to smelt';
+      ready = !!sel && state.collection.length > SMELT_MIN_COLLECTION;
+      break;
+    case 'painter':
+      label = sel && foundry.stallColour
+        ? `Paint ${tileName(sel)} ${COLOURS[foundry.stallColour].label} ${priceTag}`
+        : 'Select a tile and a colour';
+      ready = !!sel && !!foundry.stallColour;
+      break;
+    case 'stereotyper':
+      label = sel ? `Cast a copy of ${tileName(sel)} ${priceTag}` : 'Select a tile to duplicate';
+      ready = !!sel;
+      break;
+    case 'restorer':
+      label = sel ? `Restore ${tileName(sel)} ${priceTag}` : 'Select a tile to strip bare';
+      ready = !!sel && restorable(sel);
+      break;
+    case 'gilder': {
+      const p = stall.proposals?.[foundry.stallSel];
+      const tmpl = p && state.collection.find(t => t.tid === p.tid);
+      label = tmpl
+        ? `Commission the ${TRIMS[p.trim].label} trim on ${tileName(tmpl)} ${priceTag}`
+        : 'Choose a proposal';
+      ready = !!tmpl;
+      break;
+    }
+  }
+  btn.textContent = label;
+  btn.disabled = !ready || state.coins < price;
+}
+
+// ─── Collection view (read-only) ──────────────────────────────────────────────
+
+function foundryCollectionHTML() {
   return `
     <div class="sheet sheet--foundry">
       <div class="sheet-head">
         <div>
           <h2 class="foundry-title">Your collection</h2>
-          <p class="sheet-note">${state.collection.length} tiles. Smelting one costs ${SMELT_COST} Coins. Coins: <b id="foundryCoins">${state.coins}</b></p>
+          <p class="sheet-note">${state.collection.length} tiles — the whole collection shuffles into the bag each page.</p>
         </div>
       </div>
-      <div class="mini-grid mini-grid--case" id="caseGrid"></div>
+      <div class="mini-grid mini-grid--case" id="collectionGrid"></div>
       <div class="foundry-foot">
-        <button class="btn btn-quiet" id="btnCaseBack">← Back to the Shop</button>
+        <button class="btn btn-quiet" id="btnCollectionBack">← Back to the Shop</button>
         <div class="foundry-spacer"></div>
-        <button class="btn btn-danger" id="btnSmeltConfirm" ${sel ? '' : 'disabled'}>
-          ${sel ? `Smelt “${sel.letter}${sel.letterType === 'dual' ? '/' + sel.altLetter : ''}” for ${SMELT_COST} Coins` : 'Select a tile to smelt'}
-        </button>
       </div>
     </div>`;
+}
+
+function renderCollectionGrid() {
+  const grid = $('collectionGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  state.collection.forEach(tmpl => {
+    const el = makeTileEl({ ...tmpl, id: '' }, 'collection', { mini: true });
+    el.dataset.tid = tmpl.tid;
+    grid.appendChild(el);
+  });
 }
 
 // ─── Opening draft ────────────────────────────────────────────────────────────
