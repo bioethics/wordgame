@@ -640,9 +640,12 @@ function foundryShopHTML() {
     const def = patronById(o.id);
     return `
       <div class="offer-patron offer-patron--${def.rarity}" data-offer="patron" data-idx="${i}">
-        <span class="op-emoji">${def.emoji}</span>
-        <div class="op-body">
-          <div class="op-name">${def.name} <span class="op-rarity">${def.rarity}</span></div>
+        <div class="op-portrait">${def.portrait
+          ? `<img src="${def.portrait}" alt="${def.name}">`
+          : `<span class="op-emoji">${def.emoji}</span>`}</div>
+        <div class="op-card-body">
+          <div class="op-name">${def.name}</div>
+          <div class="op-title">${def.rarity}</div>
           <div class="op-desc">${def.desc}</div>
         </div>
         <span class="op-sold">seated</span>
@@ -917,9 +920,12 @@ export function renderDraft() {
     const def = patronById(id);
     return `
       <div class="offer-patron offer-patron--${def.rarity} pickable" data-draft="patron" data-idx="${i}">
-        <span class="op-emoji">${def.emoji}</span>
-        <div class="op-body">
-          <div class="op-name">${def.name} <span class="op-rarity">${def.rarity}</span></div>
+        <div class="op-portrait">${def.portrait
+          ? `<img src="${def.portrait}" alt="${def.name}">`
+          : `<span class="op-emoji">${def.emoji}</span>`}</div>
+        <div class="op-card-body">
+          <div class="op-name">${def.name}</div>
+          <div class="op-title">${def.rarity}</div>
           <div class="op-desc">${def.desc}</div>
         </div>
         <span class="pick-mark">✓</span>

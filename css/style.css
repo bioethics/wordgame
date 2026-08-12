@@ -1342,19 +1342,92 @@ button.sundry:hover { transform: translateY(-2px); }
 
 .offer-list { display: grid; gap: 9px; }
 
+/* ── Patrons as engraved business cards ────────────────────────────────────────
+   Ivory stock, a double-rule frame (hairline tinted by rarity), a portrait
+   panel on the left — an emoji placeholder until real portraits land via a
+   patron def's optional `portrait` image — and the rarity as the title line. */
 .offer-patron {
+  position: relative;
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 11px;
-  align-items: center;
-  padding: 10px 12px;
-  border-radius: 11px;
-  background: rgba(255, 250, 235, 0.55);
-  border: 1px solid rgba(138, 95, 29, 0.45);
-  box-shadow: 0 2px 7px rgba(100, 70, 20, 0.15);
+  grid-template-columns: 84px 1fr;
+  gap: 9px;
+  align-items: stretch;
+  width: min(340px, 100%);
+  margin-inline: auto;
+  padding: 6px;
+  border-radius: 4px;
+  background: linear-gradient(170deg, var(--ivory) 0%, var(--parch) 55%, var(--parch-2) 100%);
+  border: 1px solid rgba(138, 95, 29, 0.55);
+  box-shadow:
+    inset 0 0 0 3px rgba(255, 252, 240, 0.9),
+    inset 0 0 0 4px var(--hairline, rgba(138, 95, 29, 0.4)),
+    0 4px 12px rgba(60, 40, 15, 0.3);
+  transform: rotate(-0.7deg);
 }
-.offer-patron--uncommon { border-color: rgba(47, 116, 92, 0.65); background: rgba(228, 245, 235, 0.5); }
-.offer-patron--rare     { border-color: rgba(112, 64, 160, 0.6); background: rgba(238, 228, 248, 0.5); }
+.offer-patron:nth-child(even) { transform: rotate(0.6deg); }
+.offer-patron--uncommon { --hairline: rgba(47, 116, 92, 0.55);  --title-col: #2f745c; }
+.offer-patron--rare     { --hairline: rgba(112, 64, 160, 0.55); --title-col: #7040a0; }
+
+.op-portrait {
+  display: grid;
+  place-items: center;
+  min-height: 92px;
+  border-radius: 2px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 36%, rgba(255, 252, 240, 0.95), rgba(206, 185, 143, 0.6) 78%),
+    repeating-linear-gradient(0deg, rgba(120, 90, 40, 0.14) 0 1px, transparent 1px 3px);
+  border: 1px solid rgba(138, 95, 29, 0.4);
+}
+.op-portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.op-portrait .op-emoji {
+  font-size: 37px;
+  filter: grayscale(0.2) sepia(0.3) drop-shadow(0 2px 2px rgba(90, 60, 20, 0.3));
+  opacity: 0.9;
+}
+
+.op-card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1px;
+  padding: 6px 8px 6px 2px;
+  min-width: 0;
+}
+.op-card-body .op-name {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 14.5px;
+  letter-spacing: 0.2px;
+  color: var(--parch-ink);
+}
+.op-title {
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 1.9px;
+  text-transform: uppercase;
+  color: var(--title-col, #8a5f1d);
+}
+.op-card-body .op-desc { margin-top: 4px; font-size: 11.5px; }
+
+/* Price tag tied to the card's corner; SOLD stamped across its face.
+   (The doubled selector outranks the market skin's `position: relative`.) */
+.offer-patron .btn-price,
+.sheet--market .offer-patron .btn-price {
+  position: absolute;
+  right: -9px;
+  bottom: -9px;
+  z-index: 2;
+}
+.offer-patron .op-sold {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: max-content;
+  height: max-content;
+  z-index: 2;
+}
+
 .offer--sold { opacity: 0.45; }
 
 .op-emoji { font-size: 27px; line-height: 1; }
@@ -1663,35 +1736,12 @@ button.sundry:hover { transform: translateY(-2px); }
   to   { transform: none; opacity: 1; }
 }
 
-/* ── Patrons as calling cards, sealed in wax ─────────────────────────────────── */
+/* ── Patron business cards on the dark counter ───────────────────────────────── */
 .sheet--market .offer-patron {
-  position: relative;
-  background: linear-gradient(170deg, var(--parch) 0%, var(--parch-2) 100%);
-  border: 1px solid var(--brass-dark);
   box-shadow:
-    inset 0 0 0 2px rgba(255, 248, 226, 0.6),
-    0 5px 14px rgba(0, 0, 0, 0.5);
-  transform: rotate(-0.6deg);
-}
-.sheet--market .offer-patron:nth-child(even) { transform: rotate(0.5deg); }
-.sheet--market .offer-patron .op-name { color: var(--parch-ink); }
-.sheet--market .offer-patron--common   { --seal: #a8762a; }
-.sheet--market .offer-patron--uncommon { --seal: #2f745c; }
-.sheet--market .offer-patron--rare     { --seal: #7040a0; }
-.sheet--market .offer-patron::after {
-  content: '❦';
-  position: absolute;
-  top: -8px; right: 13px;
-  width: 23px; height: 23px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 10px;
-  color: rgba(0, 0, 0, 0.4);
-  background:
-    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.4), transparent 45%),
-    var(--seal, #a8762a);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45), inset 0 0 0 1.5px rgba(0, 0, 0, 0.18);
+    inset 0 0 0 3px rgba(255, 252, 240, 0.9),
+    inset 0 0 0 4px var(--hairline, rgba(138, 95, 29, 0.4)),
+    0 6px 16px rgba(0, 0, 0, 0.55);
 }
 
 /* ── Tiles in a type case ────────────────────────────────────────────────────── */
@@ -2293,6 +2343,9 @@ input[type='checkbox'] {
 
   .offer-tiles--draft { grid-template-columns: repeat(2, 1fr); }
   .draft-paints { grid-template-columns: 1fr; }
+  .offer-patron { grid-template-columns: 68px 1fr; }
+  .op-portrait { min-height: 78px; }
+  .op-portrait .op-emoji { font-size: 30px; }
   .sheet--draft .foundry-sec { margin-top: 14px; }
 
   /* the shop head is a title beside a reward tally — too wide for a phone */

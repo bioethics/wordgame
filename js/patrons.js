@@ -5,6 +5,9 @@
 //
 // Score ctx: { word, tiles, state, addPoints(n), addMult(n), xMult(n) }
 // The add/x helpers record an animation step automatically.
+//
+// Optional `portrait`: path to an image (e.g. 'img/patrons/scholar.png') shown
+// on the patron's business card in the market and draft instead of the emoji.
 
 const VOWELS = 'AEIOU';
 
