@@ -1355,6 +1355,9 @@ button.sundry:hover { transform: translateY(-2px); }
   width: min(340px, 100%);
   margin-inline: auto;
   padding: 6px;
+  /* One height for every card, whatever the effect text runs to — a stack of
+     cards on a counter, not a ragged list. */
+  min-height: var(--card-h, 108px);
   border-radius: 4px;
   background: linear-gradient(170deg, var(--ivory) 0%, var(--parch) 55%, var(--parch-2) 100%);
   border: 1px solid rgba(138, 95, 29, 0.55);
