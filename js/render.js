@@ -218,8 +218,7 @@ function renderSundries() {
       const slot = document.createElement('button');
       slot.className = `sundry sundry--${s.colour}${state.sundryMode === i ? ' sundry--armed' : ''}`;
       slot.dataset.sundry = i;
-      slot.title = `Tube of ${COLOURS[s.colour].label} — tap it, tap up to ${TUBE_TILES} tiles on the board, `
-                 + `then tap the tube again to paint them. The paint is permanent.`;
+      slot.title = `Tube of ${COLOURS[s.colour].label} — tap it, tap up to ${TUBE_TILES} tiles, tap it again. The paint is permanent.`;
       slot.innerHTML = `
         <span class="paint-tube paint-tube--${s.colour}"></span>
         <span class="sundry-name">${COLOURS[s.colour].label}</span>`;
@@ -662,7 +661,7 @@ function foundryShopHTML() {
   const sundryCards = foundry.sundryOffers.map((o, i) => `
       <div class="offer-paint offer-paint--${o.colour}" data-offer="sundry" data-idx="${i}"
            data-tip-head="Tube of ${COLOURS[o.colour].label}"
-           data-tip-body="Kept on your workbench for use mid-page: tap it, choose up to ${TUBE_TILES} tiles on the board, and they're painted ${COLOURS[o.colour].label} — permanently, over any old coat. ${colourDesc(o.colour)}">
+           data-tip-body="Tap it mid-page, tap up to ${TUBE_TILES} tiles, tap it again — painted ${COLOURS[o.colour].label} for good. ${colourDesc(o.colour)}">
         <span class="paint-tube paint-tube--${o.colour}"></span>
         <div class="op-body">
           <div class="op-name">Tube of ${COLOURS[o.colour].label}</div>
@@ -674,7 +673,7 @@ function foundryShopHTML() {
   const stallCards = foundry.stalls.map(s => {
     const def = STALL_DEFS[s.id];
     return `
-      <div class="offer-stall" data-stall-card="${s.id}">
+      <div class="offer-stall awning--${s.id}" data-stall-card="${s.id}">
         <span class="stall-emoji">${def.emoji}</span>
         <div class="op-body">
           <div class="op-name">${def.name}</div>
@@ -692,7 +691,7 @@ function foundryShopHTML() {
       <div class="sheet-head">
         <div>
           <h2 class="foundry-title">The Shop</h2>
-          <p class="sheet-note">Coins: <b id="foundryCoins">${state.coins}</b></p>
+          <div class="foundry-purse"><span class="coin coin--lg"></span><b id="foundryCoins">${state.coins}</b></div>
         </div>
         ${rewardHTML()}
       </div>
@@ -711,7 +710,7 @@ function foundryShopHTML() {
       </div>
 
       <section class="foundry-stalls">
-        <h3 class="foundry-sec">Stalls <span class="foundry-sub">two pitch up each visit — every purchase doubles that stall's price until the next shop</span></h3>
+        <h3 class="foundry-sec">Stalls <span class="foundry-sub">each purchase doubles the price · new stalls next shop</span></h3>
         <div class="stall-row">${stallCards}</div>
       </section>
 
@@ -748,16 +747,17 @@ function foundryStallHTML() {
     : `${painterColours}<div class="mini-grid mini-grid--case" id="stallGrid"></div>`;
 
   const note = foundry.activeStall === 'smelter' && state.collection.length <= SMELT_MIN_COLLECTION
-    ? `<p class="sheet-note stall-warn">The furnace refuses — a collection of ${state.collection.length} tiles is too small to smelt further.</p>`
+    ? `<p class="sheet-note stall-warn">Your collection is too small to smelt further.</p>`
     : '';
 
   return `
-    <div class="sheet sheet--foundry">
+    <div class="sheet sheet--foundry sheet--stall awning--${foundry.activeStall}">
       <div class="sheet-head">
         <div>
           <h2 class="foundry-title">${def.emoji} ${def.name}</h2>
-          <p class="sheet-note">${def.desc} Every purchase doubles the price for the rest of this visit. Coins: <b id="foundryCoins">${state.coins}</b></p>
+          <p class="sheet-note">${def.desc}</p>
         </div>
+        <div class="foundry-purse"><span class="coin coin--lg"></span><b id="foundryCoins">${state.coins}</b></div>
       </div>
       ${note}
       ${body}

@@ -61,23 +61,23 @@ export const SMELT_MIN_COLLECTION = 12;
 export const STALL_DEFS = {
   smelter: {
     name: 'The Smelter', emoji: '🔥', base: 2,
-    desc: 'Feeds a tile of your choosing to the furnace — struck from the collection for good.',
+    desc: 'Feeds a tile to the furnace — gone for good.',
   },
   painter: {
     name: 'The Painter', emoji: '🖌️', base: 1,
-    desc: 'Paints any one letter whichever colour you choose, over any old coat.',
+    desc: 'Paints any letter a colour of your choice.',
   },
   gilder: {
     name: 'The Gilder', emoji: '⚜️', base: 1,
-    desc: 'Lays out trim proposals for six of your untrimmed tiles — commission the one you like.',
+    desc: 'Proposes trims for six untrimmed tiles.',
   },
   stereotyper: {
     name: 'The Stereotyper', emoji: '🗜️', base: 1,
-    desc: 'Casts an exact duplicate of any tile you own, features and all.',
+    desc: 'Casts an exact copy of any tile.',
   },
   restorer: {
     name: 'The Restorer', emoji: '🧼', base: 1,
-    desc: 'Strips a tile back to bare metal — paint, trim and nick all lifted.',
+    desc: 'Strips a tile bare — paint, trim and nick.',
   },
 };
 
