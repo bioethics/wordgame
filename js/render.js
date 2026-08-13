@@ -160,11 +160,14 @@ export function hidePopover() {
 // ─── Main render ───────────────────────────────────────────────────────────────
 
 export function renderAll() {
-  renderShelf();
+  // One script for the whole frame: the shelf and the readout read the same
+  // numbers, so what a patron promises and what it pays can't disagree.
+  const script = computeScore(state.word);
+  renderShelf(script);
   renderSundries();
   renderStatus();
   renderRack();
-  renderWord();
+  renderWord(script);
   renderCounts();
   renderButtons();
   refreshStatusBar();
@@ -181,33 +184,95 @@ export function persist() {
 
 // ─── Patron shelf ─────────────────────────────────────────────────────────────
 
-function renderShelf() {
+// The seats only get rebuilt when the seating itself changes — hiring,
+// dismissing, or an extra seat from the Colophon. Everything else about a
+// patron is a class or a badge, so laying down a tile can't restart the
+// standing-to-gain glow from frame zero.
+let _shelfSig = '';
+let _armedIds = new Set();
+
+function renderShelf(script) {
   const shelf = $('shelf');
   if (!shelf) return;
-  shelf.innerHTML = '';
-  shelf.classList.toggle('shelf--empty', state.patrons.length === 0);
   const seats = effectivePatronSlots();
-  shelf.style.setProperty('--seat-count', seats);
+  const sig = `${seats}|${state.patrons.map(p => p.id).join(',')}`;
 
-  for (let i = 0; i < seats; i++) {
-    const slot = document.createElement('div');
-    const p = state.patrons[i];
-    if (p) {
-      const def = patronById(p.id);
-      slot.className = `patron patron--${def.rarity}`;
-      slot.dataset.patron = def.id;
-      slot.title = `${def.name} — ${def.desc}\n(✕ dismisses for ${Math.floor(def.cost / 2)} Coins)`;
-      slot.innerHTML = `
-        <span class="patron-emoji">${def.emoji}</span>
-        <span class="patron-name">${def.name.replace(/^The /, '')}</span>
-        <button class="patron-x" data-sell="${def.id}" title="Dismiss ${def.name} for ${Math.floor(def.cost / 2)} Coins">✕</button>`;
-    } else {
-      slot.className = 'patron patron--empty';
-      slot.title = 'Empty seat — patrons are hired at the Market';
-      slot.innerHTML = `<span class="patron-empty-mark">❧</span>`;
+  if (sig !== _shelfSig) {
+    _shelfSig = sig;
+    _armedIds = new Set();
+    shelf.innerHTML = '';
+    shelf.classList.toggle('shelf--empty', state.patrons.length === 0);
+    shelf.style.setProperty('--seat-count', seats);
+
+    for (let i = 0; i < seats; i++) {
+      const slot = document.createElement('div');
+      const p = state.patrons[i];
+      if (p) {
+        const def = patronById(p.id);
+        slot.className = `patron patron--${def.rarity}`;
+        slot.dataset.patron = def.id;
+        slot.dataset.baseTitle = `${def.name} — ${def.desc}\n(✕ dismisses for ${Math.floor(def.cost / 2)} Coins)`;
+        slot.title = slot.dataset.baseTitle;
+        slot.innerHTML = `
+          <span class="patron-emoji">${def.emoji}</span>
+          <span class="patron-name">${def.name.replace(/^The /, '')}</span>
+          <button class="patron-x" data-sell="${def.id}" title="Dismiss ${def.name} for ${Math.floor(def.cost / 2)} Coins">✕</button>`;
+      } else {
+        slot.className = 'patron patron--empty';
+        slot.title = 'Empty seat — patrons are hired at the Market';
+        slot.innerHTML = `<span class="patron-empty-mark">❧</span>`;
+      }
+      shelf.appendChild(slot);
     }
-    shelf.appendChild(slot);
   }
+
+  paintArmed(shelf, script);
+}
+
+// What each patron stands to add to the word in progress, read straight off
+// the score script. Several steps from one patron fold into a single badge.
+function patronTakes(script) {
+  const takes = new Map();
+  for (const s of script?.patronSteps ?? []) {
+    const chip = s.xmult ? `×${fmtMult(s.xmult)}`
+               : s.mult  ? `+${fmtMult(s.mult)}`
+               :           `+${s.points}`;
+    const prev = takes.get(s.id);
+    takes.set(s.id, prev
+      ? { chip: `${prev.chip} ${chip}`, kind: prev.kind, text: `${prev.text}, ${s.text}` }
+      : { chip, kind: s.points ? 'points' : 'mult', text: s.text });
+  }
+  return takes;
+}
+
+// Patrons whose condition the word already meets light up wearing what
+// they'd contribute; the rest of the shelf dims out of their way. A patron
+// that has just woken gets a one-shot flourish, and a badge whose number
+// moves as you compose bumps rather than silently swapping.
+function paintArmed(shelf, script) {
+  const takes = patronTakes(script);
+  shelf.classList.toggle('shelf--live', takes.size > 0);
+
+  for (const card of shelf.querySelectorAll('.patron[data-patron]')) {
+    const take = takes.get(card.dataset.patron);
+    const fresh = !!take && !_armedIds.has(card.dataset.patron);
+    card.classList.toggle('patron--armed', !!take);
+    card.classList.toggle('patron--just-armed', fresh);
+    card.title = card.dataset.baseTitle + (take ? `\nStanding to add: ${take.text}` : '');
+
+    let badge = card.querySelector('.patron-take');
+    if (!take) { badge?.remove(); continue; }
+
+    const moved = badge && !fresh && badge.textContent !== take.chip;
+    if (!badge) {
+      badge = document.createElement('span');
+      card.appendChild(badge);
+    }
+    badge.className = `patron-take patron-take--${take.kind}`;
+    badge.textContent = take.chip;
+    if (moved) { void badge.offsetWidth; badge.classList.add('patron-take--bump'); }
+  }
+  _armedIds = new Set(takes.keys());
 }
 
 // ─── Sundries (the workbench beside the shelf) ────────────────────────────────
@@ -323,14 +388,12 @@ export function renderRack(ghostIds = null) {
 let _lastWordPts = new Map();
 const RIPPLE_STEP = 70;   // ms between neighbours as a nick's effect spreads
 
-export function renderWord() {
+export function renderWord(script = computeScore(state.word)) {
   const el = $('word');
   if (!el) return;
   el.innerHTML = '';
   el.dataset.placeholder = state.word.length ? '' : 'compose a word…';
   applyPaintingMode(el);
-
-  const script = computeScore(state.word);
 
   // Ripple order: distance from the nick that claimed each letter, so the
   // new numbers wash outward starting beside the notch.

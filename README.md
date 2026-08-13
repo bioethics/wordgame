@@ -99,7 +99,13 @@ Punchcutter start at 2 Coins, the rest at 1.
 
 **Patrons** grant standing boons — five seats to start (the Colophon can add
 more), dismissable for half their cost (hover for the ✕, or tap the patron on
-touch).
+touch). While you compose, the shelf shows its hand: every patron whose
+condition the word already meets wakes up — rising, breathing a candlelit
+glow, catching a slow sweep of gold leaf — and wears a badge of exactly what
+it stands to add (+20 Points, ×3 Mult). The ones sitting this word out dim
+out of the way, and a badge whose number moves as you add letters bumps
+rather than silently swapping. It reads off the same score script as the
+readout, so what a patron promises is what it pays when it fires.
 
 **Letting things go** — the Market lists what you already hold beneath each
 section: seated patrons (back for half their cost) and workbench sundries
