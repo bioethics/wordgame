@@ -52,7 +52,7 @@ function dualPairsFor(letter) {
 // A tile's "features" are the things that make it worth owning. Counting and
 // topping them up lets the draft offer genuinely loaded tiles.
 
-export function featureCount(t) {
+function featureCount(t) {
   return (t.colour ? 1 : 0) + (t.trim ? 1 : 0) + (t.nick ? 1 : 0)
        + (t.letterType === 'dual' ? 1 : 0) + (LIGATURES.includes(t.letter) ? 1 : 0);
 }
@@ -95,12 +95,12 @@ export function randomSpecialTile(floor = 1) {
   return tmpl;
 }
 
-export function randomTileOffer() {
+function randomTileOffer() {
   const tmpl = randomSpecialTile();
   return { template: tmpl, price: tilePrice(tmpl), sold: false };
 }
 
-export function tilePrice(tmpl) {
+function tilePrice(tmpl) {
   let p = TILE_BASE_PRICE;
   if (tmpl.trim) p += TRIMS[tmpl.trim]?.price ?? 0;
   if (tmpl.nick) p += NICKS[tmpl.nick]?.price ?? 0;

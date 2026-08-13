@@ -1,39 +1,38 @@
+// Game flow: the print cinematic, page and chapter turnover, board input
+// modes, settings, and init. Board rendering is render.js; the full-screen
+// sheets (Market, Colophon, draft) render and handle themselves in sheets.js,
+// with the flow callbacks below injected via initSheets().
+
 import {
   state, settings, loadSettings, saveSettings, loadState, clearSave,
   newRun, startPage, drawUpToRackSize, clearWord, shuffleRack,
   discardSelected, getWordString, moveRackToWord, owns, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected,
-  spendReshuffleSundry,
 } from './state.js';
 import {
-  TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES, TRIMS,
-  WORDS_PER_PAGE, SKIP_COIN_GRANT,
+  TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES,
+  WORDS_PER_PAGE,
   chapterTitle, roman, isDeadline, COLOURS, NICKS,
 } from './constants.js';
 import { DICT, dictLoaded, loadDict, loadCustom } from './dict.js';
 import { computeScore, computeReward } from './scoring.js';
+import { openMarket, restoreMarket, closeMarket, sellPatron } from './market.js';
 import {
-  market, openMarket, restoreMarket, closeMarket,
-  buyPatron, sellPatron, buyTile, buySundry, rerollMarket, freeRerollMarket,
-  stallSmelt, stallPaint, stallGild, stallClone, stallRestore,
-} from './market.js';
-import {
-  colophon, openColophon, closeColophon, restoreColophon,
-  applyColophonPick, applyColophonSkip, reshuffleColophon,
+  colophon, openColophon, closeColophon, restoreColophon, applyColophonSkip,
 } from './colophon.js';
 import {
   renderAll, renderRack, renderWord, renderCounts, renderButtons, persist,
-  renderMarket, renderDictStatus, readoutEls, renderChips, setChip,
-  updateReadoutPreview, log, showBanner, showOverlay, hideOverlay,
-  showGameOver, showVictory, openInspector, closeInspector, makeTileEl, coinHTML,
-  showPatronPopover, hidePopover, renderDraft, updateDraftSelection,
-  updateMarketState, updateStallState, openLedger, closeLedger, renderColophon,
+  renderDictStatus, readoutEls, renderChips, setChip,
+  updateReadoutPreview, log, showBanner, hideOverlay,
+  showGameOver, showVictory, openInspector, closeInspector, coinHTML,
+  showPatronPopover, hidePopover, openLedger, closeLedger,
 } from './render.js';
 import {
-  draft, openDraft, closeDraft, restoreDraft, toggleDraftPick, applyDraft,
-} from './draft.js';
+  initSheets, renderMarket, renderColophon, renderDraft,
+} from './sheets.js';
+import { openDraft, closeDraft, restoreDraft, applyDraft } from './draft.js';
 import {
-  sleep, dur, flyClone, popReveal, floatText, tweenNum, setNum, fmtMult,
+  sleep, flyClone, popReveal, floatText, tweenNum, setNum, fmtMult,
   pulse, sparkleBurst, sfx, applySpeedCSS, speechBubble,
 } from './anim.js';
 import { initInput, initInspect } from './drag.js';
@@ -348,61 +347,6 @@ async function beginNextPage() {
   await advancePage();
 }
 
-// ─── The Colophon ───────────────────────────────────────────────────────────
-
-async function pickColophon(id) {
-  if (state.isAnimating) return;
-  const card = document.querySelector(`[data-colophon="${id}"]`);
-  const r = applyColophonPick(id);
-  if (!r) return;
-
-  state.isAnimating = true;
-  sfx.coin(); sfx.chime();
-  if (card) { pulse(card, 'colophon-card--picked', 560); sparkleBurst(card, 16); }
-  renderAll();
-
-  log(r.painted?.length
-    ? `Colophon: painted ${r.painted.join(', ')} ${COLOURS[r.def.colour].label.toLowerCase()}.`
-    : `Colophon: ${r.def.name}.`, 'good');
-
-  await sleep(620);
-  closeColophon();
-  renderColophon();
-  state.isAnimating = false;
-  await advancePage();
-}
-
-async function skipColophon() {
-  if (state.isAnimating) return;
-  applyColophonSkip();
-
-  state.isAnimating = true;
-  sfx.coin();
-  renderAll();
-  log(`Skipped the Colophon — +${SKIP_COIN_GRANT} Coins instead.`, 'good');
-
-  await sleep(420);
-  closeColophon();
-  renderColophon();
-  state.isAnimating = false;
-  await advancePage();
-}
-
-function useColophonReshuffle() {
-  if (!spendReshuffleSundry()) return;
-  reshuffleColophon();
-  sfx.draw();
-  renderAll();
-  renderColophon();
-}
-
-$('colophonModal')?.addEventListener('click', e => {
-  const pickEl = e.target.closest('[data-colophon]');
-  if (pickEl) { pickColophon(pickEl.dataset.colophon); return; }
-  if (e.target.closest('#btnColophonSkip')) { skipColophon(); return; }
-  if (e.target.closest('#btnColophonReshuffle')) useColophonReshuffle();
-});
-
 async function advancePage() {
   const newChapter = state.page === PAGES_PER_CHAPTER;
   if (newChapter) { state.page = 1; state.chapter += 1; }
@@ -637,143 +581,6 @@ document.addEventListener('pointerdown', e => {
 });
 window.addEventListener('scroll', () => hidePopover(), { capture: true, passive: true });
 
-// A bought thing flies out of the market to wherever it now lives — the
-// clones ride the #fx layer, which sits above the modal.
-function flyPurchase(fromEl, toEl, opts = {}) {
-  if (!fromEl || !toEl) return;
-  flyClone(fromEl, rect(fromEl), rect(toEl), { duration: ANIM.fly, scaleTo: 0.3, fade: true, ...opts });
-}
-
-// Market delegation
-$('marketModal')?.addEventListener('click', e => {
-  const buyP = e.target.closest('[data-buy-patron]');
-  if (buyP) {
-    const card = buyP.closest('[data-offer]');
-    const r = buyPatron(buyP.dataset.buyPatron);
-    if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
-    else {
-      sfx.coin(); log(`${r.def.name} takes a seat at your table.`, 'good');
-      flyPurchase(card, $('shelf'), { scaleTo: 0.2 });
-    }
-    renderAll(); updateMarketState();
-    return;
-  }
-  const buyT = e.target.closest('[data-buy-tile]');
-  if (buyT) {
-    const card = buyT.closest('[data-offer]');
-    const r = buyTile(Number(buyT.dataset.buyTile));
-    if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
-    else {
-      sfx.coin(); log('New tile joins the bag next page.', 'good');
-      flyPurchase(card?.querySelector('.tile'), $('bagBtn'));
-    }
-    renderAll(); updateMarketState();
-    return;
-  }
-  const buyS = e.target.closest('[data-buy-sundry]');
-  if (buyS) {
-    const card = buyS.closest('[data-offer]');
-    const r = buySundry(Number(buyS.dataset.buySundry));
-    if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
-    else {
-      sfx.coin();
-      log(r.offer.kind === 'reshuffle'
-        ? 'A reshuffle joins your workbench, banked for later.'
-        : `A tube of ${COLOURS[r.offer.colour].label} joins your workbench.`, 'good');
-      flyPurchase(card?.querySelector('.paint-tube, .sundry-shuffle'), $('sundries'), { scaleTo: 0.6 });
-    }
-    renderAll(); updateMarketState();
-    return;
-  }
-  if (e.target.closest('#btnReroll')) {
-    if (rerollMarket()) { sfx.draw(); renderAll(); renderMarket(); }
-    return;
-  }
-  if (e.target.closest('#btnMarketReshuffle')) {
-    if (spendReshuffleSundry()) { freeRerollMarket(); sfx.draw(); renderAll(); renderMarket(); }
-    return;
-  }
-
-  // ── Stalls ──────────────────────────────────────────────────────────────────
-  const visit = e.target.closest('[data-visit-stall]');
-  if (visit) {
-    market.view = 'stall';
-    market.activeStall = visit.dataset.visitStall;
-    market.stallSel = -1;
-    market.stallColour = null;
-    renderMarket();
-    return;
-  }
-  if (e.target.closest('#btnStallBack')) {
-    market.view = 'shop'; market.activeStall = null; market.returning = true; renderMarket();
-    return;
-  }
-  const stallTile = e.target.closest('[data-stall-tid]');
-  if (stallTile && !stallTile.classList.contains('tile--stall-locked')) {
-    const tid = Number(stallTile.dataset.stallTid);
-    market.stallSel = market.stallSel === tid ? -1 : tid;
-    updateStallState();
-    return;
-  }
-  const gilderCard = e.target.closest('[data-gilder-idx]');
-  if (gilderCard) {
-    const idx = Number(gilderCard.dataset.gilderIdx);
-    market.stallSel = market.stallSel === idx ? -1 : idx;
-    updateStallState();
-    return;
-  }
-  const swatch = e.target.closest('[data-stall-colour]');
-  if (swatch) {
-    market.stallColour = swatch.dataset.stallColour;
-    updateStallState();
-    return;
-  }
-  if (e.target.closest('#btnStallConfirm')) {
-    let r, msg;
-    switch (market.activeStall) {
-      case 'smelter':
-        r = stallSmelt(market.stallSel);
-        if (r.ok) msg = `The Smelter feeds a “${r.removed.letter}” tile to the furnace.`;
-        break;
-      case 'painter':
-        r = stallPaint(market.stallSel, market.stallColour);
-        if (r.ok) msg = `The Painter coats “${r.tmpl.letter}” in ${COLOURS[r.colour].label.toLowerCase()}.`;
-        break;
-      case 'gilder':
-        r = stallGild(market.stallSel);
-        if (r.ok) msg = `The Gilder lays a ${TRIMS[r.trim].label} trim on “${r.tmpl.letter}” — new proposals are out.`;
-        break;
-      case 'stereotyper':
-        r = stallClone(market.stallSel);
-        if (r.ok) msg = `The Stereotyper casts a perfect copy of “${r.tmpl.letter}”.`;
-        break;
-      case 'restorer':
-        r = stallRestore(market.stallSel);
-        if (r.ok) msg = `The Restorer strips “${r.tmpl.letter}” back to bare metal.`;
-        break;
-      default:
-        r = { ok: false };
-    }
-    if (!r.ok) { if (r.reason) log(r.reason, 'warn'); sfx.bad(); }
-    else {
-      if (market.activeStall === 'smelter') sfx.discard(); else sfx.coin();
-      log(msg, 'good');
-    }
-    renderAll(); renderMarket();   // full rebuild: the price and grid both changed
-    return;
-  }
-
-  // ── Collection (read-only) ──────────────────────────────────────────────────
-  if (e.target.closest('#btnOpenCollection')) {
-    market.view = 'collection'; renderMarket();
-    return;
-  }
-  if (e.target.closest('#btnCollectionBack')) {
-    market.view = 'shop'; market.returning = true; renderMarket();
-    return;
-  }
-  if (e.target.closest('#btnMarketContinue')) beginNextPage();
-});
 
 // Overlay actions (game over / victory)
 $('overlayModal')?.addEventListener('click', async e => {
@@ -886,23 +693,12 @@ async function beginRun() {
     : `Page 1 — quota ${state.quota}.`);
 }
 
-$('draftModal')?.addEventListener('click', e => {
-  const pickEl = e.target.closest('[data-draft]');
-  if (pickEl) {
-    if (toggleDraftPick(pickEl.dataset.draft, Number(pickEl.dataset.idx))) sfx.draw();
-    else sfx.bad();
-    updateDraftSelection();   // in place — never rebuilds the sheet
-    persist();
-    return;
-  }
-  if (e.target.closest('#btnDraftBegin')) beginRun();
-});
-
 (async function init() {
   loadSettings();
   applySpeedCSS();
   initInput();
   initInspect();
+  initSheets({ nextPage: beginNextPage, advancePage, beginRun });
 
   renderDictStatus('loading', 0);
   loadDict((status, count) => renderDictStatus(status, count));

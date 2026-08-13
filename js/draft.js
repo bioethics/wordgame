@@ -64,8 +64,6 @@ export function toggleDraftPick(kind, idx) {
   return true;
 }
 
-export const draftComplete = () =>
-  ['patron', 'paint', 'tile'].every(k => draft.picked[k].length === draftLimit(k));
 
 // Tiles join the collection first so the paints can land on them too.
 export function applyDraft() {
