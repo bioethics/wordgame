@@ -11,7 +11,7 @@ import {
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES,
-  WORDS_PER_PAGE,
+  WORDS_PER_PAGE, REACTION,
   chapterTitle, roman, isDeadline, COLOURS, NICKS,
 } from './constants.js';
 import { DICT, dictLoaded, loadDict, loadCustom } from './dict.js';
@@ -23,7 +23,7 @@ import {
 import {
   renderAll, renderRack, renderWord, renderCounts, renderButtons, persist,
   renderDictStatus, readoutEls, renderChips, setChip,
-  updateReadoutPreview, log, showBanner, hideOverlay,
+  log, showBanner, hideOverlay,
   showGameOver, showVictory, openInspector, closeInspector, coinHTML,
   showPatronPopover, hidePopover, openLedger, closeLedger,
 } from './render.js';
@@ -109,15 +109,12 @@ function cancelSundryMode(quiet = false) {
 }
 
 // ─── Patron reactions (flavour only — never affects scoring) ──────────────────
-// How many "average words" this one was worth, relative to the page's own
-// quota — self-scaling across pages, chapters and the endless appendices, so
-// the curve never needs retuning as quotas climb. Below an average word,
-// nobody bothers; above it, the chance climbs steeply per seated patron, but
-// never to a certainty.
+// Self-scaling: the word is judged against the page's own quota, so the
+// curve holds across chapters and the appendices. Knobs live in REACTION.
 function reactionChance(script) {
   const perWordQuota = state.quota / WORDS_PER_PAGE;
   const ratio = script.total / Math.max(1, perWordQuota);
-  return Math.max(0, Math.min(0.7, (ratio - 0.6) * 0.35));
+  return Math.max(0, Math.min(REACTION.cap, (ratio - REACTION.floor) * REACTION.slope));
 }
 
 async function patronReactions(script) {
@@ -492,7 +489,7 @@ $('sundries')?.addEventListener('click', async e => {
   const armed = state.sundries[idx];
 
   if (armed?.kind === 'reshuffle') {
-    log('Save this for the Market or a Colophon pick — nothing to reshuffle here.', 'warn');
+    log('Spend this at the Market or the Colophon.', 'warn');
     return;
   }
 
@@ -526,7 +523,7 @@ $('sundries')?.addEventListener('click', async e => {
   await sleep(ANIM.stepColour);
   state.isAnimating = false;
   renderAll();
-  log(`Painted ${result.letters.join(', ')} ${COLOURS[result.colour].label.toLowerCase()} — for good.`, 'good');
+  log(`Painted ${result.letters.join(', ')} ${COLOURS[result.colour].label.toLowerCase()}.`, 'good');
 });
 
 $('bagBtn')?.addEventListener('click', () => { if (!state.isAnimating) openInspector('bag'); });

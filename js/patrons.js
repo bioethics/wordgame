@@ -27,7 +27,7 @@ export const PATRON_DEFS = [
   },
   {
     id: 'diva', name: 'The Diva', emoji: '🎭', rarity: 'common', cost: 4,
-    desc: 'Each vowel scores +2 extra Points.',
+    desc: 'Vowels score +2 extra Points.',
     when: 'score',
     effect({ word, addPoints }) {
       const n = [...word].filter(c => VOWELS.includes(c)).length;
@@ -56,7 +56,7 @@ export const PATRON_DEFS = [
   // ── Uncommons ───────────────────────────────────────────────────────────────
   {
     id: 'banker', name: 'The Banker', emoji: '🏦', rarity: 'uncommon', cost: 5,
-    desc: 'Collect 2 extra Coins whenever a page is completed.',
+    desc: '+2 Coins whenever a page completes.',
     when: 'meta',
   },
   {
@@ -84,7 +84,7 @@ export const PATRON_DEFS = [
   },
   {
     id: 'jeweller', name: 'The Jeweller', emoji: '💎', rarity: 'uncommon', cost: 6,
-    desc: 'Each tile worth 8+ Points gains a further +6 Points.',
+    desc: 'Tiles worth 8+ Points gain a further +6.',
     when: 'score',
     effect({ tiles, addPoints }) {
       const n = tiles.filter(t => (t.basePoints ?? 0) >= 8).length;

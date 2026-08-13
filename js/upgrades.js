@@ -3,21 +3,21 @@
 //                       back by the effective-* getters in state.js.
 //       'paint'       — an immediate one-off, same effect as a draft paint pot.
 
-import { COLOURS, colourDesc, PAINT_PER_POT } from './constants.js';
+import { COLOURS, PAINT_PER_POT } from './constants.js';
 
 export const UPGRADE_DEFS = [
   { id: 'handSize', kind: 'structural', name: '+1 Hand size', emoji: '🖐️',
-    desc: 'Draw one more tile to your rack, every page, for the rest of the run.' },
+    desc: 'One more tile in your hand, every page.' },
   { id: 'discard', kind: 'structural', name: '+1 Discard', emoji: '♻️',
-    desc: 'One more discard every page, for the rest of the run.' },
+    desc: 'One more discard, every page.' },
   { id: 'patronSeat', kind: 'structural', name: '+1 Patron seat', emoji: '💺',
-    desc: 'Room for one more patron at your table, for the rest of the run.' },
+    desc: 'Room for one more patron.' },
   { id: 'workbenchSlot', kind: 'structural', name: '+1 Workbench slot', emoji: '🧰',
-    desc: 'Room for one more sundry on your workbench, for the rest of the run.' },
+    desc: 'Room for one more sundry.' },
   ...Object.keys(COLOURS).map(colour => ({
     id: colour, kind: 'paint', colour,
     name: `${COLOURS[colour].label} paint`,
-    desc: `Paints ${PAINT_PER_POT} random unpainted letters ${COLOURS[colour].label} — same as a draft pot. ${colourDesc(colour)}`,
+    desc: `Paints ${PAINT_PER_POT} unpainted letters ${COLOURS[colour].label}.`,
   })),
 ];
 

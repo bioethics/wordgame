@@ -9,7 +9,7 @@ import {
 import {
   TRIMS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
   PAINT_PER_POT, TUBE_TILES, ANIM,
-  colourDesc, roman,
+  colourDesc,
 } from './constants.js';
 import { patronById } from './patrons.js';
 import { upgradeById } from './upgrades.js';
@@ -132,7 +132,7 @@ function marketShopHTML() {
 
   const sundryCards = market.sundryOffers.map((o, i) => o.kind === 'reshuffle' ? `
       <div class="offer-paint" data-offer="sundry" data-idx="${i}"
-           data-tip-head="Reshuffle" data-tip-body="A free re-roll, banked on your workbench for later — spend it here on these same offers, or on a Colophon pick when a chapter clears.">
+           data-tip-head="Reshuffle" data-tip-body="A free re-roll, banked for later — spend it here or at the Colophon.">
         <span class="sundry-shuffle sundry-shuffle--offer">↻</span>
         <div class="op-body">
           <div class="op-name">Reshuffle</div>
@@ -142,7 +142,7 @@ function marketShopHTML() {
       </div>` : `
       <div class="offer-paint offer-paint--${o.colour}" data-offer="sundry" data-idx="${i}"
            data-tip-head="Tube of ${COLOURS[o.colour].label}"
-           data-tip-body="Tap it mid-page, tap up to ${TUBE_TILES} tiles, tap it again — painted ${COLOURS[o.colour].label} for good. ${colourDesc(o.colour)}">
+           data-tip-body="Paints up to ${TUBE_TILES} chosen tiles ${COLOURS[o.colour].label}, any time mid-page.">
         <span class="paint-tube paint-tube--${o.colour}"></span>
         <div class="op-body">
           <div class="op-name">Tube of ${COLOURS[o.colour].label}</div>
@@ -195,16 +195,16 @@ function marketShopHTML() {
       </div>
 
       <section class="market-stalls">
-        <h3 class="market-sec">Stalls <span class="market-sub">each purchase doubles the price · new stalls next shop</span></h3>
+        <h3 class="market-sec">Stalls <span class="market-sub">prices double with each purchase</span></h3>
         <div class="stall-row">${stallCards}</div>
       </section>
 
       <div class="market-foot">
-        <button class="btn btn-quiet" id="btnReroll" title="Re-rolls patrons, tiles and sundries — the stalls stay put"
+        <button class="btn btn-quiet" id="btnReroll" title="Re-rolls patrons, tiles and sundries"
           ${state.coins < market.rerollCost ? 'disabled' : ''}>
           New offers ${coinHTML(market.rerollCost)}
         </button>
-        ${reshuffles ? `<button class="btn btn-quiet" id="btnMarketReshuffle" title="Spend a banked reshuffle for a free re-roll">
+        ${reshuffles ? `<button class="btn btn-quiet" id="btnMarketReshuffle" title="A free re-roll">
           ↻ Reshuffle · ${reshuffles} left
         </button>` : ''}
         <button class="btn btn-quiet" id="btnOpenCollection">Your collection</button>
@@ -269,7 +269,7 @@ function renderStallBody() {
     grid.innerHTML = '';
     const proposals = stall.proposals ?? [];
     if (!proposals.length) {
-      grid.innerHTML = '<p class="sheet-note">Nothing to propose — every tile you own already wears a trim.</p>';
+      grid.innerHTML = '<p class="sheet-note">Every tile you own already wears a trim.</p>';
       return;
     }
     proposals.forEach((p, i) => {
@@ -369,7 +369,7 @@ function marketCollectionHTML() {
       <div class="sheet-head">
         <div>
           <h2 class="market-title">Your collection</h2>
-          <p class="sheet-note">${state.collection.length} tiles — the whole collection shuffles into the bag each page.</p>
+          <p class="sheet-note">${state.collection.length} tiles.</p>
         </div>
       </div>
       <div class="mini-grid mini-grid--case" id="collectionGrid"></div>
@@ -411,14 +411,14 @@ export function renderColophon() {
         <div class="colophon-card-name">${def.name}</div>
         <div class="colophon-card-desc">${def.desc}</div>
       </button>`;
-  }).join('') || '<p class="sheet-note">Every upgrade is already taken to its limit — straight on to the next chapter.</p>';
+  }).join('') || '<p class="sheet-note">Nothing left to offer — on to the next chapter.</p>';
 
   m.innerHTML = `
     <div class="sheet sheet--market sheet--colophon">
       <div class="sheet-head">
         <div>
           <h2 class="market-title">The Colophon</h2>
-          <p class="sheet-note">Chapter ${roman(state.chapter)} is set. Choose one permanent upgrade before Chapter ${roman(state.chapter + 1)} begins.</p>
+          <p class="sheet-note">Choose one permanent upgrade.</p>
         </div>
       </div>
       <div class="colophon-grid">${cards}</div>
@@ -462,7 +462,7 @@ export function renderDraft() {
   const paintCards = draft.paints.map((colour, i) => `
     <div class="offer-paint pickable" data-draft="paint" data-idx="${i}"
          data-tip-head="${COLOURS[colour].label} paint"
-         data-tip-body="${colourDesc(colour)} A pot paints ${PAINT_PER_POT} random unpainted letters in your collection.">
+         data-tip-body="Paints ${PAINT_PER_POT} unpainted letters ${COLOURS[colour].label}.">
       <span class="paint-pot paint-pot--${colour}"></span>
       <div class="op-body">
         <div class="op-name">${COLOURS[colour].label}</div>
@@ -481,7 +481,7 @@ export function renderDraft() {
       <div class="sheet-head">
         <div>
           <h2>Set up the press</h2>
-          <p class="sheet-note">Free picks before the first page — take as many or as few as you like.</p>
+          <p class="sheet-note">Free picks — take what you like.</p>
         </div>
       </div>
 

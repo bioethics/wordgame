@@ -37,7 +37,7 @@ export const COLOURS = {
 };
 
 export const colourDesc = c =>
-  `Every ${COLOURS[c].label} letter in a word raises the ${COLOURS[c].label} multiplier by 1 — one gives ×2, two ×3, and so on. The word’s Mult is all five multipliers multiplied together, so spreading colours beats stacking one.`;
+  `Each ${COLOURS[c].label} letter adds +1 to the ${COLOURS[c].label} multiplier.`;
 
 export const PAINT_PER_POT   = 3;   // letters painted per draft pot (random, unpainted)
 
@@ -92,16 +92,11 @@ export const MAX_FEATURES         = 4;
 // ─── Trims (the ring around a tile's edge) ────────────────────────────────────
 // Purple is trim-only: a fifth multiplier that stacks with the letter colours.
 export const TRIMS = {
-  gold:    { label: 'Gold',    price: 2,
-             desc: 'Pays you 1 Coin every time it is printed.' },
-  silver:  { label: 'Silver',  price: 2,
-             desc: 'Worth +6 Points on top of the letter’s own value.' },
-  copper:  { label: 'Copper',  price: 3,
-             desc: 'Printing it gives back one spent Discard, up to the page’s limit.' },
-  mercury: { label: 'Mercury', price: 3,
-             desc: 'Slips back into the bag instead of the discard pile, so it can be drawn again this page.' },
-  purple:  { label: 'Purple',  price: 4,
-             desc: 'Feeds a fifth multiplier of its own. Each purple trim in the word raises it by 0.5 — ×1.5, ×2, ×2.5 and so on.' },
+  gold:    { label: 'Gold',    price: 2, desc: 'Pays 1 Coin when printed.' },
+  silver:  { label: 'Silver',  price: 2, desc: '+6 Points.' },
+  copper:  { label: 'Copper',  price: 3, desc: 'Refunds a Discard when printed.' },
+  mercury: { label: 'Mercury', price: 3, desc: 'Returns to the bag instead of the discard pile.' },
+  purple:  { label: 'Purple',  price: 4, desc: 'Adds +0.5 to the purple multiplier.' },
 };
 
 // A purple trim is worth half a step, where a painted letter is worth a whole
@@ -115,9 +110,9 @@ export const PURPLE_TRIM_STEP = 0.5;
 export const NICK_MULT = 3;
 export const NICKS = {
   right: { label: 'Right nick', mult: NICK_MULT, price: 4,
-           desc: `Multiplies the Points of every letter to its right by ${NICK_MULT}. Nicks don’t stack — each letter is multiplied once at most.` },
+           desc: `×${NICK_MULT} Points to every letter on its right.` },
   left:  { label: 'Left nick',  mult: NICK_MULT, price: 4,
-           desc: `Multiplies the Points of every letter to its left by ${NICK_MULT}. Nicks don’t stack — each letter is multiplied once at most.` },
+           desc: `×${NICK_MULT} Points to every letter on its left.` },
 };
 
 // ─── Run structure ────────────────────────────────────────────────────────────
@@ -215,6 +210,13 @@ export const MAX_UPGRADE_REPEATS = 2;
 // Decline all three cards for this instead — also what a chapter transition
 // pays out on its own if the whole pool is ever exhausted (endless mode only).
 export const SKIP_COIN_GRANT = 2;
+
+// ─── Patron reactions (flavour only) ──────────────────────────────────────────
+// Odds a seated patron pops a speech bubble after a word, scored against the
+// page's own quota: ratio = word total ÷ (quota ÷ words per page). Below
+// `floor` nobody bothers; each step of `slope` above it raises the per-patron
+// chance, capped so it's never a certainty. The lines live in js/quips.js.
+export const REACTION = { floor: 0.6, slope: 0.35, cap: 0.7 };
 
 // ─── Reshuffle sundry ─────────────────────────────────────────────────────────
 // A free re-roll, banked for later: spend it on the Market's own offers, or

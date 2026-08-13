@@ -1,9 +1,10 @@
-// Patron quips — short, often gleefully wrong reactions a seated patron might
-// pop up in a speech bubble after a strong word. Purely cosmetic: nothing
-// here affects scoring. Add or edit lines any time; `{word}` is swapped for
-// the word just printed (as typed, e.g. "FROG").
+// Patron quips — the lines patrons pop up in speech bubbles after a strong
+// word. Purely cosmetic; often gleefully wrong on purpose.
 //
-// Keep them SHORT — they render in a small bubble above a patron's card.
+// TO ADD A LINE: drop a string anywhere in the array below. That's it.
+// `{word}` becomes the word just printed (e.g. "FROG"). Keep lines short —
+// they render in a small bubble above a patron's card. Odds are tuned by
+// REACTION in constants.js.
 
 export const PATRON_QUIPS = [
   // Wordless enthusiasm
@@ -63,7 +64,12 @@ export const PATRON_QUIPS = [
   'I will be thinking about this for the rest of the page.',
 ];
 
+// Never serve the same line twice in a row — repeats read as a glitch.
+let _lastQuip = -1;
 export function randomQuip(word) {
-  const line = PATRON_QUIPS[Math.floor(Math.random() * PATRON_QUIPS.length)];
-  return line.replace(/\{word\}/g, word);
+  let i;
+  do { i = Math.floor(Math.random() * PATRON_QUIPS.length); }
+  while (PATRON_QUIPS.length > 1 && i === _lastQuip);
+  _lastQuip = i;
+  return PATRON_QUIPS[i].replace(/\{word\}/g, word);
 }

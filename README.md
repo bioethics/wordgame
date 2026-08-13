@@ -135,7 +135,7 @@ beyond.
 | How loaded offered tiles are | `js/constants.js` → `FEATURE_CHAIN_CHANCE`, `MAX_FEATURES` (one feature free, then keep rolling); generation in `js/market.js` → `randomSpecialTile` |
 | Rewards & interest | `js/constants.js` → `REWARD` (base bumped 4→5 alongside the Colophon) |
 | Colophon roster, offer count, repeat cap, skip grant | `js/constants.js` → `UPGRADE_OFFERS`, `MAX_UPGRADE_REPEATS`, `SKIP_COIN_GRANT`; definitions in `js/upgrades.js` |
-| Patron reaction odds | `js/main.js` → `reactionChance`; the lines themselves in `js/quips.js` — a flat array, add more any time |
+| Patron reaction odds | `js/constants.js` → `REACTION`; the lines themselves in `js/quips.js` — a flat array, add more any time |
 | Words / discards / seats per page | `js/constants.js` |
 | Patron roster, costs, effects | `js/patrons.js` |
 | Animation step timings | `js/constants.js` → `ANIM` (all divided by the Settings speed slider) |
@@ -145,7 +145,7 @@ beyond.
 
 | File | Role |
 | --- | --- |
-| `js/state.js` | game state, save/load (`folio_save_v1`, schema v6), settings, tile ops, painting, sundries, effective hand/seat/workbench sizes, the ledger |
+| `js/state.js` | game state, save/load (`folio_save_v1`, schema v7), settings, tile ops, painting, sundries, effective hand/seat/workbench sizes, the ledger |
 | `js/scoring.js` | pure score computation — returns a step-by-step *script* the UI replays |
 | `js/patrons.js` | patron definitions |
 | `js/upgrades.js` | the Colophon's upgrade definitions (pure data, no logic) |
@@ -153,7 +153,8 @@ beyond.
 | `js/quips.js` | patron reaction lines — a flat, editable array; no logic beyond `{word}` substitution |
 | `js/market.js` | market state: offers, buying, sundries, stalls, rerolls |
 | `js/draft.js` | the opening draft: free spread, picks, applying them |
-| `js/render.js` | all DOM construction (board, readout, modals, popovers, overlays) |
+| `js/render.js` | board-side DOM: tiles, shelf, workbench, status, readout, popovers, overlays |
+| `js/sheets.js` | the full-screen sheets — Market, stalls, Colophon, draft — HTML and click handling, with game flow injected from main.js |
 | `js/anim.js` | flights, floaters, tweens, sparkles, WebAudio sfx — every duration respects the speed setting |
 | `js/main.js` | orchestration: submit cinematic, page/chapter flow, input, settings |
 | `js/drag.js` | pointer input: tap / drag / long-press for rack and word, mouse and touch alike |

@@ -90,15 +90,13 @@ export function tileFeatures(tile) {
   if (tile.trim) out.push({ head: `${TRIMS[tile.trim].label} trim`, body: TRIMS[tile.trim].desc });
   if (tile.nick) out.push({ head: NICKS[tile.nick]?.label ?? 'Nick', body: NICKS[tile.nick]?.desc ?? '' });
   if (tile.letterType === 'dual') {
-    const otherLetter = tile.activeVariant === 1 ? tile.letter : tile.altLetter;
-    const otherPaint  = tile.activeVariant === 1 ? tile.colour : tile.altColour;
     out.push({
       head: `Dual letter`,
-      body: `Holds ${tile.letter} and ${tile.altLetter} on one tile — flip it to play ${otherLetter} instead${otherPaint ? `, which is painted ${COLOURS[otherPaint].label}` : ''}. Each face is painted separately.`,
+      body: `Holds ${tile.letter} and ${tile.altLetter} — flip to swap. Each face takes its own paint.`,
     });
   }
   if (LIGATURES.includes(tile.letter)) {
-    out.push({ head: 'Ligature', body: `One tile that spells ${tile.letter} — it fills a single slot in the word.` });
+    out.push({ head: 'Ligature', body: `One tile that spells ${tile.letter}.` });
   }
   return out;
 }
@@ -204,7 +202,7 @@ function renderShelf() {
         <button class="patron-x" data-sell="${def.id}" title="Dismiss ${def.name} for ${Math.floor(def.cost / 2)} Coins">✕</button>`;
     } else {
       slot.className = 'patron patron--empty';
-      slot.title = 'An empty seat — invite patrons at the Market';
+      slot.title = 'Empty seat — patrons are hired at the Market';
       slot.innerHTML = `<span class="patron-empty-mark">❧</span>`;
     }
     shelf.appendChild(slot);
@@ -227,7 +225,7 @@ function renderSundries() {
       const slot = document.createElement('button');
       slot.className = `sundry sundry--${s.colour}${state.sundryMode === i ? ' sundry--armed' : ''}`;
       slot.dataset.sundry = i;
-      slot.title = `Tube of ${COLOURS[s.colour].label} — tap it, tap up to ${TUBE_TILES} tiles, tap it again. The paint is permanent.`;
+      slot.title = `Tube of ${COLOURS[s.colour].label} — tap, pick up to ${TUBE_TILES} tiles, tap again.`;
       slot.innerHTML = `
         <span class="paint-tube paint-tube--${s.colour}"></span>
         <span class="sundry-name">${COLOURS[s.colour].label}</span>`;
@@ -236,7 +234,7 @@ function renderSundries() {
       const slot = document.createElement('button');
       slot.className = 'sundry sundry--reshuffle';
       slot.dataset.sundry = i;
-      slot.title = 'A free reshuffle, banked for later — spend it at the Market or on a Colophon pick, not here.';
+      slot.title = 'A free re-roll for the Market or the Colophon.';
       slot.innerHTML = `
         <span class="sundry-shuffle">↻</span>
         <span class="sundry-name">Reshuffle</span>`;
@@ -244,7 +242,7 @@ function renderSundries() {
     } else {
       const slot = document.createElement('div');
       slot.className = 'sundry sundry--empty';
-      slot.title = 'An empty spot on the workbench — buy sundries at the Market';
+      slot.title = 'Room for a sundry — sold at the Market';
       slot.innerHTML = `<span class="sundry-empty-mark">✒</span>`;
       bench.appendChild(slot);
     }
@@ -533,7 +531,7 @@ export function openInspector(kind) {
         <button class="x" data-close-inspector>✕</button>
       </div>
       <p class="sheet-note">${kind === 'bag'
-        ? 'Waiting to be drawn. The whole collection returns to the bag each page.'
+        ? 'Waiting to be drawn.'
         : 'Printed or discarded this page.'}</p>
       <div class="mini-grid" id="inspectorGrid"></div>
     </div>`;
