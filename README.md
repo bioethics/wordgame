@@ -73,7 +73,7 @@ enters the run.
 
 **The Market** (between pages) keeps a fixed layout with churning contents:
 3 patrons, 4 tiles, 2 **sundries**, and 2 **stalls** drawn from a roster of
-five. *New offers* re-rolls the patrons, tiles and sundries; the stalls stay
+six. *New offers* re-rolls the patrons, tiles and sundries; the stalls stay
 put. Tiles live in your **collection**; each page the whole collection
 shuffles into the **bag**, and printed or discarded tiles wait in the
 **discard pile**.
@@ -87,11 +87,14 @@ reroll price) or on a Colophon pick. (The random-scatter paint pots survive
 only in the opening draft.)
 
 **Stalls** are services: the **Smelter** (trash a tile), the **Painter**
-(paint any letter a colour of your choice), the **Gilder** (proposes trims on
-6 of your untrimmed tiles; commission your favourite), the **Stereotyper**
-(clone any tile), and the **Restorer** (strip a tile back to bare metal).
-Every purchase doubles that stall's price for the rest of the visit; prices
-reset when the next market opens. The Smelter starts at 2 Coins, the rest at 1.
+(paint any letter a colour of your choice), the **Stereotyper** (clone any
+tile), and the **Restorer** (strip a tile back to bare metal). Two more are
+*proposal stalls* — they lay out a spread of six of your own tiles, each
+paired with a proposed change, and you commission the one you like: the
+**Gilder** offers trims, the **Punchcutter** cuts a second letter into a tile
+(making it dual). Every purchase doubles that stall's price for the rest of
+the visit; prices reset when the next market opens. The Smelter and
+Punchcutter start at 2 Coins, the rest at 1.
 
 **Patrons** grant standing boons — five seats to start (the Colophon can add
 more), dismissable for half their cost (hover for the ✕, or tap the patron on
@@ -133,7 +136,8 @@ beyond.
 | Nick multiplier & prices | `js/constants.js` → `NICK_MULT`, `NICKS` |
 | Tube price / tiles per tube / workbench slots / sell-back | `js/constants.js` → `TUBE_PRICE`, `TUBE_TILES`, `SUNDRY_SLOTS`, `SUNDRY_SELL` |
 | Reshuffle sundry price | `js/constants.js` → `RESHUFFLE_PRICE` |
-| Stall roster, base prices, gilder range | `js/constants.js` → `STALL_DEFS`, `STALLS_PER_SHOP`, `GILDER_RANGE`, `SMELT_MIN_COLLECTION` |
+| Stall roster, base prices, spread size | `js/constants.js` → `STALL_DEFS`, `STALLS_PER_SHOP`, `PROPOSAL_RANGE`, `SMELT_MIN_COLLECTION` |
+| What a proposal stall works on & offers | `js/market.js` → `PROPOSAL_STALLS` (one `eligible`/`propose` pair per stall — a new one is a few lines) |
 | Letters per draft paint pot | `js/constants.js` → `PAINT_PER_POT` |
 | Opening draft spread & pick counts | `js/constants.js` → `DRAFT` |
 | How loaded offered tiles are | `js/constants.js` → `FEATURE_CHAIN_CHANCE`, `MAX_FEATURES` (one feature free, then keep rolling); generation in `js/market.js` → `randomSpecialTile` |

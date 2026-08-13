@@ -5,7 +5,7 @@ import {
   BAG_COUNTS, LIGATURES, TILE_POINTS, TRIMS, NICKS, COLOURS,
   TILE_BASE_PRICE, REROLL_BASE,
   SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, SUNDRY_SELL,
-  STALL_DEFS, STALLS_PER_SHOP, GILDER_RANGE, SMELT_MIN_COLLECTION,
+  STALL_DEFS, STALLS_PER_SHOP, PROPOSAL_RANGE, SMELT_MIN_COLLECTION,
   FEATURE_CHAIN_CHANCE, MAX_FEATURES,
   makeTileTemplate,
 } from './constants.js';
@@ -147,28 +147,54 @@ function rollOffers() {
 export const stallById   = id => market.stalls.find(s => s.id === id);
 export const stallPrice  = stall => (STALL_DEFS[stall.id]?.base ?? 1) * 2 ** stall.uses;
 
-// The gilder's spread: up to GILDER_RANGE untrimmed tiles, each with a
-// proposed trim attached. Re-rolled after every commission.
-export function rollGilderProposals() {
-  const untrimmed = state.collection.filter(t => !t.trim);
-  return shuffle([...untrimmed])
-    .slice(0, GILDER_RANGE)
-    .map(t => ({ tid: t.tid, trim: pick(Object.keys(TRIMS)) }));
+// ── Proposal stalls ───────────────────────────────────────────────────────────
+// The Gilder and the Punchcutter both work the same way: they lay out a spread
+// of your own tiles, each paired with a proposed change, and you commission the
+// one you like. Each is defined by which tiles it can work on and what it
+// proposes for them; everything else below is shared.
+
+export const PROPOSAL_STALLS = {
+  gilder: {
+    eligible: t => !t.trim,
+    propose:  () => ({ trim: pick(Object.keys(TRIMS)) }),
+  },
+  punchcutter: {
+    // A tile can only take a second letter if it hasn't one already, isn't a
+    // ligature, and has a partner of comparable value to pair with.
+    eligible: t => t.letterType !== 'dual'
+                && !LIGATURES.includes(t.letter)
+                && dualPairsFor(t.letter).length > 0,
+    propose:  t => ({ altLetter: pick(dualPairsFor(t.letter)) }),
+  },
+};
+
+export const isProposalStall = id => !!PROPOSAL_STALLS[id];
+
+// A fresh spread for one stall. Re-rolled after every commission.
+export function rollProposals(stallId) {
+  const spec = PROPOSAL_STALLS[stallId];
+  if (!spec) return [];
+  return shuffle(state.collection.filter(spec.eligible))
+    .slice(0, PROPOSAL_RANGE)
+    .map(t => ({ tid: t.tid, ...spec.propose(t) }));
 }
 
-// Smelting can orphan a gilder proposal mid-visit
-function pruneGilderProposals() {
-  const gilder = stallById('gilder');
-  if (!gilder?.proposals) return;
-  gilder.proposals = gilder.proposals.filter(p =>
-    state.collection.some(t => t.tid === p.tid && !t.trim));
+// Smelting can orphan a proposal mid-visit — drop any whose tile is gone or
+// no longer eligible.
+function pruneProposals() {
+  for (const stall of market.stalls) {
+    const spec = PROPOSAL_STALLS[stall.id];
+    if (!spec || !stall.proposals) continue;
+    stall.proposals = stall.proposals.filter(p =>
+      state.collection.some(t => t.tid === p.tid && spec.eligible(t)));
+  }
 }
 
 function rollStalls() {
   const ids = shuffle([...Object.keys(STALL_DEFS)]).slice(0, STALLS_PER_SHOP);
-  market.stalls = ids.map(id =>
-    id === 'gilder' ? { id, uses: 0, proposals: rollGilderProposals() }
-                    : { id, uses: 0 });
+  market.stalls = ids.map(id => isProposalStall(id)
+    ? { id, uses: 0, proposals: rollProposals(id) }
+    : { id, uses: 0 });
 }
 
 // ─── Open / close ─────────────────────────────────────────────────────────────
@@ -299,7 +325,7 @@ export function stallSmelt(tid) {
   if (state.coins < t.price)         return { ok: false, reason: `You need ${t.price} Coins.` };
   payStall(t.stall, t.price);
   state.collection.splice(state.collection.indexOf(t.tmpl), 1);
-  pruneGilderProposals();
+  pruneProposals();
   return { ok: true, removed: t.tmpl, price: t.price };
 }
 
@@ -312,17 +338,26 @@ export function stallPaint(tid, colour) {
   return { ok: true, tmpl: t.tmpl, colour, price: t.price };
 }
 
-export function stallGild(proposalIdx) {
-  const stall = stallById('gilder');
+// Commission a proposal from whichever proposal stall you're standing in.
+// The proposal itself carries what changes — a trim, or a second letter.
+export function stallCommission(stallId, proposalIdx) {
+  const spec  = PROPOSAL_STALLS[stallId];
+  const stall = stallById(stallId);
   const proposal = stall?.proposals?.[proposalIdx];
   const tmpl = proposal && state.collection.find(t => t.tid === proposal.tid);
-  if (!tmpl || tmpl.trim)            return { ok: false, reason: 'Not available.' };
+  if (!spec || !tmpl || !spec.eligible(tmpl)) return { ok: false, reason: 'Not available.' };
   const price = stallPrice(stall);
-  if (state.coins < price)           return { ok: false, reason: `You need ${price} Coins.` };
+  if (state.coins < price)                    return { ok: false, reason: `You need ${price} Coins.` };
+
   payStall(stall, price);
-  tmpl.trim = proposal.trim;
-  stall.proposals = rollGilderProposals();
-  return { ok: true, tmpl, trim: proposal.trim, price };
+  if (proposal.trim) tmpl.trim = proposal.trim;
+  if (proposal.altLetter) {
+    tmpl.letterType    = 'dual';
+    tmpl.altLetter     = proposal.altLetter;
+    tmpl.activeVariant = 0;
+  }
+  stall.proposals = rollProposals(stallId);
+  return { ok: true, tmpl, ...proposal, price };
 }
 
 export function stallClone(tid) {

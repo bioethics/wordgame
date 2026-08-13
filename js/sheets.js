@@ -14,10 +14,10 @@ import {
 import { patronById } from './patrons.js';
 import { upgradeById } from './upgrades.js';
 import {
-  market, stallById, stallPrice, restorable,
+  market, stallById, stallPrice, restorable, isProposalStall,
   buyPatron, buyTile, buySundry, sellPatron, sellSundry,
   rerollMarket, freeRerollMarket,
-  stallSmelt, stallPaint, stallGild, stallClone, stallRestore,
+  stallSmelt, stallPaint, stallCommission, stallClone, stallRestore,
 } from './market.js';
 import {
   colophon, closeColophon, applyColophonPick, applyColophonSkip, reshuffleColophon,
@@ -270,8 +270,8 @@ function marketStallHTML() {
         </span>`).join('')}
     </div>` : '';
 
-  const body = market.activeStall === 'gilder'
-    ? `${trimKey}<div class="offer-tiles gilder-grid" id="stallGilderGrid"></div>`
+  const body = isProposalStall(market.activeStall)
+    ? `${trimKey}<div class="offer-tiles proposal-grid" id="stallProposalGrid"></div>`
     : `${painterColours}<div class="mini-grid mini-grid--case" id="stallGrid"></div>`;
 
   const note = market.activeStall === 'smelter' && state.collection.length <= SMELT_MIN_COLLECTION
@@ -297,19 +297,28 @@ function marketStallHTML() {
     </div>`;
 }
 
-// Fill the stall's grid — collection minis for most stalls, full-size trim
-// previews for the gilder — after the sheet HTML has landed.
+// What a proposal looks like once taken — the preview the stall puts on show.
+export function proposalPreview(tmpl, p) {
+  return p.altLetter
+    ? { ...tmpl, letterType: 'dual', altLetter: p.altLetter, activeVariant: 0, id: '' }
+    : { ...tmpl, trim: p.trim, id: '' };
+}
+
+// Fill the stall's grid — collection minis for most stalls, full-size previews
+// of the proposed tile for the Gilder and Punchcutter.
 function renderStallBody() {
   const stall = stallById(market.activeStall);
   if (!stall) return;
 
-  if (market.activeStall === 'gilder') {
-    const grid = $('stallGilderGrid');
+  if (isProposalStall(market.activeStall)) {
+    const grid = $('stallProposalGrid');
     if (!grid) return;
     grid.innerHTML = '';
     const proposals = stall.proposals ?? [];
     if (!proposals.length) {
-      grid.innerHTML = '<p class="sheet-note">Every tile you own already wears a trim.</p>';
+      grid.innerHTML = `<p class="sheet-note">${market.activeStall === 'gilder'
+        ? 'Every tile you own already wears a trim.'
+        : 'Every tile you own already holds two letters.'}</p>`;
       return;
     }
     proposals.forEach((p, i) => {
@@ -317,11 +326,11 @@ function renderStallBody() {
       if (!tmpl) return;
       const card = document.createElement('div');
       card.className = 'offer-tile pickable';
-      card.dataset.gilderIdx = i;
+      card.dataset.proposalIdx = i;
       card.innerHTML = `<span class="pick-mark">✓</span>`;
       const slot = document.createElement('div');
       slot.className = 'offer-tile-slot';
-      slot.appendChild(makeTileEl({ ...tmpl, trim: p.trim, id: '' }, 'gild'));
+      slot.appendChild(makeTileEl(proposalPreview(tmpl, p), 'proposal'));
       card.prepend(slot);
       grid.appendChild(card);
     });
@@ -353,8 +362,8 @@ export function updateStallState() {
   for (const el of m.querySelectorAll('[data-stall-tid]')) {
     el.classList.toggle('tile--stall-sel', Number(el.dataset.stallTid) === market.stallSel);
   }
-  for (const el of m.querySelectorAll('[data-gilder-idx]')) {
-    el.classList.toggle('picked', Number(el.dataset.gilderIdx) === market.stallSel);
+  for (const el of m.querySelectorAll('[data-proposal-idx]')) {
+    el.classList.toggle('picked', Number(el.dataset.proposalIdx) === market.stallSel);
   }
   for (const el of m.querySelectorAll('[data-stall-colour]')) {
     el.classList.toggle('paint-swatch--sel', el.dataset.stallColour === market.stallColour);
@@ -363,7 +372,9 @@ export function updateStallState() {
   const btn = m.querySelector('#btnStallConfirm');
   if (!btn) return;
 
-  const sel = market.stallSel >= 0 && market.activeStall !== 'gilder'
+  // At a proposal stall, stallSel is an index into the spread; elsewhere it's
+  // the tid of a collection tile.
+  const sel = market.stallSel >= 0 && !isProposalStall(market.activeStall)
     ? state.collection.find(t => t.tid === market.stallSel) : null;
   const priceTag = `for ${price} Coin${price === 1 ? '' : 's'}`;
   let label = '', ready = false;
@@ -393,6 +404,15 @@ export function updateStallState() {
       label = tmpl
         ? `${TRIMS[p.trim].label} on ${tileName(tmpl)} ${priceTag}`
         : 'Choose a trim';
+      ready = !!tmpl;
+      break;
+    }
+    case 'punchcutter': {
+      const p = stall.proposals?.[market.stallSel];
+      const tmpl = p && state.collection.find(t => t.tid === p.tid);
+      label = tmpl
+        ? `Cut ${p.altLetter} into “${tmpl.letter}” ${priceTag}`
+        : 'Choose a letterform';
       ready = !!tmpl;
       break;
     }
@@ -678,9 +698,9 @@ function onMarketClick(e) {
     updateStallState();
     return;
   }
-  const gilderCard = e.target.closest('[data-gilder-idx]');
-  if (gilderCard) {
-    const idx = Number(gilderCard.dataset.gilderIdx);
+  const proposalCard = e.target.closest('[data-proposal-idx]');
+  if (proposalCard) {
+    const idx = Number(proposalCard.dataset.proposalIdx);
     market.stallSel = market.stallSel === idx ? -1 : idx;
     updateStallState();
     return;
@@ -703,8 +723,12 @@ function onMarketClick(e) {
         if (r.ok) msg = `The Painter coats “${r.tmpl.letter}” in ${COLOURS[r.colour].label.toLowerCase()}.`;
         break;
       case 'gilder':
-        r = stallGild(market.stallSel);
+        r = stallCommission('gilder', market.stallSel);
         if (r.ok) msg = `The Gilder lays a ${TRIMS[r.trim].label} trim on “${r.tmpl.letter}”.`;
+        break;
+      case 'punchcutter':
+        r = stallCommission('punchcutter', market.stallSel);
+        if (r.ok) msg = `The Punchcutter cuts ${r.altLetter} into “${r.tmpl.letter}”.`;
         break;
       case 'stereotyper':
         r = stallClone(market.stallSel);

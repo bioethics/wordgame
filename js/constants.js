@@ -59,7 +59,7 @@ export const tileCount = n => n === 1 ? 'one tile' : `${n} tiles`;
 // starts at its base and doubles with every purchase, then resets when the
 // next shop opens — the Smelter alone starts dearer.
 export const STALLS_PER_SHOP = 2;
-export const GILDER_RANGE    = 6;    // trim proposals laid out at a time
+export const PROPOSAL_RANGE  = 6;    // tiles a proposal stall lays out at a time
 export const SMELT_MIN_COLLECTION = 12;
 
 export const STALL_DEFS = {
@@ -74,6 +74,10 @@ export const STALL_DEFS = {
   gilder: {
     name: 'The Gilder', emoji: '⚜️', base: 1,
     desc: 'Proposes trims for six untrimmed tiles.',
+  },
+  punchcutter: {
+    name: 'The Punchcutter', emoji: '⚒️', base: 2,
+    desc: 'Cuts a second letter into a tile — flip to play either face.',
   },
   stereotyper: {
     name: 'The Stereotyper', emoji: '🗜️', base: 1,

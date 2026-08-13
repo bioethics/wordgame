@@ -16,7 +16,8 @@ import {
 import { TUBE_TILES, tileCount } from './constants.js';
 import { renderAll, showTilePopover, showPopover, hidePopover, log } from './render.js';
 import { computeScore } from './scoring.js';
-import { market } from './market.js';
+import { market, stallById } from './market.js';
+import { proposalPreview } from './sheets.js';
 import { draft } from './draft.js';
 
 const DRAG_THRESHOLD = 8;     // px of travel before a press becomes a drag
@@ -247,11 +248,12 @@ function templateFor(tileEl) {
   const tid = tileEl.closest('[data-stall-tid]')?.dataset.stallTid
            ?? tileEl.closest('[data-tid]')?.dataset.tid;
   if (tid != null) return state.collection.find(t => t.tid === Number(tid));
-  const gilded = tileEl.closest('[data-gilder-idx]')?.dataset.gilderIdx;
-  if (gilded != null) {
-    const p = market.stalls.find(s => s.id === 'gilder')?.proposals?.[Number(gilded)];
+  // A proposal card previews the tile as it would be, not as it is
+  const proposed = tileEl.closest('[data-proposal-idx]')?.dataset.proposalIdx;
+  if (proposed != null) {
+    const p = stallById(market.activeStall)?.proposals?.[Number(proposed)];
     const tmpl = p && state.collection.find(t => t.tid === p.tid);
-    return tmpl ? { ...tmpl, trim: p.trim } : null;
+    return tmpl ? proposalPreview(tmpl, p) : null;
   }
   const offer = tileEl.closest('[data-offer="tile"]')?.dataset.idx;
   if (offer != null) return market.tileOffers[Number(offer)]?.template;

@@ -1722,6 +1722,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .awning--gilder      { --awning: #b8821f; }
 .awning--stereotyper { --awning: #5f6d80; }
 .awning--restorer    { --awning: #3fa371; }
+.awning--punchcutter { --awning: #8a5fb0; }
 
 /* Inside a stall, the sheet itself wears the awning */
 .sheet--stall {
@@ -1788,8 +1789,10 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 /* The Gilder's spread of trim proposals */
-.gilder-grid { grid-template-columns: repeat(3, 1fr); }
-@media (max-width: 600px) { .gilder-grid { grid-template-columns: repeat(2, 1fr); } }
+/* The spread a proposal stall lays out — the Gilder's trims, the
+   Punchcutter's second letters */
+.proposal-grid { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 600px) { .proposal-grid { grid-template-columns: repeat(2, 1fr); } }
 
 .market-foot {
   display: flex;
