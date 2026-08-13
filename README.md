@@ -73,10 +73,11 @@ enters the run.
 
 **The Market** (between pages) keeps a fixed layout with churning contents:
 3 patrons, 4 tiles, 2 **sundries**, and 2 **stalls** drawn from a roster of
-six. *New offers* re-rolls the patrons, tiles and sundries; the stalls stay
-put. Tiles live in your **collection**; each page the whole collection
-shuffles into the **bag**, and printed or discarded tiles wait in the
-**discard pile**.
+six. *New offers* re-rolls everything — patrons, tiles, sundries, and a fresh
+pair of stalls with their doubling-price reset — and its own price doubles
+with each press. Tiles live in your **collection**; each page the whole
+collection shuffles into the **bag**, and printed or discarded tiles wait in
+the **discard pile**.
 
 **Sundries** are consumables kept on the **workbench** (two slots, beside the
 patron shelf). The **paint tube**: tap it mid-page, tap one tile anywhere on

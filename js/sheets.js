@@ -229,7 +229,7 @@ function marketShopHTML() {
       </section>
 
       <div class="market-foot">
-        <button class="btn btn-quiet" id="btnReroll" title="Re-rolls patrons, tiles and sundries"
+        <button class="btn btn-quiet" id="btnReroll" title="Re-rolls patrons, tiles, sundries and stalls — doubles each time"
           ${state.coins < market.rerollCost ? 'disabled' : ''}>
           New offers ${coinHTML(market.rerollCost)}
         </button>

@@ -135,7 +135,7 @@ function rollSundryOffers() {
       : { kind: 'tube', colour: entry, price: TUBE_PRICE, sold: false });
 }
 
-// Re-rolled by "New offers"; the stalls are not.
+// Patrons/tiles/sundries — "New offers" also re-rolls the stalls (see rollStalls).
 function rollOffers() {
   market.patronOffers = weightedPatronSample(3);
   market.tileOffers   = Array.from({ length: 4 }, randomTileOffer);
@@ -288,8 +288,9 @@ export function buySundry(idx) {
 export function rerollMarket() {
   if (state.coins < market.rerollCost) return false;
   state.coins -= market.rerollCost;
-  market.rerollCost += 1;
+  market.rerollCost *= 2;
   rollOffers();
+  rollStalls();
   return true;
 }
 
@@ -297,6 +298,7 @@ export function rerollMarket() {
 // escalating cost — the state.js caller is responsible for consuming it.
 export function freeRerollMarket() {
   rollOffers();
+  rollStalls();
 }
 
 // ─── Stall purchases ──────────────────────────────────────────────────────────
