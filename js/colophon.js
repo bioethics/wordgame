@@ -3,7 +3,7 @@
 // of a chapter. Three cards, one guaranteed structural, capped repeats.
 
 import { state, shuffle, unpaintedFaces, paintRandomFaces } from './state.js';
-import { UPGRADE_OFFERS, MAX_UPGRADE_REPEATS, UPGRADE_COIN_GRANT, PAINT_PER_POT } from './constants.js';
+import { UPGRADE_OFFERS, MAX_UPGRADE_REPEATS, SKIP_COIN_GRANT, PAINT_PER_POT } from './constants.js';
 import { UPGRADE_DEFS, upgradeById } from './upgrades.js';
 
 export const colophon = {
@@ -63,11 +63,14 @@ export function applyColophonPick(id) {
   state.upgradeCounts ??= {};
   state.upgradeCounts[id] = (state.upgradeCounts[id] ?? 0) + 1;
 
-  let painted = null;
-  if (id === 'coins')        state.coins += UPGRADE_COIN_GRANT;
-  else if (def.kind === 'paint') painted = paintRandomFaces(def.colour, PAINT_PER_POT);
+  const painted = def.kind === 'paint' ? paintRandomFaces(def.colour, PAINT_PER_POT) : null;
 
   return { def, painted };
+}
+
+// Decline all three — the consolation for skipping, or for a pool run dry.
+export function applyColophonSkip() {
+  state.coins += SKIP_COIN_GRANT;
 }
 
 export function colophonSnapshot() {

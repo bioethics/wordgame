@@ -7,7 +7,7 @@ import {
   WORDS_PER_PAGE, PAGES_PER_CHAPTER,
   PAINT_PER_POT, TUBE_TILES,
   STALL_DEFS, SMELT_MIN_COLLECTION,
-  UPGRADE_COIN_GRANT,
+  SKIP_COIN_GRANT,
   colourDesc, chapterTitle, roman, isDeadline,
 } from './constants.js';
 import { patronById } from './patrons.js';
@@ -955,9 +955,7 @@ export function renderColophon() {
     const def = upgradeById(id);
     const swatch = def.kind === 'paint'
       ? `<span class="paint-pot paint-pot--${def.colour}"></span>`
-      : id === 'coins'
-        ? `<span class="colophon-coin">${coinHTML(UPGRADE_COIN_GRANT)}</span>`
-        : `<span class="colophon-icon">${def.emoji}</span>`;
+      : `<span class="colophon-icon">${def.emoji}</span>`;
     return `
       <button class="colophon-card colophon-card--${def.kind}${def.kind === 'paint' ? ' colophon-card--' + def.colour : ''}" data-colophon="${id}">
         ${swatch}
@@ -975,11 +973,15 @@ export function renderColophon() {
         </div>
       </div>
       <div class="colophon-grid">${cards}</div>
-      ${reshuffles && colophon.offers.length ? `
+      ${colophon.offers.length ? `
         <div class="foundry-foot">
-          <button class="btn btn-quiet" id="btnColophonReshuffle" title="Spend a banked reshuffle for a free re-roll">
-            ↻ Reshuffle · ${reshuffles} left
+          <button class="btn btn-quiet" id="btnColophonSkip" title="Decline all three">
+            Skip · +${coinHTML(SKIP_COIN_GRANT)}
           </button>
+          ${reshuffles ? `<button class="btn btn-quiet" id="btnColophonReshuffle" title="Spend a banked reshuffle for a free re-roll">
+            ↻ Reshuffle · ${reshuffles} left
+          </button>` : ''}
+          <div class="foundry-spacer"></div>
         </div>` : ''}
     </div>`;
   m.classList.add('show');

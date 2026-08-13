@@ -211,7 +211,10 @@ export function makeTileTemplate(letter, overrides = {}) {
 // still eligible.
 export const UPGRADE_OFFERS      = 3;
 export const MAX_UPGRADE_REPEATS = 2;
-export const UPGRADE_COIN_GRANT  = 5;
+
+// Decline all three cards for this instead — also what a chapter transition
+// pays out on its own if the whole pool is ever exhausted (endless mode only).
+export const SKIP_COIN_GRANT = 2;
 
 // ─── Reshuffle sundry ─────────────────────────────────────────────────────────
 // A free re-roll, banked for later: spend it on the Market's own offers, or

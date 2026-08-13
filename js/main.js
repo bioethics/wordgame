@@ -7,7 +7,7 @@ import {
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES, TRIMS,
-  WORDS_PER_PAGE,
+  WORDS_PER_PAGE, SKIP_COIN_GRANT,
   chapterTitle, roman, isDeadline, COLOURS, NICKS,
 } from './constants.js';
 import { DICT, dictLoaded, loadDict, loadCustom } from './dict.js';
@@ -19,7 +19,7 @@ import {
 } from './foundry.js';
 import {
   colophon, openColophon, closeColophon, restoreColophon,
-  applyColophonPick, reshuffleColophon,
+  applyColophonPick, applyColophonSkip, reshuffleColophon,
 } from './colophon.js';
 import {
   renderAll, renderRack, renderWord, renderCounts, renderButtons, persist,
@@ -333,13 +333,16 @@ async function beginNextPage() {
 
   // A chapter just cleared — the Colophon offers a permanent upgrade before
   // the next one begins. advancePage() resumes once a pick lands (or, deep
-  // into the appendices, the pool has nothing left to offer).
+  // into the appendices, the pool has nothing left to offer — the same
+  // consolation as a skip, paid out without a screen to skip from).
   if (state.page === PAGES_PER_CHAPTER) {
     openColophon();
     renderAll();
     if (colophon.offers.length) { renderColophon(); return; }
     closeColophon();
     renderColophon();
+    applyColophonSkip();
+    renderAll();
   }
 
   await advancePage();
@@ -356,13 +359,29 @@ async function pickColophon(id) {
   state.isAnimating = true;
   sfx.coin(); sfx.chime();
   if (card) { pulse(card, 'colophon-card--picked', 560); sparkleBurst(card, 16); }
-  renderAll();   // the header purse updates live if coins were granted
+  renderAll();
 
   log(r.painted?.length
     ? `Colophon: painted ${r.painted.join(', ')} ${COLOURS[r.def.colour].label.toLowerCase()}.`
     : `Colophon: ${r.def.name}.`, 'good');
 
   await sleep(620);
+  closeColophon();
+  renderColophon();
+  state.isAnimating = false;
+  await advancePage();
+}
+
+async function skipColophon() {
+  if (state.isAnimating) return;
+  applyColophonSkip();
+
+  state.isAnimating = true;
+  sfx.coin();
+  renderAll();
+  log(`Skipped the Colophon — +${SKIP_COIN_GRANT} Coins instead.`, 'good');
+
+  await sleep(420);
   closeColophon();
   renderColophon();
   state.isAnimating = false;
@@ -380,6 +399,7 @@ function useColophonReshuffle() {
 $('colophonModal')?.addEventListener('click', e => {
   const pickEl = e.target.closest('[data-colophon]');
   if (pickEl) { pickColophon(pickEl.dataset.colophon); return; }
+  if (e.target.closest('#btnColophonSkip')) { skipColophon(); return; }
   if (e.target.closest('#btnColophonReshuffle')) useColophonReshuffle();
 });
 

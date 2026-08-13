@@ -99,11 +99,12 @@ touch).
 
 **The Colophon** — when a chapter's Deadline is cleared and the Market is
 done, choose one of three permanent upgrades before the next chapter begins:
-+1 hand size, +1 discard, +1 patron seat, +1 workbench slot, +5 Coins, or a
-paint pot of a colour of your choice. At least one non-paint option is always
-offered while one remains available, and each of the nine possible picks caps
-out at 2 takes across a run — once every option is exhausted (only reachable
-deep into the appendices), the Colophon steps aside on its own.
++1 hand size, +1 discard, +1 patron seat, +1 workbench slot, or a paint pot of
+a colour of your choice. At least one non-paint option is always offered
+while one remains available, and each of the eight possible picks caps out
+at 2 takes across a run. *Skip* declines all three for 2 Coins instead — the
+same consolation the run pays out on its own once every option is exhausted
+(only reachable deep into the appendices).
 
 **Discarding** — press *Discard* to arm it, tap the tiles to throw away, then
 press it again to confirm (press with nothing selected to cancel).
@@ -133,7 +134,7 @@ beyond.
 | Opening draft spread & pick counts | `js/constants.js` → `DRAFT` |
 | How loaded offered tiles are | `js/constants.js` → `FEATURE_CHAIN_CHANCE`, `MAX_FEATURES` (one feature free, then keep rolling); generation in `js/foundry.js` → `randomSpecialTile` |
 | Rewards & interest | `js/constants.js` → `REWARD` (base bumped 4→5 alongside the Colophon) |
-| Colophon roster, offer count, repeat cap, coin grant | `js/constants.js` → `UPGRADE_OFFERS`, `MAX_UPGRADE_REPEATS`, `UPGRADE_COIN_GRANT`; definitions in `js/upgrades.js` |
+| Colophon roster, offer count, repeat cap, skip grant | `js/constants.js` → `UPGRADE_OFFERS`, `MAX_UPGRADE_REPEATS`, `SKIP_COIN_GRANT`; definitions in `js/upgrades.js` |
 | Patron reaction odds | `js/main.js` → `reactionChance`; the lines themselves in `js/quips.js` — a flat array, add more any time |
 | Words / discards / seats per page | `js/constants.js` |
 | Patron roster, costs, effects | `js/patrons.js` |

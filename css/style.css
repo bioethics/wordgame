@@ -2000,12 +2000,6 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 .colophon-icon { font-size: 34px; line-height: 1; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.4)); }
-.colophon-coin {
-  font-family: var(--serif);
-  font-weight: 900;
-  font-size: 24px;
-  color: var(--brass-hi);
-}
 .colophon-card .paint-pot { width: 30px; height: 34px; }
 
 .colophon-card-name {
