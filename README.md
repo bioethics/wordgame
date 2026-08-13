@@ -53,18 +53,29 @@ multiplier lights up, then the patrons weigh in.
 
 ## The pieces
 
-A tile is a **letter** (or ligature), optionally **painted** a colour, plus an
-optional **trim** and **nick**.
+A tile is a **letter** (or ligature, or mark), optionally **painted** a colour,
+plus an optional **trim** and **nick**.
 
 | Layer | Options |
 | --- | --- |
 | Paint | crimson / azure / jade / amber — each raises its colour's multiplier by 1 |
 | Trim | **Gold** pays 1 Coin · **Silver** +6 Points · **Copper** refreshes 1 Discard · **Mercury** slips back into the bag instead of the discard pile · **Purple** raises the fifth multiplier by 0.5 |
 | Nick | A notch cut into one edge; the notched side is the direction. **Right** ×3 Points to everything on its right · **Left** ×3 to its left. Nicks don't stack — a letter is multiplied once at most. While you compose, an affected tile's corner number becomes the multiplied value, restyled, rippling outward from the notch. |
-| Letterform | Dual tiles hold two letters (flip to switch; each face painted independently) · Ligatures ING · ED · TCH spell several letters from one tile |
+| Letterform | Dual tiles hold two letters (flip to switch; each face painted independently) · Ligatures ING · ED · TCH spell several letters from one tile · **Marks** ? and ! spell nothing at all |
 
 A dual tile shares its trim and nick across both faces; only the letters and
 their paint swap.
+
+**Marks** — `?` and `!` are tiles that spell nothing. A mark is appended to a
+finished word: one `?`, or one `!`, or the two together as `?!` — never
+doubled, never reversed, never mid-word. The dictionary only ever sees the
+letters in front, and so do your patrons, so `CAT?` is still a three-letter
+word and `ANNA!` is still a palindrome. A mark is worth a point, but that
+isn't the point of it: marks take paint, trims and nicks like any other tile,
+and a mark sits at the *end* of the word, which is exactly where a **left
+nick** wants to be — one notch there reaches back across every letter you
+just set. Marks never come out of the bag; they turn up in the Market now and
+then, and they cost a little extra when they do.
 
 **The opening draft** — before page 1 you kit out the press from a free
 spread: 1 patron of 3, 2 paints of 4, 4 tiles of 10. No coins involved. The
@@ -73,7 +84,7 @@ enters the run.
 
 **The Market** (between pages) keeps a fixed layout with churning contents:
 3 patrons, 4 tiles, 2 **sundries**, and 2 **stalls** drawn from a roster of
-six. *New offers* re-rolls everything — patrons, tiles, sundries, and a fresh
+seven. *New offers* re-rolls everything — patrons, tiles, sundries, and a fresh
 pair of stalls with their doubling-price reset — and its own price doubles
 with each press. Tiles live in your **collection**; each page the whole
 collection shuffles into the **bag**, and printed or discarded tiles wait in
@@ -89,13 +100,14 @@ only in the opening draft.)
 
 **Stalls** are services: the **Smelter** (trash a tile), the **Painter**
 (paint any letter a colour of your choice), the **Stereotyper** (clone any
-tile), and the **Restorer** (strip a tile back to bare metal). Two more are
+tile), and the **Restorer** (strip a tile back to bare metal). Three more are
 *proposal stalls* — they lay out a spread of six of your own tiles, each
 paired with a proposed change, and you commission the one you like: the
 **Gilder** offers trims, the **Punchcutter** cuts a second letter into a tile
-(making it dual). Every purchase doubles that stall's price for the rest of
-the visit; prices reset when the next market opens. The Smelter and
-Punchcutter start at 2 Coins, the rest at 1.
+(making it dual), and the **Dresser** cuts a nick into a tile's edge. Every
+purchase doubles that stall's price for the rest of the visit; prices reset
+when the next market opens. The Dresser starts at 3 Coins, the Smelter and
+Punchcutter at 2, the rest at 1.
 
 **Patrons** grant standing boons — five seats to start (the Colophon can add
 more), dismissable for half their cost (hover for the ✕, or tap the patron on
@@ -144,6 +156,7 @@ beyond.
 | Tube price / tiles per tube / workbench slots / sell-back | `js/constants.js` → `TUBE_PRICE`, `TUBE_TILES`, `SUNDRY_SLOTS`, `SUNDRY_SELL` |
 | Reshuffle sundry price | `js/constants.js` → `RESHUFFLE_PRICE` |
 | Stall roster, base prices, spread size | `js/constants.js` → `STALL_DEFS`, `STALLS_PER_SHOP`, `PROPOSAL_RANGE`, `SMELT_MIN_COLLECTION` |
+| Marks: which ones exist, legal tails, how often they're offered | `js/constants.js` → `MARKS`, `MARK_RUNS`, `MARK_WEIGHT` (and `TILE_POINTS`) |
 | What a proposal stall works on & offers | `js/market.js` → `PROPOSAL_STALLS` (one `eligible`/`propose` pair per stall — a new one is a few lines) |
 | Letters per draft paint pot | `js/constants.js` → `PAINT_PER_POT` |
 | Opening draft spread & pick counts | `js/constants.js` → `DRAFT` |

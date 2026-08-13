@@ -2,7 +2,7 @@ import {
   state, adoptTemplate, shuffle, effectivePatronSlots, effectiveSundrySlots,
 } from './state.js';
 import {
-  BAG_COUNTS, LIGATURES, TILE_POINTS, TRIMS, NICKS, COLOURS,
+  BAG_COUNTS, LIGATURES, MARKS, MARK_WEIGHT, isMark, TILE_POINTS, TRIMS, NICKS, COLOURS,
   TILE_BASE_PRICE, REROLL_BASE,
   SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, SUNDRY_SELL,
   STALL_DEFS, STALLS_PER_SHOP, PROPOSAL_RANGE, SMELT_MIN_COLLECTION,
@@ -36,6 +36,7 @@ function buildLetterPool() {
     for (let i = 0; i < Math.max(1, c); i++) pool.push(L);
   }
   LIGATURES.forEach(L => pool.push(L, L));
+  MARKS.forEach(m => { for (let i = 0; i < MARK_WEIGHT; i++) pool.push(m); });
   return pool;
 }
 const LETTER_POOL = buildLetterPool();
@@ -45,7 +46,8 @@ const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 function dualPairsFor(letter) {
   const pts = TILE_POINTS[letter] ?? 1;
   return Object.keys(TILE_POINTS)
-    .filter(l => l !== letter && l.length === 1 && Math.abs(TILE_POINTS[l] - pts) <= 2);
+    .filter(l => l !== letter && l.length === 1 && !isMark(l)
+              && Math.abs(TILE_POINTS[l] - pts) <= 2);
 }
 
 // ─── Feature helpers ──────────────────────────────────────────────────────────
@@ -63,7 +65,7 @@ export function addRandomFeature(tmpl) {
   if (!tmpl.colour) missing.push('colour');
   if (!tmpl.trim)   missing.push('trim');
   if (!tmpl.nick)   missing.push('nick');
-  if (tmpl.letterType !== 'dual' && !LIGATURES.includes(tmpl.letter)) missing.push('dual');
+  if (tmpl.letterType !== 'dual' && !LIGATURES.includes(tmpl.letter) && !isMark(tmpl.letter)) missing.push('dual');
 
   while (missing.length) {
     const f = missing.splice(Math.floor(Math.random() * missing.length), 1)[0];
@@ -108,6 +110,7 @@ function tilePrice(tmpl) {
   if (tmpl.altColour) p += 1;
   if (tmpl.letterType === 'dual') p += 1;
   if (LIGATURES.includes(tmpl.letter)) p += 1;
+  if (isMark(tmpl.letter)) p += 1;
   return p;
 }
 
@@ -148,7 +151,7 @@ export const stallById   = id => market.stalls.find(s => s.id === id);
 export const stallPrice  = stall => (STALL_DEFS[stall.id]?.base ?? 1) * 2 ** stall.uses;
 
 // ── Proposal stalls ───────────────────────────────────────────────────────────
-// The Gilder and the Punchcutter both work the same way: they lay out a spread
+// The Gilder, the Punchcutter and the Dresser all work the same way: a spread
 // of your own tiles, each paired with a proposed change, and you commission the
 // one you like. Each is defined by which tiles it can work on and what it
 // proposes for them; everything else below is shared.
@@ -163,8 +166,13 @@ export const PROPOSAL_STALLS = {
     // ligature, and has a partner of comparable value to pair with.
     eligible: t => t.letterType !== 'dual'
                 && !LIGATURES.includes(t.letter)
+                && !isMark(t.letter)
                 && dualPairsFor(t.letter).length > 0,
     propose:  t => ({ altLetter: pick(dualPairsFor(t.letter)) }),
+  },
+  dresser: {
+    eligible: t => !t.nick,
+    propose:  () => ({ nick: pick(Object.keys(NICKS)) }),
   },
 };
 
@@ -353,6 +361,7 @@ export function stallCommission(stallId, proposalIdx) {
 
   payStall(stall, price);
   if (proposal.trim) tmpl.trim = proposal.trim;
+  if (proposal.nick) tmpl.nick = proposal.nick;
   if (proposal.altLetter) {
     tmpl.letterType    = 'dual';
     tmpl.altLetter     = proposal.altLetter;

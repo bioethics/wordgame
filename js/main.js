@@ -12,7 +12,7 @@ import {
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES, tileCount,
   WORDS_PER_PAGE, REACTION,
-  chapterTitle, roman, COLOURS, NICKS,
+  chapterTitle, roman, COLOURS, NICKS, splitMarks,
 } from './constants.js';
 import { DICT, dictLoaded, loadDict, loadCustom } from './dict.js';
 import { computeScore, computeReward } from './scoring.js';
@@ -143,12 +143,18 @@ async function submitWord() {
   cancelSundryMode(true);
 
   if (!dictLoaded) { log('The dictionary is still loading…', 'warn'); return; }
-  if (!DICT.has(w.toUpperCase())) {
-    log(`“${w}” isn't in the dictionary.`, 'bad');
+
+  // Marks ride at the end of a word, and only as ?, ! or ?!. The dictionary
+  // never sees them — it's the letters in front that have to be a word.
+  const parts = splitMarks(w.toUpperCase());
+  const reject = msg => {
+    log(msg, 'bad');
     sfx.bad();
     pulse($('word'), 'word-groove--reject', 420);
-    return;
-  }
+  };
+  if (!parts)          return reject('Marks go last, as ? or ! or ?!.');
+  if (!parts.letters)  return reject('A mark needs a word in front of it.');
+  if (!DICT.has(parts.letters)) return reject(`“${w}” isn't in the dictionary.`);
 
   state.isAnimating = true;
   renderButtons();

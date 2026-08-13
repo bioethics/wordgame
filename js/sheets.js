@@ -7,7 +7,7 @@ import {
   state, effectivePatronSlots, effectiveSundrySlots, spendReshuffleSundry,
 } from './state.js';
 import {
-  TRIMS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
+  TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
   PAINT_PER_POT, TUBE_TILES, ANIM, SUNDRY_SELL, tileCount,
   colourDesc,
 } from './constants.js';
@@ -247,6 +247,15 @@ function marketShopHTML() {
 
 const tileName = t => `“${t.letter}${t.letterType === 'dual' ? '/' + t.altLetter : ''}”`;
 
+const keyBlock = (defs, swatchClass) => `
+  <div class="trim-key">
+    ${Object.entries(defs).map(([id, d]) => `
+      <span class="trim-key-item">
+        <span class="${swatchClass(id)}"></span>
+        <b>${d.label}</b> ${d.desc}
+      </span>`).join('')}
+  </div>`;
+
 function marketStallHTML() {
   const stall = stallById(market.activeStall);
   const def = STALL_DEFS[market.activeStall];
@@ -259,19 +268,16 @@ function marketStallHTML() {
                 title="${COLOURS[c].label} — ${colourDesc(c)}"></button>`).join('')}
     </div>` : '';
 
-  // The Gilder's proposals show trimmed tiles, so the key has to say what
-  // each metal actually does — otherwise the choice is guesswork.
-  const trimKey = market.activeStall === 'gilder' ? `
-    <div class="trim-key">
-      ${Object.entries(TRIMS).map(([id, t]) => `
-        <span class="trim-key-item">
-          <span class="trim-swatch trim-swatch--${id}"></span>
-          <b>${t.label}</b> ${t.desc}
-        </span>`).join('')}
-    </div>` : '';
+  // A proposal shows the tile as it would be, so where the change isn't
+  // self-evident the stall carries a key: metals for the Gilder, and for the
+  // Dresser which way a notch reaches.
+  const stallKey =
+      market.activeStall === 'gilder'  ? keyBlock(TRIMS, id => `trim-swatch trim-swatch--${id}`)
+    : market.activeStall === 'dresser' ? keyBlock(NICKS, id => `nick-swatch nick-swatch--${id}`)
+    : '';
 
   const body = isProposalStall(market.activeStall)
-    ? `${trimKey}<div class="offer-tiles proposal-grid" id="stallProposalGrid"></div>`
+    ? `${stallKey}<div class="offer-tiles proposal-grid" id="stallProposalGrid"></div>`
     : `${painterColours}<div class="mini-grid mini-grid--case" id="stallGrid"></div>`;
 
   const note = market.activeStall === 'smelter' && state.collection.length <= SMELT_MIN_COLLECTION
@@ -299,9 +305,9 @@ function marketStallHTML() {
 
 // What a proposal looks like once taken — the preview the stall puts on show.
 export function proposalPreview(tmpl, p) {
-  return p.altLetter
-    ? { ...tmpl, letterType: 'dual', altLetter: p.altLetter, activeVariant: 0, id: '' }
-    : { ...tmpl, trim: p.trim, id: '' };
+  if (p.altLetter) return { ...tmpl, letterType: 'dual', altLetter: p.altLetter, activeVariant: 0, id: '' };
+  if (p.nick)      return { ...tmpl, nick: p.nick, id: '' };
+  return { ...tmpl, trim: p.trim, id: '' };
 }
 
 // Fill the stall's grid — collection minis for most stalls, full-size previews
@@ -316,9 +322,7 @@ function renderStallBody() {
     grid.innerHTML = '';
     const proposals = stall.proposals ?? [];
     if (!proposals.length) {
-      grid.innerHTML = `<p class="sheet-note">${market.activeStall === 'gilder'
-        ? 'Every tile you own already wears a trim.'
-        : 'Every tile you own already holds two letters.'}</p>`;
+      grid.innerHTML = `<p class="sheet-note">${STALL_DEFS[market.activeStall]?.empty ?? 'Nothing to propose.'}</p>`;
       return;
     }
     proposals.forEach((p, i) => {
@@ -413,6 +417,15 @@ export function updateStallState() {
       label = tmpl
         ? `Cut ${p.altLetter} into “${tmpl.letter}” ${priceTag}`
         : 'Choose a letterform';
+      ready = !!tmpl;
+      break;
+    }
+    case 'dresser': {
+      const p = stall.proposals?.[market.stallSel];
+      const tmpl = p && state.collection.find(t => t.tid === p.tid);
+      label = tmpl
+        ? `${NICKS[p.nick].label} in ${tileName(tmpl)} ${priceTag}`
+        : 'Choose a nick';
       ready = !!tmpl;
       break;
     }
@@ -729,6 +742,10 @@ function onMarketClick(e) {
       case 'punchcutter':
         r = stallCommission('punchcutter', market.stallSel);
         if (r.ok) msg = `The Punchcutter cuts ${r.altLetter} into “${r.tmpl.letter}”.`;
+        break;
+      case 'dresser':
+        r = stallCommission('dresser', market.stallSel);
+        if (r.ok) msg = `The Dresser cuts a ${r.nick} nick into “${r.tmpl.letter}”.`;
         break;
       case 'stereotyper':
         r = stallClone(market.stallSel);

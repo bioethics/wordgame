@@ -1795,6 +1795,23 @@ button.sundry:hover { transform: translateY(-2px); }
   background: linear-gradient(168deg, var(--ivory), var(--ivory-2));
   box-shadow: inset 0 0 0 2.5px var(--metal, #d9a64b);
 }
+/* The Dresser's key: a notch bitten out of the side it reaches toward */
+.nick-swatch {
+  width: 13px; height: 13px;
+  flex: none;
+  border-radius: 3px;
+  background: linear-gradient(168deg, var(--ivory), var(--ivory-2));
+  box-shadow: inset 0 0 0 1px rgba(88, 60, 22, 0.45);
+}
+.nick-swatch--right {
+  -webkit-mask-image: radial-gradient(circle 4px at 100% 50%, transparent 3.4px, #000 4px);
+          mask-image: radial-gradient(circle 4px at 100% 50%, transparent 3.4px, #000 4px);
+}
+.nick-swatch--left {
+  -webkit-mask-image: radial-gradient(circle 4px at 0% 50%, transparent 3.4px, #000 4px);
+          mask-image: radial-gradient(circle 4px at 0% 50%, transparent 3.4px, #000 4px);
+}
+
 .trim-swatch--gold    { --metal: #d9a64b; }
 .trim-swatch--silver  { --metal: #aab4c4; }
 .trim-swatch--copper  { --metal: #c47a3d; }
@@ -1842,6 +1859,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .awning--stereotyper { --awning: #5f6d80; }
 .awning--restorer    { --awning: #3fa371; }
 .awning--punchcutter { --awning: #8a5fb0; }
+.awning--dresser     { --awning: #a8632c; }
 
 /* Inside a stall, the sheet itself wears the awning */
 .sheet--stall {

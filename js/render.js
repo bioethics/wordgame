@@ -7,7 +7,7 @@ import {
   effectivePatronSlots, effectiveSundrySlots,
 } from './state.js';
 import {
-  TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES,
+  TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark,
   WORDS_PER_PAGE, PAGES_PER_CHAPTER, TUBE_TILES, tileCount,
   colourDesc, chapterTitle, roman, isDeadline,
 } from './constants.js';
@@ -97,6 +97,9 @@ export function tileFeatures(tile) {
   }
   if (LIGATURES.includes(tile.letter)) {
     out.push({ head: 'Ligature', body: `One tile that spells ${tile.letter}.` });
+  }
+  if (isMark(tile.letter)) {
+    out.push({ head: 'Mark', body: 'Spells nothing — goes on the end of a word. One ? or one ! or ?!.' });
   }
   return out;
 }

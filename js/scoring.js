@@ -1,4 +1,4 @@
-import { TILE_POINTS, TRIMS, NICKS, COLOURS, PURPLE_TRIM_STEP, REWARD, isDeadline } from './constants.js';
+import { TILE_POINTS, TRIMS, NICKS, COLOURS, PURPLE_TRIM_STEP, REWARD, isDeadline, splitMarks } from './constants.js';
 import { PATRON_DEFS, patronById } from './patrons.js';
 import { state, owns, getActiveLetter, getActiveColour } from './state.js';
 
@@ -23,7 +23,11 @@ import { state, owns, getActiveLetter, getActiveColour } from './state.js';
 export function computeScore(wordTiles) {
   if (!wordTiles?.length) return null;
 
+  // `word` is what gets printed, marks and all — the ledger and the manuscript
+  // want to see HELLO!. Patrons are handed the letters alone, so a trailing
+  // mark can't make a 3-letter word read as four or spoil a palindrome.
   const word = wordTiles.map(t => getActiveLetter(t)).join('').toUpperCase();
+  const letters = splitMarks(word)?.letters ?? word;
   const n = wordTiles.length;
 
   // ── Pass 1: each tile's own Points, plus trim side effects ─────────────────
@@ -109,7 +113,7 @@ export function computeScore(wordTiles) {
   const patronSteps = [];
   let current = null;
   const ctx = {
-    word, tiles: wordTiles, state,
+    word: letters, tiles: wordTiles, state,
     addPoints(v) { points += v; patronSteps.push({ id: current, text: `+${v} Points`, points: v }); },
     addMult(v)   { mult += v;   patronSteps.push({ id: current, text: `+${v} Mult`,   mult: v }); },
     xMult(v)     { mult *= v;   patronSteps.push({ id: current, text: `×${v} Mult`,   xmult: v }); },

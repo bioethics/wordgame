@@ -14,6 +14,7 @@ export const TILE_POINTS = {
   QU:10, R:1, S:1, T:1, U:1, V:4, W:4, X:8,
   Y:4, Z:10,
   ING:4, ED:3, TCH:8,
+  '?':1, '!':1,
 };
 
 export const BAG_COUNTS = {
@@ -24,6 +25,27 @@ export const BAG_COUNTS = {
 
 // Multi-letter "ligature" tiles — one tile that spells several letters
 export const LIGATURES = ['ING', 'ED', 'TCH'];
+
+// ─── Marks (punctuation tiles) ────────────────────────────────────────────────
+// Not letters, and not ligatures either: a mark spells nothing and is simply
+// appended to a finished word. One ? or one !, or the two together as ?! —
+// never doubled, never mid-word. They're worth a point apiece, but they take
+// paint, trims and nicks like any other tile, and a left nick on a trailing
+// mark reaches back across the entire word.
+export const MARKS      = ['?', '!'];
+export const MARK_RUNS  = ['?', '!', '?!'];   // every legal tail
+export const isMark     = ch => MARKS.includes(ch);
+export const MARK_WEIGHT = 2;                 // copies of each in the shop's letter pool
+
+// Split a composed word into its letters and its trailing marks. Returns null
+// when the marks aren't a legal tail — doubled, reversed, or mid-word.
+export function splitMarks(str) {
+  const i = [...str].findIndex(isMark);
+  if (i < 0) return { letters: str, marks: '' };
+  const letters = str.slice(0, i);
+  const marks   = str.slice(i);
+  return MARK_RUNS.includes(marks) ? { letters, marks } : null;
+}
 
 // ─── Colours (letter paint) ───────────────────────────────────────────────────
 // Each colour has its own multiplier, ×1 by default. Every painted letter of
@@ -74,10 +96,17 @@ export const STALL_DEFS = {
   gilder: {
     name: 'The Gilder', emoji: '⚜️', base: 1,
     desc: 'Proposes trims for six untrimmed tiles.',
+    empty: 'Every tile you own already wears a trim.',
   },
   punchcutter: {
     name: 'The Punchcutter', emoji: '⚒️', base: 2,
     desc: 'Cuts a second letter into a tile — flip to play either face.',
+    empty: 'Every tile you own already holds two letters.',
+  },
+  dresser: {
+    name: 'The Dresser', emoji: '🪚', base: 3,
+    desc: 'Cuts a nick into the edge of a tile.',
+    empty: 'Every tile you own already carries a nick.',
   },
   stereotyper: {
     name: 'The Stereotyper', emoji: '🗜️', base: 1,
