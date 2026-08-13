@@ -95,6 +95,33 @@ export function floatText(anchor, html, cls = '', { dy = -54, duration = 950 } =
   setTimeout(() => f.remove(), dur(duration) + 800);
 }
 
+// ─── Speech bubbles (a patron's unsolicited opinion) ──────────────────────────
+
+export function speechBubble(anchorEl, text, { duration = 1600 } = {}) {
+  const layer = fx();
+  if (!layer || !anchorEl) return;
+  const r = anchorEl.getBoundingClientRect();
+
+  const b = document.createElement('div');
+  b.className = 'speech-bubble';
+  b.textContent = text;
+  b.style.left = `${r.left + r.width / 2}px`;
+  b.style.top  = `${r.top - 6}px`;
+  layer.appendChild(b);
+
+  const anim = b.animate([
+    { transform: 'translate(-50%, 10px) scale(.6)',   opacity: 0 },
+    { transform: 'translate(-50%, -10px) scale(1.06)', opacity: 1, offset: 0.16 },
+    { transform: 'translate(-50%, -16px) scale(1)',     opacity: 1, offset: 0.74 },
+    { transform: 'translate(-50%, -28px) scale(.92)',   opacity: 0 },
+  ], { duration: dur(duration), easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'forwards' });
+
+  Promise.race([
+    anim.finished.catch(() => {}),
+    new Promise(res => setTimeout(res, dur(duration) + 500)),
+  ]).then(() => b.remove());
+}
+
 // ─── Number tweens ────────────────────────────────────────────────────────────
 
 export function tweenNum(el, to, { duration = 260, fmt = v => Math.round(v).toString(), bump = true } = {}) {

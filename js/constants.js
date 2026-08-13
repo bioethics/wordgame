@@ -137,7 +137,12 @@ export const CHAPTER_NAMES = [
 
 const PAGE_FACTORS = [1, 1.4, 2];
 const QUOTA_BASE   = 35;
-const QUOTA_GROWTH = 1.5;
+// Nudged 1.5 → 1.55 for the Colophon: permanent hand-size/discard/seat/
+// workbench stacks now accumulate over a run, so the back half needs a
+// slightly steeper climb to keep asking something of that extra power.
+// Compounds, so the effect is tiny in chapter 2-3 and real by chapter 8-10 —
+// a first guess, worth revisiting after a playtest or two.
+const QUOTA_GROWTH = 1.55;
 
 export function quotaFor(chapter, page) {
   const raw = QUOTA_BASE * QUOTA_GROWTH ** (chapter - 1) * PAGE_FACTORS[page - 1];
@@ -158,8 +163,11 @@ export const chapterTitle = ch =>
 export const isDeadline = page => page === PAGES_PER_CHAPTER;
 
 // ─── Economy ──────────────────────────────────────────────────────────────────
+// base nudged 4 → 5 alongside the quota bump — the Market grew more sinks
+// (five stalls, sundries) since this was last tuned, so income leans up
+// slightly to compensate. Also a first guess.
 export const REWARD = {
-  base:         4,   // coins for completing a page
+  base:         5,   // coins for completing a page
   perSpareWord: 1,   // per unused word
   finaleBonus:  3,   // extra for clearing a Deadline page
   interestPer:  10,  // +1 coin per N coins held…
@@ -194,6 +202,21 @@ export function makeTileTemplate(letter, overrides = {}) {
     ...overrides,
   };
 }
+
+// ─── The Colophon (a permanent upgrade, chosen when a chapter clears) ─────────
+// Structural picks (hand size, discards, seats, workbench slots) persist for
+// the rest of the run; paint is an immediate one-off. Each of the 9 possible
+// picks can be taken at most MAX_UPGRADE_REPEATS times across a run, and at
+// least one structural option is guaranteed among the offers whenever one is
+// still eligible.
+export const UPGRADE_OFFERS      = 3;
+export const MAX_UPGRADE_REPEATS = 2;
+export const UPGRADE_COIN_GRANT  = 5;
+
+// ─── Reshuffle sundry ─────────────────────────────────────────────────────────
+// A free re-roll, banked for later: spend it on the Market's own offers, or
+// on the Colophon's three cards.
+export const RESHUFFLE_PRICE = 4;
 
 // ─── Opening draft ────────────────────────────────────────────────────────────
 // Before the first page you kit out the press: pick from a free spread, no

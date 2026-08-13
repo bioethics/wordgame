@@ -39,7 +39,7 @@ function insertIndex(container, clientX) {
   return Math.max(0, Math.min(best, tiles.length));
 }
 
-const blocked = () => state.inFoundry || state.inDraft || state.isAnimating || state.gameOver;
+const blocked = () => state.inFoundry || state.inDraft || state.inColophon || state.isAnimating || state.gameOver;
 
 // Rack taps mean "select for discard" while discard mode is armed;
 // any board tap means "select for the tube" while a sundry is armed.

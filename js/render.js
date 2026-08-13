@@ -1,17 +1,23 @@
-import { state, settings, saveState, getActiveLetter, getActiveColour, selectedCount } from './state.js';
+import {
+  state, settings, saveState, getActiveLetter, getActiveColour, selectedCount,
+  effectivePatronSlots, effectiveSundrySlots,
+} from './state.js';
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES,
-  PATRON_SLOTS, WORDS_PER_PAGE, PAGES_PER_CHAPTER,
-  PAINT_PER_POT, SUNDRY_SLOTS, TUBE_TILES,
+  WORDS_PER_PAGE, PAGES_PER_CHAPTER,
+  PAINT_PER_POT, TUBE_TILES,
   STALL_DEFS, SMELT_MIN_COLLECTION,
+  UPGRADE_COIN_GRANT,
   colourDesc, chapterTitle, roman, isDeadline,
 } from './constants.js';
 import { patronById } from './patrons.js';
+import { upgradeById } from './upgrades.js';
 import { computeScore } from './scoring.js';
 import {
   foundry, foundrySnapshot, tilePrice, stallById, stallPrice, restorable,
 } from './foundry.js';
 import { draft, draftLimit, draftComplete, draftSnapshot } from './draft.js';
+import { colophon, colophonSnapshot } from './colophon.js';
 import { setNum, tweenNum, sleep, dur, fmtMult } from './anim.js';
 
 const $ = id => document.getElementById(id);
@@ -170,8 +176,9 @@ export function renderAll() {
 
 export function persist() {
   saveState(
-    state.inDraft   ? { _draft: draftSnapshot() } :
-    state.inFoundry ? { _foundry: foundrySnapshot() } : {}
+    state.inDraft    ? { _draft: draftSnapshot() } :
+    state.inFoundry  ? { _foundry: foundrySnapshot() } :
+    state.inColophon ? { _colophon: colophonSnapshot() } : {}
   );
 }
 
@@ -182,8 +189,10 @@ function renderShelf() {
   if (!shelf) return;
   shelf.innerHTML = '';
   shelf.classList.toggle('shelf--empty', state.patrons.length === 0);
+  const seats = effectivePatronSlots();
+  shelf.style.setProperty('--seat-count', seats);
 
-  for (let i = 0; i < PATRON_SLOTS; i++) {
+  for (let i = 0; i < seats; i++) {
     const slot = document.createElement('div');
     const p = state.patrons[i];
     if (p) {
@@ -211,10 +220,12 @@ function renderSundries() {
   const bench = $('sundries');
   if (!bench) return;
   bench.innerHTML = '';
+  const slots = effectiveSundrySlots();
+  bench.style.setProperty('--slot-count', slots);
 
-  for (let i = 0; i < SUNDRY_SLOTS; i++) {
+  for (let i = 0; i < slots; i++) {
     const s = state.sundries?.[i];
-    if (s) {
+    if (s?.kind === 'tube') {
       const slot = document.createElement('button');
       slot.className = `sundry sundry--${s.colour}${state.sundryMode === i ? ' sundry--armed' : ''}`;
       slot.dataset.sundry = i;
@@ -222,6 +233,15 @@ function renderSundries() {
       slot.innerHTML = `
         <span class="paint-tube paint-tube--${s.colour}"></span>
         <span class="sundry-name">${COLOURS[s.colour].label}</span>`;
+      bench.appendChild(slot);
+    } else if (s?.kind === 'reshuffle') {
+      const slot = document.createElement('button');
+      slot.className = 'sundry sundry--reshuffle';
+      slot.dataset.sundry = i;
+      slot.title = 'A free reshuffle, banked for later — spend it at the Market or on a Colophon pick, not here.';
+      slot.innerHTML = `
+        <span class="sundry-shuffle">↻</span>
+        <span class="sundry-name">Reshuffle</span>`;
       bench.appendChild(slot);
     } else {
       const slot = document.createElement('div');
@@ -392,7 +412,7 @@ export const readoutEls = () => ({
 // ─── Buttons ──────────────────────────────────────────────────────────────────
 
 export function renderButtons() {
-  const blocked = state.inFoundry || state.inDraft || state.isAnimating || state.gameOver;
+  const blocked = state.inFoundry || state.inDraft || state.inColophon || state.isAnimating || state.gameOver;
   const sel = selectedCount();
 
   setDisabled('btnPrint',    !state.word.length || blocked);
@@ -601,8 +621,8 @@ export function updateFoundryState() {
 
   setText('foundryCoins', state.coins);
 
-  const seatsFull = state.patrons.length >= PATRON_SLOTS;
-  const benchFull = state.sundries.length >= SUNDRY_SLOTS;
+  const seatsFull = state.patrons.length >= effectivePatronSlots();
+  const benchFull = state.sundries.length >= effectiveSundrySlots();
   for (const card of m.querySelectorAll('[data-offer]')) {
     const kind = card.dataset.offer;
     const idx  = Number(card.dataset.idx);
@@ -620,9 +640,9 @@ export function updateFoundryState() {
   }
 
   const seats = m.querySelector('[data-seats]');
-  if (seats) seats.textContent = `${state.patrons.length}/${PATRON_SLOTS} seated${seatsFull ? ' — table full' : ''}`;
+  if (seats) seats.textContent = `${state.patrons.length}/${effectivePatronSlots()} seated${seatsFull ? ' — table full' : ''}`;
   const bench = m.querySelector('[data-bench]');
-  if (bench) bench.textContent = `${state.sundries.length}/${SUNDRY_SLOTS} on the workbench${benchFull ? ' — full' : ''}`;
+  if (bench) bench.textContent = `${state.sundries.length}/${effectiveSundrySlots()} on the workbench${benchFull ? ' — full' : ''}`;
 
   const reroll = m.querySelector('#btnReroll');
   if (reroll) reroll.disabled = state.coins < foundry.rerollCost;
@@ -661,7 +681,16 @@ function foundryShopHTML() {
         <button class="btn-price" data-buy-tile="${i}">${coinHTML(o.price)}</button>
       </div>`).join('');
 
-  const sundryCards = foundry.sundryOffers.map((o, i) => `
+  const sundryCards = foundry.sundryOffers.map((o, i) => o.kind === 'reshuffle' ? `
+      <div class="offer-paint" data-offer="sundry" data-idx="${i}"
+           data-tip-head="Reshuffle" data-tip-body="A free re-roll, banked on your workbench for later — spend it here on these same offers, or on a Colophon pick when a chapter clears.">
+        <span class="sundry-shuffle sundry-shuffle--offer">↻</span>
+        <div class="op-body">
+          <div class="op-name">Reshuffle</div>
+        </div>
+        <span class="op-sold">bought</span>
+        <button class="btn-price" data-buy-sundry="${i}">${coinHTML(o.price)}</button>
+      </div>` : `
       <div class="offer-paint offer-paint--${o.colour}" data-offer="sundry" data-idx="${i}"
            data-tip-head="Tube of ${COLOURS[o.colour].label}"
            data-tip-body="Tap it mid-page, tap up to ${TUBE_TILES} tiles, tap it again — painted ${COLOURS[o.colour].label} for good. ${colourDesc(o.colour)}">
@@ -686,8 +715,9 @@ function foundryShopHTML() {
       </div>`;
   }).join('');
 
-  const fullSeats = state.patrons.length >= PATRON_SLOTS;
-  const fullBench = state.sundries.length >= SUNDRY_SLOTS;
+  const fullSeats = state.patrons.length >= effectivePatronSlots();
+  const fullBench = state.sundries.length >= effectiveSundrySlots();
+  const reshuffles = state.sundries.filter(s => s.kind === 'reshuffle').length;
 
   const returning = foundry.returning ? ' sheet--return' : '';
   foundry.returning = false;
@@ -704,13 +734,13 @@ function foundryShopHTML() {
 
       <div class="foundry-grid">
         <section class="foundry-col">
-          <h3 class="foundry-sec">Patrons <span class="foundry-sub" data-seats>${state.patrons.length}/${PATRON_SLOTS} seated${fullSeats ? ' — table full' : ''}</span></h3>
+          <h3 class="foundry-sec">Patrons <span class="foundry-sub" data-seats>${state.patrons.length}/${effectivePatronSlots()} seated${fullSeats ? ' — table full' : ''}</span></h3>
           <div class="offer-list">${patronCards}</div>
         </section>
         <section class="foundry-col">
           <h3 class="foundry-sec">Tiles</h3>
           <div class="offer-tiles">${tileCards}</div>
-          <h3 class="foundry-sec foundry-sec--paint">Sundries <span class="foundry-sub" data-bench>${state.sundries.length}/${SUNDRY_SLOTS} on the workbench${fullBench ? ' — full' : ''}</span></h3>
+          <h3 class="foundry-sec foundry-sec--paint">Sundries <span class="foundry-sub" data-bench>${state.sundries.length}/${effectiveSundrySlots()} on the workbench${fullBench ? ' — full' : ''}</span></h3>
           <div class="offer-list">${sundryCards}</div>
         </section>
       </div>
@@ -725,6 +755,9 @@ function foundryShopHTML() {
           ${state.coins < foundry.rerollCost ? 'disabled' : ''}>
           New offers ${coinHTML(foundry.rerollCost)}
         </button>
+        ${reshuffles ? `<button class="btn btn-quiet" id="btnMarketReshuffle" title="Spend a banked reshuffle for a free re-roll">
+          ↻ Reshuffle · ${reshuffles} left
+        </button>` : ''}
         <button class="btn btn-quiet" id="btnOpenCollection">Your collection</button>
         <div class="foundry-spacer"></div>
         <button class="btn btn-print" id="btnFoundryContinue">Next page ❧</button>
@@ -907,6 +940,49 @@ function renderCollectionGrid() {
     el.dataset.tid = tmpl.tid;
     grid.appendChild(el);
   });
+}
+
+// ─── The Colophon (end-of-chapter permanent upgrade) ──────────────────────────
+
+export function renderColophon() {
+  const m = $('colophonModal');
+  if (!m) return;
+  if (!colophon.open) { m.classList.remove('show'); m.innerHTML = ''; return; }
+
+  const reshuffles = state.sundries.filter(s => s.kind === 'reshuffle').length;
+
+  const cards = colophon.offers.map(id => {
+    const def = upgradeById(id);
+    const swatch = def.kind === 'paint'
+      ? `<span class="paint-pot paint-pot--${def.colour}"></span>`
+      : id === 'coins'
+        ? `<span class="colophon-coin">${coinHTML(UPGRADE_COIN_GRANT)}</span>`
+        : `<span class="colophon-icon">${def.emoji}</span>`;
+    return `
+      <button class="colophon-card colophon-card--${def.kind}${def.kind === 'paint' ? ' colophon-card--' + def.colour : ''}" data-colophon="${id}">
+        ${swatch}
+        <div class="colophon-card-name">${def.name}</div>
+        <div class="colophon-card-desc">${def.desc}</div>
+      </button>`;
+  }).join('') || '<p class="sheet-note">Every upgrade is already taken to its limit — straight on to the next chapter.</p>';
+
+  m.innerHTML = `
+    <div class="sheet sheet--foundry sheet--market sheet--colophon">
+      <div class="sheet-head">
+        <div>
+          <h2 class="foundry-title">The Colophon</h2>
+          <p class="sheet-note">Chapter ${roman(state.chapter)} is set. Choose one permanent upgrade before Chapter ${roman(state.chapter + 1)} begins.</p>
+        </div>
+      </div>
+      <div class="colophon-grid">${cards}</div>
+      ${reshuffles && colophon.offers.length ? `
+        <div class="foundry-foot">
+          <button class="btn btn-quiet" id="btnColophonReshuffle" title="Spend a banked reshuffle for a free re-roll">
+            ↻ Reshuffle · ${reshuffles} left
+          </button>
+        </div>` : ''}
+    </div>`;
+  m.classList.add('show');
 }
 
 // ─── Opening draft ────────────────────────────────────────────────────────────

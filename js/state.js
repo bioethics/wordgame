@@ -1,12 +1,13 @@
 import {
   RACK_SIZE, WORDS_PER_PAGE, DISCARDS_PER_PAGE, STARTING_COINS,
+  PATRON_SLOTS, SUNDRY_SLOTS,
   BAG_COUNTS, TILE_POINTS, TUBE_TILES,
   quotaFor, makeTileTemplate,
 } from './constants.js';
 
 const SAVE_KEY     = 'folio_save_v1';
 const SETTINGS_KEY = 'folio_settings_v1';
-const SAVE_VERSION = 5;   // v5: template tids, sundries, stalls replace paint pots & flat smelting
+const SAVE_VERSION = 6;   // v6: upgradeCounts, the Colophon, reshuffle sundries
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -107,7 +108,8 @@ export const state = {
 
   coins:   STARTING_COINS,
   patrons: [],      // [{ id }]
-  sundries: [],     // [{ kind: 'tube', colour }] — the workbench, max SUNDRY_SLOTS
+  sundries: [],     // [{ kind: 'tube', colour } | { kind: 'reshuffle' }] — the workbench
+  upgradeCounts: {}, // id → times taken this run, from the Colophon (see js/upgrades.js)
   scavengerPoints: 0,  // pending bonus from The Scavenger
 
   totalScore: 0,
@@ -117,11 +119,18 @@ export const state = {
   endless:   false,
   inFoundry: false,
   inDraft:   false,      // the opening draft is up
+  inColophon: false,     // the end-of-chapter upgrade pick is up
   isAnimating: false,
   discardMode: false,    // rack taps select tiles to discard
   sundryMode: -1,        // index of the armed sundry; board taps select its targets
   gameOver:  false,
 };
+
+// ─── Effective sizes ────────────────────────────────────────────────────────
+// Base constants plus whatever the Colophon has permanently granted this run.
+export const effectiveRackSize    = () => RACK_SIZE    + (state.upgradeCounts?.handSize     ?? 0);
+export const effectivePatronSlots = () => PATRON_SLOTS + (state.upgradeCounts?.patronSeat    ?? 0);
+export const effectiveSundrySlots = () => SUNDRY_SLOTS + (state.upgradeCounts?.workbenchSlot ?? 0);
 
 export const owns = id => state.patrons.some(p => p.id === id);
 
@@ -148,12 +157,13 @@ export function loadState() {
     const s = JSON.parse(raw);
     if (s._v !== SAVE_VERSION) return null;
     if (!Array.isArray(s.collection) || !Array.isArray(s.rack)) return null;
-    const { _nextId: savedId, _nextTid: savedTid, _v, _foundry, _draft, ...fields } = s;
+    const { _nextId: savedId, _nextTid: savedTid, _v, _foundry, _draft, _colophon, ...fields } = s;
     Object.assign(state, fields, { isAnimating: false, discardMode: false, sundryMode: -1 });
     state.sundries ??= [];
+    state.upgradeCounts ??= {};
     if (savedId)  _nextId  = savedId;
     if (savedTid) _nextTid = savedTid;
-    return { foundry: _foundry ?? null, draft: _draft ?? null };
+    return { foundry: _foundry ?? null, draft: _draft ?? null, colophon: _colophon ?? null };
   } catch { return null; }
 }
 
@@ -173,11 +183,11 @@ export function newRun() {
     quota: quotaFor(1, 1), pageScore: 0,
     wordsLeft: WORDS_PER_PAGE, discards: DISCARDS_PER_PAGE,
     discardsMax: DISCARDS_PER_PAGE, wordsPrinted: 0,
-    coins: STARTING_COINS, patrons: [], sundries: [], scavengerPoints: 0,
+    coins: STARTING_COINS, patrons: [], sundries: [], upgradeCounts: {}, scavengerPoints: 0,
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
     ledger: [],
-    endless: false, inFoundry: false, inDraft: false,
+    endless: false, inFoundry: false, inDraft: false, inColophon: false,
     isAnimating: false, discardMode: false, sundryMode: -1, gameOver: false,
   });
   startPage();
@@ -194,7 +204,7 @@ export function startPage() {
   state.pageScore    = 0;
   state.wordsPrinted = 0;
   state.wordsLeft    = WORDS_PER_PAGE;
-  state.discardsMax = DISCARDS_PER_PAGE + (owns('quartermaster') ? 1 : 0);
+  state.discardsMax = DISCARDS_PER_PAGE + (owns('quartermaster') ? 1 : 0) + (state.upgradeCounts?.discard ?? 0);
   state.discards    = state.discardsMax;
   state.scavengerPoints = 0;
   state.discardMode = false;
@@ -206,7 +216,7 @@ export function startPage() {
 // Returns the tiles drawn (so the caller can animate them in).
 export function drawUpToRackSize() {
   const drawn = [];
-  while (state.rack.length + state.word.length < RACK_SIZE && state.bag.length) {
+  while (state.rack.length + state.word.length < effectiveRackSize() && state.bag.length) {
     const tile = templateToTile(state.bag.pop());
     state.rack.push(tile);
     drawn.push(tile);
@@ -326,6 +336,15 @@ export function applySundry(idx) {
   state.sundries.splice(idx, 1);
   state.sundryMode = -1;
   return { colour: sundry.colour, letters, ids: targets.map(t => t.id) };
+}
+
+// A reshuffle sundry has no board target — it's spent from the Market or the
+// Colophon instead. Consumes the first one on the workbench, if any.
+export function spendReshuffleSundry() {
+  const idx = state.sundries.findIndex(s => s.kind === 'reshuffle');
+  if (idx < 0) return false;
+  state.sundries.splice(idx, 1);
+  return true;
 }
 
 export function toggleDualVariant(id) {

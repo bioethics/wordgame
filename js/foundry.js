@@ -1,8 +1,10 @@
-import { state, adoptTemplate, shuffle } from './state.js';
+import {
+  state, adoptTemplate, shuffle, effectivePatronSlots, effectiveSundrySlots,
+} from './state.js';
 import {
   BAG_COUNTS, LIGATURES, TILE_POINTS, TRIMS, NICKS, COLOURS,
-  PATRON_SLOTS, TILE_BASE_PRICE, REROLL_BASE,
-  SUNDRY_SLOTS, SUNDRY_OFFERS, TUBE_PRICE,
+  TILE_BASE_PRICE, REROLL_BASE,
+  SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE,
   STALL_DEFS, STALLS_PER_SHOP, GILDER_RANGE, SMELT_MIN_COLLECTION,
   FEATURE_CHAIN_CHANCE, MAX_FEATURES,
   makeTileTemplate,
@@ -126,9 +128,11 @@ function weightedPatronSample(n) {
 }
 
 function rollSundryOffers() {
-  return shuffle([...Object.keys(COLOURS)])
+  return shuffle([...Object.keys(COLOURS), 'reshuffle'])
     .slice(0, SUNDRY_OFFERS)
-    .map(colour => ({ kind: 'tube', colour, price: TUBE_PRICE, sold: false }));
+    .map(entry => entry === 'reshuffle'
+      ? { kind: 'reshuffle', colour: null, price: RESHUFFLE_PRICE, sold: false }
+      : { kind: 'tube', colour: entry, price: TUBE_PRICE, sold: false });
 }
 
 // Re-rolled by "New offers"; the stalls are not.
@@ -206,8 +210,8 @@ export function closeFoundry() {
 export function buyPatron(id) {
   const offer = foundry.patronOffers.find(o => o.id === id && !o.sold);
   const def = patronById(id);
-  if (!offer || !def)                      return { ok: false, reason: 'Not available.' };
-  if (state.patrons.length >= PATRON_SLOTS) return { ok: false, reason: 'No empty seats at your table.' };
+  if (!offer || !def)                                return { ok: false, reason: 'Not available.' };
+  if (state.patrons.length >= effectivePatronSlots()) return { ok: false, reason: 'No empty seats at your table.' };
   if (state.coins < def.cost)              return { ok: false, reason: `You need ${def.cost} Coins.` };
   state.coins -= def.cost;
   state.patrons.push({ id });
@@ -237,9 +241,9 @@ export function buyTile(idx) {
 
 export function buySundry(idx) {
   const offer = foundry.sundryOffers[idx];
-  if (!offer || offer.sold)                       return { ok: false, reason: 'Not available.' };
-  if (state.sundries.length >= SUNDRY_SLOTS)      return { ok: false, reason: 'Your workbench is full.' };
-  if (state.coins < offer.price)                  return { ok: false, reason: `You need ${offer.price} Coins.` };
+  if (!offer || offer.sold)                          return { ok: false, reason: 'Not available.' };
+  if (state.sundries.length >= effectiveSundrySlots()) return { ok: false, reason: 'Your workbench is full.' };
+  if (state.coins < offer.price)                     return { ok: false, reason: `You need ${offer.price} Coins.` };
   state.coins -= offer.price;
   state.sundries.push({ kind: offer.kind, colour: offer.colour });
   offer.sold = true;
@@ -252,6 +256,12 @@ export function rerollFoundry() {
   foundry.rerollCost += 1;
   rollOffers();
   return true;
+}
+
+// A reshuffle sundry buys the same re-roll, free and without bumping the
+// escalating cost — the state.js caller is responsible for consuming it.
+export function freeRerollFoundry() {
+  rollOffers();
 }
 
 // ─── Stall purchases ──────────────────────────────────────────────────────────

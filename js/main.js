@@ -3,35 +3,42 @@ import {
   newRun, startPage, drawUpToRackSize, clearWord, shuffleRack,
   discardSelected, getWordString, moveRackToWord, owns, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected,
+  spendReshuffleSundry,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES, TRIMS,
+  WORDS_PER_PAGE,
   chapterTitle, roman, isDeadline, COLOURS, NICKS,
 } from './constants.js';
 import { DICT, dictLoaded, loadDict, loadCustom } from './dict.js';
 import { computeScore, computeReward } from './scoring.js';
 import {
   foundry, openFoundry, restoreFoundry, closeFoundry,
-  buyPatron, sellPatron, buyTile, buySundry, rerollFoundry,
+  buyPatron, sellPatron, buyTile, buySundry, rerollFoundry, freeRerollFoundry,
   stallSmelt, stallPaint, stallGild, stallClone, stallRestore,
 } from './foundry.js';
+import {
+  colophon, openColophon, closeColophon, restoreColophon,
+  applyColophonPick, reshuffleColophon,
+} from './colophon.js';
 import {
   renderAll, renderRack, renderWord, renderCounts, renderButtons, persist,
   renderFoundry, renderDictStatus, readoutEls, renderChips, setChip,
   updateReadoutPreview, log, showBanner, showOverlay, hideOverlay,
   showGameOver, showVictory, openInspector, closeInspector, makeTileEl, coinHTML,
   showPatronPopover, hidePopover, renderDraft, updateDraftSelection,
-  updateFoundryState, updateStallState, openLedger, closeLedger,
+  updateFoundryState, updateStallState, openLedger, closeLedger, renderColophon,
 } from './render.js';
 import {
   draft, openDraft, closeDraft, restoreDraft, toggleDraftPick, applyDraft,
 } from './draft.js';
 import {
   sleep, dur, flyClone, popReveal, floatText, tweenNum, setNum, fmtMult,
-  pulse, sparkleBurst, sfx, applySpeedCSS,
+  pulse, sparkleBurst, sfx, applySpeedCSS, speechBubble,
 } from './anim.js';
 import { initInput, initInspect } from './drag.js';
 import { patronById } from './patrons.js';
+import { randomQuip } from './quips.js';
 
 const $ = id => document.getElementById(id);
 const rect = el => el?.getBoundingClientRect();
@@ -102,10 +109,37 @@ function cancelSundryMode(quiet = false) {
   return true;
 }
 
+// ─── Patron reactions (flavour only — never affects scoring) ──────────────────
+// How many "average words" this one was worth, relative to the page's own
+// quota — self-scaling across pages, chapters and the endless appendices, so
+// the curve never needs retuning as quotas climb. Below an average word,
+// nobody bothers; above it, the chance climbs steeply per seated patron, but
+// never to a certainty.
+function reactionChance(script) {
+  const perWordQuota = state.quota / WORDS_PER_PAGE;
+  const ratio = script.total / Math.max(1, perWordQuota);
+  return Math.max(0, Math.min(0.7, (ratio - 0.6) * 0.35));
+}
+
+async function patronReactions(script) {
+  if (!state.patrons.length) return;
+  const chance = reactionChance(script);
+  if (chance <= 0) return;
+  let shown = 0;
+  for (const p of state.patrons) {
+    if (Math.random() >= chance) continue;
+    const card = document.querySelector(`#shelf .patron[data-patron="${p.id}"]`);
+    if (!card) continue;
+    if (shown > 0) await sleep(180);   // stagger so bubbles don't stack
+    speechBubble(card, randomQuip(script.word));
+    shown++;
+  }
+}
+
 // ─── Submit (PRINT) ───────────────────────────────────────────────────────────
 
 async function submitWord() {
-  if (state.isAnimating || state.inFoundry || state.gameOver) return;
+  if (state.isAnimating || state.inFoundry || state.inColophon || state.gameOver) return;
   const w = getWordString();
   if (!w) return;
   hidePopover();
@@ -200,6 +234,7 @@ async function submitWord() {
   await tweenNum(ro.total, script.total, { duration: 480 });
   sparkleBurst(ro.total, script.total >= state.quota ? 18 : 10);
   pulse(ro.root, 'readout--slam', 500);
+  patronReactions(script);   // fire-and-forget flavour — never blocks the flow
   await sleep(ANIM.holdTotal);
 
   // ── Commit ─────────────────────────────────────────────────────────────────
@@ -296,8 +331,57 @@ async function beginNextPage() {
     return;   // advance continues when they pick an overlay action
   }
 
+  // A chapter just cleared — the Colophon offers a permanent upgrade before
+  // the next one begins. advancePage() resumes once a pick lands (or, deep
+  // into the appendices, the pool has nothing left to offer).
+  if (state.page === PAGES_PER_CHAPTER) {
+    openColophon();
+    renderAll();
+    if (colophon.offers.length) { renderColophon(); return; }
+    closeColophon();
+    renderColophon();
+  }
+
   await advancePage();
 }
+
+// ─── The Colophon ───────────────────────────────────────────────────────────
+
+async function pickColophon(id) {
+  if (state.isAnimating) return;
+  const card = document.querySelector(`[data-colophon="${id}"]`);
+  const r = applyColophonPick(id);
+  if (!r) return;
+
+  state.isAnimating = true;
+  sfx.coin(); sfx.chime();
+  if (card) { pulse(card, 'colophon-card--picked', 560); sparkleBurst(card, 16); }
+  renderAll();   // the header purse updates live if coins were granted
+
+  log(r.painted?.length
+    ? `Colophon: painted ${r.painted.join(', ')} ${COLOURS[r.def.colour].label.toLowerCase()}.`
+    : `Colophon: ${r.def.name}.`, 'good');
+
+  await sleep(620);
+  closeColophon();
+  renderColophon();
+  state.isAnimating = false;
+  await advancePage();
+}
+
+function useColophonReshuffle() {
+  if (!spendReshuffleSundry()) return;
+  reshuffleColophon();
+  sfx.draw();
+  renderAll();
+  renderColophon();
+}
+
+$('colophonModal')?.addEventListener('click', e => {
+  const pickEl = e.target.closest('[data-colophon]');
+  if (pickEl) { pickColophon(pickEl.dataset.colophon); return; }
+  if (e.target.closest('#btnColophonReshuffle')) useColophonReshuffle();
+});
 
 async function advancePage() {
   const newChapter = state.page === PAGES_PER_CHAPTER;
@@ -348,7 +432,7 @@ async function gameLost() {
 // ─── Discard ──────────────────────────────────────────────────────────────────
 
 async function doDiscard() {
-  if (state.isAnimating || state.inFoundry || state.gameOver) return;
+  if (state.isAnimating || state.inFoundry || state.inColophon || state.gameOver) return;
   hidePopover();
 
   // First press arms the mode; tiles are then tapped to select.
@@ -390,7 +474,7 @@ async function doDiscard() {
 // ─── Keyboard ─────────────────────────────────────────────────────────────────
 
 document.addEventListener('keydown', e => {
-  if (state.inFoundry || state.inDraft || state.isAnimating || state.gameOver) return;
+  if (state.inFoundry || state.inDraft || state.inColophon || state.isAnimating || state.gameOver) return;
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
   if ($('settingsModal')?.classList.contains('show')) return;
   if ($('inspectorModal')?.classList.contains('show')) {
@@ -436,11 +520,17 @@ $('btnDiscard')?.addEventListener('click', doDiscard);
 // The workbench: first tap arms a tube, board taps pick its targets, a second
 // tap on the tube paints them (or puts it away if nothing is chosen).
 $('sundries')?.addEventListener('click', async e => {
-  if (state.isAnimating || state.inFoundry || state.inDraft || state.gameOver) return;
+  if (state.isAnimating || state.inFoundry || state.inDraft || state.inColophon || state.gameOver) return;
   const slot = e.target.closest('[data-sundry]');
   if (!slot) return;
   hidePopover();
   const idx = Number(slot.dataset.sundry);
+  const armed = state.sundries[idx];
+
+  if (armed?.kind === 'reshuffle') {
+    log('Save this for the Market or a Colophon pick — nothing to reshuffle here.', 'warn');
+    return;
+  }
 
   if (state.sundryMode !== idx) {
     cancelDiscardMode(true);
@@ -515,7 +605,7 @@ $('popover')?.addEventListener('click', e => {
   const flip = e.target.closest('[data-flip]');
   if (flip) {
     hidePopover();
-    if (state.isAnimating || state.inFoundry || state.gameOver) return;
+    if (state.isAnimating || state.inFoundry || state.inColophon || state.gameOver) return;
     toggleDualVariant(Number(flip.dataset.flip));
     renderAll();
   }
@@ -566,14 +656,21 @@ $('foundryModal')?.addEventListener('click', e => {
     const r = buySundry(Number(buyS.dataset.buySundry));
     if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
     else {
-      sfx.coin(); log(`A tube of ${COLOURS[r.offer.colour].label} joins your workbench.`, 'good');
-      flyPurchase(card?.querySelector('.paint-tube'), $('sundries'), { scaleTo: 0.6 });
+      sfx.coin();
+      log(r.offer.kind === 'reshuffle'
+        ? 'A reshuffle joins your workbench, banked for later.'
+        : `A tube of ${COLOURS[r.offer.colour].label} joins your workbench.`, 'good');
+      flyPurchase(card?.querySelector('.paint-tube, .sundry-shuffle'), $('sundries'), { scaleTo: 0.6 });
     }
     renderAll(); updateFoundryState();
     return;
   }
   if (e.target.closest('#btnReroll')) {
     if (rerollFoundry()) { sfx.draw(); renderAll(); renderFoundry(); }
+    return;
+  }
+  if (e.target.closest('#btnMarketReshuffle')) {
+    if (spendReshuffleSundry()) { freeRerollFoundry(); sfx.draw(); renderAll(); renderFoundry(); }
     return;
   }
 
@@ -725,13 +822,13 @@ $('btnNewRun')?.addEventListener('click', async () => {
 // Dev helpers
 $('devCoins')?.addEventListener('click', () => { state.coins += 20; renderAll(); if (state.inFoundry) renderFoundry(); });
 $('devFoundry')?.addEventListener('click', () => {
-  if (state.inFoundry || state.isAnimating) return;
+  if (state.inFoundry || state.inColophon || state.isAnimating) return;
   $('settingsModal')?.classList.remove('show');
   openFoundry([], 0);
   renderAll(); renderFoundry();
 });
 $('devWinPage')?.addEventListener('click', () => {
-  if (state.inFoundry || state.isAnimating || state.gameOver) return;
+  if (state.inFoundry || state.inColophon || state.isAnimating || state.gameOver) return;
   $('settingsModal')?.classList.remove('show');
   state.pageScore = state.quota;
   pageComplete();
@@ -802,6 +899,11 @@ $('draftModal')?.addEventListener('click', e => {
     else if (restored.foundry) {
       restoreFoundry(restored.foundry);
       renderAll(); renderFoundry();
+      log('Welcome back.');
+    }
+    else if (restored.colophon) {
+      restoreColophon(restored.colophon);
+      renderAll(); renderColophon();
       log('Welcome back.');
     } else {
       drawUpToRackSize();   // top up in case a save landed mid-draw

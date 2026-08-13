@@ -194,7 +194,8 @@ header {
 
 .shelf {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  /* Extra seats from the Colophon grow this — see renderShelf() */
+  grid-template-columns: repeat(var(--seat-count, 5), 1fr);
   gap: 10px;
   padding: 10px 12px 12px;
   background: linear-gradient(180deg, var(--wood-light) 0%, var(--wood) 18%, var(--wood-dark) 100%);
@@ -279,7 +280,8 @@ header {
 /* ── The workbench: sundries bought at the Shop, spent mid-page ──────────────── */
 .sundries {
   display: grid;
-  grid-template-columns: repeat(2, 74px);
+  /* Extra slots from the Colophon grow this — see renderSundries() */
+  grid-template-columns: repeat(var(--slot-count, 2), 74px);
   gap: 10px;
   padding: 10px 12px 12px;
   background: linear-gradient(180deg, var(--wood-light) 0%, var(--wood) 18%, var(--wood-dark) 100%);
@@ -380,6 +382,24 @@ button.sundry:hover { transform: translateY(-2px); }
 .paint-tube--azure   { background: var(--azure); }
 .paint-tube--jade    { background: var(--jade); }
 .paint-tube--amber   { background: var(--amber); }
+
+/* The reshuffle sundry: no colour of its own, so it gets a brass badge
+   instead of a tube. Sits idle on the board — it only does anything from
+   inside the Market or the Colophon. */
+.sundry--reshuffle { cursor: help; }
+.sundry-shuffle {
+  display: grid;
+  place-items: center;
+  width: 24px; height: 24px;
+  margin-top: 3px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--brass-hi), var(--brass) 70%, var(--brass-dark));
+  color: #3a2606;
+  font-size: 13px;
+  font-weight: 900;
+  box-shadow: inset 0 -3px 5px rgba(120, 80, 10, 0.35), inset 0 2px 3px rgba(255, 255, 255, 0.5);
+}
+.sundry-shuffle--offer { margin-top: 5px; width: 26px; height: 26px; }
 
 /* While a tube is armed, both board zones take on its colour, and picked
    tiles glow that colour under a brush mark instead of the discard arrows. */
@@ -1939,6 +1959,111 @@ button.sundry:hover { transform: translateY(-2px); }
   font-variant-numeric: tabular-nums;
 }
 
+/* ─── The Colophon (end-of-chapter upgrade) ─────────────────────────────────────
+   A ceremonial pick, not a transaction — bigger cards than a Market offer,
+   centred, no prices, nothing to afford. Built on the same dark market skin
+   so it reads as part of the same world. */
+.sheet--colophon { width: min(760px, 96vw); text-align: center; }
+.sheet--colophon .sheet-head { justify-content: center; text-align: center; }
+.sheet--colophon .foundry-sec { justify-content: center; }
+
+.colophon-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 6px;
+}
+@media (max-width: 620px) { .colophon-grid { grid-template-columns: 1fr; } }
+
+.colophon-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  padding: 22px 14px 18px;
+  border-radius: 13px;
+  cursor: pointer;
+  font-family: var(--sans);
+  text-align: center;
+  background: linear-gradient(175deg, #2a1822 0%, #1e1018 100%);
+  border: 1px solid rgba(217, 166, 75, 0.4);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 235, 200, 0.06),
+    0 8px 20px rgba(0, 0, 0, 0.45);
+  transition: transform calc(0.12s / var(--aspd)), box-shadow calc(0.12s / var(--aspd)), border-color calc(0.12s / var(--aspd));
+}
+.colophon-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--brass);
+  box-shadow: inset 0 0 0 1px rgba(255, 235, 200, 0.08), 0 0 22px rgba(217, 166, 75, 0.25), 0 12px 26px rgba(0, 0, 0, 0.5);
+}
+
+.colophon-icon { font-size: 34px; line-height: 1; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.4)); }
+.colophon-coin {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: 24px;
+  color: var(--brass-hi);
+}
+.colophon-card .paint-pot { width: 30px; height: 34px; }
+
+.colophon-card-name {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--parch);
+}
+.colophon-card-desc { font-size: 11.5px; color: var(--muted); line-height: 1.4; }
+
+/* Paint cards borrow the letter's own colour for their border glow */
+.colophon-card--crimson:hover { border-color: var(--crimson); box-shadow: inset 0 0 0 1px rgba(255,235,200,0.08), 0 0 22px rgba(201,79,67,0.35), 0 12px 26px rgba(0,0,0,0.5); }
+.colophon-card--azure:hover   { border-color: var(--azure);   box-shadow: inset 0 0 0 1px rgba(255,235,200,0.08), 0 0 22px rgba(79,134,201,0.35), 0 12px 26px rgba(0,0,0,0.5); }
+.colophon-card--jade:hover    { border-color: var(--jade);    box-shadow: inset 0 0 0 1px rgba(255,235,200,0.08), 0 0 22px rgba(63,163,113,0.35), 0 12px 26px rgba(0,0,0,0.5); }
+.colophon-card--amber:hover   { border-color: var(--amber);   box-shadow: inset 0 0 0 1px rgba(255,235,200,0.08), 0 0 22px rgba(210,154,58,0.35), 0 12px 26px rgba(0,0,0,0.5); }
+
+.colophon-card--picked {
+  animation: colophonPick calc(0.56s / var(--aspd)) ease;
+}
+@keyframes colophonPick {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.08) translateY(-6px);
+         box-shadow: inset 0 0 0 1px rgba(255,235,200,0.1), 0 0 0 3px var(--brass-hi), 0 0 34px rgba(246, 214, 138, 0.7); }
+  100% { transform: scale(1); }
+}
+
+/* ─── Speech bubbles (a patron's unsolicited opinion) ───────────────────────────
+   Rides the #fx layer above the shelf — never blocks a tap, never gates flow. */
+.speech-bubble {
+  position: fixed;
+  transform: translate(-50%, 0);
+  max-width: 148px;
+  padding: 7px 11px 8px;
+  border-radius: 12px;
+  background: linear-gradient(175deg, var(--parch) 0%, var(--parch-2) 100%);
+  color: var(--parch-ink);
+  border: 1px solid rgba(138, 95, 29, 0.5);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.5);
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.25;
+  text-align: center;
+  pointer-events: none;
+  z-index: 320;
+}
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  left: 50%; bottom: -7px;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 8px solid var(--parch-2);
+}
+
 /* ─── Opening draft ───────────────────────────────────────────────────────────── */
 .sheet--draft { width: min(860px, 96vw); }
 .sheet--draft .foundry-sec { margin-top: 18px; }
@@ -2252,9 +2377,9 @@ input[type='checkbox'] {
 @media (max-width: 880px) {
   .status-row { grid-template-columns: 1fr 1fr; }
   .quota-card { grid-column: 1 / -1; order: -1; }
-  .shelf { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .shelf { grid-template-columns: repeat(var(--seat-count, 5), 1fr); gap: 6px; }
   .patron-name { display: none; }
-  .sundries { grid-template-columns: repeat(2, 52px); gap: 6px; }
+  .sundries { grid-template-columns: repeat(var(--slot-count, 2), 52px); gap: 6px; }
   .sundry-name { display: none; }
   :root { --tile-w: 52px; --tile-h: 56px; }
   .tile-letter { font-size: 22px; }
@@ -2287,11 +2412,12 @@ input[type='checkbox'] {
   .patron-emoji { font-size: 19px; }
   .patron--empty::after { display: none; }
   .patron--empty { font-size: 13px; }
-  .sundries { grid-template-columns: repeat(2, 40px); gap: 4px; padding: 6px 6px 7px; }
+  .sundries { grid-template-columns: repeat(var(--slot-count, 2), 40px); gap: 4px; padding: 6px 6px 7px; }
   .sundry { min-height: 40px; padding: 4px 3px 3px; }
   .sundry--empty::after { display: none; }
   .paint-tube { width: 13px; height: 20px; margin-top: 5px; }
   .paint-tube::before { width: 7px; height: 5px; top: -6px; }
+  .sundry-shuffle { width: 18px; height: 18px; font-size: 10px; margin-top: 4px; }
 
   .status-card { padding: 5px 11px; }
   .chapter-card, .pips-card { min-width: 0; }

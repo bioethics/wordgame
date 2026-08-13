@@ -79,10 +79,12 @@ shuffles into the **bag**, and printed or discarded tiles wait in the
 **discard pile**.
 
 **Sundries** are consumables kept on the **workbench** (two slots, beside the
-patron shelf). The first kind is the **paint tube**: tap it mid-page, tap up
-to 2 tiles anywhere on the board — rack or half-composed word alike — and tap
-the tube again to paint them its colour, permanently. (The random-scatter
-paint pots survive only in the opening draft.)
+patron shelf). The **paint tube**: tap it mid-page, tap up to 2 tiles
+anywhere on the board — rack or half-composed word alike — and tap the tube
+again to paint them its colour, permanently. The **reshuffle**: no target to
+pick, just banked until you spend it — on the Market's own offers (free,
+doesn't touch the escalating reroll price) or on a Colophon pick. (The
+random-scatter paint pots survive only in the opening draft.)
 
 **Stalls** are services: the **Smelter** (trash a tile), the **Painter**
 (paint any letter a colour of your choice), the **Gilder** (proposes trims on
@@ -91,11 +93,25 @@ paint pots survive only in the opening draft.)
 Every purchase doubles that stall's price for the rest of the visit; prices
 reset when the next market opens. The Smelter starts at 2 Coins, the rest at 1.
 
-**Patrons** grant standing boons — up to five seats, dismissable for half
-their cost (hover for the ✕, or tap the patron on touch).
+**Patrons** grant standing boons — five seats to start (the Colophon can add
+more), dismissable for half their cost (hover for the ✕, or tap the patron on
+touch).
+
+**The Colophon** — when a chapter's Deadline is cleared and the Market is
+done, choose one of three permanent upgrades before the next chapter begins:
++1 hand size, +1 discard, +1 patron seat, +1 workbench slot, +5 Coins, or a
+paint pot of a colour of your choice. At least one non-paint option is always
+offered while one remains available, and each of the nine possible picks caps
+out at 2 takes across a run — once every option is exhausted (only reachable
+deep into the appendices), the Colophon steps aside on its own.
 
 **Discarding** — press *Discard* to arm it, tap the tiles to throw away, then
 press it again to confirm (press with nothing selected to cancel).
+
+**Patron reactions** — after a strong-enough word, a seated patron may pop up
+a one-line, often gleefully wrong reaction. Purely cosmetic; the odds scale
+with how many "average words" that one word alone was worth against the
+page's quota, so the curve never needs retuning as quotas climb.
 
 **Run structure** — 10 chapters × 3 pages; the third page of each chapter is a
 Deadline with a steeper quota and a coin bonus. 5 words and 2 discards per
@@ -106,16 +122,19 @@ beyond.
 
 | Knob | Where |
 | --- | --- |
-| Quota curve (base, growth, page factors) | `js/constants.js` → `quotaFor`, `QUOTA_BASE`, `QUOTA_GROWTH` |
+| Quota curve (base, growth, page factors) | `js/constants.js` → `quotaFor`, `QUOTA_BASE`, `QUOTA_GROWTH` (bumped 1.5→1.55 alongside the Colophon — a first guess, watch chapters 7-10 when playtesting) |
 | Trim effects & prices | `js/constants.js` → `TRIMS` (effects live in `js/scoring.js`) |
 | Purple trim step size | `js/constants.js` → `PURPLE_TRIM_STEP` |
 | Nick multiplier & prices | `js/constants.js` → `NICK_MULT`, `NICKS` |
 | Tube price / tiles per tube / workbench slots | `js/constants.js` → `TUBE_PRICE`, `TUBE_TILES`, `SUNDRY_SLOTS` |
+| Reshuffle sundry price | `js/constants.js` → `RESHUFFLE_PRICE` |
 | Stall roster, base prices, gilder range | `js/constants.js` → `STALL_DEFS`, `STALLS_PER_SHOP`, `GILDER_RANGE`, `SMELT_MIN_COLLECTION` |
 | Letters per draft paint pot | `js/constants.js` → `PAINT_PER_POT` |
 | Opening draft spread & pick counts | `js/constants.js` → `DRAFT` |
 | How loaded offered tiles are | `js/constants.js` → `FEATURE_CHAIN_CHANCE`, `MAX_FEATURES` (one feature free, then keep rolling); generation in `js/foundry.js` → `randomSpecialTile` |
-| Rewards & interest | `js/constants.js` → `REWARD` |
+| Rewards & interest | `js/constants.js` → `REWARD` (base bumped 4→5 alongside the Colophon) |
+| Colophon roster, offer count, repeat cap, coin grant | `js/constants.js` → `UPGRADE_OFFERS`, `MAX_UPGRADE_REPEATS`, `UPGRADE_COIN_GRANT`; definitions in `js/upgrades.js` |
+| Patron reaction odds | `js/main.js` → `reactionChance`; the lines themselves in `js/quips.js` — a flat array, add more any time |
 | Words / discards / seats per page | `js/constants.js` |
 | Patron roster, costs, effects | `js/patrons.js` |
 | Animation step timings | `js/constants.js` → `ANIM` (all divided by the Settings speed slider) |
@@ -125,9 +144,12 @@ beyond.
 
 | File | Role |
 | --- | --- |
-| `js/state.js` | game state, save/load (`folio_save_v1`, schema v5), settings, tile ops, painting, sundries, the ledger |
+| `js/state.js` | game state, save/load (`folio_save_v1`, schema v6), settings, tile ops, painting, sundries, effective hand/seat/workbench sizes, the ledger |
 | `js/scoring.js` | pure score computation — returns a step-by-step *script* the UI replays |
 | `js/patrons.js` | patron definitions |
+| `js/upgrades.js` | the Colophon's upgrade definitions (pure data, no logic) |
+| `js/colophon.js` | the Colophon's ephemeral screen state: rolling, capping, applying, reshuffling |
+| `js/quips.js` | patron reaction lines — a flat, editable array; no logic beyond `{word}` substitution |
 | `js/foundry.js` | market state: offers, buying, sundries, stalls, rerolls |
 | `js/draft.js` | the opening draft: free spread, picks, applying them |
 | `js/render.js` | all DOM construction (board, readout, modals, popovers, overlays) |
