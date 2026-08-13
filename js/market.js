@@ -4,7 +4,7 @@ import {
 import {
   BAG_COUNTS, LIGATURES, TILE_POINTS, TRIMS, NICKS, COLOURS,
   TILE_BASE_PRICE, REROLL_BASE,
-  SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE,
+  SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, SUNDRY_SELL,
   STALL_DEFS, STALLS_PER_SHOP, GILDER_RANGE, SMELT_MIN_COLLECTION,
   FEATURE_CHAIN_CHANCE, MAX_FEATURES,
   makeTileTemplate,
@@ -227,6 +227,15 @@ export function sellPatron(id) {
   state.patrons.splice(i, 1);
   state.coins += refund;
   return { ok: true, refund, def };
+}
+
+// Sundries go back for a pittance — the point is freeing the slot, not the coin.
+export function sellSundry(idx) {
+  const s = state.sundries[idx];
+  if (!s) return { ok: false };
+  state.sundries.splice(idx, 1);
+  state.coins += SUNDRY_SELL;
+  return { ok: true, refund: SUNDRY_SELL, sundry: s };
 }
 
 export function buyTile(idx) {

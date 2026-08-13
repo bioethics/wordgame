@@ -8,14 +8,15 @@ import {
 } from './state.js';
 import {
   TRIMS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
-  PAINT_PER_POT, TUBE_TILES, ANIM,
+  PAINT_PER_POT, TUBE_TILES, ANIM, SUNDRY_SELL, tileCount,
   colourDesc,
 } from './constants.js';
 import { patronById } from './patrons.js';
 import { upgradeById } from './upgrades.js';
 import {
   market, stallById, stallPrice, restorable,
-  buyPatron, buyTile, buySundry, rerollMarket, freeRerollMarket,
+  buyPatron, buyTile, buySundry, sellPatron, sellSundry,
+  rerollMarket, freeRerollMarket,
   stallSmelt, stallPaint, stallGild, stallClone, stallRestore,
 } from './market.js';
 import {
@@ -142,7 +143,7 @@ function marketShopHTML() {
       </div>` : `
       <div class="offer-paint offer-paint--${o.colour}" data-offer="sundry" data-idx="${i}"
            data-tip-head="Tube of ${COLOURS[o.colour].label}"
-           data-tip-body="Paints up to ${TUBE_TILES} chosen tiles ${COLOURS[o.colour].label}, any time mid-page.">
+           data-tip-body="Paints ${tileCount(TUBE_TILES)} of your choosing ${COLOURS[o.colour].label}, mid-page.">
         <span class="paint-tube paint-tube--${o.colour}"></span>
         <div class="op-body">
           <div class="op-name">Tube of ${COLOURS[o.colour].label}</div>
@@ -162,6 +163,32 @@ function marketShopHTML() {
         </div>
         <button class="btn-price" data-visit-stall="${s.id}">Visit · ${coinHTML(stallPrice(s))}</button>
       </div>`;
+  }).join('');
+
+  // What you already hold, with a way to let it go. Selling back is deliberately
+  // a pittance for sundries — the point is freeing the slot, not the coin.
+  const heldPatrons = state.patrons.map(p => {
+    const def = patronById(p.id);
+    return `
+      <button class="held" data-sell-patron="${def.id}"
+              title="Dismiss ${def.name} for ${Math.floor(def.cost / 2)} Coins">
+        <span class="held-mark">${def.emoji}</span>
+        <span class="held-name">${def.name.replace(/^The /, '')}</span>
+        <span class="held-price">✕ ${coinHTML(Math.floor(def.cost / 2))}</span>
+      </button>`;
+  }).join('');
+
+  const heldSundries = state.sundries.map((s, i) => {
+    const label = s.kind === 'reshuffle' ? 'Reshuffle' : COLOURS[s.colour].label;
+    const mark  = s.kind === 'reshuffle'
+      ? `<span class="sundry-shuffle held-shuffle">↻</span>`
+      : `<span class="paint-tube paint-tube--${s.colour} held-tube"></span>`;
+    return `
+      <button class="held" data-sell-sundry="${i}" title="Sell back for ${SUNDRY_SELL} Coin">
+        <span class="held-mark">${mark}</span>
+        <span class="held-name">${label}</span>
+        <span class="held-price">✕ ${coinHTML(SUNDRY_SELL)}</span>
+      </button>`;
   }).join('');
 
   const fullSeats = state.patrons.length >= effectivePatronSlots();
@@ -185,12 +212,14 @@ function marketShopHTML() {
         <section class="market-col">
           <h3 class="market-sec">Patrons <span class="market-sub" data-seats>${state.patrons.length}/${effectivePatronSlots()} seated${fullSeats ? ' — table full' : ''}</span></h3>
           <div class="offer-list">${patronCards}</div>
+          ${heldPatrons ? `<div class="held-row">${heldPatrons}</div>` : ''}
         </section>
         <section class="market-col">
           <h3 class="market-sec">Tiles</h3>
           <div class="offer-tiles">${tileCards}</div>
           <h3 class="market-sec market-sec--paint">Sundries <span class="market-sub" data-bench>${state.sundries.length}/${effectiveSundrySlots()} on the workbench${fullBench ? ' — full' : ''}</span></h3>
           <div class="offer-list">${sundryCards}</div>
+          ${heldSundries ? `<div class="held-row">${heldSundries}</div>` : ''}
         </section>
       </div>
 
@@ -230,8 +259,19 @@ function marketStallHTML() {
                 title="${COLOURS[c].label} — ${colourDesc(c)}"></button>`).join('')}
     </div>` : '';
 
+  // The Gilder's proposals show trimmed tiles, so the key has to say what
+  // each metal actually does — otherwise the choice is guesswork.
+  const trimKey = market.activeStall === 'gilder' ? `
+    <div class="trim-key">
+      ${Object.entries(TRIMS).map(([id, t]) => `
+        <span class="trim-key-item">
+          <span class="trim-swatch trim-swatch--${id}"></span>
+          <b>${t.label}</b> ${t.desc}
+        </span>`).join('')}
+    </div>` : '';
+
   const body = market.activeStall === 'gilder'
-    ? `<div class="offer-tiles gilder-grid" id="stallGilderGrid"></div>`
+    ? `${trimKey}<div class="offer-tiles gilder-grid" id="stallGilderGrid"></div>`
     : `${painterColours}<div class="mini-grid mini-grid--case" id="stallGrid"></div>`;
 
   const note = market.activeStall === 'smelter' && state.collection.length <= SMELT_MIN_COLLECTION
@@ -351,8 +391,8 @@ export function updateStallState() {
       const p = stall.proposals?.[market.stallSel];
       const tmpl = p && state.collection.find(t => t.tid === p.tid);
       label = tmpl
-        ? `Commission the ${TRIMS[p.trim].label} trim on ${tileName(tmpl)} ${priceTag}`
-        : 'Choose a proposal';
+        ? `${TRIMS[p.trim].label} on ${tileName(tmpl)} ${priceTag}`
+        : 'Choose a trim';
       ready = !!tmpl;
       break;
     }
@@ -586,6 +626,28 @@ function onMarketClick(e) {
     renderAll(); updateMarketState();
     return;
   }
+  // ── Letting things go ───────────────────────────────────────────────────────
+  const sellP = e.target.closest('[data-sell-patron]');
+  if (sellP) {
+    const r = sellPatron(sellP.dataset.sellPatron);
+    if (r.ok) {
+      sfx.coin();
+      log(`${r.def.name} departs — ${r.refund} Coin${r.refund === 1 ? '' : 's'} back.`);
+      renderAll(); renderMarket();
+    }
+    return;
+  }
+  const sellS = e.target.closest('[data-sell-sundry]');
+  if (sellS) {
+    const r = sellSundry(Number(sellS.dataset.sellSundry));
+    if (r.ok) {
+      sfx.coin();
+      log(`Sold back for ${r.refund} Coin.`);
+      renderAll(); renderMarket();
+    }
+    return;
+  }
+
   if (e.target.closest('#btnReroll')) {
     if (rerollMarket()) { sfx.draw(); renderAll(); renderMarket(); }
     return;

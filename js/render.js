@@ -8,7 +8,7 @@ import {
 } from './state.js';
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES,
-  WORDS_PER_PAGE, PAGES_PER_CHAPTER, TUBE_TILES,
+  WORDS_PER_PAGE, PAGES_PER_CHAPTER, TUBE_TILES, tileCount,
   colourDesc, chapterTitle, roman, isDeadline,
 } from './constants.js';
 import { patronById } from './patrons.js';
@@ -226,7 +226,7 @@ function renderSundries() {
       const slot = document.createElement('button');
       slot.className = `sundry sundry--${s.colour}${state.sundryMode === i ? ' sundry--armed' : ''}`;
       slot.dataset.sundry = i;
-      slot.title = `Tube of ${COLOURS[s.colour].label} — tap, pick up to ${TUBE_TILES} tiles, tap again.`;
+      slot.title = `Tube of ${COLOURS[s.colour].label} — tap, pick ${tileCount(TUBE_TILES)}, tap again.`;
       slot.innerHTML = `
         <span class="paint-tube paint-tube--${s.colour}"></span>
         <span class="sundry-name">${COLOURS[s.colour].label}</span>`;
@@ -351,11 +351,14 @@ export function renderWord() {
     if (bd) tileEl.title = tileTitle(t, bd);
     nowPts.set(t.id, shown);
 
-    // A number that just changed announces itself — but only for tiles
-    // already on the groove. Laying a tile down isn't a change to announce;
-    // the pop is for when a nick's reach rewrites its neighbours.
+    // A number worth announcing: one a nick's reach has just rewritten, or
+    // one that lands already boosted (a tile dropped into a nick's shadow).
+    // Laying an ordinary tile down is not news, and shouldn't bulge.
     const wasShowing = _lastWordPts.has(t.id);
-    if (shown != null && wasShowing && _lastWordPts.get(t.id) !== shown) {
+    const face       = TILE_POINTS[getActiveLetter(t)] ?? t.basePoints ?? 1;
+    const rewritten  = wasShowing && _lastWordPts.get(t.id) !== shown;
+    const bornBoosted = !wasShowing && shown !== face;
+    if (shown != null && (rewritten || bornBoosted)) {
       const ptsEl = tileEl.querySelector('.tile-pts');
       ptsEl.classList.add('pts-pop');
       ptsEl.style.animationDelay = `${(delayOf.get(t.id) ?? 0) / (settings.animSpeed || 1)}ms`;

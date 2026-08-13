@@ -971,6 +971,15 @@ button.sundry:hover { transform: translateY(-2px); }
     0 9px 16px rgba(0, 0, 0, 0.5);
 }
 
+/* Quicksilver — the one trim that had no face of its own until now */
+.tile--trim-mercury {
+  box-shadow:
+    inset 0 0 0 3px #7ec8d6,
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.85),
+    0 5px 0 -1px #4a8794,
+    0 9px 16px rgba(0, 0, 0, 0.5);
+}
+
 .tile--trim-purple {
   box-shadow:
     inset 0 0 0 3px #8a5fb0,
@@ -995,8 +1004,9 @@ button.sundry:hover { transform: translateY(-2px); }
 .tile--mini { --nick-r: 6.5px; }
 .tile--mini.tile--trim-gold   { box-shadow: inset 0 0 0 2px #d9a64b, 0 3px 6px rgba(0,0,0,0.35); }
 .tile--mini.tile--trim-silver { box-shadow: inset 0 0 0 2px #aab4c4, 0 3px 6px rgba(0,0,0,0.35); }
-.tile--mini.tile--trim-copper { box-shadow: inset 0 0 0 2px #c47a3d, 0 3px 6px rgba(0,0,0,0.35); }
-.tile--mini.tile--trim-purple { box-shadow: inset 0 0 0 2px #8a5fb0, 0 3px 6px rgba(0,0,0,0.35); }
+.tile--mini.tile--trim-copper  { box-shadow: inset 0 0 0 2px #c47a3d, 0 3px 6px rgba(0,0,0,0.35); }
+.tile--mini.tile--trim-mercury { box-shadow: inset 0 0 0 2px #7ec8d6, 0 3px 6px rgba(0,0,0,0.35); }
+.tile--mini.tile--trim-purple  { box-shadow: inset 0 0 0 2px #8a5fb0, 0 3px 6px rgba(0,0,0,0.35); }
 
 /* A stall's chosen tile */
 .tile--stall-sel {
@@ -1591,6 +1601,86 @@ button.sundry:hover { transform: translateY(-2px); }
 .paint-pot--azure   { background: var(--azure); }
 .paint-pot--jade    { background: var(--jade); }
 .paint-pot--amber   { background: var(--amber); }
+
+/* ── What you already hold, and the button to let it go ──────────────────────── */
+.held-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 9px;
+  padding-top: 9px;
+  border-top: 1px dashed rgba(120, 90, 40, 0.3);
+}
+
+.held {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px 4px 6px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--parch-ink);
+  background: rgba(255, 250, 235, 0.5);
+  border: 1px solid rgba(138, 95, 29, 0.45);
+  transition: transform calc(0.1s / var(--aspd)), background calc(0.12s / var(--aspd)), border-color calc(0.12s / var(--aspd));
+}
+.held:hover {
+  transform: translateY(-1px);
+  background: rgba(160, 60, 50, 0.16);
+  border-color: rgba(201, 79, 67, 0.6);
+}
+.held-mark  { display: inline-flex; align-items: center; font-size: 13px; line-height: 1; }
+.held-name  { white-space: nowrap; }
+.held-price { display: inline-flex; align-items: center; gap: 3px; opacity: 0.65; font-weight: 800; }
+.held:hover .held-price { opacity: 1; color: #8a3a32; }
+
+/* Tiny inline versions of the workbench marks */
+.held-tube    { width: 9px; height: 14px; margin: 0; border-width: 1px; }
+.held-tube::before { display: none; }
+.held-shuffle { width: 15px; height: 15px; font-size: 9px; margin: 0; }
+
+.sheet--market .held {
+  background: rgba(243, 222, 184, 0.08);
+  color: var(--parch);
+  border-color: rgba(243, 222, 184, 0.22);
+}
+.sheet--market .held:hover {
+  background: rgba(201, 79, 67, 0.22);
+  border-color: rgba(255, 130, 115, 0.5);
+}
+.sheet--market .held:hover .held-price { color: #ffb3a6; }
+
+/* ── The Gilder's key: what each metal is worth ──────────────────────────────── */
+.trim-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 16px;
+  margin: 0 0 12px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: rgba(8, 4, 10, 0.3);
+  border: 1px dashed rgba(243, 222, 184, 0.2);
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.trim-key-item { display: inline-flex; align-items: center; gap: 6px; }
+.trim-key-item b { color: var(--parch); font-family: var(--serif); font-size: 12.5px; }
+
+.trim-swatch {
+  width: 13px; height: 13px;
+  flex: none;
+  border-radius: 3px;
+  background: linear-gradient(168deg, var(--ivory), var(--ivory-2));
+  box-shadow: inset 0 0 0 2.5px var(--metal, #d9a64b);
+}
+.trim-swatch--gold    { --metal: #d9a64b; }
+.trim-swatch--silver  { --metal: #aab4c4; }
+.trim-swatch--copper  { --metal: #c47a3d; }
+.trim-swatch--mercury { --metal: #7ec8d6; }
+.trim-swatch--purple  { --metal: #8a5fb0; }
 
 /* ── Stalls — market pitches under a striped awning ──────────────────────────── */
 .market-stalls { margin-top: 22px; }

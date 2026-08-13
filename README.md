@@ -79,12 +79,12 @@ shuffles into the **bag**, and printed or discarded tiles wait in the
 **discard pile**.
 
 **Sundries** are consumables kept on the **workbench** (two slots, beside the
-patron shelf). The **paint tube**: tap it mid-page, tap up to 2 tiles
-anywhere on the board — rack or half-composed word alike — and tap the tube
-again to paint them its colour, permanently. The **reshuffle**: no target to
-pick, just banked until you spend it — on the Market's own offers (free,
-doesn't touch the escalating reroll price) or on a Colophon pick. (The
-random-scatter paint pots survive only in the opening draft.)
+patron shelf). The **paint tube**: tap it mid-page, tap one tile anywhere on
+the board — rack or half-composed word alike — and tap the tube again to paint
+it, permanently. The **reshuffle**: no target to pick, just banked until you
+spend it — on the Market's own offers (free, doesn't touch the escalating
+reroll price) or on a Colophon pick. (The random-scatter paint pots survive
+only in the opening draft.)
 
 **Stalls** are services: the **Smelter** (trash a tile), the **Painter**
 (paint any letter a colour of your choice), the **Gilder** (proposes trims on
@@ -96,6 +96,10 @@ reset when the next market opens. The Smelter starts at 2 Coins, the rest at 1.
 **Patrons** grant standing boons — five seats to start (the Colophon can add
 more), dismissable for half their cost (hover for the ✕, or tap the patron on
 touch).
+
+**Letting things go** — the Market lists what you already hold beneath each
+section: seated patrons (back for half their cost) and workbench sundries
+(back for 1 Coin). Selling a sundry is about freeing the slot, not the coin.
 
 **The Colophon** — when a chapter's Deadline is cleared and the Market is
 done, choose one of three permanent upgrades before the next chapter begins:
@@ -127,7 +131,7 @@ beyond.
 | Trim effects & prices | `js/constants.js` → `TRIMS` (effects live in `js/scoring.js`) |
 | Purple trim step size | `js/constants.js` → `PURPLE_TRIM_STEP` |
 | Nick multiplier & prices | `js/constants.js` → `NICK_MULT`, `NICKS` |
-| Tube price / tiles per tube / workbench slots | `js/constants.js` → `TUBE_PRICE`, `TUBE_TILES`, `SUNDRY_SLOTS` |
+| Tube price / tiles per tube / workbench slots / sell-back | `js/constants.js` → `TUBE_PRICE`, `TUBE_TILES`, `SUNDRY_SLOTS`, `SUNDRY_SELL` |
 | Reshuffle sundry price | `js/constants.js` → `RESHUFFLE_PRICE` |
 | Stall roster, base prices, gilder range | `js/constants.js` → `STALL_DEFS`, `STALLS_PER_SHOP`, `GILDER_RANGE`, `SMELT_MIN_COLLECTION` |
 | Letters per draft paint pot | `js/constants.js` → `PAINT_PER_POT` |

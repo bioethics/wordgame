@@ -45,10 +45,14 @@ export const PAINT_PER_POT   = 3;   // letters painted per draft pot (random, un
 // Bought at the Shop, spent mid-page. A paint tube is the first kind: arm it,
 // pick up to TUBE_TILES tiles on the board, and they're painted that colour —
 // permanently, right where they sit.
-export const SUNDRY_SLOTS  = 2;   // tubes the workbench can hold
+export const SUNDRY_SLOTS  = 2;   // sundries the workbench can hold
 export const SUNDRY_OFFERS = 2;   // sundries offered per shop
-export const TUBE_PRICE    = 3;
-export const TUBE_TILES    = 2;   // tiles painted per tube
+export const TUBE_PRICE    = 2;
+export const TUBE_TILES    = 1;   // tiles painted per tube
+export const SUNDRY_SELL   = 1;   // what the Market pays to take one back
+
+// "one tile" / "2 tiles" — keeps copy reading right whatever TUBE_TILES is
+export const tileCount = n => n === 1 ? 'one tile' : `${n} tiles`;
 
 // ─── Stalls ───────────────────────────────────────────────────────────────────
 // Two pitch up at each shop, drawn from the roster below. A stall's price

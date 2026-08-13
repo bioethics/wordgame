@@ -10,7 +10,7 @@ import {
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected,
 } from './state.js';
 import {
-  TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES,
+  TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES, tileCount,
   WORDS_PER_PAGE, REACTION,
   chapterTitle, roman, COLOURS, NICKS,
 } from './constants.js';
@@ -496,7 +496,7 @@ $('sundries')?.addEventListener('click', async e => {
     clearAllSelected();
     state.sundryMode = idx;
     const s = state.sundries[idx];
-    log(`Tap up to ${TUBE_TILES} tiles to paint ${COLOURS[s.colour].label}, then tap the tube again.`);
+    log(`Tap ${tileCount(TUBE_TILES)} to paint ${COLOURS[s.colour].label}, then tap the tube again.`);
     renderAll();
     return;
   }

@@ -13,7 +13,7 @@ import {
   reorderWord, reorderRack,
   toggleSelected, toggleSundrySelect, toggleDualVariant,
 } from './state.js';
-import { TUBE_TILES } from './constants.js';
+import { TUBE_TILES, tileCount } from './constants.js';
 import { renderAll, showTilePopover, showPopover, hidePopover, log } from './render.js';
 import { computeScore } from './scoring.js';
 import { market } from './market.js';
@@ -130,7 +130,7 @@ function releasePress(commit) {
     // A plain tap
     if (selectingForSundry()) {
       if (toggleSundrySelect(press.id) === 'full') {
-        log(`A tube covers ${TUBE_TILES} tiles at most — deselect one first.`, 'warn');
+        log(`A tube covers ${tileCount(TUBE_TILES)} — deselect first.`, 'warn');
       }
     } else if (press.zone === 'rack') {
       if (selectingToDiscard()) toggleSelected(press.id);
