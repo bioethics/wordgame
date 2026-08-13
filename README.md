@@ -132,7 +132,7 @@ beyond.
 | Stall roster, base prices, gilder range | `js/constants.js` → `STALL_DEFS`, `STALLS_PER_SHOP`, `GILDER_RANGE`, `SMELT_MIN_COLLECTION` |
 | Letters per draft paint pot | `js/constants.js` → `PAINT_PER_POT` |
 | Opening draft spread & pick counts | `js/constants.js` → `DRAFT` |
-| How loaded offered tiles are | `js/constants.js` → `FEATURE_CHAIN_CHANCE`, `MAX_FEATURES` (one feature free, then keep rolling); generation in `js/foundry.js` → `randomSpecialTile` |
+| How loaded offered tiles are | `js/constants.js` → `FEATURE_CHAIN_CHANCE`, `MAX_FEATURES` (one feature free, then keep rolling); generation in `js/market.js` → `randomSpecialTile` |
 | Rewards & interest | `js/constants.js` → `REWARD` (base bumped 4→5 alongside the Colophon) |
 | Colophon roster, offer count, repeat cap, skip grant | `js/constants.js` → `UPGRADE_OFFERS`, `MAX_UPGRADE_REPEATS`, `SKIP_COIN_GRANT`; definitions in `js/upgrades.js` |
 | Patron reaction odds | `js/main.js` → `reactionChance`; the lines themselves in `js/quips.js` — a flat array, add more any time |
@@ -151,7 +151,7 @@ beyond.
 | `js/upgrades.js` | the Colophon's upgrade definitions (pure data, no logic) |
 | `js/colophon.js` | the Colophon's ephemeral screen state: rolling, capping, applying, reshuffling |
 | `js/quips.js` | patron reaction lines — a flat, editable array; no logic beyond `{word}` substitution |
-| `js/foundry.js` | market state: offers, buying, sundries, stalls, rerolls |
+| `js/market.js` | market state: offers, buying, sundries, stalls, rerolls |
 | `js/draft.js` | the opening draft: free spread, picks, applying them |
 | `js/render.js` | all DOM construction (board, readout, modals, popovers, overlays) |
 | `js/anim.js` | flights, floaters, tweens, sparkles, WebAudio sfx — every duration respects the speed setting |

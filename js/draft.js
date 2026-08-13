@@ -5,7 +5,7 @@
 import { state, paintRandomFaces, adoptTemplate } from './state.js';
 import { DRAFT, COLOURS, PAINT_PER_POT } from './constants.js';
 import { PATRON_DEFS, RARITY_WEIGHT } from './patrons.js';
-import { randomSpecialTile } from './foundry.js';
+import { randomSpecialTile } from './market.js';
 
 export const draft = {
   open:    false,

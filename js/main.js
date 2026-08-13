@@ -13,21 +13,21 @@ import {
 import { DICT, dictLoaded, loadDict, loadCustom } from './dict.js';
 import { computeScore, computeReward } from './scoring.js';
 import {
-  foundry, openFoundry, restoreFoundry, closeFoundry,
-  buyPatron, sellPatron, buyTile, buySundry, rerollFoundry, freeRerollFoundry,
+  market, openMarket, restoreMarket, closeMarket,
+  buyPatron, sellPatron, buyTile, buySundry, rerollMarket, freeRerollMarket,
   stallSmelt, stallPaint, stallGild, stallClone, stallRestore,
-} from './foundry.js';
+} from './market.js';
 import {
   colophon, openColophon, closeColophon, restoreColophon,
   applyColophonPick, applyColophonSkip, reshuffleColophon,
 } from './colophon.js';
 import {
   renderAll, renderRack, renderWord, renderCounts, renderButtons, persist,
-  renderFoundry, renderDictStatus, readoutEls, renderChips, setChip,
+  renderMarket, renderDictStatus, readoutEls, renderChips, setChip,
   updateReadoutPreview, log, showBanner, showOverlay, hideOverlay,
   showGameOver, showVictory, openInspector, closeInspector, makeTileEl, coinHTML,
   showPatronPopover, hidePopover, renderDraft, updateDraftSelection,
-  updateFoundryState, updateStallState, openLedger, closeLedger, renderColophon,
+  updateMarketState, updateStallState, openLedger, closeLedger, renderColophon,
 } from './render.js';
 import {
   draft, openDraft, closeDraft, restoreDraft, toggleDraftPick, applyDraft,
@@ -139,7 +139,7 @@ async function patronReactions(script) {
 // ─── Submit (PRINT) ───────────────────────────────────────────────────────────
 
 async function submitWord() {
-  if (state.isAnimating || state.inFoundry || state.inColophon || state.gameOver) return;
+  if (state.isAnimating || state.inMarket || state.inColophon || state.gameOver) return;
   const w = getWordString();
   if (!w) return;
   hidePopover();
@@ -311,16 +311,16 @@ async function pageComplete() {
   state.coins += reward.total;
 
   state.isAnimating = false;
-  openFoundry(reward.parts, reward.total);
+  openMarket(reward.parts, reward.total);
   renderAll();
-  renderFoundry();
+  renderMarket();
 }
 
 // ─── Leaving the Shop → next page ──────────────────────────────────────────
 
 async function beginNextPage() {
-  closeFoundry();
-  renderFoundry();
+  closeMarket();
+  renderMarket();
 
   // Victory check: the final Deadline of the last chapter was just cleared
   const finishedFinalPage = state.chapter === FINAL_CHAPTER && state.page === PAGES_PER_CHAPTER;
@@ -452,7 +452,7 @@ async function gameLost() {
 // ─── Discard ──────────────────────────────────────────────────────────────────
 
 async function doDiscard() {
-  if (state.isAnimating || state.inFoundry || state.inColophon || state.gameOver) return;
+  if (state.isAnimating || state.inMarket || state.inColophon || state.gameOver) return;
   hidePopover();
 
   // First press arms the mode; tiles are then tapped to select.
@@ -494,7 +494,7 @@ async function doDiscard() {
 // ─── Keyboard ─────────────────────────────────────────────────────────────────
 
 document.addEventListener('keydown', e => {
-  if (state.inFoundry || state.inDraft || state.inColophon || state.isAnimating || state.gameOver) return;
+  if (state.inMarket || state.inDraft || state.inColophon || state.isAnimating || state.gameOver) return;
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
   if ($('settingsModal')?.classList.contains('show')) return;
   if ($('inspectorModal')?.classList.contains('show')) {
@@ -540,7 +540,7 @@ $('btnDiscard')?.addEventListener('click', doDiscard);
 // The workbench: first tap arms a tube, board taps pick its targets, a second
 // tap on the tube paints them (or puts it away if nothing is chosen).
 $('sundries')?.addEventListener('click', async e => {
-  if (state.isAnimating || state.inFoundry || state.inDraft || state.inColophon || state.gameOver) return;
+  if (state.isAnimating || state.inMarket || state.inDraft || state.inColophon || state.gameOver) return;
   const slot = e.target.closest('[data-sundry]');
   if (!slot) return;
   hidePopover();
@@ -603,7 +603,7 @@ function dismissPatron(id) {
   if (r.ok) {
     log(`${r.def.name} departs with thanks — ${r.refund} Coin${r.refund !== 1 ? 's' : ''} returned.`);
     renderAll();
-    if (state.inFoundry) renderFoundry();
+    if (state.inMarket) renderMarket();
   }
 }
 
@@ -625,7 +625,7 @@ $('popover')?.addEventListener('click', e => {
   const flip = e.target.closest('[data-flip]');
   if (flip) {
     hidePopover();
-    if (state.isAnimating || state.inFoundry || state.inColophon || state.gameOver) return;
+    if (state.isAnimating || state.inMarket || state.inColophon || state.gameOver) return;
     toggleDualVariant(Number(flip.dataset.flip));
     renderAll();
   }
@@ -645,7 +645,7 @@ function flyPurchase(fromEl, toEl, opts = {}) {
 }
 
 // Market delegation
-$('foundryModal')?.addEventListener('click', e => {
+$('marketModal')?.addEventListener('click', e => {
   const buyP = e.target.closest('[data-buy-patron]');
   if (buyP) {
     const card = buyP.closest('[data-offer]');
@@ -655,7 +655,7 @@ $('foundryModal')?.addEventListener('click', e => {
       sfx.coin(); log(`${r.def.name} takes a seat at your table.`, 'good');
       flyPurchase(card, $('shelf'), { scaleTo: 0.2 });
     }
-    renderAll(); updateFoundryState();
+    renderAll(); updateMarketState();
     return;
   }
   const buyT = e.target.closest('[data-buy-tile]');
@@ -667,7 +667,7 @@ $('foundryModal')?.addEventListener('click', e => {
       sfx.coin(); log('New tile joins the bag next page.', 'good');
       flyPurchase(card?.querySelector('.tile'), $('bagBtn'));
     }
-    renderAll(); updateFoundryState();
+    renderAll(); updateMarketState();
     return;
   }
   const buyS = e.target.closest('[data-buy-sundry]');
@@ -682,73 +682,73 @@ $('foundryModal')?.addEventListener('click', e => {
         : `A tube of ${COLOURS[r.offer.colour].label} joins your workbench.`, 'good');
       flyPurchase(card?.querySelector('.paint-tube, .sundry-shuffle'), $('sundries'), { scaleTo: 0.6 });
     }
-    renderAll(); updateFoundryState();
+    renderAll(); updateMarketState();
     return;
   }
   if (e.target.closest('#btnReroll')) {
-    if (rerollFoundry()) { sfx.draw(); renderAll(); renderFoundry(); }
+    if (rerollMarket()) { sfx.draw(); renderAll(); renderMarket(); }
     return;
   }
   if (e.target.closest('#btnMarketReshuffle')) {
-    if (spendReshuffleSundry()) { freeRerollFoundry(); sfx.draw(); renderAll(); renderFoundry(); }
+    if (spendReshuffleSundry()) { freeRerollMarket(); sfx.draw(); renderAll(); renderMarket(); }
     return;
   }
 
   // ── Stalls ──────────────────────────────────────────────────────────────────
   const visit = e.target.closest('[data-visit-stall]');
   if (visit) {
-    foundry.view = 'stall';
-    foundry.activeStall = visit.dataset.visitStall;
-    foundry.stallSel = -1;
-    foundry.stallColour = null;
-    renderFoundry();
+    market.view = 'stall';
+    market.activeStall = visit.dataset.visitStall;
+    market.stallSel = -1;
+    market.stallColour = null;
+    renderMarket();
     return;
   }
   if (e.target.closest('#btnStallBack')) {
-    foundry.view = 'shop'; foundry.activeStall = null; foundry.returning = true; renderFoundry();
+    market.view = 'shop'; market.activeStall = null; market.returning = true; renderMarket();
     return;
   }
   const stallTile = e.target.closest('[data-stall-tid]');
   if (stallTile && !stallTile.classList.contains('tile--stall-locked')) {
     const tid = Number(stallTile.dataset.stallTid);
-    foundry.stallSel = foundry.stallSel === tid ? -1 : tid;
+    market.stallSel = market.stallSel === tid ? -1 : tid;
     updateStallState();
     return;
   }
   const gilderCard = e.target.closest('[data-gilder-idx]');
   if (gilderCard) {
     const idx = Number(gilderCard.dataset.gilderIdx);
-    foundry.stallSel = foundry.stallSel === idx ? -1 : idx;
+    market.stallSel = market.stallSel === idx ? -1 : idx;
     updateStallState();
     return;
   }
   const swatch = e.target.closest('[data-stall-colour]');
   if (swatch) {
-    foundry.stallColour = swatch.dataset.stallColour;
+    market.stallColour = swatch.dataset.stallColour;
     updateStallState();
     return;
   }
   if (e.target.closest('#btnStallConfirm')) {
     let r, msg;
-    switch (foundry.activeStall) {
+    switch (market.activeStall) {
       case 'smelter':
-        r = stallSmelt(foundry.stallSel);
+        r = stallSmelt(market.stallSel);
         if (r.ok) msg = `The Smelter feeds a “${r.removed.letter}” tile to the furnace.`;
         break;
       case 'painter':
-        r = stallPaint(foundry.stallSel, foundry.stallColour);
+        r = stallPaint(market.stallSel, market.stallColour);
         if (r.ok) msg = `The Painter coats “${r.tmpl.letter}” in ${COLOURS[r.colour].label.toLowerCase()}.`;
         break;
       case 'gilder':
-        r = stallGild(foundry.stallSel);
+        r = stallGild(market.stallSel);
         if (r.ok) msg = `The Gilder lays a ${TRIMS[r.trim].label} trim on “${r.tmpl.letter}” — new proposals are out.`;
         break;
       case 'stereotyper':
-        r = stallClone(foundry.stallSel);
+        r = stallClone(market.stallSel);
         if (r.ok) msg = `The Stereotyper casts a perfect copy of “${r.tmpl.letter}”.`;
         break;
       case 'restorer':
-        r = stallRestore(foundry.stallSel);
+        r = stallRestore(market.stallSel);
         if (r.ok) msg = `The Restorer strips “${r.tmpl.letter}” back to bare metal.`;
         break;
       default:
@@ -756,23 +756,23 @@ $('foundryModal')?.addEventListener('click', e => {
     }
     if (!r.ok) { if (r.reason) log(r.reason, 'warn'); sfx.bad(); }
     else {
-      if (foundry.activeStall === 'smelter') sfx.discard(); else sfx.coin();
+      if (market.activeStall === 'smelter') sfx.discard(); else sfx.coin();
       log(msg, 'good');
     }
-    renderAll(); renderFoundry();   // full rebuild: the price and grid both changed
+    renderAll(); renderMarket();   // full rebuild: the price and grid both changed
     return;
   }
 
   // ── Collection (read-only) ──────────────────────────────────────────────────
   if (e.target.closest('#btnOpenCollection')) {
-    foundry.view = 'collection'; renderFoundry();
+    market.view = 'collection'; renderMarket();
     return;
   }
   if (e.target.closest('#btnCollectionBack')) {
-    foundry.view = 'shop'; foundry.returning = true; renderFoundry();
+    market.view = 'shop'; market.returning = true; renderMarket();
     return;
   }
-  if (e.target.closest('#btnFoundryContinue')) beginNextPage();
+  if (e.target.closest('#btnMarketContinue')) beginNextPage();
 });
 
 // Overlay actions (game over / victory)
@@ -840,15 +840,15 @@ $('btnNewRun')?.addEventListener('click', async () => {
 });
 
 // Dev helpers
-$('devCoins')?.addEventListener('click', () => { state.coins += 20; renderAll(); if (state.inFoundry) renderFoundry(); });
-$('devFoundry')?.addEventListener('click', () => {
-  if (state.inFoundry || state.inColophon || state.isAnimating) return;
+$('devCoins')?.addEventListener('click', () => { state.coins += 20; renderAll(); if (state.inMarket) renderMarket(); });
+$('devMarket')?.addEventListener('click', () => {
+  if (state.inMarket || state.inColophon || state.isAnimating) return;
   $('settingsModal')?.classList.remove('show');
-  openFoundry([], 0);
-  renderAll(); renderFoundry();
+  openMarket([], 0);
+  renderAll(); renderMarket();
 });
 $('devWinPage')?.addEventListener('click', () => {
-  if (state.inFoundry || state.inColophon || state.isAnimating || state.gameOver) return;
+  if (state.inMarket || state.inColophon || state.isAnimating || state.gameOver) return;
   $('settingsModal')?.classList.remove('show');
   state.pageScore = state.quota;
   pageComplete();
@@ -859,8 +859,8 @@ $('devWinPage')?.addEventListener('click', () => {
 async function startFreshRun() {
   clearSave();
   hideOverlay();
-  closeFoundry();
-  renderFoundry();
+  closeMarket();
+  renderMarket();
   newRun();
   openDraft();
   renderAll();
@@ -916,9 +916,9 @@ $('draftModal')?.addEventListener('click', e => {
       restoreDraft(restored.draft);
       renderAll(); renderDraft();
     }
-    else if (restored.foundry) {
-      restoreFoundry(restored.foundry);
-      renderAll(); renderFoundry();
+    else if (restored.market) {
+      restoreMarket(restored.market);
+      renderAll(); renderMarket();
       log('Welcome back.');
     }
     else if (restored.colophon) {

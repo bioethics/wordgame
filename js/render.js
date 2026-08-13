@@ -14,8 +14,8 @@ import { patronById } from './patrons.js';
 import { upgradeById } from './upgrades.js';
 import { computeScore } from './scoring.js';
 import {
-  foundry, foundrySnapshot, tilePrice, stallById, stallPrice, restorable,
-} from './foundry.js';
+  market, marketSnapshot, tilePrice, stallById, stallPrice, restorable,
+} from './market.js';
 import { draft, draftLimit, draftComplete, draftSnapshot } from './draft.js';
 import { colophon, colophonSnapshot } from './colophon.js';
 import { setNum, tweenNum, sleep, dur, fmtMult } from './anim.js';
@@ -177,7 +177,7 @@ export function renderAll() {
 export function persist() {
   saveState(
     state.inDraft    ? { _draft: draftSnapshot() } :
-    state.inFoundry  ? { _foundry: foundrySnapshot() } :
+    state.inMarket  ? { _market: marketSnapshot() } :
     state.inColophon ? { _colophon: colophonSnapshot() } : {}
   );
 }
@@ -412,7 +412,7 @@ export const readoutEls = () => ({
 // ─── Buttons ──────────────────────────────────────────────────────────────────
 
 export function renderButtons() {
-  const blocked = state.inFoundry || state.inDraft || state.inColophon || state.isAnimating || state.gameOver;
+  const blocked = state.inMarket || state.inDraft || state.inColophon || state.isAnimating || state.gameOver;
   const sel = selectedCount();
 
   setDisabled('btnPrint',    !state.word.length || blocked);
@@ -587,48 +587,48 @@ export function closeInspector() {
 // ─── Shop ──────────────────────────────────────────────────────────────────
 
 // Full build. Only for opening the shop, switching view, or completing a stall
-// purchase — buying offers patches in place (see updateFoundryState) so a
+// purchase — buying offers patches in place (see updateMarketState) so a
 // purchase never throws away your scroll position.
-export function renderFoundry() {
-  const m = $('foundryModal');
+export function renderMarket() {
+  const m = $('marketModal');
   if (!m) return;
-  if (!foundry.open) { m.classList.remove('show'); m.innerHTML = ''; return; }
+  if (!market.open) { m.classList.remove('show'); m.innerHTML = ''; return; }
 
-  m.innerHTML = foundry.view === 'stall'      ? foundryStallHTML()
-              : foundry.view === 'collection' ? foundryCollectionHTML()
-              :                                 foundryShopHTML();
+  m.innerHTML = market.view === 'stall'      ? marketStallHTML()
+              : market.view === 'collection' ? marketCollectionHTML()
+              :                                 marketShopHTML();
   m.classList.add('show');
 
-  if (foundry.view === 'stall') {
+  if (market.view === 'stall') {
     renderStallBody();
     updateStallState();
-  } else if (foundry.view === 'collection') {
+  } else if (market.view === 'collection') {
     renderCollectionGrid();
   } else {
-    foundry.tileOffers.forEach((o, i) => {
+    market.tileOffers.forEach((o, i) => {
       const slot = m.querySelector(`[data-offer-tile="${i}"]`);
       if (slot && !slot.children.length) slot.appendChild(makeTileEl({ ...o.template, id: '' }, 'offer'));
     });
-    updateFoundryState();
+    updateMarketState();
   }
 }
 
 // Sold state, prices you can and can't afford, the coin count — all patched
 // without rebuilding the sheet.
-export function updateFoundryState() {
-  const m = $('foundryModal');
-  if (!m || !foundry.open) return;
+export function updateMarketState() {
+  const m = $('marketModal');
+  if (!m || !market.open) return;
 
-  setText('foundryCoins', state.coins);
+  setText('marketCoins', state.coins);
 
   const seatsFull = state.patrons.length >= effectivePatronSlots();
   const benchFull = state.sundries.length >= effectiveSundrySlots();
   for (const card of m.querySelectorAll('[data-offer]')) {
     const kind = card.dataset.offer;
     const idx  = Number(card.dataset.idx);
-    const offer = kind === 'patron' ? foundry.patronOffers[idx]
-                : kind === 'tile'   ? foundry.tileOffers[idx]
-                :                     foundry.sundryOffers[idx];
+    const offer = kind === 'patron' ? market.patronOffers[idx]
+                : kind === 'tile'   ? market.tileOffers[idx]
+                :                     market.sundryOffers[idx];
     if (!offer) continue;
     const cost = kind === 'patron' ? patronById(offer.id).cost : offer.price;
     const afford = state.coins >= cost
@@ -645,18 +645,18 @@ export function updateFoundryState() {
   if (bench) bench.textContent = `${state.sundries.length}/${effectiveSundrySlots()} on the workbench${benchFull ? ' — full' : ''}`;
 
   const reroll = m.querySelector('#btnReroll');
-  if (reroll) reroll.disabled = state.coins < foundry.rerollCost;
+  if (reroll) reroll.disabled = state.coins < market.rerollCost;
 }
 
 function rewardHTML() {
-  if (!foundry.rewardParts?.length) return '';
-  const rows = foundry.rewardParts
+  if (!market.rewardParts?.length) return '';
+  const rows = market.rewardParts
     .map(p => `<span class="reward-part">${p.label} <b>+${p.coins}</b></span>`).join('');
-  return `<div class="reward-line">${rows}<span class="reward-total">${coinHTML(foundry.rewardTotal)} earned</span></div>`;
+  return `<div class="reward-line">${rows}<span class="reward-total">${coinHTML(market.rewardTotal)} earned</span></div>`;
 }
 
-function foundryShopHTML() {
-  const patronCards = foundry.patronOffers.map((o, i) => {
+function marketShopHTML() {
+  const patronCards = market.patronOffers.map((o, i) => {
     const def = patronById(o.id);
     return `
       <div class="offer-patron offer-patron--${def.rarity}" data-offer="patron" data-idx="${i}">
@@ -674,14 +674,14 @@ function foundryShopHTML() {
   }).join('') || '<p class="sheet-note">No patrons calling today.</p>';
 
   // Nothing is summarised under the tile any more — hover or long-press it.
-  const tileCards = foundry.tileOffers.map((o, i) => `
+  const tileCards = market.tileOffers.map((o, i) => `
       <div class="offer-tile" data-offer="tile" data-idx="${i}">
         <div class="offer-tile-slot" data-offer-tile="${i}"></div>
         <span class="op-sold">bought</span>
         <button class="btn-price" data-buy-tile="${i}">${coinHTML(o.price)}</button>
       </div>`).join('');
 
-  const sundryCards = foundry.sundryOffers.map((o, i) => o.kind === 'reshuffle' ? `
+  const sundryCards = market.sundryOffers.map((o, i) => o.kind === 'reshuffle' ? `
       <div class="offer-paint" data-offer="sundry" data-idx="${i}"
            data-tip-head="Reshuffle" data-tip-body="A free re-roll, banked on your workbench for later — spend it here on these same offers, or on a Colophon pick when a chapter clears.">
         <span class="sundry-shuffle sundry-shuffle--offer">↻</span>
@@ -702,7 +702,7 @@ function foundryShopHTML() {
         <button class="btn-price" data-buy-sundry="${i}">${coinHTML(o.price)}</button>
       </div>`).join('');
 
-  const stallCards = foundry.stalls.map(s => {
+  const stallCards = market.stalls.map(s => {
     const def = STALL_DEFS[s.id];
     return `
       <div class="offer-stall awning--${s.id}" data-stall-card="${s.id}">
@@ -719,48 +719,48 @@ function foundryShopHTML() {
   const fullBench = state.sundries.length >= effectiveSundrySlots();
   const reshuffles = state.sundries.filter(s => s.kind === 'reshuffle').length;
 
-  const returning = foundry.returning ? ' sheet--return' : '';
-  foundry.returning = false;
+  const returning = market.returning ? ' sheet--return' : '';
+  market.returning = false;
 
   return `
-    <div class="sheet sheet--foundry sheet--market${returning}">
+    <div class="sheet sheet--market${returning}">
       <div class="sheet-head">
         <div>
-          <h2 class="foundry-title">The Market</h2>
-          <div class="foundry-purse"><span class="coin coin--lg"></span><b id="foundryCoins">${state.coins}</b></div>
+          <h2 class="market-title">The Market</h2>
+          <div class="market-purse"><span class="coin coin--lg"></span><b id="marketCoins">${state.coins}</b></div>
         </div>
         ${rewardHTML()}
       </div>
 
-      <div class="foundry-grid">
-        <section class="foundry-col">
-          <h3 class="foundry-sec">Patrons <span class="foundry-sub" data-seats>${state.patrons.length}/${effectivePatronSlots()} seated${fullSeats ? ' — table full' : ''}</span></h3>
+      <div class="market-grid">
+        <section class="market-col">
+          <h3 class="market-sec">Patrons <span class="market-sub" data-seats>${state.patrons.length}/${effectivePatronSlots()} seated${fullSeats ? ' — table full' : ''}</span></h3>
           <div class="offer-list">${patronCards}</div>
         </section>
-        <section class="foundry-col">
-          <h3 class="foundry-sec">Tiles</h3>
+        <section class="market-col">
+          <h3 class="market-sec">Tiles</h3>
           <div class="offer-tiles">${tileCards}</div>
-          <h3 class="foundry-sec foundry-sec--paint">Sundries <span class="foundry-sub" data-bench>${state.sundries.length}/${effectiveSundrySlots()} on the workbench${fullBench ? ' — full' : ''}</span></h3>
+          <h3 class="market-sec market-sec--paint">Sundries <span class="market-sub" data-bench>${state.sundries.length}/${effectiveSundrySlots()} on the workbench${fullBench ? ' — full' : ''}</span></h3>
           <div class="offer-list">${sundryCards}</div>
         </section>
       </div>
 
-      <section class="foundry-stalls">
-        <h3 class="foundry-sec">Stalls <span class="foundry-sub">each purchase doubles the price · new stalls next shop</span></h3>
+      <section class="market-stalls">
+        <h3 class="market-sec">Stalls <span class="market-sub">each purchase doubles the price · new stalls next shop</span></h3>
         <div class="stall-row">${stallCards}</div>
       </section>
 
-      <div class="foundry-foot">
+      <div class="market-foot">
         <button class="btn btn-quiet" id="btnReroll" title="Re-rolls patrons, tiles and sundries — the stalls stay put"
-          ${state.coins < foundry.rerollCost ? 'disabled' : ''}>
-          New offers ${coinHTML(foundry.rerollCost)}
+          ${state.coins < market.rerollCost ? 'disabled' : ''}>
+          New offers ${coinHTML(market.rerollCost)}
         </button>
         ${reshuffles ? `<button class="btn btn-quiet" id="btnMarketReshuffle" title="Spend a banked reshuffle for a free re-roll">
           ↻ Reshuffle · ${reshuffles} left
         </button>` : ''}
         <button class="btn btn-quiet" id="btnOpenCollection">Your collection</button>
-        <div class="foundry-spacer"></div>
-        <button class="btn btn-print" id="btnFoundryContinue">Next page ❧</button>
+        <div class="market-spacer"></div>
+        <button class="btn btn-print" id="btnMarketContinue">Next page ❧</button>
       </div>
     </div>`;
 }
@@ -769,41 +769,41 @@ function foundryShopHTML() {
 
 const tileName = t => `“${t.letter}${t.letterType === 'dual' ? '/' + t.altLetter : ''}”`;
 
-function foundryStallHTML() {
-  const stall = stallById(foundry.activeStall);
-  const def = STALL_DEFS[foundry.activeStall];
-  if (!stall || !def) return foundryShopHTML();
+function marketStallHTML() {
+  const stall = stallById(market.activeStall);
+  const def = STALL_DEFS[market.activeStall];
+  if (!stall || !def) return marketShopHTML();
 
-  const painterColours = foundry.activeStall === 'painter' ? `
+  const painterColours = market.activeStall === 'painter' ? `
     <div class="painter-colours">
       ${Object.keys(COLOURS).map(c => `
         <button class="paint-swatch paint-swatch--${c}" data-stall-colour="${c}"
                 title="${COLOURS[c].label} — ${colourDesc(c)}"></button>`).join('')}
     </div>` : '';
 
-  const body = foundry.activeStall === 'gilder'
+  const body = market.activeStall === 'gilder'
     ? `<div class="offer-tiles gilder-grid" id="stallGilderGrid"></div>`
     : `${painterColours}<div class="mini-grid mini-grid--case" id="stallGrid"></div>`;
 
-  const note = foundry.activeStall === 'smelter' && state.collection.length <= SMELT_MIN_COLLECTION
+  const note = market.activeStall === 'smelter' && state.collection.length <= SMELT_MIN_COLLECTION
     ? `<p class="sheet-note stall-warn">Your collection is too small to smelt further.</p>`
     : '';
 
   return `
-    <div class="sheet sheet--foundry sheet--market sheet--stall awning--${foundry.activeStall}">
+    <div class="sheet sheet--market sheet--stall awning--${market.activeStall}">
       <div class="sheet-head">
         <div>
-          <h2 class="foundry-title">${def.emoji} ${def.name}</h2>
+          <h2 class="market-title">${def.emoji} ${def.name}</h2>
           <p class="sheet-note">${def.desc}</p>
         </div>
-        <div class="foundry-purse"><span class="coin coin--lg"></span><b id="foundryCoins">${state.coins}</b></div>
+        <div class="market-purse"><span class="coin coin--lg"></span><b id="marketCoins">${state.coins}</b></div>
       </div>
       ${note}
       ${body}
-      <div class="foundry-foot">
+      <div class="market-foot">
         <button class="btn btn-quiet" id="btnStallBack">← Back to the market</button>
-        <div class="foundry-spacer"></div>
-        <button class="btn ${foundry.activeStall === 'smelter' ? 'btn-danger' : 'btn-print'}" id="btnStallConfirm" disabled></button>
+        <div class="market-spacer"></div>
+        <button class="btn ${market.activeStall === 'smelter' ? 'btn-danger' : 'btn-print'}" id="btnStallConfirm" disabled></button>
       </div>
     </div>`;
 }
@@ -811,10 +811,10 @@ function foundryStallHTML() {
 // Fill the stall's grid — collection minis for most stalls, full-size trim
 // previews for the gilder — after the sheet HTML has landed.
 function renderStallBody() {
-  const stall = stallById(foundry.activeStall);
+  const stall = stallById(market.activeStall);
   if (!stall) return;
 
-  if (foundry.activeStall === 'gilder') {
+  if (market.activeStall === 'gilder') {
     const grid = $('stallGilderGrid');
     if (!grid) return;
     grid.innerHTML = '';
@@ -845,7 +845,7 @@ function renderStallBody() {
   state.collection.forEach(tmpl => {
     const el = makeTileEl({ ...tmpl, id: '' }, 'stall', { mini: true });
     el.dataset.stallTid = tmpl.tid;
-    if (foundry.activeStall === 'restorer' && !restorable(tmpl)) {
+    if (market.activeStall === 'restorer' && !restorable(tmpl)) {
       el.classList.add('tile--stall-locked');
     }
     grid.appendChild(el);
@@ -855,40 +855,40 @@ function renderStallBody() {
 // Selection, colour choice, and the confirm button — patched in place so a
 // tap never rebuilds the sheet under your thumb.
 export function updateStallState() {
-  const m = $('foundryModal');
-  if (!m || foundry.view !== 'stall') return;
-  const stall = stallById(foundry.activeStall);
+  const m = $('marketModal');
+  if (!m || market.view !== 'stall') return;
+  const stall = stallById(market.activeStall);
   if (!stall) return;
   const price = stallPrice(stall);
 
   for (const el of m.querySelectorAll('[data-stall-tid]')) {
-    el.classList.toggle('tile--stall-sel', Number(el.dataset.stallTid) === foundry.stallSel);
+    el.classList.toggle('tile--stall-sel', Number(el.dataset.stallTid) === market.stallSel);
   }
   for (const el of m.querySelectorAll('[data-gilder-idx]')) {
-    el.classList.toggle('picked', Number(el.dataset.gilderIdx) === foundry.stallSel);
+    el.classList.toggle('picked', Number(el.dataset.gilderIdx) === market.stallSel);
   }
   for (const el of m.querySelectorAll('[data-stall-colour]')) {
-    el.classList.toggle('paint-swatch--sel', el.dataset.stallColour === foundry.stallColour);
+    el.classList.toggle('paint-swatch--sel', el.dataset.stallColour === market.stallColour);
   }
 
   const btn = m.querySelector('#btnStallConfirm');
   if (!btn) return;
 
-  const sel = foundry.stallSel >= 0 && foundry.activeStall !== 'gilder'
-    ? state.collection.find(t => t.tid === foundry.stallSel) : null;
+  const sel = market.stallSel >= 0 && market.activeStall !== 'gilder'
+    ? state.collection.find(t => t.tid === market.stallSel) : null;
   const priceTag = `for ${price} Coin${price === 1 ? '' : 's'}`;
   let label = '', ready = false;
 
-  switch (foundry.activeStall) {
+  switch (market.activeStall) {
     case 'smelter':
       label = sel ? `Smelt ${tileName(sel)} ${priceTag}` : 'Select a tile to smelt';
       ready = !!sel && state.collection.length > SMELT_MIN_COLLECTION;
       break;
     case 'painter':
-      label = sel && foundry.stallColour
-        ? `Paint ${tileName(sel)} ${COLOURS[foundry.stallColour].label} ${priceTag}`
+      label = sel && market.stallColour
+        ? `Paint ${tileName(sel)} ${COLOURS[market.stallColour].label} ${priceTag}`
         : 'Select a tile and a colour';
-      ready = !!sel && !!foundry.stallColour;
+      ready = !!sel && !!market.stallColour;
       break;
     case 'stereotyper':
       label = sel ? `Cast a copy of ${tileName(sel)} ${priceTag}` : 'Select a tile to duplicate';
@@ -899,7 +899,7 @@ export function updateStallState() {
       ready = !!sel && restorable(sel);
       break;
     case 'gilder': {
-      const p = stall.proposals?.[foundry.stallSel];
+      const p = stall.proposals?.[market.stallSel];
       const tmpl = p && state.collection.find(t => t.tid === p.tid);
       label = tmpl
         ? `Commission the ${TRIMS[p.trim].label} trim on ${tileName(tmpl)} ${priceTag}`
@@ -914,19 +914,19 @@ export function updateStallState() {
 
 // ─── Collection view (read-only) ──────────────────────────────────────────────
 
-function foundryCollectionHTML() {
+function marketCollectionHTML() {
   return `
-    <div class="sheet sheet--foundry sheet--market">
+    <div class="sheet sheet--market">
       <div class="sheet-head">
         <div>
-          <h2 class="foundry-title">Your collection</h2>
+          <h2 class="market-title">Your collection</h2>
           <p class="sheet-note">${state.collection.length} tiles — the whole collection shuffles into the bag each page.</p>
         </div>
       </div>
       <div class="mini-grid mini-grid--case" id="collectionGrid"></div>
-      <div class="foundry-foot">
+      <div class="market-foot">
         <button class="btn btn-quiet" id="btnCollectionBack">← Back to the market</button>
-        <div class="foundry-spacer"></div>
+        <div class="market-spacer"></div>
       </div>
     </div>`;
 }
@@ -965,23 +965,23 @@ export function renderColophon() {
   }).join('') || '<p class="sheet-note">Every upgrade is already taken to its limit — straight on to the next chapter.</p>';
 
   m.innerHTML = `
-    <div class="sheet sheet--foundry sheet--market sheet--colophon">
+    <div class="sheet sheet--market sheet--colophon">
       <div class="sheet-head">
         <div>
-          <h2 class="foundry-title">The Colophon</h2>
+          <h2 class="market-title">The Colophon</h2>
           <p class="sheet-note">Chapter ${roman(state.chapter)} is set. Choose one permanent upgrade before Chapter ${roman(state.chapter + 1)} begins.</p>
         </div>
       </div>
       <div class="colophon-grid">${cards}</div>
       ${colophon.offers.length ? `
-        <div class="foundry-foot">
+        <div class="market-foot">
           <button class="btn btn-quiet" id="btnColophonSkip" title="Decline all three">
             Skip · +${coinHTML(SKIP_COIN_GRANT)}
           </button>
           ${reshuffles ? `<button class="btn btn-quiet" id="btnColophonReshuffle" title="Spend a banked reshuffle for a free re-roll">
             ↻ Reshuffle · ${reshuffles} left
           </button>` : ''}
-          <div class="foundry-spacer"></div>
+          <div class="market-spacer"></div>
         </div>` : ''}
     </div>`;
   m.classList.add('show');
@@ -1036,17 +1036,17 @@ export function renderDraft() {
         </div>
       </div>
 
-      <h3 class="foundry-sec">Patron <span class="foundry-sub" data-count="patron"></span></h3>
+      <h3 class="market-sec">Patron <span class="market-sub" data-count="patron"></span></h3>
       <div class="offer-list">${patronCards}</div>
 
-      <h3 class="foundry-sec">Paint <span class="foundry-sub" data-count="paint"></span></h3>
+      <h3 class="market-sec">Paint <span class="market-sub" data-count="paint"></span></h3>
       <div class="draft-paints">${paintCards}</div>
 
-      <h3 class="foundry-sec">Tiles <span class="foundry-sub" data-count="tile"></span></h3>
+      <h3 class="market-sec">Tiles <span class="market-sub" data-count="tile"></span></h3>
       <div class="offer-tiles offer-tiles--draft">${tileCards}</div>
 
-      <div class="foundry-foot">
-        <div class="foundry-spacer"></div>
+      <div class="market-foot">
+        <div class="market-spacer"></div>
         <button class="btn btn-print btn-big" id="btnDraftBegin">Begin the run ❧</button>
       </div>
     </div>`;
@@ -1079,7 +1079,7 @@ export function updateDraftSelection() {
     const kind = el.dataset.count;
     const n = draft.picked[kind].length, max = draftLimit(kind);
     el.textContent = n === max ? `${max} of ${max} ✓` : `${n} of ${max}`;
-    el.classList.toggle('foundry-sub--done', n === max);
+    el.classList.toggle('market-sub--done', n === max);
   }
 
 }

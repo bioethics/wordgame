@@ -16,7 +16,7 @@ import {
 import { TUBE_TILES } from './constants.js';
 import { renderAll, showTilePopover, showPopover, hidePopover, log } from './render.js';
 import { computeScore } from './scoring.js';
-import { foundry } from './foundry.js';
+import { market } from './market.js';
 import { draft } from './draft.js';
 
 const DRAG_THRESHOLD = 8;     // px of travel before a press becomes a drag
@@ -39,7 +39,7 @@ function insertIndex(container, clientX) {
   return Math.max(0, Math.min(best, tiles.length));
 }
 
-const blocked = () => state.inFoundry || state.inDraft || state.inColophon || state.isAnimating || state.gameOver;
+const blocked = () => state.inMarket || state.inDraft || state.inColophon || state.isAnimating || state.gameOver;
 
 // Rack taps mean "select for discard" while discard mode is armed;
 // any board tap means "select for the tube" while a sundry is armed.
@@ -249,19 +249,19 @@ function templateFor(tileEl) {
   if (tid != null) return state.collection.find(t => t.tid === Number(tid));
   const gilded = tileEl.closest('[data-gilder-idx]')?.dataset.gilderIdx;
   if (gilded != null) {
-    const p = foundry.stalls.find(s => s.id === 'gilder')?.proposals?.[Number(gilded)];
+    const p = market.stalls.find(s => s.id === 'gilder')?.proposals?.[Number(gilded)];
     const tmpl = p && state.collection.find(t => t.tid === p.tid);
     return tmpl ? { ...tmpl, trim: p.trim } : null;
   }
   const offer = tileEl.closest('[data-offer="tile"]')?.dataset.idx;
-  if (offer != null) return foundry.tileOffers[Number(offer)]?.template;
+  if (offer != null) return market.tileOffers[Number(offer)]?.template;
   const drafted = tileEl.closest('[data-draft="tile"]')?.dataset.idx;
   if (drafted != null) return draft.tiles[Number(drafted)];
   return null;
 }
 
 export function initInspect() {
-  const roots = ['foundryModal', 'draftModal', 'inspectorModal']
+  const roots = ['marketModal', 'draftModal', 'inspectorModal']
     .map(id => document.getElementById(id)).filter(Boolean);
 
   for (const root of roots) {

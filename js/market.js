@@ -13,7 +13,7 @@ import { PATRON_DEFS, RARITY_WEIGHT, patronById } from './patrons.js';
 
 // ─── Shop state (ephemeral between pages) ─────────────────────────────────────
 
-export const foundry = {
+export const market = {
   open: false,
   view: 'shop',          // 'shop' | 'stall' | 'collection'
   rewardParts: [],
@@ -137,14 +137,14 @@ function rollSundryOffers() {
 
 // Re-rolled by "New offers"; the stalls are not.
 function rollOffers() {
-  foundry.patronOffers = weightedPatronSample(3);
-  foundry.tileOffers   = Array.from({ length: 4 }, randomTileOffer);
-  foundry.sundryOffers = rollSundryOffers();
+  market.patronOffers = weightedPatronSample(3);
+  market.tileOffers   = Array.from({ length: 4 }, randomTileOffer);
+  market.sundryOffers = rollSundryOffers();
 }
 
 // ─── Stalls ───────────────────────────────────────────────────────────────────
 
-export const stallById   = id => foundry.stalls.find(s => s.id === id);
+export const stallById   = id => market.stalls.find(s => s.id === id);
 export const stallPrice  = stall => (STALL_DEFS[stall.id]?.base ?? 1) * 2 ** stall.uses;
 
 // The gilder's spread: up to GILDER_RANGE untrimmed tiles, each with a
@@ -166,49 +166,49 @@ function pruneGilderProposals() {
 
 function rollStalls() {
   const ids = shuffle([...Object.keys(STALL_DEFS)]).slice(0, STALLS_PER_SHOP);
-  foundry.stalls = ids.map(id =>
+  market.stalls = ids.map(id =>
     id === 'gilder' ? { id, uses: 0, proposals: rollGilderProposals() }
                     : { id, uses: 0 });
 }
 
 // ─── Open / close ─────────────────────────────────────────────────────────────
 
-export function openFoundry(rewardParts, rewardTotal) {
-  state.inFoundry = true;
-  foundry.open = true;
-  foundry.view = 'shop';
-  foundry.rewardParts = rewardParts;
-  foundry.rewardTotal = rewardTotal;
-  foundry.rerollCost = REROLL_BASE;
-  foundry.activeStall = null;
-  foundry.stallSel = -1;
-  foundry.stallColour = null;
+export function openMarket(rewardParts, rewardTotal) {
+  state.inMarket = true;
+  market.open = true;
+  market.view = 'shop';
+  market.rewardParts = rewardParts;
+  market.rewardTotal = rewardTotal;
+  market.rerollCost = REROLL_BASE;
+  market.activeStall = null;
+  market.stallSel = -1;
+  market.stallColour = null;
   rollOffers();
   rollStalls();
 }
 
 // Restore a shop snapshot from a saved game
-export function restoreFoundry(snapshot) {
-  Object.assign(foundry, snapshot, { open: true });
-  foundry.sundryOffers ??= [];
-  foundry.stalls ??= [];
-  state.inFoundry = true;
+export function restoreMarket(snapshot) {
+  Object.assign(market, snapshot, { open: true });
+  market.sundryOffers ??= [];
+  market.stalls ??= [];
+  state.inMarket = true;
 }
 
-export function foundrySnapshot() {
-  const { open, ...rest } = foundry;
+export function marketSnapshot() {
+  const { open, ...rest } = market;
   return JSON.parse(JSON.stringify(rest));
 }
 
-export function closeFoundry() {
-  state.inFoundry = false;
-  foundry.open = false;
+export function closeMarket() {
+  state.inMarket = false;
+  market.open = false;
 }
 
 // ─── Actions ──────────────────────────────────────────────────────────────────
 
 export function buyPatron(id) {
-  const offer = foundry.patronOffers.find(o => o.id === id && !o.sold);
+  const offer = market.patronOffers.find(o => o.id === id && !o.sold);
   const def = patronById(id);
   if (!offer || !def)                                return { ok: false, reason: 'Not available.' };
   if (state.patrons.length >= effectivePatronSlots()) return { ok: false, reason: 'No empty seats at your table.' };
@@ -230,7 +230,7 @@ export function sellPatron(id) {
 }
 
 export function buyTile(idx) {
-  const offer = foundry.tileOffers[idx];
+  const offer = market.tileOffers[idx];
   if (!offer || offer.sold)        return { ok: false, reason: 'Not available.' };
   if (state.coins < offer.price)   return { ok: false, reason: `You need ${offer.price} Coins.` };
   state.coins -= offer.price;
@@ -240,7 +240,7 @@ export function buyTile(idx) {
 }
 
 export function buySundry(idx) {
-  const offer = foundry.sundryOffers[idx];
+  const offer = market.sundryOffers[idx];
   if (!offer || offer.sold)                          return { ok: false, reason: 'Not available.' };
   if (state.sundries.length >= effectiveSundrySlots()) return { ok: false, reason: 'Your workbench is full.' };
   if (state.coins < offer.price)                     return { ok: false, reason: `You need ${offer.price} Coins.` };
@@ -250,17 +250,17 @@ export function buySundry(idx) {
   return { ok: true, offer };
 }
 
-export function rerollFoundry() {
-  if (state.coins < foundry.rerollCost) return false;
-  state.coins -= foundry.rerollCost;
-  foundry.rerollCost += 1;
+export function rerollMarket() {
+  if (state.coins < market.rerollCost) return false;
+  state.coins -= market.rerollCost;
+  market.rerollCost += 1;
   rollOffers();
   return true;
 }
 
 // A reshuffle sundry buys the same re-roll, free and without bumping the
 // escalating cost — the state.js caller is responsible for consuming it.
-export function freeRerollFoundry() {
+export function freeRerollMarket() {
   rollOffers();
 }
 
@@ -279,7 +279,7 @@ function stallTarget(stallId, tid) {
 function payStall(stall, price) {
   state.coins -= price;
   stall.uses += 1;
-  foundry.stallSel = -1;
+  market.stallSel = -1;
 }
 
 export function stallSmelt(tid) {
