@@ -167,6 +167,7 @@ export function renderAll() {
   renderWord();
   renderCounts();
   renderButtons();
+  refreshStatusBar();
   persist();
 }
 
@@ -350,8 +351,11 @@ export function renderWord() {
     if (bd) tileEl.title = tileTitle(t, bd);
     nowPts.set(t.id, shown);
 
-    // A number that just changed announces itself
-    if (shown != null && _lastWordPts.get(t.id) !== shown) {
+    // A number that just changed announces itself — but only for tiles
+    // already on the groove. Laying a tile down isn't a change to announce;
+    // the pop is for when a nick's reach rewrites its neighbours.
+    const wasShowing = _lastWordPts.has(t.id);
+    if (shown != null && wasShowing && _lastWordPts.get(t.id) !== shown) {
       const ptsEl = tileEl.querySelector('.tile-pts');
       ptsEl.classList.add('pts-pop');
       ptsEl.style.animationDelay = `${(delayOf.get(t.id) ?? 0) / (settings.animSpeed || 1)}ms`;
@@ -428,13 +432,57 @@ export function renderButtons() {
   }
 }
 
-// ─── Log line ─────────────────────────────────────────────────────────────────
+// ─── The status bar: manuscript at rest, messages when there's news ───────────
+// Its resting state is the manuscript — every word printed this run, set as
+// one long line of type, newest last, the earlier ones running off the left
+// edge under a fade. That line IS the book you're making. A message (a
+// rejected word, a purchase, a hint) takes the bar over for a moment, then it
+// settles back to the manuscript.
+
+const MSG_HOLD = 3400;      // ms a message holds the bar before it settles back
+let _msgUntil = 0;
+let _msgTimer = null;
+let _lastWordCount = -1;
 
 export function log(msg, kind = '') {
   const el = $('log');
   if (!el) return;
-  el.className = `log${kind ? ' log--' + kind : ''}`;
+  clearTimeout(_msgTimer);
+  _msgUntil = Date.now() + MSG_HOLD;
+  el.className = `log log--msg${kind ? ' log--' + kind : ''}`;
   el.textContent = msg;
+  _msgTimer = setTimeout(renderManuscript, MSG_HOLD);
+}
+
+// Called by renderAll — never stomps a message that's still holding.
+export function refreshStatusBar() {
+  if (Date.now() < _msgUntil) return;
+  renderManuscript();
+}
+
+export function renderManuscript() {
+  const el = $('log');
+  if (!el) return;
+  _msgUntil = 0;
+
+  const words = state.ledger ?? [];
+  el.className = 'log log--manuscript';
+
+  if (!words.length) {
+    el.innerHTML = '<span class="ms-blank">a blank page</span>';
+    _lastWordCount = 0;
+    return;
+  }
+
+  // Only the freshly printed word gets the ink-settling flourish.
+  const grew = _lastWordCount >= 0 && words.length > _lastWordCount;
+  _lastWordCount = words.length;
+
+  el.innerHTML = words.map((r, i) => {
+    const last = i === words.length - 1;
+    const cls = `ms-word${last ? ' ms-word--last' : ''}${last && grew ? ' ms-word--new' : ''}`;
+    return `<span class="${cls}">${r.word.toLowerCase()}</span>`;
+  }).join('<span class="ms-dot">·</span>');
 }
 
 // ─── Dictionary status ────────────────────────────────────────────────────────

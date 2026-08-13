@@ -12,7 +12,7 @@ import {
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES,
   WORDS_PER_PAGE, REACTION,
-  chapterTitle, roman, isDeadline, COLOURS, NICKS,
+  chapterTitle, roman, COLOURS, NICKS,
 } from './constants.js';
 import { DICT, dictLoaded, loadDict, loadCustom } from './dict.js';
 import { computeScore, computeReward } from './scoring.js';
@@ -374,10 +374,7 @@ async function advancePage() {
   await animateDraw(drawn);
 
   state.isAnimating = false;
-  renderAll();
-  log(isDeadline(state.page)
-    ? `The Deadline — quota ${state.quota}.`
-    : `Page ${state.page} — quota ${state.quota}.`);
+  renderAll();   // the status bar settles back to the manuscript on its own
 }
 
 // ─── Loss ─────────────────────────────────────────────────────────────────────
@@ -685,9 +682,7 @@ async function beginRun() {
   await animateDraw(drawn);
   state.isAnimating = false;
   renderAll();
-  log(painted.length
-    ? `Painted ${painted.join(', ')}.  Page 1 — quota ${state.quota}.`
-    : `Page 1 — quota ${state.quota}.`);
+  if (painted.length) log(`Painted ${painted.join(', ')}.`);
 }
 
 (async function init() {

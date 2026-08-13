@@ -164,6 +164,13 @@ Scoring is deliberately pure (`computeScore` never mutates state), so the same
 function powers the live preview, the tooltips, and the replayed cinematic —
 they can't disagree.
 
-The **ledger** (❦ in the header) lists every word printed this run with its
-score. A *Developer* section in Settings has shortcuts: +20 Coins, open the Market,
+The **manuscript** is the strip under the board: every word printed this run,
+set as one long line of type, newest last, the earlier ones running off the
+left edge under a fade. It's the book you're actually making. Messages (a
+rejected word, a purchase, a hint) borrow the strip for a few seconds and it
+settles back on its own — so nothing needs to announce the page or chapter
+there, since the status row already does.
+
+The **ledger** (❦ in the header) is the same words with their scores, page by
+page. A *Developer* section in Settings has shortcuts: +20 Coins, open the Market,
 clear the current page. The console exposes `window.folio = { state, settings }`.

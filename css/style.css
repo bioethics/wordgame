@@ -1129,7 +1129,7 @@ button.sundry:hover { transform: translateY(-2px); }
   box-shadow: 0 3px 0 #3d120e, 0 6px 14px rgba(0, 0, 0, 0.35);
 }
 
-/* ─── Log ─────────────────────────────────────────────────────────────────────── */
+/* ─── Status bar: the manuscript, and messages ────────────────────────────────── */
 .log {
   margin: 0;
   height: 24px;              /* fixed: message length must not move the page */
@@ -1143,6 +1143,39 @@ button.sundry:hover { transform: translateY(-2px); }
 .log--good { color: var(--good); }
 .log--bad  { color: var(--bad); }
 .log--warn { color: var(--warn); }
+
+/* At rest the bar is the run's words, set as one long line. It's kept flush
+   right so the newest word is always in view and the book trails off to the
+   left, under a fade, the way a long line of type runs past the edge. */
+.log--manuscript {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 0.42em;
+  white-space: nowrap;
+  padding: 0 2px;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 14%, #000 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 14%, #000 100%);
+}
+
+.ms-word {
+  flex: none;
+  color: rgba(243, 222, 184, 0.42);
+  letter-spacing: 0.3px;
+}
+.ms-word--last {
+  color: var(--brass-hi);
+  font-weight: 700;
+}
+/* The newest word settles onto the page like fresh ink */
+.ms-word--new { animation: msInk calc(0.5s / var(--aspd)) cubic-bezier(.2,1.3,.4,1) both; }
+@keyframes msInk {
+  0%   { opacity: 0; transform: translateY(5px) scale(0.9); filter: blur(1.5px); }
+  100% { opacity: 1; transform: none; filter: none; }
+}
+
+.ms-dot   { flex: none; color: rgba(243, 222, 184, 0.2); font-style: normal; }
+.ms-blank { color: rgba(243, 222, 184, 0.25); }
 
 /* ─── FX layer ────────────────────────────────────────────────────────────────── */
 #fx {
