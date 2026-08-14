@@ -91,12 +91,19 @@ collection shuffles into the **bag**, and printed or discarded tiles wait in
 the **discard pile**.
 
 **Sundries** are consumables kept on the **workbench** (two slots, beside the
-patron shelf). The **paint tube**: tap it mid-page, tap one tile anywhere on
-the board — rack or half-composed word alike — and tap the tube again to paint
-it, permanently. The **reshuffle**: no target to pick, just banked until you
-spend it — on the Market's own offers (free, doesn't touch the escalating
-reroll price) or on a Colophon pick. (The random-scatter paint pots survive
-only in the opening draft.)
+patron shelf). Two of them are spent on the board, and both work the same way:
+tap the tool mid-page, tap one tile anywhere on the board — rack or
+half-composed word alike — and tap the tool again to spend it. The **paint
+tube** paints that tile its colour. The **left graver** and **right graver**
+cut a nick into its edge, facing the way the tool is named; since nicks don't
+stack, a tile that already carries one is dimmed out and can't be picked. Both
+marks are permanent — the change is written through to the collection template,
+not just to the tile in your hand — and a nick cut into a tile already sitting
+in the word takes effect there and then, rewriting the numbers before you
+print. The **reshuffle** has no target to pick, just banked until you spend it
+— on the Market's own offers (free, doesn't touch the escalating reroll price)
+or on a Colophon pick. (The random-scatter paint pots survive only in the
+opening draft.)
 
 **Stalls** are services: the **Smelter** (trash a tile), the **Painter**
 (paint any letter a colour of your choice), the **Stereotyper** (clone any
@@ -154,7 +161,9 @@ beyond.
 | Purple trim step size | `js/constants.js` → `PURPLE_TRIM_STEP` |
 | Nick multiplier & prices | `js/constants.js` → `NICK_MULT`, `NICKS` |
 | Tube price / tiles per tube / workbench slots / sell-back | `js/constants.js` → `TUBE_PRICE`, `TUBE_TILES`, `SUNDRY_SLOTS`, `SUNDRY_SELL` |
+| Graver price / tiles per graver | `js/constants.js` → `GRAVER_PRICE`, `GRAVER_TILES` |
 | Reshuffle sundry price | `js/constants.js` → `RESHUFFLE_PRICE` |
+| What a sundry does, costs and says (and what it can be spent on) | `js/constants.js` → `SUNDRY_DEFS` (one entry per kind; the shop's pool is `SUNDRY_POOL` in `js/market.js`) |
 | Stall roster, base prices, spread size | `js/constants.js` → `STALL_DEFS`, `STALLS_PER_SHOP`, `PROPOSAL_RANGE`, `SMELT_MIN_COLLECTION` |
 | Marks: which ones exist, legal tails, how often they're offered | `js/constants.js` → `MARKS`, `MARK_RUNS`, `MARK_WEIGHT` (and `TILE_POINTS`) |
 | What a proposal stall works on & offers | `js/market.js` → `PROPOSAL_STALLS` (one `eligible`/`propose` pair per stall — a new one is a few lines) |

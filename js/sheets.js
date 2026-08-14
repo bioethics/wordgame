@@ -8,7 +8,7 @@ import {
 } from './state.js';
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
-  PAINT_PER_POT, TUBE_TILES, ANIM, SUNDRY_SELL, tileCount,
+  PAINT_PER_POT, ANIM, SUNDRY_SELL, sundryDef,
   colourDesc,
 } from './constants.js';
 import { patronById } from './patrons.js';
@@ -23,7 +23,7 @@ import {
   colophon, closeColophon, applyColophonPick, applyColophonSkip, reshuffleColophon,
 } from './colophon.js';
 import { draft, draftLimit, toggleDraftPick } from './draft.js';
-import { makeTileEl, coinHTML, log, renderAll, persist } from './render.js';
+import { makeTileEl, sundryMark, coinHTML, log, renderAll, persist } from './render.js';
 import { sfx, pulse, sparkleBurst, flyClone, sleep } from './anim.js';
 
 const $ = id => document.getElementById(id);
@@ -131,26 +131,19 @@ function marketShopHTML() {
         <button class="btn-price" data-buy-tile="${i}">${coinHTML(o.price)}</button>
       </div>`).join('');
 
-  const sundryCards = market.sundryOffers.map((o, i) => o.kind === 'reshuffle' ? `
-      <div class="offer-paint" data-offer="sundry" data-idx="${i}"
-           data-tip-head="Reshuffle" data-tip-body="A free re-roll, banked for later — spend it here or at the Colophon.">
-        <span class="sundry-shuffle sundry-shuffle--offer">↻</span>
+  const sundryCards = market.sundryOffers.map((o, i) => {
+    const def = sundryDef(o);
+    return `
+      <div class="offer-paint offer-paint--${def.tone(o)}" data-offer="sundry" data-idx="${i}"
+           data-tip-head="${def.name(o)}" data-tip-body="${def.desc(o)}">
+        ${sundryMark(o)}
         <div class="op-body">
-          <div class="op-name">Reshuffle</div>
+          <div class="op-name">${def.name(o)}</div>
         </div>
         <span class="op-sold">bought</span>
         <button class="btn-price" data-buy-sundry="${i}">${coinHTML(o.price)}</button>
-      </div>` : `
-      <div class="offer-paint offer-paint--${o.colour}" data-offer="sundry" data-idx="${i}"
-           data-tip-head="Tube of ${COLOURS[o.colour].label}"
-           data-tip-body="Paints ${tileCount(TUBE_TILES)} of your choosing ${COLOURS[o.colour].label}, mid-page.">
-        <span class="paint-tube paint-tube--${o.colour}"></span>
-        <div class="op-body">
-          <div class="op-name">Tube of ${COLOURS[o.colour].label}</div>
-        </div>
-        <span class="op-sold">bought</span>
-        <button class="btn-price" data-buy-sundry="${i}">${coinHTML(o.price)}</button>
-      </div>`).join('');
+      </div>`;
+  }).join('');
 
   const stallCards = market.stalls.map(s => {
     const def = STALL_DEFS[s.id];
@@ -178,18 +171,12 @@ function marketShopHTML() {
       </button>`;
   }).join('');
 
-  const heldSundries = state.sundries.map((s, i) => {
-    const label = s.kind === 'reshuffle' ? 'Reshuffle' : COLOURS[s.colour].label;
-    const mark  = s.kind === 'reshuffle'
-      ? `<span class="sundry-shuffle held-shuffle">↻</span>`
-      : `<span class="paint-tube paint-tube--${s.colour} held-tube"></span>`;
-    return `
+  const heldSundries = state.sundries.map((s, i) => `
       <button class="held" data-sell-sundry="${i}" title="Sell back for ${SUNDRY_SELL} Coin">
-        <span class="held-mark">${mark}</span>
-        <span class="held-name">${label}</span>
+        <span class="held-mark">${sundryMark(s)}</span>
+        <span class="held-name">${sundryDef(s).label(s)}</span>
         <span class="held-price">✕ ${coinHTML(SUNDRY_SELL)}</span>
-      </button>`;
-  }).join('');
+      </button>`).join('');
 
   const fullSeats = state.patrons.length >= effectivePatronSlots();
   const fullBench = state.sundries.length >= effectiveSundrySlots();
@@ -651,10 +638,8 @@ function onMarketClick(e) {
     if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
     else {
       sfx.coin();
-      log(r.offer.kind === 'reshuffle'
-        ? 'A reshuffle joins your workbench, banked for later.'
-        : `A tube of ${COLOURS[r.offer.colour].label} joins your workbench.`, 'good');
-      flyPurchase(card?.querySelector('.paint-tube, .sundry-shuffle'), $('sundries'), { scaleTo: 0.6 });
+      log(`A ${sundryDef(r.offer).name(r.offer).toLowerCase()} joins your workbench.`, 'good');
+      flyPurchase(card?.querySelector('.paint-tube, .sundry-shuffle, .graver'), $('sundries'), { scaleTo: 0.6 });
     }
     renderAll(); updateMarketState();
     return;

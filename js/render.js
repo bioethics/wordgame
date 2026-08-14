@@ -4,11 +4,11 @@
 
 import {
   state, settings, saveState, getActiveLetter, getActiveColour, selectedCount,
-  effectivePatronSlots, effectiveSundrySlots,
+  effectivePatronSlots, effectiveSundrySlots, armedSundry,
 } from './state.js';
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark,
-  WORDS_PER_PAGE, PAGES_PER_CHAPTER, TUBE_TILES, tileCount,
+  WORDS_PER_PAGE, PAGES_PER_CHAPTER, sundryDef, isBoardSundry,
   colourDesc, chapterTitle, roman, isDeadline,
 } from './constants.js';
 import { patronById } from './patrons.js';
@@ -279,7 +279,15 @@ function paintArmed(shelf, script) {
 }
 
 // ─── Sundries (the workbench beside the shelf) ────────────────────────────────
-// Fixed slot count so buying or spending a tube never reflows the board.
+// Fixed slot count so buying or spending a sundry never reflows the board.
+
+// The mark a sundry wears: a squeeze-tube of paint, a graver turned the way it
+// cuts, or the reshuffle's brass badge. The workbench, the Market's offers and
+// its sell-back row all draw the same one.
+export const sundryMark = s =>
+    s.kind === 'tube'   ? `<span class="paint-tube paint-tube--${s.colour}"></span>`
+  : s.kind === 'graver' ? `<span class="graver graver--${s.nick}"></span>`
+  :                       `<span class="sundry-shuffle">↻</span>`;
 
 function renderSundries() {
   const bench = $('sundries');
@@ -290,31 +298,21 @@ function renderSundries() {
 
   for (let i = 0; i < slots; i++) {
     const s = state.sundries?.[i];
-    if (s?.kind === 'tube') {
-      const slot = document.createElement('button');
-      slot.className = `sundry sundry--${s.colour}${state.sundryMode === i ? ' sundry--armed' : ''}`;
-      slot.dataset.sundry = i;
-      slot.title = `Tube of ${COLOURS[s.colour].label} — tap, pick ${tileCount(TUBE_TILES)}, tap again.`;
-      slot.innerHTML = `
-        <span class="paint-tube paint-tube--${s.colour}"></span>
-        <span class="sundry-name">${COLOURS[s.colour].label}</span>`;
-      bench.appendChild(slot);
-    } else if (s?.kind === 'reshuffle') {
-      const slot = document.createElement('button');
-      slot.className = 'sundry sundry--reshuffle';
-      slot.dataset.sundry = i;
-      slot.title = 'A free re-roll for the Market or the Colophon.';
-      slot.innerHTML = `
-        <span class="sundry-shuffle">↻</span>
-        <span class="sundry-name">Reshuffle</span>`;
-      bench.appendChild(slot);
-    } else {
+    const def = sundryDef(s);
+    if (!def) {
       const slot = document.createElement('div');
       slot.className = 'sundry sundry--empty';
       slot.title = 'Room for a sundry — sold at the Market';
       slot.innerHTML = `<span class="sundry-empty-mark">✒</span>`;
       bench.appendChild(slot);
+      continue;
     }
+    const slot = document.createElement('button');
+    slot.className = `sundry sundry--${def.tone(s)}${state.sundryMode === i ? ' sundry--armed' : ''}`;
+    slot.dataset.sundry = i;
+    slot.title = [def.name(s), def.desc(s), def.hint?.(s)].filter(Boolean).join('\n');
+    slot.innerHTML = `${sundryMark(s)}<span class="sundry-name">${def.label(s)}</span>`;
+    bench.appendChild(slot);
   }
 }
 
@@ -366,11 +364,25 @@ function renderPips(id, total, filled, cls, maxShown = total) {
 // ─── Zones ────────────────────────────────────────────────────────────────────
 
 // ghostIds: tiles rendered invisible so a fly-in animation can reveal them
-// The armed tube tints both board zones with its own colour
-function applyPaintingMode(el) {
-  const tube = state.sundryMode >= 0 ? state.sundries[state.sundryMode] : null;
-  el.classList.toggle('zone--painting', !!tube);
-  if (tube) el.style.setProperty('--paintcol', COLOURS[tube.colour].glyph);
+// An armed sundry tints both board zones and says what it's about to do — a
+// tube brings its own colour, a graver takes the gold the nicks fire in.
+function applyArmedMode(el) {
+  const s = armedSundry();
+  const armed = isBoardSundry(s);
+  const graving = armed && s.kind === 'graver';
+  el.classList.toggle('zone--armed', armed);
+  el.classList.toggle('zone--paint', armed && s.kind === 'tube');
+  el.classList.toggle('zone--grave', graving);
+  el.classList.toggle('zone--grave-left', graving && s.nick === 'left');
+  if (armed && s.kind === 'tube') el.style.setProperty('--armcol', COLOURS[s.colour].glyph);
+  else                            el.style.removeProperty('--armcol');
+}
+
+// Tiles the armed sundry can't work on dim out of the way — a graver has no
+// edge left to cut on a tile that already carries a nick.
+function armedBlocks() {
+  const def = sundryDef(armedSundry());
+  return def?.max ? t => !def.eligible(t) : () => false;
 }
 
 export function renderRack(ghostIds = null) {
@@ -378,10 +390,12 @@ export function renderRack(ghostIds = null) {
   if (!el) return;
   el.innerHTML = '';
   el.classList.toggle('rack--discard', state.discardMode);
-  applyPaintingMode(el);
+  applyArmedMode(el);
+  const noUse = armedBlocks();
   state.rack.forEach(t => {
     const tileEl = makeTileEl(t, 'rack');
     if (ghostIds?.has(t.id)) tileEl.classList.add('tile--ghost');
+    if (noUse(t)) tileEl.classList.add('tile--no-use');
     el.appendChild(tileEl);
   });
 }
@@ -396,7 +410,8 @@ export function renderWord(script = computeScore(state.word)) {
   if (!el) return;
   el.innerHTML = '';
   el.dataset.placeholder = state.word.length ? '' : 'compose a word…';
-  applyPaintingMode(el);
+  applyArmedMode(el);
+  const noUse = armedBlocks();
 
   // Ripple order: distance from the nick that claimed each letter, so the
   // new numbers wash outward starting beside the notch.
@@ -415,6 +430,7 @@ export function renderWord(script = computeScore(state.word)) {
     const shown = bd?.final ?? null;
     const tileEl = makeTileEl(t, 'word', { pts: shown });
     if (bd) tileEl.title = tileTitle(t, bd);
+    if (noUse(t)) tileEl.classList.add('tile--no-use');
     nowPts.set(t.id, shown);
 
     // A number worth announcing: one a nick's reach has just rewritten, or

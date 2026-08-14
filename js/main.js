@@ -8,9 +8,10 @@ import {
   newRun, startPage, drawUpToRackSize, clearWord, shuffleRack,
   discardSelected, getWordString, moveRackToWord, owns, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected,
+  armedSundry,
 } from './state.js';
 import {
-  TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES, tileCount,
+  TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, sundryDef,
   WORDS_PER_PAGE, REACTION,
   chapterTitle, roman, COLOURS, NICKS, splitMarks,
 } from './constants.js';
@@ -97,13 +98,14 @@ function cancelDiscardMode(quiet = false) {
   return true;
 }
 
-// ─── Sundry mode (an armed paint tube) ────────────────────────────────────────
+// ─── Sundry mode (an armed tube or graver) ────────────────────────────────────
 
 function cancelSundryMode(quiet = false) {
   if (state.sundryMode < 0) return false;
+  const s = armedSundry();
   state.sundryMode = -1;
   clearAllSelected();
-  if (!quiet) log('The tube goes back on the workbench.');
+  if (!quiet) log(`The ${sundryDef(s)?.label(s).toLowerCase() ?? 'sundry'} goes back on the workbench.`);
   renderAll();
   return true;
 }
@@ -481,52 +483,72 @@ $('btnClear')?.addEventListener('click', () => {
 $('btnShuffle')?.addEventListener('click', () => { if (!state.isAnimating) { shuffleRack(); renderAll(); } });
 $('btnDiscard')?.addEventListener('click', doDiscard);
 
-// The workbench: first tap arms a tube, board taps pick its targets, a second
-// tap on the tube paints them (or puts it away if nothing is chosen).
+// The workbench: first tap arms a sundry, board taps pick its targets, a
+// second tap spends it on them (or puts it away if nothing is chosen).
 $('sundries')?.addEventListener('click', async e => {
   if (state.isAnimating || state.inMarket || state.inDraft || state.inColophon || state.gameOver) return;
   const slot = e.target.closest('[data-sundry]');
   if (!slot) return;
   hidePopover();
   const idx = Number(slot.dataset.sundry);
-  const armed = state.sundries[idx];
+  const sundry = state.sundries[idx];
+  const def = sundryDef(sundry);
+  if (!def) return;
 
-  if (armed?.kind === 'reshuffle') {
+  if (!def.max) {                     // the reshuffle — no board target at all
     log('Spend this at the Market or the Colophon.', 'warn');
     return;
   }
 
   if (state.sundryMode !== idx) {
+    if (![...state.rack, ...state.word].some(def.eligible)) {
+      log(def.empty ?? 'Nothing on the board to work on.', 'warn');
+      return;
+    }
     cancelDiscardMode(true);
     cancelSundryMode(true);
     clearAllSelected();
     state.sundryMode = idx;
-    const s = state.sundries[idx];
-    log(`Tap ${tileCount(TUBE_TILES)} to paint ${COLOURS[s.colour].label}, then tap the tube again.`);
+    log(def.hint(sundry));
     renderAll();
     return;
   }
 
-  // Second tap on the armed tube: paint the selection, or stand down.
+  // Second tap on the armed sundry: spend it on the selection, or stand down.
   if (!sundrySelected().length) { cancelSundryMode(); return; }
   const result = applySundry(idx);
   if (!result) { cancelSundryMode(); return; }
 
   state.isAnimating = true;
   renderAll();
-  sfx.chime();
-  for (const id of result.ids) {
-    const el = wordTileEl(id) ?? rackTileEl(id);
-    if (el) {
-      el.style.setProperty('--glow', COLOURS[result.colour].glyph);
-      pulse(el, 'tile--set-glow', 620);
-      floatText(el, COLOURS[result.colour].label, `fl-set fl-set--${result.colour}`);
+
+  // The flourish quotes what the mark does when it scores: paint glows in its
+  // own colour, a fresh nick flares the same gold it fires in.
+  if (result.kind === 'graver') {
+    sfx.aura();
+    for (const id of result.ids) {
+      const el = wordTileEl(id) ?? rackTileEl(id);
+      if (el) { pulse(el, 'tile--nick-firing', 480); floatText(el, NICKS[result.nick].label, 'fl-aura'); }
     }
+    await sleep(ANIM.stepNick);
+  } else {
+    sfx.chime();
+    for (const id of result.ids) {
+      const el = wordTileEl(id) ?? rackTileEl(id);
+      if (el) {
+        el.style.setProperty('--glow', COLOURS[result.colour].glyph);
+        pulse(el, 'tile--set-glow', 620);
+        floatText(el, COLOURS[result.colour].label, `fl-set fl-set--${result.colour}`);
+      }
+    }
+    await sleep(ANIM.stepColour);
   }
-  await sleep(ANIM.stepColour);
+
   state.isAnimating = false;
   renderAll();
-  log(`Painted ${result.letters.join(', ')} ${COLOURS[result.colour].label.toLowerCase()}.`, 'good');
+  log(result.kind === 'graver'
+    ? `Cut a ${result.nick} nick into ${result.letters.join(', ')}.`
+    : `Painted ${result.letters.join(', ')} ${COLOURS[result.colour].label.toLowerCase()}.`, 'good');
 });
 
 $('bagBtn')?.addEventListener('click', () => { if (!state.isAnimating) openInspector('bag'); });

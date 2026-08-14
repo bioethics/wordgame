@@ -1,7 +1,7 @@
 import {
   RACK_SIZE, WORDS_PER_PAGE, DISCARDS_PER_PAGE, STARTING_COINS,
   PATRON_SLOTS, SUNDRY_SLOTS,
-  BAG_COUNTS, TILE_POINTS, TUBE_TILES,
+  BAG_COUNTS, TILE_POINTS, sundryDef,
   quotaFor, makeTileTemplate,
 } from './constants.js';
 
@@ -108,7 +108,7 @@ export const state = {
 
   coins:   STARTING_COINS,
   patrons: [],      // [{ id }]
-  sundries: [],     // [{ kind: 'tube', colour } | { kind: 'reshuffle' }] — the workbench
+  sundries: [],     // [{ kind: 'tube', colour } | { kind: 'graver', nick } | { kind: 'reshuffle' }]
   upgradeCounts: {}, // id → times taken this run, from the Colophon (see js/upgrades.js)
   scavengerPoints: 0,  // pending bonus from The Scavenger
 
@@ -300,42 +300,56 @@ export const selectedCount = () => state.rack.filter(t => t.selected).length;
 export const sundrySelected = () =>
   [...state.word, ...state.rack].filter(t => t.selected);
 
-// While a tube is armed, board taps select its targets — rack and word alike.
-// Returns 'on' | 'off' | 'full' so the caller can explain a refused pick.
+// The sundry currently armed, if any.
+export const armedSundry = () =>
+  state.sundryMode >= 0 ? state.sundries[state.sundryMode] ?? null : null;
+
+// While a sundry is armed, board taps select its targets — rack and word
+// alike. Returns 'on' | 'off' | 'full' | 'blocked' so the caller can explain a
+// refused pick (see SUNDRY_DEFS for the words it uses).
 export function toggleSundrySelect(id) {
   const tile = state.rack.find(t => t.id === id) ?? state.word.find(t => t.id === id);
-  if (!tile) return 'off';
+  const def  = sundryDef(armedSundry());
+  if (!tile || !def?.max) return 'off';
   if (tile.selected) { tile.selected = false; return 'off'; }
-  if (sundrySelected().length >= TUBE_TILES) return 'full';
+  if (!def.eligible(tile)) return 'blocked';
+  if (sundrySelected().length >= def.max) return 'full';
   tile.selected = true;
   return 'on';
 }
 
-// Spend the armed tube on the selected tiles. The live tile's showing face is
-// painted, and the change is written through to the collection template it was
-// drawn from — the paint is permanent, not just for this page.
+// A board sundry marks the live tile and the collection template it was drawn
+// from alike — the change is permanent, not just for this page.
+function writeThrough(tile, change) {
+  change(tile);
+  const tmpl = state.collection.find(c => c.tid === tile.tid);
+  if (tmpl) change(tmpl);
+}
+
+// Spend the armed sundry on the selected tiles: a tube paints the face that's
+// showing (dual faces are painted independently), a graver cuts its nick into
+// the tile itself (both faces carry it, as nicks always do).
 export function applySundry(idx) {
   const sundry = state.sundries[idx];
-  if (!sundry) return null;
-  const targets = sundrySelected().slice(0, TUBE_TILES);
+  const def = sundryDef(sundry);
+  if (!def?.max) return null;
+  const targets = sundrySelected().filter(def.eligible).slice(0, def.max);
   if (!targets.length) return null;
 
   const letters = [];
   for (const t of targets) {
-    const altFace = t.letterType === 'dual' && t.activeVariant === 1;
-    if (altFace) t.altColour = sundry.colour;
-    else         t.colour    = sundry.colour;
-    const tmpl = state.collection.find(c => c.tid === t.tid);
-    if (tmpl) {
-      if (altFace) tmpl.altColour = sundry.colour;
-      else         tmpl.colour    = sundry.colour;
+    if (sundry.kind === 'graver') {
+      writeThrough(t, x => { x.nick = sundry.nick; });
+    } else {
+      const face = t.letterType === 'dual' && t.activeVariant === 1 ? 'altColour' : 'colour';
+      writeThrough(t, x => { x[face] = sundry.colour; });
     }
     t.selected = false;
     letters.push(getActiveLetter(t));
   }
   state.sundries.splice(idx, 1);
   state.sundryMode = -1;
-  return { colour: sundry.colour, letters, ids: targets.map(t => t.id) };
+  return { ...sundry, letters, ids: targets.map(t => t.id) };
 }
 
 // A reshuffle sundry has no board target — it's spent from the Market or the

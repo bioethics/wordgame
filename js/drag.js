@@ -11,9 +11,9 @@ import {
   state,
   moveRackToWord, moveWordToRack,
   reorderWord, reorderRack,
-  toggleSelected, toggleSundrySelect, toggleDualVariant,
+  toggleSelected, toggleSundrySelect, toggleDualVariant, armedSundry,
 } from './state.js';
-import { TUBE_TILES, tileCount } from './constants.js';
+import { sundryDef } from './constants.js';
 import { renderAll, showTilePopover, showPopover, hidePopover, log } from './render.js';
 import { computeScore } from './scoring.js';
 import { market, stallById } from './market.js';
@@ -43,7 +43,7 @@ function insertIndex(container, clientX) {
 const blocked = () => state.inMarket || state.inDraft || state.inColophon || state.isAnimating || state.gameOver;
 
 // Rack taps mean "select for discard" while discard mode is armed;
-// any board tap means "select for the tube" while a sundry is armed.
+// any board tap means "select for the sundry" while one is armed.
 const selectingToDiscard = () => state.discardMode;
 const selectingForSundry = () => state.sundryMode >= 0;
 
@@ -130,9 +130,9 @@ function releasePress(commit) {
   if (commit && !wasDrag && !popped && !blocked()) {
     // A plain tap
     if (selectingForSundry()) {
-      if (toggleSundrySelect(press.id) === 'full') {
-        log(`A tube covers ${tileCount(TUBE_TILES)} — deselect first.`, 'warn');
-      }
+      const def = sundryDef(armedSundry());
+      const refused = toggleSundrySelect(press.id);
+      if (def?.[refused]) log(def[refused], 'warn');
     } else if (press.zone === 'rack') {
       if (selectingToDiscard()) toggleSelected(press.id);
       else                      moveRackToWord(press.id);

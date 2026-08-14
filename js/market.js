@@ -4,7 +4,7 @@ import {
 import {
   BAG_COUNTS, LIGATURES, MARKS, MARK_WEIGHT, isMark, TILE_POINTS, TRIMS, NICKS, COLOURS,
   TILE_BASE_PRICE, REROLL_BASE,
-  SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, SUNDRY_SELL,
+  SUNDRY_OFFERS, SUNDRY_DEFS, SUNDRY_SELL,
   STALL_DEFS, STALLS_PER_SHOP, PROPOSAL_RANGE, SMELT_MIN_COLLECTION,
   FEATURE_CHAIN_CHANCE, MAX_FEATURES,
   makeTileTemplate,
@@ -20,7 +20,7 @@ export const market = {
   rewardTotal: 0,
   patronOffers: [],      // [{ id, sold }]
   tileOffers: [],        // [{ template, price, sold }]
-  sundryOffers: [],      // [{ kind: 'tube', colour, price, sold }]
+  sundryOffers: [],      // [{ kind, colour? | nick?, price, sold }]
   stalls: [],            // [{ id, uses, proposals? }] — this visit's two stalls
   activeStall: null,     // stall id while view === 'stall'
   stallSel: -1,          // selected tid (gilder: proposal index)
@@ -130,12 +130,18 @@ function weightedPatronSample(n) {
   return out;
 }
 
+// Everything the workbench can be sold: a tube in each colour, a graver either
+// way round, and the reshuffle. SUNDRY_OFFERS of them turn up per shop.
+const SUNDRY_POOL = [
+  ...Object.keys(COLOURS).map(colour => ({ kind: 'tube', colour })),
+  ...Object.keys(NICKS).map(nick => ({ kind: 'graver', nick })),
+  { kind: 'reshuffle' },
+];
+
 function rollSundryOffers() {
-  return shuffle([...Object.keys(COLOURS), 'reshuffle'])
+  return shuffle([...SUNDRY_POOL])
     .slice(0, SUNDRY_OFFERS)
-    .map(entry => entry === 'reshuffle'
-      ? { kind: 'reshuffle', colour: null, price: RESHUFFLE_PRICE, sold: false }
-      : { kind: 'tube', colour: entry, price: TUBE_PRICE, sold: false });
+    .map(item => ({ ...item, price: SUNDRY_DEFS[item.kind].price, sold: false }));
 }
 
 // Patrons/tiles/sundries — "New offers" also re-rolls the stalls (see rollStalls).
@@ -288,7 +294,8 @@ export function buySundry(idx) {
   if (state.sundries.length >= effectiveSundrySlots()) return { ok: false, reason: 'Your workbench is full.' };
   if (state.coins < offer.price)                     return { ok: false, reason: `You need ${offer.price} Coins.` };
   state.coins -= offer.price;
-  state.sundries.push({ kind: offer.kind, colour: offer.colour });
+  const { price, sold, ...item } = offer;   // the offer minus its shop-side fields
+  state.sundries.push(item);
   offer.sold = true;
   return { ok: true, offer };
 }

@@ -64,17 +64,74 @@ export const colourDesc = c =>
 export const PAINT_PER_POT   = 3;   // letters painted per draft pot (random, unpainted)
 
 // ─── Sundries (consumables kept on the workbench) ─────────────────────────────
-// Bought at the Shop, spent mid-page. A paint tube is the first kind: arm it,
-// pick up to TUBE_TILES tiles on the board, and they're painted that colour —
-// permanently, right where they sit.
+// Bought at the Shop, spent mid-page. Two kinds are spent on the board — arm
+// one, tap the tiles it should work on, tap it again — and one is banked for a
+// screen instead:
+//
+//   tube    a tube of paint: the tiles you pick take that colour
+//   graver  a nicking tool: the tile you pick takes a nick facing its way
+//   reshuffle   no board target at all — a free re-roll for the Market or the
+//               Colophon (see spendReshuffleSundry)
+//
+// Whatever a board sundry does lands permanently, right where the tile sits.
 export const SUNDRY_SLOTS  = 2;   // sundries the workbench can hold
 export const SUNDRY_OFFERS = 2;   // sundries offered per shop
-export const TUBE_PRICE    = 2;
-export const TUBE_TILES    = 1;   // tiles painted per tube
 export const SUNDRY_SELL   = 1;   // what the Market pays to take one back
 
-// "one tile" / "2 tiles" — keeps copy reading right whatever TUBE_TILES is
+export const TUBE_PRICE    = 2;
+export const TUBE_TILES    = 1;   // tiles painted per tube
+export const GRAVER_PRICE  = 4;
+export const GRAVER_TILES  = 1;   // tiles nicked per graver
+export const RESHUFFLE_PRICE = 4;
+
+// "one tile" / "2 tiles" — keeps copy reading right whatever the counts are
 export const tileCount = n => n === 1 ? 'one tile' : `${n} tiles`;
+
+export const graverName = nick => `${nick === 'left' ? 'Left' : 'Right'} graver`;
+
+// One entry per kind: the rules a board sundry works by (`max` tiles, and
+// which of them are `eligible`) and all the copy that goes with it. A kind
+// without `max` has no board target. Everything that shows a sundry — the
+// workbench, the Market's offers, its sell-back row, the log lines that
+// explain a refused pick — reads from here, so they can't drift apart.
+// (The descriptions reach for NICKS and COLOURS lazily: both are defined
+// further down this file.)
+export const SUNDRY_DEFS = {
+  tube: {
+    price: TUBE_PRICE,
+    max:   TUBE_TILES,
+    eligible: () => true,               // paint goes on any tile
+    tone:  s => s.colour,
+    label: s => COLOURS[s.colour].label,
+    name:  s => `Tube of ${COLOURS[s.colour].label}`,
+    desc:  s => `Paints ${tileCount(TUBE_TILES)} of your choosing ${COLOURS[s.colour].label}, mid-page. ${colourDesc(s.colour)}`,
+    hint:  s => `Tap ${tileCount(TUBE_TILES)} to paint ${COLOURS[s.colour].label}, then tap the tube again.`,
+    full:  `A tube covers ${tileCount(TUBE_TILES)} — deselect first.`,
+  },
+  graver: {
+    price: GRAVER_PRICE,
+    max:   GRAVER_TILES,
+    eligible: t => !t.nick,             // nicks don't stack — bare edges only
+    tone:  s => `graver-${s.nick}`,
+    label: s => graverName(s.nick),
+    name:  s => graverName(s.nick),
+    desc:  s => `Cuts a ${s.nick} nick into ${tileCount(GRAVER_TILES)} of your choosing, mid-page. ${NICKS[s.nick].desc}`,
+    hint:  s => `Tap ${tileCount(GRAVER_TILES)} to cut a ${s.nick} nick, then tap the graver again.`,
+    full:  `A graver cuts ${tileCount(GRAVER_TILES)} — deselect first.`,
+    blocked: 'Nicks don’t stack — that tile already carries one.',
+    empty:   'Every tile on the board already carries a nick.',
+  },
+  reshuffle: {
+    price: RESHUFFLE_PRICE,
+    tone:  () => 'reshuffle',
+    label: () => 'Reshuffle',
+    name:  () => 'Reshuffle',
+    desc:  () => 'A free re-roll, banked for later — spend it at the Market or the Colophon.',
+  },
+};
+
+export const sundryDef      = s => (s ? SUNDRY_DEFS[s.kind] ?? null : null);
+export const isBoardSundry  = s => !!sundryDef(s)?.max;
 
 // ─── Stalls ───────────────────────────────────────────────────────────────────
 // Two pitch up at each shop, drawn from the roster below. A stall's price
@@ -144,6 +201,8 @@ export const PURPLE_TRIM_STEP = 0.5;
 // ─── Nicks (a notch cut out of one edge of the tile) ──────────────────────────
 // Nicks do not stack: a letter is multiplied at most once however many nicks
 // point at it. Where two compete, the earlier tile in the word claims it.
+// A tile carries at most one — which is why the Dresser and the graver both
+// only work on an uncut edge.
 export const NICK_MULT = 3;
 export const NICKS = {
   right: { label: 'Right nick', mult: NICK_MULT, price: 4,
@@ -254,11 +313,6 @@ export const SKIP_COIN_GRANT = 2;
 // `floor` nobody bothers; each step of `slope` above it raises the per-patron
 // chance, capped so it's never a certainty. The lines live in js/quips.js.
 export const REACTION = { floor: 0.6, slope: 0.35, cap: 0.7 };
-
-// ─── Reshuffle sundry ─────────────────────────────────────────────────────────
-// A free re-roll, banked for later: spend it on the Market's own offers, or
-// on the Colophon's three cards.
-export const RESHUFFLE_PRICE = 4;
 
 // ─── Opening draft ────────────────────────────────────────────────────────────
 // Before the first page you kit out the press: pick from a free spread, no
