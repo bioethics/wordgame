@@ -67,6 +67,14 @@ plus an optional **trim** and **nick**.
 A dual tile shares its trim and nick across both faces; only the letters and
 their paint swap.
 
+**Misspellings** — three patrons forgive a word the dictionary turns away, and
+none of them correct it: what you set is what prints, in the manuscript and the
+ledger both. *Titivillus* takes one wrong or transposed vowel (WIERD stands for
+WEIRD) so long as the word holds an azure letter; *the Stumbler* takes one pair
+of adjacent letters swapped (TEH for THE); *the Skimmer* takes the middle
+letters in any order, provided the first and last are right. Your book fills
+with misprints, which is the point of them.
+
 **Marks** — `?` and `!` are tiles that spell nothing. A mark is appended to a
 finished word: one `?`, or one `!`, or the two together as `?!` — never
 doubled, never reversed, never mid-word. The dictionary only ever sees the

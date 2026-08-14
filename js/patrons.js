@@ -232,7 +232,7 @@ export const PATRON_DEFS = [
   // ── Jade · growth and permanence ────────────────────────────────────────────
   {
     id: 'seedsman', name: 'The Seedsman', emoji: '🌱', rarity: 'common', cost: 4,
-    desc: 'Jade letters gain +1 Point for each chapter reached.',
+    desc: 'Jade letters gain +1 Point per chapter reached — +5 Points each in Chapter V.',
     when: 'score',
     effect({ tiles, state, addPoints }) {
       const n = painted(tiles, 'jade').length;
@@ -242,7 +242,7 @@ export const PATRON_DEFS = [
   dyePatron('verdigris', 'The Verdigris', '🍏', 'jade'),
   {
     id: 'vintner', name: 'The Vintner', emoji: '🍷', rarity: 'uncommon', cost: 7,
-    desc: 'Words with a jade letter gain +1 Mult for each chapter reached.',
+    desc: 'Words with a jade letter gain +1 Mult per chapter reached — +5 Mult in Chapter V.',
     when: 'score',
     effect({ tiles, state, addMult }) {
       if (painted(tiles, 'jade').length) addMult(state.chapter);
@@ -271,7 +271,7 @@ export const PATRON_DEFS = [
   dyePatron('madder', 'The Madder', '🌺', 'crimson'),
   {
     id: 'arsonist', name: 'The Arsonist', emoji: '🧨', rarity: 'uncommon', cost: 7,
-    desc: 'Every tile you print has a 1-in-10 chance of being painted crimson — and a 1-in-100 chance of burning to ash.',
+    desc: 'Every tile you print has a 1-in-10 chance of being painted crimson, and a 1-in-100 chance of being destroyed.',
     when: 'meta',
     onPrinted({ tiles, paint, burn }) {
       const burned = [], flushed = [];
@@ -290,7 +290,7 @@ export const PATRON_DEFS = [
   },
   {
     id: 'stoker', name: 'The Stoker', emoji: '🔥', rarity: 'rare', cost: 11,
-    desc: 'Crimson letters burn to ash when printed, and each one feeds this patron a permanent +×0.25 Mult.',
+    desc: 'Crimson letters are destroyed when printed; each one permanently raises this patron\'s Mult by 0.25.',
     when: 'score',
     effect({ data, xMult }) {
       const stacks = data?.stacks ?? 0;
@@ -335,17 +335,17 @@ export const PATRON_DEFS = [
   },
   {
     id: 'fountain', name: 'The Fountain', emoji: '⛲', rarity: 'uncommon', cost: 7,
-    desc: 'Azure tiles slip back into the bag when printed, instead of the discard pile.',
+    desc: 'Azure tiles return to the bag when printed, instead of the discard pile.',
     when: 'meta',   // read by retirePrinted, and by scoring's `returns` flag
   },
   {
     id: 'titivillus', name: 'Titivillus', emoji: '😈', rarity: 'rare', cost: 9,
-    desc: 'One vowel may go wrong, or two swap places, while the word holds an azure letter.',
+    desc: 'Words with an azure letter are accepted with one vowel wrong, or with two vowels swapped.',
     when: 'meta',   // consulted at the dictionary check in main.js — the typo prints as typed
   },
   {
     id: 'neologist', name: 'The Neologist', emoji: '📖', rarity: 'rare', cost: 10,
-    desc: 'Coin one six-letter word into the dictionary, for good — then this patron retires.',
+    desc: 'Add one six-letter word of your choosing to the dictionary permanently, then this patron leaves.',
     when: 'meta',   // the coining sheet lives in sheets.js; the word outlives the run
   },
 
@@ -360,7 +360,7 @@ export const PATRON_DEFS = [
   },
   {
     id: 'nudist', name: 'The Nudist', emoji: '🧖', rarity: 'uncommon', cost: 6,
-    desc: 'Print a word of wholly bare tiles and each one has a 1-in-4 chance of gaining a trim.',
+    desc: 'In a word where no tile has paint, a trim or a nick, each tile has a 1-in-4 chance of gaining a random trim.',
     when: 'meta',
     onPrinted({ tiles, trim }) {
       const bare = t => !t.colour && !t.altColour && !t.trim && !t.nick;
@@ -377,7 +377,7 @@ export const PATRON_DEFS = [
   },
   {
     id: 'illuminator', name: 'The Illuminator', emoji: '🎨', rarity: 'rare', cost: 8,
-    desc: 'Words holding three paint colours have one bare letter painted the fourth, permanently.',
+    desc: 'When a word holds three paint colours, one unpainted letter in it is permanently painted the fourth.',
     when: 'meta',
     onPrinted({ tiles, paint }) {
       const present = new Set(tiles.map(getActiveColour).filter(Boolean));
@@ -398,6 +398,22 @@ export const PATRON_DEFS = [
       const n = doubledPairs(word);
       if (n) xMult(2 ** n);
     },
+  },
+
+  // ── Misspellings · the three excuses ────────────────────────────────────────
+  // Titivillus (azure) forgives a wrong vowel; these two forgive letters in the
+  // wrong order. All three are consulted at the dictionary check in main.js,
+  // cheapest excuse first, and none of them touch the score — the word prints
+  // exactly as you set it, misspelling and all.
+  {
+    id: 'stumbler', name: 'The Stumbler', emoji: '🥾', rarity: 'common', cost: 3,
+    desc: 'Words are accepted with one pair of adjacent letters swapped: TEH counts as THE.',
+    when: 'meta',
+  },
+  {
+    id: 'skimmer', name: 'The Skimmer', emoji: '👓', rarity: 'rare', cost: 12,
+    desc: 'Words are accepted with their middle letters in any order, so long as the first and last letters are right.',
+    when: 'meta',
   },
 ];
 

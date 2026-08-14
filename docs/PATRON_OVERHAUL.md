@@ -7,6 +7,16 @@ the heart of scoring, so each colour gets a guild of patrons that makes
 committing to it an archetype — amber pays coins, jade compounds forever,
 crimson burns for power, azure bends the rules of spelling.
 
+## House style for effect text
+
+Player-facing `desc` is **simple, direct and concrete** — one sentence, real
+numbers, no metaphor. State the rule, not the feeling: "Crimson letters are
+destroyed when printed" rather than "burn to ash"; "Words with an azure letter
+are accepted with one vowel wrong" rather than "one vowel may go wrong". A
+concrete example earns its place when the rule is easier shown than said
+(BALLOON pays twice; TEH counts as THE). Keep it under ~110 characters. The
+flavour lives in the patron's name, emoji and quips — never in the rule.
+
 Deviations from the plan as written, decided during implementation:
 
 - **Titivillus also forgives a vowel transposition** (WIERD, RECIEVE, THIER) —
@@ -23,6 +33,28 @@ Deviations from the plan as written, decided during implementation:
   the retire flight entirely.
 - The Neologist coins through a "Coin a word…" action on its popover, opening
   a letterpress-styled sheet on the overlay modal; it retires with no refund.
+- **Added after playtest discussion: the misspelling family.** Titivillus was
+  joined by **The Stumbler** (common · 3 — one pair of adjacent letters
+  swapped, reaching the ends of the word: TEH for THE) and **The Skimmer**
+  (rare · 12 — the middle letters in any order while the first and last hold).
+  They are colourless wildcards, not azure: Titivillus needs ink to smudge,
+  these two are about how a word is *read*. All three are consulted by one
+  ladder in `main.js` (`PARDONS` / `pardonWord`), cheapest excuse first, and
+  the log credits whoever saved the word. The Skimmer is served by a lazy
+  index in `dict.js` keyed on first letter + sorted middle + last letter,
+  rebuilt whenever the dictionary changes (including a coined word).
+
+### The Skimmer × the Cartographer
+
+Measured, not guessed: 2,630 of the 64,662 dictionary words (4.07%) can be
+played in alphabetical order and still be accepted by The Skimmer, which hands
+The Cartographer its ×3 — 1,411 of them are 7 letters or under, so plausibly
+assembled from a ten-tile rack. That costs two rare seats and 24 Coins, and
+still needs the tiles for one specific word, so it ships as a real combo
+rather than a free multiplier. If it proves too reliable in play, the fix is
+to have The Cartographer read the *dictionary* spelling rather than the played
+one. The measurement lives in the pardons test so a playtest can argue with
+the number.
 
 ## What Phase 0 already delivered (main branch of this feature)
 

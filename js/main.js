@@ -15,7 +15,7 @@ import {
   WORDS_PER_PAGE, REACTION, NEOLOGIST_LENGTH,
   chapterTitle, roman, COLOURS, NICKS, splitMarks,
 } from './constants.js';
-import { DICT, dictLoaded, loadDict, loadCustom, coinWord } from './dict.js';
+import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
 import { computeScore, computeReward } from './scoring.js';
 import { openMarket, restoreMarket, closeMarket, sellPatron } from './market.js';
 import {
@@ -145,7 +145,6 @@ const VOWELS = 'AEIOU';
 // (SEPERATE), and two vowels changing places (WIERD, RECIEVE, THIER) — which
 // is the error Titivillus is really in the business of collecting.
 function titivillusPardon(letters) {
-  if (!owns('titivillus')) return null;
   if (!state.word.some(t => getActiveColour(t) === 'azure')) return null;
 
   for (let i = 0; i < letters.length; i++) {
@@ -161,6 +160,35 @@ function titivillusPardon(letters) {
     if (a === b || !VOWELS.includes(a) || !VOWELS.includes(b)) continue;
     const fixed = letters.slice(0, i) + b + a + letters.slice(i + 2);
     if (DICT.has(fixed)) return fixed;
+  }
+  return null;
+}
+
+// Any two neighbours changing places — TEH for THE. Unlike The Skimmer, this
+// one can reach the ends of the word.
+function stumblerPardon(letters) {
+  for (let i = 0; i < letters.length - 1; i++) {
+    if (letters[i] === letters[i + 1]) continue;
+    const fixed = letters.slice(0, i) + letters[i + 1] + letters[i] + letters.slice(i + 2);
+    if (DICT.has(fixed)) return fixed;
+  }
+  return null;
+}
+
+// The excuses a word can call on when the dictionary turns it away, tried in
+// order and credited to whoever saved it. None of them change the word: what
+// you set is what prints, in the manuscript and the ledger both.
+const PARDONS = [
+  { id: 'titivillus', find: titivillusPardon },
+  { id: 'stumbler',   find: stumblerPardon },
+  { id: 'skimmer',    find: scrambleMatch },
+];
+
+function pardonWord(letters) {
+  for (const { id, find } of PARDONS) {
+    if (!owns(id)) continue;
+    const stands = find(letters);
+    if (stands) return { stands, id };
   }
   return null;
 }
@@ -247,7 +275,7 @@ async function submitWord() {
   if (!parts.letters)  return reject('A mark needs a word in front of it.');
   let pardoned = null;
   if (!DICT.has(parts.letters)) {
-    pardoned = titivillusPardon(parts.letters);
+    pardoned = pardonWord(parts.letters);
     if (!pardoned) return reject(`“${w}” isn't in the dictionary.`);
   }
 
@@ -372,7 +400,10 @@ async function submitWord() {
   if (script.refresh) msg += `  +${script.refresh} Discard${script.refresh > 1 ? 's' : ''}.`;
   if (toBag.length)   msg += `  ${toBag.length} slipped back into the bag.`;
   if (burned.length)  msg += `  ${burned.length} burned to ash.`;
-  if (pardoned)       msg += `  😈 Titivillus pockets the error — it stands for ${pardoned}.`;
+  if (pardoned) {
+    const def = patronById(pardoned.id);
+    msg += `  ${def.emoji} ${def.name} lets it stand for ${pardoned.stands}.`;
+  }
   log(msg, 'good');
 
   // Tiles fly to wherever they actually went

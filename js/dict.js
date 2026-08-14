@@ -20,6 +20,7 @@ export function coinWord(word) {
     try { localStorage.setItem(COINED_KEY, JSON.stringify(list)); } catch { /* quota */ }
   }
   DICT.add(w);
+  _scrambleIndex = null;   // a new word is a new shape to match
   return w;
 }
 
@@ -28,7 +29,34 @@ export function adoptWordlist(text) {
   DICT = new Set(words.map(w => w.toUpperCase()));
   for (const w of coinedWords()) DICT.add(w.toUpperCase());
   dictLoaded = true;
+  _scrambleIndex = null;
   return DICT.size;
+}
+
+// ─── Scrambled spellings (The Skimmer) ────────────────────────────────────────
+// A word indexed by its first letter, its last letter, and the letters between
+// them in sorted order — so every spelling that keeps the ends still and
+// shuffles the middle lands on the same key. Built on first use, because most
+// runs never seat The Skimmer, and dropped whenever the dictionary changes.
+
+let _scrambleIndex = null;
+
+const scrambleKey = w =>
+  `${w[0]}${[...w.slice(1, -1)].sort().join('')}${w[w.length - 1]}`;
+
+// The real word `word` could be a shuffling of, or null if there isn't one.
+export function scrambleMatch(word) {
+  if (word.length < 4) return null;      // under four letters there's no middle to shuffle
+  if (!_scrambleIndex) {
+    _scrambleIndex = new Map();
+    for (const w of DICT) {
+      if (w.length < 4) continue;
+      const k = scrambleKey(w);
+      if (!_scrambleIndex.has(k)) _scrambleIndex.set(k, w);
+    }
+  }
+  const hit = _scrambleIndex.get(scrambleKey(word));
+  return hit && hit !== word ? hit : null;
 }
 
 export async function loadDict(onStatus) {
