@@ -90,9 +90,14 @@ export function updateMarketState() {
   }
 
   const seats = m.querySelector('[data-seats]');
-  if (seats) seats.textContent = `${state.patrons.length}/${effectivePatronSlots()} seated${seatsFull ? ' — table full' : ''}`;
+  if (seats) seats.textContent = seatsLabel();
   const bench = m.querySelector('[data-bench]');
-  if (bench) bench.textContent = `${state.sundries.length}/${effectiveSundrySlots()} on the workbench${benchFull ? ' — full' : ''}`;
+  if (bench) bench.textContent = benchLabel();
+
+  // A full table (or bench) makes letting something go the only way forward,
+  // so the row of things you hold stops being a footnote.
+  m.querySelector('[data-held="patron"]')?.classList.toggle('held-row--wanted', seatsFull);
+  m.querySelector('[data-held="sundry"]')?.classList.toggle('held-row--wanted', benchFull);
 
   const reroll = m.querySelector('#btnReroll');
   if (reroll) reroll.disabled = state.coins < market.rerollCost;
@@ -104,6 +109,18 @@ function rewardHTML() {
     .map(p => `<span class="reward-part">${p.label} <b>+${p.coins}</b></span>`).join('');
   return `<div class="reward-line">${rows}<span class="reward-total">${coinHTML(market.rewardTotal)} earned</span></div>`;
 }
+
+// The seat and bench tallies are written in two places — on a fresh sheet and
+// on every in-place patch — so they read from one function and can't drift.
+// When there's no room left, the tally says what to do about it.
+const seatsLabel = () => {
+  const max = effectivePatronSlots();
+  return `${state.patrons.length}/${max} seated${state.patrons.length >= max ? ' — dismiss one to make room' : ''}`;
+};
+const benchLabel = () => {
+  const max = effectiveSundrySlots();
+  return `${state.sundries.length}/${max} on the workbench${state.sundries.length >= max ? ' — sell one to make room' : ''}`;
+};
 
 function marketShopHTML() {
   const patronCards = market.patronOffers.map((o, i) => {
@@ -161,7 +178,10 @@ function marketShopHTML() {
           <div class="op-name">${def.name}</div>
           <div class="op-desc">${def.desc}</div>
         </div>
-        <button class="btn-price" data-visit-stall="${s.id}">Visit · ${coinHTML(stallPrice(s))}</button>
+        <div class="stall-action">
+          <button class="btn-price btn-visit" data-visit-stall="${s.id}">Visit</button>
+          <div class="stall-from">work from ${coinHTML(stallPrice(s))}</div>
+        </div>
       </div>`;
   }).join('');
 
@@ -210,16 +230,18 @@ function marketShopHTML() {
 
       <div class="market-grid">
         <section class="market-col">
-          <h3 class="market-sec">Patrons <span class="market-sub" data-seats>${state.patrons.length}/${effectivePatronSlots()} seated${fullSeats ? ' — table full' : ''}</span></h3>
+          <h3 class="market-sec">Patrons <span class="market-sub" data-seats>${seatsLabel()}</span></h3>
           <div class="offer-list">${patronCards}</div>
-          ${heldPatrons ? `<div class="held-row">${heldPatrons}</div>` : ''}
+          ${heldPatrons ? `<div class="held-row${fullSeats ? ' held-row--wanted' : ''}" data-held="patron">
+            <span class="held-label">Seated · tap to dismiss for half</span>${heldPatrons}</div>` : ''}
         </section>
         <section class="market-col">
           <h3 class="market-sec">Tiles</h3>
           <div class="offer-tiles">${tileCards}</div>
-          <h3 class="market-sec market-sec--paint">Sundries <span class="market-sub" data-bench>${state.sundries.length}/${effectiveSundrySlots()} on the workbench${fullBench ? ' — full' : ''}</span></h3>
+          <h3 class="market-sec market-sec--paint">Sundries <span class="market-sub" data-bench>${benchLabel()}</span></h3>
           <div class="offer-list">${sundryCards}</div>
-          ${heldSundries ? `<div class="held-row">${heldSundries}</div>` : ''}
+          ${heldSundries ? `<div class="held-row${fullBench ? ' held-row--wanted' : ''}" data-held="sundry">
+            <span class="held-label">On the bench · tap to sell back</span>${heldSundries}</div>` : ''}
         </section>
       </div>
 
@@ -516,22 +538,6 @@ export function renderDraft() {
   if (!m) return;
   if (!draft.open) { m.classList.remove('show'); m.innerHTML = ''; return; }
 
-  const patronCards = draft.patrons.map((id, i) => {
-    const def = patronById(id);
-    return `
-      <div class="offer-patron offer-patron--${def.rarity} pickable" data-draft="patron" data-idx="${i}">
-        <div class="op-portrait">${def.portrait
-          ? `<img src="${def.portrait}" alt="${def.name}">`
-          : `<span class="op-emoji">${def.emoji}</span>`}</div>
-        <div class="op-card-body">
-          <div class="op-name">${def.name}</div>
-          <div class="op-title">${def.rarity}</div>
-          <div class="op-desc">${def.desc}</div>
-        </div>
-        <span class="pick-mark">✓</span>
-      </div>`;
-  }).join('');
-
   const paintCards = draft.paints.map((colour, i) => `
     <div class="offer-paint pickable" data-draft="paint" data-idx="${i}"
          data-tip-head="${COLOURS[colour].label} paint"
@@ -554,12 +560,9 @@ export function renderDraft() {
       <div class="sheet-head">
         <div>
           <h2>Set up the press</h2>
-          <p class="sheet-note">Free picks — take what you like.</p>
+          <p class="sheet-note">Free picks — take what you like. Patrons are hired later, at the Market.</p>
         </div>
       </div>
-
-      <h3 class="market-sec">Patron <span class="market-sub" data-count="patron"></span></h3>
-      <div class="offer-list">${patronCards}</div>
 
       <h3 class="market-sec">Paint <span class="market-sub" data-count="paint"></span></h3>
       <div class="draft-paints">${paintCards}</div>

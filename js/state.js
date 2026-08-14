@@ -7,7 +7,7 @@ import {
 
 const SAVE_KEY     = 'folio_save_v1';
 const SETTINGS_KEY = 'folio_settings_v1';
-const SAVE_VERSION = 8;   // v8: patron seat data, grown tiles, luck, last first letter
+const SAVE_VERSION = 9;   // v9: copper trim renamed cobalt; the draft no longer offers a patron
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -103,7 +103,7 @@ export const state = {
   pageScore: 0,
   wordsLeft: WORDS_PER_PAGE,
   discards: DISCARDS_PER_PAGE,
-  discardsMax: DISCARDS_PER_PAGE,   // copper trims refresh up to this
+  discardsMax: DISCARDS_PER_PAGE,   // cobalt trims refresh up to this
   wordsPrinted: 0,  // words printed this page
 
   coins:   STARTING_COINS,

@@ -131,7 +131,7 @@ export const MAX_FEATURES         = 4;
 export const TRIMS = {
   gold:    { label: 'Gold',    price: 2, desc: 'Pays 1 Coin when printed.' },
   silver:  { label: 'Silver',  price: 2, desc: '+6 Points.' },
-  copper:  { label: 'Copper',  price: 3, desc: 'Refunds a Discard when printed.' },
+  cobalt:  { label: 'Cobalt',  price: 3, desc: 'Refunds a Discard when printed.' },
   mercury: { label: 'Mercury', price: 3, desc: 'Returns to the bag instead of the discard pile.' },
   purple:  { label: 'Purple',  price: 4, desc: 'Adds +0.5 to the purple multiplier.' },
 };
@@ -241,7 +241,7 @@ export function makeTileTemplate(letter, overrides = {}) {
     activeVariant: 0,          // 0 = letter, 1 = altLetter
     colour:        null,       // paint on the front face
     altColour:     null,       // paint on a dual tile's other face
-    trim:          null,       // gold | silver | copper | purple
+    trim:          null,       // gold | silver | cobalt | mercury | purple
     nick:          null,       // right | left | side
     bonusPoints:   0,          // permanent growth (The Grafter) — added to the letter's value
     ...overrides,
@@ -277,8 +277,9 @@ export const RESHUFFLE_PRICE = 4;
 // Before the first page you kit out the press: pick from a free spread, no
 // coins involved. (The starting collection ships unpainted — the two paints
 // picked here are what gets the colour multipliers going.)
+// No patron here: the first one is hired at the first Market, with coins, as a
+// decision you make about a press you've already printed a page with.
 export const DRAFT = {
-  patrons: { show: 3,  pick: 1 },
   paints:  { show: 4,  pick: 2 },
   tiles:   { show: 10, pick: 4 },
 };

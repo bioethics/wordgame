@@ -48,7 +48,7 @@ export function computeScore(wordTiles) {
 
     let stepCoins = 0, stepRefresh = 0;
     if (t.trim === 'gold')   { stepCoins = owns('magpie') ? 2 : 1; coins += stepCoins; }
-    if (t.trim === 'copper') { stepRefresh = 1; refresh += 1; }
+    if (t.trim === 'cobalt') { stepRefresh = 1; refresh += 1; }
 
     contrib[i] = points;
     tileSteps.push({

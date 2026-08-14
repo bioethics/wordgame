@@ -59,7 +59,7 @@ plus an optional **trim** and **nick**.
 | Layer | Options |
 | --- | --- |
 | Paint | crimson / azure / jade / amber — each raises its colour's multiplier by 1 |
-| Trim | **Gold** pays 1 Coin · **Silver** +6 Points · **Copper** refreshes 1 Discard · **Mercury** slips back into the bag instead of the discard pile · **Purple** raises the fifth multiplier by 0.5 |
+| Trim | **Gold** pays 1 Coin · **Silver** +6 Points · **Cobalt** refreshes 1 Discard (and wears the Discard's own blue) · **Mercury** slips back into the bag instead of the discard pile · **Purple** raises the fifth multiplier by 0.5 |
 | Nick | A notch cut into one edge; the notched side is the direction. **Right** ×3 Points to everything on its right · **Left** ×3 to its left. Nicks don't stack — a letter is multiplied once at most. While you compose, an affected tile's corner number becomes the multiplied value, restyled, rippling outward from the notch. |
 | Letterform | Dual tiles hold two letters (flip to switch; each face painted independently) · Ligatures ING · ED · TCH spell several letters from one tile · **Marks** ? and ! spell nothing at all |
 | Growth | Grown points — permanent +1s a patron (The Grafter) writes into a tile, worn as a jade corner number wherever the tile appears |
@@ -87,9 +87,10 @@ just set. Marks never come out of the bag; they turn up in the Market now and
 then, and they cost a little extra when they do.
 
 **The opening draft** — before page 1 you kit out the press from a free
-spread: 1 patron of 3, 2 paints of 4, 4 tiles of 10. No coins involved. The
-starting collection ships unpainted, so those two paints are where colour
-enters the run.
+spread: 2 paints of 4, 4 tiles of 10. No coins involved. The starting
+collection ships unpainted, so those two paints are where colour enters the
+run. No patron is drafted: the first one is hired at the first Market, with
+coins, once you've printed a page and know what the press needs.
 
 **The Market** (between pages) keeps a fixed layout with churning contents:
 3 patrons, 4 tiles, 2 **sundries**, and 2 **stalls** drawn from a roster of

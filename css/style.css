@@ -906,11 +906,17 @@ button.sundry:hover { transform: translateY(-2px); }
   display: grid;
   place-items: center;
   border: 1px solid rgba(86, 60, 24, 0.5);
-  box-shadow:
+  /* A trim is a ring composed into every state's shadow via --trim-ring, so
+     hovering or selecting a tile can never wipe the metal off it. */
+  --trim-ring: 0 0 rgba(0, 0, 0, 0);
+  --tile-lift: #b3955e;
+  --tile-shadow:
+    var(--trim-ring),
     inset 0 1.5px 0 rgba(255, 255, 255, 0.85),
     inset 0 -2px 3px rgba(120, 90, 40, 0.25),
-    0 5px 0 -1px #b3955e,
+    0 5px 0 -1px var(--tile-lift),
     0 9px 16px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--tile-shadow);
   transition:
     transform calc(0.12s / var(--aspd)) ease,
     box-shadow calc(0.15s / var(--aspd)) ease,
@@ -921,10 +927,18 @@ button.sundry:hover { transform: translateY(-2px); }
     transform: translateY(-4px) rotate(-1deg) scale(1.05);
     z-index: 3;
     box-shadow:
+      var(--trim-ring),
       inset 0 1.5px 0 rgba(255, 255, 255, 0.85),
       inset 0 -2px 3px rgba(120, 90, 40, 0.25),
-      0 7px 0 -1px #b3955e,
+      0 7px 0 -1px var(--tile-lift),
       0 16px 26px rgba(0, 0, 0, 0.55);
+  }
+  /* Inside an offer card the card is the thing that reacts; the tile holds
+     still, so the tray inset behind it never seems to breathe. (Needs to
+     out-specify the lift rule above, hence the same two :not()s.) */
+  .offer-tile .tile:hover:not(.tile--held):not(.tile--mini) {
+    transform: none;
+    box-shadow: var(--tile-shadow);
   }
 }
 .tile:active { cursor: grabbing; }
@@ -1052,13 +1066,12 @@ button.sundry:hover { transform: translateY(-2px); }
     rgba(40, 28, 10, 0) calc(var(--nick-r) + 4.5px));
 }
 
-/* Trims — a metal ring around the tile's edge */
+/* Trims — a metal ring around the tile's edge. Each trim only sets its ring
+   and its lift colour; the shadow composition itself lives on .tile, so the
+   ring survives hover, selection, and every other state. */
 .tile--trim-gold {
-  box-shadow:
-    inset 0 0 0 3px #d9a64b,
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.85),
-    0 5px 0 -1px #a87f2c,
-    0 9px 16px rgba(0, 0, 0, 0.5);
+  --trim-ring: inset 0 0 0 3px #d9a64b;
+  --tile-lift: #a87f2c;
   overflow: hidden;
 }
 .tile--trim-gold::before {
@@ -1076,37 +1089,28 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 .tile--trim-silver {
-  box-shadow:
-    inset 0 0 0 3px #aab4c4,
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.85),
-    0 5px 0 -1px #7e8794,
-    0 9px 16px rgba(0, 0, 0, 0.5);
+  --trim-ring: inset 0 0 0 3px #aab4c4;
+  --tile-lift: #7e8794;
 }
 
-.tile--trim-copper {
-  box-shadow:
-    inset 0 0 0 3px #c47a3d,
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.85),
-    0 5px 0 -1px #8f5527,
-    0 9px 16px rgba(0, 0, 0, 0.5);
+/* Cobalt refunds a Discard, so it wears the Discard UI's own blues — the
+   azure fill and bright edge of the discard pips — as a two-band ring no
+   other trim shares. */
+.tile--trim-cobalt {
+  --trim-ring: inset 0 0 0 1.5px #8ec6ff, inset 0 0 0 3.5px #3f68ad;
+  --tile-lift: #2c4a78;
 }
 
-/* Quicksilver — the one trim that had no face of its own until now */
+/* Quicksilver — a pale wash, next to cobalt's deep saturated bands */
 .tile--trim-mercury {
-  box-shadow:
-    inset 0 0 0 3px #7ec8d6,
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.85),
-    0 5px 0 -1px #4a8794,
-    0 9px 16px rgba(0, 0, 0, 0.5);
+  --trim-ring: inset 0 0 0 3px #7ec8d6;
+  --tile-lift: #4a8794;
 }
 
 .tile--trim-purple {
-  box-shadow:
-    inset 0 0 0 3px #8a5fb0,
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.85),
-    0 5px 0 -1px #5e3f7c,
-    0 9px 16px rgba(0, 0, 0, 0.5),
-    0 0 12px rgba(150, 90, 220, 0.3);
+  /* the faint violet halo rides in the ring, so it survives every state too */
+  --trim-ring: inset 0 0 0 3px #8a5fb0, 0 0 12px rgba(150, 90, 220, 0.3);
+  --tile-lift: #5e3f7c;
 }
 
 /* Mini tiles (inspectors, market case) */
@@ -1124,7 +1128,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .tile--mini { --nick-r: 6.5px; }
 .tile--mini.tile--trim-gold   { box-shadow: inset 0 0 0 2px #d9a64b, 0 3px 6px rgba(0,0,0,0.35); }
 .tile--mini.tile--trim-silver { box-shadow: inset 0 0 0 2px #aab4c4, 0 3px 6px rgba(0,0,0,0.35); }
-.tile--mini.tile--trim-copper  { box-shadow: inset 0 0 0 2px #c47a3d, 0 3px 6px rgba(0,0,0,0.35); }
+.tile--mini.tile--trim-cobalt  { box-shadow: inset 0 0 0 1px #8ec6ff, inset 0 0 0 2.5px #3f68ad, 0 3px 6px rgba(0,0,0,0.35); }
 .tile--mini.tile--trim-mercury { box-shadow: inset 0 0 0 2px #7ec8d6, 0 3px 6px rgba(0,0,0,0.35); }
 .tile--mini.tile--trim-purple  { box-shadow: inset 0 0 0 2px #8a5fb0, 0 3px 6px rgba(0,0,0,0.35); }
 
@@ -1726,10 +1730,40 @@ button.sundry:hover { transform: translateY(-2px); }
 .held-row {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 6px;
   margin-top: 9px;
   padding-top: 9px;
   border-top: 1px dashed rgba(120, 90, 40, 0.3);
+}
+
+/* The pills alone never said they could be tapped — so the row says it. */
+.held-label {
+  flex-basis: 100%;
+  margin-bottom: 1px;
+  font-size: 9.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  color: var(--muted);
+}
+
+/* When the table (or the bench) is full, letting something go is the only way
+   on — so the row stops being a footnote and asks to be used. */
+.held-row--wanted {
+  border-top-color: rgba(201, 79, 67, 0.55);
+  border-top-style: solid;
+}
+.held-row--wanted .held-label { color: #c9584b; }
+.sheet--market .held-row--wanted .held-label { color: #ffb3a6; }
+.held-row--wanted .held {
+  border-color: rgba(201, 79, 67, 0.5);
+  animation: heldNudge calc(2.4s / var(--aspd)) ease-in-out 2;
+}
+@keyframes heldNudge {
+  0%, 92%, 100% { transform: none; }
+  95%  { transform: translateY(-2px); }
+  98%  { transform: translateY(0); }
 }
 
 .held {
@@ -1815,7 +1849,7 @@ button.sundry:hover { transform: translateY(-2px); }
 
 .trim-swatch--gold    { --metal: #d9a64b; }
 .trim-swatch--silver  { --metal: #aab4c4; }
-.trim-swatch--copper  { --metal: #c47a3d; }
+.trim-swatch--cobalt  { --metal: #3f68ad; box-shadow: inset 0 0 0 1px #8ec6ff; }
 .trim-swatch--mercury { --metal: #7ec8d6; }
 .trim-swatch--purple  { --metal: #8a5fb0; }
 
@@ -1852,6 +1886,23 @@ button.sundry:hover { transform: translateY(-2px); }
     rgba(242, 231, 203, 0.9) 14px 28px);
   border-bottom: 1px solid rgba(138, 95, 29, 0.35);
 }
+
+/* Visiting a stall is free — it's the work inside that's priced, and the
+   price doubles with each commission. The button says only "Visit"; the fee
+   sits under it as a caption so the two can't be read as one. */
+.stall-action { display: grid; justify-items: center; gap: 4px; }
+.stall-from {
+  font-size: 9.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  white-space: nowrap;
+}
+.stall-from .coin { width: 11px; height: 11px; }
 
 /* Each stall flies its own colours */
 .awning--smelter     { --awning: #b23a2e; }
@@ -2823,6 +2874,7 @@ input[type='checkbox'] {
   }
   .patron--armed::after { animation: none; opacity: 0; }
   .patron--just-armed .patron-take, .patron-take--bump { animation: none; }
+  .held-row--wanted .held { animation: none; }
   /* A burning tile still has to read as destroyed — char it, don't tumble it */
   .tile--burning {
     animation: none;
