@@ -220,6 +220,17 @@ export const ANIM = {
   stagger:    65,
 };
 
+// ─── Patron tuning (the colour-guild overhaul) ────────────────────────────────
+// Knobs for patron effects that reach beyond a single score: permanent tile
+// growth, burn odds, trim lotteries. Plain score numbers stay in js/patrons.js
+// with their patron, as ever.
+export const GRAFTER_STEP       = 1;      // permanent Points per tile per print
+export const STOKER_STEP        = 0.25;   // permanent ×Mult per crimson tile burned
+export const ARSONIST_ODDS      = { paint: 0.10, burn: 0.01 };  // per tile played
+export const NUDIST_TRIM_CHANCE = 0.25;   // per bare letter in an all-bare word
+export const NEOLOGIST_LENGTH   = 6;      // letters in a coined word
+export const DYE_TILES_PER_CHAPTER = 2;   // tiles painted by a dye patron at chapter end
+
 // ─── Tile-template factory ────────────────────────────────────────────────────
 export function makeTileTemplate(letter, overrides = {}) {
   return {
@@ -231,6 +242,7 @@ export function makeTileTemplate(letter, overrides = {}) {
     altColour:     null,       // paint on a dual tile's other face
     trim:          null,       // gold | silver | copper | purple
     nick:          null,       // right | left | side
+    bonusPoints:   0,          // permanent growth (The Grafter) — added to the letter's value
     ...overrides,
   };
 }

@@ -8,6 +8,7 @@ import {
   newRun, startPage, drawUpToRackSize, clearWord, shuffleRack,
   discardSelected, getWordString, moveRackToWord, owns, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected,
+  getActiveColour, growTile,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES, tileCount,
@@ -132,6 +133,57 @@ async function patronReactions(script) {
   }
 }
 
+// ─── Titivillus (one wrong vowel forgiven) ────────────────────────────────────
+// If the letters miss the dictionary by exactly one vowel — and the word holds
+// an azure letter to smudge — the word stands as typed. The manuscript and the
+// ledger keep the misprint; that's the joke.
+
+const VOWELS = 'AEIOU';
+
+function titivillusPardon(letters) {
+  if (!owns('titivillus')) return null;
+  if (!state.word.some(t => getActiveColour(t) === 'azure')) return null;
+  for (let i = 0; i < letters.length; i++) {
+    if (!VOWELS.includes(letters[i])) continue;
+    for (const v of VOWELS) {
+      if (v === letters[i]) continue;
+      const fixed = letters.slice(0, i) + v + letters.slice(i + 1);
+      if (DICT.has(fixed)) return fixed;
+    }
+  }
+  return null;
+}
+
+// ─── Patron hooks (after a word commits; as a chapter turns) ──────────────────
+// Score-time patrons live in the score script; these are the ones that reach
+// beyond it — permanent growth, burns, chapter-end dyes. See js/patrons.js.
+
+function runPrintedHooks(tiles, script) {
+  state.lastFirstLetter = splitMarks(script.word)?.letters?.[0] ?? null;
+  for (const p of state.patrons) {
+    const def = patronById(p.id);
+    if (!def?.onPrinted) continue;
+    p.data ??= {};
+    const r = def.onPrinted({ tiles, script, state, data: p.data, grow: growTile });
+    if (r?.note) {
+      const card = document.querySelector(`#shelf .patron[data-patron="${p.id}"]`);
+      if (card) { pulse(card, 'patron--firing', 520); floatText(card, r.note, 'fl-points', { dy: -44 }); }
+    }
+  }
+}
+
+function runChapterHooks() {
+  const notes = [];
+  for (const p of state.patrons) {
+    const def = patronById(p.id);
+    if (!def?.onChapterEnd) continue;
+    p.data ??= {};
+    const r = def.onChapterEnd({ state, data: p.data });
+    if (r?.note) notes.push(`${def.name}: ${r.note}`);
+  }
+  return notes;
+}
+
 // ─── Submit (PRINT) ───────────────────────────────────────────────────────────
 
 async function submitWord() {
@@ -154,7 +206,11 @@ async function submitWord() {
   };
   if (!parts)          return reject('Marks go last, as ? or ! or ?!.');
   if (!parts.letters)  return reject('A mark needs a word in front of it.');
-  if (!DICT.has(parts.letters)) return reject(`“${w}” isn't in the dictionary.`);
+  let pardoned = null;
+  if (!DICT.has(parts.letters)) {
+    pardoned = titivillusPardon(parts.letters);
+    if (!pardoned) return reject(`“${w}” isn't in the dictionary.`);
+  }
 
   state.isAnimating = true;
   renderButtons();
@@ -258,6 +314,10 @@ async function submitWord() {
   }
   recordWord(script.word, script.total);
 
+  // Patrons that reach beyond the score fire before the tiles retire, so a
+  // grown tile carries its growth wherever it goes next (even back to the bag).
+  runPrintedHooks(printed, script);
+
   // Mercury trims slip back into the bag; everything else is discarded
   const { toBag, toPile } = retirePrinted(printed);
   state.word.length = 0;
@@ -266,6 +326,7 @@ async function submitWord() {
   if (script.coins)   msg += `  +${script.coins} Coin${script.coins > 1 ? 's' : ''}.`;
   if (script.refresh) msg += `  +${script.refresh} Discard${script.refresh > 1 ? 's' : ''}.`;
   if (toBag.length)   msg += `  ${toBag.length} slipped back into the bag.`;
+  if (pardoned)       msg += `  😈 Titivillus pockets the error — it stands for ${pardoned}.`;
   log(msg, 'good');
 
   // Tiles fly to wherever they actually went
@@ -355,6 +416,10 @@ async function advancePage() {
   if (newChapter) { state.page = 1; state.chapter += 1; }
   else            { state.page += 1; }
 
+  // Chapter-end patrons (the dye commons) act before the new bag is shuffled,
+  // so what they paint is in play from the first draw.
+  const chapterNotes = newChapter ? runChapterHooks() : [];
+
   state.isAnimating = true;
 
   // Sweep the table back into the bag
@@ -381,6 +446,7 @@ async function advancePage() {
 
   state.isAnimating = false;
   renderAll();   // the status bar settles back to the manuscript on its own
+  if (chapterNotes.length) log(chapterNotes.join('  '), 'good');
 }
 
 // ─── Loss ─────────────────────────────────────────────────────────────────────

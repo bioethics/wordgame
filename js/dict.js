@@ -1,13 +1,32 @@
-const DICT_KEY = 'wordfun_wordlist';
+const DICT_KEY   = 'wordfun_wordlist';
+const COINED_KEY = 'folio_coined_words_v1';
 
 export let DICT = new Set();
 export let dictLoaded = false;
 
 const FALLBACK = 'test words word board letter letters quiz play game read write stone notes road train rail me you he she we be bee at it is an are was has had not but for are';
 
+// Words coined by The Neologist — the player's own, kept for good, across runs.
+export function coinedWords() {
+  try { return JSON.parse(localStorage.getItem(COINED_KEY) || '[]'); }
+  catch { return []; }
+}
+
+export function coinWord(word) {
+  const w = word.toUpperCase();
+  const list = coinedWords();
+  if (!list.includes(w)) {
+    list.push(w);
+    try { localStorage.setItem(COINED_KEY, JSON.stringify(list)); } catch { /* quota */ }
+  }
+  DICT.add(w);
+  return w;
+}
+
 export function adoptWordlist(text) {
   const words = text.replace(/\r/g, '').split(/\n+/).map(w => w.trim()).filter(Boolean);
   DICT = new Set(words.map(w => w.toUpperCase()));
+  for (const w of coinedWords()) DICT.add(w.toUpperCase());
   dictLoaded = true;
   return DICT.size;
 }

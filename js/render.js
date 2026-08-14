@@ -49,11 +49,13 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   div.appendChild(letter);
 
   // Point value (bottom-right). When an override is given and it beats the
-  // letter's face value, the number itself carries the news.
-  const base = TILE_POINTS[active] ?? tile.basePoints ?? 1;
+  // letter's face value, the number itself carries the news. A tile carrying
+  // grown points (The Grafter) wears its number in jade.
+  const base = (TILE_POINTS[active] ?? tile.basePoints ?? 1) + (tile.bonusPoints ?? 0);
   const ptsEl = document.createElement('span');
   ptsEl.className = 'tile-pts';
   ptsEl.textContent = pts ?? base;
+  if (tile.bonusPoints) ptsEl.classList.add('tile-pts--grown');
   if (pts != null && pts !== base) ptsEl.classList.add('tile-pts--boosted');
   div.appendChild(ptsEl);
 
@@ -101,12 +103,17 @@ export function tileFeatures(tile) {
   if (isMark(tile.letter)) {
     out.push({ head: 'Mark', body: 'Spells nothing — goes on the end of a word. One ? or one ! or ?!.' });
   }
+  if (tile.bonusPoints) {
+    out.push({ head: 'Grown', body: `+${tile.bonusPoints} Points set permanently into this tile.` });
+  }
   return out;
 }
 
 export function tileTitleLines(tile, breakdown = null) {
   const active = getActiveLetter(tile);
-  const lines = [`${active} — ${TILE_POINTS[active] ?? 1} Points`];
+  const face   = TILE_POINTS[active] ?? 1;
+  const grown  = tile.bonusPoints ?? 0;
+  const lines = [`${active} — ${face + grown} Points${grown ? ` (${face} + ${grown} grown)` : ''}`];
   for (const f of tileFeatures(tile)) lines.push(`${f.head}: ${f.body}`);
   if (breakdown) lines.push(`This word: ${breakdown.parts.join(', ')} → ${breakdown.final} Points`);
   return lines;
@@ -421,7 +428,7 @@ export function renderWord(script = computeScore(state.word)) {
     // one that lands already boosted (a tile dropped into a nick's shadow).
     // Laying an ordinary tile down is not news, and shouldn't bulge.
     const wasShowing = _lastWordPts.has(t.id);
-    const face       = TILE_POINTS[getActiveLetter(t)] ?? t.basePoints ?? 1;
+    const face       = (TILE_POINTS[getActiveLetter(t)] ?? t.basePoints ?? 1) + (t.bonusPoints ?? 0);
     const rewritten  = wasShowing && _lastWordPts.get(t.id) !== shown;
     const bornBoosted = !wasShowing && shown !== face;
     if (shown != null && (rewritten || bornBoosted)) {

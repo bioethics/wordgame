@@ -38,9 +38,11 @@ export function computeScore(wordTiles) {
   let refresh = 0;
 
   wordTiles.forEach((t, i) => {
-    const base = TILE_POINTS[getActiveLetter(t)] ?? t.basePoints ?? 1;
-    let points = base;
-    noteMap[i].push(`base ${base}`);
+    const face  = TILE_POINTS[getActiveLetter(t)] ?? t.basePoints ?? 1;
+    const grown = t.bonusPoints ?? 0;
+    let points = face + grown;
+    noteMap[i].push(`base ${face}`);
+    if (grown) noteMap[i].push(`grown +${grown}`);
 
     if (t.trim === 'silver') { points += 6; noteMap[i].push('Silver +6'); }
 

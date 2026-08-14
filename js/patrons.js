@@ -1,13 +1,26 @@
 // Patrons of the print house. Each grants a standing boon.
 //
 // when: 'score' — effect(ctx) runs while a word is scored.
-//       'meta'  — handled explicitly elsewhere (page start, page reward, discards).
+//       'meta'  — handled explicitly elsewhere (page start, page reward, discards,
+//                 the dictionary check), or via the hooks below.
 //
 // Score ctx: { word, tiles, state, addPoints(n), addMult(n), xMult(n) }
 // The add/x helpers record an animation step automatically.
 //
+// Optional hooks (main.js dispatches these for every seated patron):
+//   onPrinted(ctx)    — after a word commits; ctx { tiles, script, state, data,
+//                       grow(tile, n) }. May mutate the collection (permanent
+//                       growth, burns). Return { note } to say something.
+//   onChapterEnd(ctx) — as a chapter clears, before the next page's bag is
+//                       shuffled; ctx { state, data }. Return { note } likewise.
+// `data` is the seat's own saved memory (state.js patronData) — counters live
+// there, never on the def.
+//
 // Optional `portrait`: path to an image (e.g. 'img/patrons/scholar.png') shown
 // on the patron's business card in the market and draft instead of the emoji.
+
+import { GRAFTER_STEP } from './constants.js';
+import { getActiveColour } from './state.js';
 
 const VOWELS = 'AEIOU';
 
@@ -176,6 +189,25 @@ export const PATRON_DEFS = [
     desc: 'Words of 7+ letters get ×5 Mult.',
     when: 'score',
     effect({ word, xMult }) { if (word.length >= 7) xMult(5); },
+  },
+
+  // ── The Colour Guilds (jade) ────────────────────────────────────────────────
+  {
+    id: 'grafter', name: 'The Grafter', emoji: '🌿', rarity: 'rare', cost: 10,
+    desc: 'When a word with a jade letter prints, every tile in it permanently gains +1 Point.',
+    when: 'meta',
+    onPrinted({ tiles, grow }) {
+      if (!tiles.some(t => getActiveColour(t) === 'jade')) return null;
+      for (const t of tiles) grow(t, GRAFTER_STEP);
+      return { note: `+${GRAFTER_STEP} grown into ${tiles.length} tile${tiles.length > 1 ? 's' : ''}` };
+    },
+  },
+
+  // ── The Colour Guilds (azure) ───────────────────────────────────────────────
+  {
+    id: 'titivillus', name: 'Titivillus', emoji: '😈', rarity: 'rare', cost: 9,
+    desc: 'One wrong vowel per word is forgiven, while the word holds an azure letter.',
+    when: 'meta',   // consulted at the dictionary check in main.js — the typo prints as typed
   },
 ];
 

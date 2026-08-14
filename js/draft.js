@@ -75,7 +75,7 @@ export function applyDraft() {
     painted.push(...paintRandomFaces(draft.paints[i], PAINT_PER_POT));
   }
   for (const i of draft.picked.patron) {
-    state.patrons.push({ id: draft.patrons[i] });
+    state.patrons.push({ id: draft.patrons[i], data: {} });
   }
   return { painted };
 }

@@ -1,13 +1,13 @@
 import {
   RACK_SIZE, WORDS_PER_PAGE, DISCARDS_PER_PAGE, STARTING_COINS,
-  PATRON_SLOTS, SUNDRY_SLOTS,
+  PATRON_SLOTS, SUNDRY_SLOTS, SMELT_MIN_COLLECTION,
   BAG_COUNTS, TILE_POINTS, TUBE_TILES,
   quotaFor, makeTileTemplate,
 } from './constants.js';
 
 const SAVE_KEY     = 'folio_save_v1';
 const SETTINGS_KEY = 'folio_settings_v1';
-const SAVE_VERSION = 7;   // v7: foundry→market rename reaches saved field names
+const SAVE_VERSION = 8;   // v8: patron seat data, grown tiles, luck, last first letter
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -107,10 +107,12 @@ export const state = {
   wordsPrinted: 0,  // words printed this page
 
   coins:   STARTING_COINS,
-  patrons: [],      // [{ id }]
+  patrons: [],      // [{ id, data }] — data carries a patron's own memory (e.g. Stoker stacks)
   sundries: [],     // [{ kind: 'tube', colour } | { kind: 'reshuffle' }] — the workbench
   upgradeCounts: {}, // id → times taken this run, from the Colophon (see js/upgrades.js)
   scavengerPoints: 0,  // pending bonus from The Scavenger
+  luck: 1,             // scales every "good outcome" roll (see luckyRoll) — a future dial
+  lastFirstLetter: null,  // first letter of the last word printed this run (The Skald)
 
   totalScore: 0,
   stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
@@ -133,6 +135,19 @@ export const effectivePatronSlots = () => PATRON_SLOTS + (state.upgradeCounts?.p
 export const effectiveSundrySlots = () => SUNDRY_SLOTS + (state.upgradeCounts?.workbenchSlot ?? 0);
 
 export const owns = id => state.patrons.some(p => p.id === id);
+
+// A seated patron's private memory (created on first touch, saved with the run).
+export function patronData(id) {
+  const seat = state.patrons.find(p => p.id === id);
+  if (!seat) return null;
+  seat.data ??= {};
+  return seat.data;
+}
+
+// Every chance roll a player would *want* to succeed goes through here, so the
+// luck dial (state.luck, ×1 by default) can one day be turned by patrons or
+// Colophon picks. Deliberately NOT used for bad outcomes (e.g. Arsonist burns).
+export const luckyRoll = p => Math.random() < Math.min(1, p * (state.luck ?? 1));
 
 // ─── Persist ──────────────────────────────────────────────────────────────────
 
@@ -161,6 +176,8 @@ export function loadState() {
     Object.assign(state, fields, { isAnimating: false, discardMode: false, sundryMode: -1 });
     state.sundries ??= [];
     state.upgradeCounts ??= {};
+    state.luck ??= 1;
+    state.lastFirstLetter ??= null;
     if (savedId)  _nextId  = savedId;
     if (savedTid) _nextTid = savedTid;
     return { market: _market ?? null, draft: _draft ?? null, colophon: _colophon ?? null };
@@ -184,6 +201,7 @@ export function newRun() {
     wordsLeft: WORDS_PER_PAGE, discards: DISCARDS_PER_PAGE,
     discardsMax: DISCARDS_PER_PAGE, wordsPrinted: 0,
     coins: STARTING_COINS, patrons: [], sundries: [], upgradeCounts: {}, scavengerPoints: 0,
+    luck: 1, lastFirstLetter: null,
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
     ledger: [],
@@ -272,6 +290,30 @@ export function retirePrinted(tiles) {
     }
   }
   return { toBag, toPile };
+}
+
+// ─── Permanent tile changes (patron effects) ──────────────────────────────────
+
+// Grow a tile's value for good: the bonus is written to the live tile AND the
+// collection template it was drawn from (same write-through as painting), so
+// it survives the page, the save, and every reshuffle. The corner number
+// renders jade once a tile carries grown points.
+export function growTile(tile, n = 1) {
+  tile.bonusPoints = (tile.bonusPoints ?? 0) + n;
+  const tmpl = state.collection.find(c => c.tid === tile.tid);
+  if (tmpl) tmpl.bonusPoints = (tmpl.bonusPoints ?? 0) + n;
+  return tile.bonusPoints;
+}
+
+// Remove a tile from the collection for good (Stoker burns, Arsonist accidents).
+// Honours the same floor as the Smelter so no patron can eat the press out of
+// house and home. Returns the removed template, or null if the floor held.
+// Live copies (rack / word / discard pile) are the caller's to clean up.
+export function trashFromCollection(tid) {
+  if (state.collection.length <= SMELT_MIN_COLLECTION) return null;
+  const i = state.collection.findIndex(c => c.tid === tid);
+  if (i < 0) return null;
+  return state.collection.splice(i, 1)[0];
 }
 
 // ─── Ledger ───────────────────────────────────────────────────────────────────

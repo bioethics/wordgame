@@ -2141,6 +2141,15 @@ button.sundry:hover { transform: translateY(-2px); }
 .sheet--market .reward-total  { color: var(--parch-ink); }
 
 /* ─── Boosted values ──────────────────────────────────────────────────────────── */
+/* A tile the Grafter has grown wears its corner number in jade — quiet,
+   permanent, and visible anywhere the tile appears (rack, bag, market). */
+.tile-pts--grown {
+  opacity: 1;
+  font-weight: 800;
+  color: var(--jade);
+  text-shadow: 0 1px 0 rgba(240, 255, 244, 0.85), 0 0 7px rgba(90, 190, 130, 0.55);
+}
+
 /* In the word groove, a tile's corner number is what it will actually pay.
    When that beats the letter's face value (a nick's reach, a silver trim),
    the number itself changes — larger, brass, glowing. */

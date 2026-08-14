@@ -248,7 +248,7 @@ export function buyPatron(id) {
   if (state.patrons.length >= effectivePatronSlots()) return { ok: false, reason: 'No empty seats at your table.' };
   if (state.coins < def.cost)              return { ok: false, reason: `You need ${def.cost} Coins.` };
   state.coins -= def.cost;
-  state.patrons.push({ id });
+  state.patrons.push({ id, data: {} });
   offer.sold = true;
   return { ok: true, def };
 }
