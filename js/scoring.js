@@ -1,6 +1,6 @@
 import { TILE_POINTS, TRIMS, NICKS, COLOURS, PURPLE_TRIM_STEP, REWARD, isDeadline, splitMarks } from './constants.js';
 import { PATRON_DEFS, patronById } from './patrons.js';
-import { state, owns, getActiveLetter, getActiveColour } from './state.js';
+import { state, owns, getActiveLetter, getActiveColour, returnsToBag } from './state.js';
 
 // ─── Score a word ─────────────────────────────────────────────────────────────
 // Pure (no state mutation). Returns a "script" describing every step of the
@@ -53,7 +53,7 @@ export function computeScore(wordTiles) {
     contrib[i] = points;
     tileSteps.push({
       id: t.id, points, coins: stepCoins, refresh: stepRefresh,
-      returns: t.trim === 'mercury',
+      returns: returnsToBag(t),
     });
   });
 
@@ -112,23 +112,25 @@ export function computeScore(wordTiles) {
   mult = Math.round(mult * 1000) / 1000;   // keep half-steps off floating-point drift
 
   // ── Pass 4: patrons (in the order you seated them) ──────────────────────────
+  // `data` is the seat's memory, handed over READ-ONLY: this runs on every
+  // keystroke for the live preview, so a score effect that wrote to it would
+  // fire dozens of times a word. Counters are advanced in onPrinted instead.
   const patronSteps = [];
   let current = null;
   const ctx = {
-    word: letters, tiles: wordTiles, state,
+    word: letters, tiles: wordTiles, state, data: null,
     addPoints(v) { points += v; patronSteps.push({ id: current, text: `+${v} Points`, points: v }); },
     addMult(v)   { mult += v;   patronSteps.push({ id: current, text: `+${v} Mult`,   mult: v }); },
     xMult(v)     { mult *= v;   patronSteps.push({ id: current, text: `×${v} Mult`,   xmult: v }); },
+    addCoins(v)  {
+      coins += v;
+      patronSteps.push({ id: current, text: `+${v} Coin${v > 1 ? 's' : ''}`, coins: v });
+    },
   };
-
-  if (state.scavengerPoints > 0 && owns('scavenger')) {
-    points += state.scavengerPoints;
-    patronSteps.push({ id: 'scavenger', text: `+${state.scavengerPoints} Points`, points: state.scavengerPoints });
-  }
 
   for (const p of state.patrons) {
     const def = patronById(p.id);
-    if (def?.when === 'score') { current = p.id; def.effect(ctx); }
+    if (def?.when === 'score') { current = p.id; ctx.data = p.data ?? {}; def.effect(ctx); }
   }
 
   const total = Math.round(points * mult);

@@ -8,14 +8,14 @@ import {
   newRun, startPage, drawUpToRackSize, clearWord, shuffleRack,
   discardSelected, getWordString, moveRackToWord, owns, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected,
-  getActiveColour, growTile,
+  getActiveColour, growTile, paintTile, trimTile, trashFromCollection,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES, tileCount,
-  WORDS_PER_PAGE, REACTION,
+  WORDS_PER_PAGE, REACTION, NEOLOGIST_LENGTH,
   chapterTitle, roman, COLOURS, NICKS, splitMarks,
 } from './constants.js';
-import { DICT, dictLoaded, loadDict, loadCustom } from './dict.js';
+import { DICT, dictLoaded, loadDict, loadCustom, coinWord } from './dict.js';
 import { computeScore, computeReward } from './scoring.js';
 import { openMarket, restoreMarket, closeMarket, sellPatron } from './market.js';
 import {
@@ -27,6 +27,7 @@ import {
   log, showBanner, hideOverlay,
   showGameOver, showVictory, openInspector, closeInspector, coinHTML,
   showPatronPopover, hidePopover, openLedger, closeLedger,
+  showCoinWordSheet, setCoinNote,
 } from './render.js';
 import {
   initSheets, renderMarket, renderColophon, renderDraft,
@@ -140,9 +141,13 @@ async function patronReactions(script) {
 
 const VOWELS = 'AEIOU';
 
+// Two slips count as one vowel going astray: the wrong vowel written
+// (SEPERATE), and two vowels changing places (WIERD, RECIEVE, THIER) — which
+// is the error Titivillus is really in the business of collecting.
 function titivillusPardon(letters) {
   if (!owns('titivillus')) return null;
   if (!state.word.some(t => getActiveColour(t) === 'azure')) return null;
+
   for (let i = 0; i < letters.length; i++) {
     if (!VOWELS.includes(letters[i])) continue;
     for (const v of VOWELS) {
@@ -151,6 +156,12 @@ function titivillusPardon(letters) {
       if (DICT.has(fixed)) return fixed;
     }
   }
+  for (let i = 0; i < letters.length - 1; i++) {
+    const [a, b] = [letters[i], letters[i + 1]];
+    if (a === b || !VOWELS.includes(a) || !VOWELS.includes(b)) continue;
+    const fixed = letters.slice(0, i) + b + a + letters.slice(i + 2);
+    if (DICT.has(fixed)) return fixed;
+  }
   return null;
 }
 
@@ -158,18 +169,46 @@ function titivillusPardon(letters) {
 // Score-time patrons live in the score script; these are the ones that reach
 // beyond it — permanent growth, burns, chapter-end dyes. See js/patrons.js.
 
+// Returns the tiles that were destroyed — they must never reach the discard
+// pile, so the caller drops them from the retire list and burns them away
+// on screen instead.
 function runPrintedHooks(tiles, script) {
   state.lastFirstLetter = splitMarks(script.word)?.letters?.[0] ?? null;
+  const burned = new Map();   // id → tile (a tile can only burn once)
+
   for (const p of state.patrons) {
     const def = patronById(p.id);
     if (!def?.onPrinted) continue;
     p.data ??= {};
-    const r = def.onPrinted({ tiles, script, state, data: p.data, grow: growTile });
-    if (r?.note) {
+    const r = def.onPrinted({
+      tiles: tiles.filter(t => !burned.has(t.id)),   // ash is out of everyone's reach
+      script, state, data: p.data,
+      grow:  growTile,
+      paint: paintTile,
+      trim:  trimTile,
+      burn:  t => !!trashFromCollection(t.tid),
+    });
+    if (!r) continue;
+    for (const t of r.burned ?? []) burned.set(t.id, t);
+    if (r.note) {
       const card = document.querySelector(`#shelf .patron[data-patron="${p.id}"]`);
       if (card) { pulse(card, 'patron--firing', 520); floatText(card, r.note, 'fl-points', { dy: -44 }); }
     }
   }
+  return [...burned.values()];
+}
+
+// A burned tile flares, chars, and crumbles where it sits — no flight to the
+// discard pile, because there's nothing left to file.
+async function animateBurn(els) {
+  if (!els.length) return;
+  sfx.burn();
+  for (const el of els) {
+    el.classList.add('tile--burning');
+    sparkleBurst(el, 10);
+  }
+  await sleep(ANIM.stepBurn);
+  for (const el of els) el.style.visibility = 'hidden';
 }
 
 function runChapterHooks() {
@@ -280,10 +319,12 @@ async function submitWord() {
     const card = document.querySelector(`#shelf .patron[data-patron="${p.id}"]`);
     if (card) {
       pulse(card, 'patron--firing', 520);
-      floatText(card, p.text, p.points ? 'fl-points' : 'fl-mult', { dy: -44 });
+      const cls = p.coins ? 'fl-coin' : p.points ? 'fl-points' : 'fl-mult';
+      floatText(card, p.coins ? `+${coinHTML(p.coins)}` : p.text, cls, { dy: -44 });
     }
     if (p.points) { pointsSoFar += p.points; tweenNum(ro.points, pointsSoFar); sfx.tick(8); }
     if (p.mult || p.xmult) sfx.mult();
+    if (p.coins) sfx.coin();
     await sleep(ANIM.stepPatron);
   }
 
@@ -306,7 +347,6 @@ async function submitWord() {
   state.discards    = Math.min(state.discardsMax, state.discards + script.refresh);
   state.wordsLeft   = Math.max(0, state.wordsLeft - 1);
   state.wordsPrinted += 1;
-  state.scavengerPoints = 0;
   state.stats.words += 1;
   if (script.total > state.stats.bestScore) {
     state.stats.bestScore = script.total;
@@ -316,16 +356,22 @@ async function submitWord() {
 
   // Patrons that reach beyond the score fire before the tiles retire, so a
   // grown tile carries its growth wherever it goes next (even back to the bag).
-  runPrintedHooks(printed, script);
+  const burned = runPrintedHooks(printed, script);
+  if (burned.length) {
+    await animateBurn(burned.map(t => rectOf.get(t.id)?.el).filter(Boolean));
+  }
 
-  // Mercury trims slip back into the bag; everything else is discarded
-  const { toBag, toPile } = retirePrinted(printed);
+  // Mercury trims and (with The Fountain) azure tiles slip back into the bag;
+  // everything else is discarded. Ash goes nowhere at all.
+  const burnedIds = new Set(burned.map(t => t.id));
+  const { toBag, toPile } = retirePrinted(printed.filter(t => !burnedIds.has(t.id)));
   state.word.length = 0;
 
   let msg = `”${script.word}” — ${script.points} × ${fmtMult(script.mult)} = ${script.total}.`;
   if (script.coins)   msg += `  +${script.coins} Coin${script.coins > 1 ? 's' : ''}.`;
   if (script.refresh) msg += `  +${script.refresh} Discard${script.refresh > 1 ? 's' : ''}.`;
   if (toBag.length)   msg += `  ${toBag.length} slipped back into the bag.`;
+  if (burned.length)  msg += `  ${burned.length} burned to ash.`;
   if (pardoned)       msg += `  😈 Titivillus pockets the error — it stands for ${pardoned}.`;
   log(msg, 'good');
 
@@ -492,7 +538,6 @@ async function doDiscard() {
   renderAll();
 
   let msg = `Discarded ${result.removed.length} tile${result.removed.length > 1 ? 's' : ''}.`;
-  if (owns('scavenger')) msg += '  +12 Points next word (Scavenger).';
   if (!result.drawn.length && !state.bag.length) msg += '  The bag is empty.';
   log(msg);
 
@@ -628,8 +673,46 @@ $('shelf')?.addEventListener('click', e => {
   }
 });
 
-// Popover actions (flip a dual tile, dismiss a patron)
+// ─── The Neologist (coin a word, then bow out) ────────────────────────────────
+
+function confirmCoinedWord() {
+  const input = $('coinInput');
+  const w = (input?.value || '').trim().toUpperCase();
+  if (w.length !== NEOLOGIST_LENGTH || !/^[A-Z]+$/.test(w)) {
+    setCoinNote(`${NEOLOGIST_LENGTH} letters, A to Z — no more, no less.`, true);
+    return;
+  }
+  if (DICT.has(w)) {
+    setCoinNote('The dictionary knows that one already.', true);
+    return;
+  }
+  coinWord(w);
+  const i = state.patrons.findIndex(p => p.id === 'neologist');
+  if (i >= 0) state.patrons.splice(i, 1);
+  hideOverlay();
+  renderAll();
+  renderDictStatus('loaded', DICT.size);
+  log(`“${w}” is a word now, and always will be. The Neologist retires, satisfied.`, 'good');
+}
+
+$('overlayModal')?.addEventListener('click', e => {
+  if (e.target.closest('[data-coin-cancel]')) { hideOverlay(); return; }
+  if (e.target.closest('[data-coin-confirm]')) confirmCoinedWord();
+});
+$('overlayModal')?.addEventListener('keydown', e => {
+  if (!$('coinInput')) return;
+  if (e.key === 'Enter')  { e.preventDefault(); confirmCoinedWord(); }
+  if (e.key === 'Escape') { e.preventDefault(); hideOverlay(); }
+});
+
+// Popover actions (flip a dual tile, dismiss a patron, use a patron)
 $('popover')?.addEventListener('click', e => {
+  const act = e.target.closest('[data-patron-act]');
+  if (act) {
+    hidePopover();
+    if (!state.isAnimating && act.dataset.patronAct === 'neologist') showCoinWordSheet();
+    return;
+  }
   const sell = e.target.closest('[data-sell]');
   if (sell) { hidePopover(); if (!state.isAnimating) dismissPatron(sell.dataset.sell); return; }
   const flip = e.target.closest('[data-flip]');

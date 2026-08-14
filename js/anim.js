@@ -248,4 +248,7 @@ export const sfx = {
   bad()        { blip(190, { time: 0.16, type: 'square', gain: 0.04, slide: -60 }); },
   draw()       { blip(620, { time: 0.05, type: 'triangle', gain: 0.035, slide: 160 }); },
   discard()    { blip(330, { time: 0.06, type: 'triangle', gain: 0.035, slide: -90 }); },
+  // A tile going up: a flare, then the crackle falling away beneath it.
+  burn()       { blip(880, { time: 0.10, type: 'sawtooth', gain: 0.045, slide: 420 });
+                 blip(260, { time: 0.34, type: 'sawtooth', gain: 0.05, when: 0.06, slide: -170 }); },
 };

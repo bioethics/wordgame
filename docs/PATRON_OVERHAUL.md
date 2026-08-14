@@ -1,11 +1,28 @@
 # The Colour Guilds — patron overhaul
 
-The approved redesign of Folio's patron roster. Phase 0 (engine foundations) and
-the two subtlest patrons are **done**; this document is the worklist and the
-contract for the remaining phases. Design intent in one line: paint is the heart
-of scoring, so each colour gets a guild of patrons that makes committing to it
-an archetype — amber pays coins, jade compounds forever, crimson burns for
-power, azure bends the rules of spelling.
+The approved redesign of Folio's patron roster. **All four phases have
+shipped**; this document remains as the design record — per-patron rationale,
+conventions, and the playtest watchpoints. Design intent in one line: paint is
+the heart of scoring, so each colour gets a guild of patrons that makes
+committing to it an archetype — amber pays coins, jade compounds forever,
+crimson burns for power, azure bends the rules of spelling.
+
+Deviations from the plan as written, decided during implementation:
+
+- **Titivillus also forgives a vowel transposition** (WIERD, RECIEVE, THIER) —
+  substitution alone missed the archetypal i-before-e slip, which is the error
+  Titivillus exists to collect. Desc updated to match.
+- The Assayer's coins ride the score script via a new `addCoins` ctx helper;
+  patron coin steps get their own amber badge chip (`+2c`) and coin floater.
+- The Fountain and mercury share one rule, `returnsToBag` (state.js), read by
+  both `retirePrinted` and scoring's `returns` flag so preview and print agree.
+- `paintTile` / `trimTile` joined `growTile` as write-through helpers; the
+  paint tubes now go through `paintTile` too.
+- Burns get `ANIM.stepBurn`, an `sfx.burn`, and a `.tile--burning` keyframe
+  (flare, char, crumble — reduced-motion chars in place). Burned tiles skip
+  the retire flight entirely.
+- The Neologist coins through a "Coin a word…" action on its popover, opening
+  a letterpress-styled sheet on the overlay modal; it retires with no refund.
 
 ## What Phase 0 already delivered (main branch of this feature)
 

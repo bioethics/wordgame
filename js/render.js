@@ -9,7 +9,7 @@ import {
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark,
   WORDS_PER_PAGE, PAGES_PER_CHAPTER, TUBE_TILES, tileCount,
-  colourDesc, chapterTitle, roman, isDeadline,
+  colourDesc, chapterTitle, roman, isDeadline, NEOLOGIST_LENGTH,
 } from './constants.js';
 import { patronById } from './patrons.js';
 import { computeScore } from './scoring.js';
@@ -156,10 +156,48 @@ export function showTilePopover(tile, anchorEl, breakdown = null, { canFlip = tr
 }
 
 export function showPatronPopover(def, anchorEl) {
+  // A patron with something to be *used* offers it above the dismissal.
+  const act = def.id === 'neologist'
+    ? `<button class="btn btn-quiet tip-btn" data-patron-act="neologist">Coin a word…</button>`
+    : '';
   showPopover(anchorEl, `
     <div class="tip-head">${def.emoji} ${def.name} <span class="op-rarity">${def.rarity}</span></div>
     <div class="tip-line">${def.desc}</div>
+    ${act}
     <button class="btn btn-quiet tip-btn" data-sell="${def.id}">Dismiss for ${coinHTML(Math.floor(def.cost / 2))}</button>`);
+}
+
+// ─── The Neologist's coining sheet ────────────────────────────────────────────
+// Six letters, no more, and nothing the dictionary already knows. What you
+// coin here outlives the run: it's kept beside the save and folded into every
+// dictionary the game loads afterwards.
+
+export function showCoinWordSheet() {
+  showOverlay(`
+    <div class="sheet sheet--end sheet--coin">
+      <div class="end-flourish">📖</div>
+      <h2 class="end-title">Coin a word</h2>
+      <p class="end-sub">${NEOLOGIST_LENGTH} letters of your own devising, entered into the
+        dictionary for good — in this folio and every one after it. The Neologist
+        retires the moment the ink dries.</p>
+      <input id="coinInput" class="coin-input" maxlength="${NEOLOGIST_LENGTH}"
+             autocomplete="off" autocapitalize="characters" spellcheck="false"
+             placeholder="${'·'.repeat(NEOLOGIST_LENGTH)}" aria-label="New word">
+      <div id="coinNote" class="coin-note">&nbsp;</div>
+      <div class="end-actions">
+        <button class="btn btn-quiet" data-coin-cancel>Not yet</button>
+        <button class="btn btn-print btn-big" data-coin-confirm>Set it in type</button>
+      </div>
+    </div>`);
+  const input = $('coinInput');
+  input?.focus();
+}
+
+export function setCoinNote(msg, bad = false) {
+  const el = $('coinNote');
+  if (!el) return;
+  el.textContent = msg || ' ';
+  el.classList.toggle('coin-note--bad', bad);
 }
 
 export function hidePopover() {
@@ -246,11 +284,13 @@ function patronTakes(script) {
   for (const s of script?.patronSteps ?? []) {
     const chip = s.xmult ? `×${fmtMult(s.xmult)}`
                : s.mult  ? `+${fmtMult(s.mult)}`
+               : s.coins ? `+${s.coins}c`
                :           `+${s.points}`;
+    const kind = s.points ? 'points' : s.coins ? 'coins' : 'mult';
     const prev = takes.get(s.id);
     takes.set(s.id, prev
       ? { chip: `${prev.chip} ${chip}`, kind: prev.kind, text: `${prev.text}, ${s.text}` }
-      : { chip, kind: s.points ? 'points' : 'mult', text: s.text });
+      : { chip, kind, text: s.text });
   }
   return takes;
 }

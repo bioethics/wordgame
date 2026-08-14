@@ -110,7 +110,6 @@ export const state = {
   patrons: [],      // [{ id, data }] — data carries a patron's own memory (e.g. Stoker stacks)
   sundries: [],     // [{ kind: 'tube', colour } | { kind: 'reshuffle' }] — the workbench
   upgradeCounts: {}, // id → times taken this run, from the Colophon (see js/upgrades.js)
-  scavengerPoints: 0,  // pending bonus from The Scavenger
   luck: 1,             // scales every "good outcome" roll (see luckyRoll) — a future dial
   lastFirstLetter: null,  // first letter of the last word printed this run (The Skald)
 
@@ -200,7 +199,7 @@ export function newRun() {
     quota: quotaFor(1, 1), pageScore: 0,
     wordsLeft: WORDS_PER_PAGE, discards: DISCARDS_PER_PAGE,
     discardsMax: DISCARDS_PER_PAGE, wordsPrinted: 0,
-    coins: STARTING_COINS, patrons: [], sundries: [], upgradeCounts: {}, scavengerPoints: 0,
+    coins: STARTING_COINS, patrons: [], sundries: [], upgradeCounts: {},
     luck: 1, lastFirstLetter: null,
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
@@ -224,7 +223,6 @@ export function startPage() {
   state.wordsLeft    = WORDS_PER_PAGE;
   state.discardsMax = DISCARDS_PER_PAGE + (owns('quartermaster') ? 1 : 0) + (state.upgradeCounts?.discard ?? 0);
   state.discards    = state.discardsMax;
-  state.scavengerPoints = 0;
   state.discardMode = false;
   state.sundryMode = -1;
 }
@@ -264,7 +262,6 @@ export function discardSelected() {
     state.discardPile.push(t);
   }
   state.discards -= 1;
-  if (owns('scavenger')) state.scavengerPoints += 12;
 
   const drawn = drawUpToRackSize();
   return { removed: selected, drawn };
@@ -274,12 +271,19 @@ export function getWordString() {
   return state.word.map(t => getActiveLetter(t)).join('');
 }
 
-// Where a printed tile goes. Mercury trims slip back into the bag — dropped in
-// at a random depth so they aren't simply redrawn on the next turn.
+// Which printed tiles slip back into the bag rather than the discard pile:
+// mercury trims always, and every azure tile while The Fountain is seated.
+// Scoring reads the same rule for its "↩ to bag" flag, so the promise the
+// board makes while you compose is the one printing keeps.
+export const returnsToBag = tile =>
+  tile.trim === 'mercury' || (owns('fountain') && getActiveColour(tile) === 'azure');
+
+// Where a printed tile goes. Returning tiles are dropped in at a random depth
+// so they aren't simply redrawn on the next turn.
 export function retirePrinted(tiles) {
   const toBag = [], toPile = [];
   for (const t of tiles) {
-    if (t.trim === 'mercury') {
+    if (returnsToBag(t)) {
       const { id, selected, basePoints, ...template } = t;
       const at = Math.floor(Math.random() * (state.bag.length + 1));
       state.bag.splice(at, 0, template);
@@ -303,6 +307,32 @@ export function growTile(tile, n = 1) {
   const tmpl = state.collection.find(c => c.tid === tile.tid);
   if (tmpl) tmpl.bonusPoints = (tmpl.bonusPoints ?? 0) + n;
   return tile.bonusPoints;
+}
+
+// Paint the face a tile is currently showing (dual faces are painted
+// separately), writing through to the collection so the paint is permanent.
+// Every route to permanent paint goes through here — tubes, the Painter,
+// patrons — so none of them can drift apart.
+export function paintTile(tile, colour) {
+  const altFace = tile.letterType === 'dual' && tile.activeVariant === 1;
+  if (altFace) tile.altColour = colour;
+  else         tile.colour    = colour;
+  const tmpl = state.collection.find(c => c.tid === tile.tid);
+  if (tmpl) {
+    if (altFace) tmpl.altColour = colour;
+    else         tmpl.colour    = colour;
+  }
+  return true;
+}
+
+// A trim belongs to the tile, not to either face. Refuses a tile that already
+// wears one — trims don't stack.
+export function trimTile(tile, kind) {
+  if (tile.trim) return false;
+  tile.trim = kind;
+  const tmpl = state.collection.find(c => c.tid === tile.tid);
+  if (tmpl) tmpl.trim = kind;
+  return true;
 }
 
 // Remove a tile from the collection for good (Stoker burns, Arsonist accidents).
@@ -364,14 +394,7 @@ export function applySundry(idx) {
 
   const letters = [];
   for (const t of targets) {
-    const altFace = t.letterType === 'dual' && t.activeVariant === 1;
-    if (altFace) t.altColour = sundry.colour;
-    else         t.colour    = sundry.colour;
-    const tmpl = state.collection.find(c => c.tid === t.tid);
-    if (tmpl) {
-      if (altFace) tmpl.altColour = sundry.colour;
-      else         tmpl.colour    = sundry.colour;
-    }
+    paintTile(t, sundry.colour);
     t.selected = false;
     letters.push(getActiveLetter(t));
   }

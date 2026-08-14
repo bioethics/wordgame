@@ -62,6 +62,7 @@ plus an optional **trim** and **nick**.
 | Trim | **Gold** pays 1 Coin · **Silver** +6 Points · **Copper** refreshes 1 Discard · **Mercury** slips back into the bag instead of the discard pile · **Purple** raises the fifth multiplier by 0.5 |
 | Nick | A notch cut into one edge; the notched side is the direction. **Right** ×3 Points to everything on its right · **Left** ×3 to its left. Nicks don't stack — a letter is multiplied once at most. While you compose, an affected tile's corner number becomes the multiplied value, restyled, rippling outward from the notch. |
 | Letterform | Dual tiles hold two letters (flip to switch; each face painted independently) · Ligatures ING · ED · TCH spell several letters from one tile · **Marks** ? and ! spell nothing at all |
+| Growth | Grown points — permanent +1s a patron (The Grafter) writes into a tile, worn as a jade corner number wherever the tile appears |
 
 A dual tile shares its trim and nick across both faces; only the letters and
 their paint swap.
@@ -111,7 +112,13 @@ Punchcutter at 2, the rest at 1.
 
 **Patrons** grant standing boons — five seats to start (the Colophon can add
 more), dismissable for half their cost (hover for the ✕, or tap the patron on
-touch). While you compose, the shelf shows its hand: every patron whose
+touch). The roster is built around **colour guilds**: each paint keeps a family
+of patrons that makes committing to it an archetype — amber pays coins, jade
+compounds forever (grown tiles, chapter-scaling boons), crimson burns tiles
+for power, azure bends the rules of spelling — plus colour-blind wildcards and
+the word-shape classics. Some patrons act after a word prints (burning,
+growing, painting) or as a chapter turns (the dye commons), not just while it
+scores. While you compose, the shelf shows its hand: every patron whose
 condition the word already meets wakes up — rising, breathing a candlelit
 glow, catching a slow sweep of gold leaf — and wears a badge of exactly what
 it stands to add (+20 Points, ×3 Mult). The ones sitting this word out dim
@@ -165,7 +172,8 @@ beyond.
 | Colophon roster, offer count, repeat cap, skip grant | `js/constants.js` → `UPGRADE_OFFERS`, `MAX_UPGRADE_REPEATS`, `SKIP_COIN_GRANT`; definitions in `js/upgrades.js` |
 | Patron reaction odds | `js/constants.js` → `REACTION`; the lines themselves in `js/quips.js` — a flat array, add more any time |
 | Words / discards / seats per page | `js/constants.js` |
-| Patron roster, costs, effects | `js/patrons.js` |
+| Patron roster, costs, effects | `js/patrons.js` (design notes in `docs/PATRON_OVERHAUL.md`) |
+| Patron tuning that reaches beyond a score (growth steps, burn odds, trim chance, dye count, coined-word length) | `js/constants.js` → `GRAFTER_STEP`, `STOKER_STEP`, `ARSONIST_ODDS`, `NUDIST_TRIM_CHANCE`, `DYE_TILES_PER_CHAPTER`, `NEOLOGIST_LENGTH` |
 | Animation step timings | `js/constants.js` → `ANIM` (all divided by the Settings speed slider) |
 | Chapter names | `js/constants.js` → `CHAPTER_NAMES` |
 

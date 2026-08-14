@@ -215,6 +215,7 @@ export const ANIM = {
   stepNick:   430,
   stepColour: 560,
   stepPatron: 460,
+  stepBurn:   620,
   holdTotal:  820,
   fly:        430,
   stagger:    65,

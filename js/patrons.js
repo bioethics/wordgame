@@ -4,13 +4,19 @@
 //       'meta'  — handled explicitly elsewhere (page start, page reward, discards,
 //                 the dictionary check), or via the hooks below.
 //
-// Score ctx: { word, tiles, state, addPoints(n), addMult(n), xMult(n) }
-// The add/x helpers record an animation step automatically.
+// Score ctx: { word, tiles, state, data, addPoints(n), addMult(n), xMult(n),
+//              addCoins(n) }
+// The add/x helpers record an animation step automatically. `data` is the
+// seat's memory and is READ-ONLY here — scoring runs on every keystroke to
+// power the live preview, so counters are advanced in onPrinted, never here.
 //
 // Optional hooks (main.js dispatches these for every seated patron):
 //   onPrinted(ctx)    — after a word commits; ctx { tiles, script, state, data,
-//                       grow(tile, n) }. May mutate the collection (permanent
-//                       growth, burns). Return { note } to say something.
+//                       grow(tile, n), paint(tile, colour), burn(tile),
+//                       trim(tile, kind) }. May mutate the collection
+//                       (permanent growth, paint, burns). Return { note } to
+//                       say something, and { burned: [tile…] } for tiles that
+//                       must not retire to the discard pile.
 //   onChapterEnd(ctx) — as a chapter clears, before the next page's bag is
 //                       shuffled; ctx { state, data }. Return { note } likewise.
 // `data` is the seat's own saved memory (state.js patronData) — counters live
@@ -19,10 +25,42 @@
 // Optional `portrait`: path to an image (e.g. 'img/patrons/scholar.png') shown
 // on the patron's business card in the market and draft instead of the emoji.
 
-import { GRAFTER_STEP } from './constants.js';
-import { getActiveColour } from './state.js';
+import {
+  GRAFTER_STEP, STOKER_STEP, ARSONIST_ODDS, NUDIST_TRIM_CHANCE,
+  DYE_TILES_PER_CHAPTER, COLOURS, TRIMS,
+} from './constants.js';
+import { getActiveColour, getActiveLetter, luckyRoll, paintRandomFaces } from './state.js';
 
 const VOWELS = 'AEIOU';
+
+// Tiles showing a given paint (a dual tile counts by the face it's playing).
+const painted = (tiles, colour) => tiles.filter(t => getActiveColour(t) === colour);
+
+// Adjacent doubled pairs, counted without overlapping: AAA is one pair,
+// AAAA is two. BALLOON has two (LL, OO).
+function doubledPairs(word) {
+  let n = 0;
+  for (let i = 0; i < word.length - 1; i++) {
+    if (word[i] === word[i + 1]) { n++; i++; }
+  }
+  return n;
+}
+
+// The dye commons: one per colour, each the same patron in a different pot.
+// They paint at the turn of a chapter, before the next page's bag is shuffled,
+// so what they colour is in play from the very first draw.
+function dyePatron(id, name, emoji, colour) {
+  const label = COLOURS[colour].label.toLowerCase();
+  return {
+    id, name, emoji, rarity: 'common', cost: 4,
+    desc: `As each chapter ends, ${DYE_TILES_PER_CHAPTER} tiles of your collection are painted ${label}.`,
+    when: 'meta',
+    onChapterEnd() {
+      const letters = paintRandomFaces(colour, DYE_TILES_PER_CHAPTER);
+      return letters.length ? { note: `${letters.join(', ')} painted ${label}` } : null;
+    },
+  };
+}
 
 export const PATRON_DEFS = [
   // ── Commons ─────────────────────────────────────────────────────────────────
@@ -39,23 +77,10 @@ export const PATRON_DEFS = [
     effect({ word, addMult }) { if (word.length >= 5) addMult(3); },
   },
   {
-    id: 'diva', name: 'The Diva', emoji: '🎭', rarity: 'common', cost: 4,
-    desc: 'Vowels score +2 extra Points.',
+    id: 'twins', name: 'The Twins', emoji: '👯', rarity: 'common', cost: 4,
+    desc: 'Words with a doubled letter (LL, OO…) gain +30 Points.',
     when: 'score',
-    effect({ word, addPoints }) {
-      const n = [...word].filter(c => VOWELS.includes(c)).length;
-      if (n) addPoints(n * 2);
-    },
-  },
-  {
-    id: 'botanist', name: 'The Botanist', emoji: '🌿', rarity: 'common', cost: 4,
-    desc: 'Words with a doubled letter (LL, OO…) gain +25 Points.',
-    when: 'score',
-    effect({ word, addPoints }) {
-      for (let i = 0; i < word.length - 1; i++) {
-        if (word[i] === word[i + 1]) { addPoints(25); return; }
-      }
-    },
+    effect({ word, addPoints }) { if (doubledPairs(word)) addPoints(30); },
   },
   {
     id: 'herald', name: 'The Herald', emoji: '📯', rarity: 'common', cost: 4,
@@ -76,15 +101,6 @@ export const PATRON_DEFS = [
     id: 'quartermaster', name: 'The Quartermaster', emoji: '🎒', rarity: 'uncommon', cost: 5,
     desc: 'Begin each page with an extra Discard.',
     when: 'meta',
-  },
-  {
-    id: 'twins', name: 'The Twins', emoji: '👯', rarity: 'uncommon', cost: 6,
-    desc: 'Words containing any repeated letter get ×2 Mult.',
-    when: 'score',
-    effect({ word, xMult }) {
-      const seen = new Set();
-      for (const c of word) { if (seen.has(c)) { xMult(2); return; } seen.add(c); }
-    },
   },
   {
     id: 'typesetter', name: 'The Typesetter', emoji: '🔠', rarity: 'uncommon', cost: 6,
@@ -141,15 +157,6 @@ export const PATRON_DEFS = [
     effect({ word, xMult }) { if (word.length === 3) xMult(3); },
   },
   {
-    id: 'economist', name: 'The Economist', emoji: '📈', rarity: 'rare', cost: 8,
-    desc: '+1 Mult for every 5 Coins you hold (max +4).',
-    when: 'score',
-    effect({ state, addMult }) {
-      const n = Math.min(4, Math.floor(state.coins / 5));
-      if (n) addMult(n);
-    },
-  },
-  {
     id: 'astronomer', name: 'The Astronomer', emoji: '🔭', rarity: 'rare', cost: 9,
     desc: '+1 Mult for each word already printed this page.',
     when: 'score',
@@ -160,11 +167,6 @@ export const PATRON_DEFS = [
     desc: 'The final word of each page gets ×3 Mult.',
     when: 'score',
     effect({ state, xMult }) { if (state.wordsLeft === 1) xMult(3); },
-  },
-  {
-    id: 'scavenger', name: 'The Scavenger', emoji: '🦝', rarity: 'rare', cost: 9,
-    desc: 'Each Discard grants your next word +12 Points.',
-    when: 'meta',   // accrues on discard, consumed by scoring
   },
   {
     id: 'mirror', name: 'The Mirror', emoji: '🪞', rarity: 'rare', cost: 12,
@@ -191,23 +193,211 @@ export const PATRON_DEFS = [
     effect({ word, xMult }) { if (word.length >= 7) xMult(5); },
   },
 
-  // ── The Colour Guilds (jade) ────────────────────────────────────────────────
+  // ══ The Colour Guilds ═══════════════════════════════════════════════════════
+  // Paint is the heart of the score — Mult is the product of the colour
+  // multipliers — so each colour keeps a guild that makes committing to it an
+  // archetype of its own. See docs/PATRON_OVERHAUL.md.
+
+  // ── Amber · the counting-house ──────────────────────────────────────────────
+  {
+    id: 'goldsmith', name: 'The Goldsmith', emoji: '🪙', rarity: 'common', cost: 4,
+    desc: 'Amber letters gain +5 Points.',
+    when: 'score',
+    effect({ tiles, addPoints }) {
+      const n = painted(tiles, 'amber').length;
+      if (n) addPoints(n * 5);
+    },
+  },
+  dyePatron('weld', 'The Weld', '🌼', 'amber'),
+  {
+    id: 'assayer', name: 'The Assayer', emoji: '⚖️', rarity: 'uncommon', cost: 6,
+    desc: 'Amber letters pay 1 Coin when printed, up to 2 a word.',
+    when: 'score',
+    effect({ tiles, addCoins }) {
+      const n = Math.min(2, painted(tiles, 'amber').length);
+      if (n) addCoins(n);
+    },
+  },
+  {
+    id: 'bursar', name: 'The Bursar', emoji: '💰', rarity: 'rare', cost: 8,
+    desc: 'Words with an amber letter gain +1 Mult for every 5 Coins you hold (max +5).',
+    when: 'score',
+    effect({ tiles, state, addMult }) {
+      if (!painted(tiles, 'amber').length) return;
+      const n = Math.min(5, Math.floor(state.coins / 5));
+      if (n) addMult(n);
+    },
+  },
+
+  // ── Jade · growth and permanence ────────────────────────────────────────────
+  {
+    id: 'seedsman', name: 'The Seedsman', emoji: '🌱', rarity: 'common', cost: 4,
+    desc: 'Jade letters gain +1 Point for each chapter reached.',
+    when: 'score',
+    effect({ tiles, state, addPoints }) {
+      const n = painted(tiles, 'jade').length;
+      if (n) addPoints(n * state.chapter);
+    },
+  },
+  dyePatron('verdigris', 'The Verdigris', '🍏', 'jade'),
+  {
+    id: 'vintner', name: 'The Vintner', emoji: '🍷', rarity: 'uncommon', cost: 7,
+    desc: 'Words with a jade letter gain +1 Mult for each chapter reached.',
+    when: 'score',
+    effect({ tiles, state, addMult }) {
+      if (painted(tiles, 'jade').length) addMult(state.chapter);
+    },
+  },
   {
     id: 'grafter', name: 'The Grafter', emoji: '🌿', rarity: 'rare', cost: 10,
     desc: 'When a word with a jade letter prints, every tile in it permanently gains +1 Point.',
     when: 'meta',
     onPrinted({ tiles, grow }) {
-      if (!tiles.some(t => getActiveColour(t) === 'jade')) return null;
+      if (!painted(tiles, 'jade').length) return null;
       for (const t of tiles) grow(t, GRAFTER_STEP);
       return { note: `+${GRAFTER_STEP} grown into ${tiles.length} tile${tiles.length > 1 ? 's' : ''}` };
     },
   },
 
-  // ── The Colour Guilds (azure) ───────────────────────────────────────────────
+  // ── Crimson · sacrifice and fire ────────────────────────────────────────────
+  {
+    id: 'firebrand', name: 'The Firebrand', emoji: '❤️‍🔥', rarity: 'common', cost: 4,
+    desc: 'Words with 2 or more crimson letters gain +25 Points.',
+    when: 'score',
+    effect({ tiles, addPoints }) {
+      if (painted(tiles, 'crimson').length >= 2) addPoints(25);
+    },
+  },
+  dyePatron('madder', 'The Madder', '🌺', 'crimson'),
+  {
+    id: 'arsonist', name: 'The Arsonist', emoji: '🧨', rarity: 'uncommon', cost: 7,
+    desc: 'Every tile you print has a 1-in-10 chance of being painted crimson — and a 1-in-100 chance of burning to ash.',
+    when: 'meta',
+    onPrinted({ tiles, paint, burn }) {
+      const burned = [], flushed = [];
+      for (const t of tiles) {
+        // The burn is the Arsonist's own bad luck, so it dodges the luck dial;
+        // the free paint is a gift, so it doesn't.
+        if (Math.random() < ARSONIST_ODDS.burn && burn(t)) { burned.push(t); continue; }
+        if (luckyRoll(ARSONIST_ODDS.paint) && paint(t, 'crimson')) flushed.push(t);
+      }
+      if (!burned.length && !flushed.length) return null;
+      const notes = [];
+      if (flushed.length) notes.push(`${flushed.length} splashed crimson`);
+      if (burned.length)  notes.push(`${burned.length} to ash`);
+      return { note: notes.join(', '), burned };
+    },
+  },
+  {
+    id: 'stoker', name: 'The Stoker', emoji: '🔥', rarity: 'rare', cost: 11,
+    desc: 'Crimson letters burn to ash when printed, and each one feeds this patron a permanent +×0.25 Mult.',
+    when: 'score',
+    effect({ data, xMult }) {
+      const stacks = data?.stacks ?? 0;
+      if (stacks) xMult(Math.round((1 + stacks * STOKER_STEP) * 100) / 100);
+    },
+    onPrinted({ tiles, data, burn }) {
+      const burned = [];
+      for (const t of painted(tiles, 'crimson')) {
+        if (burn(t)) { burned.push(t); data.stacks = (data.stacks ?? 0) + 1; }
+      }
+      if (!burned.length) return null;
+      return {
+        note: `${burned.length} to the fire — ×${Math.round((1 + data.stacks * STOKER_STEP) * 100) / 100} Mult`,
+        burned,
+      };
+    },
+  },
+
+  // ── Azure · ink, flow, and latitude ─────────────────────────────────────────
+  {
+    id: 'siren', name: 'The Siren', emoji: '🎶', rarity: 'common', cost: 4,
+    desc: 'Vowels gain +2 Points — or +6 if they are azure.',
+    when: 'score',
+    effect({ tiles, addPoints }) {
+      let sum = 0;
+      for (const t of tiles) {
+        const L = getActiveLetter(t);
+        if (L.length !== 1 || !VOWELS.includes(L)) continue;
+        sum += getActiveColour(t) === 'azure' ? 6 : 2;
+      }
+      if (sum) addPoints(sum);
+    },
+  },
+  dyePatron('woad', 'The Woad', '🪻', 'azure'),
+  {
+    id: 'marbler', name: 'The Marbler', emoji: '🌀', rarity: 'uncommon', cost: 7,
+    desc: 'Words with 2 or more azure letters get ×2 Mult.',
+    when: 'score',
+    effect({ tiles, xMult }) {
+      if (painted(tiles, 'azure').length >= 2) xMult(2);
+    },
+  },
+  {
+    id: 'fountain', name: 'The Fountain', emoji: '⛲', rarity: 'uncommon', cost: 7,
+    desc: 'Azure tiles slip back into the bag when printed, instead of the discard pile.',
+    when: 'meta',   // read by retirePrinted, and by scoring's `returns` flag
+  },
   {
     id: 'titivillus', name: 'Titivillus', emoji: '😈', rarity: 'rare', cost: 9,
-    desc: 'One wrong vowel per word is forgiven, while the word holds an azure letter.',
+    desc: 'One vowel may go wrong, or two swap places, while the word holds an azure letter.',
     when: 'meta',   // consulted at the dictionary check in main.js — the typo prints as typed
+  },
+  {
+    id: 'neologist', name: 'The Neologist', emoji: '📖', rarity: 'rare', cost: 10,
+    desc: 'Coin one six-letter word into the dictionary, for good — then this patron retires.',
+    when: 'meta',   // the coining sheet lives in sheets.js; the word outlives the run
+  },
+
+  // ── Wildcards · the glue between guilds ─────────────────────────────────────
+  {
+    id: 'skald', name: 'The Skald', emoji: '🎵', rarity: 'uncommon', cost: 6,
+    desc: 'Words starting with the same letter as your last word get ×2 Mult.',
+    when: 'score',
+    effect({ word, state, xMult }) {
+      if (word && state.lastFirstLetter && word[0] === state.lastFirstLetter) xMult(2);
+    },
+  },
+  {
+    id: 'nudist', name: 'The Nudist', emoji: '🧖', rarity: 'uncommon', cost: 6,
+    desc: 'Print a word of wholly bare tiles and each one has a 1-in-4 chance of gaining a trim.',
+    when: 'meta',
+    onPrinted({ tiles, trim }) {
+      const bare = t => !t.colour && !t.altColour && !t.trim && !t.nick;
+      if (!tiles.length || !tiles.every(bare)) return null;
+      const kinds = Object.keys(TRIMS);
+      const dressed = [];
+      for (const t of tiles) {
+        if (!luckyRoll(NUDIST_TRIM_CHANCE)) continue;
+        const kind = kinds[Math.floor(Math.random() * kinds.length)];
+        if (trim(t, kind)) dressed.push(TRIMS[kind].label);
+      }
+      return dressed.length ? { note: `dressed in ${dressed.join(', ')}` } : null;
+    },
+  },
+  {
+    id: 'illuminator', name: 'The Illuminator', emoji: '🎨', rarity: 'rare', cost: 8,
+    desc: 'Words holding three paint colours have one bare letter painted the fourth, permanently.',
+    when: 'meta',
+    onPrinted({ tiles, paint }) {
+      const present = new Set(tiles.map(getActiveColour).filter(Boolean));
+      if (present.size !== 3) return null;
+      const missing = Object.keys(COLOURS).find(c => !present.has(c));
+      const bare = tiles.filter(t => !getActiveColour(t));
+      if (!missing || !bare.length) return null;
+      const target = bare[Math.floor(Math.random() * bare.length)];
+      if (!paint(target, missing)) return null;
+      return { note: `${getActiveLetter(target)} illuminated ${COLOURS[missing].label.toLowerCase()}` };
+    },
+  },
+  {
+    id: 'stammerer', name: 'The Stammerer', emoji: '🦜', rarity: 'rare', cost: 10,
+    desc: '×2 Mult for every doubled letter in the word — BALLOON pays twice.',
+    when: 'score',
+    effect({ word, xMult }) {
+      const n = doubledPairs(word);
+      if (n) xMult(2 ** n);
+    },
   },
 ];
 

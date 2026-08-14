@@ -516,6 +516,7 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 .patron-take--points { background: linear-gradient(180deg, #2f5590, var(--inkblue-deep)); }
 .patron-take--mult   { background: linear-gradient(180deg, #8e3a32, var(--press-deep)); }
+.patron-take--coins  { background: linear-gradient(180deg, #b8862c, #7a5313); }
 
 .patron--just-armed .patron-take {
   animation: takePop calc(0.42s / var(--aspd)) cubic-bezier(0.2, 1.4, 0.4, 1);
@@ -2141,6 +2142,30 @@ button.sundry:hover { transform: translateY(-2px); }
 .sheet--market .reward-total  { color: var(--parch-ink); }
 
 /* ─── Boosted values ──────────────────────────────────────────────────────────── */
+/* Ash. A tile the Stoker (or the Arsonist's bad luck) has destroyed flares,
+   chars and crumbles where it sits — it never flies to the discard pile,
+   because there is nothing left to file. */
+.tile--burning {
+  animation: tileBurn calc(0.62s / var(--aspd)) ease-in forwards;
+  pointer-events: none;
+}
+@keyframes tileBurn {
+  0% { filter: none; transform: none; opacity: 1; }
+  22% {
+    filter: brightness(1.55) saturate(1.7) drop-shadow(0 0 13px rgba(255, 138, 43, 0.95));
+    transform: translateY(-5px) scale(1.07) rotate(-2deg);
+  }
+  58% {
+    filter: brightness(1.15) sepia(0.75) drop-shadow(0 0 20px rgba(209, 71, 26, 0.8));
+    transform: translateY(3px) scale(0.95) rotate(1.5deg);
+  }
+  100% {
+    filter: brightness(0.3) sepia(1) contrast(0.55);
+    transform: translateY(16px) scale(0.7) rotate(4deg);
+    opacity: 0;
+  }
+}
+
 /* A tile the Grafter has grown wears its corner number in jade — quiet,
    permanent, and visible anywhere the tile appears (rack, bag, market). */
 .tile-pts--grown {
@@ -2527,6 +2552,38 @@ input[type='checkbox'] {
   opacity: 0.6;
 }
 
+/* The Neologist's coining sheet: six letterpress slots to fill */
+.coin-input {
+  width: min(320px, 80vw);
+  margin-top: 4px;
+  padding: 10px 12px;
+  font-family: var(--serif);
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--parch-ink);
+  background: rgba(255, 252, 240, 0.7);
+  border: 1px solid #a98545;
+  border-radius: 10px;
+  box-shadow: inset 0 2px 6px rgba(90, 60, 20, 0.22);
+}
+.coin-input:focus {
+  outline: none;
+  border-color: #7c5410;
+  box-shadow: inset 0 2px 6px rgba(90, 60, 20, 0.22), 0 0 0 3px rgba(200, 144, 48, 0.3);
+}
+.coin-input::placeholder { opacity: 0.28; letter-spacing: 10px; }
+.coin-note {
+  min-height: 16px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 13px;
+  opacity: 0.7;
+}
+.coin-note--bad { color: #8e3a32; opacity: 1; }
+
 .end-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
 .sheet--end .btn-quiet { text-transform: none; letter-spacing: 0.2px; }
 .sheet--dark .btn-quiet { color: var(--parch); }
@@ -2766,4 +2823,10 @@ input[type='checkbox'] {
   }
   .patron--armed::after { animation: none; opacity: 0; }
   .patron--just-armed .patron-take, .patron-take--bump { animation: none; }
+  /* A burning tile still has to read as destroyed — char it, don't tumble it */
+  .tile--burning {
+    animation: none;
+    filter: brightness(0.35) sepia(1) contrast(0.6);
+    opacity: 0.25;
+  }
 }
