@@ -130,11 +130,15 @@ function releasePress(commit) {
   if (commit && !wasDrag && !popped && !blocked()) {
     // A plain tap
     if (selectingForSundry()) {
-      if (toggleSundrySelect(press.id) === 'full') {
-        log(`A tube covers ${tileCount(TUBE_TILES)} — deselect first.`, 'warn');
-      }
+      const r = toggleSundrySelect(press.id);
+      if (r === 'full')      log(`A tube covers ${tileCount(TUBE_TILES)} — deselect first.`, 'warn');
+      if (r === 'immutable') log('A ghost tile takes no paint.', 'warn');
     } else if (press.zone === 'rack') {
-      if (selectingToDiscard()) toggleSelected(press.id);
+      if (selectingToDiscard()) {
+        if (toggleSelected(press.id) === 'cursed') {
+          log('A cursed tile cannot be discarded — it has to be played.', 'warn');
+        }
+      }
       else                      moveRackToWord(press.id);
     } else {
       moveWordToRack(press.id);

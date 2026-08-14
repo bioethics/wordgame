@@ -1,4 +1,7 @@
-import { TILE_POINTS, TRIMS, NICKS, COLOURS, PURPLE_TRIM_STEP, REWARD, isDeadline, splitMarks } from './constants.js';
+import {
+  TILE_POINTS, TRIMS, NICKS, COLOURS, PURPLE_TRIM_STEP, REWARD, CURSED_MULT,
+  isDeadline, splitMarks,
+} from './constants.js';
 import { PATRON_DEFS, patronById } from './patrons.js';
 import { state, owns, getActiveLetter, getActiveColour, returnsToBag } from './state.js';
 
@@ -107,6 +110,16 @@ export function computeScore(wordTiles) {
   if (purpleIds.length) {
     const m = 1 + purpleIds.length * PURPLE_TRIM_STEP;
     colourSteps.push({ colour: 'purple', ids: purpleIds, count: purpleIds.length, mult: m });
+    mult *= m;
+  }
+
+  // Cursed metal multiplies alongside the colours, and stacks with itself —
+  // two cursed tiles in one word is ×9. It rides the same steps as the colour
+  // multipliers so it previews, animates and chips exactly like them.
+  const cursedIds = wordTiles.filter(t => t.material === 'cursed').map(t => t.id);
+  if (cursedIds.length) {
+    const m = CURSED_MULT ** cursedIds.length;
+    colourSteps.push({ colour: 'cursed', ids: cursedIds, count: cursedIds.length, mult: m });
     mult *= m;
   }
   mult = Math.round(mult * 1000) / 1000;   // keep half-steps off floating-point drift

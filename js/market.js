@@ -3,6 +3,7 @@ import {
 } from './state.js';
 import {
   BAG_COUNTS, LIGATURES, MARKS, MARK_WEIGHT, isMark, TILE_POINTS, TRIMS, NICKS, COLOURS,
+  MATERIALS, INGOT_PRICE, INGOT_OFFER_CHANCE, isImmutable,
   TILE_BASE_PRICE, REROLL_BASE,
   SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, SUNDRY_SELL,
   STALL_DEFS, STALLS_PER_SHOP, PROPOSAL_RANGE, SMELT_MIN_COLLECTION,
@@ -130,12 +131,22 @@ function weightedPatronSample(n) {
   return out;
 }
 
+// Paint tubes and the reshuffle are the everyday stock; an ingot of strange
+// metal turns up in one of the slots about half the time.
 function rollSundryOffers() {
-  return shuffle([...Object.keys(COLOURS), 'reshuffle'])
+  const offers = shuffle([...Object.keys(COLOURS), 'reshuffle'])
     .slice(0, SUNDRY_OFFERS)
     .map(entry => entry === 'reshuffle'
       ? { kind: 'reshuffle', colour: null, price: RESHUFFLE_PRICE, sold: false }
       : { kind: 'tube', colour: entry, price: TUBE_PRICE, sold: false });
+
+  if (offers.length && Math.random() < INGOT_OFFER_CHANCE) {
+    offers[Math.floor(Math.random() * offers.length)] = {
+      kind: 'ingot', colour: null, material: pick(Object.keys(MATERIALS)),
+      price: INGOT_PRICE, sold: false,
+    };
+  }
+  return offers;
 }
 
 // Patrons/tiles/sundries — "New offers" also re-rolls the stalls (see rollStalls).
@@ -156,9 +167,11 @@ export const stallPrice  = stall => (STALL_DEFS[stall.id]?.base ?? 1) * 2 ** sta
 // one you like. Each is defined by which tiles it can work on and what it
 // proposes for them; everything else below is shared.
 
+// Every stall that changes a tile has to leave ghosts alone — there's nothing
+// there to take a tool to.
 export const PROPOSAL_STALLS = {
   gilder: {
-    eligible: t => !t.trim,
+    eligible: t => !t.trim && !isImmutable(t),
     propose:  () => ({ trim: pick(Object.keys(TRIMS)) }),
   },
   punchcutter: {
@@ -167,11 +180,12 @@ export const PROPOSAL_STALLS = {
     eligible: t => t.letterType !== 'dual'
                 && !LIGATURES.includes(t.letter)
                 && !isMark(t.letter)
+                && !isImmutable(t)
                 && dualPairsFor(t.letter).length > 0,
     propose:  t => ({ altLetter: pick(dualPairsFor(t.letter)) }),
   },
   dresser: {
-    eligible: t => !t.nick,
+    eligible: t => !t.nick && !isImmutable(t),
     propose:  () => ({ nick: pick(Object.keys(NICKS)) }),
   },
 };
@@ -288,7 +302,7 @@ export function buySundry(idx) {
   if (state.sundries.length >= effectiveSundrySlots()) return { ok: false, reason: 'Your workbench is full.' };
   if (state.coins < offer.price)                     return { ok: false, reason: `You need ${offer.price} Coins.` };
   state.coins -= offer.price;
-  state.sundries.push({ kind: offer.kind, colour: offer.colour });
+  state.sundries.push({ kind: offer.kind, colour: offer.colour, material: offer.material ?? null });
   offer.sold = true;
   return { ok: true, offer };
 }
@@ -342,6 +356,7 @@ export function stallSmelt(tid) {
 export function stallPaint(tid, colour) {
   const t = stallTarget('painter', tid);
   if (!t || !COLOURS[colour])        return { ok: false, reason: 'Pick a tile and a colour.' };
+  if (isImmutable(t.tmpl))           return { ok: false, reason: 'A ghost tile takes no paint.' };
   if (state.coins < t.price)         return { ok: false, reason: `You need ${t.price} Coins.` };
   payStall(t.stall, t.price);
   t.tmpl.colour = colour;            // the front face; a dual's other face keeps its coat
@@ -374,6 +389,8 @@ export function stallCommission(stallId, proposalIdx) {
 export function stallClone(tid) {
   const t = stallTarget('stereotyper', tid);
   if (!t)                            return { ok: false, reason: 'Not available.' };
+  // You can't take an impression of a ghost — there's nothing solid to press.
+  if (isImmutable(t.tmpl))           return { ok: false, reason: 'A ghost tile leaves no impression to cast from.' };
   if (state.coins < t.price)         return { ok: false, reason: `You need ${t.price} Coins.` };
   payStall(t.stall, t.price);
   state.collection.push(adoptTemplate(t.tmpl));
@@ -381,7 +398,7 @@ export function stallClone(tid) {
 }
 
 export const restorable = tmpl =>
-  !!(tmpl.colour || tmpl.altColour || tmpl.trim || tmpl.nick);
+  !isImmutable(tmpl) && !!(tmpl.colour || tmpl.altColour || tmpl.trim || tmpl.nick);
 
 export function stallRestore(tid) {
   const t = stallTarget('restorer', tid);

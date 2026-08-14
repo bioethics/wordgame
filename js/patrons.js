@@ -29,12 +29,17 @@ import {
   GRAFTER_STEP, STOKER_STEP, ARSONIST_ODDS, NUDIST_TRIM_CHANCE,
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS,
 } from './constants.js';
-import { getActiveColour, getActiveLetter, luckyRoll, paintRandomFaces } from './state.js';
+import {
+  getActiveColour, getActiveLetter, countsAsColour, luckyRoll, paintRandomFaces,
+} from './state.js';
 
 const VOWELS = 'AEIOU';
 
-// Tiles showing a given paint (a dual tile counts by the face it's playing).
-const painted = (tiles, colour) => tiles.filter(t => getActiveColour(t) === colour);
+// Tiles that read as a given colour: paint on the face being played, or a
+// rainbow tile, which reads as every colour at once. Every patron that cares
+// about colour goes through here, so rainbow metal reaches all of them and
+// none of them had to learn about it.
+const painted = (tiles, colour) => tiles.filter(t => countsAsColour(t, colour));
 
 // Adjacent doubled pairs, counted without overlapping: AAA is one pair,
 // AAAA is two. BALLOON has two (LL, OO).

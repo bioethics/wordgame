@@ -8,12 +8,13 @@ import {
   newRun, startPage, drawUpToRackSize, clearWord, shuffleRack,
   discardSelected, getWordString, moveRackToWord, owns, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected,
-  getActiveColour, growTile, paintTile, trimTile, trashFromCollection,
+  getActiveColour, getActiveLetter, growTile, paintTile, trimTile,
+  trashFromCollection, castMaterialTile,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES, tileCount,
-  WORDS_PER_PAGE, REACTION, NEOLOGIST_LENGTH,
-  chapterTitle, roman, COLOURS, NICKS, splitMarks,
+  WORDS_PER_PAGE, REACTION, NEOLOGIST_LENGTH, MATERIALS,
+  chapterTitle, roman, COLOURS, MULT_TRACKS, NICKS, splitMarks,
 } from './constants.js';
 import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
 import { computeScore, computeReward } from './scoring.js';
@@ -326,8 +327,8 @@ async function submitWord() {
 
   // ── Pass 3: colour multipliers ─────────────────────────────────────────────
   for (const step of script.colourSteps) {
-    const glow = COLOURS[step.colour]?.glyph ?? '#8a5fb0';
-    const label = COLOURS[step.colour]?.label ?? 'Purple';
+    const glow  = MULT_TRACKS[step.colour]?.glyph ?? '#8a5fb0';
+    const label = MULT_TRACKS[step.colour]?.label ?? 'Purple';
     for (const id of step.ids) {
       const el = wordTileEl(id);
       if (el) {
@@ -635,6 +636,31 @@ $('sundries')?.addEventListener('click', async e => {
 
   if (armed?.kind === 'reshuffle') {
     log('Spend this at the Market or the Colophon.', 'warn');
+    return;
+  }
+
+  // An ingot needs no target: it casts its tile there and then.
+  if (armed?.kind === 'ingot') {
+    cancelDiscardMode(true);
+    cancelSundryMode(true);
+    const m = MATERIALS[armed.material];
+    const tile = castMaterialTile(armed.material);
+    state.sundries.splice(idx, 1);
+
+    state.isAnimating = true;
+    renderAll();
+    sfx.chime();
+    const el = rackTileEl(tile.id);
+    if (el) {
+      await flyClone(el, bagRect(), rect(el), { duration: ANIM.fly, scaleFrom: 0.3 });
+      popReveal(el);
+      sparkleBurst(el, 14);
+      floatText(el, m.label, `fl-set fl-mat--${armed.material}`);
+    }
+    await sleep(ANIM.stepColour);
+    state.isAnimating = false;
+    renderAll();
+    log(`${m.metal} cast into ${getActiveLetter(tile)} — ${m.label.toLowerCase()}, and yours for good.`, 'good');
     return;
   }
 

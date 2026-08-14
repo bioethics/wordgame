@@ -61,6 +61,15 @@ export const COLOURS = {
 export const colourDesc = c =>
   `Each ${COLOURS[c].label} letter adds +1 to the ${COLOURS[c].label} multiplier.`;
 
+// Every multiplier the readout keeps a chip for. The four paints, plus the two
+// that come from somewhere other than a painted letter: the purple trim, and
+// cursed metal. Anything reading a score step's `colour` looks it up here.
+export const MULT_TRACKS = {
+  ...COLOURS,
+  purple: { label: 'Purple', glyph: '#8a5fb0', bright: '#cfa6ff' },
+  cursed: { label: 'Cursed', glyph: '#c93c2d', bright: '#ff7a66' },
+};
+
 export const PAINT_PER_POT   = 3;   // letters painted per draft pot (random, unpainted)
 
 // ─── Sundries (consumables kept on the workbench) ─────────────────────────────
@@ -221,6 +230,34 @@ export const ANIM = {
   stagger:    65,
 };
 
+// ─── Materials (what a tile is cast from) ─────────────────────────────────────
+// Ordinary tiles are lead. An ingot bought at the Market casts one tile from
+// something stranger, and the material sits under everything else a tile
+// carries: a cursed or rainbow tile still takes paint, trims and nicks. A
+// ghost takes nothing at all, ever.
+export const CURSED_MULT       = 3;   // ×Mult a cursed tile gives the word
+export const CURSED_MAX_POINTS = 3;   // never cast on a letter worth more than this
+export const INGOT_PRICE       = 4;
+export const INGOT_OFFER_CHANCE = 0.5;  // odds one of a Market's sundry slots holds an ingot
+
+export const MATERIALS = {
+  cursed: {
+    label: 'Cursed', metal: 'Hellbox iron', emoji: '🩸',
+    desc: `×${CURSED_MULT} Mult when printed, and it can never be discarded — only played.`,
+  },
+  ghost: {
+    label: 'Ghost', metal: 'Ghost metal', emoji: '👻',
+    desc: 'Does not count against your hand size, and can never be painted, trimmed, nicked or copied.',
+  },
+  rainbow: {
+    label: 'Rainbow', metal: 'Rainbow roll', emoji: '🌈',
+    desc: 'Counts as every colour to your patrons. Paint it and that colour\'s multiplier rises as usual.',
+  },
+};
+
+// A ghost is the one material nothing can be done to.
+export const isImmutable = tile => tile?.material === 'ghost';
+
 // ─── Patron tuning (the colour-guild overhaul) ────────────────────────────────
 // Knobs for patron effects that reach beyond a single score: permanent tile
 // growth, burn odds, trim lotteries. Plain score numbers stay in js/patrons.js
@@ -244,6 +281,7 @@ export function makeTileTemplate(letter, overrides = {}) {
     trim:          null,       // gold | silver | cobalt | mercury | purple
     nick:          null,       // right | left | side
     bonusPoints:   0,          // permanent growth (The Grafter) — added to the letter's value
+    material:      null,       // null = lead | cursed | ghost | rainbow (see MATERIALS)
     ...overrides,
   };
 }

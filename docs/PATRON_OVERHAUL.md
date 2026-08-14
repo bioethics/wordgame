@@ -44,6 +44,31 @@ Deviations from the plan as written, decided during implementation:
   index in `dict.js` keyed on first letter + sorted middle + last letter,
   rebuilt whenever the dictionary changes (including a coined word).
 
+### Materials (a later addition, beyond the patron roster)
+
+Tiles gained a `material` — `null` (lead), `cursed`, `ghost` or `rainbow` —
+cast by a 4-Coin **ingot** sundry. Two design decisions worth recording:
+
+- **Rainbow reads as every colour to patrons, but lifts no colour multiplier
+  by itself.** One helper, `countsAsColour` in `state.js`, is the only thing
+  that knows this: `painted()` in `patrons.js` and the Fountain's
+  `returnsToBag` both go through it, so all twelve-odd colour patrons picked
+  rainbow up without being touched. The colour-multiplier pass in `scoring.js`
+  deliberately keeps using `getActiveColour`, so a bare rainbow tile can't be
+  four colours at once where it would multiply out to ×16.
+- **A ghost can't be cloned.** The brief left this open; refusing it keeps
+  "nothing can be done to a ghost" absolute, closes a cheap repeat-purchase
+  loop at the Stereotyper (each clone would be another permanent +1 hand
+  size), and has the better fiction — there's no impression to cast from.
+  `isImmutable` in `constants.js` is the single guard, checked by
+  `paintTile`/`trimTile`/`growTile`, every proposal stall's `eligible`, the
+  Painter, the Stereotyper and the Restorer.
+
+Watchpoints: cursed tiles compound (×9 for two, ×27 for three) and are
+permanent, bounded only by clogging a hand you can't discard from; and the
+Stoker burns rainbow tiles, which is consistent but is the one pairing to
+warn players about.
+
 ### The Skimmer × the Cartographer
 
 Measured, not guessed: 2,630 of the 64,662 dictionary words (4.07%) can be

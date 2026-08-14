@@ -7,7 +7,7 @@ import {
   effectivePatronSlots, effectiveSundrySlots,
 } from './state.js';
 import {
-  TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark,
+  TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
   WORDS_PER_PAGE, PAGES_PER_CHAPTER, TUBE_TILES, tileCount,
   colourDesc, chapterTitle, roman, isDeadline, NEOLOGIST_LENGTH,
 } from './constants.js';
@@ -36,6 +36,7 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   if (tile.selected)              div.classList.add('tile--selected');
   if (tile.trim)                  div.classList.add(`tile--trim-${tile.trim}`);
   if (tile.nick)                  div.classList.add(`tile--nick-${tile.nick}`);
+  if (tile.material)              div.classList.add(`tile--mat-${tile.material}`);
 
   const active = getActiveLetter(tile);
   const paint  = getActiveColour(tile);
@@ -88,6 +89,11 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
 export function tileFeatures(tile) {
   const paint = getActiveColour(tile);
   const out = [];
+  // The material comes first: it's what the tile *is*, under everything else.
+  if (tile.material) {
+    const m = MATERIALS[tile.material];
+    if (m) out.push({ head: `${m.label} tile`, body: m.desc });
+  }
   if (paint) out.push({ head: `${COLOURS[paint].label} paint`, body: colourDesc(paint) });
   if (tile.trim) out.push({ head: `${TRIMS[tile.trim].label} trim`, body: TRIMS[tile.trim].desc });
   if (tile.nick) out.push({ head: NICKS[tile.nick]?.label ?? 'Nick', body: NICKS[tile.nick]?.desc ?? '' });
@@ -355,6 +361,16 @@ function renderSundries() {
         <span class="sundry-shuffle">↻</span>
         <span class="sundry-name">Reshuffle</span>`;
       bench.appendChild(slot);
+    } else if (s?.kind === 'ingot') {
+      const m = MATERIALS[s.material];
+      const slot = document.createElement('button');
+      slot.className = `sundry sundry--ingot sundry--mat-${s.material}`;
+      slot.dataset.sundry = i;
+      slot.title = `${m.metal} — tap to cast one ${m.label.toLowerCase()} tile into your hand.\n${m.desc}`;
+      slot.innerHTML = `
+        <span class="ingot-mark ingot-mark--${s.material}">${m.emoji}</span>
+        <span class="sundry-name">${m.label}</span>`;
+      bench.appendChild(slot);
     } else {
       const slot = document.createElement('div');
       slot.className = 'sundry sundry--empty';
@@ -491,7 +507,9 @@ export function renderCounts() {
 
 // ─── Readout (Points × Mult = total, plus the five colour multipliers) ────────
 
-export const CHIP_COLOURS = [...Object.keys(COLOURS), 'purple'];
+// Cursed rides at the end: its chip only appears when a cursed tile is in the
+// word (see the CSS), so the readout doesn't carry a slot most runs never use.
+export const CHIP_COLOURS = [...Object.keys(COLOURS), 'purple', 'cursed'];
 
 export function updateReadoutPreview(script) {
   const ro = $('readout');

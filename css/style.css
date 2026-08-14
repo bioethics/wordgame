@@ -390,6 +390,24 @@ button.sundry:hover { transform: translateY(-2px); }
 .paint-tube--jade    { background: var(--jade); }
 .paint-tube--amber   { background: var(--amber); }
 
+/* An ingot of strange metal — a small bar, marked with what it will cast */
+.ingot-mark {
+  display: grid;
+  place-items: center;
+  width: 22px; height: 20px;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1;
+  border: 1.5px solid rgba(40, 25, 10, 0.55);
+  box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.28), inset 0 -4px 6px rgba(0, 0, 0, 0.3);
+}
+.ingot-mark--cursed  { background: linear-gradient(168deg, #6d1a15, #2a0808); }
+.ingot-mark--ghost   { background: linear-gradient(168deg, rgba(226,240,255,0.6), rgba(150,185,225,0.45)); }
+.ingot-mark--rainbow { background: linear-gradient(112deg, #ffd9d3, #fdf6c2 35%, #cfe9ff 70%, #e2d6ff); }
+.held-ingot { width: 17px; height: 15px; font-size: 9px; }
+.sundry--ingot .ingot-mark { margin-top: 2px; }
+.offer-ingot .ingot-mark { width: 26px; height: 24px; font-size: 14px; }
+
 /* The reshuffle sundry: no colour of its own, so it gets a brass badge
    instead of a tube. Sits idle on the board — it only does anything from
    inside the Market or the Colophon. */
@@ -736,11 +754,16 @@ button.sundry:hover { transform: translateY(-2px); }
 .chip--jade    { background: var(--jade);    color: #ecfff5; }
 .chip--amber   { background: var(--amber);   color: #fff8ea; }
 .chip--purple  { background: #8a5fb0;        color: #f6ecff; }
+.chip--cursed  { background: #6d1a15;        color: #ffd9cf; }
+/* Most runs never hold a cursed tile, so its chip only appears when one is
+   actually in the word — the other five are always there, dim at ×1. */
+.chip--cursed:not(.chip--on) { display: none; }
 .chip--on.chip--crimson { box-shadow: 0 0 10px rgba(201, 79, 67, 0.6); }
 .chip--on.chip--azure   { box-shadow: 0 0 10px rgba(79, 134, 201, 0.6); }
 .chip--on.chip--jade    { box-shadow: 0 0 10px rgba(63, 163, 113, 0.6); }
 .chip--on.chip--amber   { box-shadow: 0 0 10px rgba(210, 154, 58, 0.6); }
 .chip--on.chip--purple  { box-shadow: 0 0 10px rgba(138, 95, 176, 0.6); }
+.chip--on.chip--cursed  { box-shadow: 0 0 12px rgba(201, 60, 45, 0.75); }
 .ro-total {
   font-family: var(--serif);
   font-weight: 900;
@@ -1113,6 +1136,74 @@ button.sundry:hover { transform: translateY(-2px); }
   --tile-lift: #5e3f7c;
 }
 
+/* ── Materials — what a tile is cast from ────────────────────────────────────
+   The material replaces the tile's body, and sits *under* paint, trims and
+   nicks: a cursed tile can still be gilded and painted. Trims keep working
+   because they only set --trim-ring, which composes over whatever body the
+   material paints. */
+
+/* Cursed — hellbox iron. Dark, hot at the edges, never quite still. */
+.tile--mat-cursed {
+  background:
+    radial-gradient(120% 80% at 50% 0%, #5e1414 0%, #2a0808 55%, #170404 100%);
+  border-color: #6d1a15;
+  color: #ffd9cf;
+  --tile-lift: #350a0a;
+  animation: cursedBreathe calc(3.2s / var(--aspd)) ease-in-out infinite;
+}
+.tile--mat-cursed .tile-letter {
+  color: #ffcabd;
+  text-shadow: 0 0 9px rgba(255, 70, 40, 0.85), 0 1px 0 rgba(0, 0, 0, 0.6);
+}
+.tile--mat-cursed .tile-pts { color: #ff9d8e; opacity: 0.95; }
+.tile--mat-cursed .tile-alt { color: #ff9d8e; }
+@keyframes cursedBreathe {
+  0%, 100% { filter: brightness(1); }
+  50%      { filter: brightness(1.22) saturate(1.15); }
+}
+
+/* Ghost — barely there. Pale, translucent, and it casts almost no shadow,
+   which is also the point: it doesn't weigh on your hand. */
+.tile--mat-ghost {
+  background: linear-gradient(168deg, rgba(232, 245, 255, 0.72), rgba(186, 214, 244, 0.52));
+  border: 1px dashed rgba(226, 242, 255, 0.85);
+  color: #1d2b3a;
+  --trim-ring: 0 0 16px rgba(168, 214, 255, 0.5);
+  --tile-lift: rgba(120, 160, 200, 0.3);
+  backdrop-filter: blur(2px);
+}
+.tile--mat-ghost .tile-letter {
+  color: #23384d;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.95), 0 0 14px rgba(170, 215, 255, 0.8);
+}
+.tile--mat-ghost .tile-pts { color: #33506b; }
+
+/* Rainbow — a split fountain caught on one sort. The wash is kept pale on
+   purpose: a painted letter still has to read against it, whatever colour the
+   paint is, so the glyph gets a light halo and the ink keeps its own hue. */
+/* The band repeats on a short pitch so every tile shows the whole spectrum,
+   whatever its size — a percentage gradient would give each tile a single
+   pale slice and the set would read as mismatched pastels, not as rainbow. */
+.tile--mat-rainbow {
+  background: repeating-linear-gradient(108deg,
+    #ffc9c0 0px, #ffdca8 11px, #fbf29c 22px, #b9edb4 33px,
+    #a9dcff 44px, #cfc0ff 55px, #ffc2e6 66px, #ffc9c0 77px);
+  border-color: rgba(120, 90, 140, 0.55);
+  animation: rainbowDrift calc(6s / var(--aspd)) linear infinite;
+}
+@keyframes rainbowDrift {
+  0%   { background-position: 0 0; }
+  100% { background-position: 77px 0; }
+}
+.tile--mat-rainbow .tile-letter,
+.tile--mat-rainbow .tile-pts,
+.tile--mat-rainbow .tile-alt {
+  text-shadow:
+    0 0 3px rgba(255, 255, 255, 0.95),
+    0 0 7px rgba(255, 255, 255, 0.8),
+    0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
 /* Mini tiles (inspectors, market case) */
 .tile--mini {
   --tile-w: 42px;
@@ -1348,6 +1439,10 @@ button.sundry:hover { transform: translateY(-2px); }
 .fl-set--jade    { color: #90e8ba; }
 .fl-set--amber   { color: #ffd68c; }
 .fl-set--purple  { color: #cfa6ff; }
+.fl-set--cursed  { color: #ff7a66; }
+.fl-mat--cursed  { color: #ff7a66; font-size: 19px; }
+.fl-mat--ghost   { color: #dceaff; font-size: 19px; }
+.fl-mat--rainbow { color: #ffe9c9; font-size: 19px; }
 
 .sparkle {
   position: fixed;
@@ -2875,6 +2970,9 @@ input[type='checkbox'] {
   .patron--armed::after { animation: none; opacity: 0; }
   .patron--just-armed .patron-take, .patron-take--bump { animation: none; }
   .held-row--wanted .held { animation: none; }
+  /* The materials still have to read as themselves — hold the colour, drop
+     the motion. */
+  .tile--mat-cursed, .tile--mat-rainbow { animation: none; }
   /* A burning tile still has to read as destroyed — char it, don't tumble it */
   .tile--burning {
     animation: none;

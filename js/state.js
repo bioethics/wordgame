@@ -1,13 +1,13 @@
 import {
   RACK_SIZE, WORDS_PER_PAGE, DISCARDS_PER_PAGE, STARTING_COINS,
   PATRON_SLOTS, SUNDRY_SLOTS, SMELT_MIN_COLLECTION,
-  BAG_COUNTS, TILE_POINTS, TUBE_TILES,
+  BAG_COUNTS, TILE_POINTS, TUBE_TILES, CURSED_MAX_POINTS, isImmutable,
   quotaFor, makeTileTemplate,
 } from './constants.js';
 
 const SAVE_KEY     = 'folio_save_v1';
 const SETTINGS_KEY = 'folio_settings_v1';
-const SAVE_VERSION = 9;   // v9: copper trim renamed cobalt; the draft no longer offers a patron
+const SAVE_VERSION = 10;  // v10: tiles carry a material
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -48,6 +48,14 @@ export function getActiveColour(tile) {
   if (tile.letterType === 'dual' && tile.activeVariant === 1) return tile.altColour;
   return tile.colour;
 }
+
+// Whether a tile reads as a given colour to anything that cares *which* colour
+// it is — every patron, and the Fountain's return-to-bag. A rainbow tile reads
+// as all four at once. This is deliberately NOT what the colour multipliers
+// use: those count actual paint (getActiveColour), so a rainbow tile lifts a
+// multiplier only where it has been painted, and can't be four at once there.
+export const countsAsColour = (tile, colour) =>
+  tile.material === 'rainbow' || getActiveColour(tile) === colour;
 
 // Convert a bag template into a full rack tile
 function templateToTile(template) {
@@ -229,15 +237,35 @@ export function startPage() {
 
 // ─── Tile operations ──────────────────────────────────────────────────────────
 
+// Tiles that take up a place in the hand. A ghost holds none — it rides along
+// beside the hand rather than in it, so drawing tops up around it.
+const handCount = () =>
+  [...state.rack, ...state.word].filter(t => t.material !== 'ghost').length;
+
 // Returns the tiles drawn (so the caller can animate them in).
 export function drawUpToRackSize() {
   const drawn = [];
-  while (state.rack.length + state.word.length < effectiveRackSize() && state.bag.length) {
+  while (handCount() < effectiveRackSize() && state.bag.length) {
     const tile = templateToTile(state.bag.pop());
     state.rack.push(tile);
     drawn.push(tile);
   }
   return drawn;
+}
+
+// Cast a tile from a strange metal: it joins the collection for good and
+// arrives in the rack straight away, so the ingot pays off on the page you
+// spend it. A cursed tile is never cast on a letter worth much — its ×Mult is
+// the point, not its Points.
+export function castMaterialTile(material) {
+  const letters = Object.keys(BAG_COUNTS).filter(L =>
+    material !== 'cursed' || (TILE_POINTS[L] ?? 99) <= CURSED_MAX_POINTS);
+  const letter = letters[Math.floor(Math.random() * letters.length)];
+  const tmpl = adoptTemplate(makeTileTemplate(letter, { material }));
+  state.collection.push(tmpl);
+  const tile = templateToTile(tmpl);
+  state.rack.push(tile);
+  return tile;
 }
 
 export function clearWord() {
@@ -252,7 +280,8 @@ export function shuffleRack() {
 // replacements come from the bag. Returns { removed, drawn } or null.
 export function discardSelected() {
   if (state.discards <= 0) return null;
-  const selected = state.rack.filter(t => t.selected);
+  // Cursed tiles can't leave this way, however they came to be selected.
+  const selected = state.rack.filter(t => t.selected && t.material !== 'cursed');
   if (!selected.length) return null;
 
   for (const t of selected) {
@@ -276,7 +305,7 @@ export function getWordString() {
 // Scoring reads the same rule for its "↩ to bag" flag, so the promise the
 // board makes while you compose is the one printing keeps.
 export const returnsToBag = tile =>
-  tile.trim === 'mercury' || (owns('fountain') && getActiveColour(tile) === 'azure');
+  tile.trim === 'mercury' || (owns('fountain') && countsAsColour(tile, 'azure'));
 
 // Where a printed tile goes. Returning tiles are dropped in at a random depth
 // so they aren't simply redrawn on the next turn.
@@ -303,6 +332,7 @@ export function retirePrinted(tiles) {
 // it survives the page, the save, and every reshuffle. The corner number
 // renders jade once a tile carries grown points.
 export function growTile(tile, n = 1) {
+  if (isImmutable(tile)) return false;
   tile.bonusPoints = (tile.bonusPoints ?? 0) + n;
   const tmpl = state.collection.find(c => c.tid === tile.tid);
   if (tmpl) tmpl.bonusPoints = (tmpl.bonusPoints ?? 0) + n;
@@ -314,6 +344,7 @@ export function growTile(tile, n = 1) {
 // Every route to permanent paint goes through here — tubes, the Painter,
 // patrons — so none of them can drift apart.
 export function paintTile(tile, colour) {
+  if (isImmutable(tile)) return false;
   const altFace = tile.letterType === 'dual' && tile.activeVariant === 1;
   if (altFace) tile.altColour = colour;
   else         tile.colour    = colour;
@@ -328,7 +359,7 @@ export function paintTile(tile, colour) {
 // A trim belongs to the tile, not to either face. Refuses a tile that already
 // wears one — trims don't stack.
 export function trimTile(tile, kind) {
-  if (tile.trim) return false;
+  if (tile.trim || isImmutable(tile)) return false;
   tile.trim = kind;
   const tmpl = state.collection.find(c => c.tid === tile.tid);
   if (tmpl) tmpl.trim = kind;
@@ -355,9 +386,14 @@ export function recordWord(word, score) {
 
 // ─── Selection ────────────────────────────────────────────────────────────────
 
+// Returns 'on' | 'off' | 'cursed' | 'none', so a refused pick can be explained.
+// A cursed tile can't be thrown away; the only way out of the rack is to print it.
 export function toggleSelected(id) {
   const tile = state.rack.find(t => t.id === id);
-  if (tile) tile.selected = !tile.selected;
+  if (!tile) return 'none';
+  if (!tile.selected && tile.material === 'cursed') return 'cursed';
+  tile.selected = !tile.selected;
+  return tile.selected ? 'on' : 'off';
 }
 
 export function clearAllSelected() {
@@ -378,6 +414,7 @@ export function toggleSundrySelect(id) {
   const tile = state.rack.find(t => t.id === id) ?? state.word.find(t => t.id === id);
   if (!tile) return 'off';
   if (tile.selected) { tile.selected = false; return 'off'; }
+  if (isImmutable(tile)) return 'immutable';
   if (sundrySelected().length >= TUBE_TILES) return 'full';
   tile.selected = true;
   return 'on';
@@ -389,7 +426,7 @@ export function toggleSundrySelect(id) {
 export function applySundry(idx) {
   const sundry = state.sundries[idx];
   if (!sundry) return null;
-  const targets = sundrySelected().slice(0, TUBE_TILES);
+  const targets = sundrySelected().filter(t => !isImmutable(t)).slice(0, TUBE_TILES);
   if (!targets.length) return null;
 
   const letters = [];

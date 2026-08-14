@@ -62,10 +62,29 @@ plus an optional **trim** and **nick**.
 | Trim | **Gold** pays 1 Coin · **Silver** +6 Points · **Cobalt** refreshes 1 Discard (and wears the Discard's own blue) · **Mercury** slips back into the bag instead of the discard pile · **Purple** raises the fifth multiplier by 0.5 |
 | Nick | A notch cut into one edge; the notched side is the direction. **Right** ×3 Points to everything on its right · **Left** ×3 to its left. Nicks don't stack — a letter is multiplied once at most. While you compose, an affected tile's corner number becomes the multiplied value, restyled, rippling outward from the notch. |
 | Letterform | Dual tiles hold two letters (flip to switch; each face painted independently) · Ligatures ING · ED · TCH spell several letters from one tile · **Marks** ? and ! spell nothing at all |
+| Material | What the tile is cast from, under everything else: ordinary lead, or **cursed** / **ghost** / **rainbow** (see below) |
 | Growth | Grown points — permanent +1s a patron (The Grafter) writes into a tile, worn as a jade corner number wherever the tile appears |
 
 A dual tile shares its trim and nick across both faces; only the letters and
 their paint swap.
+
+**Materials** — most type is lead. An **ingot** bought at the Market (4 Coins,
+on the workbench beside the paint tubes) is tapped once and casts a single tile
+of something stranger, straight into your hand and into your collection for
+good. The material sits *under* everything else, so a cursed or rainbow tile
+still takes paint, trims and nicks like any other.
+
+- **Cursed** (hellbox iron) — ×3 Mult when printed, and it can never be
+  discarded: the only way out of your hand is to play it. Never cast on an
+  expensive letter, and two in one word compound to ×9.
+- **Ghost** (ghost metal) — holds no place in your hand, so you effectively
+  draw one more; but nothing can ever be done to it. No paint, no trim, no
+  nick, no second letter, no growth, and the Stereotyper can't copy it —
+  there's nothing solid to take an impression from.
+- **Rainbow** (rainbow roll) — reads as *every* colour to your patrons, so one
+  tile wakes the whole guild. It doesn't lift the colour multipliers on its
+  own, though: paint it, and only that colour's multiplier rises. Mind the
+  Stoker, who reads it as crimson and burns it.
 
 **Misspellings** — three patrons forgive a word the dictionary turns away, and
 none of them correct it: what you set is what prints, in the manuscript and the
@@ -167,6 +186,7 @@ beyond.
 | --- | --- |
 | Quota curve (base, growth, page factors) | `js/constants.js` → `quotaFor`, `QUOTA_BASE`, `QUOTA_GROWTH` (bumped 1.5→1.55 alongside the Colophon — a first guess, watch chapters 7-10 when playtesting) |
 | Trim effects & prices | `js/constants.js` → `TRIMS` (effects live in `js/scoring.js`) |
+| Materials, the cursed ×Mult, ingot price & how often one is offered | `js/constants.js` → `MATERIALS`, `CURSED_MULT`, `CURSED_MAX_POINTS`, `INGOT_PRICE`, `INGOT_OFFER_CHANCE` |
 | Purple trim step size | `js/constants.js` → `PURPLE_TRIM_STEP` |
 | Nick multiplier & prices | `js/constants.js` → `NICK_MULT`, `NICKS` |
 | Tube price / tiles per tube / workbench slots / sell-back | `js/constants.js` → `TUBE_PRICE`, `TUBE_TILES`, `SUNDRY_SLOTS`, `SUNDRY_SELL` |

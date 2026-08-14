@@ -8,7 +8,7 @@ import {
 } from './state.js';
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
-  PAINT_PER_POT, TUBE_TILES, ANIM, SUNDRY_SELL, tileCount,
+  PAINT_PER_POT, TUBE_TILES, ANIM, SUNDRY_SELL, tileCount, MATERIALS,
   colourDesc,
 } from './constants.js';
 import { patronById } from './patrons.js';
@@ -148,7 +148,17 @@ function marketShopHTML() {
         <button class="btn-price" data-buy-tile="${i}">${coinHTML(o.price)}</button>
       </div>`).join('');
 
-  const sundryCards = market.sundryOffers.map((o, i) => o.kind === 'reshuffle' ? `
+  const sundryCards = market.sundryOffers.map((o, i) => o.kind === 'ingot' ? `
+      <div class="offer-paint offer-ingot offer-ingot--${o.material}" data-offer="sundry" data-idx="${i}"
+           data-tip-head="${MATERIALS[o.material].metal}"
+           data-tip-body="Casts one ${MATERIALS[o.material].label.toLowerCase()} tile straight into your hand, and it is yours for the rest of the run. ${MATERIALS[o.material].desc}">
+        <span class="ingot-mark ingot-mark--${o.material}">${MATERIALS[o.material].emoji}</span>
+        <div class="op-body">
+          <div class="op-name">${MATERIALS[o.material].metal}</div>
+        </div>
+        <span class="op-sold">bought</span>
+        <button class="btn-price" data-buy-sundry="${i}">${coinHTML(o.price)}</button>
+      </div>` : o.kind === 'reshuffle' ? `
       <div class="offer-paint" data-offer="sundry" data-idx="${i}"
            data-tip-head="Reshuffle" data-tip-body="A free re-roll, banked for later — spend it here or at the Colophon.">
         <span class="sundry-shuffle sundry-shuffle--offer">↻</span>
@@ -199,9 +209,13 @@ function marketShopHTML() {
   }).join('');
 
   const heldSundries = state.sundries.map((s, i) => {
-    const label = s.kind === 'reshuffle' ? 'Reshuffle' : COLOURS[s.colour].label;
+    const label = s.kind === 'reshuffle' ? 'Reshuffle'
+                : s.kind === 'ingot'     ? MATERIALS[s.material].metal
+                :                          COLOURS[s.colour].label;
     const mark  = s.kind === 'reshuffle'
       ? `<span class="sundry-shuffle held-shuffle">↻</span>`
+      : s.kind === 'ingot'
+      ? `<span class="ingot-mark ingot-mark--${s.material} held-ingot">${MATERIALS[s.material].emoji}</span>`
       : `<span class="paint-tube paint-tube--${s.colour} held-tube"></span>`;
     return `
       <button class="held" data-sell-sundry="${i}" title="Sell back for ${SUNDRY_SELL} Coin">
