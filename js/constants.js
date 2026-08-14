@@ -170,24 +170,40 @@ export const PAGES_PER_CHAPTER  = 3;
 export const FINAL_CHAPTER      = 10;
 export const STARTING_COINS     = 3;
 
-export const CHAPTER_NAMES = [
-  'A Fresh Leaf', 'Rising Action', 'The Plot Thickens', 'Strange Characters',
-  'Crossing Out', 'The Midpoint', 'Darkest Ink', 'The Climax',
-  'Falling Action', 'The Final Proof',
-];
+// Chapter titles are drawn at random per run from js/chapters.js — see
+// chapterTitle() in js/state.js, which has to remember what a run has drawn.
 
 const PAGE_FACTORS = [1, 1.4, 2];
-const QUOTA_BASE   = 35;
-// Nudged 1.5 → 1.55 for the Colophon: permanent hand-size/discard/seat/
-// workbench stacks now accumulate over a run, so the back half needs a
-// slightly steeper climb to keep asking something of that extra power.
-// Compounds, so the effect is tiny in chapter 2-3 and real by chapter 8-10 —
-// a first guess, worth revisiting after a playtest or two.
-const QUOTA_GROWTH = 1.55;
+const QUOTA_BASE   = 40;
+
+// The climb is not a fixed rate: the rate itself grows, so each chapter is a
+// bigger step than the last and the back half of a run gets genuinely steep.
+// Chapter 2 asks ×1.7 of chapter 1, chapter 3 asks ×1.8 of chapter 2, and so
+// on. That keeps chapters 1-4 close to where they always were while the final
+// chapters run into the tens of thousands and the appendices into the
+// hundreds of thousands — which is the point, since a built press multiplies
+// rather than adds.
+//
+//   ch1     40 · ch4    230 · ch7   2,100 · ch10  30,000   (page 1)
+//   ch1     80 · ch4    470 · ch7   4,300 · ch10  59,000   (the Deadline)
+//
+// Raising START makes the whole run harder; raising RAMP makes the ending
+// harder without touching the opening. A harder mode is a bigger pair.
+const QUOTA_GROWTH_START = 1.7;
+const QUOTA_GROWTH_RAMP  = 0.1;
+
+// Quotas are targets, not arithmetic: show a round number. Under 100 they
+// land on 5s, above it on two significant figures — 4,937 reads as 4,900.
+function roundQuota(n) {
+  if (n < 100) return Math.max(5, Math.round(n / 5) * 5);
+  const mag = 10 ** (Math.floor(Math.log10(n)) - 1);
+  return Math.round(n / mag) * mag;
+}
 
 export function quotaFor(chapter, page) {
-  const raw = QUOTA_BASE * QUOTA_GROWTH ** (chapter - 1) * PAGE_FACTORS[page - 1];
-  return Math.max(5, Math.round(raw / 5) * 5);
+  let raw = QUOTA_BASE;
+  for (let c = 2; c <= chapter; c++) raw *= QUOTA_GROWTH_START + (c - 2) * QUOTA_GROWTH_RAMP;
+  return roundQuota(raw * PAGE_FACTORS[page - 1]);
 }
 
 export function roman(n) {
@@ -198,8 +214,10 @@ export function roman(n) {
   return out;
 }
 
-export const chapterTitle = ch =>
-  ch <= FINAL_CHAPTER ? CHAPTER_NAMES[ch - 1] : `Appendix ${roman(ch - FINAL_CHAPTER)}`;
+// What a chapter is called by number: the ten chapters of the folio proper,
+// then the appendices, counted from one again.
+export const chapterLabel = ch =>
+  ch <= FINAL_CHAPTER ? `Chapter ${roman(ch)}` : `Appendix ${roman(ch - FINAL_CHAPTER)}`;
 
 export const isDeadline = page => page === PAGES_PER_CHAPTER;
 
@@ -264,6 +282,7 @@ export const isImmutable = tile => tile?.material === 'ghost';
 // with their patron, as ever.
 export const GRAFTER_STEP       = 1;      // permanent Points per tile per print
 export const STOKER_STEP        = 0.25;   // permanent ×Mult per crimson tile burned
+export const BEEKEEPER_STEP     = 0.1;    // permanent ×Mult per B printed
 export const ARSONIST_ODDS      = { paint: 0.10, burn: 0.01 };  // per tile played
 export const NUDIST_TRIM_CHANCE = 0.25;   // per bare letter in an all-bare word
 export const NEOLOGIST_LENGTH   = 6;      // letters in a coined word

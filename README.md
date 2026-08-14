@@ -178,13 +178,22 @@ page's quota, so the curve never needs retuning as quotas climb.
 **Run structure** — 10 chapters × 3 pages; the third page of each chapter is a
 Deadline with a steeper quota and a coin bonus. 5 words and 2 discards per
 page. Clearing chapter X wins the run; the appendices (endless mode) continue
-beyond.
+beyond. Each chapter draws its title at random from `js/chapters.js` and keeps
+it for the run.
+
+The climb is not a fixed rate — the rate itself grows, so each chapter is a
+bigger step than the last and a built press has to multiply rather than add:
+
+| | ch 1 | ch 4 | ch 7 | ch 10 | App. II |
+| --- | --- | --- | --- | --- | --- |
+| page 1 | 40 | 230 | 2,100 | 30,000 | 210,000 |
+| Deadline | 80 | 470 | 4,300 | 59,000 | 420,000 |
 
 ## Where to tune the design
 
 | Knob | Where |
 | --- | --- |
-| Quota curve (base, growth, page factors) | `js/constants.js` → `quotaFor`, `QUOTA_BASE`, `QUOTA_GROWTH` (bumped 1.5→1.55 alongside the Colophon — a first guess, watch chapters 7-10 when playtesting) |
+| Quota curve | `js/constants.js` → `quotaFor`, `QUOTA_BASE`, `QUOTA_GROWTH_START`, `QUOTA_GROWTH_RAMP`. The rate itself grows: chapter 2 asks ×1.7 of chapter 1, chapter 3 ×1.8 of chapter 2, and so on. START makes the whole run harder; RAMP makes the ending harder without touching the opening — a harder mode is a bigger pair |
 | Trim effects & prices | `js/constants.js` → `TRIMS` (effects live in `js/scoring.js`) |
 | Materials, the cursed ×Mult, ingot price & how often one is offered | `js/constants.js` → `MATERIALS`, `CURSED_MULT`, `CURSED_MAX_POINTS`, `INGOT_PRICE`, `INGOT_OFFER_CHANCE` |
 | Purple trim step size | `js/constants.js` → `PURPLE_TRIM_STEP` |
@@ -204,7 +213,7 @@ beyond.
 | Patron roster, costs, effects | `js/patrons.js` (design notes in `docs/PATRON_OVERHAUL.md`) |
 | Patron tuning that reaches beyond a score (growth steps, burn odds, trim chance, dye count, coined-word length) | `js/constants.js` → `GRAFTER_STEP`, `STOKER_STEP`, `ARSONIST_ODDS`, `NUDIST_TRIM_CHANCE`, `DYE_TILES_PER_CHAPTER`, `NEOLOGIST_LENGTH` |
 | Animation step timings | `js/constants.js` → `ANIM` (all divided by the Settings speed slider) |
-| Chapter names | `js/constants.js` → `CHAPTER_NAMES` |
+| Chapter titles | `js/chapters.js` — a flat array, add as many as you like; each run draws its own and won't repeat until the list runs out |
 
 ## Architecture
 
@@ -216,6 +225,7 @@ beyond.
 | `js/upgrades.js` | the Colophon's upgrade definitions (pure data, no logic) |
 | `js/colophon.js` | the Colophon's ephemeral screen state: rolling, capping, applying, reshuffling |
 | `js/quips.js` | patron reaction lines — a flat, editable array; no logic beyond `{word}` substitution |
+| `js/chapters.js` | chapter titles — a flat, editable array; a run draws one per chapter and keeps it |
 | `js/market.js` | market state: offers, buying, sundries, stalls, rerolls |
 | `js/draft.js` | the opening draft: free spread, picks, applying them |
 | `js/render.js` | board-side DOM: tiles, shelf, workbench, status, readout, popovers, overlays |

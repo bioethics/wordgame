@@ -26,7 +26,7 @@
 // on the patron's business card in the market and draft instead of the emoji.
 
 import {
-  GRAFTER_STEP, STOKER_STEP, ARSONIST_ODDS, NUDIST_TRIM_CHANCE,
+  GRAFTER_STEP, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS, NUDIST_TRIM_CHANCE,
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS,
 } from './constants.js';
 import {
@@ -361,6 +361,24 @@ export const PATRON_DEFS = [
     when: 'score',
     effect({ word, state, xMult }) {
       if (word && state.lastFirstLetter && word[0] === state.lastFirstLetter) xMult(2);
+    },
+  },
+  {
+    id: 'beekeeper', name: 'The Beekeeper', emoji: '🐝', rarity: 'uncommon', cost: 6,
+    desc: 'Every B you print permanently raises this patron\'s Mult by 0.1.',
+    when: 'score',
+    // Like The Stoker: the count grows as the word commits, so the bees you
+    // just caught pay from the next word on.
+    effect({ data, xMult }) {
+      const bees = data?.bees ?? 0;
+      if (bees) xMult(Math.round((1 + bees * BEEKEEPER_STEP) * 100) / 100);
+    },
+    onPrinted({ tiles, data }) {
+      const caught = tiles.filter(t => getActiveLetter(t) === 'B').length;
+      if (!caught) return null;
+      data.bees = (data.bees ?? 0) + caught;
+      const mult = Math.round((1 + data.bees * BEEKEEPER_STEP) * 100) / 100;
+      return { note: `${caught === 1 ? 'a bee' : `${caught} bees`} — ×${mult} Mult` };
     },
   },
   {

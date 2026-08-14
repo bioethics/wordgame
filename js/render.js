@@ -4,12 +4,12 @@
 
 import {
   state, settings, saveState, getActiveLetter, getActiveColour, selectedCount,
-  effectivePatronSlots, effectiveSundrySlots,
+  effectivePatronSlots, effectiveSundrySlots, chapterTitle,
 } from './state.js';
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
   WORDS_PER_PAGE, PAGES_PER_CHAPTER, TUBE_TILES, tileCount,
-  colourDesc, chapterTitle, roman, isDeadline, NEOLOGIST_LENGTH,
+  colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH,
 } from './constants.js';
 import { patronById } from './patrons.js';
 import { computeScore } from './scoring.js';
@@ -386,7 +386,7 @@ function renderSundries() {
 function renderStatus() {
   const deadline = isDeadline(state.page);
 
-  setText('chapterLabel', `Chapter ${roman(state.chapter)}`);
+  setText('chapterLabel', chapterLabel(state.chapter));
   setText('chapterName', chapterTitle(state.chapter));
 
   const pageEl = $('pageLabel');
@@ -396,8 +396,10 @@ function renderStatus() {
       : `Page ${state.page} <span class="page-of">of ${PAGES_PER_CHAPTER}</span>`;
   }
 
-  setText('quotaNow', state.pageScore);
-  setText('quotaTarget', state.quota);
+  // Quotas run into the hundreds of thousands by the appendices — grouped
+  // digits are the difference between reading a number and counting it.
+  setText('quotaNow', state.pageScore.toLocaleString());
+  setText('quotaTarget', state.quota.toLocaleString());
   const fill = $('quotaFill');
   if (fill) {
     fill.style.width = `${Math.min(100, (state.pageScore / state.quota) * 100)}%`;
@@ -677,7 +679,7 @@ export function showGameOver() {
     <div class="sheet sheet--dark sheet--end">
       <div class="end-flourish">✕</div>
       <h2 class="end-title">The press falls silent</h2>
-      <p class="end-sub">Chapter ${roman(state.chapter)}, ${isDeadline(state.page) ? 'the Deadline' : `page ${state.page}`} — the quota of ${state.quota} went unmet.</p>
+      <p class="end-sub">${chapterLabel(state.chapter)}, ${isDeadline(state.page) ? 'the Deadline' : `page ${state.page}`} — the quota of ${state.quota.toLocaleString()} went unmet.</p>
       ${statsHTML()}
       <button class="btn btn-print btn-big" data-overlay-action="newrun">Begin a new folio</button>
     </div>`);

@@ -4,6 +4,7 @@ import {
   BAG_COUNTS, TILE_POINTS, TUBE_TILES, CURSED_MAX_POINTS, isImmutable,
   quotaFor, makeTileTemplate,
 } from './constants.js';
+import { CHAPTER_TITLES } from './chapters.js';
 
 const SAVE_KEY     = 'folio_save_v1';
 const SETTINGS_KEY = 'folio_settings_v1';
@@ -120,6 +121,7 @@ export const state = {
   upgradeCounts: {}, // id → times taken this run, from the Colophon (see js/upgrades.js)
   luck: 1,             // scales every "good outcome" roll (see luckyRoll) — a future dial
   lastFirstLetter: null,  // first letter of the last word printed this run (The Skald)
+  chapterTitles: {},   // chapter → the title this run drew for it
 
   totalScore: 0,
   stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
@@ -142,6 +144,22 @@ export const effectivePatronSlots = () => PATRON_SLOTS + (state.upgradeCounts?.p
 export const effectiveSundrySlots = () => SUNDRY_SLOTS + (state.upgradeCounts?.workbenchSlot ?? 0);
 
 export const owns = id => state.patrons.some(p => p.id === id);
+
+// ─── Chapter titles ───────────────────────────────────────────────────────────
+// Drawn at random from js/chapters.js the first time a chapter is named, then
+// kept for the rest of the run — a reload must not rename a chapter under you.
+// A run won't repeat a title until the list is exhausted, so a longer list in
+// chapters.js makes for a stranger book.
+
+export function chapterTitle(ch) {
+  state.chapterTitles ??= {};
+  if (state.chapterTitles[ch]) return state.chapterTitles[ch];
+  const used = new Set(Object.values(state.chapterTitles));
+  const fresh = CHAPTER_TITLES.filter(t => !used.has(t));
+  const pool = fresh.length ? fresh : CHAPTER_TITLES;
+  state.chapterTitles[ch] = pool[Math.floor(Math.random() * pool.length)] ?? '';
+  return state.chapterTitles[ch];
+}
 
 // A seated patron's private memory (created on first touch, saved with the run).
 export function patronData(id) {
@@ -185,6 +203,7 @@ export function loadState() {
     state.upgradeCounts ??= {};
     state.luck ??= 1;
     state.lastFirstLetter ??= null;
+    state.chapterTitles ??= {};
     if (savedId)  _nextId  = savedId;
     if (savedTid) _nextTid = savedTid;
     return { market: _market ?? null, draft: _draft ?? null, colophon: _colophon ?? null };
@@ -208,7 +227,7 @@ export function newRun() {
     wordsLeft: WORDS_PER_PAGE, discards: DISCARDS_PER_PAGE,
     discardsMax: DISCARDS_PER_PAGE, wordsPrinted: 0,
     coins: STARTING_COINS, patrons: [], sundries: [], upgradeCounts: {},
-    luck: 1, lastFirstLetter: null,
+    luck: 1, lastFirstLetter: null, chapterTitles: {},
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
     ledger: [],

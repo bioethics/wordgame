@@ -124,7 +124,11 @@ export function speechBubble(anchorEl, text, { duration = 1600 } = {}) {
 
 // ─── Number tweens ────────────────────────────────────────────────────────────
 
-export function tweenNum(el, to, { duration = 260, fmt = v => Math.round(v).toString(), bump = true } = {}) {
+// Scores reach six figures late in a run, so numbers group their digits by
+// default — 59,000 rather than 59000. Pass your own `fmt` to opt out.
+export const fmtNum = v => Math.round(v).toLocaleString();
+
+export function tweenNum(el, to, { duration = 260, fmt = fmtNum, bump = true } = {}) {
   if (!el) return Promise.resolve();
   const from = el._val ?? (parseFloat(String(el.textContent).replace(/[^\d.-]/g, '')) || 0);
   el._val = to;
@@ -159,7 +163,7 @@ export function tweenNum(el, to, { duration = 260, fmt = v => Math.round(v).toSt
   });
 }
 
-export function setNum(el, v, fmt = x => Math.round(x).toString()) {
+export function setNum(el, v, fmt = fmtNum) {
   if (!el) return;
   el._val = v;
   el.textContent = fmt(v);

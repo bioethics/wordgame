@@ -9,12 +9,12 @@ import {
   discardSelected, getWordString, moveRackToWord, owns, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected,
   getActiveColour, getActiveLetter, growTile, paintTile, trimTile,
-  trashFromCollection, castMaterialTile,
+  trashFromCollection, castMaterialTile, chapterTitle,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES, tileCount,
   WORDS_PER_PAGE, REACTION, NEOLOGIST_LENGTH, MATERIALS,
-  chapterTitle, roman, COLOURS, MULT_TRACKS, NICKS, splitMarks,
+  chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks,
 } from './constants.js';
 import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
 import { computeScore, computeReward } from './scoring.js';
@@ -396,7 +396,7 @@ async function submitWord() {
   const { toBag, toPile } = retirePrinted(printed.filter(t => !burnedIds.has(t.id)));
   state.word.length = 0;
 
-  let msg = `”${script.word}” — ${script.points} × ${fmtMult(script.mult)} = ${script.total}.`;
+  let msg = `”${script.word}” — ${script.points.toLocaleString()} × ${fmtMult(script.mult)} = ${script.total.toLocaleString()}.`;
   if (script.coins)   msg += `  +${script.coins} Coin${script.coins > 1 ? 's' : ''}.`;
   if (script.refresh) msg += `  +${script.refresh} Discard${script.refresh > 1 ? 's' : ''}.`;
   if (toBag.length)   msg += `  ${toBag.length} slipped back into the bag.`;
@@ -446,7 +446,8 @@ async function pageComplete() {
   state.isAnimating = true;
   state.stats.pages += 1;
   sfx.win();
-  await showBanner('Page complete', `${state.pageScore} of ${state.quota} — ${chapterTitle(state.chapter)}`);
+  await showBanner('Page complete',
+    `${state.pageScore.toLocaleString()} of ${state.quota.toLocaleString()} — ${chapterTitle(state.chapter)}`);
 
   const reward = computeReward();
   state.coins += reward.total;
@@ -516,7 +517,7 @@ async function advancePage() {
   pulse($('bagBtn'), 'pouch--bump', 300);
 
   if (newChapter) {
-    await showBanner(`Chapter ${roman(state.chapter)}`, chapterTitle(state.chapter), 1350);
+    await showBanner(chapterLabel(state.chapter), chapterTitle(state.chapter), 1350);
   }
 
   const drawn = drawUpToRackSize();
@@ -889,7 +890,7 @@ async function beginRun() {
   startPage();          // reshuffle the bag now the drafted tiles have joined
   state.isAnimating = true;
   renderAll();
-  await showBanner(`Chapter ${roman(1)}`, chapterTitle(1), 1250);
+  await showBanner(chapterLabel(1), chapterTitle(1), 1250);
   const drawn = drawUpToRackSize();
   await animateDraw(drawn);
   state.isAnimating = false;
