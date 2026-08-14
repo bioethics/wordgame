@@ -4,7 +4,7 @@
 // main.js and is injected via initSheets().
 
 import {
-  state, effectivePatronSlots, effectiveSundrySlots, spendReshuffleSundry,
+  state, owns, effectivePatronSlots, effectiveSundrySlots, spendReshuffleSundry,
 } from './state.js';
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
@@ -15,6 +15,7 @@ import { patronById } from './patrons.js';
 import { upgradeById } from './upgrades.js';
 import {
   market, stallById, stallPrice, restorable, isProposalStall,
+  offerPrice, compostLeft, takeCompost,
   buyPatron, buyTile, buySundry, sellPatron, sellSundry,
   rerollMarket, freeRerollMarket,
   stallSmelt, stallPaint, stallCommission, stallClone, stallRestore,
@@ -59,6 +60,10 @@ export function renderMarket() {
       const slot = m.querySelector(`[data-offer-tile="${i}"]`);
       if (slot && !slot.children.length) slot.appendChild(makeTileEl({ ...o.template, id: '' }, 'offer'));
     });
+    (state.compost ?? []).forEach((t, i) => {
+      const slot = m.querySelector(`[data-compost-tile="${i}"]`);
+      if (slot && !slot.children.length) slot.appendChild(makeTileEl({ ...t, id: '' }, 'offer'));
+    });
     updateMarketState();
   }
 }
@@ -76,11 +81,19 @@ export function updateMarketState() {
   for (const card of m.querySelectorAll('[data-offer]')) {
     const kind = card.dataset.offer;
     const idx  = Number(card.dataset.idx);
+    // The heap isn't bought, so it prices and sells out on its own terms.
+    if (kind === 'compost') {
+      const btn = card.querySelector('.btn-price');
+      if (btn) btn.disabled = !compostLeft();
+      continue;
+    }
     const offer = kind === 'patron' ? market.patronOffers[idx]
                 : kind === 'tile'   ? market.tileOffers[idx]
                 :                     market.sundryOffers[idx];
     if (!offer) continue;
-    const cost = kind === 'patron' ? patronById(offer.id).cost : offer.price;
+    const cost = kind === 'patron' ? patronById(offer.id).cost
+               : kind === 'tile'   ? offerPrice(offer)
+               :                     offer.price;
     const afford = state.coins >= cost
       && (kind !== 'patron' || !seatsFull)
       && (kind !== 'sundry' || !benchFull);
@@ -141,11 +154,23 @@ function marketShopHTML() {
   }).join('') || '<p class="sheet-note">No patrons calling today.</p>';
 
   // Nothing is summarised under the tile — hover or long-press it.
-  const tileCards = market.tileOffers.map((o, i) => `
-      <div class="offer-tile" data-offer="tile" data-idx="${i}">
+  const tileCards = market.tileOffers.map((o, i) => {
+    const price = offerPrice(o);
+    return `
+      <div class="offer-tile${price === 0 ? ' offer-tile--free' : ''}" data-offer="tile" data-idx="${i}">
         <div class="offer-tile-slot" data-offer-tile="${i}"></div>
         <span class="op-sold">bought</span>
-        <button class="btn-price" data-buy-tile="${i}">${coinHTML(o.price)}</button>
+        <button class="btn-price" data-buy-tile="${i}">${price === 0 ? 'Free' : coinHTML(price)}</button>
+      </div>`;
+  }).join('');
+
+  // The compost heap — only while someone is tending it.
+  const heap = owns('composter') ? (state.compost ?? []) : [];
+  const heapCards = heap.map((t, i) => `
+      <div class="offer-tile offer-compost" data-offer="compost" data-idx="${i}">
+        <div class="offer-tile-slot" data-compost-tile="${i}"></div>
+        <button class="btn-price" data-take-compost="${i}"
+                ${compostLeft() ? '' : 'disabled'}>Take</button>
       </div>`).join('');
 
   const sundryCards = market.sundryOffers.map((o, i) => o.kind === 'ingot' ? `
@@ -258,6 +283,18 @@ function marketShopHTML() {
             <span class="held-label">On the bench · tap to sell back</span>${heldSundries}</div>` : ''}
         </section>
       </div>
+
+      ${owns('composter') ? `
+      <section class="market-compost">
+        <h3 class="market-sec">The compost heap <span class="market-sub">${
+          heap.length
+            ? compostLeft()
+              ? `take ${compostLeft()} — the rest rots on`
+              : 'nothing more this visit'
+            : 'nothing has rotted down yet'
+        }</span></h3>
+        ${heap.length ? `<div class="offer-tiles offer-tiles--compost">${heapCards}</div>` : ''}
+      </section>` : ''}
 
       <section class="market-stalls">
         <h3 class="market-sec">Stalls <span class="market-sub">prices double with each purchase</span></h3>
@@ -647,6 +684,19 @@ function onMarketClick(e) {
       flyPurchase(card, $('shelf'), { scaleTo: 0.2 });
     }
     renderAll(); updateMarketState();
+    return;
+  }
+  const takeC = e.target.closest('[data-take-compost]');
+  if (takeC) {
+    const card = takeC.closest('[data-offer]');
+    const r = takeCompost(Number(takeC.dataset.takeCompost));
+    if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
+    else {
+      sfx.chime();
+      log('Lifted from the heap — it joins the bag next page.', 'good');
+      flyPurchase(card?.querySelector('.tile'), $('bagBtn'));
+    }
+    renderAll(); renderMarket();
     return;
   }
   const buyT = e.target.closest('[data-buy-tile]');

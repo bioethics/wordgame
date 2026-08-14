@@ -1,9 +1,12 @@
 import {
-  state, adoptTemplate, shuffle, effectivePatronSlots, effectiveSundrySlots,
+  state, adoptTemplate, shuffle, owns, trashFromCollection,
+  effectivePatronSlots, effectiveSundrySlots,
 } from './state.js';
 import {
-  BAG_COUNTS, LIGATURES, MARKS, MARK_WEIGHT, isMark, TILE_POINTS, TRIMS, NICKS, COLOURS,
+  BAG_COUNTS, LIGATURES, EXCLUSIVE_LETTERS, MARKS, MARK_WEIGHT, isMark,
+  TILE_POINTS, TRIMS, NICKS, COLOURS,
   MATERIALS, INGOT_PRICE, INGOT_OFFER_CHANCE, isImmutable,
+  COMPOST_HEAP_MAX, COMPOST_PER_MARKET,
   TILE_BASE_PRICE, REROLL_BASE,
   SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, SUNDRY_SELL,
   STALL_DEFS, STALLS_PER_SHOP, PROPOSAL_RANGE, SMELT_MIN_COLLECTION,
@@ -21,6 +24,7 @@ export const market = {
   rewardTotal: 0,
   patronOffers: [],      // [{ id, sold }]
   tileOffers: [],        // [{ template, price, sold }]
+  compostTaken: 0,       // tiles lifted from the compost heap this visit
   sundryOffers: [],      // [{ kind: 'tube', colour, price, sold }]
   stalls: [],            // [{ id, uses, proposals? }] — this visit's two stalls
   activeStall: null,     // stall id while view === 'stall'
@@ -36,7 +40,9 @@ function buildLetterPool() {
   for (const [L, c] of Object.entries(BAG_COUNTS)) {
     for (let i = 0; i < Math.max(1, c); i++) pool.push(L);
   }
-  LIGATURES.forEach(L => pool.push(L, L));
+  // Exclusive letters belong to the patron that makes them and turn up
+  // nowhere else — not in the shop, the draft, or the compost heap.
+  LIGATURES.filter(L => !EXCLUSIVE_LETTERS.includes(L)).forEach(L => pool.push(L, L));
   MARKS.forEach(m => { for (let i = 0; i < MARK_WEIGHT; i++) pool.push(m); });
   return pool;
 }
@@ -149,11 +155,31 @@ function rollSundryOffers() {
   return offers;
 }
 
+// A tile is amber if either of its faces is — that's what The Chapman deals in.
+export const isAmberTile = tmpl => tmpl?.colour === 'amber' || tmpl?.altColour === 'amber';
+
+// What an offered tile actually costs right now. The Chapman gives amber away,
+// and is checked live rather than baked into the offer, so hiring or dismissing
+// them mid-visit re-prices the shelf immediately.
+export const offerPrice = offer =>
+  owns('chapman') && isAmberTile(offer.template) ? 0 : offer.price;
+
 // Patrons/tiles/sundries — "New offers" also re-rolls the stalls (see rollStalls).
 function rollOffers() {
   market.patronOffers = weightedPatronSample(3);
   market.tileOffers   = Array.from({ length: 4 }, randomTileOffer);
   market.sundryOffers = rollSundryOffers();
+  guaranteeAmber();
+}
+
+// The Chapman knows a supplier: without this, amber paint turns up on roughly
+// one offered tile in ten and the patron would sit dead most visits.
+function guaranteeAmber() {
+  if (!owns('chapman') || !market.tileOffers.length) return;
+  if (market.tileOffers.some(o => isAmberTile(o.template))) return;
+  const offer = pick(market.tileOffers);
+  offer.template.colour = 'amber';
+  offer.price = tilePrice(offer.template);
 }
 
 // ─── Stalls ───────────────────────────────────────────────────────────────────
@@ -231,6 +257,8 @@ export function openMarket(rewardParts, rewardTotal) {
   market.activeStall = null;
   market.stallSel = -1;
   market.stallColour = null;
+  market.compostTaken = 0;
+  rotCompost();
   rollOffers();
   rollStalls();
 }
@@ -240,6 +268,7 @@ export function restoreMarket(snapshot) {
   Object.assign(market, snapshot, { open: true });
   market.sundryOffers ??= [];
   market.stalls ??= [];
+  market.compostTaken ??= 0;
   state.inMarket = true;
 }
 
@@ -289,11 +318,45 @@ export function sellSundry(idx) {
 export function buyTile(idx) {
   const offer = market.tileOffers[idx];
   if (!offer || offer.sold)        return { ok: false, reason: 'Not available.' };
-  if (state.coins < offer.price)   return { ok: false, reason: `You need ${offer.price} Coins.` };
-  state.coins -= offer.price;
+  const price = offerPrice(offer);
+  if (state.coins < price)         return { ok: false, reason: `You need ${price} Coins.` };
+  state.coins -= price;
   state.collection.push(adoptTemplate(offer.template));
   offer.sold = true;
-  return { ok: true, template: offer.template };
+  return { ok: true, template: offer.template, price };
+}
+
+// ─── The compost heap (The Composter) ─────────────────────────────────────────
+// Tiles destroyed anywhere — burned by The Stoker, lost to The Arsonist, fed to
+// the Smelter — are tallied on state.compostPending. They rot down into jade
+// tiles when the Market opens, because that's the only place the heap is ever
+// seen. The heap keeps the freshest COMPOST_HEAP_MAX; older rot is turned under.
+
+function rotCompost() {
+  state.compost ??= [];
+  let pending = state.compostPending ?? 0;
+  while (pending > 0) {
+    const tmpl = randomSpecialTile();
+    tmpl.colour = 'jade';           // whatever else it grew, it comes up green
+    state.compost.push(tmpl);
+    if (state.compost.length > COMPOST_HEAP_MAX) state.compost.shift();
+    pending--;
+  }
+  state.compostPending = 0;
+}
+
+export const compostLeft = () =>
+  Math.max(0, COMPOST_PER_MARKET - (market.compostTaken ?? 0));
+
+export function takeCompost(idx) {
+  if (!owns('composter'))       return { ok: false, reason: 'No one is tending the heap.' };
+  if (!compostLeft())           return { ok: false, reason: 'You have already taken from the heap this visit.' };
+  const tmpl = state.compost?.[idx];
+  if (!tmpl)                    return { ok: false, reason: 'Not available.' };
+  state.compost.splice(idx, 1);
+  state.collection.push(adoptTemplate(tmpl));
+  market.compostTaken = (market.compostTaken ?? 0) + 1;
+  return { ok: true, template: tmpl };
 }
 
 export function buySundry(idx) {
@@ -348,7 +411,7 @@ export function stallSmelt(tid) {
                                      return { ok: false, reason: 'Your collection is too small to smelt further.' };
   if (state.coins < t.price)         return { ok: false, reason: `You need ${t.price} Coins.` };
   payStall(t.stall, t.price);
-  state.collection.splice(state.collection.indexOf(t.tmpl), 1);
+  trashFromCollection(t.tmpl.tid);   // the one road out, so the heap counts it too
   pruneProposals();
   return { ok: true, removed: t.tmpl, price: t.price };
 }

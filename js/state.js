@@ -122,6 +122,8 @@ export const state = {
   luck: 1,             // scales every "good outcome" roll (see luckyRoll) — a future dial
   lastFirstLetter: null,  // first letter of the last word printed this run (The Skald)
   chapterTitles: {},   // chapter → the title this run drew for it
+  compost: [],         // The Composter's heap: jade templates waiting at the Market
+  compostPending: 0,   // tiles destroyed since the last Market, not yet rotted down
 
   totalScore: 0,
   stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
@@ -204,6 +206,8 @@ export function loadState() {
     state.luck ??= 1;
     state.lastFirstLetter ??= null;
     state.chapterTitles ??= {};
+    state.compost ??= [];
+    state.compostPending ??= 0;
     if (savedId)  _nextId  = savedId;
     if (savedTid) _nextTid = savedTid;
     return { market: _market ?? null, draft: _draft ?? null, colophon: _colophon ?? null };
@@ -228,6 +232,7 @@ export function newRun() {
     discardsMax: DISCARDS_PER_PAGE, wordsPrinted: 0,
     coins: STARTING_COINS, patrons: [], sundries: [], upgradeCounts: {},
     luck: 1, lastFirstLetter: null, chapterTitles: {},
+    compost: [], compostPending: 0,
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
     ledger: [],
@@ -272,19 +277,23 @@ export function drawUpToRackSize() {
   return drawn;
 }
 
-// Cast a tile from a strange metal: it joins the collection for good and
-// arrives in the rack straight away, so the ingot pays off on the page you
-// spend it. A cursed tile is never cast on a letter worth much — its ×Mult is
-// the point, not its Points.
-export function castMaterialTile(material) {
-  const letters = Object.keys(BAG_COUNTS).filter(L =>
-    material !== 'cursed' || (TILE_POINTS[L] ?? 99) <= CURSED_MAX_POINTS);
-  const letter = letters[Math.floor(Math.random() * letters.length)];
-  const tmpl = adoptTemplate(makeTileTemplate(letter, { material }));
+// Strike a new tile: it joins the collection for good and arrives in the rack
+// straight away, so whatever paid for it pays off on the page you spend it.
+export function castTile(overrides = {}) {
+  const { letter, ...rest } = overrides;
+  const tmpl = adoptTemplate(makeTileTemplate(letter, rest));
   state.collection.push(tmpl);
   const tile = templateToTile(tmpl);
   state.rack.push(tile);
   return tile;
+}
+
+// An ingot's tile. A cursed one is never cast on a letter worth much — its
+// ×Mult is the point, not its Points.
+export function castMaterialTile(material) {
+  const letters = Object.keys(BAG_COUNTS).filter(L =>
+    material !== 'cursed' || (TILE_POINTS[L] ?? 99) <= CURSED_MAX_POINTS);
+  return castTile({ letter: letters[Math.floor(Math.random() * letters.length)], material });
 }
 
 export function clearWord() {
@@ -385,15 +394,24 @@ export function trimTile(tile, kind) {
   return true;
 }
 
-// Remove a tile from the collection for good (Stoker burns, Arsonist accidents).
-// Honours the same floor as the Smelter so no patron can eat the press out of
-// house and home. Returns the removed template, or null if the floor held.
-// Live copies (rack / word / discard pile) are the caller's to clean up.
+// Remove a tile from the collection for good (Stoker burns, Arsonist
+// accidents, the Smelter's furnace). Honours the same floor as the Smelter so
+// nothing can eat the press out of house and home. Returns the removed
+// template, or null if the floor held. Live copies (rack / word / discard
+// pile) are the caller's to clean up.
+//
+// Every route to permanent destruction comes through here, which is what lets
+// The Composter count them all. The rot is banked as a number and turned into
+// actual tiles when the Market opens (see rotCompost in js/market.js) — the
+// heap is only ever looked at there, and tile generation lives over in the
+// Market, so this end just keeps the tally.
 export function trashFromCollection(tid) {
   if (state.collection.length <= SMELT_MIN_COLLECTION) return null;
   const i = state.collection.findIndex(c => c.tid === tid);
   if (i < 0) return null;
-  return state.collection.splice(i, 1)[0];
+  const [removed] = state.collection.splice(i, 1);
+  if (owns('composter')) state.compostPending = (state.compostPending ?? 0) + 1;
+  return removed;
 }
 
 // ─── Ledger ───────────────────────────────────────────────────────────────────

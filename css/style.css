@@ -1948,6 +1948,44 @@ button.sundry:hover { transform: translateY(-2px); }
 .trim-swatch--mercury { --metal: #7ec8d6; }
 .trim-swatch--purple  { --metal: #8a5fb0; }
 
+/* ── The compost heap ────────────────────────────────────────────────────────
+   What The Composter's rot has turned into. Laid out like the type case, but
+   dark and loamy, and nothing here is bought. */
+.market-compost { margin-top: 22px; }
+/* Six columns whatever the heap holds, so it reads as a bed with room in it.
+   The doubled class out-specifies the type case's wood a few rules down. */
+.offer-tiles--compost { grid-template-columns: repeat(6, 1fr); }
+.sheet--market .offer-tiles.offer-tiles--compost {
+  background: linear-gradient(180deg, #2b2418 0%, #1d1810 60%, #141009 100%);
+  border-color: rgba(60, 90, 50, 0.45);
+  box-shadow:
+    inset 0 2px 0 rgba(120, 170, 110, 0.12),
+    inset 0 -6px 12px rgba(0, 0, 0, 0.4),
+    0 8px 20px rgba(0, 0, 0, 0.45);
+}
+.sheet--market .offer-tile.offer-compost {
+  background: linear-gradient(180deg, #1b2318 0%, #121a10 100%);
+  border-color: rgba(63, 163, 113, 0.4);
+}
+.offer-compost .btn-price {
+  background: linear-gradient(180deg, #3f8a5c, #29603f);
+  border-color: rgba(144, 232, 186, 0.4);
+  color: #eafff3;
+  box-shadow: 0 2px 0 #1d472e;
+}
+.offer-compost .btn-price:active:not(:disabled) { box-shadow: 0 0.5px 0 #1d472e; }
+
+/* A tile The Chapman has made free stops looking like a price at all */
+.offer-tile--free .btn-price {
+  background: linear-gradient(180deg, #b8862c, #7a5313);
+  border-color: rgba(246, 214, 138, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 11px;
+}
+
+@media (max-width: 780px) { .offer-tiles--compost { grid-template-columns: repeat(3, 1fr); } }
+
 /* ── Stalls — market pitches under a striped awning ──────────────────────────── */
 .market-stalls { margin-top: 22px; }
 

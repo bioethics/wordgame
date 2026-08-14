@@ -14,6 +14,7 @@ export const TILE_POINTS = {
   QU:10, R:1, S:1, T:1, U:1, V:4, W:4, X:8,
   Y:4, Z:10,
   ING:4, ED:3, TCH:8,
+  RAT:3,                    // R+A+T, exactly what the three would score apart
   '?':1, '!':1,
 };
 
@@ -24,7 +25,11 @@ export const BAG_COUNTS = {
 };
 
 // Multi-letter "ligature" tiles — one tile that spells several letters
-export const LIGATURES = ['ING', 'ED', 'TCH'];
+export const LIGATURES = ['ING', 'ED', 'TCH', 'RAT'];
+
+// Letters no shop, draft or heap will ever hand you: they come from one
+// patron and nowhere else. RAT belongs to The Rat Catcher.
+export const EXCLUSIVE_LETTERS = ['RAT'];
 
 // ─── Marks (punctuation tiles) ────────────────────────────────────────────────
 // Not letters, and not ligatures either: a mark spells nothing and is simply
@@ -287,6 +292,11 @@ export const ARSONIST_ODDS      = { paint: 0.10, burn: 0.01 };  // per tile play
 export const NUDIST_TRIM_CHANCE = 0.25;   // per bare letter in an all-bare word
 export const NEOLOGIST_LENGTH   = 6;      // letters in a coined word
 export const DYE_TILES_PER_CHAPTER = 2;   // tiles painted by a dye patron at chapter end
+
+// The Composter's heap: destroyed tiles rot down into jade ones, and the heap
+// keeps only the freshest few — older rot is turned under to make room.
+export const COMPOST_HEAP_MAX = 6;        // tiles the heap can hold at once
+export const COMPOST_PER_MARKET = 1;      // how many you may take on a visit
 
 // ─── Tile-template factory ────────────────────────────────────────────────────
 export function makeTileTemplate(letter, overrides = {}) {

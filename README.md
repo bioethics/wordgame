@@ -61,7 +61,7 @@ plus an optional **trim** and **nick**.
 | Paint | crimson / azure / jade / amber — each raises its colour's multiplier by 1 |
 | Trim | **Gold** pays 1 Coin · **Silver** +6 Points · **Cobalt** refreshes 1 Discard (and wears the Discard's own blue) · **Mercury** slips back into the bag instead of the discard pile · **Purple** raises the fifth multiplier by 0.5 |
 | Nick | A notch cut into one edge; the notched side is the direction. **Right** ×3 Points to everything on its right · **Left** ×3 to its left. Nicks don't stack — a letter is multiplied once at most. While you compose, an affected tile's corner number becomes the multiplied value, restyled, rippling outward from the notch. |
-| Letterform | Dual tiles hold two letters (flip to switch; each face painted independently) · Ligatures ING · ED · TCH spell several letters from one tile · **Marks** ? and ! spell nothing at all |
+| Letterform | Dual tiles hold two letters (flip to switch; each face painted independently) · Ligatures ING · ED · TCH spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Marks** ? and ! spell nothing at all |
 | Material | What the tile is cast from, under everything else: ordinary lead, or **cursed** / **ghost** / **rainbow** (see below) |
 | Growth | Grown points — permanent +1s a patron (The Grafter) writes into a tile, worn as a jade corner number wherever the tile appears |
 
@@ -126,6 +126,12 @@ it, permanently. The **reshuffle**: no target to pick, just banked until you
 spend it — on the Market's own offers (free, doesn't touch the escalating
 reroll price) or on a Colophon pick. (The random-scatter paint pots survive
 only in the opening draft.)
+
+**The compost heap** appears at the Market while the Composter is seated:
+every tile destroyed anywhere — burned by the Stoker, lost to the Arsonist,
+fed to the Smelter — rots down into a jade tile with complications of its own.
+The heap holds the freshest six, older rot is turned under, and you may lift
+one free of charge each visit.
 
 **Stalls** are services: the **Smelter** (trash a tile), the **Painter**
 (paint any letter a colour of your choice), the **Stereotyper** (clone any
@@ -196,6 +202,8 @@ bigger step than the last and a built press has to multiply rather than add:
 | Quota curve | `js/constants.js` → `quotaFor`, `QUOTA_BASE`, `QUOTA_GROWTH_START`, `QUOTA_GROWTH_RAMP`. The rate itself grows: chapter 2 asks ×1.7 of chapter 1, chapter 3 ×1.8 of chapter 2, and so on. START makes the whole run harder; RAMP makes the ending harder without touching the opening — a harder mode is a bigger pair |
 | Trim effects & prices | `js/constants.js` → `TRIMS` (effects live in `js/scoring.js`) |
 | Materials, the cursed ×Mult, ingot price & how often one is offered | `js/constants.js` → `MATERIALS`, `CURSED_MULT`, `CURSED_MAX_POINTS`, `INGOT_PRICE`, `INGOT_OFFER_CHANCE` |
+| Letters only one patron can hand you | `js/constants.js` → `EXCLUSIVE_LETTERS` (RAT belongs to the Rat Catcher; shop, draft and heap all skip them) |
+| Compost heap size & what you may take a visit | `js/constants.js` → `COMPOST_HEAP_MAX`, `COMPOST_PER_MARKET` |
 | Purple trim step size | `js/constants.js` → `PURPLE_TRIM_STEP` |
 | Nick multiplier & prices | `js/constants.js` → `NICK_MULT`, `NICKS` |
 | Tube price / tiles per tube / workbench slots / sell-back | `js/constants.js` → `TUBE_PRICE`, `TUBE_TILES`, `SUNDRY_SLOTS`, `SUNDRY_SELL` |

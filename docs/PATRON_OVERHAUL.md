@@ -69,6 +69,26 @@ permanent, bounded only by clogging a hand you can't discard from; and the
 Stoker burns rainbow tiles, which is consistent but is the one pairing to
 warn players about.
 
+### Three later patrons, and what they needed from the engine
+
+- **The Rat Catcher** (rare · 10) brought the first `onPageStart` hook, and
+  with it `EXCLUSIVE_LETTERS`: RAT is a real ligature (3 Points, counted by
+  the Typesetter) that no shop, draft or heap will ever hand you. Its free
+  random paint every page makes it the roster's anti-mono-colour engine —
+  over a run you drift toward all four colours whether you meant to or not.
+- **The Chapman** (uncommon · 7) needed a *guarantee* clause, not just a
+  discount. Measured before building: without one, only 17 of 60 Markets
+  offered any amber tile at all, so "amber is free" would have been a dead
+  card two visits in three. `rollOffers` now paints one offer amber when they
+  are seated, and `offerPrice` is read live rather than baked into the offer,
+  so hiring or dismissing them re-prices the shelf immediately.
+- **The Composter** (uncommon · 7) deliberately does *not* interrupt the print
+  cinematic. Destruction is tallied by `trashFromCollection` — now the single
+  road out of the collection, with the Smelter routed through it too — and
+  the tally is only turned into tiles when the Market opens, which is the one
+  place the heap is ever seen. That also sidesteps a circular import, since
+  tile generation lives in `market.js` and the tally lives in `state.js`.
+
 ### The Skimmer × the Cartographer
 
 Measured, not guessed: 2,630 of the 64,662 dictionary words (4.07%) can be

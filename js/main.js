@@ -9,7 +9,7 @@ import {
   discardSelected, getWordString, moveRackToWord, owns, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected,
   getActiveColour, getActiveLetter, growTile, paintTile, trimTile,
-  trashFromCollection, castMaterialTile, chapterTitle,
+  trashFromCollection, castMaterialTile, castTile, chapterTitle,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES, tileCount,
@@ -238,6 +238,22 @@ async function animateBurn(els) {
   }
   await sleep(ANIM.stepBurn);
   for (const el of els) el.style.visibility = 'hidden';
+}
+
+// Patrons that put something in your hand as a page is dealt. Returns the
+// tiles they struck, so they can fly in alongside the opening draw.
+function runPageHooks() {
+  const arrivals = [], notes = [];
+  for (const p of state.patrons) {
+    const def = patronById(p.id);
+    if (!def?.onPageStart) continue;
+    p.data ??= {};
+    const r = def.onPageStart({ state, data: p.data, cast: castTile });
+    if (!r) continue;
+    arrivals.push(...(r.tiles ?? []));
+    if (r.note) notes.push(`${def.name}: ${r.note}`);
+  }
+  return { arrivals, notes };
 }
 
 function runChapterHooks() {
@@ -520,12 +536,15 @@ async function advancePage() {
     await showBanner(chapterLabel(state.chapter), chapterTitle(state.chapter), 1350);
   }
 
+  // Whatever a patron brings to the page arrives with the hand, not after it.
+  const { arrivals, notes } = runPageHooks();
   const drawn = drawUpToRackSize();
-  await animateDraw(drawn);
+  await animateDraw([...arrivals, ...drawn]);
 
   state.isAnimating = false;
   renderAll();   // the status bar settles back to the manuscript on its own
-  if (chapterNotes.length) log(chapterNotes.join('  '), 'good');
+  const said = [...chapterNotes, ...notes];
+  if (said.length) log(said.join('  '), 'good');
 }
 
 // ─── Loss ─────────────────────────────────────────────────────────────────────
@@ -891,8 +910,9 @@ async function beginRun() {
   state.isAnimating = true;
   renderAll();
   await showBanner(chapterLabel(1), chapterTitle(1), 1250);
+  const { arrivals } = runPageHooks();
   const drawn = drawUpToRackSize();
-  await animateDraw(drawn);
+  await animateDraw([...arrivals, ...drawn]);
   state.isAnimating = false;
   renderAll();
   if (painted.length) log(`Painted ${painted.join(', ')}.`);

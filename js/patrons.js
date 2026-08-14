@@ -17,6 +17,10 @@
 //                       (permanent growth, paint, burns). Return { note } to
 //                       say something, and { burned: [tile…] } for tiles that
 //                       must not retire to the discard pile.
+//   onPageStart(ctx)  — as a page's bag is dealt, before the hand is drawn;
+//                       ctx { state, data, cast(overrides) }, where cast
+//                       strikes a new tile into hand and collection alike.
+//                       Return { note, tiles } so the arrival can be animated.
 //   onChapterEnd(ctx) — as a chapter clears, before the next page's bag is
 //                       shuffled; ctx { state, data }. Return { note } likewise.
 // `data` is the seat's own saved memory (state.js patronData) — counters live
@@ -27,13 +31,15 @@
 
 import {
   GRAFTER_STEP, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS, NUDIST_TRIM_CHANCE,
-  DYE_TILES_PER_CHAPTER, COLOURS, TRIMS,
+  DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, COMPOST_PER_MARKET,
 } from './constants.js';
 import {
   getActiveColour, getActiveLetter, countsAsColour, luckyRoll, paintRandomFaces,
 } from './state.js';
 
 const VOWELS = 'AEIOU';
+
+const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 
 // Tiles that read as a given colour: paint on the face being played, or a
 // rainbow tile, which reads as every colour at once. Every patron that cares
@@ -109,10 +115,10 @@ export const PATRON_DEFS = [
   },
   {
     id: 'typesetter', name: 'The Typesetter', emoji: '🔠', rarity: 'uncommon', cost: 6,
-    desc: 'Each ligature tile (ING · ED · TCH) gives +2 Mult.',
+    desc: 'Each ligature tile — one that spells several letters — gives +2 Mult.',
     when: 'score',
     effect({ tiles, addMult }) {
-      const n = tiles.filter(t => ['ING', 'ED', 'TCH'].includes(t.letter)).length;
+      const n = tiles.filter(t => LIGATURES.includes(t.letter)).length;
       if (n) addMult(n * 2);
     },
   },
@@ -224,6 +230,11 @@ export const PATRON_DEFS = [
     },
   },
   {
+    id: 'chapman', name: 'The Chapman', emoji: '🛒', rarity: 'uncommon', cost: 7,
+    desc: 'One tile at the Market is always amber, and amber tiles cost nothing.',
+    when: 'meta',   // the guarantee is in rollOffers, the price in offerPrice — js/market.js
+  },
+  {
     id: 'bursar', name: 'The Bursar', emoji: '💰', rarity: 'rare', cost: 8,
     desc: 'Words with an amber letter gain +1 Mult for every 5 Coins you hold (max +5).',
     when: 'score',
@@ -252,6 +263,11 @@ export const PATRON_DEFS = [
     effect({ tiles, state, addMult }) {
       if (painted(tiles, 'jade').length) addMult(state.chapter);
     },
+  },
+  {
+    id: 'composter', name: 'The Composter', emoji: '🍂', rarity: 'uncommon', cost: 7,
+    desc: `Destroyed tiles rot down into jade ones — take ${COMPOST_PER_MARKET} from the heap at every Market.`,
+    when: 'meta',   // counted in trashFromCollection, rotted and taken in js/market.js
   },
   {
     id: 'grafter', name: 'The Grafter', emoji: '🌿', rarity: 'rare', cost: 10,
@@ -291,6 +307,18 @@ export const PATRON_DEFS = [
       if (flushed.length) notes.push(`${flushed.length} splashed crimson`);
       if (burned.length)  notes.push(`${burned.length} to ash`);
       return { note: notes.join(', '), burned };
+    },
+  },
+  {
+    id: 'ratcatcher', name: 'The Rat Catcher', emoji: '🐀', rarity: 'rare', cost: 10,
+    desc: 'Every page begins with a RAT tile in hand, painted at random. It is yours for good.',
+    when: 'meta',
+    // RAT is a ligature worth 3 Points — exactly what R, A and T score apart —
+    // and it comes from nowhere else in the game (see EXCLUSIVE_LETTERS).
+    onPageStart({ cast }) {
+      const colour = pick(Object.keys(COLOURS));
+      const tile = cast({ letter: 'RAT', colour });
+      return { note: `a ${COLOURS[colour].label.toLowerCase()} RAT`, tiles: [tile] };
     },
   },
   {
