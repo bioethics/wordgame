@@ -1439,7 +1439,6 @@ reptiles
 trudging
 gravestones
 desecration
-think
 pining
 homely
 dazed
@@ -1576,7 +1575,6 @@ willing
 festered
 conjuring
 grubby
-fucking
 beckon
 gloomier
 unwilling
@@ -2120,7 +2118,6 @@ melodramas
 dug
 exude
 crazed
-you
 rattles
 refuge
 tousled
@@ -2400,7 +2397,6 @@ pockmarks
 mysteriously
 threadbare
 recluse
-bimbos
 benighted
 tinge
 noises
@@ -2515,7 +2511,6 @@ terrorizes
 seep
 cling
 satanic
-bitches
 monoliths
 hideously
 unseasonable
@@ -2645,7 +2640,6 @@ unearthly
 outcast
 discoloration
 mortified
-bitchiness
 ratty
 sweat
 wearied
@@ -2839,7 +2833,6 @@ seething
 lunatic
 rippling
 nursemaid
-skank
 pricking
 stared
 fragments
@@ -2987,7 +2980,6 @@ obelisks
 crowing
 heathen
 rogues
-bitch
 symbolising
 clowns
 menaced
@@ -3189,7 +3181,6 @@ honeycombed
 newts
 toil
 maidens
-imam
 amazement
 expressionless
 dances
@@ -3492,7 +3483,6 @@ pistol
 unoccupied
 shaking
 pterodactyls
-skanky
 pitches
 violate
 cliffhanger
@@ -4073,7 +4063,6 @@ ruby
 tiling
 wrestled
 unscrupulous
-sodomizing
 wan
 granite
 hazier
@@ -4569,7 +4558,6 @@ candelabras
 silliness
 contentions
 gleanings
-slut
 unstuck
 buffeted
 stumble
@@ -4752,3 +4740,9 @@ shutters
 hinges
 hinge
 latched
+phantasms
+poltergeists
+broomsticks
+bogeymen
+creepier
+creepiest

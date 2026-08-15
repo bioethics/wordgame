@@ -121,6 +121,39 @@ to have The Cartographer read the *dictionary* spelling rather than the played
 one. The measurement lives in the pardons test so a playtest can argue with
 the number.
 
+### The four registers
+
+The Sexton ⚰️ (spooky), the Paramour 💘 (romantic), the Poppet 🧸 (cute) and
+the Vulgarian 🍑 (rude): each keeps one of the themed lists in
+`wordlists-themed/` and pays **×3 Mult** when the printed word is on it. All
+four are rares at 9 Coins.
+
+**Why ×3 and not ×2.** The player can't read the list — they steer by
+register ("play spooky words") and won't land every time. The lists cover
+1.9% (cute) to 7.3% (spooky) of the dictionary, and even a steered player
+misses plenty, so the payoff has to feel like a jackpot when intuition
+connects. ×2 with those odds is a dead card next to guild multipliers that
+fire every word. The lists differ threefold in size, but the small-list
+patrons aren't strictly weaker — cute words are short and common (KITTEN,
+BUNNY), spooky's breadth is offset by its obscure tail — so all four ship at
+the same rarity and cost until play says otherwise.
+
+**Curation, applied on the way in** (low barrier for admission, high barrier
+against removal): slurs and hate symbols went, everywhere; sexual register
+was struck from *cute* but deliberately kept in *romantic* — STREETWALKER
+stays beside HARLOT and COURTESAN where the register is consistent; bare
+function words (THE, YOU, THAT) went; the merely-odd stayed. The word lists
+are flat files — one word per line, `#` comments — and entries the
+dictionary lacks are harmless, they just never come up.
+
+**Machinery.** `js/themes.js` loads every list into a Set (fetched over
+http, or from a `window.FOLIO_THEMES` global that `build-single.mjs` embeds,
+mirroring the dictionary's own arrangement). The Stenographer's acronyms
+moved from `js/acronyms.js` into `wordlists-themed/acronyms.txt` to ride the
+same loader, so every "extra words" list now lives in one folder and is
+edited the same way. Registers stack: a word on two lists with both patrons
+seated pays ×9 (SCUTTLE, it turns out, is both spooky and cute).
+
 ## What Phase 0 already delivered (main branch of this feature)
 
 - **Patron seats carry memory**: `state.patrons` entries are `{ id, data }`;

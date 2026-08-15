@@ -222,7 +222,8 @@ bigger step than the last and a built press has to multiply rather than add:
 | Patron tuning that reaches beyond a score (growth steps, burn odds, trim chance, dye count, coined-word length) | `js/constants.js` → `GRAFTER_STEP`, `STOKER_STEP`, `ARSONIST_ODDS`, `NUDIST_TRIM_CHANCE`, `DYE_TILES_PER_CHAPTER`, `NEOLOGIST_LENGTH` |
 | Animation step timings | `js/constants.js` → `ANIM` (all divided by the Settings speed slider) |
 | Chapter titles | `js/chapters.js` — a flat array, add as many as you like; each run draws its own and won't repeat until the list runs out |
-| The Stenographer's acronyms | `js/acronyms.js` — a flat array; letters only, and no lone Q (the press has no Q sort to set it with) |
+| The Stenographer's acronyms | `wordlists-themed/acronyms.txt` — one per line, `#` comments; letters only, and no lone Q (the press has no Q sort to set it with) |
+| The four registers' word lists (the Sexton, the Paramour, the Poppet, the Vulgarian) | `wordlists-themed/theme-*.txt` — one word per line, edit freely; loading in `js/themes.js` |
 | The Frontispiece's opening multiplier & growth | `js/constants.js` → `FRONTISPIECE` |
 
 ## Architecture
@@ -244,6 +245,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | `js/main.js` | orchestration: submit cinematic, page/chapter flow, input, settings |
 | `js/drag.js` | pointer input: tap / drag / long-press for rack and word, mouse and touch alike |
 | `js/dict.js` | dictionary loading/caching (also reads a `window.FOLIO_WORDLIST` global, for single-file bundles) |
+| `js/themes.js` | the themed lists in `wordlists-themed/` — registers and acronyms — as Sets (also reads a `window.FOLIO_THEMES` global, for single-file bundles) |
 
 Scoring is deliberately pure (`computeScore` never mutates state), so the same
 function powers the live preview, the tooltips, and the replayed cinematic —

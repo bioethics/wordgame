@@ -741,7 +741,6 @@ gangster
 sarcastic
 crummy
 cursing
-cheering
 bratty
 disreputable
 chastise
@@ -765,7 +764,6 @@ likened
 excoriate
 suing
 lips
-tied
 smokestacks
 criticised
 irresponsible
@@ -806,7 +804,6 @@ loudmouth
 grabbed
 shunned
 shivering
-inside
 wince
 ankles
 hated
@@ -827,7 +824,6 @@ ornery
 parodying
 creeping
 alleging
-hilariously
 chuckle
 incensed
 disparaging
@@ -885,7 +881,6 @@ slandering
 whined
 foolishness
 scolding
-back
 battles
 furore
 aneurysm
@@ -915,7 +910,6 @@ lustily
 beetles
 urinary
 prattles
-off
 funk
 injuries
 comical
@@ -966,7 +960,6 @@ harass
 pouting
 cough
 demonized
-hilarious
 racist
 defamatory
 nagged
@@ -1030,7 +1023,6 @@ insipid
 rodents
 devilish
 contemptuous
-trying
 mutters
 drunks
 snubs
@@ -1041,7 +1033,6 @@ liken
 antsy
 droplets
 ulcers
-praise
 sneezed
 thoughtless
 inciting
@@ -1078,7 +1069,6 @@ slutty
 crackpots
 whack
 callous
-maybe
 bullied
 griped
 concussion
@@ -1111,7 +1101,6 @@ seasick
 invasive
 pelvis
 rudeness
-batman
 pontificating
 gritty
 dopes
@@ -1150,7 +1139,6 @@ flagrant
 preachy
 slandered
 strain
-wanna
 stomps
 affectations
 traipsed
@@ -1177,7 +1165,6 @@ fluids
 elitist
 feisty
 goofball
-the
 cheesy
 windbag
 jiggling
@@ -1315,7 +1302,6 @@ raciness
 condemnations
 wonky
 dusty
-nigger
 geeky
 wizard
 giddiness
@@ -1461,7 +1447,6 @@ criminals
 bigots
 promiscuity
 goofs
-kinda
 grit
 dunderheads
 whingeing
@@ -1693,7 +1678,6 @@ griping
 brutish
 blustering
 ignoramus
-googling
 asinine
 ridiculousness
 gossiping
@@ -1702,7 +1686,6 @@ intolerant
 attitude
 neck
 rednecks
-drop
 contended
 yikes
 winos
@@ -1994,7 +1977,6 @@ paunchy
 squish
 malcontents
 bathe
-waving
 egocentric
 sniffles
 solipsism
@@ -2123,7 +2105,6 @@ speechifying
 squashed
 fierceness
 chirpy
-salt
 preppy
 muddy
 rebellion
@@ -2144,7 +2125,6 @@ simpletons
 lambast
 plopping
 redness
-poof
 hypnotizing
 playpen
 incompetents
@@ -2155,7 +2135,6 @@ clobber
 bumbling
 seizures
 buffoonery
-you
 burbled
 bruise
 unpleasant
@@ -2200,7 +2179,6 @@ sucking
 ridicules
 discredited
 overexposed
-googles
 druggies
 lolling
 blokes
@@ -2324,7 +2302,6 @@ strife
 fiends
 unfeeling
 cranks
-faggot
 shrill
 flopping
 swelling
@@ -2599,7 +2576,6 @@ sewerage
 muppets
 flipped
 lurching
-swastikas
 roasts
 punched
 roasted
@@ -2680,14 +2656,12 @@ foreskin
 vulva
 offenders
 retort
-pedophiles
 fester
 godlessness
 blemishes
 facilities
 scuff
 squatted
-swastika
 scarring
 desecrated
 knocked
@@ -2700,12 +2674,10 @@ amenities
 concubines
 dens
 washrooms
-sodomites
 loin
 shacks
 teenagers
 uterus
-dunno
 fessed
 banged
 desecrate
@@ -2716,7 +2688,6 @@ fessing
 lubricious
 lounged
 phallic
-underage
 bollixed
 rampaged
 nodule
@@ -2728,7 +2699,6 @@ jack
 derrieres
 lover
 vandalising
-woman
 swellings
 forwardness
 splays
@@ -2804,7 +2774,6 @@ tormentors
 strangulated
 troglodyte
 deviants
-delicious
 erotic
 flirtations
 denude
@@ -2815,7 +2784,6 @@ metrosexual
 angriest
 fulminating
 loquacious
-pederast
 puny
 ethnocentric
 eww
@@ -2882,7 +2850,6 @@ parvenu
 raucousness
 denigration
 peddlers
-wogs
 meanest
 naughtier
 impersonates
@@ -2903,7 +2870,6 @@ birdbrain
 easygoing
 conceits
 argumentative
-honkies
 metrosexuals
 unashamedly
 trilled
@@ -2920,3 +2886,27 @@ furtive
 uncharitable
 curmudgeonly
 insinuate
+farts
+farted
+turds
+snots
+pukes
+barfs
+pongs
+whiffy
+grotty
+manky
+bottoms
+undies
+knickers
+underpants
+bloomers
+wedgie
+wedgies
+twerps
+dimwits
+blockheads
+bonehead
+numskull
+cruddy
+grossest

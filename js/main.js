@@ -18,11 +18,8 @@ import {
   chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks,
 } from './constants.js';
 import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
-import { ACRONYMS } from './acronyms.js';
+import { THEME_SETS, loadThemes } from './themes.js';
 
-// The Stenographer's lexicon, checked before the pardons: these entries are
-// legitimate in their own right, not misspellings of something else.
-const ACRONYM_SET = new Set(ACRONYMS.map(a => a.toUpperCase()));
 import { computeScore, computeReward } from './scoring.js';
 import { openMarket, restoreMarket, closeMarket, sellPatron } from './market.js';
 import {
@@ -321,7 +318,9 @@ async function submitWord() {
   let pardoned = null;
   let vouched = false;
   if (!DICT.has(parts.letters)) {
-    if (owns('stenographer') && ACRONYM_SET.has(parts.letters)) {
+    // The Stenographer's lexicon is checked before the pardons: its entries
+    // are legitimate in their own right, not misspellings of something else.
+    if (owns('stenographer') && THEME_SETS.acronyms.has(parts.letters)) {
       vouched = true;
     } else {
       pardoned = pardonWord(parts.letters);
@@ -964,6 +963,7 @@ async function beginRun() {
 
   renderDictStatus('loading', 0);
   loadDict((status, count) => renderDictStatus(status, count));
+  loadThemes();
 
   const restored = loadState();
   if (!restored) {

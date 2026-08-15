@@ -47,6 +47,7 @@ import {
   getActiveColour, getActiveLetter, countsAsColour, luckyRoll, paintRandomFaces,
   shuffle,
 } from './state.js';
+import { inTheme } from './themes.js';
 
 const VOWELS = 'AEIOU';
 
@@ -510,7 +511,7 @@ export const PATRON_DEFS = [
   {
     id: 'stenographer', name: 'The Stenographer', emoji: '📟', rarity: 'uncommon', cost: 6,
     desc: 'Common acronyms and abbreviations count as words: LOL, BRB, WTF and the rest.',
-    when: 'meta',   // consulted at the dictionary check in main.js; the list lives in js/acronyms.js
+    when: 'meta',   // consulted at the dictionary check in main.js; the list lives in wordlists-themed/acronyms.txt
   },
   {
     id: 'stammerer', name: 'The Stammerer', emoji: '🦜', rarity: 'rare', cost: 10,
@@ -520,6 +521,34 @@ export const PATRON_DEFS = [
       const n = doubledPairs(word);
       if (n) xMult(2 ** n);
     },
+  },
+
+  // ── The four registers ──────────────────────────────────────────────────────
+  // Each keeps one of the themed lists in wordlists-themed/ and pays ×3 when
+  // the printed word is on it. The lists are flat files — edit them freely.
+  {
+    id: 'sexton', name: 'The Sexton', emoji: '⚰️', rarity: 'rare', cost: 9,
+    desc: '×3 Mult when the word is spooky — HAUNTED, CRYPT, WEREWOLF.',
+    when: 'score',
+    effect({ word, xMult }) { if (inTheme('spooky', word)) xMult(3); },
+  },
+  {
+    id: 'paramour', name: 'The Paramour', emoji: '💘', rarity: 'rare', cost: 9,
+    desc: '×3 Mult when the word is romantic — KISS, SWOON, SMITTEN.',
+    when: 'score',
+    effect({ word, xMult }) { if (inTheme('romantic', word)) xMult(3); },
+  },
+  {
+    id: 'poppet', name: 'The Poppet', emoji: '🧸', rarity: 'rare', cost: 9,
+    desc: '×3 Mult when the word is cute — KITTEN, BUNNY, CUDDLE.',
+    when: 'score',
+    effect({ word, xMult }) { if (inTheme('cute', word)) xMult(3); },
+  },
+  {
+    id: 'vulgarian', name: 'The Vulgarian', emoji: '🍑', rarity: 'rare', cost: 9,
+    desc: '×3 Mult when the word is rude — FART, BUM, TURD.',
+    when: 'score',
+    effect({ word, xMult }) { if (inTheme('rude', word)) xMult(3); },
   },
 
   // ── Misspellings · the three excuses ────────────────────────────────────────

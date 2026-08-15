@@ -366,7 +366,6 @@ bride
 nuptials
 mistress
 letter
-long
 engaged
 proposed
 wedding
@@ -387,7 +386,6 @@ fervent
 rivals
 verses
 commemorate
-fell
 peered
 wandered
 lovely
@@ -395,7 +393,6 @@ vow
 stared
 strokes
 streams
-plan
 storms
 enchanting
 concerto
@@ -468,7 +465,6 @@ flavor
 embroidery
 aimlessly
 beautiful
-short
 celebrating
 ethereal
 taffeta
@@ -594,7 +590,6 @@ streamers
 idealism
 impassioned
 cheery
-longer
 haunting
 longingly
 sappy
@@ -644,7 +639,6 @@ thickets
 orchestral
 earthy
 hauntingly
-plans
 ardor
 touches
 saddened
@@ -844,7 +838,6 @@ weddings
 timeless
 musing
 couplets
-lit
 pledges
 respectful
 sunflowers
@@ -1033,7 +1026,6 @@ blankly
 profundity
 suggested
 touchingly
-idea
 crooned
 foreboding
 merriment
@@ -1226,11 +1218,9 @@ ghoulish
 admire
 psalms
 toying
-planned
 brassy
 reminiscences
 ruffles
-years
 empathetic
 fairytale
 immortal
@@ -1241,7 +1231,6 @@ junkie
 homoerotic
 exhilaration
 temples
-you
 intently
 ached
 humility
@@ -1742,7 +1731,6 @@ profane
 inconsolable
 fierceness
 scents
-still
 trite
 fasting
 lustily
@@ -1768,7 +1756,6 @@ landscapes
 hysterical
 indiscretion
 stately
-hers
 lilt
 sculptured
 fretful
@@ -1870,7 +1857,6 @@ conduct
 bathers
 deities
 fullness
-haves
 intoxicating
 graced
 goofy
@@ -1994,7 +1980,6 @@ peachy
 reciting
 epitaphs
 perfection
-that
 cry
 curiosity
 roguish
@@ -2070,7 +2055,6 @@ amazes
 serenades
 connoisseur
 splendour
-proceedings
 genuine
 stimuli
 tornado
@@ -2137,7 +2121,6 @@ perplexed
 arabesques
 steeped
 coeds
-good
 idiosyncrasies
 radiates
 insufferable
@@ -2177,7 +2160,6 @@ madness
 fooled
 gullible
 transvestite
-have
 magnolias
 ambivalence
 ornamented
@@ -2420,7 +2402,6 @@ acoustic
 narrator
 tenor
 scolding
-recognizes
 insolent
 ostentatious
 pray
@@ -2448,7 +2429,6 @@ silhouettes
 outcropping
 jaunt
 cliches
-even
 angst
 cavorting
 ingratiating
@@ -2566,7 +2546,6 @@ smarmy
 doppelganger
 smoothness
 unease
-resolution
 disdained
 adorn
 sublimated
@@ -2804,7 +2783,6 @@ sleepless
 heavenly
 silhouette
 petrified
-feel
 cavort
 sexless
 memento
@@ -2812,7 +2790,6 @@ impels
 pretension
 spicy
 queen
-holes
 greets
 effortlessly
 appreciate
@@ -2947,7 +2924,6 @@ spunk
 swoons
 greatness
 chants
-one
 glory
 bosoms
 thriller
@@ -2964,7 +2940,6 @@ slippers
 motifs
 possessiveness
 serpent
-matters
 statues
 operas
 oozes
@@ -3007,7 +2982,6 @@ regretful
 shivering
 envelop
 honesty
-want
 knave
 lakeside
 virtuosos
@@ -3115,7 +3089,6 @@ aristocratic
 entangled
 adulteress
 whiskey
-hole
 knuckles
 homecoming
 preludes
@@ -3138,7 +3111,6 @@ strumpet
 ideals
 emaciated
 dowry
-finance
 muscularity
 mythology
 thorny
@@ -3158,7 +3130,6 @@ coyly
 pinkish
 saga
 noblest
-campaigned
 reddish
 butterfly
 heart
@@ -3222,7 +3193,6 @@ fantasia
 fawn
 impenetrable
 hometown
-yours
 childless
 woodland
 cellars
@@ -3273,7 +3243,6 @@ ignorance
 relic
 candid
 sung
-her
 vintages
 festered
 tug
@@ -3367,7 +3336,6 @@ rumored
 lifts
 meanders
 trip
-look
 mints
 wanderers
 journeys
@@ -3399,7 +3367,6 @@ condescended
 headdresses
 threads
 dabbing
-surgical
 revelations
 reunite
 shacked
@@ -3480,12 +3447,9 @@ cusp
 woodwind
 coppice
 explicating
-packed
 surmounting
 grassland
-buyer
 marital
-looks
 immortalizing
 slobbered
 firestorm
@@ -3493,10 +3457,8 @@ declamations
 coppices
 star
 pornography
-view
 legion
 girdles
-dos
 tour
 sexes
 travail
@@ -3570,7 +3532,6 @@ surreptitiously
 discreetly
 prohibited
 forbid
-banned
 permitted
 declined
 unmarried
@@ -3632,7 +3593,6 @@ dandelions
 mighty
 parishes
 privy
-duns
 sideways
 blowup
 impending
@@ -3686,5 +3646,9 @@ shepherd
 drummer
 bullock
 carol
-penny
 bowers
+smooches
+soulmates
+amour
+adoringly
+honeymooners

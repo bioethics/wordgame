@@ -29,6 +29,16 @@ const js = (await build({
 const css = fs.readFileSync(path.join(root, 'css/style.css'), 'utf8');
 const wordlist = fs.readFileSync(path.join(root, 'wordlist.txt'), 'utf8');
 
+// The themed lists ride along as window.FOLIO_THEMES, keyed the way
+// js/themes.js expects: theme-cute.txt → cute, acronyms.txt → acronyms.
+const themeDir = path.join(root, 'wordlists-themed');
+const themes = {};
+for (const f of fs.readdirSync(themeDir)) {
+  if (!f.endsWith('.txt')) continue;
+  const key = f.replace(/^theme-/, '').replace(/\.txt$/, '');
+  themes[key] = fs.readFileSync(path.join(themeDir, f), 'utf8');
+}
+
 const index = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const body = index.match(/<body>([\s\S]*)<script type="module"[^>]*><\/script>/)?.[1];
 if (!body) throw new Error('could not extract body markup from index.html');
@@ -42,7 +52,8 @@ const html = `<title>Folio — a word-forging game</title>
 ${css}
 </style>
 ${body}
-<script>window.FOLIO_WORDLIST = ${JSON.stringify(wordlist)};</script>
+<script>window.FOLIO_WORDLIST = ${JSON.stringify(wordlist)};
+window.FOLIO_THEMES = ${JSON.stringify(themes)};</script>
 <script>
 ${js}
 </script>
