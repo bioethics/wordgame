@@ -268,7 +268,7 @@ function renderShelf(script) {
         const name  = def.instName?.(p.data)  ?? def.name;
         const label = def.instShelf?.(p.data) ?? def.name.replace(/^The /, '');
         const desc  = def.instDesc?.(p.data)  ?? def.desc;
-        slot.className = `patron patron--${def.rarity}`;
+        slot.className = `patron patron--${def.rarity}${def.guild ? ` patron--g-${def.guild}` : ''}`;
         slot.dataset.patron = def.id;
         if (p.uid != null) slot.dataset.uid = p.uid;
         slot.dataset.baseTitle = `${name} — ${desc}\n(✕ dismisses for ${Math.floor(def.cost / 2)} Coins)`;

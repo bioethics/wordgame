@@ -154,8 +154,12 @@ more), dismissable for half their cost (hover for the ✕, or tap the patron on
 touch). The roster is built around **colour guilds**: each paint keeps a family
 of patrons that makes committing to it an archetype — amber pays coins, jade
 compounds forever (grown tiles, chapter-scaling boons), crimson burns tiles
-for power, azure bends the rules of spelling — plus colour-blind wildcards and
-the word-shape classics. Some patrons act after a word prints (burning,
+for power, azure bends the rules of spelling — plus neutral wildcards and the
+word-shape classics. A guild member's calling card wears its livery — a silk
+ribbon and a wash in the guild's colour, with the guild named on the title
+line — and its seat carries a small livery pin; neutral patrons stay plain
+ivory. *The Alderman* reads the liveries: ×1.5 Mult for each guild with a
+patron that fires on a word, each guild counted once. Some patrons act after a word prints (burning,
 growing, painting) or as a chapter turns (the dye commons), not just while it
 scores. While you compose, the shelf shows its hand: every patron whose
 condition the word already meets wakes up — rising, breathing a candlelit

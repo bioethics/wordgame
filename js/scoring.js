@@ -166,6 +166,26 @@ export function computeScore(wordTiles) {
     if (def?.when === 'score') { current = p.id; ctx.data = p.data ?? {}; def.effect(ctx); }
   }
 
+  // ── Pass 4½: the Alderman honours the guilds ───────────────────────────────
+  // After every other patron has spoken, each guild with a member among the
+  // word's score steps pays ×1.5 — once per guild, however many of its
+  // patrons fired. Seat order can't matter here: he always goes last, so the
+  // whole score to this point is what gets multiplied.
+  if (owns('alderman')) {
+    const fired = new Set();
+    for (const s of patronSteps) {
+      const g = patronById(s.id)?.guild;
+      if (g) fired.add(g);
+    }
+    for (const g of fired) {
+      mult *= 1.5;
+      patronSteps.push({
+        id: 'alderman', text: `×1.5 Mult — the ${COLOURS[g].label} guild`, xmult: 1.5,
+      });
+    }
+    if (fired.size) mult = Math.round(mult * 1000) / 1000;
+  }
+
   const total = Math.round(points * mult);
 
   // ── Per-tile breakdown for tooltips ─────────────────────────────────────────

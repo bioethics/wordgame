@@ -142,14 +142,18 @@ function marketShopHTML() {
     // letters and its number — so buying one is a choice, not a lottery.
     const name = def.instName?.(o.data) ?? def.name;
     const desc = def.instDesc?.(o.data) ?? def.desc;
+    // A guild member's card wears its livery: a ribbon bound into the top
+    // edge, the portrait washed in the guild colour, and the guild named on
+    // the title line. Neutral cards stay plain ivory.
+    const livery = def.guild ? ` offer-patron--g-${def.guild}` : '';
     return `
-      <div class="offer-patron offer-patron--${def.rarity}" data-offer="patron" data-idx="${i}">
+      <div class="offer-patron offer-patron--${def.rarity}${livery}" data-offer="patron" data-idx="${i}">
         <div class="op-portrait">${def.portrait
           ? `<img src="${def.portrait}" alt="${name}">`
           : `<span class="op-emoji">${def.emoji}</span>`}</div>
         <div class="op-card-body">
           <div class="op-name">${name}</div>
-          <div class="op-title">${def.rarity}</div>
+          <div class="op-title">${def.rarity}${def.guild ? ` · <span class="op-guild">${def.guild}</span>` : ''}</div>
           <div class="op-desc">${desc}</div>
         </div>
         <span class="op-sold">seated</span>
@@ -231,7 +235,7 @@ function marketShopHTML() {
     const name = def.instName?.(p.data) ?? def.name;
     const label = def.instShelf?.(p.data) ?? def.name.replace(/^The /, '');
     return `
-      <button class="held" data-sell-patron="${p.uid ?? def.id}"
+      <button class="held${def.guild ? ` held--g-${def.guild}` : ''}" data-sell-patron="${p.uid ?? def.id}"
               title="Dismiss ${name} for ${Math.floor(def.cost / 2)} Coins">
         <span class="held-mark">${def.emoji}</span>
         <span class="held-name">${label}</span>

@@ -255,6 +255,22 @@ header {
               transform calc(0.22s / var(--aspd)) ease;
 }
 
+/* The seat's guild hint: a small enamel livery pin in the top corner, like a
+   badge on a lapel. Deliberately quiet — the calling card already told the
+   story; this is just so the shelf can be read at a glance. */
+.patron[class*="patron--g-"]::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--livery-brt), var(--livery) 70%);
+  box-shadow: 0 0 0 1px rgba(20, 12, 8, 0.5);
+  z-index: 2;
+}
+
 .patron-emoji { font-size: 23px; line-height: 1; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.25)); }
 .patron-name {
   font-family: var(--serif);
@@ -1653,6 +1669,49 @@ button.sundry:hover { transform: translateY(-2px); }
 .offer-patron--uncommon { --hairline: rgba(47, 116, 92, 0.55);  --title-col: #2f745c; }
 .offer-patron--rare     { --hairline: rgba(112, 64, 160, 0.55); --title-col: #7040a0; }
 
+/* ── Guild livery ──────────────────────────────────────────────────────────────
+   A guild member's calling card wears the guild's colours: a silk ribbon
+   bound into the top edge, the portrait panel washed in the same dye, and the
+   guild named beside the rarity. The hairline stays the rarity's — rarity and
+   guild are separate facts, told by separate inks. One variable set serves the
+   card, the seat's livery pin, and the market's held-pill alike; the values
+   are COLOURS' glyph/bright pairs from js/constants.js. Neutral patrons carry
+   none of these classes and stay plain ivory. */
+.offer-patron--g-crimson, .patron--g-crimson, .held--g-crimson {
+  --livery: #b23a2e; --livery-brt: #ff9d8e; --livery-soft: rgba(178, 58, 46, 0.16);
+}
+.offer-patron--g-jade, .patron--g-jade, .held--g-jade {
+  --livery: #2d8a5c; --livery-brt: #90e8ba; --livery-soft: rgba(45, 138, 92, 0.16);
+}
+.offer-patron--g-amber, .patron--g-amber, .held--g-amber {
+  --livery: #a87010; --livery-brt: #ffd68c; --livery-soft: rgba(168, 112, 16, 0.18);
+}
+.offer-patron--g-azure, .patron--g-azure, .held--g-azure {
+  --livery: #2e6fb2; --livery-brt: #8ec6ff; --livery-soft: rgba(46, 111, 178, 0.16);
+}
+
+/* The ribbon: hangs over the card's top rule like a bookmark, notched at the
+   tail. It rides the card's tilt, which keeps the stack looking hand-laid. */
+.offer-patron[class*="offer-patron--g-"]::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  right: 16px;
+  width: 13px;
+  height: 34px;
+  background: linear-gradient(175deg, var(--livery-brt) -45%, var(--livery) 60%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+  box-shadow: 0 2px 3px rgba(60, 40, 15, 0.35);
+  z-index: 1;
+}
+.offer-patron[class*="offer-patron--g-"] .op-portrait {
+  border-color: var(--livery);
+  box-shadow:
+    inset 0 0 0 2px var(--livery-soft),
+    inset 0 -16px 20px -12px var(--livery-soft);
+}
+.op-guild { color: var(--livery); }
+
 .op-portrait {
   display: grid;
   place-items: center;
@@ -1875,6 +1934,11 @@ button.sundry:hover { transform: translateY(-2px); }
   background: rgba(255, 250, 235, 0.5);
   border: 1px solid rgba(138, 95, 29, 0.45);
   transition: transform calc(0.1s / var(--aspd)), background calc(0.12s / var(--aspd)), border-color calc(0.12s / var(--aspd));
+}
+/* A guild member's pill wears a thread of its livery. */
+.held[class*="held--g-"] {
+  border-color: var(--livery);
+  box-shadow: inset 0 0 0 1px var(--livery-soft);
 }
 .held:hover {
   transform: translateY(-1px);

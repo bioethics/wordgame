@@ -300,6 +300,35 @@ at 8+ Points). **Stammerer × Skimmer** is the combo to measure next: 19.7% of
 words hold a doubled pair, but 46.7% can be *arranged* into one, which is
 Cartographer × Skimmer all over again at two rare seats.
 
+## The guilds made visible, and the Alderman
+
+Guild membership graduated from a comment block to a def field: `guild:
+'amber' | 'jade' | 'crimson' | 'azure'`, absent for the neutral majority.
+Assignments are **thematic first** — flavour may drift them — and reach
+beyond the paint mechanics: crimson took the Quartermaster (discards are deck
+management), jade took the Beekeeper and the Frontispiece (permanent
+self-growth), amber took the Banker and the Magpie, azure took the whole
+spelling wing — Izzard, Stenographer, Binder — alongside its paint guild. The
+Stumbler and the Skimmer stay colourless per the original ruling. Standing
+counts: azure 9, amber 7, jade 7, crimson 6, neutral 26 — azure's bloat is a
+known imbalance, to be designed around rather than papered over.
+
+The livery is CSS only: a silk ribbon bound into the calling card's top edge,
+the portrait panel washed in the guild's dye, the guild named beside the
+rarity, and a small enamel pin on the seat. Rarity keeps the hairline; guild
+keeps the ribbon — separate facts, separate inks.
+
+**The Alderman** 🎩 (uncommon · 7) is why the field is mechanical at all:
+scoring gained a pass 4½ where, after every other patron has spoken, each
+guild with a member among the word's score steps pays ×1.5, once per guild —
+two amber voices add nothing over one. All four guilds firing together is
+×5.06, and costs most of the shelf. Only patrons that *write score steps* can
+rouse him; the dyes, pardons and shop men act outside scoring and never
+count. Per guild, the patrons that can light him: amber — Goldsmith, Assayer,
+Bursar; jade — Seedsman, Vintner, Beekeeper, Frontispiece; crimson —
+Firebrand, Stoker; azure — Siren, Marbler. Crimson and azure offer only two
+igniters each — worth remembering when guild assignments are next tuned.
+
 ## Remaining phases
 
 1. **Phase 1 — score-time patrons.** All "pure `score` def" rows above, plus

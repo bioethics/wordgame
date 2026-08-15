@@ -37,6 +37,12 @@
 //
 // Optional `portrait`: path to an image (e.g. 'img/patrons/scholar.png') shown
 // on the patron's business card in the market and draft instead of the emoji.
+//
+// Optional `guild`: the livery a patron wears — 'amber' | 'jade' | 'crimson' |
+// 'azure' — absent for the neutral majority. Membership is thematic, not
+// mechanical: it drives the calling card's ribbon, the seat's livery pin, and
+// nothing else — except the Alderman, who honours each guild that fires on a
+// word (scoring pass 4½). Assignments may drift as flavour demands.
 
 import {
   GRAFTER_STEP, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS, NUDIST_TRIM_CHANCE,
@@ -76,7 +82,7 @@ function doubledPairs(word) {
 function dyePatron(id, name, emoji, colour) {
   const label = COLOURS[colour].label.toLowerCase();
   return {
-    id, name, emoji, rarity: 'common', cost: 4,
+    id, name, emoji, rarity: 'common', cost: 4, guild: colour,
     desc: `As each chapter ends, ${DYE_TILES_PER_CHAPTER} tiles of your collection are painted ${label}.`,
     when: 'meta',
     onChapterEnd() {
@@ -136,7 +142,7 @@ export const PATRON_DEFS = [
     effect({ word, addPoints }) { if (doubledPairs(word)) addPoints(15); },
   },
   {
-    id: 'izzard', name: 'The Izzard', emoji: '⚡', rarity: 'common', cost: 4,
+    id: 'izzard', name: 'The Izzard', emoji: '⚡', rarity: 'common', cost: 4, guild: 'azure',
     // "Izzard" is the old English name for Z, the letter kept in the far
     // corner of the type case because nothing ever needed it.
     desc: 'Any Z you play may be read as an S — and still scores as a Z.',
@@ -155,12 +161,12 @@ export const PATRON_DEFS = [
 
   // ── Uncommons ───────────────────────────────────────────────────────────────
   {
-    id: 'banker', name: 'The Banker', emoji: '🏦', rarity: 'uncommon', cost: 5,
+    id: 'banker', name: 'The Banker', emoji: '🏦', rarity: 'uncommon', cost: 5, guild: 'amber',
     desc: '+2 Coins whenever a page completes.',
     when: 'meta',
   },
   {
-    id: 'quartermaster', name: 'The Quartermaster', emoji: '🎒', rarity: 'uncommon', cost: 5,
+    id: 'quartermaster', name: 'The Quartermaster', emoji: '🎒', rarity: 'uncommon', cost: 5, guild: 'crimson',
     desc: 'Begin each page with an extra Discard.',
     when: 'meta',
   },
@@ -192,7 +198,7 @@ export const PATRON_DEFS = [
     },
   },
   {
-    id: 'magpie', name: 'The Magpie', emoji: '🐦', rarity: 'uncommon', cost: 7,
+    id: 'magpie', name: 'The Magpie', emoji: '🐦', rarity: 'uncommon', cost: 7, guild: 'amber',
     desc: 'Gold-trimmed tiles pay double Coins.',
     when: 'meta',   // read directly during scoring of gold trims
   },
@@ -267,7 +273,7 @@ export const PATRON_DEFS = [
 
   // ── Amber · the counting-house ──────────────────────────────────────────────
   {
-    id: 'goldsmith', name: 'The Goldsmith', emoji: '🪙', rarity: 'common', cost: 4,
+    id: 'goldsmith', name: 'The Goldsmith', emoji: '🪙', rarity: 'common', cost: 4, guild: 'amber',
     desc: 'Amber letters gain +4 Points.',
     when: 'score',
     effect({ tiles, addPoints }) {
@@ -277,7 +283,7 @@ export const PATRON_DEFS = [
   },
   dyePatron('weld', 'The Weld', '🌼', 'amber'),
   {
-    id: 'assayer', name: 'The Assayer', emoji: '⚖️', rarity: 'uncommon', cost: 6,
+    id: 'assayer', name: 'The Assayer', emoji: '⚖️', rarity: 'uncommon', cost: 6, guild: 'amber',
     desc: 'Amber letters pay 1 Coin when printed, up to 2 a word.',
     when: 'score',
     effect({ tiles, addCoins }) {
@@ -286,12 +292,12 @@ export const PATRON_DEFS = [
     },
   },
   {
-    id: 'chapman', name: 'The Chapman', emoji: '🛒', rarity: 'uncommon', cost: 7,
+    id: 'chapman', name: 'The Chapman', emoji: '🛒', rarity: 'uncommon', cost: 7, guild: 'amber',
     desc: 'One tile at the Market is always amber, and amber tiles cost nothing.',
     when: 'meta',   // the guarantee is in rollOffers, the price in offerPrice — js/market.js
   },
   {
-    id: 'bursar', name: 'The Bursar', emoji: '💰', rarity: 'uncommon', cost: 7,
+    id: 'bursar', name: 'The Bursar', emoji: '💰', rarity: 'uncommon', cost: 7, guild: 'amber',
     desc: 'Words with an amber letter gain +1 Mult for every 5 Coins you hold (max +5).',
     when: 'score',
     effect({ tiles, state, addMult }) {
@@ -303,7 +309,7 @@ export const PATRON_DEFS = [
 
   // ── Jade · growth and permanence ────────────────────────────────────────────
   {
-    id: 'seedsman', name: 'The Seedsman', emoji: '🌱', rarity: 'common', cost: 4,
+    id: 'seedsman', name: 'The Seedsman', emoji: '🌱', rarity: 'common', cost: 4, guild: 'jade',
     desc: 'Jade letters gain +1 Point per chapter reached — +5 Points each in Chapter V.',
     when: 'score',
     effect({ tiles, state, addPoints }) {
@@ -313,7 +319,7 @@ export const PATRON_DEFS = [
   },
   dyePatron('verdigris', 'The Verdigris', '🍏', 'jade'),
   {
-    id: 'vintner', name: 'The Vintner', emoji: '🍷', rarity: 'uncommon', cost: 7,
+    id: 'vintner', name: 'The Vintner', emoji: '🍷', rarity: 'uncommon', cost: 7, guild: 'jade',
     desc: 'Words with a jade letter gain +1 Mult per chapter reached — +5 Mult in Chapter V.',
     when: 'score',
     effect({ tiles, state, addMult }) {
@@ -321,12 +327,12 @@ export const PATRON_DEFS = [
     },
   },
   {
-    id: 'composter', name: 'The Composter', emoji: '🍂', rarity: 'uncommon', cost: 7,
+    id: 'composter', name: 'The Composter', emoji: '🍂', rarity: 'uncommon', cost: 7, guild: 'jade',
     desc: `Destroyed tiles rot down into jade ones — take ${COMPOST_PER_MARKET} from the heap at every Market.`,
     when: 'meta',   // counted in trashFromCollection, rotted and taken in js/market.js
   },
   {
-    id: 'grafter', name: 'The Grafter', emoji: '🌿', rarity: 'rare', cost: 10,
+    id: 'grafter', name: 'The Grafter', emoji: '🌿', rarity: 'rare', cost: 10, guild: 'jade',
     desc: 'When a word with a jade letter prints, every tile in it permanently gains +1 Point.',
     when: 'meta',
     onPrinted({ tiles, grow }) {
@@ -338,7 +344,7 @@ export const PATRON_DEFS = [
 
   // ── Crimson · sacrifice and fire ────────────────────────────────────────────
   {
-    id: 'firebrand', name: 'The Firebrand', emoji: '❤️‍🔥', rarity: 'common', cost: 4,
+    id: 'firebrand', name: 'The Firebrand', emoji: '❤️‍🔥', rarity: 'common', cost: 4, guild: 'crimson',
     desc: 'Words with 2 or more crimson letters gain +15 Points.',
     when: 'score',
     effect({ tiles, addPoints }) {
@@ -347,7 +353,7 @@ export const PATRON_DEFS = [
   },
   dyePatron('madder', 'The Madder', '🌺', 'crimson'),
   {
-    id: 'arsonist', name: 'The Arsonist', emoji: '🧨', rarity: 'uncommon', cost: 7,
+    id: 'arsonist', name: 'The Arsonist', emoji: '🧨', rarity: 'uncommon', cost: 7, guild: 'crimson',
     desc: 'Every tile you print has a 1-in-10 chance of being painted crimson, and a 1-in-100 chance of being destroyed.',
     when: 'meta',
     onPrinted({ tiles, paint, burn }) {
@@ -366,7 +372,7 @@ export const PATRON_DEFS = [
     },
   },
   {
-    id: 'ratcatcher', name: 'The Rat Catcher', emoji: '🐀', rarity: 'uncommon', cost: 7,
+    id: 'ratcatcher', name: 'The Rat Catcher', emoji: '🐀', rarity: 'uncommon', cost: 7, guild: 'crimson',
     desc: 'Every page begins with a RAT tile in hand, painted at random. It is yours for good.',
     when: 'meta',
     // RAT is a ligature worth 3 Points — exactly what R, A and T score apart —
@@ -378,7 +384,7 @@ export const PATRON_DEFS = [
     },
   },
   {
-    id: 'stoker', name: 'The Stoker', emoji: '🔥', rarity: 'rare', cost: 11,
+    id: 'stoker', name: 'The Stoker', emoji: '🔥', rarity: 'rare', cost: 11, guild: 'crimson',
     desc: 'Crimson letters are destroyed when printed; each one permanently raises this patron\'s Mult by 0.25.',
     when: 'score',
     effect({ data, xMult }) {
@@ -400,7 +406,7 @@ export const PATRON_DEFS = [
 
   // ── Azure · ink, flow, and latitude ─────────────────────────────────────────
   {
-    id: 'siren', name: 'The Siren', emoji: '🎶', rarity: 'common', cost: 4,
+    id: 'siren', name: 'The Siren', emoji: '🎶', rarity: 'common', cost: 4, guild: 'azure',
     desc: 'Vowels gain +2 Points — or +6 if they are azure.',
     when: 'score',
     effect({ tiles, addPoints }) {
@@ -415,7 +421,7 @@ export const PATRON_DEFS = [
   },
   dyePatron('woad', 'The Woad', '🪻', 'azure'),
   {
-    id: 'marbler', name: 'The Marbler', emoji: '🌀', rarity: 'uncommon', cost: 7,
+    id: 'marbler', name: 'The Marbler', emoji: '🌀', rarity: 'uncommon', cost: 7, guild: 'azure',
     desc: 'Words with 2 or more azure letters get ×2 Mult.',
     when: 'score',
     effect({ tiles, xMult }) {
@@ -423,17 +429,17 @@ export const PATRON_DEFS = [
     },
   },
   {
-    id: 'fountain', name: 'The Fountain', emoji: '⛲', rarity: 'uncommon', cost: 7,
+    id: 'fountain', name: 'The Fountain', emoji: '⛲', rarity: 'uncommon', cost: 7, guild: 'azure',
     desc: 'Azure tiles return to the bag when printed, instead of the discard pile.',
     when: 'meta',   // read by retirePrinted, and by scoring's `returns` flag
   },
   {
-    id: 'titivillus', name: 'Titivillus', emoji: '😈', rarity: 'rare', cost: 9,
+    id: 'titivillus', name: 'Titivillus', emoji: '😈', rarity: 'rare', cost: 9, guild: 'azure',
     desc: 'Words with an azure letter are accepted with one vowel wrong, or with two vowels swapped.',
     when: 'meta',   // consulted at the dictionary check in main.js — the typo prints as typed
   },
   {
-    id: 'neologist', name: 'The Neologist', emoji: '📖', rarity: 'rare', cost: 10,
+    id: 'neologist', name: 'The Neologist', emoji: '📖', rarity: 'rare', cost: 10, guild: 'azure',
     desc: 'Add one six-letter word of your choosing to the dictionary permanently, then this patron leaves.',
     when: 'meta',   // the coining sheet lives in sheets.js; the word outlives the run
   },
@@ -448,7 +454,7 @@ export const PATRON_DEFS = [
     },
   },
   {
-    id: 'beekeeper', name: 'The Beekeeper', emoji: '🐝', rarity: 'uncommon', cost: 6,
+    id: 'beekeeper', name: 'The Beekeeper', emoji: '🐝', rarity: 'uncommon', cost: 6, guild: 'jade',
     desc: `Every B you print permanently raises this patron's Mult by ${BEEKEEPER_STEP}.`,
     when: 'score',
     // Like The Stoker: the count grows as the word commits, so the bees you
@@ -502,7 +508,7 @@ export const PATRON_DEFS = [
     // whose flat ×2 it could never catch, has been cut. The step stays small
     // deliberately: clearing a page on its first word already pays, in spare-
     // word Coins, so this needn't double up on the reward.
-    id: 'frontispiece', name: 'The Frontispiece', emoji: '🖼️', rarity: 'uncommon', cost: 7,
+    id: 'frontispiece', name: 'The Frontispiece', emoji: '🖼️', rarity: 'uncommon', cost: 7, guild: 'jade',
     desc: `The first word of each page gets ×${FRONTISPIECE.base} Mult — +${FRONTISPIECE.step} more, for good, each time that word clears the quota alone.`,
     when: 'score',
     effect({ state, data, xMult }) {
@@ -518,7 +524,7 @@ export const PATRON_DEFS = [
     },
   },
   {
-    id: 'stenographer', name: 'The Stenographer', emoji: '📟', rarity: 'uncommon', cost: 6,
+    id: 'stenographer', name: 'The Stenographer', emoji: '📟', rarity: 'uncommon', cost: 6, guild: 'azure',
     desc: 'Common acronyms and abbreviations count as words: LOL, BRB, WTF and the rest.',
     when: 'meta',   // consulted at the dictionary check in main.js; the list lives in wordlists-themed/acronyms.txt
   },
@@ -526,7 +532,7 @@ export const PATRON_DEFS = [
     // Not a misspelling like the three excuses below — nothing has gone wrong
     // here. It licenses a construction: the compound noun, which English makes
     // freely and dictionaries only ever catch up with.
-    id: 'binder', name: 'The Binder', emoji: '🔗', rarity: 'rare', cost: 12,
+    id: 'binder', name: 'The Binder', emoji: '🔗', rarity: 'rare', cost: 12, guild: 'azure',
     desc: 'Any two nouns stacked together count as a word: DOOM and HAT make DOOMHAT.',
     when: 'meta',   // consulted at the dictionary check in main.js; the list lives in wordlists-themed/nouns.txt
   },
@@ -538,6 +544,18 @@ export const PATRON_DEFS = [
       const n = doubledPairs(word);
       if (n) xMult(2 ** n);
     },
+  },
+  {
+    // The guilds' man at the table, and the reason `guild` is a def field. He
+    // speaks after every other patron (scoring pass 4½): each guild with a
+    // member among the word's score steps pays ×1.5, once — a second amber
+    // voice adds nothing. Only patrons that write score steps can rouse him;
+    // the dyes, the pardons and the shop men work outside the scoring and
+    // never count. Four guilds firing together reach ×5.06 — a build that
+    // costs most of the shelf's seats.
+    id: 'alderman', name: 'The Alderman', emoji: '🎩', rarity: 'uncommon', cost: 7,
+    desc: 'For each guild with a patron that fired on the word: ×1.5 Mult. A guild counts once.',
+    when: 'meta',   // fires in scoring's pass 4½ — see js/scoring.js
   },
 
   // ── The four registers ──────────────────────────────────────────────────────
