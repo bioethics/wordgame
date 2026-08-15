@@ -41,8 +41,11 @@
 // Optional `guild`: the livery a patron wears — 'amber' | 'jade' | 'crimson' |
 // 'azure' — absent for the neutral majority. Membership is thematic, not
 // mechanical: it drives the calling card's ribbon, the seat's livery pin, and
-// nothing else — except the Alderman, who honours each guild that fires on a
-// word (scoring pass 4½). Assignments may drift as flavour demands.
+// nothing else — except the Alderman, who pays ×1.5 for every liveried patron
+// on the shelf, fired or not (scoring pass 4½). Because he counts seats rather
+// than effects, adding a `guild` to a def makes that patron worth more to an
+// Alderman build even if its own effect never changes. Assignments may drift
+// as flavour demands.
 
 import {
   GRAFTER_STEP, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS, NUDIST_TRIM_CHANCE,
@@ -547,14 +550,14 @@ export const PATRON_DEFS = [
   },
   {
     // The guilds' man at the table, and the reason `guild` is a def field. He
-    // speaks after every other patron (scoring pass 4½): each guild with a
-    // member among the word's score steps pays ×1.5, once — a second amber
-    // voice adds nothing. Only patrons that write score steps can rouse him;
-    // the dyes, the pardons and the shop men work outside the scoring and
-    // never count. Four guilds firing together reach ×5.06 — a build that
-    // costs most of the shelf's seats.
+    // speaks after every other patron (scoring pass 4½) and counts the shelf,
+    // not the word: every liveried patron seated beside him pays ×1.5,
+    // whether or not it fired. So he pays on every word once he is seated,
+    // and the whole shelf is his condition. Four guild patrons — a full
+    // starting shelf beside him — reach ×5.06; every extra seat the Colophon
+    // grants raises that ceiling by half again.
     id: 'alderman', name: 'The Alderman', emoji: '🎩', rarity: 'uncommon', cost: 7,
-    desc: 'For each guild with a patron that fired on the word: ×1.5 Mult. A guild counts once.',
+    desc: 'Each seated patron that belongs to a guild gives ×1.5 Mult.',
     when: 'meta',   // fires in scoring's pass 4½ — see js/scoring.js
   },
 

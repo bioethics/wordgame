@@ -319,15 +319,31 @@ rarity, and a small enamel pin on the seat. Rarity keeps the hairline; guild
 keeps the ribbon — separate facts, separate inks.
 
 **The Alderman** 🎩 (uncommon · 7) is why the field is mechanical at all:
-scoring gained a pass 4½ where, after every other patron has spoken, each
-guild with a member among the word's score steps pays ×1.5, once per guild —
-two amber voices add nothing over one. All four guilds firing together is
-×5.06, and costs most of the shelf. Only patrons that *write score steps* can
-rouse him; the dyes, pardons and shop men act outside scoring and never
-count. Per guild, the patrons that can light him: amber — Goldsmith, Assayer,
-Bursar; jade — Seedsman, Vintner, Beekeeper, Frontispiece; crimson —
-Firebrand, Stoker; azure — Siren, Marbler. Crimson and azure offer only two
-igniters each — worth remembering when guild assignments are next tuned.
+scoring gained a pass 4½ where, after every other patron has spoken, **every
+liveried patron on the shelf pays ×1.5 — fired or not**. He counts seats, not
+effects: three amber patrons pay three times, and a patron whose effect never
+touches scoring (a dye, a pardon, the Chapman) pays exactly as well as one
+that does. Once seated he pays on every word, unconditionally.
+
+This makes him the roster's only *unconditional* multiplier, and it puts a
+consequence in the design worth restating: **his ceiling is not capped by the
+four guilds, it is capped by seat count**, and the Colophon hands out `+1
+Patron seat` every chapter. Measured — Alderman plus:
+
+| liveried seats | 2 | 4 (full default shelf) | 5 | 6 | 7 |
+|---|---|---|---|---|---|
+| whole-score × | 2.25 | **5.06** | 7.59 | 11.39 | 17.09 |
+
+At the default five seats he is a strong-but-fair build-around costing the
+whole shelf. Past that he compounds with every seat upgrade taken, and seat
+upgrades are exactly what an Alderman player will take. If that proves too
+steep in play, the levers in order of bluntness: cap the count at four (one
+per guild, the original design), drop the step to ×1.25, or count only
+liveried patrons that actually wrote a score step this word.
+
+Since he counts seats rather than effects, note that **adding a `guild` to any
+def now makes that patron better in an Alderman build even if its own effect
+is untouched** — guild assignment is no longer purely cosmetic bookkeeping.
 
 ## Remaining phases
 

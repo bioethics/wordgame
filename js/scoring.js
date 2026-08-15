@@ -166,24 +166,23 @@ export function computeScore(wordTiles) {
     if (def?.when === 'score') { current = p.id; ctx.data = p.data ?? {}; def.effect(ctx); }
   }
 
-  // ── Pass 4½: the Alderman honours the guilds ───────────────────────────────
-  // After every other patron has spoken, each guild with a member among the
-  // word's score steps pays ×1.5 — once per guild, however many of its
-  // patrons fired. Seat order can't matter here: he always goes last, so the
-  // whole score to this point is what gets multiplied.
+  // ── Pass 4½: the Alderman counts the liveries ──────────────────────────────
+  // He does not wait to see who fires. Every patron on the shelf wearing a
+  // guild's colours pays ×1.5, whether or not it had anything to say about
+  // this word — the Alderman is paid for the company you keep. He speaks
+  // after everyone else, so what he multiplies is the whole score to here.
   if (owns('alderman')) {
-    const fired = new Set();
-    for (const s of patronSteps) {
-      const g = patronById(s.id)?.guild;
-      if (g) fired.add(g);
-    }
-    for (const g of fired) {
+    let liveried = 0;
+    for (const p of state.patrons) {
+      const g = patronById(p.id)?.guild;
+      if (!g) continue;
+      liveried++;
       mult *= 1.5;
       patronSteps.push({
-        id: 'alderman', text: `×1.5 Mult — the ${COLOURS[g].label} guild`, xmult: 1.5,
+        id: 'alderman', text: `×1.5 Mult — ${COLOURS[g].label} livery`, xmult: 1.5,
       });
     }
-    if (fired.size) mult = Math.round(mult * 1000) / 1000;
+    if (liveried) mult = Math.round(mult * 1000) / 1000;
   }
 
   const total = Math.round(points * mult);
