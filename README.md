@@ -158,8 +158,8 @@ for power, azure bends the rules of spelling — plus neutral wildcards and the
 word-shape classics. A guild member's calling card wears its livery — a silk
 ribbon and a wash in the guild's colour, with the guild named on the title
 line — and its seat carries a small livery pin; neutral patrons stay plain
-ivory. *The Alderman* reads the liveries: ×1.5 Mult for every guild patron you
-have seated, whether or not it fires on the word. Some patrons act after a word prints (burning,
+ivory. *The Alderman* reads the liveries: ×1.5 Mult for each guild with a
+patron on your shelf, counted once per guild and whether or not it fires. Some patrons act after a word prints (burning,
 growing, painting) or as a chapter turns (the dye commons), not just while it
 scores. While you compose, the shelf shows its hand: every patron whose
 condition the word already meets wakes up — rising, breathing a candlelit
@@ -228,7 +228,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Patron reaction odds | `js/constants.js` → `REACTION`; the lines themselves in `js/quips.js` — a flat array, add more any time |
 | Words / discards / seats per page | `js/constants.js` |
 | Patron roster, costs, effects | `js/patrons.js` (design notes in `docs/PATRON_OVERHAUL.md`) |
-| Patron tuning that reaches beyond a score (growth steps, burn odds, trim chance, dye count, coined-word length) | `js/constants.js` → `GRAFTER_STEP`, `STOKER_STEP`, `ARSONIST_ODDS`, `NUDIST_TRIM_CHANCE`, `DYE_TILES_PER_CHAPTER`, `NEOLOGIST_LENGTH` |
+| Patron tuning that reaches beyond a score (growth steps, burn odds, trim chance, dye count, coined-word length) | `js/constants.js` → `GRAFTER_STEP`, `STOKER_STEP`, `ARSONIST_ODDS`, `NUDIST_TRIM_CHANCE`, `DIPPER_PAINT_CHANCE`, `GAMBLER_ODDS`, `DYE_TILES_PER_CHAPTER`, `NEOLOGIST_LENGTH` |
 | Animation step timings | `js/constants.js` → `ANIM` (all divided by the Settings speed slider) |
 | Chapter titles | `js/chapters.js` — a flat array, add as many as you like; each run draws its own and won't repeat until the list runs out |
 | The Stenographer's acronyms | `wordlists-themed/acronyms.txt` — one per line, `#` comments; letters only, and no lone Q (the press has no Q sort to set it with) |

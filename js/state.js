@@ -2,7 +2,7 @@ import {
   RACK_SIZE, WORDS_PER_PAGE, DISCARDS_PER_PAGE, STARTING_COINS,
   PATRON_SLOTS, SUNDRY_SLOTS, SMELT_MIN_COLLECTION,
   BAG_COUNTS, TILE_POINTS, TUBE_TILES, CURSED_MAX_POINTS, isImmutable,
-  quotaFor, makeTileTemplate,
+  quotaFor, makeTileTemplate, GAMBLER_ODDS,
 } from './constants.js';
 import { CHAPTER_TITLES } from './chapters.js';
 
@@ -122,6 +122,7 @@ export const state = {
   upgradeCounts: {}, // id → times taken this run, from the Colophon (see js/upgrades.js)
   luck: 1,             // scales every "good outcome" roll (see luckyRoll) — a future dial
   lastFirstLetter: null,  // first letter of the last word printed this run (The Skald)
+  gambleWon: false,    // this word's coin, tossed by rollGamble (The Gambler)
   chapterTitles: {},   // chapter → the title this run drew for it
   compost: [],         // The Composter's heap: jade templates waiting at the Market
   compostPending: 0,   // tiles destroyed since the last Market, not yet rotted down
@@ -237,7 +238,7 @@ export function newRun() {
     wordsLeft: WORDS_PER_PAGE, discards: DISCARDS_PER_PAGE,
     discardsMax: DISCARDS_PER_PAGE, wordsPrinted: 0,
     coins: STARTING_COINS, patrons: [], sundries: [], upgradeCounts: {},
-    luck: 1, lastFirstLetter: null, chapterTitles: {},
+    luck: 1, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
     compost: [], compostPending: 0,
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
@@ -263,6 +264,7 @@ export function startPage() {
   state.discards    = state.discardsMax;
   state.discardMode = false;
   state.sundryMode = -1;
+  rollGamble();
 }
 
 // ─── Tile operations ──────────────────────────────────────────────────────────
@@ -425,6 +427,17 @@ export function trashFromCollection(tid) {
 export function recordWord(word, score) {
   state.ledger ??= [];
   state.ledger.push({ word, score, chapter: state.chapter, page: state.page });
+}
+
+// ─── The Gambler's coin ───────────────────────────────────────────────────────
+// Tossed once per word, never inside the score effect: scoring re-runs on every
+// letter you lay down to power the live preview, so a roll in there would
+// flicker as you compose and then disagree with what actually printed. Holding
+// the result in state keeps the promise the shelf makes — and means the coin is
+// settled before you set the word, so you can see whether to spend a good hand
+// on it. It is re-tossed as each page opens and after every word prints.
+export function rollGamble() {
+  state.gambleWon = luckyRoll(GAMBLER_ODDS);
 }
 
 // ─── Selection ────────────────────────────────────────────────────────────────

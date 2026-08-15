@@ -166,23 +166,25 @@ export function computeScore(wordTiles) {
     if (def?.when === 'score') { current = p.id; ctx.data = p.data ?? {}; def.effect(ctx); }
   }
 
-  // ── Pass 4½: the Alderman counts the liveries ──────────────────────────────
-  // He does not wait to see who fires. Every patron on the shelf wearing a
-  // guild's colours pays ×1.5, whether or not it had anything to say about
-  // this word — the Alderman is paid for the company you keep. He speaks
-  // after everyone else, so what he multiplies is the whole score to here.
+  // ── Pass 4½: the Alderman counts the guilds at his table ───────────────────
+  // One ×1.5 for each guild represented on the shelf. Two things he does NOT
+  // care about: whether those patrons fired on this word (they need not have),
+  // and how many of them share a livery (a guild is counted once, so three
+  // amber patrons pay as one). Four guilds is therefore his ceiling, ×5.06.
+  // He speaks after everyone else, so what he multiplies is the whole score.
   if (owns('alderman')) {
-    let liveried = 0;
+    const guilds = new Set();
     for (const p of state.patrons) {
       const g = patronById(p.id)?.guild;
-      if (!g) continue;
-      liveried++;
+      if (g) guilds.add(g);
+    }
+    for (const g of guilds) {
       mult *= 1.5;
       patronSteps.push({
-        id: 'alderman', text: `×1.5 Mult — ${COLOURS[g].label} livery`, xmult: 1.5,
+        id: 'alderman', text: `×1.5 Mult — the ${COLOURS[g].label} guild`, xmult: 1.5,
       });
     }
-    if (liveried) mult = Math.round(mult * 1000) / 1000;
+    if (guilds.size) mult = Math.round(mult * 1000) / 1000;
   }
 
   const total = Math.round(points * mult);

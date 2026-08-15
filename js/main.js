@@ -10,7 +10,7 @@ import {
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected,
   getActiveColour, getActiveLetter, growTile, paintTile, trimTile,
   trashFromCollection, castMaterialTile, castTile, chapterTitle,
-  effectiveWordsPerPage,
+  effectiveWordsPerPage, rollGamble,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES, tileCount,
@@ -269,6 +269,22 @@ function runPrintedHooks(tiles, script) {
   return [...burned.values()];
 }
 
+// Tiles thrown away, offered to whoever cares. Runs after they've left the
+// rack but before the hand tops up, so a patron that paints one is writing to
+// a tile already filed in the discard pile — and the collection, which is what
+// makes the change outlast the page.
+function runDiscardHooks(tiles) {
+  for (const p of state.patrons) {
+    const def = patronById(p.id);
+    if (!def?.onDiscard) continue;
+    p.data ??= {};
+    const r = def.onDiscard({ tiles, state, data: p.data, paint: paintTile });
+    if (!r?.note) continue;
+    const card = patronCard(p);
+    if (card) { pulse(card, 'patron--firing', 520); floatText(card, r.note, 'fl-points', { dy: -44 }); }
+  }
+}
+
 // A burned tile flares, chars, and crumbles where it sits — no flight to the
 // discard pile, because there's nothing left to file.
 async function animateBurn(els) {
@@ -447,6 +463,11 @@ async function submitWord() {
     state.stats.bestWord  = script.word;
   }
   recordWord(script.word, script.total);
+
+  // This word is spent, so the Gambler's coin goes back in the air for the
+  // next one. Tossed here rather than in the score effect, which re-runs on
+  // every keystroke — see rollGamble in state.js.
+  rollGamble();
 
   // Patrons that reach beyond the score fire before the tiles retire, so a
   // grown tile carries its growth wherever it goes next (even back to the bag).
@@ -632,6 +653,8 @@ async function doDiscard() {
 
   state.isAnimating = true;
   renderButtons();
+
+  runDiscardHooks(result.removed);
 
   await animateDiscard(selectedEls.map(el => ({ el, r: rect(el) })));
   await animateDraw(result.drawn);

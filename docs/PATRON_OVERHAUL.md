@@ -319,31 +319,54 @@ rarity, and a small enamel pin on the seat. Rarity keeps the hairline; guild
 keeps the ribbon — separate facts, separate inks.
 
 **The Alderman** 🎩 (uncommon · 7) is why the field is mechanical at all:
-scoring gained a pass 4½ where, after every other patron has spoken, **every
-liveried patron on the shelf pays ×1.5 — fired or not**. He counts seats, not
-effects: three amber patrons pay three times, and a patron whose effect never
-touches scoring (a dye, a pardon, the Chapman) pays exactly as well as one
-that does. Once seated he pays on every word, unconditionally.
+scoring gained a pass 4½ where, after every other patron has spoken, **each
+guild represented on the shelf pays ×1.5**. He counts guilds, and only guilds —
+two things he pointedly ignores:
 
-This makes him the roster's only *unconditional* multiplier, and it puts a
-consequence in the design worth restating: **his ceiling is not capped by the
-four guilds, it is capped by seat count**, and the Colophon hands out `+1
-Patron seat` every chapter. Measured — Alderman plus:
+- **whether those patrons fired.** A dye that acts at chapter's end and a
+  pardon that acts at the dictionary check both fly their colours as well as
+  the Bursar does. He is paid for the company you keep, not the work it does.
+- **how many share a livery.** Three amber patrons pay once. Doubling up
+  inside a guild buys nothing from him.
 
-| liveried seats | 2 | 4 (full default shelf) | 5 | 6 | 7 |
-|---|---|---|---|---|---|
-| whole-score × | 2.25 | **5.06** | 7.59 | 11.39 | 17.09 |
+So his ceiling is **×5.06**, set by there being four guilds — not by seat
+count, which means the Colophon's `+1 Patron seat` cannot inflate him. Seating
+all four costs four of five starting seats, which is the price of the card.
 
-At the default five seats he is a strong-but-fair build-around costing the
-whole shelf. Past that he compounds with every seat upgrade taken, and seat
-upgrades are exactly what an Alderman player will take. If that proves too
-steep in play, the levers in order of bluntness: cap the count at four (one
-per guild, the original design), drop the step to ×1.25, or count only
-liveried patrons that actually wrote a score step this word.
+| guilds on the shelf | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| whole-score × | 1.5 | 2.25 | 3.38 | **5.06** |
 
-Since he counts seats rather than effects, note that **adding a `guild` to any
-def now makes that patron better in an Alderman build even if its own effect
-is untouched** — guild assignment is no longer purely cosmetic bookkeeping.
+Two design consequences worth keeping in view. **Adding a `guild` to any def
+makes that patron better in an Alderman build even when its own effect is
+untouched** — guild assignment is no longer cosmetic bookkeeping. And because
+he ignores triggers, **the guilds' thin igniter counts no longer matter to
+him**: crimson and azure each have only two patrons that write score steps,
+but any crimson or azure patron at all satisfies the Alderman.
+
+## Two commons for the thin guilds
+
+Crimson and azure ran shortest, and crimson had no cheap way in at all. Two
+commons at 4 Coins:
+
+- **The Dipper** 🪣 (jade) — each tile you discard has a 1-in-10 chance of
+  being painted a random colour, over the top of whatever it wore. It brought
+  the **`onDiscard(ctx)`** hook with it (`ctx { tiles, state, data, paint }`,
+  dispatched by `runDiscardHooks` in main.js after the tiles leave the rack
+  and before the hand tops up). Discarded tiles are still in the collection,
+  so the paint is waiting when the bag comes round again — jade's permanence,
+  bought with a resource you were spending anyway.
+- **The Gambler** 🎲 (crimson) — each word has a 1-in-2 chance of ×2 Mult.
+  The toss lives in `state.gambleWon` (`rollGamble`, re-tossed as a page opens
+  and after every word prints) rather than inside the score effect, because
+  **`computeScore` re-runs on every keystroke to drive the live preview**: a
+  roll in there would flicker as you compose and then disagree with what
+  printed, breaking the roster's one hard promise — that what a patron shows
+  on the shelf is what it pays. The side effect is that the coin lands
+  *before* you set the word and the shelf shows it, which reads as a tactical
+  invitation rather than a leak: a lit Gambler is a reason to spend your best
+  tiles now. If the loss of suspense disappoints in play, the alternative is
+  to roll at print and let the readout jump — at the cost of that promise.
 
 ## Remaining phases
 

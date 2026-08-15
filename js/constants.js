@@ -301,6 +301,12 @@ export const STOKER_STEP        = 0.25;   // permanent ×Mult per crimson tile b
 export const BEEKEEPER_STEP     = 0.2;    // permanent ×Mult per B printed
 export const ARSONIST_ODDS      = { paint: 0.10, burn: 0.01 };  // per tile played
 export const NUDIST_TRIM_CHANCE = 0.25;   // per bare letter in an all-bare word
+export const DIPPER_PAINT_CHANCE = 0.10;  // per tile discarded, painted at random
+// The Gambler's coin. Tossed once per word rather than once per keystroke:
+// scoring runs on every letter you lay to drive the live preview, so a roll
+// inside the score effect would flicker as you compose and then disagree with
+// what printed. state.gambleWon holds the toss (see rollGamble in state.js).
+export const GAMBLER_ODDS       = 0.5;    // odds the coin comes up ×2
 export const NEOLOGIST_LENGTH   = 6;      // letters in a coined word
 export const DYE_TILES_PER_CHAPTER = 2;   // tiles painted by a dye patron at chapter end
 

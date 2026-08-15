@@ -23,6 +23,11 @@
 //                       Return { note, tiles } so the arrival can be animated.
 //   onChapterEnd(ctx) — as a chapter clears, before the next page's bag is
 //                       shuffled; ctx { state, data }. Return { note } likewise.
+//   onDiscard(ctx)    — after tiles are thrown away, before the hand tops up;
+//                       ctx { tiles, state, data, paint(tile, colour) }. The
+//                       tiles are already in the discard pile but still in the
+//                       collection, so paint written here is waiting when the
+//                       bag comes round again. Return { note } likewise.
 // `data` is the seat's own saved memory (state.js patronData) — counters live
 // there, never on the def.
 //
@@ -50,7 +55,7 @@
 import {
   GRAFTER_STEP, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS, NUDIST_TRIM_CHANCE,
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, COMPOST_PER_MARKET,
-  BAG_COUNTS, FRONTISPIECE,
+  BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
 } from './constants.js';
 import {
   getActiveColour, getActiveLetter, countsAsColour, luckyRoll, paintRandomFaces,
@@ -335,6 +340,25 @@ export const PATRON_DEFS = [
     when: 'meta',   // counted in trashFromCollection, rotted and taken in js/market.js
   },
   {
+    // Jade's answer to a bad hand: the tiles you throw away come back stained.
+    // What it paints over is its own business — a dipped tile takes the new
+    // colour whatever it wore before, which is how a careful amber build can
+    // find itself speckled. Discarded tiles are still yours, sitting in the
+    // discard pile, so the paint is waiting when the bag comes round again.
+    id: 'dipper', name: 'The Dipper', emoji: '🪣', rarity: 'common', cost: 4, guild: 'jade',
+    desc: `Each tile you discard has a 1-in-10 chance of being painted a random colour.`,
+    when: 'meta',
+    onDiscard({ tiles, paint }) {
+      const dipped = [];
+      for (const t of tiles) {
+        if (!luckyRoll(DIPPER_PAINT_CHANCE)) continue;
+        const colour = pick(Object.keys(COLOURS));
+        if (paint(t, colour)) dipped.push(`${getActiveLetter(t)} ${COLOURS[colour].label.toLowerCase()}`);
+      }
+      return dipped.length ? { note: `out of the vat: ${dipped.join(', ')}` } : null;
+    },
+  },
+  {
     id: 'grafter', name: 'The Grafter', emoji: '🌿', rarity: 'rare', cost: 10, guild: 'jade',
     desc: 'When a word with a jade letter prints, every tile in it permanently gains +1 Point.',
     when: 'meta',
@@ -373,6 +397,18 @@ export const PATRON_DEFS = [
       if (burned.length)  notes.push(`${burned.length} to ash`);
       return { note: notes.join(', '), burned };
     },
+  },
+  {
+    // Crimson's one-off drama, reduced to a coin. The toss is held in
+    // state.gambleWon rather than rolled here, because this effect runs on
+    // every keystroke to draw the live preview — rolling inside it would
+    // flicker as you compose and then disagree with what printed. The coin
+    // therefore lands *before* you set the word, and the shelf shows it: a
+    // lit Gambler is an invitation to spend your best tiles now.
+    id: 'gambler', name: 'The Gambler', emoji: '🎲', rarity: 'common', cost: 4, guild: 'crimson',
+    desc: 'Each word has a 1-in-2 chance of ×2 Mult — the coin is tossed before you set it.',
+    when: 'score',
+    effect({ state, xMult }) { if (state.gambleWon) xMult(2); },
   },
   {
     id: 'ratcatcher', name: 'The Rat Catcher', emoji: '🐀', rarity: 'uncommon', cost: 7, guild: 'crimson',
@@ -550,14 +586,13 @@ export const PATRON_DEFS = [
   },
   {
     // The guilds' man at the table, and the reason `guild` is a def field. He
-    // speaks after every other patron (scoring pass 4½) and counts the shelf,
-    // not the word: every liveried patron seated beside him pays ×1.5,
-    // whether or not it fired. So he pays on every word once he is seated,
-    // and the whole shelf is his condition. Four guild patrons — a full
-    // starting shelf beside him — reach ×5.06; every extra seat the Colophon
-    // grants raises that ceiling by half again.
+    // speaks after every other patron (scoring pass 4½) and counts guilds, not
+    // patrons and not triggers: a guild is either represented on your shelf or
+    // it isn't. Three amber patrons pay once; a dye that never touches scoring
+    // pays as well as the Bursar. Four guilds exist, so ×5.06 is his ceiling
+    // however many seats the Colophon grants.
     id: 'alderman', name: 'The Alderman', emoji: '🎩', rarity: 'uncommon', cost: 7,
-    desc: 'Each seated patron that belongs to a guild gives ×1.5 Mult.',
+    desc: 'Each guild with a patron on your shelf gives ×1.5 Mult.',
     when: 'meta',   // fires in scoring's pass 4½ — see js/scoring.js
   },
 
