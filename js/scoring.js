@@ -87,6 +87,26 @@ export function computeScore(wordTiles) {
     if (hits.length) nickSteps.push({ sourceId: t.id, kind: t.nick, mult: m, hits });
   });
 
+  // ── Pass 2½: patrons whose chosen letters score again ─────────────────────
+  // Each seated Monogrammist doubles what its three letters scored, trims and
+  // nicks included. Copies fire in seat order and each doubles what it finds,
+  // so two copies that love the same letter reach ×4 — the intended ceiling
+  // of collecting them. Each copy's gain is its own patron step, keyed by the
+  // seat's uid, so every copy badges and animates as itself.
+  const patronSteps = [];
+  for (const p of state.patrons) {
+    const def = patronById(p.id);
+    if (!def?.tileEcho) continue;
+    let added = 0;
+    wordTiles.forEach((t, i) => {
+      if (!def.tileEcho(t, p.data ?? {})) return;
+      added += contrib[i];
+      contrib[i] *= 2;
+      noteMap[i].push(`×2 № ${p.data?.num?.toLocaleString() ?? '?'}`);
+    });
+    if (added) patronSteps.push({ id: p.id, uid: p.uid, text: `+${added} Points`, points: added });
+  }
+
   let points = contrib.reduce((a, b) => a + b, 0);
 
   // ── Pass 3: colour multipliers (painted letters, then purple trims) ────────
@@ -128,7 +148,7 @@ export function computeScore(wordTiles) {
   // `data` is the seat's memory, handed over READ-ONLY: this runs on every
   // keystroke for the live preview, so a score effect that wrote to it would
   // fire dozens of times a word. Counters are advanced in onPrinted instead.
-  const patronSteps = [];
+  // (patronSteps was declared back in pass 2½, where the Monogrammists fire.)
   let current = null;
   const ctx = {
     word: letters, tiles: wordTiles, state, data: null,

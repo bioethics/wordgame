@@ -116,7 +116,8 @@ export const state = {
   wordsPrinted: 0,  // words printed this page
 
   coins:   STARTING_COINS,
-  patrons: [],      // [{ id, data }] — data carries a patron's own memory (e.g. Stoker stacks)
+  patrons: [],      // [{ id, uid, data }] — data is the seat's own memory (Stoker stacks,
+                    // a Monogrammist's letters); uid tells copies of a stackable patron apart
   sundries: [],     // [{ kind: 'tube', colour } | { kind: 'reshuffle' }] — the workbench
   upgradeCounts: {}, // id → times taken this run, from the Colophon (see js/upgrades.js)
   luck: 1,             // scales every "good outcome" roll (see luckyRoll) — a future dial
@@ -210,6 +211,9 @@ export function loadState() {
     state.compostPending ??= 0;
     if (savedId)  _nextId  = savedId;
     if (savedTid) _nextTid = savedTid;
+    // Seats saved before uids existed get one now — after the counters above,
+    // so a backfilled uid can never collide with a tile id already in the save.
+    state.patrons?.forEach(p => { p.uid ??= nextId(); });
     return { market: _market ?? null, draft: _draft ?? null, colophon: _colophon ?? null };
   } catch { return null; }
 }

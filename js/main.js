@@ -53,6 +53,11 @@ const pileRect = () => rect($('discardBtn')) ?? { left: innerWidth - 100, top: 3
 const wordTileEl = id => document.querySelector(`#word .tile[data-id="${id}"]`);
 const rackTileEl = id => document.querySelector(`#rack .tile[data-id="${id}"]`);
 
+// The shelf card for a seat or a patron step — by uid where there is one, so
+// each copy of a stackable patron flashes and badges as itself.
+const patronCard = p => document.querySelector(
+  p.uid != null ? `#shelf .patron[data-uid="${p.uid}"]` : `#shelf .patron[data-patron="${p.id}"]`);
+
 // Fly freshly drawn tiles out of the bag into their rack positions
 async function animateDraw(drawn) {
   if (!drawn.length) return;
@@ -127,7 +132,7 @@ async function patronReactions(script) {
   let shown = 0;
   for (const p of state.patrons) {
     if (Math.random() >= chance) continue;
-    const card = document.querySelector(`#shelf .patron[data-patron="${p.id}"]`);
+    const card = patronCard(p);
     if (!card) continue;
     if (shown > 0) await sleep(180);   // stagger so bubbles don't stack
     speechBubble(card, randomQuip(script.word));
@@ -220,7 +225,7 @@ function runPrintedHooks(tiles, script) {
     if (!r) continue;
     for (const t of r.burned ?? []) burned.set(t.id, t);
     if (r.note) {
-      const card = document.querySelector(`#shelf .patron[data-patron="${p.id}"]`);
+      const card = patronCard(p);
       if (card) { pulse(card, 'patron--firing', 520); floatText(card, r.note, 'fl-points', { dy: -44 }); }
     }
   }
@@ -361,7 +366,7 @@ async function submitWord() {
 
   // ── Pass 4: patrons weigh in ───────────────────────────────────────────────
   for (const p of script.patronSteps) {
-    const card = document.querySelector(`#shelf .patron[data-patron="${p.id}"]`);
+    const card = patronCard(p);
     if (card) {
       pulse(card, 'patron--firing', 520);
       const cls = p.coins ? 'fl-coin' : p.points ? 'fl-points' : 'fl-mult';
@@ -729,11 +734,12 @@ $('inspectorModal')?.addEventListener('click', e => {
   if (e.target.closest('[data-close-inspector]') || e.target.id === 'inspectorModal') closeInspector();
 });
 
-// Patron shelf: ✕ dismisses (desktop hover); tapping the card shows its boon
-function dismissPatron(id) {
-  const r = sellPatron(id);
+// Patron shelf: ✕ dismisses (desktop hover); tapping the card shows its boon.
+// `ref` is a seat uid or a def id — sellPatron takes either.
+function dismissPatron(ref) {
+  const r = sellPatron(ref);
   if (r.ok) {
-    log(`${r.def.name} departs with thanks — ${r.refund} Coin${r.refund !== 1 ? 's' : ''} returned.`);
+    log(`${r.name} departs with thanks — ${r.refund} Coin${r.refund !== 1 ? 's' : ''} returned.`);
     renderAll();
     if (state.inMarket) renderMarket();
   }
@@ -746,7 +752,9 @@ $('shelf')?.addEventListener('click', e => {
   const card = e.target.closest('.patron[data-patron]');
   if (card) {
     const def = patronById(card.dataset.patron);
-    if (def) showPatronPopover(def, card);
+    const seat = state.patrons.find(p => String(p.uid) === card.dataset.uid)
+              ?? state.patrons.find(p => p.id === card.dataset.patron);
+    if (def) showPatronPopover(def, card, seat);
   }
 });
 

@@ -89,6 +89,26 @@ warn players about.
   place the heap is ever seen. That also sidesteps a circular import, since
   tile generation lives in `market.js` and the tally lives in `state.js`.
 
+### The Monogrammist, and stackable patrons
+
+The first patron you can hold several of. Each copy arrives loving three
+letters (uniform over the game's letter set, QU included — variance in copy
+quality is the point) and wearing an edition number, both rolled **when the
+Market lays the card out**, so the offer shows exactly what you'd be buying.
+Its letters' Points count twice, after trims and nicks; copies stack
+multiplicatively, so two that love the same letter reach ×4 — the intended
+ceiling. Machinery this forced into existence, all reusable:
+
+- Every seat now carries a **uid** (`nextId()`, backfilled onto old saves), and
+  `sellPatron`/badges/popovers/cinematic flashes address seats by uid with the
+  def-id as fallback — so copies are dismissed, badged and animated as
+  themselves.
+- Def surface for stackables: `stackable` (the Market keeps offering it),
+  `onOffer()` (per-copy roll, carried on the offer and moved to the seat at
+  purchase), `instName/instShelf/instDesc(data)` (presentation), and
+  `tileEcho(tile, data)` (scoring pass 2½ doubles matching tiles' contribution
+  once per copy, each gain its own uid-keyed patron step).
+
 ### The Skimmer × the Cartographer
 
 Measured, not guessed: 2,630 of the 64,662 dictionary words (4.07%) can be

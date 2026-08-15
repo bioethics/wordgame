@@ -161,16 +161,18 @@ export function showTilePopover(tile, anchorEl, breakdown = null, { canFlip = tr
     ${flip}`);
 }
 
-export function showPatronPopover(def, anchorEl) {
+export function showPatronPopover(def, anchorEl, seat = null) {
   // A patron with something to be *used* offers it above the dismissal.
   const act = def.id === 'neologist'
     ? `<button class="btn btn-quiet tip-btn" data-patron-act="neologist">Coin a word…</button>`
     : '';
+  const name = def.instName?.(seat?.data) ?? def.name;
+  const desc = def.instDesc?.(seat?.data) ?? def.desc;
   showPopover(anchorEl, `
-    <div class="tip-head">${def.emoji} ${def.name} <span class="op-rarity">${def.rarity}</span></div>
-    <div class="tip-line">${def.desc}</div>
+    <div class="tip-head">${def.emoji} ${name} <span class="op-rarity">${def.rarity}</span></div>
+    <div class="tip-line">${desc}</div>
     ${act}
-    <button class="btn btn-quiet tip-btn" data-sell="${def.id}">Dismiss for ${coinHTML(Math.floor(def.cost / 2))}</button>`);
+    <button class="btn btn-quiet tip-btn" data-sell="${seat?.uid ?? def.id}">Dismiss for ${coinHTML(Math.floor(def.cost / 2))}</button>`);
 }
 
 // ─── The Neologist's coining sheet ────────────────────────────────────────────
@@ -249,7 +251,7 @@ function renderShelf(script) {
   const shelf = $('shelf');
   if (!shelf) return;
   const seats = effectivePatronSlots();
-  const sig = `${seats}|${state.patrons.map(p => p.id).join(',')}`;
+  const sig = `${seats}|${state.patrons.map(p => p.uid ?? p.id).join(',')}`;
 
   if (sig !== _shelfSig) {
     _shelfSig = sig;
@@ -263,14 +265,18 @@ function renderShelf(script) {
       const p = state.patrons[i];
       if (p) {
         const def = patronById(p.id);
+        const name  = def.instName?.(p.data)  ?? def.name;
+        const label = def.instShelf?.(p.data) ?? def.name.replace(/^The /, '');
+        const desc  = def.instDesc?.(p.data)  ?? def.desc;
         slot.className = `patron patron--${def.rarity}`;
         slot.dataset.patron = def.id;
-        slot.dataset.baseTitle = `${def.name} — ${def.desc}\n(✕ dismisses for ${Math.floor(def.cost / 2)} Coins)`;
+        if (p.uid != null) slot.dataset.uid = p.uid;
+        slot.dataset.baseTitle = `${name} — ${desc}\n(✕ dismisses for ${Math.floor(def.cost / 2)} Coins)`;
         slot.title = slot.dataset.baseTitle;
         slot.innerHTML = `
           <span class="patron-emoji">${def.emoji}</span>
-          <span class="patron-name">${def.name.replace(/^The /, '')}</span>
-          <button class="patron-x" data-sell="${def.id}" title="Dismiss ${def.name} for ${Math.floor(def.cost / 2)} Coins">✕</button>`;
+          <span class="patron-name">${label}</span>
+          <button class="patron-x" data-sell="${p.uid ?? def.id}" title="Dismiss ${name} for ${Math.floor(def.cost / 2)} Coins">✕</button>`;
       } else {
         slot.className = 'patron patron--empty';
         slot.title = 'Empty seat — patrons are hired at the Market';
@@ -285,6 +291,8 @@ function renderShelf(script) {
 
 // What each patron stands to add to the word in progress, read straight off
 // the score script. Several steps from one patron fold into a single badge.
+// Keys are the seat's uid where the step carries one (copies of a stackable
+// patron badge separately), falling back to the def id for everyone else.
 function patronTakes(script) {
   const takes = new Map();
   for (const s of script?.patronSteps ?? []) {
@@ -293,8 +301,9 @@ function patronTakes(script) {
                : s.coins ? `+${s.coins}c`
                :           `+${s.points}`;
     const kind = s.points ? 'points' : s.coins ? 'coins' : 'mult';
-    const prev = takes.get(s.id);
-    takes.set(s.id, prev
+    const key = String(s.uid ?? s.id);
+    const prev = takes.get(key);
+    takes.set(key, prev
       ? { chip: `${prev.chip} ${chip}`, kind: prev.kind, text: `${prev.text}, ${s.text}` }
       : { chip, kind, text: s.text });
   }
@@ -309,9 +318,15 @@ function paintArmed(shelf, script) {
   const takes = patronTakes(script);
   shelf.classList.toggle('shelf--live', takes.size > 0);
 
+  // Remember which CARDS were lit (by their own key), not which steps fired —
+  // a card matched through the def-id fallback must still count as armed, or
+  // its wake-up flourish would restart on every keystroke.
+  const nowArmed = new Set();
   for (const card of shelf.querySelectorAll('.patron[data-patron]')) {
-    const take = takes.get(card.dataset.patron);
-    const fresh = !!take && !_armedIds.has(card.dataset.patron);
+    const key = card.dataset.uid ?? card.dataset.patron;
+    const take = takes.get(key) ?? takes.get(card.dataset.patron);
+    if (take) nowArmed.add(key);
+    const fresh = !!take && !_armedIds.has(key);
     card.classList.toggle('patron--armed', !!take);
     card.classList.toggle('patron--just-armed', fresh);
     card.title = card.dataset.baseTitle + (take ? `\nStanding to add: ${take.text}` : '');
@@ -328,7 +343,7 @@ function paintArmed(shelf, script) {
     badge.textContent = take.chip;
     if (moved) { void badge.offsetWidth; badge.classList.add('patron-take--bump'); }
   }
-  _armedIds = new Set(takes.keys());
+  _armedIds = nowArmed;
 }
 
 // ─── Sundries (the workbench beside the shelf) ────────────────────────────────

@@ -1,5 +1,5 @@
 import {
-  state, adoptTemplate, shuffle, owns, trashFromCollection,
+  state, adoptTemplate, shuffle, owns, trashFromCollection, nextId,
   effectivePatronSlots, effectiveSundrySlots,
 } from './state.js';
 import {
@@ -125,13 +125,16 @@ function weightedPatronSample(n) {
   const ownedIds = new Set(state.patrons.map(p => p.id));
   const pool = [];
   for (const def of PATRON_DEFS) {
-    if (ownedIds.has(def.id)) continue;
+    // A stackable patron is never crossed off — you can always be sold another.
+    if (ownedIds.has(def.id) && !def.stackable) continue;
     for (let i = 0; i < (RARITY_WEIGHT[def.rarity] ?? 1); i++) pool.push(def.id);
   }
   const out = [];
   while (out.length < n && pool.length) {
     const id = pick(pool);
-    out.push({ id, sold: false });
+    // Per-copy state (the Monogrammist's letters and number) rolls as the card
+    // is laid out, so what's on offer is exactly what you'd be buying.
+    out.push({ id, sold: false, data: patronById(id)?.onOffer?.() ?? null });
     for (let i = pool.length - 1; i >= 0; i--) if (pool[i] === id) pool.splice(i, 1);
   }
   return out;
@@ -291,19 +294,25 @@ export function buyPatron(id) {
   if (state.patrons.length >= effectivePatronSlots()) return { ok: false, reason: 'No empty seats at your table.' };
   if (state.coins < def.cost)              return { ok: false, reason: `You need ${def.cost} Coins.` };
   state.coins -= def.cost;
-  state.patrons.push({ id, data: {} });
+  const seat = { id, uid: nextId(), data: offer.data ? { ...offer.data } : {} };
+  state.patrons.push(seat);
   offer.sold = true;
-  return { ok: true, def };
+  return { ok: true, def, seat, name: def.instName?.(seat.data) ?? def.name };
 }
 
-export function sellPatron(id) {
-  const i = state.patrons.findIndex(p => p.id === id);
-  const def = patronById(id);
-  if (i < 0 || !def) return { ok: false };
+// `ref` is a seat's uid when the caller has one (they all do now), or a def id
+// as the old fallback — which is fine for every patron you can only hold once,
+// and takes the first copy of one you can hold many of.
+export function sellPatron(ref) {
+  const i = state.patrons.findIndex(p => String(p.uid) === String(ref) || p.id === ref);
+  if (i < 0) return { ok: false };
+  const seat = state.patrons[i];
+  const def = patronById(seat.id);
+  if (!def) return { ok: false };
   const refund = Math.floor(def.cost / 2);
   state.patrons.splice(i, 1);
   state.coins += refund;
-  return { ok: true, refund, def };
+  return { ok: true, refund, def, name: def.instName?.(seat.data) ?? def.name };
 }
 
 // Sundries go back for a pittance — the point is freeing the slot, not the coin.

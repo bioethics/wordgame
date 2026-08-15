@@ -26,15 +26,26 @@
 // `data` is the seat's own saved memory (state.js patronData) — counters live
 // there, never on the def.
 //
+// Stackable patrons (the Monogrammist): `stackable: true` lets the Market keep
+// offering a patron you already hold, and every seat carries a unique `uid` so
+// copies can be badged, dismissed and animated as themselves. Such defs may
+// roll per-copy state with `onOffer()` (shown on the Market card, moved onto
+// the seat's data at purchase) and present themselves with `instName(data)`,
+// `instShelf(data)` and `instDesc(data)` — everything falls back to the plain
+// def fields when absent. `tileEcho(tile, data)` marks tiles whose Points
+// should count twice; scoring applies it in pass 2½, once per seated copy.
+//
 // Optional `portrait`: path to an image (e.g. 'img/patrons/scholar.png') shown
 // on the patron's business card in the market and draft instead of the emoji.
 
 import {
   GRAFTER_STEP, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS, NUDIST_TRIM_CHANCE,
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, COMPOST_PER_MARKET,
+  BAG_COUNTS,
 } from './constants.js';
 import {
   getActiveColour, getActiveLetter, countsAsColour, luckyRoll, paintRandomFaces,
+  shuffle,
 } from './state.js';
 
 const VOWELS = 'AEIOU';
@@ -86,6 +97,30 @@ export const PATRON_DEFS = [
     desc: 'Words of 5+ letters gain +3 Mult.',
     when: 'score',
     effect({ word, addMult }) { if (word.length >= 5) addMult(3); },
+  },
+  {
+    // The one patron you can hold several of. Each copy arrives loving three
+    // letters of its own, rolled when the Market lays the card out (so you can
+    // see what you're buying), and wears an edition number for a name. Copies
+    // stack: two that love the same letter double it twice — ×4 by design.
+    id: 'monogrammist', name: 'The Monogrammist', emoji: '🪭', rarity: 'common', cost: 4,
+    desc: 'Arrives with three letters of its own; those letters score their Points twice.',
+    when: 'meta',       // fires in scoring's pass 2½ via tileEcho
+    stackable: true,    // never blocked by an owned copy; every copy is its own seat
+    onOffer() {
+      return {
+        letters: shuffle(Object.keys(BAG_COUNTS)).slice(0, 3),
+        num: 1 + Math.floor(Math.random() * 99000),
+      };
+    },
+    tileEcho(tile, data) { return (data.letters ?? []).includes(getActiveLetter(tile)); },
+    instName(data)  { return data?.num ? `Monogrammist № ${data.num.toLocaleString()}` : 'The Monogrammist'; },
+    instShelf(data) { return data?.num ? `№ ${data.num.toLocaleString()}` : 'Monogrammist'; },
+    instDesc(data)  {
+      if (!data?.letters?.length) return 'Arrives with three letters of its own; those letters score their Points twice.';
+      const [a, b, c] = data.letters;
+      return `${a}, ${b} and ${c} score their Points twice.`;
+    },
   },
   {
     id: 'twins', name: 'The Twins', emoji: '👯', rarity: 'common', cost: 4,

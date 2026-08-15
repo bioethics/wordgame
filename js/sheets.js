@@ -138,15 +138,19 @@ const benchLabel = () => {
 function marketShopHTML() {
   const patronCards = market.patronOffers.map((o, i) => {
     const def = patronById(o.id);
+    // A stackable patron's card shows the exact copy on offer — its rolled
+    // letters and its number — so buying one is a choice, not a lottery.
+    const name = def.instName?.(o.data) ?? def.name;
+    const desc = def.instDesc?.(o.data) ?? def.desc;
     return `
       <div class="offer-patron offer-patron--${def.rarity}" data-offer="patron" data-idx="${i}">
         <div class="op-portrait">${def.portrait
-          ? `<img src="${def.portrait}" alt="${def.name}">`
+          ? `<img src="${def.portrait}" alt="${name}">`
           : `<span class="op-emoji">${def.emoji}</span>`}</div>
         <div class="op-card-body">
-          <div class="op-name">${def.name}</div>
+          <div class="op-name">${name}</div>
           <div class="op-title">${def.rarity}</div>
-          <div class="op-desc">${def.desc}</div>
+          <div class="op-desc">${desc}</div>
         </div>
         <span class="op-sold">seated</span>
         <button class="btn-price" data-buy-patron="${def.id}">${coinHTML(def.cost)}</button>
@@ -224,11 +228,13 @@ function marketShopHTML() {
   // a pittance for sundries — the point is freeing the slot, not the coin.
   const heldPatrons = state.patrons.map(p => {
     const def = patronById(p.id);
+    const name = def.instName?.(p.data) ?? def.name;
+    const label = def.instShelf?.(p.data) ?? def.name.replace(/^The /, '');
     return `
-      <button class="held" data-sell-patron="${def.id}"
-              title="Dismiss ${def.name} for ${Math.floor(def.cost / 2)} Coins">
+      <button class="held" data-sell-patron="${p.uid ?? def.id}"
+              title="Dismiss ${name} for ${Math.floor(def.cost / 2)} Coins">
         <span class="held-mark">${def.emoji}</span>
-        <span class="held-name">${def.name.replace(/^The /, '')}</span>
+        <span class="held-name">${label}</span>
         <span class="held-price">✕ ${coinHTML(Math.floor(def.cost / 2))}</span>
       </button>`;
   }).join('');
@@ -680,7 +686,7 @@ function onMarketClick(e) {
     const r = buyPatron(buyP.dataset.buyPatron);
     if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
     else {
-      sfx.coin(); log(`${r.def.name} takes a seat at your table.`, 'good');
+      sfx.coin(); log(`${r.name} takes a seat at your table.`, 'good');
       flyPurchase(card, $('shelf'), { scaleTo: 0.2 });
     }
     renderAll(); updateMarketState();
@@ -732,7 +738,7 @@ function onMarketClick(e) {
     const r = sellPatron(sellP.dataset.sellPatron);
     if (r.ok) {
       sfx.coin();
-      log(`${r.def.name} departs — ${r.refund} Coin${r.refund === 1 ? '' : 's'} back.`);
+      log(`${r.name} departs — ${r.refund} Coin${r.refund === 1 ? '' : 's'} back.`);
       renderAll(); renderMarket();
     }
     return;
