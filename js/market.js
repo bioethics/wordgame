@@ -41,8 +41,12 @@ function buildLetterPool() {
     for (let i = 0; i < Math.max(1, c); i++) pool.push(L);
   }
   // Exclusive letters belong to the patron that makes them and turn up
-  // nowhere else — not in the shop, the draft, or the compost heap.
-  LIGATURES.filter(L => !EXCLUSIVE_LETTERS.includes(L)).forEach(L => pool.push(L, L));
+  // nowhere else — not in the shop, the draft, or the compost heap. QU is both
+  // a ligature and a bag letter, so the loop above has already stocked it;
+  // skip it here rather than serving it three times over.
+  LIGATURES
+    .filter(L => !EXCLUSIVE_LETTERS.includes(L) && !(L in BAG_COUNTS))
+    .forEach(L => pool.push(L, L));
   MARKS.forEach(m => { for (let i = 0; i < MARK_WEIGHT; i++) pool.push(m); });
   return pool;
 }

@@ -13,7 +13,10 @@ export const TILE_POINTS = {
   I:1, J:8, K:5, L:1, M:3, N:1, O:1, P:3,
   QU:10, R:1, S:1, T:1, U:1, V:4, W:4, X:8,
   Y:4, Z:10,
-  ING:4, ED:3, TCH:8,
+  // A ligature scores exactly what its letters would score apart — CH is C+H,
+  // CK is C+K — so it buys you a tile slot, never free points. QU is the one
+  // exception: there's no lone Q to sum from, so it keeps its long-held 10.
+  ING:4, ED:3, CH:7, CK:8, TH:5, WH:8,
   RAT:3,                    // R+A+T, exactly what the three would score apart
   '?':1, '!':1,
 };
@@ -24,8 +27,11 @@ export const BAG_COUNTS = {
   QU:1, R:4, S:4, T:4, U:2, V:1, W:1, X:1, Y:1, Z:1,
 };
 
-// Multi-letter "ligature" tiles — one tile that spells several letters
-export const LIGATURES = ['ING', 'ED', 'TCH', 'RAT'];
+// Multi-letter "ligature" tiles — one tile that spells several letters.
+// Between them they reach every part of a word: WH and TH open one, CK and CH
+// sit in the middle, ED and ING close it off. QU is the odd one out, being also
+// a bag letter — the one ligature every run starts holding.
+export const LIGATURES = ['ING', 'ED', 'CH', 'CK', 'TH', 'WH', 'QU', 'RAT'];
 
 // Letters no shop, draft or heap will ever hand you: they come from one
 // patron and nowhere else. RAT belongs to The Rat Catcher.
