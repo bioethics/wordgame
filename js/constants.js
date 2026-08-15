@@ -298,7 +298,7 @@ export const isImmutable = tile => tile?.material === 'ghost';
 // with their patron, as ever.
 export const GRAFTER_STEP       = 1;      // permanent Points per tile per print
 export const STOKER_STEP        = 0.25;   // permanent ×Mult per crimson tile burned
-export const BEEKEEPER_STEP     = 0.1;    // permanent ×Mult per B printed
+export const BEEKEEPER_STEP     = 0.2;    // permanent ×Mult per B printed
 export const ARSONIST_ODDS      = { paint: 0.10, burn: 0.01 };  // per tile played
 export const NUDIST_TRIM_CHANCE = 0.25;   // per bare letter in an all-bare word
 export const NEOLOGIST_LENGTH   = 6;      // letters in a coined word

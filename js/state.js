@@ -8,7 +8,7 @@ import { CHAPTER_TITLES } from './chapters.js';
 
 const SAVE_KEY     = 'folio_save_v1';
 const SETTINGS_KEY = 'folio_settings_v1';
-const SAVE_VERSION = 10;  // v10: tiles carry a material
+const SAVE_VERSION = 11;  // v11: the Archivist and the Stonemason were cut
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 

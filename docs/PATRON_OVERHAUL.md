@@ -233,6 +233,73 @@ u·6 | **The Nudist** 🧖 | Print a word of entirely bare tiles: each has a 1-i
 r·8 | **The Illuminator** 🎨 | Words holding three paint colours get a fourth: one unpainted letter in them is painted the missing colour, for keeps. | `onPrinted`: if distinct showing-face colours == 3 and an unpainted tile exists, paint a random one the missing colour (write-through). Reuse the sundry paint animation.
 r·10 | **The Stammerer** 🦜 | ×2 Mult for every doubled pair — BALLOON hits twice. | Pure `score` def: count non-overlapping adjacent pairs (AAA counts once, AAAA twice), `xMult(2 ** pairs)`.
 
+## The legacy rebalance (a later pass)
+
+The overhaul established a contract — a multiplier is bought with a condition:
+paint, burns, chapters survived — but the patrons that predated it were never
+brought under it. Four of them handed out multipliers for no build investment
+at all, and two more were priced as rares for conditions that essentially
+never fired. Measured against the 3-7 letter words a rack actually produces:
+
+| Condition | Fires on |
+|---|---|
+| 5+ letters (Scholar) | 87.4% |
+| 7+ letters (Novelist) | 39.0% |
+| doubled pair (Twins, Stammerer) | 19.3% |
+| start = end (Herald) | 6.6% |
+| alphabetical (Cartographer) | 1.1% |
+| palindrome (Mirror, as it was) | **0.24%** |
+| vowelless (Stonemason) | **0.2%** |
+
+**Cut.** The **Stonemason** (0.2%, and flat Points besides) and the
+**Archivist**, whose flat ×2 on a page's first word the Frontispiece could
+never catch — five solo quota clears just to draw level, at four Coins more.
+The Frontispiece inherits the slot at uncommon · 7. Its step stays at 0.1:
+clearing a page on its first word already pays in spare-word Coins, and the
+reward needn't double up. `SAVE_VERSION` went to 11 so seated copies of the
+cut two retire with the save rather than dangling.
+
+**Brought under the contract.** The **Scholar** trades +3 Mult for +5 Points —
+it fired on 87% of words and asked nothing, which made it every run's correct
+first purchase. The **Novelist** goes ×5 → ×2 and rare → uncommon: its
+condition is met whenever a ten-tile rack means it, and it lands on the word
+already carrying the most Points and paint. The **Herald** goes common →
+uncommon, because a ×Mult that asks nothing of your collection does not belong
+at common weight beside the Marbler's ×2 for two azure letters.
+
+**The Mirror, reworked rather than cut.** Palindromes alone were 0.24% and the
+Skimmer cannot rescue them (only 0.3% of words can be Skimmer-arranged into
+one — measured). Reading a word backwards for *another* word adds 1.47%,
+and reaches words worth setting: DEVIL/LIVED, DRAWER/REWARD, STRESSED/
+DESSERTS. Combined 1.72%, which sits beside the Cartographer — so it keeps ×4
+and drops to uncommon · 5. Two-letter words no longer qualify; ON/NO would
+have been a ×4 for nothing.
+
+**The +Points sweep.** An early word is 7-10 base Points and chapters 2-3 ask
+14-49 per word, so a common should boost a word by half to double, not
+quadruple it: Apprentice +20 → +10, Twins +30 → +15, Firebrand +25 → +15,
+Jeweller +6 → +4, Calligrapher +4 → +3, Goldsmith +5 → +4. Left alone: the
+Siren (already modest), the Seedsman (scaling is its design), the
+Monogrammist (self-limiting).
+
+**Rarity, where the effect was fine and the shelf was wrong.** Minimalist rare
+→ common · 5 (its condition *fights* the word — three tiles carry little paint
+and few Points — which is what earns a multiplier at common weight, where the
+Herald's did not); Rat Catcher, Bursar and Closer rare → uncommon · 7; Nudist
+uncommon → common · 4. The Beekeeper's step doubled to 0.2, since one B in the
+bag ended a committed run around ×2.
+
+Roster 56 → 54, and the tiers move from 15/19/22 to **16/23/15**. That was the
+other structural problem: rares are the scarcest offers, so a crowded rare
+tier is the one players see least of. Every rare left is build-defining — the
+pardons, the engines, the registers, the Binder.
+
+**Still watching.** The Typesetter and the Jeweller were both quietly buffed
+when the ligature set grew (six types in the shop pool, and CK/WH/QU all sit
+at 8+ Points). **Stammerer × Skimmer** is the combo to measure next: 19.7% of
+words hold a doubled pair, but 46.7% can be *arranged* into one, which is
+Cartographer × Skimmer all over again at two rare seats.
+
 ## Remaining phases
 
 1. **Phase 1 — score-time patrons.** All "pure `score` def" rows above, plus

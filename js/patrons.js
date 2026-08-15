@@ -48,6 +48,7 @@ import {
   shuffle,
 } from './state.js';
 import { inTheme } from './themes.js';
+import { DICT } from './dict.js';   // The Mirror reads a word backwards against it
 
 const VOWELS = 'AEIOU';
 
@@ -89,15 +90,20 @@ export const PATRON_DEFS = [
   // ── Commons ─────────────────────────────────────────────────────────────────
   {
     id: 'apprentice', name: 'The Apprentice', emoji: '🧹', rarity: 'common', cost: 3,
-    desc: '4-letter words gain +20 Points.',
+    desc: '4-letter words gain +10 Points.',
     when: 'score',
-    effect({ word, addPoints }) { if (word.length === 4) addPoints(20); },
+    effect({ word, addPoints }) { if (word.length === 4) addPoints(10); },
   },
   {
+    // Was +3 Mult, which fired on 87% of words and asked nothing in return —
+    // a ×4 on an unpainted word, for four Coins, at common weight. Points
+    // instead: a median five-letter word is worth 9, so +5 still roughly
+    // doubles it, but it no longer outruns the multiplier patrons that make
+    // you build for them.
     id: 'scholar', name: 'The Scholar', emoji: '📜', rarity: 'common', cost: 4,
-    desc: 'Words of 5+ letters gain +3 Mult.',
+    desc: 'Words of 5+ letters gain +5 Points.',
     when: 'score',
-    effect({ word, addMult }) { if (word.length >= 5) addMult(3); },
+    effect({ word, addPoints }) { if (word.length >= 5) addPoints(5); },
   },
   {
     // The one patron you can hold several of. Each copy arrives loving three
@@ -125,29 +131,9 @@ export const PATRON_DEFS = [
   },
   {
     id: 'twins', name: 'The Twins', emoji: '👯', rarity: 'common', cost: 4,
-    desc: 'Words with a doubled letter (LL, OO…) gain +30 Points.',
+    desc: 'Words with a doubled letter (LL, OO…) gain +15 Points.',
     when: 'score',
-    effect({ word, addPoints }) { if (doubledPairs(word)) addPoints(30); },
-  },
-  {
-    id: 'herald', name: 'The Herald', emoji: '📯', rarity: 'common', cost: 4,
-    desc: 'Words that start and end with the same letter get ×2 Mult.',
-    when: 'score',
-    effect({ word, xMult }) {
-      if (word.length >= 3 && word[0] === word[word.length - 1]) xMult(2);
-    },
-  },
-
-  // ── Uncommons ───────────────────────────────────────────────────────────────
-  {
-    id: 'banker', name: 'The Banker', emoji: '🏦', rarity: 'uncommon', cost: 5,
-    desc: '+2 Coins whenever a page completes.',
-    when: 'meta',
-  },
-  {
-    id: 'overseer', name: 'The Overseer', emoji: '📋', rarity: 'rare', cost: 9,
-    desc: 'Print one more word each page.',
-    when: 'meta',   // read by effectiveWordsPerPage in js/state.js
+    effect({ word, addPoints }) { if (doubledPairs(word)) addPoints(15); },
   },
   {
     id: 'izzard', name: 'The Izzard', emoji: '⚡', rarity: 'common', cost: 4,
@@ -155,6 +141,23 @@ export const PATRON_DEFS = [
     // corner of the type case because nothing ever needed it.
     desc: 'Any Z you play may be read as an S — and still scores as a Z.',
     when: 'meta',   // consulted at the dictionary check in main.js
+  },
+  {
+    // A multiplier at common weight, which the Herald was not allowed to be —
+    // but this one fights the word instead of feeding it. Three tiles carry
+    // little paint and few Points, so the ×3 lands on a small base and the
+    // build has to work for it. Cursed metal is where it gets frightening.
+    id: 'minimalist', name: 'The Minimalist', emoji: '🪶', rarity: 'common', cost: 5,
+    desc: '3-letter words get ×3 Mult.',
+    when: 'score',
+    effect({ word, xMult }) { if (word.length === 3) xMult(3); },
+  },
+
+  // ── Uncommons ───────────────────────────────────────────────────────────────
+  {
+    id: 'banker', name: 'The Banker', emoji: '🏦', rarity: 'uncommon', cost: 5,
+    desc: '+2 Coins whenever a page completes.',
+    when: 'meta',
   },
   {
     id: 'quartermaster', name: 'The Quartermaster', emoji: '🎒', rarity: 'uncommon', cost: 5,
@@ -172,34 +175,20 @@ export const PATRON_DEFS = [
   },
   {
     id: 'jeweller', name: 'The Jeweller', emoji: '💎', rarity: 'uncommon', cost: 6,
-    desc: 'Tiles worth 8+ Points gain a further +6.',
+    desc: 'Tiles worth 8+ Points gain a further +4.',
     when: 'score',
     effect({ tiles, addPoints }) {
       const n = tiles.filter(t => (t.basePoints ?? 0) >= 8).length;
-      if (n) addPoints(n * 6);
+      if (n) addPoints(n * 4);
     },
-  },
-  {
-    id: 'stonemason', name: 'The Stonemason', emoji: '🗿', rarity: 'uncommon', cost: 6,
-    desc: 'Vowelless words gain +35 Points.',
-    when: 'score',
-    effect({ word, addPoints }) {
-      if (word.length >= 2 && ![...word].some(c => VOWELS.includes(c))) addPoints(35);
-    },
-  },
-  {
-    id: 'archivist', name: 'The Archivist', emoji: '🗃️', rarity: 'uncommon', cost: 6,
-    desc: 'The first word on each page gets ×2 Mult.',
-    when: 'score',
-    effect({ state, xMult }) { if (state.wordsPrinted === 0) xMult(2); },
   },
   {
     id: 'calligrapher', name: 'The Calligrapher', emoji: '✒️', rarity: 'uncommon', cost: 7,
-    desc: 'Each painted letter gains +4 Points.',
+    desc: 'Each painted letter gains +3 Points.',
     when: 'score',
     effect({ tiles, addPoints }) {
       const n = tiles.filter(t => (t.activeVariant === 1 ? t.altColour : t.colour)).length;
-      if (n) addPoints(n * 4);
+      if (n) addPoints(n * 3);
     },
   },
   {
@@ -207,33 +196,58 @@ export const PATRON_DEFS = [
     desc: 'Gold-trimmed tiles pay double Coins.',
     when: 'meta',   // read directly during scoring of gold trims
   },
+  {
+    // Down from common: a multiplier that asks nothing of your collection
+    // belongs a shelf higher, beside the Marbler's ×2 for two azure letters.
+    id: 'herald', name: 'The Herald', emoji: '📯', rarity: 'uncommon', cost: 6,
+    desc: 'Words that start and end with the same letter get ×2 Mult.',
+    when: 'score',
+    effect({ word, xMult }) {
+      if (word.length >= 3 && word[0] === word[word.length - 1]) xMult(2);
+    },
+  },
+  {
+    // Palindromes alone were 0.24% of playable words — a rare that never
+    // fired. Reading backwards for *another* word (DEVIL/LIVED, DRAWER/
+    // REWARD) adds 1.47% more, and reaches words worth setting. Two letters
+    // no longer qualify: ON/NO would have been a ×4 for nothing.
+    id: 'mirror', name: 'The Mirror', emoji: '🪞', rarity: 'uncommon', cost: 5,
+    desc: 'Words that spell another word backwards — or themselves — get ×4 Mult.',
+    when: 'score',
+    effect({ word, xMult }) {
+      if (word.length < 3) return;
+      const back = [...word].reverse().join('');
+      if (back === word || DICT.has(back)) xMult(4);
+    },
+  },
+  {
+    id: 'closer', name: 'The Closer', emoji: '🌒', rarity: 'uncommon', cost: 7,
+    desc: 'The final word of each page gets ×3 Mult.',
+    when: 'score',
+    effect({ state, xMult }) { if (state.wordsLeft === 1) xMult(3); },
+  },
+  {
+    // Was ×5 at rare — the largest multiplier in the game on a condition a
+    // ten-tile rack meets whenever it means to, landing on the word that
+    // already carries the most Points and the most paint. ×2 is the honest
+    // size of it.
+    id: 'novelist', name: 'The Novelist', emoji: '🖋️', rarity: 'uncommon', cost: 7,
+    desc: 'Words of 7+ letters get ×2 Mult.',
+    when: 'score',
+    effect({ word, xMult }) { if (word.length >= 7) xMult(2); },
+  },
 
   // ── Rares ───────────────────────────────────────────────────────────────────
   {
-    id: 'minimalist', name: 'The Minimalist', emoji: '🪶', rarity: 'rare', cost: 8,
-    desc: '3-letter words get ×3 Mult.',
-    when: 'score',
-    effect({ word, xMult }) { if (word.length === 3) xMult(3); },
+    id: 'overseer', name: 'The Overseer', emoji: '📋', rarity: 'rare', cost: 9,
+    desc: 'Print one more word each page.',
+    when: 'meta',   // read by effectiveWordsPerPage in js/state.js
   },
   {
     id: 'astronomer', name: 'The Astronomer', emoji: '🔭', rarity: 'rare', cost: 9,
     desc: '+1 Mult for each word already printed this page.',
     when: 'score',
     effect({ state, addMult }) { if (state.wordsPrinted > 0) addMult(state.wordsPrinted); },
-  },
-  {
-    id: 'closer', name: 'The Closer', emoji: '🌒', rarity: 'rare', cost: 9,
-    desc: 'The final word of each page gets ×3 Mult.',
-    when: 'score',
-    effect({ state, xMult }) { if (state.wordsLeft === 1) xMult(3); },
-  },
-  {
-    id: 'mirror', name: 'The Mirror', emoji: '🪞', rarity: 'rare', cost: 12,
-    desc: 'Palindromes get ×4 Mult.',
-    when: 'score',
-    effect({ word, xMult }) {
-      if (word.length >= 2 && word === [...word].reverse().join('')) xMult(4);
-    },
   },
   {
     id: 'cartographer', name: 'The Cartographer', emoji: '🗺️', rarity: 'rare', cost: 12,
@@ -245,12 +259,6 @@ export const PATRON_DEFS = [
       xMult(3);
     },
   },
-  {
-    id: 'novelist', name: 'The Novelist', emoji: '🖋️', rarity: 'rare', cost: 12,
-    desc: 'Words of 7+ letters get ×5 Mult.',
-    when: 'score',
-    effect({ word, xMult }) { if (word.length >= 7) xMult(5); },
-  },
 
   // ══ The Colour Guilds ═══════════════════════════════════════════════════════
   // Paint is the heart of the score — Mult is the product of the colour
@@ -260,11 +268,11 @@ export const PATRON_DEFS = [
   // ── Amber · the counting-house ──────────────────────────────────────────────
   {
     id: 'goldsmith', name: 'The Goldsmith', emoji: '🪙', rarity: 'common', cost: 4,
-    desc: 'Amber letters gain +5 Points.',
+    desc: 'Amber letters gain +4 Points.',
     when: 'score',
     effect({ tiles, addPoints }) {
       const n = painted(tiles, 'amber').length;
-      if (n) addPoints(n * 5);
+      if (n) addPoints(n * 4);
     },
   },
   dyePatron('weld', 'The Weld', '🌼', 'amber'),
@@ -283,7 +291,7 @@ export const PATRON_DEFS = [
     when: 'meta',   // the guarantee is in rollOffers, the price in offerPrice — js/market.js
   },
   {
-    id: 'bursar', name: 'The Bursar', emoji: '💰', rarity: 'rare', cost: 8,
+    id: 'bursar', name: 'The Bursar', emoji: '💰', rarity: 'uncommon', cost: 7,
     desc: 'Words with an amber letter gain +1 Mult for every 5 Coins you hold (max +5).',
     when: 'score',
     effect({ tiles, state, addMult }) {
@@ -331,10 +339,10 @@ export const PATRON_DEFS = [
   // ── Crimson · sacrifice and fire ────────────────────────────────────────────
   {
     id: 'firebrand', name: 'The Firebrand', emoji: '❤️‍🔥', rarity: 'common', cost: 4,
-    desc: 'Words with 2 or more crimson letters gain +25 Points.',
+    desc: 'Words with 2 or more crimson letters gain +15 Points.',
     when: 'score',
     effect({ tiles, addPoints }) {
-      if (painted(tiles, 'crimson').length >= 2) addPoints(25);
+      if (painted(tiles, 'crimson').length >= 2) addPoints(15);
     },
   },
   dyePatron('madder', 'The Madder', '🌺', 'crimson'),
@@ -358,7 +366,7 @@ export const PATRON_DEFS = [
     },
   },
   {
-    id: 'ratcatcher', name: 'The Rat Catcher', emoji: '🐀', rarity: 'rare', cost: 10,
+    id: 'ratcatcher', name: 'The Rat Catcher', emoji: '🐀', rarity: 'uncommon', cost: 7,
     desc: 'Every page begins with a RAT tile in hand, painted at random. It is yours for good.',
     when: 'meta',
     // RAT is a ligature worth 3 Points — exactly what R, A and T score apart —
@@ -441,7 +449,7 @@ export const PATRON_DEFS = [
   },
   {
     id: 'beekeeper', name: 'The Beekeeper', emoji: '🐝', rarity: 'uncommon', cost: 6,
-    desc: 'Every B you print permanently raises this patron\'s Mult by 0.1.',
+    desc: `Every B you print permanently raises this patron's Mult by ${BEEKEEPER_STEP}.`,
     when: 'score',
     // Like The Stoker: the count grows as the word commits, so the bees you
     // just caught pay from the next word on.
@@ -458,7 +466,7 @@ export const PATRON_DEFS = [
     },
   },
   {
-    id: 'nudist', name: 'The Nudist', emoji: '🧖', rarity: 'uncommon', cost: 6,
+    id: 'nudist', name: 'The Nudist', emoji: '🧖', rarity: 'common', cost: 4,
     desc: 'In a word where no tile has paint, a trim or a nick, each tile has a 1-in-4 chance of gaining a random trim.',
     when: 'meta',
     onPrinted({ tiles, trim }) {
@@ -490,10 +498,11 @@ export const PATRON_DEFS = [
     },
   },
   {
-    // The Archivist's growing cousin: it opens weaker (×1.5 to the flat ×2)
-    // but every page whose first word clears the quota alone feeds it, with
-    // no ceiling. Seating both is an intended-strong two-seat build.
-    id: 'frontispiece', name: 'The Frontispiece', emoji: '🖼️', rarity: 'rare', cost: 10,
+    // Now the only patron that pays on a page's first word — the Archivist,
+    // whose flat ×2 it could never catch, has been cut. The step stays small
+    // deliberately: clearing a page on its first word already pays, in spare-
+    // word Coins, so this needn't double up on the reward.
+    id: 'frontispiece', name: 'The Frontispiece', emoji: '🖼️', rarity: 'uncommon', cost: 7,
     desc: `The first word of each page gets ×${FRONTISPIECE.base} Mult — +${FRONTISPIECE.step} more, for good, each time that word clears the quota alone.`,
     when: 'score',
     effect({ state, data, xMult }) {

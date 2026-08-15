@@ -160,7 +160,7 @@ growing, painting) or as a chapter turns (the dye commons), not just while it
 scores. While you compose, the shelf shows its hand: every patron whose
 condition the word already meets wakes up — rising, breathing a candlelit
 glow, catching a slow sweep of gold leaf — and wears a badge of exactly what
-it stands to add (+20 Points, ×3 Mult). The ones sitting this word out dim
+it stands to add (+10 Points, ×3 Mult). The ones sitting this word out dim
 out of the way, and a badge whose number moves as you add letters bumps
 rather than silently swapping. It reads off the same score script as the
 readout, so what a patron promises is what it pays when it fires.
