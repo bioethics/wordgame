@@ -41,7 +41,7 @@
 import {
   GRAFTER_STEP, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS, NUDIST_TRIM_CHANCE,
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, COMPOST_PER_MARKET,
-  BAG_COUNTS,
+  BAG_COUNTS, FRONTISPIECE,
 } from './constants.js';
 import {
   getActiveColour, getActiveLetter, countsAsColour, luckyRoll, paintRandomFaces,
@@ -487,6 +487,30 @@ export const PATRON_DEFS = [
       if (!paint(target, missing)) return null;
       return { note: `${getActiveLetter(target)} illuminated ${COLOURS[missing].label.toLowerCase()}` };
     },
+  },
+  {
+    // The Archivist's growing cousin: it opens weaker (×1.5 to the flat ×2)
+    // but every page whose first word clears the quota alone feeds it, with
+    // no ceiling. Seating both is an intended-strong two-seat build.
+    id: 'frontispiece', name: 'The Frontispiece', emoji: '🖼️', rarity: 'rare', cost: 10,
+    desc: `The first word of each page gets ×${FRONTISPIECE.base} Mult — +${FRONTISPIECE.step} more, for good, each time that word clears the quota alone.`,
+    when: 'score',
+    effect({ state, data, xMult }) {
+      if (state.wordsPrinted !== 0) return;
+      xMult(Math.round((FRONTISPIECE.base + (data?.steps ?? 0) * FRONTISPIECE.step) * 100) / 100);
+    },
+    onPrinted({ state, script, data }) {
+      if (state.wordsPrinted !== 1) return null;      // only the page's first word
+      if (script.total < state.quota) return null;    // and only when it cleared the page alone
+      data.steps = (data.steps ?? 0) + 1;
+      const next = Math.round((FRONTISPIECE.base + data.steps * FRONTISPIECE.step) * 100) / 100;
+      return { note: `cleared alone — ×${next} from the next page` };
+    },
+  },
+  {
+    id: 'stenographer', name: 'The Stenographer', emoji: '📟', rarity: 'uncommon', cost: 6,
+    desc: 'Common acronyms and abbreviations count as words: LOL, BRB, WTF and the rest.',
+    when: 'meta',   // consulted at the dictionary check in main.js; the list lives in js/acronyms.js
   },
   {
     id: 'stammerer', name: 'The Stammerer', emoji: '🦜', rarity: 'rare', cost: 10,

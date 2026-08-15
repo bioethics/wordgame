@@ -222,6 +222,8 @@ bigger step than the last and a built press has to multiply rather than add:
 | Patron tuning that reaches beyond a score (growth steps, burn odds, trim chance, dye count, coined-word length) | `js/constants.js` → `GRAFTER_STEP`, `STOKER_STEP`, `ARSONIST_ODDS`, `NUDIST_TRIM_CHANCE`, `DYE_TILES_PER_CHAPTER`, `NEOLOGIST_LENGTH` |
 | Animation step timings | `js/constants.js` → `ANIM` (all divided by the Settings speed slider) |
 | Chapter titles | `js/chapters.js` — a flat array, add as many as you like; each run draws its own and won't repeat until the list runs out |
+| The Stenographer's acronyms | `js/acronyms.js` — a flat array; letters only, and no lone Q (the press has no Q sort to set it with) |
+| The Frontispiece's opening multiplier & growth | `js/constants.js` → `FRONTISPIECE` |
 
 ## Architecture
 

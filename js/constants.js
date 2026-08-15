@@ -298,6 +298,10 @@ export const DYE_TILES_PER_CHAPTER = 2;   // tiles painted by a dye patron at ch
 export const COMPOST_HEAP_MAX = 6;        // tiles the heap can hold at once
 export const COMPOST_PER_MARKET = 1;      // how many you may take on a visit
 
+// The Frontispiece: the first word of a page starts at ×base, and every page
+// that word clears the whole quota by itself, the multiplier grows by +step.
+export const FRONTISPIECE = { base: 1.5, step: 0.1 };
+
 // ─── Tile-template factory ────────────────────────────────────────────────────
 export function makeTileTemplate(letter, overrides = {}) {
   return {

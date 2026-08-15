@@ -18,6 +18,11 @@ import {
   chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks,
 } from './constants.js';
 import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
+import { ACRONYMS } from './acronyms.js';
+
+// The Stenographer's lexicon, checked before the pardons: these entries are
+// legitimate in their own right, not misspellings of something else.
+const ACRONYM_SET = new Set(ACRONYMS.map(a => a.toUpperCase()));
 import { computeScore, computeReward } from './scoring.js';
 import { openMarket, restoreMarket, closeMarket, sellPatron } from './market.js';
 import {
@@ -314,9 +319,14 @@ async function submitWord() {
   if (!parts)          return reject('Marks go last, as ? or ! or ?!.');
   if (!parts.letters)  return reject('A mark needs a word in front of it.');
   let pardoned = null;
+  let vouched = false;
   if (!DICT.has(parts.letters)) {
-    pardoned = pardonWord(parts.letters);
-    if (!pardoned) return reject(`“${w}” isn't in the dictionary.`);
+    if (owns('stenographer') && ACRONYM_SET.has(parts.letters)) {
+      vouched = true;
+    } else {
+      pardoned = pardonWord(parts.letters);
+      if (!pardoned) return reject(`“${w}” isn't in the dictionary.`);
+    }
   }
 
   state.isAnimating = true;
@@ -444,6 +454,7 @@ async function submitWord() {
     const def = patronById(pardoned.id);
     msg += `  ${def.emoji} ${def.name} lets it stand for ${pardoned.stands}.`;
   }
+  if (vouched) msg += `  📟 The Stenographer vouches for it.`;
   log(msg, 'good');
 
   // Tiles fly to wherever they actually went
