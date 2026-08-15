@@ -514,6 +514,14 @@ export const PATRON_DEFS = [
     when: 'meta',   // consulted at the dictionary check in main.js; the list lives in wordlists-themed/acronyms.txt
   },
   {
+    // Not a misspelling like the three excuses below — nothing has gone wrong
+    // here. It licenses a construction: the compound noun, which English makes
+    // freely and dictionaries only ever catch up with.
+    id: 'binder', name: 'The Binder', emoji: '🔗', rarity: 'rare', cost: 12,
+    desc: 'Any two nouns stacked together count as a word: DOOM and HAT make DOOMHAT.',
+    when: 'meta',   // consulted at the dictionary check in main.js; the list lives in wordlists-themed/nouns.txt
+  },
+  {
     id: 'stammerer', name: 'The Stammerer', emoji: '🦜', rarity: 'rare', cost: 10,
     desc: '×2 Mult for every doubled letter in the word — BALLOON pays twice.',
     when: 'score',

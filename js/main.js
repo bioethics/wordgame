@@ -200,14 +200,31 @@ function izzardPardon(letters) {
   return null;
 }
 
+// Two nouns set end to end make a word of their own — DOOM and HAT make
+// DOOMHAT. Every split is tried, and the pardon names both halves so the log
+// can show its working. Three letters is the shortest noun on the list, so a
+// compound under six can't exist.
+function binderPardon(letters) {
+  const nouns = THEME_SETS.nouns;
+  if (!nouns.size || letters.length < 6) return null;
+  for (let i = 3; i <= letters.length - 3; i++) {
+    const head = letters.slice(0, i), tail = letters.slice(i);
+    if (nouns.has(head) && nouns.has(tail)) return `${head} + ${tail}`;
+  }
+  return null;
+}
+
 // The excuses a word can call on when the dictionary turns it away, tried in
 // order and credited to whoever saved it. None of them change the word: what
-// you set is what prints, in the manuscript and the ledger both.
+// you set is what prints, in the manuscript and the ledger both. The Binder
+// goes last: where a word could be read as either, a plain misspelling is the
+// likelier story than a coinage.
 const PARDONS = [
   { id: 'izzard',     find: izzardPardon },
   { id: 'titivillus', find: titivillusPardon },
   { id: 'stumbler',   find: stumblerPardon },
   { id: 'skimmer',    find: scrambleMatch },
+  { id: 'binder',     find: binderPardon },
 ];
 
 function pardonWord(letters) {

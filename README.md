@@ -94,6 +94,11 @@ of adjacent letters swapped (TEH for THE); *the Skimmer* takes the middle
 letters in any order, provided the first and last are right. Your book fills
 with misprints, which is the point of them.
 
+**Compounds** — *the Binder* is a fourth pardon of a different kind: nothing has
+gone wrong, it simply licenses a construction English makes freely. Any two
+nouns set end to end count as a word, so DOOM and HAT make DOOMHAT. The nouns
+it knows are a flat list in `wordlists-themed/nouns.txt` — edit it freely.
+
 **Marks** — `?` and `!` are tiles that spell nothing. A mark is appended to a
 finished word: one `?`, or one `!`, or the two together as `?!` — never
 doubled, never reversed, never mid-word. The dictionary only ever sees the

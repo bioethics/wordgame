@@ -4,9 +4,11 @@
 // new list, drop the file in the folder and give it a line in THEME_FILES.
 //
 // Four lists back the register patrons (the Sexton, the Paramour, the Poppet,
-// the Vulgarian); the acronyms list backs the Stenographer. A word only ever
-// scores if the dictionary (or a pardon) lets it through first, so list
-// entries the dictionary lacks are harmless — they just never come up.
+// the Vulgarian); the acronyms list backs the Stenographer, and the nouns list
+// The Binder. A word only ever scores if the dictionary (or a pardon) lets it
+// through first, so list entries the dictionary lacks are harmless — they just
+// never come up. (The nouns list is itself read by a pardon, so it is the one
+// list that can put a word through the door rather than only paying for it.)
 //
 // A bundled build (single-file/artifact) embeds the lists as
 // window.FOLIO_THEMES = { cute: "text…", … }, which is checked first —
@@ -18,6 +20,7 @@ export const THEME_FILES = {
   rude:     'wordlists-themed/theme-rude.txt',
   spooky:   'wordlists-themed/theme-spooky.txt',
   acronyms: 'wordlists-themed/acronyms.txt',
+  nouns:    'wordlists-themed/nouns.txt',
 };
 
 export const THEME_SETS = Object.fromEntries(
