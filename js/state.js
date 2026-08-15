@@ -142,6 +142,8 @@ export const state = {
 
 // ─── Effective sizes ────────────────────────────────────────────────────────
 // Base constants plus whatever the Colophon has permanently granted this run.
+export const effectiveWordsPerPage = () =>
+  WORDS_PER_PAGE + (owns('overseer') ? 1 : 0) + (state.upgradeCounts?.words ?? 0);
 export const effectiveRackSize    = () => RACK_SIZE    + (state.upgradeCounts?.handSize     ?? 0);
 export const effectivePatronSlots = () => PATRON_SLOTS + (state.upgradeCounts?.patronSeat    ?? 0);
 export const effectiveSundrySlots = () => SUNDRY_SLOTS + (state.upgradeCounts?.workbenchSlot ?? 0);
@@ -256,7 +258,7 @@ export function startPage() {
   state.quota        = quotaFor(state.chapter, state.page);
   state.pageScore    = 0;
   state.wordsPrinted = 0;
-  state.wordsLeft    = WORDS_PER_PAGE;
+  state.wordsLeft    = effectiveWordsPerPage();
   state.discardsMax = DISCARDS_PER_PAGE + (owns('quartermaster') ? 1 : 0) + (state.upgradeCounts?.discard ?? 0);
   state.discards    = state.discardsMax;
   state.discardMode = false;

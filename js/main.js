@@ -10,10 +10,11 @@ import {
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected,
   getActiveColour, getActiveLetter, growTile, paintTile, trimTile,
   trashFromCollection, castMaterialTile, castTile, chapterTitle,
+  effectiveWordsPerPage,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES, tileCount,
-  WORDS_PER_PAGE, REACTION, NEOLOGIST_LENGTH, MATERIALS,
+  REACTION, NEOLOGIST_LENGTH, MATERIALS,
   chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks,
 } from './constants.js';
 import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
@@ -120,7 +121,7 @@ function cancelSundryMode(quiet = false) {
 // Self-scaling: the word is judged against the page's own quota, so the
 // curve holds across chapters and the appendices. Knobs live in REACTION.
 function reactionChance(script) {
-  const perWordQuota = state.quota / WORDS_PER_PAGE;
+  const perWordQuota = state.quota / effectiveWordsPerPage();
   const ratio = script.total / Math.max(1, perWordQuota);
   return Math.max(0, Math.min(REACTION.cap, (ratio - REACTION.floor) * REACTION.slope));
 }
@@ -181,10 +182,27 @@ function stumblerPardon(letters) {
   return null;
 }
 
+// Any combination of the word's Zs may be read as S — usually there is only
+// one Z in the bag, so this is a handful of lookups at most. The tile is still
+// a Z where it counts: it prints as Z and scores its ten Points.
+function izzardPardon(letters) {
+  const at = [];
+  for (let i = 0; i < letters.length; i++) if (letters[i] === 'Z') at.push(i);
+  if (!at.length) return null;
+  for (let mask = 1; mask < (1 << at.length); mask++) {
+    const out = [...letters];
+    at.forEach((pos, bit) => { if (mask & (1 << bit)) out[pos] = 'S'; });
+    const fixed = out.join('');
+    if (DICT.has(fixed)) return fixed;
+  }
+  return null;
+}
+
 // The excuses a word can call on when the dictionary turns it away, tried in
 // order and credited to whoever saved it. None of them change the word: what
 // you set is what prints, in the manuscript and the ledger both.
 const PARDONS = [
+  { id: 'izzard',     find: izzardPardon },
   { id: 'titivillus', find: titivillusPardon },
   { id: 'stumbler',   find: stumblerPardon },
   { id: 'skimmer',    find: scrambleMatch },

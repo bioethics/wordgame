@@ -4,7 +4,7 @@
 
 import {
   state, settings, saveState, getActiveLetter, getActiveColour, selectedCount,
-  effectivePatronSlots, effectiveSundrySlots, chapterTitle,
+  effectivePatronSlots, effectiveSundrySlots, effectiveWordsPerPage, chapterTitle,
 } from './state.js';
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
@@ -422,7 +422,7 @@ function renderStatus() {
   }
   $('quotaCard')?.classList.toggle('quota-card--deadline', deadline);
 
-  renderPips('wordPips', WORDS_PER_PAGE, state.wordsLeft, 'pip--word');
+  renderPips('wordPips', Math.max(effectiveWordsPerPage(), state.wordsLeft), state.wordsLeft, 'pip--word');
   const dMax = Math.max(state.discardsMax ?? 2, state.discards);
   renderPips('discardPips', dMax, state.discards, 'pip--swap');
 

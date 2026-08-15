@@ -144,6 +144,18 @@ export const PATRON_DEFS = [
     when: 'meta',
   },
   {
+    id: 'overseer', name: 'The Overseer', emoji: '📋', rarity: 'rare', cost: 9,
+    desc: 'Print one more word each page.',
+    when: 'meta',   // read by effectiveWordsPerPage in js/state.js
+  },
+  {
+    id: 'izzard', name: 'The Izzard', emoji: '⚡', rarity: 'common', cost: 4,
+    // "Izzard" is the old English name for Z, the letter kept in the far
+    // corner of the type case because nothing ever needed it.
+    desc: 'Any Z you play may be read as an S — and still scores as a Z.',
+    when: 'meta',   // consulted at the dictionary check in main.js
+  },
+  {
     id: 'quartermaster', name: 'The Quartermaster', emoji: '🎒', rarity: 'uncommon', cost: 5,
     desc: 'Begin each page with an extra Discard.',
     when: 'meta',
