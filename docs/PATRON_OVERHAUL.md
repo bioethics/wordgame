@@ -62,12 +62,23 @@ cast by a 4-Coin **ingot** sundry. Two design decisions worth recording:
   size), and has the better fiction — there's no impression to cast from.
   `isImmutable` in `constants.js` is the single guard, checked by
   `paintTile`/`trimTile`/`growTile`, every proposal stall's `eligible`, the
-  Painter, the Stereotyper and the Restorer.
+  Painter and the Stereotyper. (The Restorer, also guarded by it, has since
+  been cut from the stall roster.)
 
 Watchpoints: cursed tiles compound (×9 for two, ×27 for three) and are
-permanent, bounded only by clogging a hand you can't discard from; and the
-Stoker burns rainbow tiles, which is consistent but is the one pairing to
-warn players about.
+permanent; and the Stoker burns rainbow tiles, which is consistent but is the
+one pairing to warn players about.
+
+**Cursed metal was reworked after playtest.** It used to be undiscardable —
+"the only way out of your hand is to play it" — which could strand a hand that
+held one it had no word for, with no way to be rid of it and no way to score:
+a soft-lock. It now discards like anything else, and instead levies
+`CURSED_PENALTY` (666) Points on every word set while it waits in the rack,
+once per curse. That is Points rather than Mult, so it lands before the
+multipliers and a well-built word can outrun a single curse; two is another
+matter. The toll rides the score script as a step with no seat of its own, so
+the print cinematic floats it over the word (`fl-curse`) rather than passing
+over it in silence.
 
 ### Three later patrons, and what they needed from the engine
 

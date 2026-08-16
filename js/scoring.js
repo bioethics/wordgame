@@ -1,6 +1,6 @@
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, PURPLE_TRIM_STEP, REWARD, CURSED_MULT,
-  isDeadline, splitMarks,
+  CURSED_PENALTY, isDeadline, splitMarks,
 } from './constants.js';
 import { PATRON_DEFS, patronById } from './patrons.js';
 import { state, owns, getActiveLetter, getActiveColour, returnsToBag } from './state.js';
@@ -164,6 +164,22 @@ export function computeScore(wordTiles) {
   for (const p of state.patrons) {
     const def = patronById(p.id);
     if (def?.when === 'score') { current = p.id; ctx.data = p.data ?? {}; def.effect(ctx); }
+  }
+
+  // ── Pass 4¼: curses left in the hand ───────────────────────────────────────
+  // A cursed tile you didn't set takes its due from the word you set instead —
+  // once for each one still waiting in the rack. This is Points, not Mult, so
+  // it lands before the multipliers and a well-built word can still outrun a
+  // single curse; two is another matter. The tile can be discarded now, and
+  // this is the reason to bother.
+  const cursesInHand = state.rack.filter(t => t.material === 'cursed').length;
+  if (cursesInHand) {
+    const toll = cursesInHand * CURSED_PENALTY;
+    points -= toll;
+    patronSteps.push({
+      id: 'cursed', text: `−${toll} Points — ${cursesInHand > 1 ? 'curses' : 'a curse'} left in hand`,
+      points: -toll,
+    });
   }
 
   // ── Pass 4½: the Alderman counts the guilds at his table ───────────────────

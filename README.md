@@ -74,9 +74,10 @@ of something stranger, straight into your hand and into your collection for
 good. The material sits *under* everything else, so a cursed or rainbow tile
 still takes paint, trims and nicks like any other.
 
-- **Cursed** (hellbox iron) — ×3 Mult when printed, and it can never be
-  discarded: the only way out of your hand is to play it. Never cast on an
-  expensive letter, and two in one word compound to ×9.
+- **Cursed** (hellbox iron) — ×3 Mult when printed, and while it waits in your
+  hand every word you set *without* it loses 666 Points, once per curse. It
+  discards like any other tile; the toll is simply the price of ignoring it.
+  Never cast on an expensive letter, and two in one word compound to ×9.
 - **Ghost** (ghost metal) — holds no place in your hand, so you effectively
   draw one more; but nothing can ever be done to it. No paint, no trim, no
   nick, no second letter, no growth, and the Stereotyper can't copy it —
@@ -118,7 +119,7 @@ coins, once you've printed a page and know what the press needs.
 
 **The Market** (between pages) keeps a fixed layout with churning contents:
 3 patrons, 4 tiles, 2 **sundries**, and 2 **stalls** drawn from a roster of
-seven. *New offers* re-rolls everything — patrons, tiles, sundries, and a fresh
+six. *New offers* re-rolls everything — patrons, tiles, sundries, and a fresh
 pair of stalls with their doubling-price reset — and its own price doubles
 with each press. Tiles live in your **collection**; each page the whole
 collection shuffles into the **bag**, and printed or discarded tiles wait in
@@ -139,8 +140,8 @@ The heap holds the freshest six, older rot is turned under, and you may lift
 one free of charge each visit.
 
 **Stalls** are services: the **Smelter** (trash a tile), the **Painter**
-(paint any letter a colour of your choice), the **Stereotyper** (clone any
-tile), and the **Restorer** (strip a tile back to bare metal). Three more are
+(paint any letter a colour of your choice), and the **Stereotyper** (clone any
+tile). Three more are
 *proposal stalls* — they lay out a spread of six of your own tiles, each
 paired with a proposed change, and you commission the one you like: the
 **Gilder** offers trims, the **Punchcutter** cuts a second letter into a tile

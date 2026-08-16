@@ -1200,16 +1200,31 @@ button.sundry:hover { transform: translateY(-2px); }
 /* The band repeats on a short pitch so every tile shows the whole spectrum,
    whatever its size — a percentage gradient would give each tile a single
    pale slice and the set would read as mismatched pastels, not as rainbow. */
+/* The drift below slides this wash sideways for ever, which asks two things of
+   the pattern that the original angle could not give.
+   1. The step must equal one *horizontal* period. Bands repeat along their own
+      108° axis, and a sideways step only advances them by its projection onto
+      that axis — the old keyframe stepped 77px, the axial period, which moves
+      the pattern just 77·sin(108°) = 73.23px and so snapped back 3.77px once a
+      cycle.  Sideways period is P/sin θ.
+   2. The image must tile onto itself, or the wash meets its own edge mid-band
+      and drags a seam across the tile. That needs background-size set to one
+      lattice cell — P/sin θ across by P/|cos θ| down — in WHOLE pixels, since
+      tiling is snapped to the device grid and fractions desynchronise it.
+   Both fall out of choosing the angle so |tan θ| = 3, which makes the cell
+   81 × 243. That is 108.435°, half a degree off the original — the same
+   diagonal to the eye, and now the loop closes exactly. */
 .tile--mat-rainbow {
-  background: repeating-linear-gradient(108deg,
-    #ffc9c0 0px, #ffdca8 11px, #fbf29c 22px, #b9edb4 33px,
-    #a9dcff 44px, #cfc0ff 55px, #ffc2e6 66px, #ffc9c0 77px);
+  background: repeating-linear-gradient(108.435deg,
+    #ffc9c0 0px, #ffdca8 10.978px, #fbf29c 21.955px, #b9edb4 32.933px,
+    #a9dcff 43.91px, #cfc0ff 54.888px, #ffc2e6 65.866px, #ffc9c0 76.843px);
   border-color: rgba(120, 90, 140, 0.55);
+  background-size: 81px 243px;
   animation: rainbowDrift calc(6s / var(--aspd)) linear infinite;
 }
 @keyframes rainbowDrift {
   0%   { background-position: 0 0; }
-  100% { background-position: 77px 0; }
+  100% { background-position: 81px 0; }   /* exactly one cell — repaints the start */
 }
 .tile--mat-rainbow .tile-letter,
 .tile--mat-rainbow .tile-pts,
@@ -1247,7 +1262,9 @@ button.sundry:hover { transform: translateY(-2px); }
   box-shadow: 0 0 16px rgba(255, 112, 102, 0.5), 0 6px 12px rgba(0,0,0,0.4);
 }
 
-/* Tiles a stall has no use for (the Restorer and bare metal) */
+/* Tiles a stall has no use for. Nothing sets this at present — the Restorer,
+   which greyed out already-bare tiles, is gone — but the click guard in
+   sheets.js still honours it, so a future stall can lock a tile for free. */
 .tile--stall-locked {
   opacity: 0.35;
   cursor: default;
@@ -1447,6 +1464,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .fl-mult   { color: var(--pressred); }
 .fl-aura   { color: var(--brass-hi); }
 .fl-coin    { color: var(--brass-hi); font-size: 18px; }
+.fl-curse   { color: #ff7a66; font-size: 19px; font-weight: 800; text-shadow: 0 0 8px rgba(201, 60, 45, 0.65); }
 .fl-refresh { color: #f0a86e; font-size: 17px; }
 .fl-return  { color: #b9e3ff; font-size: 17px; }
 .fl-set   { font-size: 19px; }
@@ -2106,7 +2124,6 @@ button.sundry:hover { transform: translateY(-2px); }
 .awning--painter     { --awning: #4f86c9; }
 .awning--gilder      { --awning: #b8821f; }
 .awning--stereotyper { --awning: #5f6d80; }
-.awning--restorer    { --awning: #3fa371; }
 .awning--punchcutter { --awning: #8a5fb0; }
 .awning--dresser     { --awning: #a8632c; }
 

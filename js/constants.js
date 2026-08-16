@@ -137,10 +137,6 @@ export const STALL_DEFS = {
     name: 'The Stereotyper', emoji: '🗜️', base: 1,
     desc: 'Casts an exact copy of any tile.',
   },
-  restorer: {
-    name: 'The Restorer', emoji: '🧼', base: 1,
-    desc: 'Strips a tile bare — paint, trim and nick.',
-  },
 };
 
 // ─── Special-tile generation ──────────────────────────────────────────────────
@@ -271,13 +267,18 @@ export const ANIM = {
 // ghost takes nothing at all, ever.
 export const CURSED_MULT       = 3;   // ×Mult a cursed tile gives the word
 export const CURSED_MAX_POINTS = 3;   // never cast on a letter worth more than this
+// What a curse takes from any word set without it while it waits in the hand.
+// It used to be unsinkable instead — never discardable, only playable — which
+// could strand a hand that had no word for it and no way to be rid of it. The
+// tile now leaves like any other; it simply makes you pay to ignore it.
+export const CURSED_PENALTY    = 666;  // Points lost per unplayed curse in hand
 export const INGOT_PRICE       = 4;
 export const INGOT_OFFER_CHANCE = 0.5;  // odds one of a Market's sundry slots holds an ingot
 
 export const MATERIALS = {
   cursed: {
     label: 'Cursed', metal: 'Hellbox iron', emoji: '🩸',
-    desc: `×${CURSED_MULT} Mult when printed, and it can never be discarded — only played.`,
+    desc: `×${CURSED_MULT} Mult when printed. Left waiting in your hand, it takes ${CURSED_PENALTY} Points from every word set without it.`,
   },
   ghost: {
     label: 'Ghost', metal: 'Ghost metal', emoji: '👻',

@@ -431,6 +431,10 @@ async function submitWord() {
       pulse(card, 'patron--firing', 520);
       const cls = p.coins ? 'fl-coin' : p.points ? 'fl-points' : 'fl-mult';
       floatText(card, p.coins ? `+${coinHTML(p.coins)}` : p.text, cls, { dy: -44 });
+    } else {
+      // A step with no seat of its own — the curse's toll — still has to be
+      // seen, so it rises over the word instead of going by in silence.
+      floatText($('word'), p.text, p.id === 'cursed' ? 'fl-curse' : 'fl-points', { dy: -60 });
     }
     if (p.points) { pointsSoFar += p.points; tweenNum(ro.points, pointsSoFar); sfx.tick(8); }
     if (p.mult || p.xmult) sfx.mult();

@@ -14,11 +14,11 @@ import {
 import { patronById } from './patrons.js';
 import { upgradeById } from './upgrades.js';
 import {
-  market, stallById, stallPrice, restorable, isProposalStall,
+  market, stallById, stallPrice, isProposalStall,
   offerPrice, compostLeft, takeCompost,
   buyPatron, buyTile, buySundry, sellPatron, sellSundry,
   rerollMarket, freeRerollMarket,
-  stallSmelt, stallPaint, stallCommission, stallClone, stallRestore,
+  stallSmelt, stallPaint, stallCommission, stallClone,
 } from './market.js';
 import {
   colophon, closeColophon, applyColophonPick, applyColophonSkip, reshuffleColophon,
@@ -430,9 +430,6 @@ function renderStallBody() {
   state.collection.forEach(tmpl => {
     const el = makeTileEl({ ...tmpl, id: '' }, 'stall', { mini: true });
     el.dataset.stallTid = tmpl.tid;
-    if (market.activeStall === 'restorer' && !restorable(tmpl)) {
-      el.classList.add('tile--stall-locked');
-    }
     grid.appendChild(el);
   });
 }
@@ -480,10 +477,6 @@ export function updateStallState() {
     case 'stereotyper':
       label = sel ? `Cast a copy of ${tileName(sel)} ${priceTag}` : 'Select a tile to duplicate';
       ready = !!sel;
-      break;
-    case 'restorer':
-      label = sel ? `Restore ${tileName(sel)} ${priceTag}` : 'Select a tile to strip bare';
-      ready = !!sel && restorable(sel);
       break;
     case 'gilder': {
       const p = stall.proposals?.[market.stallSel];
@@ -827,10 +820,6 @@ function onMarketClick(e) {
       case 'stereotyper':
         r = stallClone(market.stallSel);
         if (r.ok) msg = `The Stereotyper casts a perfect copy of “${r.tmpl.letter}”.`;
-        break;
-      case 'restorer':
-        r = stallRestore(market.stallSel);
-        if (r.ok) msg = `The Restorer strips “${r.tmpl.letter}” back to bare metal.`;
         break;
       default:
         r = { ok: false };

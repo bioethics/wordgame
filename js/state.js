@@ -316,8 +316,7 @@ export function shuffleRack() {
 // replacements come from the bag. Returns { removed, drawn } or null.
 export function discardSelected() {
   if (state.discards <= 0) return null;
-  // Cursed tiles can't leave this way, however they came to be selected.
-  const selected = state.rack.filter(t => t.selected && t.material !== 'cursed');
+  const selected = state.rack.filter(t => t.selected);
   if (!selected.length) return null;
 
   for (const t of selected) {
@@ -442,12 +441,13 @@ export function rollGamble() {
 
 // ─── Selection ────────────────────────────────────────────────────────────────
 
-// Returns 'on' | 'off' | 'cursed' | 'none', so a refused pick can be explained.
-// A cursed tile can't be thrown away; the only way out of the rack is to print it.
+// Returns 'on' | 'off' | 'none'. A cursed tile used to be refused here — it
+// could only ever be played — which could strand a hand holding one it had no
+// word for. It discards like anything else now; the penalty for leaving it
+// unplayed does the work instead (see CURSED_PENALTY in scoring).
 export function toggleSelected(id) {
   const tile = state.rack.find(t => t.id === id);
   if (!tile) return 'none';
-  if (!tile.selected && tile.material === 'cursed') return 'cursed';
   tile.selected = !tile.selected;
   return tile.selected ? 'on' : 'off';
 }

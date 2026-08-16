@@ -473,17 +473,3 @@ export function stallClone(tid) {
   return { ok: true, tmpl: t.tmpl, price: t.price };
 }
 
-export const restorable = tmpl =>
-  !isImmutable(tmpl) && !!(tmpl.colour || tmpl.altColour || tmpl.trim || tmpl.nick);
-
-export function stallRestore(tid) {
-  const t = stallTarget('restorer', tid);
-  if (!t || !restorable(t.tmpl))     return { ok: false, reason: 'That tile is already bare.' };
-  if (state.coins < t.price)         return { ok: false, reason: `You need ${t.price} Coins.` };
-  payStall(t.stall, t.price);
-  t.tmpl.colour = null;
-  t.tmpl.altColour = null;
-  t.tmpl.trim = null;
-  t.tmpl.nick = null;
-  return { ok: true, tmpl: t.tmpl, price: t.price };
-}
