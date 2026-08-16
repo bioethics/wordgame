@@ -197,13 +197,19 @@ const QUOTA_BASE   = 40;
 // hundreds of thousands — which is the point, since a built press multiplies
 // rather than adds.
 //
-//   ch1     40 · ch4    230 · ch7   2,100 · ch10  30,000   (page 1)
-//   ch1     80 · ch4    470 · ch7   4,300 · ch10  59,000   (the Deadline)
+//   ch1     30 · ch4    230 · ch7   2,100 · ch10  30,000   (page 1)
+//   ch1     60 · ch4    470 · ch7   4,300 · ch10  59,000   (the Deadline)
 //
 // Raising START makes the whole run harder; raising RAMP makes the ending
 // harder without touching the opening. A harder mode is a bigger pair.
 const QUOTA_GROWTH_START = 1.7;
 const QUOTA_GROWTH_RAMP  = 0.1;
+
+// Chapter 1 alone gets a gentler on-ramp — new players' first quota, and the
+// rest of that chapter with it. QUOTA_GROWTH_START anchors chapter 2's climb
+// off QUOTA_BASE directly, so easing chapter 1 this way (rather than lowering
+// QUOTA_BASE itself) leaves chapter 2 onward exactly where they were.
+const CHAPTER_1_EASE = 0.75;   // 40/56/80 → 30/40/60
 
 // Quotas are targets, not arithmetic: show a round number. Under 100 they
 // land on 5s, above it on two significant figures — 4,937 reads as 4,900.
@@ -216,6 +222,7 @@ function roundQuota(n) {
 export function quotaFor(chapter, page) {
   let raw = QUOTA_BASE;
   for (let c = 2; c <= chapter; c++) raw *= QUOTA_GROWTH_START + (c - 2) * QUOTA_GROWTH_RAMP;
+  if (chapter === 1) raw *= CHAPTER_1_EASE;
   return roundQuota(raw * PAGE_FACTORS[page - 1]);
 }
 
