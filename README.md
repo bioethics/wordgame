@@ -181,10 +181,12 @@ the **discard pile**.
 **Sundries** are consumables kept on the **workbench** (two slots to start, and
 the Colophon can add two more, beside the patron shelf). The **paint tube**:
 tap it mid-page, tap one tile anywhere on the board — rack or half-composed
-word alike — and tap the tube again to paint it, permanently. The **ratchet**:
-tap it, tap one letter, then step that letter a single place along the alphabet
-either way — D becomes C or E, A becomes Z or B — and the new letter is
-permanent, re-pricing the tile with it. It walks the press's own alphabet
+word alike — and tap the tube again to paint it, permanently. The **ratchet**
+works to the same rhythm: tap it, tap one letter, tap the ratchet again, and
+that letter steps a single place along the alphabet — D becomes C or E, A
+becomes Z or B. The two arrows on the tool say which way it is pointing and
+can be flipped at any time, including on the tap that spends it. The new
+letter is permanent, re-pricing the tile with it. It walks the press's own alphabet
 rather than A-Z, so P steps straight to R: there is no lone Q sort to land on.
 Ligatures and marks aren't single letters and can't be stepped at all. The
 **reshuffle**: no target to pick, just banked until you spend it — on the

@@ -26,6 +26,8 @@
   --brass-hi:   #f6d68a;
   --brass-dark: #8a5f1d;
 
+  --steel:      #b9c3ce;   /* the ratchet's colour — it has no paint of its own */
+
   --inkblue:      #8db8ff;
   --inkblue-deep: #1d3354;
   --pressred:     #ff8273;
@@ -443,8 +445,10 @@ button.sundry:hover { transform: translateY(-2px); }
 .sundry-shuffle--offer { margin-top: 5px; width: 26px; height: 26px; }
 
 /* The ratchet: a steel pawl rather than a brass badge, so it reads as a tool
-   and not a token. Once a letter is picked the mark gives way to the two
-   directions, which are what actually spend it. */
+   and not a token. The ⇅ mark is how it appears at the market and on the held
+   list; on the workbench it wears its two directions instead, which never move
+   or change — spending it is a tap on the slot, as with the tube, and the
+   arrows only say which way. */
 .ratchet-mark {
   display: grid;
   place-items: center;
@@ -464,18 +468,27 @@ button.sundry:hover { transform: translateY(-2px); }
 .ratchet-arrow {
   display: grid;
   place-items: center;
-  width: 21px; height: 21px;
+  width: 24px; height: 24px;
   border-radius: 4px;
   background: linear-gradient(160deg, #d8dde3, #97a1ac 60%, #6d7681);
   color: #21262c;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 900;
   cursor: pointer;
   box-shadow: inset 0 -2px 4px rgba(40, 50, 60, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.7);
-  transition: transform calc(0.1s / var(--aspd)), filter calc(0.1s / var(--aspd));
+  transition: transform calc(0.1s / var(--aspd)), filter calc(0.1s / var(--aspd)),
+              opacity calc(0.1s / var(--aspd));
+  opacity: 0.45;
 }
-.ratchet-arrow:hover { transform: translateY(-2px); filter: brightness(1.15); }
-.sundry--ratchet.sundry--armed { --paintcol: #b9c3ce; }
+/* The direction the tool is currently pointing. Both arrows stay legible —
+   the dim one is the offer to turn it around, not a disabled control. */
+.ratchet-arrow--on {
+  opacity: 1;
+  box-shadow: inset 0 -2px 4px rgba(40, 50, 60, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.7),
+              0 0 0 1.5px var(--brass-hi);
+}
+.ratchet-arrow:hover { transform: translateY(-2px); filter: brightness(1.15); opacity: 1; }
+.sundry--ratchet.sundry--armed { --paintcol: var(--steel); }
 
 /* While a tube is armed, both board zones take on its colour, and picked
    tiles glow that colour under a brush mark instead of the discard arrows. */
@@ -495,6 +508,9 @@ button.sundry:hover { transform: translateY(-2px); }
   content: '🖌';
   font-size: 13px;
 }
+/* An armed ratchet picks the same way but does something else entirely, so the
+   picked letter wears the tool rather than a brush. */
+.zone--stepping .tile--selected::after { content: '⇅'; }
 
 /* ── Patrons with something to add ────────────────────────────────────────────
    While you compose, every patron whose condition the word already meets

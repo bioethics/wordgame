@@ -109,13 +109,14 @@ function cancelDiscardMode(quiet = false) {
   return true;
 }
 
-// ─── Sundry mode (an armed paint tube) ────────────────────────────────────────
+// ─── Sundry mode (an armed tube or ratchet) ───────────────────────────────────
 
 function cancelSundryMode(quiet = false) {
   if (state.sundryMode < 0) return false;
+  const kind = state.sundries[state.sundryMode]?.kind;
   state.sundryMode = -1;
   clearAllSelected();
-  if (!quiet) log('The tube goes back on the workbench.');
+  if (!quiet) log(`The ${kind === 'ratchet' ? 'ratchet' : 'tube'} goes back on the workbench.`);
   renderAll();
   return true;
 }
@@ -786,8 +787,11 @@ $('btnClear')?.addEventListener('click', () => {
 $('btnShuffle')?.addEventListener('click', () => { if (!state.isAnimating) { shuffleRack(); renderAll(); } });
 $('btnDiscard')?.addEventListener('click', doDiscard);
 
-// The workbench: first tap arms a tube, board taps pick its targets, a second
-// tap on the tube paints them (or puts it away if nothing is chosen).
+// The workbench: first tap arms a tool, board taps pick its targets, a second
+// tap on the tool spends it (or puts it away if nothing is chosen). The tube
+// and the ratchet share that rhythm exactly — the ratchet's arrows only say
+// which way it points, so there is no small target to hit and no tap that
+// silently cancels the gesture.
 $('sundries')?.addEventListener('click', async e => {
   if (state.isAnimating || state.inMarket || state.inDraft || state.inColophon || state.gameOver) return;
   const slot = e.target.closest('[data-sundry]');
@@ -796,28 +800,12 @@ $('sundries')?.addEventListener('click', async e => {
   const idx = Number(slot.dataset.sundry);
   const armed = state.sundries[idx];
 
-  // The ratchet's two arrows sit inside its own slot, so they're read before
-  // the slot itself — tapping one is the act of spending it.
+  // The ratchet's arrows only ever set which way it points — arming it and
+  // spending it are taps on the slot, exactly as with the tube. Reading the
+  // arrow first means a tap that lands on one both turns the tool around and
+  // does whatever that tap was going to do anyway.
   const arrow = e.target.closest('[data-shift]');
-  if (arrow && armed?.kind === 'ratchet' && state.sundryMode === idx) {
-    const result = applySundry(idx, Number(arrow.dataset.shift));
-    if (!result) { cancelSundryMode(); renderAll(); return; }
-
-    state.isAnimating = true;
-    renderAll();
-    sfx.chime();
-    const el = wordTileEl(result.ids[0]) ?? rackTileEl(result.ids[0]);
-    if (el) {
-      popReveal(el);
-      sparkleBurst(el, 10);
-      floatText(el, `${result.from} → ${result.to}`, 'fl-points', { dy: -54 });
-    }
-    await sleep(ANIM.stepColour);
-    state.isAnimating = false;
-    renderAll();
-    log(`The ratchet steps ${result.from} to ${result.to} — and there it stays.`, 'good');
-    return;
-  }
+  if (arrow && armed?.kind === 'ratchet') state.ratchetDir = Number(arrow.dataset.shift);
 
   if (armed?.kind === 'reshuffle') {
     log('Spend this at the Market or the Colophon.', 'warn');
@@ -856,15 +844,34 @@ $('sundries')?.addEventListener('click', async e => {
     state.sundryMode = idx;
     const s = state.sundries[idx];
     log(s.kind === 'ratchet'
-      ? 'Tap one letter, then step it up or down the alphabet.'
+      ? 'Tap one letter, then tap the ratchet again to step it. The arrows say which way.'
       : `Tap ${tileCount(TUBE_TILES)} to paint ${COLOURS[s.colour].label}, then tap the tube again.`);
     renderAll();
     return;
   }
 
-  // An armed ratchet stands down on a second tap, like the tube — the arrows
-  // above are what spend it, and they're handled before we ever get here.
-  if (armed?.kind === 'ratchet') { cancelSundryMode(); return; }
+  // Second tap on the armed ratchet: step the picked letter, or stand down if
+  // nothing is picked — the same two outcomes the tube's second tap has.
+  if (armed?.kind === 'ratchet') {
+    if (!sundrySelected().length) { cancelSundryMode(); return; }
+    const result = applySundry(idx, state.ratchetDir ?? 1);
+    if (!result) { cancelSundryMode(); renderAll(); return; }
+
+    state.isAnimating = true;
+    renderAll();
+    sfx.chime();
+    const el = wordTileEl(result.ids[0]) ?? rackTileEl(result.ids[0]);
+    if (el) {
+      popReveal(el);
+      sparkleBurst(el, 10);
+      floatText(el, `${result.from} → ${result.to}`, 'fl-points', { dy: -54 });
+    }
+    await sleep(ANIM.stepColour);
+    state.isAnimating = false;
+    renderAll();
+    log(`The ratchet steps ${result.from} to ${result.to} — and there it stays.`, 'good');
+    return;
+  }
 
   // Second tap on the armed tube: paint the selection, or stand down.
   if (!sundrySelected().length) { cancelSundryMode(); return; }

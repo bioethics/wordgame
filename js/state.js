@@ -121,6 +121,7 @@ export const state = {
                     // a Monogrammist's letters); uid tells copies of a stackable patron apart
   sundries: [],     // [{ kind: 'tube', colour } | { kind: 'reshuffle' }] — the workbench
   upgradeCounts: {}, // id → times taken this run, from the Colophon (see js/upgrades.js)
+  ratchetDir: 1,       // which way an armed ratchet is pointing: +1 later, -1 earlier
   luck: 1,             // scales every "good outcome" roll (see luckyRoll) — a future dial
   lastFirstLetter: null,  // first letter of the last word printed this run (The Skald)
   gambleWon: false,    // this word's coin, tossed by rollGamble (The Gambler)
@@ -272,6 +273,7 @@ export function loadState() {
     state.sundries ??= [];
     state.upgradeCounts ??= {};
     state.luck ??= 1;
+    state.ratchetDir ??= 1;
     state.lastFirstLetter ??= null;
     state.chapterTitles ??= {};
     state.boss ??= null;
@@ -304,7 +306,7 @@ export function newRun() {
     wordsLeft: WORDS_PER_PAGE, discards: DISCARDS_PER_PAGE,
     discardsMax: DISCARDS_PER_PAGE, wordsPrinted: 0,
     coins: STARTING_COINS, patrons: [], sundries: [], upgradeCounts: {},
-    luck: 1, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
+    luck: 1, ratchetDir: 1, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
     boss: null, bossesSeen: [],
     compost: [], compostPending: 0,
     totalScore: 0,

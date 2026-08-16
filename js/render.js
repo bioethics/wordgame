@@ -396,23 +396,26 @@ function renderSundries() {
         <span class="sundry-name">Reshuffle</span>`;
       bench.appendChild(slot);
     } else if (s?.kind === 'ratchet') {
-      const armed = state.sundryMode === i;
-      // The two arrows only appear once a letter is waiting: until then there
-      // is nothing to step, and an armed ratchet with no target would be
-      // offering a choice it can't honour.
+      const armed  = state.sundryMode === i;
       const picked = armed && sundrySelected().length > 0;
+      // Both arrows are on show from the start and never move: the tool keeps
+      // one shape through the whole gesture, the way the tube does. The arrows
+      // choose the direction; spending it is a tap anywhere on the slot, so
+      // there is no small target to miss and no dead ground to cancel on.
+      const dir = state.ratchetDir ?? 1;
       const slot = document.createElement('button');
       slot.className = `sundry sundry--ratchet${armed ? ' sundry--armed' : ''}`;
       slot.dataset.sundry = i;
-      slot.title = 'Ratchet — tap, pick one letter, then step it up or down the alphabet.';
-      slot.innerHTML = picked
-        ? `<span class="ratchet-arrows">
-             <span class="ratchet-arrow" data-shift="1" title="A step later — D to E">▲</span>
-             <span class="ratchet-arrow" data-shift="-1" title="A step earlier — D to C">▼</span>
-           </span>
-           <span class="sundry-name">Step it</span>`
-        : `<span class="ratchet-mark">⇅</span>
-           <span class="sundry-name">Ratchet</span>`;
+      slot.title = 'Ratchet — tap to arm, tap one letter, then tap again to step it. '
+                 + 'The arrows say which way.';
+      slot.innerHTML = `
+        <span class="ratchet-arrows">
+          <span class="ratchet-arrow${dir === 1 ? ' ratchet-arrow--on' : ''}"
+                data-shift="1" title="A step later — D to E">▲</span>
+          <span class="ratchet-arrow${dir === -1 ? ' ratchet-arrow--on' : ''}"
+                data-shift="-1" title="A step earlier — D to C">▼</span>
+        </span>
+        <span class="sundry-name">${picked ? 'Step it' : armed ? 'Pick a letter' : 'Ratchet'}</span>`;
       bench.appendChild(slot);
     } else if (s?.kind === 'ingot') {
       const m = MATERIALS[s.material];
@@ -526,11 +529,16 @@ function renderPips(id, total, filled, cls, maxShown = total) {
 // ─── Zones ────────────────────────────────────────────────────────────────────
 
 // ghostIds: tiles rendered invisible so a fly-in animation can reveal them
-// The armed tube tints both board zones with its own colour
+// An armed sundry tints both board zones so it's plain where its targets are
+// picked. A tube tints them its own colour; the ratchet has none, and takes the
+// steel it wears on the workbench. That fallback is load-bearing: `COLOURS[null]`
+// threw here, and since the throw landed between emptying the rack and refilling
+// it, arming a ratchet made the whole hand disappear.
 function applyPaintingMode(el) {
-  const tube = state.sundryMode >= 0 ? state.sundries[state.sundryMode] : null;
-  el.classList.toggle('zone--painting', !!tube);
-  if (tube) el.style.setProperty('--paintcol', COLOURS[tube.colour].glyph);
+  const armed = state.sundryMode >= 0 ? state.sundries[state.sundryMode] : null;
+  el.classList.toggle('zone--painting', !!armed);
+  el.classList.toggle('zone--stepping', armed?.kind === 'ratchet');
+  if (armed) el.style.setProperty('--paintcol', COLOURS[armed.colour]?.glyph ?? 'var(--steel)');
 }
 
 export function renderRack(ghostIds = null) {
