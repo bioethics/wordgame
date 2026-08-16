@@ -359,6 +359,41 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 .sundry--armed:hover { transform: translateY(-3px); }
 
+/* ── One tap left ─────────────────────────────────────────────────────────────
+   An armed tool with its targets picked is waiting on a tap *on the tool*, and
+   with the tiles chosen the board otherwise looks finished — so the tool takes
+   a breath of its own colour and rides above the dimmed table (see
+   .table--tool-ready). The glow is its paint, so a jade tube pulses jade and
+   the ratchet pulses steel. */
+.sundry--ready {
+  position: relative;
+  z-index: 3;
+  animation: tool-ready calc(1.15s / var(--aspd)) ease-in-out infinite;
+}
+@keyframes tool-ready {
+  0%, 100% {
+    transform: translateY(-3px) scale(1);
+    box-shadow:
+      inset 0 0 0 2px rgba(255, 248, 226, 0.6),
+      0 0 18px var(--paintcol, var(--warn)),
+      0 6px 12px rgba(0, 0, 0, 0.45);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow:
+      inset 0 0 0 2.5px rgba(255, 248, 226, 0.95),
+      0 0 32px 7px var(--paintcol, var(--warn)),
+      0 9px 18px rgba(0, 0, 0, 0.5);
+  }
+}
+/* The label swaps to the instruction ("Paint it" / "Step it"), so give it the
+   weight of one. Small screens hide sundry names entirely — there the pulse
+   and the dimmed table carry it alone. */
+.sundry--ready .sundry-name {
+  color: #fff8e2;
+  text-shadow: 0 0 8px var(--paintcol, var(--warn));
+}
+
 .sundry--empty {
   border: 1.5px dashed rgba(243, 222, 184, 0.22);
   color: rgba(243, 222, 184, 0.3);
@@ -511,6 +546,30 @@ button.sundry:hover { transform: translateY(-2px); }
 /* An armed ratchet picks the same way but does something else entirely, so the
    picked letter wears the tool rather than a brush. */
 .zone--stepping .tile--selected::after { content: '⇅'; }
+
+/* ── The table, waiting on the tool ───────────────────────────────────────────
+   Everything the gesture no longer involves steps back: the shelf, the status
+   cards, the readout, the editor's bar, the pouches, the action buttons, and
+   every tile you didn't pick. The workbench and the picked tiles keep their
+   colour, so the eye runs from what you chose to the thing that spends it.
+   Dimming is per-element rather than on the zones, because a filter on a zone
+   would take the picked tile down with it. */
+.table--tool-ready #shelf,
+.table--tool-ready .status-row,
+.table--tool-ready .boss-bar,
+.table--tool-ready .readout,
+.table--tool-ready .pouch,
+.table--tool-ready .action-row,
+.table--tool-ready .tile:not(.tile--selected) {
+  filter: saturate(0.3) brightness(0.55);
+  opacity: 0.75;
+}
+/* Only the ones with no transition of their own get one here — .tile, .pouch
+   and .readout already declare theirs, and a second `transition` would drop
+   the properties they were animating. */
+#shelf, .status-row, .boss-bar, .action-row {
+  transition: filter calc(0.22s / var(--aspd)) ease, opacity calc(0.22s / var(--aspd)) ease;
+}
 
 /* ── Patrons with something to add ────────────────────────────────────────────
    While you compose, every patron whose condition the word already meets
@@ -814,7 +873,8 @@ button.sundry:hover { transform: translateY(-2px); }
   border-radius: var(--r-md);
   background: rgba(12, 6, 14, 0.45);
   border: 1px solid rgba(243, 222, 184, 0.08);
-  transition: opacity calc(0.3s / var(--aspd));
+  transition: opacity calc(0.3s / var(--aspd)),
+              filter calc(0.22s / var(--aspd)) ease;
 }
 .readout--idle { opacity: 0.45; }
 .readout--slam { animation: roSlam calc(0.5s / var(--aspd)) ease; }
@@ -999,7 +1059,9 @@ button.sundry:hover { transform: translateY(-2px); }
   cursor: pointer;
   padding: 4px 6px;
   border-radius: var(--r-md);
-  transition: transform calc(0.15s / var(--aspd));
+  transition: transform calc(0.15s / var(--aspd)),
+              filter calc(0.22s / var(--aspd)) ease,
+              opacity calc(0.22s / var(--aspd)) ease;
 }
 .pouch:hover { transform: translateY(-3px); }
 .pouch--bump { animation: pouchBump calc(0.3s / var(--aspd)) ease; }
@@ -3279,6 +3341,17 @@ input[type='checkbox'] {
      the motion. The Enthusiast's gift keeps its stitched glow the same way. */
   .tile--mat-cursed, .tile--mat-rainbow, .tile--gift { animation: none; }
   .boss-bar--firing, .boss-bar--spiking { animation: none; }
+  /* A tool waiting on its last tap still has to read as waiting — hold the
+     glow at the top of the breath, drop the breathing. The dimmed table does
+     the rest of the work either way. */
+  .sundry--ready {
+    animation: none;
+    transform: translateY(-5px) scale(1.05);
+    box-shadow:
+      inset 0 0 0 2.5px rgba(255, 248, 226, 0.95),
+      0 0 32px 7px var(--paintcol, var(--warn)),
+      0 9px 18px rgba(0, 0, 0, 0.5);
+  }
   /* A burning tile still has to read as destroyed — char it, don't tumble it */
   .tile--burning {
     animation: none;

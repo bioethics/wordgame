@@ -233,6 +233,19 @@ export function hidePopover() {
 
 // ─── Main render ───────────────────────────────────────────────────────────────
 
+// An armed tool with its targets picked needs one more tap — on the tool, not
+// the board — and that is the step that got missed: with the tiles chosen the
+// board looks finished, and the thing still waiting is off at the workbench.
+// So the table steps back and leaves the tool the brightest thing on it. What
+// stays lit is exactly what the gesture still involves: the workbench, and the
+// tiles you picked.
+function applyToolReady() {
+  const table = document.querySelector('.table');
+  if (!table) return;
+  const armed = state.sundryMode >= 0 ? state.sundries[state.sundryMode] : null;
+  table.classList.toggle('table--tool-ready', !!armed && sundrySelected().length > 0);
+}
+
 export function renderAll() {
   // One script for the whole frame: the shelf and the readout read the same
   // numbers, so what a patron promises and what it pays can't disagree.
@@ -245,6 +258,7 @@ export function renderAll() {
   renderWord(script);
   renderCounts();
   renderButtons();
+  applyToolReady();
   refreshStatusBar();
   persist();
 }
@@ -378,13 +392,16 @@ function renderSundries() {
   for (let i = 0; i < slots; i++) {
     const s = state.sundries?.[i];
     if (s?.kind === 'tube') {
+      const armed  = state.sundryMode === i;
+      const picked = armed && sundrySelected().length > 0;
       const slot = document.createElement('button');
-      slot.className = `sundry sundry--${s.colour}${state.sundryMode === i ? ' sundry--armed' : ''}`;
+      slot.className = `sundry sundry--${s.colour}${armed ? ' sundry--armed' : ''}`
+                     + (picked ? ' sundry--ready' : '');
       slot.dataset.sundry = i;
       slot.title = `Tube of ${COLOURS[s.colour].label} — tap, pick ${tileCount(TUBE_TILES)}, tap again.`;
       slot.innerHTML = `
         <span class="paint-tube paint-tube--${s.colour}"></span>
-        <span class="sundry-name">${COLOURS[s.colour].label}</span>`;
+        <span class="sundry-name">${picked ? 'Paint it' : COLOURS[s.colour].label}</span>`;
       bench.appendChild(slot);
     } else if (s?.kind === 'reshuffle') {
       const slot = document.createElement('button');
@@ -404,7 +421,8 @@ function renderSundries() {
       // there is no small target to miss and no dead ground to cancel on.
       const dir = state.ratchetDir ?? 1;
       const slot = document.createElement('button');
-      slot.className = `sundry sundry--ratchet${armed ? ' sundry--armed' : ''}`;
+      slot.className = `sundry sundry--ratchet${armed ? ' sundry--armed' : ''}`
+                     + (picked ? ' sundry--ready' : '');
       slot.dataset.sundry = i;
       slot.title = 'Ratchet — tap to arm, tap one letter, then tap again to step it. '
                  + 'The arrows say which way.';

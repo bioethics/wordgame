@@ -181,8 +181,10 @@ the **discard pile**.
 **Sundries** are consumables kept on the **workbench** (two slots to start, and
 the Colophon can add two more, beside the patron shelf). The **paint tube**:
 tap it mid-page, tap one tile anywhere on the board — rack or half-composed
-word alike — and tap the tube again to paint it, permanently. The **ratchet**
-works to the same rhythm: tap it, tap one letter, tap the ratchet again, and
+word alike — and tap the tube again to paint it, permanently. The moment a
+target is picked the table dims around the workbench and the tool breathes in
+its own colour, because the tap that spends it is on the tool and not on the
+board. The **ratchet** works to the same rhythm: tap it, tap one letter, tap the ratchet again, and
 that letter steps a single place along the alphabet — D becomes C or E, A
 becomes Z or B. The two arrows on the tool say which way it is pointing and
 can be flipped at any time, including on the tap that spends it. The new
