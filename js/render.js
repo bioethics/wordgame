@@ -487,7 +487,7 @@ function renderStatus() {
 
   const coinsEl = $('coinCount');
   if (coinsEl) setNum(coinsEl, state.coins);
-  setText('ledgerCount', state.ledger?.length ?? 0);
+  setText('manuscriptCount', state.manuscript?.length ?? 0);
 }
 
 // ─── The editor's bar (Deadline pages only) ───────────────────────────────────
@@ -717,12 +717,14 @@ export function refreshStatusBar() {
   renderManuscript();
 }
 
+// The strip at the foot of the board: the page being set, as one line of type.
+// The bound book — the same words gathered into chapters — is openManuscript().
 export function renderManuscript() {
   const el = $('log');
   if (!el) return;
   _msgUntil = 0;
 
-  const words = state.ledger ?? [];
+  const words = state.manuscript ?? [];
   el.className = 'log log--manuscript';
 
   if (!words.length) {
@@ -847,39 +849,90 @@ export function openInspector(kind) {
   m.classList.add('show');
 }
 
-// ─── Ledger (every word printed this run) ─────────────────────────────────────
+// ─── The manuscript, bound (every word printed this run) ──────────────────────
+// The strip along the foot of the board (renderManuscript, above) is the page
+// currently being set. This is the whole book so far, gathered into its
+// chapters — so it reads front to back the way a book does, rather than
+// newest-first the way a ledger of transactions would.
 
-export function openLedger() {
-  const m = $('ledgerModal');
+// Rows arrive in the order they were printed, so consecutive grouping is the
+// whole job: a run never returns to a chapter or a page it has left.
+function bindIntoChapters(rows) {
+  const chapters = [];
+  for (const r of rows) {
+    let ch = chapters.at(-1);
+    if (ch?.chapter !== r.chapter) chapters.push(ch = { chapter: r.chapter, pages: [], words: 0, score: 0 });
+    let pg = ch.pages.at(-1);
+    if (pg?.page !== r.page) ch.pages.push(pg = { page: r.page, entries: [] });
+    pg.entries.push(r);
+    ch.words += 1;
+    ch.score += r.score;
+  }
+  return chapters;
+}
+
+export function openManuscript() {
+  const m = $('manuscriptModal');
   if (!m) return;
-  const rows = [...(state.ledger ?? [])].reverse();
+  const rows = state.manuscript ?? [];
   const best = state.stats.bestScore;
+  const chapters = bindIntoChapters(rows);
 
-  const body = rows.length
-    ? `<ol class="ledger-list">${rows.map(r => `
-        <li class="ledger-row${r.score === best ? ' ledger-row--best' : ''}">
-          <span class="ledger-word">${r.word}</span>
-          <span class="ledger-where">ch ${roman(r.chapter)} · p${r.page}</span>
-          <span class="ledger-score">${r.score.toLocaleString()}</span>
-        </li>`).join('')}</ol>`
-    : '<p class="sheet-note">Nothing printed yet.</p>';
+  // The score rides after its word as a raised figure, the way a footnote mark
+  // does — present for anyone reading for it, out of the way of the prose.
+  // `initial` gives a chapter's first word its drop cap; ::first-letter can't,
+  // since these are inline runs rather than blocks.
+  const entry = (r, initial) => {
+    const word = initial
+      ? `<span class="book-initial">${r.word.slice(0, 1)}</span>${r.word.slice(1)}`
+      : r.word;
+    const n = r.score.toLocaleString();
+    return `<span class="book-entry${best && r.score === best ? ' book-entry--best' : ''}" `
+         + `title="${r.word} — ${n} points">`
+         + `<span class="book-word">${word}</span><span class="book-score">${n}</span></span>`;
+  };
+
+  // Each page keeps its folio number in the margin, in the lower-case romans a
+  // book uses for its front matter. A Deadline is marked rather than numbered.
+  const pageBlock = (pg, first) => `
+    <div class="book-leaf">
+      <span class="book-folio${isDeadline(pg.page) ? ' book-folio--deadline' : ''}"
+            title="${isDeadline(pg.page) ? 'The Deadline' : `Page ${pg.page}`}"
+        >${isDeadline(pg.page) ? '❦' : roman(pg.page).toLowerCase()}</span>
+      <p class="book-prose">${pg.entries.map((r, i) => entry(r, first && i === 0)).join(' ')}</p>
+    </div>`;
+
+  const chapterBlock = c => `
+    <section class="book-chapter">
+      <header class="book-chapter-head">
+        <span class="book-chapter-num">${chapterLabel(c.chapter)}</span>
+        <h3 class="book-chapter-title">${state.chapterTitles?.[c.chapter] ?? ''}</h3>
+        <span class="book-rule"></span>
+        <span class="book-chapter-tally">${c.words} word${c.words === 1 ? '' : 's'} · ${c.score.toLocaleString()}</span>
+      </header>
+      ${c.pages.map((pg, i) => pageBlock(pg, i === 0)).join('')}
+    </section>`;
+
+  const body = chapters.length
+    ? `<div class="book">${chapters.map(chapterBlock).join('')}</div>`
+    : `<p class="book-blank">The first page is still blank.</p>`;
 
   m.innerHTML = `
-    <div class="sheet sheet--ledger">
-      <div class="sheet-head">
+    <div class="sheet sheet--manuscript">
+      <div class="sheet-head book-head">
         <div>
-          <h2>The ledger</h2>
-          <p class="sheet-note">${rows.length} word${rows.length === 1 ? '' : 's'} printed · ${state.totalScore.toLocaleString()} total${best ? ` · best ${state.stats.bestWord} at ${best.toLocaleString()}` : ''}</p>
+          <h2>The manuscript</h2>
+          <p class="sheet-note">${rows.length} word${rows.length === 1 ? '' : 's'} set · ${state.totalScore.toLocaleString()} in total${best ? ` · the best of them ${state.stats.bestWord} at ${best.toLocaleString()}` : ''}</p>
         </div>
-        <button class="x" data-close-ledger>✕</button>
+        <button class="x" data-close-manuscript>✕</button>
       </div>
       ${body}
     </div>`;
   m.classList.add('show');
 }
 
-export function closeLedger() {
-  $('ledgerModal')?.classList.remove('show');
+export function closeManuscript() {
+  $('manuscriptModal')?.classList.remove('show');
 }
 
 export function closeInspector() {

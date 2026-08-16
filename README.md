@@ -141,8 +141,8 @@ difficulty is in recall rather than combinatorics, which is the kind of
 difficulty a word game is made of, and the reason it is tuned by playing.
 
 **Misspellings** — three patrons forgive a word the dictionary turns away, and
-none of them correct it: what you set is what prints, in the manuscript and the
-ledger both. *Titivillus* takes one wrong or transposed vowel (WIERD stands for
+none of them correct it: what you set is what prints, in the strip under the
+board and in the bound manuscript both. *Titivillus* takes one wrong or transposed vowel (WIERD stands for
 WEIRD) so long as the word holds an azure letter; *the Stumbler* takes one pair
 of adjacent letters swapped (TEH for THE); *the Skimmer* takes the middle
 letters in any order, provided the first and last are right. Your book fills
@@ -307,7 +307,7 @@ bigger step than the last and a built press has to multiply rather than add:
 
 | File | Role |
 | --- | --- |
-| `js/state.js` | game state, save/load (`folio_save_v1`, schema v7), settings, tile ops, painting, sundries, effective hand/seat/workbench sizes, the ledger |
+| `js/state.js` | game state, save/load (`folio_save_v1`, schema v7), settings, tile ops, painting, sundries, effective hand/seat/workbench sizes, the manuscript |
 | `js/scoring.js` | pure score computation — returns a step-by-step *script* the UI replays |
 | `js/patrons.js` | patron definitions |
 | `js/upgrades.js` | the Colophon's upgrade definitions (pure data, no logic) |
@@ -335,6 +335,12 @@ rejected word, a purchase, a hint) borrow the strip for a few seconds and it
 settles back on its own — so nothing needs to announce the page or chapter
 there, since the status row already does.
 
-The **ledger** (❦ in the header) is the same words with their scores, page by
-page. A *Developer* section in Settings has shortcuts: +20 Coins, open the Market,
+The **manuscript** proper (❦ in the header) is the same words bound as a book:
+a heading and title for each chapter, ruled off with its word count and score,
+and beneath it the words of each page set as running prose — small caps, with
+each score riding after its word as a raised figure the way a footnote mark
+does. Every page keeps its folio number out in the margin in lower-case romans,
+except a Deadline, which is marked with a fleuron rather than numbered. The
+first word of each chapter takes a drop cap, and the best word of the run is
+illuminated. It reads front to back, the way a book does. A *Developer* section in Settings has shortcuts: +20 Coins, open the Market,
 clear the current page. The console exposes `window.folio = { state, settings }`.

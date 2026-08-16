@@ -291,7 +291,7 @@ function pruneStalls() {
   }
 }
 
-// A re-roll brings new stalls, but not a new ledger: work already commissioned
+// A re-roll brings new stalls, but not a clean slate: work already commissioned
 // this visit is remembered in market.stallWear, so a stall that turns up again
 // re-opens at the price it had reached, not at its base. Wear is wiped only
 // when the Market itself opens fresh (openMarket) — re-rolling your way back

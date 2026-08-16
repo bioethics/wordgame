@@ -27,7 +27,7 @@ import { state, owns, getActiveLetter, getActiveColour, returnsToBag } from './s
 export function computeScore(wordTiles) {
   if (!wordTiles?.length) return null;
 
-  // `word` is what gets printed, marks and all — the ledger and the manuscript
+  // `word` is what gets printed, marks and all — the manuscript and the board
   // want to see HELLO!. Patrons are handed the letters alone, so a trailing
   // mark can't make a 3-letter word read as four or spoil a palindrome.
   const word = wordTiles.map(t => getActiveLetter(t)).join('').toUpperCase();

@@ -133,7 +133,8 @@ export const state = {
 
   totalScore: 0,
   stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
-  ledger: [],       // { word, score, chapter, page } for every word printed this run
+  manuscript: [],   // { word, score, chapter, page } for every word printed this run,
+                    // in the order they were set — the book the run is writing
 
   endless:   false,
   inMarket: false,
@@ -274,6 +275,16 @@ export function loadState() {
     state.upgradeCounts ??= {};
     state.luck ??= 1;
     state.ratchetDir ??= 1;
+    // The run's record of printed words was `ledger` before it was bound into
+    // chapters and became the manuscript. Same rows, same order, new name.
+    // Tested on emptiness rather than `??=`: state.manuscript defaults to [],
+    // which is not nullish, so a coalescing assign would silently keep the
+    // empty default and throw an old save's words away.
+    if (Array.isArray(state.ledger)) {
+      if (!state.manuscript?.length) state.manuscript = state.ledger;
+      delete state.ledger;
+    }
+    state.manuscript ??= [];
     state.lastFirstLetter ??= null;
     state.chapterTitles ??= {};
     state.boss ??= null;
@@ -311,7 +322,7 @@ export function newRun() {
     compost: [], compostPending: 0,
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
-    ledger: [],
+    manuscript: [],
     endless: false, inMarket: false, inDraft: false, inColophon: false,
     isAnimating: false, discardMode: false, sundryMode: -1, gameOver: false,
   });
@@ -499,11 +510,11 @@ export function trashFromCollection(tid) {
   return removed;
 }
 
-// ─── Ledger ───────────────────────────────────────────────────────────────────
+// ─── The manuscript ───────────────────────────────────────────────────────────
 
 export function recordWord(word, score) {
-  state.ledger ??= [];
-  state.ledger.push({ word, score, chapter: state.chapter, page: state.page });
+  state.manuscript ??= [];
+  state.manuscript.push({ word, score, chapter: state.chapter, page: state.page });
 }
 
 // ─── The Gambler's coin ───────────────────────────────────────────────────────

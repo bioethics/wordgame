@@ -31,7 +31,7 @@ import {
   renderDictStatus, readoutEls, renderChips, setChip,
   log, showBanner, hideOverlay,
   showGameOver, showVictory, openInspector, closeInspector, coinHTML,
-  showPatronPopover, hidePopover, openLedger, closeLedger,
+  showPatronPopover, hidePopover, openManuscript, closeManuscript,
   showCoinWordSheet, setCoinNote,
 } from './render.js';
 import {
@@ -147,8 +147,8 @@ async function patronReactions(script) {
 
 // ─── Titivillus (one wrong vowel forgiven) ────────────────────────────────────
 // If the letters miss the dictionary by exactly one vowel — and the word holds
-// an azure letter to smudge — the word stands as typed. The manuscript and the
-// ledger keep the misprint; that's the joke.
+// an azure letter to smudge — the word stands as typed. The manuscript keeps
+// the misprint; that's the joke.
 
 const VOWELS = 'AEIOU';
 
@@ -218,7 +218,7 @@ function binderPardon(letters) {
 
 // The excuses a word can call on when the dictionary turns it away, tried in
 // order and credited to whoever saved it. None of them change the word: what
-// you set is what prints, in the manuscript and the ledger both. The Binder
+// you set is what prints, and the manuscript keeps it. The Binder
 // goes last: where a word could be read as either, a plain misspelling is the
 // likelier story than a coinage.
 const PARDONS = [
@@ -898,9 +898,9 @@ $('sundries')?.addEventListener('click', async e => {
 $('bagBtn')?.addEventListener('click', () => { if (!state.isAnimating) openInspector('bag'); });
 $('discardBtn')?.addEventListener('click', () => { if (!state.isAnimating) openInspector('discard'); });
 
-$('ledgerBtn')?.addEventListener('click', () => { if (!state.isAnimating) openLedger(); });
-$('ledgerModal')?.addEventListener('click', e => {
-  if (e.target.closest('[data-close-ledger]') || e.target.id === 'ledgerModal') closeLedger();
+$('manuscriptBtn')?.addEventListener('click', () => { if (!state.isAnimating) openManuscript(); });
+$('manuscriptModal')?.addEventListener('click', e => {
+  if (e.target.closest('[data-close-manuscript]') || e.target.id === 'manuscriptModal') closeManuscript();
 });
 
 $('inspectorModal')?.addEventListener('click', e => {

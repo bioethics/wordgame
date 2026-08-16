@@ -2706,8 +2706,8 @@ button.sundry:hover { transform: translateY(-2px); }
   100% { transform: scale(1); }
 }
 
-/* ─── Ledger ──────────────────────────────────────────────────────────────────── */
-.btn-icon--ledger { position: relative; font-size: 15px; }
+/* ─── The manuscript ──────────────────────────────────────────────────────────── */
+.btn-icon--manuscript { position: relative; font-size: 15px; }
 .icon-count {
   position: absolute;
   bottom: -3px; right: -4px;
@@ -2723,45 +2723,148 @@ button.sundry:hover { transform: translateY(-2px); }
   font-variant-numeric: tabular-nums;
 }
 
-.sheet--ledger { width: min(560px, 94vw); }
-.ledger-list {
-  list-style: none;
-  margin: 12px 0 0;
-  padding: 0;
-  display: grid;
-  gap: 4px;
-  max-height: 62vh;
+/* A book rather than a list of transactions: chapters with headings and titles,
+   the words set as running prose beneath them, each page's folio number out in
+   the margin. Read front to back — the newest word is at the end, where the
+   next one will go. */
+.sheet--manuscript {
+  width: min(660px, 94vw);
+  padding-bottom: 30px;
+}
+.book-head { border-bottom: 1px solid rgba(138, 95, 29, 0.3); padding-bottom: 12px; }
+
+.book {
+  margin-top: 4px;
+  max-height: 64vh;
   overflow: auto;
+  /* A hair of a gutter down the left, where a bound page meets its spine */
+  padding: 4px 4px 4px 2px;
 }
-.ledger-row {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  align-items: baseline;
-  gap: 12px;
-  padding: 7px 11px;
-  border-radius: 8px;
-  background: rgba(120, 90, 40, 0.09);
-  border: 1px solid rgba(138, 95, 29, 0.22);
-}
-.ledger-row--best {
-  background: rgba(217, 166, 75, 0.2);
-  border-color: rgba(138, 95, 29, 0.55);
-}
-.ledger-word {
+.book-blank {
+  margin: 26px 0 14px;
+  text-align: center;
   font-family: var(--serif);
-  font-weight: 700;
+  font-style: italic;
   font-size: 15px;
-  letter-spacing: 0.5px;
+  color: var(--parch-dim);
 }
-.ledger-where { font-size: 10.5px; color: var(--parch-dim); }
-.ledger-score {
+
+/* ── A chapter heading ──────────────────────────────────────────────────────── */
+.book-chapter { margin-top: 22px; }
+.book-chapter:first-child { margin-top: 14px; }
+
+.book-chapter-head {
+  display: grid;
+  /* number · title · the rule that runs between them · the tally */
+  grid-template-columns: auto auto 1fr auto;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+.book-chapter-num {
   font-family: var(--serif);
   font-weight: 900;
-  font-size: 15px;
-  min-width: 58px;
+  font-size: 11px;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--parch-dim);
+  white-space: nowrap;
+}
+.book-chapter-title {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--parch-ink);
+  white-space: nowrap;
+}
+/* The rule runs on from the title to the tally, the way a chapter head is
+   ruled off in a printed book. Its own cell, because an ::after pinned to the
+   title had nothing to measure against — a stretched grid cell made it
+   zero-width and it never appeared. */
+.book-rule {
+  border-top: 1px solid rgba(138, 95, 29, 0.4);
+  align-self: center;
+  min-width: 12px;
+}
+.book-chapter-tally {
+  font-size: 10.5px;
+  letter-spacing: 0.3px;
+  color: var(--parch-dim);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ── One page of that chapter ───────────────────────────────────────────────── */
+.book-leaf {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  align-items: baseline;
+  gap: 8px;
+  padding: 3px 0;
+}
+.book-folio {
+  font-family: var(--serif);
+  font-size: 12px;
+  font-style: italic;
   text-align: right;
+  color: var(--parch-dim);
+  font-variant-numeric: tabular-nums;
+  cursor: help;
+}
+/* The Deadline is marked, not numbered — a printer's fleuron where the folio
+   number would sit. */
+.book-folio--deadline { color: var(--brass-dark); font-style: normal; font-size: 13px; }
+
+.book-prose {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--parch-ink);
+}
+
+/* ── A word, and its score as a footnote figure ─────────────────────────────── */
+/* A word and its figure never come apart, but the prose has to break between
+   entries — which is why they are joined with a real space in the markup and
+   not merely spaced by this margin. These are book-* and not ms-*: the strip
+   at the foot of the board owns .ms-word, and it is a pale cream meant for
+   dark wood, which on parchment is no colour at all. */
+.book-entry { white-space: nowrap; }
+.book-entry + .book-entry { margin-left: 0.3em; }
+.book-word {
+  font-variant-caps: small-caps;
+  text-transform: lowercase;
+  letter-spacing: 0.6px;
+}
+.book-score {
+  font-size: 0.6em;
+  vertical-align: super;
+  margin-left: 1px;
+  color: var(--parch-dim);
   font-variant-numeric: tabular-nums;
 }
+/* The first word of a chapter takes the initial, as an opening line does */
+.book-initial {
+  font-size: 1.5em;
+  font-weight: 900;
+  line-height: 0;
+  text-transform: uppercase;
+  color: var(--brass-dark);
+}
+/* The best word of the run is illuminated */
+.book-entry--best .book-word {
+  font-weight: 900;
+  color: #6b4a12;
+  background: linear-gradient(180deg, rgba(217, 166, 75, 0.34), rgba(217, 166, 75, 0.14));
+  border-radius: 3px;
+  padding: 1px 5px;
+  margin: 0 1px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.book-entry--best .book-score { color: var(--brass-dark); font-weight: 800; }
 
 /* ─── The Colophon (end-of-chapter upgrade) ─────────────────────────────────────
    A ceremonial pick, not a transaction — bigger cards than a Market offer,
@@ -3317,10 +3420,18 @@ input[type='checkbox'] {
   /* the shop head is a title beside a reward tally — too wide for a phone */
   .sheet-head { flex-direction: column; align-items: stretch; gap: 8px; }
   .reward-line { justify-content: flex-start; max-width: none; }
-  .sheet--market .sheet-head .x, .sheet--inspector .sheet-head .x { align-self: flex-end; margin-top: -28px; }
-  .ledger-row { grid-template-columns: 1fr auto; row-gap: 2px; }
-  .ledger-where { grid-column: 1; }
-  .ledger-score { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
+  .sheet--market .sheet-head .x, .sheet--inspector .sheet-head .x,
+  .sheet--manuscript .sheet-head .x { align-self: flex-end; margin-top: -28px; }
+  /* A chapter head won't hold three columns on a phone: the title takes the
+     line, the number and tally share the one below it. */
+  .book-chapter-head { grid-template-columns: auto 1fr; row-gap: 1px; }
+  .book-chapter-title { grid-column: 1 / -1; grid-row: 1; white-space: normal; }
+  .book-chapter-num { grid-row: 2; grid-column: 1; }
+  .book-chapter-tally { grid-row: 2; grid-column: 2; text-align: right; }
+  /* No room for a rule between two columns that are already tight */
+  .book-rule { display: none; }
+  .book-leaf { grid-template-columns: 20px 1fr; gap: 6px; }
+  .book-prose { font-size: 14px; line-height: 1.8; }
 }
 
 @media (prefers-reduced-motion: reduce) {
