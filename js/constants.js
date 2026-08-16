@@ -276,10 +276,15 @@ export const ANIM = {
 };
 
 // ─── Materials (what a tile is cast from) ─────────────────────────────────────
-// Ordinary tiles are lead. An ingot bought at the Market casts one tile from
-// something stranger, and the material sits under everything else a tile
-// carries: a cursed or rainbow tile still takes paint, trims and nicks. A
+// Ordinary tiles are lead. A wrapped tile bought at the Market holds one tile
+// cast from something stranger, and the material sits under everything else a
+// tile carries: a cursed or rainbow tile still takes paint, trims and nicks. A
 // ghost takes nothing at all, ever.
+//
+// What is under the paper is not known until it comes off — not to the shop,
+// not to the save, not until you unwrap it. That is the whole of the thing:
+// two of the three materials are gifts and one is a curse, so a wrapped tile
+// is a parcel you choose to open rather than a metal you choose to buy.
 export const CURSED_MULT       = 3;   // ×Mult a cursed tile gives the word
 export const CURSED_MAX_POINTS = 3;   // never cast on a letter worth more than this
 // What a curse takes from any word set without it while it waits in the hand.
@@ -289,8 +294,8 @@ export const CURSED_MAX_POINTS = 3;   // never cast on a letter worth more than 
 // rack that keeps drawing until the curse finds a word. Points, not Mult, so a
 // press strong enough to clear 666 can shrug one off and score anyway.
 export const CURSED_PENALTY    = 666;  // Points lost per unplayed curse in hand
-export const INGOT_PRICE       = 4;
-export const INGOT_OFFER_CHANCE = 0.5;  // odds one of a Market's sundry slots holds an ingot
+export const WRAPPED_PRICE        = 4;
+export const WRAPPED_OFFER_CHANCE = 0.5;  // odds one of a Market's sundry slots holds one
 
 export const MATERIALS = {
   cursed: {

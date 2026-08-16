@@ -68,11 +68,15 @@ plus an optional **trim** and **nick**.
 A dual tile is one tile wearing one set of everything: its paint, trim and
 nick belong to the tile, and flipping changes the letter and nothing else.
 
-**Materials** — most type is lead. An **ingot** bought at the Market (4 Coins,
-on the workbench beside the paint tubes) is tapped once and casts a single tile
-of something stranger, straight into your hand and into your collection for
-good. The material sits *under* everything else, so a cursed or rainbow tile
-still takes paint, trims and nicks like any other.
+**Materials** — most type is lead. A **wrapped tile** bought at the Market
+(4 Coins, on the workbench beside the paint tubes) is tapped once to unwrap it:
+out comes a single tile of a random letter, struck in something stranger,
+straight into your hand and into your collection for good. Which material is
+not decided at the shop, or in the save, or anywhere at all until the paper
+comes off — two of the three are gifts and the third is a curse, so it is a
+parcel you choose to open rather than a metal you choose to buy. The material
+sits *under* everything else, so a cursed or rainbow tile still takes paint,
+trims and nicks like any other.
 
 - **Cursed** (hellbox iron) — ×3 Mult when printed, and it can never be
   discarded: the only way out of your hand is to play it. While it waits there,
@@ -191,6 +195,7 @@ can be flipped at any time, including on the tap that spends it. The new
 letter is permanent, re-pricing the tile with it. It walks the press's own alphabet
 rather than A-Z, so P steps straight to R: there is no lone Q sort to land on.
 Ligatures and marks aren't single letters and can't be stepped at all. The
+**wrapped tile**: no target either, just tap it and the paper comes off. The
 **reshuffle**: no target to pick, just banked until you spend it — on the
 Market's own offers (free, doesn't touch the escalating reroll price) or on a
 Colophon pick. (The random-scatter paint pots survive only in the opening
@@ -277,7 +282,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | --- | --- |
 | Quota curve | `js/constants.js` → `quotaFor`, `QUOTA_BASE`, `QUOTA_GROWTH_START`, `QUOTA_GROWTH_RAMP`. The rate itself grows: chapter 2 asks ×1.7 of chapter 1, chapter 3 ×1.8 of chapter 2, and so on. START makes the whole run harder; RAMP makes the ending harder without touching the opening — a harder mode is a bigger pair |
 | Trim effects & prices | `js/constants.js` → `TRIMS` (effects live in `js/scoring.js`) |
-| Materials, the cursed ×Mult, ingot price & how often one is offered | `js/constants.js` → `MATERIALS`, `CURSED_MULT`, `CURSED_MAX_POINTS`, `INGOT_PRICE`, `INGOT_OFFER_CHANCE` |
+| Materials, the cursed ×Mult, wrapped-tile price & how often one is offered | `js/constants.js` → `MATERIALS`, `CURSED_MULT`, `CURSED_MAX_POINTS`, `WRAPPED_PRICE`, `WRAPPED_OFFER_CHANCE`. What comes out of a wrapper is an even roll across `MATERIALS`, in `js/main.js` → `pickMaterial` |
 | Letters only one patron can hand you | `js/constants.js` → `EXCLUSIVE_LETTERS` (RAT belongs to the Rat Catcher; shop, draft and heap all skip them) |
 | Compost heap size & what you may take a visit | `js/constants.js` → `COMPOST_HEAP_MAX`, `COMPOST_PER_MARKET` |
 | Purple trim step size | `js/constants.js` → `PURPLE_TRIM_STEP` |

@@ -98,6 +98,14 @@ async function animateDiscard(rects, to = pileRect(), bump = 'discardBtn') {
   await Promise.all(flights);
 }
 
+// What comes out of a wrapped tile. The three strange materials are equally
+// likely, which is the gamble the parcel is for: two of them are gifts and the
+// third is a curse you will have to find a word for.
+const pickMaterial = () => {
+  const kinds = Object.keys(MATERIALS);
+  return kinds[Math.floor(Math.random() * kinds.length)];
+};
+
 // ─── Discard mode ─────────────────────────────────────────────────────────────
 
 function cancelDiscardMode(quiet = false) {
@@ -814,12 +822,15 @@ $('sundries')?.addEventListener('click', async e => {
     return;
   }
 
-  // An ingot needs no target: it casts its tile there and then.
-  if (armed?.kind === 'ingot') {
+  // A wrapped tile needs no target: the paper comes off there and then, and
+  // what is under it is rolled at this moment rather than at the shop — the
+  // parcel was genuinely unknown right up until you opened it.
+  if (armed?.kind === 'wrapped') {
     cancelDiscardMode(true);
     cancelSundryMode(true);
-    const m = MATERIALS[armed.material];
-    const tile = castMaterialTile(armed.material);
+    const material = pickMaterial();
+    const m = MATERIALS[material];
+    const tile = castMaterialTile(material);
     state.sundries.splice(idx, 1);
 
     state.isAnimating = true;
@@ -830,12 +841,12 @@ $('sundries')?.addEventListener('click', async e => {
       await flyClone(el, bagRect(), rect(el), { duration: ANIM.fly, scaleFrom: 0.3 });
       popReveal(el);
       sparkleBurst(el, 14);
-      floatText(el, m.label, `fl-set fl-mat--${armed.material}`);
+      floatText(el, m.label, `fl-set fl-mat--${material}`);
     }
     await sleep(ANIM.stepColour);
     state.isAnimating = false;
     renderAll();
-    log(`${m.metal} cast into ${getActiveLetter(tile)} — ${m.label.toLowerCase()}, and yours for good.`, 'good');
+    log(`The wrapping comes off: ${getActiveLetter(tile)}, struck in ${m.metal.toLowerCase()} — ${m.label.toLowerCase()}, and yours for good.`, 'good');
     return;
   }
 

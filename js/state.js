@@ -230,21 +230,31 @@ export const luckyRoll = p => Math.random() < Math.min(1, p * (state.luck ?? 1))
 
 // ─── Persist ──────────────────────────────────────────────────────────────────
 
-// Paint used to belong to a face — a dual tile carried an `altColour` for its
-// other letter — and now belongs to the tile. Fold an older save's second coat
-// into the first wherever a template might be hiding: the collection, the rack,
-// the discard pile, the shop's offers, the draft, the compost heap. Walking the
-// whole save is cheaper than finding every list by hand, and it can't miss one.
-// A tile painted on both faces keeps the front one; the alternative is asking
-// the player which half of a tile they meant.
-function foldAltColour(node) {
-  if (Array.isArray(node)) { node.forEach(foldAltColour); return; }
+// Shape changes an older save has to be walked forward through. Both of these
+// can be hiding anywhere — the collection, the rack, the discard pile, the
+// shop's offers and the workbench inside the market snapshot, the draft, the
+// compost heap — so the whole save is walked rather than each list found by
+// hand, which is cheaper to write and can't miss one.
+//
+//   altColour  Paint used to belong to a face; it belongs to the tile now, so
+//              a second coat folds into the first. A tile painted on both keeps
+//              the front one — the alternative is asking the player which half
+//              of a tile they meant.
+//   ingot      A sundry that named its metal at the shop. It is a wrapped tile
+//              now, and what is inside is rolled when the paper comes off, so
+//              the stored material is simply dropped.
+function migrateSave(node) {
+  if (Array.isArray(node)) { node.forEach(migrateSave); return; }
   if (!node || typeof node !== 'object') return;
   if ('altColour' in node) {
     node.colour ??= node.altColour;
     delete node.altColour;
   }
-  for (const v of Object.values(node)) foldAltColour(v);
+  if (node.kind === 'ingot') {
+    node.kind = 'wrapped';
+    delete node.material;
+  }
+  for (const v of Object.values(node)) migrateSave(v);
 }
 
 export function saveState(extra = {}) {
@@ -267,7 +277,7 @@ export function loadState() {
     if (!raw) return null;
     const s = JSON.parse(raw);
     if (s._v !== SAVE_VERSION) return null;
-    foldAltColour(s);
+    migrateSave(s);
     if (!Array.isArray(s.collection) || !Array.isArray(s.rack)) return null;
     const { _nextId: savedId, _nextTid: savedTid, _v, _market, _draft, _colophon, ...fields } = s;
     Object.assign(state, fields, { isAnimating: false, discardMode: false, sundryMode: -1 });
@@ -385,8 +395,9 @@ export function castTile(overrides = {}) {
   return tile;
 }
 
-// An ingot's tile. A cursed one is never cast on a letter worth much — its
-// ×Mult is the point, not its Points.
+// What comes out of a wrapped tile: a random letter in the given material. A
+// cursed one is never cast on a letter worth much — its ×Mult is the point,
+// not its Points, and a cursed QU would be a punishment rather than a gamble.
 export function castMaterialTile(material) {
   const letters = Object.keys(BAG_COUNTS).filter(L =>
     material !== 'cursed' || (TILE_POINTS[L] ?? 99) <= CURSED_MAX_POINTS);

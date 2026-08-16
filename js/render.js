@@ -435,15 +435,18 @@ function renderSundries() {
         </span>
         <span class="sundry-name">${picked ? 'Step it' : armed ? 'Pick a letter' : 'Ratchet'}</span>`;
       bench.appendChild(slot);
-    } else if (s?.kind === 'ingot') {
-      const m = MATERIALS[s.material];
+    } else if (s?.kind === 'wrapped') {
+      // No material on the slot: the parcel is the whole point, and it is not
+      // decided until it is opened.
       const slot = document.createElement('button');
-      slot.className = `sundry sundry--ingot sundry--mat-${s.material}`;
+      slot.className = 'sundry sundry--wrapped';
       slot.dataset.sundry = i;
-      slot.title = `${m.metal} — tap to cast one ${m.label.toLowerCase()} tile into your hand.\n${m.desc}`;
+      slot.title = 'A wrapped tile — tap to unwrap it.\n'
+                 + 'Inside is one tile of a random letter, struck in one of the three strange '
+                 + 'materials, straight into your hand and yours for the rest of the run.';
       slot.innerHTML = `
-        <span class="ingot-mark ingot-mark--${s.material}">${m.emoji}</span>
-        <span class="sundry-name">${m.label}</span>`;
+        <span class="wrapped-mark"></span>
+        <span class="sundry-name">Wrapped</span>`;
       bench.appendChild(slot);
     } else {
       const slot = document.createElement('div');

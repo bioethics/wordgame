@@ -443,23 +443,42 @@ button.sundry:hover { transform: translateY(-2px); }
 .paint-tube--jade    { background: var(--jade); }
 .paint-tube--amber   { background: var(--amber); }
 
-/* An ingot of strange metal — a small bar, marked with what it will cast */
-.ingot-mark {
-  display: grid;
-  place-items: center;
-  width: 22px; height: 20px;
-  border-radius: 4px;
-  font-size: 12px;
-  line-height: 1;
-  border: 1.5px solid rgba(40, 25, 10, 0.55);
-  box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.28), inset 0 -4px 6px rgba(0, 0, 0, 0.3);
+/* A wrapped tile — brown paper and a cross of string. It wears no material,
+   because nothing has decided which one is inside: the roll happens when the
+   paper comes off. That is the whole of the item, so it must not look like a
+   labelled bar of anything. */
+.wrapped-mark {
+  position: relative;
+  display: block;
+  width: 22px; height: 22px;
+  border-radius: 3px;
+  background:
+    linear-gradient(150deg, #a8834e 0%, #8f6b3a 46%, #74542b 100%);
+  border: 1.5px solid rgba(34, 20, 6, 0.6);
+  box-shadow: inset 0 2px 3px rgba(255, 236, 200, 0.3), inset 0 -4px 6px rgba(0, 0, 0, 0.34);
+  overflow: hidden;
 }
-.ingot-mark--cursed  { background: linear-gradient(168deg, #6d1a15, #2a0808); }
-.ingot-mark--ghost   { background: linear-gradient(168deg, rgba(226,240,255,0.6), rgba(150,185,225,0.45)); }
-.ingot-mark--rainbow { background: linear-gradient(112deg, #ffd9d3, #fdf6c2 35%, #cfe9ff 70%, #e2d6ff); }
-.held-ingot { width: 17px; height: 15px; font-size: 9px; }
-.sundry--ingot .ingot-mark { margin-top: 2px; }
-.offer-ingot .ingot-mark { width: 26px; height: 24px; font-size: 14px; }
+/* The string: pale twine, one band each way, crossing at the middle. Light on
+   the dark paper rather than dark on light — a dark cross on a pale square
+   reads as a window pane, not a parcel. */
+.wrapped-mark::before,
+.wrapped-mark::after {
+  content: '';
+  position: absolute;
+  background: linear-gradient(90deg, #f0e2c2, #cfbb92);
+  box-shadow: 0 1px 1.5px rgba(30, 18, 4, 0.55);
+}
+.wrapped-mark::before { left: -1px; right: -1px; top: 50%; height: 2.5px; transform: translateY(-50%); }
+.wrapped-mark::after  { top: -1px; bottom: -1px; left: 50%; width: 2.5px; transform: translateX(-50%); }
+
+.held-wrapped { width: 16px; height: 16px; }
+.held-wrapped::before, .held-wrapped::after { height: 2px; width: 2px; }
+.held-wrapped::before { width: auto; }
+.held-wrapped::after  { height: auto; }
+.sundry--wrapped .wrapped-mark { margin-top: 3px; }
+.wrapped-mark--offer { width: 26px; height: 26px; margin-top: 4px; }
+/* An armed slot has no paint of its own to glow with — it takes the paper's */
+.sundry--wrapped.sundry--armed { --paintcol: #cbab7e; }
 
 /* The reshuffle sundry: no colour of its own, so it gets a brass badge
    instead of a tube. Sits idle on the board — it only does anything from

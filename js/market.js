@@ -5,7 +5,7 @@ import {
 import {
   BAG_COUNTS, LIGATURES, EXCLUSIVE_LETTERS, MARKS, MARK_WEIGHT, isMark,
   TILE_POINTS, TRIMS, NICKS, COLOURS,
-  MATERIALS, INGOT_PRICE, INGOT_OFFER_CHANCE, isImmutable,
+  WRAPPED_PRICE, WRAPPED_OFFER_CHANCE, isImmutable,
   COMPOST_HEAP_MAX, COMPOST_PER_MARKET,
   TILE_BASE_PRICE, REROLL_BASE,
   SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, RATCHET_PRICE, SUNDRY_SELL,
@@ -144,8 +144,9 @@ function weightedPatronSample(n) {
   return out;
 }
 
-// Paint tubes and the reshuffle are the everyday stock; an ingot of strange
-// metal turns up in one of the slots about half the time.
+// Paint tubes and the reshuffle are the everyday stock; a wrapped tile turns up
+// in one of the slots about half the time. The shop doesn't know what is in it
+// either — the material is rolled when the paper comes off, not here.
 function rollSundryOffers() {
   const offers = shuffle([...Object.keys(COLOURS), 'reshuffle', 'ratchet'])
     .slice(0, SUNDRY_OFFERS)
@@ -155,10 +156,9 @@ function rollSundryOffers() {
       ? { kind: 'ratchet', colour: null, price: RATCHET_PRICE, sold: false }
       : { kind: 'tube', colour: entry, price: TUBE_PRICE, sold: false });
 
-  if (offers.length && Math.random() < INGOT_OFFER_CHANCE) {
+  if (offers.length && Math.random() < WRAPPED_OFFER_CHANCE) {
     offers[Math.floor(Math.random() * offers.length)] = {
-      kind: 'ingot', colour: null, material: pick(Object.keys(MATERIALS)),
-      price: INGOT_PRICE, sold: false,
+      kind: 'wrapped', colour: null, price: WRAPPED_PRICE, sold: false,
     };
   }
   return offers;
@@ -437,7 +437,7 @@ export function buySundry(idx) {
   if (state.sundries.length >= effectiveSundrySlots()) return { ok: false, reason: 'Your workbench is full.' };
   if (state.coins < offer.price)                     return { ok: false, reason: `You need ${offer.price} Coins.` };
   state.coins -= offer.price;
-  state.sundries.push({ kind: offer.kind, colour: offer.colour, material: offer.material ?? null });
+  state.sundries.push({ kind: offer.kind, colour: offer.colour });
   offer.sold = true;
   return { ok: true, offer };
 }
