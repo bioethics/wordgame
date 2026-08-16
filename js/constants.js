@@ -363,6 +363,12 @@ export const NUDIST_TRIM_CHANCE = 0.25;   // per bare letter in an all-bare word
 // — free paint at common weight, arriving faster than the Painter sells it.
 // The Dipper's card reads its odds off this number, so moving it moves the copy.
 export const DIPPER_PAINT_CHANCE = 1 / 12;
+// The Bloodletter's coin, tossed over a lone discarded tile. This is the odds
+// of the kind face — crimson paint — and it goes through luckyRoll, so the
+// luck dial tilts the toss away from the other face, which is the furnace.
+export const BLOODLETTER_PAINT_CHANCE = 0.5;
+// The Headsman: permanent ×Mult per patron dismissed while he is seated.
+export const HEADSMAN_STEP = 0.2;
 // The Gambler's coin. Tossed once per word rather than once per keystroke:
 // scoring runs on every letter you lay to drive the live preview, so a roll
 // inside the score effect would flicker as you compose and then disagree with
