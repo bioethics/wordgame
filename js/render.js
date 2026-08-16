@@ -475,11 +475,22 @@ function renderBossBar(script) {
     el.innerHTML = '';
     return;
   }
-  const demand = def.demand?.(state.boss.data ?? {});
+  const data = state.boss.data ?? {};
+  const demand = def.demand?.(data);
   const verdict = !state.word.length || !script ? ''
     : script.spiked
       ? `<span class="boss-verdict boss-verdict--bad">✂ spiked — ×${SPIKE_MULT} Mult</span>`
       : `<span class="boss-verdict boss-verdict--ok">✓ passes</span>`;
+
+  // How the page has gone so far: one mark per word printed, in order. Only
+  // for editors who actually judge — the Reviewer and the Completist never
+  // spike anything, so a row of ✓s would be telling you nothing.
+  const trail = def.judge ? (data.verdicts ?? []) : [];
+  const trailHTML = trail.length
+    ? `<span class="boss-trail" title="${trail.filter(v => v === 'spiked').length} of ${trail.length} spiked so far">${
+        trail.map(v => `<span class="boss-mark boss-mark--${v}">${v === 'spiked' ? '✂' : '✓'}</span>`).join('')}</span>`
+    : '';
+
   el.classList.remove('hidden');
   el.classList.toggle('boss-bar--warn', !!script?.spiked && !!state.word.length);
   el.title = `${def.name} — ${def.desc}`;
@@ -487,6 +498,7 @@ function renderBossBar(script) {
     <span class="boss-emoji">${def.emoji}</span>
     <span class="boss-name">${def.name.replace(/^The /, '')}</span>
     <span class="boss-rule">${demand ?? def.desc}</span>
+    ${trailHTML}
     ${verdict}`;
 }
 

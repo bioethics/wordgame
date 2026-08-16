@@ -46,7 +46,7 @@ const ABRIDGER_MAX = 4;   // letters an Abridged word may run to
 const PADDER_MIN   = 5;   // letters a Padded word must reach
 
 // The Populist's band: how far down the frequency list a word may sit and
-// still count as plain English. wordlists-themed/common.txt carries 2,000
+// still count as plain English. wordlists-themed/common.txt carries some 8,000
 // ranks, so this can be widened to soften the editor without new data.
 //
 // Measured against 1,500 random racks: at 500 the best legal word is worth a
@@ -57,10 +57,22 @@ const PADDER_MIN   = 5;   // letters a Padded word must reach
 // sacrificial word always available to whoever needs one.
 const POPULIST_BAND = 500;
 
-// Nothing spikes while the list is still loading. common.txt is fetched, so
-// a Deadline dealt in the first moments of a session would otherwise judge
-// every word unknown-and-therefore-rare and spike the lot.
-const commonRank = word => themeSize('common') ? themeRank('common', word) : 0;
+// The Obscurantist's bar — and the one number here that measurement lies
+// about. Enumerate the whole dictionary and barring the commonest 1,000 words
+// costs a solver almost nothing: it simply reads further down the list, losing
+// 2% of its score ceiling. A player has to *think of* the rarer word, and the
+// words that come to mind first are exactly the common ones. This editor is
+// therefore far harder in the hand than on paper, and it is the one to tune by
+// playing rather than by simulating.
+const OBSCURANTIST_BAND = 1000;
+
+// common.txt is fetched, so a Deadline can be dealt before the list lands.
+// Neither editor may judge until it has. There is no single safe answer to
+// give them while they wait, either — they read the same ranking in opposite
+// directions, so an absent list would let one spike nothing and the other
+// spike everything. Both ask, and both decline to judge until it is ready.
+const commonReady = () => themeSize('common') > 0;
+const commonRank  = word => themeRank('common', word);
 
 // The Reviewer's temper: 0.2 at rock bottom, 0.95 on a good day, in
 // twentieths. Squaring the roll skews the days good — the deep sulks are
@@ -95,9 +107,20 @@ export const BOSS_DEFS = [
     id: 'populist', name: 'The Populist', emoji: '📣',
     desc: `Writes for the common reader and nobody else: every word must be among the ${POPULIST_BAND} commonest in English. Anything rarer is spiked, however clever.`,
     judge: letters => {
+      if (!commonReady()) return null;
       const rank = commonRank(letters);
       return rank == null || rank >= POPULIST_BAND
         ? `too rare — the ${POPULIST_BAND} commonest words only` : null;
+    },
+  },
+  {
+    id: 'obscurantist', name: 'The Obscurantist', emoji: '🕯️',
+    desc: `Holds that if a reader has met the word before, it was not worth setting: the ${OBSCURANTIST_BAND.toLocaleString()} commonest words in English are all spiked.`,
+    judge: letters => {
+      if (!commonReady()) return null;
+      const rank = commonRank(letters);
+      return rank != null && rank < OBSCURANTIST_BAND
+        ? `too plain — one of the ${OBSCURANTIST_BAND.toLocaleString()} commonest words` : null;
     },
   },
   {
@@ -179,11 +202,17 @@ export const activeBoss = state => (state.boss ? bossById(state.boss.id) : null)
 
 // Advance the editor's memory after a word commits. `letters` is the word
 // without its marks — the same string judge() saw.
+//
+// Every verdict is also kept, in order, so the bar can show how the page has
+// gone rather than only how the word in the groove is going: once a word is
+// printed its ✓ or ✂ is otherwise gone from the screen, and on a five-word
+// page that is most of what you want to know.
 export function bossOnPrinted(state, script, letters) {
   if (!state.boss) return;
   const def = bossById(state.boss.id);
-  state.boss.data ??= {};
-  def?.onPrinted?.(state.boss.data, script, letters);
+  const data = (state.boss.data ??= {});
+  (data.verdicts ??= []).push(script.spiked ? 'spiked' : 'passed');
+  def?.onPrinted?.(data, script, letters);
 }
 
 // The Enthusiast's tile, cast as the Deadline is dealt. `castEphemeral` is

@@ -16,7 +16,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const KEEP = 2000;   // ranks retained — 4× the widest band any editor uses
+// Ranks retained. The Populist takes the first 500 and the Obscurantist bars
+// the first 1,000, but The Lexicographer asks whether a word is on the list at
+// ALL — so the file's length is itself a game number, not just headroom.
+const KEEP = 10000;
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const src = process.argv[2];
@@ -46,7 +49,9 @@ fs.writeFileSync(out, `# The commonest words of English, commonest first.
 # Rebuild with tools/build-common-list.mjs.
 #
 # ORDER IS DATA. js/themes.js reads each word's position as its frequency
-# rank, and The Populist (js/bosses.js) accepts only the first 500. Sorting
+# rank. The Populist accepts only the first 500 and the Obscurantist bars the
+# first 1,000 (js/bosses.js); The Lexicographer (js/patrons.js) pays for words
+# absent from the file entirely, so its length is a game number too. Sorting
 # this file alphabetically would silently change what that editor asks for.
 ${kept.join('\n')}\n`);
 

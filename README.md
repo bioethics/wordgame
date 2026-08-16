@@ -98,9 +98,9 @@ anything or touches what a tile is worth — each one warps the *shape* of the
 words instead. The Abridger reads nothing past the fourth letter; the Padder
 pays by the word and wants five at least; the Columnist re-sets an exact
 measure after every print; the Populist writes for the common reader and takes
-none but the 500 commonest words in English; the Serialist demands each word
-open on the letter the last one ended with; the Indexer files the page
-alphabetically; the
+none but the 500 commonest words in English, where the Obscurantist spikes the
+commonest thousand outright; the Serialist demands each word open on the letter
+the last one ended with; the Indexer files the page alphabetically; the
 Escalationist insists every word outscore the one before; the Enthusiast lends
 a tile of a beloved letter and expects it in every word; the Reviewer receives
 each word in a temper (×0.2–×0.95) rolled openly before you compose; the
@@ -108,15 +108,25 @@ Completist deals two extra tiles and permits no discards. A word that breaks
 the house rule is not refused — it is **spiked**: printed, filed, counted, but
 at ×0.2 of its score. The editor's bar above the readout carries the live
 demand and calls the verdict — ✓ or the spike — while you compose, because
-nothing in this game scores what the preview didn't promise. Chains and
-indexes are reset by the spiked word itself, so a sacrificial APPLE is always
-a way back in.
+nothing in this game scores what the preview didn't promise. Beside it runs the
+page's record: one mark per word printed, ✓ or ✂, so you can see how the whole
+page has gone and not merely the word in the groove. Chains and indexes are
+reset by the spiked word itself, so a sacrificial APPLE is always a way back in.
 
-The Populist reads `wordlists-themed/common.txt`, which is the one themed list
-whose *order* is data: `js/themes.js` keeps each word's line number as its
-frequency rank, and the editor takes the first 500. Rebuild it with
-`tools/build-common-list.mjs` (it filters a frequency list down to words this
-dictionary will actually accept), and never sort it alphabetically.
+The two frequency editors read `wordlists-themed/common.txt`, the one themed
+list whose *order* is data: `js/themes.js` keeps each word's line number as its
+frequency rank. The Populist takes the first 500, the Obscurantist bars the
+first 1,000, and The Lexicographer — a patron, not an editor — pays ×1.5 for
+words absent from the file altogether, so its 8,000 entries are a game number
+too. Rebuild it with `tools/build-common-list.mjs` (it filters a frequency list
+down to words this dictionary will actually accept), and never sort it
+alphabetically.
+
+A word is worth noting about the Obscurantist: measured against a solver it
+looks feeble, costing 2% of the score ceiling, because a machine barred from
+common words simply reads further down the dictionary. A player cannot. Its
+difficulty is in recall rather than combinatorics, which is the kind of
+difficulty a word game is made of, and the reason it is tuned by playing.
 
 **Misspellings** — three patrons forgive a word the dictionary turns away, and
 none of them correct it: what you set is what prints, in the manuscript and the

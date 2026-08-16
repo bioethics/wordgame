@@ -63,7 +63,7 @@ import {
   getActiveColour, getActiveLetter, countsAsColour, luckyRoll, paintRandomFaces,
   shuffle,
 } from './state.js';
-import { inTheme } from './themes.js';
+import { inTheme, themeSize } from './themes.js';
 import { DICT } from './dict.js';   // The Mirror reads a word backwards against it
 
 const VOWELS = 'AEIOU';
@@ -568,6 +568,26 @@ export const PATRON_DEFS = [
       data.steps = (data.steps ?? 0) + 1;
       const next = Math.round((FRONTISPIECE.base + data.steps * FRONTISPIECE.step) * 100) / 100;
       return { note: `cleared alone — ×${next} from the next page` };
+    },
+  },
+  {
+    // The one patron paid for what a word ISN'T. wordlists-themed/common.txt
+    // holds the eight thousand commonest words of English that this dictionary
+    // also knows; anything outside it is, by that measure, a word most readers
+    // have never met.
+    //
+    // ×1.5 rather than the ×2 its neighbours pay, because the condition is
+    // met far more often than theirs: a dictionary of 64,000 words is mostly
+    // obscure, so a solver clears this bar four times in five. A player does
+    // not — the words that come to mind are the common ones — which is exactly
+    // the nudge this patron is for, and why it is worth playing rather than
+    // simulating. If it proves too easy in the hand, lower the multiplier
+    // before narrowing the list: the list is shared with two editors.
+    id: 'lexicographer', name: 'The Lexicographer', emoji: '📚', rarity: 'uncommon', cost: 6, guild: 'azure',
+    desc: '×1.5 Mult when the word is not among the commonest in English — reach for the word nobody else would.',
+    when: 'score',
+    effect({ word, xMult }) {
+      if (themeSize('common') && word && !inTheme('common', word)) xMult(1.5);
     },
   },
   {
