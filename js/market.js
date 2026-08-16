@@ -27,6 +27,7 @@ export const market = {
   compostTaken: 0,       // tiles lifted from the compost heap this visit
   sundryOffers: [],      // [{ kind: 'tube', colour, price, sold }]
   stalls: [],            // [{ id, uses, proposals? }] — this visit's two stalls
+  stallWear: {},         // stall id → uses this visit, surviving re-rolls (see rollStalls)
   activeStall: null,     // stall id while view === 'stall'
   stallSel: -1,          // selected tid (gilder: proposal index)
   stallColour: null,     // the painter's chosen colour
@@ -247,11 +248,19 @@ function pruneProposals() {
   }
 }
 
+// A re-roll brings new stalls, but not a new ledger: work already commissioned
+// this visit is remembered in market.stallWear, so a stall that turns up again
+// re-opens at the price it had reached, not at its base. Wear is wiped only
+// when the Market itself opens fresh (openMarket) — re-rolling your way back
+// to a cheap Smelter is not a thing.
 function rollStalls() {
   const ids = shuffle([...Object.keys(STALL_DEFS)]).slice(0, STALLS_PER_SHOP);
-  market.stalls = ids.map(id => isProposalStall(id)
-    ? { id, uses: 0, proposals: rollProposals(id) }
-    : { id, uses: 0 });
+  market.stalls = ids.map(id => {
+    const uses = market.stallWear?.[id] ?? 0;
+    return isProposalStall(id)
+      ? { id, uses, proposals: rollProposals(id) }
+      : { id, uses };
+  });
 }
 
 // ─── Open / close ─────────────────────────────────────────────────────────────
@@ -267,6 +276,7 @@ export function openMarket(rewardParts, rewardTotal) {
   market.stallSel = -1;
   market.stallColour = null;
   market.compostTaken = 0;
+  market.stallWear = {};
   rotCompost();
   rollOffers();
   rollStalls();
@@ -277,6 +287,7 @@ export function restoreMarket(snapshot) {
   Object.assign(market, snapshot, { open: true });
   market.sundryOffers ??= [];
   market.stalls ??= [];
+  market.stallWear ??= {};
   market.compostTaken ??= 0;
   state.inMarket = true;
 }
@@ -416,6 +427,7 @@ function stallTarget(stallId, tid) {
 function payStall(stall, price) {
   state.coins -= price;
   stall.uses += 1;
+  market.stallWear[stall.id] = stall.uses;   // remembered across re-rolls this visit
   market.stallSel = -1;
 }
 
