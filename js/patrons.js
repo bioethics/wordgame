@@ -172,7 +172,7 @@ export const PATRON_DEFS = [
     // what the card was for — it makes a short word worth printing — without
     // compounding into the rest of the run. It is at its best early, which is
     // when a common-weight card should be at its best.
-    id: 'abecedarian', name: 'The Abecedarian', emoji: '🪶', rarity: 'common', cost: 5,
+    id: 'abecedarian', name: 'The Abecedarian', emoji: '🐣', rarity: 'common', cost: 5,
     desc: '3-letter words get +10 Points.',
     when: 'score',
     effect({ word, addPoints }) { if (word.length === 3) addPoints(10); },
