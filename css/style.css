@@ -442,6 +442,41 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 .sundry-shuffle--offer { margin-top: 5px; width: 26px; height: 26px; }
 
+/* The ratchet: a steel pawl rather than a brass badge, so it reads as a tool
+   and not a token. Once a letter is picked the mark gives way to the two
+   directions, which are what actually spend it. */
+.ratchet-mark {
+  display: grid;
+  place-items: center;
+  width: 24px; height: 24px;
+  margin-top: 3px;
+  border-radius: 5px;
+  background: linear-gradient(160deg, #d8dde3, #97a1ac 55%, #6d7681);
+  color: #2b3138;
+  font-size: 14px;
+  font-weight: 900;
+  box-shadow: inset 0 -3px 5px rgba(40, 50, 60, 0.4), inset 0 2px 3px rgba(255, 255, 255, 0.7);
+}
+.offer-ratchet .ratchet-mark { margin-top: 5px; width: 26px; height: 26px; }
+.held-ratchet { width: 17px; height: 15px; font-size: 9px; margin-top: 0; }
+
+.ratchet-arrows { display: flex; gap: 4px; margin-top: 3px; }
+.ratchet-arrow {
+  display: grid;
+  place-items: center;
+  width: 21px; height: 21px;
+  border-radius: 4px;
+  background: linear-gradient(160deg, #d8dde3, #97a1ac 60%, #6d7681);
+  color: #21262c;
+  font-size: 11px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: inset 0 -2px 4px rgba(40, 50, 60, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.7);
+  transition: transform calc(0.1s / var(--aspd)), filter calc(0.1s / var(--aspd));
+}
+.ratchet-arrow:hover { transform: translateY(-2px); filter: brightness(1.15); }
+.sundry--ratchet.sundry--armed { --paintcol: #b9c3ce; }
+
 /* While a tube is armed, both board zones take on its colour, and picked
    tiles glow that colour under a brush mark instead of the discard arrows. */
 .zone--painting {

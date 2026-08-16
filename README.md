@@ -128,13 +128,19 @@ with each press. Tiles live in your **collection**; each page the whole
 collection shuffles into the **bag**, and printed or discarded tiles wait in
 the **discard pile**.
 
-**Sundries** are consumables kept on the **workbench** (two slots, beside the
-patron shelf). The **paint tube**: tap it mid-page, tap one tile anywhere on
-the board — rack or half-composed word alike — and tap the tube again to paint
-it, permanently. The **reshuffle**: no target to pick, just banked until you
-spend it — on the Market's own offers (free, doesn't touch the escalating
-reroll price) or on a Colophon pick. (The random-scatter paint pots survive
-only in the opening draft.)
+**Sundries** are consumables kept on the **workbench** (two slots to start, and
+the Colophon can add two more, beside the patron shelf). The **paint tube**:
+tap it mid-page, tap one tile anywhere on the board — rack or half-composed
+word alike — and tap the tube again to paint it, permanently. The **ratchet**:
+tap it, tap one letter, then step that letter a single place along the alphabet
+either way — D becomes C or E, A becomes Z or B — and the new letter is
+permanent, re-pricing the tile with it. It walks the press's own alphabet
+rather than A-Z, so P steps straight to R: there is no lone Q sort to land on.
+Ligatures and marks aren't single letters and can't be stepped at all. The
+**reshuffle**: no target to pick, just banked until you spend it — on the
+Market's own offers (free, doesn't touch the escalating reroll price) or on a
+Colophon pick. (The random-scatter paint pots survive only in the opening
+draft.)
 
 **The compost heap** appears at the Market while the Composter is seated:
 every tile destroyed anywhere — burned by the Stoker, lost to the Arsonist,
@@ -221,6 +227,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Nick multiplier & prices | `js/constants.js` → `NICK_MULT`, `NICKS` |
 | Tube price / tiles per tube / workbench slots / sell-back | `js/constants.js` → `TUBE_PRICE`, `TUBE_TILES`, `SUNDRY_SLOTS`, `SUNDRY_SELL` |
 | Reshuffle sundry price | `js/constants.js` → `RESHUFFLE_PRICE` |
+| Ratchet sundry price | `js/constants.js` → `RATCHET_PRICE` (the alphabet it walks is derived from `TILE_POINTS` — see `SHIFT_RING` in `js/state.js`) |
 | Stall roster, base prices, spread size | `js/constants.js` → `STALL_DEFS`, `STALLS_PER_SHOP`, `PROPOSAL_RANGE`, `SMELT_MIN_COLLECTION` |
 | Marks: which ones exist, legal tails, how often they're offered | `js/constants.js` → `MARKS`, `MARK_RUNS`, `MARK_WEIGHT` (and `TILE_POINTS`) |
 | What a proposal stall works on & offers | `js/market.js` → `PROPOSAL_STALLS` (one `eligible`/`propose` pair per stall — a new one is a few lines) |

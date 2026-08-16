@@ -5,6 +5,7 @@
 import {
   state, settings, saveState, getActiveLetter, getActiveColour, selectedCount,
   effectivePatronSlots, effectiveSundrySlots, effectiveWordsPerPage, chapterTitle,
+  sundrySelected,
 } from './state.js';
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
@@ -375,6 +376,25 @@ function renderSundries() {
       slot.innerHTML = `
         <span class="sundry-shuffle">↻</span>
         <span class="sundry-name">Reshuffle</span>`;
+      bench.appendChild(slot);
+    } else if (s?.kind === 'ratchet') {
+      const armed = state.sundryMode === i;
+      // The two arrows only appear once a letter is waiting: until then there
+      // is nothing to step, and an armed ratchet with no target would be
+      // offering a choice it can't honour.
+      const picked = armed && sundrySelected().length > 0;
+      const slot = document.createElement('button');
+      slot.className = `sundry sundry--ratchet${armed ? ' sundry--armed' : ''}`;
+      slot.dataset.sundry = i;
+      slot.title = 'Ratchet — tap, pick one letter, then step it up or down the alphabet.';
+      slot.innerHTML = picked
+        ? `<span class="ratchet-arrows">
+             <span class="ratchet-arrow" data-shift="1" title="A step later — D to E">▲</span>
+             <span class="ratchet-arrow" data-shift="-1" title="A step earlier — D to C">▼</span>
+           </span>
+           <span class="sundry-name">Step it</span>`
+        : `<span class="ratchet-mark">⇅</span>
+           <span class="sundry-name">Ratchet</span>`;
       bench.appendChild(slot);
     } else if (s?.kind === 'ingot') {
       const m = MATERIALS[s.material];

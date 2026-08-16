@@ -191,6 +191,16 @@ function marketShopHTML() {
         </div>
         <span class="op-sold">bought</span>
         <button class="btn-price" data-buy-sundry="${i}">${coinHTML(o.price)}</button>
+      </div>` : o.kind === 'ratchet' ? `
+      <div class="offer-paint offer-ratchet" data-offer="sundry" data-idx="${i}"
+           data-tip-head="Ratchet"
+           data-tip-body="Steps one letter of your choosing a single place along the alphabet, either way — D becomes C or E, A becomes Z or B. The new letter is permanent. Ligatures and marks have no place on the ring, and the press carries no lone Q, so P steps straight to R.">
+        <span class="ratchet-mark">⇅</span>
+        <div class="op-body">
+          <div class="op-name">Ratchet</div>
+        </div>
+        <span class="op-sold">bought</span>
+        <button class="btn-price" data-buy-sundry="${i}">${coinHTML(o.price)}</button>
       </div>` : o.kind === 'reshuffle' ? `
       <div class="offer-paint" data-offer="sundry" data-idx="${i}"
            data-tip-head="Reshuffle" data-tip-body="A free re-roll, banked for later — spend it here or at the Colophon.">
@@ -245,10 +255,13 @@ function marketShopHTML() {
 
   const heldSundries = state.sundries.map((s, i) => {
     const label = s.kind === 'reshuffle' ? 'Reshuffle'
+                : s.kind === 'ratchet'   ? 'Ratchet'
                 : s.kind === 'ingot'     ? MATERIALS[s.material].metal
                 :                          COLOURS[s.colour].label;
     const mark  = s.kind === 'reshuffle'
       ? `<span class="sundry-shuffle held-shuffle">↻</span>`
+      : s.kind === 'ratchet'
+      ? `<span class="ratchet-mark held-ratchet">⇅</span>`
       : s.kind === 'ingot'
       ? `<span class="ingot-mark ingot-mark--${s.material} held-ingot">${MATERIALS[s.material].emoji}</span>`
       : `<span class="paint-tube paint-tube--${s.colour} held-tube"></span>`;

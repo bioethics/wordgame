@@ -8,7 +8,7 @@ import {
   MATERIALS, INGOT_PRICE, INGOT_OFFER_CHANCE, isImmutable,
   COMPOST_HEAP_MAX, COMPOST_PER_MARKET,
   TILE_BASE_PRICE, REROLL_BASE,
-  SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, SUNDRY_SELL,
+  SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, RATCHET_PRICE, SUNDRY_SELL,
   STALL_DEFS, STALLS_PER_SHOP, PROPOSAL_RANGE, SMELT_MIN_COLLECTION,
   FEATURE_CHAIN_CHANCE, MAX_FEATURES,
   makeTileTemplate,
@@ -147,10 +147,12 @@ function weightedPatronSample(n) {
 // Paint tubes and the reshuffle are the everyday stock; an ingot of strange
 // metal turns up in one of the slots about half the time.
 function rollSundryOffers() {
-  const offers = shuffle([...Object.keys(COLOURS), 'reshuffle'])
+  const offers = shuffle([...Object.keys(COLOURS), 'reshuffle', 'ratchet'])
     .slice(0, SUNDRY_OFFERS)
     .map(entry => entry === 'reshuffle'
       ? { kind: 'reshuffle', colour: null, price: RESHUFFLE_PRICE, sold: false }
+      : entry === 'ratchet'
+      ? { kind: 'ratchet', colour: null, price: RATCHET_PRICE, sold: false }
       : { kind: 'tube', colour: entry, price: TUBE_PRICE, sold: false });
 
   if (offers.length && Math.random() < INGOT_OFFER_CHANCE) {

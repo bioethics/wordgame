@@ -133,6 +133,7 @@ function releasePress(commit) {
       const r = toggleSundrySelect(press.id);
       if (r === 'full')      log(`A tube covers ${tileCount(TUBE_TILES)} — deselect first.`, 'warn');
       if (r === 'immutable') log('A ghost tile takes no paint.', 'warn');
+      if (r === 'unshiftable') log('The ratchet steps single letters — not ligatures or marks.', 'warn');
     } else if (press.zone === 'rack') {
       if (selectingToDiscard()) {
         if (toggleSelected(press.id) === 'cursed') {

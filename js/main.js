@@ -731,6 +731,29 @@ $('sundries')?.addEventListener('click', async e => {
   const idx = Number(slot.dataset.sundry);
   const armed = state.sundries[idx];
 
+  // The ratchet's two arrows sit inside its own slot, so they're read before
+  // the slot itself — tapping one is the act of spending it.
+  const arrow = e.target.closest('[data-shift]');
+  if (arrow && armed?.kind === 'ratchet' && state.sundryMode === idx) {
+    const result = applySundry(idx, Number(arrow.dataset.shift));
+    if (!result) { cancelSundryMode(); renderAll(); return; }
+
+    state.isAnimating = true;
+    renderAll();
+    sfx.chime();
+    const el = wordTileEl(result.ids[0]) ?? rackTileEl(result.ids[0]);
+    if (el) {
+      popReveal(el);
+      sparkleBurst(el, 10);
+      floatText(el, `${result.from} → ${result.to}`, 'fl-points', { dy: -54 });
+    }
+    await sleep(ANIM.stepColour);
+    state.isAnimating = false;
+    renderAll();
+    log(`The ratchet steps ${result.from} to ${result.to} — and there it stays.`, 'good');
+    return;
+  }
+
   if (armed?.kind === 'reshuffle') {
     log('Spend this at the Market or the Colophon.', 'warn');
     return;
@@ -767,10 +790,16 @@ $('sundries')?.addEventListener('click', async e => {
     clearAllSelected();
     state.sundryMode = idx;
     const s = state.sundries[idx];
-    log(`Tap ${tileCount(TUBE_TILES)} to paint ${COLOURS[s.colour].label}, then tap the tube again.`);
+    log(s.kind === 'ratchet'
+      ? 'Tap one letter, then step it up or down the alphabet.'
+      : `Tap ${tileCount(TUBE_TILES)} to paint ${COLOURS[s.colour].label}, then tap the tube again.`);
     renderAll();
     return;
   }
+
+  // An armed ratchet stands down on a second tap, like the tube — the arrows
+  // above are what spend it, and they're handled before we ever get here.
+  if (armed?.kind === 'ratchet') { cancelSundryMode(); return; }
 
   // Second tap on the armed tube: paint the selection, or stand down.
   if (!sundrySelected().length) { cancelSundryMode(); return; }

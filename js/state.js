@@ -1,7 +1,7 @@
 import {
   RACK_SIZE, WORDS_PER_PAGE, DISCARDS_PER_PAGE, STARTING_COINS,
   PATRON_SLOTS, SUNDRY_SLOTS, SMELT_MIN_COLLECTION,
-  BAG_COUNTS, TILE_POINTS, TUBE_TILES, CURSED_MAX_POINTS, isImmutable,
+  BAG_COUNTS, TILE_POINTS, TUBE_TILES, CURSED_MAX_POINTS, isImmutable, isMark,
   quotaFor, makeTileTemplate, GAMBLER_ODDS,
 } from './constants.js';
 import { CHAPTER_TITLES } from './chapters.js';
@@ -471,19 +471,63 @@ export function toggleSundrySelect(id) {
   if (!tile) return 'off';
   if (tile.selected) { tile.selected = false; return 'off'; }
   if (isImmutable(tile)) return 'immutable';
+  // The ratchet only has purchase on a single letter — refuse ligatures and
+  // marks at the point of picking rather than after the choice is made.
+  if (state.sundries[state.sundryMode]?.kind === 'ratchet' && !shiftable(tile)) return 'unshiftable';
   if (sundrySelected().length >= TUBE_TILES) return 'full';
   tile.selected = true;
   return 'on';
 }
 
-// Spend the armed tube on the selected tiles. The live tile's showing face is
-// painted, and the change is written through to the collection template it was
-// drawn from — the paint is permanent, not just for this page.
-export function applySundry(idx) {
+// ─── The ratchet's alphabet ───────────────────────────────────────────────────
+// The ring a letter steps around, taken from the game's own sorts rather than
+// A-Z: the press carries no lone Q (only the QU sort), so Q simply isn't a
+// place a letter can land — P steps up to R, and R back down to P. It wraps,
+// so A steps down to Z. Ligatures and marks aren't single letters and have no
+// place on the ring at all.
+const SHIFT_RING = Object.keys(TILE_POINTS)
+  .filter(l => l.length === 1 && !isMark(l))
+  .sort();
+
+export const shiftable = tile =>
+  !!tile && !isImmutable(tile) && SHIFT_RING.includes(getActiveLetter(tile));
+
+// Step the showing face one place along the ring, written through to the
+// collection template — the new letter is permanent, and re-prices the tile.
+export function shiftTile(tile, dir) {
+  if (!shiftable(tile)) return false;
+  const i = SHIFT_RING.indexOf(getActiveLetter(tile));
+  const next = SHIFT_RING[(i + dir + SHIFT_RING.length) % SHIFT_RING.length];
+  const altFace = tile.letterType === 'dual' && tile.activeVariant === 1;
+  if (altFace) tile.altLetter = next; else tile.letter = next;
+  tile.basePoints = TILE_POINTS[next] ?? 1;
+  const tmpl = state.collection.find(c => c.tid === tile.tid);
+  if (tmpl) {
+    if (altFace) tmpl.altLetter = next; else tmpl.letter = next;
+  }
+  return true;
+}
+
+// Spend the armed sundry on the selected tiles. The live tile's showing face is
+// changed, and written through to the collection template it was drawn from —
+// paint and letter alike are permanent, not just for this page. `dir` is the
+// ratchet's direction (+1 later in the alphabet, -1 earlier) and is ignored by
+// every other kind.
+export function applySundry(idx, dir = 0) {
   const sundry = state.sundries[idx];
   if (!sundry) return null;
   const targets = sundrySelected().filter(t => !isImmutable(t)).slice(0, TUBE_TILES);
   if (!targets.length) return null;
+
+  if (sundry.kind === 'ratchet') {
+    const tile = targets[0];
+    const from = getActiveLetter(tile);
+    if (!shiftTile(tile, dir)) return null;
+    tile.selected = false;
+    state.sundries.splice(idx, 1);
+    state.sundryMode = -1;
+    return { kind: 'ratchet', from, to: getActiveLetter(tile), ids: [tile.id] };
+  }
 
   const letters = [];
   for (const t of targets) {
@@ -493,7 +537,7 @@ export function applySundry(idx) {
   }
   state.sundries.splice(idx, 1);
   state.sundryMode = -1;
-  return { colour: sundry.colour, letters, ids: targets.map(t => t.id) };
+  return { kind: 'tube', colour: sundry.colour, letters, ids: targets.map(t => t.id) };
 }
 
 // A reshuffle sundry has no board target — it's spent from the Market or the

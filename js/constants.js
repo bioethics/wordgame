@@ -97,6 +97,7 @@ export const SUNDRY_OFFERS = 2;   // sundries offered per shop
 export const TUBE_PRICE    = 2;
 export const TUBE_TILES    = 1;   // tiles painted per tube
 export const SUNDRY_SELL   = 1;   // what the Market pays to take one back
+export const RATCHET_PRICE = 3;   // the ratchet: one letter, one step either way
 
 // "one tile" / "2 tiles" — keeps copy reading right whatever TUBE_TILES is
 export const tileCount = n => n === 1 ? 'one tile' : `${n} tiles`;
