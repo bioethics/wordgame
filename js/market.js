@@ -8,7 +8,7 @@ import {
   WRAPPED_PRICE, WRAPPED_OFFER_CHANCE, isImmutable,
   COMPOST_HEAP_MAX, COMPOST_PER_MARKET,
   TILE_BASE_PRICE, REROLL_BASE,
-  SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, RATCHET_PRICE, SUNDRY_SELL,
+  SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, RATCHET_PRICE, SUNDRY_SELL, HEADSMAN_STEP,
   STALL_DEFS, STALLS_PER_SHOP, PROPOSAL_RANGE, SMELT_MIN_COLLECTION,
   FEATURE_CHAIN_CHANCE, MAX_FEATURES,
   makeTileTemplate,
@@ -376,7 +376,20 @@ export function sellPatron(ref) {
   const refund = Math.floor(def.cost / 2);
   state.patrons.splice(i, 1);
   state.coins += refund;
-  return { ok: true, refund, def, name: def.instName?.(seat.data) ?? def.name };
+
+  // The Headsman counts every departure but his own — a dismissed Headsman
+  // has already left the shelf by the time the axe falls. The count lives on
+  // his seat's data, never touched during scoring (which is read-only there),
+  // and rides back in the result so both dismissal routes can say so.
+  let headsman = null;
+  const axe = state.patrons.find(p => p.id === 'headsman');
+  if (axe) {
+    axe.data ??= {};
+    axe.data.heads = (axe.data.heads ?? 0) + 1;
+    headsman = { mult: Math.round((1 + axe.data.heads * HEADSMAN_STEP) * 100) / 100 };
+  }
+
+  return { ok: true, refund, def, name: def.instName?.(seat.data) ?? def.name, headsman };
 }
 
 // Sundries go back for a pittance — the point is freeing the slot, not the coin.

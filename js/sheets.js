@@ -781,6 +781,7 @@ function onMarketClick(e) {
     if (r.ok) {
       sfx.coin();
       log(`${r.name} departs — ${r.refund} Coin${r.refund === 1 ? '' : 's'} back.`);
+      if (r.headsman) log(`🪓 The Headsman approves — ×${r.headsman.mult} Mult now.`);
       renderAll(); renderMarket();
     }
     return;

@@ -24,12 +24,15 @@
 //   onChapterEnd(ctx) — as a chapter clears, before the next page's bag is
 //                       shuffled; ctx { state, data }. Return { note } likewise.
 //   onDiscard(ctx)    — after tiles are thrown away, before the hand tops up;
-//                       ctx { tiles, state, data, paint(tile, colour) }. The
-//                       tiles are already in the discard pile but still in the
-//                       collection, so paint written here is waiting when the
-//                       bag comes round again. Return { note } likewise, and
-//                       { painted: [{ tile, colour }] } for tiles that should
-//                       take their new colour on screen before they fly off.
+//                       ctx { tiles, state, data, paint(tile, colour),
+//                       trash(tile) }. The tiles are already in the discard
+//                       pile but still in the collection, so paint written here
+//                       is waiting when the bag comes round again. Return
+//                       { note } likewise, { painted: [{ tile, colour }] } for
+//                       tiles that should take their new colour on screen
+//                       before they fly off, and { trashed: [tile…] } for tiles
+//                       destroyed outright — main.js unfiles those from the
+//                       pile and burns them away instead of flying them.
 // `data` is the seat's own saved memory (state.js patronData) — counters live
 // there, never on the def.
 //
@@ -58,7 +61,8 @@
 import {
   GRAFTER_STEP, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS, NUDIST_TRIM_CHANCE,
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, COMPOST_PER_MARKET,
-  BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
+  BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE, BLOODLETTER_PAINT_CHANCE,
+  HEADSMAN_STEP, splitMarks,
 } from './constants.js';
 import {
   getActiveColour, getActiveLetter, countsAsColour, luckyRoll, paintRandomTiles,
@@ -68,6 +72,10 @@ import { inTheme, themeSize } from './themes.js';
 import { DICT } from './dict.js';   // The Mirror reads a word backwards against it
 
 const VOWELS = 'AEIOU';
+
+// The four dearest letters in the case — 8+ Points apiece, one of each in the
+// starting bag. The Antiquary pays a finder's fee for any of them.
+const RARE_LETTERS = ['J', 'QU', 'X', 'Z'];
 
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 
@@ -325,6 +333,19 @@ export const PATRON_DEFS = [
       if (n) addMult(n);
     },
   },
+  {
+    // Amber income with no paint ante: the fee follows the letters themselves.
+    // Fires once per word however many rarities it holds — the reward for a
+    // second Z is the second Z's own 10 Points. The Izzard turns this into an
+    // engine (a Z read as S is still a Z tile), which is deliberate: two cheap
+    // curios that are each mild alone and a livelihood together.
+    id: 'antiquary', name: 'The Antiquary', emoji: '🏺', rarity: 'uncommon', cost: 6, guild: 'amber',
+    desc: 'Words containing a J, QU, X or Z tile pay 2 Coins.',
+    when: 'score',
+    effect({ tiles, addCoins }) {
+      if (tiles.some(t => RARE_LETTERS.includes(getActiveLetter(t)))) addCoins(2);
+    },
+  },
 
   // ── Jade · growth and permanence ────────────────────────────────────────────
   {
@@ -428,6 +449,44 @@ export const PATRON_DEFS = [
     effect({ state, xMult }) { if (state.gambleWon) xMult(2); },
   },
   {
+    // Crimson's coin toss at the discard pile. Only a lone tile tempts him —
+    // throw two and he isn't interested — so the trigger is a choice that
+    // spends a whole Discard on one tile, which is the ante. Both faces of the
+    // coin are crimson's currency: paint is the guild's fuel, and a destroyed
+    // tile thins the bag, feeds the Composter, and dodges nothing — it is
+    // gone for good. Paint is the wanted face, so it rides luckyRoll; the
+    // furnace is simply the coin landing the other way up.
+    id: 'bloodletter', name: 'The Bloodletter', emoji: '💈', rarity: 'common', cost: 4, guild: 'crimson',
+    desc: 'Discard exactly one tile: even odds it is painted crimson, or destroyed.',
+    when: 'meta',
+    onDiscard({ tiles, paint, trash }) {
+      if (tiles.length !== 1) return null;
+      const t = tiles[0];
+      if (luckyRoll(BLOODLETTER_PAINT_CHANCE)) {
+        if (!paint(t, 'crimson')) return null;   // a ghost takes neither face
+        return { note: `${getActiveLetter(t)} bled crimson`, painted: [{ tile: t, colour: 'crimson' }] };
+      }
+      if (!trash(t)) return null;   // the Smelter's floor holds here too
+      return { note: `${getActiveLetter(t)} drained dry`, trashed: [t] };
+    },
+  },
+  {
+    // Crimson's engine for a resource no other patron spends: the shelf
+    // itself. Every dismissal — a dye that has done its work, a common
+    // outgrown, a seat cleared for something better — leaves a permanent
+    // ×0.2 behind. The count is advanced in sellPatron (js/market.js), never
+    // here: scoring runs on every keystroke, and `data` is read-only in it.
+    // A dismissed Headsman collects nothing on himself — he has already left
+    // the shelf by the time the axe is counted.
+    id: 'headsman', name: 'The Headsman', emoji: '🪓', rarity: 'uncommon', cost: 7, guild: 'crimson',
+    desc: `Each patron you dismiss permanently raises this patron's Mult by ${HEADSMAN_STEP}.`,
+    when: 'score',
+    effect({ data, xMult }) {
+      const heads = data?.heads ?? 0;
+      if (heads) xMult(Math.round((1 + heads * HEADSMAN_STEP) * 100) / 100);
+    },
+  },
+  {
     id: 'ratcatcher', name: 'The Rat Catcher', emoji: '🐀', rarity: 'uncommon', cost: 7, guild: 'crimson',
     desc: 'Every page begins with a RAT tile in hand, painted at random. It is yours for good.',
     when: 'meta',
@@ -507,6 +566,21 @@ export const PATRON_DEFS = [
     when: 'score',
     effect({ word, state, xMult }) {
       if (word && state.lastFirstLetter && word[0] === state.lastFirstLetter) xMult(2);
+    },
+  },
+  {
+    // The Skald's stricter cousin: he reads the manuscript, not the last
+    // line. The condition is dead on page one by definition and never fires
+    // by accident twice — a repeat has to be steered, tiles herded back into
+    // a word the press has set before, which mercury trims and The Fountain
+    // turn into a plan. Marks are stripped from both sides of the comparison,
+    // so HELLO! reprints HELLO.
+    id: 'copyist', name: 'The Copyist', emoji: '📑', rarity: 'common', cost: 4,
+    desc: '×2 Mult when the word already stands in your manuscript.',
+    when: 'score',
+    effect({ word, state, xMult }) {
+      if (!word || !state.manuscript?.length) return;
+      if (state.manuscript.some(r => (splitMarks(r.word)?.letters ?? r.word) === word)) xMult(2);
     },
   },
   {

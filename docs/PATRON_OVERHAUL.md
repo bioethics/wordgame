@@ -322,6 +322,56 @@ at 8+ Points). **Stammerer × Skimmer** is the combo to measure next: 19.7% of
 words hold a doubled pair, but 46.7% can be *arranged* into one, which is
 Cartographer × Skimmer all over again at two rare seats.
 
+## Four from the pitch pile
+
+A later batch, built from design pitches rather than the overhaul plan. All
+four follow the contract: a multiplier or an income is bought with a
+condition, and the condition asks something real of the player.
+
+- **The Copyist** 📑 (common · 4, neutral) — ×2 Mult when the word already
+  stands in the manuscript. The Skald's stricter cousin: same family (word-
+  history conditions), much harder condition, so it holds common weight where
+  the Skald sits at uncommon. Dead on page one by definition, and a repeat
+  never lands by accident — it has to be steered, which mercury trims and The
+  Fountain turn into a build. Marks are stripped from both sides of the
+  comparison, so HELLO! reprints HELLO.
+- **The Bloodletter** 💈 (common · 4, crimson) — discard *exactly one* tile:
+  even odds it is painted crimson or destroyed. The single-tile trigger is the
+  ante — a whole Discard spent on one tile — and it caps the pace at two
+  tosses a page, which is what keeps the paint honest next to the Dipper
+  (whose 1-in-10 was already too fast and got cut to 1-in-12). A per-tile
+  50% on full discards was the other reading of the pitch and is flatly too
+  much — measured against that same Dipper note. Both faces are crimson's
+  currency: paint fuels the guild, a destroyed tile thins the bag and feeds
+  the Composter. Paint is the wanted face so it rides `luckyRoll`; the
+  furnace is raw chance. Brought `trash(tile)` and `{ trashed }` to the
+  `onDiscard` contract — main.js unfiles those tiles from the pile and plays
+  the burn where they stand.
+- **The Headsman** 🪓 (uncommon · 7, crimson) — each dismissed patron
+  permanently adds ×0.2 to his Mult (`HEADSMAN_STEP`). Crimson's engine for a
+  resource nothing else spends: the shelf itself. The count advances in
+  `sellPatron` — never in scoring, where `data` is read-only — and a
+  dismissed Headsman collects nothing on himself, having already left the
+  shelf when the axe is counted. **Watchpoint:** the buy-to-behead loop.
+  Hiring a common at 3–4 and dismissing it for half back prices a head at
+  ~2 Coins; three patron offers a market and the escalating re-roll bound the
+  pace, but if a dedicated player outruns the Stoker with none of the
+  Stoker's tile cost, drop the step to 0.15 before touching anything else.
+- **The Antiquary** 🏺 (uncommon · 6, amber) — words containing a J, QU, X or
+  Z tile pay 2 Coins, once per word. Amber income with no paint ante; the
+  pitch named Z X J, and QU joins them as the fourth 8+-Point letter (the
+  Scrabble quartet, one of each in the starting bag). Fee follows the tile's
+  active letter, so a dual counts by its showing face, like the Siren. The
+  Izzard makes it an engine — a Z read as S still pays — and that pairing is
+  deliberate: two curios, mild alone, a livelihood together. **Watchpoint:**
+  benchmark against The Banker's flat +2 a page; the Antiquary should beat
+  it only when the collection has been steered toward its letters.
+
+Guild arithmetic, which these four were partly chosen to serve: crimson was
+the thinnest guild at 7 and takes two of the new seats (→ 9), amber takes one
+(→ 8), against azure's noted 10. Tiers move 18/25/15 → 20/27/15 — both
+newcomers' commons earn their weight the way the contract demands.
+
 ## The guilds made visible, and the Alderman
 
 Guild membership graduated from a comment block to a def field: `guild:

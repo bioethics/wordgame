@@ -283,22 +283,34 @@ function runPrintedHooks(tiles, script) {
 // rack but before the hand tops up, so a patron that paints one is writing to
 // a tile already filed in the discard pile — and the collection, which is what
 // makes the change outlast the page.
-// Returns the tiles a patron recoloured, so the caller can show it happening.
+// Returns the tiles a patron recoloured, so the caller can show it happening,
+// and the tiles a patron destroyed outright (The Bloodletter), which must be
+// unfiled from the pile and burned away rather than flown to it.
 function runDiscardHooks(tiles) {
   const painted = [];
+  const trashed = new Map();   // id → tile (already gone from the collection)
   for (const p of state.patrons) {
     const def = patronById(p.id);
     if (!def?.onDiscard) continue;
     p.data ??= {};
-    const r = def.onDiscard({ tiles, state, data: p.data, paint: paintTile });
+    const r = def.onDiscard({
+      tiles: tiles.filter(t => !trashed.has(t.id)),   // ash is out of everyone's reach
+      state, data: p.data,
+      paint: paintTile,
+      trash: t => !!trashFromCollection(t.tid),
+    });
     if (!r) continue;
+    for (const t of r.trashed ?? []) trashed.set(t.id, t);
     if (r.painted?.length) painted.push(...r.painted);
     if (r.note) {
       const card = patronCard(p);
       if (card) { pulse(card, 'patron--firing', 520); floatText(card, r.note, 'fl-points', { dy: -44 }); }
     }
   }
-  return painted;
+  // A trashed tile was filed in the pile a moment ago; unfile it, or the
+  // inspector would keep showing a tile whose template no longer exists.
+  if (trashed.size) state.discardPile = state.discardPile.filter(t => !trashed.has(t.id));
+  return { painted, trashed: [...trashed.values()] };
 }
 
 // A tile caught by the vat takes its colour where it stands, and is held there
@@ -732,17 +744,24 @@ async function doDiscard() {
   renderButtons();
 
   // Dipped before filed: the vat has its moment while the tiles are still on
-  // the board, then they fly to the pile wearing the new colour.
-  const dipped = runDiscardHooks(result.removed);
+  // the board, then they fly to the pile wearing the new colour. A tile the
+  // Bloodletter drained burns away where it sits instead — there is nothing
+  // left to file.
+  const { painted: dipped, trashed } = runDiscardHooks(result.removed);
   if (dipped.length) await animateDip(dipped, selectedEls);
 
-  await animateDiscard(selectedEls.map(el => ({ el, r: rect(el) })));
+  const trashedIds = new Set(trashed.map(t => String(t.id)));
+  const trashedEls = selectedEls.filter(el => trashedIds.has(el.dataset.id));
+  if (trashedEls.length) await animateBurn(trashedEls);
+  await animateDiscard(selectedEls.filter(el => !trashedIds.has(el.dataset.id))
+    .map(el => ({ el, r: rect(el) })));
   await animateDraw(result.drawn);
 
   state.isAnimating = false;
   renderAll();
 
   let msg = `Discarded ${result.removed.length} tile${result.removed.length > 1 ? 's' : ''}.`;
+  if (trashed.length) msg += `  ${trashed.length} destroyed for good.`;
   if (!result.drawn.length && !state.bag.length) msg += '  The bag is empty.';
   log(msg);
 
@@ -931,6 +950,7 @@ function dismissPatron(ref) {
   const r = sellPatron(ref);
   if (r.ok) {
     log(`${r.name} departs with thanks — ${r.refund} Coin${r.refund !== 1 ? 's' : ''} returned.`);
+    if (r.headsman) log(`🪓 The Headsman approves — ×${r.headsman.mult} Mult now.`);
     renderAll();
     if (state.inMarket) renderMarket();
   }
