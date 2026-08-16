@@ -262,13 +262,19 @@ function templateFor(tileEl) {
   }
   const offer = tileEl.closest('[data-offer="tile"]')?.dataset.idx;
   if (offer != null) return market.tileOffers[Number(offer)]?.template;
+  const rotted = tileEl.closest('[data-offer="compost"]')?.dataset.idx;
+  if (rotted != null) return state.compost?.[Number(rotted)];
   const drafted = tileEl.closest('[data-draft="tile"]')?.dataset.idx;
   if (drafted != null) return draft.tiles[Number(drafted)];
   return null;
 }
 
 export function initInspect() {
-  const roots = ['marketModal', 'draftModal', 'inspectorModal']
+  // The three sheets, plus the board's own workbench: a sundry is the one thing
+  // you hold that isn't a tile, and it was explained only by a native browser
+  // tooltip — which touch never shows. Its long-press swallows the click that
+  // follows, so reading a tool can't also arm it.
+  const roots = ['marketModal', 'draftModal', 'inspectorModal', 'sundries']
     .map(id => document.getElementById(id)).filter(Boolean);
 
   for (const root of roots) {

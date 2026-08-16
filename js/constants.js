@@ -431,3 +431,44 @@ export const DRAFT = {
   paints:  { show: 4,  pick: 2 },
   tiles:   { show: 10, pick: 4 },
 };
+
+// ─── What a sundry is, in one place ───────────────────────────────────────────
+// The workbench slot, the shop card and the held row all explain the same four
+// objects, and all three used to carry their own wording — which meant the shop
+// described the ratchet's alphabet and the workbench didn't, and the held row
+// said only what it sold for. They read from here now, so what a thing does is
+// written once and turns up wherever the thing does.
+export function sundryTip(s) {
+  if (s?.kind === 'tube') return {
+    head: `Tube of ${COLOURS[s.colour].label}`,
+    body: `Tap it, tap ${tileCount(TUBE_TILES)} anywhere on the board — rack or `
+        + `half-composed word alike — then tap the tube again. The paint is `
+        + `permanent, and goes on the tile rather than either face of a dual. `
+        + colourDesc(s.colour),
+  };
+  if (s?.kind === 'ratchet') return {
+    head: 'Ratchet',
+    body: 'Tap it, tap one letter, then tap the ratchet again to step that letter '
+        + 'a single place along the alphabet — the two arrows say which way, and can '
+        + 'be turned around at any time. The new letter is permanent and re-prices '
+        + 'the tile. It walks the press’s own alphabet rather than A–Z, so P steps '
+        + 'straight to R: there is no lone Q sort to land on. Ligatures and marks '
+        + 'aren’t single letters and can’t be stepped at all.',
+  };
+  if (s?.kind === 'reshuffle') return {
+    head: 'Reshuffle',
+    body: 'No target to pick — it simply banks until you spend it, on the Market’s '
+        + 'own offers (free, and it doesn’t touch the escalating re-roll price) or on '
+        + 'a fresh three at the Colophon.',
+  };
+  if (s?.kind === 'wrapped') return {
+    head: 'A wrapped tile',
+    body: 'Unwrap it mid-page: one tile, straight into your hand and yours for the '
+        + 'rest of the run. What is in it is not decided until the paper comes off — '
+        + 'a random letter struck in one of the three strange materials ('
+        + Object.values(MATERIALS).map(m => `${m.emoji} ${m.metal.toLowerCase()}`).join(', ')
+        + `), or a mark (${MARKS.join(' or ')}) under a ${TRIMS[MARK_TRIM].label.toLowerCase()} `
+        + 'trim, which is the only way marks come now.',
+  };
+  return null;
+}

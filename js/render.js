@@ -11,6 +11,7 @@ import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
   WORDS_PER_PAGE, PAGES_PER_CHAPTER, TUBE_TILES, tileCount,
   colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
+  sundryTip,
 } from './constants.js';
 import { patronById } from './patrons.js';
 import { bossById } from './bosses.js';
@@ -388,6 +389,18 @@ function paintArmed(shelf, script) {
 // ─── Sundries (the workbench beside the shelf) ────────────────────────────────
 // Fixed slot count so buying or spending a tube never reflows the board.
 
+// A slot explains itself on hover and on long-press, through the same popover
+// the shop uses (drag.js → initInspect), so the workbench is no longer the one
+// place a thing was only described by a native browser tooltip — which touch
+// never shows at all.
+function tagSlot(slot, s) {
+  const tip = sundryTip(s);
+  if (!tip) return;
+  slot.dataset.tipHead = tip.head;
+  slot.dataset.tipBody = tip.body;
+  slot.title = `${tip.head} — ${tip.body}`;
+}
+
 function renderSundries() {
   const bench = $('sundries');
   if (!bench) return;
@@ -404,19 +417,19 @@ function renderSundries() {
       slot.className = `sundry sundry--${s.colour}${armed ? ' sundry--armed' : ''}`
                      + (picked ? ' sundry--ready' : '');
       slot.dataset.sundry = i;
-      slot.title = `Tube of ${COLOURS[s.colour].label} — tap, pick ${tileCount(TUBE_TILES)}, tap again.`;
       slot.innerHTML = `
         <span class="paint-tube paint-tube--${s.colour}"></span>
         <span class="sundry-name">${picked ? 'Paint it' : COLOURS[s.colour].label}</span>`;
+      tagSlot(slot, s);
       bench.appendChild(slot);
     } else if (s?.kind === 'reshuffle') {
       const slot = document.createElement('button');
       slot.className = 'sundry sundry--reshuffle';
       slot.dataset.sundry = i;
-      slot.title = 'A free re-roll for the Market or the Colophon.';
       slot.innerHTML = `
         <span class="sundry-shuffle">↻</span>
         <span class="sundry-name">Reshuffle</span>`;
+      tagSlot(slot, s);
       bench.appendChild(slot);
     } else if (s?.kind === 'ratchet') {
       const armed  = state.sundryMode === i;
@@ -430,8 +443,6 @@ function renderSundries() {
       slot.className = `sundry sundry--ratchet${armed ? ' sundry--armed' : ''}`
                      + (picked ? ' sundry--ready' : '');
       slot.dataset.sundry = i;
-      slot.title = 'Ratchet — tap to arm, tap one letter, then tap again to step it. '
-                 + 'The arrows say which way.';
       slot.innerHTML = `
         <span class="ratchet-arrows">
           <span class="ratchet-arrow${dir === 1 ? ' ratchet-arrow--on' : ''}"
@@ -440,6 +451,7 @@ function renderSundries() {
                 data-shift="-1" title="A step earlier — D to C">▼</span>
         </span>
         <span class="sundry-name">${picked ? 'Step it' : armed ? 'Pick a letter' : 'Ratchet'}</span>`;
+      tagSlot(slot, s);
       bench.appendChild(slot);
     } else if (s?.kind === 'wrapped') {
       // No material on the slot: the parcel is the whole point, and it is not
@@ -447,19 +459,17 @@ function renderSundries() {
       const slot = document.createElement('button');
       slot.className = 'sundry sundry--wrapped';
       slot.dataset.sundry = i;
-      slot.title = 'A wrapped tile — tap to unwrap it.\n'
-                 + 'Inside is one tile, straight into your hand and yours for the rest of the '
-                 + 'run: a random letter in one of the three strange materials, or a mark under '
-                 + 'a purple trim. Nothing decides which until the paper comes off.';
       slot.innerHTML = `
         <span class="wrapped-mark"></span>
         <span class="sundry-name">Wrapped</span>`;
+      tagSlot(slot, s);
       bench.appendChild(slot);
     } else {
       const slot = document.createElement('div');
       slot.className = 'sundry sundry--empty';
       slot.title = 'Room for a sundry — sold at the Market';
       slot.innerHTML = `<span class="sundry-empty-mark">✒</span>`;
+      tagSlot(slot, s);
       bench.appendChild(slot);
     }
   }
@@ -884,7 +894,13 @@ export function openInspector(kind) {
       <div class="mini-grid" id="inspectorGrid"></div>
     </div>`;
   const grid = m.querySelector('#inspectorGrid');
-  sorted.forEach(tmpl => grid.appendChild(makeTileEl({ ...tmpl, id: '' }, 'inspect', { mini: true })));
+  // data-tid is what makes a tile inspectable (drag.js → templateFor), so the
+  // bag and the discard pile explain their tiles like everywhere else does.
+  sorted.forEach(tmpl => {
+    const el = makeTileEl({ ...tmpl, id: '' }, 'inspect', { mini: true });
+    if (tmpl.tid != null) el.dataset.tid = tmpl.tid;
+    grid.appendChild(el);
+  });
   if (!sorted.length) grid.innerHTML = '<p class="sheet-note">Empty.</p>';
   m.classList.add('show');
 }

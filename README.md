@@ -53,9 +53,14 @@ long it is, how it is spelled, what order it runs in. The editors are all
 shape rules, so they all count letters.
 
 The readout shows a live projection — including a chip per colour — and
-hovering or long-pressing any tile, on the board or in the market or the draft,
-spells out everything it does. Nothing is summarised beneath market cards; the
-tile itself is the documentation. On print, the score replays tile by tile: Points land, nicks fire, each colour's
+**everything that does something explains itself where it sits**: hover it with
+a mouse, long-press it on touch. Tiles on the board, in the market, in the
+draft, in your collection, in the bag or the discard pile, and on the compost
+heap; sundries on the workbench as well as on the shop shelf and in the row of
+what you already hold; patrons on the shelf and in the market. Nothing is
+summarised beneath market cards — the thing itself is the documentation. What a
+sundry does is written once, in `js/constants.js` → `sundryTip`, so the shop,
+the workbench and the held row can't tell you three different things about it. On print, the score replays tile by tile: Points land, nicks fire, each colour's
 multiplier lights up, then the patrons weigh in.
 
 ## The pieces

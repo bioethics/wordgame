@@ -8,7 +8,7 @@ import {
 } from './state.js';
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
-  PAINT_PER_POT, TUBE_TILES, ANIM, SUNDRY_SELL, tileCount, MATERIALS, MARKS, MARK_TRIM,
+  PAINT_PER_POT, TUBE_TILES, ANIM, SUNDRY_SELL, tileCount, sundryTip,
   colourDesc,
 } from './constants.js';
 import { patronById } from './patrons.js';
@@ -231,54 +231,28 @@ function marketShopHTML() {
                 ${compostLeft() ? '' : 'disabled'}>Take</button>
       </div>`).join('');
 
-  // The wrapped tile is the one offer that can't be summarised, because the shop
-  // doesn't know either. The tip lists what might be inside instead.
-  const wrappedTip = 'Unwrap it mid-page: one tile, straight into your hand and yours for the '
-    + 'rest of the run. What is in it is not decided until the paper comes off — a random '
-    + 'letter struck in one of the three strange materials ('
-    + Object.values(MATERIALS).map(m => `${m.emoji} ${m.metal.toLowerCase()}`).join(', ')
-    + `), or a mark (${MARKS.join(' or ')}) under a ${TRIMS[MARK_TRIM].label.toLowerCase()} trim, `
-    + 'which is the only way marks come now.';
-
-  const sundryCards = market.sundryOffers.map((o, i) => o.kind === 'wrapped' ? `
-      <div class="offer-paint offer-wrapped" data-offer="sundry" data-idx="${i}"
-           data-tip-head="A wrapped tile" data-tip-body="${wrappedTip}">
-        <span class="wrapped-mark wrapped-mark--offer"></span>
+  // Every sundry card explains itself from one place (constants.js → sundryTip),
+  // so the shop, the workbench and the held row below can't tell you three
+  // different things about the same object.
+  const sundryCards = market.sundryOffers.map((o, i) => {
+    const tip  = sundryTip(o);
+    const mark = o.kind === 'wrapped'   ? '<span class="wrapped-mark wrapped-mark--offer"></span>'
+               : o.kind === 'ratchet'   ? '<span class="ratchet-mark">⇅</span>'
+               : o.kind === 'reshuffle' ? '<span class="sundry-shuffle sundry-shuffle--offer">↻</span>'
+               :                          `<span class="paint-tube paint-tube--${o.colour}"></span>`;
+    const extra = o.kind === 'wrapped' ? ' offer-wrapped' : o.kind === 'ratchet' ? ' offer-ratchet'
+                : o.kind === 'tube' ? ` offer-paint--${o.colour}` : '';
+    return `
+      <div class="offer-paint${extra}" data-offer="sundry" data-idx="${i}"
+           data-tip-head="${tip.head}" data-tip-body="${tip.body}">
+        ${mark}
         <div class="op-body">
-          <div class="op-name">Wrapped tile</div>
+          <div class="op-name">${tip.head}</div>
         </div>
         <span class="op-sold">bought</span>
         <button class="btn-price" data-buy-sundry="${i}">${coinHTML(o.price)}</button>
-      </div>` : o.kind === 'ratchet' ? `
-      <div class="offer-paint offer-ratchet" data-offer="sundry" data-idx="${i}"
-           data-tip-head="Ratchet"
-           data-tip-body="Steps one letter of your choosing a single place along the alphabet, either way — D becomes C or E, A becomes Z or B. The new letter is permanent. Ligatures and marks have no place on the ring, and the press carries no lone Q, so P steps straight to R.">
-        <span class="ratchet-mark">⇅</span>
-        <div class="op-body">
-          <div class="op-name">Ratchet</div>
-        </div>
-        <span class="op-sold">bought</span>
-        <button class="btn-price" data-buy-sundry="${i}">${coinHTML(o.price)}</button>
-      </div>` : o.kind === 'reshuffle' ? `
-      <div class="offer-paint" data-offer="sundry" data-idx="${i}"
-           data-tip-head="Reshuffle" data-tip-body="A free re-roll, banked for later — spend it here or at the Colophon.">
-        <span class="sundry-shuffle sundry-shuffle--offer">↻</span>
-        <div class="op-body">
-          <div class="op-name">Reshuffle</div>
-        </div>
-        <span class="op-sold">bought</span>
-        <button class="btn-price" data-buy-sundry="${i}">${coinHTML(o.price)}</button>
-      </div>` : `
-      <div class="offer-paint offer-paint--${o.colour}" data-offer="sundry" data-idx="${i}"
-           data-tip-head="Tube of ${COLOURS[o.colour].label}"
-           data-tip-body="Paints ${tileCount(TUBE_TILES)} of your choosing ${COLOURS[o.colour].label}, mid-page.">
-        <span class="paint-tube paint-tube--${o.colour}"></span>
-        <div class="op-body">
-          <div class="op-name">Tube of ${COLOURS[o.colour].label}</div>
-        </div>
-        <span class="op-sold">bought</span>
-        <button class="btn-price" data-buy-sundry="${i}">${coinHTML(o.price)}</button>
-      </div>`).join('');
+      </div>`;
+  }).join('');
 
   const stallCards = market.stalls.map(s => {
     const def = STALL_DEFS[s.id];
@@ -300,10 +274,10 @@ function marketShopHTML() {
   // a pittance — the point is freeing the slot, not the coin. (Seated patrons
   // aren't listed here: they sit on the shelf at the top of the sheet.)
   const heldSundries = state.sundries.map((s, i) => {
-    const label = s.kind === 'reshuffle' ? 'Reshuffle'
-                : s.kind === 'ratchet'   ? 'Ratchet'
-                : s.kind === 'wrapped'   ? 'Wrapped tile'
-                :                          COLOURS[s.colour].label;
+    const tip = sundryTip(s);
+    const label = s.kind === 'wrapped' ? 'Wrapped tile'
+                : s.kind === 'tube'    ? COLOURS[s.colour].label
+                :                        tip.head;
     const mark  = s.kind === 'reshuffle'
       ? `<span class="sundry-shuffle held-shuffle">↻</span>`
       : s.kind === 'ratchet'
@@ -312,7 +286,9 @@ function marketShopHTML() {
       ? `<span class="wrapped-mark held-wrapped"></span>`
       : `<span class="paint-tube paint-tube--${s.colour} held-tube"></span>`;
     return `
-      <button class="held" data-sell-sundry="${i}" title="Sell back for ${SUNDRY_SELL} Coin">
+      <button class="held" data-sell-sundry="${i}"
+              data-tip-head="${tip.head}" data-tip-body="${tip.body} — sell it back for ${SUNDRY_SELL} Coin."
+              title="${tip.head} — ${tip.body}">
         <span class="held-mark">${mark}</span>
         <span class="held-name">${label}</span>
         <span class="held-price">✕ ${coinHTML(SUNDRY_SELL)}</span>
