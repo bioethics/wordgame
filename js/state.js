@@ -45,11 +45,11 @@ export function getActiveLetter(tile) {
   return tile.letter;
 }
 
-// The paint on the face currently showing (dual faces are painted independently)
-export function getActiveColour(tile) {
-  if (tile.letterType === 'dual' && tile.activeVariant === 1) return tile.altColour;
-  return tile.colour;
-}
+// The paint a tile is wearing. Paint belongs to the tile, not to either face,
+// so this is the same whichever letter a dual is showing — kept as a function
+// because everything that scores paint calls it, and because a material could
+// yet want a say (see countsAsColour, which is where rainbow gets its).
+export const getActiveColour = tile => tile.colour;
 
 // Whether a tile reads as a given colour to anything that cares *which* colour
 // it is — every patron, and the Fountain's return-to-bag. A rainbow tile reads
@@ -228,6 +228,23 @@ export const luckyRoll = p => Math.random() < Math.min(1, p * (state.luck ?? 1))
 
 // ─── Persist ──────────────────────────────────────────────────────────────────
 
+// Paint used to belong to a face — a dual tile carried an `altColour` for its
+// other letter — and now belongs to the tile. Fold an older save's second coat
+// into the first wherever a template might be hiding: the collection, the rack,
+// the discard pile, the shop's offers, the draft, the compost heap. Walking the
+// whole save is cheaper than finding every list by hand, and it can't miss one.
+// A tile painted on both faces keeps the front one; the alternative is asking
+// the player which half of a tile they meant.
+function foldAltColour(node) {
+  if (Array.isArray(node)) { node.forEach(foldAltColour); return; }
+  if (!node || typeof node !== 'object') return;
+  if ('altColour' in node) {
+    node.colour ??= node.altColour;
+    delete node.altColour;
+  }
+  for (const v of Object.values(node)) foldAltColour(v);
+}
+
 export function saveState(extra = {}) {
   try {
     const rack = state.rack.map(t => ({ ...t, selected: false }));
@@ -248,6 +265,7 @@ export function loadState() {
     if (!raw) return null;
     const s = JSON.parse(raw);
     if (s._v !== SAVE_VERSION) return null;
+    foldAltColour(s);
     if (!Array.isArray(s.collection) || !Array.isArray(s.rack)) return null;
     const { _nextId: savedId, _nextTid: savedTid, _v, _market, _draft, _colophon, ...fields } = s;
     Object.assign(state, fields, { isAnimating: false, discardMode: false, sundryMode: -1 });
@@ -437,20 +455,15 @@ export function growTile(tile, n = 1) {
   return tile.bonusPoints;
 }
 
-// Paint the face a tile is currently showing (dual faces are painted
-// separately), writing through to the collection so the paint is permanent.
-// Every route to permanent paint goes through here — tubes, the Painter,
-// patrons — so none of them can drift apart.
+// Paint a tile, writing through to the collection so the paint is permanent.
+// A dual tile takes its coat whole — both letters, whichever face was showing
+// when the brush landed. Every route to permanent paint goes through here —
+// tubes, the Painter, patrons — so none of them can drift apart.
 export function paintTile(tile, colour) {
   if (isImmutable(tile)) return false;
-  const altFace = tile.letterType === 'dual' && tile.activeVariant === 1;
-  if (altFace) tile.altColour = colour;
-  else         tile.colour    = colour;
+  tile.colour = colour;
   const tmpl = state.collection.find(c => c.tid === tile.tid);
-  if (tmpl) {
-    if (altFace) tmpl.altColour = colour;
-    else         tmpl.colour    = colour;
-  }
+  if (tmpl) tmpl.colour = colour;
   return true;
 }
 
@@ -624,23 +637,15 @@ export function toggleDualVariant(id) {
 
 // ─── Painting ─────────────────────────────────────────────────────────────────
 
-// Every unpainted letter face in the collection (dual faces count separately).
-export function unpaintedFaces() {
-  const faces = [];
-  for (const t of state.collection) {
-    if (!t.colour) faces.push({ tile: t, face: 0 });
-    if (t.letterType === 'dual' && !t.altColour) faces.push({ tile: t, face: 1 });
-  }
-  return faces;
-}
+// Every unpainted tile in the collection. A dual counts once, not twice: its
+// two letters share one coat.
+export const unpaintedTiles = () => state.collection.filter(t => !t.colour);
 
-// Paint `count` random unpainted faces. Returns the letters painted.
-export function paintRandomFaces(colour, count) {
-  const faces = shuffle(unpaintedFaces()).slice(0, count);
-  return faces.map(({ tile, face }) => {
-    if (face === 0) tile.colour = colour;
-    else            tile.altColour = colour;
-    return face === 0 ? tile.letter : tile.altLetter;
+// Paint `count` random unpainted tiles. Returns the letters painted.
+export function paintRandomTiles(colour, count) {
+  return shuffle(unpaintedTiles()).slice(0, count).map(tile => {
+    tile.colour = colour;
+    return getActiveLetter(tile);
   });
 }
 

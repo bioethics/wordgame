@@ -66,14 +66,15 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   if (pts != null && pts !== base) ptsEl.classList.add('tile-pts--boosted');
   div.appendChild(ptsEl);
 
-  // Dual-letter hint (top-right), painted in the other face's colour
+  // Dual-letter hint (top-right). Paint belongs to the tile, so the waiting
+  // letter is shown in the same colour as the one on show — the hint says what
+  // you'd be flipping to, and flipping no longer changes the coat.
   if (tile.letterType === 'dual' && tile.altLetter) {
     const otherLetter = tile.activeVariant === 1 ? tile.letter : tile.altLetter;
-    const otherPaint  = tile.activeVariant === 1 ? tile.colour : tile.altColour;
     const alt = document.createElement('span');
     alt.className = 'tile-alt';
     alt.textContent = `⇄${otherLetter}`;
-    if (otherPaint) alt.style.color = COLOURS[otherPaint].glyph;
+    if (tile.colour) alt.style.color = COLOURS[tile.colour].glyph;
     div.appendChild(alt);
   }
 
@@ -106,7 +107,7 @@ export function tileFeatures(tile) {
   if (tile.letterType === 'dual') {
     out.push({
       head: `Dual letter`,
-      body: `Holds ${tile.letter} and ${tile.altLetter} — flip to swap. Each face takes its own paint.`,
+      body: `Holds ${tile.letter} and ${tile.altLetter} — flip to swap. Paint, trim and nick belong to the tile, so both letters wear them.`,
     });
   }
   if (LIGATURES.includes(tile.letter)) {

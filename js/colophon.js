@@ -2,7 +2,7 @@
 // A publisher's colophon marks the close of a book; this one marks the close
 // of a chapter. Three cards, one guaranteed structural, capped repeats.
 
-import { state, shuffle, unpaintedFaces, paintRandomFaces } from './state.js';
+import { state, shuffle, unpaintedTiles, paintRandomTiles } from './state.js';
 import { UPGRADE_OFFERS, MAX_UPGRADE_REPEATS, SKIP_COIN_GRANT, PAINT_PER_POT } from './constants.js';
 import { UPGRADE_DEFS, upgradeById } from './upgrades.js';
 
@@ -14,7 +14,7 @@ export const colophon = {
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 
 function eligibleIds() {
-  const noPaintLeft = !unpaintedFaces().length;
+  const noPaintLeft = !unpaintedTiles().length;
   return UPGRADE_DEFS
     .filter(d => (state.upgradeCounts?.[d.id] ?? 0) < MAX_UPGRADE_REPEATS)
     .filter(d => !(d.kind === 'paint' && noPaintLeft))
@@ -63,7 +63,7 @@ export function applyColophonPick(id) {
   state.upgradeCounts ??= {};
   state.upgradeCounts[id] = (state.upgradeCounts[id] ?? 0) + 1;
 
-  const painted = def.kind === 'paint' ? paintRandomFaces(def.colour, PAINT_PER_POT) : null;
+  const painted = def.kind === 'paint' ? paintRandomTiles(def.colour, PAINT_PER_POT) : null;
 
   return { def, painted };
 }

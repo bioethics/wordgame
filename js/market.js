@@ -119,7 +119,6 @@ function tilePrice(tmpl) {
   if (tmpl.trim) p += TRIMS[tmpl.trim]?.price ?? 0;
   if (tmpl.nick) p += NICKS[tmpl.nick]?.price ?? 0;
   if (tmpl.colour) p += 1;
-  if (tmpl.altColour) p += 1;
   if (tmpl.letterType === 'dual') p += 1;
   if (LIGATURES.includes(tmpl.letter)) p += 1;
   if (isMark(tmpl.letter)) p += 1;
@@ -165,8 +164,8 @@ function rollSundryOffers() {
   return offers;
 }
 
-// A tile is amber if either of its faces is — that's what The Chapman deals in.
-export const isAmberTile = tmpl => tmpl?.colour === 'amber' || tmpl?.altColour === 'amber';
+// Amber paint is what The Chapman deals in.
+export const isAmberTile = tmpl => tmpl?.colour === 'amber';
 
 // What an offered tile actually costs right now. The Chapman gives amber away,
 // and is checked live rather than baked into the offer, so hiring or dismissing
@@ -497,7 +496,7 @@ export function stallPaint(tid, colour) {
                                      return { ok: false, reason: 'The Painter has not laid that tile out.' };
   if (state.coins < t.price)         return { ok: false, reason: `You need ${t.price} Coins.` };
   payStall(t.stall, t.price);
-  t.tmpl.colour = colour;            // the front face; a dual's other face keeps its coat
+  t.tmpl.colour = colour;            // the tile's coat — a dual wears it on both letters
   t.stall.offers = rollPaintOffers();  // a fresh spread, as the proposal stalls do
   return { ok: true, tmpl: t.tmpl, colour, price: t.price };
 }

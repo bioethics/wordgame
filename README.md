@@ -61,12 +61,12 @@ plus an optional **trim** and **nick**.
 | Paint | crimson / azure / jade / amber — each raises its colour's multiplier by 1 |
 | Trim | **Gold** pays 1 Coin · **Silver** +6 Points · **Cobalt** refreshes 1 Discard (and wears the Discard's own blue) · **Mercury** slips back into the bag instead of the discard pile · **Purple** raises the fifth multiplier by 0.5 |
 | Nick | A notch cut into one edge; the notched side is the direction. **Right** ×3 Points to everything on its right · **Left** ×3 to its left. Nicks don't stack — a letter is multiplied once at most. While you compose, an affected tile's corner number becomes the multiplied value, restyled, rippling outward from the notch. |
-| Letterform | Dual tiles hold two letters (flip to switch; each face painted independently) · Ligatures ING · CH · CK · TH · WH · QU spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Marks** ? and ! spell nothing at all |
+| Letterform | Dual tiles hold two letters (flip to switch; paint, trim and nick belong to the tile, so both letters wear them) · Ligatures ING · CH · CK · TH · WH · QU spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Marks** ? and ! spell nothing at all |
 | Material | What the tile is cast from, under everything else: ordinary lead, or **cursed** / **ghost** / **rainbow** (see below) |
 | Growth | Grown points — permanent +1s a patron (The Grafter) writes into a tile, worn as a jade corner number wherever the tile appears |
 
-A dual tile shares its trim and nick across both faces; only the letters and
-their paint swap.
+A dual tile is one tile wearing one set of everything: its paint, trim and
+nick belong to the tile, and flipping changes the letter and nothing else.
 
 **Materials** — most type is lead. An **ingot** bought at the Market (4 Coins,
 on the workbench beside the paint tubes) is tapped once and casts a single tile

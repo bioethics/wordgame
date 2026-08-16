@@ -2,11 +2,15 @@
 // Bag tiles are stored as template objects so they can carry trim/nick/colour
 // info before being assigned an id when drawn to the rack.
 // Template shape: { letter, letterType, altLetter, activeVariant,
-//                   colour, altColour, trim, nick }
+//                   colour, trim, nick }
 // Rack tile shape: { ...template, id, basePoints, selected }
 //
-// A dual tile's two faces are painted independently (colour / altColour);
-// trim and nick belong to the tile and apply to both faces.
+// Paint, trim and nick all belong to the tile rather than to either face, so a
+// dual tile wears the same coat whichever letter it is showing. Paint used to
+// be per-face (a second `altColour`), which made a dual tile two half-painted
+// tiles in a trenchcoat: you paid twice to finish it, the colour multiplier
+// changed when you flipped, and the shop handed out duals wearing two
+// different colours. Flipping now changes the letter and nothing else.
 
 export const TILE_POINTS = {
   A:1, B:3, C:3, D:2, E:1, F:4, G:2, H:4,
@@ -354,8 +358,7 @@ export function makeTileTemplate(letter, overrides = {}) {
     letterType:    'normal',   // 'normal' | 'dual'
     altLetter:     null,
     activeVariant: 0,          // 0 = letter, 1 = altLetter
-    colour:        null,       // paint on the front face
-    altColour:     null,       // paint on a dual tile's other face
+    colour:        null,       // paint — the tile's, not either face's
     trim:          null,       // gold | silver | cobalt | mercury | purple
     nick:          null,       // right | left | side
     bonusPoints:   0,          // permanent growth (The Grafter) — added to the letter's value
