@@ -21,25 +21,44 @@ export const THEME_FILES = {
   spooky:   'wordlists-themed/theme-spooky.txt',
   acronyms: 'wordlists-themed/acronyms.txt',
   nouns:    'wordlists-themed/nouns.txt',
+  common:   'wordlists-themed/common.txt',
 };
 
 export const THEME_SETS = Object.fromEntries(
   Object.keys(THEME_FILES).map(k => [k, new Set()]));
 
+// Where a list's ORDER is itself data. Most lists are unordered bags of words
+// and never look at this; common.txt is sorted commonest-first, and The
+// Populist asks how common a word is, not merely whether it is on the list.
+export const THEME_RANKS = Object.fromEntries(
+  Object.keys(THEME_FILES).map(k => [k, new Map()]));
+
 export function adoptTheme(key, text) {
   const set = THEME_SETS[key];
   if (!set) return 0;
   set.clear();
+  const ranks = THEME_RANKS[key];
+  ranks.clear();
   for (const line of text.replace(/\r/g, '').split('\n')) {
     const w = line.trim();
     if (!w || w.startsWith('#')) continue;
-    set.add(w.toUpperCase());
+    const W = w.toUpperCase();
+    if (!ranks.has(W)) ranks.set(W, ranks.size);   // 0 = commonest
+    set.add(W);
   }
   return set.size;
 }
 
 // True when `word` (letters only, marks already split off) is on the list.
 export const inTheme = (key, word) => THEME_SETS[key]?.has(word) ?? false;
+
+// A word's position in an ordered list, or null if it isn't on it. Rank 0 is
+// the first line of the file.
+export const themeRank = (key, word) => THEME_RANKS[key]?.get(word) ?? null;
+
+// How many words a list holds — the editors use this to tell "the list says
+// no" apart from "the list hasn't loaded yet", which must never spike a word.
+export const themeSize = key => THEME_SETS[key]?.size ?? 0;
 
 export async function loadThemes() {
   if (typeof window !== 'undefined' && window.FOLIO_THEMES) {

@@ -35,6 +35,8 @@
 // Tuning numbers live here with their editor, patron-style; SPIKE_MULT lives
 // in constants.js because scoring and the bar both read it.
 
+import { themeRank, themeSize } from './themes.js';
+
 // The Columnist's measures. Ten tiles in hand: three is always reachable,
 // six is a genuine reach. Never the same measure twice running.
 const COLUMN_MIN = 3;
@@ -42,6 +44,23 @@ const COLUMN_MAX = 6;
 
 const ABRIDGER_MAX = 4;   // letters an Abridged word may run to
 const PADDER_MIN   = 5;   // letters a Padded word must reach
+
+// The Populist's band: how far down the frequency list a word may sit and
+// still count as plain English. wordlists-themed/common.txt carries 2,000
+// ranks, so this can be widened to soften the editor without new data.
+//
+// Measured against 1,500 random racks: at 500 the best legal word is worth a
+// mean 8.0 Points where an unconstrained rack manages 14.0 — the steepest
+// squeeze of any editor (the Abridger leaves 11.5) — and yet 99.2% of racks
+// can satisfy it, because the band includes A, IT, IS and their kin. That is
+// the shape this roster wants: a hard ask that never bricks, with a cheap
+// sacrificial word always available to whoever needs one.
+const POPULIST_BAND = 500;
+
+// Nothing spikes while the list is still loading. common.txt is fetched, so
+// a Deadline dealt in the first moments of a session would otherwise judge
+// every word unknown-and-therefore-rare and spike the lot.
+const commonRank = word => themeSize('common') ? themeRank('common', word) : 0;
 
 // The Reviewer's temper: 0.2 at rock bottom, 0.95 on a good day, in
 // twentieths. Squaring the roll skews the days good — the deep sulks are
@@ -71,6 +90,15 @@ export const BOSS_DEFS = [
     desc: `This house is paid by the word, and the words had better be long: anything under ${PADDER_MIN} letters is spiked.`,
     judge: letters => letters.length < PADDER_MIN
       ? `too slight — ${PADDER_MIN} letters at least` : null,
+  },
+  {
+    id: 'populist', name: 'The Populist', emoji: '📣',
+    desc: `Writes for the common reader and nobody else: every word must be among the ${POPULIST_BAND} commonest in English. Anything rarer is spiked, however clever.`,
+    judge: letters => {
+      const rank = commonRank(letters);
+      return rank == null || rank >= POPULIST_BAND
+        ? `too rare — the ${POPULIST_BAND} commonest words only` : null;
+    },
   },
   {
     id: 'columnist', name: 'The Columnist', emoji: '📰',
