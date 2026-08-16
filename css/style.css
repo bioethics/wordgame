@@ -2730,8 +2730,10 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 /* In the word groove, a tile's corner number is what it will actually pay.
-   When that beats the letter's face value (a nick's reach, a silver trim),
-   the number itself changes — larger, brass, glowing. */
+   When that beats what the tile is worth at rest, the number itself changes —
+   larger, brass, glowing. Only the word can cause that now: a nick's reach or
+   a Monogrammist's echo. A silver trim no longer does, because its Points are
+   already in the resting number, which is the point of putting them there. */
 .tile-pts--boosted {
   opacity: 1;
   font-size: 13px;

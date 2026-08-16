@@ -2,7 +2,7 @@ import {
   RACK_SIZE, WORDS_PER_PAGE, DISCARDS_PER_PAGE, STARTING_COINS,
   PATRON_SLOTS, SUNDRY_SLOTS, SMELT_MIN_COLLECTION,
   BAG_COUNTS, TILE_POINTS, TUBE_TILES, CURSED_MAX_POINTS, isImmutable, isMark,
-  MARKS, MARK_TRIM,
+  MARKS, MARK_TRIM, SILVER_BONUS,
   quotaFor, makeTileTemplate, GAMBLER_ODDS, isDeadline,
 } from './constants.js';
 import { CHAPTER_TITLES } from './chapters.js';
@@ -51,6 +51,17 @@ export function getActiveLetter(tile) {
 // because everything that scores paint calls it, and because a material could
 // yet want a say (see countsAsColour, which is where rainbow gets its).
 export const getActiveColour = tile => tile.colour;
+
+// What a tile is worth before the word it sits in touches it: its letter's face
+// value, any growth set permanently into it, and a silver trim. All three
+// belong to the tile rather than to the word, so this is the number it wears
+// wherever it appears — rack, shop, collection, groove. A nick's reach and a
+// Monogrammist's echo are the word's business and scoring adds those on top,
+// which is what leaves the corner number free to be honest at rest.
+export const restingPoints = tile =>
+  (TILE_POINTS[getActiveLetter(tile)] ?? tile.basePoints ?? 1)
+  + (tile.bonusPoints ?? 0)
+  + (tile.trim === 'silver' ? SILVER_BONUS : 0);
 
 // Whether a tile reads as a given colour to anything that cares *which* colour
 // it is — every patron, and the Fountain's return-to-bag. A rainbow tile reads

@@ -1,6 +1,6 @@
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, PURPLE_TRIM_STEP, REWARD, CURSED_MULT,
-  CURSED_PENALTY, SPIKE_MULT, isDeadline, splitMarks,
+  CURSED_PENALTY, SPIKE_MULT, SILVER_BONUS, isDeadline, splitMarks,
 } from './constants.js';
 import { PATRON_DEFS, patronById } from './patrons.js';
 import { bossById } from './bosses.js';
@@ -61,7 +61,7 @@ export function computeScore(wordTiles) {
     noteMap[i].push(`base ${face}`);
     if (grown) noteMap[i].push(`grown +${grown}`);
 
-    if (t.trim === 'silver') { points += 6; noteMap[i].push('Silver +6'); }
+    if (t.trim === 'silver') { points += SILVER_BONUS; noteMap[i].push(`Silver +${SILVER_BONUS}`); }
 
     // An echoed tile pays its trim once per printing, so a monogrammed gold
     // letter hands over two Coins where a plain one hands over one.

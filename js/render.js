@@ -5,12 +5,12 @@
 import {
   state, settings, saveState, getActiveLetter, getActiveColour, selectedCount,
   effectivePatronSlots, effectiveSundrySlots, effectiveWordsPerPage, chapterTitle,
-  sundrySelected,
+  sundrySelected, restingPoints,
 } from './state.js';
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
   WORDS_PER_PAGE, PAGES_PER_CHAPTER, TUBE_TILES, tileCount,
-  colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT,
+  colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
 } from './constants.js';
 import { patronById } from './patrons.js';
 import { bossById } from './bosses.js';
@@ -55,10 +55,12 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   if (paint) letter.style.color = COLOURS[paint].glyph;
   div.appendChild(letter);
 
-  // Point value (bottom-right). When an override is given and it beats the
-  // letter's face value, the number itself carries the news. A tile carrying
-  // grown points (The Grafter) wears its number in jade.
-  const base = (TILE_POINTS[active] ?? tile.basePoints ?? 1) + (tile.bonusPoints ?? 0);
+  // Point value (bottom-right). This is what the tile is worth at rest —
+  // including a silver trim's Points, which belong to the tile and so belong in
+  // its number. An override beating that says the *word* has changed it (a
+  // nick's reach, a Monogrammist's echo), and the number carries that news.
+  // A tile carrying grown points (The Grafter) wears its number in jade.
+  const base = restingPoints(tile);
   const ptsEl = document.createElement('span');
   ptsEl.className = 'tile-pts';
   ptsEl.textContent = pts ?? base;
@@ -137,7 +139,11 @@ export function tileTitleLines(tile, breakdown = null) {
   const active = getActiveLetter(tile);
   const face   = TILE_POINTS[active] ?? 1;
   const grown  = tile.bonusPoints ?? 0;
-  const lines = [`${active} — ${face + grown} Points${grown ? ` (${face} + ${grown} grown)` : ''}`];
+  const silver = tile.trim === 'silver' ? SILVER_BONUS : 0;
+  const parts = [`${face} base`];
+  if (grown)  parts.push(`${grown} grown`);
+  if (silver) parts.push(`${silver} silver`);
+  const lines = [`${active} — ${restingPoints(tile)} Points${parts.length > 1 ? ` (${parts.join(' + ')})` : ''}`];
   for (const f of tileFeatures(tile)) lines.push(`${f.head}: ${f.body}`);
   if (breakdown) lines.push(`This word: ${breakdown.parts.join(', ')} → ${breakdown.final} Points`);
   return lines;
@@ -611,7 +617,7 @@ export function renderWord(script = computeScore(state.word)) {
     // one that lands already boosted (a tile dropped into a nick's shadow).
     // Laying an ordinary tile down is not news, and shouldn't bulge.
     const wasShowing = _lastWordPts.has(t.id);
-    const face       = (TILE_POINTS[getActiveLetter(t)] ?? t.basePoints ?? 1) + (t.bonusPoints ?? 0);
+    const face       = restingPoints(t);
     const rewritten  = wasShowing && _lastWordPts.get(t.id) !== shown;
     const bornBoosted = !wasShowing && shown !== face;
     if (shown != null && (rewritten || bornBoosted)) {

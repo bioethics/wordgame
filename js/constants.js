@@ -160,9 +160,16 @@ export const MAX_FEATURES         = 4;
 
 // ─── Trims (the ring around a tile's edge) ────────────────────────────────────
 // Purple is trim-only: a fifth multiplier that stacks with the letter colours.
+
+// Silver's Points belong to the tile, not to the word it lands in: they are
+// part of what the tile is worth wherever it appears, which is why the corner
+// number carries them (see restingPoints in state.js) and wears the trim's own
+// silver. Scoring, the tile face and the trim's own card all read it here.
+export const SILVER_BONUS = 5;
+
 export const TRIMS = {
   gold:    { label: 'Gold',    price: 2, desc: 'Pays 1 Coin when printed.' },
-  silver:  { label: 'Silver',  price: 2, desc: '+6 Points.' },
+  silver:  { label: 'Silver',  price: 2, desc: `+${SILVER_BONUS} Points.` },
   cobalt:  { label: 'Cobalt',  price: 3, desc: 'Refunds a Discard when printed.' },
   mercury: { label: 'Mercury', price: 3, desc: 'Returns to the bag instead of the discard pile.' },
   purple:  { label: 'Purple',  price: 4, desc: 'Adds +0.5 to the purple multiplier.' },
