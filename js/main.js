@@ -273,16 +273,47 @@ function runPrintedHooks(tiles, script) {
 // rack but before the hand tops up, so a patron that paints one is writing to
 // a tile already filed in the discard pile — and the collection, which is what
 // makes the change outlast the page.
+// Returns the tiles a patron recoloured, so the caller can show it happening.
 function runDiscardHooks(tiles) {
+  const painted = [];
   for (const p of state.patrons) {
     const def = patronById(p.id);
     if (!def?.onDiscard) continue;
     p.data ??= {};
     const r = def.onDiscard({ tiles, state, data: p.data, paint: paintTile });
-    if (!r?.note) continue;
-    const card = patronCard(p);
-    if (card) { pulse(card, 'patron--firing', 520); floatText(card, r.note, 'fl-points', { dy: -44 }); }
+    if (!r) continue;
+    if (r.painted?.length) painted.push(...r.painted);
+    if (r.note) {
+      const card = patronCard(p);
+      if (card) { pulse(card, 'patron--firing', 520); floatText(card, r.note, 'fl-points', { dy: -44 }); }
+    }
   }
+  return painted;
+}
+
+// A tile caught by the vat takes its colour where it stands, and is held there
+// a beat before it files away — the paint is the whole reward, so it has to be
+// seen happening. These tiles are already out of state.rack, so there is no
+// re-render coming to carry the news: the glyph is recoloured on the element
+// by hand, which the discard flight then clones and carries to the pile.
+async function animateDip(painted, els) {
+  const byId = new Map(els.map(el => [el.dataset.id, el]));
+  let shown = 0;
+  for (const { tile, colour } of painted) {
+    const el = byId.get(String(tile.id));
+    if (!el) continue;
+    const glyph = COLOURS[colour].glyph;
+    const letter = el.querySelector('.tile-letter');
+    if (letter) letter.style.color = glyph;
+    el.style.setProperty('--glow', glyph);
+    pulse(el, 'tile--set-glow', 620);
+    sparkleBurst(el, 9);
+    floatText(el, COLOURS[colour].label, `fl-set fl-set--${colour}`, { dy: -52 });
+    shown++;
+  }
+  if (!shown) return;
+  sfx.chime();
+  await sleep(ANIM.stepColour);
 }
 
 // A burned tile flares, chars, and crumbles where it sits — no flight to the
@@ -658,7 +689,10 @@ async function doDiscard() {
   state.isAnimating = true;
   renderButtons();
 
-  runDiscardHooks(result.removed);
+  // Dipped before filed: the vat has its moment while the tiles are still on
+  // the board, then they fly to the pile wearing the new colour.
+  const dipped = runDiscardHooks(result.removed);
+  if (dipped.length) await animateDip(dipped, selectedEls);
 
   await animateDiscard(selectedEls.map(el => ({ el, r: rect(el) })));
   await animateDraw(result.drawn);

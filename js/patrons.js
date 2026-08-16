@@ -27,7 +27,9 @@
 //                       ctx { tiles, state, data, paint(tile, colour) }. The
 //                       tiles are already in the discard pile but still in the
 //                       collection, so paint written here is waiting when the
-//                       bag comes round again. Return { note } likewise.
+//                       bag comes round again. Return { note } likewise, and
+//                       { painted: [{ tile, colour }] } for tiles that should
+//                       take their new colour on screen before they fly off.
 // `data` is the seat's own saved memory (state.js patronData) — counters live
 // there, never on the def.
 //
@@ -348,14 +350,20 @@ export const PATRON_DEFS = [
     id: 'dipper', name: 'The Dipper', emoji: '🪣', rarity: 'common', cost: 4, guild: 'jade',
     desc: `Each tile you discard has a 1-in-10 chance of being painted a random colour.`,
     when: 'meta',
+    // `painted` is what lets the board show the dip: main.js colours those
+    // tiles where they stand and holds a beat before they fly to the pile.
+    // Without it the paint would be applied to a tile already on its way out
+    // and the player would never see the thing they were paid.
     onDiscard({ tiles, paint }) {
       const dipped = [];
       for (const t of tiles) {
         if (!luckyRoll(DIPPER_PAINT_CHANCE)) continue;
         const colour = pick(Object.keys(COLOURS));
-        if (paint(t, colour)) dipped.push(`${getActiveLetter(t)} ${COLOURS[colour].label.toLowerCase()}`);
+        if (paint(t, colour)) dipped.push({ tile: t, colour });
       }
-      return dipped.length ? { note: `out of the vat: ${dipped.join(', ')}` } : null;
+      if (!dipped.length) return null;
+      const said = dipped.map(d => `${getActiveLetter(d.tile)} ${COLOURS[d.colour].label.toLowerCase()}`);
+      return { note: `out of the vat: ${said.join(', ')}`, painted: dipped };
     },
   },
   {
