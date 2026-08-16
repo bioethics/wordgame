@@ -74,10 +74,13 @@ of something stranger, straight into your hand and into your collection for
 good. The material sits *under* everything else, so a cursed or rainbow tile
 still takes paint, trims and nicks like any other.
 
-- **Cursed** (hellbox iron) — ×3 Mult when printed, and while it waits in your
-  hand every word you set *without* it loses 666 Points, once per curse. It
-  discards like any other tile; the toll is simply the price of ignoring it.
-  Never cast on an expensive letter, and two in one word compound to ×9.
+- **Cursed** (hellbox iron) — ×3 Mult when printed, and it can never be
+  discarded: the only way out of your hand is to play it. While it waits there,
+  every word you set *without* it loses 666 Points, once per curse — enough
+  that such words score nothing (a word's total never falls below zero), so you
+  can keep printing to turn the rack over until the curse finds a home. A press
+  strong enough to clear 666 Points can shrug one off and still score. Never
+  cast on an expensive letter, and two in one word compound to ×9.
 - **Ghost** (ghost metal) — holds no place in your hand, so you effectively
   draw one more; but nothing can ever be done to it. No paint, no trim, no
   nick, no second letter, no growth, and the Stereotyper can't copy it —

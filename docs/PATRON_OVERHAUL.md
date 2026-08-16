@@ -69,16 +69,27 @@ Watchpoints: cursed tiles compound (×9 for two, ×27 for three) and are
 permanent; and the Stoker burns rainbow tiles, which is consistent but is the
 one pairing to warn players about.
 
-**Cursed metal was reworked after playtest.** It used to be undiscardable —
-"the only way out of your hand is to play it" — which could strand a hand that
-held one it had no word for, with no way to be rid of it and no way to score:
-a soft-lock. It now discards like anything else, and instead levies
-`CURSED_PENALTY` (666) Points on every word set while it waits in the rack,
-once per curse. That is Points rather than Mult, so it lands before the
-multipliers and a well-built word can outrun a single curse; two is another
-matter. The toll rides the score script as a step with no seat of its own, so
-the print cinematic floats it over the word (`fl-curse`) rather than passing
-over it in silence.
+**Cursed metal gained a toll after playtest.** It remains undiscardable — the
+only way out of the hand is to print it — which is the whole character of the
+tile and is deliberately kept. What changed is what happens while it waits:
+every word set without it loses `CURSED_PENALTY` (666) Points, once per curse.
+
+The point is not the punishment, it is that the punishment is *survivable*.
+Words set around a curse are worth nothing rather than impossible, so the rack
+keeps turning over and keeps drawing until the curse finds a word to sit in —
+which is the way out of the hand that a stuck player previously did not have.
+Two details make that true rather than merely intended:
+
+- It is **Points, not Mult**, so it lands before the multipliers. A press
+  strong enough to clear 666 shrugs a single curse off and scores anyway;
+  two is another matter.
+- **A word's total floors at zero** (`computeScore`). Without that floor the
+  toll would run `state.pageScore` *backwards*, eating a page already built —
+  turning the escape hatch into a deeper trap than the one it opens.
+
+The toll rides the score script as a step with no seat of its own, so pass 4
+of the cinematic floats it over the word (`fl-curse`) rather than subtracting
+666 in silence.
 
 ### Three later patrons, and what they needed from the engine
 

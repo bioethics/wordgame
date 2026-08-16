@@ -268,9 +268,11 @@ export const ANIM = {
 export const CURSED_MULT       = 3;   // ×Mult a cursed tile gives the word
 export const CURSED_MAX_POINTS = 3;   // never cast on a letter worth more than this
 // What a curse takes from any word set without it while it waits in the hand.
-// It used to be unsinkable instead — never discardable, only playable — which
-// could strand a hand that had no word for it and no way to be rid of it. The
-// tile now leaves like any other; it simply makes you pay to ignore it.
+// It still cannot be discarded — printing it is the only way out of the rack —
+// so this is what keeps that from stranding you: words set around a curse are
+// worth nothing rather than impossible, and a rack you can still empty is a
+// rack that keeps drawing until the curse finds a word. Points, not Mult, so a
+// press strong enough to clear 666 can shrug one off and score anyway.
 export const CURSED_PENALTY    = 666;  // Points lost per unplayed curse in hand
 export const INGOT_PRICE       = 4;
 export const INGOT_OFFER_CHANCE = 0.5;  // odds one of a Market's sundry slots holds an ingot
@@ -278,7 +280,7 @@ export const INGOT_OFFER_CHANCE = 0.5;  // odds one of a Market's sundry slots h
 export const MATERIALS = {
   cursed: {
     label: 'Cursed', metal: 'Hellbox iron', emoji: '🩸',
-    desc: `×${CURSED_MULT} Mult when printed. Left waiting in your hand, it takes ${CURSED_PENALTY} Points from every word set without it.`,
+    desc: `×${CURSED_MULT} Mult when printed, and it can never be discarded — only played. Every word you set without it loses ${CURSED_PENALTY} Points.`,
   },
   ghost: {
     label: 'Ghost', metal: 'Ghost metal', emoji: '👻',

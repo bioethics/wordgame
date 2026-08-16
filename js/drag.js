@@ -134,7 +134,11 @@ function releasePress(commit) {
       if (r === 'full')      log(`A tube covers ${tileCount(TUBE_TILES)} — deselect first.`, 'warn');
       if (r === 'immutable') log('A ghost tile takes no paint.', 'warn');
     } else if (press.zone === 'rack') {
-      if (selectingToDiscard()) toggleSelected(press.id);
+      if (selectingToDiscard()) {
+        if (toggleSelected(press.id) === 'cursed') {
+          log('A cursed tile cannot be discarded — it has to be played.', 'warn');
+        }
+      }
       else                      moveRackToWord(press.id);
     } else {
       moveWordToRack(press.id);

@@ -168,10 +168,12 @@ export function computeScore(wordTiles) {
 
   // ── Pass 4¼: curses left in the hand ───────────────────────────────────────
   // A cursed tile you didn't set takes its due from the word you set instead —
-  // once for each one still waiting in the rack. This is Points, not Mult, so
-  // it lands before the multipliers and a well-built word can still outrun a
-  // single curse; two is another matter. The tile can be discarded now, and
-  // this is the reason to bother.
+  // once for each one still waiting in the rack. Points, not Mult, so it lands
+  // before the multipliers and a press strong enough to clear 666 can shrug a
+  // curse off; two is another matter. Since the tile can never be discarded,
+  // this is what keeps it from stranding a hand: the words around it are worth
+  // nothing (the total floors at zero, below) rather than impossible, so the
+  // rack keeps turning over until the curse finds a word to sit in.
   const cursesInHand = state.rack.filter(t => t.material === 'cursed').length;
   if (cursesInHand) {
     const toll = cursesInHand * CURSED_PENALTY;
@@ -203,7 +205,12 @@ export function computeScore(wordTiles) {
     if (guilds.size) mult = Math.round(mult * 1000) / 1000;
   }
 
-  const total = Math.round(points * mult);
+  // Floored at nothing. Only a curse left in the hand can drive Points below
+  // zero, and a word that scores *negative* would eat the page you'd already
+  // built — which is the trap the curse's toll exists to open, not to spring.
+  // At zero you can keep setting words to turn the rack over until the curse
+  // finds a home; the page simply doesn't advance while you do.
+  const total = Math.max(0, Math.round(points * mult));
 
   // ── Per-tile breakdown for tooltips ─────────────────────────────────────────
   const perTile = new Map();
