@@ -132,13 +132,13 @@ function releasePress(commit) {
     if (selectingForSundry()) {
       const r = toggleSundrySelect(press.id);
       if (r === 'full')      log(`A tube covers ${tileCount(TUBE_TILES)} — deselect first.`, 'warn');
-      if (r === 'immutable') log('A ghost tile takes no paint.', 'warn');
+      if (r === 'immutable') log('A lent tile takes no paint — nor does a ghost.', 'warn');
       if (r === 'unshiftable') log('The ratchet steps single letters — not ligatures or marks.', 'warn');
     } else if (press.zone === 'rack') {
       if (selectingToDiscard()) {
-        if (toggleSelected(press.id) === 'cursed') {
-          log('A cursed tile cannot be discarded — it has to be played.', 'warn');
-        }
+        const r = toggleSelected(press.id);
+        if (r === 'cursed') log('A cursed tile cannot be discarded — it has to be played.', 'warn');
+        if (r === 'lent')   log('The editor would only hand you another — play it instead.', 'warn');
       }
       else                      moveRackToWord(press.id);
     } else {

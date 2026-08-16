@@ -39,7 +39,10 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   if (tile.trim)                  div.classList.add(`tile--trim-${tile.trim}`);
   if (tile.nick)                  div.classList.add(`tile--nick-${tile.nick}`);
   if (tile.material)              div.classList.add(`tile--mat-${tile.material}`);
-  if (tile.ephemeral)             div.classList.add('tile--gift');
+  // Both kinds of lent tile are marked, and marked apart: the Enthusiast's
+  // gift is a bonus beside your hand, the Eeeditor's E is a place taken out of
+  // it, and confusing the two would misread the board badly.
+  if (tile.ephemeral)             div.classList.add(tile.aboveHand ? 'tile--gift' : 'tile--lent');
 
   const active = getActiveLetter(tile);
   const paint  = getActiveColour(tile);
@@ -116,10 +119,15 @@ export function tileFeatures(tile) {
     out.push({ head: 'Grown', body: `+${tile.bonusPoints} Points set permanently into this tile.` });
   }
   if (tile.ephemeral) {
-    out.push({
-      head: 'The Enthusiast’s gift',
-      body: 'Lent for this page only — it rides above your hand size, and vanishes when the page ends, played or not.',
-    });
+    out.push(tile.aboveHand
+      ? {
+          head: 'The Enthusiast’s gift',
+          body: 'Lent for this page only — it rides above your hand size, and vanishes when the page ends, played or not.',
+        }
+      : {
+          head: 'The Eeeditor’s E',
+          body: 'Lent for this page only, and holding one of your hand’s own places. It takes no paint, trim or nick, it cannot be discarded, and printing it brings another at once.',
+        });
   }
   return out;
 }

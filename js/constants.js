@@ -293,8 +293,11 @@ export const MATERIALS = {
   },
 };
 
-// A ghost is the one material nothing can be done to.
-export const isImmutable = tile => tile?.material === 'ghost';
+// Tiles nothing can be done to: a ghost, which is barely there to work on, and
+// any tile an editor has merely lent you (see js/bosses.js) — there is no
+// collection template behind a lent tile, so paint or a trim laid on one would
+// look permanent and quietly evaporate with the page.
+export const isImmutable = tile => tile?.material === 'ghost' || !!tile?.ephemeral;
 
 // ─── The Editors (Deadline bosses — see js/bosses.js) ─────────────────────────
 // A word that breaks the seated editor's rule is SPIKED: printed and counted,

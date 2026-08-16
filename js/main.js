@@ -9,7 +9,7 @@ import {
   discardSelected, getWordString, moveRackToWord, owns, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected,
   getActiveColour, getActiveLetter, growTile, paintTile, trimTile,
-  trashFromCollection, castMaterialTile, castTile, castEphemeralTile, chapterTitle,
+  trashFromCollection, castMaterialTile, castTile, castLentTile, lentInHand, chapterTitle,
   effectiveWordsPerPage, rollGamble,
 } from './state.js';
 import {
@@ -17,7 +17,7 @@ import {
   REACTION, NEOLOGIST_LENGTH, MATERIALS,
   chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks, isDeadline,
 } from './constants.js';
-import { bossById, bossOnPrinted, bossGift } from './bosses.js';
+import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
 import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
 import { THEME_SETS, loadThemes } from './themes.js';
 
@@ -556,9 +556,12 @@ async function submitWord() {
   if (state.pageScore >= state.quota) { state.isAnimating = false; await pageComplete(); return; }
   if (state.wordsLeft === 0)          { state.isAnimating = false; await gameLost(); return; }
 
-  // …and only now do fresh tiles arrive from the bag.
+  // …and only now do fresh tiles arrive from the bag. Anything the editor
+  // lends is replaced first: an E played is an E back before the hand tops up,
+  // so the three places it holds are never briefly free for the draw to take.
+  const relent = bossReplenish(state, castLentTile, lentInHand);
   const drawn = drawUpToRackSize();
-  await animateDraw(drawn);
+  await animateDraw([...relent, ...drawn]);
 
   state.isAnimating = false;
   renderAll();
@@ -668,11 +671,12 @@ async function advancePage() {
   }
 
   // Whatever a patron brings to the page arrives with the hand, not after it —
-  // the Enthusiast's gift rides in the same deal.
+  // and whatever the editor lends comes first of all, since the Eeeditor's E's
+  // take places the draw would otherwise fill.
   const { arrivals, notes } = runPageHooks();
-  const gift = bossGift(state, castEphemeralTile);
+  const lent = bossReplenish(state, castLentTile, lentInHand);
   const drawn = drawUpToRackSize();
-  await animateDraw([...arrivals, ...gift, ...drawn]);
+  await animateDraw([...arrivals, ...lent, ...drawn]);
 
   state.isAnimating = false;
   renderAll();   // the status bar settles back to the manuscript on its own
@@ -1081,8 +1085,9 @@ async function beginRun() {
   renderAll();
   await showBanner(chapterLabel(1), chapterTitle(1), 1250);
   const { arrivals } = runPageHooks();
+  const lent = bossReplenish(state, castLentTile, lentInHand);
   const drawn = drawUpToRackSize();
-  await animateDraw([...arrivals, ...drawn]);
+  await animateDraw([...arrivals, ...lent, ...drawn]);
   state.isAnimating = false;
   renderAll();
   if (painted.length) log(`Painted ${painted.join(', ')}.`);
@@ -1118,8 +1123,8 @@ async function beginRun() {
       renderAll(); renderColophon();
       log('Welcome back.');
     } else {
-      bossGift(state, castEphemeralTile);   // re-deal a gift lost to a mid-deal reload
-      drawUpToRackSize();                   // top up in case a save landed mid-draw
+      bossReplenish(state, castLentTile, lentInHand);   // restore anything a mid-deal reload lost
+      drawUpToRackSize();                               // top up in case a save landed mid-draw
       renderAll();
       log('Welcome back.');
     }

@@ -1358,6 +1358,32 @@ button.sundry:hover { transform: translateY(-2px); }
   50%      { box-shadow: 0 0 0 3px rgba(217, 166, 75, 0.4),  0 0 22px rgba(246, 214, 138, 0.75), 0 6px 12px rgba(0, 0, 0, 0.4); }
 }
 
+/* The Eeeditor's E — lent like the gift above, but taking a place in your hand
+   rather than riding beside it, so it reads as the editor's own type rather
+   than as a present: cold ink-blue where the gift is warm brass, and ruled
+   with the editor's double stripe instead of glowing. */
+.tile--lent {
+  background: linear-gradient(168deg, #e8eef7, #c6d4e6);
+  border: 1.5px dashed rgba(45, 79, 122, 0.7);
+  color: #1d3354;
+  --tile-lift: rgba(70, 100, 140, 0.35);
+}
+.tile--lent .tile-letter {
+  color: #2d4f7a;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+.tile--lent .tile-pts { color: #4a6d99; }
+/* Two rules along the foot — a proof-mark, and the tile's tell at a glance. */
+.tile--lent::after {
+  content: '';
+  position: absolute;
+  left: 22%; right: 22%; bottom: 5px;
+  height: 3px;
+  border-top: 1px solid rgba(45, 79, 122, 0.55);
+  border-bottom: 1px solid rgba(45, 79, 122, 0.55);
+  pointer-events: none;
+}
+
 /* Mini tiles (inspectors, market case) */
 .tile--mini {
   --tile-w: 42px;

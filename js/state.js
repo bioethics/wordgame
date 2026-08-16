@@ -190,17 +190,28 @@ function assignBoss() {
   state.boss = { id: def.id, data };
 }
 
-// The Enthusiast's gift: a real tile in every way that matters this page, but
-// cast from no template — it holds no place in the hand, takes no permanent
-// change (there is no collection tile behind it to write to), and since every
-// new page rebuilds the bag from the collection, it simply isn't there
-// tomorrow. Played or discarded, it ends the page in a pile that is emptied.
-export function castEphemeralTile(letter) {
+// A tile an editor lends you: real in every way that matters this page, but
+// cast from no template. It takes no permanent change (isImmutable covers it —
+// there is no collection tile behind it to write to), and since every new page
+// rebuilds the bag from the collection, it simply isn't there tomorrow.
+//
+// Two editors lend, and they differ in the one way that matters to the hand.
+// The Enthusiast's gift rides ABOVE your hand size, a bonus tile beside the
+// rack. The Eeeditor's three E's do not: they sit IN the hand and take three
+// of its places, which is the whole of that editor — a gift and a cage in one.
+export function castLentTile(letter, { aboveHand = false } = {}) {
   const tile = templateToTile(makeTileTemplate(letter));
   tile.ephemeral = true;
+  if (aboveHand) tile.aboveHand = true;
   state.rack.push(tile);
   return tile;
 }
+
+// The Eeeditor's E's, wherever they currently sit. Counted across rack and
+// word alike: one laid into a word has not left your hand yet, and must not
+// be replaced until it actually prints.
+export const lentInHand = () =>
+  [...state.rack, ...state.word].filter(t => t.ephemeral && !t.aboveHand);
 
 // A seated patron's private memory (created on first touch, saved with the run).
 export function patronData(id) {
@@ -315,9 +326,11 @@ export function startPage() {
 
 // Tiles that take up a place in the hand. A ghost holds none — it rides along
 // beside the hand rather than in it, so drawing tops up around it. The
-// Enthusiast's gift rides the same way: a bonus above the hand, not part of it.
+// Enthusiast's gift rides the same way. The Eeeditor's E's emphatically do
+// not: they are lent, but they are *in* the hand, and the seven places they
+// leave you are the point of that editor.
 const handCount = () =>
-  [...state.rack, ...state.word].filter(t => t.material !== 'ghost' && !t.ephemeral).length;
+  [...state.rack, ...state.word].filter(t => t.material !== 'ghost' && !t.aboveHand).length;
 
 // Returns the tiles drawn (so the caller can animate them in).
 export function drawUpToRackSize() {
@@ -385,8 +398,12 @@ export function getWordString() {
 // mercury trims always, and every azure tile while The Fountain is seated.
 // Scoring reads the same rule for its "↩ to bag" flag, so the promise the
 // board makes while you compose is the one printing keeps.
+// A lent tile can never take this road whatever else is true of it: the bag
+// holds templates, and filing one there would turn a tile you were lent for a
+// page into a tile you own for the rest of the run.
 export const returnsToBag = tile =>
-  tile.trim === 'mercury' || (owns('fountain') && countsAsColour(tile, 'azure'));
+  !tile.ephemeral &&
+  (tile.trim === 'mercury' || (owns('fountain') && countsAsColour(tile, 'azure')));
 
 // Where a printed tile goes. Returning tiles are dropped in at a random depth
 // so they aren't simply redrawn on the next turn.
@@ -487,12 +504,16 @@ export function rollGamble() {
 
 // ─── Selection ────────────────────────────────────────────────────────────────
 
-// Returns 'on' | 'off' | 'cursed' | 'none', so a refused pick can be explained.
-// A cursed tile can't be thrown away; the only way out of the rack is to print it.
+// Returns 'on' | 'off' | 'cursed' | 'lent' | 'none', so a refused pick can be
+// explained. A cursed tile can't be thrown away; the only way out of the rack
+// is to print it. A lent tile can't either, for a happier reason: the editor
+// would only hand you another exactly like it, so a discard spent on one would
+// buy nothing at all.
 export function toggleSelected(id) {
   const tile = state.rack.find(t => t.id === id);
   if (!tile) return 'none';
   if (!tile.selected && tile.material === 'cursed') return 'cursed';
+  if (!tile.selected && tile.ephemeral) return 'lent';
   tile.selected = !tile.selected;
   return tile.selected ? 'on' : 'off';
 }

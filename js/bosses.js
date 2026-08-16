@@ -187,6 +187,22 @@ export const BOSS_DEFS = [
     onPrinted: data => rollMood(data),
   },
   {
+    // Structural, like the Completist — no rule to break, so nothing it can
+    // spike. It simply takes three of your ten places and fills them with the
+    // cheapest letter in the case.
+    //
+    // Measured over 2,000 hands: seven tiles plus EEE reach a best word worth
+    // a mean 12.1 Points against 14.0 for a free ten — a 14% toll, among the
+    // gentlest here — and the hand is never once stranded (0 of 4,000), since
+    // three vowels will always find something. Against a bare seven (10.1) the
+    // E's are worth a real +2.0, so they are a genuine gift; but the best word
+    // absorbs all three only 9% of the time, and none of them 31%, and the
+    // ones left over are the cage.
+    id: 'eeeditor', name: 'The Eeeditor', emoji: '🅴',
+    desc: 'Keeps three places in your hand for itself and fills them with plain E — no paint, no trim, no nick. Play one and another arrives before you can blink.',
+    lent: { letter: 'E', count: 3 },
+  },
+  {
     id: 'completist', name: 'The Completist', emoji: '🗄️',
     desc: 'Reads everything and throws nothing away: two extra rack tiles, and no discards at all.',
     rackBonus: 2,
@@ -215,14 +231,32 @@ export function bossOnPrinted(state, script, letters) {
   def?.onPrinted?.(data, script, letters);
 }
 
-// The Enthusiast's tile, cast as the Deadline is dealt. `castEphemeral` is
-// state.js's castEphemeralTile, passed in to keep this module import-free.
-// Idempotent via data.gifted, so a reload mid-deal can't double the gift.
-export function bossGift(state, castEphemeral) {
+// Tiles the seated editor puts in your hand, topped up every time the hand is
+// refilled — as the page is dealt, and again after each word prints. `cast` is
+// state.js's castLentTile and `held` its lentInHand, passed in to keep this
+// module free of imports from state.
+//
+// Two shapes, and the difference is when they come back. The Enthusiast's gift
+// is once per page: spend it and it is spent, which is why data.gifted latches
+// (and why a reload mid-deal can't conjure a second). The Eeeditor's three are
+// a standing supply, restored the instant one leaves — so this counts what is
+// still in hand rather than tracking what it has handed over.
+//
+// Returns the tiles created, so they can fly in alongside the draw.
+export function bossReplenish(state, cast, held) {
   if (!state.boss) return [];
   const def = bossById(state.boss.id);
   const data = (state.boss.data ??= {});
-  if (!def?.gift || data.gifted) return [];
-  data.gifted = true;
-  return [castEphemeral(data.letter)];
+  const made = [];
+
+  if (def?.gift && !data.gifted) {
+    data.gifted = true;
+    made.push(cast(data.letter, { aboveHand: true }));
+  }
+
+  if (def?.lent) {
+    for (let i = held().length; i < def.lent.count; i++) made.push(cast(def.lent.letter));
+  }
+
+  return made;
 }

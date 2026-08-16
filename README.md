@@ -104,7 +104,9 @@ the last one ended with; the Indexer files the page alphabetically; the
 Escalationist insists every word outscore the one before; the Enthusiast lends
 a tile of a beloved letter and expects it in every word; the Reviewer receives
 each word in a temper (×0.2–×0.95) rolled openly before you compose; the
-Completist deals two extra tiles and permits no discards. A word that breaks
+Completist deals two extra tiles and permits no discards; and the Eeeditor
+keeps three places in your hand and fills them with plain E, restoring one the
+moment you print it. A word that breaks
 the house rule is not refused — it is **spiked**: printed, filed, counted, but
 at ×0.2 of its score. The editor's bar above the readout carries the live
 demand and calls the verdict — ✓ or the spike — while you compose, because
@@ -121,6 +123,16 @@ words absent from the file altogether, so its 8,000 entries are a game number
 too. Rebuild it with `tools/build-common-list.mjs` (it filters a frequency list
 down to words this dictionary will actually accept), and never sort it
 alphabetically.
+
+Two editors **lend** you tiles, and the difference between them is the whole of
+what they do. A lent tile is cast from no collection template: it takes no
+paint, trim or nick (there is nothing behind it for the change to be written
+to), it can never be discarded or slip back into the bag, and it is gone when
+the page ends. The Enthusiast's gift rides *above* your hand size and is a
+present. The Eeeditor's three E's sit *in* the hand and take three of its
+places, which is a cage — you draw seven real tiles and build around EEE. On
+the board the two are coloured apart: warm brass for the gift, cold ink-blue
+with a proof-reader's double rule for the Eeeditor's own type.
 
 A word is worth noting about the Obscurantist: measured against a solver it
 looks feeble, costing 2% of the score ceiling, because a machine barred from
