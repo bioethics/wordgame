@@ -61,7 +61,7 @@ plus an optional **trim** and **nick**.
 | Paint | crimson / azure / jade / amber — each raises its colour's multiplier by 1 |
 | Trim | **Gold** pays 1 Coin · **Silver** +6 Points · **Cobalt** refreshes 1 Discard (and wears the Discard's own blue) · **Mercury** slips back into the bag instead of the discard pile · **Purple** raises the fifth multiplier by 0.5 |
 | Nick | A notch cut into one edge; the notched side is the direction. **Right** ×3 Points to everything on its right · **Left** ×3 to its left. Nicks don't stack — a letter is multiplied once at most. While you compose, an affected tile's corner number becomes the multiplied value, restyled, rippling outward from the notch. |
-| Letterform | Dual tiles hold two letters (flip to switch; paint, trim and nick belong to the tile, so both letters wear them) · Ligatures ING · CH · CK · TH · WH · QU spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Marks** ? and ! spell nothing at all |
+| Letterform | Dual tiles hold two letters (flip to switch; paint, trim and nick belong to the tile, so both letters wear them) · Ligatures ING · CH · CK · TH · WH · QU spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Marks** ? and ! spell nothing at all, and come only from a wrapped tile, purple-trimmed |
 | Material | What the tile is cast from, under everything else: ordinary lead, or **cursed** / **ghost** / **rainbow** (see below) |
 | Growth | Grown points — permanent +1s a patron (The Grafter) writes into a tile, worn as a jade corner number wherever the tile appears |
 
@@ -74,9 +74,11 @@ out comes a single tile of a random letter, struck in something stranger,
 straight into your hand and into your collection for good. Which material is
 not decided at the shop, or in the save, or anywhere at all until the paper
 comes off — two of the three are gifts and the third is a curse, so it is a
-parcel you choose to open rather than a metal you choose to buy. The material
-sits *under* everything else, so a cursed or rainbow tile still takes paint,
-trims and nicks like any other.
+parcel you choose to open rather than a metal you choose to buy. The fourth
+thing a wrapper can hold isn't a material at all: a **mark** in ordinary lead
+under a purple trim, which is the only way marks come now. The material sits
+*under* everything else, so a cursed or rainbow tile still takes paint, trims
+and nicks like any other.
 
 - **Cursed** (hellbox iron) — ×3 Mult when printed, and it can never be
   discarded: the only way out of your hand is to play it. While it waits there,
@@ -165,8 +167,10 @@ word and `ANNA!` is still a palindrome. A mark is worth a point, but that
 isn't the point of it: marks take paint, trims and nicks like any other tile,
 and a mark sits at the *end* of the word, which is exactly where a **left
 nick** wants to be — one notch there reaches back across every letter you
-just set. Marks never come out of the bag; they turn up in the Market now and
-then, and they cost a little extra when they do.
+just set. Marks never come out of the bag, and nothing sells them: the one way
+a mark enters a run is out of a **wrapped tile**, always under a purple trim.
+So a `?` is a find rather than a purchase — and the trim is what makes it worth
+the unwrap, since a bare mark is one point and no letters.
 
 **The opening draft** — before page 1 you kit out the press from a free
 spread: 2 paints of 4, 4 tiles of 10. No coins involved. The starting
@@ -282,7 +286,8 @@ bigger step than the last and a built press has to multiply rather than add:
 | --- | --- |
 | Quota curve | `js/constants.js` → `quotaFor`, `QUOTA_BASE`, `QUOTA_GROWTH_START`, `QUOTA_GROWTH_RAMP`. The rate itself grows: chapter 2 asks ×1.7 of chapter 1, chapter 3 ×1.8 of chapter 2, and so on. START makes the whole run harder; RAMP makes the ending harder without touching the opening — a harder mode is a bigger pair |
 | Trim effects & prices | `js/constants.js` → `TRIMS` (effects live in `js/scoring.js`) |
-| Materials, the cursed ×Mult, wrapped-tile price & how often one is offered | `js/constants.js` → `MATERIALS`, `CURSED_MULT`, `CURSED_MAX_POINTS`, `WRAPPED_PRICE`, `WRAPPED_OFFER_CHANCE`. What comes out of a wrapper is an even roll across `MATERIALS`, in `js/main.js` → `pickMaterial` |
+| Materials, the cursed ×Mult, wrapped-tile price & how often one is offered | `js/constants.js` → `MATERIALS`, `CURSED_MULT`, `CURSED_MAX_POINTS`, `WRAPPED_PRICE`, `WRAPPED_OFFER_CHANCE` |
+| What is inside a wrapped tile | `js/constants.js` → `WRAPPED_CONTENTS`, a flat list rolled evenly — repeat an entry to make it likelier — and `MARK_TRIM` for what a wrapped mark wears |
 | Letters only one patron can hand you | `js/constants.js` → `EXCLUSIVE_LETTERS` (RAT belongs to the Rat Catcher; shop, draft and heap all skip them) |
 | Compost heap size & what you may take a visit | `js/constants.js` → `COMPOST_HEAP_MAX`, `COMPOST_PER_MARKET` |
 | Purple trim step size | `js/constants.js` → `PURPLE_TRIM_STEP` |
@@ -291,7 +296,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Reshuffle sundry price | `js/constants.js` → `RESHUFFLE_PRICE` |
 | Ratchet sundry price | `js/constants.js` → `RATCHET_PRICE` (the alphabet it walks is derived from `TILE_POINTS` — see `SHIFT_RING` in `js/state.js`) |
 | Stall roster, base prices, spread size | `js/constants.js` → `STALL_DEFS`, `STALLS_PER_SHOP`, `PROPOSAL_RANGE`, `SMELT_MIN_COLLECTION` |
-| Marks: which ones exist, legal tails, how often they're offered | `js/constants.js` → `MARKS`, `MARK_RUNS`, `MARK_WEIGHT` (and `TILE_POINTS`) |
+| Marks: which ones exist, legal tails, and what they arrive wearing | `js/constants.js` → `MARKS`, `MARK_RUNS`, `MARK_TRIM` (and `TILE_POINTS`). How often one turns up is `WRAPPED_CONTENTS`, since a wrapper is the only source |
 | What a proposal stall works on & offers | `js/market.js` → `PROPOSAL_STALLS` (one `eligible`/`propose` pair per stall — a new one is a few lines) |
 | Letters per draft paint pot | `js/constants.js` → `PAINT_PER_POT` |
 | Opening draft spread & pick counts | `js/constants.js` → `DRAFT` |

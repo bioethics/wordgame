@@ -442,8 +442,9 @@ function renderSundries() {
       slot.className = 'sundry sundry--wrapped';
       slot.dataset.sundry = i;
       slot.title = 'A wrapped tile — tap to unwrap it.\n'
-                 + 'Inside is one tile of a random letter, struck in one of the three strange '
-                 + 'materials, straight into your hand and yours for the rest of the run.';
+                 + 'Inside is one tile, straight into your hand and yours for the rest of the '
+                 + 'run: a random letter in one of the three strange materials, or a mark under '
+                 + 'a purple trim. Nothing decides which until the paper comes off.';
       slot.innerHTML = `
         <span class="wrapped-mark"></span>
         <span class="sundry-name">Wrapped</span>`;

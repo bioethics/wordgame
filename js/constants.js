@@ -52,10 +52,13 @@ export const EXCLUSIVE_LETTERS = ['RAT'];
 // never doubled, never mid-word. They're worth a point apiece, but they take
 // paint, trims and nicks like any other tile, and a left nick on a trailing
 // mark reaches back across the entire word.
+// Marks are not sold. No shop, draft or compost heap deals in them — the one
+// way a mark enters a run is out of a wrapped tile, always under a purple trim
+// (see WRAPPED_CONTENTS). That makes a ? a find rather than a purchase, which
+// suits a sort that spells nothing and exists to be tacked onto a finished word.
 export const MARKS      = ['?', '!'];
 export const MARK_RUNS  = ['?', '!', '?!'];   // every legal tail
 export const isMark     = ch => MARKS.includes(ch);
-export const MARK_WEIGHT = 2;                 // copies of each in the shop's letter pool
 
 // Split a composed word into its letters and its trailing marks. Returns null
 // when the marks aren't a legal tail — doubled, reversed, or mid-word.
@@ -296,6 +299,14 @@ export const CURSED_MAX_POINTS = 3;   // never cast on a letter worth more than 
 export const CURSED_PENALTY    = 666;  // Points lost per unplayed curse in hand
 export const WRAPPED_PRICE        = 4;
 export const WRAPPED_OFFER_CHANCE = 0.5;  // odds one of a Market's sundry slots holds one
+
+// What is inside a wrapped tile: the outcome table, and the only place these
+// odds live. Three entries name a material from MATERIALS above; 'mark' stands
+// for a punctuation tile in ordinary lead under a purple trim, which is the
+// only way a mark enters a run at all. The roll is a flat pick from this list,
+// so repeating an entry is how you make it likelier.
+export const WRAPPED_CONTENTS = ['cursed', 'ghost', 'rainbow', 'mark'];
+export const MARK_TRIM = 'purple';   // what a wrapped mark always comes wearing
 
 export const MATERIALS = {
   cursed: {

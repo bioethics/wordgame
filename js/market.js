@@ -3,7 +3,7 @@ import {
   effectivePatronSlots, effectiveSundrySlots,
 } from './state.js';
 import {
-  BAG_COUNTS, LIGATURES, EXCLUSIVE_LETTERS, MARKS, MARK_WEIGHT, isMark,
+  BAG_COUNTS, LIGATURES, EXCLUSIVE_LETTERS, isMark,
   TILE_POINTS, TRIMS, NICKS, COLOURS,
   WRAPPED_PRICE, WRAPPED_OFFER_CHANCE, isImmutable,
   COMPOST_HEAP_MAX, COMPOST_PER_MARKET,
@@ -48,7 +48,9 @@ function buildLetterPool() {
   LIGATURES
     .filter(L => !EXCLUSIVE_LETTERS.includes(L) && !(L in BAG_COUNTS))
     .forEach(L => pool.push(L, L));
-  MARKS.forEach(m => { for (let i = 0; i < MARK_WEIGHT; i++) pool.push(m); });
+  // No marks. They used to be stocked here at MARK_WEIGHT apiece, which put
+  // them in the shop, the draft and the compost heap alike; they come wrapped
+  // now and nowhere else (see WRAPPED_CONTENTS).
   return pool;
 }
 const LETTER_POOL = buildLetterPool();
@@ -121,7 +123,6 @@ function tilePrice(tmpl) {
   if (tmpl.colour) p += 1;
   if (tmpl.letterType === 'dual') p += 1;
   if (LIGATURES.includes(tmpl.letter)) p += 1;
-  if (isMark(tmpl.letter)) p += 1;
   return p;
 }
 

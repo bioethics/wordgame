@@ -9,12 +9,12 @@ import {
   discardSelected, getWordString, moveRackToWord, owns, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected,
   getActiveColour, getActiveLetter, growTile, paintTile, trimTile,
-  trashFromCollection, castMaterialTile, castTile, castLentTile, lentInHand, chapterTitle,
+  trashFromCollection, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
   effectiveWordsPerPage, rollGamble,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES, tileCount,
-  REACTION, NEOLOGIST_LENGTH, MATERIALS,
+  REACTION, NEOLOGIST_LENGTH, MATERIALS, TRIMS, WRAPPED_CONTENTS, MARK_TRIM,
   chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks, isDeadline,
 } from './constants.js';
 import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
@@ -98,13 +98,13 @@ async function animateDiscard(rects, to = pileRect(), bump = 'discardBtn') {
   await Promise.all(flights);
 }
 
-// What comes out of a wrapped tile. The three strange materials are equally
-// likely, which is the gamble the parcel is for: two of them are gifts and the
-// third is a curse you will have to find a word for.
-const pickMaterial = () => {
-  const kinds = Object.keys(MATERIALS);
-  return kinds[Math.floor(Math.random() * kinds.length)];
-};
+// What comes out of a wrapped tile — a flat pick from the table in
+// constants.js, which is where the odds are set. Three of the four are the
+// strange materials, and one of those is a curse you will have to find a word
+// for; the fourth is a mark, which is worth unwrapping because no shop deals
+// in them any more.
+const pickWrapped = () =>
+  WRAPPED_CONTENTS[Math.floor(Math.random() * WRAPPED_CONTENTS.length)];
 
 // ─── Discard mode ─────────────────────────────────────────────────────────────
 
@@ -828,9 +828,10 @@ $('sundries')?.addEventListener('click', async e => {
   if (armed?.kind === 'wrapped') {
     cancelDiscardMode(true);
     cancelSundryMode(true);
-    const material = pickMaterial();
-    const m = MATERIALS[material];
-    const tile = castMaterialTile(material);
+    const content = pickWrapped();
+    const isMarkTile = content === 'mark';
+    const m = MATERIALS[content];
+    const tile = isMarkTile ? castMarkTile() : castMaterialTile(content);
     state.sundries.splice(idx, 1);
 
     state.isAnimating = true;
@@ -841,12 +842,16 @@ $('sundries')?.addEventListener('click', async e => {
       await flyClone(el, bagRect(), rect(el), { duration: ANIM.fly, scaleFrom: 0.3 });
       popReveal(el);
       sparkleBurst(el, 14);
-      floatText(el, m.label, `fl-set fl-mat--${material}`);
+      floatText(el, isMarkTile ? `${TRIMS[MARK_TRIM].label} mark` : m.label,
+                isMarkTile ? 'fl-set fl-set--purple' : `fl-set fl-mat--${content}`);
     }
     await sleep(ANIM.stepColour);
     state.isAnimating = false;
     renderAll();
-    log(`The wrapping comes off: ${getActiveLetter(tile)}, struck in ${m.metal.toLowerCase()} — ${m.label.toLowerCase()}, and yours for good.`, 'good');
+    log(isMarkTile
+      ? `The wrapping comes off: a “${getActiveLetter(tile)}”, ${TRIMS[MARK_TRIM].label.toLowerCase()}-trimmed — no shop sells marks, and it is yours for good.`
+      : `The wrapping comes off: ${getActiveLetter(tile)}, struck in ${m.metal.toLowerCase()} — ${m.label.toLowerCase()}, and yours for good.`,
+      'good');
     return;
   }
 

@@ -2,6 +2,7 @@ import {
   RACK_SIZE, WORDS_PER_PAGE, DISCARDS_PER_PAGE, STARTING_COINS,
   PATRON_SLOTS, SUNDRY_SLOTS, SMELT_MIN_COLLECTION,
   BAG_COUNTS, TILE_POINTS, TUBE_TILES, CURSED_MAX_POINTS, isImmutable, isMark,
+  MARKS, MARK_TRIM,
   quotaFor, makeTileTemplate, GAMBLER_ODDS, isDeadline,
 } from './constants.js';
 import { CHAPTER_TITLES } from './chapters.js';
@@ -402,6 +403,17 @@ export function castMaterialTile(material) {
   const letters = Object.keys(BAG_COUNTS).filter(L =>
     material !== 'cursed' || (TILE_POINTS[L] ?? 99) <= CURSED_MAX_POINTS);
   return castTile({ letter: letters[Math.floor(Math.random() * letters.length)], material });
+}
+
+// The other thing a wrapper can hold: a mark, in ordinary lead, under the trim
+// it always comes wearing. A bare mark is worth a point and spells nothing, so
+// it would be a poor thing to unwrap; the purple is what makes the slot worth
+// giving up. Nothing else in the game hands one out (see MARKS).
+export function castMarkTile() {
+  return castTile({
+    letter: MARKS[Math.floor(Math.random() * MARKS.length)],
+    trim: MARK_TRIM,
+  });
 }
 
 export function clearWord() {

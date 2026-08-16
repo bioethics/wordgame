@@ -8,7 +8,7 @@ import {
 } from './state.js';
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
-  PAINT_PER_POT, TUBE_TILES, ANIM, SUNDRY_SELL, tileCount, MATERIALS,
+  PAINT_PER_POT, TUBE_TILES, ANIM, SUNDRY_SELL, tileCount, MATERIALS, MARKS, MARK_TRIM,
   colourDesc,
 } from './constants.js';
 import { patronById } from './patrons.js';
@@ -233,10 +233,12 @@ function marketShopHTML() {
 
   // The wrapped tile is the one offer that can't be summarised, because the shop
   // doesn't know either. The tip lists what might be inside instead.
-  const wrappedTip = 'Unwrap it mid-page: one tile of a random letter, struck in one of the '
-    + 'three strange materials and yours for the rest of the run. Which one is not decided '
-    + 'until the paper comes off — '
-    + Object.values(MATERIALS).map(m => `${m.emoji} ${m.metal.toLowerCase()}`).join(', ') + '.';
+  const wrappedTip = 'Unwrap it mid-page: one tile, straight into your hand and yours for the '
+    + 'rest of the run. What is in it is not decided until the paper comes off — a random '
+    + 'letter struck in one of the three strange materials ('
+    + Object.values(MATERIALS).map(m => `${m.emoji} ${m.metal.toLowerCase()}`).join(', ')
+    + `), or a mark (${MARKS.join(' or ')}) under a ${TRIMS[MARK_TRIM].label.toLowerCase()} trim, `
+    + 'which is the only way marks come now.';
 
   const sundryCards = market.sundryOffers.map((o, i) => o.kind === 'wrapped' ? `
       <div class="offer-paint offer-wrapped" data-offer="sundry" data-idx="${i}"
