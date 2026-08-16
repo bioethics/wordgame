@@ -1334,6 +1334,19 @@ button.sundry:hover { transform: translateY(-2px); }
   --trim-ring: inset 0 0 0 3px #aab4c4;
   --tile-lift: #7e8794;
 }
+/* Silver pays +6 Points, and the corner figure is exactly where that lands —
+   so a silver tile wears its number in silver. A ring alone said "some metal
+   or other"; this says "this one is a Points tile", in the rack and the shop
+   where you are choosing, not only in the groove where the sum is already
+   done. Grown and boosted numbers still win: those report that the figure
+   differs from the letter's face value, which is the more urgent news, and
+   each already has a colour of its own. */
+.tile--trim-silver .tile-pts:not(.tile-pts--grown):not(.tile-pts--boosted) {
+  opacity: 1;
+  font-weight: 900;
+  color: #6b7a8f;
+  text-shadow: 0 1px 0 rgba(250, 252, 255, 0.95), 0 0 7px rgba(160, 174, 194, 0.8);
+}
 
 /* Cobalt refunds a Discard, so it wears the Discard UI's own blues — the
    azure fill and bright edge of the discard pips — as a two-band ring no
