@@ -354,6 +354,7 @@ export const SPIKE_MULT = 0.2;
 // growth, burn odds, trim lotteries. Plain score numbers stay in js/patrons.js
 // with their patron, as ever.
 export const GRAFTER_STEP       = 1;      // permanent Points per tile per print
+export const ESPALIER_STEP      = 2;      // permanent Points per tile of a two-tile word
 export const STOKER_STEP        = 0.25;   // permanent ×Mult per crimson tile burned
 export const BEEKEEPER_STEP     = 0.2;    // permanent ×Mult per B printed
 export const ARSONIST_ODDS      = { paint: 0.10, burn: 0.01 };  // per tile played
