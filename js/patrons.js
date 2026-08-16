@@ -62,7 +62,7 @@ import {
   GRAFTER_STEP, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS, NUDIST_TRIM_CHANCE,
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, COMPOST_PER_MARKET,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE, BLOODLETTER_PAINT_CHANCE,
-  HEADSMAN_STEP, splitMarks,
+  HEADSMAN_STEP, ESPALIER_STEP, splitMarks,
 } from './constants.js';
 import {
   getActiveColour, getActiveLetter, countsAsColour, luckyRoll, paintRandomTiles,
@@ -394,6 +394,25 @@ export const PATRON_DEFS = [
       if (!dipped.length) return null;
       const said = dipped.map(d => `${getActiveLetter(d.tile)} ${COLOURS[d.colour].label.toLowerCase()}`);
       return { note: `out of the vat: ${said.join(', ')}`, painted: dipped };
+    },
+  },
+  {
+    // Jade in miniature: the smallest word the press can set, grown for keeps.
+    // The trigger is at-will — the dictionary holds sixty two-letter words,
+    // and a ligature makes two-tile THE, SING or RATS — so the real price is
+    // the word slot: a two-tile word scores next to nothing and spends one of
+    // the page's five words to say it. Growth goes through growTile, so the
+    // corner number turns jade and the gain follows the tile through bag,
+    // save and reshuffle alike. A ghost refuses the trellis, as it refuses
+    // everything; the other tile of the pair still takes its due.
+    id: 'espalier', name: 'The Espalier', emoji: '🪴', rarity: 'uncommon', cost: 6, guild: 'jade',
+    desc: `Print a two-tile word: both tiles permanently gain +${ESPALIER_STEP} Points.`,
+    when: 'meta',
+    onPrinted({ tiles, grow }) {
+      if (tiles.length !== 2) return null;
+      const grown = tiles.filter(t => grow(t, ESPALIER_STEP));
+      if (!grown.length) return null;
+      return { note: `${grown.map(getActiveLetter).join(', ')} grown +${ESPALIER_STEP}` };
     },
   },
   {

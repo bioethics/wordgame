@@ -322,10 +322,10 @@ at 8+ Points). **Stammerer × Skimmer** is the combo to measure next: 19.7% of
 words hold a doubled pair, but 46.7% can be *arranged* into one, which is
 Cartographer × Skimmer all over again at two rare seats.
 
-## Four from the pitch pile
+## From the pitch pile
 
 A later batch, built from design pitches rather than the overhaul plan. All
-four follow the contract: a multiplier or an income is bought with a
+of them follow the contract: a multiplier or an income is bought with a
 condition, and the condition asks something real of the player.
 
 - **The Copyist** 📑 (common · 4, neutral) — ×2 Mult when the word already
@@ -367,10 +367,27 @@ condition, and the condition asks something real of the player.
   benchmark against The Banker's flat +2 a page; the Antiquary should beat
   it only when the collection has been steered toward its letters.
 
-Guild arithmetic, which these four were partly chosen to serve: crimson was
-the thinnest guild at 7 and takes two of the new seats (→ 9), amber takes one
-(→ 8), against azure's noted 10. Tiers move 18/25/15 → 20/27/15 — both
-newcomers' commons earn their weight the way the contract demands.
+- **The Espalier** 🪴 (uncommon · 6, jade) — print a two-tile word and both
+  tiles permanently gain +2 Points (`ESPALIER_STEP`). Measured before
+  building: the dictionary holds **60 two-letter words**, and ligatures make
+  two-tile THE, SING, KING, QUA and RATS — so the trigger is at-will, not a
+  lottery. What it costs is the word slot: a two-tile word scores next to
+  nothing, and a spare word slot is otherwise worth a Coin at page's end, so
+  every fire is a small, real payment for +4 permanent Points placed on
+  exactly the two tiles you chose. That concentration is the contrast with
+  the Grafter (rare · 10), which grows more per page but sprays it across
+  whatever jade touched. Growth rides `growTile`, so the corner number wears
+  jade wherever the tile appears, and a ghost refuses it as it refuses
+  everything. **Watchpoints:** if burning two spare slots a page proves too
+  fast, drop the step to 1 (Grafter parity) before gating the trigger; and
+  the Stenographer's acronym list holds 38 two-letter entries (DM, GG, RN…),
+  which widens the trigger for a rare seat — probably fine, worth a look.
+
+Guild arithmetic, which this batch was partly chosen to serve: crimson was
+the thinnest guild at 7 and takes two of the new seats (→ 9), amber and jade
+take one each (→ 8, → 9), against azure's noted 10. Tiers move 18/25/15 →
+20/28/15 — the newcomers' commons earn their weight the way the contract
+demands.
 
 ## The guilds made visible, and the Alderman
 
