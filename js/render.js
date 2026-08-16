@@ -18,7 +18,7 @@ import { computeScore } from './scoring.js';
 import { marketSnapshot } from './market.js';
 import { draftSnapshot } from './draft.js';
 import { colophonSnapshot } from './colophon.js';
-import { setNum, sleep, fmtMult } from './anim.js';
+import { setNum, sleep, fmtMult, readingTime } from './anim.js';
 
 const $ = id => document.getElementById(id);
 
@@ -696,7 +696,13 @@ export function renderButtons() {
 // rejected word, a purchase, a hint) takes the bar over for a moment, then it
 // settles back to the manuscript.
 
-const MSG_HOLD = 3400;      // ms a message holds the bar before it settles back
+// How long a message holds the bar before it settles back to the manuscript.
+// Measured off the text rather than fixed: an editor's rule is three times the
+// length of "Discard cancelled." and was given the same three seconds to be
+// read in. `readingTime` is the same rule the patrons' bubbles use, plus a
+// little more here, since the bar sits at the foot of the board where the eye
+// is not already resting.
+const MSG_HOLD_BONUS = 900;
 let _msgUntil = 0;
 let _msgTimer = null;
 let _lastWordCount = -1;
@@ -705,10 +711,11 @@ export function log(msg, kind = '') {
   const el = $('log');
   if (!el) return;
   clearTimeout(_msgTimer);
-  _msgUntil = Date.now() + MSG_HOLD;
+  const hold = readingTime(msg) + MSG_HOLD_BONUS;
+  _msgUntil = Date.now() + hold;
   el.className = `log log--msg${kind ? ' log--' + kind : ''}`;
   el.textContent = msg;
-  _msgTimer = setTimeout(renderManuscript, MSG_HOLD);
+  _msgTimer = setTimeout(renderManuscript, hold);
 }
 
 // Called by renderAll — never stomps a message that's still holding.
@@ -765,14 +772,37 @@ export function renderDictStatus(status, count) {
 
 // ─── Banner (page / chapter announcements) ────────────────────────────────────
 
+// `hold` is how long the banner stays up. Pass a number to fix it; pass 'read'
+// to hold it long enough to read the subtitle, which is what an editor's rule
+// needs and a chapter title does not.
+//
+// A 'read' banner is also dismissible, which is the other half of the same
+// problem: a rule you are meeting for the first time wants seven seconds, and
+// the fourth time you meet it you want none. Tap and it goes. Fixed-length
+// banners stay as they were — they are already brief, and a stray tap during
+// the page turn should not skip the chapter title.
 export async function showBanner(title, sub = '', hold = 1150) {
   const b = $('banner');
   if (!b) return;
+  const readable = hold === 'read';
+  if (readable) hold = readingTime(sub);
+
   b.querySelector('.banner-title').textContent = title;
   b.querySelector('.banner-sub').textContent = sub;
+  b.classList.toggle('banner--dismissible', readable);
   b.classList.add('banner--show');
-  await sleep(hold);
-  b.classList.remove('banner--show');
+
+  if (readable) {
+    let done;
+    const skip = () => done?.();
+    b.addEventListener('pointerdown', skip, { once: true });
+    await Promise.race([sleep(hold), new Promise(res => { done = res; })]);
+    b.removeEventListener('pointerdown', skip);
+  } else {
+    await sleep(hold);
+  }
+
+  b.classList.remove('banner--show', 'banner--dismissible');
   await sleep(280);
 }
 

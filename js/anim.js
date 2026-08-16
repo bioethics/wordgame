@@ -72,9 +72,41 @@ export function popReveal(el) {
   ], { duration: dur(190), easing: 'ease-out' });
 }
 
+// ─── Reading time ─────────────────────────────────────────────────────────────
+
+// How long a line of text should stay up to be read. A bubble that rises,
+// holds and falls in a fixed span gives a long quip less reading time than a
+// short one, which is backwards — so the hold is measured off the text.
+// READ_BASE covers noticing the thing at all; READ_PER_CHAR is a deliberately
+// unhurried reading rate, since these arrive unannounced beside whatever you
+// were actually looking at.
+const READ_BASE     = 1500;
+const READ_PER_CHAR = 55;
+const READ_MAX      = 7000;
+// Markup isn't reading — a coin glyph is one thing to take in, not its tag.
+const plainLength = html => String(html ?? '').replace(/<[^>]*>/g, '').length;
+export const readingTime = text =>
+  Math.min(READ_MAX, READ_BASE + READ_PER_CHAR * plainLength(text));
+
 // ─── Floating numbers / labels ────────────────────────────────────────────────
 
-export function floatText(anchor, html, cls = '', { dy = -54, duration = 950 } = {}) {
+// A floater is two different things wearing one coat. "+42 Points" and
+// "Crimson ×3" are numbers: they want a quick pop that keeps up with the score
+// cinematic. A patron's note — "out of the vat: R crimson, S jade" — is a
+// sentence, and at the same 950ms it was gone before it was read. Anything
+// past PROSE_LEN is treated as prose: it rises, holds still to be read, then
+// goes. Length is measured on the text, so a coin glyph isn't counted as
+// twenty characters of markup.
+// Capped below READ_MAX because floaters stack: the score cinematic can put a
+// curse's toll, an editor's temper and a spike over the word within a second
+// of each other, and the full seven would leave three of them piled up. The
+// bar at the foot of the board carries the long reads instead — it replaces
+// its line rather than stacking it.
+const PROSE_LEN  = 16;
+const PROSE_MAX  = 3600;
+const POP_MS     = 950;
+
+export function floatText(anchor, html, cls = '', { dy = -54, duration = null } = {}) {
   const layer = fx();
   if (!layer || !anchor) return;
   const rect = anchor.getBoundingClientRect ? anchor.getBoundingClientRect() : anchor;
@@ -86,18 +118,33 @@ export function floatText(anchor, html, cls = '', { dy = -54, duration = 950 } =
   f.style.top  = `${rect.top - 4}px`;
   layer.appendChild(f);
 
-  f.animate([
-    { transform: 'translate(-50%, 6px) scale(.7)',          opacity: 0 },
-    { transform: 'translate(-50%, -16px) scale(1.12)',      opacity: 1, offset: 0.22 },
-    { transform: `translate(-50%, ${dy}px) scale(1)`,       opacity: 0 },
-  ], { duration: dur(duration), easing: 'cubic-bezier(.2,.6,.3,1)', fill: 'forwards' })
+  const prose = duration == null && plainLength(html) > PROSE_LEN;
+  const total = duration ?? (prose ? Math.min(PROSE_MAX, readingTime(html)) : POP_MS);
+
+  // Prose holds at two-thirds of its drift and finishes the rise only as it
+  // fades, so a long note doesn't sail off the top of the screen while it waits
+  // to be read.
+  const frames = prose
+    ? [
+        { transform: 'translate(-50%, 6px) scale(.7)',              opacity: 0 },
+        { transform: `translate(-50%, ${dy * 0.4}px) scale(1.1)`,   opacity: 1, offset: Math.min(0.16, 260 / total) },
+        { transform: `translate(-50%, ${dy * 0.66}px) scale(1)`,    opacity: 1, offset: 1 - Math.min(0.22, 420 / total) },
+        { transform: `translate(-50%, ${dy}px) scale(.95)`,         opacity: 0 },
+      ]
+    : [
+        { transform: 'translate(-50%, 6px) scale(.7)',     opacity: 0 },
+        { transform: 'translate(-50%, -16px) scale(1.12)', opacity: 1, offset: 0.22 },
+        { transform: `translate(-50%, ${dy}px) scale(1)`,  opacity: 0 },
+      ];
+
+  f.animate(frames, { duration: dur(total), easing: 'cubic-bezier(.2,.6,.3,1)', fill: 'forwards' })
    .finished.catch(() => {}).then(() => f.remove());
-  setTimeout(() => f.remove(), dur(duration) + 800);
+  setTimeout(() => f.remove(), dur(total) + 800);
 }
 
 // ─── Speech bubbles (a patron's unsolicited opinion) ──────────────────────────
 
-export function speechBubble(anchorEl, text, { duration = 1600 } = {}) {
+export function speechBubble(anchorEl, text, { duration = null } = {}) {
   const layer = fx();
   if (!layer || !anchorEl) return;
   const r = anchorEl.getBoundingClientRect();
@@ -109,16 +156,22 @@ export function speechBubble(anchorEl, text, { duration = 1600 } = {}) {
   b.style.top  = `${r.top - 6}px`;
   layer.appendChild(b);
 
+  // The rise and the fall are a fixed cost; everything between them is reading
+  // time, so a longer line holds longer rather than being read faster.
+  const total = duration ?? readingTime(text);
+  const rise  = Math.min(0.18, 260 / total);
+  const fall  = Math.min(0.24, 420 / total);
+
   const anim = b.animate([
-    { transform: 'translate(-50%, 10px) scale(.6)',   opacity: 0 },
-    { transform: 'translate(-50%, -10px) scale(1.06)', opacity: 1, offset: 0.16 },
-    { transform: 'translate(-50%, -16px) scale(1)',     opacity: 1, offset: 0.74 },
-    { transform: 'translate(-50%, -28px) scale(.92)',   opacity: 0 },
-  ], { duration: dur(duration), easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'forwards' });
+    { transform: 'translate(-50%, 10px) scale(.6)',    opacity: 0 },
+    { transform: 'translate(-50%, -10px) scale(1.06)', opacity: 1, offset: rise },
+    { transform: 'translate(-50%, -16px) scale(1)',    opacity: 1, offset: 1 - fall },
+    { transform: 'translate(-50%, -28px) scale(.92)',  opacity: 0 },
+  ], { duration: dur(total), easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'forwards' });
 
   Promise.race([
     anim.finished.catch(() => {}),
-    new Promise(res => setTimeout(res, dur(duration) + 500)),
+    new Promise(res => setTimeout(res, dur(total) + 500)),
   ]).then(() => b.remove());
 }
 

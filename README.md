@@ -294,6 +294,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Rewards & interest | `js/constants.js` → `REWARD` (base bumped 4→5 alongside the Colophon) |
 | Colophon roster, offer count, repeat cap, skip grant | `js/constants.js` → `UPGRADE_OFFERS`, `MAX_UPGRADE_REPEATS`, `SKIP_COIN_GRANT`; definitions in `js/upgrades.js` |
 | Patron reaction odds | `js/constants.js` → `REACTION`; the lines themselves in `js/quips.js` — a flat array, add more any time |
+| How long a line stays up to be read | `js/anim.js` → `READ_BASE` / `READ_PER_CHAR` / `READ_MAX`. Every bubble, floater and bar message holds for a span measured off its own length, so a long line is given longer, not read faster |
 | Words / discards / seats per page | `js/constants.js` |
 | Patron roster, costs, effects | `js/patrons.js` (design notes in `docs/PATRON_OVERHAUL.md`) |
 | Patron tuning that reaches beyond a score (growth steps, burn odds, trim chance, dye count, coined-word length) | `js/constants.js` → `GRAFTER_STEP`, `STOKER_STEP`, `ARSONIST_ODDS`, `NUDIST_TRIM_CHANCE`, `DIPPER_PAINT_CHANCE`, `GAMBLER_ODDS`, `DYE_TILES_PER_CHAPTER`, `NEOLOGIST_LENGTH` |

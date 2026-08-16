@@ -667,7 +667,9 @@ async function advancePage() {
   if (isDeadline(state.page) && state.boss) {
     const def = bossById(state.boss.id);
     sfx.bad();
-    await showBanner(`${def.emoji} ${def.name}`, def.desc, 2100);
+    // The editor's rule is a paragraph, not a title — hold the banner long
+    // enough to actually read it, however long that particular rule runs.
+    await showBanner(`${def.emoji} ${def.name}`, def.desc, 'read');
     log(`${def.emoji} ${def.name} takes the desk. ${def.desc}`, 'warn');
   }
 
