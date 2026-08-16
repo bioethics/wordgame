@@ -2425,6 +2425,20 @@ button.sundry:hover { transform: translateY(-2px); }
 .sheet--market .stall-warn { color: #ffb3a6; }
 .sheet--market .pickable.picked { outline-color: #8fdfae; box-shadow: 0 0 16px rgba(143, 223, 174, 0.3); }
 
+/* ── The table, restated at the top of the sheet ──────────────────────────────
+   The board's patron shelf drawn again inside the Market (same .shelf/.patron
+   classes, so it reads as the same piece of furniture), with dismissal always
+   at hand: the ✕ on hover, the tap popover everywhere else. */
+.sheet--market .market-shelf { margin-bottom: 6px; }
+.sheet--market .market-shelf .shelf {
+  gap: 8px;
+  padding: 8px 10px 10px;
+}
+.sheet--market .market-shelf .patron { min-height: 56px; }
+.sheet--market .market-shelf .patron[data-patron] { cursor: pointer; }
+/* A full table: the tally turns urgent — dismissing is the only way to hire. */
+.sheet--market .market-shelf--wanted .market-sub { color: #ffb3a6; font-weight: 800; }
+
 /* Returning from a stall: the market slides back in from the left */
 .sheet--return { animation: shopReturn calc(0.28s / var(--aspd)) cubic-bezier(.2, 1, .4, 1); }
 @keyframes shopReturn {

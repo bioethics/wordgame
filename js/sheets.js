@@ -24,7 +24,9 @@ import {
   colophon, closeColophon, applyColophonPick, applyColophonSkip, reshuffleColophon,
 } from './colophon.js';
 import { draft, draftLimit, toggleDraftPick } from './draft.js';
-import { makeTileEl, coinHTML, log, renderAll, persist } from './render.js';
+import {
+  makeTileEl, coinHTML, log, renderAll, persist, showPatronPopover,
+} from './render.js';
 import { sfx, pulse, sparkleBurst, flyClone, sleep } from './anim.js';
 
 const $ = id => document.getElementById(id);
@@ -107,9 +109,16 @@ export function updateMarketState() {
   const bench = m.querySelector('[data-bench]');
   if (bench) bench.textContent = benchLabel();
 
+  // The shelf strip redraws in place, so a hire appears seated the moment the
+  // coin is paid — without rebuilding the sheet under your scroll position.
+  const strip = m.querySelector('[data-market-shelf]');
+  if (strip) {
+    strip.style.setProperty('--seat-count', effectivePatronSlots());
+    strip.innerHTML = marketShelfCardsHTML();
+  }
   // A full table (or bench) makes letting something go the only way forward,
-  // so the row of things you hold stops being a footnote.
-  m.querySelector('[data-held="patron"]')?.classList.toggle('held-row--wanted', seatsFull);
+  // so the tally stops being a footnote.
+  m.querySelector('[data-market-shelf-wrap]')?.classList.toggle('market-shelf--wanted', seatsFull);
   m.querySelector('[data-held="sundry"]')?.classList.toggle('held-row--wanted', benchFull);
 
   const reroll = m.querySelector('#btnReroll');
@@ -134,6 +143,47 @@ const benchLabel = () => {
   const max = effectiveSundrySlots();
   return `${state.sundries.length}/${max} on the workbench${state.sundries.length >= max ? ' — sell one to make room' : ''}`;
 };
+
+// ─── The table, restated inside the Market ────────────────────────────────────
+// The board's patron shelf, drawn again at the top of the sheet so who you
+// hold is never out of sight while you shop. Same cards as the board: the ✕
+// dismisses outright (desktop hover), and tapping a card shows its calling
+// card with a dismissal button — the popover route main.js already wires.
+function marketShelfCardsHTML() {
+  const seats = effectivePatronSlots();
+  let cards = '';
+  for (let i = 0; i < seats; i++) {
+    const p = state.patrons[i];
+    if (!p) {
+      cards += `<div class="patron patron--empty" title="An empty seat at your table"><span class="patron-empty-mark">❧</span></div>`;
+      continue;
+    }
+    const def = patronById(p.id);
+    const name  = def.instName?.(p.data)  ?? def.name;
+    const label = def.instShelf?.(p.data) ?? def.name.replace(/^The /, '');
+    const desc  = def.instDesc?.(p.data)  ?? def.desc;
+    const half  = Math.floor(def.cost / 2);
+    cards += `
+      <div class="patron patron--${def.rarity}${def.guild ? ` patron--g-${def.guild}` : ''}"
+           data-patron="${def.id}"${p.uid != null ? ` data-uid="${p.uid}"` : ''}
+           title="${name} — ${desc}
+(✕ dismisses for ${half} Coins)">
+        <span class="patron-emoji">${def.emoji}</span>
+        <span class="patron-name">${label}</span>
+        <button class="patron-x" data-sell-patron="${p.uid ?? def.id}" title="Dismiss ${name} for ${half} Coins">✕</button>
+      </div>`;
+  }
+  return cards;
+}
+
+function marketShelfHTML() {
+  const fullSeats = state.patrons.length >= effectivePatronSlots();
+  return `
+    <section class="market-shelf${fullSeats ? ' market-shelf--wanted' : ''}" data-market-shelf-wrap>
+      <h3 class="market-sec">Your table <span class="market-sub" data-seats>${seatsLabel()}</span></h3>
+      <div class="shelf shelf--market" data-market-shelf style="--seat-count:${effectivePatronSlots()}">${marketShelfCardsHTML()}</div>
+    </section>`;
+}
 
 function marketShopHTML() {
   const patronCards = market.patronOffers.map((o, i) => {
@@ -239,20 +289,8 @@ function marketShopHTML() {
   }).join('');
 
   // What you already hold, with a way to let it go. Selling back is deliberately
-  // a pittance for sundries — the point is freeing the slot, not the coin.
-  const heldPatrons = state.patrons.map(p => {
-    const def = patronById(p.id);
-    const name = def.instName?.(p.data) ?? def.name;
-    const label = def.instShelf?.(p.data) ?? def.name.replace(/^The /, '');
-    return `
-      <button class="held${def.guild ? ` held--g-${def.guild}` : ''}" data-sell-patron="${p.uid ?? def.id}"
-              title="Dismiss ${name} for ${Math.floor(def.cost / 2)} Coins">
-        <span class="held-mark">${def.emoji}</span>
-        <span class="held-name">${label}</span>
-        <span class="held-price">✕ ${coinHTML(Math.floor(def.cost / 2))}</span>
-      </button>`;
-  }).join('');
-
+  // a pittance — the point is freeing the slot, not the coin. (Seated patrons
+  // aren't listed here: they sit on the shelf at the top of the sheet.)
   const heldSundries = state.sundries.map((s, i) => {
     const label = s.kind === 'reshuffle' ? 'Reshuffle'
                 : s.kind === 'ratchet'   ? 'Ratchet'
@@ -273,7 +311,6 @@ function marketShopHTML() {
       </button>`;
   }).join('');
 
-  const fullSeats = state.patrons.length >= effectivePatronSlots();
   const fullBench = state.sundries.length >= effectiveSundrySlots();
   const reshuffles = state.sundries.filter(s => s.kind === 'reshuffle').length;
 
@@ -290,12 +327,12 @@ function marketShopHTML() {
         ${rewardHTML()}
       </div>
 
+      ${marketShelfHTML()}
+
       <div class="market-grid">
         <section class="market-col">
-          <h3 class="market-sec">Patrons <span class="market-sub" data-seats>${seatsLabel()}</span></h3>
+          <h3 class="market-sec">Patrons <span class="market-sub">calling today</span></h3>
           <div class="offer-list">${patronCards}</div>
-          ${heldPatrons ? `<div class="held-row${fullSeats ? ' held-row--wanted' : ''}" data-held="patron">
-            <span class="held-label">Seated · tap to dismiss for half</span>${heldPatrons}</div>` : ''}
         </section>
         <section class="market-col">
           <h3 class="market-sec">Tiles</h3>
@@ -325,7 +362,7 @@ function marketShopHTML() {
       </section>
 
       <div class="market-foot">
-        <button class="btn btn-quiet" id="btnReroll" title="Re-rolls patrons, tiles, sundries and stalls — doubles each time"
+        <button class="btn btn-quiet" id="btnReroll" title="Re-rolls patrons, tiles, sundries and stalls — the fee doubles each time. A stall you've already paid keeps its raised price this visit."
           ${state.coins < market.rerollCost ? 'disabled' : ''}>
           New offers ${coinHTML(market.rerollCost)}
         </button>
@@ -697,7 +734,9 @@ function onMarketClick(e) {
     if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
     else {
       sfx.coin(); log(`${r.name} takes a seat at your table.`, 'good');
-      flyPurchase(card, $('shelf'), { scaleTo: 0.2 });
+      // The card flies to the shelf strip at the top of the sheet — the board
+      // shelf is under the modal and can't be seen from here.
+      flyPurchase(card, document.querySelector('[data-market-shelf]') ?? $('shelf'), { scaleTo: 0.2 });
     }
     renderAll(); updateMarketState();
     return;
@@ -761,6 +800,16 @@ function onMarketClick(e) {
       log(`Sold back for ${r.refund} Coin.`);
       renderAll(); renderMarket();
     }
+    return;
+  }
+  // A tap on a seated card (not its ✕ — that's data-sell-patron, caught above)
+  // shows the patron's calling card, whose Dismiss button main.js handles.
+  const seatCard = e.target.closest('[data-market-shelf] .patron[data-patron]');
+  if (seatCard) {
+    const def = patronById(seatCard.dataset.patron);
+    const seat = state.patrons.find(p => String(p.uid) === seatCard.dataset.uid)
+              ?? state.patrons.find(p => p.id === seatCard.dataset.patron);
+    if (def) showPatronPopover(def, seatCard, seat);
     return;
   }
 
