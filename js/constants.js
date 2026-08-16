@@ -52,6 +52,7 @@ export const EXCLUSIVE_LETTERS = ['RAT'];
 // never doubled, never mid-word. They're worth a point apiece, but they take
 // paint, trims and nicks like any other tile, and a left nick on a trailing
 // mark reaches back across the entire word.
+//
 // Marks are not sold. No shop, draft or compost heap deals in them — the one
 // way a mark enters a run is out of a wrapped tile, always under a purple trim
 // (see WRAPPED_CONTENTS). That makes a ? a find rather than a purchase, which
@@ -70,10 +71,15 @@ export function splitMarks(str) {
   return MARK_RUNS.includes(marks) ? { letters, marks } : null;
 }
 
-// ─── Colours (letter paint) ───────────────────────────────────────────────────
-// Each colour has its own multiplier, ×1 by default. Every painted letter of
-// that colour in the word raises it by +1 (×2, ×3, …). The word's Mult is the
-// product of all colour multipliers, so spreading colours multiplies together.
+// ─── Colours (tile paint) ─────────────────────────────────────────────────────
+// Each colour has its own multiplier, ×1 by default. Every painted tile of that
+// colour in the word raises it by +1 (×2, ×3, …). The word's Mult is the product
+// of all colour multipliers, so spreading colours multiplies together.
+//
+// Tiles, not letters, and the distinction is real: a CH or QU tile spells two
+// letters but wears one coat of paint and lifts its multiplier once. Anything
+// that counts what is *in* the word counts tiles; only the rules about a word's
+// shape — its length, its spelling, its order — count letters.
 export const COLOURS = {
   crimson: { label: 'Crimson', glyph: '#b23a2e', bright: '#ff9d8e' },
   azure:   { label: 'Azure',   glyph: '#2e6fb2', bright: '#8ec6ff' },
@@ -82,10 +88,10 @@ export const COLOURS = {
 };
 
 export const colourDesc = c =>
-  `Each ${COLOURS[c].label} letter adds +1 to the ${COLOURS[c].label} multiplier.`;
+  `Each ${COLOURS[c].label} tile adds +1 to the ${COLOURS[c].label} multiplier.`;
 
 // Every multiplier the readout keeps a chip for. The four paints, plus the two
-// that come from somewhere other than a painted letter: the purple trim, and
+// that come from somewhere other than a painted tile: the purple trim, and
 // cursed metal. Anything reading a score step's `colour` looks it up here.
 export const MULT_TRACKS = {
   ...COLOURS,
@@ -93,7 +99,7 @@ export const MULT_TRACKS = {
   cursed: { label: 'Cursed', glyph: '#c93c2d', bright: '#ff7a66' },
 };
 
-export const PAINT_PER_POT   = 3;   // letters painted per draft pot (random, unpainted)
+export const PAINT_PER_POT   = 3;   // tiles painted per draft pot (random, unpainted)
 
 // ─── Sundries (consumables kept on the workbench) ─────────────────────────────
 // Bought at the Shop, spent mid-page. A paint tube is the first kind: arm it,
@@ -186,9 +192,9 @@ export const PURPLE_TRIM_STEP = 0.5;
 export const NICK_MULT = 3;
 export const NICKS = {
   right: { label: 'Right nick', mult: NICK_MULT, price: 4,
-           desc: `×${NICK_MULT} Points to every letter on its right.` },
+           desc: `×${NICK_MULT} Points to every tile on its right.` },
   left:  { label: 'Left nick',  mult: NICK_MULT, price: 4,
-           desc: `×${NICK_MULT} Points to every letter on its left.` },
+           desc: `×${NICK_MULT} Points to every tile on its left.` },
 };
 
 // ─── Run structure ────────────────────────────────────────────────────────────

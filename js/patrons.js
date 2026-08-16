@@ -134,7 +134,7 @@ export const PATRON_DEFS = [
     // and one that likes three letters *of yours* — it rewards putting the
     // work into the tiles it named. See pass 0 of computeScore.
     id: 'monogrammist', name: 'The Monogrammist', emoji: '🪭', rarity: 'common', cost: 4,
-    desc: 'Arrives with three letters of its own; those letters print twice — Points, trim and paint alike.',
+    desc: 'Arrives with three letters of its own; a tile showing one prints twice — Points, trim and paint alike.',
     when: 'meta',       // fires in scoring's pass 2½ via tileEcho
     stackable: true,    // never blocked by an owned copy; every copy is its own seat
     onOffer() {
@@ -147,9 +147,9 @@ export const PATRON_DEFS = [
     instName(data)  { return data?.num ? `Monogrammist № ${data.num.toLocaleString()}` : 'The Monogrammist'; },
     instShelf(data) { return data?.num ? `№ ${data.num.toLocaleString()}` : 'Monogrammist'; },
     instDesc(data)  {
-      if (!data?.letters?.length) return 'Arrives with three letters of its own; those letters print twice — Points, trim and paint alike.';
+      if (!data?.letters?.length) return 'Arrives with three letters of its own; a tile showing one prints twice — Points, trim and paint alike.';
       const [a, b, c] = data.letters;
-      return `${a}, ${b} and ${c} print twice — Points, trim and paint alike.`;
+      return `A tile showing ${a}, ${b} or ${c} prints twice — Points, trim and paint alike.`;
     },
   },
   {
@@ -172,7 +172,7 @@ export const PATRON_DEFS = [
     // what the card was for — it makes a short word worth printing — without
     // compounding into the rest of the run. It is at its best early, which is
     // when a common-weight card should be at its best.
-    id: 'minimalist', name: 'The Minimalist', emoji: '🪶', rarity: 'common', cost: 5,
+    id: 'abecedarian', name: 'The Abecedarian', emoji: '🪶', rarity: 'common', cost: 5,
     desc: '3-letter words get +10 Points.',
     when: 'score',
     effect({ word, addPoints }) { if (word.length === 3) addPoints(10); },
@@ -209,7 +209,7 @@ export const PATRON_DEFS = [
   },
   {
     id: 'calligrapher', name: 'The Calligrapher', emoji: '✒️', rarity: 'uncommon', cost: 7,
-    desc: 'Each painted letter gains +3 Points.',
+    desc: 'Each painted tile gains +3 Points.',
     when: 'score',
     effect({ tiles, addPoints }) {
       const n = tiles.filter(t => getActiveColour(t)).length;
@@ -293,7 +293,7 @@ export const PATRON_DEFS = [
   // ── Amber · the counting-house ──────────────────────────────────────────────
   {
     id: 'goldsmith', name: 'The Goldsmith', emoji: '🪙', rarity: 'common', cost: 4, guild: 'amber',
-    desc: 'Amber letters gain +4 Points.',
+    desc: 'Amber tiles gain +4 Points.',
     when: 'score',
     effect({ tiles, addPoints }) {
       const n = painted(tiles, 'amber').length;
@@ -303,7 +303,7 @@ export const PATRON_DEFS = [
   dyePatron('weld', 'The Weld', '🌼', 'amber'),
   {
     id: 'assayer', name: 'The Assayer', emoji: '⚖️', rarity: 'uncommon', cost: 6, guild: 'amber',
-    desc: 'Amber letters pay 1 Coin when printed, up to 2 a word.',
+    desc: 'Amber tiles pay 1 Coin when printed, up to 2 a word.',
     when: 'score',
     effect({ tiles, addCoins }) {
       const n = Math.min(2, painted(tiles, 'amber').length);
@@ -317,7 +317,7 @@ export const PATRON_DEFS = [
   },
   {
     id: 'bursar', name: 'The Bursar', emoji: '💰', rarity: 'uncommon', cost: 7, guild: 'amber',
-    desc: 'Words with an amber letter gain +1 Mult for every 5 Coins you hold (max +5).',
+    desc: 'Words with an amber tile gain +1 Mult for every 5 Coins you hold (max +5).',
     when: 'score',
     effect({ tiles, state, addMult }) {
       if (!painted(tiles, 'amber').length) return;
@@ -329,7 +329,7 @@ export const PATRON_DEFS = [
   // ── Jade · growth and permanence ────────────────────────────────────────────
   {
     id: 'seedsman', name: 'The Seedsman', emoji: '🌱', rarity: 'common', cost: 4, guild: 'jade',
-    desc: 'Jade letters gain +1 Point per chapter reached — +5 Points each in Chapter V.',
+    desc: 'Jade tiles gain +1 Point per chapter reached — +5 Points each in Chapter V.',
     when: 'score',
     effect({ tiles, state, addPoints }) {
       const n = painted(tiles, 'jade').length;
@@ -339,7 +339,7 @@ export const PATRON_DEFS = [
   dyePatron('verdigris', 'The Verdigris', '🍏', 'jade'),
   {
     id: 'vintner', name: 'The Vintner', emoji: '🍷', rarity: 'uncommon', cost: 7, guild: 'jade',
-    desc: 'Words with a jade letter gain +1 Mult per chapter reached — +5 Mult in Chapter V.',
+    desc: 'Words with a jade tile gain +1 Mult per chapter reached — +5 Mult in Chapter V.',
     when: 'score',
     effect({ tiles, state, addMult }) {
       if (painted(tiles, 'jade').length) addMult(state.chapter);
@@ -377,7 +377,7 @@ export const PATRON_DEFS = [
   },
   {
     id: 'grafter', name: 'The Grafter', emoji: '🌿', rarity: 'rare', cost: 10, guild: 'jade',
-    desc: 'When a word with a jade letter prints, every tile in it permanently gains +1 Point.',
+    desc: 'When a word with a jade tile prints, every tile in it permanently gains +1 Point.',
     when: 'meta',
     onPrinted({ tiles, grow }) {
       if (!painted(tiles, 'jade').length) return null;
@@ -389,7 +389,7 @@ export const PATRON_DEFS = [
   // ── Crimson · sacrifice and fire ────────────────────────────────────────────
   {
     id: 'firebrand', name: 'The Firebrand', emoji: '❤️‍🔥', rarity: 'common', cost: 4, guild: 'crimson',
-    desc: 'Words with 2 or more crimson letters gain +15 Points.',
+    desc: 'Words with 2 or more crimson tiles gain +15 Points.',
     when: 'score',
     effect({ tiles, addPoints }) {
       if (painted(tiles, 'crimson').length >= 2) addPoints(15);
@@ -441,7 +441,7 @@ export const PATRON_DEFS = [
   },
   {
     id: 'stoker', name: 'The Stoker', emoji: '🔥', rarity: 'rare', cost: 11, guild: 'crimson',
-    desc: 'Crimson letters are destroyed when printed; each one permanently raises this patron\'s Mult by 0.25.',
+    desc: 'Crimson tiles are destroyed when printed; each one permanently raises this patron\'s Mult by 0.25.',
     when: 'score',
     effect({ data, xMult }) {
       const stacks = data?.stacks ?? 0;
@@ -478,7 +478,7 @@ export const PATRON_DEFS = [
   dyePatron('woad', 'The Woad', '🪻', 'azure'),
   {
     id: 'marbler', name: 'The Marbler', emoji: '🌀', rarity: 'uncommon', cost: 7, guild: 'azure',
-    desc: 'Words with 2 or more azure letters get ×2 Mult.',
+    desc: 'Words with 2 or more azure tiles get ×2 Mult.',
     when: 'score',
     effect({ tiles, xMult }) {
       if (painted(tiles, 'azure').length >= 2) xMult(2);
@@ -491,7 +491,7 @@ export const PATRON_DEFS = [
   },
   {
     id: 'titivillus', name: 'Titivillus', emoji: '😈', rarity: 'rare', cost: 9, guild: 'azure',
-    desc: 'Words with an azure letter are accepted with one vowel wrong, or with two vowels swapped.',
+    desc: 'Words with an azure tile are accepted with one vowel wrong, or with two vowels swapped.',
     when: 'meta',   // consulted at the dictionary check in main.js — the typo prints as typed
   },
   {
@@ -546,7 +546,7 @@ export const PATRON_DEFS = [
   },
   {
     id: 'illuminator', name: 'The Illuminator', emoji: '🎨', rarity: 'rare', cost: 8,
-    desc: 'When a word holds three paint colours, one unpainted letter in it is permanently painted the fourth.',
+    desc: 'When a word holds three paint colours, one unpainted tile in it is permanently painted the fourth.',
     when: 'meta',
     onPrinted({ tiles, paint }) {
       const present = new Set(tiles.map(getActiveColour).filter(Boolean));

@@ -40,10 +40,17 @@ score = Points × Mult
 
 - **Points** — the sum of every tile's value (after trims and nicks).
 - **Mult** — the product of the five colour multipliers. Each colour starts at
-  ×1 and every painted letter of that colour in the word raises it by 1
+  ×1 and every painted *tile* of that colour in the word raises it by 1
   (×2, ×3, …); purple trims raise a fifth multiplier in half-steps (×1.5, ×2,
-  ×2.5, …). Spreading colours multiplies together: one letter each of two
-  colours is ×2×2 = ×4, where two of the same colour is only ×3.
+  ×2.5, …). Spreading colours multiplies together: one tile each of two colours
+  is ×2×2 = ×4, where two of the same colour is only ×3.
+
+Tiles, not letters, and the difference is worth holding onto: a `CH` or `QU`
+tile spells two letters but wears one coat of paint and lifts its multiplier
+once. Everything that counts what is *in* a word counts tiles — paint, nicks,
+the colour patrons. Only the rules about a word's *shape* count letters: how
+long it is, how it is spelled, what order it runs in. The editors are all
+shape rules, so they all count letters.
 
 The readout shows a live projection — including a chip per colour — and
 hovering or long-pressing any tile, on the board or in the market or the draft,
@@ -60,7 +67,7 @@ plus an optional **trim** and **nick**.
 | --- | --- |
 | Paint | crimson / azure / jade / amber — each raises its colour's multiplier by 1 |
 | Trim | **Gold** pays 1 Coin · **Silver** +5 Points, counted into the tile's corner number wherever it appears and written in the trim's own silver, so the tile says what it is worth rather than making you add · **Cobalt** refreshes 1 Discard (and wears the Discard's own blue) · **Mercury** slips back into the bag instead of the discard pile · **Purple** raises the fifth multiplier by 0.5 |
-| Nick | A notch cut into one edge; the notched side is the direction. **Right** ×3 Points to everything on its right · **Left** ×3 to its left. Nicks don't stack — a letter is multiplied once at most. While you compose, an affected tile's corner number becomes the multiplied value, restyled, rippling outward from the notch. |
+| Nick | A notch cut into one edge; the notched side is the direction. **Right** ×3 Points to everything on its right · **Left** ×3 to its left. Nicks don't stack — a tile is multiplied once at most. While you compose, an affected tile's corner number becomes the multiplied value, restyled, rippling outward from the notch. |
 | Letterform | Dual tiles hold two letters (flip to switch; paint, trim and nick belong to the tile, so both letters wear them) · Ligatures ING · CH · CK · TH · WH · QU spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Marks** ? and ! spell nothing at all, and come only from a wrapped tile, purple-trimmed |
 | Material | What the tile is cast from, under everything else: ordinary lead, or **cursed** / **ghost** / **rainbow** (see below) |
 | Growth | Grown points — permanent +1s a patron (The Grafter) writes into a tile, worn as a jade corner number wherever the tile appears |

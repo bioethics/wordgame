@@ -255,6 +255,9 @@ export const luckyRoll = p => Math.random() < Math.min(1, p * (state.luck ?? 1))
 //   ingot      A sundry that named its metal at the shop. It is a wrapped tile
 //              now, and what is inside is rolled when the paper comes off, so
 //              the stored material is simply dropped.
+//   minimalist The three-letter-word patron, renamed to the Abecedarian. Seats
+//              and shop offers both store a patron by id, so an id left behind
+//              would resolve to nothing and the seat would render blank.
 function migrateSave(node) {
   if (Array.isArray(node)) { node.forEach(migrateSave); return; }
   if (!node || typeof node !== 'object') return;
@@ -266,6 +269,7 @@ function migrateSave(node) {
     node.kind = 'wrapped';
     delete node.material;
   }
+  if (node.id === 'minimalist') node.id = 'abecedarian';
   for (const v of Object.values(node)) migrateSave(v);
 }
 
