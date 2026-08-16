@@ -296,6 +296,13 @@ export const MATERIALS = {
 // A ghost is the one material nothing can be done to.
 export const isImmutable = tile => tile?.material === 'ghost';
 
+// ─── The Editors (Deadline bosses — see js/bosses.js) ─────────────────────────
+// A word that breaks the seated editor's rule is SPIKED: printed and counted,
+// but at this fraction of its score. Soft on purpose — every rack stays
+// playable, and the rule is a cost to weigh rather than a wall. Scoring
+// applies it as a visible ×Mult step; the editor's bar quotes it in warnings.
+export const SPIKE_MULT = 0.2;
+
 // ─── Patron tuning (the colour-guild overhaul) ────────────────────────────────
 // Knobs for patron effects that reach beyond a single score: permanent tile
 // growth, burn odds, trim lotteries. Plain score numbers stay in js/patrons.js

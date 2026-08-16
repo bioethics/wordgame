@@ -10,9 +10,10 @@ import {
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
   WORDS_PER_PAGE, PAGES_PER_CHAPTER, TUBE_TILES, tileCount,
-  colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH,
+  colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT,
 } from './constants.js';
 import { patronById } from './patrons.js';
+import { bossById } from './bosses.js';
 import { computeScore } from './scoring.js';
 import { marketSnapshot } from './market.js';
 import { draftSnapshot } from './draft.js';
@@ -38,6 +39,7 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   if (tile.trim)                  div.classList.add(`tile--trim-${tile.trim}`);
   if (tile.nick)                  div.classList.add(`tile--nick-${tile.nick}`);
   if (tile.material)              div.classList.add(`tile--mat-${tile.material}`);
+  if (tile.ephemeral)             div.classList.add('tile--gift');
 
   const active = getActiveLetter(tile);
   const paint  = getActiveColour(tile);
@@ -112,6 +114,12 @@ export function tileFeatures(tile) {
   }
   if (tile.bonusPoints) {
     out.push({ head: 'Grown', body: `+${tile.bonusPoints} Points set permanently into this tile.` });
+  }
+  if (tile.ephemeral) {
+    out.push({
+      head: 'The Enthusiast’s gift',
+      body: 'Lent for this page only — it rides above your hand size, and vanishes when the page ends, played or not.',
+    });
   }
   return out;
 }
@@ -223,6 +231,7 @@ export function renderAll() {
   renderShelf(script);
   renderSundries();
   renderStatus();
+  renderBossBar(script);
   renderRack();
   renderWord(script);
   renderCounts();
@@ -449,6 +458,36 @@ function renderStatus() {
   const coinsEl = $('coinCount');
   if (coinsEl) setNum(coinsEl, state.coins);
   setText('ledgerCount', state.ledger?.length ?? 0);
+}
+
+// ─── The editor's bar (Deadline pages only) ───────────────────────────────────
+// The seated editor, their standing rule or its live demand, and a verdict on
+// the word being composed — ✓ or the spike, called before you print, because
+// the game never scores anything the preview didn't promise. The bar reads
+// the same score script as the readout, so the two can't disagree.
+
+function renderBossBar(script) {
+  const el = $('bossBar');
+  if (!el) return;
+  const def = state.boss ? bossById(state.boss.id) : null;
+  if (!def) {
+    el.classList.add('hidden');
+    el.innerHTML = '';
+    return;
+  }
+  const demand = def.demand?.(state.boss.data ?? {});
+  const verdict = !state.word.length || !script ? ''
+    : script.spiked
+      ? `<span class="boss-verdict boss-verdict--bad">✂ spiked — ×${SPIKE_MULT} Mult</span>`
+      : `<span class="boss-verdict boss-verdict--ok">✓ passes</span>`;
+  el.classList.remove('hidden');
+  el.classList.toggle('boss-bar--warn', !!script?.spiked && !!state.word.length);
+  el.title = `${def.name} — ${def.desc}`;
+  el.innerHTML = `
+    <span class="boss-emoji">${def.emoji}</span>
+    <span class="boss-name">${def.name.replace(/^The /, '')}</span>
+    <span class="boss-rule">${demand ?? def.desc}</span>
+    ${verdict}`;
 }
 
 function renderPips(id, total, filled, cls, maxShown = total) {
@@ -714,7 +753,8 @@ export function showGameOver() {
     <div class="sheet sheet--dark sheet--end">
       <div class="end-flourish">✕</div>
       <h2 class="end-title">The press falls silent</h2>
-      <p class="end-sub">${chapterLabel(state.chapter)}, ${isDeadline(state.page) ? 'the Deadline' : `page ${state.page}`} — the quota of ${state.quota.toLocaleString()} went unmet.</p>
+      <p class="end-sub">${chapterLabel(state.chapter)}, ${isDeadline(state.page) ? 'the Deadline' : `page ${state.page}`} — the quota of ${state.quota.toLocaleString()} went unmet.${
+        state.boss ? ` ${bossById(state.boss.id)?.emoji ?? ''} ${bossById(state.boss.id)?.name ?? ''} remains unimpressed.` : ''}</p>
       ${statsHTML()}
       <button class="btn btn-print btn-big" data-overlay-action="newrun">Begin a new folio</button>
     </div>`);

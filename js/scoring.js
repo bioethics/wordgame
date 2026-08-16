@@ -1,8 +1,9 @@
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, PURPLE_TRIM_STEP, REWARD, CURSED_MULT,
-  CURSED_PENALTY, isDeadline, splitMarks,
+  CURSED_PENALTY, SPIKE_MULT, isDeadline, splitMarks,
 } from './constants.js';
 import { PATRON_DEFS, patronById } from './patrons.js';
+import { bossById } from './bosses.js';
 import { state, owns, getActiveLetter, getActiveColour, returnsToBag } from './state.js';
 
 // ─── Score a word ─────────────────────────────────────────────────────────────
@@ -205,6 +206,38 @@ export function computeScore(wordTiles) {
     if (guilds.size) mult = Math.round(mult * 1000) / 1000;
   }
 
+  // ── Pass 4¾: the Editor at the Deadline (see js/bosses.js) ─────────────────
+  // Two things can happen here, in order. The Reviewer's temper multiplies
+  // every word, spiked or not, and is rolled before you compose — so it's a
+  // promise kept, never a surprise. Then the seated editor judges the word
+  // against the house rule; a word that breaks it is spiked at ×SPIKE_MULT,
+  // as a visible step, so the preview and the print agree. The judgement is
+  // handed the pre-spike total: the Escalationist's bar measures what a word
+  // was really worth, not what the spike left of it.
+  let spiked = false;
+  if (state.boss) {
+    const def = bossById(state.boss.id);
+    const data = state.boss.data ?? {};
+    const temper = def?.mood?.(data);
+    if (temper != null && temper !== 1) {
+      mult *= temper;
+      patronSteps.push({
+        id: 'boss', text: `×${temper} Mult — the ${def.name.replace(/^The /, '')}'s temper`, xmult: temper,
+      });
+    }
+    const preTotal = Math.max(0, Math.round(points * mult));
+    const reason = def?.judge?.(letters, wordTiles, data, preTotal);
+    if (reason) {
+      spiked = true;
+      mult *= SPIKE_MULT;
+      patronSteps.push({
+        id: 'boss', spiked: true, xmult: SPIKE_MULT,
+        text: `Spiked — ${reason}. ×${SPIKE_MULT} Mult`,
+      });
+    }
+    mult = Math.round(mult * 1000) / 1000;
+  }
+
   // Floored at nothing. Only a curse left in the hand can drive Points below
   // zero, and a word that scores *negative* would eat the page you'd already
   // built — which is the trap the curse's toll exists to open, not to spring.
@@ -219,7 +252,7 @@ export function computeScore(wordTiles) {
   });
 
   return {
-    word, points, mult, total, coins, refresh,
+    word, points, mult, total, coins, refresh, spiked,
     tileSteps, nickSteps, nickAffected, colourSteps, patronSteps, perTile,
   };
 }

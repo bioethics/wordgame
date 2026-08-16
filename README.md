@@ -90,6 +90,26 @@ still takes paint, trims and nicks like any other.
   own, though: paint it, and only that colour's multiplier rises. Mind the
   Stoker, who reads it as crimson and burns it.
 
+**The Editors** — every chapter's third page is its **Deadline**, and an editor
+holds the desk there: one of a roster (see `js/bosses.js`), drawn at random as
+the page is dealt and never announced sooner, so the rule is a puzzle for the
+rack in front of you rather than something to build against. No editor bans
+anything or touches what a tile is worth — each one warps the *shape* of the
+words instead. The Abridger reads nothing past the fourth letter; the Padder
+pays by the word and wants five at least; the Columnist re-sets an exact
+measure after every print; the Serialist demands each word open on the letter
+the last one ended with; the Indexer files the page alphabetically; the
+Escalationist insists every word outscore the one before; the Enthusiast lends
+a tile of a beloved letter and expects it in every word; the Reviewer receives
+each word in a temper (×0.2–×0.95) rolled openly before you compose; the
+Completist deals two extra tiles and permits no discards. A word that breaks
+the house rule is not refused — it is **spiked**: printed, filed, counted, but
+at ×0.2 of its score. The editor's bar above the readout carries the live
+demand and calls the verdict — ✓ or the spike — while you compose, because
+nothing in this game scores what the preview didn't promise. Chains and
+indexes are reset by the spiked word itself, so a sacrificial APPLE is always
+a way back in.
+
 **Misspellings** — three patrons forgive a word the dictionary turns away, and
 none of them correct it: what you set is what prints, in the manuscript and the
 ledger both. *Titivillus* takes one wrong or transposed vowel (WIERD stands for

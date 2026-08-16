@@ -2,9 +2,10 @@ import {
   RACK_SIZE, WORDS_PER_PAGE, DISCARDS_PER_PAGE, STARTING_COINS,
   PATRON_SLOTS, SUNDRY_SLOTS, SMELT_MIN_COLLECTION,
   BAG_COUNTS, TILE_POINTS, TUBE_TILES, CURSED_MAX_POINTS, isImmutable, isMark,
-  quotaFor, makeTileTemplate, GAMBLER_ODDS,
+  quotaFor, makeTileTemplate, GAMBLER_ODDS, isDeadline,
 } from './constants.js';
 import { CHAPTER_TITLES } from './chapters.js';
+import { BOSS_DEFS, activeBoss } from './bosses.js';
 
 const SAVE_KEY     = 'folio_save_v1';
 const SETTINGS_KEY = 'folio_settings_v1';
@@ -124,6 +125,8 @@ export const state = {
   lastFirstLetter: null,  // first letter of the last word printed this run (The Skald)
   gambleWon: false,    // this word's coin, tossed by rollGamble (The Gambler)
   chapterTitles: {},   // chapter → the title this run drew for it
+  boss: null,          // the Deadline's editor: { id, data } while page 3 runs, else null
+  bossesSeen: [],      // editor ids met this run — no repeats until the roster runs out
   compost: [],         // The Composter's heap: jade templates waiting at the Market
   compostPending: 0,   // tiles destroyed since the last Market, not yet rotted down
 
@@ -145,7 +148,8 @@ export const state = {
 // Base constants plus whatever the Colophon has permanently granted this run.
 export const effectiveWordsPerPage = () =>
   WORDS_PER_PAGE + (owns('overseer') ? 1 : 0) + (state.upgradeCounts?.words ?? 0);
-export const effectiveRackSize    = () => RACK_SIZE    + (state.upgradeCounts?.handSize     ?? 0);
+export const effectiveRackSize    = () => RACK_SIZE    + (state.upgradeCounts?.handSize     ?? 0)
+                                                       + (activeBoss(state)?.rackBonus      ?? 0);
 export const effectivePatronSlots = () => PATRON_SLOTS + (state.upgradeCounts?.patronSeat    ?? 0);
 export const effectiveSundrySlots = () => SUNDRY_SLOTS + (state.upgradeCounts?.workbenchSlot ?? 0);
 
@@ -165,6 +169,37 @@ export function chapterTitle(ch) {
   const pool = fresh.length ? fresh : CHAPTER_TITLES;
   state.chapterTitles[ch] = pool[Math.floor(Math.random() * pool.length)] ?? '';
   return state.chapterTitles[ch];
+}
+
+// ─── The Editors (Deadline bosses) ────────────────────────────────────────────
+// One takes the desk as each Deadline page is dealt — never announced sooner,
+// which is the point: the rule is a puzzle for the rack in front of you, not
+// something to build against. Drawn without repeats until the roster runs
+// out, then the roster refreshes. The pick is stored in state, so a reload
+// never swaps the editor under you.
+
+function assignBoss() {
+  state.bossesSeen ??= [];
+  const fresh = BOSS_DEFS.filter(b => !state.bossesSeen.includes(b.id));
+  const pool = fresh.length ? fresh : BOSS_DEFS;
+  if (!fresh.length) state.bossesSeen = [];
+  const def = pool[Math.floor(Math.random() * pool.length)];
+  state.bossesSeen.push(def.id);
+  const data = {};
+  def.setup?.(data, state);
+  state.boss = { id: def.id, data };
+}
+
+// The Enthusiast's gift: a real tile in every way that matters this page, but
+// cast from no template — it holds no place in the hand, takes no permanent
+// change (there is no collection tile behind it to write to), and since every
+// new page rebuilds the bag from the collection, it simply isn't there
+// tomorrow. Played or discarded, it ends the page in a pile that is emptied.
+export function castEphemeralTile(letter) {
+  const tile = templateToTile(makeTileTemplate(letter));
+  tile.ephemeral = true;
+  state.rack.push(tile);
+  return tile;
 }
 
 // A seated patron's private memory (created on first touch, saved with the run).
@@ -210,6 +245,8 @@ export function loadState() {
     state.luck ??= 1;
     state.lastFirstLetter ??= null;
     state.chapterTitles ??= {};
+    state.boss ??= null;
+    state.bossesSeen ??= [];
     state.compost ??= [];
     state.compostPending ??= 0;
     if (savedId)  _nextId  = savedId;
@@ -239,6 +276,7 @@ export function newRun() {
     discardsMax: DISCARDS_PER_PAGE, wordsPrinted: 0,
     coins: STARTING_COINS, patrons: [], sundries: [], upgradeCounts: {},
     luck: 1, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
+    boss: null, bossesSeen: [],
     compost: [], compostPending: 0,
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
@@ -260,7 +298,13 @@ export function startPage() {
   state.pageScore    = 0;
   state.wordsPrinted = 0;
   state.wordsLeft    = effectiveWordsPerPage();
-  state.discardsMax = DISCARDS_PER_PAGE + (owns('quartermaster') ? 1 : 0) + (state.upgradeCounts?.discard ?? 0);
+  // The Deadline's editor takes the desk before anything is counted out —
+  // rack size and discards below are theirs to bend.
+  if (isDeadline(state.page)) assignBoss();
+  else state.boss = null;
+  state.discardsMax = activeBoss(state)?.noDiscards
+    ? 0
+    : DISCARDS_PER_PAGE + (owns('quartermaster') ? 1 : 0) + (state.upgradeCounts?.discard ?? 0);
   state.discards    = state.discardsMax;
   state.discardMode = false;
   state.sundryMode = -1;
@@ -270,9 +314,10 @@ export function startPage() {
 // ─── Tile operations ──────────────────────────────────────────────────────────
 
 // Tiles that take up a place in the hand. A ghost holds none — it rides along
-// beside the hand rather than in it, so drawing tops up around it.
+// beside the hand rather than in it, so drawing tops up around it. The
+// Enthusiast's gift rides the same way: a bonus above the hand, not part of it.
 const handCount = () =>
-  [...state.rack, ...state.word].filter(t => t.material !== 'ghost').length;
+  [...state.rack, ...state.word].filter(t => t.material !== 'ghost' && !t.ephemeral).length;
 
 // Returns the tiles drawn (so the caller can animate them in).
 export function drawUpToRackSize() {

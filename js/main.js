@@ -9,14 +9,15 @@ import {
   discardSelected, getWordString, moveRackToWord, owns, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected,
   getActiveColour, getActiveLetter, growTile, paintTile, trimTile,
-  trashFromCollection, castMaterialTile, castTile, chapterTitle,
+  trashFromCollection, castMaterialTile, castTile, castEphemeralTile, chapterTitle,
   effectiveWordsPerPage, rollGamble,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES, tileCount,
   REACTION, NEOLOGIST_LENGTH, MATERIALS,
-  chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks,
+  chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks, isDeadline,
 } from './constants.js';
+import { bossById, bossOnPrinted, bossGift } from './bosses.js';
 import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
 import { THEME_SETS, loadThemes } from './themes.js';
 
@@ -463,12 +464,18 @@ async function submitWord() {
       const cls = p.coins ? 'fl-coin' : p.points ? 'fl-points' : 'fl-mult';
       floatText(card, p.coins ? `+${coinHTML(p.coins)}` : p.text, cls, { dy: -44 });
     } else {
-      // A step with no seat of its own — the curse's toll — still has to be
-      // seen, so it rises over the word instead of going by in silence.
-      floatText($('word'), p.text, p.id === 'cursed' ? 'fl-curse' : 'fl-points', { dy: -60 });
+      // A step with no seat of its own — the curse's toll, the editor's
+      // verdict — still has to be seen, so it rises over the word instead of
+      // going by in silence. The editor's bar flares as its step lands.
+      const cls = p.id === 'cursed' ? 'fl-curse'
+                : p.id === 'boss'   ? (p.spiked ? 'fl-spike' : 'fl-mult')
+                :                     'fl-points';
+      floatText($('word'), p.text, cls, { dy: -60 });
+      if (p.id === 'boss') pulse($('bossBar'), p.spiked ? 'boss-bar--spiking' : 'boss-bar--firing', 520);
     }
     if (p.points) { pointsSoFar += p.points; tweenNum(ro.points, pointsSoFar); sfx.tick(8); }
-    if (p.mult || p.xmult) sfx.mult();
+    if (p.spiked) sfx.bad();
+    else if (p.mult || p.xmult) sfx.mult();
     if (p.coins) sfx.coin();
     await sleep(ANIM.stepPatron);
   }
@@ -503,6 +510,11 @@ async function submitWord() {
   // next one. Tossed here rather than in the score effect, which re-runs on
   // every keystroke — see rollGamble in state.js.
   rollGamble();
+
+  // The editor's memory moves on likewise — chains advance, bars re-set,
+  // tempers and measures re-roll — here and never during scoring, which
+  // re-runs on every keystroke.
+  bossOnPrinted(state, script, parts.letters);
 
   // Patrons that reach beyond the score fire before the tiles retire, so a
   // grown tile carries its growth wherever it goes next (even back to the bag).
@@ -568,8 +580,12 @@ async function pageComplete() {
   state.isAnimating = true;
   state.stats.pages += 1;
   sfx.win();
-  await showBanner('Page complete',
-    `${state.pageScore.toLocaleString()} of ${state.quota.toLocaleString()} — ${chapterTitle(state.chapter)}`);
+  const bossDef = state.boss ? bossById(state.boss.id) : null;
+  await showBanner(
+    bossDef ? 'Deadline met' : 'Page complete',
+    bossDef
+      ? `${bossDef.emoji} ${bossDef.name} is satisfied — ${state.pageScore.toLocaleString()} of ${state.quota.toLocaleString()}`
+      : `${state.pageScore.toLocaleString()} of ${state.quota.toLocaleString()} — ${chapterTitle(state.chapter)}`);
 
   const reward = computeReward();
   state.coins += reward.total;
@@ -642,10 +658,21 @@ async function advancePage() {
     await showBanner(chapterLabel(state.chapter), chapterTitle(state.chapter), 1350);
   }
 
-  // Whatever a patron brings to the page arrives with the hand, not after it.
+  // The Deadline's editor is announced only now, with the page already dealt
+  // in front of you — the reveal is the puzzle beginning, not a warning.
+  if (isDeadline(state.page) && state.boss) {
+    const def = bossById(state.boss.id);
+    sfx.bad();
+    await showBanner(`${def.emoji} ${def.name}`, def.desc, 2100);
+    log(`${def.emoji} ${def.name} takes the desk. ${def.desc}`, 'warn');
+  }
+
+  // Whatever a patron brings to the page arrives with the hand, not after it —
+  // the Enthusiast's gift rides in the same deal.
   const { arrivals, notes } = runPageHooks();
+  const gift = bossGift(state, castEphemeralTile);
   const drawn = drawUpToRackSize();
-  await animateDraw([...arrivals, ...drawn]);
+  await animateDraw([...arrivals, ...gift, ...drawn]);
 
   state.isAnimating = false;
   renderAll();   // the status bar settles back to the manuscript on its own
@@ -1091,7 +1118,8 @@ async function beginRun() {
       renderAll(); renderColophon();
       log('Welcome back.');
     } else {
-      drawUpToRackSize();   // top up in case a save landed mid-draw
+      bossGift(state, castEphemeralTile);   // re-deal a gift lost to a mid-deal reload
+      drawUpToRackSize();                   // top up in case a save landed mid-draw
       renderAll();
       log('Welcome back.');
     }
