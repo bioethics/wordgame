@@ -159,14 +159,16 @@ export const PATRON_DEFS = [
     when: 'meta',   // consulted at the dictionary check in main.js
   },
   {
-    // A multiplier at common weight, which the Herald was not allowed to be —
-    // but this one fights the word instead of feeding it. Three tiles carry
-    // little paint and few Points, so the ×3 lands on a small base and the
-    // build has to work for it. Cursed metal is where it gets frightening.
+    // This was a ×3, and a ×3 scales with everything you build after it: the
+    // small base a three-letter word lands on stopped mattering the moment the
+    // colours came in, and cursed metal made it frightening. A flat +10 does
+    // what the card was for — it makes a short word worth printing — without
+    // compounding into the rest of the run. It is at its best early, which is
+    // when a common-weight card should be at its best.
     id: 'minimalist', name: 'The Minimalist', emoji: '🪶', rarity: 'common', cost: 5,
-    desc: '3-letter words get ×3 Mult.',
+    desc: '3-letter words get +10 Points.',
     when: 'score',
-    effect({ word, xMult }) { if (word.length === 3) xMult(3); },
+    effect({ word, addPoints }) { if (word.length === 3) addPoints(10); },
   },
 
   // ── Uncommons ───────────────────────────────────────────────────────────────
@@ -348,7 +350,7 @@ export const PATRON_DEFS = [
     // find itself speckled. Discarded tiles are still yours, sitting in the
     // discard pile, so the paint is waiting when the bag comes round again.
     id: 'dipper', name: 'The Dipper', emoji: '🪣', rarity: 'common', cost: 4, guild: 'jade',
-    desc: `Each tile you discard has a 1-in-10 chance of being painted a random colour.`,
+    desc: `Each tile you discard has a 1-in-${Math.round(1 / DIPPER_PAINT_CHANCE)} chance of being painted a random colour.`,
     when: 'meta',
     // `painted` is what lets the board show the dip: main.js colours those
     // tiles where they stand and holds a beat before they fly to the pile.

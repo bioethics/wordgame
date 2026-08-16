@@ -203,12 +203,38 @@ export const stallPrice  = stall => (STALL_DEFS[stall.id]?.base ?? 1) * 2 ** sta
 // one you like. Each is defined by which tiles it can work on and what it
 // proposes for them; everything else below is shared.
 
+// Which of your tiles a stall puts in front of you. Most of the case is Es and
+// Rs and Ss, so an unweighted draw spends its six slots on letters you hold
+// four of and would rather not pay a doubling price to dress. The lean is
+// deliberately soft — the square root of the bag count, not the count itself —
+// so a Z is about twice as likely to be laid out as any one of your Es, rather
+// than crowding them out entirely. (You hold five Es, so the letter still turns
+// up in most spreads; it just no longer fills them.) Anything not in the bag at
+// all — ligatures, marks, the Rat Catcher's RAT — counts as rare, which is
+// right: those are the tiles worth dressing. Marked `biased` per stall, so the
+// Punchcutter and the Dresser keep drawing flat; their eligibility filters
+// already narrow the case sharply on their own.
+const letterWeight = t => 1 / Math.sqrt(BAG_COUNTS[t.letter] ?? 1);
+
+function biasedSample(tiles, n) {
+  const pool = [...tiles];
+  const out = [];
+  while (out.length < n && pool.length) {
+    let roll = Math.random() * pool.reduce((sum, t) => sum + letterWeight(t), 0);
+    let i = 0;
+    while (i < pool.length - 1 && (roll -= letterWeight(pool[i])) > 0) i++;
+    out.push(pool.splice(i, 1)[0]);
+  }
+  return out;
+}
+
 // Every stall that changes a tile has to leave ghosts alone — there's nothing
 // there to take a tool to.
 export const PROPOSAL_STALLS = {
   gilder: {
     eligible: t => !t.trim && !isImmutable(t),
     propose:  () => ({ trim: pick(Object.keys(TRIMS)) }),
+    biased:   true,
   },
   punchcutter: {
     // A tile can only take a second letter if it hasn't one already, isn't a
@@ -232,19 +258,37 @@ export const isProposalStall = id => !!PROPOSAL_STALLS[id];
 export function rollProposals(stallId) {
   const spec = PROPOSAL_STALLS[stallId];
   if (!spec) return [];
-  return shuffle(state.collection.filter(spec.eligible))
-    .slice(0, PROPOSAL_RANGE)
-    .map(t => ({ tid: t.tid, ...spec.propose(t) }));
+  const eligible = state.collection.filter(spec.eligible);
+  const spread = spec.biased
+    ? biasedSample(eligible, PROPOSAL_RANGE)
+    : shuffle(eligible).slice(0, PROPOSAL_RANGE);
+  return spread.map(t => ({ tid: t.tid, ...spec.propose(t) }));
 }
 
-// Smelting can orphan a proposal mid-visit — drop any whose tile is gone or
+// ── The Painter ───────────────────────────────────────────────────────────────
+// Not a proposal stall — there's nothing to propose when the colour is yours to
+// pick — but it lays out a spread the same way the Gilder does, and draws it
+// with the same lean towards your rarer letters. Before this it offered the
+// whole case, which made it the one stall where the shop asked you nothing.
+
+const paintable = t => !isImmutable(t);   // a ghost tile takes no paint
+
+export const rollPaintOffers = () =>
+  biasedSample(state.collection.filter(paintable), PROPOSAL_RANGE).map(t => t.tid);
+
+// Smelting can orphan a spread mid-visit — drop any entry whose tile is gone or
 // no longer eligible.
-function pruneProposals() {
+function pruneStalls() {
   for (const stall of market.stalls) {
     const spec = PROPOSAL_STALLS[stall.id];
-    if (!spec || !stall.proposals) continue;
-    stall.proposals = stall.proposals.filter(p =>
-      state.collection.some(t => t.tid === p.tid && spec.eligible(t)));
+    if (spec && stall.proposals) {
+      stall.proposals = stall.proposals.filter(p =>
+        state.collection.some(t => t.tid === p.tid && spec.eligible(t)));
+    }
+    if (stall.offers) {
+      stall.offers = stall.offers.filter(tid =>
+        state.collection.some(t => t.tid === tid && paintable(t)));
+    }
   }
 }
 
@@ -257,9 +301,9 @@ function rollStalls() {
   const ids = shuffle([...Object.keys(STALL_DEFS)]).slice(0, STALLS_PER_SHOP);
   market.stalls = ids.map(id => {
     const uses = market.stallWear?.[id] ?? 0;
-    return isProposalStall(id)
-      ? { id, uses, proposals: rollProposals(id) }
-      : { id, uses };
+    if (isProposalStall(id)) return { id, uses, proposals: rollProposals(id) };
+    if (id === 'painter')    return { id, uses, offers: rollPaintOffers() };
+    return { id, uses };
   });
 }
 
@@ -289,6 +333,9 @@ export function restoreMarket(snapshot) {
   market.stalls ??= [];
   market.stallWear ??= {};
   market.compostTaken ??= 0;
+  // A save from before the Painter kept a spread has a bare stall — lay one out
+  // rather than leaving it with nothing to offer.
+  for (const s of market.stalls) if (s.id === 'painter') s.offers ??= rollPaintOffers();
   state.inMarket = true;
 }
 
@@ -439,17 +486,19 @@ export function stallSmelt(tid) {
   if (state.coins < t.price)         return { ok: false, reason: `You need ${t.price} Coins.` };
   payStall(t.stall, t.price);
   trashFromCollection(t.tmpl.tid);   // the one road out, so the heap counts it too
-  pruneProposals();
+  pruneStalls();
   return { ok: true, removed: t.tmpl, price: t.price };
 }
 
 export function stallPaint(tid, colour) {
   const t = stallTarget('painter', tid);
   if (!t || !COLOURS[colour])        return { ok: false, reason: 'Pick a tile and a colour.' };
-  if (isImmutable(t.tmpl))           return { ok: false, reason: 'A ghost tile takes no paint.' };
+  if (!t.stall.offers?.includes(tid))
+                                     return { ok: false, reason: 'The Painter has not laid that tile out.' };
   if (state.coins < t.price)         return { ok: false, reason: `You need ${t.price} Coins.` };
   payStall(t.stall, t.price);
   t.tmpl.colour = colour;            // the front face; a dual's other face keeps its coat
+  t.stall.offers = rollPaintOffers();  // a fresh spread, as the proposal stalls do
   return { ok: true, tmpl: t.tmpl, colour, price: t.price };
 }
 

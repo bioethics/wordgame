@@ -105,7 +105,9 @@ export const tileCount = n => n === 1 ? 'one tile' : `${n} tiles`;
 // ─── Stalls ───────────────────────────────────────────────────────────────────
 // Two pitch up at each shop, drawn from the roster below. A stall's price
 // starts at its base and doubles with every purchase, then resets when the
-// next shop opens — the Smelter alone starts dearer.
+// next shop opens. No stall opens under 2: a 1-Coin first commission was
+// close enough to free that the interesting question — is this worth the
+// doubling? — never got asked. The Dresser alone starts dearer still.
 export const STALLS_PER_SHOP = 2;
 export const PROPOSAL_RANGE  = 6;    // tiles a proposal stall lays out at a time
 export const SMELT_MIN_COLLECTION = 12;
@@ -116,11 +118,12 @@ export const STALL_DEFS = {
     desc: 'Feeds a tile to the furnace — gone for good.',
   },
   painter: {
-    name: 'The Painter', emoji: '🖌️', base: 1,
-    desc: 'Paints any letter a colour of your choice.',
+    name: 'The Painter', emoji: '🖌️', base: 2,
+    desc: 'Lays out six of your tiles — paint one a colour of your choice.',
+    empty: 'You own nothing that will take paint.',
   },
   gilder: {
-    name: 'The Gilder', emoji: '⚜️', base: 1,
+    name: 'The Gilder', emoji: '⚜️', base: 2,
     desc: 'Proposes trims for six untrimmed tiles.',
     empty: 'Every tile you own already wears a trim.',
   },
@@ -135,7 +138,7 @@ export const STALL_DEFS = {
     empty: 'Every tile you own already carries a nick.',
   },
   stereotyper: {
-    name: 'The Stereotyper', emoji: '🗜️', base: 1,
+    name: 'The Stereotyper', emoji: '🗜️', base: 2,
     desc: 'Casts an exact copy of any tile.',
   },
 };
@@ -322,7 +325,11 @@ export const STOKER_STEP        = 0.25;   // permanent ×Mult per crimson tile b
 export const BEEKEEPER_STEP     = 0.2;    // permanent ×Mult per B printed
 export const ARSONIST_ODDS      = { paint: 0.10, burn: 0.01 };  // per tile played
 export const NUDIST_TRIM_CHANCE = 0.25;   // per bare letter in an all-bare word
-export const DIPPER_PAINT_CHANCE = 0.10;  // per tile discarded, painted at random
+// Per tile discarded, painted at random. Was 1-in-10, which paid out roughly
+// twice a page on a full discard and had the collection speckled by Chapter II
+// — free paint at common weight, arriving faster than the Painter sells it.
+// The Dipper's card reads its odds off this number, so moving it moves the copy.
+export const DIPPER_PAINT_CHANCE = 1 / 12;
 // The Gambler's coin. Tossed once per word rather than once per keystroke:
 // scoring runs on every letter you lay to drive the live preview, so a roll
 // inside the score effect would flicker as you compose and then disagree with

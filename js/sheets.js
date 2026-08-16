@@ -477,7 +477,16 @@ function renderStallBody() {
   const grid = $('stallGrid');
   if (!grid) return;
   grid.innerHTML = '';
-  state.collection.forEach(tmpl => {
+  // The Smelter and the Stereotyper work off the whole case; the Painter works
+  // off the spread it laid out, the way the proposal stalls do.
+  const tiles = stall.offers
+    ? stall.offers.map(tid => state.collection.find(t => t.tid === tid)).filter(Boolean)
+    : state.collection;
+  if (!tiles.length) {
+    grid.innerHTML = `<p class="sheet-note">${STALL_DEFS[market.activeStall]?.empty ?? 'Nothing to offer.'}</p>`;
+    return;
+  }
+  tiles.forEach(tmpl => {
     const el = makeTileEl({ ...tmpl, id: '' }, 'stall', { mini: true });
     el.dataset.stallTid = tmpl.tid;
     grid.appendChild(el);
