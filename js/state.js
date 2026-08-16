@@ -2,6 +2,7 @@ import {
   RACK_SIZE, WORDS_PER_PAGE, DISCARDS_PER_PAGE, STARTING_COINS,
   PATRON_SLOTS, SUNDRY_SLOTS, SMELT_MIN_COLLECTION,
   BAG_COUNTS, TILE_POINTS, TUBE_TILES, CURSED_MAX_POINTS, isImmutable, isMark,
+  MARKS, MARK_TRIM, SILVER_BONUS,
   quotaFor, makeTileTemplate, GAMBLER_ODDS, isDeadline,
 } from './constants.js';
 import { CHAPTER_TITLES } from './chapters.js';
@@ -45,11 +46,22 @@ export function getActiveLetter(tile) {
   return tile.letter;
 }
 
-// The paint on the face currently showing (dual faces are painted independently)
-export function getActiveColour(tile) {
-  if (tile.letterType === 'dual' && tile.activeVariant === 1) return tile.altColour;
-  return tile.colour;
-}
+// The paint a tile is wearing. Paint belongs to the tile, not to either face,
+// so this is the same whichever letter a dual is showing — kept as a function
+// because everything that scores paint calls it, and because a material could
+// yet want a say (see countsAsColour, which is where rainbow gets its).
+export const getActiveColour = tile => tile.colour;
+
+// What a tile is worth before the word it sits in touches it: its letter's face
+// value, any growth set permanently into it, and a silver trim. All three
+// belong to the tile rather than to the word, so this is the number it wears
+// wherever it appears — rack, shop, collection, groove. A nick's reach and a
+// Monogrammist's echo are the word's business and scoring adds those on top,
+// which is what leaves the corner number free to be honest at rest.
+export const restingPoints = tile =>
+  (TILE_POINTS[getActiveLetter(tile)] ?? tile.basePoints ?? 1)
+  + (tile.bonusPoints ?? 0)
+  + (tile.trim === 'silver' ? SILVER_BONUS : 0);
 
 // Whether a tile reads as a given colour to anything that cares *which* colour
 // it is — every patron, and the Fountain's return-to-bag. A rainbow tile reads
@@ -121,6 +133,7 @@ export const state = {
                     // a Monogrammist's letters); uid tells copies of a stackable patron apart
   sundries: [],     // [{ kind: 'tube', colour } | { kind: 'reshuffle' }] — the workbench
   upgradeCounts: {}, // id → times taken this run, from the Colophon (see js/upgrades.js)
+  ratchetDir: 1,       // which way an armed ratchet is pointing: +1 later, -1 earlier
   luck: 1,             // scales every "good outcome" roll (see luckyRoll) — a future dial
   lastFirstLetter: null,  // first letter of the last word printed this run (The Skald)
   gambleWon: false,    // this word's coin, tossed by rollGamble (The Gambler)
@@ -132,7 +145,8 @@ export const state = {
 
   totalScore: 0,
   stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
-  ledger: [],       // { word, score, chapter, page } for every word printed this run
+  manuscript: [],   // { word, score, chapter, page } for every word printed this run,
+                    // in the order they were set — the book the run is writing
 
   endless:   false,
   inMarket: false,
@@ -228,6 +242,33 @@ export const luckyRoll = p => Math.random() < Math.min(1, p * (state.luck ?? 1))
 
 // ─── Persist ──────────────────────────────────────────────────────────────────
 
+// Shape changes an older save has to be walked forward through. Both of these
+// can be hiding anywhere — the collection, the rack, the discard pile, the
+// shop's offers and the workbench inside the market snapshot, the draft, the
+// compost heap — so the whole save is walked rather than each list found by
+// hand, which is cheaper to write and can't miss one.
+//
+//   altColour  Paint used to belong to a face; it belongs to the tile now, so
+//              a second coat folds into the first. A tile painted on both keeps
+//              the front one — the alternative is asking the player which half
+//              of a tile they meant.
+//   ingot      A sundry that named its metal at the shop. It is a wrapped tile
+//              now, and what is inside is rolled when the paper comes off, so
+//              the stored material is simply dropped.
+function migrateSave(node) {
+  if (Array.isArray(node)) { node.forEach(migrateSave); return; }
+  if (!node || typeof node !== 'object') return;
+  if ('altColour' in node) {
+    node.colour ??= node.altColour;
+    delete node.altColour;
+  }
+  if (node.kind === 'ingot') {
+    node.kind = 'wrapped';
+    delete node.material;
+  }
+  for (const v of Object.values(node)) migrateSave(v);
+}
+
 export function saveState(extra = {}) {
   try {
     const rack = state.rack.map(t => ({ ...t, selected: false }));
@@ -248,12 +289,24 @@ export function loadState() {
     if (!raw) return null;
     const s = JSON.parse(raw);
     if (s._v !== SAVE_VERSION) return null;
+    migrateSave(s);
     if (!Array.isArray(s.collection) || !Array.isArray(s.rack)) return null;
     const { _nextId: savedId, _nextTid: savedTid, _v, _market, _draft, _colophon, ...fields } = s;
     Object.assign(state, fields, { isAnimating: false, discardMode: false, sundryMode: -1 });
     state.sundries ??= [];
     state.upgradeCounts ??= {};
     state.luck ??= 1;
+    state.ratchetDir ??= 1;
+    // The run's record of printed words was `ledger` before it was bound into
+    // chapters and became the manuscript. Same rows, same order, new name.
+    // Tested on emptiness rather than `??=`: state.manuscript defaults to [],
+    // which is not nullish, so a coalescing assign would silently keep the
+    // empty default and throw an old save's words away.
+    if (Array.isArray(state.ledger)) {
+      if (!state.manuscript?.length) state.manuscript = state.ledger;
+      delete state.ledger;
+    }
+    state.manuscript ??= [];
     state.lastFirstLetter ??= null;
     state.chapterTitles ??= {};
     state.boss ??= null;
@@ -286,12 +339,12 @@ export function newRun() {
     wordsLeft: WORDS_PER_PAGE, discards: DISCARDS_PER_PAGE,
     discardsMax: DISCARDS_PER_PAGE, wordsPrinted: 0,
     coins: STARTING_COINS, patrons: [], sundries: [], upgradeCounts: {},
-    luck: 1, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
+    luck: 1, ratchetDir: 1, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
     boss: null, bossesSeen: [],
     compost: [], compostPending: 0,
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
-    ledger: [],
+    manuscript: [],
     endless: false, inMarket: false, inDraft: false, inColophon: false,
     isAnimating: false, discardMode: false, sundryMode: -1, gameOver: false,
   });
@@ -354,12 +407,24 @@ export function castTile(overrides = {}) {
   return tile;
 }
 
-// An ingot's tile. A cursed one is never cast on a letter worth much — its
-// ×Mult is the point, not its Points.
+// What comes out of a wrapped tile: a random letter in the given material. A
+// cursed one is never cast on a letter worth much — its ×Mult is the point,
+// not its Points, and a cursed QU would be a punishment rather than a gamble.
 export function castMaterialTile(material) {
   const letters = Object.keys(BAG_COUNTS).filter(L =>
     material !== 'cursed' || (TILE_POINTS[L] ?? 99) <= CURSED_MAX_POINTS);
   return castTile({ letter: letters[Math.floor(Math.random() * letters.length)], material });
+}
+
+// The other thing a wrapper can hold: a mark, in ordinary lead, under the trim
+// it always comes wearing. A bare mark is worth a point and spells nothing, so
+// it would be a poor thing to unwrap; the purple is what makes the slot worth
+// giving up. Nothing else in the game hands one out (see MARKS).
+export function castMarkTile() {
+  return castTile({
+    letter: MARKS[Math.floor(Math.random() * MARKS.length)],
+    trim: MARK_TRIM,
+  });
 }
 
 export function clearWord() {
@@ -437,20 +502,15 @@ export function growTile(tile, n = 1) {
   return tile.bonusPoints;
 }
 
-// Paint the face a tile is currently showing (dual faces are painted
-// separately), writing through to the collection so the paint is permanent.
-// Every route to permanent paint goes through here — tubes, the Painter,
-// patrons — so none of them can drift apart.
+// Paint a tile, writing through to the collection so the paint is permanent.
+// A dual tile takes its coat whole — both letters, whichever face was showing
+// when the brush landed. Every route to permanent paint goes through here —
+// tubes, the Painter, patrons — so none of them can drift apart.
 export function paintTile(tile, colour) {
   if (isImmutable(tile)) return false;
-  const altFace = tile.letterType === 'dual' && tile.activeVariant === 1;
-  if (altFace) tile.altColour = colour;
-  else         tile.colour    = colour;
+  tile.colour = colour;
   const tmpl = state.collection.find(c => c.tid === tile.tid);
-  if (tmpl) {
-    if (altFace) tmpl.altColour = colour;
-    else         tmpl.colour    = colour;
-  }
+  if (tmpl) tmpl.colour = colour;
   return true;
 }
 
@@ -484,11 +544,11 @@ export function trashFromCollection(tid) {
   return removed;
 }
 
-// ─── Ledger ───────────────────────────────────────────────────────────────────
+// ─── The manuscript ───────────────────────────────────────────────────────────
 
 export function recordWord(word, score) {
-  state.ledger ??= [];
-  state.ledger.push({ word, score, chapter: state.chapter, page: state.page });
+  state.manuscript ??= [];
+  state.manuscript.push({ word, score, chapter: state.chapter, page: state.page });
 }
 
 // ─── The Gambler's coin ───────────────────────────────────────────────────────
@@ -624,23 +684,15 @@ export function toggleDualVariant(id) {
 
 // ─── Painting ─────────────────────────────────────────────────────────────────
 
-// Every unpainted letter face in the collection (dual faces count separately).
-export function unpaintedFaces() {
-  const faces = [];
-  for (const t of state.collection) {
-    if (!t.colour) faces.push({ tile: t, face: 0 });
-    if (t.letterType === 'dual' && !t.altColour) faces.push({ tile: t, face: 1 });
-  }
-  return faces;
-}
+// Every unpainted tile in the collection. A dual counts once, not twice: its
+// two letters share one coat.
+export const unpaintedTiles = () => state.collection.filter(t => !t.colour);
 
-// Paint `count` random unpainted faces. Returns the letters painted.
-export function paintRandomFaces(colour, count) {
-  const faces = shuffle(unpaintedFaces()).slice(0, count);
-  return faces.map(({ tile, face }) => {
-    if (face === 0) tile.colour = colour;
-    else            tile.altColour = colour;
-    return face === 0 ? tile.letter : tile.altLetter;
+// Paint `count` random unpainted tiles. Returns the letters painted.
+export function paintRandomTiles(colour, count) {
+  return shuffle(unpaintedTiles()).slice(0, count).map(tile => {
+    tile.colour = colour;
+    return getActiveLetter(tile);
   });
 }
 

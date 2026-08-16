@@ -2,7 +2,7 @@
 // patron, two paints, and four tiles; no coins change hands. Everything picked
 // is applied to the collection before page 1's bag is shuffled.
 
-import { state, paintRandomFaces, adoptTemplate } from './state.js';
+import { state, paintRandomTiles, adoptTemplate } from './state.js';
 import { DRAFT, COLOURS, PAINT_PER_POT } from './constants.js';
 import { randomSpecialTile } from './market.js';
 
@@ -53,7 +53,7 @@ export function applyDraft() {
   }
   const painted = [];
   for (const i of draft.picked.paint) {
-    painted.push(...paintRandomFaces(draft.paints[i], PAINT_PER_POT));
+    painted.push(...paintRandomTiles(draft.paints[i], PAINT_PER_POT));
   }
   return { painted };
 }

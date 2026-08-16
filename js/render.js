@@ -5,12 +5,12 @@
 import {
   state, settings, saveState, getActiveLetter, getActiveColour, selectedCount,
   effectivePatronSlots, effectiveSundrySlots, effectiveWordsPerPage, chapterTitle,
-  sundrySelected,
+  sundrySelected, restingPoints,
 } from './state.js';
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
   WORDS_PER_PAGE, PAGES_PER_CHAPTER, TUBE_TILES, tileCount,
-  colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT,
+  colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
 } from './constants.js';
 import { patronById } from './patrons.js';
 import { bossById } from './bosses.js';
@@ -18,7 +18,7 @@ import { computeScore } from './scoring.js';
 import { marketSnapshot } from './market.js';
 import { draftSnapshot } from './draft.js';
 import { colophonSnapshot } from './colophon.js';
-import { setNum, sleep, fmtMult } from './anim.js';
+import { setNum, sleep, fmtMult, readingTime } from './anim.js';
 
 const $ = id => document.getElementById(id);
 
@@ -55,10 +55,12 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   if (paint) letter.style.color = COLOURS[paint].glyph;
   div.appendChild(letter);
 
-  // Point value (bottom-right). When an override is given and it beats the
-  // letter's face value, the number itself carries the news. A tile carrying
-  // grown points (The Grafter) wears its number in jade.
-  const base = (TILE_POINTS[active] ?? tile.basePoints ?? 1) + (tile.bonusPoints ?? 0);
+  // Point value (bottom-right). This is what the tile is worth at rest —
+  // including a silver trim's Points, which belong to the tile and so belong in
+  // its number. An override beating that says the *word* has changed it (a
+  // nick's reach, a Monogrammist's echo), and the number carries that news.
+  // A tile carrying grown points (The Grafter) wears its number in jade.
+  const base = restingPoints(tile);
   const ptsEl = document.createElement('span');
   ptsEl.className = 'tile-pts';
   ptsEl.textContent = pts ?? base;
@@ -66,14 +68,15 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   if (pts != null && pts !== base) ptsEl.classList.add('tile-pts--boosted');
   div.appendChild(ptsEl);
 
-  // Dual-letter hint (top-right), painted in the other face's colour
+  // Dual-letter hint (top-right). Paint belongs to the tile, so the waiting
+  // letter is shown in the same colour as the one on show — the hint says what
+  // you'd be flipping to, and flipping no longer changes the coat.
   if (tile.letterType === 'dual' && tile.altLetter) {
     const otherLetter = tile.activeVariant === 1 ? tile.letter : tile.altLetter;
-    const otherPaint  = tile.activeVariant === 1 ? tile.colour : tile.altColour;
     const alt = document.createElement('span');
     alt.className = 'tile-alt';
     alt.textContent = `⇄${otherLetter}`;
-    if (otherPaint) alt.style.color = COLOURS[otherPaint].glyph;
+    if (tile.colour) alt.style.color = COLOURS[tile.colour].glyph;
     div.appendChild(alt);
   }
 
@@ -106,7 +109,7 @@ export function tileFeatures(tile) {
   if (tile.letterType === 'dual') {
     out.push({
       head: `Dual letter`,
-      body: `Holds ${tile.letter} and ${tile.altLetter} — flip to swap. Each face takes its own paint.`,
+      body: `Holds ${tile.letter} and ${tile.altLetter} — flip to swap. Paint, trim and nick belong to the tile, so both letters wear them.`,
     });
   }
   if (LIGATURES.includes(tile.letter)) {
@@ -136,7 +139,11 @@ export function tileTitleLines(tile, breakdown = null) {
   const active = getActiveLetter(tile);
   const face   = TILE_POINTS[active] ?? 1;
   const grown  = tile.bonusPoints ?? 0;
-  const lines = [`${active} — ${face + grown} Points${grown ? ` (${face} + ${grown} grown)` : ''}`];
+  const silver = tile.trim === 'silver' ? SILVER_BONUS : 0;
+  const parts = [`${face} base`];
+  if (grown)  parts.push(`${grown} grown`);
+  if (silver) parts.push(`${silver} silver`);
+  const lines = [`${active} — ${restingPoints(tile)} Points${parts.length > 1 ? ` (${parts.join(' + ')})` : ''}`];
   for (const f of tileFeatures(tile)) lines.push(`${f.head}: ${f.body}`);
   if (breakdown) lines.push(`This word: ${breakdown.parts.join(', ')} → ${breakdown.final} Points`);
   return lines;
@@ -232,6 +239,19 @@ export function hidePopover() {
 
 // ─── Main render ───────────────────────────────────────────────────────────────
 
+// An armed tool with its targets picked needs one more tap — on the tool, not
+// the board — and that is the step that got missed: with the tiles chosen the
+// board looks finished, and the thing still waiting is off at the workbench.
+// So the table steps back and leaves the tool the brightest thing on it. What
+// stays lit is exactly what the gesture still involves: the workbench, and the
+// tiles you picked.
+function applyToolReady() {
+  const table = document.querySelector('.table');
+  if (!table) return;
+  const armed = state.sundryMode >= 0 ? state.sundries[state.sundryMode] : null;
+  table.classList.toggle('table--tool-ready', !!armed && sundrySelected().length > 0);
+}
+
 export function renderAll() {
   // One script for the whole frame: the shelf and the readout read the same
   // numbers, so what a patron promises and what it pays can't disagree.
@@ -244,6 +264,7 @@ export function renderAll() {
   renderWord(script);
   renderCounts();
   renderButtons();
+  applyToolReady();
   refreshStatusBar();
   persist();
 }
@@ -377,13 +398,16 @@ function renderSundries() {
   for (let i = 0; i < slots; i++) {
     const s = state.sundries?.[i];
     if (s?.kind === 'tube') {
+      const armed  = state.sundryMode === i;
+      const picked = armed && sundrySelected().length > 0;
       const slot = document.createElement('button');
-      slot.className = `sundry sundry--${s.colour}${state.sundryMode === i ? ' sundry--armed' : ''}`;
+      slot.className = `sundry sundry--${s.colour}${armed ? ' sundry--armed' : ''}`
+                     + (picked ? ' sundry--ready' : '');
       slot.dataset.sundry = i;
       slot.title = `Tube of ${COLOURS[s.colour].label} — tap, pick ${tileCount(TUBE_TILES)}, tap again.`;
       slot.innerHTML = `
         <span class="paint-tube paint-tube--${s.colour}"></span>
-        <span class="sundry-name">${COLOURS[s.colour].label}</span>`;
+        <span class="sundry-name">${picked ? 'Paint it' : COLOURS[s.colour].label}</span>`;
       bench.appendChild(slot);
     } else if (s?.kind === 'reshuffle') {
       const slot = document.createElement('button');
@@ -395,33 +419,41 @@ function renderSundries() {
         <span class="sundry-name">Reshuffle</span>`;
       bench.appendChild(slot);
     } else if (s?.kind === 'ratchet') {
-      const armed = state.sundryMode === i;
-      // The two arrows only appear once a letter is waiting: until then there
-      // is nothing to step, and an armed ratchet with no target would be
-      // offering a choice it can't honour.
+      const armed  = state.sundryMode === i;
       const picked = armed && sundrySelected().length > 0;
+      // Both arrows are on show from the start and never move: the tool keeps
+      // one shape through the whole gesture, the way the tube does. The arrows
+      // choose the direction; spending it is a tap anywhere on the slot, so
+      // there is no small target to miss and no dead ground to cancel on.
+      const dir = state.ratchetDir ?? 1;
       const slot = document.createElement('button');
-      slot.className = `sundry sundry--ratchet${armed ? ' sundry--armed' : ''}`;
+      slot.className = `sundry sundry--ratchet${armed ? ' sundry--armed' : ''}`
+                     + (picked ? ' sundry--ready' : '');
       slot.dataset.sundry = i;
-      slot.title = 'Ratchet — tap, pick one letter, then step it up or down the alphabet.';
-      slot.innerHTML = picked
-        ? `<span class="ratchet-arrows">
-             <span class="ratchet-arrow" data-shift="1" title="A step later — D to E">▲</span>
-             <span class="ratchet-arrow" data-shift="-1" title="A step earlier — D to C">▼</span>
-           </span>
-           <span class="sundry-name">Step it</span>`
-        : `<span class="ratchet-mark">⇅</span>
-           <span class="sundry-name">Ratchet</span>`;
-      bench.appendChild(slot);
-    } else if (s?.kind === 'ingot') {
-      const m = MATERIALS[s.material];
-      const slot = document.createElement('button');
-      slot.className = `sundry sundry--ingot sundry--mat-${s.material}`;
-      slot.dataset.sundry = i;
-      slot.title = `${m.metal} — tap to cast one ${m.label.toLowerCase()} tile into your hand.\n${m.desc}`;
+      slot.title = 'Ratchet — tap to arm, tap one letter, then tap again to step it. '
+                 + 'The arrows say which way.';
       slot.innerHTML = `
-        <span class="ingot-mark ingot-mark--${s.material}">${m.emoji}</span>
-        <span class="sundry-name">${m.label}</span>`;
+        <span class="ratchet-arrows">
+          <span class="ratchet-arrow${dir === 1 ? ' ratchet-arrow--on' : ''}"
+                data-shift="1" title="A step later — D to E">▲</span>
+          <span class="ratchet-arrow${dir === -1 ? ' ratchet-arrow--on' : ''}"
+                data-shift="-1" title="A step earlier — D to C">▼</span>
+        </span>
+        <span class="sundry-name">${picked ? 'Step it' : armed ? 'Pick a letter' : 'Ratchet'}</span>`;
+      bench.appendChild(slot);
+    } else if (s?.kind === 'wrapped') {
+      // No material on the slot: the parcel is the whole point, and it is not
+      // decided until it is opened.
+      const slot = document.createElement('button');
+      slot.className = 'sundry sundry--wrapped';
+      slot.dataset.sundry = i;
+      slot.title = 'A wrapped tile — tap to unwrap it.\n'
+                 + 'Inside is one tile, straight into your hand and yours for the rest of the '
+                 + 'run: a random letter in one of the three strange materials, or a mark under '
+                 + 'a purple trim. Nothing decides which until the paper comes off.';
+      slot.innerHTML = `
+        <span class="wrapped-mark"></span>
+        <span class="sundry-name">Wrapped</span>`;
       bench.appendChild(slot);
     } else {
       const slot = document.createElement('div');
@@ -465,7 +497,7 @@ function renderStatus() {
 
   const coinsEl = $('coinCount');
   if (coinsEl) setNum(coinsEl, state.coins);
-  setText('ledgerCount', state.ledger?.length ?? 0);
+  setText('manuscriptCount', state.manuscript?.length ?? 0);
 }
 
 // ─── The editor's bar (Deadline pages only) ───────────────────────────────────
@@ -525,11 +557,16 @@ function renderPips(id, total, filled, cls, maxShown = total) {
 // ─── Zones ────────────────────────────────────────────────────────────────────
 
 // ghostIds: tiles rendered invisible so a fly-in animation can reveal them
-// The armed tube tints both board zones with its own colour
+// An armed sundry tints both board zones so it's plain where its targets are
+// picked. A tube tints them its own colour; the ratchet has none, and takes the
+// steel it wears on the workbench. That fallback is load-bearing: `COLOURS[null]`
+// threw here, and since the throw landed between emptying the rack and refilling
+// it, arming a ratchet made the whole hand disappear.
 function applyPaintingMode(el) {
-  const tube = state.sundryMode >= 0 ? state.sundries[state.sundryMode] : null;
-  el.classList.toggle('zone--painting', !!tube);
-  if (tube) el.style.setProperty('--paintcol', COLOURS[tube.colour].glyph);
+  const armed = state.sundryMode >= 0 ? state.sundries[state.sundryMode] : null;
+  el.classList.toggle('zone--painting', !!armed);
+  el.classList.toggle('zone--stepping', armed?.kind === 'ratchet');
+  if (armed) el.style.setProperty('--paintcol', COLOURS[armed.colour]?.glyph ?? 'var(--steel)');
 }
 
 export function renderRack(ghostIds = null) {
@@ -580,7 +617,7 @@ export function renderWord(script = computeScore(state.word)) {
     // one that lands already boosted (a tile dropped into a nick's shadow).
     // Laying an ordinary tile down is not news, and shouldn't bulge.
     const wasShowing = _lastWordPts.has(t.id);
-    const face       = (TILE_POINTS[getActiveLetter(t)] ?? t.basePoints ?? 1) + (t.bonusPoints ?? 0);
+    const face       = restingPoints(t);
     const rewritten  = wasShowing && _lastWordPts.get(t.id) !== shown;
     const bornBoosted = !wasShowing && shown !== face;
     if (shown != null && (rewritten || bornBoosted)) {
@@ -669,7 +706,13 @@ export function renderButtons() {
 // rejected word, a purchase, a hint) takes the bar over for a moment, then it
 // settles back to the manuscript.
 
-const MSG_HOLD = 3400;      // ms a message holds the bar before it settles back
+// How long a message holds the bar before it settles back to the manuscript.
+// Measured off the text rather than fixed: an editor's rule is three times the
+// length of "Discard cancelled." and was given the same three seconds to be
+// read in. `readingTime` is the same rule the patrons' bubbles use, plus a
+// little more here, since the bar sits at the foot of the board where the eye
+// is not already resting.
+const MSG_HOLD_BONUS = 900;
 let _msgUntil = 0;
 let _msgTimer = null;
 let _lastWordCount = -1;
@@ -678,10 +721,11 @@ export function log(msg, kind = '') {
   const el = $('log');
   if (!el) return;
   clearTimeout(_msgTimer);
-  _msgUntil = Date.now() + MSG_HOLD;
+  const hold = readingTime(msg) + MSG_HOLD_BONUS;
+  _msgUntil = Date.now() + hold;
   el.className = `log log--msg${kind ? ' log--' + kind : ''}`;
   el.textContent = msg;
-  _msgTimer = setTimeout(renderManuscript, MSG_HOLD);
+  _msgTimer = setTimeout(renderManuscript, hold);
 }
 
 // Called by renderAll — never stomps a message that's still holding.
@@ -690,12 +734,14 @@ export function refreshStatusBar() {
   renderManuscript();
 }
 
+// The strip at the foot of the board: the page being set, as one line of type.
+// The bound book — the same words gathered into chapters — is openManuscript().
 export function renderManuscript() {
   const el = $('log');
   if (!el) return;
   _msgUntil = 0;
 
-  const words = state.ledger ?? [];
+  const words = state.manuscript ?? [];
   el.className = 'log log--manuscript';
 
   if (!words.length) {
@@ -736,14 +782,37 @@ export function renderDictStatus(status, count) {
 
 // ─── Banner (page / chapter announcements) ────────────────────────────────────
 
+// `hold` is how long the banner stays up. Pass a number to fix it; pass 'read'
+// to hold it long enough to read the subtitle, which is what an editor's rule
+// needs and a chapter title does not.
+//
+// A 'read' banner is also dismissible, which is the other half of the same
+// problem: a rule you are meeting for the first time wants seven seconds, and
+// the fourth time you meet it you want none. Tap and it goes. Fixed-length
+// banners stay as they were — they are already brief, and a stray tap during
+// the page turn should not skip the chapter title.
 export async function showBanner(title, sub = '', hold = 1150) {
   const b = $('banner');
   if (!b) return;
+  const readable = hold === 'read';
+  if (readable) hold = readingTime(sub);
+
   b.querySelector('.banner-title').textContent = title;
   b.querySelector('.banner-sub').textContent = sub;
+  b.classList.toggle('banner--dismissible', readable);
   b.classList.add('banner--show');
-  await sleep(hold);
-  b.classList.remove('banner--show');
+
+  if (readable) {
+    let done;
+    const skip = () => done?.();
+    b.addEventListener('pointerdown', skip, { once: true });
+    await Promise.race([sleep(hold), new Promise(res => { done = res; })]);
+    b.removeEventListener('pointerdown', skip);
+  } else {
+    await sleep(hold);
+  }
+
+  b.classList.remove('banner--show', 'banner--dismissible');
   await sleep(280);
 }
 
@@ -820,39 +889,90 @@ export function openInspector(kind) {
   m.classList.add('show');
 }
 
-// ─── Ledger (every word printed this run) ─────────────────────────────────────
+// ─── The manuscript, bound (every word printed this run) ──────────────────────
+// The strip along the foot of the board (renderManuscript, above) is the page
+// currently being set. This is the whole book so far, gathered into its
+// chapters — so it reads front to back the way a book does, rather than
+// newest-first the way a ledger of transactions would.
 
-export function openLedger() {
-  const m = $('ledgerModal');
+// Rows arrive in the order they were printed, so consecutive grouping is the
+// whole job: a run never returns to a chapter or a page it has left.
+function bindIntoChapters(rows) {
+  const chapters = [];
+  for (const r of rows) {
+    let ch = chapters.at(-1);
+    if (ch?.chapter !== r.chapter) chapters.push(ch = { chapter: r.chapter, pages: [], words: 0, score: 0 });
+    let pg = ch.pages.at(-1);
+    if (pg?.page !== r.page) ch.pages.push(pg = { page: r.page, entries: [] });
+    pg.entries.push(r);
+    ch.words += 1;
+    ch.score += r.score;
+  }
+  return chapters;
+}
+
+export function openManuscript() {
+  const m = $('manuscriptModal');
   if (!m) return;
-  const rows = [...(state.ledger ?? [])].reverse();
+  const rows = state.manuscript ?? [];
   const best = state.stats.bestScore;
+  const chapters = bindIntoChapters(rows);
 
-  const body = rows.length
-    ? `<ol class="ledger-list">${rows.map(r => `
-        <li class="ledger-row${r.score === best ? ' ledger-row--best' : ''}">
-          <span class="ledger-word">${r.word}</span>
-          <span class="ledger-where">ch ${roman(r.chapter)} · p${r.page}</span>
-          <span class="ledger-score">${r.score.toLocaleString()}</span>
-        </li>`).join('')}</ol>`
-    : '<p class="sheet-note">Nothing printed yet.</p>';
+  // The score rides after its word as a raised figure, the way a footnote mark
+  // does — present for anyone reading for it, out of the way of the prose.
+  // `initial` gives a chapter's first word its drop cap; ::first-letter can't,
+  // since these are inline runs rather than blocks.
+  const entry = (r, initial) => {
+    const word = initial
+      ? `<span class="book-initial">${r.word.slice(0, 1)}</span>${r.word.slice(1)}`
+      : r.word;
+    const n = r.score.toLocaleString();
+    return `<span class="book-entry${best && r.score === best ? ' book-entry--best' : ''}" `
+         + `title="${r.word} — ${n} points">`
+         + `<span class="book-word">${word}</span><span class="book-score">${n}</span></span>`;
+  };
+
+  // Each page keeps its folio number in the margin, in the lower-case romans a
+  // book uses for its front matter. A Deadline is marked rather than numbered.
+  const pageBlock = (pg, first) => `
+    <div class="book-leaf">
+      <span class="book-folio${isDeadline(pg.page) ? ' book-folio--deadline' : ''}"
+            title="${isDeadline(pg.page) ? 'The Deadline' : `Page ${pg.page}`}"
+        >${isDeadline(pg.page) ? '❦' : roman(pg.page).toLowerCase()}</span>
+      <p class="book-prose">${pg.entries.map((r, i) => entry(r, first && i === 0)).join(' ')}</p>
+    </div>`;
+
+  const chapterBlock = c => `
+    <section class="book-chapter">
+      <header class="book-chapter-head">
+        <span class="book-chapter-num">${chapterLabel(c.chapter)}</span>
+        <h3 class="book-chapter-title">${state.chapterTitles?.[c.chapter] ?? ''}</h3>
+        <span class="book-rule"></span>
+        <span class="book-chapter-tally">${c.words} word${c.words === 1 ? '' : 's'} · ${c.score.toLocaleString()}</span>
+      </header>
+      ${c.pages.map((pg, i) => pageBlock(pg, i === 0)).join('')}
+    </section>`;
+
+  const body = chapters.length
+    ? `<div class="book">${chapters.map(chapterBlock).join('')}</div>`
+    : `<p class="book-blank">The first page is still blank.</p>`;
 
   m.innerHTML = `
-    <div class="sheet sheet--ledger">
-      <div class="sheet-head">
+    <div class="sheet sheet--manuscript">
+      <div class="sheet-head book-head">
         <div>
-          <h2>The ledger</h2>
-          <p class="sheet-note">${rows.length} word${rows.length === 1 ? '' : 's'} printed · ${state.totalScore.toLocaleString()} total${best ? ` · best ${state.stats.bestWord} at ${best.toLocaleString()}` : ''}</p>
+          <h2>The manuscript</h2>
+          <p class="sheet-note">${rows.length} word${rows.length === 1 ? '' : 's'} set · ${state.totalScore.toLocaleString()} in total${best ? ` · the best of them ${state.stats.bestWord} at ${best.toLocaleString()}` : ''}</p>
         </div>
-        <button class="x" data-close-ledger>✕</button>
+        <button class="x" data-close-manuscript>✕</button>
       </div>
       ${body}
     </div>`;
   m.classList.add('show');
 }
 
-export function closeLedger() {
-  $('ledgerModal')?.classList.remove('show');
+export function closeManuscript() {
+  $('manuscriptModal')?.classList.remove('show');
 }
 
 export function closeInspector() {

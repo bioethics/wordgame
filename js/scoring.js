@@ -1,6 +1,6 @@
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, PURPLE_TRIM_STEP, REWARD, CURSED_MULT,
-  CURSED_PENALTY, SPIKE_MULT, isDeadline, splitMarks,
+  CURSED_PENALTY, SPIKE_MULT, SILVER_BONUS, isDeadline, splitMarks,
 } from './constants.js';
 import { PATRON_DEFS, patronById } from './patrons.js';
 import { bossById } from './bosses.js';
@@ -27,12 +27,25 @@ import { state, owns, getActiveLetter, getActiveColour, returnsToBag } from './s
 export function computeScore(wordTiles) {
   if (!wordTiles?.length) return null;
 
-  // `word` is what gets printed, marks and all — the ledger and the manuscript
+  // `word` is what gets printed, marks and all — the manuscript and the board
   // want to see HELLO!. Patrons are handed the letters alone, so a trailing
   // mark can't make a 3-letter word read as four or spoil a palindrome.
   const word = wordTiles.map(t => getActiveLetter(t)).join('').toUpperCase();
   const letters = splitMarks(word)?.letters ?? word;
   const n = wordTiles.length;
+
+  // ── Pass 0: which tiles print twice ────────────────────────────────────────
+  // A Monogrammist doesn't just double what its letters are worth — the whole
+  // tile prints again. Its gold trim pays a second Coin, its cobalt trim buys a
+  // second refresh, its paint lifts the colour multiplier twice, its purple
+  // trim counts twice, its cursed metal multiplies twice. `echo[i]` is the
+  // number of times tile i counts, doubling per matching seat, so two copies
+  // that love the same letter reach ×4 — the intended ceiling of collecting
+  // them. The one thing an echo can't repeat is the tile's own nick: nicks
+  // don't stack, so a second reading of one finds every target already claimed.
+  const echoSeats = state.patrons.filter(p => patronById(p.id)?.tileEcho);
+  const echo = wordTiles.map(t => echoSeats.reduce(
+    (n, p) => patronById(p.id).tileEcho(t, p.data ?? {}) ? n * 2 : n, 1));
 
   // ── Pass 1: each tile's own Points, plus trim side effects ─────────────────
   const contrib   = [];
@@ -48,11 +61,13 @@ export function computeScore(wordTiles) {
     noteMap[i].push(`base ${face}`);
     if (grown) noteMap[i].push(`grown +${grown}`);
 
-    if (t.trim === 'silver') { points += 6; noteMap[i].push('Silver +6'); }
+    if (t.trim === 'silver') { points += SILVER_BONUS; noteMap[i].push(`Silver +${SILVER_BONUS}`); }
 
+    // An echoed tile pays its trim once per printing, so a monogrammed gold
+    // letter hands over two Coins where a plain one hands over one.
     let stepCoins = 0, stepRefresh = 0;
-    if (t.trim === 'gold')   { stepCoins = owns('magpie') ? 2 : 1; coins += stepCoins; }
-    if (t.trim === 'cobalt') { stepRefresh = 1; refresh += 1; }
+    if (t.trim === 'gold')   { stepCoins = (owns('magpie') ? 2 : 1) * echo[i]; coins += stepCoins; }
+    if (t.trim === 'cobalt') { stepRefresh = echo[i]; refresh += stepRefresh; }
 
     contrib[i] = points;
     tileSteps.push({
@@ -89,11 +104,12 @@ export function computeScore(wordTiles) {
   });
 
   // ── Pass 2½: patrons whose chosen letters score again ─────────────────────
-  // Each seated Monogrammist doubles what its three letters scored, trims and
-  // nicks included. Copies fire in seat order and each doubles what it finds,
-  // so two copies that love the same letter reach ×4 — the intended ceiling
-  // of collecting them. Each copy's gain is its own patron step, keyed by the
-  // seat's uid, so every copy badges and animates as itself.
+  // The Points half of the echo, and the only half with a number worth showing
+  // the player: each seated Monogrammist doubles what its three letters scored,
+  // trims and nicks included. Copies fire in seat order and each doubles what
+  // it finds, which is the same ×2-per-seat that pass 0 wrote into `echo`.
+  // Each copy's gain is its own patron step, keyed by the seat's uid, so every
+  // copy badges and animates as itself.
   const patronSteps = [];
   for (const p of state.patrons) {
     const def = patronById(p.id);
@@ -111,36 +127,47 @@ export function computeScore(wordTiles) {
   let points = contrib.reduce((a, b) => a + b, 0);
 
   // ── Pass 3: colour multipliers (painted letters, then purple trims) ────────
+  // Each entry carries the tile's echo as its weight, so a monogrammed jade
+  // letter counts as two jade letters. `ids` stays one id per tile — it drives
+  // the animation, and a tile only needs lighting up once — while `count` is
+  // what the multiplier is actually built from.
   const byColour = {};
-  const purpleIds = [];
-  wordTiles.forEach(t => {
+  const purples  = [];
+  const cursed   = [];
+  wordTiles.forEach((t, i) => {
+    const entry = { id: t.id, weight: echo[i] };
     const c = getActiveColour(t);
-    if (c) (byColour[c] ??= []).push(t.id);
-    if (t.trim === 'purple') purpleIds.push(t.id);
+    if (c) (byColour[c] ??= []).push(entry);
+    if (t.trim === 'purple')      purples.push(entry);
+    if (t.material === 'cursed')  cursed.push(entry);
   });
+  const weigh = list => list.reduce((n, e) => n + e.weight, 0);
+  const idsOf = list => list.map(e => e.id);
 
   let mult = 1;
   const colourSteps = [];
   for (const colour of Object.keys(COLOURS)) {
-    const ids = byColour[colour];
-    if (!ids?.length) continue;
-    const m = ids.length + 1;
-    colourSteps.push({ colour, ids, count: ids.length, mult: m });
+    const list = byColour[colour];
+    if (!list?.length) continue;
+    const count = weigh(list);
+    const m = count + 1;
+    colourSteps.push({ colour, ids: idsOf(list), count, mult: m });
     mult *= m;
   }
-  if (purpleIds.length) {
-    const m = 1 + purpleIds.length * PURPLE_TRIM_STEP;
-    colourSteps.push({ colour: 'purple', ids: purpleIds, count: purpleIds.length, mult: m });
+  if (purples.length) {
+    const count = weigh(purples);
+    const m = 1 + count * PURPLE_TRIM_STEP;
+    colourSteps.push({ colour: 'purple', ids: idsOf(purples), count, mult: m });
     mult *= m;
   }
 
   // Cursed metal multiplies alongside the colours, and stacks with itself —
   // two cursed tiles in one word is ×9. It rides the same steps as the colour
   // multipliers so it previews, animates and chips exactly like them.
-  const cursedIds = wordTiles.filter(t => t.material === 'cursed').map(t => t.id);
-  if (cursedIds.length) {
-    const m = CURSED_MULT ** cursedIds.length;
-    colourSteps.push({ colour: 'cursed', ids: cursedIds, count: cursedIds.length, mult: m });
+  if (cursed.length) {
+    const count = weigh(cursed);
+    const m = CURSED_MULT ** count;
+    colourSteps.push({ colour: 'cursed', ids: idsOf(cursed), count, mult: m });
     mult *= m;
   }
   mult = Math.round(mult * 1000) / 1000;   // keep half-steps off floating-point drift

@@ -39,8 +39,9 @@
 // roll per-copy state with `onOffer()` (shown on the Market card, moved onto
 // the seat's data at purchase) and present themselves with `instName(data)`,
 // `instShelf(data)` and `instDesc(data)` — everything falls back to the plain
-// def fields when absent. `tileEcho(tile, data)` marks tiles whose Points
-// should count twice; scoring applies it in pass 2½, once per seated copy.
+// def fields when absent. `tileEcho(tile, data)` marks tiles that print twice —
+// Points, gold Coins, cobalt refreshes, paint and purple trim alike. Scoring
+// counts the seats in pass 0 and spends the result across passes 1 to 3.
 //
 // Optional `portrait`: path to an image (e.g. 'img/patrons/scholar.png') shown
 // on the patron's business card in the market and draft instead of the emoji.
@@ -60,7 +61,7 @@ import {
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
 } from './constants.js';
 import {
-  getActiveColour, getActiveLetter, countsAsColour, luckyRoll, paintRandomFaces,
+  getActiveColour, getActiveLetter, countsAsColour, luckyRoll, paintRandomTiles,
   shuffle,
 } from './state.js';
 import { inTheme, themeSize } from './themes.js';
@@ -70,7 +71,7 @@ const VOWELS = 'AEIOU';
 
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 
-// Tiles that read as a given colour: paint on the face being played, or a
+// Tiles that read as a given colour: the tile's own paint, or a
 // rainbow tile, which reads as every colour at once. Every patron that cares
 // about colour goes through here, so rainbow metal reaches all of them and
 // none of them had to learn about it.
@@ -96,7 +97,7 @@ function dyePatron(id, name, emoji, colour) {
     desc: `As each chapter ends, ${DYE_TILES_PER_CHAPTER} tiles of your collection are painted ${label}.`,
     when: 'meta',
     onChapterEnd() {
-      const letters = paintRandomFaces(colour, DYE_TILES_PER_CHAPTER);
+      const letters = paintRandomTiles(colour, DYE_TILES_PER_CHAPTER);
       return letters.length ? { note: `${letters.join(', ')} painted ${label}` } : null;
     },
   };
@@ -126,8 +127,14 @@ export const PATRON_DEFS = [
     // letters of its own, rolled when the Market lays the card out (so you can
     // see what you're buying), and wears an edition number for a name. Copies
     // stack: two that love the same letter double it twice — ×4 by design.
+    //
+    // What repeats is the whole tile, not just its Points: a monogrammed gold
+    // letter pays two Coins, a monogrammed jade one lifts the jade multiplier
+    // by two. That's the difference between a patron that likes three letters
+    // and one that likes three letters *of yours* — it rewards putting the
+    // work into the tiles it named. See pass 0 of computeScore.
     id: 'monogrammist', name: 'The Monogrammist', emoji: '🪭', rarity: 'common', cost: 4,
-    desc: 'Arrives with three letters of its own; those letters score their Points twice.',
+    desc: 'Arrives with three letters of its own; those letters print twice — Points, trim and paint alike.',
     when: 'meta',       // fires in scoring's pass 2½ via tileEcho
     stackable: true,    // never blocked by an owned copy; every copy is its own seat
     onOffer() {
@@ -140,9 +147,9 @@ export const PATRON_DEFS = [
     instName(data)  { return data?.num ? `Monogrammist № ${data.num.toLocaleString()}` : 'The Monogrammist'; },
     instShelf(data) { return data?.num ? `№ ${data.num.toLocaleString()}` : 'Monogrammist'; },
     instDesc(data)  {
-      if (!data?.letters?.length) return 'Arrives with three letters of its own; those letters score their Points twice.';
+      if (!data?.letters?.length) return 'Arrives with three letters of its own; those letters print twice — Points, trim and paint alike.';
       const [a, b, c] = data.letters;
-      return `${a}, ${b} and ${c} score their Points twice.`;
+      return `${a}, ${b} and ${c} print twice — Points, trim and paint alike.`;
     },
   },
   {
@@ -159,14 +166,16 @@ export const PATRON_DEFS = [
     when: 'meta',   // consulted at the dictionary check in main.js
   },
   {
-    // A multiplier at common weight, which the Herald was not allowed to be —
-    // but this one fights the word instead of feeding it. Three tiles carry
-    // little paint and few Points, so the ×3 lands on a small base and the
-    // build has to work for it. Cursed metal is where it gets frightening.
+    // This was a ×3, and a ×3 scales with everything you build after it: the
+    // small base a three-letter word lands on stopped mattering the moment the
+    // colours came in, and cursed metal made it frightening. A flat +10 does
+    // what the card was for — it makes a short word worth printing — without
+    // compounding into the rest of the run. It is at its best early, which is
+    // when a common-weight card should be at its best.
     id: 'minimalist', name: 'The Minimalist', emoji: '🪶', rarity: 'common', cost: 5,
-    desc: '3-letter words get ×3 Mult.',
+    desc: '3-letter words get +10 Points.',
     when: 'score',
-    effect({ word, xMult }) { if (word.length === 3) xMult(3); },
+    effect({ word, addPoints }) { if (word.length === 3) addPoints(10); },
   },
 
   // ── Uncommons ───────────────────────────────────────────────────────────────
@@ -203,7 +212,7 @@ export const PATRON_DEFS = [
     desc: 'Each painted letter gains +3 Points.',
     when: 'score',
     effect({ tiles, addPoints }) {
-      const n = tiles.filter(t => (t.activeVariant === 1 ? t.altColour : t.colour)).length;
+      const n = tiles.filter(t => getActiveColour(t)).length;
       if (n) addPoints(n * 3);
     },
   },
@@ -348,7 +357,7 @@ export const PATRON_DEFS = [
     // find itself speckled. Discarded tiles are still yours, sitting in the
     // discard pile, so the paint is waiting when the bag comes round again.
     id: 'dipper', name: 'The Dipper', emoji: '🪣', rarity: 'common', cost: 4, guild: 'jade',
-    desc: `Each tile you discard has a 1-in-10 chance of being painted a random colour.`,
+    desc: `Each tile you discard has a 1-in-${Math.round(1 / DIPPER_PAINT_CHANCE)} chance of being painted a random colour.`,
     when: 'meta',
     // `painted` is what lets the board show the dip: main.js colours those
     // tiles where they stand and holds a beat before they fly to the pile.
@@ -523,7 +532,7 @@ export const PATRON_DEFS = [
     desc: 'In a word where no tile has paint, a trim or a nick, each tile has a 1-in-4 chance of gaining a random trim.',
     when: 'meta',
     onPrinted({ tiles, trim }) {
-      const bare = t => !t.colour && !t.altColour && !t.trim && !t.nick;
+      const bare = t => !t.colour && !t.trim && !t.nick;
       if (!tiles.length || !tiles.every(bare)) return null;
       const kinds = Object.keys(TRIMS);
       const dressed = [];

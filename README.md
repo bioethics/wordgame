@@ -59,20 +59,26 @@ plus an optional **trim** and **nick**.
 | Layer | Options |
 | --- | --- |
 | Paint | crimson / azure / jade / amber — each raises its colour's multiplier by 1 |
-| Trim | **Gold** pays 1 Coin · **Silver** +6 Points · **Cobalt** refreshes 1 Discard (and wears the Discard's own blue) · **Mercury** slips back into the bag instead of the discard pile · **Purple** raises the fifth multiplier by 0.5 |
+| Trim | **Gold** pays 1 Coin · **Silver** +5 Points, counted into the tile's corner number wherever it appears and written in the trim's own silver, so the tile says what it is worth rather than making you add · **Cobalt** refreshes 1 Discard (and wears the Discard's own blue) · **Mercury** slips back into the bag instead of the discard pile · **Purple** raises the fifth multiplier by 0.5 |
 | Nick | A notch cut into one edge; the notched side is the direction. **Right** ×3 Points to everything on its right · **Left** ×3 to its left. Nicks don't stack — a letter is multiplied once at most. While you compose, an affected tile's corner number becomes the multiplied value, restyled, rippling outward from the notch. |
-| Letterform | Dual tiles hold two letters (flip to switch; each face painted independently) · Ligatures ING · CH · CK · TH · WH · QU spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Marks** ? and ! spell nothing at all |
+| Letterform | Dual tiles hold two letters (flip to switch; paint, trim and nick belong to the tile, so both letters wear them) · Ligatures ING · CH · CK · TH · WH · QU spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Marks** ? and ! spell nothing at all, and come only from a wrapped tile, purple-trimmed |
 | Material | What the tile is cast from, under everything else: ordinary lead, or **cursed** / **ghost** / **rainbow** (see below) |
 | Growth | Grown points — permanent +1s a patron (The Grafter) writes into a tile, worn as a jade corner number wherever the tile appears |
 
-A dual tile shares its trim and nick across both faces; only the letters and
-their paint swap.
+A dual tile is one tile wearing one set of everything: its paint, trim and
+nick belong to the tile, and flipping changes the letter and nothing else.
 
-**Materials** — most type is lead. An **ingot** bought at the Market (4 Coins,
-on the workbench beside the paint tubes) is tapped once and casts a single tile
-of something stranger, straight into your hand and into your collection for
-good. The material sits *under* everything else, so a cursed or rainbow tile
-still takes paint, trims and nicks like any other.
+**Materials** — most type is lead. A **wrapped tile** bought at the Market
+(4 Coins, on the workbench beside the paint tubes) is tapped once to unwrap it:
+out comes a single tile of a random letter, struck in something stranger,
+straight into your hand and into your collection for good. Which material is
+not decided at the shop, or in the save, or anywhere at all until the paper
+comes off — two of the three are gifts and the third is a curse, so it is a
+parcel you choose to open rather than a metal you choose to buy. The fourth
+thing a wrapper can hold isn't a material at all: a **mark** in ordinary lead
+under a purple trim, which is the only way marks come now. The material sits
+*under* everything else, so a cursed or rainbow tile still takes paint, trims
+and nicks like any other.
 
 - **Cursed** (hellbox iron) — ×3 Mult when printed, and it can never be
   discarded: the only way out of your hand is to play it. While it waits there,
@@ -141,8 +147,8 @@ difficulty is in recall rather than combinatorics, which is the kind of
 difficulty a word game is made of, and the reason it is tuned by playing.
 
 **Misspellings** — three patrons forgive a word the dictionary turns away, and
-none of them correct it: what you set is what prints, in the manuscript and the
-ledger both. *Titivillus* takes one wrong or transposed vowel (WIERD stands for
+none of them correct it: what you set is what prints, in the strip under the
+board and in the bound manuscript both. *Titivillus* takes one wrong or transposed vowel (WIERD stands for
 WEIRD) so long as the word holds an azure letter; *the Stumbler* takes one pair
 of adjacent letters swapped (TEH for THE); *the Skimmer* takes the middle
 letters in any order, provided the first and last are right. Your book fills
@@ -161,8 +167,10 @@ word and `ANNA!` is still a palindrome. A mark is worth a point, but that
 isn't the point of it: marks take paint, trims and nicks like any other tile,
 and a mark sits at the *end* of the word, which is exactly where a **left
 nick** wants to be — one notch there reaches back across every letter you
-just set. Marks never come out of the bag; they turn up in the Market now and
-then, and they cost a little extra when they do.
+just set. Marks never come out of the bag, and nothing sells them: the one way
+a mark enters a run is out of a **wrapped tile**, always under a purple trim.
+So a `?` is a find rather than a purchase — and the trim is what makes it worth
+the unwrap, since a bare mark is one point and no letters.
 
 **The opening draft** — before page 1 you kit out the press from a free
 spread: 2 paints of 4, 4 tiles of 10. No coins involved. The starting
@@ -181,12 +189,17 @@ the **discard pile**.
 **Sundries** are consumables kept on the **workbench** (two slots to start, and
 the Colophon can add two more, beside the patron shelf). The **paint tube**:
 tap it mid-page, tap one tile anywhere on the board — rack or half-composed
-word alike — and tap the tube again to paint it, permanently. The **ratchet**:
-tap it, tap one letter, then step that letter a single place along the alphabet
-either way — D becomes C or E, A becomes Z or B — and the new letter is
-permanent, re-pricing the tile with it. It walks the press's own alphabet
+word alike — and tap the tube again to paint it, permanently. The moment a
+target is picked the table dims around the workbench and the tool breathes in
+its own colour, because the tap that spends it is on the tool and not on the
+board. The **ratchet** works to the same rhythm: tap it, tap one letter, tap the ratchet again, and
+that letter steps a single place along the alphabet — D becomes C or E, A
+becomes Z or B. The two arrows on the tool say which way it is pointing and
+can be flipped at any time, including on the tap that spends it. The new
+letter is permanent, re-pricing the tile with it. It walks the press's own alphabet
 rather than A-Z, so P steps straight to R: there is no lone Q sort to land on.
 Ligatures and marks aren't single letters and can't be stepped at all. The
+**wrapped tile**: no target either, just tap it and the paper comes off. The
 **reshuffle**: no target to pick, just banked until you spend it — on the
 Market's own offers (free, doesn't touch the escalating reroll price) or on a
 Colophon pick. (The random-scatter paint pots survive only in the opening
@@ -198,16 +211,19 @@ fed to the Smelter — rots down into a jade tile with complications of its own.
 The heap holds the freshest six, older rot is turned under, and you may lift
 one free of charge each visit.
 
-**Stalls** are services: the **Smelter** (trash a tile), the **Painter**
-(paint any letter a colour of your choice), and the **Stereotyper** (clone any
-tile). Three more are
-*proposal stalls* — they lay out a spread of six of your own tiles, each
-paired with a proposed change, and you commission the one you like: the
-**Gilder** offers trims, the **Punchcutter** cuts a second letter into a tile
-(making it dual), and the **Dresser** cuts a nick into a tile's edge. Every
-purchase doubles that stall's price for the rest of the visit; prices reset
-when the next market opens. The Dresser starts at 3 Coins, the Smelter and
-Punchcutter at 2, the rest at 1.
+**Stalls** are services: the **Smelter** (trash a tile) and the
+**Stereotyper** (clone any tile) work off your whole case. Three are *proposal
+stalls* — they lay out a spread of six of your own tiles, each paired with a
+proposed change, and you commission the one you like: the **Gilder** offers
+trims, the **Punchcutter** cuts a second letter into a tile (making it dual),
+and the **Dresser** cuts a nick into a tile's edge. The **Painter** sits
+between the two: it lays out a spread of six the same way, but the change is
+yours to choose — any colour you like on whichever of the six you pick. The
+Gilder and the Painter draw their spread with a gentle lean towards your rarer
+letters, so a Z is about twice as likely to be laid out as any one of your Es.
+Every purchase doubles that stall's price for the rest of the visit; prices
+reset when the next market opens. The Dresser starts at 3 Coins, every other
+stall at 2.
 
 **Patrons** grant standing boons — five seats to start (the Colophon can add
 more), dismissable for half their cost (hover for the ✕, or tap the patron on
@@ -269,8 +285,9 @@ bigger step than the last and a built press has to multiply rather than add:
 | Knob | Where |
 | --- | --- |
 | Quota curve | `js/constants.js` → `quotaFor`, `QUOTA_BASE`, `QUOTA_GROWTH_START`, `QUOTA_GROWTH_RAMP`. The rate itself grows: chapter 2 asks ×1.7 of chapter 1, chapter 3 ×1.8 of chapter 2, and so on. START makes the whole run harder; RAMP makes the ending harder without touching the opening — a harder mode is a bigger pair |
-| Trim effects & prices | `js/constants.js` → `TRIMS` (effects live in `js/scoring.js`) |
-| Materials, the cursed ×Mult, ingot price & how often one is offered | `js/constants.js` → `MATERIALS`, `CURSED_MULT`, `CURSED_MAX_POINTS`, `INGOT_PRICE`, `INGOT_OFFER_CHANCE` |
+| Trim effects & prices | `js/constants.js` → `TRIMS` (effects live in `js/scoring.js`); silver's Points are `SILVER_BONUS`, read by scoring, the trim's card and the tile's own number alike |
+| Materials, the cursed ×Mult, wrapped-tile price & how often one is offered | `js/constants.js` → `MATERIALS`, `CURSED_MULT`, `CURSED_MAX_POINTS`, `WRAPPED_PRICE`, `WRAPPED_OFFER_CHANCE` |
+| What is inside a wrapped tile | `js/constants.js` → `WRAPPED_CONTENTS`, a flat list rolled evenly — repeat an entry to make it likelier — and `MARK_TRIM` for what a wrapped mark wears |
 | Letters only one patron can hand you | `js/constants.js` → `EXCLUSIVE_LETTERS` (RAT belongs to the Rat Catcher; shop, draft and heap all skip them) |
 | Compost heap size & what you may take a visit | `js/constants.js` → `COMPOST_HEAP_MAX`, `COMPOST_PER_MARKET` |
 | Purple trim step size | `js/constants.js` → `PURPLE_TRIM_STEP` |
@@ -279,7 +296,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Reshuffle sundry price | `js/constants.js` → `RESHUFFLE_PRICE` |
 | Ratchet sundry price | `js/constants.js` → `RATCHET_PRICE` (the alphabet it walks is derived from `TILE_POINTS` — see `SHIFT_RING` in `js/state.js`) |
 | Stall roster, base prices, spread size | `js/constants.js` → `STALL_DEFS`, `STALLS_PER_SHOP`, `PROPOSAL_RANGE`, `SMELT_MIN_COLLECTION` |
-| Marks: which ones exist, legal tails, how often they're offered | `js/constants.js` → `MARKS`, `MARK_RUNS`, `MARK_WEIGHT` (and `TILE_POINTS`) |
+| Marks: which ones exist, legal tails, and what they arrive wearing | `js/constants.js` → `MARKS`, `MARK_RUNS`, `MARK_TRIM` (and `TILE_POINTS`). How often one turns up is `WRAPPED_CONTENTS`, since a wrapper is the only source |
 | What a proposal stall works on & offers | `js/market.js` → `PROPOSAL_STALLS` (one `eligible`/`propose` pair per stall — a new one is a few lines) |
 | Letters per draft paint pot | `js/constants.js` → `PAINT_PER_POT` |
 | Opening draft spread & pick counts | `js/constants.js` → `DRAFT` |
@@ -287,6 +304,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Rewards & interest | `js/constants.js` → `REWARD` (base bumped 4→5 alongside the Colophon) |
 | Colophon roster, offer count, repeat cap, skip grant | `js/constants.js` → `UPGRADE_OFFERS`, `MAX_UPGRADE_REPEATS`, `SKIP_COIN_GRANT`; definitions in `js/upgrades.js` |
 | Patron reaction odds | `js/constants.js` → `REACTION`; the lines themselves in `js/quips.js` — a flat array, add more any time |
+| How long a line stays up to be read | `js/anim.js` → `READ_BASE` / `READ_PER_CHAR` / `READ_MAX`. Every bubble, floater and bar message holds for a span measured off its own length, so a long line is given longer, not read faster |
 | Words / discards / seats per page | `js/constants.js` |
 | Patron roster, costs, effects | `js/patrons.js` (design notes in `docs/PATRON_OVERHAUL.md`) |
 | Patron tuning that reaches beyond a score (growth steps, burn odds, trim chance, dye count, coined-word length) | `js/constants.js` → `GRAFTER_STEP`, `STOKER_STEP`, `ARSONIST_ODDS`, `NUDIST_TRIM_CHANCE`, `DIPPER_PAINT_CHANCE`, `GAMBLER_ODDS`, `DYE_TILES_PER_CHAPTER`, `NEOLOGIST_LENGTH` |
@@ -300,7 +318,7 @@ bigger step than the last and a built press has to multiply rather than add:
 
 | File | Role |
 | --- | --- |
-| `js/state.js` | game state, save/load (`folio_save_v1`, schema v7), settings, tile ops, painting, sundries, effective hand/seat/workbench sizes, the ledger |
+| `js/state.js` | game state, save/load (`folio_save_v1`, schema v7), settings, tile ops, painting, sundries, effective hand/seat/workbench sizes, the manuscript |
 | `js/scoring.js` | pure score computation — returns a step-by-step *script* the UI replays |
 | `js/patrons.js` | patron definitions |
 | `js/upgrades.js` | the Colophon's upgrade definitions (pure data, no logic) |
@@ -328,6 +346,12 @@ rejected word, a purchase, a hint) borrow the strip for a few seconds and it
 settles back on its own — so nothing needs to announce the page or chapter
 there, since the status row already does.
 
-The **ledger** (❦ in the header) is the same words with their scores, page by
-page. A *Developer* section in Settings has shortcuts: +20 Coins, open the Market,
+The **manuscript** proper (❦ in the header) is the same words bound as a book:
+a heading and title for each chapter, ruled off with its word count and score,
+and beneath it the words of each page set as running prose — small caps, with
+each score riding after its word as a raised figure the way a footnote mark
+does. Every page keeps its folio number out in the margin in lower-case romans,
+except a Deadline, which is marked with a fleuron rather than numbered. The
+first word of each chapter takes a drop cap, and the best word of the run is
+illuminated. It reads front to back, the way a book does. A *Developer* section in Settings has shortcuts: +20 Coins, open the Market,
 clear the current page. The console exposes `window.folio = { state, settings }`.

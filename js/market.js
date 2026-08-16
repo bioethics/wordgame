@@ -3,9 +3,9 @@ import {
   effectivePatronSlots, effectiveSundrySlots,
 } from './state.js';
 import {
-  BAG_COUNTS, LIGATURES, EXCLUSIVE_LETTERS, MARKS, MARK_WEIGHT, isMark,
+  BAG_COUNTS, LIGATURES, EXCLUSIVE_LETTERS, isMark,
   TILE_POINTS, TRIMS, NICKS, COLOURS,
-  MATERIALS, INGOT_PRICE, INGOT_OFFER_CHANCE, isImmutable,
+  WRAPPED_PRICE, WRAPPED_OFFER_CHANCE, isImmutable,
   COMPOST_HEAP_MAX, COMPOST_PER_MARKET,
   TILE_BASE_PRICE, REROLL_BASE,
   SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, RATCHET_PRICE, SUNDRY_SELL,
@@ -48,7 +48,9 @@ function buildLetterPool() {
   LIGATURES
     .filter(L => !EXCLUSIVE_LETTERS.includes(L) && !(L in BAG_COUNTS))
     .forEach(L => pool.push(L, L));
-  MARKS.forEach(m => { for (let i = 0; i < MARK_WEIGHT; i++) pool.push(m); });
+  // No marks. They used to be stocked here at MARK_WEIGHT apiece, which put
+  // them in the shop, the draft and the compost heap alike; they come wrapped
+  // now and nowhere else (see WRAPPED_CONTENTS).
   return pool;
 }
 const LETTER_POOL = buildLetterPool();
@@ -119,10 +121,8 @@ function tilePrice(tmpl) {
   if (tmpl.trim) p += TRIMS[tmpl.trim]?.price ?? 0;
   if (tmpl.nick) p += NICKS[tmpl.nick]?.price ?? 0;
   if (tmpl.colour) p += 1;
-  if (tmpl.altColour) p += 1;
   if (tmpl.letterType === 'dual') p += 1;
   if (LIGATURES.includes(tmpl.letter)) p += 1;
-  if (isMark(tmpl.letter)) p += 1;
   return p;
 }
 
@@ -145,8 +145,9 @@ function weightedPatronSample(n) {
   return out;
 }
 
-// Paint tubes and the reshuffle are the everyday stock; an ingot of strange
-// metal turns up in one of the slots about half the time.
+// Paint tubes and the reshuffle are the everyday stock; a wrapped tile turns up
+// in one of the slots about half the time. The shop doesn't know what is in it
+// either — the material is rolled when the paper comes off, not here.
 function rollSundryOffers() {
   const offers = shuffle([...Object.keys(COLOURS), 'reshuffle', 'ratchet'])
     .slice(0, SUNDRY_OFFERS)
@@ -156,17 +157,16 @@ function rollSundryOffers() {
       ? { kind: 'ratchet', colour: null, price: RATCHET_PRICE, sold: false }
       : { kind: 'tube', colour: entry, price: TUBE_PRICE, sold: false });
 
-  if (offers.length && Math.random() < INGOT_OFFER_CHANCE) {
+  if (offers.length && Math.random() < WRAPPED_OFFER_CHANCE) {
     offers[Math.floor(Math.random() * offers.length)] = {
-      kind: 'ingot', colour: null, material: pick(Object.keys(MATERIALS)),
-      price: INGOT_PRICE, sold: false,
+      kind: 'wrapped', colour: null, price: WRAPPED_PRICE, sold: false,
     };
   }
   return offers;
 }
 
-// A tile is amber if either of its faces is — that's what The Chapman deals in.
-export const isAmberTile = tmpl => tmpl?.colour === 'amber' || tmpl?.altColour === 'amber';
+// Amber paint is what The Chapman deals in.
+export const isAmberTile = tmpl => tmpl?.colour === 'amber';
 
 // What an offered tile actually costs right now. The Chapman gives amber away,
 // and is checked live rather than baked into the offer, so hiring or dismissing
@@ -203,12 +203,38 @@ export const stallPrice  = stall => (STALL_DEFS[stall.id]?.base ?? 1) * 2 ** sta
 // one you like. Each is defined by which tiles it can work on and what it
 // proposes for them; everything else below is shared.
 
+// Which of your tiles a stall puts in front of you. Most of the case is Es and
+// Rs and Ss, so an unweighted draw spends its six slots on letters you hold
+// four of and would rather not pay a doubling price to dress. The lean is
+// deliberately soft — the square root of the bag count, not the count itself —
+// so a Z is about twice as likely to be laid out as any one of your Es, rather
+// than crowding them out entirely. (You hold five Es, so the letter still turns
+// up in most spreads; it just no longer fills them.) Anything not in the bag at
+// all — ligatures, marks, the Rat Catcher's RAT — counts as rare, which is
+// right: those are the tiles worth dressing. Marked `biased` per stall, so the
+// Punchcutter and the Dresser keep drawing flat; their eligibility filters
+// already narrow the case sharply on their own.
+const letterWeight = t => 1 / Math.sqrt(BAG_COUNTS[t.letter] ?? 1);
+
+function biasedSample(tiles, n) {
+  const pool = [...tiles];
+  const out = [];
+  while (out.length < n && pool.length) {
+    let roll = Math.random() * pool.reduce((sum, t) => sum + letterWeight(t), 0);
+    let i = 0;
+    while (i < pool.length - 1 && (roll -= letterWeight(pool[i])) > 0) i++;
+    out.push(pool.splice(i, 1)[0]);
+  }
+  return out;
+}
+
 // Every stall that changes a tile has to leave ghosts alone — there's nothing
 // there to take a tool to.
 export const PROPOSAL_STALLS = {
   gilder: {
     eligible: t => !t.trim && !isImmutable(t),
     propose:  () => ({ trim: pick(Object.keys(TRIMS)) }),
+    biased:   true,
   },
   punchcutter: {
     // A tile can only take a second letter if it hasn't one already, isn't a
@@ -232,23 +258,41 @@ export const isProposalStall = id => !!PROPOSAL_STALLS[id];
 export function rollProposals(stallId) {
   const spec = PROPOSAL_STALLS[stallId];
   if (!spec) return [];
-  return shuffle(state.collection.filter(spec.eligible))
-    .slice(0, PROPOSAL_RANGE)
-    .map(t => ({ tid: t.tid, ...spec.propose(t) }));
+  const eligible = state.collection.filter(spec.eligible);
+  const spread = spec.biased
+    ? biasedSample(eligible, PROPOSAL_RANGE)
+    : shuffle(eligible).slice(0, PROPOSAL_RANGE);
+  return spread.map(t => ({ tid: t.tid, ...spec.propose(t) }));
 }
 
-// Smelting can orphan a proposal mid-visit — drop any whose tile is gone or
+// ── The Painter ───────────────────────────────────────────────────────────────
+// Not a proposal stall — there's nothing to propose when the colour is yours to
+// pick — but it lays out a spread the same way the Gilder does, and draws it
+// with the same lean towards your rarer letters. Before this it offered the
+// whole case, which made it the one stall where the shop asked you nothing.
+
+const paintable = t => !isImmutable(t);   // a ghost tile takes no paint
+
+export const rollPaintOffers = () =>
+  biasedSample(state.collection.filter(paintable), PROPOSAL_RANGE).map(t => t.tid);
+
+// Smelting can orphan a spread mid-visit — drop any entry whose tile is gone or
 // no longer eligible.
-function pruneProposals() {
+function pruneStalls() {
   for (const stall of market.stalls) {
     const spec = PROPOSAL_STALLS[stall.id];
-    if (!spec || !stall.proposals) continue;
-    stall.proposals = stall.proposals.filter(p =>
-      state.collection.some(t => t.tid === p.tid && spec.eligible(t)));
+    if (spec && stall.proposals) {
+      stall.proposals = stall.proposals.filter(p =>
+        state.collection.some(t => t.tid === p.tid && spec.eligible(t)));
+    }
+    if (stall.offers) {
+      stall.offers = stall.offers.filter(tid =>
+        state.collection.some(t => t.tid === tid && paintable(t)));
+    }
   }
 }
 
-// A re-roll brings new stalls, but not a new ledger: work already commissioned
+// A re-roll brings new stalls, but not a clean slate: work already commissioned
 // this visit is remembered in market.stallWear, so a stall that turns up again
 // re-opens at the price it had reached, not at its base. Wear is wiped only
 // when the Market itself opens fresh (openMarket) — re-rolling your way back
@@ -257,9 +301,9 @@ function rollStalls() {
   const ids = shuffle([...Object.keys(STALL_DEFS)]).slice(0, STALLS_PER_SHOP);
   market.stalls = ids.map(id => {
     const uses = market.stallWear?.[id] ?? 0;
-    return isProposalStall(id)
-      ? { id, uses, proposals: rollProposals(id) }
-      : { id, uses };
+    if (isProposalStall(id)) return { id, uses, proposals: rollProposals(id) };
+    if (id === 'painter')    return { id, uses, offers: rollPaintOffers() };
+    return { id, uses };
   });
 }
 
@@ -289,6 +333,9 @@ export function restoreMarket(snapshot) {
   market.stalls ??= [];
   market.stallWear ??= {};
   market.compostTaken ??= 0;
+  // A save from before the Painter kept a spread has a bare stall — lay one out
+  // rather than leaving it with nothing to offer.
+  for (const s of market.stalls) if (s.id === 'painter') s.offers ??= rollPaintOffers();
   state.inMarket = true;
 }
 
@@ -391,7 +438,7 @@ export function buySundry(idx) {
   if (state.sundries.length >= effectiveSundrySlots()) return { ok: false, reason: 'Your workbench is full.' };
   if (state.coins < offer.price)                     return { ok: false, reason: `You need ${offer.price} Coins.` };
   state.coins -= offer.price;
-  state.sundries.push({ kind: offer.kind, colour: offer.colour, material: offer.material ?? null });
+  state.sundries.push({ kind: offer.kind, colour: offer.colour });
   offer.sold = true;
   return { ok: true, offer };
 }
@@ -439,17 +486,19 @@ export function stallSmelt(tid) {
   if (state.coins < t.price)         return { ok: false, reason: `You need ${t.price} Coins.` };
   payStall(t.stall, t.price);
   trashFromCollection(t.tmpl.tid);   // the one road out, so the heap counts it too
-  pruneProposals();
+  pruneStalls();
   return { ok: true, removed: t.tmpl, price: t.price };
 }
 
 export function stallPaint(tid, colour) {
   const t = stallTarget('painter', tid);
   if (!t || !COLOURS[colour])        return { ok: false, reason: 'Pick a tile and a colour.' };
-  if (isImmutable(t.tmpl))           return { ok: false, reason: 'A ghost tile takes no paint.' };
+  if (!t.stall.offers?.includes(tid))
+                                     return { ok: false, reason: 'The Painter has not laid that tile out.' };
   if (state.coins < t.price)         return { ok: false, reason: `You need ${t.price} Coins.` };
   payStall(t.stall, t.price);
-  t.tmpl.colour = colour;            // the front face; a dual's other face keeps its coat
+  t.tmpl.colour = colour;            // the tile's coat — a dual wears it on both letters
+  t.stall.offers = rollPaintOffers();  // a fresh spread, as the proposal stalls do
   return { ok: true, tmpl: t.tmpl, colour, price: t.price };
 }
 

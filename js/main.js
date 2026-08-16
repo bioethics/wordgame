@@ -9,12 +9,12 @@ import {
   discardSelected, getWordString, moveRackToWord, owns, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected,
   getActiveColour, getActiveLetter, growTile, paintTile, trimTile,
-  trashFromCollection, castMaterialTile, castTile, castLentTile, lentInHand, chapterTitle,
+  trashFromCollection, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
   effectiveWordsPerPage, rollGamble,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES, tileCount,
-  REACTION, NEOLOGIST_LENGTH, MATERIALS,
+  REACTION, NEOLOGIST_LENGTH, MATERIALS, TRIMS, WRAPPED_CONTENTS, MARK_TRIM,
   chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks, isDeadline,
 } from './constants.js';
 import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
@@ -31,7 +31,7 @@ import {
   renderDictStatus, readoutEls, renderChips, setChip,
   log, showBanner, hideOverlay,
   showGameOver, showVictory, openInspector, closeInspector, coinHTML,
-  showPatronPopover, hidePopover, openLedger, closeLedger,
+  showPatronPopover, hidePopover, openManuscript, closeManuscript,
   showCoinWordSheet, setCoinNote,
 } from './render.js';
 import {
@@ -98,6 +98,14 @@ async function animateDiscard(rects, to = pileRect(), bump = 'discardBtn') {
   await Promise.all(flights);
 }
 
+// What comes out of a wrapped tile — a flat pick from the table in
+// constants.js, which is where the odds are set. Three of the four are the
+// strange materials, and one of those is a curse you will have to find a word
+// for; the fourth is a mark, which is worth unwrapping because no shop deals
+// in them any more.
+const pickWrapped = () =>
+  WRAPPED_CONTENTS[Math.floor(Math.random() * WRAPPED_CONTENTS.length)];
+
 // ─── Discard mode ─────────────────────────────────────────────────────────────
 
 function cancelDiscardMode(quiet = false) {
@@ -109,13 +117,14 @@ function cancelDiscardMode(quiet = false) {
   return true;
 }
 
-// ─── Sundry mode (an armed paint tube) ────────────────────────────────────────
+// ─── Sundry mode (an armed tube or ratchet) ───────────────────────────────────
 
 function cancelSundryMode(quiet = false) {
   if (state.sundryMode < 0) return false;
+  const kind = state.sundries[state.sundryMode]?.kind;
   state.sundryMode = -1;
   clearAllSelected();
-  if (!quiet) log('The tube goes back on the workbench.');
+  if (!quiet) log(`The ${kind === 'ratchet' ? 'ratchet' : 'tube'} goes back on the workbench.`);
   renderAll();
   return true;
 }
@@ -146,8 +155,8 @@ async function patronReactions(script) {
 
 // ─── Titivillus (one wrong vowel forgiven) ────────────────────────────────────
 // If the letters miss the dictionary by exactly one vowel — and the word holds
-// an azure letter to smudge — the word stands as typed. The manuscript and the
-// ledger keep the misprint; that's the joke.
+// an azure letter to smudge — the word stands as typed. The manuscript keeps
+// the misprint; that's the joke.
 
 const VOWELS = 'AEIOU';
 
@@ -217,7 +226,7 @@ function binderPardon(letters) {
 
 // The excuses a word can call on when the dictionary turns it away, tried in
 // order and credited to whoever saved it. None of them change the word: what
-// you set is what prints, in the manuscript and the ledger both. The Binder
+// you set is what prints, and the manuscript keeps it. The Binder
 // goes last: where a word could be read as either, a plain misspelling is the
 // likelier story than a coinage.
 const PARDONS = [
@@ -666,7 +675,9 @@ async function advancePage() {
   if (isDeadline(state.page) && state.boss) {
     const def = bossById(state.boss.id);
     sfx.bad();
-    await showBanner(`${def.emoji} ${def.name}`, def.desc, 2100);
+    // The editor's rule is a paragraph, not a title — hold the banner long
+    // enough to actually read it, however long that particular rule runs.
+    await showBanner(`${def.emoji} ${def.name}`, def.desc, 'read');
     log(`${def.emoji} ${def.name} takes the desk. ${def.desc}`, 'warn');
   }
 
@@ -786,8 +797,11 @@ $('btnClear')?.addEventListener('click', () => {
 $('btnShuffle')?.addEventListener('click', () => { if (!state.isAnimating) { shuffleRack(); renderAll(); } });
 $('btnDiscard')?.addEventListener('click', doDiscard);
 
-// The workbench: first tap arms a tube, board taps pick its targets, a second
-// tap on the tube paints them (or puts it away if nothing is chosen).
+// The workbench: first tap arms a tool, board taps pick its targets, a second
+// tap on the tool spends it (or puts it away if nothing is chosen). The tube
+// and the ratchet share that rhythm exactly — the ratchet's arrows only say
+// which way it points, so there is no small target to hit and no tap that
+// silently cancels the gesture.
 $('sundries')?.addEventListener('click', async e => {
   if (state.isAnimating || state.inMarket || state.inDraft || state.inColophon || state.gameOver) return;
   const slot = e.target.closest('[data-sundry]');
@@ -796,11 +810,69 @@ $('sundries')?.addEventListener('click', async e => {
   const idx = Number(slot.dataset.sundry);
   const armed = state.sundries[idx];
 
-  // The ratchet's two arrows sit inside its own slot, so they're read before
-  // the slot itself — tapping one is the act of spending it.
+  // The ratchet's arrows only ever set which way it points — arming it and
+  // spending it are taps on the slot, exactly as with the tube. Reading the
+  // arrow first means a tap that lands on one both turns the tool around and
+  // does whatever that tap was going to do anyway.
   const arrow = e.target.closest('[data-shift]');
-  if (arrow && armed?.kind === 'ratchet' && state.sundryMode === idx) {
-    const result = applySundry(idx, Number(arrow.dataset.shift));
+  if (arrow && armed?.kind === 'ratchet') state.ratchetDir = Number(arrow.dataset.shift);
+
+  if (armed?.kind === 'reshuffle') {
+    log('Spend this at the Market or the Colophon.', 'warn');
+    return;
+  }
+
+  // A wrapped tile needs no target: the paper comes off there and then, and
+  // what is under it is rolled at this moment rather than at the shop — the
+  // parcel was genuinely unknown right up until you opened it.
+  if (armed?.kind === 'wrapped') {
+    cancelDiscardMode(true);
+    cancelSundryMode(true);
+    const content = pickWrapped();
+    const isMarkTile = content === 'mark';
+    const m = MATERIALS[content];
+    const tile = isMarkTile ? castMarkTile() : castMaterialTile(content);
+    state.sundries.splice(idx, 1);
+
+    state.isAnimating = true;
+    renderAll();
+    sfx.chime();
+    const el = rackTileEl(tile.id);
+    if (el) {
+      await flyClone(el, bagRect(), rect(el), { duration: ANIM.fly, scaleFrom: 0.3 });
+      popReveal(el);
+      sparkleBurst(el, 14);
+      floatText(el, isMarkTile ? `${TRIMS[MARK_TRIM].label} mark` : m.label,
+                isMarkTile ? 'fl-set fl-set--purple' : `fl-set fl-mat--${content}`);
+    }
+    await sleep(ANIM.stepColour);
+    state.isAnimating = false;
+    renderAll();
+    log(isMarkTile
+      ? `The wrapping comes off: a “${getActiveLetter(tile)}”, ${TRIMS[MARK_TRIM].label.toLowerCase()}-trimmed — no shop sells marks, and it is yours for good.`
+      : `The wrapping comes off: ${getActiveLetter(tile)}, struck in ${m.metal.toLowerCase()} — ${m.label.toLowerCase()}, and yours for good.`,
+      'good');
+    return;
+  }
+
+  if (state.sundryMode !== idx) {
+    cancelDiscardMode(true);
+    cancelSundryMode(true);
+    clearAllSelected();
+    state.sundryMode = idx;
+    const s = state.sundries[idx];
+    log(s.kind === 'ratchet'
+      ? 'Tap one letter, then tap the ratchet again to step it. The arrows say which way.'
+      : `Tap ${tileCount(TUBE_TILES)} to paint ${COLOURS[s.colour].label}, then tap the tube again.`);
+    renderAll();
+    return;
+  }
+
+  // Second tap on the armed ratchet: step the picked letter, or stand down if
+  // nothing is picked — the same two outcomes the tube's second tap has.
+  if (armed?.kind === 'ratchet') {
+    if (!sundrySelected().length) { cancelSundryMode(); return; }
+    const result = applySundry(idx, state.ratchetDir ?? 1);
     if (!result) { cancelSundryMode(); renderAll(); return; }
 
     state.isAnimating = true;
@@ -818,53 +890,6 @@ $('sundries')?.addEventListener('click', async e => {
     log(`The ratchet steps ${result.from} to ${result.to} — and there it stays.`, 'good');
     return;
   }
-
-  if (armed?.kind === 'reshuffle') {
-    log('Spend this at the Market or the Colophon.', 'warn');
-    return;
-  }
-
-  // An ingot needs no target: it casts its tile there and then.
-  if (armed?.kind === 'ingot') {
-    cancelDiscardMode(true);
-    cancelSundryMode(true);
-    const m = MATERIALS[armed.material];
-    const tile = castMaterialTile(armed.material);
-    state.sundries.splice(idx, 1);
-
-    state.isAnimating = true;
-    renderAll();
-    sfx.chime();
-    const el = rackTileEl(tile.id);
-    if (el) {
-      await flyClone(el, bagRect(), rect(el), { duration: ANIM.fly, scaleFrom: 0.3 });
-      popReveal(el);
-      sparkleBurst(el, 14);
-      floatText(el, m.label, `fl-set fl-mat--${armed.material}`);
-    }
-    await sleep(ANIM.stepColour);
-    state.isAnimating = false;
-    renderAll();
-    log(`${m.metal} cast into ${getActiveLetter(tile)} — ${m.label.toLowerCase()}, and yours for good.`, 'good');
-    return;
-  }
-
-  if (state.sundryMode !== idx) {
-    cancelDiscardMode(true);
-    cancelSundryMode(true);
-    clearAllSelected();
-    state.sundryMode = idx;
-    const s = state.sundries[idx];
-    log(s.kind === 'ratchet'
-      ? 'Tap one letter, then step it up or down the alphabet.'
-      : `Tap ${tileCount(TUBE_TILES)} to paint ${COLOURS[s.colour].label}, then tap the tube again.`);
-    renderAll();
-    return;
-  }
-
-  // An armed ratchet stands down on a second tap, like the tube — the arrows
-  // above are what spend it, and they're handled before we ever get here.
-  if (armed?.kind === 'ratchet') { cancelSundryMode(); return; }
 
   // Second tap on the armed tube: paint the selection, or stand down.
   if (!sundrySelected().length) { cancelSundryMode(); return; }
@@ -891,9 +916,9 @@ $('sundries')?.addEventListener('click', async e => {
 $('bagBtn')?.addEventListener('click', () => { if (!state.isAnimating) openInspector('bag'); });
 $('discardBtn')?.addEventListener('click', () => { if (!state.isAnimating) openInspector('discard'); });
 
-$('ledgerBtn')?.addEventListener('click', () => { if (!state.isAnimating) openLedger(); });
-$('ledgerModal')?.addEventListener('click', e => {
-  if (e.target.closest('[data-close-ledger]') || e.target.id === 'ledgerModal') closeLedger();
+$('manuscriptBtn')?.addEventListener('click', () => { if (!state.isAnimating) openManuscript(); });
+$('manuscriptModal')?.addEventListener('click', e => {
+  if (e.target.closest('[data-close-manuscript]') || e.target.id === 'manuscriptModal') closeManuscript();
 });
 
 $('inspectorModal')?.addEventListener('click', e => {

@@ -26,6 +26,8 @@
   --brass-hi:   #f6d68a;
   --brass-dark: #8a5f1d;
 
+  --steel:      #b9c3ce;   /* the ratchet's colour — it has no paint of its own */
+
   --inkblue:      #8db8ff;
   --inkblue-deep: #1d3354;
   --pressred:     #ff8273;
@@ -357,6 +359,41 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 .sundry--armed:hover { transform: translateY(-3px); }
 
+/* ── One tap left ─────────────────────────────────────────────────────────────
+   An armed tool with its targets picked is waiting on a tap *on the tool*, and
+   with the tiles chosen the board otherwise looks finished — so the tool takes
+   a breath of its own colour and rides above the dimmed table (see
+   .table--tool-ready). The glow is its paint, so a jade tube pulses jade and
+   the ratchet pulses steel. */
+.sundry--ready {
+  position: relative;
+  z-index: 3;
+  animation: tool-ready calc(1.15s / var(--aspd)) ease-in-out infinite;
+}
+@keyframes tool-ready {
+  0%, 100% {
+    transform: translateY(-3px) scale(1);
+    box-shadow:
+      inset 0 0 0 2px rgba(255, 248, 226, 0.6),
+      0 0 18px var(--paintcol, var(--warn)),
+      0 6px 12px rgba(0, 0, 0, 0.45);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow:
+      inset 0 0 0 2.5px rgba(255, 248, 226, 0.95),
+      0 0 32px 7px var(--paintcol, var(--warn)),
+      0 9px 18px rgba(0, 0, 0, 0.5);
+  }
+}
+/* The label swaps to the instruction ("Paint it" / "Step it"), so give it the
+   weight of one. Small screens hide sundry names entirely — there the pulse
+   and the dimmed table carry it alone. */
+.sundry--ready .sundry-name {
+  color: #fff8e2;
+  text-shadow: 0 0 8px var(--paintcol, var(--warn));
+}
+
 .sundry--empty {
   border: 1.5px dashed rgba(243, 222, 184, 0.22);
   color: rgba(243, 222, 184, 0.3);
@@ -406,23 +443,42 @@ button.sundry:hover { transform: translateY(-2px); }
 .paint-tube--jade    { background: var(--jade); }
 .paint-tube--amber   { background: var(--amber); }
 
-/* An ingot of strange metal — a small bar, marked with what it will cast */
-.ingot-mark {
-  display: grid;
-  place-items: center;
-  width: 22px; height: 20px;
-  border-radius: 4px;
-  font-size: 12px;
-  line-height: 1;
-  border: 1.5px solid rgba(40, 25, 10, 0.55);
-  box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.28), inset 0 -4px 6px rgba(0, 0, 0, 0.3);
+/* A wrapped tile — brown paper and a cross of string. It wears no material,
+   because nothing has decided which one is inside: the roll happens when the
+   paper comes off. That is the whole of the item, so it must not look like a
+   labelled bar of anything. */
+.wrapped-mark {
+  position: relative;
+  display: block;
+  width: 22px; height: 22px;
+  border-radius: 3px;
+  background:
+    linear-gradient(150deg, #a8834e 0%, #8f6b3a 46%, #74542b 100%);
+  border: 1.5px solid rgba(34, 20, 6, 0.6);
+  box-shadow: inset 0 2px 3px rgba(255, 236, 200, 0.3), inset 0 -4px 6px rgba(0, 0, 0, 0.34);
+  overflow: hidden;
 }
-.ingot-mark--cursed  { background: linear-gradient(168deg, #6d1a15, #2a0808); }
-.ingot-mark--ghost   { background: linear-gradient(168deg, rgba(226,240,255,0.6), rgba(150,185,225,0.45)); }
-.ingot-mark--rainbow { background: linear-gradient(112deg, #ffd9d3, #fdf6c2 35%, #cfe9ff 70%, #e2d6ff); }
-.held-ingot { width: 17px; height: 15px; font-size: 9px; }
-.sundry--ingot .ingot-mark { margin-top: 2px; }
-.offer-ingot .ingot-mark { width: 26px; height: 24px; font-size: 14px; }
+/* The string: pale twine, one band each way, crossing at the middle. Light on
+   the dark paper rather than dark on light — a dark cross on a pale square
+   reads as a window pane, not a parcel. */
+.wrapped-mark::before,
+.wrapped-mark::after {
+  content: '';
+  position: absolute;
+  background: linear-gradient(90deg, #f0e2c2, #cfbb92);
+  box-shadow: 0 1px 1.5px rgba(30, 18, 4, 0.55);
+}
+.wrapped-mark::before { left: -1px; right: -1px; top: 50%; height: 2.5px; transform: translateY(-50%); }
+.wrapped-mark::after  { top: -1px; bottom: -1px; left: 50%; width: 2.5px; transform: translateX(-50%); }
+
+.held-wrapped { width: 16px; height: 16px; }
+.held-wrapped::before, .held-wrapped::after { height: 2px; width: 2px; }
+.held-wrapped::before { width: auto; }
+.held-wrapped::after  { height: auto; }
+.sundry--wrapped .wrapped-mark { margin-top: 3px; }
+.wrapped-mark--offer { width: 26px; height: 26px; margin-top: 4px; }
+/* An armed slot has no paint of its own to glow with — it takes the paper's */
+.sundry--wrapped.sundry--armed { --paintcol: #cbab7e; }
 
 /* The reshuffle sundry: no colour of its own, so it gets a brass badge
    instead of a tube. Sits idle on the board — it only does anything from
@@ -443,8 +499,10 @@ button.sundry:hover { transform: translateY(-2px); }
 .sundry-shuffle--offer { margin-top: 5px; width: 26px; height: 26px; }
 
 /* The ratchet: a steel pawl rather than a brass badge, so it reads as a tool
-   and not a token. Once a letter is picked the mark gives way to the two
-   directions, which are what actually spend it. */
+   and not a token. The ⇅ mark is how it appears at the market and on the held
+   list; on the workbench it wears its two directions instead, which never move
+   or change — spending it is a tap on the slot, as with the tube, and the
+   arrows only say which way. */
 .ratchet-mark {
   display: grid;
   place-items: center;
@@ -464,18 +522,27 @@ button.sundry:hover { transform: translateY(-2px); }
 .ratchet-arrow {
   display: grid;
   place-items: center;
-  width: 21px; height: 21px;
+  width: 24px; height: 24px;
   border-radius: 4px;
   background: linear-gradient(160deg, #d8dde3, #97a1ac 60%, #6d7681);
   color: #21262c;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 900;
   cursor: pointer;
   box-shadow: inset 0 -2px 4px rgba(40, 50, 60, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.7);
-  transition: transform calc(0.1s / var(--aspd)), filter calc(0.1s / var(--aspd));
+  transition: transform calc(0.1s / var(--aspd)), filter calc(0.1s / var(--aspd)),
+              opacity calc(0.1s / var(--aspd));
+  opacity: 0.45;
 }
-.ratchet-arrow:hover { transform: translateY(-2px); filter: brightness(1.15); }
-.sundry--ratchet.sundry--armed { --paintcol: #b9c3ce; }
+/* The direction the tool is currently pointing. Both arrows stay legible —
+   the dim one is the offer to turn it around, not a disabled control. */
+.ratchet-arrow--on {
+  opacity: 1;
+  box-shadow: inset 0 -2px 4px rgba(40, 50, 60, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.7),
+              0 0 0 1.5px var(--brass-hi);
+}
+.ratchet-arrow:hover { transform: translateY(-2px); filter: brightness(1.15); opacity: 1; }
+.sundry--ratchet.sundry--armed { --paintcol: var(--steel); }
 
 /* While a tube is armed, both board zones take on its colour, and picked
    tiles glow that colour under a brush mark instead of the discard arrows. */
@@ -494,6 +561,33 @@ button.sundry:hover { transform: translateY(-2px); }
 .zone--painting .tile--selected::after {
   content: '🖌';
   font-size: 13px;
+}
+/* An armed ratchet picks the same way but does something else entirely, so the
+   picked letter wears the tool rather than a brush. */
+.zone--stepping .tile--selected::after { content: '⇅'; }
+
+/* ── The table, waiting on the tool ───────────────────────────────────────────
+   Everything the gesture no longer involves steps back: the shelf, the status
+   cards, the readout, the editor's bar, the pouches, the action buttons, and
+   every tile you didn't pick. The workbench and the picked tiles keep their
+   colour, so the eye runs from what you chose to the thing that spends it.
+   Dimming is per-element rather than on the zones, because a filter on a zone
+   would take the picked tile down with it. */
+.table--tool-ready #shelf,
+.table--tool-ready .status-row,
+.table--tool-ready .boss-bar,
+.table--tool-ready .readout,
+.table--tool-ready .pouch,
+.table--tool-ready .action-row,
+.table--tool-ready .tile:not(.tile--selected) {
+  filter: saturate(0.3) brightness(0.55);
+  opacity: 0.75;
+}
+/* Only the ones with no transition of their own get one here — .tile, .pouch
+   and .readout already declare theirs, and a second `transition` would drop
+   the properties they were animating. */
+#shelf, .status-row, .boss-bar, .action-row {
+  transition: filter calc(0.22s / var(--aspd)) ease, opacity calc(0.22s / var(--aspd)) ease;
 }
 
 /* ── Patrons with something to add ────────────────────────────────────────────
@@ -798,7 +892,8 @@ button.sundry:hover { transform: translateY(-2px); }
   border-radius: var(--r-md);
   background: rgba(12, 6, 14, 0.45);
   border: 1px solid rgba(243, 222, 184, 0.08);
-  transition: opacity calc(0.3s / var(--aspd));
+  transition: opacity calc(0.3s / var(--aspd)),
+              filter calc(0.22s / var(--aspd)) ease;
 }
 .readout--idle { opacity: 0.45; }
 .readout--slam { animation: roSlam calc(0.5s / var(--aspd)) ease; }
@@ -983,7 +1078,9 @@ button.sundry:hover { transform: translateY(-2px); }
   cursor: pointer;
   padding: 4px 6px;
   border-radius: var(--r-md);
-  transition: transform calc(0.15s / var(--aspd));
+  transition: transform calc(0.15s / var(--aspd)),
+              filter calc(0.22s / var(--aspd)) ease,
+              opacity calc(0.22s / var(--aspd)) ease;
 }
 .pouch:hover { transform: translateY(-3px); }
 .pouch--bump { animation: pouchBump calc(0.3s / var(--aspd)) ease; }
@@ -1236,6 +1333,19 @@ button.sundry:hover { transform: translateY(-2px); }
 .tile--trim-silver {
   --trim-ring: inset 0 0 0 3px #aab4c4;
   --tile-lift: #7e8794;
+}
+/* Silver pays +6 Points, and the corner figure is exactly where that lands —
+   so a silver tile wears its number in silver. A ring alone said "some metal
+   or other"; this says "this one is a Points tile", in the rack and the shop
+   where you are choosing, not only in the groove where the sum is already
+   done. Grown and boosted numbers still win: those report that the figure
+   differs from the letter's face value, which is the more urgent news, and
+   each already has a colour of its own. */
+.tile--trim-silver .tile-pts:not(.tile-pts--grown):not(.tile-pts--boosted) {
+  opacity: 1;
+  font-weight: 900;
+  color: #6b7a8f;
+  text-shadow: 0 1px 0 rgba(250, 252, 255, 0.95), 0 0 7px rgba(160, 174, 194, 0.8);
 }
 
 /* Cobalt refunds a Discard, so it wears the Discard UI's own blues — the
@@ -1649,6 +1759,21 @@ button.sundry:hover { transform: translateY(-2px); }
   transition: opacity calc(0.28s / var(--aspd)) ease;
 }
 #banner.banner--show { opacity: 1; }
+/* A banner held long enough to read is also one you can wave away. It covers
+   the screen, so taking pointer events here both dismisses it and stops the
+   tap reaching the board underneath. */
+#banner.banner--dismissible { pointer-events: auto; cursor: pointer; }
+#banner.banner--dismissible .banner-inner::after {
+  content: 'tap to go on';
+  display: block;
+  margin-top: 16px;
+  font-family: var(--sans);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  color: rgba(243, 222, 184, 0.42);
+}
 
 .banner-inner {
   text-align: center;
@@ -2605,8 +2730,10 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 /* In the word groove, a tile's corner number is what it will actually pay.
-   When that beats the letter's face value (a nick's reach, a silver trim),
-   the number itself changes — larger, brass, glowing. */
+   When that beats what the tile is worth at rest, the number itself changes —
+   larger, brass, glowing. Only the word can cause that now: a nick's reach or
+   a Monogrammist's echo. A silver trim no longer does, because its Points are
+   already in the resting number, which is the point of putting them there. */
 .tile-pts--boosted {
   opacity: 1;
   font-size: 13px;
@@ -2628,8 +2755,8 @@ button.sundry:hover { transform: translateY(-2px); }
   100% { transform: scale(1); }
 }
 
-/* ─── Ledger ──────────────────────────────────────────────────────────────────── */
-.btn-icon--ledger { position: relative; font-size: 15px; }
+/* ─── The manuscript ──────────────────────────────────────────────────────────── */
+.btn-icon--manuscript { position: relative; font-size: 15px; }
 .icon-count {
   position: absolute;
   bottom: -3px; right: -4px;
@@ -2645,45 +2772,148 @@ button.sundry:hover { transform: translateY(-2px); }
   font-variant-numeric: tabular-nums;
 }
 
-.sheet--ledger { width: min(560px, 94vw); }
-.ledger-list {
-  list-style: none;
-  margin: 12px 0 0;
-  padding: 0;
-  display: grid;
-  gap: 4px;
-  max-height: 62vh;
+/* A book rather than a list of transactions: chapters with headings and titles,
+   the words set as running prose beneath them, each page's folio number out in
+   the margin. Read front to back — the newest word is at the end, where the
+   next one will go. */
+.sheet--manuscript {
+  width: min(660px, 94vw);
+  padding-bottom: 30px;
+}
+.book-head { border-bottom: 1px solid rgba(138, 95, 29, 0.3); padding-bottom: 12px; }
+
+.book {
+  margin-top: 4px;
+  max-height: 64vh;
   overflow: auto;
+  /* A hair of a gutter down the left, where a bound page meets its spine */
+  padding: 4px 4px 4px 2px;
 }
-.ledger-row {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  align-items: baseline;
-  gap: 12px;
-  padding: 7px 11px;
-  border-radius: 8px;
-  background: rgba(120, 90, 40, 0.09);
-  border: 1px solid rgba(138, 95, 29, 0.22);
-}
-.ledger-row--best {
-  background: rgba(217, 166, 75, 0.2);
-  border-color: rgba(138, 95, 29, 0.55);
-}
-.ledger-word {
+.book-blank {
+  margin: 26px 0 14px;
+  text-align: center;
   font-family: var(--serif);
-  font-weight: 700;
+  font-style: italic;
   font-size: 15px;
-  letter-spacing: 0.5px;
+  color: var(--parch-dim);
 }
-.ledger-where { font-size: 10.5px; color: var(--parch-dim); }
-.ledger-score {
+
+/* ── A chapter heading ──────────────────────────────────────────────────────── */
+.book-chapter { margin-top: 22px; }
+.book-chapter:first-child { margin-top: 14px; }
+
+.book-chapter-head {
+  display: grid;
+  /* number · title · the rule that runs between them · the tally */
+  grid-template-columns: auto auto 1fr auto;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+.book-chapter-num {
   font-family: var(--serif);
   font-weight: 900;
-  font-size: 15px;
-  min-width: 58px;
+  font-size: 11px;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--parch-dim);
+  white-space: nowrap;
+}
+.book-chapter-title {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--parch-ink);
+  white-space: nowrap;
+}
+/* The rule runs on from the title to the tally, the way a chapter head is
+   ruled off in a printed book. Its own cell, because an ::after pinned to the
+   title had nothing to measure against — a stretched grid cell made it
+   zero-width and it never appeared. */
+.book-rule {
+  border-top: 1px solid rgba(138, 95, 29, 0.4);
+  align-self: center;
+  min-width: 12px;
+}
+.book-chapter-tally {
+  font-size: 10.5px;
+  letter-spacing: 0.3px;
+  color: var(--parch-dim);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ── One page of that chapter ───────────────────────────────────────────────── */
+.book-leaf {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  align-items: baseline;
+  gap: 8px;
+  padding: 3px 0;
+}
+.book-folio {
+  font-family: var(--serif);
+  font-size: 12px;
+  font-style: italic;
   text-align: right;
+  color: var(--parch-dim);
+  font-variant-numeric: tabular-nums;
+  cursor: help;
+}
+/* The Deadline is marked, not numbered — a printer's fleuron where the folio
+   number would sit. */
+.book-folio--deadline { color: var(--brass-dark); font-style: normal; font-size: 13px; }
+
+.book-prose {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--parch-ink);
+}
+
+/* ── A word, and its score as a footnote figure ─────────────────────────────── */
+/* A word and its figure never come apart, but the prose has to break between
+   entries — which is why they are joined with a real space in the markup and
+   not merely spaced by this margin. These are book-* and not ms-*: the strip
+   at the foot of the board owns .ms-word, and it is a pale cream meant for
+   dark wood, which on parchment is no colour at all. */
+.book-entry { white-space: nowrap; }
+.book-entry + .book-entry { margin-left: 0.3em; }
+.book-word {
+  font-variant-caps: small-caps;
+  text-transform: lowercase;
+  letter-spacing: 0.6px;
+}
+.book-score {
+  font-size: 0.6em;
+  vertical-align: super;
+  margin-left: 1px;
+  color: var(--parch-dim);
   font-variant-numeric: tabular-nums;
 }
+/* The first word of a chapter takes the initial, as an opening line does */
+.book-initial {
+  font-size: 1.5em;
+  font-weight: 900;
+  line-height: 0;
+  text-transform: uppercase;
+  color: var(--brass-dark);
+}
+/* The best word of the run is illuminated */
+.book-entry--best .book-word {
+  font-weight: 900;
+  color: #6b4a12;
+  background: linear-gradient(180deg, rgba(217, 166, 75, 0.34), rgba(217, 166, 75, 0.14));
+  border-radius: 3px;
+  padding: 1px 5px;
+  margin: 0 1px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.book-entry--best .book-score { color: var(--brass-dark); font-weight: 800; }
 
 /* ─── The Colophon (end-of-chapter upgrade) ─────────────────────────────────────
    A ceremonial pick, not a transaction — bigger cards than a Market offer,
@@ -3239,10 +3469,18 @@ input[type='checkbox'] {
   /* the shop head is a title beside a reward tally — too wide for a phone */
   .sheet-head { flex-direction: column; align-items: stretch; gap: 8px; }
   .reward-line { justify-content: flex-start; max-width: none; }
-  .sheet--market .sheet-head .x, .sheet--inspector .sheet-head .x { align-self: flex-end; margin-top: -28px; }
-  .ledger-row { grid-template-columns: 1fr auto; row-gap: 2px; }
-  .ledger-where { grid-column: 1; }
-  .ledger-score { grid-row: 1 / span 2; grid-column: 2; align-self: center; }
+  .sheet--market .sheet-head .x, .sheet--inspector .sheet-head .x,
+  .sheet--manuscript .sheet-head .x { align-self: flex-end; margin-top: -28px; }
+  /* A chapter head won't hold three columns on a phone: the title takes the
+     line, the number and tally share the one below it. */
+  .book-chapter-head { grid-template-columns: auto 1fr; row-gap: 1px; }
+  .book-chapter-title { grid-column: 1 / -1; grid-row: 1; white-space: normal; }
+  .book-chapter-num { grid-row: 2; grid-column: 1; }
+  .book-chapter-tally { grid-row: 2; grid-column: 2; text-align: right; }
+  /* No room for a rule between two columns that are already tight */
+  .book-rule { display: none; }
+  .book-leaf { grid-template-columns: 20px 1fr; gap: 6px; }
+  .book-prose { font-size: 14px; line-height: 1.8; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -3263,6 +3501,17 @@ input[type='checkbox'] {
      the motion. The Enthusiast's gift keeps its stitched glow the same way. */
   .tile--mat-cursed, .tile--mat-rainbow, .tile--gift { animation: none; }
   .boss-bar--firing, .boss-bar--spiking { animation: none; }
+  /* A tool waiting on its last tap still has to read as waiting — hold the
+     glow at the top of the breath, drop the breathing. The dimmed table does
+     the rest of the work either way. */
+  .sundry--ready {
+    animation: none;
+    transform: translateY(-5px) scale(1.05);
+    box-shadow:
+      inset 0 0 0 2.5px rgba(255, 248, 226, 0.95),
+      0 0 32px 7px var(--paintcol, var(--warn)),
+      0 9px 18px rgba(0, 0, 0, 0.5);
+  }
   /* A burning tile still has to read as destroyed — char it, don't tumble it */
   .tile--burning {
     animation: none;

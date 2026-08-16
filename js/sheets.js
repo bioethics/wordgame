@@ -8,7 +8,7 @@ import {
 } from './state.js';
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
-  PAINT_PER_POT, TUBE_TILES, ANIM, SUNDRY_SELL, tileCount, MATERIALS,
+  PAINT_PER_POT, TUBE_TILES, ANIM, SUNDRY_SELL, tileCount, MATERIALS, MARKS, MARK_TRIM,
   colourDesc,
 } from './constants.js';
 import { patronById } from './patrons.js';
@@ -231,13 +231,21 @@ function marketShopHTML() {
                 ${compostLeft() ? '' : 'disabled'}>Take</button>
       </div>`).join('');
 
-  const sundryCards = market.sundryOffers.map((o, i) => o.kind === 'ingot' ? `
-      <div class="offer-paint offer-ingot offer-ingot--${o.material}" data-offer="sundry" data-idx="${i}"
-           data-tip-head="${MATERIALS[o.material].metal}"
-           data-tip-body="Casts one ${MATERIALS[o.material].label.toLowerCase()} tile straight into your hand, and it is yours for the rest of the run. ${MATERIALS[o.material].desc}">
-        <span class="ingot-mark ingot-mark--${o.material}">${MATERIALS[o.material].emoji}</span>
+  // The wrapped tile is the one offer that can't be summarised, because the shop
+  // doesn't know either. The tip lists what might be inside instead.
+  const wrappedTip = 'Unwrap it mid-page: one tile, straight into your hand and yours for the '
+    + 'rest of the run. What is in it is not decided until the paper comes off — a random '
+    + 'letter struck in one of the three strange materials ('
+    + Object.values(MATERIALS).map(m => `${m.emoji} ${m.metal.toLowerCase()}`).join(', ')
+    + `), or a mark (${MARKS.join(' or ')}) under a ${TRIMS[MARK_TRIM].label.toLowerCase()} trim, `
+    + 'which is the only way marks come now.';
+
+  const sundryCards = market.sundryOffers.map((o, i) => o.kind === 'wrapped' ? `
+      <div class="offer-paint offer-wrapped" data-offer="sundry" data-idx="${i}"
+           data-tip-head="A wrapped tile" data-tip-body="${wrappedTip}">
+        <span class="wrapped-mark wrapped-mark--offer"></span>
         <div class="op-body">
-          <div class="op-name">${MATERIALS[o.material].metal}</div>
+          <div class="op-name">Wrapped tile</div>
         </div>
         <span class="op-sold">bought</span>
         <button class="btn-price" data-buy-sundry="${i}">${coinHTML(o.price)}</button>
@@ -294,14 +302,14 @@ function marketShopHTML() {
   const heldSundries = state.sundries.map((s, i) => {
     const label = s.kind === 'reshuffle' ? 'Reshuffle'
                 : s.kind === 'ratchet'   ? 'Ratchet'
-                : s.kind === 'ingot'     ? MATERIALS[s.material].metal
+                : s.kind === 'wrapped'   ? 'Wrapped tile'
                 :                          COLOURS[s.colour].label;
     const mark  = s.kind === 'reshuffle'
       ? `<span class="sundry-shuffle held-shuffle">↻</span>`
       : s.kind === 'ratchet'
       ? `<span class="ratchet-mark held-ratchet">⇅</span>`
-      : s.kind === 'ingot'
-      ? `<span class="ingot-mark ingot-mark--${s.material} held-ingot">${MATERIALS[s.material].emoji}</span>`
+      : s.kind === 'wrapped'
+      ? `<span class="wrapped-mark held-wrapped"></span>`
       : `<span class="paint-tube paint-tube--${s.colour} held-tube"></span>`;
     return `
       <button class="held" data-sell-sundry="${i}" title="Sell back for ${SUNDRY_SELL} Coin">
@@ -477,7 +485,16 @@ function renderStallBody() {
   const grid = $('stallGrid');
   if (!grid) return;
   grid.innerHTML = '';
-  state.collection.forEach(tmpl => {
+  // The Smelter and the Stereotyper work off the whole case; the Painter works
+  // off the spread it laid out, the way the proposal stalls do.
+  const tiles = stall.offers
+    ? stall.offers.map(tid => state.collection.find(t => t.tid === tid)).filter(Boolean)
+    : state.collection;
+  if (!tiles.length) {
+    grid.innerHTML = `<p class="sheet-note">${STALL_DEFS[market.activeStall]?.empty ?? 'Nothing to offer.'}</p>`;
+    return;
+  }
+  tiles.forEach(tmpl => {
     const el = makeTileEl({ ...tmpl, id: '' }, 'stall', { mini: true });
     el.dataset.stallTid = tmpl.tid;
     grid.appendChild(el);

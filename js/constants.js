@@ -2,11 +2,15 @@
 // Bag tiles are stored as template objects so they can carry trim/nick/colour
 // info before being assigned an id when drawn to the rack.
 // Template shape: { letter, letterType, altLetter, activeVariant,
-//                   colour, altColour, trim, nick }
+//                   colour, trim, nick }
 // Rack tile shape: { ...template, id, basePoints, selected }
 //
-// A dual tile's two faces are painted independently (colour / altColour);
-// trim and nick belong to the tile and apply to both faces.
+// Paint, trim and nick all belong to the tile rather than to either face, so a
+// dual tile wears the same coat whichever letter it is showing. Paint used to
+// be per-face (a second `altColour`), which made a dual tile two half-painted
+// tiles in a trenchcoat: you paid twice to finish it, the colour multiplier
+// changed when you flipped, and the shop handed out duals wearing two
+// different colours. Flipping now changes the letter and nothing else.
 
 export const TILE_POINTS = {
   A:1, B:3, C:3, D:2, E:1, F:4, G:2, H:4,
@@ -48,10 +52,13 @@ export const EXCLUSIVE_LETTERS = ['RAT'];
 // never doubled, never mid-word. They're worth a point apiece, but they take
 // paint, trims and nicks like any other tile, and a left nick on a trailing
 // mark reaches back across the entire word.
+// Marks are not sold. No shop, draft or compost heap deals in them — the one
+// way a mark enters a run is out of a wrapped tile, always under a purple trim
+// (see WRAPPED_CONTENTS). That makes a ? a find rather than a purchase, which
+// suits a sort that spells nothing and exists to be tacked onto a finished word.
 export const MARKS      = ['?', '!'];
 export const MARK_RUNS  = ['?', '!', '?!'];   // every legal tail
 export const isMark     = ch => MARKS.includes(ch);
-export const MARK_WEIGHT = 2;                 // copies of each in the shop's letter pool
 
 // Split a composed word into its letters and its trailing marks. Returns null
 // when the marks aren't a legal tail — doubled, reversed, or mid-word.
@@ -105,7 +112,9 @@ export const tileCount = n => n === 1 ? 'one tile' : `${n} tiles`;
 // ─── Stalls ───────────────────────────────────────────────────────────────────
 // Two pitch up at each shop, drawn from the roster below. A stall's price
 // starts at its base and doubles with every purchase, then resets when the
-// next shop opens — the Smelter alone starts dearer.
+// next shop opens. No stall opens under 2: a 1-Coin first commission was
+// close enough to free that the interesting question — is this worth the
+// doubling? — never got asked. The Dresser alone starts dearer still.
 export const STALLS_PER_SHOP = 2;
 export const PROPOSAL_RANGE  = 6;    // tiles a proposal stall lays out at a time
 export const SMELT_MIN_COLLECTION = 12;
@@ -116,11 +125,12 @@ export const STALL_DEFS = {
     desc: 'Feeds a tile to the furnace — gone for good.',
   },
   painter: {
-    name: 'The Painter', emoji: '🖌️', base: 1,
-    desc: 'Paints any letter a colour of your choice.',
+    name: 'The Painter', emoji: '🖌️', base: 2,
+    desc: 'Lays out six of your tiles — paint one a colour of your choice.',
+    empty: 'You own nothing that will take paint.',
   },
   gilder: {
-    name: 'The Gilder', emoji: '⚜️', base: 1,
+    name: 'The Gilder', emoji: '⚜️', base: 2,
     desc: 'Proposes trims for six untrimmed tiles.',
     empty: 'Every tile you own already wears a trim.',
   },
@@ -135,7 +145,7 @@ export const STALL_DEFS = {
     empty: 'Every tile you own already carries a nick.',
   },
   stereotyper: {
-    name: 'The Stereotyper', emoji: '🗜️', base: 1,
+    name: 'The Stereotyper', emoji: '🗜️', base: 2,
     desc: 'Casts an exact copy of any tile.',
   },
 };
@@ -150,9 +160,16 @@ export const MAX_FEATURES         = 4;
 
 // ─── Trims (the ring around a tile's edge) ────────────────────────────────────
 // Purple is trim-only: a fifth multiplier that stacks with the letter colours.
+
+// Silver's Points belong to the tile, not to the word it lands in: they are
+// part of what the tile is worth wherever it appears, which is why the corner
+// number carries them (see restingPoints in state.js) and wears the trim's own
+// silver. Scoring, the tile face and the trim's own card all read it here.
+export const SILVER_BONUS = 5;
+
 export const TRIMS = {
   gold:    { label: 'Gold',    price: 2, desc: 'Pays 1 Coin when printed.' },
-  silver:  { label: 'Silver',  price: 2, desc: '+6 Points.' },
+  silver:  { label: 'Silver',  price: 2, desc: `+${SILVER_BONUS} Points.` },
   cobalt:  { label: 'Cobalt',  price: 3, desc: 'Refunds a Discard when printed.' },
   mercury: { label: 'Mercury', price: 3, desc: 'Returns to the bag instead of the discard pile.' },
   purple:  { label: 'Purple',  price: 4, desc: 'Adds +0.5 to the purple multiplier.' },
@@ -269,10 +286,15 @@ export const ANIM = {
 };
 
 // ─── Materials (what a tile is cast from) ─────────────────────────────────────
-// Ordinary tiles are lead. An ingot bought at the Market casts one tile from
-// something stranger, and the material sits under everything else a tile
-// carries: a cursed or rainbow tile still takes paint, trims and nicks. A
+// Ordinary tiles are lead. A wrapped tile bought at the Market holds one tile
+// cast from something stranger, and the material sits under everything else a
+// tile carries: a cursed or rainbow tile still takes paint, trims and nicks. A
 // ghost takes nothing at all, ever.
+//
+// What is under the paper is not known until it comes off — not to the shop,
+// not to the save, not until you unwrap it. That is the whole of the thing:
+// two of the three materials are gifts and one is a curse, so a wrapped tile
+// is a parcel you choose to open rather than a metal you choose to buy.
 export const CURSED_MULT       = 3;   // ×Mult a cursed tile gives the word
 export const CURSED_MAX_POINTS = 3;   // never cast on a letter worth more than this
 // What a curse takes from any word set without it while it waits in the hand.
@@ -282,8 +304,16 @@ export const CURSED_MAX_POINTS = 3;   // never cast on a letter worth more than 
 // rack that keeps drawing until the curse finds a word. Points, not Mult, so a
 // press strong enough to clear 666 can shrug one off and score anyway.
 export const CURSED_PENALTY    = 666;  // Points lost per unplayed curse in hand
-export const INGOT_PRICE       = 4;
-export const INGOT_OFFER_CHANCE = 0.5;  // odds one of a Market's sundry slots holds an ingot
+export const WRAPPED_PRICE        = 4;
+export const WRAPPED_OFFER_CHANCE = 0.5;  // odds one of a Market's sundry slots holds one
+
+// What is inside a wrapped tile: the outcome table, and the only place these
+// odds live. Three entries name a material from MATERIALS above; 'mark' stands
+// for a punctuation tile in ordinary lead under a purple trim, which is the
+// only way a mark enters a run at all. The roll is a flat pick from this list,
+// so repeating an entry is how you make it likelier.
+export const WRAPPED_CONTENTS = ['cursed', 'ghost', 'rainbow', 'mark'];
+export const MARK_TRIM = 'purple';   // what a wrapped mark always comes wearing
 
 export const MATERIALS = {
   cursed: {
@@ -322,7 +352,11 @@ export const STOKER_STEP        = 0.25;   // permanent ×Mult per crimson tile b
 export const BEEKEEPER_STEP     = 0.2;    // permanent ×Mult per B printed
 export const ARSONIST_ODDS      = { paint: 0.10, burn: 0.01 };  // per tile played
 export const NUDIST_TRIM_CHANCE = 0.25;   // per bare letter in an all-bare word
-export const DIPPER_PAINT_CHANCE = 0.10;  // per tile discarded, painted at random
+// Per tile discarded, painted at random. Was 1-in-10, which paid out roughly
+// twice a page on a full discard and had the collection speckled by Chapter II
+// — free paint at common weight, arriving faster than the Painter sells it.
+// The Dipper's card reads its odds off this number, so moving it moves the copy.
+export const DIPPER_PAINT_CHANCE = 1 / 12;
 // The Gambler's coin. Tossed once per word rather than once per keystroke:
 // scoring runs on every letter you lay to drive the live preview, so a roll
 // inside the score effect would flicker as you compose and then disagree with
@@ -347,8 +381,7 @@ export function makeTileTemplate(letter, overrides = {}) {
     letterType:    'normal',   // 'normal' | 'dual'
     altLetter:     null,
     activeVariant: 0,          // 0 = letter, 1 = altLetter
-    colour:        null,       // paint on the front face
-    altColour:     null,       // paint on a dual tile's other face
+    colour:        null,       // paint — the tile's, not either face's
     trim:          null,       // gold | silver | cobalt | mercury | purple
     nick:          null,       // right | left | side
     bonusPoints:   0,          // permanent growth (The Grafter) — added to the letter's value
