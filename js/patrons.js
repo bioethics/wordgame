@@ -76,7 +76,7 @@
 import {
   GRAFTER_STEP, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS, NUDIST_TRIM_CHANCE,
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES,
-  BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE, BLOODLETTER_PAINT_CHANCE,
+  BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
   HEADSMAN_STEP, ESPALIER_STEP, splitMarks, isImmutable,
 } from './constants.js';
 import {
@@ -434,6 +434,24 @@ export const PATRON_DEFS = [
       return { note: `${n} free re-roll${n > 1 ? 's' : ''} banked` };
     },
   },
+  {
+    // The counting-house's man of letters — the amber ones, after his name.
+    // The first patron used from his card mid-page rather than at a sheet
+    // (the Neologist's act opens an overlay; his just hands you the thing):
+    // tap his card, take the loan. The tile is cast through castLentTile
+    // wearing gold trim from birth — the one way a lent tile can wear metal,
+    // since nothing can be written to it later — so printing it pays a Coin
+    // (two under the Magpie), which is what makes him amber rather than a
+    // curiosity. OLOGY is five letters on one double-wide tile: any word it
+    // lands in is six letters or more, which is the Novelist's and the
+    // Scholar's kind of word, and the dictionary holds 75 ways to use it
+    // (APOLOGY, BIOLOGY, THEOLOGY…). Once a page; the flag re-arms as the
+    // next page is dealt.
+    id: 'scientist', name: 'The Scientist', emoji: '🔬', rarity: 'uncommon', cost: 6, guild: 'amber',
+    desc: 'Once a page, ask him for an OLOGY tile — gold-trimmed, riding above your hand, gone when the page ends.',
+    when: 'meta',   // used from his card — the act button in render.js, the loan in main.js
+    onPageStart({ data }) { data.used = false; return null; },
+  },
 
   // ── Jade · growth and permanence ────────────────────────────────────────────
   {
@@ -602,34 +620,46 @@ export const PATRON_DEFS = [
     effect({ state, xMult }) { if (state.gambleWon) xMult(2); },
   },
   {
-    // Crimson's coin toss at the discard pile. Only a lone tile tempts him —
-    // throw two and he isn't interested — so the trigger is a choice that
-    // spends a whole Discard on one tile, which is the ante. Both faces of the
-    // coin are crimson's currency: paint is the guild's fuel, and a destroyed
-    // tile thins the bag, feeds the Composter, and dodges nothing — it is
-    // gone for good. Paint is the wanted face, so it rides luckyRoll; the
-    // furnace is simply the coin landing the other way up.
+    // Crimson's surgery at the discard pile. Was a coin toss over a lone
+    // tile; now a clean cut over a pair — throw him exactly two and one goes
+    // to the furnace while the other is bled crimson, both outcomes certain.
+    // Which tile takes which fate is his choice, not yours: the ante is
+    // surrendering the pair. Both halves are crimson's currency — paint is
+    // the guild's fuel, and a destroyed tile thins the bag, feeds the
+    // Composter, and dodges nothing. No roll, so no luckyRoll: the luck dial
+    // has nothing to tilt.
+    //
+    // He wants the same pair the Typefounder does. Discard hooks fire in
+    // seat order (see runDiscardHooks in main.js) and a consumed tile is out
+    // of every later hook's reach, so with both seated, whoever sits nearer
+    // the head of the shelf takes the pair — except that the crucible only
+    // accepts two plain single letters, so a pair it refuses falls through
+    // to whoever sits after it.
     id: 'bloodletter', name: 'The Bloodletter', emoji: '💈', rarity: 'common', cost: 4, guild: 'crimson',
-    desc: 'Discard exactly one tile: even odds it is painted crimson, or destroyed.',
+    desc: 'Discard exactly two tiles: one is destroyed, the other painted crimson.',
     when: 'meta',
     onDiscard({ tiles, paint, trash }) {
-      if (tiles.length !== 1) return null;
-      const t = tiles[0];
-      if (luckyRoll(BLOODLETTER_PAINT_CHANCE)) {
-        if (!paint(t, 'crimson')) return null;   // a ghost takes neither face
-        return { note: `${getActiveLetter(t)} bled crimson`, painted: [{ tile: t, colour: 'crimson' }] };
-      }
-      if (!trash(t)) return null;   // the Smelter's floor holds here too
-      return { note: `${getActiveLetter(t)} drained dry`, trashed: [t] };
+      if (tiles.length !== 2) return null;
+      const [drained, bled] = Math.random() < 0.5 ? [tiles[0], tiles[1]] : [tiles[1], tiles[0]];
+      // Each half stands on its own: a ghost refuses the paint but its
+      // partner still drains, and the Smelter's floor can spare the drained
+      // tile while its partner still bleeds.
+      const trashed = trash(drained) ? [drained] : [];
+      const painted = paint(bled, 'crimson') ? [{ tile: bled, colour: 'crimson' }] : [];
+      if (!trashed.length && !painted.length) return null;
+      const notes = [];
+      if (trashed.length) notes.push(`${getActiveLetter(drained)} drained dry`);
+      if (painted.length) notes.push(`${getActiveLetter(bled)} bled crimson`);
+      return { note: notes.join(', '), trashed, painted };
     },
   },
   {
-    // The discard ladder's second rung: one tile tempts the Bloodletter, two
-    // go to the crucible. The melt is strictly two-for-one — the collection
-    // shrinks, the Composter is fed — and what comes out is a Punchcutter
-    // cut you chose both faces of, wearing the survivors' finery. The merge
-    // rules (left tile's finery wins a tie, grown points pour together, only
-    // plain single letters will pour) live in mergeTiles in state.js, and
+    // The Bloodletter's rival for the same pair — see his note on seat order.
+    // The melt is strictly two-for-one — the collection shrinks, the
+    // Composter is fed — and what comes out is a Punchcutter cut you chose
+    // both faces of, wearing the survivors' finery. The merge rules (left
+    // tile's finery wins a tie, grown points pour together, only plain
+    // single letters will pour) live in mergeTiles in state.js, and
     // deliberately not in the desc.
     id: 'typefounder', name: 'The Typefounder', emoji: '⚗️', rarity: 'rare', cost: 10, guild: 'crimson',
     desc: 'Discard exactly two tiles: they are recast as one tile with a letter on either face.',
@@ -794,6 +824,23 @@ export const PATRON_DEFS = [
         if (trim(t, kind)) dressed.push(TRIMS[kind].label);
       }
       return dressed.length ? { note: `dressed in ${dressed.join(', ')}` } : null;
+    },
+  },
+  {
+    // The second lexicon patron with a door of its own: like the
+    // Stenographer's acronyms, names are vouched through the dictionary
+    // check in main.js — legitimate in their own right, not misspellings.
+    // Unlike his, this list also pays: +10 Points whenever the word is on
+    // it, dictionary word or not, because GRACE and ROSE are no less names
+    // for being words already. The list (wordlists-themed/names.txt) merges
+    // the US Social Security and ONS England & Wales charts — 5,000 names
+    // that each held a top-1,000 spot for three years or more; rebuild it
+    // with tools/build-names-list.mjs.
+    id: 'expectants', name: 'The Expectant Parents', emoji: '🤰', rarity: 'uncommon', cost: 6,
+    desc: 'Common baby names count as words, and any name gains +10 Points — SOPHIE, ARCHIE, BARNABY.',
+    when: 'score',
+    effect({ word, addPoints }) {
+      if (themeSize('names') && inTheme('names', word)) addPoints(10);
     },
   },
   {

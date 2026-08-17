@@ -23,8 +23,10 @@ into one HTML file for playtesting anywhere.
 ### Playing on a phone
 
 The game is touch-native: tap a rack tile to play it, tap a word tile to take
-it back, drag to reorder, and long-press any tile or patron for its details
-(long-press is also how you flip a dual tile on touch). To test on a device,
+it back, drag to reorder — tiles on the board, and patron cards on the shelf,
+which is what sets the order they act in — and long-press any tile or patron
+for its details (long-press is also how you flip a dual tile on touch). To
+test on a device,
 serve on your LAN and open the machine's address from the phone:
 
 ```
@@ -332,6 +334,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Animation step timings | `js/constants.js` → `ANIM` (all divided by the Settings speed slider) |
 | Chapter titles | `js/chapters.js` — a flat array, add as many as you like; each run draws its own and won't repeat until the list runs out |
 | The Stenographer's acronyms | `wordlists-themed/acronyms.txt` — one per line, `#` comments; letters only, and no lone Q (the press has no Q sort to set it with) |
+| The Expectant Parents' baby names | `wordlists-themed/names.txt` — same format; regenerate from the US and England & Wales charts with `tools/build-names-list.mjs` |
 | The four registers' word lists (the Sexton, the Paramour, the Poppet, the Vulgarian) | `wordlists-themed/theme-*.txt` — one word per line, edit freely; loading in `js/themes.js` |
 | The Frontispiece's opening multiplier & growth | `js/constants.js` → `FRONTISPIECE` |
 
@@ -352,9 +355,9 @@ bigger step than the last and a built press has to multiply rather than add:
 | `js/sheets.js` | the full-screen sheets — Market, stalls, Colophon, draft — HTML and click handling, with game flow injected from main.js |
 | `js/anim.js` | flights, floaters, tweens, sparkles, WebAudio sfx — every duration respects the speed setting |
 | `js/main.js` | orchestration: submit cinematic, page/chapter flow, input, settings |
-| `js/drag.js` | pointer input: tap / drag / long-press for rack and word, mouse and touch alike |
+| `js/drag.js` | pointer input: tap / drag / long-press for rack, word and the patron shelf (where a drag reseats a patron, changing the order effects fire in), mouse and touch alike |
 | `js/dict.js` | dictionary loading/caching (also reads a `window.FOLIO_WORDLIST` global, for single-file bundles) |
-| `js/themes.js` | the themed lists in `wordlists-themed/` — registers and acronyms — as Sets (also reads a `window.FOLIO_THEMES` global, for single-file bundles) |
+| `js/themes.js` | the themed lists in `wordlists-themed/` — registers, acronyms, nouns and names — as Sets (also reads a `window.FOLIO_THEMES` global, for single-file bundles) |
 
 Scoring is deliberately pure (`computeScore` never mutates state), so the same
 function powers the live preview, the tooltips, and the replayed cinematic —

@@ -27,6 +27,7 @@ export const TILE_POINTS = {
   // exception: there's no lone Q to sum from, so it keeps its long-held 10.
   ING:4, CH:7, CK:8, TH:5, WH:8,
   RAT:3,                    // R+A+T, exactly what the three would score apart
+  OLOGY:9,                  // O+L+O+G+Y — The Scientist's loan, and no one else's
   '?':1, '!':1,
 };
 
@@ -41,15 +42,17 @@ export const BAG_COUNTS = {
 // sit in the middle, ING closes it off. QU is the odd one out, being also a bag
 // letter — the one ligature every run starts holding.
 //
-// One suffix is deliberate. ED sat here too and was cut: it turned up in three
-// times as many short words as anything else, for the fewest points of any
-// ligature, which made drawing one both automatic and unexciting. A ligature
-// should be a find, not a staple.
-export const LIGATURES = ['ING', 'CH', 'CK', 'TH', 'WH', 'QU', 'RAT'];
+// One *dealt* suffix is deliberate. ED sat here too and was cut: it turned up
+// in three times as many short words as anything else, for the fewest points
+// of any ligature, which made drawing one both automatic and unexciting. A
+// ligature should be a find, not a staple. OLOGY doesn't break the rule — it
+// is never dealt, only lent (see EXCLUSIVE_LETTERS).
+export const LIGATURES = ['ING', 'CH', 'CK', 'TH', 'WH', 'QU', 'RAT', 'OLOGY'];
 
 // Letters no shop, draft or heap will ever hand you: they come from one
-// patron and nowhere else. RAT belongs to The Rat Catcher.
-export const EXCLUSIVE_LETTERS = ['RAT'];
+// patron and nowhere else. RAT belongs to The Rat Catcher; OLOGY is The
+// Scientist's, and only ever on loan.
+export const EXCLUSIVE_LETTERS = ['RAT', 'OLOGY'];
 
 // ─── Marks (punctuation tiles) ────────────────────────────────────────────────
 // Not letters, and not ligatures either: a mark spells nothing and is simply
@@ -382,10 +385,6 @@ export const DABBLER_ODDS = 0.5;
 // — free paint at common weight, arriving faster than the Painter sells it.
 // The Dipper's card reads its odds off this number, so moving it moves the copy.
 export const DIPPER_PAINT_CHANCE = 1 / 12;
-// The Bloodletter's coin, tossed over a lone discarded tile. This is the odds
-// of the kind face — crimson paint — and it goes through luckyRoll, so the
-// luck dial tilts the toss away from the other face, which is the furnace.
-export const BLOODLETTER_PAINT_CHANCE = 0.5;
 // The Headsman: permanent ×Mult per patron dismissed while he is seated.
 export const HEADSMAN_STEP = 0.2;
 // The Gambler's coin. Tossed once per word rather than once per keystroke:

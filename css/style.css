@@ -223,6 +223,21 @@ header {
   cursor: help;
 }
 
+/* An occupied seat can be picked up and dropped elsewhere on the shelf —
+   seat order is the running order (see reorderPatrons in state.js). Touch
+   gestures go to the drag, not to scrolling the page under it. */
+.patron[data-patron] {
+  cursor: grab;
+  touch-action: none;               /* the gesture drags the card, not the page */
+  user-select: none;
+  -webkit-user-select: none;
+}
+.patron[data-patron]:active { cursor: grabbing; }
+.patron--held {
+  opacity: 0.3;
+  filter: grayscale(0.5);
+}
+
 .patron--empty {
   border: 1.5px dashed rgba(243, 222, 184, 0.22);
   color: rgba(243, 222, 184, 0.3);
@@ -1253,6 +1268,12 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 .tile-letter[data-len='2'] { font-size: 21px; letter-spacing: -1px; }
 .tile-letter[data-len='3'] { font-size: 16px; letter-spacing: -0.8px; }
+.tile-letter[data-len='4'],
+.tile-letter[data-len='5'] { font-size: 24px; letter-spacing: -0.5px; }
+
+/* A glyph of four or more letters gets a double-wide tile (the Scientist's
+   OLOGY loan). Width rides --tile-w, so the mini variant halves with it. */
+.tile--wide { width: calc(var(--tile-w) * 2); }
 
 .tile-pts {
   position: absolute;
@@ -1526,6 +1547,8 @@ button.sundry:hover { transform: translateY(-2px); }
 .tile--mini .tile-letter { font-size: 17px; }
 .tile--mini .tile-letter[data-len='2'] { font-size: 13px; }
 .tile--mini .tile-letter[data-len='3'] { font-size: 10px; }
+.tile--mini .tile-letter[data-len='4'],
+.tile--mini .tile-letter[data-len='5'] { font-size: 14px; }
 .tile--mini .tile-pts { font-size: 8.5px; right: 3px; bottom: 2px; }
 .tile--mini .tile-alt { font-size: 7.5px; }
 .tile--mini { --nick-r: 6.5px; }

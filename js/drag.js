@@ -6,15 +6,19 @@
 //   drag       move/reorder tiles between rack and word
 //   long-press inspect a tile (popover with its effects; flip button for duals)
 //   right-click flip a dual tile directly (desktop nicety)
+//
+// The patron shelf takes the same gesture at the bottom of this file (tap to
+// inspect, drag to reseat), because seat order decides which patron acts first.
 
 import {
   state,
   moveRackToWord, moveWordToRack,
-  reorderWord, reorderRack,
+  reorderWord, reorderRack, reorderPatrons,
   toggleSelected, toggleSundrySelect, toggleDualVariant,
 } from './state.js';
 import { renderAll, showTilePopover, showPopover, hidePopover, log } from './render.js';
 import { computeScore } from './scoring.js';
+import { patronById } from './patrons.js';
 import { market, stallById } from './market.js';
 import { proposalPreview } from './sheets.js';
 import { draft } from './draft.js';
@@ -70,33 +74,42 @@ function startLongPressTimer() {
   }, LONG_PRESS_MS);
 }
 
-function startDrag(x, y) {
-  press.dragging = true;
-  clearTimeout(press.timer);
-  hidePopover();
-
-  const r = press.el.getBoundingClientRect();
-  ghost = press.el.cloneNode(true);
-  ghost.classList.add('fly-clone', 'drag-ghost');
-  ghost.classList.remove('tile--selected');
-  Object.assign(ghost.style, {
+// A clone of what you picked up, parked in #fx and carried under the pointer.
+// Shared by the board and the shelf — a patron card rides exactly as a tile
+// does, which is most of what makes the shelf feel draggable at all.
+function makeGhost(el, x, y) {
+  const r = el.getBoundingClientRect();
+  const g = el.cloneNode(true);
+  g.classList.add('fly-clone', 'drag-ghost');
+  g.classList.remove('tile--selected');
+  Object.assign(g.style, {
     left:  `${r.left}px`,
     top:   `${r.top}px`,
     width: `${r.width}px`,
     height:`${r.height}px`,
   });
-  ghost._dx = x - r.left;
-  ghost._dy = y - r.top;
-  document.getElementById('fx')?.appendChild(ghost);
-  press.el.classList.add('tile--held');
-  moveGhost(x, y);
+  g._dx = x - r.left;
+  g._dy = y - r.top;
+  document.getElementById('fx')?.appendChild(g);
+  positionGhost(g, x, y);
+  return g;
 }
 
-function moveGhost(x, y) {
-  if (!ghost) return;
-  ghost.style.left = `${x - ghost._dx}px`;
-  ghost.style.top  = `${y - ghost._dy}px`;
+function positionGhost(g, x, y) {
+  if (!g) return;
+  g.style.left = `${x - g._dx}px`;
+  g.style.top  = `${y - g._dy}px`;
 }
+
+function startDrag(x, y) {
+  press.dragging = true;
+  clearTimeout(press.timer);
+  hidePopover();
+  ghost = makeGhost(press.el, x, y);
+  press.el.classList.add('tile--held');
+}
+
+function moveGhost(x, y) { positionGhost(ghost, x, y); }
 
 function endDrag(x, y) {
   const rackEl = document.getElementById('rack');
@@ -138,7 +151,7 @@ function releasePress(commit) {
       if (selectingToDiscard()) {
         const r = toggleSelected(press.id);
         if (r === 'cursed') log('A cursed tile cannot be discarded — it has to be played.', 'warn');
-        if (r === 'lent')   log('The editor would only hand you another — play it instead.', 'warn');
+        if (r === 'lent')   log('A lent tile cannot be discarded — play it or let the page end.', 'warn');
       }
       else                      moveRackToWord(press.id);
     } else {
@@ -220,6 +233,118 @@ export function initInput() {
 
 // Kept for compatibility with older callers
 export const initDrag = initInput;
+
+// ─── The patron shelf (drag a card to change the running order) ────────────────
+// Seat order is the roster's rule of precedence — hooks fire down the shelf and
+// a tile one patron consumes is out of every later seat's reach — so the order
+// of the cards is a real decision and has to be editable by hand. The gesture
+// is the rack's: press, travel past the threshold, drop where you want it.
+// A plain tap still opens the card's popover; only a genuine drag reorders, and
+// the click that trails a drag is swallowed so a reorder never also pops a
+// tooltip. The ✕ keeps its own job — a press that starts on it is left alone.
+
+let shelfPress = null;   // { pointerId, ref, el, x0, y0, dragging }
+let shelfGhost = null;
+let shelfDropped = false;   // a drag just landed — eat the click that follows
+
+// Where the held card would land, counted in seats that HOLD a patron: an
+// empty seat has no entry in state.patrons, so a card dropped over the empty
+// tail simply goes last. The held card stays in the DOM (dimmed) so the
+// indices line up with state.patrons, and reorderPatrons compensates for the
+// removal itself — exactly the arrangement the rack uses.
+function shelfInsertIndex(shelf, clientX) {
+  const cards = [...shelf.querySelectorAll(':scope > .patron[data-patron]')];
+  if (!cards.length) return 0;
+  let best = cards.length, bestDist = Infinity;
+  for (let i = 0; i < cards.length; i++) {
+    const b  = cards[i].getBoundingClientRect();
+    const cx = b.left + b.width / 2;
+    const d  = Math.abs(cx - clientX);
+    if (d < bestDist) { bestDist = d; best = clientX < cx ? i : i + 1; }
+  }
+  return Math.max(0, Math.min(best, cards.length));
+}
+
+function endShelfPress(commit, x) {
+  if (!shelfPress) return;
+  const shelf = document.getElementById('shelf');
+  const wasDrag = shelfPress.dragging;
+  shelfGhost?.remove();
+  shelfGhost = null;
+  shelfPress.el.classList.remove('patron--held');
+
+  if (commit && wasDrag && shelf && !blocked()) {
+    const moved = reorderPatrons(shelfPress.ref, shelfInsertIndex(shelf, x));
+    shelfDropped = true;             // suppress the trailing click either way
+    if (moved) {
+      const seat = state.patrons.findIndex(p =>
+        String(p.uid) === String(shelfPress.ref) || p.id === shelfPress.ref);
+      const def = patronById(state.patrons[seat]?.id);
+      const name = def?.instName?.(state.patrons[seat]?.data) ?? def?.name ?? 'The patron';
+      log(`${name} takes seat ${seat + 1} — patrons act in the order they sit.`);
+    }
+  }
+  shelfPress = null;
+  if (wasDrag) renderAll();          // restore the held card, or show the new order
+}
+
+export function initShelfDrag() {
+  const shelf = document.getElementById('shelf');
+  if (!shelf) return;
+
+  shelf.addEventListener('pointerdown', e => {
+    if (shelfPress || blocked()) return;
+    if (e.button !== undefined && e.button !== 0) return;   // primary only
+    if (e.target.closest('[data-sell]')) return;            // the ✕ dismisses
+    const card = e.target.closest('.patron[data-patron]');
+    if (!card) return;
+
+    // Deliberately no preventDefault here: on touch it would swallow the
+    // click that tap-to-inspect is built on. Selection and scrolling are
+    // headed off in CSS instead (user-select / touch-action on the card).
+    shelfDropped = false;   // never let a stale flag eat this press's click
+    shelfPress = {
+      pointerId: e.pointerId,
+      ref: card.dataset.uid ?? card.dataset.patron,
+      el: card,
+      x0: e.clientX,
+      y0: e.clientY,
+      dragging: false,
+    };
+    card.setPointerCapture?.(e.pointerId);
+  });
+
+  // A drag that lands is followed by a click on the card; that click would
+  // otherwise open the popover the drag was never asking for.
+  shelf.addEventListener('click', e => {
+    if (!shelfDropped) return;
+    shelfDropped = false;
+    e.stopPropagation();
+    e.preventDefault();
+  }, true);
+
+  window.addEventListener('pointermove', e => {
+    if (!shelfPress || e.pointerId !== shelfPress.pointerId) return;
+    if (!shelfPress.dragging) {
+      if (Math.hypot(e.clientX - shelfPress.x0, e.clientY - shelfPress.y0) < DRAG_THRESHOLD) return;
+      shelfPress.dragging = true;
+      hidePopover();
+      shelfGhost = makeGhost(shelfPress.el, e.clientX, e.clientY);
+      shelfPress.el.classList.add('patron--held');
+    }
+    positionGhost(shelfGhost, e.clientX, e.clientY);
+  });
+
+  window.addEventListener('pointerup', e => {
+    if (!shelfPress || e.pointerId !== shelfPress.pointerId) return;
+    endShelfPress(true, e.clientX);
+  });
+
+  window.addEventListener('pointercancel', e => {
+    if (!shelfPress || e.pointerId !== shelfPress.pointerId) return;
+    endShelfPress(false, e.clientX);
+  });
+}
 
 // ─── Inspecting things outside the board ───────────────────────────────────────
 // Shop offers, draft cards and the collection explain themselves on hover (mouse)

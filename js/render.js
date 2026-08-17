@@ -49,6 +49,10 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   const active = getActiveLetter(tile);
   const paint  = getActiveColour(tile);
 
+  // Four or more letters outgrow even the ligature type sizes — the tile
+  // itself doubles in width instead (the OLOGY tile, and whatever follows it).
+  if (active.length >= 4) div.classList.add('tile--wide');
+
   // Letter (painted in its colour)
   const letter = document.createElement('span');
   letter.className = 'tile-letter';
@@ -124,7 +128,12 @@ export function tileFeatures(tile) {
     out.push({ head: 'Grown', body: `+${getActiveGrowth(tile)} Points set permanently into this letter.` });
   }
   if (tile.ephemeral) {
-    out.push(tile.aboveHand
+    out.push(tile.lender === 'scientist'
+      ? {
+          head: 'The Scientist’s loan',
+          body: 'Lent for this page only — it rides above your hand size, and vanishes when the page ends, played or not.',
+        }
+      : tile.aboveHand
       ? {
           head: 'The Enthusiast’s gift',
           body: 'Lent for this page only — it rides above your hand size, and vanishes when the page ends, played or not.',
@@ -191,6 +200,10 @@ export function showPatronPopover(def, anchorEl, seat = null) {
   // A patron with something to be *used* offers it above the dismissal.
   const act = def.id === 'neologist'
     ? `<button class="btn btn-quiet tip-btn" data-patron-act="neologist">Coin a word…</button>`
+    : def.id === 'scientist' && seat && !state.inMarket && !state.inColophon
+    ? (seat.data?.used
+        ? `<button class="btn btn-quiet tip-btn" disabled>Lent this page already</button>`
+        : `<button class="btn btn-quiet tip-btn" data-patron-act="scientist">Ask for the OLOGY tile</button>`)
     : '';
   const name = def.instName?.(seat?.data) ?? def.name;
   const desc = def.instDesc?.(seat?.data) ?? def.desc;

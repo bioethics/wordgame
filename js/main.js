@@ -43,7 +43,7 @@ import {
   sleep, flyClone, popReveal, floatText, tweenNum, setNum, fmtMult,
   pulse, sparkleBurst, sfx, applySpeedCSS, speechBubble,
 } from './anim.js';
-import { initInput, initInspect } from './drag.js';
+import { initInput, initInspect, initShelfDrag } from './drag.js';
 import { patronById, doubledReading } from './patrons.js';
 import { randomQuip } from './quips.js';
 
@@ -305,6 +305,15 @@ function runPrintedHooks(tiles, script) {
 // rack but before the hand tops up, so a patron that paints one is writing to
 // a tile already filed in the discard pile — and the collection, which is what
 // makes the change outlast the page.
+//
+// SEAT ORDER IS THE RULE OF PRECEDENCE, here and in every hook loop: patrons
+// fire in the order they were seated, and a tile one of them consumes is out
+// of every later seat's reach. That is a promise to the player, not an
+// accident of iteration — the Bloodletter and the Typefounder both want a
+// discarded pair, and which one takes it is decided by who sits nearer the
+// head of the shelf (tempered by pickiness: a pair the crucible refuses
+// falls through to the next seat). Future conflicting patrons resolve the
+// same way; don't special-case an ordering here.
 // Returns the tiles a patron recoloured, so the caller can show it happening;
 // the tiles a patron destroyed outright (The Bloodletter, and the consumed
 // half of a Typefounder melt), which must be unfiled from the pile and burned
@@ -453,12 +462,14 @@ async function submitWord() {
   if (!parts)          return reject('Marks go last, as ? or ! or ?!.');
   if (!parts.letters)  return reject('A mark needs a word in front of it.');
   let pardoned = null;
-  let vouched = false;
+  let vouched = null;   // patron id — the lexicon patrons vouch, they don't pardon
   if (!DICT.has(parts.letters)) {
-    // The Stenographer's lexicon is checked before the pardons: its entries
-    // are legitimate in their own right, not misspellings of something else.
+    // The lexicon patrons are checked before the pardons: their entries are
+    // legitimate in their own right, not misspellings of something else.
     if (owns('stenographer') && THEME_SETS.acronyms.has(parts.letters)) {
-      vouched = true;
+      vouched = 'stenographer';
+    } else if (owns('expectants') && THEME_SETS.names.has(parts.letters)) {
+      vouched = 'expectants';
     } else {
       pardoned = pardonWord(parts.letters);
       if (!pardoned) return reject(`“${w}” isn't in the dictionary.`);
@@ -611,7 +622,8 @@ async function submitWord() {
     const def = patronById(pardoned.id);
     msg += `  ${def.emoji} ${def.name} lets it stand for ${pardoned.stands}.`;
   }
-  if (vouched) msg += `  📟 The Stenographer vouches for it.`;
+  if (vouched === 'stenographer') msg += `  📟 The Stenographer vouches for it.`;
+  if (vouched === 'expectants')   msg += `  🤰 The Expectant Parents had that very name on their list.`;
   log(msg, 'good');
 
   // Tiles fly to wherever they actually went
@@ -1089,12 +1101,44 @@ $('overlayModal')?.addEventListener('keydown', e => {
   if (e.key === 'Escape') { e.preventDefault(); hideOverlay(); }
 });
 
+// The Scientist's loan: a gold-trimmed OLOGY tile, cast lent (no template
+// behind it, so it vanishes with the page) and flown in from his own card.
+// Once a page — data.used latches here and re-arms in his onPageStart.
+async function lendOlogyTile() {
+  if (state.isAnimating || state.inMarket || state.inColophon || state.gameOver) return;
+  const seat = state.patrons.find(p => p.id === 'scientist');
+  if (!seat) return;
+  seat.data ??= {};
+  if (seat.data.used) { log('🔬 One tile per page — science has standards.', 'warn'); return; }
+  seat.data.used = true;
+
+  const tile = castLentTile('OLOGY', { aboveHand: true, lender: 'scientist', trim: 'gold' });
+  state.isAnimating = true;
+  renderButtons();
+  renderRack(new Set([tile.id]));
+  const el = rackTileEl(tile.id);
+  const card = patronCard(seat);
+  if (card) pulse(card, 'patron--firing', 520);
+  if (el) {
+    sfx.draw();
+    await flyClone(el, rect(card) ?? bagRect(), rect(el), { duration: ANIM.fly, scaleFrom: 0.35 });
+    popReveal(el);
+    sparkleBurst(el, 9);
+  }
+  state.isAnimating = false;
+  log('🔬 The Scientist lends a gold-trimmed OLOGY tile — for this page only.', 'good');
+  renderAll();
+}
+
 // Popover actions (flip a dual tile, dismiss a patron, use a patron)
 $('popover')?.addEventListener('click', e => {
   const act = e.target.closest('[data-patron-act]');
   if (act) {
     hidePopover();
-    if (!state.isAnimating && act.dataset.patronAct === 'neologist') showCoinWordSheet();
+    if (!state.isAnimating) {
+      if (act.dataset.patronAct === 'neologist') showCoinWordSheet();
+      if (act.dataset.patronAct === 'scientist') lendOlogyTile();
+    }
     return;
   }
   const sell = e.target.closest('[data-sell]');
@@ -1231,6 +1275,7 @@ async function beginRun() {
   applySpeedCSS();
   initInput();
   initInspect();
+  initShelfDrag();
   initSheets({ nextPage: beginNextPage, advancePage, beginRun });
 
   renderDictStatus('loading', 0);
