@@ -28,6 +28,7 @@ export const TILE_POINTS = {
   ING:4, CH:7, CK:8, TH:5, WH:8,
   RAT:3,                    // R+A+T, exactly what the three would score apart
   OLOGY:9,                  // O+L+O+G+Y — The Scientist's loan, and no one else's
+  '☙':1,                    // the fleuron — an ornament, not a letter; prints alone
   '?':1, '!':1,
 };
 
@@ -51,8 +52,22 @@ export const LIGATURES = ['ING', 'CH', 'CK', 'TH', 'WH', 'QU', 'RAT', 'OLOGY'];
 
 // Letters no shop, draft or heap will ever hand you: they come from one
 // patron and nowhere else. RAT belongs to The Rat Catcher; OLOGY is The
-// Scientist's, and only ever on loan.
-export const EXCLUSIVE_LETTERS = ['RAT', 'OLOGY'];
+// Scientist's, and only ever on loan; the fleuron is sold at its own price
+// (FLEURON_PRICE), never rolled among the ordinary sorts.
+export const EXCLUSIVE_LETTERS = ['RAT', 'OLOGY', '☙'];
+
+// ─── The fleuron ──────────────────────────────────────────────────────────────
+// A printer's ornament, struck in gold. It decorates the page rather than
+// setting it: the one tile that refuses to join a word — it can only be
+// printed alone, for its single point, which spends a whole word slot to
+// clear it from the hand — and the one tile that earns while doing nothing,
+// paying 1 Coin at every page completion wherever it happens to be (bag,
+// pile, or clogging your rack). Turns up rarely at the Market, priced at a
+// chapter of its own rent.
+export const FLEURON = '☙';
+export const FLEURON_PRICE        = 3;
+export const FLEURON_PAGE_COIN    = 1;     // paid per fleuron owned, every page
+export const FLEURON_OFFER_CHANCE = 0.18;  // odds a Market tile slot holds one
 
 // ─── Marks (punctuation tiles) ────────────────────────────────────────────────
 // Not letters, and not ligatures either: a mark spells nothing and is simply
@@ -117,6 +132,33 @@ export const PAINT_PER_POT   = 3;   // tiles painted per draft pot (random, unpa
 // first, then pour.
 export const SUNDRY_SLOTS  = 2;   // sundries the workbench can hold
 export const SUNDRY_OFFERS = 2;   // sundries offered per shop
+
+// ─── The toolbox and its tools ────────────────────────────────────────────────
+// A parcel of a different kind: open it on the bench and two DIFFERENT tools
+// from the pool below take its place (the second only if the bench has room —
+// the box's own slot always takes the first). The four guild tools come from
+// nowhere else — like marks, a find rather than a purchase — while the odd
+// ratchet rattles around in there at half the rate, because any toolbox
+// might have one. Repeating an entry is how you make it likelier.
+export const TOOLBOX_PRICE = 4;
+export const TOOLBOX_POOL  = [
+  'loupe', 'loupe', 'laurel', 'laurel', 'tongs', 'tongs', 'wash', 'wash',
+  'ratchet',
+];
+export const LOUPE_CAP      = 30;  // a doubled tile never passes this resting value
+export const HONORIFIC_STEP = 2;   // Points per word, per laurel a patron wears
+export const TONGS_BONUS    = 8;   // Points armed for the next word, per grip
+export const WASH_COUNT     = 4;   // tiles washed per pot — one of each colour
+
+// How the bench, the shop card and the held row draw a tool — one look each,
+// shared so the three never disagree.
+export const TOOL_LOOK = {
+  toolbox: { glyph: '🧰', label: 'Toolbox' },
+  loupe:   { glyph: '🔍', label: 'Loupe' },
+  laurel:  { glyph: '🏵️', label: 'Laurel' },
+  tongs:   { glyph: '🗜️', label: 'Tongs' },
+  wash:    { glyph: '💧', label: 'Ink wash' },
+};
 // Patrons offered per Market. Was 3, tuned when the roster was 54 defs; at 70
 // defs a visit showed an ever-thinner slice of the game, and guild assembly
 // through the shop was already a flagged watchpoint. Scale this with the
@@ -482,6 +524,32 @@ export function sundryTip(s) {
     body: 'No target to pick — it simply banks until you spend it, on the Market’s '
         + 'own offers (free, and it doesn’t touch the escalating re-roll price) or on '
         + 'a fresh three at the Colophon.',
+  };
+  if (s?.kind === 'toolbox') return {
+    head: 'Toolbox',
+    body: 'Open it on the bench: two different tools from inside take its place — '
+        + 'a loupe, a laurel, tongs, an ink wash, or the odd ratchet. The second '
+        + 'tool needs a free slot, or it rolls away.',
+  };
+  if (s?.kind === 'loupe') return {
+    head: 'Loupe',
+    body: `Tap a tile in your hand, then the loupe again: doubles its value (to a max of ${LOUPE_CAP}), permanently.`,
+  };
+  if (s?.kind === 'laurel') return {
+    head: 'Laurel',
+    body: `Crowns a random seated patron: +${HONORIFIC_STEP} Points on every word while they keep their seat. `
+        + 'Laurels stack, and a dismissed patron takes theirs with them.',
+  };
+  if (s?.kind === 'tongs') return {
+    head: 'Tongs',
+    body: `Grip a tile in your hand, then the tongs again: the tile is destroyed for good, and the next word `
+        + `you print gains +${TONGS_BONUS} Points. Grips stack; the bonus expires with the page.`,
+  };
+  if (s?.kind === 'wash') return {
+    head: 'Ink wash',
+    body: `Up to ${WASH_COUNT} unpainted tiles in your hand take a faint wash, one of each colour. `
+        + 'A washed tile counts as its colour — patrons and multipliers alike — until it prints, '
+        + 'then the wash comes off. Real paint replaces it.',
   };
   if (s?.kind === 'wrapped') return {
     head: 'A wrapped tile',

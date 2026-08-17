@@ -735,6 +735,60 @@ commons at 4 Coins:
   player to think about order at all, which is why the cards say nothing
   about it and the log says it plainly on every drop.
 
+## The toolbox, its tools, and the fleuron
+
+More consumables, without touching how often the old ones turn up: the
+toolbox is one more entry in the same shop rotation, and the four guild tools
+inside it are sold nowhere at all. That is the marks arrangement again — a
+find rather than a purchase — and it is why the shop's stock reads the same
+as it always did.
+
+- **The toolbox** (4 Coins) yields two *different* tools, rolled when it is
+  opened rather than when it is bought. The box's own slot always takes the
+  first; the second needs a free slot or it rolls away, which is the whole of
+  the "space permitting" rule and never silently wastes a purchase. The
+  ratchet sits in the pool at half weight — thematically almost mandatory
+  (it is the one object in the game that is *literally* a tool) and
+  mechanically harmless, since it sells for 3 against the box's 4.
+- **Loupe** (jade · permanence) doubles a chosen tile's resting value, capped
+  at `LOUPE_CAP` and written in through `growTile`, so it survives the page,
+  the save and every reshuffle like all growth. Free choice is a deliberate
+  departure from the tube, which lost its aim because aimed paint always
+  landed on the same four workhorse letters — but the cap is what makes the
+  choice interesting rather than automatic: it favours raising a common
+  letter first and doubling *that* over doubling the jewel already near 30.
+- **Laurel** (amber · patronage) is the first effect that lives on a seat
+  without being a patron: `data.honorifics`, paid in scoring's patron pass and
+  attributed to the crowned seat, so the shelf shows who is earning. It dies
+  with the seat, which is a standing argument with the Headsman and makes the
+  random target a real cost rather than decoration.
+- **Tongs** (crimson · sacrifice) destroy a tile through `trashFromCollection`
+  — the same road every other destruction takes, so the Composter is fed and
+  the Smelter's floor holds — and arm `state.tongsBonus` for the next word.
+  Held in state and cleared at commit, never rolled or cleared inside the
+  score effect: `computeScore` reruns on every keystroke, the lesson the
+  Gambler's coin taught.
+- **Ink wash** (azure · flow) is the one that needed a new tile property.
+  `tile.wash` is NOT paint: it never goes through `paintTile`, so the Dabbler
+  never splashes off it and the Illuminator's permanent economy is untouched.
+  It reads through `getActiveColour`, which means it lifts the colour
+  multiplier as well as satisfying patrons — deliberately unlike rainbow
+  metal, which speaks only through `countsAsColour`. Written through to the
+  template like paint so it survives pages, and erased by `washOff` at commit,
+  before the tiles retire, so The Fountain sees them bare: an azure wash buys
+  the multiplier, not the trip back to the bag.
+- **The fleuron** ☙ is an annuity rather than a lottery ticket, which is why
+  it is sold openly at the Market instead of hidden in a wrapped tile: its
+  whole question is "is this worth the rack-clog risk for the rest of the
+  run?", and that deserves to be answered with open eyes at a price. It sets
+  no word (refused before the dictionary is even asked), prints alone for 1
+  Point, and pays `FLEURON_PAGE_COIN` at every page completion unconditionally
+  — the drawback is the hand it clogs, not a coin it might miss. Guards were
+  needed in four places that assume a tile is a letter: the ratchet's ring,
+  the Typefounder's crucible, and the Punchcutter's eligibility *and* its
+  pool of second faces (an ornament with a letter on its back would join words
+  half the time).
+
 ## Remaining phases
 
 1. **Phase 1 — score-time patrons.** All "pure `score` def" rows above, plus

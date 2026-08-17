@@ -2,7 +2,8 @@ import {
   RACK_SIZE, WORDS_PER_PAGE, DISCARDS_PER_PAGE, STARTING_COINS,
   PATRON_SLOTS, SUNDRY_SLOTS, SMELT_MIN_COLLECTION,
   BAG_COUNTS, TILE_POINTS, DABBLER_ODDS, CURSED_MAX_POINTS, isImmutable, isMark,
-  MARKS, MARK_TRIM, SILVER_BONUS,
+  MARKS, MARK_TRIM, SILVER_BONUS, FLEURON, LOUPE_CAP, TONGS_BONUS, WASH_COUNT,
+  COLOURS,
   quotaFor, makeTileTemplate, GAMBLER_ODDS, isDeadline,
 } from './constants.js';
 import { CHAPTER_TITLES } from './chapters.js';
@@ -48,9 +49,13 @@ export function getActiveLetter(tile) {
 
 // The paint a tile is wearing. Paint belongs to the tile, not to either face,
 // so this is the same whichever letter a dual is showing — kept as a function
-// because everything that scores paint calls it, and because a material could
-// yet want a say (see countsAsColour, which is where rainbow gets its).
-export const getActiveColour = tile => tile.colour;
+// because everything that scores paint calls it, which is exactly what lets
+// the ink wash slot in here: a washed tile counts as its wash colour to
+// patrons AND multipliers alike, deliberately unlike rainbow metal (which
+// speaks only through countsAsColour and never lifts a multiplier unpainted).
+// Real paint sits over a wash and wins; the wash comes off when the tile
+// prints (washOff, called at commit in main.js).
+export const getActiveColour = tile => tile.colour ?? tile.wash ?? null;
 
 // What a tile is worth before the word it sits in touches it: its letter's face
 // value, any growth set permanently into it, and a silver trim. All three
@@ -396,6 +401,7 @@ export function startPage() {
   state.discardMode = false;
   state.sundryMode = -1;
   state.tubeOffer = null;
+  state.tongsBonus = 0;   // a page turn lets the furnace's heat out
   rollGamble();
 }
 
@@ -536,8 +542,9 @@ export function growTile(tile, n = 1) {
 export function paintTile(tile, colour) {
   if (isImmutable(tile)) return false;
   tile.colour = colour;
+  tile.wash = null;   // real paint replaces a wash outright
   const tmpl = state.collection.find(c => c.tid === tile.tid);
-  if (tmpl) tmpl.colour = colour;
+  if (tmpl) { tmpl.colour = colour; tmpl.wash = null; }
   dabblerSplash(tile, colour);
   return true;
 }
@@ -571,6 +578,42 @@ function dabblerSplash(painted, colour) {
     if (t.tid === extra.tid) t.colour = colour;
   }
   paintEchoes.push({ letter: getActiveLetter(extra), colour });
+}
+
+// ─── The ink wash (the toolbox's azure tool) ──────────────────────────────────
+// A faint coat, one tile per colour, laid on random unpainted tiles in the
+// hand. It counts as its colour everywhere paint does (getActiveColour reads
+// it), but it is not paint: it never goes through paintTile, so the Dabbler
+// never splashes off it, and it comes off the moment the tile prints. Written
+// through to the collection template like paint, so a washed tile discarded
+// today is still washed when the bag deals it again — the ink is spent by
+// printing and nothing else.
+export function applyWash() {
+  const candidates = [...state.rack, ...state.word]
+    .filter(t => !t.colour && !t.wash && !isImmutable(t));
+  const picks = shuffle(candidates).slice(0, WASH_COUNT);
+  const colours = shuffle(Object.keys(COLOURS)).slice(0, picks.length);
+  return picks.map((tile, i) => {
+    tile.wash = colours[i];
+    const tmpl = state.collection.find(c => c.tid === tile.tid);
+    if (tmpl) tmpl.wash = colours[i];
+    return { tile, colour: colours[i] };
+  });
+}
+
+// The wash pays its way at scoring and comes off as the word commits — called
+// from main.js on the printed tiles, before they retire, so The Fountain sees
+// them bare (an azure wash buys the multiplier, not the trip back to the bag).
+export function washOff(tiles) {
+  let rinsed = 0;
+  for (const t of tiles) {
+    if (!t.wash) continue;
+    t.wash = null;
+    const tmpl = state.collection.find(c => c.tid === t.tid);
+    if (tmpl) tmpl.wash = null;
+    rinsed++;
+  }
+  return rinsed;
 }
 
 // A trim belongs to the tile, not to either face. Refuses a tile that already
@@ -615,7 +658,7 @@ export function trashFromCollection(tid) {
 // trashFromCollection, so it respects the Smelter's floor and feeds the
 // Composter like every other route out.
 export function mergeTiles(left, right) {
-  const plain = t => t.letter.length === 1 && !isMark(t.letter)
+  const plain = t => t.letter.length === 1 && !isMark(t.letter) && t.letter !== FLEURON
                   && t.letterType !== 'dual' && !isImmutable(t);
   if (!plain(left) || !plain(right)) return false;
   if (!trashFromCollection(right.tid)) return false;   // the floor held
@@ -695,7 +738,11 @@ export function toggleSundrySelect(id) {
   // An armed tube takes only the tiles it laid out.
   if (state.sundries[state.sundryMode]?.kind === 'tube'
       && !(state.tubeOffer ?? []).includes(tile.id)) return 'unoffered';
-  if (sundrySelected().length >= 1) return 'full';   // both tools take one target
+  // The loupe magnifies nothing past its own limit — refuse a tile already
+  // at the cap when it is picked, not after.
+  if (state.sundries[state.sundryMode]?.kind === 'loupe'
+      && restingPoints(tile) >= LOUPE_CAP) return 'capped';
+  if (sundrySelected().length >= 1) return 'full';   // every armed tool takes one target
   tile.selected = true;
   return 'on';
 }
@@ -707,7 +754,7 @@ export function toggleSundrySelect(id) {
 // so A steps down to Z. Ligatures and marks aren't single letters and have no
 // place on the ring at all.
 const SHIFT_RING = Object.keys(TILE_POINTS)
-  .filter(l => l.length === 1 && !isMark(l))
+  .filter(l => /^[A-Z]$/.test(l))   // letters only — no marks, and no fleuron
   .sort();
 
 export const shiftable = tile =>
@@ -747,6 +794,37 @@ export function applySundry(idx, dir = 0) {
     state.sundries.splice(idx, 1);
     state.sundryMode = -1;
     return { kind: 'ratchet', from, to: getActiveLetter(tile), ids: [tile.id] };
+  }
+
+  // The loupe doubles what the corner number says — face, growth and silver
+  // trim together — capped at LOUPE_CAP, and written in as permanent growth
+  // so the gain survives the page like everything the Grafter does.
+  if (sundry.kind === 'loupe') {
+    const tile = sundrySelected().filter(t => !isImmutable(t))[0];
+    if (!tile) return null;
+    const from = restingPoints(tile);
+    const delta = Math.min(LOUPE_CAP, from * 2) - from;
+    if (delta <= 0 || !growTile(tile, delta)) return null;
+    tile.selected = false;
+    state.sundries.splice(idx, 1);
+    state.sundryMode = -1;
+    return { kind: 'loupe', from, to: from + delta, letters: [getActiveLetter(tile)], ids: [tile.id] };
+  }
+
+  // The tongs feed a tile to the furnace by hand: gone for good (through
+  // trashFromCollection, so the Composter is fed and the Smelter's floor
+  // holds), and the next word prints hotter for it. Grips stack; the bonus
+  // is read by computeScore and cleared when a word commits or a page turns.
+  if (sundry.kind === 'tongs') {
+    const tile = sundrySelected().filter(t => !isImmutable(t))[0];
+    if (!tile) return null;
+    if (!trashFromCollection(tile.tid)) return null;
+    state.rack = state.rack.filter(t => t.id !== tile.id);
+    state.word = state.word.filter(t => t.id !== tile.id);
+    state.tongsBonus = (state.tongsBonus ?? 0) + TONGS_BONUS;
+    state.sundries.splice(idx, 1);
+    state.sundryMode = -1;
+    return { kind: 'tongs', letters: [getActiveLetter(tile)], ids: [tile.id], bonus: state.tongsBonus };
   }
 
   // The tube pours onto whichever of its offered tiles was picked. The offer
@@ -800,6 +878,7 @@ export const unpaintedTiles = () => state.collection.filter(t => !t.colour);
 export function paintRandomTiles(colour, count) {
   return shuffle(unpaintedTiles()).slice(0, count).map(tile => {
     tile.colour = colour;
+    tile.wash = null;   // the dye is real paint — a wash under it is spent
     return getActiveLetter(tile);
   });
 }

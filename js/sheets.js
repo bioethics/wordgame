@@ -9,7 +9,7 @@ import {
 } from './state.js';
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
-  PAINT_PER_POT, ANIM, SUNDRY_SELL, tileCount, sundryTip,
+  PAINT_PER_POT, ANIM, SUNDRY_SELL, tileCount, sundryTip, TOOL_LOOK,
   colourDesc,
 } from './constants.js';
 import { patronById, guildsOf } from './patrons.js';
@@ -245,8 +245,10 @@ function marketShopHTML() {
     const mark = o.kind === 'wrapped'   ? '<span class="wrapped-mark wrapped-mark--offer"></span>'
                : o.kind === 'ratchet'   ? '<span class="ratchet-mark">⇅</span>'
                : o.kind === 'reshuffle' ? '<span class="sundry-shuffle sundry-shuffle--offer">↻</span>'
+               : TOOL_LOOK[o.kind]      ? `<span class="sundry-glyph sundry-glyph--offer">${TOOL_LOOK[o.kind].glyph}</span>`
                :                          `<span class="paint-tube paint-tube--${o.colour}"></span>`;
     const extra = o.kind === 'wrapped' ? ' offer-wrapped' : o.kind === 'ratchet' ? ' offer-ratchet'
+                : TOOL_LOOK[o.kind] ? ' offer-tool'
                 : o.kind === 'tube' ? ` offer-paint--${o.colour}` : '';
     return `
       <div class="offer-paint${extra}" data-offer="sundry" data-idx="${i}"
@@ -290,6 +292,8 @@ function marketShopHTML() {
       ? `<span class="ratchet-mark held-ratchet">⇅</span>`
       : s.kind === 'wrapped'
       ? `<span class="wrapped-mark held-wrapped"></span>`
+      : TOOL_LOOK[s.kind]
+      ? `<span class="sundry-glyph held-tool">${TOOL_LOOK[s.kind].glyph}</span>`
       : `<span class="paint-tube paint-tube--${s.colour} held-tube"></span>`;
     return `
       <button class="held" data-sell-sundry="${i}"
@@ -769,10 +773,16 @@ function onMarketClick(e) {
     if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
     else {
       sfx.coin();
+      // Named from sundryTip so every kind — tube, ratchet, wrapped, toolbox —
+      // says the right thing. (COLOURS[colour] only exists for tubes: reading
+      // it for a colourless sundry threw, and the purchase froze mid-click.)
       log(r.offer.kind === 'reshuffle'
         ? 'A reshuffle joins your workbench, banked for later.'
-        : `A tube of ${COLOURS[r.offer.colour].label} joins your workbench.`, 'good');
-      flyPurchase(card?.querySelector('.paint-tube, .sundry-shuffle'), $('sundries'), { scaleTo: 0.6 });
+        : r.offer.kind === 'tube'
+        ? `A tube of ${COLOURS[r.offer.colour].label} joins your workbench.`
+        : `${sundryTip(r.offer).head} joins your workbench.`, 'good');
+      flyPurchase(card?.querySelector('.paint-tube, .sundry-shuffle, .sundry-glyph, .ratchet-mark, .wrapped-mark'),
+        $('sundries'), { scaleTo: 0.6 });
     }
     renderAll(); updateMarketState();
     return;

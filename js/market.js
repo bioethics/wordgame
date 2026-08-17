@@ -9,6 +9,7 @@ import {
   COMPOST_HEAP_MAX, COMPOST_PER_MARKET,
   TILE_BASE_PRICE, REROLL_BASE,
   SUNDRY_OFFERS, PATRON_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, RATCHET_PRICE, SUNDRY_SELL, HEADSMAN_STEP,
+  TOOLBOX_PRICE, FLEURON, FLEURON_PRICE, FLEURON_OFFER_CHANCE,
   STALL_DEFS, STALLS_PER_SHOP, PROPOSAL_RANGE, SMELT_MIN_COLLECTION,
   FEATURE_CHAIN_CHANCE, MAX_FEATURES,
   makeTileTemplate,
@@ -58,8 +59,10 @@ const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 
 function dualPairsFor(letter) {
   const pts = TILE_POINTS[letter] ?? 1;
+  // No fleuron on either face: an ornament with a letter on its back could
+  // join words half the time, and "it prints alone" has to stay the whole truth.
   return Object.keys(TILE_POINTS)
-    .filter(l => l !== letter && l.length === 1 && !isMark(l)
+    .filter(l => l !== letter && l.length === 1 && !isMark(l) && l !== FLEURON
               && Math.abs(TILE_POINTS[l] - pts) <= 2);
 }
 
@@ -146,14 +149,18 @@ function weightedPatronSample(n) {
 
 // Paint tubes and the reshuffle are the everyday stock; a wrapped tile turns up
 // in one of the slots about half the time. The shop doesn't know what is in it
-// either — the material is rolled when the paper comes off, not here.
+// either — the material is rolled when the paper comes off, not here. The
+// toolbox joined the rotation as one more entry, which is the whole of its
+// effect on the old stock's rates — nothing else was reweighted.
 function rollSundryOffers() {
-  const offers = shuffle([...Object.keys(COLOURS), 'reshuffle', 'ratchet'])
+  const offers = shuffle([...Object.keys(COLOURS), 'reshuffle', 'ratchet', 'toolbox'])
     .slice(0, SUNDRY_OFFERS)
     .map(entry => entry === 'reshuffle'
       ? { kind: 'reshuffle', colour: null, price: RESHUFFLE_PRICE, sold: false }
       : entry === 'ratchet'
       ? { kind: 'ratchet', colour: null, price: RATCHET_PRICE, sold: false }
+      : entry === 'toolbox'
+      ? { kind: 'toolbox', colour: null, price: TOOLBOX_PRICE, sold: false }
       : { kind: 'tube', colour: entry, price: TUBE_PRICE, sold: false });
 
   if (offers.length && Math.random() < WRAPPED_OFFER_CHANCE) {
@@ -177,6 +184,12 @@ export const offerPrice = offer =>
 function rollOffers() {
   market.patronOffers = weightedPatronSample(PATRON_OFFERS);
   market.tileOffers   = Array.from({ length: 4 }, randomTileOffer);
+  // The fleuron turns up in a tile slot now and then, at its own flat price —
+  // an annuity bought with open eyes, never gambled on. (See constants.js.)
+  if (Math.random() < FLEURON_OFFER_CHANCE) {
+    const i = Math.floor(Math.random() * market.tileOffers.length);
+    market.tileOffers[i] = { template: makeTileTemplate(FLEURON), price: FLEURON_PRICE, sold: false };
+  }
   market.sundryOffers = rollSundryOffers();
   guaranteeAmber();
 }
@@ -237,10 +250,11 @@ export const PROPOSAL_STALLS = {
   },
   punchcutter: {
     // A tile can only take a second letter if it hasn't one already, isn't a
-    // ligature, and has a partner of comparable value to pair with.
+    // ligature (or the fleuron), and has a partner of comparable value.
     eligible: t => t.letterType !== 'dual'
                 && !LIGATURES.includes(t.letter)
                 && !isMark(t.letter)
+                && t.letter !== FLEURON
                 && !isImmutable(t)
                 && dualPairsFor(t.letter).length > 0,
     propose:  t => ({ altLetter: pick(dualPairsFor(t.letter)) }),

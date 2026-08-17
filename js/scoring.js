@@ -1,6 +1,7 @@
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, PURPLE_TRIM_STEP, REWARD, CURSED_MULT,
   CURSED_PENALTY, SPIKE_MULT, SILVER_BONUS, isDeadline, splitMarks,
+  HONORIFIC_STEP, FLEURON, FLEURON_PAGE_COIN,
 } from './constants.js';
 import { PATRON_DEFS, patronById, guildsOf, guildSeats } from './patrons.js';
 import { bossById } from './bosses.js';
@@ -196,6 +197,30 @@ export function computeScore(wordTiles) {
     if (def?.when === 'score') { current = p.id; ctx.data = p.data ?? {}; def.effect(ctx); }
   }
 
+  // Laurels speak after their patrons: +HONORIFIC_STEP per laurel a seat
+  // wears, attributed to that seat so the crowned card is the one that pays.
+  // Seat data is read-only here as ever; the count is written when the
+  // laurel lands (main.js), never during scoring.
+  for (const p of state.patrons) {
+    const laurels = p.data?.honorifics ?? 0;
+    if (!laurels) continue;
+    const v = laurels * HONORIFIC_STEP;
+    points += v;
+    patronSteps.push({
+      id: p.id, uid: p.uid,
+      text: `+${v} Points — ${laurels > 1 ? `${laurels} laurels` : 'the laurel'}`, points: v,
+    });
+  }
+
+  // The tongs' heat: points armed when a tile was fed to the furnace, spent
+  // on the next word printed. Read here (so the live preview shows it) and
+  // cleared when the word commits — the same arrangement as the Gambler's
+  // coin, and for the same reason: this runs on every keystroke.
+  if (state.tongsBonus) {
+    points += state.tongsBonus;
+    patronSteps.push({ id: 'tongs', text: `+${state.tongsBonus} Points — the tongs' due`, points: state.tongsBonus });
+  }
+
   // ── Pass 4¼: curses left in the hand ───────────────────────────────────────
   // A cursed tile you didn't set takes its due from the word you set instead —
   // once for each one still waiting in the rack. Points, not Mult, so it lands
@@ -319,6 +344,17 @@ export function computeReward() {
     // patron seated (the Banker counts himself), never less than his old
     // flat +2.
     parts.push({ label: 'The Banker', coins: Math.max(2, guildSeats('amber')) });
+  }
+
+  // The fleuron's rent: a coin per ornament owned, every page, wherever it
+  // sits — bag, pile, or clogging the rack. Unconditional by design; the
+  // tile's drawback is the hand it clogs, not the coin it might miss.
+  const fleurons = state.collection.filter(t => t.letter === FLEURON).length;
+  if (fleurons > 0) {
+    parts.push({
+      label: fleurons > 1 ? `${FLEURON} ${fleurons} fleurons` : `${FLEURON} The fleuron`,
+      coins: fleurons * FLEURON_PAGE_COIN,
+    });
   }
 
   return { parts, total: parts.reduce((a, p) => a + p.coins, 0) };

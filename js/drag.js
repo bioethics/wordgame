@@ -147,6 +147,7 @@ function releasePress(commit) {
       if (r === 'immutable') log('A lent tile takes no paint — nor does a ghost.', 'warn');
       if (r === 'unshiftable') log('The ratchet steps single letters — not ligatures or marks.', 'warn');
       if (r === 'unoffered') log('The tube offers only the glowing tiles.', 'warn');
+      if (r === 'capped')    log('That tile is already at its finest — the loupe goes no further.', 'warn');
     } else if (press.zone === 'rack') {
       if (selectingToDiscard()) {
         const r = toggleSelected(press.id);

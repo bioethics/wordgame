@@ -220,6 +220,34 @@ Market's own offers (free, doesn't touch the escalating reroll price) or on a
 Colophon pick. (The random-scatter paint pots survive only in the opening
 draft.)
 
+The **toolbox** is a parcel of a different kind: open it on the bench and two
+*different* tools take its place — the first in the box's own slot, the second
+only if the bench has room, else it rolls away. Four of the five come from
+nowhere else in the game, one per guild's temperament, and the odd **ratchet**
+rattles around in there at half the rate:
+
+- **Loupe** (jade) — tap a tile, tap the loupe again: its value doubles, to a
+  maximum of 30, written in for good. It doubles the whole corner number, so
+  raising a common letter first (a silver trim, the Grafter's growth) and
+  *then* doubling beats doubling the jewel that is already near the cap.
+- **Laurel** (amber) — crowns a random seated patron: +2 Points on every word
+  while they keep their seat, stacking if it lands twice. A dismissed patron
+  takes their laurels with them, which is the tool's whole tension.
+- **Tongs** (crimson) — grip a tile and it goes to the furnace for good
+  (feeding the Composter, respecting the Smelter's floor); the next word you
+  print gains +8 Points. Grips stack; the heat expires with the page.
+- **Ink wash** (azure) — up to four unpainted tiles in your hand take a faint
+  wash, one of each colour. A washed tile counts as its colour to patrons *and*
+  to the multiplier, and keeps the promise until it prints — then the wash
+  comes off. Real paint replaces a wash outright.
+
+The **fleuron** ❧'s mirror, ☙, is a tile rather than a sundry: a printer's
+ornament struck in gold that sets no word at all. It can only be printed
+alone, for its single Point — which spends a whole word slot to clear it from
+your hand — and it pays 1 Coin every time a page completes, wherever it
+happens to be. It turns up now and then among the Market's tiles, priced at
+about a chapter of its own rent.
+
 **The compost heap** appears at the Market while the Composter is seated:
 every tile destroyed anywhere — burned by the Stoker, lost to the Arsonist,
 fed to the Smelter — rots down into a jade tile with complications of its own.
@@ -318,6 +346,9 @@ bigger step than the last and a built press has to multiply rather than add:
 | Tube price / tiles per tube / workbench slots / sell-back | `js/constants.js` → `TUBE_PRICE`, `TUBE_TILES`, `SUNDRY_SLOTS`, `SUNDRY_SELL` |
 | Reshuffle sundry price | `js/constants.js` → `RESHUFFLE_PRICE` |
 | Ratchet sundry price | `js/constants.js` → `RATCHET_PRICE` (the alphabet it walks is derived from `TILE_POINTS` — see `SHIFT_RING` in `js/state.js`) |
+| Toolbox price and what is inside it | `js/constants.js` → `TOOLBOX_PRICE`, `TOOLBOX_POOL` (repeat an entry to make it likelier; the box always yields two *different* tools) |
+| Tool tuning — doubling cap, laurel step, tongs bonus, wash count | `js/constants.js` → `LOUPE_CAP`, `HONORIFIC_STEP`, `TONGS_BONUS`, `WASH_COUNT` |
+| The fleuron — price, page rent, how often it is offered | `js/constants.js` → `FLEURON_PRICE`, `FLEURON_PAGE_COIN`, `FLEURON_OFFER_CHANCE` (the glyph itself is `FLEURON`) |
 | Stall roster, base prices, spread size | `js/constants.js` → `STALL_DEFS`, `STALLS_PER_SHOP`, `PROPOSAL_RANGE`, `SMELT_MIN_COLLECTION` |
 | Marks: which ones exist, legal tails, and what they arrive wearing | `js/constants.js` → `MARKS`, `MARK_RUNS`, `MARK_TRIM` (and `TILE_POINTS`). How often one turns up is `WRAPPED_CONTENTS`, since a wrapper is the only source |
 | What a proposal stall works on & offers | `js/market.js` → `PROPOSAL_STALLS` (one `eligible`/`propose` pair per stall — a new one is a few lines) |

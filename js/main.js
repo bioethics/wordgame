@@ -8,7 +8,7 @@ import {
   newRun, startPage, drawUpToRackSize, clearWord, shuffleRack,
   discardSelected, getWordString, moveRackToWord, owns, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected, takePaintEchoes,
-  rollTubeOffer,
+  rollTubeOffer, applyWash, washOff, effectiveSundrySlots,
   getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile,
   trashFromCollection, mergeTiles, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
   effectiveWordsPerPage, rollGamble,
@@ -17,6 +17,7 @@ import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
   REACTION, NEOLOGIST_LENGTH, MATERIALS, TRIMS, WRAPPED_CONTENTS, MARK_TRIM,
   chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks, isDeadline,
+  FLEURON, TOOLBOX_POOL, TOOL_LOOK, HONORIFIC_STEP, TONGS_BONUS, LOUPE_CAP,
 } from './constants.js';
 import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
 import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
@@ -462,9 +463,16 @@ async function submitWord() {
   };
   if (!parts)          return reject('Marks go last, as ? or ! or ?!.');
   if (!parts.letters)  return reject('A mark needs a word in front of it.');
+  // The fleuron decorates the page, never a word: alone it stands (for its
+  // single point — the price of clearing it from the hand is the word slot),
+  // beside anything else it is refused before the dictionary is even asked.
+  const fleuronAlone = parts.letters === FLEURON;
+  if (parts.letters.includes(FLEURON) && !fleuronAlone) {
+    return reject('The fleuron sets no word — it prints alone.');
+  }
   let pardoned = null;
   let vouched = null;   // patron id — the lexicon patrons vouch, they don't pardon
-  if (!DICT.has(parts.letters)) {
+  if (!fleuronAlone && !DICT.has(parts.letters)) {
     // The lexicon patrons are checked before the pardons: their entries are
     // legitimate in their own right, not misspellings of something else.
     if (owns('stenographer') && THEME_SETS.acronyms.has(parts.letters)) {
@@ -595,6 +603,10 @@ async function submitWord() {
   // every keystroke — see rollGamble in state.js.
   rollGamble();
 
+  // The tongs' heat went into this word (computeScore read it); the furnace
+  // is cold again for the next.
+  state.tongsBonus = 0;
+
   // The editor's memory moves on likewise — chains advance, bars re-set,
   // tempers and measures re-roll — here and never during scoring, which
   // re-runs on every keystroke.
@@ -607,6 +619,11 @@ async function submitWord() {
   if (burned.length) {
     await animateBurn(burned.map(t => rectOf.get(t.id)?.el).filter(Boolean));
   }
+
+  // A wash pays at scoring and comes off as the word commits — before the
+  // tiles retire, so The Fountain sees them bare (an azure wash buys the
+  // multiplier, not the trip back to the bag).
+  washOff(printed);
 
   // Mercury trims and (with The Fountain) azure tiles slip back into the bag;
   // everything else is discarded. Ash goes nowhere at all.
@@ -959,6 +976,100 @@ $('sundries')?.addEventListener('click', async e => {
     return;
   }
 
+  // The toolbox opens where it sits: two DIFFERENT tools from the pool take
+  // its place — the first in the box's own slot (always room for that one),
+  // the second only if the bench has a free slot, else it rolls away. Rolled
+  // at this moment, like the wrapped tile's paper coming off.
+  if (armed?.kind === 'toolbox') {
+    cancelDiscardMode(true);
+    cancelSundryMode(true);
+    const pickOne = arr => arr[Math.floor(Math.random() * arr.length)];
+    const first  = pickOne(TOOLBOX_POOL);
+    const second = pickOne(TOOLBOX_POOL.filter(k => k !== first));
+    state.sundries[idx] = { kind: first };
+    const roomForSecond = state.sundries.length < effectiveSundrySlots();
+    if (roomForSecond) state.sundries.push({ kind: second });
+
+    state.isAnimating = true;
+    renderAll();
+    sfx.chime();
+    const bench = $('sundries');
+    if (bench) {
+      sparkleBurst(bench, 12);
+      floatText(bench, roomForSecond
+        ? `${TOOL_LOOK[first].label} · ${TOOL_LOOK[second].label}`
+        : TOOL_LOOK[first].label, 'fl-points', { dy: -46 });
+    }
+    await sleep(ANIM.stepColour);
+    state.isAnimating = false;
+    renderAll();
+    log(roomForSecond
+      ? `The toolbox opens: a ${TOOL_LOOK[first].label.toLowerCase()} and a ${TOOL_LOOK[second].label.toLowerCase()}.`
+      : `The toolbox opens: a ${TOOL_LOOK[first].label.toLowerCase()} — no room on the bench for the second tool, and it rolls away.`,
+      'good');
+    return;
+  }
+
+  // The laurel needs no target either — it picks its own head to crown, which
+  // is the tool's whole gamble: the crown is worth the same on any patron,
+  // but it dies with the seat, so where it lands decides who you can no
+  // longer afford to dismiss.
+  if (armed?.kind === 'laurel') {
+    if (!state.patrons.length) { log('No patron seated to crown — the laurel keeps.', 'warn'); return; }
+    cancelDiscardMode(true);
+    cancelSundryMode(true);
+    const seat = state.patrons[Math.floor(Math.random() * state.patrons.length)];
+    seat.data ??= {};
+    seat.data.honorifics = (seat.data.honorifics ?? 0) + 1;
+    state.sundries.splice(idx, 1);
+
+    state.isAnimating = true;
+    renderAll();
+    sfx.chime();
+    const card = patronCard(seat);
+    if (card) {
+      pulse(card, 'patron--firing', 620);
+      sparkleBurst(card, 9);
+      floatText(card, `🏵️ +${HONORIFIC_STEP}`, 'fl-points', { dy: -44 });
+    }
+    await sleep(ANIM.stepColour);
+    state.isAnimating = false;
+    renderAll();
+    const def = patronById(seat.id);
+    const name = def.instName?.(seat.data) ?? def.name;
+    const n = seat.data.honorifics;
+    log(`🏵️ ${name} is crowned — +${HONORIFIC_STEP} Points on every word while the seat is kept${n > 1 ? ` (${n} laurels now)` : ''}.`, 'good');
+    return;
+  }
+
+  // The wash pours itself: up to four unpainted tiles in the hand, one of
+  // each colour, no aiming. Faint on the tile, full-strength in the score,
+  // and spent the moment each tile prints.
+  if (armed?.kind === 'wash') {
+    cancelDiscardMode(true);
+    cancelSundryMode(true);
+    const washed = applyWash();
+    if (!washed.length) { log('Nothing in your hand will take the wash — it keeps.', 'warn'); return; }
+    state.sundries.splice(idx, 1);
+
+    state.isAnimating = true;
+    renderAll();
+    sfx.chime();
+    for (const { tile, colour } of washed) {
+      const el = wordTileEl(tile.id) ?? rackTileEl(tile.id);
+      if (!el) continue;
+      el.style.setProperty('--glow', COLOURS[colour].glyph);
+      pulse(el, 'tile--set-glow', 620);
+      sparkleBurst(el, 6);
+    }
+    await sleep(ANIM.stepColour);
+    state.isAnimating = false;
+    renderAll();
+    const said = washed.map(w => `${getActiveLetter(w.tile)} ${COLOURS[w.colour].label.toLowerCase()}`);
+    log(`The wash settles: ${said.join(', ')} — faint, and spent when each tile prints.`, 'good');
+    return;
+  }
+
   // A tube arms with its offer already on the table: up to two unpainted
   // tiles from the hand light up as it's picked up. Tap one, then the tube
   // again to pour; the second tap with nothing picked puts it away. The
@@ -1002,26 +1113,66 @@ $('sundries')?.addEventListener('click', async e => {
     return;
   }
 
+  // The ratchet, the loupe and the tongs share one rhythm: arm the tool, tap
+  // a tile to grip it, tap the tool again to spend it (or put it away if
+  // nothing is picked).
   if (state.sundryMode !== idx) {
     cancelDiscardMode(true);
     cancelSundryMode(true);
     clearAllSelected();
     state.sundryMode = idx;
-    log('Tap one letter, then tap the ratchet again to step it. The arrows say which way.');
+    log(armed?.kind === 'loupe'
+      ? `Tap a tile, then the loupe again to double it — ${LOUPE_CAP} Points is its limit.`
+      : armed?.kind === 'tongs'
+      ? 'Tap a tile, then the tongs again to feed it to the furnace.'
+      : 'Tap one letter, then tap the ratchet again to step it. The arrows say which way.');
     renderAll();
     return;
   }
 
-  // Second tap on the armed ratchet: step the picked letter, or stand down
-  // if nothing is picked.
   if (!sundrySelected().length) { cancelSundryMode(); return; }
+
+  // The tongs destroy their tile inside applySundry, so its element has to be
+  // caught before any re-render sweeps it from the rack.
+  const gripped = armed?.kind === 'tongs'
+    ? (wordTileEl(sundrySelected()[0]?.id) ?? rackTileEl(sundrySelected()[0]?.id))
+    : null;
+
   const result = applySundry(idx, state.ratchetDir ?? 1);
   if (!result) { cancelSundryMode(); renderAll(); return; }
 
   state.isAnimating = true;
+
+  if (result.kind === 'tongs') {
+    if (gripped) await animateBurn([gripped]);
+    renderAll();
+    const groove = $('word');
+    if (groove) floatText(groove, `+${TONGS_BONUS} to the next word`, 'fl-points', { dy: -30 });
+    await sleep(ANIM.stepColour);
+    state.isAnimating = false;
+    renderAll();
+    log(`The tongs grip ${result.letters[0]} — ash, and +${result.bonus} Points waiting on the next word.`, 'good');
+    return;
+  }
+
   renderAll();
   sfx.chime();
   const el = wordTileEl(result.ids[0]) ?? rackTileEl(result.ids[0]);
+  if (result.kind === 'loupe') {
+    if (el) {
+      popReveal(el);
+      sparkleBurst(el, 10);
+      floatText(el, `${result.from} → ${result.to} Points`, 'fl-points', { dy: -54 });
+    }
+    await sleep(ANIM.stepColour);
+    state.isAnimating = false;
+    renderAll();
+    log(result.to < result.from * 2
+      ? `The loupe doubles ${result.letters[0]} — capped at ${LOUPE_CAP} Points, for good.`
+      : `The loupe doubles ${result.letters[0]} — ${result.from} becomes ${result.to}, for good.`, 'good');
+    return;
+  }
+
   if (el) {
     popReveal(el);
     sparkleBurst(el, 10);

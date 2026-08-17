@@ -339,6 +339,22 @@ header {
 .patron:hover .patron-x { opacity: 1; }
 .patron-x:hover { transform: scale(1.15); }
 
+/* A laurel a patron wears (the toolbox's amber tool): top-left, where the ✕
+   sits top-right, with the count beside it when they stack. */
+.patron-laurel {
+  position: absolute;
+  top: 2px; left: 4px;
+  font-size: 11px;
+  line-height: 1;
+  z-index: 3;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
+}
+.patron-laurel b {
+  font-size: 9px;
+  font-weight: 900;
+  color: #e8c667;
+}
+
 /* ── The workbench: sundries bought at the Shop, spent mid-page ──────────────── */
 .sundries {
   display: grid;
@@ -540,6 +556,15 @@ button.sundry:hover { transform: translateY(-2px); }
    list; on the workbench it wears its two directions instead, which never move
    or change — spending it is a tap on the slot, as with the tube, and the
    arrows only say which way. */
+/* The toolbox and its tools draw as a plain glyph — no styled housing, the
+   emoji is the housing. Shared by the bench, the shop card and the held row. */
+.sundry-glyph {
+  font-size: 21px;
+  line-height: 1;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
+}
+.sundry-glyph--offer { font-size: 25px; margin-top: 4px; }
+
 .ratchet-mark {
   display: grid;
   place-items: center;
@@ -1274,6 +1299,29 @@ button.sundry:hover { transform: translateY(-2px); }
 /* A glyph of four or more letters gets a double-wide tile (the Scientist's
    OLOGY loan). Width rides --tile-w, so the mini variant halves with it. */
 .tile--wide { width: calc(var(--tile-w) * 2); }
+
+/* The fleuron — struck in gold, and dressed apart so it never reads as a
+   letter that happens to be yellow. */
+.tile--fleuron {
+  background: linear-gradient(160deg, #f9ecbe 0%, #ecd287 55%, #d9b45c 100%);
+  border-color: rgba(122, 90, 20, 0.65);
+  --tile-lift: #a8842e;
+}
+.tile--fleuron .tile-letter {
+  color: #7a5a10;
+  font-size: 34px;
+  text-shadow: 0 1px 0 rgba(255, 246, 205, 0.85);
+}
+.tile--fleuron .tile-pts { color: #7a5a10; }
+
+/* A washed tile wears its colour faintly — the glyph takes the wash colour
+   inline (render.js) and this mutes it, with a wavy waterline underneath so
+   the coat reads as temporary even to a colour-blind eye. */
+.tile--washed .tile-letter {
+  opacity: 0.55;
+  text-decoration: underline wavy 1.5px;
+  text-underline-offset: 4px;
+}
 
 .tile-pts {
   position: absolute;

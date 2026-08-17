@@ -11,7 +11,7 @@ import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
   WORDS_PER_PAGE, PAGES_PER_CHAPTER, tileCount,
   colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
-  sundryTip,
+  sundryTip, FLEURON, TOOL_LOOK, HONORIFIC_STEP,
 } from './constants.js';
 import { patronById, guildsOf } from './patrons.js';
 import { bossById } from './bosses.js';
@@ -52,6 +52,10 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   // Four or more letters outgrow even the ligature type sizes — the tile
   // itself doubles in width instead (the OLOGY tile, and whatever follows it).
   if (active.length >= 4) div.classList.add('tile--wide');
+  // The fleuron is struck in gold and dressed apart; a washed tile wears its
+  // colour faintly, the promise being spent the moment it prints.
+  if (tile.letter === FLEURON) div.classList.add('tile--fleuron');
+  if (tile.wash && !tile.colour) div.classList.add('tile--washed');
 
   // Letter (painted in its colour)
   const letter = document.createElement('span');
@@ -102,14 +106,29 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
 // only explanation now — nothing is summarised under shop cards any more — so
 // they say what a thing does rather than naming it.
 export function tileFeatures(tile) {
-  const paint = getActiveColour(tile);
   const out = [];
-  // The material comes first: it's what the tile *is*, under everything else.
+  // What the tile *is* comes first — a material, or the fleuron, which is a
+  // sort of its own however ordinary its lead.
+  if (tile.letter === FLEURON) {
+    out.push({
+      head: 'Fleuron',
+      body: 'A printer’s ornament, struck in gold. It sets no word — it can only print '
+          + 'alone, for its 1 Point — and it pays 1 Coin every time a page completes, '
+          + 'wherever it happens to be.',
+    });
+  }
   if (tile.material) {
     const m = MATERIALS[tile.material];
     if (m) out.push({ head: `${m.label} tile`, body: m.desc });
   }
-  if (paint) out.push({ head: `${COLOURS[paint].label} paint`, body: colourDesc(paint) });
+  if (tile.colour) {
+    out.push({ head: `${COLOURS[tile.colour].label} paint`, body: colourDesc(tile.colour) });
+  } else if (tile.wash) {
+    out.push({
+      head: `${COLOURS[tile.wash].label} wash`,
+      body: `Counts as ${COLOURS[tile.wash].label} — patrons and multiplier alike — until this tile prints, then it washes off. Real paint would replace it.`,
+    });
+  }
   if (tile.trim) out.push({ head: `${TRIMS[tile.trim].label} trim`, body: TRIMS[tile.trim].desc });
   if (tile.nick) out.push({ head: NICKS[tile.nick]?.label ?? 'Nick', body: NICKS[tile.nick]?.desc ?? '' });
   if (tile.letterType === 'dual') {
@@ -305,7 +324,9 @@ function renderShelf(script) {
   const shelf = $('shelf');
   if (!shelf) return;
   const seats = effectivePatronSlots();
-  const sig = `${seats}|${state.patrons.map(p => p.uid ?? p.id).join(',')}`;
+  // Laurels ride the signature so a crowning mid-page repaints the card —
+  // without this the badge would wait for the next seating change to appear.
+  const sig = `${seats}|${state.patrons.map(p => `${p.uid ?? p.id}~${p.data?.honorifics ?? 0}`).join(',')}`;
 
   if (sig !== _shelfSig) {
     _shelfSig = sig;
@@ -330,9 +351,11 @@ function renderShelf(script) {
         if (p.uid != null) slot.dataset.uid = p.uid;
         slot.dataset.baseTitle = `${name} — ${desc}\n(✕ dismisses for ${refund} Coins)`;
         slot.title = slot.dataset.baseTitle;
+        const laurels = p.data?.honorifics ?? 0;
         slot.innerHTML = `
           <span class="patron-emoji">${def.emoji}</span>
           <span class="patron-name">${label}</span>
+          ${laurels ? `<span class="patron-laurel" title="${laurels > 1 ? `${laurels} laurels` : 'A laurel'} — +${laurels * HONORIFIC_STEP} Points every word, lost if this patron is dismissed">🏵️${laurels > 1 ? `<b>${laurels}</b>` : ''}</span>` : ''}
           <button class="patron-x" data-sell="${p.uid ?? def.id}" title="Dismiss ${name} for ${refund} Coins">✕</button>`;
       } else {
         slot.className = 'patron patron--empty';
@@ -479,6 +502,24 @@ function renderSundries() {
       slot.innerHTML = `
         <span class="wrapped-mark"></span>
         <span class="sundry-name">Wrapped</span>`;
+      tagSlot(slot, s);
+      bench.appendChild(slot);
+    } else if (s?.kind && TOOL_LOOK[s.kind]) {
+      // The toolbox and its tools share one shape: a glyph and a name. The
+      // loupe and the tongs arm like the ratchet, so they show the same
+      // armed/ready states; the box, the laurel and the wash spend on a tap.
+      const armed  = state.sundryMode === i;
+      const picked = armed && sundrySelected().length > 0;
+      const slot = document.createElement('button');
+      slot.className = `sundry sundry--tool sundry--${s.kind}${armed ? ' sundry--armed' : ''}`
+                     + (picked ? ' sundry--ready' : '');
+      slot.dataset.sundry = i;
+      const name = s.kind === 'loupe' ? (picked ? 'Double it' : armed ? 'Pick a tile' : 'Loupe')
+                 : s.kind === 'tongs' ? (picked ? 'Destroy it' : armed ? 'Grip a tile' : 'Tongs')
+                 : TOOL_LOOK[s.kind].label;
+      slot.innerHTML = `
+        <span class="sundry-glyph">${TOOL_LOOK[s.kind].glyph}</span>
+        <span class="sundry-name">${name}</span>`;
       tagSlot(slot, s);
       bench.appendChild(slot);
     } else {
