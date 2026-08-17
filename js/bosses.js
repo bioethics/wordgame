@@ -99,13 +99,13 @@ export const BOSS_DEFS = [
   },
   {
     id: 'padder', name: 'The Padder', emoji: '🪶',
-    desc: `This house is paid by the word, and the words had better be long: anything under ${PADDER_MIN} letters is spiked.`,
+    desc: `I pay by the word, so the words had better be long: anything under ${PADDER_MIN} letters is spiked.`,
     judge: letters => letters.length < PADDER_MIN
-      ? `too slight — ${PADDER_MIN} letters at least` : null,
+      ? `too short — ${PADDER_MIN} letters at least` : null,
   },
   {
     id: 'populist', name: 'The Populist', emoji: '📣',
-    desc: `Writes for the common reader and nobody else: every word must be among the ${POPULIST_BAND} commonest in English. Anything rarer is spiked, however clever.`,
+    desc: `Popular fiction is profitable fiction. Every word must be among the ${POPULIST_BAND} commonest in English. Anything rare is spiked.`,
     judge: letters => {
       if (!commonReady()) return null;
       const rank = commonRank(letters);
@@ -115,7 +115,7 @@ export const BOSS_DEFS = [
   },
   {
     id: 'obscurantist', name: 'The Obscurantist', emoji: '🕯️',
-    desc: `Holds that if a reader has met the word before, it was not worth setting: the ${OBSCURANTIST_BAND.toLocaleString()} commonest words in English are all spiked.`,
+    desc: `True literature demands erudition: the ${OBSCURANTIST_BAND.toLocaleString()} commonest words in English are spiked.`,
     judge: letters => {
       if (!commonReady()) return null;
       const rank = commonRank(letters);
@@ -134,7 +134,7 @@ export const BOSS_DEFS = [
   },
   {
     id: 'serialist', name: 'The Serialist', emoji: '🔗',
-    desc: 'Every instalment picks up where the last left off: each word must open with the letter the one before ended on, or be spiked. A spiked word still sets the chain.',
+    desc: 'We need continuity. Each word must open with the letter the one before ended on, or be spiked.',
     demand: data => data.last
       ? `This word must open with ${data.last}.`
       : 'The first word is free — but mind how it ends.',
@@ -144,7 +144,7 @@ export const BOSS_DEFS = [
   },
   {
     id: 'indexer', name: 'The Indexer', emoji: '🗂️',
-    desc: 'The book is filed as it prints: each word must sort alphabetically after the one before, or be spiked. A spiked word is still filed — an APPLE, sacrificed, reopens the index.',
+    desc: 'Order above all else: each word must alphabetically follow the prior word, or be spiked.',
     demand: data => data.last
       ? `This word must sort after ${data.last}.`
       : 'The first word may be anything — the index begins there.',
@@ -154,7 +154,7 @@ export const BOSS_DEFS = [
   },
   {
     id: 'escalationist', name: 'The Escalationist', emoji: '📈',
-    desc: 'Build to a climax: every word must outscore the one before it, or be spiked. A spiked word still sets the bar — a cheap word can lower it on purpose.',
+    desc: 'Build to a climax: every word must outscore the one before it, or be spiked.',
     demand: data => data.bar != null
       ? `This word must beat ${data.bar.toLocaleString()}.`
       : 'The first word sets the bar. Open softly.',
@@ -164,7 +164,7 @@ export const BOSS_DEFS = [
   },
   {
     id: 'enthusiast', name: 'The Enthusiast', emoji: '🤩',
-    desc: 'Has conceived a passion for one letter, and lends you a tile of it above your hand size. Every word set without that letter is spiked.',
+    desc: 'I really love specific letters! Every word set without my current favourite is spiked.',
     gift: true,
     // The passion lands on a letter drawn from the player's own collection,
     // weighted by how many they hold — so it's usually a common letter, and
@@ -180,7 +180,7 @@ export const BOSS_DEFS = [
   },
   {
     id: 'reviewer', name: 'The Reviewer', emoji: '🧐',
-    desc: 'Receives each word in whatever temper the day allows — ×0.2 on the worst of them, ×0.95 at best — rolled openly before you compose. Spend your finest words on the better moods.',
+    desc: 'Your best work is still not good enough. (A random negative multiplier is applied to each word.)',
     setup: data => rollMood(data),
     demand: data => `The current temper: ×${data.mood} Mult.`,
     mood: data => data.mood,
@@ -199,12 +199,12 @@ export const BOSS_DEFS = [
     // absorbs all three only 9% of the time, and none of them 31%, and the
     // ones left over are the cage.
     id: 'eeeditor', name: 'The Eeeditor', emoji: '🅴',
-    desc: 'Keeps three places in your hand for itself and fills them with plain E — no paint, no trim, no nick. Play one and another arrives before you can blink.',
+    desc: 'E is a good letter. Here: I saved three especially for you.',
     lent: { letter: 'E', count: 3 },
   },
   {
-    id: 'completist', name: 'The Completist', emoji: '🗄️',
-    desc: 'Reads everything and throws nothing away: two extra rack tiles, and no discards at all.',
+    id: 'completist', name: 'The Hoarder', emoji: '🗄️',
+    desc: 'Waste nothing, and you can always find what you need: +2 hand size, but 0 discards.',
     rackBonus: 2,
     noDiscards: true,
   },
