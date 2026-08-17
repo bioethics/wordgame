@@ -7,13 +7,13 @@ import {
   state, settings, loadSettings, saveSettings, loadState, clearSave,
   newRun, startPage, drawUpToRackSize, clearWord, shuffleRack,
   discardSelected, getWordString, moveRackToWord, owns, clearAllSelected,
-  toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected,
+  toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected, takePaintEchoes,
   getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile,
   trashFromCollection, mergeTiles, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
   effectiveWordsPerPage, rollGamble,
 } from './state.js';
 import {
-  TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER, TUBE_TILES, tileCount,
+  TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
   REACTION, NEOLOGIST_LENGTH, MATERIALS, TRIMS, WRAPPED_CONTENTS, MARK_TRIM,
   chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks, isDeadline,
 } from './constants.js';
@@ -121,10 +121,9 @@ function cancelDiscardMode(quiet = false) {
 
 function cancelSundryMode(quiet = false) {
   if (state.sundryMode < 0) return false;
-  const kind = state.sundries[state.sundryMode]?.kind;
   state.sundryMode = -1;
   clearAllSelected();
-  if (!quiet) log(`The ${kind === 'ratchet' ? 'ratchet' : 'tube'} goes back on the workbench.`);
+  if (!quiet) log('The ratchet goes back on the workbench.');
   renderAll();
   return true;
 }
@@ -392,6 +391,15 @@ function runPageHooks() {
   return { arrivals, notes };
 }
 
+// The Dabbler's splashes happen deep in paintTile, far below anywhere that
+// can speak — they queue in state.js and every action that might paint
+// drains them here into the log.
+function reportPaintEchoes() {
+  for (const e of takePaintEchoes()) {
+    log(`🖍️ The Dabbler splashes ${e.letter} ${COLOURS[e.colour].label.toLowerCase()} as well.`, 'good');
+  }
+}
+
 // Patrons that read the hand a page finished with — fired as the quota
 // clears, before the Market opens, so what they bank is waiting at its
 // stalls. Notes go to the log: the banner and reward sheet own the screen.
@@ -580,6 +588,7 @@ async function submitWord() {
   // Patrons that reach beyond the score fire before the tiles retire, so a
   // grown tile carries its growth wherever it goes next (even back to the bag).
   const burned = runPrintedHooks(printed, script);
+  reportPaintEchoes();   // the Arsonist, Nudist or Illuminator may have painted
   if (burned.length) {
     await animateBurn(burned.map(t => rectOf.get(t.id)?.el).filter(Boolean));
   }
@@ -702,6 +711,7 @@ async function advancePage() {
   // Chapter-end patrons (the dye commons) act before the new bag is shuffled,
   // so what they paint is in play from the first draw.
   const chapterNotes = newChapter ? runChapterHooks() : [];
+  if (newChapter) reportPaintEchoes();   // a dye's coat may have splashed
 
   state.isAnimating = true;
 
@@ -812,6 +822,8 @@ async function doDiscard() {
 
   state.isAnimating = false;
   renderAll();
+
+  reportPaintEchoes();   // the Dipper or Bloodletter may have painted
 
   let msg = `Discarded ${result.removed.length} tile${result.removed.length > 1 ? 's' : ''}.`;
   if (merged.length) {
@@ -931,62 +943,62 @@ $('sundries')?.addEventListener('click', async e => {
     return;
   }
 
-  if (state.sundryMode !== idx) {
+  // A tube needs no arming and no target: the paint finds its own tile, one
+  // random unpainted tile in the hand, there and then. What the player keeps
+  // is the timing of the pour.
+  if (armed?.kind === 'tube') {
     cancelDiscardMode(true);
     cancelSundryMode(true);
-    clearAllSelected();
-    state.sundryMode = idx;
-    const s = state.sundries[idx];
-    log(s.kind === 'ratchet'
-      ? 'Tap one letter, then tap the ratchet again to step it. The arrows say which way.'
-      : `Tap ${tileCount(TUBE_TILES)} to paint ${COLOURS[s.colour].label}, then tap the tube again.`);
-    renderAll();
-    return;
-  }
-
-  // Second tap on the armed ratchet: step the picked letter, or stand down if
-  // nothing is picked — the same two outcomes the tube's second tap has.
-  if (armed?.kind === 'ratchet') {
-    if (!sundrySelected().length) { cancelSundryMode(); return; }
-    const result = applySundry(idx, state.ratchetDir ?? 1);
-    if (!result) { cancelSundryMode(); renderAll(); return; }
+    const result = applySundry(idx);
+    if (!result) { log('Nothing in your hand will take paint — the tube keeps.', 'warn'); return; }
 
     state.isAnimating = true;
     renderAll();
     sfx.chime();
     const el = wordTileEl(result.ids[0]) ?? rackTileEl(result.ids[0]);
     if (el) {
-      popReveal(el);
-      sparkleBurst(el, 10);
-      floatText(el, `${result.from} → ${result.to}`, 'fl-points', { dy: -54 });
+      el.style.setProperty('--glow', COLOURS[result.colour].glyph);
+      pulse(el, 'tile--set-glow', 620);
+      sparkleBurst(el, 9);
+      floatText(el, COLOURS[result.colour].label, `fl-set fl-set--${result.colour}`);
     }
     await sleep(ANIM.stepColour);
     state.isAnimating = false;
     renderAll();
-    log(`The ratchet steps ${result.from} to ${result.to} — and there it stays.`, 'good');
+    log(`The tube splashes ${result.letters[0]} ${COLOURS[result.colour].label.toLowerCase()}.`, 'good');
+    reportPaintEchoes();
     return;
   }
 
-  // Second tap on the armed tube: paint the selection, or stand down.
+  if (state.sundryMode !== idx) {
+    cancelDiscardMode(true);
+    cancelSundryMode(true);
+    clearAllSelected();
+    state.sundryMode = idx;
+    log('Tap one letter, then tap the ratchet again to step it. The arrows say which way.');
+    renderAll();
+    return;
+  }
+
+  // Second tap on the armed ratchet: step the picked letter, or stand down
+  // if nothing is picked.
   if (!sundrySelected().length) { cancelSundryMode(); return; }
-  const result = applySundry(idx);
-  if (!result) { cancelSundryMode(); return; }
+  const result = applySundry(idx, state.ratchetDir ?? 1);
+  if (!result) { cancelSundryMode(); renderAll(); return; }
 
   state.isAnimating = true;
   renderAll();
   sfx.chime();
-  for (const id of result.ids) {
-    const el = wordTileEl(id) ?? rackTileEl(id);
-    if (el) {
-      el.style.setProperty('--glow', COLOURS[result.colour].glyph);
-      pulse(el, 'tile--set-glow', 620);
-      floatText(el, COLOURS[result.colour].label, `fl-set fl-set--${result.colour}`);
-    }
+  const el = wordTileEl(result.ids[0]) ?? rackTileEl(result.ids[0]);
+  if (el) {
+    popReveal(el);
+    sparkleBurst(el, 10);
+    floatText(el, `${result.from} → ${result.to}`, 'fl-points', { dy: -54 });
   }
   await sleep(ANIM.stepColour);
   state.isAnimating = false;
   renderAll();
-  log(`Painted ${result.letters.join(', ')} ${COLOURS[result.colour].label.toLowerCase()}.`, 'good');
+  log(`The ratchet steps ${result.from} to ${result.to} — and there it stays.`, 'good');
 });
 
 $('bagBtn')?.addEventListener('click', () => { if (!state.isAnimating) openInspector('bag'); });

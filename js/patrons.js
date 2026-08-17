@@ -495,19 +495,39 @@ export const PATRON_DEFS = [
     // The trigger is at-will — the dictionary holds sixty two-letter words,
     // and a ligature makes two-tile THE, SING or RATS — so the real price is
     // the word slot: a two-tile word scores next to nothing and spends one of
-    // the page's five words to say it. Growth goes through growTile, so the
-    // corner number turns jade and the gain follows the tile through bag,
-    // save and reshuffle alike. A ghost refuses the trellis, as it refuses
-    // everything; the other tile of the pair still takes its due.
+    // the page's five words to say it. Like the Illuminator, the growth
+    // arrives IN TIME TO SCORE: the score effect pays the step per growable
+    // tile on the trigger word itself, and onPrinted writes it in for good
+    // (through growTile, so the corner number turns jade and the gain follows
+    // the tile through bag, save and reshuffle). A ghost refuses the trellis,
+    // as it refuses everything — it pays nothing at score time either; the
+    // other tile of the pair still takes its due.
     id: 'espalier', name: 'The Espalier', emoji: '🪴', rarity: 'uncommon', cost: 6, guild: 'jade',
-    desc: `Print a two-tile word: both tiles permanently gain +${ESPALIER_STEP} Points.`,
-    when: 'meta',
+    desc: `Print a two-tile word: both tiles permanently gain +${ESPALIER_STEP} Points — in time to score.`,
+    when: 'score',
+    effect({ tiles, addPoints }) {
+      if (tiles.length !== 2) return;
+      const n = tiles.filter(t => !isImmutable(t)).length;
+      if (n) addPoints(n * ESPALIER_STEP);
+    },
     onPrinted({ tiles, grow }) {
       if (tiles.length !== 2) return null;
       const grown = tiles.filter(t => grow(t, ESPALIER_STEP));
       if (!grown.length) return null;
       return { note: `${grown.map(getActiveLetter).join(', ')} grown +${ESPALIER_STEP}` };
     },
+  },
+  {
+    // Jade's answer to the wet brush: paint begets paint. Fires on every
+    // road to permanent paint — tube, Painter, dye, Dipper, Arsonist,
+    // Illuminator and Bloodletter alike — because they all go through
+    // paintTile (state.js), where the splash lives; the splashed tile is a
+    // random unpainted one from the whole collection, same colour. One
+    // splash per brushstroke: an echo never echoes. DABBLER_ODDS in
+    // constants.js, ridden through luckyRoll.
+    id: 'dabbler', name: 'The Dabbler', emoji: '🖍️', rarity: 'uncommon', cost: 6, guild: 'jade',
+    desc: 'Whenever a tile is painted, a second unpainted tile has a 1-in-2 chance of taking the same colour.',
+    when: 'meta',
   },
   {
     // The first dual-livery patron: jade in mechanic (he matures), amber in

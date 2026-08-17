@@ -5,10 +5,11 @@
 
 import {
   state, owns, effectivePatronSlots, effectiveSundrySlots, spendReshuffleSundry,
+  takePaintEchoes,
 } from './state.js';
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
-  PAINT_PER_POT, TUBE_TILES, ANIM, SUNDRY_SELL, tileCount, sundryTip,
+  PAINT_PER_POT, ANIM, SUNDRY_SELL, tileCount, sundryTip,
   colourDesc,
 } from './constants.js';
 import { patronById, guildsOf } from './patrons.js';
@@ -879,6 +880,12 @@ function onMarketClick(e) {
     else {
       if (market.activeStall === 'smelter') sfx.discard(); else sfx.coin();
       log(msg, 'good');
+      // A Painter's coat can splash (The Dabbler, deep in paintTile) —
+      // drain the echo queue into the log here, since main.js never sees
+      // this action.
+      for (const e of takePaintEchoes()) {
+        log(`🖍️ The Dabbler splashes ${e.letter} ${COLOURS[e.colour].label.toLowerCase()} as well.`, 'good');
+      }
       // Work done, back to the market — the stall card's risen price is the
       // thing to see, and lingering in the stall let it go unnoticed. The
       // Visit button is right there for whoever wants to pay it.

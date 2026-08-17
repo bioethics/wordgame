@@ -480,6 +480,37 @@ narrow — a future candidate). Note the deliberate tension this family
 creates with the **Alderman**: he pays for guild *spread*, guild-count
 scaling pays for guild *depth* — two different shelves, both real.
 
+### The paint pass — where paint lands, and when
+
+Three changes from one observation in play: **aimed paint always landed on
+the same four workhorse letters.** A rational player paints A, S, E, T —
+they recur most — so every run's colours converged, and a painted A never
+changed which word you reached for.
+
+- **The paint tube lost its aim.** It now paints one *random unpainted*
+  tile in the hand (rack and half-composed word alike), instantly on tap —
+  no arming, no target. What the player keeps is timing: play and discard
+  first, then pour. If nothing in hand will take paint the tube refuses
+  and keeps. This deliberately ends player-directed repainting (the old
+  tube could recoat a painted tile); the Dipper and Arsonist remain the
+  only overpainters. Fallback if pure random tests badly: propose a tile
+  the way the Painter stall does, rather than restoring the aim.
+- **The Espalier grows in time to score**, the Illuminator's pattern: the
+  score effect pays the step per growable tile on the trigger word itself,
+  and onPrinted writes the growth in for good. A ghost pays nothing at
+  score time and takes nothing at print — one shared eligibility, so the
+  promise equals the payment.
+- **The Dabbler** 🖍️ (uncommon · 6, jade) — whenever a tile is painted,
+  1-in-2 (`DABBLER_ODDS`, via luckyRoll) that a second unpainted tile of
+  the collection takes the same colour. Lives inside `paintTile` itself —
+  the one choke point every route to permanent paint crosses (tube,
+  Painter, dyes, Dipper, Arsonist, Illuminator, Bloodletter) — with a
+  re-entry guard so a splash never splashes, and a queue
+  (`takePaintEchoes`) that main.js and the Market sheet drain into the
+  log, since paintTile runs too deep to speak. **Watchpoint:** this
+  patron roughly halves-again all paint income; the Dipper's history says
+  watch the pace, and 0.25 is the fallback.
+
 ### The Typefounder (a later pitch)
 
 **The Typefounder** ⚗️ (rare · 10, crimson) — discard *exactly two* tiles

@@ -20,7 +20,7 @@ House style for a description, from `docs/PATRON_OVERHAUL.md`: one sentence,
 real numbers, no metaphor, under ~110 characters. State the rule, not the
 feeling — the flavour belongs to the name, the emoji and the quips.
 
-**69 patrons** — 21 common, 32 uncommon, 16 rare. Guilds: amber 10, jade 10, crimson 11, azure 10, no guild 30 — a dual-livery patron counts in each of its guilds.
+**70 patrons** — 21 common, 33 uncommon, 16 rare. Guilds: amber 10, jade 11, crimson 11, azure 10, no guild 30 — a dual-livery patron counts in each of its guilds.
 
 ## Amber · the counting-house
 
@@ -45,7 +45,8 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🍏 **The Verdigris** `verdigris` 🔒 | common | 4 | As each chapter ends, 2 tiles of your collection are painted jade. |
 | 🐝 **The Beekeeper** `beekeeper` 🔒 | uncommon | 6 | Every B you print permanently raises this patron's Mult by 0.2. |
 | 🧀 **The Cellarer** `cellarer` | uncommon · also amber | 6 | Ages when a page ends with a jade tile in hand: +1 Point to every word, +1 Coin when dismissed. |
-| 🪴 **The Espalier** `espalier` 🔒 | uncommon | 6 | Print a two-tile word: both tiles permanently gain +2 Points. |
+| 🖍️ **The Dabbler** `dabbler` | uncommon | 6 | Whenever a tile is painted, a second unpainted tile has a 1-in-2 chance of taking the same colour. |
+| 🪴 **The Espalier** `espalier` 🔒 | uncommon | 6 | Print a two-tile word: both tiles permanently gain +2 Points — in time to score. |
 | 🖼️ **The Frontispiece** `frontispiece` 🔒 | uncommon | 7 | The first word of each page gets ×1.5 Mult — +0.1 more, for good, each time that word clears the quota alone. |
 | 🍷 **The Vintner** `vintner` | uncommon | 7 | Words with a jade tile gain +1 Mult per chapter reached — +5 Mult in Chapter V. |
 | 🌿 **The Grafter** `grafter` | rare | 10 | When a word with a jade tile prints, every tile in it permanently gains +1 Point. |

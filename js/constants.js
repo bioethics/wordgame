@@ -107,17 +107,18 @@ export const MULT_TRACKS = {
 export const PAINT_PER_POT   = 3;   // tiles painted per draft pot (random, unpainted)
 
 // ─── Sundries (consumables kept on the workbench) ─────────────────────────────
-// Bought at the Shop, spent mid-page. A paint tube is the first kind: arm it,
-// pick up to TUBE_TILES tiles on the board, and they're painted that colour —
-// permanently, right where they sit.
+// Bought at the Shop, spent mid-page. A paint tube is the first kind: uncork
+// it and one random unpainted tile in your hand takes the colour, permanently.
+// The tile is the paint's choice, not yours — aimed paint only ever landed on
+// the same four workhorse letters — but the timing is yours: play and discard
+// first, then pour.
 export const SUNDRY_SLOTS  = 2;   // sundries the workbench can hold
 export const SUNDRY_OFFERS = 2;   // sundries offered per shop
 export const TUBE_PRICE    = 2;
-export const TUBE_TILES    = 1;   // tiles painted per tube
 export const SUNDRY_SELL   = 1;   // what the Market pays to take one back
 export const RATCHET_PRICE = 3;   // the ratchet: one letter, one step either way
 
-// "one tile" / "2 tiles" — keeps copy reading right whatever TUBE_TILES is
+// "one tile" / "2 tiles" — keeps counted copy reading right
 export const tileCount = n => n === 1 ? 'one tile' : `${n} tiles`;
 
 // ─── Stalls ───────────────────────────────────────────────────────────────────
@@ -366,6 +367,11 @@ export const STOKER_STEP        = 0.25;   // permanent ×Mult per crimson tile b
 export const BEEKEEPER_STEP     = 0.2;    // permanent ×Mult per B printed
 export const ARSONIST_ODDS      = { paint: 0.10, burn: 0.01 };  // per tile played
 export const NUDIST_TRIM_CHANCE = 0.25;   // per bare letter in an all-bare word
+// The Dabbler's splash: odds that any painted tile splashes a second,
+// randomly chosen unpainted tile of the collection the same colour. One
+// splash per brushstroke — an echo never echoes. If paint arrives too fast
+// with this seated (the Dipper's history says watch it), 0.25 is the fallback.
+export const DABBLER_ODDS = 0.5;
 // Per tile discarded, painted at random. Was 1-in-10, which paid out roughly
 // twice a page on a full discard and had the collection speckled by Chapter II
 // — free paint at common weight, arriving faster than the Painter sells it.
@@ -456,9 +462,10 @@ export const DRAFT = {
 export function sundryTip(s) {
   if (s?.kind === 'tube') return {
     head: `Tube of ${COLOURS[s.colour].label}`,
-    body: `Tap it, tap ${tileCount(TUBE_TILES)} anywhere on the board — rack or `
-        + `half-composed word alike — then tap the tube again. The paint is `
-        + `permanent, and goes on the tile rather than either face of a dual. `
+    body: `Tap it and the paint finds its own tile: one random unpainted tile `
+        + `in your hand — rack or half-composed word alike — takes the colour, `
+        + `permanently, on the tile rather than either face of a dual. Pick `
+        + `your moment, not your tile. `
         + colourDesc(s.colour),
   };
   if (s?.kind === 'ratchet') return {

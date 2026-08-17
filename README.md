@@ -200,11 +200,12 @@ the **discard pile**.
 
 **Sundries** are consumables kept on the **workbench** (two slots to start, and
 the Colophon can add two more, beside the patron shelf). The **paint tube**:
-tap it mid-page, tap one tile anywhere on the board — rack or half-composed
-word alike — and tap the tube again to paint it, permanently. The moment a
-target is picked the table dims around the workbench and the tool breathes in
-its own colour, because the tap that spends it is on the tool and not on the
-board. The **ratchet** works to the same rhythm: tap it, tap one letter, tap the ratchet again, and
+tap it mid-page and the paint finds its own tile — one random unpainted tile
+in your hand, rack or half-composed word alike, takes the colour permanently.
+The tile is the paint's choice; the *moment* is yours, so play and discard
+first, then pour. (Aimed paint only ever landed on the same four workhorse
+letters, which made every run's colours converge.) The **ratchet** keeps the
+two-tap rhythm: tap it, tap one letter, tap the ratchet again, and
 that letter steps a single place along the alphabet — D becomes C or E, A
 becomes Z or B. The two arrows on the tool say which way it is pointing and
 can be flipped at any time, including on the tap that spends it. The new
