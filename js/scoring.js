@@ -299,6 +299,17 @@ export function computeReward() {
   if (isDeadline(state.page)) {
     parts.push({ label: 'Deadline met', coins: REWARD.finaleBonus });
   }
+  // Overset — type set well beyond what the page asked. One Coin per half-
+  // quota of overshoot (150% pays 1, 200% pays 2), capped like interest so a
+  // late-game press multiplying into the thousands doesn't mint money.
+  const overset = Math.min(REWARD.oversetCap,
+    Math.floor((state.pageScore / state.quota - 1) / REWARD.oversetPer));
+  if (overset > 0) {
+    parts.push({
+      label: `Overset — ${Math.round(100 * state.pageScore / state.quota)}% of quota`,
+      coins: overset,
+    });
+  }
   const interest = Math.min(REWARD.interestCap, Math.floor(state.coins / REWARD.interestPer));
   if (interest > 0) {
     parts.push({ label: 'Interest on savings', coins: interest });

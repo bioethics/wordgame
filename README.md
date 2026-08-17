@@ -224,18 +224,19 @@ The heap holds the freshest six, older rot is turned under, and you may lift
 one free of charge each visit.
 
 **Stalls** are services: the **Smelter** (trash a tile) and the
-**Stereotyper** (clone any tile) work off your whole case. Three are *proposal
+**Stereotyper** (clone any tile) work off your whole case. Four are *proposal
 stalls* — they lay out a spread of six of your own tiles, each paired with a
 proposed change, and you commission the one you like: the **Gilder** offers
 trims, the **Punchcutter** cuts a second letter into a tile (making it dual),
-and the **Dresser** cuts a nick into a tile's edge. The **Painter** sits
-between the two: it lays out a spread of six the same way, but the change is
-yours to choose — any colour you like on whichever of the six you pick. The
-Gilder and the Painter draw their spread with a gentle lean towards your rarer
-letters, so a Z is about twice as likely to be laid out as any one of your Es.
-Every purchase doubles that stall's price for the rest of the visit; prices
-reset when the next market opens. The Dresser starts at 3 Coins, every other
-stall at 2.
+the **Dresser** cuts a nick into a tile's edge, and the **Painter** proposes
+colours for six unpainted tiles — the colours are the stall's to deal, but
+every pot is guaranteed a showing. (Choosing your own colour, and repainting
+a tile already coated, is the paint tube's trade.) The Gilder and the Painter
+draw their spread with a gentle lean towards your rarer letters, so a Z is
+about twice as likely to be laid out as any one of your Es. Every purchase
+doubles that stall's price for the rest of the visit and returns you to the
+market floor; prices reset when the next market opens. The Dresser starts at
+3 Coins, every other stall at 2.
 
 **Patrons** grant standing boons — five seats to start (the Colophon can add
 more), dismissable for half their cost (hover for the ✕, or tap the patron on
