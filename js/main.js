@@ -43,7 +43,7 @@ import {
   pulse, sparkleBurst, sfx, applySpeedCSS, speechBubble,
 } from './anim.js';
 import { initInput, initInspect } from './drag.js';
-import { patronById } from './patrons.js';
+import { patronById, doubledReading } from './patrons.js';
 import { randomQuip } from './quips.js';
 
 const $ = id => document.getElementById(id);
@@ -160,9 +160,12 @@ async function patronReactions(script) {
 
 const VOWELS = 'AEIOU';
 
-// Two slips count as one vowel going astray: the wrong vowel written
-// (SEPERATE), and two vowels changing places (WIERD, RECIEVE, THIER) — which
-// is the error Titivillus is really in the business of collecting.
+// Four slips count as one vowel going astray, tried in the order of how the
+// error usually happens: the wrong vowel written (SEPERATE), two vowels
+// changing places (WIERD, RECIEVE, THIER), a vowel too many (ATHELETE), and
+// a vowel left out entirely (SEPRATE). The last is the widest door — a rack
+// short of vowels can set BRD and let the demon supply the I — which is why
+// the whole pardon stays behind azure ink and a rare seat.
 function titivillusPardon(letters) {
   if (!state.word.some(t => getActiveColour(t) === 'azure')) return null;
 
@@ -179,6 +182,17 @@ function titivillusPardon(letters) {
     if (a === b || !VOWELS.includes(a) || !VOWELS.includes(b)) continue;
     const fixed = letters.slice(0, i) + b + a + letters.slice(i + 2);
     if (DICT.has(fixed)) return fixed;
+  }
+  for (let i = 0; i < letters.length; i++) {
+    if (!VOWELS.includes(letters[i])) continue;
+    const fixed = letters.slice(0, i) + letters.slice(i + 1);
+    if (DICT.has(fixed)) return fixed;
+  }
+  for (let i = 0; i <= letters.length; i++) {
+    for (const v of VOWELS) {
+      const fixed = letters.slice(0, i) + v + letters.slice(i);
+      if (DICT.has(fixed)) return fixed;
+    }
   }
   return null;
 }
@@ -226,15 +240,19 @@ function binderPardon(letters) {
 
 // The excuses a word can call on when the dictionary turns it away, tried in
 // order and credited to whoever saved it. None of them change the word: what
-// you set is what prints, and the manuscript keeps it. The Binder
-// goes last: where a word could be read as either, a plain misspelling is the
-// likelier story than a coinage.
+// you set is what prints, and the manuscript keeps it. The Haplographer's
+// doubling (doubledReading lives in patrons.js, because his licence also
+// feeds The Twins at scoring) slots before the Skimmer — one letter standing
+// for two is a likelier story than the middle of the word in shuffle. The
+// Binder goes last: where a word could be read as either, a plain
+// misspelling is the likelier story than a coinage.
 const PARDONS = [
-  { id: 'izzard',     find: izzardPardon },
-  { id: 'titivillus', find: titivillusPardon },
-  { id: 'stumbler',   find: stumblerPardon },
-  { id: 'skimmer',    find: scrambleMatch },
-  { id: 'binder',     find: binderPardon },
+  { id: 'izzard',       find: izzardPardon },
+  { id: 'titivillus',   find: titivillusPardon },
+  { id: 'stumbler',     find: stumblerPardon },
+  { id: 'haplographer', find: doubledReading },
+  { id: 'skimmer',      find: scrambleMatch },
+  { id: 'binder',       find: binderPardon },
 ];
 
 function pardonWord(letters) {

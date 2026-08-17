@@ -66,10 +66,12 @@ import {
 } from './constants.js';
 import {
   getActiveColour, getActiveLetter, countsAsColour, luckyRoll, paintRandomTiles,
-  shuffle,
+  shuffle, owns,
 } from './state.js';
 import { inTheme, themeSize } from './themes.js';
-import { DICT } from './dict.js';   // The Mirror reads a word backwards against it
+// The Mirror reads a word backwards against the dictionary; the Haplographer's
+// licence reads it with one letter doubled.
+import { DICT } from './dict.js';
 
 const VOWELS = 'AEIOU';
 
@@ -94,6 +96,28 @@ function doubledPairs(word) {
   }
   return n;
 }
+
+// The Haplographer's licence: a word that becomes a dictionary word when one
+// of its letters is printed twice may be read that way. The doubled form has
+// to be real — MATE reads as MATTE, GRIP reads as nothing. Exported because
+// the licence cuts two ways from one rule: main.js consults it at the
+// dictionary check (BALOON stands for BALLOON), and The Twins and The
+// Stammerer consult it at scoring, where the reading counts as one more
+// doubled pair. Note the scoring half doesn't ask whether the pardon fired —
+// a word valid as typed that can also be read doubled (MATE) still pays,
+// which is the licence being a licence rather than an excuse.
+export function doubledReading(word) {
+  if (!word || word.length < 2) return null;
+  for (let i = 0; i < word.length; i++) {
+    const w = word.slice(0, i + 1) + word[i] + word.slice(i + 1);
+    if (DICT.has(w)) return w;
+  }
+  return null;
+}
+
+// One extra doubled pair when the Haplographer's licence applies to the word.
+const licencedPairs = word =>
+  owns('haplographer') && doubledReading(word) ? 1 : 0;
 
 // The dye commons: one per colour, each the same patron in a different pot.
 // They paint at the turn of a chapter, before the next page's bag is shuffled,
@@ -164,7 +188,9 @@ export const PATRON_DEFS = [
     id: 'twins', name: 'The Twins', emoji: '👯', rarity: 'common', cost: 4,
     desc: 'Words with a doubled letter (LL, OO…) gain +15 Points.',
     when: 'score',
-    effect({ word, addPoints }) { if (doubledPairs(word)) addPoints(15); },
+    effect({ word, addPoints }) {
+      if (doubledPairs(word) + licencedPairs(word)) addPoints(15);
+    },
   },
   {
     id: 'izzard', name: 'The Izzard', emoji: '⚡', rarity: 'common', cost: 4, guild: 'azure',
@@ -310,12 +336,16 @@ export const PATRON_DEFS = [
   },
   dyePatron('weld', 'The Weld', '🌼', 'amber'),
   {
-    id: 'assayer', name: 'The Assayer', emoji: '⚖️', rarity: 'uncommon', cost: 6, guild: 'amber',
-    desc: 'Amber tiles pay 1 Coin when printed, up to 2 a word.',
+    // Was uncommon · 6, paying per amber tile up to 2 a word — a scaling
+    // engine you built toward. Retuned per-word and priced at the floor: 1
+    // Coin whenever amber shows up at all. The ceiling halved (5 a page,
+    // down from 10), so the price fell further — this is amber's on-ramp
+    // now, the guild's cheapest handshake, not its payoff.
+    id: 'assayer', name: 'The Assayer', emoji: '⚖️', rarity: 'common', cost: 3, guild: 'amber',
+    desc: 'Words with an amber tile pay 1 Coin.',
     when: 'score',
     effect({ tiles, addCoins }) {
-      const n = Math.min(2, painted(tiles, 'amber').length);
-      if (n) addCoins(n);
+      if (painted(tiles, 'amber').length) addCoins(1);
     },
   },
   {
@@ -569,7 +599,7 @@ export const PATRON_DEFS = [
   },
   {
     id: 'titivillus', name: 'Titivillus', emoji: '😈', rarity: 'rare', cost: 9, guild: 'azure',
-    desc: 'Words with an azure tile are accepted with one vowel wrong, or with two vowels swapped.',
+    desc: 'Words with an azure tile are accepted with one vowel wrong: swapped, changed, missing or extra.',
     when: 'meta',   // consulted at the dictionary check in main.js — the typo prints as typed
   },
   {
@@ -698,7 +728,7 @@ export const PATRON_DEFS = [
     when: 'meta',   // consulted at the dictionary check in main.js; the list lives in wordlists-themed/acronyms.txt
   },
   {
-    // Not a misspelling like the three excuses below — nothing has gone wrong
+    // Not a misspelling like the four excuses below — nothing has gone wrong
     // here. It licenses a construction: the compound noun, which English makes
     // freely and dictionaries only ever catch up with.
     id: 'binder', name: 'The Binder', emoji: '🔗', rarity: 'rare', cost: 12, guild: 'azure',
@@ -710,7 +740,7 @@ export const PATRON_DEFS = [
     desc: '×2 Mult for every doubled letter in the word — BALLOON pays twice.',
     when: 'score',
     effect({ word, xMult }) {
-      const n = doubledPairs(word);
+      const n = doubledPairs(word) + licencedPairs(word);
       if (n) xMult(2 ** n);
     },
   },
@@ -754,14 +784,28 @@ export const PATRON_DEFS = [
     effect({ word, xMult }) { if (inTheme('rude', word)) xMult(3); },
   },
 
-  // ── Misspellings · the three excuses ────────────────────────────────────────
-  // Titivillus (azure) forgives a wrong vowel; these two forgive letters in the
-  // wrong order. All three are consulted at the dictionary check in main.js,
-  // cheapest excuse first, and none of them touch the score — the word prints
-  // exactly as you set it, misspelling and all.
+  // ── Misspellings · the four excuses ─────────────────────────────────────────
+  // Titivillus (azure) forgives anything a vowel can do wrong; these three
+  // forgive the consonants their oldest slips — letters in the wrong order,
+  // and one letter standing where two belong. All four are consulted at the
+  // dictionary check in main.js, and the word prints exactly as you set it,
+  // misspelling and all. Three of the four never touch the score; the
+  // Haplographer is the exception, and wears the higher price for it — his
+  // licence also feeds The Twins and The Stammerer (see doubledReading).
   {
     id: 'stumbler', name: 'The Stumbler', emoji: '🥾', rarity: 'common', cost: 3,
     desc: 'Words are accepted with one pair of adjacent letters swapped: TEH counts as THE.',
+    when: 'meta',
+  },
+  {
+    // Haplography: writing once what ought to be written twice — the scribal
+    // slip this family was missing. The licence cuts both ways from one rule
+    // (doubledReading, above): at the dictionary check BALOON stands for
+    // BALLOON, and at scoring any word that CAN be read with a doubled
+    // letter counts as holding one more doubled pair, which is what pays The
+    // Twins and The Stammerer. The only pardon that reaches the score.
+    id: 'haplographer', name: 'The Haplographer', emoji: '🔂', rarity: 'uncommon', cost: 6,
+    desc: 'One letter may read as doubled: BALOON counts as BALLOON — and doubles pay The Twins.',
     when: 'meta',
   },
   {
