@@ -548,6 +548,36 @@ export function trashFromCollection(tid) {
   return removed;
 }
 
+// Melt two tiles into one two-faced sort (The Typefounder): the left tile
+// takes the right's letter as its second face, and the right is destroyed.
+// Where both carry the same finery — paint, trim, nick, material — the left
+// tile's survives the melt; where only one does, it is kept whichever side it
+// came from. Grown points pour together. Only plain single-letter tiles will
+// take the crucible: no duals (a tile has at most two faces), no ligatures or
+// marks (not single letters — same bar the Punchcutter sets), and nothing
+// immutable. The destruction goes through trashFromCollection, so it respects
+// the Smelter's floor and feeds the Composter like every other route out.
+export function mergeTiles(left, right) {
+  const plain = t => t.letter.length === 1 && !isMark(t.letter)
+                  && t.letterType !== 'dual' && !isImmutable(t);
+  if (!plain(left) || !plain(right)) return false;
+  if (!trashFromCollection(right.tid)) return false;   // the floor held
+  const merged = {
+    letterType:    'dual',
+    altLetter:     right.letter,
+    activeVariant: 0,
+    colour:        left.colour   ?? right.colour,
+    trim:          left.trim     ?? right.trim,
+    nick:          left.nick     ?? right.nick,
+    material:      left.material ?? right.material,
+    bonusPoints:   (left.bonusPoints ?? 0) + (right.bonusPoints ?? 0),
+  };
+  Object.assign(left, merged);
+  const tmpl = state.collection.find(c => c.tid === left.tid);
+  if (tmpl) Object.assign(tmpl, merged);
+  return true;
+}
+
 // ─── The manuscript ───────────────────────────────────────────────────────────
 
 export function recordWord(word, score) {

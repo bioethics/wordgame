@@ -383,6 +383,35 @@ condition, and the condition asks something real of the player.
   the Stenographer's acronym list holds 38 two-letter entries (DM, GG, RN…),
   which widens the trigger for a rare seat — probably fine, worth a look.
 
+### The Typefounder (a later pitch)
+
+**The Typefounder** ⚗️ (rare · 10, crimson) — discard *exactly two* tiles
+and they are recast as one two-faced sort: the left tile takes the right's
+letter as its second face, and the right is destroyed. This completes a
+discard ladder with the Bloodletter — one tile tempts the barber, two go to
+the crucible — with no overlap between their triggers, so both can be
+seated and read together.
+
+The melt rules live in `mergeTiles` (state.js), deliberately not in the
+desc: where both tiles carry the same finery (paint, trim, nick, material)
+the **left** tile's survives; where only one does, it is kept whichever
+side it came from; grown points pour together. Only plain single-letter
+tiles will pour — no duals (two faces is the most a tile has), no ligatures
+or marks (the Punchcutter's own bar), no ghosts or lent tiles. The
+destruction goes through `trashFromCollection`, so it respects the
+Smelter's floor and feeds the Composter.
+
+Why rare: this is a god-tile foundry. It casts a Punchcutter cut where you
+chose *both* faces, and it consolidates finery — merge a purple-trimmed
+tile onto a painted one and the survivor wears both. The price is real
+(every melt shrinks the collection by one, and spends a whole Discard on
+two tiles), but the ceiling is a build around one perfect tile, which is
+rare-shelf material beside the Stoker and the Grafter. Crimson reaches 10
+patrons with him, drawing level with azure. **Watchpoint:** the
+Monogrammist echoes whatever a god-tile becomes; if a merged
+paint-trim-rainbow sort with an echo proves silly, the first lever is
+cost, not the melt rules.
+
 ### The spelling pass (a later round of pitches)
 
 Three changes in one sitting, all to how words are excused or paid:

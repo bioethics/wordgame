@@ -25,14 +25,17 @@
 //                       shuffled; ctx { state, data }. Return { note } likewise.
 //   onDiscard(ctx)    — after tiles are thrown away, before the hand tops up;
 //                       ctx { tiles, state, data, paint(tile, colour),
-//                       trash(tile) }. The tiles are already in the discard
-//                       pile but still in the collection, so paint written here
-//                       is waiting when the bag comes round again. Return
-//                       { note } likewise, { painted: [{ tile, colour }] } for
-//                       tiles that should take their new colour on screen
-//                       before they fly off, and { trashed: [tile…] } for tiles
-//                       destroyed outright — main.js unfiles those from the
-//                       pile and burns them away instead of flying them.
+//                       trash(tile), merge(left, right) }. The tiles are
+//                       already in the discard pile but still in the
+//                       collection, so paint written here is waiting when the
+//                       bag comes round again. Return { note } likewise,
+//                       { painted: [{ tile, colour }] } for tiles that should
+//                       take their new colour on screen before they fly off,
+//                       { trashed: [tile…] } for tiles destroyed outright —
+//                       main.js unfiles those from the pile and burns them
+//                       away instead of flying them — and
+//                       { merged: [{ tile, alt }] } for tiles recast with a
+//                       second face, shown on the board before they file.
 // `data` is the seat's own saved memory (state.js patronData) — counters live
 // there, never on the def.
 //
@@ -517,6 +520,29 @@ export const PATRON_DEFS = [
       }
       if (!trash(t)) return null;   // the Smelter's floor holds here too
       return { note: `${getActiveLetter(t)} drained dry`, trashed: [t] };
+    },
+  },
+  {
+    // The discard ladder's second rung: one tile tempts the Bloodletter, two
+    // go to the crucible. The melt is strictly two-for-one — the collection
+    // shrinks, the Composter is fed — and what comes out is a Punchcutter
+    // cut you chose both faces of, wearing the survivors' finery. The merge
+    // rules (left tile's finery wins a tie, grown points pour together, only
+    // plain single letters will pour) live in mergeTiles in state.js, and
+    // deliberately not in the desc.
+    id: 'typefounder', name: 'The Typefounder', emoji: '⚗️', rarity: 'rare', cost: 10, guild: 'crimson',
+    desc: 'Discard exactly two tiles: they are recast as one tile with a letter on either face.',
+    when: 'meta',
+    onDiscard({ tiles, merge }) {
+      if (tiles.length !== 2) return null;
+      const [left, right] = tiles;
+      const alt = getActiveLetter(right);
+      if (!merge(left, right)) return null;
+      return {
+        note: `${getActiveLetter(left)}|${alt} cast as one`,
+        trashed: [right],
+        merged: [{ tile: left, alt }],
+      };
     },
   },
   {
