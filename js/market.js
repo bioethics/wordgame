@@ -30,7 +30,6 @@ export const market = {
   stallWear: {},         // stall id → uses this visit, surviving re-rolls (see rollStalls)
   activeStall: null,     // stall id while view === 'stall'
   stallSel: -1,          // selected tid (gilder: proposal index)
-  stallColour: null,     // the painter's chosen colour
   rerollCost: REROLL_BASE,
 };
 
@@ -250,11 +249,30 @@ export const PROPOSAL_STALLS = {
     eligible: t => !t.nick && !isImmutable(t),
     propose:  () => ({ nick: pick(Object.keys(NICKS)) }),
   },
+  painter: {
+    // Reworked to match the Gilder: six unpainted tiles, colours proposed
+    // rather than picked, and the spread dealt so every pot shows at least
+    // once (the dress pass below). Choosing your colour — and repainting a
+    // tile already coated — is the paint tube's trade now, which is what a
+    // dearer, rarer sundry is for.
+    eligible: t => !t.colour && !isImmutable(t),
+    propose:  () => ({}),   // the colour is dealt across the whole spread, below
+    dress(proposals) {
+      const pots = shuffle(Object.keys(COLOURS).slice());
+      while (pots.length < proposals.length) pots.push(pick(Object.keys(COLOURS)));
+      shuffle(pots);
+      proposals.forEach((p, i) => { p.colour = pots[i]; });
+    },
+    biased: true,
+  },
 };
 
 export const isProposalStall = id => !!PROPOSAL_STALLS[id];
 
-// A fresh spread for one stall. Re-rolled after every commission.
+// A fresh spread for one stall. Re-rolled after every commission. A stall
+// with a `dress` pass gets to look at the whole spread after the per-tile
+// proposals are rolled — the Painter deals its colours there, so every pot
+// is guaranteed a showing.
 export function rollProposals(stallId) {
   const spec = PROPOSAL_STALLS[stallId];
   if (!spec) return [];
@@ -262,19 +280,10 @@ export function rollProposals(stallId) {
   const spread = spec.biased
     ? biasedSample(eligible, PROPOSAL_RANGE)
     : shuffle(eligible).slice(0, PROPOSAL_RANGE);
-  return spread.map(t => ({ tid: t.tid, ...spec.propose(t) }));
+  const proposals = spread.map(t => ({ tid: t.tid, ...spec.propose(t) }));
+  spec.dress?.(proposals);
+  return proposals;
 }
-
-// ── The Painter ───────────────────────────────────────────────────────────────
-// Not a proposal stall — there's nothing to propose when the colour is yours to
-// pick — but it lays out a spread the same way the Gilder does, and draws it
-// with the same lean towards your rarer letters. Before this it offered the
-// whole case, which made it the one stall where the shop asked you nothing.
-
-const paintable = t => !isImmutable(t);   // a ghost tile takes no paint
-
-export const rollPaintOffers = () =>
-  biasedSample(state.collection.filter(paintable), PROPOSAL_RANGE).map(t => t.tid);
 
 // Smelting can orphan a spread mid-visit — drop any entry whose tile is gone or
 // no longer eligible.
@@ -284,10 +293,6 @@ function pruneStalls() {
     if (spec && stall.proposals) {
       stall.proposals = stall.proposals.filter(p =>
         state.collection.some(t => t.tid === p.tid && spec.eligible(t)));
-    }
-    if (stall.offers) {
-      stall.offers = stall.offers.filter(tid =>
-        state.collection.some(t => t.tid === tid && paintable(t)));
     }
   }
 }
@@ -302,7 +307,6 @@ function rollStalls() {
   market.stalls = ids.map(id => {
     const uses = market.stallWear?.[id] ?? 0;
     if (isProposalStall(id)) return { id, uses, proposals: rollProposals(id) };
-    if (id === 'painter')    return { id, uses, offers: rollPaintOffers() };
     return { id, uses };
   });
 }
@@ -318,7 +322,6 @@ export function openMarket(rewardParts, rewardTotal) {
   market.rerollCost = REROLL_BASE;
   market.activeStall = null;
   market.stallSel = -1;
-  market.stallColour = null;
   market.compostTaken = 0;
   market.stallWear = {};
   rotCompost();
@@ -333,9 +336,11 @@ export function restoreMarket(snapshot) {
   market.stalls ??= [];
   market.stallWear ??= {};
   market.compostTaken ??= 0;
-  // A save from before the Painter kept a spread has a bare stall — lay one out
-  // rather than leaving it with nothing to offer.
-  for (const s of market.stalls) if (s.id === 'painter') s.offers ??= rollPaintOffers();
+  // A save from before the Painter became a proposal stall holds a bare
+  // stall (or one carrying the old `offers` list) — deal it a spread.
+  for (const s of market.stalls) {
+    if (isProposalStall(s.id) && !s.proposals) s.proposals = rollProposals(s.id);
+  }
   state.inMarket = true;
 }
 
@@ -526,20 +531,9 @@ export function stallSmelt(tid) {
   return { ok: true, removed: t.tmpl, price: t.price };
 }
 
-export function stallPaint(tid, colour) {
-  const t = stallTarget('painter', tid);
-  if (!t || !COLOURS[colour])        return { ok: false, reason: 'Pick a tile and a colour.' };
-  if (!t.stall.offers?.includes(tid))
-                                     return { ok: false, reason: 'The Painter has not laid that tile out.' };
-  if (state.coins < t.price)         return { ok: false, reason: `You need ${t.price} Coins.` };
-  payStall(t.stall, t.price);
-  t.tmpl.colour = colour;            // the tile's coat — a dual wears it on both letters
-  t.stall.offers = rollPaintOffers();  // a fresh spread, as the proposal stalls do
-  return { ok: true, tmpl: t.tmpl, colour, price: t.price };
-}
-
 // Commission a proposal from whichever proposal stall you're standing in.
-// The proposal itself carries what changes — a trim, or a second letter.
+// The proposal itself carries what changes — a trim, a second letter, or
+// (the Painter) a coat of paint.
 export function stallCommission(stallId, proposalIdx) {
   const spec  = PROPOSAL_STALLS[stallId];
   const stall = stallById(stallId);
@@ -552,6 +546,7 @@ export function stallCommission(stallId, proposalIdx) {
   payStall(stall, price);
   if (proposal.trim) tmpl.trim = proposal.trim;
   if (proposal.nick) tmpl.nick = proposal.nick;
+  if (proposal.colour) tmpl.colour = proposal.colour;   // a dual wears it on both letters
   if (proposal.altLetter) {
     tmpl.letterType    = 'dual';
     tmpl.altLetter     = proposal.altLetter;

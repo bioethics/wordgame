@@ -18,7 +18,7 @@ import {
   offerPrice, compostLeft, takeCompost,
   buyPatron, buyTile, buySundry, sellPatron, sellSundry, patronRefund,
   rerollMarket, freeRerollMarket,
-  stallSmelt, stallPaint, stallCommission, stallClone,
+  stallSmelt, stallCommission, stallClone,
 } from './market.js';
 import {
   colophon, closeColophon, applyColophonPick, applyColophonSkip, reshuffleColophon,
@@ -383,24 +383,20 @@ function marketStallHTML() {
   const def = STALL_DEFS[market.activeStall];
   if (!stall || !def) return marketShopHTML();
 
-  const painterColours = market.activeStall === 'painter' ? `
-    <div class="painter-colours">
-      ${Object.keys(COLOURS).map(c => `
-        <button class="paint-swatch paint-swatch--${c}" data-stall-colour="${c}"
-                title="${COLOURS[c].label} — ${colourDesc(c)}"></button>`).join('')}
-    </div>` : '';
-
   // A proposal shows the tile as it would be, so where the change isn't
-  // self-evident the stall carries a key: metals for the Gilder, and for the
-  // Dresser which way a notch reaches.
+  // self-evident the stall carries a key: metals for the Gilder, which way a
+  // notch reaches for the Dresser, and what each colour pays for the Painter.
+  const colourKey = Object.fromEntries(Object.entries(COLOURS).map(
+    ([id, c]) => [id, { label: c.label, desc: colourDesc(id) }]));
   const stallKey =
       market.activeStall === 'gilder'  ? keyBlock(TRIMS, id => `trim-swatch trim-swatch--${id}`)
     : market.activeStall === 'dresser' ? keyBlock(NICKS, id => `nick-swatch nick-swatch--${id}`)
+    : market.activeStall === 'painter' ? keyBlock(colourKey, id => `paint-swatch paint-swatch--${id}`)
     : '';
 
   const body = isProposalStall(market.activeStall)
     ? `${stallKey}<div class="offer-tiles proposal-grid" id="stallProposalGrid"></div>`
-    : `${painterColours}<div class="mini-grid mini-grid--case" id="stallGrid"></div>`;
+    : `<div class="mini-grid mini-grid--case" id="stallGrid"></div>`;
 
   const note = market.activeStall === 'smelter' && state.collection.length <= SMELT_MIN_COLLECTION
     ? `<p class="sheet-note stall-warn">Your collection is too small to smelt further.</p>`
@@ -429,6 +425,7 @@ function marketStallHTML() {
 export function proposalPreview(tmpl, p) {
   if (p.altLetter) return { ...tmpl, letterType: 'dual', altLetter: p.altLetter, activeVariant: 0, id: '' };
   if (p.nick)      return { ...tmpl, nick: p.nick, id: '' };
+  if (p.colour)    return { ...tmpl, colour: p.colour, id: '' };
   return { ...tmpl, trim: p.trim, id: '' };
 }
 
@@ -497,9 +494,6 @@ export function updateStallState() {
   for (const el of m.querySelectorAll('[data-proposal-idx]')) {
     el.classList.toggle('picked', Number(el.dataset.proposalIdx) === market.stallSel);
   }
-  for (const el of m.querySelectorAll('[data-stall-colour]')) {
-    el.classList.toggle('paint-swatch--sel', el.dataset.stallColour === market.stallColour);
-  }
 
   const btn = m.querySelector('#btnStallConfirm');
   if (!btn) return;
@@ -516,12 +510,15 @@ export function updateStallState() {
       label = sel ? `Smelt ${tileName(sel)} ${priceTag}` : 'Select a tile to smelt';
       ready = !!sel && state.collection.length > SMELT_MIN_COLLECTION;
       break;
-    case 'painter':
-      label = sel && market.stallColour
-        ? `Paint ${tileName(sel)} ${COLOURS[market.stallColour].label} ${priceTag}`
-        : 'Select a tile and a colour';
-      ready = !!sel && !!market.stallColour;
+    case 'painter': {
+      const p = stall.proposals?.[market.stallSel];
+      const tmpl = p && state.collection.find(t => t.tid === p.tid);
+      label = tmpl
+        ? `Paint ${tileName(tmpl)} ${COLOURS[p.colour].label} ${priceTag}`
+        : 'Choose a colour';
+      ready = !!tmpl;
       break;
+    }
     case 'stereotyper':
       label = sel ? `Cast a copy of ${tileName(sel)} ${priceTag}` : 'Select a tile to duplicate';
       ready = !!sel;
@@ -827,7 +824,6 @@ function onMarketClick(e) {
     market.view = 'stall';
     market.activeStall = visit.dataset.visitStall;
     market.stallSel = -1;
-    market.stallColour = null;
     renderMarket();
     return;
   }
@@ -849,12 +845,6 @@ function onMarketClick(e) {
     updateStallState();
     return;
   }
-  const swatch = e.target.closest('[data-stall-colour]');
-  if (swatch) {
-    market.stallColour = swatch.dataset.stallColour;
-    updateStallState();
-    return;
-  }
   if (e.target.closest('#btnStallConfirm')) {
     let r, msg;
     switch (market.activeStall) {
@@ -863,7 +853,7 @@ function onMarketClick(e) {
         if (r.ok) msg = `The Smelter feeds a “${r.removed.letter}” tile to the furnace.`;
         break;
       case 'painter':
-        r = stallPaint(market.stallSel, market.stallColour);
+        r = stallCommission('painter', market.stallSel);
         if (r.ok) msg = `The Painter coats “${r.tmpl.letter}” in ${COLOURS[r.colour].label.toLowerCase()}.`;
         break;
       case 'gilder':
@@ -889,6 +879,11 @@ function onMarketClick(e) {
     else {
       if (market.activeStall === 'smelter') sfx.discard(); else sfx.coin();
       log(msg, 'good');
+      // Work done, back to the market — the stall card's risen price is the
+      // thing to see, and lingering in the stall let it go unnoticed. The
+      // Visit button is right there for whoever wants to pay it.
+      market.view = 'shop'; market.activeStall = null; market.stallSel = -1;
+      market.returning = true;
     }
     renderAll(); renderMarket();   // full rebuild: the price and grid both changed
     return;

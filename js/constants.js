@@ -12,10 +12,15 @@
 // changed when you flipped, and the shop handed out duals wearing two
 // different colours. Flipping now changes the letter and nothing else.
 
+// Scrabble's values, with one measured correction: U scores 2. Counted over
+// the 24,545 playable words (3-7 letters), U turns up in 3.59% of letter
+// slots — rarer than D (4.75%, worth 2) and C (3.44%, worth 3) — and the bag
+// agrees, carrying only 2 against the other one-pointers' 4-5. The classic
+// awkward letter, finally paid like one.
 export const TILE_POINTS = {
   A:1, B:3, C:3, D:2, E:1, F:4, G:2, H:4,
   I:1, J:8, K:5, L:1, M:3, N:1, O:1, P:3,
-  QU:10, R:1, S:1, T:1, U:1, V:4, W:4, X:8,
+  QU:10, R:1, S:1, T:1, U:2, V:4, W:4, X:8,
   Y:4, Z:10,
   // A ligature scores exactly what its letters would score apart — CH is C+H,
   // CK is C+K — so it buys you a tile slot, never free points. QU is the one
@@ -132,8 +137,8 @@ export const STALL_DEFS = {
   },
   painter: {
     name: 'The Painter', emoji: '🖌️', base: 2,
-    desc: 'Lays out six of your tiles — paint one a colour of your choice.',
-    empty: 'You own nothing that will take paint.',
+    desc: 'Proposes colours for six unpainted tiles — every pot on show.',
+    empty: 'Every tile you own already wears paint.',
   },
   gilder: {
     name: 'The Gilder', emoji: '⚜️', base: 2,
@@ -274,6 +279,8 @@ export const REWARD = {
   finaleBonus:  3,   // extra for clearing a Deadline page
   interestPer:  10,  // +1 coin per N coins held…
   interestCap:  3,   // …capped here
+  oversetPer:   0.5, // +1 coin per this fraction of quota beyond it (150% pays 1)…
+  oversetCap:   3,   // …capped here, like interest
 };
 
 export const TILE_BASE_PRICE = 2;
