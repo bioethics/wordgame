@@ -13,7 +13,7 @@ import {
   FEATURE_CHAIN_CHANCE, MAX_FEATURES,
   makeTileTemplate,
 } from './constants.js';
-import { PATRON_DEFS, RARITY_WEIGHT, patronById } from './patrons.js';
+import { PATRON_DEFS, RARITY_WEIGHT, patronById, guildSeats } from './patrons.js';
 
 // ─── Shop state (ephemeral between pages) ─────────────────────────────────────
 
@@ -443,8 +443,11 @@ function rotCompost() {
   state.compostPending = 0;
 }
 
+// This visit's allowance from the heap: one tile per jade patron on the
+// shelf — the gardeners who use the rot — floored at the classic
+// COMPOST_PER_MARKET, which a lone Composter (jade himself) exactly meets.
 export const compostLeft = () =>
-  Math.max(0, COMPOST_PER_MARKET - (market.compostTaken ?? 0));
+  Math.max(0, Math.max(COMPOST_PER_MARKET, guildSeats('jade')) - (market.compostTaken ?? 0));
 
 export function takeCompost(idx) {
   if (!owns('composter'))       return { ok: false, reason: 'No one is tending the heap.' };

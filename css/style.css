@@ -273,6 +273,16 @@ header {
   z-index: 2;
 }
 
+/* A dual-livery seat wears a second pin beside the first. It rides the same
+   pseudo-element as extra box-shadow dots — ::after is spoken for by
+   --armed and --empty — so one badge carries both enamels. */
+.patron[class*="patron--g2-"]::before {
+  box-shadow:
+    0 0 0 1px rgba(20, 12, 8, 0.5),
+    9px 0 0 0 var(--livery2),
+    9px 0 0 1px rgba(20, 12, 8, 0.5);
+}
+
 .patron-emoji { font-size: 23px; line-height: 1; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.25)); }
 .patron-name {
   font-family: var(--serif);
@@ -1983,6 +1993,14 @@ button.sundry:hover { transform: translateY(-2px); }
   --livery: #2e6fb2; --livery-brt: #8ec6ff; --livery-soft: rgba(46, 111, 178, 0.16);
 }
 
+/* A dual-livery patron (the Cellarer, the Composter) wears a second guild's
+   colours beside the first: these classes carry the second dye, and the
+   rules below hang the second ribbon and pin from them. */
+.offer-patron--g2-crimson, .patron--g2-crimson { --livery2: #b23a2e; --livery2-brt: #ff9d8e; }
+.offer-patron--g2-jade,    .patron--g2-jade    { --livery2: #2d8a5c; --livery2-brt: #90e8ba; }
+.offer-patron--g2-amber,   .patron--g2-amber   { --livery2: #a87010; --livery2-brt: #ffd68c; }
+.offer-patron--g2-azure,   .patron--g2-azure   { --livery2: #2e6fb2; --livery2-brt: #8ec6ff; }
+
 /* The ribbon: hangs over the card's top rule like a bookmark, notched at the
    tail. It rides the card's tilt, which keeps the stack looking hand-laid. */
 .offer-patron[class*="offer-patron--g-"]::after {
@@ -1997,6 +2015,22 @@ button.sundry:hover { transform: translateY(-2px); }
   box-shadow: 0 2px 3px rgba(60, 40, 15, 0.35);
   z-index: 1;
 }
+/* The second ribbon: a slightly shorter silk bound in beside the first —
+   two dyes under one stitch. ::after is the first ribbon's, so this one
+   takes the card's ::before, which offer cards otherwise leave free. */
+.offer-patron[class*="offer-patron--g2-"]::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  right: 31px;
+  width: 13px;
+  height: 27px;
+  background: linear-gradient(175deg, var(--livery2-brt) -45%, var(--livery2) 60%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+  box-shadow: 0 2px 3px rgba(60, 40, 15, 0.35);
+  z-index: 1;
+}
+
 .offer-patron[class*="offer-patron--g-"] .op-portrait {
   border-color: var(--livery);
   box-shadow:
