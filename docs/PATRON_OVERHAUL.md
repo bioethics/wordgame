@@ -713,6 +713,15 @@ commons at 4 Coins:
   is deliberately not in either desc; it lives at `runDiscardHooks` in
   main.js, and any future conflicting patrons resolve the same way.
 
+  **The shelf is draggable because of this.** A rule of precedence the player
+  can't edit is a trap, not a decision, so a patron card takes the rack's
+  gesture — press, travel, drop — and `reorderPatrons` (state.js) reseats it;
+  `initShelfDrag` in drag.js carries the mechanics. Tap still inspects, the ✕
+  still dismisses, and the click trailing a real drag is swallowed so a
+  reseat never also pops a tooltip. This is the one place the roster asks the
+  player to think about order at all, which is why the cards say nothing
+  about it and the log says it plainly on every drop.
+
 ## Remaining phases
 
 1. **Phase 1 — score-time patrons.** All "pure `score` def" rows above, plus

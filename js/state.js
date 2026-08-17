@@ -834,3 +834,23 @@ export function reorderRack(id, insertIdx) {
   const [tile] = state.rack.splice(i, 1);
   state.rack.splice(insertIdx > i ? insertIdx - 1 : insertIdx, 0, tile);
 }
+
+// Seats change places. Seat order is the roster's rule of precedence — hooks
+// fire down the shelf and a tile one patron consumes is out of every later
+// seat's reach (see runDiscardHooks in main.js) — so dragging a card is a real
+// tactical act, not decoration: it is how you tell the Bloodletter and the
+// Typefounder which of them gets first refusal on a discarded pair.
+//
+// `ref` is a seat uid or a def id, the same currency sellPatron takes. The
+// index counts seats, empty ones included, so a card dropped past the end of
+// the company simply goes last rather than vanishing into a gap.
+export function reorderPatrons(ref, insertIdx) {
+  const i = state.patrons.findIndex(p => String(p.uid) === String(ref) || p.id === ref);
+  if (i < 0) return false;
+  const to = Math.max(0, Math.min(insertIdx, state.patrons.length));
+  const at = to > i ? to - 1 : to;
+  if (at === i) return false;
+  const [seat] = state.patrons.splice(i, 1);
+  state.patrons.splice(at, 0, seat);
+  return true;
+}

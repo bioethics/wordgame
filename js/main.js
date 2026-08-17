@@ -43,7 +43,7 @@ import {
   sleep, flyClone, popReveal, floatText, tweenNum, setNum, fmtMult,
   pulse, sparkleBurst, sfx, applySpeedCSS, speechBubble,
 } from './anim.js';
-import { initInput, initInspect } from './drag.js';
+import { initInput, initInspect, initShelfDrag } from './drag.js';
 import { patronById, doubledReading } from './patrons.js';
 import { randomQuip } from './quips.js';
 
@@ -1275,6 +1275,7 @@ async function beginRun() {
   applySpeedCSS();
   initInput();
   initInspect();
+  initShelfDrag();
   initSheets({ nextPage: beginNextPage, advancePage, beginRun });
 
   renderDictStatus('loading', 0);
