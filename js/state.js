@@ -151,6 +151,7 @@ export const state = {
   bossesSeen: [],      // editor ids met this run — no repeats until the roster runs out
   compost: [],         // The Composter's heap: jade templates waiting at the Market
   compostPending: 0,   // tiles destroyed since the last Market, not yet rotted down
+  freeRerolls: 0,      // The Factor's banked Market re-rolls — spent before coins, gone at close
 
   totalScore: 0,
   stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
@@ -326,6 +327,7 @@ export function loadState() {
     state.bossesSeen ??= [];
     state.compost ??= [];
     state.compostPending ??= 0;
+    state.freeRerolls ??= 0;
     if (savedId)  _nextId  = savedId;
     if (savedTid) _nextTid = savedTid;
     // Seats saved before uids existed get one now — after the counters above,
@@ -354,7 +356,7 @@ export function newRun() {
     coins: STARTING_COINS, patrons: [], sundries: [], upgradeCounts: {},
     luck: 1, ratchetDir: 1, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
     boss: null, bossesSeen: [],
-    compost: [], compostPending: 0,
+    compost: [], compostPending: 0, freeRerolls: 0,
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
     manuscript: [],

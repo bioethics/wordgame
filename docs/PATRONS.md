@@ -20,7 +20,7 @@ House style for a description, from `docs/PATRON_OVERHAUL.md`: one sentence,
 real numbers, no metaphor, under ~110 characters. State the rule, not the
 feeling — the flavour belongs to the name, the emoji and the quips.
 
-**65 patrons** — 21 common, 28 uncommon, 16 rare. Guilds: amber 8, jade 9, crimson 10, azure 10, no guild 28.
+**69 patrons** — 21 common, 32 uncommon, 16 rare. Guilds: amber 10, jade 10, crimson 10, azure 10, no guild 30 — a dual-livery patron counts in each of its guilds.
 
 ## Amber · the counting-house
 
@@ -30,6 +30,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🪙 **The Goldsmith** `goldsmith` | common | 4 | Amber tiles gain +4 Points. |
 | 🌼 **The Weld** `weld` 🔒 | common | 4 | As each chapter ends, 2 tiles of your collection are painted amber. |
 | 🏦 **The Banker** `banker` | uncommon | 5 | +2 Coins whenever a page completes. |
+| 🤝 **The Factor** `factor` | uncommon | 5 | Amber tiles still in your hand when a page completes earn a free Market re-roll each, up to 2. |
 | 🏺 **The Antiquary** `antiquary` | uncommon | 6 | Words containing a J, QU, X or Z tile pay 2 Coins. |
 | 💰 **The Bursar** `bursar` | uncommon | 7 | Words with an amber tile gain +1 Mult for every 5 Coins you hold (max +5). |
 | 🛒 **The Chapman** `chapman` | uncommon | 7 | One tile at the Market is always amber, and amber tiles cost nothing. |
@@ -43,6 +44,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🌱 **The Seedsman** `seedsman` | common | 4 | Jade tiles gain +1 Point per chapter reached — +5 Points each in Chapter V. |
 | 🍏 **The Verdigris** `verdigris` 🔒 | common | 4 | As each chapter ends, 2 tiles of your collection are painted jade. |
 | 🐝 **The Beekeeper** `beekeeper` 🔒 | uncommon | 6 | Every B you print permanently raises this patron's Mult by 0.2. |
+| 🧀 **The Cellarer** `cellarer` | uncommon · also amber | 6 | Ages when a page ends with a jade tile in hand: +1 Point to every word, +1 Coin when dismissed. |
 | 🪴 **The Espalier** `espalier` 🔒 | uncommon | 6 | Print a two-tile word: both tiles permanently gain +2 Points. |
 | 🍂 **The Composter** `composter` 🔒 | uncommon | 7 | Destroyed tiles rot down into jade ones — take 1 from the heap at every Market. |
 | 🖼️ **The Frontispiece** `frontispiece` 🔒 | uncommon | 7 | The first word of each page gets ×1.5 Mult — +0.1 more, for good, each time that word clears the quota alone. |
@@ -94,14 +96,16 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🪞 **The Mirror** `mirror` | uncommon | 5 | Words that spell another word backwards — or themselves — get ×4 Mult. |
 | 🔂 **The Haplographer** `haplographer` | uncommon | 6 | One letter may read as doubled: BALOON counts as BALLOON — and doubles pay The Twins. |
 | 📯 **The Herald** `herald` | uncommon | 6 | Words that start and end with the same letter get ×2 Mult. |
+| 🍻 **The Innkeeper** `innkeeper` | uncommon | 6 | Every word gains +5 Points per seated patron — this one included. |
 | 💎 **The Jeweller** `jeweller` | uncommon | 6 | Tiles worth 8+ Points gain a further +4. |
 | 🎵 **The Skald** `skald` | uncommon | 6 | Words starting with the same letter as your last word get ×2 Mult. |
 | 🔠 **The Typesetter** `typesetter` | uncommon | 6 | Each ligature tile — one that spells several letters — gives +2 Mult. |
 | 🎩 **The Alderman** `alderman` | uncommon | 7 | Each guild with a patron on your shelf gives ×1.5 Mult. |
 | ✒️ **The Calligrapher** `calligrapher` | uncommon | 7 | Each painted tile gains +3 Points. |
 | 🌒 **The Closer** `closer` | uncommon | 7 | The final word of each page gets ×3 Mult. |
+| 🃏 **The Harlequin** `harlequin` | uncommon | 7 | Words holding 3 or more different colours get ×2 Mult. |
 | 🖋️ **The Novelist** `novelist` | uncommon | 7 | Words of 7+ letters get ×2 Mult. |
-| 🎨 **The Illuminator** `illuminator` | rare | 8 | When a word holds three paint colours, one unpainted tile in it is permanently painted the fourth. |
+| 🎨 **The Illuminator** `illuminator` | rare | 8 | When a word holds exactly three colours, a bare tile in it is painted the fourth — in time to score. |
 | 🔭 **The Astronomer** `astronomer` | rare | 9 | +1 Mult for each word already printed this page. |
 | 📋 **The Overseer** `overseer` | rare | 9 | Print one more word each page. |
 | 💘 **The Paramour** `paramour` | rare | 9 | ×3 Mult when the word is romantic — KISS, SWOON, SMITTEN. |

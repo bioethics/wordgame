@@ -8,7 +8,7 @@ import {
   newRun, startPage, drawUpToRackSize, clearWord, shuffleRack,
   discardSelected, getWordString, moveRackToWord, owns, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected,
-  getActiveColour, getActiveLetter, growTile, paintTile, trimTile,
+  getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile,
   trashFromCollection, mergeTiles, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
   effectiveWordsPerPage, rollGamble,
 } from './state.js';
@@ -167,7 +167,9 @@ const VOWELS = 'AEIOU';
 // short of vowels can set BRD and let the demon supply the I — which is why
 // the whole pardon stays behind azure ink and a rare seat.
 function titivillusPardon(letters) {
-  if (!state.word.some(t => getActiveColour(t) === 'azure')) return null;
+  // countsAsColour, not getActiveColour: rainbow ink smudges as well as
+  // azure ink does — "every colour to your patrons" includes the demon.
+  if (!state.word.some(t => countsAsColour(t, 'azure'))) return null;
 
   for (let i = 0; i < letters.length; i++) {
     if (!VOWELS.includes(letters[i])) continue;
@@ -388,6 +390,21 @@ function runPageHooks() {
     if (r.note) notes.push(`${def.name}: ${r.note}`);
   }
   return { arrivals, notes };
+}
+
+// Patrons that read the hand a page finished with — fired as the quota
+// clears, before the Market opens, so what they bank is waiting at its
+// stalls. Notes go to the log: the banner and reward sheet own the screen.
+function runPageCompleteHooks() {
+  const notes = [];
+  for (const p of state.patrons) {
+    const def = patronById(p.id);
+    if (!def?.onPageComplete) continue;
+    p.data ??= {};
+    const r = def.onPageComplete({ state, data: p.data });
+    if (r?.note) notes.push(`${def.emoji} ${def.name}: ${r.note}`);
+  }
+  return notes;
 }
 
 function runChapterHooks() {
@@ -633,6 +650,8 @@ async function pageComplete() {
     bossDef
       ? `${bossDef.emoji} ${bossDef.name} is satisfied — ${state.pageScore.toLocaleString()} of ${state.quota.toLocaleString()}`
       : `${state.pageScore.toLocaleString()} of ${state.quota.toLocaleString()} — ${chapterTitle(state.chapter)}`);
+
+  for (const note of runPageCompleteHooks()) log(note, 'good');
 
   const reward = computeReward();
   state.coins += reward.total;

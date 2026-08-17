@@ -13,10 +13,10 @@ import {
   colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
   sundryTip,
 } from './constants.js';
-import { patronById } from './patrons.js';
+import { patronById, guildsOf } from './patrons.js';
 import { bossById } from './bosses.js';
 import { computeScore } from './scoring.js';
-import { marketSnapshot } from './market.js';
+import { marketSnapshot, patronRefund } from './market.js';
 import { draftSnapshot } from './draft.js';
 import { colophonSnapshot } from './colophon.js';
 import { setNum, sleep, fmtMult, readingTime } from './anim.js';
@@ -308,15 +308,17 @@ function renderShelf(script) {
         const name  = def.instName?.(p.data)  ?? def.name;
         const label = def.instShelf?.(p.data) ?? def.name.replace(/^The /, '');
         const desc  = def.instDesc?.(p.data)  ?? def.desc;
-        slot.className = `patron patron--${def.rarity}${def.guild ? ` patron--g-${def.guild}` : ''}`;
+        const livery = guildsOf(def)[0];   // a dual-livery card wears its primary ribbon
+        const refund = patronRefund(p);
+        slot.className = `patron patron--${def.rarity}${livery ? ` patron--g-${livery}` : ''}`;
         slot.dataset.patron = def.id;
         if (p.uid != null) slot.dataset.uid = p.uid;
-        slot.dataset.baseTitle = `${name} — ${desc}\n(✕ dismisses for ${Math.floor(def.cost / 2)} Coins)`;
+        slot.dataset.baseTitle = `${name} — ${desc}\n(✕ dismisses for ${refund} Coins)`;
         slot.title = slot.dataset.baseTitle;
         slot.innerHTML = `
           <span class="patron-emoji">${def.emoji}</span>
           <span class="patron-name">${label}</span>
-          <button class="patron-x" data-sell="${p.uid ?? def.id}" title="Dismiss ${name} for ${Math.floor(def.cost / 2)} Coins">✕</button>`;
+          <button class="patron-x" data-sell="${p.uid ?? def.id}" title="Dismiss ${name} for ${refund} Coins">✕</button>`;
       } else {
         slot.className = 'patron patron--empty';
         slot.title = 'Empty seat — patrons are hired at the Market';

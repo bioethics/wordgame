@@ -347,6 +347,8 @@ export function marketSnapshot() {
 export function closeMarket() {
   state.inMarket = false;
   market.open = false;
+  // The Factor's credit is with this fair's stallholders, not the next one's.
+  state.freeRerolls = 0;
 }
 
 // ─── Actions ──────────────────────────────────────────────────────────────────
@@ -364,6 +366,16 @@ export function buyPatron(id) {
   return { ok: true, def, seat, name: def.instName?.(seat.data) ?? def.name };
 }
 
+// What dismissing a seat pays: half the def's cost, plus whatever the
+// patron's own refundBonus says its data has earned (the Cellarer's age).
+// The shelf's ✕ tooltips read this too, so the number offered is the
+// number paid.
+export function patronRefund(seat) {
+  const def = patronById(seat.id);
+  if (!def) return 0;
+  return Math.floor(def.cost / 2) + (def.refundBonus?.(seat.data ?? {}) ?? 0);
+}
+
 // `ref` is a seat's uid when the caller has one (they all do now), or a def id
 // as the old fallback — which is fine for every patron you can only hold once,
 // and takes the first copy of one you can hold many of.
@@ -373,7 +385,7 @@ export function sellPatron(ref) {
   const seat = state.patrons[i];
   const def = patronById(seat.id);
   if (!def) return { ok: false };
-  const refund = Math.floor(def.cost / 2);
+  const refund = patronRefund(seat);
   state.patrons.splice(i, 1);
   state.coins += refund;
 
@@ -457,6 +469,14 @@ export function buySundry(idx) {
 }
 
 export function rerollMarket() {
+  // The Factor's banked rolls go first — free, and without bumping the
+  // escalating fee. Coins spend only once the agent's credit runs out.
+  if ((state.freeRerolls ?? 0) > 0) {
+    state.freeRerolls -= 1;
+    rollOffers();
+    rollStalls();
+    return true;
+  }
   if (state.coins < market.rerollCost) return false;
   state.coins -= market.rerollCost;
   market.rerollCost *= 2;
