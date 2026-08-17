@@ -37,6 +37,7 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   div.dataset.zone = zone;
 
   if (tile.selected)              div.classList.add('tile--selected');
+  if (state.tubeOffer?.includes(tile.id)) div.classList.add('tile--tube-offer');
   if (tile.trim)                  div.classList.add(`tile--trim-${tile.trim}`);
   if (tile.nick)                  div.classList.add(`tile--nick-${tile.nick}`);
   if (tile.material)              div.classList.add(`tile--mat-${tile.material}`);

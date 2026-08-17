@@ -8,6 +8,7 @@ import {
   newRun, startPage, drawUpToRackSize, clearWord, shuffleRack,
   discardSelected, getWordString, moveRackToWord, owns, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected, takePaintEchoes,
+  rollTubeOffer,
   getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile,
   trashFromCollection, mergeTiles, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
   effectiveWordsPerPage, rollGamble,
@@ -121,9 +122,11 @@ function cancelDiscardMode(quiet = false) {
 
 function cancelSundryMode(quiet = false) {
   if (state.sundryMode < 0) return false;
+  const kind = state.sundries[state.sundryMode]?.kind;
   state.sundryMode = -1;
+  state.tubeOffer = null;
   clearAllSelected();
-  if (!quiet) log('The ratchet goes back on the workbench.');
+  if (!quiet) log(`The ${kind === 'tube' ? 'tube' : 'ratchet'} goes back on the workbench.`);
   renderAll();
   return true;
 }
@@ -943,14 +946,30 @@ $('sundries')?.addEventListener('click', async e => {
     return;
   }
 
-  // A tube needs no arming and no target: the paint finds its own tile, one
-  // random unpainted tile in the hand, there and then. What the player keeps
-  // is the timing of the pour.
-  if (armed?.kind === 'tube') {
+  // A tube arms with its offer already on the table: up to two unpainted
+  // tiles from the hand light up as it's picked up. Tap one, then the tube
+  // again to pour; the second tap with nothing picked puts it away. The
+  // offer is the whole design — aimed paint only ever landed on the same
+  // four workhorse letters, so the tube chooses the candidates and you
+  // choose between them.
+  if (armed?.kind === 'tube' && state.sundryMode !== idx) {
     cancelDiscardMode(true);
     cancelSundryMode(true);
+    clearAllSelected();
+    const offer = rollTubeOffer();
+    if (!offer) { log('Nothing in your hand will take paint — the tube keeps.', 'warn'); return; }
+    state.sundryMode = idx;
+    log(offer.length === 2
+      ? 'The tube offers two tiles — tap one, then the tube again to pour.'
+      : 'Only one tile will take paint — tap it, then the tube again to pour.');
+    renderAll();
+    return;
+  }
+
+  if (armed?.kind === 'tube') {
+    if (!sundrySelected().length) { cancelSundryMode(); return; }
     const result = applySundry(idx);
-    if (!result) { log('Nothing in your hand will take paint — the tube keeps.', 'warn'); return; }
+    if (!result) { cancelSundryMode(); return; }
 
     state.isAnimating = true;
     renderAll();
@@ -965,7 +984,7 @@ $('sundries')?.addEventListener('click', async e => {
     await sleep(ANIM.stepColour);
     state.isAnimating = false;
     renderAll();
-    log(`The tube splashes ${result.letters[0]} ${COLOURS[result.colour].label.toLowerCase()}.`, 'good');
+    log(`Painted ${result.letters[0]} ${COLOURS[result.colour].label.toLowerCase()}.`, 'good');
     reportPaintEchoes();
     return;
   }

@@ -191,7 +191,7 @@ run. No patron is drafted: the first one is hired at the first Market, with
 coins, once you've printed a page and know what the press needs.
 
 **The Market** (between pages) keeps a fixed layout with churning contents:
-3 patrons, 4 tiles, 2 **sundries**, and 2 **stalls** drawn from a roster of
+4 patrons, 4 tiles, 2 **sundries**, and 2 **stalls** drawn from a roster of
 six. *New offers* re-rolls everything — patrons, tiles, sundries, and a fresh
 pair of stalls with their doubling-price reset — and its own price doubles
 with each press. Tiles live in your **collection**; each page the whole
@@ -200,12 +200,12 @@ the **discard pile**.
 
 **Sundries** are consumables kept on the **workbench** (two slots to start, and
 the Colophon can add two more, beside the patron shelf). The **paint tube**:
-tap it mid-page and the paint finds its own tile — one random unpainted tile
-in your hand, rack or half-composed word alike, takes the colour permanently.
-The tile is the paint's choice; the *moment* is yours, so play and discard
-first, then pour. (Aimed paint only ever landed on the same four workhorse
+tap it mid-page and it lays out its offer — two random unpainted tiles from
+your hand (rack or half-composed word alike) light up; tap one, tap the tube
+again, and the paint is permanent. The candidates are the tube's to choose,
+the pick is yours. (Aimed paint only ever landed on the same four workhorse
 letters, which made every run's colours converge.) The **ratchet** keeps the
-two-tap rhythm: tap it, tap one letter, tap the ratchet again, and
+same rhythm: tap it, tap one letter, tap the ratchet again, and
 that letter steps a single place along the alphabet — D becomes C or E, A
 becomes Z or B. The two arrows on the tool say which way it is pointing and
 can be flipped at any time, including on the tap that spends it. The new

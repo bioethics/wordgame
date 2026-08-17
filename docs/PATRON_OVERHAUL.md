@@ -487,14 +487,21 @@ the same four workhorse letters.** A rational player paints A, S, E, T —
 they recur most — so every run's colours converged, and a painted A never
 changed which word you reached for.
 
-- **The paint tube lost its aim.** It now paints one *random unpainted*
-  tile in the hand (rack and half-composed word alike), instantly on tap —
-  no arming, no target. What the player keeps is timing: play and discard
-  first, then pour. If nothing in hand will take paint the tube refuses
-  and keeps. This deliberately ends player-directed repainting (the old
-  tube could recoat a painted tile); the Dipper and Arsonist remain the
-  only overpainters. Fallback if pure random tests badly: propose a tile
-  the way the Painter stall does, rather than restoring the aim.
+- **The paint tube lost its aim — and settled on an offer of two.** It
+  first shipped as pure random (one unpainted hand tile, instantly on
+  tap), then was softened the same day after design discussion: arming
+  the tube now lights up **two random unpainted tiles from the hand**
+  (rack and half-composed word alike) and you pick which takes the
+  colour. The arithmetic behind two rather than three: with a typical
+  hand holding five workhorse targets among nine unpainted, an offer of
+  two forces a non-workhorse choice ~17% of the time, an offer of three
+  almost never (~5%) — three quietly restores the auto-pilot. A
+  guaranteed-painted third slot was considered for repainting and
+  declined as a dead card most taps; player-directed repainting ends
+  here (the Dipper and Arsonist remain the only overpainters), with a
+  paint-stripping "turpentine" sundry noted as the future home for
+  colour-fixing if committed builds miss it. If nothing in hand will
+  take paint the tube refuses and keeps.
 - **The Espalier grows in time to score**, the Illuminator's pattern: the
   score effect pays the step per growable tile on the trigger word itself,
   and onPrinted writes the growth in for good. A ghost pays nothing at

@@ -114,6 +114,11 @@ export const PAINT_PER_POT   = 3;   // tiles painted per draft pot (random, unpa
 // first, then pour.
 export const SUNDRY_SLOTS  = 2;   // sundries the workbench can hold
 export const SUNDRY_OFFERS = 2;   // sundries offered per shop
+// Patrons offered per Market. Was 3, tuned when the roster was 54 defs; at 70
+// defs a visit showed an ever-thinner slice of the game, and guild assembly
+// through the shop was already a flagged watchpoint. Scale this with the
+// roster.
+export const PATRON_OFFERS = 4;
 export const TUBE_PRICE    = 2;
 export const SUNDRY_SELL   = 1;   // what the Market pays to take one back
 export const RATCHET_PRICE = 3;   // the ratchet: one letter, one step either way
@@ -462,11 +467,7 @@ export const DRAFT = {
 export function sundryTip(s) {
   if (s?.kind === 'tube') return {
     head: `Tube of ${COLOURS[s.colour].label}`,
-    body: `Tap it and the paint finds its own tile: one random unpainted tile `
-        + `in your hand — rack or half-composed word alike — takes the colour, `
-        + `permanently, on the tile rather than either face of a dual. Pick `
-        + `your moment, not your tile. `
-        + colourDesc(s.colour),
+    body: `Paints one tile in your hand, permanently. ${colourDesc(s.colour)}`,
   };
   if (s?.kind === 'ratchet') return {
     head: 'Ratchet',
