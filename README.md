@@ -335,6 +335,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Chapter titles | `js/chapters.js` — a flat array, add as many as you like; each run draws its own and won't repeat until the list runs out |
 | The Stenographer's acronyms | `wordlists-themed/acronyms.txt` — one per line, `#` comments; letters only, and no lone Q (the press has no Q sort to set it with) |
 | The Expectant Parents' baby names | `wordlists-themed/names.txt` — same format; regenerate from the US and England & Wales charts with `tools/build-names-list.mjs` |
+| Words barred from the game entirely | `wordlists-themed/excluded-slurs.txt` — one per line, `#` comments. Enforced at load by `js/excluded.js` against the dictionary, every themed list, and The Neologist's coining sheet, so an entry here can't come back through a word list, a custom dictionary or a coined word. Whole-word matches only |
 | The four registers' word lists (the Sexton, the Paramour, the Poppet, the Vulgarian) | `wordlists-themed/theme-*.txt` — one word per line, edit freely; loading in `js/themes.js` |
 | The Frontispiece's opening multiplier & growth | `js/constants.js` → `FRONTISPIECE` |
 
@@ -358,6 +359,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | `js/drag.js` | pointer input: tap / drag / long-press for rack, word and the patron shelf (where a drag reseats a patron, changing the order effects fire in), mouse and touch alike |
 | `js/dict.js` | dictionary loading/caching (also reads a `window.FOLIO_WORDLIST` global, for single-file bundles) |
 | `js/themes.js` | the themed lists in `wordlists-themed/` — registers, acronyms, nouns and names — as Sets (also reads a `window.FOLIO_THEMES` global, for single-file bundles) |
+| `js/excluded.js` | the barred-words list, loaded before any word list and applied by `dict.js` and `themes.js` as they build their Sets |
 
 Scoring is deliberately pure (`computeScore` never mutates state), so the same
 function powers the live preview, the tooltips, and the replayed cinematic —

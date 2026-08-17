@@ -1,3 +1,5 @@
+import { isExcluded } from './excluded.js';
+
 const DICT_KEY   = 'wordfun_wordlist';
 const COINED_KEY = 'folio_coined_words_v1';
 
@@ -12,8 +14,12 @@ export function coinedWords() {
   catch { return []; }
 }
 
+// The Neologist's word is the one entry a player writes themselves, so it is
+// checked like any other: an excluded word is refused outright and never
+// reaches the store. Returns null when refused, so the sheet can say so.
 export function coinWord(word) {
   const w = word.toUpperCase();
+  if (isExcluded(w)) return null;
   const list = coinedWords();
   if (!list.includes(w)) {
     list.push(w);
@@ -24,10 +30,22 @@ export function coinWord(word) {
   return w;
 }
 
+// The single funnel for every dictionary the game will ever hold — bundled,
+// cached, fetched, fallback, or pasted into Settings — which is exactly why
+// the exclusion filter sits here rather than at each call site. Coined words
+// are filtered on the way back in too, so one stored before the list existed
+// doesn't outlive it.
 export function adoptWordlist(text) {
   const words = text.replace(/\r/g, '').split(/\n+/).map(w => w.trim()).filter(Boolean);
-  DICT = new Set(words.map(w => w.toUpperCase()));
-  for (const w of coinedWords()) DICT.add(w.toUpperCase());
+  DICT = new Set();
+  for (const w of words) {
+    const W = w.toUpperCase();
+    if (!isExcluded(W)) DICT.add(W);
+  }
+  for (const w of coinedWords()) {
+    const W = w.toUpperCase();
+    if (!isExcluded(W)) DICT.add(W);
+  }
   dictLoaded = true;
   _scrambleIndex = null;
   return DICT.size;

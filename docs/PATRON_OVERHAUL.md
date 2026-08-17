@@ -160,7 +160,20 @@ patrons aren't strictly weaker — cute words are short and common (KITTEN,
 BUNNY), spooky's breadth is offset by its obscure tail — so all four ship at
 the same rarity and cost until play says otherwise.
 
-**Curation, applied on the way in** (low barrier for admission, high barrier
+**Curation, applied on the way in — and now enforced on the way in.** The
+struck words are listed in `wordlists-themed/excluded-slurs.txt`, which began
+as a record of a hand edit and is now a filter the code applies at load:
+`js/excluded.js` holds the set and every road into play consults it —
+`adoptWordlist` (the single funnel for the bundled, cached, fetched, fallback
+and Settings-pasted dictionaries), `adoptTheme` (which matters most for the
+lists that vouch a word *past* the dictionary — the Stenographer's acronyms,
+The Expectant Parents' names), and The Neologist's coining sheet, the one
+door a player opens themselves. Matching is whole-word, never substring: the
+file carries the inflections it means to catch, and substring matching would
+take innocent words down with them. The list is loaded and awaited before any
+word list is adopted, because a filter that arrives late filters nothing.
+
+The original pass (low barrier for admission, high barrier
 against removal): slurs and hate symbols went, everywhere; sexual register
 was struck from *cute* but deliberately kept in *romantic* — STREETWALKER
 stays beside HARLOT and COURTESAN where the register is consistent; bare

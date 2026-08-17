@@ -16,6 +16,8 @@
 // window.FOLIO_THEMES = { cute: "text…", … }, which is checked first —
 // the same arrangement dict.js has with window.FOLIO_WORDLIST.
 
+import { isExcluded } from './excluded.js';
+
 export const THEME_FILES = {
   cute:     'wordlists-themed/theme-cute.txt',
   romantic: 'wordlists-themed/theme-romantic.txt',
@@ -36,6 +38,12 @@ export const THEME_SETS = Object.fromEntries(
 export const THEME_RANKS = Object.fromEntries(
   Object.keys(THEME_FILES).map(k => [k, new Map()]));
 
+// Every themed list comes through here, which is where the exclusion list is
+// enforced for them. It matters most for the two lists that vouch a word
+// straight past the dictionary — the Stenographer's acronyms and The
+// Expectant Parents' names — since those never face the dictionary's own
+// filter. An excluded word takes no rank either: it isn't on the list, so it
+// holds no place in its order.
 export function adoptTheme(key, text) {
   const set = THEME_SETS[key];
   if (!set) return 0;
@@ -46,6 +54,7 @@ export function adoptTheme(key, text) {
     const w = line.trim();
     if (!w || w.startsWith('#')) continue;
     const W = w.toUpperCase();
+    if (isExcluded(W)) continue;
     if (!ranks.has(W)) ranks.set(W, ranks.size);   // 0 = commonest
     set.add(W);
   }

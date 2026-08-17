@@ -21,6 +21,7 @@ import {
 import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
 import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
 import { THEME_SETS, loadThemes } from './themes.js';
+import { loadExclusions, exclusionsLoaded, isExcluded } from './excluded.js';
 
 import { computeScore, computeReward } from './scoring.js';
 import { openMarket, restoreMarket, closeMarket, sellPatron } from './market.js';
@@ -1082,7 +1083,16 @@ function confirmCoinedWord() {
     setCoinNote('The dictionary knows that one already.', true);
     return;
   }
-  coinWord(w);
+  // Checked here as well as inside coinWord, so the sheet can say no rather
+  // than appearing to accept a word the press then quietly drops.
+  if (isExcluded(w)) {
+    setCoinNote('The press will not set that one.', true);
+    return;
+  }
+  if (!coinWord(w)) {
+    setCoinNote('The press will not set that one.', true);
+    return;
+  }
   const i = state.patrons.findIndex(p => p.id === 'neologist');
   if (i >= 0) state.patrons.splice(i, 1);
   hideOverlay();
@@ -1279,6 +1289,13 @@ async function beginRun() {
   initSheets({ nextPage: beginNextPage, advancePage, beginRun });
 
   renderDictStatus('loading', 0);
+  // The exclusion list lands before a single word does. A filter that arrives
+  // late filters nothing — adoptWordlist and adoptTheme consult it as they
+  // build their Sets — so this is awaited while the lists that follow are not.
+  await loadExclusions();
+  if (!exclusionsLoaded) {
+    log('The excluded-words list could not be read — word lists are unfiltered this session.', 'warn');
+  }
   loadDict((status, count) => renderDictStatus(status, count));
   loadThemes();
 
