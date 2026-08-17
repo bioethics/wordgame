@@ -383,6 +383,51 @@ condition, and the condition asks something real of the player.
   the Stenographer's acronym list holds 38 two-letter entries (DM, GG, RN…),
   which widens the trigger for a rare seat — probably fine, worth a look.
 
+### The spelling pass (a later round of pitches)
+
+Three changes in one sitting, all to how words are excused or paid:
+
+- **Titivillus forgives everything a vowel can do wrong.** To substitution
+  and transposition he adds omission (SEPRATE) and intrusion (ATHELETE) —
+  one slip per word, as ever. Omission is the wide door: a rack short of
+  vowels can set BRD and let the demon supply the I, which materially
+  changes what a consonant-heavy hand is worth. Deliberately kept behind
+  the existing gates — azure ink in the word, a rare · 9 seat. Watchpoint:
+  if vowel-skipping proves to be the whole patron in play, gate the
+  omission branch on word length (4+) before touching the rest.
+- **The Haplographer** 🔂 (uncommon · 6, neutral) — haplography is writing
+  once what ought to be written twice, the scribal slip the family was
+  missing. One rule, `doubledReading` in patrons.js, consulted twice: at
+  the dictionary check (BALOON stands for BALLOON, slotted before the
+  Skimmer in the ladder), and at scoring, where a word that *can* be read
+  with one letter doubled counts as holding one more doubled pair — which
+  is what pays The Twins (+15) and The Stammerer (an extra ×2). **This
+  deliberately breaks the family's no-score rule**, and is priced above
+  the Stumbler for it. Two consequences to know about: the licence pays
+  even when the word was valid as typed (MATE reads as MATTE and pays the
+  Twins — a licence, not an excuse), and Stammerer × Skimmer ×
+  Haplographer does *not* compound the way it sounds — the Skimmer's
+  arrangements are gibberish as typed, and doubling a letter of gibberish
+  almost never lands in the dictionary.
+- **The Assayer retuned**: uncommon · 6 paying per amber tile (cap 2 a
+  word) → **common · 3 paying 1 Coin per word with an amber tile**. The
+  per-tile version was a scaling engine priced like one; the per-word
+  version has half the ceiling (5 a page against the old 10) and is
+  priced at the floor to match — amber's on-ramp, not its payoff. The old
+  watchpoint (Assayer vs the Banker's 2-a-page benchmark) still applies,
+  now with 3 fewer Coins on the front.
+
+The family after the pass, cheapest excuse first: the Stumbler (common · 3,
+adjacent swap), the Haplographer (uncommon · 6, one letter for two), 
+Titivillus (rare · 9, the vowels), the Skimmer (rare · 12, the middle in any
+order). Reviewed for replacement and every seat kept: each forgives a slip
+the others can't reach — the Stumbler alone can swap a word's end letters,
+the Haplographer alone changes a word's length for consonants, and the
+Skimmer's wholesale shuffle is the only one that reorders at a distance.
+The overlap that does exist is small and paid for: a doubled *vowel*
+(SED → SEED) is now reachable by both the Haplographer and Titivillus, but
+Titivillus costs a rare seat and azure ink to do it.
+
 Guild arithmetic, which this batch was partly chosen to serve: crimson was
 the thinnest guild at 7 and takes two of the new seats (→ 9), amber and jade
 take one each (→ 8, → 9), against azure's noted 10. Tiers move 18/25/15 →
