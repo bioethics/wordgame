@@ -1,7 +1,7 @@
 import {
   RACK_SIZE, WORDS_PER_PAGE, DISCARDS_PER_PAGE, STARTING_COINS,
   PATRON_SLOTS, SUNDRY_SLOTS, SMELT_MIN_COLLECTION,
-  BAG_COUNTS, TILE_POINTS, TUBE_TILES, CURSED_MAX_POINTS, isImmutable, isMark,
+  BAG_COUNTS, TILE_POINTS, DABBLER_ODDS, CURSED_MAX_POINTS, isImmutable, isMark,
   MARKS, MARK_TRIM, SILVER_BONUS,
   quotaFor, makeTileTemplate, GAMBLER_ODDS, isDeadline,
 } from './constants.js';
@@ -522,13 +522,46 @@ export function growTile(tile, n = 1) {
 // Paint a tile, writing through to the collection so the paint is permanent.
 // A dual tile takes its coat whole — both letters, whichever face was showing
 // when the brush landed. Every route to permanent paint goes through here —
-// tubes, the Painter, patrons — so none of them can drift apart.
+// tubes, the Painter, patrons — so none of them can drift apart, and so The
+// Dabbler sees every brushstroke there is.
 export function paintTile(tile, colour) {
   if (isImmutable(tile)) return false;
   tile.colour = colour;
   const tmpl = state.collection.find(c => c.tid === tile.tid);
   if (tmpl) tmpl.colour = colour;
+  dabblerSplash(tile, colour);
   return true;
+}
+
+// The Dabbler can't resist a wet brush: any paint landing anywhere has a
+// chance of splashing a second unpainted tile of the collection the same
+// colour. Guarded so a splash never splashes again — one echo per
+// brushstroke, however lucky the day. This runs too deep to speak, so the
+// splashes queue up for main.js (and the Market sheet) to drain into the
+// log via takePaintEchoes.
+let paintEchoes = [];
+let splashing = false;
+
+export function takePaintEchoes() {
+  const out = paintEchoes;
+  paintEchoes = [];
+  return out;
+}
+
+function dabblerSplash(painted, colour) {
+  if (splashing || !owns('dabbler') || !luckyRoll(DABBLER_ODDS)) return;
+  const bare = unpaintedTiles().filter(t => t.tid !== painted.tid && !isImmutable(t));
+  if (!bare.length) return;
+  const extra = bare[Math.floor(Math.random() * bare.length)];
+  splashing = true;
+  paintTile(extra, colour);   // the same road as every other coat
+  splashing = false;
+  // The template is painted for good; any live copy on the board this page
+  // wears it immediately too, so the splash is seen where it landed.
+  for (const t of [...state.rack, ...state.word, ...state.discardPile]) {
+    if (t.tid === extra.tid) t.colour = colour;
+  }
+  paintEchoes.push({ letter: getActiveLetter(extra), colour });
 }
 
 // A trim belongs to the tile, not to either face. Refuses a tile that already
@@ -650,7 +683,7 @@ export function toggleSundrySelect(id) {
   // The ratchet only has purchase on a single letter — refuse ligatures and
   // marks at the point of picking rather than after the choice is made.
   if (state.sundries[state.sundryMode]?.kind === 'ratchet' && !shiftable(tile)) return 'unshiftable';
-  if (sundrySelected().length >= TUBE_TILES) return 'full';
+  if (sundrySelected().length >= 1) return 'full';   // the ratchet steps one letter
   tile.selected = true;
   return 'on';
 }
@@ -692,11 +725,10 @@ export function shiftTile(tile, dir) {
 export function applySundry(idx, dir = 0) {
   const sundry = state.sundries[idx];
   if (!sundry) return null;
-  const targets = sundrySelected().filter(t => !isImmutable(t)).slice(0, TUBE_TILES);
-  if (!targets.length) return null;
 
   if (sundry.kind === 'ratchet') {
-    const tile = targets[0];
+    const tile = sundrySelected().filter(t => !isImmutable(t))[0];
+    if (!tile) return null;
     const from = getActiveLetter(tile);
     if (!shiftTile(tile, dir)) return null;
     tile.selected = false;
@@ -705,15 +737,19 @@ export function applySundry(idx, dir = 0) {
     return { kind: 'ratchet', from, to: getActiveLetter(tile), ids: [tile.id] };
   }
 
-  const letters = [];
-  for (const t of targets) {
-    paintTile(t, sundry.colour);
-    t.selected = false;
-    letters.push(getActiveLetter(t));
-  }
+  // A tube splashes one random unpainted tile in the hand — rack and half-
+  // composed word alike. Which tile is the paint's business, not yours:
+  // aimed paint only ever landed on the same four workhorse letters, and a
+  // painted A never changed what word you reached for. What you keep is
+  // timing — play and discard first, then uncork. Fails (and is kept) when
+  // nothing in the hand will take paint.
+  const candidates = [...state.rack, ...state.word].filter(t => !t.colour && !isImmutable(t));
+  if (!candidates.length) return null;
+  const tile = candidates[Math.floor(Math.random() * candidates.length)];
+  paintTile(tile, sundry.colour);
   state.sundries.splice(idx, 1);
   state.sundryMode = -1;
-  return { kind: 'tube', colour: sundry.colour, letters, ids: targets.map(t => t.id) };
+  return { kind: 'tube', colour: sundry.colour, letters: [getActiveLetter(tile)], ids: [tile.id] };
 }
 
 // A reshuffle sundry has no board target — it's spent from the Market or the

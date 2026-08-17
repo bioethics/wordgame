@@ -9,7 +9,7 @@ import {
 } from './state.js';
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
-  WORDS_PER_PAGE, PAGES_PER_CHAPTER, TUBE_TILES, tileCount,
+  WORDS_PER_PAGE, PAGES_PER_CHAPTER, tileCount,
   colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
   sundryTip,
 } from './constants.js';
