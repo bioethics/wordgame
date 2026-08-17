@@ -693,8 +693,8 @@ export const PATRON_DEFS = [
     },
   },
   {
-    id: 'ratcatcher', name: 'The Rat Catcher', emoji: '🐀', rarity: 'uncommon', cost: 7, guild: 'crimson',
-    desc: 'Every page begins with a RAT tile in hand, painted at random. It is yours for good.',
+    id: 'ratcatcher', name: 'The Rat Catcher', emoji: '🐀', rarity: 'uncommon', cost: 2, guild: 'crimson',
+    desc: 'Every page begins with a RAT tile in hand, painted a random colour. It is yours for good.',
     when: 'meta',
     // RAT is a ligature worth 3 Points — exactly what R, A and T score apart —
     // and it comes from nowhere else in the game (see EXCLUSIVE_LETTERS).
