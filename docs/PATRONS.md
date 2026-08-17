@@ -1,0 +1,118 @@
+# The patrons
+
+**Generated — but editable.** The list is built from the defs in
+`js/patrons.js` by `tools/patrons.mjs`. Tweak a patron's **name** or its
+**description** right here, then push the changes back into the game:
+
+```sh
+node tools/patrons.mjs --apply    # doc → js/patrons.js
+node tools/patrons.mjs            # js/patrons.js → doc (after code changes)
+```
+
+Everything else in a row — rarity, cost, guild — is a fact about the def and
+is rewritten from the code each time this file is regenerated, so change
+those in `js/patrons.js`. Rows marked 🔒 can't be written back either: their
+wording is built from a tuning knob in `constants.js` (or, for the four dyes,
+shared by one generated def), and flattening it here would cut the knob's
+wire. Edit those at the source.
+
+House style for a description, from `docs/PATRON_OVERHAUL.md`: one sentence,
+real numbers, no metaphor, under ~110 characters. State the rule, not the
+feeling — the flavour belongs to the name, the emoji and the quips.
+
+**65 patrons** — 21 common, 28 uncommon, 16 rare. Guilds: amber 8, jade 9, crimson 10, azure 10, no guild 28.
+
+## Amber · the counting-house
+
+| Patron | Rarity | Cost | Description |
+|---|---|---|---|
+| ⚖️ **The Assayer** `assayer` | common | 3 | Words with an amber tile pay 1 Coin. |
+| 🪙 **The Goldsmith** `goldsmith` | common | 4 | Amber tiles gain +4 Points. |
+| 🌼 **The Weld** `weld` 🔒 | common | 4 | As each chapter ends, 2 tiles of your collection are painted amber. |
+| 🏦 **The Banker** `banker` | uncommon | 5 | +2 Coins whenever a page completes. |
+| 🏺 **The Antiquary** `antiquary` | uncommon | 6 | Words containing a J, QU, X or Z tile pay 2 Coins. |
+| 💰 **The Bursar** `bursar` | uncommon | 7 | Words with an amber tile gain +1 Mult for every 5 Coins you hold (max +5). |
+| 🛒 **The Chapman** `chapman` | uncommon | 7 | One tile at the Market is always amber, and amber tiles cost nothing. |
+| 🐦 **The Magpie** `magpie` | uncommon | 7 | Gold-trimmed tiles pay double Coins. |
+
+## Jade · growth and permanence
+
+| Patron | Rarity | Cost | Description |
+|---|---|---|---|
+| 🪣 **The Dipper** `dipper` 🔒 | common | 4 | Each tile you discard has a 1-in-12 chance of being painted a random colour. |
+| 🌱 **The Seedsman** `seedsman` | common | 4 | Jade tiles gain +1 Point per chapter reached — +5 Points each in Chapter V. |
+| 🍏 **The Verdigris** `verdigris` 🔒 | common | 4 | As each chapter ends, 2 tiles of your collection are painted jade. |
+| 🐝 **The Beekeeper** `beekeeper` 🔒 | uncommon | 6 | Every B you print permanently raises this patron's Mult by 0.2. |
+| 🪴 **The Espalier** `espalier` 🔒 | uncommon | 6 | Print a two-tile word: both tiles permanently gain +2 Points. |
+| 🍂 **The Composter** `composter` 🔒 | uncommon | 7 | Destroyed tiles rot down into jade ones — take 1 from the heap at every Market. |
+| 🖼️ **The Frontispiece** `frontispiece` 🔒 | uncommon | 7 | The first word of each page gets ×1.5 Mult — +0.1 more, for good, each time that word clears the quota alone. |
+| 🍷 **The Vintner** `vintner` | uncommon | 7 | Words with a jade tile gain +1 Mult per chapter reached — +5 Mult in Chapter V. |
+| 🌿 **The Grafter** `grafter` | rare | 10 | When a word with a jade tile prints, every tile in it permanently gains +1 Point. |
+
+## Crimson · sacrifice and fire
+
+| Patron | Rarity | Cost | Description |
+|---|---|---|---|
+| 💈 **The Bloodletter** `bloodletter` | common | 4 | Discard exactly one tile: even odds it is painted crimson, or destroyed. |
+| ❤️‍🔥 **The Firebrand** `firebrand` | common | 4 | Words with 2 or more crimson tiles gain +15 Points. |
+| 🎲 **The Gambler** `gambler` | common | 4 | Each word has a 1-in-2 chance of ×2 Mult — the coin is tossed before you set it. |
+| 🌺 **The Madder** `madder` 🔒 | common | 4 | As each chapter ends, 2 tiles of your collection are painted crimson. |
+| 🎒 **The Quartermaster** `quartermaster` | uncommon | 5 | Begin each page with an extra Discard. |
+| 🧨 **The Arsonist** `arsonist` | uncommon | 7 | Every tile you print has a 1-in-10 chance of being painted crimson, and a 1-in-100 chance of being destroyed. |
+| 🪓 **The Headsman** `headsman` 🔒 | uncommon | 7 | Each patron you dismiss permanently raises this patron's Mult by 0.2. |
+| 🐀 **The Rat Catcher** `ratcatcher` | uncommon | 7 | Every page begins with a RAT tile in hand, painted at random. It is yours for good. |
+| ⚗️ **The Typefounder** `typefounder` | rare | 10 | Discard exactly two tiles: they are recast as one tile with a letter on either face. |
+| 🔥 **The Stoker** `stoker` | rare | 11 | Crimson tiles are destroyed when printed; each one permanently raises this patron's Mult by 0.25. |
+
+## Azure · ink, flow and latitude
+
+| Patron | Rarity | Cost | Description |
+|---|---|---|---|
+| ⚡ **The Izzard** `izzard` | common | 4 | Any Z you play may be read as an S — and still scores as a Z. |
+| 🎶 **The Siren** `siren` | common | 4 | Vowels gain +2 Points — or +6 if they are azure. |
+| 🪻 **The Woad** `woad` 🔒 | common | 4 | As each chapter ends, 2 tiles of your collection are painted azure. |
+| 📚 **The Lexicographer** `lexicographer` | uncommon | 6 | ×1.5 Mult when the word is not among the commonest in English — reach for the word nobody else would. |
+| 📟 **The Stenographer** `stenographer` | uncommon | 6 | Common acronyms and abbreviations count as words: LOL, BRB, WTF and the rest. |
+| ⛲ **The Fountain** `fountain` | uncommon | 7 | Azure tiles return to the bag when printed, instead of the discard pile. |
+| 🌀 **The Marbler** `marbler` | uncommon | 7 | Words with 2 or more azure tiles get ×2 Mult. |
+| 😈 **Titivillus** `titivillus` | rare | 9 | Words with an azure tile are accepted with one vowel wrong: swapped, changed, missing or extra. |
+| 📖 **The Neologist** `neologist` | rare | 10 | Add one six-letter word of your choosing to the dictionary permanently, then this patron leaves. |
+| 🔗 **The Binder** `binder` | rare | 12 | Any two nouns stacked together count as a word: DOOM and HAT make DOOMHAT. |
+
+## No guild · the wildcards
+
+| Patron | Rarity | Cost | Description |
+|---|---|---|---|
+| 🧹 **The Apprentice** `apprentice` | common | 3 | 4-letter words gain +10 Points. |
+| 🥾 **The Stumbler** `stumbler` | common | 3 | Words are accepted with one pair of adjacent letters swapped: TEH counts as THE. |
+| 📑 **The Copyist** `copyist` | common | 4 | ×2 Mult when the word already stands in your manuscript. |
+| 🪭 **The Monogrammist** `monogrammist` | common | 4 | Arrives with three letters of its own; a tile showing one prints twice — Points, trim and paint alike. |
+| 🧖 **The Nudist** `nudist` | common | 4 | In a word where no tile has paint, a trim or a nick, each tile has a 1-in-4 chance of gaining a random trim. |
+| 📜 **The Scholar** `scholar` | common | 4 | Words of 5+ letters gain +5 Points. |
+| 👯 **The Twins** `twins` | common | 4 | Words with a doubled letter (LL, OO…) gain +15 Points. |
+| 🐣 **The Abecedarian** `abecedarian` | common | 5 | 3-letter words get +10 Points. |
+| 🪞 **The Mirror** `mirror` | uncommon | 5 | Words that spell another word backwards — or themselves — get ×4 Mult. |
+| 🔂 **The Haplographer** `haplographer` | uncommon | 6 | One letter may read as doubled: BALOON counts as BALLOON — and doubles pay The Twins. |
+| 📯 **The Herald** `herald` | uncommon | 6 | Words that start and end with the same letter get ×2 Mult. |
+| 💎 **The Jeweller** `jeweller` | uncommon | 6 | Tiles worth 8+ Points gain a further +4. |
+| 🎵 **The Skald** `skald` | uncommon | 6 | Words starting with the same letter as your last word get ×2 Mult. |
+| 🔠 **The Typesetter** `typesetter` | uncommon | 6 | Each ligature tile — one that spells several letters — gives +2 Mult. |
+| 🎩 **The Alderman** `alderman` | uncommon | 7 | Each guild with a patron on your shelf gives ×1.5 Mult. |
+| ✒️ **The Calligrapher** `calligrapher` | uncommon | 7 | Each painted tile gains +3 Points. |
+| 🌒 **The Closer** `closer` | uncommon | 7 | The final word of each page gets ×3 Mult. |
+| 🖋️ **The Novelist** `novelist` | uncommon | 7 | Words of 7+ letters get ×2 Mult. |
+| 🎨 **The Illuminator** `illuminator` | rare | 8 | When a word holds three paint colours, one unpainted tile in it is permanently painted the fourth. |
+| 🔭 **The Astronomer** `astronomer` | rare | 9 | +1 Mult for each word already printed this page. |
+| 📋 **The Overseer** `overseer` | rare | 9 | Print one more word each page. |
+| 💘 **The Paramour** `paramour` | rare | 9 | ×3 Mult when the word is romantic — KISS, SWOON, SMITTEN. |
+| 🧸 **The Poppet** `poppet` | rare | 9 | ×3 Mult when the word is cute — KITTEN, BUNNY, CUDDLE. |
+| ⚰️ **The Sexton** `sexton` | rare | 9 | ×3 Mult when the word is spooky — HAUNTED, CRYPT, WEREWOLF. |
+| 🍑 **The Vulgarian** `vulgarian` | rare | 9 | ×3 Mult when the word is rude — FART, BUM, TURD. |
+| 🦜 **The Stammerer** `stammerer` | rare | 10 | ×2 Mult for every doubled letter in the word — BALLOON pays twice. |
+| 🗺️ **The Cartographer** `cartographer` | rare | 12 | Words whose letters run in alphabetical order get ×3 Mult. |
+| 👓 **The Skimmer** `skimmer` | rare | 12 | Words are accepted with their middle letters in any order, so long as the first and last letters are right. |
+
+---
+
+Design rationale, per-patron, lives in `docs/PATRON_OVERHAUL.md`. The quips
+patrons say after a good word are a separate list in `js/quips.js`.

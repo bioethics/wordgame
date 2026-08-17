@@ -257,6 +257,13 @@ out of the way, and a badge whose number moves as you add letters bumps
 rather than silently swapping. It reads off the same score script as the
 readout, so what a patron promises is what it pays when it fires.
 
+The whole roster is listed, guild by guild, in **[`docs/PATRONS.md`](docs/PATRONS.md)** —
+generated from the defs by `tools/patrons.mjs`, and the place to *edit* the
+wording: change a name or a description there and `node tools/patrons.mjs
+--apply` writes it back into `js/patrons.js`. Run the tool bare to refresh the
+list after a code change. (Design rationale, per patron, is in
+`docs/PATRON_OVERHAUL.md`.)
+
 **Letting things go** — the Market lists what you already hold beneath each
 section: seated patrons (back for half their cost) and workbench sundries
 (back for 1 Coin). Selling a sundry is about freeing the slot, not the coin.
