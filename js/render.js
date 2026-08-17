@@ -5,7 +5,7 @@
 import {
   state, settings, saveState, getActiveLetter, getActiveColour, selectedCount,
   effectivePatronSlots, effectiveSundrySlots, effectiveWordsPerPage, chapterTitle,
-  sundrySelected, restingPoints,
+  sundrySelected, restingPoints, getActiveGrowth,
 } from './state.js';
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
@@ -65,7 +65,7 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   const ptsEl = document.createElement('span');
   ptsEl.className = 'tile-pts';
   ptsEl.textContent = pts ?? base;
-  if (tile.bonusPoints) ptsEl.classList.add('tile-pts--grown');
+  if (getActiveGrowth(tile)) ptsEl.classList.add('tile-pts--grown');
   if (pts != null && pts !== base) ptsEl.classList.add('tile-pts--boosted');
   div.appendChild(ptsEl);
 
@@ -119,8 +119,8 @@ export function tileFeatures(tile) {
   if (isMark(tile.letter)) {
     out.push({ head: 'Mark', body: 'Spells nothing — goes on the end of a word. One ? or one ! or ?!.' });
   }
-  if (tile.bonusPoints) {
-    out.push({ head: 'Grown', body: `+${tile.bonusPoints} Points set permanently into this tile.` });
+  if (getActiveGrowth(tile)) {
+    out.push({ head: 'Grown', body: `+${getActiveGrowth(tile)} Points set permanently into this letter.` });
   }
   if (tile.ephemeral) {
     out.push(tile.aboveHand
@@ -139,7 +139,7 @@ export function tileFeatures(tile) {
 export function tileTitleLines(tile, breakdown = null) {
   const active = getActiveLetter(tile);
   const face   = TILE_POINTS[active] ?? 1;
-  const grown  = tile.bonusPoints ?? 0;
+  const grown  = getActiveGrowth(tile);
   const silver = tile.trim === 'silver' ? SILVER_BONUS : 0;
   const parts = [`${face} base`];
   if (grown)  parts.push(`${grown} grown`);

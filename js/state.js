@@ -58,9 +58,18 @@ export const getActiveColour = tile => tile.colour;
 // wherever it appears — rack, shop, collection, groove. A nick's reach and a
 // Monogrammist's echo are the word's business and scoring adds those on top,
 // which is what leaves the corner number free to be honest at rest.
+// Growth follows the face, the way a letter's own Points do — unlike paint,
+// trim and nick, which belong to the whole tile. Each face of a dual keeps
+// its own grown points: `bonusPoints` for the first letter, `altBonusPoints`
+// for the second, and flipping the tile flips which one counts. The
+// Typefounder's melt is why: each side brings its own history to the
+// crucible, and playing the T face shouldn't pay for what the E earned.
+export const getActiveGrowth = tile =>
+  (tile.activeVariant === 1 ? tile.altBonusPoints : tile.bonusPoints) ?? 0;
+
 export const restingPoints = tile =>
   (TILE_POINTS[getActiveLetter(tile)] ?? tile.basePoints ?? 1)
-  + (tile.bonusPoints ?? 0)
+  + getActiveGrowth(tile)
   + (tile.trim === 'silver' ? SILVER_BONUS : 0);
 
 // Whether a tile reads as a given colour to anything that cares *which* colour
@@ -496,14 +505,16 @@ export function retirePrinted(tiles) {
 
 // Grow a tile's value for good: the bonus is written to the live tile AND the
 // collection template it was drawn from (same write-through as painting), so
-// it survives the page, the save, and every reshuffle. The corner number
-// renders jade once a tile carries grown points.
+// it survives the page, the save, and every reshuffle. Growth lands on the
+// face the tile is showing — grow a dual as E and the T on its back learns
+// nothing — and the corner number renders jade while a grown face is up.
 export function growTile(tile, n = 1) {
   if (isImmutable(tile)) return false;
-  tile.bonusPoints = (tile.bonusPoints ?? 0) + n;
+  const field = tile.activeVariant === 1 ? 'altBonusPoints' : 'bonusPoints';
+  tile[field] = (tile[field] ?? 0) + n;
   const tmpl = state.collection.find(c => c.tid === tile.tid);
-  if (tmpl) tmpl.bonusPoints = (tmpl.bonusPoints ?? 0) + n;
-  return tile.bonusPoints;
+  if (tmpl) tmpl[field] = (tmpl[field] ?? 0) + n;
+  return tile[field];
 }
 
 // Paint a tile, writing through to the collection so the paint is permanent.
@@ -552,11 +563,13 @@ export function trashFromCollection(tid) {
 // takes the right's letter as its second face, and the right is destroyed.
 // Where both carry the same finery — paint, trim, nick, material — the left
 // tile's survives the melt; where only one does, it is kept whichever side it
-// came from. Grown points pour together. Only plain single-letter tiles will
-// take the crucible: no duals (a tile has at most two faces), no ligatures or
-// marks (not single letters — same bar the Punchcutter sets), and nothing
-// immutable. The destruction goes through trashFromCollection, so it respects
-// the Smelter's floor and feeds the Composter like every other route out.
+// came from. Grown points stay with their letter: each face brings its own
+// growth to the crucible and keeps it (see getActiveGrowth). Only plain
+// single-letter tiles will take the crucible: no duals (a tile has at most
+// two faces), no ligatures or marks (not single letters — same bar the
+// Punchcutter sets), and nothing immutable. The destruction goes through
+// trashFromCollection, so it respects the Smelter's floor and feeds the
+// Composter like every other route out.
 export function mergeTiles(left, right) {
   const plain = t => t.letter.length === 1 && !isMark(t.letter)
                   && t.letterType !== 'dual' && !isImmutable(t);
@@ -570,7 +583,8 @@ export function mergeTiles(left, right) {
     trim:          left.trim     ?? right.trim,
     nick:          left.nick     ?? right.nick,
     material:      left.material ?? right.material,
-    bonusPoints:   (left.bonusPoints ?? 0) + (right.bonusPoints ?? 0),
+    bonusPoints:    left.bonusPoints  ?? 0,
+    altBonusPoints: right.bonusPoints ?? 0,
   };
   Object.assign(left, merged);
   const tmpl = state.collection.find(c => c.tid === left.tid);

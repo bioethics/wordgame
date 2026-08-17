@@ -395,11 +395,27 @@ seated and read together.
 The melt rules live in `mergeTiles` (state.js), deliberately not in the
 desc: where both tiles carry the same finery (paint, trim, nick, material)
 the **left** tile's survives; where only one does, it is kept whichever
-side it came from; grown points pour together. Only plain single-letter
+side it came from; grown points stay with their letter — each face brings
+its own history to the crucible and keeps it. Only plain single-letter
 tiles will pour — no duals (two faces is the most a tile has), no ligatures
 or marks (the Punchcutter's own bar), no ghosts or lent tiles. The
 destruction goes through `trashFromCollection`, so it respects the
 Smelter's floor and feeds the Composter.
+
+**The melt made growth per-face, game-wide.** Grown points originally
+belonged to the tile, like paint; the Typefounder exposed why that was the
+wrong home — melting a grown E onto a T would have paid the T for what the
+E earned. The rule now: **growth follows the face, the way a letter's own
+Points do** — `bonusPoints` for the first letter, `altBonusPoints` for the
+second, `getActiveGrowth` (state.js) picks the showing one, and `growTile`
+writes to the face that was up when the growth landed (so the Grafter and
+the Espalier grow the letter you actually printed). Paint, trim and nick
+stay tile-level per the trenchcoat doctrine in constants.js — those are
+properties of the *metal*; growth is Points, and Points always flipped
+with the face. Consequences: a Punchcutter cut starts its new face
+ungrown, the jade corner number appears only while a grown face is up,
+and old saves load clean (`altBonusPoints` defaults to 0 everywhere it is
+read).
 
 Why rare: this is a god-tile foundry. It casts a Punchcutter cut where you
 chose *both* faces, and it consolidates finery — merge a purple-trimmed
