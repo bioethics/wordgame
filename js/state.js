@@ -224,10 +224,17 @@ function assignBoss() {
 // The Enthusiast's gift rides ABOVE your hand size, a bonus tile beside the
 // rack. The Eeeditor's three E's do not: they sit IN the hand and take three
 // of its places, which is the whole of that editor — a gift and a cage in one.
-export function castLentTile(letter, { aboveHand = false } = {}) {
-  const tile = templateToTile(makeTileTemplate(letter));
+//
+// The Scientist lends too, and his loan arrives dressed: `overrides` reaches
+// makeTileTemplate, so a lent tile can be born wearing a trim it could never
+// be given later (isImmutable bars writing to a tile with no template behind
+// it, but says nothing about what it was cast with). `lender` names who is
+// lending, so the tile can explain itself as theirs.
+export function castLentTile(letter, { aboveHand = false, lender = null, ...overrides } = {}) {
+  const tile = templateToTile(makeTileTemplate(letter, overrides));
   tile.ephemeral = true;
   if (aboveHand) tile.aboveHand = true;
+  if (lender) tile.lender = lender;
   state.rack.push(tile);
   return tile;
 }

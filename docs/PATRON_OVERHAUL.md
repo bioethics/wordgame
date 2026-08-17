@@ -682,6 +682,37 @@ commons at 4 Coins:
   tiles now. If the loss of suspense disappoints in play, the alternative is
   to roll at print and let the readout jump — at the cost of that promise.
 
+## Three patrons of a later season — the loan, the register, the pair
+
+- **The Scientist** 🔬 (amber, uncommon · 6) — the first patron *used from
+  his card mid-page*: tap him, take a gold-trimmed OLOGY tile, once a page
+  (`data.used`, re-armed by his `onPageStart`). The tile is the Enthusiast's
+  lent kind (`castLentTile`, now taking overrides so a loan can be *born*
+  trimmed — `isImmutable` bars writing to a template-less tile, not casting
+  one dressed), rides above the hand, and vanishes with the page. OLOGY is a
+  five-letter ligature worth 9 (O+L+O+G+Y), exclusive to him, on a
+  double-wide tile (`.tile--wide`) because five letters deserve the room.
+  Gold trim is the amber hook: printing the loan pays a Coin, two under the
+  Magpie, and the 75 `-ology` words in the dictionary all run 6+ letters —
+  the Scholar's and the Novelist's territory.
+- **The Expectant Parents** 🤰 (no guild, uncommon · 6) — the Stenographer's
+  door with a payout on it: `wordlists-themed/names.txt` (5,050 baby names —
+  US Social Security and ONS England & Wales charts merged, three top-1,000
+  years to qualify; `tools/build-names-list.mjs`) is vouched whole at the
+  dictionary check, and any word on it gains +10 Points whether the
+  dictionary knew it or not — GRACE is no less a name for being a word.
+- **The Bloodletter reworked** 💈 — his coin toss over a lone tile becomes a
+  clean cut over a pair: discard exactly two, one is destroyed, the other
+  painted crimson, both certain (no roll, so no `luckyRoll`). That puts him
+  and the Typefounder after the same pair, which settled a rule the engine
+  had only implied: **hooks fire in seat order, and a consumed tile is out of
+  every later seat's reach**. Seat order is thereby the player's lever —
+  first seated, first served — with one wrinkle that makes the pairing a
+  choice rather than a race: the crucible only takes two plain single
+  letters, so a pair it refuses falls through to the seat after it. The rule
+  is deliberately not in either desc; it lives at `runDiscardHooks` in
+  main.js, and any future conflicting patrons resolve the same way.
+
 ## Remaining phases
 
 1. **Phase 1 — score-time patrons.** All "pure `score` def" rows above, plus

@@ -20,7 +20,7 @@ House style for a description, from `docs/PATRON_OVERHAUL.md`: one sentence,
 real numbers, no metaphor, under ~110 characters. State the rule, not the
 feeling — the flavour belongs to the name, the emoji and the quips.
 
-**70 patrons** — 21 common, 33 uncommon, 16 rare. Guilds: amber 10, jade 11, crimson 11, azure 10, no guild 30 — a dual-livery patron counts in each of its guilds.
+**72 patrons** — 21 common, 35 uncommon, 16 rare. Guilds: amber 11, jade 11, crimson 11, azure 10, no guild 31 — a dual-livery patron counts in each of its guilds.
 
 ## Amber · the counting-house
 
@@ -32,6 +32,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🏦 **The Banker** `banker` | uncommon | 5 | When a page completes: +1 Coin per amber patron on your shelf — never less than +2. |
 | 🤝 **The Factor** `factor` | uncommon | 5 | Amber tiles still in your hand when a page completes earn a free Market re-roll each, up to 2. |
 | 🏺 **The Antiquary** `antiquary` | uncommon | 6 | Words containing a J, QU, X or Z tile pay 2 Coins. |
+| 🔬 **The Scientist** `scientist` | uncommon | 6 | Once a page, ask him for an OLOGY tile — gold-trimmed, riding above your hand, gone when the page ends. |
 | 💰 **The Bursar** `bursar` | uncommon | 7 | Words with an amber tile gain +1 Mult for every 5 Coins you hold (max +5). |
 | 🛒 **The Chapman** `chapman` | uncommon | 7 | One tile at the Market is always amber, and amber tiles cost nothing. |
 | 🐦 **The Magpie** `magpie` | uncommon | 7 | Gold-trimmed tiles pay double Coins. |
@@ -55,7 +56,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 
 | Patron | Rarity | Cost | Description |
 |---|---|---|---|
-| 💈 **The Bloodletter** `bloodletter` | common | 4 | Discard exactly one tile: even odds it is painted crimson, or destroyed. |
+| 💈 **The Bloodletter** `bloodletter` | common | 4 | Discard exactly two tiles: one is destroyed, the other painted crimson. |
 | ❤️‍🔥 **The Firebrand** `firebrand` | common | 4 | Words with 2 or more crimson tiles gain +15 Points. |
 | 🎲 **The Gambler** `gambler` | common | 4 | Each word has a 1-in-2 chance of ×2 Mult — the coin is tossed before you set it. |
 | 🌺 **The Madder** `madder` 🔒 | common | 4 | As each chapter ends, 2 tiles of your collection are painted crimson. |
@@ -95,6 +96,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 👯 **The Twins** `twins` | common | 4 | Words with a doubled letter (LL, OO…) gain +15 Points. |
 | 🐣 **The Abecedarian** `abecedarian` | common | 5 | 3-letter words get +10 Points. |
 | 🪞 **The Mirror** `mirror` | uncommon | 5 | Words that spell another word backwards — or themselves — get ×4 Mult. |
+| 🤰 **The Expectant Parents** `expectants` | uncommon | 6 | Common baby names count as words, and any name gains +10 Points — SOPHIE, ARCHIE, BARNABY. |
 | 🔂 **The Haplographer** `haplographer` | uncommon | 6 | One letter may read as doubled: BALOON counts as BALLOON — and doubles pay The Twins. |
 | 📯 **The Herald** `herald` | uncommon | 6 | Words that start and end with the same letter get ×2 Mult. |
 | 🍻 **The Innkeeper** `innkeeper` | uncommon | 6 | Every word gains +5 Points per seated patron — this one included. |

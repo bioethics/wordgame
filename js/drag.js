@@ -138,7 +138,7 @@ function releasePress(commit) {
       if (selectingToDiscard()) {
         const r = toggleSelected(press.id);
         if (r === 'cursed') log('A cursed tile cannot be discarded — it has to be played.', 'warn');
-        if (r === 'lent')   log('The editor would only hand you another — play it instead.', 'warn');
+        if (r === 'lent')   log('A lent tile cannot be discarded — play it or let the page end.', 'warn');
       }
       else                      moveRackToWord(press.id);
     } else {
