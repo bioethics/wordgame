@@ -9,7 +9,7 @@ import {
   discardSelected, getWordString, moveRackToWord, owns, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected,
   getActiveColour, getActiveLetter, growTile, paintTile, trimTile,
-  trashFromCollection, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
+  trashFromCollection, mergeTiles, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
   effectiveWordsPerPage, rollGamble,
 } from './state.js';
 import {
@@ -301,11 +301,14 @@ function runPrintedHooks(tiles, script) {
 // rack but before the hand tops up, so a patron that paints one is writing to
 // a tile already filed in the discard pile — and the collection, which is what
 // makes the change outlast the page.
-// Returns the tiles a patron recoloured, so the caller can show it happening,
-// and the tiles a patron destroyed outright (The Bloodletter), which must be
-// unfiled from the pile and burned away rather than flown to it.
+// Returns the tiles a patron recoloured, so the caller can show it happening;
+// the tiles a patron destroyed outright (The Bloodletter, and the consumed
+// half of a Typefounder melt), which must be unfiled from the pile and burned
+// away rather than flown to it; and the tiles recast with a second face, so
+// the new letter can be shown before the tile files away.
 function runDiscardHooks(tiles) {
   const painted = [];
+  const merged  = [];
   const trashed = new Map();   // id → tile (already gone from the collection)
   for (const p of state.patrons) {
     const def = patronById(p.id);
@@ -316,10 +319,12 @@ function runDiscardHooks(tiles) {
       state, data: p.data,
       paint: paintTile,
       trash: t => !!trashFromCollection(t.tid),
+      merge: mergeTiles,
     });
     if (!r) continue;
     for (const t of r.trashed ?? []) trashed.set(t.id, t);
     if (r.painted?.length) painted.push(...r.painted);
+    if (r.merged?.length) merged.push(...r.merged);
     if (r.note) {
       const card = patronCard(p);
       if (card) { pulse(card, 'patron--firing', 520); floatText(card, r.note, 'fl-points', { dy: -44 }); }
@@ -328,7 +333,7 @@ function runDiscardHooks(tiles) {
   // A trashed tile was filed in the pile a moment ago; unfile it, or the
   // inspector would keep showing a tile whose template no longer exists.
   if (trashed.size) state.discardPile = state.discardPile.filter(t => !trashed.has(t.id));
-  return { painted, trashed: [...trashed.values()] };
+  return { painted, trashed: [...trashed.values()], merged };
 }
 
 // A tile caught by the vat takes its colour where it stands, and is held there
@@ -765,8 +770,19 @@ async function doDiscard() {
   // the board, then they fly to the pile wearing the new colour. A tile the
   // Bloodletter drained burns away where it sits instead — there is nothing
   // left to file.
-  const { painted: dipped, trashed } = runDiscardHooks(result.removed);
+  const { painted: dipped, trashed, merged } = runDiscardHooks(result.removed);
   if (dipped.length) await animateDip(dipped, selectedEls);
+
+  // A recast tile shows off its second face where it stands, then its
+  // consumed half burns away, and only then does anything fly to the pile.
+  for (const { tile, alt } of merged) {
+    const el = selectedEls.find(e => e.dataset.id === String(tile.id));
+    if (!el) continue;
+    pulse(el, 'tile--set-glow', 620);
+    sparkleBurst(el, 9);
+    floatText(el, `${getActiveLetter(tile)} | ${alt}`, 'fl-points', { dy: -52 });
+  }
+  if (merged.length) { sfx.chime(); await sleep(ANIM.stepColour); }
 
   const trashedIds = new Set(trashed.map(t => String(t.id)));
   const trashedEls = selectedEls.filter(el => trashedIds.has(el.dataset.id));
@@ -779,7 +795,11 @@ async function doDiscard() {
   renderAll();
 
   let msg = `Discarded ${result.removed.length} tile${result.removed.length > 1 ? 's' : ''}.`;
-  if (trashed.length) msg += `  ${trashed.length} destroyed for good.`;
+  if (merged.length) {
+    msg += `  Two recast as one: ${merged.map(m => `${getActiveLetter(m.tile)}|${m.alt}`).join(', ')}.`;
+  } else if (trashed.length) {
+    msg += `  ${trashed.length} destroyed for good.`;
+  }
   if (!result.drawn.length && !state.bag.length) msg += '  The bag is empty.';
   log(msg);
 
