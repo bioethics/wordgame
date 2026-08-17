@@ -17,7 +17,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { PATRON_DEFS } from '../js/patrons.js';
+import { PATRON_DEFS, guildsOf } from '../js/patrons.js';
 
 const root    = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SRC     = path.join(root, 'js', 'patrons.js');
@@ -79,7 +79,11 @@ const esc = s => s.replace(/\|/g, '\\|');
 function buildDoc(src, defs) {
   const counts = { common: 0, uncommon: 0, rare: 0 };
   for (const d of defs) counts[d.rarity]++;
-  const byGuild = g => defs.filter(d => (d.guild ?? null) === g);
+  // A patron is listed under its primary livery; a dual-livery patron (the
+  // Cellarer) notes its second guild in the rarity cell, and the header's
+  // guild counts count every livery worn, so both of his guilds claim him.
+  const byGuild  = g => defs.filter(d => (guildsOf(d)[0] ?? null) === g);
+  const inGuild  = g => defs.filter(d => guildsOf(d).includes(g));
 
   const out = [];
   out.push('# The patrons');
@@ -106,8 +110,8 @@ function buildDoc(src, defs) {
   out.push('');
   out.push(`**${defs.length} patrons** — ${counts.common} common, `
          + `${counts.uncommon} uncommon, ${counts.rare} rare. Guilds: `
-         + GUILDS.filter(([g]) => g).map(([g, t]) => `${t.split(' · ')[0].toLowerCase()} ${byGuild(g).length}`).join(', ')
-         + `, no guild ${byGuild(null).length}.`);
+         + GUILDS.filter(([g]) => g).map(([g, t]) => `${t.split(' · ')[0].toLowerCase()} ${inGuild(g).length}`).join(', ')
+         + `, no guild ${byGuild(null).length} — a dual-livery patron counts in each of its guilds.`);
   out.push('');
 
   for (const [guild, title] of GUILDS) {
@@ -123,8 +127,9 @@ function buildDoc(src, defs) {
     for (const d of defs) {
       const { editable } = editability(src, d);
       const lock = editable ? '' : ' 🔒';
+      const also = guildsOf(d).slice(1);
       out.push(`| ${d.emoji} **${esc(d.name)}** \`${d.id}\`${lock} `
-             + `| ${d.rarity} | ${d.cost} | ${esc(d.desc)} |`);
+             + `| ${d.rarity}${also.length ? ` · also ${also.join(' & ')}` : ''} | ${d.cost} | ${esc(d.desc)} |`);
     }
     out.push('');
   }

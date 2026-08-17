@@ -11,12 +11,12 @@ import {
   PAINT_PER_POT, TUBE_TILES, ANIM, SUNDRY_SELL, tileCount, sundryTip,
   colourDesc,
 } from './constants.js';
-import { patronById } from './patrons.js';
+import { patronById, guildsOf } from './patrons.js';
 import { upgradeById } from './upgrades.js';
 import {
   market, stallById, stallPrice, isProposalStall,
   offerPrice, compostLeft, takeCompost,
-  buyPatron, buyTile, buySundry, sellPatron, sellSundry,
+  buyPatron, buyTile, buySundry, sellPatron, sellSundry, patronRefund,
   rerollMarket, freeRerollMarket,
   stallSmelt, stallPaint, stallCommission, stallClone,
 } from './market.js';
@@ -122,7 +122,7 @@ export function updateMarketState() {
   m.querySelector('[data-held="sundry"]')?.classList.toggle('held-row--wanted', benchFull);
 
   const reroll = m.querySelector('#btnReroll');
-  if (reroll) reroll.disabled = state.coins < market.rerollCost;
+  if (reroll) reroll.disabled = !(state.freeRerolls > 0) && state.coins < market.rerollCost;
 }
 
 function rewardHTML() {
@@ -162,9 +162,10 @@ function marketShelfCardsHTML() {
     const name  = def.instName?.(p.data)  ?? def.name;
     const label = def.instShelf?.(p.data) ?? def.name.replace(/^The /, '');
     const desc  = def.instDesc?.(p.data)  ?? def.desc;
-    const half  = Math.floor(def.cost / 2);
+    const half  = patronRefund(p);
+    const livery = guildsOf(def)[0];
     cards += `
-      <div class="patron patron--${def.rarity}${def.guild ? ` patron--g-${def.guild}` : ''}"
+      <div class="patron patron--${def.rarity}${livery ? ` patron--g-${livery}` : ''}"
            data-patron="${def.id}"${p.uid != null ? ` data-uid="${p.uid}"` : ''}
            title="${name} — ${desc}
 (✕ dismisses for ${half} Coins)">
@@ -194,8 +195,10 @@ function marketShopHTML() {
     const desc = def.instDesc?.(o.data) ?? def.desc;
     // A guild member's card wears its livery: a ribbon bound into the top
     // edge, the portrait washed in the guild colour, and the guild named on
-    // the title line. Neutral cards stay plain ivory.
-    const livery = def.guild ? ` offer-patron--g-${def.guild}` : '';
+    // the title line. Neutral cards stay plain ivory; a dual-livery card
+    // (the Cellarer) wears its primary guild's ribbon and names them all.
+    const liveries = guildsOf(def);
+    const livery = liveries.length ? ` offer-patron--g-${liveries[0]}` : '';
     return `
       <div class="offer-patron offer-patron--${def.rarity}${livery}" data-offer="patron" data-idx="${i}">
         <div class="op-portrait">${def.portrait
@@ -203,7 +206,7 @@ function marketShopHTML() {
           : `<span class="op-emoji">${def.emoji}</span>`}</div>
         <div class="op-card-body">
           <div class="op-name">${name}</div>
-          <div class="op-title">${def.rarity}${def.guild ? ` · <span class="op-guild">${def.guild}</span>` : ''}</div>
+          <div class="op-title">${def.rarity}${liveries.length ? ` · <span class="op-guild">${liveries.join(' & ')}</span>` : ''}</div>
           <div class="op-desc">${desc}</div>
         </div>
         <span class="op-sold">seated</span>
@@ -346,9 +349,9 @@ function marketShopHTML() {
       </section>
 
       <div class="market-foot">
-        <button class="btn btn-quiet" id="btnReroll" title="Re-rolls patrons, tiles, sundries and stalls — the fee doubles each time. A stall you've already paid keeps its raised price this visit."
-          ${state.coins < market.rerollCost ? 'disabled' : ''}>
-          New offers ${coinHTML(market.rerollCost)}
+        <button class="btn btn-quiet" id="btnReroll" title="Re-rolls patrons, tiles, sundries and stalls — the fee doubles each time. A stall you've already paid keeps its raised price this visit.${state.freeRerolls > 0 ? ' The Factor is covering the next ' + (state.freeRerolls > 1 ? state.freeRerolls + ' fees' : 'fee') + '.' : ''}"
+          ${!(state.freeRerolls > 0) && state.coins < market.rerollCost ? 'disabled' : ''}>
+          New offers ${state.freeRerolls > 0 ? `🤝 free · ${state.freeRerolls} left` : coinHTML(market.rerollCost)}
         </button>
         ${reshuffles ? `<button class="btn btn-quiet" id="btnMarketReshuffle" title="A free re-roll">
           ↻ Reshuffle · ${reshuffles} left

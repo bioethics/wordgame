@@ -383,6 +383,68 @@ condition, and the condition asks something real of the player.
   the Stenographer's acronym list holds 38 two-letter entries (DM, GG, RN…),
   which widens the trigger for a rare seat — probably fine, worth a look.
 
+### The rainbow pass — countsAsColour everywhere, and four patrons
+
+Prompted by a worry that too few patrons had a mechanic a rainbow tile
+could light up. The audit found ten that did and three that read colour
+the wrong way; the fix was a principle, applied without exception this
+time: **a patron reads colour through `countsAsColour`, full stop.**
+
+- **Titivillus** now accepts rainbow ink as azure (his gate in main.js) and
+  **the Siren** pays a rainbow vowel the azure +6 — both previously used
+  `getActiveColour`, quietly breaking the rainbow card's "every colour to
+  your patrons" promise.
+- **The Illuminator** paid for the same consistency: a rainbow reads as all
+  four colours, so a word holding one is never at *exactly three*, and he
+  no longer fires on rainbow words at all. In compensation he was owed a
+  fix he needed anyway: his paint used to land **after** scoring
+  (`onPrinted` runs post-commit), so the word that earned the illumination
+  never benefited. He is now a score-def *and* a print hook sharing one
+  condition helper: the score effect pays ×2 — exactly what a new
+  singleton colour is worth — and the print hook lays the permanent paint
+  on a random bare tile. Scoring stays pure (which tile takes the brush is
+  decided at print) and the promise equals the payment, since the ×2 is
+  the same whichever tile it is.
+
+The design lever for new patrons: **distinct-colour counting**
+(`distinctColours` in patrons.js, via countsAsColour), the condition a
+rainbow trivially completes alone. New patrons:
+
+- **The Harlequin** 🃏 (uncommon · 7, neutral) — ×2 Mult on words holding
+  3+ different colours. Motley is the joke: the one patron about every
+  colour wears no livery. A real mid-game spread without rainbow; automatic
+  with one in the word.
+- **The Factor** 🤝 (uncommon · 5, amber) — each amber tile still in hand
+  when a page completes banks a free Market re-roll, up to 2. Chosen over a
+  coins variant to keep the pays-money category uncrowded. Brought the
+  **`onPageComplete` hook** (runs as the quota clears, hand intact) and
+  `state.freeRerolls`: spent by the re-roll button before any coin, without
+  bumping the escalating fee, and cleared when the Market closes — the
+  agent works the fair he was sent to.
+- **The Cellarer** 🧀 (uncommon · 6, **jade & amber — the first dual-livery
+  patron**) — ages once per page that completes with a jade tile in hand:
+  +1 Point to every word and +1 Coin on dismissal per age. Jade mechanic,
+  amber payoff. Dual livery is now a def-level concept: `guild` may be an
+  array, read everywhere through `guildsOf(def)` — **the Alderman counts
+  both flags from the one seat** (his ceiling is still ×5.06; the Cellarer
+  just reaches it a seat cheaper), the card wears the primary ribbon and
+  names both guilds, and the doc tool lists him under jade with an "also
+  amber" note. Late-game he is a bond you can cash: dismiss for
+  half-cost-plus-age (via the new `refundBonus(data)` def field and
+  `patronRefund` in market.js, which the ✕ tooltips also read) — and the
+  Headsman collects on the execution.
+- **The Innkeeper** 🍻 (uncommon · 6, neutral) — +5 Points per seated
+  patron, himself included. Wants the shelf full; a standing argument with
+  the Headsman.
+
+Still on the table from the same ideation: the Money-changer 💱 (amber,
+3+ colours pay 3 Coins), the Parterre 🌷 (jade rare, all four colours →
+every tile grows +2) and the Orchardist 🍎 (jade, targeted growth on
+2+-jade words). **Watchpoints:** the Factor's cap of 2 is the knob if
+free re-rolls make patron-fishing too easy; the Cellarer's age is
+uncapped over a run — if a 20-age cash-out warps the endgame, cap the
+age or halve the coin half.
+
 ### The Typefounder (a later pitch)
 
 **The Typefounder** ⚗️ (rare · 10, crimson) — discard *exactly two* tiles

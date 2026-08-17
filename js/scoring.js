@@ -2,7 +2,7 @@ import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, PURPLE_TRIM_STEP, REWARD, CURSED_MULT,
   CURSED_PENALTY, SPIKE_MULT, SILVER_BONUS, isDeadline, splitMarks,
 } from './constants.js';
-import { PATRON_DEFS, patronById } from './patrons.js';
+import { PATRON_DEFS, patronById, guildsOf } from './patrons.js';
 import { bossById } from './bosses.js';
 import {
   state, owns, getActiveLetter, getActiveColour, getActiveGrowth, returnsToBag,
@@ -221,10 +221,11 @@ export function computeScore(wordTiles) {
   // amber patrons pay as one). Four guilds is therefore his ceiling, ×5.06.
   // He speaks after everyone else, so what he multiplies is the whole score.
   if (owns('alderman')) {
+    // guildsOf, not .guild: a dual-livery patron (the Cellarer) flies two
+    // flags from one seat, and the Alderman salutes them both.
     const guilds = new Set();
     for (const p of state.patrons) {
-      const g = patronById(p.id)?.guild;
-      if (g) guilds.add(g);
+      for (const g of guildsOf(patronById(p.id))) guilds.add(g);
     }
     for (const g of guilds) {
       mult *= 1.5;

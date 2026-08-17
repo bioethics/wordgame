@@ -23,6 +23,11 @@
 //                       Return { note, tiles } so the arrival can be animated.
 //   onChapterEnd(ctx) — as a chapter clears, before the next page's bag is
 //                       shuffled; ctx { state, data }. Return { note } likewise.
+//   onPageComplete(ctx) — as a page's quota clears, while the hand still
+//                       holds whatever went unplayed; ctx { state, data }.
+//                       Return { note } likewise (logged). This is the hook
+//                       for patrons that read the leftover hand — the
+//                       Factor banks re-rolls, the Cellarer ages.
 //   onDiscard(ctx)    — after tiles are thrown away, before the hand tops up;
 //                       ctx { tiles, state, data, paint(tile, colour),
 //                       trash(tile), merge(left, right) }. The tiles are
@@ -53,19 +58,26 @@
 // on the patron's business card in the market and draft instead of the emoji.
 //
 // Optional `guild`: the livery a patron wears — 'amber' | 'jade' | 'crimson' |
-// 'azure' — absent for the neutral majority. Membership is thematic, not
-// mechanical: it drives the calling card's ribbon, the seat's livery pin, and
-// nothing else — except the Alderman, who pays ×1.5 for every liveried patron
-// on the shelf, fired or not (scoring pass 4½). Because he counts seats rather
-// than effects, adding a `guild` to a def makes that patron worth more to an
-// Alderman build even if its own effect never changes. Assignments may drift
-// as flavour demands.
+// 'azure' — absent for the neutral majority, and an ARRAY for the rare patron
+// who wears two (the Cellarer). Read it through guildsOf(def), which always
+// returns an array; the first entry is the primary — the ribbon and pin the
+// card wears — and every entry counts as represented on the shelf. Membership
+// is thematic, not mechanical: it drives the calling card's ribbon, the
+// seat's livery pin, and nothing else — except the Alderman, who pays ×1.5
+// for every guild represented on the shelf, fired or not (scoring pass 4½).
+// Because he counts liveries rather than effects, adding a `guild` to a def
+// makes that patron worth more to an Alderman build even if its own effect
+// never changes — and a dual-livery patron flies two flags from one seat.
+// Assignments may drift as flavour demands.
+//
+// Optional `refundBonus(data)`: extra Coins this seat's dismissal pays on
+// top of the standard half-cost — read by patronRefund in market.js.
 
 import {
   GRAFTER_STEP, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS, NUDIST_TRIM_CHANCE,
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, COMPOST_PER_MARKET,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE, BLOODLETTER_PAINT_CHANCE,
-  HEADSMAN_STEP, ESPALIER_STEP, splitMarks,
+  HEADSMAN_STEP, ESPALIER_STEP, splitMarks, isImmutable,
 } from './constants.js';
 import {
   getActiveColour, getActiveLetter, countsAsColour, luckyRoll, paintRandomTiles,
@@ -121,6 +133,27 @@ export function doubledReading(word) {
 // One extra doubled pair when the Haplographer's licence applies to the word.
 const licencedPairs = word =>
   owns('haplographer') && doubledReading(word) ? 1 : 0;
+
+// Every colour represented in a set of tiles, read the way patrons read
+// colour (countsAsColour) — so a rainbow tile represents all four at once.
+// The distinct-colour patrons (the Harlequin, the Illuminator) count through
+// here, which is exactly what makes a rainbow tile their jackpot.
+const distinctColours = tiles =>
+  Object.keys(COLOURS).filter(c => tiles.some(t => countsAsColour(t, c)));
+
+// The Illuminator's brief: exactly three colours represented, and at least
+// one tile that reads as no colour at all and will take paint. Shared by his
+// score effect (which pays the fourth colour's ×2 on the spot) and his
+// onPrinted (which lays the paint), so the promise and the brush agree.
+// Because a rainbow reads as all four colours, a word holding one is never
+// at exactly three — the Illuminator and rainbow metal ignore each other.
+function illuminate(tiles) {
+  const present = distinctColours(tiles);
+  if (present.length !== 3) return null;
+  const missing = Object.keys(COLOURS).find(c => !present.includes(c));
+  const bare = tiles.filter(t => !distinctColours([t]).length && !isImmutable(t));
+  return bare.length ? { missing, bare } : null;
+}
 
 // The dye commons: one per colour, each the same patron in a different pot.
 // They paint at the turn of a chapter, before the next page's bag is shuffled,
@@ -379,6 +412,23 @@ export const PATRON_DEFS = [
       if (tiles.some(t => RARE_LETTERS.includes(getActiveLetter(t)))) addCoins(2);
     },
   },
+  {
+    // Amber's agent at the fair: the amber you didn't spend at the press, he
+    // spends on your behalf at the stalls. Fires from the onPageComplete
+    // hook; the banked rolls live in state.freeRerolls, are spent by the
+    // re-roll button before any coin is (see rerollMarket in market.js), and
+    // expire when that Market closes — an agent works the fair he was sent
+    // to, not the next one. A rainbow tile in hand counts as amber, as ever.
+    id: 'factor', name: 'The Factor', emoji: '🤝', rarity: 'uncommon', cost: 5, guild: 'amber',
+    desc: 'Amber tiles still in your hand when a page completes earn a free Market re-roll each, up to 2.',
+    when: 'meta',
+    onPageComplete({ state }) {
+      const n = Math.min(2, state.rack.filter(t => countsAsColour(t, 'amber')).length);
+      if (!n) return null;
+      state.freeRerolls = (state.freeRerolls ?? 0) + n;
+      return { note: `${n} free re-roll${n > 1 ? 's' : ''} banked` };
+    },
+  },
 
   // ── Jade · growth and permanence ────────────────────────────────────────────
   {
@@ -446,6 +496,26 @@ export const PATRON_DEFS = [
       const grown = tiles.filter(t => grow(t, ESPALIER_STEP));
       if (!grown.length) return null;
       return { note: `${grown.map(getActiveLetter).join(', ')} grown +${ESPALIER_STEP}` };
+    },
+  },
+  {
+    // The first dual-livery patron: jade in mechanic (he matures), amber in
+    // what maturity is worth (coin at the end). `guild` is an array here —
+    // the Alderman counts both liveries, and the card wears the first as
+    // its ribbon while naming them both. He ages via onPageComplete, at
+    // most once a page, and the age pays twice: +1 Point on every word
+    // (the effect below) and +1 Coin on his dismissal (his refundBonus,
+    // read by patronRefund in market.js). Held jade is the price — the
+    // guild's other patrons all want jade *played*. Rainbow counts.
+    id: 'cellarer', name: 'The Cellarer', emoji: '🧀', rarity: 'uncommon', cost: 6, guild: ['jade', 'amber'],
+    desc: 'Ages when a page ends with a jade tile in hand: +1 Point to every word, +1 Coin when dismissed.',
+    when: 'score',
+    effect({ data, addPoints }) { if (data?.aged) addPoints(data.aged); },
+    refundBonus(data) { return data?.aged ?? 0; },
+    onPageComplete({ state, data }) {
+      if (!state.rack.some(t => countsAsColour(t, 'jade'))) return null;
+      data.aged = (data.aged ?? 0) + 1;
+      return { note: `aged ${data.aged} page${data.aged > 1 ? 's' : ''} — +${data.aged} Points, +${data.aged} Coins` };
     },
   },
   {
@@ -604,7 +674,9 @@ export const PATRON_DEFS = [
       for (const t of tiles) {
         const L = getActiveLetter(t);
         if (L.length !== 1 || !VOWELS.includes(L)) continue;
-        sum += getActiveColour(t) === 'azure' ? 6 : 2;
+        // countsAsColour, not getActiveColour: a rainbow vowel sings for +6,
+        // as the rainbow card's "every colour to your patrons" promises.
+        sum += countsAsColour(t, 'azure') ? 6 : 2;
       }
       if (sum) addPoints(sum);
     },
@@ -694,18 +766,25 @@ export const PATRON_DEFS = [
     },
   },
   {
+    // Reworked twice over, both for the same principle — a patron reads
+    // colour one way, countsAsColour. That costs him rainbow words (a
+    // rainbow is all four colours, so a word holding one is never at
+    // exactly three), and in exchange the fourth colour now arrives IN
+    // TIME TO SCORE: the score effect pays the ×2 a new singleton colour
+    // is worth, and onPrinted lays the permanent paint after the word
+    // commits. Which bare tile takes the brush is decided at print —
+    // scoring stays pure, and the ×2 is the same whichever tile it is,
+    // so the promise on the shelf is exactly what the word is paid.
     id: 'illuminator', name: 'The Illuminator', emoji: '🎨', rarity: 'rare', cost: 8,
-    desc: 'When a word holds three paint colours, one unpainted tile in it is permanently painted the fourth.',
-    when: 'meta',
+    desc: 'When a word holds exactly three colours, a bare tile in it is painted the fourth — in time to score.',
+    when: 'score',
+    effect({ tiles, xMult }) { if (illuminate(tiles)) xMult(2); },
     onPrinted({ tiles, paint }) {
-      const present = new Set(tiles.map(getActiveColour).filter(Boolean));
-      if (present.size !== 3) return null;
-      const missing = Object.keys(COLOURS).find(c => !present.has(c));
-      const bare = tiles.filter(t => !getActiveColour(t));
-      if (!missing || !bare.length) return null;
-      const target = bare[Math.floor(Math.random() * bare.length)];
-      if (!paint(target, missing)) return null;
-      return { note: `${getActiveLetter(target)} illuminated ${COLOURS[missing].label.toLowerCase()}` };
+      const lit = illuminate(tiles);
+      if (!lit) return null;
+      const target = lit.bare[Math.floor(Math.random() * lit.bare.length)];
+      if (!paint(target, lit.missing)) return null;
+      return { note: `${getActiveLetter(target)} illuminated ${COLOURS[lit.missing].label.toLowerCase()}` };
     },
   },
   {
@@ -769,6 +848,27 @@ export const PATRON_DEFS = [
       const n = doubledPairs(word) + licencedPairs(word);
       if (n) xMult(2 ** n);
     },
+  },
+  {
+    // Motley is the whole joke: the one patron who cares about every colour
+    // wears none. Colours are counted the patrons' way (countsAsColour),
+    // which makes him a rainbow tile's best friend — one reads as all four
+    // by itself. Without one, three paints in a word is a real mid-game
+    // spread, which is what earns the ×2 at uncommon weight.
+    id: 'harlequin', name: 'The Harlequin', emoji: '🃏', rarity: 'uncommon', cost: 7,
+    desc: 'Words holding 3 or more different colours get ×2 Mult.',
+    when: 'score',
+    effect({ tiles, xMult }) { if (distinctColours(tiles).length >= 3) xMult(2); },
+  },
+  {
+    // Pays by the head at his table, himself included: +5 alone, +25 on a
+    // full shelf, more with Colophon seats. Points, deliberately — a crowd
+    // feeds the base and the multipliers stay someone else's business — and
+    // a standing argument with the Headsman, who'd rather the seats empty.
+    id: 'innkeeper', name: 'The Innkeeper', emoji: '🍻', rarity: 'uncommon', cost: 6,
+    desc: 'Every word gains +5 Points per seated patron — this one included.',
+    when: 'score',
+    effect({ state, addPoints }) { addPoints(5 * state.patrons.length); },
   },
   {
     // The guilds' man at the table, and the reason `guild` is a def field. He
@@ -842,5 +942,11 @@ export const PATRON_DEFS = [
 ];
 
 export const patronById = id => PATRON_DEFS.find(d => d.id === id);
+
+// A patron's liveries, always as an array — `guild` on a def may be absent,
+// one string, or (for a dual-livery patron like the Cellarer) an array. The
+// first entry is the primary: the ribbon and pin the card wears. Everything
+// that asks which guilds a shelf represents goes through here.
+export const guildsOf = def => (def?.guild ? [].concat(def.guild) : []);
 
 export const RARITY_WEIGHT = { common: 3, uncommon: 2, rare: 1 };
