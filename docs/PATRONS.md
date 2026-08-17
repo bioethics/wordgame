@@ -60,11 +60,11 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | ❤️‍🔥 **The Firebrand** `firebrand` | common | 4 | Words with 2 or more crimson tiles gain +15 Points. |
 | 🎲 **The Gambler** `gambler` | common | 4 | Each word has a 1-in-2 chance of ×2 Mult — the coin is tossed before you set it. |
 | 🌺 **The Madder** `madder` 🔒 | common | 4 | As each chapter ends, 2 tiles of your collection are painted crimson. |
+| 🐀 **The Rat Catcher** `ratcatcher` | uncommon | 2 | Every page begins with a RAT tile in hand, painted a random colour. It is yours for good. |
 | 🎒 **The Quartermaster** `quartermaster` | uncommon | 5 | Begin each page with an extra Discard. |
 | 🧨 **The Arsonist** `arsonist` | uncommon | 7 | Every tile you print has a 1-in-10 chance of being painted crimson, and a 1-in-100 chance of being destroyed. |
 | 🍂 **The Composter** `composter` | uncommon · also jade | 7 | Destroyed tiles rot into jade ones — at each Market, take one from the heap per jade patron you keep. |
 | 🪓 **The Headsman** `headsman` 🔒 | uncommon | 7 | Each patron you dismiss permanently raises this patron's Mult by 0.2. |
-| 🐀 **The Rat Catcher** `ratcatcher` | uncommon | 7 | Every page begins with a RAT tile in hand, painted at random. It is yours for good. |
 | ⚗️ **The Typefounder** `typefounder` | rare | 10 | Discard exactly two tiles: they are recast as one tile with a letter on either face. |
 | 🔥 **The Stoker** `stoker` | rare | 11 | Crimson tiles are destroyed when printed; each one permanently raises this patron's Mult by 0.25. |
 
