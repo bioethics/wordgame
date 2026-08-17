@@ -397,7 +397,8 @@ export function makeTileTemplate(letter, overrides = {}) {
     colour:        null,       // paint — the tile's, not either face's
     trim:          null,       // gold | silver | cobalt | mercury | purple
     nick:          null,       // right | left | side
-    bonusPoints:   0,          // permanent growth (The Grafter) — added to the letter's value
+    bonusPoints:   0,          // permanent growth of the first letter (The Grafter, The Espalier)
+    altBonusPoints: 0,         // …and of the second, when a dual carries any — growth follows the face
     material:      null,       // null = lead | cursed | ghost | rainbow (see MATERIALS)
     ...overrides,
   };

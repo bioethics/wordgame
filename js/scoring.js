@@ -4,7 +4,9 @@ import {
 } from './constants.js';
 import { PATRON_DEFS, patronById } from './patrons.js';
 import { bossById } from './bosses.js';
-import { state, owns, getActiveLetter, getActiveColour, returnsToBag } from './state.js';
+import {
+  state, owns, getActiveLetter, getActiveColour, getActiveGrowth, returnsToBag,
+} from './state.js';
 
 // ─── Score a word ─────────────────────────────────────────────────────────────
 // Pure (no state mutation). Returns a "script" describing every step of the
@@ -56,7 +58,7 @@ export function computeScore(wordTiles) {
 
   wordTiles.forEach((t, i) => {
     const face  = TILE_POINTS[getActiveLetter(t)] ?? t.basePoints ?? 1;
-    const grown = t.bonusPoints ?? 0;
+    const grown = getActiveGrowth(t);   // growth follows the showing face
     let points = face + grown;
     noteMap[i].push(`base ${face}`);
     if (grown) noteMap[i].push(`grown +${grown}`);
