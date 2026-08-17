@@ -17,7 +17,7 @@ import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
   REACTION, NEOLOGIST_LENGTH, MATERIALS, TRIMS, WRAPPED_CONTENTS, MARK_TRIM,
   chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks, isDeadline,
-  FLEURON, TOOLBOX_POOL, TOOL_LOOK, HONORIFIC_STEP, TONGS_BONUS, LOUPE_CAP,
+  FLEURON, TOOLBOX_POOL, HONORIFIC_STEP, TONGS_BONUS, LOUPE_CAP, sundryTip,
 } from './constants.js';
 import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
 import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
@@ -990,6 +990,11 @@ $('sundries')?.addEventListener('click', async e => {
     const roomForSecond = state.sundries.length < effectiveSundrySlots();
     if (roomForSecond) state.sundries.push({ kind: second });
 
+    // Named through sundryTip rather than TOOL_LOOK: the pool holds the
+    // ratchet too, which draws itself with arrows and so has no TOOL_LOOK
+    // entry. sundryTip knows every kind there is, which is the point of it.
+    const nameOf = k => sundryTip({ kind: k })?.head ?? k;
+
     state.isAnimating = true;
     renderAll();
     sfx.chime();
@@ -997,15 +1002,15 @@ $('sundries')?.addEventListener('click', async e => {
     if (bench) {
       sparkleBurst(bench, 12);
       floatText(bench, roomForSecond
-        ? `${TOOL_LOOK[first].label} · ${TOOL_LOOK[second].label}`
-        : TOOL_LOOK[first].label, 'fl-points', { dy: -46 });
+        ? `${nameOf(first)} · ${nameOf(second)}`
+        : nameOf(first), 'fl-points', { dy: -46 });
     }
     await sleep(ANIM.stepColour);
     state.isAnimating = false;
     renderAll();
     log(roomForSecond
-      ? `The toolbox opens: a ${TOOL_LOOK[first].label.toLowerCase()} and a ${TOOL_LOOK[second].label.toLowerCase()}.`
-      : `The toolbox opens: a ${TOOL_LOOK[first].label.toLowerCase()} — no room on the bench for the second tool, and it rolls away.`,
+      ? `The toolbox opens: a ${nameOf(first).toLowerCase()} and a ${nameOf(second).toLowerCase()}.`
+      : `The toolbox opens: a ${nameOf(first).toLowerCase()} — no room on the bench for the second tool, and it rolls away.`,
       'good');
     return;
   }
