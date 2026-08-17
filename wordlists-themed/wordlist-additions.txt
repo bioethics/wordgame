@@ -451,6 +451,7 @@ beastie
 beatable
 beautification
 beechwood
+begum
 belay
 believability
 believably
@@ -1667,6 +1668,7 @@ esophageal
 esprit
 essentialism
 essentialist
+esquivalience
 esters
 estimator
 estimators
@@ -2230,6 +2232,7 @@ hetero
 heterocyclic
 hexadecimal
 hexagram
+hider
 highline
 highpoint
 hiphop
@@ -2392,6 +2395,7 @@ illuminator
 illusionary
 imaged
 imaginal
+imago
 imbalanced
 immanence
 immersive
@@ -2988,6 +2992,7 @@ midline
 midsection
 midships
 milady
+milkcap
 milkers
 millage
 millwork
@@ -3945,6 +3950,7 @@ rancho
 randomization
 ransomware
 rantings
+rares
 raster
 rater
 raters
@@ -4667,6 +4673,7 @@ stiffeners
 stimulative
 stimulator
 stimulatory
+stipe
 stitcher
 stochastic
 stoichiometric
