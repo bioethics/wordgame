@@ -165,6 +165,7 @@ export const state = {
   isAnimating: false,
   discardMode: false,    // rack taps select tiles to discard
   sundryMode: -1,        // index of the armed sundry; board taps select its targets
+  tubeOffer: null,       // ids of the tiles an armed tube is offering — transient, never saved
   gameOver:  false,
 };
 
@@ -289,7 +290,7 @@ export function saveState(extra = {}) {
     const word = state.word.map(t => ({ ...t, selected: false }));
     const s = {
       ...state, rack, word,
-      isAnimating: false, sundryMode: -1,
+      isAnimating: false, sundryMode: -1, tubeOffer: null,
       _nextId, _nextTid, _v: SAVE_VERSION,
       ...extra,                       // e.g. a market snapshot
     };
@@ -306,7 +307,7 @@ export function loadState() {
     migrateSave(s);
     if (!Array.isArray(s.collection) || !Array.isArray(s.rack)) return null;
     const { _nextId: savedId, _nextTid: savedTid, _v, _market, _draft, _colophon, ...fields } = s;
-    Object.assign(state, fields, { isAnimating: false, discardMode: false, sundryMode: -1 });
+    Object.assign(state, fields, { isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null });
     state.sundries ??= [];
     state.upgradeCounts ??= {};
     state.luck ??= 1;
@@ -361,7 +362,7 @@ export function newRun() {
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
     manuscript: [],
     endless: false, inMarket: false, inDraft: false, inColophon: false,
-    isAnimating: false, discardMode: false, sundryMode: -1, gameOver: false,
+    isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null, gameOver: false,
   });
   startPage();
 }
@@ -387,6 +388,7 @@ export function startPage() {
   state.discards    = state.discardsMax;
   state.discardMode = false;
   state.sundryMode = -1;
+  state.tubeOffer = null;
   rollGamble();
 }
 
@@ -683,7 +685,10 @@ export function toggleSundrySelect(id) {
   // The ratchet only has purchase on a single letter — refuse ligatures and
   // marks at the point of picking rather than after the choice is made.
   if (state.sundries[state.sundryMode]?.kind === 'ratchet' && !shiftable(tile)) return 'unshiftable';
-  if (sundrySelected().length >= 1) return 'full';   // the ratchet steps one letter
+  // An armed tube takes only the tiles it laid out.
+  if (state.sundries[state.sundryMode]?.kind === 'tube'
+      && !(state.tubeOffer ?? []).includes(tile.id)) return 'unoffered';
+  if (sundrySelected().length >= 1) return 'full';   // both tools take one target
   tile.selected = true;
   return 'on';
 }
@@ -737,19 +742,29 @@ export function applySundry(idx, dir = 0) {
     return { kind: 'ratchet', from, to: getActiveLetter(tile), ids: [tile.id] };
   }
 
-  // A tube splashes one random unpainted tile in the hand — rack and half-
-  // composed word alike. Which tile is the paint's business, not yours:
-  // aimed paint only ever landed on the same four workhorse letters, and a
-  // painted A never changed what word you reached for. What you keep is
-  // timing — play and discard first, then uncork. Fails (and is kept) when
-  // nothing in the hand will take paint.
-  const candidates = [...state.rack, ...state.word].filter(t => !t.colour && !isImmutable(t));
-  if (!candidates.length) return null;
-  const tile = candidates[Math.floor(Math.random() * candidates.length)];
+  // The tube pours onto whichever of its offered tiles was picked. The offer
+  // itself was rolled when the tube was armed — see rollTubeOffer.
+  const tile = sundrySelected().find(t => (state.tubeOffer ?? []).includes(t.id));
+  if (!tile) return null;
   paintTile(tile, sundry.colour);
+  tile.selected = false;
   state.sundries.splice(idx, 1);
   state.sundryMode = -1;
+  state.tubeOffer = null;
   return { kind: 'tube', colour: sundry.colour, letters: [getActiveLetter(tile)], ids: [tile.id] };
+}
+
+// The tube's offer, rolled as it is armed: up to two random unpainted tiles
+// from the hand — rack and half-composed word alike. Aimed paint only ever
+// landed on the same four workhorse letters, and a painted A never changed
+// which word you reached for; an offer of two keeps a real choice without
+// the auto-pilot. Returns null (and leaves no offer) when nothing in the
+// hand will take paint.
+export function rollTubeOffer() {
+  const candidates = [...state.rack, ...state.word].filter(t => !t.colour && !isImmutable(t));
+  if (!candidates.length) { state.tubeOffer = null; return null; }
+  state.tubeOffer = shuffle(candidates.slice()).slice(0, 2).map(t => t.id);
+  return state.tubeOffer;
 }
 
 // A reshuffle sundry has no board target — it's spent from the Market or the

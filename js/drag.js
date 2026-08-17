@@ -130,9 +130,10 @@ function releasePress(commit) {
     // A plain tap
     if (selectingForSundry()) {
       const r = toggleSundrySelect(press.id);
-      if (r === 'full')      log('The ratchet steps one letter — deselect first.', 'warn');
+      if (r === 'full')      log('One tile at a time — deselect first.', 'warn');
       if (r === 'immutable') log('A lent tile takes no paint — nor does a ghost.', 'warn');
       if (r === 'unshiftable') log('The ratchet steps single letters — not ligatures or marks.', 'warn');
+      if (r === 'unoffered') log('The tube offers only the glowing tiles.', 'warn');
     } else if (press.zone === 'rack') {
       if (selectingToDiscard()) {
         const r = toggleSelected(press.id);

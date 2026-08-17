@@ -8,7 +8,7 @@ import {
   WRAPPED_PRICE, WRAPPED_OFFER_CHANCE, isImmutable,
   COMPOST_HEAP_MAX, COMPOST_PER_MARKET,
   TILE_BASE_PRICE, REROLL_BASE,
-  SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, RATCHET_PRICE, SUNDRY_SELL, HEADSMAN_STEP,
+  SUNDRY_OFFERS, PATRON_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, RATCHET_PRICE, SUNDRY_SELL, HEADSMAN_STEP,
   STALL_DEFS, STALLS_PER_SHOP, PROPOSAL_RANGE, SMELT_MIN_COLLECTION,
   FEATURE_CHAIN_CHANCE, MAX_FEATURES,
   makeTileTemplate,
@@ -175,7 +175,7 @@ export const offerPrice = offer =>
 
 // Patrons/tiles/sundries — "New offers" also re-rolls the stalls (see rollStalls).
 function rollOffers() {
-  market.patronOffers = weightedPatronSample(3);
+  market.patronOffers = weightedPatronSample(PATRON_OFFERS);
   market.tileOffers   = Array.from({ length: 4 }, randomTileOffer);
   market.sundryOffers = rollSundryOffers();
   guaranteeAmber();

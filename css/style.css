@@ -283,6 +283,18 @@ header {
     9px 0 0 1px rgba(20, 12, 8, 0.5);
 }
 
+/* The tube's offer: the tiles paint might land on, lit until one is picked.
+   A steady breath rather than a flash — the choice should feel unhurried. */
+.tile--tube-offer {
+  outline: 2px solid rgba(255, 214, 140, 0.9);
+  outline-offset: 2px;
+  animation: tube-offer-breathe 1.2s ease-in-out infinite alternate;
+}
+@keyframes tube-offer-breathe {
+  from { outline-color: rgba(255, 214, 140, 0.45); }
+  to   { outline-color: rgba(255, 214, 140, 0.95); }
+}
+
 .patron-emoji { font-size: 23px; line-height: 1; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.25)); }
 .patron-name {
   font-family: var(--serif);
@@ -3519,6 +3531,8 @@ input[type='checkbox'] {
 
 @media (prefers-reduced-motion: reduce) {
   .tile--trim-gold::before { animation: none; }
+  /* The tube's offer still has to read as offered — hold the outline steady */
+  .tile--tube-offer { animation: none; }
   /* A lit patron still has to read as lit — hold the glow, drop the motion */
   .patron--armed, .patron--just-armed {
     animation: none;
