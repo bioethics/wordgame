@@ -308,9 +308,10 @@ function renderShelf(script) {
         const name  = def.instName?.(p.data)  ?? def.name;
         const label = def.instShelf?.(p.data) ?? def.name.replace(/^The /, '');
         const desc  = def.instDesc?.(p.data)  ?? def.desc;
-        const livery = guildsOf(def)[0];   // a dual-livery card wears its primary ribbon
+        const [livery, livery2] = guildsOf(def);   // a dual-livery seat wears both pins
         const refund = patronRefund(p);
-        slot.className = `patron patron--${def.rarity}${livery ? ` patron--g-${livery}` : ''}`;
+        slot.className = `patron patron--${def.rarity}${livery ? ` patron--g-${livery}` : ''}`
+                       + (livery2 ? ` patron--g2-${livery2}` : '');
         slot.dataset.patron = def.id;
         if (p.uid != null) slot.dataset.uid = p.uid;
         slot.dataset.baseTitle = `${name} — ${desc}\n(✕ dismisses for ${refund} Coins)`;

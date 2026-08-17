@@ -445,6 +445,41 @@ free re-rolls make patron-fishing too easy; the Cellarer's age is
 uncapped over a run — if a 20-age cash-out warps the endgame, cap the
 age or halve the coin half.
 
+### Guild-count scaling, and the second ribbon
+
+Dual liveries got their full dress: a dual-livery card now binds a **second
+ribbon** beside the first (offer cards) and wears a **second enamel pin**
+(seats) — `--livery2` variables and `g2` classes in style.css, emitted
+wherever the primary classes are. **The Composter joined the Cellarer as
+dual-livery**, crimson first: destruction is his diet, jade is what he
+makes of it — the two guilds' whole relationship in one seat.
+
+The design question behind the pass: which effects earn scaling by the
+number of patrons in their colour? The rule adopted — **guild-count
+scaling belongs on effects that are *quantities of a resource*, not on
+score numbers or core engines** — and each counter counts itself, so a
+lone patron is exactly as good as before his guild learned to matter.
+Two adopted:
+
+- **The Composter's allowance**: take one tile from the heap per jade
+  patron on the shelf, floored at the classic 1 (`compostLeft`,
+  market.js, via the new `guildSeats(colour)` in patrons.js). Bounded by
+  the heap itself (`COMPOST_HEAP_MAX` 6) and by how much you actually
+  destroy.
+- **The Banker**: +1 Coin per amber patron when a page completes, never
+  less than his old flat +2. Coins are the game's weakest currency late,
+  so the ceiling (~+6 on a devoted bench) is generous without being a
+  score engine.
+
+Considered and declined, with reasons on record: the **dyes** (scaling
+paint output scales the heart of all scoring — hold for playtest, and if
+ever done, cap it); the **Grafter/Espalier** (growth steps compound too
+hard to scale); the **Quartermaster** (discards are too binary a
+resource); the **Chapman** (one amber offer per amber patron is cute but
+narrow — a future candidate). Note the deliberate tension this family
+creates with the **Alderman**: he pays for guild *spread*, guild-count
+scaling pays for guild *depth* — two different shelves, both real.
+
 ### The Typefounder (a later pitch)
 
 **The Typefounder** ⚗️ (rare · 10, crimson) — discard *exactly two* tiles

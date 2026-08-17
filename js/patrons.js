@@ -75,13 +75,13 @@
 
 import {
   GRAFTER_STEP, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS, NUDIST_TRIM_CHANCE,
-  DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, COMPOST_PER_MARKET,
+  DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE, BLOODLETTER_PAINT_CHANCE,
   HEADSMAN_STEP, ESPALIER_STEP, splitMarks, isImmutable,
 } from './constants.js';
 import {
-  getActiveColour, getActiveLetter, countsAsColour, luckyRoll, paintRandomTiles,
-  shuffle, owns,
+  state, getActiveColour, getActiveLetter, countsAsColour, luckyRoll,
+  paintRandomTiles, shuffle, owns,
 } from './state.js';
 import { inTheme, themeSize } from './themes.js';
 // The Mirror reads a word backwards against the dictionary; the Haplographer's
@@ -250,8 +250,13 @@ export const PATRON_DEFS = [
 
   // ── Uncommons ───────────────────────────────────────────────────────────────
   {
+    // The counting-house pays by the size of the house: +1 Coin per amber
+    // patron on the shelf, himself included, floored at the flat +2 he has
+    // always paid — so he is never worse than he was, and an amber bench
+    // makes him better. Paid in computeReward (js/scoring.js) via
+    // guildSeats.
     id: 'banker', name: 'The Banker', emoji: '🏦', rarity: 'uncommon', cost: 5, guild: 'amber',
-    desc: '+2 Coins whenever a page completes.',
+    desc: 'When a page completes: +1 Coin per amber patron on your shelf — never less than +2.',
     when: 'meta',
   },
   {
@@ -450,8 +455,14 @@ export const PATRON_DEFS = [
     },
   },
   {
-    id: 'composter', name: 'The Composter', emoji: '🍂', rarity: 'uncommon', cost: 7, guild: 'jade',
-    desc: `Destroyed tiles rot down into jade ones — take ${COMPOST_PER_MARKET} from the heap at every Market.`,
+    // Dual livery, crimson first: destruction is his diet and jade is what
+    // he makes of it — the guilds' whole relationship in one seat, and the
+    // reason every crimson burn quietly pleases a jade build. His allowance
+    // now scales with the gardeners: one tile per jade patron on the shelf
+    // (himself included, so alone he takes the classic one), computed in
+    // compostLeft in js/market.js via guildSeats.
+    id: 'composter', name: 'The Composter', emoji: '🍂', rarity: 'uncommon', cost: 7, guild: ['crimson', 'jade'],
+    desc: 'Destroyed tiles rot into jade ones — at each Market, take one from the heap per jade patron you keep.',
     when: 'meta',   // counted in trashFromCollection, rotted and taken in js/market.js
   },
   {
@@ -945,8 +956,17 @@ export const patronById = id => PATRON_DEFS.find(d => d.id === id);
 
 // A patron's liveries, always as an array — `guild` on a def may be absent,
 // one string, or (for a dual-livery patron like the Cellarer) an array. The
-// first entry is the primary: the ribbon and pin the card wears. Everything
-// that asks which guilds a shelf represents goes through here.
+// first entry is the primary: the first ribbon and pin the card wears; a
+// second entry hangs a second ribbon beside it. Everything that asks which
+// guilds a shelf represents goes through here.
 export const guildsOf = def => (def?.guild ? [].concat(def.guild) : []);
+
+// Seats on the shelf flying a given colour, dual liveries included. The
+// guild-scaling effects count through here — the Composter's heap allowance
+// and the Banker's page coin both pay by the company a guild keeps — and
+// each counts the counting patron itself, so a lone Composter or Banker is
+// exactly as good as he was before his guild learned to matter.
+export const guildSeats = colour =>
+  state.patrons.filter(p => guildsOf(patronById(p.id)).includes(colour)).length;
 
 export const RARITY_WEIGHT = { common: 3, uncommon: 2, rare: 1 };

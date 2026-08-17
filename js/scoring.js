@@ -2,7 +2,7 @@ import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, PURPLE_TRIM_STEP, REWARD, CURSED_MULT,
   CURSED_PENALTY, SPIKE_MULT, SILVER_BONUS, isDeadline, splitMarks,
 } from './constants.js';
-import { PATRON_DEFS, patronById, guildsOf } from './patrons.js';
+import { PATRON_DEFS, patronById, guildsOf, guildSeats } from './patrons.js';
 import { bossById } from './bosses.js';
 import {
   state, owns, getActiveLetter, getActiveColour, getActiveGrowth, returnsToBag,
@@ -304,7 +304,10 @@ export function computeReward() {
     parts.push({ label: 'Interest on savings', coins: interest });
   }
   if (owns('banker')) {
-    parts.push({ label: 'The Banker', coins: 2 });
+    // The counting-house pays by the size of the house: +1 Coin per amber
+    // patron seated (the Banker counts himself), never less than his old
+    // flat +2.
+    parts.push({ label: 'The Banker', coins: Math.max(2, guildSeats('amber')) });
   }
 
   return { parts, total: parts.reduce((a, p) => a + p.coins, 0) };

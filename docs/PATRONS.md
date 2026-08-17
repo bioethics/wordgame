@@ -20,7 +20,7 @@ House style for a description, from `docs/PATRON_OVERHAUL.md`: one sentence,
 real numbers, no metaphor, under ~110 characters. State the rule, not the
 feeling — the flavour belongs to the name, the emoji and the quips.
 
-**69 patrons** — 21 common, 32 uncommon, 16 rare. Guilds: amber 10, jade 10, crimson 10, azure 10, no guild 30 — a dual-livery patron counts in each of its guilds.
+**69 patrons** — 21 common, 32 uncommon, 16 rare. Guilds: amber 10, jade 10, crimson 11, azure 10, no guild 30 — a dual-livery patron counts in each of its guilds.
 
 ## Amber · the counting-house
 
@@ -29,7 +29,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | ⚖️ **The Assayer** `assayer` | common | 3 | Words with an amber tile pay 1 Coin. |
 | 🪙 **The Goldsmith** `goldsmith` | common | 4 | Amber tiles gain +4 Points. |
 | 🌼 **The Weld** `weld` 🔒 | common | 4 | As each chapter ends, 2 tiles of your collection are painted amber. |
-| 🏦 **The Banker** `banker` | uncommon | 5 | +2 Coins whenever a page completes. |
+| 🏦 **The Banker** `banker` | uncommon | 5 | When a page completes: +1 Coin per amber patron on your shelf — never less than +2. |
 | 🤝 **The Factor** `factor` | uncommon | 5 | Amber tiles still in your hand when a page completes earn a free Market re-roll each, up to 2. |
 | 🏺 **The Antiquary** `antiquary` | uncommon | 6 | Words containing a J, QU, X or Z tile pay 2 Coins. |
 | 💰 **The Bursar** `bursar` | uncommon | 7 | Words with an amber tile gain +1 Mult for every 5 Coins you hold (max +5). |
@@ -46,7 +46,6 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🐝 **The Beekeeper** `beekeeper` 🔒 | uncommon | 6 | Every B you print permanently raises this patron's Mult by 0.2. |
 | 🧀 **The Cellarer** `cellarer` | uncommon · also amber | 6 | Ages when a page ends with a jade tile in hand: +1 Point to every word, +1 Coin when dismissed. |
 | 🪴 **The Espalier** `espalier` 🔒 | uncommon | 6 | Print a two-tile word: both tiles permanently gain +2 Points. |
-| 🍂 **The Composter** `composter` 🔒 | uncommon | 7 | Destroyed tiles rot down into jade ones — take 1 from the heap at every Market. |
 | 🖼️ **The Frontispiece** `frontispiece` 🔒 | uncommon | 7 | The first word of each page gets ×1.5 Mult — +0.1 more, for good, each time that word clears the quota alone. |
 | 🍷 **The Vintner** `vintner` | uncommon | 7 | Words with a jade tile gain +1 Mult per chapter reached — +5 Mult in Chapter V. |
 | 🌿 **The Grafter** `grafter` | rare | 10 | When a word with a jade tile prints, every tile in it permanently gains +1 Point. |
@@ -61,6 +60,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🌺 **The Madder** `madder` 🔒 | common | 4 | As each chapter ends, 2 tiles of your collection are painted crimson. |
 | 🎒 **The Quartermaster** `quartermaster` | uncommon | 5 | Begin each page with an extra Discard. |
 | 🧨 **The Arsonist** `arsonist` | uncommon | 7 | Every tile you print has a 1-in-10 chance of being painted crimson, and a 1-in-100 chance of being destroyed. |
+| 🍂 **The Composter** `composter` | uncommon · also jade | 7 | Destroyed tiles rot into jade ones — at each Market, take one from the heap per jade patron you keep. |
 | 🪓 **The Headsman** `headsman` 🔒 | uncommon | 7 | Each patron you dismiss permanently raises this patron's Mult by 0.2. |
 | 🐀 **The Rat Catcher** `ratcatcher` | uncommon | 7 | Every page begins with a RAT tile in hand, painted at random. It is yours for good. |
 | ⚗️ **The Typefounder** `typefounder` | rare | 10 | Discard exactly two tiles: they are recast as one tile with a letter on either face. |

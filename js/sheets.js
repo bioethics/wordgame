@@ -163,9 +163,9 @@ function marketShelfCardsHTML() {
     const label = def.instShelf?.(p.data) ?? def.name.replace(/^The /, '');
     const desc  = def.instDesc?.(p.data)  ?? def.desc;
     const half  = patronRefund(p);
-    const livery = guildsOf(def)[0];
+    const [livery, livery2] = guildsOf(def);
     cards += `
-      <div class="patron patron--${def.rarity}${livery ? ` patron--g-${livery}` : ''}"
+      <div class="patron patron--${def.rarity}${livery ? ` patron--g-${livery}` : ''}${livery2 ? ` patron--g2-${livery2}` : ''}"
            data-patron="${def.id}"${p.uid != null ? ` data-uid="${p.uid}"` : ''}
            title="${name} — ${desc}
 (✕ dismisses for ${half} Coins)">
@@ -196,9 +196,11 @@ function marketShopHTML() {
     // A guild member's card wears its livery: a ribbon bound into the top
     // edge, the portrait washed in the guild colour, and the guild named on
     // the title line. Neutral cards stay plain ivory; a dual-livery card
-    // (the Cellarer) wears its primary guild's ribbon and names them all.
+    // (the Cellarer, the Composter) binds a second ribbon beside the first
+    // and names both guilds.
     const liveries = guildsOf(def);
-    const livery = liveries.length ? ` offer-patron--g-${liveries[0]}` : '';
+    const livery = (liveries.length ? ` offer-patron--g-${liveries[0]}` : '')
+                 + (liveries[1] ? ` offer-patron--g2-${liveries[1]}` : '');
     return `
       <div class="offer-patron offer-patron--${def.rarity}${livery}" data-offer="patron" data-idx="${i}">
         <div class="op-portrait">${def.portrait
