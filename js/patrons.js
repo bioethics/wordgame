@@ -185,10 +185,10 @@ export const PATRON_DEFS = [
     // instead: a median five-letter word is worth 9, so +5 still roughly
     // doubles it, but it no longer outruns the multiplier patrons that make
     // you build for them.
-    id: 'scholar', name: 'The Scholar', emoji: '📜', rarity: 'common', cost: 4,
-    desc: 'Words of 5+ letters gain +5 Points.',
+    id: 'scholar', name: 'The Scholar', emoji: '📜', rarity: 'common', cost: 3,
+    desc: 'Words of 5+ letters gain +10 Points.',
     when: 'score',
-    effect({ word, addPoints }) { if (word.length >= 5) addPoints(5); },
+    effect({ word, addPoints }) { if (word.length >= 5) addPoints(10); },
   },
   {
     // The one patron you can hold several of. Each copy arrives loving three
