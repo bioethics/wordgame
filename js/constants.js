@@ -184,11 +184,11 @@ export const SMELT_MIN_COLLECTION = 12;
 export const STALL_DEFS = {
   smelter: {
     name: 'The Smelter', emoji: '🔥', base: 2,
-    desc: 'Feeds a tile to the furnace — gone for good.',
+    desc: 'Destroys a tile by feeding it to the furnace.',
   },
   painter: {
     name: 'The Painter', emoji: '🖌️', base: 2,
-    desc: 'Proposes colours for six unpainted tiles — every pot on show.',
+    desc: 'Proposes colours for six unpainted tiles.',
     empty: 'Every tile you own already wears paint.',
   },
   gilder: {
@@ -382,15 +382,15 @@ export const MARK_TRIM = 'purple';   // what a wrapped mark always comes wearing
 export const MATERIALS = {
   cursed: {
     label: 'Cursed', metal: 'Hellbox iron', emoji: '🩸',
-    desc: `×${CURSED_MULT} Mult when printed, and it can never be discarded — only played. Every word you set without it loses ${CURSED_PENALTY} Points.`,
+    desc: `×${CURSED_MULT} Mult when printed. Cannot be discarded. Words set while this remaings in your hand lose ${CURSED_PENALTY} Points.`,
   },
   ghost: {
     label: 'Ghost', metal: 'Ghost metal', emoji: '👻',
-    desc: 'Does not count against your hand size, and can never be painted, trimmed, nicked or copied.',
+    desc: 'Does not count against your hand size. Cannot be modified.',
   },
   rainbow: {
     label: 'Rainbow', metal: 'Rainbow roll', emoji: '🌈',
-    desc: 'Counts as every colour to your patrons. Paint it and that colour\'s multiplier rises as usual.',
+    desc: 'Counts as every colour to your patrons.',
   },
 };
 
@@ -513,52 +513,37 @@ export function sundryTip(s) {
   if (s?.kind === 'ratchet') return {
     head: 'Ratchet',
     body: 'Tap it, tap one letter, then tap the ratchet again to step that letter '
-        + 'a single place along the alphabet — the two arrows say which way, and can '
-        + 'be turned around at any time. The new letter is permanent and re-prices '
-        + 'the tile. It walks the press’s own alphabet rather than A–Z, so P steps '
-        + 'straight to R: there is no lone Q sort to land on. Ligatures and marks '
-        + 'aren’t single letters and can’t be stepped at all.',
+        + 'a single place along the alphabet'.',
   };
   if (s?.kind === 'reshuffle') return {
     head: 'Reshuffle',
-    body: 'No target to pick — it simply banks until you spend it, on the Market’s '
-        + 'own offers (free, and it doesn’t touch the escalating re-roll price) or on '
-        + 'a fresh three at the Colophon.',
+    body: 'Can be used to reroll offerings at the market and the Colophone.',
   };
   if (s?.kind === 'toolbox') return {
     head: 'Toolbox',
-    body: 'Open it on the bench: two different tools from inside take its place — '
-        + 'a loupe, a laurel, tongs, an ink wash, or the odd ratchet. The second '
-        + 'tool needs a free slot, or it rolls away.',
+    body: 'Unwrap to gain two tools (space permitting).',
   };
   if (s?.kind === 'loupe') return {
     head: 'Loupe',
-    body: `Tap a tile in your hand, then the loupe again: doubles its value (to a max of ${LOUPE_CAP}), permanently.`,
+    body: `Double the value of a tile (to a max of ${LOUPE_CAP}).`,
   };
   if (s?.kind === 'laurel') return {
     head: 'Laurel',
-    body: `Crowns a random seated patron: +${HONORIFIC_STEP} Points on every word while they keep their seat. `
-        + 'Laurels stack, and a dismissed patron takes theirs with them.',
+    body: `Crowns a random seated patron. Crowned patrons grant +${HONORIFIC_STEP} Points on every word. `
+        + 'Patrons can balance an infinite number of laurels on their heads.',
   };
   if (s?.kind === 'tongs') return {
     head: 'Tongs',
-    body: `Grip a tile in your hand, then the tongs again: the tile is destroyed for good, and the next word `
-        + `you print gains +${TONGS_BONUS} Points. Grips stack; the bonus expires with the page.`,
+    body: `Destroys a tile for good, and gives your next work +${TONGS_BONUS} Points.`,
   };
   if (s?.kind === 'wash') return {
     head: 'Ink wash',
-    body: `Up to ${WASH_COUNT} unpainted tiles in your hand take a faint wash, one of each colour. `
-        + 'A washed tile counts as its colour — patrons and multipliers alike — until it prints, '
-        + 'then the wash comes off. Real paint replaces it.',
+    body: `Up to ${WASH_COUNT} unpainted tiles in your hand gain temporary paint, which `
+        + 'washes off on printing.',
   };
   if (s?.kind === 'wrapped') return {
     head: 'A wrapped tile',
-    body: 'Unwrap it mid-page: one tile, straight into your hand and yours for the '
-        + 'rest of the run. What is in it is not decided until the paper comes off — '
-        + 'a random letter struck in one of the three strange materials ('
-        + Object.values(MATERIALS).map(m => `${m.emoji} ${m.metal.toLowerCase()}`).join(', ')
-        + `), or a mark (${MARKS.join(' or ')}) under a ${TRIMS[MARK_TRIM].label.toLowerCase()} `
-        + 'trim, which is the only way marks come now.',
+    body: 'Unwrap it mid-page to gain one rare tile, permanently.'
   };
   return null;
 }
