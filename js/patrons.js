@@ -568,7 +568,7 @@ export const PATRON_DEFS = [
     },
   },
   {
-    id: 'grafter', name: 'The Grafter', emoji: '🌿', rarity: 'rare', cost: 10, guild: 'jade',
+    id: 'grafter', name: 'The Grafter', emoji: '🌿', rarity: 'rare', cost: 8, guild: 'jade',
     desc: 'When a word with a jade tile prints, every tile in it permanently gains +1 Point.',
     when: 'meta',
     onPrinted({ tiles, grow }) {
@@ -964,26 +964,26 @@ export const PATRON_DEFS = [
   // Each keeps one of the themed lists in wordlists-themed/ and pays ×3 when
   // the printed word is on it. The lists are flat files — edit them freely.
   {
-    id: 'sexton', name: 'The Sexton', emoji: '⚰️', rarity: 'rare', cost: 9,
-    desc: '×3 Mult when the word is spooky — HAUNTED, CRYPT, WEREWOLF.',
+    id: 'sexton', name: 'The Sexton', emoji: '⚰️', rarity: 'rare', cost: 8,
+    desc: '×3 Mult for any of the thousands of words The Sexton finds spooky.',
     when: 'score',
     effect({ word, xMult }) { if (inTheme('spooky', word)) xMult(3); },
   },
   {
-    id: 'paramour', name: 'The Paramour', emoji: '💘', rarity: 'rare', cost: 9,
-    desc: '×3 Mult when the word is romantic — KISS, SWOON, SMITTEN.',
+    id: 'paramour', name: 'The Paramour', emoji: '💘', rarity: 'rare', cost: 8,
+    desc: '×3 Mult for any of the thousands of words The Paramour finds romantic.',
     when: 'score',
     effect({ word, xMult }) { if (inTheme('romantic', word)) xMult(3); },
   },
   {
-    id: 'poppet', name: 'The Poppet', emoji: '🧸', rarity: 'rare', cost: 9,
-    desc: '×3 Mult when the word is cute — KITTEN, BUNNY, CUDDLE.',
+    id: 'poppet', name: 'The Poppet', emoji: '🧸', rarity: 'rare', cost: 7,
+    desc: '×3 Mult for any of the thousands of words The Poppet finds cute.',
     when: 'score',
     effect({ word, xMult }) { if (inTheme('cute', word)) xMult(3); },
   },
   {
-    id: 'vulgarian', name: 'The Vulgarian', emoji: '🍑', rarity: 'rare', cost: 9,
-    desc: '×3 Mult when the word is rude — FART, BUM, TURD.',
+    id: 'vulgarian', name: 'The Vulgarian', emoji: '🍑', rarity: 'rare', cost: 8,
+    desc: '×3 Mult for any of the thousands of words The Vulgarian finds rude.',
     when: 'score',
     effect({ word, xMult }) { if (inTheme('rude', word)) xMult(3); },
   },
