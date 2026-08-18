@@ -10,9 +10,12 @@ LMAO
 LMFAO
 ROFL
 ROFLMAO
+ROFLMAOBBQ
 WTF
 OMG
 OMFG
+OK
+KO
 FML
 BRB
 GTG
@@ -28,6 +31,7 @@ BTW
 FYI
 FWIW
 TBF
+TBH
 IDK
 IDC
 IIRC
@@ -65,6 +69,43 @@ OG
 POV
 WFH
 OOO
+AFK
+DGAF
+AF
+BFF
+DND
+GLHF
+HBU
+IDGAF
+K
+KK
+KTHXBYE
+LMGTFY
+MFW
+MRW
+MYOB
+NP
+ORLY
+OIC
+OT
+OTB
+POG
+PPL
+PRON
+SFW
+TIL
+TTYS
+TTYL
+TY
+TYVM
+WOOT
+WB
+WBU
+YKW
+YOLO
+YW
+ZOMG
+
 
 # ── The classics ──────────────────────────────────────────────────────────────
 ASAP
@@ -105,6 +146,7 @@ CEO
 CFO
 CTO
 COO
+COB
 VP
 HR
 PR
@@ -142,6 +184,8 @@ VR
 FM
 AM
 SIM
+RLHF
+BSOD
 
 # ── The wider world ───────────────────────────────────────────────────────────
 DNA
