@@ -4,13 +4,15 @@
 // new list, drop the file in the folder and give it a line in THEME_FILES.
 //
 // Four lists back the register patrons (the Sexton, the Paramour, the Poppet,
-// the Vulgarian); the acronyms list backs the Stenographer, the nouns list
-// The Binder, and the names list The Expectant Parents. A word only ever
-// scores if the dictionary (or a pardon) lets it through first, so list
-// entries the dictionary lacks are harmless — they just never come up. (The
-// nouns list is read by a pardon, and the acronyms and names lists are
-// vouched whole at the dictionary check, so those three can put a word
-// through the door rather than only paying for it.)
+// the Vulgarian) and three more back the parts of speech (the Nomenclator's
+// nouns, the Embellisher's adjectives, the Actor's verbs); the acronyms list
+// backs the Stenographer, and the names list The Expectant Parents. A word
+// only ever scores if the dictionary (or a pardon) lets it through first, so
+// list entries the dictionary lacks are harmless — they just never come up.
+// (The nouns list is read by a pardon as well — The Binder's, which stacks two
+// of its entries into a word — and the acronyms and names lists are vouched
+// whole at the dictionary check, so those three can put a word through the
+// door rather than only paying for it.)
 //
 // A bundled build (single-file/artifact) embeds the lists as
 // window.FOLIO_THEMES = { cute: "text…", … }, which is checked first —
@@ -19,14 +21,16 @@
 import { isExcluded } from './excluded.js';
 
 export const THEME_FILES = {
-  cute:     'wordlists-themed/theme-cute.txt',
-  romantic: 'wordlists-themed/theme-romantic.txt',
-  rude:     'wordlists-themed/theme-rude.txt',
-  spooky:   'wordlists-themed/theme-spooky.txt',
-  acronyms: 'wordlists-themed/acronyms.txt',
-  nouns:    'wordlists-themed/nouns.txt',
-  names:    'wordlists-themed/names.txt',
-  common:   'wordlists-themed/common.txt',
+  cute:       'wordlists-themed/theme-cute.txt',
+  romantic:   'wordlists-themed/theme-romantic.txt',
+  rude:       'wordlists-themed/theme-rude.txt',
+  spooky:     'wordlists-themed/theme-spooky.txt',
+  acronyms:   'wordlists-themed/acronyms.txt',
+  nouns:      'wordlists-themed/nouns.txt',
+  adjectives: 'wordlists-themed/adjectives.txt',
+  verbs:      'wordlists-themed/verbs.txt',
+  names:      'wordlists-themed/names.txt',
+  common:     'wordlists-themed/common.txt',
 };
 
 export const THEME_SETS = Object.fromEntries(

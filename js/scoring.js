@@ -447,10 +447,10 @@ export function computeReward() {
     parts.push({ label: 'Interest on savings', coins: interest });
   }
   if (owns('banker')) {
-    // The counting-house pays by the size of the house: +1 Coin per amber
-    // patron seated (the Banker counts himself), never less than his old
-    // flat +2.
-    parts.push({ label: 'The Banker', coins: Math.max(2, guildSeats('amber')) });
+    // The counting-house pays by the size of the house, and by nothing else:
+    // +1 Coin per amber patron seated, the Banker counting himself. One Coin
+    // for a lone Banker, and a reason to fill the bench beside him.
+    parts.push({ label: 'The Banker', coins: guildSeats('amber') });
   }
 
   // The fleuron's rent: a coin per ornament owned, every page, wherever it

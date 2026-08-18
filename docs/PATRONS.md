@@ -20,7 +20,7 @@ House style for a description, from `docs/PATRON_OVERHAUL.md`: one sentence,
 real numbers, no metaphor, under ~110 characters. State the rule, not the
 feeling — the flavour belongs to the name, the emoji and the quips.
 
-**72 patrons** — 21 common, 35 uncommon, 16 rare. Guilds: amber 11, jade 11, crimson 11, azure 10, no guild 31 — a dual-livery patron counts in each of its guilds.
+**75 patrons** — 21 common, 35 uncommon, 19 rare. Guilds: amber 11, jade 11, crimson 11, azure 13, no guild 31 — a dual-livery patron counts in each of its guilds.
 
 ## Amber · the counting-house
 
@@ -29,13 +29,13 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | ⚖️ **The Assayer** `assayer` | common | 3 | Words with an amber tile pay 1 Coin. |
 | 🪙 **The Goldsmith** `goldsmith` | common | 4 | Amber tiles gain +4 Points. |
 | 🌼 **The Weld** `weld` 🔒 | common | 4 | As each chapter ends, 2 tiles of your collection are painted amber. |
-| 🏦 **The Banker** `banker` | uncommon | 5 | When a page completes: +1 Coin per amber patron on your shelf — never less than +2. |
+| 🏦 **The Banker** `banker` | uncommon | 4 | When a page completes: +1 Coin per amber patron on your shelf — this one included. |
 | 🤝 **The Factor** `factor` | uncommon | 5 | Amber tiles still in your hand when a page completes earn a free Market re-roll each, up to 2. |
 | 🏺 **The Antiquary** `antiquary` | uncommon | 6 | Words containing a J, QU, X or Z tile pay 2 Coins. |
 | 🔬 **The Scientist** `scientist` | uncommon | 6 | Once a page, ask him for an OLOGY tile — gold-trimmed, riding above your hand, gone when the page ends. |
 | 💰 **The Bursar** `bursar` | uncommon | 7 | Words with an amber tile gain +1 Mult for every 5 Coins you hold (max +5). |
 | 🛒 **The Chapman** `chapman` | uncommon | 7 | One tile at the Market is always amber, and amber tiles cost nothing. |
-| 🐦 **The Magpie** `magpie` | uncommon | 7 | Gold-trimmed tiles pay double Coins. |
+| 🐦 **The Magpie** `magpie` | uncommon | 7 | Gold-trimmed tiles pay double Coins, and every hand you draw holds one if the bag has any. |
 
 ## Jade · growth and permanence
 
@@ -66,7 +66,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🍂 **The Composter** `composter` | uncommon · also jade | 7 | Destroyed tiles rot into jade ones — at each Market, take one from the heap per jade patron you keep. |
 | 🪓 **The Headsman** `headsman` 🔒 | uncommon | 7 | Each patron you dismiss permanently raises this patron's Mult by 0.2. |
 | ⚗️ **The Typefounder** `typefounder` | rare | 10 | Discard exactly two tiles: they are recast as one tile with a letter on either face. |
-| 🔥 **The Stoker** `stoker` | rare | 11 | Crimson tiles are destroyed when printed; each one permanently raises this patron's Mult by 0.25. |
+| 🔥 **The Stoker** `stoker` 🔒 | rare | 11 | ×1.25 Mult, and crimson tiles are destroyed when printed — each one raises that Mult by 0.25, for good. |
 
 ## Azure · ink, flow and latitude
 
@@ -79,8 +79,11 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 📟 **The Stenographer** `stenographer` | uncommon | 6 | Common acronyms and abbreviations count as words: LOL, BRB, WTF and the rest. |
 | ⛲ **The Fountain** `fountain` | uncommon | 7 | Azure tiles return to the bag when printed, instead of the discard pile. |
 | 🌀 **The Marbler** `marbler` | uncommon | 7 | Words with 2 or more azure tiles get ×2 Mult. |
+| 🏷️ **The Nomenclator** `nomenclator` | rare | 9 | ×2 Mult when the word is a noun — a compound The Binder allows counts as one. |
 | 😈 **Titivillus** `titivillus` | rare | 9 | Words with an azure tile are accepted with one vowel wrong: swapped, changed, missing or extra. |
+| ✨ **The Embellisher** `embellisher` | rare | 10 | ×2 Mult when the word is an adjective — the describing words, ABLE to ZESTY. |
 | 📖 **The Neologist** `neologist` | rare | 10 | Add one six-letter word of your choosing to the dictionary permanently, then this patron leaves. |
+| 🎭 **The Actor** `actor` | rare | 12 | ×2 Mult when the word is a verb — a doing word, in any tense: RUN, RAN, RUNNING. |
 | 🔗 **The Binder** `binder` | rare | 12 | Any two nouns stacked together count as a word: DOOM and HAT make DOOMHAT. |
 
 ## No guild · the wildcards
@@ -106,7 +109,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🎩 **The Alderman** `alderman` | uncommon | 7 | Each guild with a patron on your shelf gives ×1.5 Mult. |
 | ✒️ **The Calligrapher** `calligrapher` | uncommon | 7 | Each painted tile gains +3 Points. |
 | 🌒 **The Closer** `closer` | uncommon | 7 | The final word of each page gets ×3 Mult. |
-| 🃏 **The Harlequin** `harlequin` | uncommon | 7 | Words holding 3 or more different colours get ×2 Mult. |
+| 🃏 **The Harlequin** `harlequin` | uncommon | 7 | Words holding all four colours get ×2 Mult. |
 | 🖋️ **The Novelist** `novelist` | uncommon | 7 | Words of 7+ letters get ×2 Mult. |
 | 🧸 **The Poppet** `poppet` | rare | 7 | ×3 Mult for any of the thousands of words The Poppet finds cute. |
 | 🎨 **The Illuminator** `illuminator` | rare | 8 | When a word holds exactly three colours, a bare tile in it is painted the fourth — in time to score. |

@@ -1,3 +1,13 @@
+# Verbs — The Actor's list. A word on it gets ×2 Mult, whatever else the
+# table pays for it. One entry per line; add or strike freely, nothing else
+# needs changing.
+#
+# Every tense is here, not just the plain form (ABANDON, ABANDONED,
+# ABANDONING, ABANDONS), so a doing word pays however it is set — which is
+# also why this is the widest of the three lists, and why its patron is the
+# dearest. An entry the dictionary lacks is harmless: it simply never comes
+# up, since a word must get past the dictionary before any patron sees it.
+
 aah
 abandon
 abandoned

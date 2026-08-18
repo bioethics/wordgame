@@ -126,13 +126,13 @@ under a purple trim, which is the only way marks come now. The material sits
 *under* everything else, so a cursed or rainbow tile still takes paint, trims
 and nicks like any other.
 
-- **Cursed** (hellbox iron) — ×3 Mult when printed, and it can never be
+- **Cursed** (hellbox iron) — ×2 Mult when printed, and it can never be
   discarded: the only way out of your hand is to play it. While it waits there,
   every word you set *without* it loses 666 Points, once per curse — enough
   that such words score nothing (a word's total never falls below zero), so you
   can keep printing to turn the rack over until the curse finds a home. A press
   strong enough to clear 666 Points can shrug one off and still score. Never
-  cast on an expensive letter, and two in one word compound to ×9.
+  cast on an expensive letter, and two in one word compound to ×4.
 - **Ghost** (ghost metal) — holds no place in your hand, so you effectively
   draw one more; but nothing can ever be done to it. No paint, no trim, no
   nick, no second letter, no growth, and the Stereotyper can't copy it —
@@ -205,7 +205,10 @@ with misprints, which is the point of them.
 **Compounds** — *the Binder* is a fourth pardon of a different kind: nothing has
 gone wrong, it simply licenses a construction English makes freely. Any two
 nouns set end to end count as a word, so DOOM and HAT make DOOMHAT. The nouns
-it knows are a flat list in `wordlists-themed/nouns.txt` — edit it freely.
+it knows are a flat list in `wordlists-themed/nouns.txt` — edit it freely. What
+he coins is a noun like any other, so *the Nomenclator* pays his ×2 for it: the
+pair is the intended build, one seat making the word legal and the other paying
+for what it is.
 
 **Marks** — `?` and `!` are tiles that spell nothing. A mark is appended to a
 finished word: one `?`, or one `!`, or the two together as `?!` — never
@@ -402,13 +405,14 @@ bigger step than the last and a built press has to multiply rather than add:
 | How long a line stays up to be read | `js/anim.js` → `READ_BASE` / `READ_PER_CHAR` / `READ_MAX`. Every bubble, floater and bar message holds for a span measured off its own length, so a long line is given longer, not read faster |
 | Words / discards / seats per page | `js/constants.js` |
 | Patron roster, costs, effects | `js/patrons.js` (design notes in `docs/PATRON_OVERHAUL.md`) |
-| Patron tuning that reaches beyond a score (growth steps, burn odds, trim chance, dye count, coined-word length) | `js/constants.js` → `GRAFTER_STEP`, `STOKER_STEP`, `ARSONIST_ODDS`, `NUDIST_TRIM_CHANCE`, `DIPPER_PAINT_CHANCE`, `GAMBLER_ODDS`, `DYE_TILES_PER_CHAPTER`, `NEOLOGIST_LENGTH` |
+| Patron tuning that reaches beyond a score (growth steps, burn odds, trim chance, dye count, coined-word length) | `js/constants.js` → `GRAFTER_STEP`, `STOKER_BASE`, `STOKER_STEP`, `ARSONIST_ODDS`, `NUDIST_TRIM_CHANCE`, `DIPPER_PAINT_CHANCE`, `GAMBLER_ODDS`, `DYE_TILES_PER_CHAPTER`, `NEOLOGIST_LENGTH` |
 | Animation step timings | `js/constants.js` → `ANIM` (all divided by the Settings speed slider) |
 | Chapter titles | `js/chapters.js` — a flat array, add as many as you like; each run draws its own and won't repeat until the list runs out |
 | The Stenographer's acronyms | `wordlists-themed/acronyms.txt` — one per line, `#` comments; letters only, and no lone Q (the press has no Q sort to set it with) |
 | The Expectant Parents' baby names | `wordlists-themed/names.txt` — same format; regenerate from the US and England & Wales charts with `tools/build-names-list.mjs` |
 | Words barred from the game entirely | `wordlists-themed/excluded-slurs.txt` — one per line, `#` comments. Enforced at load by `js/excluded.js` against the dictionary, every themed list, and The Neologist's coining sheet, so an entry here can't come back through a word list, a custom dictionary or a coined word. Whole-word matches only |
 | The four registers' word lists (the Sexton, the Paramour, the Poppet, the Vulgarian) | `wordlists-themed/theme-*.txt` — one word per line, edit freely; loading in `js/themes.js` |
+| The three parts of speech (the Nomenclator, the Embellisher, the Actor) | `wordlists-themed/nouns.txt`, `adjectives.txt`, `verbs.txt` — same format. The nouns list is The Binder's too, so an entry added there can be stacked into a compound as well as paid for |
 | The Frontispiece's opening multiplier & growth | `js/constants.js` → `FRONTISPIECE` |
 
 ## Architecture
@@ -430,7 +434,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | `js/main.js` | orchestration: submit cinematic, page/chapter flow, input, settings |
 | `js/drag.js` | pointer input: tap / drag / long-press for rack, word and the patron shelf (where a drag reseats a patron, changing the order effects fire in), mouse and touch alike |
 | `js/dict.js` | dictionary loading/caching (also reads a `window.FOLIO_WORDLIST` global, for single-file bundles) |
-| `js/themes.js` | the themed lists in `wordlists-themed/` — registers, acronyms, nouns and names — as Sets (also reads a `window.FOLIO_THEMES` global, for single-file bundles) |
+| `js/themes.js` | the themed lists in `wordlists-themed/` — registers, parts of speech, acronyms and names — as Sets (also reads a `window.FOLIO_THEMES` global, for single-file bundles) |
 | `js/excluded.js` | the barred-words list, loaded before any word list and applied by `dict.js` and `themes.js` as they build their Sets |
 
 Scoring is deliberately pure (`computeScore` never mutates state), so the same

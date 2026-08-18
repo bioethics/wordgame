@@ -89,7 +89,7 @@
 // top of the standard half-cost — read by patronRefund in market.js.
 
 import {
-  GRAFTER_STEP, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS, NUDIST_TRIM_CHANCE,
+  GRAFTER_STEP, STOKER_BASE, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS, NUDIST_TRIM_CHANCE,
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
   HEADSMAN_STEP, ESPALIER_STEP, splitMarks, isImmutable,
@@ -98,7 +98,7 @@ import {
   state, getActiveColour, getActiveLetter, countsAsColour, luckyRoll,
   paintRandomTiles, shuffle, owns,
 } from './state.js';
-import { inTheme, themeSize } from './themes.js';
+import { inTheme, themeSize, THEME_SETS } from './themes.js';
 // The Mirror reads a word backwards against the dictionary; the Haplographer's
 // licence reads it with one letter doubled.
 import { DICT } from './dict.js';
@@ -148,6 +148,37 @@ export function doubledReading(word) {
 // One extra doubled pair when the Haplographer's licence applies to the word.
 const licencedPairs = word =>
   owns('haplographer') && doubledReading(word) ? 1 : 0;
+
+// The Stoker's furnace: lit at STOKER_BASE the moment he sits, and STOKER_STEP
+// hotter for every crimson tile it has eaten since. His score effect and the
+// note his card floats when a tile goes in both read it here, so the number
+// he promises is the number he pays.
+const stokerMult = stacks =>
+  Math.round((STOKER_BASE + stacks * STOKER_STEP) * 100) / 100;
+
+// The Binder's licence: two nouns set end to end make a word of their own, so
+// DOOM and HAT make DOOMHAT. Returns the two halves (the log shows its
+// working) or null. Three letters is the shortest entry on the nouns list, so
+// a compound under six letters cannot exist. Exported because this rule, like
+// the Haplographer's, cuts two ways from one place: main.js consults it at the
+// dictionary check, and The Nomenclator consults it at scoring, where a
+// compound the Binder allows reads as the noun it plainly is.
+export function boundNouns(word) {
+  const nouns = THEME_SETS.nouns;
+  if (!nouns.size || !word || word.length < 6) return null;
+  for (let i = 3; i <= word.length - 3; i++) {
+    const head = word.slice(0, i), tail = word.slice(i);
+    if (nouns.has(head) && nouns.has(tail)) return [head, tail];
+  }
+  return null;
+}
+
+// Whether a word reads as a noun — on the list outright, or two of its entries
+// stacked while The Binder is seated. The compound half is his and no one
+// else's: without that seat DOOMHAT is not a word at all, so there is nothing
+// for The Nomenclator to be paid for.
+const readsAsNoun = word =>
+  inTheme('nouns', word) || (owns('binder') && !!boundNouns(word));
 
 // Every colour represented in a set of tiles, read the way patrons read
 // colour (countsAsColour) — so a rainbow tile represents all four at once.
@@ -266,12 +297,14 @@ export const PATRON_DEFS = [
   // ── Uncommons ───────────────────────────────────────────────────────────────
   {
     // The counting-house pays by the size of the house: +1 Coin per amber
-    // patron on the shelf, himself included, floored at the flat +2 he has
-    // always paid — so he is never worse than he was, and an amber bench
-    // makes him better. Paid in computeReward (js/scoring.js) via
-    // guildSeats.
-    id: 'banker', name: 'The Banker', emoji: '🏦', rarity: 'uncommon', cost: 5, guild: 'amber',
-    desc: 'When a page completes: +1 Coin per amber patron on your shelf — never less than +2.',
+    // patron on the shelf, himself included, and nothing else. Alone he is a
+    // single Coin a page for four — a poor bargain that becomes a good one the
+    // moment a second amber seat joins him, which is the whole of what he is
+    // for. (The old flat +2 floor is gone: it paid an amber bench nothing for
+    // being a bench, and made the first two seats indistinguishable.) Paid in
+    // computeReward (js/scoring.js) via guildSeats.
+    id: 'banker', name: 'The Banker', emoji: '🏦', rarity: 'uncommon', cost: 4, guild: 'amber',
+    desc: 'When a page completes: +1 Coin per amber patron on your shelf — this one included.',
     when: 'meta',
   },
   {
@@ -301,9 +334,15 @@ export const PATRON_DEFS = [
     tileBonus: t => (getActiveColour(t) ? 3 : 0),
   },
   {
+    // Two halves, neither of them a score effect: the doubled Coin is read
+    // straight off the trim in scoring's first pass, and the draw itself is
+    // bent in state.js (magpieTopsTheBag) so a hand she sits behind is never
+    // without gold while the bag still holds some. The second half is what
+    // makes the first reliable — a doubler on a trim you never draw pays
+    // nothing.
     id: 'magpie', name: 'The Magpie', emoji: '🐦', rarity: 'uncommon', cost: 7, guild: 'amber',
-    desc: 'Gold-trimmed tiles pay double Coins.',
-    when: 'meta',   // read directly during scoring of gold trims
+    desc: 'Gold-trimmed tiles pay double Coins, and every hand you draw holds one if the bag has any.',
+    when: 'meta',   // read during scoring of gold trims; the draw is bent in js/state.js
   },
   {
     // Down from common: a multiplier that asks nothing of your collection
@@ -705,12 +744,16 @@ export const PATRON_DEFS = [
     },
   },
   {
+    // The furnace is lit the moment he sits: ×STOKER_BASE on every word before
+    // a single tile has gone into it, rising by STOKER_STEP for each one that
+    // does. The base is what makes the first crimson burn a gain rather than a
+    // toll — he used to pay nothing at all until he had eaten something, which
+    // asked a rare seat to be dead weight on the page you bought it.
     id: 'stoker', name: 'The Stoker', emoji: '🔥', rarity: 'rare', cost: 11, guild: 'crimson',
-    desc: 'Crimson tiles are destroyed when printed; each one permanently raises this patron\'s Mult by 0.25.',
+    desc: `×${STOKER_BASE} Mult, and crimson tiles are destroyed when printed — each one raises that Mult by ${STOKER_STEP}, for good.`,
     when: 'score',
     effect({ data, xMult }) {
-      const stacks = data?.stacks ?? 0;
-      if (stacks) xMult(Math.round((1 + stacks * STOKER_STEP) * 100) / 100);
+      xMult(stokerMult(data?.stacks ?? 0));
     },
     onPrinted({ tiles, data, burn }) {
       const burned = [];
@@ -719,7 +762,7 @@ export const PATRON_DEFS = [
       }
       if (!burned.length) return null;
       return {
-        note: `${burned.length} to the fire — ×${Math.round((1 + data.stacks * STOKER_STEP) * 100) / 100} Mult`,
+        note: `${burned.length} to the fire — ×${stokerMult(data.stacks)} Mult`,
         burned,
       };
     },
@@ -927,14 +970,16 @@ export const PATRON_DEFS = [
   },
   {
     // Motley is the whole joke: the one patron who cares about every colour
-    // wears none. Colours are counted the patrons' way (countsAsColour),
-    // which makes him a rainbow tile's best friend — one reads as all four
-    // by itself. Without one, three paints in a word is a real mid-game
-    // spread, which is what earns the ×2 at uncommon weight.
+    // wears none. All four, nothing less — a full motley is a build you commit
+    // to across a run, not a spread you stumble into. Colours are counted the
+    // patrons' way (countsAsColour), which makes him a rainbow tile's best
+    // friend: one reads as all four by itself, and so meets his whole demand
+    // alone. That is the intended shortcut, and the reason the bar could be
+    // raised from three without the seat becoming unreachable.
     id: 'harlequin', name: 'The Harlequin', emoji: '🃏', rarity: 'uncommon', cost: 7,
-    desc: 'Words holding 3 or more different colours get ×2 Mult.',
+    desc: 'Words holding all four colours get ×2 Mult.',
     when: 'score',
-    effect({ tiles, xMult }) { if (distinctColours(tiles).length >= 3) xMult(2); },
+    effect({ tiles, xMult }) { if (distinctColours(tiles).length >= 4) xMult(2); },
   },
   {
     // Pays by the head at his table, himself included: +5 alone, +25 on a
@@ -984,6 +1029,37 @@ export const PATRON_DEFS = [
     desc: '×3 Mult for any of the thousands of words The Vulgarian finds rude.',
     when: 'score',
     effect({ word, xMult }) { if (inTheme('rude', word)) xMult(3); },
+  },
+
+  // ── The three parts of speech ───────────────────────────────────────────────
+  // The registers above ask what a word is ABOUT; these three ask what it DOES
+  // in a sentence, off three more flat files in wordlists-themed/. They pay ×2
+  // rather than the registers' ×3 because they fire far more often: of the
+  // 2,000 commonest words, roughly a fifth are on the nouns list, a third on
+  // the adjectives, and over half on the verbs — which is why the price climbs
+  // the same way, and why the verbs cost the most a patron ever does. A word
+  // that is two of them at once (an ANCHOR is a noun, to ANCHOR is a verb)
+  // pays both seats, as any two patrons that both like a word always have.
+  {
+    // Nouns, and the seat The Binder was waiting for: a compound of his — two
+    // nouns stacked, DOOM and HAT into DOOMHAT — is itself a noun, so the pair
+    // pays twice over. Without that seat the compound is not a word at all.
+    id: 'nomenclator', name: 'The Nomenclator', emoji: '🏷️', rarity: 'rare', cost: 9, guild: 'azure',
+    desc: '×2 Mult when the word is a noun — a compound The Binder allows counts as one.',
+    when: 'score',
+    effect({ word, xMult }) { if (readsAsNoun(word)) xMult(2); },
+  },
+  {
+    id: 'embellisher', name: 'The Embellisher', emoji: '✨', rarity: 'rare', cost: 10, guild: 'azure',
+    desc: '×2 Mult when the word is an adjective — the describing words, ABLE to ZESTY.',
+    when: 'score',
+    effect({ word, xMult }) { if (inTheme('adjectives', word)) xMult(2); },
+  },
+  {
+    id: 'actor', name: 'The Actor', emoji: '🎭', rarity: 'rare', cost: 12, guild: 'azure',
+    desc: '×2 Mult when the word is a verb — a doing word, in any tense: RUN, RAN, RUNNING.',
+    when: 'score',
+    effect({ word, xMult }) { if (inTheme('verbs', word)) xMult(2); },
   },
 
   // ── Misspellings · the four excuses ─────────────────────────────────────────

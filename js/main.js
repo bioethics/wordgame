@@ -47,7 +47,7 @@ import {
   pulse, sparkleBurst, sfx, applySpeedCSS, speechBubble,
 } from './anim.js';
 import { initInput, initInspect, initShelfDrag } from './drag.js';
-import { patronById, doubledReading } from './patrons.js';
+import { patronById, doubledReading, boundNouns } from './patrons.js';
 import { randomQuip } from './quips.js';
 
 const $ = id => document.getElementById(id);
@@ -232,17 +232,12 @@ function izzardPardon(letters) {
 }
 
 // Two nouns set end to end make a word of their own — DOOM and HAT make
-// DOOMHAT. Every split is tried, and the pardon names both halves so the log
-// can show its working. Three letters is the shortest noun on the list, so a
-// compound under six can't exist.
+// DOOMHAT. The split itself is boundNouns in patrons.js, because The
+// Nomenclator reads the same rule at scoring (a compound is a noun); here it
+// only wants naming, so the log can show its working.
 function binderPardon(letters) {
-  const nouns = THEME_SETS.nouns;
-  if (!nouns.size || letters.length < 6) return null;
-  for (let i = 3; i <= letters.length - 3; i++) {
-    const head = letters.slice(0, i), tail = letters.slice(i);
-    if (nouns.has(head) && nouns.has(tail)) return `${head} + ${tail}`;
-  }
-  return null;
+  const halves = boundNouns(letters);
+  return halves ? `${halves[0]} + ${halves[1]}` : null;
 }
 
 // The excuses a word can call on when the dictionary turns it away, tried in

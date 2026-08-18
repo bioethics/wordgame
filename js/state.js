@@ -418,9 +418,28 @@ export function startPage() {
 const handCount = () =>
   [...state.rack, ...state.word].filter(t => t.material !== 'ghost' && !t.aboveHand).length;
 
+// The Magpie can't help herself. Whenever tiles are about to be drawn and
+// neither the rack nor the word in progress holds a gold trim, the brightest
+// tile left in the bag is brought to the top of it, so the draw takes that one
+// — every hand she sits behind holds gold, so long as the bag still has some.
+// Nothing is conjured and nothing is skipped: the bag is only reordered, and
+// only when there is gold in it to reorder. (The bag is drawn from the end,
+// hence the push.) Every draw in the game comes through drawUpToRackSize, so
+// the opening hand, a top-up after discards and a top-up after printing are
+// all covered by the one rule.
+function magpieTopsTheBag() {
+  if (!owns('magpie')) return;
+  const gilt = t => t.trim === 'gold';
+  if (state.rack.some(gilt) || state.word.some(gilt)) return;
+  const at = state.bag.findIndex(gilt);
+  if (at < 0) return;
+  state.bag.push(state.bag.splice(at, 1)[0]);
+}
+
 // Returns the tiles drawn (so the caller can animate them in).
 export function drawUpToRackSize() {
   const drawn = [];
+  if (handCount() < effectiveRackSize() && state.bag.length) magpieTopsTheBag();
   while (handCount() < effectiveRackSize() && state.bag.length) {
     const tile = templateToTile(state.bag.pop());
     state.rack.push(tile);

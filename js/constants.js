@@ -423,7 +423,7 @@ export const ANIM = {
 // not to the save, not until you unwrap it. That is the whole of the thing:
 // two of the three materials are gifts and one is a curse, so a wrapped tile
 // is a parcel you choose to open rather than a metal you choose to buy.
-export const CURSED_MULT       = 3;   // ×Mult a cursed tile gives the word
+export const CURSED_MULT       = 2;   // ×Mult a cursed tile gives the word
 export const CURSED_MAX_POINTS = 3;   // never cast on a letter worth more than this
 // What a curse takes from any word set without it while it waits in the hand.
 // It still cannot be discarded — printing it is the only way out of the rack —
@@ -477,6 +477,9 @@ export const SPIKE_MULT = 0.2;
 // with their patron, as ever.
 export const GRAFTER_STEP       = 1;      // permanent Points per tile per print
 export const ESPALIER_STEP      = 2;      // permanent Points per tile of a two-tile word
+// The Stoker's furnace, lit before it has eaten anything and hotter with every
+// crimson tile that goes in: his ×Mult is STOKER_BASE + STOKER_STEP per burn.
+export const STOKER_BASE        = 1.25;   // ×Mult the day he sits down, no tiles burned
 export const STOKER_STEP        = 0.25;   // permanent ×Mult per crimson tile burned
 export const BEEKEEPER_STEP     = 0.2;    // permanent ×Mult per B printed
 export const ARSONIST_ODDS      = { paint: 0.10, burn: 0.01 };  // per tile played
