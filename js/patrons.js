@@ -10,6 +10,21 @@
 // seat's memory and is READ-ONLY here — scoring runs on every keystroke to
 // power the live preview, so counters are advanced in onPrinted, never here.
 //
+// The patron pass is SEQUENTIAL: seats speak in the order they sit, and a
+// ×Mult multiplies everything said in front of it and nothing said behind it.
+// A seat that adds Points therefore wants to sit ahead of the seats that
+// multiply — see the running order in scoring.js, pass 4.
+//
+//   tileBonus(tile, ctx) — Points written onto ONE TILE before the word is
+//     scored at all; ctx { tiles, state, data }. Return 0 for a tile the
+//     patron doesn't touch. This is the hook for every patron whose promise is
+//     of the form "such-and-such tiles gain +N Points": the number lands on
+//     the tile itself, visibly, in the live preview and again at the head of
+//     the print — which means nicks and Monogrammists multiply it, as the
+//     wording always implied. A patron that pays for a PROPERTY of the whole
+//     word (the Firebrand's two crimson tiles, the Apprentice's four letters)
+//     is not this; it stays an effect() and pays the word, not a tile.
+//
 // Optional hooks (main.js dispatches these for every seated patron):
 //   onPrinted(ctx)    — after a word commits; ctx { tiles, script, state, data,
 //                       grow(tile, n), paint(tile, colour), burn(tile),
@@ -83,12 +98,19 @@ import {
   state, getActiveColour, getActiveLetter, countsAsColour, luckyRoll,
   paintRandomTiles, shuffle, owns,
 } from './state.js';
-import { inTheme, themeSize } from './themes.js';
+import { inTheme, themeSize, themeRank } from './themes.js';
 // The Mirror reads a word backwards against the dictionary; the Haplographer's
 // licence reads it with one letter doubled.
 import { DICT } from './dict.js';
 
 const VOWELS = 'AEIOU';
+
+// The Lexicographer's bar, read off the same ranked common.txt the Populist
+// and the Obscurantist read (see js/bosses.js for their bands). A word ranked
+// at or beyond this — or absent from the list altogether — is obscure enough
+// to pay. It sits above both editors' bands on purpose: the editors judge what
+// a page will tolerate, this judges what is worth paying for.
+const LEXICOGRAPHER_BAND = 1500;
 
 // The four dearest letters in the case — 8+ Points apiece, one of each in the
 // starting bag. The Antiquary pays a finder's fee for any of them.
@@ -277,19 +299,13 @@ export const PATRON_DEFS = [
     id: 'jeweller', name: 'The Jeweller', emoji: '💎', rarity: 'uncommon', cost: 6,
     desc: 'Tiles worth 8+ Points gain a further +4.',
     when: 'score',
-    effect({ tiles, addPoints }) {
-      const n = tiles.filter(t => (t.basePoints ?? 0) >= 8).length;
-      if (n) addPoints(n * 4);
-    },
+    tileBonus: t => ((t.basePoints ?? 0) >= 8 ? 4 : 0),
   },
   {
     id: 'calligrapher', name: 'The Calligrapher', emoji: '✒️', rarity: 'uncommon', cost: 7,
     desc: 'Each painted tile gains +3 Points.',
     when: 'score',
-    effect({ tiles, addPoints }) {
-      const n = tiles.filter(t => getActiveColour(t)).length;
-      if (n) addPoints(n * 3);
-    },
+    tileBonus: t => (getActiveColour(t) ? 3 : 0),
   },
   {
     id: 'magpie', name: 'The Magpie', emoji: '🐦', rarity: 'uncommon', cost: 7, guild: 'amber',
@@ -370,10 +386,7 @@ export const PATRON_DEFS = [
     id: 'goldsmith', name: 'The Goldsmith', emoji: '🪙', rarity: 'common', cost: 4, guild: 'amber',
     desc: 'Amber tiles gain +4 Points.',
     when: 'score',
-    effect({ tiles, addPoints }) {
-      const n = painted(tiles, 'amber').length;
-      if (n) addPoints(n * 4);
-    },
+    tileBonus: t => (countsAsColour(t, 'amber') ? 4 : 0),
   },
   dyePatron('weld', 'The Weld', '🌼', 'amber'),
   {
@@ -458,10 +471,7 @@ export const PATRON_DEFS = [
     id: 'seedsman', name: 'The Seedsman', emoji: '🌱', rarity: 'common', cost: 4, guild: 'jade',
     desc: 'Jade tiles gain +1 Point per chapter reached — +5 Points each in Chapter V.',
     when: 'score',
-    effect({ tiles, state, addPoints }) {
-      const n = painted(tiles, 'jade').length;
-      if (n) addPoints(n * state.chapter);
-    },
+    tileBonus: (t, { state }) => (countsAsColour(t, 'jade') ? state.chapter : 0),
   },
   dyePatron('verdigris', 'The Verdigris', '🍏', 'jade'),
   {
@@ -523,11 +533,8 @@ export const PATRON_DEFS = [
     id: 'espalier', name: 'The Espalier', emoji: '🪴', rarity: 'uncommon', cost: 6, guild: 'jade',
     desc: `Print a two-tile word: both tiles permanently gain +${ESPALIER_STEP} Points — in time to score.`,
     when: 'score',
-    effect({ tiles, addPoints }) {
-      if (tiles.length !== 2) return;
-      const n = tiles.filter(t => !isImmutable(t)).length;
-      if (n) addPoints(n * ESPALIER_STEP);
-    },
+    tileBonus: (t, { tiles }) =>
+      (tiles.length === 2 && !isImmutable(t) ? ESPALIER_STEP : 0),
     onPrinted({ tiles, grow }) {
       if (tiles.length !== 2) return null;
       const grown = tiles.filter(t => grow(t, ESPALIER_STEP));
@@ -730,16 +737,12 @@ export const PATRON_DEFS = [
     id: 'siren', name: 'The Siren', emoji: '🎶', rarity: 'common', cost: 4, guild: 'azure',
     desc: 'Vowels gain +2 Points — or +6 if they are azure.',
     when: 'score',
-    effect({ tiles, addPoints }) {
-      let sum = 0;
-      for (const t of tiles) {
-        const L = getActiveLetter(t);
-        if (L.length !== 1 || !VOWELS.includes(L)) continue;
-        // countsAsColour, not getActiveColour: a rainbow vowel sings for +6,
-        // as the rainbow card's "every colour to your patrons" promises.
-        sum += countsAsColour(t, 'azure') ? 6 : 2;
-      }
-      if (sum) addPoints(sum);
+    tileBonus(t) {
+      const L = getActiveLetter(t);
+      if (L.length !== 1 || !VOWELS.includes(L)) return 0;
+      // countsAsColour, not getActiveColour: a rainbow vowel sings for +6,
+      // as the rainbow card's "every colour to your patrons" promises.
+      return countsAsColour(t, 'azure') ? 6 : 2;
     },
   },
   dyePatron('woad', 'The Woad', '🪻', 'azure'),
@@ -886,23 +889,28 @@ export const PATRON_DEFS = [
     },
   },
   {
-    // The one patron paid for what a word ISN'T. wordlists-themed/common.txt
-    // holds the eight thousand commonest words of English that this dictionary
-    // also knows; anything outside it is, by that measure, a word most readers
-    // have never met.
+    // The one patron paid for what a word ISN'T, and the third reader of
+    // wordlists-themed/common.txt: the Obscurantist spikes inside 500, the
+    // Populist demands inside 750, and this seat pays outside LEXICOGRAPHER_BAND.
+    // Named rather than implied — it used to ask only that a word be off the
+    // eight-thousand-word list entirely, which is a bar the copy could not
+    // state and the player could not feel.
     //
     // ×1.5 rather than the ×2 its neighbours pay, because the condition is
     // met far more often than theirs: a dictionary of 64,000 words is mostly
-    // obscure, so a solver clears this bar four times in five. A player does
-    // not — the words that come to mind are the common ones — which is exactly
-    // the nudge this patron is for, and why it is worth playing rather than
-    // simulating. If it proves too easy in the hand, lower the multiplier
-    // before narrowing the list: the list is shared with two editors.
+    // obscure, so a solver clears this bar nineteen times in twenty. A player
+    // does not — the words that come to mind are the common ones — which is
+    // exactly the nudge this patron is for, and why it is worth playing rather
+    // than simulating. If it proves too easy in the hand, lower the multiplier
+    // rather than the band: the band is now a stated number, and the number is
+    // what makes the promise legible.
     id: 'lexicographer', name: 'The Lexicographer', emoji: '📚', rarity: 'uncommon', cost: 6, guild: 'azure',
-    desc: '×1.5 Mult when the word is not among the commonest in English — reach for the word nobody else would.',
+    desc: `×1.5 Mult when the word is not among the ${LEXICOGRAPHER_BAND.toLocaleString()} commonest in English — reach for the word nobody else would.`,
     when: 'score',
     effect({ word, xMult }) {
-      if (themeSize('common') && word && !inTheme('common', word)) xMult(1.5);
+      if (!themeSize('common') || !word) return;
+      const rank = themeRank('common', word);
+      if (rank == null || rank >= LEXICOGRAPHER_BAND) xMult(1.5);
     },
   },
   {

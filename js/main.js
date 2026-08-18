@@ -499,6 +499,27 @@ async function submitWord() {
 
   let pointsSoFar = 0;
 
+  // ── Pass 0: patrons write onto the tiles ───────────────────────────────────
+  // Before a single tile pays, the patrons who improve the tiles themselves do
+  // it where it can be seen: the card fires, the ink lands on each tile it
+  // touches, and the tile's own corner figure — already carrying the bonus, as
+  // the groove has been showing all along — is what pass 1 then pays out. This
+  // adds nothing to the running total on its own; it is the reason the numbers
+  // below are as big as they are.
+  for (const boost of script.tileBoostSteps ?? []) {
+    const card = patronCard(boost);
+    if (card) pulse(card, 'patron--firing', 520);
+    sfx.aura();
+    for (const hit of boost.hits) {
+      const el = wordTileEl(hit.id);
+      if (el) {
+        pulse(el, 'tile--boosted', 520);
+        floatText(el, `${boost.emoji} +${hit.delta}`, 'fl-boost');
+      }
+    }
+    await sleep(ANIM.stepBoost);
+  }
+
   // ── Pass 1: each tile pops and pays its Points ─────────────────────────────
   let i = 0;
   for (const step of script.tileSteps) {
@@ -565,7 +586,15 @@ async function submitWord() {
       floatText($('word'), p.text, cls, { dy: -60 });
       if (p.id === 'boss') pulse($('bossBar'), p.spiked ? 'boss-bar--spiking' : 'boss-bar--firing', 520);
     }
-    if (p.points) { pointsSoFar += p.points; tweenNum(ro.points, pointsSoFar); sfx.tick(8); }
+    // Patrons act on the running score in seat order, so the readout follows
+    // it seat by seat: a ×Mult patron visibly multiplies what the seats in
+    // front of it built, which is the whole reason the order is worth arguing
+    // about. Steps that only pay Coins carry the same figure and move nothing.
+    if (p.running != null && p.running !== pointsSoFar) {
+      pointsSoFar = p.running;
+      tweenNum(ro.points, pointsSoFar);
+      sfx.tick(8);
+    }
     if (p.spiked) sfx.bad();
     else if (p.mult || p.xmult) sfx.mult();
     if (p.coins) sfx.coin();
@@ -1016,9 +1045,10 @@ $('sundries')?.addEventListener('click', async e => {
   }
 
   // The laurel needs no target either — it picks its own head to crown, which
-  // is the tool's whole gamble: the crown is worth the same on any patron,
-  // but it dies with the seat, so where it lands decides who you can no
-  // longer afford to dismiss.
+  // is the tool's whole gamble: it dies with the seat, so where it lands
+  // decides who you can no longer afford to dismiss — and, since a crown pays
+  // at its own seat's turn in the running order, where that seat sits decides
+  // what the crown is worth.
   if (armed?.kind === 'laurel') {
     if (!state.patrons.length) { log('No patron seated to crown — the laurel keeps.', 'warn'); return; }
     cancelDiscardMode(true);
@@ -1043,7 +1073,7 @@ $('sundries')?.addEventListener('click', async e => {
     const def = patronById(seat.id);
     const name = def.instName?.(seat.data) ?? def.name;
     const n = seat.data.honorifics;
-    log(`🏵️ ${name} is crowned — +${HONORIFIC_STEP} Points on every word while the seat is kept${n > 1 ? ` (${n} laurels now)` : ''}.`, 'good');
+    log(`🏵️ ${name} is crowned — +${HONORIFIC_STEP} Points on every word, paid at that seat's turn, while the seat is kept${n > 1 ? ` (${n} laurels now)` : ''}.`, 'good');
     return;
   }
 

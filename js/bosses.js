@@ -49,13 +49,17 @@ const PADDER_MIN   = 5;   // letters a Padded word must reach
 // still count as plain English. wordlists-themed/common.txt carries some 8,000
 // ranks, so this can be widened to soften the editor without new data.
 //
-// Measured against 1,500 random racks: at 500 the best legal word is worth a
+// Measured against 1,500 random racks: at 500 the best legal word was worth a
 // mean 8.0 Points where an unconstrained rack manages 14.0 — the steepest
 // squeeze of any editor (the Abridger leaves 11.5) — and yet 99.2% of racks
-// can satisfy it, because the band includes A, IT, IS and their kin. That is
+// could satisfy it, because the band includes A, IT, IS and their kin. That is
 // the shape this roster wants: a hard ask that never bricks, with a cheap
-// sacrificial word always available to whoever needs one.
-const POPULIST_BAND = 500;
+// sacrificial word always available to whoever needs one. 750 keeps that shape
+// and gives back a little of the squeeze: the band is the first three quarters
+// of the thousand words a reader meets everywhere, and it now sits clear of the
+// Obscurantist's 500, so the two editors read the same list at three settings
+// rather than at each other's edge.
+const POPULIST_BAND = 750;
 
 // The Obscurantist's bar — and the one number here that measurement lies
 // about. Enumerate the whole dictionary and barring the commonest 1,000 words
@@ -64,9 +68,12 @@ const POPULIST_BAND = 500;
 // words that come to mind first are exactly the common ones. This editor is
 // therefore far harder in the hand than on paper, and it was always the one to
 // tune by playing rather than by simulating — which is exactly what happened:
-// 1,000 proved punishing in the hand, and the band came down to 250. Both the
-// desc and the spike message quote this number, so moving it moves the copy.
-const OBSCURANTIST_BAND = 250;
+// 1,000 proved punishing in the hand, the band came down to 250, and 250 then
+// proved barely felt, because the words a player reaches for first sit inside
+// the first few hundred ranks and little else does. 500 is the setting between
+// the two. Both the desc and the spike message quote this number, so moving it
+// moves the copy.
+const OBSCURANTIST_BAND = 500;
 
 // common.txt is fetched, so a Deadline can be dealt before the list lands.
 // Neither editor may judge until it has. There is no single safe answer to

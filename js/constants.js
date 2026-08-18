@@ -146,7 +146,12 @@ export const TOOLBOX_POOL  = [
   'ratchet',
 ];
 export const LOUPE_CAP      = 30;  // a doubled tile never passes this resting value
-export const HONORIFIC_STEP = 2;   // Points per word, per laurel a patron wears
+// Points per word, per laurel a patron wears. The laurel's points are paid at
+// the crowned patron's own turn in the running order (see the patron pass in
+// scoring.js), so a laurel in front of a ×Mult seat is multiplied by it and a
+// laurel behind it is not — which is what makes 5 a real decision where the
+// old flat 2, paid after every patron had spoken, was only ever a rounding.
+export const HONORIFIC_STEP = 5;
 export const TONGS_BONUS    = 8;   // Points armed for the next word, per grip
 export const WASH_COUNT     = 4;   // tiles washed per pot — one of each colour
 
@@ -245,7 +250,13 @@ export const PURPLE_TRIM_STEP = 0.5;
 // ─── Nicks (a notch cut out of one edge of the tile) ──────────────────────────
 // Nicks do not stack: a letter is multiplied at most once however many nicks
 // point at it. Where two compete, the earlier tile in the word claims it.
-export const NICK_MULT = 3;
+//
+// ×2 rather than the ×3 it opened at. A nick reaches across every letter on
+// one side of it, so its value grows with the word while a trim's stays put;
+// at ×3 a left nick on a trailing tile was the single strongest thing 4 Coins
+// could buy, and the tile bonuses patrons now write onto the tiles themselves
+// (see the tileBonus pass in scoring.js) go through it as well.
+export const NICK_MULT = 2;
 export const NICKS = {
   right: { label: 'Right nick', mult: NICK_MULT, price: 4,
            desc: `×${NICK_MULT} Points to every tile on its right.` },
@@ -290,6 +301,19 @@ const QUOTA_GROWTH_RAMP  = 0.1;
 // QUOTA_BASE itself) leaves chapter 2 onward exactly where they were.
 const CHAPTER_1_EASE = 0.75;   // 40/56/80 → 30/40/60
 
+// The middle of the run sagged. By chapter 4 a press that has met three
+// Markets is compounding — paint on the tiles, a guild half-assembled, the
+// first ×Mult patrons seated — while the quota is still climbing at the rate
+// set for a bare hand, and chapters 4 and 5 played as a lull between the
+// opening squeeze and the genuine steepness from 6 on. These are per-chapter
+// nudges rather than a change to the growth rate, so they lift that dip
+// without compounding into the back half: everything from chapter 6 on stays
+// exactly where it was.
+//
+//   ch4  230/330/470  →  280/390/560   (page 1 / page 2 / the Deadline)
+//   ch5  470/650/930  →  530/750/1,100
+const CHAPTER_EASE = { 4: 1.2, 5: 1.15 };
+
 // Quotas are targets, not arithmetic: show a round number. Under 100 they
 // land on 5s, above it on two significant figures — 4,937 reads as 4,900.
 function roundQuota(n) {
@@ -302,6 +326,7 @@ export function quotaFor(chapter, page) {
   let raw = QUOTA_BASE;
   for (let c = 2; c <= chapter; c++) raw *= QUOTA_GROWTH_START + (c - 2) * QUOTA_GROWTH_RAMP;
   if (chapter === 1) raw *= CHAPTER_1_EASE;
+  raw *= CHAPTER_EASE[chapter] ?? 1;
   return roundQuota(raw * PAGE_FACTORS[page - 1]);
 }
 
@@ -339,6 +364,7 @@ export const REROLL_BASE     = 2;
 
 // ─── Animation base timings (ms, divided by the speed setting) ────────────────
 export const ANIM = {
+  stepBoost:  380,   // a patron writing Points onto the tiles, before any scoring
   stepTile:   300,
   stepNick:   430,
   stepColour: 560,
@@ -529,8 +555,9 @@ export function sundryTip(s) {
   };
   if (s?.kind === 'laurel') return {
     head: 'Laurel',
-    body: `Crowns a random seated patron. Crowned patrons grant +${HONORIFIC_STEP} Points on every word. `
-        + 'Patrons can balance an infinite number of laurels on their heads.',
+    body: `Crowns a random seated patron. A crowned patron pays +${HONORIFIC_STEP} Points on every word, `
+        + 'at its own turn in the running order — so a crown in front of your multipliers is multiplied '
+        + 'by them. Patrons can balance an infinite number of laurels on their heads.',
   };
   if (s?.kind === 'tongs') return {
     head: 'Tongs',

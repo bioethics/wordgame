@@ -361,20 +361,31 @@ header {
 .patron:hover .patron-x { opacity: 1; }
 .patron-x:hover { transform: scale(1.15); }
 
-/* A laurel a patron wears (the toolbox's amber tool): top-left, where the ✕
-   sits top-right, with the count beside it when they stack. */
+/* A laurel a patron wears (the toolbox's amber tool). It sits along the bottom
+   edge because every other corner of the card is spoken for: the guild livery
+   pin is top-left, the ✕ top-right, and the standing-to-gain badge hangs off
+   the top-left corner outside the card. A crown that overprints its own seat's
+   livery is a crown you can't read, so it comes down here where nothing else
+   ever lands, with the count beside it when they stack. */
 .patron-laurel {
   position: absolute;
-  top: 2px; left: 4px;
+  bottom: 3px; right: 6px;
+  display: flex;
+  align-items: center;
+  gap: 1px;
   font-size: 11px;
   line-height: 1;
   z-index: 3;
   filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
 }
+/* The count is read against the card's own parchment, not against the board,
+   so it is struck in the card's ink rather than in gold — gold on cream is a
+   number nobody can read. */
 .patron-laurel b {
-  font-size: 9px;
+  font-size: 9.5px;
   font-weight: 900;
-  color: #e8c667;
+  color: #7a5313;
+  filter: none;
 }
 
 /* ── The workbench: sundries bought at the Shop, spent mid-page ──────────────── */
@@ -1132,9 +1143,12 @@ button.sundry:hover { transform: translateY(-2px); }
   align-items: center;
 }
 
-/* Likewise the rack keeps its full-hand height as tiles leave it. */
+/* Likewise the rack keeps its full-hand height as tiles leave it: --rack-reserve
+   is measured in renderRack() from the whole hand — the tiles in the rack AND
+   the ones standing in the word — so composing never collapses the rack, and
+   the floor here still holds an empty one open. */
 .rack {
-  min-height: 100px;
+  min-height: max(100px, var(--rack-reserve, 0px));
   border-radius: var(--r-md);
   padding: 13px 14px 15px;
   display: flex;
@@ -1678,6 +1692,20 @@ button.sundry:hover { transform: translateY(-2px); }
   100% { transform: scale(1); filter: brightness(1); }
 }
 
+/* A patron writing Points onto the tile, before anything is scored: ink
+   soaking in rather than a number being paid out, so it swells and settles
+   instead of leaping the way a scoring tile does. */
+.tile--boosted {
+  animation: tileBoost calc(0.52s / var(--aspd)) ease;
+  z-index: 4;
+}
+@keyframes tileBoost {
+  0%   { transform: scale(1); filter: brightness(1); }
+  45%  { transform: scale(1.12) translateY(-3px); filter: brightness(1.25) saturate(1.2);
+         box-shadow: 0 0 0 3.5px rgba(144, 232, 186, 0.7), 0 0 24px rgba(144, 232, 186, 0.55); }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+
 .tile--set-glow {
   animation: setGlow calc(0.62s / var(--aspd)) ease;
 }
@@ -1840,6 +1868,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .fl-coin    { color: var(--brass-hi); font-size: 18px; }
 .fl-curse   { color: #ff7a66; font-size: 19px; font-weight: 800; text-shadow: 0 0 8px rgba(201, 60, 45, 0.65); }
 .fl-spike   { color: #ffb3a6; font-size: 18px; font-weight: 800; text-shadow: 0 0 9px rgba(201, 60, 45, 0.75); }
+.fl-boost   { color: #90e8ba; font-size: 19px; }
 .fl-refresh { color: #f0a86e; font-size: 17px; }
 .fl-return  { color: #b9e3ff; font-size: 17px; }
 .fl-set   { font-size: 19px; }
@@ -2045,6 +2074,11 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 .market-sub { font-family: var(--sans); font-weight: 500; font-size: 11px; color: var(--parch-dim); }
 .market-sub--done { color: #2f6e3e; font-weight: 700; }
+/* The reordering hint sits apart from the seat tally, quieter and in italic —
+   an instruction, not a count. It drops away on narrow sheets, where the
+   gesture is discovered by trying it. */
+.market-sub--hint { font-style: italic; opacity: 0.75; margin-left: 8px; }
+@media (max-width: 560px) { .market-sub--hint { display: none; } }
 
 .offer-list { display: grid; gap: 9px; }
 
@@ -3575,7 +3609,7 @@ input[type='checkbox'] {
     grid-row: 1; grid-column: 1 / -1;
     gap: 6px; padding: 8px 8px 10px;
     /* two full rows: 2×58 tiles + 6 gap + 18 padding + 2 border */
-    min-height: 142px;
+    min-height: max(142px, var(--rack-reserve, 0px));
   }
   #bagBtn  { grid-row: 2; grid-column: 1; }
   #trayBtn { grid-row: 2; grid-column: 2; }

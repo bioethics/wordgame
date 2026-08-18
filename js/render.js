@@ -355,7 +355,7 @@ function renderShelf(script) {
         slot.innerHTML = `
           <span class="patron-emoji">${def.emoji}</span>
           <span class="patron-name">${label}</span>
-          ${laurels ? `<span class="patron-laurel" title="${laurels > 1 ? `${laurels} laurels` : 'A laurel'} — +${laurels * HONORIFIC_STEP} Points every word, lost if this patron is dismissed">🏵️${laurels > 1 ? `<b>${laurels}</b>` : ''}</span>` : ''}
+          ${laurels ? `<span class="patron-laurel" title="${laurels > 1 ? `${laurels} laurels` : 'A laurel'} — +${laurels * HONORIFIC_STEP} Points every word, paid at this seat's turn, lost if this patron is dismissed">🏵️${laurels > 1 ? `<b>${laurels}</b>` : ''}</span>` : ''}
           <button class="patron-x" data-sell="${p.uid ?? def.id}" title="Dismiss ${name} for ${refund} Coins">✕</button>`;
       } else {
         slot.className = 'patron patron--empty';
@@ -375,7 +375,9 @@ function renderShelf(script) {
 // patron badge separately), falling back to the def id for everyone else.
 function patronTakes(script) {
   const takes = new Map();
-  for (const s of script?.patronSteps ?? []) {
+  // Tile bonuses first — they are paid first, and the badge should read in the
+  // order the print will.
+  for (const s of [...(script?.tileBoostSteps ?? []), ...(script?.patronSteps ?? [])]) {
     const chip = s.xmult ? `×${fmtMult(s.xmult)}`
                : s.mult  ? `+${fmtMult(s.mult)}`
                : s.coins ? `+${s.coins}c`
@@ -642,6 +644,45 @@ function applyPaintingMode(el) {
   if (armed) el.style.setProperty('--paintcol', COLOURS[armed.colour]?.glyph ?? 'var(--steel)');
 }
 
+// The rack holds its ground while you compose. Lifting tiles into the groove
+// takes them out of the rack's flow, and a rack that shrank to fit what was
+// left would jump the whole board up — then jump it back down a move later
+// when the word cleared and the hand refilled. So the rack reserves room for
+// the WHOLE HAND: the tiles still in it plus the ones standing in the word,
+// which is exactly the hand it will be holding again shortly. It reserves,
+// never fixes — a genuinely bigger hand (the Enthusiast's rack bonus, an
+// OLOGY tile taking two places) still grows it, and the reservation is
+// recomputed from the rack's real width, so a resize or a rotation re-measures
+// rather than stranding an old number.
+//
+// Written as a custom property that CSS maxes against its own minimum, so the
+// desktop and mobile floors in the stylesheet stay in charge of the empty case.
+function reserveRackHeight(el) {
+  const cs = getComputedStyle(el);
+  const inner = el.clientWidth
+    - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
+  if (!(inner > 0)) return;                     // not laid out yet — nothing to measure
+
+  const root  = getComputedStyle(document.documentElement);
+  const tileW = parseFloat(root.getPropertyValue('--tile-w')) || 0;
+  const tileH = parseFloat(root.getPropertyValue('--tile-h')) || 0;
+  if (!tileW || !tileH) return;
+  const colGap = parseFloat(cs.columnGap || 0) || 0;
+  const rowGap = parseFloat(cs.rowGap || 0) || 0;
+
+  // Same packing flex-wrap does, over the whole hand in rack order. A tile
+  // showing four or more letters is drawn double width (see makeTileEl).
+  const hand = [...state.rack, ...state.word];
+  let rows = 1, run = 0;
+  for (const t of hand) {
+    const w = (getActiveLetter(t)?.length ?? 1) >= 4 ? tileW * 2 : tileW;
+    if (run > 0 && run + colGap + w > inner + 0.5) { rows++; run = w; }
+    else run += (run > 0 ? colGap : 0) + w;
+  }
+  const padY = parseFloat(cs.paddingTop || 0) + parseFloat(cs.paddingBottom || 0);
+  el.style.setProperty('--rack-reserve', `${rows * tileH + (rows - 1) * rowGap + padY}px`);
+}
+
 export function renderRack(ghostIds = null) {
   const el = $('rack');
   if (!el) return;
@@ -652,6 +693,17 @@ export function renderRack(ghostIds = null) {
     const tileEl = makeTileEl(t, 'rack');
     if (ghostIds?.has(t.id)) tileEl.classList.add('tile--ghost');
     el.appendChild(tileEl);
+  });
+  reserveRackHeight(el);
+}
+
+// A resize (or a rotation, or the tile size changing at a breakpoint) changes
+// how many tiles fit on a row, so the reservation is measured again rather
+// than left holding a number from a width that no longer exists.
+if (typeof window !== 'undefined') {
+  window.addEventListener('resize', () => {
+    const el = $('rack');
+    if (el) reserveRackHeight(el);
   });
 }
 

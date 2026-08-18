@@ -40,7 +40,9 @@ python -m http.server 8431 --bind 0.0.0.0
 score = Points × Mult
 ```
 
-- **Points** — the sum of every tile's value (after trims and nicks).
+- **Points** — the sum of every tile's value (after trims and nicks), plus
+  everything the patrons then add to it. It is a *running* figure: the patrons
+  act one seat at a time, and a patron's ×Mult multiplies it where it stands.
 - **Mult** — the product of the five colour multipliers. Each colour starts at
   ×1 and every painted *tile* of that colour in the word raises it by 1
   (×2, ×3, …); purple trims raise a fifth multiplier in half-steps (×1.5, ×2,
@@ -62,8 +64,31 @@ heap; sundries on the workbench as well as on the shop shelf and in the row of
 what you already hold; patrons on the shelf and in the market. Nothing is
 summarised beneath market cards — the thing itself is the documentation. What a
 sundry does is written once, in `js/constants.js` → `sundryTip`, so the shop,
-the workbench and the held row can't tell you three different things about it. On print, the score replays tile by tile: Points land, nicks fire, each colour's
-multiplier lights up, then the patrons weigh in.
+the workbench and the held row can't tell you three different things about it. On print, the score replays in the order it happens: patrons write their bonuses
+onto the tiles, then the tiles pay, nicks fire, each colour's multiplier lights
+up, and the patrons weigh in seat by seat.
+
+### Seat order
+
+Patrons act **in the order they sit**, and one rule follows from it:
+
+> A ×Mult multiplies everything the table has said in front of it, and nothing
+> behind it.
+
+So the seats that *add* — Points, and the laurels your patrons wear — are worth
+more in front, and the seats that *multiply* are worth more behind them. Drag a
+card along the shelf to reseat it, on the board or on **Your table** at the top
+of the Market, which is usually where you want to: you have just hired someone,
+and where they sit is half of what you bought. (Additive Mult and ×Mult commute
+with each other; it is the Points that care.)
+
+Two things happen before any of that. Patrons whose promise reads *"such-and-such
+tiles gain +N Points"* — the Goldsmith, the Seedsman, the Siren, the Jeweller,
+the Calligrapher, the Espalier — write that number onto the tile itself, in the
+groove as you compose and again at the head of the print, which means **the
+nicks and the Monogrammists multiply it**. And the tongs' heat and the toll for
+a curse left in hand land before the table speaks, so any multiplier seated at
+all catches them.
 
 ## The pieces
 
@@ -74,7 +99,7 @@ plus an optional **trim** and **nick**.
 | --- | --- |
 | Paint | crimson / azure / jade / amber — each raises its colour's multiplier by 1 |
 | Trim | **Gold** pays 1 Coin · **Silver** +5 Points, counted into the tile's corner number wherever it appears and written in the trim's own silver, so the tile says what it is worth rather than making you add · **Cobalt** refreshes 1 Discard (and wears the Discard's own blue) · **Mercury** slips back into the bag instead of the discard pile · **Purple** raises the fifth multiplier by 0.5 |
-| Nick | A notch cut into one edge; the notched side is the direction. **Right** ×3 Points to everything on its right · **Left** ×3 to its left. Nicks don't stack — a tile is multiplied once at most. While you compose, an affected tile's corner number becomes the multiplied value, restyled, rippling outward from the notch. |
+| Nick | A notch cut into one edge; the notched side is the direction. **Right** ×2 Points to everything on its right · **Left** ×2 to its left. Nicks don't stack — a tile is multiplied once at most. While you compose, an affected tile's corner number becomes the multiplied value, restyled, rippling outward from the notch. |
 | Letterform | Dual tiles hold two letters (flip to switch; paint, trim and nick belong to the tile, so both letters wear them) · Ligatures ING · CH · CK · TH · WH · QU spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Marks** ? and ! spell nothing at all, and come only from a wrapped tile, purple-trimmed |
 | Material | What the tile is cast from, under everything else: ordinary lead, or **cursed** / **ghost** / **rainbow** (see below) |
 | Growth | Grown points — permanent +1s a patron (The Grafter) writes into a tile, worn as a jade corner number wherever the tile appears |
@@ -118,8 +143,8 @@ anything or touches what a tile is worth — each one warps the *shape* of the
 words instead. The Abridger reads nothing past the fourth letter; the Padder
 pays by the word and wants five at least; the Columnist re-sets an exact
 measure after every print; the Populist writes for the common reader and takes
-none but the 500 commonest words in English, where the Obscurantist spikes the
-commonest thousand outright; the Serialist demands each word open on the letter
+none but the 750 commonest words in English, where the Obscurantist spikes the
+commonest 500 outright; the Serialist demands each word open on the letter
 the last one ended with; the Indexer files the page alphabetically; the
 Escalationist insists every word outscore the one before; the Enthusiast lends
 a tile of a beloved letter and expects it in every word; the Reviewer receives
@@ -137,10 +162,11 @@ reset by the spiked word itself, so a sacrificial APPLE is always a way back in.
 
 The two frequency editors read `wordlists-themed/common.txt`, the one themed
 list whose *order* is data: `js/themes.js` keeps each word's line number as its
-frequency rank. The Populist takes the first 500, the Obscurantist bars the
-first 1,000, and The Lexicographer — a patron, not an editor — pays ×1.5 for
-words absent from the file altogether, so its 8,000 entries are a game number
-too. Rebuild it with `tools/build-common-list.mjs` (it filters a frequency list
+frequency rank. Three things read it, at three settings: the Populist takes the
+first 750, the Obscurantist bars the first 500, and The Lexicographer — a
+patron, not an editor — pays ×1.5 for anything ranked outside the first 1,500
+(or absent from the file altogether, so its 8,000 entries are a game number
+too). Rebuild it with `tools/build-common-list.mjs` (it filters a frequency list
 down to words this dictionary will actually accept), and never sort it
 alphabetically.
 
@@ -158,7 +184,9 @@ A word is worth noting about the Obscurantist: measured against a solver it
 looks feeble, costing 2% of the score ceiling, because a machine barred from
 common words simply reads further down the dictionary. A player cannot. Its
 difficulty is in recall rather than combinatorics, which is the kind of
-difficulty a word game is made of, and the reason it is tuned by playing.
+difficulty a word game is made of, and the reason it is tuned by playing —
+which is how its band has moved twice, from 1,000 down to 250 and back up to
+500 once 250 turned out to be a bar a player steps over without noticing.
 
 **Misspellings** — three patrons forgive a word the dictionary turns away, and
 none of them correct it: what you set is what prints, in the strip under the
@@ -230,9 +258,12 @@ rattles around in there at half the rate:
   maximum of 30, written in for good. It doubles the whole corner number, so
   raising a common letter first (a silver trim, the Grafter's growth) and
   *then* doubling beats doubling the jewel that is already near the cap.
-- **Laurel** (amber) — crowns a random seated patron: +2 Points on every word
-  while they keep their seat, stacking if it lands twice. A dismissed patron
-  takes their laurels with them, which is the tool's whole tension.
+- **Laurel** (amber) — crowns a random seated patron: +5 Points on every word
+  while they keep their seat, stacking if it lands twice. The crown pays at its
+  own seat's turn, so a laurel in front of your multipliers is multiplied by
+  them and one behind them is not — and a dismissed patron takes their laurels
+  with them, which is the tool's whole tension. It is worn along the bottom
+  edge of the card, clear of the livery pin and the ✕.
 - **Tongs** (crimson) — grip a tile and it goes to the furnace for good
   (feeding the Composter, respecting the Smelter's floor); the next word you
   print gains +8 Points. Grips stack; the heat expires with the page.
@@ -336,6 +367,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Knob | Where |
 | --- | --- |
 | Quota curve | `js/constants.js` → `quotaFor`, `QUOTA_BASE`, `QUOTA_GROWTH_START`, `QUOTA_GROWTH_RAMP`. The rate itself grows: chapter 2 asks ×1.7 of chapter 1, chapter 3 ×1.8 of chapter 2, and so on. START makes the whole run harder; RAMP makes the ending harder without touching the opening — a harder mode is a bigger pair |
+| A single chapter that plays too easy or too hard | `js/constants.js` → `CHAPTER_1_EASE` and `CHAPTER_EASE` (a per-chapter multiplier on that chapter's quota only — chapters 4 and 5 carry one, where the middle of the run had gone slack, and nothing after them moves) |
 | Trim effects & prices | `js/constants.js` → `TRIMS` (effects live in `js/scoring.js`); silver's Points are `SILVER_BONUS`, read by scoring, the trim's card and the tile's own number alike |
 | Materials, the cursed ×Mult, wrapped-tile price & how often one is offered | `js/constants.js` → `MATERIALS`, `CURSED_MULT`, `CURSED_MAX_POINTS`, `WRAPPED_PRICE`, `WRAPPED_OFFER_CHANCE` |
 | What is inside a wrapped tile | `js/constants.js` → `WRAPPED_CONTENTS`, a flat list rolled evenly — repeat an entry to make it likelier — and `MARK_TRIM` for what a wrapped mark wears |
@@ -348,6 +380,8 @@ bigger step than the last and a built press has to multiply rather than add:
 | Ratchet sundry price | `js/constants.js` → `RATCHET_PRICE` (the alphabet it walks is derived from `TILE_POINTS` — see `SHIFT_RING` in `js/state.js`) |
 | Toolbox price and what is inside it | `js/constants.js` → `TOOLBOX_PRICE`, `TOOLBOX_POOL` (repeat an entry to make it likelier; the box always yields two *different* tools) |
 | Tool tuning — doubling cap, laurel step, tongs bonus, wash count | `js/constants.js` → `LOUPE_CAP`, `HONORIFIC_STEP`, `TONGS_BONUS`, `WASH_COUNT` |
+| Where the patrons' turns happen, and what a ×Mult reaches | `js/scoring.js` → pass 4. Points that must be multiplied by the table have to land before it (the tongs' heat and the curse's toll do, in pass 3½) |
+| Patrons that improve the tiles rather than the word | `js/patrons.js` → the `tileBonus` hook (pass 1½ in `js/scoring.js`); the number goes onto the tile, so nicks and Monogrammists carry it |
 | The fleuron — price, page rent, how often it is offered | `js/constants.js` → `FLEURON_PRICE`, `FLEURON_PAGE_COIN`, `FLEURON_OFFER_CHANCE` (the glyph itself is `FLEURON`) |
 | Stall roster, base prices, spread size | `js/constants.js` → `STALL_DEFS`, `STALLS_PER_SHOP`, `PROPOSAL_RANGE`, `SMELT_MIN_COLLECTION` |
 | Marks: which ones exist, legal tails, and what they arrive wearing | `js/constants.js` → `MARKS`, `MARK_RUNS`, `MARK_TRIM` (and `TILE_POINTS`). How often one turns up is `WRAPPED_CONTENTS`, since a wrapper is the only source |

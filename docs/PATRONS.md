@@ -50,7 +50,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🪴 **The Espalier** `espalier` 🔒 | uncommon | 6 | Print a two-tile word: both tiles permanently gain +2 Points — in time to score. |
 | 🖼️ **The Frontispiece** `frontispiece` 🔒 | uncommon | 7 | The first word of each page gets ×1.5 Mult — +0.1 more, for good, each time that word clears the quota alone. |
 | 🍷 **The Vintner** `vintner` | uncommon | 7 | Words with a jade tile gain +1 Mult per chapter reached — +5 Mult in Chapter V. |
-| 🌿 **The Grafter** `grafter` | rare | 10 | When a word with a jade tile prints, every tile in it permanently gains +1 Point. |
+| 🌿 **The Grafter** `grafter` | rare | 8 | When a word with a jade tile prints, every tile in it permanently gains +1 Point. |
 
 ## Crimson · sacrifice and fire
 
@@ -75,7 +75,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | ⚡ **The Izzard** `izzard` | common | 4 | Any Z you play may be read as an S — and still scores as a Z. |
 | 🎶 **The Siren** `siren` | common | 4 | Vowels gain +2 Points — or +6 if they are azure. |
 | 🪻 **The Woad** `woad` 🔒 | common | 4 | As each chapter ends, 2 tiles of your collection are painted azure. |
-| 📚 **The Lexicographer** `lexicographer` | uncommon | 6 | ×1.5 Mult when the word is not among the commonest in English — reach for the word nobody else would. |
+| 📚 **The Lexicographer** `lexicographer` 🔒 | uncommon | 6 | ×1.5 Mult when the word is not among the 1,500 commonest in English — reach for the word nobody else would. |
 | 📟 **The Stenographer** `stenographer` | uncommon | 6 | Common acronyms and abbreviations count as words: LOL, BRB, WTF and the rest. |
 | ⛲ **The Fountain** `fountain` | uncommon | 7 | Azure tiles return to the bag when printed, instead of the discard pile. |
 | 🌀 **The Marbler** `marbler` | uncommon | 7 | Words with 2 or more azure tiles get ×2 Mult. |
@@ -88,11 +88,11 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | Patron | Rarity | Cost | Description |
 |---|---|---|---|
 | 🧹 **The Apprentice** `apprentice` | common | 3 | 4-letter words gain +10 Points. |
+| 📜 **The Scholar** `scholar` | common | 3 | Words of 5+ letters gain +10 Points. |
 | 🥾 **The Stumbler** `stumbler` | common | 3 | Words are accepted with one pair of adjacent letters swapped: TEH counts as THE. |
 | 📑 **The Copyist** `copyist` | common | 4 | ×2 Mult when the word already stands in your manuscript. |
 | 🪭 **The Monogrammist** `monogrammist` | common | 4 | Arrives with three letters of its own; a tile showing one prints twice — Points, trim and paint alike. |
 | 🧖 **The Nudist** `nudist` | common | 4 | In a word where no tile has paint, a trim or a nick, each tile has a 1-in-4 chance of gaining a random trim. |
-| 📜 **The Scholar** `scholar` | common | 4 | Words of 5+ letters gain +5 Points. |
 | 👯 **The Twins** `twins` | common | 4 | Words with a doubled letter (LL, OO…) gain +15 Points. |
 | 🐣 **The Abecedarian** `abecedarian` | common | 5 | 3-letter words get +10 Points. |
 | 🪞 **The Mirror** `mirror` | uncommon | 5 | Words that spell another word backwards — or themselves — get ×4 Mult. |
@@ -108,13 +108,13 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🌒 **The Closer** `closer` | uncommon | 7 | The final word of each page gets ×3 Mult. |
 | 🃏 **The Harlequin** `harlequin` | uncommon | 7 | Words holding 3 or more different colours get ×2 Mult. |
 | 🖋️ **The Novelist** `novelist` | uncommon | 7 | Words of 7+ letters get ×2 Mult. |
+| 🧸 **The Poppet** `poppet` | rare | 7 | ×3 Mult for any of the thousands of words The Poppet finds cute. |
 | 🎨 **The Illuminator** `illuminator` | rare | 8 | When a word holds exactly three colours, a bare tile in it is painted the fourth — in time to score. |
+| 💘 **The Paramour** `paramour` | rare | 8 | ×3 Mult for any of the thousands of words The Paramour finds romantic. |
+| ⚰️ **The Sexton** `sexton` | rare | 8 | ×3 Mult for any of the thousands of words The Sexton finds spooky. |
+| 🍑 **The Vulgarian** `vulgarian` | rare | 8 | ×3 Mult for any of the thousands of words The Vulgarian finds rude. |
 | 🔭 **The Astronomer** `astronomer` | rare | 9 | +1 Mult for each word already printed this page. |
 | 📋 **The Overseer** `overseer` | rare | 9 | Print one more word each page. |
-| 💘 **The Paramour** `paramour` | rare | 9 | ×3 Mult when the word is romantic — KISS, SWOON, SMITTEN. |
-| 🧸 **The Poppet** `poppet` | rare | 9 | ×3 Mult when the word is cute — KITTEN, BUNNY, CUDDLE. |
-| ⚰️ **The Sexton** `sexton` | rare | 9 | ×3 Mult when the word is spooky — HAUNTED, CRYPT, WEREWOLF. |
-| 🍑 **The Vulgarian** `vulgarian` | rare | 9 | ×3 Mult when the word is rude — FART, BUM, TURD. |
 | 🦜 **The Stammerer** `stammerer` | rare | 10 | ×2 Mult for every doubled letter in the word — BALLOON pays twice. |
 | 🗺️ **The Cartographer** `cartographer` | rare | 12 | Words whose letters run in alphabetical order get ×3 Mult. |
 | 👓 **The Skimmer** `skimmer` | rare | 12 | Words are accepted with their middle letters in any order, so long as the first and last letters are right. |

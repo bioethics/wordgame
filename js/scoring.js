@@ -16,16 +16,25 @@ import {
 // {
 //   word, points, mult, total, coins, refresh,
 //   tileSteps:   [{ id, points, coins, refresh, returns }]  — one per tile, in order
+//   tileBoostSteps: [{ id, uid, emoji, points, hits: [{ id, delta }] }]
+//                                                            — patrons writing
+//                                                              Points onto tiles,
+//                                                              before anything scores
 //   nickSteps:   [{ sourceId, kind, mult, hits: [{ id, delta }] }]
 //   nickAffected: Map(id → mult)                             — for the live preview
 //   colourSteps: [{ colour, ids, count, mult }]              — incl. 'purple' (trim)
-//   patronSteps: [{ id, text, points?, mult?, xmult? }]
+//   patronSteps: [{ id, uid, text, points?, mult?, xmult?, running? }]
 //   perTile:     Map(id → { final, parts[] })                — for tooltips
 // }
 //
 // score = Points × Mult, where Mult is the product of the colour multipliers:
 // each colour starts ×1 and every painted letter of that colour adds +1.
 // Purple trims raise a fifth multiplier in half-steps (+0.5 each).
+//
+// Points is a RUNNING figure by the time the patrons have finished with it:
+// they act one seat at a time and their multipliers fold into it as they go
+// (see pass 4), so `running` on each step is what the readout should be
+// showing at that moment in the print.
 
 export function computeScore(wordTiles) {
   if (!wordTiles?.length) return null;
@@ -79,6 +88,44 @@ export function computeScore(wordTiles) {
     });
   });
 
+  // ── Pass 1½: patrons that write Points onto the tiles ─────────────────────
+  // Every patron whose promise reads "such-and-such tiles gain +N Points" pays
+  // HERE, onto the tile, before the word is scored — not as a lump sum at the
+  // end of the count. Two things follow, both of them the point of the pass:
+  // the number is visible on the tile itself as you compose (it is already in
+  // perTile, so the corner figure the groove shows is the true one), and the
+  // nicks and Monogrammists below multiply it, exactly as "the tile gains +4"
+  // always implied and never did.
+  //
+  // Seats speak in seat order here as everywhere, and each records a step of
+  // its own so the print can show the ink going onto the tiles before a single
+  // tile pays out.
+  const tileBoostSteps = [];
+  for (const p of state.patrons) {
+    const def = patronById(p.id);
+    if (!def?.tileBonus) continue;
+    const bctx = { tiles: wordTiles, state, data: p.data ?? {} };
+    const hits = [];
+    let added = 0;
+    wordTiles.forEach((t, i) => {
+      const v = def.tileBonus(t, bctx) || 0;
+      if (!v) return;
+      contrib[i] += v;
+      added += v;
+      noteMap[i].push(`${def.emoji} +${v}`);
+      hits.push({ id: t.id, delta: v });
+    });
+    if (hits.length) {
+      tileBoostSteps.push({
+        id: p.id, uid: p.uid, emoji: def.emoji, hits, points: added,
+        text: `+${added} Points — onto the tiles`,
+      });
+    }
+  }
+  // What each tile pays is now what it says: the print's first pass reads the
+  // boosted figure, so no tile is ever seen paying less than its corner shows.
+  tileSteps.forEach((step, i) => { step.points = contrib[i]; });
+
   // ── Pass 2: nicks multiply their targets ──────────────────────────────────
   // Nicks don't stack. Each letter is multiplied at most once no matter how
   // many nicks point at it; earlier tiles in the word claim their targets
@@ -129,6 +176,15 @@ export function computeScore(wordTiles) {
 
   let points = contrib.reduce((a, b) => a + b, 0);
 
+  // The echo steps above were pushed before there was a total to measure them
+  // against; the print's readout wants the running figure after each one, the
+  // same as every later step carries. Their deltas are already inside `points`,
+  // so counting back from it gives each step the number it should be showing.
+  {
+    let run = points - patronSteps.reduce((a, st) => a + (st.points ?? 0), 0);
+    for (const st of patronSteps) { run += st.points ?? 0; st.running = Math.round(run); }
+  }
+
   // ── Pass 3: colour multipliers (painted letters, then purple trims) ────────
   // Each entry carries the tile's echo as its weight, so a monogrammed jade
   // letter counts as two jade letters. `ids` stays one id per tile — it drives
@@ -175,42 +231,11 @@ export function computeScore(wordTiles) {
   }
   mult = Math.round(mult * 1000) / 1000;   // keep half-steps off floating-point drift
 
-  // ── Pass 4: patrons (in the order you seated them) ──────────────────────────
-  // `data` is the seat's memory, handed over READ-ONLY: this runs on every
-  // keystroke for the live preview, so a score effect that wrote to it would
-  // fire dozens of times a word. Counters are advanced in onPrinted instead.
-  // (patronSteps was declared back in pass 2½, where the Monogrammists fire.)
-  let current = null;
-  const ctx = {
-    word: letters, tiles: wordTiles, state, data: null,
-    addPoints(v) { points += v; patronSteps.push({ id: current, text: `+${v} Points`, points: v }); },
-    addMult(v)   { mult += v;   patronSteps.push({ id: current, text: `+${v} Mult`,   mult: v }); },
-    xMult(v)     { mult *= v;   patronSteps.push({ id: current, text: `×${v} Mult`,   xmult: v }); },
-    addCoins(v)  {
-      coins += v;
-      patronSteps.push({ id: current, text: `+${v} Coin${v > 1 ? 's' : ''}`, coins: v });
-    },
-  };
-
-  for (const p of state.patrons) {
-    const def = patronById(p.id);
-    if (def?.when === 'score') { current = p.id; ctx.data = p.data ?? {}; def.effect(ctx); }
-  }
-
-  // Laurels speak after their patrons: +HONORIFIC_STEP per laurel a seat
-  // wears, attributed to that seat so the crowned card is the one that pays.
-  // Seat data is read-only here as ever; the count is written when the
-  // laurel lands (main.js), never during scoring.
-  for (const p of state.patrons) {
-    const laurels = p.data?.honorifics ?? 0;
-    if (!laurels) continue;
-    const v = laurels * HONORIFIC_STEP;
-    points += v;
-    patronSteps.push({
-      id: p.id, uid: p.uid,
-      text: `+${v} Points — ${laurels > 1 ? `${laurels} laurels` : 'the laurel'}`, points: v,
-    });
-  }
+  // ── Pass 3½: what the hand itself brings to the word ───────────────────────
+  // Both of these land BEFORE the patrons speak, because both are Points the
+  // word already carries when the table turns to it — and because the patron
+  // pass below is sequential, so anything meant to be multiplied by a ×Mult
+  // seat has to be on the table before that seat opens its mouth.
 
   // The tongs' heat: points armed when a tile was fed to the furnace, spent
   // on the next word printed. Read here (so the live preview shows it) and
@@ -218,10 +243,12 @@ export function computeScore(wordTiles) {
   // coin, and for the same reason: this runs on every keystroke.
   if (state.tongsBonus) {
     points += state.tongsBonus;
-    patronSteps.push({ id: 'tongs', text: `+${state.tongsBonus} Points — the tongs' due`, points: state.tongsBonus });
+    patronSteps.push({
+      id: 'tongs', text: `+${state.tongsBonus} Points — the tongs' due`,
+      points: state.tongsBonus, running: Math.round(points),
+    });
   }
 
-  // ── Pass 4¼: curses left in the hand ───────────────────────────────────────
   // A cursed tile you didn't set takes its due from the word you set instead —
   // once for each one still waiting in the rack. Points, not Mult, so it lands
   // before the multipliers and a press strong enough to clear 666 can shrug a
@@ -235,9 +262,74 @@ export function computeScore(wordTiles) {
     points -= toll;
     patronSteps.push({
       id: 'cursed', text: `−${toll} Points — ${cursesInHand > 1 ? 'curses' : 'a curse'} left in hand`,
-      points: -toll,
+      points: -toll, running: Math.round(points),
     });
   }
+
+  // ── Pass 4: patrons, in the order you seated them ──────────────────────────
+  // The order is the whole point of the pass, and the rule fits on a card:
+  // A ×MULT MULTIPLIES EVERYTHING THE TABLE HAS SAID IN FRONT OF IT, AND
+  // NOTHING BEHIND IT. So a seat that adds is worth more early, a seat that
+  // multiplies is worth more late, and dragging the shelf into order is a real
+  // decision rather than a cosmetic one (reorderPatrons in state.js; the cards
+  // take the gesture on the board and in the Market alike).
+  //
+  // Two registers carry it. `points` is the running score, and `pmult` holds
+  // the Mult added since the last multiplication — Points and +Mult accumulate
+  // together between multiplications, so those two commute with each other,
+  // and a ×Mult folds the pending Mult into the running score and multiplies
+  // the lot. Whatever is said afterwards starts again from a clean slate,
+  // which is the whole asymmetry: the seats that ADD want to be in front of
+  // the seats that MULTIPLY. The colour multipliers stay out of it — they are
+  // the word's own arithmetic, not a patron's, and they multiply the finished
+  // figure at the end.
+  //
+  // `data` is the seat's memory, handed over READ-ONLY: this runs on every
+  // keystroke for the live preview, so a score effect that wrote to it would
+  // fire dozens of times a word. Counters are advanced in onPrinted instead.
+  // (patronSteps was declared back in pass 2½, where the Monogrammists fire.)
+  let current = null, currentUid = null;
+  let pmult = 1;
+  const fold = () => { points = Math.round(points * pmult); pmult = 1; };
+  const step = (extra) => patronSteps.push({
+    id: current, uid: currentUid, ...extra,
+    running: Math.round(points * pmult),
+  });
+  const ctx = {
+    word: letters, tiles: wordTiles, state, data: null,
+    addPoints(v) { points += v;                step({ text: `+${v} Points`, points: v }); },
+    addMult(v)   { pmult += v;                 step({ text: `+${v} Mult`,   mult: v }); },
+    xMult(v)     { pmult *= v; fold();         step({ text: `×${v} Mult`,   xmult: v }); },
+    addCoins(v)  {
+      coins += v;
+      step({ text: `+${v} Coin${v > 1 ? 's' : ''}`, coins: v });
+    },
+  };
+
+  for (const p of state.patrons) {
+    const def = patronById(p.id);
+    current = p.id;
+    currentUid = p.uid ?? null;
+    if (def?.when === 'score' && def.effect) { ctx.data = p.data ?? {}; def.effect(ctx); }
+
+    // A laurel speaks with the head that wears it, not after the whole table
+    // has finished: crowning the seat that sits in front of your multipliers
+    // is worth more than crowning the one that sits behind them, which is the
+    // decision the tool is for. Seat data is read-only here as ever; the count
+    // is written when the laurel lands (main.js), never during scoring.
+    const laurels = p.data?.honorifics ?? 0;
+    if (laurels) {
+      const v = laurels * HONORIFIC_STEP;
+      points += v;
+      step({
+        text: `+${v} Points — ${laurels > 1 ? `${laurels} laurels` : 'the laurel'}`,
+        points: v, laurel: true,
+      });
+    }
+  }
+  fold();   // any Mult still pending when the last seat sits down
+  current = null;
+  currentUid = null;
 
   // ── Pass 4½: the Alderman counts the guilds at his table ───────────────────
   // One ×1.5 for each guild represented on the shelf. Two things he does NOT
@@ -308,7 +400,7 @@ export function computeScore(wordTiles) {
 
   return {
     word, points, mult, total, coins, refresh, spiked,
-    tileSteps, nickSteps, nickAffected, colourSteps, patronSteps, perTile,
+    tileSteps, tileBoostSteps, nickSteps, nickAffected, colourSteps, patronSteps, perTile,
   };
 }
 

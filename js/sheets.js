@@ -10,7 +10,7 @@ import {
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
   PAINT_PER_POT, ANIM, SUNDRY_SELL, tileCount, sundryTip, TOOL_LOOK,
-  colourDesc,
+  colourDesc, HONORIFIC_STEP,
 } from './constants.js';
 import { patronById, guildsOf } from './patrons.js';
 import { upgradeById } from './upgrades.js';
@@ -148,8 +148,11 @@ const benchLabel = () => {
 // ─── The table, restated inside the Market ────────────────────────────────────
 // The board's patron shelf, drawn again at the top of the sheet so who you
 // hold is never out of sight while you shop. Same cards as the board: the ✕
-// dismisses outright (desktop hover), and tapping a card shows its calling
-// card with a dismissal button — the popover route main.js already wires.
+// dismisses outright (desktop hover), tapping a card shows its calling card
+// with a dismissal button — the popover route main.js already wires — and
+// dragging one along the strip reseats it (initShelfDrag in drag.js takes this
+// shelf as well as the board's). The Market is where that decision belongs:
+// you have just hired someone, and seat order is half of what you bought.
 function marketShelfCardsHTML() {
   const seats = effectivePatronSlots();
   let cards = '';
@@ -165,13 +168,15 @@ function marketShelfCardsHTML() {
     const desc  = def.instDesc?.(p.data)  ?? def.desc;
     const half  = patronRefund(p);
     const [livery, livery2] = guildsOf(def);
+    const laurels = p.data?.honorifics ?? 0;
     cards += `
       <div class="patron patron--${def.rarity}${livery ? ` patron--g-${livery}` : ''}${livery2 ? ` patron--g2-${livery2}` : ''}"
            data-patron="${def.id}"${p.uid != null ? ` data-uid="${p.uid}"` : ''}
            title="${name} — ${desc}
-(✕ dismisses for ${half} Coins)">
+(drag to reseat · ✕ dismisses for ${half} Coins)">
         <span class="patron-emoji">${def.emoji}</span>
         <span class="patron-name">${label}</span>
+        ${laurels ? `<span class="patron-laurel" title="${laurels > 1 ? `${laurels} laurels` : 'A laurel'} — +${laurels * HONORIFIC_STEP} Points every word, paid at this seat's turn">🏵️${laurels > 1 ? `<b>${laurels}</b>` : ''}</span>` : ''}
         <button class="patron-x" data-sell-patron="${p.uid ?? def.id}" title="Dismiss ${name} for ${half} Coins">✕</button>
       </div>`;
   }
@@ -182,7 +187,7 @@ function marketShelfHTML() {
   const fullSeats = state.patrons.length >= effectivePatronSlots();
   return `
     <section class="market-shelf${fullSeats ? ' market-shelf--wanted' : ''}" data-market-shelf-wrap>
-      <h3 class="market-sec">Your table <span class="market-sub" data-seats>${seatsLabel()}</span></h3>
+      <h3 class="market-sec">Your table <span class="market-sub" data-seats>${seatsLabel()}</span><span class="market-sub market-sub--hint">drag a card to change the running order</span></h3>
       <div class="shelf shelf--market" data-market-shelf style="--seat-count:${effectivePatronSlots()}">${marketShelfCardsHTML()}</div>
     </section>`;
 }

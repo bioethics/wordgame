@@ -20,7 +20,7 @@ import { renderAll, showTilePopover, showPopover, hidePopover, log } from './ren
 import { computeScore } from './scoring.js';
 import { patronById } from './patrons.js';
 import { market, stallById } from './market.js';
-import { proposalPreview } from './sheets.js';
+import { proposalPreview, updateMarketState } from './sheets.js';
 import { draft } from './draft.js';
 
 const DRAG_THRESHOLD = 8;     // px of travel before a press becomes a drag
@@ -236,17 +236,34 @@ export function initInput() {
 export const initDrag = initInput;
 
 // ─── The patron shelf (drag a card to change the running order) ────────────────
-// Seat order is the roster's rule of precedence — hooks fire down the shelf and
-// a tile one patron consumes is out of every later seat's reach — so the order
-// of the cards is a real decision and has to be editable by hand. The gesture
-// is the rack's: press, travel past the threshold, drop where you want it.
-// A plain tap still opens the card's popover; only a genuine drag reorders, and
-// the click that trails a drag is swallowed so a reorder never also pops a
+// Seat order is the roster's rule of precedence — patrons act on the running
+// score one seat at a time, so a seat that adds Points wants to sit in front of
+// the seats that multiply (see pass 4 in scoring.js) — and the order of the
+// cards is therefore a real decision that has to be editable by hand. The
+// gesture is the rack's: press, travel past the threshold, drop where you want
+// it. A plain tap still opens the card's popover; only a genuine drag reorders,
+// and the click that trails a drag is swallowed so a reorder never also pops a
 // tooltip. The ✕ keeps its own job — a press that starts on it is left alone.
+//
+// TWO shelves take the gesture: the board's, and the Market's restatement of it
+// at the top of the shop sheet. The Market is exactly where the order wants
+// rearranging — you have just hired someone, and where they sit is half of what
+// you bought — so the listeners hang off the document and find whichever shelf
+// the press landed in, rather than off one element that only exists on the board.
 
-let shelfPress = null;   // { pointerId, ref, el, x0, y0, dragging }
+let shelfPress = null;   // { pointerId, ref, el, shelf, x0, y0, dragging }
 let shelfGhost = null;
 let shelfDropped = false;   // a drag just landed — eat the click that follows
+
+// Which shelves may be reordered right now. The board's shelf is off-limits
+// while a sheet is up (it is behind the modal); the Market's own strip is the
+// one shelf that IS in play there.
+const isMarketShelf = shelf => !!shelf?.classList.contains('shelf--market');
+function shelfBlocked(shelf) {
+  if (state.isAnimating || state.gameOver) return true;
+  if (state.inDraft || state.inColophon) return true;
+  return state.inMarket !== isMarketShelf(shelf);
+}
 
 // Where the held card would land, counted in seats that HOLD a patron: an
 // empty seat has no entry in state.patrons, so a card dropped over the empty
@@ -268,13 +285,13 @@ function shelfInsertIndex(shelf, clientX) {
 
 function endShelfPress(commit, x) {
   if (!shelfPress) return;
-  const shelf = document.getElementById('shelf');
+  const shelf = shelfPress.shelf;
   const wasDrag = shelfPress.dragging;
   shelfGhost?.remove();
   shelfGhost = null;
   shelfPress.el.classList.remove('patron--held');
 
-  if (commit && wasDrag && shelf && !blocked()) {
+  if (commit && wasDrag && shelf && !shelfBlocked(shelf)) {
     const moved = reorderPatrons(shelfPress.ref, shelfInsertIndex(shelf, x));
     shelfDropped = true;             // suppress the trailing click either way
     if (moved) {
@@ -285,20 +302,25 @@ function endShelfPress(commit, x) {
       log(`${name} takes seat ${seat + 1} — patrons act in the order they sit.`);
     }
   }
+  const wasMarket = isMarketShelf(shelf);
   shelfPress = null;
-  if (wasDrag) renderAll();          // restore the held card, or show the new order
+  if (wasDrag) {
+    renderAll();                     // restore the held card, or show the new order
+    // The Market's strip is patched in place rather than rebuilt, so the new
+    // seating has to be asked for by name.
+    if (wasMarket) updateMarketState();
+  }
 }
 
 export function initShelfDrag() {
-  const shelf = document.getElementById('shelf');
-  if (!shelf) return;
-
-  shelf.addEventListener('pointerdown', e => {
-    if (shelfPress || blocked()) return;
+  document.addEventListener('pointerdown', e => {
+    if (shelfPress) return;
     if (e.button !== undefined && e.button !== 0) return;   // primary only
-    if (e.target.closest('[data-sell]')) return;            // the ✕ dismisses
+    if (e.target.closest('[data-sell], [data-sell-patron]')) return;   // the ✕ dismisses
     const card = e.target.closest('.patron[data-patron]');
     if (!card) return;
+    const shelf = card.closest('.shelf');
+    if (!shelf || shelfBlocked(shelf)) return;
 
     // Deliberately no preventDefault here: on touch it would swallow the
     // click that tap-to-inspect is built on. Selection and scrolling are
@@ -308,6 +330,7 @@ export function initShelfDrag() {
       pointerId: e.pointerId,
       ref: card.dataset.uid ?? card.dataset.patron,
       el: card,
+      shelf,
       x0: e.clientX,
       y0: e.clientY,
       dragging: false,
@@ -317,8 +340,9 @@ export function initShelfDrag() {
 
   // A drag that lands is followed by a click on the card; that click would
   // otherwise open the popover the drag was never asking for.
-  shelf.addEventListener('click', e => {
+  document.addEventListener('click', e => {
     if (!shelfDropped) return;
+    if (!e.target.closest('.shelf')) return;
     shelfDropped = false;
     e.stopPropagation();
     e.preventDefault();
