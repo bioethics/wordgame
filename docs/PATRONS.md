@@ -75,7 +75,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | ⚡ **The Izzard** `izzard` | common | 4 | Any Z you play may be read as an S — and still scores as a Z. |
 | 🎶 **The Siren** `siren` | common | 4 | Vowels gain +2 Points — or +6 if they are azure. |
 | 🪻 **The Woad** `woad` 🔒 | common | 4 | As each chapter ends, 2 tiles of your collection are painted azure. |
-| 📚 **The Lexicographer** `lexicographer` 🔒 | uncommon | 6 | ×1.5 Mult when the word is not among the 1,500 commonest in English — reach for the word nobody else would. |
+| 📚 **The Lexicographer** `lexicographer` | uncommon | 6 | ×1.5 Mult when the word is not among the commonest in English — reach for the word nobody else would. |
 | 📟 **The Stenographer** `stenographer` | uncommon | 6 | Common acronyms and abbreviations count as words: LOL, BRB, WTF and the rest. |
 | ⛲ **The Fountain** `fountain` | uncommon | 7 | Azure tiles return to the bag when printed, instead of the discard pile. |
 | 🌀 **The Marbler** `marbler` | uncommon | 7 | Words with 2 or more azure tiles get ×2 Mult. |

@@ -162,11 +162,10 @@ reset by the spiked word itself, so a sacrificial APPLE is always a way back in.
 
 The two frequency editors read `wordlists-themed/common.txt`, the one themed
 list whose *order* is data: `js/themes.js` keeps each word's line number as its
-frequency rank. Three things read it, at three settings: the Populist takes the
-first 750, the Obscurantist bars the first 500, and The Lexicographer — a
-patron, not an editor — pays ×1.5 for anything ranked outside the first 1,500
-(or absent from the file altogether, so its 8,000 entries are a game number
-too). Rebuild it with `tools/build-common-list.mjs` (it filters a frequency list
+frequency rank. The Populist takes the first 750, the Obscurantist bars the
+first 500, and The Lexicographer — a patron, not an editor — pays ×1.5 for
+words absent from the file altogether, so its 8,000 entries are a game number
+too. Rebuild it with `tools/build-common-list.mjs` (it filters a frequency list
 down to words this dictionary will actually accept), and never sort it
 alphabetically.
 

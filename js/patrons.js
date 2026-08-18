@@ -98,19 +98,12 @@ import {
   state, getActiveColour, getActiveLetter, countsAsColour, luckyRoll,
   paintRandomTiles, shuffle, owns,
 } from './state.js';
-import { inTheme, themeSize, themeRank } from './themes.js';
+import { inTheme, themeSize } from './themes.js';
 // The Mirror reads a word backwards against the dictionary; the Haplographer's
 // licence reads it with one letter doubled.
 import { DICT } from './dict.js';
 
 const VOWELS = 'AEIOU';
-
-// The Lexicographer's bar, read off the same ranked common.txt the Populist
-// and the Obscurantist read (see js/bosses.js for their bands). A word ranked
-// at or beyond this — or absent from the list altogether — is obscure enough
-// to pay. It sits above both editors' bands on purpose: the editors judge what
-// a page will tolerate, this judges what is worth paying for.
-const LEXICOGRAPHER_BAND = 1500;
 
 // The four dearest letters in the case — 8+ Points apiece, one of each in the
 // starting bag. The Antiquary pays a finder's fee for any of them.
@@ -889,28 +882,25 @@ export const PATRON_DEFS = [
     },
   },
   {
-    // The one patron paid for what a word ISN'T, and the third reader of
-    // wordlists-themed/common.txt: the Obscurantist spikes inside 500, the
-    // Populist demands inside 750, and this seat pays outside LEXICOGRAPHER_BAND.
-    // Named rather than implied — it used to ask only that a word be off the
-    // eight-thousand-word list entirely, which is a bar the copy could not
-    // state and the player could not feel.
+    // The one patron paid for what a word ISN'T. wordlists-themed/common.txt
+    // holds the eight thousand commonest words of English that this dictionary
+    // also knows; anything outside it is, by that measure, a word most readers
+    // have never met.
     //
     // ×1.5 rather than the ×2 its neighbours pay, because the condition is
     // met far more often than theirs: a dictionary of 64,000 words is mostly
-    // obscure, so a solver clears this bar nineteen times in twenty. A player
-    // does not — the words that come to mind are the common ones — which is
-    // exactly the nudge this patron is for, and why it is worth playing rather
-    // than simulating. If it proves too easy in the hand, lower the multiplier
-    // rather than the band: the band is now a stated number, and the number is
-    // what makes the promise legible.
+    // obscure, so a solver clears this bar four times in five. A player does
+    // not — the words that come to mind are the common ones — which is exactly
+    // the nudge this patron is for, and why it is worth playing rather than
+    // simulating. (A stated 1,500-word band was tried here and reverted: as a
+    // number it read tighter but played looser, since "off the list entirely"
+    // is the harder ask.) If it proves too easy in the hand, lower the
+    // multiplier before narrowing the list: the list is shared with two editors.
     id: 'lexicographer', name: 'The Lexicographer', emoji: '📚', rarity: 'uncommon', cost: 6, guild: 'azure',
-    desc: `×1.5 Mult when the word is not among the ${LEXICOGRAPHER_BAND.toLocaleString()} commonest in English — reach for the word nobody else would.`,
+    desc: '×1.5 Mult when the word is not among the commonest in English — reach for the word nobody else would.',
     when: 'score',
     effect({ word, xMult }) {
-      if (!themeSize('common') || !word) return;
-      const rank = themeRank('common', word);
-      if (rank == null || rank >= LEXICOGRAPHER_BAND) xMult(1.5);
+      if (themeSize('common') && word && !inTheme('common', word)) xMult(1.5);
     },
   },
   {
