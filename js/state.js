@@ -401,6 +401,9 @@ export function startPage() {
   state.discardMode = false;
   state.sundryMode = -1;
   state.tubeOffer = null;
+  // A fresh hand means fresh tile ids, so no tube's remembered offer can
+  // still name anything — clear them rather than leave dangling ids around.
+  for (const s of state.sundries ?? []) s.offer = null;
   state.tongsBonus = 0;   // a page turn lets the furnace's heat out
   rollGamble();
 }
@@ -845,10 +848,36 @@ export function applySundry(idx, dir = 0) {
 // which word you reached for; an offer of two keeps a real choice without
 // the auto-pilot. Returns null (and leaves no offer) when nothing in the
 // hand will take paint.
-export function rollTubeOffer() {
-  const candidates = [...state.rack, ...state.word].filter(t => !t.colour && !isImmutable(t));
-  if (!candidates.length) { state.tubeOffer = null; return null; }
+export function rollTubeOffer(sundry = null) {
+  const takesPaint = t => !t.colour && !isImmutable(t);
+  const inHand = [...state.rack, ...state.word];
+  const byId = new Map(inHand.map(t => [t.id, t]));
+
+  // THE OFFER BELONGS TO THE TUBE, NOT TO THE GESTURE. It is remembered on the
+  // sundry itself, so putting the tube down and picking it up again lays out
+  // the SAME two tiles — otherwise backing out re-rolled the pair, and a
+  // player could keep flinching until the offer named the tile they wanted,
+  // which is the one thing the offer exists to prevent.
+  //
+  // Tiles that have since left the hand or taken paint drop out of the
+  // remembered offer; only when none survive does the tube lay out a fresh
+  // one. That is not a way back to fishing — emptying the offer means
+  // printing or discarding those tiles, which costs far more than it wins.
+  const kept = (sundry?.offer ?? []).filter(id => byId.has(id) && takesPaint(byId.get(id)));
+  if (kept.length) {
+    state.tubeOffer = kept;
+    if (sundry) sundry.offer = kept.slice();
+    return kept;
+  }
+
+  const candidates = inHand.filter(takesPaint);
+  if (!candidates.length) {
+    state.tubeOffer = null;
+    if (sundry) sundry.offer = null;
+    return null;
+  }
   state.tubeOffer = shuffle(candidates.slice()).slice(0, 2).map(t => t.id);
+  if (sundry) sundry.offer = state.tubeOffer.slice();
   return state.tubeOffer;
 }
 

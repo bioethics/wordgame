@@ -300,14 +300,36 @@ header {
 
 /* The tube's offer: the tiles paint might land on, lit until one is picked.
    A steady breath rather than a flash — the choice should feel unhurried. */
+/* The two tiles a tube has laid out. A ring on its own was too quiet to pick
+   out of a rack of ten, so the offer now says the same thing three ways: the
+   chosen tiles stand up off the rack, they wear a brighter and thicker ring,
+   and everything they compete with steps back (.zone--offering, below). The
+   lift is what the eye catches; the ring is what confirms it. */
 .tile--tube-offer {
-  outline: 2px solid rgba(255, 214, 140, 0.9);
-  outline-offset: 2px;
-  animation: tube-offer-breathe 1.2s ease-in-out infinite alternate;
+  outline: 3px solid #ffd98c;
+  outline-offset: 3px;
+  filter: drop-shadow(0 0 10px rgba(255, 200, 105, 0.7));
+  animation: tube-offer-breathe 1.15s ease-in-out infinite alternate;
 }
 @keyframes tube-offer-breathe {
-  from { outline-color: rgba(255, 214, 140, 0.45); }
-  to   { outline-color: rgba(255, 214, 140, 0.95); }
+  from { outline-color: rgba(255, 214, 140, 0.6);
+         filter: drop-shadow(0 0 6px rgba(255, 196, 96, 0.45)); }
+  to   { outline-color: #fff0c4;
+         filter: drop-shadow(0 0 18px rgba(255, 205, 120, 0.95)); }
+}
+
+/* Only a tube lays out an offer. The ratchet, the loupe and the tongs take any
+   tile in the hand, so their armed zones must dim nothing — which is why this
+   hangs off a class of its own rather than off .zone--painting. A picked tile
+   is excluded from both rules: its own selected styling is the louder signal
+   and must not be fought over. */
+.zone--offering .tile--tube-offer:not(.tile--selected) {
+  transform: translateY(-7px) scale(1.07);
+  z-index: 4;
+}
+.zone--offering .tile:not(.tile--tube-offer):not(.tile--selected) {
+  opacity: 0.38;
+  filter: grayscale(0.75) brightness(0.7);
 }
 
 .patron-emoji { font-size: 23px; line-height: 1; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.25)); }
@@ -3603,7 +3625,14 @@ input[type='checkbox'] {
 @media (prefers-reduced-motion: reduce) {
   .tile--trim-gold::before { animation: none; }
   /* The tube's offer still has to read as offered — hold the outline steady */
-  .tile--tube-offer { animation: none; }
+  /* An offered tile still has to read as offered — hold the ring and the
+     glow at their brightest, and drop only the breathing. The lift and the
+     dimming of everything else aren't animations, so they stand as they are. */
+  .tile--tube-offer {
+    animation: none;
+    outline-color: #fff0c4;
+    filter: drop-shadow(0 0 14px rgba(255, 205, 120, 0.9));
+  }
   /* A lit patron still has to read as lit — hold the glow, drop the motion */
   .patron--armed, .patron--just-armed {
     animation: none;

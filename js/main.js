@@ -1085,7 +1085,7 @@ $('sundries')?.addEventListener('click', async e => {
     cancelDiscardMode(true);
     cancelSundryMode(true);
     clearAllSelected();
-    const offer = rollTubeOffer();
+    const offer = rollTubeOffer(armed);
     if (!offer) { log('Nothing in your hand will take paint — the tube keeps.', 'warn'); return; }
     state.sundryMode = idx;
     log(offer.length === 2

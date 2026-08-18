@@ -634,6 +634,11 @@ function applyPaintingMode(el) {
   const armed = state.sundryMode >= 0 ? state.sundries[state.sundryMode] : null;
   el.classList.toggle('zone--painting', !!armed);
   el.classList.toggle('zone--stepping', armed?.kind === 'ratchet');
+  // Only a tube lays tiles out to choose between; the ratchet, loupe and
+  // tongs take any tile in the hand, so their zones must dim nothing. That is
+  // why this is a class of its own rather than part of zone--painting.
+  el.classList.toggle('zone--offering',
+    armed?.kind === 'tube' && !!state.tubeOffer?.length);
   if (armed) el.style.setProperty('--paintcol', COLOURS[armed.colour]?.glyph ?? 'var(--steel)');
 }
 
