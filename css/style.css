@@ -1061,6 +1061,10 @@ button.sundry:hover { transform: translateY(-2px); }
   40%  { transform: scale(1.35); }
   100% { transform: scale(1); }
 }
+/* The measure — the word's own length, struck in type-metal steel so it reads
+   apart from the paints. First in the row: it is the multiplier every press
+   owns before it has bought anything. */
+.chip--length  { background: #55677a;        color: #eaf2fa; }
 .chip--crimson { background: var(--crimson); color: #fff0ec; }
 .chip--azure   { background: var(--azure);   color: #eef6ff; }
 .chip--jade    { background: var(--jade);    color: #ecfff5; }
@@ -1070,6 +1074,7 @@ button.sundry:hover { transform: translateY(-2px); }
 /* Most runs never hold a cursed tile, so its chip only appears when one is
    actually in the word — the other five are always there, dim at ×1. */
 .chip--cursed:not(.chip--on) { display: none; }
+.chip--on.chip--length  { box-shadow: 0 0 10px rgba(125, 143, 160, 0.65); }
 .chip--on.chip--crimson { box-shadow: 0 0 10px rgba(201, 79, 67, 0.6); }
 .chip--on.chip--azure   { box-shadow: 0 0 10px rgba(79, 134, 201, 0.6); }
 .chip--on.chip--jade    { box-shadow: 0 0 10px rgba(63, 163, 113, 0.6); }
@@ -1869,9 +1874,20 @@ button.sundry:hover { transform: translateY(-2px); }
 .fl-curse   { color: #ff7a66; font-size: 19px; font-weight: 800; text-shadow: 0 0 8px rgba(201, 60, 45, 0.65); }
 .fl-spike   { color: #ffb3a6; font-size: 18px; font-weight: 800; text-shadow: 0 0 9px rgba(201, 60, 45, 0.75); }
 .fl-boost   { color: #90e8ba; font-size: 19px; }
+/* The measure's milestone — a line of copy, not arithmetic, so it is set in
+   the serif's italic like the game's other spoken lines and rises above the
+   chip's own ×N floater. */
+.fl-flourish {
+  color: #f3debc;
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9), 0 0 20px rgba(246, 214, 138, 0.35);
+}
 .fl-refresh { color: #f0a86e; font-size: 17px; }
 .fl-return  { color: #b9e3ff; font-size: 17px; }
 .fl-set   { font-size: 19px; }
+.fl-set--length  { color: #cfdeeb; }
 .fl-set--crimson { color: #ff9d8e; }
 .fl-set--azure   { color: #8ec6ff; }
 .fl-set--jade    { color: #90e8ba; }
@@ -3598,6 +3614,9 @@ input[type='checkbox'] {
   .ro-op { font-size: 13px; }
   .ro-chips { gap: 3px; }
   .chip { min-width: 31px; font-size: 10.5px; padding: 4px 3px 5px; }
+  /* Seven chips don't fit a phone's readout: the measure's chip appears the
+     moment a sixth letter lights it, like the cursed chip does. */
+  .chip--length:not(.chip--on) { display: none; }
   .ro-total-wrap { min-width: 56px; }
   .ro-total { font-size: 25px; }
 

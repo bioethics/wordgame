@@ -120,6 +120,7 @@ export const MULT_TRACKS = {
   ...COLOURS,
   purple: { label: 'Purple', glyph: '#8a5fb0', bright: '#cfa6ff' },
   cursed: { label: 'Cursed', glyph: '#c93c2d', bright: '#ff7a66' },
+  length: { label: 'Length', glyph: '#7d8fa0', bright: '#d9e6f2' },   // type-metal steel
 };
 
 export const PAINT_PER_POT   = 3;   // tiles painted per draft pot (random, unpainted)
@@ -212,7 +213,11 @@ export const STALL_DEFS = {
     empty: 'Every tile you own already carries a nick.',
   },
   stereotyper: {
-    name: 'The Stereotyper', emoji: '🗜️', base: 2,
+    // base 4 where its neighbours open at 2-3: a copy inherits every feature
+    // the original carries — paint, trim, nick, second face — so a perfect
+    // duplicate of a loaded tile is worth more than any single improvement
+    // the other stalls sell, and it was the cheapest thing on the row.
+    name: 'The Stereotyper', emoji: '🗜️', base: 4,
     desc: 'Casts an exact copy of any tile.',
   },
 };
@@ -263,6 +268,39 @@ export const NICKS = {
   left:  { label: 'Left nick',  mult: NICK_MULT, price: 4,
            desc: `×${NICK_MULT} Points to every tile on its left.` },
 };
+
+// ─── The measure (the length multiplier) ──────────────────────────────────────
+// The one multiplier every press owns from its first page: the word itself.
+// Words of LENGTH_MULT_MIN letters or more earn their own chip in the readout —
+// ×LENGTH_MULT_BASE at the threshold, +LENGTH_MULT_STEP per letter beyond — so
+// the reach for a longer word is never wasted however bare the tiles are, and
+// it MULTIPLIES with the paint rather than competing against it: the best word
+// is a long one in colour, not a short one in colour.
+//
+// LETTERS, not tiles, like every rule about a word's shape — which is exactly
+// why ligatures and dual faces are worth collecting: an ING tile is three
+// letters of measure from one seat in the hand.
+export const LENGTH_MULT_MIN  = 6;
+export const LENGTH_MULT_BASE = 2;
+export const LENGTH_MULT_STEP = 0.5;
+export const lengthMult = n =>
+  n < LENGTH_MULT_MIN ? 1 : LENGTH_MULT_BASE + (n - LENGTH_MULT_MIN) * LENGTH_MULT_STEP;
+
+// The flourish announced as the measure pays, one per milestone — EDIT FREELY,
+// these are copy, not code. Longer words than the table knows fall through to
+// LENGTH_FLOURISH_BEYOND, with the letter count swapped in for {n}.
+export const LENGTH_FLOURISHES = {
+  6:  'Six letters — the compositor nods.',
+  7:  'Seven letters — a full measure!',
+  8:  'Eight letters — the pressmen gather round.',
+  9:  'Nine letters — the founder wipes away a tear.',
+  10: 'Ten letters — the whole case emptied!',
+  11: 'Eleven letters — the Folio itself is honoured.',
+  12: 'Twelve letters — words about words fail us.',
+};
+export const LENGTH_FLOURISH_BEYOND = '{n} letters — the stuff of legend.';
+export const lengthFlourish = n =>
+  LENGTH_FLOURISHES[n] ?? LENGTH_FLOURISH_BEYOND.replace('{n}', n);
 
 // ─── Run structure ────────────────────────────────────────────────────────────
 export const RACK_SIZE          = 10;

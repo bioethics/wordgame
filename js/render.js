@@ -767,7 +767,7 @@ export function renderCounts() {
 
 // Cursed rides at the end: its chip only appears when a cursed tile is in the
 // word (see the CSS), so the readout doesn't carry a slot most runs never use.
-export const CHIP_COLOURS = [...Object.keys(COLOURS), 'purple', 'cursed'];
+export const CHIP_COLOURS = ['length', ...Object.keys(COLOURS), 'purple', 'cursed'];
 
 export function updateReadoutPreview(script) {
   const ro = $('readout');

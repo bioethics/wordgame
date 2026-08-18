@@ -1,7 +1,7 @@
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, PURPLE_TRIM_STEP, REWARD, CURSED_MULT,
   CURSED_PENALTY, SPIKE_MULT, SILVER_BONUS, isDeadline, splitMarks,
-  HONORIFIC_STEP, FLEURON, FLEURON_PAGE_COIN,
+  HONORIFIC_STEP, FLEURON, FLEURON_PAGE_COIN, lengthMult,
 } from './constants.js';
 import { PATRON_DEFS, patronById, guildsOf, guildSeats } from './patrons.js';
 import { bossById } from './bosses.js';
@@ -205,6 +205,21 @@ export function computeScore(wordTiles) {
 
   let mult = 1;
   const colourSteps = [];
+
+  // The measure speaks first: the word's own length, the one multiplier a
+  // press owns before it has bought anything. Letters, not tiles — an ING
+  // ligature is three letters of measure — and marks don't count, having
+  // already been stripped from `letters`. It rides the colour steps so it
+  // previews, chips and animates exactly like them.
+  const measure = lengthMult(letters.length);
+  if (measure > 1) {
+    colourSteps.push({
+      colour: 'length', ids: wordTiles.map(t => t.id),
+      count: letters.length, mult: measure,
+    });
+    mult *= measure;
+  }
+
   for (const colour of Object.keys(COLOURS)) {
     const list = byColour[colour];
     if (!list?.length) continue;

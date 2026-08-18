@@ -43,7 +43,14 @@ score = Points × Mult
 - **Points** — the sum of every tile's value (after trims and nicks), plus
   everything the patrons then add to it. It is a *running* figure: the patrons
   act one seat at a time, and a patron's ×Mult multiplies it where it stands.
-- **Mult** — the product of the five colour multipliers. Each colour starts at
+- **Mult** — the product of the **length multiplier** and the five colour
+  multipliers. Length is the one multiplier every press owns from its first
+  page: a word of 6 letters earns ×2, +0.5 per letter beyond (7 → ×2.5,
+  8 → ×3…), counted in letters like every shape rule — so ligatures and dual
+  faces are length cheats, and a long word in colour beats a short word in
+  colour, always. Each milestone prints a flourish of its own
+  (`LENGTH_FLOURISHES` in `js/constants.js` — copy, not code; edit freely).
+  Each colour starts at
   ×1 and every painted *tile* of that colour in the word raises it by 1
   (×2, ×3, …); purple trims raise a fifth multiplier in half-steps (×1.5, ×2,
   ×2.5, …). Spreading colours multiplies together: one tile each of two colours
@@ -374,6 +381,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Compost heap size & what you may take a visit | `js/constants.js` → `COMPOST_HEAP_MAX`, `COMPOST_PER_MARKET` |
 | Purple trim step size | `js/constants.js` → `PURPLE_TRIM_STEP` |
 | Nick multiplier & prices | `js/constants.js` → `NICK_MULT`, `NICKS` |
+| The length multiplier — threshold, base, step, and the milestone copy | `js/constants.js` → `LENGTH_MULT_MIN`, `LENGTH_MULT_BASE`, `LENGTH_MULT_STEP`, `LENGTH_FLOURISHES` |
 | Tube price / tiles per tube / workbench slots / sell-back | `js/constants.js` → `TUBE_PRICE`, `TUBE_TILES`, `SUNDRY_SLOTS`, `SUNDRY_SELL` |
 | Reshuffle sundry price | `js/constants.js` → `RESHUFFLE_PRICE` |
 | Ratchet sundry price | `js/constants.js` → `RATCHET_PRICE` (the alphabet it walks is derived from `TILE_POINTS` — see `SHIFT_RING` in `js/state.js`) |

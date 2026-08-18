@@ -18,6 +18,7 @@ import {
   REACTION, NEOLOGIST_LENGTH, MATERIALS, TRIMS, WRAPPED_CONTENTS, MARK_TRIM,
   chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks, isDeadline,
   FLEURON, TOOLBOX_POOL, HONORIFIC_STEP, TONGS_BONUS, LOUPE_CAP, sundryTip,
+  lengthFlourish,
 } from './constants.js';
 import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
 import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
@@ -564,6 +565,12 @@ async function submitWord() {
     }
     sfx.chime();
     floatText($('word'), `${label} ×${fmtMult(step.mult)}`, `fl-set fl-set--${step.colour}`, { dy: -60 });
+    // The measure's milestone gets its flourish — a line of copy above the
+    // chip's arithmetic, one per letter-count (LENGTH_FLOURISHES, edit freely).
+    if (step.colour === 'length') {
+      floatText($('word'), lengthFlourish(step.count), 'fl-flourish', { dy: -138 });
+      sparkleBurst($('word'), Math.min(6 + step.count, 18));
+    }
     setChip(ro.chip(step.colour), step.mult);
     pulse(ro.chip(step.colour), 'chip--pop', 420);
     await sleep(ANIM.stepColour);
