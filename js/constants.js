@@ -382,7 +382,7 @@ export const MARK_TRIM = 'purple';   // what a wrapped mark always comes wearing
 export const MATERIALS = {
   cursed: {
     label: 'Cursed', metal: 'Hellbox iron', emoji: '🩸',
-    desc: `×${CURSED_MULT} Mult when printed. Cannot be discarded. Words set while this remaings in your hand lose ${CURSED_PENALTY} Points.`,
+    desc: `×${CURSED_MULT} Mult when printed. Cannot be discarded. Words set while this remains in your hand lose ${CURSED_PENALTY} Points.`,
   },
   ghost: {
     label: 'Ghost', metal: 'Ghost metal', emoji: '👻',
@@ -513,7 +513,7 @@ export function sundryTip(s) {
   if (s?.kind === 'ratchet') return {
     head: 'Ratchet',
     body: 'Tap it, tap one letter, then tap the ratchet again to step that letter '
-        + 'a single place along the alphabet'.',
+        + 'a single place along the alphabet.',
   };
   if (s?.kind === 'reshuffle') return {
     head: 'Reshuffle',
@@ -534,7 +534,7 @@ export function sundryTip(s) {
   };
   if (s?.kind === 'tongs') return {
     head: 'Tongs',
-    body: `Destroys a tile for good, and gives your next work +${TONGS_BONUS} Points.`,
+    body: `Destroys a tile for good, and gives your next word +${TONGS_BONUS} Points.`,
   };
   if (s?.kind === 'wash') return {
     head: 'Ink wash',

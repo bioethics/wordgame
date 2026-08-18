@@ -62,9 +62,11 @@ const POPULIST_BAND = 500;
 // costs a solver almost nothing: it simply reads further down the list, losing
 // 2% of its score ceiling. A player has to *think of* the rarer word, and the
 // words that come to mind first are exactly the common ones. This editor is
-// therefore far harder in the hand than on paper, and it is the one to tune by
-// playing rather than by simulating.
-const OBSCURANTIST_BAND = 1000;
+// therefore far harder in the hand than on paper, and it was always the one to
+// tune by playing rather than by simulating — which is exactly what happened:
+// 1,000 proved punishing in the hand, and the band came down to 250. Both the
+// desc and the spike message quote this number, so moving it moves the copy.
+const OBSCURANTIST_BAND = 250;
 
 // common.txt is fetched, so a Deadline can be dealt before the list lands.
 // Neither editor may judge until it has. There is no single safe answer to
