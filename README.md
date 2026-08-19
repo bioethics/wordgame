@@ -302,12 +302,16 @@ there is no other road to one.
 
 **Hidden things** — the game has a few, and this is the only place they are
 written down. Set the word **CAT** and something takes an interest. Nothing
-arrives on the board; but at the next Market *the Domestic Shorthair* is waiting
-at the head of the patrons, **free**, and whether she gets a seat is your call
-like any other. Words holding RAT pay her a Coin and earn her a laurel, and a
-RAT tile in the word is eaten outright — which makes *the Rat Catcher*, who
-casts one every page, either her best friend or her larder. Dismiss her and she
-will simply be there again next Market, unbothered.
+arrives on the board; but at the next Market — and only the next one — *the
+Domestic Shorthair* is waiting at the head of the patrons, **free**, and
+whether she gets a seat is your call like any other. The offer is spent the
+instant that Market rolls, bought or not: reroll, close the shop, or simply
+decline, and she has moved on until you spell CAT again. That one-shot rule is
+load-bearing — without it a Headsman build could dismiss and rebuy her forever,
+each dismissal worth another permanent +0.2 Mult for free. Words holding RAT
+pay her a Coin and earn her a laurel, and a RAT tile in the word is eaten
+outright — which makes *the Rat Catcher*, who casts one every page, either her
+best friend or her larder.
 
 **The Market** (between pages) keeps a fixed layout with churning contents:
 4 patrons, 4 tiles (5 with the Medievalist's stall), 2 **sundries**, and 2 **stalls** drawn from a roster of

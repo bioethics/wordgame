@@ -225,14 +225,18 @@ function rollOffers() {
   offerTheCat();
 }
 
-// A cat noticed you (js/main.js, on the word CAT) and has come to look you over.
-// She waits at the HEAD of the patrons rather than among them — she was not
-// sent for, and does not queue — and she is free, so the only question is
-// whether she is worth a seat. Offered whenever she is noticed and unowned, so
-// dismissing her is not final: she will simply be there again next Market,
-// unbothered.
+// A cat noticed you (js/main.js, on the word CAT) and has come to look you over
+// — ONCE. She waits at the HEAD of the patrons rather than among them, she was
+// not sent for and does not queue, and she is free. The pending flag is spent
+// the instant this runs, whether or not you buy her, which is what keeps her a
+// find rather than a standing feature of every Market from here on: reroll or
+// return later and she has already moved on, and only spelling CAT again
+// brings her back for a fresh look. (See the long note on noticeTheCat in
+// main.js for why this matters — it is the only thing standing between the
+// Headsman and a free multiplier machine.)
 function offerTheCat() {
-  if (!state.catNoticed || owns('shorthair')) return;
+  if (!state.catPending || owns('shorthair')) return;
+  state.catPending = false;
   market.patronOffers.unshift({ id: 'shorthair', sold: false, data: {} });
 }
 

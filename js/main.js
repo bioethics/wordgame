@@ -158,17 +158,24 @@ async function patronReactions(script) {
   }
 }
 
-// Set the word CAT and something takes an interest. Nothing arrives on the
-// board — a cat is not summoned, it decides — but at the next Market she is
-// waiting at the head of the patrons, free, and the choice of whether to give
-// her a seat is yours like any other.
+// Set the word CAT and something takes an interest — but only ONE Market's
+// worth of interest. She waits at the head of the patrons next time the shop
+// opens, free, and the offer is spent the moment that Market rolls, bought or
+// not (offerTheCat, js/market.js): she does not linger from visit to visit.
+// Spell CAT again whenever you want another look.
 //
-// The notice is latched on state rather than on a patron, so it survives the
-// shelf being full, the page being lost, and the cat being dismissed later; and
-// it is said once, the first time, because a second CAT is not a second cat.
+// This is what keeps her from being a standing loophole rather than a find —
+// without it, a Headsman build could dismiss her and rebuy her free every
+// single Market forever, each dismissal worth another permanent +0.2 Mult for
+// nothing. Feeding him a cat is fine; feeding him infinitely, for free, is not
+// the deal. Spelling CAT again is a real cost (a whole word, on a page with a
+// quota to meet), so the loophole closes as soon as it has to be re-earned.
+//
+// `catPending` already latches once ownership is checked here, so a run where
+// she is currently seated is quietly skipped rather than re-notified.
 function noticeTheCat(script) {
-  if (state.catNoticed || script?.letters !== 'CAT') return;
-  state.catNoticed = true;
+  if (owns('shorthair') || state.catPending || script?.letters !== 'CAT') return;
+  state.catPending = true;
   sfx.chime();
   log('🐈 Somewhere beyond the lamplight, something sits up and takes an interest.', 'good');
 }

@@ -423,6 +423,7 @@ export function newRun() {
     manuscript: [],
     endless: false, inMarket: false, inDraft: false, inColophon: false,
     isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null, gameOver: false,
+    catPending: false,
   });
   startPage();
 }
