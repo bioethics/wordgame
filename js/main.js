@@ -11,7 +11,7 @@ import {
   rollTubeOffer, applyWash, washOff, effectiveSundrySlots,
   getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile,
   trashFromCollection, mergeTiles, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
-  effectiveWordsPerPage, rollGamble,
+  effectiveWordsPerPage, rollGamble, effectivePatronSlots, nextId,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
@@ -156,6 +156,36 @@ async function patronReactions(script) {
     speechBubble(card, randomQuip(script.word));
     shown++;
   }
+}
+
+// Set the word CAT and a cat turns up. It takes the FIRST seat at the table
+// rather than the last, which is where its laurels are worth most — a cat has
+// no sense of queueing — and it is free, so dismissing it costs you nothing but
+// the seat you gave it.
+//
+// Once a run, latched on state rather than on the patron, so that dismissing
+// the cat doesn't summon a fresh one the next time you spell it. A full shelf
+// is the one thing that can turn one away; spell CAT again when a seat opens
+// and it will still be waiting.
+function adoptTheCat(script) {
+  if (state.catAdopted || script?.letters !== 'CAT') return;
+  const def = patronById('shorthair');
+  if (!def) return;
+  if (state.patrons.length >= effectivePatronSlots()) {
+    log('🐈 Something watches from the shelf, and finds no room to sit.', 'warn');
+    return;
+  }
+  state.catAdopted = true;
+  state.patrons.unshift({ id: def.id, uid: nextId(), data: {} });
+  renderAll();
+  const card = patronCard(state.patrons[0]);
+  if (card) {
+    pulse(card, 'patron--firing', 620);
+    sparkleBurst(card, 12);
+    speechBubble(card, 'mrrp');
+  }
+  sfx.chime();
+  log(`🐈 ${def.name} has moved in, and taken the best seat. ${def.desc}`, 'good');
 }
 
 // ─── Titivillus (one wrong vowel forgiven) ────────────────────────────────────
@@ -718,6 +748,11 @@ async function submitWord() {
   if (vouched === 'stenographer') msg += `  📟 The Stenographer vouches for it.`;
   if (vouched === 'expectants')   msg += `  🤰 The Expectant Parents had that very name on their list.`;
   log(msg, 'good');
+
+  // Said after the score, so the arrival isn't the line the score writes over.
+  // The cat is not seated for the word that summoned it — it turns up to find
+  // the work already done, which is exactly right.
+  adoptTheCat(script);
 
   // Tiles fly to wherever they actually went
   renderWord();

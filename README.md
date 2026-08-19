@@ -109,7 +109,7 @@ plus an optional **trim** and **nick**.
 | Paint | crimson / azure / jade / amber — each raises its colour's multiplier by 1 |
 | Trim | **Gold** pays 1 Coin · **Silver** +5 Points, counted into the tile's corner number wherever it appears and written in the trim's own silver, so the tile says what it is worth rather than making you add · **Cobalt** refreshes 1 Discard (and wears the Discard's own blue) · **Purple** raises the fifth multiplier by 0.5 |
 | Nick | A notch cut into one edge; the notched side is the direction. **Right** ×2 Points to everything on its right · **Left** ×2 to its left. Nicks don't stack — a tile is multiplied once at most. While you compose, an affected tile's corner number becomes the multiplied value, restyled, rippling outward from the notch. |
-| Letterform | Dual tiles hold two letters (flip to switch; paint, trim and nick belong to the tile, so both letters wear them) · Ligatures ING · CH · CK · TH · WH · QU spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Medieval sorts** þ · ȝ · Ƿ stand in for ordinary letters, and come only from the Medievalist's stall · **Marks** ? and ! spell nothing at all, and come only from a wrapped tile, purple-trimmed |
+| Letterform | Dual tiles hold two letters (flip to switch; paint, trim and nick belong to the tile, so both letters wear them) · Ligatures ING · CH · CK · TH · WH · QU spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Medieval sorts** þ · ȝ · Æ · Ƿ stand in for ordinary letters, and come only from the Medievalist's stall · **Marks** ? and ! spell nothing at all, and come only from a wrapped tile, purple-trimmed — cut one into the other and you get the **interrobang** ‽ |
 | Material | What the tile is cast from, under everything else: ordinary lead, or **cursed** / **ghost** / **rainbow** (see below) |
 | Growth | Grown points — permanent +1s a patron (The Grafter) writes into a tile, worn as a jade corner number wherever the tile appears |
 
@@ -276,11 +276,13 @@ collection ships unpainted, so those two paints are where colour enters the
 run. No patron is drafted: the first one is hired at the first Market, with
 coins, once you've printed a page and know what the press needs.
 
-**The Medieval sorts** — three letters English used to have and gave up, sold
+**The Medieval sorts** — four letters English used to have and gave up, sold
 only at *the Medievalist's* stall. Each one **stands for** ordinary letters: **þ**
-thorn is TH (10 Points), **Ƿ** wynn is W (8), and **ȝ** yogh is Y, GH or Z (5) —
+thorn is TH (10 Points), **Ƿ** wynn is W (8), **ȝ** yogh is Y, GH or Z (5) —
 the last being real, if by accident: Scots printers short of the sort set a z in
-its place, which is why *Menzies* is said "Ming-iss". They print as themselves
+its place, which is why *Menzies* is said "Ming-iss" — and **Æ** ash is AE, A or
+E (1), the digraph first and its two halves after, which is the order English
+itself wore it down in. They print as themselves
 and score their own Points, but the dictionary, your patrons, the editor and the
 measure all see the letters they stand for, so þORN is counted and judged as
 THORN — five letters of measure from four tiles, exactly the deal the TH ligature
@@ -288,6 +290,21 @@ has always had. Every reading is tried in order and the first that makes a word
 wins. They take paint, trims and nicks like any tile, but never a second face.
 The list, the points and the substitutions live in one place: `MEDIEVAL` in
 `js/constants.js`.
+
+**The interrobang** — **‽**, one glyph for `?!`, is the only sort you *make*
+rather than find. Hold a `?` and a `!` and the Punchcutter will offer to cut the
+pair together; what comes back is a single tile that closes a word by itself
+where the two marks always cost you two rack places. It is worth **50 Points**,
+the most of anything in the case, and gives the word **×1.5 Mult** besides.
+Nothing is consumed — the other mark stays where it is — and there is no other
+road to one.
+
+**Hidden things** — the game has a few, and this is the only place they are
+written down. Set the word **CAT** and *the Domestic Shorthair* moves in: free,
+unlisted at the Market, and straight into the first seat at your table. Words
+holding RAT pay her a Coin and earn her a laurel, and a RAT tile in the word is
+eaten outright — which makes *the Rat Catcher*, who casts one every page, either
+her best friend or her larder.
 
 **The Market** (between pages) keeps a fixed layout with churning contents:
 4 patrons, 4 tiles (5 with the Medievalist's stall), 2 **sundries**, and 2 **stalls** drawn from a roster of

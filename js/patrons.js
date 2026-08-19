@@ -377,22 +377,17 @@ export const PATRON_DEFS = [
     // The stall is one extra tile slot, stocked with one medieval sort (see
     // MEDIEVAL in constants.js), dressed like any other offered tile but never
     // given a second face: a þ that could flip to a P would be nobody's idea
-    // of a thorn. Priced under what it scores, which is the point of him — the
-    // sorts are worth 5, 8 and 10 where the letters they stand for are worth
-    // 4, 4 and 5.
+    // of a thorn. Priced under what it scores, which is the point of him: thorn
+    // is worth 10 where the TH it stands for is worth 5.
     //
-    // The yogh on arrival is once, latched, not once a page: it is a signing
-    // gift, so that the stall has something to build on from the moment he
-    // sits rather than only after the next Market.
+    // He gives nothing on arrival. A free yogh was tried and cut — the stall is
+    // already a standing benefit at every Market, and the yogh is the most
+    // useful sort of the four, so a signing gift on top made the page after
+    // hiring him the best of the run for no decision at all. What he sells is
+    // the whole of what he is.
     id: 'medievalist', name: 'The Medievalist', emoji: '🏰', rarity: 'rare', cost: 8, guild: ['amber', 'azure'],
-    desc: 'Opens a stall at the Market selling medieval sorts — þ, ȝ and Ƿ — and hands you a yogh on arrival.',
+    desc: 'Opens a stall at the Market selling medieval sorts — þ, ȝ, Æ and Ƿ — cheap, and worth far more than they cost.',
     when: 'meta',   // the stall is stocked in js/market.js; the sorts are read in js/constants.js
-    onPageStart({ data, cast }) {
-      if (data.gifted) return null;
-      data.gifted = true;
-      const tile = cast({ letter: 'Ȝ' });
-      return { note: 'a yogh, with his compliments', tiles: [tile] };
-    },
   },
   {
     id: 'quartermaster', name: 'The Quartermaster', emoji: '🎒', rarity: 'uncommon', cost: 5, guild: 'crimson',
@@ -844,6 +839,35 @@ export const PATRON_DEFS = [
     effect({ data, xMult }) {
       const heads = data?.heads ?? 0;
       if (heads) xMult(Math.round((1 + heads * HEADSMAN_STEP) * 100) / 100);
+    },
+  },
+  {
+    // Not for sale, and not in the shop's pool (`unlisted`): the only way to a
+    // cat is to set the word CAT, whereupon one arrives and takes the first
+    // seat at the table (see main.js). Free, so dismissing it pays nothing —
+    // which is the right price for a stray.
+    //
+    // RAT is 1.6% of the dictionary, so the laurel is a genuine catch rather
+    // than an income: aim for it and you might land one every few pages. With
+    // the Rat Catcher seated it is faster, since his RAT tile arrives every
+    // page and the letters R-A-T come with it — which is exactly the pair this
+    // patron exists to complete. The tile itself is eaten, permanently, so his
+    // gift becomes her dinner.
+    id: 'shorthair', name: 'The Domestic Shorthair', emoji: '🐈', rarity: 'rare', cost: 0,
+    guild: 'amber', unlisted: true,
+    desc: `Words holding RAT pay 1 Coin and crown this patron with a laurel — and a RAT tile in the word is eaten.`,
+    when: 'score',
+    effect({ word, addCoins }) { if (word.includes('RAT')) addCoins(1); },
+    onPrinted({ tiles, script, data, burn }) {
+      const notes = [];
+      if ((script?.letters ?? '').includes('RAT')) {
+        data.honorifics = (data.honorifics ?? 0) + 1;
+        notes.push(`a rat! +${data.honorifics * HONORIFIC_STEP} Points every word`);
+      }
+      // The Rat Catcher's own tile, eaten where it sits.
+      const eaten = tiles.filter(t => getActiveLetter(t) === 'RAT' && burn(t));
+      if (eaten.length) notes.push(`${eaten.length > 1 ? `${eaten.length} RATs` : 'the RAT'} eaten`);
+      return notes.length ? { note: notes.join(' · '), burned: eaten } : null;
     },
   },
   {

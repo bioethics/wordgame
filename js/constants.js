@@ -31,9 +31,10 @@ export const TILE_POINTS = {
   // The medieval sorts (see MEDIEVAL below) pay well over what they stand for —
   // TH is 5 where thorn is 10 — which is the whole of what The Medievalist's
   // stall sells. Kept in step with MEDIEVAL[…].points by the check just after it.
-  'Þ':10, 'Ȝ':5, 'Ƿ':8,
+  'Þ':10, 'Ȝ':5, 'Ƿ':8, 'Æ':1,
   '☙':1,                    // the fleuron — an ornament, not a letter; prints alone
   '?':1, '!':1,
+  '‽':50,                   // the interrobang — cut, never dealt; see INTERROBANG
 };
 
 export const BAG_COUNTS = {
@@ -58,7 +59,7 @@ export const LIGATURES = ['ING', 'CH', 'CK', 'TH', 'WH', 'QU', 'RAT', 'OLOGY'];
 // patron and nowhere else. RAT belongs to The Rat Catcher; OLOGY is The
 // Scientist's, and only ever on loan; the fleuron is sold at its own price
 // (FLEURON_PRICE), never rolled among the ordinary sorts.
-export const EXCLUSIVE_LETTERS = ['RAT', 'OLOGY', '☙', 'Þ', 'Ȝ', 'Ƿ'];
+export const EXCLUSIVE_LETTERS = ['RAT', 'OLOGY', '☙', 'Þ', 'Ȝ', 'Ƿ', 'Æ', '‽'];
 
 // ─── The medieval sorts (The Medievalist's stall) ─────────────────────────────
 // Three letters English used to have and gave up. Each one STANDS FOR ordinary
@@ -87,6 +88,12 @@ export const MEDIEVAL = {
     note: 'Middle English’s workhorse: the Y of ȝe, and the GH of niȝt — night. Scots '
         + 'printers, short of the sort, set z in its place, which is why Menzies is said '
         + '“Ming-iss” and Dalziel “Dee-ell”.',
+  },
+  'Æ': {
+    glyph: 'Æ', name: 'Ash', points: 1, reads: ['AE', 'A', 'E'],
+    note: 'A and E written as one letter, for a sound Latin had no sign for — the a of cat. '
+        + 'It survived in the words English took from Latin (encyclopædia, æther) and has been '
+        + 'quietly losing its second half ever since.',
   },
   'Ƿ': {
     glyph: 'Ƿ', name: 'Wynn', points: 8, reads: ['W'],
@@ -169,9 +176,19 @@ export const FLEURON_OFFER_CHANCE = 0.18;  // odds a Market tile slot holds one
 // way a mark enters a run is out of a wrapped tile, always under a purple trim
 // (see WRAPPED_CONTENTS). That makes a ? a find rather than a purchase, which
 // suits a sort that spells nothing and exists to be tacked onto a finished word.
+// The marks a run can actually be dealt: a wrapped tile casts one of these two
+// and nothing else. The interrobang is not among them — it is made, not found.
 export const MARKS      = ['?', '!'];
-export const MARK_RUNS  = ['?', '!', '?!'];   // every legal tail
-export const isMark     = ch => MARKS.includes(ch);
+
+// ‽ — one glyph for the pair, cut by the Punchcutter from a ? and a ! and by no
+// other road (see PROPOSAL_STALLS.punchcutter in js/market.js). It IS the ?!
+// tail, so it says in one tile what has always taken two, and it is the dearest
+// sort in the case besides.
+export const INTERROBANG      = '‽';
+export const INTERROBANG_MULT = 1.5;   // ×Mult it gives the word, alongside the colours
+
+export const MARK_RUNS  = ['?', '!', '?!', INTERROBANG];   // every legal tail
+export const isMark     = ch => MARKS.includes(ch) || ch === INTERROBANG;
 
 // Split a composed word into its letters and its trailing marks. Returns null
 // when the marks aren't a legal tail — doubled, reversed, or mid-word.
@@ -210,6 +227,7 @@ export const MULT_TRACKS = {
   purple: { label: 'Purple', glyph: '#8a5fb0', bright: '#cfa6ff' },
   cursed: { label: 'Cursed', glyph: '#c93c2d', bright: '#ff7a66' },
   length: { label: 'Length', glyph: '#7d8fa0', bright: '#d9e6f2' },   // type-metal steel
+  interrobang: { label: 'Interrobang', glyph: '#b8862c', bright: '#ffd68c' },
 };
 
 export const PAINT_PER_POT   = 3;   // tiles painted per draft pot (random, unpainted)

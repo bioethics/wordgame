@@ -12,6 +12,7 @@ import {
   WORDS_PER_PAGE, PAGES_PER_CHAPTER, tileCount,
   colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
   sundryTip, FLEURON, TOOL_LOOK, HONORIFIC_STEP, MEDIEVAL, letterGlyph,
+  INTERROBANG, INTERROBANG_MULT,
 } from './constants.js';
 import { patronById, guildsOf, patronName, patronShelf } from './patrons.js';
 import { bossById } from './bosses.js';
@@ -62,6 +63,7 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   // below takes no paint colour — it is pencil on a wrapper now.
   if (isWrapped(tile)) div.classList.add('tile--wrapped');
   if (MEDIEVAL[active]) div.classList.add('tile--medieval');
+  if (active === INTERROBANG) div.classList.add('tile--interrobang');
 
   // Letter (painted in its colour)
   const letter = document.createElement('span');
@@ -142,6 +144,15 @@ export function tileFeatures(tile) {
           + `editor all see the letters it stands for, so it counts for the measure as `
           + `${med.reads[0].length > 1 ? 'those letters do' : 'one letter'}. It prints as `
           + `${med.glyph} and scores its own ${TILE_POINTS[getActiveLetter(tile)]} Points. ${med.note}`,
+    });
+  }
+  if (getActiveLetter(tile) === INTERROBANG) {
+    out.push({
+      head: 'Interrobang',
+      body: `One glyph for ?! — so it says in a single tile what has always taken two, and `
+          + `it can close a word by itself. Worth ${TILE_POINTS[INTERROBANG]} Points, the most of any `
+          + `sort in the case, and it gives the word ×${INTERROBANG_MULT} Mult besides. There is `
+          + `only one road to one: hold a ? and a !, and let the Punchcutter cut the pair together.`,
     });
   }
   // What the tile *is* comes next — a material, or the fleuron, which is a
@@ -822,7 +833,7 @@ export function renderCounts() {
 
 // Cursed rides at the end: its chip only appears when a cursed tile is in the
 // word (see the CSS), so the readout doesn't carry a slot most runs never use.
-export const CHIP_COLOURS = ['length', ...Object.keys(COLOURS), 'purple', 'cursed'];
+export const CHIP_COLOURS = ['length', ...Object.keys(COLOURS), 'purple', 'cursed', 'interrobang'];
 
 export function updateReadoutPreview(script) {
   const ro = $('readout');

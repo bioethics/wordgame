@@ -1142,9 +1142,11 @@ button.sundry:hover { transform: translateY(-2px); }
 .chip--amber   { background: var(--amber);   color: #fff8ea; }
 .chip--purple  { background: #8a5fb0;        color: #f6ecff; }
 .chip--cursed  { background: #6d1a15;        color: #ffd9cf; }
+.chip--interrobang { background: #6d4a12;    color: #ffe6b8; }
 /* Most runs never hold a cursed tile, so its chip only appears when one is
    actually in the word — the other five are always there, dim at ×1. */
-.chip--cursed:not(.chip--on) { display: none; }
+.chip--cursed:not(.chip--on),
+.chip--interrobang:not(.chip--on) { display: none; }
 .chip--on.chip--length  { box-shadow: 0 0 10px rgba(125, 143, 160, 0.65); }
 .chip--on.chip--crimson { box-shadow: 0 0 10px rgba(201, 79, 67, 0.6); }
 .chip--on.chip--azure   { box-shadow: 0 0 10px rgba(79, 134, 201, 0.6); }
@@ -1152,6 +1154,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .chip--on.chip--amber   { box-shadow: 0 0 10px rgba(210, 154, 58, 0.6); }
 .chip--on.chip--purple  { box-shadow: 0 0 10px rgba(138, 95, 176, 0.6); }
 .chip--on.chip--cursed  { box-shadow: 0 0 12px rgba(201, 60, 45, 0.75); }
+.chip--on.chip--interrobang { box-shadow: 0 0 12px rgba(214, 172, 74, 0.8); }
 .ro-total {
   font-family: var(--serif);
   font-weight: 900;
@@ -1433,6 +1436,18 @@ button.sundry:hover { transform: translateY(-2px); }
   opacity: 0.55;
   text-decoration: underline wavy 1.5px;
   text-underline-offset: 4px;
+}
+
+/* The interrobang: the one sort you make rather than find, and dressed like it. */
+.tile--interrobang {
+  background: linear-gradient(168deg, #fbeec4 0%, #f0d795 55%, #e6c87e 100%);
+  border-color: rgba(140, 100, 20, 0.7);
+  --tile-lift: #a8801f;
+  --trim-ring: inset 0 0 0 3px #d6ac4a;
+}
+.tile--interrobang .tile-letter {
+  color: #6d4a12;
+  text-shadow: 0 1px 0 rgba(255, 250, 232, 0.8);
 }
 
 /* ─── The medieval sorts (The Medievalist's stall) ─────────────────────────────
@@ -2052,6 +2067,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .fl-set--amber   { color: #ffd68c; }
 .fl-set--purple  { color: #cfa6ff; }
 .fl-set--cursed  { color: #ff7a66; }
+.fl-set--interrobang { color: #ffd68c; }
 .fl-mat--cursed  { color: #ff7a66; font-size: 19px; }
 .fl-mat--ghost   { color: #dceaff; font-size: 19px; }
 .fl-mat--rainbow { color: #ffe9c9; font-size: 19px; }

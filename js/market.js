@@ -3,7 +3,7 @@ import {
   effectivePatronSlots, effectiveSundrySlots,
 } from './state.js';
 import {
-  BAG_COUNTS, LIGATURES, EXCLUSIVE_LETTERS, isMark,
+  BAG_COUNTS, LIGATURES, EXCLUSIVE_LETTERS, isMark, MARKS, INTERROBANG,
   TILE_POINTS, TRIMS, NICKS, COLOURS,
   WRAPPED_PRICE, WRAPPED_OFFER_CHANCE, isImmutable,
   COMPOST_HEAP_MAX, COMPOST_PER_MARKET,
@@ -63,10 +63,27 @@ function dualPairsFor(letter) {
   const pts = TILE_POINTS[letter] ?? 1;
   // No fleuron on either face: an ornament with a letter on its back could
   // join words half the time, and "it prints alone" has to stay the whole truth.
+  //
+  // And nothing on EXCLUSIVE_LETTERS either, which is the point of that list:
+  // those sorts come from one patron and no other road. Without this the
+  // Punchcutter would cheerfully cut a thorn into the back of a Z — a way to own
+  // the Medievalist's stock without ever seating him. (Cutting INTO a medieval
+  // sort is fine and intended; it is the other direction that leaks.)
   return Object.keys(TILE_POINTS)
     .filter(l => l !== letter && l.length === 1 && !isMark(l) && l !== FLEURON
+              && !EXCLUSIVE_LETTERS.includes(l)
               && Math.abs(TILE_POINTS[l] - pts) <= 2);
 }
+
+// The one cut the Punchcutter will make on a mark, and the only road to an
+// interrobang: carve the ? into the ! (or the other way about) and the two
+// become one sort. It asks that you own BOTH marks — the cutter has to have
+// seen the pair to cut it — and marks are scarce enough that this is a find
+// rather than a plan. Nothing is consumed: the other mark stays where it is.
+const otherMark = letter => MARKS.find(m => m !== letter) ?? null;
+const canInterrobang = t =>
+  isMark(t.letter) && t.letter !== INTERROBANG
+  && state.collection.some(o => o.tid !== t.tid && o.letter === otherMark(t.letter));
 
 // ─── Feature helpers ──────────────────────────────────────────────────────────
 // A tile's "features" are the things that make it worth owning. Counting and
@@ -136,6 +153,7 @@ function weightedPatronSample(n) {
   const pool = [];
   for (const def of PATRON_DEFS) {
     // A stackable patron is never crossed off — you can always be sold another.
+    if (def.unlisted) continue;          // the cat is found, never sold
     if (ownedIds.has(def.id) && !def.stackable) continue;
     for (let i = 0; i < (RARITY_WEIGHT[def.rarity] ?? 1); i++) pool.push(def.id);
   }
@@ -279,14 +297,18 @@ export const PROPOSAL_STALLS = {
   },
   punchcutter: {
     // A tile can only take a second letter if it hasn't one already, isn't a
-    // ligature (or the fleuron), and has a partner of comparable value.
+    // ligature (or the fleuron), and has a partner of comparable value. Marks
+    // are barred — except for the one cut that makes an interrobang, which is
+    // not a second face at all but a fusion (see canInterrobang above).
     eligible: t => t.letterType !== 'dual'
                 && !LIGATURES.includes(t.letter)
-                && !isMark(t.letter)
                 && t.letter !== FLEURON
                 && !isImmutable(t)
-                && dualPairsFor(t.letter).length > 0,
-    propose:  t => ({ altLetter: pick(dualPairsFor(t.letter)) }),
+                && (canInterrobang(t)
+                    || (!isMark(t.letter) && dualPairsFor(t.letter).length > 0)),
+    propose:  t => (canInterrobang(t)
+      ? { fuse: INTERROBANG }
+      : { altLetter: pick(dualPairsFor(t.letter)) }),
   },
   dresser: {
     eligible: t => !t.nick && !isImmutable(t),
@@ -597,6 +619,14 @@ export function stallCommission(stallId, proposalIdx) {
   if (proposal.altLetter) {
     tmpl.letterType    = 'dual';
     tmpl.altLetter     = proposal.altLetter;
+    tmpl.activeVariant = 0;
+  }
+  // A fusion replaces the sort outright rather than giving it a second face:
+  // there is no flipping an interrobang back into a question mark.
+  if (proposal.fuse) {
+    tmpl.letter        = proposal.fuse;
+    tmpl.letterType    = 'normal';
+    tmpl.altLetter     = null;
     tmpl.activeVariant = 0;
   }
   stall.proposals = rollProposals(stallId);

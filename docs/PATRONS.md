@@ -20,7 +20,7 @@ House style for a description, from `docs/PATRON_OVERHAUL.md`: one sentence,
 real numbers, no metaphor, under ~110 characters. State the rule, not the
 feeling — the flavour belongs to the name, the emoji and the quips.
 
-**77 patrons** — 21 common, 35 uncommon, 21 rare. Guilds: amber 12, jade 12, crimson 11, azure 14, no guild 31 — a dual-livery patron counts in each of its guilds.
+**78 patrons** — 21 common, 35 uncommon, 22 rare. Guilds: amber 13, jade 12, crimson 11, azure 14, no guild 31 — a dual-livery patron counts in each of its guilds.
 
 ## Amber · the counting-house
 
@@ -36,7 +36,8 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 💰 **The Bursar** `bursar` | uncommon | 7 | Words with an amber tile gain +1 Mult for every 5 Coins you hold (max +5). |
 | 🛒 **The Chapman** `chapman` | uncommon | 7 | One tile at the Market is always amber, and amber tiles cost nothing. |
 | 🐦 **The Magpie** `magpie` | uncommon | 7 | Gold-trimmed tiles pay double Coins, and every hand you draw holds one if the bag has any. |
-| 🏰 **The Medievalist** `medievalist` | rare · also azure | 8 | Opens a stall at the Market selling medieval sorts — þ, ȝ and Ƿ — and hands you a yogh on arrival. |
+| 🐈 **The Domestic Shorthair** `shorthair` 🔒 | rare | 0 | Words holding RAT pay 1 Coin and crown this patron with a laurel — and a RAT tile in the word is eaten. |
+| 🏰 **The Medievalist** `medievalist` | rare · also azure | 8 | Opens a stall at the Market selling medieval sorts — þ, ȝ, Æ and Ƿ — cheap, and worth far more than they cost. |
 
 ## Jade · growth and permanence
 
