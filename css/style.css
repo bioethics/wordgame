@@ -47,6 +47,13 @@
 
   --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
   --sans:  'Inter', ui-sans-serif, system-ui, 'Segoe UI', sans-serif;
+  /* Pencil. Used only where something has been written by hand rather than set
+     in type — The Redactor's manuscript wrappers. Caveat is loaded with the
+     other two in index.html; the system faces behind it are the ones that
+     actually exist per platform (Windows, macOS/iOS, Android), so an offline
+     or CSP-blocked build still gets handwriting rather than falling straight
+     back to the serif. */
+  --hand:  'Caveat', 'Segoe Script', 'Bradley Hand', 'Noto Serif Display', cursive;
 
   --tile-w: 68px;
   --tile-h: 72px;
@@ -1388,15 +1395,24 @@ button.sundry:hover { transform: translateY(-2px); }
   background-blend-mode: multiply, normal;
 }
 .tile--wrapped .tile-letter {
-  /* Greylead, in whatever handwriting the device carries: the letter is written
-     on the wrapper, not cast into the tile. */
-  font-family: 'Segoe Script', 'Bradley Hand', 'Snell Roundhand', cursive, var(--serif);
-  font-weight: 600;
-  color: #57534c !important;
-  opacity: 0.9;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
-  transform: rotate(-3deg);
+  /* Greylead handwriting: the letter is written on the wrapper, not cast into
+     the tile. Caveat sits small on its em next to a display serif, so the size
+     is pushed up to match the cast letters beside it rather than reading as a
+     smaller tile — and the weight comes down, because pencil isn't type. */
+  font-family: var(--hand);
+  font-weight: 700;
+  font-size: 40px;
+  letter-spacing: 0;
+  color: #55514a !important;
+  opacity: 0.92;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+  transform: rotate(-4deg);
 }
+/* Ligatures and the longer glyphs need the same nudge the cast faces get. */
+.tile--wrapped .tile-letter[data-len='2'] { font-size: 30px; }
+.tile--wrapped .tile-letter[data-len='3'] { font-size: 23px; }
+.tile--wrapped .tile-letter[data-len='4'],
+.tile--wrapped .tile-letter[data-len='5'] { font-size: 32px; }
 /* The corner figure reads 0 (restingPoints says so) — dim it, since the number
    is not news, the wrapper is. */
 .tile--wrapped .tile-pts { opacity: 0.4; }

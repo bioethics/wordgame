@@ -177,6 +177,18 @@ page's record: one mark per word printed, ✓ or ✂, so you can see how the who
 page has gone and not merely the word in the groove. Chains and indexes are
 reset by the spiked word itself, so a sacrificial APPLE is always a way back in.
 
+**An editor that inverts a patron you own never takes the desk.** Most editors
+merely make a seat idle for a page, which is a fair cost of the roster being a
+lottery — but a few would spike the *exact* words a patron is paid for, turning
+a seat you spent Coins on into a machine for losing four-fifths of your score.
+Those pairs are listed in `BOSS_CONFLICTS` (`js/bosses.js`) and filtered out as
+the Deadline is dealt: keep *the Poet* and the Minimalist stays away; keep *the
+Lexicographer* and the Populist does; keep *the Abecedarian* or *the Apprentice*
+and the Padder does. The bar for entry is exact inversion — the patron's trigger
+and the editor's spike condition being one test read in opposite directions.
+"Awkward for that build" is not enough; that is the game. Adding a pair is one
+line, and both directions come with it.
+
 The two frequency editors read `wordlists-themed/common.txt`, the one themed
 list whose *order* is data: `js/themes.js` keeps each word's line number as its
 frequency rank. The Populist takes the first 750, the Obscurantist bars the

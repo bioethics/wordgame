@@ -7,7 +7,7 @@ import {
   quotaFor, makeTileTemplate, GAMBLER_ODDS, isDeadline,
 } from './constants.js';
 import { CHAPTER_TITLES } from './chapters.js';
-import { BOSS_DEFS, activeBoss } from './bosses.js';
+import { BOSS_DEFS, activeBoss, bossConflicts } from './bosses.js';
 
 const SAVE_KEY     = 'folio_save_v1';
 const SETTINGS_KEY = 'folio_settings_v1';
@@ -228,8 +228,20 @@ export function chapterTitle(ch) {
 
 function assignBoss() {
   state.bossesSeen ??= [];
-  const fresh = BOSS_DEFS.filter(b => !state.bossesSeen.includes(b.id));
-  const pool = fresh.length ? fresh : BOSS_DEFS;
+  // An editor that inverts a seated patron never takes the desk (see
+  // BOSS_CONFLICTS in bosses.js): a Deadline is a puzzle, not a tax on what you
+  // bought. The shelf is read HERE, as the page is dealt, which is the moment
+  // it is settled — patrons are hired at the Market between pages, so what is
+  // seated now is what you will face the editor with.
+  const seated = state.patrons.map(p => p.id);
+  const allowed = BOSS_DEFS.filter(b => !bossConflicts(b.id, seated));
+  // A shelf that somehow rules out every editor still gets one: an unfair
+  // Deadline beats a Deadline with nobody at the desk, and the whole page's
+  // structure (rack size, discards, the bar) assumes an editor is there.
+  const roster = allowed.length ? allowed : BOSS_DEFS;
+
+  const fresh = roster.filter(b => !state.bossesSeen.includes(b.id));
+  const pool = fresh.length ? fresh : roster;
   if (!fresh.length) state.bossesSeen = [];
   const def = pool[Math.floor(Math.random() * pool.length)];
   state.bossesSeen.push(def.id);

@@ -44,7 +44,10 @@ const body = index.match(/<body>([\s\S]*)<script type="module"[^>]*><\/script>/)
 if (!body) throw new Error('could not extract body markup from index.html');
 
 // The Google-Fonts link is dropped (offline/CSP contexts block it); the CSS
-// font stacks fall back to Georgia / system sans.
+// font stacks fall back to Georgia / system sans, and --hand (The Redactor's
+// pencil) to whatever script face the platform carries — Segoe Script on
+// Windows, Bradley Hand on macOS/iOS — so a bundled build still tells a
+// wrapped tile apart from a cast one.
 const html = `<title>Folio — a word-forging game</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#150e18" />

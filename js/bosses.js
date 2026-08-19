@@ -273,6 +273,38 @@ export const BOSS_DEFS = [
 
 export const bossById = id => BOSS_DEFS.find(b => b.id === id);
 
+// ─── Editors an assembled press will never meet ───────────────────────────────
+// A Deadline is meant to be a puzzle, not a punishment for what you bought.
+// Most editors merely make a patron idle for a page, which is a fair cost of
+// the roster being a lottery. These pairs are worse than idle: the editor
+// spikes the EXACT words the patron is paid for, so a seat you spent Coins on
+// becomes a machine for losing four-fifths of your score. Buying The Poet
+// should never mean dreading a Deadline.
+//
+// The bar for entry here is deliberately high — exact inversion, where the
+// patron's trigger and the editor's spike condition are the same test read in
+// opposite directions. "This editor happens to be awkward for that build" is
+// not enough; that is the game. Both directions are covered by one entry, and
+// an editor listed here simply never takes the desk while any of its opposites
+// is seated (assignBoss in state.js).
+//
+// TO ADD A PAIR: one line, editor id → the patron ids it inverts.
+export const BOSS_CONFLICTS = {
+  // Adjectives: The Poet is paid ×2 for exactly what The Minimalist spikes.
+  minimalist: ['poet'],
+  // Frequency, read in opposite directions off the same common.txt: The
+  // Lexicographer pays ×1.5 for words absent from the list, The Populist
+  // spikes everything that isn't near the top of it.
+  populist: ['lexicographer'],
+  // Length: The Padder spikes anything under five letters, which is the whole
+  // of what these two are paid for.
+  padder: ['abecedarian', 'apprentice'],
+};
+
+// Whether this editor inverts any patron currently on the shelf.
+export const bossConflicts = (bossId, patronIds) =>
+  (BOSS_CONFLICTS[bossId] ?? []).some(id => patronIds.includes(id));
+
 // The seated editor's def, or null. Takes state rather than importing it so
 // this module stays leaf-like (state.js imports it for the structural knobs).
 export const activeBoss = state => (state.boss ? bossById(state.boss.id) : null);
