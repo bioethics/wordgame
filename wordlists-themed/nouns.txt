@@ -1,6 +1,12 @@
-# Nouns — The Binder's list. Two of these stacked together count as a word,
-# so DOOM and HAT make DOOMHAT. One entry per line; add or strike freely,
-# nothing else needs changing.
+# Nouns — The Binder's list, and The Sculptor's. Two of these stacked together
+# count as a word, so DOOM and HAT make DOOMHAT; a word on the list (or the
+# plural of one) gets The Sculptor's ×2. One entry per line; add or strike
+# freely, nothing else needs changing.
+#
+# Singulars only, on purpose. The Sculptor reads a plural back to its singular
+# and looks that up (readsAsNoun in js/patrons.js), so CATS pays without CATS
+# being here — while The Binder, who needs two entries to fit one rack, keeps
+# stacking the short singular forms alone.
 #
 # Built from the lemmatised word list in "Unused Word lists": a lemma whose
 # only inflection is a plural is a noun, which catches 5788 of them. Nouns

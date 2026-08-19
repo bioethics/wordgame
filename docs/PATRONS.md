@@ -79,11 +79,11 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 📟 **The Stenographer** `stenographer` | uncommon | 6 | Common acronyms and abbreviations count as words: LOL, BRB, WTF and the rest. |
 | ⛲ **The Fountain** `fountain` | uncommon | 7 | Azure tiles return to the bag when printed, instead of the discard pile. |
 | 🌀 **The Marbler** `marbler` | uncommon | 7 | Words with 2 or more azure tiles get ×2 Mult. |
-| 🏷️ **The Nomenclator** `nomenclator` | rare | 9 | ×2 Mult when the word is a noun — a compound The Binder allows counts as one. |
+| 🗿 **The Sculptor** `sculptor` | rare | 9 | ×2 Mult when the word is a noun, singular or plural — a Binder's compound counts as one. |
 | 😈 **Titivillus** `titivillus` | rare | 9 | Words with an azure tile are accepted with one vowel wrong: swapped, changed, missing or extra. |
-| ✨ **The Embellisher** `embellisher` | rare | 10 | ×2 Mult when the word is an adjective — the describing words, ABLE to ZESTY. |
 | 📖 **The Neologist** `neologist` | rare | 10 | Add one six-letter word of your choosing to the dictionary permanently, then this patron leaves. |
-| 🎭 **The Actor** `actor` | rare | 12 | ×2 Mult when the word is a verb — a doing word, in any tense: RUN, RAN, RUNNING. |
+| 🪶 **The Poet** `poet` | rare | 10 | ×2 Mult when the word is an adjective — the describing words, ABLE to ZESTY. |
+| 🏃 **The Athlete** `athlete` | rare | 12 | ×2 Mult when the word is a verb — a doing word, in any tense: RUN, RAN, RUNNING. |
 | 🔗 **The Binder** `binder` | rare | 12 | Any two nouns stacked together count as a word: DOOM and HAT make DOOMHAT. |
 
 ## No guild · the wildcards
@@ -112,7 +112,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🃏 **The Harlequin** `harlequin` | uncommon | 7 | Words holding all four colours get ×2 Mult. |
 | 🖋️ **The Novelist** `novelist` | uncommon | 7 | Words of 7+ letters get ×2 Mult. |
 | 🧸 **The Poppet** `poppet` | rare | 7 | ×3 Mult for any of the thousands of words The Poppet finds cute. |
-| 🎨 **The Illuminator** `illuminator` | rare | 8 | When a word holds exactly three colours, a bare tile in it is painted the fourth — in time to score. |
+| 🎨 **The Illuminator** `illuminator` | rare | 8 | When a word holds exactly three colours, its first bare tile is painted the fourth — before the word is counted. |
 | 💘 **The Paramour** `paramour` | rare | 8 | ×3 Mult for any of the thousands of words The Paramour finds romantic. |
 | ⚰️ **The Sexton** `sexton` | rare | 8 | ×3 Mult for any of the thousands of words The Sexton finds spooky. |
 | 🍑 **The Vulgarian** `vulgarian` | rare | 8 | ×3 Mult for any of the thousands of words The Vulgarian finds rude. |

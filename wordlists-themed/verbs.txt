@@ -1,4 +1,4 @@
-# Verbs — The Actor's list. A word on it gets ×2 Mult, whatever else the
+# Verbs — The Athlete's list. A word on it gets ×2 Mult, whatever else the
 # table pays for it. One entry per line; add or strike freely, nothing else
 # needs changing.
 #

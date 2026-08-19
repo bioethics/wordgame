@@ -10,12 +10,21 @@ import {
 } from './state.js';
 
 // ─── Score a word ─────────────────────────────────────────────────────────────
-// Pure (no state mutation). Returns a "script" describing every step of the
-// score so the UI can replay it tile by tile:
+// Pure (no state mutation) — a patron that paints a tile (pass ½) does it to a
+// copy of the word, and only its onPrinted makes the colour permanent. Returns
+// a "script" describing every step of the score so the UI can replay it tile by
+// tile:
 //
 // {
 //   word, points, mult, total, coins, refresh,
 //   tileSteps:   [{ id, points, coins, refresh, returns }]  — one per tile, in order
+//   tilePaintSteps: [{ id, uid, emoji, text, hits: [{ id, colour }] }]
+//                                                            — patrons painting
+//                                                              tiles, before
+//                                                              anything is counted
+//   tilePaint:   Map(id → colour)                            — the same, for the
+//                                                              live preview and
+//                                                              the brush at print
 //   tileBoostSteps: [{ id, uid, emoji, points, hits: [{ id, delta }] }]
 //                                                            — patrons writing
 //                                                              Points onto tiles,
@@ -45,6 +54,42 @@ export function computeScore(wordTiles) {
   const word = wordTiles.map(t => getActiveLetter(t)).join('').toUpperCase();
   const letters = splitMarks(word)?.letters ?? word;
   const n = wordTiles.length;
+
+  // ── Pass ½: the brush, before a single thing is counted ────────────────────
+  // Patrons who PAINT a tile rather than pay it (The Illuminator) go first of
+  // all, because paint is not a bonus laid on top of the count — it is part of
+  // what is being counted. The colour lands on a copy of the word, so scoring
+  // stays pure and the tile in your collection is untouched until the word
+  // actually prints; from here down, though, `wordTiles` IS the painted word,
+  // and every reader below sees it: the colour multipliers count the new
+  // colour, the tile bonuses pay for it, and the patrons' own effects read it
+  // (which is what lets a fourth colour meet The Harlequin's full motley).
+  //
+  // Seats speak in order here as everywhere, and each sees what the seats in
+  // front of it painted. A tile already claimed can't be repainted — first
+  // brush wins, the same rule the nicks follow.
+  const tilePaintSteps = [];
+  const tilePaint = new Map();   // tile id → colour, for this word only
+  for (const p of state.patrons) {
+    const def = patronById(p.id);
+    if (!def?.tilePaint) continue;
+    const laid = def.tilePaint({ tiles: wordTiles, state, data: p.data ?? {} }) || [];
+    const hits = [];
+    for (const { tile, colour } of laid) {
+      if (!tile || !COLOURS[colour] || tilePaint.has(tile.id)) continue;
+      tilePaint.set(tile.id, colour);
+      hits.push({ id: tile.id, colour });
+    }
+    if (!hits.length) continue;
+    wordTiles = wordTiles.map(t =>
+      tilePaint.has(t.id) ? { ...t, colour: tilePaint.get(t.id) } : t);
+    tilePaintSteps.push({
+      id: p.id, uid: p.uid, emoji: def.emoji, hits,
+      text: hits.length > 1
+        ? `${hits.length} tiles painted`
+        : `${COLOURS[hits[0].colour].label} — onto the tile`,
+    });
+  }
 
   // ── Pass 0: which tiles print twice ────────────────────────────────────────
   // A Monogrammist doesn't just double what its letters are worth — the whole
@@ -415,7 +460,8 @@ export function computeScore(wordTiles) {
 
   return {
     word, points, mult, total, coins, refresh, spiked,
-    tileSteps, tileBoostSteps, nickSteps, nickAffected, colourSteps, patronSteps, perTile,
+    tileSteps, tilePaintSteps, tilePaint, tileBoostSteps, nickSteps, nickAffected,
+    colourSteps, patronSteps, perTile,
   };
 }
 

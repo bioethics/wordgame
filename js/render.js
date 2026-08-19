@@ -377,12 +377,18 @@ function patronTakes(script) {
   const takes = new Map();
   // Tile bonuses first — they are paid first, and the badge should read in the
   // order the print will.
-  for (const s of [...(script?.tileBoostSteps ?? []), ...(script?.patronSteps ?? [])]) {
-    const chip = s.xmult ? `×${fmtMult(s.xmult)}`
+  for (const s of [...(script?.tilePaintSteps ?? []), ...(script?.tileBoostSteps ?? []),
+                  ...(script?.patronSteps ?? [])]) {
+    // A brush step (The Illuminator) pays nothing itself — what it is worth is
+    // the colour it lays, which the multipliers then count — so its badge shows
+    // the colour rather than a number it hasn't earned.
+    const chip = s.hits?.[0]?.colour ? COLOURS[s.hits[0].colour].label
+               : s.xmult ? `×${fmtMult(s.xmult)}`
                : s.mult  ? `+${fmtMult(s.mult)}`
                : s.coins ? `+${s.coins}c`
                :           `+${s.points}`;
-    const kind = s.points ? 'points' : s.coins ? 'coins' : 'mult';
+    const kind = s.hits?.[0]?.colour ? `paint patron-take--paint-${s.hits[0].colour}`
+               : s.points ? 'points' : s.coins ? 'coins' : 'mult';
     const key = String(s.uid ?? s.id);
     const prev = takes.get(key);
     takes.set(key, prev
@@ -734,7 +740,16 @@ export function renderWord(script = computeScore(state.word)) {
   state.word.forEach(t => {
     const bd = script?.perTile.get(t.id);
     const shown = bd?.final ?? null;
-    const tileEl = makeTileEl(t, 'word', { pts: shown });
+    // A patron's brush (The Illuminator) lands before the word is counted, so
+    // the groove shows the colour as you compose — on a copy of the tile, since
+    // the paint isn't the collection's until the word prints. The dashed mark
+    // says exactly that: this colour is promised, not yet owned.
+    const wet = script?.tilePaint?.get(t.id);
+    const tileEl = makeTileEl(wet ? { ...t, colour: wet } : t, 'word', { pts: shown });
+    if (wet) {
+      tileEl.style.setProperty('--glow', COLOURS[wet].glyph);
+      tileEl.classList.add('tile--illuminating');
+    }
     if (bd) tileEl.title = tileTitle(t, bd);
     nowPts.set(t.id, shown);
 

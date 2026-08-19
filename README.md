@@ -206,9 +206,10 @@ with misprints, which is the point of them.
 gone wrong, it simply licenses a construction English makes freely. Any two
 nouns set end to end count as a word, so DOOM and HAT make DOOMHAT. The nouns
 it knows are a flat list in `wordlists-themed/nouns.txt` — edit it freely. What
-he coins is a noun like any other, so *the Nomenclator* pays his ×2 for it: the
+he coins is a noun like any other, so *the Sculptor* pays his ×2 for it: the
 pair is the intended build, one seat making the word legal and the other paying
-for what it is.
+for what it is. His own halves stay singular, though — the list he stacks from
+is unchanged, so DOOM and HAT make a word where CATS and HAT still don't.
 
 **Marks** — `?` and `!` are tiles that spell nothing. A mark is appended to a
 finished word: one `?`, or one `!`, or the two together as `?!` — never
@@ -392,6 +393,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Tool tuning — doubling cap, laurel step, tongs bonus, wash count | `js/constants.js` → `LOUPE_CAP`, `HONORIFIC_STEP`, `TONGS_BONUS`, `WASH_COUNT` |
 | Where the patrons' turns happen, and what a ×Mult reaches | `js/scoring.js` → pass 4. Points that must be multiplied by the table have to land before it (the tongs' heat and the curse's toll do, in pass 3½) |
 | Patrons that improve the tiles rather than the word | `js/patrons.js` → the `tileBonus` hook (pass 1½ in `js/scoring.js`); the number goes onto the tile, so nicks and Monogrammists carry it |
+| Patrons that PAINT a tile rather than pay it | `js/patrons.js` → the `tilePaint` hook (pass ½ in `js/scoring.js`, before anything is counted). The colour lands on a copy of the word, so the multipliers count it and the groove shows it under a dashed edge while you compose; the seat's own `onPrinted` makes it permanent when the word prints |
 | The fleuron — price, page rent, how often it is offered | `js/constants.js` → `FLEURON_PRICE`, `FLEURON_PAGE_COIN`, `FLEURON_OFFER_CHANCE` (the glyph itself is `FLEURON`) |
 | Stall roster, base prices, spread size | `js/constants.js` → `STALL_DEFS`, `STALLS_PER_SHOP`, `PROPOSAL_RANGE`, `SMELT_MIN_COLLECTION` |
 | Marks: which ones exist, legal tails, and what they arrive wearing | `js/constants.js` → `MARKS`, `MARK_RUNS`, `MARK_TRIM` (and `TILE_POINTS`). How often one turns up is `WRAPPED_CONTENTS`, since a wrapper is the only source |
@@ -412,7 +414,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | The Expectant Parents' baby names | `wordlists-themed/names.txt` — same format; regenerate from the US and England & Wales charts with `tools/build-names-list.mjs` |
 | Words barred from the game entirely | `wordlists-themed/excluded-slurs.txt` — one per line, `#` comments. Enforced at load by `js/excluded.js` against the dictionary, every themed list, and The Neologist's coining sheet, so an entry here can't come back through a word list, a custom dictionary or a coined word. Whole-word matches only |
 | The four registers' word lists (the Sexton, the Paramour, the Poppet, the Vulgarian) | `wordlists-themed/theme-*.txt` — one word per line, edit freely; loading in `js/themes.js` |
-| The three parts of speech (the Nomenclator, the Embellisher, the Actor) | `wordlists-themed/nouns.txt`, `adjectives.txt`, `verbs.txt` — same format. The nouns list is The Binder's too, so an entry added there can be stacked into a compound as well as paid for |
+| The three parts of speech (the Sculptor, the Poet, the Athlete) | `wordlists-themed/nouns.txt`, `adjectives.txt`, `verbs.txt` — same format. The nouns list holds singulars only: plurals are read back to their singular in `readsAsNoun` (`js/patrons.js`), which is also where the irregular ones (MICE, TEETH, CHILDREN) are named. It is The Binder's list too, so an entry added there can be stacked into a compound as well as paid for |
 | The Frontispiece's opening multiplier & growth | `js/constants.js` → `FRONTISPIECE` |
 
 ## Architecture

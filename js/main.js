@@ -233,7 +233,7 @@ function izzardPardon(letters) {
 
 // Two nouns set end to end make a word of their own — DOOM and HAT make
 // DOOMHAT. The split itself is boundNouns in patrons.js, because The
-// Nomenclator reads the same rule at scoring (a compound is a noun); here it
+// Sculptor reads the same rule at scoring (a compound is a noun); here it
 // only wants naming, so the log can show its working.
 function binderPardon(letters) {
   const halves = boundNouns(letters);
@@ -494,6 +494,30 @@ async function submitWord() {
   ro.root.classList.add('readout--live');
 
   let pointsSoFar = 0;
+
+  // ── Pass ½: the brush ──────────────────────────────────────────────────────
+  // Before anything is counted, the patrons who PAINT a tile do it where it can
+  // be seen. The groove has been showing this colour under a dashed edge since
+  // the word called for it; here the ink sets, the outline goes, and everything
+  // below — the tile's own Points, the colour multipliers, the seats that care
+  // about colour — counts a tile that is simply that colour now.
+  for (const brush of script.tilePaintSteps ?? []) {
+    const card = patronCard(brush);
+    if (card) pulse(card, 'patron--firing', 520);
+    for (const hit of brush.hits) {
+      const el = wordTileEl(hit.id);
+      if (!el) continue;
+      const glyph = COLOURS[hit.colour].glyph;
+      el.classList.remove('tile--illuminating');
+      el.querySelector('.tile-letter')?.style.setProperty('color', glyph);
+      el.style.setProperty('--glow', glyph);
+      pulse(el, 'tile--painted', 620);
+      sparkleBurst(el, 9);
+      floatText(el, `${brush.emoji} ${COLOURS[hit.colour].label}`, `fl-set fl-set--${hit.colour}`, { dy: -52 });
+    }
+    sfx.chime();
+    await sleep(ANIM.stepColour);
+  }
 
   // ── Pass 0: patrons write onto the tiles ───────────────────────────────────
   // Before a single tile pays, the patrons who improve the tiles themselves do
@@ -1488,6 +1512,14 @@ async function beginRun() {
   loadThemes();
 
   const restored = loadState();
+  // A seat whose patron no longer exists is dropped rather than carried: the
+  // roster is edited between builds (a patron renamed, retuned or cut), and a
+  // save from before the change would otherwise hand the shelf an id nothing
+  // answers to — which the board cannot draw. Losing the seat costs the run one
+  // patron; keeping it would cost the run the board.
+  const orphaned = restored ? state.patrons.filter(p => !patronById(p.id)).length : 0;
+  if (orphaned) state.patrons = state.patrons.filter(p => patronById(p.id));
+
   if (!restored) {
     await startFreshRun();
   } else {
@@ -1510,6 +1542,10 @@ async function beginRun() {
       drawUpToRackSize();                               // top up in case a save landed mid-draw
       renderAll();
       log('Welcome back.');
+    }
+    // Said last, so it isn't the line "Welcome back." writes over.
+    if (orphaned) {
+      log(`${orphaned} seat${orphaned > 1 ? 's are' : ' is'} no longer in the roster and ${orphaned > 1 ? 'have' : 'has'} left the shelf.`, 'warn');
     }
   }
 

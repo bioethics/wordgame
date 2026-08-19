@@ -25,6 +25,18 @@
 //     word (the Firebrand's two crimson tiles, the Apprentice's four letters)
 //     is not this; it stays an effect() and pays the word, not a tile.
 //
+//   tilePaint(ctx) — paint laid on tiles BEFORE the word is counted at all;
+//     ctx { tiles, state, data }. Return [{ tile, colour }] for the tiles this
+//     patron paints, or null for none. Scoring's pass ½ applies it to a copy of
+//     the word, so everything downstream — the colour multipliers, the tile
+//     bonuses, every patron's effect — reads the new colour, and the groove
+//     shows it as you compose. The paint is provisional until the word prints:
+//     the seat's own onPrinted is what makes it permanent, and it should lay
+//     what the script recorded rather than working it out a second time.
+//     Must be a pure function of the word, and must give the same answer every
+//     time it is asked — scoring runs on every keystroke, and a brush that
+//     wandered would make the preview a lie.
+//
 // Optional hooks (main.js dispatches these for every seated patron):
 //   onPrinted(ctx)    — after a word commits; ctx { tiles, script, state, data,
 //                       grow(tile, n), paint(tile, colour), burn(tile),
@@ -161,7 +173,7 @@ const stokerMult = stacks =>
 // working) or null. Three letters is the shortest entry on the nouns list, so
 // a compound under six letters cannot exist. Exported because this rule, like
 // the Haplographer's, cuts two ways from one place: main.js consults it at the
-// dictionary check, and The Nomenclator consults it at scoring, where a
+// dictionary check, and The Sculptor consults it at scoring, where a
 // compound the Binder allows reads as the noun it plainly is.
 export function boundNouns(word) {
   const nouns = THEME_SETS.nouns;
@@ -173,12 +185,44 @@ export function boundNouns(word) {
   return null;
 }
 
-// Whether a word reads as a noun — on the list outright, or two of its entries
-// stacked while The Binder is seated. The compound half is his and no one
-// else's: without that seat DOOMHAT is not a word at all, so there is nothing
-// for The Nomenclator to be paid for.
+// Plurals the nouns list doesn't carry. nouns.txt holds singular lemmas only —
+// it is The Binder's compounding list first, where two entries have to fit the
+// rack together — so rather than double the file, a plural is read back to its
+// singular here and looked up as that. Every ending English regularly uses,
+// and then the irregulars, which no rule can reach and so are named outright.
+// A candidate that isn't a noun simply misses: the list is the judge, this
+// only decides what to ask it.
+const IRREGULAR_PLURALS = {
+  CHILDREN: 'CHILD', DICE: 'DIE', FEET: 'FOOT', GEESE: 'GOOSE', LICE: 'LOUSE',
+  MICE: 'MOUSE', OXEN: 'OX', PEOPLE: 'PERSON', TEETH: 'TOOTH',
+};
+
+function nounSingulars(word) {
+  const irregular = IRREGULAR_PLURALS[word];
+  if (irregular) return [irregular];
+  const drop = n => word.slice(0, -n);
+  // MEN covers its compounds too, WOMEN and POSTMEN alike.
+  if (word.length > 3 && word.endsWith('MEN'))  return [drop(3) + 'MAN'];
+  if (word.length > 3 && word.endsWith('IES'))  return [drop(3) + 'Y'];
+  if (word.length > 3 && word.endsWith('VES'))  return [drop(3) + 'F', drop(3) + 'FE'];
+  // BOXES → BOX and HORSES → HORSE are the same ending read two ways.
+  if (word.length > 3 && word.endsWith('ES'))   return [drop(2), drop(1)];
+  if (word.length > 3 && word.endsWith('I'))    return [drop(1) + 'US'];   // CACTI, FUNGI
+  // A word ending in SS is no plural: GLASS is one glass.
+  if (word.length > 3 && word.endsWith('S') && !word.endsWith('SS')) return [drop(1)];
+  return [];
+}
+
+// Whether a word reads as a noun — on the list outright, the plural of
+// something on it, or two of its entries stacked while The Binder is seated.
+// The compound half is his and no one else's: without that seat DOOMHAT is not
+// a word at all, so there is nothing for The Sculptor to be paid for. (His
+// halves stay singular: the list he stacks from is unchanged, so DOOM and HAT
+// still make a word and CATS and HAT still don't.)
 const readsAsNoun = word =>
-  inTheme('nouns', word) || (owns('binder') && !!boundNouns(word));
+  inTheme('nouns', word)
+  || nounSingulars(word).some(w => inTheme('nouns', w))
+  || (owns('binder') && !!boundNouns(word));
 
 // Every colour represented in a set of tiles, read the way patrons read
 // colour (countsAsColour) — so a rainbow tile represents all four at once.
@@ -187,18 +231,21 @@ const readsAsNoun = word =>
 const distinctColours = tiles =>
   Object.keys(COLOURS).filter(c => tiles.some(t => countsAsColour(t, c)));
 
-// The Illuminator's brief: exactly three colours represented, and at least
-// one tile that reads as no colour at all and will take paint. Shared by his
-// score effect (which pays the fourth colour's ×2 on the spot) and his
-// onPrinted (which lays the paint), so the promise and the brush agree.
-// Because a rainbow reads as all four colours, a word holding one is never
-// at exactly three — the Illuminator and rainbow metal ignore each other.
+// The Illuminator's brief: exactly three colours represented, and at least one
+// tile that reads as no colour at all and will take paint. It names the tile
+// as well as the colour — the FIRST bare one, deliberately, so the answer is
+// the same every time it is asked. That matters now that the paint lands
+// before the word is counted: the groove shows the tile take its colour as
+// you compose, the multipliers count it, and the brush at print puts it
+// exactly where the preview promised. Because a rainbow reads as all four
+// colours, a word holding one is never at exactly three — the Illuminator and
+// rainbow metal ignore each other.
 function illuminate(tiles) {
   const present = distinctColours(tiles);
   if (present.length !== 3) return null;
   const missing = Object.keys(COLOURS).find(c => !present.includes(c));
-  const bare = tiles.filter(t => !distinctColours([t]).length && !isImmutable(t));
-  return bare.length ? { missing, bare } : null;
+  const target = tiles.find(t => !distinctColours([t]).length && !isImmutable(t));
+  return target ? { missing, target } : null;
 }
 
 // The dye commons: one per colour, each the same patron in a different pot.
@@ -883,25 +930,35 @@ export const PATRON_DEFS = [
     },
   },
   {
-    // Reworked twice over, both for the same principle — a patron reads
-    // colour one way, countsAsColour. That costs him rainbow words (a
-    // rainbow is all four colours, so a word holding one is never at
-    // exactly three), and in exchange the fourth colour now arrives IN
-    // TIME TO SCORE: the score effect pays the ×2 a new singleton colour
-    // is worth, and onPrinted lays the permanent paint after the word
-    // commits. Which bare tile takes the brush is decided at print —
-    // scoring stays pure, and the ×2 is the same whichever tile it is,
-    // so the promise on the shelf is exactly what the word is paid.
+    // "In time to score" is now literal. The brush is a `tilePaint` hook, which
+    // scoring runs before it counts anything (pass ½), so the fourth colour is
+    // on the tile for every reader that follows: it lifts that colour's own
+    // multiplier — the ×2 this patron used to hand over by hand, and more with
+    // a Monogrammist echoing the tile — the Calligrapher pays for a painted
+    // tile, and The Harlequin's full motley is met by it. That last is the
+    // point of the rework: three colours and a bare tile now buy the fourth
+    // colour AND the Harlequin, from one word.
+    //
+    // He reads colour the patrons' way (countsAsColour), which costs him
+    // rainbow words: a rainbow is all four colours at once, so a word holding
+    // one is never at exactly three.
+    //
+    // onPrinted lays the same paint permanently — read off the script rather
+    // than worked out again, so whatever an earlier seat did to the word in
+    // the meantime, the tile the player watched take the colour is the tile
+    // that keeps it.
     id: 'illuminator', name: 'The Illuminator', emoji: '🎨', rarity: 'rare', cost: 8,
-    desc: 'When a word holds exactly three colours, a bare tile in it is painted the fourth — in time to score.',
+    desc: 'When a word holds exactly three colours, its first bare tile is painted the fourth — before the word is counted.',
     when: 'score',
-    effect({ tiles, xMult }) { if (illuminate(tiles)) xMult(2); },
-    onPrinted({ tiles, paint }) {
+    tilePaint({ tiles }) {
       const lit = illuminate(tiles);
-      if (!lit) return null;
-      const target = lit.bare[Math.floor(Math.random() * lit.bare.length)];
-      if (!paint(target, lit.missing)) return null;
-      return { note: `${getActiveLetter(target)} illuminated ${COLOURS[lit.missing].label.toLowerCase()}` };
+      return lit ? [{ tile: lit.target, colour: lit.missing }] : null;
+    },
+    onPrinted({ tiles, script, paint }) {
+      const hit = script?.tilePaintSteps?.find(st => st.id === 'illuminator')?.hits?.[0];
+      const target = hit && tiles.find(t => t.id === hit.id);
+      if (!target || !paint(target, hit.colour)) return null;
+      return { note: `${getActiveLetter(target)} illuminated ${COLOURS[hit.colour].label.toLowerCase()}` };
     },
   },
   {
@@ -1035,28 +1092,31 @@ export const PATRON_DEFS = [
   // The registers above ask what a word is ABOUT; these three ask what it DOES
   // in a sentence, off three more flat files in wordlists-themed/. They pay ×2
   // rather than the registers' ×3 because they fire far more often: of the
-  // 2,000 commonest words, roughly a fifth are on the nouns list, a third on
-  // the adjectives, and over half on the verbs — which is why the price climbs
-  // the same way, and why the verbs cost the most a patron ever does. A word
-  // that is two of them at once (an ANCHOR is a noun, to ANCHOR is a verb)
-  // pays both seats, as any two patrons that both like a word always have.
+  // 2,000 commonest words, roughly a quarter read as nouns (plurals counted),
+  // a third are on the adjectives list and over half on the verbs — which is
+  // why the price climbs the same way, and why the verbs cost the most a patron
+  // ever does. A word that is two of them at once (an ANCHOR is a noun, to
+  // ANCHOR is a verb) pays both seats, as any two patrons that both like a word
+  // always have.
   {
-    // Nouns, and the seat The Binder was waiting for: a compound of his — two
-    // nouns stacked, DOOM and HAT into DOOMHAT — is itself a noun, so the pair
-    // pays twice over. Without that seat the compound is not a word at all.
-    id: 'nomenclator', name: 'The Nomenclator', emoji: '🏷️', rarity: 'rare', cost: 9, guild: 'azure',
-    desc: '×2 Mult when the word is a noun — a compound The Binder allows counts as one.',
+    // He works in things: nouns, and the seat The Binder was waiting for, since
+    // a compound of his — two nouns stacked, DOOM and HAT into DOOMHAT — is
+    // itself a thing with a name. Without that seat the compound is not a word
+    // at all. Plurals count as well (readsAsNoun), so a rack full of S's is no
+    // longer a rack he ignores.
+    id: 'sculptor', name: 'The Sculptor', emoji: '🗿', rarity: 'rare', cost: 9, guild: 'azure',
+    desc: '×2 Mult when the word is a noun, singular or plural — a Binder\'s compound counts as one.',
     when: 'score',
     effect({ word, xMult }) { if (readsAsNoun(word)) xMult(2); },
   },
   {
-    id: 'embellisher', name: 'The Embellisher', emoji: '✨', rarity: 'rare', cost: 10, guild: 'azure',
+    id: 'poet', name: 'The Poet', emoji: '🪶', rarity: 'rare', cost: 10, guild: 'azure',
     desc: '×2 Mult when the word is an adjective — the describing words, ABLE to ZESTY.',
     when: 'score',
     effect({ word, xMult }) { if (inTheme('adjectives', word)) xMult(2); },
   },
   {
-    id: 'actor', name: 'The Actor', emoji: '🎭', rarity: 'rare', cost: 12, guild: 'azure',
+    id: 'athlete', name: 'The Athlete', emoji: '🏃', rarity: 'rare', cost: 12, guild: 'azure',
     desc: '×2 Mult when the word is a verb — a doing word, in any tense: RUN, RAN, RUNNING.',
     when: 'score',
     effect({ word, xMult }) { if (inTheme('verbs', word)) xMult(2); },

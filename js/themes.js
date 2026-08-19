@@ -4,8 +4,8 @@
 // new list, drop the file in the folder and give it a line in THEME_FILES.
 //
 // Four lists back the register patrons (the Sexton, the Paramour, the Poppet,
-// the Vulgarian) and three more back the parts of speech (the Nomenclator's
-// nouns, the Embellisher's adjectives, the Actor's verbs); the acronyms list
+// the Vulgarian) and three more back the parts of speech (the Sculptor's
+// nouns, the Poet's adjectives, the Athlete's verbs); the acronyms list
 // backs the Stenographer, and the names list The Expectant Parents. A word
 // only ever scores if the dictionary (or a pardon) lets it through first, so
 // list entries the dictionary lacks are harmless — they just never come up.
