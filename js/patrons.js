@@ -1285,7 +1285,7 @@ export const PATRON_DEFS = [
     // one painted tile completes that colour's pair, and beside a painted
     // PAIR it makes three and spoils it. The one patron for whom rainbow
     // metal cuts both ways.
-    id: 'glover', name: 'The Glover', emoji: '🧤', rarity: 'common', cost: 4,
+    id: 'glover', name: 'The Glover', emoji: '🧤', rarity: 'uncommon', cost: 4,
     desc: 'Each colour worn by exactly two tiles in the word gives +0.2 Mult — a matched pair, no more, no fewer.',
     when: 'score',
     effect({ tiles, addMult }) {
