@@ -44,7 +44,7 @@ import {
 import { openDraft, closeDraft, restoreDraft, applyDraft } from './draft.js';
 import {
   sleep, flyClone, popReveal, floatText, tweenNum, setNum, fmtMult,
-  pulse, sparkleBurst, sfx, applySpeedCSS, speechBubble,
+  pulse, sparkleBurst, sfx, applySpeedCSS, speechBubble, longReadingTime,
 } from './anim.js';
 import { initInput, initInspect, initShelfDrag } from './drag.js';
 import { patronById, doubledReading, boundNouns } from './patrons.js';
@@ -583,12 +583,18 @@ async function submitWord() {
       }
     }
     sfx.chime();
-    floatText($('word'), `${label} ×${fmtMult(step.mult)}`, `fl-set fl-set--${step.colour}`, { dy: -60 });
-    // The measure's milestone gets its flourish — a line of copy above the
-    // chip's arithmetic, one per letter-count (LENGTH_FLOURISHES, edit freely).
+    // The measure gets one line, not two. It used to float its arithmetic
+    // ("Length ×2") and its flourish ("the compositor nods.") as separate
+    // floaters landing on the word within the same beat, which read as a
+    // collision rather than two things worth saying — so they're one message
+    // now, held onscreen twice as long since nothing else is due to land on
+    // top of it (longReadingTime, js/anim.js).
     if (step.colour === 'length') {
-      floatText($('word'), lengthFlourish(step.count), 'fl-flourish', { dy: -138 });
+      const line = `${step.count} letters — ×${fmtMult(step.mult)} Mult: ${lengthFlourish(step.count)}`;
+      floatText($('word'), line, 'fl-flourish', { dy: -138, duration: longReadingTime(line) });
       sparkleBurst($('word'), Math.min(6 + step.count, 18));
+    } else {
+      floatText($('word'), `${label} ×${fmtMult(step.mult)}`, `fl-set fl-set--${step.colour}`, { dy: -60 });
     }
     setChip(ro.chip(step.colour), step.mult);
     pulse(ro.chip(step.colour), 'chip--pop', 420);

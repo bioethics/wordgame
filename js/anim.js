@@ -106,6 +106,12 @@ const PROSE_LEN  = 16;
 const PROSE_MAX  = 3600;
 const POP_MS     = 950;
 
+// A rare floater that has the stage to itself — nothing else is due to land
+// near it — can afford to outstay the usual cap. Twice the ordinary hold,
+// off the same per-character rate, so a longer line still earns proportionally
+// more time.
+export const longReadingTime = text => 2 * Math.min(PROSE_MAX, readingTime(text));
+
 export function floatText(anchor, html, cls = '', { dy = -54, duration = null } = {}) {
   const layer = fx();
   if (!layer || !anchor) return;
@@ -118,7 +124,12 @@ export function floatText(anchor, html, cls = '', { dy = -54, duration = null } 
   f.style.top  = `${rect.top - 4}px`;
   layer.appendChild(f);
 
-  const prose = duration == null && plainLength(html) > PROSE_LEN;
+  // Prose framing (rise, hold, fade) is a property of the TEXT — long enough
+  // to need holding still — not of whether the caller picked its own timing.
+  // An explicit `duration` only overrides how long that hold lasts, so a
+  // floater given extra time (longReadingTime) still gets to rest rather than
+  // dissolving continuously across a stretched-out pop.
+  const prose = plainLength(html) > PROSE_LEN;
   const total = duration ?? (prose ? Math.min(PROSE_MAX, readingTime(html)) : POP_MS);
 
   // Prose holds at two-thirds of its drift and finishes the rise only as it

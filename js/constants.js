@@ -293,20 +293,23 @@ export const lengthMult = n =>
   n < LENGTH_MULT_MIN ? 1 : LENGTH_MULT_BASE + (n - LENGTH_MULT_MIN) * LENGTH_MULT_STEP;
 
 // The flourish announced as the measure pays, one per milestone — EDIT FREELY,
-// these are copy, not code. Longer words than the table knows fall through to
-// LENGTH_FLOURISH_BEYOND, with the letter count swapped in for {n}.
+// these are copy, not code. Each entry is only the reaction clause: the caller
+// (main.js) puts the letter count and the ×Mult in front of it, so the two no
+// longer float up as separate, overlapping messages — one line reads
+// "6 letters — ×2 Mult: the compositor nods." A word longer than the table
+// knows falls through to LENGTH_FLOURISH_BEYOND.
 export const LENGTH_FLOURISHES = {
-  6:  'Six letters — the compositor nods.',
-  7:  'Seven letters — a full measure!',
-  8:  'Eight letters — the pressmen gather round.',
-  9:  'Nine letters — the founder wipes away a tear.',
-  10: 'Ten letters — the whole case emptied!',
-  11: 'Eleven letters — the Folio itself is honoured.',
-  12: 'Twelve letters — words about words fail us.',
+  6:  'the compositor nods.',
+  7:  'a full measure!',
+  8:  'the pressmen gather round.',
+  9:  'the founder wipes away a tear.',
+  10: 'the whole case emptied!',
+  11: 'the Folio itself is honoured.',
+  12: 'words about words fail us.',
 };
-export const LENGTH_FLOURISH_BEYOND = '{n} letters — the stuff of legend.';
+export const LENGTH_FLOURISH_BEYOND = 'the stuff of legend.';
 export const lengthFlourish = n =>
-  LENGTH_FLOURISHES[n] ?? LENGTH_FLOURISH_BEYOND.replace('{n}', n);
+  LENGTH_FLOURISHES[n] ?? LENGTH_FLOURISH_BEYOND;
 
 // ─── Run structure ────────────────────────────────────────────────────────────
 export const RACK_SIZE          = 10;
