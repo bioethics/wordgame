@@ -222,6 +222,18 @@ function rollOffers() {
   market.sundryOffers = rollSundryOffers();
   guaranteeAmber();
   stockTheMedievalStall();
+  offerTheCat();
+}
+
+// A cat noticed you (js/main.js, on the word CAT) and has come to look you over.
+// She waits at the HEAD of the patrons rather than among them — she was not
+// sent for, and does not queue — and she is free, so the only question is
+// whether she is worth a seat. Offered whenever she is noticed and unowned, so
+// dismissing her is not final: she will simply be there again next Market,
+// unbothered.
+function offerTheCat() {
+  if (!state.catNoticed || owns('shorthair')) return;
+  market.patronOffers.unshift({ id: 'shorthair', sold: false, data: {} });
 }
 
 // The Medievalist's stall: one extra slot on the tile row, holding one medieval

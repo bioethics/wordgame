@@ -2,7 +2,6 @@ import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, PURPLE_TRIM_STEP, REWARD, CURSED_MULT,
   CURSED_PENALTY, SPIKE_MULT, SILVER_BONUS, isDeadline, splitMarks,
   HONORIFIC_STEP, FLEURON, FLEURON_PAGE_COIN, lengthMult, POSTNOM,
-  INTERROBANG, INTERROBANG_MULT,
 } from './constants.js';
 import {
   PATRON_DEFS, patronById, guildsOf, guildSeats, resolveMedieval,
@@ -308,22 +307,6 @@ export function computeScore(wordTiles) {
     const count = weigh(purples);
     const m = 1 + count * PURPLE_TRIM_STEP;
     colourSteps.push({ colour: 'purple', ids: idsOf(purples), count, mult: m });
-    mult *= m;
-  }
-
-  // The interrobang multiplies alongside the colours too, for the same reason
-  // cursed metal does: it is a property of the sort rather than anything the
-  // table said. It cannot stack — there is only ever one road to one of them
-  // per pair of marks — but the arithmetic is written to stack anyway, so a
-  // second one behaves rather than surprising anyone.
-  const bangs = [];
-  wordTiles.forEach((t, i) => {
-    if (getActiveLetter(t) === INTERROBANG && !isWrapped(t)) bangs.push({ id: t.id, weight: echo[i] });
-  });
-  if (bangs.length) {
-    const count = weigh(bangs);
-    const m = Math.round((INTERROBANG_MULT ** count) * 1000) / 1000;
-    colourSteps.push({ colour: 'interrobang', ids: idsOf(bangs), count, mult: m });
     mult *= m;
   }
 

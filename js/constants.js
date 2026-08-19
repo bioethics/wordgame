@@ -184,8 +184,11 @@ export const MARKS      = ['?', '!'];
 // other road (see PROPOSAL_STALLS.punchcutter in js/market.js). It IS the ?!
 // tail, so it says in one tile what has always taken two, and it is the dearest
 // sort in the case besides.
-export const INTERROBANG      = '‽';
-export const INTERROBANG_MULT = 1.5;   // ×Mult it gives the word, alongside the colours
+// It pays in Points alone — a huge number for one tile, and no multiplier on
+// top. A ×Mult here rode the colour track and multiplied the whole word, which
+// on a sort already worth five times the best letter in the case made it not
+// the best tile in the game but the only one worth building around.
+export const INTERROBANG = '‽';
 
 export const MARK_RUNS  = ['?', '!', '?!', INTERROBANG];   // every legal tail
 export const isMark     = ch => MARKS.includes(ch) || ch === INTERROBANG;
@@ -227,7 +230,6 @@ export const MULT_TRACKS = {
   purple: { label: 'Purple', glyph: '#8a5fb0', bright: '#cfa6ff' },
   cursed: { label: 'Cursed', glyph: '#c93c2d', bright: '#ff7a66' },
   length: { label: 'Length', glyph: '#7d8fa0', bright: '#d9e6f2' },   // type-metal steel
-  interrobang: { label: 'Interrobang', glyph: '#b8862c', bright: '#ffd68c' },
 };
 
 export const PAINT_PER_POT   = 3;   // tiles painted per draft pot (random, unpainted)

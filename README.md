@@ -295,16 +295,19 @@ The list, the points and the substitutions live in one place: `MEDIEVAL` in
 rather than find. Hold a `?` and a `!` and the Punchcutter will offer to cut the
 pair together; what comes back is a single tile that closes a word by itself
 where the two marks always cost you two rack places. It is worth **50 Points**,
-the most of anything in the case, and gives the word **×1.5 Mult** besides.
-Nothing is consumed — the other mark stays where it is — and there is no other
-road to one.
+the most of anything in the case, and that is the whole of what it pays — a
+multiplier on top made it not the best tile in the game but the only one worth
+building around. Nothing is consumed — the other mark stays where it is — and
+there is no other road to one.
 
 **Hidden things** — the game has a few, and this is the only place they are
-written down. Set the word **CAT** and *the Domestic Shorthair* moves in: free,
-unlisted at the Market, and straight into the first seat at your table. Words
-holding RAT pay her a Coin and earn her a laurel, and a RAT tile in the word is
-eaten outright — which makes *the Rat Catcher*, who casts one every page, either
-her best friend or her larder.
+written down. Set the word **CAT** and something takes an interest. Nothing
+arrives on the board; but at the next Market *the Domestic Shorthair* is waiting
+at the head of the patrons, **free**, and whether she gets a seat is your call
+like any other. Words holding RAT pay her a Coin and earn her a laurel, and a
+RAT tile in the word is eaten outright — which makes *the Rat Catcher*, who
+casts one every page, either her best friend or her larder. Dismiss her and she
+will simply be there again next Market, unbothered.
 
 **The Market** (between pages) keeps a fixed layout with churning contents:
 4 patrons, 4 tiles (5 with the Medievalist's stall), 2 **sundries**, and 2 **stalls** drawn from a roster of

@@ -224,7 +224,8 @@ function marketShopHTML() {
           <div class="op-desc">${desc}</div>
         </div>
         <span class="op-sold">seated</span>
-        <button class="btn-price" data-buy-patron="${def.id}">${coinHTML(patronCost(def, o.data))}</button>
+        <button class="btn-price" data-buy-patron="${def.id}">${
+          patronCost(def, o.data) === 0 ? 'Free' : coinHTML(patronCost(def, o.data))}</button>
       </div>`;
   }).join('') || '<p class="sheet-note">No patrons calling today.</p>';
 
