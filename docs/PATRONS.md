@@ -99,7 +99,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 📑 **The Copyist** `copyist` | common | 4 | ×2 Mult when the word already stands in your manuscript. |
 | 🪭 **The Monogrammist** `monogrammist` | common | 4 | Arrives with three letters of its own; a tile showing one prints twice — Points, trim and paint alike. |
 | 🧖 **The Nudist** `nudist` | common | 4 | In a word where no tile has paint, a trim or a nick, each tile has a 1-in-4 chance of gaining a random trim. |
-| 👯 **The Twins** `twins` | common | 4 | Words with a doubled letter (LL, OO…) gain +15 Points. |
+| 👯 **The Twins** `twins` | common | 4 | Every doubled letter (LL, OO…) gains +15 Points — BALLOON pays twice. |
 | 🐣 **The Abecedarian** `abecedarian` | common | 5 | 3-letter words get +10 Points. |
 | 🪞 **The Mirror** `mirror` | uncommon | 5 | Words that spell another word backwards — or themselves — get ×4 Mult. |
 | 🤰 **The Expectant Parents** `expectants` | uncommon | 6 | Common baby names count as words, and any name gains +10 Points — SOPHIE, ARCHIE, BARNABY. |
@@ -121,7 +121,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🍑 **The Vulgarian** `vulgarian` | rare | 8 | ×3 Mult for any of the thousands of words The Vulgarian finds rude. |
 | 🔭 **The Astronomer** `astronomer` | rare | 9 | +1 Mult for each word already printed this page. |
 | 📋 **The Overseer** `overseer` | rare | 9 | Print one more word each page. |
-| 🦜 **The Stammerer** `stammerer` | rare | 10 | ×2 Mult for every doubled letter in the word — BALLOON pays twice. |
+| 🦜 **The Stammerer** `stammerer` | rare | 10 | Every doubled letter gives +0.5 Mult — BALLOON pays twice, BOOKKEEPER three times. |
 | 🗺️ **The Cartographer** `cartographer` | rare | 12 | Words whose letters run in alphabetical order get ×3 Mult. |
 | 👓 **The Skimmer** `skimmer` | rare | 12 | Words are accepted with their middle letters in any order, so long as the first and last letters are right. |
 

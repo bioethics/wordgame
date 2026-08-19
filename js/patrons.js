@@ -329,11 +329,16 @@ export const PATRON_DEFS = [
     },
   },
   {
+    // Paid by the pair rather than by the word, which is what the name always
+    // implied. It costs almost nothing to give away: two doubled pairs is 1.2%
+    // of the dictionary and 130 words of settable length, so the second +15 is
+    // a rare treat rather than a new baseline.
     id: 'twins', name: 'The Twins', emoji: '👯', rarity: 'common', cost: 4,
-    desc: 'Words with a doubled letter (LL, OO…) gain +15 Points.',
+    desc: 'Every doubled letter (LL, OO…) gains +15 Points — BALLOON pays twice.',
     when: 'score',
     effect({ word, addPoints }) {
-      if (doubledPairs(word) + licencedPairs(word)) addPoints(15);
+      const n = doubledPairs(word) + licencedPairs(word);
+      if (n) addPoints(15 * n);
     },
   },
   {
@@ -1118,12 +1123,18 @@ export const PATRON_DEFS = [
     when: 'meta',   // consulted at the dictionary check in main.js; the list lives in wordlists-themed/nouns.txt
   },
   {
+    // ×2 per pair was a doubling on 22% of the dictionary and a ×4 on the 1.2%
+    // that hold two — the sort of number that decides a run on its own. It pays
+    // +0.5 a pair now: the same ×1.5 on the word you actually set most of the
+    // time, but ADDITIVE, so it joins the other +Mult seats rather than
+    // multiplying whatever they built. Three pairs exists (BOOKKEEPER, and 28
+    // more) and stacks the same way, which is the whole charm of the thing.
     id: 'stammerer', name: 'The Stammerer', emoji: '🦜', rarity: 'rare', cost: 10,
-    desc: '×2 Mult for every doubled letter in the word — BALLOON pays twice.',
+    desc: 'Every doubled letter gives +0.5 Mult — BALLOON pays twice, BOOKKEEPER three times.',
     when: 'score',
-    effect({ word, xMult }) {
+    effect({ word, addMult }) {
       const n = doubledPairs(word) + licencedPairs(word);
-      if (n) xMult(2 ** n);
+      if (n) addMult(0.5 * n);
     },
   },
   {
