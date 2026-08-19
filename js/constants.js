@@ -239,11 +239,17 @@ export const MAX_FEATURES         = 4;
 // silver. Scoring, the tile face and the trim's own card all read it here.
 export const SILVER_BONUS = 5;
 
+// Four, since the mercury trim was retired. It read "returns to the bag instead
+// of the discard pile" — a real effect, but one a player almost never bought:
+// a trim slot spent on it is a trim slot not spent on gold, and the tile it
+// saves is a tile you might not want back. The rule was worth keeping and the
+// trim wasn't, so it lives on where it always belonged — with The Fountain,
+// who gives it to a whole colour at once (returnsToBag in state.js). Saves
+// made while it existed are repaired at load; see retireMercury there.
 export const TRIMS = {
   gold:    { label: 'Gold',    price: 2, desc: 'Pays 1 Coin when printed.' },
   silver:  { label: 'Silver',  price: 2, desc: `+${SILVER_BONUS} Points.` },
   cobalt:  { label: 'Cobalt',  price: 3, desc: 'Refunds a Discard when printed.' },
-  mercury: { label: 'Mercury', price: 3, desc: 'Returns to the bag instead of the discard pile.' },
   purple:  { label: 'Purple',  price: 4, desc: 'Adds +0.5 to the purple multiplier.' },
 };
 
@@ -521,7 +527,7 @@ export function makeTileTemplate(letter, overrides = {}) {
     altLetter:     null,
     activeVariant: 0,          // 0 = letter, 1 = altLetter
     colour:        null,       // paint — the tile's, not either face's
-    trim:          null,       // gold | silver | cobalt | mercury | purple
+    trim:          null,       // gold | silver | cobalt | purple
     nick:          null,       // right | left | side
     bonusPoints:   0,          // permanent growth of the first letter (The Grafter, The Espalier)
     altBonusPoints: 0,         // …and of the second, when a dual carries any — growth follows the face

@@ -105,7 +105,7 @@ plus an optional **trim** and **nick**.
 | Layer | Options |
 | --- | --- |
 | Paint | crimson / azure / jade / amber — each raises its colour's multiplier by 1 |
-| Trim | **Gold** pays 1 Coin · **Silver** +5 Points, counted into the tile's corner number wherever it appears and written in the trim's own silver, so the tile says what it is worth rather than making you add · **Cobalt** refreshes 1 Discard (and wears the Discard's own blue) · **Mercury** slips back into the bag instead of the discard pile · **Purple** raises the fifth multiplier by 0.5 |
+| Trim | **Gold** pays 1 Coin · **Silver** +5 Points, counted into the tile's corner number wherever it appears and written in the trim's own silver, so the tile says what it is worth rather than making you add · **Cobalt** refreshes 1 Discard (and wears the Discard's own blue) · **Purple** raises the fifth multiplier by 0.5 |
 | Nick | A notch cut into one edge; the notched side is the direction. **Right** ×2 Points to everything on its right · **Left** ×2 to its left. Nicks don't stack — a tile is multiplied once at most. While you compose, an affected tile's corner number becomes the multiplied value, restyled, rippling outward from the notch. |
 | Letterform | Dual tiles hold two letters (flip to switch; paint, trim and nick belong to the tile, so both letters wear them) · Ligatures ING · CH · CK · TH · WH · QU spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Marks** ? and ! spell nothing at all, and come only from a wrapped tile, purple-trimmed |
 | Material | What the tile is cast from, under everything else: ordinary lead, or **cursed** / **ghost** / **rainbow** (see below) |
@@ -139,8 +139,11 @@ and nicks like any other.
   there's nothing solid to take an impression from.
 - **Rainbow** (rainbow roll) — reads as *every* colour to your patrons, so one
   tile wakes the whole guild. It doesn't lift the colour multipliers on its
-  own, though: paint it, and only that colour's multiplier rises. Mind the
-  Stoker, who reads it as crimson and burns it.
+  own, though: paint it, and only that colour's multiplier rises. It counts as
+  azure to *the Fountain*, so an unpainted rainbow tile still finds its way back
+  into the bag rather than the pile — one of the few things it does for you
+  without being painted at all. Mind the Stoker, who reads it as crimson and
+  burns it.
 
 **The Editors** — every chapter's third page is its **Deadline**, and an editor
 holds the desk there: one of a roster (see `js/bosses.js`), drawn at random as
@@ -273,7 +276,10 @@ rattles around in there at half the rate:
   own seat's turn, so a laurel in front of your multipliers is multiplied by
   them and one behind them is not — and a dismissed patron takes their laurels
   with them, which is the tool's whole tension. It is worn along the bottom
-  edge of the card, clear of the livery pin and the ✕.
+  edge of the card, clear of the livery pin and the ✕. The tool is not the only
+  source: *the Laureate* crowns himself once for every jade tile you print,
+  which turns the same reward from a lottery into something a jade press
+  manufactures.
 - **Tongs** (crimson) — grip a tile and it goes to the furnace for good
   (feeding the Composter, respecting the Smelter's floor); the next word you
   print gains +8 Points. Grips stack; the heat expires with the page.

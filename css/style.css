@@ -1494,10 +1494,6 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 /* Quicksilver — a pale wash, next to cobalt's deep saturated bands */
-.tile--trim-mercury {
-  --trim-ring: inset 0 0 0 3px #7ec8d6;
-  --tile-lift: #4a8794;
-}
 
 .tile--trim-purple {
   /* the faint violet halo rides in the ring, so it survives every state too */
@@ -1649,7 +1645,6 @@ button.sundry:hover { transform: translateY(-2px); }
 .tile--mini.tile--trim-gold   { box-shadow: inset 0 0 0 2px #d9a64b, 0 3px 6px rgba(0,0,0,0.35); }
 .tile--mini.tile--trim-silver { box-shadow: inset 0 0 0 2px #aab4c4, 0 3px 6px rgba(0,0,0,0.35); }
 .tile--mini.tile--trim-cobalt  { box-shadow: inset 0 0 0 1px #8ec6ff, inset 0 0 0 2.5px #3f68ad, 0 3px 6px rgba(0,0,0,0.35); }
-.tile--mini.tile--trim-mercury { box-shadow: inset 0 0 0 2px #7ec8d6, 0 3px 6px rgba(0,0,0,0.35); }
 .tile--mini.tile--trim-purple  { box-shadow: inset 0 0 0 2px #8a5fb0, 0 3px 6px rgba(0,0,0,0.35); }
 
 /* A stall's chosen tile */
@@ -2527,7 +2522,6 @@ button.sundry:hover { transform: translateY(-2px); }
 .trim-swatch--gold    { --metal: #d9a64b; }
 .trim-swatch--silver  { --metal: #aab4c4; }
 .trim-swatch--cobalt  { --metal: #3f68ad; box-shadow: inset 0 0 0 1px #8ec6ff; }
-.trim-swatch--mercury { --metal: #7ec8d6; }
 .trim-swatch--purple  { --metal: #8a5fb0; }
 
 /* ── The compost heap ────────────────────────────────────────────────────────

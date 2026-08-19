@@ -310,6 +310,23 @@ export function saveState(extra = {}) {
   } catch { /* quota */ }
 }
 
+// One-time repair for saves written while the mercury trim existed. The trim is
+// gone (its rule is The Fountain's now), so a tile still wearing one would look
+// itself up in a table that no longer has the row — which throws wherever a
+// trim is described. Cobalt costs the same 3 Coins and is the nearest thing to
+// a straight swap, so those tiles are re-trimmed rather than stripped bare.
+// The whole save is walked because a trim can be on a collection template, on a
+// tile in the hand or the pile, or on a tile still sitting unbought on a Market
+// or draft sheet. Returns how many were repaired, so the board can say so.
+function retireMercury(node) {
+  if (Array.isArray(node)) return node.reduce((n, v) => n + retireMercury(v), 0);
+  if (!node || typeof node !== 'object') return 0;
+  let n = 0;
+  if (node.trim === 'mercury') { node.trim = 'cobalt'; n += 1; }
+  for (const v of Object.values(node)) n += retireMercury(v);
+  return n;
+}
+
 export function loadState() {
   try {
     const raw = localStorage.getItem(SAVE_KEY);
@@ -318,6 +335,7 @@ export function loadState() {
     if (s._v !== SAVE_VERSION) return null;
     migrateSave(s);
     if (!Array.isArray(s.collection) || !Array.isArray(s.rack)) return null;
+    const mercury = retireMercury(s);
     const { _nextId: savedId, _nextTid: savedTid, _v, _market, _draft, _colophon, ...fields } = s;
     Object.assign(state, fields, { isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null });
     state.sundries ??= [];
@@ -346,7 +364,7 @@ export function loadState() {
     // Seats saved before uids existed get one now — after the counters above,
     // so a backfilled uid can never collide with a tile id already in the save.
     state.patrons?.forEach(p => { p.uid ??= nextId(); });
-    return { market: _market ?? null, draft: _draft ?? null, colophon: _colophon ?? null };
+    return { market: _market ?? null, draft: _draft ?? null, colophon: _colophon ?? null, mercury };
   } catch { return null; }
 }
 
@@ -512,15 +530,18 @@ export function getWordString() {
 }
 
 // Which printed tiles slip back into the bag rather than the discard pile:
-// mercury trims always, and every azure tile while The Fountain is seated.
+// every azure tile while The Fountain is seated, and nothing else. (The mercury
+// trim did this for a single tile and was retired; the rule was always better
+// as a colour's than as a trim's.) Read through countsAsColour, so a rainbow
+// tile takes the road too — one of the few places rainbow metal pays off
+// without being painted at all.
 // Scoring reads the same rule for its "↩ to bag" flag, so the promise the
 // board makes while you compose is the one printing keeps.
 // A lent tile can never take this road whatever else is true of it: the bag
 // holds templates, and filing one there would turn a tile you were lent for a
 // page into a tile you own for the rest of the run.
 export const returnsToBag = tile =>
-  !tile.ephemeral &&
-  (tile.trim === 'mercury' || (owns('fountain') && countsAsColour(tile, 'azure')));
+  !tile.ephemeral && owns('fountain') && countsAsColour(tile, 'azure');
 
 // Where a printed tile goes. Returning tiles are dropped in at a random depth
 // so they aren't simply redrawn on the next turn.

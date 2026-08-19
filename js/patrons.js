@@ -104,7 +104,7 @@ import {
   GRAFTER_STEP, STOKER_BASE, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS, NUDIST_TRIM_CHANCE,
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
-  HEADSMAN_STEP, ESPALIER_STEP, splitMarks, isImmutable,
+  HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, splitMarks, isImmutable,
 } from './constants.js';
 import {
   state, getActiveColour, getActiveLetter, countsAsColour, luckyRoll,
@@ -663,6 +663,34 @@ export const PATRON_DEFS = [
       return { note: `+${GRAFTER_STEP} grown into ${tiles.length} tile${tiles.length > 1 ? 's' : ''}` };
     },
   },
+  {
+    // The laurel was a tool's gift before it was a patron's trade: the sundry
+    // of that name (js/constants.js) crowns a RANDOM seated patron, and a crown
+    // is +HONORIFIC_STEP Points on every word thereafter, paid at that seat's
+    // own turn in the running order. He crowns one head only — his own — and
+    // does it for every jade tile that prints, so what looks like a lottery on
+    // the tool is a decision here: how much jade you paint says how fast the
+    // laurels come, and where you drag him says what each one is worth, since
+    // a crown in front of your multipliers is multiplied by them.
+    //
+    // Nothing in scoring knows about him. Laurels are already paid seat by seat
+    // for whoever wears them (pass 4), so this hook has only to put them on his
+    // head; the badge on his card and the Points in the readout follow by
+    // themselves. Jade is counted the patrons' way, so a rainbow tile crowns
+    // him as a painted one does — and, as with any laurel, dismissing him
+    // takes every crown he ever gathered with him.
+    id: 'laureate', name: 'The Laureate', emoji: '👑', rarity: 'rare', cost: 10, guild: 'jade',
+    desc: `Every jade tile you print crowns this patron with a laurel — +${HONORIFIC_STEP} Points on every word, for good.`,
+    when: 'meta',
+    onPrinted({ tiles, data }) {
+      const crowned = painted(tiles, 'jade').length;
+      if (!crowned) return null;
+      data.honorifics = (data.honorifics ?? 0) + crowned;
+      return {
+        note: `${crowned > 1 ? `${crowned} laurels` : 'a laurel'} — +${data.honorifics * HONORIFIC_STEP} Points every word`,
+      };
+    },
+  },
 
   // ── Crimson · sacrifice and fire ────────────────────────────────────────────
   {
@@ -866,8 +894,7 @@ export const PATRON_DEFS = [
     // The Skald's stricter cousin: he reads the manuscript, not the last
     // line. The condition is dead on page one by definition and never fires
     // by accident twice — a repeat has to be steered, tiles herded back into
-    // a word the press has set before, which mercury trims and The Fountain
-    // turn into a plan. Marks are stripped from both sides of the comparison,
+    // a word the press has set before, which The Fountain turns into a plan. Marks are stripped from both sides of the comparison,
     // so HELLO! reprints HELLO.
     id: 'copyist', name: 'The Copyist', emoji: '📑', rarity: 'common', cost: 4,
     desc: '×2 Mult when the word already stands in your manuscript.',

@@ -87,7 +87,7 @@ async function animateDraw(drawn) {
 }
 
 // Fly tiles (already removed from state) to wherever they went — the discard
-// pile by default, or the bag for Mercury trims.
+// pile by default, or the bag for azure tiles while The Fountain is seated.
 // Sources may still be in the DOM (e.g. discarded rack tiles) — hide them so
 // only the flying clone is visible.
 async function animateDiscard(rects, to = pileRect(), bump = 'discardBtn') {
@@ -680,7 +680,7 @@ async function submitWord() {
   // multiplier, not the trip back to the bag).
   washOff(printed);
 
-  // Mercury trims and (with The Fountain) azure tiles slip back into the bag;
+  // With The Fountain seated, azure tiles slip back into the bag;
   // everything else is discarded. Ash goes nowhere at all.
   const burnedIds = new Set(burned.map(t => t.id));
   const { toBag, toPile } = retirePrinted(printed.filter(t => !burnedIds.has(t.id)));
@@ -1543,7 +1543,10 @@ async function beginRun() {
       renderAll();
       log('Welcome back.');
     }
-    // Said last, so it isn't the line "Welcome back." writes over.
+    // Said last, so they aren't lines "Welcome back." writes over.
+    if (restored.mercury) {
+      log(`The mercury trim has been retired — ${restored.mercury} tile${restored.mercury > 1 ? 's wear' : ' wears'} cobalt instead. Azure tiles find their way back to the bag through The Fountain now.`, 'warn');
+    }
     if (orphaned) {
       log(`${orphaned} seat${orphaned > 1 ? 's are' : ' is'} no longer in the roster and ${orphaned > 1 ? 'have' : 'has'} left the shelf.`, 'warn');
     }

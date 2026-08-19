@@ -20,7 +20,7 @@ House style for a description, from `docs/PATRON_OVERHAUL.md`: one sentence,
 real numbers, no metaphor, under ~110 characters. State the rule, not the
 feeling — the flavour belongs to the name, the emoji and the quips.
 
-**75 patrons** — 21 common, 35 uncommon, 19 rare. Guilds: amber 11, jade 11, crimson 11, azure 13, no guild 31 — a dual-livery patron counts in each of its guilds.
+**76 patrons** — 21 common, 35 uncommon, 20 rare. Guilds: amber 11, jade 12, crimson 11, azure 13, no guild 31 — a dual-livery patron counts in each of its guilds.
 
 ## Amber · the counting-house
 
@@ -51,6 +51,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🖼️ **The Frontispiece** `frontispiece` 🔒 | uncommon | 7 | The first word of each page gets ×1.5 Mult — +0.1 more, for good, each time that word clears the quota alone. |
 | 🍷 **The Vintner** `vintner` | uncommon | 7 | Words with a jade tile gain +1 Mult per chapter reached — +5 Mult in Chapter V. |
 | 🌿 **The Grafter** `grafter` | rare | 8 | When a word with a jade tile prints, every tile in it permanently gains +1 Point. |
+| 👑 **The Laureate** `laureate` 🔒 | rare | 10 | Every jade tile you print crowns this patron with a laurel — +5 Points on every word, for good. |
 
 ## Crimson · sacrifice and fire
 
