@@ -107,9 +107,10 @@ export function updateMarketState() {
 
   const seats = m.querySelector('[data-seats]');
   if (seats) seats.textContent = seatsLabel();
-  // Two places say how full the bench is — the workbench heading and the
-  // Sundries column — so both are written, from the one label.
-  for (const bench of m.querySelectorAll('[data-bench]')) bench.textContent = benchLabel();
+  const bench = m.querySelector('[data-bench]');
+  if (bench) bench.textContent = benchLabel();
+  const benchN = m.querySelector('[data-bench-count]');
+  if (benchN) benchN.textContent = benchCount();
 
   // The shelf strip redraws in place, so a hire appears seated the moment the
   // coin is paid — without rebuilding the sheet under your scroll position.
@@ -151,6 +152,12 @@ const seatsLabel = () => {
 const benchLabel = () => {
   const max = effectiveSundrySlots();
   return `${state.sundries.length}/${max} on the workbench${state.sundries.length >= max ? ' — sell one to make room' : ''}`;
+};
+// The bench's own heading sits in a column barely wider than its slots, so it
+// gets the short form; the long one belongs to the Sundries shop column.
+const benchCount = () => {
+  const max = effectiveSundrySlots();
+  return `${state.sundries.length}/${max}${state.sundries.length >= max ? ' — full' : ''}`;
 };
 
 // ─── The table, restated inside the Market ────────────────────────────────────
@@ -236,7 +243,7 @@ function marketBenchHTML() {
   const full = state.sundries.length >= effectiveSundrySlots();
   return `
     <section class="market-bench${full ? ' market-shelf--wanted' : ''}" data-market-bench-wrap>
-      <h3 class="market-sec">Your workbench <span class="market-sub" data-bench>${benchLabel()}</span><span class="market-sub market-sub--hint">✕ sells one back for ${SUNDRY_SELL} Coin</span></h3>
+      <h3 class="market-sec">Workbench <span class="market-sub" data-bench-count>${benchCount()}</span></h3>
       <div class="sundries sundries--market" data-market-bench
            style="--slot-count:${effectiveSundrySlots()}">${marketBenchSlotsHTML()}</div>
     </section>`;
@@ -365,8 +372,10 @@ function marketShopHTML() {
         ${rewardHTML()}
       </div>
 
-      ${marketShelfHTML()}
-      ${marketBenchHTML()}
+      <div class="market-hold">
+        ${marketShelfHTML()}
+        ${marketBenchHTML()}
+      </div>
 
       <div class="market-grid">
         <section class="market-col">

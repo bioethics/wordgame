@@ -1272,6 +1272,28 @@ export const PATRON_DEFS = [
     },
   },
   {
+    // Gloves come in pairs, and only in pairs: a colour worn by exactly two
+    // tiles is a match and pays; a third of the same colour spoils the set
+    // and pays nothing, which is the whole discipline of the seat — more
+    // paint is not better paint, PLACED paint is. Each colour is judged on
+    // its own, so two crimson and two jade are two pairs (+0.4) while one of
+    // each is a drawer of odd gloves. Additive Mult, so he queues with the
+    // Typesetter and the Stammerer rather than multiplying the table.
+    //
+    // Colour is read the patrons' way (painted → countsAsColour), so a
+    // rainbow tile joins every colour's count at once — one rainbow beside
+    // one painted tile completes that colour's pair, and beside a painted
+    // PAIR it makes three and spoils it. The one patron for whom rainbow
+    // metal cuts both ways.
+    id: 'glover', name: 'The Glover', emoji: '🧤', rarity: 'common', cost: 4,
+    desc: 'Each colour worn by exactly two tiles in the word gives +0.2 Mult — a matched pair, no more, no fewer.',
+    when: 'score',
+    effect({ tiles, addMult }) {
+      const pairs = Object.keys(COLOURS).filter(c => painted(tiles, c).length === 2).length;
+      if (pairs) addMult(Math.round(pairs * 0.2 * 100) / 100);
+    },
+  },
+  {
     // Motley is the whole joke: the one patron who cares about every colour
     // wears none. All four, nothing less — a full motley is a build you commit
     // to across a run, not a spread you stumble into. Colours are counted the

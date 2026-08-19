@@ -2855,12 +2855,25 @@ button.sundry:hover { transform: translateY(-2px); }
 /* A full table: the tally turns urgent — dismissing is the only way to hire. */
 .sheet--market .market-shelf--wanted .market-sub { color: #ffb3a6; font-weight: 800; }
 
-/* ── The workbench, restated under the table ──────────────────────────────────
-   Same wood and same slots as the board's bench (the .sundries/.sundry classes
-   do the work), but nothing is armed from inside the Market — a tube has no
-   hand to paint here — so the slots are plain cards and the only act on them
-   is the ✕, which sells one back. */
-.sheet--market .market-bench { margin-bottom: 6px; }
+/* ── The workbench, beside the table ──────────────────────────────────────────
+   The Market restates the board's whole shelf-row, in the board's own
+   arrangement: the table flexes, the bench hugs its two-or-three slots at the
+   end of the line rather than stretching a strip of empty wood across the
+   sheet. Flex-wrap is the responsive rule — when the sheet is too narrow for
+   both, the bench simply drops below the table, no media query needed. Same
+   wood and same slots as the board's bench (the .sundries/.sundry classes do
+   the work), but nothing is armed from inside the Market — a tube has no hand
+   to paint here — so the slots are plain cards and the only act on them is
+   the ✕, which sells one back. */
+.sheet--market .market-hold {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 2px 16px;
+  margin-bottom: 6px;
+}
+.sheet--market .market-hold .market-shelf { flex: 1 1 380px; margin-bottom: 0; }
+.sheet--market .market-bench { flex: 0 1 auto; }
 .sheet--market .sundries--market {
   gap: 8px;
   padding: 8px 10px 10px;

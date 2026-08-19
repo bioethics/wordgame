@@ -20,7 +20,7 @@ House style for a description, from `docs/PATRON_OVERHAUL.md`: one sentence,
 real numbers, no metaphor, under ~110 characters. State the rule, not the
 feeling — the flavour belongs to the name, the emoji and the quips.
 
-**78 patrons** — 22 common, 36 uncommon, 20 rare. Guilds: amber 13, jade 13, crimson 12, azure 14, no guild 29 — a dual-livery patron counts in each of its guilds.
+**79 patrons** — 23 common, 36 uncommon, 20 rare. Guilds: amber 13, jade 13, crimson 12, azure 14, no guild 30 — a dual-livery patron counts in each of its guilds.
 
 ## Amber · the counting-house
 
@@ -99,6 +99,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 📜 **The Scholar** `scholar` | common | 3 | Words of 5+ letters gain +10 Points. |
 | 🥾 **The Stumbler** `stumbler` | common | 3 | Words are accepted with one pair of adjacent letters swapped: TEH counts as THE. |
 | 📑 **The Copyist** `copyist` | common | 4 | ×2 Mult when the word already stands in your manuscript. |
+| 🧤 **The Glover** `glover` | common | 4 | Each colour worn by exactly two tiles in the word gives +0.2 Mult — a matched pair, no more, no fewer. |
 | 🪭 **The Monogrammist** `monogrammist` | common | 4 | Arrives with three letters of its own; a tile showing one prints twice — Points, trim and paint alike. |
 | 👯 **The Twins** `twins` | common | 4 | Doubled letters (LL, OO…) print twice — Points, trim and paint alike. |
 | 🍻 **The Innkeeper** `innkeeper` | common | 6 | Every word gains +5 Points per seated patron — this one included. |
