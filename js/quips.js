@@ -49,7 +49,11 @@ export const PATRON_QUIPS = [
   'My grandmother used to say {word}.',
   'I’d marry {word} if I could.',
   '{word}! {word}! {word}!',
+  'I must simply have {word}.',
+  '{word}? You ARE good.',
+  'Sleek. Sophisticated. {word}.',
   'No one will ever forget {word}.',
+  'I wish my father could have lived to see {word}.',
   'That’s my favourite spelling of {word}!',
 
   // Overwrought praise for the craft
@@ -60,11 +64,12 @@ export const PATRON_QUIPS = [
   'A word for the ages!',
   'History is being made!',
   'I am prouder of you than I am of my son.',
-  'I never doubted you.',
+  ' never doubted you.',
 
   // Faintly unhinged
   'Did you rehearse that?',
   'I wish I could spell words.',
+  'That’s a word I’d take home to mother.',
   'I’m told this is what winning feels like.',
   'I enjoy those letters!',
   'Correct! {word}!',

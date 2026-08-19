@@ -2,10 +2,7 @@
 //
 // `wordlists-themed/excluded-slurs.txt` is the documented record — slurs and
 // hate terms struck from the game on the way in (see docs/PATRON_OVERHAUL.md,
-// "Curation, applied on the way in"). It used to be a record only: the words
-// were removed from wordlist.txt by hand, and nothing stopped a later edit,
-// a custom list loaded in Settings, or a patron's own lexicon from quietly
-// putting one back. This module makes the record enforce itself.
+// "Curation, applied on the way in"). 
 //
 // Every road a word can take into play is filtered through `isExcluded`:
 //   • the dictionary — adoptWordlist in dict.js, which is the single funnel
