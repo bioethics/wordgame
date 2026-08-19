@@ -69,11 +69,11 @@ The readout shows a live projection — including a chip per colour — and
 **everything that does something explains itself where it sits**: hover it with
 a mouse, long-press it on touch. Tiles on the board, in the market, in the
 draft, in your collection, in the bag or the discard pile, and on the compost
-heap; sundries on the workbench as well as on the shop shelf and in the row of
-what you already hold; patrons on the shelf and in the market. Nothing is
+heap; sundries on the workbench, on the board and in the Market alike, as well
+as on the shop shelf; patrons on the shelf and in the market. Nothing is
 summarised beneath market cards — the thing itself is the documentation. What a
-sundry does is written once, in `js/constants.js` → `sundryTip`, so the shop,
-the workbench and the held row can't tell you three different things about it. On print, the score replays in the order it happens: patrons write their bonuses
+sundry does is written once, in `js/constants.js` → `sundryTip`, so the shop
+and the workbench can't tell you two different things about it. On print, the score replays in the order it happens: patrons write their bonuses
 onto the tiles, then the tiles pay, nicks fire, each colour's multiplier lights
 up, and the patrons weigh in seat by seat.
 
@@ -93,7 +93,8 @@ with each other; it is the Points that care.)
 
 Two things happen before any of that. Patrons whose promise reads *"such-and-such
 tiles gain +N Points"* — the Goldsmith, the Seedsman, the Siren, the Jeweller,
-the Calligrapher, the Espalier — write that number onto the tile itself, in the
+the Calligrapher, the Espalier, the Abecedarian — write that number onto the
+tile itself, in the
 groove as you compose and again at the head of the print, which means **the
 nicks and the Monogrammists multiply it**. And the tongs' heat and the toll for
 a curse left in hand land before the table speaks, so any multiplier seated at
@@ -351,7 +352,7 @@ rattles around in there at half the rate:
   maximum of 30, written in for good. It doubles the whole corner number, so
   raising a common letter first (a silver trim, the Grafter's growth) and
   *then* doubling beats doubling the jewel that is already near the cap.
-- **Laurel** (amber) — crowns a random seated patron: +5 Points on every word
+- **Laurel** (amber) — crowns a random seated patron: +3 Points on every word
   while they keep their seat, stacking if it lands twice. The crown pays at its
   own seat's turn, so a laurel in front of your multipliers is multiplied by
   them and one behind them is not — and a dismissed patron takes their laurels
@@ -359,8 +360,9 @@ rattles around in there at half the rate:
   edge of the card, clear of the livery pin and the ✕. The tool is not the only
   source: *the Laureate* crowns himself once for every jade tile you print,
   which turns the same reward from a lottery into something a jade press
-  manufactures, and *the Frontispiece* is crowned each time his opening word
-  clears a page single-handed.
+  manufactures; *the Frontispiece* is crowned each time his opening word
+  clears a page single-handed; and *the Cellarer* is crowned for every page he
+  ages through.
 - **Tongs** (crimson) — grip a tile and it goes to the furnace for good
   (feeding the Composter, respecting the Smelter's floor); the next word you
   print gains +8 Points. Grips stack; the heat expires with the page.
@@ -424,9 +426,14 @@ wording: change a name or a description there and `node tools/patrons.mjs
 list after a code change. (Design rationale, per patron, is in
 `docs/PATRON_OVERHAUL.md`.)
 
-**Letting things go** — the Market lists what you already hold beneath each
-section: seated patrons (back for half their cost) and workbench sundries
-(back for 1 Coin). Selling a sundry is about freeing the slot, not the coin.
+**Letting things go** — the top of the Market restates both pieces of your
+furniture, **Your table** and **Your workbench**, so what you hold is never out
+of sight while you shop: the ✕ on a seat dismisses its patron for half their
+cost, and the ✕ on a bench slot sells the sundry back for 1 Coin. Selling a
+sundry is about freeing the slot, not the coin — and a tool you will never
+spend can be thrown away on the board's own bench too, for nothing, wherever
+you are standing. (Touch has no hover: long-press a slot and the popover
+carries the same act.)
 
 **The Colophon** — when a chapter's Deadline is cleared and the Market is
 done, choose one of three permanent upgrades before the next chapter begins:
@@ -508,7 +515,7 @@ bigger step than the last and a built press has to multiply rather than add:
 
 | File | Role |
 | --- | --- |
-| `js/state.js` | game state, save/load (`folio_save_v1`, schema v7), settings, tile ops, painting, sundries, effective hand/seat/workbench sizes, the manuscript |
+| `js/state.js` | game state, save/load (`folio_save_v1`, schema v12), settings, tile ops, painting, sundries, effective hand/seat/workbench sizes, the manuscript |
 | `js/scoring.js` | pure score computation — returns a step-by-step *script* the UI replays |
 | `js/patrons.js` | patron definitions |
 | `js/upgrades.js` | the Colophon's upgrade definitions (pure data, no logic) |

@@ -388,7 +388,16 @@ function showTipFor(target) {
   if (!target) return false;
   const head = target.dataset.tipHead;
   if (head) {
-    showPopover(target, `<div class="tip-head">${head}</div><div class="tip-feat">${target.dataset.tipBody ?? ''}</div>`);
+    // A sundry's popover carries the act the ✕ carries on a pointer device,
+    // since that ✕ is hover-only and touch never hovers: the board's bench
+    // bins the tool outright, the Market's buys it back. The slot names its
+    // own index (data-sundry on the board, data-bench-slot in the Market) and
+    // main.js does the deed.
+    const bin = target.dataset.sundry ?? target.dataset.benchSlot;
+    const drop = bin == null ? '' : `
+      <button class="btn btn-quiet tip-btn" data-pop-discard="${bin}">${
+        state.inMarket ? 'Sell it back' : 'Throw it away'}</button>`;
+    showPopover(target, `<div class="tip-head">${head}</div><div class="tip-feat">${target.dataset.tipBody ?? ''}</div>${drop}`);
     return true;
   }
   const tileEl = target.matches('.tile') ? target : target.querySelector('.tile');

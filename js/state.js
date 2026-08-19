@@ -11,7 +11,7 @@ import { BOSS_DEFS, activeBoss, bossConflicts } from './bosses.js';
 
 const SAVE_KEY     = 'folio_save_v1';
 const SETTINGS_KEY = 'folio_settings_v1';
-const SAVE_VERSION = 11;  // v11: the Archivist and the Stonemason were cut
+const SAVE_VERSION = 12;  // v12: the Vintner was cut
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -482,30 +482,35 @@ export function startPage() {
 const handCount = () =>
   [...state.rack, ...state.word].filter(t => t.material !== 'ghost' && !t.aboveHand).length;
 
-// The Magpie can't help herself. Whenever tiles are about to be drawn and
-// neither the rack nor the word in progress holds a gold trim, the brightest
-// tile left in the bag is brought to the top of it, so the draw takes that one
-// — every hand she sits behind holds gold, so long as the bag still has some.
-// Nothing is conjured and nothing is skipped: the bag is only reordered, and
-// only when there is gold in it to reorder. (The bag is drawn from the end,
-// hence the push.) Every draw in the game comes through drawUpToRackSize, so
-// the opening hand, a top-up after discards and a top-up after printing are
-// all covered by the one rule.
-function magpieTopsTheBag() {
-  if (!owns('magpie')) return;
-  const gilt = t => t.trim === 'gold';
-  if (state.rack.some(gilt) || state.word.some(gilt)) return;
-  const at = state.bag.findIndex(gilt);
-  if (at < 0) return;
-  state.bag.push(state.bag.splice(at, 1)[0]);
+// The Magpie can't help herself: she goes through the bag for the bright ones.
+// Every tile in it is weighed for the draw, and a gold trim weighs twice what
+// anything else does — so gold comes up about twice as often as its share of
+// the bag, and the more of your collection you gild the more of it she finds.
+// She promises nothing (a hand can still come up dull) and conjures nothing:
+// the bag holds exactly what it held, only the reaching-in is crooked.
+const MAGPIE_WEIGHT = 2;
+const magpieWeight = t => (t.trim === 'gold' ? MAGPIE_WEIGHT : 1);
+
+// One tile off the bag. Ordinarily the top of it (the bag is drawn from the
+// end, hence the pop); with the Magpie seated, a weighted reach instead.
+// Every draw in the game comes through drawUpToRackSize, so the opening hand,
+// a top-up after discards and a top-up after printing all run the same rule.
+function drawFromBag() {
+  if (!owns('magpie')) return state.bag.pop();
+  const total = state.bag.reduce((n, t) => n + magpieWeight(t), 0);
+  let roll = Math.random() * total;
+  for (let i = state.bag.length - 1; i >= 0; i--) {
+    roll -= magpieWeight(state.bag[i]);
+    if (roll <= 0) return state.bag.splice(i, 1)[0];
+  }
+  return state.bag.pop();
 }
 
 // Returns the tiles drawn (so the caller can animate them in).
 export function drawUpToRackSize() {
   const drawn = [];
-  if (handCount() < effectiveRackSize() && state.bag.length) magpieTopsTheBag();
   while (handCount() < effectiveRackSize() && state.bag.length) {
-    const tile = templateToTile(state.bag.pop());
+    const tile = templateToTile(drawFromBag());
     state.rack.push(tile);
     drawn.push(tile);
   }
@@ -810,6 +815,28 @@ export function clearAllSelected() {
 export const selectedCount = () => state.rack.filter(t => t.selected).length;
 
 // ─── Sundries (the workbench) ─────────────────────────────────────────────────
+
+// Throw one off the bench, wherever you are standing. A tool you will never
+// spend is worth less than the slot it sits in, and the only way out used to
+// be the Market's Coin — so a bench full of ratchets could lock you out of the
+// wrapped tile you actually wanted until the next shop. Nothing is paid for it
+// here: this is a bin, not a buyer (the Market still buys back, see
+// sellSundry). The armed tool is put down first, and anything armed BEHIND the
+// gap slides down with it, so state.sundryMode can never end up pointing at
+// the wrong tool. Returns the discarded sundry, or null if the slot was empty.
+export function discardSundry(idx) {
+  const s = state.sundries[idx];
+  if (!s) return null;
+  state.sundries.splice(idx, 1);
+  if (state.sundryMode === idx) {
+    state.sundryMode = -1;
+    state.tubeOffer = null;
+    clearAllSelected();
+  } else if (state.sundryMode > idx) {
+    state.sundryMode -= 1;
+  }
+  return s;
+}
 
 export const sundrySelected = () =>
   [...state.word, ...state.rack].filter(t => t.selected);

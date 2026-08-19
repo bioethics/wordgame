@@ -500,6 +500,26 @@ function tagSlot(slot, s) {
   slot.title = `${tip.head} — ${tip.body}`;
 }
 
+// Every occupied slot wears a ✕, exactly as a seated patron does: a tool you
+// are never going to spend is worth less than the slot it is holding, and the
+// bin is the only way to say so away from the Market. Hidden until the slot is
+// hovered, like the patron's — which is also what keeps it off a touchscreen,
+// where a stray tap would otherwise cost you a toolbox; there the act lives on
+// the slot's long-press popover instead (showTipFor in drag.js).
+function tagDiscard(slot, s, i) {
+  const head = sundryTip(s)?.head ?? 'The sundry';
+  // A span, not a button: the slot it sits on IS a button, and a button inside
+  // a button is not a thing HTML allows. The click reaches main.js through
+  // delegation either way.
+  const x = document.createElement('span');
+  x.className = 'sundry-x';
+  x.setAttribute('role', 'button');
+  x.dataset.discardSundry = i;
+  x.title = `${head} — throw it away`;
+  x.textContent = '✕';
+  slot.appendChild(x);
+}
+
 function renderSundries() {
   const bench = $('sundries');
   if (!bench) return;
@@ -509,27 +529,24 @@ function renderSundries() {
 
   for (let i = 0; i < slots; i++) {
     const s = state.sundries?.[i];
+    let slot;
     if (s?.kind === 'tube') {
       const armed  = state.sundryMode === i;
       const picked = armed && sundrySelected().length > 0;
-      const slot = document.createElement('button');
+      slot = document.createElement('button');
       slot.className = `sundry sundry--${s.colour}${armed ? ' sundry--armed' : ''}`
                      + (picked ? ' sundry--ready' : '');
       slot.dataset.sundry = i;
       slot.innerHTML = `
         <span class="paint-tube paint-tube--${s.colour}"></span>
         <span class="sundry-name">${picked ? 'Paint it' : COLOURS[s.colour].label}</span>`;
-      tagSlot(slot, s);
-      bench.appendChild(slot);
     } else if (s?.kind === 'reshuffle') {
-      const slot = document.createElement('button');
+      slot = document.createElement('button');
       slot.className = 'sundry sundry--reshuffle';
       slot.dataset.sundry = i;
       slot.innerHTML = `
         <span class="sundry-shuffle">↻</span>
         <span class="sundry-name">Reshuffle</span>`;
-      tagSlot(slot, s);
-      bench.appendChild(slot);
     } else if (s?.kind === 'ratchet') {
       const armed  = state.sundryMode === i;
       const picked = armed && sundrySelected().length > 0;
@@ -538,7 +555,7 @@ function renderSundries() {
       // choose the direction; spending it is a tap anywhere on the slot, so
       // there is no small target to miss and no dead ground to cancel on.
       const dir = state.ratchetDir ?? 1;
-      const slot = document.createElement('button');
+      slot = document.createElement('button');
       slot.className = `sundry sundry--ratchet${armed ? ' sundry--armed' : ''}`
                      + (picked ? ' sundry--ready' : '');
       slot.dataset.sundry = i;
@@ -550,26 +567,22 @@ function renderSundries() {
                 data-shift="-1" title="A step earlier — D to C">▼</span>
         </span>
         <span class="sundry-name">${picked ? 'Step it' : armed ? 'Pick a letter' : 'Ratchet'}</span>`;
-      tagSlot(slot, s);
-      bench.appendChild(slot);
     } else if (s?.kind === 'wrapped') {
       // No material on the slot: the parcel is the whole point, and it is not
       // decided until it is opened.
-      const slot = document.createElement('button');
+      slot = document.createElement('button');
       slot.className = 'sundry sundry--wrapped';
       slot.dataset.sundry = i;
       slot.innerHTML = `
         <span class="wrapped-mark"></span>
         <span class="sundry-name">Wrapped</span>`;
-      tagSlot(slot, s);
-      bench.appendChild(slot);
     } else if (s?.kind && TOOL_LOOK[s.kind]) {
       // The toolbox and its tools share one shape: a glyph and a name. The
       // loupe and the tongs arm like the ratchet, so they show the same
       // armed/ready states; the box, the laurel and the wash spend on a tap.
       const armed  = state.sundryMode === i;
       const picked = armed && sundrySelected().length > 0;
-      const slot = document.createElement('button');
+      slot = document.createElement('button');
       slot.className = `sundry sundry--tool sundry--${s.kind}${armed ? ' sundry--armed' : ''}`
                      + (picked ? ' sundry--ready' : '');
       slot.dataset.sundry = i;
@@ -579,16 +592,15 @@ function renderSundries() {
       slot.innerHTML = `
         <span class="sundry-glyph">${TOOL_LOOK[s.kind].glyph}</span>
         <span class="sundry-name">${name}</span>`;
-      tagSlot(slot, s);
-      bench.appendChild(slot);
     } else {
-      const slot = document.createElement('div');
+      slot = document.createElement('div');
       slot.className = 'sundry sundry--empty';
       slot.title = 'Room for a sundry — sold at the Market';
       slot.innerHTML = `<span class="sundry-empty-mark">✒</span>`;
-      tagSlot(slot, s);
-      bench.appendChild(slot);
     }
+    tagSlot(slot, s);
+    if (s) tagDiscard(slot, s, i);
+    bench.appendChild(slot);
   }
 }
 

@@ -125,11 +125,13 @@ export function computeScore(wordTiles) {
   // trim counts twice, its cursed metal multiplies twice. `echo[i]` is the
   // number of times tile i counts, doubling per matching seat, so two copies
   // that love the same letter reach ×4 — the intended ceiling of collecting
-  // them. The one thing an echo can't repeat is the tile's own nick: nicks
+  // them. The Twins mark their tiles the same way, by the pair the word
+  // stands in rather than by name, which is why the whole word goes to the
+  // hook. The one thing an echo can't repeat is the tile's own nick: nicks
   // don't stack, so a second reading of one finds every target already claimed.
   const echoSeats = state.patrons.filter(p => patronById(p.id)?.tileEcho);
   const echo = wordTiles.map(t => echoSeats.reduce(
-    (n, p) => patronById(p.id).tileEcho(t, p.data ?? {}) ? n * 2 : n, 1));
+    (n, p) => patronById(p.id).tileEcho(t, p.data ?? {}, wordTiles) ? n * 2 : n, 1));
 
   // ── Pass 1: each tile's own Points, plus trim side effects ─────────────────
   const contrib   = [];
@@ -151,9 +153,11 @@ export function computeScore(wordTiles) {
     if (t.trim === 'silver') { points += SILVER_BONUS; noteMap[i].push(`Silver +${SILVER_BONUS}`); }
 
     // An echoed tile pays its trim once per printing, so a monogrammed gold
-    // letter hands over two Coins where a plain one hands over one.
+    // letter hands over two Coins where a plain one hands over one. (The
+    // Magpie no longer doubles the Coin itself — she weights the draw
+    // instead; see magpieWeight in js/state.js.)
     let stepCoins = 0, stepRefresh = 0;
-    if (t.trim === 'gold')   { stepCoins = (owns('magpie') ? 2 : 1) * echo[i]; coins += stepCoins; }
+    if (t.trim === 'gold')   { stepCoins = echo[i]; coins += stepCoins; }
     if (t.trim === 'cobalt') { stepRefresh = echo[i]; refresh += stepRefresh; }
 
     contrib[i] = points;
@@ -231,20 +235,24 @@ export function computeScore(wordTiles) {
   // ── Pass 2½: patrons whose chosen letters score again ─────────────────────
   // The Points half of the echo, and the only half with a number worth showing
   // the player: each seated Monogrammist doubles what its three letters scored,
-  // trims and nicks included. Copies fire in seat order and each doubles what
-  // it finds, which is the same ×2-per-seat that pass 0 wrote into `echo`.
-  // Each copy's gain is its own patron step, keyed by the seat's uid, so every
-  // copy badges and animates as itself.
+  // trims and nicks included, and The Twins do the same to a doubled pair.
+  // Seats fire in order and each doubles what it finds, which is the same
+  // ×2-per-seat that pass 0 wrote into `echo`. Each seat's gain is its own
+  // patron step, keyed by the seat's uid, so every copy of a stackable patron
+  // badges and animates as itself.
   const patronSteps = [];
   for (const p of state.patrons) {
     const def = patronById(p.id);
     if (!def?.tileEcho) continue;
+    // A Monogrammist signs the tile with its edition number; every other
+    // echoing seat signs it with its emoji.
+    const mark = p.data?.num ? `№ ${p.data.num.toLocaleString()}` : def.emoji;
     let added = 0;
     wordTiles.forEach((t, i) => {
-      if (!def.tileEcho(t, p.data ?? {})) return;
+      if (!def.tileEcho(t, p.data ?? {}, wordTiles)) return;
       added += contrib[i];
       contrib[i] *= 2;
-      noteMap[i].push(`×2 № ${p.data?.num?.toLocaleString() ?? '?'}`);
+      noteMap[i].push(`×2 ${mark}`);
     });
     if (added) patronSteps.push({ id: p.id, uid: p.uid, text: `+${added} Points`, points: added });
   }

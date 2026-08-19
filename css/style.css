@@ -488,7 +488,7 @@ header {
 .sundry--jade    { --paintcol: var(--jade); }
 .sundry--amber   { --paintcol: var(--amber); }
 
-button.sundry {
+button.sundry, .sundry--card {
   background: linear-gradient(170deg, var(--parch) 0%, var(--parch-2) 100%);
   color: var(--parch-ink);
   border: 1px solid var(--brass-dark);
@@ -510,6 +510,30 @@ button.sundry:hover { transform: translateY(-2px); }
     0 6px 12px rgba(0, 0, 0, 0.45);
 }
 .sundry--armed:hover { transform: translateY(-3px); }
+
+/* The ✕ that clears a slot — the workbench's answer to the patron card's, and
+   drawn the same: hidden until the slot is hovered, hover-only by design. On
+   the board it throws the tool away; in the Market it sells it back. Touch
+   never hovers, so the slot's long-press popover carries the same act. */
+.sundry-x {
+  position: absolute;
+  top: -6px; right: -6px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  background: #7c2f28;
+  color: #ffd9d2;
+  font-family: var(--sans);
+  font-size: 9px;
+  line-height: 16px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 4;
+  transition: opacity calc(0.15s / var(--aspd)), transform calc(0.15s / var(--aspd));
+}
+.sundry:hover .sundry-x { opacity: 1; }
+.sundry-x:hover { transform: scale(1.15); }
 
 /* ── One tap left ─────────────────────────────────────────────────────────────
    An armed tool with its targets picked is waiting on a tap *on the tool*, and
@@ -623,10 +647,6 @@ button.sundry:hover { transform: translateY(-2px); }
 .wrapped-mark::before { left: -1px; right: -1px; top: 50%; height: 2.5px; transform: translateY(-50%); }
 .wrapped-mark::after  { top: -1px; bottom: -1px; left: 50%; width: 2.5px; transform: translateX(-50%); }
 
-.held-wrapped { width: 16px; height: 16px; }
-.held-wrapped::before, .held-wrapped::after { height: 2px; width: 2px; }
-.held-wrapped::before { width: auto; }
-.held-wrapped::after  { height: auto; }
 .sundry--wrapped .wrapped-mark { margin-top: 3px; }
 .wrapped-mark--offer { width: 26px; height: 26px; margin-top: 4px; }
 /* An armed slot has no paint of its own to glow with — it takes the paper's */
@@ -677,7 +697,6 @@ button.sundry:hover { transform: translateY(-2px); }
   box-shadow: inset 0 -3px 5px rgba(40, 50, 60, 0.4), inset 0 2px 3px rgba(255, 255, 255, 0.7);
 }
 .offer-ratchet .ratchet-mark { margin-top: 5px; width: 26px; height: 26px; }
-.held-ratchet { width: 17px; height: 15px; font-size: 9px; margin-top: 0; }
 
 .ratchet-arrows { display: flex; gap: 4px; margin-top: 3px; }
 .ratchet-arrow {
@@ -2302,19 +2321,19 @@ button.sundry:hover { transform: translateY(-2px); }
    bound into the top edge, the portrait panel washed in the same dye, and the
    guild named beside the rarity. The hairline stays the rarity's — rarity and
    guild are separate facts, told by separate inks. One variable set serves the
-   card, the seat's livery pin, and the market's held-pill alike; the values
-   are COLOURS' glyph/bright pairs from js/constants.js. Neutral patrons carry
-   none of these classes and stay plain ivory. */
-.offer-patron--g-crimson, .patron--g-crimson, .held--g-crimson {
+   card and the seat's livery pin alike; the values are COLOURS' glyph/bright
+   pairs from js/constants.js. Neutral patrons carry none of these classes and
+   stay plain ivory. */
+.offer-patron--g-crimson, .patron--g-crimson {
   --livery: #b23a2e; --livery-brt: #ff9d8e; --livery-soft: rgba(178, 58, 46, 0.16);
 }
-.offer-patron--g-jade, .patron--g-jade, .held--g-jade {
+.offer-patron--g-jade, .patron--g-jade {
   --livery: #2d8a5c; --livery-brt: #90e8ba; --livery-soft: rgba(45, 138, 92, 0.16);
 }
-.offer-patron--g-amber, .patron--g-amber, .held--g-amber {
+.offer-patron--g-amber, .patron--g-amber {
   --livery: #a87010; --livery-brt: #ffd68c; --livery-soft: rgba(168, 112, 16, 0.18);
 }
-.offer-patron--g-azure, .patron--g-azure, .held--g-azure {
+.offer-patron--g-azure, .patron--g-azure {
   --livery: #2e6fb2; --livery-brt: #8ec6ff; --livery-soft: rgba(46, 111, 178, 0.16);
 }
 
@@ -2531,92 +2550,6 @@ button.sundry:hover { transform: translateY(-2px); }
 .paint-pot--azure   { background: var(--azure); }
 .paint-pot--jade    { background: var(--jade); }
 .paint-pot--amber   { background: var(--amber); }
-
-/* ── What you already hold, and the button to let it go ──────────────────────── */
-.held-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px;
-  margin-top: 9px;
-  padding-top: 9px;
-  border-top: 1px dashed rgba(120, 90, 40, 0.3);
-}
-
-/* The pills alone never said they could be tapped — so the row says it. */
-.held-label {
-  flex-basis: 100%;
-  margin-bottom: 1px;
-  font-size: 9.5px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.9px;
-  color: var(--muted);
-}
-
-/* When the table (or the bench) is full, letting something go is the only way
-   on — so the row stops being a footnote and asks to be used. */
-.held-row--wanted {
-  border-top-color: rgba(201, 79, 67, 0.55);
-  border-top-style: solid;
-}
-.held-row--wanted .held-label { color: #c9584b; }
-.sheet--market .held-row--wanted .held-label { color: #ffb3a6; }
-.held-row--wanted .held {
-  border-color: rgba(201, 79, 67, 0.5);
-  animation: heldNudge calc(2.4s / var(--aspd)) ease-in-out 2;
-}
-@keyframes heldNudge {
-  0%, 92%, 100% { transform: none; }
-  95%  { transform: translateY(-2px); }
-  98%  { transform: translateY(0); }
-}
-
-.held {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 9px 4px 6px;
-  border-radius: 999px;
-  cursor: pointer;
-  font-family: var(--sans);
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--parch-ink);
-  background: rgba(255, 250, 235, 0.5);
-  border: 1px solid rgba(138, 95, 29, 0.45);
-  transition: transform calc(0.1s / var(--aspd)), background calc(0.12s / var(--aspd)), border-color calc(0.12s / var(--aspd));
-}
-/* A guild member's pill wears a thread of its livery. */
-.held[class*="held--g-"] {
-  border-color: var(--livery);
-  box-shadow: inset 0 0 0 1px var(--livery-soft);
-}
-.held:hover {
-  transform: translateY(-1px);
-  background: rgba(160, 60, 50, 0.16);
-  border-color: rgba(201, 79, 67, 0.6);
-}
-.held-mark  { display: inline-flex; align-items: center; font-size: 13px; line-height: 1; }
-.held-name  { white-space: nowrap; }
-.held-price { display: inline-flex; align-items: center; gap: 3px; opacity: 0.65; font-weight: 800; }
-.held:hover .held-price { opacity: 1; color: #8a3a32; }
-
-/* Tiny inline versions of the workbench marks */
-.held-tube    { width: 9px; height: 14px; margin: 0; border-width: 1px; }
-.held-tube::before { display: none; }
-.held-shuffle { width: 15px; height: 15px; font-size: 9px; margin: 0; }
-
-.sheet--market .held {
-  background: rgba(243, 222, 184, 0.08);
-  color: var(--parch);
-  border-color: rgba(243, 222, 184, 0.22);
-}
-.sheet--market .held:hover {
-  background: rgba(201, 79, 67, 0.22);
-  border-color: rgba(255, 130, 115, 0.5);
-}
-.sheet--market .held:hover .held-price { color: #ffb3a6; }
 
 /* ── The Gilder's key: what each metal is worth ──────────────────────────────── */
 .trim-key {
@@ -2921,6 +2854,18 @@ button.sundry:hover { transform: translateY(-2px); }
 .sheet--market .market-shelf .patron[data-patron] { cursor: pointer; }
 /* A full table: the tally turns urgent — dismissing is the only way to hire. */
 .sheet--market .market-shelf--wanted .market-sub { color: #ffb3a6; font-weight: 800; }
+
+/* ── The workbench, restated under the table ──────────────────────────────────
+   Same wood and same slots as the board's bench (the .sundries/.sundry classes
+   do the work), but nothing is armed from inside the Market — a tube has no
+   hand to paint here — so the slots are plain cards and the only act on them
+   is the ✕, which sells one back. */
+.sheet--market .market-bench { margin-bottom: 6px; }
+.sheet--market .sundries--market {
+  gap: 8px;
+  padding: 8px 10px 10px;
+}
+.sheet--market .sundries--market .sundry { min-height: 56px; }
 
 /* Returning from a stall: the market slides back in from the left */
 .sheet--return { animation: shopReturn calc(0.28s / var(--aspd)) cubic-bezier(.2, 1, .4, 1); }
@@ -3709,8 +3654,9 @@ input[type='checkbox'] {
 @media (hover: none) {
   /* keyboard hints mean nothing on a phone; the log line guides exchange */
   .btn kbd { display: none; }
-  /* the ✕ never appears without hover — the tap popover carries dismissal */
-  .patron-x { display: none; }
+  /* the ✕ never appears without hover — the tap popover carries dismissal,
+     and the workbench's long-press popover carries the same for a sundry */
+  .patron-x, .sundry-x { display: none; }
 }
 
 /* ─── Small screens ───────────────────────────────────────────────────────────── */
@@ -3866,7 +3812,6 @@ input[type='checkbox'] {
   }
   .patron--armed::after { animation: none; opacity: 0; }
   .patron--just-armed .patron-take, .patron-take--bump { animation: none; }
-  .held-row--wanted .held { animation: none; }
   /* The materials still have to read as themselves — hold the colour, drop
      the motion. The Enthusiast's gift keeps its stitched glow the same way. */
   .tile--mat-cursed, .tile--mat-rainbow, .tile--gift { animation: none; }

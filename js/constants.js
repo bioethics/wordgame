@@ -259,9 +259,13 @@ export const LOUPE_CAP      = 30;  // a doubled tile never passes this resting v
 // Points per word, per laurel a patron wears. The laurel's points are paid at
 // the crowned patron's own turn in the running order (see the patron pass in
 // scoring.js), so a laurel in front of a ×Mult seat is multiplied by it and a
-// laurel behind it is not — which is what makes 5 a real decision where the
-// old flat 2, paid after every patron had spoken, was only ever a rounding.
-export const HONORIFIC_STEP = 5;
+// laurel behind it is not — which is what makes the step a real decision where
+// the old flat 2, paid after every patron had spoken, was only ever a rounding.
+// Down from 5: laurels used to come from one tool and one rare patron, and
+// three more sources have opened since (the Cellarer's age, the Frontispiece's
+// clean page, the cat's rats) — a stack of them was outrunning the seats that
+// have to work for their Points.
+export const HONORIFIC_STEP = 3;
 export const TONGS_BONUS    = 8;   // Points armed for the next word, per grip
 export const WASH_COUNT     = 4;   // tiles washed per pot — one of each colour
 
@@ -606,6 +610,11 @@ export const STOKER_STEP        = 0.25;   // permanent ×Mult per crimson tile b
 export const BEEKEEPER_STEP     = 0.2;    // permanent ×Mult per B printed
 export const ARSONIST_ODDS      = { paint: 0.10, burn: 0.01 };  // per tile played
 export const NUDIST_TRIM_CHANCE = 0.25;   // per bare letter in an all-bare word
+// And the other half of the same undressing: a bare tile that misses the trim
+// may still catch a colour. Half the trim's rate, because paint is worth more.
+export const NUDIST_PAINT_CHANCE = 0.125;
+// The Abecedarian's trellis: permanent Points per tile of a three-letter word.
+export const ABECEDARIAN_STEP   = 1;
 // The Dabbler's splash: odds that any painted tile splashes a second,
 // randomly chosen unpainted tile of the collection the same colour. One
 // splash per brushstroke — an echo never echoes. If paint arrives too fast

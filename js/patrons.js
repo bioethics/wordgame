@@ -77,9 +77,16 @@
 // roll per-copy state with `onOffer()` (shown on the Market card, moved onto
 // the seat's data at purchase) and present themselves with `instName(data)`,
 // `instShelf(data)` and `instDesc(data)` — everything falls back to the plain
-// def fields when absent. `tileEcho(tile, data)` marks tiles that print twice —
-// Points, gold Coins, cobalt refreshes, paint and purple trim alike. Scoring
-// counts the seats in pass 0 and spends the result across passes 1 to 3.
+// def fields when absent.
+//
+//   tileEcho(tile, data, tiles) — marks tiles that print TWICE: Points, gold
+//     Coins, cobalt refreshes, paint and purple trim alike. Scoring counts the
+//     seats in pass 0 and spends the result across passes 1 to 3, doubling per
+//     marking seat, so two seats that both name a tile reach ×4. Not only for
+//     stackable patrons: the whole word is handed over as `tiles`, so a seat
+//     may pick its tiles out of the word it is in (The Twins double a doubled
+//     letter) rather than by name (a Monogrammist's three letters). Like every
+//     scoring hook it must give the same answer every time it is asked.
 //
 // Optional `portrait`: path to an image (e.g. 'img/patrons/scholar.png') shown
 // on the patron's business card in the market and draft instead of the emoji.
@@ -101,15 +108,16 @@
 // top of the standard half-cost — read by patronRefund in market.js.
 
 import {
-  GRAFTER_STEP, STOKER_BASE, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS, NUDIST_TRIM_CHANCE,
-  DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES,
+  GRAFTER_STEP, STOKER_BASE, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS,
+  NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, ABECEDARIAN_STEP,
+  DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, isMark,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
   HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, splitMarks, isImmutable,
   medievalExpansions, POSTNOM,
 } from './constants.js';
 import {
   state, getActiveColour, getActiveLetter, countsAsColour, luckyRoll,
-  paintRandomTiles, shuffle, owns,
+  paintRandomTiles, restingPoints, shuffle, owns,
 } from './state.js';
 import { inTheme, themeSize, THEME_SETS } from './themes.js';
 // The Mirror reads a word backwards against the dictionary; the Haplographer's
@@ -149,18 +157,61 @@ function doubledPairs(word) {
 // doubled pair. Note the scoring half doesn't ask whether the pardon fired —
 // a word valid as typed that can also be read doubled (MATE) still pays,
 // which is the licence being a licence rather than an excuse.
-export function doubledReading(word) {
-  if (!word || word.length < 2) return null;
+//
+// The index half is what The Twins need: they pay the TILE now, not the word,
+// so the licence has to name WHICH letter is being read twice.
+function licencedIndex(word) {
+  if (!word || word.length < 2) return -1;
   for (let i = 0; i < word.length; i++) {
     const w = word.slice(0, i + 1) + word[i] + word.slice(i + 1);
-    if (DICT.has(w)) return w;
+    if (DICT.has(w)) return i;
   }
-  return null;
+  return -1;
+}
+
+export function doubledReading(word) {
+  const i = licencedIndex(word);
+  return i < 0 ? null : word.slice(0, i + 1) + word[i] + word.slice(i + 1);
 }
 
 // One extra doubled pair when the Haplographer's licence applies to the word.
 const licencedPairs = word =>
   owns('haplographer') && doubledReading(word) ? 1 : 0;
+
+// What a word of tiles spells, marks left off — the reading a patron handed
+// only `tiles` has to do for itself. Scoring's own `letters` (medieval sorts
+// resolved) is richer, but the tile hooks are given the tiles alone.
+const wordLetters = tiles =>
+  tiles.map(getActiveLetter).filter(L => !isMark(L)).join('');
+
+// The tiles standing in a doubled pair — what The Twins read. The word is
+// walked LETTER by letter rather than tile by tile, each letter remembering
+// the tile it came from, so a ligature is counted for what it spells: a CH
+// beside an H doubles them both, and a tile that spells its own double stands
+// as a pair by itself. Pairs don't overlap, the same rule doubledPairs counts
+// by: AAA is one pair (and two tiles), AAAA is two.
+function doubledTileIds(tiles) {
+  const chars = [];
+  for (const t of tiles) {
+    const L = getActiveLetter(t);
+    if (isMark(L)) continue;                  // HELLO! is doubled by its Ls, not its !
+    for (const ch of L) chars.push({ ch, tile: t });
+  }
+  const ids = new Set();
+  for (let i = 0; i < chars.length - 1; i++) {
+    if (chars[i].ch !== chars[i + 1].ch) continue;
+    ids.add(chars[i].tile.id);
+    ids.add(chars[i + 1].tile.id);
+    i++;
+  }
+  // The Haplographer's licence, read onto the tile it pardons: the single L of
+  // BALOON stands for two, so that tile is a doubled letter like any other.
+  if (owns('haplographer')) {
+    const at = licencedIndex(chars.map(c => c.ch).join(''));
+    if (at >= 0) ids.add(chars[at].tile.id);
+  }
+  return ids;
+}
 
 // The medieval sorts, read as the letters they stand for. Every reading is
 // tried in `reads` order and the first that is a real word wins; failing that
@@ -329,16 +380,21 @@ export const PATRON_DEFS = [
     },
   },
   {
-    // Paid by the pair rather than by the word, which is what the name always
-    // implied. It costs almost nothing to give away: two doubled pairs is 1.2%
-    // of the dictionary and 130 words of settable length, so the second +15 is
-    // a rare treat rather than a new baseline.
+    // Twice over, literally: a letter that stands doubled PRINTS twice, the
+    // Monogrammist's echo aimed by the word instead of by a name. Points,
+    // trim, paint and purple all count a second time, so the pair you keep
+    // painting is the pair that pays — a jade OO lifts the jade multiplier
+    // twice over, and a gold LL hands over two Coins. The flat +15 it replaces
+    // paid the same on BOOK as on a pair you had spent the run building.
+    //
+    // Reads through tileEcho like every other doubling seat (pass 0 and pass
+    // 2½ of computeScore), which is what lets a Monogrammist and a Twin
+    // stack on the same tile — ×4, the same ceiling two Monogrammists reach.
     id: 'twins', name: 'The Twins', emoji: '👯', rarity: 'common', cost: 4,
-    desc: 'Every doubled letter (LL, OO…) gains +15 Points — BALLOON pays twice.',
-    when: 'score',
-    effect({ word, addPoints }) {
-      const n = doubledPairs(word) + licencedPairs(word);
-      if (n) addPoints(15 * n);
+    desc: 'Doubled letters (LL, OO…) print twice — Points, trim and paint alike.',
+    when: 'meta',       // fires in scoring's pass 2½ via tileEcho
+    tileEcho(tile, _data, tiles) {
+      return doubledTileIds(tiles ?? []).has(tile.id);
     },
   },
   {
@@ -347,18 +403,6 @@ export const PATRON_DEFS = [
     // corner of the type case because nothing ever needed it.
     desc: 'Any Z you play may be read as an S — and still scores as a Z.',
     when: 'meta',   // consulted at the dictionary check in main.js
-  },
-  {
-    // This was a ×3, and a ×3 scales with everything you build after it: the
-    // small base a three-letter word lands on stopped mattering the moment the
-    // colours came in, and cursed metal made it frightening. A flat +10 does
-    // what the card was for — it makes a short word worth printing — without
-    // compounding into the rest of the run. It is at its best early, which is
-    // when a common-weight card should be at its best.
-    id: 'abecedarian', name: 'The Abecedarian', emoji: '🐣', rarity: 'common', cost: 5,
-    desc: '3-letter words get +10 Points.',
-    when: 'score',
-    effect({ word, addPoints }) { if (word.length === 3) addPoints(10); },
   },
 
   // ── Uncommons ───────────────────────────────────────────────────────────────
@@ -400,19 +444,33 @@ export const PATRON_DEFS = [
     when: 'meta',
   },
   {
+    // Additive, and small: +2 Mult a tile was a ×3 on any word holding a CH or
+    // a TH, which the case is full of, and it multiplied everything the table
+    // had already said. A quarter-step apiece joins the other +Mult seats
+    // instead — worth setting a ligature for, never worth building a run on,
+    // and it still stacks: ING and TH in one word is +0.5.
     id: 'typesetter', name: 'The Typesetter', emoji: '🔠', rarity: 'uncommon', cost: 6,
-    desc: 'Each ligature tile — one that spells several letters — gives +2 Mult.',
+    desc: 'Each ligature tile — one that spells several letters — gives +0.25 Mult.',
     when: 'score',
     effect({ tiles, addMult }) {
       const n = tiles.filter(t => LIGATURES.includes(t.letter)).length;
-      if (n) addMult(n * 2);
+      if (n) addMult(n * 0.25);
     },
   },
   {
-    id: 'jeweller', name: 'The Jeweller', emoji: '💎', rarity: 'uncommon', cost: 6,
-    desc: 'Tiles worth 8+ Points gain a further +4.',
+    // Paid as a share rather than a flat fee, and cheaper for it. A flat +4 was
+    // worth the same on a bare J as on a J you had grown and silvered all run —
+    // half of what the tile is worth follows the work you put into it, which is
+    // the whole difference between a patron you buy and a patron you build for.
+    // Growth and silver both count towards the 8, so a tile can be raised into
+    // his notice as well as drawn into it.
+    id: 'jeweller', name: 'The Jeweller', emoji: '💎', rarity: 'uncommon', cost: 5,
+    desc: 'Tiles worth 8+ Points gain half as much again.',
     when: 'score',
-    tileBonus: t => ((t.basePoints ?? 0) >= 8 ? 4 : 0),
+    tileBonus: (t) => {
+      const worth = restingPoints(t);
+      return worth >= 8 ? Math.round(worth * 0.5) : 0;
+    },
   },
   {
     id: 'calligrapher', name: 'The Calligrapher', emoji: '✒️', rarity: 'uncommon', cost: 7,
@@ -421,15 +479,17 @@ export const PATRON_DEFS = [
     tileBonus: t => (getActiveColour(t) ? 3 : 0),
   },
   {
-    // Two halves, neither of them a score effect: the doubled Coin is read
-    // straight off the trim in scoring's first pass, and the draw itself is
-    // bent in state.js (magpieTopsTheBag) so a hand she sits behind is never
-    // without gold while the bag still holds some. The second half is what
-    // makes the first reliable — a doubler on a trim you never draw pays
-    // nothing.
+    // One half now, and it is the half that was doing the work. She used to
+    // double the Coin a gold trim pays AND guarantee a gold tile in every
+    // hand, which made a single trim an income and the guarantee a certainty
+    // — nothing to build towards. The doubler is gone; what is left is the
+    // thieving. Every draw weighs gold twice as heavily as anything else in
+    // the bag (magpieWeight in js/state.js), so gold comes up about twice as
+    // often without ever being promised, and the more you gild the more she
+    // finds.
     id: 'magpie', name: 'The Magpie', emoji: '🐦', rarity: 'uncommon', cost: 7, guild: 'amber',
-    desc: 'Gold-trimmed tiles pay double Coins, and every hand you draw holds one if the bag has any.',
-    when: 'meta',   // read during scoring of gold trims; the draw is bent in js/state.js
+    desc: 'Gold-trimmed tiles are twice as likely to be drawn from the bag.',
+    when: 'meta',   // the draw is weighted in js/state.js
   },
   {
     // Down from common: a multiplier that asks nothing of your collection
@@ -587,20 +647,68 @@ export const PATRON_DEFS = [
 
   // ── Jade · growth and permanence ────────────────────────────────────────────
   {
+    // Was +10 Points for a three-letter word — a bonus that came and went with
+    // the word. It grows the word instead now, the Espalier's trade one tile
+    // wider: the smallest words the press can set are where jade does its
+    // compounding, and CAT, RUN and ICE are printable from almost any rack.
+    // Like the Espalier, the growth arrives IN TIME TO SCORE — the tileBonus
+    // pays the step on the trigger word itself and onPrinted writes it in for
+    // good — so a three-letter word is never worth less than it was, and the
+    // tiles it leaves behind are worth more. An immutable tile (a ghost, a
+    // fleuron) refuses the trellis and pays nothing for it either way.
+    id: 'abecedarian', name: 'The Abecedarian', emoji: '🐣', rarity: 'common', cost: 5, guild: 'jade',
+    desc: `Print a 3-letter word: every tile in it permanently gains +${ABECEDARIAN_STEP} Point — in time to score.`,
+    when: 'score',
+    tileBonus: (t, { tiles }) =>
+      (wordLetters(tiles).length === 3 && !isImmutable(t) ? ABECEDARIAN_STEP : 0),
+    onPrinted({ tiles, grow }) {
+      if (wordLetters(tiles).length !== 3) return null;
+      const grown = tiles.filter(t => grow(t, ABECEDARIAN_STEP));
+      if (!grown.length) return null;
+      return { note: `${grown.map(getActiveLetter).join(', ')} grown +${ABECEDARIAN_STEP}` };
+    },
+  },
+  {
+    // Jade by way of the bath house: what comes off is nothing, what goes on
+    // is permanent. The word has to be wholly bare — no paint, no trim, no
+    // nick on any tile — which is a bar that rises as the run dresses your
+    // collection, so the seat pays best early and quietly retires itself.
+    // Two rolls per bare tile now, independent of each other: a trim at
+    // NUDIST_TRIM_CHANCE and a colour at half that. A tile can catch both.
+    id: 'nudist', name: 'The Nudist', emoji: '🧖', rarity: 'common', cost: 4, guild: 'jade',
+    desc: `In a word where no tile has paint, a trim or a nick, each tile has a 1-in-${Math.round(1 / NUDIST_TRIM_CHANCE)} chance of gaining a random trim and a 1-in-${Math.round(1 / NUDIST_PAINT_CHANCE)} chance of a random colour.`,
+    when: 'meta',
+    onPrinted({ tiles, trim, paint }) {
+      const bare = t => !t.colour && !t.trim && !t.nick;
+      if (!tiles.length || !tiles.every(bare)) return null;
+      const kinds = Object.keys(TRIMS);
+      const colours = Object.keys(COLOURS);
+      const dressed = [], daubed = [];
+      for (const t of tiles) {
+        if (luckyRoll(NUDIST_TRIM_CHANCE)) {
+          const kind = kinds[Math.floor(Math.random() * kinds.length)];
+          if (trim(t, kind)) dressed.push(TRIMS[kind].label);
+        }
+        // The two rolls are independent, so a tile can leave the bath house
+        // trimmed and painted both.
+        if (luckyRoll(NUDIST_PAINT_CHANCE)) {
+          const colour = pick(colours);
+          if (paint(t, colour)) daubed.push(`${getActiveLetter(t)} ${COLOURS[colour].label.toLowerCase()}`);
+        }
+      }
+      const notes = [];
+      if (dressed.length) notes.push(`dressed in ${dressed.join(', ')}`);
+      if (daubed.length)  notes.push(`painted ${daubed.join(', ')}`);
+      return notes.length ? { note: notes.join(' · ') } : null;
+    },
+  },
+  {
     id: 'seedsman', name: 'The Seedsman', emoji: '🌱', rarity: 'common', cost: 4, guild: 'jade',
     desc: 'Jade tiles gain +1 Point per chapter reached — +5 Points each in Chapter V.',
     when: 'score',
     tileBonus: (t, { state }) => (countsAsColour(t, 'jade') ? state.chapter : 0),
   },
   dyePatron('verdigris', 'The Verdigris', '🍏', 'jade'),
-  {
-    id: 'vintner', name: 'The Vintner', emoji: '🍷', rarity: 'uncommon', cost: 7, guild: 'jade',
-    desc: 'Words with a jade tile gain +1 Mult per chapter reached — +5 Mult in Chapter V.',
-    when: 'score',
-    effect({ tiles, state, addMult }) {
-      if (painted(tiles, 'jade').length) addMult(state.chapter);
-    },
-  },
   {
     // Dual livery, crimson first: destruction is his diet and jade is what
     // he makes of it — the guilds' whole relationship in one seat, and the
@@ -678,19 +786,31 @@ export const PATRON_DEFS = [
     // what maturity is worth (coin at the end). `guild` is an array here —
     // the Alderman counts both liveries, and the card wears the first as
     // its ribbon while naming them both. He ages via onPageComplete, at
-    // most once a page, and the age pays twice: +1 Point on every word
-    // (the effect below) and +1 Coin on his dismissal (his refundBonus,
-    // read by patronRefund in market.js). Held jade is the price — the
-    // guild's other patrons all want jade *played*. Rainbow counts.
+    // most once a page, and the age pays twice: a LAUREL — +HONORIFIC_STEP
+    // Points on every word, paid at this seat's own turn in the running
+    // order — and +1 Coin on his dismissal (his refundBonus, read by
+    // patronRefund in market.js). Held jade is the price; the guild's other
+    // patrons all want jade *played*. Rainbow counts.
+    //
+    // The laurel is the whole of the rework. A flat +1 a page was paid after
+    // nothing and multiplied by nothing you could arrange; a crown is paid
+    // where the seat sits, so a Cellarer dragged in front of your multipliers
+    // is worth more than one behind them — and, like every laurel, it leaves
+    // with him if he is ever dismissed. Nothing in scoring knows about this:
+    // laurels are paid seat by seat in pass 4 for whoever wears them.
     id: 'cellarer', name: 'The Cellarer', emoji: '🧀', rarity: 'uncommon', cost: 6, guild: ['jade', 'amber'],
-    desc: 'Ages when a page ends with a jade tile in hand: +1 Point to every word, +1 Coin when dismissed.',
-    when: 'score',
-    effect({ data, addPoints }) { if (data?.aged) addPoints(data.aged); },
+    desc: 'Ages when a page ends with a jade tile in hand: a laurel each time, and +1 Coin when dismissed.',
+    when: 'meta',
     refundBonus(data) { return data?.aged ?? 0; },
     onPageComplete({ state, data }) {
       if (!state.rack.some(t => countsAsColour(t, 'jade'))) return null;
       data.aged = (data.aged ?? 0) + 1;
-      return { note: `aged ${data.aged} page${data.aged > 1 ? 's' : ''} — +${data.aged} Points, +${data.aged} Coins` };
+      data.honorifics = (data.honorifics ?? 0) + 1;
+      return {
+        note: `aged ${data.aged} page${data.aged > 1 ? 's' : ''} — `
+            + `+${data.honorifics * HONORIFIC_STEP} Points every word, `
+            + `+${data.aged} Coin${data.aged > 1 ? 's' : ''} when dismissed`,
+      };
     },
   },
   {
@@ -719,7 +839,7 @@ export const PATRON_DEFS = [
     // themselves. Jade is counted the patrons' way, so a rainbow tile crowns
     // him as a painted one does — and, as with any laurel, dismissing him
     // takes every crown he ever gathered with him.
-    id: 'laureate', name: 'The Laureate', emoji: '👑', rarity: 'rare', cost: 10, guild: 'jade',
+    id: 'laureate', name: 'The Laureate', emoji: '👑', rarity: 'uncommon', cost: 8, guild: 'jade',
     desc: `Every jade tile you print crowns this patron with a laurel — +${HONORIFIC_STEP} Points on every word, for good.`,
     when: 'meta',
     onPrinted({ tiles, data }) {
@@ -805,6 +925,35 @@ export const PATRON_DEFS = [
       if (trashed.length) notes.push(`${getActiveLetter(drained)} drained dry`);
       if (painted.length) notes.push(`${getActiveLetter(bled)} bled crimson`);
       return { note: notes.join(', '), trashed, painted };
+    },
+  },
+  {
+    // Crimson's tax on the easiest word in English. A plural is the cheapest
+    // ×2 in the game — half the rack can be made to end in S — so the price is
+    // the S itself: the tile is swallowed the moment the word prints, gone
+    // from the collection for good, and the bag holds fewer of them every time
+    // you take the deal. That is the guild's whole bargain in one seat, and it
+    // feeds the rest of it: a destroyed tile thins the bag and rots down for
+    // the Composter.
+    //
+    // The multiplier pays for the word as READ (so a mark on the end is no
+    // shelter — DOGS! is still a plural), but only a LOOSE S is eaten: an S
+    // inside a ligature keeps its tile, since swallowing an ING to reach one
+    // letter would cost more than the ×2 is worth. The swallowing goes through
+    // the same burn every other destruction does, so the Smelter's floor and a
+    // lent tile that was never in the collection both refuse it — and the word
+    // keeps its ×2 either way, since the multiplier was paid before the meal.
+    id: 'serpent', name: 'The Serpent', emoji: '🐍', rarity: 'uncommon', cost: 7, guild: 'crimson',
+    desc: 'Words ending in S get ×2 Mult — and the S is swallowed.',
+    when: 'score',
+    effect({ word, xMult }) { if (word.length > 1 && word.endsWith('S')) xMult(2); },
+    onPrinted({ tiles, burn }) {
+      if (!wordLetters(tiles).endsWith('S')) return null;
+      // The last tile that is an S and nothing else — marks trailing it are
+      // skipped, a ligature ending in S is left alone.
+      const last = [...tiles].reverse().find(t => !isMark(getActiveLetter(t)));
+      if (!last || getActiveLetter(last) !== 'S' || !burn(last)) return null;
+      return { note: 'the S swallowed', burned: [last] };
     },
   },
   {
@@ -992,23 +1141,6 @@ export const PATRON_DEFS = [
     },
   },
   {
-    id: 'nudist', name: 'The Nudist', emoji: '🧖', rarity: 'common', cost: 4,
-    desc: 'In a word where no tile has paint, a trim or a nick, each tile has a 1-in-4 chance of gaining a random trim.',
-    when: 'meta',
-    onPrinted({ tiles, trim }) {
-      const bare = t => !t.colour && !t.trim && !t.nick;
-      if (!tiles.length || !tiles.every(bare)) return null;
-      const kinds = Object.keys(TRIMS);
-      const dressed = [];
-      for (const t of tiles) {
-        if (!luckyRoll(NUDIST_TRIM_CHANCE)) continue;
-        const kind = kinds[Math.floor(Math.random() * kinds.length)];
-        if (trim(t, kind)) dressed.push(TRIMS[kind].label);
-      }
-      return dressed.length ? { note: `dressed in ${dressed.join(', ')}` } : null;
-    },
-  },
-  {
     // The second lexicon patron with a door of its own: like the
     // Stenographer's acronyms, names are vouched through the dictionary
     // check in main.js — legitimate in their own right, not misspellings.
@@ -1157,7 +1289,7 @@ export const PATRON_DEFS = [
     // full shelf, more with Colophon seats. Points, deliberately — a crowd
     // feeds the base and the multipliers stay someone else's business — and
     // a standing argument with the Headsman, who'd rather the seats empty.
-    id: 'innkeeper', name: 'The Innkeeper', emoji: '🍻', rarity: 'uncommon', cost: 6,
+    id: 'innkeeper', name: 'The Innkeeper', emoji: '🍻', rarity: 'common', cost: 6,
     desc: 'Every word gains +5 Points per seated patron — this one included.',
     when: 'score',
     effect({ state, addPoints }) { addPoints(5 * state.patrons.length); },

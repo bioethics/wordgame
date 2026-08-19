@@ -6,7 +6,7 @@
 import {
   state, settings, loadSettings, saveSettings, loadState, clearSave,
   newRun, startPage, drawUpToRackSize, clearWord, shuffleRack,
-  discardSelected, getWordString, moveRackToWord, owns, clearAllSelected,
+  discardSelected, discardSundry, getWordString, moveRackToWord, owns, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected, takePaintEchoes,
   rollTubeOffer, applyWash, washOff, effectiveSundrySlots,
   getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile,
@@ -26,7 +26,7 @@ import { THEME_SETS, loadThemes } from './themes.js';
 import { loadExclusions, exclusionsLoaded, isExcluded } from './excluded.js';
 
 import { computeScore, computeReward } from './scoring.js';
-import { openMarket, restoreMarket, closeMarket, sellPatron } from './market.js';
+import { openMarket, restoreMarket, closeMarket, sellPatron, sellSundry } from './market.js';
 import {
   colophon, openColophon, closeColophon, restoreColophon, applyColophonSkip,
 } from './colophon.js';
@@ -132,6 +132,21 @@ function cancelSundryMode(quiet = false) {
   if (!quiet) log(`The ${kind === 'tube' ? 'tube' : 'ratchet'} goes back on the workbench.`);
   renderAll();
   return true;
+}
+
+// The bin at the end of the bench. Nothing is paid for a tool thrown away
+// here — the Market is where a sundry is worth a Coin (sellSundry) — and the
+// slot it frees is the whole of the point: a bench of tools you will never
+// spend is a bench that can't take the one you want.
+function throwSundryAway(idx) {
+  // Named from sundryTip, and never with an article of our own in front of it:
+  // the heads read "Tongs", "Tube of Jade", "A wrapped tile" alike.
+  const name = sundryTip(state.sundries[idx])?.head ?? 'The sundry';
+  if (!discardSundry(idx)) return;
+  hidePopover();
+  sfx.discard();
+  log(`${name} — thrown away, and the slot is free.`);
+  renderAll();
 }
 
 // ─── Patron reactions (flavour only — never affects scoring) ──────────────────
@@ -1025,6 +1040,10 @@ $('btnDiscard')?.addEventListener('click', doDiscard);
 // silently cancels the gesture.
 $('sundries')?.addEventListener('click', async e => {
   if (state.isAnimating || state.inMarket || state.inDraft || state.inColophon || state.gameOver) return;
+  // The ✕ is caught before the slot it sits on, so binning a tool can't also
+  // arm it.
+  const bin = e.target.closest('[data-discard-sundry]');
+  if (bin) { throwSundryAway(Number(bin.dataset.discardSundry)); return; }
   const slot = e.target.closest('[data-sundry]');
   if (!slot) return;
   hidePopover();
@@ -1410,6 +1429,21 @@ $('popover')?.addEventListener('click', e => {
   }
   const sell = e.target.closest('[data-sell]');
   if (sell) { hidePopover(); if (!state.isAnimating) dismissPatron(sell.dataset.sell); return; }
+  // The touch route to the bench's ✕ (see showTipFor in drag.js): in the
+  // Market the sundry is sold back, on the board it is simply thrown away.
+  const drop = e.target.closest('[data-pop-discard]');
+  if (drop) {
+    hidePopover();
+    if (state.isAnimating) return;
+    const idx = Number(drop.dataset.popDiscard);
+    if (state.inMarket) {
+      const r = sellSundry(idx);
+      if (r.ok) { sfx.coin(); log(`Sold back for ${r.refund} Coin.`); renderAll(); renderMarket(); }
+    } else {
+      throwSundryAway(idx);
+    }
+    return;
+  }
   const flip = e.target.closest('[data-flip]');
   if (flip) {
     hidePopover();

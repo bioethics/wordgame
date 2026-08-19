@@ -107,8 +107,9 @@ export function updateMarketState() {
 
   const seats = m.querySelector('[data-seats]');
   if (seats) seats.textContent = seatsLabel();
-  const bench = m.querySelector('[data-bench]');
-  if (bench) bench.textContent = benchLabel();
+  // Two places say how full the bench is — the workbench heading and the
+  // Sundries column — so both are written, from the one label.
+  for (const bench of m.querySelectorAll('[data-bench]')) bench.textContent = benchLabel();
 
   // The shelf strip redraws in place, so a hire appears seated the moment the
   // coin is paid — without rebuilding the sheet under your scroll position.
@@ -117,10 +118,17 @@ export function updateMarketState() {
     strip.style.setProperty('--seat-count', effectivePatronSlots());
     strip.innerHTML = marketShelfCardsHTML();
   }
+  // The workbench redraws in place for the same reason: a tool bought or sold
+  // back should appear on the bench without the sheet jumping under you.
+  const benchStrip = m.querySelector('[data-market-bench]');
+  if (benchStrip) {
+    benchStrip.style.setProperty('--slot-count', effectiveSundrySlots());
+    benchStrip.innerHTML = marketBenchSlotsHTML();
+  }
   // A full table (or bench) makes letting something go the only way forward,
   // so the tally stops being a footnote.
   m.querySelector('[data-market-shelf-wrap]')?.classList.toggle('market-shelf--wanted', seatsFull);
-  m.querySelector('[data-held="sundry"]')?.classList.toggle('held-row--wanted', benchFull);
+  m.querySelector('[data-market-bench-wrap]')?.classList.toggle('market-shelf--wanted', benchFull);
 
   const reroll = m.querySelector('#btnReroll');
   if (reroll) reroll.disabled = !(state.freeRerolls > 0) && state.coins < market.rerollCost;
@@ -182,6 +190,56 @@ function marketShelfCardsHTML() {
       </div>`;
   }
   return cards;
+}
+
+// ─── The workbench, restated inside the Market ────────────────────────────────
+// The board's bench, drawn again under the shelf for the same reason the shelf
+// is: what you hold decides what is worth buying, and the modal covers the
+// board. The slots are the board's slots — same wood, same faces, same order —
+// but nothing is armed from here (a tube has no hand to paint), so they are
+// plain cards rather than buttons. The ✕ on each is the Market's price for
+// taking one back: SUNDRY_SELL, a pittance, because what you are really buying
+// is the empty slot.
+function benchSlotHTML(s, i) {
+  if (!s) {
+    return `<div class="sundry sundry--empty" title="Room for a sundry — sold here">
+      <span class="sundry-empty-mark">✒</span></div>`;
+  }
+  const tip = sundryTip(s) ?? { head: 'Sundry', body: '' };
+  const look =
+    s.kind === 'tube'      ? { cls: `sundry--${s.colour}`, mark: `<span class="paint-tube paint-tube--${s.colour}"></span>`, name: COLOURS[s.colour].label }
+  : s.kind === 'reshuffle' ? { cls: 'sundry--reshuffle', mark: '<span class="sundry-shuffle">↻</span>', name: 'Reshuffle' }
+  : s.kind === 'ratchet'   ? { cls: 'sundry--ratchet', mark: '<span class="ratchet-mark">⇅</span>', name: 'Ratchet' }
+  : s.kind === 'wrapped'   ? { cls: 'sundry--wrapped', mark: '<span class="wrapped-mark"></span>', name: 'Wrapped' }
+  : TOOL_LOOK[s.kind]      ? { cls: `sundry--tool sundry--${s.kind}`, mark: `<span class="sundry-glyph">${TOOL_LOOK[s.kind].glyph}</span>`, name: TOOL_LOOK[s.kind].label }
+  :                          { cls: '', mark: '', name: tip.head };
+  return `
+    <div class="sundry sundry--card ${look.cls}" data-bench-slot="${i}"
+         data-tip-head="${tip.head}" data-tip-body="${tip.body} The ✕ sells it back for ${SUNDRY_SELL} Coin."
+         title="${tip.head} — ${tip.body}">
+      ${look.mark}
+      <span class="sundry-name">${look.name}</span>
+      <span class="sundry-x" role="button" tabindex="0" data-sell-sundry="${i}"
+            aria-label="Sell the ${look.name.toLowerCase()} back for ${SUNDRY_SELL} Coin"
+            title="Sell it back for ${SUNDRY_SELL} Coin">✕</span>
+    </div>`;
+}
+
+function marketBenchSlotsHTML() {
+  const slots = effectiveSundrySlots();
+  let out = '';
+  for (let i = 0; i < slots; i++) out += benchSlotHTML(state.sundries?.[i], i);
+  return out;
+}
+
+function marketBenchHTML() {
+  const full = state.sundries.length >= effectiveSundrySlots();
+  return `
+    <section class="market-bench${full ? ' market-shelf--wanted' : ''}" data-market-bench-wrap>
+      <h3 class="market-sec">Your workbench <span class="market-sub" data-bench>${benchLabel()}</span><span class="market-sub market-sub--hint">✕ sells one back for ${SUNDRY_SELL} Coin</span></h3>
+      <div class="sundries sundries--market" data-market-bench
+           style="--slot-count:${effectiveSundrySlots()}">${marketBenchSlotsHTML()}</div>
+    </section>`;
 }
 
 function marketShelfHTML() {
@@ -290,34 +348,8 @@ function marketShopHTML() {
       </div>`;
   }).join('');
 
-  // What you already hold, with a way to let it go. Selling back is deliberately
-  // a pittance — the point is freeing the slot, not the coin. (Seated patrons
-  // aren't listed here: they sit on the shelf at the top of the sheet.)
-  const heldSundries = state.sundries.map((s, i) => {
-    const tip = sundryTip(s);
-    const label = s.kind === 'wrapped' ? 'Wrapped tile'
-                : s.kind === 'tube'    ? COLOURS[s.colour].label
-                :                        tip.head;
-    const mark  = s.kind === 'reshuffle'
-      ? `<span class="sundry-shuffle held-shuffle">↻</span>`
-      : s.kind === 'ratchet'
-      ? `<span class="ratchet-mark held-ratchet">⇅</span>`
-      : s.kind === 'wrapped'
-      ? `<span class="wrapped-mark held-wrapped"></span>`
-      : TOOL_LOOK[s.kind]
-      ? `<span class="sundry-glyph held-tool">${TOOL_LOOK[s.kind].glyph}</span>`
-      : `<span class="paint-tube paint-tube--${s.colour} held-tube"></span>`;
-    return `
-      <button class="held" data-sell-sundry="${i}"
-              data-tip-head="${tip.head}" data-tip-body="${tip.body} — sell it back for ${SUNDRY_SELL} Coin."
-              title="${tip.head} — ${tip.body}">
-        <span class="held-mark">${mark}</span>
-        <span class="held-name">${label}</span>
-        <span class="held-price">✕ ${coinHTML(SUNDRY_SELL)}</span>
-      </button>`;
-  }).join('');
-
-  const fullBench = state.sundries.length >= effectiveSundrySlots();
+  // What you already hold isn't listed here any more: it sits on the workbench
+  // at the top of the sheet, where the ✕ on each slot sells it back.
   const reshuffles = state.sundries.filter(s => s.kind === 'reshuffle').length;
 
   const returning = market.returning ? ' sheet--return' : '';
@@ -334,6 +366,7 @@ function marketShopHTML() {
       </div>
 
       ${marketShelfHTML()}
+      ${marketBenchHTML()}
 
       <div class="market-grid">
         <section class="market-col">
@@ -345,8 +378,6 @@ function marketShopHTML() {
           <div class="offer-tiles">${tileCards}</div>
           <h3 class="market-sec market-sec--paint">Sundries <span class="market-sub" data-bench>${benchLabel()}</span></h3>
           <div class="offer-list">${sundryCards}</div>
-          ${heldSundries ? `<div class="held-row${fullBench ? ' held-row--wanted' : ''}" data-held="sundry">
-            <span class="held-label">On the bench · tap to sell back</span>${heldSundries}</div>` : ''}
         </section>
       </div>
 
@@ -794,7 +825,7 @@ function onMarketClick(e) {
         ? `A tube of ${COLOURS[r.offer.colour].label} joins your workbench.`
         : `${sundryTip(r.offer).head} joins your workbench.`, 'good');
       flyPurchase(card?.querySelector('.paint-tube, .sundry-shuffle, .sundry-glyph, .ratchet-mark, .wrapped-mark'),
-        $('sundries'), { scaleTo: 0.6 });
+        document.querySelector('[data-market-bench]') ?? $('sundries'), { scaleTo: 0.6 });
     }
     renderAll(); updateMarketState();
     return;
