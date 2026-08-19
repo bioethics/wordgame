@@ -109,7 +109,7 @@ plus an optional **trim** and **nick**.
 | Paint | crimson / azure / jade / amber — each raises its colour's multiplier by 1 |
 | Trim | **Gold** pays 1 Coin · **Silver** +5 Points, counted into the tile's corner number wherever it appears and written in the trim's own silver, so the tile says what it is worth rather than making you add · **Cobalt** refreshes 1 Discard (and wears the Discard's own blue) · **Purple** raises the fifth multiplier by 0.5 |
 | Nick | A notch cut into one edge; the notched side is the direction. **Right** ×2 Points to everything on its right · **Left** ×2 to its left. Nicks don't stack — a tile is multiplied once at most. While you compose, an affected tile's corner number becomes the multiplied value, restyled, rippling outward from the notch. |
-| Letterform | Dual tiles hold two letters (flip to switch; paint, trim and nick belong to the tile, so both letters wear them) · Ligatures ING · CH · CK · TH · WH · QU spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Marks** ? and ! spell nothing at all, and come only from a wrapped tile, purple-trimmed |
+| Letterform | Dual tiles hold two letters (flip to switch; paint, trim and nick belong to the tile, so both letters wear them) · Ligatures ING · CH · CK · TH · WH · QU spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Medieval sorts** þ · ȝ · Ƿ stand in for ordinary letters, and come only from the Medievalist's stall · **Marks** ? and ! spell nothing at all, and come only from a wrapped tile, purple-trimmed |
 | Material | What the tile is cast from, under everything else: ordinary lead, or **cursed** / **ghost** / **rainbow** (see below) |
 | Growth | Grown points — permanent +1s a patron (The Grafter) writes into a tile, worn as a jade corner number wherever the tile appears |
 
@@ -176,6 +176,15 @@ nothing in this game scores what the preview didn't promise. Beside it runs the
 page's record: one mark per word printed, ✓ or ✂, so you can see how the whole
 page has gone and not merely the word in the groove. Chains and indexes are
 reset by the spiked word itself, so a sacrificial APPLE is always a way back in.
+
+**Postnoms** — now and then a patron calls at the Market already lettered.
+*The Scholar* arrives as **Dr Scholar, PhD**: the same patron doing the same
+thing, plus a ×1.2 Mult of its own paid at its own turn — so where you seat a
+distinguished patron matters as much as which one it is, and it is worth most
+late, behind the seats that add. The card is struck on foiled stock and names
+its letters, because the multiplier is nowhere in the description. It costs 3
+Coins over the odds, half of which comes back if you ever dismiss it. Odds,
+price, multiplier and the list of titles are `POSTNOM` in `js/constants.js`.
 
 **An editor that inverts a patron you own never takes the desk.** Most editors
 merely make a seat idle for a page, which is a fair cost of the roster being a
@@ -267,8 +276,21 @@ collection ships unpainted, so those two paints are where colour enters the
 run. No patron is drafted: the first one is hired at the first Market, with
 coins, once you've printed a page and know what the press needs.
 
+**The Medieval sorts** — three letters English used to have and gave up, sold
+only at *the Medievalist's* stall. Each one **stands for** ordinary letters: **þ**
+thorn is TH (10 Points), **Ƿ** wynn is W (8), and **ȝ** yogh is Y, GH or Z (5) —
+the last being real, if by accident: Scots printers short of the sort set a z in
+its place, which is why *Menzies* is said "Ming-iss". They print as themselves
+and score their own Points, but the dictionary, your patrons, the editor and the
+measure all see the letters they stand for, so þORN is counted and judged as
+THORN — five letters of measure from four tiles, exactly the deal the TH ligature
+has always had. Every reading is tried in order and the first that makes a word
+wins. They take paint, trims and nicks like any tile, but never a second face.
+The list, the points and the substitutions live in one place: `MEDIEVAL` in
+`js/constants.js`.
+
 **The Market** (between pages) keeps a fixed layout with churning contents:
-4 patrons, 4 tiles, 2 **sundries**, and 2 **stalls** drawn from a roster of
+4 patrons, 4 tiles (5 with the Medievalist's stall), 2 **sundries**, and 2 **stalls** drawn from a roster of
 six. *New offers* re-rolls everything — patrons, tiles, sundries, and a fresh
 pair of stalls with their doubling-price reset — and its own price doubles
 with each press. Tiles live in your **collection**; each page the whole
@@ -313,7 +335,8 @@ rattles around in there at half the rate:
   edge of the card, clear of the livery pin and the ✕. The tool is not the only
   source: *the Laureate* crowns himself once for every jade tile you print,
   which turns the same reward from a lottery into something a jade press
-  manufactures.
+  manufactures, and *the Frontispiece* is crowned each time his opening word
+  clears a page single-handed.
 - **Tongs** (crimson) — grip a tile and it goes to the furnace for good
   (feeding the Composter, respecting the Smelter's floor); the next word you
   print gains +8 Points. Grips stack; the heat expires with the page.

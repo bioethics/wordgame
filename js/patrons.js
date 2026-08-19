@@ -105,6 +105,7 @@ import {
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
   HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, splitMarks, isImmutable,
+  medievalExpansions, POSTNOM,
 } from './constants.js';
 import {
   state, getActiveColour, getActiveLetter, countsAsColour, luckyRoll,
@@ -160,6 +161,20 @@ export function doubledReading(word) {
 // One extra doubled pair when the Haplographer's licence applies to the word.
 const licencedPairs = word =>
   owns('haplographer') && doubledReading(word) ? 1 : 0;
+
+// The medieval sorts, read as the letters they stand for. Every reading is
+// tried in `reads` order and the first that is a real word wins; failing that
+// the first reading stands, so a word that is going to be refused anyway is at
+// least refused as something pronounceable. Exported because the whole game
+// downstream of the dictionary — the patrons, the editors, the measure — must
+// see THORN where the board shows þORN, and both the live preview (scoring)
+// and the print (main.js) resolve through this one function so they cannot
+// disagree. A word holding no medieval sort comes back untouched.
+export function resolveMedieval(letters) {
+  const options = medievalExpansions(letters);
+  if (!options) return letters;
+  return options.find(w => DICT.has(w)) ?? options[0];
+}
 
 // The Stoker's furnace: lit at STOKER_BASE the moment he sits, and STOKER_STEP
 // hotter for every crimson tile it has eaten since. His score effect and the
@@ -353,6 +368,31 @@ export const PATRON_DEFS = [
     id: 'banker', name: 'The Banker', emoji: '🏦', rarity: 'uncommon', cost: 4, guild: 'amber',
     desc: 'When a page completes: +1 Coin per amber patron on your shelf — this one included.',
     when: 'meta',
+  },
+  {
+    // Amber first — what he is, mechanically, is a stall at the Market — and
+    // azure second, because what he sells is latitude in spelling, which is
+    // that guild's whole business. The Cellarer is the other dual livery.
+    //
+    // The stall is one extra tile slot, stocked with one medieval sort (see
+    // MEDIEVAL in constants.js), dressed like any other offered tile but never
+    // given a second face: a þ that could flip to a P would be nobody's idea
+    // of a thorn. Priced under what it scores, which is the point of him — the
+    // sorts are worth 5, 8 and 10 where the letters they stand for are worth
+    // 4, 4 and 5.
+    //
+    // The yogh on arrival is once, latched, not once a page: it is a signing
+    // gift, so that the stall has something to build on from the moment he
+    // sits rather than only after the next Market.
+    id: 'medievalist', name: 'The Medievalist', emoji: '🏰', rarity: 'rare', cost: 8, guild: ['amber', 'azure'],
+    desc: 'Opens a stall at the Market selling medieval sorts — þ, ȝ and Ƿ — and hands you a yogh on arrival.',
+    when: 'meta',   // the stall is stocked in js/market.js; the sorts are read in js/constants.js
+    onPageStart({ data, cast }) {
+      if (data.gifted) return null;
+      data.gifted = true;
+      const tile = cast({ letter: 'Ȝ' });
+      return { note: 'a yogh, with his compliments', tiles: [tile] };
+    },
   },
   {
     id: 'quartermaster', name: 'The Quartermaster', emoji: '🎒', rarity: 'uncommon', cost: 5, guild: 'crimson',
@@ -990,22 +1030,32 @@ export const PATRON_DEFS = [
   },
   {
     // Now the only patron that pays on a page's first word — the Archivist,
-    // whose flat ×2 it could never catch, has been cut. The step stays small
-    // deliberately: clearing a page on its first word already pays, in spare-
-    // word Coins, so this needn't double up on the reward.
+    // whose flat ×2 it could never catch, has been cut.
+    //
+    // His multiplier used to GROW, +0.1 for good every time the first word
+    // cleared a page alone, and in the hand that compounded far too well: taken
+    // early he could be carrying a ×2.5 opener by the middle of a run, on top
+    // of the spare-word Coins the same feat already pays. The multiplier is
+    // flat now and the achievement pays a LAUREL instead — +HONORIFIC_STEP
+    // Points on every word, at this seat's turn. Points rather than Mult is the
+    // whole of the fix: it rewards the same rare feat without compounding into
+    // the multiplier that caused it.
+    //
+    // It does leave one seat wanting two things of the running order — the
+    // ×1.5 is worth more late, the laurels are worth more early — which is a
+    // real decision to make rather than a muddle to fix.
     id: 'frontispiece', name: 'The Frontispiece', emoji: '🖼️', rarity: 'uncommon', cost: 7, guild: 'jade',
-    desc: `The first word of each page gets ×${FRONTISPIECE.base} Mult — +${FRONTISPIECE.step} more, for good, each time that word clears the quota alone.`,
+    desc: `The first word of each page gets ×${FRONTISPIECE.base} Mult — and a laurel each time that word clears the quota alone.`,
     when: 'score',
-    effect({ state, data, xMult }) {
+    effect({ state, xMult }) {
       if (state.wordsPrinted !== 0) return;
-      xMult(Math.round((FRONTISPIECE.base + (data?.steps ?? 0) * FRONTISPIECE.step) * 100) / 100);
+      xMult(FRONTISPIECE.base);
     },
     onPrinted({ state, script, data }) {
       if (state.wordsPrinted !== 1) return null;      // only the page's first word
       if (script.total < state.quota) return null;    // and only when it cleared the page alone
-      data.steps = (data.steps ?? 0) + 1;
-      const next = Math.round((FRONTISPIECE.base + data.steps * FRONTISPIECE.step) * 100) / 100;
-      return { note: `cleared alone — ×${next} from the next page` };
+      data.honorifics = (data.honorifics ?? 0) + 1;
+      return { note: `cleared alone — a laurel, +${data.honorifics * HONORIFIC_STEP} Points every word` };
     },
   },
   {
@@ -1188,6 +1238,42 @@ export const patronById = id => PATRON_DEFS.find(d => d.id === id);
 // second entry hangs a second ribbon beside it. Everything that asks which
 // guilds a shelf represents goes through here.
 export const guildsOf = def => (def?.guild ? [].concat(def.guild) : []);
+
+// ─── What a seat is called ────────────────────────────────────────────────────
+// A patron's name has two optional layers over the plain def: a stackable
+// patron may name its own copy (instName — the Monogrammist's number), and any
+// patron at all may have called at the Market already lettered (POSTNOM). The
+// second rewrites the first: "The Scholar" becomes "Dr Scholar, PhD", which
+// drops the article on purpose — a doctorate outranks a definite article.
+//
+// Everything that shows a patron's name goes through here, so a distinction
+// shows up on the shelf, the calling card, the popover, the Market's messages
+// and the laurel's log line without any of them knowing what a postnom is.
+const dropArticle = name => name.replace(/^The\s+/, '');
+
+export const patronName = (def, data) => {
+  const base = def?.instName?.(data) ?? def?.name ?? 'The patron';
+  return data?.postnom ? `Dr ${dropArticle(base)}, ${data.postnom}` : base;
+};
+
+// The short form the shelf's cards wear, where there is room for a word and
+// not a sentence.
+export const patronShelf = (def, data) => {
+  const base = def?.instShelf?.(data) ?? dropArticle(def?.name ?? '');
+  return data?.postnom ? `${base}, ${data.postnom}` : base;
+};
+
+// Rolled as a card is laid out at the Market, never later: what is on the card
+// is what you are buying.
+export const rollPostnom = () =>
+  (Math.random() < POSTNOM.odds
+    ? POSTNOM.titles[Math.floor(Math.random() * POSTNOM.titles.length)]
+    : null);
+
+// What a card costs today — the def's price, plus the surcharge a lettered one
+// asks. Read live from the offer rather than baked in, the way tile prices are.
+export const patronCost = (def, data) =>
+  (def?.cost ?? 0) + (data?.postnom ? POSTNOM.surcharge : 0);
 
 // Seats on the shelf flying a given colour, dual liveries included. The
 // guild-scaling effects count through here — the Composter's heap allowance

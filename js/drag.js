@@ -18,7 +18,7 @@ import {
 } from './state.js';
 import { renderAll, showTilePopover, showPopover, hidePopover, log } from './render.js';
 import { computeScore } from './scoring.js';
-import { patronById } from './patrons.js';
+import { patronById, patronName } from './patrons.js';
 import { market, stallById } from './market.js';
 import { proposalPreview, updateMarketState } from './sheets.js';
 import { draft } from './draft.js';
@@ -298,7 +298,7 @@ function endShelfPress(commit, x) {
       const seat = state.patrons.findIndex(p =>
         String(p.uid) === String(shelfPress.ref) || p.id === shelfPress.ref);
       const def = patronById(state.patrons[seat]?.id);
-      const name = def?.instName?.(state.patrons[seat]?.data) ?? def?.name ?? 'The patron';
+      const name = patronName(def, state.patrons[seat]?.data);
       log(`${name} takes seat ${seat + 1} — patrons act in the order they sit.`);
     }
   }

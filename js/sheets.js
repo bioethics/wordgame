@@ -10,9 +10,9 @@ import {
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
   PAINT_PER_POT, ANIM, SUNDRY_SELL, tileCount, sundryTip, TOOL_LOOK,
-  colourDesc, HONORIFIC_STEP,
+  colourDesc, HONORIFIC_STEP, POSTNOM,
 } from './constants.js';
-import { patronById, guildsOf } from './patrons.js';
+import { patronById, guildsOf, patronName, patronShelf, patronCost } from './patrons.js';
 import { upgradeById } from './upgrades.js';
 import {
   market, stallById, stallPrice, isProposalStall,
@@ -94,7 +94,7 @@ export function updateMarketState() {
                 : kind === 'tile'   ? market.tileOffers[idx]
                 :                     market.sundryOffers[idx];
     if (!offer) continue;
-    const cost = kind === 'patron' ? patronById(offer.id).cost
+    const cost = kind === 'patron' ? patronCost(patronById(offer.id), offer.data)
                : kind === 'tile'   ? offerPrice(offer)
                :                     offer.price;
     const afford = state.coins >= cost
@@ -163,14 +163,15 @@ function marketShelfCardsHTML() {
       continue;
     }
     const def = patronById(p.id);
-    const name  = def.instName?.(p.data)  ?? def.name;
-    const label = def.instShelf?.(p.data) ?? def.name.replace(/^The /, '');
+    const name  = patronName(def, p.data);
+    const label = patronShelf(def, p.data);
     const desc  = def.instDesc?.(p.data)  ?? def.desc;
     const half  = patronRefund(p);
     const [livery, livery2] = guildsOf(def);
+    const lettered = p.data?.postnom ? ' patron--postnom' : '';
     const laurels = p.data?.honorifics ?? 0;
     cards += `
-      <div class="patron patron--${def.rarity}${livery ? ` patron--g-${livery}` : ''}${livery2 ? ` patron--g2-${livery2}` : ''}"
+      <div class="patron patron--${def.rarity}${livery ? ` patron--g-${livery}` : ''}${livery2 ? ` patron--g2-${livery2}` : ''}${lettered}"
            data-patron="${def.id}"${p.uid != null ? ` data-uid="${p.uid}"` : ''}
            title="${name} — ${desc}
 (drag to reseat · ✕ dismisses for ${half} Coins)">
@@ -197,7 +198,7 @@ function marketShopHTML() {
     const def = patronById(o.id);
     // A stackable patron's card shows the exact copy on offer — its rolled
     // letters and its number — so buying one is a choice, not a lottery.
-    const name = def.instName?.(o.data) ?? def.name;
+    const name = patronName(def, o.data);
     const desc = def.instDesc?.(o.data) ?? def.desc;
     // A guild member's card wears its livery: a ribbon bound into the top
     // edge, the portrait washed in the guild colour, and the guild named on
@@ -207,18 +208,23 @@ function marketShopHTML() {
     const liveries = guildsOf(def);
     const livery = (liveries.length ? ` offer-patron--g-${liveries[0]}` : '')
                  + (liveries[1] ? ` offer-patron--g2-${liveries[1]}` : '');
+    // A distinguished patron's card is struck differently — foiled edge, its
+    // letters called out on the title line — because the ×Mult it carries is
+    // not in the desc and would otherwise be invisible until it was bought.
+    const lettered = o.data?.postnom ? ' offer-patron--postnom' : '';
     return `
-      <div class="offer-patron offer-patron--${def.rarity}${livery}" data-offer="patron" data-idx="${i}">
+      <div class="offer-patron offer-patron--${def.rarity}${livery}${lettered}" data-offer="patron" data-idx="${i}">
         <div class="op-portrait">${def.portrait
           ? `<img src="${def.portrait}" alt="${name}">`
           : `<span class="op-emoji">${def.emoji}</span>`}</div>
         <div class="op-card-body">
           <div class="op-name">${name}</div>
-          <div class="op-title">${def.rarity}${liveries.length ? ` · <span class="op-guild">${liveries.join(' & ')}</span>` : ''}</div>
+          <div class="op-title">${def.rarity}${liveries.length ? ` · <span class="op-guild">${liveries.join(' & ')}</span>` : ''}${
+            o.data?.postnom ? ` · <span class="op-postnom">${o.data.postnom} · ×${POSTNOM.mult} Mult</span>` : ''}</div>
           <div class="op-desc">${desc}</div>
         </div>
         <span class="op-sold">seated</span>
-        <button class="btn-price" data-buy-patron="${def.id}">${coinHTML(def.cost)}</button>
+        <button class="btn-price" data-buy-patron="${def.id}">${coinHTML(patronCost(def, o.data))}</button>
       </div>`;
   }).join('') || '<p class="sheet-note">No patrons calling today.</p>';
 

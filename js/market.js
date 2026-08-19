@@ -11,10 +11,12 @@ import {
   SUNDRY_OFFERS, PATRON_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, RATCHET_PRICE, SUNDRY_SELL, HEADSMAN_STEP,
   TOOLBOX_PRICE, FLEURON, FLEURON_PRICE, FLEURON_OFFER_CHANCE,
   STALL_DEFS, STALLS_PER_SHOP, PROPOSAL_RANGE, SMELT_MIN_COLLECTION,
-  FEATURE_CHAIN_CHANCE, MAX_FEATURES,
+  FEATURE_CHAIN_CHANCE, MAX_FEATURES, MEDIEVAL_LETTERS, isMedieval,
   makeTileTemplate,
 } from './constants.js';
-import { PATRON_DEFS, RARITY_WEIGHT, patronById, guildSeats } from './patrons.js';
+import {
+  PATRON_DEFS, RARITY_WEIGHT, patronById, guildSeats, rollPostnom, patronCost, patronName,
+} from './patrons.js';
 
 // ─── Shop state (ephemeral between pages) ─────────────────────────────────────
 
@@ -81,7 +83,8 @@ export function addRandomFeature(tmpl) {
   if (!tmpl.colour) missing.push('colour');
   if (!tmpl.trim)   missing.push('trim');
   if (!tmpl.nick)   missing.push('nick');
-  if (tmpl.letterType !== 'dual' && !LIGATURES.includes(tmpl.letter) && !isMark(tmpl.letter)) missing.push('dual');
+  if (tmpl.letterType !== 'dual' && !LIGATURES.includes(tmpl.letter)
+      && !isMark(tmpl.letter) && !isMedieval(tmpl.letter)) missing.push('dual');
 
   while (missing.length) {
     const f = missing.splice(Math.floor(Math.random() * missing.length), 1)[0];
@@ -141,7 +144,15 @@ function weightedPatronSample(n) {
     const id = pick(pool);
     // Per-copy state (the Monogrammist's letters and number) rolls as the card
     // is laid out, so what's on offer is exactly what you'd be buying.
-    out.push({ id, sold: false, data: patronById(id)?.onOffer?.() ?? null });
+    // Per-copy state rolls as the card is laid out, so what's on offer is
+    // exactly what you'd be buying: the Monogrammist's letters and number, and
+    // — for any patron at all — the letters after its name.
+    const postnom = rollPostnom();
+    const rolled = patronById(id)?.onOffer?.() ?? null;
+    out.push({
+      id, sold: false,
+      data: (rolled || postnom) ? { ...rolled, ...(postnom ? { postnom } : {}) } : null,
+    });
     for (let i = pool.length - 1; i >= 0; i--) if (pool[i] === id) pool.splice(i, 1);
   }
   return out;
@@ -192,6 +203,24 @@ function rollOffers() {
   }
   market.sundryOffers = rollSundryOffers();
   guaranteeAmber();
+  stockTheMedievalStall();
+}
+
+// The Medievalist's stall: one extra slot on the tile row, holding one medieval
+// sort. It is an ADDITION rather than a substitution — the four ordinary slots
+// are untouched — because the patron's promise is a stall of his own, not a
+// tile the shop would have offered anyway.
+//
+// The sort is dressed like any other offered tile except that it never takes a
+// second face: a þ that could flip to a P would be nobody's idea of a thorn.
+// `addRandomFeature` already refuses a second face to a ligature, and the
+// medieval sorts are barred there the same way.
+function stockTheMedievalStall() {
+  if (!owns('medievalist')) return;
+  const tmpl = makeTileTemplate(pick(MEDIEVAL_LETTERS));
+  const target = 1 + (Math.random() < FEATURE_CHAIN_CHANCE ? 1 : 0);
+  while (featureCount(tmpl) < target && addRandomFeature(tmpl)) { /* dress it */ }
+  market.tileOffers.push({ template: tmpl, price: tilePrice(tmpl), sold: false, medieval: true });
 }
 
 // The Chapman knows a supplier: without this, amber paint turns up on roughly
@@ -377,12 +406,13 @@ export function buyPatron(id) {
   const def = patronById(id);
   if (!offer || !def)                                return { ok: false, reason: 'Not available.' };
   if (state.patrons.length >= effectivePatronSlots()) return { ok: false, reason: 'No empty seats at your table.' };
-  if (state.coins < def.cost)              return { ok: false, reason: `You need ${def.cost} Coins.` };
-  state.coins -= def.cost;
+  const cost = patronCost(def, offer.data);
+  if (state.coins < cost)              return { ok: false, reason: `You need ${cost} Coins.` };
+  state.coins -= cost;
   const seat = { id, uid: nextId(), data: offer.data ? { ...offer.data } : {} };
   state.patrons.push(seat);
   offer.sold = true;
-  return { ok: true, def, seat, name: def.instName?.(seat.data) ?? def.name };
+  return { ok: true, def, seat, name: patronName(def, seat.data) };
 }
 
 // What dismissing a seat pays: half the def's cost, plus whatever the
@@ -392,7 +422,10 @@ export function buyPatron(id) {
 export function patronRefund(seat) {
   const def = patronById(seat.id);
   if (!def) return 0;
-  return Math.floor(def.cost / 2) + (def.refundBonus?.(seat.data ?? {}) ?? 0);
+  // Half of what the seat COST, so a distinguished patron's surcharge comes
+  // half-way back like the rest of the price rather than being a sunk fee.
+  return Math.floor(patronCost(def, seat.data) / 2)
+       + (def.refundBonus?.(seat.data ?? {}) ?? 0);
 }
 
 // `ref` is a seat's uid when the caller has one (they all do now), or a def id
@@ -420,7 +453,7 @@ export function sellPatron(ref) {
     headsman = { mult: Math.round((1 + axe.data.heads * HEADSMAN_STEP) * 100) / 100 };
   }
 
-  return { ok: true, refund, def, name: def.instName?.(seat.data) ?? def.name, headsman };
+  return { ok: true, refund, def, name: patronName(def, seat.data), headsman };
 }
 
 // Sundries go back for a pittance — the point is freeing the slot, not the coin.

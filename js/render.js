@@ -11,9 +11,9 @@ import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
   WORDS_PER_PAGE, PAGES_PER_CHAPTER, tileCount,
   colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
-  sundryTip, FLEURON, TOOL_LOOK, HONORIFIC_STEP,
+  sundryTip, FLEURON, TOOL_LOOK, HONORIFIC_STEP, MEDIEVAL, letterGlyph,
 } from './constants.js';
-import { patronById, guildsOf } from './patrons.js';
+import { patronById, guildsOf, patronName, patronShelf } from './patrons.js';
 import { bossById } from './bosses.js';
 import { computeScore } from './scoring.js';
 import { marketSnapshot, patronRefund } from './market.js';
@@ -61,12 +61,16 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   // metal alike. getActiveColour already returns null for it, so the letter
   // below takes no paint colour — it is pencil on a wrapper now.
   if (isWrapped(tile)) div.classList.add('tile--wrapped');
+  if (MEDIEVAL[active]) div.classList.add('tile--medieval');
 
   // Letter (painted in its colour)
   const letter = document.createElement('span');
   letter.className = 'tile-letter';
   letter.dataset.len = active.length;
-  letter.textContent = active;
+  // A medieval sort SHOWS its own glyph — lowercase þ and ȝ, which are far more
+  // legible than their capitals — while the letter itself stays the canonical
+  // uppercase form everything else reads.
+  letter.textContent = letterGlyph(active);
   if (paint) letter.style.color = COLOURS[paint].glyph;
   div.appendChild(letter);
 
@@ -123,6 +127,21 @@ export function tileFeatures(tile) {
           + 'spells, and does nothing else — no Points, no paint, no trim, no metal, no '
           + 'nick, and nothing can be laid on it. The wrapping comes off when the page ends, '
           + 'and everything below is waiting underneath.',
+    });
+  }
+  // A medieval sort explains what it STANDS FOR before anything else: that is
+  // the whole reason to hold one, and it is not guessable from the glyph.
+  const med = MEDIEVAL[getActiveLetter(tile)];
+  if (med) {
+    const reads = med.reads.length > 1
+      ? `${med.reads.slice(0, -1).join(', ')} or ${med.reads[med.reads.length - 1]}`
+      : med.reads[0];
+    out.push({
+      head: `${med.name} — reads as ${reads}`,
+      body: `Set it where you would set ${reads}: the dictionary, your patrons and the `
+          + `editor all see the letters it stands for, so it counts for the measure as `
+          + `${med.reads[0].length > 1 ? 'those letters do' : 'one letter'}. It prints as `
+          + `${med.glyph} and scores its own ${TILE_POINTS[getActiveLetter(tile)]} Points. ${med.note}`,
     });
   }
   // What the tile *is* comes next — a material, or the fleuron, which is a
@@ -191,7 +210,9 @@ export function tileTitleLines(tile, breakdown = null) {
   const parts = [`${face} base`];
   if (grown)  parts.push(`${grown} grown`);
   if (silver) parts.push(`${silver} silver`);
-  const lines = [`${active} — ${restingPoints(tile)} Points${parts.length > 1 ? ` (${parts.join(' + ')})` : ''}`];
+  // Headed by the glyph the tile actually shows, so a þ doesn't introduce
+  // itself as a Þ nobody typed.
+  const lines = [`${letterGlyph(active)} — ${restingPoints(tile)} Points${parts.length > 1 ? ` (${parts.join(' + ')})` : ''}`];
   for (const f of tileFeatures(tile)) lines.push(`${f.head}: ${f.body}`);
   if (breakdown) lines.push(`This word: ${breakdown.parts.join(', ')} → ${breakdown.final} Points`);
   return lines;
@@ -242,7 +263,7 @@ export function showPatronPopover(def, anchorEl, seat = null) {
         ? `<button class="btn btn-quiet tip-btn" disabled>Lent this page already</button>`
         : `<button class="btn btn-quiet tip-btn" data-patron-act="scientist">Ask for the OLOGY tile</button>`)
     : '';
-  const name = def.instName?.(seat?.data) ?? def.name;
+  const name = patronName(def, seat?.data);
   const desc = def.instDesc?.(seat?.data) ?? def.desc;
   showPopover(anchorEl, `
     <div class="tip-head">${def.emoji} ${name} <span class="op-rarity">${def.rarity}</span></div>
@@ -358,13 +379,14 @@ function renderShelf(script) {
       const p = state.patrons[i];
       if (p) {
         const def = patronById(p.id);
-        const name  = def.instName?.(p.data)  ?? def.name;
-        const label = def.instShelf?.(p.data) ?? def.name.replace(/^The /, '');
+        const name  = patronName(def, p.data);
+        const label = patronShelf(def, p.data);
         const desc  = def.instDesc?.(p.data)  ?? def.desc;
         const [livery, livery2] = guildsOf(def);   // a dual-livery seat wears both pins
         const refund = patronRefund(p);
         slot.className = `patron patron--${def.rarity}${livery ? ` patron--g-${livery}` : ''}`
-                       + (livery2 ? ` patron--g2-${livery2}` : '');
+                       + (livery2 ? ` patron--g2-${livery2}` : '')
+                       + (p.data?.postnom ? ' patron--postnom' : '');
         slot.dataset.patron = def.id;
         if (p.uid != null) slot.dataset.uid = p.uid;
         slot.dataset.baseTitle = `${name} — ${desc}\n(✕ dismisses for ${refund} Coins)`;

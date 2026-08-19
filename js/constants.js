@@ -28,6 +28,10 @@ export const TILE_POINTS = {
   ING:4, CH:7, CK:8, TH:5, WH:8,
   RAT:3,                    // R+A+T, exactly what the three would score apart
   OLOGY:9,                  // O+L+O+G+Y — The Scientist's loan, and no one else's
+  // The medieval sorts (see MEDIEVAL below) pay well over what they stand for —
+  // TH is 5 where thorn is 10 — which is the whole of what The Medievalist's
+  // stall sells. Kept in step with MEDIEVAL[…].points by the check just after it.
+  'Þ':10, 'Ȝ':5, 'Ƿ':8,
   '☙':1,                    // the fleuron — an ornament, not a letter; prints alone
   '?':1, '!':1,
 };
@@ -54,7 +58,92 @@ export const LIGATURES = ['ING', 'CH', 'CK', 'TH', 'WH', 'QU', 'RAT', 'OLOGY'];
 // patron and nowhere else. RAT belongs to The Rat Catcher; OLOGY is The
 // Scientist's, and only ever on loan; the fleuron is sold at its own price
 // (FLEURON_PRICE), never rolled among the ordinary sorts.
-export const EXCLUSIVE_LETTERS = ['RAT', 'OLOGY', '☙'];
+export const EXCLUSIVE_LETTERS = ['RAT', 'OLOGY', '☙', 'Þ', 'Ȝ', 'Ƿ'];
+
+// ─── The medieval sorts (The Medievalist's stall) ─────────────────────────────
+// Three letters English used to have and gave up. Each one STANDS FOR ordinary
+// letters when the word is read — the tile prints as its own glyph and scores
+// its own Points, but the dictionary, the patrons and the editors all see what
+// it stands for. So Þ + O + R + N is THORN: five letters of measure from four
+// tiles, exactly as the TH ligature has always been.
+//
+// The key is the UPPERCASE form, because a word is upper-cased before anything
+// reads it and all three of these are stable under toUpperCase(). `glyph` is
+// what the tile actually shows, which is lowercase for two of the three: þ and
+// ȝ are far more recognisable than Þ and Ȝ, while lowercase wynn (ƿ) is
+// indistinguishable from a p, so wynn alone keeps its capital.
+//
+// `reads` is tried IN ORDER at the dictionary check and the first reading that
+// makes a word wins, so put the commonest first.
+export const MEDIEVAL = {
+  'Þ': {
+    glyph: 'þ', name: 'Thorn', points: 10, reads: ['TH'],
+    note: 'The letter English used for TH, and kept longest. It is why “ye olde” exists: '
+        + 'printers importing type from the Continent had no þ to set, so they used the '
+        + 'nearest shape they had — a y. Nobody ever said “ye”.',
+  },
+  'Ȝ': {
+    glyph: 'ȝ', name: 'Yogh', points: 5, reads: ['Y', 'GH', 'Z'],
+    note: 'Middle English’s workhorse: the Y of ȝe, and the GH of niȝt — night. Scots '
+        + 'printers, short of the sort, set z in its place, which is why Menzies is said '
+        + '“Ming-iss” and Dalziel “Dee-ell”.',
+  },
+  'Ƿ': {
+    glyph: 'Ƿ', name: 'Wynn', points: 8, reads: ['W'],
+    note: 'A rune, borrowed whole into the Old English alphabet for a sound Latin had no '
+        + 'letter for. Scribes later wrote it uu instead — which is, quite literally, '
+        + 'how W got its name.',
+  },
+};
+export const MEDIEVAL_LETTERS = Object.keys(MEDIEVAL);
+// The points live in TILE_POINTS with every other sort (scoring reads that and
+// nothing else), and here beside the letter they belong to. One of the two
+// would drift eventually, so they are checked against each other at load.
+for (const [L, m] of Object.entries(MEDIEVAL)) {
+  if (TILE_POINTS[L] !== m.points) {
+    throw new Error(`${L} pays ${TILE_POINTS[L]} in TILE_POINTS but ${m.points} in MEDIEVAL`);
+  }
+}
+export const isMedieval  = L => Object.prototype.hasOwnProperty.call(MEDIEVAL, L);
+// What a letter SHOWS, as against what it is called. Only the medieval sorts
+// differ, so everything else falls through untouched.
+export const letterGlyph = L => MEDIEVAL[L]?.glyph ?? L;
+
+// Every way a word holding medieval sorts could be read, in `reads` order, or
+// null when it holds none. The product is bounded because a rack stuffed with
+// yoghs would otherwise be an exponential lookup for no gain — past the cap the
+// word is simply left as set, and fails the dictionary like any other nonsense.
+const MEDIEVAL_MAX_READINGS = 512;
+export function medievalExpansions(letters) {
+  const chars = [...(letters ?? '')];
+  if (!chars.some(isMedieval)) return null;
+  let count = 1;
+  for (const ch of chars) count *= MEDIEVAL[ch]?.reads.length ?? 1;
+  if (count > MEDIEVAL_MAX_READINGS) return null;
+
+  let out = [''];
+  for (const ch of chars) {
+    const reads = MEDIEVAL[ch]?.reads;
+    out = reads ? out.flatMap(w => reads.map(r => w + r)) : out.map(w => w + ch);
+  }
+  return out;
+}
+
+// ─── Postnoms (a distinguished patron) ────────────────────────────────────────
+// Now and then a patron calls at the Market already lettered. It is the same
+// patron doing the same thing, plus a ×POSTNOM.mult of its own paid at its own
+// seat — so where you sit a distinguished patron matters as much as which one
+// it is. The surcharge is what keeps it a decision rather than a windfall: the
+// card costs more, and half of that comes back if you ever dismiss it.
+//
+// The letters are a joke at the expense of the sort of person who uses both
+// halves of their title at once. Add more and each offered card picks one.
+export const POSTNOM = {
+  odds: 0.12,        // per patron card laid out at the Market
+  mult: 1.2,         // ×Mult, paid at that patron's own turn in the running order
+  surcharge: 3,      // Coins on top of the def's cost
+  titles: ['PhD'],
+};
 
 // ─── The fleuron ──────────────────────────────────────────────────────────────
 // A printer's ornament, struck in gold. It decorates the page rather than
@@ -524,7 +613,10 @@ export const COMPOST_PER_MARKET = 1;      // how many you may take on a visit
 
 // The Frontispiece: the first word of a page starts at ×base, and every page
 // that word clears the whole quota by itself, the multiplier grows by +step.
-export const FRONTISPIECE = { base: 1.5, step: 0.1 };
+// The Frontispiece's opening multiplier. Flat: it used to grow by a step each
+// time the first word cleared a page alone, which compounded too well when the
+// patron was taken early. The feat now pays a laurel instead (see js/patrons.js).
+export const FRONTISPIECE = { base: 1.5 };
 
 // ─── Tile-template factory ────────────────────────────────────────────────────
 export function makeTileTemplate(letter, overrides = {}) {

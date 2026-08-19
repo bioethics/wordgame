@@ -1,9 +1,11 @@
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, PURPLE_TRIM_STEP, REWARD, CURSED_MULT,
   CURSED_PENALTY, SPIKE_MULT, SILVER_BONUS, isDeadline, splitMarks,
-  HONORIFIC_STEP, FLEURON, FLEURON_PAGE_COIN, lengthMult,
+  HONORIFIC_STEP, FLEURON, FLEURON_PAGE_COIN, lengthMult, POSTNOM,
 } from './constants.js';
-import { PATRON_DEFS, patronById, guildsOf, guildSeats } from './patrons.js';
+import {
+  PATRON_DEFS, patronById, guildsOf, guildSeats, resolveMedieval,
+} from './patrons.js';
 import { bossById } from './bosses.js';
 import {
   state, owns, getActiveLetter, getActiveColour, getActiveGrowth, returnsToBag,
@@ -53,7 +55,13 @@ export function computeScore(wordTiles) {
   // want to see HELLO!. Patrons are handed the letters alone, so a trailing
   // mark can't make a 3-letter word read as four or spoil a palindrome.
   const word = wordTiles.map(t => getActiveLetter(t)).join('').toUpperCase();
-  const letters = splitMarks(word)?.letters ?? word;
+  // What the table READS, as against what the press SETS. A medieval sort
+  // prints as its own glyph and scores its own Points, but stands for ordinary
+  // letters everywhere else — so þORN is counted, judged and paid as THORN,
+  // five letters of measure and a noun for The Sculptor. The same resolver runs
+  // at the dictionary check (main.js), so the preview cannot promise a reading
+  // the print then refuses.
+  const letters = resolveMedieval(splitMarks(word)?.letters ?? word);
   const n = wordTiles.length;
 
   // ── Pass 0: the wrapper ────────────────────────────────────────────────────
@@ -404,6 +412,17 @@ export function computeScore(wordTiles) {
         text: `+${v} Points — ${laurels > 1 ? `${laurels} laurels` : 'the laurel'}`,
         points: v, laurel: true,
       });
+    }
+
+    // And the letters after the name speak last of all at this seat, so the
+    // ×1.2 multiplies what the seat itself just said — its effect and its
+    // laurels both — as well as everything the table said in front of it. A
+    // distinguished patron is therefore worth most where any multiplier is:
+    // late in the running order, behind the seats that add.
+    if (p.data?.postnom) {
+      pmult *= POSTNOM.mult;
+      fold();
+      step({ text: `×${POSTNOM.mult} Mult — ${p.data.postnom}`, xmult: POSTNOM.mult, postnom: true });
     }
   }
   fold();   // any Mult still pending when the last seat sits down

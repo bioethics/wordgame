@@ -20,7 +20,7 @@ House style for a description, from `docs/PATRON_OVERHAUL.md`: one sentence,
 real numbers, no metaphor, under ~110 characters. State the rule, not the
 feeling — the flavour belongs to the name, the emoji and the quips.
 
-**76 patrons** — 21 common, 35 uncommon, 20 rare. Guilds: amber 11, jade 12, crimson 11, azure 13, no guild 31 — a dual-livery patron counts in each of its guilds.
+**77 patrons** — 21 common, 35 uncommon, 21 rare. Guilds: amber 12, jade 12, crimson 11, azure 14, no guild 31 — a dual-livery patron counts in each of its guilds.
 
 ## Amber · the counting-house
 
@@ -36,6 +36,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 💰 **The Bursar** `bursar` | uncommon | 7 | Words with an amber tile gain +1 Mult for every 5 Coins you hold (max +5). |
 | 🛒 **The Chapman** `chapman` | uncommon | 7 | One tile at the Market is always amber, and amber tiles cost nothing. |
 | 🐦 **The Magpie** `magpie` | uncommon | 7 | Gold-trimmed tiles pay double Coins, and every hand you draw holds one if the bag has any. |
+| 🏰 **The Medievalist** `medievalist` | rare · also azure | 8 | Opens a stall at the Market selling medieval sorts — þ, ȝ and Ƿ — and hands you a yogh on arrival. |
 
 ## Jade · growth and permanence
 
@@ -48,7 +49,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🧀 **The Cellarer** `cellarer` | uncommon · also amber | 6 | Ages when a page ends with a jade tile in hand: +1 Point to every word, +1 Coin when dismissed. |
 | 🖍️ **The Dabbler** `dabbler` | uncommon | 6 | Whenever a tile is painted, a second unpainted tile has a 1-in-2 chance of taking the same colour. |
 | 🪴 **The Espalier** `espalier` 🔒 | uncommon | 6 | Print a two-tile word: both tiles permanently gain +2 Points — in time to score. |
-| 🖼️ **The Frontispiece** `frontispiece` 🔒 | uncommon | 7 | The first word of each page gets ×1.5 Mult — +0.1 more, for good, each time that word clears the quota alone. |
+| 🖼️ **The Frontispiece** `frontispiece` 🔒 | uncommon | 7 | The first word of each page gets ×1.5 Mult — and a laurel each time that word clears the quota alone. |
 | 🍷 **The Vintner** `vintner` | uncommon | 7 | Words with a jade tile gain +1 Mult per chapter reached — +5 Mult in Chapter V. |
 | 🌿 **The Grafter** `grafter` | rare | 8 | When a word with a jade tile prints, every tile in it permanently gains +1 Point. |
 | 👑 **The Laureate** `laureate` 🔒 | rare | 10 | Every jade tile you print crowns this patron with a laurel — +5 Points on every word, for good. |

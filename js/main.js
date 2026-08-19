@@ -18,7 +18,7 @@ import {
   REACTION, NEOLOGIST_LENGTH, MATERIALS, TRIMS, WRAPPED_CONTENTS, MARK_TRIM,
   chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks, isDeadline,
   FLEURON, TOOLBOX_POOL, HONORIFIC_STEP, TONGS_BONUS, LOUPE_CAP, sundryTip,
-  lengthFlourish,
+  lengthFlourish, medievalExpansions,
 } from './constants.js';
 import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
 import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
@@ -47,7 +47,7 @@ import {
   pulse, sparkleBurst, sfx, applySpeedCSS, speechBubble, longReadingTime,
 } from './anim.js';
 import { initInput, initInspect, initShelfDrag } from './drag.js';
-import { patronById, doubledReading, boundNouns } from './patrons.js';
+import { patronById, doubledReading, boundNouns, patronName, patronShelf } from './patrons.js';
 import { randomQuip } from './quips.js';
 
 const $ = id => document.getElementById(id);
@@ -466,19 +466,33 @@ async function submitWord() {
   if (parts.letters.includes(FLEURON) && !fleuronAlone) {
     return reject('The fleuron sets no word — it prints alone.');
   }
+  // A medieval sort stands for ordinary letters, so the word is READ before it
+  // is judged: every reading is tried, in the sort's own order, and the first
+  // that gets through any door — the dictionary, a lexicon patron, a pardon —
+  // is the one the rest of the print uses. From here on `parts.letters` is that
+  // reading, which is what lets the patrons, the editors and the measure see
+  // THORN where the board shows þORN. A word with no medieval sort in it has
+  // exactly one reading and none of this changes anything.
+  // (resolveMedieval in patrons.js does the same for the live preview.)
+  const readings = medievalExpansions(parts.letters) ?? [parts.letters];
   let pardoned = null;
   let vouched = null;   // patron id — the lexicon patrons vouch, they don't pardon
-  if (!fleuronAlone && !DICT.has(parts.letters)) {
+  if (!fleuronAlone && !readings.some(r => DICT.has(r))) {
     // The lexicon patrons are checked before the pardons: their entries are
     // legitimate in their own right, not misspellings of something else.
-    if (owns('stenographer') && THEME_SETS.acronyms.has(parts.letters)) {
-      vouched = 'stenographer';
-    } else if (owns('expectants') && THEME_SETS.names.has(parts.letters)) {
-      vouched = 'expectants';
-    } else {
-      pardoned = pardonWord(parts.letters);
+    const stenographed = owns('stenographer') && readings.find(r => THEME_SETS.acronyms.has(r));
+    const named        = owns('expectants')   && readings.find(r => THEME_SETS.names.has(r));
+    if (stenographed)      { vouched = 'stenographer'; parts.letters = stenographed; }
+    else if (named)        { vouched = 'expectants';   parts.letters = named; }
+    else {
+      for (const r of readings) {
+        const excuse = pardonWord(r);
+        if (excuse) { pardoned = excuse; parts.letters = r; break; }
+      }
       if (!pardoned) return reject(`“${w}” isn't in the dictionary.`);
     }
+  } else if (!fleuronAlone) {
+    parts.letters = readings.find(r => DICT.has(r));
   }
 
   state.isAnimating = true;
@@ -1103,7 +1117,7 @@ $('sundries')?.addEventListener('click', async e => {
     state.isAnimating = false;
     renderAll();
     const def = patronById(seat.id);
-    const name = def.instName?.(seat.data) ?? def.name;
+    const name = patronName(def, seat.data);
     const n = seat.data.honorifics;
     log(`🏵️ ${name} is crowned — +${HONORIFIC_STEP} Points on every word, paid at that seat's turn, while the seat is kept${n > 1 ? ` (${n} laurels now)` : ''}.`, 'good');
     return;

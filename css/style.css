@@ -266,6 +266,65 @@ header {
 .patron--uncommon { --ring: rgba(47, 116, 92, 0.55); }
 .patron--rare     { --ring: rgba(112, 64, 160, 0.55); }
 
+/* ─── A distinguished patron (postnoms) ────────────────────────────────────────
+   Struck on foiled stock: a sheen that travels slowly across the card, a gilt
+   double rule inside the edge, and the name in gold. It has to read as "this
+   one is different" at a glance on a shelf of five, and as "worth paying more
+   for" on a calling card — the ×Mult it carries is nowhere in the desc.
+   The sheen is a background layer rather than an overlay so it sits under the
+   emoji and the name, and it is switched off entirely for reduced motion. */
+.patron.patron--postnom {
+  --ring: rgba(214, 172, 74, 0.85);
+  background:
+    linear-gradient(115deg,
+      rgba(255, 255, 255, 0) 30%,
+      rgba(255, 246, 214, 0.55) 44%,
+      rgba(255, 214, 140, 0.75) 50%,
+      rgba(255, 246, 214, 0.55) 56%,
+      rgba(255, 255, 255, 0) 70%),
+    linear-gradient(170deg, #fbf1d6 0%, #f0dcae 100%);
+  background-size: 260% 100%, 100% 100%;
+  background-position: 120% 0, 0 0;
+  animation: foilSheen calc(5.2s / var(--aspd)) ease-in-out infinite;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 252, 240, 0.85),
+    inset 0 0 0 3.5px var(--ring),
+    inset 0 0 0 5px rgba(180, 132, 40, 0.35),
+    0 4px 14px rgba(0, 0, 0, 0.5),
+    0 0 16px rgba(214, 172, 74, 0.3);
+}
+.patron.patron--postnom .patron-name,
+.offer-patron.offer-patron--postnom .op-name { color: #7a5310; font-weight: 800; }
+@keyframes foilSheen {
+  0%, 100% { background-position: 130% 0, 0 0; }
+  50%      { background-position: -30% 0, 0 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .patron.patron--postnom { animation: none; background-position: 50% 0, 0 0; }
+}
+/* The calling card in the Market wears the same foil… */
+.offer-patron.offer-patron--postnom {
+  background:
+    linear-gradient(115deg,
+      rgba(255, 255, 255, 0) 30%,
+      rgba(255, 246, 214, 0.5) 44%,
+      rgba(255, 214, 140, 0.7) 50%,
+      rgba(255, 246, 214, 0.5) 56%,
+      rgba(255, 255, 255, 0) 70%),
+    linear-gradient(170deg, #fbf1d6 0%, #f0dcae 100%);
+  background-size: 260% 100%, 100% 100%;
+  animation: foilSheen calc(5.2s / var(--aspd)) ease-in-out infinite;
+  box-shadow:
+    inset 0 0 0 2.5px rgba(214, 172, 74, 0.75),
+    0 6px 18px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(214, 172, 74, 0.28);
+}
+/* …and names its letters, and what they are worth, on the title line. */
+.op-postnom { color: #8a5c12; font-weight: 800; letter-spacing: 0.3px; }
+@media (prefers-reduced-motion: reduce) {
+  .offer-patron.offer-patron--postnom { animation: none; }
+}
+
 .patron--common, .patron--uncommon, .patron--rare {
   background: linear-gradient(170deg, var(--parch) 0%, var(--parch-2) 100%);
   color: var(--parch-ink);
@@ -1374,6 +1433,20 @@ button.sundry:hover { transform: translateY(-2px); }
   opacity: 0.55;
   text-decoration: underline wavy 1.5px;
   text-underline-offset: 4px;
+}
+
+/* ─── The medieval sorts (The Medievalist's stall) ─────────────────────────────
+   Struck in an older metal: a warmer, redder lead than the ordinary case, so a
+   þ reads as an antique among the plain sorts at a glance rather than only on
+   inspection. The glyph itself carries the rest of the signal. */
+.tile--medieval {
+  background: linear-gradient(168deg, #f6e6c8 0%, #e8d0a4 55%, #dfc496 100%);
+  border-color: rgba(110, 70, 26, 0.6);
+  --tile-lift: #9d7638;
+}
+.tile--medieval .tile-letter {
+  color: #5d2f10;
+  text-shadow: 0 1px 0 rgba(255, 244, 220, 0.7);
 }
 
 /* ─── In manuscript (The Redactor) ─────────────────────────────────────────────
