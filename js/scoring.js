@@ -7,6 +7,7 @@ import { PATRON_DEFS, patronById, guildsOf, guildSeats } from './patrons.js';
 import { bossById } from './bosses.js';
 import {
   state, owns, getActiveLetter, getActiveColour, getActiveGrowth, returnsToBag,
+  isWrapped,
 } from './state.js';
 
 // ─── Score a word ─────────────────────────────────────────────────────────────
@@ -54,6 +55,21 @@ export function computeScore(wordTiles) {
   const word = wordTiles.map(t => getActiveLetter(t)).join('').toUpperCase();
   const letters = splitMarks(word)?.letters ?? word;
   const n = wordTiles.length;
+
+  // ── Pass 0: the wrapper ────────────────────────────────────────────────────
+  // A tile The Redactor has wrapped in manuscript (js/bosses.js) keeps its
+  // letter and loses everything else, so it is replaced here — on a copy, since
+  // scoring never mutates — with a tile carrying nothing but that letter. The
+  // paint, wash, trim, nick and metal are all read straight off the tile by the
+  // passes below, and every one of them reads null now; the face value is the
+  // one thing looked up from the letter rather than the tile, so pass 1 zeroes
+  // it explicitly. `wrapped` rides along on the copy, which is what keeps
+  // getActiveGrowth and isImmutable answering correctly downstream.
+  if (wordTiles.some(isWrapped)) {
+    wordTiles = wordTiles.map(t => (isWrapped(t)
+      ? { ...t, colour: null, wash: null, trim: null, nick: null, material: null }
+      : t));
+  }
 
   // ── Pass ½: the brush, before a single thing is counted ────────────────────
   // Patrons who PAINT a tile rather than pay it (The Illuminator) go first of
@@ -112,10 +128,13 @@ export function computeScore(wordTiles) {
   let refresh = 0;
 
   wordTiles.forEach((t, i) => {
-    const face  = TILE_POINTS[getActiveLetter(t)] ?? t.basePoints ?? 1;
+    // Wrapped tiles are worth nothing: the face value is the one figure read
+    // from the letter rather than from the tile, so pass 0's stripping can't
+    // reach it and it is zeroed here instead.
+    const face  = isWrapped(t) ? 0 : TILE_POINTS[getActiveLetter(t)] ?? t.basePoints ?? 1;
     const grown = getActiveGrowth(t);   // growth follows the showing face
     let points = face + grown;
-    noteMap[i].push(`base ${face}`);
+    noteMap[i].push(isWrapped(t) ? 'in manuscript — no Points' : `base ${face}`);
     if (grown) noteMap[i].push(`grown +${grown}`);
 
     if (t.trim === 'silver') { points += SILVER_BONUS; noteMap[i].push(`Silver +${SILVER_BONUS}`); }

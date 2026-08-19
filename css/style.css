@@ -1369,6 +1369,44 @@ button.sundry:hover { transform: translateY(-2px); }
   text-underline-offset: 4px;
 }
 
+/* ─── In manuscript (The Redactor) ─────────────────────────────────────────────
+   The tile is wrapped in paper and the letter pencilled on the wrapper, so this
+   has to cover whatever the tile was: the trim ring, the metal, the nick's
+   notch and the paint all go under plain wrapping. It wins by weight — the
+   class is added last and these rules override --trim-ring and the material
+   backgrounds outright — rather than by the renderer having to undo them. */
+.tile--wrapped {
+  background:
+    repeating-linear-gradient(101deg,
+      rgba(140, 130, 118, 0.05) 0 3px, rgba(140, 130, 118, 0) 3px 7px),
+    linear-gradient(168deg, #d9d4ca 0%, #cdc7bb 55%, #c3bcaf 100%);
+  color: #4a4741;
+  border-color: rgba(70, 66, 60, 0.45);
+  --trim-ring: 0 0 rgba(0, 0, 0, 0);
+  --tile-lift: #8d877c;
+  /* A crease down the wrapper where the paper was folded over the type. */
+  background-blend-mode: multiply, normal;
+}
+.tile--wrapped .tile-letter {
+  /* Greylead, in whatever handwriting the device carries: the letter is written
+     on the wrapper, not cast into the tile. */
+  font-family: 'Segoe Script', 'Bradley Hand', 'Snell Roundhand', cursive, var(--serif);
+  font-weight: 600;
+  color: #57534c !important;
+  opacity: 0.9;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+  transform: rotate(-3deg);
+}
+/* The corner figure reads 0 (restingPoints says so) — dim it, since the number
+   is not news, the wrapper is. */
+.tile--wrapped .tile-pts { opacity: 0.4; }
+/* Nothing shows through the paper: no nick notch, no rainbow sheen, no curse. */
+.tile--wrapped.tile--nick-left,
+.tile--wrapped.tile--nick-right,
+.tile--wrapped.tile--nick-side { --nick-r: 9px; }
+.tile--wrapped::after,
+.tile--wrapped::before { display: none; }
+
 .tile-pts {
   position: absolute;
   right: 5px; bottom: 4px;

@@ -30,20 +30,33 @@
 //                                commits: chains, bars, re-rolls.
 //   gift: true                 — grants an ephemeral tile of data.letter as
 //                                the page is dealt (the Enthusiast).
+//   lent: { letter, count }    — tiles held IN the hand for the whole page,
+//                                topped back up as they print (the Eeeditor).
+//   wraps: <share>             — that fraction of the COLLECTION is wrapped in
+//                                manuscript for the page: it still spells and
+//                                nothing else (the Redactor). Laid and cleared
+//                                in startPage; read through isWrapped.
 //   rackBonus / noDiscards     — structural knobs read by state.js.
 //
 // Tuning numbers live here with their editor, patron-style; SPIKE_MULT lives
 // in constants.js because scoring and the bar both read it.
 
-import { themeRank, themeSize } from './themes.js';
+import { inTheme, themeRank, themeSize } from './themes.js';
 
 // The Columnist's measures. Ten tiles in hand: three is always reachable,
 // six is a genuine reach. Never the same measure twice running.
 const COLUMN_MIN = 3;
 const COLUMN_MAX = 6;
 
-const ABRIDGER_MAX = 4;   // letters an Abridged word may run to
 const PADDER_MIN   = 5;   // letters a Padded word must reach
+
+// The Redactor's share of the case sent back in manuscript. A third of ten is
+// three dead tiles in a hand — felt in every word without ever stranding one,
+// since a wrapped tile still SPELLS: it fills a place in the word, reaches a
+// length multiplier, and satisfies whatever shape the page asks for. It simply
+// brings nothing of its own. Half was tried on paper and reads as a wall
+// rather than a cost, which is not what this roster is for.
+const REDACTOR_SHARE = 1 / 3;
 
 // The Populist's band: how far down the frequency list a word may sit and
 // still count as plain English. wordlists-themed/common.txt carries some 8,000
@@ -51,7 +64,7 @@ const PADDER_MIN   = 5;   // letters a Padded word must reach
 //
 // Measured against 1,500 random racks: at 500 the best legal word was worth a
 // mean 8.0 Points where an unconstrained rack manages 14.0 — the steepest
-// squeeze of any editor (the Abridger leaves 11.5) — and yet 99.2% of racks
+// squeeze of any editor then measured — and yet 99.2% of racks
 // could satisfy it, because the band includes A, IT, IS and their kin. That is
 // the shape this roster wants: a hard ask that never bricks, with a cheap
 // sacrificial word always available to whoever needs one. 750 keeps that shape
@@ -83,6 +96,11 @@ const OBSCURANTIST_BAND = 500;
 const commonReady = () => themeSize('common') > 0;
 const commonRank  = word => themeRank('common', word);
 
+// The Minimalist reads the same adjectives list The Poet is paid from, and
+// declines to judge until it lands for the same reason: an absent list would
+// have him spike nothing at all.
+const adjectivesReady = () => themeSize('adjectives') > 0;
+
 // The Reviewer's temper: 0.2 at rock bottom, 0.95 on a good day, in
 // twentieths. Squaring the roll skews the days good — the deep sulks are
 // dramatic because they're occasional, and the tax across a page stays
@@ -100,12 +118,6 @@ function rollColumn(data) {
 }
 
 export const BOSS_DEFS = [
-  {
-    id: 'abridger', name: 'The Abridger', emoji: '✂️',
-    desc: `Nobody reads past the ${ABRIDGER_MAX}th letter. Longer words are spiked.`,
-    judge: letters => letters.length > ABRIDGER_MAX
-      ? `too long — ${ABRIDGER_MAX} letters at most` : null,
-  },
   {
     id: 'padder', name: 'The Padder', emoji: '🪶',
     desc: `I pay by the word, so the words had better be long: anything under ${PADDER_MIN} letters is spiked.`,
@@ -130,6 +142,20 @@ export const BOSS_DEFS = [
       const rank = commonRank(letters);
       return rank != null && rank < OBSCURANTIST_BAND
         ? `too plain — one of the ${OBSCURANTIST_BAND.toLocaleString()} commonest words` : null;
+    },
+  },
+  {
+    // The one editor who judges what a word MEANS rather than what shape it
+    // is. He reads wordlists-themed/adjectives.txt — the same list The Poet is
+    // paid from, so the two are exact opposites at the same desk — and that
+    // list carries adverbs beside the adjectives, which suits him exactly: the
+    // advice he is made of has never distinguished them.
+    id: 'minimalist', name: 'The Minimalist', emoji: '⬜',
+    desc: 'The adjective is the enemy of the noun. Every describing word is spiked.',
+    judge: letters => {
+      if (!adjectivesReady()) return null;
+      return inTheme('adjectives', letters)
+        ? 'an adjective — say it plainly or not at all' : null;
     },
   },
   {
@@ -210,6 +236,32 @@ export const BOSS_DEFS = [
     id: 'eeeditor', name: 'The Eeeditor', emoji: '🅴',
     desc: 'E is a good letter. Here: I saved three especially for you.',
     lent: { letter: 'E', count: 3 },
+  },
+  {
+    // The Eeeditor's rule exactly, in a rounder vowel. O is worth the same
+    // single Point as E and is very nearly as obliging, so the toll on the
+    // hand is the same shape — three of your ten places, filled with something
+    // you can always spend but rarely want three of.
+    id: 'editooor', name: 'The Editooor', emoji: '🅾️',
+    desc: 'O is the shape of a mouth saying oh. Take three, with my compliments.',
+    lent: { letter: 'O', count: 3 },
+  },
+  {
+    // Structural, like the Hoarder — no rule to break, so nothing it can
+    // spike. Instead a third of the case comes back set in manuscript: the
+    // tile is wrapped, a pencilled letter written on the wrapper, and
+    // everything the tile WAS is hidden under it for the page. It spells, and
+    // that is all it does — no Points, no trim, no paint, no metal, no nick,
+    // and nothing can be laid on it while it is wrapped (isImmutable).
+    //
+    // The wrapping is laid on the COLLECTION, not the hand, which is what
+    // makes it a page-long condition rather than an opening inconvenience:
+    // discard a wrapped tile and you draw from a bag that is still a third
+    // wrapped. It is cleared at the top of the next startPage, so it can
+    // never outlive the Deadline that laid it (js/state.js).
+    id: 'redactor', name: 'The Redactor', emoji: '📝',
+    desc: 'This is a draft, not a book. A third of the case comes back in manuscript: those tiles spell, and nothing more.',
+    wraps: REDACTOR_SHARE,
   },
   {
     id: 'completist', name: 'The Hoarder', emoji: '🗄️',

@@ -60,8 +60,10 @@ Tiles, not letters, and the difference is worth holding onto: a `CH` or `QU`
 tile spells two letters but wears one coat of paint and lifts its multiplier
 once. Everything that counts what is *in* a word counts tiles — paint, nicks,
 the colour patrons. Only the rules about a word's *shape* count letters: how
-long it is, how it is spelled, what order it runs in. The editors are all
-shape rules, so they all count letters.
+long it is, how it is spelled, what order it runs in. Every editor that judges
+a word judges its shape, so they all count letters. (Two editors don't judge
+words at all — the Redactor wraps tiles and the Hoarder rearranges the hand —
+and those, naturally, count tiles.)
 
 The readout shows a live projection — including a chip per colour — and
 **everything that does something explains itself where it sits**: hover it with
@@ -148,20 +150,25 @@ and nicks like any other.
 **The Editors** — every chapter's third page is its **Deadline**, and an editor
 holds the desk there: one of a roster (see `js/bosses.js`), drawn at random as
 the page is dealt and never announced sooner, so the rule is a puzzle for the
-rack in front of you rather than something to build against. No editor bans
-anything or touches what a tile is worth — each one warps the *shape* of the
-words instead. The Abridger reads nothing past the fourth letter; the Padder
-pays by the word and wants five at least; the Columnist re-sets an exact
+rack in front of you rather than something to build against. Almost none of
+them bans anything — each warps the *shape* of the words instead. The Padder
+pays by the word and wants five letters at least; the Columnist re-sets an exact
 measure after every print; the Populist writes for the common reader and takes
 none but the 750 commonest words in English, where the Obscurantist spikes the
-commonest 500 outright; the Serialist demands each word open on the letter
-the last one ended with; the Indexer files the page alphabetically; the
-Escalationist insists every word outscore the one before; the Enthusiast lends
-a tile of a beloved letter and expects it in every word; the Reviewer receives
-each word in a temper (×0.2–×0.95) rolled openly before you compose; the
-Completist deals two extra tiles and permits no discards; and the Eeeditor
+commonest 500 outright; the Minimalist holds the adjective to be the enemy of
+the noun and spikes every describing word (off the same list *the Poet* is paid
+from, so the two are exact opposites); the Serialist demands each word open on
+the letter the last one ended with; the Indexer files the page alphabetically;
+the Escalationist insists every word outscore the one before; the Enthusiast
+lends a tile of a beloved letter and expects it in every word; the Reviewer
+receives each word in a temper (×0.2–×0.95) rolled openly before you compose;
+the Completist deals two extra tiles and permits no discards; the Eeeditor
 keeps three places in your hand and fills them with plain E, restoring one the
-moment you print it. A word that breaks
+moment you print it, and the Editooor does the same in O; and the Redactor —
+the one editor that does touch what a tile is worth — sends a third of the case
+back in manuscript, wrapped in paper with the letter pencilled on top: those
+tiles still spell, and do nothing else at all (no Points, no paint, no trim, no
+metal, no nick) until the page ends and the wrapping comes off. A word that breaks
 the house rule is not refused — it is **spiked**: printed, filed, counted, but
 at ×0.2 of its score. The editor's bar above the readout carries the live
 demand and calls the verdict — ✓ or the spike — while you compose, because
@@ -179,15 +186,30 @@ too. Rebuild it with `tools/build-common-list.mjs` (it filters a frequency list
 down to words this dictionary will actually accept), and never sort it
 alphabetically.
 
-Two editors **lend** you tiles, and the difference between them is the whole of
+Three editors **lend** you tiles, and the difference between them is the whole of
 what they do. A lent tile is cast from no collection template: it takes no
 paint, trim or nick (there is nothing behind it for the change to be written
 to), it can never be discarded or slip back into the bag, and it is gone when
 the page ends. The Enthusiast's gift rides *above* your hand size and is a
 present. The Eeeditor's three E's sit *in* the hand and take three of its
-places, which is a cage — you draw seven real tiles and build around EEE. On
-the board the two are coloured apart: warm brass for the gift, cold ink-blue
-with a proof-reader's double rule for the Eeeditor's own type.
+places, which is a cage — you draw seven real tiles and build around EEE; the
+Editooor runs the same cage in O. On the board the two kinds are coloured
+apart: warm brass for the gift, cold ink-blue with a proof-reader's double
+rule for the lender's own type.
+
+The Redactor is the one editor whose rule is written on the tiles rather than
+on the words. As the Deadline is dealt it wraps a third of the **collection** —
+not of the hand, which is the point: discard a wrapped tile and you draw from a
+bag that is still a third wrapped, so the condition lasts the page instead of
+washing out with the first refill. A wrapped tile keeps its letter and loses
+everything else. In the code that promise is kept in one place: `isWrapped` in
+`js/state.js` sits inside `getActiveColour`, `countsAsColour`, `getActiveGrowth`
+and `restingPoints`, so nothing else in the game had to learn the word —
+ask a wrapped tile what colour it is and it has none, what it is worth and it is
+worth nothing. Scoring's pass 0 strips the few things read straight off the tile
+instead (trim, nick, metal, face value), on a copy, as ever. The share is
+`REDACTOR_SHARE` in `js/bosses.js`; the wrapping is laid and cleared in
+`startPage`, so it can never outlive the editor that laid it.
 
 A word is worth noting about the Obscurantist: measured against a solver it
 looks feeble, costing 2% of the score ceiling, because a machine barred from

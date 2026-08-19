@@ -5,7 +5,7 @@
 import {
   state, settings, saveState, getActiveLetter, getActiveColour, selectedCount,
   effectivePatronSlots, effectiveSundrySlots, effectiveWordsPerPage, chapterTitle,
-  sundrySelected, restingPoints, getActiveGrowth,
+  sundrySelected, restingPoints, getActiveGrowth, isWrapped,
 } from './state.js';
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
@@ -56,6 +56,11 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   // colour faintly, the promise being spent the moment it prints.
   if (tile.letter === FLEURON) div.classList.add('tile--fleuron');
   if (tile.wash && !tile.colour) div.classList.add('tile--washed');
+  // Wrapped in manuscript: the paper goes over everything the tile was, so this
+  // class is added last and the CSS covers the trim ring, the nick and the
+  // metal alike. getActiveColour already returns null for it, so the letter
+  // below takes no paint colour — it is pencil on a wrapper now.
+  if (isWrapped(tile)) div.classList.add('tile--wrapped');
 
   // Letter (painted in its colour)
   const letter = document.createElement('span');
@@ -107,7 +112,20 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
 // they say what a thing does rather than naming it.
 export function tileFeatures(tile) {
   const out = [];
-  // What the tile *is* comes first — a material, or the fleuron, which is a
+  // The wrapper comes before everything, because it hides everything: while it
+  // is on, none of the lines below are true of this tile. They are still listed
+  // underneath, since what is under the paper is exactly what comes back when
+  // the Deadline ends.
+  if (isWrapped(tile)) {
+    out.push({
+      head: 'In manuscript',
+      body: 'The Redactor has wrapped this tile and pencilled the letter on top. It still '
+          + 'spells, and does nothing else — no Points, no paint, no trim, no metal, no '
+          + 'nick, and nothing can be laid on it. The wrapping comes off when the page ends, '
+          + 'and everything below is waiting underneath.',
+    });
+  }
+  // What the tile *is* comes next — a material, or the fleuron, which is a
   // sort of its own however ordinary its lead.
   if (tile.letter === FLEURON) {
     out.push({

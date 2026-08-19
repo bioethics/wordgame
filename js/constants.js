@@ -467,11 +467,15 @@ export const MATERIALS = {
   },
 };
 
-// Tiles nothing can be done to: a ghost, which is barely there to work on, and
+// Tiles nothing can be done to: a ghost, which is barely there to work on;
 // any tile an editor has merely lent you (see js/bosses.js) — there is no
 // collection template behind a lent tile, so paint or a trim laid on one would
-// look permanent and quietly evaporate with the page.
-export const isImmutable = tile => tile?.material === 'ghost' || !!tile?.ephemeral;
+// look permanent and quietly evaporate with the page; and a tile The Redactor
+// has wrapped in manuscript, where the working surface is under the paper.
+// (The field is read as isWrapped in state.js; it is checked bare here because
+// constants.js is a leaf and imports from nobody.)
+export const isImmutable = tile =>
+  tile?.material === 'ghost' || !!tile?.ephemeral || !!tile?.wrapped;
 
 // ─── The Editors (Deadline bosses — see js/bosses.js) ─────────────────────────
 // A word that breaks the seated editor's rule is SPIKED: printed and counted,

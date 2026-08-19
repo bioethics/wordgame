@@ -47,6 +47,19 @@ export function getActiveLetter(tile) {
   return tile.letter;
 }
 
+// Wrapped in manuscript by The Redactor (js/bosses.js): the tile is under
+// paper for the page, with a pencilled letter on the wrapper. It still spells
+// — that is the whole of what it still does — and everything else about it is
+// hidden rather than destroyed: the paint, trim, metal, nick and grown Points
+// are all sitting underneath, waiting for the page to end.
+//
+// The readers just below are where that promise is kept, so nothing else in
+// the game had to learn the word "wrapped": ask what colour a wrapped tile is
+// and it has none, what it is worth and it is worth nothing. Scoring strips
+// the few things that are read off the tile directly rather than through
+// these (trim, nick, metal, face value) — see computeScore's pass 0.
+export const isWrapped = tile => !!tile?.wrapped;
+
 // The paint a tile is wearing. Paint belongs to the tile, not to either face,
 // so this is the same whichever letter a dual is showing — kept as a function
 // because everything that scores paint calls it, which is exactly what lets
@@ -55,7 +68,8 @@ export function getActiveLetter(tile) {
 // speaks only through countsAsColour and never lifts a multiplier unpainted).
 // Real paint sits over a wash and wins; the wash comes off when the tile
 // prints (washOff, called at commit in main.js).
-export const getActiveColour = tile => tile.colour ?? tile.wash ?? null;
+export const getActiveColour = tile =>
+  (isWrapped(tile) ? null : tile.colour ?? tile.wash ?? null);
 
 // What a tile is worth before the word it sits in touches it: its letter's face
 // value, any growth set permanently into it, and a silver trim. All three
@@ -70,20 +84,24 @@ export const getActiveColour = tile => tile.colour ?? tile.wash ?? null;
 // Typefounder's melt is why: each side brings its own history to the
 // crucible, and playing the T face shouldn't pay for what the E earned.
 export const getActiveGrowth = tile =>
-  (tile.activeVariant === 1 ? tile.altBonusPoints : tile.bonusPoints) ?? 0;
+  (isWrapped(tile) ? 0 : (tile.activeVariant === 1 ? tile.altBonusPoints : tile.bonusPoints) ?? 0);
 
 export const restingPoints = tile =>
-  (TILE_POINTS[getActiveLetter(tile)] ?? tile.basePoints ?? 1)
-  + getActiveGrowth(tile)
-  + (tile.trim === 'silver' ? SILVER_BONUS : 0);
+  (isWrapped(tile) ? 0
+    : (TILE_POINTS[getActiveLetter(tile)] ?? tile.basePoints ?? 1)
+      + getActiveGrowth(tile)
+      + (tile.trim === 'silver' ? SILVER_BONUS : 0));
 
 // Whether a tile reads as a given colour to anything that cares *which* colour
 // it is — every patron, and the Fountain's return-to-bag. A rainbow tile reads
 // as all four at once. This is deliberately NOT what the colour multipliers
 // use: those count actual paint (getActiveColour), so a rainbow tile lifts a
 // multiplier only where it has been painted, and can't be four at once there.
+// A wrapped tile is caught here as well as in getActiveColour, because rainbow
+// metal speaks through this reader alone: under the wrapper the metal is as
+// hidden as the paint.
 export const countsAsColour = (tile, colour) =>
-  tile.material === 'rainbow' || getActiveColour(tile) === colour;
+  !isWrapped(tile) && (tile.material === 'rainbow' || getActiveColour(tile) === colour);
 
 // Convert a bag template into a full rack tile
 function templateToTile(template) {
@@ -400,6 +418,12 @@ export function newRun() {
 // Reshuffle the whole collection into the bag and reset page counters.
 // (Drawing the opening rack is left to the caller so it can be animated.)
 export function startPage() {
+  // Last page's manuscript comes off first, before anything else looks at a
+  // tile. Unconditional: clearing here rather than when the Deadline ends is
+  // what guarantees a wrapper can never outlive the editor that laid it, however
+  // the page was left — cleared, lost, or reloaded halfway through.
+  for (const t of state.collection) delete t.wrapped;
+
   state.bag  = shuffle([...state.collection]);
   state.rack = [];
   state.word = [];
@@ -409,9 +433,18 @@ export function startPage() {
   state.wordsPrinted = 0;
   state.wordsLeft    = effectiveWordsPerPage();
   // The Deadline's editor takes the desk before anything is counted out —
-  // rack size and discards below are theirs to bend.
+  // rack size, discards and the wrapping below are theirs to bend.
   if (isDeadline(state.page)) assignBoss();
   else state.boss = null;
+  // The Redactor wraps a share of the CASE, not of the hand: the bag holds the
+  // very templates the collection does, so a wrapped tile stays wrapped when it
+  // is discarded and drawn again, and the condition lasts the page instead of
+  // washing out with the first refill.
+  const wraps = activeBoss(state)?.wraps;
+  if (wraps) {
+    const pool = shuffle([...state.collection]);
+    for (let i = 0; i < Math.round(pool.length * wraps); i++) pool[i].wrapped = true;
+  }
   state.discardsMax = activeBoss(state)?.noDiscards
     ? 0
     : DISCARDS_PER_PAGE + (owns('quartermaster') ? 1 : 0) + (state.upgradeCounts?.discard ?? 0);
