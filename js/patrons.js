@@ -1129,7 +1129,9 @@ export const PATRON_DEFS = [
     // time, but ADDITIVE, so it joins the other +Mult seats rather than
     // multiplying whatever they built. Three pairs exists (BOOKKEEPER, and 28
     // more) and stacks the same way, which is the whole charm of the thing.
-    id: 'stammerer', name: 'The Stammerer', emoji: '🦜', rarity: 'rare', cost: 10,
+    // Down from rare · 10 with it: +0.5 on ~14% of common words no longer earns
+    // the top shelf's price.
+    id: 'stammerer', name: 'The Stammerer', emoji: '🦜', rarity: 'uncommon', cost: 8,
     desc: 'Every doubled letter gives +0.5 Mult — BALLOON pays twice, BOOKKEEPER three times.',
     when: 'score',
     effect({ word, addMult }) {

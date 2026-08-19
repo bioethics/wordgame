@@ -20,7 +20,7 @@ House style for a description, from `docs/PATRON_OVERHAUL.md`: one sentence,
 real numbers, no metaphor, under ~110 characters. State the rule, not the
 feeling — the flavour belongs to the name, the emoji and the quips.
 
-**78 patrons** — 21 common, 35 uncommon, 22 rare. Guilds: amber 13, jade 12, crimson 11, azure 14, no guild 31 — a dual-livery patron counts in each of its guilds.
+**78 patrons** — 21 common, 36 uncommon, 21 rare. Guilds: amber 13, jade 12, crimson 11, azure 14, no guild 31 — a dual-livery patron counts in each of its guilds.
 
 ## Amber · the counting-house
 
@@ -114,6 +114,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🌒 **The Closer** `closer` | uncommon | 7 | The final word of each page gets ×3 Mult. |
 | 🃏 **The Harlequin** `harlequin` | uncommon | 7 | Words holding all four colours get ×2 Mult. |
 | 🖋️ **The Novelist** `novelist` | uncommon | 7 | Words of 7+ letters get ×2 Mult. |
+| 🦜 **The Stammerer** `stammerer` | uncommon | 8 | Every doubled letter gives +0.5 Mult — BALLOON pays twice, BOOKKEEPER three times. |
 | 🧸 **The Poppet** `poppet` | rare | 7 | ×3 Mult for any of the thousands of words The Poppet finds cute. |
 | 🎨 **The Illuminator** `illuminator` | rare | 8 | When a word holds exactly three colours, its first bare tile is painted the fourth — before the word is counted. |
 | 💘 **The Paramour** `paramour` | rare | 8 | ×3 Mult for any of the thousands of words The Paramour finds romantic. |
@@ -121,7 +122,6 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🍑 **The Vulgarian** `vulgarian` | rare | 8 | ×3 Mult for any of the thousands of words The Vulgarian finds rude. |
 | 🔭 **The Astronomer** `astronomer` | rare | 9 | +1 Mult for each word already printed this page. |
 | 📋 **The Overseer** `overseer` | rare | 9 | Print one more word each page. |
-| 🦜 **The Stammerer** `stammerer` | rare | 10 | Every doubled letter gives +0.5 Mult — BALLOON pays twice, BOOKKEEPER three times. |
 | 🗺️ **The Cartographer** `cartographer` | rare | 12 | Words whose letters run in alphabetical order get ×3 Mult. |
 | 👓 **The Skimmer** `skimmer` | rare | 12 | Words are accepted with their middle letters in any order, so long as the first and last letters are right. |
 
