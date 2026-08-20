@@ -35,6 +35,8 @@ import {
 //                                                            — patrons writing
 //                                                              Points onto tiles,
 //                                                              before anything scores
+//   tileGrowth:  Set(id)                                     — tiles whose boost is
+//                                                              permanent growth
 //   nickSteps:   [{ sourceId, kind, mult, hits: [{ id, delta }] }]
 //   nickAffected: Map(id → mult)                             — for the live preview
 //   colourSteps: [{ colour, ids, count, mult }]              — incl. 'purple' (trim)
@@ -179,7 +181,15 @@ export function computeScore(wordTiles) {
   // Seats speak in seat order here as everywhere, and each records a step of
   // its own so the print can show the ink going onto the tiles before a single
   // tile pays out.
+  //
+  // A boost that is only worth the word it sits in and one that is being
+  // written into the tile for keeps read the same in the groove, and they are
+  // not the same news at all — so a patron whose bonus IS its permanent growth
+  // (`bonusIsGrowth`: the Abecedarian, the Espalier) names the tiles it grows
+  // here, and the groove wears those numbers in jade rather than brass. See
+  // renderWord in js/render.js, and tile-pts--growing in the stylesheet.
   const tileBoostSteps = [];
+  const tileGrowth = new Set();
   for (const p of allSeats()) {
     const def = patronById(p.id);
     if (!def?.tileBonus) continue;
@@ -191,8 +201,9 @@ export function computeScore(wordTiles) {
       if (!v) return;
       contrib[i] += v;
       added += v;
-      noteMap[i].push(`${def.emoji} +${v}`);
+      noteMap[i].push(`${def.emoji} +${v}${def.bonusIsGrowth ? ' — for good' : ''}`);
       hits.push({ id: t.id, delta: v });
+      if (def.bonusIsGrowth) tileGrowth.add(t.id);
     });
     if (hits.length) {
       tileBoostSteps.push({
@@ -509,7 +520,7 @@ export function computeScore(wordTiles) {
 
   return {
     word, letters, points, mult, total, coins, refresh, spiked,
-    tileSteps, tilePaintSteps, tilePaint, tileBoostSteps, nickSteps, nickAffected,
+    tileSteps, tilePaintSteps, tilePaint, tileBoostSteps, tileGrowth, nickSteps, nickAffected,
     colourSteps, patronSteps, perTile,
   };
 }

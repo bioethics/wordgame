@@ -1,4 +1,4 @@
-# Folio ❦
+# GREAT WORK ❦
 
 *A word-forging roguelike.* You run a small print house: draw letter tiles from
 the bag, compose words, and **PRINT** them to meet each page's quota. Clear
@@ -134,7 +134,11 @@ tiles gain +N Points"* — the Goldsmith, the Seedsman, the Siren, the Jeweller,
 the Calligrapher, the Espalier, the Abecedarian — write that number onto the
 tile itself, in the
 groove as you compose and again at the head of the print, which means **the
-nicks and the Monogrammists multiply it**. And the tongs' heat and the toll for
+nicks and the Monogrammists multiply it**. Where that number is being written
+in *for keeps* — the jade trellises, *the Abecedarian* and *the Espalier*,
+whose score-time bonus is the very growth their print then makes permanent —
+the groove shows it in **jade** rather than brass, so a gain you are keeping
+never looks like a gain you are borrowing. And the tongs' heat and the toll for
 a curse left in hand land before the table speaks, so any multiplier seated at
 all catches them.
 
@@ -186,8 +190,12 @@ and nicks like any other.
   without being painted at all. Mind the Stoker, who reads it as crimson and
   burns it.
 
-**The Editors** — every chapter's third page is its **Deadline**, and an editor
-holds the desk there: one of a roster (see `js/bosses.js`), drawn at random as
+**The Editors** — every chapter's third page is its **Deadline**, and the room
+knows it: the candles go redder, the vignette closes in, the leather cools and
+the wood the shelf and workbench are cut from darkens. Nothing moves and
+nothing flashes — the editor's bar and the quota card are already doing the
+shouting; this is the light behind them, and it fades in and out with the page
+(`body.deadline-on` in `css/style.css`). An editor holds the desk there: one of a roster (see `js/bosses.js`), drawn at random as
 the page is dealt and never announced sooner, so the rule is a puzzle for the
 rack in front of you rather than something to build against. Almost none of
 them bans anything — each warps the *shape* of the words instead. The Padder
@@ -222,9 +230,12 @@ reset by the spiked word itself, so a sacrificial APPLE is always a way back in.
 thing, plus a ×1.2 Mult of its own paid at its own turn — so where you seat a
 distinguished patron matters as much as which one it is, and it is worth most
 late, behind the seats that add. The card is struck on foiled stock and names
-its letters, because the multiplier is nowhere in the description. It costs 3
-Coins over the odds, half of which comes back if you ever dismiss it. Odds,
-price, multiplier and the list of titles are `POSTNOM` in `js/constants.js`.
+its letters, because the multiplier is nowhere in the description, and once
+seated it wears its letters again as a small gilt tab in the corner of its
+card — foil alone reads as a trick of the candlelight across a shelf of five.
+It costs 3 Coins over the odds, half of which comes back if you ever dismiss
+it. Odds, price, multiplier and the list of titles are `POSTNOM` in
+`js/constants.js`.
 
 **An editor that inverts a patron you own never takes the desk.** Most editors
 merely make a seat idle for a page, which is a fair cost of the roster being a
@@ -360,10 +371,14 @@ whether she gets a seat is your call like any other. The offer is spent the
 instant that Market rolls, bought or not: reroll, close the shop, or simply
 decline, and she has moved on until you spell CAT again. That one-shot rule is
 load-bearing — without it a Headsman build could dismiss and rebuy her forever,
-each dismissal worth another permanent +0.2 Mult for free. Words holding RAT
-pay her a Coin and earn her a laurel, and a RAT tile in the word is eaten
-outright — which makes *the Rat Catcher*, who casts one every page, either her
-best friend or her larder.
+each dismissal worth another permanent +0.2 Mult for free. Any word that
+spells out the letters R-A-T pays her a Coin and earns her a laurel — PIRATE
+and GRATIS count, and cost you nothing to say. What she EATS is narrower: only
+a **RAT ligature tile**, and that tile comes from *the Rat Catcher* and nowhere
+else, so his gift is her dinner and your own R, A and T are never at risk. The
+meal is announced in the status bar at the foot of the board rather than over
+her card, because a tile leaving your collection for good is news about the
+press.
 
 **The Market** (between pages) keeps a fixed layout with churning contents:
 4 patrons, 4 tiles (5 with the Medievalist's stall), 2 **sundries**, and 2 **stalls** drawn from a roster of
@@ -371,7 +386,19 @@ six. *New offers* re-rolls everything — patrons, tiles, sundries, and a fresh
 pair of stalls with their doubling-price reset — and its own price doubles
 with each press. Tiles live in your **collection**; each page the whole
 collection shuffles into the **bag**, and printed or discarded tiles wait in
-the **discard pile**.
+the **discard pile**. *Your collection* opens the case read-only, and heads it
+with a tally by colour — the multipliers are the engine, and a grid of eighty
+tiles is a lovely thing to look at and a hopeless thing to count. Rainbow metal
+is tallied apart from the four paints, since it counts as every colour when a
+word is scored and would otherwise be counted four times over.
+
+**No two Markets price a patron alike.** A calling card's asking price is
+rolled as it is laid out: half the time it is the price on the tin, a quarter
+of the time a Coin cheaper, a quarter a Coin dearer, and the card says which
+("a Coin under", "a Coin over") so a bargain can be spotted while scanning the
+row. It rides on the offer, so *New offers* re-rolls it with everything else;
+the cat, being found rather than bought, is never haggled over, and no card
+ever asks less than a single Coin. `PATRON_HAGGLE` in `js/constants.js`.
 
 **Sundries** are consumables kept on the **workbench** (two slots to start, and
 the Colophon can add two more, beside the patron shelf). The **paint tube**:
@@ -530,10 +557,12 @@ same consolation the run pays out on its own once every option is exhausted
 **Discarding** — press *Discard* to arm it, tap the tiles to throw away, then
 press it again to confirm (press with nothing selected to cancel).
 
-**Patron reactions** — after a strong-enough word, a seated patron may pop up
-a one-line, often gleefully wrong reaction. Purely cosmetic; the odds scale
-with how many "average words" that one word alone was worth against the
-page's quota, so the curve never needs retuning as quotas climb.
+**Patron reactions** — after a genuinely big word, a seated patron may pop up
+a one-line, often gleefully wrong reaction. Purely cosmetic. The bar is half
+the WHOLE PAGE'S quota in a single word: nothing at all below that, then the
+per-patron chance climbs straight to a certainty at twice the quota. Measured
+against the quota rather than against a page-fifth of it, so the curve never
+needs retuning as quotas climb — and so praise stays worth something.
 
 **Run structure** — 10 chapters × 3 pages; the third page of each chapter is a
 Deadline with a steeper quota and a coin bonus. 5 words and 2 discards per
@@ -580,7 +609,8 @@ bigger step than the last and a built press has to multiply rather than add:
 | How loaded offered tiles are | `js/constants.js` → `FEATURE_CHAIN_CHANCE`, `MAX_FEATURES` (one feature free, then keep rolling); generation in `js/market.js` → `randomSpecialTile` |
 | Rewards & interest | `js/constants.js` → `REWARD` (base bumped 4→5 alongside the Colophon) |
 | Colophon roster, offer count, repeat cap, skip grant | `js/constants.js` → `UPGRADE_OFFERS`, `MAX_UPGRADE_REPEATS`, `SKIP_COIN_GRANT`; definitions in `js/upgrades.js` |
-| Patron reaction odds | `js/constants.js` → `REACTION`; the lines themselves in `js/quips.js` — a flat array, add more any time |
+| Patron reaction odds | `js/constants.js` → `REACTION` (`floor`/`ceil` as fractions of the page's whole quota: silence below `floor`, a certainty at `ceil`); the lines themselves in `js/quips.js` — a flat array, add more any time |
+| How far a patron's asking price can drift | `js/constants.js` → `PATRON_HAGGLE` (`spread` Coins each way, `chance` per side) |
 | How long a line stays up to be read | `js/anim.js` → `READ_BASE` / `READ_PER_CHAR` / `READ_MAX`. Every bubble, floater and bar message holds for a span measured off its own length, so a long line is given longer, not read faster |
 | Words / discards / seats per page | `js/constants.js` |
 | Patron roster, costs, effects | `js/patrons.js` (design notes in `docs/PATRON_OVERHAUL.md`) |
@@ -627,8 +657,12 @@ rejected word, a purchase, a hint) borrow the strip for a few seconds and it
 settles back on its own — so nothing needs to announce the page or chapter
 there, since the status row already does.
 
-The **manuscript** proper (❦ in the header) is the same words bound as a book:
-a heading and title for each chapter, ruled off with its word count and score,
+The **manuscript** proper (❦ in the header) is the same words bound as a book.
+The button carries no counter — a brass badge pinned to a corner reads as an
+unread-notification pip, something demanding to be cleared, which is the
+opposite of what a manuscript is; the tally is in the button's tooltip
+instead. Inside: a heading and title for each chapter, ruled off with its word
+count and score,
 and beneath it the words of each page set as running prose — small caps, with
 each score riding after its word as a raised figure the way a footnote mark
 does. Every page keeps its folio number out in the margin in lower-case romans,

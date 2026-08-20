@@ -13,7 +13,7 @@ import {
   WORDS_PER_PAGE, PAGES_PER_CHAPTER, tileCount,
   colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
   sundryTip, FLEURON, TOOL_LOOK, PACKAGES, APPLICATORS, HONORIFIC_STEP, MEDIEVAL, letterGlyph,
-  INTERROBANG,
+  INTERROBANG, POSTNOM,
 } from './constants.js';
 import { patronById, guildsOf, patronName, patronShelf } from './patrons.js';
 import { bossById } from './bosses.js';
@@ -408,6 +408,7 @@ function renderShelf(script) {
         slot.innerHTML = `
           <span class="patron-emoji">${def.emoji}</span>
           <span class="patron-name">${label}</span>
+          ${p.data?.postnom ? `<span class="patron-postnom" title="${patronName(def, p.data)} — a distinguished patron: ×${POSTNOM.mult} Mult, paid at this seat's turn in the running order">${p.data.postnom}</span>` : ''}
           ${laurels ? `<span class="patron-laurel" title="${laurels > 1 ? `${laurels} laurels` : 'A laurel'} — +${laurels * HONORIFIC_STEP} Points every word, paid at this seat's turn, lost if this patron is dismissed">🏵️${laurels > 1 ? `<b>${laurels}</b>` : ''}</span>` : ''}
           <button class="patron-x" data-sell="${p.uid ?? def.id}" title="Dismiss ${name} for ${refund} Coins">✕</button>`;
       } else {
@@ -726,6 +727,11 @@ function renderStatus() {
     fill.classList.toggle('quota-fill--done', state.pageScore >= state.quota);
   }
   $('quotaCard')?.classList.toggle('quota-card--deadline', deadline);
+  // The whole room changes when the Deadline is the page you are on: the
+  // candles go redder, the vignette closes in, the furniture darkens. Hung on
+  // the body so the stylesheet can reach anything it likes without every
+  // component having to be told (see "The Deadline's light" in style.css).
+  document.body.classList.toggle('deadline-on', deadline);
 
   renderPips('wordPips', Math.max(effectiveWordsPerPage(), state.wordsLeft), state.wordsLeft, 'pip--word');
   const dMax = Math.max(state.discardsMax ?? 2, state.discards);
@@ -733,7 +739,19 @@ function renderStatus() {
 
   const coinsEl = $('coinCount');
   if (coinsEl) setNum(coinsEl, state.coins);
-  setText('manuscriptCount', state.manuscript?.length ?? 0);
+
+  // The manuscript's tally lives in the button's tooltip and nowhere else. It
+  // used to ride the button as a badge, and a brass counter pinned to a corner
+  // reads as an app's unread-notification pip — something demanding to be
+  // cleared — which is precisely the opposite of what the manuscript is. The
+  // count is still one hover away for anyone who wants it.
+  const msBtn = $('manuscriptBtn');
+  if (msBtn) {
+    const n = state.manuscript?.length ?? 0;
+    msBtn.title = n
+      ? `The manuscript — ${n} word${n === 1 ? '' : 's'} printed this run`
+      : 'The manuscript — nothing printed yet';
+  }
 }
 
 // ─── The editor's bar (Deadline pages only) ───────────────────────────────────
@@ -911,6 +929,12 @@ export function renderWord(script = computeScore(state.word)) {
       tileEl.classList.add('tile--illuminating');
     }
     if (bd) tileEl.title = tileTitle(t, bd);
+    // A jade trellis (the Abecedarian, the Espalier) is writing these Points
+    // into the tile for keeps, so the number wears the same jade it will wear
+    // for the rest of the run rather than the brass of a one-word boost.
+    if (script?.tileGrowth?.has(t.id)) {
+      tileEl.querySelector('.tile-pts')?.classList.add('tile-pts--growing');
+    }
     nowPts.set(t.id, shown);
 
     // A number worth announcing: one a nick's reach has just rewritten, or

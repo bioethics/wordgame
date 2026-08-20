@@ -25,6 +25,12 @@
 //     word (the Firebrand's two crimson tiles, the Apprentice's four letters)
 //     is not this; it stays an effect() and pays the word, not a tile.
 //
+//   bonusIsGrowth — set alongside tileBonus when the Points that hook pays are
+//     the same Points onPrinted then writes into the tile for good (the jade
+//     trellises: the Abecedarian, the Espalier). It changes nothing about the
+//     count; it tells the groove to show those numbers in jade rather than
+//     brass, so a permanent gain never looks like a passing one.
+//
 //   tilePaint(ctx) — paint laid on tiles BEFORE the word is counted at all;
 //     ctx { tiles, state, data }. Return [{ tile, colour }] for the tiles this
 //     patron paints, or null for none. Scoring's pass ½ applies it to a copy of
@@ -42,8 +48,15 @@
 //                       grow(tile, n), paint(tile, colour), burn(tile),
 //                       trim(tile, kind) }. May mutate the collection
 //                       (permanent growth, paint, burns). Return { note } to
-//                       say something, and { burned: [tile…] } for tiles that
-//                       must not retire to the discard pile.
+//                       say something over the patron's own card, { say: [line…] }
+//                       to say it in the status bar at the foot of the board
+//                       instead — which is where news about the PRESS belongs,
+//                       a tile leaving the collection for good above all; the
+//                       lines are folded into the word's own score line, which
+//                       is what holds the bar long enough for them to be read
+//                       (see runPrintedHooks in js/main.js) — and
+//                       { burned: [tile…] } for tiles that must not retire to
+//                       the discard pile.
 //   onPageStart(ctx)  — as a page's bag is dealt, before the hand is drawn;
 //                       ctx { state, data, cast(overrides) }, where cast
 //                       strikes a new tile into hand and collection alike.
@@ -692,6 +705,7 @@ export const PATRON_DEFS = [
     id: 'abecedarian', name: 'The Abecedarian', emoji: '🐣', rarity: 'common', cost: 5, guild: 'jade',
     desc: `Print a 3-letter word: every tile in it permanently gains +${ABECEDARIAN_STEP} Point — in time to score.`,
     when: 'score',
+    bonusIsGrowth: true,
     tileBonus: (t, { tiles }) =>
       (wordLetters(tiles).length === 3 && !isImmutable(t) ? ABECEDARIAN_STEP : 0),
     onPrinted({ tiles, grow }) {
@@ -793,6 +807,7 @@ export const PATRON_DEFS = [
     id: 'espalier', name: 'The Espalier', emoji: '🪴', rarity: 'uncommon', cost: 6, guild: 'jade',
     desc: `Print a two-tile word: both tiles permanently gain +${ESPALIER_STEP} Points — in time to score.`,
     when: 'score',
+    bonusIsGrowth: true,
     tileBonus: (t, { tiles }) =>
       (tiles.length === 2 && !isImmutable(t) ? ESPALIER_STEP : 0),
     onPrinted({ tiles, grow }) {
@@ -1114,19 +1129,34 @@ export const PATRON_DEFS = [
     // gift becomes her dinner.
     id: 'shorthair', name: 'The Domestic Shorthair', emoji: '🐈', rarity: 'rare', cost: 0,
     guild: 'amber', unlisted: true,
-    desc: `Words holding RAT pay 1 Coin and crown this patron with a laurel — and a RAT tile in the word is eaten.`,
+    desc: `Print any word spelling out R-A-T — PIRATE and GRATIS count — for 1 Coin and a laurel. `
+        + `Only the Rat Catcher's own RAT tile is ever eaten.`,
     when: 'score',
     effect({ word, addCoins }) { if (word.includes('RAT')) addCoins(1); },
     onPrinted({ tiles, script, data, burn }) {
-      const notes = [];
+      const notes = [], said = [];
       if ((script?.letters ?? '').includes('RAT')) {
         data.honorifics = (data.honorifics ?? 0) + 1;
         notes.push(`a rat! +${data.honorifics * HONORIFIC_STEP} Points every word`);
       }
-      // The Rat Catcher's own tile, eaten where it sits.
+      // The Rat Catcher's own tile, eaten where it sits — and ONLY that tile.
+      // The letters R, A and T standing separately in the word are a rat to
+      // smell, not a rat to eat: they are ordinary sorts you paid for, and
+      // nothing about spelling PIRATE should cost you the P-I-R-A-T-E. The
+      // ligature is the only RAT there is (EXCLUSIVE_LETTERS), so testing the
+      // active letter is the same test as "the Rat Catcher's gift".
       const eaten = tiles.filter(t => getActiveLetter(t) === 'RAT' && burn(t));
-      if (eaten.length) notes.push(`${eaten.length > 1 ? `${eaten.length} RATs` : 'the RAT'} eaten`);
-      return notes.length ? { note: notes.join(' · '), burned: eaten } : null;
+      // Dinner is announced at the foot of the board rather than over the cat's
+      // head: a tile leaving your collection for good is news about the press,
+      // and the status bar is where the press says things.
+      if (eaten.length) {
+        said.push(eaten.length > 1
+          ? `The cat eats ${eaten.length} RAT tiles — gone from your collection for good.`
+          : `The cat eats the RAT tile — gone from your collection for good.`);
+      }
+      return (notes.length || said.length)
+        ? { note: notes.join(' · ') || null, say: said, burned: eaten }
+        : null;
     },
   },
   {
@@ -1600,9 +1630,19 @@ export const rollPostnom = () =>
     : null);
 
 // What a card costs today — the def's price, plus the surcharge a lettered one
-// asks. Read live from the offer rather than baked in, the way tile prices are.
-export const patronCost = (def, data) =>
-  (def?.cost ?? 0) + (data?.postnom ? POSTNOM.surcharge : 0);
+// asks, plus whatever the day's haggle came to (rolled onto the offer at the
+// Market; see rollHaggle in constants.js). Read live from the offer rather
+// than baked in, the way tile prices are.
+//
+// A patron the def prices at nothing stays at nothing: the cat is found, not
+// bought, and a haggle over a free stray would be a strange thing to stage.
+// Everyone else asks at least a Coin however well the haggling went.
+export const patronCost = (def, data) => {
+  const base = def?.cost ?? 0;
+  if (!base) return 0;
+  const asked = base + (data?.haggle ?? 0) + (data?.postnom ? POSTNOM.surcharge : 0);
+  return Math.max(1, asked);
+};
 
 // Seats on the shelf flying a given colour, dual liveries included. The
 // guild-scaling effects count through here — the Composter's heap allowance

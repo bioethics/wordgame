@@ -13,7 +13,7 @@ import {
   getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile,
   trashFromCollection, mergeTiles, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
   grantRandomPatron,
-  effectiveWordsPerPage, rollGamble, effectivePatronSlots, nextId,
+  rollGamble, effectivePatronSlots, nextId,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
@@ -254,10 +254,14 @@ function throwSundryAway(idx) {
 // ─── Patron reactions (flavour only — never affects scoring) ──────────────────
 // Self-scaling: the word is judged against the page's own quota, so the
 // curve holds across chapters and the appendices. Knobs live in REACTION.
+//
+// Nothing at all below half a quota in a single word, then a straight ramp to
+// a certainty at twice the quota. A table that cheers everything is a table
+// nobody listens to; this way a bubble means the word was genuinely big.
 function reactionChance(script) {
-  const perWordQuota = state.quota / effectiveWordsPerPage();
-  const ratio = script.total / Math.max(1, perWordQuota);
-  return Math.max(0, Math.min(REACTION.cap, (ratio - REACTION.floor) * REACTION.slope));
+  const ratio = script.total / Math.max(1, state.quota);
+  const span = REACTION.ceil - REACTION.floor;
+  return Math.max(0, Math.min(1, (ratio - REACTION.floor) / span));
 }
 
 async function patronReactions(script) {
@@ -565,12 +569,18 @@ function pardonWord(letters) {
 // Score-time patrons live in the score script; these are the ones that reach
 // beyond it — permanent growth, burns, chapter-end dyes. See js/patrons.js.
 
-// Returns the tiles that were destroyed — they must never reach the discard
-// pile, so the caller drops them from the retire list and burns them away
-// on screen instead.
+// Returns { burned, said }: the tiles that were destroyed — they must never
+// reach the discard pile, so the caller drops them from the retire list and
+// burns them away on screen instead — and any lines the seats want read at the
+// foot of the board rather than glimpsed over their own cards. The lines are
+// handed back rather than logged where they happen because the word's own
+// score line is written a beat later and would paint straight over them; the
+// caller folds them into that line instead, where they hold long enough to be
+// read. (The same reason noticeTheCat is called after the score, below.)
 function runPrintedHooks(tiles, script) {
   state.lastFirstLetter = splitMarks(script.word)?.letters?.[0] ?? null;
   const burned = new Map();   // id → tile (a tile can only burn once)
+  const said = [];
 
   for (const p of allSeats()) {
     const def = patronById(p.id);
@@ -598,8 +608,9 @@ function runPrintedHooks(tiles, script) {
       const card = patronCard(p);
       if (card) { pulse(card, 'patron--firing', 520); floatText(card, r.note, 'fl-points', { dy: -44 }); }
     }
+    for (const line of r.say ?? []) said.push(`${def.emoji} ${line}`);
   }
-  return [...burned.values()];
+  return { burned: [...burned.values()], said };
 }
 
 // Tiles thrown away, offered to whoever cares. Runs after they've left the
@@ -999,7 +1010,7 @@ async function submitWord() {
 
   // Patrons that reach beyond the score fire before the tiles retire, so a
   // grown tile carries its growth wherever it goes next (even back to the bag).
-  const burned = runPrintedHooks(printed, script);
+  const { burned, said } = runPrintedHooks(printed, script);
   reportPaintEchoes();   // the Arsonist, Nudist or Illuminator may have painted
   if (burned.length) {
     await animateBurn(burned.map(t => rectOf.get(t.id)?.el).filter(Boolean));
@@ -1027,6 +1038,7 @@ async function submitWord() {
   }
   if (vouched === 'stenographer') msg += `  📟 The Stenographer vouches for it.`;
   if (vouched === 'expectants')   msg += `  🤰 The Expectant Parents had that very name on their list.`;
+  for (const line of said) msg += `  ${line}`;
   log(msg, 'good');
 
   // Said after the score, so the notice isn't the line the score writes over.

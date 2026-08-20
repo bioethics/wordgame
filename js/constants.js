@@ -153,6 +153,23 @@ export const POSTNOM = {
   titles: ['PhD'],
 };
 
+// ─── What a patron is asking today ────────────────────────────────────────────
+// No two Markets price a patron quite alike: the card's asking price is rolled
+// as it is laid out, a coin either side of the def's cost. Half the time it is
+// the price on the tin; a quarter each way it is a coin cheaper or a coin
+// dearer. Small on purpose — it is meant to make a Market worth looking at
+// twice ("he's going cheap today"), not to decide builds — and it rides on the
+// OFFER rather than the def, so a re-roll re-rolls the haggle with everything
+// else. A free patron (the cat) is never haggled over, and no card ever asks
+// less than a single Coin.
+export const PATRON_HAGGLE = { spread: 1, chance: 0.25 };   // per side; the rest is list price
+export const rollHaggle = () => {
+  const r = Math.random();
+  return r < PATRON_HAGGLE.chance ? -PATRON_HAGGLE.spread
+       : r < PATRON_HAGGLE.chance * 2 ? PATRON_HAGGLE.spread
+       : 0;
+};
+
 // ─── The fleuron ──────────────────────────────────────────────────────────────
 // A printer's ornament, struck in gold. It decorates the page rather than
 // setting it: the one tile that refuses to join a word — it can only be
@@ -779,11 +796,18 @@ export const MAX_UPGRADE_REPEATS = 2;
 export const SKIP_COIN_GRANT = 2;
 
 // ─── Patron reactions (flavour only) ──────────────────────────────────────────
-// Odds a seated patron pops a speech bubble after a word, scored against the
-// page's own quota: ratio = word total ÷ (quota ÷ words per page). Below
-// `floor` nobody bothers; each step of `slope` above it raises the per-patron
-// chance, capped so it's never a certainty. The lines live in js/quips.js.
-export const REACTION = { floor: 0.6, slope: 0.35, cap: 0.7 };
+// Odds a seated patron pops a speech bubble after a word, scored against THE
+// WHOLE PAGE'S QUOTA rather than against a page-fifth of it: ratio = word total
+// ÷ quota. Below `floor` nobody says anything at all — half a page in one word
+// is the bar, and a word that clears 49% of it is met with silence — and the
+// chance then climbs straight to a certainty at `ceil`, a word worth two whole
+// pages. Self-scaling, so the curve holds from Chapter I to the appendices.
+//
+// It used to be measured per WORD (quota ÷ words per page), which meant an
+// unremarkable word cleared the bar most turns and the table never shut up.
+// Praise is worth something only if it is rationed. The lines live in
+// js/quips.js.
+export const REACTION = { floor: 0.5, ceil: 2 };
 
 // ─── Reshuffle sundry ─────────────────────────────────────────────────────────
 // A free re-roll, banked for later: spend it on the Market's own offers, or

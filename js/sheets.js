@@ -192,6 +192,7 @@ function marketShelfCardsHTML() {
 (drag to reseat · ✕ dismisses for ${half} Coins)">
         <span class="patron-emoji">${def.emoji}</span>
         <span class="patron-name">${label}</span>
+        ${p.data?.postnom ? `<span class="patron-postnom" title="A distinguished patron — ×${POSTNOM.mult} Mult, paid at this seat's turn">${p.data.postnom}</span>` : ''}
         ${laurels ? `<span class="patron-laurel" title="${laurels > 1 ? `${laurels} laurels` : 'A laurel'} — +${laurels * HONORIFIC_STEP} Points every word, paid at this seat's turn">🏵️${laurels > 1 ? `<b>${laurels}</b>` : ''}</span>` : ''}
         <button class="patron-x" data-sell-patron="${p.uid ?? def.id}" title="Dismiss ${name} for ${half} Coins">✕</button>
       </div>`;
@@ -304,7 +305,8 @@ function marketShopHTML() {
         <div class="op-card-body">
           <div class="op-name">${name}</div>
           <div class="op-title">${def.rarity}${liveries.length ? ` · <span class="op-guild">${liveries.join(' & ')}</span>` : ''}${
-            o.data?.postnom ? ` · <span class="op-postnom">${o.data.postnom} · ×${POSTNOM.mult} Mult</span>` : ''}</div>
+            o.data?.postnom ? ` · <span class="op-postnom">${o.data.postnom} · ×${POSTNOM.mult} Mult</span>` : ''}${
+            haggleNote(def, o.data)}</div>
           <div class="op-desc">${desc}</div>
         </div>
         <span class="op-sold">seated</span>
@@ -631,15 +633,68 @@ export function updateStallState() {
   btn.disabled = !ready || state.coins < price;
 }
 
+// What today's haggle came to, said on the calling card's title line. Without
+// this the price simply differs from the one the player has learned to expect
+// and reads as a fault in the shop rather than a bargain — the whole value of
+// the roll is that it is SEEN. A free patron never carries one (see
+// patronCost), so neither does the note.
+function haggleNote(def, data) {
+  const h = data?.haggle ?? 0;
+  if (!h || !def?.cost) return '';
+  return h < 0
+    ? ` · <span class="op-haggle op-haggle--cheap">a Coin under</span>`
+    : ` · <span class="op-haggle op-haggle--dear">a Coin over</span>`;
+}
+
 // ─── Collection view (read-only) ──────────────────────────────────────────────
 
+// What the case actually holds, by colour. A grid of eighty tiles is a lovely
+// thing to look at and a hopeless thing to count, and counting is exactly what
+// the view is for — the colour multipliers are the whole engine, and "how much
+// jade have I actually got?" is the question you open this to answer.
+//
+// Counted by the paint ON the tile, so the buckets partition the case and the
+// numbers add up to the total. Rainbow metal is the one tile that would break
+// that (it counts as EVERY colour when a word is scored), so it is tallied
+// apart and said apart, rather than being added four times over.
+function collectionTally() {
+  const counts = Object.fromEntries(Object.keys(COLOURS).map(c => [c, 0]));
+  let bare = 0, rainbow = 0;
+  for (const t of state.collection) {
+    if (t.material === 'rainbow') { rainbow++; continue; }
+    const c = t.colour ?? t.wash ?? null;
+    if (c && counts[c] != null) counts[c]++;
+    else bare++;
+  }
+  return { counts, bare, rainbow };
+}
+
+function collectionTallyHTML() {
+  const { counts, bare, rainbow } = collectionTally();
+  const chips = Object.entries(counts).map(([c, n]) =>
+    `<span class="case-tally-chip case-tally-chip--${c}${n ? '' : ' case-tally-chip--none'}"
+           title="${COLOURS[c].label} tiles in your collection"
+      ><i class="case-tally-dot"></i>${COLOURS[c].label} <b>${n}</b></span>`).join('');
+  const extras = [
+    rainbow ? `<span class="case-tally-chip case-tally-chip--rainbow"
+                     title="Rainbow metal counts as every colour when a word is scored — so it is counted apart here rather than four times over"
+                ><i class="case-tally-dot"></i>Rainbow <b>${rainbow}</b></span>` : '',
+    `<span class="case-tally-chip case-tally-chip--bare${bare ? '' : ' case-tally-chip--none'}"
+           title="Unpainted tiles — they lift no colour multiplier"
+      ><i class="case-tally-dot"></i>Unpainted <b>${bare}</b></span>`,
+  ].join('');
+  return `<div class="case-tally">${chips}${extras}</div>`;
+}
+
 function marketCollectionHTML() {
+  const n = state.collection.length;
   return `
     <div class="sheet sheet--market">
       <div class="sheet-head">
         <div>
           <h2 class="market-title">Your collection</h2>
-          <p class="sheet-note">${state.collection.length} tiles.</p>
+          <p class="sheet-note">${n} tile${n === 1 ? '' : 's'}.</p>
+          ${collectionTallyHTML()}
         </div>
       </div>
       <div class="mini-grid mini-grid--case" id="collectionGrid"></div>

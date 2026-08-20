@@ -12,7 +12,7 @@ import {
   TOOLBOX_PRICE, FLEURON, FLEURON_PRICE, FLEURON_OFFER_CHANCE,
   STALL_DEFS, STALLS_PER_SHOP, PROPOSAL_RANGE, SMELT_MIN_COLLECTION,
   FEATURE_CHAIN_CHANCE, MAX_FEATURES, MEDIEVAL_LETTERS, isMedieval,
-  makeTileTemplate,
+  makeTileTemplate, rollHaggle,
 } from './constants.js';
 import {
   PATRON_DEFS, RARITY_WEIGHT, patronById, guildSeats, rollPostnom, patronCost, patronName,
@@ -169,11 +169,12 @@ function weightedPatronSample(n) {
     // exactly what you'd be buying: the Monogrammist's letters and number, and
     // — for any patron at all — the letters after its name.
     const postnom = rollPostnom();
+    // …and the day's asking price, a coin either side of the list, rolled here
+    // for the same reason: what is on the card is what you are buying.
+    const haggle = rollHaggle();
     const rolled = patronById(id)?.onOffer?.() ?? null;
-    out.push({
-      id, sold: false,
-      data: (rolled || postnom) ? { ...rolled, ...(postnom ? { postnom } : {}) } : null,
-    });
+    const data = { ...rolled, ...(postnom ? { postnom } : {}), ...(haggle ? { haggle } : {}) };
+    out.push({ id, sold: false, data: Object.keys(data).length ? data : null });
     for (let i = pool.length - 1; i >= 0; i--) if (pool[i] === id) pool.splice(i, 1);
   }
   return out;

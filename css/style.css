@@ -1,4 +1,4 @@
-/* ═══ Folio — candlelit print-house ═══════════════════════════════════════════ */
+/* ═══ GREAT WORK — candlelit print-house ══════════════════════════════════════ */
 
 /* ─── Tokens ──────────────────────────────────────────────────────────────────── */
 :root {
@@ -108,6 +108,64 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
 }
 
+/* ─── The Deadline's light ─────────────────────────────────────────────────────
+   A Deadline page is the same board under worse conditions, so it is lit as
+   one rather than redecorated: the candles go redder, the vignette closes in a
+   little, the leather cools, and the wood the shelf and workbench are cut from
+   darkens. Nothing moves and nothing flashes — the editor's bar and the
+   quota card are already doing the shouting; this is the room behind them.
+   Everything transitions, so the change reads as the light going out rather
+   than as a repaint.
+
+   Hung off `body.deadline-on`, toggled in renderStatus (js/render.js). */
+body {
+  transition: background calc(1.4s / var(--aspd)) ease;
+}
+body.deadline-on {
+  background:
+    radial-gradient(1100px 640px at 50% -8%, rgba(233, 122, 96, 0.16), transparent 62%),
+    radial-gradient(900px 540px at 50% 112%, rgba(150, 42, 48, 0.2), transparent 58%),
+    linear-gradient(180deg, #2b1620 0%, #200f18 46%, #170a10 100%);
+}
+body.deadline-on::before { color: rgba(255, 190, 175, 0.03); }
+body.deadline-on::after {
+  box-shadow:
+    inset 0 0 26vmin rgba(10, 2, 4, 0.72),
+    inset 0 0 0 1px rgba(255, 130, 115, 0.12);
+}
+body::before, body::after { transition: box-shadow calc(1.4s / var(--aspd)) ease, color calc(1.4s / var(--aspd)) ease; }
+
+/* The furniture: the shelf and the workbench are cut from the same board, so
+   they darken together. A hair of the press's red in the top highlight is the
+   only colour added — enough for the eye to notice the wood has changed
+   without anyone being able to say what did it. */
+.shelf, .sundries { transition: background calc(1.4s / var(--aspd)) ease, box-shadow calc(1.4s / var(--aspd)) ease; }
+body.deadline-on .shelf,
+body.deadline-on .sundries {
+  background: linear-gradient(180deg, #6b4130 0%, #4d2f22 18%, #2e1a14 100%);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 190, 170, 0.16),
+    inset 0 -6px 12px rgba(0, 0, 0, 0.45),
+    0 10px 26px rgba(0, 0, 0, 0.55);
+}
+
+/* The status cards take the same cooling, and the chapter's own label — the
+   one thing on the row that names where you are — goes from brass to ember. */
+.status-card { transition: border-color calc(1.4s / var(--aspd)) ease, background calc(1.4s / var(--aspd)) ease; }
+body.deadline-on .status-card {
+  background: linear-gradient(170deg, #3a2028, #2b1620);
+  border-color: rgba(255, 130, 115, 0.16);
+}
+body.deadline-on .chapter-label { color: #e9866f; }
+
+/* And the title in the corner catches the same red light. */
+body.deadline-on .logo { text-shadow: 0 2px 16px rgba(233, 122, 96, 0.35); }
+body.deadline-on .logo-mark { color: #e08a70; }
+
+@media (prefers-reduced-motion: reduce) {
+  body, body::before, body::after, .shelf, .sundries, .status-card { transition: none; }
+}
+
 /* ─── Header ──────────────────────────────────────────────────────────────────── */
 header {
   position: relative;
@@ -120,13 +178,18 @@ header {
   margin: 0 auto;
 }
 
+/* The title, set in small capitals the way a title page would set it — the
+   words are wider than the old one-word mark, so the size comes down a touch
+   and the tracking goes up to buy it back as presence rather than width. */
 .logo {
   font-family: var(--serif);
   font-weight: 900;
-  font-size: 26px;
-  letter-spacing: 0.5px;
+  font-size: 23px;
+  font-variant-caps: small-caps;
+  letter-spacing: 1.6px;
   color: var(--parch);
   text-shadow: 0 2px 14px rgba(233, 178, 102, 0.25);
+  white-space: nowrap;
 }
 .logo-mark { color: var(--brass); font-size: 20px; }
 
@@ -283,7 +346,7 @@ header {
       rgba(255, 214, 140, 0.75) 50%,
       rgba(255, 246, 214, 0.55) 56%,
       rgba(255, 255, 255, 0) 70%),
-    linear-gradient(170deg, #fbf1d6 0%, #f0dcae 100%);
+    linear-gradient(170deg, #fdf3d4 0%, #ecd39a 100%);
   background-size: 260% 100%, 100% 100%;
   background-position: 120% 0, 0 0;
   animation: foilSheen calc(5.2s / var(--aspd)) ease-in-out infinite;
@@ -292,10 +355,32 @@ header {
     inset 0 0 0 3.5px var(--ring),
     inset 0 0 0 5px rgba(180, 132, 40, 0.35),
     0 4px 14px rgba(0, 0, 0, 0.5),
-    0 0 16px rgba(214, 172, 74, 0.3);
+    0 0 22px rgba(224, 180, 81, 0.5);
 }
 .patron.patron--postnom .patron-name,
 .offer-patron.offer-patron--postnom .op-name { color: #7a5310; font-weight: 800; }
+
+/* The foil alone was too polite to read across a shelf of five — you could
+   look straight at a doctorate and take it for a trick of the candle. So the
+   letters themselves are struck onto the card as a gilt tab in the one corner
+   nothing else claims (the livery pin has the top-left, the ✕ the top-right,
+   the laurel the bottom-right). Small, but it is TYPE where the rest of the
+   card is texture, and type is what the eye finds first. */
+.patron-postnom {
+  position: absolute;
+  bottom: 3px; left: 4px;
+  z-index: 3;
+  padding: 1px 4px 1.5px;
+  border-radius: 3px;
+  font-family: var(--serif);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.6px;
+  line-height: 1.25;
+  color: #4a3208;
+  background: linear-gradient(175deg, #ffe9ae 0%, #e0b451 100%);
+  box-shadow: inset 0 0 0 1px rgba(122, 83, 19, 0.55), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
 @keyframes foilSheen {
   0%, 100% { background-position: 130% 0, 0 0; }
   50%      { background-position: -30% 0, 0 0; }
@@ -322,6 +407,13 @@ header {
 }
 /* …and names its letters, and what they are worth, on the title line. */
 .op-postnom { color: #8a5c12; font-weight: 800; letter-spacing: 0.3px; }
+
+/* The day's haggle, said where the card says everything else about itself.
+   Quiet — it is a coin, not a windfall — but coloured, so a bargain can be
+   spotted while scanning the row rather than by reading three prices. */
+.op-haggle { font-weight: 800; letter-spacing: 0.2px; }
+.op-haggle--cheap { color: #2f7a54; }
+.op-haggle--dear  { color: #a4483c; }
 @media (prefers-reduced-motion: reduce) {
   .offer-patron.offer-patron--postnom { animation: none; }
 }
@@ -2966,6 +3058,57 @@ button.sundry:hover { transform: translateY(-2px); }
   overflow: auto;
 }
 
+/* ── The case's tally: what the collection holds, by colour ───────────────────
+   A row of small enamel chips under the count. Each carries its colour as a
+   dot rather than as text-colour, so the numbers stay legible against the
+   Market's dark leather and an empty bucket can simply fade instead of
+   vanishing. */
+.case-tally {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.case-tally-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px 3px 7px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: var(--parch);
+  background: rgba(35, 22, 14, 0.5);
+  border: 1px solid rgba(243, 222, 184, 0.18);
+  cursor: help;
+}
+.case-tally-chip b {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--brass-hi);
+}
+.case-tally-chip--none { opacity: 0.45; }
+.case-tally-chip--none b { color: var(--muted); }
+.case-tally-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--chip, var(--muted));
+  box-shadow: 0 0 0 1px rgba(10, 4, 12, 0.55), 0 0 6px var(--chip, transparent);
+}
+.case-tally-chip--crimson { --chip: #ff9d8e; }
+.case-tally-chip--azure   { --chip: #8ec6ff; }
+.case-tally-chip--jade    { --chip: #90e8ba; }
+.case-tally-chip--amber   { --chip: #ffd68c; }
+.case-tally-chip--bare    { --chip: rgba(243, 222, 184, 0.4); }
+/* Rainbow metal is every colour at once, and its chip says so. */
+.case-tally-chip--rainbow .case-tally-dot {
+  background: conic-gradient(#ff9d8e, #ffd68c, #90e8ba, #8ec6ff, #ff9d8e);
+  box-shadow: 0 0 0 1px rgba(10, 4, 12, 0.55), 0 0 7px rgba(255, 235, 200, 0.5);
+}
+
 /* ═══ The Market — a candlelit skin over the shop views ════════════════════════
    The board is a place, so the market is one too: dark leather and wood, with
    the goods themselves — parchment cards, ivory tiles, tubes — as the bright
@@ -3229,6 +3372,16 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 .tile--mini .tile-pts--boosted { font-size: 10px; }
 
+/* …unless the patron paying it is writing it into the tile for good. The jade
+   trellises (the Abecedarian, the Espalier) pay the same Points the print then
+   grows in permanently, so the groove shows them in the jade a grown number
+   already wears everywhere else — a promise kept, not a loan. Ordered after
+   --boosted so it wins on a tile carrying both classes. */
+.tile-pts--growing {
+  color: var(--jade);
+  text-shadow: 0 1px 0 rgba(240, 255, 244, 0.9), 0 0 8px rgba(90, 190, 130, 0.75);
+}
+
 /* A number that just changed announces itself; renderWord staggers the
    delays so the change ripples outward from the nick that caused it. */
 .pts-pop {
@@ -3242,21 +3395,9 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 /* ─── The manuscript ──────────────────────────────────────────────────────────── */
+/* No badge. The count is in the tooltip — see renderStatus in js/render.js for
+   why a counter pinned to this particular button was the wrong furniture. */
 .btn-icon--manuscript { position: relative; font-size: 15px; }
-.icon-count {
-  position: absolute;
-  bottom: -3px; right: -4px;
-  min-width: 17px;
-  padding: 1px 4px;
-  border-radius: 999px;
-  background: var(--brass);
-  color: #3a2606;
-  font-size: 9.5px;
-  font-weight: 800;
-  line-height: 1.3;
-  border: 1.5px solid rgba(58, 38, 6, 0.5);
-  font-variant-numeric: tabular-nums;
-}
 
 /* A book rather than a list of transactions: chapters with headings and titles,
    the words set as running prose beneath them, each page's folio number out in
@@ -3867,7 +4008,7 @@ input[type='checkbox'] {
   :root { --tile-w: 54px; --tile-h: 58px; }
 
   header { padding: 6px 12px 0; gap: 10px; }
-  .logo { font-size: 20px; }
+  .logo { font-size: 16.5px; letter-spacing: 1px; }
   .coin-purse { font-size: 16px; padding: 3px 11px 3px 8px; }
   .btn-icon { width: 33px; height: 33px; font-size: 15px; }
 

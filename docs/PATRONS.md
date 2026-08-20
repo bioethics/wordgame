@@ -36,7 +36,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 💰 **The Bursar** `bursar` | uncommon | 7 | Words with an amber tile gain +1 Mult for every 5 Coins you hold (max +5). |
 | 🛒 **The Chapman** `chapman` | uncommon | 7 | One tile at the Market is always amber, and amber tiles cost nothing. |
 | 🐦 **The Magpie** `magpie` | uncommon | 7 | Gold-trimmed tiles are twice as likely to be drawn from the bag. |
-| 🐈 **The Domestic Shorthair** `shorthair` 🔒 | rare | 0 | Words holding RAT pay 1 Coin and crown this patron with a laurel — and a RAT tile in the word is eaten. |
+| 🐈 **The Domestic Shorthair** `shorthair` 🔒 | rare | 0 | Print any word spelling out R-A-T — PIRATE and GRATIS count — for 1 Coin and a laurel. Only the Rat Catcher's own RAT tile is ever eaten. |
 | 🏰 **The Medievalist** `medievalist` | rare · also azure | 8 | Opens a stall at the Market selling medieval sorts — þ, ȝ, Æ and Ƿ — cheap, and worth far more than they cost. |
 
 ## Jade · growth and permanence
