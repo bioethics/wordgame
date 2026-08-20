@@ -344,8 +344,9 @@ draft.)
 
 The **toolbox** is a parcel of a different kind: open it on the bench and two
 *different* tools take its place — the first in the box's own slot, the second
-only if the bench has room, else it rolls away. Four of the five come from
-nowhere else in the game, one per guild's temperament, and the odd **ratchet**
+only if the bench has room, else it rolls away. No shop sells four of the five,
+one per guild's temperament — the box is the only door to three of them, and
+*the Ragman* pays the fourth for a crimson rag — while the odd **ratchet**
 rattles around in there at half the rate:
 
 - **Loupe** (jade) — tap a tile, tap the loupe again: its value doubles, to a

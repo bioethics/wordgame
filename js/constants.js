@@ -246,10 +246,11 @@ export const SUNDRY_OFFERS = 2;   // sundries offered per shop
 // ─── The toolbox and its tools ────────────────────────────────────────────────
 // A parcel of a different kind: open it on the bench and two DIFFERENT tools
 // from the pool below take its place (the second only if the bench has room —
-// the box's own slot always takes the first). The four guild tools come from
-// nowhere else — like marks, a find rather than a purchase — while the odd
-// ratchet rattles around in there at half the rate, because any toolbox
-// might have one. Repeating an entry is how you make it likelier.
+// the box's own slot always takes the first). No shop sells the four guild
+// tools — like marks, they are a find rather than a purchase, and the box is
+// the only door to three of them (the Ragman buys crimson rags with the
+// fourth). The odd ratchet rattles around in there at half the rate, because
+// any toolbox might have one. Repeating an entry is how you make it likelier.
 export const TOOLBOX_PRICE = 4;
 export const TOOLBOX_POOL  = [
   'loupe', 'loupe', 'laurel', 'laurel', 'tongs', 'tongs', 'wash', 'wash',
@@ -625,6 +626,17 @@ export const DABBLER_ODDS = 0.5;
 // — free paint at common weight, arriving faster than the Painter sells it.
 // The Dipper's card reads its odds off this number, so moving it moves the copy.
 export const DIPPER_PAINT_CHANCE = 1 / 12;
+// ─── The Ragman's rates ───────────────────────────────────────────────────────
+// What a painted tile fetches when it is thrown away and taken for good. The
+// odds are per painted tile discarded, so a handful of rags is a handful of
+// rolls; every roll that lands costs the tile. The four payouts are deliberately
+// of a size with each other — the tongs are worth about three Coins at the
+// shop, and +5 grown into a tile is about a Loupe on a small letter — so the
+// colour you feed him is a matter of what your press needs, never of which
+// payout is best.
+export const RAGMAN_ODDS   = 0.5;   // per painted tile discarded
+export const RAGMAN_COINS  = 3;     // amber: what the rag fetches
+export const RAGMAN_GROWTH = 5;     // jade: Points grown into a tile in hand
 // The Headsman: permanent ×Mult per patron dismissed while he is seated.
 export const HEADSMAN_STEP = 0.2;
 // The Gambler's coin. Tossed once per word rather than once per keystroke:

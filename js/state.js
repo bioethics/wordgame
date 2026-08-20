@@ -167,6 +167,7 @@ export const state = {
   upgradeCounts: {}, // id → times taken this run, from the Colophon (see js/upgrades.js)
   ratchetDir: 1,       // which way an armed ratchet is pointing: +1 later, -1 earlier
   luck: 1,             // scales every "good outcome" roll (see luckyRoll) — a future dial
+  rackBonus: 0,        // hand size lent for the rest of THIS page (the Ragman's azure)
   lastFirstLetter: null,  // first letter of the last word printed this run (The Skald)
   gambleWon: false,    // this word's coin, tossed by rollGamble (The Gambler)
   chapterTitles: {},   // chapter → the title this run drew for it
@@ -196,8 +197,12 @@ export const state = {
 // Base constants plus whatever the Colophon has permanently granted this run.
 export const effectiveWordsPerPage = () =>
   WORDS_PER_PAGE + (owns('overseer') ? 1 : 0) + (state.upgradeCounts?.words ?? 0);
+// rackBonus is the one term here that is neither permanent nor the editor's:
+// a hand widened for the rest of a page only, cleared at the page turn the
+// way the tongs' heat is.
 export const effectiveRackSize    = () => RACK_SIZE    + (state.upgradeCounts?.handSize     ?? 0)
-                                                       + (activeBoss(state)?.rackBonus      ?? 0);
+                                                       + (activeBoss(state)?.rackBonus      ?? 0)
+                                                       + (state.rackBonus                   ?? 0);
 export const effectivePatronSlots = () => PATRON_SLOTS + (state.upgradeCounts?.patronSeat    ?? 0);
 export const effectiveSundrySlots = () => SUNDRY_SLOTS + (state.upgradeCounts?.workbenchSlot ?? 0);
 
@@ -389,6 +394,7 @@ export function loadState() {
     state.compost ??= [];
     state.compostPending ??= 0;
     state.freeRerolls ??= 0;
+    state.rackBonus ??= 0;
     if (savedId)  _nextId  = savedId;
     if (savedTid) _nextTid = savedTid;
     // Seats saved before uids existed get one now — after the counters above,
@@ -415,7 +421,7 @@ export function newRun() {
     wordsLeft: WORDS_PER_PAGE, discards: DISCARDS_PER_PAGE,
     discardsMax: DISCARDS_PER_PAGE, wordsPrinted: 0,
     coins: STARTING_COINS, patrons: [], sundries: [], upgradeCounts: {},
-    luck: 1, ratchetDir: 1, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
+    luck: 1, rackBonus: 0, ratchetDir: 1, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
     boss: null, bossesSeen: [],
     compost: [], compostPending: 0, freeRerolls: 0,
     totalScore: 0,
@@ -469,6 +475,7 @@ export function startPage() {
   // still name anything — clear them rather than leave dangling ids around.
   for (const s of state.sundries ?? []) s.offer = null;
   state.tongsBonus = 0;   // a page turn lets the furnace's heat out
+  state.rackBonus  = 0;   // and takes back any hand the Ragman widened
   rollGamble();
 }
 

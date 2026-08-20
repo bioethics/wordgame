@@ -368,6 +368,16 @@ function runDiscardHooks(tiles) {
       paint: paintTile,
       trash: t => !!trashFromCollection(t.tid),
       merge: mergeTiles,
+      grow:  growTile,
+      // A tool onto the workbench, if the workbench can take one. It refuses
+      // rather than overflows: a seat that pays in tools is a seat you make
+      // room for before you throw, which is the whole of the Ragman's
+      // crimson bargain.
+      bench: kind => {
+        if (state.sundries.length >= effectiveSundrySlots()) return false;
+        state.sundries.push({ kind });
+        return true;
+      },
     });
     if (!r) continue;
     for (const t of r.trashed ?? []) trashed.set(t.id, t);
@@ -948,6 +958,12 @@ async function doDiscard() {
   // Bloodletter drained burns away where it sits instead — there is nothing
   // left to file.
   const { painted: dipped, trashed, merged } = runDiscardHooks(result.removed);
+  // discardSelected tops the hand up before the seats speak, so a boon that
+  // WIDENS the hand (the Ragman's azure) would otherwise not be felt until the
+  // next word. Fill it a second time and let the late arrivals fly in with the
+  // rest of the draw. Nothing is drawn twice: drawUpToRackSize only ever fills
+  // to the size of the moment.
+  const drawn = [...result.drawn, ...drawUpToRackSize()];
   if (dipped.length) await animateDip(dipped, selectedEls);
 
   // A recast tile shows off its second face where it stands, then its
@@ -966,7 +982,7 @@ async function doDiscard() {
   if (trashedEls.length) await animateBurn(trashedEls);
   await animateDiscard(selectedEls.filter(el => !trashedIds.has(el.dataset.id))
     .map(el => ({ el, r: rect(el) })));
-  await animateDraw(result.drawn);
+  await animateDraw(drawn);
 
   state.isAnimating = false;
   renderAll();
@@ -979,7 +995,7 @@ async function doDiscard() {
   } else if (trashed.length) {
     msg += `  ${trashed.length} destroyed for good.`;
   }
-  if (!result.drawn.length && !state.bag.length) msg += '  The bag is empty.';
+  if (!drawn.length && !state.bag.length) msg += '  The bag is empty.';
   log(msg);
 
   if (state.rack.length === 0 && !state.bag.length && state.word.length === 0) {
