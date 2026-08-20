@@ -12,6 +12,7 @@ import {
   rollTubeOffer, applyWash, washOff, effectiveSundrySlots, takeGhostEchoes,
   getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile,
   trashFromCollection, mergeTiles, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
+  grantRandomPatron,
   effectiveWordsPerPage, rollGamble, effectivePatronSlots, nextId,
 } from './state.js';
 import {
@@ -19,6 +20,7 @@ import {
   REACTION, NEOLOGIST_LENGTH, MATERIALS, TRIMS, WRAPPED_CONTENTS, MARK_TRIM,
   chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks, isDeadline,
   FLEURON, TOOLBOX_POOL, HONORIFIC_STEP, TONGS_BONUS, LOUPE_CAP, RIPPER_WORDS, sundryTip,
+  PACKAGES, APPLICATORS, SILVER_BONUS, BAG_COUNTS,
   lengthFlourish, medievalExpansions,
 } from './constants.js';
 import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
@@ -49,7 +51,9 @@ import {
   pulse, sparkleBurst, sfx, applySpeedCSS, speechBubble, longReadingTime,
 } from './anim.js';
 import { initInput, initInspect, initShelfDrag } from './drag.js';
-import { patronById, doubledReading, boundNouns, patronName, patronShelf } from './patrons.js';
+import {
+  PATRON_DEFS, patronById, doubledReading, boundNouns, patronName, patronShelf,
+} from './patrons.js';
 import { randomQuip } from './quips.js';
 
 const $ = id => document.getElementById(id);
@@ -141,6 +145,97 @@ function cancelSundryMode(quiet = false) {
   return true;
 }
 
+// A sundry onto the workbench, if the workbench can take one — the hook helper
+// behind the Ragman's tongs and the registers' packages alike. It REFUSES
+// rather than overflows: a seat that pays in things you have to carry is a
+// seat you make room for beforehand, which is a standing reason to leave a
+// slot open. Takes a kind, or the whole sundry when it needs fields of its own
+// (a package knows its theme).
+function benchPut(sundry) {
+  if (state.sundries.length >= effectiveSundrySlots()) return false;
+  state.sundries.push(typeof sundry === 'string' ? { kind: sundry } : sundry);
+  return true;
+}
+
+// One prize from a weighted [id, weight] table.
+function pickLoot(table) {
+  const total = table.reduce((n, [, w]) => n + w, 0);
+  let roll = Math.random() * total;
+  for (const [id, w] of table) { roll -= w; if (roll <= 0) return id; }
+  return table[table.length - 1][0];
+}
+
+// Hand over one package's worth of loot, and say what it was. Everything here
+// either lands in the hand (a tile), on the bench (a tool — the package's own
+// slot was freed a moment ago, so there is always room for exactly one), or on
+// the shelf (the love potion, the one prize that can fizzle: the potion asks
+// for an empty seat and a full table has none. That is the gamble the parcel
+// is, and it is said plainly rather than quietly swallowed).
+async function openPackage(prize, pkg) {
+  const flyIn = async (tile, label, cls) => {
+    renderAll();
+    const el = rackTileEl(tile.id);
+    if (el) {
+      await flyClone(el, bagRect(), rect(el), { duration: ANIM.fly, scaleFrom: 0.3 });
+      popReveal(el);
+      sparkleBurst(el, 14);
+      floatText(el, label, cls);
+    }
+  };
+
+  switch (prize) {
+    case 'xotile': {
+      const tile = castTile({ letter: 'X', letterType: 'dual', altLetter: 'O', colour: 'crimson' });
+      await flyIn(tile, 'X | O', 'fl-set fl-set--crimson');
+      return 'a two-faced X|O, painted crimson, and yours for good.';
+    }
+    case 'oo-ghost': {
+      const tile = castTile({ letter: 'OO', colour: 'azure', material: 'ghost' });
+      await flyIn(tile, 'OO', 'fl-set fl-set--azure');
+      return 'an azure OO in ghost metal — it costs you no room in the hand.';
+    }
+    case 'oo-cursed': {
+      const tile = castTile({ letter: 'OO', colour: 'azure', material: 'cursed' });
+      await flyIn(tile, 'OO', 'fl-set fl-set--azure');
+      return `an azure OO in hellbox iron — ${MATERIALS.cursed.desc.toLowerCase()}`;
+    }
+    case 'futile': {
+      const tile = castTile({ letter: 'FU', trim: 'silver' });
+      await flyIn(tile, 'FU', 'fl-set fl-set--purple');
+      return `a silver-trimmed FU — ${SILVER_BONUS} Points over the odds, and rude with it.`;
+    }
+    case 'rosetile': {
+      const letters = Object.keys(BAG_COUNTS);
+      const tile = castTile({ letter: letters[Math.floor(Math.random() * letters.length)], material: 'rose' });
+      await flyIn(tile, MATERIALS.rose.label, 'fl-set fl-mat--rose');
+      return `a ${getActiveLetter(tile)} struck in rose metal — print it and a patron is crowned.`;
+    }
+    case 'tube-crimson': case 'tube-azure': {
+      const colour = prize.slice(5);
+      benchPut({ kind: 'tube', colour });
+      return `a tube of ${COLOURS[colour].label.toLowerCase()} for the workbench.`;
+    }
+    case 'wash':  benchPut('wash');  return 'a pot of ink wash for the workbench.';
+    case 'tongs': benchPut('tongs'); return 'a pair of tongs for the workbench.';
+    case 'applicator-rainbow': case 'applicator-cursed': {
+      const material = prize.slice(11);
+      benchPut({ kind: 'applicator', material });
+      return `${APPLICATORS[material].label} in an applicator, for the workbench.`;
+    }
+    case 'potion': {
+      const seat = grantRandomPatron(PATRON_DEFS);
+      if (!seat) return 'a love potion — and no empty seat at your table to use it on. It evaporates.';
+      const def = patronById(seat.id);
+      renderAll();
+      const card = patronCard(seat);
+      if (card) { pulse(card, 'patron--firing', 620); sparkleBurst(card, 12); }
+      return `a love potion, and ${patronName(def, seat.data)} takes the empty seat — free.`;
+    }
+    default:
+      return 'nothing at all, which is its own kind of joke.';
+  }
+}
+
 // The bin at the end of the bench. Nothing is paid for a tool thrown away
 // here — the Market is where a sundry is worth a Coin (sellSundry) — and the
 // slot it frees is the whole of the point: a bench of tools you will never
@@ -200,6 +295,39 @@ function noticeTheCat(script) {
   state.catPending = true;
   sfx.chime();
   log('🐈 Somewhere beyond the lamplight, something sits up and takes an interest.', 'good');
+}
+
+// ─── Rose metal (a tile that crowns) ──────────────────────────────────────────
+// The Poppet's party favour, and the only tile in the game with a rule of its
+// own rather than a number: print a sort struck in rose metal and one of your
+// seated patrons is crowned. Not consumed — the tile is yours, and printing it
+// again crowns again — which sounds unlimited and is not: it has to be drawn
+// out of a collection of fifty-odd and then fitted into a word, so it pays
+// about as often as The Cellarer ages. Ghosts are not crowned; a laurel goes
+// to a seat at the table, the same rule the laurel tool follows.
+async function roseCrowns(printed) {
+  const roses = printed.filter(t => t.material === 'rose');
+  if (!roses.length) return;
+  if (!state.patrons.length) {
+    log('🎀 The rose metal shines, and there is nobody at the table to crown.', 'warn');
+    return;
+  }
+  for (const tile of roses) {
+    const seat = state.patrons[Math.floor(Math.random() * state.patrons.length)];
+    seat.data ??= {};
+    seat.data.honorifics = (seat.data.honorifics ?? 0) + 1;
+    const def = patronById(seat.id);
+    const card = patronCard(seat);
+    if (card) {
+      pulse(card, 'patron--firing', 620);
+      sparkleBurst(card, 9);
+      floatText(card, `🏵️ +${HONORIFIC_STEP}`, 'fl-points', { dy: -44 });
+    }
+    log(`🎀 ${getActiveLetter(tile)} was struck in rose metal — ${patronName(def, seat.data)} is crowned, `
+      + `+${seat.data.honorifics * HONORIFIC_STEP} Points on every word.`, 'good');
+  }
+  renderAll();
+  await sleep(ANIM.stepColour);
 }
 
 // ─── The Ripper (a patron killed, a seat freed) ───────────────────────────────
@@ -425,9 +553,17 @@ function runPrintedHooks(tiles, script) {
       paint: paintTile,
       trim:  trimTile,
       burn:  t => !!trashFromCollection(t.tid),
+      // Same bench as the discard hooks have: it refuses rather than
+      // overflows, so a full workbench turns a register's package away.
+      bench: benchPut,
     });
     if (!r) continue;
     for (const t of r.burned ?? []) burned.set(t.id, t);
+    if (r.refused) {
+      // A gift with nowhere to go is worth saying out loud — silently dropping
+      // a package would read as the odds lying.
+      log(`${def.emoji} ${def.name} had something for you, and your workbench is full.`, 'warn');
+    }
     if (r.note) {
       const card = patronCard(p);
       if (card) { pulse(card, 'patron--firing', 520); floatText(card, r.note, 'fl-points', { dy: -44 }); }
@@ -469,15 +605,7 @@ function runDiscardHooks(tiles) {
       trash: t => !!trashFromCollection(t.tid),
       merge: mergeTiles,
       grow:  growTile,
-      // A tool onto the workbench, if the workbench can take one. It refuses
-      // rather than overflows: a seat that pays in tools is a seat you make
-      // room for before you throw, which is the whole of the Ragman's
-      // crimson bargain.
-      bench: kind => {
-        if (state.sundries.length >= effectiveSundrySlots()) return false;
-        state.sundries.push({ kind });
-        return true;
-      },
+      bench: benchPut,
     });
     if (!r) continue;
     for (const t of r.trashed ?? []) trashed.set(t.id, t);
@@ -873,6 +1001,7 @@ async function submitWord() {
 
   // Said after the score, so the notice isn't the line the score writes over.
   noticeTheCat(script);
+  await roseCrowns(printed);
   await ripperStrikes(script);
 
   // Tiles fly to wherever they actually went
@@ -1218,6 +1347,70 @@ $('sundries')?.addEventListener('click', async e => {
       ? `The wrapping comes off: a “${getActiveLetter(tile)}”, ${TRIMS[MARK_TRIM].label.toLowerCase()}-trimmed — no shop sells marks, and it is yours for good.`
       : `The wrapping comes off: ${getActiveLetter(tile)}, struck in ${m.metal.toLowerCase()} — ${m.label.toLowerCase()}, and yours for good.`,
       'good');
+    return;
+  }
+
+  // A package opens exactly as a wrapped tile does — same parcel, differently
+  // wrapped — and what is inside is rolled AT THIS MOMENT rather than when it
+  // was sent, so the thing is genuinely unknown right up until the paper comes
+  // off. Its own slot is freed first, which is what lets a package that holds
+  // a tool hand that tool straight into the space the package was occupying.
+  if (armed?.kind === 'package' && PACKAGES[armed.theme]) {
+    cancelDiscardMode(true);
+    cancelSundryMode(true);
+    const pkg = PACKAGES[armed.theme];
+    const prize = pickLoot(pkg.loot);
+    state.sundries.splice(idx, 1);          // the paper comes off first
+
+    state.isAnimating = true;
+    renderAll();
+    sfx.chime();
+    const said = await openPackage(prize, pkg);
+    await sleep(ANIM.stepColour);
+    state.isAnimating = false;
+    renderAll();
+    log(`${pkg.emoji} ${pkg.label} — ${said}`, 'good');
+    reportPaintEchoes();
+    return;
+  }
+
+  // An applicator arms with its offer already laid out, exactly as a tube does
+  // — two tiles from the hand light up, you tap one, then the tool again. The
+  // gesture is the tube's whole rhythm and shares its code below; only the
+  // filter differs (no metal rather than no paint, see offerFilter).
+  if (armed?.kind === 'applicator' && state.sundryMode !== idx) {
+    cancelDiscardMode(true);
+    cancelSundryMode(true);
+    clearAllSelected();
+    const offer = rollTubeOffer(armed);
+    if (!offer) { log('Nothing in your hand will take a new metal — the applicator keeps.', 'warn'); return; }
+    state.sundryMode = idx;
+    const look = APPLICATORS[armed.material];
+    log(offer.length === 2
+      ? `The applicator offers two tiles — tap one, then the applicator again to strike it in ${look.label.toLowerCase()}.`
+      : `Only one tile will take a new metal — tap it, then the applicator again.`);
+    renderAll();
+    return;
+  }
+
+  if (armed?.kind === 'applicator') {
+    if (!sundrySelected().length) { cancelSundryMode(); return; }
+    const result = applySundry(idx);
+    if (!result) { cancelSundryMode(); return; }
+
+    state.isAnimating = true;
+    renderAll();
+    sfx.chime();
+    const el = wordTileEl(result.ids[0]) ?? rackTileEl(result.ids[0]);
+    if (el) {
+      popReveal(el);
+      sparkleBurst(el, 11);
+      floatText(el, MATERIALS[result.material].label, `fl-set fl-mat--${result.material}`);
+    }
+    await sleep(ANIM.stepColour);
+    state.isAnimating = false;
+    renderAll();
+    log(`${result.letters[0]} is struck in ${MATERIALS[result.material].metal.toLowerCase()} — ${MATERIALS[result.material].desc}`, 'good');
     return;
   }
 

@@ -28,6 +28,7 @@ export const TILE_POINTS = {
   ING:4, CH:7, CK:8, TH:5, WH:8,
   RAT:3,                    // R+A+T, exactly what the three would score apart
   OLOGY:9,                  // O+L+O+G+Y — The Scientist's loan, and no one else's
+  OO:2, FU:6,               // out of the Sexton's and the Vulgarian's packages only
   // The medieval sorts (see MEDIEVAL below) pay well over what they stand for —
   // TH is 5 where thorn is 10 — which is the whole of what The Medievalist's
   // stall sells. Kept in step with MEDIEVAL[…].points by the check just after it.
@@ -53,13 +54,13 @@ export const BAG_COUNTS = {
 // of any ligature, which made drawing one both automatic and unexciting. A
 // ligature should be a find, not a staple. OLOGY doesn't break the rule — it
 // is never dealt, only lent (see EXCLUSIVE_LETTERS).
-export const LIGATURES = ['ING', 'CH', 'CK', 'TH', 'WH', 'QU', 'RAT', 'OLOGY'];
+export const LIGATURES = ['ING', 'CH', 'CK', 'TH', 'WH', 'QU', 'RAT', 'OLOGY', 'OO', 'FU'];
 
 // Letters no shop, draft or heap will ever hand you: they come from one
 // patron and nowhere else. RAT belongs to The Rat Catcher; OLOGY is The
 // Scientist's, and only ever on loan; the fleuron is sold at its own price
 // (FLEURON_PRICE), never rolled among the ordinary sorts.
-export const EXCLUSIVE_LETTERS = ['RAT', 'OLOGY', '☙', 'Þ', 'Ȝ', 'Ƿ', 'Æ', '‽'];
+export const EXCLUSIVE_LETTERS = ['RAT', 'OLOGY', '☙', 'Þ', 'Ȝ', 'Ƿ', 'Æ', '‽', 'OO', 'FU'];
 
 // ─── The medieval sorts (The Medievalist's stall) ─────────────────────────────
 // Three letters English used to have and gave up. Each one STANDS FOR ordinary
@@ -243,6 +244,62 @@ export const PAINT_PER_POT   = 3;   // tiles painted per draft pot (random, unpa
 export const SUNDRY_SLOTS  = 2;   // sundries the workbench can hold
 export const SUNDRY_OFFERS = 2;   // sundries offered per shop
 
+// ─── The registers' packages ──────────────────────────────────────────────────
+// The four register patrons pay ×3 Mult for a word on their list, which is a
+// fine number attached to a condition you cannot plan for: their lists run
+// 3–9% of the dictionary, so the seat fires by accident about one word in
+// fourteen and there is no way to steer at it except by composing and watching
+// the card light up. A big multiplier on a lottery ticket is not a build, and
+// these seats went unbought because of it.
+//
+// So the ×3 keeps a parcel behind it. Print a word one of them likes and there
+// is a PACKAGE_ODDS chance a package lands on the workbench — one roll per
+// firing register, so a word that is both spooky and romantic rolls twice.
+// Space permitting: a full bench turns the gift away (and says so), which is a
+// standing reason to keep a slot open.
+//
+// A package is a sundry like any other: it sits in a slot, the Market buys it
+// back for SUNDRY_SELL, and it opens on a tap the way a wrapped tile does —
+// same parcel, differently wrapped, which is the whole visual idea.
+//
+// The loot tables are weighted [id, weight] pairs, resolved in js/main.js
+// (openPackage) — the numbers live here so they can be tuned without touching
+// the code that hands the things over.
+export const PACKAGE_ODDS = 0.5;
+
+export const PACKAGES = {
+  romantic: {
+    patron: 'paramour', label: 'A billet-doux', emoji: '💌',
+    body: 'Sealed and scented. Open it for a two-faced X|O in crimson, a love potion, or a tube of crimson.',
+    loot: [['xotile', 3], ['potion', 3], ['tube-crimson', 3]],
+  },
+  spooky: {
+    patron: 'sexton', label: 'Grave goods', emoji: '⚰️',
+    // Docked: a cursed tile can never be discarded and taxes every word it
+    // waits through, so a Sexton collecting one every third parcel would brick
+    // their own hand by Chapter III. Rarer than its ghostly twin, deliberately.
+    body: 'Buried with someone. Open it for an azure OO in ghost metal, the same in cursed iron, or a tube of azure.',
+    loot: [['oo-ghost', 3], ['oo-cursed', 2], ['tube-azure', 3]],
+  },
+  cute: {
+    patron: 'poppet', label: 'A party bag', emoji: '🎁',
+    // Weighted towards the rose tile: The Poppet's list is the smallest of the
+    // four (2,158 words, half the Sexton's), so its parcels are the rarest and
+    // want the best odds of the best thing in them.
+    body: 'Somebody had a birthday. Open it for a tile struck in rose metal, a rainbow applicator, or a pot of ink wash.',
+    loot: [['rosetile', 4], ['applicator-rainbow', 3], ['wash', 2]],
+  },
+  rude: {
+    patron: 'vulgarian', label: 'A plain brown wrapper', emoji: '📦',
+    body: 'No return address. Open it for a pair of tongs, a curse applicator, or a silver-trimmed FU.',
+    loot: [['tongs', 3], ['applicator-cursed', 3], ['futile', 3]],
+  },
+};
+
+// theme → the patron who sends it, and back again.
+export const PACKAGE_OF_PATRON = Object.fromEntries(
+  Object.entries(PACKAGES).map(([theme, p]) => [p.patron, theme]));
+
 // ─── The toolbox and its tools ────────────────────────────────────────────────
 // A parcel of a different kind: open it on the bench and two DIFFERENT tools
 // from the pool below take its place (the second only if the bench has room —
@@ -278,6 +335,17 @@ export const TOOL_LOOK = {
   laurel:  { glyph: '🏵️', label: 'Laurel' },
   tongs:   { glyph: '🗜️', label: 'Tongs' },
   wash:    { glyph: '💧', label: 'Ink wash' },
+};
+
+// The applicators: a tube's gesture, pointed at the metal rather than the
+// paint. Each strikes one tile in your hand into a new material, and the tube's
+// rule applies unchanged — the tool lays out two candidates and you choose
+// between them, so the gift can never be aimed at the one tile that would break
+// the game over its knee. They refuse a tile that already wears a material: a
+// sort is cast in one metal, not two, the same way trims don't stack.
+export const APPLICATORS = {
+  rainbow: { glyph: '🌈', label: 'Rainbow roll' },
+  cursed:  { glyph: '🩸', label: 'Hellbox iron' },
 };
 // Patrons offered per Market. Was 3, tuned when the roster was 54 defs; at 70
 // defs a visit showed an ever-thinner slice of the game, and guild assembly
@@ -579,6 +647,14 @@ export const MATERIALS = {
     label: 'Rainbow', metal: 'Rainbow roll', emoji: '🌈',
     desc: 'Counts as every colour to your patrons.',
   },
+  // Rose metal is real: a soft pink-grey alloy of bismuth, lead and tin that
+  // melts in boiling water, named after Valentin Rose. A press could never
+  // set a page in it — which is exactly why a tile struck in it is a party
+  // favour rather than a working sort. Out of The Poppet's party bag only.
+  rose: {
+    label: 'Rose', metal: 'Rose metal', emoji: '🎀',
+    desc: `Crowns a random patron with a laurel when printed — +${HONORIFIC_STEP} Points on every word thereafter.`,
+  },
 };
 
 // Tiles nothing can be done to: a ghost, which is barely there to work on;
@@ -772,5 +848,16 @@ export function sundryTip(s) {
     head: 'A wrapped tile',
     body: 'Unwrap it mid-page to gain one rare tile, permanently.'
   };
+  if (s?.kind === 'package' && PACKAGES[s.theme]) {
+    const p = PACKAGES[s.theme];
+    return { head: p.label, body: p.body };
+  }
+  if (s?.kind === 'applicator' && APPLICATORS[s.material]) {
+    const m = MATERIALS[s.material];
+    return {
+      head: `${APPLICATORS[s.material].label} applicator`,
+      body: `Lays out two tiles from your hand; the one you pick is struck in ${m.metal.toLowerCase()}. ${m.desc}`,
+    };
+  }
   return null;
 }

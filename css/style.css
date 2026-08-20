@@ -740,13 +740,20 @@ button.sundry:hover { transform: translateY(-2px); }
    because nothing has decided which one is inside: the roll happens when the
    paper comes off. That is the whole of the item, so it must not look like a
    labelled bar of anything. */
+/* The parcel is one shape in five papers: the wrapped tile's own brown, and
+   the four registers' packages, which are the SAME MARK recoloured. That is
+   deliberate and it is the whole visual language — anything wearing paper and
+   twine opens on a tap, and a player who has opened one knows what to do with
+   all of them. Each wrapping only overrides these five tokens. */
 .wrapped-mark {
+  --paper-a: #a8834e; --paper-b: #8f6b3a; --paper-c: #74542b;
+  --twine-a: #f0e2c2; --twine-b: #cfbb92;
   position: relative;
   display: block;
   width: 22px; height: 22px;
   border-radius: 3px;
   background:
-    linear-gradient(150deg, #a8834e 0%, #8f6b3a 46%, #74542b 100%);
+    linear-gradient(150deg, var(--paper-a) 0%, var(--paper-b) 46%, var(--paper-c) 100%);
   border: 1.5px solid rgba(34, 20, 6, 0.6);
   box-shadow: inset 0 2px 3px rgba(255, 236, 200, 0.3), inset 0 -4px 6px rgba(0, 0, 0, 0.34);
   overflow: hidden;
@@ -758,7 +765,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .wrapped-mark::after {
   content: '';
   position: absolute;
-  background: linear-gradient(90deg, #f0e2c2, #cfbb92);
+  background: linear-gradient(90deg, var(--twine-a), var(--twine-b));
   box-shadow: 0 1px 1.5px rgba(30, 18, 4, 0.55);
 }
 .wrapped-mark::before { left: -1px; right: -1px; top: 50%; height: 2.5px; transform: translateY(-50%); }
@@ -766,6 +773,32 @@ button.sundry:hover { transform: translateY(-2px); }
 
 .sundry--wrapped .wrapped-mark { margin-top: 3px; }
 .wrapped-mark--offer { width: 26px; height: 26px; margin-top: 4px; }
+
+/* ── The registers' packages: the same parcel, four papers ────────────────────
+   A billet-doux is pink and ribboned; grave goods are grave-cold with bone
+   twine; a party bag is loud. The plain brown wrapper is deliberately NOT
+   recoloured — a plain brown wrapper looks exactly like every other parcel,
+   which is the joke and the point of the name. */
+.sundry--pkg-romantic .wrapped-mark {
+  --paper-a: #e58aa6; --paper-b: #c9577a; --paper-c: #a53d5e;
+  --twine-a: #fff0f4; --twine-b: #f3c3d2;
+}
+.sundry--pkg-spooky .wrapped-mark {
+  --paper-a: #4a5b58; --paper-b: #33413f; --paper-c: #202a29;
+  --twine-a: #e6e9df; --twine-b: #b3b9a8;
+}
+.sundry--pkg-cute .wrapped-mark {
+  --paper-a: #8fd8e8; --paper-b: #6ab3d8; --paper-c: #a98ede;
+  --twine-a: #fff6c8; --twine-b: #ffd98a;
+}
+/* rude keeps the default brown — see above */
+.sundry--package .sundry-name { font-size: 13px; line-height: 1.1; }
+
+/* ── The applicators ──────────────────────────────────────────────────────────
+   A tube's slot with a metal in it rather than a paint, so the armed glow
+   takes the material's own colour the way a jade tube glows jade. */
+.sundry--app-rainbow { --paintcol: #ffb066; }
+.sundry--app-cursed  { --paintcol: var(--crimson); }
 /* An armed slot has no paint of its own to glow with — it takes the paper's */
 .sundry--wrapped.sundry--armed { --paintcol: #cbab7e; }
 
@@ -1818,6 +1851,25 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 .tile--mat-ghost .tile-pts { color: #33506b; }
 
+/* Rose metal — a real alloy, soft and pink and useless for a working page,
+   which is why the only sort ever struck in it is a party favour. The letter
+   is set in the manuscript hand rather than the press's serif: nothing about
+   this tile is serious. */
+.tile--mat-rose {
+  background: linear-gradient(168deg, #ffd9e6 0%, #f3aec6 52%, #e089a8 100%);
+  border-color: #c97d9a;
+  color: #6d2340;
+  --trim-ring: 0 0 14px rgba(255, 170, 200, 0.55);
+  --tile-lift: #d98fae;
+}
+.tile--mat-rose .tile-letter {
+  font-family: var(--hand);
+  font-weight: 700;
+  color: #8c2b50;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+.tile--mat-rose .tile-pts { color: #a85072; }
+
 /* Rainbow — a split fountain caught on one sort. The wash is kept pale on
    purpose: a painted letter still has to read against it, whatever colour the
    paint is, so the glyph gets a light halo and the ink keeps its own hue. */
@@ -2203,6 +2255,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .fl-mat--cursed  { color: #ff7a66; font-size: 19px; }
 .fl-mat--ghost   { color: #dceaff; font-size: 19px; }
 .fl-mat--rainbow { color: #ffe9c9; font-size: 19px; }
+.fl-mat--rose    { color: #ffc6dc; font-size: 19px; }
 
 .sparkle {
   position: fixed;

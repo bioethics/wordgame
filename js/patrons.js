@@ -117,6 +117,7 @@ import {
   GRAFTER_STEP, STOKER_BASE, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, ABECEDARIAN_STEP,
   RAGMAN_ODDS, RAGMAN_COINS, REVENANT_ODDS, MATERIALS,
+  PACKAGE_ODDS, PACKAGES, PACKAGE_OF_PATRON,
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, isMark,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
   HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, RIPPER_WORDS, splitMarks, isImmutable,
@@ -319,6 +320,31 @@ function illuminate(tiles) {
   const missing = Object.keys(COLOURS).find(c => !present.includes(c));
   const target = tiles.find(t => !distinctColours([t]).length && !isImmutable(t));
   return target ? { missing, target } : null;
+}
+
+// The registers' parcel, written once for all four. A ×3 Mult on a list you
+// cannot plan for is a lottery ticket rather than a build — see PACKAGES in
+// constants.js — so each register keeps a package behind its multiplier, and
+// prints one onto the workbench PACKAGE_ODDS of the time it fires. The bench
+// may refuse it: a full one turns the parcel away, and the caller says so, so
+// keeping a slot free is a real thing to weigh against holding a second tube.
+//
+// The score effect and this share one condition through inTheme, so the card
+// that lit up as you composed is the card that sends the parcel — a register
+// can never pay the ×3 and withhold the package, or the reverse.
+function registerPatron(id, name, emoji, theme, cost, blurb) {
+  return {
+    id, name, emoji, rarity: 'rare', cost,
+    desc: `×3 Mult for any of the thousands of words ${name} finds ${blurb} — and a 1-in-${Math.round(1 / PACKAGE_ODDS)} chance of ${PACKAGES[theme].label} for the workbench.`,
+    when: 'score',
+    effect({ word, xMult }) { if (inTheme(theme, word)) xMult(3); },
+    onPrinted({ script, bench }) {
+      const word = script?.letters;
+      if (!word || !inTheme(theme, word) || !luckyRoll(PACKAGE_ODDS)) return null;
+      if (!bench?.({ kind: 'package', theme })) return { note: 'no room on the bench', refused: true };
+      return { note: PACKAGES[theme].label };
+    },
+  };
 }
 
 // The dye commons: one per colour, each the same patron in a different pot.
@@ -1439,31 +1465,12 @@ export const PATRON_DEFS = [
 
   // ── The four registers ──────────────────────────────────────────────────────
   // Each keeps one of the themed lists in wordlists-themed/ and pays ×3 when
-  // the printed word is on it. The lists are flat files — edit them freely.
-  {
-    id: 'sexton', name: 'The Sexton', emoji: '⚰️', rarity: 'rare', cost: 8,
-    desc: '×3 Mult for any of the thousands of words The Sexton finds spooky.',
-    when: 'score',
-    effect({ word, xMult }) { if (inTheme('spooky', word)) xMult(3); },
-  },
-  {
-    id: 'paramour', name: 'The Paramour', emoji: '💘', rarity: 'rare', cost: 8,
-    desc: '×3 Mult for any of the thousands of words The Paramour finds romantic.',
-    when: 'score',
-    effect({ word, xMult }) { if (inTheme('romantic', word)) xMult(3); },
-  },
-  {
-    id: 'poppet', name: 'The Poppet', emoji: '🧸', rarity: 'rare', cost: 7,
-    desc: '×3 Mult for any of the thousands of words The Poppet finds cute.',
-    when: 'score',
-    effect({ word, xMult }) { if (inTheme('cute', word)) xMult(3); },
-  },
-  {
-    id: 'vulgarian', name: 'The Vulgarian', emoji: '🍑', rarity: 'rare', cost: 8,
-    desc: '×3 Mult for any of the thousands of words The Vulgarian finds rude.',
-    when: 'score',
-    effect({ word, xMult }) { if (inTheme('rude', word)) xMult(3); },
-  },
+  // the printed word is on it — and sends a package of its own the rest of the
+  // time (registerPatron, above). The lists are flat files — edit them freely.
+  registerPatron('sexton',    'The Sexton',    '⚰️', 'spooky',   8, 'spooky'),
+  registerPatron('paramour',  'The Paramour',  '💘', 'romantic', 8, 'romantic'),
+  registerPatron('poppet',    'The Poppet',    '🧸', 'cute',     7, 'cute'),
+  registerPatron('vulgarian', 'The Vulgarian', '🍑', 'rude',     8, 'rude'),
 
   // ── The three parts of speech ───────────────────────────────────────────────
   // The registers above ask what a word is ABOUT; these three ask what it DOES

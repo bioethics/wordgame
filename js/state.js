@@ -936,8 +936,9 @@ export function toggleSundrySelect(id) {
   // The ratchet only has purchase on a single letter — refuse ligatures and
   // marks at the point of picking rather than after the choice is made.
   if (state.sundries[state.sundryMode]?.kind === 'ratchet' && !shiftable(tile)) return 'unshiftable';
-  // An armed tube takes only the tiles it laid out.
-  if (state.sundries[state.sundryMode]?.kind === 'tube'
+  // An armed tube — or an applicator, which shares its whole gesture — takes
+  // only the tiles it laid out.
+  if (['tube', 'applicator'].includes(state.sundries[state.sundryMode]?.kind)
       && !(state.tubeOffer ?? []).includes(tile.id)) return 'unoffered';
   // The loupe magnifies nothing past its own limit — refuse a tile already
   // at the cap when it is picked, not after.
@@ -1028,6 +1029,25 @@ export function applySundry(idx, dir = 0) {
     return { kind: 'tongs', letters: [getActiveLetter(tile)], ids: [tile.id], bonus: state.tongsBonus };
   }
 
+  // An applicator strikes its tile into a new metal, written through to the
+  // collection so the change outlives the page — the tube's gesture exactly,
+  // pointed at the material instead of the paint.
+  if (sundry.kind === 'applicator') {
+    const target = sundrySelected().find(t => (state.tubeOffer ?? []).includes(t.id));
+    if (!target || target.material || isImmutable(target)) return null;
+    target.material = sundry.material;
+    const tmpl = state.collection.find(c => c.tid === target.tid);
+    if (tmpl) tmpl.material = sundry.material;
+    target.selected = false;
+    state.sundries.splice(idx, 1);
+    state.sundryMode = -1;
+    state.tubeOffer = null;
+    return {
+      kind: 'applicator', material: sundry.material,
+      letters: [getActiveLetter(target)], ids: [target.id],
+    };
+  }
+
   // The tube pours onto whichever of its offered tiles was picked. The offer
   // itself was rolled when the tube was armed — see rollTubeOffer.
   const tile = sundrySelected().find(t => (state.tubeOffer ?? []).includes(t.id));
@@ -1046,8 +1066,16 @@ export function applySundry(idx, dir = 0) {
 // which word you reached for; an offer of two keeps a real choice without
 // the auto-pilot. Returns null (and leaves no offer) when nothing in the
 // hand will take paint.
+// What a given tool will consider. The tube wants a tile with no paint; an
+// applicator wants one with no metal — a sort is cast in one material and not
+// two, the same rule that stops trims stacking. Both refuse the immutable.
+export const offerFilter = sundry =>
+  (sundry?.kind === 'applicator'
+    ? t => !t.material && !isImmutable(t)
+    : t => !t.colour && !isImmutable(t));
+
 export function rollTubeOffer(sundry = null) {
-  const takesPaint = t => !t.colour && !isImmutable(t);
+  const takesPaint = offerFilter(sundry);
   const inHand = [...state.rack, ...state.word];
   const byId = new Map(inHand.map(t => [t.id, t]));
 
@@ -1093,6 +1121,23 @@ export function toggleDualVariant(id) {
   if (!tile || tile.letterType !== 'dual') return;
   tile.activeVariant = tile.activeVariant === 0 ? 1 : 0;
   tile.basePoints = TILE_POINTS[getActiveLetter(tile)] ?? 1;
+}
+
+// A patron out of nowhere, for nothing: The Paramour's love potion. Rarity is
+// ignored on purpose — a potion that weighted its rares like the shop would be
+// a worse shop, and the whole charm of the thing is that a Stoker might walk
+// in. Nothing already held is offered, nor the cat, who is found rather than
+// given. Returns the new seat, or null when the table is full or the roster
+// exhausted; the caller says so.
+export function grantRandomPatron(defs) {
+  if (state.patrons.length >= effectivePatronSlots()) return null;
+  const held = new Set(allSeats().map(p => p.id));
+  const pool = defs.filter(d => !d.unlisted && (d.stackable || !held.has(d.id)));
+  if (!pool.length) return null;
+  const def = pool[Math.floor(Math.random() * pool.length)];
+  const seat = { id: def.id, uid: nextId(), data: def.onOffer?.() ?? {} };
+  state.patrons.push(seat);
+  return seat;
 }
 
 // ─── Painting ─────────────────────────────────────────────────────────────────

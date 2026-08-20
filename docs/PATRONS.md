@@ -119,11 +119,11 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🖋️ **The Novelist** `novelist` | uncommon | 7 | Words of 7+ letters get ×2 Mult. |
 | 🧺 **The Ragman** `ragman` 🔒 | uncommon | 7 | Each painted tile you discard has a 1-in-2 chance of paying — crimson the tongs, amber 1 Coin, jade +1 hand size for the page, azure your discard back. |
 | 🦜 **The Stammerer** `stammerer` | uncommon | 8 | Every doubled letter gives +0.5 Mult — BALLOON pays twice, BOOKKEEPER three times. |
-| 🧸 **The Poppet** `poppet` | rare | 7 | ×3 Mult for any of the thousands of words The Poppet finds cute. |
+| 🧸 **The Poppet** `poppet` 🔒 | rare | 7 | ×3 Mult for any of the thousands of words The Poppet finds cute — and a 1-in-2 chance of A party bag for the workbench. |
 | 🎨 **The Illuminator** `illuminator` | rare | 8 | When a word holds exactly three colours, its first bare tile is painted the fourth — before the word is counted. |
-| 💘 **The Paramour** `paramour` | rare | 8 | ×3 Mult for any of the thousands of words The Paramour finds romantic. |
-| ⚰️ **The Sexton** `sexton` | rare | 8 | ×3 Mult for any of the thousands of words The Sexton finds spooky. |
-| 🍑 **The Vulgarian** `vulgarian` | rare | 8 | ×3 Mult for any of the thousands of words The Vulgarian finds rude. |
+| 💘 **The Paramour** `paramour` 🔒 | rare | 8 | ×3 Mult for any of the thousands of words The Paramour finds romantic — and a 1-in-2 chance of A billet-doux for the workbench. |
+| ⚰️ **The Sexton** `sexton` 🔒 | rare | 8 | ×3 Mult for any of the thousands of words The Sexton finds spooky — and a 1-in-2 chance of Grave goods for the workbench. |
+| 🍑 **The Vulgarian** `vulgarian` 🔒 | rare | 8 | ×3 Mult for any of the thousands of words The Vulgarian finds rude — and a 1-in-2 chance of A plain brown wrapper for the workbench. |
 | 🔭 **The Astronomer** `astronomer` | rare | 9 | +1 Mult for each word already printed this page. |
 | 📋 **The Overseer** `overseer` | rare | 9 | Print one more word each page. |
 | 🗺️ **The Cartographer** `cartographer` | rare | 12 | Words whose letters run in alphabetical order get ×3 Mult. |

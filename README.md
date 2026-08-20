@@ -380,6 +380,37 @@ Market's own offers (free, doesn't touch the escalating reroll price) or on a
 Colophon pick. (The random-scatter paint pots survive only in the opening
 draft.)
 
+**The registers' packages.** The four register patrons — *the Sexton* (spooky),
+*the Paramour* (romantic), *the Poppet* (cute), *the Vulgarian* (rude) — pay ×3
+Mult for a word on their list, which sounds generous and plays like a lottery
+ticket: their lists run 3–9% of the dictionary, so a seat fires by accident
+about one word in fourteen and there is no way to aim at it except by composing
+and watching the card light up. So the ×3 now has a parcel behind it. Print a
+word one of them likes and there is a 1-in-2 chance a **package** lands on the
+workbench — one roll per firing register, so a word that is both spooky and
+romantic rolls twice, and a full bench turns the gift away and says so (which
+is a standing reason to keep a slot open). A package is a sundry like any
+other: the Market buys it back for a Coin, and it opens on a tap the way a
+wrapped tile does — it *is* the wrapped tile's parcel, recoloured, which is the
+whole visual language. What is inside is rolled when the paper comes off:
+
+| | holds one of |
+|---|---|
+| 💌 **A billet-doux** | a two-faced X\|O in crimson · a **love potion** (a random patron takes an empty seat, free — and nothing at all if your table is full) · a tube of crimson |
+| ⚰️ **Grave goods** | an azure **OO** in ghost metal · the same in cursed iron (rarer: a cursed sort can never be discarded and taxes every word it waits through) · a tube of azure |
+| 🎁 **A party bag** | a tile struck in **rose metal** (weighted highest — the Poppet's list is the smallest of the four) · a **rainbow applicator** · a pot of ink wash |
+| 📦 **A plain brown wrapper** | a pair of tongs · a **curse applicator** · a silver-trimmed **FU** |
+
+Three new things come out of those tables. **Rose metal** is a fourth material
+(a real pink alloy, too soft for a working page): print a sort struck in it and
+one of your seated patrons is crowned with a laurel — not consumed, so it pays
+again every time you can fit it into a word. The **applicators** are the tube's
+gesture pointed at the metal instead of the paint: each lays out two tiles from
+your hand and strikes the one you pick in rainbow or in hellbox iron, refusing
+any tile that already wears a material, because a sort is cast in one metal and
+not two. And **OO** and **FU** are ligatures no shop will ever sell you — OO
+counts as a doubled letter all by itself, so it quietly feeds *the Twins*.
+
 The **toolbox** is a parcel of a different kind: open it on the bench and two
 *different* tools take its place — the first in the box's own slot, the second
 only if the bench has room, else it rolls away. No shop sells four of the five,

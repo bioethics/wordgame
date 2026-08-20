@@ -12,7 +12,7 @@ import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
   WORDS_PER_PAGE, PAGES_PER_CHAPTER, tileCount,
   colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
-  sundryTip, FLEURON, TOOL_LOOK, HONORIFIC_STEP, MEDIEVAL, letterGlyph,
+  sundryTip, FLEURON, TOOL_LOOK, PACKAGES, APPLICATORS, HONORIFIC_STEP, MEDIEVAL, letterGlyph,
   INTERROBANG,
 } from './constants.js';
 import { patronById, guildsOf, patronName, patronShelf } from './patrons.js';
@@ -652,6 +652,27 @@ function renderSundries() {
       slot.innerHTML = `
         <span class="wrapped-mark"></span>
         <span class="sundry-name">Wrapped</span>`;
+    } else if (s?.kind === 'package' && PACKAGES[s.theme]) {
+      // A register's parcel wears the wrapped tile's own ribbon-and-paper mark,
+      // recoloured — one visual language for "something is inside this", so a
+      // player who has opened a wrapped tile already knows what to do with a
+      // party bag.
+      slot = document.createElement('button');
+      slot.className = `sundry sundry--wrapped sundry--package sundry--pkg-${s.theme}`;
+      slot.dataset.sundry = i;
+      slot.innerHTML = `
+        <span class="wrapped-mark"></span>
+        <span class="sundry-name">${PACKAGES[s.theme].emoji}</span>`;
+    } else if (s?.kind === 'applicator' && APPLICATORS[s.material]) {
+      const armed  = state.sundryMode === i;
+      const picked = armed && sundrySelected().length > 0;
+      slot = document.createElement('button');
+      slot.className = `sundry sundry--tool sundry--applicator sundry--app-${s.material}`
+                     + (armed ? ' sundry--armed' : '') + (picked ? ' sundry--ready' : '');
+      slot.dataset.sundry = i;
+      slot.innerHTML = `
+        <span class="sundry-glyph">${APPLICATORS[s.material].glyph}</span>
+        <span class="sundry-name">${picked ? 'Strike it' : armed ? 'Pick a tile' : 'Applicator'}</span>`;
     } else if (s?.kind && TOOL_LOOK[s.kind]) {
       // The toolbox and its tools share one shape: a glyph and a name. The
       // loupe and the tongs arm like the ratchet, so they show the same

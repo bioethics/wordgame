@@ -9,7 +9,7 @@ import {
 } from './state.js';
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
-  PAINT_PER_POT, ANIM, SUNDRY_SELL, tileCount, sundryTip, TOOL_LOOK,
+  PAINT_PER_POT, ANIM, SUNDRY_SELL, tileCount, sundryTip, TOOL_LOOK, PACKAGES, APPLICATORS,
   colourDesc, HONORIFIC_STEP, POSTNOM,
 } from './constants.js';
 import { patronById, guildsOf, patronName, patronShelf, patronCost } from './patrons.js';
@@ -218,6 +218,13 @@ function benchSlotHTML(s, i) {
   : s.kind === 'reshuffle' ? { cls: 'sundry--reshuffle', mark: '<span class="sundry-shuffle">↻</span>', name: 'Reshuffle' }
   : s.kind === 'ratchet'   ? { cls: 'sundry--ratchet', mark: '<span class="ratchet-mark">⇅</span>', name: 'Ratchet' }
   : s.kind === 'wrapped'   ? { cls: 'sundry--wrapped', mark: '<span class="wrapped-mark"></span>', name: 'Wrapped' }
+  : s.kind === 'package' && PACKAGES[s.theme]
+                           ? { cls: `sundry--wrapped sundry--package sundry--pkg-${s.theme}`,
+                               mark: '<span class="wrapped-mark"></span>', name: PACKAGES[s.theme].emoji }
+  : s.kind === 'applicator' && APPLICATORS[s.material]
+                           ? { cls: `sundry--tool sundry--applicator sundry--app-${s.material}`,
+                               mark: `<span class="sundry-glyph">${APPLICATORS[s.material].glyph}</span>`,
+                               name: 'Applicator' }
   : TOOL_LOOK[s.kind]      ? { cls: `sundry--tool sundry--${s.kind}`, mark: `<span class="sundry-glyph">${TOOL_LOOK[s.kind].glyph}</span>`, name: TOOL_LOOK[s.kind].label }
   :                          { cls: '', mark: '', name: tip.head };
   return `
