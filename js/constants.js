@@ -18,17 +18,25 @@
 // agrees, carrying only 2 against the other one-pointers' 4-5. The classic
 // awkward letter, finally paid like one.
 export const TILE_POINTS = {
-  A:1, B:3, C:3, D:2, E:1, F:4, G:2, H:4,
-  I:1, J:8, K:5, L:1, M:3, N:1, O:1, P:3,
-  QU:10, R:1, S:1, T:1, U:2, V:4, W:4, X:8,
-  Y:4, Z:10,
+  // Re-priced 2026-08 against measured letter frequency (docs — see the
+  // "Letter Pricing" analysis): B, D, F, G, K, V, W and Y were each a tier
+  // cheaper than a same-rarity neighbour (G/D underpriced against C, B
+  // against H, W/K against each other); J and Z were split unevenly across
+  // what is really one "very rare" band with X — J and Q are now the same
+  // tier, and Z drops to meet X rather than sitting above it.
+  A:1, B:4, C:3, D:3, E:1, F:5, G:3, H:4,
+  I:1, J:10, K:6, L:1, M:3, N:1, O:1, P:3,
+  QU:10, R:1, S:1, T:1, U:2, V:6, W:6, X:8,
+  Y:5, Z:8,
   // A ligature scores exactly what its letters would score apart — CH is C+H,
   // CK is C+K — so it buys you a tile slot, never free points. QU is the one
   // exception: there's no lone Q to sum from, so it keeps its long-held 10.
-  ING:4, CH:7, CK:8, TH:5, WH:8,
+  // Kept in step with the repricing above: CK, WH, ING, OLOGY and FU all
+  // moved with the letters that sum into them.
+  ING:5, CH:7, CK:9, TH:5, WH:10,
   RAT:3,                    // R+A+T, exactly what the three would score apart
-  OLOGY:9,                  // O+L+O+G+Y — The Scientist's loan, and no one else's
-  OO:2, FU:6,               // out of the Sexton's and the Vulgarian's packages only
+  OLOGY:11,                 // O+L+O+G+Y — The Scientist's loan, and no one else's
+  OO:2, FU:7,               // out of the Sexton's and the Vulgarian's packages only
   // The medieval sorts (see MEDIEVAL below) pay well over what they stand for —
   // TH is 5 where thorn is 10 — which is the whole of what The Medievalist's
   // stall sells. Kept in step with MEDIEVAL[…].points by the check just after it.
