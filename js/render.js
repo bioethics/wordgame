@@ -4,7 +4,8 @@
 
 import {
   state, settings, saveState, getActiveLetter, getActiveColour, selectedCount,
-  effectivePatronSlots, effectiveSundrySlots, effectiveWordsPerPage, chapterTitle,
+  effectivePatronSlots, effectiveSundrySlots, effectiveGhostSlots,
+  effectiveWordsPerPage, chapterTitle,
   sundrySelected, restingPoints, getActiveGrowth, isWrapped,
 } from './state.js';
 import {
@@ -341,6 +342,7 @@ export function renderAll() {
   // numbers, so what a patron promises and what it pays can't disagree.
   const script = computeScore(state.word);
   renderShelf(script);
+  renderGhosts();
   renderSundries();
   renderStatus();
   renderBossBar(script);
@@ -484,6 +486,80 @@ function paintArmed(shelf, script) {
   }
   _armedIds = nowArmed;
 }
+
+// ─── The ghosts (patrons The Ripper killed) ───────────────────────────────────
+// A ghost gave up its seat and kept everything else — its turn in the running
+// order, its hooks, its laurels — so it needs somewhere to be seen that isn't
+// the shelf. That is a door beside the shelf, which exists only once there is
+// something behind it, and a sheet listing what. The cards are the shelf's
+// own, in a colder palette: a ghost Scholar is still a Scholar.
+
+// One card per place in the beyond, filled or not — the empty ones are the
+// point as much as the full, since The Ripper stays his hand when there is no
+// room left.
+function ghostCardsHTML() {
+  const slots = effectiveGhostSlots();
+  let out = '';
+  for (let i = 0; i < slots; i++) {
+    const p = state.ghosts?.[i];
+    if (!p) {
+      out += `<div class="patron patron--empty patron--ghost" title="Room for another ghost">
+        <span class="patron-empty-mark">❧</span></div>`;
+      continue;
+    }
+    const def = patronById(p.id);
+    if (!def) continue;
+    const name  = patronName(def, p.data);
+    const label = patronShelf(def, p.data);
+    const desc  = def.instDesc?.(p.data) ?? def.desc;
+    const laurels = p.data?.honorifics ?? 0;
+    out += `
+      <div class="patron patron--ghost patron--${def.rarity}"
+           data-patron="${def.id}"${p.uid != null ? ` data-uid="${p.uid}"` : ''}
+           title="${name} — ${desc}
+(dead, and working still · ✕ lets it go for nothing)">
+        <span class="patron-emoji">${def.emoji}</span>
+        <span class="patron-name">${label}</span>
+        ${laurels ? `<span class="patron-laurel" title="${laurels > 1 ? `${laurels} laurels` : 'A laurel'} — +${laurels * HONORIFIC_STEP} Points every word, paid at this ghost's turn">🏵️${laurels > 1 ? `<b>${laurels}</b>` : ''}</span>` : ''}
+        <button class="patron-x" data-sell-ghost="${p.uid ?? def.id}" title="Let ${name} go — a ghost's contract is worth nothing">✕</button>
+      </div>`;
+  }
+  return out;
+}
+
+function renderGhosts() {
+  const btn = $('ghostBtn');
+  if (!btn) return;
+  const ghosts = state.ghosts ?? [];
+  btn.classList.toggle('hidden', ghosts.length === 0);
+  if (!ghosts.length) return;
+  const named = ghosts.map(p => patronName(patronById(p.id), p.data)).join(', ');
+  btn.innerHTML = `<span class="ghost-btn-mark">👻</span>
+    <span class="ghost-btn-count">${ghosts.length}</span>`;
+  btn.title = `${named} — dead, and working still. Ghosts act after every seated patron.`;
+}
+
+export function openGhosts() {
+  const m = $('ghostModal');
+  if (!m) return;
+  const n = state.ghosts?.length ?? 0;
+  m.innerHTML = `
+    <div class="sheet sheet--ghosts">
+      <div class="sheet-head">
+        <h2>Your ghosts <span class="ghost-tally">${n}/${effectiveGhostSlots()}</span></h2>
+        <button class="x" data-close-ghosts>✕</button>
+      </div>
+      <p class="sheet-note">Murdered by The Ripper, and working still. A ghost keeps its whole
+        effect and gives up only its seat — it speaks after every living patron, and its
+        contract is worth nothing when you let it go.</p>
+      <div class="shelf shelf--ghosts" style="--seat-count:${effectiveGhostSlots()}">${ghostCardsHTML()}</div>
+    </div>`;
+  m.classList.add('show');
+}
+
+export function closeGhosts() { $('ghostModal')?.classList.remove('show'); }
+
+export const ghostsOpen = () => !!$('ghostModal')?.classList.contains('show');
 
 // ─── Sundries (the workbench beside the shelf) ────────────────────────────────
 // Fixed slot count so buying or spending a tube never reflows the board.

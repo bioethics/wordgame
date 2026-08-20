@@ -8,8 +8,8 @@ import {
 } from './patrons.js';
 import { bossById } from './bosses.js';
 import {
-  state, owns, getActiveLetter, getActiveColour, getActiveGrowth, returnsToBag,
-  isWrapped,
+  state, owns, allSeats, getActiveLetter, getActiveColour, getActiveGrowth,
+  returnsToBag, isWrapped,
 } from './state.js';
 
 // ─── Score a word ─────────────────────────────────────────────────────────────
@@ -97,7 +97,7 @@ export function computeScore(wordTiles) {
   // brush wins, the same rule the nicks follow.
   const tilePaintSteps = [];
   const tilePaint = new Map();   // tile id → colour, for this word only
-  for (const p of state.patrons) {
+  for (const p of allSeats()) {
     const def = patronById(p.id);
     if (!def?.tilePaint) continue;
     const laid = def.tilePaint({ tiles: wordTiles, state, data: p.data ?? {} }) || [];
@@ -129,7 +129,7 @@ export function computeScore(wordTiles) {
   // stands in rather than by name, which is why the whole word goes to the
   // hook. The one thing an echo can't repeat is the tile's own nick: nicks
   // don't stack, so a second reading of one finds every target already claimed.
-  const echoSeats = state.patrons.filter(p => patronById(p.id)?.tileEcho);
+  const echoSeats = allSeats().filter(p => patronById(p.id)?.tileEcho);
   const echo = wordTiles.map(t => echoSeats.reduce(
     (n, p) => patronById(p.id).tileEcho(t, p.data ?? {}, wordTiles) ? n * 2 : n, 1));
 
@@ -180,7 +180,7 @@ export function computeScore(wordTiles) {
   // its own so the print can show the ink going onto the tiles before a single
   // tile pays out.
   const tileBoostSteps = [];
-  for (const p of state.patrons) {
+  for (const p of allSeats()) {
     const def = patronById(p.id);
     if (!def?.tileBonus) continue;
     const bctx = { tiles: wordTiles, state, data: p.data ?? {} };
@@ -241,7 +241,7 @@ export function computeScore(wordTiles) {
   // patron step, keyed by the seat's uid, so every copy of a stackable patron
   // badges and animates as itself.
   const patronSteps = [];
-  for (const p of state.patrons) {
+  for (const p of allSeats()) {
     const def = patronById(p.id);
     if (!def?.tileEcho) continue;
     // A Monogrammist signs the tile with its edition number; every other
@@ -404,7 +404,7 @@ export function computeScore(wordTiles) {
     },
   };
 
-  for (const p of state.patrons) {
+  for (const p of allSeats()) {
     const def = patronById(p.id);
     current = p.id;
     currentUid = p.uid ?? null;
@@ -450,7 +450,7 @@ export function computeScore(wordTiles) {
     // guildsOf, not .guild: a dual-livery patron (the Cellarer) flies two
     // flags from one seat, and the Alderman salutes them both.
     const guilds = new Set();
-    for (const p of state.patrons) {
+    for (const p of allSeats()) {
       for (const g of guildsOf(patronById(p.id))) guilds.add(g);
     }
     for (const g of guilds) {

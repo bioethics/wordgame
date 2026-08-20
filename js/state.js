@@ -168,6 +168,7 @@ export const state = {
   ratchetDir: 1,       // which way an armed ratchet is pointing: +1 later, -1 earlier
   luck: 1,             // scales every "good outcome" roll (see luckyRoll) — a future dial
   rackBonus: 0,        // hand size lent for the rest of THIS page (the Ragman's azure)
+  ghosts: [],          // patrons The Ripper has killed — they work on, off the shelf
   lastFirstLetter: null,  // first letter of the last word printed this run (The Skald)
   gambleWon: false,    // this word's coin, tossed by rollGamble (The Gambler)
   chapterTitles: {},   // chapter → the title this run drew for it
@@ -206,7 +207,25 @@ export const effectiveRackSize    = () => RACK_SIZE    + (state.upgradeCounts?.h
 export const effectivePatronSlots = () => PATRON_SLOTS + (state.upgradeCounts?.patronSeat    ?? 0);
 export const effectiveSundrySlots = () => SUNDRY_SLOTS + (state.upgradeCounts?.workbenchSlot ?? 0);
 
-export const owns = id => state.patrons.some(p => p.id === id);
+// Every patron working for you, in the order they speak: the shelf first,
+// then the ghosts, who go last because they are dead. A ghost keeps its whole
+// effect — its score turn, its hooks, its laurels — and gives up only its
+// seat, which is the entire bargain The Ripper offers. So the rule for every
+// reader in the game is: does this ask what my patrons DO (allSeats) or how
+// many seats are LEFT (state.patrons)? The Market's seat limit, the shelf and
+// the reordering are the second kind; everything else is the first.
+//
+// The common case has no ghosts at all, and this is called on every keystroke
+// through scoring — so it hands back the live array rather than a copy of it
+// until there is actually something to append.
+export const allSeats = () =>
+  (state.ghosts?.length ? [...state.patrons, ...state.ghosts] : state.patrons);
+
+// Ghosts are held to the same count as the living: a table of five seats
+// haunts five.
+export const effectiveGhostSlots = () => effectivePatronSlots();
+
+export const owns = id => allSeats().some(p => p.id === id);
 
 // ─── Chapter titles ───────────────────────────────────────────────────────────
 // Drawn at random from js/chapters.js the first time a chapter is named, then
@@ -238,7 +257,7 @@ function assignBoss() {
   // bought. The shelf is read HERE, as the page is dealt, which is the moment
   // it is settled — patrons are hired at the Market between pages, so what is
   // seated now is what you will face the editor with.
-  const seated = state.patrons.map(p => p.id);
+  const seated = allSeats().map(p => p.id);
   const allowed = BOSS_DEFS.filter(b => !bossConflicts(b.id, seated));
   // A shelf that somehow rules out every editor still gets one: an unfair
   // Deadline beats a Deadline with nobody at the desk, and the whole page's
@@ -287,7 +306,7 @@ export const lentInHand = () =>
 
 // A seated patron's private memory (created on first touch, saved with the run).
 export function patronData(id) {
-  const seat = state.patrons.find(p => p.id === id);
+  const seat = allSeats().find(p => p.id === id);
   if (!seat) return null;
   seat.data ??= {};
   return seat.data;
@@ -395,11 +414,13 @@ export function loadState() {
     state.compostPending ??= 0;
     state.freeRerolls ??= 0;
     state.rackBonus ??= 0;
+    state.ghosts ??= [];
     if (savedId)  _nextId  = savedId;
     if (savedTid) _nextTid = savedTid;
     // Seats saved before uids existed get one now — after the counters above,
     // so a backfilled uid can never collide with a tile id already in the save.
     state.patrons?.forEach(p => { p.uid ??= nextId(); });
+    state.ghosts?.forEach(p => { p.uid ??= nextId(); });
     return { market: _market ?? null, draft: _draft ?? null, colophon: _colophon ?? null, mercury };
   } catch { return null; }
 }
@@ -420,7 +441,7 @@ export function newRun() {
     quota: quotaFor(1, 1), pageScore: 0,
     wordsLeft: WORDS_PER_PAGE, discards: DISCARDS_PER_PAGE,
     discardsMax: DISCARDS_PER_PAGE, wordsPrinted: 0,
-    coins: STARTING_COINS, patrons: [], sundries: [], upgradeCounts: {},
+    coins: STARTING_COINS, patrons: [], ghosts: [], sundries: [], upgradeCounts: {},
     luck: 1, rackBonus: 0, ratchetDir: 1, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
     boss: null, bossesSeen: [],
     compost: [], compostPending: 0, freeRerolls: 0,

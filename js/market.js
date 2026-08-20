@@ -1,5 +1,5 @@
 import {
-  state, adoptTemplate, shuffle, owns, trashFromCollection, nextId,
+  state, adoptTemplate, shuffle, owns, allSeats, trashFromCollection, nextId,
   effectivePatronSlots, effectiveSundrySlots,
 } from './state.js';
 import {
@@ -149,7 +149,10 @@ function tilePrice(tmpl) {
 }
 
 function weightedPatronSample(n) {
-  const ownedIds = new Set(state.patrons.map(p => p.id));
+  // A ghost is still a patron you hold and still working for you, so the shop
+  // doesn't offer you a second one — but a fled Ripper is gone from both lists
+  // and can call again.
+  const ownedIds = new Set(allSeats().map(p => p.id));
   const pool = [];
   for (const def of PATRON_DEFS) {
     // A stackable patron is never crossed off — you can always be sold another.
@@ -470,13 +473,19 @@ export function patronRefund(seat) {
 // as the old fallback — which is fine for every patron you can only hold once,
 // and takes the first copy of one you can hold many of.
 export function sellPatron(ref) {
-  const i = state.patrons.findIndex(p => String(p.uid) === String(ref) || p.id === ref);
+  // The shelf first, then the graveyard. A ghost is dismissed the same way and
+  // pays nothing for it — nobody buys a dead patron's contract, which is the
+  // standing cost of the seat The Ripper freed.
+  const match = p => String(p.uid) === String(ref) || p.id === ref;
+  const list = state.patrons.some(match) ? state.patrons : (state.ghosts ?? []);
+  const i = list.findIndex(match);
   if (i < 0) return { ok: false };
-  const seat = state.patrons[i];
+  const seat = list[i];
   const def = patronById(seat.id);
   if (!def) return { ok: false };
-  const refund = patronRefund(seat);
-  state.patrons.splice(i, 1);
+  const ghost = list !== state.patrons;
+  const refund = ghost ? 0 : patronRefund(seat);
+  list.splice(i, 1);
   state.coins += refund;
 
   // The Headsman counts every departure but his own — a dismissed Headsman
@@ -491,7 +500,7 @@ export function sellPatron(ref) {
     headsman = { mult: Math.round((1 + axe.data.heads * HEADSMAN_STEP) * 100) / 100 };
   }
 
-  return { ok: true, refund, def, name: patronName(def, seat.data), headsman };
+  return { ok: true, refund, def, ghost, name: patronName(def, seat.data), headsman };
 }
 
 // Sundries go back for a pittance — the point is freeing the slot, not the coin.

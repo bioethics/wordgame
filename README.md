@@ -91,6 +91,21 @@ of the Market, which is usually where you want to: you have just hired someone,
 and where they sit is half of what you bought. (Additive Mult and ×Mult commute
 with each other; it is the Points that care.)
 
+**Ghosts.** *The Ripper* (rare, crimson) kills one of your other patrons when
+you print KILL, MURDER or SLAY, then flees back to the Market's pool. The
+victim doesn't leave — it moves off the shelf into your **ghosts**, behind a
+door that appears beside the patron row once you have one, and keeps its whole
+effect: its score turn, its hooks, its laurels. What it gives up is its seat,
+which is the entire payment, and the one thing a full table can't buy. Ghosts
+speak **after every living patron**, so a killed ×Mult seat that sat late in
+the order keeps what it was worth and a killed +Points seat that sat early
+loses it — and which patron dies is not yours to choose. They are held to the
+same count as the living, they still count for the Innkeeper's headcount and
+the Alderman's guilds, and their contracts are worth nothing when you let them
+go. `state.ghosts`, read everywhere through `allSeats()` in `js/state.js`: the
+rule is that anything asking what your patrons *do* reads `allSeats()`, and
+only the seat limit, the shelf and the reordering read `state.patrons`.
+
 Two things happen before any of that. Patrons whose promise reads *"such-and-such
 tiles gain +N Points"* — the Goldsmith, the Seedsman, the Siren, the Jeweller,
 the Calligrapher, the Espalier, the Abecedarian — write that number onto the

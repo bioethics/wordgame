@@ -196,10 +196,11 @@ header {
 /* ─── Patron shelf · sundries workbench ───────────────────────────────────────── */
 .shelf-row {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr auto;   /* a third column appears with the ghosts */
   gap: 10px;
   align-items: stretch;
 }
+.shelf-row:has(.ghost-btn:not(.hidden)) { grid-template-columns: 1fr auto auto; }
 
 .shelf {
   display: grid;
@@ -336,6 +337,97 @@ header {
   transition: filter calc(0.22s / var(--aspd)) ease,
               opacity calc(0.22s / var(--aspd)) ease,
               transform calc(0.22s / var(--aspd)) ease;
+}
+
+/* ─── A ghost (a patron The Ripper killed) ─────────────────────────────────────
+   Everything the card said is still true — it is the same patron, doing the
+   same work — so it is the same card, drained: the warm parchment goes cold
+   and blue, the ink goes pale, the whole thing sits a little translucent and
+   breathes. It never appears on the shelf, only behind the graveyard door, so
+   it can afford to look properly dead. */
+.patron--ghost.patron--common,
+.patron--ghost.patron--uncommon,
+.patron--ghost.patron--rare {
+  background: linear-gradient(170deg, #2b3550 0%, #1b2236 100%);
+  color: #c3d3ef;
+  border-color: rgba(150, 180, 230, 0.35);
+  box-shadow:
+    inset 0 0 0 2px rgba(170, 200, 245, 0.22),
+    inset 0 0 0 3.5px rgba(90, 120, 180, 0.4),
+    0 4px 14px rgba(0, 0, 0, 0.5);
+  animation: ghostBreath calc(3.6s / var(--aspd)) ease-in-out infinite;
+}
+.patron--ghost .patron-emoji { filter: grayscale(0.65) brightness(1.25); opacity: 0.85; }
+.patron--ghost .patron-name  { color: #9fb6da; }
+.patron--ghost.patron--empty {
+  border-color: rgba(150, 180, 230, 0.2);
+  color: rgba(180, 205, 240, 0.3);
+}
+.patron--ghost.patron--empty::after { content: 'unhaunted'; color: rgba(180, 205, 240, 0.28); }
+@keyframes ghostBreath {
+  0%, 100% { opacity: 0.82; }
+  50%      { opacity: 1; }
+}
+
+/* The knife going in: the victim's card flares white and drains. */
+.patron--murdered {
+  animation: murdered calc(0.9s / var(--aspd)) ease-out;
+}
+@keyframes murdered {
+  0%   { filter: none; transform: none; }
+  18%  { filter: brightness(2.4) saturate(0.2); transform: translateY(-4px) rotate(-1.5deg); }
+  100% { filter: grayscale(1) brightness(0.6); transform: none; opacity: 0.35; }
+}
+
+/* ─── The graveyard door ───────────────────────────────────────────────────────
+   Sits between the shelf and the workbench, and only exists once something is
+   behind it — a run that never meets The Ripper never sees it. Narrow on
+   purpose: it is a door, not a piece of furniture. */
+.ghost-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 52px;
+  padding: 8px 4px;
+  border-radius: var(--r-md);
+  border: 1px solid rgba(0, 0, 0, 0.45);
+  background: linear-gradient(180deg, #2b3550 0%, #171d2e 100%);
+  color: #c3d3ef;
+  cursor: pointer;
+  box-shadow:
+    inset 0 2px 0 rgba(170, 200, 245, 0.18),
+    inset 0 -6px 12px rgba(0, 0, 0, 0.4),
+    0 10px 26px rgba(0, 0, 0, 0.45);
+  transition: transform calc(0.14s / var(--aspd)), box-shadow calc(0.16s / var(--aspd));
+}
+.ghost-btn:hover { transform: translateY(-2px); }
+.ghost-btn-mark  { font-size: 20px; line-height: 1; filter: drop-shadow(0 0 6px rgba(150, 190, 255, 0.5)); }
+.ghost-btn-count {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  color: #9fb6da;
+}
+
+.sheet--ghosts { max-width: 720px; }
+.sheet--ghosts .shelf--ghosts {
+  gap: 8px;
+  padding: 10px 12px 12px;
+  background: linear-gradient(180deg, #232c44 0%, #141a2a 100%);
+  border-color: rgba(0, 0, 0, 0.6);
+}
+.ghost-tally {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #9fb6da;
+  margin-left: 8px;
 }
 
 /* The seat's guild hint: a small enamel livery pin in the top corner, like a
@@ -3824,6 +3916,10 @@ input[type='checkbox'] {
       0 0 22px 3px rgba(246, 214, 138, 0.7);
   }
   .patron--armed::after { animation: none; opacity: 0; }
+  .patron--ghost.patron--common,
+  .patron--ghost.patron--uncommon,
+  .patron--ghost.patron--rare { animation: none; opacity: 0.9; }
+  .patron--murdered { animation: none; }
   .patron--just-armed .patron-take, .patron-take--bump { animation: none; }
   /* The materials still have to read as themselves — hold the colour, drop
      the motion. The Enthusiast's gift keeps its stitched glow the same way. */

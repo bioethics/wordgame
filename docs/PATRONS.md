@@ -20,7 +20,7 @@ House style for a description, from `docs/PATRON_OVERHAUL.md`: one sentence,
 real numbers, no metaphor, under ~110 characters. State the rule, not the
 feeling — the flavour belongs to the name, the emoji and the quips.
 
-**80 patrons** — 22 common, 38 uncommon, 20 rare. Guilds: amber 13, jade 13, crimson 13, azure 14, no guild 30 — a dual-livery patron counts in each of its guilds.
+**81 patrons** — 22 common, 38 uncommon, 21 rare. Guilds: amber 13, jade 13, crimson 13, azure 14, no guild 31 — a dual-livery patron counts in each of its guilds.
 
 ## Amber · the counting-house
 
@@ -69,8 +69,8 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🧨 **The Arsonist** `arsonist` | uncommon | 7 | Every tile you print has a 1-in-10 chance of being painted crimson, and a 1-in-100 chance of being destroyed. |
 | 🍂 **The Composter** `composter` | uncommon · also jade | 7 | Destroyed tiles rot into jade ones — at each Market, take one from the heap per jade patron you keep. |
 | 🪓 **The Headsman** `headsman` 🔒 | uncommon | 7 | Each patron you dismiss permanently raises this patron's Mult by 0.2. |
-| 🧺 **The Ragman** `ragman` 🔒 | uncommon | 7 | Each painted tile you discard has a 1-in-2 chance of being taken for good — crimson pays the tongs, amber 3 Coins, jade +5 Points grown into a tile in hand, azure +1 hand size for the page. |
 | 🐍 **The Serpent** `serpent` | uncommon | 7 | Words ending in S get ×2 Mult — and the S is swallowed. |
+| 🔪 **The Ripper** `ripper` 🔒 | rare | 9 | Print KILL, MURDER or SLAY and one of your other patrons becomes a ghost — it works on, off the shelf, freeing its seat — then this patron flees. |
 | ⚗️ **The Typefounder** `typefounder` | rare | 10 | Discard exactly two tiles: they are recast as one tile with a letter on either face. |
 | 🔥 **The Stoker** `stoker` 🔒 | rare | 11 | ×1.25 Mult, and crimson tiles are destroyed when printed — each one raises that Mult by 0.25, for good. |
 
@@ -102,7 +102,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 📑 **The Copyist** `copyist` | common | 4 | ×2 Mult when the word already stands in your manuscript. |
 | 🪭 **The Monogrammist** `monogrammist` | common | 4 | Arrives with three letters of its own; a tile showing one prints twice — Points, trim and paint alike. |
 | 👯 **The Twins** `twins` | common | 4 | Doubled letters (LL, OO…) print twice — Points, trim and paint alike. |
-| 🍻 **The Innkeeper** `innkeeper` | common | 6 | Every word gains +5 Points per seated patron — this one included. |
+| 🍻 **The Innkeeper** `innkeeper` | common | 6 | Every word gains +5 Points per patron you hold — this one included, and your ghosts. |
 | 🧤 **The Glover** `glover` | uncommon | 4 | Each colour worn by exactly two tiles in the word gives +0.2 Mult — a matched pair, no more, no fewer. |
 | 💎 **The Jeweller** `jeweller` | uncommon | 5 | Tiles worth 8+ Points gain half as much again. |
 | 🪞 **The Mirror** `mirror` | uncommon | 5 | Words that spell another word backwards — or themselves — get ×4 Mult. |
@@ -116,6 +116,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🌒 **The Closer** `closer` | uncommon | 7 | The final word of each page gets ×3 Mult. |
 | 🃏 **The Harlequin** `harlequin` | uncommon | 7 | Words holding all four colours get ×2 Mult. |
 | 🖋️ **The Novelist** `novelist` | uncommon | 7 | Words of 7+ letters get ×2 Mult. |
+| 🧺 **The Ragman** `ragman` 🔒 | uncommon | 7 | Each painted tile you discard has a 1-in-2 chance of paying — crimson the tongs, amber 1 Coin, jade +1 hand size for the page, azure your discard back. |
 | 🦜 **The Stammerer** `stammerer` | uncommon | 8 | Every doubled letter gives +0.5 Mult — BALLOON pays twice, BOOKKEEPER three times. |
 | 🧸 **The Poppet** `poppet` | rare | 7 | ×3 Mult for any of the thousands of words The Poppet finds cute. |
 | 🎨 **The Illuminator** `illuminator` | rare | 8 | When a word holds exactly three colours, its first bare tile is painted the fourth — before the word is counted. |

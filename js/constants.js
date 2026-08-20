@@ -627,16 +627,18 @@ export const DABBLER_ODDS = 0.5;
 // The Dipper's card reads its odds off this number, so moving it moves the copy.
 export const DIPPER_PAINT_CHANCE = 1 / 12;
 // ─── The Ragman's rates ───────────────────────────────────────────────────────
-// What a painted tile fetches when it is thrown away and taken for good. The
-// odds are per painted tile discarded, so a handful of rags is a handful of
-// rolls; every roll that lands costs the tile. The four payouts are deliberately
-// of a size with each other — the tongs are worth about three Coins at the
-// shop, and +5 grown into a tile is about a Loupe on a small letter — so the
-// colour you feed him is a matter of what your press needs, never of which
-// payout is best.
+// What a painted tile fetches when it is thrown away. Rolled per painted tile
+// discarded, so a handful of rags is a handful of chances — nothing is
+// destroyed, the tiles file into the pile as any discard does, and the price
+// is only the page you spend without them. The payouts are small for that
+// reason, and two of the four are page-scoped rather than permanent.
 export const RAGMAN_ODDS   = 0.5;   // per painted tile discarded
-export const RAGMAN_COINS  = 3;     // amber: what the rag fetches
-export const RAGMAN_GROWTH = 5;     // jade: Points grown into a tile in hand
+export const RAGMAN_COINS  = 1;     // amber: what the rag fetches
+// The Ripper's watchwords. Print one and he kills a patron — see js/main.js,
+// where the deed is done, and state.ghosts, where the victim goes on working.
+// Three words, all of them short and all of them settable from an ordinary
+// rack: the seat is a decision you can act on, not a lottery you wait out.
+export const RIPPER_WORDS = ['KILL', 'MURDER', 'SLAY'];
 // The Headsman: permanent ×Mult per patron dismissed while he is seated.
 export const HEADSMAN_STEP = 0.2;
 // The Gambler's coin. Tossed once per word rather than once per keystroke:

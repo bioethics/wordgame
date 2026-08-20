@@ -27,9 +27,10 @@
 
   <main class="table">
 
-    <!-- Patron shelf · sundries workbench -->
+    <!-- Patron shelf · the graveyard door · sundries workbench -->
     <section class="shelf-row">
       <div id="shelf" class="shelf" aria-label="Patrons"></div>
+      <button id="ghostBtn" class="ghost-btn hidden" aria-label="Your ghosts"></button>
       <div id="sundries" class="sundries" aria-label="Sundries"></div>
     </section>
 
@@ -150,6 +151,9 @@
 
   <!-- Inspector (bag / discard pile) -->
   <div id="inspectorModal" class="modal" role="dialog" aria-modal="true" aria-label="Tile inspector"></div>
+
+  <!-- The ghosts (patrons The Ripper killed, still working) -->
+  <div id="ghostModal" class="modal" role="dialog" aria-modal="true" aria-label="Your ghosts"></div>
 
   <!-- Game over / victory -->
   <div id="overlayModal" class="modal modal--center" role="dialog" aria-modal="true"></div>

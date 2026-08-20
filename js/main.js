@@ -6,7 +6,8 @@
 import {
   state, settings, loadSettings, saveSettings, loadState, clearSave,
   newRun, startPage, drawUpToRackSize, clearWord, shuffleRack,
-  discardSelected, discardSundry, getWordString, moveRackToWord, owns, clearAllSelected,
+  discardSelected, discardSundry, getWordString, moveRackToWord, owns, allSeats,
+  effectiveGhostSlots, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected, takePaintEchoes,
   rollTubeOffer, applyWash, washOff, effectiveSundrySlots,
   getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile,
@@ -17,7 +18,7 @@ import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
   REACTION, NEOLOGIST_LENGTH, MATERIALS, TRIMS, WRAPPED_CONTENTS, MARK_TRIM,
   chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks, isDeadline,
-  FLEURON, TOOLBOX_POOL, HONORIFIC_STEP, TONGS_BONUS, LOUPE_CAP, sundryTip,
+  FLEURON, TOOLBOX_POOL, HONORIFIC_STEP, TONGS_BONUS, LOUPE_CAP, RIPPER_WORDS, sundryTip,
   lengthFlourish, medievalExpansions,
 } from './constants.js';
 import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
@@ -36,6 +37,7 @@ import {
   log, showBanner, hideOverlay,
   showGameOver, showVictory, openInspector, closeInspector, coinHTML,
   showPatronPopover, hidePopover, openManuscript, closeManuscript,
+  openGhosts, closeGhosts, ghostsOpen,
   showCoinWordSheet, setCoinNote,
 } from './render.js';
 import {
@@ -63,8 +65,13 @@ const rackTileEl = id => document.querySelector(`#rack .tile[data-id="${id}"]`);
 
 // The shelf card for a seat or a patron step — by uid where there is one, so
 // each copy of a stackable patron flashes and badges as itself.
+// Where a seat's news is shown. A living patron has a card on the shelf; a
+// ghost has given its card up, so its notes float over the door it now lives
+// behind — the dead still visibly act, which is the whole point of keeping
+// them.
 const patronCard = p => document.querySelector(
-  p.uid != null ? `#shelf .patron[data-uid="${p.uid}"]` : `#shelf .patron[data-patron="${p.id}"]`);
+  p.uid != null ? `#shelf .patron[data-uid="${p.uid}"]` : `#shelf .patron[data-patron="${p.id}"]`)
+  ?? (state.ghosts?.some(g => g.uid === p.uid) ? $('ghostBtn') : null);
 
 // Fly freshly drawn tiles out of the bag into their rack positions
 async function animateDraw(drawn) {
@@ -195,6 +202,59 @@ function noticeTheCat(script) {
   log('🐈 Somewhere beyond the lamplight, something sits up and takes an interest.', 'good');
 }
 
+// ─── The Ripper (a patron killed, a seat freed) ───────────────────────────────
+// Print one of his watchwords and one of your OTHER patrons dies where it
+// sits: it moves from the shelf to state.ghosts, keeping every part of its
+// effect and giving up only its seat, and then the Ripper flees — out of the
+// run and back into the Market's pool, so the next ghost costs another rare
+// hire. Done here rather than in an onPrinted hook because a hook cannot
+// remove its own seat from the loop that is running it.
+//
+// He refuses rather than half-acts. No other patron to kill, or no room left
+// among the ghosts, and nothing happens at all: he keeps his seat and waits
+// for a word he can do something with, which is better than spending himself
+// on nothing. The victim is chosen blind — WHICH seat dies is the price of the
+// one he frees.
+async function ripperStrikes(script) {
+  const at = state.patrons.findIndex(p => p.id === 'ripper');
+  if (at < 0 || !RIPPER_WORDS.includes(script?.letters)) return;
+
+  const victims = state.patrons.filter(p => p.id !== 'ripper');
+  if (!victims.length) {
+    log('🔪 The Ripper turns the knife over, and finds nobody at the table but himself.', 'warn');
+    return;
+  }
+  if (state.ghosts.length >= effectiveGhostSlots()) {
+    log('🔪 The Ripper stays his hand — there is no room left among your ghosts.', 'warn');
+    return;
+  }
+
+  const victim = victims[Math.floor(Math.random() * victims.length)];
+  const def = patronById(victim.id);
+  const name = patronName(def, victim.data);
+  const card = patronCard(victim);
+  const knife = patronCard(state.patrons[at]);
+
+  state.isAnimating = true;
+  if (card) {
+    pulse(card, 'patron--murdered', 900);
+    sparkleBurst(card, 12);
+    floatText(card, '🔪', 'fl-points', { dy: -46 });
+  }
+  if (knife) pulse(knife, 'patron--firing', 620);
+  sfx.bad();
+  await sleep(ANIM.stepColour * 2);
+
+  // Off the shelf and into the beyond, then the knife lets itself out.
+  state.ghosts.push(victim);
+  state.patrons.splice(state.patrons.indexOf(victim), 1);
+  state.patrons.splice(state.patrons.findIndex(p => p.id === 'ripper'), 1);
+
+  state.isAnimating = false;
+  renderAll();
+  log(`🔪 ${name} is murdered — and works on as a ghost, its seat now empty. The Ripper is gone.`, 'warn');
+}
+
 // ─── Titivillus (one wrong vowel forgiven) ────────────────────────────────────
 // If the letters miss the dictionary by exactly one vowel — and the word holds
 // an azure letter to smudge — the word stands as typed. The manuscript keeps
@@ -314,7 +374,7 @@ function runPrintedHooks(tiles, script) {
   state.lastFirstLetter = splitMarks(script.word)?.letters?.[0] ?? null;
   const burned = new Map();   // id → tile (a tile can only burn once)
 
-  for (const p of state.patrons) {
+  for (const p of allSeats()) {
     const def = patronById(p.id);
     if (!def?.onPrinted) continue;
     p.data ??= {};
@@ -358,7 +418,7 @@ function runDiscardHooks(tiles) {
   const painted = [];
   const merged  = [];
   const trashed = new Map();   // id → tile (already gone from the collection)
-  for (const p of state.patrons) {
+  for (const p of allSeats()) {
     const def = patronById(p.id);
     if (!def?.onDiscard) continue;
     p.data ??= {};
@@ -436,7 +496,7 @@ async function animateBurn(els) {
 // tiles they struck, so they can fly in alongside the opening draw.
 function runPageHooks() {
   const arrivals = [], notes = [];
-  for (const p of state.patrons) {
+  for (const p of allSeats()) {
     const def = patronById(p.id);
     if (!def?.onPageStart) continue;
     p.data ??= {};
@@ -462,7 +522,7 @@ function reportPaintEchoes() {
 // stalls. Notes go to the log: the banner and reward sheet own the screen.
 function runPageCompleteHooks() {
   const notes = [];
-  for (const p of state.patrons) {
+  for (const p of allSeats()) {
     const def = patronById(p.id);
     if (!def?.onPageComplete) continue;
     p.data ??= {};
@@ -474,7 +534,7 @@ function runPageCompleteHooks() {
 
 function runChapterHooks() {
   const notes = [];
-  for (const p of state.patrons) {
+  for (const p of allSeats()) {
     const def = patronById(p.id);
     if (!def?.onChapterEnd) continue;
     p.data ??= {};
@@ -768,6 +828,7 @@ async function submitWord() {
 
   // Said after the score, so the notice isn't the line the score writes over.
   noticeTheCat(script);
+  await ripperStrikes(script);
 
   // Tiles fly to wherever they actually went
   renderWord();
@@ -1011,6 +1072,10 @@ document.addEventListener('keydown', e => {
   if ($('settingsModal')?.classList.contains('show')) return;
   if ($('inspectorModal')?.classList.contains('show')) {
     if (e.key === 'Escape') closeInspector();
+    return;
+  }
+  if (ghostsOpen()) {
+    if (e.key === 'Escape') closeGhosts();
     return;
   }
 
@@ -1348,6 +1413,40 @@ function dismissPatron(ref) {
     if (state.inMarket) renderMarket();
   }
 }
+
+// The graveyard door beside the shelf, and the sheet behind it. A ghost is
+// dismissed the way a patron is — sellPatron finds it and pays nothing — and
+// tapping the card shows the same calling card the living get.
+$('ghostBtn')?.addEventListener('click', () => {
+  if (state.isAnimating) return;
+  hidePopover();
+  openGhosts();
+});
+
+$('ghostModal')?.addEventListener('click', e => {
+  if (e.target.closest('[data-close-ghosts]') || e.target === $('ghostModal')) {
+    closeGhosts();
+    return;
+  }
+  const sell = e.target.closest('[data-sell-ghost]');
+  if (sell) {
+    const r = sellPatron(sell.dataset.sellGhost);
+    if (r.ok) {
+      log(`${r.name} is let go — a ghost's contract is worth nothing.`);
+      if (r.headsman) log(`🪓 The Headsman approves — ×${r.headsman.mult} Mult now.`);
+      renderAll();
+      if (state.ghosts.length) openGhosts(); else closeGhosts();
+    }
+    return;
+  }
+  const card = e.target.closest('.patron[data-patron]');
+  if (card) {
+    const def = patronById(card.dataset.patron);
+    const seat = state.ghosts.find(p => String(p.uid) === card.dataset.uid)
+              ?? state.ghosts.find(p => p.id === card.dataset.patron);
+    if (def) showPatronPopover(def, card, seat);
+  }
+});
 
 $('shelf')?.addEventListener('click', e => {
   if (state.isAnimating) return;

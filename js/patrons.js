@@ -116,15 +116,15 @@
 import {
   GRAFTER_STEP, STOKER_BASE, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, ABECEDARIAN_STEP,
-  RAGMAN_ODDS, RAGMAN_COINS, RAGMAN_GROWTH,
+  RAGMAN_ODDS, RAGMAN_COINS,
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, isMark,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
-  HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, splitMarks, isImmutable,
+  HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, RIPPER_WORDS, splitMarks, isImmutable,
   medievalExpansions, POSTNOM,
 } from './constants.js';
 import {
   state, getActiveColour, getActiveLetter, countsAsColour, luckyRoll,
-  paintRandomTiles, restingPoints, shuffle, owns, effectiveSundrySlots,
+  paintRandomTiles, restingPoints, shuffle, owns, allSeats, effectiveSundrySlots,
 } from './state.js';
 import { inTheme, themeSize, THEME_SETS } from './themes.js';
 // The Mirror reads a word backwards against the dictionary; the Haplographer's
@@ -964,68 +964,28 @@ export const PATRON_DEFS = [
     },
   },
   {
-    // Rags were the raw stuff of paper long before wood pulp was, and the
-    // rag-picker sorted his sack BY COLOUR before he sold it to the mill.
-    // That is the whole seat: throw him a painted tile and he takes it for
-    // good, paying in the currency of that tile's own guild — the tongs for
-    // crimson, Coins for amber, growth for jade, a wider hand for azure.
+    // The only patron who kills another, and the only door to a ghost. Print
+    // one of his watchwords and one of your OTHER patrons dies where it sits:
+    // it leaves the shelf for state.ghosts, keeps every part of its effect —
+    // its turn in the running order, its hooks, its laurels — and gives up
+    // only its seat. Then he flees, back into the Market's pool, which is what
+    // stops the trick being repeatable at will: each ghost costs a whole rare
+    // hire, and the hire has to call again.
     //
-    // A roll per painted tile, so a sackful is a sackful of chances, and every
-    // roll that lands COSTS THE TILE — destroyed, out of the collection, not
-    // filed into the pile to come round again. That is the tension he exists
-    // for: paint is the score engine of the whole game and he is the only
-    // patron who will buy it. It is also his governor, since the pool of paint
-    // you can afford to lose is small and shrinks every time you sell from it.
-    // What he destroys still rots down for the Composter, as every destroyed
-    // tile does.
+    // A freed seat is the entire payment, and it is a large one late in a run
+    // when the table is full and the shop is still laying out cards you want.
+    // The cost is control: WHICH patron dies is not yours to choose, so a
+    // shelf you have carefully ordered is a shelf you are gambling with — the
+    // ghosts speak after every living seat, so a killed ×Mult that was sitting
+    // late in the order keeps its place, while a killed +Points seat that was
+    // sitting early loses everything the position was worth.
     //
-    // Real paint only — deliberately `t.colour` rather than getActiveColour,
-    // which would count a wash. He buys dyed rags, not damp ones: a pot of ink
-    // wash is four temporary colours a page, and would turn the sacrifice into
-    // a laundry cycle.
-    //
-    // Every payout is worked out BEFORE the tile is taken, and refused rather
-    // than fudged when it cannot be given — no room on the bench for the
-    // tongs, no growable tile left in hand, or the Smelter's floor holding the
-    // collection at its minimum. No sacrifice, no boon: the rag files into the
-    // pile as it always would.
-    id: 'ragman', name: 'The Ragman', emoji: '🧺', rarity: 'uncommon', cost: 7, guild: 'crimson',
-    desc: `Each painted tile you discard has a 1-in-${Math.round(1 / RAGMAN_ODDS)} chance of being taken for good — crimson pays the tongs, amber ${RAGMAN_COINS} Coins, jade +${RAGMAN_GROWTH} Points grown into a tile in hand, azure +1 hand size for the page.`,
-    when: 'meta',
-    onDiscard({ tiles, state, trash, grow, bench }) {
-      const taken = [], notes = [];
-      for (const t of tiles) {
-        const colour = t.colour;
-        if (!COLOURS[colour]) continue;
-        if (!luckyRoll(RAGMAN_ODDS)) continue;
-
-        // The heir is chosen first: a jade rag with nothing left in hand to
-        // grow into is a rag he doesn't take.
-        const heir = colour === 'jade'
-          ? pick(state.rack.filter(x => !isImmutable(x)))
-          : null;
-        if (colour === 'crimson' && state.sundries.length >= effectiveSundrySlots()) continue;
-        if (colour === 'jade' && !heir) continue;
-        if (!trash(t)) continue;                       // the Smelter's floor held
-        taken.push(t);
-
-        if (colour === 'crimson') {
-          bench('tongs');
-          notes.push('the tongs');
-        } else if (colour === 'amber') {
-          state.coins += RAGMAN_COINS;
-          notes.push(`${RAGMAN_COINS} Coins`);
-        } else if (colour === 'jade') {
-          grow(heir, RAGMAN_GROWTH);
-          notes.push(`${getActiveLetter(heir)} +${RAGMAN_GROWTH}`);
-        } else {
-          // Felt this page and no longer: startPage takes the hand back.
-          state.rackBonus = (state.rackBonus ?? 0) + 1;
-          notes.push('a wider hand');
-        }
-      }
-      return taken.length ? { note: notes.join(' · '), trashed: taken } : null;
-    },
+    // The deed itself is in js/main.js (ripperStrikes), where the word commits:
+    // a hook can't remove its own seat from the loop that is running it, and
+    // the kill wants animating besides.
+    id: 'ripper', name: 'The Ripper', emoji: '🔪', rarity: 'rare', cost: 9, guild: 'crimson',
+    desc: `Print ${RIPPER_WORDS.slice(0, -1).join(', ')} or ${RIPPER_WORDS.at(-1)} and one of your other patrons becomes a ghost — it works on, off the shelf, freeing its seat — then this patron flees.`,
+    when: 'meta',   // the deed is done in js/main.js as the word commits
   },
   {
     // The Bloodletter's rival for the same pair — see his note on seat order.
@@ -1365,6 +1325,56 @@ export const PATRON_DEFS = [
     },
   },
   {
+    // Rags were the raw stuff of paper long before wood pulp was, and the
+    // rag-picker sorted his sack BY COLOUR before he sold it to the mill.
+    // That is the whole seat: throw him a painted tile and he pays you in the
+    // currency of that tile's own guild — the tongs for crimson, a Coin for
+    // amber, a wider hand for jade, your discard back for azure. He wears no
+    // livery himself; a man who deals in all four colours belongs to none of
+    // them.
+    //
+    // Nothing is destroyed. The rags file into the pile like any discard and
+    // come round again with the next page's bag, so what you actually pay is
+    // the page you spend without those tiles in it — which is why the payouts
+    // are small, and why two of the four last only until the page turns.
+    //
+    // A roll per painted tile, so a sackful is a sackful of chances. Real
+    // paint only — deliberately `t.colour` rather than getActiveColour, which
+    // would count a wash: a pot of ink wash is four temporary colours a page,
+    // and he buys dyed rags, not damp ones.
+    id: 'ragman', name: 'The Ragman', emoji: '🧺', rarity: 'uncommon', cost: 7,
+    desc: `Each painted tile you discard has a 1-in-${Math.round(1 / RAGMAN_ODDS)} chance of paying — crimson the tongs, amber ${RAGMAN_COINS} Coin, jade +1 hand size for the page, azure your discard back.`,
+    when: 'meta',
+    onDiscard({ tiles, state, bench }) {
+      const notes = [];
+      let refunded = false;
+      for (const t of tiles) {
+        if (!COLOURS[t.colour]) continue;
+        if (!luckyRoll(RAGMAN_ODDS)) continue;
+        if (t.colour === 'crimson') {
+          // No room on the bench, no tongs — and no harm done: clear a slot
+          // before you throw and the crimson rags are worth having.
+          if (bench('tongs')) notes.push('the tongs');
+        } else if (t.colour === 'amber') {
+          state.coins += RAGMAN_COINS;
+          notes.push(`${RAGMAN_COINS} Coin`);
+        } else if (t.colour === 'jade') {
+          // Felt at once — main.js fills the hand again after the seats have
+          // spoken — and taken back at the page turn.
+          state.rackBonus = (state.rackBonus ?? 0) + 1;
+          notes.push('a wider hand');
+        } else if (!refunded) {
+          // At most ONE discard back however much azure goes into the sack:
+          // two refunds for one throw is a hand that cycles itself forever.
+          refunded = true;
+          state.discards += 1;
+          notes.push('the discard back');
+        }
+      }
+      return notes.length ? { note: notes.join(' · ') } : null;
+    },
+  },
+  {
     // Motley is the whole joke: the one patron who cares about every colour
     // wears none. All four, nothing less — a full motley is a build you commit
     // to across a run, not a spread you stumble into. Colours are counted the
@@ -1383,9 +1393,11 @@ export const PATRON_DEFS = [
     // feeds the base and the multipliers stay someone else's business — and
     // a standing argument with the Headsman, who'd rather the seats empty.
     id: 'innkeeper', name: 'The Innkeeper', emoji: '🍻', rarity: 'common', cost: 6,
-    desc: 'Every word gains +5 Points per seated patron — this one included.',
+    // Ghosts still drink: a patron The Ripper killed has left the shelf but
+    // not the table, and the Innkeeper counts every head in the room.
+    desc: 'Every word gains +5 Points per patron you hold — this one included, and your ghosts.',
     when: 'score',
-    effect({ state, addPoints }) { addPoints(5 * state.patrons.length); },
+    effect({ addPoints }) { addPoints(5 * allSeats().length); },
   },
   {
     // The guilds' man at the table, and the reason `guild` is a def field. He
@@ -1543,6 +1555,6 @@ export const patronCost = (def, data) =>
 // each counts the counting patron itself, so a lone Composter or Banker is
 // exactly as good as he was before his guild learned to matter.
 export const guildSeats = colour =>
-  state.patrons.filter(p => guildsOf(patronById(p.id)).includes(colour)).length;
+  allSeats().filter(p => guildsOf(patronById(p.id)).includes(colour)).length;
 
 export const RARITY_WEIGHT = { common: 3, uncommon: 2, rare: 1 };
