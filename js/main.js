@@ -297,6 +297,36 @@ function noticeTheCat(script) {
   log('🐈 Somewhere beyond the lamplight, something sits up and takes an interest.', 'good');
 }
 
+// ─── The Economiser (a sort melted down per word) ─────────────────────────────
+// One tile you did NOT set goes to the melting pot after every word — the only
+// editor whose cost outlives its page. Destroyed through trashFromCollection
+// like everything else, so the Smelter's floor holds at twelve tiles, the
+// Composter is fed, and a seated Revenant will raise half of what is taken.
+//
+// It reaches only into the rack: the word has already left it by the time this
+// runs, so what you committed to the page is safe by construction, and a
+// longer word is a smaller offering. A tile with no collection template behind
+// it (an editor's own lent letters, a ghost that was never filed) simply
+// cannot be melted, and the toll passes.
+async function editorEats() {
+  if (!bossById(state.boss?.id)?.eatsSpare) return;
+  const spare = state.rack.filter(t => state.collection.some(c => c.tid === t.tid));
+  if (!spare.length) return;
+  const doomed = spare[Math.floor(Math.random() * spare.length)];
+  if (!trashFromCollection(doomed.tid)) {
+    log('🗑️ The Economiser reaches into the case, and thinks better of it — the press is down to its last sorts.', 'warn');
+    return;
+  }
+  const el = rackTileEl(doomed.id);
+  state.isAnimating = true;
+  if (el) await animateBurn([el]);
+  state.rack = state.rack.filter(t => t.id !== doomed.id);
+  state.isAnimating = false;
+  renderAll();
+  log(`🗑️ The Economiser melts down the ${getActiveLetter(doomed)} you left in the case — gone for good.`, 'warn');
+  reportPaintEchoes();   // The Revenant may have caught it
+}
+
 // ─── Rose metal (a tile that crowns) ──────────────────────────────────────────
 // The Poppet's party favour, and the only tile in the game with a rule of its
 // own rather than a number: print a sort struck in rose metal and one of your
@@ -1002,6 +1032,7 @@ async function submitWord() {
   // Said after the score, so the notice isn't the line the score writes over.
   noticeTheCat(script);
   await roseCrowns(printed);
+  await editorEats();
   await ripperStrikes(script);
 
   // Tiles fly to wherever they actually went

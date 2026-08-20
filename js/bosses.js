@@ -37,6 +37,10 @@
 //                                nothing else (the Redactor). Laid and cleared
 //                                in startPage; read through isWrapped.
 //   rackBonus / noDiscards     — structural knobs read by state.js.
+//   eatsSpare: true            — after every word, one sort left in the rack
+//                                is destroyed for good (the Economiser). Read
+//                                by main.js at commit, where the rack and the
+//                                animation both are.
 //
 // Tuning numbers live here with their editor, patron-style; SPIKE_MULT lives
 // in constants.js because scoring and the bar both read it.
@@ -268,6 +272,26 @@ export const BOSS_DEFS = [
     desc: 'Waste nothing, and you can always find what you need: +2 hand size, but 0 discards.',
     rackBonus: 2,
     noDiscards: true,
+  },
+  {
+    // The Hoarder's exact opposite, and the only editor whose cost outlives
+    // its page. Every other rule here warps the shape of a word and is gone at
+    // the page turn; this one melts a sort down for good. That is a deliberate
+    // exception to the roster's own promise, and it is bounded by three
+    // things: it takes only from the tiles you DIDN'T set, so the word you
+    // just built is never touched; it eats one sort per word, so a page costs
+    // at most what its words earn; and it goes through trashFromCollection
+    // like every other destruction, which means the Smelter's floor holds it
+    // at twelve tiles, the Composter is fed by it, and The Revenant will walk
+    // half of what it takes straight back out of the hellbox.
+    //
+    // It never spikes, so there is no rule to satisfy and no judge here — the
+    // toll is the whole editor. The right answer to it is to set longer words:
+    // the more of your hand you commit to the page, the less of it is left in
+    // the case for the melting pot.
+    id: 'economiser', name: 'The Economiser', emoji: '🗑️',
+    desc: 'Idle type is dead capital. For every word you set, one sort you left in the case goes to the melting pot — for good.',
+    eatsSpare: true,
   },
 ];
 

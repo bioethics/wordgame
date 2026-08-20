@@ -20,7 +20,7 @@ House style for a description, from `docs/PATRON_OVERHAUL.md`: one sentence,
 real numbers, no metaphor, under ~110 characters. State the rule, not the
 feeling — the flavour belongs to the name, the emoji and the quips.
 
-**82 patrons** — 22 common, 38 uncommon, 22 rare. Guilds: amber 13, jade 13, crimson 14, azure 14, no guild 31 — a dual-livery patron counts in each of its guilds.
+**83 patrons** — 22 common, 39 uncommon, 22 rare. Guilds: amber 13, jade 14, crimson 14, azure 14, no guild 31 — a dual-livery patron counts in each of its guilds.
 
 ## Amber · the counting-house
 
@@ -52,6 +52,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🧀 **The Cellarer** `cellarer` | uncommon · also amber | 6 | Ages when a page ends with a jade tile in hand: a laurel each time, and +1 Coin when dismissed. |
 | 🖍️ **The Dabbler** `dabbler` | uncommon | 6 | Whenever a tile is painted, a second unpainted tile has a 1-in-2 chance of taking the same colour. |
 | 🪴 **The Espalier** `espalier` 🔒 | uncommon | 6 | Print a two-tile word: both tiles permanently gain +2 Points — in time to score. |
+| 🌳 **The Orchardist** `orchardist` | uncommon | 6 | Every word gains +0.5 Mult per jade patron you keep — this one included. |
 | 🖼️ **The Frontispiece** `frontispiece` 🔒 | uncommon | 7 | The first word of each page gets ×1.5 Mult — and a laurel each time that word clears the quota alone. |
 | 👑 **The Laureate** `laureate` 🔒 | uncommon | 8 | Every jade tile you print crowns this patron with a laurel — +3 Points on every word, for good. |
 | 🌿 **The Grafter** `grafter` | rare | 8 | When a word with a jade tile prints, every tile in it permanently gains +1 Point. |

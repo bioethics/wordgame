@@ -197,7 +197,8 @@ none but the 750 commonest words in English, where the Obscurantist spikes the
 commonest 500 outright; the Minimalist holds the adjective to be the enemy of
 the noun and spikes every describing word (off the same list *the Poet* is paid
 from, so the two are exact opposites); the Serialist demands each word open on
-the letter the last one ended with; the Indexer files the page alphabetically;
+the letter the last one ended with; the Economiser melts down a sort you left
+in the case for every word you set; the Indexer files the page alphabetically;
 the Escalationist insists every word outscore the one before; the Enthusiast
 lends a tile of a beloved letter and expects it in every word; the Reviewer
 receives each word in a temper (×0.2–×0.95) rolled openly before you compose;
@@ -256,6 +257,18 @@ places, which is a cage — you draw seven real tiles and build around EEE; the
 Editooor runs the same cage in O. On the board the two kinds are coloured
 apart: warm brass for the gift, cold ink-blue with a proof-reader's double
 rule for the lender's own type.
+
+**The Economiser** is the only editor whose cost outlives its page. Every other
+rule here warps a word and is gone at the page turn; this one melts a sort down
+for good — after each word you set, one tile you *didn't* is destroyed. That is
+a deliberate exception to the roster's own promise, and it is bounded by three
+things: it reaches only into the rack, so the word you just built is safe by
+construction and a longer word is a smaller offering; it takes one sort per
+word, so a page costs no more than its words; and it goes through
+`trashFromCollection` like every other destruction, which means the Smelter's
+floor holds it at twelve tiles, the Composter is fed by it, and *the Revenant*
+walks half of what it takes straight back out of the hellbox. It is the
+Hoarder's exact opposite, and it never spikes: the toll is the whole editor.
 
 The Redactor is the one editor whose rule is written on the tiles rather than
 on the words. As the Deadline is dealt it wraps a third of the **collection** —

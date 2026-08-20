@@ -847,6 +847,28 @@ export const PATRON_DEFS = [
     },
   },
   {
+    // Jade's answer to The Banker, and built the same way: he is paid by the
+    // size of the garden rather than by anything you print, +0.5 Mult for
+    // every jade seat including his own. Alone that is a modest +0.5 and a
+    // poor bargain; the moment a second gardener joins him it is a real
+    // number, and a committed jade bench carries him past +2.5. Counted
+    // through guildSeats, so a dual-livery seat (the Cellarer, the Composter)
+    // counts as the jade patron it half is, and a jade patron The Ripper
+    // killed keeps counting from among the ghosts — the trees are still
+    // standing whether or not anyone is tending them.
+    //
+    // Additive, deliberately. Jade already compounds through permanence, and a
+    // ×Mult that grew with the bench would make the guild's own seats worth
+    // buying for this one seat's sake rather than for what they do.
+    id: 'orchardist', name: 'The Orchardist', emoji: '🌳', rarity: 'uncommon', cost: 6, guild: 'jade',
+    desc: 'Every word gains +0.5 Mult per jade patron you keep — this one included.',
+    when: 'score',
+    effect({ addMult }) {
+      const trees = guildSeats('jade');
+      if (trees) addMult(trees * 0.5);
+    },
+  },
+  {
     id: 'grafter', name: 'The Grafter', emoji: '🌿', rarity: 'rare', cost: 8, guild: 'jade',
     desc: 'When a word with a jade tile prints, every tile in it permanently gains +1 Point.',
     when: 'meta',
