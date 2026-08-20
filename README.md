@@ -104,7 +104,26 @@ same count as the living, they still count for the Innkeeper's headcount and
 the Alderman's guilds, and their contracts are worth nothing when you let them
 go. `state.ghosts`, read everywhere through `allSeats()` in `js/state.js`: the
 rule is that anything asking what your patrons *do* reads `allSeats()`, and
-only the seat limit, the shelf and the reordering read `state.patrons`.
+only the seat limit, the shelf and the reordering read `state.patrons`. The
+door is drawn twice — beside the board's shelf, and in the Market's **Your
+table** heading — and opens the same sheet either way.
+
+*The Medium* (rare, crimson) is the other half of the haunting, and the one
+patron who profits from destruction wherever it happens: every tile destroyed
+anywhere has a 1-in-2 chance of coming back in **ghost metal**, which costs no
+room in your hand. She needs no hook — every road to permanent destruction
+runs through `trashFromCollection`, and she is heard from inside it, exactly as
+*the Dabbler* is heard from inside `paintTile`. What comes back is the letter
+alone: no paint, no trim, no growth. Nothing caps how many she raises, so a
+press that keeps feeding her ends up playing out of a hand of thirty — the rack
+wraps, and that is the intended reward rather than a bug.
+
+**And if the knife finds her**, it turns. You cannot murder the dead: *the
+Medium* takes *the Ripper* instead, and a ghost has nowhere to flee to — so
+from then on every watchword kills again, at no further cost, until the
+graveyard is full or there is nobody living left to take. Two rare seats, one
+of them chosen blind, and the one-shot becomes an engine that empties your
+shelf into the beyond and hands every seat back.
 
 Two things happen before any of that. Patrons whose promise reads *"such-and-such
 tiles gain +N Points"* — the Goldsmith, the Seedsman, the Siren, the Jeweller,

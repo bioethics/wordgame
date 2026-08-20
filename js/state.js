@@ -3,6 +3,7 @@ import {
   PATRON_SLOTS, SUNDRY_SLOTS, SMELT_MIN_COLLECTION,
   BAG_COUNTS, TILE_POINTS, DABBLER_ODDS, CURSED_MAX_POINTS, isImmutable, isMark,
   MARKS, MARK_TRIM, SILVER_BONUS, FLEURON, LOUPE_CAP, TONGS_BONUS, WASH_COUNT,
+  MEDIUM_ODDS,
   COLOURS,
   quotaFor, makeTileTemplate, GAMBLER_ODDS, isDeadline,
 } from './constants.js';
@@ -765,7 +766,54 @@ export function trashFromCollection(tid) {
   if (i < 0) return null;
   const [removed] = state.collection.splice(i, 1);
   if (owns('composter')) state.compostPending = (state.compostPending ?? 0) + 1;
+  mediumRaises(removed);
   return removed;
+}
+
+// The Medium sits at every graveside there is. Because every road to
+// destruction runs through trashFromCollection above — the Stoker's fire, the
+// Arsonist's accidents, the Bloodletter's basin, the Serpent's meal, the
+// tongs, the crucible, the Smelter's furnace — she is heard at all of them
+// from this one place, exactly as The Dabbler is heard at every brushstroke
+// from inside paintTile.
+//
+// What she raises is the LETTER, in bare ghost metal: no paint, no trim, no
+// nick, no growth, no second face. A séance calls back the shape of a thing,
+// not its finery. That is a balance decision as much as a flavour one — ghost
+// metal costs no hand space, so a resurrection that kept its colour would
+// hand a burning press free multipliers forever.
+//
+// No cap on how many she raises. Ghost tiles take no room in the hand, so a
+// press that has fed her thirty tiles has earned its thirty-tile hand and the
+// chaos that comes with it; the rack wraps.
+//
+// Guarded against raising the dead twice: a ghost she calls back can be
+// destroyed again later (the Arsonist doesn't check what he burns), and the
+// séance would otherwise run inside its own casting.
+let ghostEchoes = [];
+let raising = false;
+
+export function takeGhostEchoes() {
+  const out = ghostEchoes;
+  ghostEchoes = [];
+  return out;
+}
+
+function mediumRaises(template) {
+  if (raising || !owns('medium') || !luckyRoll(MEDIUM_ODDS)) return;
+  const letter = template.activeVariant === 1 ? template.altLetter : template.letter;
+  if (!letter) return;
+  raising = true;
+  // Between pages there is no hand to arrive in — the bag is dealt from the
+  // collection at the page turn, so a tile raised at the Market's furnace is
+  // simply waiting in the case when the next page begins.
+  const tmpl = adoptTemplate(makeTileTemplate(letter, { material: 'ghost' }));
+  state.collection.push(tmpl);
+  if (!state.inMarket && !state.inDraft && !state.inColophon) {
+    state.rack.push(templateToTile(tmpl));
+  }
+  raising = false;
+  ghostEchoes.push({ letter });
 }
 
 // Melt two tiles into one two-faced sort (The Typefounder): the left tile

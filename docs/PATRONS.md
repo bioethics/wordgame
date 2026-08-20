@@ -20,7 +20,7 @@ House style for a description, from `docs/PATRON_OVERHAUL.md`: one sentence,
 real numbers, no metaphor, under ~110 characters. State the rule, not the
 feeling — the flavour belongs to the name, the emoji and the quips.
 
-**81 patrons** — 22 common, 38 uncommon, 21 rare. Guilds: amber 13, jade 13, crimson 13, azure 14, no guild 31 — a dual-livery patron counts in each of its guilds.
+**82 patrons** — 22 common, 38 uncommon, 22 rare. Guilds: amber 13, jade 13, crimson 14, azure 14, no guild 31 — a dual-livery patron counts in each of its guilds.
 
 ## Amber · the counting-house
 
@@ -70,6 +70,7 @@ feeling — the flavour belongs to the name, the emoji and the quips.
 | 🍂 **The Composter** `composter` | uncommon · also jade | 7 | Destroyed tiles rot into jade ones — at each Market, take one from the heap per jade patron you keep. |
 | 🪓 **The Headsman** `headsman` 🔒 | uncommon | 7 | Each patron you dismiss permanently raises this patron's Mult by 0.2. |
 | 🐍 **The Serpent** `serpent` | uncommon | 7 | Words ending in S get ×2 Mult — and the S is swallowed. |
+| 🔮 **The Medium** `medium` 🔒 | rare | 8 | Every tile destroyed has a 1-in-2 chance of coming back in ghost metal — the letter alone, and it costs no hand space. |
 | 🔪 **The Ripper** `ripper` 🔒 | rare | 9 | Print KILL, MURDER or SLAY and one of your other patrons becomes a ghost — it works on, off the shelf, freeing its seat — then this patron flees. |
 | ⚗️ **The Typefounder** `typefounder` | rare | 10 | Discard exactly two tiles: they are recast as one tile with a letter on either face. |
 | 🔥 **The Stoker** `stoker` 🔒 | rare | 11 | ×1.25 Mult, and crimson tiles are destroyed when printed — each one raises that Mult by 0.25, for good. |

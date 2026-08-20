@@ -634,6 +634,15 @@ export const DIPPER_PAINT_CHANCE = 1 / 12;
 // reason, and two of the four are page-scoped rather than permanent.
 export const RAGMAN_ODDS   = 0.5;   // per painted tile discarded
 export const RAGMAN_COINS  = 1;     // amber: what the rag fetches
+// The Medium's séance: the odds that a tile destroyed anywhere comes back in
+// ghost metal. Deliberately steep — she is a rare seat whose whole trade is
+// destruction, and a press with no way to destroy anything gets nothing from
+// her at all. What comes back is the LETTER and nothing else: bare ghost
+// metal, no paint, no trim, no growth. A séance raises the shape of a thing,
+// not its finery — and a resurrection that kept its paint would hand a
+// crimson press free colour multipliers that cost no hand space, which is the
+// strongest thing there is.
+export const MEDIUM_ODDS = 0.5;
 // The Ripper's watchwords. Print one and he kills a patron — see js/main.js,
 // where the deed is done, and state.ghosts, where the victim goes on working.
 // Three words, all of them short and all of them settable from an ordinary

@@ -5,7 +5,7 @@
 
 import {
   state, owns, effectivePatronSlots, effectiveSundrySlots, spendReshuffleSundry,
-  takePaintEchoes,
+  takePaintEchoes, takeGhostEchoes,
 } from './state.js';
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
@@ -26,7 +26,7 @@ import {
 } from './colophon.js';
 import { draft, draftLimit, toggleDraftPick } from './draft.js';
 import {
-  makeTileEl, coinHTML, log, renderAll, persist, showPatronPopover,
+  makeTileEl, coinHTML, log, renderAll, persist, showPatronPopover, openGhosts,
 } from './render.js';
 import { sfx, pulse, sparkleBurst, flyClone, sleep } from './anim.js';
 
@@ -249,11 +249,23 @@ function marketBenchHTML() {
     </section>`;
 }
 
+// The board's graveyard door, restated in the Market for the same reason the
+// shelf and the bench are: the board is under the modal, and what your ghosts
+// are doing is exactly the sort of thing you want to know while deciding who
+// to hire. Same button, same sheet — the sheet is a modal at the body level,
+// so it opens over the Market without either knowing about the other.
+const marketGhostDoorHTML = () => {
+  const n = state.ghosts?.length ?? 0;
+  if (!n) return '';
+  return `<button class="market-ghosts" data-open-ghosts>
+    <span class="ghost-btn-mark">👻</span>${n} ghost${n > 1 ? 's' : ''}</button>`;
+};
+
 function marketShelfHTML() {
   const fullSeats = state.patrons.length >= effectivePatronSlots();
   return `
     <section class="market-shelf${fullSeats ? ' market-shelf--wanted' : ''}" data-market-shelf-wrap>
-      <h3 class="market-sec">Your table <span class="market-sub" data-seats>${seatsLabel()}</span><span class="market-sub market-sub--hint">drag a card to change the running order</span></h3>
+      <h3 class="market-sec">Your table <span class="market-sub" data-seats>${seatsLabel()}</span><span class="market-sub market-sub--hint">drag a card to change the running order</span>${marketGhostDoorHTML()}</h3>
       <div class="shelf shelf--market" data-market-shelf style="--seat-count:${effectivePatronSlots()}">${marketShelfCardsHTML()}</div>
     </section>`;
 }
@@ -872,6 +884,7 @@ function onMarketClick(e) {
     return;
   }
 
+  if (e.target.closest('[data-open-ghosts]')) { openGhosts(); return; }
   if (e.target.closest('#btnReroll')) {
     if (rerollMarket()) { sfx.draw(); renderAll(); renderMarket(); }
     return;
@@ -942,11 +955,15 @@ function onMarketClick(e) {
     else {
       if (market.activeStall === 'smelter') sfx.discard(); else sfx.coin();
       log(msg, 'good');
-      // A Painter's coat can splash (The Dabbler, deep in paintTile) —
-      // drain the echo queue into the log here, since main.js never sees
-      // this action.
+      // A Painter's coat can splash (The Dabbler, deep in paintTile) and the
+      // Smelter's furnace can be sat over (The Medium, deep in
+      // trashFromCollection) — drain both echo queues into the log here,
+      // since main.js never sees this action.
       for (const e of takePaintEchoes()) {
         log(`🖍️ The Dabbler splashes ${e.letter} ${COLOURS[e.colour].label.toLowerCase()} as well.`, 'good');
+      }
+      for (const e of takeGhostEchoes()) {
+        log(`🔮 The Medium calls ${e.letter} back in ghost metal — it will be waiting in the case.`, 'good');
       }
       // Work done, back to the market — the stall card's risen price is the
       // thing to see, and lingering in the stall let it go unnoticed. The

@@ -9,7 +9,7 @@ import {
   discardSelected, discardSundry, getWordString, moveRackToWord, owns, allSeats,
   effectiveGhostSlots, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected, takePaintEchoes,
-  rollTubeOffer, applyWash, washOff, effectiveSundrySlots,
+  rollTubeOffer, applyWash, washOff, effectiveSundrySlots, takeGhostEchoes,
   getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile,
   trashFromCollection, mergeTiles, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
   effectiveWordsPerPage, rollGamble, effectivePatronSlots, nextId,
@@ -216,10 +216,13 @@ function noticeTheCat(script) {
 // on nothing. The victim is chosen blind — WHICH seat dies is the price of the
 // one he frees.
 async function ripperStrikes(script) {
-  const at = state.patrons.findIndex(p => p.id === 'ripper');
-  if (at < 0 || !RIPPER_WORDS.includes(script?.letters)) return;
+  // He may be seated OR haunting: a Ripper who has met The Medium is a ghost
+  // himself, and a ghost has nowhere to flee to, so he keeps his knife.
+  const killer = allSeats().find(p => p.id === 'ripper');
+  if (!killer || !RIPPER_WORDS.includes(script?.letters)) return;
+  const alreadyDead = (state.ghosts ?? []).includes(killer);
 
-  const victims = state.patrons.filter(p => p.id !== 'ripper');
+  const victims = state.patrons.filter(p => p !== killer);
   if (!victims.length) {
     log('🔪 The Ripper turns the knife over, and finds nobody at the table but himself.', 'warn');
     return;
@@ -232,8 +235,43 @@ async function ripperStrikes(script) {
   const victim = victims[Math.floor(Math.random() * victims.length)];
   const def = patronById(victim.id);
   const name = patronName(def, victim.data);
+
+  // ── The knife turns ────────────────────────────────────────────────────────
+  // You cannot murder the dead. The Medium is already on the other side of the
+  // table, and what the knife finds when it reaches her is that it is holding
+  // the wrong end: she takes the Ripper instead. He goes to the ghosts wearing
+  // his own effect, and a ghost cannot flee — so from here on every watchword
+  // kills again, at no further cost, until there is no room left among your
+  // ghosts or nobody living to take. That is the rarest thing in the game: two
+  // rare seats, one of them chosen blind, and it turns the Ripper from a
+  // one-shot into an engine that empties your shelf into the beyond and hands
+  // every seat back.
+  if (victim.id === 'medium') {
+    const hers = patronCard(victim);
+    const his  = patronCard(killer);
+    state.isAnimating = true;
+    if (hers) { pulse(hers, 'patron--firing', 900); sparkleBurst(hers, 14); }
+    sfx.lose();
+    if (!alreadyDead && his) {
+      pulse(his, 'patron--murdered', 900);
+      floatText(his, '🔪', 'fl-points', { dy: -46 });
+    }
+    await sleep(ANIM.stepColour * 2);
+    if (!alreadyDead) {
+      state.ghosts.push(killer);
+      state.patrons.splice(state.patrons.indexOf(killer), 1);
+    }
+    state.isAnimating = false;
+    renderAll();
+    log(alreadyDead
+      ? `🔮 ${name} turns the knife aside again. You cannot murder the dead.`
+      : `🔮 ${name} was expecting him. The knife turns: The Ripper is murdered, and haunts your table now — and a ghost has nowhere left to flee to.`,
+      'warn');
+    return;
+  }
+
   const card = patronCard(victim);
-  const knife = patronCard(state.patrons[at]);
+  const knife = patronCard(killer);
 
   state.isAnimating = true;
   if (card) {
@@ -245,14 +283,16 @@ async function ripperStrikes(script) {
   sfx.bad();
   await sleep(ANIM.stepColour * 2);
 
-  // Off the shelf and into the beyond, then the knife lets itself out.
+  // Off the shelf and into the beyond, then the knife lets itself out — unless
+  // it is already dead, in which case it stays exactly where it is.
   state.ghosts.push(victim);
   state.patrons.splice(state.patrons.indexOf(victim), 1);
-  state.patrons.splice(state.patrons.findIndex(p => p.id === 'ripper'), 1);
+  if (!alreadyDead) state.patrons.splice(state.patrons.indexOf(killer), 1);
 
   state.isAnimating = false;
   renderAll();
-  log(`🔪 ${name} is murdered — and works on as a ghost, its seat now empty. The Ripper is gone.`, 'warn');
+  log(`🔪 ${name} is murdered — and works on as a ghost, its seat now empty.`
+    + (alreadyDead ? ' The Ripper waits for another word.' : ' The Ripper is gone.'), 'warn');
 }
 
 // ─── Titivillus (one wrong vowel forgiven) ────────────────────────────────────
@@ -514,6 +554,11 @@ function runPageHooks() {
 function reportPaintEchoes() {
   for (const e of takePaintEchoes()) {
     log(`🖍️ The Dabbler splashes ${e.letter} ${COLOURS[e.colour].label.toLowerCase()} as well.`, 'good');
+  }
+  // The Medium's séances queue the same way, and drain wherever paint does —
+  // every route to destruction is also a route to the log.
+  for (const e of takeGhostEchoes()) {
+    log(`🔮 The Medium calls ${e.letter} back in ghost metal — it costs you no room in the hand.`, 'good');
   }
 }
 
@@ -1358,6 +1403,7 @@ $('sundries')?.addEventListener('click', async e => {
     state.isAnimating = false;
     renderAll();
     log(`The tongs grip ${result.letters[0]} — ash, and +${result.bonus} Points waiting on the next word.`, 'good');
+    reportPaintEchoes();   // The Medium sits over the furnace too
     return;
   }
 

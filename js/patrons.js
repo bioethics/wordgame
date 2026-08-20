@@ -116,7 +116,7 @@
 import {
   GRAFTER_STEP, STOKER_BASE, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, ABECEDARIAN_STEP,
-  RAGMAN_ODDS, RAGMAN_COINS,
+  RAGMAN_ODDS, RAGMAN_COINS, MEDIUM_ODDS, MATERIALS,
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, isMark,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
   HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, RIPPER_WORDS, splitMarks, isImmutable,
@@ -986,6 +986,27 @@ export const PATRON_DEFS = [
     id: 'ripper', name: 'The Ripper', emoji: '🔪', rarity: 'rare', cost: 9, guild: 'crimson',
     desc: `Print ${RIPPER_WORDS.slice(0, -1).join(', ')} or ${RIPPER_WORDS.at(-1)} and one of your other patrons becomes a ghost — it works on, off the shelf, freeing its seat — then this patron flees.`,
     when: 'meta',   // the deed is done in js/main.js as the word commits
+  },
+  {
+    // Victorian spiritualism, in a printing house: she holds a séance over the
+    // hellbox. Every road to permanent destruction in the game runs through
+    // trashFromCollection (js/state.js), and she is heard from inside it — the
+    // Stoker's fire, the Arsonist's accidents, the Bloodletter's basin, the
+    // Serpent's meal, the tongs, the crucible, the Smelter's furnace — the same
+    // arrangement that lets The Dabbler hear every brushstroke from inside
+    // paintTile. So she needs no hook of her own and can never miss a death.
+    //
+    // What comes back is the LETTER, in bare ghost metal: no paint, no trim,
+    // no growth, no second face. A séance raises the shape of a thing, not its
+    // finery — and since ghost metal costs no hand space, a resurrection that
+    // kept its colour would hand a burning press free multipliers forever.
+    //
+    // Nothing caps how many she raises. A ghost tile takes no room in the
+    // hand, so a press that has fed her thirty tiles has earned its
+    // thirty-tile hand and whatever happens next.
+    id: 'medium', name: 'The Medium', emoji: '🔮', rarity: 'rare', cost: 8, guild: 'crimson',
+    desc: `Every tile destroyed has a 1-in-${Math.round(1 / MEDIUM_ODDS)} chance of coming back in ${MATERIALS.ghost.metal.toLowerCase()} — the letter alone, and it costs no hand space.`,
+    when: 'meta',   // the séance is held inside trashFromCollection (js/state.js)
   },
   {
     // The Bloodletter's rival for the same pair — see his note on seat order.
