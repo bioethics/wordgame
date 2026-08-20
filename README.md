@@ -108,19 +108,23 @@ only the seat limit, the shelf and the reordering read `state.patrons`. The
 door is drawn twice — beside the board's shelf, and in the Market's **Your
 table** heading — and opens the same sheet either way.
 
-*The Medium* (rare, crimson) is the other half of the haunting, and the one
+*The Revenant* (rare, crimson) is the other half of the haunting, and the one
 patron who profits from destruction wherever it happens: every tile destroyed
-anywhere has a 1-in-2 chance of coming back in **ghost metal**, which costs no
-room in your hand. She needs no hook — every road to permanent destruction
-runs through `trashFromCollection`, and she is heard from inside it, exactly as
-*the Dabbler* is heard from inside `paintTile`. What comes back is the letter
-alone: no paint, no trim, no growth. Nothing caps how many she raises, so a
-press that keeps feeding her ends up playing out of a hand of thirty — the rack
-wraps, and that is the intended reward rather than a bug.
+anywhere has a 1-in-2 chance of walking back out of the hellbox in **ghost
+metal**, which costs no room in your hand. It needs no hook — every road to
+permanent destruction runs through `trashFromCollection`, and the rite is
+performed from inside it, exactly as *the Dabbler* is heard from inside
+`paintTile`. What comes back is the **whole tile**: its paint, its trim, its
+nick, its grown Points, both faces of a dual — only the metal is overwritten,
+and nothing can be done to it afterwards. That generosity is the point: the
+tiles worth raising are the ones you least want to feed to the fire. Nothing
+caps how many it raises, so a press that keeps feeding it ends up playing out
+of a hand of thirty — the rack wraps, and that is the intended reward rather
+than a bug.
 
-**And if the knife finds her**, it turns. You cannot murder the dead: *the
-Medium* takes *the Ripper* instead, and a ghost has nowhere to flee to — so
-from then on every watchword kills again, at no further cost, until the
+**And if the knife finds it**, the knife turns. You cannot murder the dead:
+*the Revenant* takes *the Ripper* instead, and a ghost has nowhere to flee to —
+so from then on every watchword kills again, at no further cost, until the
 graveyard is full or there is nobody living left to take. Two rare seats, one
 of them chosen blind, and the one-shot becomes an engine that empties your
 shelf into the beyond and hands every seat back.

@@ -956,14 +956,14 @@ function onMarketClick(e) {
       if (market.activeStall === 'smelter') sfx.discard(); else sfx.coin();
       log(msg, 'good');
       // A Painter's coat can splash (The Dabbler, deep in paintTile) and the
-      // Smelter's furnace can be sat over (The Medium, deep in
+      // Smelter's furnace can be stood over (The Revenant, deep in
       // trashFromCollection) — drain both echo queues into the log here,
       // since main.js never sees this action.
       for (const e of takePaintEchoes()) {
         log(`🖍️ The Dabbler splashes ${e.letter} ${COLOURS[e.colour].label.toLowerCase()} as well.`, 'good');
       }
       for (const e of takeGhostEchoes()) {
-        log(`🔮 The Medium calls ${e.letter} back in ghost metal — it will be waiting in the case.`, 'good');
+        log(`💀 The Revenant walks ${e.letter} back out of the hellbox — it will be waiting in the case.`, 'good');
       }
       // Work done, back to the market — the stall card's risen price is the
       // thing to see, and lingering in the stall let it go unnoticed. The

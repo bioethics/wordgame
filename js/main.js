@@ -216,7 +216,7 @@ function noticeTheCat(script) {
 // on nothing. The victim is chosen blind — WHICH seat dies is the price of the
 // one he frees.
 async function ripperStrikes(script) {
-  // He may be seated OR haunting: a Ripper who has met The Medium is a ghost
+  // He may be seated OR haunting: a Ripper who has met The Revenant is a ghost
   // himself, and a ghost has nowhere to flee to, so he keeps his knife.
   const killer = allSeats().find(p => p.id === 'ripper');
   if (!killer || !RIPPER_WORDS.includes(script?.letters)) return;
@@ -237,16 +237,16 @@ async function ripperStrikes(script) {
   const name = patronName(def, victim.data);
 
   // ── The knife turns ────────────────────────────────────────────────────────
-  // You cannot murder the dead. The Medium is already on the other side of the
-  // table, and what the knife finds when it reaches her is that it is holding
-  // the wrong end: she takes the Ripper instead. He goes to the ghosts wearing
-  // his own effect, and a ghost cannot flee — so from here on every watchword
-  // kills again, at no further cost, until there is no room left among your
-  // ghosts or nobody living to take. That is the rarest thing in the game: two
-  // rare seats, one of them chosen blind, and it turns the Ripper from a
-  // one-shot into an engine that empties your shelf into the beyond and hands
-  // every seat back.
-  if (victim.id === 'medium') {
+  // You cannot murder the dead. The Revenant is already on the other side of
+  // the table, and what the knife finds when it reaches him is that it is
+  // holding the wrong end: the Ripper is taken instead. He goes to the ghosts
+  // wearing his own effect, and a ghost cannot flee — so from here on every
+  // watchword kills again, at no further cost, until there is no room left
+  // among your ghosts or nobody living to take. That is the rarest thing in
+  // the game: two rare seats, one of them chosen blind, and it turns the
+  // Ripper from a one-shot into an engine that empties your shelf into the
+  // beyond and hands every seat back.
+  if (victim.id === 'revenant') {
     const hers = patronCard(victim);
     const his  = patronCard(killer);
     state.isAnimating = true;
@@ -264,8 +264,8 @@ async function ripperStrikes(script) {
     state.isAnimating = false;
     renderAll();
     log(alreadyDead
-      ? `🔮 ${name} turns the knife aside again. You cannot murder the dead.`
-      : `🔮 ${name} was expecting him. The knife turns: The Ripper is murdered, and haunts your table now — and a ghost has nowhere left to flee to.`,
+      ? `💀 The knife passes straight through ${name}. You cannot murder the dead.`
+      : `💀 ${name} was already dead, and the knife turns in the Ripper's hand: he is murdered, and haunts your table now — with nowhere left to flee to.`,
       'warn');
     return;
   }
@@ -555,10 +555,10 @@ function reportPaintEchoes() {
   for (const e of takePaintEchoes()) {
     log(`🖍️ The Dabbler splashes ${e.letter} ${COLOURS[e.colour].label.toLowerCase()} as well.`, 'good');
   }
-  // The Medium's séances queue the same way, and drain wherever paint does —
+  // The Revenant's raisings queue the same way, and drain wherever paint does —
   // every route to destruction is also a route to the log.
   for (const e of takeGhostEchoes()) {
-    log(`🔮 The Medium calls ${e.letter} back in ghost metal — it costs you no room in the hand.`, 'good');
+    log(`💀 The Revenant walks ${e.letter} back out of the hellbox in ghost metal — it costs you no room in the hand.`, 'good');
   }
 }
 
@@ -1403,7 +1403,7 @@ $('sundries')?.addEventListener('click', async e => {
     state.isAnimating = false;
     renderAll();
     log(`The tongs grip ${result.letters[0]} — ash, and +${result.bonus} Points waiting on the next word.`, 'good');
-    reportPaintEchoes();   // The Medium sits over the furnace too
+    reportPaintEchoes();   // The Revenant stands over the furnace too
     return;
   }
 
