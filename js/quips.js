@@ -28,10 +28,12 @@ export const PATRON_QUIPS = [
   'Fashionable!',
   'Ten out of ten.',
   'Laudable.',
+  'Desirable.',
   'Inspirational!',
   'Pure poetry.',
   'What a lark!',
-  'A top 10 word of all time!',
+  'A+',
+  'An all-time top 10 word!',
 
   // About the word specifically (often nonsensically)
   'I love {word}!',
@@ -46,11 +48,12 @@ export const PATRON_QUIPS = [
   'How did you think of {word}?!',
   'What a word — {word}!',
   'I’ve always loved {word}.',
+  '{word} would make a great name for a band.',
   'They should print {word} on tshirts.',
   'Never seen anything like {word}!',
   'That’s the best {word} I’ve ever seen.',
   'Frame it! Frame {word} immediately!',
-  'I named my cat {word}.',
+  'I shall name my cat {word}.',
   'I shall tell my grandchildren: {word}.',
   '{word} — now THAT’S a word.',
   'My first word was {word}!',
@@ -76,6 +79,7 @@ export const PATRON_QUIPS = [
   'History is being made!',
   'I am prouder of you than I am of my son.',
   'I never doubted you.',
+  'I would die for you.',
 
   // Faintly unhinged
   'Did you rehearse that?',
