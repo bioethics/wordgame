@@ -3433,6 +3433,21 @@ button.sundry:hover { transform: translateY(-2px); }
   pointer-events: none;
   z-index: 320;
 }
+/* The Wordler marks in Wordle's own squares: no styling of their own beyond
+   room to breathe, and none of the bubble's italic prose voice. */
+.speech-bubble--wordle {
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: 19px;
+  letter-spacing: 2px;
+  line-height: 1.1;
+  padding: 8px 11px;
+  /* The bubble is sized for a line of prose; a row of squares must not wrap,
+     or the marking reads as two guesses instead of one. */
+  max-width: none;
+  white-space: nowrap;
+}
+
 .speech-bubble::after {
   content: '';
   position: absolute;
@@ -3742,6 +3757,34 @@ input[type='checkbox'] {
   color: var(--parch-dim);
 }
 .tip-line { color: #5c4a2e; margin-top: 3px; }
+
+/* ── The Wordler's board ──────────────────────────────────────────────────────
+   Every guess he has marked, newest last — Wordle without the previous rows is
+   a memory test, not a puzzle. The word is set in the tile face so it reads as
+   type; the squares carry the verdict. */
+.wordle-board {
+  margin: 9px 0 2px;
+  padding: 7px 9px;
+  border-radius: 7px;
+  background: rgba(45, 138, 92, 0.07);
+  border: 1px dashed rgba(45, 138, 92, 0.35);
+}
+.wordle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.wordle-row + .wordle-row { margin-top: 3px; }
+.wordle-word {
+  font-family: var(--serif);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 1.6px;
+  color: var(--parch-ink);
+}
+.wordle-mark { font-size: 11px; letter-spacing: 1px; line-height: 1; }
 
 /* ── The Azure Prince's cypher ────────────────────────────────────────────────
    A row of blank sorts with one place marked: print that many tiles with an

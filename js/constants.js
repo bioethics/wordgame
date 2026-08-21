@@ -564,6 +564,23 @@ export const ESPALIER_STEP      = 2;      // permanent Points per tile of a two-
 // crimson tile that goes in: his ×Mult is STOKER_BASE + STOKER_STEP per burn.
 export const STOKER_BASE        = 1.25;   // ×Mult the day he sits down, no tiles burned
 export const STOKER_STEP        = 0.25;   // permanent ×Mult per crimson tile burned
+// ─── The Wordler's secret word ────────────────────────────────────────────────
+// He keeps a five-letter word and marks every five-letter word you print
+// against it, Wordle's way. Print the word itself and he is upgraded for good.
+//
+// The answer is drawn from the head of common.txt — the `pool` commonest
+// five-letter words — because a secret nobody could think of is not a puzzle.
+// Widen the pool to make him harder; narrow it to make him kinder.
+//
+// A happy accident the marking leans on: Wordle's green and yellow ARE this
+// game's jade and amber, which is exactly the pair he pays for.
+export const WORDLER = {
+  bonus:  2,    // Points on every amber or jade tile, upgraded or not
+  length: 5,    // letters in the secret word
+  pool:   400,  // how far down common.txt's five-letter words the answer may sit
+  board:  8,    // guesses kept on his card, so the puzzle can actually be worked
+};
+
 // ─── The Azure Prince's cypher ────────────────────────────────────────────────
 // A standing ×Mult that grows by solving a small puzzle he sets. The cypher is
 // a row of boxes with one marked: print a word of exactly that many tiles with

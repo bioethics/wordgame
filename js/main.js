@@ -552,6 +552,13 @@ function runPrintedHooks(tiles, script) {
       if (card) { pulse(card, 'patron--firing', 520); floatText(card, r.note, 'fl-points', { dy: -44 }); }
     }
     for (const line of r.say ?? []) said.push(`${def.emoji} ${line}`);
+    // Something to SHOW over the card rather than say: the Wordler's marking.
+    // Held longer than its handful of characters would earn, because squares
+    // are read slower than words and this one has to be memorised.
+    if (r.bubble) {
+      const card = patronCard(p);
+      if (card) speechBubble(card, r.bubble, { cls: 'speech-bubble--wordle', duration: 2600 });
+    }
   }
   return { burned: [...burned.values()], said };
 }

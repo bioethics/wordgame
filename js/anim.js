@@ -136,13 +136,13 @@ export function floatText(anchor, html, cls = '', { dy = -54, duration = null } 
 
 // ─── Speech bubbles (a patron's unsolicited opinion) ──────────────────────────
 
-export function speechBubble(anchorEl, text, { duration = null } = {}) {
+export function speechBubble(anchorEl, text, { duration = null, cls = '' } = {}) {
   const layer = fx();
   if (!layer || !anchorEl) return;
   const r = anchorEl.getBoundingClientRect();
 
   const b = document.createElement('div');
-  b.className = 'speech-bubble';
+  b.className = `speech-bubble${cls ? ` ${cls}` : ''}`;
   b.textContent = text;
   b.style.left = `${r.left + r.width / 2}px`;
   b.style.top  = `${r.top - 6}px`;

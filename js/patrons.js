@@ -65,7 +65,9 @@
 //                       returns { say: [line…] } to speak in the status bar at
 //                       the foot of the board instead — where news about the
 //                       PRESS belongs, a tile leaving the collection above all
-//                       (runPrintedHooks in js/main.js) — and { burned: [tile…] }
+//                       (runPrintedHooks in js/main.js); { bubble: text } to pop
+//                       it over the card instead, for something SHOWN rather
+//                       than said (the Wordler's marking) — and { burned: [tile…] }
 //                       for tiles that must not retire to the discard pile.
 //   onPageStart(ctx)  — as a page's bag is dealt, before the hand is drawn; ctx
 //                       { state, data, cast(overrides) }, where cast strikes a
@@ -123,6 +125,7 @@ import {
   HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, RIPPER_WORDS, splitMarks, isImmutable,
   medievalExpansions, POSTNOM,
   PRINCE, princeMult,
+  WORDLER,
 } from './constants.js';
 import {
   state, getActiveColour, getActiveLetter, countsAsColour, luckyRoll,
@@ -149,6 +152,42 @@ const rollCypher = () => {
   return { len, at: Math.floor(Math.random() * len) };
 };
 const princeCrowned = data => princeMult(data?.solved ?? 0) >= PRINCE.crown;
+
+// ─── The Wordler's marking ────────────────────────────────────────────────────
+// Wordle's own rule, duplicates and all: greens are claimed first, then yellows
+// are drawn from whatever letters the secret has left over. Doing it in one
+// pass would mark the second L of LLAMA yellow against a secret holding one L.
+// The squares are the emoji Wordle shares in, which need no styling and are
+// read instantly by anyone who has played it.
+const markGuess = (guess, secret) => {
+  const mark = Array.from(guess, () => '⬜');
+  const left = {};
+  for (let i = 0; i < guess.length; i++) {
+    if (guess[i] === secret[i]) mark[i] = '🟩';
+    else left[secret[i]] = (left[secret[i]] ?? 0) + 1;
+  }
+  for (let i = 0; i < guess.length; i++) {
+    if (mark[i] === '🟩' || !left[guess[i]]) continue;
+    mark[i] = '🟨';
+    left[guess[i]] -= 1;
+  }
+  return mark.join('');
+};
+
+// The commonest five-letter words the dictionary will accept, in frequency
+// order — common.txt is already filtered to playable words, so anything here
+// can actually be set. Returns null until the list has loaded (it is fetched),
+// and the callers all roll again later rather than settling for no secret.
+const rollSecret = () => {
+  const pool = [];
+  for (const w of THEME_SETS.common ?? []) {
+    if (w.length === WORDLER.length && /^[A-Z]+$/.test(w)) pool.push(w);
+    if (pool.length >= WORDLER.pool) break;
+  }
+  return pool.length ? pick(pool) : null;
+};
+
+const wordlerColour = t => countsAsColour(t, 'amber') || countsAsColour(t, 'jade');
 // Counted in TILES, not letters: the boxes ARE tiles, and a trailing mark
 // stands in the groove like anything else.
 const readsCypher = (tiles, c) =>
@@ -932,6 +971,79 @@ const PATRON_BEHAVIOURS = [
     },
   },
 
+  {
+    // Wordle at the press. He marks every five-letter word you print against a
+    // secret one, and set the secret itself and he is upgraded for good: every
+    // amber and jade tile prints TWICE, paint and all, which doubles those two
+    // colour multipliers as well as the Points.
+    //
+    // Measured in LETTERS, not tiles — a ligature makes RAT+E+S a five-letter
+    // word, and Wordle is about letters. (The Azure Prince counts the other
+    // way, because his boxes are tiles.)
+    //
+    // The marking happens only when a word PRINTS, never while it is being
+    // composed: a guess has to cost a word, or you would sit at the groove
+    // trying letters until the answer fell out, which is not a puzzle.
+    id: 'wordler',
+    when: 'score',
+    onOffer: () => ({ secret: rollSecret() }),
+
+    tileBonus: t => (wordlerColour(t) ? WORDLER.bonus : 0),
+    // The upgrade. Reads through tileEcho like the Monogrammist's letters and
+    // the Twins' pairs, so pass 0 doubles the whole tile — Points, trim, paint.
+    tileEcho: (tile, data) => !!data?.solved && wordlerColour(tile),
+
+    // The list is fetched, so a seat taken before it landed has no secret yet.
+    onPageStart({ data }) {
+      if (!data.solved) data.secret ??= rollSecret();
+      return null;
+    },
+
+    onPrinted({ script, data }) {
+      if (data.solved) return null;
+      const guess = script?.letters ?? '';
+      if (guess.length !== WORDLER.length) return null;
+      data.secret ??= rollSecret();
+      if (!data.secret) return null;
+
+      const mark = markGuess(guess, data.secret);
+      // The board is the whole of what makes this solvable rather than a
+      // memory test — Wordle shows you every guess you have made.
+      data.board = [...(data.board ?? []), { word: guess, mark }].slice(-WORDLER.board);
+
+      if (guess !== data.secret) return { bubble: mark };
+      data.solved = true;
+      data.secret = null;
+      return {
+        bubble: mark,
+        note: 'the word!',
+        say: [`The Wordler's word was ${guess}. Every amber and jade tile prints twice from here.`],
+      };
+    },
+
+    instName:  data => (data?.solved ? 'The Wordler, Satisfied' : 'The Wordler'),
+    instShelf: data => (data?.solved ? 'Wordler ✓' : 'Wordler'),
+    instDesc(data) {
+      if (data?.solved) {
+        return `His word is out. Amber and jade tiles gain +${WORDLER.bonus} Points and print twice — Points, trim and paint alike.`;
+      }
+      const tried = data?.board?.length ?? 0;
+      // Elliptical until you have shown him a five-letter word; the squares
+      // teach the rule better than a sentence would, so the card waits.
+      return tried
+        ? `Amber and jade tiles gain +${WORDLER.bonus} Points. His word is ${WORDLER.length} letters — print it and they print twice.`
+        : `Amber and jade tiles gain +${WORDLER.bonus} Points. He loves a secret word.`;
+    },
+
+    // His board, Wordle's grid: every guess he has marked, newest last.
+    popover(data) {
+      if (data?.solved || !data?.board?.length) return '';
+      const rows = data.board.map(g =>
+        `<div class="wordle-row"><span class="wordle-word">${g.word}</span>`
+        + `<span class="wordle-mark">${g.mark}</span></div>`).join('');
+      return `<div class="wordle-board">${rows}</div>`;
+    },
+  },
   // ── Azure · ink, flow, and latitude ─────────────────────────────────────────
   {
     // The one seat that asks for a SHAPE rather than a property: the cypher
@@ -991,9 +1103,12 @@ const PATRON_BEHAVIOURS = [
       const read = data?.solved ?? 0;
       const left = Math.round((PRINCE.crown - princeMult(read)) / PRINCE.step);
       const plural = n => `${n} cypher${n > 1 ? 's' : ''}`;
+      // Silent about himself until he has done something. The Market card reads
+      // through instDesc too, so this elliptical line is what a buyer sees:
+      // he is bought on the strength of the puzzle, not of a promise.
       return read
         ? `×${princeMult(read)} Mult, ${plural(read)} read. ${left} more for the crown.`
-        : `No Mult yet — ${plural(left)} for the crown.`;
+        : 'Reclaim the crown.';
     },
     refundBonus: data => (princeCrowned(data) ? PRINCE.ransom : 0),
 

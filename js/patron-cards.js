@@ -31,7 +31,7 @@ import {
   ABECEDARIAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,
   STOKER_BASE, STOKER_STEP, RAGMAN_COINS, RAGMAN_ODDS, DYE_TILES_PER_CHAPTER,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, DIPPER_PAINT_CHANCE, REVENANT_ODDS,
-  PACKAGE_ODDS, FRONTISPIECE, MATERIALS, RIPPER_WORDS, PACKAGES, PRINCE,
+  PACKAGE_ODDS, FRONTISPIECE, MATERIALS, RIPPER_WORDS, PACKAGES, PRINCE, WORDLER,
 } from './constants.js';
 
 // What {BRACES} in a desc may refer to. Add a line here to expose a new knob.
@@ -48,6 +48,8 @@ const KNOBS = {
   PARCEL_CUTE:      PACKAGES.cute.label,
   PARCEL_RUDE:      PACKAGES.rude.label,
   PRINCE_STEP:      PRINCE.step,
+  WORDLER_BONUS:    WORDLER.bonus,
+  WORDLER_LENGTH:   WORDLER.length,
   PRINCE_CROWN:     PRINCE.crown,
 };
 
@@ -126,6 +128,10 @@ export const PATRON_CARDS = {
   beekeeper: {
     name: 'The Beekeeper', emoji: '🐝', rarity: 'uncommon', cost: 6, guild: 'jade',
     desc: 'Every B you print permanently raises this patron\'s Mult by {BEEKEEPER_STEP}.',
+  },
+  wordler: {
+    name: 'The Wordler', emoji: '🟩', rarity: 'uncommon', cost: 7, guild: ['amber', 'jade'],
+    desc: 'Amber and jade tiles gain +{WORDLER_BONUS} Points. He loves a secret word.',
   },
   cellarer: {
     name: 'The Cellarer', emoji: '🧀', rarity: 'uncommon', cost: 6, guild: ['jade', 'amber'],
@@ -268,7 +274,7 @@ export const PATRON_CARDS = {
     desc: 'Any two nouns stacked together count as a word: DOOM and HAT make DOOMHAT.',
   },
   blueprince: {
-    name: 'The Azure Prince', emoji: '🔷', rarity: 'rare', cost: 10, guild: 'azure',
+    name: 'The Azure Prince', emoji: '🔷', rarity: 'rare', cost: 5, guild: 'azure',
     desc: 'Tap for a cypher: that many tiles, an azure one in the marked place, +{PRINCE_STEP} Mult for good. Crowned at ×{PRINCE_CROWN} — and worth a fortune dismissed.',
   },
 
