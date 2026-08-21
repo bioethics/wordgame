@@ -1,6 +1,5 @@
 // The Colophon — a permanent-upgrade pick offered when a chapter clears.
-// A publisher's colophon marks the close of a book; this one marks the close
-// of a chapter. Three cards, one guaranteed structural, capped repeats.
+// Three cards, one guaranteed structural, capped repeats.
 
 import { state, shuffle, unpaintedTiles, paintRandomTiles } from './state.js';
 import { UPGRADE_OFFERS, MAX_UPGRADE_REPEATS, SKIP_COIN_GRANT, PAINT_PER_POT } from './constants.js';
@@ -21,10 +20,8 @@ function eligibleIds() {
     .map(d => d.id);
 }
 
-// One structural pick guaranteed whenever one remains eligible; the rest —
-// and the whole spread, once structural options run dry — comes from
-// whatever's left. Degrades gracefully deep into the appendices, where the
-// pool can run thin.
+// One structural pick guaranteed while one remains eligible; the rest — and the
+// whole spread, once structural options run dry — comes from whatever's left.
 function rollOffers() {
   const eligible = eligibleIds();
   const n = Math.min(UPGRADE_OFFERS, eligible.length);

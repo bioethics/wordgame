@@ -1,7 +1,6 @@
-// The full-screen sheets: the Market (and its stalls and collection view),
-// the Colophon, and the opening draft — their HTML and their click handling,
-// in one place. Board-side rendering lives in render.js; game flow stays in
-// main.js and is injected via initSheets().
+// The full-screen sheets — the Market (with its stalls and collection view), the
+// Colophon, and the opening draft: their HTML and click handling. Board-side
+// rendering is render.js; game flow stays in main.js, injected via initSheets().
 
 import {
   state, owns, effectivePatronSlots, effectiveSundrySlots, spendReshuffleSundry,
@@ -40,9 +39,8 @@ function setText(id, val) {
 
 // ─── The Market ───────────────────────────────────────────────────────────────
 
-// Full build. Only for opening the market, switching view, or completing a
-// stall purchase — buying offers patches in place (see updateMarketState) so
-// a purchase never throws away your scroll position.
+// Full build — only for opening the market, switching view, or completing a
+// stall purchase. Buying an offer patches in place (see updateMarketState).
 export function renderMarket() {
   const m = $('marketModal');
   if (!m) return;
@@ -71,8 +69,7 @@ export function renderMarket() {
   }
 }
 
-// Sold state, prices you can and can't afford, the coin count — all patched
-// without rebuilding the sheet.
+// Sold state, affordability and the coin count, patched without a rebuild.
 export function updateMarketState() {
   const m = $('marketModal');
   if (!m || !market.open) return;
@@ -112,22 +109,19 @@ export function updateMarketState() {
   const benchN = m.querySelector('[data-bench-count]');
   if (benchN) benchN.textContent = benchCount();
 
-  // The shelf strip redraws in place, so a hire appears seated the moment the
-  // coin is paid — without rebuilding the sheet under your scroll position.
+  // Redrawn in place, so a hire appears seated without a rebuild.
   const strip = m.querySelector('[data-market-shelf]');
   if (strip) {
     strip.style.setProperty('--seat-count', effectivePatronSlots());
     strip.innerHTML = marketShelfCardsHTML();
   }
-  // The workbench redraws in place for the same reason: a tool bought or sold
-  // back should appear on the bench without the sheet jumping under you.
+  // The workbench, for the same reason.
   const benchStrip = m.querySelector('[data-market-bench]');
   if (benchStrip) {
     benchStrip.style.setProperty('--slot-count', effectiveSundrySlots());
     benchStrip.innerHTML = marketBenchSlotsHTML();
   }
-  // A full table (or bench) makes letting something go the only way forward,
-  // so the tally stops being a footnote.
+  // A full table or bench makes the tally urgent rather than a footnote.
   m.querySelector('[data-market-shelf-wrap]')?.classList.toggle('market-shelf--wanted', seatsFull);
   m.querySelector('[data-market-bench-wrap]')?.classList.toggle('market-shelf--wanted', benchFull);
 
@@ -142,9 +136,7 @@ function rewardHTML() {
   return `<div class="reward-line">${rows}<span class="reward-total">${coinHTML(market.rewardTotal)} earned</span></div>`;
 }
 
-// The seat and bench tallies are written in two places — on a fresh sheet and
-// on every in-place patch — so they read from one function and can't drift.
-// When there's no room left, the tally says what to do about it.
+// Written on a fresh sheet and on every in-place patch, so they can't drift.
 const seatsLabel = () => {
   const max = effectivePatronSlots();
   return `${state.patrons.length}/${max} seated${state.patrons.length >= max ? ' — dismiss one to make room' : ''}`;
@@ -153,21 +145,17 @@ const benchLabel = () => {
   const max = effectiveSundrySlots();
   return `${state.sundries.length}/${max} on the workbench${state.sundries.length >= max ? ' — sell one to make room' : ''}`;
 };
-// The bench's own heading sits in a column barely wider than its slots, so it
-// gets the short form; the long one belongs to the Sundries shop column.
+// The short form, for the bench heading's narrow column. The long one above
+// belongs to the Sundries shop column.
 const benchCount = () => {
   const max = effectiveSundrySlots();
   return `${state.sundries.length}/${max}${state.sundries.length >= max ? ' — full' : ''}`;
 };
 
 // ─── The table, restated inside the Market ────────────────────────────────────
-// The board's patron shelf, drawn again at the top of the sheet so who you
-// hold is never out of sight while you shop. Same cards as the board: the ✕
-// dismisses outright (desktop hover), tapping a card shows its calling card
-// with a dismissal button — the popover route main.js already wires — and
-// dragging one along the strip reseats it (initShelfDrag in drag.js takes this
-// shelf as well as the board's). The Market is where that decision belongs:
-// you have just hired someone, and seat order is half of what you bought.
+// The board's patron shelf drawn again, since the modal covers the board. Same
+// cards: ✕ dismisses, a tap opens the calling card, and dragging reseats it
+// (initShelfDrag in drag.js takes this shelf as well as the board's).
 function marketShelfCardsHTML() {
   const seats = effectivePatronSlots();
   let cards = '';
@@ -201,13 +189,8 @@ function marketShelfCardsHTML() {
 }
 
 // ─── The workbench, restated inside the Market ────────────────────────────────
-// The board's bench, drawn again under the shelf for the same reason the shelf
-// is: what you hold decides what is worth buying, and the modal covers the
-// board. The slots are the board's slots — same wood, same faces, same order —
-// but nothing is armed from here (a tube has no hand to paint), so they are
-// plain cards rather than buttons. The ✕ on each is the Market's price for
-// taking one back: SUNDRY_SELL, a pittance, because what you are really buying
-// is the empty slot.
+// The board's bench, for the same reason. Nothing is armed from here (a tube has
+// no hand to paint), so the slots are plain cards and the ✕ sells one back.
 function benchSlotHTML(s, i) {
   if (!s) {
     return `<div class="sundry sundry--empty" title="Room for a sundry — sold here">
@@ -257,11 +240,8 @@ function marketBenchHTML() {
     </section>`;
 }
 
-// The board's graveyard door, restated in the Market for the same reason the
-// shelf and the bench are: the board is under the modal, and what your ghosts
-// are doing is exactly the sort of thing you want to know while deciding who
-// to hire. Same button, same sheet — the sheet is a modal at the body level,
-// so it opens over the Market without either knowing about the other.
+// The graveyard door, restated for the same reason. Its sheet is a modal at the
+// body level, so it opens over the Market without either knowing the other.
 const marketGhostDoorHTML = () => {
   const n = state.ghosts?.length ?? 0;
   if (!n) return '';
@@ -281,21 +261,15 @@ function marketShelfHTML() {
 function marketShopHTML() {
   const patronCards = market.patronOffers.map((o, i) => {
     const def = patronById(o.id);
-    // A stackable patron's card shows the exact copy on offer — its rolled
-    // letters and its number — so buying one is a choice, not a lottery.
+    // A stackable patron's card shows the exact copy on offer, not the def.
     const name = patronName(def, o.data);
     const desc = def.instDesc?.(o.data) ?? def.desc;
-    // A guild member's card wears its livery: a ribbon bound into the top
-    // edge, the portrait washed in the guild colour, and the guild named on
-    // the title line. Neutral cards stay plain ivory; a dual-livery card
-    // (the Cellarer, the Composter) binds a second ribbon beside the first
-    // and names both guilds.
+    // A guild member's card wears its livery; a dual-livery card binds a second
+    // ribbon and names both. Neutral cards stay plain ivory.
     const liveries = guildsOf(def);
     const livery = (liveries.length ? ` offer-patron--g-${liveries[0]}` : '')
                  + (liveries[1] ? ` offer-patron--g2-${liveries[1]}` : '');
-    // A distinguished patron's card is struck differently — foiled edge, its
-    // letters called out on the title line — because the ×Mult it carries is
-    // not in the desc and would otherwise be invisible until it was bought.
+    // Struck differently: the ×Mult a postnom carries is not in the desc.
     const lettered = o.data?.postnom ? ' offer-patron--postnom' : '';
     return `
       <div class="offer-patron offer-patron--${def.rarity}${livery}${lettered}" data-offer="patron" data-idx="${i}">
@@ -335,9 +309,7 @@ function marketShopHTML() {
                 ${compostLeft() ? '' : 'disabled'}>Take</button>
       </div>`).join('');
 
-  // Every sundry card explains itself from one place (constants.js → sundryTip),
-  // so the shop, the workbench and the held row below can't tell you three
-  // different things about the same object.
+  // One source for every sundry's words (constants.js → sundryTip).
   const sundryCards = market.sundryOffers.map((o, i) => {
     const tip  = sundryTip(o);
     const mark = o.kind === 'wrapped'   ? '<span class="wrapped-mark wrapped-mark--offer"></span>'
@@ -376,8 +348,6 @@ function marketShopHTML() {
       </div>`;
   }).join('');
 
-  // What you already hold isn't listed here any more: it sits on the workbench
-  // at the top of the sheet, where the ✕ on each slot sells it back.
   const reshuffles = state.sundries.filter(s => s.kind === 'reshuffle').length;
 
   const returning = market.returning ? ' sheet--return' : '';
@@ -462,8 +432,7 @@ function marketStallHTML() {
   if (!stall || !def) return marketShopHTML();
 
   // A proposal shows the tile as it would be, so where the change isn't
-  // self-evident the stall carries a key: metals for the Gilder, which way a
-  // notch reaches for the Dresser, and what each colour pays for the Painter.
+  // self-evident the stall carries a key.
   const colourKey = Object.fromEntries(Object.entries(COLOURS).map(
     ([id, c]) => [id, { label: c.label, desc: colourDesc(id) }]));
   const stallKey =
@@ -507,8 +476,7 @@ export function proposalPreview(tmpl, p) {
   return { ...tmpl, trim: p.trim, id: '' };
 }
 
-// Fill the stall's grid — collection minis for most stalls, full-size previews
-// of the proposed tile for the Gilder and Punchcutter.
+// Collection minis for most stalls, full-size previews for the proposal stalls.
 function renderStallBody() {
   const stall = stallById(market.activeStall);
   if (!stall) return;
@@ -541,8 +509,8 @@ function renderStallBody() {
   const grid = $('stallGrid');
   if (!grid) return;
   grid.innerHTML = '';
-  // The Smelter and the Stereotyper work off the whole case; the Painter works
-  // off the spread it laid out, the way the proposal stalls do.
+  // The Smelter and Stereotyper work off the whole case, a proposal stall off
+  // the spread it laid out.
   const tiles = stall.offers
     ? stall.offers.map(tid => state.collection.find(t => t.tid === tid)).filter(Boolean)
     : state.collection;
@@ -557,8 +525,7 @@ function renderStallBody() {
   });
 }
 
-// Selection, colour choice, and the confirm button — patched in place so a
-// tap never rebuilds the sheet under your thumb.
+// Patched in place, so a tap never rebuilds the sheet under your thumb.
 export function updateStallState() {
   const m = $('marketModal');
   if (!m || market.view !== 'stall') return;
@@ -633,11 +600,8 @@ export function updateStallState() {
   btn.disabled = !ready || state.coins < price;
 }
 
-// What today's haggle came to, said on the calling card's title line. Without
-// this the price simply differs from the one the player has learned to expect
-// and reads as a fault in the shop rather than a bargain — the whole value of
-// the roll is that it is SEEN. A free patron never carries one (see
-// patronCost), so neither does the note.
+// Said on the calling card, since an unexplained price difference reads as a
+// fault rather than a bargain. A free patron never haggles (see patronCost).
 function haggleNote(def, data) {
   const h = data?.haggle ?? 0;
   if (!h || !def?.cost) return '';
@@ -648,15 +612,9 @@ function haggleNote(def, data) {
 
 // ─── Collection view (read-only) ──────────────────────────────────────────────
 
-// What the case actually holds, by colour. A grid of eighty tiles is a lovely
-// thing to look at and a hopeless thing to count, and counting is exactly what
-// the view is for — the colour multipliers are the whole engine, and "how much
-// jade have I actually got?" is the question you open this to answer.
-//
-// Counted by the paint ON the tile, so the buckets partition the case and the
-// numbers add up to the total. Rainbow metal is the one tile that would break
-// that (it counts as EVERY colour when a word is scored), so it is tallied
-// apart and said apart, rather than being added four times over.
+// Counted by the paint ON the tile, so the buckets partition the case and add up
+// to the total. Rainbow metal would break that (it scores as EVERY colour), so
+// it is tallied and said apart.
 function collectionTally() {
   const counts = Object.fromEntries(Object.keys(COLOURS).map(c => [c, 0]));
   let bare = 0, rainbow = 0;
@@ -815,8 +773,7 @@ export function renderDraft() {
   updateDraftSelection();
 }
 
-// Patch picked/locked state in place — no reflow of the whole sheet, so the
-// page doesn't scroll out from under your thumb.
+// Patched in place, so the page doesn't scroll out from under your thumb.
 export function updateDraftSelection() {
   const m = $('draftModal');
   if (!m || !draft.open) return;
@@ -839,14 +796,12 @@ export function updateDraftSelection() {
 }
 
 // ─── Click handling ───────────────────────────────────────────────────────────
-// Game flow (what happens after "Next page", a Colophon pick, or "Begin the
-// run") is main.js's business — injected here so the sheets never need to
+// Game flow is main.js's business, injected here so the sheets never need to
 // know about pages and chapters.
 
 let flow = { nextPage: () => {}, advancePage: async () => {}, beginRun: () => {} };
 
-// A bought thing flies out of the market to wherever it now lives — the
-// clones ride the #fx layer, which sits above the modal.
+// The clones ride the #fx layer, which sits above the modal.
 function flyPurchase(fromEl, toEl, opts = {}) {
   if (!fromEl || !toEl) return;
   flyClone(fromEl, rect(fromEl), rect(toEl), { duration: ANIM.fly, scaleTo: 0.3, fade: true, ...opts });
@@ -860,8 +815,7 @@ function onMarketClick(e) {
     if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
     else {
       sfx.coin(); log(`${r.name} takes a seat at your table.`, 'good');
-      // The card flies to the shelf strip at the top of the sheet — the board
-      // shelf is under the modal and can't be seen from here.
+      // To the sheet's own shelf strip — the board's is under the modal.
       flyPurchase(card, document.querySelector('[data-market-shelf]') ?? $('shelf'), { scaleTo: 0.2 });
     }
     renderAll(); updateMarketState();
@@ -899,9 +853,8 @@ function onMarketClick(e) {
     if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
     else {
       sfx.coin();
-      // Named from sundryTip so every kind — tube, ratchet, wrapped, toolbox —
-      // says the right thing. (COLOURS[colour] only exists for tubes: reading
-      // it for a colourless sundry threw, and the purchase froze mid-click.)
+      // Named from sundryTip so every kind says the right thing. COLOURS[colour]
+      // exists only for tubes — reading it for a colourless sundry throws.
       log(r.offer.kind === 'reshuffle'
         ? 'A reshuffle joins your workbench, banked for later.'
         : r.offer.kind === 'tube'
@@ -935,8 +888,8 @@ function onMarketClick(e) {
     }
     return;
   }
-  // A tap on a seated card (not its ✕ — that's data-sell-patron, caught above)
-  // shows the patron's calling card, whose Dismiss button main.js handles.
+  // A tap on a seated card (not its ✕, caught above) shows the calling card,
+  // whose Dismiss button main.js handles.
   const seatCard = e.target.closest('[data-market-shelf] .patron[data-patron]');
   if (seatCard) {
     const def = patronById(seatCard.dataset.patron);
@@ -1017,19 +970,15 @@ function onMarketClick(e) {
     else {
       if (market.activeStall === 'smelter') sfx.discard(); else sfx.coin();
       log(msg, 'good');
-      // A Painter's coat can splash (The Dabbler, deep in paintTile) and the
-      // Smelter's furnace can be stood over (The Revenant, deep in
-      // trashFromCollection) — drain both echo queues into the log here,
-      // since main.js never sees this action.
+      // paintTile and trashFromCollection can queue echoes (The Dabbler, The
+      // Revenant); drain them here, since main.js never sees this action.
       for (const e of takePaintEchoes()) {
         log(`🖍️ The Dabbler splashes ${e.letter} ${COLOURS[e.colour].label.toLowerCase()} as well.`, 'good');
       }
       for (const e of takeGhostEchoes()) {
         log(`💀 The Revenant walks ${e.letter} back out of the hellbox — it will be waiting in the case.`, 'good');
       }
-      // Work done, back to the market — the stall card's risen price is the
-      // thing to see, and lingering in the stall let it go unnoticed. The
-      // Visit button is right there for whoever wants to pay it.
+      // Back to the market, where the stall card's risen price can be seen.
       market.view = 'shop'; market.activeStall = null; market.stallSel = -1;
       market.returning = true;
     }

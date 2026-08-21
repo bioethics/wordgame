@@ -14,9 +14,7 @@ export function coinedWords() {
   catch { return []; }
 }
 
-// The Neologist's word is the one entry a player writes themselves, so it is
-// checked like any other: an excluded word is refused outright and never
-// reaches the store. Returns null when refused, so the sheet can say so.
+// Filtered like any other entry. Returns null when refused, so the sheet can say so.
 export function coinWord(word) {
   const w = word.toUpperCase();
   if (isExcluded(w)) return null;
@@ -30,11 +28,8 @@ export function coinWord(word) {
   return w;
 }
 
-// The single funnel for every dictionary the game will ever hold — bundled,
-// cached, fetched, fallback, or pasted into Settings — which is exactly why
-// the exclusion filter sits here rather than at each call site. Coined words
-// are filtered on the way back in too, so one stored before the list existed
-// doesn't outlive it.
+// The single funnel for every dictionary — bundled, cached, fetched, fallback or
+// pasted — which is why the exclusion filter sits here, not at each call site.
 export function adoptWordlist(text) {
   const words = text.replace(/\r/g, '').split(/\n+/).map(w => w.trim()).filter(Boolean);
   DICT = new Set();
@@ -52,10 +47,8 @@ export function adoptWordlist(text) {
 }
 
 // ─── Scrambled spellings (The Skimmer) ────────────────────────────────────────
-// A word indexed by its first letter, its last letter, and the letters between
-// them in sorted order — so every spelling that keeps the ends still and
-// shuffles the middle lands on the same key. Built on first use, because most
-// runs never seat The Skimmer, and dropped whenever the dictionary changes.
+// Indexed by first letter + sorted middle + last letter, so every spelling that
+// keeps the ends still lands on one key. Built lazily, dropped on any change.
 
 let _scrambleIndex = null;
 

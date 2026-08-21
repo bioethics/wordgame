@@ -33,14 +33,12 @@ export const nextId = () => _nextId++;
 let _nextTid = 1;
 const nextTid = () => _nextTid++;
 
-// Deep-copy a template into a collection-ready tile with a fresh tid.
-// Every route into the collection (draft picks, shop buys, the Stereotyper)
-// goes through here so no two owned tiles ever share a tid.
+// Deep-copy a template into a collection-ready tile with a fresh tid. Every
+// route into the collection goes through here, so no two owned tiles share one.
 export function adoptTemplate(tmpl) {
   return { ...JSON.parse(JSON.stringify(tmpl)), tid: nextTid() };
 }
 
-// The letter this tile is currently acting as
 export function getActiveLetter(tile) {
   if (tile.letterType === 'dual' && tile.activeVariant === 1 && tile.altLetter) {
     return tile.altLetter;
@@ -48,42 +46,24 @@ export function getActiveLetter(tile) {
   return tile.letter;
 }
 
-// Wrapped in manuscript by The Redactor (js/bosses.js): the tile is under
-// paper for the page, with a pencilled letter on the wrapper. It still spells
-// — that is the whole of what it still does — and everything else about it is
-// hidden rather than destroyed: the paint, trim, metal, nick and grown Points
-// are all sitting underneath, waiting for the page to end.
-//
-// The readers just below are where that promise is kept, so nothing else in
-// the game had to learn the word "wrapped": ask what colour a wrapped tile is
-// and it has none, what it is worth and it is worth nothing. Scoring strips
-// the few things that are read off the tile directly rather than through
-// these (trim, nick, metal, face value) — see computeScore's pass 0.
+// A tile wrapped by The Redactor (js/bosses.js) still spells, and nothing
+// else. The readers below hide its colour and value rather than destroying
+// them, so the page's end gives everything back. Scoring reads a few things off
+// the tile directly rather than through these — see computeScore's pass 0.
 export const isWrapped = tile => !!tile?.wrapped;
 
-// The paint a tile is wearing. Paint belongs to the tile, not to either face,
-// so this is the same whichever letter a dual is showing — kept as a function
-// because everything that scores paint calls it, which is exactly what lets
-// the ink wash slot in here: a washed tile counts as its wash colour to
-// patrons AND multipliers alike, deliberately unlike rainbow metal (which
-// speaks only through countsAsColour and never lifts a multiplier unpainted).
-// Real paint sits over a wash and wins; the wash comes off when the tile
-// prints (washOff, called at commit in main.js).
+// The paint a tile is wearing — the same whichever face a dual shows, since
+// paint belongs to the tile. A wash reads as paint here, so it counts to
+// patrons AND multipliers alike, unlike rainbow metal (which speaks only
+// through countsAsColour). Real paint sits over a wash and wins.
 export const getActiveColour = tile =>
   (isWrapped(tile) ? null : tile.colour ?? tile.wash ?? null);
 
-// What a tile is worth before the word it sits in touches it: its letter's face
-// value, any growth set permanently into it, and a silver trim. All three
-// belong to the tile rather than to the word, so this is the number it wears
-// wherever it appears — rack, shop, collection, groove. A nick's reach and a
-// Monogrammist's echo are the word's business and scoring adds those on top,
-// which is what leaves the corner number free to be honest at rest.
-// Growth follows the face, the way a letter's own Points do — unlike paint,
-// trim and nick, which belong to the whole tile. Each face of a dual keeps
-// its own grown points: `bonusPoints` for the first letter, `altBonusPoints`
-// for the second, and flipping the tile flips which one counts. The
-// Typefounder's melt is why: each side brings its own history to the
-// crucible, and playing the T face shouldn't pay for what the E earned.
+// What a tile is worth before the word it sits in touches it: face value,
+// growth set permanently into it, and a silver trim — the number it wears
+// wherever it appears. Growth follows the FACE, not the tile: a dual keeps
+// `bonusPoints` for its first letter and `altBonusPoints` for its second, so
+// flipping it flips which one counts.
 export const getActiveGrowth = tile =>
   (isWrapped(tile) ? 0 : (tile.activeVariant === 1 ? tile.altBonusPoints : tile.bonusPoints) ?? 0);
 
@@ -95,12 +75,9 @@ export const restingPoints = tile =>
 
 // Whether a tile reads as a given colour to anything that cares *which* colour
 // it is — every patron, and the Fountain's return-to-bag. A rainbow tile reads
-// as all four at once. This is deliberately NOT what the colour multipliers
-// use: those count actual paint (getActiveColour), so a rainbow tile lifts a
-// multiplier only where it has been painted, and can't be four at once there.
-// A wrapped tile is caught here as well as in getActiveColour, because rainbow
-// metal speaks through this reader alone: under the wrapper the metal is as
-// hidden as the paint.
+// as all four at once. Deliberately NOT what the colour multipliers use: those
+// count actual paint (getActiveColour), so a rainbow tile lifts a multiplier
+// only where it has been painted.
 export const countsAsColour = (tile, colour) =>
   !isWrapped(tile) && (tile.material === 'rainbow' || getActiveColour(tile) === colour);
 
@@ -199,40 +176,32 @@ export const state = {
 // Base constants plus whatever the Colophon has permanently granted this run.
 export const effectiveWordsPerPage = () =>
   WORDS_PER_PAGE + (owns('overseer') ? 1 : 0) + (state.upgradeCounts?.words ?? 0);
-// rackBonus is the one term here that is neither permanent nor the editor's:
-// a hand widened for the rest of a page only, cleared at the page turn the
-// way the tongs' heat is.
+// rackBonus is the one term here that is neither permanent nor the editor's: a
+// hand widened for the rest of a page only, cleared at the page turn.
 export const effectiveRackSize    = () => RACK_SIZE    + (state.upgradeCounts?.handSize     ?? 0)
                                                        + (activeBoss(state)?.rackBonus      ?? 0)
                                                        + (state.rackBonus                   ?? 0);
 export const effectivePatronSlots = () => PATRON_SLOTS + (state.upgradeCounts?.patronSeat    ?? 0);
 export const effectiveSundrySlots = () => SUNDRY_SLOTS + (state.upgradeCounts?.workbenchSlot ?? 0);
 
-// Every patron working for you, in the order they speak: the shelf first,
-// then the ghosts, who go last because they are dead. A ghost keeps its whole
-// effect — its score turn, its hooks, its laurels — and gives up only its
-// seat, which is the entire bargain The Ripper offers. So the rule for every
-// reader in the game is: does this ask what my patrons DO (allSeats) or how
-// many seats are LEFT (state.patrons)? The Market's seat limit, the shelf and
-// the reordering are the second kind; everything else is the first.
-//
-// The common case has no ghosts at all, and this is called on every keystroke
-// through scoring — so it hands back the live array rather than a copy of it
-// until there is actually something to append.
+// Every patron working for you, in the order they speak: the shelf first, then
+// the ghosts. A ghost keeps its whole effect and gives up only its seat, so the
+// rule for every reader is: ask allSeats what your patrons DO, ask
+// state.patrons how many seats are LEFT (the Market's limit, the shelf, the
+// reordering). Hands back the live array rather than a copy while there are no
+// ghosts — this is called on every keystroke through scoring.
 export const allSeats = () =>
   (state.ghosts?.length ? [...state.patrons, ...state.ghosts] : state.patrons);
 
-// Ghosts are held to the same count as the living: a table of five seats
-// haunts five.
+// Ghosts are held to the same count as the living.
 export const effectiveGhostSlots = () => effectivePatronSlots();
 
 export const owns = id => allSeats().some(p => p.id === id);
 
 // ─── Chapter titles ───────────────────────────────────────────────────────────
 // Drawn at random from js/chapters.js the first time a chapter is named, then
-// kept for the rest of the run — a reload must not rename a chapter under you.
-// A run won't repeat a title until the list is exhausted, so a longer list in
-// chapters.js makes for a stranger book.
+// kept in state for the rest of the run — a reload must not rename a chapter
+// under you. No repeats until the list is exhausted.
 
 export function chapterTitle(ch) {
   state.chapterTitles ??= {};
@@ -245,24 +214,20 @@ export function chapterTitle(ch) {
 }
 
 // ─── The Editors (Deadline bosses) ────────────────────────────────────────────
-// One takes the desk as each Deadline page is dealt — never announced sooner,
-// which is the point: the rule is a puzzle for the rack in front of you, not
-// something to build against. Drawn without repeats until the roster runs
-// out, then the roster refreshes. The pick is stored in state, so a reload
-// never swaps the editor under you.
+// One takes the desk as each Deadline page is dealt, never announced sooner:
+// the rule is a puzzle for the rack in front of you, not something to build
+// against. Drawn without repeats until the roster runs out. The pick is stored
+// in state, so a reload never swaps the editor under you.
 
 function assignBoss() {
   state.bossesSeen ??= [];
   // An editor that inverts a seated patron never takes the desk (see
-  // BOSS_CONFLICTS in bosses.js): a Deadline is a puzzle, not a tax on what you
-  // bought. The shelf is read HERE, as the page is dealt, which is the moment
-  // it is settled — patrons are hired at the Market between pages, so what is
-  // seated now is what you will face the editor with.
+  // BOSS_CONFLICTS in bosses.js). The shelf is read HERE, as the page is dealt:
+  // patrons are hired between pages, so what is seated now is what you face.
   const seated = allSeats().map(p => p.id);
   const allowed = BOSS_DEFS.filter(b => !bossConflicts(b.id, seated));
-  // A shelf that somehow rules out every editor still gets one: an unfair
-  // Deadline beats a Deadline with nobody at the desk, and the whole page's
-  // structure (rack size, discards, the bar) assumes an editor is there.
+  // A shelf that rules out every editor still gets one: the whole page's
+  // structure (rack size, discards, the bar) assumes an editor is at the desk.
   const roster = allowed.length ? allowed : BOSS_DEFS;
 
   const fresh = roster.filter(b => !state.bossesSeen.includes(b.id));
@@ -275,21 +240,14 @@ function assignBoss() {
   state.boss = { id: def.id, data };
 }
 
-// A tile an editor lends you: real in every way that matters this page, but
-// cast from no template. It takes no permanent change (isImmutable covers it —
-// there is no collection tile behind it to write to), and since every new page
-// rebuilds the bag from the collection, it simply isn't there tomorrow.
+// A tile an editor lends you: real for this page, but cast from no template, so
+// it takes no permanent change (isImmutable covers it) and is gone as soon as
+// the next page rebuilds the bag from the collection.
 //
-// Two editors lend, and they differ in the one way that matters to the hand.
-// The Enthusiast's gift rides ABOVE your hand size, a bonus tile beside the
-// rack. The Eeeditor's three E's do not: they sit IN the hand and take three
-// of its places, which is the whole of that editor — a gift and a cage in one.
-//
-// The Scientist lends too, and his loan arrives dressed: `overrides` reaches
-// makeTileTemplate, so a lent tile can be born wearing a trim it could never
-// be given later (isImmutable bars writing to a tile with no template behind
-// it, but says nothing about what it was cast with). `lender` names who is
-// lending, so the tile can explain itself as theirs.
+// `aboveHand` rides BESIDE the rack instead of taking one of its places (the
+// Enthusiast's gift; the Eeeditor's three E's deliberately do not). `overrides`
+// reach makeTileTemplate, so a lent tile can be born wearing a trim it could
+// never be given later. `lender` names who is lending it.
 export function castLentTile(letter, { aboveHand = false, lender = null, ...overrides } = {}) {
   const tile = templateToTile(makeTileTemplate(letter, overrides));
   tile.ephemeral = true;
@@ -299,43 +257,23 @@ export function castLentTile(letter, { aboveHand = false, lender = null, ...over
   return tile;
 }
 
-// The Eeeditor's E's, wherever they currently sit. Counted across rack and
-// word alike: one laid into a word has not left your hand yet, and must not
-// be replaced until it actually prints.
+// The Eeeditor's E's, counted across rack and word alike: one laid into a word
+// has not left your hand yet, and must not be replaced until it prints.
 export const lentInHand = () =>
   [...state.rack, ...state.word].filter(t => t.ephemeral && !t.aboveHand);
 
-// A seated patron's private memory (created on first touch, saved with the run).
-export function patronData(id) {
-  const seat = allSeats().find(p => p.id === id);
-  if (!seat) return null;
-  seat.data ??= {};
-  return seat.data;
-}
 
 // Every chance roll a player would *want* to succeed goes through here, so the
-// luck dial (state.luck, ×1 by default) can one day be turned by patrons or
-// Colophon picks. Deliberately NOT used for bad outcomes (e.g. Arsonist burns).
+// luck dial (state.luck, ×1 by default) can scale it. Deliberately NOT used for
+// bad outcomes (e.g. Arsonist burns).
 export const luckyRoll = p => Math.random() < Math.min(1, p * (state.luck ?? 1));
 
 // ─── Persist ──────────────────────────────────────────────────────────────────
 
-// Shape changes an older save has to be walked forward through. Both of these
-// can be hiding anywhere — the collection, the rack, the discard pile, the
-// shop's offers and the workbench inside the market snapshot, the draft, the
-// compost heap — so the whole save is walked rather than each list found by
-// hand, which is cheaper to write and can't miss one.
-//
-//   altColour  Paint used to belong to a face; it belongs to the tile now, so
-//              a second coat folds into the first. A tile painted on both keeps
-//              the front one — the alternative is asking the player which half
-//              of a tile they meant.
-//   ingot      A sundry that named its metal at the shop. It is a wrapped tile
-//              now, and what is inside is rolled when the paper comes off, so
-//              the stored material is simply dropped.
-//   minimalist The three-letter-word patron, renamed to the Abecedarian. Seats
-//              and shop offers both store a patron by id, so an id left behind
-//              would resolve to nothing and the seat would render blank.
+// Walk an older save's shapes forward: a per-face paint folds into the tile's,
+// an ingot sundry becomes a wrapped tile, and the minimalist patron id becomes
+// abecedarian (a stale id resolves to nothing and renders a blank seat). The
+// whole save is walked because any of them can be hiding anywhere in it.
 function migrateSave(node) {
   if (Array.isArray(node)) { node.forEach(migrateSave); return; }
   if (!node || typeof node !== 'object') return;
@@ -365,14 +303,11 @@ export function saveState(extra = {}) {
   } catch { /* quota */ }
 }
 
-// One-time repair for saves written while the mercury trim existed. The trim is
-// gone (its rule is The Fountain's now), so a tile still wearing one would look
-// itself up in a table that no longer has the row — which throws wherever a
-// trim is described. Cobalt costs the same 3 Coins and is the nearest thing to
-// a straight swap, so those tiles are re-trimmed rather than stripped bare.
-// The whole save is walked because a trim can be on a collection template, on a
-// tile in the hand or the pile, or on a tile still sitting unbought on a Market
-// or draft sheet. Returns how many were repaired, so the board can say so.
+// One-time repair for saves holding the retired mercury trim: a tile still
+// wearing one would look itself up in a table that no longer has the row, which
+// throws wherever a trim is described. Cobalt is the nearest swap. The whole
+// save is walked — a trim can be on a template, a live tile or an unbought
+// offer. Returns how many were repaired, so the board can say so.
 function retireMercury(node) {
   if (Array.isArray(node)) return node.reduce((n, v) => n + retireMercury(v), 0);
   if (!node || typeof node !== 'object') return 0;
@@ -397,11 +332,9 @@ export function loadState() {
     state.upgradeCounts ??= {};
     state.luck ??= 1;
     state.ratchetDir ??= 1;
-    // The run's record of printed words was `ledger` before it was bound into
-    // chapters and became the manuscript. Same rows, same order, new name.
-    // Tested on emptiness rather than `??=`: state.manuscript defaults to [],
-    // which is not nullish, so a coalescing assign would silently keep the
-    // empty default and throw an old save's words away.
+    // `ledger` was the manuscript's name in older saves. Tested on emptiness
+    // rather than `??=`: state.manuscript defaults to [], which is not nullish,
+    // so a coalescing assign would throw an old save's words away.
     if (Array.isArray(state.ledger)) {
       if (!state.manuscript?.length) state.manuscript = state.ledger;
       delete state.ledger;
@@ -459,10 +392,9 @@ export function newRun() {
 // Reshuffle the whole collection into the bag and reset page counters.
 // (Drawing the opening rack is left to the caller so it can be animated.)
 export function startPage() {
-  // Last page's manuscript comes off first, before anything else looks at a
-  // tile. Unconditional: clearing here rather than when the Deadline ends is
-  // what guarantees a wrapper can never outlive the editor that laid it, however
-  // the page was left — cleared, lost, or reloaded halfway through.
+  // Last page's wrappers come off first, before anything else looks at a tile.
+  // Unconditional, so a wrapper can never outlive the editor that laid it,
+  // however the page was left — cleared, lost, or reloaded halfway through.
   for (const t of state.collection) delete t.wrapped;
 
   state.bag  = shuffle([...state.collection]);
@@ -477,10 +409,9 @@ export function startPage() {
   // rack size, discards and the wrapping below are theirs to bend.
   if (isDeadline(state.page)) assignBoss();
   else state.boss = null;
-  // The Redactor wraps a share of the CASE, not of the hand: the bag holds the
-  // very templates the collection does, so a wrapped tile stays wrapped when it
-  // is discarded and drawn again, and the condition lasts the page instead of
-  // washing out with the first refill.
+  // The Redactor wraps a share of the CASE, not of the hand: bag and collection
+  // share templates, so a wrapped tile stays wrapped when it is discarded and
+  // drawn again, and the condition lasts the whole page.
   const wraps = activeBoss(state)?.wraps;
   if (wraps) {
     const pool = shuffle([...state.collection]);
@@ -493,8 +424,8 @@ export function startPage() {
   state.discardMode = false;
   state.sundryMode = -1;
   state.tubeOffer = null;
-  // A fresh hand means fresh tile ids, so no tube's remembered offer can
-  // still name anything — clear them rather than leave dangling ids around.
+  // A fresh hand means fresh tile ids, so no remembered offer can still name
+  // anything — clear them rather than leave dangling ids around.
   for (const s of state.sundries ?? []) s.offer = null;
   state.tongsBonus = 0;   // a page turn lets the furnace's heat out
   state.rackBonus  = 0;   // and takes back any hand the Ragman widened
@@ -503,27 +434,21 @@ export function startPage() {
 
 // ─── Tile operations ──────────────────────────────────────────────────────────
 
-// Tiles that take up a place in the hand. A ghost holds none — it rides along
-// beside the hand rather than in it, so drawing tops up around it. The
-// Enthusiast's gift rides the same way. The Eeeditor's E's emphatically do
-// not: they are lent, but they are *in* the hand, and the seven places they
-// leave you are the point of that editor.
+// Tiles that take up a place in the hand. Ghosts and aboveHand tiles ride
+// beside it rather than in it, so drawing tops up around them; the Eeeditor's
+// lent E's emphatically do not.
 const handCount = () =>
   [...state.rack, ...state.word].filter(t => t.material !== 'ghost' && !t.aboveHand).length;
 
-// The Magpie can't help herself: she goes through the bag for the bright ones.
-// Every tile in it is weighed for the draw, and a gold trim weighs twice what
-// anything else does — so gold comes up about twice as often as its share of
-// the bag, and the more of your collection you gild the more of it she finds.
-// She promises nothing (a hand can still come up dull) and conjures nothing:
-// the bag holds exactly what it held, only the reaching-in is crooked.
+// The Magpie weights the draw: a gold trim weighs twice what anything else
+// does, so gold comes up about twice as often as its share of the bag. She
+// conjures nothing — the bag holds exactly what it held.
 const MAGPIE_WEIGHT = 2;
 const magpieWeight = t => (t.trim === 'gold' ? MAGPIE_WEIGHT : 1);
 
-// One tile off the bag. Ordinarily the top of it (the bag is drawn from the
-// end, hence the pop); with the Magpie seated, a weighted reach instead.
-// Every draw in the game comes through drawUpToRackSize, so the opening hand,
-// a top-up after discards and a top-up after printing all run the same rule.
+// One tile off the bag — the end of it, hence the pop; a weighted reach with
+// the Magpie seated. Every draw in the game comes through drawUpToRackSize, so
+// the opening hand and every top-up run the same rule.
 function drawFromBag() {
   if (!owns('magpie')) return state.bag.pop();
   const total = state.bag.reduce((n, t) => n + magpieWeight(t), 0);
@@ -547,7 +472,7 @@ export function drawUpToRackSize() {
 }
 
 // Strike a new tile: it joins the collection for good and arrives in the rack
-// straight away, so whatever paid for it pays off on the page you spend it.
+// straight away.
 export function castTile(overrides = {}) {
   const { letter, ...rest } = overrides;
   const tmpl = adoptTemplate(makeTileTemplate(letter, rest));
@@ -558,18 +483,16 @@ export function castTile(overrides = {}) {
 }
 
 // What comes out of a wrapped tile: a random letter in the given material. A
-// cursed one is never cast on a letter worth much — its ×Mult is the point,
-// not its Points, and a cursed QU would be a punishment rather than a gamble.
+// cursed one is never cast on a letter worth much — its ×Mult is the point, not
+// its Points.
 export function castMaterialTile(material) {
   const letters = Object.keys(BAG_COUNTS).filter(L =>
     material !== 'cursed' || (TILE_POINTS[L] ?? 99) <= CURSED_MAX_POINTS);
   return castTile({ letter: letters[Math.floor(Math.random() * letters.length)], material });
 }
 
-// The other thing a wrapper can hold: a mark, in ordinary lead, under the trim
-// it always comes wearing. A bare mark is worth a point and spells nothing, so
-// it would be a poor thing to unwrap; the purple is what makes the slot worth
-// giving up. Nothing else in the game hands one out (see MARKS).
+// The other thing a wrapper can hold: a mark in ordinary lead, under the trim
+// it always comes wearing. Nothing else in the game hands one out (see MARKS).
 export function castMarkTile() {
   return castTile({
     letter: MARKS[Math.floor(Math.random() * MARKS.length)],
@@ -610,16 +533,11 @@ export function getWordString() {
 }
 
 // Which printed tiles slip back into the bag rather than the discard pile:
-// every azure tile while The Fountain is seated, and nothing else. (The mercury
-// trim did this for a single tile and was retired; the rule was always better
-// as a colour's than as a trim's.) Read through countsAsColour, so a rainbow
-// tile takes the road too — one of the few places rainbow metal pays off
-// without being painted at all.
-// Scoring reads the same rule for its "↩ to bag" flag, so the promise the
-// board makes while you compose is the one printing keeps.
-// A lent tile can never take this road whatever else is true of it: the bag
-// holds templates, and filing one there would turn a tile you were lent for a
-// page into a tile you own for the rest of the run.
+// every azure tile while The Fountain is seated, and nothing else. Read through
+// countsAsColour, so a rainbow tile takes the road too. Scoring reads the same
+// rule for its "↩ to bag" flag, so the promise the board makes while you
+// compose is the one printing keeps. A lent tile never qualifies: the bag holds
+// templates, and filing one would make a page's loan permanent.
 export const returnsToBag = tile =>
   !tile.ephemeral && owns('fountain') && countsAsColour(tile, 'azure');
 
@@ -643,11 +561,10 @@ export function retirePrinted(tiles) {
 
 // ─── Permanent tile changes (patron effects) ──────────────────────────────────
 
-// Grow a tile's value for good: the bonus is written to the live tile AND the
-// collection template it was drawn from (same write-through as painting), so
-// it survives the page, the save, and every reshuffle. Growth lands on the
-// face the tile is showing — grow a dual as E and the T on its back learns
-// nothing — and the corner number renders jade while a grown face is up.
+// Grow a tile's value for good: written to the live tile AND the collection
+// template it was drawn from (the same write-through as painting), so it
+// survives the page, the save and every reshuffle. Growth lands on the face the
+// tile is showing — grow a dual as E and the T on its back learns nothing.
 export function growTile(tile, n = 1) {
   if (isImmutable(tile)) return false;
   const field = tile.activeVariant === 1 ? 'altBonusPoints' : 'bonusPoints';
@@ -657,11 +574,9 @@ export function growTile(tile, n = 1) {
   return tile[field];
 }
 
-// Paint a tile, writing through to the collection so the paint is permanent.
-// A dual tile takes its coat whole — both letters, whichever face was showing
-// when the brush landed. Every route to permanent paint goes through here —
-// tubes, the Painter, patrons — so none of them can drift apart, and so The
-// Dabbler sees every brushstroke there is.
+// Paint a tile, writing through to the collection so the paint is permanent. A
+// dual takes its coat whole, both faces. Every route to permanent paint goes
+// through here, so none can drift apart and The Dabbler sees every brushstroke.
 export function paintTile(tile, colour) {
   if (isImmutable(tile)) return false;
   tile.colour = colour;
@@ -672,12 +587,10 @@ export function paintTile(tile, colour) {
   return true;
 }
 
-// The Dabbler can't resist a wet brush: any paint landing anywhere has a
-// chance of splashing a second unpainted tile of the collection the same
-// colour. Guarded so a splash never splashes again — one echo per
-// brushstroke, however lucky the day. This runs too deep to speak, so the
-// splashes queue up for main.js (and the Market sheet) to drain into the
-// log via takePaintEchoes.
+// The Dabbler: any paint landing anywhere may splash a second unpainted tile of
+// the collection the same colour. Guarded so a splash never splashes again.
+// This runs too deep to speak, so splashes queue for main.js (and the Market
+// sheet) to drain into the log via takePaintEchoes.
 let paintEchoes = [];
 let splashing = false;
 
@@ -704,13 +617,12 @@ function dabblerSplash(painted, colour) {
 }
 
 // ─── The ink wash (the toolbox's azure tool) ──────────────────────────────────
-// A faint coat, one tile per colour, laid on random unpainted tiles in the
-// hand. It counts as its colour everywhere paint does (getActiveColour reads
-// it), but it is not paint: it never goes through paintTile, so the Dabbler
-// never splashes off it, and it comes off the moment the tile prints. Written
-// through to the collection template like paint, so a washed tile discarded
-// today is still washed when the bag deals it again — the ink is spent by
-// printing and nothing else.
+// A faint coat, one tile per colour, on random unpainted tiles in the hand. It
+// counts as its colour everywhere paint does (getActiveColour reads it), but it
+// is not paint: it never goes through paintTile, so the Dabbler never splashes
+// off it. Written through to the template like paint, so a washed tile is still
+// washed when the bag deals it again — printing is the only thing that spends
+// the ink.
 export function applyWash() {
   const candidates = [...state.rack, ...state.word]
     .filter(t => !t.colour && !t.wash && !isImmutable(t));
@@ -724,9 +636,8 @@ export function applyWash() {
   });
 }
 
-// The wash pays its way at scoring and comes off as the word commits — called
-// from main.js on the printed tiles, before they retire, so The Fountain sees
-// them bare (an azure wash buys the multiplier, not the trip back to the bag).
+// Called from main.js on the printed tiles before they retire, so The Fountain
+// sees them bare: an azure wash buys the multiplier, not the trip to the bag.
 export function washOff(tiles) {
   let rinsed = 0;
   for (const t of tiles) {
@@ -749,17 +660,14 @@ export function trimTile(tile, kind) {
   return true;
 }
 
-// Remove a tile from the collection for good (Stoker burns, Arsonist
-// accidents, the Smelter's furnace). Honours the same floor as the Smelter so
-// nothing can eat the press out of house and home. Returns the removed
-// template, or null if the floor held. Live copies (rack / word / discard
-// pile) are the caller's to clean up.
+// Remove a tile from the collection for good. Honours the Smelter's floor, so
+// nothing can eat the press out of house and home; returns the removed
+// template, or null if the floor held. Live copies (rack / word / discard pile)
+// are the caller's to clean up.
 //
 // Every route to permanent destruction comes through here, which is what lets
 // The Composter count them all. The rot is banked as a number and turned into
-// actual tiles when the Market opens (see rotCompost in js/market.js) — the
-// heap is only ever looked at there, and tile generation lives over in the
-// Market, so this end just keeps the tally.
+// tiles when the Market opens (see rotCompost in js/market.js).
 export function trashFromCollection(tid) {
   if (state.collection.length <= SMELT_MIN_COLLECTION) return null;
   const i = state.collection.findIndex(c => c.tid === tid);
@@ -770,34 +678,18 @@ export function trashFromCollection(tid) {
   return removed;
 }
 
-// The Revenant stands at every graveside there is. Because every road to
-// destruction runs through trashFromCollection above — the Stoker's fire, the
-// Arsonist's accidents, the Bloodletter's basin, the Serpent's meal, the
-// tongs, the crucible, the Smelter's furnace — it is present at all of them
-// from this one place, exactly as The Dabbler is present at every brushstroke
-// from inside paintTile.
+// The Revenant stands at every graveside: because every road to destruction
+// runs through trashFromCollection above, he is present at all of them from
+// this one place — exactly as The Dabbler sits inside paintTile.
 //
-// What comes back is the WHOLE tile: paint, trim, nick, grown Points, both
-// faces of a dual. Only the metal is overwritten — ghost, whatever it was
-// struck in before, since a tile wears one material and not two, and a cursed
-// tile that came back cursed would be a punishment rather than a resurrection.
-// Keeping the finery is the whole point of the seat: what you have to feed it
-// is a tile you BUILT, and a bare letter back would never be worth the wager.
-// Nothing can be done to it afterwards — ghost metal is immutable
-// (isImmutable) — so what it came back as is what it stays.
+// What comes back is the WHOLE tile — paint, trim, nick, grown Points, both
+// faces of a dual — with only the metal overwritten to ghost, which is
+// immutable (isImmutable), so what it came back as is what it stays. The wash
+// and the wrapper are left behind: both belong to the page, not to the type.
+// No cap on how many are raised; ghost tiles take no room in the hand.
 //
-// The wash is left behind because it was never the tile's: a page's worth of
-// borrowed colour that comes off at the next print anyway. The wrapper is left
-// behind for the same reason — the Redactor's paper belongs to the page, not
-// to the type.
-//
-// No cap on how many are raised. Ghost tiles take no room in the hand, so a
-// press that has fed thirty tiles to the fire has earned its thirty-tile hand
-// and the chaos that comes with it; the rack wraps.
-//
-// Guarded against raising the dead twice: a ghost called back can be destroyed
-// again later (the Arsonist doesn't check what he burns), and the rite would
-// otherwise run inside its own casting.
+// `raising` guards against raising the dead twice: a ghost can be destroyed
+// again later, and the rite would otherwise run inside its own casting.
 let ghostEchoes = [];
 let raising = false;
 
@@ -814,7 +706,7 @@ function revenantRaises(template) {
   const { wash, wrapped, ephemeral, tid, ...kept } = template;
   // Between pages there is no hand to arrive in — the bag is dealt from the
   // collection at the page turn, so a tile raised at the Market's furnace is
-  // simply waiting in the case when the next page begins.
+  // waiting in the case when the next page begins.
   const tmpl = adoptTemplate({ ...kept, material: 'ghost' });
   state.collection.push(tmpl);
   if (!state.inMarket && !state.inDraft && !state.inColophon) {
@@ -825,17 +717,12 @@ function revenantRaises(template) {
 }
 
 
-// Melt two tiles into one two-faced sort (The Typefounder): the left tile
-// takes the right's letter as its second face, and the right is destroyed.
-// Where both carry the same finery — paint, trim, nick, material — the left
-// tile's survives the melt; where only one does, it is kept whichever side it
-// came from. Grown points stay with their letter: each face brings its own
-// growth to the crucible and keeps it (see getActiveGrowth). Only plain
-// single-letter tiles will take the crucible: no duals (a tile has at most
-// two faces), no ligatures or marks (not single letters — same bar the
-// Punchcutter sets), and nothing immutable. The destruction goes through
-// trashFromCollection, so it respects the Smelter's floor and feeds the
-// Composter like every other route out.
+// Melt two tiles into one two-faced sort (The Typefounder): the left tile takes
+// the right's letter as its second face, and the right is destroyed. Finery the
+// two share is kept from the left; grown points stay with their own letter (see
+// getActiveGrowth). Only plain, single-letter, mutable tiles take the crucible.
+// The destruction goes through trashFromCollection, so it respects the
+// Smelter's floor and feeds the Composter like every other route out.
 export function mergeTiles(left, right) {
   const plain = t => t.letter.length === 1 && !isMark(t.letter) && t.letter !== FLEURON
                   && t.letterType !== 'dual' && !isImmutable(t);
@@ -867,11 +754,10 @@ export function recordWord(word, score) {
 
 // ─── The Gambler's coin ───────────────────────────────────────────────────────
 // Tossed once per word, never inside the score effect: scoring re-runs on every
-// letter you lay down to power the live preview, so a roll in there would
-// flicker as you compose and then disagree with what actually printed. Holding
-// the result in state keeps the promise the shelf makes — and means the coin is
-// settled before you set the word, so you can see whether to spend a good hand
-// on it. It is re-tossed as each page opens and after every word prints.
+// letter laid down to power the live preview, so a roll in there would flicker
+// as you compose and then disagree with what printed. Held in state, so the
+// coin is settled before you set the word. Re-tossed as each page opens and
+// after every word prints.
 export function rollGamble() {
   state.gambleWon = luckyRoll(GAMBLER_ODDS);
 }
@@ -879,10 +765,8 @@ export function rollGamble() {
 // ─── Selection ────────────────────────────────────────────────────────────────
 
 // Returns 'on' | 'off' | 'cursed' | 'lent' | 'none', so a refused pick can be
-// explained. A cursed tile can't be thrown away; the only way out of the rack
-// is to print it. A lent tile can't either, for a happier reason: the editor
-// would only hand you another exactly like it, so a discard spent on one would
-// buy nothing at all.
+// explained. A cursed tile leaves the rack only by printing; a lent one would
+// only be handed back again, so a discard spent on it buys nothing.
 export function toggleSelected(id) {
   const tile = state.rack.find(t => t.id === id);
   if (!tile) return 'none';
@@ -901,14 +785,11 @@ export const selectedCount = () => state.rack.filter(t => t.selected).length;
 
 // ─── Sundries (the workbench) ─────────────────────────────────────────────────
 
-// Throw one off the bench, wherever you are standing. A tool you will never
-// spend is worth less than the slot it sits in, and the only way out used to
-// be the Market's Coin — so a bench full of ratchets could lock you out of the
-// wrapped tile you actually wanted until the next shop. Nothing is paid for it
-// here: this is a bin, not a buyer (the Market still buys back, see
-// sellSundry). The armed tool is put down first, and anything armed BEHIND the
-// gap slides down with it, so state.sundryMode can never end up pointing at
-// the wrong tool. Returns the discarded sundry, or null if the slot was empty.
+// Throw one off the bench, wherever you are standing. Nothing is paid for it:
+// this is a bin, not a buyer (the Market still buys back, see sellSundry). The
+// armed tool is put down first, and anything armed BEHIND the gap slides down
+// with it, so state.sundryMode can never end up pointing at the wrong tool.
+// Returns the discarded sundry, or null if the slot was empty.
 export function discardSundry(idx) {
   const s = state.sundries[idx];
   if (!s) return null;
@@ -933,15 +814,15 @@ export function toggleSundrySelect(id) {
   if (!tile) return 'off';
   if (tile.selected) { tile.selected = false; return 'off'; }
   if (isImmutable(tile)) return 'immutable';
-  // The ratchet only has purchase on a single letter — refuse ligatures and
-  // marks at the point of picking rather than after the choice is made.
+  // The ratchet only has purchase on a single letter — refused at the point of
+  // picking rather than after the choice is made.
   if (state.sundries[state.sundryMode]?.kind === 'ratchet' && !shiftable(tile)) return 'unshiftable';
   // An armed tube — or an applicator, which shares its whole gesture — takes
   // only the tiles it laid out.
   if (['tube', 'applicator'].includes(state.sundries[state.sundryMode]?.kind)
       && !(state.tubeOffer ?? []).includes(tile.id)) return 'unoffered';
-  // The loupe magnifies nothing past its own limit — refuse a tile already
-  // at the cap when it is picked, not after.
+  // The loupe magnifies nothing past its own limit — refused when the tile is
+  // picked, not after.
   if (state.sundries[state.sundryMode]?.kind === 'loupe'
       && restingPoints(tile) >= LOUPE_CAP) return 'capped';
   if (sundrySelected().length >= 1) return 'full';   // every armed tool takes one target
@@ -952,9 +833,8 @@ export function toggleSundrySelect(id) {
 // ─── The ratchet's alphabet ───────────────────────────────────────────────────
 // The ring a letter steps around, taken from the game's own sorts rather than
 // A-Z: the press carries no lone Q (only the QU sort), so Q simply isn't a
-// place a letter can land — P steps up to R, and R back down to P. It wraps,
-// so A steps down to Z. Ligatures and marks aren't single letters and have no
-// place on the ring at all.
+// place a letter can land — P steps up to R, and R back down to P. It wraps, so
+// A steps down to Z.
 const SHIFT_RING = Object.keys(TILE_POINTS)
   .filter(l => /^[A-Z]$/.test(l))   // letters only — no marks, and no fleuron
   .sort();
@@ -978,11 +858,10 @@ export function shiftTile(tile, dir) {
   return true;
 }
 
-// Spend the armed sundry on the selected tiles. The live tile's showing face is
-// changed, and written through to the collection template it was drawn from —
-// paint and letter alike are permanent, not just for this page. `dir` is the
-// ratchet's direction (+1 later in the alphabet, -1 earlier) and is ignored by
-// every other kind.
+// Spend the armed sundry on the selected tiles. Changes to the showing face are
+// written through to the collection template, so paint and letter alike outlive
+// the page. `dir` is the ratchet's direction (+1 later in the alphabet, -1
+// earlier) and is ignored by every other kind.
 export function applySundry(idx, dir = 0) {
   const sundry = state.sundries[idx];
   if (!sundry) return null;
@@ -999,8 +878,7 @@ export function applySundry(idx, dir = 0) {
   }
 
   // The loupe doubles what the corner number says — face, growth and silver
-  // trim together — capped at LOUPE_CAP, and written in as permanent growth
-  // so the gain survives the page like everything the Grafter does.
+  // trim together — capped at LOUPE_CAP and written in as permanent growth.
   if (sundry.kind === 'loupe') {
     const tile = sundrySelected().filter(t => !isImmutable(t))[0];
     if (!tile) return null;
@@ -1013,10 +891,10 @@ export function applySundry(idx, dir = 0) {
     return { kind: 'loupe', from, to: from + delta, letters: [getActiveLetter(tile)], ids: [tile.id] };
   }
 
-  // The tongs feed a tile to the furnace by hand: gone for good (through
-  // trashFromCollection, so the Composter is fed and the Smelter's floor
-  // holds), and the next word prints hotter for it. Grips stack; the bonus
-  // is read by computeScore and cleared when a word commits or a page turns.
+  // The tongs feed a tile to the furnace: gone for good (through
+  // trashFromCollection, so the Composter is fed and the Smelter's floor holds).
+  // Grips stack; the bonus is read by computeScore and cleared when a word
+  // commits or a page turns.
   if (sundry.kind === 'tongs') {
     const tile = sundrySelected().filter(t => !isImmutable(t))[0];
     if (!tile) return null;
@@ -1030,8 +908,7 @@ export function applySundry(idx, dir = 0) {
   }
 
   // An applicator strikes its tile into a new metal, written through to the
-  // collection so the change outlives the page — the tube's gesture exactly,
-  // pointed at the material instead of the paint.
+  // collection so the change outlives the page.
   if (sundry.kind === 'applicator') {
     const target = sundrySelected().find(t => (state.tubeOffer ?? []).includes(t.id));
     if (!target || target.material || isImmutable(target)) return null;
@@ -1060,12 +937,6 @@ export function applySundry(idx, dir = 0) {
   return { kind: 'tube', colour: sundry.colour, letters: [getActiveLetter(tile)], ids: [tile.id] };
 }
 
-// The tube's offer, rolled as it is armed: up to two random unpainted tiles
-// from the hand — rack and half-composed word alike. Aimed paint only ever
-// landed on the same four workhorse letters, and a painted A never changed
-// which word you reached for; an offer of two keeps a real choice without
-// the auto-pilot. Returns null (and leaves no offer) when nothing in the
-// hand will take paint.
 // What a given tool will consider. The tube wants a tile with no paint; an
 // applicator wants one with no metal — a sort is cast in one material and not
 // two, the same rule that stops trims stacking. Both refuse the immutable.
@@ -1080,15 +951,11 @@ export function rollTubeOffer(sundry = null) {
   const byId = new Map(inHand.map(t => [t.id, t]));
 
   // THE OFFER BELONGS TO THE TUBE, NOT TO THE GESTURE. It is remembered on the
-  // sundry itself, so putting the tube down and picking it up again lays out
-  // the SAME two tiles — otherwise backing out re-rolled the pair, and a
-  // player could keep flinching until the offer named the tile they wanted,
-  // which is the one thing the offer exists to prevent.
-  //
-  // Tiles that have since left the hand or taken paint drop out of the
-  // remembered offer; only when none survive does the tube lay out a fresh
-  // one. That is not a way back to fishing — emptying the offer means
-  // printing or discarding those tiles, which costs far more than it wins.
+  // sundry itself, so putting the tube down and picking it up again lays out the
+  // SAME two tiles — otherwise a player could keep backing out until the offer
+  // named the tile they wanted, which is the one thing it exists to prevent.
+  // Tiles that have since left the hand or taken paint drop out; only when none
+  // survive does the tube lay out a fresh offer.
   const kept = (sundry?.offer ?? []).filter(id => byId.has(id) && takesPaint(byId.get(id)));
   if (kept.length) {
     state.tubeOffer = kept;
@@ -1124,11 +991,9 @@ export function toggleDualVariant(id) {
 }
 
 // A patron out of nowhere, for nothing: The Paramour's love potion. Rarity is
-// ignored on purpose — a potion that weighted its rares like the shop would be
-// a worse shop, and the whole charm of the thing is that a Stoker might walk
-// in. Nothing already held is offered, nor the cat, who is found rather than
-// given. Returns the new seat, or null when the table is full or the roster
-// exhausted; the caller says so.
+// ignored on purpose. Nothing already held is offered, nor the cat, who is
+// found rather than given. Returns the new seat, or null when the table is full
+// or the roster exhausted; the caller says so.
 export function grantRandomPatron(defs) {
   if (state.patrons.length >= effectivePatronSlots()) return null;
   const held = new Set(allSeats().map(p => p.id));
@@ -1188,13 +1053,11 @@ export function reorderRack(id, insertIdx) {
 
 // Seats change places. Seat order is the roster's rule of precedence — hooks
 // fire down the shelf and a tile one patron consumes is out of every later
-// seat's reach (see runDiscardHooks in main.js) — so dragging a card is a real
-// tactical act, not decoration: it is how you tell the Bloodletter and the
-// Typefounder which of them gets first refusal on a discarded pair.
+// seat's reach (see runDiscardHooks in main.js) — so dragging a card decides
+// which of two hungry patrons gets first refusal on a discarded pair.
 //
-// `ref` is a seat uid or a def id, the same currency sellPatron takes. The
-// index counts seats, empty ones included, so a card dropped past the end of
-// the company simply goes last rather than vanishing into a gap.
+// `ref` is a seat uid or a def id, the same currency sellPatron takes. The index
+// counts seats, empty ones included, so a card dropped past the end goes last.
 export function reorderPatrons(ref, insertIdx) {
   const i = state.patrons.findIndex(p => String(p.uid) === String(ref) || p.id === ref);
   if (i < 0) return false;

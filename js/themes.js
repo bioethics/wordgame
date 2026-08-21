@@ -1,22 +1,13 @@
 // Themed word lists — the flat files in wordlists-themed/, one word per line.
-// Lines starting with # are comments; blank lines are ignored; case doesn't
-// matter. Edit the files freely, nothing else needs changing. To add a whole
-// new list, drop the file in the folder and give it a line in THEME_FILES.
+// Lines starting with # are comments, blank lines are ignored, case doesn't
+// matter. To add a list, drop the file in and give it a line in THEME_FILES.
 //
-// Four lists back the register patrons (the Sexton, the Paramour, the Poppet,
-// the Vulgarian) and three more back the parts of speech (the Sculptor's
-// nouns, the Poet's adjectives, the Athlete's verbs); the acronyms list
-// backs the Stenographer, and the names list The Expectant Parents. A word
-// only ever scores if the dictionary (or a pardon) lets it through first, so
-// list entries the dictionary lacks are harmless — they just never come up.
-// (The nouns list is read by a pardon as well — The Binder's, which stacks two
-// of its entries into a word — and the acronyms and names lists are vouched
-// whole at the dictionary check, so those three can put a word through the
-// door rather than only paying for it.)
+// A list entry only scores if the dictionary (or a pardon) lets the word through
+// first, except for three that can open the door themselves: acronyms and names
+// (vouched whole at the dictionary check) and nouns (read by The Binder).
 //
-// A bundled build (single-file/artifact) embeds the lists as
-// window.FOLIO_THEMES = { cute: "text…", … }, which is checked first —
-// the same arrangement dict.js has with window.FOLIO_WORDLIST.
+// A bundled build embeds the lists as window.FOLIO_THEMES, checked first — as
+// dict.js does with window.FOLIO_WORDLIST.
 
 import { isExcluded } from './excluded.js';
 
@@ -36,18 +27,13 @@ export const THEME_FILES = {
 export const THEME_SETS = Object.fromEntries(
   Object.keys(THEME_FILES).map(k => [k, new Set()]));
 
-// Where a list's ORDER is itself data. Most lists are unordered bags of words
-// and never look at this; common.txt is sorted commonest-first, and The
-// Populist asks how common a word is, not merely whether it is on the list.
+// Where a list's ORDER is itself data: common.txt is sorted commonest-first.
 export const THEME_RANKS = Object.fromEntries(
   Object.keys(THEME_FILES).map(k => [k, new Map()]));
 
-// Every themed list comes through here, which is where the exclusion list is
-// enforced for them. It matters most for the two lists that vouch a word
-// straight past the dictionary — the Stenographer's acronyms and The
-// Expectant Parents' names — since those never face the dictionary's own
-// filter. An excluded word takes no rank either: it isn't on the list, so it
-// holds no place in its order.
+// Every themed list comes through here, so this is where exclusions are enforced
+// for them — load-bearing for acronyms and names, which never face the
+// dictionary's own filter. An excluded word takes no rank either.
 export function adoptTheme(key, text) {
   const set = THEME_SETS[key];
   if (!set) return 0;
@@ -68,12 +54,11 @@ export function adoptTheme(key, text) {
 // True when `word` (letters only, marks already split off) is on the list.
 export const inTheme = (key, word) => THEME_SETS[key]?.has(word) ?? false;
 
-// A word's position in an ordered list, or null if it isn't on it. Rank 0 is
-// the first line of the file.
+// A word's position in an ordered list, or null. Rank 0 is the file's first line.
 export const themeRank = (key, word) => THEME_RANKS[key]?.get(word) ?? null;
 
-// How many words a list holds — the editors use this to tell "the list says
-// no" apart from "the list hasn't loaded yet", which must never spike a word.
+// The editors use this to tell "the list says no" from "the list hasn't loaded",
+// which must never spike a word.
 export const themeSize = key => THEME_SETS[key]?.size ?? 0;
 
 export async function loadThemes() {

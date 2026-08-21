@@ -1,114 +1,80 @@
 // The Editors — one takes the desk at every Deadline (the third page of each
-// chapter), unannounced until the page is dealt. An editor never bans
-// anything and never touches what a tile is worth: each one warps the shape
-// of the words instead — length, order, sequence — so the puzzle is solvable
-// with whatever rack arrives, no preparation asked or possible.
-//
-// A word that breaks the house rule is not refused; it is SPIKED — printed,
-// filed, counted, but at ×SPIKE_MULT (see constants.js) of what it would have
-// scored. Every rack stays playable; the rule is a cost, not a wall. The live
-// preview shows the spike coming, because the whole game runs on honest
-// readouts.
+// chapter). An editor never bans anything and never changes what a tile is
+// worth: each warps the SHAPE of the words instead, so whatever rack arrives
+// stays playable. A word that breaks the house rule is not refused, it is
+// SPIKED: printed and counted at ×SPIKE_MULT (constants.js), and the live
+// preview shows the spike coming.
 //
 // Def shape:
-//   id, name, emoji, desc      — desc is the standing rule, in full
-//   setup(data, state)         — roll per-page state as the Deadline is dealt
-//   demand(data)               — the live line for the editor's bar: what the
-//                                NEXT word must satisfy. null = the rule is
-//                                static and desc says it all.
+//   id, name, emoji, desc  — desc is the standing rule, in full
+//   setup(data, state)     — roll per-page state as the Deadline is dealt
+//   demand(data)           — live line for the bar: what the NEXT word must
+//                            satisfy. null = static rule, desc says it all.
 //   judge(letters, tiles, data, preTotal)
-//                              — null if the word passes, else a short reason.
-//                                Runs on every keystroke for the preview, so
-//                                it must be pure and read data without writing.
-//                                `preTotal` is the word's total before the
-//                                spike (the Escalationist's bar is scored
-//                                against real value, not spiked value).
-//   mood(data)                 — a ×Mult applied to EVERY word (the Reviewer);
-//                                shown in the bar before you compose.
+//                          — null if the word passes, else a short reason. Runs
+//                            on every keystroke for the preview, so it must be
+//                            pure and must not write to `data`. `preTotal` is
+//                            the total BEFORE the spike.
+//   mood(data)             — ×Mult applied to EVERY word (the Reviewer)
 //   onPrinted(data, script, letters)
-//                              — advance the editor's memory after a word
-//                                commits: chains, bars, re-rolls.
-//   gift: true                 — grants an ephemeral tile of data.letter as
-//                                the page is dealt (the Enthusiast).
-//   lent: { letter, count }    — tiles held IN the hand for the whole page,
-//                                topped back up as they print (the Eeeditor).
-//   wraps: <share>             — that fraction of the COLLECTION is wrapped in
-//                                manuscript for the page: it still spells and
-//                                nothing else (the Redactor). Laid and cleared
-//                                in startPage; read through isWrapped.
-//   rackBonus / noDiscards     — structural knobs read by state.js.
-//   eatsSpare: true            — after every word, one sort left in the rack
-//                                is destroyed for good (the Economiser). Read
-//                                by main.js at commit, where the rack and the
-//                                animation both are.
+//                          — advance the editor's memory after a word commits
+//   gift: true             — an ephemeral tile of data.letter as the page is
+//                            dealt (the Enthusiast)
+//   lent: { letter, count }— tiles held IN the hand all page, topped back up as
+//                            they print (the Eeeditor)
+//   wraps: <share>         — that fraction of the COLLECTION is wrapped for the
+//                            page: it spells and nothing else (the Redactor).
+//                            Laid and cleared in startPage; read via isWrapped.
+//   rackBonus / noDiscards — structural knobs read by state.js
+//   eatsSpare: true        — after every word one sort left in the rack is
+//                            destroyed for good (the Economiser); main.js
 //
-// Tuning numbers live here with their editor, patron-style; SPIKE_MULT lives
-// in constants.js because scoring and the bar both read it.
+// Tuning numbers live here with their editor; SPIKE_MULT is in constants.js
+// because scoring and the bar both read it.
 
 import { inTheme, themeRank, themeSize } from './themes.js';
 
-// The Columnist's measures. Ten tiles in hand: three is always reachable,
-// six is a genuine reach. Never the same measure twice running.
+// The Columnist's measures. With ten tiles in hand three is always reachable
+// and six is a genuine reach. Never the same measure twice running.
 const COLUMN_MIN = 3;
 const COLUMN_MAX = 6;
 
 const PADDER_MIN   = 5;   // letters a Padded word must reach
 
-// The Redactor's share of the case sent back in manuscript. A third of ten is
-// three dead tiles in a hand — felt in every word without ever stranding one,
-// since a wrapped tile still SPELLS: it fills a place in the word, reaches a
-// length multiplier, and satisfies whatever shape the page asks for. It simply
-// brings nothing of its own. Half was tried on paper and reads as a wall
-// rather than a cost, which is not what this roster is for.
+// The Redactor's share of the case. A wrapped tile still SPELLS — it fills a
+// place, reaches a length multiplier, satisfies whatever shape the page asks —
+// and brings nothing of its own, so a third is felt in every word without ever
+// stranding a hand. Half reads as a wall rather than a cost.
 const REDACTOR_SHARE = 1 / 3;
 
-// The Populist's band: how far down the frequency list a word may sit and
-// still count as plain English. wordlists-themed/common.txt carries some 8,000
-// ranks, so this can be widened to soften the editor without new data.
-//
-// Measured against 1,500 random racks: at 500 the best legal word was worth a
-// mean 8.0 Points where an unconstrained rack manages 14.0 — the steepest
-// squeeze of any editor then measured — and yet 99.2% of racks
-// could satisfy it, because the band includes A, IT, IS and their kin. That is
-// the shape this roster wants: a hard ask that never bricks, with a cheap
-// sacrificial word always available to whoever needs one. 750 keeps that shape
-// and gives back a little of the squeeze: the band is the first three quarters
-// of the thousand words a reader meets everywhere, and it now sits clear of the
-// Obscurantist's 500, so the two editors read the same list at three settings
-// rather than at each other's edge.
+// The Populist's band: how far down common.txt (~8,000 ranks) a word may sit
+// and still count as plain English, so it widens without new data. Keep it wide
+// enough to include A, IT, IS and their kin — a cheap sacrificial word must
+// stay available or the editor bricks racks instead of squeezing them — and
+// clear of OBSCURANTIST_BAND, so the two read the same list at different
+// settings rather than at each other's edge.
 const POPULIST_BAND = 750;
 
-// The Obscurantist's bar — and the one number here that measurement lies
-// about. Enumerate the whole dictionary and barring the commonest 1,000 words
-// costs a solver almost nothing: it simply reads further down the list, losing
-// 2% of its score ceiling. A player has to *think of* the rarer word, and the
-// words that come to mind first are exactly the common ones. This editor is
-// therefore far harder in the hand than on paper, and it was always the one to
-// tune by playing rather than by simulating — which is exactly what happened:
-// 1,000 proved punishing in the hand, the band came down to 250, and 250 then
-// proved barely felt, because the words a player reaches for first sit inside
-// the first few hundred ranks and little else does. 500 is the setting between
-// the two. Both the desc and the spike message quote this number, so moving it
-// moves the copy.
+// The Obscurantist's bar — the one number here that measurement lies about. A
+// solver just reads further down the list and barely notices; a player has to
+// *think of* the rarer word, and the words that come to mind first are the
+// common ones. Tune it by playing, not by simulating. Both the desc and the
+// spike message quote it, so moving it moves the copy.
 const OBSCURANTIST_BAND = 500;
 
-// common.txt is fetched, so a Deadline can be dealt before the list lands.
-// Neither editor may judge until it has. There is no single safe answer to
-// give them while they wait, either — they read the same ranking in opposite
-// directions, so an absent list would let one spike nothing and the other
-// spike everything. Both ask, and both decline to judge until it is ready.
+// common.txt is fetched, so a Deadline can be dealt before the list lands and
+// neither editor may judge until it has. There is no safe fallback: they read
+// the same ranking in opposite directions, so an absent list would let one
+// spike nothing and the other spike everything.
 const commonReady = () => themeSize('common') > 0;
 const commonRank  = word => themeRank('common', word);
 
-// The Minimalist reads the same adjectives list The Poet is paid from, and
-// declines to judge until it lands for the same reason: an absent list would
-// have him spike nothing at all.
+// The Minimalist reads the adjectives list The Poet is paid from, and declines
+// to judge until it lands for the same reason.
 const adjectivesReady = () => themeSize('adjectives') > 0;
 
-// The Reviewer's temper: 0.2 at rock bottom, 0.95 on a good day, in
-// twentieths. Squaring the roll skews the days good — the deep sulks are
-// dramatic because they're occasional, and the tax across a page stays
-// survivable (it averages ×0.7).
+// The Reviewer's temper: 0.2 to 0.95, in twentieths. Squaring the roll skews
+// the days good, so deep sulks stay occasional and the page tax averages ×0.7.
 function rollMood(data) {
   const r = Math.random();
   data.mood = Math.round((0.95 - 0.75 * r * r) * 20) / 20;
@@ -149,11 +115,10 @@ export const BOSS_DEFS = [
     },
   },
   {
-    // The one editor who judges what a word MEANS rather than what shape it
-    // is. He reads wordlists-themed/adjectives.txt — the same list The Poet is
-    // paid from, so the two are exact opposites at the same desk — and that
-    // list carries adverbs beside the adjectives, which suits him exactly: the
-    // advice he is made of has never distinguished them.
+    // The one editor who judges what a word MEANS, not what shape it is. He
+    // reads the same adjectives.txt The Poet is paid from, so the two are exact
+    // opposites (see BOSS_CONFLICTS). That list carries adverbs too, which
+    // suits him: the advice he is made of never distinguished them.
     id: 'minimalist', name: 'The Minimalist', emoji: '⬜',
     desc: 'The adjective is the enemy of the noun. Every describing word is spiked.',
     judge: letters => {
@@ -205,9 +170,8 @@ export const BOSS_DEFS = [
     id: 'enthusiast', name: 'The Enthusiast', emoji: '🤩',
     desc: 'I really love specific letters! Every word set without my current favourite is spiked.',
     gift: true,
-    // The passion lands on a letter drawn from the player's own collection,
-    // weighted by how many they hold — so it's usually a common letter, and
-    // never one the press doesn't carry. Ligatures and marks hold no appeal.
+    // Drawn from the player's own collection, weighted by how many they hold,
+    // so it is never a letter the press doesn't carry. Plain sorts only.
     setup: (data, state) => {
       const singles = state.collection.filter(t => /^[A-Z]$/.test(t.letter));
       data.letter = singles.length
@@ -226,43 +190,26 @@ export const BOSS_DEFS = [
     onPrinted: data => rollMood(data),
   },
   {
-    // Structural, like the Completist — no rule to break, so nothing it can
-    // spike. It simply takes three of your ten places and fills them with the
-    // cheapest letter in the case.
-    //
-    // Measured over 2,000 hands: seven tiles plus EEE reach a best word worth
-    // a mean 12.1 Points against 14.0 for a free ten — a 14% toll, among the
-    // gentlest here — and the hand is never once stranded (0 of 4,000), since
-    // three vowels will always find something. Against a bare seven (10.1) the
-    // E's are worth a real +2.0, so they are a genuine gift; but the best word
-    // absorbs all three only 9% of the time, and none of them 31%, and the
-    // ones left over are the cage.
+    // Structural: no rule to break, so nothing it can spike. It takes three of
+    // your ten places and fills them with the cheapest letter in the case.
     id: 'eeeditor', name: 'The Eeeditor', emoji: '🅴',
     desc: 'E is a good letter. Here: I saved three especially for you.',
     lent: { letter: 'E', count: 3 },
   },
   {
-    // The Eeeditor's rule exactly, in a rounder vowel. O is worth the same
-    // single Point as E and is very nearly as obliging, so the toll on the
-    // hand is the same shape — three of your ten places, filled with something
-    // you can always spend but rarely want three of.
+    // The Eeeditor's rule in a rounder vowel: O costs the same single Point.
     id: 'editooor', name: 'The Editooor', emoji: '🅾️',
     desc: 'O is the shape of a mouth saying oh. Take three, with my compliments.',
     lent: { letter: 'O', count: 3 },
   },
   {
-    // Structural, like the Hoarder — no rule to break, so nothing it can
-    // spike. Instead a third of the case comes back set in manuscript: the
-    // tile is wrapped, a pencilled letter written on the wrapper, and
-    // everything the tile WAS is hidden under it for the page. It spells, and
-    // that is all it does — no Points, no trim, no paint, no metal, no nick,
-    // and nothing can be laid on it while it is wrapped (isImmutable).
-    //
-    // The wrapping is laid on the COLLECTION, not the hand, which is what
-    // makes it a page-long condition rather than an opening inconvenience:
-    // discard a wrapped tile and you draw from a bag that is still a third
-    // wrapped. It is cleared at the top of the next startPage, so it can
-    // never outlive the Deadline that laid it (js/state.js).
+    // Structural: no rule to break, nothing it can spike. A wrapped tile spells
+    // and does nothing else — no Points, trim, paint, metal or nick — and
+    // nothing can be laid on it while wrapped (isImmutable). The wrapping goes
+    // on the COLLECTION, not the hand, which makes it a page-long condition
+    // rather than an opening inconvenience: discard a wrapped tile and you draw
+    // from a bag that is still a third wrapped. The next startPage clears it
+    // (js/state.js), so it can't outlive its Deadline.
     id: 'redactor', name: 'The Redactor', emoji: '📝',
     desc: 'This is a draft, not a book. A third of the case comes back in manuscript: those tiles spell, and nothing more.',
     wraps: REDACTOR_SHARE,
@@ -274,21 +221,12 @@ export const BOSS_DEFS = [
     noDiscards: true,
   },
   {
-    // The Hoarder's exact opposite, and the only editor whose cost outlives
-    // its page. Every other rule here warps the shape of a word and is gone at
-    // the page turn; this one melts a sort down for good. That is a deliberate
-    // exception to the roster's own promise, and it is bounded by three
-    // things: it takes only from the tiles you DIDN'T set, so the word you
-    // just built is never touched; it eats one sort per word, so a page costs
-    // at most what its words earn; and it goes through trashFromCollection
-    // like every other destruction, which means the Smelter's floor holds it
-    // at twelve tiles, the Composter is fed by it, and The Revenant will walk
-    // half of what it takes straight back out of the hellbox.
-    //
-    // It never spikes, so there is no rule to satisfy and no judge here — the
-    // toll is the whole editor. The right answer to it is to set longer words:
-    // the more of your hand you commit to the page, the less of it is left in
-    // the case for the melting pot.
+    // The only editor whose cost outlives its page: every other rule warps a
+    // word and is gone at the page turn, this one melts a sort down for good.
+    // Bounded by three things — it takes only from tiles you DIDN'T set, it
+    // eats one sort per word, and it goes through trashFromCollection like
+    // every other destruction, so the Smelter's floor, the Composter and The
+    // Revenant all still apply. It never spikes, so there is no judge here.
     id: 'economiser', name: 'The Economiser', emoji: '🗑️',
     desc: 'Idle type is dead capital. For every word you set, one sort you left in the case goes to the melting pot — for good.',
     eatsSpare: true,
@@ -298,30 +236,23 @@ export const BOSS_DEFS = [
 export const bossById = id => BOSS_DEFS.find(b => b.id === id);
 
 // ─── Editors an assembled press will never meet ───────────────────────────────
-// A Deadline is meant to be a puzzle, not a punishment for what you bought.
-// Most editors merely make a patron idle for a page, which is a fair cost of
-// the roster being a lottery. These pairs are worse than idle: the editor
-// spikes the EXACT words the patron is paid for, so a seat you spent Coins on
-// becomes a machine for losing four-fifths of your score. Buying The Poet
-// should never mean dreading a Deadline.
-//
-// The bar for entry here is deliberately high — exact inversion, where the
-// patron's trigger and the editor's spike condition are the same test read in
-// opposite directions. "This editor happens to be awkward for that build" is
-// not enough; that is the game. Both directions are covered by one entry, and
-// an editor listed here simply never takes the desk while any of its opposites
-// is seated (assignBoss in state.js).
+// Listed here when the editor spikes the EXACT words a patron is paid for, so a
+// seat you spent Coins on becomes a machine for losing score. The bar is
+// deliberately high: exact inversion, the patron's trigger and the editor's
+// spike condition being one test read in opposite directions. "Awkward for that
+// build" is not enough — that is the game. One entry covers both directions;
+// a listed editor never takes the desk while an opposite is seated (assignBoss
+// in state.js).
 //
 // TO ADD A PAIR: one line, editor id → the patron ids it inverts.
 export const BOSS_CONFLICTS = {
-  // Adjectives: The Poet is paid ×2 for exactly what The Minimalist spikes.
+  // The Poet is paid ×2 for exactly what The Minimalist spikes.
   minimalist: ['poet'],
-  // Frequency, read in opposite directions off the same common.txt: The
-  // Lexicographer pays ×1.5 for words absent from the list, The Populist
-  // spikes everything that isn't near the top of it.
+  // Same common.txt read in opposite directions: The Lexicographer pays ×1.5
+  // for words absent from the list, The Populist spikes all but its top.
   populist: ['lexicographer'],
-  // Length: The Padder spikes anything under five letters, which is the whole
-  // of what these two are paid for.
+  // The Padder spikes anything under five letters — the whole of what these two
+  // are paid for.
   padder: ['abecedarian', 'apprentice'],
 };
 
@@ -334,12 +265,9 @@ export const bossConflicts = (bossId, patronIds) =>
 export const activeBoss = state => (state.boss ? bossById(state.boss.id) : null);
 
 // Advance the editor's memory after a word commits. `letters` is the word
-// without its marks — the same string judge() saw.
-//
-// Every verdict is also kept, in order, so the bar can show how the page has
-// gone rather than only how the word in the groove is going: once a word is
-// printed its ✓ or ✂ is otherwise gone from the screen, and on a five-word
-// page that is most of what you want to know.
+// without its marks — the same string judge() saw. Verdicts are kept in order
+// so the bar can show how the page has gone: once a word is printed its ✓ or ✂
+// is otherwise gone from the screen.
 export function bossOnPrinted(state, script, letters) {
   if (!state.boss) return;
   const def = bossById(state.boss.id);
@@ -348,18 +276,14 @@ export function bossOnPrinted(state, script, letters) {
   def?.onPrinted?.(data, script, letters);
 }
 
-// Tiles the seated editor puts in your hand, topped up every time the hand is
-// refilled — as the page is dealt, and again after each word prints. `cast` is
-// state.js's castLentTile and `held` its lentInHand, passed in to keep this
-// module free of imports from state.
+// Tiles the seated editor puts in your hand, on every refill — as the page is
+// dealt, and again after each word prints. `cast` is state.js's castLentTile
+// and `held` its lentInHand, passed in to keep this module free of imports from
+// state. Returns the tiles created, so they can fly in alongside the draw.
 //
-// Two shapes, and the difference is when they come back. The Enthusiast's gift
-// is once per page: spend it and it is spent, which is why data.gifted latches
-// (and why a reload mid-deal can't conjure a second). The Eeeditor's three are
-// a standing supply, restored the instant one leaves — so this counts what is
-// still in hand rather than tracking what it has handed over.
-//
-// Returns the tiles created, so they can fly in alongside the draw.
+// The two shapes differ in when they come back: the gift is once per page, so
+// data.gifted latches; lent tiles are a standing supply restored the instant
+// one leaves, so this counts what is still in hand.
 export function bossReplenish(state, cast, held) {
   if (!state.boss) return [];
   const def = bossById(state.boss.id);

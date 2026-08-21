@@ -17,17 +17,15 @@ python -m http.server 8431
 (ES modules don't run from `file://`, and the bundled `wordlist.txt` — 64k
 words — is fetched over HTTP. A custom list can be loaded in Settings.)
 
-`node tools/build-single.mjs` bundles the whole game — wordlist included —
-into one HTML file for playtesting anywhere.
+`node tools/build-single.mjs` bundles the whole game — wordlist included — into
+one HTML file, `great-work-single.html` by default; pass a path to override.
 
 ### Playing on a phone
 
-The game is touch-native: tap a rack tile to play it, tap a word tile to take
-it back, drag to reorder — tiles on the board, and patron cards on the shelf,
-which is what sets the order they act in — and long-press any tile or patron
-for its details (long-press is also how you flip a dual tile on touch). To
-test on a device,
-serve on your LAN and open the machine's address from the phone:
+The game is touch-native: tap a rack tile to play it, tap a word tile to take it
+back, drag to reorder (tiles on the board, patron cards on the shelf), and
+long-press any tile or patron for its details — also how you flip a dual tile on
+touch. To test on a device, serve on your LAN:
 
 ```
 python -m http.server 8431 --bind 0.0.0.0
@@ -40,42 +38,32 @@ python -m http.server 8431 --bind 0.0.0.0
 score = Points × Mult
 ```
 
-- **Points** — the sum of every tile's value (after trims and nicks), plus
-  everything the patrons then add to it. It is a *running* figure: the patrons
-  act one seat at a time, and a patron's ×Mult multiplies it where it stands.
-- **Mult** — the product of the **length multiplier** and the five colour
-  multipliers. Length is the one multiplier every press owns from its first
-  page: a word of 6 letters earns ×2, +0.5 per letter beyond (7 → ×2.5,
-  8 → ×3…), counted in letters like every shape rule — so ligatures and dual
-  faces are length cheats, and a long word in colour beats a short word in
-  colour, always. Each milestone prints a flourish of its own
-  (`LENGTH_FLOURISHES` in `js/constants.js` — copy, not code; edit freely).
-  Each colour starts at
-  ×1 and every painted *tile* of that colour in the word raises it by 1
-  (×2, ×3, …); purple trims raise a fifth multiplier in half-steps (×1.5, ×2,
-  ×2.5, …). Spreading colours multiplies together: one tile each of two colours
-  is ×2×2 = ×4, where two of the same colour is only ×3.
+- **Points** — every tile's value (after trims and nicks) plus everything the
+  patrons add. It is a *running* figure: patrons act one seat at a time, and a
+  ×Mult multiplies it where it stands.
+- **Mult** — the length multiplier times the five colour multipliers. Length is
+  the one multiplier every press owns from its first page: 6 letters earns ×2,
+  +0.5 per letter beyond, counted in letters, so ligatures and dual faces are
+  length cheats (`LENGTH_MULT_*` and the milestone copy `LENGTH_FLOURISHES` in
+  `js/constants.js`). Each colour starts at ×1 and every painted *tile* of that
+  colour raises it by 1; purple trims raise a fifth multiplier in half-steps.
+  Colours multiply together, so one tile each of two colours is ×4 where two of
+  the same colour is ×3.
 
-Tiles, not letters, and the difference is worth holding onto: a `CH` or `QU`
-tile spells two letters but wears one coat of paint and lifts its multiplier
-once. Everything that counts what is *in* a word counts tiles — paint, nicks,
-the colour patrons. Only the rules about a word's *shape* count letters: how
-long it is, how it is spelled, what order it runs in. Every editor that judges
-a word judges its shape, so they all count letters. (Two editors don't judge
-words at all — the Redactor wraps tiles and the Hoarder rearranges the hand —
-and those, naturally, count tiles.)
+Tiles, not letters: a `CH` or `QU` tile spells two letters but wears one coat of
+paint and lifts its multiplier once. Everything counting what is *in* a word
+counts tiles — paint, nicks, the colour patrons. Only a word's *shape* counts
+letters: length, spelling, order. Editors judge shape, so they count letters —
+except the two that don't judge words at all, the Redactor (which wraps tiles)
+and the Hoarder (which rearranges the hand).
 
-The readout shows a live projection — including a chip per colour — and
-**everything that does something explains itself where it sits**: hover it with
-a mouse, long-press it on touch. Tiles on the board, in the market, in the
-draft, in your collection, in the bag or the discard pile, and on the compost
-heap; sundries on the workbench, on the board and in the Market alike, as well
-as on the shop shelf; patrons on the shelf and in the market. Nothing is
-summarised beneath market cards — the thing itself is the documentation. What a
-sundry does is written once, in `js/constants.js` → `sundryTip`, so the shop
-and the workbench can't tell you two different things about it. On print, the score replays in the order it happens: patrons write their bonuses
-onto the tiles, then the tiles pay, nicks fire, each colour's multiplier lights
-up, and the patrons weigh in seat by seat.
+The readout shows a live projection with a chip per colour, and **everything
+that does something explains itself where it sits**: hover with a mouse,
+long-press on touch, wherever the thing appears. Nothing is summarised beneath
+market cards. What a sundry does is written once, in `js/constants.js` →
+`sundryTip`. On print the score replays in the order it happens: patrons write
+bonuses onto the tiles, the tiles pay, nicks fire, each colour's multiplier
+lights, and the patrons weigh in seat by seat.
 
 ### Seat order
 
@@ -84,63 +72,39 @@ Patrons act **in the order they sit**, and one rule follows from it:
 > A ×Mult multiplies everything the table has said in front of it, and nothing
 > behind it.
 
-So the seats that *add* — Points, and the laurels your patrons wear — are worth
-more in front, and the seats that *multiply* are worth more behind them. Drag a
-card along the shelf to reseat it, on the board or on **Your table** at the top
-of the Market, which is usually where you want to: you have just hired someone,
-and where they sit is half of what you bought. (Additive Mult and ×Mult commute
-with each other; it is the Points that care.)
+So seats that *add* are worth more in front, seats that *multiply* worth more
+behind. Drag a card along the shelf to reseat it, on the board or on **Your
+table** at the top of the Market. (Additive Mult and ×Mult commute; it is the
+Points that care.)
 
-**Ghosts.** *The Ripper* (rare, crimson) kills one of your other patrons when
-you print KILL, MURDER or SLAY, then flees back to the Market's pool. The
-victim doesn't leave — it moves off the shelf into your **ghosts**, behind a
-door that appears beside the patron row once you have one, and keeps its whole
-effect: its score turn, its hooks, its laurels. What it gives up is its seat,
-which is the entire payment, and the one thing a full table can't buy. Ghosts
-speak **after every living patron**, so a killed ×Mult seat that sat late in
-the order keeps what it was worth and a killed +Points seat that sat early
-loses it — and which patron dies is not yours to choose. They are held to the
-same count as the living, they still count for the Innkeeper's headcount and
-the Alderman's guilds, and their contracts are worth nothing when you let them
-go. `state.ghosts`, read everywhere through `allSeats()` in `js/state.js`: the
-rule is that anything asking what your patrons *do* reads `allSeats()`, and
-only the seat limit, the shelf and the reordering read `state.patrons`. The
-door is drawn twice — beside the board's shelf, and in the Market's **Your
-table** heading — and opens the same sheet either way.
+Two things happen before the table speaks. Patrons whose promise reads
+*"such-and-such tiles gain +N Points"* write that number onto the tile itself,
+so **the nicks and the Monogrammists multiply it**; where it is written in for
+keeps the groove shows it in **jade** rather than brass. And the tongs' heat and
+the toll for a curse left in hand land first, so any multiplier seated at all
+catches them.
 
-*The Revenant* (rare, crimson) is the other half of the haunting, and the one
-patron who profits from destruction wherever it happens: every tile destroyed
-anywhere has a 1-in-2 chance of walking back out of the hellbox in **ghost
-metal**, which costs no room in your hand. It needs no hook — every road to
-permanent destruction runs through `trashFromCollection`, and the rite is
-performed from inside it, exactly as *the Dabbler* is heard from inside
-`paintTile`. What comes back is the **whole tile**: its paint, its trim, its
-nick, its grown Points, both faces of a dual — only the metal is overwritten,
-and nothing can be done to it afterwards. That generosity is the point: the
-tiles worth raising are the ones you least want to feed to the fire. Nothing
-caps how many it raises, so a press that keeps feeding it ends up playing out
-of a hand of thirty — the rack wraps, and that is the intended reward rather
-than a bug.
+**Ghosts.** *The Ripper* kills one of your other patrons when you print KILL,
+MURDER or SLAY, then flees back to the Market's pool. The victim moves off the
+shelf into your **ghosts**, behind a door beside the patron row, keeping its
+whole effect — score turn, hooks, laurels — and giving up only its seat, which
+is the entire payment. Ghosts speak **after every living patron**, so a killed
+×Mult that sat late keeps its worth and a killed +Points that sat early loses
+it; which patron dies is not yours to choose. They still count for the
+Innkeeper's headcount and the Alderman's guilds. The contributor's rule:
+anything asking what your patrons *do* reads `allSeats()` in `js/state.js`
+(which spans `state.ghosts`); only the seat limit, the shelf and the reordering
+read `state.patrons`.
 
-**And if the knife finds it**, the knife turns. You cannot murder the dead:
-*the Revenant* takes *the Ripper* instead, and a ghost has nowhere to flee to —
-so from then on every watchword kills again, at no further cost, until the
-graveyard is full or there is nobody living left to take. Two rare seats, one
-of them chosen blind, and the one-shot becomes an engine that empties your
-shelf into the beyond and hands every seat back.
-
-Two things happen before any of that. Patrons whose promise reads *"such-and-such
-tiles gain +N Points"* — the Goldsmith, the Seedsman, the Siren, the Jeweller,
-the Calligrapher, the Espalier, the Abecedarian — write that number onto the
-tile itself, in the
-groove as you compose and again at the head of the print, which means **the
-nicks and the Monogrammists multiply it**. Where that number is being written
-in *for keeps* — the jade trellises, *the Abecedarian* and *the Espalier*,
-whose score-time bonus is the very growth their print then makes permanent —
-the groove shows it in **jade** rather than brass, so a gain you are keeping
-never looks like a gain you are borrowing. And the tongs' heat and the toll for
-a curse left in hand land before the table speaks, so any multiplier seated at
-all catches them.
+*The Revenant* is the other half: every tile destroyed anywhere has a 1-in-2
+chance of walking back out of the hellbox in **ghost metal**, whole — paint,
+trim, nick, grown Points, both faces of a dual — with only the metal
+overwritten. It needs no hook: every road to permanent destruction runs through
+`trashFromCollection`, and the rite is performed from inside it, as *the
+Dabbler* is heard from inside `paintTile`. Nothing caps it, so a press that
+keeps feeding it plays out of a hand of thirty and the rack wraps — intended.
+And the knife turns on it: the dead cannot be murdered, so *the Revenant* takes
+*the Ripper* instead, and every watchword thereafter kills again, free.
 
 ## The pieces
 
@@ -150,425 +114,315 @@ plus an optional **trim** and **nick**.
 | Layer | Options |
 | --- | --- |
 | Paint | crimson / azure / jade / amber — each raises its colour's multiplier by 1 |
-| Trim | **Gold** pays 1 Coin · **Silver** +5 Points, counted into the tile's corner number wherever it appears and written in the trim's own silver, so the tile says what it is worth rather than making you add · **Cobalt** refreshes 1 Discard (and wears the Discard's own blue) · **Purple** raises the fifth multiplier by 0.5 |
-| Nick | A notch cut into one edge; the notched side is the direction. **Right** ×2 Points to everything on its right · **Left** ×2 to its left. Nicks don't stack — a tile is multiplied once at most. While you compose, an affected tile's corner number becomes the multiplied value, restyled, rippling outward from the notch. |
-| Letterform | Dual tiles hold two letters (flip to switch; paint, trim and nick belong to the tile, so both letters wear them) · Ligatures ING · CH · CK · TH · WH · QU spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Medieval sorts** þ · ȝ · Æ · Ƿ stand in for ordinary letters, and come only from the Medievalist's stall · **Marks** ? and ! spell nothing at all, and come only from a wrapped tile, purple-trimmed — cut one into the other and you get the **interrobang** ‽ |
-| Material | What the tile is cast from, under everything else: ordinary lead, or **cursed** / **ghost** / **rainbow** (see below) |
-| Growth | Grown points — permanent +1s a patron (The Grafter) writes into a tile, worn as a jade corner number wherever the tile appears |
+| Trim | **Gold** pays 1 Coin · **Silver** +5 Points, counted into the tile's corner number wherever it appears · **Cobalt** refreshes 1 Discard · **Purple** raises the fifth multiplier by 0.5 |
+| Nick | A notch in one edge; the notched side is the direction. **Right** ×2 Points to everything on its right · **Left** ×2 to its left. Nicks don't stack — a tile is multiplied once at most. While you compose, an affected tile's corner number shows the multiplied value |
+| Letterform | Dual tiles hold two letters (flip to switch; paint, trim and nick belong to the tile, so both faces wear them) · Ligatures ING · CH · CK · TH · WH · QU spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Medieval sorts** þ · ȝ · Æ · Ƿ and **marks** ? · ! — below |
+| Material | What the tile is cast from, under everything else: ordinary lead, or **cursed** / **ghost** / **rainbow** / **rose** |
+| Growth | Permanent +1s a patron (The Grafter) writes into a tile, worn as a jade corner number |
 
-A dual tile is one tile wearing one set of everything: its paint, trim and
-nick belong to the tile, and flipping changes the letter and nothing else.
+**Materials** — most type is lead. A **wrapped tile** (4 Coins at the Market) is
+tapped once to unwrap: out comes one tile of a random letter struck in something
+stranger, straight into your hand and collection for good. The material isn't
+decided until the paper comes off — two of the three are gifts and the third a
+curse, so it is a parcel you open rather than a metal you buy. A wrapper may
+instead hold a **mark** under a purple trim, which is the only way marks come.
+Material sits *under* everything else, so a cursed or rainbow tile still takes
+paint, trims and nicks.
 
-**Materials** — most type is lead. A **wrapped tile** bought at the Market
-(4 Coins, on the workbench beside the paint tubes) is tapped once to unwrap it:
-out comes a single tile of a random letter, struck in something stranger,
-straight into your hand and into your collection for good. Which material is
-not decided at the shop, or in the save, or anywhere at all until the paper
-comes off — two of the three are gifts and the third is a curse, so it is a
-parcel you choose to open rather than a metal you choose to buy. The fourth
-thing a wrapper can hold isn't a material at all: a **mark** in ordinary lead
-under a purple trim, which is the only way marks come now. The material sits
-*under* everything else, so a cursed or rainbow tile still takes paint, trims
-and nicks like any other.
-
-- **Cursed** (hellbox iron) — ×2 Mult when printed, and it can never be
-  discarded: the only way out of your hand is to play it. While it waits there,
-  every word you set *without* it loses 666 Points, once per curse — enough
-  that such words score nothing (a word's total never falls below zero), so you
-  can keep printing to turn the rack over until the curse finds a home. A press
-  strong enough to clear 666 Points can shrug one off and still score. Never
-  cast on an expensive letter, and two in one word compound to ×4.
-- **Ghost** (ghost metal) — holds no place in your hand, so you effectively
-  draw one more; but nothing can ever be done to it. No paint, no trim, no
-  nick, no second letter, no growth, and the Stereotyper can't copy it —
-  there's nothing solid to take an impression from.
-- **Rainbow** (rainbow roll) — reads as *every* colour to your patrons, so one
-  tile wakes the whole guild. It doesn't lift the colour multipliers on its
-  own, though: paint it, and only that colour's multiplier rises. It counts as
-  azure to *the Fountain*, so an unpainted rainbow tile still finds its way back
-  into the bag rather than the pile — one of the few things it does for you
-  without being painted at all. Mind the Stoker, who reads it as crimson and
-  burns it.
+- **Cursed** (hellbox iron) — ×2 Mult when printed, and never discardable: the
+  only way out of your hand is to play it. While it waits, every word set
+  *without* it loses 666 Points, once per curse — enough that such words score
+  nothing (a total never falls below zero), so you can keep printing to turn the
+  rack over. Two in one word compound to ×4.
+- **Ghost** (ghost metal) — holds no place in your hand, so you effectively draw
+  one more, but nothing can ever be done to it: no paint, trim, nick, second
+  letter or growth, and the Stereotyper can't copy it.
+- **Rainbow** (rainbow roll) — reads as *every* colour to your patrons, waking a
+  whole guild, though it lifts no colour multiplier until painted. It counts as
+  azure to *the Fountain*. Mind the Stoker, who reads it as crimson and burns it.
+- **Rose** (rose metal) — print a sort struck in it and a seated patron is
+  crowned with a laurel. Not consumed, so it pays every time you fit it into a
+  word. It comes only out of a party bag.
 
 **The Editors** — every chapter's third page is its **Deadline**, and the room
-knows it: the candles go redder, the vignette closes in, the leather cools and
-the wood the shelf and workbench are cut from darkens. Nothing moves and
-nothing flashes — the editor's bar and the quota card are already doing the
-shouting; this is the light behind them, and it fades in and out with the page
-(`body.deadline-on` in `css/style.css`). An editor holds the desk there: one of a roster (see `js/bosses.js`), drawn at random as
-the page is dealt and never announced sooner, so the rule is a puzzle for the
-rack in front of you rather than something to build against. Almost none of
-them bans anything — each warps the *shape* of the words instead. The Padder
-pays by the word and wants five letters at least; the Columnist re-sets an exact
-measure after every print; the Populist writes for the common reader and takes
-none but the 750 commonest words in English, where the Obscurantist spikes the
-commonest 500 outright; the Minimalist holds the adjective to be the enemy of
-the noun and spikes every describing word (off the same list *the Poet* is paid
-from, so the two are exact opposites); the Serialist demands each word open on
-the letter the last one ended with; the Economiser melts down a sort you left
-in the case for every word you set; the Indexer files the page alphabetically;
-the Escalationist insists every word outscore the one before; the Enthusiast
-lends a tile of a beloved letter and expects it in every word; the Reviewer
-receives each word in a temper (×0.2–×0.95) rolled openly before you compose;
-the Completist deals two extra tiles and permits no discards; the Eeeditor
-keeps three places in your hand and fills them with plain E, restoring one the
-moment you print it, and the Editooor does the same in O; and the Redactor —
-the one editor that does touch what a tile is worth — sends a third of the case
-back in manuscript, wrapped in paper with the letter pencilled on top: those
-tiles still spell, and do nothing else at all (no Points, no paint, no trim, no
-metal, no nick) until the page ends and the wrapping comes off. A word that breaks
-the house rule is not refused — it is **spiked**: printed, filed, counted, but
-at ×0.2 of its score. The editor's bar above the readout carries the live
-demand and calls the verdict — ✓ or the spike — while you compose, because
-nothing in this game scores what the preview didn't promise. Beside it runs the
-page's record: one mark per word printed, ✓ or ✂, so you can see how the whole
-page has gone and not merely the word in the groove. Chains and indexes are
-reset by the spiked word itself, so a sacrificial APPLE is always a way back in.
+knows it: the candles go redder and the wood darkens, fading with the page
+(`body.deadline-on` in `css/style.css`). An editor holds the desk, drawn at
+random from a roster (`js/bosses.js`) as the page is dealt and never announced
+sooner, so the rule is a puzzle for the rack in front of you rather than
+something to build against. Almost none bans anything — each warps the *shape*
+of the words instead:
 
-**Postnoms** — now and then a patron calls at the Market already lettered.
-*The Scholar* arrives as **Dr Scholar, PhD**: the same patron doing the same
-thing, plus a ×1.2 Mult of its own paid at its own turn — so where you seat a
-distinguished patron matters as much as which one it is, and it is worth most
-late, behind the seats that add. The card is struck on foiled stock and names
-its letters, because the multiplier is nowhere in the description, and once
-seated it wears its letters again as a small gilt tab in the corner of its
-card — foil alone reads as a trick of the candlelight across a shelf of five.
-It costs 3 Coins over the odds, half of which comes back if you ever dismiss
-it. Odds, price, multiplier and the list of titles are `POSTNOM` in
-`js/constants.js`.
+- **Padder** — five letters at least, and pays by the word.
+- **Columnist** — re-sets an exact measure after every print.
+- **Populist** — none but the 750 commonest words; **Obscurantist** — spikes the
+  commonest 500.
+- **Minimalist** — spikes every describing word, off the same list *the Poet* is
+  paid from, so the two are exact opposites.
+- **Serialist** — each word opens on the letter the last one ended with.
+- **Indexer** — files the page alphabetically; **Escalationist** — every word
+  must outscore the one before.
+- **Enthusiast** — lends a tile of a beloved letter and expects it in every word.
+- **Reviewer** — receives each word in a temper (×0.2–×0.95), rolled openly
+  before you compose.
+- **Completist** — deals two extra tiles and permits no discards.
+- **Eeeditor** — keeps three places in your hand filled with plain E, restoring
+  one the moment you print it; **Editooor** — the same in O.
+- **Economiser** and **Redactor** — below; the two whose rules reach past the
+  word in the groove.
+
+A word that breaks the house rule is not refused — it is **spiked**: printed,
+filed, counted, but at ×0.2. The editor's bar above the readout carries the live
+demand and calls the verdict while you compose, because nothing here scores what
+the preview didn't promise; beside it runs the page's record, one mark per word.
+Chains and indexes are reset by the spiked word itself, so a sacrificial APPLE
+is always a way back in.
 
 **An editor that inverts a patron you own never takes the desk.** Most editors
-merely make a seat idle for a page, which is a fair cost of the roster being a
-lottery — but a few would spike the *exact* words a patron is paid for, turning
-a seat you spent Coins on into a machine for losing four-fifths of your score.
-Those pairs are listed in `BOSS_CONFLICTS` (`js/bosses.js`) and filtered out as
-the Deadline is dealt: keep *the Poet* and the Minimalist stays away; keep *the
-Lexicographer* and the Populist does; keep *the Abecedarian* or *the Apprentice*
-and the Padder does. The bar for entry is exact inversion — the patron's trigger
-and the editor's spike condition being one test read in opposite directions.
-"Awkward for that build" is not enough; that is the game. Adding a pair is one
-line, and both directions come with it.
+merely idle a seat for a page, a fair cost of the roster being a lottery — but a
+few would spike the *exact* words a patron is paid for. Those pairs live in
+`BOSS_CONFLICTS` (`js/bosses.js`) and are filtered out as the Deadline is dealt:
+keep *the Poet* and the Minimalist stays away, *the Lexicographer* and the
+Populist does, *the Abecedarian* or *the Apprentice* and the Padder does. The
+bar is exact inversion — the patron's trigger and the editor's spike condition
+being one test read in opposite directions. Adding a pair is one line, and both
+directions come with it.
 
 The two frequency editors read `wordlists-themed/common.txt`, the one themed
 list whose *order* is data: `js/themes.js` keeps each word's line number as its
 frequency rank. The Populist takes the first 750, the Obscurantist bars the
-first 500, and The Lexicographer — a patron, not an editor — pays ×1.5 for
-words absent from the file altogether, so its 8,000 entries are a game number
-too. Rebuild it with `tools/build-common-list.mjs` (it filters a frequency list
-down to words this dictionary will actually accept), and never sort it
-alphabetically.
+first 500, and The Lexicographer — a patron, not an editor — pays ×1.5 for words
+absent altogether, so its 8,000 entries are a game number too. Rebuild it with
+`tools/build-common-list.mjs`, and never sort it alphabetically.
 
-Three editors **lend** you tiles, and the difference between them is the whole of
-what they do. A lent tile is cast from no collection template: it takes no
-paint, trim or nick (there is nothing behind it for the change to be written
-to), it can never be discarded or slip back into the bag, and it is gone when
-the page ends. The Enthusiast's gift rides *above* your hand size and is a
-present. The Eeeditor's three E's sit *in* the hand and take three of its
-places, which is a cage — you draw seven real tiles and build around EEE; the
-Editooor runs the same cage in O. On the board the two kinds are coloured
-apart: warm brass for the gift, cold ink-blue with a proof-reader's double
-rule for the lender's own type.
+Three editors **lend** tiles. A lent tile is cast from no collection template:
+no paint, trim or nick, never discardable or returned to the bag, gone when the
+page ends. The Enthusiast's gift rides *above* your hand size; the Eeeditor's
+three E's sit *in* the hand and take three of its places, a cage you build
+around, and the Editooor runs the same cage in O. The two kinds are coloured
+apart on the board: warm brass for the gift, cold ink-blue for the lender's own.
 
-**The Economiser** is the only editor whose cost outlives its page. Every other
-rule here warps a word and is gone at the page turn; this one melts a sort down
-for good — after each word you set, one tile you *didn't* is destroyed. That is
-a deliberate exception to the roster's own promise, and it is bounded by three
-things: it reaches only into the rack, so the word you just built is safe by
-construction and a longer word is a smaller offering; it takes one sort per
-word, so a page costs no more than its words; and it goes through
-`trashFromCollection` like every other destruction, which means the Smelter's
-floor holds it at twelve tiles, the Composter is fed by it, and *the Revenant*
-walks half of what it takes straight back out of the hellbox. It is the
-Hoarder's exact opposite, and it never spikes: the toll is the whole editor.
+**The Economiser** is the only editor whose cost outlives its page: after each
+word you set, one tile you *didn't* is destroyed for good. It reaches only into
+the rack (so the word you just built is safe by construction, and a longer word
+is a smaller offering), takes one sort per word, and goes through
+`trashFromCollection` like every other destruction — so the Smelter's floor
+holds it at twelve tiles, the Composter is fed by it, and *the Revenant* walks
+half of it back out. It never spikes: the toll is the whole editor.
 
-The Redactor is the one editor whose rule is written on the tiles rather than
-on the words. As the Deadline is dealt it wraps a third of the **collection** —
-not of the hand, which is the point: discard a wrapped tile and you draw from a
-bag that is still a third wrapped, so the condition lasts the page instead of
-washing out with the first refill. A wrapped tile keeps its letter and loses
-everything else. In the code that promise is kept in one place: `isWrapped` in
-`js/state.js` sits inside `getActiveColour`, `countsAsColour`, `getActiveGrowth`
-and `restingPoints`, so nothing else in the game had to learn the word —
-ask a wrapped tile what colour it is and it has none, what it is worth and it is
-worth nothing. Scoring's pass 0 strips the few things read straight off the tile
-instead (trim, nick, metal, face value), on a copy, as ever. The share is
-`REDACTOR_SHARE` in `js/bosses.js`; the wrapping is laid and cleared in
-`startPage`, so it can never outlive the editor that laid it.
+**The Redactor** writes its rule on the tiles rather than the words, wrapping a
+third of the **collection** — not of the hand, which is the point: discard a
+wrapped tile and you draw from a bag still a third wrapped, so the condition
+lasts the page. A wrapped tile keeps its letter and loses everything else. That
+promise is kept in one place: `isWrapped` in `js/state.js` sits inside
+`getActiveColour`, `countsAsColour`, `getActiveGrowth` and `restingPoints`, so
+nothing else had to learn the word; scoring's pass 0 strips what is read
+straight off the tile (trim, nick, metal, face value), on a copy.
+`REDACTOR_SHARE` in `js/bosses.js` sets the share, and the wrapping is laid and
+cleared in `startPage`, so it cannot outlive the editor that laid it.
 
-A word is worth noting about the Obscurantist: measured against a solver it
-looks feeble, costing 2% of the score ceiling, because a machine barred from
-common words simply reads further down the dictionary. A player cannot. Its
-difficulty is in recall rather than combinatorics, which is the kind of
-difficulty a word game is made of, and the reason it is tuned by playing —
-which is how its band has moved twice, from 1,000 down to 250 and back up to
-500 once 250 turned out to be a bar a player steps over without noticing.
+**Postnoms** — now and then a patron calls at the Market already lettered. *The
+Scholar* arrives as **Dr Scholar, PhD**: the same patron, plus a ×1.2 Mult of
+its own paid at its own turn, so it is worth most late. The card is struck on
+foiled stock and names its letters, since the multiplier is nowhere in the
+description. It costs 3 Coins over the odds, half of which comes back if you
+dismiss it. `POSTNOM` in `js/constants.js`.
 
 **Misspellings** — three patrons forgive a word the dictionary turns away, and
-none of them correct it: what you set is what prints, in the strip under the
-board and in the bound manuscript both. *Titivillus* takes one wrong or transposed vowel (WIERD stands for
-WEIRD) so long as the word holds an azure letter; *the Stumbler* takes one pair
-of adjacent letters swapped (TEH for THE); *the Skimmer* takes the middle
-letters in any order, provided the first and last are right. Your book fills
-with misprints, which is the point of them.
+none of them correct it: what you set is what prints. *Titivillus* takes one
+wrong or transposed vowel (WIERD for WEIRD) if the word holds an azure letter;
+*the Stumbler* takes one pair of adjacent letters swapped (TEH for THE); *the
+Skimmer* takes the middle letters in any order, provided first and last are
+right. Your book fills with misprints, which is the point of them.
 
-**Compounds** — *the Binder* is a fourth pardon of a different kind: nothing has
-gone wrong, it simply licenses a construction English makes freely. Any two
-nouns set end to end count as a word, so DOOM and HAT make DOOMHAT. The nouns
-it knows are a flat list in `wordlists-themed/nouns.txt` — edit it freely. What
-he coins is a noun like any other, so *the Sculptor* pays his ×2 for it: the
-pair is the intended build, one seat making the word legal and the other paying
-for what it is. His own halves stay singular, though — the list he stacks from
-is unchanged, so DOOM and HAT make a word where CATS and HAT still don't.
+**Compounds** — *the Binder* licenses a construction English makes freely: any
+two nouns set end to end count as a word, so DOOM and HAT make DOOMHAT (its
+nouns are `wordlists-themed/nouns.txt`). What it coins is a noun like any other,
+so *the Sculptor* pays ×2 for it — one seat makes the word legal, the other pays
+for what it is. The halves stay singular, so CATS and HAT still don't.
 
-**Marks** — `?` and `!` are tiles that spell nothing. A mark is appended to a
-finished word: one `?`, or one `!`, or the two together as `?!` — never
-doubled, never reversed, never mid-word. The dictionary only ever sees the
-letters in front, and so do your patrons, so `CAT?` is still a three-letter
-word and `ANNA!` is still a palindrome. A mark is worth a point, but that
-isn't the point of it: marks take paint, trims and nicks like any other tile,
-and a mark sits at the *end* of the word, which is exactly where a **left
-nick** wants to be — one notch there reaches back across every letter you
-just set. Marks never come out of the bag, and nothing sells them: the one way
-a mark enters a run is out of a **wrapped tile**, always under a purple trim.
-So a `?` is a find rather than a purchase — and the trim is what makes it worth
-the unwrap, since a bare mark is one point and no letters.
+**Marks** — `?` and `!` spell nothing. A mark is appended to a finished word:
+one `?`, one `!`, or `?!` — never doubled, reversed or mid-word. The dictionary
+and your patrons only ever see the letters in front, so `CAT?` is still a
+three-letter word and `ANNA!` is still a palindrome. A mark is worth a point,
+but the point of it is that marks take paint, trims and nicks like any tile and
+sit at the *end* of the word, exactly where a **left nick** wants to be. The
+**interrobang ‽** is the only sort you *make*: hold a `?` and a `!` and the
+Punchcutter cuts the pair into one tile that closes a word by itself, worth
+**50 Points** — the most in the case — with nothing consumed.
 
-**The opening draft** — before page 1 you kit out the press from a free
-spread: 2 paints of 4, 4 tiles of 10. No coins involved. The starting
-collection ships unpainted, so those two paints are where colour enters the
-run. No patron is drafted: the first one is hired at the first Market, with
-coins, once you've printed a page and know what the press needs.
-
-**The Medieval sorts** — four letters English used to have and gave up, sold
-only at *the Medievalist's* stall. Each one **stands for** ordinary letters: **þ**
-thorn is TH (10 Points), **Ƿ** wynn is W (8), **ȝ** yogh is Y, GH or Z (5) —
-the last being real, if by accident: Scots printers short of the sort set a z in
-its place, which is why *Menzies* is said "Ming-iss" — and **Æ** ash is AE, A or
-E (1), the digraph first and its two halves after, which is the order English
-itself wore it down in. They print as themselves
-and score their own Points, but the dictionary, your patrons, the editor and the
-measure all see the letters they stand for, so þORN is counted and judged as
-THORN — five letters of measure from four tiles, exactly the deal the TH ligature
-has always had. Every reading is tried in order and the first that makes a word
-wins. They take paint, trims and nicks like any tile, but never a second face.
-The list, the points and the substitutions live in one place: `MEDIEVAL` in
+**The Medieval sorts** — four letters English gave up, sold only at *the
+Medievalist's* stall. Each **stands for** ordinary letters: **þ** thorn is TH
+(10 Points), **Ƿ** wynn is W (8), **ȝ** yogh is Y, GH or Z (5), **Æ** ash is AE,
+A or E (1). They print as themselves and score their own Points, but the
+dictionary, your patrons, the editor and the measure all see the letters they
+stand for, so þORN is judged as THORN: five letters of measure from four tiles.
+Every reading is tried in order and the first that makes a word wins. They take
+paint, trims and nicks, but never a second face. `MEDIEVAL` in
 `js/constants.js`.
 
-**The interrobang** — **‽**, one glyph for `?!`, is the only sort you *make*
-rather than find. Hold a `?` and a `!` and the Punchcutter will offer to cut the
-pair together; what comes back is a single tile that closes a word by itself
-where the two marks always cost you two rack places. It is worth **50 Points**,
-the most of anything in the case, and that is the whole of what it pays — a
-multiplier on top made it not the best tile in the game but the only one worth
-building around. Nothing is consumed — the other mark stays where it is — and
-there is no other road to one.
-
 **Hidden things** — the game has a few, and this is the only place they are
-written down. Set the word **CAT** and something takes an interest. Nothing
-arrives on the board; but at the next Market — and only the next one — *the
-Domestic Shorthair* is waiting at the head of the patrons, **free**, and
-whether she gets a seat is your call like any other. The offer is spent the
-instant that Market rolls, bought or not: reroll, close the shop, or simply
-decline, and she has moved on until you spell CAT again. That one-shot rule is
-load-bearing — without it a Headsman build could dismiss and rebuy her forever,
-each dismissal worth another permanent +0.2 Mult for free. Any word that
-spells out the letters R-A-T pays her a Coin and earns her a laurel — PIRATE
-and GRATIS count, and cost you nothing to say. What she EATS is narrower: only
-a **RAT ligature tile**, and that tile comes from *the Rat Catcher* and nowhere
-else, so his gift is her dinner and your own R, A and T are never at risk. The
-meal is announced in the status bar at the foot of the board rather than over
-her card, because a tile leaving your collection for good is news about the
-press.
+written down. Set **CAT** and *the Domestic Shorthair* waits at the head of the
+patrons at the next Market — and only the next — **free**. The offer is spent
+the instant that Market rolls, bought or not, until you spell CAT again. Any
+word spelling out R-A-T pays her a Coin and earns her a laurel (PIRATE and
+GRATIS count). What she EATS is narrower: only a **RAT ligature tile**, which
+comes from *the Rat Catcher* and nowhere else.
+
+**The opening draft** — before page 1 you kit out the press from a free spread:
+2 paints of 4, 4 tiles of 10, no coins involved. The starting collection ships
+unpainted, so those two paints are where colour enters the run. No patron is
+drafted: the first is hired at the first Market, once you know what the press
+needs.
 
 **The Market** (between pages) keeps a fixed layout with churning contents:
-4 patrons, 4 tiles (5 with the Medievalist's stall), 2 **sundries**, and 2 **stalls** drawn from a roster of
-six. *New offers* re-rolls everything — patrons, tiles, sundries, and a fresh
-pair of stalls with their doubling-price reset — and its own price doubles
-with each press. Tiles live in your **collection**; each page the whole
-collection shuffles into the **bag**, and printed or discarded tiles wait in
-the **discard pile**. *Your collection* opens the case read-only, and heads it
-with a tally by colour — the multipliers are the engine, and a grid of eighty
-tiles is a lovely thing to look at and a hopeless thing to count. Rainbow metal
-is tallied apart from the four paints, since it counts as every colour when a
-word is scored and would otherwise be counted four times over.
+4 patrons, 4 tiles (5 with the Medievalist's stall), 2 **sundries** and 2
+**stalls** from a roster of six. *New offers* re-rolls everything, and its own
+price doubles with each press. Tiles live in your **collection**; each page the
+whole collection shuffles into the **bag**, and printed or discarded tiles wait
+in the **discard pile**. *Your collection* opens the case read-only, headed by a
+tally by colour — rainbow metal tallied apart, since it counts as every colour
+and would otherwise be counted four times over.
 
-**No two Markets price a patron alike.** A calling card's asking price is
-rolled as it is laid out: half the time it is the price on the tin, a quarter
-of the time a Coin cheaper, a quarter a Coin dearer, and the card says which
-("a Coin under", "a Coin over") so a bargain can be spotted while scanning the
-row. It rides on the offer, so *New offers* re-rolls it with everything else;
-the cat, being found rather than bought, is never haggled over, and no card
-ever asks less than a single Coin. `PATRON_HAGGLE` in `js/constants.js`.
+**No two Markets price a patron alike.** A calling card's price is rolled as it
+is laid out: half the time the price on the tin, a quarter a Coin cheaper, a
+quarter a Coin dearer, and the card says which so a bargain can be spotted while
+scanning the row. It rides on the offer, so *New offers* re-rolls it too; the
+cat, being found rather than bought, is never haggled over, and no card asks
+less than a Coin. `PATRON_HAGGLE` in `js/constants.js`.
 
 **Sundries** are consumables kept on the **workbench** (two slots to start, and
-the Colophon can add two more, beside the patron shelf). The **paint tube**:
-tap it mid-page and it lays out its offer — two random unpainted tiles from
-your hand (rack or half-composed word alike) light up; tap one, tap the tube
-again, and the paint is permanent. The candidates are the tube's to choose,
-the pick is yours. (Aimed paint only ever landed on the same four workhorse
-letters, which made every run's colours converge.) The **ratchet** keeps the
-same rhythm: tap it, tap one letter, tap the ratchet again, and
-that letter steps a single place along the alphabet — D becomes C or E, A
-becomes Z or B. The two arrows on the tool say which way it is pointing and
-can be flipped at any time, including on the tap that spends it. The new
-letter is permanent, re-pricing the tile with it. It walks the press's own alphabet
-rather than A-Z, so P steps straight to R: there is no lone Q sort to land on.
-Ligatures and marks aren't single letters and can't be stepped at all. The
-**wrapped tile**: no target either, just tap it and the paper comes off. The
-**reshuffle**: no target to pick, just banked until you spend it — on the
-Market's own offers (free, doesn't touch the escalating reroll price) or on a
-Colophon pick. (The random-scatter paint pots survive only in the opening
-draft.)
+the Colophon can add two more). The **paint tube**: tap it mid-page and two
+random unpainted tiles from your hand light up; tap one, tap the tube again, and
+the paint is permanent — the candidates are the tube's to choose, the pick is
+yours. The **ratchet** keeps the same rhythm, stepping one letter a single place
+along the alphabet (D becomes C or E, A becomes Z or B); two arrows say which
+way it points and can be flipped any time, including on the tap that spends it.
+It walks the press's own alphabet rather than A-Z, so P steps straight to R —
+there is no lone Q sort to land on — and ligatures and marks can't be stepped.
+The **reshuffle** is banked until spent, on the Market's own offers (free, and
+it doesn't touch the escalating reroll price) or on a Colophon pick.
 
 **The registers' packages.** The four register patrons — *the Sexton* (spooky),
 *the Paramour* (romantic), *the Poppet* (cute), *the Vulgarian* (rude) — pay ×3
-Mult for a word on their list, which sounds generous and plays like a lottery
-ticket: their lists run 3–9% of the dictionary, so a seat fires by accident
-about one word in fourteen and there is no way to aim at it except by composing
-and watching the card light up. So the ×3 now has a parcel behind it. Print a
-word one of them likes and there is a 1-in-2 chance a **package** lands on the
-workbench — one roll per firing register, so a word that is both spooky and
-romantic rolls twice, and a full bench turns the gift away and says so (which
-is a standing reason to keep a slot open). A package is a sundry like any
-other: the Market buys it back for a Coin, and it opens on a tap the way a
-wrapped tile does — it *is* the wrapped tile's parcel, recoloured, which is the
-whole visual language. What is inside is rolled when the paper comes off:
+Mult for a word on their list, which plays like a lottery ticket: their lists
+run 3–9% of the dictionary, so a seat fires by accident about one word in
+fourteen. So the ×3 has a parcel behind it. Print a word one of them likes and
+there is a 1-in-2 chance a **package** lands on the workbench — one roll per
+firing register, so a word both spooky and romantic rolls twice, and a full
+bench turns the gift away and says so. A package is a sundry like any other,
+sold back for a Coin, and opens on a tap:
 
 | | holds one of |
 |---|---|
 | 💌 **A billet-doux** | a two-faced X\|O in crimson · a **love potion** (a random patron takes an empty seat, free — and nothing at all if your table is full) · a tube of crimson |
-| ⚰️ **Grave goods** | an azure **OO** in ghost metal · the same in cursed iron (rarer: a cursed sort can never be discarded and taxes every word it waits through) · a tube of azure |
+| ⚰️ **Grave goods** | an azure **OO** in ghost metal · the same in cursed iron (rarer) · a tube of azure |
 | 🎁 **A party bag** | a tile struck in **rose metal** (weighted highest — the Poppet's list is the smallest of the four) · a **rainbow applicator** · a pot of ink wash |
 | 📦 **A plain brown wrapper** | a pair of tongs · a **curse applicator** · a silver-trimmed **FU** |
 
-Three new things come out of those tables. **Rose metal** is a fourth material
-(a real pink alloy, too soft for a working page): print a sort struck in it and
-one of your seated patrons is crowned with a laurel — not consumed, so it pays
-again every time you can fit it into a word. The **applicators** are the tube's
-gesture pointed at the metal instead of the paint: each lays out two tiles from
-your hand and strikes the one you pick in rainbow or in hellbox iron, refusing
-any tile that already wears a material, because a sort is cast in one metal and
-not two. And **OO** and **FU** are ligatures no shop will ever sell you — OO
-counts as a doubled letter all by itself, so it quietly feeds *the Twins*.
+The **applicators** are the tube's gesture pointed at the metal: each lays out
+two tiles from your hand and strikes the one you pick in rainbow or hellbox
+iron, refusing any tile already wearing a material. **OO** and **FU** are
+ligatures no shop will sell you — OO counts as a doubled letter by itself, so it
+quietly feeds *the Twins*.
 
-The **toolbox** is a parcel of a different kind: open it on the bench and two
-*different* tools take its place — the first in the box's own slot, the second
-only if the bench has room, else it rolls away. No shop sells four of the five,
-one per guild's temperament — the box is the only door to three of them, and
-*the Ragman* pays the fourth for a crimson rag — while the odd **ratchet**
+The **toolbox** opens into two *different* tools — the first in the box's own
+slot, the second only if the bench has room, else it rolls away. No shop sells
+four of the five, one per guild's temperament; the box is the only door to three
+of them, *the Ragman* pays the fourth for a crimson rag, and the odd ratchet
 rattles around in there at half the rate:
 
-- **Loupe** (jade) — tap a tile, tap the loupe again: its value doubles, to a
-  maximum of 30, written in for good. It doubles the whole corner number, so
-  raising a common letter first (a silver trim, the Grafter's growth) and
-  *then* doubling beats doubling the jewel that is already near the cap.
+- **Loupe** (jade) — a tile's value doubles, to a maximum of 30, written in for
+  good. It doubles the whole corner number, so raising a common letter first (a
+  silver trim, the Grafter's growth) and *then* doubling beats doubling the
+  jewel already near the cap.
 - **Laurel** (amber) — crowns a random seated patron: +3 Points on every word
   while they keep their seat, stacking if it lands twice. The crown pays at its
-  own seat's turn, so a laurel in front of your multipliers is multiplied by
-  them and one behind them is not — and a dismissed patron takes their laurels
-  with them, which is the tool's whole tension. It is worn along the bottom
-  edge of the card, clear of the livery pin and the ✕. The tool is not the only
-  source: *the Laureate* crowns himself once for every jade tile you print,
-  which turns the same reward from a lottery into something a jade press
-  manufactures; *the Frontispiece* is crowned each time his opening word
-  clears a page single-handed; and *the Cellarer* is crowned for every page he
-  ages through.
-- **Tongs** (crimson) — grip a tile and it goes to the furnace for good
-  (feeding the Composter, respecting the Smelter's floor); the next word you
-  print gains +8 Points. Grips stack; the heat expires with the page.
-- **Ink wash** (azure) — up to four unpainted tiles in your hand take a faint
-  wash, one of each colour. A washed tile counts as its colour to patrons *and*
-  to the multiplier, and keeps the promise until it prints — then the wash
-  comes off. Real paint replaces a wash outright.
+  own seat's turn, so a laurel in front of your multipliers is multiplied and
+  one behind is not — and a dismissed patron takes their laurels with them. The
+  tool is not the only source: *the Laureate* crowns himself for every jade tile
+  printed, *the Frontispiece* each time his opening word clears a page
+  single-handed, *the Cellarer* for every page he ages through.
+- **Tongs** (crimson) — grip a tile and it goes to the furnace for good; the
+  next word printed gains +8 Points. Grips stack; the heat expires with the page.
+- **Ink wash** (azure) — up to four unpainted tiles take a faint wash, one of
+  each colour. A washed tile counts as its colour to patrons *and* to the
+  multiplier, and keeps the promise until it prints. Real paint replaces a wash.
 
 The **fleuron** ❧'s mirror, ☙, is a tile rather than a sundry: a printer's
-ornament struck in gold that sets no word at all. It can only be printed
-alone, for its single Point — which spends a whole word slot to clear it from
-your hand — and it pays 1 Coin every time a page completes, wherever it
-happens to be. It turns up now and then among the Market's tiles, priced at
-about a chapter of its own rent.
+ornament in gold that sets no word at all. It can only be printed alone, for its
+single Point, and pays 1 Coin every time a page completes, wherever it is.
 
-**The compost heap** appears at the Market while the Composter is seated:
-every tile destroyed anywhere — burned by the Stoker, lost to the Arsonist,
-fed to the Smelter — rots down into a jade tile with complications of its own.
-The heap holds the freshest six, older rot is turned under, and you may lift
-one free of charge each visit.
+**The compost heap** appears at the Market while the Composter is seated: every
+tile destroyed anywhere rots down into a jade tile with complications of its
+own. The heap holds the freshest six, older rot is turned under, and you may
+lift one free each visit.
 
-**Stalls** are services: the **Smelter** (trash a tile) and the
-**Stereotyper** (clone any tile) work off your whole case. Four are *proposal
-stalls* — they lay out a spread of six of your own tiles, each paired with a
-proposed change, and you commission the one you like: the **Gilder** offers
-trims, the **Punchcutter** cuts a second letter into a tile (making it dual),
-the **Dresser** cuts a nick into a tile's edge, and the **Painter** proposes
-colours for six unpainted tiles — the colours are the stall's to deal, but
-every pot is guaranteed a showing. (Choosing your own colour, and repainting
-a tile already coated, is the paint tube's trade.) The Gilder and the Painter
-draw their spread with a gentle lean towards your rarer letters, so a Z is
-about twice as likely to be laid out as any one of your Es. Every purchase
-doubles that stall's price for the rest of the visit and returns you to the
-market floor; prices reset when the next market opens. The Dresser starts at
-3 Coins, every other stall at 2.
+**Stalls** are services. The **Smelter** (trash a tile) and the **Stereotyper**
+(clone any tile) work off your whole case. Four are *proposal stalls* — they lay
+out six of your own tiles, each paired with a proposed change, and you
+commission the one you like: the **Gilder** offers trims, the **Punchcutter**
+cuts a second letter into a tile, the **Dresser** cuts a nick into an edge, and
+the **Painter** proposes colours for six unpainted tiles, every pot guaranteed a
+showing. (Choosing your own colour, and repainting a coated tile, is the paint
+tube's trade.) The Gilder and the Painter lean towards your rarer letters, so a
+Z is about twice as likely to be laid out as any one of your Es. Every purchase
+doubles that stall's price for the rest of the visit; prices reset when the next
+market opens. The Dresser starts at 3 Coins, every other stall at 2.
 
 **Patrons** grant standing boons — five seats to start (the Colophon can add
-more), dismissable for half their cost (hover for the ✕, or tap the patron on
-touch). The roster is built around **colour guilds**: each paint keeps a family
-of patrons that makes committing to it an archetype — amber pays coins, jade
-compounds forever (grown tiles, chapter-scaling boons), crimson burns tiles
-for power, azure bends the rules of spelling — plus neutral wildcards and the
-word-shape classics. A guild member's calling card wears its livery — a silk
-ribbon and a wash in the guild's colour, with the guild named on the title
-line — and its seat carries a small livery pin; neutral patrons stay plain
-ivory. *The Alderman* reads the liveries: ×1.5 Mult for each guild with a
-patron on your shelf, counted once per guild and whether or not it fires. Some patrons act after a word prints (burning,
-growing, painting) or as a chapter turns (the dye commons), not just while it
-scores. While you compose, the shelf shows its hand: every patron whose
-condition the word already meets wakes up — rising, breathing a candlelit
-glow, catching a slow sweep of gold leaf — and wears a badge of exactly what
-it stands to add (+10 Points, ×3 Mult). The ones sitting this word out dim
-out of the way, and a badge whose number moves as you add letters bumps
-rather than silently swapping. It reads off the same score script as the
-readout, so what a patron promises is what it pays when it fires.
+more), dismissable for half their cost. The roster is built around **colour
+guilds**, each paint keeping a family that makes committing to it an archetype:
+amber pays coins, jade compounds forever, crimson burns tiles for power, azure
+bends the rules of spelling — plus neutral wildcards and the word-shape
+classics. A guild member's card wears its livery and its seat a small livery
+pin; neutral patrons stay plain ivory. *The Alderman* reads the liveries: ×1.5
+Mult per guild represented on your shelf, counted once each and whether or not
+it fires. Some patrons act after a word prints (burning, growing, painting) or
+as a chapter turns, not only while it scores. While you compose, every patron
+whose condition the word already meets wakes up and wears a badge of exactly
+what it stands to add, while the rest dim away. It reads off the same score
+script as the readout, so what a patron promises is what it pays.
 
-The whole roster is listed, guild by guild, in **[`docs/PATRONS.md`](docs/PATRONS.md)** —
-generated from the defs by `tools/patrons.mjs`, and the place to *edit* the
-wording: change a name or a description there and `node tools/patrons.mjs
---apply` writes it back into `js/patrons.js`. Run the tool bare to refresh the
-list after a code change. (Design rationale, per patron, is in
-`docs/PATRON_OVERHAUL.md`.)
+**Editing the roster.** Every patron's name, emoji, rarity, cost, guild and card
+text lives in one flat table at **`js/patron-cards.js`**, keyed by patron id —
+that is the single place to rename, reword, reprice, or re-rarity a patron. What
+a patron *does* lives against the same id in `js/patrons.js`. The two are
+married at the bottom of `js/patrons.js`, and a card with no behaviour (or a
+behaviour with no card) throws on load naming the id.
 
-**Letting things go** — the top of the Market restates both pieces of your
-furniture, **Your table** and **Your workbench**, so what you hold is never out
-of sight while you shop: the ✕ on a seat dismisses its patron for half their
-cost, and the ✕ on a bench slot sells the sundry back for 1 Coin. Selling a
-sundry is about freeing the slot, not the coin — and a tool you will never
-spend can be thrown away on the board's own bench too, for nothing, wherever
-you are standing. (Touch has no hover: long-press a slot and the popover
-carries the same act.)
+A `desc` may contain `{KNOB}` placeholders, filled from `js/constants.js` as the
+module loads — `{ESPALIER_STEP}` for the value itself, `{1/NUDIST_TRIM_CHANCE}`
+for "a 1-in-4 chance" — so retuning a number retunes the card text with it. New
+knobs are exposed by adding a line to the `KNOBS` object at the top of
+`js/patron-cards.js`.
 
-**The Colophon** — when a chapter's Deadline is cleared and the Market is
-done, choose one of three permanent upgrades before the next chapter begins:
-+1 hand size, +1 discard, +1 patron seat, +1 workbench slot, or a paint pot of
-a colour of your choice. At least one non-paint option is always offered
-while one remains available, and each of the eight possible picks caps out
-at 2 takes across a run. *Skip* declines all three for 2 Coins instead — the
-same consolation the run pays out on its own once every option is exhausted
-(only reachable deep into the appendices).
+**Letting things go** — the top of the Market restates **Your table** and **Your
+workbench**, so what you hold is never out of sight while you shop: the ✕ on a
+seat dismisses its patron for half their cost, the ✕ on a bench slot sells the
+sundry back for 1 Coin. Selling is about freeing the slot, not the coin — and a
+tool you will never spend can be thrown away on the board's own bench for
+nothing. (Touch has no hover: long-press a slot for the same act.)
+
+**The Colophon** — when a chapter's Deadline is cleared and the Market is done,
+choose one of three permanent upgrades: +1 hand size, +1 discard, +1 patron
+seat, +1 workbench slot, or a paint pot of a colour of your choice. At least one
+non-paint option is always offered while one remains, and each of the eight
+picks caps at 2 takes across a run. *Skip* declines all three for 2 Coins.
 
 **Discarding** — press *Discard* to arm it, tap the tiles to throw away, then
 press it again to confirm (press with nothing selected to cancel).
 
-**Patron reactions** — after a genuinely big word, a seated patron may pop up
-a one-line, often gleefully wrong reaction. Purely cosmetic. The bar is half
-the WHOLE PAGE'S quota in a single word: nothing at all below that, then the
-per-patron chance climbs straight to a certainty at twice the quota. Measured
-against the quota rather than against a page-fifth of it, so the curve never
-needs retuning as quotas climb — and so praise stays worth something.
+**Patron reactions** — after a genuinely big word, a seated patron may pop up a
+one-line, often gleefully wrong reaction. Purely cosmetic. The bar is half the
+WHOLE PAGE'S quota in a single word: nothing below that, then the per-patron
+chance climbs to a certainty at twice the quota — measured against the quota
+rather than a page-fifth of it, so the curve never needs retuning as quotas
+climb.
 
 **Run structure** — 10 chapters × 3 pages; the third page of each chapter is a
-Deadline with a steeper quota and a coin bonus. 5 words and 2 discards per
-page. Clearing chapter X wins the run; the appendices (endless mode) continue
-beyond. Each chapter draws its title at random from `js/chapters.js` and keeps
-it for the run.
+Deadline with a steeper quota and a coin bonus. 5 words and 2 discards per page.
+Clearing chapter X wins the run; the appendices (endless mode) continue beyond.
+Each chapter draws its title at random from `js/chapters.js` and keeps it.
 
 The climb is not a fixed rate — the rate itself grows, so each chapter is a
 bigger step than the last and a built press has to multiply rather than add:
@@ -583,7 +437,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Knob | Where |
 | --- | --- |
 | Quota curve | `js/constants.js` → `quotaFor`, `QUOTA_BASE`, `QUOTA_GROWTH_START`, `QUOTA_GROWTH_RAMP`. The rate itself grows: chapter 2 asks ×1.7 of chapter 1, chapter 3 ×1.8 of chapter 2, and so on. START makes the whole run harder; RAMP makes the ending harder without touching the opening — a harder mode is a bigger pair |
-| A single chapter that plays too easy or too hard | `js/constants.js` → `CHAPTER_1_EASE` and `CHAPTER_EASE` (a per-chapter multiplier on that chapter's quota only — chapters 4 and 5 carry one, where the middle of the run had gone slack, and nothing after them moves) |
+| A single chapter that plays too easy or too hard | `js/constants.js` → `CHAPTER_1_EASE` and `CHAPTER_EASE` (a per-chapter multiplier on that chapter's quota only) |
 | Trim effects & prices | `js/constants.js` → `TRIMS` (effects live in `js/scoring.js`); silver's Points are `SILVER_BONUS`, read by scoring, the trim's card and the tile's own number alike |
 | Materials, the cursed ×Mult, wrapped-tile price & how often one is offered | `js/constants.js` → `MATERIALS`, `CURSED_MULT`, `CURSED_MAX_POINTS`, `WRAPPED_PRICE`, `WRAPPED_OFFER_CHANCE` |
 | What is inside a wrapped tile | `js/constants.js` → `WRAPPED_CONTENTS`, a flat list rolled evenly — repeat an entry to make it likelier — and `MARK_TRIM` for what a wrapped mark wears |
@@ -607,14 +461,16 @@ bigger step than the last and a built press has to multiply rather than add:
 | Letters per draft paint pot | `js/constants.js` → `PAINT_PER_POT` |
 | Opening draft spread & pick counts | `js/constants.js` → `DRAFT` |
 | How loaded offered tiles are | `js/constants.js` → `FEATURE_CHAIN_CHANCE`, `MAX_FEATURES` (one feature free, then keep rolling); generation in `js/market.js` → `randomSpecialTile` |
-| Rewards & interest | `js/constants.js` → `REWARD` (base bumped 4→5 alongside the Colophon) |
+| Rewards & interest | `js/constants.js` → `REWARD` |
 | Colophon roster, offer count, repeat cap, skip grant | `js/constants.js` → `UPGRADE_OFFERS`, `MAX_UPGRADE_REPEATS`, `SKIP_COIN_GRANT`; definitions in `js/upgrades.js` |
 | Patron reaction odds | `js/constants.js` → `REACTION` (`floor`/`ceil` as fractions of the page's whole quota: silence below `floor`, a certainty at `ceil`); the lines themselves in `js/quips.js` — a flat array, add more any time |
 | How far a patron's asking price can drift | `js/constants.js` → `PATRON_HAGGLE` (`spread` Coins each way, `chance` per side) |
 | How long a line stays up to be read | `js/anim.js` → `READ_BASE` / `READ_PER_CHAR` / `READ_MAX`. Every bubble, floater and bar message holds for a span measured off its own length, so a long line is given longer, not read faster |
 | Words / discards / seats per page | `js/constants.js` |
-| Patron roster, costs, effects | `js/patrons.js` (design notes in `docs/PATRON_OVERHAUL.md`) |
+| Patron names, emoji, rarities, costs, guilds and card text | `js/patron-cards.js` — one flat table keyed by patron id; `{KNOB}` braces in a `desc` are filled from the `KNOBS` object at the top of the file |
+| What a patron *does* | `js/patrons.js`, against the same id |
 | Patron tuning that reaches beyond a score (growth steps, burn odds, trim chance, dye count, coined-word length) | `js/constants.js` → `GRAFTER_STEP`, `STOKER_BASE`, `STOKER_STEP`, `ARSONIST_ODDS`, `NUDIST_TRIM_CHANCE`, `DIPPER_PAINT_CHANCE`, `GAMBLER_ODDS`, `DYE_TILES_PER_CHAPTER`, `NEOLOGIST_LENGTH` |
+| The editor roster, the conflict pairs, the Redactor's share | `js/bosses.js` → `BOSS_CONFLICTS`, `REDACTOR_SHARE` |
 | Animation step timings | `js/constants.js` → `ANIM` (all divided by the Settings speed slider) |
 | Chapter titles | `js/chapters.js` — a flat array, add as many as you like; each run draws its own and won't repeat until the list runs out |
 | The Stenographer's acronyms | `wordlists-themed/acronyms.txt` — one per line, `#` comments; letters only, and no lone Q (the press has no Q sort to set it with) |
@@ -630,7 +486,9 @@ bigger step than the last and a built press has to multiply rather than add:
 | --- | --- |
 | `js/state.js` | game state, save/load (`folio_save_v1`, schema v12), settings, tile ops, painting, sundries, effective hand/seat/workbench sizes, the manuscript |
 | `js/scoring.js` | pure score computation — returns a step-by-step *script* the UI replays |
-| `js/patrons.js` | patron definitions |
+| `js/patron-cards.js` | the patron roster as data: name, emoji, rarity, cost, guild and card text, keyed by id |
+| `js/patrons.js` | what each patron does, against the same ids — and the merge that marries the two |
+| `js/bosses.js` | the editors: the Deadline roster, `BOSS_CONFLICTS`, `REDACTOR_SHARE` |
 | `js/upgrades.js` | the Colophon's upgrade definitions (pure data, no logic) |
 | `js/colophon.js` | the Colophon's ephemeral screen state: rolling, capping, applying, reshuffling |
 | `js/quips.js` | patron reaction lines — a flat, editable array; no logic beyond `{word}` substitution |
@@ -647,26 +505,22 @@ bigger step than the last and a built press has to multiply rather than add:
 | `js/excluded.js` | the barred-words list, loaded before any word list and applied by `dict.js` and `themes.js` as they build their Sets |
 
 Scoring is deliberately pure (`computeScore` never mutates state), so the same
-function powers the live preview, the tooltips, and the replayed cinematic —
-they can't disagree.
+function powers the live preview, the tooltips and the replayed cinematic — they
+can't disagree.
 
 The **manuscript** is the strip under the board: every word printed this run,
-set as one long line of type, newest last, the earlier ones running off the
-left edge under a fade. It's the book you're actually making. Messages (a
-rejected word, a purchase, a hint) borrow the strip for a few seconds and it
-settles back on its own — so nothing needs to announce the page or chapter
-there, since the status row already does.
+set as one long line of type, newest last, the earlier ones running off the left
+edge under a fade. Messages (a rejected word, a purchase, a hint) borrow the
+strip for a few seconds and it settles back on its own.
 
-The **manuscript** proper (❦ in the header) is the same words bound as a book.
-The button carries no counter — a brass badge pinned to a corner reads as an
-unread-notification pip, something demanding to be cleared, which is the
-opposite of what a manuscript is; the tally is in the button's tooltip
-instead. Inside: a heading and title for each chapter, ruled off with its word
-count and score,
-and beneath it the words of each page set as running prose — small caps, with
-each score riding after its word as a raised figure the way a footnote mark
-does. Every page keeps its folio number out in the margin in lower-case romans,
-except a Deadline, which is marked with a fleuron rather than numbered. The
-first word of each chapter takes a drop cap, and the best word of the run is
-illuminated. It reads front to back, the way a book does. A *Developer* section in Settings has shortcuts: +20 Coins, open the Market,
+The **manuscript** proper (❦ in the header) is the same words bound as a book,
+with the tally in the button's tooltip rather than a badge. Inside: a heading
+and title for each chapter, ruled off with its word count and score, and beneath
+it the words of each page set as running prose — small caps, each score riding
+after its word as a raised figure the way a footnote mark does. Every page keeps
+its folio number in the margin in lower-case romans, except a Deadline, which is
+marked with a fleuron rather than numbered. The first word of each chapter takes
+a drop cap, and the best word of the run is illuminated.
+
+A *Developer* section in Settings has shortcuts: +20 Coins, open the Market,
 clear the current page. The console exposes `window.folio = { state, settings }`.

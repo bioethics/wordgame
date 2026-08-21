@@ -67,17 +67,13 @@ const pileRect = () => rect($('discardBtn')) ?? { left: innerWidth - 100, top: 3
 const wordTileEl = id => document.querySelector(`#word .tile[data-id="${id}"]`);
 const rackTileEl = id => document.querySelector(`#rack .tile[data-id="${id}"]`);
 
-// The shelf card for a seat or a patron step — by uid where there is one, so
-// each copy of a stackable patron flashes and badges as itself.
-// Where a seat's news is shown. A living patron has a card on the shelf; a
-// ghost has given its card up, so its notes float over the door it now lives
-// behind — the dead still visibly act, which is the whole point of keeping
-// them.
+// Where a seat's news is shown — by uid where there is one, so each copy of a
+// stackable patron flashes and badges as itself. A ghost has given its card up,
+// so its notes float over the graveyard door instead.
 const patronCard = p => document.querySelector(
   p.uid != null ? `#shelf .patron[data-uid="${p.uid}"]` : `#shelf .patron[data-patron="${p.id}"]`)
   ?? (state.ghosts?.some(g => g.uid === p.uid) ? $('ghostBtn') : null);
 
-// Fly freshly drawn tiles out of the bag into their rack positions
 async function animateDraw(drawn) {
   if (!drawn.length) return;
   renderRack(new Set(drawn.map(t => t.id)));
@@ -98,9 +94,8 @@ async function animateDraw(drawn) {
 }
 
 // Fly tiles (already removed from state) to wherever they went — the discard
-// pile by default, or the bag for azure tiles while The Fountain is seated.
-// Sources may still be in the DOM (e.g. discarded rack tiles) — hide them so
-// only the flying clone is visible.
+// pile by default, or the bag for Fountain returns. Sources may still be in the
+// DOM (e.g. discarded rack tiles), so they are hidden and only the clone flies.
 async function animateDiscard(rects, to = pileRect(), bump = 'discardBtn') {
   const flights = [];
   for (const { el, r } of rects) {
@@ -113,11 +108,8 @@ async function animateDiscard(rects, to = pileRect(), bump = 'discardBtn') {
   await Promise.all(flights);
 }
 
-// What comes out of a wrapped tile — a flat pick from the table in
-// constants.js, which is where the odds are set. Three of the four are the
-// strange materials, and one of those is a curse you will have to find a word
-// for; the fourth is a mark, which is worth unwrapping because no shop deals
-// in them any more.
+// What comes out of a wrapped tile — a flat pick from WRAPPED_CONTENTS in
+// constants.js, which is where the odds are set.
 const pickWrapped = () =>
   WRAPPED_CONTENTS[Math.floor(Math.random() * WRAPPED_CONTENTS.length)];
 
@@ -146,11 +138,9 @@ function cancelSundryMode(quiet = false) {
 }
 
 // A sundry onto the workbench, if the workbench can take one — the hook helper
-// behind the Ragman's tongs and the registers' packages alike. It REFUSES
-// rather than overflows: a seat that pays in things you have to carry is a
-// seat you make room for beforehand, which is a standing reason to leave a
-// slot open. Takes a kind, or the whole sundry when it needs fields of its own
-// (a package knows its theme).
+// behind the Ragman's tongs and the registers' packages alike. It REFUSES rather
+// than overflows, so a seat that pays in tools is one you make room for
+// beforehand. Takes a kind, or a whole sundry when it needs fields of its own.
 function benchPut(sundry) {
   if (state.sundries.length >= effectiveSundrySlots()) return false;
   state.sundries.push(typeof sundry === 'string' ? { kind: sundry } : sundry);
@@ -165,12 +155,10 @@ function pickLoot(table) {
   return table[table.length - 1][0];
 }
 
-// Hand over one package's worth of loot, and say what it was. Everything here
-// either lands in the hand (a tile), on the bench (a tool — the package's own
-// slot was freed a moment ago, so there is always room for exactly one), or on
-// the shelf (the love potion, the one prize that can fizzle: the potion asks
-// for an empty seat and a full table has none. That is the gamble the parcel
-// is, and it is said plainly rather than quietly swallowed).
+// Hand over one package's worth of loot, and say what it was. A prize lands in
+// the hand, on the bench (the package's own slot was freed a moment ago, so
+// there is always room for one), or on the shelf — the love potion is the one
+// prize that can fizzle, since it needs an empty seat, and it says so plainly.
 async function openPackage(prize, pkg) {
   const flyIn = async (tile, label, cls) => {
     renderAll();
@@ -236,10 +224,8 @@ async function openPackage(prize, pkg) {
   }
 }
 
-// The bin at the end of the bench. Nothing is paid for a tool thrown away
-// here — the Market is where a sundry is worth a Coin (sellSundry) — and the
-// slot it frees is the whole of the point: a bench of tools you will never
-// spend is a bench that can't take the one you want.
+// The bin at the end of the bench. Nothing is paid (the Market is where a sundry
+// is worth a Coin, sellSundry) — the slot it frees is the whole of the point.
 function throwSundryAway(idx) {
   // Named from sundryTip, and never with an article of our own in front of it:
   // the heads read "Tongs", "Tube of Jade", "A wrapped tile" alike.
@@ -252,12 +238,9 @@ function throwSundryAway(idx) {
 }
 
 // ─── Patron reactions (flavour only — never affects scoring) ──────────────────
-// Self-scaling: the word is judged against the page's own quota, so the
-// curve holds across chapters and the appendices. Knobs live in REACTION.
-//
-// Nothing at all below half a quota in a single word, then a straight ramp to
-// a certainty at twice the quota. A table that cheers everything is a table
-// nobody listens to; this way a bubble means the word was genuinely big.
+// Self-scaling: the word is judged against the page's own quota, so the curve
+// holds across chapters and the appendices. Nothing at all below half a quota,
+// then a straight ramp to a certainty at twice it. Knobs live in REACTION.
 function reactionChance(script) {
   const ratio = script.total / Math.max(1, state.quota);
   const span = REACTION.ceil - REACTION.floor;
@@ -279,21 +262,12 @@ async function patronReactions(script) {
   }
 }
 
-// Set the word CAT and something takes an interest — but only ONE Market's
-// worth of interest. She waits at the head of the patrons next time the shop
-// opens, free, and the offer is spent the moment that Market rolls, bought or
-// not (offerTheCat, js/market.js): she does not linger from visit to visit.
-// Spell CAT again whenever you want another look.
-//
-// This is what keeps her from being a standing loophole rather than a find —
-// without it, a Headsman build could dismiss her and rebuy her free every
-// single Market forever, each dismissal worth another permanent +0.2 Mult for
-// nothing. Feeding him a cat is fine; feeding him infinitely, for free, is not
-// the deal. Spelling CAT again is a real cost (a whole word, on a page with a
-// quota to meet), so the loophole closes as soon as it has to be re-earned.
-//
-// `catPending` already latches once ownership is checked here, so a run where
-// she is currently seated is quietly skipped rather than re-notified.
+// Set the word CAT and she waits at the head of the patrons next time the shop
+// opens, free — but only ONE Market's worth: the offer is spent the moment that
+// Market rolls, bought or not (offerTheCat, js/market.js). The latch is what
+// keeps her from being a loophole: without it a Headsman build could dismiss and
+// rebuy her free every Market forever, each dismissal worth another permanent
+// +0.2 Mult. A run where she is already seated is quietly skipped.
 function noticeTheCat(script) {
   if (owns('shorthair') || state.catPending || script?.letters !== 'CAT') return;
   state.catPending = true;
@@ -304,14 +278,10 @@ function noticeTheCat(script) {
 // ─── The Economiser (a sort melted down per word) ─────────────────────────────
 // One tile you did NOT set goes to the melting pot after every word — the only
 // editor whose cost outlives its page. Destroyed through trashFromCollection
-// like everything else, so the Smelter's floor holds at twelve tiles, the
-// Composter is fed, and a seated Revenant will raise half of what is taken.
-//
-// It reaches only into the rack: the word has already left it by the time this
-// runs, so what you committed to the page is safe by construction, and a
-// longer word is a smaller offering. A tile with no collection template behind
-// it (an editor's own lent letters, a ghost that was never filed) simply
-// cannot be melted, and the toll passes.
+// like everything else, so the Smelter's floor holds and the Composter is fed.
+// It reaches only into the rack, so what you committed to the page is safe by
+// construction, and a tile with no collection template behind it (lent letters,
+// an unfiled ghost) cannot be melted at all — the toll simply passes.
 async function editorEats() {
   if (!bossById(state.boss?.id)?.eatsSpare) return;
   const spare = state.rack.filter(t => state.collection.some(c => c.tid === t.tid));
@@ -332,13 +302,10 @@ async function editorEats() {
 }
 
 // ─── Rose metal (a tile that crowns) ──────────────────────────────────────────
-// The Poppet's party favour, and the only tile in the game with a rule of its
-// own rather than a number: print a sort struck in rose metal and one of your
-// seated patrons is crowned. Not consumed — the tile is yours, and printing it
-// again crowns again — which sounds unlimited and is not: it has to be drawn
-// out of a collection of fifty-odd and then fitted into a word, so it pays
-// about as often as The Cellarer ages. Ghosts are not crowned; a laurel goes
-// to a seat at the table, the same rule the laurel tool follows.
+// Print a sort struck in rose metal and one of your seated patrons is crowned.
+// Not consumed — the tile is yours, and printing it again crowns again, which is
+// rarer than it sounds: it has to be drawn out of the whole collection and then
+// fitted into a word. Ghosts are not crowned, the same rule the laurel follows.
 async function roseCrowns(printed) {
   const roses = printed.filter(t => t.material === 'rose');
   if (!roses.length) return;
@@ -365,21 +332,16 @@ async function roseCrowns(printed) {
 }
 
 // ─── The Ripper (a patron killed, a seat freed) ───────────────────────────────
-// Print one of his watchwords and one of your OTHER patrons dies where it
-// sits: it moves from the shelf to state.ghosts, keeping every part of its
-// effect and giving up only its seat, and then the Ripper flees — out of the
-// run and back into the Market's pool, so the next ghost costs another rare
-// hire. Done here rather than in an onPrinted hook because a hook cannot
-// remove its own seat from the loop that is running it.
-//
-// He refuses rather than half-acts. No other patron to kill, or no room left
-// among the ghosts, and nothing happens at all: he keeps his seat and waits
-// for a word he can do something with, which is better than spending himself
-// on nothing. The victim is chosen blind — WHICH seat dies is the price of the
-// one he frees.
+// Print one of his watchwords and one of your OTHER patrons dies where it sits:
+// it moves from the shelf to state.ghosts, keeping every part of its effect and
+// giving up only its seat, and then the Ripper flees. Done here rather than in
+// an onPrinted hook because a hook cannot remove its own seat from the loop
+// that is running it. He refuses rather than half-acts: no other patron to
+// kill, or no room among the ghosts, and nothing happens at all. The victim is
+// chosen blind.
 async function ripperStrikes(script) {
-  // He may be seated OR haunting: a Ripper who has met The Revenant is a ghost
-  // himself, and a ghost has nowhere to flee to, so he keeps his knife.
+  // He may be seated OR haunting: a ghost has nowhere to flee to, so a Ripper
+  // who has met The Revenant keeps his knife.
   const killer = allSeats().find(p => p.id === 'ripper');
   if (!killer || !RIPPER_WORDS.includes(script?.letters)) return;
   const alreadyDead = (state.ghosts ?? []).includes(killer);
@@ -399,15 +361,10 @@ async function ripperStrikes(script) {
   const name = patronName(def, victim.data);
 
   // ── The knife turns ────────────────────────────────────────────────────────
-  // You cannot murder the dead. The Revenant is already on the other side of
-  // the table, and what the knife finds when it reaches him is that it is
-  // holding the wrong end: the Ripper is taken instead. He goes to the ghosts
-  // wearing his own effect, and a ghost cannot flee — so from here on every
-  // watchword kills again, at no further cost, until there is no room left
-  // among your ghosts or nobody living to take. That is the rarest thing in
-  // the game: two rare seats, one of them chosen blind, and it turns the
-  // Ripper from a one-shot into an engine that empties your shelf into the
-  // beyond and hands every seat back.
+  // You cannot murder the dead: the knife turns in the Ripper's hand and takes
+  // him instead. He goes to the ghosts wearing his own effect, and a ghost
+  // cannot flee — so from here on every watchword kills again, at no further
+  // cost, until there is no room among your ghosts or nobody living to take.
   if (victim.id === 'revenant') {
     const hers = patronCard(victim);
     const his  = patronCard(killer);
@@ -445,8 +402,6 @@ async function ripperStrikes(script) {
   sfx.bad();
   await sleep(ANIM.stepColour * 2);
 
-  // Off the shelf and into the beyond, then the knife lets itself out — unless
-  // it is already dead, in which case it stays exactly where it is.
   state.ghosts.push(victim);
   state.patrons.splice(state.patrons.indexOf(victim), 1);
   if (!alreadyDead) state.patrons.splice(state.patrons.indexOf(killer), 1);
@@ -459,17 +414,14 @@ async function ripperStrikes(script) {
 
 // ─── Titivillus (one wrong vowel forgiven) ────────────────────────────────────
 // If the letters miss the dictionary by exactly one vowel — and the word holds
-// an azure letter to smudge — the word stands as typed. The manuscript keeps
-// the misprint; that's the joke.
+// an azure letter to smudge — the word stands as typed, misprint and all.
 
 const VOWELS = 'AEIOU';
 
 // Four slips count as one vowel going astray, tried in the order of how the
-// error usually happens: the wrong vowel written (SEPERATE), two vowels
-// changing places (WIERD, RECIEVE, THIER), a vowel too many (ATHELETE), and
-// a vowel left out entirely (SEPRATE). The last is the widest door — a rack
-// short of vowels can set BRD and let the demon supply the I — which is why
-// the whole pardon stays behind azure ink and a rare seat.
+// error usually happens: the wrong vowel (SEPERATE), two changing places
+// (WIERD), one too many (ATHELETE), one left out (SEPRATE). The last is the
+// widest door, which is why the pardon stays behind azure ink and a rare seat.
 function titivillusPardon(letters) {
   // countsAsColour, not getActiveColour: rainbow ink smudges as well as
   // azure ink does — "every colour to your patrons" includes the demon.
@@ -514,9 +466,8 @@ function stumblerPardon(letters) {
   return null;
 }
 
-// Any combination of the word's Zs may be read as S — usually there is only
-// one Z in the bag, so this is a handful of lookups at most. The tile is still
-// a Z where it counts: it prints as Z and scores its ten Points.
+// Any combination of the word's Zs may be read as S — a handful of lookups at
+// most. The tile is still a Z where it counts: it prints as Z and scores ten.
 function izzardPardon(letters) {
   const at = [];
   for (let i = 0; i < letters.length; i++) if (letters[i] === 'Z') at.push(i);
@@ -530,23 +481,19 @@ function izzardPardon(letters) {
   return null;
 }
 
-// Two nouns set end to end make a word of their own — DOOM and HAT make
-// DOOMHAT. The split itself is boundNouns in patrons.js, because The
-// Sculptor reads the same rule at scoring (a compound is a noun); here it
-// only wants naming, so the log can show its working.
+// Two nouns set end to end make a word of their own — DOOM and HAT make DOOMHAT.
+// The split itself is boundNouns in patrons.js, because The Sculptor reads the
+// same rule at scoring; here it only wants naming, for the log.
 function binderPardon(letters) {
   const halves = boundNouns(letters);
   return halves ? `${halves[0]} + ${halves[1]}` : null;
 }
 
 // The excuses a word can call on when the dictionary turns it away, tried in
-// order and credited to whoever saved it. None of them change the word: what
-// you set is what prints, and the manuscript keeps it. The Haplographer's
-// doubling (doubledReading lives in patrons.js, because his licence also
-// feeds The Twins at scoring) slots before the Skimmer — one letter standing
-// for two is a likelier story than the middle of the word in shuffle. The
-// Binder goes last: where a word could be read as either, a plain
-// misspelling is the likelier story than a coinage.
+// order and credited to whoever saved it. None of them change the word: what you
+// set is what prints. The order is by likeliest story, which is why the Binder's
+// coinage goes last. (doubledReading lives in patrons.js, since the
+// Haplographer's licence also feeds The Twins at scoring.)
 const PARDONS = [
   { id: 'izzard',       find: izzardPardon },
   { id: 'titivillus',   find: titivillusPardon },
@@ -572,11 +519,9 @@ function pardonWord(letters) {
 // Returns { burned, said }: the tiles that were destroyed — they must never
 // reach the discard pile, so the caller drops them from the retire list and
 // burns them away on screen instead — and any lines the seats want read at the
-// foot of the board rather than glimpsed over their own cards. The lines are
-// handed back rather than logged where they happen because the word's own
-// score line is written a beat later and would paint straight over them; the
-// caller folds them into that line instead, where they hold long enough to be
-// read. (The same reason noticeTheCat is called after the score, below.)
+// foot of the board. The lines are handed back rather than logged where they
+// happen because the word's own score line, written a beat later, would paint
+// straight over them.
 function runPrintedHooks(tiles, script) {
   state.lastFirstLetter = splitMarks(script.word)?.letters?.[0] ?? null;
   const burned = new Map();   // id → tile (a tile can only burn once)
@@ -593,15 +538,13 @@ function runPrintedHooks(tiles, script) {
       paint: paintTile,
       trim:  trimTile,
       burn:  t => !!trashFromCollection(t.tid),
-      // Same bench as the discard hooks have: it refuses rather than
-      // overflows, so a full workbench turns a register's package away.
+      // The same bench the discard hooks get: it refuses rather than overflows.
       bench: benchPut,
     });
     if (!r) continue;
     for (const t of r.burned ?? []) burned.set(t.id, t);
     if (r.refused) {
-      // A gift with nowhere to go is worth saying out loud — silently dropping
-      // a package would read as the odds lying.
+      // A gift with nowhere to go is worth saying out loud.
       log(`${def.emoji} ${def.name} had something for you, and your workbench is full.`, 'warn');
     }
     if (r.note) {
@@ -613,24 +556,21 @@ function runPrintedHooks(tiles, script) {
   return { burned: [...burned.values()], said };
 }
 
-// Tiles thrown away, offered to whoever cares. Runs after they've left the
-// rack but before the hand tops up, so a patron that paints one is writing to
-// a tile already filed in the discard pile — and the collection, which is what
-// makes the change outlast the page.
+// Tiles thrown away, offered to whoever cares. Runs after they've left the rack
+// but before the hand tops up, so a patron that paints one is writing to a tile
+// already filed in the discard pile — and to the collection, which is what makes
+// the change outlast the page.
 //
 // SEAT ORDER IS THE RULE OF PRECEDENCE, here and in every hook loop: patrons
-// fire in the order they were seated, and a tile one of them consumes is out
-// of every later seat's reach. That is a promise to the player, not an
-// accident of iteration — the Bloodletter and the Typefounder both want a
-// discarded pair, and which one takes it is decided by who sits nearer the
-// head of the shelf (tempered by pickiness: a pair the crucible refuses
-// falls through to the next seat). Future conflicting patrons resolve the
-// same way; don't special-case an ordering here.
-// Returns the tiles a patron recoloured, so the caller can show it happening;
-// the tiles a patron destroyed outright (The Bloodletter, and the consumed
-// half of a Typefounder melt), which must be unfiled from the pile and burned
-// away rather than flown to it; and the tiles recast with a second face, so
-// the new letter can be shown before the tile files away.
+// fire in the order they were seated, and a tile one of them consumes is out of
+// every later seat's reach. That is a promise to the player, not an accident of
+// iteration (tempered by pickiness: a pair the crucible refuses falls through to
+// the next seat). Future conflicting patrons resolve the same way; don't
+// special-case an ordering here.
+//
+// Returns the tiles a patron recoloured; the tiles destroyed outright, which
+// must be unfiled from the pile and burned away rather than flown to it; and the
+// tiles recast with a second face, so the new letter can be shown first.
 function runDiscardHooks(tiles) {
   const painted = [];
   const merged  = [];
@@ -663,11 +603,10 @@ function runDiscardHooks(tiles) {
   return { painted, trashed: [...trashed.values()], merged };
 }
 
-// A tile caught by the vat takes its colour where it stands, and is held there
-// a beat before it files away — the paint is the whole reward, so it has to be
-// seen happening. These tiles are already out of state.rack, so there is no
-// re-render coming to carry the news: the glyph is recoloured on the element
-// by hand, which the discard flight then clones and carries to the pile.
+// A tile caught by the vat takes its colour where it stands, held a beat before
+// it files away. These tiles are already out of state.rack, so there is no
+// re-render coming to carry the news: the glyph is recoloured on the element by
+// hand, which the discard flight then clones and carries to the pile.
 async function animateDip(painted, els) {
   const byId = new Map(els.map(el => [el.dataset.id, el]));
   let shown = 0;
@@ -717,23 +656,20 @@ function runPageHooks() {
   return { arrivals, notes };
 }
 
-// The Dabbler's splashes happen deep in paintTile, far below anywhere that
-// can speak — they queue in state.js and every action that might paint
-// drains them here into the log.
+// The Dabbler's splashes happen deep in paintTile, far below anywhere that can
+// speak: they queue in state.js and drain into the log here.
 function reportPaintEchoes() {
   for (const e of takePaintEchoes()) {
     log(`🖍️ The Dabbler splashes ${e.letter} ${COLOURS[e.colour].label.toLowerCase()} as well.`, 'good');
   }
-  // The Revenant's raisings queue the same way, and drain wherever paint does —
-  // every route to destruction is also a route to the log.
+  // The Revenant's raisings queue and drain the same way.
   for (const e of takeGhostEchoes()) {
     log(`💀 The Revenant walks ${e.letter} back out of the hellbox in ghost metal — it costs you no room in the hand.`, 'good');
   }
 }
 
-// Patrons that read the hand a page finished with — fired as the quota
-// clears, before the Market opens, so what they bank is waiting at its
-// stalls. Notes go to the log: the banner and reward sheet own the screen.
+// Patrons that read the hand a page finished with — fired as the quota clears,
+// before the Market opens, so what they bank is waiting at its stalls.
 function runPageCompleteHooks() {
   const notes = [];
   for (const p of allSeats()) {
@@ -780,21 +716,18 @@ async function submitWord() {
   };
   if (!parts)          return reject('Marks go last, as ? or ! or ?!.');
   if (!parts.letters)  return reject('A mark needs a word in front of it.');
-  // The fleuron decorates the page, never a word: alone it stands (for its
-  // single point — the price of clearing it from the hand is the word slot),
-  // beside anything else it is refused before the dictionary is even asked.
+  // The fleuron decorates the page, never a word: alone it stands, beside
+  // anything else it is refused before the dictionary is even asked.
   const fleuronAlone = parts.letters === FLEURON;
   if (parts.letters.includes(FLEURON) && !fleuronAlone) {
     return reject('The fleuron sets no word — it prints alone.');
   }
   // A medieval sort stands for ordinary letters, so the word is READ before it
   // is judged: every reading is tried, in the sort's own order, and the first
-  // that gets through any door — the dictionary, a lexicon patron, a pardon —
-  // is the one the rest of the print uses. From here on `parts.letters` is that
-  // reading, which is what lets the patrons, the editors and the measure see
-  // THORN where the board shows þORN. A word with no medieval sort in it has
-  // exactly one reading and none of this changes anything.
-  // (resolveMedieval in patrons.js does the same for the live preview.)
+  // through any door — dictionary, lexicon patron, pardon — is the one the rest
+  // of the print uses. That is what lets the patrons, the editors and the measure
+  // see THORN where the board shows þORN. (resolveMedieval in patrons.js does the
+  // same for the live preview.)
   const readings = medievalExpansions(parts.letters) ?? [parts.letters];
   let pardoned = null;
   let vouched = null;   // patron id — the lexicon patrons vouch, they don't pardon
@@ -831,9 +764,7 @@ async function submitWord() {
   let pointsSoFar = 0;
 
   // ── Pass ½: the brush ──────────────────────────────────────────────────────
-  // Before anything is counted, the patrons who PAINT a tile do it where it can
-  // be seen. The groove has been showing this colour under a dashed edge since
-  // the word called for it; here the ink sets, the outline goes, and everything
+  // The patrons who PAINT a tile go before anything is counted, so everything
   // below — the tile's own Points, the colour multipliers, the seats that care
   // about colour — counts a tile that is simply that colour now.
   for (const brush of script.tilePaintSteps ?? []) {
@@ -855,12 +786,9 @@ async function submitWord() {
   }
 
   // ── Pass 0: patrons write onto the tiles ───────────────────────────────────
-  // Before a single tile pays, the patrons who improve the tiles themselves do
-  // it where it can be seen: the card fires, the ink lands on each tile it
-  // touches, and the tile's own corner figure — already carrying the bonus, as
-  // the groove has been showing all along — is what pass 1 then pays out. This
-  // adds nothing to the running total on its own; it is the reason the numbers
-  // below are as big as they are.
+  // The patrons who improve the tiles themselves go before any tile pays; the
+  // tile's own corner figure is what pass 1 pays out. This adds nothing to the
+  // running total — it is why the numbers below are as big as they are.
   for (const boost of script.tileBoostSteps ?? []) {
     const card = patronCard(boost);
     if (card) pulse(card, 'patron--firing', 520);
@@ -918,12 +846,9 @@ async function submitWord() {
       }
     }
     sfx.chime();
-    // The measure gets one line, not two. It used to float its arithmetic
-    // ("Length ×2") and its flourish ("the compositor nods.") as separate
-    // floaters landing on the word within the same beat, which read as a
-    // collision rather than two things worth saying — so they're one message
-    // now, held onscreen twice as long since nothing else is due to land on
-    // top of it (longReadingTime, js/anim.js).
+    // The measure's arithmetic and its flourish are one floater, not two that
+    // would collide on the same beat — held onscreen twice as long, since
+    // nothing else is due to land on top of it (longReadingTime, js/anim.js).
     if (step.colour === 'length') {
       const line = `${step.count} letters — ×${fmtMult(step.mult)} Mult: ${lengthFlourish(step.count)}`;
       floatText($('word'), line, 'fl-flourish', { dy: -138, duration: longReadingTime(line) });
@@ -944,19 +869,17 @@ async function submitWord() {
       const cls = p.coins ? 'fl-coin' : p.points ? 'fl-points' : 'fl-mult';
       floatText(card, p.coins ? `+${coinHTML(p.coins)}` : p.text, cls, { dy: -44 });
     } else {
-      // A step with no seat of its own — the curse's toll, the editor's
-      // verdict — still has to be seen, so it rises over the word instead of
-      // going by in silence. The editor's bar flares as its step lands.
+      // A step with no seat of its own — the curse's toll, the editor's verdict
+      // — still has to be seen, so it rises over the word instead.
       const cls = p.id === 'cursed' ? 'fl-curse'
                 : p.id === 'boss'   ? (p.spiked ? 'fl-spike' : 'fl-mult')
                 :                     'fl-points';
       floatText($('word'), p.text, cls, { dy: -60 });
       if (p.id === 'boss') pulse($('bossBar'), p.spiked ? 'boss-bar--spiking' : 'boss-bar--firing', 520);
     }
-    // Patrons act on the running score in seat order, so the readout follows
-    // it seat by seat: a ×Mult patron visibly multiplies what the seats in
-    // front of it built, which is the whole reason the order is worth arguing
-    // about. Steps that only pay Coins carry the same figure and move nothing.
+    // Patrons act on the running score in seat order, so the readout follows it
+    // seat by seat: a ×Mult patron visibly multiplies what the seats in front of
+    // it built. Steps that only pay Coins carry the same figure and move nothing.
     if (p.running != null && p.running !== pointsSoFar) {
       pointsSoFar = p.running;
       tweenNum(ro.points, pointsSoFar);
@@ -994,18 +917,15 @@ async function submitWord() {
   }
   recordWord(script.word, script.total);
 
-  // This word is spent, so the Gambler's coin goes back in the air for the
-  // next one. Tossed here rather than in the score effect, which re-runs on
-  // every keystroke — see rollGamble in state.js.
+  // This word is spent, so the Gambler's coin goes back in the air — here
+  // rather than in the score effect, which re-runs on every keystroke.
   rollGamble();
 
-  // The tongs' heat went into this word (computeScore read it); the furnace
-  // is cold again for the next.
+  // The tongs' heat went into this word; the furnace is cold again for the next.
   state.tongsBonus = 0;
 
   // The editor's memory moves on likewise — chains advance, bars re-set,
-  // tempers and measures re-roll — here and never during scoring, which
-  // re-runs on every keystroke.
+  // tempers and measures re-roll — here and never during scoring.
   bossOnPrinted(state, script, parts.letters);
 
   // Patrons that reach beyond the score fire before the tiles retire, so a
@@ -1016,13 +936,11 @@ async function submitWord() {
     await animateBurn(burned.map(t => rectOf.get(t.id)?.el).filter(Boolean));
   }
 
-  // A wash pays at scoring and comes off as the word commits — before the
-  // tiles retire, so The Fountain sees them bare (an azure wash buys the
-  // multiplier, not the trip back to the bag).
+  // The wash comes off before the tiles retire, so The Fountain sees them bare:
+  // an azure wash buys the multiplier, not the trip back to the bag.
   washOff(printed);
 
-  // With The Fountain seated, azure tiles slip back into the bag;
-  // everything else is discarded. Ash goes nowhere at all.
+  // Ash goes nowhere at all: burned tiles never reach the retire list.
   const burnedIds = new Set(burned.map(t => t.id));
   const { toBag, toPile } = retirePrinted(printed.filter(t => !burnedIds.has(t.id)));
   state.word.length = 0;
@@ -1047,13 +965,11 @@ async function submitWord() {
   await editorEats();
   await ripperStrikes(script);
 
-  // Tiles fly to wherever they actually went
   renderWord();
   const pick = list => list.map(t => rectOf.get(t.id)).filter(Boolean);
   await animateDiscard(pick(toPile));
   if (toBag.length) await animateDiscard(pick(toBag), bagRect(), 'bagBtn');
 
-  // …the page score banks…
   renderAllStable();
 
   // ── Outcomes ───────────────────────────────────────────────────────────────
@@ -1062,9 +978,8 @@ async function submitWord() {
   if (state.pageScore >= state.quota) { state.isAnimating = false; await pageComplete(); return; }
   if (state.wordsLeft === 0)          { state.isAnimating = false; await gameLost(); return; }
 
-  // …and only now do fresh tiles arrive from the bag. Anything the editor
-  // lends is replaced first: an E played is an E back before the hand tops up,
-  // so the three places it holds are never briefly free for the draw to take.
+  // Anything the editor lends is replaced before the hand tops up, so the
+  // places it holds are never briefly free for the draw to take.
   const relent = bossReplenish(state, castLentTile, lentInHand);
   const drawn = drawUpToRackSize();
   await animateDraw([...relent, ...drawn]);
@@ -1122,10 +1037,9 @@ async function beginNextPage() {
     return;   // advance continues when they pick an overlay action
   }
 
-  // A chapter just cleared — the Colophon offers a permanent upgrade before
-  // the next one begins. advancePage() resumes once a pick lands (or, deep
-  // into the appendices, the pool has nothing left to offer — the same
-  // consolation as a skip, paid out without a screen to skip from).
+  // A chapter just cleared — the Colophon offers a permanent upgrade first.
+  // advancePage() resumes once a pick lands, or straight away if the pool has
+  // nothing left to offer (paid out as a skip would be).
   if (state.page === PAGES_PER_CHAPTER) {
     openColophon();
     renderAll();
@@ -1175,15 +1089,14 @@ async function advancePage() {
   if (isDeadline(state.page) && state.boss) {
     const def = bossById(state.boss.id);
     sfx.bad();
-    // The editor's rule is a paragraph, not a title — hold the banner long
-    // enough to actually read it, however long that particular rule runs.
+    // The rule is a paragraph, not a title — hold the banner long enough to
+    // read it, however long that particular rule runs.
     await showBanner(`${def.emoji} ${def.name}`, def.desc, 'read');
     log(`${def.emoji} ${def.name} takes the desk. ${def.desc}`, 'warn');
   }
 
-  // Whatever a patron brings to the page arrives with the hand, not after it —
-  // and whatever the editor lends comes first of all, since the Eeeditor's E's
-  // take places the draw would otherwise fill.
+  // Whatever a patron brings arrives with the hand; whatever the editor lends
+  // comes first, since the Eeeditor's E's take places the draw would fill.
   const { arrivals, notes } = runPageHooks();
   const lent = bossReplenish(state, castLentTile, lentInHand);
   const drawn = drawUpToRackSize();
@@ -1231,16 +1144,13 @@ async function doDiscard() {
   state.isAnimating = true;
   renderButtons();
 
-  // Dipped before filed: the vat has its moment while the tiles are still on
-  // the board, then they fly to the pile wearing the new colour. A tile the
-  // Bloodletter drained burns away where it sits instead — there is nothing
-  // left to file.
+  // Dipped before filed: the vat has its moment while the tiles are still on the
+  // board, then they fly to the pile wearing the new colour. A drained tile burns
+  // away where it sits instead — there is nothing left to file.
   const { painted: dipped, trashed, merged } = runDiscardHooks(result.removed);
   // discardSelected tops the hand up before the seats speak, so a boon that
-  // WIDENS the hand (the Ragman's azure) would otherwise not be felt until the
-  // next word. Fill it a second time and let the late arrivals fly in with the
-  // rest of the draw. Nothing is drawn twice: drawUpToRackSize only ever fills
-  // to the size of the moment.
+  // WIDENS the hand (the Ragman's azure) needs a second fill. Nothing is drawn
+  // twice: drawUpToRackSize only ever fills to the size of the moment.
   const drawn = [...result.drawn, ...drawUpToRackSize()];
   if (dipped.length) await animateDip(dipped, selectedEls);
 
@@ -1332,10 +1242,8 @@ $('btnShuffle')?.addEventListener('click', () => { if (!state.isAnimating) { shu
 $('btnDiscard')?.addEventListener('click', doDiscard);
 
 // The workbench: first tap arms a tool, board taps pick its targets, a second
-// tap on the tool spends it (or puts it away if nothing is chosen). The tube
-// and the ratchet share that rhythm exactly — the ratchet's arrows only say
-// which way it points, so there is no small target to hit and no tap that
-// silently cancels the gesture.
+// tap on the tool spends it (or puts it away if nothing is chosen). Every tool
+// shares that rhythm — the ratchet's arrows only say which way it points.
 $('sundries')?.addEventListener('click', async e => {
   if (state.isAnimating || state.inMarket || state.inDraft || state.inColophon || state.gameOver) return;
   // The ✕ is caught before the slot it sits on, so binning a tool can't also
@@ -1348,10 +1256,8 @@ $('sundries')?.addEventListener('click', async e => {
   const idx = Number(slot.dataset.sundry);
   const armed = state.sundries[idx];
 
-  // The ratchet's arrows only ever set which way it points — arming it and
-  // spending it are taps on the slot, exactly as with the tube. Reading the
-  // arrow first means a tap that lands on one both turns the tool around and
-  // does whatever that tap was going to do anyway.
+  // Reading the arrow first means a tap that lands on one both turns the tool
+  // around and does whatever that tap was going to do anyway.
   const arrow = e.target.closest('[data-shift]');
   if (arrow && armed?.kind === 'ratchet') state.ratchetDir = Number(arrow.dataset.shift);
 
@@ -1360,9 +1266,8 @@ $('sundries')?.addEventListener('click', async e => {
     return;
   }
 
-  // A wrapped tile needs no target: the paper comes off there and then, and
-  // what is under it is rolled at this moment rather than at the shop — the
-  // parcel was genuinely unknown right up until you opened it.
+  // A wrapped tile needs no target: the paper comes off there and then, and what
+  // is under it is rolled at this moment rather than at the shop.
   if (armed?.kind === 'wrapped') {
     cancelDiscardMode(true);
     cancelSundryMode(true);
@@ -1393,11 +1298,9 @@ $('sundries')?.addEventListener('click', async e => {
     return;
   }
 
-  // A package opens exactly as a wrapped tile does — same parcel, differently
-  // wrapped — and what is inside is rolled AT THIS MOMENT rather than when it
-  // was sent, so the thing is genuinely unknown right up until the paper comes
-  // off. Its own slot is freed first, which is what lets a package that holds
-  // a tool hand that tool straight into the space the package was occupying.
+  // A package opens exactly as a wrapped tile does, and what is inside is rolled
+  // AT THIS MOMENT rather than when it was sent. Its own slot is freed first, so
+  // a package holding a tool can hand it into the space the package occupied.
   if (armed?.kind === 'package' && PACKAGES[armed.theme]) {
     cancelDiscardMode(true);
     cancelSundryMode(true);
@@ -1417,10 +1320,8 @@ $('sundries')?.addEventListener('click', async e => {
     return;
   }
 
-  // An applicator arms with its offer already laid out, exactly as a tube does
-  // — two tiles from the hand light up, you tap one, then the tool again. The
-  // gesture is the tube's whole rhythm and shares its code below; only the
-  // filter differs (no metal rather than no paint, see offerFilter).
+  // An applicator arms with its offer laid out exactly as a tube does, and shares
+  // the tube's code below; only the filter differs (see offerFilter).
   if (armed?.kind === 'applicator' && state.sundryMode !== idx) {
     cancelDiscardMode(true);
     cancelSundryMode(true);
@@ -1457,10 +1358,9 @@ $('sundries')?.addEventListener('click', async e => {
     return;
   }
 
-  // The toolbox opens where it sits: two DIFFERENT tools from the pool take
-  // its place — the first in the box's own slot (always room for that one),
-  // the second only if the bench has a free slot, else it rolls away. Rolled
-  // at this moment, like the wrapped tile's paper coming off.
+  // The toolbox opens where it sits: two DIFFERENT tools from the pool take its
+  // place — the first in the box's own slot (always room for that one), the
+  // second only if the bench has a free slot, else it rolls away.
   if (armed?.kind === 'toolbox') {
     cancelDiscardMode(true);
     cancelSundryMode(true);
@@ -1471,9 +1371,8 @@ $('sundries')?.addEventListener('click', async e => {
     const roomForSecond = state.sundries.length < effectiveSundrySlots();
     if (roomForSecond) state.sundries.push({ kind: second });
 
-    // Named through sundryTip rather than TOOL_LOOK: the pool holds the
-    // ratchet too, which draws itself with arrows and so has no TOOL_LOOK
-    // entry. sundryTip knows every kind there is, which is the point of it.
+    // Named through sundryTip rather than TOOL_LOOK: the pool holds the ratchet,
+    // which draws itself with arrows and so has no TOOL_LOOK entry.
     const nameOf = k => sundryTip({ kind: k })?.head ?? k;
 
     state.isAnimating = true;
@@ -1496,11 +1395,9 @@ $('sundries')?.addEventListener('click', async e => {
     return;
   }
 
-  // The laurel needs no target either — it picks its own head to crown, which
-  // is the tool's whole gamble: it dies with the seat, so where it lands
-  // decides who you can no longer afford to dismiss — and, since a crown pays
-  // at its own seat's turn in the running order, where that seat sits decides
-  // what the crown is worth.
+  // The laurel needs no target either — it picks its own head to crown, and dies
+  // with the seat. A crown pays at that seat's turn in the running order, so
+  // where it lands decides what it is worth.
   if (armed?.kind === 'laurel') {
     if (!state.patrons.length) { log('No patron seated to crown — the laurel keeps.', 'warn'); return; }
     cancelDiscardMode(true);
@@ -1529,9 +1426,8 @@ $('sundries')?.addEventListener('click', async e => {
     return;
   }
 
-  // The wash pours itself: up to four unpainted tiles in the hand, one of
-  // each colour, no aiming. Faint on the tile, full-strength in the score,
-  // and spent the moment each tile prints.
+  // The wash pours itself: up to four unpainted tiles in the hand, one of each
+  // colour, no aiming. Faint on the tile, full-strength in the score.
   if (armed?.kind === 'wash') {
     cancelDiscardMode(true);
     cancelSundryMode(true);
@@ -1557,12 +1453,9 @@ $('sundries')?.addEventListener('click', async e => {
     return;
   }
 
-  // A tube arms with its offer already on the table: up to two unpainted
-  // tiles from the hand light up as it's picked up. Tap one, then the tube
-  // again to pour; the second tap with nothing picked puts it away. The
-  // offer is the whole design — aimed paint only ever landed on the same
-  // four workhorse letters, so the tube chooses the candidates and you
-  // choose between them.
+  // A tube arms with its offer already on the table: up to two unpainted tiles
+  // light up. Tap one, then the tube again to pour; a second tap with nothing
+  // picked puts it away. The tube chooses the candidates, you choose between them.
   if (armed?.kind === 'tube' && state.sundryMode !== idx) {
     cancelDiscardMode(true);
     cancelSundryMode(true);
@@ -1600,9 +1493,8 @@ $('sundries')?.addEventListener('click', async e => {
     return;
   }
 
-  // The ratchet, the loupe and the tongs share one rhythm: arm the tool, tap
-  // a tile to grip it, tap the tool again to spend it (or put it away if
-  // nothing is picked).
+  // The ratchet, the loupe and the tongs share one rhythm: arm the tool, tap a
+  // tile to grip it, tap the tool again to spend it.
   if (state.sundryMode !== idx) {
     cancelDiscardMode(true);
     cancelSundryMode(true);
@@ -1697,8 +1589,7 @@ function dismissPatron(ref) {
 }
 
 // The graveyard door beside the shelf, and the sheet behind it. A ghost is
-// dismissed the way a patron is — sellPatron finds it and pays nothing — and
-// tapping the card shows the same calling card the living get.
+// dismissed the way a patron is — sellPatron finds it and pays nothing.
 $('ghostBtn')?.addEventListener('click', () => {
   if (state.isAnimating) return;
   hidePopover();
@@ -1784,9 +1675,8 @@ $('overlayModal')?.addEventListener('keydown', e => {
   if (e.key === 'Escape') { e.preventDefault(); hideOverlay(); }
 });
 
-// The Scientist's loan: a gold-trimmed OLOGY tile, cast lent (no template
-// behind it, so it vanishes with the page) and flown in from his own card.
-// Once a page — data.used latches here and re-arms in his onPageStart.
+// The Scientist's loan: a gold-trimmed OLOGY tile, cast lent so it vanishes with
+// the page. Once a page — data.used latches here, re-arms in his onPageStart.
 async function lendOlogyTile() {
   if (state.isAnimating || state.inMarket || state.inColophon || state.gameOver) return;
   const seat = state.patrons.find(p => p.id === 'scientist');
@@ -1850,7 +1740,6 @@ $('popover')?.addEventListener('click', e => {
   }
 });
 
-// Dismiss the popover on any press outside it, and on scroll
 document.addEventListener('pointerdown', e => {
   if (!e.target.closest('#popover')) hidePopover();
 });
@@ -1977,9 +1866,8 @@ async function beginRun() {
   initSheets({ nextPage: beginNextPage, advancePage, beginRun });
 
   renderDictStatus('loading', 0);
-  // The exclusion list lands before a single word does. A filter that arrives
-  // late filters nothing — adoptWordlist and adoptTheme consult it as they
-  // build their Sets — so this is awaited while the lists that follow are not.
+  // The exclusion list lands before a single word does: adoptWordlist and
+  // adoptTheme consult it as they build their Sets. Hence this alone is awaited.
   await loadExclusions();
   if (!exclusionsLoaded) {
     log('The excluded-words list could not be read — word lists are unfiltered this session.', 'warn');
@@ -1988,11 +1876,9 @@ async function beginRun() {
   loadThemes();
 
   const restored = loadState();
-  // A seat whose patron no longer exists is dropped rather than carried: the
-  // roster is edited between builds (a patron renamed, retuned or cut), and a
-  // save from before the change would otherwise hand the shelf an id nothing
-  // answers to — which the board cannot draw. Losing the seat costs the run one
-  // patron; keeping it would cost the run the board.
+  // A seat whose patron no longer exists is dropped rather than carried: an old
+  // save would otherwise hand the shelf an id nothing answers to, which the
+  // board cannot draw.
   const orphaned = restored ? state.patrons.filter(p => !patronById(p.id)).length : 0;
   if (orphaned) state.patrons = state.patrons.filter(p => patronById(p.id));
 

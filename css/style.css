@@ -47,12 +47,9 @@
 
   --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
   --sans:  'Inter', ui-sans-serif, system-ui, 'Segoe UI', sans-serif;
-  /* Pencil. Used only where something has been written by hand rather than set
-     in type — The Redactor's manuscript wrappers. Caveat is loaded with the
-     other two in index.html; the system faces behind it are the ones that
-     actually exist per platform (Windows, macOS/iOS, Android), so an offline
-     or CSP-blocked build still gets handwriting rather than falling straight
-     back to the serif. */
+  /* Pencil — only where something is written by hand (The Redactor's wrappers).
+     The faces behind Caveat exist per platform, so an offline or CSP-blocked
+     build still gets handwriting rather than the serif. */
   --hand:  'Caveat', 'Segoe Script', 'Bradley Hand', 'Noto Serif Display', cursive;
 
   --tile-w: 68px;
@@ -109,15 +106,8 @@ body::after {
 }
 
 /* ─── The Deadline's light ─────────────────────────────────────────────────────
-   A Deadline page is the same board under worse conditions, so it is lit as
-   one rather than redecorated: the candles go redder, the vignette closes in a
-   little, the leather cools, and the wood the shelf and workbench are cut from
-   darkens. Nothing moves and nothing flashes — the editor's bar and the
-   quota card are already doing the shouting; this is the room behind them.
-   Everything transitions, so the change reads as the light going out rather
-   than as a repaint.
-
-   Hung off `body.deadline-on`, toggled in renderStatus (js/render.js). */
+   Everything transitions, so it reads as the light going out rather than as a
+   repaint. Hung off `body.deadline-on`, toggled in renderStatus (js/render.js). */
 body {
   transition: background calc(1.4s / var(--aspd)) ease;
 }
@@ -135,10 +125,7 @@ body.deadline-on::after {
 }
 body::before, body::after { transition: box-shadow calc(1.4s / var(--aspd)) ease, color calc(1.4s / var(--aspd)) ease; }
 
-/* The furniture: the shelf and the workbench are cut from the same board, so
-   they darken together. A hair of the press's red in the top highlight is the
-   only colour added — enough for the eye to notice the wood has changed
-   without anyone being able to say what did it. */
+/* The shelf and the workbench are cut from one board, so they darken together. */
 .shelf, .sundries { transition: background calc(1.4s / var(--aspd)) ease, box-shadow calc(1.4s / var(--aspd)) ease; }
 body.deadline-on .shelf,
 body.deadline-on .sundries {
@@ -149,8 +136,7 @@ body.deadline-on .sundries {
     0 10px 26px rgba(0, 0, 0, 0.55);
 }
 
-/* The status cards take the same cooling, and the chapter's own label — the
-   one thing on the row that names where you are — goes from brass to ember. */
+/* The status cards take the same cooling, the chapter label brass to ember. */
 .status-card { transition: border-color calc(1.4s / var(--aspd)) ease, background calc(1.4s / var(--aspd)) ease; }
 body.deadline-on .status-card {
   background: linear-gradient(170deg, #3a2028, #2b1620);
@@ -158,7 +144,6 @@ body.deadline-on .status-card {
 }
 body.deadline-on .chapter-label { color: #e9866f; }
 
-/* And the title in the corner catches the same red light. */
 body.deadline-on .logo { text-shadow: 0 2px 16px rgba(233, 122, 96, 0.35); }
 body.deadline-on .logo-mark { color: #e08a70; }
 
@@ -178,9 +163,7 @@ header {
   margin: 0 auto;
 }
 
-/* The title, set in small capitals the way a title page would set it — the
-   words are wider than the old one-word mark, so the size comes down a touch
-   and the tracking goes up to buy it back as presence rather than width. */
+/* Small capitals, as a title page sets them — size down, tracking up. */
 .logo {
   font-family: var(--serif);
   font-weight: 900;
@@ -294,9 +277,7 @@ header {
   cursor: help;
 }
 
-/* An occupied seat can be picked up and dropped elsewhere on the shelf —
-   seat order is the running order (see reorderPatrons in state.js). Touch
-   gestures go to the drag, not to scrolling the page under it. */
+/* An occupied seat can be dragged — seat order is the running order. */
 .patron[data-patron] {
   cursor: grab;
   touch-action: none;               /* the gesture drags the card, not the page */
@@ -324,19 +305,14 @@ header {
   color: rgba(243, 222, 184, 0.28);
 }
 
-/* One ring token per rarity, so the lit state below can add a glow layer
-   without having to restate each rarity's colour. */
+/* One ring token per rarity, so the lit state below can add a glow layer. */
 .patron--common   { --ring: rgba(138, 95, 29, 0.35); }
 .patron--uncommon { --ring: rgba(47, 116, 92, 0.55); }
 .patron--rare     { --ring: rgba(112, 64, 160, 0.55); }
 
 /* ─── A distinguished patron (postnoms) ────────────────────────────────────────
-   Struck on foiled stock: a sheen that travels slowly across the card, a gilt
-   double rule inside the edge, and the name in gold. It has to read as "this
-   one is different" at a glance on a shelf of five, and as "worth paying more
-   for" on a calling card — the ×Mult it carries is nowhere in the desc.
-   The sheen is a background layer rather than an overlay so it sits under the
-   emoji and the name, and it is switched off entirely for reduced motion. */
+   Foiled, because the ×Mult a postnom carries is nowhere in the desc. The sheen
+   is a background layer, not an overlay, so it sits under the emoji and name. */
 .patron.patron--postnom {
   --ring: rgba(214, 172, 74, 0.85);
   background:
@@ -360,12 +336,8 @@ header {
 .patron.patron--postnom .patron-name,
 .offer-patron.offer-patron--postnom .op-name { color: #7a5310; font-weight: 800; }
 
-/* The foil alone was too polite to read across a shelf of five — you could
-   look straight at a doctorate and take it for a trick of the candle. So the
-   letters themselves are struck onto the card as a gilt tab in the one corner
-   nothing else claims (the livery pin has the top-left, the ✕ the top-right,
-   the laurel the bottom-right). Small, but it is TYPE where the rest of the
-   card is texture, and type is what the eye finds first. */
+/* The letters as a gilt tab, in the one corner nothing else claims (livery pin
+   top-left, ✕ top-right, laurel bottom-right). */
 .patron-postnom {
   position: absolute;
   bottom: 3px; left: 4px;
@@ -388,7 +360,7 @@ header {
 @media (prefers-reduced-motion: reduce) {
   .patron.patron--postnom { animation: none; background-position: 50% 0, 0 0; }
 }
-/* The calling card in the Market wears the same foil… */
+/* The Market's calling card wears the same foil. */
 .offer-patron.offer-patron--postnom {
   background:
     linear-gradient(115deg,
@@ -405,12 +377,9 @@ header {
     0 6px 18px rgba(0, 0, 0, 0.5),
     0 0 20px rgba(214, 172, 74, 0.28);
 }
-/* …and names its letters, and what they are worth, on the title line. */
 .op-postnom { color: #8a5c12; font-weight: 800; letter-spacing: 0.3px; }
 
-/* The day's haggle, said where the card says everything else about itself.
-   Quiet — it is a coin, not a windfall — but coloured, so a bargain can be
-   spotted while scanning the row rather than by reading three prices. */
+/* The day's haggle — coloured, so a bargain is spotted while scanning the row. */
 .op-haggle { font-weight: 800; letter-spacing: 0.2px; }
 .op-haggle--cheap { color: #2f7a54; }
 .op-haggle--dear  { color: #a4483c; }
@@ -432,11 +401,7 @@ header {
 }
 
 /* ─── A ghost (a patron The Ripper killed) ─────────────────────────────────────
-   Everything the card said is still true — it is the same patron, doing the
-   same work — so it is the same card, drained: the warm parchment goes cold
-   and blue, the ink goes pale, the whole thing sits a little translucent and
-   breathes. It never appears on the shelf, only behind the graveyard door, so
-   it can afford to look properly dead. */
+   The same card, drained. Only ever seen behind the graveyard door. */
 .patron--ghost.patron--common,
 .patron--ghost.patron--uncommon,
 .patron--ghost.patron--rare {
@@ -472,9 +437,7 @@ header {
 }
 
 /* ─── The graveyard door ───────────────────────────────────────────────────────
-   Sits between the shelf and the workbench, and only exists once something is
-   behind it — a run that never meets The Ripper never sees it. Narrow on
-   purpose: it is a door, not a piece of furniture. */
+   Hidden by renderGhosts until there is something behind it. */
 .ghost-btn {
   position: relative;
   display: flex;
@@ -505,8 +468,7 @@ header {
   color: #9fb6da;
 }
 
-/* The Market's own graveyard door, in the table's heading — a chip rather than
-   the board's slab, since it sits on a line of text. */
+/* The same door in the Market's table heading — a chip, since it sits on text. */
 .market-ghosts {
   display: inline-flex;
   align-items: center;
@@ -547,9 +509,7 @@ header {
   margin-left: 8px;
 }
 
-/* The seat's guild hint: a small enamel livery pin in the top corner, like a
-   badge on a lapel. Deliberately quiet — the calling card already told the
-   story; this is just so the shelf can be read at a glance. */
+/* The seat's guild hint: a small enamel livery pin in the top-left corner. */
 .patron[class*="patron--g-"]::before {
   content: '';
   position: absolute;
@@ -573,13 +533,8 @@ header {
     9px 0 0 1px rgba(20, 12, 8, 0.5);
 }
 
-/* The tube's offer: the tiles paint might land on, lit until one is picked.
-   A steady breath rather than a flash — the choice should feel unhurried. */
-/* The two tiles a tube has laid out. A ring on its own was too quiet to pick
-   out of a rack of ten, so the offer now says the same thing three ways: the
-   chosen tiles stand up off the rack, they wear a brighter and thicker ring,
-   and everything they compete with steps back (.zone--offering, below). The
-   lift is what the eye catches; the ring is what confirms it. */
+/* The tiles a tube has laid out, said three ways so they read in a rack of ten:
+   they lift, they ring, and everything else steps back (.zone--offering). */
 .tile--tube-offer {
   outline: 3px solid #ffd98c;
   outline-offset: 3px;
@@ -593,11 +548,9 @@ header {
          filter: drop-shadow(0 0 18px rgba(255, 205, 120, 0.95)); }
 }
 
-/* Only a tube lays out an offer. The ratchet, the loupe and the tongs take any
-   tile in the hand, so their armed zones must dim nothing — which is why this
-   hangs off a class of its own rather than off .zone--painting. A picked tile
-   is excluded from both rules: its own selected styling is the louder signal
-   and must not be fought over. */
+/* Only a tube lays out an offer — the ratchet, loupe and tongs take any tile, so
+   their armed zones must dim nothing, hence a class of its own rather than
+   .zone--painting. A picked tile is excluded from both rules. */
 .zone--offering .tile--tube-offer:not(.tile--selected) {
   transform: translateY(-7px) scale(1.07);
   z-index: 4;
@@ -636,12 +589,8 @@ header {
 .patron:hover .patron-x { opacity: 1; }
 .patron-x:hover { transform: scale(1.15); }
 
-/* A laurel a patron wears (the toolbox's amber tool). It sits along the bottom
-   edge because every other corner of the card is spoken for: the guild livery
-   pin is top-left, the ✕ top-right, and the standing-to-gain badge hangs off
-   the top-left corner outside the card. A crown that overprints its own seat's
-   livery is a crown you can't read, so it comes down here where nothing else
-   ever lands, with the count beside it when they stack. */
+/* A laurel a patron wears. Bottom-right because every other corner is spoken
+   for: livery pin top-left, ✕ top-right, standing-to-gain badge outside it. */
 .patron-laurel {
   position: absolute;
   bottom: 3px; right: 6px;
@@ -653,9 +602,7 @@ header {
   z-index: 3;
   filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
 }
-/* The count is read against the card's own parchment, not against the board,
-   so it is struck in the card's ink rather than in gold — gold on cream is a
-   number nobody can read. */
+/* The card's own ink, not gold — gold on cream is a number nobody can read. */
 .patron-laurel b {
   font-size: 9.5px;
   font-weight: 900;
@@ -720,10 +667,8 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 .sundry--armed:hover { transform: translateY(-3px); }
 
-/* The ✕ that clears a slot — the workbench's answer to the patron card's, and
-   drawn the same: hidden until the slot is hovered, hover-only by design. On
-   the board it throws the tool away; in the Market it sells it back. Touch
-   never hovers, so the slot's long-press popover carries the same act. */
+/* The workbench's answer to the patron card's ✕: hidden until hover, by design.
+   Touch never hovers, so the slot's long-press popover carries the same act. */
 .sundry-x {
   position: absolute;
   top: -6px; right: -6px;
@@ -745,11 +690,8 @@ button.sundry:hover { transform: translateY(-2px); }
 .sundry-x:hover { transform: scale(1.15); }
 
 /* ── One tap left ─────────────────────────────────────────────────────────────
-   An armed tool with its targets picked is waiting on a tap *on the tool*, and
-   with the tiles chosen the board otherwise looks finished — so the tool takes
-   a breath of its own colour and rides above the dimmed table (see
-   .table--tool-ready). The glow is its paint, so a jade tube pulses jade and
-   the ratchet pulses steel. */
+   An armed tool with its targets picked waits on a tap *on the tool*, so it
+   breathes in --paintcol above the dimmed table (.table--tool-ready). */
 .sundry--ready {
   position: relative;
   z-index: 3;
@@ -771,9 +713,7 @@ button.sundry:hover { transform: translateY(-2px); }
       0 9px 18px rgba(0, 0, 0, 0.5);
   }
 }
-/* The label swaps to the instruction ("Paint it" / "Step it"), so give it the
-   weight of one. Small screens hide sundry names entirely — there the pulse
-   and the dimmed table carry it alone. */
+/* The label swaps to the instruction ("Paint it"), so give it the weight of one. */
 .sundry--ready .sundry-name {
   color: #fff8e2;
   text-shadow: 0 0 8px var(--paintcol, var(--warn));
@@ -828,15 +768,9 @@ button.sundry:hover { transform: translateY(-2px); }
 .paint-tube--jade    { background: var(--jade); }
 .paint-tube--amber   { background: var(--amber); }
 
-/* A wrapped tile — brown paper and a cross of string. It wears no material,
-   because nothing has decided which one is inside: the roll happens when the
-   paper comes off. That is the whole of the item, so it must not look like a
-   labelled bar of anything. */
-/* The parcel is one shape in five papers: the wrapped tile's own brown, and
-   the four registers' packages, which are the SAME MARK recoloured. That is
-   deliberate and it is the whole visual language — anything wearing paper and
-   twine opens on a tap, and a player who has opened one knows what to do with
-   all of them. Each wrapping only overrides these five tokens. */
+/* The parcel: one shape in five papers — the wrapped tile's brown and the four
+   registers' packages, the SAME MARK recoloured. Each wrapping overrides only
+   these five tokens. */
 .wrapped-mark {
   --paper-a: #a8834e; --paper-b: #8f6b3a; --paper-c: #74542b;
   --twine-a: #f0e2c2; --twine-b: #cfbb92;
@@ -850,9 +784,7 @@ button.sundry:hover { transform: translateY(-2px); }
   box-shadow: inset 0 2px 3px rgba(255, 236, 200, 0.3), inset 0 -4px 6px rgba(0, 0, 0, 0.34);
   overflow: hidden;
 }
-/* The string: pale twine, one band each way, crossing at the middle. Light on
-   the dark paper rather than dark on light — a dark cross on a pale square
-   reads as a window pane, not a parcel. */
+/* Pale twine on dark paper — a dark cross on pale reads as a window pane. */
 .wrapped-mark::before,
 .wrapped-mark::after {
   content: '';
@@ -867,10 +799,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .wrapped-mark--offer { width: 26px; height: 26px; margin-top: 4px; }
 
 /* ── The registers' packages: the same parcel, four papers ────────────────────
-   A billet-doux is pink and ribboned; grave goods are grave-cold with bone
-   twine; a party bag is loud. The plain brown wrapper is deliberately NOT
-   recoloured — a plain brown wrapper looks exactly like every other parcel,
-   which is the joke and the point of the name. */
+   The plain brown wrapper is deliberately NOT recoloured. */
 .sundry--pkg-romantic .wrapped-mark {
   --paper-a: #e58aa6; --paper-b: #c9577a; --paper-c: #a53d5e;
   --twine-a: #fff0f4; --twine-b: #f3c3d2;
@@ -887,16 +816,13 @@ button.sundry:hover { transform: translateY(-2px); }
 .sundry--package .sundry-name { font-size: 13px; line-height: 1.1; }
 
 /* ── The applicators ──────────────────────────────────────────────────────────
-   A tube's slot with a metal in it rather than a paint, so the armed glow
-   takes the material's own colour the way a jade tube glows jade. */
+   A tube's slot with a metal in it, so the armed glow takes the material. */
 .sundry--app-rainbow { --paintcol: #ffb066; }
 .sundry--app-cursed  { --paintcol: var(--crimson); }
 /* An armed slot has no paint of its own to glow with — it takes the paper's */
 .sundry--wrapped.sundry--armed { --paintcol: #cbab7e; }
 
-/* The reshuffle sundry: no colour of its own, so it gets a brass badge
-   instead of a tube. Sits idle on the board — it only does anything from
-   inside the Market or the Colophon. */
+/* The reshuffle sundry: no colour of its own, so a brass badge, not a tube. */
 .sundry--reshuffle { cursor: help; }
 .sundry-shuffle {
   display: grid;
@@ -912,13 +838,8 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 .sundry-shuffle--offer { margin-top: 5px; width: 26px; height: 26px; }
 
-/* The ratchet: a steel pawl rather than a brass badge, so it reads as a tool
-   and not a token. The ⇅ mark is how it appears at the market and on the held
-   list; on the workbench it wears its two directions instead, which never move
-   or change — spending it is a tap on the slot, as with the tube, and the
-   arrows only say which way. */
-/* The toolbox and its tools draw as a plain glyph — no styled housing, the
-   emoji is the housing. Shared by the bench, the shop card and the held row. */
+/* The ⇅ mark is the ratchet's market face; on the workbench it wears arrows. */
+/* Toolbox glyphs: no styled housing, the emoji is the housing. */
 .sundry-glyph {
   font-size: 21px;
   line-height: 1;
@@ -956,8 +877,7 @@ button.sundry:hover { transform: translateY(-2px); }
               opacity calc(0.1s / var(--aspd));
   opacity: 0.45;
 }
-/* The direction the tool is currently pointing. Both arrows stay legible —
-   the dim one is the offer to turn it around, not a disabled control. */
+/* Both arrows stay legible — the dim one is an offer, not a disabled control. */
 .ratchet-arrow--on {
   opacity: 1;
   box-shadow: inset 0 -2px 4px rgba(40, 50, 60, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.7),
@@ -966,8 +886,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .ratchet-arrow:hover { transform: translateY(-2px); filter: brightness(1.15); opacity: 1; }
 .sundry--ratchet.sundry--armed { --paintcol: var(--steel); }
 
-/* While a tube is armed, both board zones take on its colour, and picked
-   tiles glow that colour under a brush mark instead of the discard arrows. */
+/* An armed tube tints both zones and marks picked tiles with a brush. */
 .zone--painting {
   outline: 2.5px dashed var(--paintcol, var(--warn));
   outline-offset: 3px;
@@ -984,17 +903,12 @@ button.sundry:hover { transform: translateY(-2px); }
   content: '🖌';
   font-size: 13px;
 }
-/* An armed ratchet picks the same way but does something else entirely, so the
-   picked letter wears the tool rather than a brush. */
+/* An armed ratchet picks the same way, so the picked letter wears the tool. */
 .zone--stepping .tile--selected::after { content: '⇅'; }
 
 /* ── The table, waiting on the tool ───────────────────────────────────────────
-   Everything the gesture no longer involves steps back: the shelf, the status
-   cards, the readout, the editor's bar, the pouches, the action buttons, and
-   every tile you didn't pick. The workbench and the picked tiles keep their
-   colour, so the eye runs from what you chose to the thing that spends it.
-   Dimming is per-element rather than on the zones, because a filter on a zone
-   would take the picked tile down with it. */
+   Everything the gesture no longer involves steps back. Dimming is per-element
+   rather than on the zones: a filter on a zone would take the picked tile too. */
 .table--tool-ready #shelf,
 .table--tool-ready .status-row,
 .table--tool-ready .boss-bar,
@@ -1013,11 +927,8 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 /* ── Patrons with something to add ────────────────────────────────────────────
-   While you compose, every patron whose condition the word already meets
-   wakes: it rises off the shelf, breathes a candlelit glow, catches a slow
-   sweep of gold leaf, and wears a badge of exactly what it stands to
-   contribute. The patrons sitting this word out dim out of the way, so the
-   live ones read at a glance. */
+   Every patron the word already satisfies wakes — lift, glow, gold-leaf sweep,
+   and a badge of what it stands to contribute. The rest dim out of the way. */
 
 .shelf--live .patron:not(.patron--armed) {
   filter: saturate(0.5) brightness(0.7);
@@ -1238,9 +1149,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .pip--swap.pip--on { background: var(--azure); border-color: #8ec6ff; box-shadow: 0 0 7px rgba(79, 134, 201, 0.6); }
 
 /* ─── The editor's bar (Deadline pages) ──────────────────────────────────────
-   Who holds the desk, their live demand, and a running verdict on the word
-   being composed. Wears the Deadline's crimson livery, and flares when the
-   verdict lands during the print cinematic. */
+   Wears the Deadline's crimson livery, and flares when the verdict lands. */
 .boss-bar {
   display: flex;
   align-items: center;
@@ -1393,9 +1302,7 @@ button.sundry:hover { transform: translateY(-2px); }
   40%  { transform: scale(1.35); }
   100% { transform: scale(1); }
 }
-/* The measure — the word's own length, struck in type-metal steel so it reads
-   apart from the paints. First in the row: it is the multiplier every press
-   owns before it has bought anything. */
+/* The measure — the word's length, in steel so it reads apart from the paints. */
 .chip--length  { background: #55677a;        color: #eaf2fa; }
 .chip--crimson { background: var(--crimson); color: #fff0ec; }
 .chip--azure   { background: var(--azure);   color: #eef6ff; }
@@ -1403,8 +1310,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .chip--amber   { background: var(--amber);   color: #fff8ea; }
 .chip--purple  { background: #8a5fb0;        color: #f6ecff; }
 .chip--cursed  { background: #6d1a15;        color: #ffd9cf; }
-/* Most runs never hold a cursed tile, so its chip only appears when one is
-   actually in the word — the other five are always there, dim at ×1. */
+/* The cursed chip appears only when a cursed tile is in the word. */
 .chip--cursed:not(.chip--on) { display: none; }
 .chip--on.chip--length  { box-shadow: 0 0 10px rgba(125, 143, 160, 0.65); }
 .chip--on.chip--crimson { box-shadow: 0 0 10px rgba(201, 79, 67, 0.6); }
@@ -1426,8 +1332,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .hidden { display: none !important; }
 
 /* ─── Word groove ─────────────────────────────────────────────────────────────── */
-/* Height is reserved for a full row of tiles so the groove doesn't grow the
-   moment the first tile lands — nothing below it should shift while you play. */
+/* A full row is reserved, so the groove doesn't grow when the first tile lands. */
 .word-groove {
   position: relative;
   min-height: 98px;
@@ -1480,10 +1385,8 @@ button.sundry:hover { transform: translateY(-2px); }
   align-items: center;
 }
 
-/* Likewise the rack keeps its full-hand height as tiles leave it: --rack-reserve
-   is measured in renderRack() from the whole hand — the tiles in the rack AND
-   the ones standing in the word — so composing never collapses the rack, and
-   the floor here still holds an empty one open. */
+/* Likewise the rack: --rack-reserve is measured in renderRack() from the whole
+   hand (rack AND word), and the floor here holds an empty rack open. */
 .rack {
   min-height: max(100px, var(--rack-reserve, 0px));
   border-radius: var(--r-md);
@@ -1610,9 +1513,8 @@ button.sundry:hover { transform: translateY(-2px); }
       0 7px 0 -1px var(--tile-lift),
       0 16px 26px rgba(0, 0, 0, 0.55);
   }
-  /* Inside an offer card the card is the thing that reacts; the tile holds
-     still, so the tray inset behind it never seems to breathe. (Needs to
-     out-specify the lift rule above, hence the same two :not()s.) */
+  /* Inside an offer card the card reacts, not the tile. (Needs to out-specify
+     the lift rule above, hence the same two :not()s.) */
   .offer-tile .tile:hover:not(.tile--held):not(.tile--mini) {
     transform: none;
     box-shadow: var(--tile-shadow);
@@ -1673,8 +1575,7 @@ button.sundry:hover { transform: translateY(-2px); }
    OLOGY loan). Width rides --tile-w, so the mini variant halves with it. */
 .tile--wide { width: calc(var(--tile-w) * 2); }
 
-/* The fleuron — struck in gold, and dressed apart so it never reads as a
-   letter that happens to be yellow. */
+/* The fleuron — dressed apart so it never reads as a yellow letter. */
 .tile--fleuron {
   background: linear-gradient(160deg, #f9ecbe 0%, #ecd287 55%, #d9b45c 100%);
   border-color: rgba(122, 90, 20, 0.65);
@@ -1687,16 +1588,14 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 .tile--fleuron .tile-pts { color: #7a5a10; }
 
-/* A washed tile wears its colour faintly — the glyph takes the wash colour
-   inline (render.js) and this mutes it, with a wavy waterline underneath so
-   the coat reads as temporary even to a colour-blind eye. */
+/* The glyph takes the wash colour inline (render.js) and this mutes it. The
+   waterline says "temporary" to a colour-blind eye too. */
 .tile--washed .tile-letter {
   opacity: 0.55;
   text-decoration: underline wavy 1.5px;
   text-underline-offset: 4px;
 }
 
-/* The interrobang: the one sort you make rather than find, and dressed like it. */
 .tile--interrobang {
   background: linear-gradient(168deg, #fbeec4 0%, #f0d795 55%, #e6c87e 100%);
   border-color: rgba(140, 100, 20, 0.7);
@@ -1709,9 +1608,7 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 /* ─── The medieval sorts (The Medievalist's stall) ─────────────────────────────
-   Struck in an older metal: a warmer, redder lead than the ordinary case, so a
-   þ reads as an antique among the plain sorts at a glance rather than only on
-   inspection. The glyph itself carries the rest of the signal. */
+   A warmer, redder lead than the ordinary case — the glyph carries the rest. */
 .tile--medieval {
   background: linear-gradient(168deg, #f6e6c8 0%, #e8d0a4 55%, #dfc496 100%);
   border-color: rgba(110, 70, 26, 0.6);
@@ -1723,11 +1620,8 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 /* ─── In manuscript (The Redactor) ─────────────────────────────────────────────
-   The tile is wrapped in paper and the letter pencilled on the wrapper, so this
-   has to cover whatever the tile was: the trim ring, the metal, the nick's
-   notch and the paint all go under plain wrapping. It wins by weight — the
-   class is added last and these rules override --trim-ring and the material
-   backgrounds outright — rather than by the renderer having to undo them. */
+   The wrapper covers whatever the tile was — trim ring, metal, nick notch,
+   paint. It wins by weight: the class is added last and these override. */
 .tile--wrapped {
   background:
     repeating-linear-gradient(101deg,
@@ -1737,14 +1631,11 @@ button.sundry:hover { transform: translateY(-2px); }
   border-color: rgba(70, 66, 60, 0.45);
   --trim-ring: 0 0 rgba(0, 0, 0, 0);
   --tile-lift: #8d877c;
-  /* A crease down the wrapper where the paper was folded over the type. */
   background-blend-mode: multiply, normal;
 }
 .tile--wrapped .tile-letter {
-  /* Greylead handwriting: the letter is written on the wrapper, not cast into
-     the tile. Caveat sits small on its em next to a display serif, so the size
-     is pushed up to match the cast letters beside it rather than reading as a
-     smaller tile — and the weight comes down, because pencil isn't type. */
+  /* Caveat sits small on its em, so the size is pushed up to match the cast
+     letters beside it. */
   font-family: var(--hand);
   font-weight: 700;
   font-size: 40px;
@@ -1759,8 +1650,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .tile--wrapped .tile-letter[data-len='3'] { font-size: 23px; }
 .tile--wrapped .tile-letter[data-len='4'],
 .tile--wrapped .tile-letter[data-len='5'] { font-size: 32px; }
-/* The corner figure reads 0 (restingPoints says so) — dim it, since the number
-   is not news, the wrapper is. */
+/* The corner figure reads 0 (restingPoints says so) — dim it. */
 .tile--wrapped .tile-pts { opacity: 0.4; }
 /* Nothing shows through the paper: no nick notch, no rainbow sheen, no curse. */
 .tile--wrapped.tile--nick-left,
@@ -1789,11 +1679,9 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 /* ── Nicks ─────────────────────────────────────────────────────────────────────
-   A real notch bitten out of the tile's silhouette, the way a compositor's nick
-   is cut into a piece of type. The mask does the cutting — it removes a disc
-   centred on the edge, taking the border, trim ring and shadow with it — and
-   .tile-nick paints the shaded lip that survives just inside the bite.
-   Which edge is notched *is* the direction: right, left, or both. */
+   The mask does the cutting — a disc removed from the edge, taking border, trim
+   ring and shadow with it — and .tile-nick paints the lip that survives inside
+   the bite. The notched edge *is* the direction. */
 .tile {
   --nick-r: 9px;
 }
@@ -1818,8 +1706,7 @@ button.sundry:hover { transform: translateY(-2px); }
           mask-composite: intersect;
 }
 
-/* The lip: a disc whose middle the mask eats, leaving a shaded rim on the tile
-   side of the cut so the notch reads as depth rather than a hole. */
+/* A disc whose middle the mask eats, leaving a rim that reads as depth. */
 .tile-nick {
   position: absolute;
   top: 50%;
@@ -1845,9 +1732,8 @@ button.sundry:hover { transform: translateY(-2px); }
     rgba(40, 28, 10, 0) calc(var(--nick-r) + 4.5px));
 }
 
-/* Trims — a metal ring around the tile's edge. Each trim only sets its ring
-   and its lift colour; the shadow composition itself lives on .tile, so the
-   ring survives hover, selection, and every other state. */
+/* Each trim only sets --trim-ring and its lift colour; the shadow composition
+   lives on .tile, so the ring survives hover, selection and every other state. */
 .tile--trim-gold {
   --trim-ring: inset 0 0 0 3px #d9a64b;
   --tile-lift: #a87f2c;
@@ -1871,13 +1757,8 @@ button.sundry:hover { transform: translateY(-2px); }
   --trim-ring: inset 0 0 0 3px #aab4c4;
   --tile-lift: #7e8794;
 }
-/* Silver pays +6 Points, and the corner figure is exactly where that lands —
-   so a silver tile wears its number in silver. A ring alone said "some metal
-   or other"; this says "this one is a Points tile", in the rack and the shop
-   where you are choosing, not only in the groove where the sum is already
-   done. Grown and boosted numbers still win: those report that the figure
-   differs from the letter's face value, which is the more urgent news, and
-   each already has a colour of its own. */
+/* Silver pays +6 Points and the corner figure is where that lands. Grown and
+   boosted numbers still win — those report a change from the face value. */
 .tile--trim-silver .tile-pts:not(.tile-pts--grown):not(.tile-pts--boosted) {
   opacity: 1;
   font-weight: 900;
@@ -1885,15 +1766,11 @@ button.sundry:hover { transform: translateY(-2px); }
   text-shadow: 0 1px 0 rgba(250, 252, 255, 0.95), 0 0 7px rgba(160, 174, 194, 0.8);
 }
 
-/* Cobalt refunds a Discard, so it wears the Discard UI's own blues — the
-   azure fill and bright edge of the discard pips — as a two-band ring no
-   other trim shares. */
+/* Cobalt refunds a Discard, so it wears the discard pips' own blues. */
 .tile--trim-cobalt {
   --trim-ring: inset 0 0 0 1.5px #8ec6ff, inset 0 0 0 3.5px #3f68ad;
   --tile-lift: #2c4a78;
 }
-
-/* Quicksilver — a pale wash, next to cobalt's deep saturated bands */
 
 .tile--trim-purple {
   /* the faint violet halo rides in the ring, so it survives every state too */
@@ -1902,10 +1779,9 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 /* ── Materials — what a tile is cast from ────────────────────────────────────
-   The material replaces the tile's body, and sits *under* paint, trims and
-   nicks: a cursed tile can still be gilded and painted. Trims keep working
-   because they only set --trim-ring, which composes over whatever body the
-   material paints. */
+   The material replaces the tile's body and sits *under* paint, trims and nicks
+   — a cursed tile can still be gilded and painted, because a trim only sets
+   --trim-ring, which composes over whatever body the material paints. */
 
 /* Cursed — hellbox iron. Dark, hot at the edges, never quite still. */
 .tile--mat-cursed {
@@ -1927,8 +1803,7 @@ button.sundry:hover { transform: translateY(-2px); }
   50%      { filter: brightness(1.22) saturate(1.15); }
 }
 
-/* Ghost — barely there. Pale, translucent, and it casts almost no shadow,
-   which is also the point: it doesn't weigh on your hand. */
+/* Ghost — pale, translucent, and casting almost no shadow. */
 .tile--mat-ghost {
   background: linear-gradient(168deg, rgba(232, 245, 255, 0.72), rgba(186, 214, 244, 0.52));
   border: 1px dashed rgba(226, 242, 255, 0.85);
@@ -1943,10 +1818,7 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 .tile--mat-ghost .tile-pts { color: #33506b; }
 
-/* Rose metal — a real alloy, soft and pink and useless for a working page,
-   which is why the only sort ever struck in it is a party favour. The letter
-   is set in the manuscript hand rather than the press's serif: nothing about
-   this tile is serious. */
+/* Rose metal — a party favour, so the letter takes the manuscript hand. */
 .tile--mat-rose {
   background: linear-gradient(168deg, #ffd9e6 0%, #f3aec6 52%, #e089a8 100%);
   border-color: #c97d9a;
@@ -1962,26 +1834,19 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 .tile--mat-rose .tile-pts { color: #a85072; }
 
-/* Rainbow — a split fountain caught on one sort. The wash is kept pale on
-   purpose: a painted letter still has to read against it, whatever colour the
-   paint is, so the glyph gets a light halo and the ink keeps its own hue. */
-/* The band repeats on a short pitch so every tile shows the whole spectrum,
-   whatever its size — a percentage gradient would give each tile a single
-   pale slice and the set would read as mismatched pastels, not as rainbow. */
+/* Rainbow. Kept pale so a painted letter still reads against it. */
+/* A short pitch, so every tile shows the whole spectrum whatever its size. */
 /* The drift below slides this wash sideways for ever, which asks two things of
-   the pattern that the original angle could not give.
+   the pattern.
    1. The step must equal one *horizontal* period. Bands repeat along their own
-      108° axis, and a sideways step only advances them by its projection onto
-      that axis — the old keyframe stepped 77px, the axial period, which moves
-      the pattern just 77·sin(108°) = 73.23px and so snapped back 3.77px once a
-      cycle.  Sideways period is P/sin θ.
+      axis, and a sideways step advances them only by its projection onto that
+      axis, so the sideways period is P/sin θ.
    2. The image must tile onto itself, or the wash meets its own edge mid-band
       and drags a seam across the tile. That needs background-size set to one
       lattice cell — P/sin θ across by P/|cos θ| down — in WHOLE pixels, since
       tiling is snapped to the device grid and fractions desynchronise it.
-   Both fall out of choosing the angle so |tan θ| = 3, which makes the cell
-   81 × 243. That is 108.435°, half a degree off the original — the same
-   diagonal to the eye, and now the loop closes exactly. */
+   Both fall out of choosing the angle so |tan θ| = 3, making the cell 81 × 243
+   at 108.435°, and the loop closes exactly. */
 .tile--mat-rainbow {
   background: repeating-linear-gradient(108.435deg,
     #ffc9c0 0px, #ffdca8 10.978px, #fbf29c 21.955px, #b9edb4 32.933px,
@@ -2003,9 +1868,7 @@ button.sundry:hover { transform: translateY(-2px); }
     0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
-/* The Enthusiast's gift — lent, not owned. It wears a brass ribbon-glow and a
-   stitched border so it can't be mistaken for a tile of yours: it rides above
-   the hand for one page and vanishes when the page ends. */
+/* The Enthusiast's gift — lent, not owned, hence the brass and the stitching. */
 .tile--gift {
   border: 1.5px dashed rgba(246, 214, 138, 0.85);
   box-shadow:
@@ -2020,10 +1883,8 @@ button.sundry:hover { transform: translateY(-2px); }
   50%      { box-shadow: 0 0 0 3px rgba(217, 166, 75, 0.4),  0 0 22px rgba(246, 214, 138, 0.75), 0 6px 12px rgba(0, 0, 0, 0.4); }
 }
 
-/* The Eeeditor's E — lent like the gift above, but taking a place in your hand
-   rather than riding beside it, so it reads as the editor's own type rather
-   than as a present: cold ink-blue where the gift is warm brass, and ruled
-   with the editor's double stripe instead of glowing. */
+/* The Eeeditor's E — lent too, but taking a place in your hand rather than
+   riding beside it, so cold ink-blue where the gift is brass. */
 .tile--lent {
   background: linear-gradient(168deg, #e8eef7, #c6d4e6);
   border: 1.5px dashed rgba(45, 79, 122, 0.7);
@@ -2035,7 +1896,6 @@ button.sundry:hover { transform: translateY(-2px); }
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 .tile--lent .tile-pts { color: #4a6d99; }
-/* Two rules along the foot — a proof-mark, and the tile's tell at a glance. */
 .tile--lent::after {
   content: '';
   position: absolute;
@@ -2074,9 +1934,8 @@ button.sundry:hover { transform: translateY(-2px); }
   box-shadow: 0 0 16px rgba(255, 112, 102, 0.5), 0 6px 12px rgba(0,0,0,0.4);
 }
 
-/* Tiles a stall has no use for. Nothing sets this at present — the Restorer,
-   which greyed out already-bare tiles, is gone — but the click guard in
-   sheets.js still honours it, so a future stall can lock a tile for free. */
+/* Tiles a stall has no use for. Nothing sets this at present, but the click
+   guard in sheets.js honours it, so a future stall can lock a tile for free. */
 .tile--stall-locked {
   opacity: 0.35;
   cursor: default;
@@ -2116,9 +1975,7 @@ button.sundry:hover { transform: translateY(-2px); }
   100% { transform: scale(1); filter: brightness(1); }
 }
 
-/* A patron writing Points onto the tile, before anything is scored: ink
-   soaking in rather than a number being paid out, so it swells and settles
-   instead of leaping the way a scoring tile does. */
+/* Points written onto the tile before scoring — a swell, not a leap. */
 .tile--boosted {
   animation: tileBoost calc(0.52s / var(--aspd)) ease;
   z-index: 4;
@@ -2130,11 +1987,8 @@ button.sundry:hover { transform: translateY(-2px); }
   100% { transform: scale(1); filter: brightness(1); }
 }
 
-/* Paint a patron has promised but the word hasn't earned yet: The Illuminator's
-   fourth colour, showing in the groove from the moment the word calls for it.
-   The letter is already in its new colour (render.js paints a copy of the
-   tile); this is the dashed edge that says the ink is still wet — the tile only
-   truly takes it when the word prints. */
+/* Paint promised but not yet earned (The Illuminator). The letter is already in
+   its new colour — render.js paints a COPY — and this is the wet-ink edge. */
 .tile--illuminating {
   outline: 2px dashed var(--glow, rgba(246, 214, 138, 0.75));
   outline-offset: 2px;
@@ -2148,8 +2002,7 @@ button.sundry:hover { transform: translateY(-2px); }
   .tile--illuminating { animation: none; }
 }
 
-/* The brush landing at print: the same swell as a boosted tile, in the colour
-   the tile has just taken. */
+/* The brush landing at print — a boosted tile's swell, in the new colour. */
 .tile--painted {
   animation: tilePainted calc(0.62s / var(--aspd)) ease;
   z-index: 4;
@@ -2259,9 +2112,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .log--bad  { color: var(--bad); }
 .log--warn { color: var(--warn); }
 
-/* At rest the bar is the run's words, set as one long line. It's kept flush
-   right so the newest word is always in view and the book trails off to the
-   left, under a fade, the way a long line of type runs past the edge. */
+/* Flush right, so the newest word is always in view and the rest trail off. */
 .log--manuscript {
   display: flex;
   align-items: baseline;
@@ -2282,7 +2133,6 @@ button.sundry:hover { transform: translateY(-2px); }
   color: var(--brass-hi);
   font-weight: 700;
 }
-/* The newest word settles onto the page like fresh ink */
 .ms-word--new { animation: msInk calc(0.5s / var(--aspd)) cubic-bezier(.2,1.3,.4,1) both; }
 @keyframes msInk {
   0%   { opacity: 0; transform: translateY(5px) scale(0.9); filter: blur(1.5px); }
@@ -2324,9 +2174,8 @@ button.sundry:hover { transform: translateY(-2px); }
 .fl-curse   { color: #ff7a66; font-size: 19px; font-weight: 800; text-shadow: 0 0 8px rgba(201, 60, 45, 0.65); }
 .fl-spike   { color: #ffb3a6; font-size: 18px; font-weight: 800; text-shadow: 0 0 9px rgba(201, 60, 45, 0.75); }
 .fl-boost   { color: #90e8ba; font-size: 19px; }
-/* The measure's milestone — a line of copy, not arithmetic, so it is set in
-   the serif's italic like the game's other spoken lines and rises above the
-   chip's own ×N floater. */
+/* Copy rather than arithmetic, so it takes the serif's italic and rises above
+   the chip's own ×N floater. */
 .fl-flourish {
   color: #f3debc;
   font-style: italic;
@@ -2370,9 +2219,8 @@ button.sundry:hover { transform: translateY(-2px); }
   transition: opacity calc(0.28s / var(--aspd)) ease;
 }
 #banner.banner--show { opacity: 1; }
-/* A banner held long enough to read is also one you can wave away. It covers
-   the screen, so taking pointer events here both dismisses it and stops the
-   tap reaching the board underneath. */
+/* A dismissible banner covers the screen, so taking pointer events here both
+   dismisses it and stops the tap reaching the board underneath. */
 #banner.banner--dismissible { pointer-events: auto; cursor: pointer; }
 #banner.banner--dismissible .banner-inner::after {
   content: 'tap to go on';
@@ -2541,18 +2389,15 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 .market-sub { font-family: var(--sans); font-weight: 500; font-size: 11px; color: var(--parch-dim); }
 .market-sub--done { color: #2f6e3e; font-weight: 700; }
-/* The reordering hint sits apart from the seat tally, quieter and in italic —
-   an instruction, not a count. It drops away on narrow sheets, where the
-   gesture is discovered by trying it. */
+/* The reordering hint — an instruction, not a count. Dropped on narrow sheets. */
 .market-sub--hint { font-style: italic; opacity: 0.75; margin-left: 8px; }
 @media (max-width: 560px) { .market-sub--hint { display: none; } }
 
 .offer-list { display: grid; gap: 9px; }
 
 /* ── Patrons as engraved business cards ────────────────────────────────────────
-   Ivory stock, a double-rule frame (hairline tinted by rarity), a portrait
-   panel on the left — an emoji placeholder until real portraits land via a
-   patron def's optional `portrait` image — and the rarity as the title line. */
+   Ivory stock, a double-rule frame (hairline tinted by rarity), and a portrait
+   panel holding an emoji unless the patron def carries a `portrait` image. */
 .offer-patron {
   position: relative;
   display: grid;
@@ -2562,8 +2407,7 @@ button.sundry:hover { transform: translateY(-2px); }
   width: min(340px, 100%);
   margin-inline: auto;
   padding: 6px;
-  /* One height for every card, whatever the effect text runs to — a stack of
-     cards on a counter, not a ragged list. */
+  /* One height for every card, whatever the effect text runs to. */
   min-height: var(--card-h, 108px);
   border-radius: 4px;
   background: linear-gradient(170deg, var(--ivory) 0%, var(--parch) 55%, var(--parch-2) 100%);
@@ -2579,13 +2423,9 @@ button.sundry:hover { transform: translateY(-2px); }
 .offer-patron--rare     { --hairline: rgba(112, 64, 160, 0.55); --title-col: #7040a0; }
 
 /* ── Guild livery ──────────────────────────────────────────────────────────────
-   A guild member's calling card wears the guild's colours: a silk ribbon
-   bound into the top edge, the portrait panel washed in the same dye, and the
-   guild named beside the rarity. The hairline stays the rarity's — rarity and
-   guild are separate facts, told by separate inks. One variable set serves the
-   card and the seat's livery pin alike; the values are COLOURS' glyph/bright
-   pairs from js/constants.js. Neutral patrons carry none of these classes and
-   stay plain ivory. */
+   The hairline stays the rarity's — rarity and guild are separate facts. One
+   variable set serves the card and the seat's livery pin alike (the values are
+   COLOURS' glyph/bright pairs in js/constants.js). */
 .offer-patron--g-crimson, .patron--g-crimson {
   --livery: #b23a2e; --livery-brt: #ff9d8e; --livery-soft: rgba(178, 58, 46, 0.16);
 }
@@ -2599,16 +2439,13 @@ button.sundry:hover { transform: translateY(-2px); }
   --livery: #2e6fb2; --livery-brt: #8ec6ff; --livery-soft: rgba(46, 111, 178, 0.16);
 }
 
-/* A dual-livery patron (the Cellarer, the Composter) wears a second guild's
-   colours beside the first: these classes carry the second dye, and the
-   rules below hang the second ribbon and pin from them. */
+/* A dual-livery patron carries its second dye in these classes. */
 .offer-patron--g2-crimson, .patron--g2-crimson { --livery2: #b23a2e; --livery2-brt: #ff9d8e; }
 .offer-patron--g2-jade,    .patron--g2-jade    { --livery2: #2d8a5c; --livery2-brt: #90e8ba; }
 .offer-patron--g2-amber,   .patron--g2-amber   { --livery2: #a87010; --livery2-brt: #ffd68c; }
 .offer-patron--g2-azure,   .patron--g2-azure   { --livery2: #2e6fb2; --livery2-brt: #8ec6ff; }
 
-/* The ribbon: hangs over the card's top rule like a bookmark, notched at the
-   tail. It rides the card's tilt, which keeps the stack looking hand-laid. */
+/* The ribbon rides the card's tilt, which keeps the stack looking hand-laid. */
 .offer-patron[class*="offer-patron--g-"]::after {
   content: '';
   position: absolute;
@@ -2858,9 +2695,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .trim-swatch--cobalt  { --metal: #3f68ad; box-shadow: inset 0 0 0 1px #8ec6ff; }
 .trim-swatch--purple  { --metal: #8a5fb0; }
 
-/* ── The compost heap ────────────────────────────────────────────────────────
-   What The Composter's rot has turned into. Laid out like the type case, but
-   dark and loamy, and nothing here is bought. */
+/* ── The compost heap: the type case, dark and loamy, nothing bought ────────── */
 .market-compost { margin-top: 22px; }
 /* Six columns whatever the heap holds, so it reads as a bed with room in it.
    The doubled class out-specifies the type case's wood a few rules down. */
@@ -2930,9 +2765,8 @@ button.sundry:hover { transform: translateY(-2px); }
   border-bottom: 1px solid rgba(138, 95, 29, 0.35);
 }
 
-/* Visiting a stall is free — it's the work inside that's priced, and the
-   price doubles with each commission. The button says only "Visit"; the fee
-   sits under it as a caption so the two can't be read as one. */
+/* Visiting is free, so the fee sits under the button as a caption rather than
+   on it. */
 .stall-action { display: grid; justify-items: center; gap: 4px; }
 .stall-from {
   font-size: 9.5px;
@@ -3019,9 +2853,7 @@ button.sundry:hover { transform: translateY(-2px); }
   transform: scale(1.1);
 }
 
-/* The Gilder's spread of trim proposals */
-/* The spread a proposal stall lays out — the Gilder's trims, the
-   Punchcutter's second letters */
+/* The spread a proposal stall lays out */
 .proposal-grid { grid-template-columns: repeat(3, 1fr); }
 @media (max-width: 600px) { .proposal-grid { grid-template-columns: repeat(2, 1fr); } }
 
@@ -3059,10 +2891,8 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 /* ── The case's tally: what the collection holds, by colour ───────────────────
-   A row of small enamel chips under the count. Each carries its colour as a
-   dot rather than as text-colour, so the numbers stay legible against the
-   Market's dark leather and an empty bucket can simply fade instead of
-   vanishing. */
+   The colour rides a dot rather than the text, so numbers stay legible on dark
+   leather and an empty bucket can fade. */
 .case-tally {
   display: flex;
   flex-wrap: wrap;
@@ -3110,9 +2940,7 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 /* ═══ The Market — a candlelit skin over the shop views ════════════════════════
-   The board is a place, so the market is one too: dark leather and wood, with
-   the goods themselves — parchment cards, ivory tiles, tubes — as the bright
-   things. Scoped under .sheet--market so the draft keeps its parchment. */
+   Scoped under .sheet--market so the draft keeps its parchment. */
 
 .sheet--market {
   background:
@@ -3155,9 +2983,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .sheet--market .pickable.picked { outline-color: #8fdfae; box-shadow: 0 0 16px rgba(143, 223, 174, 0.3); }
 
 /* ── The table, restated at the top of the sheet ──────────────────────────────
-   The board's patron shelf drawn again inside the Market (same .shelf/.patron
-   classes, so it reads as the same piece of furniture), with dismissal always
-   at hand: the ✕ on hover, the tap popover everywhere else. */
+   The board's patron shelf again, on the same .shelf/.patron classes. */
 .sheet--market .market-shelf { margin-bottom: 6px; }
 .sheet--market .market-shelf .shelf {
   gap: 8px;
@@ -3169,15 +2995,9 @@ button.sundry:hover { transform: translateY(-2px); }
 .sheet--market .market-shelf--wanted .market-sub { color: #ffb3a6; font-weight: 800; }
 
 /* ── The workbench, beside the table ──────────────────────────────────────────
-   The Market restates the board's whole shelf-row, in the board's own
-   arrangement: the table flexes, the bench hugs its two-or-three slots at the
-   end of the line rather than stretching a strip of empty wood across the
-   sheet. Flex-wrap is the responsive rule — when the sheet is too narrow for
-   both, the bench simply drops below the table, no media query needed. Same
-   wood and same slots as the board's bench (the .sundries/.sundry classes do
-   the work), but nothing is armed from inside the Market — a tube has no hand
-   to paint here — so the slots are plain cards and the only act on them is
-   the ✕, which sells one back. */
+   The table flexes, the bench hugs its slots at the end of the line. Flex-wrap
+   is the responsive rule — too narrow for both and the bench drops below, no
+   media query needed. Nothing arms from here, so the slots are plain cards. */
 .sheet--market .market-hold {
   display: flex;
   flex-wrap: wrap;
@@ -3325,9 +3145,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .sheet--market .reward-total  { color: var(--parch-ink); }
 
 /* ─── Boosted values ──────────────────────────────────────────────────────────── */
-/* Ash. A tile the Stoker (or the Arsonist's bad luck) has destroyed flares,
-   chars and crumbles where it sits — it never flies to the discard pile,
-   because there is nothing left to file. */
+/* Ash. A destroyed tile chars where it sits — it never flies to the tray. */
 .tile--burning {
   animation: tileBurn calc(0.62s / var(--aspd)) ease-in forwards;
   pointer-events: none;
@@ -3349,8 +3167,7 @@ button.sundry:hover { transform: translateY(-2px); }
   }
 }
 
-/* A tile the Grafter has grown wears its corner number in jade — quiet,
-   permanent, and visible anywhere the tile appears (rack, bag, market). */
+/* A grown tile wears its corner number in jade wherever it appears. */
 .tile-pts--grown {
   opacity: 1;
   font-weight: 800;
@@ -3358,11 +3175,9 @@ button.sundry:hover { transform: translateY(-2px); }
   text-shadow: 0 1px 0 rgba(240, 255, 244, 0.85), 0 0 7px rgba(90, 190, 130, 0.55);
 }
 
-/* In the word groove, a tile's corner number is what it will actually pay.
-   When that beats what the tile is worth at rest, the number itself changes —
-   larger, brass, glowing. Only the word can cause that now: a nick's reach or
-   a Monogrammist's echo. A silver trim no longer does, because its Points are
-   already in the resting number, which is the point of putting them there. */
+/* In the word groove a tile's corner number is what it will actually pay, and
+   changes when that beats its resting value. Only the word can cause that — a
+   nick's reach, a Monogrammist's echo — never a silver trim. */
 .tile-pts--boosted {
   opacity: 1;
   font-size: 13px;
@@ -3372,18 +3187,15 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 .tile--mini .tile-pts--boosted { font-size: 10px; }
 
-/* …unless the patron paying it is writing it into the tile for good. The jade
-   trellises (the Abecedarian, the Espalier) pay the same Points the print then
-   grows in permanently, so the groove shows them in the jade a grown number
-   already wears everywhere else — a promise kept, not a loan. Ordered after
-   --boosted so it wins on a tile carrying both classes. */
+/* …unless the patron paying it is writing it into the tile for good: a jade
+   trellis pays the Points the print then grows in, so the groove shows them in
+   jade. Ordered after --boosted so it wins on a tile carrying both classes. */
 .tile-pts--growing {
   color: var(--jade);
   text-shadow: 0 1px 0 rgba(240, 255, 244, 0.9), 0 0 8px rgba(90, 190, 130, 0.75);
 }
 
-/* A number that just changed announces itself; renderWord staggers the
-   delays so the change ripples outward from the nick that caused it. */
+/* renderWord staggers the delays so the change ripples outward from the nick. */
 .pts-pop {
   animation: ptsPop calc(0.5s / var(--aspd)) cubic-bezier(.3, 1.6, .5, 1) both;
   transform-origin: bottom right;
@@ -3395,14 +3207,10 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 /* ─── The manuscript ──────────────────────────────────────────────────────────── */
-/* No badge. The count is in the tooltip — see renderStatus in js/render.js for
-   why a counter pinned to this particular button was the wrong furniture. */
+/* No badge — the count is in the tooltip (see renderStatus in js/render.js). */
 .btn-icon--manuscript { position: relative; font-size: 15px; }
 
-/* A book rather than a list of transactions: chapters with headings and titles,
-   the words set as running prose beneath them, each page's folio number out in
-   the margin. Read front to back — the newest word is at the end, where the
-   next one will go. */
+/* A book rather than a ledger: chapters, running prose, folio in the margin. */
 .sheet--manuscript {
   width: min(660px, 94vw);
   padding-bottom: 30px;
@@ -3413,7 +3221,6 @@ button.sundry:hover { transform: translateY(-2px); }
   margin-top: 4px;
   max-height: 64vh;
   overflow: auto;
-  /* A hair of a gutter down the left, where a bound page meets its spine */
   padding: 4px 4px 4px 2px;
 }
 .book-blank {
@@ -3455,10 +3262,8 @@ button.sundry:hover { transform: translateY(-2px); }
   color: var(--parch-ink);
   white-space: nowrap;
 }
-/* The rule runs on from the title to the tally, the way a chapter head is
-   ruled off in a printed book. Its own cell, because an ::after pinned to the
-   title had nothing to measure against — a stretched grid cell made it
-   zero-width and it never appeared. */
+/* The rule gets its own grid cell: an ::after pinned to the title had nothing to
+   measure against, and a stretched cell made it zero-width. */
 .book-rule {
   border-top: 1px solid rgba(138, 95, 29, 0.4);
   align-self: center;
@@ -3489,8 +3294,7 @@ button.sundry:hover { transform: translateY(-2px); }
   font-variant-numeric: tabular-nums;
   cursor: help;
 }
-/* The Deadline is marked, not numbered — a printer's fleuron where the folio
-   number would sit. */
+/* The Deadline is marked, not numbered — a fleuron where the folio would sit. */
 .book-folio--deadline { color: var(--brass-dark); font-style: normal; font-size: 13px; }
 
 .book-prose {
@@ -3503,10 +3307,8 @@ button.sundry:hover { transform: translateY(-2px); }
 
 /* ── A word, and its score as a footnote figure ─────────────────────────────── */
 /* A word and its figure never come apart, but the prose has to break between
-   entries — which is why they are joined with a real space in the markup and
-   not merely spaced by this margin. These are book-* and not ms-*: the strip
-   at the foot of the board owns .ms-word, and it is a pale cream meant for
-   dark wood, which on parchment is no colour at all. */
+   entries — hence a real space in the markup, not merely this margin. book-*
+   rather than ms-*: .ms-word is the board strip's, and pale on parchment. */
 .book-entry { white-space: nowrap; }
 .book-entry + .book-entry { margin-left: 0.3em; }
 .book-word {
@@ -3543,9 +3345,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .book-entry--best .book-score { color: var(--brass-dark); font-weight: 800; }
 
 /* ─── The Colophon (end-of-chapter upgrade) ─────────────────────────────────────
-   A ceremonial pick, not a transaction — bigger cards than a Market offer,
-   centred, no prices, nothing to afford. Built on the same dark market skin
-   so it reads as part of the same world. */
+   Bigger cards, centred, no prices — built on the same dark market skin. */
 .sheet--colophon { width: min(760px, 96vw); text-align: center; }
 .sheet--colophon .sheet-head { justify-content: center; text-align: center; }
 .sheet--colophon .market-sec { justify-content: center; }
@@ -3900,9 +3700,8 @@ input[type='checkbox'] {
 .tip-pop {
   position: fixed;
   z-index: 400;
-  /* The tip is a label, not a surface: clicks pass through to whatever is
-     underneath (and hide it), so it can never swallow a tap on a control.
-     Only its buttons (flip, dismiss) catch the pointer. */
+  /* The tip is a label, not a surface: clicks pass through (and hide it), so it
+     can never swallow a tap. Only its buttons catch the pointer. */
   pointer-events: none;
   max-width: 270px;
   padding: 11px 13px 12px;
@@ -3996,8 +3795,8 @@ input[type='checkbox'] {
   .rack-row { grid-template-columns: 1fr; }
   .pouch { flex-direction: row; justify-content: center; }
 
-  /* The editor's bar: name and verdict up top, the demand on its own line —
-     a narrow screen shouldn't squeeze the rule into a sliver. */
+  /* Name and verdict up top, the demand on its own line, so a narrow screen
+     doesn't squeeze the rule into a sliver. */
   .boss-bar { flex-wrap: wrap; row-gap: 3px; padding: 7px 12px; }
   .boss-rule { flex-basis: 100%; order: 4; font-size: 13px; }
   .boss-verdict { margin-left: auto; }
@@ -4020,8 +3819,7 @@ input[type='checkbox'] {
     min-height: calc(100dvh - 46px);
   }
 
-  /* The shelf keeps a constant height whether seats are filled or empty, so
-     seating your first patron doesn't shove the board down. */
+  /* Constant height filled or empty, so a first hire doesn't shove the board. */
   .shelf-row { gap: 5px; }
   .shelf { padding: 6px 6px 7px; gap: 5px; }
   .patron { min-height: 40px; padding: 4px 3px 3px; }
@@ -4102,8 +3900,7 @@ input[type='checkbox'] {
   .reward-line { justify-content: flex-start; max-width: none; }
   .sheet--market .sheet-head .x, .sheet--inspector .sheet-head .x,
   .sheet--manuscript .sheet-head .x { align-self: flex-end; margin-top: -28px; }
-  /* A chapter head won't hold three columns on a phone: the title takes the
-     line, the number and tally share the one below it. */
+  /* Three columns won't fit: the title takes a line, number and tally share one. */
   .book-chapter-head { grid-template-columns: auto 1fr; row-gap: 1px; }
   .book-chapter-title { grid-column: 1 / -1; grid-row: 1; white-space: normal; }
   .book-chapter-num { grid-row: 2; grid-column: 1; }
@@ -4117,9 +3914,8 @@ input[type='checkbox'] {
 @media (prefers-reduced-motion: reduce) {
   .tile--trim-gold::before { animation: none; }
   /* The tube's offer still has to read as offered — hold the outline steady */
-  /* An offered tile still has to read as offered — hold the ring and the
-     glow at their brightest, and drop only the breathing. The lift and the
-     dimming of everything else aren't animations, so they stand as they are. */
+  /* An offered tile still has to read as offered — hold the ring and glow at
+     their brightest, drop only the breathing. */
   .tile--tube-offer {
     animation: none;
     outline-color: #fff0c4;
@@ -4140,13 +3936,11 @@ input[type='checkbox'] {
   .patron--ghost.patron--rare { animation: none; opacity: 0.9; }
   .patron--murdered { animation: none; }
   .patron--just-armed .patron-take, .patron-take--bump { animation: none; }
-  /* The materials still have to read as themselves — hold the colour, drop
-     the motion. The Enthusiast's gift keeps its stitched glow the same way. */
+  /* Materials still have to read as themselves — hold the colour, drop motion. */
   .tile--mat-cursed, .tile--mat-rainbow, .tile--gift { animation: none; }
   .boss-bar--firing, .boss-bar--spiking { animation: none; }
-  /* A tool waiting on its last tap still has to read as waiting — hold the
-     glow at the top of the breath, drop the breathing. The dimmed table does
-     the rest of the work either way. */
+  /* A tool waiting on its last tap still has to read as waiting — hold the glow
+     at the top of the breath, drop the breathing. */
   .sundry--ready {
     animation: none;
     transform: translateY(-5px) scale(1.05);

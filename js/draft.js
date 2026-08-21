@@ -1,6 +1,5 @@
-// The opening draft — a free spread laid out before the first page. You pick a
-// patron, two paints, and four tiles; no coins change hands. Everything picked
-// is applied to the collection before page 1's bag is shuffled.
+// The opening draft — a free spread of paints and tiles before the first page.
+// Everything picked is applied to the collection before page 1's bag is shuffled.
 
 import { state, paintRandomTiles, adoptTemplate } from './state.js';
 import { DRAFT, COLOURS, PAINT_PER_POT } from './constants.js';
@@ -13,8 +12,7 @@ export const draft = {
   picked:  { paint: [], tile: [] },   // indices into the arrays above
 };
 
-// Same generator as the shop — pass a floor here to make the opening spread
-// richer than what's on sale later.
+// Same generator as the shop; pass a floor here to make the spread richer.
 const draftTile = () => randomSpecialTile();
 
 export function openDraft() {
@@ -33,8 +31,8 @@ export function closeDraft() {
 export const draftLimit = kind =>
   kind === 'paint' ? DRAFT.paints.pick : DRAFT.tiles.pick;
 
-// Tap to select, tap again to drop. At the limit, other options simply don't
-// take — you deselect first, so a pick is never silently swapped out.
+// At the limit further taps simply don't take — you deselect first, so a pick is
+// never silently swapped out.
 export function toggleDraftPick(kind, idx) {
   const list = draft.picked[kind];
   if (!list) return false;

@@ -43,45 +43,33 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   if (tile.trim)                  div.classList.add(`tile--trim-${tile.trim}`);
   if (tile.nick)                  div.classList.add(`tile--nick-${tile.nick}`);
   if (tile.material)              div.classList.add(`tile--mat-${tile.material}`);
-  // Both kinds of lent tile are marked, and marked apart: the Enthusiast's
-  // gift is a bonus beside your hand, the Eeeditor's E is a place taken out of
-  // it, and confusing the two would misread the board badly.
+  // Marked apart: the gift rides beside the hand, the E takes a place out of it.
   if (tile.ephemeral)             div.classList.add(tile.aboveHand ? 'tile--gift' : 'tile--lent');
 
   const active = getActiveLetter(tile);
   const paint  = getActiveColour(tile);
 
-  // Four or more letters outgrow even the ligature type sizes — the tile
-  // itself doubles in width instead (the OLOGY tile, and whatever follows it).
+  // Four or more letters outgrow the ligature type sizes, so the tile doubles.
   if (active.length >= 4) div.classList.add('tile--wide');
-  // The fleuron is struck in gold and dressed apart; a washed tile wears its
-  // colour faintly, the promise being spent the moment it prints.
   if (tile.letter === FLEURON) div.classList.add('tile--fleuron');
   if (tile.wash && !tile.colour) div.classList.add('tile--washed');
-  // Wrapped in manuscript: the paper goes over everything the tile was, so this
-  // class is added last and the CSS covers the trim ring, the nick and the
-  // metal alike. getActiveColour already returns null for it, so the letter
-  // below takes no paint colour — it is pencil on a wrapper now.
+  // The paper goes over everything the tile was, so this class is added LAST and
+  // the CSS covers trim ring, nick and metal alike.
   if (isWrapped(tile)) div.classList.add('tile--wrapped');
   if (MEDIEVAL[active]) div.classList.add('tile--medieval');
   if (active === INTERROBANG) div.classList.add('tile--interrobang');
 
-  // Letter (painted in its colour)
   const letter = document.createElement('span');
   letter.className = 'tile-letter';
   letter.dataset.len = active.length;
-  // A medieval sort SHOWS its own glyph — lowercase þ and ȝ, which are far more
-  // legible than their capitals — while the letter itself stays the canonical
-  // uppercase form everything else reads.
+  // A medieval sort SHOWS its own glyph (lowercase þ, ȝ) while `letter` stays
+  // the canonical uppercase form everything else reads.
   letter.textContent = letterGlyph(active);
   if (paint) letter.style.color = COLOURS[paint].glyph;
   div.appendChild(letter);
 
-  // Point value (bottom-right). This is what the tile is worth at rest —
-  // including a silver trim's Points, which belong to the tile and so belong in
-  // its number. An override beating that says the *word* has changed it (a
-  // nick's reach, a Monogrammist's echo), and the number carries that news.
-  // A tile carrying grown points (The Grafter) wears its number in jade.
+  // Point value (bottom-right): what the tile is worth at rest, silver included.
+  // An override beating that means the *word* changed it — hence --boosted.
   const base = restingPoints(tile);
   const ptsEl = document.createElement('span');
   ptsEl.className = 'tile-pts';
@@ -90,9 +78,7 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   if (pts != null && pts !== base) ptsEl.classList.add('tile-pts--boosted');
   div.appendChild(ptsEl);
 
-  // Dual-letter hint (top-right). Paint belongs to the tile, so the waiting
-  // letter is shown in the same colour as the one on show — the hint says what
-  // you'd be flipping to, and flipping no longer changes the coat.
+  // Dual-letter hint (top-right). Paint belongs to the tile, not the face.
   if (tile.letterType === 'dual' && tile.altLetter) {
     const otherLetter = tile.activeVariant === 1 ? tile.letter : tile.altLetter;
     const alt = document.createElement('span');
@@ -102,8 +88,7 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
     div.appendChild(alt);
   }
 
-  // Nicks are notches bitten out of the tile's edge (the mask does the cutting;
-  // these elements only paint the shaded lip around each notch).
+  // The CSS mask does the cutting; these elements only paint the shaded lip.
   if (tile.nick) {
     const a = document.createElement('span');
     a.className = `tile-nick tile-nick--${tile.nick === 'right' ? 'r' : 'l'}`;
@@ -114,15 +99,12 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   return div;
 }
 
-// Every feature a tile carries, spelled out in full. These lines are the tile's
-// only explanation now — nothing is summarised under shop cards any more — so
-// they say what a thing does rather than naming it.
+// Every feature a tile carries — the tile's only explanation, so these say what
+// a thing does rather than naming it.
 export function tileFeatures(tile) {
   const out = [];
-  // The wrapper comes before everything, because it hides everything: while it
-  // is on, none of the lines below are true of this tile. They are still listed
-  // underneath, since what is under the paper is exactly what comes back when
-  // the Deadline ends.
+  // First, because it hides everything: while the wrapper is on none of the
+  // lines below are true — but they stay listed, being what comes back.
   if (isWrapped(tile)) {
     out.push({
       head: 'In manuscript',
@@ -132,8 +114,8 @@ export function tileFeatures(tile) {
           + 'and everything below is waiting underneath.',
     });
   }
-  // A medieval sort explains what it STANDS FOR before anything else: that is
-  // the whole reason to hold one, and it is not guessable from the glyph.
+  // A medieval sort explains what it STANDS FOR first — not guessable from the
+  // glyph, and the whole reason to hold one.
   const med = MEDIEVAL[getActiveLetter(tile)];
   if (med) {
     const reads = med.reads.length > 1
@@ -156,8 +138,7 @@ export function tileFeatures(tile) {
           + `Punchcutter cut the pair together.`,
     });
   }
-  // What the tile *is* comes next — a material, or the fleuron, which is a
-  // sort of its own however ordinary its lead.
+  // What the tile *is* comes next — a material, or the fleuron.
   if (tile.letter === FLEURON) {
     out.push({
       head: 'Fleuron',
@@ -222,8 +203,7 @@ export function tileTitleLines(tile, breakdown = null) {
   const parts = [`${face} base`];
   if (grown)  parts.push(`${grown} grown`);
   if (silver) parts.push(`${silver} silver`);
-  // Headed by the glyph the tile actually shows, so a þ doesn't introduce
-  // itself as a Þ nobody typed.
+  // Headed by the glyph the tile actually shows, not the canonical capital.
   const lines = [`${letterGlyph(active)} — ${restingPoints(tile)} Points${parts.length > 1 ? ` (${parts.join(' + ')})` : ''}`];
   for (const f of tileFeatures(tile)) lines.push(`${f.head}: ${f.body}`);
   if (breakdown) lines.push(`This word: ${breakdown.parts.join(', ')} → ${breakdown.final} Points`);
@@ -285,9 +265,8 @@ export function showPatronPopover(def, anchorEl, seat = null) {
 }
 
 // ─── The Neologist's coining sheet ────────────────────────────────────────────
-// Six letters, no more, and nothing the dictionary already knows. What you
-// coin here outlives the run: it's kept beside the save and folded into every
-// dictionary the game loads afterwards.
+// What you coin outlives the run — kept beside the save (dict.js) and folded
+// into every dictionary loaded afterwards.
 
 export function showCoinWordSheet() {
   showOverlay(`
@@ -325,11 +304,7 @@ export function hidePopover() {
 // ─── Main render ───────────────────────────────────────────────────────────────
 
 // An armed tool with its targets picked needs one more tap — on the tool, not
-// the board — and that is the step that got missed: with the tiles chosen the
-// board looks finished, and the thing still waiting is off at the workbench.
-// So the table steps back and leaves the tool the brightest thing on it. What
-// stays lit is exactly what the gesture still involves: the workbench, and the
-// tiles you picked.
+// the board — so the table steps back and leaves only the workbench lit.
 function applyToolReady() {
   const table = document.querySelector('.table');
   if (!table) return;
@@ -338,8 +313,8 @@ function applyToolReady() {
 }
 
 export function renderAll() {
-  // One script for the whole frame: the shelf and the readout read the same
-  // numbers, so what a patron promises and what it pays can't disagree.
+  // One script for the whole frame, so what a patron promises and what it pays
+  // can't disagree.
   const script = computeScore(state.word);
   renderShelf(script);
   renderGhosts();
@@ -365,10 +340,8 @@ export function persist() {
 
 // ─── Patron shelf ─────────────────────────────────────────────────────────────
 
-// The seats only get rebuilt when the seating itself changes — hiring,
-// dismissing, or an extra seat from the Colophon. Everything else about a
-// patron is a class or a badge, so laying down a tile can't restart the
-// standing-to-gain glow from frame zero.
+// Seats are rebuilt only when the seating itself changes; everything else is a
+// class or a badge, so laying a tile can't restart the glow from frame zero.
 let _shelfSig = '';
 let _armedIds = new Set();
 
@@ -376,8 +349,8 @@ function renderShelf(script) {
   const shelf = $('shelf');
   if (!shelf) return;
   const seats = effectivePatronSlots();
-  // Laurels ride the signature so a crowning mid-page repaints the card —
-  // without this the badge would wait for the next seating change to appear.
+  // Laurels ride the signature, or a crowning mid-page would wait for the next
+  // seating change to show.
   const sig = `${seats}|${state.patrons.map(p => `${p.uid ?? p.id}~${p.data?.honorifics ?? 0}`).join(',')}`;
 
   if (sig !== _shelfSig) {
@@ -423,19 +396,15 @@ function renderShelf(script) {
   paintArmed(shelf, script);
 }
 
-// What each patron stands to add to the word in progress, read straight off
-// the score script. Several steps from one patron fold into a single badge.
-// Keys are the seat's uid where the step carries one (copies of a stackable
-// patron badge separately), falling back to the def id for everyone else.
+// What each patron stands to add, read off the score script; several steps fold
+// into one badge. Keyed by the seat's uid where the step carries one (so
+// stackable copies badge separately), else the def id.
 function patronTakes(script) {
   const takes = new Map();
-  // Tile bonuses first — they are paid first, and the badge should read in the
-  // order the print will.
+  // Tile bonuses first — the badge reads in the order the print will.
   for (const s of [...(script?.tilePaintSteps ?? []), ...(script?.tileBoostSteps ?? []),
                   ...(script?.patronSteps ?? [])]) {
-    // A brush step (The Illuminator) pays nothing itself — what it is worth is
-    // the colour it lays, which the multipliers then count — so its badge shows
-    // the colour rather than a number it hasn't earned.
+    // A brush step pays nothing itself, so its badge shows the colour it lays.
     const chip = s.hits?.[0]?.colour ? COLOURS[s.hits[0].colour].label
                : s.xmult ? `×${fmtMult(s.xmult)}`
                : s.mult  ? `+${fmtMult(s.mult)}`
@@ -452,17 +421,15 @@ function patronTakes(script) {
   return takes;
 }
 
-// Patrons whose condition the word already meets light up wearing what
-// they'd contribute; the rest of the shelf dims out of their way. A patron
-// that has just woken gets a one-shot flourish, and a badge whose number
-// moves as you compose bumps rather than silently swapping.
+// Patrons the word already satisfies light up wearing what they'd contribute.
+// A newly woken one gets a one-shot flourish; a badge whose number moves bumps.
 function paintArmed(shelf, script) {
   const takes = patronTakes(script);
   shelf.classList.toggle('shelf--live', takes.size > 0);
 
-  // Remember which CARDS were lit (by their own key), not which steps fired —
-  // a card matched through the def-id fallback must still count as armed, or
-  // its wake-up flourish would restart on every keystroke.
+  // Remember which CARDS were lit, not which steps fired — a card matched
+  // through the def-id fallback must still count as armed, or its wake-up
+  // flourish restarts on every keystroke.
   const nowArmed = new Set();
   for (const card of shelf.querySelectorAll('.patron[data-patron]')) {
     const key = card.dataset.uid ?? card.dataset.patron;
@@ -490,14 +457,10 @@ function paintArmed(shelf, script) {
 
 // ─── The ghosts (patrons The Ripper killed) ───────────────────────────────────
 // A ghost gave up its seat and kept everything else — its turn in the running
-// order, its hooks, its laurels — so it needs somewhere to be seen that isn't
-// the shelf. That is a door beside the shelf, which exists only once there is
-// something behind it, and a sheet listing what. The cards are the shelf's
-// own, in a colder palette: a ghost Scholar is still a Scholar.
+// order, its hooks, its laurels — so it lives behind a door beside the shelf.
 
-// One card per place in the beyond, filled or not — the empty ones are the
-// point as much as the full, since The Ripper stays his hand when there is no
-// room left.
+// One card per ghost slot, filled or not — The Ripper stays his hand when there
+// is no room left, so the empties matter too.
 function ghostCardsHTML() {
   const slots = effectiveGhostSlots();
   let out = '';
@@ -565,10 +528,7 @@ export const ghostsOpen = () => !!$('ghostModal')?.classList.contains('show');
 // ─── Sundries (the workbench beside the shelf) ────────────────────────────────
 // Fixed slot count so buying or spending a tube never reflows the board.
 
-// A slot explains itself on hover and on long-press, through the same popover
-// the shop uses (drag.js → initInspect), so the workbench is no longer the one
-// place a thing was only described by a native browser tooltip — which touch
-// never shows at all.
+// A slot explains itself through the shop's popover (drag.js → initInspect).
 function tagSlot(slot, s) {
   const tip = sundryTip(s);
   if (!tip) return;
@@ -577,17 +537,13 @@ function tagSlot(slot, s) {
   slot.title = `${tip.head} — ${tip.body}`;
 }
 
-// Every occupied slot wears a ✕, exactly as a seated patron does: a tool you
-// are never going to spend is worth less than the slot it is holding, and the
-// bin is the only way to say so away from the Market. Hidden until the slot is
-// hovered, like the patron's — which is also what keeps it off a touchscreen,
-// where a stray tap would otherwise cost you a toolbox; there the act lives on
-// the slot's long-press popover instead (showTipFor in drag.js).
+// Every occupied slot wears a ✕, hidden until hover — which also keeps it off a
+// touchscreen, where a stray tap would cost you a toolbox. There the act lives
+// on the long-press popover instead (showTipFor in drag.js).
 function tagDiscard(slot, s, i) {
   const head = sundryTip(s)?.head ?? 'The sundry';
-  // A span, not a button: the slot it sits on IS a button, and a button inside
-  // a button is not a thing HTML allows. The click reaches main.js through
-  // delegation either way.
+  // A span, not a button: the slot it sits on IS a button, and HTML forbids the
+  // nesting. The click reaches main.js through delegation either way.
   const x = document.createElement('span');
   x.className = 'sundry-x';
   x.setAttribute('role', 'button');
@@ -627,10 +583,7 @@ function renderSundries() {
     } else if (s?.kind === 'ratchet') {
       const armed  = state.sundryMode === i;
       const picked = armed && sundrySelected().length > 0;
-      // Both arrows are on show from the start and never move: the tool keeps
-      // one shape through the whole gesture, the way the tube does. The arrows
-      // choose the direction; spending it is a tap anywhere on the slot, so
-      // there is no small target to miss and no dead ground to cancel on.
+      // The arrows only choose direction — spending is a tap anywhere on the slot.
       const dir = state.ratchetDir ?? 1;
       slot = document.createElement('button');
       slot.className = `sundry sundry--ratchet${armed ? ' sundry--armed' : ''}`
@@ -645,8 +598,7 @@ function renderSundries() {
         </span>
         <span class="sundry-name">${picked ? 'Step it' : armed ? 'Pick a letter' : 'Ratchet'}</span>`;
     } else if (s?.kind === 'wrapped') {
-      // No material on the slot: the parcel is the whole point, and it is not
-      // decided until it is opened.
+      // No material on the slot: nothing is decided until it is opened.
       slot = document.createElement('button');
       slot.className = 'sundry sundry--wrapped';
       slot.dataset.sundry = i;
@@ -654,10 +606,7 @@ function renderSundries() {
         <span class="wrapped-mark"></span>
         <span class="sundry-name">Wrapped</span>`;
     } else if (s?.kind === 'package' && PACKAGES[s.theme]) {
-      // A register's parcel wears the wrapped tile's own ribbon-and-paper mark,
-      // recoloured — one visual language for "something is inside this", so a
-      // player who has opened a wrapped tile already knows what to do with a
-      // party bag.
+      // The wrapped tile's own mark, recoloured — one language for "open me".
       slot = document.createElement('button');
       slot.className = `sundry sundry--wrapped sundry--package sundry--pkg-${s.theme}`;
       slot.dataset.sundry = i;
@@ -675,8 +624,7 @@ function renderSundries() {
         <span class="sundry-glyph">${APPLICATORS[s.material].glyph}</span>
         <span class="sundry-name">${picked ? 'Strike it' : armed ? 'Pick a tile' : 'Applicator'}</span>`;
     } else if (s?.kind && TOOL_LOOK[s.kind]) {
-      // The toolbox and its tools share one shape: a glyph and a name. The
-      // loupe and the tongs arm like the ratchet, so they show the same
+      // The loupe and the tongs arm like the ratchet, so they show the same
       // armed/ready states; the box, the laurel and the wash spend on a tap.
       const armed  = state.sundryMode === i;
       const picked = armed && sundrySelected().length > 0;
@@ -717,8 +665,7 @@ function renderStatus() {
       : `Page ${state.page} <span class="page-of">of ${PAGES_PER_CHAPTER}</span>`;
   }
 
-  // Quotas run into the hundreds of thousands by the appendices — grouped
-  // digits are the difference between reading a number and counting it.
+  // Quotas run into six figures by the appendices — group the digits.
   setText('quotaNow', state.pageScore.toLocaleString());
   setText('quotaTarget', state.quota.toLocaleString());
   const fill = $('quotaFill');
@@ -727,9 +674,7 @@ function renderStatus() {
     fill.classList.toggle('quota-fill--done', state.pageScore >= state.quota);
   }
   $('quotaCard')?.classList.toggle('quota-card--deadline', deadline);
-  // The whole room changes when the Deadline is the page you are on: the
-  // candles go redder, the vignette closes in, the furniture darkens. Hung on
-  // the body so the stylesheet can reach anything it likes without every
+  // Hung on the body so the stylesheet can relight the whole room without every
   // component having to be told (see "The Deadline's light" in style.css).
   document.body.classList.toggle('deadline-on', deadline);
 
@@ -740,11 +685,8 @@ function renderStatus() {
   const coinsEl = $('coinCount');
   if (coinsEl) setNum(coinsEl, state.coins);
 
-  // The manuscript's tally lives in the button's tooltip and nowhere else. It
-  // used to ride the button as a badge, and a brass counter pinned to a corner
-  // reads as an app's unread-notification pip — something demanding to be
-  // cleared — which is precisely the opposite of what the manuscript is. The
-  // count is still one hover away for anyone who wants it.
+  // The tally lives in the tooltip and nowhere else: a counter pinned to the
+  // button would read as an unread-notification pip demanding to be cleared.
   const msBtn = $('manuscriptBtn');
   if (msBtn) {
     const n = state.manuscript?.length ?? 0;
@@ -755,10 +697,8 @@ function renderStatus() {
 }
 
 // ─── The editor's bar (Deadline pages only) ───────────────────────────────────
-// The seated editor, their standing rule or its live demand, and a verdict on
-// the word being composed — ✓ or the spike, called before you print, because
-// the game never scores anything the preview didn't promise. The bar reads
-// the same score script as the readout, so the two can't disagree.
+// The seated editor, their live demand, and a verdict called before you print.
+// Reads the same score script as the readout, so the two can't disagree.
 
 function renderBossBar(script) {
   const el = $('bossBar');
@@ -776,9 +716,8 @@ function renderBossBar(script) {
       ? `<span class="boss-verdict boss-verdict--bad">✂ spiked — ×${SPIKE_MULT} Mult</span>`
       : `<span class="boss-verdict boss-verdict--ok">✓ passes</span>`;
 
-  // How the page has gone so far: one mark per word printed, in order. Only
-  // for editors who actually judge — the Reviewer and the Completist never
-  // spike anything, so a row of ✓s would be telling you nothing.
+  // One mark per word printed, in order. Only for editors that judge — the
+  // Reviewer and the Completist never spike, so a row of ✓s would say nothing.
   const trail = def.judge ? (data.verdicts ?? []) : [];
   const trailHTML = trail.length
     ? `<span class="boss-trail" title="${trail.filter(v => v === 'spiked').length} of ${trail.length} spiked so far">${
@@ -811,36 +750,26 @@ function renderPips(id, total, filled, cls, maxShown = total) {
 // ─── Zones ────────────────────────────────────────────────────────────────────
 
 // ghostIds: tiles rendered invisible so a fly-in animation can reveal them
-// An armed sundry tints both board zones so it's plain where its targets are
-// picked. A tube tints them its own colour; the ratchet has none, and takes the
-// steel it wears on the workbench. That fallback is load-bearing: `COLOURS[null]`
-// threw here, and since the throw landed between emptying the rack and refilling
-// it, arming a ratchet made the whole hand disappear.
+
+// An armed sundry tints both board zones. A tube tints them its own colour; the
+// ratchet has none and takes steel. That fallback is load-bearing — `COLOURS[null]`
+// threw here, between emptying the rack and refilling it, wiping the whole hand.
 function applyPaintingMode(el) {
   const armed = state.sundryMode >= 0 ? state.sundries[state.sundryMode] : null;
   el.classList.toggle('zone--painting', !!armed);
   el.classList.toggle('zone--stepping', armed?.kind === 'ratchet');
-  // Only a tube lays tiles out to choose between; the ratchet, loupe and
-  // tongs take any tile in the hand, so their zones must dim nothing. That is
-  // why this is a class of its own rather than part of zone--painting.
+  // Only a tube lays tiles out to choose between — the ratchet, loupe and tongs
+  // take any tile, so their zones dim nothing. Hence a class of its own.
   el.classList.toggle('zone--offering',
     armed?.kind === 'tube' && !!state.tubeOffer?.length);
   if (armed) el.style.setProperty('--paintcol', COLOURS[armed.colour]?.glyph ?? 'var(--steel)');
 }
 
-// The rack holds its ground while you compose. Lifting tiles into the groove
-// takes them out of the rack's flow, and a rack that shrank to fit what was
-// left would jump the whole board up — then jump it back down a move later
-// when the word cleared and the hand refilled. So the rack reserves room for
-// the WHOLE HAND: the tiles still in it plus the ones standing in the word,
-// which is exactly the hand it will be holding again shortly. It reserves,
-// never fixes — a genuinely bigger hand (the Enthusiast's rack bonus, an
-// OLOGY tile taking two places) still grows it, and the reservation is
-// recomputed from the rack's real width, so a resize or a rotation re-measures
-// rather than stranding an old number.
-//
-// Written as a custom property that CSS maxes against its own minimum, so the
-// desktop and mobile floors in the stylesheet stay in charge of the empty case.
+// The rack reserves room for the WHOLE HAND — the tiles in it plus the ones
+// standing in the word — so composing never shrinks it and jumps the board up.
+// It reserves, never fixes: a bigger hand still grows it. Written as a custom
+// property CSS maxes against its own minimum, so the stylesheet's floors stay
+// in charge of the empty case.
 function reserveRackHeight(el) {
   const cs = getComputedStyle(el);
   const inner = el.clientWidth
@@ -881,9 +810,7 @@ export function renderRack(ghostIds = null) {
   reserveRackHeight(el);
 }
 
-// A resize (or a rotation, or the tile size changing at a breakpoint) changes
-// how many tiles fit on a row, so the reservation is measured again rather
-// than left holding a number from a width that no longer exists.
+// A resize, rotation or breakpoint changes how many tiles fit a row — measure again.
 if (typeof window !== 'undefined') {
   window.addEventListener('resize', () => {
     const el = $('rack');
@@ -891,8 +818,7 @@ if (typeof window !== 'undefined') {
   });
 }
 
-// Displayed contributions from the previous render, so number changes can be
-// animated rather than silently swapped.
+// Last render's displayed contributions, so changes can be animated.
 let _lastWordPts = new Map();
 const RIPPLE_STEP = 70;   // ms between neighbours as a nick's effect spreads
 
@@ -903,8 +829,7 @@ export function renderWord(script = computeScore(state.word)) {
   el.dataset.placeholder = state.word.length ? '' : 'compose a word…';
   applyPaintingMode(el);
 
-  // Ripple order: distance from the nick that claimed each letter, so the
-  // new numbers wash outward starting beside the notch.
+  // Ripple order: distance from the nick that claimed each letter.
   const posOf = new Map(state.word.map((t, i) => [t.id, i]));
   const delayOf = new Map();
   for (const step of script?.nickSteps ?? []) {
@@ -918,10 +843,8 @@ export function renderWord(script = computeScore(state.word)) {
   state.word.forEach(t => {
     const bd = script?.perTile.get(t.id);
     const shown = bd?.final ?? null;
-    // A patron's brush (The Illuminator) lands before the word is counted, so
-    // the groove shows the colour as you compose — on a copy of the tile, since
-    // the paint isn't the collection's until the word prints. The dashed mark
-    // says exactly that: this colour is promised, not yet owned.
+    // The Illuminator's brush lands before the word is counted, so the groove
+    // shows the colour on a COPY — the paint isn't owned until the word prints.
     const wet = script?.tilePaint?.get(t.id);
     const tileEl = makeTileEl(wet ? { ...t, colour: wet } : t, 'word', { pts: shown });
     if (wet) {
@@ -929,17 +852,13 @@ export function renderWord(script = computeScore(state.word)) {
       tileEl.classList.add('tile--illuminating');
     }
     if (bd) tileEl.title = tileTitle(t, bd);
-    // A jade trellis (the Abecedarian, the Espalier) is writing these Points
-    // into the tile for keeps, so the number wears the same jade it will wear
-    // for the rest of the run rather than the brass of a one-word boost.
+    // A jade trellis writes these Points in for keeps — jade, not boost brass.
     if (script?.tileGrowth?.has(t.id)) {
       tileEl.querySelector('.tile-pts')?.classList.add('tile-pts--growing');
     }
     nowPts.set(t.id, shown);
 
-    // A number worth announcing: one a nick's reach has just rewritten, or
-    // one that lands already boosted (a tile dropped into a nick's shadow).
-    // Laying an ordinary tile down is not news, and shouldn't bulge.
+    // Worth announcing: a number a nick just rewrote, or one landing boosted.
     const wasShowing = _lastWordPts.has(t.id);
     const face       = restingPoints(t);
     const rewritten  = wasShowing && _lastWordPts.get(t.id) !== shown;
@@ -1024,18 +943,12 @@ export function renderButtons() {
 }
 
 // ─── The status bar: manuscript at rest, messages when there's news ───────────
-// Its resting state is the manuscript — every word printed this run, set as
-// one long line of type, newest last, the earlier ones running off the left
-// edge under a fade. That line IS the book you're making. A message (a
-// rejected word, a purchase, a hint) takes the bar over for a moment, then it
-// settles back to the manuscript.
+// At rest the bar is the manuscript — every word printed this run as one long
+// line of type, newest last. A message takes it over, then it settles back.
 
-// How long a message holds the bar before it settles back to the manuscript.
-// Measured off the text rather than fixed: an editor's rule is three times the
-// length of "Discard cancelled." and was given the same three seconds to be
-// read in. `readingTime` is the same rule the patrons' bubbles use, plus a
-// little more here, since the bar sits at the foot of the board where the eye
-// is not already resting.
+// How long a message holds the bar, measured off the text rather than fixed —
+// `readingTime` plus a little, the bar being at the foot of the board where the
+// eye is not already resting.
 const MSG_HOLD_BONUS = 900;
 let _msgUntil = 0;
 let _msgTimer = null;
@@ -1058,8 +971,7 @@ export function refreshStatusBar() {
   renderManuscript();
 }
 
-// The strip at the foot of the board: the page being set, as one line of type.
-// The bound book — the same words gathered into chapters — is openManuscript().
+// The page being set, as one line of type. The bound book is openManuscript().
 export function renderManuscript() {
   const el = $('log');
   if (!el) return;
@@ -1106,15 +1018,9 @@ export function renderDictStatus(status, count) {
 
 // ─── Banner (page / chapter announcements) ────────────────────────────────────
 
-// `hold` is how long the banner stays up. Pass a number to fix it; pass 'read'
-// to hold it long enough to read the subtitle, which is what an editor's rule
-// needs and a chapter title does not.
-//
-// A 'read' banner is also dismissible, which is the other half of the same
-// problem: a rule you are meeting for the first time wants seven seconds, and
-// the fourth time you meet it you want none. Tap and it goes. Fixed-length
-// banners stay as they were — they are already brief, and a stray tap during
-// the page turn should not skip the chapter title.
+// `hold` is how long the banner stays up: a number fixes it, 'read' holds it
+// long enough to read the subtitle. A 'read' banner is also dismissible on tap —
+// fixed-length ones are not, so a stray tap can't skip the chapter title.
 export async function showBanner(title, sub = '', hold = 1150) {
   const b = $('banner');
   if (!b) return;
@@ -1220,10 +1126,8 @@ export function openInspector(kind) {
 }
 
 // ─── The manuscript, bound (every word printed this run) ──────────────────────
-// The strip along the foot of the board (renderManuscript, above) is the page
-// currently being set. This is the whole book so far, gathered into its
-// chapters — so it reads front to back the way a book does, rather than
-// newest-first the way a ledger of transactions would.
+// The whole book so far, gathered into chapters and read front to back. The
+// strip at the foot of the board (renderManuscript, above) is the current page.
 
 // Rows arrive in the order they were printed, so consecutive grouping is the
 // whole job: a run never returns to a chapter or a page it has left.
@@ -1248,8 +1152,6 @@ export function openManuscript() {
   const best = state.stats.bestScore;
   const chapters = bindIntoChapters(rows);
 
-  // The score rides after its word as a raised figure, the way a footnote mark
-  // does — present for anyone reading for it, out of the way of the prose.
   // `initial` gives a chapter's first word its drop cap; ::first-letter can't,
   // since these are inline runs rather than blocks.
   const entry = (r, initial) => {
@@ -1262,8 +1164,7 @@ export function openManuscript() {
          + `<span class="book-word">${word}</span><span class="book-score">${n}</span></span>`;
   };
 
-  // Each page keeps its folio number in the margin, in the lower-case romans a
-  // book uses for its front matter. A Deadline is marked rather than numbered.
+  // Folio in the margin, lower-case roman. A Deadline is marked, not numbered.
   const pageBlock = (pg, first) => `
     <div class="book-leaf">
       <span class="book-folio${isDeadline(pg.page) ? ' book-folio--deadline' : ''}"

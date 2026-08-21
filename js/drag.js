@@ -1,14 +1,13 @@
-// Unified pointer input for the rack and word groove — one code path for
-// mouse and touch alike:
+// Unified pointer input for the rack and word groove — one code path for mouse
+// and touch:
 //
 //   tap        rack tile → play it into the word (or select it, in discard mode)
 //              word tile → return it to the rack
 //   drag       move/reorder tiles between rack and word
 //   long-press inspect a tile (popover with its effects; flip button for duals)
-//   right-click flip a dual tile directly (desktop nicety)
+//   right-click flip a dual tile directly (desktop)
 //
-// The patron shelf takes the same gesture at the bottom of this file (tap to
-// inspect, drag to reseat), because seat order decides which patron acts first.
+// The patron shelf takes the same gesture at the bottom of this file.
 
 import {
   state,
@@ -75,8 +74,6 @@ function startLongPressTimer() {
 }
 
 // A clone of what you picked up, parked in #fx and carried under the pointer.
-// Shared by the board and the shelf — a patron card rides exactly as a tile
-// does, which is most of what makes the shelf feel draggable at all.
 function makeGhost(el, x, y) {
   const r = el.getBoundingClientRect();
   const g = el.cloneNode(true);
@@ -194,9 +191,8 @@ export function initInput() {
       startLongPressTimer();
     });
 
-    // Right-click a dual tile to flip it (desktop). Android surfaces a
-    // contextmenu event for long-presses too — the active press means the
-    // popover already has it, so only a genuine right-click falls through.
+    // Android surfaces contextmenu for long-presses too — an active press means
+    // the popover already has it, so only a genuine right-click falls through.
     container.addEventListener('contextmenu', e => {
       const tileEl = e.target.closest('.tile');
       if (!tileEl) return;
@@ -232,32 +228,21 @@ export function initInput() {
   });
 }
 
-// Kept for compatibility with older callers
-export const initDrag = initInput;
 
 // ─── The patron shelf (drag a card to change the running order) ────────────────
-// Seat order is the roster's rule of precedence — patrons act on the running
-// score one seat at a time, so a seat that adds Points wants to sit in front of
-// the seats that multiply (see pass 4 in scoring.js) — and the order of the
-// cards is therefore a real decision that has to be editable by hand. The
-// gesture is the rack's: press, travel past the threshold, drop where you want
-// it. A plain tap still opens the card's popover; only a genuine drag reorders,
-// and the click that trails a drag is swallowed so a reorder never also pops a
-// tooltip. The ✕ keeps its own job — a press that starts on it is left alone.
+// Seat order is the running order (see pass 4 in scoring.js), so it has to be
+// editable by hand. A plain tap still opens the popover, and the click trailing
+// a drag is swallowed so a reorder never also pops a tooltip.
 //
-// TWO shelves take the gesture: the board's, and the Market's restatement of it
-// at the top of the shop sheet. The Market is exactly where the order wants
-// rearranging — you have just hired someone, and where they sit is half of what
-// you bought — so the listeners hang off the document and find whichever shelf
-// the press landed in, rather than off one element that only exists on the board.
+// TWO shelves take the gesture — the board's and the Market's restatement of it
+// — so the listeners hang off the document and find whichever shelf was pressed.
 
 let shelfPress = null;   // { pointerId, ref, el, shelf, x0, y0, dragging }
 let shelfGhost = null;
 let shelfDropped = false;   // a drag just landed — eat the click that follows
 
-// Which shelves may be reordered right now. The board's shelf is off-limits
-// while a sheet is up (it is behind the modal); the Market's own strip is the
-// one shelf that IS in play there.
+// The board's shelf is off-limits while a sheet is up (it is behind the modal),
+// and the Market's own strip is the one shelf that IS in play there.
 const isMarketShelf = shelf => !!shelf?.classList.contains('shelf--market');
 function shelfBlocked(shelf) {
   if (state.isAnimating || state.gameOver) return true;
@@ -265,11 +250,8 @@ function shelfBlocked(shelf) {
   return state.inMarket !== isMarketShelf(shelf);
 }
 
-// Where the held card would land, counted in seats that HOLD a patron: an
-// empty seat has no entry in state.patrons, so a card dropped over the empty
-// tail simply goes last. The held card stays in the DOM (dimmed) so the
-// indices line up with state.patrons, and reorderPatrons compensates for the
-// removal itself — exactly the arrangement the rack uses.
+// Counted in seats that HOLD a patron: an empty seat has no entry in
+// state.patrons, so a card dropped over the empty tail goes last.
 function shelfInsertIndex(shelf, clientX) {
   const cards = [...shelf.querySelectorAll(':scope > .patron[data-patron]')];
   if (!cards.length) return 0;
@@ -306,8 +288,7 @@ function endShelfPress(commit, x) {
   shelfPress = null;
   if (wasDrag) {
     renderAll();                     // restore the held card, or show the new order
-    // The Market's strip is patched in place rather than rebuilt, so the new
-    // seating has to be asked for by name.
+    // The Market's strip is patched in place, so ask for the new seating by name.
     if (wasMarket) updateMarketState();
   }
 }
@@ -372,9 +353,8 @@ export function initShelfDrag() {
 }
 
 // ─── Inspecting things outside the board ───────────────────────────────────────
-// Shop offers, draft cards and the collection explain themselves on hover (mouse)
-// or long-press (touch) rather than carrying a summary line underneath. Anything
-// with a .tile inside, or with data-tip-head/body, is inspectable.
+// Shop offers, draft cards and the collection explain themselves on hover or
+// long-press. Anything with a .tile inside, or data-tip-head/body, is inspectable.
 
 const HOVER_DELAY = 260;
 let _hoverTimer = null, _holdTimer = null, _held = null;
@@ -388,11 +368,8 @@ function showTipFor(target) {
   if (!target) return false;
   const head = target.dataset.tipHead;
   if (head) {
-    // A sundry's popover carries the act the ✕ carries on a pointer device,
-    // since that ✕ is hover-only and touch never hovers: the board's bench
-    // bins the tool outright, the Market's buys it back. The slot names its
-    // own index (data-sundry on the board, data-bench-slot in the Market) and
-    // main.js does the deed.
+    // The ✕ is hover-only, so touch gets the same act here: the board's bench
+    // bins the tool, the Market's buys it back. The slot names its own index.
     const bin = target.dataset.sundry ?? target.dataset.benchSlot;
     const drop = bin == null ? '' : `
       <button class="btn btn-quiet tip-btn" data-pop-discard="${bin}">${
@@ -429,10 +406,8 @@ function templateFor(tileEl) {
 }
 
 export function initInspect() {
-  // The three sheets, plus the board's own workbench: a sundry is the one thing
-  // you hold that isn't a tile, and it was explained only by a native browser
-  // tooltip — which touch never shows. Its long-press swallows the click that
-  // follows, so reading a tool can't also arm it.
+  // The three sheets, plus the board's own workbench. A long-press swallows the
+  // click that follows, so reading a tool can't also arm it.
   const roots = ['marketModal', 'draftModal', 'inspectorModal', 'sundries']
     .map(id => document.getElementById(id)).filter(Boolean);
 

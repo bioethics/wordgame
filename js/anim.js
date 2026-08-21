@@ -18,10 +18,8 @@ export function applySpeedCSS() {
 const fx = () => document.getElementById('fx');
 
 // ─── Flying tile clones ───────────────────────────────────────────────────────
-// Clone `el`, fly it from the centre of fromRect to the centre of toRect with a
-// slight arc. The clone always keeps the *element's own* size — the from/to
-// rects only supply positions, and they're often other things entirely (the
-// bag button, the spent tray) whose shape must not stretch the tile.
+// The clone keeps the *element's own* size — the from/to rects supply only
+// positions, and are often other things (the bag button, the spent tray).
 
 export function flyClone(el, fromRect, toRect, {
   duration = 430, scaleFrom = 1, scaleTo = 1, fade = false, arc = 26,
@@ -74,12 +72,8 @@ export function popReveal(el) {
 
 // ─── Reading time ─────────────────────────────────────────────────────────────
 
-// How long a line of text should stay up to be read. A bubble that rises,
-// holds and falls in a fixed span gives a long quip less reading time than a
-// short one, which is backwards — so the hold is measured off the text.
-// READ_BASE covers noticing the thing at all; READ_PER_CHAR is a deliberately
-// unhurried reading rate, since these arrive unannounced beside whatever you
-// were actually looking at.
+// How long a line should stay up to be read — measured off the text, so a long
+// quip isn't given less reading time than a short one.
 const READ_BASE     = 1500;
 const READ_PER_CHAR = 55;
 const READ_MAX      = 7000;
@@ -90,26 +84,15 @@ export const readingTime = text =>
 
 // ─── Floating numbers / labels ────────────────────────────────────────────────
 
-// A floater is two different things wearing one coat. "+42 Points" and
-// "Crimson ×3" are numbers: they want a quick pop that keeps up with the score
-// cinematic. A patron's note — "out of the vat: R crimson, S jade" — is a
-// sentence, and at the same 950ms it was gone before it was read. Anything
-// past PROSE_LEN is treated as prose: it rises, holds still to be read, then
-// goes. Length is measured on the text, so a coin glyph isn't counted as
-// twenty characters of markup.
-// Capped below READ_MAX because floaters stack: the score cinematic can put a
-// curse's toll, an editor's temper and a spike over the word within a second
-// of each other, and the full seven would leave three of them piled up. The
-// bar at the foot of the board carries the long reads instead — it replaces
-// its line rather than stacking it.
+// A floater is two things in one coat: a short number wants a pop that keeps up
+// with the score cinematic, while anything past PROSE_LEN is treated as prose
+// and holds still to be read (length measured on the text, so markup doesn't
+// count). Capped below READ_MAX because floaters stack.
 const PROSE_LEN  = 16;
 const PROSE_MAX  = 3600;
 const POP_MS     = 950;
 
-// A rare floater that has the stage to itself — nothing else is due to land
-// near it — can afford to outstay the usual cap. Twice the ordinary hold,
-// off the same per-character rate, so a longer line still earns proportionally
-// more time.
+// For a floater with the stage to itself: twice the ordinary hold.
 export const longReadingTime = text => 2 * Math.min(PROSE_MAX, readingTime(text));
 
 export function floatText(anchor, html, cls = '', { dy = -54, duration = null } = {}) {
@@ -124,17 +107,13 @@ export function floatText(anchor, html, cls = '', { dy = -54, duration = null } 
   f.style.top  = `${rect.top - 4}px`;
   layer.appendChild(f);
 
-  // Prose framing (rise, hold, fade) is a property of the TEXT — long enough
-  // to need holding still — not of whether the caller picked its own timing.
-  // An explicit `duration` only overrides how long that hold lasts, so a
-  // floater given extra time (longReadingTime) still gets to rest rather than
-  // dissolving continuously across a stretched-out pop.
+  // Prose framing is a property of the TEXT, not of the caller's timing: an
+  // explicit `duration` only overrides how long the hold lasts.
   const prose = plainLength(html) > PROSE_LEN;
   const total = duration ?? (prose ? Math.min(PROSE_MAX, readingTime(html)) : POP_MS);
 
   // Prose holds at two-thirds of its drift and finishes the rise only as it
-  // fades, so a long note doesn't sail off the top of the screen while it waits
-  // to be read.
+  // fades, so a long note doesn't sail off the top while it waits to be read.
   const frames = prose
     ? [
         { transform: 'translate(-50%, 6px) scale(.7)',              opacity: 0 },
@@ -167,8 +146,7 @@ export function speechBubble(anchorEl, text, { duration = null } = {}) {
   b.style.top  = `${r.top - 6}px`;
   layer.appendChild(b);
 
-  // The rise and the fall are a fixed cost; everything between them is reading
-  // time, so a longer line holds longer rather than being read faster.
+  // Rise and fall are a fixed cost; everything between them is reading time.
   const total = duration ?? readingTime(text);
   const rise  = Math.min(0.18, 260 / total);
   const fall  = Math.min(0.24, 420 / total);
@@ -188,8 +166,7 @@ export function speechBubble(anchorEl, text, { duration = null } = {}) {
 
 // ─── Number tweens ────────────────────────────────────────────────────────────
 
-// Scores reach six figures late in a run, so numbers group their digits by
-// default — 59,000 rather than 59000. Pass your own `fmt` to opt out.
+// Scores reach six figures, so digits are grouped by default. Pass `fmt` to opt out.
 export const fmtNum = v => Math.round(v).toLocaleString();
 
 export function tweenNum(el, to, { duration = 260, fmt = fmtNum, bump = true } = {}) {
@@ -233,8 +210,7 @@ export function setNum(el, v, fmt = fmtNum) {
   el.textContent = fmt(v);
 }
 
-// Multipliers can be fractional (a purple trim is worth ×0.5 of a step), so
-// they get their own formatter: 2 → "2", 1.5 → "1.5".
+// Multipliers can be fractional, so they get their own formatter: 1.5 → "1.5".
 export const fmtMult = v => String(Math.round(v * 100) / 100);
 
 // ─── Pulses & sparkles ────────────────────────────────────────────────────────

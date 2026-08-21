@@ -1,9 +1,7 @@
-// Patron quips — the lines patrons pop up in speech bubbles after a strong
-// word. Purely cosmetic; often gleefully wrong on purpose.
+// Patron quips — cosmetic lines patrons pop up after a strong word.
 //
-// TO ADD A LINE: drop a string anywhere in the array below. That's it.
-// `{word}` becomes the word just printed (e.g. "FROG"). Keep lines short —
-// they render in a small bubble above a patron's card. Odds are tuned by
+// TO ADD A LINE: drop a string anywhere below. `{word}` becomes the word just
+// printed. Keep lines short — they render in a small bubble. Odds are tuned by
 // REACTION in constants.js.
 
 export const PATRON_QUIPS = [

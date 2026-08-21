@@ -43,16 +43,12 @@ function buildLetterPool() {
   for (const [L, c] of Object.entries(BAG_COUNTS)) {
     for (let i = 0; i < Math.max(1, c); i++) pool.push(L);
   }
-  // Exclusive letters belong to the patron that makes them and turn up
-  // nowhere else — not in the shop, the draft, or the compost heap. QU is both
-  // a ligature and a bag letter, so the loop above has already stocked it;
-  // skip it here rather than serving it three times over.
+  // Exclusive letters belong to one patron and turn up nowhere else. QU is both
+  // a ligature and a bag letter, so the loop above has already stocked it.
   LIGATURES
     .filter(L => !EXCLUSIVE_LETTERS.includes(L) && !(L in BAG_COUNTS))
     .forEach(L => pool.push(L, L));
-  // No marks. They used to be stocked here at MARK_WEIGHT apiece, which put
-  // them in the shop, the draft and the compost heap alike; they come wrapped
-  // now and nowhere else (see WRAPPED_CONTENTS).
+  // No marks — they come wrapped and nowhere else (see WRAPPED_CONTENTS).
   return pool;
 }
 const LETTER_POOL = buildLetterPool();
@@ -61,14 +57,9 @@ const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 
 function dualPairsFor(letter) {
   const pts = TILE_POINTS[letter] ?? 1;
-  // No fleuron on either face: an ornament with a letter on its back could
-  // join words half the time, and "it prints alone" has to stay the whole truth.
-  //
-  // And nothing on EXCLUSIVE_LETTERS either, which is the point of that list:
-  // those sorts come from one patron and no other road. Without this the
-  // Punchcutter would cheerfully cut a thorn into the back of a Z — a way to own
-  // the Medievalist's stock without ever seating him. (Cutting INTO a medieval
-  // sort is fine and intended; it is the other direction that leaks.)
+  // No fleuron on either face: "it prints alone" has to stay the whole truth.
+  // Nothing on EXCLUSIVE_LETTERS either, or the Punchcutter would cut a thorn
+  // into the back of a Z — the Medievalist's stock without the Medievalist.
   return Object.keys(TILE_POINTS)
     .filter(l => l !== letter && l.length === 1 && !isMark(l) && l !== FLEURON
               && !EXCLUSIVE_LETTERS.includes(l)
@@ -76,18 +67,14 @@ function dualPairsFor(letter) {
 }
 
 // The one cut the Punchcutter will make on a mark, and the only road to an
-// interrobang: carve the ? into the ! (or the other way about) and the two
-// become one sort. It asks that you own BOTH marks — the cutter has to have
-// seen the pair to cut it — and marks are scarce enough that this is a find
-// rather than a plan. Nothing is consumed: the other mark stays where it is.
+// interrobang. It asks that you own BOTH marks, and consumes neither.
 const otherMark = letter => MARKS.find(m => m !== letter) ?? null;
 const canInterrobang = t =>
   isMark(t.letter) && t.letter !== INTERROBANG
   && state.collection.some(o => o.tid !== t.tid && o.letter === otherMark(t.letter));
 
 // ─── Feature helpers ──────────────────────────────────────────────────────────
-// A tile's "features" are the things that make it worth owning. Counting and
-// topping them up lets the draft offer genuinely loaded tiles.
+// A tile's "features" are the things that make it worth owning.
 
 function featureCount(t) {
   return (t.colour ? 1 : 0) + (t.trim ? 1 : 0) + (t.nick ? 1 : 0)
@@ -149,9 +136,8 @@ function tilePrice(tmpl) {
 }
 
 function weightedPatronSample(n) {
-  // A ghost is still a patron you hold and still working for you, so the shop
-  // doesn't offer you a second one — but a fled Ripper is gone from both lists
-  // and can call again.
+  // A ghost is still a patron you hold, so no second copy is offered — but a
+  // fled Ripper is gone from both lists and can call again.
   const ownedIds = new Set(allSeats().map(p => p.id));
   const pool = [];
   for (const def of PATRON_DEFS) {
@@ -163,14 +149,9 @@ function weightedPatronSample(n) {
   const out = [];
   while (out.length < n && pool.length) {
     const id = pick(pool);
-    // Per-copy state (the Monogrammist's letters and number) rolls as the card
-    // is laid out, so what's on offer is exactly what you'd be buying.
-    // Per-copy state rolls as the card is laid out, so what's on offer is
-    // exactly what you'd be buying: the Monogrammist's letters and number, and
-    // — for any patron at all — the letters after its name.
+    // Per-copy state (the Monogrammist's letters, the postnom, the day's asking
+    // price) rolls here, so the card shows exactly what you would be buying.
     const postnom = rollPostnom();
-    // …and the day's asking price, a coin either side of the list, rolled here
-    // for the same reason: what is on the card is what you are buying.
     const haggle = rollHaggle();
     const rolled = patronById(id)?.onOffer?.() ?? null;
     const data = { ...rolled, ...(postnom ? { postnom } : {}), ...(haggle ? { haggle } : {}) };
@@ -180,11 +161,8 @@ function weightedPatronSample(n) {
   return out;
 }
 
-// Paint tubes and the reshuffle are the everyday stock; a wrapped tile turns up
-// in one of the slots about half the time. The shop doesn't know what is in it
-// either — the material is rolled when the paper comes off, not here. The
-// toolbox joined the rotation as one more entry, which is the whole of its
-// effect on the old stock's rates — nothing else was reweighted.
+// Paint tubes and the reshuffle are the everyday stock; a wrapped tile displaces
+// one slot about half the time. What is inside is rolled when it is opened.
 function rollSundryOffers() {
   const offers = shuffle([...Object.keys(COLOURS), 'reshuffle', 'ratchet', 'toolbox'])
     .slice(0, SUNDRY_OFFERS)
@@ -207,9 +185,8 @@ function rollSundryOffers() {
 // Amber paint is what The Chapman deals in.
 export const isAmberTile = tmpl => tmpl?.colour === 'amber';
 
-// What an offered tile actually costs right now. The Chapman gives amber away,
-// and is checked live rather than baked into the offer, so hiring or dismissing
-// them mid-visit re-prices the shelf immediately.
+// Checked live rather than baked into the offer, so hiring or dismissing The
+// Chapman mid-visit re-prices the shelf immediately.
 export const offerPrice = offer =>
   owns('chapman') && isAmberTile(offer.template) ? 0 : offer.price;
 
@@ -217,8 +194,7 @@ export const offerPrice = offer =>
 function rollOffers() {
   market.patronOffers = weightedPatronSample(PATRON_OFFERS);
   market.tileOffers   = Array.from({ length: 4 }, randomTileOffer);
-  // The fleuron turns up in a tile slot now and then, at its own flat price —
-  // an annuity bought with open eyes, never gambled on. (See constants.js.)
+  // The fleuron displaces a tile slot now and then, at its own flat price.
   if (Math.random() < FLEURON_OFFER_CHANCE) {
     const i = Math.floor(Math.random() * market.tileOffers.length);
     market.tileOffers[i] = { template: makeTileTemplate(FLEURON), price: FLEURON_PRICE, sold: false };
@@ -229,30 +205,18 @@ function rollOffers() {
   offerTheCat();
 }
 
-// A cat noticed you (js/main.js, on the word CAT) and has come to look you over
-// — ONCE. She waits at the HEAD of the patrons rather than among them, she was
-// not sent for and does not queue, and she is free. The pending flag is spent
-// the instant this runs, whether or not you buy her, which is what keeps her a
-// find rather than a standing feature of every Market from here on: reroll or
-// return later and she has already moved on, and only spelling CAT again
-// brings her back for a fresh look. (See the long note on noticeTheCat in
-// main.js for why this matters — it is the only thing standing between the
-// Headsman and a free multiplier machine.)
+// Set pending by spelling CAT (js/main.js). The flag is spent the instant this
+// runs, bought or not — see noticeTheCat in main.js, the only thing between the
+// Headsman and a free multiplier machine.
 function offerTheCat() {
   if (!state.catPending || owns('shorthair')) return;
   state.catPending = false;
   market.patronOffers.unshift({ id: 'shorthair', sold: false, data: {} });
 }
 
-// The Medievalist's stall: one extra slot on the tile row, holding one medieval
-// sort. It is an ADDITION rather than a substitution — the four ordinary slots
-// are untouched — because the patron's promise is a stall of his own, not a
-// tile the shop would have offered anyway.
-//
-// The sort is dressed like any other offered tile except that it never takes a
-// second face: a þ that could flip to a P would be nobody's idea of a thorn.
-// `addRandomFeature` already refuses a second face to a ligature, and the
-// medieval sorts are barred there the same way.
+// The Medievalist's stall: an ADDITION to the tile row, not a substitution — the
+// four ordinary slots are untouched. The sort never takes a second face
+// (addRandomFeature bars medieval letters from `dual` for exactly this reason).
 function stockTheMedievalStall() {
   if (!owns('medievalist')) return;
   const tmpl = makeTileTemplate(pick(MEDIEVAL_LETTERS));
@@ -277,22 +241,13 @@ export const stallById   = id => market.stalls.find(s => s.id === id);
 export const stallPrice  = stall => (STALL_DEFS[stall.id]?.base ?? 1) * 2 ** stall.uses;
 
 // ── Proposal stalls ───────────────────────────────────────────────────────────
-// The Gilder, the Punchcutter and the Dresser all work the same way: a spread
-// of your own tiles, each paired with a proposed change, and you commission the
-// one you like. Each is defined by which tiles it can work on and what it
-// proposes for them; everything else below is shared.
+// A spread of your own tiles, each paired with a proposed change. Each stall is
+// defined by which tiles it can work on and what it proposes; the rest is shared.
 
-// Which of your tiles a stall puts in front of you. Most of the case is Es and
-// Rs and Ss, so an unweighted draw spends its six slots on letters you hold
-// four of and would rather not pay a doubling price to dress. The lean is
-// deliberately soft — the square root of the bag count, not the count itself —
-// so a Z is about twice as likely to be laid out as any one of your Es, rather
-// than crowding them out entirely. (You hold five Es, so the letter still turns
-// up in most spreads; it just no longer fills them.) Anything not in the bag at
-// all — ligatures, marks, the Rat Catcher's RAT — counts as rare, which is
-// right: those are the tiles worth dressing. Marked `biased` per stall, so the
-// Punchcutter and the Dresser keep drawing flat; their eligibility filters
-// already narrow the case sharply on their own.
+// An unweighted draw would spend its slots on the Es and Rs you hold four of, so
+// rare letters get a soft lean — the square root of the bag count, not the count
+// itself. Anything not in the bag at all counts as rare. Applied only to stalls
+// marked `biased`; the rest narrow the case with their eligibility filters.
 const letterWeight = t => 1 / Math.sqrt(BAG_COUNTS[t.letter] ?? 1);
 
 function biasedSample(tiles, n) {
@@ -307,8 +262,7 @@ function biasedSample(tiles, n) {
   return out;
 }
 
-// Every stall that changes a tile has to leave ghosts alone — there's nothing
-// there to take a tool to.
+// Every stall that changes a tile has to leave ghosts alone (isImmutable).
 export const PROPOSAL_STALLS = {
   gilder: {
     eligible: t => !t.trim && !isImmutable(t),
@@ -316,10 +270,9 @@ export const PROPOSAL_STALLS = {
     biased:   true,
   },
   punchcutter: {
-    // A tile can only take a second letter if it hasn't one already, isn't a
-    // ligature (or the fleuron), and has a partner of comparable value. Marks
-    // are barred — except for the one cut that makes an interrobang, which is
-    // not a second face at all but a fusion (see canInterrobang above).
+    // A second letter needs a tile with no second face, no ligature or fleuron,
+    // and a partner of comparable value. Marks are barred except for the
+    // interrobang, which is a fusion rather than a face (canInterrobang above).
     eligible: t => t.letterType !== 'dual'
                 && !LIGATURES.includes(t.letter)
                 && t.letter !== FLEURON
@@ -335,11 +288,8 @@ export const PROPOSAL_STALLS = {
     propose:  () => ({ nick: pick(Object.keys(NICKS)) }),
   },
   painter: {
-    // Reworked to match the Gilder: six unpainted tiles, colours proposed
-    // rather than picked, and the spread dealt so every pot shows at least
-    // once (the dress pass below). Choosing your colour — and repainting a
-    // tile already coated — is the paint tube's trade now, which is what a
-    // dearer, rarer sundry is for.
+    // Colours are proposed rather than picked, and dealt so every pot shows at
+    // least once (the dress pass below). Choosing is the paint tube's trade.
     eligible: t => !t.colour && !isImmutable(t),
     propose:  () => ({}),   // the colour is dealt across the whole spread, below
     dress(proposals) {
@@ -354,10 +304,8 @@ export const PROPOSAL_STALLS = {
 
 export const isProposalStall = id => !!PROPOSAL_STALLS[id];
 
-// A fresh spread for one stall. Re-rolled after every commission. A stall
-// with a `dress` pass gets to look at the whole spread after the per-tile
-// proposals are rolled — the Painter deals its colours there, so every pot
-// is guaranteed a showing.
+// A fresh spread for one stall, re-rolled after every commission. A `dress` pass
+// sees the whole spread after the per-tile proposals roll.
 export function rollProposals(stallId) {
   const spec = PROPOSAL_STALLS[stallId];
   if (!spec) return [];
@@ -382,11 +330,8 @@ function pruneStalls() {
   }
 }
 
-// A re-roll brings new stalls, but not a clean slate: work already commissioned
-// this visit is remembered in market.stallWear, so a stall that turns up again
-// re-opens at the price it had reached, not at its base. Wear is wiped only
-// when the Market itself opens fresh (openMarket) — re-rolling your way back
-// to a cheap Smelter is not a thing.
+// A re-roll brings new stalls, not a clean slate: market.stallWear remembers
+// work commissioned this visit, and is wiped only when openMarket runs.
 function rollStalls() {
   const ids = shuffle([...Object.keys(STALL_DEFS)]).slice(0, STALLS_PER_SHOP);
   market.stalls = ids.map(id => {
@@ -421,8 +366,7 @@ export function restoreMarket(snapshot) {
   market.stalls ??= [];
   market.stallWear ??= {};
   market.compostTaken ??= 0;
-  // A save from before the Painter became a proposal stall holds a bare
-  // stall (or one carrying the old `offers` list) — deal it a spread.
+  // An old save can hold a proposal stall with no spread — deal it one.
   for (const s of market.stalls) {
     if (isProposalStall(s.id) && !s.proposals) s.proposals = rollProposals(s.id);
   }
@@ -457,26 +401,21 @@ export function buyPatron(id) {
   return { ok: true, def, seat, name: patronName(def, seat.data) };
 }
 
-// What dismissing a seat pays: half the def's cost, plus whatever the
-// patron's own refundBonus says its data has earned (the Cellarer's age).
-// The shelf's ✕ tooltips read this too, so the number offered is the
-// number paid.
+// Half the seat's cost plus its refundBonus (the Cellarer's age). The shelf's ✕
+// tooltips read this too, so the number offered is the number paid.
 export function patronRefund(seat) {
   const def = patronById(seat.id);
   if (!def) return 0;
-  // Half of what the seat COST, so a distinguished patron's surcharge comes
-  // half-way back like the rest of the price rather than being a sunk fee.
+  // Half of what the seat COST, so a postnom surcharge isn't a sunk fee.
   return Math.floor(patronCost(def, seat.data) / 2)
        + (def.refundBonus?.(seat.data ?? {}) ?? 0);
 }
 
-// `ref` is a seat's uid when the caller has one (they all do now), or a def id
-// as the old fallback — which is fine for every patron you can only hold once,
-// and takes the first copy of one you can hold many of.
+// `ref` is a seat's uid, or a def id as a fallback — which takes the first copy
+// of a patron you can hold many of.
 export function sellPatron(ref) {
   // The shelf first, then the graveyard. A ghost is dismissed the same way and
-  // pays nothing for it — nobody buys a dead patron's contract, which is the
-  // standing cost of the seat The Ripper freed.
+  // pays nothing — the standing cost of the seat The Ripper freed.
   const match = p => String(p.uid) === String(ref) || p.id === ref;
   const list = state.patrons.some(match) ? state.patrons : (state.ghosts ?? []);
   const i = list.findIndex(match);
@@ -489,10 +428,8 @@ export function sellPatron(ref) {
   list.splice(i, 1);
   state.coins += refund;
 
-  // The Headsman counts every departure but his own — a dismissed Headsman
-  // has already left the shelf by the time the axe falls. The count lives on
-  // his seat's data, never touched during scoring (which is read-only there),
-  // and rides back in the result so both dismissal routes can say so.
+  // The Headsman counts every departure but his own — he has already left the
+  // shelf by the time the axe falls. The count lives on his seat's data.
   let headsman = null;
   const axe = state.patrons.find(p => p.id === 'headsman');
   if (axe) {
@@ -525,10 +462,8 @@ export function buyTile(idx) {
 }
 
 // ─── The compost heap (The Composter) ─────────────────────────────────────────
-// Tiles destroyed anywhere — burned by The Stoker, lost to The Arsonist, fed to
-// the Smelter — are tallied on state.compostPending. They rot down into jade
-// tiles when the Market opens, because that's the only place the heap is ever
-// seen. The heap keeps the freshest COMPOST_HEAP_MAX; older rot is turned under.
+// Tiles destroyed anywhere are tallied on state.compostPending and rot down into
+// jade tiles when the Market opens. The heap keeps the freshest COMPOST_HEAP_MAX.
 
 function rotCompost() {
   state.compost ??= [];
@@ -543,9 +478,8 @@ function rotCompost() {
   state.compostPending = 0;
 }
 
-// This visit's allowance from the heap: one tile per jade patron on the
-// shelf — the gardeners who use the rot — floored at the classic
-// COMPOST_PER_MARKET, which a lone Composter (jade himself) exactly meets.
+// This visit's allowance: one tile per jade patron seated, floored at
+// COMPOST_PER_MARKET (which a lone Composter, jade himself, exactly meets).
 export const compostLeft = () =>
   Math.max(0, Math.max(COMPOST_PER_MARKET, guildSeats('jade')) - (market.compostTaken ?? 0));
 
@@ -572,8 +506,7 @@ export function buySundry(idx) {
 }
 
 export function rerollMarket() {
-  // The Factor's banked rolls go first — free, and without bumping the
-  // escalating fee. Coins spend only once the agent's credit runs out.
+  // The Factor's banked rolls go first — free, and without bumping the fee.
   if ((state.freeRerolls ?? 0) > 0) {
     state.freeRerolls -= 1;
     rollOffers();
@@ -588,8 +521,7 @@ export function rerollMarket() {
   return true;
 }
 
-// A reshuffle sundry buys the same re-roll, free and without bumping the
-// escalating cost — the state.js caller is responsible for consuming it.
+// The same re-roll, free — the state.js caller consumes the sundry itself.
 export function freeRerollMarket() {
   rollOffers();
   rollStalls();
@@ -626,9 +558,8 @@ export function stallSmelt(tid) {
   return { ok: true, removed: t.tmpl, price: t.price };
 }
 
-// Commission a proposal from whichever proposal stall you're standing in.
-// The proposal itself carries what changes — a trim, a second letter, or
-// (the Painter) a coat of paint.
+// Commission a proposal from whichever proposal stall you're standing in — the
+// proposal itself carries what changes.
 export function stallCommission(stallId, proposalIdx) {
   const spec  = PROPOSAL_STALLS[stallId];
   const stall = stallById(stallId);
@@ -647,8 +578,7 @@ export function stallCommission(stallId, proposalIdx) {
     tmpl.altLetter     = proposal.altLetter;
     tmpl.activeVariant = 0;
   }
-  // A fusion replaces the sort outright rather than giving it a second face:
-  // there is no flipping an interrobang back into a question mark.
+  // A fusion replaces the sort outright rather than giving it a second face.
   if (proposal.fuse) {
     tmpl.letter        = proposal.fuse;
     tmpl.letterType    = 'normal';

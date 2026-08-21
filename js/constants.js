@@ -1,45 +1,28 @@
 // ─── Letterforms ──────────────────────────────────────────────────────────────
-// Bag tiles are stored as template objects so they can carry trim/nick/colour
-// info before being assigned an id when drawn to the rack.
+// Bag tiles are template objects so they can carry trim/nick/colour before being
+// given an id when drawn to the rack.
 // Template shape: { letter, letterType, altLetter, activeVariant,
 //                   colour, trim, nick }
 // Rack tile shape: { ...template, id, basePoints, selected }
-//
-// Paint, trim and nick all belong to the tile rather than to either face, so a
-// dual tile wears the same coat whichever letter it is showing. Paint used to
-// be per-face (a second `altColour`), which made a dual tile two half-painted
-// tiles in a trenchcoat: you paid twice to finish it, the colour multiplier
-// changed when you flipped, and the shop handed out duals wearing two
-// different colours. Flipping now changes the letter and nothing else.
+// Paint, trim and nick belong to the tile, not to either face: a dual tile wears
+// the same coat whichever letter it shows. Flipping changes the letter only.
 
-// Scrabble's values, with one measured correction: U scores 2. Counted over
-// the 24,545 playable words (3-7 letters), U turns up in 3.59% of letter
-// slots — rarer than D (4.75%, worth 2) and C (3.44%, worth 3) — and the bag
-// agrees, carrying only 2 against the other one-pointers' 4-5. The classic
-// awkward letter, finally paid like one.
+// Scrabble's values, with one measured correction: U scores 2. Over the 24,545
+// playable words (3-7 letters) U fills 3.59% of letter slots — rarer than D
+// (worth 2) and C (worth 3) — and the bag carries only 2 of it.
 export const TILE_POINTS = {
-  // Re-priced 2026-08 against measured letter frequency (docs — see the
-  // "Letter Pricing" analysis): B, D, F, G, K, V, W and Y were each a tier
-  // cheaper than a same-rarity neighbour (G/D underpriced against C, B
-  // against H, W/K against each other); J and Z were split unevenly across
-  // what is really one "very rare" band with X — J and Q are now the same
-  // tier, and Z drops to meet X rather than sitting above it.
   A:1, B:4, C:3, D:3, E:1, F:5, G:3, H:4,
   I:1, J:10, K:6, L:1, M:3, N:1, O:1, P:3,
   QU:10, R:1, S:1, T:1, U:2, V:6, W:6, X:8,
   Y:5, Z:8,
-  // A ligature scores exactly what its letters would score apart — CH is C+H,
-  // CK is C+K — so it buys you a tile slot, never free points. QU is the one
-  // exception: there's no lone Q to sum from, so it keeps its long-held 10.
-  // Kept in step with the repricing above: CK, WH, ING, OLOGY and FU all
-  // moved with the letters that sum into them.
+  // A ligature scores what its letters score apart — CH is C+H — so it buys a
+  // tile slot, never free points. QU keeps 10: there is no lone Q to sum from.
   ING:5, CH:7, CK:9, TH:5, WH:10,
   RAT:3,                    // R+A+T, exactly what the three would score apart
   OLOGY:11,                 // O+L+O+G+Y — The Scientist's loan, and no one else's
   OO:2, FU:7,               // out of the Sexton's and the Vulgarian's packages only
-  // The medieval sorts (see MEDIEVAL below) pay well over what they stand for —
-  // TH is 5 where thorn is 10 — which is the whole of what The Medievalist's
-  // stall sells. Kept in step with MEDIEVAL[…].points by the check just after it.
+  // The medieval sorts pay well over what they stand for — TH is 5, thorn 10.
+  // Kept in step with MEDIEVAL[…].points by the check just after it.
   'Þ':10, 'Ȝ':5, 'Ƿ':8, 'Æ':1,
   '☙':1,                    // the fleuron — an ornament, not a letter; prints alone
   '?':1, '!':1,
@@ -52,39 +35,24 @@ export const BAG_COUNTS = {
   QU:1, R:4, S:4, T:4, U:2, V:1, W:1, X:1, Y:1, Z:1,
 };
 
-// Multi-letter "ligature" tiles — one tile that spells several letters.
-// Between them they reach every part of a word: WH and TH open one, CK and CH
-// sit in the middle, ING closes it off. QU is the odd one out, being also a bag
-// letter — the one ligature every run starts holding.
-//
-// One *dealt* suffix is deliberate. ED sat here too and was cut: it turned up
-// in three times as many short words as anything else, for the fewest points
-// of any ligature, which made drawing one both automatic and unexciting. A
-// ligature should be a find, not a staple. OLOGY doesn't break the rule — it
-// is never dealt, only lent (see EXCLUSIVE_LETTERS).
+// Multi-letter "ligature" tiles — one tile that spells several letters. QU is the
+// odd one out, being also a bag letter. Exactly one *dealt* suffix is deliberate:
+// a ligature should be a find, not a staple. OLOGY is lent, never dealt.
 export const LIGATURES = ['ING', 'CH', 'CK', 'TH', 'WH', 'QU', 'RAT', 'OLOGY', 'OO', 'FU'];
 
-// Letters no shop, draft or heap will ever hand you: they come from one
-// patron and nowhere else. RAT belongs to The Rat Catcher; OLOGY is The
-// Scientist's, and only ever on loan; the fleuron is sold at its own price
-// (FLEURON_PRICE), never rolled among the ordinary sorts.
+// Letters no shop, draft or heap will ever hand you: each comes from one patron
+// and nowhere else. RAT is The Rat Catcher's; OLOGY The Scientist's, only ever on
+// loan; the fleuron sells at its own price (FLEURON_PRICE).
 export const EXCLUSIVE_LETTERS = ['RAT', 'OLOGY', '☙', 'Þ', 'Ȝ', 'Ƿ', 'Æ', '‽', 'OO', 'FU'];
 
 // ─── The medieval sorts (The Medievalist's stall) ─────────────────────────────
-// Three letters English used to have and gave up. Each one STANDS FOR ordinary
-// letters when the word is read — the tile prints as its own glyph and scores
-// its own Points, but the dictionary, the patrons and the editors all see what
-// it stands for. So Þ + O + R + N is THORN: five letters of measure from four
-// tiles, exactly as the TH ligature has always been.
-//
-// The key is the UPPERCASE form, because a word is upper-cased before anything
-// reads it and all three of these are stable under toUpperCase(). `glyph` is
-// what the tile actually shows, which is lowercase for two of the three: þ and
-// ȝ are far more recognisable than Þ and Ȝ, while lowercase wynn (ƿ) is
-// indistinguishable from a p, so wynn alone keeps its capital.
-//
-// `reads` is tried IN ORDER at the dictionary check and the first reading that
-// makes a word wins, so put the commonest first.
+// Each STANDS FOR ordinary letters when the word is read: the tile prints as its
+// own glyph and scores its own Points, but the dictionary, the patrons and the
+// editors all see what it stands for — Þ+O+R+N is THORN, five letters of measure
+// from four tiles. The key is the UPPERCASE form, because a word is upper-cased
+// before anything reads it; `glyph` is what the tile shows (lowercase where that
+// is more recognisable, but ƿ reads as a p so wynn keeps its capital). `reads` is
+// tried IN ORDER and the first reading that makes a word wins.
 export const MEDIEVAL = {
   'Þ': {
     glyph: 'þ', name: 'Thorn', points: 10, reads: ['TH'],
@@ -112,23 +80,20 @@ export const MEDIEVAL = {
   },
 };
 export const MEDIEVAL_LETTERS = Object.keys(MEDIEVAL);
-// The points live in TILE_POINTS with every other sort (scoring reads that and
-// nothing else), and here beside the letter they belong to. One of the two
-// would drift eventually, so they are checked against each other at load.
+// Points live in TILE_POINTS too (scoring reads that and nothing else); checked
+// against each other at load so the two can't drift apart.
 for (const [L, m] of Object.entries(MEDIEVAL)) {
   if (TILE_POINTS[L] !== m.points) {
     throw new Error(`${L} pays ${TILE_POINTS[L]} in TILE_POINTS but ${m.points} in MEDIEVAL`);
   }
 }
 export const isMedieval  = L => Object.prototype.hasOwnProperty.call(MEDIEVAL, L);
-// What a letter SHOWS, as against what it is called. Only the medieval sorts
-// differ, so everything else falls through untouched.
+// What a letter SHOWS, as against what it is called; only medieval sorts differ.
 export const letterGlyph = L => MEDIEVAL[L]?.glyph ?? L;
 
 // Every way a word holding medieval sorts could be read, in `reads` order, or
-// null when it holds none. The product is bounded because a rack stuffed with
-// yoghs would otherwise be an exponential lookup for no gain — past the cap the
-// word is simply left as set, and fails the dictionary like any other nonsense.
+// null when it holds none. Capped, because a rack full of yoghs is an exponential
+// lookup: past the cap the word is left as set and fails the dictionary.
 const MEDIEVAL_MAX_READINGS = 512;
 export function medievalExpansions(letters) {
   const chars = [...(letters ?? '')];
@@ -146,14 +111,9 @@ export function medievalExpansions(letters) {
 }
 
 // ─── Postnoms (a distinguished patron) ────────────────────────────────────────
-// Now and then a patron calls at the Market already lettered. It is the same
-// patron doing the same thing, plus a ×POSTNOM.mult of its own paid at its own
-// seat — so where you sit a distinguished patron matters as much as which one
-// it is. The surcharge is what keeps it a decision rather than a windfall: the
-// card costs more, and half of that comes back if you ever dismiss it.
-//
-// The letters are a joke at the expense of the sort of person who uses both
-// halves of their title at once. Add more and each offered card picks one.
+// A patron that arrives already lettered: same patron, same effect, plus a
+// ×POSTNOM.mult paid at its own seat — so where you seat it matters as much as
+// which one it is. The surcharge keeps it a decision rather than a windfall.
 export const POSTNOM = {
   odds: 0.12,        // per patron card laid out at the Market
   mult: 1.2,         // ×Mult, paid at that patron's own turn in the running order
@@ -162,14 +122,9 @@ export const POSTNOM = {
 };
 
 // ─── What a patron is asking today ────────────────────────────────────────────
-// No two Markets price a patron quite alike: the card's asking price is rolled
-// as it is laid out, a coin either side of the def's cost. Half the time it is
-// the price on the tin; a quarter each way it is a coin cheaper or a coin
-// dearer. Small on purpose — it is meant to make a Market worth looking at
-// twice ("he's going cheap today"), not to decide builds — and it rides on the
-// OFFER rather than the def, so a re-roll re-rolls the haggle with everything
-// else. A free patron (the cat) is never haggled over, and no card ever asks
-// less than a single Coin.
+// The asking price is rolled as the card is laid out, a coin either side of the
+// def's cost. It rides on the OFFER rather than the def, so a re-roll re-rolls
+// it. A free patron (the cat) is never haggled; no card asks less than one Coin.
 export const PATRON_HAGGLE = { spread: 1, chance: 0.25 };   // per side; the rest is list price
 export const rollHaggle = () => {
   const r = Math.random();
@@ -179,41 +134,27 @@ export const rollHaggle = () => {
 };
 
 // ─── The fleuron ──────────────────────────────────────────────────────────────
-// A printer's ornament, struck in gold. It decorates the page rather than
-// setting it: the one tile that refuses to join a word — it can only be
-// printed alone, for its single point, which spends a whole word slot to
-// clear it from the hand — and the one tile that earns while doing nothing,
-// paying 1 Coin at every page completion wherever it happens to be (bag,
-// pile, or clogging your rack). Turns up rarely at the Market, priced at a
-// chapter of its own rent.
+// A printer's ornament: the one tile that refuses to join a word — it prints
+// alone, for its single point, spending a whole word slot — and the one tile that
+// earns while idle, paying 1 Coin per page completion wherever it sits.
 export const FLEURON = '☙';
 export const FLEURON_PRICE        = 3;
 export const FLEURON_PAGE_COIN    = 1;     // paid per fleuron owned, every page
 export const FLEURON_OFFER_CHANCE = 0.18;  // odds a Market tile slot holds one
 
 // ─── Marks (punctuation tiles) ────────────────────────────────────────────────
-// Not letters, and not ligatures either: a mark spells nothing and is simply
-// appended to a finished word. One ? or one !, or the two together as ?! —
-// never doubled, never mid-word. They're worth a point apiece, but they take
-// paint, trims and nicks like any other tile, and a left nick on a trailing
-// mark reaches back across the entire word.
-//
-// Marks are not sold. No shop, draft or compost heap deals in them — the one
-// way a mark enters a run is out of a wrapped tile, always under a purple trim
-// (see WRAPPED_CONTENTS). That makes a ? a find rather than a purchase, which
-// suits a sort that spells nothing and exists to be tacked onto a finished word.
-// The marks a run can actually be dealt: a wrapped tile casts one of these two
-// and nothing else. The interrobang is not among them — it is made, not found.
+// Not letters and not ligatures: a mark spells nothing and is simply appended to
+// a finished word. One ? or one !, or the two as ?! — never doubled, never
+// mid-word. They take paint, trims and nicks like any other tile, and a left nick
+// on a trailing mark reaches back across the entire word. Marks are never sold:
+// the only way one enters a run is out of a wrapped tile, under a purple trim
+// (see WRAPPED_CONTENTS). The interrobang is not among them — it is made.
 export const MARKS      = ['?', '!'];
 
 // ‽ — one glyph for the pair, cut by the Punchcutter from a ? and a ! and by no
-// other road (see PROPOSAL_STALLS.punchcutter in js/market.js). It IS the ?!
-// tail, so it says in one tile what has always taken two, and it is the dearest
-// sort in the case besides.
-// It pays in Points alone — a huge number for one tile, and no multiplier on
-// top. A ×Mult here rode the colour track and multiplied the whole word, which
-// on a sort already worth five times the best letter in the case made it not
-// the best tile in the game but the only one worth building around.
+// other road (see PROPOSAL_STALLS.punchcutter in js/market.js). It IS the ?! tail.
+// Points only, no multiplier: at five times the best letter in the case, a ×Mult
+// on top would make it the only tile worth building around.
 export const INTERROBANG = '‽';
 
 export const MARK_RUNS  = ['?', '!', '?!', INTERROBANG];   // every legal tail
@@ -230,14 +171,12 @@ export function splitMarks(str) {
 }
 
 // ─── Colours (tile paint) ─────────────────────────────────────────────────────
-// Each colour has its own multiplier, ×1 by default. Every painted tile of that
-// colour in the word raises it by +1 (×2, ×3, …). The word's Mult is the product
-// of all colour multipliers, so spreading colours multiplies together.
-//
-// Tiles, not letters, and the distinction is real: a CH or QU tile spells two
-// letters but wears one coat of paint and lifts its multiplier once. Anything
-// that counts what is *in* the word counts tiles; only the rules about a word's
-// shape — its length, its spelling, its order — count letters.
+// Each colour has its own multiplier, ×1 by default; every painted tile of that
+// colour raises it by +1. The word's Mult is the product of all of them, so
+// spreading colours multiplies together. Tiles, not letters: a CH or QU tile
+// spells two letters but wears one coat and lifts its multiplier once. Anything
+// counting what is *in* a word counts tiles; only rules about a word's shape —
+// length, spelling, order — count letters.
 export const COLOURS = {
   crimson: { label: 'Crimson', glyph: '#b23a2e', bright: '#ff9d8e' },
   azure:   { label: 'Azure',   glyph: '#2e6fb2', bright: '#8ec6ff' },
@@ -248,9 +187,8 @@ export const COLOURS = {
 export const colourDesc = c =>
   `Each ${COLOURS[c].label} tile adds +1 to the ${COLOURS[c].label} multiplier.`;
 
-// Every multiplier the readout keeps a chip for. The four paints, plus the two
-// that come from somewhere other than a painted tile: the purple trim, and
-// cursed metal. Anything reading a score step's `colour` looks it up here.
+// Every multiplier the readout keeps a chip for — the paints plus the ones that
+// come from somewhere other than paint. Score steps look their `colour` up here.
 export const MULT_TRACKS = {
   ...COLOURS,
   purple: { label: 'Purple', glyph: '#8a5fb0', bright: '#cfa6ff' },
@@ -261,35 +199,19 @@ export const MULT_TRACKS = {
 export const PAINT_PER_POT   = 3;   // tiles painted per draft pot (random, unpainted)
 
 // ─── Sundries (consumables kept on the workbench) ─────────────────────────────
-// Bought at the Shop, spent mid-page. A paint tube is the first kind: uncork
-// it and one random unpainted tile in your hand takes the colour, permanently.
-// The tile is the paint's choice, not yours — aimed paint only ever landed on
-// the same four workhorse letters — but the timing is yours: play and discard
-// first, then pour.
+// Bought at the Shop, spent mid-page. A paint tube is the first kind: uncork it
+// and one random unpainted tile in hand takes the colour, permanently. The tile
+// is the paint's choice — aimed paint only ever hit the same four workhorses.
 export const SUNDRY_SLOTS  = 2;   // sundries the workbench can hold
 export const SUNDRY_OFFERS = 2;   // sundries offered per shop
 
 // ─── The registers' packages ──────────────────────────────────────────────────
-// The four register patrons pay ×3 Mult for a word on their list, which is a
-// fine number attached to a condition you cannot plan for: their lists run
-// 3–9% of the dictionary, so the seat fires by accident about one word in
-// fourteen and there is no way to steer at it except by composing and watching
-// the card light up. A big multiplier on a lottery ticket is not a build, and
-// these seats went unbought because of it.
-//
-// So the ×3 keeps a parcel behind it. Print a word one of them likes and there
-// is a PACKAGE_ODDS chance a package lands on the workbench — one roll per
-// firing register, so a word that is both spooky and romantic rolls twice.
-// Space permitting: a full bench turns the gift away (and says so), which is a
-// standing reason to keep a slot open.
-//
-// A package is a sundry like any other: it sits in a slot, the Market buys it
-// back for SUNDRY_SELL, and it opens on a tap the way a wrapped tile does —
-// same parcel, differently wrapped, which is the whole visual idea.
-//
-// The loot tables are weighted [id, weight] pairs, resolved in js/main.js
-// (openPackage) — the numbers live here so they can be tuned without touching
-// the code that hands the things over.
+// The four register patrons pay ×3 Mult for a word on their list, a condition you
+// cannot plan for (the lists run 3–9% of the dictionary). So the ×3 keeps a parcel
+// behind it: PACKAGE_ODDS that a package lands on the workbench, rolled once per
+// firing register, and a full bench turns the gift away. A package is a sundry
+// like any other — the Market buys it back for SUNDRY_SELL. Loot tables are
+// weighted [id, weight] pairs, resolved in js/main.js (openPackage).
 export const PACKAGE_ODDS = 0.5;
 
 export const PACKAGES = {
@@ -300,17 +222,15 @@ export const PACKAGES = {
   },
   spooky: {
     patron: 'sexton', label: 'Grave goods', emoji: '⚰️',
-    // Docked: a cursed tile can never be discarded and taxes every word it
-    // waits through, so a Sexton collecting one every third parcel would brick
-    // their own hand by Chapter III. Rarer than its ghostly twin, deliberately.
+    // Rarer than its ghostly twin: a cursed tile can never be discarded, so a
+    // Sexton collecting one per third parcel would brick their own hand.
     body: 'Buried with someone. Open it for an azure OO in ghost metal, the same in cursed iron, or a tube of azure.',
     loot: [['oo-ghost', 3], ['oo-cursed', 2], ['tube-azure', 3]],
   },
   cute: {
     patron: 'poppet', label: 'A party bag', emoji: '🎁',
-    // Weighted towards the rose tile: The Poppet's list is the smallest of the
-    // four (2,158 words, half the Sexton's), so its parcels are the rarest and
-    // want the best odds of the best thing in them.
+    // Weighted to the rose tile: The Poppet's list is the smallest of the four
+    // (2,158 words), so its parcels are the rarest and want the best odds.
     body: 'Somebody had a birthday. Open it for a tile struck in rose metal, a rainbow applicator, or a pot of ink wash.',
     loot: [['rosetile', 4], ['applicator-rainbow', 3], ['wash', 2]],
   },
@@ -326,34 +246,24 @@ export const PACKAGE_OF_PATRON = Object.fromEntries(
   Object.entries(PACKAGES).map(([theme, p]) => [p.patron, theme]));
 
 // ─── The toolbox and its tools ────────────────────────────────────────────────
-// A parcel of a different kind: open it on the bench and two DIFFERENT tools
-// from the pool below take its place (the second only if the bench has room —
-// the box's own slot always takes the first). No shop sells the four guild
-// tools — like marks, they are a find rather than a purchase, and the box is
-// the only door to three of them (the Ragman buys crimson rags with the
-// fourth). The odd ratchet rattles around in there at half the rate, because
-// any toolbox might have one. Repeating an entry is how you make it likelier.
+// Open it on the bench and two DIFFERENT tools from the pool take its place (the
+// second only if the bench has room). No shop sells the four guild tools, and the
+// box is the only door to three of them. Repeating an entry makes it likelier.
 export const TOOLBOX_PRICE = 4;
 export const TOOLBOX_POOL  = [
   'loupe', 'loupe', 'laurel', 'laurel', 'tongs', 'tongs', 'wash', 'wash',
   'ratchet',
 ];
 export const LOUPE_CAP      = 30;  // a doubled tile never passes this resting value
-// Points per word, per laurel a patron wears. The laurel's points are paid at
-// the crowned patron's own turn in the running order (see the patron pass in
-// scoring.js), so a laurel in front of a ×Mult seat is multiplied by it and a
-// laurel behind it is not — which is what makes the step a real decision where
-// the old flat 2, paid after every patron had spoken, was only ever a rounding.
-// Down from 5: laurels used to come from one tool and one rare patron, and
-// three more sources have opened since (the Cellarer's age, the Frontispiece's
-// clean page, the cat's rats) — a stack of them was outrunning the seats that
-// have to work for their Points.
+// Points per word, per laurel a patron wears, paid at the crowned patron's own
+// turn in the running order (see the patron pass in scoring.js) — so a laurel in
+// front of a ×Mult seat is multiplied by it and one behind it is not. Kept modest
+// because laurels arrive from several sources at once.
 export const HONORIFIC_STEP = 3;
 export const TONGS_BONUS    = 8;   // Points armed for the next word, per grip
 export const WASH_COUNT     = 4;   // tiles washed per pot — one of each colour
 
-// How the bench, the shop card and the held row draw a tool — one look each,
-// shared so the three never disagree.
+// One look per tool, shared by the bench, the shop card and the held row.
 export const TOOL_LOOK = {
   toolbox: { glyph: '🧰', label: 'Toolbox' },
   loupe:   { glyph: '🔍', label: 'Loupe' },
@@ -362,20 +272,16 @@ export const TOOL_LOOK = {
   wash:    { glyph: '💧', label: 'Ink wash' },
 };
 
-// The applicators: a tube's gesture, pointed at the metal rather than the
-// paint. Each strikes one tile in your hand into a new material, and the tube's
-// rule applies unchanged — the tool lays out two candidates and you choose
-// between them, so the gift can never be aimed at the one tile that would break
-// the game over its knee. They refuse a tile that already wears a material: a
-// sort is cast in one metal, not two, the same way trims don't stack.
+// The applicators strike one tile in hand into a new material. Like the tube, the
+// tool lays out two candidates and you choose, so the gift can never be aimed at
+// the one tile that would break the game. A tile already cast is refused: a sort
+// is cast in one metal, not two.
 export const APPLICATORS = {
   rainbow: { glyph: '🌈', label: 'Rainbow roll' },
   cursed:  { glyph: '🩸', label: 'Hellbox iron' },
 };
-// Patrons offered per Market. Was 3, tuned when the roster was 54 defs; at 70
-// defs a visit showed an ever-thinner slice of the game, and guild assembly
-// through the shop was already a flagged watchpoint. Scale this with the
-// roster.
+// Patrons offered per Market. Scale with the roster: too few offers against a big
+// roster shows a thin slice of the game and makes guild assembly unreliable.
 export const PATRON_OFFERS = 4;
 export const TUBE_PRICE    = 2;
 export const SUNDRY_SELL   = 1;   // what the Market pays to take one back
@@ -385,11 +291,9 @@ export const RATCHET_PRICE = 3;   // the ratchet: one letter, one step either wa
 export const tileCount = n => n === 1 ? 'one tile' : `${n} tiles`;
 
 // ─── Stalls ───────────────────────────────────────────────────────────────────
-// Two pitch up at each shop, drawn from the roster below. A stall's price
-// starts at its base and doubles with every purchase, then resets when the
-// next shop opens. No stall opens under 2: a 1-Coin first commission was
-// close enough to free that the interesting question — is this worth the
-// doubling? — never got asked. The Dresser alone starts dearer still.
+// Two pitch up at each shop. A stall's price starts at its base and doubles with
+// every purchase, resetting when the next shop opens. Nothing opens under 2, or
+// the interesting question — is this worth the doubling? — never gets asked.
 export const STALLS_PER_SHOP = 2;
 export const PROPOSAL_RANGE  = 6;    // tiles a proposal stall lays out at a time
 export const SMELT_MIN_COLLECTION = 12;
@@ -420,39 +324,31 @@ export const STALL_DEFS = {
     empty: 'Every tile you own already carries a nick.',
   },
   stereotyper: {
-    // base 4 where its neighbours open at 2-3: a copy inherits every feature
-    // the original carries — paint, trim, nick, second face — so a perfect
-    // duplicate of a loaded tile is worth more than any single improvement
-    // the other stalls sell, and it was the cheapest thing on the row.
+    // base 4 where its neighbours open at 2-3: a copy inherits every feature the
+    // original carries, so duplicating a loaded tile beats any single
+    // improvement the other stalls sell.
     name: 'The Stereotyper', emoji: '🗜️', base: 4,
     desc: 'Casts an exact copy of any tile.',
   },
 };
 
 // ─── Special-tile generation ──────────────────────────────────────────────────
-// Every offered tile gets one feature outright, then keeps rolling for another
-// at this chance until it fails or runs out of slots (paint / trim / nick /
-// dual — a ligature letter counts as one of them). At 0.5 that's roughly
-// 50% one feature · 25% two · 12% three · 6% four.
+// Every offered tile gets one feature outright, then keeps rolling for another at
+// this chance until it fails or runs out of slots (paint / trim / nick / dual — a
+// ligature letter counts as one). At 0.5: ~50% one · 25% two · 12% three · 6% four.
 export const FEATURE_CHAIN_CHANCE = 0.5;
 export const MAX_FEATURES         = 4;
 
 // ─── Trims (the ring around a tile's edge) ────────────────────────────────────
 // Purple is trim-only: a fifth multiplier that stacks with the letter colours.
 
-// Silver's Points belong to the tile, not to the word it lands in: they are
-// part of what the tile is worth wherever it appears, which is why the corner
-// number carries them (see restingPoints in state.js) and wears the trim's own
-// silver. Scoring, the tile face and the trim's own card all read it here.
+// Silver's Points belong to the tile, not to the word it lands in — part of what
+// the tile is worth wherever it appears, which is why the corner number carries
+// them (see restingPoints in state.js). Everything reads the bonus from here.
 export const SILVER_BONUS = 5;
 
-// Four, since the mercury trim was retired. It read "returns to the bag instead
-// of the discard pile" — a real effect, but one a player almost never bought:
-// a trim slot spent on it is a trim slot not spent on gold, and the tile it
-// saves is a tile you might not want back. The rule was worth keeping and the
-// trim wasn't, so it lives on where it always belonged — with The Fountain,
-// who gives it to a whole colour at once (returnsToBag in state.js). Saves
-// made while it existed are repaired at load; see retireMercury there.
+// A retired fifth trim (mercury) is still stripped out of old saves at load (see
+// retireMercury in state.js); its rule now belongs to The Fountain (returnsToBag).
 export const TRIMS = {
   gold:    { label: 'Gold',    price: 2, desc: 'Pays 1 Coin when printed.' },
   silver:  { label: 'Silver',  price: 2, desc: `+${SILVER_BONUS} Points.` },
@@ -460,20 +356,16 @@ export const TRIMS = {
   purple:  { label: 'Purple',  price: 4, desc: 'Adds +0.5 to the purple multiplier.' },
 };
 
-// A purple trim is worth half a step, where a painted letter is worth a whole
-// one: one purple trim gives ×1.5, two ×2, three ×2.5. It's the cheaper half of
-// a tile that can also carry paint, and it's the multiplier patrons will add to.
+// Half a step where a painted letter is a whole one: one purple trim gives ×1.5,
+// two ×2. It stacks with paint on the same tile, and patrons add to it.
 export const PURPLE_TRIM_STEP = 0.5;
 
 // ─── Nicks (a notch cut out of one edge of the tile) ──────────────────────────
 // Nicks do not stack: a letter is multiplied at most once however many nicks
-// point at it. Where two compete, the earlier tile in the word claims it.
-//
-// ×2 rather than the ×3 it opened at. A nick reaches across every letter on
-// one side of it, so its value grows with the word while a trim's stays put;
-// at ×3 a left nick on a trailing tile was the single strongest thing 4 Coins
-// could buy, and the tile bonuses patrons now write onto the tiles themselves
-// (see the tileBonus pass in scoring.js) go through it as well.
+// point at it, and where two compete the earlier tile in the word claims it.
+// Keep the multiplier low — a nick reaches across every letter on one side of it,
+// so its value grows with the word where a trim's stays put, and patron tile
+// bonuses (see the tileBonus pass in scoring.js) go through it as well.
 export const NICK_MULT = 2;
 export const NICKS = {
   right: { label: 'Right nick', mult: NICK_MULT, price: 4,
@@ -484,27 +376,20 @@ export const NICKS = {
 
 // ─── The measure (the length multiplier) ──────────────────────────────────────
 // The one multiplier every press owns from its first page: the word itself.
-// Words of LENGTH_MULT_MIN letters or more earn their own chip in the readout —
-// ×LENGTH_MULT_BASE at the threshold, +LENGTH_MULT_STEP per letter beyond — so
-// the reach for a longer word is never wasted however bare the tiles are, and
-// it MULTIPLIES with the paint rather than competing against it: the best word
-// is a long one in colour, not a short one in colour.
-//
-// LETTERS, not tiles, like every rule about a word's shape — which is exactly
-// why ligatures and dual faces are worth collecting: an ING tile is three
-// letters of measure from one seat in the hand.
+// LENGTH_MULT_MIN letters or more earns its own chip — ×LENGTH_MULT_BASE at the
+// threshold, +LENGTH_MULT_STEP per letter beyond — and it MULTIPLIES with the
+// paint rather than competing against it. LETTERS, not tiles, like every rule
+// about a word's shape, which is why an ING tile is three letters of measure
+// from one seat in the hand.
 export const LENGTH_MULT_MIN  = 6;
 export const LENGTH_MULT_BASE = 2;
 export const LENGTH_MULT_STEP = 0.5;
 export const lengthMult = n =>
   n < LENGTH_MULT_MIN ? 1 : LENGTH_MULT_BASE + (n - LENGTH_MULT_MIN) * LENGTH_MULT_STEP;
 
-// The flourish announced as the measure pays, one per milestone — EDIT FREELY,
-// these are copy, not code. Each entry is only the reaction clause: the caller
-// (main.js) puts the letter count and the ×Mult in front of it, so the two no
-// longer float up as separate, overlapping messages — one line reads
-// "6 letters — ×2 Mult: the compositor nods." A word longer than the table
-// knows falls through to LENGTH_FLOURISH_BEYOND.
+// EDIT FREELY — copy, not code. Each entry is only the reaction clause: main.js
+// puts the count and the ×Mult in front, so a line reads "6 letters — ×2 Mult:
+// the compositor nods." Longer words fall through to LENGTH_FLOURISH_BEYOND.
 export const LENGTH_FLOURISHES = {
   6:  'the compositor nods.',
   7:  'a full measure!',
@@ -534,38 +419,22 @@ const PAGE_FACTORS = [1, 1.4, 2];
 const QUOTA_BASE   = 40;
 
 // The climb is not a fixed rate: the rate itself grows, so each chapter is a
-// bigger step than the last and the back half of a run gets genuinely steep.
-// Chapter 2 asks ×1.7 of chapter 1, chapter 3 asks ×1.8 of chapter 2, and so
-// on. That keeps chapters 1-4 close to where they always were while the final
-// chapters run into the tens of thousands and the appendices into the
-// hundreds of thousands — which is the point, since a built press multiplies
-// rather than adds.
-//
-//   ch1     30 · ch4    230 · ch7   2,100 · ch10  30,000   (page 1)
-//   ch1     60 · ch4    470 · ch7   4,300 · ch10  59,000   (the Deadline)
-//
-// Raising START makes the whole run harder; raising RAMP makes the ending
-// harder without touching the opening. A harder mode is a bigger pair.
+// bigger step than the last (ch2 asks ×1.7 of ch1, ch3 ×1.8 of ch2 …), which runs
+// the last chapters into the tens of thousands — a built press multiplies rather
+// than adds. Raising START makes the whole run harder; raising RAMP makes the
+// ending harder without touching the opening.
 const QUOTA_GROWTH_START = 1.7;
 const QUOTA_GROWTH_RAMP  = 0.1;
 
-// Chapter 1 alone gets a gentler on-ramp — new players' first quota, and the
-// rest of that chapter with it. QUOTA_GROWTH_START anchors chapter 2's climb
-// off QUOTA_BASE directly, so easing chapter 1 this way (rather than lowering
-// QUOTA_BASE itself) leaves chapter 2 onward exactly where they were.
+// Chapter 1 alone gets a gentler on-ramp. QUOTA_GROWTH_START anchors chapter 2's
+// climb off QUOTA_BASE directly, so easing here — rather than lowering
+// QUOTA_BASE itself — leaves chapter 2 onward untouched.
 const CHAPTER_1_EASE = 0.75;   // 40/56/80 → 30/40/60
 
-// The middle of the run sagged. By chapter 4 a press that has met three
-// Markets is compounding — paint on the tiles, a guild half-assembled, the
-// first ×Mult patrons seated — while the quota is still climbing at the rate
-// set for a bare hand, and chapters 4 and 5 played as a lull between the
-// opening squeeze and the genuine steepness from 6 on. These are per-chapter
-// nudges rather than a change to the growth rate, so they lift that dip
-// without compounding into the back half: everything from chapter 6 on stays
-// exactly where it was.
-//
-//   ch4  230/330/470  →  280/390/560   (page 1 / page 2 / the Deadline)
-//   ch5  470/650/930  →  530/750/1,100
+// The middle of the run sags: by chapter 4 a press that has met three Markets is
+// compounding while the quota still climbs at the rate set for a bare hand. These
+// are per-chapter nudges rather than a change to the growth rate, so the dip
+// lifts without compounding into the back half; chapter 6 on is untouched.
 const CHAPTER_EASE = { 4: 1.2, 5: 1.15 };
 
 // Quotas are targets, not arithmetic: show a round number. Under 100 they
@@ -592,17 +461,15 @@ export function roman(n) {
   return out;
 }
 
-// What a chapter is called by number: the ten chapters of the folio proper,
-// then the appendices, counted from one again.
+// The ten chapters of the folio proper, then the appendices, counted from one.
 export const chapterLabel = ch =>
   ch <= FINAL_CHAPTER ? `Chapter ${roman(ch)}` : `Appendix ${roman(ch - FINAL_CHAPTER)}`;
 
 export const isDeadline = page => page === PAGES_PER_CHAPTER;
 
 // ─── Economy ──────────────────────────────────────────────────────────────────
-// base nudged 4 → 5 alongside the quota bump — the Market grew more sinks
-// (five stalls, sundries) since this was last tuned, so income leans up
-// slightly to compensate. Also a first guess.
+// Income is tuned against the Market's sinks and the quota climb; move `base` if
+// either changes much.
 export const REWARD = {
   base:         5,   // coins for completing a page
   perSpareWord: 1,   // per unused word
@@ -630,32 +497,25 @@ export const ANIM = {
 };
 
 // ─── Materials (what a tile is cast from) ─────────────────────────────────────
-// Ordinary tiles are lead. A wrapped tile bought at the Market holds one tile
-// cast from something stranger, and the material sits under everything else a
-// tile carries: a cursed or rainbow tile still takes paint, trims and nicks. A
-// ghost takes nothing at all, ever.
-//
-// What is under the paper is not known until it comes off — not to the shop,
-// not to the save, not until you unwrap it. That is the whole of the thing:
-// two of the three materials are gifts and one is a curse, so a wrapped tile
-// is a parcel you choose to open rather than a metal you choose to buy.
+// Ordinary tiles are lead. A wrapped tile holds one cast from something stranger,
+// and the material sits under everything else the tile carries: a cursed or
+// rainbow tile still takes paint, trims and nicks; a ghost takes nothing, ever.
+// What is under the paper is not known until it comes off — not to the shop, not
+// to the save — so a wrapped tile is a parcel you open, not a metal you buy.
 export const CURSED_MULT       = 2;   // ×Mult a cursed tile gives the word
 export const CURSED_MAX_POINTS = 3;   // never cast on a letter worth more than this
-// What a curse takes from any word set without it while it waits in the hand.
-// It still cannot be discarded — printing it is the only way out of the rack —
-// so this is what keeps that from stranding you: words set around a curse are
-// worth nothing rather than impossible, and a rack you can still empty is a
-// rack that keeps drawing until the curse finds a word. Points, not Mult, so a
-// press strong enough to clear 666 can shrug one off and score anyway.
+// What a curse takes from any word set without it while it waits in the hand. A
+// curse cannot be discarded — printing it is the only way out of the rack — so
+// this is what keeps it from stranding you: words set around a curse are worth
+// nothing rather than impossible. Points, not Mult, so a strong press can shrug
+// one off and score anyway.
 export const CURSED_PENALTY    = 666;  // Points lost per unplayed curse in hand
 export const WRAPPED_PRICE        = 4;
 export const WRAPPED_OFFER_CHANCE = 0.5;  // odds one of a Market's sundry slots holds one
 
-// What is inside a wrapped tile: the outcome table, and the only place these
-// odds live. Three entries name a material from MATERIALS above; 'mark' stands
-// for a punctuation tile in ordinary lead under a purple trim, which is the
-// only way a mark enters a run at all. The roll is a flat pick from this list,
-// so repeating an entry is how you make it likelier.
+// What is inside a wrapped tile, and the only place these odds live. Three
+// entries name a material from MATERIALS; 'mark' is a punctuation tile in lead
+// under a purple trim. Flat pick, so repeating an entry makes it likelier.
 export const WRAPPED_CONTENTS = ['cursed', 'ghost', 'rainbow', 'mark'];
 export const MARK_TRIM = 'purple';   // what a wrapped mark always comes wearing
 
@@ -672,37 +532,31 @@ export const MATERIALS = {
     label: 'Rainbow', metal: 'Rainbow roll', emoji: '🌈',
     desc: 'Counts as every colour to your patrons.',
   },
-  // Rose metal is real: a soft pink-grey alloy of bismuth, lead and tin that
-  // melts in boiling water, named after Valentin Rose. A press could never
-  // set a page in it — which is exactly why a tile struck in it is a party
-  // favour rather than a working sort. Out of The Poppet's party bag only.
+  // Rose metal is real: an alloy soft enough to melt in boiling water, so no
+  // press could set a page in it. Out of The Poppet's party bag only.
   rose: {
     label: 'Rose', metal: 'Rose metal', emoji: '🎀',
     desc: `Crowns a random patron with a laurel when printed — +${HONORIFIC_STEP} Points on every word thereafter.`,
   },
 };
 
-// Tiles nothing can be done to: a ghost, which is barely there to work on;
-// any tile an editor has merely lent you (see js/bosses.js) — there is no
-// collection template behind a lent tile, so paint or a trim laid on one would
-// look permanent and quietly evaporate with the page; and a tile The Redactor
-// has wrapped in manuscript, where the working surface is under the paper.
-// (The field is read as isWrapped in state.js; it is checked bare here because
-// constants.js is a leaf and imports from nobody.)
+// Tiles nothing can be done to: a ghost; any tile an editor has merely lent you
+// (see js/bosses.js) — no collection template stands behind a lent tile, so paint
+// laid on one would look permanent and evaporate with the page; and a tile The
+// Redactor has wrapped. (`wrapped` is isWrapped in state.js; checked bare here
+// because constants.js is a leaf and imports from nobody.)
 export const isImmutable = tile =>
   tile?.material === 'ghost' || !!tile?.ephemeral || !!tile?.wrapped;
 
 // ─── The Editors (Deadline bosses — see js/bosses.js) ─────────────────────────
-// A word that breaks the seated editor's rule is SPIKED: printed and counted,
-// but at this fraction of its score. Soft on purpose — every rack stays
-// playable, and the rule is a cost to weigh rather than a wall. Scoring
-// applies it as a visible ×Mult step; the editor's bar quotes it in warnings.
+// A word that breaks the seated editor's rule is SPIKED: printed and counted, but
+// at this fraction of its score. Soft on purpose — a cost to weigh, not a wall.
+// Scoring applies it as a visible ×Mult step; the editor's bar quotes it.
 export const SPIKE_MULT = 0.2;
 
 // ─── Patron tuning (the colour-guild overhaul) ────────────────────────────────
-// Knobs for patron effects that reach beyond a single score: permanent tile
-// growth, burn odds, trim lotteries. Plain score numbers stay in js/patrons.js
-// with their patron, as ever.
+// Knobs for patron effects that reach beyond a single score. Plain score numbers
+// stay in js/patrons.js with their patron.
 export const GRAFTER_STEP       = 1;      // permanent Points per tile per print
 export const ESPALIER_STEP      = 2;      // permanent Points per tile of a two-tile word
 // The Stoker's furnace, lit before it has eaten anything and hotter with every
@@ -712,65 +566,48 @@ export const STOKER_STEP        = 0.25;   // permanent ×Mult per crimson tile b
 export const BEEKEEPER_STEP     = 0.2;    // permanent ×Mult per B printed
 export const ARSONIST_ODDS      = { paint: 0.10, burn: 0.01 };  // per tile played
 export const NUDIST_TRIM_CHANCE = 0.25;   // per bare letter in an all-bare word
-// And the other half of the same undressing: a bare tile that misses the trim
-// may still catch a colour. Half the trim's rate, because paint is worth more.
+// A bare tile that misses the trim may still catch a colour — half the trim's
+// rate, because paint is worth more.
 export const NUDIST_PAINT_CHANCE = 0.125;
 // The Abecedarian's trellis: permanent Points per tile of a three-letter word.
 export const ABECEDARIAN_STEP   = 1;
-// The Dabbler's splash: odds that any painted tile splashes a second,
-// randomly chosen unpainted tile of the collection the same colour. One
-// splash per brushstroke — an echo never echoes. If paint arrives too fast
-// with this seated (the Dipper's history says watch it), 0.25 is the fallback.
+// The Dabbler's splash: odds a painted tile splashes a second, randomly chosen
+// unpainted tile of the collection the same colour. One splash per brushstroke.
 export const DABBLER_ODDS = 0.5;
-// Per tile discarded, painted at random. Was 1-in-10, which paid out roughly
-// twice a page on a full discard and had the collection speckled by Chapter II
-// — free paint at common weight, arriving faster than the Painter sells it.
-// The Dipper's card reads its odds off this number, so moving it moves the copy.
+// Per tile discarded, painted at random. Keep it low — free paint at any faster
+// rate speckles the collection. The Dipper's card reads its odds off this number.
 export const DIPPER_PAINT_CHANCE = 1 / 12;
 // ─── The Ragman's rates ───────────────────────────────────────────────────────
-// What a painted tile fetches when it is thrown away. Rolled per painted tile
-// discarded, so a handful of rags is a handful of chances — nothing is
-// destroyed, the tiles file into the pile as any discard does, and the price
-// is only the page you spend without them. The payouts are small for that
-// reason, and two of the four are page-scoped rather than permanent.
+// What a painted tile fetches when thrown away, rolled per painted tile discarded
+// — nothing is destroyed, the tiles file into the pile as any discard does, and
+// the only cost is the page spent without them. Payouts are small for that reason.
 export const RAGMAN_ODDS   = 0.5;   // per painted tile discarded
 export const RAGMAN_COINS  = 1;     // amber: what the rag fetches
-// The Revenant's due: the odds that a tile destroyed anywhere comes back in
-// ghost metal. Deliberately steep — a rare seat whose whole trade is
-// destruction, and a press with no way to destroy anything gets nothing from
-// it at all. What comes back is the WHOLE tile: its paint, its trim, its nick,
-// its grown Points, both faces of a dual, all of it, in ghost metal. The price
-// of the resurrection is that the tile had to die first, and the tiles worth
-// raising are the ones you least want to feed to the fire — so what comes back
-// has to be worth the wager. Only the metal is overwritten: a cursed or
-// rainbow tile loses its own material to the ghost, since a tile is struck in
-// one metal or another and not in two.
+// The Revenant's due: odds a tile destroyed anywhere comes back in ghost metal.
+// What returns is the WHOLE tile — paint, trim, nick, grown Points, both faces of
+// a dual — with only the metal overwritten, so a cursed or rainbow tile loses its
+// own material to the ghost.
 export const REVENANT_ODDS = 0.5;
-// The Ripper's watchwords. Print one and he kills a patron — see js/main.js,
-// where the deed is done, and state.ghosts, where the victim goes on working.
-// Three words, all of them short and all of them settable from an ordinary
-// rack: the seat is a decision you can act on, not a lottery you wait out.
+// The Ripper's watchwords. Print one and he kills a patron — see js/main.js and
+// state.ghosts, where the victim goes on working. Keep them short and settable
+// from an ordinary rack, so the seat is a decision rather than a lottery.
 export const RIPPER_WORDS = ['KILL', 'MURDER', 'SLAY'];
 // The Headsman: permanent ×Mult per patron dismissed while he is seated.
 export const HEADSMAN_STEP = 0.2;
-// The Gambler's coin. Tossed once per word rather than once per keystroke:
-// scoring runs on every letter you lay to drive the live preview, so a roll
-// inside the score effect would flicker as you compose and then disagree with
-// what printed. state.gambleWon holds the toss (see rollGamble in state.js).
+// The Gambler's coin, tossed once per word, not per keystroke: scoring runs on
+// every letter laid to drive the live preview, so a roll inside the score effect
+// would flicker and then disagree with what printed (rollGamble in state.js).
 export const GAMBLER_ODDS       = 0.5;    // odds the coin comes up ×2
 export const NEOLOGIST_LENGTH   = 6;      // letters in a coined word
 export const DYE_TILES_PER_CHAPTER = 2;   // tiles painted by a dye patron at chapter end
 
-// The Composter's heap: destroyed tiles rot down into jade ones, and the heap
-// keeps only the freshest few — older rot is turned under to make room.
+// The Composter's heap: destroyed tiles rot down into jade ones, freshest kept.
 export const COMPOST_HEAP_MAX = 6;        // tiles the heap can hold at once
 export const COMPOST_PER_MARKET = 1;      // how many you may take on a visit
 
-// The Frontispiece: the first word of a page starts at ×base, and every page
-// that word clears the whole quota by itself, the multiplier grows by +step.
-// The Frontispiece's opening multiplier. Flat: it used to grow by a step each
-// time the first word cleared a page alone, which compounded too well when the
-// patron was taken early. The feat now pays a laurel instead (see js/patrons.js).
+// The Frontispiece: the first word of a page scores at ×base. Flat, not growing —
+// a growing version compounded too well when the patron was taken early, so the
+// feat now pays a laurel instead (see js/patrons.js).
 export const FRONTISPIECE = { base: 1.5 };
 
 // ─── Tile-template factory ────────────────────────────────────────────────────
@@ -791,54 +628,41 @@ export function makeTileTemplate(letter, overrides = {}) {
 }
 
 // ─── The Colophon (a permanent upgrade, chosen when a chapter clears) ─────────
-// Structural picks (hand size, discards, seats, workbench slots) persist for
-// the rest of the run; paint is an immediate one-off. Each of the 9 possible
-// picks can be taken at most MAX_UPGRADE_REPEATS times across a run, and at
-// least one structural option is guaranteed among the offers whenever one is
-// still eligible.
+// Structural picks (hand size, discards, seats, bench slots) persist for the rest
+// of the run; paint is an immediate one-off. Each of the 9 picks can be taken at
+// most MAX_UPGRADE_REPEATS times, and one structural option is always offered
+// while any is still eligible.
 export const UPGRADE_OFFERS      = 3;
 export const MAX_UPGRADE_REPEATS = 2;
 
-// Decline all three cards for this instead — also what a chapter transition
-// pays out on its own if the whole pool is ever exhausted (endless mode only).
+// Decline all three cards for this instead — also what a chapter transition pays
+// out on its own if the whole pool is ever exhausted (endless mode only).
 export const SKIP_COIN_GRANT = 2;
 
 // ─── Patron reactions (flavour only) ──────────────────────────────────────────
 // Odds a seated patron pops a speech bubble after a word, scored against THE
-// WHOLE PAGE'S QUOTA rather than against a page-fifth of it: ratio = word total
-// ÷ quota. Below `floor` nobody says anything at all — half a page in one word
-// is the bar, and a word that clears 49% of it is met with silence — and the
-// chance then climbs straight to a certainty at `ceil`, a word worth two whole
-// pages. Self-scaling, so the curve holds from Chapter I to the appendices.
-//
-// It used to be measured per WORD (quota ÷ words per page), which meant an
-// unremarkable word cleared the bar most turns and the table never shut up.
-// Praise is worth something only if it is rationed. The lines live in
-// js/quips.js.
+// WHOLE PAGE'S QUOTA rather than a page-fifth of it: ratio = word total ÷ quota.
+// Nothing is said below `floor`, a certainty at `ceil`. Self-scaling, so the
+// curve holds from Chapter I to the appendices; keep the floor high, since praise
+// is only worth something rationed. The lines live in js/quips.js.
 export const REACTION = { floor: 0.5, ceil: 2 };
 
 // ─── Reshuffle sundry ─────────────────────────────────────────────────────────
-// A free re-roll, banked for later: spend it on the Market's own offers, or
-// on the Colophon's three cards.
+// A free re-roll, banked: spend it on the Market's offers or the Colophon's cards.
 export const RESHUFFLE_PRICE = 4;
 
 // ─── Opening draft ────────────────────────────────────────────────────────────
-// Before the first page you kit out the press: pick from a free spread, no
-// coins involved. (The starting collection ships unpainted — the two paints
-// picked here are what gets the colour multipliers going.)
-// No patron here: the first one is hired at the first Market, with coins, as a
-// decision you make about a press you've already printed a page with.
+// Before the first page you kit out the press from a free spread, no coins. The
+// starting collection ships unpainted, so the paints picked here are what gets
+// the colour multipliers going. The first patron is hired at the first Market.
 export const DRAFT = {
   paints:  { show: 4,  pick: 2 },
   tiles:   { show: 10, pick: 4 },
 };
 
 // ─── What a sundry is, in one place ───────────────────────────────────────────
-// The workbench slot, the shop card and the held row all explain the same four
-// objects, and all three used to carry their own wording — which meant the shop
-// described the ratchet's alphabet and the workbench didn't, and the held row
-// said only what it sold for. They read from here now, so what a thing does is
-// written once and turns up wherever the thing does.
+// The workbench slot, the shop card and the held row all read from here, so what
+// a thing does is written once and turns up wherever the thing does.
 export function sundryTip(s) {
   if (s?.kind === 'tube') return {
     head: `Tube of ${COLOURS[s.colour].label}`,

@@ -1,8 +1,7 @@
 # Ideas — not yet designed, not yet scheduled
 
-Things worth remembering, not yet worth building. Unlike `PATRON_OVERHAUL.md`
-(a design that shipped), nothing here is approved or scoped. An idea graduates
-out of this file into its own design doc once someone actually plans it.
+Things worth remembering, not yet worth building. Nothing here is approved or
+scoped — an idea leaves this file when someone actually plans it.
 
 ## The Medium: seeing the bag in order
 
