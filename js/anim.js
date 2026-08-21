@@ -92,8 +92,10 @@ const PROSE_LEN  = 16;
 const PROSE_MAX  = 3600;
 const POP_MS     = 950;
 
-// For a floater with the stage to itself: twice the ordinary hold.
-export const longReadingTime = text => 2 * Math.min(PROSE_MAX, readingTime(text));
+// A flourish is a cheer, not a paragraph: read it once, briskly, and let it go
+// before the next word is being composed.
+const FLOURISH_MAX = 2200;
+export const flourishTime = text => Math.min(FLOURISH_MAX, readingTime(text));
 
 export function floatText(anchor, html, cls = '', { dy = -54, duration = null } = {}) {
   const layer = fx();

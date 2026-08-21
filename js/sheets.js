@@ -279,12 +279,11 @@ function marketShopHTML() {
         <div class="op-card-body">
           <div class="op-name">${name}</div>
           <div class="op-title">${def.rarity}${liveries.length ? ` · <span class="op-guild">${liveries.join(' & ')}</span>` : ''}${
-            o.data?.postnom ? ` · <span class="op-postnom">${o.data.postnom} · ×${POSTNOM.mult} Mult</span>` : ''}${
-            haggleNote(def, o.data)}</div>
+            o.data?.postnom ? ` · <span class="op-postnom">${o.data.postnom} · ×${POSTNOM.mult} Mult</span>` : ''}</div>
           <div class="op-desc">${desc}</div>
         </div>
         <span class="op-sold">seated</span>
-        <button class="btn-price" data-buy-patron="${def.id}">${
+        <button class="btn-price${haggleClass(def, o.data)}" data-buy-patron="${def.id}"${haggleTip(def, o.data)}>${
           patronCost(def, o.data) === 0 ? 'Free' : coinHTML(patronCost(def, o.data))}</button>
       </div>`;
   }).join('') || '<p class="sheet-note">No patrons calling today.</p>';
@@ -600,15 +599,20 @@ export function updateStallState() {
   btn.disabled = !ready || state.coins < price;
 }
 
-// Said on the calling card, since an unexplained price difference reads as a
-// fault rather than a bargain. A free patron never haggles (see patronCost).
-function haggleNote(def, data) {
-  const h = data?.haggle ?? 0;
-  if (!h || !def?.cost) return '';
-  return h < 0
-    ? ` · <span class="op-haggle op-haggle--cheap">a Coin under</span>`
-    : ` · <span class="op-haggle op-haggle--dear">a Coin over</span>`;
-}
+// Marked on the price tag rather than spelled out in words: a tag tipped
+// green-side-down is under the odds, red-side-down over, and the tooltip says
+// which for anyone who wants it said. An unexplained difference would read as a
+// fault rather than a bargain, but it needs a glance, not a sentence. A free
+// patron never haggles (see patronCost), so its tag is never marked.
+const haggled = (def, data) => (def?.cost ? (data?.haggle ?? 0) : 0);
+const haggleClass = (def, data) => {
+  const h = haggled(def, data);
+  return h ? (h < 0 ? ' btn-price--under' : ' btn-price--over') : '';
+};
+const haggleTip = (def, data) => {
+  const h = haggled(def, data);
+  return h ? ` title="${h < 0 ? 'Going cheap today — a Coin under' : 'A Coin over'} the usual ${def.cost}"` : '';
+};
 
 // ─── Collection view (read-only) ──────────────────────────────────────────────
 
@@ -799,7 +803,7 @@ export function updateDraftSelection() {
 // Game flow is main.js's business, injected here so the sheets never need to
 // know about pages and chapters.
 
-let flow = { nextPage: () => {}, advancePage: async () => {}, beginRun: () => {} };
+let flow = { nextPage: () => {}, beginRun: () => {}, openMarket: () => {} };
 
 // The clones ride the #fx layer, which sits above the modal.
 function flyPurchase(fromEl, toEl, opts = {}) {
@@ -1019,7 +1023,7 @@ async function pickColophon(id) {
   closeColophon();
   renderColophon();
   state.isAnimating = false;
-  await flow.advancePage();
+  flow.openMarket();
 }
 
 async function skipColophon() {
@@ -1035,7 +1039,7 @@ async function skipColophon() {
   closeColophon();
   renderColophon();
   state.isAnimating = false;
-  await flow.advancePage();
+  flow.openMarket();
 }
 
 function useColophonReshuffle() {

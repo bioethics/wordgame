@@ -13,7 +13,7 @@ import {
   state,
   moveRackToWord, moveWordToRack,
   reorderWord, reorderRack, reorderPatrons,
-  toggleSelected, toggleSundrySelect, toggleDualVariant,
+  toggleSelected, toggleSundrySelect, toggleDualVariant, sundrySelected,
 } from './state.js';
 import { renderAll, showTilePopover, showPopover, hidePopover, log } from './render.js';
 import { computeScore } from './scoring.js';
@@ -24,6 +24,12 @@ import { draft } from './draft.js';
 
 const DRAG_THRESHOLD = 8;     // px of travel before a press becomes a drag
 const LONG_PRESS_MS  = 450;
+
+// Picking a target for an armed tool spends it on the spot. main.js owns the
+// spending (and the animation), and imports this module, so it hands the two
+// pieces in through initInput rather than being imported back.
+let spendSundry  = async () => {};
+let sundrySpends = () => false;
 
 // ─── Insert-index helper ───────────────────────────────────────────────────────
 
@@ -139,12 +145,20 @@ function releasePress(commit) {
   if (commit && !wasDrag && !popped && !blocked()) {
     // A plain tap
     if (selectingForSundry()) {
+      const kind = state.sundries[state.sundryMode]?.kind;
       const r = toggleSundrySelect(press.id);
       if (r === 'full')      log('One tile at a time — deselect first.', 'warn');
       if (r === 'immutable') log('A lent tile takes no paint — nor does a ghost.', 'warn');
       if (r === 'unshiftable') log('The ratchet steps single letters — not ligatures or marks.', 'warn');
       if (r === 'unoffered') log('Only the glowing tiles are on offer.', 'warn');
       if (r === 'capped')    log('That tile is already at its finest — the loupe goes no further.', 'warn');
+      // A tile just taken up (rather than put back down) is the second tap:
+      // spend the tool on it now instead of asking for a third.
+      if (r === 'on' && sundrySpends(kind)) {
+        renderAll();
+        spendSundry();
+        return;
+      }
     } else if (press.zone === 'rack') {
       if (selectingToDiscard()) {
         const r = toggleSelected(press.id);
@@ -164,7 +178,10 @@ function releasePress(commit) {
 
 // ─── Init ──────────────────────────────────────────────────────────────────────
 
-export function initInput() {
+export function initInput({ spendArmedSundry, spendsOnPick } = {}) {
+  if (spendArmedSundry) spendSundry  = spendArmedSundry;
+  if (spendsOnPick)     sundrySpends = spendsOnPick;
+
   const rackEl = document.getElementById('rack');
   const wordEl = document.getElementById('word');
   if (!rackEl || !wordEl) return;

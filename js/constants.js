@@ -389,14 +389,15 @@ export const lengthMult = n =>
 
 // EDIT FREELY — copy, not code. Each entry is only the reaction clause: main.js
 // puts the count and the ×Mult in front, so a line reads "6 letters — ×2 Mult:
-// the compositor nods." Longer words fall through to LENGTH_FLOURISH_BEYOND.
+// good!" Longer words fall through to LENGTH_FLOURISH_BEYOND. Keep them short:
+// the floater is a cheer, and it holds only long enough to be read.
 export const LENGTH_FLOURISHES = {
-  6:  'the compositor nods.',
-  7:  'a full measure!',
-  8:  'the pressmen gather round.',
-  9:  'the founder wipes away a tear.',
-  10: 'the whole case emptied!',
-  11: 'the Folio itself is honoured.',
+  6:  'good!',
+  7:  'great!',
+  8:  'a true accomplishment!',
+  9:  'astounding!',
+  10: 'a credit to mankind!',
+  11: 'the Press itself is honoured.',
   12: 'words about words fail us.',
 };
 export const LENGTH_FLOURISH_BEYOND = 'the stuff of legend.';

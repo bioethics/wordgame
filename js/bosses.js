@@ -48,12 +48,17 @@ const PADDER_MIN   = 5;   // letters a Padded word must reach
 const REDACTOR_SHARE = 1 / 3;
 
 // The Populist's band: how far down common.txt (~8,000 ranks) a word may sit
-// and still count as plain English, so it widens without new data. Keep it wide
-// enough to include A, IT, IS and their kin — a cheap sacrificial word must
-// stay available or the editor bricks racks instead of squeezing them — and
-// clear of OBSCURANTIST_BAND, so the two read the same list at different
-// settings rather than at each other's edge.
-const POPULIST_BAND = 750;
+// and still count as plain English. Effectively the whole list — a word passes
+// if the common reader has met it at all.
+//
+// It sat at 750 and was brutal, in a way counting playable words hides. A
+// solver still found something in 98% of racks, so the band looked fine; what
+// it actually did was forbid SCORING. Of the words a rack can make, the share
+// that survived: 8.7% at four letters, 1.4% at six, 0.6% at seven or more — and
+// a Deadline wants long words. The editor didn't squeeze the rack, it banned
+// the top half of it. At the full list those read 42% / 22% / 16%, which is a
+// real constraint you can play around instead of a wall.
+const POPULIST_BAND = 8000;
 
 // The Obscurantist's bar — the one number here that measurement lies about. A
 // solver just reads further down the list and barely notices; a player has to
@@ -96,12 +101,12 @@ export const BOSS_DEFS = [
   },
   {
     id: 'populist', name: 'The Populist', emoji: '📣',
-    desc: `Popular fiction is profitable fiction. Every word must be among the ${POPULIST_BAND} commonest in English. Anything rare is spiked.`,
+    desc: `Popular fiction is profitable fiction. Every word must be one the common reader knows — anything outside the ${POPULIST_BAND.toLocaleString()} commonest words in English is spiked.`,
     judge: letters => {
       if (!commonReady()) return null;
       const rank = commonRank(letters);
       return rank == null || rank >= POPULIST_BAND
-        ? `too rare — the ${POPULIST_BAND} commonest words only` : null;
+        ? 'too rare — plain English only' : null;
     },
   },
   {

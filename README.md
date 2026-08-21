@@ -154,8 +154,8 @@ of the words instead:
 
 - **Padder** — five letters at least, and pays by the word.
 - **Columnist** — re-sets an exact measure after every print.
-- **Populist** — none but the 750 commonest words; **Obscurantist** — spikes the
-  commonest 500.
+- **Populist** — none but words the common reader knows; **Obscurantist** —
+  spikes the commonest 500.
 - **Minimalist** — spikes every describing word, off the same list *the Poet* is
   paid from, so the two are exact opposites.
 - **Serialist** — each word opens on the letter the last one ended with.
@@ -189,9 +189,10 @@ directions come with it.
 
 The two frequency editors read `wordlists-themed/common.txt`, the one themed
 list whose *order* is data: `js/themes.js` keeps each word's line number as its
-frequency rank. The Populist takes the first 750, the Obscurantist bars the
-first 500, and The Lexicographer — a patron, not an editor — pays ×1.5 for words
-absent altogether, so its 8,000 entries are a game number too. Rebuild it with
+frequency rank. The Populist takes the first 8,000 — effectively the whole list,
+so a word passes if the list has heard of it — the Obscurantist bars the first
+500, and The Lexicographer — a patron, not an editor — pays ×1.5 for words absent
+altogether, so its 8,000 entries are a game number too. Rebuild it with
 `tools/build-common-list.mjs`, and never sort it alphabetically.
 
 Three editors **lend** tiles. A lent tile is cast from no collection template:
@@ -291,12 +292,14 @@ cat, being found rather than bought, is never haggled over, and no card asks
 less than a Coin. `PATRON_HAGGLE` in `js/constants.js`.
 
 **Sundries** are consumables kept on the **workbench** (two slots to start, and
-the Colophon can add two more). The **paint tube**: tap it mid-page and two
-random unpainted tiles from your hand light up; tap one, tap the tube again, and
-the paint is permanent — the candidates are the tube's to choose, the pick is
-yours. The **ratchet** keeps the same rhythm, stepping one letter a single place
-along the alphabet (D becomes C or E, A becomes Z or B); two arrows say which
-way it points and can be flipped any time, including on the tap that spends it.
+the Colophon can add two more). Arming a tool is one tap and picking its target
+is the second, which also spends it. The **paint tube**: tap it mid-page and two
+random unpainted tiles from your hand light up; tap one and the paint is
+permanent — the candidates are the tube's to choose, the pick is yours. The
+**ratchet** keeps the same rhythm, stepping one letter a single place along the
+alphabet (D becomes C or E, A becomes Z or B); two arrows say which way it
+points, so set them before you pick the letter. The **tongs** are the one tool
+that still wants a confirming tap on itself, because they destroy the tile.
 It walks the press's own alphabet rather than A-Z, so P steps straight to R —
 there is no lone Q sort to land on — and ligatures and marks can't be stepped.
 The **reshuffle** is banked until spent, on the Market's own offers (free, and
@@ -403,8 +406,8 @@ sundry back for 1 Coin. Selling is about freeing the slot, not the coin — and 
 tool you will never spend can be thrown away on the board's own bench for
 nothing. (Touch has no hover: long-press a slot for the same act.)
 
-**The Colophon** — when a chapter's Deadline is cleared and the Market is done,
-choose one of three permanent upgrades: +1 hand size, +1 discard, +1 patron
+**The Colophon** — when a chapter's Deadline is cleared, and *before* the Market
+opens, choose one of three permanent upgrades: +1 hand size, +1 discard, +1 patron
 seat, +1 workbench slot, or a paint pot of a colour of your choice. At least one
 non-paint option is always offered while one remains, and each of the eight
 picks caps at 2 takes across a run. *Skip* declines all three for 2 Coins.

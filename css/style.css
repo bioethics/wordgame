@@ -379,10 +379,6 @@ header {
 }
 .op-postnom { color: #8a5c12; font-weight: 800; letter-spacing: 0.3px; }
 
-/* The day's haggle — coloured, so a bargain is spotted while scanning the row. */
-.op-haggle { font-weight: 800; letter-spacing: 0.2px; }
-.op-haggle--cheap { color: #2f7a54; }
-.op-haggle--dear  { color: #a4483c; }
 @media (prefers-reduced-motion: reduce) {
   .offer-patron.offer-patron--postnom { animation: none; }
 }
@@ -3106,6 +3102,13 @@ button.sundry:hover { transform: translateY(-2px); }
 .sheet--market .btn-price:hover:not(:disabled) { transform: rotate(0deg) scale(1.04); filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.55)) brightness(1.04); }
 .sheet--market .btn-price:active:not(:disabled) { transform: rotate(0deg) scale(0.98); }
 .sheet--market .btn-price:disabled { filter: grayscale(0.6) drop-shadow(0 2px 3px rgba(0, 0, 0, 0.4)); opacity: 0.45; }
+
+/* The day's haggle: the tag's own paper is tinted — cool green when the patron
+   is going a Coin under, warm red a Coin over. One coin either way is worth a
+   glance, not a sentence, so it says nothing in words until the tag is hovered.
+   After the tag's own rule, so it wins on order at equal specificity. */
+.sheet--market .btn-price--under { background: linear-gradient(180deg, #dff2e3, #b6ddc4); }
+.sheet--market .btn-price--over  { background: linear-gradient(180deg, #fbdfd9, #eebbb0); }
 
 /* ── SOLD, stamped in ink ────────────────────────────────────────────────────── */
 .sheet--market .op-sold {

@@ -48,7 +48,7 @@ import {
 import { openDraft, closeDraft, restoreDraft, applyDraft } from './draft.js';
 import {
   sleep, flyClone, popReveal, floatText, tweenNum, setNum, fmtMult,
-  pulse, sparkleBurst, sfx, applySpeedCSS, speechBubble, longReadingTime,
+  pulse, sparkleBurst, sfx, applySpeedCSS, speechBubble, flourishTime,
 } from './anim.js';
 import { initInput, initInspect, initShelfDrag } from './drag.js';
 import {
@@ -847,11 +847,10 @@ async function submitWord() {
     }
     sfx.chime();
     // The measure's arithmetic and its flourish are one floater, not two that
-    // would collide on the same beat — held onscreen twice as long, since
-    // nothing else is due to land on top of it (longReadingTime, js/anim.js).
+    // would collide on the same beat (flourishTime, js/anim.js).
     if (step.colour === 'length') {
       const line = `${step.count} letters — ×${fmtMult(step.mult)} Mult: ${lengthFlourish(step.count)}`;
-      floatText($('word'), line, 'fl-flourish', { dy: -138, duration: longReadingTime(line) });
+      floatText($('word'), line, 'fl-flourish', { dy: -138, duration: flourishTime(line) });
       sparkleBurst($('word'), Math.min(6 + step.count, 18));
     } else {
       floatText($('word'), `${label} ×${fmtMult(step.mult)}`, `fl-set fl-set--${step.colour}`, { dy: -60 });
@@ -1017,7 +1016,36 @@ async function pageComplete() {
   state.coins += reward.total;
 
   state.isAnimating = false;
-  openMarket(reward.parts, reward.total);
+
+  // A cleared chapter pays its Colophon BEFORE the Market opens, so the upgrade
+  // is in hand while you shop: an extra seat or workbench slot changes what is
+  // worth buying, and being handed it afterwards made the pick feel academic.
+  // The reward breakdown waits on state (and so rides the save) until the
+  // Market is ready for it.
+  state.pendingReward = { parts: reward.parts, total: reward.total };
+  if (state.page === PAGES_PER_CHAPTER && offerColophon()) return;
+  openTheMarket();
+}
+
+// Open the Colophon if it has anything left to offer. Returns false when the
+// pool is spent — the skip grant is paid and the caller carries straight on.
+function offerColophon() {
+  openColophon();
+  renderAll();
+  if (colophon.offers.length) { renderColophon(); return true; }
+  closeColophon();
+  renderColophon();
+  applyColophonSkip();
+  renderAll();
+  return false;
+}
+
+// The Market, with whatever the page paid: straight after an ordinary page, and
+// after the Colophon on the page that ends a chapter.
+export function openTheMarket() {
+  const { parts = [], total = 0 } = state.pendingReward ?? {};
+  state.pendingReward = null;
+  openMarket(parts, total);
   renderAll();
   renderMarket();
 }
@@ -1035,19 +1063,6 @@ async function beginNextPage() {
     persist();
     showVictory();
     return;   // advance continues when they pick an overlay action
-  }
-
-  // A chapter just cleared — the Colophon offers a permanent upgrade first.
-  // advancePage() resumes once a pick lands, or straight away if the pool has
-  // nothing left to offer (paid out as a skip would be).
-  if (state.page === PAGES_PER_CHAPTER) {
-    openColophon();
-    renderAll();
-    if (colophon.offers.length) { renderColophon(); return; }
-    closeColophon();
-    renderColophon();
-    applyColophonSkip();
-    renderAll();
   }
 
   await advancePage();
@@ -1253,12 +1268,20 @@ $('sundries')?.addEventListener('click', async e => {
   const slot = e.target.closest('[data-sundry]');
   if (!slot) return;
   hidePopover();
-  const idx = Number(slot.dataset.sundry);
+  await useSundry(Number(slot.dataset.sundry), e);
+});
+
+// Arming a tool is one tap; picking its target is the second, and the second
+// SPENDS it — js/drag.js calls back here the moment a target is chosen. Going
+// back up to the tool to confirm was a click that asked nothing and told you
+// nothing. The tongs are the exception (see spendsOnPick).
+async function useSundry(idx, e = null) {
   const armed = state.sundries[idx];
 
   // Reading the arrow first means a tap that lands on one both turns the tool
-  // around and does whatever that tap was going to do anyway.
-  const arrow = e.target.closest('[data-shift]');
+  // around and does whatever that tap was going to do anyway. There is no event
+  // at all when the board calls in — the tile was the tap.
+  const arrow = e?.target?.closest?.('[data-shift]');
   if (arrow && armed?.kind === 'ratchet') state.ratchetDir = Number(arrow.dataset.shift);
 
   if (armed?.kind === 'reshuffle') {
@@ -1331,8 +1354,8 @@ $('sundries')?.addEventListener('click', async e => {
     state.sundryMode = idx;
     const look = APPLICATORS[armed.material];
     log(offer.length === 2
-      ? `The applicator offers two tiles — tap one, then the applicator again to strike it in ${look.label.toLowerCase()}.`
-      : `Only one tile will take a new metal — tap it, then the applicator again.`);
+      ? `The applicator offers two tiles — tap the one to strike in ${look.label.toLowerCase()}.`
+      : `Only one tile will take a new metal — tap it.`);
     renderAll();
     return;
   }
@@ -1454,8 +1477,8 @@ $('sundries')?.addEventListener('click', async e => {
   }
 
   // A tube arms with its offer already on the table: up to two unpainted tiles
-  // light up. Tap one, then the tube again to pour; a second tap with nothing
-  // picked puts it away. The tube chooses the candidates, you choose between them.
+  // light up; tapping one pours. Tapping the tube again puts it away. The tube
+  // chooses the candidates, you choose between them.
   if (armed?.kind === 'tube' && state.sundryMode !== idx) {
     cancelDiscardMode(true);
     cancelSundryMode(true);
@@ -1464,8 +1487,8 @@ $('sundries')?.addEventListener('click', async e => {
     if (!offer) { log('Nothing in your hand will take paint — the tube keeps.', 'warn'); return; }
     state.sundryMode = idx;
     log(offer.length === 2
-      ? 'The tube offers two tiles — tap one, then the tube again to pour.'
-      : 'Only one tile will take paint — tap it, then the tube again to pour.');
+      ? 'The tube offers two tiles — tap the one to paint.'
+      : 'Only one tile will take paint — tap it.');
     renderAll();
     return;
   }
@@ -1493,18 +1516,18 @@ $('sundries')?.addEventListener('click', async e => {
     return;
   }
 
-  // The ratchet, the loupe and the tongs share one rhythm: arm the tool, tap a
-  // tile to grip it, tap the tool again to spend it.
+  // The ratchet and the loupe go off on the tile you tap. The tongs do not: they
+  // destroy it, so they keep a confirming tap (spendsOnPick).
   if (state.sundryMode !== idx) {
     cancelDiscardMode(true);
     cancelSundryMode(true);
     clearAllSelected();
     state.sundryMode = idx;
     log(armed?.kind === 'loupe'
-      ? `Tap a tile, then the loupe again to double it — ${LOUPE_CAP} Points is its limit.`
+      ? `Tap a tile to double it — ${LOUPE_CAP} Points is the loupe's limit.`
       : armed?.kind === 'tongs'
       ? 'Tap a tile, then the tongs again to feed it to the furnace.'
-      : 'Tap one letter, then tap the ratchet again to step it. The arrows say which way.');
+      : 'Tap one letter to step it. The arrows say which way — set them first.');
     renderAll();
     return;
   }
@@ -1562,7 +1585,17 @@ $('sundries')?.addEventListener('click', async e => {
   state.isAnimating = false;
   renderAll();
   log(`The ratchet steps ${result.from} to ${result.to} — and there it stays.`, 'good');
-});
+}
+
+// Which tools go off the instant a target is picked. Everything beneficial
+// does; the tongs do not, because a mis-tapped tile would be ash before you
+// saw it, and the confirming tap is the only chance to change your mind.
+export const spendsOnPick = kind => kind !== 'tongs';
+
+// The board has picked a target for the armed tool — spend it where it stands.
+export async function spendArmedSundry() {
+  if (state.sundryMode >= 0) await useSundry(state.sundryMode);
+}
 
 $('bagBtn')?.addEventListener('click', () => { if (!state.isAnimating) openInspector('bag'); });
 $('discardBtn')?.addEventListener('click', () => { if (!state.isAnimating) openInspector('discard'); });
@@ -1860,10 +1893,10 @@ async function beginRun() {
 (async function init() {
   loadSettings();
   applySpeedCSS();
-  initInput();
+  initInput({ spendArmedSundry, spendsOnPick });
   initInspect();
   initShelfDrag();
-  initSheets({ nextPage: beginNextPage, advancePage, beginRun });
+  initSheets({ nextPage: beginNextPage, beginRun, openMarket: openTheMarket });
 
   renderDictStatus('loading', 0);
   // The exclusion list lands before a single word does: adoptWordlist and
