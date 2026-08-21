@@ -25,21 +25,27 @@ export const PATRON_QUIPS = [
   'Orgasmic!',
   'Fashionable!',
   'Ten out of ten.',
-  'Laudable.',
-  'Desirable.',
+  'Laudable!',
+  'Desirable!',
   'Inspirational!',
+  'Huzzah!',
   'Pure poetry.',
   'What a lark!',
   'A+',
   'An all-time top 10 word!',
+  'Spelled like a pro!',
+  'This is the best word since "paperclip"!',
 
   // About the word specifically (often nonsensically)
   'I love {word}!',
   '{word}! How cute!',
   '{word}... Luscious.',
+  '{word}... How sensual.',
+  'Ooooo... {word}!!',
   '{word} moves me deeply',
   '{word} is good!',
   '{word}? Genius!',
+  '{word}! Hear hear!',
   '{word}! My favourite word!',
   'I approve of {word}.',
   'Nothing satisfies like {word}.',
@@ -63,6 +69,7 @@ export const PATRON_QUIPS = [
   '{word}? You ARE good.',
   'Sleek. Sophisticated. {word}.',
   'Bold. Sexy. {word}.',
+  'I must tell mother about {word}.',
   'Time + Effort = {word}.',
   'No one will ever forget {word}.',
   'I wish my father could have lived to see {word}.',
@@ -77,7 +84,7 @@ export const PATRON_QUIPS = [
   'History is being made!',
   'I am prouder of you than I am of my son.',
   'I never doubted you.',
-  'I would die for you.',
+  'I would die for {word}.',
 
   // Faintly unhinged
   'Did you rehearse that?',
@@ -89,7 +96,7 @@ export const PATRON_QUIPS = [
   'I have no notes.',
   'I feel deep satisfaction.',
   'Where do you get your ideas from?',
-  'Every house should have a {word}.',
+  'Every home should have a {word}.',
   'What a show of force!'
 ];
 
