@@ -5,10 +5,11 @@
 # Rebuild with tools/build-common-list.mjs.
 #
 # ORDER IS DATA. js/themes.js reads each word's position as its frequency
-# rank. The Populist accepts only the first 500 and the Obscurantist bars the
-# first 1,000 (js/bosses.js); The Lexicographer (js/patrons.js) pays for words
-# absent from the file entirely, so its length is a game number too. Sorting
-# this file alphabetically would silently change what that editor asks for.
+# rank. The Obscurantist bars the first 500 and the Populist accepts the first
+# 8,000 — effectively the whole file, so a word passes him if this list has
+# heard of it at all (js/bosses.js). The Lexicographer (js/patrons.js) pays for
+# words absent from the file entirely, so its length is a game number too.
+# Sorting this file alphabetically would silently change what all three ask for.
 THE
 OF
 AND

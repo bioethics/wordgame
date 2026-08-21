@@ -564,6 +564,25 @@ export const ESPALIER_STEP      = 2;      // permanent Points per tile of a two-
 // crimson tile that goes in: his ×Mult is STOKER_BASE + STOKER_STEP per burn.
 export const STOKER_BASE        = 1.25;   // ×Mult the day he sits down, no tiles burned
 export const STOKER_STEP        = 0.25;   // permanent ×Mult per crimson tile burned
+// ─── The Azure Prince's cypher ────────────────────────────────────────────────
+// A standing ×Mult that grows by solving a small puzzle he sets. The cypher is
+// a row of boxes with one marked: print a word of exactly that many tiles with
+// an azure tile standing in the marked place and he reads it, keeps the step
+// for good, and sets a fresh one. At `crown` he is crowned and stops setting
+// them — the seat becomes a flat ×crown, and a fortune if it is ever dismissed.
+//
+// `base` is the Stoker's lesson: a seat that pays nothing until it has been fed
+// is dead weight on the page you bought it. Three cyphers reach the crown.
+export const PRINCE = {
+  base:    1.5,             // ×Mult the day he sits, before a single cypher
+  step:    0.5,             // ×Mult per cypher read, permanent
+  crown:   3,               // at this ×Mult he is crowned and sets no more
+  ransom:  15,              // Coins over the odds a crowned seat pays to dismiss
+  lengths: [5, 6, 7],       // boxes a cypher may show
+};
+export const princeMult = solved =>
+  Math.min(PRINCE.crown, PRINCE.base + (solved ?? 0) * PRINCE.step);
+
 export const BEEKEEPER_STEP     = 0.2;    // permanent ×Mult per B printed
 export const ARSONIST_ODDS      = { paint: 0.10, burn: 0.01 };  // per tile played
 export const NUDIST_TRIM_CHANCE = 0.25;   // per bare letter in an all-bare word

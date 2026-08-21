@@ -31,7 +31,7 @@ import {
   ABECEDARIAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,
   STOKER_BASE, STOKER_STEP, RAGMAN_COINS, RAGMAN_ODDS, DYE_TILES_PER_CHAPTER,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, DIPPER_PAINT_CHANCE, REVENANT_ODDS,
-  PACKAGE_ODDS, FRONTISPIECE, MATERIALS, RIPPER_WORDS, PACKAGES,
+  PACKAGE_ODDS, FRONTISPIECE, MATERIALS, RIPPER_WORDS, PACKAGES, PRINCE,
 } from './constants.js';
 
 // What {BRACES} in a desc may refer to. Add a line here to expose a new knob.
@@ -47,6 +47,9 @@ const KNOBS = {
   PARCEL_ROMANTIC:  PACKAGES.romantic.label,
   PARCEL_CUTE:      PACKAGES.cute.label,
   PARCEL_RUDE:      PACKAGES.rude.label,
+  PRINCE_BASE:      PRINCE.base,
+  PRINCE_STEP:      PRINCE.step,
+  PRINCE_CROWN:     PRINCE.crown,
 };
 
 export const PATRON_CARDS = {
@@ -264,6 +267,10 @@ export const PATRON_CARDS = {
   binder: {
     name: 'The Binder', emoji: '🔗', rarity: 'rare', cost: 12, guild: 'azure',
     desc: 'Any two nouns stacked together count as a word: DOOM and HAT make DOOMHAT.',
+  },
+  blueprince: {
+    name: 'The Azure Prince', emoji: '🔷', rarity: 'rare', cost: 10, guild: 'azure',
+    desc: 'Tap him for a cypher: print that many tiles with an azure one in the marked place for +{PRINCE_STEP} Mult, for good. ×{PRINCE_BASE} to start, crowned at ×{PRINCE_CROWN}.',
   },
 
   // ── No guild · the wildcards ────────────────────────────────────────────────

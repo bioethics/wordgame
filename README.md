@@ -14,7 +14,7 @@ python -m http.server 8431
 # then open http://localhost:8431
 ```
 
-(ES modules don't run from `file://`, and the bundled `wordlist.txt` — 64k
+(ES modules don't run from `file://`, and the bundled `wordlist.txt` — 70k
 words — is fetched over HTTP. A custom list can be loaded in Settings.)
 
 `node tools/build-single.mjs` bundles the whole game — wordlist included — into

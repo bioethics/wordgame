@@ -11,7 +11,7 @@ import {
   PAINT_PER_POT, ANIM, SUNDRY_SELL, tileCount, sundryTip, TOOL_LOOK, PACKAGES, APPLICATORS,
   colourDesc, HONORIFIC_STEP, POSTNOM,
 } from './constants.js';
-import { patronById, guildsOf, patronName, patronShelf, patronCost } from './patrons.js';
+import { patronById, guildsOf, patronName, patronShelf, patronEmoji, patronCost } from './patrons.js';
 import { upgradeById } from './upgrades.js';
 import {
   market, stallById, stallPrice, isProposalStall,
@@ -178,7 +178,7 @@ function marketShelfCardsHTML() {
            data-patron="${def.id}"${p.uid != null ? ` data-uid="${p.uid}"` : ''}
            title="${name} — ${desc}
 (drag to reseat · ✕ dismisses for ${half} Coins)">
-        <span class="patron-emoji">${def.emoji}</span>
+        <span class="patron-emoji">${patronEmoji(def, p.data)}</span>
         <span class="patron-name">${label}</span>
         ${p.data?.postnom ? `<span class="patron-postnom" title="A distinguished patron — ×${POSTNOM.mult} Mult, paid at this seat's turn">${p.data.postnom}</span>` : ''}
         ${laurels ? `<span class="patron-laurel" title="${laurels > 1 ? `${laurels} laurels` : 'A laurel'} — +${laurels * HONORIFIC_STEP} Points every word, paid at this seat's turn">🏵️${laurels > 1 ? `<b>${laurels}</b>` : ''}</span>` : ''}
@@ -275,7 +275,7 @@ function marketShopHTML() {
       <div class="offer-patron offer-patron--${def.rarity}${livery}${lettered}" data-offer="patron" data-idx="${i}">
         <div class="op-portrait">${def.portrait
           ? `<img src="${def.portrait}" alt="${name}">`
-          : `<span class="op-emoji">${def.emoji}</span>`}</div>
+          : `<span class="op-emoji">${patronEmoji(def, o.data)}</span>`}</div>
         <div class="op-card-body">
           <div class="op-name">${name}</div>
           <div class="op-title">${def.rarity}${liveries.length ? ` · <span class="op-guild">${liveries.join(' & ')}</span>` : ''}${

@@ -15,7 +15,7 @@ import {
   sundryTip, FLEURON, TOOL_LOOK, PACKAGES, APPLICATORS, HONORIFIC_STEP, MEDIEVAL, letterGlyph,
   INTERROBANG, POSTNOM,
 } from './constants.js';
-import { patronById, guildsOf, patronName, patronShelf } from './patrons.js';
+import { patronById, guildsOf, patronName, patronShelf, patronEmoji } from './patrons.js';
 import { bossById } from './bosses.js';
 import { computeScore } from './scoring.js';
 import { marketSnapshot, patronRefund } from './market.js';
@@ -257,11 +257,16 @@ export function showPatronPopover(def, anchorEl, seat = null) {
     : '';
   const name = patronName(def, seat?.data);
   const desc = def.instDesc?.(seat?.data) ?? def.desc;
+  // What the seat would actually pay back, not half the list price: a patron
+  // whose state has earned it a bonus (the crowned Prince) must not be offered
+  // one figure and pay another.
+  const refund = seat ? patronRefund(seat) : Math.floor(def.cost / 2);
   showPopover(anchorEl, `
-    <div class="tip-head">${def.emoji} ${name} <span class="op-rarity">${def.rarity}</span></div>
+    <div class="tip-head">${patronEmoji(def, seat?.data)} ${name} <span class="op-rarity">${def.rarity}</span></div>
     <div class="tip-line">${desc}</div>
+    ${def.popover?.(seat?.data) ?? ''}
     ${act}
-    <button class="btn btn-quiet tip-btn" data-sell="${seat?.uid ?? def.id}">Dismiss for ${coinHTML(Math.floor(def.cost / 2))}</button>`);
+    <button class="btn btn-quiet tip-btn" data-sell="${seat?.uid ?? def.id}">Dismiss for ${coinHTML(refund)}</button>`);
 }
 
 // ─── The Neologist's coining sheet ────────────────────────────────────────────
@@ -350,8 +355,11 @@ function renderShelf(script) {
   if (!shelf) return;
   const seats = effectivePatronSlots();
   // Laurels ride the signature, or a crowning mid-page would wait for the next
-  // seating change to show.
-  const sig = `${seats}|${state.patrons.map(p => `${p.uid ?? p.id}~${p.data?.honorifics ?? 0}`).join(',')}`;
+  // seating change to show. So does anything else that changes a seat's FACE —
+  // the Azure Prince's cyphers rename him and hand him a crown — read through
+  // the same instName the card will use, so nothing can drift out of step.
+  const sig = `${seats}|${state.patrons.map(p =>
+    `${p.uid ?? p.id}~${p.data?.honorifics ?? 0}~${patronShelf(patronById(p.id), p.data)}`).join(',')}`;
 
   if (sig !== _shelfSig) {
     _shelfSig = sig;
@@ -379,7 +387,7 @@ function renderShelf(script) {
         slot.title = slot.dataset.baseTitle;
         const laurels = p.data?.honorifics ?? 0;
         slot.innerHTML = `
-          <span class="patron-emoji">${def.emoji}</span>
+          <span class="patron-emoji">${patronEmoji(def, p.data)}</span>
           <span class="patron-name">${label}</span>
           ${p.data?.postnom ? `<span class="patron-postnom" title="${patronName(def, p.data)} — a distinguished patron: ×${POSTNOM.mult} Mult, paid at this seat's turn in the running order">${p.data.postnom}</span>` : ''}
           ${laurels ? `<span class="patron-laurel" title="${laurels > 1 ? `${laurels} laurels` : 'A laurel'} — +${laurels * HONORIFIC_STEP} Points every word, paid at this seat's turn, lost if this patron is dismissed">🏵️${laurels > 1 ? `<b>${laurels}</b>` : ''}</span>` : ''}
@@ -482,7 +490,7 @@ function ghostCardsHTML() {
            data-patron="${def.id}"${p.uid != null ? ` data-uid="${p.uid}"` : ''}
            title="${name} — ${desc}
 (dead, and working still · ✕ lets it go for nothing)">
-        <span class="patron-emoji">${def.emoji}</span>
+        <span class="patron-emoji">${patronEmoji(def, p.data)}</span>
         <span class="patron-name">${label}</span>
         ${laurels ? `<span class="patron-laurel" title="${laurels > 1 ? `${laurels} laurels` : 'A laurel'} — +${laurels * HONORIFIC_STEP} Points every word, paid at this ghost's turn">🏵️${laurels > 1 ? `<b>${laurels}</b>` : ''}</span>` : ''}
         <button class="patron-x" data-sell-ghost="${p.uid ?? def.id}" title="Let ${name} go — a ghost's contract is worth nothing">✕</button>

@@ -95,7 +95,13 @@
 // unique `uid` so copies can be badged and animated as themselves. Such defs
 // may roll per-copy state with `onOffer()` (shown on the Market card, moved
 // onto the seat's data at purchase) and present themselves with instName,
-// instShelf and instDesc, each falling back to the plain card field.
+// instShelf, instEmoji and instDesc, each falling back to the plain card field.
+// A seat whose OWN state changes what it is (the Azure Prince takes a crown)
+// uses the same four, so every view agrees about what it is called and wears.
+//
+// `popover(data)` is the other half of that: extra HTML for the card's
+// tap-through, under the desc and above the dismissal — for a seat with
+// something to SHOW rather than say, like the Prince's cypher of boxes.
 //
 // `guild` (a card field) is thematic, not mechanical: it drives the calling
 // card's ribbon and the seat's livery pin, and nothing else — except the
@@ -116,6 +122,7 @@ import {
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
   HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, RIPPER_WORDS, splitMarks, isImmutable,
   medievalExpansions, POSTNOM,
+  PRINCE, princeMult,
 } from './constants.js';
 import {
   state, getActiveColour, getActiveLetter, countsAsColour, luckyRoll,
@@ -132,6 +139,20 @@ const VOWELS = 'AEIOU';
 const RARE_LETTERS = ['J', 'QU', 'X', 'Z'];
 
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+
+// ─── The Azure Prince's cypher ────────────────────────────────────────────────
+// A row of boxes with one marked: `len` tiles, an azure tile standing at `at`
+// (0-based). Rolled fresh each time one is read, so a seat never sets the same
+// puzzle twice running.
+const rollCypher = () => {
+  const len = pick(PRINCE.lengths);
+  return { len, at: Math.floor(Math.random() * len) };
+};
+const princeCrowned = data => princeMult(data?.solved ?? 0) >= PRINCE.crown;
+// Counted in TILES, not letters: the boxes ARE tiles, and a trailing mark
+// stands in the groove like anything else.
+const readsCypher = (tiles, c) =>
+  !!c && tiles.length === c.len && countsAsColour(tiles[c.at], 'azure');
 
 // Tiles that read as a given colour: the tile's own paint, or a rainbow, which
 // reads as every colour at once. Every colour-caring patron goes through here,
@@ -913,6 +934,73 @@ const PATRON_BEHAVIOURS = [
 
   // ── Azure · ink, flow, and latitude ─────────────────────────────────────────
   {
+    // The one seat that asks for a SHAPE rather than a property: the cypher
+    // names a length and a place, and only a word cut to fit reads it. Azure's
+    // own trade — a tile standing where it is wanted — made into a puzzle.
+    //
+    // The cypher lives on the seat's data so it survives save and load, and is
+    // rolled at the Market, so what is on the calling card is the puzzle you
+    // would be buying.
+    id: 'blueprince',
+    when: 'score',
+    onOffer: () => ({ cypher: rollCypher() }),
+    effect({ data, xMult }) { xMult(princeMult(data?.solved ?? 0)); },
+
+    // A seat that arrived by some road other than the shop has no cypher yet.
+    onPageStart({ data }) {
+      if (!princeCrowned(data)) data.cypher ??= rollCypher();
+      return null;
+    },
+
+    onPrinted({ tiles, data }) {
+      if (princeCrowned(data)) return null;
+      data.cypher ??= rollCypher();
+      if (!readsCypher(tiles, data.cypher)) return null;
+
+      data.solved = (data.solved ?? 0) + 1;
+      if (princeCrowned(data)) {
+        data.cypher = null;
+        return {
+          note: `the last cypher — ×${princeMult(data.solved)} Mult`,
+          say: ['The Azure Prince reads the last of his cyphers and is crowned. '
+              + 'He sets no more — and his contract is worth a fortune now.'],
+        };
+      }
+      data.cypher = rollCypher();
+      return {
+        note: `cypher read — ×${princeMult(data.solved)} Mult`,
+        say: ['A cypher read. The Azure Prince sets another.'],
+      };
+    },
+
+    // Crowned, he is a different card: a flat ×Mult, no puzzle, and a ransom.
+    instName:  data => (princeCrowned(data) ? 'The Azure King' : 'The Azure Prince'),
+    instShelf: data => (princeCrowned(data) ? 'Azure King' : 'Azure Prince'),
+    instEmoji: data => (princeCrowned(data) ? '👑' : '🔷'),
+    instDesc(data) {
+      if (princeCrowned(data)) {
+        return `Crowned. ×${PRINCE.crown} Mult, no more cyphers — and ${PRINCE.ransom} Coins `
+             + `over the odds if he is ever dismissed.`;
+      }
+      const read = data?.solved ?? 0;
+      const left = Math.round((PRINCE.crown - princeMult(read)) / PRINCE.step);
+      return `×${princeMult(read)} Mult${read ? `, ${read} cypher${read > 1 ? 's' : ''} read` : ''}. `
+           + `${left} more for the crown.`;
+    },
+    refundBonus: data => (princeCrowned(data) ? PRINCE.ransom : 0),
+
+    // The boxes themselves, shown when the card is tapped. A crowned Prince has
+    // no cypher left to set, so he shows none.
+    popover(data) {
+      const c = princeCrowned(data) ? null : data?.cypher;
+      if (!c) return '';
+      const boxes = Array.from({ length: c.len }, (_, i) =>
+        `<span class="cypher-box${i === c.at ? ' cypher-box--marked' : ''}"></span>`).join('');
+      return `<div class="cypher" role="img" aria-label="Cypher: `
+           + `${c.len} tiles, azure in place ${c.at + 1}">${boxes}</div>`;
+    },
+  },
+  {
     id: 'siren',
     when: 'score',
     tileBonus(t) {
@@ -1237,6 +1325,10 @@ export const patronName = (def, data) => {
   const base = def?.instName?.(data) ?? def?.name ?? 'The patron';
   return data?.postnom ? `Dr ${dropArticle(base)}, ${data.postnom}` : base;
 };
+
+// The portrait a seat wears. A patron whose state changes may change face; the
+// card's own emoji is the fallback.
+export const patronEmoji = (def, data) => def?.instEmoji?.(data) ?? def?.emoji ?? '';
 
 // The short form the shelf's cards wear, where there is room for a word.
 export const patronShelf = (def, data) => {

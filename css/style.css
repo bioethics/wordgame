@@ -3742,6 +3742,33 @@ input[type='checkbox'] {
   color: var(--parch-dim);
 }
 .tip-line { color: #5c4a2e; margin-top: 3px; }
+
+/* ── The Azure Prince's cypher ────────────────────────────────────────────────
+   A row of blank sorts with one place marked: print that many tiles with an
+   azure one standing THERE and he reads it. Boxes rather than letters on
+   purpose — the puzzle is a shape, not a word, and naming a letter would give
+   away a great deal more than the Prince means to. */
+.cypher {
+  display: flex;
+  gap: 4px;
+  margin: 9px 0 2px;
+  padding: 7px 8px;
+  border-radius: 7px;
+  background: rgba(46, 111, 178, 0.07);
+  border: 1px dashed rgba(46, 111, 178, 0.35);
+}
+.cypher-box {
+  width: 15px; height: 17px;
+  border-radius: 3px;
+  background: linear-gradient(170deg, var(--ivory), var(--ivory-2));
+  box-shadow: inset 0 0 0 1px rgba(120, 90, 40, 0.35), 0 1px 1px rgba(0, 0, 0, 0.18);
+}
+/* The marked place: azure through and through, and lit, so it is found at a
+   glance rather than counted to. */
+.cypher-box--marked {
+  background: linear-gradient(170deg, #8ec6ff, #2e6fb2);
+  box-shadow: inset 0 0 0 1px rgba(20, 60, 105, 0.75), 0 0 8px rgba(46, 111, 178, 0.65);
+}
 .tip-feat {
   margin-top: 7px;
   padding-top: 7px;
