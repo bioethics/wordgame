@@ -571,10 +571,16 @@ export const STOKER_STEP        = 0.25;   // permanent ×Mult per crimson tile b
 // for good, and sets a fresh one. At `crown` he is crowned and stops setting
 // them — the seat becomes a flat ×crown, and a fortune if it is ever dismissed.
 //
-// `base` is the Stoker's lesson: a seat that pays nothing until it has been fed
-// is dead weight on the page you bought it. Three cyphers reach the crown.
+// He starts NEUTRAL, which is the whole of his bargain: ×1.5 to begin AND half
+// a step per cypher was two gifts where one was meant, and a rare seat that is
+// already strong before it has done anything has nothing to earn. So he is
+// dead weight on the page you buy him — the cost of a ceiling this high — and
+// four cyphers walk him to it.
+//
+// If the ramp proves too slow to be worth the seat, the fallback is a smaller
+// spread rather than a friendlier start: base 1.25, step 0.25, crown 2.5.
 export const PRINCE = {
-  base:    1.5,             // ×Mult the day he sits, before a single cypher
+  base:    1,               // ×Mult the day he sits — neutral, before any cypher
   step:    0.5,             // ×Mult per cypher read, permanent
   crown:   3,               // at this ×Mult he is crowned and sets no more
   ransom:  15,              // Coins over the odds a crowned seat pays to dismiss

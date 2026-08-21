@@ -47,7 +47,6 @@ const KNOBS = {
   PARCEL_ROMANTIC:  PACKAGES.romantic.label,
   PARCEL_CUTE:      PACKAGES.cute.label,
   PARCEL_RUDE:      PACKAGES.rude.label,
-  PRINCE_BASE:      PRINCE.base,
   PRINCE_STEP:      PRINCE.step,
   PRINCE_CROWN:     PRINCE.crown,
 };
@@ -270,7 +269,7 @@ export const PATRON_CARDS = {
   },
   blueprince: {
     name: 'The Azure Prince', emoji: '🔷', rarity: 'rare', cost: 10, guild: 'azure',
-    desc: 'Tap him for a cypher: print that many tiles with an azure one in the marked place for +{PRINCE_STEP} Mult, for good. ×{PRINCE_BASE} to start, crowned at ×{PRINCE_CROWN}.',
+    desc: 'Tap for a cypher: that many tiles, an azure one in the marked place, +{PRINCE_STEP} Mult for good. Crowned at ×{PRINCE_CROWN} — and worth a fortune dismissed.',
   },
 
   // ── No guild · the wildcards ────────────────────────────────────────────────

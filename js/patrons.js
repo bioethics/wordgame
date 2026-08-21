@@ -944,7 +944,13 @@ const PATRON_BEHAVIOURS = [
     id: 'blueprince',
     when: 'score',
     onOffer: () => ({ cypher: rollCypher() }),
-    effect({ data, xMult }) { xMult(princeMult(data?.solved ?? 0)); },
+    // Silent until he has read something: a neutral ×1 is not a multiplier, and
+    // announcing one would put a meaningless step in every print and a badge on
+    // a card that has done nothing.
+    effect({ data, xMult }) {
+      const mult = princeMult(data?.solved ?? 0);
+      if (mult > 1) xMult(mult);
+    },
 
     // A seat that arrived by some road other than the shop has no cypher yet.
     onPageStart({ data }) {
@@ -984,8 +990,10 @@ const PATRON_BEHAVIOURS = [
       }
       const read = data?.solved ?? 0;
       const left = Math.round((PRINCE.crown - princeMult(read)) / PRINCE.step);
-      return `×${princeMult(read)} Mult${read ? `, ${read} cypher${read > 1 ? 's' : ''} read` : ''}. `
-           + `${left} more for the crown.`;
+      const plural = n => `${n} cypher${n > 1 ? 's' : ''}`;
+      return read
+        ? `×${princeMult(read)} Mult, ${plural(read)} read. ${left} more for the crown.`
+        : `No Mult yet — ${plural(left)} for the crown.`;
     },
     refundBonus: data => (princeCrowned(data) ? PRINCE.ransom : 0),
 
