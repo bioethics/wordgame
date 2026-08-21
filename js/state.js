@@ -146,6 +146,9 @@ export const state = {
   ratchetDir: 1,       // which way an armed ratchet is pointing: +1 later, -1 earlier
   luck: 1,             // scales every "good outcome" roll (see luckyRoll) — a future dial
   rackBonus: 0,        // hand size lent for the rest of THIS page (the Ragman's azure)
+  primed: {},          // source id → Points armed for the NEXT word (the tongs,
+                       // the Winnower). Spent when a word prints, dropped at a
+                       // page turn; scoring reads it so the preview shows it.
   ghosts: [],          // patrons The Ripper has killed — they work on, off the shelf
   lastFirstLetter: null,  // first letter of the last word printed this run (The Skald)
   gambleWon: false,    // this word's coin, tossed by rollGamble (The Gambler)
@@ -286,6 +289,12 @@ function migrateSave(node) {
     delete node.material;
   }
   if (node.id === 'minimalist') node.id = 'abecedarian';
+  // tongsBonus became one entry in the `primed` pool, so the tongs and the
+  // Winnower can arm the same word and each be named for it.
+  if (typeof node.tongsBonus === 'number') {
+    if (node.tongsBonus) (node.primed ??= {}).tongs ??= node.tongsBonus;
+    delete node.tongsBonus;
+  }
   for (const v of Object.values(node)) migrateSave(v);
 }
 
@@ -427,8 +436,8 @@ export function startPage() {
   // A fresh hand means fresh tile ids, so no remembered offer can still name
   // anything — clear them rather than leave dangling ids around.
   for (const s of state.sundries ?? []) s.offer = null;
-  state.tongsBonus = 0;   // a page turn lets the furnace's heat out
-  state.rackBonus  = 0;   // and takes back any hand the Ragman widened
+  state.primed    = {};   // a page turn lets the furnace's heat out
+  state.rackBonus = 0;    // and takes back any hand the Ragman widened
   rollGamble();
 }
 
@@ -901,10 +910,10 @@ export function applySundry(idx, dir = 0) {
     if (!trashFromCollection(tile.tid)) return null;
     state.rack = state.rack.filter(t => t.id !== tile.id);
     state.word = state.word.filter(t => t.id !== tile.id);
-    state.tongsBonus = (state.tongsBonus ?? 0) + TONGS_BONUS;
+    const bonus = primePoints('tongs', TONGS_BONUS);
     state.sundries.splice(idx, 1);
     state.sundryMode = -1;
-    return { kind: 'tongs', letters: [getActiveLetter(tile)], ids: [tile.id], bonus: state.tongsBonus };
+    return { kind: 'tongs', letters: [getActiveLetter(tile)], ids: [tile.id], bonus };
   }
 
   // An applicator strikes its tile into a new metal, written through to the
@@ -997,6 +1006,15 @@ export function toggleDualVariant(id) {
 // `rarity` narrows the draw — the love potion asks for a rare one and nothing
 // else. Returns null when no seat is free or nothing in the pool qualifies, and
 // the caller says so rather than silently pocketing the gift.
+// Arm Points against the NEXT word printed, credited to whoever armed them so
+// the readout can name them and a patron's own card can badge them. Stacks:
+// two discards before a word pay twice.
+export function primePoints(source, n) {
+  state.primed ??= {};
+  state.primed[source] = (state.primed[source] ?? 0) + n;
+  return state.primed[source];
+}
+
 export function grantRandomPatron(defs, rarity = null) {
   if (state.patrons.length >= effectivePatronSlots()) return null;
   const held = new Set(allSeats().map(p => p.id));

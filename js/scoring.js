@@ -40,6 +40,11 @@ import {
 // are done (pass 4), so `running` on a step is what the readout should show at
 // that moment in the print.
 
+// Who armed a primed bonus, for the readout. Patrons answer for themselves;
+// the tongs are a tool and have their own line.
+const primedLabel = source =>
+  (source === 'tongs' ? "the tongs' due" : patronById(source)?.name ?? 'primed');
+
 export function computeScore(wordTiles) {
   if (!wordTiles?.length) return null;
 
@@ -289,14 +294,16 @@ export function computeScore(wordTiles) {
   // Both land BEFORE the patrons speak: the patron pass below is sequential, so
   // anything a ×Mult seat should multiply must be on the table first.
 
-  // The tongs' heat: points armed when a tile was fed to the furnace, spent on
-  // the next word printed. Read here so the preview shows it, cleared when the
-  // word commits — this runs on every keystroke.
-  if (state.tongsBonus) {
-    points += state.tongsBonus;
+  // Points armed against this word before it was set — a tile fed to the tongs,
+  // a discard the Winnower approved of. Read here so the preview shows them,
+  // cleared when the word commits; this runs on every keystroke. The step is
+  // credited to whoever armed it, so a patron's own card badges its share.
+  for (const [source, armed] of Object.entries(state.primed ?? {})) {
+    if (!armed) continue;
+    points += armed;
     patronSteps.push({
-      id: 'tongs', text: `+${state.tongsBonus} Points — the tongs' due`,
-      points: state.tongsBonus, running: Math.round(points),
+      id: source, text: `+${armed} Points — ${primedLabel(source)}`,
+      points: armed, running: Math.round(points),
     });
   }
 

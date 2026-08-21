@@ -261,6 +261,12 @@ export const LOUPE_CAP      = 30;  // a doubled tile never passes this resting v
 // because laurels arrive from several sources at once.
 export const HONORIFIC_STEP = 3;
 export const TONGS_BONUS    = 8;   // Points armed for the next word, per grip
+// The Winnower's due: Points armed for the next word every time a discard is
+// spent — once per discard ACTION, however many tiles go with it, and stacking
+// if both discards are spent before a word is set. He is the first patron to
+// pay for discarding at all, which quietly makes the cobalt trim (and every
+// other source of a spare discard) worth more.
+export const WINNOWER_BONUS = 10;
 export const WASH_COUNT     = 4;   // tiles washed per pot — one of each colour
 
 // One look per tool, shared by the bench, the shop card and the held row.

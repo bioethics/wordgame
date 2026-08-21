@@ -13,7 +13,7 @@ import {
   getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile,
   trashFromCollection, mergeTiles, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
   grantRandomPatron,
-  rollGamble, effectivePatronSlots, nextId,
+  rollGamble, effectivePatronSlots, nextId, primePoints,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
@@ -588,6 +588,7 @@ function runDiscardHooks(tiles) {
       merge: mergeTiles,
       grow:  growTile,
       bench: benchPut,
+      prime: n => primePoints(p.id, n),
     });
     if (!r) continue;
     for (const t of r.trashed ?? []) trashed.set(t.id, t);
@@ -922,7 +923,7 @@ async function submitWord() {
   rollGamble();
 
   // The tongs' heat went into this word; the furnace is cold again for the next.
-  state.tongsBonus = 0;
+  state.primed = {};
 
   // The editor's memory moves on likewise — chains advance, bars re-set,
   // tempers and measures re-roll — here and never during scoring.

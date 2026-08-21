@@ -32,6 +32,7 @@ import {
   STOKER_BASE, STOKER_STEP, RAGMAN_COINS, RAGMAN_ODDS, DYE_TILES_PER_CHAPTER,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, DIPPER_PAINT_CHANCE, REVENANT_ODDS,
   PACKAGE_ODDS, FRONTISPIECE, MATERIALS, RIPPER_WORDS, PACKAGES, PRINCE, WORDLER,
+  WINNOWER_BONUS,
 } from './constants.js';
 
 // What {BRACES} in a desc may refer to. Add a line here to expose a new knob.
@@ -49,6 +50,7 @@ const KNOBS = {
   PARCEL_RUDE:      PACKAGES.rude.label,
   PRINCE_STEP:      PRINCE.step,
   WORDLER_BONUS:    WORDLER.bonus,
+  WINNOWER_BONUS,
   WORDLER_LENGTH:   WORDLER.length,
   PRINCE_CROWN:     PRINCE.crown,
 };
@@ -282,6 +284,10 @@ export const PATRON_CARDS = {
   apprentice: {
     name: 'The Apprentice', emoji: '🧹', rarity: 'common', cost: 3,
     desc: '4-letter words gain +10 Points.',
+  },
+  winnower: {
+    name: 'The Winnower', emoji: '🌾', rarity: 'common', cost: 4,
+    desc: 'Every discard you spend arms your next word with +{WINNOWER_BONUS} Points.',
   },
   scholar: {
     name: 'The Scholar', emoji: '📜', rarity: 'common', cost: 3,

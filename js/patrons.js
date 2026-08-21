@@ -82,7 +82,9 @@
 //   onDiscard(ctx)    — after tiles are thrown away, before the hand tops up;
 //                       ctx { tiles, state, data, paint(tile, colour),
 //                       trash(tile), merge(left, right), grow(tile, n),
-//                       bench(kind) }. bench puts a sundry on the workbench and
+//                       bench(kind), prime(n) }. prime arms n Points against
+//                       the NEXT word printed, credited to this patron so the
+//                       readout names it and its card badges it. bench puts a sundry on the workbench and
 //                       returns false when there is no room. The tiles are in
 //                       the discard pile but still in the collection, so paint
 //                       written here waits for the bag to come round; a hand
@@ -126,6 +128,7 @@ import {
   medievalExpansions, POSTNOM,
   PRINCE, princeMult,
   WORDLER,
+  WINNOWER_BONUS,
 } from './constants.js';
 import {
   state, getActiveColour, getActiveLetter, countsAsColour, luckyRoll,
@@ -393,6 +396,23 @@ const PATRON_BEHAVIOURS = [
     id: 'apprentice',
     when: 'score',
     effect({ word, addPoints }) { if (word.length === 4) addPoints(10); },
+  },
+  {
+    // The first seat that pays for THROWING TILES AWAY. Once per discard, not
+    // per tile — the resource spent is the discard itself, and a handful costs
+    // exactly what a single tile does. It stacks: spend both discards before
+    // setting a word and both dues ride on it.
+    //
+    // Armed rather than paid, so it lands on the word AFTER the discard, which
+    // is the whole shape of it — you clear the bad rack, then cash the better
+    // one. Shares the tongs' pool (primePoints in js/state.js), so the readout
+    // names each source and his own card badges his share.
+    id: 'winnower',
+    when: 'meta',
+    onDiscard({ prime }) {
+      prime(WINNOWER_BONUS);
+      return { note: `+${WINNOWER_BONUS} to the next word` };
+    },
   },
   {
     id: 'scholar',
