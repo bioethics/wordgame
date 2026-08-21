@@ -217,6 +217,10 @@ export const PATRON_CARDS = {
     name: 'The Typefounder', emoji: '⚗️', rarity: 'rare', cost: 10, guild: 'crimson',
     desc: 'Discard exactly two tiles: they are recast as one tile with a letter on either face.',
   },
+  alloy: {
+    name: 'The Alloy', emoji: '🟠', rarity: 'uncommon', cost: 6, guild: ['crimson', 'amber'],
+    desc: 'A word with both a crimson and an amber tile pays 2 Coins and gains +1 Mult.',
+  },
   stoker: {
     name: 'The Stoker', emoji: '🔥', rarity: 'rare', cost: 11, guild: 'crimson',
     desc: '×{STOKER_BASE} Mult, and crimson tiles are destroyed when printed — each one raises that Mult by {STOKER_STEP}, for good.',

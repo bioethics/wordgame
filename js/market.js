@@ -1,6 +1,6 @@
 import {
   state, adoptTemplate, shuffle, owns, allSeats, trashFromCollection, nextId,
-  effectivePatronSlots, effectiveSundrySlots,
+  effectivePatronSlots, effectiveSundrySlots, luckyRoll,
 } from './state.js';
 import {
   BAG_COUNTS, LIGATURES, EXCLUSIVE_LETTERS, isMark, MARKS, INTERROBANG,
@@ -12,7 +12,7 @@ import {
   TOOLBOX_PRICE, FLEURON, FLEURON_PRICE, FLEURON_OFFER_CHANCE,
   STALL_DEFS, STALLS_PER_SHOP, PROPOSAL_RANGE, SMELT_MIN_COLLECTION,
   FEATURE_CHAIN_CHANCE, MAX_FEATURES, MEDIEVAL_LETTERS, isMedieval,
-  makeTileTemplate, rollHaggle,
+  makeTileTemplate, rollHaggle, GHOST_OFFER_CHANCE,
 } from './constants.js';
 import {
   PATRON_DEFS, RARITY_WEIGHT, patronById, guildSeats, rollPostnom, patronCost, patronName,
@@ -155,7 +155,10 @@ function weightedPatronSample(n) {
     const haggle = rollHaggle();
     const rolled = patronById(id)?.onOffer?.() ?? null;
     const data = { ...rolled, ...(postnom ? { postnom } : {}), ...(haggle ? { haggle } : {}) };
-    out.push({ id, sold: false, data: Object.keys(data).length ? data : null });
+    // …and once in a long while, one who is already dead. A wanted outcome, so
+    // it rides luck like every other one.
+    const ghost = luckyRoll(GHOST_OFFER_CHANCE);
+    out.push({ id, sold: false, data: Object.keys(data).length ? data : null, ...(ghost ? { ghost: true } : {}) });
     for (let i = pool.length - 1; i >= 0; i--) if (pool[i] === id) pool.splice(i, 1);
   }
   return out;
@@ -390,15 +393,21 @@ export function closeMarket() {
 export function buyPatron(id) {
   const offer = market.patronOffers.find(o => o.id === id && !o.sold);
   const def = patronById(id);
-  if (!offer || !def)                                return { ok: false, reason: 'Not available.' };
-  if (state.patrons.length >= effectivePatronSlots()) return { ok: false, reason: 'No empty seats at your table.' };
+  if (!offer || !def) return { ok: false, reason: 'Not available.' };
+  // A ghost needs no seat — it goes to the graveyard, not the shelf — so the
+  // table being full is no reason to turn one away.
+  const ghost = !!offer.ghost;
+  if (!ghost && state.patrons.length >= effectivePatronSlots()) {
+    return { ok: false, reason: 'No empty seats at your table.' };
+  }
   const cost = patronCost(def, offer.data);
   if (state.coins < cost)              return { ok: false, reason: `You need ${cost} Coins.` };
   state.coins -= cost;
   const seat = { id, uid: nextId(), data: offer.data ? { ...offer.data } : {} };
-  state.patrons.push(seat);
+  if (ghost) (state.ghosts ??= []).push(seat);
+  else       state.patrons.push(seat);
   offer.sold = true;
-  return { ok: true, def, seat, name: patronName(def, seat.data) };
+  return { ok: true, def, seat, ghost, name: patronName(def, seat.data) };
 }
 
 // Half the seat's cost plus its refundBonus (the Cellarer's age). The shelf's ✕

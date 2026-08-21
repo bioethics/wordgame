@@ -94,8 +94,11 @@ export function updateMarketState() {
     const cost = kind === 'patron' ? patronCost(patronById(offer.id), offer.data)
                : kind === 'tile'   ? offerPrice(offer)
                :                     offer.price;
+    // A ghost needs no seat, so a full table is no bar to hiring one — the
+    // buy itself allows it (buyPatron), and this must agree or the card is
+    // greyed out for a rule that doesn't apply to it.
     const afford = state.coins >= cost
-      && (kind !== 'patron' || !seatsFull)
+      && (kind !== 'patron' || !seatsFull || !!offer.ghost)
       && (kind !== 'sundry' || !benchFull);
     card.classList.toggle('offer--sold', !!offer.sold);
     const btn = card.querySelector('.btn-price');
@@ -271,15 +274,19 @@ function marketShopHTML() {
                  + (liveries[1] ? ` offer-patron--g2-${liveries[1]}` : '');
     // Struck differently: the ×Mult a postnom carries is not in the desc.
     const lettered = o.data?.postnom ? ' offer-patron--postnom' : '';
+    // Already dead: it works on and takes no seat, but its contract is worth
+    // nothing back. Said on the card, because neither half is guessable.
+    const spectral = o.ghost ? ' offer-patron--ghost' : '';
     return `
-      <div class="offer-patron offer-patron--${def.rarity}${livery}${lettered}" data-offer="patron" data-idx="${i}">
+      <div class="offer-patron offer-patron--${def.rarity}${livery}${lettered}${spectral}" data-offer="patron" data-idx="${i}">
         <div class="op-portrait">${def.portrait
           ? `<img src="${def.portrait}" alt="${name}">`
           : `<span class="op-emoji">${patronEmoji(def, o.data)}</span>`}</div>
         <div class="op-card-body">
           <div class="op-name">${name}</div>
           <div class="op-title">${def.rarity}${liveries.length ? ` · <span class="op-guild">${liveries.join(' & ')}</span>` : ''}${
-            o.data?.postnom ? ` · <span class="op-postnom">${o.data.postnom} · ×${POSTNOM.mult} Mult</span>` : ''}</div>
+            o.data?.postnom ? ` · <span class="op-postnom">${o.data.postnom} · ×${POSTNOM.mult} Mult</span>` : ''}${
+            o.ghost ? ' · <span class="op-ghost">👻 a ghost · takes no seat · no refund</span>' : ''}</div>
           <div class="op-desc">${desc}</div>
         </div>
         <span class="op-sold">seated</span>
@@ -818,7 +825,10 @@ function onMarketClick(e) {
     const r = buyPatron(buyP.dataset.buyPatron);
     if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
     else {
-      sfx.coin(); log(`${r.name} takes a seat at your table.`, 'good');
+      sfx.coin();
+      log(r.ghost
+        ? `${r.name} was already dead — it works on from the graveyard, and takes no seat.`
+        : `${r.name} takes a seat at your table.`, 'good');
       // To the sheet's own shelf strip — the board's is under the modal.
       flyPurchase(card, document.querySelector('[data-market-shelf]') ?? $('shelf'), { scaleTo: 0.2 });
     }

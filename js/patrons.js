@@ -970,6 +970,22 @@ const PATRON_BEHAVIOURS = [
     },
   },
   {
+    // Where crimson meets amber: fire and the counting-house, and the effect is
+    // the two guilds standing side by side — each pays in its own currency.
+    // Dual livery rather than a colour of its own, so what it is worth to an
+    // Alderman depends on what your shelf already covers.
+    //
+    // painted() reads through countsAsColour, so ONE rainbow tile satisfies
+    // both halves by itself — the cheapest way to fire him, and intended.
+    id: 'alloy',
+    when: 'score',
+    effect({ tiles, addCoins, addMult }) {
+      if (!painted(tiles, 'crimson').length || !painted(tiles, 'amber').length) return;
+      addCoins(2);
+      addMult(1);
+    },
+  },
+  {
     // The furnace is lit the moment he sits: ×STOKER_BASE before a single tile
     // has gone in, rising by STOKER_STEP for each one that does. Counters
     // advance in onPrinted, so the tiles he eats pay from the next word on.
