@@ -994,10 +994,14 @@ export function toggleDualVariant(id) {
 // ignored on purpose. Nothing already held is offered, nor the cat, who is
 // found rather than given. Returns the new seat, or null when the table is full
 // or the roster exhausted; the caller says so.
-export function grantRandomPatron(defs) {
+// `rarity` narrows the draw — the love potion asks for a rare one and nothing
+// else. Returns null when no seat is free or nothing in the pool qualifies, and
+// the caller says so rather than silently pocketing the gift.
+export function grantRandomPatron(defs, rarity = null) {
   if (state.patrons.length >= effectivePatronSlots()) return null;
   const held = new Set(allSeats().map(p => p.id));
-  const pool = defs.filter(d => !d.unlisted && (d.stackable || !held.has(d.id)));
+  const pool = defs.filter(d => !d.unlisted && (d.stackable || !held.has(d.id))
+                             && (!rarity || d.rarity === rarity));
   if (!pool.length) return null;
   const def = pool[Math.floor(Math.random() * pool.length)];
   const seat = { id: def.id, uid: nextId(), data: def.onOffer?.() ?? {} };

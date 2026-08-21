@@ -217,7 +217,7 @@ export const PACKAGE_ODDS = 0.5;
 export const PACKAGES = {
   romantic: {
     patron: 'paramour', label: 'A billet-doux', emoji: '💌',
-    body: 'Sealed and scented. Open it for a two-faced X|O in crimson, a love potion, or a tube of crimson.',
+    body: 'Sealed and scented. Open it for a two-faced X|O in crimson, a love potion for the workbench, or a tube of crimson.',
     loot: [['xotile', 3], ['potion', 3], ['tube-crimson', 3]],
   },
   spooky: {
@@ -270,6 +270,7 @@ export const TOOL_LOOK = {
   laurel:  { glyph: '🏵️', label: 'Laurel' },
   tongs:   { glyph: '🗜️', label: 'Tongs' },
   wash:    { glyph: '💧', label: 'Ink wash' },
+  potion:  { glyph: '🧪', label: 'Love potion' },
 };
 
 // The applicators strike one tile in hand into a new material. Like the tube, the
@@ -746,6 +747,11 @@ export function sundryTip(s) {
   if (s?.kind === 'wrapped') return {
     head: 'A wrapped tile',
     body: 'Unwrap it mid-page to gain one rare tile, permanently.'
+  };
+  if (s?.kind === 'potion') return {
+    head: 'Love potion',
+    body: 'Uncork it and a RARE patron takes an empty seat at your table, free. '
+        + 'Keeps until there is a seat to spare.',
   };
   if (s?.kind === 'package' && PACKAGES[s.theme]) {
     const p = PACKAGES[s.theme];

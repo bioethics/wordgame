@@ -210,15 +210,9 @@ async function openPackage(prize, pkg) {
       benchPut({ kind: 'applicator', material });
       return `${APPLICATORS[material].label} in an applicator, for the workbench.`;
     }
-    case 'potion': {
-      const seat = grantRandomPatron(PATRON_DEFS);
-      if (!seat) return 'a love potion — and no empty seat at your table to use it on. It evaporates.';
-      const def = patronById(seat.id);
-      renderAll();
-      const card = patronCard(seat);
-      if (card) { pulse(card, 'patron--firing', 620); sparkleBurst(card, 12); }
-      return `a love potion, and ${patronName(def, seat.data)} takes the empty seat — free.`;
-    }
+    case 'potion':
+      benchPut('potion');
+      return 'a love potion for the workbench — uncork it when a seat is free.';
     default:
       return 'nothing at all, which is its own kind of joke.';
   }
@@ -1428,6 +1422,38 @@ async function useSundry(idx, e = null) {
   // The laurel needs no target either — it picks its own head to crown, and dies
   // with the seat. A crown pays at that seat's turn in the running order, so
   // where it lands decides what it is worth.
+  // Uncorked on a tap: it has no target to pick, and the seat it fills is its
+  // own choice. It KEEPS when there is no room or no rare left to call on —
+  // a gift you cannot use yet is not a gift you should lose.
+  if (armed?.kind === 'potion') {
+    const seat = grantRandomPatron(PATRON_DEFS, 'rare');
+    if (!seat) {
+      log(state.patrons.length >= effectivePatronSlots()
+        ? 'No empty seat at your table — the potion stays corked.'
+        : 'Every rare patron is already yours — the potion stays corked.', 'warn');
+      return;
+    }
+    cancelDiscardMode(true);
+    cancelSundryMode(true);
+    state.sundries.splice(idx, 1);
+
+    state.isAnimating = true;
+    renderAll();
+    sfx.chime();
+    const card = patronCard(seat);
+    if (card) {
+      pulse(card, 'patron--firing', 620);
+      sparkleBurst(card, 12);
+      floatText(card, '🧪 smitten', 'fl-points', { dy: -44 });
+    }
+    await sleep(ANIM.stepColour);
+    state.isAnimating = false;
+    renderAll();
+    const def = patronById(seat.id);
+    log(`The potion is uncorked — ${patronName(def, seat.data)} is smitten, and takes a seat for nothing.`, 'good');
+    return;
+  }
+
   if (armed?.kind === 'laurel') {
     if (!state.patrons.length) { log('No patron seated to crown — the laurel keeps.', 'warn'); return; }
     cancelDiscardMode(true);

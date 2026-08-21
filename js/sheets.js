@@ -204,7 +204,7 @@ function benchSlotHTML(s, i) {
   : s.kind === 'wrapped'   ? { cls: 'sundry--wrapped', mark: '<span class="wrapped-mark"></span>', name: 'Wrapped' }
   : s.kind === 'package' && PACKAGES[s.theme]
                            ? { cls: `sundry--wrapped sundry--package sundry--pkg-${s.theme}`,
-                               mark: '<span class="wrapped-mark"></span>', name: PACKAGES[s.theme].emoji }
+                               mark: '<span class="wrapped-mark"></span>', name: 'Parcel' }
   : s.kind === 'applicator' && APPLICATORS[s.material]
                            ? { cls: `sundry--tool sundry--applicator sundry--app-${s.material}`,
                                mark: `<span class="sundry-glyph">${APPLICATORS[s.material].glyph}</span>`,

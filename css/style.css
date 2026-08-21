@@ -808,8 +808,8 @@ button.sundry:hover { transform: translateY(-2px); }
   --paper-a: #8fd8e8; --paper-b: #6ab3d8; --paper-c: #a98ede;
   --twine-a: #fff6c8; --twine-b: #ffd98a;
 }
-/* rude keeps the default brown — see above */
-.sundry--package .sundry-name { font-size: 13px; line-height: 1.1; }
+/* rude keeps the default brown — see above. The slot says only "Parcel": the
+   paper already says which of the four it is, and the tooltip names it. */
 
 /* ── The applicators ──────────────────────────────────────────────────────────
    A tube's slot with a metal in it, so the armed glow takes the material. */

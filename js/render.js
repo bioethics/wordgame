@@ -620,7 +620,7 @@ function renderSundries() {
       slot.dataset.sundry = i;
       slot.innerHTML = `
         <span class="wrapped-mark"></span>
-        <span class="sundry-name">${PACKAGES[s.theme].emoji}</span>`;
+        <span class="sundry-name">Parcel</span>`;
     } else if (s?.kind === 'applicator' && APPLICATORS[s.material]) {
       const armed  = state.sundryMode === i;
       const picked = armed && sundrySelected().length > 0;
