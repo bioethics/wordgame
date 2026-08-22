@@ -31,7 +31,7 @@ import {
   ABECEDARIAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,
   STOKER_BASE, STOKER_STEP, RAGMAN_COINS, RAGMAN_ODDS, DYE_TILES_PER_CHAPTER,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, DIPPER_PAINT_CHANCE, REVENANT_ODDS,
-  PACKAGE_ODDS, FRONTISPIECE, MATERIALS, RIPPER_WORDS, PACKAGES, PRINCE, WORDLER,
+  PACKAGE_ODDS, oddsText, FRONTISPIECE, MATERIALS, RIPPER_WORDS, PACKAGES, PRINCE, WORDLER,
   WINNOWER_BONUS, MAGPIE_WEIGHT, MAKO_WEIGHT,
 } from './constants.js';
 
@@ -40,7 +40,7 @@ const KNOBS = {
   ABECEDARIAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,
   STOKER_BASE, STOKER_STEP, RAGMAN_COINS, RAGMAN_ODDS, DYE_TILES_PER_CHAPTER,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, DIPPER_PAINT_CHANCE, REVENANT_ODDS,
-  PACKAGE_ODDS,
+  PACKAGE_CHANCE:   oddsText(PACKAGE_ODDS),
   FRONTISPIECE_MULT: FRONTISPIECE.base,
   GHOST_METAL:      MATERIALS.ghost.metal.toLowerCase(),
   RIPPER_WORDS:     `${RIPPER_WORDS.slice(0, -1).join(', ')} or ${RIPPER_WORDS.at(-1)}`,
@@ -385,7 +385,7 @@ export const PATRON_CARDS = {
   },
   poppet: {
     name: 'The Poppet', emoji: '🧸', rarity: 'rare', cost: 7,
-    desc: '×3 Mult for any of the thousands of words The Poppet finds cute — and a 1-in-{1/PACKAGE_ODDS} chance of {PARCEL_CUTE} for the workbench.',
+    desc: '×3 Mult for any of the thousands of words The Poppet finds cute — and a {PACKAGE_CHANCE} chance of {PARCEL_CUTE} for the workbench.',
   },
   illuminator: {
     name: 'The Illuminator', emoji: '🎨', rarity: 'rare', cost: 8,
@@ -393,15 +393,15 @@ export const PATRON_CARDS = {
   },
   paramour: {
     name: 'The Paramour', emoji: '💘', rarity: 'rare', cost: 8,
-    desc: '×3 Mult for any of the thousands of words The Paramour finds romantic — and a 1-in-{1/PACKAGE_ODDS} chance of {PARCEL_ROMANTIC} for the workbench.',
+    desc: '×3 Mult for any of the thousands of words The Paramour finds romantic — and a {PACKAGE_CHANCE} chance of {PARCEL_ROMANTIC} for the workbench.',
   },
   sexton: {
     name: 'The Sexton', emoji: '⚰️', rarity: 'rare', cost: 8,
-    desc: '×3 Mult for any of the thousands of words The Sexton finds spooky — and a 1-in-{1/PACKAGE_ODDS} chance of {PARCEL_SPOOKY} for the workbench.',
+    desc: '×3 Mult for any of the thousands of words The Sexton finds spooky — and a {PACKAGE_CHANCE} chance of {PARCEL_SPOOKY} for the workbench.',
   },
   vulgarian: {
     name: 'The Vulgarian', emoji: '🍑', rarity: 'rare', cost: 8,
-    desc: '×3 Mult for any of the thousands of words The Vulgarian finds rude — and a 1-in-{1/PACKAGE_ODDS} chance of {PARCEL_RUDE} for the workbench.',
+    desc: '×3 Mult for any of the thousands of words The Vulgarian finds rude — and a {PACKAGE_CHANCE} chance of {PARCEL_RUDE} for the workbench.',
   },
   astronomer: {
     name: 'The Astronomer', emoji: '🔭', rarity: 'rare', cost: 9,

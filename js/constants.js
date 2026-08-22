@@ -229,7 +229,17 @@ export const SUNDRY_OFFERS = 2;   // sundries offered per shop
 // firing register, and a full bench turns the gift away. A package is a sundry
 // like any other — the Market buys it back for SUNDRY_SELL. Loot tables are
 // weighted [id, weight] pairs, resolved in js/main.js (openPackage).
-export const PACKAGE_ODDS = 0.5;
+export const PACKAGE_ODDS = 2 / 3;
+
+// "2-in-3", "1-in-4" — the smallest denominator that lands within half a percent
+// of the real odds, so a card can never quote a chance the code doesn't run.
+export const oddsText = p => {
+  for (let d = 1; d <= 12; d++) {
+    const n = Math.round(p * d);
+    if (n && Math.abs(n / d - p) < 0.005) return `${n}-in-${d}`;
+  }
+  return `${Math.round(p * 100)}-in-100`;
+};
 
 export const PACKAGES = {
   romantic: {
