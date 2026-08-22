@@ -274,8 +274,9 @@ function marketShopHTML() {
                  + (liveries[1] ? ` offer-patron--g2-${liveries[1]}` : '');
     // Struck differently: the ×Mult a postnom carries is not in the desc.
     const lettered = o.data?.postnom ? ' offer-patron--postnom' : '';
-    // Already dead: it works on and takes no seat, but its contract is worth
-    // nothing back. Said on the card, because neither half is guessable.
+    // Already dead: it works on, takes no seat, and its contract is worth
+    // nothing back. The card says only WHAT it is — the colours carry the rest,
+    // and the price tag's tooltip has the terms for anyone who asks.
     const spectral = o.data?.ghost ? ' offer-patron--ghost' : '';
     return `
       <div class="offer-patron offer-patron--${def.rarity}${livery}${lettered}${spectral}" data-offer="patron" data-idx="${i}">
@@ -286,7 +287,7 @@ function marketShopHTML() {
           <div class="op-name">${name}</div>
           <div class="op-title">${def.rarity}${liveries.length ? ` · <span class="op-guild">${liveries.join(' & ')}</span>` : ''}${
             o.data?.postnom ? ` · <span class="op-postnom">${o.data.postnom} · ×${POSTNOM.mult} Mult</span>` : ''}${
-            o.data?.ghost ? ' · <span class="op-ghost">👻 a ghost · takes no seat · no refund</span>' : ''}</div>
+            o.data?.ghost ? ' · <span class="op-ghost">👻 a ghost</span>' : ''}</div>
           <div class="op-desc">${desc}</div>
         </div>
         <span class="op-sold">seated</span>
