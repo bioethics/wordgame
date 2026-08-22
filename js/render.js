@@ -249,14 +249,9 @@ export function showTilePopover(tile, anchorEl, breakdown = null, { canFlip = tr
 }
 
 export function showPatronPopover(def, anchorEl, seat = null) {
-  // A patron with something to be *used* offers it above the dismissal.
-  const act = def.id === 'neologist'
-    ? `<button class="btn btn-quiet tip-btn" data-patron-act="neologist">Coin a word…</button>`
-    : def.id === 'scientist' && seat && !state.inMarket && !state.inColophon
-    ? (seat.data?.used
-        ? `<button class="btn btn-quiet tip-btn" disabled>Lent this page already</button>`
-        : `<button class="btn btn-quiet tip-btn" data-patron-act="scientist">Ask for the OLOGY tile</button>`)
-    : '';
+  // A patron with something to be *used* offers it above the dismissal, and
+  // says so on its own def (patrons.js `act`) rather than being named here.
+  const act = def.act?.({ seat, data: seat?.data }) ?? '';
   const name = patronName(def, seat?.data);
   const desc = def.instDesc?.(seat?.data) ?? def.desc;
   // What the seat would actually pay back, not half the list price: a patron
@@ -264,13 +259,17 @@ export function showPatronPopover(def, anchorEl, seat = null) {
   // one figure and pay another — and a ghost's contract is worth nothing.
   const ghost  = !!seat?.data?.ghost;
   const refund = ghost ? 0 : seat ? patronRefund(seat) : Math.floor(def.cost / 2);
+  // A patron with a hold over you (the Usurer's book) offers no way out at all.
+  const held = seat ? def.holds?.(seat.data) : null;
   showPopover(anchorEl, `
     <div class="tip-head">${patronEmoji(def, seat?.data)} ${name} <span class="op-rarity">${def.rarity}</span></div>
     <div class="tip-line">${desc}</div>
     ${def.popover?.(seat?.data) ?? ''}
     ${act}
-    <button class="btn btn-quiet tip-btn" data-sell="${seat?.uid ?? def.id}">${
-      ghost ? 'Let go for nothing' : `Dismiss for ${coinHTML(refund)}`}</button>`,
+    ${held
+      ? `<button class="btn btn-quiet tip-btn" disabled>${held}</button>`
+      : `<button class="btn btn-quiet tip-btn" data-sell="${seat?.uid ?? def.id}">${
+          ghost ? 'Let go for nothing' : `Dismiss for ${coinHTML(refund)}`}</button>`}`,
     ghost ? 'tip-pop--ghost' : '');
 }
 

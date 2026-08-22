@@ -434,6 +434,10 @@ export function sellPatron(ref) {
   const seat = list[i];
   const def = patronById(seat.id);
   if (!def) return { ok: false };
+  // A patron may have a hold over the shelf — the Usurer's unpaid book. The
+  // seat is the collateral, so it cannot be sold out from under the debt.
+  const held = def.holds?.(seat.data);
+  if (held) return { ok: false, reason: `${held} — ${patronName(def, seat.data)} keeps his seat.` };
   const ghost = list !== state.patrons;
   const refund = ghost ? 0 : patronRefund(seat);
   list.splice(i, 1);

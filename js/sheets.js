@@ -893,6 +893,7 @@ function onMarketClick(e) {
   const sellP = e.target.closest('[data-sell-patron]');
   if (sellP) {
     const r = sellPatron(sellP.dataset.sellPatron);
+    if (r.reason) { log(r.reason, 'warn'); return; }
     if (r.ok) {
       sfx.coin();
       log(`${r.name} departs — ${r.refund} Coin${r.refund === 1 ? '' : 's'} back.`);

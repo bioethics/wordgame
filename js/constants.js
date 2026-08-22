@@ -133,6 +133,14 @@ export const rollHaggle = () => {
        : 0;
 };
 
+// ─── The Usurer's book ────────────────────────────────────────────────────────
+// He lends against the SEAT, not against interest: hiring him is the fee, and
+// the single Coin over the loan is a formality he insists on. The debt is
+// collected a little at a time as pages end — he takes what you have if you
+// have less — and while a Coin of it stands he cannot be dismissed. Murder
+// settles the account: a ghost has no use for money.
+export const USURER = { loan: 15, owed: 16, collect: 4 };
+
 // ─── What the bag hands you first ─────────────────────────────────────────────
 // Two patrons reach into the bag rather than at the board. A weight of 2 means
 // a tile is drawn about twice as often as its share of the bag would give it.

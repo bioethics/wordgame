@@ -21,7 +21,7 @@ import {
   chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks, isDeadline,
   FLEURON, TOOLBOX_POOL, HONORIFIC_STEP, TONGS_BONUS, LOUPE_CAP, RIPPER_WORDS, sundryTip,
   PACKAGES, APPLICATORS, SILVER_BONUS, BAG_COUNTS,
-  lengthFlourish, medievalExpansions,
+  lengthFlourish, medievalExpansions, USURER,
 } from './constants.js';
 import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
 import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
@@ -1647,6 +1647,7 @@ $('inspectorModal')?.addEventListener('click', e => {
 // `ref` is a seat uid or a def id — sellPatron takes either.
 function dismissPatron(ref) {
   const r = sellPatron(ref);
+  if (r.reason) { log(r.reason, 'warn'); return; }
   if (r.ok) {
     log(`${r.name} departs with thanks — ${r.refund} Coin${r.refund !== 1 ? 's' : ''} returned.`);
     if (r.headsman) log(`🪓 The Headsman approves — ×${r.headsman.mult} Mult now.`);
@@ -1671,6 +1672,7 @@ $('ghostModal')?.addEventListener('click', e => {
   const sell = e.target.closest('[data-sell-ghost]');
   if (sell) {
     const r = sellPatron(sell.dataset.sellGhost);
+    if (r.reason) { log(r.reason, 'warn'); return; }
     if (r.ok) {
       log(`${r.name} is let go — a ghost's contract is worth nothing.`);
       if (r.headsman) log(`🪓 The Headsman approves — ×${r.headsman.mult} Mult now.`);
@@ -1744,6 +1746,34 @@ $('overlayModal')?.addEventListener('keydown', e => {
 
 // The Scientist's loan: a gold-trimmed OLOGY tile, cast lent so it vanishes with
 // the page. Once a page — data.used latches here, re-arms in his onPageStart.
+// ─── The Usurer's book ────────────────────────────────────────────────────────
+// Both halves work off his seat's `data.debt`; everything that READS the debt
+// goes through his def (patrons.js), so a murdered lender forgives everywhere
+// at once. A ghost never offers these buttons, so neither guards for one.
+function usurerBorrow() {
+  const seat = state.patrons.find(p => p.id === 'usurer');
+  if (!seat) return;
+  seat.data ??= {};
+  if (seat.data.debt) { log('🧾 One book at a time.', 'warn'); return; }
+  seat.data.debt = USURER.owed;
+  state.coins += USURER.loan;
+  sfx.coin();
+  log(`🧾 ${USURER.loan} Coins, and ${USURER.owed} written in the book — ${USURER.collect} as each page ends. He keeps his seat until it is clear.`, 'good');
+  renderAll(); if (state.inMarket) renderMarket(); persist();
+}
+
+function usurerRepay() {
+  const seat = state.patrons.find(p => p.id === 'usurer');
+  const owed = seat?.data?.debt ?? 0;
+  if (!owed) return;
+  if (state.coins < owed) { log(`🧾 ${owed} Coins would clear the book. You have ${state.coins}.`, 'warn'); return; }
+  state.coins -= owed;
+  seat.data.debt = 0;
+  sfx.coin();
+  log('🧾 The book is clear. He bows, and is yours to dismiss.', 'good');
+  renderAll(); if (state.inMarket) renderMarket(); persist();
+}
+
 async function lendOlogyTile() {
   if (state.isAnimating || state.inMarket || state.inColophon || state.gameOver) return;
   const seat = state.patrons.find(p => p.id === 'scientist');
@@ -1778,6 +1808,8 @@ $('popover')?.addEventListener('click', e => {
     if (!state.isAnimating) {
       if (act.dataset.patronAct === 'neologist') showCoinWordSheet();
       if (act.dataset.patronAct === 'scientist') lendOlogyTile();
+      if (act.dataset.patronAct === 'usurer-borrow') usurerBorrow();
+      if (act.dataset.patronAct === 'usurer-repay')  usurerRepay();
     }
     return;
   }

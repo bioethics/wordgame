@@ -125,7 +125,7 @@ import {
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, isMark,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
   HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, RIPPER_WORDS, splitMarks, isImmutable,
-  medievalExpansions, POSTNOM, GHOST_HIRE,
+  medievalExpansions, POSTNOM, GHOST_HIRE, USURER,
   PRINCE, princeMult,
   WORDLER,
   WINNOWER_BONUS,
@@ -155,6 +155,10 @@ const rollCypher = () => {
   return { len, at: Math.floor(Math.random() * len) };
 };
 const princeCrowned = data => princeMult(data?.solved ?? 0) >= PRINCE.crown;
+
+// What The Usurer is still owed. A ghost is owed nothing: being murdered
+// settles the account, and a dead lender will not open a new one either.
+const usurerOwed = data => (data?.ghost ? 0 : data?.debt ?? 0);
 
 // ─── The Wordler's marking ────────────────────────────────────────────────────
 // Wordle's own rule, duplicates and all: greens are claimed first, then yellows
@@ -506,6 +510,43 @@ const PATRON_BEHAVIOURS = [
     tileBonus: t => (getActiveColour(t) ? 3 : 0),
   },
   {
+    // A loan against the seat. Everything reads the debt through usurerOwed, so
+    // the card, the collector and the dismissal guard all forgive at the same
+    // instant a knife goes in: a ghost is owed nothing. That also stops a ghost
+    // hired dead at the Market from lending money nobody can collect.
+    id: 'usurer',
+    when: 'meta',   // borrowed and repaid from his card — the buttons are in main.js
+    instDesc(data) {
+      if (data?.ghost) return 'What good is money to me now? Keep it.';
+      const owed = usurerOwed(data);
+      return owed
+        ? `You owe him ${owed} Coins. He takes ${USURER.collect} as each page ends, and will not go until the book is clear.`
+        : PATRON_CARDS.usurer.desc;
+    },
+    act: ({ seat, data }) => {
+      if (!seat || data?.ghost) return '';
+      const owed = usurerOwed(data);
+      if (!owed) {
+        return `<button class="btn btn-quiet tip-btn" data-patron-act="usurer-borrow">Borrow ${USURER.loan} Coins</button>`;
+      }
+      return `<button class="btn btn-quiet tip-btn" data-patron-act="usurer-repay"${
+        state.coins < owed ? ' disabled' : ''}>Settle the book — ${owed} Coins</button>`;
+    },
+    holds: data => {
+      const owed = usurerOwed(data);
+      return owed ? `He is owed ${owed} Coins` : null;
+    },
+    onPageComplete({ state, data }) {
+      const owed = usurerOwed(data);
+      if (!owed) return null;
+      const take = Math.min(owed, USURER.collect, state.coins);
+      if (!take) return { note: 'nothing to collect — the book stands' };
+      state.coins -= take;
+      data.debt = owed - take;
+      return { note: data.debt ? `${take} Coins collected, ${data.debt} still owed` : `${take} Coins collected — the book is clear` };
+    },
+  },
+  {
     // No promise, only a thumb on the scale: every draw weighs gold more
     // heavily than anything else in the bag (drawFromBag), so the more you gild
     // the more she finds.
@@ -629,7 +670,12 @@ const PATRON_BEHAVIOURS = [
     // a lent tile wears metal, since nothing can be written to it later. Once a
     // page; the flag re-arms below as the next page is dealt.
     id: 'scientist',
-    when: 'meta',   // used from his card — the act button in render.js, the loan in main.js
+    when: 'meta',   // used from his card — the act button below, the loan in main.js
+    act: ({ seat, data }) =>
+      (!seat || state.inMarket || state.inColophon) ? ''
+      : data?.used
+      ? `<button class="btn btn-quiet tip-btn" disabled>Lent this page already</button>`
+      : `<button class="btn btn-quiet tip-btn" data-patron-act="scientist">Ask for the OLOGY tile</button>`,
     onPageStart({ data }) { data.used = false; return null; },
   },
 
@@ -1194,6 +1240,7 @@ const PATRON_BEHAVIOURS = [
   },
   {
     id: 'neologist',
+    act: () => `<button class="btn btn-quiet tip-btn" data-patron-act="neologist">Coin a word…</button>`,
     when: 'meta',   // the coining sheet lives in sheets.js; the word outlives the run
   },
 

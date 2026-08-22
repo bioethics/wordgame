@@ -32,7 +32,7 @@ import {
   STOKER_BASE, STOKER_STEP, RAGMAN_COINS, RAGMAN_ODDS, DYE_TILES_PER_CHAPTER,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, DIPPER_PAINT_CHANCE, REVENANT_ODDS,
   PACKAGE_ODDS, oddsText, FRONTISPIECE, MATERIALS, RIPPER_WORDS, PACKAGES, PRINCE, WORDLER,
-  WINNOWER_BONUS, MAGPIE_WEIGHT, MAKO_WEIGHT,
+  WINNOWER_BONUS, MAGPIE_WEIGHT, MAKO_WEIGHT, USURER,
 } from './constants.js';
 
 // What {BRACES} in a desc may refer to. Add a line here to expose a new knob.
@@ -55,6 +55,9 @@ const KNOBS = {
   PRINCE_CROWN:     PRINCE.crown,
   MAGPIE_WEIGHT,
   MAKO_WEIGHT,
+  USURER_LOAN:      USURER.loan,
+  USURER_OWED:      USURER.owed,
+  USURER_COLLECT:   USURER.collect,
 };
 
 export const PATRON_CARDS = {
@@ -94,6 +97,10 @@ export const PATRON_CARDS = {
   chapman: {
     name: 'The Chapman', emoji: '🛒', rarity: 'uncommon', cost: 7, guild: 'amber',
     desc: 'One tile at the Market is always amber, and amber tiles cost nothing.',
+  },
+  usurer: {
+    name: 'The Usurer', emoji: '🧾', rarity: 'common', cost: 2, guild: 'amber',
+    desc: 'Tap for a loan of {USURER_LOAN} Coins. He takes {USURER_COLLECT} back as each page ends, and will not go until the {USURER_OWED} is paid.',
   },
   magpie: {
     name: 'The Magpie', emoji: '🐦', rarity: 'uncommon', cost: 7, guild: 'amber',
