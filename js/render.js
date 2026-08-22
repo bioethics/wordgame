@@ -214,11 +214,13 @@ export const tileTitle = (tile, breakdown = null) => tileTitleLines(tile, breakd
 
 // ─── Popover (tap/long-press replacement for hover tooltips) ──────────────────
 
-export function showPopover(anchorEl, html) {
+export function showPopover(anchorEl, html, skin = '') {
   const pop = $('popover');
   if (!pop || !anchorEl) return;
   pop.innerHTML = html;
-  pop.classList.remove('hidden');
+  // The class list is SET rather than added to: a skin (a ghost's card) must
+  // not outlive the popover that asked for it.
+  pop.className = `tip-pop${skin ? ` ${skin}` : ''}`;
 
   const a = anchorEl.getBoundingClientRect();
   const p = pop.getBoundingClientRect();
@@ -268,7 +270,8 @@ export function showPatronPopover(def, anchorEl, seat = null) {
     ${def.popover?.(seat?.data) ?? ''}
     ${act}
     <button class="btn btn-quiet tip-btn" data-sell="${seat?.uid ?? def.id}">${
-      ghost ? 'Let go for nothing' : `Dismiss for ${coinHTML(refund)}`}</button>`);
+      ghost ? 'Let go for nothing' : `Dismiss for ${coinHTML(refund)}`}</button>`,
+    ghost ? 'tip-pop--ghost' : '');
 }
 
 // ─── The Neologist's coining sheet ────────────────────────────────────────────

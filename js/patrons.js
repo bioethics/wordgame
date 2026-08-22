@@ -506,10 +506,17 @@ const PATRON_BEHAVIOURS = [
     tileBonus: t => (getActiveColour(t) ? 3 : 0),
   },
   {
-    // No promise, only a thumb on the scale: every draw weighs gold twice as
-    // heavily as anything else in the bag (magpieWeight), so the more you gild
+    // No promise, only a thumb on the scale: every draw weighs gold more
+    // heavily than anything else in the bag (drawFromBag), so the more you gild
     // the more she finds.
     id: 'magpie',
+    when: 'meta',   // the draw is weighted in js/state.js
+  },
+  {
+    // The other pair of eyes on the bag: crimson paint is blood in the water,
+    // and he swims to it. Weighted in drawFromBag beside the Magpie's gold, so
+    // a tile wearing both is drawn all the harder.
+    id: 'mako',
     when: 'meta',   // the draw is weighted in js/state.js
   },
   {

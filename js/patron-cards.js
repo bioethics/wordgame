@@ -32,7 +32,7 @@ import {
   STOKER_BASE, STOKER_STEP, RAGMAN_COINS, RAGMAN_ODDS, DYE_TILES_PER_CHAPTER,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, DIPPER_PAINT_CHANCE, REVENANT_ODDS,
   PACKAGE_ODDS, FRONTISPIECE, MATERIALS, RIPPER_WORDS, PACKAGES, PRINCE, WORDLER,
-  WINNOWER_BONUS,
+  WINNOWER_BONUS, MAGPIE_WEIGHT, MAKO_WEIGHT,
 } from './constants.js';
 
 // What {BRACES} in a desc may refer to. Add a line here to expose a new knob.
@@ -53,6 +53,8 @@ const KNOBS = {
   WINNOWER_BONUS,
   WORDLER_LENGTH:   WORDLER.length,
   PRINCE_CROWN:     PRINCE.crown,
+  MAGPIE_WEIGHT,
+  MAKO_WEIGHT,
 };
 
 export const PATRON_CARDS = {
@@ -95,7 +97,7 @@ export const PATRON_CARDS = {
   },
   magpie: {
     name: 'The Magpie', emoji: '🐦', rarity: 'uncommon', cost: 7, guild: 'amber',
-    desc: 'Gold-trimmed tiles are twice as likely to be drawn from the bag.',
+    desc: 'Gold-trimmed tiles are {MAGPIE_WEIGHT}× as likely to be drawn from the bag.',
   },
   shorthair: {
     name: 'The Domestic Shorthair', emoji: '🐈', rarity: 'rare', cost: 0, guild: 'amber', unlisted: true,
@@ -204,6 +206,10 @@ export const PATRON_CARDS = {
   serpent: {
     name: 'The Serpent', emoji: '🐍', rarity: 'uncommon', cost: 7, guild: 'crimson',
     desc: 'Words ending in S get ×2 Mult — and the S is swallowed.',
+  },
+  mako: {
+    name: 'The Shortfin Mako', emoji: '🦈', rarity: 'uncommon', cost: 7, guild: 'crimson',
+    desc: 'Crimson tiles are {MAKO_WEIGHT}× as likely to be drawn from the bag. Blood in the water.',
   },
   revenant: {
     name: 'The Revenant', emoji: '💀', rarity: 'rare', cost: 8, guild: 'crimson',

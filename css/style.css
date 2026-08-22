@@ -379,19 +379,8 @@ header {
 }
 .op-postnom { color: #8a5c12; font-weight: 800; letter-spacing: 0.3px; }
 
-/* A calling card for someone already dead. The same drained blue the shelf's
-   ghosts wear, so the graveyard and the shop speak one language. */
-.offer-patron.offer-patron--ghost {
-  background: linear-gradient(170deg, #dfe8f5 0%, #c2d2e6 100%);
-  box-shadow:
-    inset 0 0 0 2px rgba(226, 238, 255, 0.75),
-    inset 0 0 0 3.5px rgba(120, 160, 210, 0.55),
-    0 6px 18px rgba(0, 0, 0, 0.45),
-    0 0 18px rgba(140, 180, 230, 0.3);
-}
-.offer-patron--ghost .op-name { color: #3b5878; }
-.offer-patron--ghost .op-emoji { filter: grayscale(0.6) brightness(1.2); opacity: 0.9; }
-.op-ghost { color: #3f6188; font-weight: 800; letter-spacing: 0.2px; }
+/* A calling card for someone already dead is skinned further down, with the
+   Market's own cards — it has to overrule the livery and body rules there. */
 
 @media (prefers-reduced-motion: reduce) {
   .offer-patron.offer-patron--postnom { animation: none; }
@@ -410,22 +399,39 @@ header {
               transform calc(0.22s / var(--aspd)) ease;
 }
 
-/* ─── A ghost (a patron The Ripper killed) ─────────────────────────────────────
-   The same card, drained. Only ever seen behind the graveyard door. */
+/* ─── A ghost (a patron The Ripper killed, or one hired dead) ──────────────────
+   Not the parchment card drained but its negative: slate under moonlight,
+   light-inked, edged in the dashed glow the ghost TILE wears, breathing.
+   Only ever seen behind the graveyard door. */
 .patron--ghost.patron--common,
 .patron--ghost.patron--uncommon,
 .patron--ghost.patron--rare {
-  background: linear-gradient(170deg, #2b3550 0%, #1b2236 100%);
-  color: #c3d3ef;
-  border-color: rgba(150, 180, 230, 0.35);
+  background:
+    radial-gradient(125% 80% at 50% -12%, rgba(126, 178, 240, 0.22), transparent 72%),
+    linear-gradient(170deg, #1a2338 0%, #0d1322 100%);
+  color: #d3e3fb;
+  border: 1px dashed rgba(178, 214, 255, 0.5);
   box-shadow:
-    inset 0 0 0 2px rgba(170, 200, 245, 0.22),
-    inset 0 0 0 3.5px rgba(90, 120, 180, 0.4),
-    0 4px 14px rgba(0, 0, 0, 0.5);
+    inset 0 0 0 2px rgba(150, 195, 250, 0.12),
+    inset 0 0 20px rgba(96, 148, 214, 0.22),
+    0 4px 16px rgba(0, 0, 0, 0.65),
+    0 0 20px rgba(122, 172, 236, 0.25);
   animation: ghostBreath calc(3.6s / var(--aspd)) ease-in-out infinite;
 }
-.patron--ghost .patron-emoji { filter: grayscale(0.65) brightness(1.25); opacity: 0.85; }
-.patron--ghost .patron-name  { color: #9fb6da; }
+.patron--ghost .patron-emoji {
+  filter: grayscale(0.45) brightness(1.4) drop-shadow(0 0 8px rgba(150, 205, 255, 0.6));
+  opacity: 0.92;
+}
+.patron--ghost .patron-name {
+  color: #d3e3fb;
+  text-shadow: 0 0 8px rgba(140, 195, 255, 0.5);
+}
+/* Dark red on near-black is a smudge; the ✕ goes spectral with the rest. */
+.patron--ghost .patron-x {
+  background: #1d2c46;
+  border-color: rgba(150, 195, 250, 0.45);
+  color: #cfe4ff;
+}
 .patron--ghost.patron--empty {
   border-color: rgba(150, 180, 230, 0.2);
   color: rgba(180, 205, 240, 0.3);
@@ -502,12 +508,37 @@ header {
 /* The sheet sits above the Market, which is itself a modal at z-index 200 —
    the graveyard is the front-most thing in the room while it is open. */
 #ghostModal { z-index: 210; }
-.sheet--ghosts { max-width: 720px; }
+/* The whole room goes dark, not just the slab in it — a parchment frame around
+   a black graveyard reads as a hole cut in the page. */
+.sheet.sheet--ghosts {          /* doubled: .sheet's parchment is set further down */
+  max-width: 720px;
+  background:
+    radial-gradient(700px 320px at 50% -10%, rgba(120, 170, 235, 0.16), transparent 70%),
+    linear-gradient(175deg, #1a2237 0%, #10162a 70%, #0a0f1e 100%);
+  color: #d3e3fb;
+  border-color: rgba(150, 195, 250, 0.35);
+  box-shadow:
+    inset 0 0 0 1px rgba(150, 195, 250, 0.1),
+    inset 0 0 60px rgba(60, 100, 160, 0.18),
+    0 36px 90px rgba(0, 0, 0, 0.8);
+}
+.sheet.sheet--ghosts h2 {
+  color: #e4efff;
+  text-shadow: 0 0 12px rgba(140, 195, 255, 0.45);
+}
+.sheet--ghosts .sheet-note { color: #9fb8d8; }
+.sheet.sheet--ghosts .x { color: #9fb8d8; }
+.sheet.sheet--ghosts .x:hover { background: rgba(140, 186, 240, 0.16); color: #e4efff; }
 .sheet--ghosts .shelf--ghosts {
   gap: 8px;
   padding: 10px 12px 12px;
-  background: linear-gradient(180deg, #232c44 0%, #141a2a 100%);
-  border-color: rgba(0, 0, 0, 0.6);
+  /* Darker than anything standing on it — the cards are the only light in
+     the room, and their glow needs somewhere to fall. */
+  background:
+    radial-gradient(90% 120% at 50% 0%, rgba(70, 110, 170, 0.14), transparent 70%),
+    linear-gradient(180deg, #0a0e1a 0%, #04060d 100%);
+  border-color: rgba(0, 0, 0, 0.7);
+  box-shadow: inset 0 0 26px rgba(0, 0, 0, 0.8);
 }
 .ghost-tally {
   font-family: var(--sans);
@@ -2574,6 +2605,52 @@ button.sundry:hover { transform: translateY(-2px); }
   color: var(--parch-dim);
 }
 
+/* ─── A calling card for someone already dead ──────────────────────────────────
+   Placed here, after the livery and body rules, because it overrules them: the
+   parchment goes to slate and the ink to moonlight, the ghost tile's palette at
+   card scale. It breathes on the same 3.6s as the seats behind the graveyard
+   door, so the shop and the graveyard speak one language. */
+.offer-patron.offer-patron--ghost {
+  background:
+    radial-gradient(120% 85% at 50% -15%, rgba(126, 178, 240, 0.22), transparent 68%),
+    linear-gradient(170deg, #202b45 0%, #151d31 55%, #0d1220 100%);
+  border: 1px dashed rgba(178, 214, 255, 0.5);
+  box-shadow:
+    inset 0 0 0 3px rgba(140, 186, 240, 0.1),
+    inset 0 0 26px rgba(104, 156, 220, 0.2),
+    0 6px 20px rgba(0, 0, 0, 0.6),
+    0 0 26px rgba(122, 172, 236, 0.28);
+  animation: ghostBreath calc(3.6s / var(--aspd)) ease-in-out infinite;
+}
+.offer-patron--ghost .op-name {
+  color: #e4efff;
+  text-shadow: 0 0 9px rgba(150, 200, 255, 0.5);
+}
+.offer-patron--ghost .op-title  { color: #86b0dd; }
+.offer-patron--ghost .op-desc   { color: #aac4e4; }
+.offer-patron--ghost .op-rarity { color: #7e9dc4; }
+.offer-patron--ghost .op-sold   { color: #9db6d6; }
+/* A livery dye is a dark ink meant for parchment; on slate it needs its
+   bright twin (the same pair the seat's livery pin uses). */
+.offer-patron--ghost .op-guild  { color: var(--livery-brt); }
+.offer-patron.offer-patron--ghost .op-portrait {
+  background:
+    radial-gradient(circle at 50% 34%, rgba(150, 198, 250, 0.26), rgba(10, 15, 28, 0.92) 76%),
+    repeating-linear-gradient(0deg, rgba(150, 195, 245, 0.08) 0 1px, transparent 1px 3px);
+  border-color: rgba(150, 195, 250, 0.4);
+  box-shadow: inset 0 0 18px rgba(90, 140, 205, 0.25);
+}
+.offer-patron.offer-patron--ghost .op-portrait .op-emoji {
+  filter: grayscale(0.45) brightness(1.4) drop-shadow(0 0 9px rgba(150, 205, 255, 0.65));
+  opacity: 0.95;
+}
+.op-ghost {
+  color: #a8d4ff;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  text-shadow: 0 0 8px rgba(120, 180, 255, 0.45);
+}
+
 .btn-price {
   display: inline-flex;
   align-items: center;
@@ -3772,6 +3849,29 @@ input[type='checkbox'] {
 }
 .tip-line { color: #5c4a2e; margin-top: 3px; }
 
+/* The calling card a ghost hands you, in the graveyard's colours. */
+.tip-pop--ghost {
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgba(126, 178, 240, 0.2), transparent 70%),
+    linear-gradient(175deg, #202b45 0%, #0f1728 100%);
+  color: #dbe9ff;
+  border: 1px dashed rgba(178, 214, 255, 0.55);
+  box-shadow:
+    inset 0 0 0 1px rgba(140, 186, 240, 0.12),
+    inset 0 0 24px rgba(104, 156, 220, 0.18),
+    0 14px 40px rgba(0, 0, 0, 0.7),
+    0 0 24px rgba(122, 172, 236, 0.25);
+}
+.tip-pop--ghost .tip-line,
+.tip-pop--ghost .tip-feat  { color: #aac4e4; }
+.tip-pop--ghost .op-rarity { color: #7e9dc4; }
+.tip-pop--ghost .tip-btn {
+  background: rgba(140, 186, 240, 0.14);
+  color: #dbe9ff;
+  border-color: rgba(150, 195, 250, 0.45);
+  box-shadow: 0 2px 0 rgba(58, 92, 148, 0.55);
+}
+
 /* ── The Wordler's board ──────────────────────────────────────────────────────
    Every guess he has marked, newest last — Wordle without the previous rows is
    a memory test, not a puzzle. The word is set in the tile face so it reads as
@@ -4020,7 +4120,8 @@ input[type='checkbox'] {
   .patron--armed::after { animation: none; opacity: 0; }
   .patron--ghost.patron--common,
   .patron--ghost.patron--uncommon,
-  .patron--ghost.patron--rare { animation: none; opacity: 0.9; }
+  .patron--ghost.patron--rare,
+  .offer-patron.offer-patron--ghost { animation: none; opacity: 0.9; }
   .patron--murdered { animation: none; }
   .patron--just-armed .patron-take, .patron-take--bump { animation: none; }
   /* Materials still have to read as themselves — hold the colour, drop motion. */

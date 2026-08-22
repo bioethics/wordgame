@@ -133,6 +133,14 @@ export const rollHaggle = () => {
        : 0;
 };
 
+// ─── What the bag hands you first ─────────────────────────────────────────────
+// Two patrons reach into the bag rather than at the board. A weight of 2 means
+// a tile is drawn about twice as often as its share of the bag would give it.
+// The two multiply, so a gold-trimmed crimson tile with both seated is 6× — and
+// neither conjures anything: the bag holds exactly what it held.
+export const MAGPIE_WEIGHT = 2;   // a gold trim, to The Magpie
+export const MAKO_WEIGHT   = 3;   // crimson paint, to The Shortfin Mako
+
 // ─── A ghost for hire ─────────────────────────────────────────────────────────
 // Now and then the Market lays out a patron who is already dead. It works
 // exactly as a living one does and takes no SEAT — it goes straight to the

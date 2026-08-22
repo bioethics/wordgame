@@ -6,6 +6,7 @@ import {
   REVENANT_ODDS,
   COLOURS,
   quotaFor, makeTileTemplate, GAMBLER_ODDS, isDeadline,
+  MAGPIE_WEIGHT, MAKO_WEIGHT,
 } from './constants.js';
 import { CHAPTER_TITLES } from './chapters.js';
 import { BOSS_DEFS, activeBoss, bossConflicts } from './bosses.js';
@@ -469,21 +470,22 @@ export function startPage() {
 const handCount = () =>
   [...state.rack, ...state.word].filter(t => t.material !== 'ghost' && !t.aboveHand).length;
 
-// The Magpie weights the draw: a gold trim weighs twice what anything else
-// does, so gold comes up about twice as often as its share of the bag. She
-// conjures nothing — the bag holds exactly what it held.
-const MAGPIE_WEIGHT = 2;
-const magpieWeight = t => (t.trim === 'gold' ? MAGPIE_WEIGHT : 1);
-
-// One tile off the bag — the end of it, hence the pop; a weighted reach with
-// the Magpie seated. Every draw in the game comes through drawUpToRackSize, so
-// the opening hand and every top-up run the same rule.
+// One tile off the bag — the end of it, hence the pop; a weighted reach if
+// anyone at the table is watching the bag. The Magpie catches a gold trim, the
+// Shortfin Mako crimson paint (rainbow metal reads as crimson here as it does
+// everywhere), and their weights multiply on a tile that answers both. Every
+// draw in the game comes through drawUpToRackSize, so the opening hand and
+// every top-up run the same rule.
 function drawFromBag() {
-  if (!owns('magpie')) return state.bag.pop();
-  const total = state.bag.reduce((n, t) => n + magpieWeight(t), 0);
+  const magpie = owns('magpie');
+  const mako   = owns('mako');
+  if (!magpie && !mako) return state.bag.pop();
+  const weigh = t => (magpie && t.trim === 'gold' ? MAGPIE_WEIGHT : 1)
+                   * (mako && countsAsColour(t, 'crimson') ? MAKO_WEIGHT : 1);
+  const total = state.bag.reduce((n, t) => n + weigh(t), 0);
   let roll = Math.random() * total;
   for (let i = state.bag.length - 1; i >= 0; i--) {
-    roll -= magpieWeight(state.bag[i]);
+    roll -= weigh(state.bag[i]);
     if (roll <= 0) return state.bag.splice(i, 1)[0];
   }
   return state.bag.pop();
