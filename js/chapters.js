@@ -245,5 +245,6 @@ export const CHAPTER_TITLES = [
   'Belinda has a job to do',
   'The hiking accident',
   'Monsters on the mezzanine',
-  'War Mouse'
+  'War Mouse',
+  'A faux pas at the dinner party'
 ];
