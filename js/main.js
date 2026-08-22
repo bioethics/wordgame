@@ -13,7 +13,7 @@ import {
   getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile,
   trashFromCollection, mergeTiles, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
   grantRandomPatron,
-  rollGamble, effectivePatronSlots, nextId, primePoints,
+  rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
@@ -371,7 +371,7 @@ async function ripperStrikes(script) {
     }
     await sleep(ANIM.stepColour * 2);
     if (!alreadyDead) {
-      state.ghosts.push(killer);
+      makeGhost(killer);
       state.patrons.splice(state.patrons.indexOf(killer), 1);
     }
     state.isAnimating = false;
@@ -396,7 +396,7 @@ async function ripperStrikes(script) {
   sfx.bad();
   await sleep(ANIM.stepColour * 2);
 
-  state.ghosts.push(victim);
+  makeGhost(victim);
   state.patrons.splice(state.patrons.indexOf(victim), 1);
   if (!alreadyDead) state.patrons.splice(state.patrons.indexOf(killer), 1);
 

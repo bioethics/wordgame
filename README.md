@@ -91,7 +91,10 @@ whole effect — score turn, hooks, laurels — and giving up only its seat, whi
 is the entire payment. Ghosts speak **after every living patron**, so a killed
 ×Mult that sat late keeps its worth and a killed +Points that sat early loses
 it; which patron dies is not yours to choose. They still count for the
-Innkeeper's headcount and the Alderman's guilds. The contributor's rule:
+Innkeeper's headcount and the Alderman's guilds. The Market lays out a patron
+already dead about **1 card in 100**: a ghost for hire needs no seat, so a full
+table is no bar to taking one, but it asks **3 Coins over** the living price
+and its contract still pays nothing back. The contributor's rule:
 anything asking what your patrons *do* reads `allSeats()` in `js/state.js`
 (which spans `state.ghosts`); only the seat limit, the shelf and the reordering
 read `state.patrons`.

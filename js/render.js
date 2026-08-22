@@ -259,14 +259,16 @@ export function showPatronPopover(def, anchorEl, seat = null) {
   const desc = def.instDesc?.(seat?.data) ?? def.desc;
   // What the seat would actually pay back, not half the list price: a patron
   // whose state has earned it a bonus (the crowned Prince) must not be offered
-  // one figure and pay another.
-  const refund = seat ? patronRefund(seat) : Math.floor(def.cost / 2);
+  // one figure and pay another — and a ghost's contract is worth nothing.
+  const ghost  = !!seat?.data?.ghost;
+  const refund = ghost ? 0 : seat ? patronRefund(seat) : Math.floor(def.cost / 2);
   showPopover(anchorEl, `
     <div class="tip-head">${patronEmoji(def, seat?.data)} ${name} <span class="op-rarity">${def.rarity}</span></div>
     <div class="tip-line">${desc}</div>
     ${def.popover?.(seat?.data) ?? ''}
     ${act}
-    <button class="btn btn-quiet tip-btn" data-sell="${seat?.uid ?? def.id}">Dismiss for ${coinHTML(refund)}</button>`);
+    <button class="btn btn-quiet tip-btn" data-sell="${seat?.uid ?? def.id}">${
+      ghost ? 'Let go for nothing' : `Dismiss for ${coinHTML(refund)}`}</button>`);
 }
 
 // ─── The Neologist's coining sheet ────────────────────────────────────────────

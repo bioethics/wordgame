@@ -1,6 +1,6 @@
 import {
   state, adoptTemplate, shuffle, owns, allSeats, trashFromCollection, nextId,
-  effectivePatronSlots, effectiveSundrySlots, luckyRoll,
+  effectivePatronSlots, effectiveSundrySlots, luckyRoll, makeGhost,
 } from './state.js';
 import {
   BAG_COUNTS, LIGATURES, EXCLUSIVE_LETTERS, isMark, MARKS, INTERROBANG,
@@ -12,7 +12,7 @@ import {
   TOOLBOX_PRICE, FLEURON, FLEURON_PRICE, FLEURON_OFFER_CHANCE,
   STALL_DEFS, STALLS_PER_SHOP, PROPOSAL_RANGE, SMELT_MIN_COLLECTION,
   FEATURE_CHAIN_CHANCE, MAX_FEATURES, MEDIEVAL_LETTERS, isMedieval,
-  makeTileTemplate, rollHaggle, GHOST_OFFER_CHANCE,
+  makeTileTemplate, rollHaggle, GHOST_HIRE,
 } from './constants.js';
 import {
   PATRON_DEFS, RARITY_WEIGHT, patronById, guildSeats, rollPostnom, patronCost, patronName,
@@ -154,11 +154,13 @@ function weightedPatronSample(n) {
     const postnom = rollPostnom();
     const haggle = rollHaggle();
     const rolled = patronById(id)?.onOffer?.() ?? null;
-    const data = { ...rolled, ...(postnom ? { postnom } : {}), ...(haggle ? { haggle } : {}) };
     // …and once in a long while, one who is already dead. A wanted outcome, so
-    // it rides luck like every other one.
-    const ghost = luckyRoll(GHOST_OFFER_CHANCE);
-    out.push({ id, sold: false, data: Object.keys(data).length ? data : null, ...(ghost ? { ghost: true } : {}) });
+    // it rides luck like every other one. Being dead is part of the copy, so it
+    // sits on `data` beside the postnom — that is what patronCost prices.
+    const ghost = luckyRoll(GHOST_HIRE.odds);
+    const data = { ...rolled, ...(postnom ? { postnom } : {}), ...(haggle ? { haggle } : {}),
+                   ...(ghost ? { ghost: true } : {}) };
+    out.push({ id, sold: false, data: Object.keys(data).length ? data : null });
     for (let i = pool.length - 1; i >= 0; i--) if (pool[i] === id) pool.splice(i, 1);
   }
   return out;
@@ -396,7 +398,7 @@ export function buyPatron(id) {
   if (!offer || !def) return { ok: false, reason: 'Not available.' };
   // A ghost needs no seat — it goes to the graveyard, not the shelf — so the
   // table being full is no reason to turn one away.
-  const ghost = !!offer.ghost;
+  const ghost = !!offer.data?.ghost;
   if (!ghost && state.patrons.length >= effectivePatronSlots()) {
     return { ok: false, reason: 'No empty seats at your table.' };
   }
@@ -404,7 +406,7 @@ export function buyPatron(id) {
   if (state.coins < cost)              return { ok: false, reason: `You need ${cost} Coins.` };
   state.coins -= cost;
   const seat = { id, uid: nextId(), data: offer.data ? { ...offer.data } : {} };
-  if (ghost) (state.ghosts ??= []).push(seat);
+  if (ghost) makeGhost(seat);
   else       state.patrons.push(seat);
   offer.sold = true;
   return { ok: true, def, seat, ghost, name: patronName(def, seat.data) };

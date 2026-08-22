@@ -135,11 +135,12 @@ export const rollHaggle = () => {
 
 // ─── A ghost for hire ─────────────────────────────────────────────────────────
 // Now and then the Market lays out a patron who is already dead. It works
-// exactly as a living one does and asks the same price, but it takes no SEAT —
-// it goes straight to the graveyard, where The Ripper's victims work on. The
-// catch is that a ghost's contract is worth nothing: dismissing one pays no
-// Coins back at all. Rare enough to be a find rather than a plan.
-export const GHOST_OFFER_CHANCE = 0.01;   // per patron card laid out
+// exactly as a living one does and takes no SEAT — it goes straight to the
+// graveyard, where The Ripper's victims work on. A free seat is worth paying
+// for, so a ghost asks a surcharge over its living price, and its contract is
+// worth nothing back: dismissing one pays no Coins at all. Rare enough to be a
+// find rather than a plan.
+export const GHOST_HIRE = { odds: 0.01, surcharge: 3 };   // odds per patron card laid out
 
 // ─── The fleuron ──────────────────────────────────────────────────────────────
 // A printer's ornament: the one tile that refuses to join a word — it prints

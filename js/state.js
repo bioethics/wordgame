@@ -199,6 +199,17 @@ export const allSeats = () =>
 // Ghosts are held to the same count as the living.
 export const effectiveGhostSlots = () => effectivePatronSlots();
 
+// The only door into the graveyard — The Ripper's victims and the ghosts hired
+// dead in the Market alike. Marking the seat's own `data` keeps the fact with
+// the copy, so a calling card can price it and pay it back correctly wherever
+// it is read. Taking the seat off the shelf is the caller's business: a hired
+// ghost was never on it.
+export const makeGhost = seat => {
+  (seat.data ??= {}).ghost = true;
+  (state.ghosts ??= []).push(seat);
+  return seat;
+};
+
 export const owns = id => allSeats().some(p => p.id === id);
 
 // ─── Chapter titles ───────────────────────────────────────────────────────────
@@ -289,6 +300,12 @@ function migrateSave(node) {
     delete node.material;
   }
   if (node.id === 'minimalist') node.id = 'abecedarian';
+  // A Market offer used to carry its own `ghost` flag; being dead now rides the
+  // copy's `data`, where patronCost can charge for it.
+  if (node.ghost === true && 'sold' in node) {
+    (node.data ??= {}).ghost = true;
+    delete node.ghost;
+  }
   // tongsBonus became one entry in the `primed` pool, so the tongs and the
   // Winnower can arm the same word and each be named for it.
   if (typeof node.tongsBonus === 'number') {
@@ -363,7 +380,10 @@ export function loadState() {
     // Seats saved before uids existed get one now — after the counters above,
     // so a backfilled uid can never collide with a tile id already in the save.
     state.patrons?.forEach(p => { p.uid ??= nextId(); });
-    state.ghosts?.forEach(p => { p.uid ??= nextId(); });
+    // Every ghost seat says so on its own `data`, however it was hired or made,
+    // so the calling card can price it (and pay it back) without asking which
+    // list it sits in.
+    state.ghosts?.forEach(p => { p.uid ??= nextId(); (p.data ??= {}).ghost = true; });
     return { market: _market ?? null, draft: _draft ?? null, colophon: _colophon ?? null, mercury };
   } catch { return null; }
 }

@@ -125,7 +125,7 @@ import {
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, isMark,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
   HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, RIPPER_WORDS, splitMarks, isImmutable,
-  medievalExpansions, POSTNOM,
+  medievalExpansions, POSTNOM, GHOST_HIRE,
   PRINCE, princeMult,
   WORDLER,
   WINNOWER_BONUS,
@@ -1510,7 +1510,9 @@ export const rollPostnom = () =>
 export const patronCost = (def, data) => {
   const base = def?.cost ?? 0;
   if (!base) return 0;
-  const asked = base + (data?.haggle ?? 0) + (data?.postnom ? POSTNOM.surcharge : 0);
+  const asked = base + (data?.haggle ?? 0)
+              + (data?.postnom ? POSTNOM.surcharge : 0)
+              + (data?.ghost   ? GHOST_HIRE.surcharge : 0);
   return Math.max(1, asked);
 };
 

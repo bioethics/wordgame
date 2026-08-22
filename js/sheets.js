@@ -9,7 +9,7 @@ import {
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
   PAINT_PER_POT, ANIM, SUNDRY_SELL, tileCount, sundryTip, TOOL_LOOK, PACKAGES, APPLICATORS,
-  colourDesc, HONORIFIC_STEP, POSTNOM,
+  colourDesc, HONORIFIC_STEP, POSTNOM, GHOST_HIRE,
 } from './constants.js';
 import { patronById, guildsOf, patronName, patronShelf, patronEmoji, patronCost } from './patrons.js';
 import { upgradeById } from './upgrades.js';
@@ -98,7 +98,7 @@ export function updateMarketState() {
     // buy itself allows it (buyPatron), and this must agree or the card is
     // greyed out for a rule that doesn't apply to it.
     const afford = state.coins >= cost
-      && (kind !== 'patron' || !seatsFull || !!offer.ghost)
+      && (kind !== 'patron' || !seatsFull || !!offer.data?.ghost)
       && (kind !== 'sundry' || !benchFull);
     card.classList.toggle('offer--sold', !!offer.sold);
     const btn = card.querySelector('.btn-price');
@@ -276,7 +276,7 @@ function marketShopHTML() {
     const lettered = o.data?.postnom ? ' offer-patron--postnom' : '';
     // Already dead: it works on and takes no seat, but its contract is worth
     // nothing back. Said on the card, because neither half is guessable.
-    const spectral = o.ghost ? ' offer-patron--ghost' : '';
+    const spectral = o.data?.ghost ? ' offer-patron--ghost' : '';
     return `
       <div class="offer-patron offer-patron--${def.rarity}${livery}${lettered}${spectral}" data-offer="patron" data-idx="${i}">
         <div class="op-portrait">${def.portrait
@@ -286,7 +286,7 @@ function marketShopHTML() {
           <div class="op-name">${name}</div>
           <div class="op-title">${def.rarity}${liveries.length ? ` · <span class="op-guild">${liveries.join(' & ')}</span>` : ''}${
             o.data?.postnom ? ` · <span class="op-postnom">${o.data.postnom} · ×${POSTNOM.mult} Mult</span>` : ''}${
-            o.ghost ? ' · <span class="op-ghost">👻 a ghost · takes no seat · no refund</span>' : ''}</div>
+            o.data?.ghost ? ' · <span class="op-ghost">👻 a ghost · takes no seat · no refund</span>' : ''}</div>
           <div class="op-desc">${desc}</div>
         </div>
         <span class="op-sold">seated</span>
@@ -616,9 +616,17 @@ const haggleClass = (def, data) => {
   const h = haggled(def, data);
   return h ? (h < 0 ? ' btn-price--under' : ' btn-price--over') : '';
 };
+// The tag carries the surcharges too — the letters after a name, and a ghost's
+// free seat — so the asking price is never an unexplained number. All of it in
+// the tooltip: the card itself already says what a postnom and a ghost are.
 const haggleTip = (def, data) => {
+  if (!def?.cost) return '';
   const h = haggled(def, data);
-  return h ? ` title="${h < 0 ? 'Going cheap today — a Coin under' : 'A Coin over'} the usual ${def.cost}"` : '';
+  const notes = [];
+  if (h) notes.push(`${h < 0 ? 'Going cheap today — a Coin under' : 'A Coin over'} the usual ${def.cost}`);
+  if (data?.postnom) notes.push(`${POSTNOM.surcharge} Coins over for the ${data.postnom}`);
+  if (data?.ghost)   notes.push(`${GHOST_HIRE.surcharge} Coins over for a ghost — it needs no seat`);
+  return notes.length ? ` title="${notes.join(' · ')}"` : '';
 };
 
 // ─── Collection view (read-only) ──────────────────────────────────────────────
