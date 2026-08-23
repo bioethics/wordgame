@@ -1,6 +1,7 @@
 import {
   state, adoptTemplate, shuffle, owns, allSeats, trashFromCollection, nextId,
   effectivePatronSlots, effectiveSundrySlots, luckyRoll, makeGhost,
+  marryLovers, supersededIds, completesLovers,
 } from './state.js';
 import {
   BAG_COUNTS, LIGATURES, EXCLUSIVE_LETTERS, isMark, MARKS, INTERROBANG,
@@ -139,10 +140,15 @@ function weightedPatronSample(n) {
   // A ghost is still a patron you hold, so no second copy is offered — but a
   // fled Ripper is gone from both lists and can call again.
   const ownedIds = new Set(allSeats().map(p => p.id));
+  // Halves of a patron you have already merged — Romeo and Juliet, once The
+  // Star-Crossed Lovers hold their seat. Spent, not owned, so the owned check
+  // above would never catch them.
+  const spent = supersededIds(PATRON_DEFS);
   const pool = [];
   for (const def of PATRON_DEFS) {
     // A stackable patron is never crossed off — you can always be sold another.
     if (def.unlisted) continue;          // the cat is found, never sold
+    if (spent.has(def.id)) continue;
     if (ownedIds.has(def.id) && !def.stackable) continue;
     for (let i = 0; i < (RARITY_WEIGHT[def.rarity] ?? 1); i++) pool.push(def.id);
   }
@@ -398,8 +404,10 @@ export function buyPatron(id) {
   if (!offer || !def) return { ok: false, reason: 'Not available.' };
   // A ghost needs no seat — it goes to the graveyard, not the shelf — so the
   // table being full is no reason to turn one away.
+  // — and neither does the second of the lovers, whose wedding frees one the
+  // instant the seat is taken.
   const ghost = !!offer.data?.ghost;
-  if (!ghost && state.patrons.length >= effectivePatronSlots()) {
+  if (!ghost && !completesLovers(id) && state.patrons.length >= effectivePatronSlots()) {
     return { ok: false, reason: 'No empty seats at your table.' };
   }
   const cost = patronCost(def, offer.data);
@@ -409,7 +417,15 @@ export function buyPatron(id) {
   if (ghost) makeGhost(seat);
   else       state.patrons.push(seat);
   offer.sold = true;
-  return { ok: true, def, seat, ghost, name: patronName(def, seat.data) };
+  const bought = { ok: true, def, seat, ghost, name: patronName(def, seat.data) };
+  // Buying the second lover marries them on the spot, so what you walk away
+  // with is not what you paid for. The caller is told both, and says so.
+  const wedding = marryLovers();
+  if (!wedding) return bought;
+  const merged = patronById(wedding.seat.id);
+  return { ...bought, seat: wedding.seat, ghost: wedding.ghost,
+           married: patronName(merged, wedding.seat.data),
+           parted: wedding.pair.map(p => patronName(patronById(p.id), p.data)) };
 }
 
 // Half the seat's cost plus its refundBonus (the Cellarer's age). The shelf's ✕

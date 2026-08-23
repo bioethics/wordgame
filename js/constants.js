@@ -265,7 +265,8 @@ export const PACKAGES = {
   cute: {
     patron: 'poppet', label: 'A party bag', emoji: '🎁',
     // Weighted to the rose tile: The Poppet's list is the smallest of the four
-    // (2,158 words), so its parcels are the rarest and want the best odds.
+    // (3,985 words the dictionary will accept, against the Vulgarian's 5,880),
+    // so its parcels are the rarest and want the best odds.
     body: 'Somebody had a birthday. Open it for a tile struck in rose metal, a rainbow applicator, or a pot of ink wash.',
     loot: [['rosetile', 4], ['applicator-rainbow', 3], ['wash', 2]],
   },
@@ -689,6 +690,24 @@ export const DYE_TILES_PER_CHAPTER = 2;   // tiles painted by a dye patron at ch
 // The Composter's heap: destroyed tiles rot down into jade ones, freshest kept.
 export const COMPOST_HEAP_MAX = 6;        // tiles the heap can hold at once
 export const COMPOST_PER_MARKET = 1;      // how many you may take on a visit
+
+// ─── The star-crossed lovers ──────────────────────────────────────────────────
+// Two houses, both alike in dignity — and both, as it happens, the guilds the
+// roster carries most of: jade and amber lead the Market's pool by weight, so a
+// player is likelier to have those paints on the tiles than any other pair.
+//
+// Apart, each lover pays for a word wearing their own house's colour and nobody
+// else's. Hold both at once and neither keeps a seat: they leave the shelf
+// together and the merged seat below takes their place — the only door to it,
+// since its card is `unlisted` and no Market stocks it. The marriage itself is
+// marryLovers in js/state.js; the ids live here because state, market and
+// patrons all need to agree on them.
+export const LOVERS = {
+  pair:   ['romeo', 'juliet'],   // must be seated together for the wedding
+  merged: 'lovers',              // what takes their place
+  apart:  1.5,                   // ×Mult a lover pays alone
+  united: 2,                     // ×Mult the merged seat pays
+};
 
 // The Frontispiece: the first word of a page scores at ×base. Flat, not growing —
 // a growing version compounded too well when the patron was taken early, so the

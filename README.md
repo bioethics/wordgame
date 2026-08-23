@@ -389,6 +389,19 @@ whose condition the word already meets wakes up and wears a badge of exactly
 what it stands to add, while the rest dim away. It reads off the same score
 script as the readout, so what a patron promises is what it pays.
 
+**The star-crossed lovers.** One pair of patrons cannot be held at the same
+time. *Romeo* (amber) and *Juliet* (jade) each pay ×1.5 for a word wearing their
+own house's colour and no other, so the two can never fire on the same word.
+Hire both and neither keeps a seat: they leave the shelf together and **The
+Star-Crossed Lovers** takes the place between them — ×2 Mult for any word
+carrying *both* liveries, which one rainbow tile satisfies alone. That seat is
+`unlisted`, so the wedding is the only door to it, and its `supersedes` keeps
+Romeo and Juliet off the Market afterwards, so no run marries twice. Ghosts
+count as held — a murdered Romeo goes on working, and can still fall in love —
+and if both halves were already dead the merged seat haunts the graveyard rather
+than taking a place it has no claim on. The marriage is `marryLovers` in
+`js/state.js`, checked wherever a patron arrives.
+
 **Editing the roster.** Every patron's name, emoji, rarity, cost, guild and card
 text lives in one flat table at **`js/patron-cards.js`**, keyed by patron id —
 that is the single place to rename, reword, reprice, or re-rarity a patron. What
@@ -485,6 +498,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | The four registers' word lists (the Sexton, the Paramour, the Poppet, the Vulgarian) | `wordlists-themed/theme-*.txt` — one word per line, edit freely; loading in `js/themes.js` |
 | The three parts of speech (the Sculptor, the Poet, the Athlete) | `wordlists-themed/nouns.txt`, `adjectives.txt`, `verbs.txt` — same format. The nouns list holds singulars only: plurals are read back to their singular in `readsAsNoun` (`js/patrons.js`), which is also where the irregular ones (MICE, TEETH, CHILDREN) are named. It is The Binder's list too, so an entry added there can be stacked into a compound as well as paid for |
 | The Frontispiece's opening multiplier & growth | `js/constants.js` → `FRONTISPIECE` |
+| The star-crossed lovers — who marries whom, and for how much | `js/constants.js` → `LOVERS` (`pair`, `merged`, `apart`, `united`); the wedding itself is `marryLovers` in `js/state.js` |
 
 ## Architecture
 

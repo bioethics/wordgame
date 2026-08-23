@@ -23,16 +23,17 @@
 //   {1/NUDIST_TRIM_CHANCE}   one over it, rounded — for "a 1-in-4 chance"
 //
 // Optional, and rare: `unlisted` keeps a patron out of the Market's pool (the
-// cat is found, never sold), `stackable` lets you hold more than one copy, and
-// `portrait` takes a path to an image ('img/patrons/scholar.png') to show on
-// the calling card in place of the emoji.
+// cat is found, never sold), `stackable` lets you hold more than one copy,
+// `supersedes` lists the patrons this one replaces — holding it keeps them off
+// the Market too — and `portrait` takes a path to an image
+// ('img/patrons/scholar.png') to show on the calling card in place of the emoji.
 
 import {
   ABECEDARIAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,
   STOKER_BASE, STOKER_STEP, RAGMAN_COINS, RAGMAN_ODDS, DYE_TILES_PER_CHAPTER,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, DIPPER_PAINT_CHANCE, REVENANT_ODDS,
   PACKAGE_ODDS, oddsText, FRONTISPIECE, MATERIALS, RIPPER_WORDS, PACKAGES, PRINCE, WORDLER,
-  WINNOWER_BONUS, MAGPIE_WEIGHT, MAKO_WEIGHT, USURER,
+  WINNOWER_BONUS, MAGPIE_WEIGHT, MAKO_WEIGHT, USURER, LOVERS,
 } from './constants.js';
 
 // What {BRACES} in a desc may refer to. Add a line here to expose a new knob.
@@ -49,6 +50,7 @@ const KNOBS = {
   PARCEL_CUTE:      PACKAGES.cute.label,
   PARCEL_RUDE:      PACKAGES.rude.label,
   PRINCE_STEP:      PRINCE.step,
+  PRINCE_RANSOM:    PRINCE.ransom,
   WORDLER_BONUS:    WORDLER.bonus,
   WINNOWER_BONUS,
   WORDLER_LENGTH:   WORDLER.length,
@@ -58,6 +60,8 @@ const KNOBS = {
   USURER_LOAN:      USURER.loan,
   USURER_OWED:      USURER.owed,
   USURER_COLLECT:   USURER.collect,
+  LOVERS_APART:     LOVERS.apart,
+  LOVERS_UNITED:    LOVERS.united,
 };
 
 export const PATRON_CARDS = {
@@ -88,7 +92,7 @@ export const PATRON_CARDS = {
   },
   scientist: {
     name: 'The Scientist', emoji: '🔬', rarity: 'uncommon', cost: 6, guild: 'amber',
-    desc: 'Once a page, ask him for an OLOGY tile — gold-trimmed, riding above your hand, gone when the page ends.',
+    desc: 'Tap once a page for an OLOGY tile: gold-trimmed, riding above your hand without taking a place, and gone when the page ends.',
   },
   bursar: {
     name: 'The Bursar', emoji: '💰', rarity: 'uncommon', cost: 7, guild: 'amber',
@@ -108,11 +112,15 @@ export const PATRON_CARDS = {
   },
   shorthair: {
     name: 'The Domestic Shorthair', emoji: '🐈', rarity: 'rare', cost: 0, guild: 'amber', unlisted: true,
-    desc: 'Print any word spelling out R-A-T — PIRATE and GRATIS count — for 1 Coin and a laurel. Only the Rat Catcher\'s own RAT tile is ever eaten.',
+    desc: 'Print any word with RAT inside it — PIRATE and GRATIS count — for 1 Coin and a laurel: +{HONORIFIC_STEP} Points on every word thereafter. A RAT tile in the word is eaten, and gone for good.',
   },
   medievalist: {
     name: 'The Medievalist', emoji: '🏰', rarity: 'rare', cost: 8, guild: ['amber', 'azure'],
-    desc: 'Opens a stall at the Market selling medieval sorts — þ, ȝ, Æ and Ƿ — cheap, and worth far more than they cost.',
+    desc: 'Opens a Market stall selling medieval sorts cheap: þ reads TH, ȝ reads Y, GH or Z, Æ reads AE, A or E, Ƿ reads W.',
+  },
+  romeo: {
+    name: 'Romeo', emoji: '🌹', rarity: 'uncommon', cost: 6, guild: 'amber',
+    desc: '×{LOVERS_APART} Mult when the word wears amber paint and no other colour. Hold Juliet as well and the two of them become one patron.',
   },
 
   // ── Jade · growth and permanence ────────────────────────────────────────────
@@ -138,15 +146,15 @@ export const PATRON_CARDS = {
   },
   beekeeper: {
     name: 'The Beekeeper', emoji: '🐝', rarity: 'uncommon', cost: 6, guild: 'jade',
-    desc: 'Every B you print permanently raises this patron\'s Mult by {BEEKEEPER_STEP}.',
+    desc: '×1 Mult to begin with, raised by {BEEKEEPER_STEP} for good with every B you print.',
   },
   wordler: {
     name: 'The Wordler', emoji: '🟩', rarity: 'uncommon', cost: 7, guild: ['amber', 'jade'],
-    desc: 'Amber and jade tiles gain +{WORDLER_BONUS} Points. He loves a secret word.',
+    desc: 'Amber and jade tiles gain +{WORDLER_BONUS} Points. He marks every {WORDLER_LENGTH}-letter word you print against a secret one of his own — print his word and amber and jade tiles print twice, for good.',
   },
   cellarer: {
     name: 'The Cellarer', emoji: '🧀', rarity: 'uncommon', cost: 6, guild: ['jade', 'amber'],
-    desc: 'Ages when a page ends with a jade tile in hand: a laurel each time, and +1 Coin when dismissed.',
+    desc: 'Every page that ends with a jade tile still in your hand crowns this patron with a laurel — +{HONORIFIC_STEP} Points on every word — and adds 1 Coin to what dismissing it pays.',
   },
   dabbler: {
     name: 'The Dabbler', emoji: '🖍️', rarity: 'uncommon', cost: 6, guild: 'jade',
@@ -171,6 +179,19 @@ export const PATRON_CARDS = {
   grafter: {
     name: 'The Grafter', emoji: '🌿', rarity: 'rare', cost: 8, guild: 'jade',
     desc: 'When a word with a jade tile prints, every tile in it permanently gains +1 Point.',
+  },
+  juliet: {
+    name: 'Juliet', emoji: '🌷', rarity: 'uncommon', cost: 6, guild: 'jade',
+    desc: '×{LOVERS_APART} Mult when the word wears jade paint and no other colour. Hold Romeo as well and the two of them become one patron.',
+  },
+  // The seat no Market sells: `unlisted` keeps it out of the pool, and the only
+  // way to it is to hold both lovers at once (marryLovers in js/state.js).
+  // `supersedes` then keeps Romeo and Juliet off the Market for good, so the
+  // wedding can never happen twice.
+  lovers: {
+    name: 'The Star-Crossed Lovers', emoji: '💞', rarity: 'rare', cost: 12,
+    guild: ['amber', 'jade'], unlisted: true, supersedes: LOVERS.pair,
+    desc: '×{LOVERS_UNITED} Mult when the word wears both amber and jade paint — one rainbow tile is both at once.',
   },
 
   // ── Crimson · sacrifice and fire ────────────────────────────────────────────
@@ -208,19 +229,19 @@ export const PATRON_CARDS = {
   },
   headsman: {
     name: 'The Headsman', emoji: '🪓', rarity: 'uncommon', cost: 7, guild: 'crimson',
-    desc: 'Each patron you dismiss permanently raises this patron\'s Mult by {HEADSMAN_STEP}.',
+    desc: '×1 Mult to begin with, raised by {HEADSMAN_STEP} for good with every patron you dismiss.',
   },
   serpent: {
     name: 'The Serpent', emoji: '🐍', rarity: 'uncommon', cost: 7, guild: 'crimson',
-    desc: 'Words ending in S get ×2 Mult — and the S is swallowed.',
+    desc: 'Words ending in S get ×2 Mult — and that S tile is eaten, gone from your collection for good.',
   },
   mako: {
     name: 'The Shortfin Mako', emoji: '🦈', rarity: 'uncommon', cost: 7, guild: 'crimson',
-    desc: 'Crimson tiles are {MAKO_WEIGHT}× as likely to be drawn from the bag. Blood in the water.',
+    desc: 'Crimson tiles are {MAKO_WEIGHT}× as likely to be drawn from the bag.',
   },
   revenant: {
     name: 'The Revenant', emoji: '💀', rarity: 'rare', cost: 8, guild: 'crimson',
-    desc: 'Every tile destroyed has a 1-in-{1/REVENANT_ODDS} chance of walking back out of the hellbox in {GHOST_METAL} — everything it wore intact, and no room in your hand.',
+    desc: 'Every tile destroyed has a 1-in-{1/REVENANT_ODDS} chance of walking back out of the hellbox in {GHOST_METAL} — everything it wore intact, taking up no room in your hand, and beyond changing ever after.',
   },
   ripper: {
     name: 'The Ripper', emoji: '🔪', rarity: 'rare', cost: 9, guild: 'crimson',
@@ -254,7 +275,7 @@ export const PATRON_CARDS = {
   },
   lexicographer: {
     name: 'The Lexicographer', emoji: '📚', rarity: 'uncommon', cost: 6, guild: 'azure',
-    desc: '×1.5 Mult when the word is not among the commonest in English — reach for the word nobody else would.',
+    desc: '×1.5 Mult when the word is not among the ~8,000 commonest words in English.',
   },
   stenographer: {
     name: 'The Stenographer', emoji: '📟', rarity: 'uncommon', cost: 6, guild: 'azure',
@@ -282,7 +303,7 @@ export const PATRON_CARDS = {
   },
   poet: {
     name: 'The Poet', emoji: '🪶', rarity: 'rare', cost: 10, guild: 'azure',
-    desc: '×2 Mult when the word is an adjective — the describing words, ABLE to ZESTY.',
+    desc: '×2 Mult when the word describes something — an adjective or an adverb: ABLE, ZESTY, QUICKLY.',
   },
   athlete: {
     name: 'The Athlete', emoji: '🏃', rarity: 'rare', cost: 12, guild: 'azure',
@@ -294,7 +315,7 @@ export const PATRON_CARDS = {
   },
   blueprince: {
     name: 'The Azure Prince', emoji: '🔷', rarity: 'rare', cost: 5, guild: 'azure',
-    desc: 'Tap for a cypher: that many tiles, an azure one in the marked place, +{PRINCE_STEP} Mult for good. Crowned at ×{PRINCE_CROWN} — and worth a fortune dismissed.',
+    desc: 'Tap to read his cypher — a row of boxes with one marked. Print a word of exactly that many tiles with an azure tile in the marked place: +{PRINCE_STEP} Mult, for good. At ×{PRINCE_CROWN} he is crowned, sets no more cyphers, and pays {PRINCE_RANSOM} Coins over the odds if dismissed.',
   },
 
   // ── No guild · the wildcards ────────────────────────────────────────────────
@@ -336,7 +357,7 @@ export const PATRON_CARDS = {
   },
   jeweller: {
     name: 'The Jeweller', emoji: '💎', rarity: 'uncommon', cost: 5,
-    desc: 'Tiles worth 8+ Points gain half as much again.',
+    desc: 'Tiles already worth 8+ Points gain half as much again — a 10-Point tile scores 15.',
   },
   mirror: {
     name: 'The Mirror', emoji: '🪞', rarity: 'uncommon', cost: 5,
@@ -348,7 +369,7 @@ export const PATRON_CARDS = {
   },
   haplographer: {
     name: 'The Haplographer', emoji: '🔂', rarity: 'uncommon', cost: 6,
-    desc: 'One letter may read as doubled: BALOON counts as BALLOON — and doubles pay The Twins.',
+    desc: 'One letter may read as doubled: BALOON counts as BALLOON.',
   },
   herald: {
     name: 'The Herald', emoji: '📯', rarity: 'uncommon', cost: 6,
@@ -376,7 +397,7 @@ export const PATRON_CARDS = {
   },
   harlequin: {
     name: 'The Harlequin', emoji: '🃏', rarity: 'uncommon', cost: 7,
-    desc: 'Words holding all four colours get ×2 Mult.',
+    desc: 'Words holding all four colours get ×2 Mult — one rainbow tile is all four at once.',
   },
   novelist: {
     name: 'The Novelist', emoji: '🖋️', rarity: 'uncommon', cost: 7,

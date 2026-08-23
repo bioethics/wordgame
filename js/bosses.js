@@ -125,7 +125,7 @@ export const BOSS_DEFS = [
     // opposites (see BOSS_CONFLICTS). That list carries adverbs too, which
     // suits him: the advice he is made of never distinguished them.
     id: 'minimalist', name: 'The Minimalist', emoji: '⬜',
-    desc: 'The adjective is the enemy of the noun. Every describing word is spiked.',
+    desc: 'The adjective is the enemy of the noun. Every describing word is spiked — adjectives and adverbs alike: HAPPY, RED, QUICKLY.',
     judge: letters => {
       if (!adjectivesReady()) return null;
       return inTheme('adjectives', letters)
@@ -153,7 +153,7 @@ export const BOSS_DEFS = [
   },
   {
     id: 'indexer', name: 'The Indexer', emoji: '🗂️',
-    desc: 'Order above all else: each word must alphabetically follow the prior word, or be spiked.',
+    desc: 'Order above all else: each word must come after the last one in dictionary order — ARM, then ARMY, then BOAT. Anything that would sort earlier is spiked.',
     demand: data => data.last
       ? `This word must sort after ${data.last}.`
       : 'The first word may be anything — the index begins there.',
@@ -173,7 +173,7 @@ export const BOSS_DEFS = [
   },
   {
     id: 'enthusiast', name: 'The Enthusiast', emoji: '🤩',
-    desc: 'I really love specific letters! Every word set without my current favourite is spiked.',
+    desc: 'I really love one letter — I\'ll tell you which. Every word set without it is spiked, and here, have one on loan: it rides above your hand all page and takes up no room.',
     gift: true,
     // Drawn from the player's own collection, weighted by how many they hold,
     // so it is never a letter the press doesn't carry. Plain sorts only.
@@ -188,7 +188,7 @@ export const BOSS_DEFS = [
   },
   {
     id: 'reviewer', name: 'The Reviewer', emoji: '🧐',
-    desc: 'Your best work is still not good enough. (A random negative multiplier is applied to each word.)',
+    desc: 'Your best work is still not good enough. Every word is multiplied by my temper — somewhere between ×0.2 and ×0.95, re-rolled after each one.',
     setup: data => rollMood(data),
     demand: data => `The current temper: ×${data.mood} Mult.`,
     mood: data => data.mood,
@@ -198,13 +198,13 @@ export const BOSS_DEFS = [
     // Structural: no rule to break, so nothing it can spike. It takes three of
     // your ten places and fills them with the cheapest letter in the case.
     id: 'eeeditor', name: 'The Eeeditor', emoji: '🅴',
-    desc: 'E is a good letter. Here: I saved three especially for you.',
+    desc: 'E is a good letter. Here: I saved three especially for you. They sit in your hand all page, taking three of its places, and each one you print is replaced at once.',
     lent: { letter: 'E', count: 3 },
   },
   {
     // The Eeeditor's rule in a rounder vowel: O costs the same single Point.
     id: 'editooor', name: 'The Editooor', emoji: '🅾️',
-    desc: 'O is the shape of a mouth saying oh. Take three, with my compliments.',
+    desc: 'O is the shape of a mouth saying oh. Take three, with my compliments — they sit in your hand all page, taking three of its places, and each one you print is replaced at once.',
     lent: { letter: 'O', count: 3 },
   },
   {
@@ -216,7 +216,7 @@ export const BOSS_DEFS = [
     // from a bag that is still a third wrapped. The next startPage clears it
     // (js/state.js), so it can't outlive its Deadline.
     id: 'redactor', name: 'The Redactor', emoji: '📝',
-    desc: 'This is a draft, not a book. A third of the case comes back in manuscript: those tiles spell, and nothing more.',
+    desc: 'This is a draft, not a book. A third of your tiles come back wrapped for the page: they still spell, but they bring no Points, paint, trim or metal of their own.',
     wraps: REDACTOR_SHARE,
   },
   {
@@ -233,7 +233,7 @@ export const BOSS_DEFS = [
     // every other destruction, so the Smelter's floor, the Composter and The
     // Revenant all still apply. It never spikes, so there is no judge here.
     id: 'economiser', name: 'The Economiser', emoji: '🗑️',
-    desc: 'Idle type is dead capital. For every word you set, one sort you left in the case goes to the melting pot — for good.',
+    desc: 'Idle type is dead capital. Every word you print melts down one tile you left unused in your hand — destroyed, and gone from your collection for good.',
     eatsSpare: true,
   },
 ];

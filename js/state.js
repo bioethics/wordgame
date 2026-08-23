@@ -6,7 +6,7 @@ import {
   REVENANT_ODDS,
   COLOURS,
   quotaFor, makeTileTemplate, GAMBLER_ODDS, isDeadline,
-  MAGPIE_WEIGHT, MAKO_WEIGHT,
+  MAGPIE_WEIGHT, MAKO_WEIGHT, LOVERS,
 } from './constants.js';
 import { CHAPTER_TITLES } from './chapters.js';
 import { BOSS_DEFS, activeBoss, bossConflicts } from './bosses.js';
@@ -1040,13 +1040,78 @@ export function primePoints(source, n) {
 export function grantRandomPatron(defs, rarity = null) {
   if (state.patrons.length >= effectivePatronSlots()) return null;
   const held = new Set(allSeats().map(p => p.id));
+  const spent = supersededIds(defs);
   const pool = defs.filter(d => !d.unlisted && (d.stackable || !held.has(d.id))
+                             && !spent.has(d.id)
                              && (!rarity || d.rarity === rarity));
   if (!pool.length) return null;
   const def = pool[Math.floor(Math.random() * pool.length)];
   const seat = { id: def.id, uid: nextId(), data: def.onOffer?.() ?? {} };
   state.patrons.push(seat);
-  return seat;
+  // A gift can be the last half of a couple, so the wedding is checked here as
+  // it is at the Market. The merged seat is handed back in the pair's place,
+  // which is what the caller animates and names.
+  return marryLovers()?.seat ?? seat;
+}
+
+// ─── The star-crossed lovers ──────────────────────────────────────────────────
+// Romeo and Juliet cannot hold a shelf between them: the moment both are yours
+// they leave it together and The Star-Crossed Lovers takes their place. That
+// seat's card is `unlisted`, so this is the only door to it — and its
+// `supersedes` then keeps both halves off the Market, so no run can hold a
+// second couple and marry them again.
+//
+// Ghosts count as held, since a murdered patron goes on working: a dead Romeo
+// can still fall in love. The new seat takes the earlier of the two places on
+// the shelf, so the running order barely shifts; if BOTH were ghosts there is
+// no place to take and no seat to be sure of, so the couple stay in the
+// graveyard and haunt it as one.
+// True when seating this patron would complete the couple. A full table is no
+// bar to that hire: the wedding hands a seat straight back, so refusing it
+// would be turning away a patron for a place it is about to free. The Market's
+// buy and the card's own greying-out both read this, or a card would sit lit
+// with a button that refuses it.
+export const completesLovers = id =>
+  !owns(LOVERS.merged) && LOVERS.pair.includes(id)
+  && LOVERS.pair.every(other => other === id || owns(other));
+
+export function marryLovers() {
+  if (owns(LOVERS.merged)) return null;
+  const pair = LOVERS.pair.map(id => allSeats().find(p => p.id === id));
+  if (pair.some(seat => !seat)) return null;
+
+  // Read every place BEFORE lifting anyone: splicing one out moves the other.
+  const places = pair.map(seat => state.patrons.indexOf(seat)).filter(i => i >= 0);
+  const at = places.length ? Math.min(...places) : null;
+
+  for (const seat of pair) {
+    const onShelf = state.patrons.indexOf(seat);
+    if (onShelf >= 0) { state.patrons.splice(onShelf, 1); continue; }
+    const buried = state.ghosts?.indexOf(seat) ?? -1;
+    if (buried >= 0) state.ghosts.splice(buried, 1);
+  }
+
+  // A fresh seat, and a fresh `data`: neither lover's postnom or laurels carry
+  // over. They are not being renamed, they are being replaced.
+  const seat = { id: LOVERS.merged, uid: nextId(), data: {} };
+  if (at === null) makeGhost(seat);
+  else state.patrons.splice(at, 0, seat);
+  // Not a dismissal, so The Headsman counts no heads for it: the lovers never
+  // left the table, they only stopped being two people.
+  return { seat, ghost: at === null, pair };
+}
+
+// Every patron id some seat you already hold has replaced — read from the
+// `supersedes` on a held patron's card. Nothing on the list is ever offered
+// again: the halves of a merged patron are spent, not merely owned.
+export function supersededIds(defs) {
+  const held = new Set(allSeats().map(p => p.id));
+  const out = new Set();
+  for (const def of defs) {
+    if (!held.has(def.id)) continue;
+    for (const id of def.supersedes ?? []) out.add(id);
+  }
+  return out;
 }
 
 // ─── Painting ─────────────────────────────────────────────────────────────────

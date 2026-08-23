@@ -4,7 +4,7 @@
 
 import {
   state, owns, effectivePatronSlots, effectiveSundrySlots, spendReshuffleSundry,
-  takePaintEchoes, takeGhostEchoes,
+  takePaintEchoes, takeGhostEchoes, completesLovers,
 } from './state.js';
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
@@ -94,11 +94,13 @@ export function updateMarketState() {
     const cost = kind === 'patron' ? patronCost(patronById(offer.id), offer.data)
                : kind === 'tile'   ? offerPrice(offer)
                :                     offer.price;
-    // A ghost needs no seat, so a full table is no bar to hiring one — the
-    // buy itself allows it (buyPatron), and this must agree or the card is
-    // greyed out for a rule that doesn't apply to it.
-    const afford = state.coins >= cost
-      && (kind !== 'patron' || !seatsFull || !!offer.data?.ghost)
+    // A ghost needs no seat, and neither does the lover whose arrival marries
+    // the pair and frees one — so a full table is no bar to either. The buy
+    // itself allows both (buyPatron), and this must agree or the card is greyed
+    // out for a rule that doesn't apply to it.
+    const seated = kind !== 'patron' || !seatsFull
+                || !!offer.data?.ghost || completesLovers(offer.id);
+    const afford = state.coins >= cost && seated
       && (kind !== 'sundry' || !benchFull);
     card.classList.toggle('offer--sold', !!offer.sold);
     const btn = card.querySelector('.btn-price');
@@ -835,7 +837,9 @@ function onMarketClick(e) {
     if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
     else {
       sfx.coin();
-      log(r.ghost
+      log(r.married
+        ? `${r.parted.join(' and ')} will not be kept apart. Both leave the shelf, and ${r.married} take the seat between them.`
+        : r.ghost
         ? `${r.name} was already dead — it works on from the graveyard, and takes no seat.`
         : `${r.name} takes a seat at your table.`, 'good');
       // To the sheet's own shelf strip — the board's is under the modal.
