@@ -232,7 +232,7 @@ export const SUNDRY_OFFERS = 2;   // sundries offered per shop
 
 // ─── The registers' packages ──────────────────────────────────────────────────
 // The four register patrons pay ×3 Mult for a word on their list, a condition you
-// cannot plan for (the lists run 3–9% of the dictionary). So the ×3 keeps a parcel
+// cannot plan for (the lists run 6–10% of the dictionary). So the ×3 keeps a parcel
 // behind it: PACKAGE_ODDS that a package lands on the workbench, rolled once per
 // firing register, and a full bench turns the gift away. A package is a sundry
 // like any other — the Market buys it back for SUNDRY_SELL. Loot tables are
@@ -264,8 +264,8 @@ export const PACKAGES = {
   },
   cute: {
     patron: 'poppet', label: 'A party bag', emoji: '🎁',
-    // Weighted to the rose tile: The Poppet's list is the smallest of the four
-    // (3,985 words the dictionary will accept, against the Vulgarian's 5,880),
+    // Weighted to the rose tile: The Poppet's list is much the smallest of the
+    // four (3,985 words the dictionary will accept, against the Sexton's 6,942),
     // so its parcels are the rarest and want the best odds.
     body: 'Somebody had a birthday. Open it for a tile struck in rose metal, a rainbow applicator, or a pot of ink wash.',
     loot: [['rosetile', 4], ['applicator-rainbow', 3], ['wash', 2]],
@@ -696,12 +696,13 @@ export const COMPOST_PER_MARKET = 1;      // how many you may take on a visit
 // roster carries most of: jade and amber lead the Market's pool by weight, so a
 // player is likelier to have those paints on the tiles than any other pair.
 //
-// Apart, each lover pays for a word wearing their own house's colour and nobody
-// else's. Hold both at once and neither keeps a seat: they leave the shelf
-// together and the merged seat below takes their place — the only door to it,
-// since its card is `unlisted` and no Market stocks it. The marriage itself is
-// marryLovers in js/state.js; the ids live here because state, market and
-// patrons all need to agree on them.
+// Apart, each lover pays for a word wearing their own house's colour with none
+// of the rival's — the other two guilds are nobody's business in this quarrel.
+// Hold both at once and neither keeps a seat: they leave the shelf together and
+// the merged seat below takes their place — the only door to it, since its card
+// is `unlisted` and no Market stocks it. The marriage itself is marryLovers in
+// js/state.js; the ids live here because state, market and patrons all need to
+// agree on them.
 export const LOVERS = {
   pair:   ['romeo', 'juliet'],   // must be seated together for the wedding
   merged: 'lovers',              // what takes their place

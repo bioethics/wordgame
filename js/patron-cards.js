@@ -50,7 +50,6 @@ const KNOBS = {
   PARCEL_CUTE:      PACKAGES.cute.label,
   PARCEL_RUDE:      PACKAGES.rude.label,
   PRINCE_STEP:      PRINCE.step,
-  PRINCE_RANSOM:    PRINCE.ransom,
   WORDLER_BONUS:    WORDLER.bonus,
   WINNOWER_BONUS,
   WORDLER_LENGTH:   WORDLER.length,
@@ -120,7 +119,7 @@ export const PATRON_CARDS = {
   },
   romeo: {
     name: 'Romeo', emoji: '🌹', rarity: 'uncommon', cost: 6, guild: 'amber',
-    desc: '×{LOVERS_APART} Mult when the word wears amber paint and no other colour. Hold Juliet as well and the two of them become one patron.',
+    desc: '×{LOVERS_APART} Mult when the word wears amber paint and no jade. Hold Juliet as well and the two of them become one patron.',
   },
 
   // ── Jade · growth and permanence ────────────────────────────────────────────
@@ -150,7 +149,7 @@ export const PATRON_CARDS = {
   },
   wordler: {
     name: 'The Wordler', emoji: '🟩', rarity: 'uncommon', cost: 7, guild: ['amber', 'jade'],
-    desc: 'Amber and jade tiles gain +{WORDLER_BONUS} Points. He marks every {WORDLER_LENGTH}-letter word you print against a secret one of his own — print his word and amber and jade tiles print twice, for good.',
+    desc: 'Amber and jade tiles gain +{WORDLER_BONUS} Points. He loves a secret word.',
   },
   cellarer: {
     name: 'The Cellarer', emoji: '🧀', rarity: 'uncommon', cost: 6, guild: ['jade', 'amber'],
@@ -182,7 +181,7 @@ export const PATRON_CARDS = {
   },
   juliet: {
     name: 'Juliet', emoji: '🌷', rarity: 'uncommon', cost: 6, guild: 'jade',
-    desc: '×{LOVERS_APART} Mult when the word wears jade paint and no other colour. Hold Romeo as well and the two of them become one patron.',
+    desc: '×{LOVERS_APART} Mult when the word wears jade paint and no amber. Hold Romeo as well and the two of them become one patron.',
   },
   // The seat no Market sells: `unlisted` keeps it out of the pool, and the only
   // way to it is to hold both lovers at once (marryLovers in js/state.js).
@@ -315,7 +314,7 @@ export const PATRON_CARDS = {
   },
   blueprince: {
     name: 'The Azure Prince', emoji: '🔷', rarity: 'rare', cost: 5, guild: 'azure',
-    desc: 'Tap to read his cypher — a row of boxes with one marked. Print a word of exactly that many tiles with an azure tile in the marked place: +{PRINCE_STEP} Mult, for good. At ×{PRINCE_CROWN} he is crowned, sets no more cyphers, and pays {PRINCE_RANSOM} Coins over the odds if dismissed.',
+    desc: 'Tap for a cypher: that many tiles, an azure one in the marked place, +{PRINCE_STEP} Mult for good. Crowned at ×{PRINCE_CROWN} — and worth a fortune dismissed.',
   },
 
   // ── No guild · the wildcards ────────────────────────────────────────────────

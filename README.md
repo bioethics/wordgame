@@ -391,7 +391,8 @@ script as the readout, so what a patron promises is what it pays.
 
 **The star-crossed lovers.** One pair of patrons cannot be held at the same
 time. *Romeo* (amber) and *Juliet* (jade) each pay ×1.5 for a word wearing their
-own house's colour and no other, so the two can never fire on the same word.
+own house's colour and none of the rival's — crimson and azure are nobody's
+business in this quarrel — so the two can never fire on the same word.
 Hire both and neither keeps a seat: they leave the shelf together and **The
 Star-Crossed Lovers** takes the place between them — ×2 Mult for any word
 carrying *both* liveries, which one rainbow tile satisfies alone. That seat is

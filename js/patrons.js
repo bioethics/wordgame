@@ -345,13 +345,13 @@ const readsAsNoun = word =>
 const distinctColours = tiles =>
   Object.keys(COLOURS).filter(c => tiles.some(t => countsAsColour(t, c)));
 
-// One house's colour and nobody else's — the feud, read in paint. A rainbow
-// tile counts as every colour (countsAsColour), so it answers the house and
-// breaks the exclusion in the same breath: neither lover is paid for one alone.
-const onlyColour = (tiles, colour) => {
-  const worn = distinctColours(tiles);
-  return worn.length === 1 && worn[0] === colour;
-};
+// One house's colour with none of the rival's — the feud, read in paint. The
+// other two guilds are nobody's business here: a lover minds who ELSE is in the
+// word only when it is the other lover's livery. A rainbow tile counts as every
+// colour (countsAsColour), so it answers the house and brings the rival in with
+// it — the lovers' own metal is no use to either of them apart.
+const houseOnly = (tiles, mine, rival) =>
+  painted(tiles, mine).length > 0 && painted(tiles, rival).length === 0;
 
 // The Illuminator's brief: exactly three colours, and at least one tile that
 // reads as no colour and will take paint. The FIRST bare one, deliberately, so
@@ -689,14 +689,14 @@ const PATRON_BEHAVIOURS = [
   },
 
   {
-    // Half of the feud. He is paid for a word in his own livery and no other,
-    // so he and Juliet can never fire on the same word — which is the whole
-    // point of the seat they turn into: The Star-Crossed Lovers asks for
-    // exactly the word neither house would take alone. The wedding itself is
-    // marryLovers in js/state.js, called wherever a patron arrives.
+    // Half of the feud. He is paid for a word in amber with no jade in it, so
+    // he and Juliet can never fire on the same word — which is the whole point
+    // of the seat they turn into: The Star-Crossed Lovers asks for exactly the
+    // word neither house would take alone. The wedding itself is marryLovers in
+    // js/state.js, called wherever a patron arrives.
     id: 'romeo',
     when: 'score',
-    effect({ tiles, xMult }) { if (onlyColour(tiles, 'amber')) xMult(LOVERS.apart); },
+    effect({ tiles, xMult }) { if (houseOnly(tiles, 'amber', 'jade')) xMult(LOVERS.apart); },
   },
 
   // ── Jade · growth and permanence ────────────────────────────────────────────
@@ -869,13 +869,14 @@ const PATRON_BEHAVIOURS = [
     // Romeo's opposite number in jade — see his note above.
     id: 'juliet',
     when: 'score',
-    effect({ tiles, xMult }) { if (onlyColour(tiles, 'jade')) xMult(LOVERS.apart); },
+    effect({ tiles, xMult }) { if (houseOnly(tiles, 'jade', 'amber')) xMult(LOVERS.apart); },
   },
   {
-    // What the pair become. No purity clause and no exclusion: the houses are
-    // reconciled, so any word carrying both liveries pays, whatever else it
-    // wears. That makes a single rainbow tile enough on its own — the one
-    // seat rainbow metal was always owed, and the reason it is worth striking.
+    // What the pair become. The exclusion is gone and the demand inverted: the
+    // houses are reconciled, so the word that paid neither of them apart is the
+    // one that pays now. That makes a single rainbow tile enough on its own —
+    // the seat rainbow metal was always owed, and the reason it is worth
+    // striking.
     id: 'lovers',
     when: 'score',
     effect({ tiles, xMult }) {
@@ -1154,14 +1155,12 @@ const PATRON_BEHAVIOURS = [
       if (data?.solved) {
         return `His word is out. Amber and jade tiles gain +${WORDLER.bonus} Points and print twice — Points, trim and paint alike.`;
       }
-      // The squares teach the marking better than a sentence would, so once
-      // there is a board the card stops explaining and starts counting. Before
-      // that it states the whole rule: the secret stays secret either way, and
-      // nobody should have to buy the seat to find out what it is for.
       const tried = data?.board?.length ?? 0;
+      // Elliptical until you have shown him a five-letter word; the squares
+      // teach the rule better than a sentence would, so the card waits.
       return tried
         ? `Amber and jade tiles gain +${WORDLER.bonus} Points. His word is ${WORDLER.length} letters — print it and they print twice.`
-        : PATRON_CARDS.wordler.desc;
+        : `Amber and jade tiles gain +${WORDLER.bonus} Points. He loves a secret word.`;
     },
 
     // His board, Wordle's grid: every guess he has marked, newest last.
@@ -1232,12 +1231,12 @@ const PATRON_BEHAVIOURS = [
       const read = data?.solved ?? 0;
       const left = Math.round((PRINCE.crown - princeMult(read)) / PRINCE.step);
       const plural = n => `${n} cypher${n > 1 ? 's' : ''}`;
-      // Only counts once he has read something. The Market card comes through
-      // here too, so before that it hands back the plain rule: a buyer should
-      // know what the puzzle pays before spending Coins on it.
+      // Silent about himself until he has done something. The Market card reads
+      // through instDesc too, so this elliptical line is what a buyer sees:
+      // he is bought on the strength of the puzzle, not of a promise.
       return read
         ? `×${princeMult(read)} Mult, ${plural(read)} read. ${left} more for the crown.`
-        : PATRON_CARDS.blueprince.desc;
+        : 'Reclaim the crown.';
     },
     refundBonus: data => (princeCrowned(data) ? PRINCE.ransom : 0),
 
