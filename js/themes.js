@@ -1,4 +1,5 @@
-// Themed word lists — the flat files in wordlists-themed/, one word per line.
+// Themed word lists — the flat files in wordlists/, one word per line, beside
+// the base dictionary they are read against.
 // Lines starting with # are comments, blank lines are ignored, case doesn't
 // matter. To add a list, drop the file in and give it a line in THEME_FILES.
 //
@@ -12,16 +13,16 @@
 import { isExcluded } from './excluded.js';
 
 export const THEME_FILES = {
-  cute:       'wordlists-themed/theme-cute.txt',
-  romantic:   'wordlists-themed/theme-romantic.txt',
-  rude:       'wordlists-themed/theme-rude.txt',
-  spooky:     'wordlists-themed/theme-spooky.txt',
-  acronyms:   'wordlists-themed/acronyms.txt',
-  nouns:      'wordlists-themed/nouns.txt',
-  adjectives: 'wordlists-themed/adjectives.txt',
-  verbs:      'wordlists-themed/verbs.txt',
-  names:      'wordlists-themed/names.txt',
-  common:     'wordlists-themed/common.txt',
+  cute:       'wordlists/theme-cute.txt',
+  romantic:   'wordlists/theme-romantic.txt',
+  rude:       'wordlists/theme-rude.txt',
+  spooky:     'wordlists/theme-spooky.txt',
+  acronyms:   'wordlists/acronyms.txt',
+  nouns:      'wordlists/nouns.txt',
+  adjectives: 'wordlists/adjectives.txt',
+  verbs:      'wordlists/verbs.txt',
+  names:      'wordlists/names.txt',
+  common:     'wordlists/common.txt',
 };
 
 export const THEME_SETS = Object.fromEntries(

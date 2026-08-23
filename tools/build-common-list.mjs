@@ -1,4 +1,4 @@
-// Rebuild wordlists-themed/common.txt — the commonest words of English, in
+// Rebuild wordlists/common.txt — the commonest words of English, in
 // frequency order, filtered to words this game's dictionary will actually
 // accept (an entry the dictionary turns away could never be played, so it
 // would only make the list's own numbering lie).
@@ -28,7 +28,7 @@ if (!src) {
   process.exit(1);
 }
 
-const dict = new Set(fs.readFileSync(path.join(root, 'wordlist.txt'), 'utf8')
+const dict = new Set(fs.readFileSync(path.join(root, 'wordlists/wordlist.txt'), 'utf8')
   .split(/\r?\n/).map(w => w.trim().toUpperCase()).filter(Boolean));
 
 const seen = new Set();
@@ -41,7 +41,7 @@ for (const line of fs.readFileSync(src, 'utf8').split(/\r?\n/)) {
   if (kept.length >= KEEP) break;
 }
 
-const out = path.join(root, 'wordlists-themed/common.txt');
+const out = path.join(root, 'wordlists/common.txt');
 fs.writeFileSync(out, `# The commonest words of English, commonest first.
 #
 # Source: google-10000-english (public domain), derived from the Google Web

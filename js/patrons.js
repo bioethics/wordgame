@@ -1323,7 +1323,7 @@ const PATRON_BEHAVIOURS = [
     // Names are vouched through the dictionary check in main.js, like the
     // Stenographer's acronyms — legitimate, not misspellings. Unlike his, the
     // list also PAYS whether or not the word is in the dictionary: GRACE is no
-    // less a name for being a word. wordlists-themed/names.txt, rebuilt with
+    // less a name for being a word. wordlists/names.txt, rebuilt with
     // tools/build-names-list.mjs.
     id: 'expectants',
     when: 'score',
@@ -1370,7 +1370,7 @@ const PATRON_BEHAVIOURS = [
     },
   },
   {
-    // The one patron paid for what a word ISN'T. wordlists-themed/common.txt
+    // The one patron paid for what a word ISN'T. wordlists/common.txt
     // holds the eight thousand commonest words of English that this dictionary
     // also knows; anything outside it is, by that measure, a word most readers
     // have never met. If it proves too easy in the hand, lower the multiplier
@@ -1383,14 +1383,14 @@ const PATRON_BEHAVIOURS = [
   },
   {
     id: 'stenographer',
-    when: 'meta',   // consulted at the dictionary check in main.js; the list lives in wordlists-themed/acronyms.txt
+    when: 'meta',   // consulted at the dictionary check in main.js; the list lives in wordlists/acronyms.txt
   },
   {
     // Not a misspelling like the excuses below: nothing has gone wrong here. It
     // licenses a construction — the compound noun, which English makes freely
     // and dictionaries only ever catch up with.
     id: 'binder',
-    when: 'meta',   // consulted at the dictionary check in main.js; the list lives in wordlists-themed/nouns.txt
+    when: 'meta',   // consulted at the dictionary check in main.js; the list lives in wordlists/nouns.txt
   },
   {
     // Additive, so it joins the other +Mult seats rather than multiplying what
@@ -1484,7 +1484,7 @@ const PATRON_BEHAVIOURS = [
   },
 
   // ── The four registers ──────────────────────────────────────────────────────
-  // Each keeps one of the themed lists in wordlists-themed/ and pays ×3 when
+  // Each keeps one of the themed lists in wordlists/ and pays ×3 when
   // the printed word is on it — and sends a package of its own the rest of the
   // time (registerPatron, above). The lists are flat files — edit them freely.
   registerPatron('sexton',    'spooky'),
@@ -1494,7 +1494,7 @@ const PATRON_BEHAVIOURS = [
 
   // ── The three parts of speech ───────────────────────────────────────────────
   // The registers above ask what a word is ABOUT; these three ask what it DOES
-  // in a sentence, off three more flat files in wordlists-themed/. They fire
+  // in a sentence, off three more flat files in wordlists/. They fire
   // far more often than the registers, and pay less for it. A word that is two
   // at once (an ANCHOR is a noun, to ANCHOR is a verb) pays both seats.
   {

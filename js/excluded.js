@@ -1,6 +1,6 @@
 // The words this press will not set, whatever a word list says.
 //
-// `wordlists-themed/excluded-slurs.txt` is the documented record — slurs and
+// `wordlists/excluded-slurs.txt` is the documented record — slurs and
 // hate terms struck from the game on the way in (see docs/PATRON_OVERHAUL.md,
 // "Curation, applied on the way in"). 
 //
@@ -13,7 +13,7 @@
 // words down with them.
 
 const CACHE_KEY = 'folio_excluded_v1';
-const FILE      = 'wordlists-themed/excluded-slurs.txt';
+const FILE      = 'wordlists/excluded-slurs.txt';
 
 const EXCLUDED = new Set();
 
@@ -39,7 +39,7 @@ export function adoptExclusions(text) {
 // The last good copy is cached, so only a first-ever failure leaves the set
 // empty, which the returned count tells the caller.
 export async function loadExclusions() {
-  // A bundled build embeds every wordlists-themed/*.txt file, this one included
+  // A bundled build embeds every wordlists/*.txt file, this one included
   if (typeof window !== 'undefined' && window.FOLIO_THEMES?.['excluded-slurs']) {
     return adoptExclusions(window.FOLIO_THEMES['excluded-slurs']);
   }

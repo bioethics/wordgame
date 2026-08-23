@@ -27,22 +27,27 @@ const js = (await build({
 })).outputFiles[0].text;
 
 const css = fs.readFileSync(path.join(root, 'css/style.css'), 'utf8');
-const wordlist = fs.readFileSync(path.join(root, 'wordlist.txt'), 'utf8');
 
 // The themed lists ride along as window.FOLIO_THEMES. The paths are read out
 // of js/themes.js rather than globbed, so the bundle carries exactly the lists
-// the game asks for — a stray .txt left in the directory can't stow away.
+// the game asks for — a stray .txt left in the directory can't stow away. The
+// FOLDER comes out of the same strings, so moving the lists is a change to
+// js/themes.js and nothing else.
 const themeSrc = fs.readFileSync(path.join(root, 'js/themes.js'), 'utf8');
 const themes = {};
-for (const [, key, file] of themeSrc.matchAll(/(\w+):\s*'wordlists-themed\/([\w-]+\.txt)'/g)) {
-  themes[key] = fs.readFileSync(path.join(root, 'wordlists-themed', file), 'utf8');
+let dir = null;
+for (const [, key, folder, file] of themeSrc.matchAll(/(\w+):\s*'([\w-]+)\/([\w-]+\.txt)'/g)) {
+  dir ??= folder;
+  themes[key] = fs.readFileSync(path.join(root, folder, file), 'utf8');
 }
-if (!Object.keys(themes).length) throw new Error('no themed lists found in js/themes.js');
+if (!dir) throw new Error('no themed lists found in js/themes.js');
 
-// js/themes.js doesn't name this one — js/excluded.js fetches it directly, and
-// reads it out of FOLIO_THEMES when there is no server to fetch from. Without
-// it a bundled build runs with the slur filter switched off, silently.
-themes['excluded-slurs'] = fs.readFileSync(path.join(root, 'wordlists-themed/excluded-slurs.txt'), 'utf8');
+// Neither of these is named in THEME_FILES. The dictionary is js/dict.js's own
+// fetch, and the slur list is js/excluded.js's — but both live in the same
+// folder as the themed lists, so they come along from the same `dir`. Without
+// the second a bundled build runs with the slur filter switched off, silently.
+const wordlist = fs.readFileSync(path.join(root, dir, 'wordlist.txt'), 'utf8');
+themes['excluded-slurs'] = fs.readFileSync(path.join(root, dir, 'excluded-slurs.txt'), 'utf8');
 
 const index = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const body = index.match(/<body>([\s\S]*)<script type="module"[^>]*><\/script>/)?.[1];

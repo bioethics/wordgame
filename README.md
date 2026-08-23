@@ -14,8 +14,8 @@ python -m http.server 8431
 # then open http://localhost:8431
 ```
 
-(ES modules don't run from `file://`, and the bundled `wordlist.txt` — 70k
-words — is fetched over HTTP. A custom list can be loaded in Settings.)
+(ES modules don't run from `file://`, and the bundled `wordlists/wordlist.txt`
+— 72k words — is fetched over HTTP. A custom list can be loaded in Settings.)
 
 `node tools/build-single.mjs` bundles the whole game — wordlist included — into
 one HTML file, `great-work-single.html` by default; pass a path to override.
@@ -84,8 +84,9 @@ keeps the groove shows it in **jade** rather than brass. And the tongs' heat and
 the toll for a curse left in hand land first, so any multiplier seated at all
 catches them.
 
-**Ghosts.** *The Ripper* kills one of your other patrons when you print KILL,
-MURDER or SLAY, then flees back to the Market's pool. The victim moves off the
+**Ghosts.** *The Ripper* kills one of your other patrons when you print one of
+his watchwords — KILL, MURDER, SLAY, DIE, STAB, SLASH, REAP or KNIFE — then
+flees back to the Market's pool. The match is exact, so SLAYER walks past him. The victim moves off the
 shelf into your **ghosts**, behind a door beside the patron row, keeping its
 whole effect — score turn, hooks, laurels — and giving up only its seat, which
 is the entire payment. Ghosts speak **after every living patron**, so a killed
@@ -190,7 +191,7 @@ bar is exact inversion — the patron's trigger and the editor's spike condition
 being one test read in opposite directions. Adding a pair is one line, and both
 directions come with it.
 
-The two frequency editors read `wordlists-themed/common.txt`, the one themed
+The two frequency editors read `wordlists/common.txt`, the one themed
 list whose *order* is data: `js/themes.js` keeps each word's line number as its
 frequency rank. The Populist takes the first 8,000 — effectively the whole list,
 so a word passes if the list has heard of it — the Obscurantist bars the first
@@ -240,7 +241,7 @@ right. Your book fills with misprints, which is the point of them.
 
 **Compounds** — *the Binder* licenses a construction English makes freely: any
 two nouns set end to end count as a word, so DOOM and HAT make DOOMHAT (its
-nouns are `wordlists-themed/nouns.txt`). What it coins is a noun like any other,
+nouns are `wordlists/nouns.txt`). What it coins is a noun like any other,
 so *the Sculptor* pays ×2 for it — one seat makes the word legal, the other pays
 for what it is. The halves stay singular, so CATS and HAT still don't.
 
@@ -487,17 +488,19 @@ bigger step than the last and a built press has to multiply rather than add:
 | How far a patron's asking price can drift | `js/constants.js` → `PATRON_HAGGLE` (`spread` Coins each way, `chance` per side) |
 | How long a line stays up to be read | `js/anim.js` → `READ_BASE` / `READ_PER_CHAR` / `READ_MAX`. Every bubble, floater and bar message holds for a span measured off its own length, so a long line is given longer, not read faster |
 | Words / discards / seats per page | `js/constants.js` |
+| Where every word list lives | `wordlists/` — the dictionary (`wordlist.txt`) and all ten themed lists in one folder, plus `excluded-slurs.txt`. The paths are `THEME_FILES` in `js/themes.js`, which is also where `tools/build-single.mjs` reads the folder name from, so moving them is a change to that one table (and `js/dict.js` / `js/excluded.js`, which fetch their own) |
+| The Ripper's watchwords | `js/constants.js` → `RIPPER_WORDS`. Matching is exact and the Ripper's card quotes the whole list, so a long one is a long card |
 | Patron names, emoji, rarities, costs, guilds and card text | `js/patron-cards.js` — one flat table keyed by patron id; `{KNOB}` braces in a `desc` are filled from the `KNOBS` object at the top of the file |
 | What a patron *does* | `js/patrons.js`, against the same id |
 | Patron tuning that reaches beyond a score (growth steps, burn odds, trim chance, dye count, coined-word length) | `js/constants.js` → `GRAFTER_STEP`, `STOKER_BASE`, `STOKER_STEP`, `ARSONIST_ODDS`, `NUDIST_TRIM_CHANCE`, `DIPPER_PAINT_CHANCE`, `GAMBLER_ODDS`, `DYE_TILES_PER_CHAPTER`, `NEOLOGIST_LENGTH` |
 | The editor roster, the conflict pairs, the Redactor's share | `js/bosses.js` → `BOSS_CONFLICTS`, `REDACTOR_SHARE` |
 | Animation step timings | `js/constants.js` → `ANIM` (all divided by the Settings speed slider) |
 | Chapter titles | `js/chapters.js` — a flat array, add as many as you like; each run draws its own and won't repeat until the list runs out |
-| The Stenographer's acronyms | `wordlists-themed/acronyms.txt` — one per line, `#` comments; letters only, and no lone Q (the press has no Q sort to set it with) |
-| The Expectant Parents' baby names | `wordlists-themed/names.txt` — same format; regenerate from the US and England & Wales charts with `tools/build-names-list.mjs` |
-| Words barred from the game entirely | `wordlists-themed/excluded-slurs.txt` — one per line, `#` comments. Enforced at load by `js/excluded.js` against the dictionary, every themed list, and The Neologist's coining sheet, so an entry here can't come back through a word list, a custom dictionary or a coined word. Whole-word matches only |
-| The four registers' word lists (the Sexton, the Paramour, the Poppet, the Vulgarian) | `wordlists-themed/theme-*.txt` — one word per line, edit freely; loading in `js/themes.js` |
-| The three parts of speech (the Sculptor, the Poet, the Athlete) | `wordlists-themed/nouns.txt`, `adjectives.txt`, `verbs.txt` — same format. The nouns list holds singulars only: plurals are read back to their singular in `readsAsNoun` (`js/patrons.js`), which is also where the irregular ones (MICE, TEETH, CHILDREN) are named. It is The Binder's list too, so an entry added there can be stacked into a compound as well as paid for |
+| The Stenographer's acronyms | `wordlists/acronyms.txt` — one per line, `#` comments; letters only, and no lone Q (the press has no Q sort to set it with) |
+| The Expectant Parents' baby names | `wordlists/names.txt` — same format; regenerate from the US and England & Wales charts with `tools/build-names-list.mjs` |
+| Words barred from the game entirely | `wordlists/excluded-slurs.txt` — one per line, `#` comments. Enforced at load by `js/excluded.js` against the dictionary, every themed list, and The Neologist's coining sheet, so an entry here can't come back through a word list, a custom dictionary or a coined word. Whole-word matches only |
+| The four registers' word lists (the Sexton, the Paramour, the Poppet, the Vulgarian) | `wordlists/theme-*.txt` — one word per line, edit freely; loading in `js/themes.js` |
+| The three parts of speech (the Sculptor, the Poet, the Athlete) | `wordlists/nouns.txt`, `adjectives.txt`, `verbs.txt` — same format. The nouns list holds singulars only: plurals are read back to their singular in `readsAsNoun` (`js/patrons.js`), which is also where the irregular ones (MICE, TEETH, CHILDREN) are named. It is The Binder's list too, so an entry added there can be stacked into a compound as well as paid for |
 | The Frontispiece's opening multiplier & growth | `js/constants.js` → `FRONTISPIECE` |
 | The star-crossed lovers — who marries whom, and for how much | `js/constants.js` → `LOVERS` (`pair`, `merged`, `apart`, `united`); the wedding itself is `marryLovers` in `js/state.js` |
 
@@ -522,7 +525,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | `js/main.js` | orchestration: submit cinematic, page/chapter flow, input, settings |
 | `js/drag.js` | pointer input: tap / drag / long-press for rack, word and the patron shelf (where a drag reseats a patron, changing the order effects fire in), mouse and touch alike |
 | `js/dict.js` | dictionary loading/caching (also reads a `window.FOLIO_WORDLIST` global, for single-file bundles) |
-| `js/themes.js` | the themed lists in `wordlists-themed/` — registers, parts of speech, acronyms and names — as Sets (also reads a `window.FOLIO_THEMES` global, for single-file bundles) |
+| `js/themes.js` | the themed lists in `wordlists/` — registers, parts of speech, acronyms and names — as Sets, and the one table of paths every list is found through (also reads a `window.FOLIO_THEMES` global, for single-file bundles) |
 | `js/excluded.js` | the barred-words list, loaded before any word list and applied by `dict.js` and `themes.js` as they build their Sets |
 
 Scoring is deliberately pure (`computeScore` never mutates state), so the same

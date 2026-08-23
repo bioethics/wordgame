@@ -1,4 +1,4 @@
-// Rebuild wordlists-themed/names.txt — common baby names, for The Expectant
+// Rebuild wordlists/names.txt — common baby names, for The Expectant
 // Parents. Unlike common.txt this list is deliberately NOT filtered to the
 // game's dictionary: its whole job is to let names through the door that the
 // dictionary would turn away (see the vouch check in js/main.js).
@@ -64,7 +64,7 @@ for (const [name, years] of usYears) if (years.size >= MIN_YEARS) names.add(name
 for (const [name, years] of ewYears) if (years.size >= MIN_YEARS) names.add(name);
 const sorted = [...names].sort();
 
-const out = path.join(root, 'wordlists-themed/names.txt');
+const out = path.join(root, 'wordlists/names.txt');
 fs.writeFileSync(out, `# Common baby names — The Expectant Parents' register.
 #
 # Sources, both open data, merged: the US Social Security Administration's

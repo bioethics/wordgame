@@ -675,9 +675,19 @@ export const RAGMAN_COINS  = 1;     // amber: what the rag fetches
 // own material to the ghost.
 export const REVENANT_ODDS = 0.5;
 // The Ripper's watchwords. Print one and he kills a patron — see js/main.js and
-// state.ghosts, where the victim goes on working. Keep them short and settable
-// from an ordinary rack, so the seat is a decision rather than a lottery.
-export const RIPPER_WORDS = ['KILL', 'MURDER', 'SLAY'];
+// state.ghosts, where the victim goes on working. Matching is EXACT, so the
+// whole word has to be one of these: SLAYER and KILLED walk past him.
+//
+// Keep them short and settable from an ordinary rack, so the seat is a decision
+// rather than a lottery — DIE is the floor, three letters off three of the
+// commonest sorts in the case, and nothing here asks for more than one scarce
+// letter. Every word must earn its meaning too: a watchword that reads as
+// ordinary English (END, CUT) would fire on a word set for score, and the knife
+// should never be a surprise. Anything added here lengthens the Ripper's card,
+// which quotes the whole list through the {RIPPER_WORDS} knob.
+export const RIPPER_WORDS = [
+  'KILL', 'MURDER', 'SLAY', 'DIE', 'STAB', 'SLASH', 'REAP', 'KNIFE',
+];
 // The Headsman: permanent ×Mult per patron dismissed while he is seated.
 export const HEADSMAN_STEP = 0.2;
 // The Gambler's coin, tossed once per word, not per keystroke: scoring runs on

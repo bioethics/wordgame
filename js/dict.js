@@ -86,7 +86,7 @@ export async function loadDict(onStatus) {
 
   if (location.protocol.startsWith('http')) {
     try {
-      const res = await fetch('wordlist.txt', { cache: 'no-store' });
+      const res = await fetch('wordlists/wordlist.txt', { cache: 'no-store' });
       if (res.ok) {
         const text = await res.text();
         adoptWordlist(text);
