@@ -86,7 +86,7 @@ async function animateDraw(drawn) {
     sfx.draw();
     flights.push(
       flyClone(el, from, rect(el), { duration: ANIM.fly, scaleFrom: 0.35 })
-        .then(() => popReveal(el))
+        .then(() => { popReveal(el); sfx.land(); })
     );
     await sleep(ANIM.stagger);
   }
@@ -100,9 +100,11 @@ async function animateDiscard(rects, to = pileRect(), bump = 'discardBtn') {
   const flights = [];
   for (const { el, r } of rects) {
     sfx.discard();
-    flights.push(flyClone(el, r, to, { duration: ANIM.fly, scaleTo: 0.25, fade: true }));
+    // The pouch bumps when the tile ARRIVES — the flight takes ANIM.fly to
+    // get there, and a bump at launch reads as the pile flinching early.
+    flights.push(flyClone(el, r, to, { duration: ANIM.fly, scaleTo: 0.25, fade: true })
+      .then(() => { pulse($(bump), 'pouch--bump', 300); sfx.file(); }));
     el.style.visibility = 'hidden';
-    pulse($(bump), 'pouch--bump', 300);
     await sleep(ANIM.stagger);
   }
   await Promise.all(flights);
@@ -837,7 +839,9 @@ async function submitWord() {
   }
 
   // ── Pass 3: colour multipliers ─────────────────────────────────────────────
-  for (const step of script.colourSteps) {
+  // Each colour rings the bell a step higher (sfx.chime), so a many-coloured
+  // word audibly stacks its multipliers.
+  for (const [ci, step] of script.colourSteps.entries()) {
     const glow  = MULT_TRACKS[step.colour]?.glyph ?? '#8a5fb0';
     const label = MULT_TRACKS[step.colour]?.label ?? 'Purple';
     for (const id of step.ids) {
@@ -847,7 +851,7 @@ async function submitWord() {
         pulse(el, 'tile--set-glow', 620);
       }
     }
-    sfx.chime();
+    sfx.chime(ci);
     // The measure's arithmetic and its flourish are one floater, not two that
     // would collide on the same beat (flourishTime, js/anim.js).
     if (step.colour === 'length') {
@@ -893,8 +897,11 @@ async function submitWord() {
   }
 
   // ── Finale: the total lands ────────────────────────────────────────────────
-  sfx.total();
+  // The press winds up while the figure counts, and the thud belongs to the
+  // slam — not to the start of the tween, half a second before anything hits.
+  sfx.crank(480);
   await tweenNum(ro.total, script.total, { duration: 480 });
+  sfx.total();
   sparkleBurst(ro.total, script.total >= state.quota ? 18 : 10);
   pulse(ro.root, 'readout--slam', 500);
   patronReactions(script);   // fire-and-forget flavour — never blocks the flow
@@ -1890,6 +1897,9 @@ $('animSlider')?.addEventListener('input', e => {
 $('soundToggle')?.addEventListener('change', e => {
   settings.sound = e.target.checked;
   saveSettings();
+  // Answer the toggle so the player hears the new state — and because this
+  // runs inside a user gesture, it primes the AudioContext for everything after.
+  if (settings.sound) sfx.land();
 });
 
 $('fileInput')?.addEventListener('change', e => {

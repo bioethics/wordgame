@@ -249,8 +249,14 @@ export function sparkleBurst(anchor, n = 12) {
 }
 
 // ─── Sound (tiny WebAudio synth, no assets) ───────────────────────────────────
+// The palette is the print house itself: lead type clacking into the composing
+// stick, brass on the counter, the press coming down. Every voice is mixed from
+// three primitives — `blip` (a note), `knock` (a pitched body meeting wood),
+// `grit` (a burst of filtered noise: the snap of an impact, the shush of paper)
+// — through one shared compressor, so the loud moments squash instead of clip
+// and a single clack can sit at a confident level.
 
-let _ac = null;
+let _ac = null, _bus = null, _noise = null;
 function ac() {
   if (!settings.sound) return null;
   try {
@@ -260,10 +266,38 @@ function ac() {
   } catch { return null; }
 }
 
+// A context born outside a user gesture stays suspended (and the opening
+// draw is swallowed) — so it is primed on the first gesture, not the first
+// sound. `once` because priming is idempotent after that.
+document.addEventListener('pointerdown', () => ac(), { once: true, passive: true });
+document.addEventListener('keydown', () => ac(), { once: true });
+
+function bus(ctx) {
+  if (!_bus) {
+    const comp = ctx.createDynamicsCompressor();
+    comp.threshold.value = -20;
+    comp.knee.value = 18;
+    comp.ratio.value = 6;
+    comp.attack.value = 0.002;
+    comp.release.value = 0.14;
+    const master = ctx.createGain();
+    master.gain.value = 0.6;
+    comp.connect(master);
+    master.connect(ctx.destination);
+    _bus = comp;
+  }
+  return _bus;
+}
+
+// Notes keep their own attack and decay at any game speed — nothing chipmunks —
+// but the SPACING within a phrase follows the animation clock, so a fanfare's
+// last note can't land after the moment it belongs to has already gone.
+const beat = s => s / (settings.animSpeed || 1);
+
 function blip(freq, { time = 0.08, type = 'triangle', gain = 0.09, when = 0, slide = 0 } = {}) {
   const ctx = ac();
   if (!ctx) return;
-  const t0 = ctx.currentTime + when;
+  const t0 = ctx.currentTime + beat(when);
   const osc = ctx.createOscillator();
   const g = ctx.createGain();
   osc.type = type;
@@ -272,29 +306,188 @@ function blip(freq, { time = 0.08, type = 'triangle', gain = 0.09, when = 0, sli
   g.gain.setValueAtTime(0, t0);
   g.gain.linearRampToValueAtTime(gain, t0 + 0.008);
   g.gain.exponentialRampToValueAtTime(0.0008, t0 + time);
-  osc.connect(g).connect(ctx.destination);
+  osc.connect(g).connect(bus(ctx));
   osc.start(t0);
   osc.stop(t0 + time + 0.05);
 }
 
+// A pitched knock — the body of the impact. The pitch falling as it sounds is
+// most of what reads as "something physical was set down".
+function knock(freq, { time = 0.09, gain = 0.3, when = 0, type = 'sine', drop = 0.45 } = {}) {
+  const ctx = ac();
+  if (!ctx) return;
+  const t0 = ctx.currentTime + beat(when);
+  const osc = ctx.createOscillator();
+  const g = ctx.createGain();
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, t0);
+  osc.frequency.exponentialRampToValueAtTime(Math.max(30, freq * drop), t0 + time);
+  g.gain.setValueAtTime(0, t0);
+  g.gain.linearRampToValueAtTime(gain, t0 + 0.003);
+  g.gain.exponentialRampToValueAtTime(0.0008, t0 + time);
+  osc.connect(g).connect(bus(ctx));
+  osc.start(t0);
+  osc.stop(t0 + time + 0.05);
+}
+
+// Filtered noise. `band` centres a bandpass (`sweep` glides it as it decays),
+// `low` caps with a lowpass instead; `attack` past a few ms turns the burst
+// into a swell. The source loops one shared buffer from a random offset, so
+// no two bursts are quite the same grain.
+function grit({ time = 0.06, gain = 0.25, when = 0, band = 0, q = 1, sweep = 0, low = 0, attack = 0.002 } = {}) {
+  const ctx = ac();
+  if (!ctx) return;
+  if (!_noise) {
+    _noise = ctx.createBuffer(1, Math.ceil(ctx.sampleRate * 0.5), ctx.sampleRate);
+    const d = _noise.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+  }
+  const t0 = ctx.currentTime + beat(when);
+  const src = ctx.createBufferSource();
+  src.buffer = _noise;
+  src.loop = true;
+  const g = ctx.createGain();
+  g.gain.setValueAtTime(0, t0);
+  g.gain.linearRampToValueAtTime(gain, t0 + attack);
+  g.gain.exponentialRampToValueAtTime(0.0008, t0 + time);
+  let node = src;
+  if (band) {
+    const f = ctx.createBiquadFilter();
+    f.type = 'bandpass';
+    f.frequency.setValueAtTime(band, t0);
+    f.Q.value = q;
+    if (sweep) f.frequency.exponentialRampToValueAtTime(Math.max(60, band + sweep), t0 + time);
+    node.connect(f);
+    node = f;
+  }
+  if (low) {
+    const f = ctx.createBiquadFilter();
+    f.type = 'lowpass';
+    f.frequency.value = low;
+    node.connect(f);
+    node = f;
+  }
+  node.connect(g).connect(bus(ctx));
+  src.start(t0, Math.random() * 0.4);
+  src.stop(t0 + time + 0.05);
+}
+
+// The signature clack — a knock with the snap of the impact on top. The pitch
+// takes a little jitter so a row of tiles sounds like handwork, not gunfire.
+function clack(freq, { gain = 1, when = 0, snap = 2600 } = {}) {
+  knock(freq * (0.96 + Math.random() * 0.08), { time: 0.07, gain: 0.32 * gain, when });
+  grit({ time: 0.035, gain: 0.26 * gain, when, band: snap, q: 0.9 });
+}
+
+// The scoring climb — C-major pentatonic, one note per tile. The climb is the
+// point, so a long word caps at the top rather than wrapping back down.
+const TICK_SCALE = [523, 587, 659, 784, 880, 1047, 1175, 1319, 1568, 1760, 2093, 2349];
+// The colour multipliers climb too, but by chords: each lit colour rings the
+// bell higher up a major arpeggio.
+const CHIME_STEPS = [1, 1.25, 1.5, 2, 2.5, 3];
+
 export const sfx = {
-  tick(i = 0)  { blip(480 + i * 52, { time: 0.07, type: 'triangle', gain: 0.07 }); },
-  mult()       { blip(170, { time: 0.13, type: 'sawtooth', gain: 0.05, slide: -40 }); },
-  aura()       { blip(740, { time: 0.10, type: 'sine', gain: 0.06, slide: 220 }); },
-  chime()      { blip(660, { time: 0.16, type: 'sine', gain: 0.05 });
-                 blip(880, { time: 0.18, type: 'sine', gain: 0.05, when: 0.07 }); },
-  coin()       { blip(1320, { time: 0.05, type: 'square', gain: 0.035 });
-                 blip(1760, { time: 0.10, type: 'square', gain: 0.03, when: 0.05 }); },
-  total()      { blip(392, { time: 0.24, type: 'triangle', gain: 0.07 });
-                 blip(494, { time: 0.24, type: 'triangle', gain: 0.06, when: 0.02 });
-                 blip(587, { time: 0.30, type: 'triangle', gain: 0.06, when: 0.04 }); },
-  win()        { [523, 659, 784, 1047].forEach((f, i) => blip(f, { time: 0.22, type: 'triangle', gain: 0.06, when: i * 0.09 })); },
-  lose()       { blip(220, { time: 0.3, type: 'sawtooth', gain: 0.05, slide: -80 });
-                 blip(150, { time: 0.45, type: 'sawtooth', gain: 0.05, when: 0.18, slide: -50 }); },
-  bad()        { blip(190, { time: 0.16, type: 'square', gain: 0.04, slide: -60 }); },
-  draw()       { blip(620, { time: 0.05, type: 'triangle', gain: 0.035, slide: 160 }); },
-  discard()    { blip(330, { time: 0.06, type: 'triangle', gain: 0.035, slide: -90 }); },
-  // A tile going up: a flare, then the crackle falling away beneath it.
-  burn()       { blip(880, { time: 0.10, type: 'sawtooth', gain: 0.045, slide: 420 });
-                 blip(260, { time: 0.34, type: 'sawtooth', gain: 0.05, when: 0.06, slide: -170 }); },
+  // Each tile pays: type pressed onto the page, a note higher up the scale.
+  tick(i = 0) {
+    clack(190);
+    blip(TICK_SCALE[Math.min(i, TICK_SCALE.length - 1)], { time: 0.09, type: 'triangle', gain: 0.12 });
+  },
+  // A ×Mult engages: the old low growl, under a ratchet-arm knock for teeth.
+  mult() {
+    knock(120, { time: 0.12, gain: 0.4, type: 'triangle', drop: 0.5 });
+    blip(170, { time: 0.14, type: 'sawtooth', gain: 0.07, slide: -40 });
+    grit({ time: 0.04, gain: 0.18, band: 1400, q: 1.2 });
+  },
+  // A patron leans in: airy on purpose — the one voice here that isn't wood.
+  aura() {
+    blip(740, { time: 0.12, type: 'sine', gain: 0.1, slide: 220 });
+    grit({ time: 0.18, gain: 0.05, band: 5200, q: 0.6, sweep: 2400 });
+  },
+  // Paint lands, a colour lights: a small bell, struck — the soft mallet tap,
+  // the fundamental, a fifth, and the inharmonic shimmer a real bell carries.
+  chime(step = 0) {
+    const root = 660 * CHIME_STEPS[Math.min(step, CHIME_STEPS.length - 1)];
+    grit({ time: 0.02, gain: 0.1, band: 4000, q: 1 });
+    blip(root, { time: 0.22, type: 'sine', gain: 0.12 });
+    blip(root * 1.5, { time: 0.2, type: 'sine', gain: 0.07, when: 0.05 });
+    blip(root * 2.76, { time: 0.1, type: 'sine', gain: 0.03, when: 0.01 });
+  },
+  // Coin: brass dropped on the counter, twice, the second bounce higher.
+  coin() {
+    const chink = (when, up) => {
+      grit({ time: 0.02, gain: 0.12, band: 5000, q: 0.8, when });
+      blip(2093 * up, { time: 0.07, type: 'sine', gain: 0.12, when });
+      blip(3136 * up, { time: 0.1, type: 'sine', gain: 0.08, when: when + 0.01 });
+    };
+    chink(0, 1);
+    chink(0.06, 1.19);
+  },
+  // The press winds up under the counting readout… (ms matches the tween)
+  crank(ms = 480) {
+    const t = beat(ms / 1000);
+    grit({ time: t, gain: 0.1, band: 500, q: 0.8, sweep: 700, attack: t * 0.7 });
+    blip(70, { time: t, type: 'sawtooth', gain: 0.05, slide: 50 });
+  },
+  // …and comes DOWN: the platen's thud, the frame's rattle, then the old
+  // triad rising out of it so the figure still sings.
+  total() {
+    knock(130, { time: 0.28, gain: 0.55, drop: 0.28 });
+    grit({ time: 0.16, gain: 0.4, low: 500 });
+    grit({ time: 0.05, gain: 0.25, band: 3200, q: 0.7 });
+    blip(392, { time: 0.26, type: 'triangle', gain: 0.1, when: 0.03 });
+    blip(494, { time: 0.26, type: 'triangle', gain: 0.09, when: 0.05 });
+    blip(587, { time: 0.32, type: 'triangle', gain: 0.09, when: 0.07 });
+  },
+  // Page complete: the old fanfare given a body — each note doubled a hair
+  // apart, two knocks of the press under it, brass on the last beat.
+  win() {
+    [523, 659, 784, 1047].forEach((f, i) => {
+      blip(f, { time: 0.24, type: 'triangle', gain: 0.1, when: i * 0.09 });
+      blip(f * 1.004, { time: 0.28, type: 'triangle', gain: 0.06, when: i * 0.09 + 0.01 });
+    });
+    knock(170, { time: 0.08, gain: 0.25 });
+    knock(200, { time: 0.08, gain: 0.25, when: 0.18 });
+    blip(3136, { time: 0.18, type: 'sine', gain: 0.06, when: 0.36 });
+    grit({ time: 0.03, gain: 0.1, band: 5000, q: 0.8, when: 0.36 });
+  },
+  // The press winds down; something heavy is set on the floor at the end.
+  lose() {
+    blip(220, { time: 0.3, type: 'sawtooth', gain: 0.07, slide: -80 });
+    blip(150, { time: 0.45, type: 'sawtooth', gain: 0.07, when: 0.18, slide: -50 });
+    knock(90, { time: 0.3, gain: 0.42, drop: 0.5, when: 0.42 });
+    grit({ time: 0.2, gain: 0.2, low: 350, when: 0.42 });
+  },
+  // A refusal: the forme jams — two dead knocks, the second lower.
+  bad() {
+    knock(160, { time: 0.08, gain: 0.28, drop: 0.6 });
+    knock(110, { time: 0.12, gain: 0.32, drop: 0.55, when: 0.09 });
+    grit({ time: 0.05, gain: 0.12, low: 600, when: 0.09 });
+  },
+  // A tile leaves the bag: the lightest pick — its landing owns the clack.
+  draw() {
+    grit({ time: 0.03, gain: 0.12, band: 2200, q: 1.4, sweep: 900 });
+    blip(620, { time: 0.05, type: 'triangle', gain: 0.05, slide: 160 });
+  },
+  // …and lands on the rack.
+  land() { clack(210, { gain: 0.9 }); },
+  // A tile swept off the board: mostly air…
+  discard() {
+    grit({ time: 0.09, gain: 0.16, band: 1500, q: 0.7, sweep: -900 });
+    blip(330, { time: 0.06, type: 'triangle', gain: 0.04, slide: -90 });
+  },
+  // …until the pile takes it.
+  file() {
+    knock(150, { time: 0.06, gain: 0.22, drop: 0.55 });
+    grit({ time: 0.025, gain: 0.1, band: 900, q: 1 });
+  },
+  // A tile going up: the flare, the old falling crackle, and embers spitting.
+  burn() {
+    grit({ time: 0.28, gain: 0.22, band: 900, q: 0.7, sweep: 2200 });
+    blip(880, { time: 0.1, type: 'sawtooth', gain: 0.05, slide: 420 });
+    blip(260, { time: 0.34, type: 'sawtooth', gain: 0.06, when: 0.06, slide: -170 });
+    for (let i = 0; i < 5; i++) {
+      grit({ time: 0.02, gain: 0.14, band: 2400 + Math.random() * 2600, q: 2,
+             when: 0.08 + i * 0.055 + Math.random() * 0.03 });
+    }
+  },
 };
