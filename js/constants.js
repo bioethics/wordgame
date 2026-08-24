@@ -30,7 +30,7 @@ export const TILE_POINTS = {
 };
 
 export const BAG_COUNTS = {
-  A:4, B:1, C:1, D:1, E:5, F:1, G:1, H:1,
+  A:4, B:2, C:1, D:1, E:5, F:1, G:1, H:1,
   I:4, J:1, K:1, L:3, M:1, N:4, O:4, P:1,
   QU:1, R:4, S:4, T:4, U:2, V:1, W:1, X:1, Y:1, Z:1,
 };

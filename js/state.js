@@ -728,9 +728,26 @@ export function trimTile(tile, kind) {
 //
 // Returns a short list of what changed, for the seat to read out, or null.
 export function recastTile(tile, mould) {
-  if (!tile || !mould || isImmutable(tile)) return null;
+  if (!tile || !mould) return null;
+  // A COUNTERFEIT is the one immutable tile this can touch, and touching it is
+  // the point: a twin struck onto a forgery makes it real. It stops being a
+  // forgery, stops being page-only, and is adopted into the collection with a
+  // template of its own — so the free worthless letter you took this morning
+  // goes into the bag tonight as a copy of your best tile. Everything else the
+  // word is finished with (a ghost, a lent letter, the Redactor's paper) still
+  // refuses: there is a real tile under those, and it is not yours to overwrite.
+  const forged = !!tile.counterfeit;
+  if (!forged && isImmutable(tile)) return null;
   const was = { colour: tile.colour, trim: tile.trim, nick: tile.nick,
                 material: tile.material, growth: getActiveGrowth(tile) };
+
+  // Struck real FIRST, so the writes below land on a tile that will take them:
+  // paintTile and growTile both refuse anything isImmutable, and a forgery is.
+  if (forged) {
+    tile.counterfeit = false;
+    tile.ephemeral   = false;
+    tile.lender      = null;
+  }
 
   if (mould.colour && mould.colour !== tile.colour) paintTile(tile, mould.colour);
   else if (!mould.colour) tile.colour = null;
@@ -740,6 +757,16 @@ export function recastTile(tile, mould) {
     tile[k] = mould[k] ?? (k === 'activeVariant' || k.endsWith('Points') ? 0 : null);
   }
   tile.basePoints = TILE_POINTS[getActiveLetter(tile)] ?? tile.basePoints ?? 1;
+
+  // …and the press takes it on. Adopted rather than written through, because a
+  // counterfeit never had a template to write to — and adopted here, once the
+  // mould is on it, so the template is born wearing what the tile wears.
+  if (forged) {
+    const { id, selected, basePoints, ...fresh } = tile;
+    const adopted = adoptTemplate(fresh);
+    state.collection.push(adopted);
+    tile.tid = adopted.tid;
+  }
 
   const tmpl = state.collection.find(c => c.tid === tile.tid);
   if (tmpl) {
@@ -761,6 +788,9 @@ export function recastTile(tile, mould) {
   if (tile.material !== was.material && tile.material) said.push(MATERIALS[tile.material].label.toLowerCase());
   const grew = getActiveGrowth(tile) - was.growth;
   if (grew) said.push(`${grew > 0 ? '+' : ''}${grew} Points`);
+  // A forgery struck real is worth saying even when the mould was a bare tile:
+  // nothing about it may have changed to look at, and everything has.
+  if (forged) said.unshift('struck real, and into the case');
   return said.length ? said : null;
 }
 

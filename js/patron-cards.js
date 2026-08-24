@@ -349,7 +349,7 @@ export const PATRON_CARDS = {
   },
   counterfeiter: {
     name: 'The Counterfeiter', emoji: '💵', rarity: 'uncommon', cost: 7, guild: 'azure',
-    desc: 'Once a page, take as many counterfeit sorts as your hand will hold. They spell, and nothing else — no Points, and nothing can ever be written on them.',
+    desc: 'Once a page, take one counterfeit sort — any letter you like. It spells, and nothing else: no Points, nothing can be written on it, and it is gone when the page turns. Unless a twin is struck onto it.',
   },
   haplographer: {
     name: 'The Haplographer', emoji: '🔂', rarity: 'uncommon', cost: 6,

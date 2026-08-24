@@ -759,17 +759,22 @@ const PATRON_BEHAVIOURS = [
     },
   },
   {
-    // A whole case of forged sorts, offered once a page from his card. They
-    // spell and do nothing else — worth no Points, and nothing can be written on
-    // them (spellsOnly and isImmutable in js/state.js) — so what they buy is
-    // LENGTH, and whatever your engines can make of a letter that is merely
-    // present: a doubled pair for The Twins to strike from, a fourth colour for
-    // The Illuminator to find, a shape for an editor to approve of.
+    // ONE forged sort a page, chosen off a plate of the whole case. It spells
+    // and does nothing else — worth no Points, and nothing can be written on it
+    // (spellsOnly and isImmutable in js/state.js) — so what it buys is LENGTH,
+    // and whatever your engines can make of a letter that is merely present: a
+    // doubled pair for The Twins to strike from, a fourth colour for The
+    // Illuminator to find, a shape for an editor to approve of.
     //
-    // The cost is the only one that matters in this game: they take places in
-    // your hand. "As many as you like" is bounded by the room you have, and a
-    // hand of forgeries scores nothing at all — which is the whole tension, and
-    // why he needs no other limit.
+    // One a page is the whole of the limit, and it has to be: a free letter is a
+    // small kindness, a free HAND is a different game. It costs a place in the
+    // hand while it is there, and the page takes it back.
+    //
+    // Unless The Twins get to it. A twin struck onto a forgery makes it REAL —
+    // it stops being counterfeit, stops being page-only, and is adopted into the
+    // collection wearing the mould (recastTile in js/state.js). That is the seat
+    // at its best: a worthless letter you took this morning goes into the bag
+    // tonight as a copy of your finest tile.
     id: 'counterfeiter',
     when: 'meta',   // used from his card — the sheet lives in render.js, the taking in main.js
     act: ({ seat, data }) =>

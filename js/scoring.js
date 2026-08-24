@@ -18,7 +18,10 @@ import {
 // "script" of every step, so the UI can replay the score tile by tile:
 //
 // {
-//   word, letters, points, mult, total, coins, refresh, spiked
+//   word, letters, points, mult, total, coins, refresh, spiked, plainTotal, adjusted
+//     — `plainTotal` is what the word was worth before the Deadline's editor
+//       touched it (its temper, its spike), and `adjusted` says the two differ;
+//       the readout strikes the first through and writes the second beside it.
 //     — `word` is what PRINTS (glyphs and marks); `letters` is what the table
 //       READ (medieval sorts resolved, marks stripped), which is what the
 //       patrons, the editors and the measure all judged.
@@ -557,6 +560,11 @@ export function computeScore(wordTiles) {
   // or not; then the seated editor judges, and a break is spiked at ×SPIKE_MULT
   // as a visible step, so preview and print agree. judge() gets the PRE-spike
   // total, so the Escalationist's bar measures what a word was really worth.
+  //
+  // What the word was worth BEFORE the desk touched it is kept: the readout
+  // strikes that figure through and writes the editor's beside it, so a spike
+  // (or a temper) is read as a thing done TO a score rather than as the score.
+  const plainMult = mult;
   let spiked = false;
   if (state.boss) {
     const def = bossById(state.boss.id);
@@ -583,7 +591,9 @@ export function computeScore(wordTiles) {
 
   // Floored at nothing: only a curse left in hand can drive Points below zero,
   // and a negative word would eat the page you'd already built.
-  const total = Math.max(0, Math.round(points * mult));
+  const total      = Math.max(0, Math.round(points * mult));
+  const plainTotal = Math.max(0, Math.round(points * plainMult));
+  const adjusted   = plainTotal !== total;
 
   // Points the Twins raised are kept for good, so the groove writes them in jade
   // rather than boost brass — the same mark the trellis seats earn. (The coat
@@ -599,7 +609,7 @@ export function computeScore(wordTiles) {
   });
 
   return {
-    word, letters, points, mult, total, coins, refresh, spiked,
+    word, letters, points, mult, total, coins, refresh, spiked, plainTotal, adjusted,
     tileSteps, tilePaintSteps, tilePaint, tileBoostSteps, tileGrowth, nickSteps, nickAffected,
     colourSteps, patronSteps, perTile,
     twinSteps: twin.steps, twinCloned: twin.cloned, twinSummons: twin.summons,

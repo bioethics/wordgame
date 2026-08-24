@@ -41,7 +41,7 @@ import {
   showGameOver, showVictory, openInspector, closeInspector, coinHTML,
   showPatronPopover, hidePopover, openManuscript, closeManuscript,
   openGhosts, closeGhosts, ghostsOpen,
-  showCoinWordSheet, setCoinNote, showCounterfeitSheet, setPlateRoom,
+  showCoinWordSheet, setCoinNote, showCounterfeitSheet, showStruckTotal,
 } from './render.js';
 import {
   initSheets, renderMarket, renderColophon, renderDraft,
@@ -782,8 +782,10 @@ async function submitWord() {
   const script = computeScore(state.word);
   const ro = readoutEls();
 
-  // Start the readout from zero so the build-up reads clearly
+  // Start the readout from zero so the build-up reads clearly. Last word's
+  // crossing-out goes with it: this word has not been judged yet.
   setNum(ro.points, 0); setNum(ro.total, 0);
+  showStruckTotal(null);
   renderChips(null);
   ro.root.classList.remove('readout--idle');
   ro.root.classList.add('readout--live');
@@ -957,10 +959,22 @@ async function submitWord() {
   // The press winds up while the figure counts, and the thud belongs to the
   // slam — not to the start of the tween, half a second before anything hits.
   sfx.crank(480);
-  await tweenNum(ro.total, script.total, { duration: 480 });
+  // The figure the word was WORTH lands first, whole. Only then does the desk
+  // reach over and cross it out — a spike has to be seen happening to a score,
+  // or the player never learns what the editor cost them.
+  await tweenNum(ro.total, script.adjusted ? script.plainTotal : script.total, { duration: 480 });
   sfx.total();
   sparkleBurst(ro.total, script.total >= state.quota ? 18 : 10);
   pulse(ro.root, 'readout--slam', 500);
+  if (script.adjusted) {
+    await sleep(ANIM.stepPatron);
+    showStruckTotal(script.plainTotal);
+    pulse(ro.plain, 'ro-total--striking', 460);
+    setNum(ro.total, script.plainTotal);
+    await tweenNum(ro.total, script.total, { duration: 380 });
+    if (script.spiked) { sfx.bad(); pulse($('bossBar'), 'boss-bar--spiking', 520); }
+    else sfx.mult();
+  }
   patronReactions(script);   // fire-and-forget flavour — never blocks the flow
   await sleep(ANIM.holdTotal);
   await evaporateTwins();
@@ -1809,7 +1823,7 @@ $('overlayModal')?.addEventListener('click', e => {
   // only when the plate is put away having given something up.
   const sort = e.target.closest('[data-counterfeit]');
   if (sort) { takeCounterfeit(sort.dataset.counterfeit); return; }
-  if (e.target.closest('[data-plate-done]')) closeCounterfeitPlate();
+  if (e.target.closest('[data-plate-done]')) hideOverlay();
 });
 $('overlayModal')?.addEventListener('keydown', e => {
   if (!$('coinInput')) return;
@@ -1847,10 +1861,10 @@ function usurerRepay() {
   renderAll(); if (state.inMarket) renderMarket(); persist();
 }
 
-// ─── The Counterfeiter (a plate of forged sorts, once a page) ─────────────────
-// The offer is spent only once something has been TAKEN from it, so opening the
-// plate to look and closing it again costs nothing — there is no way to lose the
-// page's offer to a misclick. Room in the hand is the only limit there is.
+// ─── The Counterfeiter (one forged sort a page) ───────────────────────────────
+// ONE sort, and the plate is cold until the next page — which is what keeps a
+// free letter from being a free hand. Opening the plate to look costs nothing;
+// the offer is spent the moment something is taken, and the plate closes on it.
 
 const handRoom = () => Math.max(0, effectiveRackSize() - handCount());
 
@@ -1860,39 +1874,34 @@ function openCounterfeitPlate() {
   if (!seat) return;
   seat.data ??= {};
   if (seat.data.used) { log('💵 The plate is cold until the next page.', 'warn'); return; }
-  showCounterfeitSheet(handRoom());
+  if (handRoom() <= 0) { log('💵 Your hand is full — there is nowhere to put a forgery.', 'warn'); return; }
+  showCounterfeitSheet();
 }
 
 async function takeCounterfeit(letter) {
   const seat = state.patrons.find(p => p.id === 'counterfeiter');
   if (!seat || seat.data?.used || handRoom() <= 0) return;
   seat.data ??= {};
-  seat.data.taking = (seat.data.taking ?? 0) + 1;   // spent when the plate closes
+  seat.data.used = true;          // one a page, spent the moment it is taken
+  hideOverlay();
 
   const tile = castCounterfeit(letter);
+  state.isAnimating = true;
+  renderButtons();
   renderRack(new Set([tile.id]));
   renderCounts();
   const el = rackTileEl(tile.id);
   const card = patronCard(seat);
-  if (card) pulse(card, 'patron--firing', 380);
+  if (card) pulse(card, 'patron--firing', 520);
   if (el) {
     sfx.draw();
     await flyClone(el, rect(card) ?? bagRect(), rect(el), { duration: ANIM.fly, scaleFrom: 0.35 });
     popReveal(el);
+    sparkleBurst(el, 9);
     sfx.land();
   }
-  setPlateRoom(handRoom());
-}
-
-function closeCounterfeitPlate() {
-  const seat = state.patrons.find(p => p.id === 'counterfeiter');
-  const took = seat?.data?.taking ?? 0;
-  if (seat && took) {
-    seat.data.used = true;
-    seat.data.taking = 0;
-    log(`💵 ${took} counterfeit sort${took === 1 ? '' : 's'} off the plate — worth nothing, and yours till the page turns.`, 'good');
-  }
-  hideOverlay();
+  state.isAnimating = false;
+  log(`💵 A counterfeit ${letter} — worth nothing, and yours till the page turns.`, 'good');
   renderAll();
 }
 

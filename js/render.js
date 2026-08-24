@@ -316,18 +316,18 @@ export function showCoinWordSheet() {
 }
 
 // ─── The Counterfeiter's plate ────────────────────────────────────────────────
-// Every sort he can forge, laid out at once. Taking one is a click; the plate
-// stays open so a handful can be lifted in a row, and the only limit is the room
-// left in your hand — which is the whole of what a counterfeit costs.
-export function showCounterfeitSheet(room) {
+// Every sort he can forge, laid out at once — and you take exactly one, which is
+// why the whole case can be shown without the seat becoming a free hand. Picking
+// closes the plate; looking and walking away costs nothing.
+export function showCounterfeitSheet() {
   const letters = Object.keys(BAG_COUNTS);
   showOverlay(`
     <div class="sheet sheet--end sheet--plate">
       <div class="end-flourish">💵</div>
       <h2 class="end-title">The plate</h2>
-      <p class="end-sub">Forged sorts, free for the taking. They spell, and nothing
-        else — no Points, and nothing can ever be written on them. They are gone
-        when the page turns.</p>
+      <p class="end-sub">One forged sort, free, and the plate is cold until the next
+        page. It spells, and nothing else — no Points, and nothing can be written on
+        it. It is gone when the page turns.</p>
       <div class="plate-grid" id="plateGrid">
         ${letters.map(L => `
           <button class="plate-sort" data-counterfeit="${L}" aria-label="Take a counterfeit ${L}">
@@ -335,25 +335,10 @@ export function showCounterfeitSheet(room) {
             <span class="plate-sort-pts">0</span>
           </button>`).join('')}
       </div>
-      <div id="plateNote" class="coin-note">&nbsp;</div>
       <div class="end-actions">
-        <button class="btn btn-print btn-big" data-plate-done>That will do</button>
+        <button class="btn btn-quiet" data-plate-done>Not this page</button>
       </div>
     </div>`);
-  setPlateRoom(room);
-}
-
-// How many places are left in the hand, said plainly, and the plate closed off
-// when there are none. Called after every sort taken.
-export function setPlateRoom(room) {
-  const note = $('plateNote');
-  if (note) {
-    note.textContent = room > 0
-      ? `${room} place${room === 1 ? '' : 's'} left in your hand`
-      : 'Your hand is full.';
-    note.classList.toggle('coin-note--bad', room <= 0);
-  }
-  for (const b of document.querySelectorAll('[data-counterfeit]')) b.disabled = room <= 0;
 }
 
 export function setCoinNote(msg, bad = false) {
@@ -1006,6 +991,7 @@ export function updateReadoutPreview(script) {
   ro.classList.toggle('readout--idle', !script);
   setNum($('roPoints'), script ? script.points : 0);
   setNum($('roTotal'), script ? script.total : 0);
+  showStruckTotal(script?.adjusted ? script.plainTotal : null);
   renderChips(script?.colourSteps);
 }
 
@@ -1025,9 +1011,19 @@ export function setChip(el, mult) {
   el.classList.toggle('chip--on', mult > 1);
 }
 
+// The figure the Deadline's editor crossed out. Shown beside the real total,
+// struck through — the score the word was worth, and what the desk made of it.
+// Passing null puts it away.
+export function showStruckTotal(plain) {
+  const el = $('roTotalPlain');
+  if (!el) return;
+  el.hidden = plain == null;
+  if (plain != null) setNum(el, plain);
+}
+
 // Imperative access for the scoring cinematic
 export const readoutEls = () => ({
-  points: $('roPoints'), total: $('roTotal'),
+  points: $('roPoints'), total: $('roTotal'), plain: $('roTotalPlain'),
   root: $('readout'), coins: $('coinCount'),
   chip: c => $(`chip-${c}`),
 });

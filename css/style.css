@@ -1315,7 +1315,7 @@ button.sundry:hover { transform: translateY(-2px); }
   color: var(--muted);
 }
 
-.ro-total-wrap { min-width: 120px; text-align: center; }
+.ro-total-wrap { min-width: 120px; text-align: center; white-space: nowrap; }
 
 /* Colour multiplier chips — one per colour, dim while ×1. Always all five, so
    the row's width never changes as multipliers come and go. */
@@ -1369,6 +1369,41 @@ button.sundry:hover { transform: translateY(-2px); }
   text-shadow: 0 0 22px rgba(246, 214, 138, 0.45), 0 2px 4px rgba(0, 0, 0, 0.6);
   font-variant-numeric: tabular-nums;
 }
+/* What the word was worth before the Deadline's editor reached over: struck
+   through, set smaller and duller, and sitting to the LEFT of the figure that
+   stands — so the pair reads as a correction on a proof rather than as two
+   scores. The rule is drawn rather than text-decoration'd, so it can be given
+   the editor's red and a weight that survives against 900-weight numerals. */
+.ro-total--struck {
+  position: relative;
+  font-size: 27px;
+  color: #bda893;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  margin-right: 9px;
+  opacity: 0.85;
+  vertical-align: 0.24em;
+}
+.ro-total--struck::after {
+  content: '';
+  position: absolute;
+  left: -6%; right: -6%; top: 52%;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--spike, #e2604a);
+  box-shadow: 0 0 9px rgba(226, 96, 74, 0.85);
+  transform: rotate(-6deg);
+  pointer-events: none;
+}
+/* The moment the pen goes through it. */
+.ro-total--striking::after { animation: strikeThrough calc(0.42s / var(--aspd)) ease-out; }
+@keyframes strikeThrough {
+  0%   { transform: rotate(-6deg) scaleX(0); transform-origin: left center; }
+  100% { transform: rotate(-6deg) scaleX(1); transform-origin: left center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ro-total--striking::after { animation: none; }
+}
+.ro-total-wrap:has(.ro-total--struck:not([hidden])) { white-space: nowrap; }
 
 .hidden { display: none !important; }
 

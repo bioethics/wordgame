@@ -57,6 +57,12 @@ letters: length, spelling, order. Editors judge shape, so they count letters —
 except the two that don't judge words at all, the Redactor (which wraps tiles)
 and the Hoarder (which rearranges the hand).
 
+When the Deadline's editor changes what a word is worth — a spike, or the
+Reviewer's temper — the readout **strikes the figure through and writes the
+editor's beside it**, so a spike reads as a thing done *to* a score rather than
+as the score. The print shows it happening: the number the word was worth lands
+whole, and then the desk reaches over and crosses it out.
+
 The readout shows a live projection with a chip per colour, and **everything
 that does something explains itself where it sits**: hover with a mouse,
 long-press on touch, wherever the thing appears. Nothing is summarised beneath
@@ -159,30 +165,28 @@ where it turns solid.
 ### The Counterfeiter
 
 Once a page, tap his card and the **plate** opens: the whole case, forged. Take
-as many sorts as you like — the only limit is the room left in your hand, and
-the sheet counts it down for you. They are free, and they are worthless.
+**one** sort — any letter you like — and the plate is cold until the next page.
+One is the whole of the limit, and it has to be: a free letter is a small
+kindness, a free hand is a different game.
 
-A counterfeit sort **spells, and does nothing else**: no Points, no paint, no
-trim, no metal, no nick, and nothing can ever be written on one (`spellsOnly`
-and `isImmutable` in `js/state.js` — the same reading the Redactor's manuscript
-tiles get, on bank-note stock rather than draft paper). They are gone when the
-page turns.
+A counterfeit sort **spells, and does nothing else**: no Points, no paint, trim,
+metal or nick, and nothing can be written on one (`spellsOnly` and `isImmutable`
+in `js/state.js` — the same reading the Redactor's manuscript tiles get, on
+bank-note stock rather than draft paper). It takes a place in your hand while it
+is there, and the page takes it back.
 
 So what a forgery buys is **length**, and whatever your table can make of a
 letter that is merely *there*: a doubled pair for *the Twins* to strike from, a
-fourth colour for *the Illuminator* to find, a shape an editor will pass. The
-cost is the only one that matters here — **they take places in your hand**, and
-a hand of forgeries scores nothing at all. That is the whole tension, and why he
-needs no other limit.
+fourth colour for *the Illuminator* to find, a shape an editor will pass.
 
-The Twins are the sharpest thing to do with him, and the rule cuts one way only:
-**a forgery is never a mould**, but it can be struck *from* real type. Set your
-gorgeous L and then a counterfeit L, and for that one word the forgery passes —
-it pays the real tile's Points, lifts its colours, and wears cast metal in the
-groove. Nothing is kept: the tile is still a forgery underneath, so the seat's
-`onPrinted` writes nothing to it, and the page takes it back. Put the forgery in
-*front* and it will not strip your good tile — there is nothing to strike from a
-fake.
+**Unless the Twins get to it.** A twin struck onto a forgery makes it **real** —
+it stops being counterfeit, stops being page-only, and is adopted into the
+collection wearing the mould. The worthless letter you took this morning goes
+into the bag tonight as a copy of your finest tile, and that is the seat at its
+best. The rule cuts one way only, though: **a forgery is never a mould.** Set
+your gorgeous L and *then* the counterfeit L and you keep a second gorgeous L
+for good; put the forgery in front and nothing happens to the good tile behind
+it — there is nothing to strike from a fake.
 
 ## The pieces
 
