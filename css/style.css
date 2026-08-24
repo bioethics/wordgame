@@ -1374,7 +1374,8 @@ button.sundry:hover { transform: translateY(-2px); }
    stands — so the pair reads as a correction on a proof rather than as two
    scores. The rule is drawn rather than text-decoration'd, so it can be given
    the editor's red and a weight that survives against 900-weight numerals. */
-.ro-total--struck {
+.ro-total[hidden] { display: none; }
+.ro-total.ro-total--struck {
   position: relative;
   font-size: 27px;
   color: #bda893;
@@ -1383,7 +1384,7 @@ button.sundry:hover { transform: translateY(-2px); }
   opacity: 0.85;
   vertical-align: 0.24em;
 }
-.ro-total--struck::after {
+.ro-total.ro-total--struck::after {
   content: '';
   position: absolute;
   left: -6%; right: -6%; top: 52%;
@@ -1395,13 +1396,13 @@ button.sundry:hover { transform: translateY(-2px); }
   pointer-events: none;
 }
 /* The moment the pen goes through it. */
-.ro-total--striking::after { animation: strikeThrough calc(0.42s / var(--aspd)) ease-out; }
+.ro-total.ro-total--striking::after { animation: strikeThrough calc(0.42s / var(--aspd)) ease-out; }
 @keyframes strikeThrough {
   0%   { transform: rotate(-6deg) scaleX(0); transform-origin: left center; }
   100% { transform: rotate(-6deg) scaleX(1); transform-origin: left center; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ro-total--striking::after { animation: none; }
+  .ro-total.ro-total--striking::after { animation: none; }
 }
 .ro-total-wrap:has(.ro-total--struck:not([hidden])) { white-space: nowrap; }
 
@@ -4224,6 +4225,24 @@ input[type='checkbox'] {
   .chip--length:not(.chip--on) { display: none; }
   .ro-total-wrap { min-width: 56px; }
   .ro-total { font-size: 25px; }
+  /* Side by side, a crossed-out six-figure score pushes the whole board off a
+     phone (439px of readout on a 390px screen). So the correction goes ABOVE
+     the figure that stands instead of beside it: it costs no width at all, and
+     a number written over another still reads as a proof mark. */
+  .ro-total-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .ro-total.ro-total--struck {
+    font-size: 13px;
+    margin-right: 0;
+    margin-bottom: 2px;
+    vertical-align: baseline;
+  }
+  .ro-total.ro-total--struck::after { height: 2px; }
 
   /* one row of tiles reserved in the groove, two in the rack (a full hand) */
   .word-groove { min-height: 76px; padding: 8px; gap: 6px; }
