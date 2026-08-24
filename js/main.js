@@ -10,7 +10,7 @@ import {
   effectiveGhostSlots, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected, takePaintEchoes,
   rollTubeOffer, applyWash, washOff, effectiveSundrySlots, takeGhostEchoes,
-  getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile,
+  getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile, recastTile,
   trashFromCollection, mergeTiles, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
   grantRandomPatron,
   rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost,
@@ -551,9 +551,10 @@ function runPrintedHooks(tiles, script) {
     const r = def.onPrinted({
       tiles: tiles.filter(t => !burned.has(t.id)),   // ash is out of everyone's reach
       script, state, data: p.data,
-      grow:  growTile,
-      paint: paintTile,
-      trim:  trimTile,
+      grow:   growTile,
+      paint:  paintTile,
+      trim:   trimTile,
+      recast: recastTile,
       burn:  t => !!trashFromCollection(t.tid),
       // The same bench the discard hooks get: it refuses rather than overflows.
       bench: benchPut,
@@ -811,7 +812,7 @@ async function submitWord() {
         floatText(el, `${step.emoji} struck`, 'fl-twin', { dy: -62 });
       } else {
         pulse(el, 'tile--twinned-firing', 620);
-        floatText(el, `${step.emoji} twinned`, 'fl-twin', { dy: -52 });
+        floatText(el, `${step.emoji} recast`, 'fl-twin', { dy: -52 });
       }
       sparkleBurst(el, 10);
       shown++;

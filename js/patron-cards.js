@@ -325,7 +325,7 @@ export const PATRON_CARDS = {
   },
   twins: {
     name: 'The Twins', emoji: '👯', rarity: 'common', cost: 4,
-    desc: 'Every doubled letter (LL, OO…) pays +{TWINS_POINTS} Points, and the second tile is recast as the first — its Points, trim, nick, metal and paint, for that word.',
+    desc: 'Every doubled letter (LL, OO…) pays +{TWINS_POINTS} Points, and the second tile is struck again from the first — taking its paint, trim, nick and Points wherever it had none of its own, and keeping them for good.',
   },
   innkeeper: {
     name: 'The Innkeeper', emoji: '🍻', rarity: 'common', cost: 6,

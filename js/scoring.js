@@ -9,7 +9,7 @@ import {
 import { bossById } from './bosses.js';
 import {
   state, owns, allSeats, getActiveLetter, getActiveColour, getActiveGrowth,
-  returnsToBag, isWrapped, restingPoints,
+  returnsToBag, isWrapped,
 } from './state.js';
 
 // ─── Score a word ─────────────────────────────────────────────────────────────
@@ -25,10 +25,11 @@ import {
 //   tileSteps:      [{ id, points, coins, refresh, returns }] — one per tile, in order
 //   tilePaintSteps: [{ id, uid, emoji, text, hits: [{ id, colour }] }]
 //   tilePaint:      Map(id → colour) — the same paint, for the live preview
-//   twinSteps:      [{ id, uid, emoji, hits: [{ kind, id, fromId, at, changed }] }]
+//   twinSteps:      [{ id, uid, emoji, hits: [{ kind, id, fromId, at, coat, changed, grew }] }]
 //                     — The Twins' recasting: 'clone' rewrites the tile at `id`,
-//                     'summon' adds one the word never had. `changed` is false for
-//                     a recasting that alters nothing to look at.
+//                     'summon' adds one the word never had. `coat` is what the
+//                     seat lays into the collection for good; `changed` is false
+//                     for a recasting that alters nothing to look at.
 //   twinCloned:     Map(id → tile) — what a recast tile now reads as (preview)
 //   twinSummons:    [{ at, tile }] — tiles struck into the word, by place (preview)
 //   tileBoostSteps: [{ id, uid, emoji, points, hits: [{ id, delta }] }]
@@ -52,25 +53,48 @@ const primedLabel = source =>
   (source === 'tongs' ? "the tongs' due" : patronById(source)?.name ?? 'primed');
 
 // ─── The Twins' recasting (scoring's pass ⅓) ──────────────────────────────────
-// A pair the Twins can copy is recast whole: the second tile takes the first's
-// Points, trim, nick, metal and paint, keeping only its own identity — its id,
-// so every Map and every element already keyed to it still finds it, and its
-// place in the word.
-const recast = (first, second) => ({
-  ...first,
-  id: second.id, tid: second.tid, selected: second.selected,
-  ephemeral: second.ephemeral, aboveHand: second.aboveHand, lender: second.lender,
-});
-
-// Whether a recasting is worth SHOWING: two plain Ls are a pair and are paid
-// like any other, but nothing about them changes, and a flourish over a tile
-// that looks exactly as it did reads as a bug.
-const twinChanges = (a, b) =>
-  restingPoints(a) !== restingPoints(b)
-  || getActiveColour(a) !== getActiveColour(b)
-  || (a.trim ?? null) !== (b.trim ?? null)
-  || (a.nick ?? null) !== (b.nick ?? null)
-  || (a.material ?? null) !== (b.material ?? null);
+// The second tile of a pair is struck again from the first: it takes the coat
+// the first is wearing WHEREVER IT HAS NONE OF ITS OWN, and keeps everything it
+// already had. A tile never comes out of the mould worse than it went in, which
+// is the whole reason the rule is written that way — the recasting is permanent
+// (the seat's onPrinted lays it into the collection), and a 4-Coin common that
+// could quietly strip the gold off a tile would be a trap wearing a boon's hat.
+// Growth is the same bargain read as a number: the higher of the two.
+//
+// Metal is not copied. What a tile is CAST FROM sits under everything it wears
+// (MATERIALS in constants.js), and minting rose or hellbox iron is nobody's
+// gift — least of all a common's, and least of all onto a tile whose owner
+// would not have chosen it.
+//
+// Returns the recast tile, the COAT that was actually gained (what onPrinted
+// lays in for good, and nothing the tile already had), and whether any of it is
+// worth showing: two plain Ls are a pair and are paid like any other, but
+// nothing about them changes, and a flourish over a tile that looks exactly as
+// it did reads as a bug.
+function recastPair(first, second) {
+  const field  = second.activeVariant === 1 ? 'altBonusPoints' : 'bonusPoints';
+  const growth = Math.max(getActiveGrowth(first), getActiveGrowth(second));
+  const coat = {
+    colour: second.colour ? null : (first.colour ?? null),
+    trim:   second.trim   ? null : (first.trim   ?? null),
+    nick:   second.nick   ? null : (first.nick   ?? null),
+    growth,
+  };
+  const tile = {
+    ...second,
+    colour: second.colour ?? first.colour ?? null,
+    // A wash is nobody's for keeps — it comes off both tiles when the word is
+    // done — so it rides in the reading and never into the coat.
+    wash:   second.wash   ?? first.wash   ?? null,
+    trim:   second.trim   ?? first.trim   ?? null,
+    nick:   second.nick   ?? first.nick   ?? null,
+    [field]: growth,
+  };
+  const changed = !!(coat.colour || coat.trim || coat.nick
+    || growth > getActiveGrowth(second)
+    || (!second.wash && !second.colour && first.wash));
+  return { tile, coat, changed };
+}
 
 // Apply every seated tileTwin seat to a COPY of the word, in seat order. Returns
 // the twinned word, the steps to replay it with, and — for the live preview —
@@ -100,13 +124,17 @@ function applyTwins(tiles) {
     const hits = [];
     let next = [...tiles];
     for (const q of recasts) {
-      const twin = recast(q.first, q.second);
-      const changed = twinChanges(q.first, q.second);
+      const { tile: twin, coat, changed } = recastPair(q.first, q.second);
       next = next.map(t => (t.id === q.second.id ? twin : t));
       // Only a recasting that alters something goes to the preview: one that
       // doesn't would render the tile exactly as it already is.
       if (changed) cloned.set(q.second.id, twin);
-      hits.push({ kind: 'clone', id: q.second.id, fromId: q.first.id, changed });
+      // `coat` is what the seat lays into the collection when the word prints —
+      // recorded here so the permanent change is exactly the one the player was
+      // shown, rather than worked out a second time against a tile some other
+      // seat may have painted in the meantime.
+      hits.push({ kind: 'clone', id: q.second.id, fromId: q.first.id, coat, changed,
+                  grew: coat.growth > getActiveGrowth(q.second) });
     }
     for (const q of struck) {
       // Cast from the tile it doubles — its trim, nick, metal and paint — but
@@ -534,6 +562,13 @@ export function computeScore(wordTiles) {
   // Floored at nothing: only a curse left in hand can drive Points below zero,
   // and a negative word would eat the page you'd already built.
   const total = Math.max(0, Math.round(points * mult));
+
+  // Points the Twins raised are kept for good, so the groove writes them in jade
+  // rather than boost brass — the same mark the trellis seats earn. (The coat
+  // itself needs no such marking: renderWord already draws the recast tile.)
+  for (const step of twin.steps) {
+    for (const hit of step.hits) if (hit.grew) tileGrowth.add(hit.id);
+  }
 
   // ── Per-tile breakdown for tooltips ─────────────────────────────────────────
   const perTile = new Map();

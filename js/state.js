@@ -4,7 +4,7 @@ import {
   BAG_COUNTS, TILE_POINTS, DABBLER_ODDS, CURSED_MAX_POINTS, isImmutable, isMark,
   MARKS, MARK_TRIM, SILVER_BONUS, FLEURON, LOUPE_CAP, TONGS_BONUS, WASH_COUNT,
   REVENANT_ODDS,
-  COLOURS,
+  COLOURS, TRIMS, NICKS,
   quotaFor, makeTileTemplate, GAMBLER_ODDS, isDeadline,
   MAGPIE_WEIGHT, MAKO_WEIGHT,
 } from './constants.js';
@@ -689,6 +689,36 @@ export function trimTile(tile, kind) {
   const tmpl = state.collection.find(c => c.tid === tile.tid);
   if (tmpl) tmpl.trim = kind;
   return true;
+}
+
+// The Twins' recasting, laid in for good. A `coat` is what scoring worked out
+// the second tile of a doubled pair GAINS from the first (recastPair in
+// js/scoring.js): only slots it had nothing in, so this can never take anything
+// away. Written through to the collection template like every other permanent
+// change, so it outlives the page, the save and every reshuffle.
+//
+// Paint goes out through paintTile and trim through trimTile rather than being
+// written here, so the one route each still holds — The Dabbler hears the
+// brushstroke, and nothing can drift apart. Returns the list of what was
+// actually gained, for the seat to read out, or null.
+export function recastTile(tile, coat) {
+  if (!tile || !coat || isImmutable(tile)) return null;
+  const got = [];
+  if (coat.colour && !tile.colour && paintTile(tile, coat.colour)) {
+    got.push(COLOURS[coat.colour].label.toLowerCase());
+  }
+  if (coat.trim && !tile.trim && trimTile(tile, coat.trim)) {
+    got.push(`a ${TRIMS[coat.trim].label.toLowerCase()} trim`);
+  }
+  if (coat.nick && !tile.nick) {
+    tile.nick = coat.nick;
+    const tmpl = state.collection.find(c => c.tid === tile.tid);
+    if (tmpl) tmpl.nick = coat.nick;
+    got.push(NICKS[coat.nick].label.toLowerCase());
+  }
+  const gain = (coat.growth ?? 0) - getActiveGrowth(tile);
+  if (gain > 0 && growTile(tile, gain)) got.push(`+${gain} Points`);
+  return got.length ? got : null;
 }
 
 // Remove a tile from the collection for good. Honours the Smelter's floor, so

@@ -318,6 +318,10 @@ export function twinPairs(tiles) {
 // pair however the pair is made.
 export const twinPoints = pairs => TWINS_POINTS * pairs.length;
 
+// "crimson", "crimson and a Gold trim", "crimson, a Gold trim and +2 Points".
+const listPhrase = xs =>
+  (xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} and ${xs.at(-1)}`);
+
 // The medieval sorts, read as the letters they stand for. Readings are tried in
 // `reads` order and the first real word wins, else the first reading stands. The
 // live preview (scoring) and the print (main.js) both resolve through this one
@@ -493,27 +497,52 @@ const PATRON_BEHAVIOURS = [
   },
   {
     // A doubled letter is two of the same thing, and The Twins hold the press to
-    // it: the second tile is RECAST as the first, taking its Points, trim, nick,
-    // metal and paint. Two plain Ls are unchanged by that and paid anyway; one
-    // gorgeous L beside a plain one is where the seat earns its keep, and where
-    // the puzzle lives — you want the pair lopsided, not tidy.
+    // it: the second tile is struck again from the first, taking its paint,
+    // trim, nick and Points wherever it had none of its own — and KEEPING them.
+    // Two plain Ls are unchanged by that and paid anyway; one gorgeous L beside
+    // a plain one is where the seat earns its keep, and where the puzzle lives —
+    // you want the pair lopsided, not tidy.
     //
-    // The clone lands in scoring's pass ⅓, before anything is counted and before
-    // the brush, so every reader downstream sees two identical tiles: the colour
+    // Which makes this a deck-builder rather than a score seat, and gives it a
+    // shape over a run: at the first Market your tiles are all bare and it pays
+    // its +5 and nothing more; through the middle of a run it is the cheapest
+    // way there is to spread one good tile across a collection; by the end most
+    // of what you own is already dressed and it has little left to give — bar
+    // the one extraordinary tile you are trying to make copies of.
+    //
+    // It lands in scoring's pass ⅓, before anything is counted and before the
+    // brush, so every reader downstream sees two identical tiles: the colour
     // multipliers count the coat twice, a gold trim pays a second Coin, the
-    // Monogrammist finds two of its letter. It is a copy, for this word only —
-    // nothing is written back to the collection, and the plain L is still plain
-    // when it files into the pile.
+    // Monogrammist finds two of its letter. Scoring stays pure — the copy is
+    // made there, and onPrinted below is what lays it into the collection.
     //
-    // twinPairs decides which pairs can be cloned and which are only paid; the
+    // twinPairs decides which pairs can be recast and which are only paid; the
     // Haplographer's licence is the third case, and the loudest — the missing
     // letter is STRUCK, and a real tile joins the word.
     id: 'twins',
-    when: 'score',      // the clone fires in scoring's pass ⅓; this pays the pairs
+    when: 'score',      // the recasting fires in scoring's pass ⅓; this pays the pairs
     tileTwin: tiles => twinPairs(tiles),
     effect({ tiles, addPoints }) {
       const n = twinPoints(twinPairs(tiles));
       if (n) addPoints(n);
+    },
+    // …and here it is made permanent. The coat was worked out at scoring and
+    // carried on the step, so what goes into the collection is exactly what the
+    // player was shown — not a second reckoning against a tile another seat may
+    // have painted in between. The struck letter has no line here: it was cast
+    // from nothing and files into nothing, so there is no template to write to.
+    onPrinted({ tiles, script, recast }) {
+      const said = [];
+      for (const step of script?.twinSteps ?? []) {
+        if (step.id !== 'twins') continue;
+        for (const hit of step.hits) {
+          if (hit.kind !== 'clone' || !hit.changed) continue;
+          const target = tiles.find(t => t.id === hit.id);
+          const got = recast(target, hit.coat);
+          if (got) said.push(`${getActiveLetter(target)} is struck again from its twin — ${listPhrase(got)}, for good.`);
+        }
+      }
+      return said.length ? { say: said } : null;
     },
   },
   {
