@@ -325,7 +325,7 @@ export const PATRON_CARDS = {
   },
   twins: {
     name: 'The Twins', emoji: '👯', rarity: 'common', cost: 4,
-    desc: 'Every doubled letter (LL, OO…) pays +{TWINS_POINTS} Points, and the second tile is struck again from the first — taking its paint, trim, nick and Points wherever it had none of its own, and keeping them for good.',
+    desc: 'Every doubled letter (LL, OO…) pays +{TWINS_POINTS} Points, and the second tile is struck again from the first — paint, trim, nick, metal and Points alike, for good. Whichever you set in front is the mould.',
   },
   innkeeper: {
     name: 'The Innkeeper', emoji: '🍻', rarity: 'common', cost: 6,

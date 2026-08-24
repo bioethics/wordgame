@@ -114,27 +114,29 @@ And the knife turns on it: the dead cannot be murdered, so *the Revenant* takes
 
 A doubled letter is two of the same thing, and *the Twins* hold the press to it.
 Every doubled letter pays **+5 Points**, and where the double is two whole tiles
-showing the same face, **the second is struck again from the first** — taking
-its paint, trim, nick and Points wherever it had none of its own, **and keeping
-them for good**. Two plain Ls are unchanged by that and paid anyway; one
-gorgeous L beside a plain one is the whole point, and the reason the seat wants
-your pairs *lopsided* rather than tidy. The recasting lands in scoring's **pass
-⅓**, before the word is so much as read, so everything downstream sees two
-identical tiles: the colour multipliers count the coat twice, a gold trim pays a
-second Coin, a Monogrammist finds two of its letter — and then the seat's
-`onPrinted` lays that same coat into the collection, so the tile carries it into
-every word after this one.
+showing the same face, **the second is struck again from the first** — paint,
+trim, nick, metal, grown Points and both faces of a dual, overwriting whatever
+it wore before, **and keeping it for good**. Two plain Ls are unchanged by that
+and paid anyway; one gorgeous L beside a plain one is the whole point, and the
+reason the seat wants your pairs *lopsided* rather than tidy. The recasting
+lands in scoring's **pass ⅓**, before the word is so much as read, so everything
+downstream sees two identical tiles: the colour multipliers count the coat
+twice, a gold trim pays a second Coin, a Monogrammist finds two of its letter —
+and then the seat's `onPrinted` lays the same mould into the collection, so the
+tile carries it into every word after this one.
 
-It gains only where it was bare: a tile **never comes out of the mould worse
-than it went in**, so two well-dressed tiles simply pay their +5, and a common
-seat can't quietly strip the gold off something you paid for. **Metal is not
-copied** — what a tile is *cast from* sits under everything it wears, and
-minting rose or hellbox iron is nobody's gift. That gives the seat a shape over
-a run: at the first Market your tiles are all bare and it is worth its +5 and
-nothing more; through the middle it is the cheapest way there is to spread one
-good tile across a collection; by the end most of what you own is dressed
-already and it has little left to give — bar the one extraordinary tile you are
-trying to make copies of.
+It is a clone, which means it can cost you: **the mould is whichever tile you
+set in front**, so a plain L laid down first will strip the good one behind it.
+That is the decision the seat is made of, so it is never taken blind — the
+groove **brackets every pair the Twins can see** while the word is still being
+composed, a gap either side and a dashed rule that breathes, and the second tile
+already shows what it is about to become. Set the good tile first.
+
+That gives the seat a shape over a run: at the first Market your tiles are all
+bare and it is worth its +5 and nothing more; through the middle it is the
+cheapest way there is to spread one good tile across a collection; by the end
+most of what you own is dressed already and it has little left to give — bar the
+one extraordinary tile you are trying to make copies of.
 
 The pair has to be two whole tiles because a recasting rewrites what a tile
 *spells*. Striking the H of `CH`·`H` again as a CH would print CHCH, a

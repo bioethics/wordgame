@@ -4,7 +4,7 @@ import {
   BAG_COUNTS, TILE_POINTS, DABBLER_ODDS, CURSED_MAX_POINTS, isImmutable, isMark,
   MARKS, MARK_TRIM, SILVER_BONUS, FLEURON, LOUPE_CAP, TONGS_BONUS, WASH_COUNT,
   REVENANT_ODDS,
-  COLOURS, TRIMS, NICKS,
+  COLOURS, TRIMS, NICKS, MATERIALS,
   quotaFor, makeTileTemplate, GAMBLER_ODDS, isDeadline,
   MAGPIE_WEIGHT, MAKO_WEIGHT,
 } from './constants.js';
@@ -691,34 +691,55 @@ export function trimTile(tile, kind) {
   return true;
 }
 
-// The Twins' recasting, laid in for good. A `coat` is what scoring worked out
-// the second tile of a doubled pair GAINS from the first (recastPair in
-// js/scoring.js): only slots it had nothing in, so this can never take anything
-// away. Written through to the collection template like every other permanent
-// change, so it outlives the page, the save and every reshuffle.
+// The Twins' recasting, laid in for good. A `mould` is the whole of what one
+// tile hands another (MOULD in js/scoring.js): letter and faces, paint, trim,
+// nick, metal and grown Points. It OVERWRITES — a clone is a clone, so the
+// second tile of a pair can come out of this worse than it went in, and which
+// tile is the mould is decided by which one you set first. The groove brackets
+// every pair it reads so that choice is made with both tiles in front of you.
 //
-// Paint goes out through paintTile and trim through trimTile rather than being
-// written here, so the one route each still holds — The Dabbler hears the
-// brushstroke, and nothing can drift apart. Returns the list of what was
-// actually gained, for the seat to read out, or null.
-export function recastTile(tile, coat) {
-  if (!tile || !coat || isImmutable(tile)) return null;
-  const got = [];
-  if (coat.colour && !tile.colour && paintTile(tile, coat.colour)) {
-    got.push(COLOURS[coat.colour].label.toLowerCase());
+// Written through to the collection template like every other permanent change,
+// so it outlives the page, the save and every reshuffle. Paint still goes out
+// through paintTile where a NEW colour lands, so the one route holds and The
+// Dabbler hears the brushstroke; everything else is written here, because no
+// other seat in the game overwrites and the helpers all refuse to.
+//
+// Returns a short list of what changed, for the seat to read out, or null.
+export function recastTile(tile, mould) {
+  if (!tile || !mould || isImmutable(tile)) return null;
+  const was = { colour: tile.colour, trim: tile.trim, nick: tile.nick,
+                material: tile.material, growth: getActiveGrowth(tile) };
+
+  if (mould.colour && mould.colour !== tile.colour) paintTile(tile, mould.colour);
+  else if (!mould.colour) tile.colour = null;
+
+  for (const k of ['letter', 'altLetter', 'letterType', 'activeVariant',
+                   'trim', 'nick', 'material', 'bonusPoints', 'altBonusPoints']) {
+    tile[k] = mould[k] ?? (k === 'activeVariant' || k.endsWith('Points') ? 0 : null);
   }
-  if (coat.trim && !tile.trim && trimTile(tile, coat.trim)) {
-    got.push(`a ${TRIMS[coat.trim].label.toLowerCase()} trim`);
+  tile.basePoints = TILE_POINTS[getActiveLetter(tile)] ?? tile.basePoints ?? 1;
+
+  const tmpl = state.collection.find(c => c.tid === tile.tid);
+  if (tmpl) {
+    for (const k of ['letter', 'altLetter', 'letterType', 'activeVariant', 'colour',
+                     'trim', 'nick', 'material', 'bonusPoints', 'altBonusPoints']) {
+      tmpl[k] = tile[k];
+    }
+    tmpl.wash = tile.wash ?? null;
   }
-  if (coat.nick && !tile.nick) {
-    tile.nick = coat.nick;
-    const tmpl = state.collection.find(c => c.tid === tile.tid);
-    if (tmpl) tmpl.nick = coat.nick;
-    got.push(NICKS[coat.nick].label.toLowerCase());
+
+  const said = [];
+  if (tile.colour !== was.colour) {
+    said.push(tile.colour ? COLOURS[tile.colour].label.toLowerCase() : 'the paint off it');
   }
-  const gain = (coat.growth ?? 0) - getActiveGrowth(tile);
-  if (gain > 0 && growTile(tile, gain)) got.push(`+${gain} Points`);
-  return got.length ? got : null;
+  if (tile.trim !== was.trim) {
+    said.push(tile.trim ? `a ${TRIMS[tile.trim].label.toLowerCase()} trim` : 'its trim off');
+  }
+  if (tile.nick !== was.nick) said.push(tile.nick ? NICKS[tile.nick].label.toLowerCase() : 'its nick filled');
+  if (tile.material !== was.material && tile.material) said.push(MATERIALS[tile.material].label.toLowerCase());
+  const grew = getActiveGrowth(tile) - was.growth;
+  if (grew) said.push(`${grew > 0 ? '+' : ''}${grew} Points`);
+  return said.length ? said : null;
 }
 
 // Remove a tile from the collection for good. Honours the Smelter's floor, so

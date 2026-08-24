@@ -25,13 +25,16 @@ import {
 //   tileSteps:      [{ id, points, coins, refresh, returns }] — one per tile, in order
 //   tilePaintSteps: [{ id, uid, emoji, text, hits: [{ id, colour }] }]
 //   tilePaint:      Map(id → colour) — the same paint, for the live preview
-//   twinSteps:      [{ id, uid, emoji, hits: [{ kind, id, fromId, at, coat, changed, grew }] }]
+//   twinSteps:      [{ id, uid, emoji, hits: [{ kind, id, fromId, at, mould, changed, grew }] }]
 //                     — The Twins' recasting: 'clone' rewrites the tile at `id`,
-//                     'summon' adds one the word never had. `coat` is what the
+//                     'summon' adds one the word never had. `mould` is what the
 //                     seat lays into the collection for good; `changed` is false
 //                     for a recasting that alters nothing to look at.
 //   twinCloned:     Map(id → tile) — what a recast tile now reads as (preview)
 //   twinSummons:    [{ at, tile }] — tiles struck into the word, by place (preview)
+//   twinPairMarks:  Map(id → 'open' | 'close' | 'both') — which tiles stand in a
+//                     doubled pair, and which end of it, so the groove can bracket
+//                     them while the word is still being composed
 //   tileBoostSteps: [{ id, uid, emoji, points, hits: [{ id, delta }] }]
 //   tileGrowth:     Set(id) — tiles whose boost is permanent growth
 //   nickSteps:      [{ sourceId, kind, mult, hits: [{ id, delta }] }]
@@ -53,47 +56,35 @@ const primedLabel = source =>
   (source === 'tongs' ? "the tongs' due" : patronById(source)?.name ?? 'primed');
 
 // ─── The Twins' recasting (scoring's pass ⅓) ──────────────────────────────────
-// The second tile of a pair is struck again from the first: it takes the coat
-// the first is wearing WHEREVER IT HAS NONE OF ITS OWN, and keeps everything it
-// already had. A tile never comes out of the mould worse than it went in, which
-// is the whole reason the rule is written that way — the recasting is permanent
-// (the seat's onPrinted lays it into the collection), and a 4-Coin common that
-// could quietly strip the gold off a tile would be a trap wearing a boon's hat.
-// Growth is the same bargain read as a number: the higher of the two.
+// The second tile of a pair is struck again from the first, and it is a CLONE:
+// paint, trim, nick, metal, grown Points and both faces of a dual, all of it,
+// overwriting whatever the second tile was wearing. Nothing survives but its
+// identity — its id, so every Map and element already keyed to it still finds
+// it, and its place in the word. Which means the pair can be set the wrong way
+// round and cost you the better tile: the groove marks every pair it reads
+// (twinPairMarks below) so the warning is on the board while you compose, and
+// which tile is the mould is which one you set FIRST.
 //
-// Metal is not copied. What a tile is CAST FROM sits under everything it wears
-// (MATERIALS in constants.js), and minting rose or hellbox iron is nobody's
-// gift — least of all a common's, and least of all onto a tile whose owner
-// would not have chosen it.
-//
-// Returns the recast tile, the COAT that was actually gained (what onPrinted
-// lays in for good, and nothing the tile already had), and whether any of it is
-// worth showing: two plain Ls are a pair and are paid like any other, but
-// nothing about them changes, and a flourish over a tile that looks exactly as
-// it did reads as a bug.
+// MOULD is what one tile hands another. Everything else on a tile is either its
+// identity or a thing of the moment: `selected` is a pointer's business, `wash`
+// comes off both tiles when the word is done (washOff), and `ephemeral`,
+// `aboveHand` and `lender` say whose tile it is rather than what it is.
+const MOULD = [
+  'letter', 'altLetter', 'letterType', 'activeVariant',
+  'colour', 'trim', 'nick', 'material', 'bonusPoints', 'altBonusPoints',
+];
+
+// The clone as it stands for THIS word, and the mould the seat lays into the
+// collection when the word prints. The reading takes the wash as well, since a
+// coat of wash reads as paint for as long as the word lasts; the mould does not,
+// because by the next word neither tile has it.
 function recastPair(first, second) {
-  const field  = second.activeVariant === 1 ? 'altBonusPoints' : 'bonusPoints';
-  const growth = Math.max(getActiveGrowth(first), getActiveGrowth(second));
-  const coat = {
-    colour: second.colour ? null : (first.colour ?? null),
-    trim:   second.trim   ? null : (first.trim   ?? null),
-    nick:   second.nick   ? null : (first.nick   ?? null),
-    growth,
-  };
-  const tile = {
-    ...second,
-    colour: second.colour ?? first.colour ?? null,
-    // A wash is nobody's for keeps — it comes off both tiles when the word is
-    // done — so it rides in the reading and never into the coat.
-    wash:   second.wash   ?? first.wash   ?? null,
-    trim:   second.trim   ?? first.trim   ?? null,
-    nick:   second.nick   ?? first.nick   ?? null,
-    [field]: growth,
-  };
-  const changed = !!(coat.colour || coat.trim || coat.nick
-    || growth > getActiveGrowth(second)
-    || (!second.wash && !second.colour && first.wash));
-  return { tile, coat, changed };
+  const mould = Object.fromEntries(MOULD.map(k => [k, first[k] ?? null]));
+  const tile = { ...second, ...mould, wash: first.wash ?? null,
+                 basePoints: first.basePoints };
+  const changed = MOULD.some(k => (first[k] ?? null) !== (second[k] ?? null))
+               || (first.wash ?? null) !== (second.wash ?? null);
+  return { tile, mould, changed };
 }
 
 // Apply every seated tileTwin seat to a COPY of the word, in seat order. Returns
@@ -107,11 +98,25 @@ function applyTwins(tiles) {
   const steps = [];
   const cloned  = new Map();   // tile id → what it now reads as
   const summons = [];          // [{ at, tile }] — tiles the word did not have
+  const marks   = new Map();   // tile id → 'open' | 'close' | 'both'
+
+  // Every pair the seat READS is marked, whether or not it can be recast: the
+  // mark is a warning as much as a promise (a recasting overwrites the second
+  // tile outright), and a pair that only pays its Points is still a pair.
+  const mark = (tile, side) =>
+    marks.set(tile.id, marks.get(tile.id) === (side === 'open' ? 'close' : 'open')
+      ? 'both' : (marks.get(tile.id) ?? side));
 
   for (const p of allSeats()) {
     const def = patronById(p.id);
     if (!def?.tileTwin) continue;
     const pairs = def.tileTwin(tiles) ?? [];
+    for (const q of pairs) {
+      if (q.kind === 'summon') { mark(q.first, 'open'); continue; }
+      if (q.first === q.second) { marks.set(q.first.id, 'both'); continue; }
+      mark(q.first, 'open');
+      mark(q.second, 'close');
+    }
 
     const recasts = pairs.filter(q =>
       q.kind === 'clone' && !isWrapped(q.first) && !isWrapped(q.second));
@@ -124,17 +129,17 @@ function applyTwins(tiles) {
     const hits = [];
     let next = [...tiles];
     for (const q of recasts) {
-      const { tile: twin, coat, changed } = recastPair(q.first, q.second);
+      const { tile: twin, mould, changed } = recastPair(q.first, q.second);
       next = next.map(t => (t.id === q.second.id ? twin : t));
       // Only a recasting that alters something goes to the preview: one that
       // doesn't would render the tile exactly as it already is.
       if (changed) cloned.set(q.second.id, twin);
-      // `coat` is what the seat lays into the collection when the word prints —
+      // `mould` is what the seat lays into the collection when the word prints —
       // recorded here so the permanent change is exactly the one the player was
       // shown, rather than worked out a second time against a tile some other
       // seat may have painted in the meantime.
-      hits.push({ kind: 'clone', id: q.second.id, fromId: q.first.id, coat, changed,
-                  grew: coat.growth > getActiveGrowth(q.second) });
+      hits.push({ kind: 'clone', id: q.second.id, fromId: q.first.id, mould, changed,
+                  grew: getActiveGrowth(twin) > getActiveGrowth(q.second) });
     }
     for (const q of struck) {
       // Cast from the tile it doubles — its trim, nick, metal and paint — but
@@ -156,7 +161,9 @@ function applyTwins(tiles) {
     steps.push({ id: p.id, uid: p.uid, emoji: def.emoji, hits });
   }
   summons.sort((a, b) => a.at - b.at);
-  return { tiles, steps, cloned, summons };
+  // The letter a licence strikes closes the pair its source opened.
+  for (const su of summons) marks.set(su.tile.id, 'close');
+  return { tiles, steps, cloned, summons, marks };
 }
 
 export function computeScore(wordTiles) {
@@ -581,6 +588,7 @@ export function computeScore(wordTiles) {
     tileSteps, tilePaintSteps, tilePaint, tileBoostSteps, tileGrowth, nickSteps, nickAffected,
     colourSteps, patronSteps, perTile,
     twinSteps: twin.steps, twinCloned: twin.cloned, twinSummons: twin.summons,
+    twinPairMarks: twin.marks,
   };
 }
 

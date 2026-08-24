@@ -497,11 +497,14 @@ const PATRON_BEHAVIOURS = [
   },
   {
     // A doubled letter is two of the same thing, and The Twins hold the press to
-    // it: the second tile is struck again from the first, taking its paint,
-    // trim, nick and Points wherever it had none of its own — and KEEPING them.
-    // Two plain Ls are unchanged by that and paid anyway; one gorgeous L beside
-    // a plain one is where the seat earns its keep, and where the puzzle lives —
-    // you want the pair lopsided, not tidy.
+    // it: the second tile is struck again from the first and KEEPS it — paint,
+    // trim, nick, metal, grown Points and both faces of a dual, overwriting
+    // whatever it wore before. Two plain Ls are unchanged by that and paid
+    // anyway; one gorgeous L beside a plain one is where the seat earns its
+    // keep, and where the puzzle lives — you want the pair lopsided, not tidy,
+    // and set the good tile FIRST, because the mould is whichever you set in
+    // front. Set them the wrong way round and the good one is what you lose;
+    // the groove brackets every pair it reads so the choice is never blind.
     //
     // Which makes this a deck-builder rather than a score seat, and gives it a
     // shape over a run: at the first Market your tiles are all bare and it pays
@@ -526,11 +529,13 @@ const PATRON_BEHAVIOURS = [
       const n = twinPoints(twinPairs(tiles));
       if (n) addPoints(n);
     },
-    // …and here it is made permanent. The coat was worked out at scoring and
+    // …and here it is made permanent. The mould was worked out at scoring and
     // carried on the step, so what goes into the collection is exactly what the
     // player was shown — not a second reckoning against a tile another seat may
-    // have painted in between. The struck letter has no line here: it was cast
-    // from nothing and files into nothing, so there is no template to write to.
+    // have painted in between. The letter is read BEFORE the recasting, because
+    // a clone takes the faces too and the tile may not be an L any more after.
+    // The struck letter (a licence) has no line here: it was cast from nothing
+    // and files into nothing, so there is no template to write to.
     onPrinted({ tiles, script, recast }) {
       const said = [];
       for (const step of script?.twinSteps ?? []) {
@@ -538,8 +543,9 @@ const PATRON_BEHAVIOURS = [
         for (const hit of step.hits) {
           if (hit.kind !== 'clone' || !hit.changed) continue;
           const target = tiles.find(t => t.id === hit.id);
-          const got = recast(target, hit.coat);
-          if (got) said.push(`${getActiveLetter(target)} is struck again from its twin — ${listPhrase(got)}, for good.`);
+          const letter = target && getActiveLetter(target);
+          const got = recast(target, hit.mould);
+          if (got) said.push(`${letter} is struck again from its twin — ${listPhrase(got)}, for good.`);
         }
       }
       return said.length ? { say: said } : null;

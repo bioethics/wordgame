@@ -2066,13 +2066,25 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 /* ─── The Twins ───────────────────────────────────────────────────────────────
-   A doubled letter is two of the same tile, so the second is recast as the
-   first. The groove shows it from the moment the word is composed (render.js
-   draws a COPY, as it does for the Illuminator's paint), and this is the mark
-   that says the tile is reading as its neighbour rather than as itself. */
-.tile--twinned {
-  outline: 2px dotted rgba(255, 176, 214, 0.8);
-  outline-offset: 2px;
+   The groove brackets every doubled pair the seat can see, from the moment the
+   word is composed: a gap either side of the pair, and a dashed rule that
+   breathes. The gap is what makes two tiles read as ONE thing — they close up
+   against each other and stand apart from the word — and the whole mark is a
+   warning as much as a promise, because a recasting overwrites the second tile
+   with the first. Which is the mould is whichever you set in front. */
+.tile--twin-pair {
+  outline: 2px dashed rgba(255, 176, 214, 0.55);
+  outline-offset: 3px;
+  animation: twinPair calc(2.6s / var(--aspd)) ease-in-out infinite;
+}
+.tile--twin-pair-open  { margin-left:  13px; }
+.tile--twin-pair-close { margin-right: 13px; }
+@keyframes twinPair {
+  0%, 100% { outline-color: rgba(255, 176, 214, 0.34); }
+  50%      { outline-color: rgba(255, 176, 214, 0.85); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tile--twin-pair { animation: none; outline-color: rgba(255, 176, 214, 0.7); }
 }
 
 /* The recasting announced at print — the swell of a boosted tile in the Twins'

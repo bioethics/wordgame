@@ -859,9 +859,23 @@ export function renderWord(script = computeScore(state.word)) {
   // file away afterwards — and the print is where they turn solid.
   const summonsAt = new Map((script?.twinSummons ?? []).map(su => [su.at, su.tile]));
 
+  // The Twins read a pair before anything is counted, and a recasting OVERWRITES
+  // the second tile — so the groove brackets every pair the seat can see while
+  // the word is still being composed: a gap either side, and a dashed rule that
+  // breathes. It is a warning as much as a promise, and it is what makes "set
+  // the good tile first" a choice rather than a trap.
+  const markTwinPair = (el, id) => {
+    const side = script?.twinPairMarks?.get(id);
+    if (!side) return;
+    el.classList.add('tile--twin-pair');
+    if (side === 'open' || side === 'both') el.classList.add('tile--twin-pair-open');
+    if (side === 'close' || side === 'both') el.classList.add('tile--twin-pair-close');
+  };
+
   const phantomTwinEl = t => {
     const e = makeTileEl(t, 'word', { pts: script?.perTile?.get(t.id)?.final ?? null });
     e.classList.add('tile--twin-phantom');
+    markTwinPair(e, t.id);
     e.dataset.twin = t.id;          // addressable by the print, but not by a pointer
     e.removeAttribute('data-id');   // nothing may drag, flip or select a phantom
     return e;
@@ -879,7 +893,7 @@ export function renderWord(script = computeScore(state.word)) {
     // shows the colour on a COPY — the paint isn't owned until the word prints.
     const wet = script?.tilePaint?.get(t.id);
     const tileEl = makeTileEl(wet ? { ...base, colour: wet } : base, 'word', { pts: shown });
-    if (twinned) tileEl.classList.add('tile--twinned');
+    markTwinPair(tileEl, t.id);
     if (wet) {
       tileEl.style.setProperty('--glow', COLOURS[wet].glyph);
       tileEl.classList.add('tile--illuminating');
