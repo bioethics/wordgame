@@ -61,9 +61,10 @@ The readout shows a live projection with a chip per colour, and **everything
 that does something explains itself where it sits**: hover with a mouse,
 long-press on touch, wherever the thing appears. Nothing is summarised beneath
 market cards. What a sundry does is written once, in `js/constants.js` →
-`sundryTip`. On print the score replays in the order it happens: patrons write
-bonuses onto the tiles, the tiles pay, nicks fire, each colour's multiplier
-lights, and the patrons weigh in seat by seat.
+`sundryTip`. On print the score replays in the order it happens: *the Twins*
+recast the doubled pairs, patrons write bonuses onto the tiles, the tiles pay,
+nicks fire, each colour's multiplier lights, and the patrons weigh in seat by
+seat.
 
 ### Seat order
 
@@ -108,6 +109,38 @@ Dabbler* is heard from inside `paintTile`. Nothing caps it, so a press that
 keeps feeding it plays out of a hand of thirty and the rack wraps — intended.
 And the knife turns on it: the dead cannot be murdered, so *the Revenant* takes
 *the Ripper* instead, and every watchword thereafter kills again, free.
+
+### The Twins
+
+A doubled letter is two of the same thing, and *the Twins* hold the press to it.
+Every doubled letter pays **+5 Points**, and where the double is two whole tiles
+showing the same face, **the second is recast as the first** — its Points, trim,
+nick, metal and paint, all of it, for that word. Two plain Ls are unchanged by
+that and paid anyway; one gorgeous L beside a plain one is the whole point, and
+the reason the seat wants your pairs *lopsided* rather than tidy. The recasting
+lands in scoring's **pass ⅓**, before the word is so much as read, so everything
+downstream sees two identical tiles: the colour multipliers count the coat
+twice, a gold trim pays a second Coin, a Monogrammist finds two of its letter.
+Nothing is written back to the collection — the plain tile files into the pile
+as plain as it arrived.
+
+The pair has to be two whole tiles because a clone rewrites what a tile
+*spells*. Cloning the H of `CH`·`H` into a second CH would print CHCH, a
+different word than the one you set, so a double that straddles a ligature — or
+a tile that spells its own double, like `OO` — is **paid and left alone**. A
+wrapped tile is neither copied nor copied onto: the paper is over it.
+
+And with *the Haplographer* seated, the third case, which is the loud one. Her
+licence lets a word be read as though one letter were doubled (BALOON reads as
+BALLOON); *the Twins* make it so. The missing letter is **struck** — a real
+tile, cast from the one it doubles and wearing its coat — and joins the word.
+It is the only thing in the game that changes what *prints*: BALOON goes to the
+manuscript as BALLOON, seven letters long, and the length multiplier follows.
+The struck tile belongs to nobody, though: it was never in your hand, so when
+the word is done it goes out with it rather than filing into the pile. The
+groove shows it as a phantom from the moment the word is composed, so the
+projection and the board agree about how long the word is, and the print is
+where it turns solid.
 
 ## The pieces
 
@@ -329,7 +362,8 @@ The **applicators** are the tube's gesture pointed at the metal: each lays out
 two tiles from your hand and strikes the one you pick in rainbow or hellbox
 iron, refusing any tile already wearing a material. **OO** and **FU** are
 ligatures no shop will sell you — OO counts as a doubled letter by itself, so it
-quietly feeds *the Twins*.
+quietly pays *the Twins* (though it is one tile, so there is nothing for them to
+recast — see below).
 
 The **toolbox** opens into two *different* tools — the first in the box's own
 slot, the second only if the bench has room, else it rolls away. No shop sells

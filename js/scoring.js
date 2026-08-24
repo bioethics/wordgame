@@ -9,7 +9,7 @@ import {
 import { bossById } from './bosses.js';
 import {
   state, owns, allSeats, getActiveLetter, getActiveColour, getActiveGrowth,
-  returnsToBag, isWrapped,
+  returnsToBag, isWrapped, restingPoints,
 } from './state.js';
 
 // ─── Score a word ─────────────────────────────────────────────────────────────
@@ -25,6 +25,12 @@ import {
 //   tileSteps:      [{ id, points, coins, refresh, returns }] — one per tile, in order
 //   tilePaintSteps: [{ id, uid, emoji, text, hits: [{ id, colour }] }]
 //   tilePaint:      Map(id → colour) — the same paint, for the live preview
+//   twinSteps:      [{ id, uid, emoji, hits: [{ kind, id, fromId, at, changed }] }]
+//                     — The Twins' recasting: 'clone' rewrites the tile at `id`,
+//                     'summon' adds one the word never had. `changed` is false for
+//                     a recasting that alters nothing to look at.
+//   twinCloned:     Map(id → tile) — what a recast tile now reads as (preview)
+//   twinSummons:    [{ at, tile }] — tiles struck into the word, by place (preview)
 //   tileBoostSteps: [{ id, uid, emoji, points, hits: [{ id, delta }] }]
 //   tileGrowth:     Set(id) — tiles whose boost is permanent growth
 //   nickSteps:      [{ sourceId, kind, mult, hits: [{ id, delta }] }]
@@ -45,8 +51,109 @@ import {
 const primedLabel = source =>
   (source === 'tongs' ? "the tongs' due" : patronById(source)?.name ?? 'primed');
 
+// ─── The Twins' recasting (scoring's pass ⅓) ──────────────────────────────────
+// A pair the Twins can copy is recast whole: the second tile takes the first's
+// Points, trim, nick, metal and paint, keeping only its own identity — its id,
+// so every Map and every element already keyed to it still finds it, and its
+// place in the word.
+const recast = (first, second) => ({
+  ...first,
+  id: second.id, tid: second.tid, selected: second.selected,
+  ephemeral: second.ephemeral, aboveHand: second.aboveHand, lender: second.lender,
+});
+
+// Whether a recasting is worth SHOWING: two plain Ls are a pair and are paid
+// like any other, but nothing about them changes, and a flourish over a tile
+// that looks exactly as it did reads as a bug.
+const twinChanges = (a, b) =>
+  restingPoints(a) !== restingPoints(b)
+  || getActiveColour(a) !== getActiveColour(b)
+  || (a.trim ?? null) !== (b.trim ?? null)
+  || (a.nick ?? null) !== (b.nick ?? null)
+  || (a.material ?? null) !== (b.material ?? null);
+
+// Apply every seated tileTwin seat to a COPY of the word, in seat order. Returns
+// the twinned word, the steps to replay it with, and — for the live preview —
+// which tiles now read as something else and which were never there at all.
+//
+// A wrapped tile is neither copied nor copied onto: the paper is over it, and
+// The Redactor's whole point is that you work around what it hides. Such a pair
+// is still paid; it simply isn't recast.
+function applyTwins(tiles) {
+  const steps = [];
+  const cloned  = new Map();   // tile id → what it now reads as
+  const summons = [];          // [{ at, tile }] — tiles the word did not have
+
+  for (const p of allSeats()) {
+    const def = patronById(p.id);
+    if (!def?.tileTwin) continue;
+    const pairs = def.tileTwin(tiles) ?? [];
+
+    const recasts = pairs.filter(q =>
+      q.kind === 'clone' && !isWrapped(q.first) && !isWrapped(q.second));
+    // Struck back-to-front, so an earlier insertion can't shift a later one's
+    // place. (Only one licence is ever read per word, but the order is free.)
+    const struck = pairs.filter(q => q.kind === 'summon' && !isWrapped(q.first))
+                        .sort((a, b) => b.at - a.at);
+    if (!recasts.length && !struck.length) continue;
+
+    const hits = [];
+    let next = [...tiles];
+    for (const q of recasts) {
+      const twin = recast(q.first, q.second);
+      const changed = twinChanges(q.first, q.second);
+      next = next.map(t => (t.id === q.second.id ? twin : t));
+      // Only a recasting that alters something goes to the preview: one that
+      // doesn't would render the tile exactly as it already is.
+      if (changed) cloned.set(q.second.id, twin);
+      hits.push({ kind: 'clone', id: q.second.id, fromId: q.first.id, changed });
+    }
+    for (const q of struck) {
+      // Cast from the tile it doubles — its trim, nick, metal and paint — but
+      // showing only the LETTER that was doubled, which is not always the whole
+      // of that tile: a licence read onto the L of an AL ligature strikes a bare
+      // L, or the word would come out BALALOON. A single face, always: there is
+      // no second side to a letter that was never in the bag.
+      const twin = {
+        ...q.first, id: `twin-${q.first.id}`, summoned: true,
+        letter: q.ch, altLetter: null, letterType: 'normal', activeVariant: 0,
+        altBonusPoints: 0, basePoints: TILE_POINTS[q.ch] ?? 1,
+        selected: false, ephemeral: false, aboveHand: false, lender: null,
+      };
+      next.splice(q.at, 0, twin);
+      summons.push({ at: q.at, tile: twin });
+      hits.push({ kind: 'summon', id: twin.id, fromId: q.first.id, at: q.at, changed: true });
+    }
+    tiles = next;
+    steps.push({ id: p.id, uid: p.uid, emoji: def.emoji, hits });
+  }
+  summons.sort((a, b) => a.at - b.at);
+  return { tiles, steps, cloned, summons };
+}
+
 export function computeScore(wordTiles) {
   if (!wordTiles?.length) return null;
+
+  // ── Pass 0: the wrapper ────────────────────────────────────────────────────
+  // A tile The Redactor has wrapped (js/bosses.js) keeps its letter and loses
+  // everything else — on a copy, since scoring never mutates. Face value is
+  // looked up from the letter, not the tile, so pass 1 zeroes it separately.
+  // `wrapped` rides along, keeping getActiveGrowth and isImmutable correct.
+  // First of all, so that everything below — The Twins included — sees the
+  // paper rather than what is under it.
+  if (wordTiles.some(isWrapped)) {
+    wordTiles = wordTiles.map(t => (isWrapped(t)
+      ? { ...t, colour: null, wash: null, trim: null, nick: null, material: null }
+      : t));
+  }
+
+  // ── Pass ⅓: The Twins ──────────────────────────────────────────────────────
+  // Before the word is so much as READ. A doubled letter means two of the same
+  // tile, so the second is recast as the first — and a double the word is
+  // missing outright is struck and joins it. From here down `wordTiles` IS the
+  // twinned word: what prints, what the measure counts, what every seat reads.
+  const twin = applyTwins(wordTiles);
+  wordTiles = twin.tiles;
 
   // `word` is what gets printed, marks and all; patrons are handed the letters
   // alone, so a trailing mark can't make a 3-letter word read as four.
@@ -57,17 +164,6 @@ export function computeScore(wordTiles) {
   // preview can't promise a reading the print then refuses.
   const letters = resolveMedieval(splitMarks(word)?.letters ?? word);
   const n = wordTiles.length;
-
-  // ── Pass 0: the wrapper ────────────────────────────────────────────────────
-  // A tile The Redactor has wrapped (js/bosses.js) keeps its letter and loses
-  // everything else — on a copy, since scoring never mutates. Face value is
-  // looked up from the letter, not the tile, so pass 1 zeroes it separately.
-  // `wrapped` rides along, keeping getActiveGrowth and isImmutable correct.
-  if (wordTiles.some(isWrapped)) {
-    wordTiles = wordTiles.map(t => (isWrapped(t)
-      ? { ...t, colour: null, wash: null, trim: null, nick: null, material: null }
-      : t));
-  }
 
   // ── Pass ½: the brush, before a single thing is counted ────────────────────
   // Patrons who PAINT a tile rather than pay it go first of all, because paint
@@ -449,6 +545,7 @@ export function computeScore(wordTiles) {
     word, letters, points, mult, total, coins, refresh, spiked,
     tileSteps, tilePaintSteps, tilePaint, tileBoostSteps, tileGrowth, nickSteps, nickAffected,
     colourSteps, patronSteps, perTile,
+    twinSteps: twin.steps, twinCloned: twin.cloned, twinSummons: twin.summons,
   };
 }
 

@@ -47,7 +47,7 @@ import {
 } from './sheets.js';
 import { openDraft, closeDraft, restoreDraft, applyDraft } from './draft.js';
 import {
-  sleep, flyClone, popReveal, floatText, tweenNum, setNum, fmtMult,
+  sleep, dur, flyClone, popReveal, floatText, tweenNum, setNum, fmtMult,
   pulse, sparkleBurst, sfx, applySpeedCSS, speechBubble, flourishTime,
 } from './anim.js';
 import { initInput, initInspect, initShelfDrag } from './drag.js';
@@ -65,6 +65,27 @@ const bagRect  = () => rect($('bagBtn'))  ?? { left: 40, top: 300, width: 60, he
 const pileRect = () => rect($('discardBtn')) ?? { left: innerWidth - 100, top: 300, width: 60, height: 60 };
 
 const wordTileEl = id => document.querySelector(`#word .tile[data-id="${id}"]`);
+// A tile The Twins struck into the word carries no id a pointer can reach — it
+// is in no hand and no pile — so the print addresses it by its own mark.
+const twinPhantomEl = id => document.querySelector(`#word .tile[data-twin="${id}"]`);
+
+// A struck letter belongs to nobody: it went into the word, never into your
+// hand, so when the word is done it goes out with it rather than filing into
+// the pile. Runs before the tiles retire, so the groove empties in the order
+// the fiction wants — the phantom first, the type you own after.
+async function evaporateTwins() {
+  const ghosts = [...document.querySelectorAll('#word .tile[data-twin]')];
+  if (!ghosts.length) return;
+  for (const g of ghosts) {
+    sparkleBurst(g, 8);
+    g.animate([
+      { transform: 'scale(1)',   opacity: 1, filter: 'brightness(1)' },
+      { transform: 'scale(.55)', opacity: 0, filter: 'brightness(2.2)' },
+    ], { duration: dur(300), easing: 'ease-in', fill: 'forwards' });
+  }
+  sfx.discard();
+  await sleep(300);
+}
 const rackTileEl = id => document.querySelector(`#rack .tile[data-id="${id}"]`);
 
 // Where a seat's news is shown — by uid where there is one, so each copy of a
@@ -767,6 +788,40 @@ async function submitWord() {
 
   let pointsSoFar = 0;
 
+  // ── Pass ⅓: The Twins strike the doubles ───────────────────────────────────
+  // Before a single thing is counted, and before the brush: a doubled letter is
+  // two of the same tile, so the second is recast as the first, and a double the
+  // word was missing is struck and joins it. The groove has been showing both
+  // since the word was composed (renderWord reads them off the script), so this
+  // is where they are ANNOUNCED — a beat of their own, ahead of the count,
+  // because everything the count does from here reads the twinned word.
+  for (const step of script.twinSteps ?? []) {
+    const card = patronCard(step);
+    let shown = 0;
+    for (const hit of step.hits) {
+      if (!hit.changed) continue;
+      const src = wordTileEl(hit.fromId);
+      if (src) pulse(src, 'tile--twin-source', 620);
+      const el = hit.kind === 'summon' ? twinPhantomEl(hit.id) : wordTileEl(hit.id);
+      if (!el) continue;
+      if (hit.kind === 'summon') {
+        // The phantom turns solid: struck type, not a promise of it.
+        el.classList.remove('tile--twin-phantom');
+        popReveal(el);
+        floatText(el, `${step.emoji} struck`, 'fl-twin', { dy: -62 });
+      } else {
+        pulse(el, 'tile--twinned-firing', 620);
+        floatText(el, `${step.emoji} twinned`, 'fl-twin', { dy: -52 });
+      }
+      sparkleBurst(el, 10);
+      shown++;
+    }
+    if (!shown) continue;
+    if (card) pulse(card, 'patron--firing', 520);
+    sfx.land();
+    await sleep(ANIM.stepTwin);
+  }
+
   // ── Pass ½: the brush ──────────────────────────────────────────────────────
   // The patrons who PAINT a tile go before anything is counted, so everything
   // below — the tile's own Points, the colour multipliers, the seats that care
@@ -906,6 +961,7 @@ async function submitWord() {
   pulse(ro.root, 'readout--slam', 500);
   patronReactions(script);   // fire-and-forget flavour — never blocks the flow
   await sleep(ANIM.holdTotal);
+  await evaporateTwins();
 
   // ── Commit ─────────────────────────────────────────────────────────────────
   const printed = [...state.word];
@@ -933,8 +989,11 @@ async function submitWord() {
   state.primed = {};
 
   // The editor's memory moves on likewise — chains advance, bars re-set,
-  // tempers and measures re-roll — here and never during scoring.
-  bossOnPrinted(state, script, parts.letters);
+  // tempers and measures re-roll — here and never during scoring. It is given
+  // what the table READ (script.letters), not what was typed: The Twins can put
+  // a letter in the word that the keyboard never did, and an editor must
+  // remember the word it just judged rather than the one it was handed.
+  bossOnPrinted(state, script, script.letters);
 
   // Patrons that reach beyond the score fire before the tiles retire, so a
   // grown tile carries its growth wherever it goes next (even back to the bag).

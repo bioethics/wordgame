@@ -55,7 +55,14 @@
 //     cobalt refreshes, paint and trim alike. Pass 0 counts the marking seats
 //     and passes 1–3 spend the result, doubling per seat, so two seats naming
 //     one tile reach ×4. The whole word arrives as `tiles`, so a seat may pick
-//     its tiles out of the word (The Twins) rather than by name.
+//     its tiles out of the word rather than by name.
+//
+//   tileTwin(tiles) — RECASTS one tile as another before the word is read, and
+//     may add a tile the word does not have. Return [{ kind, first, second, at }]
+//     (twinPairs, below). Scoring's pass ⅓ applies it to a copy, ahead of the
+//     brush and of `word` itself, so a summoned tile is in the word for every
+//     reader that follows — it spells, it lengthens, it takes paint. The only
+//     hook that can change what PRINTS, which is why exactly one seat has it.
 //
 // Optional hooks (main.js dispatches these for every seated patron). Each may
 // return { note } to speak over the patron's own card.
@@ -125,6 +132,7 @@ import {
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, isMark,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
   HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, RIPPER_WORDS, splitMarks, isImmutable,
+  TWINS_POINTS,
   medievalExpansions, POSTNOM, GHOST_HIRE, USURER,
   PRINCE, princeMult,
   WORDLER,
@@ -246,32 +254,69 @@ const licencedPairs = word =>
 const wordLetters = tiles =>
   tiles.map(getActiveLetter).filter(L => !isMark(L)).join('');
 
-// The tiles standing in a doubled pair — what The Twins read. Walked LETTER by
-// letter rather than tile by tile, each letter remembering the tile it came
+// The pairs The Twins read, each naming the tiles standing in it. Walked LETTER
+// by letter rather than tile by tile, each letter remembering the tile it came
 // from, so a ligature is counted for what it spells: a CH beside an H doubles
 // them both, and a tile that spells its own double is a pair by itself.
-function doubledTileIds(tiles) {
+//
+// Every pair PAYS. Only some can be CLONED, and the reason is spelling: a clone
+// rewrites the second tile as the first, so it is only safe where the two tiles
+// already show the same face. Cloning the H of CH·H into a second CH would
+// print CHCH — a different word than the one you set — so those pairs are paid
+// and left alone. Hence a `kind`:
+//
+//   'clone'  — two whole tiles wearing the same letter. The second becomes the
+//              first: its Points, trim, nick, metal and paint, all of it.
+//   'letters'— the doubling straddles a ligature (CH·H), or one tile spells its
+//              own double (OO). There is no second tile to rewrite, or
+//              rewriting it would respell the word. Paid, never cloned.
+//   'summon' — the Haplographer's licence: the second letter isn't in the word
+//              at all. The Twins strike it, and it joins the word for real —
+//              which is the one thing in the game that changes what prints.
+//
+// `at` on a summon is where the new tile goes: immediately after the tile whose
+// last letter it doubles, which is the only place it can go without respelling
+// the word (so a licence landing mid-ligature summons nothing and is paid as
+// 'letters').
+export function twinPairs(tiles) {
   const chars = [];
   for (const t of tiles) {
     const L = getActiveLetter(t);
     if (isMark(L)) continue;                  // HELLO! is doubled by its Ls, not its !
     for (const ch of L) chars.push({ ch, tile: t });
   }
-  const ids = new Set();
+  const pairs = [];
   for (let i = 0; i < chars.length - 1; i++) {
     if (chars[i].ch !== chars[i + 1].ch) continue;
-    ids.add(chars[i].tile.id);
-    ids.add(chars[i + 1].tile.id);
+    const first = chars[i].tile, second = chars[i + 1].tile;
+    const clonable = first !== second && getActiveLetter(first) === getActiveLetter(second);
+    pairs.push({ kind: clonable ? 'clone' : 'letters', first, second });
     i++;
   }
-  // The licence read onto the tile it pardons: the single L of BALOON stands
-  // for two, so that tile is a doubled letter like any other.
+  // The licence read onto the tile it pardons: the single L of BALOON stands for
+  // two, and The Twins are what makes the second one real.
   if (owns('haplographer')) {
     const at = licencedIndex(chars.map(c => c.ch).join(''));
-    if (at >= 0) ids.add(chars[at].tile.id);
+    // Only the LAST letter of a tile can be doubled by a tile set after it: the
+    // licence on the A of an AL ligature wants BAAL, and no tile placed beside
+    // AL spells that.
+    if (at >= 0 && chars[at].tile !== chars[at + 1]?.tile) {
+      const first = chars[at].tile;
+      // `ch` is the LETTER to be struck, which is not always the whole of the
+      // tile it doubles: the licence on B·AL·OON wants a bare L after the
+      // ligature (BALLOON), never a second AL (BALALOON).
+      pairs.push({ kind: 'summon', first, second: null, ch: chars[at].ch,
+                   at: tiles.indexOf(first) + 1 });
+    } else if (at >= 0) {
+      pairs.push({ kind: 'letters', first: chars[at].tile, second: chars[at].tile });
+    }
   }
-  return ids;
+  return pairs;
 }
+
+// What a twinned pair is worth in Points — the seat's smaller half, paid per
+// pair however the pair is made.
+export const twinPoints = pairs => TWINS_POINTS * pairs.length;
 
 // The medieval sorts, read as the letters they stand for. Readings are tried in
 // `reads` order and the first real word wins, else the first reading stands. The
@@ -447,14 +492,28 @@ const PATRON_BEHAVIOURS = [
     },
   },
   {
-    // The Monogrammist's echo aimed by the word instead of by a name: a letter
-    // standing doubled prints twice. Reads through tileEcho like every other
-    // doubling seat, so a Monogrammist and a Twin stack on the same tile — ×4,
-    // the same ceiling two Monogrammists reach.
+    // A doubled letter is two of the same thing, and The Twins hold the press to
+    // it: the second tile is RECAST as the first, taking its Points, trim, nick,
+    // metal and paint. Two plain Ls are unchanged by that and paid anyway; one
+    // gorgeous L beside a plain one is where the seat earns its keep, and where
+    // the puzzle lives — you want the pair lopsided, not tidy.
+    //
+    // The clone lands in scoring's pass ⅓, before anything is counted and before
+    // the brush, so every reader downstream sees two identical tiles: the colour
+    // multipliers count the coat twice, a gold trim pays a second Coin, the
+    // Monogrammist finds two of its letter. It is a copy, for this word only —
+    // nothing is written back to the collection, and the plain L is still plain
+    // when it files into the pile.
+    //
+    // twinPairs decides which pairs can be cloned and which are only paid; the
+    // Haplographer's licence is the third case, and the loudest — the missing
+    // letter is STRUCK, and a real tile joins the word.
     id: 'twins',
-    when: 'meta',       // fires in scoring's pass 2½ via tileEcho
-    tileEcho(tile, _data, tiles) {
-      return doubledTileIds(tiles ?? []).has(tile.id);
+    when: 'score',      // the clone fires in scoring's pass ⅓; this pays the pairs
+    tileTwin: tiles => twinPairs(tiles),
+    effect({ tiles, addPoints }) {
+      const n = twinPoints(twinPairs(tiles));
+      if (n) addPoints(n);
     },
   },
   {

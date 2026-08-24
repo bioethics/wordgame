@@ -852,13 +852,34 @@ export function renderWord(script = computeScore(state.word)) {
   }
 
   const nowPts = new Map();
-  state.word.forEach(t => {
+  // The Twins strike the letters a word is missing (BALOON's second L), and the
+  // groove shows them from the moment the word is composed: the projection
+  // already counts them, so a promise of seven letters must show seven. They are
+  // rendered as phantoms — nothing in state.word, nothing to drag, nothing to
+  // file away afterwards — and the print is where they turn solid.
+  const summonsAt = new Map((script?.twinSummons ?? []).map(su => [su.at, su.tile]));
+
+  const phantomTwinEl = t => {
+    const e = makeTileEl(t, 'word', { pts: script?.perTile?.get(t.id)?.final ?? null });
+    e.classList.add('tile--twin-phantom');
+    e.dataset.twin = t.id;          // addressable by the print, but not by a pointer
+    e.removeAttribute('data-id');   // nothing may drag, flip or select a phantom
+    return e;
+  };
+
+  const wordTileEl = t => {
     const bd = script?.perTile.get(t.id);
     const shown = bd?.final ?? null;
+    // The Twins recast a doubled tile as the one beside it before anything is
+    // counted, so the groove shows what it now READS as — again on a copy, since
+    // the tile itself is unchanged and files away as plain as it arrived.
+    const twinned = script?.twinCloned?.get(t.id);
+    const base = twinned ?? t;
     // The Illuminator's brush lands before the word is counted, so the groove
     // shows the colour on a COPY — the paint isn't owned until the word prints.
     const wet = script?.tilePaint?.get(t.id);
-    const tileEl = makeTileEl(wet ? { ...t, colour: wet } : t, 'word', { pts: shown });
+    const tileEl = makeTileEl(wet ? { ...base, colour: wet } : base, 'word', { pts: shown });
+    if (twinned) tileEl.classList.add('tile--twinned');
     if (wet) {
       tileEl.style.setProperty('--glow', COLOURS[wet].glyph);
       tileEl.classList.add('tile--illuminating');
@@ -880,8 +901,16 @@ export function renderWord(script = computeScore(state.word)) {
       ptsEl.classList.add('pts-pop');
       ptsEl.style.animationDelay = `${(delayOf.get(t.id) ?? 0) / (settings.animSpeed || 1)}ms`;
     }
-    el.appendChild(tileEl);
-  });
+    return tileEl;
+  };
+
+  // A phantom takes the place it was struck into, which may be the end of the
+  // word — hence the extra turn past the last tile.
+  for (let i = 0; i <= state.word.length; i++) {
+    const su = summonsAt.get(i);
+    if (su) el.appendChild(phantomTwinEl(su));
+    if (state.word[i]) el.appendChild(wordTileEl(state.word[i]));
+  }
   _lastWordPts = nowPts;
 
   updateReadoutPreview(script);

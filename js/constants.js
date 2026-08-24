@@ -528,6 +528,7 @@ export const REROLL_BASE     = 2;
 
 // ─── Animation base timings (ms, divided by the speed setting) ────────────────
 export const ANIM = {
+  stepTwin:   520,   // The Twins recasting a pair, before the word is even read
   stepBoost:  380,   // a patron writing Points onto the tiles, before any scoring
   stepTile:   300,
   stepNick:   430,
@@ -656,6 +657,10 @@ export const NUDIST_TRIM_CHANCE = 0.25;   // per bare letter in an all-bare word
 export const NUDIST_PAINT_CHANCE = 0.125;
 // The Abecedarian's trellis: permanent Points per tile of a three-letter word.
 export const ABECEDARIAN_STEP   = 1;
+// The Twins' due, paid once per doubled letter in the word. The Points are the
+// smaller half of the seat: the CLONE is what the pair is really for (twinPairs
+// in js/patrons.js, and scoring's pass ⅓).
+export const TWINS_POINTS       = 5;
 // The Dabbler's splash: odds a painted tile splashes a second, randomly chosen
 // unpainted tile of the collection the same colour. One splash per brushstroke.
 export const DABBLER_ODDS = 0.5;

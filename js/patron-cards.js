@@ -32,7 +32,7 @@ import {
   STOKER_BASE, STOKER_STEP, RAGMAN_COINS, RAGMAN_ODDS, DYE_TILES_PER_CHAPTER,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, DIPPER_PAINT_CHANCE, REVENANT_ODDS,
   PACKAGE_ODDS, oddsText, FRONTISPIECE, MATERIALS, RIPPER_WORDS, PACKAGES, PRINCE, WORDLER,
-  WINNOWER_BONUS, MAGPIE_WEIGHT, MAKO_WEIGHT, USURER,
+  WINNOWER_BONUS, MAGPIE_WEIGHT, MAKO_WEIGHT, USURER, TWINS_POINTS,
 } from './constants.js';
 
 // What {BRACES} in a desc may refer to. Add a line here to expose a new knob.
@@ -58,6 +58,7 @@ const KNOBS = {
   USURER_LOAN:      USURER.loan,
   USURER_OWED:      USURER.owed,
   USURER_COLLECT:   USURER.collect,
+  TWINS_POINTS,
 };
 
 export const PATRON_CARDS = {
@@ -324,7 +325,7 @@ export const PATRON_CARDS = {
   },
   twins: {
     name: 'The Twins', emoji: '👯', rarity: 'common', cost: 4,
-    desc: 'Doubled letters (LL, OO…) print twice — Points, trim and paint alike.',
+    desc: 'Every doubled letter (LL, OO…) pays +{TWINS_POINTS} Points, and the second tile is recast as the first — its Points, trim, nick, metal and paint, for that word.',
   },
   innkeeper: {
     name: 'The Innkeeper', emoji: '🍻', rarity: 'common', cost: 6,
@@ -348,7 +349,7 @@ export const PATRON_CARDS = {
   },
   haplographer: {
     name: 'The Haplographer', emoji: '🔂', rarity: 'uncommon', cost: 6,
-    desc: 'One letter may read as doubled: BALOON counts as BALLOON — and doubles pay The Twins.',
+    desc: 'One letter may read as doubled: BALOON counts as BALLOON — and The Twins will strike the missing letter for real.',
   },
   herald: {
     name: 'The Herald', emoji: '📯', rarity: 'uncommon', cost: 6,
