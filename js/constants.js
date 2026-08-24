@@ -590,7 +590,7 @@ export const MATERIALS = {
 // Redactor has wrapped. (`wrapped` is isWrapped in state.js; checked bare here
 // because constants.js is a leaf and imports from nobody.)
 export const isImmutable = tile =>
-  tile?.material === 'ghost' || !!tile?.ephemeral || !!tile?.wrapped;
+  tile?.material === 'ghost' || !!tile?.ephemeral || !!tile?.wrapped || !!tile?.counterfeit;
 
 // ─── The Editors (Deadline bosses — see js/bosses.js) ─────────────────────────
 // A word that breaks the seated editor's rule is SPIKED: printed and counted, but

@@ -759,6 +759,27 @@ const PATRON_BEHAVIOURS = [
     },
   },
   {
+    // A whole case of forged sorts, offered once a page from his card. They
+    // spell and do nothing else — worth no Points, and nothing can be written on
+    // them (spellsOnly and isImmutable in js/state.js) — so what they buy is
+    // LENGTH, and whatever your engines can make of a letter that is merely
+    // present: a doubled pair for The Twins to strike from, a fourth colour for
+    // The Illuminator to find, a shape for an editor to approve of.
+    //
+    // The cost is the only one that matters in this game: they take places in
+    // your hand. "As many as you like" is bounded by the room you have, and a
+    // hand of forgeries scores nothing at all — which is the whole tension, and
+    // why he needs no other limit.
+    id: 'counterfeiter',
+    when: 'meta',   // used from his card — the sheet lives in render.js, the taking in main.js
+    act: ({ seat, data }) =>
+      (!seat || state.inMarket || state.inColophon) ? ''
+      : data?.used
+      ? `<button class="btn btn-quiet tip-btn" disabled>The plate is cold until the next page</button>`
+      : `<button class="btn btn-quiet tip-btn" data-patron-act="counterfeiter">Look over the plate…</button>`,
+    onPageStart({ data }) { data.used = false; return null; },
+  },
+  {
     // Used from his card mid-page rather than at a sheet: tap the card, take the
     // loan. Cast through castLentTile wearing gold trim from birth — the one way
     // a lent tile wears metal, since nothing can be written to it later. Once a

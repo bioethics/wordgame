@@ -347,6 +347,10 @@ export const PATRON_CARDS = {
     name: 'The Expectant Parents', emoji: '🤰', rarity: 'uncommon', cost: 6,
     desc: 'Common baby names count as words, and any name gains +10 Points — SOPHIE, ARCHIE, BARNABY.',
   },
+  counterfeiter: {
+    name: 'The Counterfeiter', emoji: '💵', rarity: 'uncommon', cost: 7, guild: 'azure',
+    desc: 'Once a page, take as many counterfeit sorts as your hand will hold. They spell, and nothing else — no Points, and nothing can ever be written on them.',
+  },
   haplographer: {
     name: 'The Haplographer', emoji: '🔂', rarity: 'uncommon', cost: 6,
     desc: 'One letter may read as doubled: BALOON counts as BALLOON — and The Twins will strike the missing letter for real.',

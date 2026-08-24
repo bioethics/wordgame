@@ -9,7 +9,7 @@ import {
 import { bossById } from './bosses.js';
 import {
   state, owns, allSeats, getActiveLetter, getActiveColour, getActiveGrowth,
-  returnsToBag, isWrapped,
+  returnsToBag, isWrapped, spellsOnly,
 } from './state.js';
 
 // ─── Score a word ─────────────────────────────────────────────────────────────
@@ -80,10 +80,19 @@ const MOULD = [
 // because by the next word neither tile has it.
 function recastPair(first, second) {
   const mould = Object.fromEntries(MOULD.map(k => [k, first[k] ?? null]));
+  // A forgery struck again from real type PASSES, for the length of one word:
+  // the copy is a genuine tile in every way the count OR THE EYE can see, so it
+  // pays the mould's Points, lifts its colours, and sits in the groove wearing
+  // cast metal rather than bank-note stock. That is what a counterfeit sort is
+  // for, and the whole of what it can ever buy — the tile itself is untouched,
+  // so isImmutable refuses to keep any of it and the page takes it back.
+  // (The Redactor's paper is never recast at all; see applyTwins.)
   const tile = { ...second, ...mould, wash: first.wash ?? null,
-                 basePoints: first.basePoints };
+                 basePoints: first.basePoints,
+                 counterfeit: false, ephemeral: false, lender: null };
   const changed = MOULD.some(k => (first[k] ?? null) !== (second[k] ?? null))
-               || (first.wash ?? null) !== (second.wash ?? null);
+               || (first.wash ?? null) !== (second.wash ?? null)
+               || !!second.counterfeit;
   return { tile, mould, changed };
 }
 
@@ -118,11 +127,15 @@ function applyTwins(tiles) {
       mark(q.second, 'close');
     }
 
+    // A forgery is not a mould. It can be struck FROM real type — which is most
+    // of what a counterfeit sort is for, since for the length of a word it then
+    // reads as the tile beside it — but nothing is struck from a fake, or a free
+    // tile laid down carelessly would strip the good one behind it for good.
     const recasts = pairs.filter(q =>
-      q.kind === 'clone' && !isWrapped(q.first) && !isWrapped(q.second));
+      q.kind === 'clone' && !spellsOnly(q.first) && !isWrapped(q.second));
     // Struck back-to-front, so an earlier insertion can't shift a later one's
     // place. (Only one licence is ever read per word, but the order is free.)
-    const struck = pairs.filter(q => q.kind === 'summon' && !isWrapped(q.first))
+    const struck = pairs.filter(q => q.kind === 'summon' && !spellsOnly(q.first))
                         .sort((a, b) => b.at - a.at);
     if (!recasts.length && !struck.length) continue;
 
@@ -176,8 +189,8 @@ export function computeScore(wordTiles) {
   // `wrapped` rides along, keeping getActiveGrowth and isImmutable correct.
   // First of all, so that everything below — The Twins included — sees the
   // paper rather than what is under it.
-  if (wordTiles.some(isWrapped)) {
-    wordTiles = wordTiles.map(t => (isWrapped(t)
+  if (wordTiles.some(spellsOnly)) {
+    wordTiles = wordTiles.map(t => (spellsOnly(t)
       ? { ...t, colour: null, wash: null, trim: null, nick: null, material: null }
       : t));
   }
@@ -250,10 +263,12 @@ export function computeScore(wordTiles) {
 
   wordTiles.forEach((t, i) => {
     // Zeroed here because pass 0's stripping can't reach the face value.
-    const face  = isWrapped(t) ? 0 : TILE_POINTS[getActiveLetter(t)] ?? t.basePoints ?? 1;
+    const face  = spellsOnly(t) ? 0 : TILE_POINTS[getActiveLetter(t)] ?? t.basePoints ?? 1;
     const grown = getActiveGrowth(t);   // growth follows the showing face
     let points = face + grown;
-    noteMap[i].push(isWrapped(t) ? 'in manuscript — no Points' : `base ${face}`);
+    noteMap[i].push(isWrapped(t) ? 'in manuscript — no Points'
+                  : t.counterfeit ? 'counterfeit — no Points'
+                  : `base ${face}`);
     if (grown) noteMap[i].push(`grown +${grown}`);
 
     if (t.trim === 'silver') { points += SILVER_BONUS; noteMap[i].push(`Silver +${SILVER_BONUS}`); }

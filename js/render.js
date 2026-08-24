@@ -13,7 +13,7 @@ import {
   WORDS_PER_PAGE, PAGES_PER_CHAPTER, tileCount,
   colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
   sundryTip, FLEURON, TOOL_LOOK, PACKAGES, APPLICATORS, HONORIFIC_STEP, MEDIEVAL, letterGlyph,
-  INTERROBANG, POSTNOM,
+  INTERROBANG, POSTNOM, BAG_COUNTS,
 } from './constants.js';
 import { patronById, guildsOf, patronName, patronShelf, patronEmoji } from './patrons.js';
 import { bossById } from './bosses.js';
@@ -44,7 +44,11 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   if (tile.nick)                  div.classList.add(`tile--nick-${tile.nick}`);
   if (tile.material)              div.classList.add(`tile--mat-${tile.material}`);
   // Marked apart: the gift rides beside the hand, the E takes a place out of it.
-  if (tile.ephemeral)             div.classList.add(tile.aboveHand ? 'tile--gift' : 'tile--lent');
+  // A counterfeit is lent in the same sense — page-only, cast from no template —
+  // but it is not on loan from anybody, and it has a look of its own below.
+  if (tile.ephemeral && !tile.counterfeit) {
+    div.classList.add(tile.aboveHand ? 'tile--gift' : 'tile--lent');
+  }
 
   const active = getActiveLetter(tile);
   const paint  = getActiveColour(tile);
@@ -56,6 +60,7 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   // The paper goes over everything the tile was, so this class is added LAST and
   // the CSS covers trim ring, nick and metal alike.
   if (isWrapped(tile)) div.classList.add('tile--wrapped');
+  if (tile.counterfeit) div.classList.add('tile--counterfeit');
   if (MEDIEVAL[active]) div.classList.add('tile--medieval');
   if (active === INTERROBANG) div.classList.add('tile--interrobang');
 
@@ -103,6 +108,18 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
 // a thing does rather than naming it.
 export function tileFeatures(tile) {
   const out = [];
+  // A forgery has nothing under it, so it is said first and there is nothing
+  // below to come back — unlike the wrapping, which is a page-long condition.
+  if (tile.counterfeit) {
+    out.push({
+      head: 'A counterfeit sort',
+      body: 'Forged on The Counterfeiter\'s plate. It spells, and does nothing else — no '
+          + 'Points, no paint, no trim, no metal, no nick, and nothing can ever be laid on '
+          + 'it. It takes a place in your hand like any other tile, and it is gone when the '
+          + 'page turns. What it buys is length, and whatever your table can make of a '
+          + 'letter that is merely there.',
+    });
+  }
   // First, because it hides everything: while the wrapper is on none of the
   // lines below are true — but they stay listed, being what comes back.
   if (isWrapped(tile)) {
@@ -296,6 +313,47 @@ export function showCoinWordSheet() {
     </div>`);
   const input = $('coinInput');
   input?.focus();
+}
+
+// ─── The Counterfeiter's plate ────────────────────────────────────────────────
+// Every sort he can forge, laid out at once. Taking one is a click; the plate
+// stays open so a handful can be lifted in a row, and the only limit is the room
+// left in your hand — which is the whole of what a counterfeit costs.
+export function showCounterfeitSheet(room) {
+  const letters = Object.keys(BAG_COUNTS);
+  showOverlay(`
+    <div class="sheet sheet--end sheet--plate">
+      <div class="end-flourish">💵</div>
+      <h2 class="end-title">The plate</h2>
+      <p class="end-sub">Forged sorts, free for the taking. They spell, and nothing
+        else — no Points, and nothing can ever be written on them. They are gone
+        when the page turns.</p>
+      <div class="plate-grid" id="plateGrid">
+        ${letters.map(L => `
+          <button class="plate-sort" data-counterfeit="${L}" aria-label="Take a counterfeit ${L}">
+            <span class="plate-sort-letter">${L}</span>
+            <span class="plate-sort-pts">0</span>
+          </button>`).join('')}
+      </div>
+      <div id="plateNote" class="coin-note">&nbsp;</div>
+      <div class="end-actions">
+        <button class="btn btn-print btn-big" data-plate-done>That will do</button>
+      </div>
+    </div>`);
+  setPlateRoom(room);
+}
+
+// How many places are left in the hand, said plainly, and the plate closed off
+// when there are none. Called after every sort taken.
+export function setPlateRoom(room) {
+  const note = $('plateNote');
+  if (note) {
+    note.textContent = room > 0
+      ? `${room} place${room === 1 ? '' : 's'} left in your hand`
+      : 'Your hand is full.';
+    note.classList.toggle('coin-note--bad', room <= 0);
+  }
+  for (const b of document.querySelectorAll('[data-counterfeit]')) b.disabled = room <= 0;
 }
 
 export function setCoinNote(msg, bad = false) {

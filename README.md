@@ -156,6 +156,34 @@ groove shows it as a phantom from the moment the word is composed, so the
 projection and the board agree about how long the word is, and the print is
 where it turns solid.
 
+### The Counterfeiter
+
+Once a page, tap his card and the **plate** opens: the whole case, forged. Take
+as many sorts as you like — the only limit is the room left in your hand, and
+the sheet counts it down for you. They are free, and they are worthless.
+
+A counterfeit sort **spells, and does nothing else**: no Points, no paint, no
+trim, no metal, no nick, and nothing can ever be written on one (`spellsOnly`
+and `isImmutable` in `js/state.js` — the same reading the Redactor's manuscript
+tiles get, on bank-note stock rather than draft paper). They are gone when the
+page turns.
+
+So what a forgery buys is **length**, and whatever your table can make of a
+letter that is merely *there*: a doubled pair for *the Twins* to strike from, a
+fourth colour for *the Illuminator* to find, a shape an editor will pass. The
+cost is the only one that matters here — **they take places in your hand**, and
+a hand of forgeries scores nothing at all. That is the whole tension, and why he
+needs no other limit.
+
+The Twins are the sharpest thing to do with him, and the rule cuts one way only:
+**a forgery is never a mould**, but it can be struck *from* real type. Set your
+gorgeous L and then a counterfeit L, and for that one word the forgery passes —
+it pays the real tile's Points, lifts its colours, and wears cast metal in the
+groove. Nothing is kept: the tile is still a forgery underneath, so the seat's
+`onPrinted` writes nothing to it, and the page takes it back. Put the forgery in
+*front* and it will not strip your good tile — there is nothing to strike from a
+fake.
+
 ## The pieces
 
 A tile is a **letter** (or ligature, or mark), optionally **painted** a colour,

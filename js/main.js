@@ -12,6 +12,7 @@ import {
   rollTubeOffer, applyWash, washOff, effectiveSundrySlots, takeGhostEchoes,
   getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile, recastTile,
   trashFromCollection, mergeTiles, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
+  castCounterfeit, effectiveRackSize, handCount,
   grantRandomPatron,
   rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost,
 } from './state.js';
@@ -40,7 +41,7 @@ import {
   showGameOver, showVictory, openInspector, closeInspector, coinHTML,
   showPatronPopover, hidePopover, openManuscript, closeManuscript,
   openGhosts, closeGhosts, ghostsOpen,
-  showCoinWordSheet, setCoinNote,
+  showCoinWordSheet, setCoinNote, showCounterfeitSheet, setPlateRoom,
 } from './render.js';
 import {
   initSheets, renderMarket, renderColophon, renderDraft,
@@ -1804,6 +1805,11 @@ function confirmCoinedWord() {
 $('overlayModal')?.addEventListener('click', e => {
   if (e.target.closest('[data-coin-cancel]')) { hideOverlay(); return; }
   if (e.target.closest('[data-coin-confirm]')) confirmCoinedWord();
+  // The Counterfeiter's plate: a sort per click, and the page's offer spent
+  // only when the plate is put away having given something up.
+  const sort = e.target.closest('[data-counterfeit]');
+  if (sort) { takeCounterfeit(sort.dataset.counterfeit); return; }
+  if (e.target.closest('[data-plate-done]')) closeCounterfeitPlate();
 });
 $('overlayModal')?.addEventListener('keydown', e => {
   if (!$('coinInput')) return;
@@ -1841,6 +1847,55 @@ function usurerRepay() {
   renderAll(); if (state.inMarket) renderMarket(); persist();
 }
 
+// ─── The Counterfeiter (a plate of forged sorts, once a page) ─────────────────
+// The offer is spent only once something has been TAKEN from it, so opening the
+// plate to look and closing it again costs nothing — there is no way to lose the
+// page's offer to a misclick. Room in the hand is the only limit there is.
+
+const handRoom = () => Math.max(0, effectiveRackSize() - handCount());
+
+function openCounterfeitPlate() {
+  if (state.isAnimating || state.inMarket || state.inColophon || state.gameOver) return;
+  const seat = state.patrons.find(p => p.id === 'counterfeiter');
+  if (!seat) return;
+  seat.data ??= {};
+  if (seat.data.used) { log('💵 The plate is cold until the next page.', 'warn'); return; }
+  showCounterfeitSheet(handRoom());
+}
+
+async function takeCounterfeit(letter) {
+  const seat = state.patrons.find(p => p.id === 'counterfeiter');
+  if (!seat || seat.data?.used || handRoom() <= 0) return;
+  seat.data ??= {};
+  seat.data.taking = (seat.data.taking ?? 0) + 1;   // spent when the plate closes
+
+  const tile = castCounterfeit(letter);
+  renderRack(new Set([tile.id]));
+  renderCounts();
+  const el = rackTileEl(tile.id);
+  const card = patronCard(seat);
+  if (card) pulse(card, 'patron--firing', 380);
+  if (el) {
+    sfx.draw();
+    await flyClone(el, rect(card) ?? bagRect(), rect(el), { duration: ANIM.fly, scaleFrom: 0.35 });
+    popReveal(el);
+    sfx.land();
+  }
+  setPlateRoom(handRoom());
+}
+
+function closeCounterfeitPlate() {
+  const seat = state.patrons.find(p => p.id === 'counterfeiter');
+  const took = seat?.data?.taking ?? 0;
+  if (seat && took) {
+    seat.data.used = true;
+    seat.data.taking = 0;
+    log(`💵 ${took} counterfeit sort${took === 1 ? '' : 's'} off the plate — worth nothing, and yours till the page turns.`, 'good');
+  }
+  hideOverlay();
+  renderAll();
+}
+
 async function lendOlogyTile() {
   if (state.isAnimating || state.inMarket || state.inColophon || state.gameOver) return;
   const seat = state.patrons.find(p => p.id === 'scientist');
@@ -1875,6 +1930,7 @@ $('popover')?.addEventListener('click', e => {
     if (!state.isAnimating) {
       if (act.dataset.patronAct === 'neologist') showCoinWordSheet();
       if (act.dataset.patronAct === 'scientist') lendOlogyTile();
+      if (act.dataset.patronAct === 'counterfeiter') openCounterfeitPlate();
       if (act.dataset.patronAct === 'usurer-borrow') usurerBorrow();
       if (act.dataset.patronAct === 'usurer-repay')  usurerRepay();
     }

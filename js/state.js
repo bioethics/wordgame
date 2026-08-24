@@ -53,12 +53,20 @@ export function getActiveLetter(tile) {
 // the tile directly rather than through these — see computeScore's pass 0.
 export const isWrapped = tile => !!tile?.wrapped;
 
+// A tile that SPELLS AND NOTHING ELSE — no Points, no paint, no growth, no
+// colour to any patron that counts them. Two quite different things read this
+// way: The Redactor's wrapping, which is a page-long condition laid over a real
+// tile and taken off again; and a counterfeit sort, which is a forgery with
+// nothing under it at all and never was anything else. The readers below hide
+// rather than destroy, so the Redactor's page gives everything back.
+export const spellsOnly = tile => isWrapped(tile) || !!tile?.counterfeit;
+
 // The paint a tile is wearing — the same whichever face a dual shows, since
 // paint belongs to the tile. A wash reads as paint here, so it counts to
 // patrons AND multipliers alike, unlike rainbow metal (which speaks only
 // through countsAsColour). Real paint sits over a wash and wins.
 export const getActiveColour = tile =>
-  (isWrapped(tile) ? null : tile.colour ?? tile.wash ?? null);
+  (spellsOnly(tile) ? null : tile.colour ?? tile.wash ?? null);
 
 // What a tile is worth before the word it sits in touches it: face value,
 // growth set permanently into it, and a silver trim — the number it wears
@@ -66,10 +74,10 @@ export const getActiveColour = tile =>
 // `bonusPoints` for its first letter and `altBonusPoints` for its second, so
 // flipping it flips which one counts.
 export const getActiveGrowth = tile =>
-  (isWrapped(tile) ? 0 : (tile.activeVariant === 1 ? tile.altBonusPoints : tile.bonusPoints) ?? 0);
+  (spellsOnly(tile) ? 0 : (tile.activeVariant === 1 ? tile.altBonusPoints : tile.bonusPoints) ?? 0);
 
 export const restingPoints = tile =>
-  (isWrapped(tile) ? 0
+  (spellsOnly(tile) ? 0
     : (TILE_POINTS[getActiveLetter(tile)] ?? tile.basePoints ?? 1)
       + getActiveGrowth(tile)
       + (tile.trim === 'silver' ? SILVER_BONUS : 0));
@@ -80,7 +88,7 @@ export const restingPoints = tile =>
 // count actual paint (getActiveColour), so a rainbow tile lifts a multiplier
 // only where it has been painted.
 export const countsAsColour = (tile, colour) =>
-  !isWrapped(tile) && (tile.material === 'rainbow' || getActiveColour(tile) === colour);
+  !spellsOnly(tile) && (tile.material === 'rainbow' || getActiveColour(tile) === colour);
 
 // Convert a bag template into a full rack tile
 function templateToTile(template) {
@@ -268,6 +276,20 @@ export function castLentTile(letter, { aboveHand = false, lender = null, ...over
   tile.ephemeral = true;
   if (aboveHand) tile.aboveHand = true;
   if (lender) tile.lender = lender;
+  state.rack.push(tile);
+  return tile;
+}
+
+// The Counterfeiter's forgeries: a sort with nothing under it. It spells, takes
+// a place in the hand like any other tile, and is worth nothing — spellsOnly
+// hides its value, isImmutable refuses anything written to it, and `ephemeral`
+// means it is cast from no template and gone when the page turns. Everything
+// that destroys a tile still works on it; there is simply nothing to salvage.
+export function castCounterfeit(letter) {
+  const tile = templateToTile(makeTileTemplate(letter));
+  tile.ephemeral = true;
+  tile.counterfeit = true;
+  tile.lender = 'counterfeiter';
   state.rack.push(tile);
   return tile;
 }
@@ -467,7 +489,7 @@ export function startPage() {
 // Tiles that take up a place in the hand. Ghosts and aboveHand tiles ride
 // beside it rather than in it, so drawing tops up around them; the Eeeditor's
 // lent E's emphatically do not.
-const handCount = () =>
+export const handCount = () =>
   [...state.rack, ...state.word].filter(t => t.material !== 'ghost' && !t.aboveHand).length;
 
 // One tile off the bag — the end of it, hence the pop; a weighted reach if
