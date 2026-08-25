@@ -41,7 +41,7 @@ export const BAG_COUNTS = {
 // a ligature should be a find, not a staple. OLOGY is lent, never dealt.
 export const LIGATURES = ['ING', 'CH', 'CK', 'TH', 'WH', 'QU', 'RAT', 'OLOGY', 'OO', 'FU'];
 
-// Letters no shop, draft or heap will ever hand you: each comes from one patron
+// Letters no shop or heap will ever hand you: each comes from one patron
 // and nowhere else. RAT is The Rat Catcher's; OLOGY The Scientist's, only ever on
 // loan; the fleuron sells at its own price (FLEURON_PRICE).
 export const EXCLUSIVE_LETTERS = ['RAT', 'OLOGY', '☙', 'Þ', 'Ȝ', 'Ƿ', 'Æ', '‽', 'OO', 'FU', '*'];
@@ -243,7 +243,8 @@ export const MULT_TRACKS = {
   length: { label: 'Length', glyph: '#7d8fa0', bright: '#d9e6f2' },   // type-metal steel
 };
 
-export const PAINT_PER_POT   = 3;   // tiles painted per draft pot (random, unpainted)
+// Tiles painted by one Colophon paint pick — random, and only unpainted ones.
+export const PAINT_PER_POT   = 3;
 
 // ─── Sundries (consumables kept on the workbench) ─────────────────────────────
 // Bought at the Shop, spent mid-page. A paint tube is the first kind: uncork it
@@ -824,15 +825,6 @@ export const REACTION = { floor: 0.5, ceil: 2 };
 // ─── Reshuffle sundry ─────────────────────────────────────────────────────────
 // A free re-roll, banked: spend it on the Market's offers or the Colophon's cards.
 export const RESHUFFLE_PRICE = 4;
-
-// ─── Opening draft ────────────────────────────────────────────────────────────
-// Before the first page you kit out the press from a free spread, no coins. The
-// starting collection ships unpainted, so the paints picked here are what gets
-// the colour multipliers going. The first patron is hired at the first Market.
-export const DRAFT = {
-  paints:  { show: 4,  pick: 2 },
-  tiles:   { show: 10, pick: 4 },
-};
 
 // ─── What a sundry is, in one place ───────────────────────────────────────────
 // The workbench slot, the shop card and the held row all read from here, so what

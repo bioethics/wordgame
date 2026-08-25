@@ -1,7 +1,7 @@
 // The Colophon's roster — permanent picks offered when a chapter clears.
 // kind: 'structural' — a lasting bonus, tracked by upgradeCounts and read back
 //                      by the effective-* getters in state.js.
-//       'paint'      — an immediate one-off, same as a draft paint pot.
+//       'paint'      — an immediate one-off: PAINT_PER_POT tiles take the colour.
 
 import { COLOURS, PAINT_PER_POT } from './constants.js';
 

@@ -2968,7 +2968,7 @@ button.sundry:hover { transform: translateY(-2px); }
   justify-content: center;
 }
 
-/* Sundry offers (paint tubes) — .paint-pot survives for the opening draft */
+/* Sundry offers (paint tubes) */
 .market-sec--paint { margin-top: 16px; }
 .offer-paint .paint-tube { margin-top: 2px; }
 .offer-paint {
@@ -3294,7 +3294,7 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 /* ═══ The Market — a candlelit skin over the shop views ════════════════════════
-   Scoped under .sheet--market so the draft keeps its parchment. */
+   Scoped under .sheet--market, so no other sheet takes the shop's ink. */
 
 .sheet--market {
   background:
@@ -3334,7 +3334,6 @@ button.sundry:hover { transform: translateY(-2px); }
   border-color: rgba(243, 222, 184, 0.2);
 }
 .sheet--market .stall-warn { color: #ffb3a6; }
-.sheet--market .pickable.picked { outline-color: #8fdfae; box-shadow: 0 0 16px rgba(143, 223, 174, 0.3); }
 
 /* ── The table, restated at the top of the sheet ──────────────────────────────
    The board's patron shelf again, on the same .shelf/.patron classes. */
@@ -3822,52 +3821,383 @@ button.sundry:hover { transform: translateY(-2px); }
   border-top: 8px solid var(--parch-2);
 }
 
-/* ─── Opening draft ───────────────────────────────────────────────────────────── */
-.sheet--draft { width: min(860px, 96vw); }
-.sheet--draft .market-sec { margin-top: 18px; }
-.sheet--draft .market-sec:first-of-type { margin-top: 4px; }
+/* ─── The Testing Chamber ─────────────────────────────────────────────────────── */
+/* Deliberately not parchment: the chamber is a bench in the back room, and
+   nothing in it should be mistakable for a page of the game. Slate, steel and a
+   monospace hand, so a screenshot of it never reads as the real thing. */
+.sheet.sheet--chamber {          /* doubled: .sheet--end sits later and would win at one */
+  width: min(1020px, 96vw);
+  background:
+    radial-gradient(760px 340px at 50% -12%, rgba(120, 160, 200, 0.14), transparent 70%),
+    linear-gradient(175deg, #232a33 0%, #1b212a 70%, #161b22 100%);
+  color: #cfdcea;
+  border: 1px solid #46586e;
+  box-shadow:
+    inset 0 0 0 1px rgba(150, 190, 230, 0.14),
+    inset 0 0 70px rgba(30, 60, 100, 0.3),
+    0 36px 90px rgba(0, 0, 0, 0.8);
+}
+.sheet--chamber h2, .sheet--chamber h3, .sheet--chamber h4 { color: #eaf3ff; }
+.sheet--chamber .sheet-note { color: #93a8c2; }
+.sheet--chamber .market-sec {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin: 18px 0 9px;
+  border-bottom: 1px solid #3a4757;
+  padding-bottom: 6px;
+}
+.sheet--chamber .market-sub { color: #7e93ad; font-weight: 600; }
 
-.draft-paints {
+.tc-title {
+  font-family: var(--mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 22px !important;
+}
+.tc-head { align-items: center; }
+.tc-purse {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.tc-coins {
+  font-weight: 900;
+  font-size: 19px;
+  color: #ffd98a;
+  min-width: 62px;
+  text-align: right;
+}
+
+.sheet--chamber .btn-quiet,
+.sheet--chamber .btn {
+  background: #2c3644;
+  color: #d6e4f4;
+  border: 1px solid #4c5f77;
+}
+.sheet--chamber .btn-quiet:hover:not(:disabled),
+.sheet--chamber .btn:hover:not(:disabled) { background: #38455a; }
+.sheet--chamber .btn-print {
+  background: linear-gradient(#3f6f4c, #2c5237);
+  border-color: #5d9a70;
+  color: #eafff0;
+}
+.tc-mini {
+  padding: 3px 9px !important;
+  font-size: 12px !important;
+  min-height: 0 !important;
+  border-radius: 6px !important;
+}
+.tc-mini--on { background: #3f6f4c !important; border-color: #5d9a70 !important; }
+
+/* ── Tabs ── */
+.tc-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid #3a4757;
+  margin: 4px 0 14px;
+  flex-wrap: wrap;
+}
+.tc-tab {
+  appearance: none;
+  background: transparent;
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  color: #8ea3bd;
+  font: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-bottom: -1px;
+}
+.tc-tab:hover { color: #d6e4f4; background: rgba(120, 160, 200, 0.1); }
+.tc-tab--on {
+  color: #eaf3ff;
+  background: #2c3644;
+  border-color: #4c5f77;
+  border-bottom: 1px solid #2c3644;
+}
+
+.tc-body { min-height: 200px; }
+
+/* ── The two benches (shelf and workbench) ── */
+.tc-bench { margin-bottom: 4px; }
+.tc-seats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 34px;
+  align-items: center;
+}
+.tc-seat {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #2c3644;
+  border: 1px solid #4c5f77;
+  border-radius: 999px;
+  color: #d6e4f4;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 5px 10px 5px 7px;
+  cursor: pointer;
+}
+.tc-seat:hover { background: #4a2f34; border-color: #8d5560; }
+.tc-seat-face { font-size: 15px; }
+.tc-seat-x { color: #8ea3bd; font-size: 11px; font-weight: 900; }
+.tc-seat:hover .tc-seat-x { color: #ffbfc8; }
+.tc-seat--ghost { opacity: 0.78; border-style: dashed; }
+
+/* ── Patrons ── */
+.tc-filter {
+  width: 100%;
+  box-sizing: border-box;
+  background: #1a2029;
+  border: 1px solid #46586e;
+  border-radius: 8px;
+  color: #eaf3ff;
+  font: inherit;
+  font-size: 14px;
+  padding: 8px 11px;
+  margin-bottom: 10px;
+}
+.tc-filter::placeholder { color: #6d8199; }
+.tc-filter:focus { outline: 2px solid #5d8fc0; outline-offset: 1px; }
+
+.tc-patrons {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  max-height: 46vh;
+  overflow: auto;
+  padding-right: 4px;
+}
+.tc-patron {
+  display: grid;
+  grid-template-columns: 54px 1fr auto;
+  align-items: center;
   gap: 9px;
+  background: #262f3b;
+  border: 1px solid #3f4e61;
+  border-left-width: 4px;
+  border-radius: 10px;
+  padding: 8px 9px;
 }
-.offer-tiles--draft { grid-template-columns: repeat(5, 1fr); }
-
-.pickable {
-  position: relative;
+.tc-patron--common   { border-left-color: #7c8a9c; }
+.tc-patron--uncommon { border-left-color: #5d9ac0; }
+.tc-patron--rare     { border-left-color: #c09a4a; }
+.tc-patron--seated   { background: #2b3b31; border-color: #4d6f57; }
+.tc-patron .op-portrait { min-height: 0; background: none; border: none; box-shadow: none; }
+.tc-patron .op-emoji { font-size: 27px; }
+.tc-patron .op-portrait img { width: 46px; height: 46px; border-radius: 8px; object-fit: cover; }
+.tc-patron .op-name  { color: #eaf3ff; font-size: 14px; }
+.tc-patron .op-title { color: #7e93ad; font-size: 11px; text-transform: capitalize; }
+.tc-patron .op-desc  { color: #a9bdd6; font-size: 11.5px; line-height: 1.35; }
+.tc-patron-acts { display: flex; flex-direction: column; gap: 4px; }
+.tc-patron .btn-price {
+  background: #33475d;
+  border: 1px solid #55708d;
+  color: #e6f0fb;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 7px;
   cursor: pointer;
-  transition:
-    transform calc(0.12s / var(--aspd)),
-    box-shadow calc(0.12s / var(--aspd)),
-    opacity calc(0.12s / var(--aspd));
 }
-.pickable:hover:not(.pick-locked) { transform: translateY(-2px); }
+.tc-patron .btn-price:hover { background: #3f5a76; }
+.btn-price--ghost { font-size: 13px !important; padding: 3px 10px !important; }
 
-.pickable .pick-mark {
-  position: absolute;
-  top: -8px; right: -8px;
-  width: 23px; height: 23px;
-  border-radius: 50%;
+/* ── Sundries ── */
+.tc-sundries {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.tc-sundry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #262f3b;
+  border: 1px solid #3f4e61;
+  border-radius: 10px;
+  padding: 9px 10px;
+  cursor: pointer;
+}
+.tc-sundry:hover { background: #324052; border-color: #5d7794; }
+.tc-sundry-face {
+  font-size: 22px;
   display: grid;
   place-items: center;
+  width: 30px;
+  flex: 0 0 30px;
+}
+/* The bench's own marks, shrunk to fit a row: the paint tube, the parcel's
+   twine, the ratchet's arrows. */
+.tc-sundry-face .paint-tube { transform: scale(0.72); }
+.tc-sundry-face .wrapped-mark { width: 20px; height: 20px; margin: 0; }
+/* The bench stacks the ratchet's arrows side by side, with room for a thumb.
+   In a 30px face they go one above the other and shrink to a mark. */
+.tc-sundry-face .ratchet-arrows { flex-direction: column; gap: 2px; margin: 0; }
+.tc-sundry-face .ratchet-arrow {
+  width: 20px; height: 12px;
+  font-size: 8px;
+  cursor: default;
+  box-shadow: none;
+}
+.tc-sundry-face .sundry-shuffle { font-size: 21px; color: #9fc4e8; }
+.tc-sundry .op-name { color: #dbe7f5; font-size: 12.5px; font-weight: 700; }
+
+/* ── The tile-maker ── */
+.tc-maker {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.tc-maker-preview {
+  background: #1a2029;
+  border: 1px solid #3f4e61;
+  border-radius: 12px;
+  padding: 14px 12px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+}
+.tc-preview-slot {
+  display: grid;
+  place-items: center;
+  min-height: 92px;
+  margin-bottom: 6px;
+}
+.tc-preview-note { color: #8ea3bd; font-size: 12px; margin-bottom: 10px; }
+.tc-strike { display: flex; flex-direction: column; gap: 6px; }
+
+.tc-knob-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin: 12px 0 6px;
   font-size: 12px;
-  font-weight: 900;
-  background: #2f6e3e;
-  color: #eafff0;
-  border: 1.5px solid rgba(0, 0, 0, 0.35);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-  opacity: 0;
-  transform: scale(0.5);
-  transition: opacity calc(0.14s / var(--aspd)), transform calc(0.14s / var(--aspd));
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8ea3bd !important;
 }
-.pickable.picked .pick-mark { opacity: 1; transform: scale(1); }
-.pickable.picked {
-  outline: 2.5px solid #2f6e3e;
-  outline-offset: 2px;
-  box-shadow: 0 0 16px rgba(47, 110, 62, 0.35);
+.tc-knob-head:first-child { margin-top: 0; }
+
+.tc-sorts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
 }
-.pick-locked { opacity: 0.4; cursor: default; }
+.tc-sort {
+  appearance: none;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 6px;
+  background: #2c3644;
+  border: 1px solid #4c5f77;
+  border-radius: 7px;
+  color: #d6e4f4;
+  font-family: var(--serif);
+  font-weight: 800;
+  font-size: 14px;
+  cursor: pointer;
+}
+.tc-sort:hover { background: #3a475c; }
+.tc-sort--on {
+  background: #c9a24a;
+  border-color: #f0d9a0;
+  color: #1c1409;
+}
+
+.tc-swatches { display: flex; flex-wrap: wrap; gap: 5px; }
+.tc-swatch {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #2c3644;
+  border: 1px solid #4c5f77;
+  border-radius: 7px;
+  color: #d6e4f4;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.tc-swatch:hover { background: #3a475c; }
+.tc-swatch--on { outline: 2px solid #eaf3ff; outline-offset: 1px; }
+.tc-swatch::before {
+  content: '';
+  width: 10px; height: 10px;
+  border-radius: 3px;
+  background: currentColor;
+  opacity: 0.9;
+}
+.tc-swatch--none::before, .tc-swatch--plain::before { opacity: 0.25; }
+.tc-swatch--crimson  { color: #e46b78; }
+.tc-swatch--azure    { color: #6fb6e8; }
+.tc-swatch--jade     { color: #6fd3a2; }
+.tc-swatch--amber    { color: #e8b45c; }
+.tc-swatch--trim-gold   { color: #e5c15a; }
+.tc-swatch--trim-silver { color: #cdd8e4; }
+.tc-swatch--trim-cobalt { color: #6f8ee8; }
+.tc-swatch--trim-purple { color: #b98ae0; }
+.tc-swatch--mat-cursed  { color: #d05a4a; }
+.tc-swatch--mat-ghost   { color: #9fc4e8; }
+.tc-swatch--mat-rainbow { color: #e8a0d8; }
+.tc-swatch--mat-rose    { color: #e88fa8; }
+
+.sheet--chamber .mini-grid {
+  max-height: 34vh;
+  overflow: auto;
+  background: #1a2029;
+  border: 1px solid #3f4e61;
+  border-radius: 10px;
+  padding: 9px;
+}
+.sheet--chamber .mini-grid .tile { cursor: pointer; }
+.sheet--chamber .mini-grid .tile:hover { outline: 2px solid #d0707e; outline-offset: 2px; }
+
+/* ── The run's own numbers ── */
+.tc-rows {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.tc-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #8ea3bd;
+}
+.tc-num {
+  background: #1a2029;
+  border: 1px solid #46586e;
+  border-radius: 7px;
+  color: #eaf3ff;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 800;
+  padding: 7px 9px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.tc-num:focus { outline: 2px solid #5d8fc0; outline-offset: 1px; }
 
 /* ─── Settings ────────────────────────────────────────────────────────────────── */
 .set-row {
@@ -4398,12 +4728,24 @@ input[type='checkbox'] {
   .run-stats { grid-template-columns: 1fr 1fr; }
   .set-row { grid-template-columns: 1fr; gap: 6px; }
 
-  .offer-tiles--draft { grid-template-columns: repeat(2, 1fr); }
-  .draft-paints { grid-template-columns: 1fr; }
   .offer-patron { grid-template-columns: 68px 1fr; }
   .op-portrait { min-height: 78px; }
   .op-portrait .op-emoji { font-size: 30px; }
-  .sheet--draft .market-sec { margin-top: 14px; }
+
+  /* The chamber on a phone: one column everywhere, and the tile-maker's
+     preview stops being a sticky rail and simply sits on top. */
+  .tc-patrons  { grid-template-columns: 1fr; max-height: 40vh; }
+  .tc-sundries { grid-template-columns: repeat(2, 1fr); }
+  .tc-rows     { grid-template-columns: repeat(2, 1fr); }
+  .tc-maker    { grid-template-columns: 1fr; }
+  .tc-maker-preview { position: static; }
+  .tc-strike { flex-direction: row; }
+  .tc-strike .btn { flex: 1 1 auto; justify-content: center; }
+  .tc-tab { padding: 8px 12px; font-size: 13px; }
+  .tc-title { font-size: 18px !important; }
+  .tc-head { flex-direction: column; align-items: stretch; }
+  .tc-purse { justify-content: flex-start; }
+  .tc-coins { text-align: left; }
 
   /* the shop head is a title beside a reward tally — too wide for a phone */
   .sheet-head { flex-direction: column; align-items: stretch; gap: 8px; }

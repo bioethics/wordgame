@@ -1,6 +1,6 @@
 // Board-side rendering: tiles, the shelf and workbench, the status row and
 // readout, popovers, banners, and the end screens. The full-screen sheets
-// (Market, Colophon, draft) live in sheets.js.
+// (Market, Colophon, Testing Chamber) live in sheets.js.
 
 import {
   state, settings, saveState, getActiveLetter, getActiveColour, selectedCount,
@@ -19,7 +19,7 @@ import { patronById, guildsOf, patronName, patronShelf, patronEmoji } from './pa
 import { bossById } from './bosses.js';
 import { computeScore } from './scoring.js';
 import { marketSnapshot, patronRefund } from './market.js';
-import { draftSnapshot } from './draft.js';
+import { chamberSnapshot } from './chamber.js';
 import { colophonSnapshot } from './colophon.js';
 import { setNum, sleep, fmtMult, readingTime } from './anim.js';
 
@@ -415,7 +415,7 @@ export function renderAll() {
 
 export function persist() {
   saveState(
-    state.inDraft    ? { _draft: draftSnapshot() } :
+    state.inChamber  ? { _chamber: chamberSnapshot() } :
     state.inMarket  ? { _market: marketSnapshot() } :
     state.inColophon ? { _colophon: colophonSnapshot() } : {}
   );
@@ -1071,7 +1071,7 @@ export const readoutEls = () => ({
 // ─── Buttons ──────────────────────────────────────────────────────────────────
 
 export function renderButtons() {
-  const blocked = state.inMarket || state.inDraft || state.inColophon || state.isAnimating || state.gameOver;
+  const blocked = state.inMarket || state.inChamber || state.inColophon || state.isAnimating || state.gameOver;
   const sel = selectedCount();
 
   setDisabled('btnPrint',    !state.word.length || blocked);

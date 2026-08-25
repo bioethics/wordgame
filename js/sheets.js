@@ -1,5 +1,5 @@
 // The full-screen sheets — the Market (with its stalls and collection view), the
-// Colophon, and the opening draft: their HTML and click handling. Board-side
+// Colophon, and the Testing Chamber: their HTML and click handling. Board-side
 // rendering is render.js; game flow stays in main.js, injected via initSheets().
 
 import {
@@ -8,10 +8,10 @@ import {
 } from './state.js';
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
-  PAINT_PER_POT, ANIM, SUNDRY_SELL, tileCount, sundryTip, TOOL_LOOK, PACKAGES, APPLICATORS,
-  colourDesc, HONORIFIC_STEP, POSTNOM, GHOST_HIRE,
+  ANIM, SUNDRY_SELL, tileCount, sundryTip, TOOL_LOOK, PACKAGES, APPLICATORS,
+  colourDesc, HONORIFIC_STEP, POSTNOM, GHOST_HIRE, MATERIALS, TILE_POINTS, letterGlyph,
 } from './constants.js';
-import { patronById, guildsOf, patronName, patronShelf, patronEmoji, patronCost } from './patrons.js';
+import { PATRON_DEFS, patronById, guildsOf, patronName, patronShelf, patronEmoji, patronCost } from './patrons.js';
 import { upgradeById } from './upgrades.js';
 import {
   market, stallById, stallPrice, isProposalStall,
@@ -23,7 +23,13 @@ import {
 import {
   colophon, closeColophon, applyColophonPick, applyColophonSkip, reshuffleColophon,
 } from './colophon.js';
-import { draft, draftLimit, toggleDraftPick } from './draft.js';
+import {
+  chamber, chamberPatrons, CHAMBER_COINS, CHAMBER_LETTERS, CHAMBER_SUNDRIES,
+  CHAMBER_COLOURS, CHAMBER_TRIMS, CHAMBER_NICKS, CHAMBER_MATERIALS,
+  grantCoins, seatPatron, unseatPatron, hauntPatron, addSeats, addBenchSlots,
+  giveSundry, dropSundry, strikeTile, scrapTile, scrapAllTiles,
+  setBuild, freshBuild, buildPoints, canBeDual,
+} from './chamber.js';
 import {
   makeTileEl, coinHTML, log, renderAll, persist, showPatronPopover, openGhosts,
 } from './render.js';
@@ -739,87 +745,296 @@ export function renderColophon() {
   m.classList.add('show');
 }
 
-// ─── Opening draft ────────────────────────────────────────────────────────────
+// ─── The Testing Chamber ──────────────────────────────────────────────────────
+// A playtest bench, not a part of the game: coins, seats, the workbench and the
+// case, all writable by hand. It opens at the top of a new run and can be
+// reopened from Settings at any point in a run. Rendered whole on every action
+// rather than patched — nothing here is animated, and a full redraw keeps the
+// four tabs honest about a state four of them can change.
 
-export function renderDraft() {
-  const m = $('draftModal');
+const TAB_LABELS = {
+  patrons:  'Patrons',
+  sundries: 'Sundries',
+  tiles:    'Tiles',
+  run:      'Run',
+};
+
+const esc = s => String(s ?? '').replace(/[&<>"]/g,
+  c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+export function renderChamber() {
+  const m = $('chamberModal');
   if (!m) return;
-  if (!draft.open) { m.classList.remove('show'); m.innerHTML = ''; return; }
+  if (!chamber.open) { m.classList.remove('show'); m.innerHTML = ''; return; }
 
-  const paintCards = draft.paints.map((colour, i) => `
-    <div class="offer-paint pickable" data-draft="paint" data-idx="${i}"
-         data-tip-head="${COLOURS[colour].label} paint"
-         data-tip-body="Paints ${PAINT_PER_POT} unpainted letters ${COLOURS[colour].label}.">
-      <span class="paint-pot paint-pot--${colour}"></span>
-      <div class="op-body">
-        <div class="op-name">${COLOURS[colour].label}</div>
-      </div>
-      <span class="pick-mark">✓</span>
-    </div>`).join('');
+  const tabs = Object.entries(TAB_LABELS).map(([id, label]) =>
+    `<button class="tc-tab${chamber.tab === id ? ' tc-tab--on' : ''}" data-tc-tab="${id}">${label}</button>`
+  ).join('');
 
-  const tileCards = draft.tiles.map((t, i) => `
-    <div class="offer-tile pickable" data-draft="tile" data-idx="${i}">
-      <div class="offer-tile-slot" data-draft-tile="${i}"></div>
-      <span class="pick-mark">✓</span>
-    </div>`).join('');
+  const body = chamber.tab === 'patrons'  ? chamberPatronsHTML()
+             : chamber.tab === 'sundries' ? chamberSundriesHTML()
+             : chamber.tab === 'tiles'    ? chamberTilesHTML()
+             :                              chamberRunHTML();
 
   m.innerHTML = `
-    <div class="sheet sheet--draft">
-      <div class="sheet-head">
+    <div class="sheet sheet--chamber">
+      <div class="sheet-head tc-head">
         <div>
-          <h2>Set up the press</h2>
-          <p class="sheet-note">Free picks — take what you like. Patrons are hired later, at the Market.</p>
+          <h2 class="tc-title">The Testing Chamber</h2>
+          <p class="sheet-note">Nothing here is earned. Set the press however you need it, then print.</p>
+        </div>
+        <div class="tc-purse">
+          <span class="tc-coins" id="tcCoins">${coinHTML(state.coins)}</span>
+          <button class="btn btn-quiet tc-mini" data-tc-coins="${CHAMBER_COINS}">+${CHAMBER_COINS}</button>
+          <button class="btn btn-quiet tc-mini" data-tc-coins="20">+20</button>
+          <button class="btn btn-quiet tc-mini" data-tc-coins="-999999">Broke</button>
         </div>
       </div>
 
-      <h3 class="market-sec">Paint <span class="market-sub" data-count="paint"></span></h3>
-      <div class="draft-paints">${paintCards}</div>
-
-      <h3 class="market-sec">Tiles <span class="market-sub" data-count="tile"></span></h3>
-      <div class="offer-tiles offer-tiles--draft">${tileCards}</div>
+      <div class="tc-tabs">${tabs}</div>
+      <div class="tc-body">${body}</div>
 
       <div class="market-foot">
+        ${chamber.atStart ? '' : '<button class="btn btn-quiet" id="btnChamberClose">← Back to the page</button>'}
         <div class="market-spacer"></div>
-        <button class="btn btn-print btn-big" id="btnDraftBegin">Begin the run ❧</button>
+        <button class="btn btn-print btn-big" id="btnChamberBegin">${
+          chamber.atStart ? 'Begin the run ❧' : 'Done ❧'}</button>
       </div>
     </div>`;
   m.classList.add('show');
 
-  draft.tiles.forEach((t, i) => {
-    const slot = m.querySelector(`[data-draft-tile="${i}"]`);
-    if (slot) slot.appendChild(makeTileEl({ ...t, id: '' }, 'draft'));
-  });
-
-  updateDraftSelection();
+  if (chamber.tab === 'tiles') renderChamberTiles();
 }
 
-// Patched in place, so the page doesn't scroll out from under your thumb.
-export function updateDraftSelection() {
-  const m = $('draftModal');
-  if (!m || !draft.open) return;
+// ─── Patrons ──────────────────────────────────────────────────────────────────
 
-  for (const el of m.querySelectorAll('[data-draft]')) {
-    const kind = el.dataset.draft;
-    const idx  = Number(el.dataset.idx);
-    const picked = draft.picked[kind].includes(idx);
-    const full   = draft.picked[kind].length >= draftLimit(kind);
-    el.classList.toggle('picked', picked);
-    el.classList.toggle('pick-locked', !picked && full);
-  }
+function chamberPatronsHTML() {
+  const seated = state.patrons.map(p => {
+    const def = patronById(p.id);
+    return `<button class="tc-seat" data-tc-unseat="${p.uid}"
+                    title="Take ${esc(patronName(def, p.data))} off the shelf"
+            ><span class="tc-seat-face">${patronEmoji(def, p.data)}</span>${
+              esc(patronShelf(def, p.data))}<span class="tc-seat-x">✕</span></button>`;
+  }).join('') || '<span class="sheet-note">No one seated.</span>';
 
-  for (const el of m.querySelectorAll('[data-count]')) {
-    const kind = el.dataset.count;
-    const n = draft.picked[kind].length, max = draftLimit(kind);
-    el.textContent = n === max ? `${max} of ${max} ✓` : `${n} of ${max}`;
-    el.classList.toggle('market-sub--done', n === max);
+  const haunting = (state.ghosts ?? []).map(p => {
+    const def = patronById(p.id);
+    return `<button class="tc-seat tc-seat--ghost" data-tc-unhaunt="${p.uid}"
+            ><span class="tc-seat-face">👻</span>${esc(patronShelf(def, p.data))}<span class="tc-seat-x">✕</span></button>`;
+  }).join('');
+
+  const roster = chamberPatrons().map(def => {
+    const guilds = guildsOf(def);
+    const on = state.patrons.some(p => p.id === def.id);
+    return `
+      <div class="tc-patron tc-patron--${def.rarity}${on ? ' tc-patron--seated' : ''}${
+        guilds.length ? ` op-livery--${guilds[0]}` : ''}" data-tc-patron="${def.id}">
+        <div class="op-portrait">${def.portrait
+          ? `<img src="${def.portrait}" alt="">`
+          : `<span class="op-emoji">${def.emoji}</span>`}</div>
+        <div class="op-card-body">
+          <div class="op-name">${esc(def.name)}</div>
+          <div class="op-title">${def.rarity}${guilds.length ? ` · ${guilds.join(' & ')}` : ''}${
+            def.unlisted ? ' · unlisted' : ''}</div>
+          <div class="op-desc">${esc(def.desc)}</div>
+        </div>
+        <div class="tc-patron-acts">
+          <button class="btn-price" data-tc-seat="${def.id}">Seat</button>
+          <button class="btn-price btn-price--ghost" data-tc-haunt="${def.id}"
+                  title="Hire it dead — it works on and takes no seat">👻</button>
+        </div>
+      </div>`;
+  }).join('') || '<p class="sheet-note">Nobody by that name.</p>';
+
+  return `
+    <div class="tc-bench">
+      <h3 class="market-sec">Your shelf
+        <span class="market-sub">${state.patrons.length} of ${effectivePatronSlots()} seats</span>
+        <button class="btn btn-quiet tc-mini" data-tc-seats="1">+ seat</button>
+        <button class="btn btn-quiet tc-mini" data-tc-seats="-1">− seat</button>
+      </h3>
+      <div class="tc-seats">${seated}${haunting}</div>
+    </div>
+    <h3 class="market-sec">The roster
+      <span class="market-sub">${chamberPatrons().length} of ${PATRON_DEFS.length}</span>
+    </h3>
+    <input class="tc-filter" id="tcFilter" type="search" placeholder="Filter by name, guild, rarity or rule…"
+           value="${esc(chamber.filter)}" autocomplete="off">
+    <div class="tc-patrons">${roster}</div>`;
+}
+
+// ─── Sundries ─────────────────────────────────────────────────────────────────
+
+function chamberSundriesHTML() {
+  const held = state.sundries.map((s, i) => {
+    const tip = sundryTip(s);
+    return `<button class="tc-seat" data-tc-drop="${i}" title="Throw it away"
+            ><span class="tc-seat-face">${sundryGlyph(s)}</span>${esc(tip?.head ?? s.kind)}<span class="tc-seat-x">✕</span></button>`;
+  }).join('') || '<span class="sheet-note">The bench is empty.</span>';
+
+  const shelf = CHAMBER_SUNDRIES.map((s, i) => {
+    const tip = sundryTip(s);
+    return `
+      <div class="tc-sundry" data-tc-sundry="${i}"
+           data-tip-head="${esc(tip?.head ?? s.kind)}" data-tip-body="${esc(tip?.body ?? '')}">
+        <span class="tc-sundry-face">${sundryGlyph(s)}</span>
+        <div class="op-body"><div class="op-name">${esc(tip?.head ?? s.kind)}</div></div>
+      </div>`;
+  }).join('');
+
+  return `
+    <div class="tc-bench">
+      <h3 class="market-sec">Your workbench
+        <span class="market-sub">${state.sundries.length} of ${effectiveSundrySlots()} slots</span>
+        <button class="btn btn-quiet tc-mini" data-tc-slots="1">+ slot</button>
+        <button class="btn btn-quiet tc-mini" data-tc-slots="-1">− slot</button>
+      </h3>
+      <div class="tc-seats">${held}</div>
+    </div>
+    <h3 class="market-sec">Every sundry <span class="market-sub">click to take one</span></h3>
+    <div class="tc-sundries">${shelf}</div>`;
+}
+
+// The face a sundry wears in the chamber — the same marks the workbench draws
+// (renderSundries in render.js), so a thing taken here is recognisable when it
+// lands on the bench a moment later.
+function sundryGlyph(s) {
+  if (s.kind === 'tube')       return `<span class="paint-tube paint-tube--${s.colour}"></span>`;
+  if (s.kind === 'reshuffle')  return '<span class="sundry-shuffle">↻</span>';
+  if (s.kind === 'ratchet')    return '<span class="ratchet-arrows"><span class="ratchet-arrow ratchet-arrow--on">▲</span><span class="ratchet-arrow">▼</span></span>';
+  if (s.kind === 'wrapped')    return '<span class="wrapped-mark"></span>';
+  if (s.kind === 'package')    return `<span class="sundry--pkg-${s.theme}"><span class="wrapped-mark"></span></span>`;
+  if (s.kind === 'applicator') return APPLICATORS[s.material]?.glyph ?? '🧪';
+  return TOOL_LOOK[s.kind]?.glyph ?? '❔';
+}
+
+// ─── Tiles ────────────────────────────────────────────────────────────────────
+
+function chamberTilesHTML() {
+  const b = chamber.build ?? freshBuild();
+
+  const letters = CHAMBER_LETTERS.map(L => `
+    <button class="tc-sort${b.letter === L ? ' tc-sort--on' : ''}" data-tc-letter="${esc(L)}"
+            title="${esc(L)} · ${TILE_POINTS[L] ?? 0} Points">${esc(letterGlyph(L))}</button>`).join('');
+
+  const alts = CHAMBER_LETTERS.map(L => `
+    <button class="tc-sort${b.altLetter === L ? ' tc-sort--on' : ''}" data-tc-alt="${esc(L)}"
+            title="${esc(L)} · ${TILE_POINTS[L] ?? 0} Points">${esc(letterGlyph(L))}</button>`).join('');
+
+  const swatch = (kind, key, label, cls) =>
+    `<button class="tc-swatch ${cls}${b[kind] === key ? ' tc-swatch--on' : ''}"
+             data-tc-${kind}="${key ?? ''}">${label}</button>`;
+
+  return `
+    <div class="tc-maker">
+      <div class="tc-maker-preview">
+        <div class="tc-preview-slot" id="tcPreview"></div>
+        <div class="tc-preview-note">${buildPoints(b)} Point${buildPoints(b) === 1 ? '' : 's'} at rest</div>
+        <div class="tc-strike">
+          <button class="btn btn-print" data-tc-strike="1">Strike ×1</button>
+          <button class="btn btn-quiet" data-tc-strike="4">×4</button>
+          <button class="btn btn-quiet" id="tcReset">Reset</button>
+        </div>
+      </div>
+
+      <div class="tc-maker-knobs">
+        <h4 class="tc-knob-head">Sort</h4>
+        <div class="tc-sorts">${letters}</div>
+
+        <h4 class="tc-knob-head">Paint</h4>
+        <div class="tc-swatches">
+          ${swatch('colour', null, 'None', 'tc-swatch--none')}
+          ${CHAMBER_COLOURS.map(c => swatch('colour', c, COLOURS[c].label, `tc-swatch--${c}`)).join('')}
+        </div>
+
+        <h4 class="tc-knob-head">Trim</h4>
+        <div class="tc-swatches">
+          ${swatch('trim', null, 'None', 'tc-swatch--none')}
+          ${CHAMBER_TRIMS.map(t => swatch('trim', t, TRIMS[t].label, `tc-swatch--trim-${t}`)).join('')}
+        </div>
+
+        <h4 class="tc-knob-head">Nick</h4>
+        <div class="tc-swatches">
+          ${swatch('nick', null, 'None', 'tc-swatch--none')}
+          ${CHAMBER_NICKS.map(n => swatch('nick', n, NICKS[n].label, 'tc-swatch--plain')).join('')}
+        </div>
+
+        <h4 class="tc-knob-head">Metal</h4>
+        <div class="tc-swatches">
+          ${swatch('material', null, 'Lead', 'tc-swatch--none')}
+          ${CHAMBER_MATERIALS.map(mt => swatch('material', mt, MATERIALS[mt].label, `tc-swatch--mat-${mt}`)).join('')}
+        </div>
+
+        <h4 class="tc-knob-head">Grown Points
+          <span class="market-sub">+${b.bonusPoints ?? 0}</span>
+          <button class="btn btn-quiet tc-mini" data-tc-grow="1">+1</button>
+          <button class="btn btn-quiet tc-mini" data-tc-grow="5">+5</button>
+          <button class="btn btn-quiet tc-mini" data-tc-grow="-99">0</button>
+        </h4>
+
+        <h4 class="tc-knob-head">Second face
+          <button class="btn btn-quiet tc-mini${b.letterType === 'dual' ? ' tc-mini--on' : ''}"
+                  data-tc-dual="${b.letterType === 'dual' ? '0' : '1'}"
+                  ${canBeDual(b.letter) ? '' : 'disabled'}>${
+            b.letterType === 'dual' ? 'Two-faced' : 'One face'}</button>
+        </h4>
+        ${b.letterType === 'dual' ? `<div class="tc-sorts">${alts}</div>` : ''}
+      </div>
+    </div>
+
+    <h3 class="market-sec">The case
+      <span class="market-sub">${state.collection.length} tile${state.collection.length === 1 ? '' : 's'} — click one to scrap it</span>
+      <button class="btn btn-quiet tc-mini" id="tcScrapAll">Empty it</button>
+    </h3>
+    <div class="mini-grid mini-grid--case" id="tcCase"></div>`;
+}
+
+// The preview tile and the case grid are real tile elements, so what the chamber
+// shows is what the board would draw.
+function renderChamberTiles() {
+  const slot = $('tcPreview');
+  if (slot) {
+    slot.innerHTML = '';
+    slot.appendChild(makeTileEl({ ...(chamber.build ?? freshBuild()), id: '' }, 'chamber'));
   }
+  const grid = $('tcCase');
+  if (!grid) return;
+  grid.innerHTML = '';
+  for (const tmpl of state.collection) {
+    const el = makeTileEl({ ...tmpl, id: '' }, 'chamber', { mini: true });
+    el.dataset.tcScrap = tmpl.tid;
+    grid.appendChild(el);
+  }
+}
+
+// ─── Run ──────────────────────────────────────────────────────────────────────
+
+function chamberRunHTML() {
+  return `
+    <h3 class="market-sec">The page</h3>
+    <div class="tc-rows">
+      <label class="tc-row">Quota
+        <input class="tc-num" type="number" data-tc-field="quota" value="${state.quota}"></label>
+      <label class="tc-row">Score so far
+        <input class="tc-num" type="number" data-tc-field="pageScore" value="${state.pageScore}"></label>
+      <label class="tc-row">Words left
+        <input class="tc-num" type="number" data-tc-field="wordsLeft" value="${state.wordsLeft}"></label>
+      <label class="tc-row">Discards
+        <input class="tc-num" type="number" data-tc-field="discards" value="${state.discards}"></label>
+      <label class="tc-row">Chapter
+        <input class="tc-num" type="number" data-tc-field="chapter" value="${state.chapter}"></label>
+      <label class="tc-row">Page
+        <input class="tc-num" type="number" data-tc-field="page" value="${state.page}"></label>
+    </div>
+    <p class="sheet-note">Written straight in. The board redraws when you close the chamber;
+      a quota or a word count you change here takes hold on this page, not the next.</p>`;
 }
 
 // ─── Click handling ───────────────────────────────────────────────────────────
 // Game flow is main.js's business, injected here so the sheets never need to
 // know about pages and chapters.
 
-let flow = { nextPage: () => {}, beginRun: () => {}, openMarket: () => {} };
+let flow = { nextPage: () => {}, beginRun: () => {}, openMarket: () => {}, leaveChamber: () => {} };
 
 // The clones ride the #fx layer, which sits above the modal.
 function flyPurchase(fromEl, toEl, opts = {}) {
@@ -1077,18 +1292,139 @@ function onColophonClick(e) {
   if (e.target.closest('#btnColophonReshuffle')) useColophonReshuffle();
 }
 
-// ─── Draft actions ────────────────────────────────────────────────────────────
+// ─── Testing Chamber actions ──────────────────────────────────────────────────
+// One handler for four tabs. Every branch ends the same way — redraw the sheet,
+// redraw the board, save — because a chamber that got out of step with the state
+// it writes would be worse than no chamber.
 
-function onDraftClick(e) {
-  const pickEl = e.target.closest('[data-draft]');
-  if (pickEl) {
-    if (toggleDraftPick(pickEl.dataset.draft, Number(pickEl.dataset.idx))) sfx.draw();
+function onChamberClick(e) {
+  const hit = sel => e.target.closest(`[${sel}]`);
+  let touched = true;
+
+  const tab = hit('data-tc-tab');
+  if (tab) { chamber.tab = tab.dataset.tcTab; sfx.draw(); return finishChamber(); }
+
+  const coins = hit('data-tc-coins');
+  if (coins) {
+    const n = Number(coins.dataset.tcCoins);
+    grantCoins(n === -999999 ? -state.coins : n);
+    sfx.coin();
+    return finishChamber();
+  }
+
+  // ── Patrons
+  const seat = hit('data-tc-seat');
+  if (seat) {
+    const r = seatPatron(seat.dataset.tcSeat);
+    if (r.ok) { sfx.draw(); log(`${patronName(r.def, r.seat.data)} takes a seat.`); }
     else sfx.bad();
-    updateDraftSelection();   // in place — never rebuilds the sheet
-    persist();
+    return finishChamber();
+  }
+  const haunt = hit('data-tc-haunt');
+  if (haunt) {
+    const r = hauntPatron(haunt.dataset.tcHaunt);
+    if (r.ok) { sfx.draw(); log(`${patronName(r.def, r.seat.data)} works on, dead.`); }
+    else sfx.bad();
+    return finishChamber();
+  }
+  const unseat = hit('data-tc-unseat');
+  if (unseat) { unseatPatron(Number(unseat.dataset.tcUnseat)); sfx.bad(); return finishChamber(); }
+  const unhaunt = hit('data-tc-unhaunt');
+  if (unhaunt) {
+    const uid = Number(unhaunt.dataset.tcUnhaunt);
+    const i = (state.ghosts ?? []).findIndex(g => g.uid === uid);
+    if (i >= 0) state.ghosts.splice(i, 1);
+    sfx.bad();
+    return finishChamber();
+  }
+  const seats = hit('data-tc-seats');
+  if (seats) { addSeats(Number(seats.dataset.tcSeats)); sfx.draw(); return finishChamber(); }
+
+  // ── Sundries
+  const sundry = hit('data-tc-sundry');
+  if (sundry) {
+    giveSundry(CHAMBER_SUNDRIES[Number(sundry.dataset.tcSundry)]);
+    sfx.draw();
+    return finishChamber();
+  }
+  const drop = hit('data-tc-drop');
+  if (drop) { dropSundry(Number(drop.dataset.tcDrop)); sfx.bad(); return finishChamber(); }
+  const slots = hit('data-tc-slots');
+  if (slots) { addBenchSlots(Number(slots.dataset.tcSlots)); sfx.draw(); return finishChamber(); }
+
+  // ── The tile-maker. The knobs all write through setBuild, which is what keeps
+  //    a one-faced sort from keeping a second letter it can no longer show.
+  const letter = hit('data-tc-letter');
+  if (letter) { setBuild({ letter: letter.dataset.tcLetter }); sfx.draw(); return finishChamber(); }
+  const alt = hit('data-tc-alt');
+  if (alt) { setBuild({ altLetter: alt.dataset.tcAlt }); sfx.draw(); return finishChamber(); }
+  for (const knob of ['colour', 'trim', 'nick', 'material']) {
+    const el = hit(`data-tc-${knob}`);
+    if (el) { setBuild({ [knob]: el.dataset[`tc${knob[0].toUpperCase()}${knob.slice(1)}`] || null });
+              sfx.draw(); return finishChamber(); }
+  }
+  const grow = hit('data-tc-grow');
+  if (grow) {
+    const n = Number(grow.dataset.tcGrow);
+    const at = chamber.build?.bonusPoints ?? 0;
+    setBuild({ bonusPoints: n === -99 ? 0 : Math.max(0, at + n) });
+    sfx.draw();
+    return finishChamber();
+  }
+  const dual = hit('data-tc-dual');
+  if (dual && !dual.disabled) {
+    const on = dual.dataset.tcDual === '1';
+    setBuild(on ? { letterType: 'dual', altLetter: chamber.build?.altLetter ?? 'A' }
+                : { letterType: 'normal' });
+    sfx.draw();
+    return finishChamber();
+  }
+  const strike = hit('data-tc-strike');
+  if (strike) {
+    const n = Number(strike.dataset.tcStrike);
+    strikeTile(chamber.build ?? freshBuild(), n);
+    sfx.draw();
+    log(`Struck ${tileCount(n)} for the case.`);
+    return finishChamber();
+  }
+  if (e.target.closest('#tcReset')) { chamber.build = freshBuild(); sfx.draw(); return finishChamber(); }
+  const scrap = hit('data-tc-scrap');
+  if (scrap) { scrapTile(Number(scrap.dataset.tcScrap)); sfx.bad(); return finishChamber(); }
+  if (e.target.closest('#tcScrapAll')) {
+    log(`Scrapped ${tileCount(scrapAllTiles())}.`);
+    sfx.bad();
+    return finishChamber();
+  }
+
+  // ── Leaving
+  if (e.target.closest('#btnChamberBegin')) return flow.beginRun();
+  if (e.target.closest('#btnChamberClose')) return flow.leaveChamber();
+
+  touched = false;
+  if (!touched) return;
+}
+
+// The Run tab's fields are typed, not clicked.
+function onChamberInput(e) {
+  const field = e.target.closest('[data-tc-field]');
+  if (field) {
+    const n = Number(field.value);
+    if (Number.isFinite(n)) { state[field.dataset.tcField] = n; renderAll(); persist(); }
     return;
   }
-  if (e.target.closest('#btnDraftBegin')) flow.beginRun();
+  if (e.target.id === 'tcFilter') {
+    chamber.filter = e.target.value;
+    const at = e.target.selectionStart;
+    renderChamber();
+    const again = $('tcFilter');
+    if (again) { again.focus(); again.setSelectionRange(at, at); }
+  }
+}
+
+function finishChamber() {
+  renderChamber();
+  renderAll();
+  persist();
 }
 
 // ─── Wiring ───────────────────────────────────────────────────────────────────
@@ -1097,5 +1433,6 @@ export function initSheets(flowCallbacks) {
   flow = { ...flow, ...flowCallbacks };
   $('marketModal')?.addEventListener('click', onMarketClick);
   $('colophonModal')?.addEventListener('click', onColophonClick);
-  $('draftModal')?.addEventListener('click', onDraftClick);
+  $('chamberModal')?.addEventListener('click', onChamberClick);
+  $('chamberModal')?.addEventListener('input', onChamberInput);
 }

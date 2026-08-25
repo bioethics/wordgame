@@ -1,6 +1,6 @@
 // Game flow: the print cinematic, page and chapter turnover, board input
 // modes, settings, and init. Board rendering is render.js; the full-screen
-// sheets (Market, Colophon, draft) render and handle themselves in sheets.js,
+// sheets (Market, Colophon, Testing Chamber) render and handle themselves in sheets.js,
 // with the flow callbacks below injected via initSheets().
 
 import {
@@ -44,9 +44,9 @@ import {
   showCoinWordSheet, setCoinNote, showCounterfeitSheet, showStruckTotal, showBribeSheet,
 } from './render.js';
 import {
-  initSheets, renderMarket, renderColophon, renderDraft,
+  initSheets, renderMarket, renderColophon, renderChamber,
 } from './sheets.js';
-import { openDraft, closeDraft, restoreDraft, applyDraft } from './draft.js';
+import { chamber, openChamber, closeChamber, restoreChamber } from './chamber.js';
 import {
   sleep, dur, flyClone, popReveal, floatText, tweenNum, setNum, fmtMult,
   pulse, sparkleBurst, sfx, applySpeedCSS, speechBubble, flourishTime,
@@ -721,10 +721,15 @@ function runChapterHooks() {
   return notes;
 }
 
+// A full-screen sheet is up — the Market, the Colophon or the Testing Chamber.
+// Every board action asks this rather than naming the three, so a fourth sheet
+// is a line here and nowhere else.
+const sheetUp = () => state.inMarket || state.inChamber || state.inColophon;
+
 // ─── Submit (PRINT) ───────────────────────────────────────────────────────────
 
 async function submitWord() {
-  if (state.isAnimating || state.inMarket || state.inColophon || state.gameOver) return;
+  if (state.isAnimating || sheetUp() || state.gameOver) return;
   if (!state.word.length) return;
   hidePopover();
   cancelDiscardMode(true);
@@ -1241,7 +1246,7 @@ async function gameLost() {
 // ─── Discard ──────────────────────────────────────────────────────────────────
 
 async function doDiscard() {
-  if (state.isAnimating || state.inMarket || state.inColophon || state.gameOver) return;
+  if (state.isAnimating || sheetUp() || state.gameOver) return;
   hidePopover();
 
   // First press arms the mode; tiles are then tapped to select.
@@ -1314,7 +1319,7 @@ async function doDiscard() {
 // ─── Keyboard ─────────────────────────────────────────────────────────────────
 
 document.addEventListener('keydown', e => {
-  if (state.inMarket || state.inDraft || state.inColophon || state.isAnimating || state.gameOver) return;
+  if (sheetUp() || state.isAnimating || state.gameOver) return;
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
   if ($('settingsModal')?.classList.contains('show')) return;
   if ($('inspectorModal')?.classList.contains('show')) {
@@ -1365,7 +1370,7 @@ $('btnDiscard')?.addEventListener('click', doDiscard);
 // tap on the tool spends it (or puts it away if nothing is chosen). Every tool
 // shares that rhythm — the ratchet's arrows only say which way it points.
 $('sundries')?.addEventListener('click', async e => {
-  if (state.isAnimating || state.inMarket || state.inDraft || state.inColophon || state.gameOver) return;
+  if (state.isAnimating || sheetUp() || state.gameOver) return;
   // The ✕ is caught before the slot it sits on, so binning a tool can't also
   // arm it.
   const bin = e.target.closest('[data-discard-sundry]');
@@ -1923,7 +1928,7 @@ function takeTheConsideration() {
 const handRoom = () => Math.max(0, effectiveRackSize() - handCount());
 
 function openCounterfeitPlate() {
-  if (state.isAnimating || state.inMarket || state.inColophon || state.gameOver) return;
+  if (state.isAnimating || sheetUp() || state.gameOver) return;
   const seat = state.patrons.find(p => p.id === 'counterfeiter');
   if (!seat) return;
   seat.data ??= {};
@@ -1960,7 +1965,7 @@ async function takeCounterfeit(letter) {
 }
 
 async function lendOlogyTile() {
-  if (state.isAnimating || state.inMarket || state.inColophon || state.gameOver) return;
+  if (state.isAnimating || sheetUp() || state.gameOver) return;
   const seat = state.patrons.find(p => p.id === 'scientist');
   if (!seat) return;
   seat.data ??= {};
@@ -2019,7 +2024,7 @@ $('popover')?.addEventListener('click', e => {
   const flip = e.target.closest('[data-flip]');
   if (flip) {
     hidePopover();
-    if (state.isAnimating || state.inMarket || state.inColophon || state.gameOver) return;
+    if (state.isAnimating || sheetUp() || state.gameOver) return;
     toggleDualVariant(Number(flip.dataset.flip));
     renderAll();
   }
@@ -2101,13 +2106,14 @@ $('btnNewRun')?.addEventListener('click', async () => {
 // Dev helpers
 $('devCoins')?.addEventListener('click', () => { state.coins += 20; renderAll(); if (state.inMarket) renderMarket(); });
 $('devMarket')?.addEventListener('click', () => {
-  if (state.inMarket || state.inColophon || state.isAnimating) return;
+  if (sheetUp() || state.isAnimating) return;
   $('settingsModal')?.classList.remove('show');
   openMarket([], 0);
   renderAll(); renderMarket();
 });
+$('devChamber')?.addEventListener('click', () => openTheChamber());
 $('devWinPage')?.addEventListener('click', () => {
-  if (state.inMarket || state.inColophon || state.isAnimating || state.gameOver) return;
+  if (sheetUp() || state.isAnimating || state.gameOver) return;
   $('settingsModal')?.classList.remove('show');
   state.pageScore = state.quota;
   pageComplete();
@@ -2121,18 +2127,20 @@ async function startFreshRun() {
   closeMarket();
   renderMarket();
   newRun();
-  openDraft();
+  openChamber({ atStart: true });
   renderAll();
-  renderDraft();
+  renderChamber();
 }
 
-// Leaving the draft → the run proper begins
+// Leaving the chamber at the top of a run → the run proper begins. The bag is
+// shuffled here rather than in newRun, so whatever the chamber struck is in it.
 async function beginRun() {
-  const { painted } = applyDraft();
-  closeDraft();
-  renderDraft();
+  const atStart = chamber.atStart;
+  closeChamber();
+  renderChamber();
+  if (!atStart) { renderAll(); return; }
 
-  startPage();          // reshuffle the bag now the drafted tiles have joined
+  startPage();
   state.isAnimating = true;
   renderAll();
   await showBanner(chapterLabel(1), chapterTitle(1), 1250);
@@ -2142,7 +2150,22 @@ async function beginRun() {
   await animateDraw([...arrivals, ...lent, ...drawn]);
   state.isAnimating = false;
   renderAll();
-  if (painted.length) log(`Painted ${painted.join(', ')}.`);
+}
+
+// Mid-run, the chamber simply closes: the page it left is the page it returns
+// to, hand and groove untouched.
+function leaveChamber() {
+  closeChamber();
+  renderChamber();
+  renderAll();
+}
+
+// Opened from Settings, at any point in a run.
+function openTheChamber() {
+  if (state.inMarket || state.inColophon || state.isAnimating) return;
+  $('settingsModal')?.classList.remove('show');
+  openChamber({ atStart: false });
+  renderChamber();
 }
 
 (async function init() {
@@ -2151,7 +2174,7 @@ async function beginRun() {
   initInput({ spendArmedSundry, spendsOnPick });
   initInspect();
   initShelfDrag();
-  initSheets({ nextPage: beginNextPage, beginRun, openMarket: openTheMarket });
+  initSheets({ nextPage: beginNextPage, beginRun, openMarket: openTheMarket, leaveChamber });
 
   renderDictStatus('loading', 0);
   // The exclusion list lands before a single word does: adoptWordlist and
@@ -2174,9 +2197,9 @@ async function beginRun() {
     await startFreshRun();
   } else {
     if (state.gameOver) { renderAll(); showGameOver(); }
-    else if (restored.draft) {
-      restoreDraft(restored.draft);
-      renderAll(); renderDraft();
+    else if (restored.chamber) {
+      restoreChamber(restored.chamber);
+      renderAll(); renderChamber();
     }
     else if (restored.market) {
       restoreMarket(restored.market);

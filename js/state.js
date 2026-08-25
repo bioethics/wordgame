@@ -13,7 +13,7 @@ import { BOSS_DEFS, activeBoss, bossConflicts } from './bosses.js';
 
 const SAVE_KEY     = 'folio_save_v1';
 const SETTINGS_KEY = 'folio_settings_v1';
-const SAVE_VERSION = 13;  // v13: the Abecedarian's name moved to a new seat
+const SAVE_VERSION = 14;  // v14: the opening draft is gone, the Testing Chamber in its place
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -101,7 +101,7 @@ function templateToTile(template) {
   };
 }
 
-// Plain and unpainted — the opening draft is where colour enters the run.
+// Plain and unpainted — the Market is where colour enters the run.
 function buildStarterCollection() {
   const col = [];
   for (const [L, count] of Object.entries(BAG_COUNTS)) {
@@ -175,7 +175,7 @@ export const state = {
 
   endless:   false,
   inMarket: false,
-  inDraft:   false,      // the opening draft is up
+  inChamber: false,      // the Testing Chamber is up
   inColophon: false,     // the end-of-chapter upgrade pick is up
   isAnimating: false,
   discardMode: false,    // rack taps select tiles to discard
@@ -383,7 +383,7 @@ export function loadState() {
     migrateSave(s);
     if (!Array.isArray(s.collection) || !Array.isArray(s.rack)) return null;
     const mercury = retireMercury(s);
-    const { _nextId: savedId, _nextTid: savedTid, _v, _market, _draft, _colophon, ...fields } = s;
+    const { _nextId: savedId, _nextTid: savedTid, _v, _market, _chamber, _colophon, ...fields } = s;
     Object.assign(state, fields, { isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null });
     state.sundries ??= [];
     state.upgradeCounts ??= {};
@@ -415,7 +415,7 @@ export function loadState() {
     // so the calling card can price it (and pay it back) without asking which
     // list it sits in.
     state.ghosts?.forEach(p => { p.uid ??= nextId(); (p.data ??= {}).ghost = true; });
-    return { market: _market ?? null, draft: _draft ?? null, colophon: _colophon ?? null, mercury };
+    return { market: _market ?? null, chamber: _chamber ?? null, colophon: _colophon ?? null, mercury };
   } catch { return null; }
 }
 
@@ -442,7 +442,7 @@ export function newRun() {
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
     manuscript: [],
-    endless: false, inMarket: false, inDraft: false, inColophon: false,
+    endless: false, inMarket: false, inChamber: false, inColophon: false,
     isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null, gameOver: false,
     catPending: false,
   });
@@ -854,7 +854,7 @@ function revenantRaises(template) {
   // waiting in the case when the next page begins.
   const tmpl = adoptTemplate({ ...kept, material: 'ghost' });
   state.collection.push(tmpl);
-  if (!state.inMarket && !state.inDraft && !state.inColophon) {
+  if (!state.inMarket && !state.inChamber && !state.inColophon) {
     state.rack.push(templateToTile(tmpl));
   }
   raising = false;
