@@ -10,6 +10,7 @@ import {
   TILE_BASE_PRICE, REROLL_BASE,
   SUNDRY_OFFERS, PATRON_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, RATCHET_PRICE, SUNDRY_SELL, HEADSMAN_STEP,
   TOOLBOX_PRICE, FLEURON, FLEURON_PRICE, FLEURON_OFFER_CHANCE,
+  RULE, RULE_PACK_PRICE, RULE_PACK_CHANCE,
   STALL_DEFS, STALLS_PER_SHOP, PROPOSAL_RANGE, SMELT_MIN_COLLECTION,
   FEATURE_CHAIN_CHANCE, MAX_FEATURES, MEDIEVAL_LETTERS, isMedieval,
   makeTileTemplate, rollHaggle, GHOST_HIRE,
@@ -203,6 +204,14 @@ function rollOffers() {
   if (Math.random() < FLEURON_OFFER_CHANCE) {
     const i = Math.floor(Math.random() * market.tileOffers.length);
     market.tileOffers[i] = { template: makeTileTemplate(FLEURON), price: FLEURON_PRICE, sold: false };
+  }
+  // …and so does the pair of rules, which is sold as a PAIR and no other way:
+  // one rule alone is worth nothing at all, so half a purchase would be a trap.
+  if (Math.random() < RULE_PACK_CHANCE) {
+    const i = Math.floor(Math.random() * market.tileOffers.length);
+    market.tileOffers[i] = {
+      template: makeTileTemplate(RULE), price: RULE_PACK_PRICE, sold: false, pack: 2,
+    };
   }
   market.sundryOffers = rollSundryOffers();
   guaranteeAmber();
@@ -471,9 +480,12 @@ export function buyTile(idx) {
   const price = offerPrice(offer);
   if (state.coins < price)         return { ok: false, reason: `You need ${price} Coins.` };
   state.coins -= price;
-  state.collection.push(adoptTemplate(offer.template));
+  // A pack buys several of the same sort at one price — the rules, which are
+  // only ever sold two at a time.
+  const n = offer.pack ?? 1;
+  for (let k = 0; k < n; k++) state.collection.push(adoptTemplate(offer.template));
   offer.sold = true;
-  return { ok: true, template: offer.template, price };
+  return { ok: true, template: offer.template, price, pack: n };
 }
 
 // ─── The compost heap (The Composter) ─────────────────────────────────────────

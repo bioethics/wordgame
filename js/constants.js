@@ -19,6 +19,7 @@ export const TILE_POINTS = {
   // tile slot, never free points. QU keeps 10: there is no lone Q to sum from.
   ING:5, CH:7, CK:9, TH:5, WH:10,
   RAT:3,                    // R+A+T, exactly what the three would score apart
+  '*': 0,                   // a rule is a mark on the copy, not a letter — see RULE
   OLOGY:11,                 // O+L+O+G+Y — The Scientist's loan, and no one else's
   OO:2, FU:7,               // out of the Sexton's and the Vulgarian's packages only
   // The medieval sorts pay well over what they stand for — TH is 5, thorn 10.
@@ -43,7 +44,7 @@ export const LIGATURES = ['ING', 'CH', 'CK', 'TH', 'WH', 'QU', 'RAT', 'OLOGY', '
 // Letters no shop, draft or heap will ever hand you: each comes from one patron
 // and nowhere else. RAT is The Rat Catcher's; OLOGY The Scientist's, only ever on
 // loan; the fleuron sells at its own price (FLEURON_PRICE).
-export const EXCLUSIVE_LETTERS = ['RAT', 'OLOGY', '☙', 'Þ', 'Ȝ', 'Ƿ', 'Æ', '‽', 'OO', 'FU'];
+export const EXCLUSIVE_LETTERS = ['RAT', 'OLOGY', '☙', 'Þ', 'Ȝ', 'Ƿ', 'Æ', '‽', 'OO', 'FU', '*'];
 
 // ─── The medieval sorts (The Medievalist's stall) ─────────────────────────────
 // Each STANDS FOR ordinary letters when the word is read: the tile prints as its
@@ -163,6 +164,27 @@ export const GHOST_HIRE = { odds: 0.01, surcharge: 3 };   // odds per patron car
 // alone, for its single point, spending a whole word slot — and the one tile that
 // earns while idle, paying 1 Coin per page completion wherever it sits.
 export const FLEURON = '☙';
+
+// ─── The rules (the compositor's marks for emphasis) ──────────────────────────
+// A pair of sorts that bracket a word and set it BOLD. They spell nothing, take
+// no place in the measure, and are worth no Points — what they buy is the
+// multiplier, and they only buy it TOGETHER, one at each end of the word.
+//
+// Which is the whole of why they work where a single mark would not: one piece
+// that modifies its neighbour always has a best slot, so placing it is a sum.
+// A pair that must bracket the WHOLE word has exactly one legal arrangement, so
+// there is nothing to place and everything to decide — which word deserves it,
+// and whether to hold two places in the hand until that word comes.
+//
+// They cost twice over: two places in the hand while they are held, and two
+// sorts in the case that spell nothing, so every draw that hands you one is a
+// draw that did not hand you a letter. A single rule is worth nothing at all.
+export const RULE       = '*';
+export const isRule     = L => L === RULE;
+export const BOLD_MULT  = 2;     // the multiplier a bracketed word is set at
+export const RULE_PACK_PRICE  = 4;
+export const RULE_PACK_CHANCE = 0.18;   // odds a Market tile slot holds the pair
+
 export const FLEURON_PRICE        = 3;
 export const FLEURON_PAGE_COIN    = 1;     // paid per fleuron owned, every page
 export const FLEURON_OFFER_CHANCE = 0.18;  // odds a Market tile slot holds one

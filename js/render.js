@@ -13,7 +13,7 @@ import {
   WORDS_PER_PAGE, PAGES_PER_CHAPTER, tileCount,
   colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
   sundryTip, FLEURON, TOOL_LOOK, PACKAGES, APPLICATORS, HONORIFIC_STEP, MEDIEVAL, letterGlyph,
-  INTERROBANG, POSTNOM, BAG_COUNTS, BRIBRARIAN, bribeMult,
+  INTERROBANG, POSTNOM, BAG_COUNTS, BRIBRARIAN, bribeMult, isRule, RULE, BOLD_MULT,
 } from './constants.js';
 import { patronById, guildsOf, patronName, patronShelf, patronEmoji } from './patrons.js';
 import { bossById } from './bosses.js';
@@ -61,6 +61,7 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   // the CSS covers trim ring, nick and metal alike.
   if (isWrapped(tile)) div.classList.add('tile--wrapped');
   if (tile.counterfeit) div.classList.add('tile--counterfeit');
+  if (isRule(getActiveLetter(tile))) div.classList.add('tile--rule');
   if (MEDIEVAL[active]) div.classList.add('tile--medieval');
   if (active === INTERROBANG) div.classList.add('tile--interrobang');
 
@@ -1020,7 +1021,9 @@ export function renderCounts() {
 
 // Cursed rides at the end: its chip only appears when a cursed tile is in the
 // word (see the CSS), so the readout doesn't carry a slot most runs never use.
-export const CHIP_COLOURS = ['length', ...Object.keys(COLOURS), 'purple', 'cursed'];
+// Bold rides at the end with cursed: its chip only appears when the word is
+// actually bracketed, so the rack doesn't carry a slot most words never use.
+export const CHIP_COLOURS = ['length', ...Object.keys(COLOURS), 'purple', 'cursed', 'bold'];
 
 export function updateReadoutPreview(script) {
   const ro = $('readout');
@@ -1138,7 +1141,8 @@ export function renderManuscript() {
 
   el.innerHTML = words.map((r, i) => {
     const last = i === words.length - 1;
-    const cls = `ms-word${last ? ' ms-word--last' : ''}${last && grew ? ' ms-word--new' : ''}`;
+    const cls = `ms-word${last ? ' ms-word--last' : ''}${last && grew ? ' ms-word--new' : ''}`
+              + `${r.bold ? ' ms-word--bold' : ''}`;
     return `<span class="${cls}">${r.word.toLowerCase()}</span>`;
   }).join('<span class="ms-dot">·</span>');
 }
@@ -1306,8 +1310,9 @@ export function openManuscript() {
       : r.word;
     const n = r.score.toLocaleString();
     return `<span class="book-entry${best && r.score === best ? ' book-entry--best' : ''}" `
-         + `title="${r.word} — ${n} points">`
-         + `<span class="book-word">${word}</span><span class="book-score">${n}</span></span>`;
+         + `title="${r.word} — ${n} points${r.bold ? ', set bold' : ''}">`
+         + `<span class="book-word${r.bold ? ' book-word--bold' : ''}">${word}</span>`
+         + `<span class="book-score">${n}</span></span>`;
   };
 
   // Folio in the margin, lower-case roman. A Deadline is marked, not numbered.

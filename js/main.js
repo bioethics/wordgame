@@ -22,7 +22,7 @@ import {
   chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks, isDeadline,
   FLEURON, TOOLBOX_POOL, HONORIFIC_STEP, TONGS_BONUS, LOUPE_CAP, RIPPER_WORDS, sundryTip,
   PACKAGES, APPLICATORS, SILVER_BONUS, BAG_COUNTS,
-  lengthFlourish, medievalExpansions, USURER, BRIBRARIAN, bribeMult,
+  lengthFlourish, medievalExpansions, USURER, BRIBRARIAN, bribeMult, isRule, RULE,
 } from './constants.js';
 import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
 import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
@@ -725,22 +725,41 @@ function runChapterHooks() {
 
 async function submitWord() {
   if (state.isAnimating || state.inMarket || state.inColophon || state.gameOver) return;
-  const w = getWordString();
-  if (!w) return;
+  if (!state.word.length) return;
   hidePopover();
   cancelDiscardMode(true);
   cancelSundryMode(true);
 
   if (!dictLoaded) { log('The dictionary is still loading…', 'warn'); return; }
 
-  // Marks ride at the end of a word, and only as ?, ! or ?!. The dictionary
-  // never sees them — it's the letters in front that have to be a word.
-  const parts = splitMarks(w.toUpperCase());
   const reject = msg => {
     log(msg, 'bad');
     sfx.bad();
     pulse($('word'), 'word-groove--reject', 420);
   };
+  // A pair of rules brackets the word, one at each end and nowhere else. Refused
+  // rather than ignored, because a rule that quietly did nothing would be a word
+  // lost to a mistake the board never mentioned.
+  const rules = [...state.word].filter(t => isRule(getActiveLetter(t)));
+  if (rules.length) {
+    const ends = isRule(getActiveLetter(state.word[0]))
+              && isRule(getActiveLetter(state.word[state.word.length - 1]));
+    if (rules.length === 1) return reject('A rule needs its pair — one at each end.');
+    if (rules.length > 2)   return reject('Two rules to a word, no more.');
+    if (!ends)              return reject('Rules bracket the word — one at each end.');
+    if (state.word.length <= 2) return reject('The rules want a word between them.');
+  }
+  // The rules set the word, they don't join it: they are struck from the string
+  // before the dictionary — or the marks, or the fleuron — is ever asked, the
+  // same way scoring's pass ¼ strikes them before a thing is counted.
+  const w = rules.length
+    ? state.word.filter(t => !isRule(getActiveLetter(t))).map(t => getActiveLetter(t)).join('')
+    : getWordString();
+  if (!w) return;
+
+  // Marks ride at the end of a word, and only as ?, ! or ?!. The dictionary
+  // never sees them — it's the letters in front that have to be a word.
+  const parts = splitMarks(w.toUpperCase());
   if (!parts)          return reject('Marks go last, as ? or ! or ?!.');
   if (!parts.letters)  return reject('A mark needs a word in front of it.');
   // The fleuron decorates the page, never a word: alone it stands, beside
@@ -995,7 +1014,7 @@ async function submitWord() {
     state.stats.bestScore = script.total;
     state.stats.bestWord  = script.word;
   }
-  recordWord(script.word, script.total);
+  recordWord(script.word, script.total, script.bold);
 
   // This word is spent, so the Gambler's coin goes back in the air — here
   // rather than in the score effect, which re-runs on every keystroke.

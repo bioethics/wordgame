@@ -1,6 +1,6 @@
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, PURPLE_TRIM_STEP, REWARD, CURSED_MULT,
-  CURSED_PENALTY, SPIKE_MULT, SILVER_BONUS, isDeadline, splitMarks,
+  CURSED_PENALTY, SPIKE_MULT, SILVER_BONUS, isDeadline, splitMarks, isRule, BOLD_MULT,
   HONORIFIC_STEP, FLEURON, FLEURON_PAGE_COIN, lengthMult, POSTNOM,
 } from './constants.js';
 import {
@@ -18,7 +18,7 @@ import {
 // "script" of every step, so the UI can replay the score tile by tile:
 //
 // {
-//   word, letters, points, mult, total, coins, refresh, spiked, plainTotal, adjusted
+//   word, letters, points, mult, total, coins, refresh, spiked, plainTotal, adjusted, bold
 //     — `plainTotal` is what the word was worth before the Deadline's editor
 //       touched it (its temper, its spike), and `adjusted` says the two differ;
 //       the readout strikes the first through and writes the second beside it.
@@ -197,6 +197,22 @@ export function computeScore(wordTiles) {
       ? { ...t, colour: null, wash: null, trim: null, nick: null, material: null }
       : t));
   }
+
+  // ── Pass ¼: the rules come off the copy ────────────────────────────────────
+  // A pair of rules brackets the word and sets it BOLD. They are marks on the
+  // copy rather than sorts in it, so they are lifted out HERE, before anything
+  // reads the word: nothing below sees them, nothing counts them, and the
+  // measure never gives them a letter. Only the flag survives.
+  //
+  // Bracketing means exactly that — one at each end and nowhere else. A rule
+  // anywhere in the middle, or one without its pair, is refused at the print
+  // (submitWord in js/main.js), so by the time a word reaches here it is either
+  // properly bracketed or carries no rules at all.
+  const ruled = wordTiles.filter(t => isRule(getActiveLetter(t)));
+  const bold  = ruled.length === 2
+             && isRule(getActiveLetter(wordTiles[0]))
+             && isRule(getActiveLetter(wordTiles[wordTiles.length - 1]));
+  if (ruled.length) wordTiles = wordTiles.filter(t => !isRule(getActiveLetter(t)));
 
   // ── Pass ⅓: The Twins ──────────────────────────────────────────────────────
   // Before the word is so much as READ. A doubled letter means two of the same
@@ -414,6 +430,17 @@ export function computeScore(wordTiles) {
     mult *= measure;
   }
 
+  // Set bold, and the whole word is worth that much more. It rides the colour
+  // steps like the measure does, so it has a chip of its own in the readout and
+  // multiplies WITH the colours rather than queueing behind the patrons.
+  if (bold) {
+    colourSteps.push({
+      colour: 'bold', ids: wordTiles.map(t => t.id),
+      count: letters.length, mult: BOLD_MULT,
+    });
+    mult *= BOLD_MULT;
+  }
+
   for (const colour of Object.keys(COLOURS)) {
     const list = byColour[colour];
     if (!list?.length) continue;
@@ -609,7 +636,7 @@ export function computeScore(wordTiles) {
   });
 
   return {
-    word, letters, points, mult, total, coins, refresh, spiked, plainTotal, adjusted,
+    word, letters, points, mult, total, coins, refresh, spiked, plainTotal, adjusted, bold,
     tileSteps, tilePaintSteps, tilePaint, tileBoostSteps, tileGrowth, nickSteps, nickAffected,
     colourSteps, patronSteps, perTile,
     twinSteps: twin.steps, twinCloned: twin.cloned, twinSummons: twin.summons,

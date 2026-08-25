@@ -1353,6 +1353,10 @@ button.sundry:hover { transform: translateY(-2px); }
 .chip--cursed  { background: #6d1a15;        color: #ffd9cf; }
 /* The cursed chip appears only when a cursed tile is in the word. */
 .chip--cursed:not(.chip--on) { display: none; }
+/* …and the bold chip only when the word is actually bracketed by a pair of
+   rules. Set in the readout's own ink, heavy, because that is what it says. */
+.chip--bold    { background: #1d1a17;        color: #f6ecd2; font-weight: 900; }
+.chip--bold:not(.chip--on) { display: none; }
 .chip--on.chip--length  { box-shadow: 0 0 10px rgba(125, 143, 160, 0.65); }
 .chip--on.chip--crimson { box-shadow: 0 0 10px rgba(201, 79, 67, 0.6); }
 .chip--on.chip--azure   { box-shadow: 0 0 10px rgba(79, 134, 201, 0.6); }
@@ -2399,6 +2403,27 @@ button.sundry:hover { transform: translateY(-2px); }
   opacity: 0.78;
   max-width: 52ch;
 }
+
+/* ─── The rules (a bracketing pair, set bold) ─────────────────────────────────
+   Not a letter and not pretending to be one: dark type on a pale ground, the
+   asterisk set large and heavy so a bracketed word reads as bracketed at a
+   glance. It shows no Points because it has none. */
+.tile--rule {
+  background: linear-gradient(168deg, #2a2420 0%, #1d1a17 55%, #15120f 100%);
+  border-color: rgba(246, 236, 210, 0.45);
+  color: #f6ecd2;
+  --trim-ring: 0 0 rgba(0, 0, 0, 0);
+  --tile-lift: #0d0b09;
+}
+.tile--rule .tile-letter {
+  color: #f6ecd2 !important;
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 0.8;
+  transform: translateY(6px);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+}
+.tile--rule .tile-pts { display: none; }
 
 /* ─── The Counterfeiter's plate ───────────────────────────────────────────────
    Every sort he can forge, laid out at once. A grid rather than a row, because
@@ -3668,6 +3693,11 @@ button.sundry:hover { transform: translateY(-2px); }
   color: var(--brass-dark);
 }
 /* The best word of the run is illuminated */
+/* A word set bold stays bold in the book — the run's typography is its own
+   record, and this is the only thing that varies it. */
+.book-word--bold { font-weight: 900; letter-spacing: 0.9px; color: #2a1c06; }
+.ms-word--bold   { font-weight: 900; }
+
 .book-entry--best .book-word {
   font-weight: 900;
   color: #6b4a12;
