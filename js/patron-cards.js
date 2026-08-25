@@ -28,7 +28,7 @@
 // the calling card in place of the emoji.
 
 import {
-  ABECEDARIAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,
+  CHILD_STEP, ABECEDARIAN_MULT, ABECEDARIAN_CASE, ESPALIER_STEP, HONORIFIC_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,
   STOKER_BASE, STOKER_STEP, RAGMAN_COINS, RAGMAN_ODDS, DYE_TILES_PER_CHAPTER,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, DIPPER_PAINT_CHANCE, REVENANT_ODDS,
   PACKAGE_ODDS, oddsText, FRONTISPIECE, MATERIALS, RIPPER_WORDS, PACKAGES, PRINCE, WORDLER,
@@ -37,7 +37,9 @@ import {
 
 // What {BRACES} in a desc may refer to. Add a line here to expose a new knob.
 const KNOBS = {
-  ABECEDARIAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,
+  CHILD_STEP, ABECEDARIAN_MULT, ESPALIER_STEP, HONORIFIC_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,
+  // A full case, quoted into the card so the ceiling follows the case itself.
+  ABECEDARIAN_CASE_MULT: Math.round(ABECEDARIAN_CASE.length * ABECEDARIAN_MULT * 100) / 100,
   STOKER_BASE, STOKER_STEP, RAGMAN_COINS, RAGMAN_ODDS, DYE_TILES_PER_CHAPTER,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, DIPPER_PAINT_CHANCE, REVENANT_ODDS,
   PACKAGE_CHANCE:   oddsText(PACKAGE_ODDS),
@@ -133,9 +135,13 @@ export const PATRON_CARDS = {
     name: 'The Verdigris', emoji: '🍏', rarity: 'common', cost: 4, guild: 'jade',
     desc: 'As each chapter ends, {DYE_TILES_PER_CHAPTER} tiles of your collection are painted jade.',
   },
+  child: {
+    name: 'The Child', emoji: '🐣', rarity: 'common', cost: 5, guild: 'jade',
+    desc: 'Print a 3-letter word: every tile in it permanently gains +{CHILD_STEP} Point — in time to score.',
+  },
   abecedarian: {
-    name: 'The Abecedarian', emoji: '🐣', rarity: 'common', cost: 5, guild: 'jade',
-    desc: 'Print a 3-letter word: every tile in it permanently gains +{ABECEDARIAN_STEP} Point — in time to score.',
+    name: 'The Abecedarian', emoji: '🔠', rarity: 'rare', cost: 8, guild: 'jade',
+    desc: 'Keeps a case of every sort the press can set. The first time you print one — any letter, either mark, any medieval sort — this patron gains +{ABECEDARIAN_MULT} Mult, for good. A full case is +{ABECEDARIAN_CASE_MULT}.',
   },
   beekeeper: {
     name: 'The Beekeeper', emoji: '🐝', rarity: 'uncommon', cost: 6, guild: 'jade',

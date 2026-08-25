@@ -4118,6 +4118,39 @@ input[type='checkbox'] {
    Every guess he has marked, newest last — Wordle without the previous rows is
    a memory test, not a puzzle. The word is set in the tile face so it reads as
    type; the squares carry the verdict. */
+/* ─── The Abecedarian's case ──────────────────────────────────────────────────
+   A compositor's case, laid out in its own order: a sort that has been pressed
+   stands in type, one that has not is an empty box. The whole point of the seat
+   is seeing at a glance which letters you still owe it — so the gaps have to
+   read as gaps, not as dim type. */
+.case-grid {
+  margin: 9px 0 2px;
+  padding: 7px 8px;
+  border-radius: 7px;
+  background: rgba(45, 138, 92, 0.07);
+  border: 1px dashed rgba(45, 138, 92, 0.35);
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 3px;
+}
+.case-sort {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 3px;
+  font-family: var(--serif);
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(120, 150, 130, 0.45);
+  background: rgba(0, 0, 0, 0.22);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.case-sort--set {
+  color: #2a1f10;
+  background: linear-gradient(168deg, var(--ivory, #f6ecd2), #e2d3ac);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5), 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
 .wordle-board {
   margin: 9px 0 2px;
   padding: 7px 9px;

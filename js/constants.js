@@ -655,8 +655,27 @@ export const NUDIST_TRIM_CHANCE = 0.25;   // per bare letter in an all-bare word
 // A bare tile that misses the trim may still catch a colour — half the trim's
 // rate, because paint is worth more.
 export const NUDIST_PAINT_CHANCE = 0.125;
-// The Abecedarian's trellis: permanent Points per tile of a three-letter word.
-export const ABECEDARIAN_STEP   = 1;
+// The Child's trellis: permanent Points per tile of a three-letter word. (Named
+// the Abecedarian until the case below took the name — an abecedarian is
+// properly a primer of the alphabet, which is what the new seat keeps; a child
+// is what learns from it, which is what this one is.)
+export const CHILD_STEP         = 1;
+
+// ─── The Abecedarian's case ───────────────────────────────────────────────────
+// Every sort the press can put on a page, once each, for good. +Mult per sort
+// the run has never pressed before — the one seat in the game that pays for
+// BREADTH, where everything else pays for doubling down.
+//
+// The case is 26 letters, two marks and the four medieval sorts: 32 at
+// ABECEDARIAN_MULT apiece, so a complete case is +1.6 Mult and a complete
+// alphabet alone is +1.4. Add a sort to the game and the ceiling rises on its
+// own, which is the point of counting the case rather than a fixed list.
+export const ABECEDARIAN_MULT   = 0.05;
+
+// The Astronomer's step, per word already printed this page. Additive, and
+// deliberately small: at +1 a five-word page handed the last word +4 Mult on
+// its own, which is more than any colour reaches and needed no build at all.
+export const ASTRONOMER_STEP    = 0.25;
 // The Twins' due, paid once per doubled letter in the word. The Points are the
 // smaller half of the seat: the CLONE is what the pair is really for (twinPairs
 // in js/patrons.js, and scoring's pass ⅓).
@@ -735,6 +754,30 @@ export const BRIBRARIAN = {
 // Read by his mood() in js/bosses.js and by the sheet that takes the money.
 export const bribeMult = paid =>
   Math.round(Math.min(1, SPIKE_MULT + BRIBRARIAN.step * Math.max(0, paid)) * 100) / 100;
+
+// Every sort the Abecedarian keeps a place for, in the order the case is laid
+// out. Built from the tables above rather than written out, so a letter added to
+// the press is a place added here without anyone remembering to.
+export const ABECEDARIAN_CASE = [
+  ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  ...MARKS,
+  ...Object.keys(MEDIEVAL),
+];
+
+// What a printed tile gives up to the case. A ligature is several sorts cast
+// together, so it yields every letter in it — the only road to a Q, there being
+// no plain Q in the case, only QU. A medieval sort is NOT its reading: þ stands
+// for TH, but it is a letter in its own right and is collected as one. The
+// interrobang is the exception that proves the rule — cut from a ? and a !, so
+// it gives up both and is worth nothing new on its own. The fleuron is
+// decoration, never a sort, and gives up nothing.
+export function caseGlyphs(letter) {
+  if (!letter) return [];
+  if (MEDIEVAL[letter]) return [letter];
+  if (letter === INTERROBANG) return ['?', '!'];
+  if (letter === FLEURON) return [];
+  return [...letter].filter(ch => ABECEDARIAN_CASE.includes(ch));
+}
 
 // ─── The Colophon (a permanent upgrade, chosen when a chapter clears) ─────────
 // Structural picks (hand size, discards, seats, bench slots) persist for the rest

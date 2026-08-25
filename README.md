@@ -247,6 +247,11 @@ of the words instead:
 - **Reviewer** — receives each word in a temper (×0.2–×0.95), rolled openly
   before you compose.
 - **Bribrarian** — below; the one who reads your purse rather than your prose.
+- **Epitaphist** — one line for the whole page: a single word, half the quota to
+  meet with it, and a discard more to find it. The only editor who takes the
+  *page* apart rather than the words, so you stop composing and start
+  assembling. (*The Astronomer*, paid per word already printed, never shares a
+  desk with him — there is no such word.)
 - **Completist** — deals two extra tiles and permits no discards.
 - **Eeeditor** — keeps three places in your hand filled with plain E, restoring
   one the moment you print it; **Editooor** — the same in O.
@@ -259,6 +264,22 @@ demand and calls the verdict while you compose, because nothing here scores what
 the preview didn't promise; beside it runs the page's record, one mark per word.
 Chains and indexes are reset by the spiked word itself, so a sacrificial APPLE
 is always a way back in.
+
+**The Abecedarian** is the one seat paid for *breadth*. Everything else in the
+game rewards doubling down — one colour, one letter, one shape — and this one
+keeps a **case of every sort the press can set** and pays +0.05 Mult, for good,
+the first time you print each. Which makes it the only reason there is to set
+your Q, your X, your Z: the letters every other patron teaches you to throw
+away. A ligature gives up every letter in it (the only road to a Q, there being
+no plain Q in the case, only `QU`); a medieval sort is collected as *itself*,
+because þ stands for TH but is a letter in its own right; the interrobang, cut
+from a `?` and a `!`, gives up both and is worth nothing new. Twenty-six letters,
+two marks and four medieval sorts: a full case is **+1.6 Mult**, and the
+alphabet alone is +1.4. Add a sort to the press and the ceiling rises on its own.
+
+(The seat that used to hold this name — three-letter words grow their tiles — is
+**The Child** now. An abecedarian is properly a *primer of the alphabet*, which
+is what the case is; a child is what learns from one.)
 
 **The Bribrarian** is the one editor with nothing to satisfy. He does not read
 your words: he penalises every one of them, and the whole of the lever is money
@@ -280,7 +301,7 @@ merely idle a seat for a page, a fair cost of the roster being a lottery — but
 few would spike the *exact* words a patron is paid for. Those pairs live in
 `BOSS_CONFLICTS` (`js/bosses.js`) and are filtered out as the Deadline is dealt:
 keep *the Poet* and the Minimalist stays away, *the Lexicographer* and the
-Populist does, *the Abecedarian* or *the Apprentice* and the Padder does. The
+Populist does, *the Child* or *the Apprentice* and the Padder does. The
 bar is exact inversion — the patron's trigger and the editor's spike condition
 being one test read in opposite directions. Adding a pair is one line, and both
 directions come with it.

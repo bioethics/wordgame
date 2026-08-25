@@ -213,6 +213,22 @@ export const BOSS_DEFS = [
     // No judge: he spikes nothing and pardons nothing. His cut is the whole of him.
   },
   {
+    // One line, and it must last. Where every other editor warps the shape of
+    // the words, this one takes the PAGE apart: a single word to meet the whole
+    // quota. The quota is halved and a discard added to make that a puzzle
+    // rather than a wall — you are not composing a word any more, you are
+    // assembling one, and every discard is spent looking for the pieces.
+    //
+    // He is on the Astronomer's conflict list: a seat paid per word already
+    // printed this page is paid nothing at all on a page of one.
+    id: 'epitaphist', name: 'The Epitaphist', emoji: '⚱️',
+    desc: 'One line, and it must last. You have a single word for this page — half the quota to meet with it, and a discard more to find it.',
+    words: 1,
+    discardBonus: 1,
+    quotaMult: 0.5,
+    // Nothing to break: the page itself is the rule.
+  },
+  {
     id: 'reviewer', name: 'The Reviewer', emoji: '🧐',
     desc: 'Your best work is still not good enough. (A random negative multiplier is applied to each word.)',
     setup: data => rollMood(data),
@@ -283,8 +299,13 @@ export const BOSS_CONFLICTS = {
   // for words absent from the list, The Populist spikes all but its top.
   populist: ['lexicographer'],
   // The Padder spikes anything under five letters — the whole of what these two
-  // are paid for.
-  padder: ['abecedarian', 'apprentice'],
+  // are paid for. (It was The Abecedarian that sat here until the name moved to
+  // the case of sorts; the seat paid for three-letter words is The Child now,
+  // and the new Abecedarian cares nothing for how long a word is.)
+  padder: ['child', 'apprentice'],
+  // A page of one word pays a seat counting the words already printed nothing
+  // at all — the Astronomer would sit through the Deadline saying nothing.
+  epitaphist: ['astronomer'],
 };
 
 // Whether this editor inverts any patron currently on the shelf.

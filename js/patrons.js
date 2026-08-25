@@ -126,13 +126,14 @@
 
 import {
   GRAFTER_STEP, STOKER_BASE, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS,
-  NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, ABECEDARIAN_STEP,
+  NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE,
   RAGMAN_ODDS, RAGMAN_COINS, REVENANT_ODDS, MATERIALS,
   PACKAGE_ODDS, PACKAGES, PACKAGE_OF_PATRON,
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, isMark,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
   HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, RIPPER_WORDS, splitMarks, isImmutable,
-  TWINS_POINTS,
+  TWINS_POINTS, CHILD_STEP, ABECEDARIAN_MULT, ABECEDARIAN_CASE, caseGlyphs, MEDIEVAL,
+  ASTRONOMER_STEP,
   medievalExpansions, POSTNOM, GHOST_HIRE, USURER,
   PRINCE, princeMult,
   WORDLER,
@@ -313,6 +314,10 @@ export function twinPairs(tiles) {
   }
   return pairs;
 }
+
+// What a case of sorts is worth, rounded so the card never shows 0.30000000004.
+const abecedarianMult = seen =>
+  Math.round((seen?.length ?? 0) * ABECEDARIAN_MULT * 100) / 100;
 
 // What a twinned pair is worth in Points — the seat's smaller half, paid per
 // pair however the pair is made.
@@ -691,7 +696,9 @@ const PATRON_BEHAVIOURS = [
   {
     id: 'astronomer',
     when: 'score',
-    effect({ state, addMult }) { if (state.wordsPrinted > 0) addMult(state.wordsPrinted); },
+    effect({ state, addMult }) {
+      if (state.wordsPrinted > 0) addMult(ASTRONOMER_STEP * state.wordsPrinted);
+    },
   },
   {
     id: 'cartographer',
@@ -801,20 +808,78 @@ const PATRON_BEHAVIOURS = [
 
   // ── Jade · growth and permanence ────────────────────────────────────────────
   {
+    // The only seat in the game paid for BREADTH. Everything else rewards
+    // doubling down — one colour, one letter, one shape — and this one rewards
+    // having pressed a sort you have never pressed before, which is the whole
+    // of a case of type: one of everything, in order.
+    //
+    // Which makes it the only reason to set your Q, your X, your Z: letters
+    // every other seat teaches you to throw away. It grows slowly and it never
+    // stops, and a full case is worth +1.6 Mult on every word for the rest of
+    // the run — the alphabet alone is +1.4, and the four medieval sorts are the
+    // last, hardest 0.2 (the Medievalist's stall is the only road to them).
+    //
+    // The tally is a plain array on the seat's data so it survives save and
+    // load, and is advanced in onPrinted — never in effect(), which runs on
+    // every keystroke.
+    id: 'abecedarian',
+    when: 'score',
+    effect({ data, addMult }) {
+      const n = (data?.seen ?? []).length;
+      if (n) addMult(Math.round(n * ABECEDARIAN_MULT * 100) / 100);
+    },
+    onPrinted({ tiles, data }) {
+      const seen = (data.seen ??= []);
+      const fresh = [];
+      for (const t of tiles) {
+        for (const g of caseGlyphs(getActiveLetter(t))) {
+          if (seen.includes(g) || fresh.includes(g)) continue;
+          fresh.push(g);
+        }
+      }
+      if (!fresh.length) return null;
+      seen.push(...fresh);
+      const full = seen.length >= ABECEDARIAN_CASE.length;
+      return {
+        note: `${fresh.join(' ')} — new`,
+        say: [full
+          ? `the case is complete: every sort in the press, and +${abecedarianMult(seen)} Mult for good.`
+          : `${fresh.join(', ')} set for the first time — ${seen.length} of ${ABECEDARIAN_CASE.length} sorts, +${abecedarianMult(seen)} Mult.`],
+      };
+    },
+    instDesc(data) {
+      const n = (data?.seen ?? []).length;
+      if (!n) return PATRON_CARDS.abecedarian.desc;
+      return `${n} of ${ABECEDARIAN_CASE.length} sorts pressed — +${abecedarianMult(data.seen)} Mult on every word. `
+           + `Each new one is worth +${ABECEDARIAN_MULT} more, for good.`;
+    },
+    // The case itself, laid out as a compositor would find it: what has been
+    // pressed stands in type, what has not is an empty place.
+    popover(data) {
+      const seen = new Set(data?.seen ?? []);
+      const cells = ABECEDARIAN_CASE.map(g => {
+        const got = seen.has(g);
+        const glyph = MEDIEVAL[g]?.glyph ?? g;
+        return `<span class="case-sort${got ? ' case-sort--set' : ''}">${glyph}</span>`;
+      }).join('');
+      return `<div class="case-grid">${cells}</div>`;
+    },
+  },
+  {
     // The growth arrives IN TIME TO SCORE: tileBonus pays the step on the
     // trigger word itself and onPrinted writes the same step in for good. An
     // immutable tile (a ghost, a fleuron) refuses the trellis and pays nothing
     // for it either way — hence the isImmutable guard in both halves.
-    id: 'abecedarian',
+    id: 'child',
     when: 'score',
     bonusIsGrowth: true,
     tileBonus: (t, { tiles }) =>
-      (wordLetters(tiles).length === 3 && !isImmutable(t) ? ABECEDARIAN_STEP : 0),
+      (wordLetters(tiles).length === 3 && !isImmutable(t) ? CHILD_STEP : 0),
     onPrinted({ tiles, grow }) {
       if (wordLetters(tiles).length !== 3) return null;
-      const grown = tiles.filter(t => grow(t, ABECEDARIAN_STEP));
+      const grown = tiles.filter(t => grow(t, CHILD_STEP));
       if (!grown.length) return null;
-      return { note: `${grown.map(getActiveLetter).join(', ')} grown +${ABECEDARIAN_STEP}` };
+      return { note: `${grown.map(getActiveLetter).join(', ')} grown +${CHILD_STEP}` };
     },
   },
   {

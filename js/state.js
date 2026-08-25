@@ -13,7 +13,7 @@ import { BOSS_DEFS, activeBoss, bossConflicts } from './bosses.js';
 
 const SAVE_KEY     = 'folio_save_v1';
 const SETTINGS_KEY = 'folio_settings_v1';
-const SAVE_VERSION = 12;  // v12: the Vintner was cut
+const SAVE_VERSION = 13;  // v13: the Abecedarian's name moved to a new seat
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -186,8 +186,11 @@ export const state = {
 
 // ─── Effective sizes ────────────────────────────────────────────────────────
 // Base constants plus whatever the Colophon has permanently granted this run.
+// An editor that fixes the count (The Epitaphist's single line) overrides
+// everything: his page is one word however many the press has earned.
 export const effectiveWordsPerPage = () =>
-  WORDS_PER_PAGE + (owns('overseer') ? 1 : 0) + (state.upgradeCounts?.words ?? 0);
+  activeBoss(state)?.words
+  ?? WORDS_PER_PAGE + (owns('overseer') ? 1 : 0) + (state.upgradeCounts?.words ?? 0);
 // rackBonus is the one term here that is neither permanent nor the editor's: a
 // hand widened for the rest of a page only, cleared at the page turn.
 export const effectiveRackSize    = () => RACK_SIZE    + (state.upgradeCounts?.handSize     ?? 0)
@@ -308,9 +311,9 @@ export const luckyRoll = p => Math.random() < Math.min(1, p * (state.luck ?? 1))
 // ─── Persist ──────────────────────────────────────────────────────────────────
 
 // Walk an older save's shapes forward: a per-face paint folds into the tile's,
-// an ingot sundry becomes a wrapped tile, and the minimalist patron id becomes
-// abecedarian (a stale id resolves to nothing and renders a blank seat). The
-// whole save is walked because any of them can be hiding anywhere in it.
+// an ingot sundry becomes a wrapped tile. The whole save is walked because any
+// of them can be hiding anywhere in it — which is also the hazard, and why
+// nothing here may key on a bare `id` (see the note below).
 function migrateSave(node) {
   if (Array.isArray(node)) { node.forEach(migrateSave); return; }
   if (!node || typeof node !== 'object') return;
@@ -322,7 +325,12 @@ function migrateSave(node) {
     node.kind = 'wrapped';
     delete node.material;
   }
-  if (node.id === 'minimalist') node.id = 'abecedarian';
+  // NOTE: a `minimalist` → `abecedarian` patron rename used to sit here. It was
+  // dead for its purpose — the version gate above rejects any save old enough to
+  // need it — and had become actively harmful, because `minimalist` is a BOSS id
+  // now: saving during that Deadline and loading back renamed the seated editor
+  // to a patron, and the desk sat empty for the rest of the page. Renames belong
+  // in a migration keyed to WHERE the id sits, never to the id alone.
   // A Market offer used to carry its own `ghost` flag; being dead now rides the
   // copy's `data`, where patronCost can charge for it.
   if (node.ghost === true && 'sold' in node) {
@@ -453,14 +461,16 @@ export function startPage() {
   state.rack = [];
   state.word = [];
   state.discardPile = [];
-  state.quota        = quotaFor(state.chapter, state.page);
   state.pageScore    = 0;
   state.wordsPrinted = 0;
-  state.wordsLeft    = effectiveWordsPerPage();
-  // The Deadline's editor takes the desk before anything is counted out —
-  // rack size, discards and the wrapping below are theirs to bend.
+  // The Deadline's editor takes the desk before anything is counted out — the
+  // quota, the word count, the hand, the discards and the wrapping below are
+  // all theirs to bend, so nothing above may be settled before this line.
   if (isDeadline(state.page)) assignBoss();
   else state.boss = null;
+  state.quota        = Math.max(1, Math.round(
+    quotaFor(state.chapter, state.page) * (activeBoss(state)?.quotaMult ?? 1)));
+  state.wordsLeft    = effectiveWordsPerPage();
   // The Redactor wraps a share of the CASE, not of the hand: bag and collection
   // share templates, so a wrapped tile stays wrapped when it is discarded and
   // drawn again, and the condition lasts the whole page.
@@ -471,7 +481,8 @@ export function startPage() {
   }
   state.discardsMax = activeBoss(state)?.noDiscards
     ? 0
-    : DISCARDS_PER_PAGE + (owns('quartermaster') ? 1 : 0) + (state.upgradeCounts?.discard ?? 0);
+    : DISCARDS_PER_PAGE + (owns('quartermaster') ? 1 : 0) + (state.upgradeCounts?.discard ?? 0)
+      + (activeBoss(state)?.discardBonus ?? 0);
   state.discards    = state.discardsMax;
   state.discardMode = false;
   state.sundryMode = -1;
