@@ -183,11 +183,11 @@ export const RULE       = '*';
 export const isRule     = L => L === RULE;
 export const BOLD_MULT  = 2;     // the multiplier a bracketed word is set at
 export const RULE_PACK_PRICE  = 4;
-export const RULE_PACK_CHANCE = 0.18;   // odds a Market tile slot holds the pair
+export const RULE_PACK_CHANCE = 0.15;   // odds a Market tile slot holds the pair
 
 export const FLEURON_PRICE        = 3;
 export const FLEURON_PAGE_COIN    = 1;     // paid per fleuron owned, every page
-export const FLEURON_OFFER_CHANCE = 0.18;  // odds a Market tile slot holds one
+export const FLEURON_OFFER_CHANCE = 0.15;  // odds a Market tile slot holds one
 
 // ─── Marks (punctuation tiles) ────────────────────────────────────────────────
 // Not letters and not ligatures: a mark spells nothing and is simply appended to
