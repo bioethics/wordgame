@@ -22,7 +22,7 @@ import {
   chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks, isDeadline,
   FLEURON, TOOLBOX_POOL, HONORIFIC_STEP, TONGS_BONUS, LOUPE_CAP, RIPPER_WORDS, sundryTip,
   PACKAGES, APPLICATORS, SILVER_BONUS, BAG_COUNTS,
-  lengthFlourish, medievalExpansions, USURER,
+  lengthFlourish, medievalExpansions, USURER, BRIBRARIAN, bribeMult,
 } from './constants.js';
 import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
 import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
@@ -41,7 +41,7 @@ import {
   showGameOver, showVictory, openInspector, closeInspector, coinHTML,
   showPatronPopover, hidePopover, openManuscript, closeManuscript,
   openGhosts, closeGhosts, ghostsOpen,
-  showCoinWordSheet, setCoinNote, showCounterfeitSheet, showStruckTotal,
+  showCoinWordSheet, setCoinNote, showCounterfeitSheet, showStruckTotal, showBribeSheet,
 } from './render.js';
 import {
   initSheets, renderMarket, renderColophon, renderDraft,
@@ -1192,6 +1192,8 @@ async function advancePage() {
     // read it, however long that particular rule runs.
     await showBanner(`${def.emoji} ${def.name}`, def.desc, 'read');
     log(`${def.emoji} ${def.name} takes the desk. ${def.desc}`, 'warn');
+    // …and one of them puts his hand out before you have seen a tile.
+    if (state.boss.id === 'bribrarian') await takeTheConsideration();
   }
 
   // Whatever a patron brings arrives with the hand; whatever the editor lends
@@ -1859,6 +1861,39 @@ function usurerRepay() {
   sfx.coin();
   log('🧾 The book is clear. He bows, and is yours to dismiss.', 'good');
   renderAll(); if (state.inMarket) renderMarket(); persist();
+}
+
+// ─── The Bribrarian's consideration ───────────────────────────────────────────
+// Blocks the page until it is settled, because settling it is the first move of
+// the page and there is no sensible default: taking nothing is a choice as much
+// as paying four is. The purse may go into the red, which is why the sheet says
+// what that costs rather than refusing it.
+function takeTheConsideration() {
+  const data = state.boss?.data ?? {};
+  showBribeSheet(state.coins);
+  return new Promise(resolve => {
+    const done = e => {
+      const pick = e.target.closest('[data-bribe]');
+      if (!pick) return;
+      const paid = Math.max(0, Math.min(BRIBRARIAN.steps, Number(pick.dataset.bribe) || 0));
+      $('overlayModal')?.removeEventListener('click', done);
+      data.paid    = paid;
+      state.coins -= paid;
+      hideOverlay();
+      if (paid) {
+        sfx.coin();
+        log(`🤝 ${paid} Coin${paid === 1 ? '' : 's'} across the desk — every word this page at `
+          + `×${bribeMult(paid)} Mult.${state.coins < 0
+              ? `  The purse is ${state.coins}: the Market is shut until it is clear.` : ''}`,
+          state.coins < 0 ? 'warn' : 'good');
+      } else {
+        log(`🤝 Not a penny. Every word this page at ×${bribeMult(0)} Mult.`, 'warn');
+      }
+      renderAll();
+      resolve(paid);
+    };
+    $('overlayModal')?.addEventListener('click', done);
+  });
 }
 
 // ─── The Counterfeiter (one forged sort a page) ───────────────────────────────

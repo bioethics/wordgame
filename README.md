@@ -246,6 +246,7 @@ of the words instead:
 - **Enthusiast** — lends a tile of a beloved letter and expects it in every word.
 - **Reviewer** — receives each word in a temper (×0.2–×0.95), rolled openly
   before you compose.
+- **Bribrarian** — below; the one who reads your purse rather than your prose.
 - **Completist** — deals two extra tiles and permits no discards.
 - **Eeeditor** — keeps three places in your hand filled with plain E, restoring
   one the moment you print it; **Editooor** — the same in O.
@@ -258,6 +259,21 @@ demand and calls the verdict while you compose, because nothing here scores what
 the preview didn't promise; beside it runs the page's record, one mark per word.
 Chains and indexes are reset by the spiked word itself, so a sacrificial APPLE
 is always a way back in.
+
+**The Bribrarian** is the one editor with nothing to satisfy. He does not read
+your words: he penalises every one of them, and the whole of the lever is money
+laid across the desk **before the page is set**. Nothing paid is an 80% penalty
+— every word at ×0.2 — and each Coin buys a fifth of it back, so four Coins
+leave his pen perfectly kind. Which makes him the only editor you beat with the
+Market rather than the dictionary, and the only one whose price you pay blind,
+since the sheet comes up before you have seen a tile.
+
+You may go **into the red** to pay him, and the game does not stop you — it just
+says what it costs. Nothing in the Market will sell to a purse that cannot cover
+the price, so a debt shuts the shop until it is worked off, and the real cost of
+a big bribe is paid a page later. He rides `mood()` rather than `judge()`,
+because he is not spiking a word for breaking a rule; he is taking his cut of
+everything, and the bar says so rather than claiming the word passed.
 
 **An editor that inverts a patron you own never takes the desk.** Most editors
 merely idle a seat for a page, a fair cost of the roster being a lottery — but a

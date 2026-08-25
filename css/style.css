@@ -2340,6 +2340,66 @@ button.sundry:hover { transform: translateY(-2px); }
 .fl-boost   { color: #90e8ba; font-size: 19px; }
 .fl-twin    { color: #ffb0d6; font-size: 19px; }
 
+/* ─── The Bribrarian's consideration ──────────────────────────────────────────
+   A ladder of prices, read left to right: what it costs, what his pen then
+   does, and what the purse is left holding. The steps that put you in the red
+   are not refused — they are simply dressed in it, so the debt is a decision
+   you can see rather than a surprise you discover at the Market. */
+.sheet.sheet--bribe { width: min(680px, 94vw); }   /* two classes: .sheet--end sits later and would win at one */
+.bribe-grid {
+  width: 100%;
+  justify-self: stretch;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(98px, 1fr));
+  gap: 8px;
+  margin: 16px 0 4px;
+}
+.bribe-step {
+  display: grid;
+  gap: 3px;
+  padding: 12px 6px 10px;
+  border-radius: 9px;
+  cursor: pointer;
+  border: 1px solid rgba(122, 92, 40, 0.55);
+  background: linear-gradient(172deg, rgba(255, 249, 232, 0.9), rgba(232, 214, 174, 0.9));
+  color: #4a3a1c;
+  box-shadow: 0 3px 0 -1px #b3955e, 0 6px 12px rgba(0, 0, 0, 0.35);
+  transition: transform calc(0.14s / var(--aspd)), box-shadow calc(0.14s / var(--aspd));
+}
+.bribe-step:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 -1px #b3955e, 0 10px 18px rgba(0, 0, 0, 0.4),
+              0 0 0 2px rgba(246, 214, 138, 0.85);
+}
+.bribe-step:focus-visible { outline: 2px solid rgba(246, 214, 138, 0.95); outline-offset: 2px; }
+.bribe-coins { font-weight: 800; font-size: 14px; letter-spacing: 0.02em; }
+.bribe-mult {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: 25px;
+  line-height: 1.05;
+  color: #7c2f28;
+  font-variant-numeric: tabular-nums;
+}
+.bribe-after { font-size: 11.5px; opacity: 0.72; }
+/* Debt is offered, not hidden: the same step in the editor's own red. */
+.bribe-step--red {
+  border-color: rgba(150, 52, 40, 0.75);
+  background: linear-gradient(172deg, rgba(255, 232, 226, 0.92), rgba(232, 186, 176, 0.92));
+  box-shadow: 0 3px 0 -1px #9a5c50, 0 6px 12px rgba(0, 0, 0, 0.35);
+}
+.bribe-step--red:hover {
+  box-shadow: 0 6px 0 -1px #9a5c50, 0 10px 18px rgba(0, 0, 0, 0.4),
+              0 0 0 2px rgba(226, 96, 74, 0.85);
+}
+.bribe-step--red .bribe-after { color: #7c2f28; opacity: 0.95; font-weight: 700; }
+.bribe-note {
+  margin: 10px 0 0;
+  font-size: 13px;
+  opacity: 0.78;
+  max-width: 52ch;
+}
+
 /* ─── The Counterfeiter's plate ───────────────────────────────────────────────
    Every sort he can forge, laid out at once. A grid rather than a row, because
    the point is that the whole case is available — and each sort wears the tile's
@@ -2347,7 +2407,7 @@ button.sundry:hover { transform: translateY(-2px); }
 /* Wider than the other end sheets, because a case of sorts wants to be seen
    whole. `justify-items: center` on .sheet--end would otherwise shrink the grid
    to one column, so the plate claims the full width it is given. */
-.sheet--plate { width: min(680px, 94vw); }
+.sheet.sheet--plate { width: min(680px, 94vw); }   /* likewise — a wider case fits another column of sorts */
 .plate-grid {
   width: 100%;
   justify-self: stretch;

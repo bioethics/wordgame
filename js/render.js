@@ -13,7 +13,7 @@ import {
   WORDS_PER_PAGE, PAGES_PER_CHAPTER, tileCount,
   colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
   sundryTip, FLEURON, TOOL_LOOK, PACKAGES, APPLICATORS, HONORIFIC_STEP, MEDIEVAL, letterGlyph,
-  INTERROBANG, POSTNOM, BAG_COUNTS,
+  INTERROBANG, POSTNOM, BAG_COUNTS, BRIBRARIAN, bribeMult,
 } from './constants.js';
 import { patronById, guildsOf, patronName, patronShelf, patronEmoji } from './patrons.js';
 import { bossById } from './bosses.js';
@@ -338,6 +338,36 @@ export function showCounterfeitSheet() {
       <div class="end-actions">
         <button class="btn btn-quiet" data-plate-done>Not this page</button>
       </div>
+    </div>`);
+}
+
+// ─── The Bribrarian's consideration ───────────────────────────────────────────
+// Taken before the page is set, which is the whole of the gamble: you are
+// buying his pen down without yet knowing what the hand will give you. Every
+// step is offered, including the ones that put the purse in the red — the game
+// lets you go into debt for this, and says plainly what that costs.
+export function showBribeSheet(coins) {
+  const rows = Array.from({ length: BRIBRARIAN.steps + 1 }, (_, n) => {
+    const after = coins - n;
+    const red = after < 0;
+    return `
+      <button class="bribe-step${red ? ' bribe-step--red' : ''}" data-bribe="${n}">
+        <span class="bribe-coins">${n === 0 ? 'Nothing' : `${n} ${n === 1 ? 'Coin' : 'Coins'}`}</span>
+        <span class="bribe-mult">×${bribeMult(n)}</span>
+        <span class="bribe-after">${red ? `${after} — in the red` : `${after} left`}</span>
+      </button>`;
+  }).join('');
+  showOverlay(`
+    <div class="sheet sheet--end sheet--bribe">
+      <div class="end-flourish">🤝</div>
+      <h2 class="end-title">A consideration</h2>
+      <p class="end-sub">The Bribrarian will penalise every word you set this page.
+        How heavily is a matter between the two of you, and it is settled now —
+        before you have seen what the hand holds.</p>
+      <div class="bribe-grid">${rows}</div>
+      <p class="bribe-note">You have ${coins} ${coins === 1 ? 'Coin' : 'Coins'}. You may go into
+        the red — nothing in the Market will sell to a purse that cannot cover it,
+        so a debt shuts the shop until it is worked off.</p>
     </div>`);
 }
 
@@ -766,10 +796,17 @@ function renderBossBar(script) {
   }
   const data = state.boss.data ?? {};
   const demand = def.demand?.(data);
+  // An editor with a MOOD takes a cut of every word without spiking anything —
+  // the Reviewer's temper, the Bribrarian's fee. Saying "passes" beside a score
+  // he has just shortened is a small lie, so the cut is named instead.
+  const cut = def.mood?.(data);
+  const cutting = cut != null && cut < 1;
   const verdict = !state.word.length || !script ? ''
     : script.spiked
       ? `<span class="boss-verdict boss-verdict--bad">✂ spiked — ×${SPIKE_MULT} Mult</span>`
-      : `<span class="boss-verdict boss-verdict--ok">✓ passes</span>`;
+      : cutting
+        ? `<span class="boss-verdict boss-verdict--bad">✂ his cut — ×${cut} Mult</span>`
+        : `<span class="boss-verdict boss-verdict--ok">✓ passes</span>`;
 
   // One mark per word printed, in order. Only for editors that judge — the
   // Reviewer and the Completist never spike, so a row of ✓s would say nothing.
@@ -780,7 +817,7 @@ function renderBossBar(script) {
     : '';
 
   el.classList.remove('hidden');
-  el.classList.toggle('boss-bar--warn', !!script?.spiked && !!state.word.length);
+  el.classList.toggle('boss-bar--warn', (!!script?.spiked || cutting) && !!state.word.length);
   el.title = `${def.name} — ${def.desc}`;
   el.innerHTML = `
     <span class="boss-emoji">${def.emoji}</span>

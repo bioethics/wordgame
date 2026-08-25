@@ -717,6 +717,25 @@ export function makeTileTemplate(letter, overrides = {}) {
   };
 }
 
+// ─── The Bribrarian's rate ────────────────────────────────────────────────────
+// The one editor with no rule to satisfy: he spikes EVERY word, and the only
+// lever is money. His pen opens at the standard spike (×SPIKE_MULT — an 80%
+// penalty) and each Coin laid down buys a fifth of it back, so four Coins clear
+// him entirely. Deliberately affordable: a Deadline page pays around eight
+// Coins, so the bribe is never impossible — it simply costs you the Market you
+// were saving for, and you may go into the RED to pay it, which costs you the
+// next Market as well (every purchase in js/market.js already refuses a purse
+// that cannot cover it, so debt needs no punishment of its own).
+export const BRIBRARIAN = {
+  steps: 4,      // Coins that clear the penalty outright
+  step:  0.2,    // what each Coin buys back
+};
+
+// What the Bribrarian's pen does to a word, given what has been laid down.
+// Read by his mood() in js/bosses.js and by the sheet that takes the money.
+export const bribeMult = paid =>
+  Math.round(Math.min(1, SPIKE_MULT + BRIBRARIAN.step * Math.max(0, paid)) * 100) / 100;
+
 // ─── The Colophon (a permanent upgrade, chosen when a chapter clears) ─────────
 // Structural picks (hand size, discards, seats, bench slots) persist for the rest
 // of the run; paint is an immediate one-off. Each of the 9 picks can be taken at

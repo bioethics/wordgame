@@ -33,6 +33,7 @@
 // because scoring and the bar both read it.
 
 import { inTheme, themeRank, themeSize } from './themes.js';
+import { BRIBRARIAN, bribeMult } from './constants.js';
 
 // The Columnist's measures. With ten tiles in hand three is always reachable
 // and six is a genuine reach. Never the same measure twice running.
@@ -185,6 +186,31 @@ export const BOSS_DEFS = [
     demand: data => `Every word must contain ${data.letter}.`,
     judge: (letters, tiles, data) => !letters.includes(data.letter)
       ? `no ${data.letter} — the Enthusiast is crushed` : null,
+  },
+  {
+    // The only editor with nothing to satisfy. He does not read your words; he
+    // reads the room. Every word is penalised, and the whole of the lever is
+    // money laid down BEFORE the page is set — a blind wager, since you cannot
+    // know yet what the hand will give you.
+    //
+    // He rides mood() rather than judge(), which is exactly right: he is not
+    // spiking a word for breaking a rule, he is taking his cut of everything.
+    // The readout crosses the figure out either way (script.adjusted).
+    //
+    // The purse may go into the RED to pay him, and nothing else in the game
+    // needs to know: every purchase already refuses a purse that cannot cover
+    // it, so a debt simply shuts the Market until it is worked off. That is the
+    // real price of a big bribe, and it is paid a page later.
+    id: 'bribrarian', name: 'The Bribrarian', emoji: '🤝',
+    desc: `Nothing you write will please me, and everything is negotiable. `
+        + `A consideration before the page is set — ${BRIBRARIAN.steps} Coins and my pen is `
+        + `perfectly kind. Less, and it is less kind. Nothing, and you will see what I mean.`,
+    setup: data => { data.paid = 0; },
+    demand: data => (data.paid >= BRIBRARIAN.steps
+      ? `Paid in full — the pen is kind. ×1 Mult.`
+      : `${data.paid} of ${BRIBRARIAN.steps} Coins laid down: every word at ×${bribeMult(data.paid)} Mult.`),
+    mood: data => bribeMult(data?.paid ?? 0),
+    // No judge: he spikes nothing and pardons nothing. His cut is the whole of him.
   },
   {
     id: 'reviewer', name: 'The Reviewer', emoji: '🧐',
