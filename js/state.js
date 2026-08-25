@@ -174,6 +174,10 @@ export const state = {
                     // in the order they were set — the book the run is writing
 
   endless:   false,
+  // Experiments — mechanics kept out of the main game but switchable back on
+  // from the Testing Chamber. An experiment is off unless a run turned it on,
+  // so a plain new game never meets one.
+  experiments: {},
   inMarket: false,
   inChamber: false,      // the Testing Chamber is up
   inColophon: false,     // the end-of-chapter upgrade pick is up
@@ -386,6 +390,7 @@ export function loadState() {
     const { _nextId: savedId, _nextTid: savedTid, _v, _market, _chamber, _colophon, ...fields } = s;
     Object.assign(state, fields, { isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null });
     state.sundries ??= [];
+    state.experiments ??= {};
     state.upgradeCounts ??= {};
     state.luck ??= 1;
     state.ratchetDir ??= 1;
@@ -438,6 +443,7 @@ export function newRun() {
     coins: STARTING_COINS, patrons: [], ghosts: [], sundries: [], upgradeCounts: {},
     luck: 1, rackBonus: 0, ratchetDir: 1, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
     boss: null, bossesSeen: [],
+    experiments: {},
     compost: [], compostPending: 0, freeRerolls: 0,
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },

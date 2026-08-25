@@ -207,7 +207,9 @@ function rollOffers() {
   }
   // …and so does the pair of rules, which is sold as a PAIR and no other way:
   // one rule alone is worth nothing at all, so half a purchase would be a trap.
-  if (Math.random() < RULE_PACK_CHANCE) {
+  // Bold is an experiment, off in the main game: the shop only stocks the pair
+  // for a run that switched it on in the Testing Chamber.
+  if (state.experiments?.bold && Math.random() < RULE_PACK_CHANCE) {
     const i = Math.floor(Math.random() * market.tileOffers.length);
     market.tileOffers[i] = {
       template: makeTileTemplate(RULE), price: RULE_PACK_PRICE, sold: false, pack: 2,

@@ -13,7 +13,7 @@
 import { state, adoptTemplate, nextId, makeGhost, effectivePatronSlots,
          effectiveSundrySlots } from './state.js';
 import { makeTileTemplate, COLOURS, TRIMS, NICKS, MATERIALS, MARKS, BAG_COUNTS,
-         MEDIEVAL_LETTERS, EXCLUSIVE_LETTERS, FLEURON, INTERROBANG, RULE,
+         MEDIEVAL_LETTERS, EXCLUSIVE_LETTERS, FLEURON, INTERROBANG, RULE, BOLD_MULT,
          TILE_POINTS, PACKAGES, APPLICATORS } from './constants.js';
 import { PATRON_DEFS, patronById } from './patrons.js';
 
@@ -23,13 +23,40 @@ export const CHAMBER_COINS = 999;
 // own letters first, then the marks, then everything a patron or a shop is the
 // only usual road to. Built from the tables rather than written out, so a letter
 // added to the press turns up here without anyone remembering to add it.
-export const CHAMBER_LETTERS = [
+export const chamberLetters = () => [
   ...Object.keys(BAG_COUNTS),
   ...MARKS, INTERROBANG,
   ...MEDIEVAL_LETTERS,
   ...EXCLUSIVE_LETTERS.filter(L =>
-    L !== INTERROBANG && !MEDIEVAL_LETTERS.includes(L)),
+    L !== INTERROBANG && !MEDIEVAL_LETTERS.includes(L)
+    // A sort belonging to an experiment is only in the case while that
+    // experiment is on: a rule that could be struck but did nothing would
+    // read as a broken tile rather than a switched-off one.
+    && (L !== RULE || !!state.experiments?.bold)),
 ];
+
+// ─── Experiments ──────────────────────────────────────────────────────────────
+// Mechanics built, playtested, and kept out of the main game rather than thrown
+// away. Each is off unless a run switches it on here, and the switch is part of
+// the run's own state, so a save remembers what it was played with.
+export const EXPERIMENTS = [
+  {
+    id: 'bold',
+    name: 'Bold type',
+    blurb: 'The Market stocks a pair of rules — * — sold two at a time. '
+         + 'Bracket a word with them and it prints bold for \u00d7' + BOLD_MULT + ' Mult. '
+         + 'The rules pay no Points and take no place in the measure.',
+    note: 'Retired from the main game: two hand slots for one multiplier never '
+        + 'paid its way against simply setting a longer word.',
+  },
+];
+
+export const experimentOn  = id => !!state.experiments?.[id];
+export function toggleExperiment(id) {
+  state.experiments ??= {};
+  state.experiments[id] = !state.experiments[id];
+  return state.experiments[id];
+}
 
 // Every sundry the bench can hold, as the objects the shop would sell.
 export const CHAMBER_SUNDRIES = [

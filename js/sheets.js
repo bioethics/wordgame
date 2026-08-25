@@ -24,8 +24,9 @@ import {
   colophon, closeColophon, applyColophonPick, applyColophonSkip, reshuffleColophon,
 } from './colophon.js';
 import {
-  chamber, chamberPatrons, CHAMBER_COINS, CHAMBER_LETTERS, CHAMBER_SUNDRIES,
+  chamber, chamberPatrons, CHAMBER_COINS, chamberLetters, CHAMBER_SUNDRIES,
   CHAMBER_COLOURS, CHAMBER_TRIMS, CHAMBER_NICKS, CHAMBER_MATERIALS,
+  EXPERIMENTS, experimentOn, toggleExperiment,
   grantCoins, seatPatron, unseatPatron, hauntPatron, addSeats, addBenchSlots,
   giveSundry, dropSundry, strikeTile, scrapTile, scrapAllTiles,
   setBuild, freshBuild, buildPoints, canBeDual,
@@ -757,6 +758,7 @@ const TAB_LABELS = {
   sundries: 'Sundries',
   tiles:    'Tiles',
   run:      'Run',
+  labs:     'Experimental',
 };
 
 const esc = s => String(s ?? '').replace(/[&<>"]/g,
@@ -774,6 +776,7 @@ export function renderChamber() {
   const body = chamber.tab === 'patrons'  ? chamberPatronsHTML()
              : chamber.tab === 'sundries' ? chamberSundriesHTML()
              : chamber.tab === 'tiles'    ? chamberTilesHTML()
+             : chamber.tab === 'labs'     ? chamberLabsHTML()
              :                              chamberRunHTML();
 
   m.innerHTML = `
@@ -913,11 +916,11 @@ function sundryGlyph(s) {
 function chamberTilesHTML() {
   const b = chamber.build ?? freshBuild();
 
-  const letters = CHAMBER_LETTERS.map(L => `
+  const letters = chamberLetters().map(L => `
     <button class="tc-sort${b.letter === L ? ' tc-sort--on' : ''}" data-tc-letter="${esc(L)}"
             title="${esc(L)} · ${TILE_POINTS[L] ?? 0} Points">${esc(letterGlyph(L))}</button>`).join('');
 
-  const alts = CHAMBER_LETTERS.map(L => `
+  const alts = chamberLetters().map(L => `
     <button class="tc-sort${b.altLetter === L ? ' tc-sort--on' : ''}" data-tc-alt="${esc(L)}"
             title="${esc(L)} · ${TILE_POINTS[L] ?? 0} Points">${esc(letterGlyph(L))}</button>`).join('');
 
@@ -1005,6 +1008,34 @@ function renderChamberTiles() {
     el.dataset.tcScrap = tmpl.tid;
     grid.appendChild(el);
   }
+}
+
+// ─── Experimental ─────────────────────────────────────────────────────────────
+// Mechanics that were built and then kept out of the main game. Switching one on
+// is a decision about THIS run, saved with it, so a folio always knows what it
+// was played with.
+
+function chamberLabsHTML() {
+  const cards = EXPERIMENTS.map(x => {
+    const on = experimentOn(x.id);
+    return `
+      <div class="tc-lab${on ? ' tc-lab--on' : ''}" data-tc-lab="${x.id}">
+        <div class="tc-lab-head">
+          <span class="tc-lab-name">${esc(x.name)}</span>
+          <span class="tc-lab-state">${on ? 'ON' : 'OFF'}</span>
+        </div>
+        <p class="tc-lab-blurb">${esc(x.blurb)}</p>
+        ${x.note ? `<p class="tc-lab-note">${esc(x.note)}</p>` : ''}
+      </div>`;
+  }).join('') || '<p class="sheet-note">Nothing on the bench just now.</p>';
+
+  return `
+    <h3 class="market-sec">Off the main game
+      <span class="market-sub">click to switch one on for this run</span>
+    </h3>
+    <div class="tc-labs">${cards}</div>
+    <p class="sheet-note">These are kept rather than thrown away. A switch here belongs
+      to this run and is saved with it — a plain new game never meets one.</p>`;
 }
 
 // ─── Run ──────────────────────────────────────────────────────────────────────
@@ -1393,6 +1424,20 @@ function onChamberClick(e) {
   if (e.target.closest('#tcScrapAll')) {
     log(`Scrapped ${tileCount(scrapAllTiles())}.`);
     sfx.bad();
+    return finishChamber();
+  }
+
+  // ── Experiments
+  const lab = hit('data-tc-lab');
+  if (lab) {
+    const id = lab.dataset.tcLab;
+    const on = toggleExperiment(id);
+    // The tile-maker may be holding a sort the experiment just took away.
+    if (!on && chamber.build && !chamberLetters().includes(chamber.build.letter)) {
+      chamber.build = freshBuild();
+    }
+    sfx[on ? 'draw' : 'bad']();
+    log(`${EXPERIMENTS.find(x => x.id === id)?.name ?? id} switched ${on ? 'on' : 'off'} for this run.`);
     return finishChamber();
   }
 
