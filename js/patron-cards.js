@@ -333,6 +333,10 @@ export const PATRON_CARDS = {
     name: 'The Twins', emoji: '👯', rarity: 'common', cost: 4,
     desc: 'Every doubled letter (LL, OO…) pays +{TWINS_POINTS} Points, and the second tile is struck again from the first — paint, trim, nick, metal and Points alike, for good. Whichever you set in front is the mould.',
   },
+  silentknight: {
+    name: 'The Silent Knight', emoji: '\u2694\ufe0f', rarity: 'rare', cost: 8, guild: 'azure',
+    desc: 'No editor hears a word holding a silent letter — knot, not note. The mute letter is struck blind for good, and crowns him: +{HONORIFIC_STEP} Points every word, each time.',
+  },
   innkeeper: {
     name: 'The Innkeeper', emoji: '🍻', rarity: 'common', cost: 6,
     desc: 'Every word gains +5 Points per patron you hold — this one included, and your ghosts.',

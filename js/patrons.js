@@ -142,8 +142,9 @@ import {
 import {
   state, getActiveColour, getActiveLetter, countsAsColour, luckyRoll,
   paintRandomTiles, restingPoints, shuffle, owns, allSeats, effectiveSundrySlots,
+  strikeMaterial,
 } from './state.js';
-import { inTheme, themeSize, THEME_SETS } from './themes.js';
+import { inTheme, themeSize, THEME_SETS, silentAt, SILENT } from './themes.js';
 import { DICT } from './dict.js';
 import { PATRON_CARDS } from './patron-cards.js';
 
@@ -331,6 +332,29 @@ const listPhrase = xs =>
 // `reads` order and the first real word wins, else the first reading stands. The
 // live preview (scoring) and the print (main.js) both resolve through this one
 // function, so they cannot disagree about what þORN spells.
+// ─── The dummy letters ────────────────────────────────────────────────────────
+// Which TILE in the word carries the mute letter. The list holds the index of
+// the letter inside the WORD, and a tile may spell several letters (QU, ING), so
+// the word is walked tile by tile until the index falls inside one. That tile is
+// the one struck blind — a ligature holding the silence is struck whole, because
+// a sort is one piece of metal whatever it spells.
+export function silentTile(wordTiles, word) {
+  const at = silentAt(word);
+  if (at == null) return null;
+  let i = 0;
+  for (const tile of wordTiles) {
+    const len = (getActiveLetter(tile) ?? '').length;
+    if (at < i + len) return tile;
+    i += len;
+  }
+  return null;
+}
+
+// True when the word is one the press keeps a silence for. Read by the editor
+// pass in scoring.js as well as by the seat itself, so what the board promises
+// while you compose is what the print delivers.
+export const hasSilence = word => SILENT.has(word);
+
 export function resolveMedieval(letters) {
   const options = medievalExpansions(letters);
   if (!options) return letters;
@@ -554,6 +578,35 @@ const PATRON_BEHAVIOURS = [
         }
       }
       return said.length ? { say: said } : null;
+    },
+  },
+  {
+    // The one seat that reads a word for what is NOT said in it. Two halves:
+    // no editor hears a word with a mute letter in it (the judge pass in
+    // scoring.js asks hasSilence before it spikes), and the mute tile is struck
+    // blind for good, which crowns him. The metal carries nothing yet — it is
+    // there for other seats to care about later.
+    id: 'silentknight',
+    when: 'score',
+    onPrinted({ tiles, script, data }) {
+      const word = script?.word;
+      if (!word || !hasSilence(word)) return null;
+      const target = silentTile(tiles, word);
+      if (!target) return null;
+      const letter = getActiveLetter(target);
+      if (!strikeMaterial(target, 'blind')) return null;
+      data.struck = (data.struck ?? 0) + 1;
+      data.honorifics = (data.honorifics ?? 0) + 1;
+      return {
+        say: [`The ${letter} in ${word} was never spoken — struck blind, for good. `
+            + `A laurel with it: +${data.honorifics * HONORIFIC_STEP} Points every word.`],
+      };
+    },
+    instDesc(data) {
+      const n = data?.struck ?? 0;
+      if (!n) return PATRON_CARDS.silentknight.desc;
+      return `${n} letter${n > 1 ? 's' : ''} struck blind. `
+           + `+${(data.honorifics ?? 0) * HONORIFIC_STEP} Points every word.`;
     },
   },
   {

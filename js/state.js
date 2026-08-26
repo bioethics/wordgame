@@ -819,6 +819,18 @@ export function recastTile(tile, mould) {
 // Every route to permanent destruction comes through here, which is what lets
 // The Composter count them all. The rot is banked as a number and turned into
 // tiles when the Market opens (see rotCompost in js/market.js).
+// Restrike one tile in a new metal, keeping its paint, trim, nick and growth —
+// where recastTile above overwrites the whole mould, this touches the metal and
+// nothing else. Written through to the collection so it outlives the page, the
+// same way the applicator does it.
+export function strikeMaterial(tile, material) {
+  if (!tile || isImmutable(tile) || tile.material === material) return false;
+  tile.material = material;
+  const tmpl = state.collection.find(c => c.tid === tile.tid);
+  if (tmpl) tmpl.material = material;
+  return true;
+}
+
 export function trashFromCollection(tid) {
   if (state.collection.length <= SMELT_MIN_COLLECTION) return null;
   const i = state.collection.findIndex(c => c.tid === tid);

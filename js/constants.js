@@ -599,6 +599,14 @@ export const MATERIALS = {
     label: 'Rainbow', metal: 'Rainbow roll', emoji: '🌈',
     desc: 'Counts as every colour to your patrons.',
   },
+  // Blind embossing is real: type struck into the paper carrying no ink, so the
+  // letter is felt and never seen. The metal a silent letter is recast in, and
+  // The Silent Knight is the only road to it. It carries nothing of its own yet
+  // — it is a material for other seats to care about.
+  blind: {
+    label: 'Blind', metal: 'Blind emboss', emoji: '\u25cc',
+    desc: 'Struck into the page without ink. Set by The Silent Knight, and worth nothing on its own — yet.',
+  },
   // Rose metal is real: an alloy soft enough to melt in boiling water, so no
   // press could set a page in it. Out of The Poppet's party bag only.
   rose: {

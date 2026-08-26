@@ -4,7 +4,7 @@ import {
   HONORIFIC_STEP, FLEURON, FLEURON_PAGE_COIN, lengthMult, POSTNOM,
 } from './constants.js';
 import {
-  PATRON_DEFS, patronById, guildsOf, guildSeats, resolveMedieval,
+  PATRON_DEFS, patronById, guildsOf, guildSeats, resolveMedieval, hasSilence,
 } from './patrons.js';
 import { bossById } from './bosses.js';
 import {
@@ -604,7 +604,20 @@ export function computeScore(wordTiles) {
       });
     }
     const preTotal = Math.max(0, Math.round(points * mult));
-    const reason = def?.judge?.(letters, wordTiles, data, preTotal);
+    // The Silent Knight's whole argument: a letter that is written and not
+    // spoken is a letter no editor hears, and a word carrying one is read past
+    // rather than read. Asked BEFORE the judge, so a seat at the table is the
+    // difference between a spike and a shrug — and asked of the same word the
+    // dictionary saw, marks and medieval readings already resolved.
+    const unheard = owns('silentknight') && hasSilence(letters);
+    if (unheard) {
+      patronSteps.push({
+        id: 'silentknight',
+        text: `The ${def.name.replace(/^The /, '')} never heard it — a silent letter`,
+        unheard: true,
+      });
+    }
+    const reason = unheard ? null : def?.judge?.(letters, wordTiles, data, preTotal);
     if (reason) {
       spiked = true;
       mult *= SPIKE_MULT;

@@ -4169,6 +4169,28 @@ button.sundry:hover { transform: translateY(-2px); }
 .sheet--chamber .mini-grid .tile { cursor: pointer; }
 .sheet--chamber .mini-grid .tile:hover { outline: 2px solid #d0707e; outline-offset: 2px; }
 
+/* Blind emboss — struck into the paper, carrying no ink. Debossed rather than
+   coloured: the letter reads as pressed-in, never as painted. */
+.tile--mat-blind {
+  background: linear-gradient(168deg, #efe3c6 0%, #e2d3ae 62%, #d4c398 100%);
+}
+.tile--mat-blind .tile-letter {
+  color: transparent;
+  text-shadow:
+    0 1px 0 rgba(255, 252, 240, 0.85),
+    0 -1px 1px rgba(120, 96, 52, 0.55);
+}
+.tile--mat-blind .tile-pts { color: #9c8557; }
+.tile--mat-blind::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: 5px;
+  border: 1px dashed rgba(140, 114, 66, 0.5);
+  pointer-events: none;
+}
+.tc-swatch--mat-blind { color: #cbb98d; }
+
 /* ── Experimental ── */
 .tc-labs { display: grid; gap: 10px; }
 .tc-lab {
