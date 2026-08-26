@@ -969,6 +969,16 @@ const PATRON_BEHAVIOURS = [
     when: 'score',
     tileBonus: (t, { state }) => (countsAsColour(t, 'jade') ? state.chapter : 0),
   },
+  {
+    // Paid by the size of the vein: +1 Point per jade tile in the whole
+    // collection, on every jade tile printed. No growth to write — the count
+    // moves with the collection itself, so a tile bought this page already
+    // pays the tiles bought last page, and vice versa.
+    id: 'lapidary',
+    when: 'score',
+    tileBonus: (t, { state }) =>
+      (countsAsColour(t, 'jade') ? state.collection.filter(c => countsAsColour(c, 'jade')).length : 0),
+  },
   dyePatron('verdigris', 'jade'),
   {
     // Dual livery, crimson first: destruction is his diet, jade what he makes

@@ -131,6 +131,10 @@ export const PATRON_CARDS = {
     name: 'The Seedsman', emoji: '🌱', rarity: 'common', cost: 4, guild: 'jade',
     desc: 'Jade tiles gain +1 Point per chapter reached — +5 Points each in Chapter V.',
   },
+  lapidary: {
+    name: 'The Lapidary', emoji: '💎', rarity: 'common', cost: 6, guild: 'jade',
+    desc: 'Jade tiles gain +1 Point for every jade tile in your collection.',
+  },
   verdigris: {
     name: 'The Verdigris', emoji: '🍏', rarity: 'common', cost: 4, guild: 'jade',
     desc: 'As each chapter ends, {DYE_TILES_PER_CHAPTER} tiles of your collection are painted jade.',
