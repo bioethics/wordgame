@@ -301,7 +301,10 @@ function noticeTheCat(script) {
 // construction, and a tile with no collection template behind it (lent letters,
 // an unfiled ghost) cannot be melted at all — the toll simply passes.
 async function editorEats() {
-  if (!bossById(state.boss?.id)?.eatsSpare) return;
+  // eatsSpare may be a flag (the Economiser) or a function of the editor's
+  // state (the Typist, who eats only while wearing that face).
+  const eats = bossById(state.boss?.id)?.eatsSpare;
+  if (!(typeof eats === 'function' ? eats(state.boss?.data) : eats)) return;
   const spare = state.rack.filter(t => state.collection.some(c => c.tid === t.tid));
   if (!spare.length) return;
   const doomed = spare[Math.floor(Math.random() * spare.length)];

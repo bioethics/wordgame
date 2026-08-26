@@ -21,13 +21,16 @@
 //   gift: true             — an ephemeral tile of data.letter as the page is
 //                            dealt (the Enthusiast)
 //   lent: { letter, count }— tiles held IN the hand all page, topped back up as
-//                            they print (the Eeeditor)
+//                            they print (the Eeeditor). May instead be a
+//                            function of data, for an editor that lends only
+//                            some of the time (the Janussian Typist).
 //   wraps: <share>         — that fraction of the COLLECTION is wrapped for the
 //                            page: it spells and nothing else (the Redactor).
 //                            Laid and cleared in startPage; read via isWrapped.
 //   rackBonus / noDiscards — structural knobs read by state.js
 //   eatsSpare: true        — after every word one sort left in the rack is
-//                            destroyed for good (the Economiser); main.js
+//                            destroyed for good (the Economiser); main.js.
+//                            May be a function of data, as `lent` may.
 //
 // Tuning numbers live here with their editor; SPIKE_MULT is in constants.js
 // because scoring and the bar both read it.
@@ -297,6 +300,16 @@ export const BOSS_DEFS = [
     id: 'janussian', name: 'The Janussian Typist', emoji: '\ud83c\udfad',
     desc: 'I contain a whole masthead. Every word is read by a different editor — whose face I am wearing is on the bar before you set it.',
     setup: (data, state) => { rollFace(data, state); },
+    // Worn faces that do something other than judge. Each reads the same data
+    // the face's owner would, and is inert while any other face is on.
+    mood: data => (data?.face === 'reviewer' ? data.mood : 1),
+    lent: data => (JANUS_LENT[data?.face]
+      ? { letter: JANUS_LENT[data.face], count: 3, lender: JANUS_LENDER }
+      : null),
+    // Read AFTER the word commits (editorEats in main.js runs past
+    // bossOnPrinted, which has already turned the face over), so this asks what
+    // was worn for the word just set — not what is waiting for the next one.
+    eatsSpare: data => data?.wore === 'economiser',
     demand: (data) => {
       const face = faceOf(data);
       if (!face) return null;
@@ -313,6 +326,7 @@ export const BOSS_DEFS = [
       data.lastLetter = letters[letters.length - 1];
       data.lastWord   = letters;
       data.bar        = script.total;
+      data.wore       = data.face;   // whoever judged the word just set
       rollFace(data, state);
     },
   },
@@ -320,10 +334,29 @@ export const BOSS_DEFS = [
 
 // The editors the Typist can wear. Everything here has a judge(); nothing here
 // needs the page rebuilt around it.
+// Nine judge the word; four do something to it or around it instead. The line
+// is not "has a judge()" — that was the easy read, and wrong. It is whether the
+// rule can be asked of ONE word: the Reviewer's temper is rolled per word
+// already, the Economiser eats a sort per word already, and the lending pair
+// hand tiles over on the same per-word refill every editor uses. What is left
+// out is genuinely page-shaped — see JANUS_UNWEARABLE.
 export const JANUS_FACES = [
   'padder', 'populist', 'obscurantist', 'minimalist', 'columnist',
   'serialist', 'indexer', 'escalationist', 'enthusiast',
+  'reviewer', 'eeeditor', 'editooor', 'economiser',
 ];
+
+// Why the rest stay off, written down so the next person does not have to
+// re-derive it: the Epitaphist IS the page (one word, half the quota) and
+// cannot be one word of several; the Redactor and the Hoarder rebuild the case
+// and the hand as the page is dealt; the Bribrarian's whole lever is a wager
+// laid down BEFORE the page, and a mid-page till would be a different editor.
+export const JANUS_UNWEARABLE = ['epitaphist', 'redactor', 'completist', 'bribrarian'];
+
+// What the Typist lends, and who is lending it — marked so his loans can be
+// swept when the face changes. A loan belongs to the word it was made for.
+const JANUS_LENT = { eeeditor: 'E', editooor: 'O' };
+const JANUS_LENDER = 'janussian';
 
 const faceOf = data => (data?.face ? BOSS_DEFS.find(b => b.id === data.face) : null);
 
@@ -331,6 +364,7 @@ const faceOf = data => (data?.face ? BOSS_DEFS.find(b => b.id === data.face) : n
 // `last` is the one key two faces claim for different things.
 const faceView = data => ({
   required: data.required,
+  mood:     data.mood,
   letter:   data.letter,
   bar:      data.bar,
   last:     data.face === 'indexer' ? data.lastWord : data.lastLetter,
@@ -342,11 +376,21 @@ function rollFace(data, state) {
   const pool = JANUS_FACES.filter(id => id !== data.face);
   data.face = pool[Math.floor(Math.random() * pool.length)];
   if (data.face === 'columnist') rollColumn(data);
+  if (data.face === 'reviewer')  rollMood(data);
   if (data.face === 'enthusiast') {
     const singles = (state?.collection ?? []).filter(t => /^[A-Z]$/.test(t.letter));
     data.letter = singles.length
       ? singles[Math.floor(Math.random() * singles.length)].letter : 'E';
   }
+  // A loan belongs to the word it was made for. The lending face's tiles take
+  // real places in the hand, so leaving them behind would silently narrow the
+  // rack for the rest of the page — and three dead E's under a face that wants
+  // a seven-letter word is the whole of the unfairness. Swept from the rack
+  // only: one already laid into the word is spoken for.
+  // Swept unconditionally, before the refill lends for the new face: a face
+  // that lends the OTHER letter would otherwise find three E's already held
+  // (lentInHand counts them all) and hand over no O's at all.
+  if (state?.rack) state.rack = state.rack.filter(t => t.lender !== JANUS_LENDER);
 }
 
 export const bossById = id => BOSS_DEFS.find(b => b.id === id);
@@ -416,8 +460,14 @@ export function bossReplenish(state, cast, held) {
     made.push(cast(data.letter, { aboveHand: true }));
   }
 
-  if (def?.lent) {
-    for (let i = held().length; i < def.lent.count; i++) made.push(cast(def.lent.letter));
+  // `lent` may be a standing shape (the Eeeditor's three E's, all page) or a
+  // function of the editor's state (the Typist, who lends only while wearing a
+  // lending face). Read the same way either way.
+  const lent = typeof def?.lent === 'function' ? def.lent(data) : def?.lent;
+  if (lent) {
+    for (let i = held().length; i < lent.count; i++) {
+      made.push(cast(lent.letter, lent.lender ? { lender: lent.lender } : {}));
+    }
   }
 
   return made;
