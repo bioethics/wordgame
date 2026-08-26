@@ -44,9 +44,10 @@ import {
   showCoinWordSheet, setCoinNote, showCounterfeitSheet, showStruckTotal, showBribeSheet,
 } from './render.js';
 import {
-  initSheets, renderMarket, renderColophon, renderChamber,
+  initSheets, renderMarket, renderColophon, renderChamber, renderBlackMarket,
 } from './sheets.js';
 import { chamber, openChamber, closeChamber, restoreChamber } from './chamber.js';
+import { openBlackMarket, restoreBlackMarket } from './blackmarket.js';
 import {
   sleep, dur, flyClone, popReveal, floatText, tweenNum, setNum, fmtMult,
   pulse, sparkleBurst, sfx, applySpeedCSS, speechBubble, flourishTime,
@@ -725,10 +726,11 @@ function runChapterHooks() {
   return notes;
 }
 
-// A full-screen sheet is up — the Market, the Colophon or the Testing Chamber.
-// Every board action asks this rather than naming the three, so a fourth sheet
-// is a line here and nowhere else.
-const sheetUp = () => state.inMarket || state.inChamber || state.inColophon;
+// A full-screen sheet is up — the Market, the Black Market, the Colophon or the
+// Testing Chamber. Every board action asks this rather than naming them, so the
+// next sheet is a line here and nowhere else.
+const sheetUp = () =>
+  state.inMarket || state.inChamber || state.inColophon || state.inBlackMarket;
 
 // ─── Submit (PRINT) ───────────────────────────────────────────────────────────
 
@@ -1150,6 +1152,16 @@ function offerColophon() {
   applyColophonSkip();
   renderAll();
   return false;
+}
+
+// The alley, taken as a Colophon pick. It stands BEFORE the Market and leaves
+// state.pendingReward alone — the fair still has the page's takings to show, and
+// the coins are already in the purse to spend down here (they are credited as
+// the page completes, ahead of the Colophon).
+export function openTheBlackMarket() {
+  openBlackMarket();
+  renderAll();
+  renderBlackMarket();
 }
 
 // The Market, with whatever the page paid: straight after an ordinary page, and
@@ -2178,7 +2190,8 @@ function openTheChamber() {
   initInput({ spendArmedSundry, spendsOnPick });
   initInspect();
   initShelfDrag();
-  initSheets({ nextPage: beginNextPage, beginRun, openMarket: openTheMarket, leaveChamber });
+  initSheets({ nextPage: beginNextPage, beginRun, openMarket: openTheMarket,
+             openBlackMarket: openTheBlackMarket, leaveChamber });
 
   renderDictStatus('loading', 0);
   // The exclusion list lands before a single word does: adoptWordlist and
@@ -2213,6 +2226,11 @@ function openTheChamber() {
     else if (restored.colophon) {
       restoreColophon(restored.colophon);
       renderAll(); renderColophon();
+      log('Welcome back.');
+    }
+    else if (restored.blackmarket) {
+      restoreBlackMarket(restored.blackmarket);
+      renderAll(); renderBlackMarket();
       log('Welcome back.');
     } else {
       bossReplenish(state, castLentTile, lentInHand);   // restore anything a mid-deal reload lost

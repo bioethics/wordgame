@@ -10,6 +10,7 @@ import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
   ANIM, SUNDRY_SELL, tileCount, sundryTip, TOOL_LOOK, PACKAGES, APPLICATORS,
   colourDesc, HONORIFIC_STEP, POSTNOM, GHOST_HIRE, MATERIALS, TILE_POINTS, letterGlyph,
+  BLACK_PATRON_MARKUP,
 } from './constants.js';
 import { PATRON_DEFS, patronById, guildsOf, patronName, patronShelf, patronEmoji, patronCost } from './patrons.js';
 import { upgradeById } from './upgrades.js';
@@ -23,6 +24,9 @@ import {
 import {
   colophon, closeColophon, applyColophonPick, applyColophonSkip, reshuffleColophon,
 } from './colophon.js';
+import {
+  blackMarket, closeBlackMarket, buyBlackTile, buyBlackPatron, buyBlackSundry,
+} from './blackmarket.js';
 import {
   chamber, chamberPatrons, CHAMBER_COINS, chamberLetters, CHAMBER_SUNDRIES,
   CHAMBER_COLOURS, CHAMBER_TRIMS, CHAMBER_NICKS, CHAMBER_MATERIALS,
@@ -746,6 +750,257 @@ export function renderColophon() {
   m.classList.add('show');
 }
 
+// ─── The Black Market ─────────────────────────────────────────────────────────
+// The alley behind the fair. Deliberately NOT the Market's sheet with a dark
+// class on it: the stock is laid out on one long table rather than in columns,
+// there is no re-roll, no stalls, no reward line and no purse in gold — the only
+// things carried over are the shelf and workbench strips, because you cannot
+// judge a hire or a tool without seeing what you already hold.
+//
+// State lives in js/blackmarket.js; this is only its face and its buttons.
+
+// One line, always drawn — an empty one on ordinary stock — so every card on the
+// table reserves the same caption row and the rows line up whatever is laid out.
+const blackTileNote = offer =>
+  offer.material ? MATERIALS[offer.material].metal
+  : offer.mark   ? 'Punctuation'
+  :                '';
+
+function blackMarketHTML() {
+  const tiles = blackMarket.tileOffers.map((o, i) => `
+      <div class="bm-tile${o.material ? ` bm-tile--${o.material}` : ''}${o.mark ? ' bm-tile--mark' : ''}"
+           data-bm-offer="tile" data-idx="${i}">
+        <div class="offer-tile-slot" data-bm-tile="${i}"></div>
+        <div class="bm-tile-note">${blackTileNote(o)}</div>
+        <span class="op-sold">gone</span>
+        <button class="btn-price" data-buy-bm-tile="${i}">${coinHTML(o.price)}</button>
+      </div>`).join('');
+
+  const patrons = blackMarket.patronOffers.map((o, i) => {
+    const def = patronById(o.id);
+    const name = patronName(def, o.data);
+    const desc = def.instDesc?.(o.data) ?? def.desc;
+    const liveries = guildsOf(def);
+    const livery = (liveries.length ? ` offer-patron--g-${liveries[0]}` : '')
+                 + (liveries[1] ? ` offer-patron--g2-${liveries[1]}` : '');
+    const lettered = o.data?.postnom ? ' offer-patron--postnom' : '';
+    return `
+      <div class="offer-patron offer-patron--rare${livery}${lettered}" data-bm-offer="patron" data-idx="${i}">
+        <div class="op-portrait">${def.portrait
+          ? `<img src="${def.portrait}" alt="${name}">`
+          : `<span class="op-emoji">${patronEmoji(def, o.data)}</span>`}</div>
+        <div class="op-card-body">
+          <div class="op-name">${name}</div>
+          <div class="op-title">rare${liveries.length ? ` · <span class="op-guild">${liveries.join(' & ')}</span>` : ''}${
+            o.data?.postnom ? ` · <span class="op-postnom">${o.data.postnom} · ×${POSTNOM.mult} Mult</span>` : ''}</div>
+          <div class="op-desc">${desc}</div>
+        </div>
+        <span class="op-sold">seated</span>
+        <button class="btn-price btn-price--over" data-buy-bm-patron="${i}"
+                title="${def.cost} at the fair · ${BLACK_PATRON_MARKUP} Coins over, for the walk${
+                  o.data?.postnom ? ` · ${POSTNOM.surcharge} Coins over for the ${o.data.postnom}` : ''}">${
+          coinHTML(patronCost(def, o.data))}</button>
+      </div>`;
+  }).join('') || '<p class="sheet-note">No one is waiting in the alley tonight.</p>';
+
+  const sundries = blackMarket.sundryOffers.map((o, i) => {
+    const tip = sundryTip(o) ?? { head: 'Sundry', body: '' };
+    const mark = o.kind === 'package'
+        ? '<span class="wrapped-mark wrapped-mark--offer"></span>'
+      : o.kind === 'applicator'
+        ? `<span class="sundry-glyph sundry-glyph--offer">${APPLICATORS[o.material].glyph}</span>`
+        : `<span class="sundry-glyph sundry-glyph--offer">${TOOL_LOOK[o.kind]?.glyph ?? '✒'}</span>`;
+    return `
+      <div class="offer-paint offer-tool bm-sundry" data-bm-offer="sundry" data-idx="${i}"
+           data-tip-head="${tip.head}" data-tip-body="${tip.body}">
+        ${mark}
+        <div class="op-body"><div class="op-name">${tip.head}</div></div>
+        <span class="op-sold">bought</span>
+        <button class="btn-price" data-buy-bm-sundry="${i}">${coinHTML(o.price)}</button>
+      </div>`;
+  }).join('');
+
+  return `
+    <div class="sheet sheet--market sheet--black">
+      <div class="sheet-head">
+        <div>
+          <h2 class="market-title bm-title">The Black Market</h2>
+          <p class="sheet-note">Nothing here is sold at the fair, and nothing here is cheap.
+            Buy what you want; the door shuts behind you.</p>
+        </div>
+        <div class="market-purse bm-purse"><span class="coin coin--lg"></span><b id="bmCoins">${state.coins}</b></div>
+      </div>
+
+      <div class="market-hold">
+        ${marketShelfHTML()}
+        ${marketBenchHTML()}
+      </div>
+
+      <section class="bm-sec">
+        <h3 class="market-sec">On the table <span class="market-sub">rare metals, and punctuation — sold nowhere else</span></h3>
+        <div class="bm-tiles">${tiles}</div>
+      </section>
+
+      <div class="bm-grid">
+        <section class="bm-sec">
+          <h3 class="market-sec">In the back room <span class="market-sub">rare patrons only</span></h3>
+          <div class="offer-list bm-patrons">${patrons}</div>
+        </section>
+        <section class="bm-sec">
+          <h3 class="market-sec">Under the counter <span class="market-sub" data-bench>${benchLabel()}</span></h3>
+          <div class="offer-list">${sundries}</div>
+        </section>
+      </div>
+
+      <div class="market-foot">
+        <div class="market-spacer"></div>
+        <button class="btn btn-print" id="btnBlackMarketLeave">On to the fair ❧</button>
+      </div>
+    </div>`;
+}
+
+export function renderBlackMarket() {
+  const m = $('blackMarketModal');
+  if (!m) return;
+  if (!blackMarket.open) { m.classList.remove('show'); m.innerHTML = ''; return; }
+
+  m.innerHTML = blackMarketHTML();
+  m.classList.add('show');
+
+  blackMarket.tileOffers.forEach((o, i) => {
+    const slot = m.querySelector(`[data-bm-tile="${i}"]`);
+    if (slot && !slot.children.length) slot.appendChild(makeTileEl({ ...o.template, id: '' }, 'offer'));
+  });
+  updateBlackMarketState();
+}
+
+// Sold state and affordability, patched without a rebuild — the same job
+// updateMarketState does for the fair.
+export function updateBlackMarketState() {
+  const m = $('blackMarketModal');
+  if (!m || !blackMarket.open) return;
+
+  setText('bmCoins', state.coins);
+
+  const seatsFull = state.patrons.length >= effectivePatronSlots();
+  const benchFull = state.sundries.length >= effectiveSundrySlots();
+
+  for (const card of m.querySelectorAll('[data-bm-offer]')) {
+    const kind = card.dataset.bmOffer;
+    const idx  = Number(card.dataset.idx);
+    const offer = kind === 'patron' ? blackMarket.patronOffers[idx]
+                : kind === 'tile'   ? blackMarket.tileOffers[idx]
+                :                     blackMarket.sundryOffers[idx];
+    if (!offer) continue;
+    const cost = kind === 'patron'
+      ? patronCost(patronById(offer.id), offer.data)
+      : offer.price;
+    const afford = state.coins >= cost
+      && (kind !== 'patron' || !seatsFull)
+      && (kind !== 'sundry' || !benchFull);
+    card.classList.toggle('offer--sold', !!offer.sold);
+    const btn = card.querySelector('.btn-price');
+    if (btn) btn.disabled = offer.sold || !afford;
+  }
+
+  const seats = m.querySelector('[data-seats]');
+  if (seats) seats.textContent = seatsLabel();
+  const bench = m.querySelector('[data-bench]');
+  if (bench) bench.textContent = benchLabel();
+  const benchN = m.querySelector('[data-bench-count]');
+  if (benchN) benchN.textContent = benchCount();
+
+  const strip = m.querySelector('[data-market-shelf]');
+  if (strip) {
+    strip.style.setProperty('--seat-count', effectivePatronSlots());
+    strip.innerHTML = marketShelfCardsHTML();
+  }
+  const benchStrip = m.querySelector('[data-market-bench]');
+  if (benchStrip) {
+    benchStrip.style.setProperty('--slot-count', effectiveSundrySlots());
+    benchStrip.innerHTML = marketBenchSlotsHTML();
+  }
+  m.querySelector('[data-market-shelf-wrap]')?.classList.toggle('market-shelf--wanted', seatsFull);
+  m.querySelector('[data-market-bench-wrap]')?.classList.toggle('market-shelf--wanted', benchFull);
+}
+
+// ─── Black Market actions ─────────────────────────────────────────────────────
+
+function onBlackMarketClick(e) {
+  const buyT = e.target.closest('[data-buy-bm-tile]');
+  if (buyT) {
+    const idx = Number(buyT.dataset.buyBmTile);
+    const r = buyBlackTile(idx);
+    if (!r.ok) { if (r.reason) log(r.reason, 'warn'); sfx.bad(); return; }
+    sfx.coin();
+    const tileEl = document.querySelector(`[data-bm-tile="${idx}"] .tile`);
+    flyPurchase(tileEl, $('bagPile') ?? tileEl);
+    log(`Bought “${r.template.letter}”${r.template.material
+      ? ` in ${MATERIALS[r.template.material].metal.toLowerCase()}` : ''} for ${r.price} Coins.`, 'good');
+    renderAll(); updateBlackMarketState();
+    return;
+  }
+
+  const buyP = e.target.closest('[data-buy-bm-patron]');
+  if (buyP) {
+    const r = buyBlackPatron(Number(buyP.dataset.buyBmPatron));
+    if (!r.ok) { if (r.reason) log(r.reason, 'warn'); sfx.bad(); return; }
+    sfx.coin(); sfx.chime();
+    log(`${r.name} takes a seat — ${r.price} Coins, and no questions.`, 'good');
+    renderAll(); updateBlackMarketState();
+    return;
+  }
+
+  const buyS = e.target.closest('[data-buy-bm-sundry]');
+  if (buyS) {
+    const r = buyBlackSundry(Number(buyS.dataset.buyBmSundry));
+    if (!r.ok) { if (r.reason) log(r.reason, 'warn'); sfx.bad(); return; }
+    sfx.coin();
+    log(`${sundryTip(r.offer)?.head ?? 'A sundry'} goes on the workbench.`, 'good');
+    renderAll(); updateBlackMarketState();
+    return;
+  }
+
+  // Dismissing a seat or selling a sundry from the strips, so room can be made
+  // for what is on the table without leaving the alley to do it.
+  const sellP = e.target.closest('[data-sell-patron]');
+  if (sellP) {
+    const r = sellPatron(sellP.dataset.sellPatron);
+    if (!r.ok) { if (r.reason) log(r.reason, 'warn'); sfx.bad(); return; }
+    sfx.coin();
+    log(`${r.name} is dismissed${r.refund ? ` for ${r.refund} Coins` : ''}.`);
+    if (r.headsman) log(`🪓 The Headsman is at ×${r.headsman.mult} Mult.`, 'good');
+    renderAll(); updateBlackMarketState();
+    return;
+  }
+  const sellS = e.target.closest('[data-sell-sundry]');
+  if (sellS) {
+    const r = sellSundry(Number(sellS.dataset.sellSundry));
+    if (r.ok) {
+      sfx.coin();
+      log(`Sold back for ${r.refund} Coin.`);
+      renderAll(); updateBlackMarketState();
+    }
+    return;
+  }
+  const seatCard = e.target.closest('[data-market-shelf] .patron[data-patron]');
+  if (seatCard) {
+    const def = patronById(seatCard.dataset.patron);
+    const seat = state.patrons.find(p => String(p.uid) === seatCard.dataset.uid)
+              ?? state.patrons.find(p => p.id === seatCard.dataset.patron);
+    if (def) showPatronPopover(def, seatCard, seat);
+    return;
+  }
+  if (e.target.closest('[data-open-ghosts]')) { openGhosts(); return; }
+
+  if (e.target.closest('#btnBlackMarketLeave')) {
+    closeBlackMarket();
+    renderBlackMarket();
+    renderAll();
+    flow.openMarket();
+  }
+}
+
 // ─── The Testing Chamber ──────────────────────────────────────────────────────
 // A playtest bench, not a part of the game: coins, seats, the workbench and the
 // case, all writable by hand. It opens at the top of a new run and can be
@@ -1065,7 +1320,8 @@ function chamberRunHTML() {
 // Game flow is main.js's business, injected here so the sheets never need to
 // know about pages and chapters.
 
-let flow = { nextPage: () => {}, beginRun: () => {}, openMarket: () => {}, leaveChamber: () => {} };
+let flow = { nextPage: () => {}, beginRun: () => {}, openMarket: () => {},
+             openBlackMarket: () => {}, leaveChamber: () => {} };
 
 // The clones ride the #fx layer, which sits above the modal.
 function flyPurchase(fromEl, toEl, opts = {}) {
@@ -1289,7 +1545,10 @@ async function pickColophon(id) {
   closeColophon();
   renderColophon();
   state.isAnimating = false;
-  flow.openMarket();
+  // The alley stands between the Colophon and the fair; its own Leave button
+  // carries on to the Market, so both roads end in the same place.
+  if (r.def.kind === 'blackmarket') flow.openBlackMarket();
+  else                              flow.openMarket();
 }
 
 async function skipColophon() {
@@ -1477,6 +1736,7 @@ function finishChamber() {
 export function initSheets(flowCallbacks) {
   flow = { ...flow, ...flowCallbacks };
   $('marketModal')?.addEventListener('click', onMarketClick);
+  $('blackMarketModal')?.addEventListener('click', onBlackMarketClick);
   $('colophonModal')?.addEventListener('click', onColophonClick);
   $('chamberModal')?.addEventListener('click', onChamberClick);
   $('chamberModal')?.addEventListener('input', onChamberInput);

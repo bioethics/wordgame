@@ -181,6 +181,8 @@ export const state = {
   inMarket: false,
   inChamber: false,      // the Testing Chamber is up
   inColophon: false,     // the end-of-chapter upgrade pick is up
+  inBlackMarket: false,  // the alley is open (js/blackmarket.js)
+  blackMarketVisits: 0,  // trips down the alley this run — for a side-quest to read
   isAnimating: false,
   discardMode: false,    // rack taps select tiles to discard
   sundryMode: -1,        // index of the armed sundry; board taps select its targets
@@ -387,7 +389,8 @@ export function loadState() {
     migrateSave(s);
     if (!Array.isArray(s.collection) || !Array.isArray(s.rack)) return null;
     const mercury = retireMercury(s);
-    const { _nextId: savedId, _nextTid: savedTid, _v, _market, _chamber, _colophon, ...fields } = s;
+    const { _nextId: savedId, _nextTid: savedTid, _v, _market, _chamber, _colophon,
+            _blackmarket, ...fields } = s;
     Object.assign(state, fields, { isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null });
     state.sundries ??= [];
     state.experiments ??= {};
@@ -411,6 +414,7 @@ export function loadState() {
     state.freeRerolls ??= 0;
     state.rackBonus ??= 0;
     state.ghosts ??= [];
+    state.blackMarketVisits ??= 0;
     if (savedId)  _nextId  = savedId;
     if (savedTid) _nextTid = savedTid;
     // Seats saved before uids existed get one now — after the counters above,
@@ -420,7 +424,8 @@ export function loadState() {
     // so the calling card can price it (and pay it back) without asking which
     // list it sits in.
     state.ghosts?.forEach(p => { p.uid ??= nextId(); (p.data ??= {}).ghost = true; });
-    return { market: _market ?? null, chamber: _chamber ?? null, colophon: _colophon ?? null, mercury };
+    return { market: _market ?? null, chamber: _chamber ?? null, colophon: _colophon ?? null,
+             blackmarket: _blackmarket ?? null, mercury };
   } catch { return null; }
 }
 
@@ -449,6 +454,7 @@ export function newRun() {
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
     manuscript: [],
     endless: false, inMarket: false, inChamber: false, inColophon: false,
+    inBlackMarket: false, blackMarketVisits: 0,
     isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null, gameOver: false,
     catPending: false,
   });
@@ -872,7 +878,7 @@ function revenantRaises(template) {
   // waiting in the case when the next page begins.
   const tmpl = adoptTemplate({ ...kept, material: 'ghost' });
   state.collection.push(tmpl);
-  if (!state.inMarket && !state.inChamber && !state.inColophon) {
+  if (!state.inMarket && !state.inChamber && !state.inColophon && !state.inBlackMarket) {
     state.rack.push(templateToTile(tmpl));
   }
   raising = false;

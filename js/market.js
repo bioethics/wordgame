@@ -126,7 +126,9 @@ function randomTileOffer() {
   return { template: tmpl, price: tilePrice(tmpl), sold: false };
 }
 
-function tilePrice(tmpl) {
+// Exported for the Black Market, which prices the same way and then adds the
+// alley's markup on top (js/blackmarket.js).
+export function tilePrice(tmpl) {
   let p = TILE_BASE_PRICE;
   if (tmpl.trim) p += TRIMS[tmpl.trim]?.price ?? 0;
   if (tmpl.nick) p += NICKS[tmpl.nick]?.price ?? 0;

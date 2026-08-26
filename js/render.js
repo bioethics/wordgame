@@ -21,6 +21,7 @@ import { computeScore } from './scoring.js';
 import { marketSnapshot, patronRefund } from './market.js';
 import { chamberSnapshot } from './chamber.js';
 import { colophonSnapshot } from './colophon.js';
+import { blackMarketSnapshot } from './blackmarket.js';
 import { setNum, sleep, fmtMult, readingTime } from './anim.js';
 
 const $ = id => document.getElementById(id);
@@ -417,7 +418,8 @@ export function persist() {
   saveState(
     state.inChamber  ? { _chamber: chamberSnapshot() } :
     state.inMarket  ? { _market: marketSnapshot() } :
-    state.inColophon ? { _colophon: colophonSnapshot() } : {}
+    state.inColophon ? { _colophon: colophonSnapshot() } :
+    state.inBlackMarket ? { _blackmarket: blackMarketSnapshot() } : {}
   );
 }
 
@@ -1071,7 +1073,8 @@ export const readoutEls = () => ({
 // ─── Buttons ──────────────────────────────────────────────────────────────────
 
 export function renderButtons() {
-  const blocked = state.inMarket || state.inChamber || state.inColophon || state.isAnimating || state.gameOver;
+  const blocked = state.inMarket || state.inChamber || state.inColophon || state.inBlackMarket
+                || state.isAnimating || state.gameOver;
   const sel = selectedCount();
 
   setDisabled('btnPrint',    !state.word.length || blocked);

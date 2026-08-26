@@ -822,6 +822,69 @@ export const MAX_UPGRADE_REPEATS = 2;
 // out on its own if the whole pool is ever exhausted (endless mode only).
 export const SKIP_COIN_GRANT = 2;
 
+// ─── The Black Market ─────────────────────────────────────────────────────────
+// A Colophon pick rather than an upgrade: take it and a door opens in the alley
+// behind the fair, once, before the ordinary Market. It is the ONE pick with no
+// repeat cap (see eligibleIds in js/colophon.js) — the alley is always there, and
+// what it is worth on any given chapter is whatever is in your purse.
+//
+// Its whole reason to exist is stock nothing else sells:
+//   · tiles cast in the rare materials, CHOSEN rather than gambled for — a
+//     wrapped tile rolls one of four blind, and this lays them out on a table;
+//   · punctuation, which otherwise comes only wrapped;
+//   · rare patrons, four of them, with none of the commons crowding the list;
+//   · the four guild tools (the toolbox's own, sold nowhere) and the four
+//     registers' parcels, which are otherwise a patron's gift and no one's stock.
+// Everything carries the alley's markup. Nothing here is a bargain; it is a
+// shortcut, and the price of a shortcut is the price.
+//
+// Placed this far down the file because it names MATERIALS and PACKAGES above:
+// constants.js is a leaf module read top to bottom, so a table quoting another
+// has to stand after it.
+export const BLACK_TILE_OFFERS   = 16;
+export const BLACK_PATRON_OFFERS = 4;
+export const BLACK_SUNDRY_OFFERS = 4;
+
+// One to two tiles in each rare material every visit, and what the alley asks on
+// top of the tile's own worth. Priced by what the metal is worth to a press:
+// rainbow reads as every colour at once and costs the most; hellbox iron is a
+// liability as much as a tile (it cannot be discarded) and is nearly given away.
+// `blind` is not stocked — The Silent Knight strikes it and no one sells it, and
+// it carries no effect to sell.
+export const BLACK_MATERIAL_STOCK = {
+  rainbow: { max: 2, price: 13 },
+  ghost:   { max: 2, price: 11 },
+  rose:    { max: 2, price: 9 },
+  cursed:  { max: 2, price: 5 },
+};
+
+// Punctuation, in lead under a purple trim — the same tile a wrapper holds, and
+// the only other door to one.
+export const BLACK_MARK_PRICE = 7;
+
+// What the alley adds to an ordinary tile's list price, and to a patron's fee.
+// The patron markup rides on the seat's own data, so a dismissal pays back half
+// of what you ACTUALLY paid (patronRefund) rather than half of the list.
+export const BLACK_TILE_SURCHARGE  = 2;
+export const BLACK_PATRON_MARKUP   = 4;
+// Ordinary black-market stock is never plainly dressed: two features minimum.
+export const BLACK_TILE_FEATURES   = 2;
+
+// The sundry counter. Four are laid out per visit, drawn from things the Market
+// itself never stocks: the four guild tools (TOOLBOX_POOL's own, minus the
+// ratchet, which the Market does sell), the two applicators, the love potion,
+// and the four registers' parcels.
+export const BLACK_SUNDRY_STOCK = [
+  { kind: 'loupe',  price: 6 },
+  { kind: 'laurel', price: 6 },
+  { kind: 'tongs',  price: 4 },
+  { kind: 'wash',   price: 4 },
+  { kind: 'potion', price: 12 },
+  { kind: 'applicator', material: 'rainbow', price: 10 },
+  { kind: 'applicator', material: 'cursed',  price: 5 },
+  ...Object.keys(PACKAGES).map(theme => ({ kind: 'package', theme, price: 7 })),
+];
+
 // ─── Patron reactions (flavour only) ──────────────────────────────────────────
 // Odds a seated patron pops a speech bubble after a word, scored against THE
 // WHOLE PAGE'S QUOTA rather than a page-fifth of it: ratio = word total ÷ quota.

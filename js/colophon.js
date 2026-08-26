@@ -15,7 +15,9 @@ const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 function eligibleIds() {
   const noPaintLeft = !unpaintedTiles().length;
   return UPGRADE_DEFS
-    .filter(d => (state.upgradeCounts?.[d.id] ?? 0) < MAX_UPGRADE_REPEATS)
+    // `endless` picks ignore the repeat cap — the Black Market is a door, not a
+    // bonus, and the alley is open however many times you have been down it.
+    .filter(d => d.endless || (state.upgradeCounts?.[d.id] ?? 0) < MAX_UPGRADE_REPEATS)
     .filter(d => !(d.kind === 'paint' && noPaintLeft))
     .map(d => d.id);
 }

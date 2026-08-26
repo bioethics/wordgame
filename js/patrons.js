@@ -1805,14 +1805,19 @@ export const rollPostnom = () =>
     : null);
 
 // What a card costs today — the card's price, plus the surcharge a lettered one
-// asks, plus the day's haggle (rollHaggle in constants.js). Read live from the
-// offer rather than baked in, the way tile prices are. A patron the card prices
-// at NOTHING stays at nothing: the cat is found, not bought. Everyone else asks
-// at least a Coin however the haggle went.
+// asks, plus the day's haggle (rollHaggle in constants.js), plus whatever the
+// seller adds on their own account (`markup` — the Black Market's, and the only
+// one so far). Read live from the offer rather than baked in, the way tile
+// prices are. A patron the card prices at NOTHING stays at nothing: the cat is
+// found, not bought. Everyone else asks at least a Coin however the haggle went.
+//
+// The markup rides on the seat's `data` and so travels with the seat, which is
+// what makes patronRefund pay back half of what you ACTUALLY paid rather than
+// half of a list price you never saw.
 export const patronCost = (def, data) => {
   const base = def?.cost ?? 0;
   if (!base) return 0;
-  const asked = base + (data?.haggle ?? 0)
+  const asked = base + (data?.haggle ?? 0) + (data?.markup ?? 0)
               + (data?.postnom ? POSTNOM.surcharge : 0)
               + (data?.ghost   ? GHOST_HIRE.surcharge : 0);
   return Math.max(1, asked);
