@@ -301,6 +301,9 @@ export function computeScore(wordTiles) {
     tileSteps.push({
       id: t.id, points, coins: stepCoins, refresh: stepRefresh,
       returns: returnsToBag(t),
+      // What the tile is cast from, so the strike can SOUND like it (sfx.tick
+      // in anim.js gives each metal its own body under the scoring note).
+      material: t.material ?? null,
     });
   });
 

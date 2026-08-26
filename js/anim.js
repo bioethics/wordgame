@@ -386,10 +386,42 @@ const TICK_SCALE = [523, 587, 659, 784, 880, 1047, 1175, 1319, 1568, 1760, 2093,
 // bell higher up a major arpeggio.
 const CHIME_STEPS = [1, 1.25, 1.5, 2, 2.5, 3];
 
+// ─── The metals' bodies ───────────────────────────────────────────────────────
+// Each metal strikes with its own body; the scoring note always rides on top,
+// so the climb up the scale survives whatever the tile is cast from. Lead is
+// the standing clack and needs no entry. Auditioned on the Sound Specimen
+// sheet; these are the picks.
+const MATERIAL_BODY = {
+  // Glass — thin, high and cold; barely there. Weightless, like the tile.
+  ghost() {
+    blip(2093, { time: 0.2, type: 'sine', gain: 0.07 });
+    blip(3136, { time: 0.16, type: 'sine', gain: 0.04, when: 0.015 });
+    grit({ time: 0.02, gain: 0.06, band: 6000, q: 1 });
+  },
+  // Prism — the clack, then the light splitting upward.
+  rainbow() {
+    clack(190, { gain: 0.9 });
+    [1047, 1319, 1568].forEach((f, k) =>
+      blip(f, { time: 0.12, type: 'sine', gain: 0.07, when: 0.02 + k * 0.035 }));
+  },
+  // Bloom — a soft strike that opens rather than snaps.
+  rose() {
+    knock(210, { time: 0.12, gain: 0.24, type: 'sine', drop: 0.55 });
+    blip(660, { time: 0.26, type: 'sine', gain: 0.07, when: 0.01 });
+    blip(990, { time: 0.2, type: 'sine', gain: 0.035, when: 0.03 });
+  },
+  // Felt — pressed into something soft; the quietest sort in the case.
+  blind() {
+    knock(120, { time: 0.09, gain: 0.26, type: 'sine', drop: 0.38 });
+    grit({ time: 0.05, gain: 0.16, low: 380, attack: 0.006 });
+  },
+};
+
 export const sfx = {
   // Each tile pays: type pressed onto the page, a note higher up the scale.
-  tick(i = 0) {
-    clack(190);
+  // The body of the strike is the tile's metal; the note is always the scale's.
+  tick(i = 0, material = null) {
+    (MATERIAL_BODY[material] ?? (() => clack(190)))();
     blip(TICK_SCALE[Math.min(i, TICK_SCALE.length - 1)], { time: 0.09, type: 'triangle', gain: 0.12 });
   },
   // A ×Mult engages: the old low growl, under a ratchet-arm knock for teeth.

@@ -904,7 +904,7 @@ async function submitWord() {
       if (step.returns) { floatText(el, '↩ to bag', 'fl-return', { dy: -88 }); }
       if (step.coins)   { floatText(el, `+${coinHTML(step.coins)}`, 'fl-coin', { dy: -70 }); sfx.coin(); }
     }
-    sfx.tick(i++);
+    sfx.tick(i++, step.material);
     pointsSoFar += step.points;
     tweenNum(ro.points, pointsSoFar);
     await sleep(ANIM.stepTile);
