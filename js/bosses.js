@@ -16,7 +16,7 @@
 //                            pure and must not write to `data`. `preTotal` is
 //                            the total BEFORE the spike.
 //   mood(data)             — ×Mult applied to EVERY word (the Reviewer)
-//   onPrinted(data, script, letters)
+//   onPrinted(data, script, letters, state)
 //                          — advance the editor's memory after a word commits
 //   gift: true             — an ephemeral tile of data.letter as the page is
 //                            dealt (the Enthusiast)
@@ -278,7 +278,76 @@ export const BOSS_DEFS = [
     desc: 'Idle type is dead capital. For every word you set, one sort you left in the case goes to the melting pot — for good.',
     eatsSpare: true,
   },
+  {
+    // Every word, another editor's face. Only the borrowable ones: a judge() is
+    // by construction a per-word test — pure, handed the word, run on every
+    // keystroke — where every other hook rebuilds the PAGE and physically
+    // cannot change between words. So the lent tiles, the wrapped case, the
+    // hand size, the halved quota and the Bribrarian's standing cut are all out;
+    // what is left is nine rules that can be asked of one word and answered by
+    // it. See JANUS_FACES.
+    //
+    // The face is rolled BEFORE the word, never after, and the bar names it —
+    // an editor you cannot see coming is a gotcha, not a rule.
+    //
+    // He is deliberately NOT on the conflict list. The bar there is a whole page
+    // of exact inversion turning a bought seat into a machine for losing score;
+    // one word in nine wearing the Minimalist's face is just awkward for that
+    // build, and that is the game.
+    id: 'janussian', name: 'The Janussian Typist', emoji: '\ud83c\udfad',
+    desc: 'I contain a whole masthead. Every word is read by a different editor — whose face I am wearing is on the bar before you set it.',
+    setup: (data, state) => { rollFace(data, state); },
+    demand: (data) => {
+      const face = faceOf(data);
+      if (!face) return null;
+      const line = face.demand?.(faceView(data)) ?? face.desc;
+      return `Wearing ${face.name} \u2014 ${line}`;
+    },
+    judge: (letters, tiles, data, preTotal) =>
+      faceOf(data)?.judge?.(letters, tiles, faceView(data), preTotal) ?? null,
+    // Every memory is kept, whichever face was worn, so a face that reads the
+    // page's history always has one to read. The Serialist wants the last
+    // LETTER and the Indexer the last WORD — both call it `last`, so they are
+    // held apart here and projected back by faceView.
+    onPrinted: (data, script, letters, state) => {
+      data.lastLetter = letters[letters.length - 1];
+      data.lastWord   = letters;
+      data.bar        = script.total;
+      rollFace(data, state);
+    },
+  },
 ];
+
+// The editors the Typist can wear. Everything here has a judge(); nothing here
+// needs the page rebuilt around it.
+export const JANUS_FACES = [
+  'padder', 'populist', 'obscurantist', 'minimalist', 'columnist',
+  'serialist', 'indexer', 'escalationist', 'enthusiast',
+];
+
+const faceOf = data => (data?.face ? BOSS_DEFS.find(b => b.id === data.face) : null);
+
+// The shape the worn face expects, built fresh each call so judge() stays pure.
+// `last` is the one key two faces claim for different things.
+const faceView = data => ({
+  required: data.required,
+  letter:   data.letter,
+  bar:      data.bar,
+  last:     data.face === 'indexer' ? data.lastWord : data.lastLetter,
+});
+
+// A new face, never the same one twice running, with whatever that face needs
+// rolled alongside it — the Columnist's measure, the Enthusiast's letter.
+function rollFace(data, state) {
+  const pool = JANUS_FACES.filter(id => id !== data.face);
+  data.face = pool[Math.floor(Math.random() * pool.length)];
+  if (data.face === 'columnist') rollColumn(data);
+  if (data.face === 'enthusiast') {
+    const singles = (state?.collection ?? []).filter(t => /^[A-Z]$/.test(t.letter));
+    data.letter = singles.length
+      ? singles[Math.floor(Math.random() * singles.length)].letter : 'E';
+  }
+}
 
 export const bossById = id => BOSS_DEFS.find(b => b.id === id);
 
@@ -325,7 +394,7 @@ export function bossOnPrinted(state, script, letters) {
   const def = bossById(state.boss.id);
   const data = (state.boss.data ??= {});
   (data.verdicts ??= []).push(script.spiked ? 'spiked' : 'passed');
-  def?.onPrinted?.(data, script, letters);
+  def?.onPrinted?.(data, script, letters, state);
 }
 
 // Tiles the seated editor puts in your hand, on every refill — as the page is
