@@ -415,6 +415,11 @@ const MATERIAL_BODY = {
     knock(120, { time: 0.09, gain: 0.26, type: 'sine', drop: 0.38 });
     grit({ time: 0.05, gain: 0.16, low: 380, attack: 0.006 });
   },
+  // Shadow — the clack, answered a beat later from somewhere below.
+  cursed() {
+    clack(190, { gain: 0.9 });
+    clack(95, { when: 0.13, gain: 0.35, snap: 900 });
+  },
 };
 
 export const sfx = {
@@ -444,15 +449,23 @@ export const sfx = {
     blip(root * 1.5, { time: 0.2, type: 'sine', gain: 0.07, when: 0.05 });
     blip(root * 2.76, { time: 0.1, type: 'sine', gain: 0.03, when: 0.01 });
   },
-  // Coin: brass dropped on the counter, twice, the second bounce higher.
-  coin() {
-    const chink = (when, up) => {
-      grit({ time: 0.02, gain: 0.12, band: 5000, q: 0.8, when });
-      blip(2093 * up, { time: 0.07, type: 'sine', gain: 0.12, when });
-      blip(3136 * up, { time: 0.1, type: 'sine', gain: 0.08, when: when + 0.01 });
-    };
-    chink(0, 1);
-    chink(0.06, 1.19);
+  // Coin, tuned: the chink rings the SAME note the scale just played, an
+  // octave and a twelfth up — a harmonic of the climb, so it can never clash
+  // with it. `i` is the scale step just paid; passed at the one call site that
+  // knows it (the tile loop in main.js), defaulted elsewhere to a mid climb.
+  coin(i = 3) {
+    const f = TICK_SCALE[Math.min(i, TICK_SCALE.length - 1)];
+    grit({ time: 0.015, gain: 0.1, band: 5600, q: 0.9 });
+    blip(f * 2, { time: 0.05, type: 'sine', gain: 0.1 });
+    blip(f * 3, { time: 0.07, type: 'sine', gain: 0.05, when: 0.008 });
+  },
+  // Good news that isn't money: a discard refunded, a tile back to the bag, a
+  // patron crowned. Two soft notes stepping up, G to C — the smallest
+  // possible yes, and never mistaken for the coin's own chink.
+  gain() {
+    blip(784, { time: 0.09, type: 'sine', gain: 0.08 });
+    blip(1047, { time: 0.14, type: 'sine', gain: 0.08, when: 0.06 });
+    grit({ time: 0.015, gain: 0.05, band: 3600, q: 1 });
   },
   // The press winds up under the counting readout… (ms matches the tween)
   crank(ms = 480) {

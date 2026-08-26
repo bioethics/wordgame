@@ -345,6 +345,7 @@ async function roseCrowns(printed) {
       sparkleBurst(card, 9);
       floatText(card, `🏵️ +${HONORIFIC_STEP}`, 'fl-points', { dy: -44 });
     }
+    sfx.gain();
     log(`🎀 ${getActiveLetter(tile)} was struck in rose metal — ${patronName(def, seat.data)} is crowned, `
       + `+${seat.data.honorifics * HONORIFIC_STEP} Points on every word.`, 'good');
   }
@@ -900,9 +901,9 @@ async function submitWord() {
     if (el) {
       pulse(el, 'tile--scoring', 360);
       floatText(el, `+${step.points}`, 'fl-points');
-      if (step.refresh) { floatText(el, '↻ Discard', 'fl-refresh', { dy: -70 }); }
-      if (step.returns) { floatText(el, '↩ to bag', 'fl-return', { dy: -88 }); }
-      if (step.coins)   { floatText(el, `+${coinHTML(step.coins)}`, 'fl-coin', { dy: -70 }); sfx.coin(); }
+      if (step.refresh) { floatText(el, '↻ Discard', 'fl-refresh', { dy: -70 }); sfx.gain(); }
+      if (step.returns) { floatText(el, '↩ to bag', 'fl-return', { dy: -88 }); sfx.gain(); }
+      if (step.coins)   { floatText(el, `+${coinHTML(step.coins)}`, 'fl-coin', { dy: -70 }); sfx.coin(i); }
     }
     sfx.tick(i++, step.material);
     pointsSoFar += step.points;
