@@ -1,15 +1,15 @@
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, PURPLE_TRIM_STEP, REWARD, CURSED_MULT,
-  CURSED_PENALTY, SPIKE_MULT, SILVER_BONUS, isDeadline, splitMarks,
+  CURSED_PENALTY, SPIKE_MULT, SILVER_BONUS, isDeadline, splitMarks, isRule, BOLD_MULT,
   HONORIFIC_STEP, FLEURON, FLEURON_PAGE_COIN, lengthMult, POSTNOM,
 } from './constants.js';
 import {
-  PATRON_DEFS, patronById, guildsOf, guildSeats, resolveMedieval,
+  PATRON_DEFS, patronById, guildsOf, guildSeats, resolveMedieval, hasSilence,
 } from './patrons.js';
 import { bossById } from './bosses.js';
 import {
   state, owns, allSeats, getActiveLetter, getActiveColour, getActiveGrowth,
-  returnsToBag, isWrapped,
+  returnsToBag, isWrapped, spellsOnly,
 } from './state.js';
 
 // ─── Score a word ─────────────────────────────────────────────────────────────
@@ -18,13 +18,26 @@ import {
 // "script" of every step, so the UI can replay the score tile by tile:
 //
 // {
-//   word, letters, points, mult, total, coins, refresh, spiked
+//   word, letters, points, mult, total, coins, refresh, spiked, plainTotal, adjusted, bold
+//     — `plainTotal` is what the word was worth before the Deadline's editor
+//       touched it (its temper, its spike), and `adjusted` says the two differ;
+//       the readout strikes the first through and writes the second beside it.
 //     — `word` is what PRINTS (glyphs and marks); `letters` is what the table
 //       READ (medieval sorts resolved, marks stripped), which is what the
 //       patrons, the editors and the measure all judged.
 //   tileSteps:      [{ id, points, coins, refresh, returns }] — one per tile, in order
 //   tilePaintSteps: [{ id, uid, emoji, text, hits: [{ id, colour }] }]
 //   tilePaint:      Map(id → colour) — the same paint, for the live preview
+//   twinSteps:      [{ id, uid, emoji, hits: [{ kind, id, fromId, at, mould, changed, grew }] }]
+//                     — The Twins' recasting: 'clone' rewrites the tile at `id`,
+//                     'summon' adds one the word never had. `mould` is what the
+//                     seat lays into the collection for good; `changed` is false
+//                     for a recasting that alters nothing to look at.
+//   twinCloned:     Map(id → tile) — what a recast tile now reads as (preview)
+//   twinSummons:    [{ at, tile }] — tiles struck into the word, by place (preview)
+//   twinPairMarks:  Map(id → 'open' | 'close' | 'both') — which tiles stand in a
+//                     doubled pair, and which end of it, so the groove can bracket
+//                     them while the word is still being composed
 //   tileBoostSteps: [{ id, uid, emoji, points, hits: [{ id, delta }] }]
 //   tileGrowth:     Set(id) — tiles whose boost is permanent growth
 //   nickSteps:      [{ sourceId, kind, mult, hits: [{ id, delta }] }]
@@ -45,8 +58,169 @@ import {
 const primedLabel = source =>
   (source === 'tongs' ? "the tongs' due" : patronById(source)?.name ?? 'primed');
 
+// ─── The Twins' recasting (scoring's pass ⅓) ──────────────────────────────────
+// The second tile of a pair is struck again from the first, and it is a CLONE:
+// paint, trim, nick, metal, grown Points and both faces of a dual, all of it,
+// overwriting whatever the second tile was wearing. Nothing survives but its
+// identity — its id, so every Map and element already keyed to it still finds
+// it, and its place in the word. Which means the pair can be set the wrong way
+// round and cost you the better tile: the groove marks every pair it reads
+// (twinPairMarks below) so the warning is on the board while you compose, and
+// which tile is the mould is which one you set FIRST.
+//
+// MOULD is what one tile hands another. Everything else on a tile is either its
+// identity or a thing of the moment: `selected` is a pointer's business, `wash`
+// comes off both tiles when the word is done (washOff), and `ephemeral`,
+// `aboveHand` and `lender` say whose tile it is rather than what it is.
+const MOULD = [
+  'letter', 'altLetter', 'letterType', 'activeVariant',
+  'colour', 'trim', 'nick', 'material', 'bonusPoints', 'altBonusPoints',
+];
+
+// The clone as it stands for THIS word, and the mould the seat lays into the
+// collection when the word prints. The reading takes the wash as well, since a
+// coat of wash reads as paint for as long as the word lasts; the mould does not,
+// because by the next word neither tile has it.
+function recastPair(first, second) {
+  const mould = Object.fromEntries(MOULD.map(k => [k, first[k] ?? null]));
+  // A forgery struck again from real type PASSES, for the length of one word:
+  // the copy is a genuine tile in every way the count OR THE EYE can see, so it
+  // pays the mould's Points, lifts its colours, and sits in the groove wearing
+  // cast metal rather than bank-note stock. That is what a counterfeit sort is
+  // for, and the whole of what it can ever buy — the tile itself is untouched,
+  // so isImmutable refuses to keep any of it and the page takes it back.
+  // (The Redactor's paper is never recast at all; see applyTwins.)
+  const tile = { ...second, ...mould, wash: first.wash ?? null,
+                 basePoints: first.basePoints,
+                 counterfeit: false, ephemeral: false, lender: null };
+  const changed = MOULD.some(k => (first[k] ?? null) !== (second[k] ?? null))
+               || (first.wash ?? null) !== (second.wash ?? null)
+               || !!second.counterfeit;
+  return { tile, mould, changed };
+}
+
+// Apply every seated tileTwin seat to a COPY of the word, in seat order. Returns
+// the twinned word, the steps to replay it with, and — for the live preview —
+// which tiles now read as something else and which were never there at all.
+//
+// A wrapped tile is neither copied nor copied onto: the paper is over it, and
+// The Redactor's whole point is that you work around what it hides. Such a pair
+// is still paid; it simply isn't recast.
+function applyTwins(tiles) {
+  const steps = [];
+  const cloned  = new Map();   // tile id → what it now reads as
+  const summons = [];          // [{ at, tile }] — tiles the word did not have
+  const marks   = new Map();   // tile id → 'open' | 'close' | 'both'
+
+  // Every pair the seat READS is marked, whether or not it can be recast: the
+  // mark is a warning as much as a promise (a recasting overwrites the second
+  // tile outright), and a pair that only pays its Points is still a pair.
+  const mark = (tile, side) =>
+    marks.set(tile.id, marks.get(tile.id) === (side === 'open' ? 'close' : 'open')
+      ? 'both' : (marks.get(tile.id) ?? side));
+
+  for (const p of allSeats()) {
+    const def = patronById(p.id);
+    if (!def?.tileTwin) continue;
+    const pairs = def.tileTwin(tiles) ?? [];
+    for (const q of pairs) {
+      if (q.kind === 'summon') { mark(q.first, 'open'); continue; }
+      if (q.first === q.second) { marks.set(q.first.id, 'both'); continue; }
+      mark(q.first, 'open');
+      mark(q.second, 'close');
+    }
+
+    // A forgery is not a mould. It can be struck FROM real type — which is most
+    // of what a counterfeit sort is for, since for the length of a word it then
+    // reads as the tile beside it — but nothing is struck from a fake, or a free
+    // tile laid down carelessly would strip the good one behind it for good.
+    const recasts = pairs.filter(q =>
+      q.kind === 'clone' && !spellsOnly(q.first) && !isWrapped(q.second));
+    // Struck back-to-front, so an earlier insertion can't shift a later one's
+    // place. (Only one licence is ever read per word, but the order is free.)
+    const struck = pairs.filter(q => q.kind === 'summon' && !spellsOnly(q.first))
+                        .sort((a, b) => b.at - a.at);
+    if (!recasts.length && !struck.length) continue;
+
+    const hits = [];
+    let next = [...tiles];
+    for (const q of recasts) {
+      const { tile: twin, mould, changed } = recastPair(q.first, q.second);
+      next = next.map(t => (t.id === q.second.id ? twin : t));
+      // Only a recasting that alters something goes to the preview: one that
+      // doesn't would render the tile exactly as it already is.
+      if (changed) cloned.set(q.second.id, twin);
+      // `mould` is what the seat lays into the collection when the word prints —
+      // recorded here so the permanent change is exactly the one the player was
+      // shown, rather than worked out a second time against a tile some other
+      // seat may have painted in the meantime.
+      hits.push({ kind: 'clone', id: q.second.id, fromId: q.first.id, mould, changed,
+                  grew: getActiveGrowth(twin) > getActiveGrowth(q.second) });
+    }
+    for (const q of struck) {
+      // Cast from the tile it doubles — its trim, nick, metal and paint — but
+      // showing only the LETTER that was doubled, which is not always the whole
+      // of that tile: a licence read onto the L of an AL ligature strikes a bare
+      // L, or the word would come out BALALOON. A single face, always: there is
+      // no second side to a letter that was never in the bag.
+      const twin = {
+        ...q.first, id: `twin-${q.first.id}`, summoned: true,
+        letter: q.ch, altLetter: null, letterType: 'normal', activeVariant: 0,
+        altBonusPoints: 0, basePoints: TILE_POINTS[q.ch] ?? 1,
+        selected: false, ephemeral: false, aboveHand: false, lender: null,
+      };
+      next.splice(q.at, 0, twin);
+      summons.push({ at: q.at, tile: twin });
+      hits.push({ kind: 'summon', id: twin.id, fromId: q.first.id, at: q.at, changed: true });
+    }
+    tiles = next;
+    steps.push({ id: p.id, uid: p.uid, emoji: def.emoji, hits });
+  }
+  summons.sort((a, b) => a.at - b.at);
+  // The letter a licence strikes closes the pair its source opened.
+  for (const su of summons) marks.set(su.tile.id, 'close');
+  return { tiles, steps, cloned, summons, marks };
+}
+
 export function computeScore(wordTiles) {
   if (!wordTiles?.length) return null;
+
+  // ── Pass 0: the wrapper ────────────────────────────────────────────────────
+  // A tile The Redactor has wrapped (js/bosses.js) keeps its letter and loses
+  // everything else — on a copy, since scoring never mutates. Face value is
+  // looked up from the letter, not the tile, so pass 1 zeroes it separately.
+  // `wrapped` rides along, keeping getActiveGrowth and isImmutable correct.
+  // First of all, so that everything below — The Twins included — sees the
+  // paper rather than what is under it.
+  if (wordTiles.some(spellsOnly)) {
+    wordTiles = wordTiles.map(t => (spellsOnly(t)
+      ? { ...t, colour: null, wash: null, trim: null, nick: null, material: null }
+      : t));
+  }
+
+  // ── Pass ¼: the rules come off the copy ────────────────────────────────────
+  // A pair of rules brackets the word and sets it BOLD. They are marks on the
+  // copy rather than sorts in it, so they are lifted out HERE, before anything
+  // reads the word: nothing below sees them, nothing counts them, and the
+  // measure never gives them a letter. Only the flag survives.
+  //
+  // Bracketing means exactly that — one at each end and nowhere else. A rule
+  // anywhere in the middle, or one without its pair, is refused at the print
+  // (submitWord in js/main.js), so by the time a word reaches here it is either
+  // properly bracketed or carries no rules at all.
+  const ruled = wordTiles.filter(t => isRule(getActiveLetter(t)));
+  const bold  = ruled.length === 2
+             && isRule(getActiveLetter(wordTiles[0]))
+             && isRule(getActiveLetter(wordTiles[wordTiles.length - 1]));
+  if (ruled.length) wordTiles = wordTiles.filter(t => !isRule(getActiveLetter(t)));
+
+  // ── Pass ⅓: The Twins ──────────────────────────────────────────────────────
+  // Before the word is so much as READ. A doubled letter means two of the same
+  // tile, so the second is recast as the first — and a double the word is
+  // missing outright is struck and joins it. From here down `wordTiles` IS the
+  // twinned word: what prints, what the measure counts, what every seat reads.
+  const twin = applyTwins(wordTiles);
+  wordTiles = twin.tiles;
 
   // `word` is what gets printed, marks and all; patrons are handed the letters
   // alone, so a trailing mark can't make a 3-letter word read as four.
@@ -57,17 +231,6 @@ export function computeScore(wordTiles) {
   // preview can't promise a reading the print then refuses.
   const letters = resolveMedieval(splitMarks(word)?.letters ?? word);
   const n = wordTiles.length;
-
-  // ── Pass 0: the wrapper ────────────────────────────────────────────────────
-  // A tile The Redactor has wrapped (js/bosses.js) keeps its letter and loses
-  // everything else — on a copy, since scoring never mutates. Face value is
-  // looked up from the letter, not the tile, so pass 1 zeroes it separately.
-  // `wrapped` rides along, keeping getActiveGrowth and isImmutable correct.
-  if (wordTiles.some(isWrapped)) {
-    wordTiles = wordTiles.map(t => (isWrapped(t)
-      ? { ...t, colour: null, wash: null, trim: null, nick: null, material: null }
-      : t));
-  }
 
   // ── Pass ½: the brush, before a single thing is counted ────────────────────
   // Patrons who PAINT a tile rather than pay it go first of all, because paint
@@ -119,10 +282,12 @@ export function computeScore(wordTiles) {
 
   wordTiles.forEach((t, i) => {
     // Zeroed here because pass 0's stripping can't reach the face value.
-    const face  = isWrapped(t) ? 0 : TILE_POINTS[getActiveLetter(t)] ?? t.basePoints ?? 1;
+    const face  = spellsOnly(t) ? 0 : TILE_POINTS[getActiveLetter(t)] ?? t.basePoints ?? 1;
     const grown = getActiveGrowth(t);   // growth follows the showing face
     let points = face + grown;
-    noteMap[i].push(isWrapped(t) ? 'in manuscript — no Points' : `base ${face}`);
+    noteMap[i].push(isWrapped(t) ? 'in manuscript — no Points'
+                  : t.counterfeit ? 'counterfeit — no Points'
+                  : `base ${face}`);
     if (grown) noteMap[i].push(`grown +${grown}`);
 
     if (t.trim === 'silver') { points += SILVER_BONUS; noteMap[i].push(`Silver +${SILVER_BONUS}`); }
@@ -136,6 +301,9 @@ export function computeScore(wordTiles) {
     tileSteps.push({
       id: t.id, points, coins: stepCoins, refresh: stepRefresh,
       returns: returnsToBag(t),
+      // What the tile is cast from, so the strike can SOUND like it (sfx.tick
+      // in anim.js gives each metal its own body under the scoring note).
+      material: t.material ?? null,
     });
   });
 
@@ -263,6 +431,17 @@ export function computeScore(wordTiles) {
       count: letters.length, mult: measure,
     });
     mult *= measure;
+  }
+
+  // Set bold, and the whole word is worth that much more. It rides the colour
+  // steps like the measure does, so it has a chip of its own in the readout and
+  // multiplies WITH the colours rather than queueing behind the patrons.
+  if (bold) {
+    colourSteps.push({
+      colour: 'bold', ids: wordTiles.map(t => t.id),
+      count: letters.length, mult: BOLD_MULT,
+    });
+    mult *= BOLD_MULT;
   }
 
   for (const colour of Object.keys(COLOURS)) {
@@ -411,6 +590,11 @@ export function computeScore(wordTiles) {
   // or not; then the seated editor judges, and a break is spiked at ×SPIKE_MULT
   // as a visible step, so preview and print agree. judge() gets the PRE-spike
   // total, so the Escalationist's bar measures what a word was really worth.
+  //
+  // What the word was worth BEFORE the desk touched it is kept: the readout
+  // strikes that figure through and writes the editor's beside it, so a spike
+  // (or a temper) is read as a thing done TO a score rather than as the score.
+  const plainMult = mult;
   let spiked = false;
   if (state.boss) {
     const def = bossById(state.boss.id);
@@ -423,7 +607,20 @@ export function computeScore(wordTiles) {
       });
     }
     const preTotal = Math.max(0, Math.round(points * mult));
-    const reason = def?.judge?.(letters, wordTiles, data, preTotal);
+    // The Silent Knight's whole argument: a letter that is written and not
+    // spoken is a letter no editor hears, and a word carrying one is read past
+    // rather than read. Asked BEFORE the judge, so a seat at the table is the
+    // difference between a spike and a shrug — and asked of the same word the
+    // dictionary saw, marks and medieval readings already resolved.
+    const unheard = owns('silentknight') && hasSilence(letters);
+    if (unheard) {
+      patronSteps.push({
+        id: 'silentknight',
+        text: `The ${def.name.replace(/^The /, '')} never heard it — a silent letter`,
+        unheard: true,
+      });
+    }
+    const reason = unheard ? null : def?.judge?.(letters, wordTiles, data, preTotal);
     if (reason) {
       spiked = true;
       mult *= SPIKE_MULT;
@@ -437,7 +634,16 @@ export function computeScore(wordTiles) {
 
   // Floored at nothing: only a curse left in hand can drive Points below zero,
   // and a negative word would eat the page you'd already built.
-  const total = Math.max(0, Math.round(points * mult));
+  const total      = Math.max(0, Math.round(points * mult));
+  const plainTotal = Math.max(0, Math.round(points * plainMult));
+  const adjusted   = plainTotal !== total;
+
+  // Points the Twins raised are kept for good, so the groove writes them in jade
+  // rather than boost brass — the same mark the trellis seats earn. (The coat
+  // itself needs no such marking: renderWord already draws the recast tile.)
+  for (const step of twin.steps) {
+    for (const hit of step.hits) if (hit.grew) tileGrowth.add(hit.id);
+  }
 
   // ── Per-tile breakdown for tooltips ─────────────────────────────────────────
   const perTile = new Map();
@@ -446,9 +652,11 @@ export function computeScore(wordTiles) {
   });
 
   return {
-    word, letters, points, mult, total, coins, refresh, spiked,
+    word, letters, points, mult, total, coins, refresh, spiked, plainTotal, adjusted, bold,
     tileSteps, tilePaintSteps, tilePaint, tileBoostSteps, tileGrowth, nickSteps, nickAffected,
     colourSteps, patronSteps, perTile,
+    twinSteps: twin.steps, twinCloned: twin.cloned, twinSummons: twin.summons,
+    twinPairMarks: twin.marks,
   };
 }
 

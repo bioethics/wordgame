@@ -49,6 +49,14 @@ if (!dir) throw new Error('no themed lists found in js/themes.js');
 const wordlist = fs.readFileSync(path.join(root, dir, 'wordlist.txt'), 'utf8');
 themes['excluded-slurs'] = fs.readFileSync(path.join(root, dir, 'excluded-slurs.txt'), 'utf8');
 
+// The dummy letters are a Map, not a Set, so they ride in a global of their own
+// (window.FOLIO_SILENT, read by loadThemes) rather than in FOLIO_THEMES. Without
+// it a bundled build leaves The Silent Knight with nothing to find — the same
+// silent failure the slur list has, and worth the same one line to prevent.
+const silentSrc = themeSrc.match(/SILENT_FILE\s*=\s*'([\w-]+)\/([\w-]+\.txt)'/);
+if (!silentSrc) throw new Error('no SILENT_FILE found in js/themes.js');
+const silent = fs.readFileSync(path.join(root, silentSrc[1], silentSrc[2]), 'utf8');
+
 const index = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const body = index.match(/<body>([\s\S]*)<script type="module"[^>]*><\/script>/)?.[1];
 if (!body) throw new Error('could not extract body markup from index.html');
@@ -66,7 +74,8 @@ ${css}
 </style>
 ${body}
 <script>window.FOLIO_WORDLIST = ${JSON.stringify(wordlist)};
-window.FOLIO_THEMES = ${JSON.stringify(themes)};</script>
+window.FOLIO_THEMES = ${JSON.stringify(themes)};
+window.FOLIO_SILENT = ${JSON.stringify(silent)};</script>
 <script>
 ${js}
 </script>

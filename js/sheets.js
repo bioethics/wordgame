@@ -1,5 +1,5 @@
 // The full-screen sheets — the Market (with its stalls and collection view), the
-// Colophon, and the opening draft: their HTML and click handling. Board-side
+// Colophon, and the Testing Chamber: their HTML and click handling. Board-side
 // rendering is render.js; game flow stays in main.js, injected via initSheets().
 
 import {
@@ -8,10 +8,11 @@ import {
 } from './state.js';
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
-  PAINT_PER_POT, ANIM, SUNDRY_SELL, tileCount, sundryTip, TOOL_LOOK, PACKAGES, APPLICATORS,
-  colourDesc, HONORIFIC_STEP, POSTNOM, GHOST_HIRE,
+  ANIM, SUNDRY_SELL, tileCount, sundryTip, TOOL_LOOK, PACKAGES, APPLICATORS,
+  colourDesc, HONORIFIC_STEP, POSTNOM, GHOST_HIRE, MATERIALS, TILE_POINTS, letterGlyph,
+  BLACK_PATRON_MARKUP,
 } from './constants.js';
-import { patronById, guildsOf, patronName, patronShelf, patronEmoji, patronCost } from './patrons.js';
+import { PATRON_DEFS, patronById, guildsOf, patronName, patronShelf, patronEmoji, patronCost } from './patrons.js';
 import { upgradeById } from './upgrades.js';
 import {
   market, stallById, stallPrice, isProposalStall,
@@ -23,7 +24,22 @@ import {
 import {
   colophon, closeColophon, applyColophonPick, applyColophonSkip, reshuffleColophon,
 } from './colophon.js';
-import { draft, draftLimit, toggleDraftPick } from './draft.js';
+import {
+  blackMarket, closeBlackMarket, buyBlackTile, buyBlackPatron, buyBlackSundry,
+} from './blackmarket.js';
+// Every heading, note and button label on these three sheets is copy, and lives
+// in js/text.js with the rest of the game's writing.
+import {
+  MARKET_TEXT as MT, BLACK_MARKET_TEXT as BT, COLOPHON_TEXT as CT, fillSlots,
+} from './text.js';
+import {
+  chamber, chamberPatrons, CHAMBER_COINS, chamberLetters, CHAMBER_SUNDRIES,
+  CHAMBER_COLOURS, CHAMBER_TRIMS, CHAMBER_NICKS, CHAMBER_MATERIALS,
+  EXPERIMENTS, experimentOn, toggleExperiment,
+  grantCoins, seatPatron, unseatPatron, hauntPatron, addSeats, addBenchSlots,
+  giveSundry, dropSundry, strikeTile, scrapTile, scrapAllTiles,
+  setBuild, freshBuild, buildPoints, canBeDual,
+} from './chamber.js';
 import {
   makeTileEl, coinHTML, log, renderAll, persist, showPatronPopover, openGhosts,
 } from './render.js';
@@ -138,17 +154,19 @@ function rewardHTML() {
   if (!market.rewardParts?.length) return '';
   const rows = market.rewardParts
     .map(p => `<span class="reward-part">${p.label} <b>+${p.coins}</b></span>`).join('');
-  return `<div class="reward-line">${rows}<span class="reward-total">${coinHTML(market.rewardTotal)} earned</span></div>`;
+  return `<div class="reward-line">${rows}<span class="reward-total">${coinHTML(market.rewardTotal)} ${MT.earned}</span></div>`;
 }
 
 // Written on a fresh sheet and on every in-place patch, so they can't drift.
 const seatsLabel = () => {
   const max = effectivePatronSlots();
-  return `${state.patrons.length}/${max} seated${state.patrons.length >= max ? ' — dismiss one to make room' : ''}`;
+  return fillSlots(MT.seated, state.patrons.length, max)
+       + (state.patrons.length >= max ? MT.seatsFull : '');
 };
 const benchLabel = () => {
   const max = effectiveSundrySlots();
-  return `${state.sundries.length}/${max} on the workbench${state.sundries.length >= max ? ' — sell one to make room' : ''}`;
+  return fillSlots(MT.benched, state.sundries.length, max)
+       + (state.sundries.length >= max ? MT.benchFull : '');
 };
 // The short form, for the bench heading's narrow column. The long one above
 // belongs to the Sundries shop column.
@@ -239,7 +257,7 @@ function marketBenchHTML() {
   const full = state.sundries.length >= effectiveSundrySlots();
   return `
     <section class="market-bench${full ? ' market-shelf--wanted' : ''}" data-market-bench-wrap>
-      <h3 class="market-sec">Workbench <span class="market-sub" data-bench-count>${benchCount()}</span></h3>
+      <h3 class="market-sec">${MT.bench} <span class="market-sub" data-bench-count>${benchCount()}</span></h3>
       <div class="sundries sundries--market" data-market-bench
            style="--slot-count:${effectiveSundrySlots()}">${marketBenchSlotsHTML()}</div>
     </section>`;
@@ -258,7 +276,7 @@ function marketShelfHTML() {
   const fullSeats = state.patrons.length >= effectivePatronSlots();
   return `
     <section class="market-shelf${fullSeats ? ' market-shelf--wanted' : ''}" data-market-shelf-wrap>
-      <h3 class="market-sec">Your table <span class="market-sub" data-seats>${seatsLabel()}</span><span class="market-sub market-sub--hint">drag a card to change the running order</span>${marketGhostDoorHTML()}</h3>
+      <h3 class="market-sec">${MT.table} <span class="market-sub" data-seats>${seatsLabel()}</span><span class="market-sub market-sub--hint">${MT.tableHint}</span>${marketGhostDoorHTML()}</h3>
       <div class="shelf shelf--market" data-market-shelf style="--seat-count:${effectivePatronSlots()}">${marketShelfCardsHTML()}</div>
     </section>`;
 }
@@ -296,7 +314,7 @@ function marketShopHTML() {
         <button class="btn-price${haggleClass(def, o.data)}" data-buy-patron="${def.id}"${haggleTip(def, o.data)}>${
           patronCost(def, o.data) === 0 ? 'Free' : coinHTML(patronCost(def, o.data))}</button>
       </div>`;
-  }).join('') || '<p class="sheet-note">No patrons calling today.</p>';
+  }).join('') || `<p class="sheet-note">${MT.noPatrons}</p>`;
 
   // Nothing is summarised under the tile — hover or long-press it.
   const tileCards = market.tileOffers.map((o, i) => {
@@ -366,7 +384,7 @@ function marketShopHTML() {
     <div class="sheet sheet--market${returning}">
       <div class="sheet-head">
         <div>
-          <h2 class="market-title">The Market</h2>
+          <h2 class="market-title">${MT.title}</h2>
           <div class="market-purse"><span class="coin coin--lg"></span><b id="marketCoins">${state.coins}</b></div>
         </div>
         ${rewardHTML()}
@@ -379,45 +397,45 @@ function marketShopHTML() {
 
       <div class="market-grid">
         <section class="market-col">
-          <h3 class="market-sec">Patrons <span class="market-sub">calling today</span></h3>
+          <h3 class="market-sec">${MT.patrons} <span class="market-sub">${MT.patronsSub}</span></h3>
           <div class="offer-list">${patronCards}</div>
         </section>
         <section class="market-col">
-          <h3 class="market-sec">Tiles</h3>
+          <h3 class="market-sec">${MT.tiles}</h3>
           <div class="offer-tiles">${tileCards}</div>
-          <h3 class="market-sec market-sec--paint">Sundries <span class="market-sub" data-bench>${benchLabel()}</span></h3>
+          <h3 class="market-sec market-sec--paint">${MT.sundries} <span class="market-sub" data-bench>${benchLabel()}</span></h3>
           <div class="offer-list">${sundryCards}</div>
         </section>
       </div>
 
       ${owns('composter') ? `
       <section class="market-compost">
-        <h3 class="market-sec">The compost heap <span class="market-sub">${
+        <h3 class="market-sec">${MT.compost} <span class="market-sub">${
           heap.length
             ? compostLeft()
-              ? `take ${compostLeft()} — the rest rots on`
-              : 'nothing more this visit'
-            : 'nothing has rotted down yet'
+              ? fillSlots(MT.compostTake, compostLeft())
+              : MT.compostSpent
+            : MT.compostEmpty
         }</span></h3>
         ${heap.length ? `<div class="offer-tiles offer-tiles--compost">${heapCards}</div>` : ''}
       </section>` : ''}
 
       <section class="market-stalls">
-        <h3 class="market-sec">Stalls <span class="market-sub">prices double with each purchase</span></h3>
+        <h3 class="market-sec">${MT.stalls} <span class="market-sub">${MT.stallsSub}</span></h3>
         <div class="stall-row">${stallCards}</div>
       </section>
 
       <div class="market-foot">
-        <button class="btn btn-quiet" id="btnReroll" title="Re-rolls patrons, tiles, sundries and stalls — the fee doubles each time. A stall you've already paid keeps its raised price this visit.${state.freeRerolls > 0 ? ' The Factor is covering the next ' + (state.freeRerolls > 1 ? state.freeRerolls + ' fees' : 'fee') + '.' : ''}"
+        <button class="btn btn-quiet" id="btnReroll" title="${MT.rerollTip}${state.freeRerolls > 0 ? ' ' + fillSlots(MT.factorTip, state.freeRerolls > 1 ? state.freeRerolls + ' fees' : 'fee') : ''}"
           ${!(state.freeRerolls > 0) && state.coins < market.rerollCost ? 'disabled' : ''}>
-          New offers ${state.freeRerolls > 0 ? `🤝 free · ${state.freeRerolls} left` : coinHTML(market.rerollCost)}
+          ${MT.reroll} ${state.freeRerolls > 0 ? `🤝 free · ${state.freeRerolls} left` : coinHTML(market.rerollCost)}
         </button>
-        ${reshuffles ? `<button class="btn btn-quiet" id="btnMarketReshuffle" title="A free re-roll">
-          ↻ Reshuffle · ${reshuffles} left
+        ${reshuffles ? `<button class="btn btn-quiet" id="btnMarketReshuffle" title="${MT.reshuffleTip}">
+          ${MT.reshuffle} · ${reshuffles} left
         </button>` : ''}
-        <button class="btn btn-quiet" id="btnOpenCollection">Your collection</button>
+        <button class="btn btn-quiet" id="btnOpenCollection">${MT.collection}</button>
         <div class="market-spacer"></div>
-        <button class="btn btn-print" id="btnMarketContinue">Next page ❧</button>
+        <button class="btn btn-print" id="btnMarketContinue">${MT.leave}</button>
       </div>
     </div>`;
 }
@@ -455,7 +473,7 @@ function marketStallHTML() {
     : `<div class="mini-grid mini-grid--case" id="stallGrid"></div>`;
 
   const note = market.activeStall === 'smelter' && state.collection.length <= SMELT_MIN_COLLECTION
-    ? `<p class="sheet-note stall-warn">Your collection is too small to smelt further.</p>`
+    ? `<p class="sheet-note stall-warn">${MT.smeltFloor}</p>`
     : '';
 
   return `
@@ -470,7 +488,7 @@ function marketStallHTML() {
       ${note}
       ${body}
       <div class="market-foot">
-        <button class="btn btn-quiet" id="btnStallBack">← Back to the market</button>
+        <button class="btn btn-quiet" id="btnStallBack">${MT.stallBack}</button>
         <div class="market-spacer"></div>
         <button class="btn ${market.activeStall === 'smelter' ? 'btn-danger' : 'btn-print'}" id="btnStallConfirm" disabled></button>
       </div>
@@ -679,7 +697,7 @@ function marketCollectionHTML() {
       </div>
       <div class="mini-grid mini-grid--case" id="collectionGrid"></div>
       <div class="market-foot">
-        <button class="btn btn-quiet" id="btnCollectionBack">← Back to the market</button>
+        <button class="btn btn-quiet" id="btnCollectionBack">${MT.stallBack}</button>
         <div class="market-spacer"></div>
       </div>
     </div>`;
@@ -716,24 +734,24 @@ export function renderColophon() {
         <div class="colophon-card-name">${def.name}</div>
         <div class="colophon-card-desc">${def.desc}</div>
       </button>`;
-  }).join('') || '<p class="sheet-note">Nothing left to offer — on to the next chapter.</p>';
+  }).join('') || `<p class="sheet-note">${CT.empty}</p>`;
 
   m.innerHTML = `
     <div class="sheet sheet--market sheet--colophon">
       <div class="sheet-head">
         <div>
-          <h2 class="market-title">The Colophon</h2>
-          <p class="sheet-note">Choose one permanent upgrade.</p>
+          <h2 class="market-title">${CT.title}</h2>
+          <p class="sheet-note">${CT.note}</p>
         </div>
       </div>
       <div class="colophon-grid">${cards}</div>
       ${colophon.offers.length ? `
         <div class="market-foot">
-          <button class="btn btn-quiet" id="btnColophonSkip" title="Decline all three">
-            Skip · +${coinHTML(SKIP_COIN_GRANT)}
+          <button class="btn btn-quiet" id="btnColophonSkip" title="${CT.skipTip}">
+            ${CT.skip} · +${coinHTML(SKIP_COIN_GRANT)}
           </button>
-          ${reshuffles ? `<button class="btn btn-quiet" id="btnColophonReshuffle" title="Spend a banked reshuffle for a free re-roll">
-            ↻ Reshuffle · ${reshuffles} left
+          ${reshuffles ? `<button class="btn btn-quiet" id="btnColophonReshuffle" title="${CT.reshuffleTip}">
+            ${CT.reshuffle} · ${reshuffles} left
           </button>` : ''}
           <div class="market-spacer"></div>
         </div>` : ''}
@@ -741,87 +759,577 @@ export function renderColophon() {
   m.classList.add('show');
 }
 
-// ─── Opening draft ────────────────────────────────────────────────────────────
+// ─── The Black Market ─────────────────────────────────────────────────────────
+// The alley behind the fair. Deliberately NOT the Market's sheet with a dark
+// class on it: the stock is laid out on one long table rather than in columns,
+// there is no re-roll, no stalls, no reward line and no purse in gold — the only
+// things carried over are the shelf and workbench strips, because you cannot
+// judge a hire or a tool without seeing what you already hold.
+//
+// State lives in js/blackmarket.js; this is only its face and its buttons.
 
-export function renderDraft() {
-  const m = $('draftModal');
-  if (!m) return;
-  if (!draft.open) { m.classList.remove('show'); m.innerHTML = ''; return; }
+// One line, always drawn — an empty one on ordinary stock — so every card on the
+// table reserves the same caption row and the rows line up whatever is laid out.
+const blackTileNote = offer =>
+  offer.material ? fillSlots(BT.metalNote, MATERIALS[offer.material].metal)
+  : offer.mark   ? BT.markNote
+  :                '';
 
-  const paintCards = draft.paints.map((colour, i) => `
-    <div class="offer-paint pickable" data-draft="paint" data-idx="${i}"
-         data-tip-head="${COLOURS[colour].label} paint"
-         data-tip-body="Paints ${PAINT_PER_POT} unpainted letters ${COLOURS[colour].label}.">
-      <span class="paint-pot paint-pot--${colour}"></span>
-      <div class="op-body">
-        <div class="op-name">${COLOURS[colour].label}</div>
-      </div>
-      <span class="pick-mark">✓</span>
-    </div>`).join('');
+function blackMarketHTML() {
+  const tiles = blackMarket.tileOffers.map((o, i) => `
+      <div class="bm-tile${o.material ? ` bm-tile--${o.material}` : ''}${o.mark ? ' bm-tile--mark' : ''}"
+           data-bm-offer="tile" data-idx="${i}">
+        <div class="offer-tile-slot" data-bm-tile="${i}"></div>
+        <div class="bm-tile-note">${blackTileNote(o)}</div>
+        <span class="op-sold">${BT.gone}</span>
+        <button class="btn-price" data-buy-bm-tile="${i}">${coinHTML(o.price)}</button>
+      </div>`).join('');
 
-  const tileCards = draft.tiles.map((t, i) => `
-    <div class="offer-tile pickable" data-draft="tile" data-idx="${i}">
-      <div class="offer-tile-slot" data-draft-tile="${i}"></div>
-      <span class="pick-mark">✓</span>
-    </div>`).join('');
+  const patrons = blackMarket.patronOffers.map((o, i) => {
+    const def = patronById(o.id);
+    const name = patronName(def, o.data);
+    const desc = def.instDesc?.(o.data) ?? def.desc;
+    const liveries = guildsOf(def);
+    const livery = (liveries.length ? ` offer-patron--g-${liveries[0]}` : '')
+                 + (liveries[1] ? ` offer-patron--g2-${liveries[1]}` : '');
+    const lettered = o.data?.postnom ? ' offer-patron--postnom' : '';
+    return `
+      <div class="offer-patron offer-patron--rare${livery}${lettered}" data-bm-offer="patron" data-idx="${i}">
+        <div class="op-portrait">${def.portrait
+          ? `<img src="${def.portrait}" alt="${name}">`
+          : `<span class="op-emoji">${patronEmoji(def, o.data)}</span>`}</div>
+        <div class="op-card-body">
+          <div class="op-name">${name}</div>
+          <div class="op-title">rare${liveries.length ? ` · <span class="op-guild">${liveries.join(' & ')}</span>` : ''}${
+            o.data?.postnom ? ` · <span class="op-postnom">${o.data.postnom} · ×${POSTNOM.mult} Mult</span>` : ''}</div>
+          <div class="op-desc">${desc}</div>
+        </div>
+        <span class="op-sold">seated</span>
+        <button class="btn-price btn-price--over" data-buy-bm-patron="${i}"
+                title="${fillSlots(BT.markupTip, def.cost, BLACK_PATRON_MARKUP)}${
+                  o.data?.postnom ? ` · ${fillSlots(BT.postnomTip, POSTNOM.surcharge, o.data.postnom)}` : ''}">${
+          coinHTML(patronCost(def, o.data))}</button>
+      </div>`;
+  }).join('') || `<p class="sheet-note">${BT.noPatrons}</p>`;
 
-  m.innerHTML = `
-    <div class="sheet sheet--draft">
+  const sundries = blackMarket.sundryOffers.map((o, i) => {
+    const tip = sundryTip(o) ?? { head: 'Sundry', body: '' };
+    const mark = o.kind === 'package'
+        ? '<span class="wrapped-mark wrapped-mark--offer"></span>'
+      : o.kind === 'applicator'
+        ? `<span class="sundry-glyph sundry-glyph--offer">${APPLICATORS[o.material].glyph}</span>`
+        : `<span class="sundry-glyph sundry-glyph--offer">${TOOL_LOOK[o.kind]?.glyph ?? '✒'}</span>`;
+    return `
+      <div class="offer-paint offer-tool bm-sundry" data-bm-offer="sundry" data-idx="${i}"
+           data-tip-head="${tip.head}" data-tip-body="${tip.body}">
+        ${mark}
+        <div class="op-body"><div class="op-name">${tip.head}</div></div>
+        <span class="op-sold">bought</span>
+        <button class="btn-price" data-buy-bm-sundry="${i}">${coinHTML(o.price)}</button>
+      </div>`;
+  }).join('');
+
+  return `
+    <div class="sheet sheet--market sheet--black">
       <div class="sheet-head">
         <div>
-          <h2>Set up the press</h2>
-          <p class="sheet-note">Free picks — take what you like. Patrons are hired later, at the Market.</p>
+          <h2 class="market-title bm-title">${BT.title}</h2>
+          <p class="sheet-note">${BT.note}</p>
         </div>
+        <div class="market-purse bm-purse"><span class="coin coin--lg"></span><b id="bmCoins">${state.coins}</b></div>
       </div>
 
-      <h3 class="market-sec">Paint <span class="market-sub" data-count="paint"></span></h3>
-      <div class="draft-paints">${paintCards}</div>
+      <div class="market-hold">
+        ${marketShelfHTML()}
+        ${marketBenchHTML()}
+      </div>
 
-      <h3 class="market-sec">Tiles <span class="market-sub" data-count="tile"></span></h3>
-      <div class="offer-tiles offer-tiles--draft">${tileCards}</div>
+      <section class="bm-sec">
+        <h3 class="market-sec">${BT.tiles} <span class="market-sub">${BT.tilesSub}</span></h3>
+        <div class="bm-tiles">${tiles}</div>
+      </section>
+
+      <div class="bm-grid">
+        <section class="bm-sec">
+          <h3 class="market-sec">${BT.patrons} <span class="market-sub">${BT.patronsSub}</span></h3>
+          <div class="offer-list bm-patrons">${patrons}</div>
+        </section>
+        <section class="bm-sec">
+          <h3 class="market-sec">${BT.sundries} <span class="market-sub" data-bench>${benchLabel()}</span></h3>
+          <div class="offer-list">${sundries}</div>
+        </section>
+      </div>
 
       <div class="market-foot">
         <div class="market-spacer"></div>
-        <button class="btn btn-print btn-big" id="btnDraftBegin">Begin the run ❧</button>
+        <button class="btn btn-print" id="btnBlackMarketLeave">${BT.leave}</button>
+      </div>
+    </div>`;
+}
+
+export function renderBlackMarket() {
+  const m = $('blackMarketModal');
+  if (!m) return;
+  if (!blackMarket.open) { m.classList.remove('show'); m.innerHTML = ''; return; }
+
+  m.innerHTML = blackMarketHTML();
+  m.classList.add('show');
+
+  blackMarket.tileOffers.forEach((o, i) => {
+    const slot = m.querySelector(`[data-bm-tile="${i}"]`);
+    if (slot && !slot.children.length) slot.appendChild(makeTileEl({ ...o.template, id: '' }, 'offer'));
+  });
+  updateBlackMarketState();
+}
+
+// Sold state and affordability, patched without a rebuild — the same job
+// updateMarketState does for the fair.
+export function updateBlackMarketState() {
+  const m = $('blackMarketModal');
+  if (!m || !blackMarket.open) return;
+
+  setText('bmCoins', state.coins);
+
+  const seatsFull = state.patrons.length >= effectivePatronSlots();
+  const benchFull = state.sundries.length >= effectiveSundrySlots();
+
+  for (const card of m.querySelectorAll('[data-bm-offer]')) {
+    const kind = card.dataset.bmOffer;
+    const idx  = Number(card.dataset.idx);
+    const offer = kind === 'patron' ? blackMarket.patronOffers[idx]
+                : kind === 'tile'   ? blackMarket.tileOffers[idx]
+                :                     blackMarket.sundryOffers[idx];
+    if (!offer) continue;
+    const cost = kind === 'patron'
+      ? patronCost(patronById(offer.id), offer.data)
+      : offer.price;
+    const afford = state.coins >= cost
+      && (kind !== 'patron' || !seatsFull)
+      && (kind !== 'sundry' || !benchFull);
+    card.classList.toggle('offer--sold', !!offer.sold);
+    const btn = card.querySelector('.btn-price');
+    if (btn) btn.disabled = offer.sold || !afford;
+  }
+
+  const seats = m.querySelector('[data-seats]');
+  if (seats) seats.textContent = seatsLabel();
+  const bench = m.querySelector('[data-bench]');
+  if (bench) bench.textContent = benchLabel();
+  const benchN = m.querySelector('[data-bench-count]');
+  if (benchN) benchN.textContent = benchCount();
+
+  const strip = m.querySelector('[data-market-shelf]');
+  if (strip) {
+    strip.style.setProperty('--seat-count', effectivePatronSlots());
+    strip.innerHTML = marketShelfCardsHTML();
+  }
+  const benchStrip = m.querySelector('[data-market-bench]');
+  if (benchStrip) {
+    benchStrip.style.setProperty('--slot-count', effectiveSundrySlots());
+    benchStrip.innerHTML = marketBenchSlotsHTML();
+  }
+  m.querySelector('[data-market-shelf-wrap]')?.classList.toggle('market-shelf--wanted', seatsFull);
+  m.querySelector('[data-market-bench-wrap]')?.classList.toggle('market-shelf--wanted', benchFull);
+}
+
+// ─── Black Market actions ─────────────────────────────────────────────────────
+
+function onBlackMarketClick(e) {
+  const buyT = e.target.closest('[data-buy-bm-tile]');
+  if (buyT) {
+    const idx = Number(buyT.dataset.buyBmTile);
+    const r = buyBlackTile(idx);
+    if (!r.ok) { if (r.reason) log(r.reason, 'warn'); sfx.bad(); return; }
+    sfx.coin();
+    const tileEl = document.querySelector(`[data-bm-tile="${idx}"] .tile`);
+    flyPurchase(tileEl, $('bagPile') ?? tileEl);
+    log(`Bought “${r.template.letter}”${r.template.material
+      ? ` in ${MATERIALS[r.template.material].metal.toLowerCase()}` : ''} for ${r.price} Coins.`, 'good');
+    renderAll(); updateBlackMarketState();
+    return;
+  }
+
+  const buyP = e.target.closest('[data-buy-bm-patron]');
+  if (buyP) {
+    const r = buyBlackPatron(Number(buyP.dataset.buyBmPatron));
+    if (!r.ok) { if (r.reason) log(r.reason, 'warn'); sfx.bad(); return; }
+    sfx.coin(); sfx.chime();
+    log(`${r.name} takes a seat — ${r.price} Coins, and no questions.`, 'good');
+    renderAll(); updateBlackMarketState();
+    return;
+  }
+
+  const buyS = e.target.closest('[data-buy-bm-sundry]');
+  if (buyS) {
+    const r = buyBlackSundry(Number(buyS.dataset.buyBmSundry));
+    if (!r.ok) { if (r.reason) log(r.reason, 'warn'); sfx.bad(); return; }
+    sfx.coin();
+    log(`${sundryTip(r.offer)?.head ?? 'A sundry'} goes on the workbench.`, 'good');
+    renderAll(); updateBlackMarketState();
+    return;
+  }
+
+  // Dismissing a seat or selling a sundry from the strips, so room can be made
+  // for what is on the table without leaving the alley to do it.
+  const sellP = e.target.closest('[data-sell-patron]');
+  if (sellP) {
+    const r = sellPatron(sellP.dataset.sellPatron);
+    if (!r.ok) { if (r.reason) log(r.reason, 'warn'); sfx.bad(); return; }
+    sfx.coin();
+    log(`${r.name} is dismissed${r.refund ? ` for ${r.refund} Coins` : ''}.`);
+    if (r.headsman) log(`🪓 The Headsman is at ×${r.headsman.mult} Mult.`, 'good');
+    renderAll(); updateBlackMarketState();
+    return;
+  }
+  const sellS = e.target.closest('[data-sell-sundry]');
+  if (sellS) {
+    const r = sellSundry(Number(sellS.dataset.sellSundry));
+    if (r.ok) {
+      sfx.coin();
+      log(`Sold back for ${r.refund} Coin.`);
+      renderAll(); updateBlackMarketState();
+    }
+    return;
+  }
+  const seatCard = e.target.closest('[data-market-shelf] .patron[data-patron]');
+  if (seatCard) {
+    const def = patronById(seatCard.dataset.patron);
+    const seat = state.patrons.find(p => String(p.uid) === seatCard.dataset.uid)
+              ?? state.patrons.find(p => p.id === seatCard.dataset.patron);
+    if (def) showPatronPopover(def, seatCard, seat);
+    return;
+  }
+  if (e.target.closest('[data-open-ghosts]')) { openGhosts(); return; }
+
+  if (e.target.closest('#btnBlackMarketLeave')) {
+    closeBlackMarket();
+    renderBlackMarket();
+    renderAll();
+    flow.openMarket();
+  }
+}
+
+// ─── The Testing Chamber ──────────────────────────────────────────────────────
+// A playtest bench, not a part of the game: coins, seats, the workbench and the
+// case, all writable by hand. It opens at the top of a new run and can be
+// reopened from Settings at any point in a run. Rendered whole on every action
+// rather than patched — nothing here is animated, and a full redraw keeps the
+// four tabs honest about a state four of them can change.
+
+const TAB_LABELS = {
+  patrons:  'Patrons',
+  sundries: 'Sundries',
+  tiles:    'Tiles',
+  run:      'Run',
+  labs:     'Experimental',
+};
+
+const esc = s => String(s ?? '').replace(/[&<>"]/g,
+  c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+export function renderChamber() {
+  const m = $('chamberModal');
+  if (!m) return;
+  if (!chamber.open) { m.classList.remove('show'); m.innerHTML = ''; return; }
+
+  const tabs = Object.entries(TAB_LABELS).map(([id, label]) =>
+    `<button class="tc-tab${chamber.tab === id ? ' tc-tab--on' : ''}" data-tc-tab="${id}">${label}</button>`
+  ).join('');
+
+  const body = chamber.tab === 'patrons'  ? chamberPatronsHTML()
+             : chamber.tab === 'sundries' ? chamberSundriesHTML()
+             : chamber.tab === 'tiles'    ? chamberTilesHTML()
+             : chamber.tab === 'labs'     ? chamberLabsHTML()
+             :                              chamberRunHTML();
+
+  m.innerHTML = `
+    <div class="sheet sheet--chamber">
+      <div class="sheet-head tc-head">
+        <div>
+          <h2 class="tc-title">The Testing Chamber</h2>
+          <p class="sheet-note">Nothing here is earned. Set the press however you need it, then print.</p>
+        </div>
+        <div class="tc-purse">
+          <span class="tc-coins" id="tcCoins">${coinHTML(state.coins)}</span>
+          <button class="btn btn-quiet tc-mini" data-tc-coins="${CHAMBER_COINS}">+${CHAMBER_COINS}</button>
+          <button class="btn btn-quiet tc-mini" data-tc-coins="20">+20</button>
+          <button class="btn btn-quiet tc-mini" data-tc-coins="-999999">Broke</button>
+        </div>
+      </div>
+
+      <div class="tc-tabs">${tabs}</div>
+      <div class="tc-body">${body}</div>
+
+      <div class="market-foot">
+        ${chamber.atStart ? '' : '<button class="btn btn-quiet" id="btnChamberClose">← Back to the page</button>'}
+        <div class="market-spacer"></div>
+        <button class="btn btn-print btn-big" id="btnChamberBegin">${
+          chamber.atStart ? 'Begin the run ❧' : 'Done ❧'}</button>
       </div>
     </div>`;
   m.classList.add('show');
 
-  draft.tiles.forEach((t, i) => {
-    const slot = m.querySelector(`[data-draft-tile="${i}"]`);
-    if (slot) slot.appendChild(makeTileEl({ ...t, id: '' }, 'draft'));
-  });
-
-  updateDraftSelection();
+  if (chamber.tab === 'tiles') renderChamberTiles();
 }
 
-// Patched in place, so the page doesn't scroll out from under your thumb.
-export function updateDraftSelection() {
-  const m = $('draftModal');
-  if (!m || !draft.open) return;
+// ─── Patrons ──────────────────────────────────────────────────────────────────
 
-  for (const el of m.querySelectorAll('[data-draft]')) {
-    const kind = el.dataset.draft;
-    const idx  = Number(el.dataset.idx);
-    const picked = draft.picked[kind].includes(idx);
-    const full   = draft.picked[kind].length >= draftLimit(kind);
-    el.classList.toggle('picked', picked);
-    el.classList.toggle('pick-locked', !picked && full);
-  }
+function chamberPatronsHTML() {
+  const seated = state.patrons.map(p => {
+    const def = patronById(p.id);
+    return `<button class="tc-seat" data-tc-unseat="${p.uid}"
+                    title="Take ${esc(patronName(def, p.data))} off the shelf"
+            ><span class="tc-seat-face">${patronEmoji(def, p.data)}</span>${
+              esc(patronShelf(def, p.data))}<span class="tc-seat-x">✕</span></button>`;
+  }).join('') || '<span class="sheet-note">No one seated.</span>';
 
-  for (const el of m.querySelectorAll('[data-count]')) {
-    const kind = el.dataset.count;
-    const n = draft.picked[kind].length, max = draftLimit(kind);
-    el.textContent = n === max ? `${max} of ${max} ✓` : `${n} of ${max}`;
-    el.classList.toggle('market-sub--done', n === max);
+  const haunting = (state.ghosts ?? []).map(p => {
+    const def = patronById(p.id);
+    return `<button class="tc-seat tc-seat--ghost" data-tc-unhaunt="${p.uid}"
+            ><span class="tc-seat-face">👻</span>${esc(patronShelf(def, p.data))}<span class="tc-seat-x">✕</span></button>`;
+  }).join('');
+
+  const roster = chamberPatrons().map(def => {
+    const guilds = guildsOf(def);
+    const on = state.patrons.some(p => p.id === def.id);
+    return `
+      <div class="tc-patron tc-patron--${def.rarity}${on ? ' tc-patron--seated' : ''}${
+        guilds.length ? ` op-livery--${guilds[0]}` : ''}" data-tc-patron="${def.id}">
+        <div class="op-portrait">${def.portrait
+          ? `<img src="${def.portrait}" alt="">`
+          : `<span class="op-emoji">${def.emoji}</span>`}</div>
+        <div class="op-card-body">
+          <div class="op-name">${esc(def.name)}</div>
+          <div class="op-title">${def.rarity}${guilds.length ? ` · ${guilds.join(' & ')}` : ''}${
+            def.unlisted ? ' · unlisted' : ''}</div>
+          <div class="op-desc">${esc(def.desc)}</div>
+        </div>
+        <div class="tc-patron-acts">
+          <button class="btn-price" data-tc-seat="${def.id}">Seat</button>
+          <button class="btn-price btn-price--ghost" data-tc-haunt="${def.id}"
+                  title="Hire it dead — it works on and takes no seat">👻</button>
+        </div>
+      </div>`;
+  }).join('') || '<p class="sheet-note">Nobody by that name.</p>';
+
+  return `
+    <div class="tc-bench">
+      <h3 class="market-sec">Your shelf
+        <span class="market-sub">${state.patrons.length} of ${effectivePatronSlots()} seats</span>
+        <button class="btn btn-quiet tc-mini" data-tc-seats="1">+ seat</button>
+        <button class="btn btn-quiet tc-mini" data-tc-seats="-1">− seat</button>
+      </h3>
+      <div class="tc-seats">${seated}${haunting}</div>
+    </div>
+    <h3 class="market-sec">The roster
+      <span class="market-sub">${chamberPatrons().length} of ${PATRON_DEFS.length}</span>
+    </h3>
+    <input class="tc-filter" id="tcFilter" type="search" placeholder="Filter by name, guild, rarity or rule…"
+           value="${esc(chamber.filter)}" autocomplete="off">
+    <div class="tc-patrons">${roster}</div>`;
+}
+
+// ─── Sundries ─────────────────────────────────────────────────────────────────
+
+function chamberSundriesHTML() {
+  const held = state.sundries.map((s, i) => {
+    const tip = sundryTip(s);
+    return `<button class="tc-seat" data-tc-drop="${i}" title="Throw it away"
+            ><span class="tc-seat-face">${sundryGlyph(s)}</span>${esc(tip?.head ?? s.kind)}<span class="tc-seat-x">✕</span></button>`;
+  }).join('') || '<span class="sheet-note">The bench is empty.</span>';
+
+  const shelf = CHAMBER_SUNDRIES.map((s, i) => {
+    const tip = sundryTip(s);
+    return `
+      <div class="tc-sundry" data-tc-sundry="${i}"
+           data-tip-head="${esc(tip?.head ?? s.kind)}" data-tip-body="${esc(tip?.body ?? '')}">
+        <span class="tc-sundry-face">${sundryGlyph(s)}</span>
+        <div class="op-body"><div class="op-name">${esc(tip?.head ?? s.kind)}</div></div>
+      </div>`;
+  }).join('');
+
+  return `
+    <div class="tc-bench">
+      <h3 class="market-sec">Your workbench
+        <span class="market-sub">${state.sundries.length} of ${effectiveSundrySlots()} slots</span>
+        <button class="btn btn-quiet tc-mini" data-tc-slots="1">+ slot</button>
+        <button class="btn btn-quiet tc-mini" data-tc-slots="-1">− slot</button>
+      </h3>
+      <div class="tc-seats">${held}</div>
+    </div>
+    <h3 class="market-sec">Every sundry <span class="market-sub">click to take one</span></h3>
+    <div class="tc-sundries">${shelf}</div>`;
+}
+
+// The face a sundry wears in the chamber — the same marks the workbench draws
+// (renderSundries in render.js), so a thing taken here is recognisable when it
+// lands on the bench a moment later.
+function sundryGlyph(s) {
+  if (s.kind === 'tube')       return `<span class="paint-tube paint-tube--${s.colour}"></span>`;
+  if (s.kind === 'reshuffle')  return '<span class="sundry-shuffle">↻</span>';
+  if (s.kind === 'ratchet')    return '<span class="ratchet-arrows"><span class="ratchet-arrow ratchet-arrow--on">▲</span><span class="ratchet-arrow">▼</span></span>';
+  if (s.kind === 'wrapped')    return '<span class="wrapped-mark"></span>';
+  if (s.kind === 'package')    return `<span class="sundry--pkg-${s.theme}"><span class="wrapped-mark"></span></span>`;
+  if (s.kind === 'applicator') return APPLICATORS[s.material]?.glyph ?? '🧪';
+  return TOOL_LOOK[s.kind]?.glyph ?? '❔';
+}
+
+// ─── Tiles ────────────────────────────────────────────────────────────────────
+
+function chamberTilesHTML() {
+  const b = chamber.build ?? freshBuild();
+
+  const letters = chamberLetters().map(L => `
+    <button class="tc-sort${b.letter === L ? ' tc-sort--on' : ''}" data-tc-letter="${esc(L)}"
+            title="${esc(L)} · ${TILE_POINTS[L] ?? 0} Points">${esc(letterGlyph(L))}</button>`).join('');
+
+  const alts = chamberLetters().map(L => `
+    <button class="tc-sort${b.altLetter === L ? ' tc-sort--on' : ''}" data-tc-alt="${esc(L)}"
+            title="${esc(L)} · ${TILE_POINTS[L] ?? 0} Points">${esc(letterGlyph(L))}</button>`).join('');
+
+  const swatch = (kind, key, label, cls) =>
+    `<button class="tc-swatch ${cls}${b[kind] === key ? ' tc-swatch--on' : ''}"
+             data-tc-${kind}="${key ?? ''}">${label}</button>`;
+
+  return `
+    <div class="tc-maker">
+      <div class="tc-maker-preview">
+        <div class="tc-preview-slot" id="tcPreview"></div>
+        <div class="tc-preview-note">${buildPoints(b)} Point${buildPoints(b) === 1 ? '' : 's'} at rest</div>
+        <div class="tc-strike">
+          <button class="btn btn-print" data-tc-strike="1">Strike ×1</button>
+          <button class="btn btn-quiet" data-tc-strike="4">×4</button>
+          <button class="btn btn-quiet" id="tcReset">Reset</button>
+        </div>
+      </div>
+
+      <div class="tc-maker-knobs">
+        <h4 class="tc-knob-head">Sort</h4>
+        <div class="tc-sorts">${letters}</div>
+
+        <h4 class="tc-knob-head">Paint</h4>
+        <div class="tc-swatches">
+          ${swatch('colour', null, 'None', 'tc-swatch--none')}
+          ${CHAMBER_COLOURS.map(c => swatch('colour', c, COLOURS[c].label, `tc-swatch--${c}`)).join('')}
+        </div>
+
+        <h4 class="tc-knob-head">Trim</h4>
+        <div class="tc-swatches">
+          ${swatch('trim', null, 'None', 'tc-swatch--none')}
+          ${CHAMBER_TRIMS.map(t => swatch('trim', t, TRIMS[t].label, `tc-swatch--trim-${t}`)).join('')}
+        </div>
+
+        <h4 class="tc-knob-head">Nick</h4>
+        <div class="tc-swatches">
+          ${swatch('nick', null, 'None', 'tc-swatch--none')}
+          ${CHAMBER_NICKS.map(n => swatch('nick', n, NICKS[n].label, 'tc-swatch--plain')).join('')}
+        </div>
+
+        <h4 class="tc-knob-head">Metal</h4>
+        <div class="tc-swatches">
+          ${swatch('material', null, 'Lead', 'tc-swatch--none')}
+          ${CHAMBER_MATERIALS.map(mt => swatch('material', mt, MATERIALS[mt].label, `tc-swatch--mat-${mt}`)).join('')}
+        </div>
+
+        <h4 class="tc-knob-head">Grown Points
+          <span class="market-sub">+${b.bonusPoints ?? 0}</span>
+          <button class="btn btn-quiet tc-mini" data-tc-grow="1">+1</button>
+          <button class="btn btn-quiet tc-mini" data-tc-grow="5">+5</button>
+          <button class="btn btn-quiet tc-mini" data-tc-grow="-99">0</button>
+        </h4>
+
+        <h4 class="tc-knob-head">Second face
+          <button class="btn btn-quiet tc-mini${b.letterType === 'dual' ? ' tc-mini--on' : ''}"
+                  data-tc-dual="${b.letterType === 'dual' ? '0' : '1'}"
+                  ${canBeDual(b.letter) ? '' : 'disabled'}>${
+            b.letterType === 'dual' ? 'Two-faced' : 'One face'}</button>
+        </h4>
+        ${b.letterType === 'dual' ? `<div class="tc-sorts">${alts}</div>` : ''}
+      </div>
+    </div>
+
+    <h3 class="market-sec">The case
+      <span class="market-sub">${state.collection.length} tile${state.collection.length === 1 ? '' : 's'} — click one to scrap it</span>
+      <button class="btn btn-quiet tc-mini" id="tcScrapAll">Empty it</button>
+    </h3>
+    <div class="mini-grid mini-grid--case" id="tcCase"></div>`;
+}
+
+// The preview tile and the case grid are real tile elements, so what the chamber
+// shows is what the board would draw.
+function renderChamberTiles() {
+  const slot = $('tcPreview');
+  if (slot) {
+    slot.innerHTML = '';
+    slot.appendChild(makeTileEl({ ...(chamber.build ?? freshBuild()), id: '' }, 'chamber'));
   }
+  const grid = $('tcCase');
+  if (!grid) return;
+  grid.innerHTML = '';
+  for (const tmpl of state.collection) {
+    const el = makeTileEl({ ...tmpl, id: '' }, 'chamber', { mini: true });
+    el.dataset.tcScrap = tmpl.tid;
+    grid.appendChild(el);
+  }
+}
+
+// ─── Experimental ─────────────────────────────────────────────────────────────
+// Mechanics that were built and then kept out of the main game. Switching one on
+// is a decision about THIS run, saved with it, so a folio always knows what it
+// was played with.
+
+function chamberLabsHTML() {
+  const cards = EXPERIMENTS.map(x => {
+    const on = experimentOn(x.id);
+    return `
+      <div class="tc-lab${on ? ' tc-lab--on' : ''}" data-tc-lab="${x.id}">
+        <div class="tc-lab-head">
+          <span class="tc-lab-name">${esc(x.name)}</span>
+          <span class="tc-lab-state">${on ? 'ON' : 'OFF'}</span>
+        </div>
+        <p class="tc-lab-blurb">${esc(x.blurb)}</p>
+        ${x.note ? `<p class="tc-lab-note">${esc(x.note)}</p>` : ''}
+      </div>`;
+  }).join('') || '<p class="sheet-note">Nothing on the bench just now.</p>';
+
+  return `
+    <h3 class="market-sec">Off the main game
+      <span class="market-sub">click to switch one on for this run</span>
+    </h3>
+    <div class="tc-labs">${cards}</div>
+    <p class="sheet-note">These are kept rather than thrown away. A switch here belongs
+      to this run and is saved with it — a plain new game never meets one.</p>`;
+}
+
+// ─── Run ──────────────────────────────────────────────────────────────────────
+
+function chamberRunHTML() {
+  return `
+    <h3 class="market-sec">The page</h3>
+    <div class="tc-rows">
+      <label class="tc-row">Quota
+        <input class="tc-num" type="number" data-tc-field="quota" value="${state.quota}"></label>
+      <label class="tc-row">Score so far
+        <input class="tc-num" type="number" data-tc-field="pageScore" value="${state.pageScore}"></label>
+      <label class="tc-row">Words left
+        <input class="tc-num" type="number" data-tc-field="wordsLeft" value="${state.wordsLeft}"></label>
+      <label class="tc-row">Discards
+        <input class="tc-num" type="number" data-tc-field="discards" value="${state.discards}"></label>
+      <label class="tc-row">Chapter
+        <input class="tc-num" type="number" data-tc-field="chapter" value="${state.chapter}"></label>
+      <label class="tc-row">Page
+        <input class="tc-num" type="number" data-tc-field="page" value="${state.page}"></label>
+    </div>
+    <p class="sheet-note">Written straight in. The board redraws when you close the chamber;
+      a quota or a word count you change here takes hold on this page, not the next.</p>`;
 }
 
 // ─── Click handling ───────────────────────────────────────────────────────────
 // Game flow is main.js's business, injected here so the sheets never need to
 // know about pages and chapters.
 
-let flow = { nextPage: () => {}, beginRun: () => {}, openMarket: () => {} };
+let flow = { nextPage: () => {}, beginRun: () => {}, openMarket: () => {},
+             openBlackMarket: () => {}, leaveChamber: () => {} };
 
 // The clones ride the #fx layer, which sits above the modal.
 function flyPurchase(fromEl, toEl, opts = {}) {
@@ -1047,7 +1555,10 @@ async function pickColophon(id) {
   closeColophon();
   renderColophon();
   state.isAnimating = false;
-  flow.openMarket();
+  // The alley stands between the Colophon and the fair; its own Leave button
+  // carries on to the Market, so both roads end in the same place.
+  if (r.def.kind === 'blackmarket') flow.openBlackMarket();
+  else                              flow.openMarket();
 }
 
 async function skipColophon() {
@@ -1081,18 +1592,153 @@ function onColophonClick(e) {
   if (e.target.closest('#btnColophonReshuffle')) useColophonReshuffle();
 }
 
-// ─── Draft actions ────────────────────────────────────────────────────────────
+// ─── Testing Chamber actions ──────────────────────────────────────────────────
+// One handler for four tabs. Every branch ends the same way — redraw the sheet,
+// redraw the board, save — because a chamber that got out of step with the state
+// it writes would be worse than no chamber.
 
-function onDraftClick(e) {
-  const pickEl = e.target.closest('[data-draft]');
-  if (pickEl) {
-    if (toggleDraftPick(pickEl.dataset.draft, Number(pickEl.dataset.idx))) sfx.draw();
+function onChamberClick(e) {
+  const hit = sel => e.target.closest(`[${sel}]`);
+  let touched = true;
+
+  const tab = hit('data-tc-tab');
+  if (tab) { chamber.tab = tab.dataset.tcTab; sfx.draw(); return finishChamber(); }
+
+  const coins = hit('data-tc-coins');
+  if (coins) {
+    const n = Number(coins.dataset.tcCoins);
+    grantCoins(n === -999999 ? -state.coins : n);
+    sfx.coin();
+    return finishChamber();
+  }
+
+  // ── Patrons
+  const seat = hit('data-tc-seat');
+  if (seat) {
+    const r = seatPatron(seat.dataset.tcSeat);
+    if (r.ok) { sfx.draw(); log(`${patronName(r.def, r.seat.data)} takes a seat.`); }
     else sfx.bad();
-    updateDraftSelection();   // in place — never rebuilds the sheet
-    persist();
+    return finishChamber();
+  }
+  const haunt = hit('data-tc-haunt');
+  if (haunt) {
+    const r = hauntPatron(haunt.dataset.tcHaunt);
+    if (r.ok) { sfx.draw(); log(`${patronName(r.def, r.seat.data)} works on, dead.`); }
+    else sfx.bad();
+    return finishChamber();
+  }
+  const unseat = hit('data-tc-unseat');
+  if (unseat) { unseatPatron(Number(unseat.dataset.tcUnseat)); sfx.bad(); return finishChamber(); }
+  const unhaunt = hit('data-tc-unhaunt');
+  if (unhaunt) {
+    const uid = Number(unhaunt.dataset.tcUnhaunt);
+    const i = (state.ghosts ?? []).findIndex(g => g.uid === uid);
+    if (i >= 0) state.ghosts.splice(i, 1);
+    sfx.bad();
+    return finishChamber();
+  }
+  const seats = hit('data-tc-seats');
+  if (seats) { addSeats(Number(seats.dataset.tcSeats)); sfx.draw(); return finishChamber(); }
+
+  // ── Sundries
+  const sundry = hit('data-tc-sundry');
+  if (sundry) {
+    giveSundry(CHAMBER_SUNDRIES[Number(sundry.dataset.tcSundry)]);
+    sfx.draw();
+    return finishChamber();
+  }
+  const drop = hit('data-tc-drop');
+  if (drop) { dropSundry(Number(drop.dataset.tcDrop)); sfx.bad(); return finishChamber(); }
+  const slots = hit('data-tc-slots');
+  if (slots) { addBenchSlots(Number(slots.dataset.tcSlots)); sfx.draw(); return finishChamber(); }
+
+  // ── The tile-maker. The knobs all write through setBuild, which is what keeps
+  //    a one-faced sort from keeping a second letter it can no longer show.
+  const letter = hit('data-tc-letter');
+  if (letter) { setBuild({ letter: letter.dataset.tcLetter }); sfx.draw(); return finishChamber(); }
+  const alt = hit('data-tc-alt');
+  if (alt) { setBuild({ altLetter: alt.dataset.tcAlt }); sfx.draw(); return finishChamber(); }
+  for (const knob of ['colour', 'trim', 'nick', 'material']) {
+    const el = hit(`data-tc-${knob}`);
+    if (el) { setBuild({ [knob]: el.dataset[`tc${knob[0].toUpperCase()}${knob.slice(1)}`] || null });
+              sfx.draw(); return finishChamber(); }
+  }
+  const grow = hit('data-tc-grow');
+  if (grow) {
+    const n = Number(grow.dataset.tcGrow);
+    const at = chamber.build?.bonusPoints ?? 0;
+    setBuild({ bonusPoints: n === -99 ? 0 : Math.max(0, at + n) });
+    sfx.draw();
+    return finishChamber();
+  }
+  const dual = hit('data-tc-dual');
+  if (dual && !dual.disabled) {
+    const on = dual.dataset.tcDual === '1';
+    setBuild(on ? { letterType: 'dual', altLetter: chamber.build?.altLetter ?? 'A' }
+                : { letterType: 'normal' });
+    sfx.draw();
+    return finishChamber();
+  }
+  const strike = hit('data-tc-strike');
+  if (strike) {
+    const n = Number(strike.dataset.tcStrike);
+    strikeTile(chamber.build ?? freshBuild(), n);
+    sfx.draw();
+    log(`Struck ${tileCount(n)} for the case.`);
+    return finishChamber();
+  }
+  if (e.target.closest('#tcReset')) { chamber.build = freshBuild(); sfx.draw(); return finishChamber(); }
+  const scrap = hit('data-tc-scrap');
+  if (scrap) { scrapTile(Number(scrap.dataset.tcScrap)); sfx.bad(); return finishChamber(); }
+  if (e.target.closest('#tcScrapAll')) {
+    log(`Scrapped ${tileCount(scrapAllTiles())}.`);
+    sfx.bad();
+    return finishChamber();
+  }
+
+  // ── Experiments
+  const lab = hit('data-tc-lab');
+  if (lab) {
+    const id = lab.dataset.tcLab;
+    const on = toggleExperiment(id);
+    // The tile-maker may be holding a sort the experiment just took away.
+    if (!on && chamber.build && !chamberLetters().includes(chamber.build.letter)) {
+      chamber.build = freshBuild();
+    }
+    sfx[on ? 'draw' : 'bad']();
+    log(`${EXPERIMENTS.find(x => x.id === id)?.name ?? id} switched ${on ? 'on' : 'off'} for this run.`);
+    return finishChamber();
+  }
+
+  // ── Leaving
+  if (e.target.closest('#btnChamberBegin')) return flow.beginRun();
+  if (e.target.closest('#btnChamberClose')) return flow.leaveChamber();
+
+  touched = false;
+  if (!touched) return;
+}
+
+// The Run tab's fields are typed, not clicked.
+function onChamberInput(e) {
+  const field = e.target.closest('[data-tc-field]');
+  if (field) {
+    const n = Number(field.value);
+    if (Number.isFinite(n)) { state[field.dataset.tcField] = n; renderAll(); persist(); }
     return;
   }
-  if (e.target.closest('#btnDraftBegin')) flow.beginRun();
+  if (e.target.id === 'tcFilter') {
+    chamber.filter = e.target.value;
+    const at = e.target.selectionStart;
+    renderChamber();
+    const again = $('tcFilter');
+    if (again) { again.focus(); again.setSelectionRange(at, at); }
+  }
+}
+
+function finishChamber() {
+  renderChamber();
+  renderAll();
+  persist();
 }
 
 // ─── Wiring ───────────────────────────────────────────────────────────────────
@@ -1100,6 +1746,8 @@ function onDraftClick(e) {
 export function initSheets(flowCallbacks) {
   flow = { ...flow, ...flowCallbacks };
   $('marketModal')?.addEventListener('click', onMarketClick);
+  $('blackMarketModal')?.addEventListener('click', onBlackMarketClick);
   $('colophonModal')?.addEventListener('click', onColophonClick);
-  $('draftModal')?.addEventListener('click', onDraftClick);
+  $('chamberModal')?.addEventListener('click', onChamberClick);
+  $('chamberModal')?.addEventListener('input', onChamberInput);
 }

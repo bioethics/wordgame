@@ -57,13 +57,20 @@ letters: length, spelling, order. Editors judge shape, so they count letters —
 except the two that don't judge words at all, the Redactor (which wraps tiles)
 and the Hoarder (which rearranges the hand).
 
+When the Deadline's editor changes what a word is worth — a spike, or the
+Reviewer's temper — the readout **strikes the figure through and writes the
+editor's beside it**, so a spike reads as a thing done *to* a score rather than
+as the score. The print shows it happening: the number the word was worth lands
+whole, and then the desk reaches over and crosses it out.
+
 The readout shows a live projection with a chip per colour, and **everything
 that does something explains itself where it sits**: hover with a mouse,
 long-press on touch, wherever the thing appears. Nothing is summarised beneath
-market cards. What a sundry does is written once, in `js/constants.js` →
-`sundryTip`. On print the score replays in the order it happens: patrons write
-bonuses onto the tiles, the tiles pay, nicks fire, each colour's multiplier
-lights, and the patrons weigh in seat by seat.
+market cards. What a sundry does is written once, in `js/text.js` →
+`SUNDRY_TEXT`, and looked up through `sundryTip` in `js/constants.js`. On print the score replays in the order it happens: *the Twins*
+recast the doubled pairs, patrons write bonuses onto the tiles, the tiles pay,
+nicks fire, each colour's multiplier lights, and the patrons weigh in seat by
+seat.
 
 ### Seat order
 
@@ -109,6 +116,78 @@ Dabbler* is heard from inside `paintTile`. Nothing caps it, so a press that
 keeps feeding it plays out of a hand of thirty and the rack wraps — intended.
 And the knife turns on it: the dead cannot be murdered, so *the Revenant* takes
 *the Ripper* instead, and every watchword thereafter kills again, free.
+
+### The Twins
+
+A doubled letter is two of the same thing, and *the Twins* hold the press to it.
+Every doubled letter pays **+5 Points**, and where the double is two whole tiles
+showing the same face, **the second is struck again from the first** — paint,
+trim, nick, metal, grown Points and both faces of a dual, overwriting whatever
+it wore before, **and keeping it for good**. Two plain Ls are unchanged by that
+and paid anyway; one gorgeous L beside a plain one is the whole point, and the
+reason the seat wants your pairs *lopsided* rather than tidy. The recasting
+lands in scoring's **pass ⅓**, before the word is so much as read, so everything
+downstream sees two identical tiles: the colour multipliers count the coat
+twice, a gold trim pays a second Coin, a Monogrammist finds two of its letter —
+and then the seat's `onPrinted` lays the same mould into the collection, so the
+tile carries it into every word after this one.
+
+It is a clone, which means it can cost you: **the mould is whichever tile you
+set in front**, so a plain L laid down first will strip the good one behind it.
+That is the decision the seat is made of, so it is never taken blind — the
+groove **brackets every pair the Twins can see** while the word is still being
+composed, a gap either side and a dashed rule that breathes, and the second tile
+already shows what it is about to become. Set the good tile first.
+
+That gives the seat a shape over a run: at the first Market your tiles are all
+bare and it is worth its +5 and nothing more; through the middle it is the
+cheapest way there is to spread one good tile across a collection; by the end
+most of what you own is dressed already and it has little left to give — bar the
+one extraordinary tile you are trying to make copies of.
+
+The pair has to be two whole tiles because a recasting rewrites what a tile
+*spells*. Striking the H of `CH`·`H` again as a CH would print CHCH, a
+different word than the one you set, so a double that straddles a ligature — or
+a tile that spells its own double, like `OO` — is **paid and left alone**. A
+wrapped tile is neither copied nor copied onto: the paper is over it.
+
+And with *the Haplographer* seated, the third case, which is the loud one. Her
+licence lets a word be read as though one letter were doubled (BALOON reads as
+BALLOON); *the Twins* make it so. The missing letter is **struck** — a real
+tile, cast from the one it doubles and wearing its coat — and joins the word.
+It is the only thing in the game that changes what *prints*: BALOON goes to the
+manuscript as BALLOON, seven letters long, and the length multiplier follows.
+The struck tile belongs to nobody, though: it was never in your hand, so when
+the word is done it goes out with it rather than filing into the pile. The
+groove shows it as a phantom from the moment the word is composed, so the
+projection and the board agree about how long the word is, and the print is
+where it turns solid.
+
+### The Counterfeiter
+
+Once a page, tap his card and the **plate** opens: the whole case, forged. Take
+**one** sort — any letter you like — and the plate is cold until the next page.
+One is the whole of the limit, and it has to be: a free letter is a small
+kindness, a free hand is a different game.
+
+A counterfeit sort **spells, and does nothing else**: no Points, no paint, trim,
+metal or nick, and nothing can be written on one (`spellsOnly` and `isImmutable`
+in `js/state.js` — the same reading the Redactor's manuscript tiles get, on
+bank-note stock rather than draft paper). It takes a place in your hand while it
+is there, and the page takes it back.
+
+So what a forgery buys is **length**, and whatever your table can make of a
+letter that is merely *there*: a doubled pair for *the Twins* to strike from, a
+fourth colour for *the Illuminator* to find, a shape an editor will pass.
+
+**Unless the Twins get to it.** A twin struck onto a forgery makes it **real** —
+it stops being counterfeit, stops being page-only, and is adopted into the
+collection wearing the mould. The worthless letter you took this morning goes
+into the bag tonight as a copy of your finest tile, and that is the seat at its
+best. The rule cuts one way only, though: **a forgery is never a mould.** Set
+your gorgeous L and *then* the counterfeit L and you keep a second gorgeous L
+for good; put the forgery in front and nothing happens to the good tile behind
+it — there is nothing to strike from a fake.
 
 ## The pieces
 
@@ -168,6 +247,12 @@ of the words instead:
 - **Enthusiast** — lends a tile of a beloved letter and expects it in every word.
 - **Reviewer** — receives each word in a temper (×0.2–×0.95), rolled openly
   before you compose.
+- **Bribrarian** — below; the one who reads your purse rather than your prose.
+- **Epitaphist** — one line for the whole page: a single word, half the quota to
+  meet with it, and a discard more to find it. The only editor who takes the
+  *page* apart rather than the words, so you stop composing and start
+  assembling. (*The Astronomer*, paid per word already printed, never shares a
+  desk with him — there is no such word.)
 - **Completist** — deals two extra tiles and permits no discards.
 - **Eeeditor** — keeps three places in your hand filled with plain E, restoring
   one the moment you print it; **Editooor** — the same in O.
@@ -181,12 +266,43 @@ the preview didn't promise; beside it runs the page's record, one mark per word.
 Chains and indexes are reset by the spiked word itself, so a sacrificial APPLE
 is always a way back in.
 
+**The Abecedarian** is the one seat paid for *breadth*. Everything else in the
+game rewards doubling down — one colour, one letter, one shape — and this one
+keeps a **case of every sort the press can set** and pays +0.05 Mult, for good,
+the first time you print each. Which makes it the only reason there is to set
+your Q, your X, your Z: the letters every other patron teaches you to throw
+away. A ligature gives up every letter in it (the only road to a Q, there being
+no plain Q in the case, only `QU`); a medieval sort is collected as *itself*,
+because þ stands for TH but is a letter in its own right; the interrobang, cut
+from a `?` and a `!`, gives up both and is worth nothing new. Twenty-six letters,
+two marks and four medieval sorts: a full case is **+1.6 Mult**, and the
+alphabet alone is +1.4. Add a sort to the press and the ceiling rises on its own.
+
+(The seat that used to hold this name — three-letter words grow their tiles — is
+**The Child** now. An abecedarian is properly a *primer of the alphabet*, which
+is what the case is; a child is what learns from one.)
+
+**The Bribrarian** is the one editor with nothing to satisfy. He does not read
+your words: he penalises every one of them, and the whole of the lever is money
+laid across the desk **before the page is set**. Nothing paid is an 80% penalty
+— every word at ×0.2 — and each Coin buys a fifth of it back, so four Coins
+leave his pen perfectly kind. Which makes him the only editor you beat with the
+Market rather than the dictionary, and the only one whose price you pay blind,
+since the sheet comes up before you have seen a tile.
+
+You may go **into the red** to pay him, and the game does not stop you — it just
+says what it costs. Nothing in the Market will sell to a purse that cannot cover
+the price, so a debt shuts the shop until it is worked off, and the real cost of
+a big bribe is paid a page later. He rides `mood()` rather than `judge()`,
+because he is not spiking a word for breaking a rule; he is taking his cut of
+everything, and the bar says so rather than claiming the word passed.
+
 **An editor that inverts a patron you own never takes the desk.** Most editors
 merely idle a seat for a page, a fair cost of the roster being a lottery — but a
 few would spike the *exact* words a patron is paid for. Those pairs live in
 `BOSS_CONFLICTS` (`js/bosses.js`) and are filtered out as the Deadline is dealt:
 keep *the Poet* and the Minimalist stays away, *the Lexicographer* and the
-Populist does, *the Abecedarian* or *the Apprentice* and the Padder does. The
+Populist does, *the Child* or *the Apprentice* and the Padder does. The
 bar is exact inversion — the patron's trigger and the editor's spike condition
 being one test read in opposite directions. Adding a pair is one line, and both
 directions come with it.
@@ -330,7 +446,8 @@ The **applicators** are the tube's gesture pointed at the metal: each lays out
 two tiles from your hand and strikes the one you pick in rainbow or hellbox
 iron, refusing any tile already wearing a material. **OO** and **FU** are
 ligatures no shop will sell you — OO counts as a doubled letter by itself, so it
-quietly feeds *the Twins*.
+quietly pays *the Twins* (though it is one tile, so there is nothing for them to
+recast — see below).
 
 The **toolbox** opens into two *different* tools — the first in the box's own
 slot, the second only if the bench has room, else it rolls away. No shop sells
@@ -411,11 +528,34 @@ a patron *does* lives against the same id in `js/patrons.js`. The two are
 married at the bottom of `js/patrons.js`, and a card with no behaviour (or a
 behaviour with no card) throws on load naming the id.
 
-A `desc` may contain `{KNOB}` placeholders, filled from `js/constants.js` as the
-module loads — `{ESPALIER_STEP}` for the value itself, `{1/NUDIST_TRIM_CHANCE}`
-for "a 1-in-4 chance" — so retuning a number retunes the card text with it. New
-knobs are exposed by adding a line to the `KNOBS` object at the top of
-`js/patron-cards.js`.
+A `desc` may contain `{KNOB}` placeholders, filled as the module loads —
+`{ESPALIER_STEP}` for the value itself, `{1/NUDIST_TRIM_CHANCE}` for "a 1-in-4
+chance" — so retuning a number retunes the card text with it. New knobs are
+exposed by adding a line to the `KNOBS` object at the foot of `js/constants.js`,
+which the rest of the game's writing shares.
+
+## Where the writing lives
+
+Every word a player reads sits in a copy file, separate from the code that acts
+on it. **`js/text.js`** is the door: it holds the things you own and the sheets
+you use, and its header is a map of the rest.
+
+| Writing | Where |
+| --- | --- |
+| Trims, nicks, colours, metals, tools, parcels, stalls, the Colophon's picks, and the headings and buttons of the Market, the Black Market and the Colophon | `js/text.js` |
+| Every patron — name, portrait, price, rarity, guild, card text | `js/patron-cards.js` (behaviour: `js/patrons.js`) |
+| Every editor — name, portrait, and the house rule in their own voice | `js/boss-cards.js` (behaviour: `js/bosses.js`) |
+| The unsolicited opinions patrons pop after a good word | `js/quips.js` |
+| Chapter titles | `js/chapters.js` |
+| The themed word lists | `wordlists/` — beside the dictionary and the barred-words list |
+| The running narration in the status log | `js/main.js`, `js/sheets.js` — these stay at the moment they are spoken, each being written around the values it reports |
+
+`js/text.js` imports nothing, so there is never a question of what may safely be
+said in it. Copy may quote a tuning number rather than repeating it, with the
+same `{KNOB}` syntax the patron cards use; a knob that does not exist throws at
+load naming the line that wants it, rather than shipping a card reading
+`{TONGS_BONS}`. Both card files and `js/text.js` fill from the one `KNOBS` table
+at the foot of `js/constants.js`, so a knob means the same thing everywhere.
 
 **Letting things go** — the top of the Market restates **Your table** and **Your
 workbench**, so what you hold is never out of sight while you shop: the ✕ on a
@@ -429,6 +569,28 @@ opens, choose one of three permanent upgrades: +1 hand size, +1 discard, +1 patr
 seat, +1 workbench slot, or a paint pot of a colour of your choice. At least one
 non-paint option is always offered while one remains, and each of the eight
 picks caps at 2 takes across a run. *Skip* declines all three for 2 Coins.
+
+A ninth card is not an upgrade at all: **The Black Market** opens a door in the
+alley behind the fair, once, before the ordinary Market. It is the only pick with
+no repeat cap — the alley is open however many times you have been down it — and
+the only one with an entry requirement: it is not dealt at all under 10 Coins,
+since a door you cannot afford to walk through is a wasted card rather than a
+choice.
+
+**The Black Market** — sixteen tiles on one long table, one to two of them cast
+in each of the rare metals (rainbow, ghost, rose and hellbox iron) and *chosen*
+rather than gambled for out of a wrapper, plus punctuation, which comes no other
+way. Four patrons in the back room, every one of them rare — the Market's own
+list is weighted three-to-one towards commons, so this is the only place a rare
+build can be assembled on purpose. Four sundries under the counter, drawn from
+the four guild tools, the two applicators, the love potion and the four
+registers' parcels: things a patron may give you and no stall will sell.
+
+Nothing there is a bargain. Tiles carry a surcharge, patrons a markup that rides
+on the seat itself — so dismissing one refunds half of what you actually paid,
+not half a list price you never saw — and there is no re-roll. The alley shows
+you what it has, once. `js/blackmarket.js`, and the constants beginning `BLACK_`
+in `js/constants.js`.
 
 **Discarding** — press *Discard* to arm it, tap the tiles to throw away, then
 press it again to confirm (press with nothing selected to cancel).
@@ -488,7 +650,8 @@ bigger step than the last and a built press has to multiply rather than add:
 | How far a patron's asking price can drift | `js/constants.js` → `PATRON_HAGGLE` (`spread` Coins each way, `chance` per side) |
 | How long a line stays up to be read | `js/anim.js` → `READ_BASE` / `READ_PER_CHAR` / `READ_MAX`. Every bubble, floater and bar message holds for a span measured off its own length, so a long line is given longer, not read faster |
 | Words / discards / seats per page | `js/constants.js` |
-| Where every word list lives | `wordlists/` — the dictionary (`wordlist.txt`) and all ten themed lists in one folder, plus `excluded-slurs.txt`. The paths are `THEME_FILES` in `js/themes.js`, which is also where `tools/build-single.mjs` reads the folder name from, so moving them is a change to that one table (and `js/dict.js` / `js/excluded.js`, which fetch their own) |
+| Where every word list lives | `wordlists/` — the dictionary (`wordlist.txt`), all ten themed lists, the dummy-letter list (`silent.txt`) and `excluded-slurs.txt`, in one folder. The paths are `THEME_FILES` and `SILENT_FILE` in `js/themes.js`, which is also where `tools/build-single.mjs` reads the folder name from, so moving them is a change to that one file (plus `js/dict.js` and `js/excluded.js`, which fetch their own) |
+| The Silent Knight's dummy letters | `wordlists/silent.txt` — one `word index` pair per line, the index naming the letter that is written and not spoken (`knot 0`). Read into a Map by `adoptSilent` in `js/themes.js` |
 | The Ripper's watchwords | `js/constants.js` → `RIPPER_WORDS`. Matching is exact and the Ripper's card quotes the whole list, so a long one is a long card |
 | Patron names, emoji, rarities, costs, guilds and card text | `js/patron-cards.js` — one flat table keyed by patron id; `{KNOB}` braces in a `desc` are filled from the `KNOBS` object at the top of the file |
 | What a patron *does* | `js/patrons.js`, against the same id |

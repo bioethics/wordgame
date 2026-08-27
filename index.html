@@ -69,9 +69,10 @@
         <span id="chip-amber"   class="chip chip--amber"   title="Amber multiplier">×1</span>
         <span id="chip-purple"  class="chip chip--purple"  title="Purple-trim multiplier">×1</span>
         <span id="chip-cursed"  class="chip chip--cursed"  title="Cursed-tile multiplier">×1</span>
+        <span id="chip-bold"    class="chip chip--bold"    title="Set bold — the word is bracketed by a pair of rules">×1</span>
       </div>
       <span class="ro-op">=</span>
-      <div class="ro-total-wrap"><span id="roTotal" class="ro-total">0</span></div>
+      <div class="ro-total-wrap"><span id="roTotalPlain" class="ro-total ro-total--struck" hidden>0</span><span id="roTotal" class="ro-total">0</span></div>
     </section>
 
     <!-- Word groove -->
@@ -137,11 +138,14 @@
     </div>
   </div>
 
-  <!-- Opening draft -->
-  <div id="draftModal" class="modal" role="dialog" aria-modal="true" aria-label="Set up the press"></div>
+  <!-- The Testing Chamber (a playtest bench, not part of the game) -->
+  <div id="chamberModal" class="modal" role="dialog" aria-modal="true" aria-label="The Testing Chamber"></div>
 
   <!-- The Market -->
   <div id="marketModal" class="modal" role="dialog" aria-modal="true" aria-label="The Market"></div>
+
+  <!-- The Black Market (a Colophon pick — the alley before the fair) -->
+  <div id="blackMarketModal" class="modal modal--black" role="dialog" aria-modal="true" aria-label="The Black Market"></div>
 
   <!-- The Colophon (end-of-chapter upgrade pick) -->
   <div id="colophonModal" class="modal" role="dialog" aria-modal="true" aria-label="The Colophon"></div>
@@ -199,6 +203,7 @@
       <details class="dev-tools">
         <summary>Developer</summary>
         <div class="dev-row">
+          <button id="devChamber" class="btn btn-quiet">The Testing Chamber</button>
           <button id="devCoins" class="btn btn-quiet">+20 Coins</button>
           <button id="devMarket" class="btn btn-quiet">Open Market</button>
           <button id="devWinPage" class="btn btn-quiet">Clear page</button>

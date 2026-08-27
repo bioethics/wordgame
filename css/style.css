@@ -1315,7 +1315,7 @@ button.sundry:hover { transform: translateY(-2px); }
   color: var(--muted);
 }
 
-.ro-total-wrap { min-width: 120px; text-align: center; }
+.ro-total-wrap { min-width: 120px; text-align: center; white-space: nowrap; }
 
 /* Colour multiplier chips — one per colour, dim while ×1. Always all five, so
    the row's width never changes as multipliers come and go. */
@@ -1353,6 +1353,10 @@ button.sundry:hover { transform: translateY(-2px); }
 .chip--cursed  { background: #6d1a15;        color: #ffd9cf; }
 /* The cursed chip appears only when a cursed tile is in the word. */
 .chip--cursed:not(.chip--on) { display: none; }
+/* …and the bold chip only when the word is actually bracketed by a pair of
+   rules. Set in the readout's own ink, heavy, because that is what it says. */
+.chip--bold    { background: #1d1a17;        color: #f6ecd2; font-weight: 900; }
+.chip--bold:not(.chip--on) { display: none; }
 .chip--on.chip--length  { box-shadow: 0 0 10px rgba(125, 143, 160, 0.65); }
 .chip--on.chip--crimson { box-shadow: 0 0 10px rgba(201, 79, 67, 0.6); }
 .chip--on.chip--azure   { box-shadow: 0 0 10px rgba(79, 134, 201, 0.6); }
@@ -1369,6 +1373,42 @@ button.sundry:hover { transform: translateY(-2px); }
   text-shadow: 0 0 22px rgba(246, 214, 138, 0.45), 0 2px 4px rgba(0, 0, 0, 0.6);
   font-variant-numeric: tabular-nums;
 }
+/* What the word was worth before the Deadline's editor reached over: struck
+   through, set smaller and duller, and sitting to the LEFT of the figure that
+   stands — so the pair reads as a correction on a proof rather than as two
+   scores. The rule is drawn rather than text-decoration'd, so it can be given
+   the editor's red and a weight that survives against 900-weight numerals. */
+.ro-total[hidden] { display: none; }
+.ro-total.ro-total--struck {
+  position: relative;
+  font-size: 27px;
+  color: #bda893;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  margin-right: 9px;
+  opacity: 0.85;
+  vertical-align: 0.24em;
+}
+.ro-total.ro-total--struck::after {
+  content: '';
+  position: absolute;
+  left: -6%; right: -6%; top: 52%;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--spike, #e2604a);
+  box-shadow: 0 0 9px rgba(226, 96, 74, 0.85);
+  transform: rotate(-6deg);
+  pointer-events: none;
+}
+/* The moment the pen goes through it. */
+.ro-total.ro-total--striking::after { animation: strikeThrough calc(0.42s / var(--aspd)) ease-out; }
+@keyframes strikeThrough {
+  0%   { transform: rotate(-6deg) scaleX(0); transform-origin: left center; }
+  100% { transform: rotate(-6deg) scaleX(1); transform-origin: left center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ro-total.ro-total--striking::after { animation: none; }
+}
+.ro-total-wrap:has(.ro-total--struck:not([hidden])) { white-space: nowrap; }
 
 .hidden { display: none !important; }
 
@@ -1693,6 +1733,30 @@ button.sundry:hover { transform: translateY(-2px); }
 .tile--wrapped .tile-letter[data-len='5'] { font-size: 32px; }
 /* The corner figure reads 0 (restingPoints says so) — dim it. */
 .tile--wrapped .tile-pts { opacity: 0.4; }
+
+/* A counterfeit sort. It reads as the Redactor's manuscript does — spells and
+   nothing more — but where the wrapping is paper laid OVER a real tile, this is
+   a forgery with nothing underneath: greenish bank-note stock rather than grey
+   draft paper, its face printed in the cast letterform because a forgery's whole
+   business is looking like the real thing. Cast letter, worthless metal. */
+.tile--counterfeit {
+  background:
+    repeating-linear-gradient(58deg,
+      rgba(72, 108, 84, 0.07) 0 2px, rgba(72, 108, 84, 0) 2px 6px),
+    linear-gradient(168deg, #dfe3d4 0%, #d2d8c6 55%, #c6ccb8 100%);
+  color: #40483c;
+  border-color: rgba(62, 84, 62, 0.45);
+  border-style: dashed;
+  --trim-ring: 0 0 rgba(0, 0, 0, 0);
+  --tile-lift: #8b957f;
+  background-blend-mode: multiply, normal;
+}
+.tile--counterfeit .tile-letter {
+  color: #3c4a3d !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+  opacity: 0.88;
+}
+.tile--counterfeit .tile-pts { opacity: 0.4; }
 /* Nothing shows through the paper: no nick notch, no rainbow sheen, no curse. */
 .tile--wrapped.tile--nick-left,
 .tile--wrapped.tile--nick-right,
@@ -2065,6 +2129,69 @@ button.sundry:hover { transform: translateY(-2px); }
   100% { transform: scale(1); }
 }
 
+/* ─── The Twins ───────────────────────────────────────────────────────────────
+   The groove brackets every doubled pair the seat can see, from the moment the
+   word is composed: a gap either side of the pair, and a dashed rule that
+   breathes. The gap is what makes two tiles read as ONE thing — they close up
+   against each other and stand apart from the word — and the whole mark is a
+   warning as much as a promise, because a recasting overwrites the second tile
+   with the first. Which is the mould is whichever you set in front. */
+.tile--twin-pair {
+  outline: 2px dashed rgba(255, 176, 214, 0.55);
+  outline-offset: 3px;
+  animation: twinPair calc(2.6s / var(--aspd)) ease-in-out infinite;
+}
+.tile--twin-pair-open  { margin-left:  13px; }
+.tile--twin-pair-close { margin-right: 13px; }
+@keyframes twinPair {
+  0%, 100% { outline-color: rgba(255, 176, 214, 0.34); }
+  50%      { outline-color: rgba(255, 176, 214, 0.85); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tile--twin-pair { animation: none; outline-color: rgba(255, 176, 214, 0.7); }
+}
+
+/* The recasting announced at print — the swell of a boosted tile in the Twins'
+   own rose, on the tile that was copied and the tile it was copied from. */
+.tile--twinned-firing {
+  animation: tileTwinned calc(0.62s / var(--aspd)) ease;
+  z-index: 4;
+}
+@keyframes tileTwinned {
+  0%   { transform: scale(1); filter: brightness(1); }
+  45%  { transform: scale(1.14) translateY(-4px); filter: brightness(1.3) saturate(1.25);
+         box-shadow: 0 0 0 4px rgba(255, 176, 214, 0.85), 0 0 28px rgba(255, 138, 193, 0.7); }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+.tile--twin-source {
+  animation: tileTwinSource calc(0.62s / var(--aspd)) ease;
+  z-index: 3;
+}
+@keyframes tileTwinSource {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.08);
+         box-shadow: 0 0 0 3px rgba(255, 176, 214, 0.6), 0 0 20px rgba(255, 138, 193, 0.45); }
+  100% { transform: scale(1); }
+}
+
+/* A letter the word does not have, that The Twins will strike (the
+   Haplographer's licence: BALOON's second L). Shown from composition so the
+   projection and the groove agree about how long the word is, and deliberately
+   untouchable — it is in no hand, and files into no pile. */
+.tile--twin-phantom {
+  opacity: 0.62;
+  border-style: dashed;
+  pointer-events: none;
+  animation: twinPhantom calc(2.4s / var(--aspd)) ease-in-out infinite;
+}
+@keyframes twinPhantom {
+  0%, 100% { opacity: 0.48; }
+  50%      { opacity: 0.72; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tile--twin-phantom { animation: none; }
+}
+
 /* ─── Action row ──────────────────────────────────────────────────────────────── */
 .action-row {
   display: flex;
@@ -2215,6 +2342,146 @@ button.sundry:hover { transform: translateY(-2px); }
 .fl-curse   { color: #ff7a66; font-size: 19px; font-weight: 800; text-shadow: 0 0 8px rgba(201, 60, 45, 0.65); }
 .fl-spike   { color: #ffb3a6; font-size: 18px; font-weight: 800; text-shadow: 0 0 9px rgba(201, 60, 45, 0.75); }
 .fl-boost   { color: #90e8ba; font-size: 19px; }
+.fl-twin    { color: #ffb0d6; font-size: 19px; }
+
+/* ─── The Bribrarian's consideration ──────────────────────────────────────────
+   A ladder of prices, read left to right: what it costs, what his pen then
+   does, and what the purse is left holding. The steps that put you in the red
+   are not refused — they are simply dressed in it, so the debt is a decision
+   you can see rather than a surprise you discover at the Market. */
+.sheet.sheet--bribe { width: min(680px, 94vw); }   /* two classes: .sheet--end sits later and would win at one */
+.bribe-grid {
+  width: 100%;
+  justify-self: stretch;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(98px, 1fr));
+  gap: 8px;
+  margin: 16px 0 4px;
+}
+.bribe-step {
+  display: grid;
+  gap: 3px;
+  padding: 12px 6px 10px;
+  border-radius: 9px;
+  cursor: pointer;
+  border: 1px solid rgba(122, 92, 40, 0.55);
+  background: linear-gradient(172deg, rgba(255, 249, 232, 0.9), rgba(232, 214, 174, 0.9));
+  color: #4a3a1c;
+  box-shadow: 0 3px 0 -1px #b3955e, 0 6px 12px rgba(0, 0, 0, 0.35);
+  transition: transform calc(0.14s / var(--aspd)), box-shadow calc(0.14s / var(--aspd));
+}
+.bribe-step:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 -1px #b3955e, 0 10px 18px rgba(0, 0, 0, 0.4),
+              0 0 0 2px rgba(246, 214, 138, 0.85);
+}
+.bribe-step:focus-visible { outline: 2px solid rgba(246, 214, 138, 0.95); outline-offset: 2px; }
+.bribe-coins { font-weight: 800; font-size: 14px; letter-spacing: 0.02em; }
+.bribe-mult {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: 25px;
+  line-height: 1.05;
+  color: #7c2f28;
+  font-variant-numeric: tabular-nums;
+}
+.bribe-after { font-size: 11.5px; opacity: 0.72; }
+/* Debt is offered, not hidden: the same step in the editor's own red. */
+.bribe-step--red {
+  border-color: rgba(150, 52, 40, 0.75);
+  background: linear-gradient(172deg, rgba(255, 232, 226, 0.92), rgba(232, 186, 176, 0.92));
+  box-shadow: 0 3px 0 -1px #9a5c50, 0 6px 12px rgba(0, 0, 0, 0.35);
+}
+.bribe-step--red:hover {
+  box-shadow: 0 6px 0 -1px #9a5c50, 0 10px 18px rgba(0, 0, 0, 0.4),
+              0 0 0 2px rgba(226, 96, 74, 0.85);
+}
+.bribe-step--red .bribe-after { color: #7c2f28; opacity: 0.95; font-weight: 700; }
+.bribe-note {
+  margin: 10px 0 0;
+  font-size: 13px;
+  opacity: 0.78;
+  max-width: 52ch;
+}
+
+/* ─── The rules (a bracketing pair, set bold) ─────────────────────────────────
+   Not a letter and not pretending to be one: dark type on a pale ground, the
+   asterisk set large and heavy so a bracketed word reads as bracketed at a
+   glance. It shows no Points because it has none. */
+.tile--rule {
+  background: linear-gradient(168deg, #2a2420 0%, #1d1a17 55%, #15120f 100%);
+  border-color: rgba(246, 236, 210, 0.45);
+  color: #f6ecd2;
+  --trim-ring: 0 0 rgba(0, 0, 0, 0);
+  --tile-lift: #0d0b09;
+}
+.tile--rule .tile-letter {
+  color: #f6ecd2 !important;
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 0.8;
+  transform: translateY(6px);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+}
+.tile--rule .tile-pts { display: none; }
+
+/* ─── The Counterfeiter's plate ───────────────────────────────────────────────
+   Every sort he can forge, laid out at once. A grid rather than a row, because
+   the point is that the whole case is available — and each sort wears the tile's
+   own shape, so what you are taking is legible before you take it. */
+/* Wider than the other end sheets, because a case of sorts wants to be seen
+   whole. `justify-items: center` on .sheet--end would otherwise shrink the grid
+   to one column, so the plate claims the full width it is given. */
+.sheet.sheet--plate { width: min(680px, 94vw); }   /* likewise — a wider case fits another column of sorts */
+.plate-grid {
+  width: 100%;
+  justify-self: stretch;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(54px, 1fr));
+  gap: 8px;
+  margin: 18px 0 4px;
+  max-height: 46vh;
+  overflow-y: auto;
+  padding: 2px;
+}
+.plate-sort {
+  position: relative;
+  aspect-ratio: 1 / 1.12;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px dashed rgba(62, 84, 62, 0.5);
+  background:
+    repeating-linear-gradient(58deg,
+      rgba(72, 108, 84, 0.07) 0 2px, rgba(72, 108, 84, 0) 2px 6px),
+    linear-gradient(168deg, #dfe3d4 0%, #d2d8c6 55%, #c6ccb8 100%);
+  background-blend-mode: multiply, normal;
+  box-shadow: 0 3px 0 -1px #8b957f, 0 6px 10px rgba(0, 0, 0, 0.4);
+  display: grid;
+  place-items: center;
+  transition: transform calc(0.14s / var(--aspd)), box-shadow calc(0.14s / var(--aspd));
+}
+.plate-sort:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 -1px #8b957f, 0 10px 16px rgba(0, 0, 0, 0.45),
+              0 0 0 2px rgba(154, 196, 160, 0.6);
+}
+.plate-sort:focus-visible { outline: 2px solid rgba(154, 196, 160, 0.9); outline-offset: 2px; }
+.plate-sort:disabled { opacity: 0.35; cursor: default; }
+.plate-sort-letter {
+  font-family: var(--display, Georgia, serif);
+  font-weight: 700;
+  font-size: 26px;
+  color: #3c4a3d;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+.plate-sort-pts {
+  position: absolute;
+  right: 5px; bottom: 3px;
+  font-size: 11px;
+  font-weight: 900;
+  color: #3c4a3d;
+  opacity: 0.4;
+}
 /* Copy rather than arithmetic, so it takes the serif's italic and rises above
    the chip's own ×N floater. */
 .fl-flourish {
@@ -2701,7 +2968,7 @@ button.sundry:hover { transform: translateY(-2px); }
   justify-content: center;
 }
 
-/* Sundry offers (paint tubes) — .paint-pot survives for the opening draft */
+/* Sundry offers (paint tubes) */
 .market-sec--paint { margin-top: 16px; }
 .offer-paint .paint-tube { margin-top: 2px; }
 .offer-paint {
@@ -3027,7 +3294,7 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 /* ═══ The Market — a candlelit skin over the shop views ════════════════════════
-   Scoped under .sheet--market so the draft keeps its parchment. */
+   Scoped under .sheet--market, so no other sheet takes the shop's ink. */
 
 .sheet--market {
   background:
@@ -3067,7 +3334,6 @@ button.sundry:hover { transform: translateY(-2px); }
   border-color: rgba(243, 222, 184, 0.2);
 }
 .sheet--market .stall-warn { color: #ffb3a6; }
-.sheet--market .pickable.picked { outline-color: #8fdfae; box-shadow: 0 0 16px rgba(143, 223, 174, 0.3); }
 
 /* ── The table, restated at the top of the sheet ──────────────────────────────
    The board's patron shelf again, on the same .shelf/.patron classes. */
@@ -3426,6 +3692,11 @@ button.sundry:hover { transform: translateY(-2px); }
   color: var(--brass-dark);
 }
 /* The best word of the run is illuminated */
+/* A word set bold stays bold in the book — the run's typography is its own
+   record, and this is the only thing that varies it. */
+.book-word--bold { font-weight: 900; letter-spacing: 0.9px; color: #2a1c06; }
+.ms-word--bold   { font-weight: 900; }
+
 .book-entry--best .book-word {
   font-weight: 900;
   color: #6b4a12;
@@ -3437,6 +3708,215 @@ button.sundry:hover { transform: translateY(-2px); }
   -webkit-box-decoration-break: clone;
 }
 .book-entry--best .book-score { color: var(--brass-dark); font-weight: 800; }
+
+/* ═══ The Black Market — the alley behind the fair ═════════════════════════════
+   The Market is candlelit: warm purple, brass, wood, a type case. The alley is
+   the opposite of all four on purpose, so you know at a glance you are not at
+   the fair. Cold instead of warm, verdigris and bone instead of brass, wet slate
+   instead of wood, and one green lamp overhead rather than a room full of
+   candles. Layered OVER .sheet--market rather than replacing it, so everything
+   the two genuinely share (the shelf strip, the bench, the sold-state toggles)
+   keeps working from one place. */
+
+.modal--black { background: rgba(2, 6, 5, 0.86); }
+
+:root {
+  --alley:      #7fbfa1;   /* verdigris — the alley's brass */
+  --alley-hi:   #b6e8cd;
+  --alley-dark: #1c3b30;
+  --alley-ink:  #050b09;
+}
+
+.sheet--market.sheet--black {
+  width: min(1040px, 96vw);
+  background:
+    /* the one lamp */
+    radial-gradient(560px 300px at 50% -14%, rgba(127, 191, 161, 0.16), transparent 68%),
+    /* soot in the corners */
+    radial-gradient(420px 300px at 8% 108%, rgba(0, 0, 0, 0.55), transparent 70%),
+    radial-gradient(420px 300px at 92% 108%, rgba(0, 0, 0, 0.55), transparent 70%),
+    linear-gradient(178deg, #10201b 0%, #0a1512 55%, #060d0b 100%);
+  border-color: rgba(127, 191, 161, 0.34);
+  box-shadow:
+    inset 0 0 0 1px rgba(182, 232, 205, 0.06),
+    inset 0 0 90px rgba(0, 0, 0, 0.72),
+    0 40px 100px rgba(0, 0, 0, 0.9);
+}
+
+.sheet--black .bm-title {
+  background: linear-gradient(120deg, var(--alley-hi), var(--alley));
+  -webkit-background-clip: text;
+  background-clip: text;
+  letter-spacing: 0.4px;
+}
+.sheet--black .market-sec  { color: #dcefe5; }
+.sheet--black .market-sub  { color: #7f9c90; }
+.sheet--black .sheet-note  { color: #8fada0; max-width: 46ch; }
+.sheet--black .market-foot { border-top: 1px dashed rgba(127, 191, 161, 0.28); }
+
+.sheet--black .market-purse.bm-purse {
+  background: rgba(4, 12, 9, 0.7);
+  border-color: rgba(127, 191, 161, 0.4);
+  box-shadow: inset 0 1px 0 rgba(182, 232, 205, 0.1);
+  color: var(--alley-hi);
+}
+
+/* The table itself: wet slate under a scrap of oilcloth, not a type case. */
+/* Sixteen on the table, so a tidy 8 × 2 at full width and halving from there —
+   an auto-fill track would leave a ragged last row at most sheet widths. */
+.sheet--black .bm-tiles {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 9px;
+  padding: 11px;
+  border-radius: var(--r-md);
+  background:
+    repeating-linear-gradient(102deg, rgba(255, 255, 255, 0.014) 0 2px, transparent 2px 7px),
+    linear-gradient(180deg, #16241f 0%, #0c1614 55%, #070f0d 100%);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  box-shadow:
+    inset 0 2px 0 rgba(182, 232, 205, 0.09),
+    inset 0 -8px 16px rgba(0, 0, 0, 0.5),
+    0 10px 24px rgba(0, 0, 0, 0.55);
+}
+
+.sheet--black .bm-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 7px 10px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #16241f 0%, #0a1210 100%);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  box-shadow:
+    inset 0 3px 10px rgba(0, 0, 0, 0.7),
+    inset 0 0 0 1px rgba(182, 232, 205, 0.05);
+}
+.sheet--black .bm-tile .tile { cursor: help; }
+.sheet--black .bm-tile .btn-price { padding: 5px 10px; font-size: 13px; }
+
+@media (max-width: 900px) { .sheet--black .bm-tiles { grid-template-columns: repeat(6, 1fr); } }
+@media (max-width: 660px) { .sheet--black .bm-tiles { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 420px) { .sheet--black .bm-tiles { grid-template-columns: repeat(3, 1fr); } }
+
+/* What the metal is, said under the tile — the whole reason to be down here.
+   The row is drawn on every card, blank on ordinary stock (blackTileNote in
+   js/sheets.js), so a caption never makes one card taller than its neighbours. */
+.sheet--black .bm-tile-note {
+  min-height: 12px;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--note, #8fada0);
+  line-height: 1.2;
+}
+
+/* Contraband wears its own light, so the four rare metals read across the table
+   at a glance rather than only in the caption. */
+.sheet--black .bm-tile--rainbow { --note: #ffe9a8; border-color: rgba(255, 233, 168, 0.4); }
+.sheet--black .bm-tile--rainbow::after {
+  content: '';
+  position: absolute; inset: -1px;
+  border-radius: 8px;
+  pointer-events: none;
+  background: conic-gradient(rgba(255,157,142,.16), rgba(255,214,140,.16), rgba(144,232,186,.16), rgba(142,198,255,.16), rgba(255,157,142,.16));
+  mix-blend-mode: screen;
+}
+.sheet--black .bm-tile--ghost {
+  --note: #bcd8f2;
+  border-color: rgba(188, 216, 242, 0.34);
+  box-shadow: inset 0 3px 10px rgba(0,0,0,0.7), 0 0 20px rgba(140, 190, 235, 0.16);
+}
+.sheet--black .bm-tile--rose {
+  --note: #ffc4d8;
+  border-color: rgba(255, 196, 216, 0.34);
+  box-shadow: inset 0 3px 10px rgba(0,0,0,0.7), 0 0 20px rgba(255, 150, 190, 0.16);
+}
+.sheet--black .bm-tile--cursed {
+  --note: #ff9d8e;
+  border-color: rgba(201, 60, 45, 0.5);
+  box-shadow: inset 0 3px 10px rgba(0,0,0,0.7), 0 0 20px rgba(201, 60, 45, 0.22);
+}
+/* Blind emboss carries no ink, so it takes no glow either — a bone hairline and
+   nothing else, which is the whole of what the metal is. */
+.sheet--black .bm-tile--blind {
+  --note: #d8d2c4;
+  border-color: rgba(216, 210, 196, 0.3);
+}
+.sheet--black .bm-tile--mark { --note: #d3b6ef; border-color: rgba(211, 182, 239, 0.34); }
+
+.sheet--black .bm-tile .op-sold,
+.sheet--black .bm-sundry .op-sold { display: none; }
+.sheet--black .offer--sold .op-sold { display: inline-flex; }
+.sheet--black .offer--sold .btn-price { display: none; }
+.sheet--black .offer--sold { opacity: 0.42; }
+.sheet--black .op-sold {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #6f8d81;
+}
+
+.sheet--black .bm-grid {
+  display: grid;
+  grid-template-columns: 1.75fr 1fr;
+  gap: 26px;
+  margin-top: 22px;
+}
+@media (max-width: 820px) { .sheet--black .bm-grid { grid-template-columns: 1fr; } }
+.sheet--black .bm-sec { min-width: 0; }
+
+/* Four calling cards, so two abreast rather than a column that runs off the
+   sheet while the sundries beside it sit in a puddle of empty ground. */
+.sheet--black .bm-patrons { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 1000px) { .sheet--black .bm-patrons { grid-template-columns: 1fr; } }
+
+/* Sundries under the counter: no wooden shelf, just the slate again. */
+.sheet--black .offer-paint.bm-sundry {
+  background: linear-gradient(180deg, rgba(22, 36, 31, 0.9), rgba(10, 18, 16, 0.9));
+  border: 1px solid rgba(127, 191, 161, 0.22);
+  box-shadow: inset 0 1px 0 rgba(182, 232, 205, 0.08);
+}
+.sheet--black .offer-paint.bm-sundry .op-name { color: #dcefe5; }
+
+/* The prices are the one warm thing in the room — coin is coin, wherever you
+   spend it — but the alley's are struck in bone rather than brass. */
+.sheet--black .btn-price {
+  color: #0a1512;
+  background: linear-gradient(180deg, var(--alley-hi), var(--alley));
+  border-color: rgba(10, 30, 24, 0.6);
+  box-shadow: 0 2.5px 0 var(--alley-dark), 0 4px 9px rgba(0, 0, 0, 0.45);
+}
+.sheet--black .btn-price--over {
+  background: linear-gradient(180deg, #f0b9a8, #d98a72);
+  box-shadow: 0 2.5px 0 #6d3626, 0 4px 9px rgba(0, 0, 0, 0.45);
+}
+.sheet--black .btn-price:disabled {
+  filter: grayscale(0.6) brightness(0.62);
+  cursor: not-allowed;
+}
+
+/* The patron cards keep their ivory stock — a calling card is a calling card —
+   but they are lit from the alley's lamp rather than the fair's candles. */
+.sheet--black .offer-patron {
+  box-shadow:
+    inset 0 0 0 3px rgba(244, 250, 246, 0.86),
+    inset 0 0 0 4px var(--hairline, rgba(112, 64, 160, 0.55)),
+    0 6px 18px rgba(0, 0, 0, 0.7);
+}
+
+/* The table and bench strips, restated on the cold ground. */
+.sheet--black .market-shelf .shelf,
+.sheet--black .sundries--market {
+  background: linear-gradient(180deg, #16241f 0%, #0a1210 100%);
+  border-color: rgba(127, 191, 161, 0.22);
+}
+.sheet--black .market-shelf--wanted .market-sub { color: #ff9d8e; }
 
 /* ─── The Colophon (end-of-chapter upgrade) ─────────────────────────────────────
    Bigger cards, centred, no prices — built on the same dark market skin. */
@@ -3492,6 +3972,18 @@ button.sundry:hover { transform: translateY(-2px); }
 .colophon-card--azure:hover   { border-color: var(--azure);   box-shadow: inset 0 0 0 1px rgba(255,235,200,0.08), 0 0 22px rgba(79,134,201,0.35), 0 12px 26px rgba(0,0,0,0.5); }
 .colophon-card--jade:hover    { border-color: var(--jade);    box-shadow: inset 0 0 0 1px rgba(255,235,200,0.08), 0 0 22px rgba(63,163,113,0.35), 0 12px 26px rgba(0,0,0,0.5); }
 .colophon-card--amber:hover   { border-color: var(--amber);   box-shadow: inset 0 0 0 1px rgba(255,235,200,0.08), 0 0 22px rgba(210,154,58,0.35), 0 12px 26px rgba(0,0,0,0.5); }
+
+/* The alley's card is the odd one out on the Colophon and says so: cold ground,
+   verdigris rule, and a green rather than brass glow when you reach for it. */
+.colophon-card--blackmarket {
+  background: linear-gradient(175deg, #12231d 0%, #070f0d 100%);
+  border-color: rgba(127, 191, 161, 0.38);
+}
+.colophon-card--blackmarket .colophon-card-name { color: var(--alley-hi); }
+.colophon-card--blackmarket:hover {
+  border-color: var(--alley);
+  box-shadow: inset 0 0 0 1px rgba(182,232,205,0.1), 0 0 24px rgba(127,191,161,0.32), 0 12px 26px rgba(0,0,0,0.55);
+}
 
 .colophon-card--picked {
   animation: colophonPick calc(0.56s / var(--aspd)) ease;
@@ -3550,52 +4042,438 @@ button.sundry:hover { transform: translateY(-2px); }
   border-top: 8px solid var(--parch-2);
 }
 
-/* ─── Opening draft ───────────────────────────────────────────────────────────── */
-.sheet--draft { width: min(860px, 96vw); }
-.sheet--draft .market-sec { margin-top: 18px; }
-.sheet--draft .market-sec:first-of-type { margin-top: 4px; }
+/* ─── The Testing Chamber ─────────────────────────────────────────────────────── */
+/* Deliberately not parchment: the chamber is a bench in the back room, and
+   nothing in it should be mistakable for a page of the game. Slate, steel and a
+   monospace hand, so a screenshot of it never reads as the real thing. */
+.sheet.sheet--chamber {          /* doubled: .sheet--end sits later and would win at one */
+  width: min(1020px, 96vw);
+  background:
+    radial-gradient(760px 340px at 50% -12%, rgba(120, 160, 200, 0.14), transparent 70%),
+    linear-gradient(175deg, #232a33 0%, #1b212a 70%, #161b22 100%);
+  color: #cfdcea;
+  border: 1px solid #46586e;
+  box-shadow:
+    inset 0 0 0 1px rgba(150, 190, 230, 0.14),
+    inset 0 0 70px rgba(30, 60, 100, 0.3),
+    0 36px 90px rgba(0, 0, 0, 0.8);
+}
+.sheet--chamber h2, .sheet--chamber h3, .sheet--chamber h4 { color: #eaf3ff; }
+.sheet--chamber .sheet-note { color: #93a8c2; }
+.sheet--chamber .market-sec {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin: 18px 0 9px;
+  border-bottom: 1px solid #3a4757;
+  padding-bottom: 6px;
+}
+.sheet--chamber .market-sub { color: #7e93ad; font-weight: 600; }
 
-.draft-paints {
+.tc-title {
+  font-family: var(--mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 22px !important;
+}
+.tc-head { align-items: center; }
+.tc-purse {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.tc-coins {
+  font-weight: 900;
+  font-size: 19px;
+  color: #ffd98a;
+  min-width: 62px;
+  text-align: right;
+}
+
+.sheet--chamber .btn-quiet,
+.sheet--chamber .btn {
+  background: #2c3644;
+  color: #d6e4f4;
+  border: 1px solid #4c5f77;
+}
+.sheet--chamber .btn-quiet:hover:not(:disabled),
+.sheet--chamber .btn:hover:not(:disabled) { background: #38455a; }
+.sheet--chamber .btn-print {
+  background: linear-gradient(#3f6f4c, #2c5237);
+  border-color: #5d9a70;
+  color: #eafff0;
+}
+.tc-mini {
+  padding: 3px 9px !important;
+  font-size: 12px !important;
+  min-height: 0 !important;
+  border-radius: 6px !important;
+}
+.tc-mini--on { background: #3f6f4c !important; border-color: #5d9a70 !important; }
+
+/* ── Tabs ── */
+.tc-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid #3a4757;
+  margin: 4px 0 14px;
+  flex-wrap: wrap;
+}
+.tc-tab {
+  appearance: none;
+  background: transparent;
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  color: #8ea3bd;
+  font: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-bottom: -1px;
+}
+.tc-tab:hover { color: #d6e4f4; background: rgba(120, 160, 200, 0.1); }
+.tc-tab--on {
+  color: #eaf3ff;
+  background: #2c3644;
+  border-color: #4c5f77;
+  border-bottom: 1px solid #2c3644;
+}
+
+.tc-body { min-height: 200px; }
+
+/* ── The two benches (shelf and workbench) ── */
+.tc-bench { margin-bottom: 4px; }
+.tc-seats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 34px;
+  align-items: center;
+}
+.tc-seat {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #2c3644;
+  border: 1px solid #4c5f77;
+  border-radius: 999px;
+  color: #d6e4f4;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 5px 10px 5px 7px;
+  cursor: pointer;
+}
+.tc-seat:hover { background: #4a2f34; border-color: #8d5560; }
+.tc-seat-face { font-size: 15px; }
+.tc-seat-x { color: #8ea3bd; font-size: 11px; font-weight: 900; }
+.tc-seat:hover .tc-seat-x { color: #ffbfc8; }
+.tc-seat--ghost { opacity: 0.78; border-style: dashed; }
+
+/* ── Patrons ── */
+.tc-filter {
+  width: 100%;
+  box-sizing: border-box;
+  background: #1a2029;
+  border: 1px solid #46586e;
+  border-radius: 8px;
+  color: #eaf3ff;
+  font: inherit;
+  font-size: 14px;
+  padding: 8px 11px;
+  margin-bottom: 10px;
+}
+.tc-filter::placeholder { color: #6d8199; }
+.tc-filter:focus { outline: 2px solid #5d8fc0; outline-offset: 1px; }
+
+.tc-patrons {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  max-height: 46vh;
+  overflow: auto;
+  padding-right: 4px;
+}
+.tc-patron {
+  display: grid;
+  grid-template-columns: 54px 1fr auto;
+  align-items: center;
   gap: 9px;
+  background: #262f3b;
+  border: 1px solid #3f4e61;
+  border-left-width: 4px;
+  border-radius: 10px;
+  padding: 8px 9px;
 }
-.offer-tiles--draft { grid-template-columns: repeat(5, 1fr); }
-
-.pickable {
-  position: relative;
+.tc-patron--common   { border-left-color: #7c8a9c; }
+.tc-patron--uncommon { border-left-color: #5d9ac0; }
+.tc-patron--rare     { border-left-color: #c09a4a; }
+.tc-patron--seated   { background: #2b3b31; border-color: #4d6f57; }
+.tc-patron .op-portrait { min-height: 0; background: none; border: none; box-shadow: none; }
+.tc-patron .op-emoji { font-size: 27px; }
+.tc-patron .op-portrait img { width: 46px; height: 46px; border-radius: 8px; object-fit: cover; }
+.tc-patron .op-name  { color: #eaf3ff; font-size: 14px; }
+.tc-patron .op-title { color: #7e93ad; font-size: 11px; text-transform: capitalize; }
+.tc-patron .op-desc  { color: #a9bdd6; font-size: 11.5px; line-height: 1.35; }
+.tc-patron-acts { display: flex; flex-direction: column; gap: 4px; }
+.tc-patron .btn-price {
+  background: #33475d;
+  border: 1px solid #55708d;
+  color: #e6f0fb;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 7px;
   cursor: pointer;
-  transition:
-    transform calc(0.12s / var(--aspd)),
-    box-shadow calc(0.12s / var(--aspd)),
-    opacity calc(0.12s / var(--aspd));
 }
-.pickable:hover:not(.pick-locked) { transform: translateY(-2px); }
+.tc-patron .btn-price:hover { background: #3f5a76; }
+.btn-price--ghost { font-size: 13px !important; padding: 3px 10px !important; }
 
-.pickable .pick-mark {
-  position: absolute;
-  top: -8px; right: -8px;
-  width: 23px; height: 23px;
-  border-radius: 50%;
+/* ── Sundries ── */
+.tc-sundries {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.tc-sundry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #262f3b;
+  border: 1px solid #3f4e61;
+  border-radius: 10px;
+  padding: 9px 10px;
+  cursor: pointer;
+}
+.tc-sundry:hover { background: #324052; border-color: #5d7794; }
+.tc-sundry-face {
+  font-size: 22px;
   display: grid;
   place-items: center;
+  width: 30px;
+  flex: 0 0 30px;
+}
+/* The bench's own marks, shrunk to fit a row: the paint tube, the parcel's
+   twine, the ratchet's arrows. */
+.tc-sundry-face .paint-tube { transform: scale(0.72); }
+.tc-sundry-face .wrapped-mark { width: 20px; height: 20px; margin: 0; }
+/* The bench stacks the ratchet's arrows side by side, with room for a thumb.
+   In a 30px face they go one above the other and shrink to a mark. */
+.tc-sundry-face .ratchet-arrows { flex-direction: column; gap: 2px; margin: 0; }
+.tc-sundry-face .ratchet-arrow {
+  width: 20px; height: 12px;
+  font-size: 8px;
+  cursor: default;
+  box-shadow: none;
+}
+.tc-sundry-face .sundry-shuffle { font-size: 21px; color: #9fc4e8; }
+.tc-sundry .op-name { color: #dbe7f5; font-size: 12.5px; font-weight: 700; }
+
+/* ── The tile-maker ── */
+.tc-maker {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.tc-maker-preview {
+  background: #1a2029;
+  border: 1px solid #3f4e61;
+  border-radius: 12px;
+  padding: 14px 12px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+}
+.tc-preview-slot {
+  display: grid;
+  place-items: center;
+  min-height: 92px;
+  margin-bottom: 6px;
+}
+.tc-preview-note { color: #8ea3bd; font-size: 12px; margin-bottom: 10px; }
+.tc-strike { display: flex; flex-direction: column; gap: 6px; }
+
+.tc-knob-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin: 12px 0 6px;
   font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8ea3bd !important;
+}
+.tc-knob-head:first-child { margin-top: 0; }
+
+.tc-sorts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.tc-sort {
+  appearance: none;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 6px;
+  background: #2c3644;
+  border: 1px solid #4c5f77;
+  border-radius: 7px;
+  color: #d6e4f4;
+  font-family: var(--serif);
+  font-weight: 800;
+  font-size: 14px;
+  cursor: pointer;
+}
+.tc-sort:hover { background: #3a475c; }
+.tc-sort--on {
+  background: #c9a24a;
+  border-color: #f0d9a0;
+  color: #1c1409;
+}
+
+.tc-swatches { display: flex; flex-wrap: wrap; gap: 5px; }
+.tc-swatch {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #2c3644;
+  border: 1px solid #4c5f77;
+  border-radius: 7px;
+  color: #d6e4f4;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.tc-swatch:hover { background: #3a475c; }
+.tc-swatch--on { outline: 2px solid #eaf3ff; outline-offset: 1px; }
+.tc-swatch::before {
+  content: '';
+  width: 10px; height: 10px;
+  border-radius: 3px;
+  background: currentColor;
+  opacity: 0.9;
+}
+.tc-swatch--none::before, .tc-swatch--plain::before { opacity: 0.25; }
+.tc-swatch--crimson  { color: #e46b78; }
+.tc-swatch--azure    { color: #6fb6e8; }
+.tc-swatch--jade     { color: #6fd3a2; }
+.tc-swatch--amber    { color: #e8b45c; }
+.tc-swatch--trim-gold   { color: #e5c15a; }
+.tc-swatch--trim-silver { color: #cdd8e4; }
+.tc-swatch--trim-cobalt { color: #6f8ee8; }
+.tc-swatch--trim-purple { color: #b98ae0; }
+.tc-swatch--mat-cursed  { color: #d05a4a; }
+.tc-swatch--mat-ghost   { color: #9fc4e8; }
+.tc-swatch--mat-rainbow { color: #e8a0d8; }
+.tc-swatch--mat-rose    { color: #e88fa8; }
+
+.sheet--chamber .mini-grid {
+  max-height: 34vh;
+  overflow: auto;
+  background: #1a2029;
+  border: 1px solid #3f4e61;
+  border-radius: 10px;
+  padding: 9px;
+}
+.sheet--chamber .mini-grid .tile { cursor: pointer; }
+.sheet--chamber .mini-grid .tile:hover { outline: 2px solid #d0707e; outline-offset: 2px; }
+
+/* Blind emboss — struck into the paper, carrying no ink. Debossed rather than
+   coloured: the letter reads as pressed-in, never as painted. */
+.tile--mat-blind {
+  background: linear-gradient(168deg, #efe3c6 0%, #e2d3ae 62%, #d4c398 100%);
+}
+.tile--mat-blind .tile-letter {
+  color: transparent;
+  text-shadow:
+    0 1px 0 rgba(255, 252, 240, 0.85),
+    0 -1px 1px rgba(120, 96, 52, 0.55);
+}
+.tile--mat-blind .tile-pts { color: #9c8557; }
+.tile--mat-blind::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: 5px;
+  border: 1px dashed rgba(140, 114, 66, 0.5);
+  pointer-events: none;
+}
+.tc-swatch--mat-blind { color: #cbb98d; }
+
+/* ── Experimental ── */
+.tc-labs { display: grid; gap: 10px; }
+.tc-lab {
+  background: #262f3b;
+  border: 1px solid #3f4e61;
+  border-left: 4px solid #5a6b80;
+  border-radius: 10px;
+  padding: 11px 13px;
+  cursor: pointer;
+}
+.tc-lab:hover { background: #2f3a49; }
+.tc-lab--on { border-left-color: #5d9a70; background: #2b3b31; }
+.tc-lab-head { display: flex; align-items: center; gap: 9px; margin-bottom: 5px; }
+.tc-lab-name { font-weight: 800; font-size: 14.5px; color: #eaf3ff; }
+.tc-lab-state {
+  font-size: 10px;
   font-weight: 900;
-  background: #2f6e3e;
-  color: #eafff0;
-  border: 1.5px solid rgba(0, 0, 0, 0.35);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-  opacity: 0;
-  transform: scale(0.5);
-  transition: opacity calc(0.14s / var(--aspd)), transform calc(0.14s / var(--aspd));
+  letter-spacing: 0.1em;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: #3a4757;
+  color: #8ea3bd;
 }
-.pickable.picked .pick-mark { opacity: 1; transform: scale(1); }
-.pickable.picked {
-  outline: 2.5px solid #2f6e3e;
-  outline-offset: 2px;
-  box-shadow: 0 0 16px rgba(47, 110, 62, 0.35);
+.tc-lab--on .tc-lab-state { background: #3f6f4c; color: #d9ffe6; }
+.tc-lab-blurb { margin: 0; font-size: 12.5px; line-height: 1.45; color: #a9bdd6; }
+.tc-lab-note {
+  margin: 6px 0 0;
+  font-size: 11.5px;
+  font-style: italic;
+  line-height: 1.4;
+  color: #7e93ad;
 }
-.pick-locked { opacity: 0.4; cursor: default; }
+
+/* ── The run's own numbers ── */
+.tc-rows {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.tc-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #8ea3bd;
+}
+.tc-num {
+  background: #1a2029;
+  border: 1px solid #46586e;
+  border-radius: 7px;
+  color: #eaf3ff;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 800;
+  padding: 7px 9px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.tc-num:focus { outline: 2px solid #5d8fc0; outline-offset: 1px; }
 
 /* ─── Settings ────────────────────────────────────────────────────────────────── */
 .set-row {
@@ -3849,6 +4727,26 @@ input[type='checkbox'] {
 }
 .tip-line { color: #5c4a2e; margin-top: 3px; }
 
+/* A short table of terms inside a calling card's tap-through — the Purveyor's
+   six widened choices. Label left, figure right, so the column of numbers reads
+   at a glance. */
+.tip-list {
+  list-style: none;
+  margin: 7px 0 0;
+  padding: 7px 0 0;
+  border-top: 1px dashed rgba(120, 90, 40, 0.35);
+  font-size: 11.5px;
+}
+.tip-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 1.5px 0;
+  color: #5c4a2e;
+}
+.tip-list b { color: var(--parch-ink); font-weight: 800; }
+
 /* The calling card a ghost hands you, in the graveyard's colours. */
 .tip-pop--ghost {
   background:
@@ -3876,6 +4774,39 @@ input[type='checkbox'] {
    Every guess he has marked, newest last — Wordle without the previous rows is
    a memory test, not a puzzle. The word is set in the tile face so it reads as
    type; the squares carry the verdict. */
+/* ─── The Abecedarian's case ──────────────────────────────────────────────────
+   A compositor's case, laid out in its own order: a sort that has been pressed
+   stands in type, one that has not is an empty box. The whole point of the seat
+   is seeing at a glance which letters you still owe it — so the gaps have to
+   read as gaps, not as dim type. */
+.case-grid {
+  margin: 9px 0 2px;
+  padding: 7px 8px;
+  border-radius: 7px;
+  background: rgba(45, 138, 92, 0.07);
+  border: 1px dashed rgba(45, 138, 92, 0.35);
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 3px;
+}
+.case-sort {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 3px;
+  font-family: var(--serif);
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(120, 150, 130, 0.45);
+  background: rgba(0, 0, 0, 0.22);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.case-sort--set {
+  color: #2a1f10;
+  background: linear-gradient(168deg, var(--ivory, #f6ecd2), #e2d3ac);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5), 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
 .wordle-board {
   margin: 9px 0 2px;
   padding: 7px 9px;
@@ -4043,6 +4974,24 @@ input[type='checkbox'] {
   .chip--length:not(.chip--on) { display: none; }
   .ro-total-wrap { min-width: 56px; }
   .ro-total { font-size: 25px; }
+  /* Side by side, a crossed-out six-figure score pushes the whole board off a
+     phone (439px of readout on a 390px screen). So the correction goes ABOVE
+     the figure that stands instead of beside it: it costs no width at all, and
+     a number written over another still reads as a proof mark. */
+  .ro-total-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .ro-total.ro-total--struck {
+    font-size: 13px;
+    margin-right: 0;
+    margin-bottom: 2px;
+    vertical-align: baseline;
+  }
+  .ro-total.ro-total--struck::after { height: 2px; }
 
   /* one row of tiles reserved in the groove, two in the rack (a full hand) */
   .word-groove { min-height: 76px; padding: 8px; gap: 6px; }
@@ -4075,12 +5024,24 @@ input[type='checkbox'] {
   .run-stats { grid-template-columns: 1fr 1fr; }
   .set-row { grid-template-columns: 1fr; gap: 6px; }
 
-  .offer-tiles--draft { grid-template-columns: repeat(2, 1fr); }
-  .draft-paints { grid-template-columns: 1fr; }
   .offer-patron { grid-template-columns: 68px 1fr; }
   .op-portrait { min-height: 78px; }
   .op-portrait .op-emoji { font-size: 30px; }
-  .sheet--draft .market-sec { margin-top: 14px; }
+
+  /* The chamber on a phone: one column everywhere, and the tile-maker's
+     preview stops being a sticky rail and simply sits on top. */
+  .tc-patrons  { grid-template-columns: 1fr; max-height: 40vh; }
+  .tc-sundries { grid-template-columns: repeat(2, 1fr); }
+  .tc-rows     { grid-template-columns: repeat(2, 1fr); }
+  .tc-maker    { grid-template-columns: 1fr; }
+  .tc-maker-preview { position: static; }
+  .tc-strike { flex-direction: row; }
+  .tc-strike .btn { flex: 1 1 auto; justify-content: center; }
+  .tc-tab { padding: 8px 12px; font-size: 13px; }
+  .tc-title { font-size: 18px !important; }
+  .tc-head { flex-direction: column; align-items: stretch; }
+  .tc-purse { justify-content: flex-start; }
+  .tc-coins { text-align: left; }
 
   /* the shop head is a title beside a reward tally — too wide for a phone */
   .sheet-head { flex-direction: column; align-items: stretch; gap: 8px; }

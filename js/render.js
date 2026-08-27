@@ -1,6 +1,6 @@
 // Board-side rendering: tiles, the shelf and workbench, the status row and
 // readout, popovers, banners, and the end screens. The full-screen sheets
-// (Market, Colophon, draft) live in sheets.js.
+// (Market, Colophon, Testing Chamber) live in sheets.js.
 
 import {
   state, settings, saveState, getActiveLetter, getActiveColour, selectedCount,
@@ -13,14 +13,15 @@ import {
   WORDS_PER_PAGE, PAGES_PER_CHAPTER, tileCount,
   colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
   sundryTip, FLEURON, TOOL_LOOK, PACKAGES, APPLICATORS, HONORIFIC_STEP, MEDIEVAL, letterGlyph,
-  INTERROBANG, POSTNOM,
+  INTERROBANG, POSTNOM, BAG_COUNTS, BRIBRARIAN, bribeMult, isRule, RULE, BOLD_MULT,
 } from './constants.js';
 import { patronById, guildsOf, patronName, patronShelf, patronEmoji } from './patrons.js';
 import { bossById } from './bosses.js';
 import { computeScore } from './scoring.js';
 import { marketSnapshot, patronRefund } from './market.js';
-import { draftSnapshot } from './draft.js';
+import { chamberSnapshot } from './chamber.js';
 import { colophonSnapshot } from './colophon.js';
+import { blackMarketSnapshot } from './blackmarket.js';
 import { setNum, sleep, fmtMult, readingTime } from './anim.js';
 
 const $ = id => document.getElementById(id);
@@ -44,7 +45,11 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   if (tile.nick)                  div.classList.add(`tile--nick-${tile.nick}`);
   if (tile.material)              div.classList.add(`tile--mat-${tile.material}`);
   // Marked apart: the gift rides beside the hand, the E takes a place out of it.
-  if (tile.ephemeral)             div.classList.add(tile.aboveHand ? 'tile--gift' : 'tile--lent');
+  // A counterfeit is lent in the same sense — page-only, cast from no template —
+  // but it is not on loan from anybody, and it has a look of its own below.
+  if (tile.ephemeral && !tile.counterfeit) {
+    div.classList.add(tile.aboveHand ? 'tile--gift' : 'tile--lent');
+  }
 
   const active = getActiveLetter(tile);
   const paint  = getActiveColour(tile);
@@ -56,6 +61,8 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   // The paper goes over everything the tile was, so this class is added LAST and
   // the CSS covers trim ring, nick and metal alike.
   if (isWrapped(tile)) div.classList.add('tile--wrapped');
+  if (tile.counterfeit) div.classList.add('tile--counterfeit');
+  if (isRule(getActiveLetter(tile))) div.classList.add('tile--rule');
   if (MEDIEVAL[active]) div.classList.add('tile--medieval');
   if (active === INTERROBANG) div.classList.add('tile--interrobang');
 
@@ -103,6 +110,18 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
 // a thing does rather than naming it.
 export function tileFeatures(tile) {
   const out = [];
+  // A forgery has nothing under it, so it is said first and there is nothing
+  // below to come back — unlike the wrapping, which is a page-long condition.
+  if (tile.counterfeit) {
+    out.push({
+      head: 'A counterfeit sort',
+      body: 'Forged on The Counterfeiter\'s plate. It spells, and does nothing else — no '
+          + 'Points, no paint, no trim, no metal, no nick, and nothing can ever be laid on '
+          + 'it. It takes a place in your hand like any other tile, and it is gone when the '
+          + 'page turns. What it buys is length, and whatever your table can make of a '
+          + 'letter that is merely there.',
+    });
+  }
   // First, because it hides everything: while the wrapper is on none of the
   // lines below are true — but they stay listed, being what comes back.
   if (isWrapped(tile)) {
@@ -298,6 +317,62 @@ export function showCoinWordSheet() {
   input?.focus();
 }
 
+// ─── The Counterfeiter's plate ────────────────────────────────────────────────
+// Every sort he can forge, laid out at once — and you take exactly one, which is
+// why the whole case can be shown without the seat becoming a free hand. Picking
+// closes the plate; looking and walking away costs nothing.
+export function showCounterfeitSheet() {
+  const letters = Object.keys(BAG_COUNTS);
+  showOverlay(`
+    <div class="sheet sheet--end sheet--plate">
+      <div class="end-flourish">💵</div>
+      <h2 class="end-title">The plate</h2>
+      <p class="end-sub">One forged sort, free, and the plate is cold until the next
+        page. It spells, and nothing else — no Points, and nothing can be written on
+        it. It is gone when the page turns.</p>
+      <div class="plate-grid" id="plateGrid">
+        ${letters.map(L => `
+          <button class="plate-sort" data-counterfeit="${L}" aria-label="Take a counterfeit ${L}">
+            <span class="plate-sort-letter">${L}</span>
+            <span class="plate-sort-pts">0</span>
+          </button>`).join('')}
+      </div>
+      <div class="end-actions">
+        <button class="btn btn-quiet" data-plate-done>Not this page</button>
+      </div>
+    </div>`);
+}
+
+// ─── The Bribrarian's consideration ───────────────────────────────────────────
+// Taken before the page is set, which is the whole of the gamble: you are
+// buying his pen down without yet knowing what the hand will give you. Every
+// step is offered, including the ones that put the purse in the red — the game
+// lets you go into debt for this, and says plainly what that costs.
+export function showBribeSheet(coins) {
+  const rows = Array.from({ length: BRIBRARIAN.steps + 1 }, (_, n) => {
+    const after = coins - n;
+    const red = after < 0;
+    return `
+      <button class="bribe-step${red ? ' bribe-step--red' : ''}" data-bribe="${n}">
+        <span class="bribe-coins">${n === 0 ? 'Nothing' : `${n} ${n === 1 ? 'Coin' : 'Coins'}`}</span>
+        <span class="bribe-mult">×${bribeMult(n)}</span>
+        <span class="bribe-after">${red ? `${after} — in the red` : `${after} left`}</span>
+      </button>`;
+  }).join('');
+  showOverlay(`
+    <div class="sheet sheet--end sheet--bribe">
+      <div class="end-flourish">🤝</div>
+      <h2 class="end-title">A consideration</h2>
+      <p class="end-sub">The Bribrarian will penalise every word you set this page.
+        How heavily is a matter between the two of you, and it is settled now —
+        before you have seen what the hand holds.</p>
+      <div class="bribe-grid">${rows}</div>
+      <p class="bribe-note">You have ${coins} ${coins === 1 ? 'Coin' : 'Coins'}. You may go into
+        the red — nothing in the Market will sell to a purse that cannot cover it,
+        so a debt shuts the shop until it is worked off.</p>
+    </div>`);
+}
+
 export function setCoinNote(msg, bad = false) {
   const el = $('coinNote');
   if (!el) return;
@@ -341,9 +416,10 @@ export function renderAll() {
 
 export function persist() {
   saveState(
-    state.inDraft    ? { _draft: draftSnapshot() } :
+    state.inChamber  ? { _chamber: chamberSnapshot() } :
     state.inMarket  ? { _market: marketSnapshot() } :
-    state.inColophon ? { _colophon: colophonSnapshot() } : {}
+    state.inColophon ? { _colophon: colophonSnapshot() } :
+    state.inBlackMarket ? { _blackmarket: blackMarketSnapshot() } : {}
   );
 }
 
@@ -723,10 +799,17 @@ function renderBossBar(script) {
   }
   const data = state.boss.data ?? {};
   const demand = def.demand?.(data);
+  // An editor with a MOOD takes a cut of every word without spiking anything —
+  // the Reviewer's temper, the Bribrarian's fee. Saying "passes" beside a score
+  // he has just shortened is a small lie, so the cut is named instead.
+  const cut = def.mood?.(data);
+  const cutting = cut != null && cut < 1;
   const verdict = !state.word.length || !script ? ''
     : script.spiked
       ? `<span class="boss-verdict boss-verdict--bad">✂ spiked — ×${SPIKE_MULT} Mult</span>`
-      : `<span class="boss-verdict boss-verdict--ok">✓ passes</span>`;
+      : cutting
+        ? `<span class="boss-verdict boss-verdict--bad">✂ his cut — ×${cut} Mult</span>`
+        : `<span class="boss-verdict boss-verdict--ok">✓ passes</span>`;
 
   // One mark per word printed, in order. Only for editors that judge — the
   // Reviewer and the Completist never spike, so a row of ✓s would say nothing.
@@ -737,7 +820,7 @@ function renderBossBar(script) {
     : '';
 
   el.classList.remove('hidden');
-  el.classList.toggle('boss-bar--warn', !!script?.spiked && !!state.word.length);
+  el.classList.toggle('boss-bar--warn', (!!script?.spiked || cutting) && !!state.word.length);
   el.title = `${def.name} — ${def.desc}`;
   el.innerHTML = `
     <span class="boss-emoji">${def.emoji}</span>
@@ -852,13 +935,48 @@ export function renderWord(script = computeScore(state.word)) {
   }
 
   const nowPts = new Map();
-  state.word.forEach(t => {
+  // The Twins strike the letters a word is missing (BALOON's second L), and the
+  // groove shows them from the moment the word is composed: the projection
+  // already counts them, so a promise of seven letters must show seven. They are
+  // rendered as phantoms — nothing in state.word, nothing to drag, nothing to
+  // file away afterwards — and the print is where they turn solid.
+  const summonsAt = new Map((script?.twinSummons ?? []).map(su => [su.at, su.tile]));
+
+  // The Twins read a pair before anything is counted, and a recasting OVERWRITES
+  // the second tile — so the groove brackets every pair the seat can see while
+  // the word is still being composed: a gap either side, and a dashed rule that
+  // breathes. It is a warning as much as a promise, and it is what makes "set
+  // the good tile first" a choice rather than a trap.
+  const markTwinPair = (el, id) => {
+    const side = script?.twinPairMarks?.get(id);
+    if (!side) return;
+    el.classList.add('tile--twin-pair');
+    if (side === 'open' || side === 'both') el.classList.add('tile--twin-pair-open');
+    if (side === 'close' || side === 'both') el.classList.add('tile--twin-pair-close');
+  };
+
+  const phantomTwinEl = t => {
+    const e = makeTileEl(t, 'word', { pts: script?.perTile?.get(t.id)?.final ?? null });
+    e.classList.add('tile--twin-phantom');
+    markTwinPair(e, t.id);
+    e.dataset.twin = t.id;          // addressable by the print, but not by a pointer
+    e.removeAttribute('data-id');   // nothing may drag, flip or select a phantom
+    return e;
+  };
+
+  const wordTileEl = t => {
     const bd = script?.perTile.get(t.id);
     const shown = bd?.final ?? null;
+    // The Twins recast a doubled tile as the one beside it before anything is
+    // counted, so the groove shows what it now READS as — again on a copy, since
+    // the tile itself is unchanged and files away as plain as it arrived.
+    const twinned = script?.twinCloned?.get(t.id);
+    const base = twinned ?? t;
     // The Illuminator's brush lands before the word is counted, so the groove
     // shows the colour on a COPY — the paint isn't owned until the word prints.
     const wet = script?.tilePaint?.get(t.id);
-    const tileEl = makeTileEl(wet ? { ...t, colour: wet } : t, 'word', { pts: shown });
+    const tileEl = makeTileEl(wet ? { ...base, colour: wet } : base, 'word', { pts: shown });
+    markTwinPair(tileEl, t.id);
     if (wet) {
       tileEl.style.setProperty('--glow', COLOURS[wet].glyph);
       tileEl.classList.add('tile--illuminating');
@@ -880,8 +998,16 @@ export function renderWord(script = computeScore(state.word)) {
       ptsEl.classList.add('pts-pop');
       ptsEl.style.animationDelay = `${(delayOf.get(t.id) ?? 0) / (settings.animSpeed || 1)}ms`;
     }
-    el.appendChild(tileEl);
-  });
+    return tileEl;
+  };
+
+  // A phantom takes the place it was struck into, which may be the end of the
+  // word — hence the extra turn past the last tile.
+  for (let i = 0; i <= state.word.length; i++) {
+    const su = summonsAt.get(i);
+    if (su) el.appendChild(phantomTwinEl(su));
+    if (state.word[i]) el.appendChild(wordTileEl(state.word[i]));
+  }
   _lastWordPts = nowPts;
 
   updateReadoutPreview(script);
@@ -897,7 +1023,9 @@ export function renderCounts() {
 
 // Cursed rides at the end: its chip only appears when a cursed tile is in the
 // word (see the CSS), so the readout doesn't carry a slot most runs never use.
-export const CHIP_COLOURS = ['length', ...Object.keys(COLOURS), 'purple', 'cursed'];
+// Bold rides at the end with cursed: its chip only appears when the word is
+// actually bracketed, so the rack doesn't carry a slot most words never use.
+export const CHIP_COLOURS = ['length', ...Object.keys(COLOURS), 'purple', 'cursed', 'bold'];
 
 export function updateReadoutPreview(script) {
   const ro = $('readout');
@@ -905,6 +1033,7 @@ export function updateReadoutPreview(script) {
   ro.classList.toggle('readout--idle', !script);
   setNum($('roPoints'), script ? script.points : 0);
   setNum($('roTotal'), script ? script.total : 0);
+  showStruckTotal(script?.adjusted ? script.plainTotal : null);
   renderChips(script?.colourSteps);
 }
 
@@ -924,9 +1053,19 @@ export function setChip(el, mult) {
   el.classList.toggle('chip--on', mult > 1);
 }
 
+// The figure the Deadline's editor crossed out. Shown beside the real total,
+// struck through — the score the word was worth, and what the desk made of it.
+// Passing null puts it away.
+export function showStruckTotal(plain) {
+  const el = $('roTotalPlain');
+  if (!el) return;
+  el.hidden = plain == null;
+  if (plain != null) setNum(el, plain);
+}
+
 // Imperative access for the scoring cinematic
 export const readoutEls = () => ({
-  points: $('roPoints'), total: $('roTotal'),
+  points: $('roPoints'), total: $('roTotal'), plain: $('roTotalPlain'),
   root: $('readout'), coins: $('coinCount'),
   chip: c => $(`chip-${c}`),
 });
@@ -934,7 +1073,8 @@ export const readoutEls = () => ({
 // ─── Buttons ──────────────────────────────────────────────────────────────────
 
 export function renderButtons() {
-  const blocked = state.inMarket || state.inDraft || state.inColophon || state.isAnimating || state.gameOver;
+  const blocked = state.inMarket || state.inChamber || state.inColophon || state.inBlackMarket
+                || state.isAnimating || state.gameOver;
   const sel = selectedCount();
 
   setDisabled('btnPrint',    !state.word.length || blocked);
@@ -1004,7 +1144,8 @@ export function renderManuscript() {
 
   el.innerHTML = words.map((r, i) => {
     const last = i === words.length - 1;
-    const cls = `ms-word${last ? ' ms-word--last' : ''}${last && grew ? ' ms-word--new' : ''}`;
+    const cls = `ms-word${last ? ' ms-word--last' : ''}${last && grew ? ' ms-word--new' : ''}`
+              + `${r.bold ? ' ms-word--bold' : ''}`;
     return `<span class="${cls}">${r.word.toLowerCase()}</span>`;
   }).join('<span class="ms-dot">·</span>');
 }
@@ -1172,8 +1313,9 @@ export function openManuscript() {
       : r.word;
     const n = r.score.toLocaleString();
     return `<span class="book-entry${best && r.score === best ? ' book-entry--best' : ''}" `
-         + `title="${r.word} — ${n} points">`
-         + `<span class="book-word">${word}</span><span class="book-score">${n}</span></span>`;
+         + `title="${r.word} — ${n} points${r.bold ? ', set bold' : ''}">`
+         + `<span class="book-word${r.bold ? ' book-word--bold' : ''}">${word}</span>`
+         + `<span class="book-score">${n}</span></span>`;
   };
 
   // Folio in the margin, lower-case roman. A Deadline is marked, not numbered.

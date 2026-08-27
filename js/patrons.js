@@ -55,7 +55,14 @@
 //     cobalt refreshes, paint and trim alike. Pass 0 counts the marking seats
 //     and passes 1–3 spend the result, doubling per seat, so two seats naming
 //     one tile reach ×4. The whole word arrives as `tiles`, so a seat may pick
-//     its tiles out of the word (The Twins) rather than by name.
+//     its tiles out of the word rather than by name.
+//
+//   tileTwin(tiles) — RECASTS one tile as another before the word is read, and
+//     may add a tile the word does not have. Return [{ kind, first, second, at }]
+//     (twinPairs, below). Scoring's pass ⅓ applies it to a copy, ahead of the
+//     brush and of `word` itself, so a summoned tile is in the word for every
+//     reader that follows — it spells, it lengthens, it takes paint. The only
+//     hook that can change what PRINTS, which is why exactly one seat has it.
 //
 // Optional hooks (main.js dispatches these for every seated patron). Each may
 // return { note } to speak over the patron's own card.
@@ -119,12 +126,15 @@
 
 import {
   GRAFTER_STEP, STOKER_BASE, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS,
-  NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, ABECEDARIAN_STEP,
+  NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE,
   RAGMAN_ODDS, RAGMAN_COINS, REVENANT_ODDS, MATERIALS,
   PACKAGE_ODDS, PACKAGES, PACKAGE_OF_PATRON,
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, isMark,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
   HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, RIPPER_WORDS, splitMarks, isImmutable,
+  TWINS_POINTS, CHILD_STEP, ABECEDARIAN_MULT, ABECEDARIAN_CASE, caseGlyphs, MEDIEVAL,
+  ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS, PURVEYOR,
+  SHORTHAIR_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
   medievalExpansions, POSTNOM, GHOST_HIRE, USURER,
   PRINCE, princeMult,
   WORDLER,
@@ -134,8 +144,9 @@ import {
 import {
   state, getActiveColour, getActiveLetter, countsAsColour, luckyRoll,
   paintRandomTiles, restingPoints, shuffle, owns, allSeats, effectiveSundrySlots,
+  strikeMaterial,
 } from './state.js';
-import { inTheme, themeSize, THEME_SETS } from './themes.js';
+import { inTheme, themeSize, THEME_SETS, silentAt, SILENT } from './themes.js';
 import { DICT } from './dict.js';
 import { PATRON_CARDS } from './patron-cards.js';
 
@@ -206,6 +217,45 @@ const readsCypher = (tiles, c) =>
 // so rainbow metal reaches all of them for free.
 const painted = (tiles, colour) => tiles.filter(t => countsAsColour(t, colour));
 
+// What the cat's meals are worth, rounded so nothing ever shows the raw
+// 0.30000000000000004 that repeated addition of a tenth produces.
+const shorthairMult = eaten => Math.round((eaten ?? 0) * SHORTHAIR_MULT * 100) / 100;
+
+// A plain sort: one letter of the alphabet and nothing else. Everything the
+// press can set that ISN'T one of these — a ligature (several letters on one
+// body), a medieval sort (a single character outside A-Z), a mark, the fleuron,
+// the interrobang — is what The Typesetter is paid for.
+const isPlainSort = L => /^[A-Z]$/.test(L ?? '');
+
+// The vowels of a word, read TILE BY TILE, giving two different counts because
+// The Cartographer needs both:
+//
+//   seq    the ORDER to check, with each tile's own run of one vowel counted
+//          once. This is what lets a doubled vowel written on a single body
+//          pass: the OO ligature contributes one O, where two separate O tiles
+//          contribute two and break the run.
+//   count  how many vowels are SPOKEN, the OO's pair counted as two. This is
+//          what the minimum is measured against, so BOOK set with an OO tile is
+//          a two-vowel word that happens to spell them on one sort — and CAT,
+//          with a single vowel and no order to be in, is not.
+//
+// Y is left out of both. It is a vowel only sometimes, and a rule that has to
+// guess is a rule players cannot compose towards.
+const vowelRun = tiles => {
+  const seq = [];
+  let count = 0;
+  for (const t of tiles) {
+    let last = null;
+    for (const ch of getActiveLetter(t) ?? '') {
+      if (!VOWELS.includes(ch)) continue;
+      count++;
+      if (ch !== last) seq.push(ch);
+      last = ch;
+    }
+  }
+  return { seq, count };
+};
+
 // Adjacent doubled pairs, counted without overlapping: AAA is one pair,
 // AAAA is two. BALLOON has two (LL, OO).
 function doubledPairs(word) {
@@ -247,37 +297,105 @@ const licencedPairs = word =>
 const wordLetters = tiles =>
   tiles.map(getActiveLetter).filter(L => !isMark(L)).join('');
 
-// The tiles standing in a doubled pair — what The Twins read. Walked LETTER by
-// letter rather than tile by tile, each letter remembering the tile it came
+// The pairs The Twins read, each naming the tiles standing in it. Walked LETTER
+// by letter rather than tile by tile, each letter remembering the tile it came
 // from, so a ligature is counted for what it spells: a CH beside an H doubles
 // them both, and a tile that spells its own double is a pair by itself.
-function doubledTileIds(tiles) {
+//
+// Every pair PAYS. Only some can be CLONED, and the reason is spelling: a clone
+// rewrites the second tile as the first, so it is only safe where the two tiles
+// already show the same face. Cloning the H of CH·H into a second CH would
+// print CHCH — a different word than the one you set — so those pairs are paid
+// and left alone. Hence a `kind`:
+//
+//   'clone'  — two whole tiles wearing the same letter. The second becomes the
+//              first: its Points, trim, nick, metal and paint, all of it.
+//   'letters'— the doubling straddles a ligature (CH·H), or one tile spells its
+//              own double (OO). There is no second tile to rewrite, or
+//              rewriting it would respell the word. Paid, never cloned.
+//   'summon' — the Haplographer's licence: the second letter isn't in the word
+//              at all. The Twins strike it, and it joins the word for real —
+//              which is the one thing in the game that changes what prints.
+//
+// `at` on a summon is where the new tile goes: immediately after the tile whose
+// last letter it doubles, which is the only place it can go without respelling
+// the word (so a licence landing mid-ligature summons nothing and is paid as
+// 'letters').
+export function twinPairs(tiles) {
   const chars = [];
   for (const t of tiles) {
     const L = getActiveLetter(t);
     if (isMark(L)) continue;                  // HELLO! is doubled by its Ls, not its !
     for (const ch of L) chars.push({ ch, tile: t });
   }
-  const ids = new Set();
+  const pairs = [];
   for (let i = 0; i < chars.length - 1; i++) {
     if (chars[i].ch !== chars[i + 1].ch) continue;
-    ids.add(chars[i].tile.id);
-    ids.add(chars[i + 1].tile.id);
+    const first = chars[i].tile, second = chars[i + 1].tile;
+    const clonable = first !== second && getActiveLetter(first) === getActiveLetter(second);
+    pairs.push({ kind: clonable ? 'clone' : 'letters', first, second });
     i++;
   }
-  // The licence read onto the tile it pardons: the single L of BALOON stands
-  // for two, so that tile is a doubled letter like any other.
+  // The licence read onto the tile it pardons: the single L of BALOON stands for
+  // two, and The Twins are what makes the second one real.
   if (owns('haplographer')) {
     const at = licencedIndex(chars.map(c => c.ch).join(''));
-    if (at >= 0) ids.add(chars[at].tile.id);
+    // Only the LAST letter of a tile can be doubled by a tile set after it: the
+    // licence on the A of an AL ligature wants BAAL, and no tile placed beside
+    // AL spells that.
+    if (at >= 0 && chars[at].tile !== chars[at + 1]?.tile) {
+      const first = chars[at].tile;
+      // `ch` is the LETTER to be struck, which is not always the whole of the
+      // tile it doubles: the licence on B·AL·OON wants a bare L after the
+      // ligature (BALLOON), never a second AL (BALALOON).
+      pairs.push({ kind: 'summon', first, second: null, ch: chars[at].ch,
+                   at: tiles.indexOf(first) + 1 });
+    } else if (at >= 0) {
+      pairs.push({ kind: 'letters', first: chars[at].tile, second: chars[at].tile });
+    }
   }
-  return ids;
+  return pairs;
 }
+
+// What a case of sorts is worth, rounded so the card never shows 0.30000000004.
+const abecedarianMult = seen =>
+  Math.round((seen?.length ?? 0) * ABECEDARIAN_MULT * 100) / 100;
+
+// What a twinned pair is worth in Points — the seat's smaller half, paid per
+// pair however the pair is made.
+export const twinPoints = pairs => TWINS_POINTS * pairs.length;
+
+// "crimson", "crimson and a Gold trim", "crimson, a Gold trim and +2 Points".
+const listPhrase = xs =>
+  (xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} and ${xs.at(-1)}`);
 
 // The medieval sorts, read as the letters they stand for. Readings are tried in
 // `reads` order and the first real word wins, else the first reading stands. The
 // live preview (scoring) and the print (main.js) both resolve through this one
 // function, so they cannot disagree about what þORN spells.
+// ─── The dummy letters ────────────────────────────────────────────────────────
+// Which TILE in the word carries the mute letter. The list holds the index of
+// the letter inside the WORD, and a tile may spell several letters (QU, ING), so
+// the word is walked tile by tile until the index falls inside one. That tile is
+// the one struck blind — a ligature holding the silence is struck whole, because
+// a sort is one piece of metal whatever it spells.
+export function silentTile(wordTiles, word) {
+  const at = silentAt(word);
+  if (at == null) return null;
+  let i = 0;
+  for (const tile of wordTiles) {
+    const len = (getActiveLetter(tile) ?? '').length;
+    if (at < i + len) return tile;
+    i += len;
+  }
+  return null;
+}
+
+// True when the word is one the press keeps a silence for. Read by the editor
+// pass in scoring.js as well as by the seat itself, so what the board promises
+// while you compose is what the print delivers.
+export const hasSilence = word => SILENT.has(word);
+
 export function resolveMedieval(letters) {
   const options = medievalExpansions(letters);
   if (!options) return letters;
@@ -456,14 +574,88 @@ const PATRON_BEHAVIOURS = [
     },
   },
   {
-    // The Monogrammist's echo aimed by the word instead of by a name: a letter
-    // standing doubled prints twice. Reads through tileEcho like every other
-    // doubling seat, so a Monogrammist and a Twin stack on the same tile — ×4,
-    // the same ceiling two Monogrammists reach.
+    // A doubled letter is two of the same thing, and The Twins hold the press to
+    // it: the second tile is struck again from the first and KEEPS it — paint,
+    // trim, nick, metal, grown Points and both faces of a dual, overwriting
+    // whatever it wore before. Two plain Ls are unchanged by that and paid
+    // anyway; one gorgeous L beside a plain one is where the seat earns its
+    // keep, and where the puzzle lives — you want the pair lopsided, not tidy,
+    // and set the good tile FIRST, because the mould is whichever you set in
+    // front. Set them the wrong way round and the good one is what you lose;
+    // the groove brackets every pair it reads so the choice is never blind.
+    //
+    // Which makes this a deck-builder rather than a score seat, and gives it a
+    // shape over a run: at the first Market your tiles are all bare and it pays
+    // its +5 and nothing more; through the middle of a run it is the cheapest
+    // way there is to spread one good tile across a collection; by the end most
+    // of what you own is already dressed and it has little left to give — bar
+    // the one extraordinary tile you are trying to make copies of.
+    //
+    // It lands in scoring's pass ⅓, before anything is counted and before the
+    // brush, so every reader downstream sees two identical tiles: the colour
+    // multipliers count the coat twice, a gold trim pays a second Coin, the
+    // Monogrammist finds two of its letter. Scoring stays pure — the copy is
+    // made there, and onPrinted below is what lays it into the collection.
+    //
+    // twinPairs decides which pairs can be recast and which are only paid; the
+    // Haplographer's licence is the third case, and the loudest — the missing
+    // letter is STRUCK, and a real tile joins the word.
     id: 'twins',
-    when: 'meta',       // fires in scoring's pass 2½ via tileEcho
-    tileEcho(tile, _data, tiles) {
-      return doubledTileIds(tiles ?? []).has(tile.id);
+    when: 'score',      // the recasting fires in scoring's pass ⅓; this pays the pairs
+    tileTwin: tiles => twinPairs(tiles),
+    effect({ tiles, addPoints }) {
+      const n = twinPoints(twinPairs(tiles));
+      if (n) addPoints(n);
+    },
+    // …and here it is made permanent. The mould was worked out at scoring and
+    // carried on the step, so what goes into the collection is exactly what the
+    // player was shown — not a second reckoning against a tile another seat may
+    // have painted in between. The letter is read BEFORE the recasting, because
+    // a clone takes the faces too and the tile may not be an L any more after.
+    // The struck letter (a licence) has no line here: it was cast from nothing
+    // and files into nothing, so there is no template to write to.
+    onPrinted({ tiles, script, recast }) {
+      const said = [];
+      for (const step of script?.twinSteps ?? []) {
+        if (step.id !== 'twins') continue;
+        for (const hit of step.hits) {
+          if (hit.kind !== 'clone' || !hit.changed) continue;
+          const target = tiles.find(t => t.id === hit.id);
+          const letter = target && getActiveLetter(target);
+          const got = recast(target, hit.mould);
+          if (got) said.push(`${letter} is struck again from its twin — ${listPhrase(got)}, for good.`);
+        }
+      }
+      return said.length ? { say: said } : null;
+    },
+  },
+  {
+    // The one seat that reads a word for what is NOT said in it. Two halves:
+    // no editor hears a word with a mute letter in it (the judge pass in
+    // scoring.js asks hasSilence before it spikes), and the mute tile is struck
+    // blind for good, which crowns him. The metal carries nothing yet — it is
+    // there for other seats to care about later.
+    id: 'silentknight',
+    when: 'score',
+    onPrinted({ tiles, script, data }) {
+      const word = script?.word;
+      if (!word || !hasSilence(word)) return null;
+      const target = silentTile(tiles, word);
+      if (!target) return null;
+      const letter = getActiveLetter(target);
+      if (!strikeMaterial(target, 'blind')) return null;
+      data.struck = (data.struck ?? 0) + 1;
+      data.honorifics = (data.honorifics ?? 0) + 1;
+      return {
+        say: [`The ${letter} in ${word} was never spoken — struck blind, for good. `
+            + `A laurel with it: +${data.honorifics * HONORIFIC_STEP} Points every word.`],
+      };
+    },
+    instDesc(data) {
+      const n = data?.struck ?? 0;
+      if (!n) return PATRON_CARDS.silentknight.desc;
+      return `${n} letter${n > 1 ? 's' : ''} struck blind. `
+           + `+${(data.honorifics ?? 0) * HONORIFIC_STEP} Points every word.`;
     },
   },
   {
@@ -493,13 +685,56 @@ const PATRON_BEHAVIOURS = [
     when: 'meta',
   },
   {
+    // The one seat that pays in CHOICE and in nothing else. It adds no Points,
+    // no Mult and no Coins; it widens every spread the game lays in front of you
+    // — the Market's tiles, patrons and stalls, the Colophon's cards, the tiles a
+    // proposal stall spreads, and the tiles a paint tube offers to choose
+    // between.
+    //
+    // Which makes it an EARLY seat by design. What you lack in the first two
+    // chapters is the right tile rather than more of them, and a wider spread is
+    // the cheapest way to find it; by the last chapter your press knows what it
+    // wants and one more card to look at is worth very little. A seat you buy,
+    // use, and sell on without regret — which is a shape the roster is otherwise
+    // short of.
+    //
+    // Every number lives in PURVEYOR (js/constants.js) and is read through the
+    // effective-* getters in js/state.js, so the Market, the Colophon and the
+    // workbench cannot disagree about what the seat is worth.
+    id: 'purveyor',
+    when: 'meta',   // read by the effective-* getters in js/state.js
+    // The six numbers, laid out where there is room for them. Read straight off
+    // PURVEYOR, so retuning the seat retunes what it promises.
+    popover() {
+      const rows = [
+        ['Tiles at the Market',    PURVEYOR.tiles],
+        ['Patrons calling',        PURVEYOR.patrons],
+        ['Stalls pitched',         PURVEYOR.stalls],
+        ['Tiles inside a stall',   PURVEYOR.proposals],
+        ['Cards at the Colophon',  PURVEYOR.upgrades],
+        ['Tiles a paint tube offers', PURVEYOR.paint],
+      ];
+      return `<ul class="tip-list">${rows
+        .map(([what, n]) => `<li><span>${what}</span><b>+${n}</b></li>`).join('')}</ul>`;
+    },
+  },
+  {
     // Additive, so it queues with the other +Mult seats rather than
     // multiplying what they built. Stacks: ING and TH in one word is +0.5.
+    // Paid per NON-STANDARD sort: anything that is not a plain single letter of
+    // the alphabet. That is one test, not a list — ligatures are several letters
+    // on one body, the medieval sorts are single characters outside A-Z, and the
+    // marks, the fleuron and the interrobang are not letters at all. A new odd
+    // sort added to the case is counted by this seat the day it arrives, with
+    // nothing here to update.
+    //
+    // Additive, so it queues with the other +Mult seats rather than multiplying
+    // what they built. Stacks: a QU beside a þ is +0.4.
     id: 'typesetter',
     when: 'score',
     effect({ tiles, addMult }) {
-      const n = tiles.filter(t => LIGATURES.includes(t.letter)).length;
-      if (n) addMult(n * 0.25);
+      const n = tiles.filter(t => !isPlainSort(getActiveLetter(t))).length;
+      if (n) addMult(Math.round(n * TYPESETTER_STEP * 100) / 100);
     },
   },
   {
@@ -606,15 +841,29 @@ const PATRON_BEHAVIOURS = [
   {
     id: 'astronomer',
     when: 'score',
-    effect({ state, addMult }) { if (state.wordsPrinted > 0) addMult(state.wordsPrinted); },
+    effect({ state, addMult }) {
+      if (state.wordsPrinted > 0) addMult(ASTRONOMER_STEP * state.wordsPrinted);
+    },
   },
   {
+    // Reads the VOWELS and asks that they run in order — A before E before I
+    // before O before U — which is a rarer and more satisfying shape than the
+    // old all-letters rule: ABSTEMIOUS and FACETIOUS are the famous ones, but
+    // MARKET, PRESS and DOUBT all qualify too, so it is a seat you can compose
+    // towards rather than wait on.
+    //
+    // Counted per TILE, which is what makes a doubled vowel written on one body
+    // legal: the OO ligature contributes a single O and passes, where two
+    // separate O tiles are two O's in a row and fail. The Haplographer's licence
+    // never appears here at all — it doubles a letter in the READING, and this
+    // reads the tiles as set.
     id: 'cartographer',
     when: 'score',
-    effect({ word, xMult }) {
-      if (word.length < 4) return;
-      for (let i = 0; i < word.length - 1; i++) if (word[i] > word[i + 1]) return;
-      xMult(3);
+    effect({ tiles, xMult }) {
+      const { seq, count } = vowelRun(tiles);
+      if (count < CARTOGRAPHER_MIN_VOWELS) return;   // no order to be in
+      for (let i = 0; i < seq.length - 1; i++) if (seq[i] >= seq[i + 1]) return;
+      xMult(CARTOGRAPHER_MULT);
     },
   },
 
@@ -664,14 +913,44 @@ const PATRON_BEHAVIOURS = [
     // The banked rolls live in state.freeRerolls, are spent by the re-roll button
     // before any coin is (rerollMarket in market.js), and expire when that Market
     // closes — an agent works the fair he was sent to. Rainbow counts as amber.
+    // Every amber tile in hand at the page's end, with no ceiling — the hand
+    // itself is the limit, and filling it with amber is the build. The credit is
+    // with THIS fair's stallholders and expires when the Market closes
+    // (closeMarket in js/market.js), so a great haul cannot be hoarded.
     id: 'factor',
     when: 'meta',
     onPageComplete({ state }) {
-      const n = Math.min(2, state.rack.filter(t => countsAsColour(t, 'amber')).length);
+      const n = state.rack.filter(t => countsAsColour(t, 'amber')).length;
       if (!n) return null;
       state.freeRerolls = (state.freeRerolls ?? 0) + n;
       return { note: `${n} free re-roll${n > 1 ? 's' : ''} banked` };
     },
+  },
+  {
+    // ONE forged sort a page, chosen off a plate of the whole case. It spells
+    // and does nothing else — worth no Points, and nothing can be written on it
+    // (spellsOnly and isImmutable in js/state.js) — so what it buys is LENGTH,
+    // and whatever your engines can make of a letter that is merely present: a
+    // doubled pair for The Twins to strike from, a fourth colour for The
+    // Illuminator to find, a shape for an editor to approve of.
+    //
+    // One a page is the whole of the limit, and it has to be: a free letter is a
+    // small kindness, a free HAND is a different game. It costs a place in the
+    // hand while it is there, and the page takes it back.
+    //
+    // Unless The Twins get to it. A twin struck onto a forgery makes it REAL —
+    // it stops being counterfeit, stops being page-only, and is adopted into the
+    // collection wearing the mould (recastTile in js/state.js). That is the seat
+    // at its best: a worthless letter you took this morning goes into the bag
+    // tonight as a copy of your finest tile.
+    id: 'counterfeiter',
+    when: 'meta',   // used from his card — the sheet lives in render.js, the taking in main.js
+    act: ({ seat, data }) =>
+      (!seat || state.inMarket || state.inColophon) ? ''
+      : data?.used
+      ? `<button class="btn btn-quiet tip-btn" disabled>The plate is cold until the next page</button>`
+      : `<button class="btn btn-quiet tip-btn" data-patron-act="counterfeiter">Look over the plate…</button>`,
+    onPageStart({ data }) { data.used = false; return null; },
   },
   {
     // Used from his card mid-page rather than at a sheet: tap the card, take the
@@ -701,20 +980,78 @@ const PATRON_BEHAVIOURS = [
 
   // ── Jade · growth and permanence ────────────────────────────────────────────
   {
+    // The only seat in the game paid for BREADTH. Everything else rewards
+    // doubling down — one colour, one letter, one shape — and this one rewards
+    // having pressed a sort you have never pressed before, which is the whole
+    // of a case of type: one of everything, in order.
+    //
+    // Which makes it the only reason to set your Q, your X, your Z: letters
+    // every other seat teaches you to throw away. It grows slowly and it never
+    // stops, and a full case is worth +1.6 Mult on every word for the rest of
+    // the run — the alphabet alone is +1.4, and the four medieval sorts are the
+    // last, hardest 0.2 (the Medievalist's stall is the only road to them).
+    //
+    // The tally is a plain array on the seat's data so it survives save and
+    // load, and is advanced in onPrinted — never in effect(), which runs on
+    // every keystroke.
+    id: 'abecedarian',
+    when: 'score',
+    effect({ data, addMult }) {
+      const n = (data?.seen ?? []).length;
+      if (n) addMult(Math.round(n * ABECEDARIAN_MULT * 100) / 100);
+    },
+    onPrinted({ tiles, data }) {
+      const seen = (data.seen ??= []);
+      const fresh = [];
+      for (const t of tiles) {
+        for (const g of caseGlyphs(getActiveLetter(t))) {
+          if (seen.includes(g) || fresh.includes(g)) continue;
+          fresh.push(g);
+        }
+      }
+      if (!fresh.length) return null;
+      seen.push(...fresh);
+      const full = seen.length >= ABECEDARIAN_CASE.length;
+      return {
+        note: `${fresh.join(' ')} — new`,
+        say: [full
+          ? `the case is complete: every sort in the press, and +${abecedarianMult(seen)} Mult for good.`
+          : `${fresh.join(', ')} set for the first time — ${seen.length} of ${ABECEDARIAN_CASE.length} sorts, +${abecedarianMult(seen)} Mult.`],
+      };
+    },
+    instDesc(data) {
+      const n = (data?.seen ?? []).length;
+      if (!n) return PATRON_CARDS.abecedarian.desc;
+      return `${n} of ${ABECEDARIAN_CASE.length} sorts pressed — +${abecedarianMult(data.seen)} Mult on every word. `
+           + `Each new one is worth +${ABECEDARIAN_MULT} more, for good.`;
+    },
+    // The case itself, laid out as a compositor would find it: what has been
+    // pressed stands in type, what has not is an empty place.
+    popover(data) {
+      const seen = new Set(data?.seen ?? []);
+      const cells = ABECEDARIAN_CASE.map(g => {
+        const got = seen.has(g);
+        const glyph = MEDIEVAL[g]?.glyph ?? g;
+        return `<span class="case-sort${got ? ' case-sort--set' : ''}">${glyph}</span>`;
+      }).join('');
+      return `<div class="case-grid">${cells}</div>`;
+    },
+  },
+  {
     // The growth arrives IN TIME TO SCORE: tileBonus pays the step on the
     // trigger word itself and onPrinted writes the same step in for good. An
     // immutable tile (a ghost, a fleuron) refuses the trellis and pays nothing
     // for it either way — hence the isImmutable guard in both halves.
-    id: 'abecedarian',
+    id: 'child',
     when: 'score',
     bonusIsGrowth: true,
     tileBonus: (t, { tiles }) =>
-      (wordLetters(tiles).length === 3 && !isImmutable(t) ? ABECEDARIAN_STEP : 0),
+      (wordLetters(tiles).length === 3 && !isImmutable(t) ? CHILD_STEP : 0),
     onPrinted({ tiles, grow }) {
       if (wordLetters(tiles).length !== 3) return null;
-      const grown = tiles.filter(t => grow(t, ABECEDARIAN_STEP));
+      const grown = tiles.filter(t => grow(t, CHILD_STEP));
       if (!grown.length) return null;
-      return { note: `${grown.map(getActiveLetter).join(', ')} grown +${ABECEDARIAN_STEP}` };
+      return { note: `${grown.map(getActiveLetter).join(', ')} grown +${CHILD_STEP}` };
     },
   },
   {
@@ -750,6 +1087,16 @@ const PATRON_BEHAVIOURS = [
     id: 'seedsman',
     when: 'score',
     tileBonus: (t, { state }) => (countsAsColour(t, 'jade') ? state.chapter : 0),
+  },
+  {
+    // Paid by the size of the vein: +1 Point per jade tile in the whole
+    // collection, on every jade tile printed. No growth to write — the count
+    // moves with the collection itself, so a tile bought this page already
+    // pays the tiles bought last page, and vice versa.
+    id: 'lapidary',
+    when: 'score',
+    tileBonus: (t, { state }) =>
+      (countsAsColour(t, 'jade') ? state.collection.filter(c => countsAsColour(c, 'jade')).length : 0),
   },
   dyePatron('verdigris', 'jade'),
   {
@@ -849,18 +1196,25 @@ const PATRON_BEHAVIOURS = [
     },
   },
   {
-    // He crowns one head only — his own — once per jade tile printed. Nothing in
-    // scoring knows about him: laurels are already paid seat by seat for whoever
-    // wears them (pass 4), so this hook need only put them on his head. Rainbow
-    // crowns him too, and dismissing him takes every crown with him.
+    // He crowns one head only — his own — and asks for a word wearing BOTH
+    // metals: a gold trim and a silver trim, on any two tiles. One crown per
+    // word however many of each are in it, because the achievement is the pair
+    // and not the count.
+    //
+    // A condition you build the CASE for rather than the word: gold and silver
+    // are bought a tile at a time at the Gilder's, so the seat is worth little
+    // the day you sit him down and more with every trim you lay afterwards.
+    // Nothing in scoring knows about him — laurels are already paid seat by seat
+    // for whoever wears them (pass 4), so this hook need only put them on his
+    // head. Dismissing him takes every crown with him.
     id: 'laureate',
     when: 'meta',
     onPrinted({ tiles, data }) {
-      const crowned = painted(tiles, 'jade').length;
-      if (!crowned) return null;
-      data.honorifics = (data.honorifics ?? 0) + crowned;
+      const wears = kind => tiles.some(t => t.trim === kind);
+      if (!wears('gold') || !wears('silver')) return null;
+      data.honorifics = (data.honorifics ?? 0) + 1;
       return {
-        note: `${crowned > 1 ? `${crowned} laurels` : 'a laurel'} — +${data.honorifics * HONORIFIC_STEP} Points every word`,
+        note: `gold and silver together — a laurel, +${data.honorifics * HONORIFIC_STEP} Points every word`,
       };
     },
   },
@@ -1028,7 +1382,15 @@ const PATRON_BEHAVIOURS = [
     // nothing — the right price for a stray.
     id: 'shorthair',
     when: 'score',
-    effect({ word, addCoins }) { if (word.includes('RAT')) addCoins(1); },
+    // The coin is for SPOTTING a rat, the Mult for having EATEN one — two
+    // different appetites, and only the second is permanent. The tally lives on
+    // the seat's data so it survives save and load, and is advanced in onPrinted
+    // like every other permanent gain, so the Mult is paid from the next word on.
+    effect({ word, data, addCoins, addMult }) {
+      if (word.includes('RAT')) addCoins(1);
+      const fed = data?.eaten ?? 0;
+      if (fed) addMult(shorthairMult(fed));
+    },
     onPrinted({ tiles, script, data, burn }) {
       const notes = [], said = [];
       if ((script?.letters ?? '').includes('RAT')) {
@@ -1041,13 +1403,20 @@ const PATRON_BEHAVIOURS = [
       // the active letter is the same test as "the Rat Catcher's gift".
       const eaten = tiles.filter(t => getActiveLetter(t) === 'RAT' && burn(t));
       if (eaten.length) {
+        data.eaten = (data.eaten ?? 0) + eaten.length;
         said.push(eaten.length > 1
-          ? `The cat eats ${eaten.length} RAT tiles — gone from your collection for good.`
-          : `The cat eats the RAT tile — gone from your collection for good.`);
+          ? `The cat eats ${eaten.length} RAT tiles — gone for good, and +${shorthairMult(eaten.length)} Mult on every word.`
+          : `The cat eats the RAT tile — gone for good, and +${shorthairMult(1)} Mult on every word.`);
       }
       return (notes.length || said.length)
         ? { note: notes.join(' · ') || null, say: said, burned: eaten }
         : null;
+    },
+    instDesc(data) {
+      const fed = data?.eaten ?? 0;
+      if (!fed) return PATRON_CARDS.shorthair.desc;
+      return `${fed} rat${fed > 1 ? 's' : ''} eaten — +${shorthairMult(fed)} Mult on every word. `
+           + PATRON_CARDS.shorthair.desc;
     },
   },
   {
@@ -1328,7 +1697,7 @@ const PATRON_BEHAVIOURS = [
     id: 'expectants',
     when: 'score',
     effect({ word, addPoints }) {
-      if (themeSize('names') && inTheme('names', word)) addPoints(10);
+      if (themeSize('names') && inTheme('names', word)) addPoints(EXPECTANTS_BONUS);
     },
   },
   {
@@ -1416,7 +1785,7 @@ const PATRON_BEHAVIOURS = [
     when: 'score',
     effect({ tiles, addMult }) {
       const pairs = Object.keys(COLOURS).filter(c => painted(tiles, c).length === 2).length;
-      if (pairs) addMult(Math.round(pairs * 0.2 * 100) / 100);
+      if (pairs) addMult(Math.round(pairs * GLOVER_STEP * 100) / 100);
     },
   },
   {
@@ -1596,14 +1965,19 @@ export const rollPostnom = () =>
     : null);
 
 // What a card costs today — the card's price, plus the surcharge a lettered one
-// asks, plus the day's haggle (rollHaggle in constants.js). Read live from the
-// offer rather than baked in, the way tile prices are. A patron the card prices
-// at NOTHING stays at nothing: the cat is found, not bought. Everyone else asks
-// at least a Coin however the haggle went.
+// asks, plus the day's haggle (rollHaggle in constants.js), plus whatever the
+// seller adds on their own account (`markup` — the Black Market's, and the only
+// one so far). Read live from the offer rather than baked in, the way tile
+// prices are. A patron the card prices at NOTHING stays at nothing: the cat is
+// found, not bought. Everyone else asks at least a Coin however the haggle went.
+//
+// The markup rides on the seat's `data` and so travels with the seat, which is
+// what makes patronRefund pay back half of what you ACTUALLY paid rather than
+// half of a list price you never saw.
 export const patronCost = (def, data) => {
   const base = def?.cost ?? 0;
   if (!base) return 0;
-  const asked = base + (data?.haggle ?? 0)
+  const asked = base + (data?.haggle ?? 0) + (data?.markup ?? 0)
               + (data?.postnom ? POSTNOM.surcharge : 0)
               + (data?.ghost   ? GHOST_HIRE.surcharge : 0);
   return Math.max(1, asked);

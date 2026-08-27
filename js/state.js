@@ -4,16 +4,19 @@ import {
   BAG_COUNTS, TILE_POINTS, DABBLER_ODDS, CURSED_MAX_POINTS, isImmutable, isMark,
   MARKS, MARK_TRIM, SILVER_BONUS, FLEURON, LOUPE_CAP, TONGS_BONUS, WASH_COUNT,
   REVENANT_ODDS,
-  COLOURS,
+  COLOURS, TRIMS, NICKS, MATERIALS,
   quotaFor, makeTileTemplate, GAMBLER_ODDS, isDeadline,
-  MAGPIE_WEIGHT, MAKO_WEIGHT, LOVERS,
+  MAGPIE_WEIGHT, MAKO_WEIGHT,
+  PURVEYOR, TUBE_CHOICES, STALLS_PER_SHOP, MARKET_TILE_OFFERS, PATRON_OFFERS,
+  UPGRADE_OFFERS, PROPOSAL_RANGE,
+  LOVERS,
 } from './constants.js';
 import { CHAPTER_TITLES } from './chapters.js';
 import { BOSS_DEFS, activeBoss, bossConflicts } from './bosses.js';
 
 const SAVE_KEY     = 'folio_save_v1';
 const SETTINGS_KEY = 'folio_settings_v1';
-const SAVE_VERSION = 12;  // v12: the Vintner was cut
+const SAVE_VERSION = 14;  // v14: the opening draft is gone, the Testing Chamber in its place
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -53,12 +56,20 @@ export function getActiveLetter(tile) {
 // the tile directly rather than through these — see computeScore's pass 0.
 export const isWrapped = tile => !!tile?.wrapped;
 
+// A tile that SPELLS AND NOTHING ELSE — no Points, no paint, no growth, no
+// colour to any patron that counts them. Two quite different things read this
+// way: The Redactor's wrapping, which is a page-long condition laid over a real
+// tile and taken off again; and a counterfeit sort, which is a forgery with
+// nothing under it at all and never was anything else. The readers below hide
+// rather than destroy, so the Redactor's page gives everything back.
+export const spellsOnly = tile => isWrapped(tile) || !!tile?.counterfeit;
+
 // The paint a tile is wearing — the same whichever face a dual shows, since
 // paint belongs to the tile. A wash reads as paint here, so it counts to
 // patrons AND multipliers alike, unlike rainbow metal (which speaks only
 // through countsAsColour). Real paint sits over a wash and wins.
 export const getActiveColour = tile =>
-  (isWrapped(tile) ? null : tile.colour ?? tile.wash ?? null);
+  (spellsOnly(tile) ? null : tile.colour ?? tile.wash ?? null);
 
 // What a tile is worth before the word it sits in touches it: face value,
 // growth set permanently into it, and a silver trim — the number it wears
@@ -66,10 +77,10 @@ export const getActiveColour = tile =>
 // `bonusPoints` for its first letter and `altBonusPoints` for its second, so
 // flipping it flips which one counts.
 export const getActiveGrowth = tile =>
-  (isWrapped(tile) ? 0 : (tile.activeVariant === 1 ? tile.altBonusPoints : tile.bonusPoints) ?? 0);
+  (spellsOnly(tile) ? 0 : (tile.activeVariant === 1 ? tile.altBonusPoints : tile.bonusPoints) ?? 0);
 
 export const restingPoints = tile =>
-  (isWrapped(tile) ? 0
+  (spellsOnly(tile) ? 0
     : (TILE_POINTS[getActiveLetter(tile)] ?? tile.basePoints ?? 1)
       + getActiveGrowth(tile)
       + (tile.trim === 'silver' ? SILVER_BONUS : 0));
@@ -80,7 +91,7 @@ export const restingPoints = tile =>
 // count actual paint (getActiveColour), so a rainbow tile lifts a multiplier
 // only where it has been painted.
 export const countsAsColour = (tile, colour) =>
-  !isWrapped(tile) && (tile.material === 'rainbow' || getActiveColour(tile) === colour);
+  !spellsOnly(tile) && (tile.material === 'rainbow' || getActiveColour(tile) === colour);
 
 // Convert a bag template into a full rack tile
 function templateToTile(template) {
@@ -93,7 +104,7 @@ function templateToTile(template) {
   };
 }
 
-// Plain and unpainted — the opening draft is where colour enters the run.
+// Plain and unpainted — the Market is where colour enters the run.
 function buildStarterCollection() {
   const col = [];
   for (const [L, count] of Object.entries(BAG_COUNTS)) {
@@ -166,9 +177,15 @@ export const state = {
                     // in the order they were set — the book the run is writing
 
   endless:   false,
+  // Experiments — mechanics kept out of the main game but switchable back on
+  // from the Testing Chamber. An experiment is off unless a run turned it on,
+  // so a plain new game never meets one.
+  experiments: {},
   inMarket: false,
-  inDraft:   false,      // the opening draft is up
+  inChamber: false,      // the Testing Chamber is up
   inColophon: false,     // the end-of-chapter upgrade pick is up
+  inBlackMarket: false,  // the alley is open (js/blackmarket.js)
+  blackMarketVisits: 0,  // trips down the alley this run — for a side-quest to read
   isAnimating: false,
   discardMode: false,    // rack taps select tiles to discard
   sundryMode: -1,        // index of the armed sundry; board taps select its targets
@@ -178,8 +195,11 @@ export const state = {
 
 // ─── Effective sizes ────────────────────────────────────────────────────────
 // Base constants plus whatever the Colophon has permanently granted this run.
+// An editor that fixes the count (The Epitaphist's single line) overrides
+// everything: his page is one word however many the press has earned.
 export const effectiveWordsPerPage = () =>
-  WORDS_PER_PAGE + (owns('overseer') ? 1 : 0) + (state.upgradeCounts?.words ?? 0);
+  activeBoss(state)?.words
+  ?? WORDS_PER_PAGE + (owns('overseer') ? 1 : 0) + (state.upgradeCounts?.words ?? 0);
 // rackBonus is the one term here that is neither permanent nor the editor's: a
 // hand widened for the rest of a page only, cleared at the page turn.
 export const effectiveRackSize    = () => RACK_SIZE    + (state.upgradeCounts?.handSize     ?? 0)
@@ -187,6 +207,22 @@ export const effectiveRackSize    = () => RACK_SIZE    + (state.upgradeCounts?.h
                                                        + (state.rackBonus                   ?? 0);
 export const effectivePatronSlots = () => PATRON_SLOTS + (state.upgradeCounts?.patronSeat    ?? 0);
 export const effectiveSundrySlots = () => SUNDRY_SLOTS + (state.upgradeCounts?.workbenchSlot ?? 0);
+
+// ─── How many of each CHOICE is dealt ─────────────────────────────────────────
+// The Purveyor widens every one of them and improves none (PURVEYOR in
+// js/constants.js). Every count is asked here rather than at the place it is
+// dealt, so the Market, the Colophon and the workbench can never disagree about
+// what the seat is worth — and so a second seat that widens choices later has
+// one line to change rather than six.
+const purveyor = n => (owns('purveyor') ? n : 0);
+export const effectiveMarketStalls    = () => STALLS_PER_SHOP + purveyor(PURVEYOR.stalls);
+export const effectiveMarketTiles     = () => MARKET_TILE_OFFERS + purveyor(PURVEYOR.tiles);
+export const effectiveMarketPatrons   = () => PATRON_OFFERS + purveyor(PURVEYOR.patrons);
+export const effectiveUpgradeOffers   = () => UPGRADE_OFFERS + purveyor(PURVEYOR.upgrades);
+export const effectiveProposalRange   = () => PROPOSAL_RANGE + purveyor(PURVEYOR.proposals);
+// The tube's choice only. An applicator lays out metal, not paint, and is left
+// at its stated two.
+export const effectiveTubeChoices     = () => TUBE_CHOICES + purveyor(PURVEYOR.paint);
 
 // Every patron working for you, in the order they speak: the shelf first, then
 // the ghosts. A ghost keeps its whole effect and gives up only its seat, so the
@@ -272,6 +308,20 @@ export function castLentTile(letter, { aboveHand = false, lender = null, ...over
   return tile;
 }
 
+// The Counterfeiter's forgeries: a sort with nothing under it. It spells, takes
+// a place in the hand like any other tile, and is worth nothing — spellsOnly
+// hides its value, isImmutable refuses anything written to it, and `ephemeral`
+// means it is cast from no template and gone when the page turns. Everything
+// that destroys a tile still works on it; there is simply nothing to salvage.
+export function castCounterfeit(letter) {
+  const tile = templateToTile(makeTileTemplate(letter));
+  tile.ephemeral = true;
+  tile.counterfeit = true;
+  tile.lender = 'counterfeiter';
+  state.rack.push(tile);
+  return tile;
+}
+
 // The Eeeditor's E's, counted across rack and word alike: one laid into a word
 // has not left your hand yet, and must not be replaced until it prints.
 export const lentInHand = () =>
@@ -286,9 +336,9 @@ export const luckyRoll = p => Math.random() < Math.min(1, p * (state.luck ?? 1))
 // ─── Persist ──────────────────────────────────────────────────────────────────
 
 // Walk an older save's shapes forward: a per-face paint folds into the tile's,
-// an ingot sundry becomes a wrapped tile, and the minimalist patron id becomes
-// abecedarian (a stale id resolves to nothing and renders a blank seat). The
-// whole save is walked because any of them can be hiding anywhere in it.
+// an ingot sundry becomes a wrapped tile. The whole save is walked because any
+// of them can be hiding anywhere in it — which is also the hazard, and why
+// nothing here may key on a bare `id` (see the note below).
 function migrateSave(node) {
   if (Array.isArray(node)) { node.forEach(migrateSave); return; }
   if (!node || typeof node !== 'object') return;
@@ -300,7 +350,12 @@ function migrateSave(node) {
     node.kind = 'wrapped';
     delete node.material;
   }
-  if (node.id === 'minimalist') node.id = 'abecedarian';
+  // NOTE: a `minimalist` → `abecedarian` patron rename used to sit here. It was
+  // dead for its purpose — the version gate above rejects any save old enough to
+  // need it — and had become actively harmful, because `minimalist` is a BOSS id
+  // now: saving during that Deadline and loading back renamed the seated editor
+  // to a patron, and the desk sat empty for the rest of the page. Renames belong
+  // in a migration keyed to WHERE the id sits, never to the id alone.
   // A Market offer used to carry its own `ghost` flag; being dead now rides the
   // copy's `data`, where patronCost can charge for it.
   if (node.ghost === true && 'sold' in node) {
@@ -353,9 +408,11 @@ export function loadState() {
     migrateSave(s);
     if (!Array.isArray(s.collection) || !Array.isArray(s.rack)) return null;
     const mercury = retireMercury(s);
-    const { _nextId: savedId, _nextTid: savedTid, _v, _market, _draft, _colophon, ...fields } = s;
+    const { _nextId: savedId, _nextTid: savedTid, _v, _market, _chamber, _colophon,
+            _blackmarket, ...fields } = s;
     Object.assign(state, fields, { isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null });
     state.sundries ??= [];
+    state.experiments ??= {};
     state.upgradeCounts ??= {};
     state.luck ??= 1;
     state.ratchetDir ??= 1;
@@ -376,6 +433,7 @@ export function loadState() {
     state.freeRerolls ??= 0;
     state.rackBonus ??= 0;
     state.ghosts ??= [];
+    state.blackMarketVisits ??= 0;
     if (savedId)  _nextId  = savedId;
     if (savedTid) _nextTid = savedTid;
     // Seats saved before uids existed get one now — after the counters above,
@@ -385,7 +443,8 @@ export function loadState() {
     // so the calling card can price it (and pay it back) without asking which
     // list it sits in.
     state.ghosts?.forEach(p => { p.uid ??= nextId(); (p.data ??= {}).ghost = true; });
-    return { market: _market ?? null, draft: _draft ?? null, colophon: _colophon ?? null, mercury };
+    return { market: _market ?? null, chamber: _chamber ?? null, colophon: _colophon ?? null,
+             blackmarket: _blackmarket ?? null, mercury };
   } catch { return null; }
 }
 
@@ -408,11 +467,13 @@ export function newRun() {
     coins: STARTING_COINS, patrons: [], ghosts: [], sundries: [], upgradeCounts: {},
     luck: 1, rackBonus: 0, ratchetDir: 1, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
     boss: null, bossesSeen: [],
+    experiments: {},
     compost: [], compostPending: 0, freeRerolls: 0,
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
     manuscript: [],
-    endless: false, inMarket: false, inDraft: false, inColophon: false,
+    endless: false, inMarket: false, inChamber: false, inColophon: false,
+    inBlackMarket: false, blackMarketVisits: 0,
     isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null, gameOver: false,
     catPending: false,
   });
@@ -431,14 +492,16 @@ export function startPage() {
   state.rack = [];
   state.word = [];
   state.discardPile = [];
-  state.quota        = quotaFor(state.chapter, state.page);
   state.pageScore    = 0;
   state.wordsPrinted = 0;
-  state.wordsLeft    = effectiveWordsPerPage();
-  // The Deadline's editor takes the desk before anything is counted out —
-  // rack size, discards and the wrapping below are theirs to bend.
+  // The Deadline's editor takes the desk before anything is counted out — the
+  // quota, the word count, the hand, the discards and the wrapping below are
+  // all theirs to bend, so nothing above may be settled before this line.
   if (isDeadline(state.page)) assignBoss();
   else state.boss = null;
+  state.quota        = Math.max(1, Math.round(
+    quotaFor(state.chapter, state.page) * (activeBoss(state)?.quotaMult ?? 1)));
+  state.wordsLeft    = effectiveWordsPerPage();
   // The Redactor wraps a share of the CASE, not of the hand: bag and collection
   // share templates, so a wrapped tile stays wrapped when it is discarded and
   // drawn again, and the condition lasts the whole page.
@@ -449,7 +512,8 @@ export function startPage() {
   }
   state.discardsMax = activeBoss(state)?.noDiscards
     ? 0
-    : DISCARDS_PER_PAGE + (owns('quartermaster') ? 1 : 0) + (state.upgradeCounts?.discard ?? 0);
+    : DISCARDS_PER_PAGE + (owns('quartermaster') ? 1 : 0) + (state.upgradeCounts?.discard ?? 0)
+      + (activeBoss(state)?.discardBonus ?? 0);
   state.discards    = state.discardsMax;
   state.discardMode = false;
   state.sundryMode = -1;
@@ -467,7 +531,7 @@ export function startPage() {
 // Tiles that take up a place in the hand. Ghosts and aboveHand tiles ride
 // beside it rather than in it, so drawing tops up around them; the Eeeditor's
 // lent E's emphatically do not.
-const handCount = () =>
+export const handCount = () =>
   [...state.rack, ...state.word].filter(t => t.material !== 'ghost' && !t.aboveHand).length;
 
 // One tile off the bag — the end of it, hence the pop; a weighted reach if
@@ -691,6 +755,87 @@ export function trimTile(tile, kind) {
   return true;
 }
 
+// The Twins' recasting, laid in for good. A `mould` is the whole of what one
+// tile hands another (MOULD in js/scoring.js): letter and faces, paint, trim,
+// nick, metal and grown Points. It OVERWRITES — a clone is a clone, so the
+// second tile of a pair can come out of this worse than it went in, and which
+// tile is the mould is decided by which one you set first. The groove brackets
+// every pair it reads so that choice is made with both tiles in front of you.
+//
+// Written through to the collection template like every other permanent change,
+// so it outlives the page, the save and every reshuffle. Paint still goes out
+// through paintTile where a NEW colour lands, so the one route holds and The
+// Dabbler hears the brushstroke; everything else is written here, because no
+// other seat in the game overwrites and the helpers all refuse to.
+//
+// Returns a short list of what changed, for the seat to read out, or null.
+export function recastTile(tile, mould) {
+  if (!tile || !mould) return null;
+  // A COUNTERFEIT is the one immutable tile this can touch, and touching it is
+  // the point: a twin struck onto a forgery makes it real. It stops being a
+  // forgery, stops being page-only, and is adopted into the collection with a
+  // template of its own — so the free worthless letter you took this morning
+  // goes into the bag tonight as a copy of your best tile. Everything else the
+  // word is finished with (a ghost, a lent letter, the Redactor's paper) still
+  // refuses: there is a real tile under those, and it is not yours to overwrite.
+  const forged = !!tile.counterfeit;
+  if (!forged && isImmutable(tile)) return null;
+  const was = { colour: tile.colour, trim: tile.trim, nick: tile.nick,
+                material: tile.material, growth: getActiveGrowth(tile) };
+
+  // Struck real FIRST, so the writes below land on a tile that will take them:
+  // paintTile and growTile both refuse anything isImmutable, and a forgery is.
+  if (forged) {
+    tile.counterfeit = false;
+    tile.ephemeral   = false;
+    tile.lender      = null;
+  }
+
+  if (mould.colour && mould.colour !== tile.colour) paintTile(tile, mould.colour);
+  else if (!mould.colour) tile.colour = null;
+
+  for (const k of ['letter', 'altLetter', 'letterType', 'activeVariant',
+                   'trim', 'nick', 'material', 'bonusPoints', 'altBonusPoints']) {
+    tile[k] = mould[k] ?? (k === 'activeVariant' || k.endsWith('Points') ? 0 : null);
+  }
+  tile.basePoints = TILE_POINTS[getActiveLetter(tile)] ?? tile.basePoints ?? 1;
+
+  // …and the press takes it on. Adopted rather than written through, because a
+  // counterfeit never had a template to write to — and adopted here, once the
+  // mould is on it, so the template is born wearing what the tile wears.
+  if (forged) {
+    const { id, selected, basePoints, ...fresh } = tile;
+    const adopted = adoptTemplate(fresh);
+    state.collection.push(adopted);
+    tile.tid = adopted.tid;
+  }
+
+  const tmpl = state.collection.find(c => c.tid === tile.tid);
+  if (tmpl) {
+    for (const k of ['letter', 'altLetter', 'letterType', 'activeVariant', 'colour',
+                     'trim', 'nick', 'material', 'bonusPoints', 'altBonusPoints']) {
+      tmpl[k] = tile[k];
+    }
+    tmpl.wash = tile.wash ?? null;
+  }
+
+  const said = [];
+  if (tile.colour !== was.colour) {
+    said.push(tile.colour ? COLOURS[tile.colour].label.toLowerCase() : 'the paint off it');
+  }
+  if (tile.trim !== was.trim) {
+    said.push(tile.trim ? `a ${TRIMS[tile.trim].label.toLowerCase()} trim` : 'its trim off');
+  }
+  if (tile.nick !== was.nick) said.push(tile.nick ? NICKS[tile.nick].label.toLowerCase() : 'its nick filled');
+  if (tile.material !== was.material && tile.material) said.push(MATERIALS[tile.material].label.toLowerCase());
+  const grew = getActiveGrowth(tile) - was.growth;
+  if (grew) said.push(`${grew > 0 ? '+' : ''}${grew} Points`);
+  // A forgery struck real is worth saying even when the mould was a bare tile:
+  // nothing about it may have changed to look at, and everything has.
+  if (forged) said.unshift('struck real, and into the case');
+  return said.length ? said : null;
+}
+
 // Remove a tile from the collection for good. Honours the Smelter's floor, so
 // nothing can eat the press out of house and home; returns the removed
 // template, or null if the floor held. Live copies (rack / word / discard pile)
@@ -699,6 +844,18 @@ export function trimTile(tile, kind) {
 // Every route to permanent destruction comes through here, which is what lets
 // The Composter count them all. The rot is banked as a number and turned into
 // tiles when the Market opens (see rotCompost in js/market.js).
+// Restrike one tile in a new metal, keeping its paint, trim, nick and growth —
+// where recastTile above overwrites the whole mould, this touches the metal and
+// nothing else. Written through to the collection so it outlives the page, the
+// same way the applicator does it.
+export function strikeMaterial(tile, material) {
+  if (!tile || isImmutable(tile) || tile.material === material) return false;
+  tile.material = material;
+  const tmpl = state.collection.find(c => c.tid === tile.tid);
+  if (tmpl) tmpl.material = material;
+  return true;
+}
+
 export function trashFromCollection(tid) {
   if (state.collection.length <= SMELT_MIN_COLLECTION) return null;
   const i = state.collection.findIndex(c => c.tid === tid);
@@ -740,7 +897,7 @@ function revenantRaises(template) {
   // waiting in the case when the next page begins.
   const tmpl = adoptTemplate({ ...kept, material: 'ghost' });
   state.collection.push(tmpl);
-  if (!state.inMarket && !state.inDraft && !state.inColophon) {
+  if (!state.inMarket && !state.inChamber && !state.inColophon && !state.inBlackMarket) {
     state.rack.push(templateToTile(tmpl));
   }
   raising = false;
@@ -778,9 +935,13 @@ export function mergeTiles(left, right) {
 
 // ─── The manuscript ───────────────────────────────────────────────────────────
 
-export function recordWord(word, score) {
+export function recordWord(word, score, bold = false) {
   state.manuscript ??= [];
-  state.manuscript.push({ word, score, chapter: state.chapter, page: state.page });
+  // `bold` rides into the manuscript with the word, which is the whole point of
+  // the rules: the book keeps its own typography, and a word you paid two sorts
+  // and two places to set stands out in it for the rest of the run.
+  state.manuscript.push({ word, score, chapter: state.chapter, page: state.page,
+                          ...(bold ? { bold: true } : {}) });
 }
 
 // ─── The Gambler's coin ───────────────────────────────────────────────────────
@@ -1000,7 +1161,8 @@ export function rollTubeOffer(sundry = null) {
     if (sundry) sundry.offer = null;
     return null;
   }
-  state.tubeOffer = shuffle(candidates.slice()).slice(0, 2).map(t => t.id);
+  const room = sundry?.kind === 'applicator' ? TUBE_CHOICES : effectiveTubeChoices();
+  state.tubeOffer = shuffle(candidates.slice()).slice(0, room).map(t => t.id);
   if (sundry) sundry.offer = state.tubeOffer.slice();
   return state.tubeOffer;
 }

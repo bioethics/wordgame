@@ -1,6 +1,6 @@
 // Game flow: the print cinematic, page and chapter turnover, board input
 // modes, settings, and init. Board rendering is render.js; the full-screen
-// sheets (Market, Colophon, draft) render and handle themselves in sheets.js,
+// sheets (Market, Colophon, Testing Chamber) render and handle themselves in sheets.js,
 // with the flow callbacks below injected via initSheets().
 
 import {
@@ -10,8 +10,9 @@ import {
   effectiveGhostSlots, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected, takePaintEchoes,
   rollTubeOffer, applyWash, washOff, effectiveSundrySlots, takeGhostEchoes,
-  getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile,
+  getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile, recastTile,
   trashFromCollection, mergeTiles, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
+  castCounterfeit, effectiveRackSize, handCount,
   grantRandomPatron,
   rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost,
 } from './state.js';
@@ -21,7 +22,7 @@ import {
   chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks, isDeadline,
   FLEURON, TOOLBOX_POOL, HONORIFIC_STEP, TONGS_BONUS, LOUPE_CAP, RIPPER_WORDS, sundryTip,
   PACKAGES, APPLICATORS, SILVER_BONUS, BAG_COUNTS,
-  lengthFlourish, medievalExpansions, USURER,
+  lengthFlourish, medievalExpansions, USURER, BRIBRARIAN, bribeMult, isRule, RULE,
 } from './constants.js';
 import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
 import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
@@ -40,14 +41,15 @@ import {
   showGameOver, showVictory, openInspector, closeInspector, coinHTML,
   showPatronPopover, hidePopover, openManuscript, closeManuscript,
   openGhosts, closeGhosts, ghostsOpen,
-  showCoinWordSheet, setCoinNote,
+  showCoinWordSheet, setCoinNote, showCounterfeitSheet, showStruckTotal, showBribeSheet,
 } from './render.js';
 import {
-  initSheets, renderMarket, renderColophon, renderDraft,
+  initSheets, renderMarket, renderColophon, renderChamber, renderBlackMarket,
 } from './sheets.js';
-import { openDraft, closeDraft, restoreDraft, applyDraft } from './draft.js';
+import { chamber, openChamber, closeChamber, restoreChamber } from './chamber.js';
+import { openBlackMarket, restoreBlackMarket } from './blackmarket.js';
 import {
-  sleep, flyClone, popReveal, floatText, tweenNum, setNum, fmtMult,
+  sleep, dur, flyClone, popReveal, floatText, tweenNum, setNum, fmtMult,
   pulse, sparkleBurst, sfx, applySpeedCSS, speechBubble, flourishTime,
 } from './anim.js';
 import { initInput, initInspect, initShelfDrag } from './drag.js';
@@ -65,6 +67,27 @@ const bagRect  = () => rect($('bagBtn'))  ?? { left: 40, top: 300, width: 60, he
 const pileRect = () => rect($('discardBtn')) ?? { left: innerWidth - 100, top: 300, width: 60, height: 60 };
 
 const wordTileEl = id => document.querySelector(`#word .tile[data-id="${id}"]`);
+// A tile The Twins struck into the word carries no id a pointer can reach — it
+// is in no hand and no pile — so the print addresses it by its own mark.
+const twinPhantomEl = id => document.querySelector(`#word .tile[data-twin="${id}"]`);
+
+// A struck letter belongs to nobody: it went into the word, never into your
+// hand, so when the word is done it goes out with it rather than filing into
+// the pile. Runs before the tiles retire, so the groove empties in the order
+// the fiction wants — the phantom first, the type you own after.
+async function evaporateTwins() {
+  const ghosts = [...document.querySelectorAll('#word .tile[data-twin]')];
+  if (!ghosts.length) return;
+  for (const g of ghosts) {
+    sparkleBurst(g, 8);
+    g.animate([
+      { transform: 'scale(1)',   opacity: 1, filter: 'brightness(1)' },
+      { transform: 'scale(.55)', opacity: 0, filter: 'brightness(2.2)' },
+    ], { duration: dur(300), easing: 'ease-in', fill: 'forwards' });
+  }
+  sfx.discard();
+  await sleep(300);
+}
 const rackTileEl = id => document.querySelector(`#rack .tile[data-id="${id}"]`);
 
 // Where a seat's news is shown — by uid where there is one, so each copy of a
@@ -86,7 +109,7 @@ async function animateDraw(drawn) {
     sfx.draw();
     flights.push(
       flyClone(el, from, rect(el), { duration: ANIM.fly, scaleFrom: 0.35 })
-        .then(() => popReveal(el))
+        .then(() => { popReveal(el); sfx.land(); })
     );
     await sleep(ANIM.stagger);
   }
@@ -100,9 +123,11 @@ async function animateDiscard(rects, to = pileRect(), bump = 'discardBtn') {
   const flights = [];
   for (const { el, r } of rects) {
     sfx.discard();
-    flights.push(flyClone(el, r, to, { duration: ANIM.fly, scaleTo: 0.25, fade: true }));
+    // The pouch bumps when the tile ARRIVES — the flight takes ANIM.fly to
+    // get there, and a bump at launch reads as the pile flinching early.
+    flights.push(flyClone(el, r, to, { duration: ANIM.fly, scaleTo: 0.25, fade: true })
+      .then(() => { pulse($(bump), 'pouch--bump', 300); sfx.file(); }));
     el.style.visibility = 'hidden';
-    pulse($(bump), 'pouch--bump', 300);
     await sleep(ANIM.stagger);
   }
   await Promise.all(flights);
@@ -277,7 +302,10 @@ function noticeTheCat(script) {
 // construction, and a tile with no collection template behind it (lent letters,
 // an unfiled ghost) cannot be melted at all — the toll simply passes.
 async function editorEats() {
-  if (!bossById(state.boss?.id)?.eatsSpare) return;
+  // eatsSpare may be a flag (the Economiser) or a function of the editor's
+  // state (the Typist, who eats only while wearing that face).
+  const eats = bossById(state.boss?.id)?.eatsSpare;
+  if (!(typeof eats === 'function' ? eats(state.boss?.data) : eats)) return;
   const spare = state.rack.filter(t => state.collection.some(c => c.tid === t.tid));
   if (!spare.length) return;
   const doomed = spare[Math.floor(Math.random() * spare.length)];
@@ -318,6 +346,7 @@ async function roseCrowns(printed) {
       sparkleBurst(card, 9);
       floatText(card, `🏵️ +${HONORIFIC_STEP}`, 'fl-points', { dy: -44 });
     }
+    sfx.gain();
     log(`🎀 ${getActiveLetter(tile)} was struck in rose metal — ${patronName(def, seat.data)} is crowned, `
       + `+${seat.data.honorifics * HONORIFIC_STEP} Points on every word.`, 'good');
   }
@@ -528,9 +557,10 @@ function runPrintedHooks(tiles, script) {
     const r = def.onPrinted({
       tiles: tiles.filter(t => !burned.has(t.id)),   // ash is out of everyone's reach
       script, state, data: p.data,
-      grow:  growTile,
-      paint: paintTile,
-      trim:  trimTile,
+      grow:   growTile,
+      paint:  paintTile,
+      trim:   trimTile,
+      recast: recastTile,
       burn:  t => !!trashFromCollection(t.tid),
       // The same bench the discard hooks get: it refuses rather than overflows.
       bench: benchPut,
@@ -696,26 +726,51 @@ function runChapterHooks() {
   return notes;
 }
 
+// A full-screen sheet is up — the Market, the Black Market, the Colophon or the
+// Testing Chamber. Every board action asks this rather than naming them, so the
+// next sheet is a line here and nowhere else.
+const sheetUp = () =>
+  state.inMarket || state.inChamber || state.inColophon || state.inBlackMarket;
+
 // ─── Submit (PRINT) ───────────────────────────────────────────────────────────
 
 async function submitWord() {
-  if (state.isAnimating || state.inMarket || state.inColophon || state.gameOver) return;
-  const w = getWordString();
-  if (!w) return;
+  if (state.isAnimating || sheetUp() || state.gameOver) return;
+  if (!state.word.length) return;
   hidePopover();
   cancelDiscardMode(true);
   cancelSundryMode(true);
 
   if (!dictLoaded) { log('The dictionary is still loading…', 'warn'); return; }
 
-  // Marks ride at the end of a word, and only as ?, ! or ?!. The dictionary
-  // never sees them — it's the letters in front that have to be a word.
-  const parts = splitMarks(w.toUpperCase());
   const reject = msg => {
     log(msg, 'bad');
     sfx.bad();
     pulse($('word'), 'word-groove--reject', 420);
   };
+  // A pair of rules brackets the word, one at each end and nowhere else. Refused
+  // rather than ignored, because a rule that quietly did nothing would be a word
+  // lost to a mistake the board never mentioned.
+  const rules = [...state.word].filter(t => isRule(getActiveLetter(t)));
+  if (rules.length) {
+    const ends = isRule(getActiveLetter(state.word[0]))
+              && isRule(getActiveLetter(state.word[state.word.length - 1]));
+    if (rules.length === 1) return reject('A rule needs its pair — one at each end.');
+    if (rules.length > 2)   return reject('Two rules to a word, no more.');
+    if (!ends)              return reject('Rules bracket the word — one at each end.');
+    if (state.word.length <= 2) return reject('The rules want a word between them.');
+  }
+  // The rules set the word, they don't join it: they are struck from the string
+  // before the dictionary — or the marks, or the fleuron — is ever asked, the
+  // same way scoring's pass ¼ strikes them before a thing is counted.
+  const w = rules.length
+    ? state.word.filter(t => !isRule(getActiveLetter(t))).map(t => getActiveLetter(t)).join('')
+    : getWordString();
+  if (!w) return;
+
+  // Marks ride at the end of a word, and only as ?, ! or ?!. The dictionary
+  // never sees them — it's the letters in front that have to be a word.
+  const parts = splitMarks(w.toUpperCase());
   if (!parts)          return reject('Marks go last, as ? or ! or ?!.');
   if (!parts.letters)  return reject('A mark needs a word in front of it.');
   // The fleuron decorates the page, never a word: alone it stands, beside
@@ -757,13 +812,49 @@ async function submitWord() {
   const script = computeScore(state.word);
   const ro = readoutEls();
 
-  // Start the readout from zero so the build-up reads clearly
+  // Start the readout from zero so the build-up reads clearly. Last word's
+  // crossing-out goes with it: this word has not been judged yet.
   setNum(ro.points, 0); setNum(ro.total, 0);
+  showStruckTotal(null);
   renderChips(null);
   ro.root.classList.remove('readout--idle');
   ro.root.classList.add('readout--live');
 
   let pointsSoFar = 0;
+
+  // ── Pass ⅓: The Twins strike the doubles ───────────────────────────────────
+  // Before a single thing is counted, and before the brush: a doubled letter is
+  // two of the same tile, so the second is recast as the first, and a double the
+  // word was missing is struck and joins it. The groove has been showing both
+  // since the word was composed (renderWord reads them off the script), so this
+  // is where they are ANNOUNCED — a beat of their own, ahead of the count,
+  // because everything the count does from here reads the twinned word.
+  for (const step of script.twinSteps ?? []) {
+    const card = patronCard(step);
+    let shown = 0;
+    for (const hit of step.hits) {
+      if (!hit.changed) continue;
+      const src = wordTileEl(hit.fromId);
+      if (src) pulse(src, 'tile--twin-source', 620);
+      const el = hit.kind === 'summon' ? twinPhantomEl(hit.id) : wordTileEl(hit.id);
+      if (!el) continue;
+      if (hit.kind === 'summon') {
+        // The phantom turns solid: struck type, not a promise of it.
+        el.classList.remove('tile--twin-phantom');
+        popReveal(el);
+        floatText(el, `${step.emoji} struck`, 'fl-twin', { dy: -62 });
+      } else {
+        pulse(el, 'tile--twinned-firing', 620);
+        floatText(el, `${step.emoji} recast`, 'fl-twin', { dy: -52 });
+      }
+      sparkleBurst(el, 10);
+      shown++;
+    }
+    if (!shown) continue;
+    if (card) pulse(card, 'patron--firing', 520);
+    sfx.land();
+    await sleep(ANIM.stepTwin);
+  }
 
   // ── Pass ½: the brush ──────────────────────────────────────────────────────
   // The patrons who PAINT a tile go before anything is counted, so everything
@@ -812,11 +903,11 @@ async function submitWord() {
     if (el) {
       pulse(el, 'tile--scoring', 360);
       floatText(el, `+${step.points}`, 'fl-points');
-      if (step.refresh) { floatText(el, '↻ Discard', 'fl-refresh', { dy: -70 }); }
-      if (step.returns) { floatText(el, '↩ to bag', 'fl-return', { dy: -88 }); }
-      if (step.coins)   { floatText(el, `+${coinHTML(step.coins)}`, 'fl-coin', { dy: -70 }); sfx.coin(); }
+      if (step.refresh) { floatText(el, '↻ Discard', 'fl-refresh', { dy: -70 }); sfx.gain(); }
+      if (step.returns) { floatText(el, '↩ to bag', 'fl-return', { dy: -88 }); sfx.gain(); }
+      if (step.coins)   { floatText(el, `+${coinHTML(step.coins)}`, 'fl-coin', { dy: -70 }); sfx.coin(i); }
     }
-    sfx.tick(i++);
+    sfx.tick(i++, step.material);
     pointsSoFar += step.points;
     tweenNum(ro.points, pointsSoFar);
     await sleep(ANIM.stepTile);
@@ -837,7 +928,9 @@ async function submitWord() {
   }
 
   // ── Pass 3: colour multipliers ─────────────────────────────────────────────
-  for (const step of script.colourSteps) {
+  // Each colour rings the bell a step higher (sfx.chime), so a many-coloured
+  // word audibly stacks its multipliers.
+  for (const [ci, step] of script.colourSteps.entries()) {
     const glow  = MULT_TRACKS[step.colour]?.glyph ?? '#8a5fb0';
     const label = MULT_TRACKS[step.colour]?.label ?? 'Purple';
     for (const id of step.ids) {
@@ -847,7 +940,7 @@ async function submitWord() {
         pulse(el, 'tile--set-glow', 620);
       }
     }
-    sfx.chime();
+    sfx.chime(ci);
     // The measure's arithmetic and its flourish are one floater, not two that
     // would collide on the same beat (flourishTime, js/anim.js).
     if (step.colour === 'length') {
@@ -893,12 +986,28 @@ async function submitWord() {
   }
 
   // ── Finale: the total lands ────────────────────────────────────────────────
+  // The press winds up while the figure counts, and the thud belongs to the
+  // slam — not to the start of the tween, half a second before anything hits.
+  sfx.crank(480);
+  // The figure the word was WORTH lands first, whole. Only then does the desk
+  // reach over and cross it out — a spike has to be seen happening to a score,
+  // or the player never learns what the editor cost them.
+  await tweenNum(ro.total, script.adjusted ? script.plainTotal : script.total, { duration: 480 });
   sfx.total();
-  await tweenNum(ro.total, script.total, { duration: 480 });
   sparkleBurst(ro.total, script.total >= state.quota ? 18 : 10);
   pulse(ro.root, 'readout--slam', 500);
+  if (script.adjusted) {
+    await sleep(ANIM.stepPatron);
+    showStruckTotal(script.plainTotal);
+    pulse(ro.plain, 'ro-total--striking', 460);
+    setNum(ro.total, script.plainTotal);
+    await tweenNum(ro.total, script.total, { duration: 380 });
+    if (script.spiked) { sfx.bad(); pulse($('bossBar'), 'boss-bar--spiking', 520); }
+    else sfx.mult();
+  }
   patronReactions(script);   // fire-and-forget flavour — never blocks the flow
   await sleep(ANIM.holdTotal);
+  await evaporateTwins();
 
   // ── Commit ─────────────────────────────────────────────────────────────────
   const printed = [...state.word];
@@ -916,7 +1025,7 @@ async function submitWord() {
     state.stats.bestScore = script.total;
     state.stats.bestWord  = script.word;
   }
-  recordWord(script.word, script.total);
+  recordWord(script.word, script.total, script.bold);
 
   // This word is spent, so the Gambler's coin goes back in the air — here
   // rather than in the score effect, which re-runs on every keystroke.
@@ -926,8 +1035,11 @@ async function submitWord() {
   state.primed = {};
 
   // The editor's memory moves on likewise — chains advance, bars re-set,
-  // tempers and measures re-roll — here and never during scoring.
-  bossOnPrinted(state, script, parts.letters);
+  // tempers and measures re-roll — here and never during scoring. It is given
+  // what the table READ (script.letters), not what was typed: The Twins can put
+  // a letter in the word that the keyboard never did, and an editor must
+  // remember the word it just judged rather than the one it was handed.
+  bossOnPrinted(state, script, script.letters);
 
   // Patrons that reach beyond the score fire before the tiles retire, so a
   // grown tile carries its growth wherever it goes next (even back to the bag).
@@ -1042,6 +1154,16 @@ function offerColophon() {
   return false;
 }
 
+// The alley, taken as a Colophon pick. It stands BEFORE the Market and leaves
+// state.pendingReward alone — the fair still has the page's takings to show, and
+// the coins are already in the purse to spend down here (they are credited as
+// the page completes, ahead of the Colophon).
+export function openTheBlackMarket() {
+  openBlackMarket();
+  renderAll();
+  renderBlackMarket();
+}
+
 // The Market, with whatever the page paid: straight after an ordinary page, and
 // after the Colophon on the page that ends a chapter.
 export function openTheMarket() {
@@ -1110,6 +1232,8 @@ async function advancePage() {
     // read it, however long that particular rule runs.
     await showBanner(`${def.emoji} ${def.name}`, def.desc, 'read');
     log(`${def.emoji} ${def.name} takes the desk. ${def.desc}`, 'warn');
+    // …and one of them puts his hand out before you have seen a tile.
+    if (state.boss.id === 'bribrarian') await takeTheConsideration();
   }
 
   // Whatever a patron brings arrives with the hand; whatever the editor lends
@@ -1138,7 +1262,7 @@ async function gameLost() {
 // ─── Discard ──────────────────────────────────────────────────────────────────
 
 async function doDiscard() {
-  if (state.isAnimating || state.inMarket || state.inColophon || state.gameOver) return;
+  if (state.isAnimating || sheetUp() || state.gameOver) return;
   hidePopover();
 
   // First press arms the mode; tiles are then tapped to select.
@@ -1211,7 +1335,7 @@ async function doDiscard() {
 // ─── Keyboard ─────────────────────────────────────────────────────────────────
 
 document.addEventListener('keydown', e => {
-  if (state.inMarket || state.inDraft || state.inColophon || state.isAnimating || state.gameOver) return;
+  if (sheetUp() || state.isAnimating || state.gameOver) return;
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
   if ($('settingsModal')?.classList.contains('show')) return;
   if ($('inspectorModal')?.classList.contains('show')) {
@@ -1262,7 +1386,7 @@ $('btnDiscard')?.addEventListener('click', doDiscard);
 // tap on the tool spends it (or puts it away if nothing is chosen). Every tool
 // shares that rhythm — the ratchet's arrows only say which way it points.
 $('sundries')?.addEventListener('click', async e => {
-  if (state.isAnimating || state.inMarket || state.inDraft || state.inColophon || state.gameOver) return;
+  if (state.isAnimating || sheetUp() || state.gameOver) return;
   // The ✕ is caught before the slot it sits on, so binning a tool can't also
   // arm it.
   const bin = e.target.closest('[data-discard-sundry]');
@@ -1355,8 +1479,8 @@ async function useSundry(idx, e = null) {
     if (!offer) { log('Nothing in your hand will take a new metal — the applicator keeps.', 'warn'); return; }
     state.sundryMode = idx;
     const look = APPLICATORS[armed.material];
-    log(offer.length === 2
-      ? `The applicator offers two tiles — tap the one to strike in ${look.label.toLowerCase()}.`
+    log(offer.length > 1
+      ? `The applicator offers ${offer.length} tiles — tap the one to strike in ${look.label.toLowerCase()}.`
       : `Only one tile will take a new metal — tap it.`);
     renderAll();
     return;
@@ -1520,8 +1644,8 @@ async function useSundry(idx, e = null) {
     const offer = rollTubeOffer(armed);
     if (!offer) { log('Nothing in your hand will take paint — the tube keeps.', 'warn'); return; }
     state.sundryMode = idx;
-    log(offer.length === 2
-      ? 'The tube offers two tiles — tap the one to paint.'
+    log(offer.length > 1
+      ? `The tube offers ${offer.length} tiles — tap the one to paint.`
       : 'Only one tile will take paint — tap it.');
     renderAll();
     return;
@@ -1737,6 +1861,11 @@ function confirmCoinedWord() {
 $('overlayModal')?.addEventListener('click', e => {
   if (e.target.closest('[data-coin-cancel]')) { hideOverlay(); return; }
   if (e.target.closest('[data-coin-confirm]')) confirmCoinedWord();
+  // The Counterfeiter's plate: a sort per click, and the page's offer spent
+  // only when the plate is put away having given something up.
+  const sort = e.target.closest('[data-counterfeit]');
+  if (sort) { takeCounterfeit(sort.dataset.counterfeit); return; }
+  if (e.target.closest('[data-plate-done]')) hideOverlay();
 });
 $('overlayModal')?.addEventListener('keydown', e => {
   if (!$('coinInput')) return;
@@ -1774,8 +1903,85 @@ function usurerRepay() {
   renderAll(); if (state.inMarket) renderMarket(); persist();
 }
 
+// ─── The Bribrarian's consideration ───────────────────────────────────────────
+// Blocks the page until it is settled, because settling it is the first move of
+// the page and there is no sensible default: taking nothing is a choice as much
+// as paying four is. The purse may go into the red, which is why the sheet says
+// what that costs rather than refusing it.
+function takeTheConsideration() {
+  const data = state.boss?.data ?? {};
+  showBribeSheet(state.coins);
+  return new Promise(resolve => {
+    const done = e => {
+      const pick = e.target.closest('[data-bribe]');
+      if (!pick) return;
+      const paid = Math.max(0, Math.min(BRIBRARIAN.steps, Number(pick.dataset.bribe) || 0));
+      $('overlayModal')?.removeEventListener('click', done);
+      data.paid    = paid;
+      state.coins -= paid;
+      hideOverlay();
+      if (paid) {
+        sfx.coin();
+        log(`🤝 ${paid} Coin${paid === 1 ? '' : 's'} across the desk — every word this page at `
+          + `×${bribeMult(paid)} Mult.${state.coins < 0
+              ? `  The purse is ${state.coins}: the Market is shut until it is clear.` : ''}`,
+          state.coins < 0 ? 'warn' : 'good');
+      } else {
+        log(`🤝 Not a penny. Every word this page at ×${bribeMult(0)} Mult.`, 'warn');
+      }
+      renderAll();
+      resolve(paid);
+    };
+    $('overlayModal')?.addEventListener('click', done);
+  });
+}
+
+// ─── The Counterfeiter (one forged sort a page) ───────────────────────────────
+// ONE sort, and the plate is cold until the next page — which is what keeps a
+// free letter from being a free hand. Opening the plate to look costs nothing;
+// the offer is spent the moment something is taken, and the plate closes on it.
+
+const handRoom = () => Math.max(0, effectiveRackSize() - handCount());
+
+function openCounterfeitPlate() {
+  if (state.isAnimating || sheetUp() || state.gameOver) return;
+  const seat = state.patrons.find(p => p.id === 'counterfeiter');
+  if (!seat) return;
+  seat.data ??= {};
+  if (seat.data.used) { log('💵 The plate is cold until the next page.', 'warn'); return; }
+  if (handRoom() <= 0) { log('💵 Your hand is full — there is nowhere to put a forgery.', 'warn'); return; }
+  showCounterfeitSheet();
+}
+
+async function takeCounterfeit(letter) {
+  const seat = state.patrons.find(p => p.id === 'counterfeiter');
+  if (!seat || seat.data?.used || handRoom() <= 0) return;
+  seat.data ??= {};
+  seat.data.used = true;          // one a page, spent the moment it is taken
+  hideOverlay();
+
+  const tile = castCounterfeit(letter);
+  state.isAnimating = true;
+  renderButtons();
+  renderRack(new Set([tile.id]));
+  renderCounts();
+  const el = rackTileEl(tile.id);
+  const card = patronCard(seat);
+  if (card) pulse(card, 'patron--firing', 520);
+  if (el) {
+    sfx.draw();
+    await flyClone(el, rect(card) ?? bagRect(), rect(el), { duration: ANIM.fly, scaleFrom: 0.35 });
+    popReveal(el);
+    sparkleBurst(el, 9);
+    sfx.land();
+  }
+  state.isAnimating = false;
+  log(`💵 A counterfeit ${letter} — worth nothing, and yours till the page turns.`, 'good');
+  renderAll();
+}
+
 async function lendOlogyTile() {
-  if (state.isAnimating || state.inMarket || state.inColophon || state.gameOver) return;
+  if (state.isAnimating || sheetUp() || state.gameOver) return;
   const seat = state.patrons.find(p => p.id === 'scientist');
   if (!seat) return;
   seat.data ??= {};
@@ -1808,6 +2014,7 @@ $('popover')?.addEventListener('click', e => {
     if (!state.isAnimating) {
       if (act.dataset.patronAct === 'neologist') showCoinWordSheet();
       if (act.dataset.patronAct === 'scientist') lendOlogyTile();
+      if (act.dataset.patronAct === 'counterfeiter') openCounterfeitPlate();
       if (act.dataset.patronAct === 'usurer-borrow') usurerBorrow();
       if (act.dataset.patronAct === 'usurer-repay')  usurerRepay();
     }
@@ -1833,7 +2040,7 @@ $('popover')?.addEventListener('click', e => {
   const flip = e.target.closest('[data-flip]');
   if (flip) {
     hidePopover();
-    if (state.isAnimating || state.inMarket || state.inColophon || state.gameOver) return;
+    if (state.isAnimating || sheetUp() || state.gameOver) return;
     toggleDualVariant(Number(flip.dataset.flip));
     renderAll();
   }
@@ -1890,6 +2097,9 @@ $('animSlider')?.addEventListener('input', e => {
 $('soundToggle')?.addEventListener('change', e => {
   settings.sound = e.target.checked;
   saveSettings();
+  // Answer the toggle so the player hears the new state — and because this
+  // runs inside a user gesture, it primes the AudioContext for everything after.
+  if (settings.sound) sfx.land();
 });
 
 $('fileInput')?.addEventListener('change', e => {
@@ -1912,13 +2122,14 @@ $('btnNewRun')?.addEventListener('click', async () => {
 // Dev helpers
 $('devCoins')?.addEventListener('click', () => { state.coins += 20; renderAll(); if (state.inMarket) renderMarket(); });
 $('devMarket')?.addEventListener('click', () => {
-  if (state.inMarket || state.inColophon || state.isAnimating) return;
+  if (sheetUp() || state.isAnimating) return;
   $('settingsModal')?.classList.remove('show');
   openMarket([], 0);
   renderAll(); renderMarket();
 });
+$('devChamber')?.addEventListener('click', () => openTheChamber());
 $('devWinPage')?.addEventListener('click', () => {
-  if (state.inMarket || state.inColophon || state.isAnimating || state.gameOver) return;
+  if (sheetUp() || state.isAnimating || state.gameOver) return;
   $('settingsModal')?.classList.remove('show');
   state.pageScore = state.quota;
   pageComplete();
@@ -1932,18 +2143,20 @@ async function startFreshRun() {
   closeMarket();
   renderMarket();
   newRun();
-  openDraft();
+  openChamber({ atStart: true });
   renderAll();
-  renderDraft();
+  renderChamber();
 }
 
-// Leaving the draft → the run proper begins
+// Leaving the chamber at the top of a run → the run proper begins. The bag is
+// shuffled here rather than in newRun, so whatever the chamber struck is in it.
 async function beginRun() {
-  const { painted } = applyDraft();
-  closeDraft();
-  renderDraft();
+  const atStart = chamber.atStart;
+  closeChamber();
+  renderChamber();
+  if (!atStart) { renderAll(); return; }
 
-  startPage();          // reshuffle the bag now the drafted tiles have joined
+  startPage();
   state.isAnimating = true;
   renderAll();
   await showBanner(chapterLabel(1), chapterTitle(1), 1250);
@@ -1953,7 +2166,22 @@ async function beginRun() {
   await animateDraw([...arrivals, ...lent, ...drawn]);
   state.isAnimating = false;
   renderAll();
-  if (painted.length) log(`Painted ${painted.join(', ')}.`);
+}
+
+// Mid-run, the chamber simply closes: the page it left is the page it returns
+// to, hand and groove untouched.
+function leaveChamber() {
+  closeChamber();
+  renderChamber();
+  renderAll();
+}
+
+// Opened from Settings, at any point in a run.
+function openTheChamber() {
+  if (state.inMarket || state.inColophon || state.isAnimating) return;
+  $('settingsModal')?.classList.remove('show');
+  openChamber({ atStart: false });
+  renderChamber();
 }
 
 (async function init() {
@@ -1962,7 +2190,8 @@ async function beginRun() {
   initInput({ spendArmedSundry, spendsOnPick });
   initInspect();
   initShelfDrag();
-  initSheets({ nextPage: beginNextPage, beginRun, openMarket: openTheMarket });
+  initSheets({ nextPage: beginNextPage, beginRun, openMarket: openTheMarket,
+             openBlackMarket: openTheBlackMarket, leaveChamber });
 
   renderDictStatus('loading', 0);
   // The exclusion list lands before a single word does: adoptWordlist and
@@ -1985,9 +2214,9 @@ async function beginRun() {
     await startFreshRun();
   } else {
     if (state.gameOver) { renderAll(); showGameOver(); }
-    else if (restored.draft) {
-      restoreDraft(restored.draft);
-      renderAll(); renderDraft();
+    else if (restored.chamber) {
+      restoreChamber(restored.chamber);
+      renderAll(); renderChamber();
     }
     else if (restored.market) {
       restoreMarket(restored.market);
@@ -1997,6 +2226,11 @@ async function beginRun() {
     else if (restored.colophon) {
       restoreColophon(restored.colophon);
       renderAll(); renderColophon();
+      log('Welcome back.');
+    }
+    else if (restored.blackmarket) {
+      restoreBlackMarket(restored.blackmarket);
+      renderAll(); renderBlackMarket();
       log('Welcome back.');
     } else {
       bossReplenish(state, castLentTile, lentInHand);   // restore anything a mid-deal reload lost

@@ -25,6 +25,31 @@ export const THEME_FILES = {
   common:     'wordlists/common.txt',
 };
 
+// The dummy letters are their own shape of list: each line is a word and the
+// INDEX of the letter that is written and not spoken, so the press can always
+// point at the one it judged. Marker letters are deliberately absent — the E in
+// NOTE does work, where the K in KNOT does none. Knot, not note.
+export const SILENT_FILE = 'wordlists/silent.txt';
+export const SILENT = new Map();
+
+export function adoptSilent(text) {
+  SILENT.clear();
+  for (const line of text.replace(/\r/g, '').split('\n')) {
+    const t = line.trim();
+    if (!t || t.startsWith('#')) continue;
+    const [w, i] = t.split(/\s+/);
+    const at = Number(i);
+    if (!w || !Number.isInteger(at) || at < 0 || at >= w.length) continue;
+    if (isExcluded(w.toUpperCase())) continue;
+    SILENT.set(w.toUpperCase(), at);
+  }
+  return SILENT.size;
+}
+
+// Where the mute letter sits in `word`, or null if the word has none.
+export const silentAt = word => SILENT.get(word) ?? null;
+export const isSilentWord = word => SILENT.has(word);
+
 export const THEME_SETS = Object.fromEntries(
   Object.keys(THEME_FILES).map(k => [k, new Set()]));
 
@@ -65,13 +90,22 @@ export const themeSize = key => THEME_SETS[key]?.size ?? 0;
 export async function loadThemes() {
   if (typeof window !== 'undefined' && window.FOLIO_THEMES) {
     for (const [k, text] of Object.entries(window.FOLIO_THEMES)) adoptTheme(k, text);
+    if (window.FOLIO_SILENT) adoptSilent(window.FOLIO_SILENT);
     return;
   }
   if (typeof location === 'undefined' || !location.protocol.startsWith('http')) return;
-  await Promise.all(Object.entries(THEME_FILES).map(async ([k, file]) => {
-    try {
-      const res = await fetch(file, { cache: 'no-store' });
-      if (res.ok) adoptTheme(k, await res.text());
-    } catch { /* a missing list just never matches */ }
-  }));
+  await Promise.all([
+    ...Object.entries(THEME_FILES).map(async ([k, file]) => {
+      try {
+        const res = await fetch(file, { cache: 'no-store' });
+        if (res.ok) adoptTheme(k, await res.text());
+      } catch { /* a missing list just never matches */ }
+    }),
+    (async () => {
+      try {
+        const res = await fetch(SILENT_FILE, { cache: 'no-store' });
+        if (res.ok) adoptSilent(await res.text());
+      } catch { /* likewise */ }
+    })(),
+  ]);
 }

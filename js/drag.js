@@ -20,7 +20,7 @@ import { computeScore } from './scoring.js';
 import { patronById, patronName } from './patrons.js';
 import { market, stallById } from './market.js';
 import { proposalPreview, updateMarketState } from './sheets.js';
-import { draft } from './draft.js';
+
 
 const DRAG_THRESHOLD = 8;     // px of travel before a press becomes a drag
 const LONG_PRESS_MS  = 450;
@@ -48,7 +48,7 @@ function insertIndex(container, clientX) {
   return Math.max(0, Math.min(best, tiles.length));
 }
 
-const blocked = () => state.inMarket || state.inDraft || state.inColophon || state.isAnimating || state.gameOver;
+const blocked = () => state.inMarket || state.inChamber || state.inColophon || state.isAnimating || state.gameOver;
 
 // Rack taps mean "select for discard" while discard mode is armed;
 // any board tap means "select for the tube" while a sundry is armed.
@@ -263,7 +263,7 @@ let shelfDropped = false;   // a drag just landed — eat the click that follows
 const isMarketShelf = shelf => !!shelf?.classList.contains('shelf--market');
 function shelfBlocked(shelf) {
   if (state.isAnimating || state.gameOver) return true;
-  if (state.inDraft || state.inColophon) return true;
+  if (state.inChamber || state.inColophon) return true;
   return state.inMarket !== isMarketShelf(shelf);
 }
 
@@ -370,7 +370,7 @@ export function initShelfDrag() {
 }
 
 // ─── Inspecting things outside the board ───────────────────────────────────────
-// Shop offers, draft cards and the collection explain themselves on hover or
+// Shop offers, chamber sorts and the collection explain themselves on hover or
 // long-press. Anything with a .tile inside, or data-tip-head/body, is inspectable.
 
 const HOVER_DELAY = 260;
@@ -378,7 +378,7 @@ let _hoverTimer = null, _holdTimer = null, _held = null;
 
 function tipTargetOf(el) {
   return el.closest('[data-tip-head]')
-      || el.closest('.offer-tile, [data-draft="tile"], [data-stall-tid], [data-tid]');
+      || el.closest('.offer-tile, [data-stall-tid], [data-tid]');
 }
 
 function showTipFor(target) {
@@ -417,15 +417,13 @@ function templateFor(tileEl) {
   if (offer != null) return market.tileOffers[Number(offer)]?.template;
   const rotted = tileEl.closest('[data-offer="compost"]')?.dataset.idx;
   if (rotted != null) return state.compost?.[Number(rotted)];
-  const drafted = tileEl.closest('[data-draft="tile"]')?.dataset.idx;
-  if (drafted != null) return draft.tiles[Number(drafted)];
   return null;
 }
 
 export function initInspect() {
   // The three sheets, plus the board's own workbench. A long-press swallows the
   // click that follows, so reading a tool can't also arm it.
-  const roots = ['marketModal', 'draftModal', 'inspectorModal', 'sundries']
+  const roots = ['marketModal', 'chamberModal', 'inspectorModal', 'sundries']
     .map(id => document.getElementById(id)).filter(Boolean);
 
   for (const root of roots) {
