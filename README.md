@@ -66,8 +66,8 @@ whole, and then the desk reaches over and crosses it out.
 The readout shows a live projection with a chip per colour, and **everything
 that does something explains itself where it sits**: hover with a mouse,
 long-press on touch, wherever the thing appears. Nothing is summarised beneath
-market cards. What a sundry does is written once, in `js/constants.js` →
-`sundryTip`. On print the score replays in the order it happens: *the Twins*
+market cards. What a sundry does is written once, in `js/text.js` →
+`SUNDRY_TEXT`, and looked up through `sundryTip` in `js/constants.js`. On print the score replays in the order it happens: *the Twins*
 recast the doubled pairs, patrons write bonuses onto the tiles, the tiles pay,
 nicks fire, each colour's multiplier lights, and the patrons weigh in seat by
 seat.
@@ -513,11 +513,34 @@ a patron *does* lives against the same id in `js/patrons.js`. The two are
 married at the bottom of `js/patrons.js`, and a card with no behaviour (or a
 behaviour with no card) throws on load naming the id.
 
-A `desc` may contain `{KNOB}` placeholders, filled from `js/constants.js` as the
-module loads — `{ESPALIER_STEP}` for the value itself, `{1/NUDIST_TRIM_CHANCE}`
-for "a 1-in-4 chance" — so retuning a number retunes the card text with it. New
-knobs are exposed by adding a line to the `KNOBS` object at the top of
-`js/patron-cards.js`.
+A `desc` may contain `{KNOB}` placeholders, filled as the module loads —
+`{ESPALIER_STEP}` for the value itself, `{1/NUDIST_TRIM_CHANCE}` for "a 1-in-4
+chance" — so retuning a number retunes the card text with it. New knobs are
+exposed by adding a line to the `KNOBS` object at the foot of `js/constants.js`,
+which the rest of the game's writing shares.
+
+## Where the writing lives
+
+Every word a player reads sits in a copy file, separate from the code that acts
+on it. **`js/text.js`** is the door: it holds the things you own and the sheets
+you use, and its header is a map of the rest.
+
+| Writing | Where |
+| --- | --- |
+| Trims, nicks, colours, metals, tools, parcels, stalls, the Colophon's picks, and the headings and buttons of the Market, the Black Market and the Colophon | `js/text.js` |
+| Every patron — name, portrait, price, rarity, guild, card text | `js/patron-cards.js` (behaviour: `js/patrons.js`) |
+| Every editor — name, portrait, and the house rule in their own voice | `js/boss-cards.js` (behaviour: `js/bosses.js`) |
+| The unsolicited opinions patrons pop after a good word | `js/quips.js` |
+| Chapter titles | `js/chapters.js` |
+| The themed word lists | `wordlists-themed/` |
+| The running narration in the status log | `js/main.js`, `js/sheets.js` — these stay at the moment they are spoken, each being written around the values it reports |
+
+`js/text.js` imports nothing, so there is never a question of what may safely be
+said in it. Copy may quote a tuning number rather than repeating it, with the
+same `{KNOB}` syntax the patron cards use; a knob that does not exist throws at
+load naming the line that wants it, rather than shipping a card reading
+`{TONGS_BONS}`. Both card files and `js/text.js` fill from the one `KNOBS` table
+at the foot of `js/constants.js`, so a knob means the same thing everywhere.
 
 **Letting things go** — the top of the Market restates **Your table** and **Your
 workbench**, so what you hold is never out of sight while you shop: the ✕ on a
@@ -531,6 +554,28 @@ opens, choose one of three permanent upgrades: +1 hand size, +1 discard, +1 patr
 seat, +1 workbench slot, or a paint pot of a colour of your choice. At least one
 non-paint option is always offered while one remains, and each of the eight
 picks caps at 2 takes across a run. *Skip* declines all three for 2 Coins.
+
+A ninth card is not an upgrade at all: **The Black Market** opens a door in the
+alley behind the fair, once, before the ordinary Market. It is the only pick with
+no repeat cap — the alley is open however many times you have been down it — and
+the only one with an entry requirement: it is not dealt at all under 10 Coins,
+since a door you cannot afford to walk through is a wasted card rather than a
+choice.
+
+**The Black Market** — sixteen tiles on one long table, one to two of them cast
+in each of the rare metals (rainbow, ghost, rose and hellbox iron) and *chosen*
+rather than gambled for out of a wrapper, plus punctuation, which comes no other
+way. Four patrons in the back room, every one of them rare — the Market's own
+list is weighted three-to-one towards commons, so this is the only place a rare
+build can be assembled on purpose. Four sundries under the counter, drawn from
+the four guild tools, the two applicators, the love potion and the four
+registers' parcels: things a patron may give you and no stall will sell.
+
+Nothing there is a bargain. Tiles carry a surcharge, patrons a markup that rides
+on the seat itself — so dismissing one refunds half of what you actually paid,
+not half a list price you never saw — and there is no re-roll. The alley shows
+you what it has, once. `js/blackmarket.js`, and the constants beginning `BLACK_`
+in `js/constants.js`.
 
 **Discarding** — press *Discard* to arm it, tap the tiles to throw away, then
 press it again to confirm (press with nothing selected to cancel).

@@ -2,7 +2,10 @@
 // Three cards, one guaranteed structural, capped repeats.
 
 import { state, shuffle, unpaintedTiles, paintRandomTiles } from './state.js';
-import { UPGRADE_OFFERS, MAX_UPGRADE_REPEATS, SKIP_COIN_GRANT, PAINT_PER_POT } from './constants.js';
+import {
+  UPGRADE_OFFERS, MAX_UPGRADE_REPEATS, SKIP_COIN_GRANT, PAINT_PER_POT,
+  BLACK_MARKET_MINIMUM,
+} from './constants.js';
 import { UPGRADE_DEFS, upgradeById } from './upgrades.js';
 
 export const colophon = {
@@ -12,13 +15,20 @@ export const colophon = {
 
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 
+// A card is dealt only if it is worth something to THIS press right now. Two
+// picks have a condition beyond the repeat cap: a paint pot with nothing left to
+// paint, and the alley, which is only a door and asks you to bring your own
+// money — under BLACK_MARKET_MINIMUM Coins it would be a wasted card rather than
+// a choice, so it stays shut.
 function eligibleIds() {
   const noPaintLeft = !unpaintedTiles().length;
+  const tooPoorForTheAlley = state.coins < BLACK_MARKET_MINIMUM;
   return UPGRADE_DEFS
     // `endless` picks ignore the repeat cap — the Black Market is a door, not a
     // bonus, and the alley is open however many times you have been down it.
     .filter(d => d.endless || (state.upgradeCounts?.[d.id] ?? 0) < MAX_UPGRADE_REPEATS)
     .filter(d => !(d.kind === 'paint' && noPaintLeft))
+    .filter(d => !(d.kind === 'blackmarket' && tooPoorForTheAlley))
     .map(d => d.id);
 }
 

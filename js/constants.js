@@ -1,3 +1,18 @@
+// Tuning, tables and the small pure helpers everything else reads.
+//
+// THE WORDS ARE NOT HERE. Every label, name and description a player reads lives
+// in js/text.js; this file holds the NUMBERS and marries the two at the bottom
+// (see "Filling the copy's knobs"). To reword a trim, a metal, a stall or a
+// tool, edit js/text.js — the shapes exported here keep their fields either way,
+// so nothing downstream needs to know where the words came from.
+
+import {
+  TRIM_TEXT, NICK_TEXT, COLOUR_TEXT, COLOUR_DESC, MULT_TRACK_TEXT, MATERIAL_TEXT,
+  SUNDRY_TEXT, TOOL_TEXT, APPLICATOR_TEXT, PACKAGE_TEXT, STALL_TEXT,
+  LENGTH_FLOURISHES, LENGTH_FLOURISH_BEYOND,
+  fillTable, fillKnobs, fillSlots,
+} from './text.js';
+
 // ─── Letterforms ──────────────────────────────────────────────────────────────
 // Bag tiles are template objects so they can carry trim/nick/colour before being
 // given an id when drawn to the rack.
@@ -225,22 +240,21 @@ export function splitMarks(str) {
 // counting what is *in* a word counts tiles; only rules about a word's shape —
 // length, spelling, order — count letters.
 export const COLOURS = {
-  crimson: { label: 'Crimson', glyph: '#b23a2e', bright: '#ff9d8e' },
-  azure:   { label: 'Azure',   glyph: '#2e6fb2', bright: '#8ec6ff' },
-  jade:    { label: 'Jade',    glyph: '#2d8a5c', bright: '#90e8ba' },
-  amber:   { label: 'Amber',   glyph: '#a87010', bright: '#ffd68c' },
+  crimson: { label: COLOUR_TEXT.crimson.label, glyph: '#b23a2e', bright: '#ff9d8e' },
+  azure:   { label: COLOUR_TEXT.azure.label,   glyph: '#2e6fb2', bright: '#8ec6ff' },
+  jade:    { label: COLOUR_TEXT.jade.label,    glyph: '#2d8a5c', bright: '#90e8ba' },
+  amber:   { label: COLOUR_TEXT.amber.label,   glyph: '#a87010', bright: '#ffd68c' },
 };
 
-export const colourDesc = c =>
-  `Each ${COLOURS[c].label} tile adds +1 to the ${COLOURS[c].label} multiplier.`;
+export const colourDesc = c => fillSlots(COLOUR_DESC, COLOURS[c].label);
 
 // Every multiplier the readout keeps a chip for — the paints plus the ones that
 // come from somewhere other than paint. Score steps look their `colour` up here.
 export const MULT_TRACKS = {
   ...COLOURS,
-  purple: { label: 'Purple', glyph: '#8a5fb0', bright: '#cfa6ff' },
-  cursed: { label: 'Cursed', glyph: '#c93c2d', bright: '#ff7a66' },
-  length: { label: 'Length', glyph: '#7d8fa0', bright: '#d9e6f2' },   // type-metal steel
+  purple: { label: MULT_TRACK_TEXT.purple.label, glyph: '#8a5fb0', bright: '#cfa6ff' },
+  cursed: { label: MULT_TRACK_TEXT.cursed.label, glyph: '#c93c2d', bright: '#ff7a66' },
+  length: { label: MULT_TRACK_TEXT.length.label, glyph: '#7d8fa0', bright: '#d9e6f2' },   // type-metal steel
 };
 
 // Tiles painted by one Colophon paint pick — random, and only unpainted ones.
@@ -272,31 +286,25 @@ export const oddsText = p => {
   return `${Math.round(p * 100)}-in-100`;
 };
 
+// Which patron sends which parcel, and what is in it. The parcels' NAMES and
+// the sentences describing them are in js/text.js; the loot tables are the
+// mechanism and stay here. Weighted [id, weight] pairs, resolved by openPackage
+// in js/main.js.
+//
+// Two weightings worth keeping: grave goods lean away from the cursed OO,
+// because a cursed tile can never be discarded and a Sexton collecting one per
+// third parcel would brick their own hand; the party bag leans towards the rose
+// tile, The Poppet's list being the smallest of the four and its parcels the
+// rarest.
 export const PACKAGES = {
-  romantic: {
-    patron: 'paramour', label: 'A billet-doux', emoji: '💌',
-    body: 'Sealed and scented. Open it for a two-faced X|O in crimson, a love potion for the workbench, or a tube of crimson.',
-    loot: [['xotile', 3], ['potion', 3], ['tube-crimson', 3]],
-  },
-  spooky: {
-    patron: 'sexton', label: 'Grave goods', emoji: '⚰️',
-    // Rarer than its ghostly twin: a cursed tile can never be discarded, so a
-    // Sexton collecting one per third parcel would brick their own hand.
-    body: 'Buried with someone. Open it for an azure OO in ghost metal, the same in cursed iron, or a tube of azure.',
-    loot: [['oo-ghost', 3], ['oo-cursed', 2], ['tube-azure', 3]],
-  },
-  cute: {
-    patron: 'poppet', label: 'A party bag', emoji: '🎁',
-    // Weighted to the rose tile: The Poppet's list is the smallest of the four
-    // (2,158 words), so its parcels are the rarest and want the best odds.
-    body: 'Somebody had a birthday. Open it for a tile struck in rose metal, a rainbow applicator, or a pot of ink wash.',
-    loot: [['rosetile', 4], ['applicator-rainbow', 3], ['wash', 2]],
-  },
-  rude: {
-    patron: 'vulgarian', label: 'A plain brown wrapper', emoji: '📦',
-    body: 'No return address. Open it for a pair of tongs, a curse applicator, or a silver-trimmed FU.',
-    loot: [['tongs', 3], ['applicator-cursed', 3], ['futile', 3]],
-  },
+  romantic: { ...PACKAGE_TEXT.romantic, patron: 'paramour',   emoji: '💌',
+              loot: [['xotile', 3], ['potion', 3], ['tube-crimson', 3]] },
+  spooky:   { ...PACKAGE_TEXT.spooky,   patron: 'sexton',     emoji: '⚰️',
+              loot: [['oo-ghost', 3], ['oo-cursed', 2], ['tube-azure', 3]] },
+  cute:     { ...PACKAGE_TEXT.cute,     patron: 'poppet',     emoji: '🎁',
+              loot: [['rosetile', 4], ['applicator-rainbow', 3], ['wash', 2]] },
+  rude:     { ...PACKAGE_TEXT.rude,     patron: 'vulgarian',  emoji: '📦',
+              loot: [['tongs', 3], ['applicator-cursed', 3], ['futile', 3]] },
 };
 
 // theme → the patron who sends it, and back again.
@@ -329,12 +337,12 @@ export const WASH_COUNT     = 4;   // tiles washed per pot — one of each colou
 
 // One look per tool, shared by the bench, the shop card and the held row.
 export const TOOL_LOOK = {
-  toolbox: { glyph: '🧰', label: 'Toolbox' },
-  loupe:   { glyph: '🔍', label: 'Loupe' },
-  laurel:  { glyph: '🏵️', label: 'Laurel' },
-  tongs:   { glyph: '🗜️', label: 'Tongs' },
-  wash:    { glyph: '💧', label: 'Ink wash' },
-  potion:  { glyph: '🧪', label: 'Love potion' },
+  toolbox: { glyph: '🧰', label: TOOL_TEXT.toolbox },
+  loupe:   { glyph: '🔍', label: TOOL_TEXT.loupe },
+  laurel:  { glyph: '🏵️', label: TOOL_TEXT.laurel },
+  tongs:   { glyph: '🗜️', label: TOOL_TEXT.tongs },
+  wash:    { glyph: '💧', label: TOOL_TEXT.wash },
+  potion:  { glyph: '🧪', label: TOOL_TEXT.potion },
 };
 
 // The applicators strike one tile in hand into a new material. Like the tube, the
@@ -342,8 +350,8 @@ export const TOOL_LOOK = {
 // the one tile that would break the game. A tile already cast is refused: a sort
 // is cast in one metal, not two.
 export const APPLICATORS = {
-  rainbow: { glyph: '🌈', label: 'Rainbow roll' },
-  cursed:  { glyph: '🩸', label: 'Hellbox iron' },
+  rainbow: { glyph: '🌈', label: APPLICATOR_TEXT.rainbow },
+  cursed:  { glyph: '🩸', label: APPLICATOR_TEXT.cursed },
 };
 // Patrons offered per Market. Scale with the roster: too few offers against a big
 // roster shows a thin slice of the game and makes guild assembly unreliable.
@@ -363,38 +371,17 @@ export const STALLS_PER_SHOP = 2;
 export const PROPOSAL_RANGE  = 6;    // tiles a proposal stall lays out at a time
 export const SMELT_MIN_COLLECTION = 12;
 
+// Names and words in js/text.js; the opening price is the mechanism and lives
+// here. The Stereotyper opens at 4 where its neighbours open at 2-3: a copy
+// inherits every feature the original carries, so duplicating a loaded tile
+// beats any single improvement the other stalls sell.
 export const STALL_DEFS = {
-  smelter: {
-    name: 'The Smelter', emoji: '🔥', base: 2,
-    desc: 'Destroys a tile by feeding it to the furnace.',
-  },
-  painter: {
-    name: 'The Painter', emoji: '🖌️', base: 2,
-    desc: 'Proposes colours for six unpainted tiles.',
-    empty: 'Every tile you own already wears paint.',
-  },
-  gilder: {
-    name: 'The Gilder', emoji: '⚜️', base: 2,
-    desc: 'Proposes trims for six untrimmed tiles.',
-    empty: 'Every tile you own already wears a trim.',
-  },
-  punchcutter: {
-    name: 'The Punchcutter', emoji: '⚒️', base: 2,
-    desc: 'Cuts a second letter into a tile — flip to play either face.',
-    empty: 'Every tile you own already holds two letters.',
-  },
-  dresser: {
-    name: 'The Dresser', emoji: '🪚', base: 3,
-    desc: 'Cuts a nick into the edge of a tile.',
-    empty: 'Every tile you own already carries a nick.',
-  },
-  stereotyper: {
-    // base 4 where its neighbours open at 2-3: a copy inherits every feature the
-    // original carries, so duplicating a loaded tile beats any single
-    // improvement the other stalls sell.
-    name: 'The Stereotyper', emoji: '🗜️', base: 4,
-    desc: 'Casts an exact copy of any tile.',
-  },
+  smelter:     { ...STALL_TEXT.smelter,     base: 2 },
+  painter:     { ...STALL_TEXT.painter,     base: 2 },
+  gilder:      { ...STALL_TEXT.gilder,      base: 2 },
+  punchcutter: { ...STALL_TEXT.punchcutter, base: 2 },
+  dresser:     { ...STALL_TEXT.dresser,     base: 3 },
+  stereotyper: { ...STALL_TEXT.stereotyper, base: 4 },
 };
 
 // ─── Special-tile generation ──────────────────────────────────────────────────
@@ -414,11 +401,13 @@ export const SILVER_BONUS = 5;
 
 // A retired fifth trim (mercury) is still stripped out of old saves at load (see
 // retireMercury in state.js); its rule now belongs to The Fountain (returnsToBag).
+// Prices here, words in js/text.js — the knobs in the descriptions are filled at
+// the foot of this file.
 export const TRIMS = {
-  gold:    { label: 'Gold',    price: 2, desc: 'Pays 1 Coin when printed.' },
-  silver:  { label: 'Silver',  price: 2, desc: `+${SILVER_BONUS} Points.` },
-  cobalt:  { label: 'Cobalt',  price: 3, desc: 'Refunds a Discard when printed.' },
-  purple:  { label: 'Purple',  price: 4, desc: 'Adds +0.5 to the purple multiplier.' },
+  gold:    { ...TRIM_TEXT.gold,   price: 2 },
+  silver:  { ...TRIM_TEXT.silver, price: 2 },
+  cobalt:  { ...TRIM_TEXT.cobalt, price: 3 },
+  purple:  { ...TRIM_TEXT.purple, price: 4 },
 };
 
 // Half a step where a painted letter is a whole one: one purple trim gives ×1.5,
@@ -433,10 +422,8 @@ export const PURPLE_TRIM_STEP = 0.5;
 // bonuses (see the tileBonus pass in scoring.js) go through it as well.
 export const NICK_MULT = 2;
 export const NICKS = {
-  right: { label: 'Right nick', mult: NICK_MULT, price: 4,
-           desc: `×${NICK_MULT} Points to every tile on its right.` },
-  left:  { label: 'Left nick',  mult: NICK_MULT, price: 4,
-           desc: `×${NICK_MULT} Points to every tile on its left.` },
+  right: { ...NICK_TEXT.right, mult: NICK_MULT, price: 4 },
+  left:  { ...NICK_TEXT.left,  mult: NICK_MULT, price: 4 },
 };
 
 // ─── The measure (the length multiplier) ──────────────────────────────────────
@@ -452,20 +439,9 @@ export const LENGTH_MULT_STEP = 0.5;
 export const lengthMult = n =>
   n < LENGTH_MULT_MIN ? 1 : LENGTH_MULT_BASE + (n - LENGTH_MULT_MIN) * LENGTH_MULT_STEP;
 
-// EDIT FREELY — copy, not code. Each entry is only the reaction clause: main.js
-// puts the count and the ×Mult in front, so a line reads "6 letters — ×2 Mult:
-// good!" Longer words fall through to LENGTH_FLOURISH_BEYOND. Keep them short:
-// the floater is a cheer, and it holds only long enough to be read.
-export const LENGTH_FLOURISHES = {
-  6:  'good!',
-  7:  'great!',
-  8:  'a true accomplishment!',
-  9:  'astounding!',
-  10: 'a credit to mankind!',
-  11: 'the Press itself is honoured.',
-  12: 'words about words fail us.',
-};
-export const LENGTH_FLOURISH_BEYOND = 'the stuff of legend.';
+// The cheer for a long word. The lines themselves are in js/text.js; re-exported
+// here because scoring and the board both reach for them through constants.
+export { LENGTH_FLOURISHES, LENGTH_FLOURISH_BEYOND };
 export const lengthFlourish = n =>
   LENGTH_FLOURISHES[n] ?? LENGTH_FLOURISH_BEYOND;
 
@@ -586,33 +562,19 @@ export const WRAPPED_OFFER_CHANCE = 0.5;  // odds one of a Market's sundry slots
 export const WRAPPED_CONTENTS = ['cursed', 'ghost', 'rainbow', 'mark'];
 export const MARK_TRIM = 'purple';   // what a wrapped mark always comes wearing
 
+// Words in js/text.js; this is only which metals exist and what they wear on
+// the board. The long notes on why blind and rose are what they are:
+//   blind — struck into the paper carrying no ink, so the letter is felt and
+//           never seen. The metal a silent letter is recast in, The Silent
+//           Knight the only road to it.
+//   rose  — a real alloy, soft enough to melt in boiling water, so no press
+//           could set a page in it. Out of The Poppet's party bag only.
 export const MATERIALS = {
-  cursed: {
-    label: 'Cursed', metal: 'Hellbox iron', emoji: '🩸',
-    desc: `×${CURSED_MULT} Mult when printed. Cannot be discarded. Words set while this remains in your hand lose ${CURSED_PENALTY} Points.`,
-  },
-  ghost: {
-    label: 'Ghost', metal: 'Ghost metal', emoji: '👻',
-    desc: 'Does not count against your hand size. Cannot be modified.',
-  },
-  rainbow: {
-    label: 'Rainbow', metal: 'Rainbow roll', emoji: '🌈',
-    desc: 'Counts as every colour to your patrons.',
-  },
-  // Blind embossing is real: type struck into the paper carrying no ink, so the
-  // letter is felt and never seen. The metal a silent letter is recast in, and
-  // The Silent Knight is the only road to it. It carries nothing of its own yet
-  // — it is a material for other seats to care about.
-  blind: {
-    label: 'Blind', metal: 'Blind emboss', emoji: '\u25cc',
-    desc: 'Struck into the page without ink. Set by The Silent Knight, and worth nothing on its own — yet.',
-  },
-  // Rose metal is real: an alloy soft enough to melt in boiling water, so no
-  // press could set a page in it. Out of The Poppet's party bag only.
-  rose: {
-    label: 'Rose', metal: 'Rose metal', emoji: '🎀',
-    desc: `Crowns a random patron with a laurel when printed — +${HONORIFIC_STEP} Points on every word thereafter.`,
-  },
+  cursed:  { ...MATERIAL_TEXT.cursed,  emoji: '🩸' },
+  ghost:   { ...MATERIAL_TEXT.ghost,   emoji: '👻' },
+  rainbow: { ...MATERIAL_TEXT.rainbow, emoji: '🌈' },
+  blind:   { ...MATERIAL_TEXT.blind,   emoji: '\u25cc' },
+  rose:    { ...MATERIAL_TEXT.rose,    emoji: '🎀' },
 };
 
 // Tiles nothing can be done to: a ghost; any tile an editor has merely lent you
@@ -845,6 +807,13 @@ export const BLACK_TILE_OFFERS   = 16;
 export const BLACK_PATRON_OFFERS = 4;
 export const BLACK_SUNDRY_OFFERS = 4;
 
+// The alley will not open its door to an empty purse. Without this the pick is a
+// trap: three cards, one of which is worth nothing at all to a player who cannot
+// buy from it, and the Colophon has no way to say so. Below the threshold the
+// card simply isn't dealt (eligibleIds in js/colophon.js), so the spread is
+// always three things you can actually use.
+export const BLACK_MARKET_MINIMUM = 10;
+
 // One to two tiles in each rare material every visit, and what the alley asks on
 // top of the tile's own worth. Priced by what the metal is worth to a press:
 // rainbow reads as every colour at once and costs the most; hellbox iron is a
@@ -900,62 +869,87 @@ export const RESHUFFLE_PRICE = 4;
 // ─── What a sundry is, in one place ───────────────────────────────────────────
 // The workbench slot, the shop card and the held row all read from here, so what
 // a thing does is written once and turns up wherever the thing does.
+// The one place a sundry's words are looked up. Every entry lives in SUNDRY_TEXT
+// (js/text.js); this only decides WHICH entry and fills the numbered slots for
+// the three that name something chosen at the moment they are read.
 export function sundryTip(s) {
-  if (s?.kind === 'tube') return {
-    head: `Tube of ${COLOURS[s.colour].label}`,
-    body: `Paints one tile in your hand, permanently. ${colourDesc(s.colour)}`,
-  };
-  if (s?.kind === 'ratchet') return {
-    head: 'Ratchet',
-    body: 'Tap it, tap one letter, then tap the ratchet again to step that letter '
-        + 'a single place along the alphabet.',
-  };
-  if (s?.kind === 'reshuffle') return {
-    head: 'Reshuffle',
-    body: 'Can be used to reroll offerings at the market and the Colophone.',
-  };
-  if (s?.kind === 'toolbox') return {
-    head: 'Toolbox',
-    body: 'Unwrap to gain two tools (space permitting).',
-  };
-  if (s?.kind === 'loupe') return {
-    head: 'Loupe',
-    body: `Double the value of a tile (to a max of ${LOUPE_CAP}).`,
-  };
-  if (s?.kind === 'laurel') return {
-    head: 'Laurel',
-    body: `Crowns a random seated patron. A crowned patron pays +${HONORIFIC_STEP} Points on every word, `
-        + 'at its own turn in the running order — so a crown in front of your multipliers is multiplied '
-        + 'by them. Patrons can balance an infinite number of laurels on their heads.',
-  };
-  if (s?.kind === 'tongs') return {
-    head: 'Tongs',
-    body: `Destroys a tile for good, and gives your next word +${TONGS_BONUS} Points.`,
-  };
-  if (s?.kind === 'wash') return {
-    head: 'Ink wash',
-    body: `Up to ${WASH_COUNT} unpainted tiles in your hand gain temporary paint, which `
-        + 'washes off on printing.',
-  };
-  if (s?.kind === 'wrapped') return {
-    head: 'A wrapped tile',
-    body: 'Unwrap it mid-page to gain one rare tile, permanently.'
-  };
-  if (s?.kind === 'potion') return {
-    head: 'Love potion',
-    body: 'Uncork it and a RARE patron takes an empty seat at your table, free. '
-        + 'Keeps until there is a seat to spare.',
-  };
-  if (s?.kind === 'package' && PACKAGES[s.theme]) {
+  const kind = s?.kind;
+  if (kind === 'tube' && COLOURS[s.colour]) {
+    const t = SUNDRY_TEXT.tube;
+    return {
+      head: fillSlots(t.head, COLOURS[s.colour].label),
+      body: fillSlots(t.body, COLOURS[s.colour].label, colourDesc(s.colour)),
+    };
+  }
+  if (kind === 'applicator' && APPLICATORS[s.material]) {
+    const t = SUNDRY_TEXT.applicator;
+    const m = MATERIALS[s.material];
+    return {
+      head: fillSlots(t.head, APPLICATORS[s.material].label),
+      body: fillSlots(t.body, APPLICATORS[s.material].label, m.metal.toLowerCase(), m.desc),
+    };
+  }
+  // A parcel says its own name — the register that sent it is the point.
+  if (kind === 'package' && PACKAGES[s.theme]) {
     const p = PACKAGES[s.theme];
     return { head: p.label, body: p.body };
   }
-  if (s?.kind === 'applicator' && APPLICATORS[s.material]) {
-    const m = MATERIALS[s.material];
-    return {
-      head: `${APPLICATORS[s.material].label} applicator`,
-      body: `Lays out two tiles from your hand; the one you pick is struck in ${m.metal.toLowerCase()}. ${m.desc}`,
-    };
-  }
-  return null;
+  const t = SUNDRY_TEXT[kind];
+  return t ? { head: t.head, body: t.body } : null;
 }
+
+// ═══ Filling the copy's knobs ══════════════════════════════════════════════════
+// One table of every number the writing is allowed to quote, and one pass that
+// fills them in. Both the tables above and js/patron-cards.js read this, so a
+// {KNOB} means the same thing wherever it is written and there is a single list
+// to add to when a new one is wanted.
+//
+// This stands at the FOOT of the file because it quotes values defined all the
+// way through it. Nothing reads a filled description at load — the shop cards,
+// tooltips and calling cards are all built later — so filling here is in time.
+
+export const KNOBS = {
+  // Tiles and their finery
+  SILVER_BONUS, PURPLE_TRIM_STEP, NICK_MULT, LENGTH_MULT_MIN, LENGTH_MULT_BASE,
+  CURSED_MULT, CURSED_PENALTY, LOUPE_CAP, TONGS_BONUS, WASH_COUNT,
+  GHOST_METAL: MATERIALS.ghost.metal.toLowerCase(),
+
+  // The workbench and the Colophon
+  HONORIFIC_STEP, WINNOWER_BONUS, DYE_TILES_PER_CHAPTER, PAINT_PER_POT,
+  SKIP_COIN_GRANT, MAX_UPGRADE_REPEATS,
+
+  // The Black Market
+  BLACK_TILE_OFFERS, BLACK_PATRON_OFFERS, BLACK_SUNDRY_OFFERS,
+  BLACK_PATRON_MARKUP, BLACK_MARKET_MINIMUM,
+
+  // Patron tuning
+  CHILD_STEP, ABECEDARIAN_MULT, ESPALIER_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,
+  STOKER_BASE, STOKER_STEP, RAGMAN_COINS, RAGMAN_ODDS,
+  NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, DIPPER_PAINT_CHANCE, REVENANT_ODDS,
+  MAGPIE_WEIGHT, MAKO_WEIGHT, TWINS_POINTS,
+  PRINCE_STEP:   PRINCE.step,
+  PRINCE_CROWN:  PRINCE.crown,
+  WORDLER_BONUS: WORDLER.bonus,
+  WORDLER_LENGTH: WORDLER.length,
+  USURER_LOAN:    USURER.loan,
+  USURER_OWED:    USURER.owed,
+  USURER_COLLECT: USURER.collect,
+  FRONTISPIECE_MULT: FRONTISPIECE.base,
+  // A full case, quoted so the ceiling follows the case itself.
+  ABECEDARIAN_CASE_MULT: Math.round(ABECEDARIAN_CASE.length * ABECEDARIAN_MULT * 100) / 100,
+  PACKAGE_CHANCE: oddsText(PACKAGE_ODDS),
+  RIPPER_WORDS:   `${RIPPER_WORDS.slice(0, -1).join(', ')} or ${RIPPER_WORDS.at(-1)}`,
+
+  // The parcels, by the name each one goes by
+  PARCEL_SPOOKY:   PACKAGES.spooky.label,
+  PARCEL_ROMANTIC: PACKAGES.romantic.label,
+  PARCEL_CUTE:     PACKAGES.cute.label,
+  PARCEL_RUDE:     PACKAGES.rude.label,
+};
+
+fillTable(TRIMS,     KNOBS, 'text: TRIM_TEXT');
+fillTable(NICKS,     KNOBS, 'text: NICK_TEXT');
+fillTable(MATERIALS, KNOBS, 'text: MATERIAL_TEXT');
+fillTable(STALL_DEFS, KNOBS, 'text: STALL_TEXT');
+fillTable(PACKAGES,  KNOBS, 'text: PACKAGE_TEXT');
+fillTable(SUNDRY_TEXT, KNOBS, 'text: SUNDRY_TEXT');

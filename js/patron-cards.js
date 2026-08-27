@@ -16,52 +16,27 @@
 //   desc     one sentence, concrete, under ~110 characters. State the rule,
 //            not the feeling — the flavour belongs to the name and the quips.
 //
-// A desc may carry {KNOBS} in braces, filled from the table below as the module
-// loads, so tuning a number in constants.js retunes the card text with it:
+// A desc may carry {KNOBS} in braces, filled as the module loads, so tuning a
+// number in constants.js retunes the card text with it:
 //
 //   {ESPALIER_STEP}          the value itself
 //   {1/NUDIST_TRIM_CHANCE}   one over it, rounded — for "a 1-in-4 chance"
+//
+// The knobs available are listed in KNOBS at the foot of js/constants.js, shared
+// with the rest of the game's writing in js/text.js. Add a line there to expose
+// a new one.
 //
 // Optional, and rare: `unlisted` keeps a patron out of the Market's pool (the
 // cat is found, never sold), `stackable` lets you hold more than one copy, and
 // `portrait` takes a path to an image ('img/patrons/scholar.png') to show on
 // the calling card in place of the emoji.
 
-import {
-  CHILD_STEP, ABECEDARIAN_MULT, ABECEDARIAN_CASE, ESPALIER_STEP, HONORIFIC_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,
-  STOKER_BASE, STOKER_STEP, RAGMAN_COINS, RAGMAN_ODDS, DYE_TILES_PER_CHAPTER,
-  NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, DIPPER_PAINT_CHANCE, REVENANT_ODDS,
-  PACKAGE_ODDS, oddsText, FRONTISPIECE, MATERIALS, RIPPER_WORDS, PACKAGES, PRINCE, WORDLER,
-  WINNOWER_BONUS, MAGPIE_WEIGHT, MAKO_WEIGHT, USURER, TWINS_POINTS,
-} from './constants.js';
-
-// What {BRACES} in a desc may refer to. Add a line here to expose a new knob.
-const KNOBS = {
-  CHILD_STEP, ABECEDARIAN_MULT, ESPALIER_STEP, HONORIFIC_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,
-  // A full case, quoted into the card so the ceiling follows the case itself.
-  ABECEDARIAN_CASE_MULT: Math.round(ABECEDARIAN_CASE.length * ABECEDARIAN_MULT * 100) / 100,
-  STOKER_BASE, STOKER_STEP, RAGMAN_COINS, RAGMAN_ODDS, DYE_TILES_PER_CHAPTER,
-  NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, DIPPER_PAINT_CHANCE, REVENANT_ODDS,
-  PACKAGE_CHANCE:   oddsText(PACKAGE_ODDS),
-  FRONTISPIECE_MULT: FRONTISPIECE.base,
-  GHOST_METAL:      MATERIALS.ghost.metal.toLowerCase(),
-  RIPPER_WORDS:     `${RIPPER_WORDS.slice(0, -1).join(', ')} or ${RIPPER_WORDS.at(-1)}`,
-  PARCEL_SPOOKY:    PACKAGES.spooky.label,
-  PARCEL_ROMANTIC:  PACKAGES.romantic.label,
-  PARCEL_CUTE:      PACKAGES.cute.label,
-  PARCEL_RUDE:      PACKAGES.rude.label,
-  PRINCE_STEP:      PRINCE.step,
-  WORDLER_BONUS:    WORDLER.bonus,
-  WINNOWER_BONUS,
-  WORDLER_LENGTH:   WORDLER.length,
-  PRINCE_CROWN:     PRINCE.crown,
-  MAGPIE_WEIGHT,
-  MAKO_WEIGHT,
-  USURER_LOAN:      USURER.loan,
-  USURER_OWED:      USURER.owed,
-  USURER_COLLECT:   USURER.collect,
-  TWINS_POINTS,
-};
+// Both the {KNOBS} a desc may quote and the filler that resolves them are shared
+// with js/text.js, where the rest of the game's writing lives — so a knob means
+// the same thing on a calling card as it does on a tooltip. The list of knobs
+// available is KNOBS at the foot of js/constants.js.
+import { KNOBS } from './constants.js';
+import { fillKnobs } from './text.js';
 
 export const PATRON_CARDS = {
   // ── Amber · the counting-house ────────────────────────────────────────────
@@ -448,11 +423,8 @@ export const PATRON_CARDS = {
 };
 
 // Fill a card's {KNOBS} the moment the module loads, so nothing downstream has
-// to know templates exist. An unknown knob is a typo — say so loudly rather
-// than shipping a card reading "{ESPALER_STEP}".
+// to know templates exist. An unknown knob is a typo — fillKnobs says so loudly
+// rather than shipping a card reading "{ESPALER_STEP}".
 for (const [id, card] of Object.entries(PATRON_CARDS)) {
-  card.desc = card.desc.replace(/\{(1\/)?([A-Z_][A-Z0-9_]*)\}/g, (_, inverse, knob) => {
-    if (!(knob in KNOBS)) throw new Error(`patron-cards: ${id} wants unknown knob {${knob}}`);
-    return String(inverse ? Math.round(1 / KNOBS[knob]) : KNOBS[knob]);
-  });
+  card.desc = fillKnobs(card.desc, KNOBS, `patron-cards: ${id}`);
 }

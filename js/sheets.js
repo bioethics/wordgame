@@ -27,6 +27,11 @@ import {
 import {
   blackMarket, closeBlackMarket, buyBlackTile, buyBlackPatron, buyBlackSundry,
 } from './blackmarket.js';
+// Every heading, note and button label on these three sheets is copy, and lives
+// in js/text.js with the rest of the game's writing.
+import {
+  MARKET_TEXT as MT, BLACK_MARKET_TEXT as BT, COLOPHON_TEXT as CT, fillSlots,
+} from './text.js';
 import {
   chamber, chamberPatrons, CHAMBER_COINS, chamberLetters, CHAMBER_SUNDRIES,
   CHAMBER_COLOURS, CHAMBER_TRIMS, CHAMBER_NICKS, CHAMBER_MATERIALS,
@@ -147,17 +152,19 @@ function rewardHTML() {
   if (!market.rewardParts?.length) return '';
   const rows = market.rewardParts
     .map(p => `<span class="reward-part">${p.label} <b>+${p.coins}</b></span>`).join('');
-  return `<div class="reward-line">${rows}<span class="reward-total">${coinHTML(market.rewardTotal)} earned</span></div>`;
+  return `<div class="reward-line">${rows}<span class="reward-total">${coinHTML(market.rewardTotal)} ${MT.earned}</span></div>`;
 }
 
 // Written on a fresh sheet and on every in-place patch, so they can't drift.
 const seatsLabel = () => {
   const max = effectivePatronSlots();
-  return `${state.patrons.length}/${max} seated${state.patrons.length >= max ? ' — dismiss one to make room' : ''}`;
+  return fillSlots(MT.seated, state.patrons.length, max)
+       + (state.patrons.length >= max ? MT.seatsFull : '');
 };
 const benchLabel = () => {
   const max = effectiveSundrySlots();
-  return `${state.sundries.length}/${max} on the workbench${state.sundries.length >= max ? ' — sell one to make room' : ''}`;
+  return fillSlots(MT.benched, state.sundries.length, max)
+       + (state.sundries.length >= max ? MT.benchFull : '');
 };
 // The short form, for the bench heading's narrow column. The long one above
 // belongs to the Sundries shop column.
@@ -248,7 +255,7 @@ function marketBenchHTML() {
   const full = state.sundries.length >= effectiveSundrySlots();
   return `
     <section class="market-bench${full ? ' market-shelf--wanted' : ''}" data-market-bench-wrap>
-      <h3 class="market-sec">Workbench <span class="market-sub" data-bench-count>${benchCount()}</span></h3>
+      <h3 class="market-sec">${MT.bench} <span class="market-sub" data-bench-count>${benchCount()}</span></h3>
       <div class="sundries sundries--market" data-market-bench
            style="--slot-count:${effectiveSundrySlots()}">${marketBenchSlotsHTML()}</div>
     </section>`;
@@ -267,7 +274,7 @@ function marketShelfHTML() {
   const fullSeats = state.patrons.length >= effectivePatronSlots();
   return `
     <section class="market-shelf${fullSeats ? ' market-shelf--wanted' : ''}" data-market-shelf-wrap>
-      <h3 class="market-sec">Your table <span class="market-sub" data-seats>${seatsLabel()}</span><span class="market-sub market-sub--hint">drag a card to change the running order</span>${marketGhostDoorHTML()}</h3>
+      <h3 class="market-sec">${MT.table} <span class="market-sub" data-seats>${seatsLabel()}</span><span class="market-sub market-sub--hint">${MT.tableHint}</span>${marketGhostDoorHTML()}</h3>
       <div class="shelf shelf--market" data-market-shelf style="--seat-count:${effectivePatronSlots()}">${marketShelfCardsHTML()}</div>
     </section>`;
 }
@@ -305,7 +312,7 @@ function marketShopHTML() {
         <button class="btn-price${haggleClass(def, o.data)}" data-buy-patron="${def.id}"${haggleTip(def, o.data)}>${
           patronCost(def, o.data) === 0 ? 'Free' : coinHTML(patronCost(def, o.data))}</button>
       </div>`;
-  }).join('') || '<p class="sheet-note">No patrons calling today.</p>';
+  }).join('') || `<p class="sheet-note">${MT.noPatrons}</p>`;
 
   // Nothing is summarised under the tile — hover or long-press it.
   const tileCards = market.tileOffers.map((o, i) => {
@@ -375,7 +382,7 @@ function marketShopHTML() {
     <div class="sheet sheet--market${returning}">
       <div class="sheet-head">
         <div>
-          <h2 class="market-title">The Market</h2>
+          <h2 class="market-title">${MT.title}</h2>
           <div class="market-purse"><span class="coin coin--lg"></span><b id="marketCoins">${state.coins}</b></div>
         </div>
         ${rewardHTML()}
@@ -388,45 +395,45 @@ function marketShopHTML() {
 
       <div class="market-grid">
         <section class="market-col">
-          <h3 class="market-sec">Patrons <span class="market-sub">calling today</span></h3>
+          <h3 class="market-sec">${MT.patrons} <span class="market-sub">${MT.patronsSub}</span></h3>
           <div class="offer-list">${patronCards}</div>
         </section>
         <section class="market-col">
-          <h3 class="market-sec">Tiles</h3>
+          <h3 class="market-sec">${MT.tiles}</h3>
           <div class="offer-tiles">${tileCards}</div>
-          <h3 class="market-sec market-sec--paint">Sundries <span class="market-sub" data-bench>${benchLabel()}</span></h3>
+          <h3 class="market-sec market-sec--paint">${MT.sundries} <span class="market-sub" data-bench>${benchLabel()}</span></h3>
           <div class="offer-list">${sundryCards}</div>
         </section>
       </div>
 
       ${owns('composter') ? `
       <section class="market-compost">
-        <h3 class="market-sec">The compost heap <span class="market-sub">${
+        <h3 class="market-sec">${MT.compost} <span class="market-sub">${
           heap.length
             ? compostLeft()
-              ? `take ${compostLeft()} — the rest rots on`
-              : 'nothing more this visit'
-            : 'nothing has rotted down yet'
+              ? fillSlots(MT.compostTake, compostLeft())
+              : MT.compostSpent
+            : MT.compostEmpty
         }</span></h3>
         ${heap.length ? `<div class="offer-tiles offer-tiles--compost">${heapCards}</div>` : ''}
       </section>` : ''}
 
       <section class="market-stalls">
-        <h3 class="market-sec">Stalls <span class="market-sub">prices double with each purchase</span></h3>
+        <h3 class="market-sec">${MT.stalls} <span class="market-sub">${MT.stallsSub}</span></h3>
         <div class="stall-row">${stallCards}</div>
       </section>
 
       <div class="market-foot">
-        <button class="btn btn-quiet" id="btnReroll" title="Re-rolls patrons, tiles, sundries and stalls — the fee doubles each time. A stall you've already paid keeps its raised price this visit.${state.freeRerolls > 0 ? ' The Factor is covering the next ' + (state.freeRerolls > 1 ? state.freeRerolls + ' fees' : 'fee') + '.' : ''}"
+        <button class="btn btn-quiet" id="btnReroll" title="${MT.rerollTip}${state.freeRerolls > 0 ? ' ' + fillSlots(MT.factorTip, state.freeRerolls > 1 ? state.freeRerolls + ' fees' : 'fee') : ''}"
           ${!(state.freeRerolls > 0) && state.coins < market.rerollCost ? 'disabled' : ''}>
-          New offers ${state.freeRerolls > 0 ? `🤝 free · ${state.freeRerolls} left` : coinHTML(market.rerollCost)}
+          ${MT.reroll} ${state.freeRerolls > 0 ? `🤝 free · ${state.freeRerolls} left` : coinHTML(market.rerollCost)}
         </button>
-        ${reshuffles ? `<button class="btn btn-quiet" id="btnMarketReshuffle" title="A free re-roll">
-          ↻ Reshuffle · ${reshuffles} left
+        ${reshuffles ? `<button class="btn btn-quiet" id="btnMarketReshuffle" title="${MT.reshuffleTip}">
+          ${MT.reshuffle} · ${reshuffles} left
         </button>` : ''}
-        <button class="btn btn-quiet" id="btnOpenCollection">Your collection</button>
+        <button class="btn btn-quiet" id="btnOpenCollection">${MT.collection}</button>
         <div class="market-spacer"></div>
-        <button class="btn btn-print" id="btnMarketContinue">Next page ❧</button>
+        <button class="btn btn-print" id="btnMarketContinue">${MT.leave}</button>
       </div>
     </div>`;
 }
@@ -464,7 +471,7 @@ function marketStallHTML() {
     : `<div class="mini-grid mini-grid--case" id="stallGrid"></div>`;
 
   const note = market.activeStall === 'smelter' && state.collection.length <= SMELT_MIN_COLLECTION
-    ? `<p class="sheet-note stall-warn">Your collection is too small to smelt further.</p>`
+    ? `<p class="sheet-note stall-warn">${MT.smeltFloor}</p>`
     : '';
 
   return `
@@ -479,7 +486,7 @@ function marketStallHTML() {
       ${note}
       ${body}
       <div class="market-foot">
-        <button class="btn btn-quiet" id="btnStallBack">← Back to the market</button>
+        <button class="btn btn-quiet" id="btnStallBack">${MT.stallBack}</button>
         <div class="market-spacer"></div>
         <button class="btn ${market.activeStall === 'smelter' ? 'btn-danger' : 'btn-print'}" id="btnStallConfirm" disabled></button>
       </div>
@@ -688,7 +695,7 @@ function marketCollectionHTML() {
       </div>
       <div class="mini-grid mini-grid--case" id="collectionGrid"></div>
       <div class="market-foot">
-        <button class="btn btn-quiet" id="btnCollectionBack">← Back to the market</button>
+        <button class="btn btn-quiet" id="btnCollectionBack">${MT.stallBack}</button>
         <div class="market-spacer"></div>
       </div>
     </div>`;
@@ -725,24 +732,24 @@ export function renderColophon() {
         <div class="colophon-card-name">${def.name}</div>
         <div class="colophon-card-desc">${def.desc}</div>
       </button>`;
-  }).join('') || '<p class="sheet-note">Nothing left to offer — on to the next chapter.</p>';
+  }).join('') || `<p class="sheet-note">${CT.empty}</p>`;
 
   m.innerHTML = `
     <div class="sheet sheet--market sheet--colophon">
       <div class="sheet-head">
         <div>
-          <h2 class="market-title">The Colophon</h2>
-          <p class="sheet-note">Choose one permanent upgrade.</p>
+          <h2 class="market-title">${CT.title}</h2>
+          <p class="sheet-note">${CT.note}</p>
         </div>
       </div>
       <div class="colophon-grid">${cards}</div>
       ${colophon.offers.length ? `
         <div class="market-foot">
-          <button class="btn btn-quiet" id="btnColophonSkip" title="Decline all three">
-            Skip · +${coinHTML(SKIP_COIN_GRANT)}
+          <button class="btn btn-quiet" id="btnColophonSkip" title="${CT.skipTip}">
+            ${CT.skip} · +${coinHTML(SKIP_COIN_GRANT)}
           </button>
-          ${reshuffles ? `<button class="btn btn-quiet" id="btnColophonReshuffle" title="Spend a banked reshuffle for a free re-roll">
-            ↻ Reshuffle · ${reshuffles} left
+          ${reshuffles ? `<button class="btn btn-quiet" id="btnColophonReshuffle" title="${CT.reshuffleTip}">
+            ${CT.reshuffle} · ${reshuffles} left
           </button>` : ''}
           <div class="market-spacer"></div>
         </div>` : ''}
@@ -762,8 +769,8 @@ export function renderColophon() {
 // One line, always drawn — an empty one on ordinary stock — so every card on the
 // table reserves the same caption row and the rows line up whatever is laid out.
 const blackTileNote = offer =>
-  offer.material ? MATERIALS[offer.material].metal
-  : offer.mark   ? 'Punctuation'
+  offer.material ? fillSlots(BT.metalNote, MATERIALS[offer.material].metal)
+  : offer.mark   ? BT.markNote
   :                '';
 
 function blackMarketHTML() {
@@ -772,7 +779,7 @@ function blackMarketHTML() {
            data-bm-offer="tile" data-idx="${i}">
         <div class="offer-tile-slot" data-bm-tile="${i}"></div>
         <div class="bm-tile-note">${blackTileNote(o)}</div>
-        <span class="op-sold">gone</span>
+        <span class="op-sold">${BT.gone}</span>
         <button class="btn-price" data-buy-bm-tile="${i}">${coinHTML(o.price)}</button>
       </div>`).join('');
 
@@ -797,11 +804,11 @@ function blackMarketHTML() {
         </div>
         <span class="op-sold">seated</span>
         <button class="btn-price btn-price--over" data-buy-bm-patron="${i}"
-                title="${def.cost} at the fair · ${BLACK_PATRON_MARKUP} Coins over, for the walk${
-                  o.data?.postnom ? ` · ${POSTNOM.surcharge} Coins over for the ${o.data.postnom}` : ''}">${
+                title="${fillSlots(BT.markupTip, def.cost, BLACK_PATRON_MARKUP)}${
+                  o.data?.postnom ? ` · ${fillSlots(BT.postnomTip, POSTNOM.surcharge, o.data.postnom)}` : ''}">${
           coinHTML(patronCost(def, o.data))}</button>
       </div>`;
-  }).join('') || '<p class="sheet-note">No one is waiting in the alley tonight.</p>';
+  }).join('') || `<p class="sheet-note">${BT.noPatrons}</p>`;
 
   const sundries = blackMarket.sundryOffers.map((o, i) => {
     const tip = sundryTip(o) ?? { head: 'Sundry', body: '' };
@@ -824,9 +831,8 @@ function blackMarketHTML() {
     <div class="sheet sheet--market sheet--black">
       <div class="sheet-head">
         <div>
-          <h2 class="market-title bm-title">The Black Market</h2>
-          <p class="sheet-note">Nothing here is sold at the fair, and nothing here is cheap.
-            Buy what you want; the door shuts behind you.</p>
+          <h2 class="market-title bm-title">${BT.title}</h2>
+          <p class="sheet-note">${BT.note}</p>
         </div>
         <div class="market-purse bm-purse"><span class="coin coin--lg"></span><b id="bmCoins">${state.coins}</b></div>
       </div>
@@ -837,24 +843,24 @@ function blackMarketHTML() {
       </div>
 
       <section class="bm-sec">
-        <h3 class="market-sec">On the table <span class="market-sub">rare metals, and punctuation — sold nowhere else</span></h3>
+        <h3 class="market-sec">${BT.tiles} <span class="market-sub">${BT.tilesSub}</span></h3>
         <div class="bm-tiles">${tiles}</div>
       </section>
 
       <div class="bm-grid">
         <section class="bm-sec">
-          <h3 class="market-sec">In the back room <span class="market-sub">rare patrons only</span></h3>
+          <h3 class="market-sec">${BT.patrons} <span class="market-sub">${BT.patronsSub}</span></h3>
           <div class="offer-list bm-patrons">${patrons}</div>
         </section>
         <section class="bm-sec">
-          <h3 class="market-sec">Under the counter <span class="market-sub" data-bench>${benchLabel()}</span></h3>
+          <h3 class="market-sec">${BT.sundries} <span class="market-sub" data-bench>${benchLabel()}</span></h3>
           <div class="offer-list">${sundries}</div>
         </section>
       </div>
 
       <div class="market-foot">
         <div class="market-spacer"></div>
-        <button class="btn btn-print" id="btnBlackMarketLeave">On to the fair ❧</button>
+        <button class="btn btn-print" id="btnBlackMarketLeave">${BT.leave}</button>
       </div>
     </div>`;
 }

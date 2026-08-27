@@ -5,8 +5,15 @@
 // SPIKED: printed and counted at ×SPIKE_MULT (constants.js), and the live
 // preview shows the spike coming.
 //
+// THIS FILE IS BEHAVIOUR ONLY. An editor's name, portrait and the rule in their
+// own voice live against the same id in js/boss-cards.js — edit there to rename
+// one or reword what they say. The two halves are married just past the end of
+// the BOSS_BEHAVIOURS array below, exactly as patrons and their calling cards
+// are. Each editor's own tuning numbers stay here, with the editor, and are
+// quotable from its card as {KNOBS}.
+//
 // Def shape:
-//   id, name, emoji, desc  — desc is the standing rule, in full
+//   id                     — and, from the card, name, emoji and desc
 //   setup(data, state)     — roll per-page state as the Deadline is dealt
 //   demand(data)           — live line for the bar: what the NEXT word must
 //                            satisfy. null = static rule, desc says it all.
@@ -36,7 +43,9 @@
 // because scoring and the bar both read it.
 
 import { inTheme, themeRank, themeSize } from './themes.js';
-import { BRIBRARIAN, bribeMult } from './constants.js';
+import { BRIBRARIAN, bribeMult, KNOBS } from './constants.js';
+import { BOSS_CARDS } from './boss-cards.js';
+import { fillKnobs } from './text.js';
 
 // The Columnist's measures. With ten tiles in hand three is always reachable
 // and six is a genuine reach. Never the same measure twice running.
@@ -96,16 +105,14 @@ function rollColumn(data) {
   data.required = n;
 }
 
-export const BOSS_DEFS = [
+const BOSS_BEHAVIOURS = [
   {
-    id: 'padder', name: 'The Padder', emoji: '🪶',
-    desc: `I pay by the word, so the words had better be long: anything under ${PADDER_MIN} letters is spiked.`,
+    id: 'padder',
     judge: letters => letters.length < PADDER_MIN
       ? `too short — ${PADDER_MIN} letters at least` : null,
   },
   {
-    id: 'populist', name: 'The Populist', emoji: '📣',
-    desc: `Popular fiction is profitable fiction. Every word must be one the common reader knows — anything outside the ${POPULIST_BAND.toLocaleString()} commonest words in English is spiked.`,
+    id: 'populist',
     judge: letters => {
       if (!commonReady()) return null;
       const rank = commonRank(letters);
@@ -114,8 +121,7 @@ export const BOSS_DEFS = [
     },
   },
   {
-    id: 'obscurantist', name: 'The Obscurantist', emoji: '🕯️',
-    desc: `True literature demands erudition: the ${OBSCURANTIST_BAND.toLocaleString()} commonest words in English are spiked.`,
+    id: 'obscurantist',
     judge: letters => {
       if (!commonReady()) return null;
       const rank = commonRank(letters);
@@ -128,8 +134,7 @@ export const BOSS_DEFS = [
     // reads the same adjectives.txt The Poet is paid from, so the two are exact
     // opposites (see BOSS_CONFLICTS). That list carries adverbs too, which
     // suits him: the advice he is made of never distinguished them.
-    id: 'minimalist', name: 'The Minimalist', emoji: '⬜',
-    desc: 'The adjective is the enemy of the noun. Every describing word is spiked.',
+    id: 'minimalist',
     judge: letters => {
       if (!adjectivesReady()) return null;
       return inTheme('adjectives', letters)
@@ -137,8 +142,7 @@ export const BOSS_DEFS = [
     },
   },
   {
-    id: 'columnist', name: 'The Columnist', emoji: '📰',
-    desc: 'Everything must fit the column: each word to an exact measure, re-set after every print. Off-measure words are spiked.',
+    id: 'columnist',
     setup: data => rollColumn(data),
     demand: data => `This word: exactly ${data.required} letters.`,
     judge: (letters, tiles, data) => letters.length !== data.required
@@ -146,8 +150,7 @@ export const BOSS_DEFS = [
     onPrinted: data => rollColumn(data),
   },
   {
-    id: 'serialist', name: 'The Serialist', emoji: '🔗',
-    desc: 'We need continuity. Each word must open with the letter the one before ended on, or be spiked.',
+    id: 'serialist',
     demand: data => data.last
       ? `This word must open with ${data.last}.`
       : 'The first word is free — but mind how it ends.',
@@ -156,8 +159,7 @@ export const BOSS_DEFS = [
     onPrinted: (data, script, letters) => { data.last = letters[letters.length - 1]; },
   },
   {
-    id: 'indexer', name: 'The Indexer', emoji: '🗂️',
-    desc: 'Order above all else: each word must alphabetically follow the prior word, or be spiked.',
+    id: 'indexer',
     demand: data => data.last
       ? `This word must sort after ${data.last}.`
       : 'The first word may be anything — the index begins there.',
@@ -166,8 +168,7 @@ export const BOSS_DEFS = [
     onPrinted: (data, script, letters) => { data.last = letters; },
   },
   {
-    id: 'escalationist', name: 'The Escalationist', emoji: '📈',
-    desc: 'Build to a climax: every word must outscore the one before it, or be spiked.',
+    id: 'escalationist',
     demand: data => data.bar != null
       ? `This word must beat ${data.bar.toLocaleString()}.`
       : 'The first word sets the bar. Open softly.',
@@ -176,8 +177,7 @@ export const BOSS_DEFS = [
     onPrinted: (data, script) => { data.bar = script.total; },
   },
   {
-    id: 'enthusiast', name: 'The Enthusiast', emoji: '🤩',
-    desc: 'I really love specific letters! Every word set without my current favourite is spiked.',
+    id: 'enthusiast',
     gift: true,
     // Drawn from the player's own collection, weighted by how many they hold,
     // so it is never a letter the press doesn't carry. Plain sorts only.
@@ -204,10 +204,7 @@ export const BOSS_DEFS = [
     // needs to know: every purchase already refuses a purse that cannot cover
     // it, so a debt simply shuts the Market until it is worked off. That is the
     // real price of a big bribe, and it is paid a page later.
-    id: 'bribrarian', name: 'The Bribrarian', emoji: '🤝',
-    desc: `Nothing you write will please me, and everything is negotiable. `
-        + `A consideration before the page is set — ${BRIBRARIAN.steps} Coins and my pen is `
-        + `perfectly kind. Less, and it is less kind. Nothing, and you will see what I mean.`,
+    id: 'bribrarian',
     setup: data => { data.paid = 0; },
     demand: data => (data.paid >= BRIBRARIAN.steps
       ? `Paid in full — the pen is kind. ×1 Mult.`
@@ -224,16 +221,14 @@ export const BOSS_DEFS = [
     //
     // He is on the Astronomer's conflict list: a seat paid per word already
     // printed this page is paid nothing at all on a page of one.
-    id: 'epitaphist', name: 'The Epitaphist', emoji: '⚱️',
-    desc: 'One line, and it must last. You have a single word for this page — half the quota to meet with it, and a discard more to find it.',
+    id: 'epitaphist',
     words: 1,
     discardBonus: 1,
     quotaMult: 0.5,
     // Nothing to break: the page itself is the rule.
   },
   {
-    id: 'reviewer', name: 'The Reviewer', emoji: '🧐',
-    desc: 'Your best work is still not good enough. (A random negative multiplier is applied to each word.)',
+    id: 'reviewer',
     setup: data => rollMood(data),
     demand: data => `The current temper: ×${data.mood} Mult.`,
     mood: data => data.mood,
@@ -242,14 +237,12 @@ export const BOSS_DEFS = [
   {
     // Structural: no rule to break, so nothing it can spike. It takes three of
     // your ten places and fills them with the cheapest letter in the case.
-    id: 'eeeditor', name: 'The Eeeditor', emoji: '🅴',
-    desc: 'E is a good letter. Here: I saved three especially for you.',
+    id: 'eeeditor',
     lent: { letter: 'E', count: 3 },
   },
   {
     // The Eeeditor's rule in a rounder vowel: O costs the same single Point.
-    id: 'editooor', name: 'The Editooor', emoji: '🅾️',
-    desc: 'O is the shape of a mouth saying oh. Take three, with my compliments.',
+    id: 'editooor',
     lent: { letter: 'O', count: 3 },
   },
   {
@@ -260,13 +253,11 @@ export const BOSS_DEFS = [
     // rather than an opening inconvenience: discard a wrapped tile and you draw
     // from a bag that is still a third wrapped. The next startPage clears it
     // (js/state.js), so it can't outlive its Deadline.
-    id: 'redactor', name: 'The Redactor', emoji: '📝',
-    desc: 'This is a draft, not a book. A third of the case comes back in manuscript: those tiles spell, and nothing more.',
+    id: 'redactor',
     wraps: REDACTOR_SHARE,
   },
   {
-    id: 'completist', name: 'The Hoarder', emoji: '🗄️',
-    desc: 'Waste nothing, and you can always find what you need: +2 hand size, but 0 discards.',
+    id: 'completist',
     rackBonus: 2,
     noDiscards: true,
   },
@@ -277,8 +268,7 @@ export const BOSS_DEFS = [
     // eats one sort per word, and it goes through trashFromCollection like
     // every other destruction, so the Smelter's floor, the Composter and The
     // Revenant all still apply. It never spikes, so there is no judge here.
-    id: 'economiser', name: 'The Economiser', emoji: '🗑️',
-    desc: 'Idle type is dead capital. For every word you set, one sort you left in the case goes to the melting pot — for good.',
+    id: 'economiser',
     eatsSpare: true,
   },
   {
@@ -297,8 +287,7 @@ export const BOSS_DEFS = [
     // of exact inversion turning a bought seat into a machine for losing score;
     // one word in nine wearing the Minimalist's face is just awkward for that
     // build, and that is the game.
-    id: 'janussian', name: 'The Janussian Typist', emoji: '\ud83c\udfad',
-    desc: 'I contain a whole masthead. Every word is read by a different editor — whose face I am wearing is on the bar before you set it.',
+    id: 'janussian',
     setup: (data, state) => { rollFace(data, state); },
     // Worn faces that do something other than judge. Each reads the same data
     // the face's owner would, and is inert while any other face is on.
@@ -331,6 +320,41 @@ export const BOSS_DEFS = [
     },
   },
 ];
+
+// ─── The two halves, married ──────────────────────────────────────────────────
+// An editor's WORDS live against the same id in js/boss-cards.js — the same
+// split as patrons and their calling cards. Both directions are checked as the
+// module loads, because the failure is otherwise silent: a behaviour with no
+// card puts a nameless editor on the desk, and a card with no behaviour writes a
+// rule nothing enforces.
+//
+// The knobs a card may quote are the game-wide ones plus each editor's own
+// tuning, which stays up here with the editor it belongs to.
+const BOSS_KNOBS = {
+  ...KNOBS,
+  PADDER_MIN,
+  POPULIST_BAND:     POPULIST_BAND.toLocaleString(),
+  OBSCURANTIST_BAND: OBSCURANTIST_BAND.toLocaleString(),
+  BRIBRARIAN_STEPS:  BRIBRARIAN.steps,
+};
+
+export const BOSS_DEFS = BOSS_BEHAVIOURS.map(behaviour => {
+  const card = BOSS_CARDS[behaviour.id];
+  if (!card) throw new Error(`bosses: '${behaviour.id}' has no card in js/boss-cards.js`);
+  return {
+    ...behaviour,
+    name:  card.name,
+    emoji: card.emoji,
+    desc:  fillKnobs(card.desc, BOSS_KNOBS, `boss-cards: ${behaviour.id}`),
+  };
+});
+
+{
+  const seated = new Set(BOSS_BEHAVIOURS.map(b => b.id));
+  const orphan = Object.keys(BOSS_CARDS).filter(id => !seated.has(id));
+  if (orphan.length) throw new Error(`boss-cards: no behaviour for ${orphan.join(', ')} in js/bosses.js`);
+}
+
 
 // The editors the Typist can wear. Everything here has a judge(); nothing here
 // needs the page rebuilt around it.
