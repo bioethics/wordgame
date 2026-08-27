@@ -51,3 +51,7 @@ tranny
 trannies
 squaw
 squaws
+# The Australian lolly is the reason this one looked arguable. Nestlé renamed it
+# Red Ripper in 2020 over the same objection, so the sweet is not a defence.
+redskin
+redskins
