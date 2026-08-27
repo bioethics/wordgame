@@ -14247,6 +14247,8 @@ cooler
 coolers
 coolest
 coolheaded$
+coolie
+coolies
 cooling
 coolly
 coolness
@@ -16278,7 +16280,9 @@ dag
 dagger
 daggers
 daggy
+dago
 dagoes$
+dagos
 dags
 daguerreotype
 daguerreotypes
@@ -16421,6 +16425,8 @@ darkening
 darkens
 darker
 darkest
+darkie
+darkies
 darkling
 darkly
 darkness
@@ -24273,6 +24279,10 @@ fag
 fagged
 fagging
 fagging$
+faggot
+faggots
+fagot
+fagots
 fags
 fah
 fail
@@ -29030,6 +29040,8 @@ googol
 googols
 gooier
 gooiest
+gook
+gooks
 goon
 goons
 goop
@@ -36887,6 +36899,8 @@ kidults
 kielbasa
 kielbasas
 kielbasy
+kike
+kikes
 kill
 killdeer
 killdeers
@@ -44497,7 +44511,10 @@ niggard
 niggardly
 niggards
 niggas!
+niggaz
 niggaz!
+nigger
+niggers
 niggle
 niggled
 niggles
@@ -55114,6 +55131,8 @@ redresses
 redressing
 redrew
 reds
+redskin
+redskins
 reduce
 reduced
 reducer
@@ -63770,6 +63789,7 @@ sphinges
 sphinges$
 sphinx
 sphinxes
+spic
 spice
 spiced
 spices
@@ -63777,6 +63797,7 @@ spicier
 spiciest
 spiciness
 spicing
+spics
 spicules
 spicy
 spider
@@ -64308,10 +64329,12 @@ squatter
 squatters
 squattest
 squatting
+squaw
 squawk
 squawked
 squawking
 squawks
+squaws
 squeak
 squeaked
 squeaker
@@ -70016,6 +70039,8 @@ trance
 trances
 tranche
 tranches
+trannies
+tranny
 tranquil
 tranquiler
 tranquilest
@@ -75341,6 +75366,8 @@ westerns
 westward
 westwards
 wet
+wetback
+wetbacks
 wether
 wetland
 wetlands
@@ -76118,6 +76145,8 @@ woefuller
 woefullest
 woefully
 woes
+wog
+wogs
 wok
 woke
 woken
@@ -76279,6 +76308,8 @@ wooziest
 wooziest$
 wooziness
 woozy
+wop
+wops
 word
 worded
 wordier
