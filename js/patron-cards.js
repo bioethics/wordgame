@@ -95,7 +95,7 @@ export const PATRON_CARDS = {
   },
   romeo: {
     name: 'Romeo', emoji: '🌹', rarity: 'uncommon', cost: 6, guild: 'amber',
-    desc: '×{LOVERS_APART} Mult when the word wears amber paint and no jade. Hold Juliet as well and the two of them become one patron.',
+    desc: '×{LOVERS_APART} Mult when the word contains an amber paint, but no jade tiles.',
   },
 
   // ── Jade · growth and permanence ────────────────────────────────────────────
@@ -165,7 +165,7 @@ export const PATRON_CARDS = {
   },
   juliet: {
     name: 'Juliet', emoji: '🌷', rarity: 'uncommon', cost: 6, guild: 'jade',
-    desc: '×{LOVERS_APART} Mult when the word wears jade paint and no amber. Hold Romeo as well and the two of them become one patron.',
+    desc: '×{LOVERS_APART} Mult when the word contains at least one jade letter, and no amber letters.',
   },
   // The seat no Market sells: `unlisted` keeps it out of the pool, and the only
   // way to it is to hold both lovers at once (marryLovers in js/state.js).
