@@ -17,7 +17,7 @@ left silent.
 | `sfx.place()` | A tile set into the word groove — the most frequent act in the game | Felt-lined | `js/drag.js` tap + drop, `js/main.js` keyboard |
 | `sfx.retrieve()` | A tile taken back to the rack | Paper slide | `js/drag.js` tap + drop, `js/main.js` Backspace |
 | `sfx.reorder()` | A tile slid to a new place within its row | A spacer dropping | `js/drag.js` `endDrag()` |
-| `sfx.lift()` | A drag beginning — the ghost appears with no acknowledgement | Lifted clear | `js/drag.js` `startDrag()` |
+| `sfx.lift()` | A drag beginning — the ghost appears with no acknowledgement | A tick of suction, tuned quieter still | `js/drag.js` `startDrag()` |
 | `sfx.clear()` | The whole word emptied at once (Esc / Clear) | Dropped in a heap | `js/main.js` `clearOrCancel()` |
 | `sfx.shuffle()` | The rack re-dealt in place (Space / Shuffle) | The bag shaken | `js/main.js` space + the Shuffle button |
 | `sfx.flip()` | A dual tile turned over | Turned over | `js/drag.js` right-click, `js/main.js` the popover’s Flip |

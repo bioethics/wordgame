@@ -432,8 +432,8 @@ const SLOTS=[
  opts:[
   {n:'Picked up',d:'The faintest possible catch of air. Small enough to survive being heard hundreds of times.',
    f:()=>{grit({time:.025,gain:.08,band:2400,q:1.5,sweep:1200});}},
-  {n:'A tick of suction',d:'One tiny rising pip — pitched, so it reads as an event rather than a rustle.',
-   f:()=>{blip(520,{time:.03,type:'sine',gain:.05,slide:280});}},
+  {n:'A tick of suction',d:'One tiny rising pip, tuned down further still once it was heard in play — barely there, and stays under whatever it precedes.',
+   f:()=>{blip(560,{time:.02,type:'sine',gain:.028,slide:140});}},
   {n:'Held',d:'A low swell that says something is in hand and stays there. The only candidate with any duration.',
    f:()=>{grit({time:.12,gain:.05,low:600,attack:.06});}},
   {n:'Lifted clear',d:'A body rising off the stone — the same gesture as Take back, made smaller.',
@@ -707,7 +707,7 @@ const SLOTS=[
 /* ═══ Render ═══════════════════════════════════════════════════════════════ */
 const RANKS=['A','B','C','D','E'];
 /* What actually went into the game — the choices made on this bench. */
-const SHIPPED={place:4,retrieve:3,reorder:3,lift:3,clear:2,shuffle:2,flip:0,
+const SHIPPED={place:4,retrieve:3,reorder:3,lift:1,clear:2,shuffle:2,flip:0,
   select:0,deselect:0,arm:0,disarm:0,nudge:1,seat:0,dismiss:1,
   inspect:4,sheetOpen:4,sheetClose:4,page:2,chapter:2,quotaMet:2};
 const $=id=>document.getElementById(id);

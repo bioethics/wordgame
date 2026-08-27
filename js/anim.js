@@ -566,10 +566,12 @@ export const sfx = {
   reorder() {
     grit({ time: 0.012, gain: 0.16, band: 3800, q: 3 });
   },
-  // A tile taken up: a body rising off the stone. Pitch UP is the whole of what
-  // says lifted rather than set down (see knock's `drop` above 1).
+  // A tile taken up: the smallest possible tick, rising — pitch UP is the
+  // whole of what says lifted rather than set down. Fires on every drag's
+  // first frame, so it stays under the sounds it precedes rather than
+  // announcing itself.
   lift() {
-    knock(280, { time: 0.03, gain: 0.12, drop: 1.5 });
+    blip(560, { time: 0.02, type: 'sine', gain: 0.028, slide: 140 });
   },
   // The groove emptied at a stroke — a handful of type dropped in a heap. The
   // one loud thing down here, because it undoes a minute's work in one keypress.
