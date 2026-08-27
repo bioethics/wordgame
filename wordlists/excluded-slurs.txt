@@ -37,3 +37,23 @@ boong
 boongs
 coolie
 coolies
+# ─── Added after the spell-checker sweep ──────────────────────────────────────
+# The small Debian word list carries all three and the sweep took it wholesale.
+# niggaz is a spelling of the slur barred at the top of this file; fagot/fagots
+# is the one-g spelling of another. The bundle-of-sticks sense of fagot is real
+# and vanishingly rare; the risk is not.
+niggaz
+fagot
+fagots
+
+# ─── Predating this branch, never barred until now ────────────────────────────
+tranny
+trannies
+
+# squaw and redskin were barred here briefly and then let back in: a game where
+# a word only ever prints for its own author, alone, is a different act than
+# speaking it to someone, and that lower bar is where the line was redrawn —
+# nigger and its kin stay barred because nothing in them is ambiguous, but a
+# word carrying a live, sourced defence (squaw's Algonquian "woman", the
+# reclamation debate) or another life outside the slur (redskin was a Nestlé
+# lolly until a 2020 rename over this same objection) clears it.
