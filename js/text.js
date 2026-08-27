@@ -319,8 +319,8 @@ export const MARKET_TEXT = {
   tableHint:    'drag a card to change the running order',
   bench:        'Workbench',
   compost:      'The compost heap',
-  compostTake:  'take {0} — the rest rots on',      // {0} how many are left to take
-  compostSpent: 'nothing more this visit',
+  compostTake:  '{0} rotted down — take as many as you like',   // {0} how many are on the heap
+  compostSpent: 'the heap is bare — burn something',
   compostEmpty: 'nothing has rotted down yet',
   reroll:       'New offers',
   rerollTip:    'Re-rolls patrons, tiles, sundries and stalls — the fee doubles each time. '

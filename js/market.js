@@ -1,17 +1,19 @@
 import {
   state, adoptTemplate, shuffle, owns, allSeats, trashFromCollection, nextId,
   effectivePatronSlots, effectiveSundrySlots, luckyRoll, makeGhost,
+  effectiveMarketStalls, effectiveMarketTiles, effectiveMarketPatrons,
+  effectiveProposalRange,
 } from './state.js';
 import {
   BAG_COUNTS, LIGATURES, EXCLUSIVE_LETTERS, isMark, MARKS, INTERROBANG,
   TILE_POINTS, TRIMS, NICKS, COLOURS,
   WRAPPED_PRICE, WRAPPED_OFFER_CHANCE, isImmutable,
-  COMPOST_HEAP_MAX, COMPOST_PER_MARKET,
+  COMPOST_HEAP_MAX,
   TILE_BASE_PRICE, REROLL_BASE,
-  SUNDRY_OFFERS, PATRON_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, RATCHET_PRICE, SUNDRY_SELL, HEADSMAN_STEP,
+  SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, RATCHET_PRICE, SUNDRY_SELL, HEADSMAN_STEP,
   TOOLBOX_PRICE, FLEURON, FLEURON_PRICE, FLEURON_OFFER_CHANCE,
   RULE, RULE_PACK_PRICE, RULE_PACK_CHANCE,
-  STALL_DEFS, STALLS_PER_SHOP, PROPOSAL_RANGE, SMELT_MIN_COLLECTION,
+  STALL_DEFS, SMELT_MIN_COLLECTION,
   FEATURE_CHAIN_CHANCE, MAX_FEATURES, MEDIEVAL_LETTERS, isMedieval,
   makeTileTemplate, rollHaggle, GHOST_HIRE,
 } from './constants.js';
@@ -200,8 +202,8 @@ export const offerPrice = offer =>
 
 // Patrons/tiles/sundries — "New offers" also re-rolls the stalls (see rollStalls).
 function rollOffers() {
-  market.patronOffers = weightedPatronSample(PATRON_OFFERS);
-  market.tileOffers   = Array.from({ length: 4 }, randomTileOffer);
+  market.patronOffers = weightedPatronSample(effectiveMarketPatrons());
+  market.tileOffers   = Array.from({ length: effectiveMarketTiles() }, randomTileOffer);
   // The fleuron displaces a tile slot now and then, at its own flat price.
   if (Math.random() < FLEURON_OFFER_CHANCE) {
     const i = Math.floor(Math.random() * market.tileOffers.length);
@@ -328,9 +330,10 @@ export function rollProposals(stallId) {
   const spec = PROPOSAL_STALLS[stallId];
   if (!spec) return [];
   const eligible = state.collection.filter(spec.eligible);
+  const range = effectiveProposalRange();
   const spread = spec.biased
-    ? biasedSample(eligible, PROPOSAL_RANGE)
-    : shuffle(eligible).slice(0, PROPOSAL_RANGE);
+    ? biasedSample(eligible, range)
+    : shuffle(eligible).slice(0, range);
   const proposals = spread.map(t => ({ tid: t.tid, ...spec.propose(t) }));
   spec.dress?.(proposals);
   return proposals;
@@ -351,7 +354,10 @@ function pruneStalls() {
 // A re-roll brings new stalls, not a clean slate: market.stallWear remembers
 // work commissioned this visit, and is wiped only when openMarket runs.
 function rollStalls() {
-  const ids = shuffle([...Object.keys(STALL_DEFS)]).slice(0, STALLS_PER_SHOP);
+  // More stalls than there are stallholders is simply all of them — the slice
+  // takes what exists, so The Impresario's extra pitch is a no-op on a Market
+  // already showing the whole row.
+  const ids = shuffle([...Object.keys(STALL_DEFS)]).slice(0, effectiveMarketStalls());
   market.stalls = ids.map(id => {
     const uses = market.stallWear?.[id] ?? 0;
     if (isProposalStall(id)) return { id, uses, proposals: rollProposals(id) };
@@ -509,14 +515,15 @@ function rotCompost() {
   state.compostPending = 0;
 }
 
-// This visit's allowance: one tile per jade patron seated, floored at
-// COMPOST_PER_MARKET (which a lone Composter, jade himself, exactly meets).
-export const compostLeft = () =>
-  Math.max(0, Math.max(COMPOST_PER_MARKET, guildSeats('jade')) - (market.compostTaken ?? 0));
+// What is left to take: the heap itself, and nothing else. There is no per-visit
+// allowance — take all of it if you like. What rations the seat is the
+// DESTRUCTION that fills the heap, which is the whole design (see the note on
+// COMPOST_HEAP_MAX in js/constants.js). `market.compostTaken` still counts the
+// visit's liftings for the sheet's own copy.
+export const compostLeft = () => (owns('composter') ? (state.compost?.length ?? 0) : 0);
 
 export function takeCompost(idx) {
   if (!owns('composter'))       return { ok: false, reason: 'No one is tending the heap.' };
-  if (!compostLeft())           return { ok: false, reason: 'You have already taken from the heap this visit.' };
   const tmpl = state.compost?.[idx];
   if (!tmpl)                    return { ok: false, reason: 'Not available.' };
   state.compost.splice(idx, 1);

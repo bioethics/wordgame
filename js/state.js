@@ -7,6 +7,8 @@ import {
   COLOURS, TRIMS, NICKS, MATERIALS,
   quotaFor, makeTileTemplate, GAMBLER_ODDS, isDeadline,
   MAGPIE_WEIGHT, MAKO_WEIGHT,
+  IMPRESARIO, TUBE_CHOICES, STALLS_PER_SHOP, MARKET_TILE_OFFERS, PATRON_OFFERS,
+  UPGRADE_OFFERS, PROPOSAL_RANGE,
 } from './constants.js';
 import { CHAPTER_TITLES } from './chapters.js';
 import { BOSS_DEFS, activeBoss, bossConflicts } from './bosses.js';
@@ -204,6 +206,22 @@ export const effectiveRackSize    = () => RACK_SIZE    + (state.upgradeCounts?.h
                                                        + (state.rackBonus                   ?? 0);
 export const effectivePatronSlots = () => PATRON_SLOTS + (state.upgradeCounts?.patronSeat    ?? 0);
 export const effectiveSundrySlots = () => SUNDRY_SLOTS + (state.upgradeCounts?.workbenchSlot ?? 0);
+
+// ─── How many of each CHOICE is dealt ─────────────────────────────────────────
+// The Impresario widens every one of them and improves none (IMPRESARIO in
+// js/constants.js). Every count is asked here rather than at the place it is
+// dealt, so the Market, the Colophon and the workbench can never disagree about
+// what the seat is worth — and so a second seat that widens choices later has
+// one line to change rather than six.
+const impresario = n => (owns('impresario') ? n : 0);
+export const effectiveMarketStalls    = () => STALLS_PER_SHOP + impresario(IMPRESARIO.stalls);
+export const effectiveMarketTiles     = () => MARKET_TILE_OFFERS + impresario(IMPRESARIO.tiles);
+export const effectiveMarketPatrons   = () => PATRON_OFFERS + impresario(IMPRESARIO.patrons);
+export const effectiveUpgradeOffers   = () => UPGRADE_OFFERS + impresario(IMPRESARIO.upgrades);
+export const effectiveProposalRange   = () => PROPOSAL_RANGE + impresario(IMPRESARIO.proposals);
+// The tube's choice only. An applicator lays out metal, not paint, and is left
+// at its stated two.
+export const effectiveTubeChoices     = () => TUBE_CHOICES + impresario(IMPRESARIO.paint);
 
 // Every patron working for you, in the order they speak: the shelf first, then
 // the ghosts. A ghost keeps its whole effect and gives up only its seat, so the
@@ -1142,7 +1160,8 @@ export function rollTubeOffer(sundry = null) {
     if (sundry) sundry.offer = null;
     return null;
   }
-  state.tubeOffer = shuffle(candidates.slice()).slice(0, 2).map(t => t.id);
+  const room = sundry?.kind === 'applicator' ? TUBE_CHOICES : effectiveTubeChoices();
+  state.tubeOffer = shuffle(candidates.slice()).slice(0, room).map(t => t.id);
   if (sundry) sundry.offer = state.tubeOffer.slice();
   return state.tubeOffer;
 }

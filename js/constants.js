@@ -356,6 +356,9 @@ export const APPLICATORS = {
 // Patrons offered per Market. Scale with the roster: too few offers against a big
 // roster shows a thin slice of the game and makes guild assembly unreliable.
 export const PATRON_OFFERS = 4;
+// Tiles laid out on the Market's own row, before the Medievalist's extra stall
+// slot and before The Impresario widens it.
+export const MARKET_TILE_OFFERS = 4;
 export const TUBE_PRICE    = 2;
 export const SUNDRY_SELL   = 1;   // what the Market pays to take one back
 export const RATCHET_PRICE = 3;   // the ratchet: one letter, one step either way
@@ -665,10 +668,37 @@ export const CHILD_STEP         = 1;
 // own, which is the point of counting the case rather than a fixed list.
 export const ABECEDARIAN_MULT   = 0.05;
 
-// The Astronomer's step, per word already printed this page. Additive, and
-// deliberately small: at +1 a five-word page handed the last word +4 Mult on
-// its own, which is more than any colour reaches and needed no build at all.
-export const ASTRONOMER_STEP    = 0.25;
+// The Astronomer's step, per word already printed this page. Additive: over a
+// five-word page it builds 0 · 0.5 · 1 · 1.5 · 2, so the seat pays for holding
+// its best word back rather than for opening with it.
+export const ASTRONOMER_STEP    = 0.5;
+
+// The Glover's matched pair: a colour worn by EXACTLY two tiles in the word, no
+// more and no fewer, and paid per colour that manages it — so a word wearing two
+// crimson and two jade pays twice.
+export const GLOVER_STEP        = 0.5;
+
+// The Typesetter's fee, per NON-STANDARD sort in the word — anything that is not
+// a plain single letter of the alphabet. Ligatures (ING, QU, RAT), the medieval
+// sorts, the marks, the fleuron and the interrobang all qualify; A to Z does not.
+// A wider net than the ligatures alone, hence the smaller step.
+export const TYPESETTER_STEP    = 0.2;
+
+// The Expectant Parents' fee for a name.
+export const EXPECTANTS_BONUS   = 15;
+
+// The cat's Mult, added per RAT tile it has eaten. Permanent and stacking, and
+// paid from the word AFTER the meal — the eating happens once a word has
+// printed, like every other permanent gain.
+export const SHORTHAIR_MULT     = 1;
+
+// The Cartographer reads the VOWELS of a word and asks that they run in
+// alphabetical order — A before E before I before O before U — counting each
+// TILE once, so the OO ligature is a single O and two separate O tiles are two.
+// A word needs at least this many vowel-bearing tiles for them to "run" at all;
+// below it there is no order to be in and nothing is paid.
+export const CARTOGRAPHER_MULT       = 2;
+export const CARTOGRAPHER_MIN_VOWELS = 2;
 // The Twins' due, paid once per doubled letter in the word. The Points are the
 // smaller half of the seat: the CLONE is what the pair is really for (twinPairs
 // in js/patrons.js, and scoring's pass ⅓).
@@ -704,8 +734,14 @@ export const NEOLOGIST_LENGTH   = 6;      // letters in a coined word
 export const DYE_TILES_PER_CHAPTER = 2;   // tiles painted by a dye patron at chapter end
 
 // The Composter's heap: destroyed tiles rot down into jade ones, freshest kept.
+// The heap holds the freshest COMPOST_HEAP_MAX and nothing else limits it: you
+// may take every tile on it, every visit. What rations The Composter is the
+// DESTRUCTION — a tile only reaches the heap because one was destroyed (see
+// trashFromCollection in js/state.js) — so the seat is worth exactly as much as
+// the burning you are already doing, and worth nothing to a press that burns
+// nothing. That is the whole of the design; a per-visit cap on top of it only
+// made a crimson build wait.
 export const COMPOST_HEAP_MAX = 6;        // tiles the heap can hold at once
-export const COMPOST_PER_MARKET = 1;      // how many you may take on a visit
 
 // The Frontispiece: the first word of a page scores at ×base. Flat, not growing —
 // a growing version compounded too well when the patron was taken early, so the
@@ -859,6 +895,30 @@ export const BLACK_SUNDRY_STOCK = [
   ...Object.keys(PACKAGES).map(theme => ({ kind: 'package', theme, price: 7 })),
 ];
 
+// ─── The Impresario's extra options ───────────────────────────────────────────
+// One seat that widens every CHOICE the game puts in front of you rather than
+// improving any of them. Each number is added to the count wherever that choice
+// is dealt, read through the effective-* getters in js/state.js so there is one
+// answer per question and the Market, the Colophon and the workbench cannot
+// disagree about how many the seat is worth.
+//
+// Nothing here pays Points or Mult, which is the point: it is a seat you buy
+// early, when what you lack is the RIGHT tile rather than more of them, and it
+// quietly stops mattering once your press knows what it wants.
+export const IMPRESARIO = {
+  stalls:     1,   // more stalls pitched at the Market
+  tiles:      2,   // more tiles laid out at the Market
+  patrons:    1,   // more calling cards at the Market
+  upgrades:   1,   // more picks on the Colophon
+  paint:      1,   // more tiles a paint tube lays out to choose between
+  proposals:  2,   // more of your own tiles a proposal stall spreads
+};
+
+// How many tiles a paint tube lays out to choose between. Two by design: the
+// gift can never be aimed at the one tile that would break the game, but it is
+// never a coin toss you cannot influence either.
+export const TUBE_CHOICES = 2;
+
 // ─── Patron reactions (flavour only) ──────────────────────────────────────────
 // Odds a seated patron pops a speech bubble after a word, scored against THE
 // WHOLE PAGE'S QUOTA rather than a page-fifth of it: ratio = word total ÷ quota.
@@ -929,6 +989,14 @@ export const KNOBS = {
 
   // Patron tuning
   CHILD_STEP, ABECEDARIAN_MULT, ESPALIER_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,
+  ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS,
+  SHORTHAIR_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
+  IMPRESARIO_STALLS:    IMPRESARIO.stalls,
+  IMPRESARIO_TILES:     IMPRESARIO.tiles,
+  IMPRESARIO_PATRONS:   IMPRESARIO.patrons,
+  IMPRESARIO_UPGRADES:  IMPRESARIO.upgrades,
+  IMPRESARIO_PAINT:     IMPRESARIO.paint,
+  IMPRESARIO_PROPOSALS: IMPRESARIO.proposals,
   STOKER_BASE, STOKER_STEP, RAGMAN_COINS, RAGMAN_ODDS,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, DIPPER_PAINT_CHANCE, REVENANT_ODDS,
   MAGPIE_WEIGHT, MAKO_WEIGHT, TWINS_POINTS,

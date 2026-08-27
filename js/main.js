@@ -1479,8 +1479,8 @@ async function useSundry(idx, e = null) {
     if (!offer) { log('Nothing in your hand will take a new metal — the applicator keeps.', 'warn'); return; }
     state.sundryMode = idx;
     const look = APPLICATORS[armed.material];
-    log(offer.length === 2
-      ? `The applicator offers two tiles — tap the one to strike in ${look.label.toLowerCase()}.`
+    log(offer.length > 1
+      ? `The applicator offers ${offer.length} tiles — tap the one to strike in ${look.label.toLowerCase()}.`
       : `Only one tile will take a new metal — tap it.`);
     renderAll();
     return;
@@ -1644,8 +1644,8 @@ async function useSundry(idx, e = null) {
     const offer = rollTubeOffer(armed);
     if (!offer) { log('Nothing in your hand will take paint — the tube keeps.', 'warn'); return; }
     state.sundryMode = idx;
-    log(offer.length === 2
-      ? 'The tube offers two tiles — tap the one to paint.'
+    log(offer.length > 1
+      ? `The tube offers ${offer.length} tiles — tap the one to paint.`
       : 'Only one tile will take paint — tap it.');
     renderAll();
     return;

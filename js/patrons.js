@@ -133,7 +133,8 @@ import {
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
   HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, RIPPER_WORDS, splitMarks, isImmutable,
   TWINS_POINTS, CHILD_STEP, ABECEDARIAN_MULT, ABECEDARIAN_CASE, caseGlyphs, MEDIEVAL,
-  ASTRONOMER_STEP,
+  ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS, IMPRESARIO,
+  SHORTHAIR_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
   medievalExpansions, POSTNOM, GHOST_HIRE, USURER,
   PRINCE, princeMult,
   WORDLER,
@@ -214,6 +215,41 @@ const readsCypher = (tiles, c) =>
 // reads as every colour at once. Every colour-caring patron goes through here,
 // so rainbow metal reaches all of them for free.
 const painted = (tiles, colour) => tiles.filter(t => countsAsColour(t, colour));
+
+// A plain sort: one letter of the alphabet and nothing else. Everything the
+// press can set that ISN'T one of these — a ligature (several letters on one
+// body), a medieval sort (a single character outside A-Z), a mark, the fleuron,
+// the interrobang — is what The Typesetter is paid for.
+const isPlainSort = L => /^[A-Z]$/.test(L ?? '');
+
+// The vowels of a word, read TILE BY TILE, giving two different counts because
+// The Cartographer needs both:
+//
+//   seq    the ORDER to check, with each tile's own run of one vowel counted
+//          once. This is what lets a doubled vowel written on a single body
+//          pass: the OO ligature contributes one O, where two separate O tiles
+//          contribute two and break the run.
+//   count  how many vowels are SPOKEN, the OO's pair counted as two. This is
+//          what the minimum is measured against, so BOOK set with an OO tile is
+//          a two-vowel word that happens to spell them on one sort — and CAT,
+//          with a single vowel and no order to be in, is not.
+//
+// Y is left out of both. It is a vowel only sometimes, and a rule that has to
+// guess is a rule players cannot compose towards.
+const vowelRun = tiles => {
+  const seq = [];
+  let count = 0;
+  for (const t of tiles) {
+    let last = null;
+    for (const ch of getActiveLetter(t) ?? '') {
+      if (!VOWELS.includes(ch)) continue;
+      count++;
+      if (ch !== last) seq.push(ch);
+      last = ch;
+    }
+  }
+  return { seq, count };
+};
 
 // Adjacent doubled pairs, counted without overlapping: AAA is one pair,
 // AAAA is two. BALLOON has two (LL, OO).
@@ -636,13 +672,56 @@ const PATRON_BEHAVIOURS = [
     when: 'meta',
   },
   {
+    // The one seat that pays in CHOICE and in nothing else. It adds no Points,
+    // no Mult and no Coins; it widens every spread the game lays in front of you
+    // — the Market's tiles, patrons and stalls, the Colophon's cards, the tiles a
+    // proposal stall spreads, and the tiles a paint tube offers to choose
+    // between.
+    //
+    // Which makes it an EARLY seat by design. What you lack in the first two
+    // chapters is the right tile rather than more of them, and a wider spread is
+    // the cheapest way to find it; by the last chapter your press knows what it
+    // wants and one more card to look at is worth very little. A seat you buy,
+    // use, and sell on without regret — which is a shape the roster is otherwise
+    // short of.
+    //
+    // Every number lives in IMPRESARIO (js/constants.js) and is read through the
+    // effective-* getters in js/state.js, so the Market, the Colophon and the
+    // workbench cannot disagree about what the seat is worth.
+    id: 'impresario',
+    when: 'meta',   // read by the effective-* getters in js/state.js
+    // The six numbers, laid out where there is room for them. Read straight off
+    // IMPRESARIO, so retuning the seat retunes what it promises.
+    popover() {
+      const rows = [
+        ['Tiles at the Market',    IMPRESARIO.tiles],
+        ['Patrons calling',        IMPRESARIO.patrons],
+        ['Stalls pitched',         IMPRESARIO.stalls],
+        ['Tiles inside a stall',   IMPRESARIO.proposals],
+        ['Cards at the Colophon',  IMPRESARIO.upgrades],
+        ['Tiles a paint tube offers', IMPRESARIO.paint],
+      ];
+      return `<ul class="tip-list">${rows
+        .map(([what, n]) => `<li><span>${what}</span><b>+${n}</b></li>`).join('')}</ul>`;
+    },
+  },
+  {
     // Additive, so it queues with the other +Mult seats rather than
     // multiplying what they built. Stacks: ING and TH in one word is +0.5.
+    // Paid per NON-STANDARD sort: anything that is not a plain single letter of
+    // the alphabet. That is one test, not a list — ligatures are several letters
+    // on one body, the medieval sorts are single characters outside A-Z, and the
+    // marks, the fleuron and the interrobang are not letters at all. A new odd
+    // sort added to the case is counted by this seat the day it arrives, with
+    // nothing here to update.
+    //
+    // Additive, so it queues with the other +Mult seats rather than multiplying
+    // what they built. Stacks: a QU beside a þ is +0.4.
     id: 'typesetter',
     when: 'score',
     effect({ tiles, addMult }) {
-      const n = tiles.filter(t => LIGATURES.includes(t.letter)).length;
-      if (n) addMult(n * 0.25);
+      const n = tiles.filter(t => !isPlainSort(getActiveLetter(t))).length;
+      if (n) addMult(Math.round(n * TYPESETTER_STEP * 100) / 100);
     },
   },
   {
@@ -754,12 +833,24 @@ const PATRON_BEHAVIOURS = [
     },
   },
   {
+    // Reads the VOWELS and asks that they run in order — A before E before I
+    // before O before U — which is a rarer and more satisfying shape than the
+    // old all-letters rule: ABSTEMIOUS and FACETIOUS are the famous ones, but
+    // MARKET, PRESS and DOUBT all qualify too, so it is a seat you can compose
+    // towards rather than wait on.
+    //
+    // Counted per TILE, which is what makes a doubled vowel written on one body
+    // legal: the OO ligature contributes a single O and passes, where two
+    // separate O tiles are two O's in a row and fail. The Haplographer's licence
+    // never appears here at all — it doubles a letter in the READING, and this
+    // reads the tiles as set.
     id: 'cartographer',
     when: 'score',
-    effect({ word, xMult }) {
-      if (word.length < 4) return;
-      for (let i = 0; i < word.length - 1; i++) if (word[i] > word[i + 1]) return;
-      xMult(3);
+    effect({ tiles, xMult }) {
+      const { seq, count } = vowelRun(tiles);
+      if (count < CARTOGRAPHER_MIN_VOWELS) return;   // no order to be in
+      for (let i = 0; i < seq.length - 1; i++) if (seq[i] >= seq[i + 1]) return;
+      xMult(CARTOGRAPHER_MULT);
     },
   },
 
@@ -809,10 +900,14 @@ const PATRON_BEHAVIOURS = [
     // The banked rolls live in state.freeRerolls, are spent by the re-roll button
     // before any coin is (rerollMarket in market.js), and expire when that Market
     // closes — an agent works the fair he was sent to. Rainbow counts as amber.
+    // Every amber tile in hand at the page's end, with no ceiling — the hand
+    // itself is the limit, and filling it with amber is the build. The credit is
+    // with THIS fair's stallholders and expires when the Market closes
+    // (closeMarket in js/market.js), so a great haul cannot be hoarded.
     id: 'factor',
     when: 'meta',
     onPageComplete({ state }) {
-      const n = Math.min(2, state.rack.filter(t => countsAsColour(t, 'amber')).length);
+      const n = state.rack.filter(t => countsAsColour(t, 'amber')).length;
       if (!n) return null;
       state.freeRerolls = (state.freeRerolls ?? 0) + n;
       return { note: `${n} free re-roll${n > 1 ? 's' : ''} banked` };
@@ -1077,18 +1172,25 @@ const PATRON_BEHAVIOURS = [
     },
   },
   {
-    // He crowns one head only — his own — once per jade tile printed. Nothing in
-    // scoring knows about him: laurels are already paid seat by seat for whoever
-    // wears them (pass 4), so this hook need only put them on his head. Rainbow
-    // crowns him too, and dismissing him takes every crown with him.
+    // He crowns one head only — his own — and asks for a word wearing BOTH
+    // metals: a gold trim and a silver trim, on any two tiles. One crown per
+    // word however many of each are in it, because the achievement is the pair
+    // and not the count.
+    //
+    // A condition you build the CASE for rather than the word: gold and silver
+    // are bought a tile at a time at the Gilder's, so the seat is worth little
+    // the day you sit him down and more with every trim you lay afterwards.
+    // Nothing in scoring knows about him — laurels are already paid seat by seat
+    // for whoever wears them (pass 4), so this hook need only put them on his
+    // head. Dismissing him takes every crown with him.
     id: 'laureate',
     when: 'meta',
     onPrinted({ tiles, data }) {
-      const crowned = painted(tiles, 'jade').length;
-      if (!crowned) return null;
-      data.honorifics = (data.honorifics ?? 0) + crowned;
+      const wears = kind => tiles.some(t => t.trim === kind);
+      if (!wears('gold') || !wears('silver')) return null;
+      data.honorifics = (data.honorifics ?? 0) + 1;
       return {
-        note: `${crowned > 1 ? `${crowned} laurels` : 'a laurel'} — +${data.honorifics * HONORIFIC_STEP} Points every word`,
+        note: `gold and silver together — a laurel, +${data.honorifics * HONORIFIC_STEP} Points every word`,
       };
     },
   },
@@ -1237,7 +1339,15 @@ const PATRON_BEHAVIOURS = [
     // nothing — the right price for a stray.
     id: 'shorthair',
     when: 'score',
-    effect({ word, addCoins }) { if (word.includes('RAT')) addCoins(1); },
+    // The coin is for SPOTTING a rat, the Mult for having EATEN one — two
+    // different appetites, and only the second is permanent. The tally lives on
+    // the seat's data so it survives save and load, and is advanced in onPrinted
+    // like every other permanent gain, so the Mult is paid from the next word on.
+    effect({ word, data, addCoins, addMult }) {
+      if (word.includes('RAT')) addCoins(1);
+      const fed = data?.eaten ?? 0;
+      if (fed) addMult(fed * SHORTHAIR_MULT);
+    },
     onPrinted({ tiles, script, data, burn }) {
       const notes = [], said = [];
       if ((script?.letters ?? '').includes('RAT')) {
@@ -1250,13 +1360,20 @@ const PATRON_BEHAVIOURS = [
       // the active letter is the same test as "the Rat Catcher's gift".
       const eaten = tiles.filter(t => getActiveLetter(t) === 'RAT' && burn(t));
       if (eaten.length) {
+        data.eaten = (data.eaten ?? 0) + eaten.length;
         said.push(eaten.length > 1
-          ? `The cat eats ${eaten.length} RAT tiles — gone from your collection for good.`
-          : `The cat eats the RAT tile — gone from your collection for good.`);
+          ? `The cat eats ${eaten.length} RAT tiles — gone for good, and +${eaten.length * SHORTHAIR_MULT} Mult on every word.`
+          : `The cat eats the RAT tile — gone for good, and +${SHORTHAIR_MULT} Mult on every word.`);
       }
       return (notes.length || said.length)
         ? { note: notes.join(' · ') || null, say: said, burned: eaten }
         : null;
+    },
+    instDesc(data) {
+      const fed = data?.eaten ?? 0;
+      if (!fed) return PATRON_CARDS.shorthair.desc;
+      return `${fed} rat${fed > 1 ? 's' : ''} eaten — +${fed * SHORTHAIR_MULT} Mult on every word. `
+           + PATRON_CARDS.shorthair.desc;
     },
   },
   {
@@ -1537,7 +1654,7 @@ const PATRON_BEHAVIOURS = [
     id: 'expectants',
     when: 'score',
     effect({ word, addPoints }) {
-      if (themeSize('names') && inTheme('names', word)) addPoints(10);
+      if (themeSize('names') && inTheme('names', word)) addPoints(EXPECTANTS_BONUS);
     },
   },
   {
@@ -1625,7 +1742,7 @@ const PATRON_BEHAVIOURS = [
     when: 'score',
     effect({ tiles, addMult }) {
       const pairs = Object.keys(COLOURS).filter(c => painted(tiles, c).length === 2).length;
-      if (pairs) addMult(Math.round(pairs * 0.2 * 100) / 100);
+      if (pairs) addMult(Math.round(pairs * GLOVER_STEP * 100) / 100);
     },
   },
   {

@@ -1,10 +1,11 @@
 // The Colophon — a permanent-upgrade pick offered when a chapter clears.
 // Three cards, one guaranteed structural, capped repeats.
 
-import { state, shuffle, unpaintedTiles, paintRandomTiles } from './state.js';
 import {
-  UPGRADE_OFFERS, MAX_UPGRADE_REPEATS, SKIP_COIN_GRANT, PAINT_PER_POT,
-  BLACK_MARKET_MINIMUM,
+  state, shuffle, unpaintedTiles, paintRandomTiles, effectiveUpgradeOffers,
+} from './state.js';
+import {
+  MAX_UPGRADE_REPEATS, SKIP_COIN_GRANT, PAINT_PER_POT, BLACK_MARKET_MINIMUM,
 } from './constants.js';
 import { UPGRADE_DEFS, upgradeById } from './upgrades.js';
 
@@ -36,7 +37,7 @@ function eligibleIds() {
 // whole spread, once structural options run dry — comes from whatever's left.
 function rollOffers() {
   const eligible = eligibleIds();
-  const n = Math.min(UPGRADE_OFFERS, eligible.length);
+  const n = Math.min(effectiveUpgradeOffers(), eligible.length);
   if (!n) { colophon.offers = []; return; }
 
   const structural = eligible.filter(id => upgradeById(id).kind === 'structural');

@@ -58,7 +58,7 @@ export const PATRON_CARDS = {
   },
   factor: {
     name: 'The Factor', emoji: '🤝', rarity: 'uncommon', cost: 5, guild: 'amber',
-    desc: 'Amber tiles still in your hand when a page completes earn a free Market re-roll each, up to 2.',
+    desc: 'Every amber tile still in your hand when a page completes earns a free Market re-roll.',
   },
   antiquary: {
     name: 'The Antiquary', emoji: '🏺', rarity: 'uncommon', cost: 6, guild: 'amber',
@@ -86,7 +86,7 @@ export const PATRON_CARDS = {
   },
   shorthair: {
     name: 'The Domestic Shorthair', emoji: '🐈', rarity: 'rare', cost: 0, guild: 'amber', unlisted: true,
-    desc: 'Print any word spelling out R-A-T — PIRATE and GRATIS count — for 1 Coin and a laurel. Only the Rat Catcher\'s own RAT tile is ever eaten.',
+    desc: 'Print any word spelling out R-A-T — PIRATE and GRATIS count — for 1 Coin and a laurel. Eats the Rat Catcher\'s RAT tiles, and gains +{SHORTHAIR_MULT} Mult on every word for each one.',
   },
   medievalist: {
     name: 'The Medievalist', emoji: '🏰', rarity: 'rare', cost: 8, guild: ['amber', 'azure'],
@@ -151,8 +151,8 @@ export const PATRON_CARDS = {
     desc: 'The first word of each page gets ×{FRONTISPIECE_MULT} Mult — and a laurel each time that word clears the quota alone.',
   },
   laureate: {
-    name: 'The Laureate', emoji: '👑', rarity: 'uncommon', cost: 8, guild: 'jade',
-    desc: 'Every jade tile you print crowns this patron with a laurel — +{HONORIFIC_STEP} Points on every word, for good.',
+    name: 'The Laureate', emoji: '👑', rarity: 'uncommon', cost: 5, guild: 'jade',
+    desc: 'A word holding both a gold-trimmed and a silver-trimmed tile crowns this patron with a laurel — +{HONORIFIC_STEP} Points on every word, for good.',
   },
   grafter: {
     name: 'The Grafter', emoji: '🌿', rarity: 'rare', cost: 8, guild: 'jade',
@@ -190,7 +190,7 @@ export const PATRON_CARDS = {
   },
   composter: {
     name: 'The Composter', emoji: '🍂', rarity: 'uncommon', cost: 7, guild: ['crimson', 'jade'],
-    desc: 'Destroyed tiles rot into jade ones — at each Market, take one from the heap per jade patron you keep.',
+    desc: 'Every tile destroyed rots down into a jade one. Take as many as you like off the heap, at every Market.',
   },
   headsman: {
     name: 'The Headsman', emoji: '🪓', rarity: 'uncommon', cost: 7, guild: 'crimson',
@@ -320,9 +320,16 @@ export const PATRON_CARDS = {
     name: 'The Innkeeper', emoji: '🍻', rarity: 'common', cost: 6,
     desc: 'Every word gains +5 Points per patron you hold — this one included, and your ghosts.',
   },
+  impresario: {
+    // The card states the shape; the six exact numbers are in the tap-through
+    // (the `popover` on this patron's def in js/patrons.js), where a list can be
+    // read properly and a calling card cannot.
+    name: 'The Impresario', emoji: '🎩', rarity: 'rare', cost: 9,
+    desc: 'Widens every choice the game lays out — the Market, the Colophon, the stalls and the paint tube. Tap for the terms.',
+  },
   glover: {
     name: 'The Glover', emoji: '🧤', rarity: 'uncommon', cost: 4,
-    desc: 'Each colour worn by exactly two tiles in the word gives +0.2 Mult — a matched pair, no more, no fewer.',
+    desc: 'Each colour worn by exactly two tiles in the word gives +{GLOVER_STEP} Mult — a matched pair, no more, no fewer.',
   },
   jeweller: {
     name: 'The Jeweller', emoji: '💎', rarity: 'uncommon', cost: 5,
@@ -334,7 +341,7 @@ export const PATRON_CARDS = {
   },
   expectants: {
     name: 'The Expectant Parents', emoji: '🤰', rarity: 'uncommon', cost: 6,
-    desc: 'Common baby names count as words, and any name gains +10 Points — SOPHIE, ARCHIE, BARNABY.',
+    desc: 'Common baby names count as words, and any name gains +{EXPECTANTS_BONUS} Points — SOPHIE, ARCHIE, BARNABY.',
   },
   counterfeiter: {
     name: 'The Counterfeiter', emoji: '💵', rarity: 'uncommon', cost: 7, guild: 'azure',
@@ -354,7 +361,7 @@ export const PATRON_CARDS = {
   },
   typesetter: {
     name: 'The Typesetter', emoji: '🔠', rarity: 'uncommon', cost: 6,
-    desc: 'Each ligature tile — one that spells several letters — gives +0.25 Mult.',
+    desc: 'Each non-standard sort gives +{TYPESETTER_STEP} Mult — QU, RAT, the medieval glyphs, the marks: anything that is not a plain letter.',
   },
   alderman: {
     name: 'The Alderman', emoji: '🎩', rarity: 'uncommon', cost: 7,
@@ -406,7 +413,7 @@ export const PATRON_CARDS = {
   },
   astronomer: {
     name: 'The Astronomer', emoji: '🔭', rarity: 'rare', cost: 9,
-    desc: '+1 Mult for each word already printed this page.',
+    desc: '+{ASTRONOMER_STEP} Mult for each word already printed this page.',
   },
   overseer: {
     name: 'The Overseer', emoji: '📋', rarity: 'rare', cost: 9,
@@ -414,7 +421,7 @@ export const PATRON_CARDS = {
   },
   cartographer: {
     name: 'The Cartographer', emoji: '🗺️', rarity: 'rare', cost: 12,
-    desc: 'Words whose letters run in alphabetical order get ×3 Mult.',
+    desc: 'Words whose vowels run in alphabetical order get ×{CARTOGRAPHER_MULT} Mult — no vowel repeated, unless one tile spells the pair.',
   },
   skimmer: {
     name: 'The Skimmer', emoji: '👓', rarity: 'rare', cost: 12,
