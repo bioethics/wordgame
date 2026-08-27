@@ -566,6 +566,23 @@ export function drawUpToRackSize() {
   return drawn;
 }
 
+// The bodkin's reach: lift ONE named tile out of the bag and into the hand,
+// bypassing drawFromBag and the two seats that weight it. Takes a template's
+// tid rather than the template itself, so a stale reference from a sheet drawn
+// a moment ago can't pull a tile that has since been drawn — it simply misses
+// and returns null, and the caller keeps the bodkin.
+//
+// Deliberately NOT bounded by effectiveRackSize: going over is what is being
+// bought. drawUpToRackSize tops up only while the hand is under, so an over-full
+// hand just draws nothing until it is spent back down.
+export function pluckFromBag(tid) {
+  const i = state.bag.findIndex(t => t.tid === tid);
+  if (i < 0) return null;
+  const tile = templateToTile(state.bag.splice(i, 1)[0]);
+  state.rack.push(tile);
+  return tile;
+}
+
 // Strike a new tile: it joins the collection for good and arrives in the rack
 // straight away.
 export function castTile(overrides = {}) {

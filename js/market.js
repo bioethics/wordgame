@@ -11,7 +11,7 @@ import {
   WRAPPED_PRICE, WRAPPED_OFFER_CHANCE, isImmutable,
   COMPOST_HEAP_MAX,
   TILE_BASE_PRICE, REROLL_BASE,
-  SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, RATCHET_PRICE, SUNDRY_SELL, HEADSMAN_STEP,
+  SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, RATCHET_PRICE, BODKIN_PRICE, SUNDRY_SELL, HEADSMAN_STEP,
   TOOLBOX_PRICE, FLEURON, FLEURON_PRICE, FLEURON_OFFER_CHANCE,
   RULE, RULE_PACK_PRICE, RULE_PACK_CHANCE,
   STALL_DEFS, SMELT_MIN_COLLECTION,
@@ -179,15 +179,20 @@ function weightedPatronSample(n) {
 
 // Paint tubes and the reshuffle are the everyday stock; a wrapped tile displaces
 // one slot about half the time. What is inside is rolled when it is opened.
+const SUNDRY_PRICES = {
+  reshuffle: RESHUFFLE_PRICE,
+  ratchet:   RATCHET_PRICE,
+  toolbox:   TOOLBOX_PRICE,
+  bodkin:    BODKIN_PRICE,
+};
+
 function rollSundryOffers() {
-  const offers = shuffle([...Object.keys(COLOURS), 'reshuffle', 'ratchet', 'toolbox'])
+  // Shuffled and sliced, so a shop never lays out the same kind twice — the four
+  // tubes count as four kinds, being four different colours.
+  const offers = shuffle([...Object.keys(COLOURS), ...Object.keys(SUNDRY_PRICES)])
     .slice(0, SUNDRY_OFFERS)
-    .map(entry => entry === 'reshuffle'
-      ? { kind: 'reshuffle', colour: null, price: RESHUFFLE_PRICE, sold: false }
-      : entry === 'ratchet'
-      ? { kind: 'ratchet', colour: null, price: RATCHET_PRICE, sold: false }
-      : entry === 'toolbox'
-      ? { kind: 'toolbox', colour: null, price: TOOLBOX_PRICE, sold: false }
+    .map(entry => SUNDRY_PRICES[entry] != null
+      ? { kind: entry, colour: null, price: SUNDRY_PRICES[entry], sold: false }
       : { kind: 'tube', colour: entry, price: TUBE_PRICE, sold: false });
 
   if (offers.length && Math.random() < WRAPPED_OFFER_CHANCE) {

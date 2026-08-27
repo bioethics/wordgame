@@ -265,7 +265,12 @@ export const PAINT_PER_POT   = 3;
 // and one random unpainted tile in hand takes the colour, permanently. The tile
 // is the paint's choice — aimed paint only ever hit the same four workhorses.
 export const SUNDRY_SLOTS  = 2;   // sundries the workbench can hold
-export const SUNDRY_OFFERS = 2;   // sundries offered per shop
+// Three, against a shop stocking eight kinds — four tubes, the reshuffle, the
+// ratchet, the toolbox and the bodkin, with a wrapped tile displacing one about
+// half the time. At two slots any particular one showed up a quarter of the
+// time, which is not often enough to build towards; at three it is over a third,
+// and the workbench still only holds SUNDRY_SLOTS, so the choice stays a choice.
+export const SUNDRY_OFFERS = 3;   // sundries offered per shop
 
 // ─── The registers' packages ──────────────────────────────────────────────────
 // The four register patrons pay ×3 Mult for a word on their list, a condition you
@@ -345,6 +350,7 @@ export const WASH_COUNT     = 4;   // tiles washed per pot — one of each colou
 
 // One look per tool, shared by the bench, the shop card and the held row.
 export const TOOL_LOOK = {
+  bodkin:  { glyph: '🪡', label: TOOL_TEXT.bodkin },
   toolbox: { glyph: '🧰', label: TOOL_TEXT.toolbox },
   loupe:   { glyph: '🔍', label: TOOL_TEXT.loupe },
   laurel:  { glyph: '🏵️', label: TOOL_TEXT.laurel },
@@ -370,6 +376,12 @@ export const MARKET_TILE_OFFERS = 4;
 export const TUBE_PRICE    = 2;
 export const SUNDRY_SELL   = 1;   // what the Market pays to take one back
 export const RATCHET_PRICE = 3;   // the ratchet: one letter, one step either way
+// The bodkin: the compositor's needle, for picking one sort out of the case. The
+// dearest sundry, and deliberately — every other one improves a tile you happened
+// to draw, where this decides WHICH tile you draw. It answers a Deadline's
+// measure, finishes the Prince's cypher, feeds the Wordler his own word, and
+// walks straight past the two seats that bend the draw (the Magpie, the Mako).
+export const BODKIN_PRICE  = 5;
 
 // "one tile" / "2 tiles" — keeps counted copy reading right
 export const tileCount = n => n === 1 ? 'one tile' : `${n} tiles`;

@@ -161,6 +161,12 @@ export const SUNDRY_TEXT = {
     head: 'Toolbox',
     body: 'Unwrap to gain two tools (space permitting).',
   },
+  bodkin: {
+    head: 'Bodkin',
+    body: 'Reach into the bag and pick out any one tile you like — it goes straight '
+        + 'into your hand, even if that puts you over your hand size. Nothing is '
+        + 'drawn to replace it until you are back under.',
+  },
   loupe: {
     head: 'Loupe',
     body: 'Double the value of a tile (to a max of {LOUPE_CAP}).',
@@ -201,6 +207,7 @@ export const SUNDRY_TEXT = {
 
 // The short names the bench and the shop card use for a tool.
 export const TOOL_TEXT = {
+  bodkin:  'Bodkin',
   toolbox: 'Toolbox',
   loupe:   'Loupe',
   laurel:  'Laurel',

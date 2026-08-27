@@ -12,7 +12,7 @@ import {
   rollTubeOffer, applyWash, washOff, effectiveSundrySlots, takeGhostEchoes,
   getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile, recastTile,
   trashFromCollection, mergeTiles, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
-  castCounterfeit, effectiveRackSize, handCount,
+  castCounterfeit, effectiveRackSize, handCount, pluckFromBag,
   grantRandomPatron,
   rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost,
 } from './state.js';
@@ -20,7 +20,7 @@ import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
   REACTION, NEOLOGIST_LENGTH, MATERIALS, TRIMS, WRAPPED_CONTENTS, MARK_TRIM,
   chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks, isDeadline,
-  FLEURON, TOOLBOX_POOL, HONORIFIC_STEP, TONGS_BONUS, LOUPE_CAP, RIPPER_WORDS, sundryTip,
+  FLEURON, TOOLBOX_POOL, HONORIFIC_STEP, TONGS_BONUS, LOUPE_CAP, RIPPER_WORDS, sundryTip, TOOL_LOOK,
   PACKAGES, APPLICATORS, SILVER_BONUS, BAG_COUNTS,
   lengthFlourish, medievalExpansions, USURER, BRIBRARIAN, bribeMult, isRule, RULE,
 } from './constants.js';
@@ -38,7 +38,7 @@ import {
   renderAll, renderRack, renderWord, renderCounts, renderButtons, persist,
   renderDictStatus, readoutEls, renderChips, setChip,
   log, showBanner, hideOverlay,
-  showGameOver, showVictory, openInspector, closeInspector, coinHTML,
+  showGameOver, showVictory, openInspector, closeInspector, openBagPicker, coinHTML,
   showPatronPopover, hidePopover, openManuscript, closeManuscript,
   openGhosts, closeGhosts, ghostsOpen,
   showCoinWordSheet, setCoinNote, showCounterfeitSheet, showStruckTotal, showBribeSheet,
@@ -1412,6 +1412,48 @@ async function useSundry(idx, e = null) {
 
   if (armed?.kind === 'reshuffle') {
     log('Spend this at the Market or the Colophon.', 'warn');
+    return;
+  }
+
+  // The bodkin opens a sheet rather than taking a target on the board, the bag
+  // not being on it. Nothing is spent until a tile is tapped, so closing the
+  // sheet leaves the tool where it was — and the index is read again inside the
+  // callback, because the bench can be rearranged while the sheet is open.
+  if (armed?.kind === 'bodkin') {
+    cancelDiscardMode(true);
+    cancelSundryMode(true);
+    if (!state.bag.length) {
+      log('The bag is empty — nothing left in it to reach for. The bodkin keeps.', 'warn');
+      return;
+    }
+    openBagPicker(async tmpl => {
+      const at = state.sundries.indexOf(armed);
+      if (at < 0) return;                        // gone from the bench while the sheet was open
+      const tile = pluckFromBag(tmpl.tid);
+      if (!tile) {                               // drawn out from under the sheet
+        log('That one has already left the bag. The bodkin keeps.', 'warn');
+        renderAll();
+        return;
+      }
+      state.sundries.splice(at, 1);
+      state.isAnimating = true;
+      renderAll();
+      sfx.chime();
+      const el = rackTileEl(tile.id);
+      if (el) {
+        await flyClone(el, bagRect(), rect(el), { duration: ANIM.fly, scaleFrom: 0.3 });
+        popReveal(el);
+        sparkleBurst(el, 12);
+        floatText(el, `${TOOL_LOOK.bodkin.glyph} picked out`, 'fl-set');
+      }
+      await sleep(ANIM.stepColour);
+      state.isAnimating = false;
+      renderAll();
+      const over = handCount() > effectiveRackSize();
+      log(`The bodkin finds the ${getActiveLetter(tile)} and lifts it out of the bag.`
+        + (over ? ' Your hand is over its size — nothing will be drawn until it is back under.' : ''),
+        'good');
+    });
     return;
   }
 

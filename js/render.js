@@ -1360,6 +1360,43 @@ export function closeManuscript() {
   $('manuscriptModal')?.classList.remove('show');
 }
 
+// ─── The bodkin's sheet: pick one tile out of the bag ─────────────────────────
+// The inspector's own grid, made choosable. Hovering or long-pressing a tile
+// still explains it (initInspect in drag.js watches this modal), so you can read
+// what you are reaching for before you commit to it.
+//
+// Nothing is taken until a tile is tapped, and the caller spends the bodkin only
+// inside onPick — so closing the sheet by the ✕, the backdrop or Escape simply
+// leaves it on the bench, unspent, and no cancel path is needed.
+export function openBagPicker(onPick) {
+  const m = $('inspectorModal');
+  if (!m) return;
+  const sorted = [...state.bag].sort((a, b) => a.letter.localeCompare(b.letter));
+  m.innerHTML = `
+    <div class="sheet sheet--inspector">
+      <div class="sheet-head">
+        <h2>${TOOL_LOOK.bodkin.glyph} Reach into the bag</h2>
+        <button class="x" data-close-inspector>✕</button>
+      </div>
+      <p class="sheet-note">${sorted.length} tile${sorted.length === 1 ? '' : 's'} waiting.
+        Take any one of them straight to hand — the bodkin is spent on whichever you pick.</p>
+      <div class="mini-grid mini-grid--pick" id="inspectorGrid"></div>
+    </div>`;
+  const grid = m.querySelector('#inspectorGrid');
+  for (const tmpl of sorted) {
+    const el = makeTileEl({ ...tmpl, id: '' }, 'inspect', { mini: true });
+    if (tmpl.tid != null) el.dataset.tid = tmpl.tid;   // as the inspector does, so it explains itself
+    el.classList.add('mini-tile--pick');
+    el.addEventListener('click', ev => {
+      ev.stopPropagation();      // the modal's own handler would read this as "close"
+      closeInspector();
+      onPick(tmpl);
+    });
+    grid.appendChild(el);
+  }
+  m.classList.add('show');
+}
+
 export function closeInspector() {
   $('inspectorModal')?.classList.remove('show');
 }

@@ -4390,6 +4390,22 @@ button.sundry:hover { transform: translateY(-2px); }
 .sheet--chamber .mini-grid .tile { cursor: pointer; }
 .sheet--chamber .mini-grid .tile:hover { outline: 2px solid #d0707e; outline-offset: 2px; }
 
+/* ── The bodkin's grid: the inspector's own, made choosable ───────────────────
+   Same shape as the bag inspector — this IS that sheet — so the only difference
+   a tile needs is that it reads as reachable. The ring is the workbench's brass
+   rather than the chamber's rose, because the bodkin is a tool, not a draft. */
+.mini-grid--pick .tile { cursor: pointer; transition: outline-color .12s, transform .12s; }
+.mini-grid--pick .tile:hover,
+.mini-grid--pick .tile:focus-visible {
+  outline: 2px solid #d8a53c;
+  outline-offset: 2px;
+  transform: translateY(-2px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .mini-grid--pick .tile { transition: none; }
+  .mini-grid--pick .tile:hover, .mini-grid--pick .tile:focus-visible { transform: none; }
+}
+
 /* Blind emboss — struck into the paper, carrying no ink. Debossed rather than
    coloured: the letter reads as pressed-in, never as painted. */
 .tile--mat-blind {

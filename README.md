@@ -396,8 +396,12 @@ drafted: the first is hired at the first Market, once you know what the press
 needs.
 
 **The Market** (between pages) keeps a fixed layout with churning contents:
-4 patrons, 4 tiles (5 with the Medievalist's stall), 2 **sundries** and 2
-**stalls** from a roster of six. *New offers* re-rolls everything, and its own
+4 patrons, 4 tiles (5 with the Medievalist's stall), 3 **sundries** and 2
+**stalls** from a roster of six. (The sundry slots went from two to three when
+the shop's own stock reached eight kinds — four tubes, the reshuffle, the
+ratchet, the toolbox and the bodkin — because two slots showed only a quarter of
+the range a visit, which is too thin to build towards. The workbench still holds
+`SUNDRY_SLOTS`, so a third offer widens the choice without widening the pocket.) *New offers* re-rolls everything, and its own
 price doubles with each press. Tiles live in your **collection**; each page the
 whole collection shuffles into the **bag**, and printed or discarded tiles wait
 in the **discard pile**. *Your collection* opens the case read-only, headed by a
@@ -459,6 +463,15 @@ rattles around in there at half the rate:
   good. It doubles the whole corner number, so raising a common letter first (a
   silver trim, the Grafter's growth) and *then* doubling beats doubling the
   jewel already near the cap.
+- **Bodkin** — the compositor's needle, for picking one sort out of the case.
+  Tap it and the bag lays itself out; take any tile in it straight to hand. The
+  dearest sundry at 5 Coins, and deliberately: every other one improves a tile
+  you happened to draw, where this decides *which* tile you draw. It answers a
+  Columnist's measure, finishes the Prince's cypher, feeds the Wordler his own
+  word — and walks straight past *the Magpie* and *the Shortfin Mako*, the two
+  seats that weight the draw. It may put you over your hand size; nothing is
+  drawn to replace it until you are back under. Sold at the Market, not in the
+  toolbox.
 - **Laurel** (amber) — crowns a random seated patron: +3 Points on every word
   while they keep their seat, stacking if it lands twice. The crown pays at its
   own seat's turn, so a laurel in front of your multipliers is multiplied and
@@ -639,6 +652,8 @@ bigger step than the last and a built press has to multiply rather than add:
 | The length multiplier — threshold, base, step, and the milestone copy | `js/constants.js` → `LENGTH_MULT_MIN`, `LENGTH_MULT_BASE`, `LENGTH_MULT_STEP`, `LENGTH_FLOURISHES` |
 | Tube price / tiles per tube / workbench slots / sell-back | `js/constants.js` → `TUBE_PRICE`, `TUBE_TILES`, `SUNDRY_SLOTS`, `SUNDRY_SELL` |
 | Reshuffle sundry price | `js/constants.js` → `RESHUFFLE_PRICE` |
+| Bodkin price | `js/constants.js` → `BODKIN_PRICE`. What it reaches into is `pluckFromBag` in `js/state.js`, and the sheet it opens is `openBagPicker` in `js/render.js` — the bag inspector's own grid, made choosable |
+| How many sundries a shop lays out | `js/constants.js` → `SUNDRY_OFFERS` (the pool is `SUNDRY_PRICES` plus one tube per colour, in `js/market.js`) |
 | Ratchet sundry price | `js/constants.js` → `RATCHET_PRICE` (the alphabet it walks is derived from `TILE_POINTS` — see `SHIFT_RING` in `js/state.js`) |
 | Toolbox price and what is inside it | `js/constants.js` → `TOOLBOX_PRICE`, `TOOLBOX_POOL` (repeat an entry to make it likelier; the box always yields two *different* tools) |
 | Tool tuning — doubling cap, laurel step, tongs bonus, wash count | `js/constants.js` → `LOUPE_CAP`, `HONORIFIC_STEP`, `TONGS_BONUS`, `WASH_COUNT` |
