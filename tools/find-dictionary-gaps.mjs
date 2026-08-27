@@ -4,6 +4,7 @@
 // press, and those refusals are invisible from the inside: nothing in the game
 // can tell you what it failed to accept. This finds them from the outside.
 //
+//   node tools/find-dictionary-gaps.mjs standard  <small-dict.txt>
 //   node tools/find-dictionary-gaps.mjs paradigm  <attested.txt>
 //   node tools/find-dictionary-gaps.mjs derived  <attested.txt>
 //   node tools/find-dictionary-gaps.mjs frequency <attested.txt> <freq.txt> [top]
@@ -19,6 +20,15 @@
 //   https://raw.githubusercontent.com/hermitdave/FrequencyWords/master/content/2018/en/en_full.txt
 //
 // ─── WHAT EACH MODE IS GOOD AT ────────────────────────────────────────────────
+//
+// standard   Everything an ORDINARY spell-checker accepts that we refuse. Start
+//            here: it is the highest-precision mode by a distance, because the
+//            small Debian lists (/usr/share/dict/american-english, ~100k) are
+//            hand-curated for spell-checking rather than padded for word games,
+//            so almost nothing in them is obscure. It found THUNK, and 6,280
+//            others. What it will NOT find is a word too colloquial or too
+//            regional for a spell-checker — PASH is in the LARGE list and not
+//            the small one, which is exactly why it survived this sweep.
 //
 // paradigm   Words whose rhyme-neighbours all inflect but they don't, where the
 //            missing form is attested. Finds BELAY, BREAM, CROUP, DANDER, DINT.
@@ -71,6 +81,21 @@ const mode = process.argv[2];
 // no dictionary carries ABRUPTS, while every list carries THUNKS. Without the
 // attestation check this mode reports several hundred adjectives and adverbs
 // (ABLAZE, AKIMBO, ALBEIT) as missing verbs.
+// ─── standard: what an ordinary spell-checker accepts and we don't ────────────
+// The whole mode is one set subtraction; its value is entirely in the choice of
+// list. Use the SMALL one. Two junk classes come with it and are filtered here
+// because they are the same two every time: Roman numerals (XVIII, CLXIV) and
+// abbreviations (BLVD, TBSP, MFR), neither of which is a word anyone plays.
+const ROMAN = /^[ivxlcdm]+$/;
+function standard(smallDictFile) {
+  const small = readWords(smallDictFile);
+  const out = [...small].filter(w => w.length >= 3 && !have.has(w) && !ROMAN.test(w)).sort();
+  console.log(`${out.length} words a standard spell-checker accepts and this dictionary refuses\n`);
+  for (const w of out) console.log(w);
+  console.error(`\n(${out.length} lines. Roman numerals filtered; abbreviations are NOT — `
+              + `skim for BLVD/TBSP/MFR shapes before adding.)`);
+}
+
 function paradigm(attestedFile) {
   const att = readWords(attestedFile);
   const FORMS = ['s', 'ed', 'ing'];
@@ -153,11 +178,13 @@ function frequency(attestedFile, freqFile, top = 300) {
 }
 
 const args = process.argv.slice(3);
-if (mode === 'paradigm' && args[0]) paradigm(args[0]);
+if (mode === 'standard' && args[0]) standard(args[0]);
+else if (mode === 'paradigm' && args[0]) paradigm(args[0]);
 else if (mode === 'derived' && args[0]) derived(args[0]);
 else if (mode === 'frequency' && args[1]) frequency(args[0], args[1], Number(args[2]) || 300);
 else {
   console.error('usage:\n'
+    + '  node tools/find-dictionary-gaps.mjs standard  <small-dict.txt>\n'
     + '  node tools/find-dictionary-gaps.mjs paradigm  <attested.txt>\n'
     + '  node tools/find-dictionary-gaps.mjs derived   <attested.txt>\n'
     + '  node tools/find-dictionary-gaps.mjs frequency <attested.txt> <freq.txt> [top]');
