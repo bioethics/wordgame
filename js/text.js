@@ -131,7 +131,7 @@ export const MATERIAL_TEXT = {
   },
   blind: {
     label: 'Blind', metal: 'Blind emboss',
-    desc: 'Struck into the page without ink. Set by The Silent Knight, and worth nothing on its own — yet.',
+    desc: 'Struck into the page without ink — felt, and never seen. Worth nothing on its own — yet.',
   },
   rose: {
     label: 'Rose', metal: 'Rose metal',

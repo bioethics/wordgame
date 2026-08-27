@@ -818,13 +818,18 @@ export const BLACK_MARKET_MINIMUM = 10;
 // top of the tile's own worth. Priced by what the metal is worth to a press:
 // rainbow reads as every colour at once and costs the most; hellbox iron is a
 // liability as much as a tile (it cannot be discarded) and is nearly given away.
-// `blind` is not stocked — The Silent Knight strikes it and no one sells it, and
-// it carries no effect to sell.
+//
+// Blind emboss is the cheapest of the five, and honestly so: it carries no
+// effect of its own yet, so what the alley is selling is the METAL — the thing
+// The Silent Knight otherwise has to earn a silent letter to strike. Until it
+// does something, it is a curiosity at a curiosity's price, and the card says as
+// much rather than dressing it up.
 export const BLACK_MATERIAL_STOCK = {
   rainbow: { max: 2, price: 13 },
   ghost:   { max: 2, price: 11 },
   rose:    { max: 2, price: 9 },
   cursed:  { max: 2, price: 5 },
+  blind:   { max: 2, price: 3 },
 };
 
 // Punctuation, in lead under a purple trim — the same tile a wrapper holds, and

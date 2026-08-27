@@ -3841,6 +3841,12 @@ button.sundry:hover { transform: translateY(-2px); }
   border-color: rgba(201, 60, 45, 0.5);
   box-shadow: inset 0 3px 10px rgba(0,0,0,0.7), 0 0 20px rgba(201, 60, 45, 0.22);
 }
+/* Blind emboss carries no ink, so it takes no glow either — a bone hairline and
+   nothing else, which is the whole of what the metal is. */
+.sheet--black .bm-tile--blind {
+  --note: #d8d2c4;
+  border-color: rgba(216, 210, 196, 0.3);
+}
 .sheet--black .bm-tile--mark { --note: #d3b6ef; border-color: rgba(211, 182, 239, 0.34); }
 
 .sheet--black .bm-tile .op-sold,
