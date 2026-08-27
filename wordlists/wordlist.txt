@@ -290,6 +290,7 @@ academics
 academies
 academy
 acanthus
+acarology
 accede
 acceded
 accedes
@@ -998,6 +999,7 @@ aerobatics
 aerobic
 aerobically
 aerobics
+aerobiology
 aerodrome
 aerodromes
 aerodynamic
@@ -1007,6 +1009,7 @@ aerogram
 aerogramme
 aerogrammes
 aerograms
+aerology
 aeronautic
 aeronautical
 aeronautics
@@ -1254,12 +1257,15 @@ agriculture
 agriculturist
 agriculturists
 agritourism
+agrobiology
 agrochemical
 agrochemicals$
+agrology
 agronomic
 agronomist
 agronomists
 agronomy
+agrostology
 aground
 ague
 ah
@@ -1456,6 +1462,7 @@ algebraic
 algebraically
 algebras
 alginate
+algology
 algorithm
 algorithmic
 algorithms
@@ -2045,6 +2052,7 @@ angelfish
 angelic
 angelica
 angelically
+angelology
 angels
 anger
 angered
@@ -2054,6 +2062,7 @@ angina
 angiogenesis
 angiogram
 angiography
+angiology
 angioplasties
 angioplasty
 angiosperm
@@ -2729,6 +2738,7 @@ arabesques
 arable
 arachnid
 arachnids
+arachnology
 arachnophobia
 aragonite
 arbiter
@@ -3294,6 +3304,7 @@ assured
 assuredly
 assures
 assuring
+assyriology
 aster
 asterisk
 asterisked
@@ -3617,6 +3628,7 @@ austere
 austerely
 austerities
 austerity
+autecology
 auteur
 auteurs
 authentic
@@ -3842,6 +3854,7 @@ axial
 axially
 axillary
 axing
+axiology
 axiom
 axiomatic
 axiomatically
@@ -5404,6 +5417,7 @@ bibliographic
 bibliographical
 bibliographies
 bibliography
+bibliology
 bibliophile
 bibliophiles
 bibliotheca
@@ -5605,6 +5619,7 @@ biochemicals
 biochemist
 biochemistry
 biochemists
+bioclimatology
 biodata
 biodegradable
 biodegradation
@@ -5614,6 +5629,7 @@ biodegrades
 biodegrading
 biodiesel
 biodiversity
+bioecology
 bioengineering
 bioethics
 biofeedback
@@ -5660,6 +5676,7 @@ biopics
 biopsied
 biopsies
 biopsy
+biopsychology
 bioreactor
 bioreactors
 bioremediation
@@ -7476,6 +7493,7 @@ brute
 brutes
 brutish
 brutishness
+bryology
 bub
 bubble
 bubbled
@@ -7521,6 +7539,7 @@ buckyballs!
 bucolic
 bud
 budded
+buddhology
 buddied
 buddies
 budding
@@ -8670,6 +8689,7 @@ carcinogenesis
 carcinogenic
 carcinogenicity
 carcinogens
+carcinology
 carcinoma
 carcinomas
 card
@@ -8809,6 +8829,7 @@ carpeting
 carpetings$
 carpets
 carping
+carpology
 carpool
 carpooled
 carpooling
@@ -9432,6 +9453,7 @@ cesspools
 cetacean
 cetaceans
 ceteris
+cetology
 chador
 chadors
 chafe
@@ -10210,6 +10232,7 @@ choristers
 chorizo
 chorizos
 choroid
+chorology
 chortle
 chortled
 chortles
@@ -10232,6 +10255,7 @@ christening
 christenings
 christens
 christian$
+christology
 chroma
 chromatic
 chromatin
@@ -12112,6 +12136,7 @@ concessioners
 concessions
 conch
 conches
+conchology
 conchs
 concierge
 concierges
@@ -13886,6 +13911,7 @@ crania
 cranial
 craning
 craniofacial
+craniology
 cranium
 craniums
 crank
@@ -14455,9 +14481,11 @@ cry
 crybabies
 crybaby
 crying
+cryobiology
 cryogenic
 cryogenically
 cryogenics
+cryology
 cryonics
 crypt
 cryptanalysis
@@ -14473,6 +14501,7 @@ cryptographers
 cryptographic
 cryptography
 cryptology
+cryptozoology
 crypts
 crystal
 crystalline
@@ -14882,6 +14911,7 @@ cysts
 cytochrome
 cytokines
 cytology
+cytopathology
 cytoplasm
 cytoplasmic
 cytosine
@@ -15934,6 +15964,7 @@ delphinium
 delphiniums
 delta
 deltas
+deltiology
 deltoid
 deltoids
 delude
@@ -16136,6 +16167,8 @@ denatured
 denaturing
 dendrite
 dendritic
+dendrochronology
+dendrology
 dengue
 deniability
 deniable
@@ -16217,6 +16250,7 @@ deodorizer
 deodorizers
 deodorizes
 deodorizing
+deontology
 depart
 departed
 departing
@@ -16881,6 +16915,7 @@ dialectal
 dialectic
 dialectical
 dialectics
+dialectology
 dialects
 dialed
 dialing
@@ -19536,6 +19571,7 @@ ecumenical
 ecumenism
 eczema
 edamame!
+edaphology
 eddied
 eddies
 eddy
@@ -19702,6 +19738,7 @@ egregiously
 egress
 egret
 egrets
+egyptology
 eh
 eider
 eiderdown
@@ -21114,6 +21151,7 @@ escapism
 escapist
 escapologist
 escapologists
+escapology
 escargot
 escarpment
 escarpments
@@ -21247,6 +21285,8 @@ ethnological
 ethnologist
 ethnologists
 ethnology
+ethnomethodology
+ethnomusicology
 ethology
 ethos
 ethylene
@@ -21724,6 +21764,7 @@ exit
 exited
 exiting
 exits
+exobiology
 exodus
 exoduses
 exogenous
@@ -25644,6 +25685,7 @@ gastric
 gastritis
 gastroenteritis
 gastroenterologist
+gastroenterology
 gastrointestinal
 gastronomic
 gastronomical
@@ -25792,6 +25834,8 @@ gelled
 gelling
 gels
 gem
+gemmology
+gemology
 gems
 gemstone
 gemstones
@@ -25928,6 +25972,7 @@ geocaching!
 geocentric
 geochemical
 geochemistry
+geochronology
 geodesic
 geodesics
 geodesy
@@ -26208,6 +26253,7 @@ glaciation
 glaciations
 glacier
 glaciers
+glaciology
 glad
 gladden
 gladdened
@@ -26414,6 +26460,7 @@ glottal
 glottides$
 glottis
 glottises
+glottochronology
 glove
 gloved
 gloves
@@ -27748,6 +27795,7 @@ haggles
 haggling
 hagiographies
 hagiography
+hagiology
 hags
 hah
 haiku
@@ -27881,6 +27929,7 @@ halves
 halving
 halyard
 ham
+hamartiology
 hamburger
 hamburgers
 hamlet
@@ -28680,6 +28729,7 @@ helm
 helmet
 helmeted
 helmets
+helminthology
 helms
 helmsman
 helmsmen
@@ -28755,6 +28805,7 @@ hepatic
 hepatitis
 hepatocyte
 hepatocytes
+hepatology
 heptagon
 heptagonal
 heptagons
@@ -30099,6 +30150,7 @@ hydrofoils
 hydrogen
 hydrogenated
 hydrogenation
+hydrogeology
 hydrographic
 hydrography
 hydrologic
@@ -30294,6 +30346,7 @@ icemaker+
 icemakers+
 iceman
 ices
+ichnology
 ichthyology
 icicle
 icicles
@@ -30314,6 +30367,7 @@ iconoclastic
 iconoclasts
 iconographic
 iconography
+iconology
 icons
 icy
 id
@@ -30640,11 +30694,13 @@ immunocompromised
 immunodeficiency
 immunoglobulin
 immunoglobulins
+immunohematology
 immunologic
 immunological
 immunologist
 immunologists
 immunology
+immunopathology
 immunosuppression
 immunosuppressive
 immunotherapy
@@ -34531,6 +34587,7 @@ larval
 laryngeal
 larynges
 laryngitis
+laryngology
 larynx
 larynxes
 las
@@ -35040,6 +35097,7 @@ leotard
 leotards
 leper
 lepers
+lepidopterology
 leprechaun
 leprechauns
 leprosy
@@ -35231,6 +35289,7 @@ licentiate
 licentious
 licentiousness
 lichen
+lichenology
 lichens
 lick
 licked
@@ -35387,6 +35446,7 @@ limiters
 limiting
 limitless
 limits
+limnology
 limo
 limos
 limousine
@@ -36616,6 +36676,7 @@ makework$
 making
 makings
 malachite
+malacology
 maladaptive
 maladies
 maladjusted
@@ -37006,6 +37067,7 @@ marine
 mariner
 mariners
 marines
+mariology
 marionette
 marionettes
 marital
@@ -37108,6 +37170,7 @@ martyr
 martyrdom
 martyred
 martyring
+martyrology
 martyrs
 marvel
 marveled
@@ -37803,6 +37866,7 @@ mercy
 mere
 merely
 merengue
+mereology
 merest
 meretricious
 merganser
@@ -38102,6 +38166,7 @@ microns
 micronutrient
 microorganism
 microorganisms
+micropaleontology
 microphone
 microphones
 microplastics
@@ -38738,6 +38803,7 @@ misshapen
 missile
 missiles
 missing
+missiology
 mission
 missionaries
 missionary
@@ -39885,6 +39951,7 @@ musculature
 musculoskeletal
 muse
 mused
+museology
 muses
 museum
 museums
@@ -40028,11 +40095,13 @@ mynahs
 myocardial
 myocarditis
 myocardium
+myology
 myopia
 myopic
 myopically
 myriad
 myriads
+myrmecology
 myrrh
 myrtle
 myrtles
@@ -40180,6 +40249,7 @@ narration
 narrations
 narrative
 narratives
+narratology
 narrator
 narrators
 narrow
@@ -40371,6 +40441,7 @@ necklines
 necks
 necktie
 neckties
+necrology
 necromancer
 necromancers
 necromancy
@@ -40482,6 +40553,7 @@ neon
 neonatal
 neonate
 neonates
+neonatology
 neophyte
 neophytes
 neoplasm
@@ -40549,6 +40621,8 @@ neuralgic
 neurasthenia
 neuritis
 neurobiology
+neuroendocrinology
+neuroethology
 neurogenic
 neurologic
 neurological
@@ -40562,8 +40636,12 @@ neuronal
 neurone
 neurones
 neurons
+neuropathology
 neuropathy
+neuropharmacology
 neurophysiology
+neuropsychology
+neuroradiology
 neuroscience
 neurosciences
 neuroscientist
@@ -41623,6 +41701,7 @@ oceanographer
 oceanographers
 oceanographic
 oceanography
+oceanology
 oceans
 ocelot
 ocelots
@@ -41671,6 +41750,7 @@ odious
 odium
 odometer
 odometers
+odontology
 odor
 odorless
 odorous
@@ -41918,6 +41998,7 @@ ooh
 oohed$
 oohing$
 oohs$
+oology
 oomph
 oops
 ooze
@@ -42188,6 +42269,7 @@ organizes
 organizing
 organogram
 organograms
+organology
 organometallic
 organophosphate
 organophosphates
@@ -42310,6 +42392,7 @@ ostentatious
 ostentatiously
 osteoarthritis
 osteogenesis
+osteology
 osteomyelitis
 osteopath
 osteopathic
@@ -42335,6 +42418,8 @@ otherworld
 otherworldly
 otiose
 otolaryngology
+otology
+otorhinolaryngology
 otter
 otters
 ottoman
@@ -43249,10 +43334,14 @@ palace
 palaces
 paladin
 paladins
+palaeobiology
+palaeoclimatology
+palaeoecology
 palaeolithic$
 palaeontologist
 palaeontologists
 palaeontology
+palaeozoology
 palais
 palanquin
 palatable
@@ -43268,11 +43357,15 @@ paleface
 palefaces$
 paleness
 paleo
+paleobiology
+paleoclimatology
+paleoecology
 paleolithic$
 paleontological
 paleontologist
 paleontologists
 paleontology
+paleozoology
 paler
 pales
 palest
@@ -43340,6 +43433,7 @@ palsy
 paltrier$
 paltriest$
 paltry
+palynology
 pampas
 pamper
 pampered
@@ -43496,6 +43590,7 @@ pappies$
 pappy
 paprika
 papyri
+papyrology
 papyrus
 papyruses
 par
@@ -43962,6 +44057,7 @@ pathetic
 pathetically
 pathfinder
 pathfinders
+pathobiology
 pathogen
 pathogenesis
 pathogenic
@@ -43974,6 +44070,7 @@ pathologies
 pathologist
 pathologists
 pathology
+pathophysiology
 pathos
 paths
 pathway
@@ -44016,6 +44113,7 @@ patrolled
 patrolling
 patrolman
 patrolmen
+patrology
 patrols
 patron
 patronage
@@ -44257,6 +44355,7 @@ pediment
 pediments
 pedlar
 pedlars
+pedology
 pedometer
 pedometers
 pedophile
@@ -44403,6 +44502,7 @@ penniless
 penning
 penny
 pennyworth
+penology
 penpusher$
 penpushers$
 pens
@@ -44583,6 +44683,7 @@ perils
 perimeter
 perimeters
 perinatal
+perinatology
 perineal
 perineum
 period
@@ -44942,6 +45043,7 @@ pharmacy
 pharyngeal
 pharynges
 pharyngitis
+pharyngology
 pharynx
 pharynxes
 phase
@@ -45023,6 +45125,7 @@ philtres
 phish
 phishing
 phlebitis
+phlebology
 phlegm
 phlegmatic
 phlegmatically
@@ -45147,6 +45250,7 @@ phraseology
 phrases
 phrasing
 phrenology
+phycology
 phyla$
 phylogenetic
 phylogeny
@@ -46339,6 +46443,7 @@ pommel
 pommels
 pommies
 pommy
+pomology
 pomp
 pompadour
 pompadours
@@ -46584,6 +46689,7 @@ positivity
 positron
 positrons
 posits
+posology
 poss
 posse
 posses
@@ -47462,6 +47568,7 @@ primarily
 primary
 primate
 primates
+primatology
 prime
 primed
 primer
@@ -47662,6 +47769,7 @@ procreates
 procreating
 procreation
 procreative
+proctology
 proctor
 proctored
 proctoring
@@ -48161,6 +48269,7 @@ prototyping
 protozoa
 protozoan
 protozoans
+protozoology
 protracted
 protractor
 protractors
@@ -48269,6 +48378,7 @@ psalmists
 psalms
 psalter
 psalters
+psephology
 pseud
 pseudo
 pseudonym
@@ -48311,6 +48421,7 @@ psychoanalyzed
 psychoanalyzes
 psychoanalyzing
 psychobabble
+psychobiology
 psychodrama
 psychodramas
 psychogenic
@@ -48323,6 +48434,7 @@ psychologists
 psychology
 psychometric
 psychomotor
+psychoneuroimmunology
 psychopath
 psychopathic
 psychopathology
@@ -48346,6 +48458,7 @@ psychotics
 psychotropic
 psychs
 ptarmigan
+pteridology
 pterodactyl
 pterodactyls
 pterosaurs
@@ -48452,6 +48565,7 @@ pulls
 pullup$
 pullups$
 pulmonary
+pulmonology
 pulp
 pulped
 pulpier$
@@ -48774,6 +48888,7 @@ pyrimidine
 pyrite
 pyrites
 pyroclastic
+pyrology
 pyrolysis
 pyromania
 pyromaniac
@@ -49220,6 +49335,7 @@ radio
 radioactive
 radioactively
 radioactivity
+radiobiology
 radiocarbon
 radioed
 radiogram
@@ -52320,6 +52436,7 @@ rhinitis
 rhino
 rhinoceros
 rhinoceroses
+rhinology
 rhinoplasty
 rhinos
 rhinovirus
@@ -54706,6 +54823,7 @@ sedges$
 sediment
 sedimentary
 sedimentation
+sedimentology
 sediments
 sedition
 seditious
@@ -54821,6 +54939,7 @@ selector
 selectors
 selects
 selenium
+selenology
 self
 selfhood
 selfie!
@@ -54888,6 +55007,7 @@ seminarians
 seminaries
 seminars
 seminary
+semiology
 semiotic
 semiotics
 semiprecious
@@ -56352,6 +56472,7 @@ sinned
 sinner
 sinners
 sinning
+sinology
 sins
 sintered
 sintering
@@ -57552,6 +57673,7 @@ socials
 societal
 societies
 society
+sociobiology
 sociocultural
 socioeconomic
 socioeconomically
@@ -57877,6 +57999,7 @@ sorties
 sorting
 sorts
 sot
+soteriology
 sots
 sou
 soubriquet
@@ -58264,6 +58387,7 @@ speedway
 speedways
 speedwell
 speedy
+speleology
 spell
 spellbinding
 spellbound
@@ -58433,6 +58557,7 @@ spittoons
 spiv
 spivs
 splanchnic
+splanchnology
 splash
 splashdown
 splashdowns
@@ -59642,6 +59767,7 @@ stomaching
 stomachs
 stomata
 stomatal
+stomatology
 stomp
 stomped
 stomping
@@ -60689,6 +60815,7 @@ sultry
 sum
 sumac+
 sumacs+
+sumerology
 summaries
 summarily
 summarise
@@ -61525,6 +61652,7 @@ symposium
 symposiums
 symptom
 symptomatic
+symptomatology
 symptoms
 synagogue
 synagogues
@@ -62538,6 +62666,7 @@ tequilas
 terabyte
 terabytes
 terahertz
+teratology
 tercentenaries
 tercentenary
 teriyaki
@@ -62699,6 +62828,7 @@ thalidomide
 thallium
 thallus
 than
+thanatology
 thanes
 thank
 thanked
@@ -64342,6 +64472,7 @@ traumatize
 traumatized
 traumatizes
 traumatizing
+traumatology
 travail
 travails
 travel
@@ -64507,6 +64638,7 @@ tribesmen
 tribespeople
 tribeswoman
 tribeswomen
+tribology
 tribulation
 tribulations
 tribunal
@@ -64522,6 +64654,7 @@ triceps
 tricepses$
 triceratops
 triceratopses$
+trichology
 trick
 tricked
 trickery
@@ -65250,6 +65383,7 @@ ubiquitously
 ubiquity
 udder
 udders
+ufology
 ugh
 uglier
 ugliest
@@ -66901,6 +67035,7 @@ urbanize
 urbanized
 urbanizes
 urbanizing
+urbanology
 urchin
 urchins
 urea
@@ -67345,6 +67480,7 @@ venerates
 venerating
 veneration
 venereal
+venereology
 vengeance
 vengeful
 vengefully
@@ -67514,6 +67650,7 @@ vexations
 vexatious
 vexed
 vexes
+vexillology
 vexing
 via
 viability
@@ -67570,6 +67707,7 @@ victimized
 victimizes
 victimizing
 victimless
+victimology
 victims
 victor
 victories
@@ -67887,6 +68025,7 @@ volcanic
 volcanism
 volcano
 volcanoes
+volcanology
 volcanos
 vole
 voles
@@ -67975,6 +68114,7 @@ vroom
 vulcanised
 vulcanization
 vulcanized
+vulcanology
 vulgar
 vulgarities
 vulgarity
