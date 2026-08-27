@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#150e18" />
+<title>Sound Specimen Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,400&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg-0:#150e18; --bg-1:#211626; --panel:#26192b; --leather:#2c1c26;
+  --rule:#3d2937; --rule-soft:#33222e;
+  --parch:#f2e7cb; --parch-2:#e0d0ab; --dim:#9c8672; --faint:#6f5c63;
+  --brass:#d9a64b; --brass-hi:#f6d68a; --brass-dk:#8a5f1d;
+  --ivory:#f8f0dc; --tile-ink:#2c2214;
+  --good:#8fdfae; --warn:#ffc169; --bad:#ff7066;
+  --serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --sans:'Inter',ui-sans-serif,system-ui,'Segoe UI',sans-serif;
+  --mono:ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;}
+body{
+  margin:0; color:var(--parch); font-family:var(--sans); font-size:15px; line-height:1.6;
+  background:
+    radial-gradient(1100px 620px at 50% -10%, rgba(233,178,102,.14), transparent 62%),
+    radial-gradient(900px 700px at 100% 110%, rgba(120,70,140,.10), transparent 66%),
+    var(--bg-0);
+  background-attachment:fixed;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1220px; margin:0 auto; padding:0 28px 96px;}
+
+/* ── Masthead ─────────────────────────────────────────────── */
+.mast{padding:64px 0 34px; border-bottom:1px solid var(--rule);}
+.eyebrow{font-size:.6875rem; text-transform:uppercase; letter-spacing:.18em; color:var(--brass); font-weight:600;}
+h1{
+  font-family:var(--serif); font-weight:900; font-optical-sizing:auto;
+  font-size:clamp(2.5rem,6vw,4rem); line-height:1.02; margin:.28em 0 .2em;
+  color:var(--parch); text-wrap:balance; letter-spacing:-.015em;
+}
+h1 .amp{color:var(--brass); font-style:italic; font-weight:400;}
+.dek{max-width:62ch; color:var(--parch-2); font-size:1.0625rem;}
+.dek b{color:var(--brass-hi); font-weight:600;}
+.tally{display:flex; gap:26px; flex-wrap:wrap; margin-top:26px; align-items:baseline;}
+.tally div{display:flex; gap:9px; align-items:baseline;}
+.tally .num{font-family:var(--serif); font-weight:900; font-size:1.9rem; color:var(--brass-hi); font-variant-numeric:tabular-nums;}
+.tally .lab{font-size:.75rem; text-transform:uppercase; letter-spacing:.13em; color:var(--dim);}
+
+/* ── Bench ────────────────────────────────────────────────── */
+.bench{
+  margin:34px 0 0; padding:24px 26px 26px; border:1px solid var(--rule);
+  border-radius:14px; background:linear-gradient(180deg,#2a1c30,#1d1322);
+  box-shadow:inset 0 1px 0 rgba(255,235,200,.06), 0 18px 40px -28px #000;
+}
+.bench-head{display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:16px;}
+.bench-head p{margin:0; color:var(--dim); font-size:.8125rem; max-width:52ch;}
+.groove{
+  min-height:82px; border-radius:10px; padding:9px;
+  border:1px dashed var(--rule); background:rgba(0,0,0,.24);
+  display:flex; gap:7px; align-items:center; flex-wrap:wrap;
+}
+.groove:empty::after{content:'compose a word…'; color:var(--faint); font-family:var(--serif); font-style:italic; padding-left:8px;}
+.rack{
+  margin-top:9px; min-height:82px; border-radius:10px; padding:9px;
+  border:1px solid var(--rule-soft); background:rgba(0,0,0,.14);
+  display:flex; gap:7px; align-items:center; flex-wrap:wrap;
+}
+.tile{
+  width:52px; height:58px; border:0; padding:0; cursor:pointer; position:relative;
+  border-radius:6px; background:linear-gradient(178deg,var(--ivory),#dfd0ac);
+  color:var(--tile-ink); font-family:var(--serif); font-weight:900; font-size:1.5rem;
+  display:grid; place-items:center; line-height:1;
+  box-shadow:0 3px 0 #a08b62, 0 8px 14px -8px #000;
+  transition:transform .09s ease, box-shadow .09s ease;
+}
+.tile:hover{transform:translateY(-2px);}
+.tile:active,.tile.struck{transform:translateY(3px); box-shadow:0 0 0 #a08b62, 0 4px 10px -8px #000;}
+.tile .pts{position:absolute; right:5px; bottom:3px; font-family:var(--sans); font-size:.5625rem; font-weight:700; opacity:.5;}
+.bench-actions{display:flex; gap:9px; margin-top:14px; flex-wrap:wrap;}
+
+/* ── Buttons ──────────────────────────────────────────────── */
+.btn{
+  font-family:var(--sans); font-size:.75rem; font-weight:600; letter-spacing:.06em;
+  text-transform:uppercase; color:var(--parch-2); cursor:pointer;
+  background:linear-gradient(180deg,#372440,#241830); border:1px solid var(--rule);
+  border-radius:7px; padding:8px 15px; transition:border-color .15s, color .15s, transform .08s;
+}
+.btn:hover{border-color:var(--brass-dk); color:var(--brass-hi);}
+.btn:active{transform:translateY(1px);}
+.btn--brass{border-color:var(--brass-dk); color:var(--brass-hi);}
+:focus-visible{outline:2px solid var(--brass); outline-offset:2px;}
+
+/* ── Two-column body ──────────────────────────────────────── */
+.cols{display:grid; grid-template-columns:236px minmax(0,1fr); gap:56px; margin-top:56px; align-items:start;}
+.rail{position:sticky; top:22px; max-height:calc(100vh - 44px); overflow-y:auto; padding-right:6px;}
+.rail h2{font-size:.625rem; text-transform:uppercase; letter-spacing:.16em; color:var(--brass); margin:20px 0 8px; font-weight:600;}
+.rail h2:first-child{margin-top:0;}
+.rail a{
+  display:flex; align-items:center; gap:9px; padding:4px 0; text-decoration:none;
+  color:var(--dim); font-size:.8125rem; transition:color .15s;
+}
+.rail a:hover{color:var(--parch);}
+.rail .dot{width:7px; height:7px; border-radius:50%; border:1px solid var(--rule); flex:none; transition:background .2s, border-color .2s;}
+.rail a.done .dot{background:var(--brass); border-color:var(--brass);}
+.rail a.done{color:var(--parch-2);}
+
+/* ── Specimen entries ─────────────────────────────────────── */
+.sec-head{margin:0 0 26px; padding-top:8px;}
+.sec-head:not(:first-child){margin-top:64px; padding-top:34px; border-top:1px solid var(--rule);}
+.sec-head .n{font-family:var(--serif); font-style:italic; font-weight:400; color:var(--brass); font-size:1rem;}
+.sec-head h2{font-family:var(--serif); font-weight:900; font-size:1.75rem; margin:.15em 0 .3em; letter-spacing:-.01em;}
+.sec-head p{margin:0; color:var(--dim); font-size:.9375rem; max-width:60ch;}
+
+.slot{margin:0 0 46px; scroll-margin-top:24px;}
+.slot-top{display:flex; gap:14px; align-items:baseline; flex-wrap:wrap;}
+.slot-name{font-family:var(--serif); font-weight:700; font-size:1.375rem; letter-spacing:-.005em;}
+.slot-name code{font-family:var(--mono); font-size:.8125rem; color:var(--brass-hi); background:rgba(217,166,75,.1);
+  border:1px solid rgba(217,166,75,.22); border-radius:5px; padding:2px 7px; margin-left:2px; font-weight:500;}
+.slot-gap{margin:.5em 0 0; color:var(--parch-2); max-width:64ch; font-size:.9375rem;}
+.fires{margin:11px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:3px;}
+.fires li{font-size:.8125rem; color:var(--dim); display:flex; gap:9px;}
+.fires code{font-family:var(--mono); font-size:.75rem; color:var(--parch-2); white-space:nowrap;}
+.fires li::before{content:'▸'; color:var(--brass-dk); flex:none;}
+
+.opts{margin-top:16px; display:flex; flex-direction:column; gap:7px;}
+.opt{
+  display:grid; grid-template-columns:38px minmax(0,1fr) auto; gap:14px; align-items:center;
+  border:1px solid var(--rule-soft); border-radius:9px; padding:10px 12px 10px 10px;
+  background:linear-gradient(180deg,rgba(58,38,66,.5),rgba(29,19,34,.5));
+  transition:border-color .16s, background .16s, transform .08s;
+}
+.opt:hover{border-color:var(--rule); background:linear-gradient(180deg,rgba(70,46,80,.6),rgba(34,22,40,.6));}
+.opt.pick{border-color:var(--brass-dk); box-shadow:inset 3px 0 0 var(--brass);}
+.opt.playing{border-color:var(--brass); background:linear-gradient(180deg,rgba(120,84,40,.42),rgba(48,30,26,.5));}
+.opt.first .rank{background:linear-gradient(180deg,var(--brass-hi),var(--brass)); color:#2a1c0a; border-color:var(--brass-dk);}
+.rank{
+  width:38px; height:38px; border-radius:6px; border:1px solid var(--rule); cursor:pointer;
+  background:linear-gradient(180deg,#3b2844,#241830); color:var(--parch-2);
+  font-family:var(--serif); font-weight:900; font-size:1.0625rem; display:grid; place-items:center;
+  transition:transform .07s ease, box-shadow .07s ease; box-shadow:0 2px 0 rgba(0,0,0,.5);
+}
+.rank:hover{color:var(--brass-hi);}
+.opt.playing .rank{transform:translateY(2px); box-shadow:0 0 0 rgba(0,0,0,.5);}
+.opt-txt{min-width:0;}
+.opt-name{font-weight:600; font-size:.9375rem; color:var(--parch);}
+.opt-name .tag{
+  font-size:.5625rem; text-transform:uppercase; letter-spacing:.12em; font-weight:700;
+  color:var(--brass-hi); border:1px solid rgba(217,166,75,.35); border-radius:4px;
+  padding:2px 6px; margin-left:8px; vertical-align:1px;
+}
+.opt-desc{font-size:.8125rem; color:var(--dim); margin-top:1px;}
+.opt-acts{display:flex; gap:6px; align-items:center;}
+.mini{
+  border:1px solid var(--rule); background:transparent; color:var(--faint); cursor:pointer;
+  border-radius:6px; font-size:.6875rem; font-family:var(--sans); font-weight:600; padding:5px 9px;
+  letter-spacing:.05em; transition:color .15s, border-color .15s;
+}
+.mini:hover{color:var(--brass-hi); border-color:var(--brass-dk);}
+.mini.on{color:#2a1c0a; background:var(--brass); border-color:var(--brass);}
+
+/* ── Ledger ───────────────────────────────────────────────── */
+.ledger{margin-top:74px; padding-top:34px; border-top:1px solid var(--rule);}
+.ledger h2{font-family:var(--serif); font-weight:900; font-size:1.75rem; margin:0 0 .3em;}
+.ledger p{color:var(--dim); margin:0 0 18px; max-width:62ch; font-size:.9375rem;}
+pre.out{
+  font-family:var(--mono); font-size:.8125rem; line-height:1.75; color:var(--parch-2);
+  background:rgba(0,0,0,.3); border:1px solid var(--rule); border-radius:10px;
+  padding:18px 20px; overflow-x:auto; margin:0 0 14px; white-space:pre;
+}
+pre.out .k{color:var(--brass-hi);}
+pre.out .c{color:var(--faint);}
+
+/* ── Sounded-already note ─────────────────────────────────── */
+.already{
+  margin-top:56px; padding:22px 24px; border:1px solid var(--rule-soft); border-radius:12px;
+  background:rgba(0,0,0,.18);
+}
+.already h3{font-family:var(--serif); font-weight:700; font-size:1.125rem; margin:0 0 .4em;}
+.already p{margin:0 0 12px; color:var(--dim); font-size:.875rem; max-width:66ch;}
+.already ul{margin:0; padding-left:1.1em; color:var(--parch-2); font-size:.875rem; columns:2; column-gap:38px;}
+.already li{margin:0 0 4px; break-inside:avoid;}
+.already code{font-family:var(--mono); font-size:.75rem; color:var(--brass-hi);}
+
+footer{margin-top:70px; padding-top:22px; border-top:1px solid var(--rule); color:var(--faint); font-size:.8125rem;}
+
+@media (max-width:900px){
+  .cols{grid-template-columns:1fr; gap:34px;}
+  .rail{position:static; max-height:none; display:none;}
+  .wrap{padding:0 18px 70px;}
+  .already ul{columns:1;}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition-duration:.01ms !important; animation-duration:.01ms !important;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <div class="eyebrow">Great Work · audio audit</div>
+    <h1>Sound Specimen<br><span class="amp">Sheet</span></h1>
+    <p class="dek">Twenty moments in the print house that pass in silence — every one of them a place where the ear expects
+    something and gets nothing. Each has <b>five candidates</b> to strike and compare, built from the same three
+    primitives as the sounds already in the game: <code>blip</code>, <code>knock</code>, <code>grit</code>.
+    The first candidate in each rank is my pick. Choose as you go; the ledger at the foot compiles what you chose.</p>
+    <div class="tally">
+      <div><span class="num" id="tSilent">20</span><span class="lab">silent moments</span></div>
+      <div><span class="num" id="tOpts">100</span><span class="lab">candidates</span></div>
+      <div><span class="num" id="tPicked">0</span><span class="lab">chosen so far</span></div>
+    </div>
+  </header>
+
+  <!-- The composing bench: judge the frequent sounds where they actually happen -->
+  <section class="bench" aria-label="Composing bench">
+    <div class="bench-head">
+      <div>
+        <div class="eyebrow">Try them in place</div>
+        <p>Tap a tile to set it in the groove, tap it again to take it back. The bench uses whatever you have
+        chosen for <em>Set</em>, <em>Take back</em>, <em>Shuffle</em> and <em>Clear</em> — so you can hear a
+        candidate at the pace you'd actually meet it, not one strike at a time.</p>
+      </div>
+    </div>
+    <div class="groove" id="groove" role="list" aria-label="Word groove"></div>
+    <div class="rack" id="rack" role="list" aria-label="Tile rack"></div>
+    <div class="bench-actions">
+      <button class="btn" id="bShuffle">Shuffle</button>
+      <button class="btn" id="bClear">Clear</button>
+      <button class="btn btn--brass" id="bReset">Reset the bench</button>
+    </div>
+  </section>
+
+  <div class="cols">
+    <nav class="rail" id="rail" aria-label="Index of silent moments"></nav>
+    <main id="sheet"></main>
+  </div>
+
+  <section class="already">
+    <h3>Already sounded — left alone</h3>
+    <p>For completeness, these are the moments that <em>do</em> have a voice today, so nothing below duplicates them.
+    Scoring in particular is richly scored already; the gap is almost entirely in the quiet minute before you press Print.</p>
+    <ul>
+      <li>Drawing and landing a tile — <code>draw</code>, <code>land</code></li>
+      <li>Tiles flying to the pile — <code>discard</code>, <code>file</code></li>
+      <li>Each tile paying out, up the scale — <code>tick</code></li>
+      <li>A colour lighting — <code>chime</code></li>
+      <li>×Mult engaging — <code>mult</code></li>
+      <li>A patron leaning in — <code>aura</code></li>
+      <li>Coins — <code>coin</code>; a refund or a return — <code>gain</code></li>
+      <li>The press winding and coming down — <code>crank</code>, <code>total</code></li>
+      <li>Page cleared — <code>win</code>; run lost — <code>lose</code></li>
+      <li>A word refused, an editor taking the desk — <code>bad</code></li>
+      <li>A tile burnt — <code>burn</code></li>
+      <li>Buying, selling, rerolling, Colophon picks, Chamber tabs</li>
+      <li>Binning a sundry at the bench — <code>discard</code></li>
+    </ul>
+  </section>
+
+  <section class="ledger">
+    <h2>Your ledger</h2>
+    <p>Everything you chose above, in the order the game would need it. Hand this back and I'll write the picks into
+    <code>js/anim.js</code> and wire each call site.</p>
+    <pre class="out" id="out"></pre>
+    <div class="bench-actions">
+      <button class="btn btn--brass" id="bCopy">Copy the ledger</button>
+      <button class="btn" id="bClearPicks">Clear all choices</button>
+    </div>
+  </section>
+
+  <footer>
+    Struck live in the browser — no audio files. Every candidate is written against the existing synth in
+    <code>js/anim.js</code>, so whatever you pick drops straight into <code>export const sfx</code>.
+  </footer>
+</div>
+
+<script>
+/* ═══ The synth, ported verbatim from js/anim.js ═══════════════════════════ */
+let _ac=null,_bus=null,_noise=null;
+function ac(){
+  try{
+    _ac ??= new (window.AudioContext||window.webkitAudioContext)();
+    if(_ac.state==='suspended') _ac.resume();
+    return _ac;
+  }catch{ return null; }
+}
+function bus(ctx){
+  if(!_bus){
+    const comp=ctx.createDynamicsCompressor();
+    comp.threshold.value=-20; comp.knee.value=18; comp.ratio.value=6;
+    comp.attack.value=0.002; comp.release.value=0.14;
+    const master=ctx.createGain(); master.gain.value=0.6;
+    comp.connect(master); master.connect(ctx.destination);
+    _bus=comp;
+  }
+  return _bus;
+}
+const beat = s => s;
+
+function blip(freq,{time=0.08,type='triangle',gain=0.09,when=0,slide=0}={}){
+  const ctx=ac(); if(!ctx) return;
+  const t0=ctx.currentTime+beat(when);
+  const osc=ctx.createOscillator(), g=ctx.createGain();
+  osc.type=type; osc.frequency.setValueAtTime(freq,t0);
+  if(slide) osc.frequency.exponentialRampToValueAtTime(Math.max(40,freq+slide),t0+time);
+  g.gain.setValueAtTime(0,t0);
+  g.gain.linearRampToValueAtTime(gain,t0+0.008);
+  g.gain.exponentialRampToValueAtTime(0.0008,t0+time);
+  osc.connect(g).connect(bus(ctx)); osc.start(t0); osc.stop(t0+time+0.05);
+}
+function knock(freq,{time=0.09,gain=0.3,when=0,type='sine',drop=0.45}={}){
+  const ctx=ac(); if(!ctx) return;
+  const t0=ctx.currentTime+beat(when);
+  const osc=ctx.createOscillator(), g=ctx.createGain();
+  osc.type=type; osc.frequency.setValueAtTime(freq,t0);
+  osc.frequency.exponentialRampToValueAtTime(Math.max(30,freq*drop),t0+time);
+  g.gain.setValueAtTime(0,t0);
+  g.gain.linearRampToValueAtTime(gain,t0+0.003);
+  g.gain.exponentialRampToValueAtTime(0.0008,t0+time);
+  osc.connect(g).connect(bus(ctx)); osc.start(t0); osc.stop(t0+time+0.05);
+}
+function grit({time=0.06,gain=0.25,when=0,band=0,q=1,sweep=0,low=0,attack=0.002}={}){
+  const ctx=ac(); if(!ctx) return;
+  if(!_noise){
+    _noise=ctx.createBuffer(1,Math.ceil(ctx.sampleRate*0.5),ctx.sampleRate);
+    const d=_noise.getChannelData(0);
+    for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1;
+  }
+  const t0=ctx.currentTime+beat(when);
+  const src=ctx.createBufferSource(); src.buffer=_noise; src.loop=true;
+  const g=ctx.createGain();
+  g.gain.setValueAtTime(0,t0);
+  g.gain.linearRampToValueAtTime(gain,t0+attack);
+  g.gain.exponentialRampToValueAtTime(0.0008,t0+time);
+  let node=src;
+  if(band){
+    const f=ctx.createBiquadFilter(); f.type='bandpass';
+    f.frequency.setValueAtTime(band,t0); f.Q.value=q;
+    if(sweep) f.frequency.exponentialRampToValueAtTime(Math.max(60,band+sweep),t0+time);
+    node.connect(f); node=f;
+  }
+  if(low){
+    const f=ctx.createBiquadFilter(); f.type='lowpass'; f.frequency.value=low;
+    node.connect(f); node=f;
+  }
+  node.connect(g).connect(bus(ctx));
+  src.start(t0,Math.random()*0.4); src.stop(t0+time+0.05);
+}
+function clack(freq,{gain=1,when=0,snap=2600}={}){
+  knock(freq*(0.96+Math.random()*0.08),{time:0.07,gain:0.32*gain,when});
+  grit({time:0.035,gain:0.26*gain,when,band:snap,q:0.9});
+}
+const SCALE=[523,587,659,784,880,1047,1175,1319,1568,1760,2093,2349];
+const sc = i => SCALE[Math.min(i,SCALE.length-1)];
+
+/* ═══ The specimen sheet ═══════════════════════════════════════════════════ */
+const SECTIONS=[
+  {n:'I', t:'Composing the word',
+   d:'The minute you spend before pressing Print. It is the most-repeated part of the game and, at present, the only part played in complete silence.'},
+  {n:'II', t:'Discarding and the workbench',
+   d:'Two modes that arm, take selections, and spend. The spending has a voice; the arming and the selecting have none — which is exactly where the doubt about whether a tap registered lives.'},
+  {n:'III', t:'The shelf',
+   d:'Seat order is a rule of precedence, and a dismissal pays real Coins. Both changes are currently made in silence.'},
+  {n:'IV', t:'Reading and the sheets',
+   d:'Six full-screen sheets open and close with no sound at all — the largest scene changes in the game are the quietest.'},
+  {n:'V', t:'The page’s own rhythm',
+   d:'Two beats that mark where you are, rather than what you did.'},
+];
+
+const SLOTS=[
+/* ─── I · Composing ────────────────────────────────────────────────────── */
+{sec:0, id:'place', name:'Set a tile in the groove', code:'sfx.place()', repeat:5,
+ gap:'The single most frequent act in the game. Tap a rack tile, type its letter, or drag it into the groove, and the type simply appears — no strike, no seat. The tile’s arrival from the bag has a sound (land); its arrival in the word does not.',
+ fires:[['js/drag.js:168','tap a rack tile'],['js/drag.js:127','drag and drop into the groove'],['js/main.js:1371','type the letter on a keyboard']],
+ opts:[
+  {n:'Set in the stick',d:'Tighter and higher than the rack’s clack, with a brass edge — type seated into the composing stick, not dropped on wood.',
+   f:()=>{clack(300,{gain:.55,snap:3400}); grit({time:.014,gain:.07,band:5200,q:1.2});}},
+  {n:'Nick and seat',d:'A hair of scrape as the nick finds its place, then the seat. Two-part, so it reads as deliberate rather than dropped.',
+   f:()=>{grit({time:.018,gain:.1,band:3000,q:2,sweep:900}); knock(260,{time:.05,gain:.22,when:.014});}},
+  {n:'Wooden tap',d:'All body, no snap — warmer and rounder, closer to the existing land. Safest, least distinct.',
+   f:()=>{knock(190,{time:.06,gain:.26,drop:.5}); grit({time:.02,gain:.08,low:1800});}},
+  {n:'The note it will pay',d:'The seat, plus a very quiet note one step up the scoring scale per letter — composing hums the tune the word is about to be paid.',
+   f:(i=0)=>{clack(250,{gain:.42,snap:3000}); blip(sc(i),{time:.05,type:'sine',gain:.045});}},
+  {n:'Felt-lined',d:'Nearly nothing — a soft press. Restful over a long session, but it may read as no feedback at all.',
+   f:()=>{knock(150,{time:.05,gain:.18,drop:.4}); grit({time:.03,gain:.07,low:700,attack:.004});}},
+ ]},
+
+{sec:0, id:'retrieve', name:'Take a tile back to the rack', code:'sfx.retrieve()', repeat:4,
+ gap:'The undo of the act above, and just as constant — tapping a tile in the groove, pressing Backspace, or dragging one home. It needs to be audibly the reverse of Set, not a second version of it.',
+ fires:[['js/drag.js:170','tap a tile in the groove'],['js/drag.js:131','drag back to the rack'],['js/main.js:1358','Backspace']],
+ opts:[
+  {n:'Lifted out',d:'A short pull of air and a body that rises in pitch instead of falling — the exact inverse of a seat.',
+   f:()=>{grit({time:.035,gain:.12,band:1800,q:1.2,sweep:1400}); knock(230,{time:.045,gain:.16,drop:1.4});}},
+  {n:'Reversed clack',d:'The snap arrives first and the body follows it — the game’s own signature sound played backwards.',
+   f:()=>{grit({time:.02,gain:.14,band:2600,q:1}); knock(200,{time:.05,gain:.18,when:.02,drop:1.2});}},
+  {n:'A small undo',d:'Two soft notes stepping down — the mirror of the existing gain(), so the pair reads as yes and no.',
+   f:()=>{blip(880,{time:.06,type:'sine',gain:.055}); blip(660,{time:.09,type:'sine',gain:.055,when:.045});}},
+  {n:'Paper slide',d:'Pure air, no body at all. Disappears completely under a fast hand — which may be the point.',
+   f:()=>{grit({time:.07,gain:.11,band:1200,q:.6,sweep:900});}},
+  {n:'The same clack, lower',d:'One line of code: the seat, pitched down. Cheapest, and honest — the same act in reverse.',
+   f:()=>{clack(150,{gain:.6});}},
+ ]},
+
+{sec:0, id:'reorder', name:'Slide a tile to a new place in the row', code:'sfx.reorder()', repeat:3,
+ gap:'Dragging a tile within the groove or the rack changes the word without changing its letters. Nothing marks the landing, so a reorder and a failed drag sound identical — that is, silent.',
+ fires:[['js/drag.js:128','reorder within the word'],['js/drag.js:132','reorder within the rack']],
+ opts:[
+  {n:'Slid and seated',d:'A short slide across the stone that ends in a soft seat — movement, then arrival.',
+   f:()=>{grit({time:.06,gain:.1,band:1600,q:.8,sweep:-700}); knock(180,{time:.04,gain:.14,when:.045,drop:.6});}},
+  {n:'Out and in',d:'Two light clacks a breath apart — lifted from one slot, dropped into another.',
+   f:()=>{clack(230,{gain:.32}); clack(230,{gain:.4,when:.07});}},
+  {n:'Just the seat',d:'Identical to Set, unmodified. Zero new code — but it makes a reorder sound like a new letter.',
+   f:()=>{clack(250,{gain:.5,snap:3000});}},
+  {n:'A spacer dropping',d:'One dry, high tick with no body at all — mechanical, clearly not a letter.',
+   f:()=>{grit({time:.012,gain:.16,band:3800,q:3});}},
+  {n:'Wood on wood',d:'A dull shove. Low and cheap-sounding on purpose — a reorder is housekeeping, not an act.',
+   f:()=>{knock(160,{time:.07,gain:.24,drop:.7}); grit({time:.03,gain:.1,low:1200});}},
+ ]},
+
+{sec:0, id:'lift', name:'Pick a tile up (a drag begins)', code:'sfx.lift()', repeat:0,
+ gap:'The ghost tile appears under the pointer with no acknowledgement. On touch especially, there is no confirmation that the drag threshold was crossed until you see the clone — which is under your own thumb.',
+ fires:[['js/drag.js:107','startDrag() — the ghost is made'],['js/drag.js:230','the 8px threshold is crossed']],
+ opts:[
+  {n:'Picked up',d:'The faintest possible catch of air. Small enough to survive being heard hundreds of times.',
+   f:()=>{grit({time:.025,gain:.08,band:2400,q:1.5,sweep:1200});}},
+  {n:'A tick of suction',d:'One tiny rising pip — pitched, so it reads as an event rather than a rustle.',
+   f:()=>{blip(520,{time:.03,type:'sine',gain:.05,slide:280});}},
+  {n:'Held',d:'A low swell that says something is in hand and stays there. The only candidate with any duration.',
+   f:()=>{grit({time:.12,gain:.05,low:600,attack:.06});}},
+  {n:'Lifted clear',d:'A body rising off the stone — the same gesture as Take back, made smaller.',
+   f:()=>{knock(280,{time:.03,gain:.12,drop:1.5});}},
+  {n:'Leave it silent',d:'A defensible answer. The drop already speaks, and a sound on every threshold crossing risks chatter.',
+   f:()=>{}},
+ ]},
+
+{sec:0, id:'clear', name:'Clear the whole word', code:'sfx.clear()', repeat:0,
+ gap:'Esc, or the Clear button, sends every tile in the groove home at once — the largest single state change you can make with one keystroke, and it makes no sound whatsoever.',
+ fires:[['js/main.js:1353','Escape'],['js/main.js:1380','the Clear button'],['js/state.js:615','clearWord()']],
+ opts:[
+  {n:'A run home',d:'One quiet clack per tile, staggered and capped at five — it scales with the word, so a long clear sounds long.',
+   f:()=>{const n=4+Math.floor(Math.random()*2); for(let i=0;i<n;i++) clack(200+Math.random()*70,{gain:.34,when:i*.045});}},
+  {n:'Swept off the stone',d:'A falling sweep of air, then the pile taking it — the existing discard, given weight and an ending.',
+   f:()=>{grit({time:.14,gain:.18,band:1400,q:.6,sweep:-1000}); knock(140,{time:.07,gain:.2,when:.09,drop:.5});}},
+  {n:'Dropped in a heap',d:'One dull collapse. Reads as undoing something, not tidying it.',
+   f:()=>{knock(120,{time:.12,gain:.35,drop:.45}); grit({time:.09,gain:.2,low:900});}},
+  {n:'One dry sweep',d:'Air alone, no impact at all. Quiet enough to use on every Esc without wearing.',
+   f:()=>{grit({time:.16,gain:.15,low:2400,attack:.01});}},
+  {n:'Undone',d:'Two falling notes over a knock — an explicit little negation rather than a physical one.',
+   f:()=>{blip(660,{time:.09,type:'sine',gain:.06}); blip(440,{time:.12,type:'sine',gain:.06,when:.055}); knock(130,{time:.08,gain:.2,when:.05,drop:.5});}},
+ ]},
+
+{sec:0, id:'shuffle', name:'Shuffle the rack', code:'sfx.shuffle()', repeat:0,
+ gap:'Space, or the Shuffle button, re-deals the whole hand in place. Seven tiles visibly rearrange and the room stays silent — the most obviously missing sound in the game.',
+ fires:[['js/main.js:1356','the space bar'],['js/main.js:1382','the Shuffle button'],['js/state.js:619','shuffleRack()']],
+ opts:[
+  {n:'Tiles tumbling',d:'Six or seven quiet clacks at random pitches over a fifth of a second — sorts turned over in the hand.',
+   f:()=>{const n=6+Math.floor(Math.random()*2); for(let i=0;i<n;i++) clack(150+Math.random()*180,{gain:.26+Math.random()*.14,when:i*.028+Math.random()*.014});}},
+  {n:'A riffle',d:'Dense high ticks, no pitched body — faster and drier, more card table than type case.',
+   f:()=>{for(let i=0;i<9;i++) grit({time:.012,gain:.09,band:2000+Math.random()*2400,q:2,when:i*.021});}},
+  {n:'The bag shaken',d:'One long muffled rattle with a couple of bodies inside it. Reads as a mass, not as tiles.',
+   f:()=>{grit({time:.24,gain:.15,low:2600,attack:.02}); knock(150,{time:.06,gain:.16,when:.05,drop:.6}); knock(190,{time:.06,gain:.14,when:.14,drop:.6});}},
+  {n:'Three slugs',d:'Just three clacks — low, high, mid. Restrained, and it will not fatigue on the tenth press.',
+   f:()=>{clack(150,{gain:.42}); clack(310,{gain:.38,when:.055}); clack(215,{gain:.4,when:.105});}},
+  {n:'A wooden roll',d:'A pitch-swept train of knocks — the case tipped and righted.',
+   f:()=>{for(let i=0;i<7;i++) knock(130+i*26,{time:.04,gain:.2,when:i*.026,drop:.6});}},
+ ]},
+
+{sec:0, id:'flip', name:'Turn a dual tile over', code:'sfx.flip()', repeat:0,
+ gap:'Right-clicking a dual tile, or pressing Flip in its popover, swaps which face it plays. The letter changes under your eye with nothing to mark it — easy to do by accident and not notice.',
+ fires:[['js/drag.js:218','right-click a dual tile'],['js/main.js:2086','the Flip button in the popover']],
+ opts:[
+  {n:'Turned over',d:'A flick of air, then the other face landing. The two halves make the turn legible.',
+   f:()=>{grit({time:.03,gain:.1,band:2800,q:1.4,sweep:-1200}); clack(260,{gain:.45,when:.028});}},
+  {n:'Two-tone',d:'A rising pip and then the seat — pitched, so it says the tile is now something else.',
+   f:()=>{blip(660,{time:.05,type:'sine',gain:.06,slide:180}); clack(240,{gain:.4,when:.04});}},
+  {n:'Spun',d:'A high falling shimmer, like a coin caught. The most decorative of the five.',
+   f:()=>{blip(1200,{time:.07,type:'sine',gain:.05,slide:-320}); grit({time:.015,gain:.06,band:4800,q:1.2,when:.03});}},
+  {n:'The seat, pitched up',d:'Just Set, higher. One line, and it stays inside the existing vocabulary.',
+   f:()=>{clack(340,{gain:.5,snap:3600});}},
+  {n:'A card snap',d:'Snap only, no body — sharp and immediate, and unlike anything else on the board.',
+   f:()=>{grit({time:.02,gain:.2,band:3600,q:1.2});}},
+ ]},
+
+/* ─── II · Discarding and the workbench ────────────────────────────────── */
+{sec:1, id:'select', name:'Mark a tile', code:'sfx.select()', repeat:4,
+ gap:'In discard mode, and whenever a tool is armed, tapping a tile marks it. This is the one you named: the selection itself is silent, and the only feedback is a border you may have your thumb over.',
+ fires:[['js/drag.js:164','toggleSelected() — marked for discard'],['js/drag.js:149','toggleSundrySelect() — picked as a tool’s target']],
+ opts:[
+  {n:'Marked up',d:'A small bright tick with a scratch of graphite under it — a mark made on the page.',
+   f:()=>{blip(1175,{time:.05,type:'sine',gain:.07}); grit({time:.012,gain:.07,band:4200,q:1.2});}},
+  {n:'A pencil tick',d:'Graphite only, no pitch. Utterly plain, and it will never clash with the scoring scale.',
+   f:()=>{grit({time:.03,gain:.13,band:3200,q:1.6,sweep:1600});}},
+  {n:'Lifted slightly',d:'The tile rises a little in its slot — pitched up, matching how a selected tile is drawn.',
+   f:()=>{knock(240,{time:.05,gain:.2,drop:1.35});}},
+  {n:'A small yes',d:'Two notes stepping up — a miniature of the existing gain(). Warmest, and the most likely to wear.',
+   f:()=>{blip(784,{time:.04,type:'sine',gain:.06}); blip(1047,{time:.06,type:'sine',gain:.06,when:.035});}},
+  {n:'Chalk',d:'A dry high hiss. The quietest option — nearly subliminal, which suits a mark you make four times in a row.',
+   f:()=>{grit({time:.045,gain:.1,low:5200,attack:.004});}},
+ ]},
+
+{sec:1, id:'deselect', name:'Take the mark off', code:'sfx.deselect()', repeat:4,
+ gap:'The same tap again unmarks the tile. Selecting and deselecting are currently indistinguishable by ear, so a mis-tap that undoes a selection gives you nothing to notice.',
+ fires:[['js/drag.js:164','toggleSelected() returning ‘off’'],['js/drag.js:149','toggleSundrySelect() returning ‘off’']],
+ opts:[
+  {n:'Unmarked',d:'The mark’s own note, bent downward. Pairs unmistakably with whatever you chose above.',
+   f:()=>{blip(880,{time:.05,type:'sine',gain:.055,slide:-160}); grit({time:.012,gain:.05,band:3000,q:1.2});}},
+  {n:'Rubbed out',d:'Graphite in reverse — the sweep falls instead of rising.',
+   f:()=>{grit({time:.03,gain:.11,band:3200,q:1.6,sweep:-1400});}},
+  {n:'Set back down',d:'The tile settles back into its slot. The physical mirror of Lifted slightly.',
+   f:()=>{knock(240,{time:.05,gain:.18,drop:.7});}},
+  {n:'A small no',d:'Two notes stepping down — the mirror of A small yes.',
+   f:()=>{blip(1047,{time:.04,type:'sine',gain:.06}); blip(784,{time:.06,type:'sine',gain:.06,when:.035});}},
+  {n:'The same as marking',d:'One sound for both directions. Cheapest — and it tells you a tap landed, if not which way.',
+   f:()=>{blip(1175,{time:.05,type:'sine',gain:.07}); grit({time:.012,gain:.07,band:4200,q:1.2});}},
+ ]},
+
+{sec:1, id:'arm', name:'Arm a mode — Discard, or a tool taken up', code:'sfx.arm()', repeat:0,
+ gap:'Pressing Discard, or tapping a sundry on the bench, puts the board into a mode where taps mean something different. That is a significant change in what the game will do next, announced only by a line in the status bar.',
+ fires:[['js/main.js:1272','discard mode armed'],['js/main.js:1725','a sundry armed — tube, ratchet, loupe, tongs']],
+ opts:[
+  {n:'A latch thrown',d:'Two dry clicks, the second lower. Mechanical rather than musical — the clearest vocabulary for “a mode is now on”.',
+   f:()=>{grit({time:.01,gain:.18,band:3800,q:3}); grit({time:.014,gain:.15,band:2400,q:2.6,when:.052});}},
+  {n:'Taken up off the bench',d:'A body lifted, with a metal edge to it — literal for a tool, less so for discard mode.',
+   f:()=>{knock(300,{time:.07,gain:.22,drop:1.3,type:'triangle'}); grit({time:.04,gain:.1,band:3000,q:1.2,sweep:1200});}},
+  {n:'Held ready',d:'A low hum that swells and stays a moment — the only candidate that suggests a state persisting.',
+   f:()=>{blip(160,{time:.28,type:'triangle',gain:.055,slide:22}); grit({time:.22,gain:.05,low:900,attack:.1});}},
+  {n:'A bell of intent',d:'A small clear two-note bell. Pretty, but it borrows from chime(), which already means a colour lit.',
+   f:()=>{blip(880,{time:.14,type:'sine',gain:.08}); blip(1320,{time:.1,type:'sine',gain:.04,when:.03});}},
+  {n:'Tool on the stone',d:'A firm heavy set-down. Good weight; arguably reads as putting down rather than taking up.',
+   f:()=>{knock(180,{time:.08,gain:.3,drop:.5}); grit({time:.03,gain:.14,band:1200,q:1});}},
+ ]},
+
+{sec:1, id:'disarm', name:'Cancel the mode — the tool goes back', code:'sfx.disarm()', repeat:0,
+ gap:'Esc, Clear, or a second press on an armed tool takes the board out of the mode. The mirror of Arm, and equally silent.',
+ fires:[['js/main.js:143','cancelDiscardMode()'],['js/main.js:154','cancelSundryMode()']],
+ opts:[
+  {n:'The latch released',d:'The two clicks in reverse, and something set down after them. Pairs directly with A latch thrown.',
+   f:()=>{grit({time:.012,gain:.14,band:2400,q:2.6}); grit({time:.01,gain:.12,band:3600,q:3,when:.04}); knock(150,{time:.06,gain:.16,when:.06,drop:.55});}},
+  {n:'Back on the bench',d:'One soft wooden set-down. Warm and unfussy.',
+   f:()=>{knock(150,{time:.07,gain:.24,drop:.55}); grit({time:.035,gain:.1,low:900});}},
+  {n:'The hum stops',d:'A short falling tone — a state ending. Pairs with Held ready.',
+   f:()=>{blip(220,{time:.1,type:'triangle',gain:.055,slide:-72});}},
+  {n:'Waved off',d:'A brief fall of air, no impact. Barely there, which suits a cancellation.',
+   f:()=>{grit({time:.07,gain:.1,band:900,q:.8,sweep:-500});}},
+  {n:'Leave it silent',d:'Cancelling is already visible in the button label and the status line. Defensible.',
+   f:()=>{}},
+ ]},
+
+{sec:1, id:'nudge', name:'A tap the board will not take', code:'sfx.nudge()', repeat:0,
+ gap:'Cursed and lent tiles refuse to be discarded; a tool refuses a second target, or a ghost, or a ligature. Every one of these writes a warning to the status bar and plays nothing. bad() exists but is the press jamming on a whole word — too heavy for a single refused tap.',
+ fires:[['js/drag.js:150-154','“one tile at a time”, “a lent tile takes no paint”, and the rest'],['js/drag.js:165-166','a cursed or lent tile refusing to be discarded']],
+ opts:[
+  {n:'One dead knock',d:'Half of the existing bad() — the same refusal, at a single tap’s scale. Consistent by construction.',
+   f:()=>{knock(150,{time:.08,gain:.2,drop:.6}); grit({time:.03,gain:.08,low:700});}},
+  {n:'Muffled on felt',d:'A soft dead thump. Says no without accusing you of anything.',
+   f:()=>{knock(110,{time:.09,gain:.22,drop:.4}); grit({time:.05,gain:.1,low:400,attack:.005});}},
+  {n:'A short buzz',d:'A low sawtooth blat. Unambiguous, and the least in keeping with the print house.',
+   f:()=>{blip(180,{time:.08,type:'sawtooth',gain:.055,slide:-34});}},
+  {n:'A tick and a sigh',d:'The tap registers, and then deflates. The gentlest of the five.',
+   f:()=>{grit({time:.012,gain:.12,band:2400,q:2}); blip(300,{time:.1,type:'sine',gain:.035,when:.02,slide:-90});}},
+  {n:'Reuse bad()',d:'The existing jam, unchanged. Zero new code — but heavy enough that a mis-tap feels like a real error.',
+   f:()=>{knock(160,{time:.08,gain:.28,drop:.6}); knock(110,{time:.12,gain:.32,drop:.55,when:.09}); grit({time:.05,gain:.12,low:600,when:.09});}},
+ ]},
+
+/* ─── III · The shelf ──────────────────────────────────────────────────── */
+{sec:2, id:'seat', name:'A patron takes a new seat', code:'sfx.seat()', repeat:0,
+ gap:'Dragging a card along the shelf changes the running order, and the running order decides which of two hungry patrons gets first refusal on a discarded tile. A real mechanical decision, landing without a sound.',
+ fires:[['js/drag.js:294','reorderPatrons() on drop'],['js/state.js:1349','reorderPatrons() — the order scoring reads']],
+ opts:[
+  {n:'A chair pulled in',d:'A low body, a scrape of upholstery, and the faintest note of someone settling. Warm and human.',
+   f:()=>{knock(110,{time:.12,gain:.32,drop:.6}); grit({time:.07,gain:.14,low:600,attack:.006}); blip(330,{time:.1,type:'sine',gain:.04,when:.03});}},
+  {n:'Card on the baize',d:'A slide and a soft landing — it is a card, after all, not a person.',
+   f:()=>{grit({time:.05,gain:.16,band:1100,q:.7,sweep:-600}); knock(160,{time:.05,gain:.18,when:.03,drop:.6});}},
+  {n:'The stamp of precedence',d:'A firm authoritative thud. Suits the fact that this decides who acts first.',
+   f:()=>{knock(140,{time:.1,gain:.4,drop:.4}); grit({time:.04,gain:.2,band:2000,q:.8});}},
+  {n:'A small bell',d:'The lowest step of the existing chime(). Consistent, but it means “colour lit” elsewhere.',
+   f:()=>{grit({time:.02,gain:.1,band:4000,q:1}); blip(660,{time:.22,type:'sine',gain:.12}); blip(990,{time:.2,type:'sine',gain:.07,when:.05});}},
+  {n:'Settled',d:'Two notes falling into place, no impact at all. The quietest way to confirm a reorder.',
+   f:()=>{blip(392,{time:.1,type:'sine',gain:.07}); blip(330,{time:.14,type:'sine',gain:.06,when:.06});}},
+ ]},
+
+{sec:2, id:'dismiss', name:'A patron departs — or a ghost is let go', code:'sfx.dismiss()', repeat:0,
+ gap:'The ✕ on a card returns Coins to the purse and takes a seat off the shelf. Buying a patron plays coin(); dismissing one — which pays you — plays nothing at all. A ghost, which pays nothing, is just as silent.',
+ fires:[['js/main.js:1814','dismissPatron() — the refund is paid in silence'],['js/main.js:1840','a ghost let go from the graveyard']],
+ opts:[
+  {n:'Paid off, and gone',d:'The coin chink, and a departure falling away behind it. Both halves of what actually happened.',
+   f:()=>{grit({time:.015,gain:.1,band:5600,q:.9}); blip(1568,{time:.05,type:'sine',gain:.1}); blip(2352,{time:.07,type:'sine',gain:.05,when:.008}); grit({time:.13,gain:.1,band:1400,q:.7,sweep:-900,when:.05});}},
+  {n:'The door',d:'A heavy low close. No money in it — which makes it the better fit for a ghost.',
+   f:()=>{knock(100,{time:.14,gain:.3,drop:.5}); grit({time:.09,gain:.16,low:500});}},
+  {n:'Just the coin',d:'The existing coin(), unchanged. The refund is the news; the departure is on screen.',
+   f:()=>{grit({time:.015,gain:.1,band:5600,q:.9}); blip(1568,{time:.05,type:'sine',gain:.1}); blip(2352,{time:.07,type:'sine',gain:.05,when:.008});}},
+  {n:'A curtain drawn',d:'One long soft fall of air. Elegiac — better suited to the graveyard than the shelf.',
+   f:()=>{grit({time:.2,gain:.11,band:900,q:.5,sweep:-520,attack:.02});}},
+  {n:'Thanked and shown out',d:'A polite descending pair over the coin — the most ceremonious option.',
+   f:()=>{blip(660,{time:.1,type:'sine',gain:.07}); blip(494,{time:.16,type:'sine',gain:.06,when:.07}); grit({time:.015,gain:.08,band:5600,q:.9,when:.02});}},
+ ]},
+
+/* ─── IV · Reading and the sheets ──────────────────────────────────────── */
+{sec:3, id:'inspect', name:'A popover opens', code:'sfx.inspect()', repeat:0,
+ gap:'Long-pressing a tile, tapping a patron card, or hovering a shop offer opens the detail popover. Touch gets a 12ms vibration and nothing else; a mouse gets nothing at all.',
+ fires:[['js/drag.js:69','the long-press timer fires'],['js/main.js:1865','tapping a patron card'],['js/drag.js:430','hovering an offer in a sheet']],
+ note:'Worth splitting: hover is exploratory and should probably stay silent — a sound on every passing cursor would nag. Long-press and tap are deliberate and can afford one.',
+ opts:[
+  {n:'The loupe comes down',d:'A tiny cold tap of glass. Distinct from every wooden sound on the board.',
+   f:()=>{blip(2093,{time:.08,type:'sine',gain:.045}); grit({time:.012,gain:.05,band:6000,q:1});}},
+  {n:'Paper lifted',d:'A short rising rustle — a slip picked up to be read.',
+   f:()=>{grit({time:.05,gain:.08,band:2000,q:.8,sweep:1200});}},
+  {n:'Opened',d:'One soft rising tone. The most conventional “panel appeared” sound of the five.',
+   f:()=>{blip(660,{time:.1,type:'sine',gain:.05,slide:120});}},
+  {n:'A page turned',d:'A dry high swell with no pitch at all. Sits behind the eye rather than in front of it.',
+   f:()=>{grit({time:.08,gain:.09,low:3200,attack:.008});}},
+  {n:'Leave it silent',d:'Inspecting is reading, not acting. This is the option I would take for hover regardless.',
+   f:()=>{}},
+ ]},
+
+{sec:3, id:'sheetOpen', name:'A sheet rises', code:'sfx.sheetOpen()', repeat:0,
+ gap:'The Market, the Colophon, the Black Market, the manuscript, the bag and discard inspectors, the graveyard, Settings, the Chamber — nine full-screen sheets, all of which open in total silence. These are the biggest scene changes in the game.',
+ fires:[['js/main.js:1172','the Market opens after a page'],['js/main.js:1147','the Colophon'],['js/render.js:1251','the bag and discard inspectors'],['js/render.js:1301','the manuscript'],['js/render.js:594','the graveyard']],
+ opts:[
+  {n:'The great book opened',d:'Boards parting, paper swelling, and something heavy settling flat. Best fit for the manuscript and the Market alike.',
+   f:()=>{grit({time:.24,gain:.14,low:1800,attack:.03}); knock(90,{time:.16,gain:.22,drop:.6,when:.06});}},
+  {n:'A drawer pulled',d:'A wooden slide that ends in a stop. Literal for the bag and discard inspectors.',
+   f:()=>{grit({time:.16,gain:.13,band:900,q:.7,sweep:600}); knock(130,{time:.07,gain:.2,when:.13,drop:.6});}},
+  {n:'The curtain up',d:'A rising swell over a rising tone — theatrical, and probably too much for Settings.',
+   f:()=>{grit({time:.26,gain:.1,band:700,q:.5,sweep:1600,attack:.1}); blip(180,{time:.28,type:'triangle',gain:.05,slide:90});}},
+  {n:'The shutter open',d:'Two knocks, quick and businesslike. Fast enough not to hold the sheet up.',
+   f:()=>{knock(170,{time:.06,gain:.26,drop:.6}); knock(220,{time:.07,gain:.22,drop:.6,when:.075});}},
+  {n:'Brass latch and swing',d:'A click and then air moving. The most “shop door” of the five.',
+   f:()=>{grit({time:.014,gain:.16,band:3600,q:2.6}); grit({time:.2,gain:.1,low:1400,attack:.05,when:.03});}},
+ ]},
+
+{sec:3, id:'sheetClose', name:'A sheet drops away', code:'sfx.sheetClose()', repeat:0,
+ gap:'Every one of those sheets closes as quietly as it opened — including leaving the fair, which is the moment the next page begins.',
+ fires:[['js/main.js:1180','leaving the Market for the next page'],['js/render.js:1400','closeInspector()'],['js/main.js:1805','closing the manuscript'],['js/main.js:2127','closing Settings']],
+ opts:[
+  {n:'The book shut',d:'The clap of covers, air pushed out ahead of it. Pairs exactly with The great book opened.',
+   f:()=>{grit({time:.12,gain:.16,low:1400,attack:.005}); knock(85,{time:.14,gain:.3,drop:.5,when:.04});}},
+  {n:'Pushed home',d:'The drawer running back and stopping. Pairs with A drawer pulled.',
+   f:()=>{grit({time:.13,gain:.12,band:1500,q:.7,sweep:-800}); knock(130,{time:.06,gain:.22,when:.1,drop:.5});}},
+  {n:'Let fall',d:'A soft descent with no impact at all — the sheet simply is not there any more.',
+   f:()=>{grit({time:.16,gain:.11,band:1600,q:.6,sweep:-1100});}},
+  {n:'One low knock',d:'A single full stop. The most economical answer.',
+   f:()=>{knock(100,{time:.1,gain:.28,drop:.5});}},
+  {n:'Leave it silent',d:'If only the opening is sounded, the pair still reads. Worth hearing before you rule it out.',
+   f:()=>{}},
+ ]},
+
+{sec:3, id:'page', name:'A view changes inside a sheet', code:'sfx.page()', repeat:0,
+ gap:'Walking into a stall and back out, opening the collection, switching Market views — the whole sheet redraws with no sound. The Testing Chamber’s tabs already use draw() for exactly this, so the Market is inconsistent with the game’s own precedent.',
+ fires:[['js/sheets.js:1526','the collection opens'],['js/sheets.js:1531','back to the shop'],['js/sheets.js:1518','out of a stall after a commission'],['js/sheets.js:1605','— the Chamber tabs, which already sound']],
+ opts:[
+  {n:'A leaf turned',d:'A short falling rustle. Sits beside draw() without being it — a page, not a tile.',
+   f:()=>{grit({time:.09,gain:.1,band:2600,q:.7,sweep:-1600});}},
+  {n:'Reuse draw()',d:'The Chamber’s own answer, applied consistently. Zero new code, and defensible on precedent alone.',
+   f:()=>{grit({time:.03,gain:.12,band:2200,q:1.4,sweep:900}); blip(620,{time:.05,type:'triangle',gain:.05,slide:160});}},
+  {n:'A dry tick',d:'One click, no more. Fast — which matters when you are walking in and out of four stalls.',
+   f:()=>{grit({time:.014,gain:.12,band:3400,q:2.4});}},
+  {n:'Slid across',d:'A rising pip over a rustle — directional, which suits going in rather than coming out.',
+   f:()=>{blip(520,{time:.05,type:'sine',gain:.05,slide:200}); grit({time:.05,gain:.08,band:2200,q:.9,sweep:800});}},
+  {n:'Leave it silent',d:'The sheet’s open and close carry the scene change; the views inside it are just navigation.',
+   f:()=>{}},
+ ]},
+
+/* ─── V · The page's own rhythm ────────────────────────────────────────── */
+{sec:4, id:'chapter', name:'A new chapter is announced', code:'sfx.chapter()', repeat:0,
+ gap:'The page-complete banner rides on win(), and an editor taking the desk rides on bad(). The chapter banner — the largest structural beat in a run — has nothing of its own, so a new chapter opens more quietly than a single cleared page.',
+ fires:[['js/main.js:1223','the chapter banner on a new chapter'],['js/main.js:2204','the banner that opens a run']],
+ opts:[
+  {n:'A new signature',d:'A low bell and a long swell of paper under it. Structural, unhurried — a section beginning, not a prize.',
+   f:()=>{blip(196,{time:.5,type:'triangle',gain:.075}); blip(294,{time:.45,type:'triangle',gain:.05,when:.09}); grit({time:.42,gain:.07,low:1700,attack:.17});}},
+  {n:'The press at rest, then a bell',d:'A heavy settle and a clear bell out of it — the shop pausing between chapters.',
+   f:()=>{knock(100,{time:.2,gain:.34,drop:.45}); grit({time:.14,gain:.16,low:700,when:.02}); blip(880,{time:.34,type:'sine',gain:.09,when:.2}); blip(1320,{time:.26,type:'sine',gain:.045,when:.24});}},
+  {n:'One struck bell',d:'A single held bell, higher up the existing chime ladder. Austere, and very cheap.',
+   f:()=>{grit({time:.02,gain:.1,band:4000,q:1}); blip(990,{time:.42,type:'sine',gain:.12}); blip(1485,{time:.36,type:'sine',gain:.07,when:.05}); blip(2732,{time:.16,type:'sine',gain:.03,when:.01});}},
+  {n:'A rising fifth',d:'Two long tones opening upward. Hopeful — arguably too hopeful for Chapter VII.',
+   f:()=>{blip(262,{time:.4,type:'triangle',gain:.08}); blip(392,{time:.5,type:'triangle',gain:.075,when:.14});}},
+  {n:'Leave it to the banner',d:'The banner already holds the screen for a beat and a third. Sound may be gilding it.',
+   f:()=>{}},
+ ]},
+
+{sec:4, id:'quotaMet', name:'The quota bar crosses its target', code:'sfx.quotaMet()', repeat:0,
+ gap:'Mid-count, the fill turns and the page is made — the moment you actually stop being in danger. It is drawn (quota-fill--done) and never sounded, so it passes underneath the scoring climb without a mark.',
+ fires:[['js/render.js:762','quota-fill--done is added'],['js/main.js:996','during the total() count-up']],
+ opts:[
+  {n:'The line filled',d:'A rising sweep that lands on a clear note — arrival, threaded under the count without stopping it.',
+   f:()=>{grit({time:.16,gain:.08,band:1200,q:.8,sweep:2400}); blip(1047,{time:.22,type:'sine',gain:.08,when:.1});}},
+  {n:'Resolved',d:'A held tone that settles onto a fifth. Musical rather than mechanical — it will sit against the scale.',
+   f:()=>{blip(784,{time:.24,type:'sine',gain:.07}); blip(1175,{time:.3,type:'sine',gain:.07,when:.1});}},
+  {n:'The gauge clicks over',d:'Three quick ticks and a small bell. Reads as an instrument reaching its mark.',
+   f:()=>{for(let i=0;i<3;i++) grit({time:.01,gain:.1,band:3200,q:2.6,when:i*.04}); blip(1319,{time:.2,type:'sine',gain:.07,when:.12});}},
+  {n:'Reuse gain()',d:'The existing “smallest possible yes”. Zero new code, and already means good news that is not money.',
+   f:()=>{blip(784,{time:.09,type:'sine',gain:.08}); blip(1047,{time:.14,type:'sine',gain:.08,when:.06}); grit({time:.015,gain:.05,band:3600,q:1});}},
+  {n:'Leave it silent',d:'total() and win() are seconds away. One more voice in that window may be one too many.',
+   f:()=>{}},
+ ]},
+];
+
+/* ═══ Render ═══════════════════════════════════════════════════════════════ */
+const RANKS=['A','B','C','D','E'];
+const $=id=>document.getElementById(id);
+let picks={};
+try{ picks=JSON.parse(localStorage.getItem('gw-sfx-picks')||'{}')||{}; }catch{ picks={}; }
+const save=()=>{ try{ localStorage.setItem('gw-sfx-picks',JSON.stringify(picks)); }catch{} };
+
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function buildSheet(){
+  const sheet=$('sheet'), rail=$('rail');
+  let html='', railHtml='';
+  SECTIONS.forEach((s,si)=>{
+    html+='<div class="sec-head"><span class="n">'+s.n+'</span><h2>'+esc(s.t)+'</h2><p>'+esc(s.d)+'</p></div>';
+    railHtml+='<h2>'+esc(s.n+' · '+s.t)+'</h2>';
+    SLOTS.filter(x=>x.sec===si).forEach(slot=>{
+      railHtml+='<a href="#s-'+slot.id+'" data-rail="'+slot.id+'"><span class="dot"></span>'+esc(slot.name)+'</a>';
+      html+='<section class="slot" id="s-'+slot.id+'">'
+        +'<div class="slot-top"><span class="slot-name">'+esc(slot.name)+' <code>'+esc(slot.code)+'</code></span></div>'
+        +'<p class="slot-gap">'+esc(slot.gap)+'</p>'
+        +'<ul class="fires">'+slot.fires.map(f=>'<li><code>'+esc(f[0])+'</code><span>'+esc(f[1])+'</span></li>').join('')+'</ul>'
+        +(slot.note?'<p class="slot-gap" style="color:var(--warn);opacity:.85;font-size:.875rem"><em>'+esc(slot.note)+'</em></p>':'')
+        +'<div class="opts">'
+        +slot.opts.map((o,oi)=>
+          '<div class="opt'+(oi===0?' first':'')+'" data-opt="'+slot.id+':'+oi+'">'
+          +'<button class="rank" data-play="'+slot.id+':'+oi+'" aria-label="Play '+esc(o.n)+'">'+RANKS[oi]+'</button>'
+          +'<div class="opt-txt"><div class="opt-name">'+esc(o.n)+(oi===0?'<span class="tag">my pick</span>':'')+'</div>'
+          +'<div class="opt-desc">'+esc(o.d)+'</div></div>'
+          +'<div class="opt-acts">'
+          +(slot.repeat?'<button class="mini" data-run="'+slot.id+':'+oi+'">×'+slot.repeat+'</button>':'')
+          +'<button class="mini" data-choose="'+slot.id+':'+oi+'">choose</button>'
+          +'</div></div>').join('')
+        +'</div></section>';
+    });
+  });
+  sheet.innerHTML=html;
+  rail.innerHTML=railHtml;
+}
+
+function flash(id,oi){
+  const el=document.querySelector('[data-opt="'+id+':'+oi+'"]');
+  if(!el) return;
+  el.classList.add('playing');
+  setTimeout(()=>el.classList.remove('playing'),320);
+}
+const slotById=id=>SLOTS.find(s=>s.id===id);
+
+function play(id,oi,i){ ac(); slotById(id).opts[oi].f(i); flash(id,oi); }
+function run(id,oi){
+  const slot=slotById(id), n=slot.repeat||1;
+  for(let k=0;k<n;k++) setTimeout(()=>play(id,oi,k),k*175);
+}
+/* Play whatever is chosen for a slot; fall back to the recommended first option. */
+function chosen(id,i){
+  const slot=slotById(id);
+  slot.opts[picks[id]??0].f(i);
+}
+
+function refresh(){
+  let n=0;
+  SLOTS.forEach(s=>{
+    const has=picks[s.id]!=null;
+    if(has) n++;
+    document.querySelectorAll('[data-opt^="'+s.id+':"]').forEach(el=>{
+      const oi=Number(el.dataset.opt.split(':')[1]);
+      el.classList.toggle('pick',has&&picks[s.id]===oi);
+      const b=el.querySelector('[data-choose]');
+      if(b){ const on=has&&picks[s.id]===oi; b.classList.toggle('on',on); b.textContent=on?'chosen':'choose'; }
+    });
+    const r=document.querySelector('[data-rail="'+s.id+'"]');
+    if(r) r.classList.toggle('done',has);
+  });
+  $('tPicked').textContent=n;
+  writeLedger();
+}
+
+function writeLedger(){
+  const lines=[];
+  SECTIONS.forEach((s,si)=>{
+    const items=SLOTS.filter(x=>x.sec===si);
+    lines.push('<span class="c">// '+esc(s.n+' · '+s.t)+'</span>');
+    items.forEach(slot=>{
+      const oi=picks[slot.id];
+      const name=slot.code.replace('sfx.','').replace('()','');
+      if(oi==null){
+        lines.push('<span class="c">'+esc(name.padEnd(12))+'  — not chosen yet (my pick: '+esc(slot.opts[0].n)+')</span>');
+      }else{
+        lines.push('<span class="k">'+esc(name.padEnd(12))+'</span>  '+RANKS[oi]+'  '+esc(slot.opts[oi].n));
+      }
+    });
+    if(si<SECTIONS.length-1) lines.push('');
+  });
+  $('out').innerHTML=lines.join('\n');
+}
+
+function ledgerText(){
+  const out=[];
+  out.push('GREAT WORK — sound effect picks');
+  out.push('');
+  SECTIONS.forEach((s,si)=>{
+    out.push(s.n+' · '+s.t);
+    SLOTS.filter(x=>x.sec===si).forEach(slot=>{
+      const oi=picks[slot.id];
+      const name=slot.code.replace('sfx.','').replace('()','');
+      out.push('  '+name.padEnd(13)+(oi==null?'(not chosen)':RANKS[oi]+' — '+slot.opts[oi].n));
+    });
+    out.push('');
+  });
+  return out.join('\n');
+}
+
+/* ─── Events ──────────────────────────────────────────────────────────── */
+document.addEventListener('click',e=>{
+  const p=e.target.closest('[data-play]');
+  if(p){ const [id,oi]=p.dataset.play.split(':'); play(id,Number(oi),0); return; }
+  const r=e.target.closest('[data-run]');
+  if(r){ const [id,oi]=r.dataset.run.split(':'); run(id,Number(oi)); return; }
+  const c=e.target.closest('[data-choose]');
+  if(c){
+    const [id,oi]=c.dataset.choose.split(':');
+    const n=Number(oi);
+    if(picks[id]===n) delete picks[id]; else picks[id]=n;
+    save(); refresh();
+    if(picks[id]!=null) play(id,n,0);
+  }
+});
+
+/* ─── The composing bench ─────────────────────────────────────────────── */
+const LETTERS=[['G',2],['R',1],['E',1],['A',1],['T',1],['W',4],['O',1]];
+let rack=[],word=[],uid=0;
+function deal(){ uid=0; rack=LETTERS.map(([l,p])=>({id:uid++,l,p})); word=[]; drawBench(); }
+function tileHTML(t,zone){
+  return '<button class="tile" data-t="'+t.id+'" data-zone="'+zone+'" role="listitem">'+t.l+'<span class="pts">'+t.p+'</span></button>';
+}
+function drawBench(){
+  $('groove').innerHTML=word.map(t=>tileHTML(t,'word')).join('');
+  $('rack').innerHTML=rack.map(t=>tileHTML(t,'rack')).join('');
+}
+$('groove').addEventListener('click',e=>{
+  const b=e.target.closest('[data-t]'); if(!b) return;
+  const id=Number(b.dataset.t), i=word.findIndex(t=>t.id===id);
+  if(i<0) return;
+  rack.push(word.splice(i,1)[0]);
+  chosen('retrieve'); drawBench();
+});
+$('rack').addEventListener('click',e=>{
+  const b=e.target.closest('[data-t]'); if(!b) return;
+  const id=Number(b.dataset.t), i=rack.findIndex(t=>t.id===id);
+  if(i<0) return;
+  word.push(rack.splice(i,1)[0]);
+  chosen('place',word.length-1); drawBench();
+});
+$('bShuffle').addEventListener('click',()=>{
+  for(let i=rack.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [rack[i],rack[j]]=[rack[j],rack[i]]; }
+  chosen('shuffle'); drawBench();
+});
+$('bClear').addEventListener('click',()=>{
+  if(!word.length) return;
+  rack.push(...word.splice(0)); chosen('clear'); drawBench();
+});
+$('bReset').addEventListener('click',()=>{ deal(); ac(); });
+
+$('bCopy').addEventListener('click',async()=>{
+  const btn=$('bCopy');
+  try{ await navigator.clipboard.writeText(ledgerText()); btn.textContent='Copied'; }
+  catch{ btn.textContent='Select the text above'; }
+  setTimeout(()=>{btn.textContent='Copy the ledger';},1600);
+});
+$('bClearPicks').addEventListener('click',()=>{ picks={}; save(); refresh(); });
+
+/* ─── Boot ────────────────────────────────────────────────────────────── */
+buildSheet();
+deal();
+refresh();
+$('tSilent').textContent=SLOTS.length;
+$('tOpts').textContent=SLOTS.length*5;
+document.addEventListener('pointerdown',()=>ac(),{once:true,passive:true});
+</script>
+</body>
+</html>
