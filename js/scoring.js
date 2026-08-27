@@ -1,7 +1,7 @@
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, PURPLE_TRIM_STEP, REWARD, CURSED_MULT,
   CURSED_PENALTY, SPIKE_MULT, SILVER_BONUS, isDeadline, splitMarks, isRule, BOLD_MULT,
-  HONORIFIC_STEP, FLEURON, FLEURON_PAGE_COIN, lengthMult, POSTNOM,
+  HONORIFIC_STEP, LAUREATE_MULT_STEP, FLEURON, FLEURON_PAGE_COIN, lengthMult, POSTNOM,
 } from './constants.js';
 import {
   PATRON_DEFS, patronById, guildsOf, guildSeats, resolveMedieval, hasSilence,
@@ -517,6 +517,10 @@ export function computeScore(wordTiles) {
   // for the preview, so a score effect that wrote to it would fire dozens of
   // times a word. Counters are advanced in onPrinted instead.
   let current = null, currentUid = null;
+  // Asked once for the whole table rather than at every seat: whether he is
+  // there cannot change halfway down the shelf, and a ghost of him still counts
+  // (owns reads allSeats) — being murdered costs him his seat, never his trade.
+  const laureate = owns('laureate');
   let pmult = 1;
   const fold = () => { points = Math.round(points * pmult); pmult = 1; };
   const step = (extra) => patronSteps.push({
@@ -551,6 +555,20 @@ export function computeScore(wordTiles) {
         text: `+${v} Points — ${laurels > 1 ? `${laurels} laurels` : 'the laurel'}`,
         points: v, laurel: true,
       });
+      // And while The Laureate is at the table, every laurel on it is worth a
+      // little Mult as well — his own included, since he wears them like anyone
+      // else. It lands at the WEARER'S seat, beside that laurel's Points, so it
+      // obeys the same rule they do: in front of a ×Mult it is multiplied by it,
+      // behind it, it is not. Read live through owns(), so hiring or dismissing
+      // him re-prices every crown on the shelf at once.
+      if (laureate) {
+        const m = Math.round(laurels * LAUREATE_MULT_STEP * 100) / 100;
+        pmult += m;
+        step({
+          text: `+${m} Mult — ${laurels > 1 ? 'those laurels' : 'that laurel'}, for The Laureate`,
+          mult: m, laurel: true,
+        });
+      }
     }
 
     // Postnominals speak last at this seat, so the ×1.2 multiplies what the

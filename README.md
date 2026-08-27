@@ -463,9 +463,17 @@ rattles around in there at half the rate:
   while they keep their seat, stacking if it lands twice. The crown pays at its
   own seat's turn, so a laurel in front of your multipliers is multiplied and
   one behind is not — and a dismissed patron takes their laurels with them. The
-  tool is not the only source: *the Laureate* crowns himself for every jade tile
-  printed, *the Frontispiece* each time his opening word clears a page
-  single-handed, *the Cellarer* for every page he ages through.
+  tool is not the only source: *the Laureate* crowns himself for a word holding
+  a gold-trimmed and a silver-trimmed tile at once, *the Frontispiece* each time
+  his opening word clears a page single-handed, *the Cellarer* for every page he
+  ages through.
+
+  **While *the Laureate* is at the table every laurel is worth more**: each one
+  also pays its wearer +0.1 Mult, at that wearer's own turn, beside the Points
+  it already pays. His own crowns count like anybody else's, and a murdered
+  Laureate keeps the trade — a ghost is still at the table. So the seat is worth
+  nothing on a bare shelf and a great deal on a decorated one, and it makes the
+  order of a crowned shelf matter twice over.
 - **Tongs** (crimson) — grip a tile and it goes to the furnace for good; the
   next word printed gains +8 Points. Grips stack; the heat expires with the page.
 - **Ink wash** (azure) — up to four unpainted tiles take a faint wash, one of
@@ -634,6 +642,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Ratchet sundry price | `js/constants.js` → `RATCHET_PRICE` (the alphabet it walks is derived from `TILE_POINTS` — see `SHIFT_RING` in `js/state.js`) |
 | Toolbox price and what is inside it | `js/constants.js` → `TOOLBOX_PRICE`, `TOOLBOX_POOL` (repeat an entry to make it likelier; the box always yields two *different* tools) |
 | Tool tuning — doubling cap, laurel step, tongs bonus, wash count | `js/constants.js` → `LOUPE_CAP`, `HONORIFIC_STEP`, `TONGS_BONUS`, `WASH_COUNT` |
+| What a laurel is worth in Mult while The Laureate is seated | `js/constants.js` → `LAUREATE_MULT_STEP`. Paid in `js/scoring.js` pass 4 beside the laurel's Points; the badge copy is `laurelWorth` in `js/patrons.js`, which the shelf, the graveyard and the Market's shelf strip all read |
 | Where the patrons' turns happen, and what a ×Mult reaches | `js/scoring.js` → pass 4. Points that must be multiplied by the table have to land before it (the tongs' heat and the curse's toll do, in pass 3½) |
 | Patrons that improve the tiles rather than the word | `js/patrons.js` → the `tileBonus` hook (pass 1½ in `js/scoring.js`); the number goes onto the tile, so nicks and Monogrammists carry it |
 | Patrons that PAINT a tile rather than pay it | `js/patrons.js` → the `tilePaint` hook (pass ½ in `js/scoring.js`, before anything is counted). The colour lands on a copy of the word, so the multipliers count it and the groove shows it under a dashed edge while you compose; the seat's own `onPrinted` makes it permanent when the word prints |

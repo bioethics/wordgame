@@ -9,10 +9,10 @@ import {
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
   ANIM, SUNDRY_SELL, tileCount, sundryTip, TOOL_LOOK, PACKAGES, APPLICATORS,
-  colourDesc, HONORIFIC_STEP, POSTNOM, GHOST_HIRE, MATERIALS, TILE_POINTS, letterGlyph,
+  colourDesc, POSTNOM, GHOST_HIRE, MATERIALS, TILE_POINTS, letterGlyph,
   BLACK_PATRON_MARKUP,
 } from './constants.js';
-import { PATRON_DEFS, patronById, guildsOf, patronName, patronShelf, patronEmoji, patronCost } from './patrons.js';
+import { PATRON_DEFS, patronById, guildsOf, patronName, patronShelf, patronEmoji, patronCost, laurelWorth } from './patrons.js';
 import { upgradeById } from './upgrades.js';
 import {
   market, stallById, stallPrice, isProposalStall,
@@ -204,7 +204,7 @@ function marketShelfCardsHTML() {
         <span class="patron-emoji">${patronEmoji(def, p.data)}</span>
         <span class="patron-name">${label}</span>
         ${p.data?.postnom ? `<span class="patron-postnom" title="A distinguished patron — ×${POSTNOM.mult} Mult, paid at this seat's turn">${p.data.postnom}</span>` : ''}
-        ${laurels ? `<span class="patron-laurel" title="${laurels > 1 ? `${laurels} laurels` : 'A laurel'} — +${laurels * HONORIFIC_STEP} Points every word, paid at this seat's turn">🏵️${laurels > 1 ? `<b>${laurels}</b>` : ''}</span>` : ''}
+        ${laurels ? `<span class="patron-laurel" title="${laurelWorth(laurels)}, paid at this seat's turn">🏵️${laurels > 1 ? `<b>${laurels}</b>` : ''}</span>` : ''}
         <button class="patron-x" data-sell-patron="${p.uid ?? def.id}" title="Dismiss ${name} for ${half} Coins">✕</button>
       </div>`;
   }

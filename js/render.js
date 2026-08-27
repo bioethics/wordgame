@@ -12,10 +12,10 @@ import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
   WORDS_PER_PAGE, PAGES_PER_CHAPTER, tileCount,
   colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
-  sundryTip, FLEURON, TOOL_LOOK, PACKAGES, APPLICATORS, HONORIFIC_STEP, MEDIEVAL, letterGlyph,
+  sundryTip, FLEURON, TOOL_LOOK, PACKAGES, APPLICATORS, MEDIEVAL, letterGlyph,
   INTERROBANG, POSTNOM, BAG_COUNTS, BRIBRARIAN, bribeMult, isRule, RULE, BOLD_MULT,
 } from './constants.js';
-import { patronById, guildsOf, patronName, patronShelf, patronEmoji } from './patrons.js';
+import { patronById, guildsOf, patronName, patronShelf, patronEmoji, laurelWorth } from './patrons.js';
 import { bossById } from './bosses.js';
 import { computeScore } from './scoring.js';
 import { marketSnapshot, patronRefund } from './market.js';
@@ -470,7 +470,7 @@ function renderShelf(script) {
           <span class="patron-emoji">${patronEmoji(def, p.data)}</span>
           <span class="patron-name">${label}</span>
           ${p.data?.postnom ? `<span class="patron-postnom" title="${patronName(def, p.data)} — a distinguished patron: ×${POSTNOM.mult} Mult, paid at this seat's turn in the running order">${p.data.postnom}</span>` : ''}
-          ${laurels ? `<span class="patron-laurel" title="${laurels > 1 ? `${laurels} laurels` : 'A laurel'} — +${laurels * HONORIFIC_STEP} Points every word, paid at this seat's turn, lost if this patron is dismissed">🏵️${laurels > 1 ? `<b>${laurels}</b>` : ''}</span>` : ''}
+          ${laurels ? `<span class="patron-laurel" title="${laurelWorth(laurels)}, paid at this seat's turn, lost if this patron is dismissed">🏵️${laurels > 1 ? `<b>${laurels}</b>` : ''}</span>` : ''}
           <button class="patron-x" data-sell="${p.uid ?? def.id}" title="Dismiss ${name} for ${refund} Coins">✕</button>`;
       } else {
         slot.className = 'patron patron--empty';
@@ -572,7 +572,7 @@ function ghostCardsHTML() {
 (dead, and working still · ✕ lets it go for nothing)">
         <span class="patron-emoji">${patronEmoji(def, p.data)}</span>
         <span class="patron-name">${label}</span>
-        ${laurels ? `<span class="patron-laurel" title="${laurels > 1 ? `${laurels} laurels` : 'A laurel'} — +${laurels * HONORIFIC_STEP} Points every word, paid at this ghost's turn">🏵️${laurels > 1 ? `<b>${laurels}</b>` : ''}</span>` : ''}
+        ${laurels ? `<span class="patron-laurel" title="${laurelWorth(laurels)}, paid at this ghost's turn">🏵️${laurels > 1 ? `<b>${laurels}</b>` : ''}</span>` : ''}
         <button class="patron-x" data-sell-ghost="${p.uid ?? def.id}" title="Let ${name} go — a ghost's contract is worth nothing">✕</button>
       </div>`;
   }

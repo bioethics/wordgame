@@ -131,7 +131,7 @@ import {
   PACKAGE_ODDS, PACKAGES, PACKAGE_OF_PATRON,
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, isMark,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
-  HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, RIPPER_WORDS, splitMarks, isImmutable,
+  HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, LAUREATE_MULT_STEP, RIPPER_WORDS, splitMarks, isImmutable,
   TWINS_POINTS, CHILD_STEP, ABECEDARIAN_MULT, ABECEDARIAN_CASE, caseGlyphs, MEDIEVAL,
   ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS, PURVEYOR,
   SHORTHAIR_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
@@ -1987,6 +1987,18 @@ export const patronCost = (def, data) => {
 // guild-scaling effect counts through here — the Composter's heap allowance,
 // the Banker's page coin, the Orchardist's Mult — and each counts the counting
 // patron itself, so a lone one is as good as it was before guilds mattered.
+// What a head wearing `laurels` is paid, as the badge's tooltip says it. The
+// shelf, the graveyard and the Market's shelf strip all read this, so The
+// Laureate's arrival re-prices every crown in all three at once, and none of
+// them can drift from what scoring.js pass 4 actually does.
+export const laurelWorth = laurels => {
+  const points = `+${laurels * HONORIFIC_STEP} Points`;
+  const mult = owns('laureate')
+    ? ` and +${Math.round(laurels * LAUREATE_MULT_STEP * 100) / 100} Mult`
+    : '';
+  return `${laurels > 1 ? `${laurels} laurels` : 'A laurel'} — ${points}${mult} every word`;
+};
+
 export const guildSeats = colour =>
   allSeats().filter(p => guildsOf(patronById(p.id)).includes(colour)).length;
 

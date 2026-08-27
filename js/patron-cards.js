@@ -157,7 +157,7 @@ export const PATRON_CARDS = {
   },
   laureate: {
     name: 'The Laureate', emoji: '👑', rarity: 'uncommon', cost: 5, guild: 'jade',
-    desc: 'A word holding both a gold-trimmed and a silver-trimmed tile crowns this patron with a laurel — +{HONORIFIC_STEP} Points on every word, for good.',
+    desc: 'A word holding both a gold-trimmed and a silver-trimmed tile crowns this patron with a laurel — +{HONORIFIC_STEP} Points on every word, for good. Also, while seated, every laurel at your table gives its wearer +{LAUREATE_MULT_STEP} Mult.',
   },
   grafter: {
     name: 'The Grafter', emoji: '🌿', rarity: 'rare', cost: 8, guild: 'jade',

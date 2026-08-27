@@ -326,6 +326,14 @@ export const LOUPE_CAP      = 30;  // a doubled tile never passes this resting v
 // front of a ×Mult seat is multiplied by it and one behind it is not. Kept modest
 // because laurels arrive from several sources at once.
 export const HONORIFIC_STEP = 3;
+// What a laurel is worth on TOP of that while The Laureate is seated: +Mult per
+// laurel, to whoever wears it, paid at that wearer's own turn beside its Points.
+// He does not hoard it — his own crowns count like anyone else's — so the seat
+// is worth most to a table already wearing laurels, and worth nothing at all on
+// a bare one. Additive rather than multiplying, and small, because laurels
+// arrive from several sources at once and a whole table of them compounds fast:
+// at +0.1 a seat wearing three is +0.3, and the Colophon can crown all night.
+export const LAUREATE_MULT_STEP = 0.1;
 export const TONGS_BONUS    = 8;   // Points armed for the next word, per grip
 // The Winnower's due: Points armed for the next word every time a discard is
 // spent — once per discard ACTION, however many tiles go with it, and stacking
@@ -1012,7 +1020,7 @@ export const KNOBS = {
   GHOST_METAL: MATERIALS.ghost.metal.toLowerCase(),
 
   // The workbench and the Colophon
-  HONORIFIC_STEP, WINNOWER_BONUS, DYE_TILES_PER_CHAPTER, PAINT_PER_POT,
+  HONORIFIC_STEP, LAUREATE_MULT_STEP, WINNOWER_BONUS, DYE_TILES_PER_CHAPTER, PAINT_PER_POT,
   SKIP_COIN_GRANT, MAX_UPGRADE_REPEATS,
 
   // The Black Market
