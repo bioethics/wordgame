@@ -564,12 +564,12 @@ you use, and its header is a map of the rest.
 | Writing | Where |
 | --- | --- |
 | Trims, nicks, colours, metals, tools, parcels, stalls, the Colophon's picks, and the headings and buttons of the Market, the Black Market and the Colophon | `js/text.js` |
-| Every patron — name, portrait, price, rarity, guild, card text | `js/patron-cards.js` (behaviour: `js/patrons.js`) |
-| Every editor — name, portrait, and the house rule in their own voice | `js/boss-cards.js` (behaviour: `js/bosses.js`) |
+| **Every line the status log speaks** — plus the banners, the board's refusals, and the end screens | `js/text.js` → `LOG_TEXT`, one keyed table with `{0}` slots for the moving parts; the code only decides *when* a line is said |
+| Every patron — name, portrait, price, rarity, guild, card text | `js/patron-cards.js` (behaviour: `js/patrons.js`; the one-line notes a patron's own hooks report — "3 Coins collected" — stay beside the hook that computes them) |
+| Every editor — name, portrait, the house rule in their own voice, **the live bar line (`demand`/`demandFirst`) and the spike reason (`spike`)** | `js/boss-cards.js` (behaviour: `js/bosses.js`) — the bar re-reads these on every render, so an edit shows the moment the page reloads |
 | The unsolicited opinions patrons pop after a good word | `js/quips.js` |
 | Chapter titles | `js/chapters.js` |
 | The themed word lists | `wordlists/` — beside the dictionary and the barred-words list |
-| The running narration in the status log | `js/main.js`, `js/sheets.js` — these stay at the moment they are spoken, each being written around the values it reports |
 
 `js/text.js` imports nothing, so there is never a question of what may safely be
 said in it. Copy may quote a tuning number rather than repeating it, with the

@@ -12,10 +12,24 @@
 //          speech — a demand, an excuse, a boast — not as a rules note. Say what
 //          is spiked, and say it in a sentence they would actually say.
 //
-// A desc may carry {KNOBS} in braces, filled by js/bosses.js as it loads, so
-// retuning an editor retunes what they say. The knobs available here are the
-// game-wide ones (KNOBS at the foot of js/constants.js) plus each editor's own
-// tuning, which lives with its editor in js/bosses.js:
+// Editors whose demand CHANGES as the page goes carry their bar lines here too
+// — these are what the bar actually shows while you compose, so this file is
+// the whole of what an editor says, not just the announcement:
+//
+//   demand       the live line, with the moving part in {BRACES} — the
+//                Columnist's {N}, the Serialist's {LAST} — filled fresh on
+//                every render by js/bosses.js
+//   demandFirst  what the bar says before the first word, where the rule has
+//                nothing to point at yet
+//   demandPaid   the Bribrarian alone: the line once he is bought outright
+//   spike        the short reason stamped on a spiked word ("too short —
+//                {PADDER_MIN} letters at least"); editors that never spike
+//                have none
+//
+// A line may carry {KNOBS} in braces, filled by js/bosses.js, so retuning an
+// editor retunes what they say. The knobs available here are the game-wide
+// ones (KNOBS at the foot of js/constants.js) plus each editor's own tuning,
+// which lives with its editor in js/bosses.js:
 //
 //   {PADDER_MIN}         the shortest word The Padder will accept
 //   {POPULIST_BAND}      how far down the frequency list The Populist reads
@@ -30,42 +44,61 @@ export const BOSS_CARDS = {
   padder: {
     name: 'The Padder', emoji: '🪶',
     desc: 'I pay by the word, so the words had better be long: anything under {PADDER_MIN} letters is spiked.',
+    spike: 'too short — {PADDER_MIN} letters at least',
   },
   populist: {
     name: 'The Populist', emoji: '📣',
     desc: 'Popular fiction is profitable fiction. Every word must be one the common reader knows — anything outside the {POPULIST_BAND} commonest words in English is spiked.',
+    spike: 'too rare — plain English only',
   },
   obscurantist: {
     name: 'The Obscurantist', emoji: '🕯️',
     desc: 'True literature demands erudition: the {OBSCURANTIST_BAND} commonest words in English are spiked.',
+    spike: 'too plain — one of the {OBSCURANTIST_BAND} commonest words',
   },
   minimalist: {
     name: 'The Minimalist', emoji: '⬜',
     desc: 'Adjectives are the enemy of clean modern prose. Adjectives and adverbs are spiked.',
+    spike: 'an adjective — say it plainly or not at all',
   },
   columnist: {
     name: 'The Columnist', emoji: '📰',
     desc: 'Everything must fit the column; I will tell you how many letters to use. Off-measure words are spiked.',
+    demand: 'This word: exactly {N} letters.',
+    spike: 'off the measure — exactly {N} letters',
   },
   serialist: {
     name: 'The Serialist', emoji: '🔗',
     desc: 'We need continuity. Each word must begin with the letter the previous word ended on, or be spiked.',
+    demand: 'This word must open with {LAST}.',
+    demandFirst: 'The first word is free — but mind how it ends.',
+    spike: 'a broken chain — it must open with {LAST}',
   },
   indexer: {
     name: 'The Indexer', emoji: '🗂️',
     desc: 'Order above all else: each word must come after the last one in dictionary order. Any exceptions are spiked.',
+    demand: 'This word must sort after {LAST}.',
+    demandFirst: 'The first word may be anything — the index begins there.',
+    spike: 'out of order — it must sort after {LAST}',
   },
   escalationist: {
     name: 'The Escalationist', emoji: '📈',
     desc: 'Build to a climax: every word must outscore the one before it, or be spiked.',
+    demand: 'This word must beat {BAR}.',
+    demandFirst: 'The first word sets the bar. Open softly.',
+    spike: 'no climax — it had to beat {BAR}',
   },
   enthusiast: {
     name: '#1 Specific Letter Enthusiast', emoji: '🤩',
     desc: 'I really love one specific letter. I will gift you a temporary copy, but words that do not use it are spiked.',
+    demand: 'Every word must contain {LETTER}.',
+    spike: 'no {LETTER} — the Enthusiast is crushed',
   },
   bribrarian: {
     name: 'The Bribrarian', emoji: '🤝',
     desc: 'I will spike every word you write. Though if this makes you unahppy, perhaps we could come to an arrangement...',
+    demand: '{PAID} of {BRIBRARIAN_STEPS} Coins laid down: every word at ×{MULT} Mult.',
+    demandPaid: 'Paid in full — the pen is kind. ×1 Mult.',
   },
   epitaphist: {
     name: 'The Epitaphist', emoji: '⚱️',
@@ -74,6 +107,7 @@ export const BOSS_CARDS = {
   reviewer: {
     name: 'Peer Reviewer #2', emoji: '🧐',
     desc: 'Your best work is never good enough. Every word is penalised, depending on my mood at that moment — somewhere between ×{REVIEWER_WORST} and ×{REVIEWER_BEST}.',
+    demand: 'The current temper: ×{MOOD} Mult.',
   },
   eeeditor: {
     name: 'The Eeeditor', emoji: '🅴',
@@ -98,5 +132,6 @@ export const BOSS_CARDS = {
   janussian: {
     name: 'The Janussian Typist', emoji: '\ud83c\udfad',
     desc: 'I contain multitudes. Multitudes of editors. I like to wear their faces.',
+    demand: 'Wearing {FACE} — {LINE}',
   },
 };

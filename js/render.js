@@ -24,6 +24,7 @@ import { colophonSnapshot } from './colophon.js';
 import { blackMarketSnapshot } from './blackmarket.js';
 import { setNum, sleep, fmtMult, readingTime, sfx } from './anim.js';
 import { uiZoom } from './appearance.js';
+import { logLine } from './text.js';
 
 const $ = id => document.getElementById(id);
 
@@ -1251,11 +1252,14 @@ export function showGameOver() {
   showOverlay(`
     <div class="sheet sheet--dark sheet--end">
       <div class="end-flourish">✕</div>
-      <h2 class="end-title">The press falls silent</h2>
-      <p class="end-sub">${chapterLabel(state.chapter)}, ${isDeadline(state.page) ? 'the Deadline' : `page ${state.page}`} — the quota of ${state.quota.toLocaleString()} went unmet.${
-        state.boss ? ` ${bossById(state.boss.id)?.emoji ?? ''} ${bossById(state.boss.id)?.name ?? ''} remains unimpressed.` : ''}</p>
+      <h2 class="end-title">${logLine('endLoseTitle')}</h2>
+      <p class="end-sub">${logLine('endLoseSub',
+        chapterLabel(state.chapter),
+        isDeadline(state.page) ? logLine('endLoseDeadline') : logLine('endLosePage', state.page),
+        state.quota.toLocaleString(),
+        state.boss ? logLine('endLoseBoss', bossById(state.boss.id)?.emoji ?? '', bossById(state.boss.id)?.name ?? '') : '')}</p>
       ${statsHTML()}
-      <button class="btn btn-print btn-big" data-overlay-action="newrun">Begin a new folio</button>
+      <button class="btn btn-print btn-big" data-overlay-action="newrun">${logLine('endNewRun')}</button>
     </div>`);
 }
 
@@ -1263,12 +1267,12 @@ export function showVictory() {
   showOverlay(`
     <div class="sheet sheet--end">
       <div class="end-flourish end-flourish--win">❦</div>
-      <h2 class="end-title end-title--win">The folio is complete</h2>
-      <p class="end-sub">Ten chapters set, proofed, and printed. The house's finest work.</p>
+      <h2 class="end-title end-title--win">${logLine('endWinTitle')}</h2>
+      <p class="end-sub">${logLine('endWinSub')}</p>
       ${statsHTML()}
       <div class="end-actions">
-        <button class="btn btn-quiet" data-overlay-action="endless">Keep printing (appendices)</button>
-        <button class="btn btn-print btn-big" data-overlay-action="newrun">Begin a new folio</button>
+        <button class="btn btn-quiet" data-overlay-action="endless">${logLine('endEndless')}</button>
+        <button class="btn btn-print btn-big" data-overlay-action="newrun">${logLine('endNewRun')}</button>
       </div>
     </div>`);
 }

@@ -124,7 +124,7 @@ const BOSS_BEHAVIOURS = [
   {
     id: 'padder',
     judge: letters => letters.length < PADDER_MIN
-      ? `too short — ${PADDER_MIN} letters at least` : null,
+      ? say('padder', 'spike') : null,
   },
   {
     id: 'populist',
@@ -132,7 +132,7 @@ const BOSS_BEHAVIOURS = [
       if (!commonReady()) return null;
       const rank = commonRank(letters);
       return rank == null || rank >= POPULIST_BAND
-        ? 'too rare — plain English only' : null;
+        ? say('populist', 'spike') : null;
     },
   },
   {
@@ -141,7 +141,7 @@ const BOSS_BEHAVIOURS = [
       if (!commonReady()) return null;
       const rank = commonRank(letters);
       return rank != null && rank < OBSCURANTIST_BAND
-        ? `too plain — one of the ${OBSCURANTIST_BAND.toLocaleString()} commonest words` : null;
+        ? say('obscurantist', 'spike') : null;
     },
   },
   {
@@ -153,42 +153,42 @@ const BOSS_BEHAVIOURS = [
     judge: letters => {
       if (!adjectivesReady()) return null;
       return inTheme('adjectives', letters)
-        ? 'an adjective — say it plainly or not at all' : null;
+        ? say('minimalist', 'spike') : null;
     },
   },
   {
     id: 'columnist',
     setup: data => rollColumn(data),
-    demand: data => `This word: exactly ${data.required} letters.`,
+    demand: data => say('columnist', 'demand', { N: data.required }),
     judge: (letters, tiles, data) => letters.length !== data.required
-      ? `off the measure — exactly ${data.required} letters` : null,
+      ? say('columnist', 'spike', { N: data.required }) : null,
     onPrinted: data => rollColumn(data),
   },
   {
     id: 'serialist',
     demand: data => data.last
-      ? `This word must open with ${data.last}.`
-      : 'The first word is free — but mind how it ends.',
+      ? say('serialist', 'demand', { LAST: data.last })
+      : say('serialist', 'demandFirst'),
     judge: (letters, tiles, data) => data.last && letters[0] !== data.last
-      ? `a broken chain — it must open with ${data.last}` : null,
+      ? say('serialist', 'spike', { LAST: data.last }) : null,
     onPrinted: (data, script, letters) => { data.last = letters[letters.length - 1]; },
   },
   {
     id: 'indexer',
     demand: data => data.last
-      ? `This word must sort after ${data.last}.`
-      : 'The first word may be anything — the index begins there.',
+      ? say('indexer', 'demand', { LAST: data.last })
+      : say('indexer', 'demandFirst'),
     judge: (letters, tiles, data) => data.last && letters <= data.last
-      ? `out of order — it must sort after ${data.last}` : null,
+      ? say('indexer', 'spike', { LAST: data.last }) : null,
     onPrinted: (data, script, letters) => { data.last = letters; },
   },
   {
     id: 'escalationist',
     demand: data => data.bar != null
-      ? `This word must beat ${data.bar.toLocaleString()}.`
-      : 'The first word sets the bar. Open softly.',
+      ? say('escalationist', 'demand', { BAR: data.bar.toLocaleString() })
+      : say('escalationist', 'demandFirst'),
     judge: (letters, tiles, data, preTotal) => data.bar != null && preTotal <= data.bar
-      ? `no climax — it had to beat ${data.bar.toLocaleString()}` : null,
+      ? say('escalationist', 'spike', { BAR: data.bar.toLocaleString() }) : null,
     onPrinted: (data, script) => { data.bar = script.total; },
   },
   {
@@ -201,9 +201,9 @@ const BOSS_BEHAVIOURS = [
       data.letter = singles.length
         ? singles[Math.floor(Math.random() * singles.length)].letter : 'E';
     },
-    demand: data => `Every word must contain ${data.letter}.`,
+    demand: data => say('enthusiast', 'demand', { LETTER: data.letter }),
     judge: (letters, tiles, data) => !letters.includes(data.letter)
-      ? `no ${data.letter} — the Enthusiast is crushed` : null,
+      ? say('enthusiast', 'spike', { LETTER: data.letter }) : null,
   },
   {
     // The only editor with nothing to satisfy. He does not read your words; he
@@ -222,8 +222,8 @@ const BOSS_BEHAVIOURS = [
     id: 'bribrarian',
     setup: data => { data.paid = 0; },
     demand: data => (data.paid >= BRIBRARIAN.steps
-      ? `Paid in full — the pen is kind. ×1 Mult.`
-      : `${data.paid} of ${BRIBRARIAN.steps} Coins laid down: every word at ×${bribeMult(data.paid)} Mult.`),
+      ? say('bribrarian', 'demandPaid')
+      : say('bribrarian', 'demand', { PAID: data.paid, MULT: bribeMult(data.paid) })),
     mood: data => bribeMult(data?.paid ?? 0),
     // No judge: he spikes nothing and pardons nothing. His cut is the whole of him.
   },
@@ -245,7 +245,7 @@ const BOSS_BEHAVIOURS = [
   {
     id: 'reviewer',
     setup: data => rollMood(data),
-    demand: data => `The current temper: ×${data.mood} Mult.`,
+    demand: data => say('reviewer', 'demand', { MOOD: data.mood }),
     mood: data => data.mood,
     onPrinted: data => rollMood(data),
   },
@@ -318,7 +318,7 @@ const BOSS_BEHAVIOURS = [
       const face = faceOf(data);
       if (!face) return null;
       const line = face.demand?.(faceView(data)) ?? face.desc;
-      return `Wearing ${face.name} \u2014 ${line}`;
+      return say('janussian', 'demand', { FACE: face.name, LINE: line });
     },
     judge: (letters, tiles, data, preTotal) =>
       faceOf(data)?.judge?.(letters, tiles, faceView(data), preTotal) ?? null,
@@ -358,6 +358,17 @@ const BOSS_KNOBS = {
   OBSCURANTIST_BAND: OBSCURANTIST_BAND.toLocaleString(),
   BRIBRARIAN_STEPS:  BRIBRARIAN.steps,
 };
+
+// An editor's live lines — the bar's demand, the spike's reason — live on its
+// card in js/boss-cards.js, with the moving parts in {BRACES}. The behaviours
+// below call this to say them: knobs first, then whatever the moment supplies
+// (the Columnist's measure, the Serialist's letter). A missing line throws
+// naming the card and key, so a reworded card can't silently strand a rule.
+function say(id, key, slots = {}) {
+  const line = BOSS_CARDS[id]?.[key];
+  if (line == null) throw new Error(`boss-cards: '${id}' has no '${key}' line`);
+  return fillKnobs(line, { ...BOSS_KNOBS, ...slots }, `boss-cards: ${id}.${key}`);
+}
 
 export const BOSS_DEFS = BOSS_BEHAVIOURS.map(behaviour => {
   const card = BOSS_CARDS[behaviour.id];

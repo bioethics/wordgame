@@ -13,8 +13,11 @@
 //
 //   js/text.js            THIS FILE. The things you own and the sheets you use:
 //                         trims, nicks, colours, metals, tools, parcels, stalls,
-//                         the Colophon's picks, and the headings and buttons of
-//                         the Market, the Black Market and the Colophon.
+//                         the Colophon's picks, the headings and buttons of the
+//                         Market, the Black Market and the Colophon — and the
+//                         NARRATOR: every line the status log speaks, the
+//                         banners, the refusals and the end screens (LOG_TEXT,
+//                         below).
 //
 //   js/patron-cards.js    Every patron: name, portrait, price, rarity, guild and
 //                         the sentence on the calling card. (What a patron DOES
@@ -33,10 +36,10 @@
 //                         the dummy letters, and the barred words. One word per
 //                         line, and the paths are js/themes.js.
 //
-//   js/main.js            The running narration in the status log — "The Ripper
-//   js/sheets.js          turns the knife over…", "The book is clear." These
-//                         stay at the moment they are spoken, because each is
-//                         written around the values it reports.
+//   js/patrons.js         The one-line notes a patron's own hooks report as a
+//                         word prints ("3 Coins collected — the book is
+//                         clear"), which stay beside the hook that computes
+//                         them. Everything else the game SAYS is LOG_TEXT here.
 //
 //
 // ─── {KNOBS} AND {0} SLOTS ────────────────────────────────────────────────────
@@ -81,6 +84,184 @@ export function fillTable(table, knobs, where = 'text', fields = ['desc', 'body'
 // Fill {0}, {1}, … from a list — the runtime slots described above.
 export const fillSlots = (str, ...values) =>
   String(str).replace(/\{(\d+)\}/g, (m, i) => (values[i] ?? m));
+
+// ═══ THE NARRATOR ══════════════════════════════════════════════════════════════
+//
+// Every line the status log speaks — and the banners, refusals and end screens
+// beside it — in one table. The code only decides WHEN a line is said and what
+// goes in its {0} {1} slots; the words are all here. The comment before each
+// group says what the slots will hold.
+//
+// Where English forks on a count, there are two keys — `xxx` for many and
+// `xxx1` for exactly one — because "1 Coins" is not a line anyone should read.
+// A few entries are SUFFIXES, marked ⌐: fragments another line carries in a
+// slot when there is more to say (they start with their own space).
+
+export const LOG_TEXT = {
+  // ─── Modes & small refusals ─────────────────────────────────────────────────
+  discardCancelled: 'Discard cancelled.',
+  discardArmed:     'Tap tiles to discard, then press again.',
+  noDiscardsLeft:   'No discards left this page.',
+  toolBack:         'The {0} goes back on the workbench.',           // {0} tube | ratchet
+  sundryThrownAway: '{0} — thrown away, and the slot is free.',      // {0} the tool's name
+  reshuffleSpend:   'Spend this at the Market or the Colophon.',
+  dictLoading:      'The dictionary is still loading…',
+
+  // The board's refusals when a tap can't mean what it asked (js/drag.js).
+  oneTileAtATime:  'One tile at a time — deselect first.',
+  immutableTile:   'A lent tile takes no paint — nor does a ghost.',
+  unshiftable:     'The ratchet steps single letters — not ligatures or marks.',
+  unoffered:       'Only the glowing tiles are on offer.',
+  loupeCapped:     'That tile is already at its finest — the loupe goes no further.',
+  cursedNoDiscard: 'A cursed tile cannot be discarded — it has to be played.',
+  lentNoDiscard:   'A lent tile cannot be discarded — play it or let the page end.',
+  seatOrder:       '{0} takes seat {1} — patrons act in the order they sit.',
+
+  // The press's refusals when a word can't print as set.
+  ruleNeedsPair: 'A rule needs its pair — one at each end.',
+  ruleTwoMost:   'Two rules to a word, no more.',
+  ruleBracket:   'Rules bracket the word — one at each end.',
+  ruleWantsWord: 'The rules want a word between them.',
+  marksGoLast:   'Marks go last, as ? or ! or ?!.',
+  markNeedsWord: 'A mark needs a word in front of it.',
+  fleuronAlone:  'The fleuron sets no word — it prints alone.',
+  notAWord:      "“{0}” isn't in the dictionary.",              // {0} the word
+
+  // ─── The printed word ───────────────────────────────────────────────────────
+  // {0} word · {1} points · {2} mult · {3} total — then the suffixes it may carry.
+  printedWord:      '”{0}” — {1} × {2} = {3}.',
+  printedCoins:     '  +{0} Coins.',                                 // ⌐ {0} how many
+  printedCoin1:     '  +1 Coin.',                                    // ⌐
+  printedDiscards:  '  +{0} Discards.',                              // ⌐
+  printedDiscard1:  '  +1 Discard.',                                 // ⌐
+  printedBagged:    '  {0} slipped back into the bag.',              // ⌐ {0} tile count
+  printedBurned:    '  {0} burned to ash.',                          // ⌐
+  pardonStands:     '  {0} {1} lets it stand for {2}.',              // ⌐ emoji · name · the word it reads as
+  vouchSteno:       '  📟 The Stenographer vouches for it.',         // ⌐
+  vouchExpectants:  '  🤰 The Expectant Parents had that very name on their list.',  // ⌐
+
+  // ─── Patrons acting beyond the score ────────────────────────────────────────
+  catNotice:        '🐈 Somewhere beyond the lamplight, something sits up and takes an interest.',
+  economiserSpares: '🗑️ The Economiser reaches into the case, and thinks better of it — the press is down to its last sorts.',
+  economiserEats:   '🗑️ The Economiser melts down the {0} you left in the case — gone for good.',
+  roseNoTable:      '🎀 The rose metal shines, and there is nobody at the table to crown.',
+  roseCrown:        '🎀 {0} was struck in rose metal — {1} is crowned, +{2} Points on every word.',
+  ripperAlone:      '🔪 The Ripper turns the knife over, and finds nobody at the table but himself.',
+  ripperNoRoom:     '🔪 The Ripper stays his hand — there is no room left among your ghosts.',
+  ripperMurder:     '🔪 {0} is murdered — and works on as a ghost, its seat now empty.{1}',
+  ripperWaits:      ' The Ripper waits for another word.',           // ⌐
+  ripperGone:       ' The Ripper is gone.',                          // ⌐
+  benchFullGift:    '{0} {1} had something for you, and your workbench is full.',   // {0} emoji · {1} name
+  dabblerSplash:    '🖍️ The Dabbler splashes {0} {1} as well.',                     // {0} letter · {1} colour
+  revenantHand:     '💀 The Revenant walks {0} back out of the hellbox in ghost metal — it costs you no room in the hand.',
+  revenantCase:     '💀 The Revenant walks {0} back out of the hellbox — it will be waiting in the case.',
+  neologistRetires: '“{0}” is a word now, and always will be. The Neologist retires, satisfied.',
+
+  // ─── Tools spent on the board ───────────────────────────────────────────────
+  bodkinEmptyBag:  'The bag is empty — nothing left in it to reach for. The bodkin keeps.',
+  bodkinGone:      'That one has already left the bag. The bodkin keeps.',
+  bodkinFinds:     'The bodkin finds the {0} and lifts it out of the bag.{1}',
+  bodkinOverHand:  ' Your hand is over its size — nothing will be drawn until it is back under.',  // ⌐
+  packageOpened:   '{0} {1} — {2}',                                  // emoji · parcel name · what was inside
+  applicatorNone:  'Nothing in your hand will take a new metal — the applicator keeps.',
+  applicatorOffer: 'The applicator offers {0} tiles — tap the one to strike in {1}.',
+  applicatorOne:   'Only one tile will take a new metal — tap it.',
+  struckIn:        '{0} is struck in {1} — {2}',                     // letter · metal · what the metal does
+  potionSeat:      'The potion is uncorked — {0} is smitten, and takes a seat for nothing.',
+  laurelNone:      'No patron seated to crown — the laurel keeps.',
+  laurelCrown:     "🏵️ {0} is crowned — +{1} Points on every word, paid at that seat's turn, while the seat is kept{2}.",
+  laurelCount:     ' ({0} laurels now)',                             // ⌐
+  washNone:        'Nothing in your hand will take the wash — it keeps.',
+  washSettles:     'The wash settles: {0} — faint, and spent when each tile prints.',   // {0} "E amber, R jade"
+  tubeNone:        'Nothing in your hand will take paint — the tube keeps.',
+  tubeOffer:       'The tube offers {0} tiles — tap the one to paint.',
+  tubeOne:         'Only one tile will take paint — tap it.',
+  painted:         'Painted {0} {1}.',                               // letter · colour
+  tongsGrip:       'The tongs grip {0} — ash, and +{1} Points waiting on the next word.',
+  tongsFloater:    '+{0} to the next word',                          // over the groove, not in the log
+  ratchetSteps:    'The ratchet steps {0} to {1} — and there it stays.',
+
+  // ─── Seats kept and given up ────────────────────────────────────────────────
+  patronDeparts:   '{0} departs with thanks — {1} Coins returned.',
+  patronDeparts1:  '{0} departs with thanks — 1 Coin returned.',
+  ghostLetGo:      "{0} is let go — a ghost's contract is worth nothing.",
+  headsmanNow:     '🪓 The Headsman approves — ×{0} Mult now.',
+  headsmanAt:      '🪓 The Headsman is at ×{0} Mult.',
+  soldBack:        'Sold back for {0} Coin.',
+
+  // ─── Patrons with a button of their own ─────────────────────────────────────
+  usurerOneBook:   '🧾 One book at a time.',
+  usurerLoan:      '🧾 {0} Coins, and {1} written in the book — {2} as each page ends. He keeps his seat until it is clear.',
+  usurerShort:     '🧾 {0} Coins would clear the book. You have {1}.',
+  usurerClear:     '🧾 The book is clear. He bows, and is yours to dismiss.',
+  plateCold:       '💵 The plate is cold until the next page.',
+  plateHandFull:   '💵 Your hand is full — there is nowhere to put a forgery.',
+  counterfeitMade: '💵 A counterfeit {0} — worth nothing, and yours till the page turns.',
+  scienceStandards:'🔬 One tile per page — science has standards.',
+  scientistLends:  '🔬 The Scientist lends a gold-trimmed OLOGY tile — for this page only.',
+
+  // ─── The Bribrarian's desk ──────────────────────────────────────────────────
+  bribePaid:       '🤝 {0} Coins across the desk — every word this page at ×{1} Mult.{2}',
+  bribePaid1:      '🤝 1 Coin across the desk — every word this page at ×{1} Mult.{2}',
+  bribeDebt:       '  The purse is {0}: the Market is shut until it is clear.',   // ⌐
+  bribeNone:       '🤝 Not a penny. Every word this page at ×{0} Mult.',
+
+  // ─── Pages turning ──────────────────────────────────────────────────────────
+  bossTakesDesk:      '{0} {1} takes the desk. {2}',                 // emoji · name · their rule
+  bannerDeadlineMet:  'Deadline met',
+  bannerPageDone:     'Page complete',
+  bannerBossPleased:  '{0} {1} is satisfied — {2} of {3}',           // emoji · name · score · quota
+  bannerPageScore:    '{0} of {1} — {2}',                            // score · quota · chapter title
+  appendicesBegin:    'The appendices begin — quotas keep climbing. Good luck.',
+
+  // ─── The Market, the alley, the Colophon ────────────────────────────────────
+  bmTileBought:    'Bought “{0}”{1} for {2} Coins.',                 // letter · ⌐bmInMetal or '' · price
+  bmInMetal:       ' in {0}',                                        // ⌐ the metal's name
+  bmPatronSeat:    '{0} takes a seat — {1} Coins, and no questions.',
+  bmSundry:        '{0} goes on the workbench.',
+  bmDismissed:     '{0} is dismissed{1}.',                           // name · ⌐bmForCoins or ''
+  bmForCoins:      ' for {0} Coins',                                 // ⌐
+  compostLifted:   'Lifted from the heap — it joins the bag next page.',
+  tileBought:      'New tile joins the bag next page.',
+  marketDeparts:   '{0} departs — {1} Coins back.',
+  marketDeparts1:  '{0} departs — 1 Coin back.',
+  colophonSkipped: 'Skipped the Colophon — +{0} Coins instead.',
+
+  // ─── The Testing Chamber (the playtest bench) ───────────────────────────────
+  chamberSeat:       '{0} takes a seat.',
+  chamberHaunt:      '{0} works on, dead.',
+  chamberStruck:     'Struck {0} for the case.',
+  chamberScrapped:   'Scrapped {0}.',
+  chamberExperiment: '{0} switched {1} for this run.',
+
+  // ─── Loading & returning ────────────────────────────────────────────────────
+  customListLoaded:  'Custom word list loaded: {0} words.',
+  exclusionsMissing: 'The excluded-words list could not be read — word lists are unfiltered this session.',
+  welcomeBack:       'Welcome back.',
+  mercuryRetired:    'The mercury trim has been retired — {0} tiles wear cobalt instead. Azure tiles find their way back to the bag through The Fountain now.',
+  mercuryRetired1:   'The mercury trim has been retired — 1 tile wears cobalt instead. Azure tiles find their way back to the bag through The Fountain now.',
+  orphanSeats:       '{0} seats are no longer in the roster and have left the shelf.',
+  orphanSeat1:       '1 seat is no longer in the roster and has left the shelf.',
+
+  // ─── The end of the run ─────────────────────────────────────────────────────
+  endLoseTitle:    'The press falls silent',
+  endLoseSub:      '{0}, {1} — the quota of {2} went unmet.{3}',     // chapter · endLoseDeadline/endLosePage · quota · ⌐endLoseBoss or ''
+  endLoseDeadline: 'the Deadline',
+  endLosePage:     'page {0}',
+  endLoseBoss:     ' {0} {1} remains unimpressed.',                  // ⌐ emoji · name
+  endWinTitle:     'The folio is complete',
+  endWinSub:       "Ten chapters set, proofed, and printed. The house's finest work.",
+  endNewRun:       'Begin a new folio',
+  endEndless:      'Keep printing (appendices)',
+};
+
+// Look a line up and fill its slots — loudly, so a mistyped key is a crash at
+// the moment it is spoken rather than an "undefined" in the player's log.
+export function logLine(key, ...values) {
+  const s = LOG_TEXT[key];
+  if (s == null) throw new Error(`LOG_TEXT has no line '${key}'`);
+  return fillSlots(s, ...values);
+}
 
 // ═══ THINGS YOU OWN ════════════════════════════════════════════════════════════
 

@@ -61,6 +61,7 @@ import {
   PATRON_DEFS, patronById, doubledReading, boundNouns, patronName, patronShelf,
 } from './patrons.js';
 import { randomQuip } from './quips.js';
+import { logLine } from './text.js';
 
 const $ = id => document.getElementById(id);
 const rect = el => el?.getBoundingClientRect();
@@ -150,7 +151,7 @@ function cancelDiscardMode(quiet = false) {
   clearAllSelected();
   // `quiet` already marks the cancellations that are incidental — a mode swept
   // aside on the way to doing something else — and those want no latch either.
-  if (!quiet) { sfx.disarm(); log('Discard cancelled.'); }
+  if (!quiet) { sfx.disarm(); log(logLine('discardCancelled')); }
   renderAll();
   return true;
 }
@@ -163,7 +164,7 @@ function cancelSundryMode(quiet = false) {
   state.sundryMode = -1;
   state.tubeOffer = null;
   clearAllSelected();
-  if (!quiet) { sfx.disarm(); log(`The ${kind === 'tube' ? 'tube' : 'ratchet'} goes back on the workbench.`); }
+  if (!quiet) { sfx.disarm(); log(logLine('toolBack', kind === 'tube' ? 'tube' : 'ratchet')); }
   renderAll();
   return true;
 }
@@ -258,7 +259,7 @@ function throwSundryAway(idx) {
   if (!discardSundry(idx)) return;
   hidePopover();
   sfx.discard();
-  log(`${name} — thrown away, and the slot is free.`);
+  log(logLine('sundryThrownAway', name));
   renderAll();
 }
 
@@ -297,7 +298,7 @@ function noticeTheCat(script) {
   if (owns('shorthair') || state.catPending || script?.letters !== 'CAT') return;
   state.catPending = true;
   sfx.chime();
-  log('🐈 Somewhere beyond the lamplight, something sits up and takes an interest.', 'good');
+  log(logLine('catNotice'), 'good');
 }
 
 // ─── The Economiser (a sort melted down per word) ─────────────────────────────
@@ -316,7 +317,7 @@ async function editorEats() {
   if (!spare.length) return;
   const doomed = spare[Math.floor(Math.random() * spare.length)];
   if (!trashFromCollection(doomed.tid)) {
-    log('🗑️ The Economiser reaches into the case, and thinks better of it — the press is down to its last sorts.', 'warn');
+    log(logLine('economiserSpares'), 'warn');
     return;
   }
   const el = rackTileEl(doomed.id);
@@ -325,7 +326,7 @@ async function editorEats() {
   state.rack = state.rack.filter(t => t.id !== doomed.id);
   state.isAnimating = false;
   renderAll();
-  log(`🗑️ The Economiser melts down the ${getActiveLetter(doomed)} you left in the case — gone for good.`, 'warn');
+  log(logLine('economiserEats', getActiveLetter(doomed)), 'warn');
   reportPaintEchoes();   // The Revenant may have caught it
 }
 
@@ -338,7 +339,7 @@ async function roseCrowns(printed) {
   const roses = printed.filter(t => t.material === 'rose');
   if (!roses.length) return;
   if (!state.patrons.length) {
-    log('🎀 The rose metal shines, and there is nobody at the table to crown.', 'warn');
+    log(logLine('roseNoTable'), 'warn');
     return;
   }
   for (const tile of roses) {
@@ -353,8 +354,8 @@ async function roseCrowns(printed) {
       floatText(card, `🏵️ +${HONORIFIC_STEP}`, 'fl-points', { dy: -44 });
     }
     sfx.gain();
-    log(`🎀 ${getActiveLetter(tile)} was struck in rose metal — ${patronName(def, seat.data)} is crowned, `
-      + `+${seat.data.honorifics * HONORIFIC_STEP} Points on every word.`, 'good');
+    log(logLine('roseCrown', getActiveLetter(tile), patronName(def, seat.data),
+      seat.data.honorifics * HONORIFIC_STEP), 'good');
   }
   renderAll();
   await sleep(ANIM.stepColour);
@@ -377,11 +378,11 @@ async function ripperStrikes(script) {
 
   const victims = state.patrons.filter(p => p !== killer);
   if (!victims.length) {
-    log('🔪 The Ripper turns the knife over, and finds nobody at the table but himself.', 'warn');
+    log(logLine('ripperAlone'), 'warn');
     return;
   }
   if (state.ghosts.length >= effectiveGhostSlots()) {
-    log('🔪 The Ripper stays his hand — there is no room left among your ghosts.', 'warn');
+    log(logLine('ripperNoRoom'), 'warn');
     return;
   }
 
@@ -437,8 +438,8 @@ async function ripperStrikes(script) {
 
   state.isAnimating = false;
   renderAll();
-  log(`🔪 ${name} is murdered — and works on as a ghost, its seat now empty.`
-    + (alreadyDead ? ' The Ripper waits for another word.' : ' The Ripper is gone.'), 'warn');
+  log(logLine('ripperMurder', name,
+    logLine(alreadyDead ? 'ripperWaits' : 'ripperGone')), 'warn');
 }
 
 // ─── Titivillus (one wrong vowel forgiven) ────────────────────────────────────
@@ -575,7 +576,7 @@ function runPrintedHooks(tiles, script) {
     for (const t of r.burned ?? []) burned.set(t.id, t);
     if (r.refused) {
       // A gift with nowhere to go is worth saying out loud.
-      log(`${def.emoji} ${def.name} had something for you, and your workbench is full.`, 'warn');
+      log(logLine('benchFullGift', def.emoji, def.name), 'warn');
     }
     if (r.note) {
       const card = patronCard(p);
@@ -698,11 +699,11 @@ function runPageHooks() {
 // speak: they queue in state.js and drain into the log here.
 function reportPaintEchoes() {
   for (const e of takePaintEchoes()) {
-    log(`🖍️ The Dabbler splashes ${e.letter} ${COLOURS[e.colour].label.toLowerCase()} as well.`, 'good');
+    log(logLine('dabblerSplash', e.letter, COLOURS[e.colour].label.toLowerCase()), 'good');
   }
   // The Revenant's raisings queue and drain the same way.
   for (const e of takeGhostEchoes()) {
-    log(`💀 The Revenant walks ${e.letter} back out of the hellbox in ghost metal — it costs you no room in the hand.`, 'good');
+    log(logLine('revenantHand', e.letter), 'good');
   }
 }
 
@@ -747,7 +748,7 @@ async function submitWord() {
   cancelDiscardMode(true);
   cancelSundryMode(true);
 
-  if (!dictLoaded) { log('The dictionary is still loading…', 'warn'); return; }
+  if (!dictLoaded) { log(logLine('dictLoading'), 'warn'); return; }
 
   const reject = msg => {
     log(msg, 'bad');
@@ -761,10 +762,10 @@ async function submitWord() {
   if (rules.length) {
     const ends = isRule(getActiveLetter(state.word[0]))
               && isRule(getActiveLetter(state.word[state.word.length - 1]));
-    if (rules.length === 1) return reject('A rule needs its pair — one at each end.');
-    if (rules.length > 2)   return reject('Two rules to a word, no more.');
-    if (!ends)              return reject('Rules bracket the word — one at each end.');
-    if (state.word.length <= 2) return reject('The rules want a word between them.');
+    if (rules.length === 1) return reject(logLine('ruleNeedsPair'));
+    if (rules.length > 2)   return reject(logLine('ruleTwoMost'));
+    if (!ends)              return reject(logLine('ruleBracket'));
+    if (state.word.length <= 2) return reject(logLine('ruleWantsWord'));
   }
   // The rules set the word, they don't join it: they are struck from the string
   // before the dictionary — or the marks, or the fleuron — is ever asked, the
@@ -777,13 +778,13 @@ async function submitWord() {
   // Marks ride at the end of a word, and only as ?, ! or ?!. The dictionary
   // never sees them — it's the letters in front that have to be a word.
   const parts = splitMarks(w.toUpperCase());
-  if (!parts)          return reject('Marks go last, as ? or ! or ?!.');
-  if (!parts.letters)  return reject('A mark needs a word in front of it.');
+  if (!parts)          return reject(logLine('marksGoLast'));
+  if (!parts.letters)  return reject(logLine('markNeedsWord'));
   // The fleuron decorates the page, never a word: alone it stands, beside
   // anything else it is refused before the dictionary is even asked.
   const fleuronAlone = parts.letters === FLEURON;
   if (parts.letters.includes(FLEURON) && !fleuronAlone) {
-    return reject('The fleuron sets no word — it prints alone.');
+    return reject(logLine('fleuronAlone'));
   }
   // A medieval sort stands for ordinary letters, so the word is READ before it
   // is judged: every reading is tried, in the sort's own order, and the first
@@ -806,7 +807,7 @@ async function submitWord() {
         const excuse = pardonWord(r);
         if (excuse) { pardoned = excuse; parts.letters = r; break; }
       }
-      if (!pardoned) return reject(`“${w}” isn't in the dictionary.`);
+      if (!pardoned) return reject(logLine('notAWord', w));
     }
   } else if (!fleuronAlone) {
     parts.letters = readings.find(r => DICT.has(r));
@@ -1064,17 +1065,18 @@ async function submitWord() {
   const { toBag, toPile } = retirePrinted(printed.filter(t => !burnedIds.has(t.id)));
   state.word.length = 0;
 
-  let msg = `”${script.word}” — ${script.points.toLocaleString()} × ${fmtMult(script.mult)} = ${script.total.toLocaleString()}.`;
-  if (script.coins)   msg += `  +${script.coins} Coin${script.coins > 1 ? 's' : ''}.`;
-  if (script.refresh) msg += `  +${script.refresh} Discard${script.refresh > 1 ? 's' : ''}.`;
-  if (toBag.length)   msg += `  ${toBag.length} slipped back into the bag.`;
-  if (burned.length)  msg += `  ${burned.length} burned to ash.`;
+  let msg = logLine('printedWord', script.word, script.points.toLocaleString(),
+    fmtMult(script.mult), script.total.toLocaleString());
+  if (script.coins)   msg += logLine(script.coins > 1 ? 'printedCoins' : 'printedCoin1', script.coins);
+  if (script.refresh) msg += logLine(script.refresh > 1 ? 'printedDiscards' : 'printedDiscard1', script.refresh);
+  if (toBag.length)   msg += logLine('printedBagged', toBag.length);
+  if (burned.length)  msg += logLine('printedBurned', burned.length);
   if (pardoned) {
     const def = patronById(pardoned.id);
-    msg += `  ${def.emoji} ${def.name} lets it stand for ${pardoned.stands}.`;
+    msg += logLine('pardonStands', def.emoji, def.name, pardoned.stands);
   }
-  if (vouched === 'stenographer') msg += `  📟 The Stenographer vouches for it.`;
-  if (vouched === 'expectants')   msg += `  🤰 The Expectant Parents had that very name on their list.`;
+  if (vouched === 'stenographer') msg += logLine('vouchSteno');
+  if (vouched === 'expectants')   msg += logLine('vouchExpectants');
   for (const line of said) msg += `  ${line}`;
   log(msg, 'good');
 
@@ -1125,10 +1127,12 @@ async function pageComplete() {
   sfx.win();
   const bossDef = state.boss ? bossById(state.boss.id) : null;
   await showBanner(
-    bossDef ? 'Deadline met' : 'Page complete',
+    logLine(bossDef ? 'bannerDeadlineMet' : 'bannerPageDone'),
     bossDef
-      ? `${bossDef.emoji} ${bossDef.name} is satisfied — ${state.pageScore.toLocaleString()} of ${state.quota.toLocaleString()}`
-      : `${state.pageScore.toLocaleString()} of ${state.quota.toLocaleString()} — ${chapterTitle(state.chapter)}`);
+      ? logLine('bannerBossPleased', bossDef.emoji, bossDef.name,
+          state.pageScore.toLocaleString(), state.quota.toLocaleString())
+      : logLine('bannerPageScore', state.pageScore.toLocaleString(),
+          state.quota.toLocaleString(), chapterTitle(state.chapter)));
 
   for (const note of runPageCompleteHooks()) log(note, 'good');
 
@@ -1240,7 +1244,7 @@ async function advancePage() {
     // The rule is a paragraph, not a title — hold the banner long enough to
     // read it, however long that particular rule runs.
     await showBanner(`${def.emoji} ${def.name}`, def.desc, 'read');
-    log(`${def.emoji} ${def.name} takes the desk. ${def.desc}`, 'warn');
+    log(logLine('bossTakesDesk', def.emoji, def.name, def.desc), 'warn');
     // …and one of them puts his hand out before you have seen a tile.
     if (state.boss.id === 'bribrarian') await takeTheConsideration();
   }
@@ -1276,11 +1280,11 @@ async function doDiscard() {
 
   // First press arms the mode; tiles are then tapped to select.
   if (!state.discardMode) {
-    if (state.discards <= 0) { log('No discards left this page.', 'warn'); return; }
+    if (state.discards <= 0) { log(logLine('noDiscardsLeft'), 'warn'); return; }
     cancelSundryMode(true);
     state.discardMode = true;
     sfx.arm();
-    log('Tap tiles to discard, then press again.');
+    log(logLine('discardArmed'));
     renderAll();
     return;
   }
@@ -1430,7 +1434,7 @@ async function useSundry(idx, e = null) {
   if (arrow && armed?.kind === 'ratchet') state.ratchetDir = Number(arrow.dataset.shift);
 
   if (armed?.kind === 'reshuffle') {
-    log('Spend this at the Market or the Colophon.', 'warn');
+    log(logLine('reshuffleSpend'), 'warn');
     return;
   }
 
@@ -1442,7 +1446,7 @@ async function useSundry(idx, e = null) {
     cancelDiscardMode(true);
     cancelSundryMode(true);
     if (!state.bag.length) {
-      log('The bag is empty — nothing left in it to reach for. The bodkin keeps.', 'warn');
+      log(logLine('bodkinEmptyBag'), 'warn');
       return;
     }
     openBagPicker(async tmpl => {
@@ -1450,7 +1454,7 @@ async function useSundry(idx, e = null) {
       if (at < 0) return;                        // gone from the bench while the sheet was open
       const tile = pluckFromBag(tmpl.tid);
       if (!tile) {                               // drawn out from under the sheet
-        log('That one has already left the bag. The bodkin keeps.', 'warn');
+        log(logLine('bodkinGone'), 'warn');
         renderAll();
         return;
       }
@@ -1469,9 +1473,8 @@ async function useSundry(idx, e = null) {
       state.isAnimating = false;
       renderAll();
       const over = handCount() > effectiveRackSize();
-      log(`The bodkin finds the ${getActiveLetter(tile)} and lifts it out of the bag.`
-        + (over ? ' Your hand is over its size — nothing will be drawn until it is back under.' : ''),
-        'good');
+      log(logLine('bodkinFinds', getActiveLetter(tile),
+        over ? logLine('bodkinOverHand') : ''), 'good');
     });
     return;
   }
@@ -1525,7 +1528,7 @@ async function useSundry(idx, e = null) {
     await sleep(ANIM.stepColour);
     state.isAnimating = false;
     renderAll();
-    log(`${pkg.emoji} ${pkg.label} — ${said}`, 'good');
+    log(logLine('packageOpened', pkg.emoji, pkg.label, said), 'good');
     reportPaintEchoes();
     return;
   }
@@ -1537,12 +1540,12 @@ async function useSundry(idx, e = null) {
     cancelSundryMode(true);
     clearAllSelected();
     const offer = rollTubeOffer(armed);
-    if (!offer) { log('Nothing in your hand will take a new metal — the applicator keeps.', 'warn'); return; }
+    if (!offer) { log(logLine('applicatorNone'), 'warn'); return; }
     state.sundryMode = idx;
     const look = APPLICATORS[armed.material];
     log(offer.length > 1
-      ? `The applicator offers ${offer.length} tiles — tap the one to strike in ${look.label.toLowerCase()}.`
-      : `Only one tile will take a new metal — tap it.`);
+      ? logLine('applicatorOffer', offer.length, look.label.toLowerCase())
+      : logLine('applicatorOne'));
     renderAll();
     return;
   }
@@ -1564,7 +1567,7 @@ async function useSundry(idx, e = null) {
     await sleep(ANIM.stepColour);
     state.isAnimating = false;
     renderAll();
-    log(`${result.letters[0]} is struck in ${MATERIALS[result.material].metal.toLowerCase()} — ${MATERIALS[result.material].desc}`, 'good');
+    log(logLine('struckIn', result.letters[0], MATERIALS[result.material].metal.toLowerCase(), MATERIALS[result.material].desc), 'good');
     return;
   }
 
@@ -1636,12 +1639,12 @@ async function useSundry(idx, e = null) {
     state.isAnimating = false;
     renderAll();
     const def = patronById(seat.id);
-    log(`The potion is uncorked — ${patronName(def, seat.data)} is smitten, and takes a seat for nothing.`, 'good');
+    log(logLine('potionSeat', patronName(def, seat.data)), 'good');
     return;
   }
 
   if (armed?.kind === 'laurel') {
-    if (!state.patrons.length) { log('No patron seated to crown — the laurel keeps.', 'warn'); return; }
+    if (!state.patrons.length) { log(logLine('laurelNone'), 'warn'); return; }
     cancelDiscardMode(true);
     cancelSundryMode(true);
     const seat = state.patrons[Math.floor(Math.random() * state.patrons.length)];
@@ -1664,7 +1667,7 @@ async function useSundry(idx, e = null) {
     const def = patronById(seat.id);
     const name = patronName(def, seat.data);
     const n = seat.data.honorifics;
-    log(`🏵️ ${name} is crowned — +${HONORIFIC_STEP} Points on every word, paid at that seat's turn, while the seat is kept${n > 1 ? ` (${n} laurels now)` : ''}.`, 'good');
+    log(logLine('laurelCrown', name, HONORIFIC_STEP, n > 1 ? logLine('laurelCount', n) : ''), 'good');
     return;
   }
 
@@ -1674,7 +1677,7 @@ async function useSundry(idx, e = null) {
     cancelDiscardMode(true);
     cancelSundryMode(true);
     const washed = applyWash();
-    if (!washed.length) { log('Nothing in your hand will take the wash — it keeps.', 'warn'); return; }
+    if (!washed.length) { log(logLine('washNone'), 'warn'); return; }
     state.sundries.splice(idx, 1);
 
     state.isAnimating = true;
@@ -1691,7 +1694,7 @@ async function useSundry(idx, e = null) {
     state.isAnimating = false;
     renderAll();
     const said = washed.map(w => `${getActiveLetter(w.tile)} ${COLOURS[w.colour].label.toLowerCase()}`);
-    log(`The wash settles: ${said.join(', ')} — faint, and spent when each tile prints.`, 'good');
+    log(logLine('washSettles', said.join(', ')), 'good');
     return;
   }
 
@@ -1703,11 +1706,11 @@ async function useSundry(idx, e = null) {
     cancelSundryMode(true);
     clearAllSelected();
     const offer = rollTubeOffer(armed);
-    if (!offer) { log('Nothing in your hand will take paint — the tube keeps.', 'warn'); return; }
+    if (!offer) { log(logLine('tubeNone'), 'warn'); return; }
     state.sundryMode = idx;
     log(offer.length > 1
-      ? `The tube offers ${offer.length} tiles — tap the one to paint.`
-      : 'Only one tile will take paint — tap it.');
+      ? logLine('tubeOffer', offer.length)
+      : logLine('tubeOne'));
     renderAll();
     return;
   }
@@ -1730,7 +1733,7 @@ async function useSundry(idx, e = null) {
     await sleep(ANIM.stepColour);
     state.isAnimating = false;
     renderAll();
-    log(`Painted ${result.letters[0]} ${COLOURS[result.colour].label.toLowerCase()}.`, 'good');
+    log(logLine('painted', result.letters[0], COLOURS[result.colour].label.toLowerCase()), 'good');
     reportPaintEchoes();
     return;
   }
@@ -1769,11 +1772,11 @@ async function useSundry(idx, e = null) {
     if (gripped) await animateBurn([gripped]);
     renderAll();
     const groove = $('word');
-    if (groove) floatText(groove, `+${TONGS_BONUS} to the next word`, 'fl-points', { dy: -30 });
+    if (groove) floatText(groove, logLine('tongsFloater', TONGS_BONUS), 'fl-points', { dy: -30 });
     await sleep(ANIM.stepColour);
     state.isAnimating = false;
     renderAll();
-    log(`The tongs grip ${result.letters[0]} — ash, and +${result.bonus} Points waiting on the next word.`, 'good');
+    log(logLine('tongsGrip', result.letters[0], result.bonus), 'good');
     reportPaintEchoes();   // The Revenant stands over the furnace too
     return;
   }
@@ -1804,7 +1807,7 @@ async function useSundry(idx, e = null) {
   await sleep(ANIM.stepColour);
   state.isAnimating = false;
   renderAll();
-  log(`The ratchet steps ${result.from} to ${result.to} — and there it stays.`, 'good');
+  log(logLine('ratchetSteps', result.from, result.to), 'good');
 }
 
 // Which tools go off the instant a target is picked. Everything beneficial
@@ -1836,8 +1839,8 @@ function dismissPatron(ref) {
   if (r.reason) { log(r.reason, 'warn'); return; }
   if (r.ok) {
     sfx.dismiss();
-    log(`${r.name} departs with thanks — ${r.refund} Coin${r.refund !== 1 ? 's' : ''} returned.`);
-    if (r.headsman) log(`🪓 The Headsman approves — ×${r.headsman.mult} Mult now.`);
+    log(logLine(r.refund === 1 ? 'patronDeparts1' : 'patronDeparts', r.name, r.refund));
+    if (r.headsman) log(logLine('headsmanNow', r.headsman.mult));
     renderAll();
     if (state.inMarket) renderMarket();
   }
@@ -1863,8 +1866,8 @@ $('ghostModal')?.addEventListener('click', e => {
     if (r.reason) { log(r.reason, 'warn'); return; }
     if (r.ok) {
       sfx.dismiss();
-      log(`${r.name} is let go — a ghost's contract is worth nothing.`);
-      if (r.headsman) log(`🪓 The Headsman approves — ×${r.headsman.mult} Mult now.`);
+      log(logLine('ghostLetGo', r.name));
+      if (r.headsman) log(logLine('headsmanNow', r.headsman.mult));
       renderAll();
       if (state.ghosts.length) openGhosts(); else closeGhosts();
     }
@@ -1920,7 +1923,7 @@ function confirmCoinedWord() {
   hideOverlay();
   renderAll();
   renderDictStatus('loaded', DICT.size);
-  log(`“${w}” is a word now, and always will be. The Neologist retires, satisfied.`, 'good');
+  log(logLine('neologistRetires', w), 'good');
 }
 
 $('overlayModal')?.addEventListener('click', e => {
@@ -1948,11 +1951,11 @@ function usurerBorrow() {
   const seat = state.patrons.find(p => p.id === 'usurer');
   if (!seat) return;
   seat.data ??= {};
-  if (seat.data.debt) { log('🧾 One book at a time.', 'warn'); return; }
+  if (seat.data.debt) { log(logLine('usurerOneBook'), 'warn'); return; }
   seat.data.debt = USURER.owed;
   state.coins += USURER.loan;
   sfx.coin();
-  log(`🧾 ${USURER.loan} Coins, and ${USURER.owed} written in the book — ${USURER.collect} as each page ends. He keeps his seat until it is clear.`, 'good');
+  log(logLine('usurerLoan', USURER.loan, USURER.owed, USURER.collect), 'good');
   renderAll(); if (state.inMarket) renderMarket(); persist();
 }
 
@@ -1960,11 +1963,11 @@ function usurerRepay() {
   const seat = state.patrons.find(p => p.id === 'usurer');
   const owed = seat?.data?.debt ?? 0;
   if (!owed) return;
-  if (state.coins < owed) { log(`🧾 ${owed} Coins would clear the book. You have ${state.coins}.`, 'warn'); return; }
+  if (state.coins < owed) { log(logLine('usurerShort', owed, state.coins), 'warn'); return; }
   state.coins -= owed;
   seat.data.debt = 0;
   sfx.coin();
-  log('🧾 The book is clear. He bows, and is yours to dismiss.', 'good');
+  log(logLine('usurerClear'), 'good');
   renderAll(); if (state.inMarket) renderMarket(); persist();
 }
 
@@ -1987,12 +1990,11 @@ function takeTheConsideration() {
       hideOverlay();
       if (paid) {
         sfx.coin();
-        log(`🤝 ${paid} Coin${paid === 1 ? '' : 's'} across the desk — every word this page at `
-          + `×${bribeMult(paid)} Mult.${state.coins < 0
-              ? `  The purse is ${state.coins}: the Market is shut until it is clear.` : ''}`,
+        log(logLine(paid === 1 ? 'bribePaid1' : 'bribePaid', paid, bribeMult(paid),
+            state.coins < 0 ? logLine('bribeDebt', state.coins) : ''),
           state.coins < 0 ? 'warn' : 'good');
       } else {
-        log(`🤝 Not a penny. Every word this page at ×${bribeMult(0)} Mult.`, 'warn');
+        log(logLine('bribeNone', bribeMult(0)), 'warn');
       }
       renderAll();
       resolve(paid);
@@ -2013,8 +2015,8 @@ function openCounterfeitPlate() {
   const seat = state.patrons.find(p => p.id === 'counterfeiter');
   if (!seat) return;
   seat.data ??= {};
-  if (seat.data.used) { log('💵 The plate is cold until the next page.', 'warn'); return; }
-  if (handRoom() <= 0) { log('💵 Your hand is full — there is nowhere to put a forgery.', 'warn'); return; }
+  if (seat.data.used) { log(logLine('plateCold'), 'warn'); return; }
+  if (handRoom() <= 0) { log(logLine('plateHandFull'), 'warn'); return; }
   showCounterfeitSheet();
 }
 
@@ -2041,7 +2043,7 @@ async function takeCounterfeit(letter) {
     sfx.land();
   }
   state.isAnimating = false;
-  log(`💵 A counterfeit ${letter} — worth nothing, and yours till the page turns.`, 'good');
+  log(logLine('counterfeitMade', letter), 'good');
   renderAll();
 }
 
@@ -2050,7 +2052,7 @@ async function lendOlogyTile() {
   const seat = state.patrons.find(p => p.id === 'scientist');
   if (!seat) return;
   seat.data ??= {};
-  if (seat.data.used) { log('🔬 One tile per page — science has standards.', 'warn'); return; }
+  if (seat.data.used) { log(logLine('scienceStandards'), 'warn'); return; }
   seat.data.used = true;
 
   const tile = castLentTile('OLOGY', { aboveHand: true, lender: 'scientist', trim: 'gold' });
@@ -2067,7 +2069,7 @@ async function lendOlogyTile() {
     sparkleBurst(el, 9);
   }
   state.isAnimating = false;
-  log('🔬 The Scientist lends a gold-trimmed OLOGY tile — for this page only.', 'good');
+  log(logLine('scientistLends'), 'good');
   renderAll();
 }
 
@@ -2096,7 +2098,7 @@ $('popover')?.addEventListener('click', e => {
     const idx = Number(drop.dataset.popDiscard);
     if (state.inMarket) {
       const r = sellSundry(idx);
-      if (r.ok) { sfx.coin(); log(`Sold back for ${r.refund} Coin.`); renderAll(); renderMarket(); }
+      if (r.ok) { sfx.coin(); log(logLine('soldBack', r.refund)); renderAll(); renderMarket(); }
     } else {
       throwSundryAway(idx);
     }
@@ -2126,7 +2128,7 @@ $('overlayModal')?.addEventListener('click', async e => {
   if (action === 'newrun') {
     await startFreshRun();
   } else if (action === 'endless') {
-    log('The appendices begin — quotas keep climbing. Good luck.');
+    log(logLine('appendicesBegin'));
     await advancePage();
   }
 });
@@ -2238,7 +2240,7 @@ $('fileInput')?.addEventListener('change', e => {
   const reader = new FileReader();
   reader.onload = () => {
     const n = loadCustom(String(reader.result || ''));
-    log(`Custom word list loaded: ${n.toLocaleString()} words.`, 'good');
+    log(logLine('customListLoaded', n.toLocaleString()), 'good');
     renderDictStatus('loaded', n);
   };
   reader.readAsText(file);
@@ -2331,7 +2333,7 @@ function openTheChamber() {
   // adoptTheme consult it as they build their Sets. Hence this alone is awaited.
   await loadExclusions();
   if (!exclusionsLoaded) {
-    log('The excluded-words list could not be read — word lists are unfiltered this session.', 'warn');
+    log(logLine('exclusionsMissing'), 'warn');
   }
   loadDict((status, count) => renderDictStatus(status, count));
   loadThemes();
@@ -2354,29 +2356,29 @@ function openTheChamber() {
     else if (restored.market) {
       restoreMarket(restored.market);
       renderAll(); renderMarket();
-      log('Welcome back.');
+      log(logLine('welcomeBack'));
     }
     else if (restored.colophon) {
       restoreColophon(restored.colophon);
       renderAll(); renderColophon();
-      log('Welcome back.');
+      log(logLine('welcomeBack'));
     }
     else if (restored.blackmarket) {
       restoreBlackMarket(restored.blackmarket);
       renderAll(); renderBlackMarket();
-      log('Welcome back.');
+      log(logLine('welcomeBack'));
     } else {
       bossReplenish(state, castLentTile, lentInHand);   // restore anything a mid-deal reload lost
       drawUpToRackSize();                               // top up in case a save landed mid-draw
       renderAll();
-      log('Welcome back.');
+      log(logLine('welcomeBack'));
     }
     // Said last, so they aren't lines "Welcome back." writes over.
     if (restored.mercury) {
-      log(`The mercury trim has been retired — ${restored.mercury} tile${restored.mercury > 1 ? 's wear' : ' wears'} cobalt instead. Azure tiles find their way back to the bag through The Fountain now.`, 'warn');
+      log(logLine(restored.mercury > 1 ? 'mercuryRetired' : 'mercuryRetired1', restored.mercury), 'warn');
     }
     if (orphaned) {
-      log(`${orphaned} seat${orphaned > 1 ? 's are' : ' is'} no longer in the roster and ${orphaned > 1 ? 'have' : 'has'} left the shelf.`, 'warn');
+      log(logLine(orphaned > 1 ? 'orphanSeats' : 'orphanSeat1', orphaned), 'warn');
     }
   }
 

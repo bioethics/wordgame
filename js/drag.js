@@ -18,6 +18,7 @@ import {
 import { renderAll, showTilePopover, showPopover, hidePopover, log } from './render.js';
 import { sfx } from './anim.js';
 import { uiZoom } from './appearance.js';
+import { logLine } from './text.js';
 import { computeScore } from './scoring.js';
 import { patronById, patronName } from './patrons.js';
 import { market, stallById } from './market.js';
@@ -164,11 +165,11 @@ function releasePress(commit) {
     if (selectingForSundry()) {
       const kind = state.sundries[state.sundryMode]?.kind;
       const r = toggleSundrySelect(press.id);
-      if (r === 'full')      log('One tile at a time — deselect first.', 'warn');
-      if (r === 'immutable') log('A lent tile takes no paint — nor does a ghost.', 'warn');
-      if (r === 'unshiftable') log('The ratchet steps single letters — not ligatures or marks.', 'warn');
-      if (r === 'unoffered') log('Only the glowing tiles are on offer.', 'warn');
-      if (r === 'capped')    log('That tile is already at its finest — the loupe goes no further.', 'warn');
+      if (r === 'full')      log(logLine('oneTileAtATime'), 'warn');
+      if (r === 'immutable') log(logLine('immutableTile'), 'warn');
+      if (r === 'unshiftable') log(logLine('unshiftable'), 'warn');
+      if (r === 'unoffered') log(logLine('unoffered'), 'warn');
+      if (r === 'capped')    log(logLine('loupeCapped'), 'warn');
       // A tile just taken up (rather than put back down) is the second tap:
       // spend the tool on it now instead of asking for a third. No mark is
       // sounded there — the tool's own voice is a fuller answer than a tick.
@@ -181,8 +182,8 @@ function releasePress(commit) {
     } else if (press.zone === 'rack') {
       if (selectingToDiscard()) {
         const r = toggleSelected(press.id);
-        if (r === 'cursed') log('A cursed tile cannot be discarded — it has to be played.', 'warn');
-        if (r === 'lent')   log('A lent tile cannot be discarded — play it or let the page end.', 'warn');
+        if (r === 'cursed') log(logLine('cursedNoDiscard'), 'warn');
+        if (r === 'lent')   log(logLine('lentNoDiscard'), 'warn');
         markSound(r);
       }
       else                    { moveRackToWord(press.id); sfx.place(); }
@@ -320,7 +321,7 @@ function endShelfPress(commit, x) {
         String(p.uid) === String(shelfPress.ref) || p.id === shelfPress.ref);
       const def = patronById(state.patrons[seat]?.id);
       const name = patronName(def, state.patrons[seat]?.data);
-      log(`${name} takes seat ${seat + 1} — patrons act in the order they sit.`);
+      log(logLine('seatOrder', name, seat + 1));
     }
   }
   const wasMarket = isMarketShelf(shelf);

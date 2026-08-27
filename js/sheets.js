@@ -30,7 +30,7 @@ import {
 // Every heading, note and button label on these three sheets is copy, and lives
 // in js/text.js with the rest of the game's writing.
 import {
-  MARKET_TEXT as MT, BLACK_MARKET_TEXT as BT, COLOPHON_TEXT as CT, fillSlots,
+  MARKET_TEXT as MT, BLACK_MARKET_TEXT as BT, COLOPHON_TEXT as CT, fillSlots, logLine,
 } from './text.js';
 import {
   chamber, chamberPatrons, CHAMBER_COINS, chamberLetters, CHAMBER_SUNDRIES,
@@ -943,8 +943,8 @@ function onBlackMarketClick(e) {
     sfx.coin();
     const tileEl = document.querySelector(`[data-bm-tile="${idx}"] .tile`);
     flyPurchase(tileEl, $('bagPile') ?? tileEl);
-    log(`Bought “${r.template.letter}”${r.template.material
-      ? ` in ${MATERIALS[r.template.material].metal.toLowerCase()}` : ''} for ${r.price} Coins.`, 'good');
+    log(logLine('bmTileBought', r.template.letter, r.template.material
+      ? logLine('bmInMetal', MATERIALS[r.template.material].metal.toLowerCase()) : '', r.price), 'good');
     renderAll(); updateBlackMarketState();
     return;
   }
@@ -954,7 +954,7 @@ function onBlackMarketClick(e) {
     const r = buyBlackPatron(Number(buyP.dataset.buyBmPatron));
     if (!r.ok) { if (r.reason) log(r.reason, 'warn'); sfx.bad(); return; }
     sfx.coin(); sfx.chime();
-    log(`${r.name} takes a seat — ${r.price} Coins, and no questions.`, 'good');
+    log(logLine('bmPatronSeat', r.name, r.price), 'good');
     renderAll(); updateBlackMarketState();
     return;
   }
@@ -964,7 +964,7 @@ function onBlackMarketClick(e) {
     const r = buyBlackSundry(Number(buyS.dataset.buyBmSundry));
     if (!r.ok) { if (r.reason) log(r.reason, 'warn'); sfx.bad(); return; }
     sfx.coin();
-    log(`${sundryTip(r.offer)?.head ?? 'A sundry'} goes on the workbench.`, 'good');
+    log(logLine('bmSundry', sundryTip(r.offer)?.head ?? 'A sundry'), 'good');
     renderAll(); updateBlackMarketState();
     return;
   }
@@ -976,8 +976,8 @@ function onBlackMarketClick(e) {
     const r = sellPatron(sellP.dataset.sellPatron);
     if (!r.ok) { if (r.reason) log(r.reason, 'warn'); sfx.bad(); return; }
     sfx.coin();
-    log(`${r.name} is dismissed${r.refund ? ` for ${r.refund} Coins` : ''}.`);
-    if (r.headsman) log(`🪓 The Headsman is at ×${r.headsman.mult} Mult.`, 'good');
+    log(logLine('bmDismissed', r.name, r.refund ? logLine('bmForCoins', r.refund) : ''));
+    if (r.headsman) log(logLine('headsmanAt', r.headsman.mult), 'good');
     renderAll(); updateBlackMarketState();
     return;
   }
@@ -986,7 +986,7 @@ function onBlackMarketClick(e) {
     const r = sellSundry(Number(sellS.dataset.sellSundry));
     if (r.ok) {
       sfx.coin();
-      log(`Sold back for ${r.refund} Coin.`);
+      log(logLine('soldBack', r.refund));
       renderAll(); updateBlackMarketState();
     }
     return;
@@ -1363,7 +1363,7 @@ function onMarketClick(e) {
     if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
     else {
       sfx.chime();
-      log('Lifted from the heap — it joins the bag next page.', 'good');
+      log(logLine('compostLifted'), 'good');
       flyPurchase(card?.querySelector('.tile'), $('bagBtn'));
     }
     renderAll(); renderMarket();
@@ -1375,7 +1375,7 @@ function onMarketClick(e) {
     const r = buyTile(Number(buyT.dataset.buyTile));
     if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
     else {
-      sfx.coin(); log('New tile joins the bag next page.', 'good');
+      sfx.coin(); log(logLine('tileBought'), 'good');
       flyPurchase(card?.querySelector('.tile'), $('bagBtn'));
     }
     renderAll(); updateMarketState();
@@ -1408,8 +1408,8 @@ function onMarketClick(e) {
     if (r.reason) { log(r.reason, 'warn'); return; }
     if (r.ok) {
       sfx.coin();
-      log(`${r.name} departs — ${r.refund} Coin${r.refund === 1 ? '' : 's'} back.`);
-      if (r.headsman) log(`🪓 The Headsman approves — ×${r.headsman.mult} Mult now.`);
+      log(logLine(r.refund === 1 ? 'marketDeparts1' : 'marketDeparts', r.name, r.refund));
+      if (r.headsman) log(logLine('headsmanNow', r.headsman.mult));
       renderAll(); renderMarket();
     }
     return;
@@ -1419,7 +1419,7 @@ function onMarketClick(e) {
     const r = sellSundry(Number(sellS.dataset.sellSundry));
     if (r.ok) {
       sfx.coin();
-      log(`Sold back for ${r.refund} Coin.`);
+      log(logLine('soldBack', r.refund));
       renderAll(); renderMarket();
     }
     return;
@@ -1510,10 +1510,10 @@ function onMarketClick(e) {
       // paintTile and trashFromCollection can queue echoes (The Dabbler, The
       // Revenant); drain them here, since main.js never sees this action.
       for (const e of takePaintEchoes()) {
-        log(`🖍️ The Dabbler splashes ${e.letter} ${COLOURS[e.colour].label.toLowerCase()} as well.`, 'good');
+        log(logLine('dabblerSplash', e.letter, COLOURS[e.colour].label.toLowerCase()), 'good');
       }
       for (const e of takeGhostEchoes()) {
-        log(`💀 The Revenant walks ${e.letter} back out of the hellbox — it will be waiting in the case.`, 'good');
+        log(logLine('revenantCase', e.letter), 'good');
       }
       // Back to the market, where the stall card's risen price can be seen.
       market.view = 'shop'; market.activeStall = null; market.stallSel = -1;
@@ -1570,7 +1570,7 @@ async function skipColophon() {
   state.isAnimating = true;
   sfx.coin();
   renderAll();
-  log(`Skipped the Colophon — +${SKIP_COIN_GRANT} Coins instead.`, 'good');
+  log(logLine('colophonSkipped', SKIP_COIN_GRANT), 'good');
 
   await sleep(420);
   closeColophon();
@@ -1618,14 +1618,14 @@ function onChamberClick(e) {
   const seat = hit('data-tc-seat');
   if (seat) {
     const r = seatPatron(seat.dataset.tcSeat);
-    if (r.ok) { sfx.draw(); log(`${patronName(r.def, r.seat.data)} takes a seat.`); }
+    if (r.ok) { sfx.draw(); log(logLine('chamberSeat', patronName(r.def, r.seat.data))); }
     else sfx.bad();
     return finishChamber();
   }
   const haunt = hit('data-tc-haunt');
   if (haunt) {
     const r = hauntPatron(haunt.dataset.tcHaunt);
-    if (r.ok) { sfx.draw(); log(`${patronName(r.def, r.seat.data)} works on, dead.`); }
+    if (r.ok) { sfx.draw(); log(logLine('chamberHaunt', patronName(r.def, r.seat.data))); }
     else sfx.bad();
     return finishChamber();
   }
@@ -1686,14 +1686,14 @@ function onChamberClick(e) {
     const n = Number(strike.dataset.tcStrike);
     strikeTile(chamber.build ?? freshBuild(), n);
     sfx.draw();
-    log(`Struck ${tileCount(n)} for the case.`);
+    log(logLine('chamberStruck', tileCount(n)));
     return finishChamber();
   }
   if (e.target.closest('#tcReset')) { chamber.build = freshBuild(); sfx.draw(); return finishChamber(); }
   const scrap = hit('data-tc-scrap');
   if (scrap) { scrapTile(Number(scrap.dataset.tcScrap)); sfx.bad(); return finishChamber(); }
   if (e.target.closest('#tcScrapAll')) {
-    log(`Scrapped ${tileCount(scrapAllTiles())}.`);
+    log(logLine('chamberScrapped', tileCount(scrapAllTiles())));
     sfx.bad();
     return finishChamber();
   }
@@ -1708,7 +1708,7 @@ function onChamberClick(e) {
       chamber.build = freshBuild();
     }
     sfx[on ? 'draw' : 'bad']();
-    log(`${EXPERIMENTS.find(x => x.id === id)?.name ?? id} switched ${on ? 'on' : 'off'} for this run.`);
+    log(logLine('chamberExperiment', EXPERIMENTS.find(x => x.id === id)?.name ?? id, on ? 'on' : 'off'));
     return finishChamber();
   }
 
