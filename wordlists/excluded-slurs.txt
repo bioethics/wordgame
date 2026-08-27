@@ -37,3 +37,17 @@ boong
 boongs
 coolie
 coolies
+# Added after the spell-checker sweep put them in the dictionary: the small
+# Debian word list carries all three, and nothing upstream of here filters them.
+niggaz
+# fagot/fagots are the one-g spelling of a slur already barred above. The
+# bundle-of-sticks sense is real and vanishingly rare; the risk is not.
+fagot
+fagots
+# Recognised slurs that predate the sweep and were never on this list.
+squaw
+squaws
+redskin
+redskins
+tranny
+trannies

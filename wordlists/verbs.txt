@@ -10089,8 +10089,6 @@ faffs
 fag
 fagged
 fagging
-faggot
-faggots
 fags
 fail
 failed
@@ -17644,8 +17642,6 @@ nicknamed
 nicknames
 nicknaming
 nicks
-nigger
-niggers
 niggle
 niggled
 niggles
@@ -26151,12 +26147,10 @@ sphere
 sphered
 spheres
 sphering
-spic
 spice
 spiced
 spices
 spicing
-spics
 spiderweb
 spiderwebs
 spied
@@ -31186,8 +31180,6 @@ woofing
 woofs
 wooing
 woos
-wop
-wops
 word
 worded
 wording
