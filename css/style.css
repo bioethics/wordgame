@@ -115,6 +115,12 @@
 *, *::before, *::after { box-sizing: border-box; }
 html, body { height: 100%; margin: 0; }
 
+/* Windows draws a real scrollbar, and content that overflows for a moment — a
+   bigger hand at the deal, a sheet, a grown bar — would summon it and shove
+   the whole centred board sideways, then let it spring back. Reserve the
+   gutter on both edges instead: the board stays put, and stays centred. */
+html { scrollbar-gutter: stable both-edges; }
+
 body {
   /* The UI scale is a plain zoom: every px in this file scales together.
      JS that positions FX from getBoundingClientRect divides by it (rects
@@ -1275,11 +1281,18 @@ button.sundry:hover { transform: translateY(-2px); }
 .pip--swap.pip--on { background: var(--azure); border-color: #8ec6ff; box-shadow: 0 0 7px rgba(79, 134, 201, 0.6); }
 
 /* ─── The editor's bar (Deadline pages) ──────────────────────────────────────
-   Wears the Deadline's crimson livery, and flares when the verdict lands. */
+   Wears the Deadline's crimson livery, and flares when the verdict lands.
+   Two rows at EVERY width: name, trail and verdict share the first, the rule
+   takes a full-width line of its own — so a verdict chip appearing or the
+   trail growing a mark can never re-wrap the rule and change the bar's
+   height mid-compose. The verdict slot itself is always rendered (hidden
+   while idle), so the first row's height never moves either. */
 .boss-bar {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 10px;
+  row-gap: 3px;
   padding: 7px 14px;
   border-radius: var(--r-md);
   background: linear-gradient(170deg, rgba(90, 32, 28, 0.5), rgba(52, 16, 16, 0.55));
@@ -1297,7 +1310,8 @@ button.sundry:hover { transform: translateY(-2px); }
   white-space: nowrap;
 }
 .boss-rule {
-  flex: 1;
+  flex-basis: 100%;
+  order: 4;
   min-width: 0;
   font-family: var(--serif);
   font-style: italic;
@@ -1306,6 +1320,7 @@ button.sundry:hover { transform: translateY(-2px); }
   color: var(--parch);
 }
 .boss-verdict {
+  margin-left: auto;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.6px;
@@ -1313,6 +1328,8 @@ button.sundry:hover { transform: translateY(-2px); }
   border-radius: 999px;
   white-space: nowrap;
 }
+/* No word composed yet: the slot holds its place and says nothing. */
+.boss-verdict--idle { visibility: hidden; }
 .boss-verdict--ok  { color: #90e8ba; background: rgba(28, 78, 52, 0.55); border: 1px solid rgba(144, 232, 186, 0.4); }
 .boss-verdict--bad { color: #ffb3a6; background: rgba(124, 47, 40, 0.65); border: 1px solid rgba(255, 130, 115, 0.55); }
 
@@ -1498,10 +1515,14 @@ button.sundry:hover { transform: translateY(-2px); }
 .hidden { display: none !important; }
 
 /* ─── Word groove ─────────────────────────────────────────────────────────────── */
-/* A full row is reserved, so the groove doesn't grow when the first tile lands. */
+/* The groove reserves room for the WHOLE HAND, exactly as the rack does —
+   --word-reserve is measured in render.js from rack and word together — so a
+   long word wrapping to a second row never shoves the board mid-compose. The
+   min-height still transitions, so the rare growth (a hand that outgrows its
+   page) glides instead of snapping. */
 .word-groove {
   position: relative;
-  min-height: 98px;
+  min-height: max(98px, var(--word-reserve, 0px));
   border-radius: var(--r-lg);
   padding: 12px 14px;
   display: flex;
@@ -1515,7 +1536,8 @@ button.sundry:hover { transform: translateY(-2px); }
     inset 0 4px 16px rgba(0, 0, 0, 0.65),
     inset 0 0 0 1px rgba(0, 0, 0, 0.4),
     0 1px 0 rgba(255, 235, 200, 0.05);
-  transition: border-color calc(0.25s / var(--aspd)), box-shadow calc(0.25s / var(--aspd));
+  transition: border-color calc(0.25s / var(--aspd)), box-shadow calc(0.25s / var(--aspd)),
+              min-height calc(0.28s / var(--aspd)) ease;
 }
 .word-groove:has(.tile) {
   border-color: var(--groove-edge-lit);
@@ -1555,6 +1577,7 @@ button.sundry:hover { transform: translateY(-2px); }
    hand (rack AND word), and the floor here holds an empty rack open. */
 .rack {
   min-height: max(100px, var(--rack-reserve, 0px));
+  transition: min-height calc(0.28s / var(--aspd)) ease;
   border-radius: var(--r-md);
   padding: 13px 14px 15px;
   display: flex;
@@ -5097,7 +5120,7 @@ input[type='checkbox'] {
   .ro-total.ro-total--struck::after { height: 2px; }
 
   /* one row of tiles reserved in the groove, two in the rack (a full hand) */
-  .word-groove { min-height: 76px; padding: 8px; gap: 6px; }
+  .word-groove { min-height: max(76px, var(--word-reserve, 0px)); padding: 8px; gap: 6px; }
 
   .rack-row { grid-template-columns: 1fr 1fr; gap: 6px; }
   .rack {
@@ -5373,10 +5396,7 @@ html[data-theme="baize"] {
   html[data-layout="desk"] .chapter-card,
   html[data-layout="desk"] .pips-card { min-width: 0; }
 
-  /* The editor's bar reads as a notice pinned to the ledger. */
-  html[data-layout="desk"] .boss-bar { flex-wrap: wrap; row-gap: 4px; }
-  html[data-layout="desk"] .boss-rule { flex-basis: 100%; order: 4; }
-  html[data-layout="desk"] .boss-verdict { margin-left: auto; }
+  /* (The editor's bar is two rows at every width now — nothing to override.) */
 
   /* The log writes into the ledger, not under the press. */
   html[data-layout="desk"] .log {

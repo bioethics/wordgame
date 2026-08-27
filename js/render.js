@@ -824,7 +824,10 @@ function renderBossBar(script) {
   // he has just shortened is a small lie, so the cut is named instead.
   const cut = def.mood?.(data);
   const cutting = cut != null && cut < 1;
-  const verdict = !state.word.length || !script ? ''
+  // The slot is rendered even with nothing to say — hidden, not absent — so
+  // the verdict appearing never changes the bar's height mid-compose.
+  const verdict = !state.word.length || !script
+    ? `<span class="boss-verdict boss-verdict--idle">✓ passes</span>`
     : script.spiked
       ? `<span class="boss-verdict boss-verdict--bad">✂ spiked — ×${SPIKE_MULT} Mult</span>`
       : cutting
@@ -880,12 +883,13 @@ function applyPaintingMode(el) {
   if (armed) el.style.setProperty('--paintcol', COLOURS[armed.colour]?.glyph ?? 'var(--steel)');
 }
 
-// The rack reserves room for the WHOLE HAND — the tiles in it plus the ones
-// standing in the word — so composing never shrinks it and jumps the board up.
-// It reserves, never fixes: a bigger hand still grows it. Written as a custom
-// property CSS maxes against its own minimum, so the stylesheet's floors stay
-// in charge of the empty case.
-function reserveRackHeight(el) {
+// The rack AND the groove reserve room for the WHOLE HAND — the tiles racked
+// plus the ones standing in the word — so composing never shrinks the rack or
+// wraps the groove taller and jumps the board mid-word. It reserves, never
+// fixes: a bigger hand still grows both, once, as the page is dealt. Written
+// as a custom property CSS maxes against its own minimum, so the stylesheet's
+// floors stay in charge of the empty case.
+function reserveHandHeight(el, prop) {
   const cs = getComputedStyle(el);
   const inner = el.clientWidth
     - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
@@ -908,7 +912,7 @@ function reserveRackHeight(el) {
     else run += (run > 0 ? colGap : 0) + w;
   }
   const padY = parseFloat(cs.paddingTop || 0) + parseFloat(cs.paddingBottom || 0);
-  el.style.setProperty('--rack-reserve', `${rows * tileH + (rows - 1) * rowGap + padY}px`);
+  el.style.setProperty(prop, `${rows * tileH + (rows - 1) * rowGap + padY}px`);
 }
 
 export function renderRack(ghostIds = null) {
@@ -922,14 +926,16 @@ export function renderRack(ghostIds = null) {
     if (ghostIds?.has(t.id)) tileEl.classList.add('tile--ghost');
     el.appendChild(tileEl);
   });
-  reserveRackHeight(el);
+  reserveHandHeight(el, '--rack-reserve');
 }
 
 // A resize, rotation or breakpoint changes how many tiles fit a row — measure again.
 if (typeof window !== 'undefined') {
   window.addEventListener('resize', () => {
-    const el = $('rack');
-    if (el) reserveRackHeight(el);
+    const rack = $('rack');
+    if (rack) reserveHandHeight(rack, '--rack-reserve');
+    const word = $('word');
+    if (word) reserveHandHeight(word, '--word-reserve');
   });
 }
 
@@ -1029,6 +1035,7 @@ export function renderWord(script = computeScore(state.word)) {
     if (state.word[i]) el.appendChild(wordTileEl(state.word[i]));
   }
   _lastWordPts = nowPts;
+  reserveHandHeight(el, '--word-reserve');
 
   updateReadoutPreview(script);
 }
