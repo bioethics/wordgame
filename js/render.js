@@ -23,6 +23,7 @@ import { chamberSnapshot } from './chamber.js';
 import { colophonSnapshot } from './colophon.js';
 import { blackMarketSnapshot } from './blackmarket.js';
 import { setNum, sleep, fmtMult, readingTime, sfx } from './anim.js';
+import { uiZoom } from './appearance.js';
 
 const $ = id => document.getElementById(id);
 
@@ -241,15 +242,20 @@ export function showPopover(anchorEl, html, skin = '') {
   // not outlive the popover that asked for it.
   pop.className = `tip-pop${skin ? ` ${skin}` : ''}`;
 
+  // All arithmetic in visual coordinates (rects report them under the UI
+  // scale's zoom); the final write divides, since a px written into the
+  // zoomed page is multiplied back on the way out.
+  const z = uiZoom();
   const a = anchorEl.getBoundingClientRect();
   const p = pop.getBoundingClientRect();
+  const m = 8 * z;                                 // the viewport margin, kept visually constant
   let left = a.left + a.width / 2 - p.width / 2;
-  left = Math.max(8, Math.min(left, innerWidth - p.width - 8));
-  let top = a.top - p.height - 10;                 // prefer above…
-  if (top < 8) top = a.bottom + 10;                // …else below
-  top = Math.max(8, Math.min(top, innerHeight - p.height - 8));
-  pop.style.left = `${left}px`;
-  pop.style.top  = `${top}px`;
+  left = Math.max(m, Math.min(left, innerWidth - p.width - m));
+  let top = a.top - p.height - 10 * z;             // prefer above…
+  if (top < m) top = a.bottom + 10 * z;            // …else below
+  top = Math.max(m, Math.min(top, innerHeight - p.height - m));
+  pop.style.left = `${left / z}px`;
+  pop.style.top  = `${top / z}px`;
 }
 
 export function showTilePopover(tile, anchorEl, breakdown = null, { canFlip = true } = {}) {

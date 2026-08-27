@@ -2,6 +2,7 @@
 // animation-speed setting, so the whole game scrubs faster or slower together.
 
 import { settings } from './state.js';
+import { uiZoom } from './appearance.js';
 
 // ─── Speed ────────────────────────────────────────────────────────────────────
 
@@ -17,6 +18,10 @@ export function applySpeedCSS() {
 
 const fx = () => document.getElementById('fx');
 
+// The page is zoomed by the UI scale (see js/appearance.js), so rects arrive
+// in visual coordinates while a px written into the page is multiplied by the
+// zoom on the way out. Everything that positions FX from a rect divides here.
+
 // ─── Flying tile clones ───────────────────────────────────────────────────────
 // The clone keeps the *element's own* size — the from/to rects supply only
 // positions, and are often other things (the bag button, the spent tray).
@@ -27,6 +32,7 @@ export function flyClone(el, fromRect, toRect, {
   const layer = fx();
   if (!layer) return Promise.resolve();
 
+  const z = uiZoom();
   const own = el.getBoundingClientRect();
   const w = own.width  || fromRect.width;
   const h = own.height || fromRect.height;
@@ -35,15 +41,15 @@ export function flyClone(el, fromRect, toRect, {
   clone.classList.add('fly-clone');
   clone.classList.remove('tile--ghost', 'tile--selected', 'tile--held', 'drag-ghost');
   Object.assign(clone.style, {
-    left:  `${fromRect.left + fromRect.width / 2 - w / 2}px`,
-    top:   `${fromRect.top + fromRect.height / 2 - h / 2}px`,
-    width: `${w}px`,
-    height:`${h}px`,
+    left:  `${(fromRect.left + fromRect.width / 2 - w / 2) / z}px`,
+    top:   `${(fromRect.top + fromRect.height / 2 - h / 2) / z}px`,
+    width: `${w / z}px`,
+    height:`${h / z}px`,
   });
   layer.appendChild(clone);
 
-  const dx = (toRect.left + toRect.width / 2)  - (fromRect.left + fromRect.width / 2);
-  const dy = (toRect.top  + toRect.height / 2) - (fromRect.top  + fromRect.height / 2);
+  const dx = ((toRect.left + toRect.width / 2)  - (fromRect.left + fromRect.width / 2)) / z;
+  const dy = ((toRect.top  + toRect.height / 2) - (fromRect.top  + fromRect.height / 2)) / z;
 
   const anim = clone.animate([
     { transform: `translate(0,0) scale(${scaleFrom})`, opacity: 1 },
@@ -102,11 +108,12 @@ export function floatText(anchor, html, cls = '', { dy = -54, duration = null } 
   if (!layer || !anchor) return;
   const rect = anchor.getBoundingClientRect ? anchor.getBoundingClientRect() : anchor;
 
+  const z = uiZoom();
   const f = document.createElement('div');
   f.className = `floater ${cls}`;
   f.innerHTML = html;
-  f.style.left = `${rect.left + rect.width / 2}px`;
-  f.style.top  = `${rect.top - 4}px`;
+  f.style.left = `${(rect.left + rect.width / 2) / z}px`;
+  f.style.top  = `${rect.top / z - 4}px`;
   layer.appendChild(f);
 
   // Prose framing is a property of the TEXT, not of the caller's timing: an
@@ -141,11 +148,12 @@ export function speechBubble(anchorEl, text, { duration = null, cls = '' } = {})
   if (!layer || !anchorEl) return;
   const r = anchorEl.getBoundingClientRect();
 
+  const z = uiZoom();
   const b = document.createElement('div');
   b.className = `speech-bubble${cls ? ` ${cls}` : ''}`;
   b.textContent = text;
-  b.style.left = `${r.left + r.width / 2}px`;
-  b.style.top  = `${r.top - 6}px`;
+  b.style.left = `${(r.left + r.width / 2) / z}px`;
+  b.style.top  = `${r.top / z - 6}px`;
   layer.appendChild(b);
 
   // Rise and fall are a fixed cost; everything between them is reading time.
@@ -227,8 +235,9 @@ export function sparkleBurst(anchor, n = 12) {
   const layer = fx();
   if (!layer || !anchor) return;
   const rect = anchor.getBoundingClientRect ? anchor.getBoundingClientRect() : anchor;
-  const cx = rect.left + rect.width / 2;
-  const cy = rect.top + rect.height / 2;
+  const z  = uiZoom();
+  const cx = (rect.left + rect.width / 2) / z;
+  const cy = (rect.top + rect.height / 2) / z;
 
   for (let i = 0; i < n; i++) {
     const s = document.createElement('div');

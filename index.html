@@ -9,6 +9,25 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>GREAT WORK — a word-forging game</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❦</text></svg>" />
+  <script>
+    // The saved room, layout and UI scale, applied before the stylesheet
+    // paints so nothing flashes. js/appearance.js owns all three from the
+    // moment the modules are up — its auto-fit is the authority; the formula
+    // here only has to land close enough for the first frame.
+    (function () {
+      try {
+        var s = JSON.parse(localStorage.getItem('folio_settings_v1') || '{}');
+        var de = document.documentElement;
+        if (typeof s.theme  === 'string') de.dataset.theme  = s.theme;
+        if (typeof s.layout === 'string') de.dataset.layout = s.layout;
+        var ui = typeof s.uiScale === 'number' ? s.uiScale
+          : Math.max(1, Math.min(innerWidth / (s.layout === 'desk' ? 1720 : 1320),
+                                 innerHeight / (s.layout === 'desk' ? 800 : 920), 1.75));
+        ui = Math.min(ui, Math.max(1, innerWidth / 1180));
+        de.style.setProperty('--ui', String(Math.round(ui * 1000) / 1000));
+      } catch (e) { /* first visit, or storage denied — the defaults hold */ }
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=Inter:wght@400;600;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
@@ -27,12 +46,9 @@
 
   <main class="table">
 
-    <!-- Patron shelf · the graveyard door · sundries workbench -->
-    <section class="shelf-row">
-      <div id="shelf" class="shelf" aria-label="Patrons"></div>
-      <button id="ghostBtn" class="ghost-btn hidden" aria-label="Your ghosts"></button>
-      <div id="sundries" class="sundries" aria-label="Sundries"></div>
-    </section>
+    <!-- The ledger: status, the editor's demand, and the log. A real column in
+         the Workshop layout; dissolved (display: contents) in the classic one. -->
+    <div class="rail">
 
     <!-- Status: chapter · quota · resources -->
     <section class="status-row">
@@ -56,6 +72,20 @@
 
     <!-- The editor's bar: who holds the desk this Deadline, and their demand -->
     <section id="bossBar" class="boss-bar hidden" aria-live="polite"></section>
+
+    <p id="log" class="log">Setting the type…</p>
+
+    </div><!-- /rail -->
+
+    <!-- The press: shelf, readout, groove, rack, actions. -->
+    <div class="board">
+
+    <!-- Patron shelf · the graveyard door · sundries workbench -->
+    <section class="shelf-row">
+      <div id="shelf" class="shelf" aria-label="Patrons"></div>
+      <button id="ghostBtn" class="ghost-btn hidden" aria-label="Your ghosts"></button>
+      <div id="sundries" class="sundries" aria-label="Sundries"></div>
+    </section>
 
     <!-- Score readout: Points × the colour multipliers = total -->
     <section id="readout" class="readout readout--idle" aria-live="polite">
@@ -118,7 +148,7 @@
       <button id="btnPrint" class="btn btn-print btn-big"><span class="btn-label">Print</span><kbd>↵</kbd></button>
     </section>
 
-    <p id="log" class="log">Setting the type…</p>
+    </div><!-- /board -->
 
   </main>
 
@@ -168,6 +198,29 @@
       <div class="sheet-head">
         <h2>Settings</h2>
         <button class="x" id="settingsClose">✕</button>
+      </div>
+
+      <div class="set-row">
+        <label>Room</label>
+        <div class="set-control">
+          <div id="themeSwatches" class="appearance-swatches"></div>
+        </div>
+      </div>
+
+      <div class="set-row">
+        <label>Layout</label>
+        <div class="set-control">
+          <div id="layoutPicker" class="appearance-swatches"></div>
+        </div>
+      </div>
+
+      <div class="set-row">
+        <label for="uiScaleSlider">UI size</label>
+        <div class="set-control scale-control">
+          <label class="scale-auto"><input type="checkbox" id="uiScaleAuto" checked />Fit my screen</label>
+          <input type="range" id="uiScaleSlider" min="0.85" max="1.75" step="0.05" value="1" />
+          <span id="uiScaleLabel" class="set-value">100%</span>
+        </div>
       </div>
 
       <div class="set-row">

@@ -58,6 +58,57 @@
   --r-sm: 8px;
   --r-md: 12px;
   --r-lg: 18px;
+
+  /* ─── UI scale ────────────────────────────────────────────────────────────
+     The whole board zooms by --ui — set on <html> by js/appearance.js (auto
+     fit-to-window by default, or a fixed factor from Settings). Viewport
+     units are NOT divided by the zoom, so any length meant as a share of the
+     real window is written in these compensated units instead. */
+  --ui: 1;
+  --vwu: calc(1vw / var(--ui));
+  --vhu: calc(1vh / var(--ui));
+  --vmu: calc(1vmin / var(--ui));
+
+  /* ─── The room ────────────────────────────────────────────────────────────
+     Every surface a theme repaints — the page, the wood, the leather, the
+     groove, the watermark — hangs on these. Themes override them at the foot
+     of this file (html[data-theme=…]). The OBJECTS standing in the room —
+     parchment cards, ivory tiles, the paints, trims and liveries — keep
+     their colours in every theme, because their colours mean things; and the
+     Deadline's ember light is global too, so the third page always feels
+     like the third page whatever the room. */
+  --room-ink: #f3deb8;             /* text & hairlines on the room's surfaces */
+  --page-bg:
+    radial-gradient(1100px 640px at 50% -8%, rgba(233, 178, 102, 0.13), transparent 62%),
+    radial-gradient(900px 540px at 50% 112%, rgba(135, 62, 92, 0.16), transparent 58%),
+    linear-gradient(180deg, #281a2c 0%, #1f1322 46%, #170d1a 100%);
+  --page-bg-deadline:
+    radial-gradient(1100px 640px at 50% -8%, rgba(233, 122, 96, 0.16), transparent 62%),
+    radial-gradient(900px 540px at 50% 112%, rgba(150, 42, 48, 0.2), transparent 58%),
+    linear-gradient(180deg, #2b1620 0%, #200f18 46%, #170a10 100%);
+  --wm-glyph: '&';
+  --wm-ink: rgba(243, 222, 184, 0.025);
+  --vignette: inset 0 0 calc(22 * var(--vmu)) rgba(8, 2, 10, 0.62);
+  --vignette-deadline:
+    inset 0 0 calc(26 * var(--vmu)) rgba(10, 2, 4, 0.72),
+    inset 0 0 0 1px rgba(255, 130, 115, 0.12);
+  --surf-wood: linear-gradient(180deg, var(--wood-light) 0%, var(--wood) 18%, var(--wood-dark) 100%);
+  --surf-card: linear-gradient(170deg, var(--leather-2), var(--leather));
+  --groove-bg: linear-gradient(180deg, #190e16, #241420);
+  --groove-edge: rgba(217, 166, 75, 0.28);
+  --groove-edge-lit: rgba(217, 166, 75, 0.55);
+  --readout-bg: rgba(12, 6, 14, 0.45);
+  --market-bg:
+    radial-gradient(700px 320px at 50% -10%, rgba(233, 178, 102, 0.16), transparent 65%),
+    linear-gradient(175deg, #342030 0%, #251523 55%, #1e1120 100%);
+
+  /* Card stock — parchment in every theme. Cards are objects, not room. */
+  --card-face:   #f2e7cb;
+  --card-face-2: #e4d4ae;
+
+  /* Text and hairlines ON the wood — the shelf and rack stay mid-dark in
+     every theme, so their labels keep cream rather than following the room. */
+  --wood-ink: #f3deb8;
 }
 
 /* ─── Reset & stage ───────────────────────────────────────────────────────────── */
@@ -65,33 +116,35 @@
 html, body { height: 100%; margin: 0; }
 
 body {
+  /* The UI scale is a plain zoom: every px in this file scales together.
+     JS that positions FX from getBoundingClientRect divides by it (rects
+     come back visual, style writes are re-multiplied) — see js/appearance.js. */
+  zoom: var(--ui, 1);
   color: var(--parch);
   font-family: var(--sans);
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
-  min-height: 100vh;
-  min-height: 100dvh;
+  height: calc(100% / var(--ui, 1));
+  min-height: calc(100 * var(--vhu));
+  min-height: calc(100dvh / var(--ui, 1));
   overflow-x: hidden;
   overscroll-behavior-y: contain;      /* no pull-to-refresh mid-game */
   touch-action: manipulation;          /* no double-tap zoom */
   user-select: none;
   -webkit-user-select: none;
-  background:
-    radial-gradient(1100px 640px at 50% -8%, rgba(233, 178, 102, 0.13), transparent 62%),
-    radial-gradient(900px 540px at 50% 112%, rgba(135, 62, 92, 0.16), transparent 58%),
-    linear-gradient(180deg, #281a2c 0%, #1f1322 46%, #170d1a 100%);
+  background: var(--page-bg);
 }
 
 /* leather grain + vignette + ghost glyph */
 body::before {
-  content: '&';
+  content: var(--wm-glyph);
   position: fixed;
-  right: -4vw; bottom: -14vh;
+  right: calc(-4 * var(--vwu)); bottom: calc(-14 * var(--vhu));
   font-family: var(--serif);
   font-weight: 900;
-  font-size: 46vw;
+  font-size: calc(46 * var(--vwu));
   line-height: 1;
-  color: rgba(243, 222, 184, 0.025);
+  color: var(--wm-ink);
   transform: rotate(-9deg);
   pointer-events: none;
   z-index: 0;
@@ -101,7 +154,7 @@ body::after {
   position: fixed; inset: 0;
   pointer-events: none;
   z-index: 1;
-  box-shadow: inset 0 0 22vmin rgba(8, 2, 10, 0.62);
+  box-shadow: var(--vignette);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
 }
 
@@ -111,17 +164,21 @@ body::after {
 body {
   transition: background calc(1.4s / var(--aspd)) ease;
 }
+/* The ember light is the same in every theme — a Deadline pulls the shutters
+   on the brightest room, so it re-pins the dark room's ink alongside. */
 body.deadline-on {
-  background:
-    radial-gradient(1100px 640px at 50% -8%, rgba(233, 122, 96, 0.16), transparent 62%),
-    radial-gradient(900px 540px at 50% 112%, rgba(150, 42, 48, 0.2), transparent 58%),
-    linear-gradient(180deg, #2b1620 0%, #200f18 46%, #170a10 100%);
+  background: var(--page-bg-deadline);
+  --room-ink: #f3deb8;
+  --parch: #f2e7cb; --parch-2: #e4d4ae; --muted: #9c8a96;
+  --brass: #d9a64b; --brass-hi: #f6d68a;
+  --readout-bg: rgba(12, 6, 14, 0.45);
+  --surf-card: linear-gradient(170deg, #3a2028, #2b1620);
+  --surf-wood: linear-gradient(180deg, #7d573a 0%, #5d3f28 18%, #3a2818 100%);
+  --groove-bg: linear-gradient(180deg, #190e16, #241420);
 }
 body.deadline-on::before { color: rgba(255, 190, 175, 0.03); }
 body.deadline-on::after {
-  box-shadow:
-    inset 0 0 26vmin rgba(10, 2, 4, 0.72),
-    inset 0 0 0 1px rgba(255, 130, 115, 0.12);
+  box-shadow: var(--vignette-deadline);
 }
 body::before, body::after { transition: box-shadow calc(1.4s / var(--aspd)) ease, color calc(1.4s / var(--aspd)) ease; }
 
@@ -149,6 +206,17 @@ body.deadline-on .logo-mark { color: #e08a70; }
 
 @media (prefers-reduced-motion: reduce) {
   body, body::before, body::after, .shelf, .sundries, .status-card { transition: none; }
+}
+
+/* ─── Surfaces that stay dark in every theme ──────────────────────────────────
+   The readout, the editor's bar, the banner, the header's chips and the
+   candlelit sheets keep the dark room's ink whatever the room outside looks
+   like — a bright theme repaints the room, not the machines standing in it. */
+.readout, .boss-bar, #banner, .coin-purse, .btn-icon,
+.sheet--market, .sheet--dark, .sheet--black, .sheet--ghosts {
+  --room-ink: #f3deb8;
+  --parch: #f2e7cb; --parch-2: #e4d4ae; --muted: #9c8a96;
+  --brass: #d9a64b; --brass-hi: #f6d68a; --inkblue: #8db8ff;
 }
 
 /* ─── Header ──────────────────────────────────────────────────────────────────── */
@@ -235,9 +303,26 @@ header {
   padding: 6px 26px 40px;
   display: grid;
   gap: 14px;
-  min-height: calc(100vh - 72px);
+  min-height: calc(100 * var(--vhu) - 72px);
   align-content: center;
 }
+
+/* ─── The two layouts ─────────────────────────────────────────────────────────
+   The rail (chapter, quota, pips, the editor's bar, the log) and the board
+   (shelf, readout, groove, rack, actions) are real wrappers in the HTML. In
+   the classic Folio layout they dissolve — display: contents — and explicit
+   `order` restores the original interleaved column. The Workshop layout, for
+   wide screens, makes them real columns: ledger on the left, press on the
+   right (html[data-layout="desk"], further down with the themes). */
+.rail, .board { display: contents; }
+.shelf-row   { order: 1; }
+.status-row  { order: 2; }
+.boss-bar    { order: 3; }
+.readout     { order: 4; }
+.word-groove { order: 5; }
+.rack-row    { order: 6; }
+.action-row  { order: 7; }
+.log         { order: 8; }
 
 /* ─── Patron shelf · sundries workbench ───────────────────────────────────────── */
 .shelf-row {
@@ -254,7 +339,7 @@ header {
   grid-template-columns: repeat(var(--seat-count, 5), 1fr);
   gap: 10px;
   padding: 10px 12px 12px;
-  background: linear-gradient(180deg, var(--wood-light) 0%, var(--wood) 18%, var(--wood-dark) 100%);
+  background: var(--surf-wood);
   border-radius: var(--r-md);
   border: 1px solid rgba(0, 0, 0, 0.45);
   box-shadow:
@@ -291,8 +376,8 @@ header {
 }
 
 .patron--empty {
-  border: 1.5px dashed rgba(243, 222, 184, 0.22);
-  color: rgba(243, 222, 184, 0.3);
+  border: 1.5px dashed color-mix(in srgb, var(--wood-ink) 26%, transparent);
+  color: color-mix(in srgb, var(--wood-ink) 34%, transparent);
   font-size: 17px;
   gap: 2px;
 }
@@ -302,7 +387,7 @@ header {
   font-weight: 800;
   letter-spacing: 1.6px;
   text-transform: uppercase;
-  color: rgba(243, 222, 184, 0.28);
+  color: color-mix(in srgb, var(--wood-ink) 32%, transparent);
 }
 
 /* One ring token per rarity, so the lit state below can add a glow layer. */
@@ -387,7 +472,7 @@ header {
 }
 
 .patron--common, .patron--uncommon, .patron--rare {
-  background: linear-gradient(170deg, var(--parch) 0%, var(--parch-2) 100%);
+  background: linear-gradient(170deg, var(--card-face) 0%, var(--card-face-2) 100%);
   color: var(--parch-ink);
   border: 1px solid var(--brass-dark);
   box-shadow:
@@ -658,7 +743,7 @@ header {
   grid-template-columns: repeat(var(--slot-count, 2), 74px);
   gap: 10px;
   padding: 10px 12px 12px;
-  background: linear-gradient(180deg, var(--wood-light) 0%, var(--wood) 18%, var(--wood-dark) 100%);
+  background: var(--surf-wood);
   border-radius: var(--r-md);
   border: 1px solid rgba(0, 0, 0, 0.45);
   box-shadow:
@@ -686,7 +771,7 @@ header {
 .sundry--amber   { --paintcol: var(--amber); }
 
 button.sundry, .sundry--card {
-  background: linear-gradient(170deg, var(--parch) 0%, var(--parch-2) 100%);
+  background: linear-gradient(170deg, var(--card-face) 0%, var(--card-face-2) 100%);
   color: var(--parch-ink);
   border: 1px solid var(--brass-dark);
   box-shadow:
@@ -761,8 +846,8 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 .sundry--empty {
-  border: 1.5px dashed rgba(243, 222, 184, 0.22);
-  color: rgba(243, 222, 184, 0.3);
+  border: 1.5px dashed color-mix(in srgb, var(--wood-ink) 26%, transparent);
+  color: color-mix(in srgb, var(--wood-ink) 34%, transparent);
   font-size: 15px;
   gap: 2px;
 }
@@ -772,7 +857,7 @@ button.sundry:hover { transform: translateY(-2px); }
   font-weight: 800;
   letter-spacing: 1.6px;
   text-transform: uppercase;
-  color: rgba(243, 222, 184, 0.28);
+  color: color-mix(in srgb, var(--wood-ink) 32%, transparent);
 }
 
 .sundry-name {
@@ -1101,8 +1186,8 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 .status-card {
-  background: linear-gradient(170deg, var(--leather-2), var(--leather));
-  border: 1px solid rgba(243, 222, 184, 0.1);
+  background: var(--surf-card);
+  border: 1px solid color-mix(in srgb, var(--room-ink) 10%, transparent);
   border-radius: var(--r-md);
   padding: 10px 16px;
   box-shadow: inset 0 1px 0 rgba(255, 235, 200, 0.06), 0 6px 18px rgba(0, 0, 0, 0.35);
@@ -1182,7 +1267,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .pip {
   width: 11px; height: 11px;
   border-radius: 50%;
-  border: 1.5px solid rgba(243, 222, 184, 0.25);
+  border: 1.5px solid color-mix(in srgb, var(--room-ink) 25%, transparent);
   background: transparent;
   transition: background calc(0.25s / var(--aspd)), box-shadow calc(0.25s / var(--aspd));
 }
@@ -1267,7 +1352,7 @@ button.sundry:hover { transform: translateY(-2px); }
   padding: 8px 18px;
   height: 76px;                    /* fixed — the row must never change the page height */
   border-radius: var(--r-md);
-  background: rgba(12, 6, 14, 0.45);
+  background: var(--readout-bg);
   border: 1px solid rgba(243, 222, 184, 0.08);
   transition: opacity calc(0.3s / var(--aspd)),
               filter calc(0.22s / var(--aspd)) ease;
@@ -1424,8 +1509,8 @@ button.sundry:hover { transform: translateY(-2px); }
   align-content: center;
   justify-content: center;
   gap: 9px;
-  background: linear-gradient(180deg, #190e16, #241420);
-  border: 1px solid rgba(217, 166, 75, 0.28);
+  background: var(--groove-bg);
+  border: 1px solid var(--groove-edge);
   box-shadow:
     inset 0 4px 16px rgba(0, 0, 0, 0.65),
     inset 0 0 0 1px rgba(0, 0, 0, 0.4),
@@ -1433,7 +1518,7 @@ button.sundry:hover { transform: translateY(-2px); }
   transition: border-color calc(0.25s / var(--aspd)), box-shadow calc(0.25s / var(--aspd));
 }
 .word-groove:has(.tile) {
-  border-color: rgba(217, 166, 75, 0.55);
+  border-color: var(--groove-edge-lit);
   box-shadow:
     inset 0 4px 16px rgba(0, 0, 0, 0.65),
     0 0 24px rgba(217, 166, 75, 0.08);
@@ -1477,7 +1562,7 @@ button.sundry:hover { transform: translateY(-2px); }
   align-content: center;
   justify-content: center;
   gap: 9px;
-  background: linear-gradient(180deg, var(--wood-light) 0%, var(--wood) 22%, var(--wood-dark) 100%);
+  background: var(--surf-wood);
   border: 1px solid rgba(0, 0, 0, 0.5);
   box-shadow:
     inset 0 2px 0 rgba(255, 220, 170, 0.16),
@@ -2211,8 +2296,8 @@ button.sundry:hover { transform: translateY(-2px); }
   letter-spacing: 0.6px;
   text-transform: uppercase;
   color: var(--parch);
-  background: linear-gradient(180deg, var(--leather-2), var(--leather));
-  border: 1px solid rgba(243, 222, 184, 0.18);
+  background: var(--surf-card);
+  border: 1px solid color-mix(in srgb, var(--room-ink) 18%, transparent);
   border-radius: 11px;
   padding: 10px 18px;
   cursor: pointer;
@@ -2236,7 +2321,11 @@ button.sundry:hover { transform: translateY(-2px); }
   opacity: 0.55;
 }
 
-.btn-quiet { background: linear-gradient(180deg, rgba(60, 40, 55, 0.7), rgba(40, 25, 38, 0.7)); }
+.btn-quiet {
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--leather-2) 76%, transparent),
+    color-mix(in srgb, var(--leather) 76%, transparent));
+}
 
 .btn-discard {
   background: linear-gradient(180deg, #2c4a78, #1d3354);
@@ -2294,7 +2383,7 @@ button.sundry:hover { transform: translateY(-2px); }
 
 .ms-word {
   flex: none;
-  color: rgba(243, 222, 184, 0.42);
+  color: color-mix(in srgb, var(--room-ink) 42%, transparent);
   letter-spacing: 0.3px;
 }
 .ms-word--last {
@@ -2307,8 +2396,8 @@ button.sundry:hover { transform: translateY(-2px); }
   100% { opacity: 1; transform: none; filter: none; }
 }
 
-.ms-dot   { flex: none; color: rgba(243, 222, 184, 0.2); font-style: normal; }
-.ms-blank { color: rgba(243, 222, 184, 0.25); }
+.ms-dot   { flex: none; color: color-mix(in srgb, var(--room-ink) 20%, transparent); font-style: normal; }
+.ms-blank { color: color-mix(in srgb, var(--room-ink) 25%, transparent); }
 
 /* ─── FX layer ────────────────────────────────────────────────────────────────── */
 #fx {
@@ -2349,7 +2438,7 @@ button.sundry:hover { transform: translateY(-2px); }
    does, and what the purse is left holding. The steps that put you in the red
    are not refused — they are simply dressed in it, so the debt is a decision
    you can see rather than a surprise you discover at the Market. */
-.sheet.sheet--bribe { width: min(680px, 94vw); }   /* two classes: .sheet--end sits later and would win at one */
+.sheet.sheet--bribe { width: min(680px, calc(94 * var(--vwu))); }   /* two classes: .sheet--end sits later and would win at one */
 .bribe-grid {
   width: 100%;
   justify-self: stretch;
@@ -2432,7 +2521,7 @@ button.sundry:hover { transform: translateY(-2px); }
 /* Wider than the other end sheets, because a case of sorts wants to be seen
    whole. `justify-items: center` on .sheet--end would otherwise shrink the grid
    to one column, so the plate claims the full width it is given. */
-.sheet.sheet--plate { width: min(680px, 94vw); }   /* likewise — a wider case fits another column of sorts */
+.sheet.sheet--plate { width: min(680px, calc(94 * var(--vwu))); }   /* likewise — a wider case fits another column of sorts */
 .plate-grid {
   width: 100%;
   justify-self: stretch;
@@ -2440,7 +2529,7 @@ button.sundry:hover { transform: translateY(-2px); }
   grid-template-columns: repeat(auto-fit, minmax(54px, 1fr));
   gap: 8px;
   margin: 18px 0 4px;
-  max-height: 46vh;
+  max-height: calc(46 * var(--vhu));
   overflow-y: auto;
   padding: 2px;
 }
@@ -2588,7 +2677,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .sheet {
   background:
     radial-gradient(700px 320px at 50% -10%, rgba(255, 250, 235, 0.5), transparent 70%),
-    linear-gradient(175deg, var(--parch) 0%, #ead9b4 70%, #e0cda2 100%);
+    linear-gradient(175deg, var(--card-face) 0%, #ead9b4 70%, #e0cda2 100%);
   color: var(--parch-ink);
   border-radius: 16px;
   border: 1px solid #a98545;
@@ -2597,8 +2686,8 @@ button.sundry:hover { transform: translateY(-2px); }
     inset 0 0 60px rgba(170, 130, 60, 0.18),
     0 36px 90px rgba(0, 0, 0, 0.75);
   padding: 24px 30px 26px;
-  width: min(940px, 94vw);
-  max-height: 92vh;
+  width: min(940px, calc(94 * var(--vwu)));
+  max-height: calc(92 * var(--vhu));
   overflow: auto;
   animation: sheetIn calc(0.3s / var(--aspd)) cubic-bezier(.2,1.2,.4,1);
 }
@@ -2637,8 +2726,8 @@ button.sundry:hover { transform: translateY(-2px); }
 .sheet-note { margin: 2px 0 0; font-size: 12.5px; color: var(--parch-dim); }
 .sheet-note b { color: var(--parch-ink); }
 
-.sheet--settings { width: min(480px, 94vw); }
-.sheet--inspector { width: min(680px, 94vw); }
+.sheet--settings { width: min(480px, calc(94 * var(--vwu))); }
+.sheet--inspector { width: min(680px, calc(94 * var(--vwu))); }
 
 .sheet--dark {
   background: linear-gradient(175deg, #322034 0%, #241626 100%);
@@ -2718,7 +2807,7 @@ button.sundry:hover { transform: translateY(-2px); }
   /* One height for every card, whatever the effect text runs to. */
   min-height: var(--card-h, 108px);
   border-radius: 4px;
-  background: linear-gradient(170deg, var(--ivory) 0%, var(--parch) 55%, var(--parch-2) 100%);
+  background: linear-gradient(170deg, var(--ivory) 0%, var(--card-face) 55%, var(--card-face-2) 100%);
   border: 1px solid rgba(138, 95, 29, 0.55);
   box-shadow:
     inset 0 0 0 3px rgba(255, 252, 240, 0.9),
@@ -3240,7 +3329,7 @@ button.sundry:hover { transform: translateY(-2px); }
   border-radius: 11px;
   background: rgba(120, 90, 40, 0.1);
   border: 1px dashed rgba(120, 90, 40, 0.35);
-  max-height: 46vh;
+  max-height: calc(46 * var(--vhu));
   overflow: auto;
 }
 
@@ -3297,9 +3386,7 @@ button.sundry:hover { transform: translateY(-2px); }
    Scoped under .sheet--market, so no other sheet takes the shop's ink. */
 
 .sheet--market {
-  background:
-    radial-gradient(700px 320px at 50% -10%, rgba(233, 178, 102, 0.16), transparent 65%),
-    linear-gradient(175deg, #342030 0%, #251523 55%, #1e1120 100%);
+  background: var(--market-bg);
   color: var(--parch);
   border-color: rgba(217, 166, 75, 0.4);
   box-shadow:
@@ -3427,7 +3514,7 @@ button.sundry:hover { transform: translateY(-2px); }
   display: grid;
   place-items: center;
   width: 42px; height: 42px;
-  background: linear-gradient(170deg, var(--parch), var(--parch-2));
+  background: linear-gradient(170deg, var(--card-face), var(--card-face-2));
   border: 1px solid var(--brass-dark);
   border-radius: 8px;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5), inset 0 0 0 2px rgba(255, 248, 226, 0.5);
@@ -3441,7 +3528,7 @@ button.sundry:hover { transform: translateY(-2px); }
   padding: 7px 13px 7px 20px;
   border: none;
   border-radius: 4px;
-  background: linear-gradient(180deg, var(--parch), var(--parch-2));
+  background: linear-gradient(180deg, var(--card-face), var(--card-face-2));
   color: var(--parch-ink);
   box-shadow: none;
   filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.5));
@@ -3493,7 +3580,7 @@ button.sundry:hover { transform: translateY(-2px); }
 
 /* ── The reward tally, printed as a receipt ──────────────────────────────────── */
 .sheet--market .reward-line {
-  background: linear-gradient(175deg, var(--parch), var(--parch-2));
+  background: linear-gradient(175deg, var(--card-face), var(--card-face-2));
   border-bottom: 2px dashed rgba(120, 90, 40, 0.5);
   border-radius: 3px 3px 0 0;
   padding: 8px 13px 9px;
@@ -3572,14 +3659,14 @@ button.sundry:hover { transform: translateY(-2px); }
 
 /* A book rather than a ledger: chapters, running prose, folio in the margin. */
 .sheet--manuscript {
-  width: min(660px, 94vw);
+  width: min(660px, calc(94 * var(--vwu)));
   padding-bottom: 30px;
 }
 .book-head { border-bottom: 1px solid rgba(138, 95, 29, 0.3); padding-bottom: 12px; }
 
 .book {
   margin-top: 4px;
-  max-height: 64vh;
+  max-height: calc(64 * var(--vhu));
   overflow: auto;
   padding: 4px 4px 4px 2px;
 }
@@ -3728,7 +3815,7 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 .sheet--market.sheet--black {
-  width: min(1040px, 96vw);
+  width: min(1040px, calc(96 * var(--vwu)));
   background:
     /* the one lamp */
     radial-gradient(560px 300px at 50% -14%, rgba(127, 191, 161, 0.16), transparent 68%),
@@ -3920,7 +4007,7 @@ button.sundry:hover { transform: translateY(-2px); }
 
 /* ─── The Colophon (end-of-chapter upgrade) ─────────────────────────────────────
    Bigger cards, centred, no prices — built on the same dark market skin. */
-.sheet--colophon { width: min(760px, 96vw); text-align: center; }
+.sheet--colophon { width: min(760px, calc(96 * var(--vwu))); text-align: center; }
 .sheet--colophon .sheet-head { justify-content: center; text-align: center; }
 .sheet--colophon .market-sec { justify-content: center; }
 
@@ -4003,7 +4090,7 @@ button.sundry:hover { transform: translateY(-2px); }
   max-width: 148px;
   padding: 7px 11px 8px;
   border-radius: 12px;
-  background: linear-gradient(175deg, var(--parch) 0%, var(--parch-2) 100%);
+  background: linear-gradient(175deg, var(--card-face) 0%, var(--card-face-2) 100%);
   color: var(--parch-ink);
   border: 1px solid rgba(138, 95, 29, 0.5);
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.5);
@@ -4039,7 +4126,7 @@ button.sundry:hover { transform: translateY(-2px); }
   width: 0; height: 0;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-top: 8px solid var(--parch-2);
+  border-top: 8px solid var(--card-face-2);
 }
 
 /* ─── The Testing Chamber ─────────────────────────────────────────────────────── */
@@ -4047,7 +4134,7 @@ button.sundry:hover { transform: translateY(-2px); }
    nothing in it should be mistakable for a page of the game. Slate, steel and a
    monospace hand, so a screenshot of it never reads as the real thing. */
 .sheet.sheet--chamber {          /* doubled: .sheet--end sits later and would win at one */
-  width: min(1020px, 96vw);
+  width: min(1020px, calc(96 * var(--vwu)));
   background:
     radial-gradient(760px 340px at 50% -12%, rgba(120, 160, 200, 0.14), transparent 70%),
     linear-gradient(175deg, #232a33 0%, #1b212a 70%, #161b22 100%);
@@ -4197,7 +4284,7 @@ button.sundry:hover { transform: translateY(-2px); }
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
-  max-height: 46vh;
+  max-height: calc(46 * var(--vhu));
   overflow: auto;
   padding-right: 4px;
 }
@@ -4380,7 +4467,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .tc-swatch--mat-rose    { color: #e88fa8; }
 
 .sheet--chamber .mini-grid {
-  max-height: 34vh;
+  max-height: calc(34 * var(--vhu));
   overflow: auto;
   background: #1a2029;
   border: 1px solid #3f4e61;
@@ -4565,7 +4652,7 @@ input[type='checkbox'] {
 .modal--center { z-index: 260; }
 
 .sheet--end {
-  width: min(560px, 94vw);
+  width: min(560px, calc(94 * var(--vwu)));
   text-align: center;
   display: grid;
   justify-items: center;
@@ -4643,7 +4730,7 @@ input[type='checkbox'] {
 
 /* The Neologist's coining sheet: six letterpress slots to fill */
 .coin-input {
-  width: min(320px, 80vw);
+  width: min(320px, calc(80 * var(--vwu)));
   margin-top: 4px;
   padding: 10px 12px;
   font-family: var(--serif);
@@ -4709,7 +4796,7 @@ input[type='checkbox'] {
   max-width: 270px;
   padding: 11px 13px 12px;
   border-radius: 12px;
-  background: linear-gradient(175deg, var(--parch) 0%, #ead9b4 100%);
+  background: linear-gradient(175deg, var(--card-face) 0%, #ead9b4 100%);
   color: var(--parch-ink);
   border: 1px solid #a98545;
   box-shadow:
@@ -4949,8 +5036,8 @@ input[type='checkbox'] {
     padding: 2px 10px calc(8px + env(safe-area-inset-bottom));
     gap: 6px;
     align-content: start;          /* fixed heights + start = nothing re-centres */
-    min-height: calc(100vh - 46px);
-    min-height: calc(100dvh - 46px);
+    min-height: calc(100 * var(--vhu) - 46px);
+    min-height: calc(100dvh / var(--ui, 1) - 46px);
   }
 
   /* Constant height filled or empty, so a first hire doesn't shove the board. */
@@ -5046,7 +5133,7 @@ input[type='checkbox'] {
 
   /* The chamber on a phone: one column everywhere, and the tile-maker's
      preview stops being a sticky rail and simply sits on top. */
-  .tc-patrons  { grid-template-columns: 1fr; max-height: 40vh; }
+  .tc-patrons  { grid-template-columns: 1fr; max-height: calc(40 * var(--vhu)); }
   .tc-sundries { grid-template-columns: repeat(2, 1fr); }
   .tc-rows     { grid-template-columns: repeat(2, 1fr); }
   .tc-maker    { grid-template-columns: 1fr; }
@@ -5121,3 +5208,243 @@ input[type='checkbox'] {
     opacity: 0.25;
   }
 }
+
+/* ═══ The rooms — themes, chosen in Settings ═══════════════════════════════════
+   A theme repaints the ROOM: page, watermark, wood, leather, groove, market.
+   The objects in it — parchment cards, ivory tiles, paints, trims, liveries —
+   keep their colours everywhere, and body.deadline-on pulls every room dark,
+   so the third page always feels like the third page. Applied as
+   html[data-theme=…] by js/appearance.js (and pre-set by the inline script in
+   index.html so the saved room paints on the first frame). */
+
+/* ── Foolscap — the shutters thrown open ────────────────────────────────────── */
+html[data-theme="foolscap"] {
+  --page-bg:
+    radial-gradient(1100px 640px at 50% -8%, rgba(255, 252, 240, 0.75), transparent 62%),
+    radial-gradient(900px 540px at 50% 112%, rgba(190, 148, 88, 0.28), transparent 58%),
+    linear-gradient(180deg, #eee3c6 0%, #e6d7b0 46%, #d8c69a 100%);
+  --wm-ink: rgba(58, 42, 20, 0.05);
+  --vignette: inset 0 0 calc(22 * var(--vmu)) rgba(118, 88, 44, 0.3);
+
+  --room-ink: #3a2c1a;
+  --parch:   #3d2e18;
+  --parch-2: #2f2312;
+  --muted:   #8a7357;
+
+  --wood-light: #b98a55; --wood: #96683c; --wood-dark: #6e4826;
+  --leather-2: #f8efd8; --leather: #eadbb4;
+
+  --brass: #a8761f; --brass-hi: #d9a64b;
+  --inkblue: #2e5f9e;
+  --good: #2e7d4f; --bad: #b3352a; --warn: #9c6410;
+
+  --wood-ink: #fdf4dc;
+  --groove-bg: linear-gradient(180deg, #271c10, #382a18);
+  --groove-edge: rgba(138, 95, 29, 0.45);
+  --groove-edge-lit: rgba(138, 95, 29, 0.8);
+  --readout-bg: rgba(30, 18, 8, 0.82);
+  --market-bg:
+    radial-gradient(700px 320px at 50% -10%, rgba(255, 214, 150, 0.14), transparent 65%),
+    linear-gradient(175deg, #4a3826 0%, #372818 55%, #2b1f12 100%);
+}
+/* The quiet button is bare leather elsewhere; here it is pressed paper —
+   except on a Deadline, when the shutters take the paper too. */
+html[data-theme="foolscap"] body:not(.deadline-on) .btn-quiet {
+  background: linear-gradient(180deg, rgba(255, 250, 235, 0.65), rgba(233, 218, 178, 0.65));
+}
+/* A dark slab at 45% over cream reads as fog — hold the idle readout darker. */
+html[data-theme="foolscap"] .readout--idle { opacity: 0.8; }
+/* Ink shadows, not candle glow, behind the masthead. */
+html[data-theme="foolscap"] .logo { text-shadow: 0 1px 0 rgba(255, 252, 240, 0.6); }
+html[data-theme="foolscap"] .logo-mark { color: var(--brass); }
+
+/* ── Hellbox — the type runs hot ────────────────────────────────────────────── */
+html[data-theme="hellbox"] {
+  --page-bg:
+    radial-gradient(1100px 640px at 50% -8%, rgba(255, 122, 80, 0.13), transparent 62%),
+    radial-gradient(900px 540px at 50% 112%, rgba(255, 74, 28, 0.3), transparent 58%),
+    linear-gradient(180deg, #271013 0%, #1b090c 46%, #110609 100%);
+  --wm-ink: rgba(255, 170, 140, 0.03);
+  --vignette: inset 0 0 calc(22 * var(--vmu)) rgba(12, 2, 2, 0.68);
+
+  --room-ink: #f8ded0;
+  --parch:   #f6e4d6;
+  --parch-2: #e8d0c0;
+  --muted:   #a88b85;
+
+  --wood-light: #7a4a30; --wood: #57301f; --wood-dark: #2e1810;
+  --leather-2: #3c2024; --leather: #2a1418;
+
+  --groove-bg: linear-gradient(180deg, #1c0b0e, #291013);
+  --groove-edge: rgba(255, 122, 90, 0.3);
+  --groove-edge-lit: rgba(255, 122, 90, 0.55);
+  --readout-bg: rgba(16, 5, 7, 0.5);
+  --market-bg:
+    radial-gradient(700px 320px at 50% -10%, rgba(255, 140, 90, 0.14), transparent 65%),
+    linear-gradient(175deg, #3a1c1c 0%, #2a1114 55%, #200c10 100%);
+}
+
+/* ── Moonstone — the night shift ────────────────────────────────────────────── */
+html[data-theme="moonstone"] {
+  --page-bg:
+    radial-gradient(1100px 640px at 50% -8%, rgba(150, 190, 255, 0.1), transparent 62%),
+    radial-gradient(900px 540px at 50% 112%, rgba(80, 110, 180, 0.14), transparent 58%),
+    linear-gradient(180deg, #1b2436 0%, #141b2b 46%, #0d1220 100%);
+  --wm-glyph: '☾';
+  --wm-ink: rgba(190, 215, 255, 0.035);
+  --vignette: inset 0 0 calc(22 * var(--vmu)) rgba(2, 6, 14, 0.66);
+
+  --room-ink: #dbe7fa;
+  --parch:   #e9eff9;
+  --parch-2: #d4dff0;
+  --muted:   #8fa0bc;
+
+  /* The wood stays warm — a candlelit desk in a moonlit room. */
+  --leather-2: #26304a; --leather: #1b2336;
+
+  --groove-bg: linear-gradient(180deg, #0e1526, #16203a);
+  --groove-edge: rgba(150, 190, 250, 0.28);
+  --groove-edge-lit: rgba(150, 190, 250, 0.55);
+  --readout-bg: rgba(6, 10, 20, 0.5);
+  --market-bg:
+    radial-gradient(700px 320px at 50% -10%, rgba(150, 190, 255, 0.12), transparent 65%),
+    linear-gradient(175deg, #232c44 0%, #182034 55%, #121828 100%);
+}
+
+/* ── The Baize — the gaming table ───────────────────────────────────────────── */
+html[data-theme="baize"] {
+  --page-bg:
+    radial-gradient(1100px 640px at 50% -8%, rgba(140, 220, 170, 0.08), transparent 62%),
+    radial-gradient(900px 540px at 50% 112%, rgba(28, 88, 58, 0.25), transparent 58%),
+    linear-gradient(180deg, #1c3a2c 0%, #142c21 46%, #0c1f16 100%);
+  --wm-ink: rgba(230, 245, 225, 0.03);
+  --vignette: inset 0 0 calc(22 * var(--vmu)) rgba(2, 10, 6, 0.66);
+
+  --room-ink: #e8f2dc;
+  --parch:   #eef4e2;
+  --parch-2: #dbe6cc;
+  --muted:   #8fa896;
+
+  --wood-light: #8a4f34; --wood: #6b3a25; --wood-dark: #421f12;
+  --leather-2: #24402f; --leather: #182e21;
+
+  --groove-bg: linear-gradient(180deg, #0d241a, #133023);
+  --readout-bg: rgba(5, 15, 10, 0.5);
+  --market-bg:
+    radial-gradient(700px 320px at 50% -10%, rgba(233, 178, 102, 0.14), transparent 65%),
+    linear-gradient(175deg, #21362a 0%, #172a1f 55%, #102016 100%);
+}
+
+/* ═══ The Workshop layout ══════════════════════════════════════════════════════
+   For wide screens: the ledger — chapter, quota, words & discards, the
+   editor's bar, the log — stands in a rail on the left, and the press — the
+   shelf, the readout, the groove, the rack, the actions — takes the width on
+   the right. Below 1200px the wrappers dissolve back into the classic column,
+   so a narrowed window never strands the board. */
+@media (min-width: 1200px) {
+  html[data-layout="desk"] .table {
+    max-width: 1560px;
+    grid-template-columns: minmax(272px, 330px) minmax(0, 1fr);
+    column-gap: 22px;
+    align-items: start;
+    align-content: center;
+  }
+  html[data-layout="desk"] header { max-width: 1560px; }
+
+  html[data-layout="desk"] .rail {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: sticky;
+    top: 14px;
+  }
+  html[data-layout="desk"] .board {
+    display: grid;
+    gap: 14px;
+    min-width: 0;
+  }
+
+  /* The ledger stacks its three cards. */
+  html[data-layout="desk"] .status-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  html[data-layout="desk"] .chapter-card,
+  html[data-layout="desk"] .pips-card { min-width: 0; }
+
+  /* The editor's bar reads as a notice pinned to the ledger. */
+  html[data-layout="desk"] .boss-bar { flex-wrap: wrap; row-gap: 4px; }
+  html[data-layout="desk"] .boss-rule { flex-basis: 100%; order: 4; }
+  html[data-layout="desk"] .boss-verdict { margin-left: auto; }
+
+  /* The log writes into the ledger, not under the press. */
+  html[data-layout="desk"] .log {
+    text-align: left;
+    height: auto;
+    min-height: 24px;
+  }
+}
+
+/* ═══ Appearance controls (Settings) ═══════════════════════════════════════════ */
+.appearance-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.theme-swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 10px 7px;
+  border-radius: 10px;
+  border: 1px solid rgba(122, 92, 40, 0.4);
+  background: rgba(255, 252, 240, 0.5);
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: transform calc(0.12s / var(--aspd)), box-shadow calc(0.12s / var(--aspd));
+}
+.theme-swatch:hover { transform: translateY(-2px); }
+.theme-swatch--on {
+  border-color: rgba(138, 95, 29, 0.7);
+  box-shadow: 0 0 0 2.5px var(--brass), 0 4px 10px rgba(60, 40, 15, 0.25);
+}
+.theme-swatch-chips {
+  display: flex;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid rgba(60, 40, 15, 0.45);
+}
+.theme-swatch-chip { width: 15px; height: 22px; }
+.theme-swatch-name {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  color: var(--parch-ink);
+}
+
+.layout-pick {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(122, 92, 40, 0.4);
+  background: rgba(255, 252, 240, 0.5);
+  cursor: pointer;
+  font-family: var(--sans);
+  text-align: left;
+  transition: transform calc(0.12s / var(--aspd)), box-shadow calc(0.12s / var(--aspd));
+}
+.layout-pick:hover { transform: translateY(-2px); }
+.layout-pick--on {
+  border-color: rgba(138, 95, 29, 0.7);
+  box-shadow: 0 0 0 2.5px var(--brass), 0 4px 10px rgba(60, 40, 15, 0.25);
+}
+.layout-pick-name { font-size: 12px; font-weight: 800; color: var(--parch-ink); }
+.layout-pick-blurb { font-size: 10px; color: var(--parch-dim); }
+
+.scale-control { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.scale-auto { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; }

@@ -17,6 +17,7 @@ import {
 } from './state.js';
 import { renderAll, showTilePopover, showPopover, hidePopover, log } from './render.js';
 import { sfx } from './anim.js';
+import { uiZoom } from './appearance.js';
 import { computeScore } from './scoring.js';
 import { patronById, patronName } from './patrons.js';
 import { market, stallById } from './market.js';
@@ -81,16 +82,19 @@ function startLongPressTimer() {
 }
 
 // A clone of what you picked up, parked in #fx and carried under the pointer.
+// Rects and pointer events arrive in visual coordinates; a px written into the
+// zoomed page is multiplied by the UI scale on the way out, so writes divide.
 function makeGhost(el, x, y) {
+  const z = uiZoom();
   const r = el.getBoundingClientRect();
   const g = el.cloneNode(true);
   g.classList.add('fly-clone', 'drag-ghost');
   g.classList.remove('tile--selected');
   Object.assign(g.style, {
-    left:  `${r.left}px`,
-    top:   `${r.top}px`,
-    width: `${r.width}px`,
-    height:`${r.height}px`,
+    left:  `${r.left / z}px`,
+    top:   `${r.top / z}px`,
+    width: `${r.width / z}px`,
+    height:`${r.height / z}px`,
   });
   g._dx = x - r.left;
   g._dy = y - r.top;
@@ -101,8 +105,9 @@ function makeGhost(el, x, y) {
 
 function positionGhost(g, x, y) {
   if (!g) return;
-  g.style.left = `${x - g._dx}px`;
-  g.style.top  = `${y - g._dy}px`;
+  const z = uiZoom();
+  g.style.left = `${(x - g._dx) / z}px`;
+  g.style.top  = `${(y - g._dy) / z}px`;
 }
 
 function startDrag(x, y) {
