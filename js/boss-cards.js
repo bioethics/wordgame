@@ -41,31 +41,31 @@ export const BOSS_CARDS = {
   },
   minimalist: {
     name: 'The Minimalist', emoji: '⬜',
-    desc: 'The adjective is the enemy of the noun. Every describing word is spiked — adjectives and adverbs alike: HAPPY, RED, QUICKLY.',
+    desc: 'Adjectives are the enemy of clean modern prose. Adjectives and adverbs are spiked.',
   },
   columnist: {
     name: 'The Columnist', emoji: '📰',
-    desc: 'Everything must fit the column: each word to an exact measure, re-set after every print. Off-measure words are spiked.',
+    desc: 'Everything must fit the column; I will tell you how many letters to use. Off-measure words are spiked.',
   },
   serialist: {
     name: 'The Serialist', emoji: '🔗',
-    desc: 'We need continuity. Each word must open with the letter the one before ended on, or be spiked.',
+    desc: 'We need continuity. Each word must begin with the letter the previous word ended on, or be spiked.',
   },
   indexer: {
     name: 'The Indexer', emoji: '🗂️',
-    desc: 'Order above all else: each word must come after the last one in dictionary order — ARM, then ARMY, then BOAT. Anything that would sort earlier is spiked.',
+    desc: 'Order above all else: each word must come after the last one in dictionary order. Any exceptions are spiked.',
   },
   escalationist: {
     name: 'The Escalationist', emoji: '📈',
     desc: 'Build to a climax: every word must outscore the one before it, or be spiked.',
   },
   enthusiast: {
-    name: 'The Enthusiast', emoji: '🤩',
-    desc: 'I really love one letter — I\'ll tell you which. Every word set without it is spiked, and here, have one on loan: it rides above your hand all page and takes up no room.',
+    name: '#1 Specific Letter Enthusiast', emoji: '🤩',
+    desc: 'I really love one specific letter. I will gift you a temporary copy, but words that do not use it are spiked.',
   },
   bribrarian: {
     name: 'The Bribrarian', emoji: '🤝',
-    desc: 'Nothing you write will please me, and everything is negotiable. A consideration before the page is set — {BRIBRARIAN_STEPS} Coins and my pen is perfectly kind. Less, and it is less kind. Nothing, and you will see what I mean.',
+    desc: 'I will spike every word you write. Unless you would like to come to an arrangement...',
   },
   epitaphist: {
     name: 'The Epitaphist', emoji: '⚱️',
