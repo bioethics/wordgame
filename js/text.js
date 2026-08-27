@@ -86,9 +86,9 @@ export const fillSlots = (str, ...values) =>
 
 // ─── Trims (the band around a tile's edge) ────────────────────────────────────
 export const TRIM_TEXT = {
-  gold:   { label: 'Gold',   desc: 'Pays 1 Coin when printed.' },
+  gold:   { label: 'Gold',   desc: '+1 Coin.' },
   silver: { label: 'Silver', desc: '+{SILVER_BONUS} Points.' },
-  cobalt: { label: 'Cobalt', desc: 'Refunds a Discard when printed.' },
+  cobalt: { label: 'Cobalt', desc: 'Refunds a Discard.' },
   purple: { label: 'Purple', desc: 'Adds +{PURPLE_TRIM_STEP} to the purple multiplier.' },
 };
 
@@ -125,7 +125,7 @@ export const MATERIAL_TEXT = {
   },
   ghost: {
     label: 'Ghost', metal: 'Ghost metal',
-    desc: 'Does not count against your hand size. Cannot be modified.',
+    desc: 'Does not count against your hand size. Unmodifiable.',
   },
   rainbow: {
     label: 'Rainbow', metal: 'Rainbow roll',
@@ -133,11 +133,11 @@ export const MATERIAL_TEXT = {
   },
   blind: {
     label: 'Blind', metal: 'Blind emboss',
-    desc: 'Struck into the page without ink — felt, and never seen. Worth nothing on its own — yet.',
+    desc: 'Worth nothing on its own.',
   },
   rose: {
     label: 'Rose', metal: 'Rose metal',
-    desc: 'Crowns a random patron with a laurel when printed — +{HONORIFIC_STEP} Points on every word thereafter.',
+    desc: 'Crowns a random patron with a laurel.',
   },
 };
 
@@ -150,12 +150,11 @@ export const MATERIAL_TEXT = {
 export const SUNDRY_TEXT = {
   ratchet: {
     head: 'Ratchet',
-    body: 'Tap it, tap one letter, then tap the ratchet again to step that letter '
-        + 'a single place along the alphabet.',
+    body: 'Step a letter a single place up or down the alphabet.',
   },
   reshuffle: {
     head: 'Reshuffle',
-    body: 'Can be used to reroll offerings at the Market and the Colophon.',
+    body: 'Reroll offerings at the Market or the Colophon.',
   },
   toolbox: {
     head: 'Toolbox',
@@ -163,9 +162,7 @@ export const SUNDRY_TEXT = {
   },
   bodkin: {
     head: 'Bodkin',
-    body: 'Reach into the bag and pick out any one tile you like — it goes straight '
-        + 'into your hand, even if that puts you over your hand size. Nothing is '
-        + 'drawn to replace it until you are back under.',
+    body: 'Choose any one tile from your bag, and add it to your hand.',
   },
   loupe: {
     head: 'Loupe',
@@ -174,12 +171,11 @@ export const SUNDRY_TEXT = {
   laurel: {
     head: 'Laurel',
     body: 'Crowns a random seated patron. A crowned patron pays +{HONORIFIC_STEP} Points on every word, '
-        + 'at its own turn in the running order — so a crown in front of your multipliers is multiplied '
-        + 'by them. Patrons can balance an infinite number of laurels on their heads.',
+        + 'at its own turn. Patrons can balance an infinite number of laurels on their heads.',
   },
   tongs: {
     head: 'Tongs',
-    body: 'Destroys a tile for good, and gives your next word +{TONGS_BONUS} Points.',
+    body: 'Destroys a tile. Also, gives your next word +{TONGS_BONUS} Points.',
   },
   wash: {
     head: 'Ink wash',
@@ -188,16 +184,16 @@ export const SUNDRY_TEXT = {
   },
   wrapped: {
     head: 'A wrapped tile',
-    body: 'Unwrap it mid-page to gain one rare tile, permanently.',
+    body: 'Unwrap it to gain one tile made of an exotic material.',
   },
   potion: {
     head: 'Love potion',
-    body: 'Uncork it and a RARE patron takes an empty seat at your table, free. '
-        + 'Keeps until there is a seat to spare.',
+    body: 'Uncork it and a RARE patron takes an empty seat at your table.'
+        + 'You sexy thing, you.',
   },
   tube: {
     head: 'Tube of {0}',
-    body: 'Paints one tile in your hand, permanently. {1}',
+    body: 'Paints one tile in your hand. {1}',
   },
   applicator: {
     head: '{0} applicator',
@@ -227,19 +223,19 @@ export const APPLICATOR_TEXT = {
 export const PACKAGE_TEXT = {
   romantic: {
     label: 'A billet-doux',
-    body: 'Sealed and scented. Open it for a two-faced X|O in crimson, a love potion for the workbench, or a tube of crimson.',
+    body: 'Sealed and scented. Contains one of three possible romantic rewards.',
   },
   spooky: {
     label: 'Grave goods',
-    body: 'Buried with someone. Open it for an azure OO in ghost metal, the same in cursed iron, or a tube of azure.',
+    body: 'Exhumed from coffin. Contains one of three possible spooky rewards.',
   },
   cute: {
     label: 'A party bag',
-    body: 'Somebody had a birthday. Open it for a tile struck in rose metal, a rainbow applicator, or a pot of ink wash.',
+    body: 'Somebody had a birthday. Contains one of three possible cute rewards.',
   },
   rude: {
     label: 'A plain brown wrapper',
-    body: 'No return address. Open it for a pair of tongs, a curse applicator, or a silver-trimmed FU.',
+    body: 'No return address. Contains one of three possible rude rewards.',
   },
 };
 
@@ -248,7 +244,7 @@ export const PACKAGE_TEXT = {
 export const STALL_TEXT = {
   smelter: {
     name: 'The Smelter', emoji: '🔥',
-    desc: 'Destroys a tile by feeding it to the furnace.',
+    desc: 'Feeds tiles to the furnace, destroying them forever.',
   },
   painter: {
     name: 'The Painter', emoji: '🖌️',
@@ -262,7 +258,7 @@ export const STALL_TEXT = {
   },
   punchcutter: {
     name: 'The Punchcutter', emoji: '⚒️',
-    desc: 'Cuts a second letter into a tile — flip to play either face.',
+    desc: 'Cuts a second letter into the back side of a tile.',
     empty: 'Every tile you own already holds two letters.',
   },
   dresser: {
@@ -284,9 +280,8 @@ export const UPGRADE_TEXT = {
   workbenchSlot: { name: '+1 Workbench slot',  desc: 'Room for one more sundry.' },
   blackmarket:   {
     name: 'The Black Market',
-    desc: 'A door in the alley, open once before the fair. {BLACK_TILE_OFFERS} tiles — rare metals '
-        + 'and punctuation among them — {BLACK_PATRON_OFFERS} rare patrons, and tools no stall will '
-        + "sell. Everything at the alley's price.",
+    desc: 'An unmarked door leads to the black market.' 
+        + 'Sells goods that are otherwise difficult or impossible to come by.',
   },
 };
 // {0} is how many tiles a pot covers, {1} the colour's name.
@@ -302,12 +297,12 @@ export const PAINT_UPGRADE_TEXT = {
 // and it holds only long enough to be read.
 export const LENGTH_FLOURISHES = {
   6:  'good!',
-  7:  'great!',
-  8:  'a true accomplishment!',
+  7:  'very good!',
+  8:  'great!',
   9:  'astounding!',
   10: 'a credit to mankind!',
-  11: 'the Press itself is honoured.',
-  12: 'words about words fail us.',
+  11: 'words fail us.',
+  12: 'the Spelling Bee herself could do no better.',
 };
 export const LENGTH_FLOURISH_BEYOND = 'the stuff of legend.';
 
@@ -358,7 +353,7 @@ export const BLACK_MARKET_TEXT = {
   patronsSub: 'rare patrons only',
   noPatrons:  'No one is waiting in the alley tonight.',
   sundries:   'Under the counter',
-  leave:      'On to the fair ❧',
+  leave:      'On to the market ❧',
   gone:       'gone',
   // The caption under a contraband tile. {0} is the metal's name.
   metalNote:  '{0}',
@@ -371,9 +366,9 @@ export const BLACK_MARKET_TEXT = {
 export const COLOPHON_TEXT = {
   title:       'The Colophon',
   note:        'Choose one permanent upgrade.',
-  empty:       'Nothing left to offer — on to the next chapter.',
+  empty:       'Nothing left to offer.',
   skip:        'Skip',
   skipTip:     'Decline all three',
   reshuffle:   '↻ Reshuffle',
-  reshuffleTip:'Spend a banked reshuffle for a free re-roll',
+  reshuffleTip:'Spend a banked reshuffle',
 };
