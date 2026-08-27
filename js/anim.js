@@ -535,4 +535,125 @@ export const sfx = {
              when: 0.08 + i * 0.055 + Math.random() * 0.03 });
     }
   },
+
+  // ─── The composing layer ────────────────────────────────────────────────────
+  // Everything from here down fires dozens of times a minute, so it is texture
+  // rather than event: a hand working, under a room that stays quiet until the
+  // press comes down. The scale and the platen keep the loud end to themselves.
+
+  // A tile set into the groove — pressed into something soft rather than
+  // dropped on it. Deliberately smaller than land(), which is the rack's.
+  place() {
+    knock(150, { time: 0.05, gain: 0.18, drop: 0.4 });
+    grit({ time: 0.03, gain: 0.07, low: 700, attack: 0.004 });
+  },
+  // …and lifted back out again: air, and nothing else. The inverse gesture,
+  // and quiet enough to vanish under a fast hand.
+  retrieve() {
+    grit({ time: 0.07, gain: 0.11, band: 1200, q: 0.6, sweep: 900 });
+  },
+  // A tile slid to another place in the same row — a spacer dropping in. No
+  // body at all, because nothing arrived: the row simply closed up differently.
+  reorder() {
+    grit({ time: 0.012, gain: 0.16, band: 3800, q: 3 });
+  },
+  // A tile taken up: a body rising off the stone. Pitch UP is the whole of what
+  // says lifted rather than set down (see knock's `drop` above 1).
+  lift() {
+    knock(280, { time: 0.03, gain: 0.12, drop: 1.5 });
+  },
+  // The groove emptied at a stroke — a handful of type dropped in a heap. The
+  // one loud thing down here, because it undoes a minute's work in one keypress.
+  clear() {
+    knock(120, { time: 0.12, gain: 0.35, drop: 0.45 });
+    grit({ time: 0.09, gain: 0.2, low: 900 });
+  },
+  // The hand turned over: one muffled rattle with two bodies inside it, so it
+  // reads as a mass of sorts rather than a count of them.
+  shuffle() {
+    grit({ time: 0.24, gain: 0.15, low: 2600, attack: 0.02 });
+    knock(150, { time: 0.06, gain: 0.16, when: 0.05, drop: 0.6 });
+    knock(190, { time: 0.06, gain: 0.14, when: 0.14, drop: 0.6 });
+  },
+  // A dual tile turned over: the flick of the flip, then the other face landing.
+  flip() {
+    grit({ time: 0.03, gain: 0.1, band: 2800, q: 1.4, sweep: -1200 });
+    clack(260, { gain: 0.45, when: 0.028 });
+  },
+
+  // ─── Marks and modes ────────────────────────────────────────────────────────
+  // A tile marked — the tick, with the graphite of the stroke under it.
+  select() {
+    blip(1175, { time: 0.05, type: 'sine', gain: 0.07 });
+    grit({ time: 0.012, gain: 0.07, band: 4200, q: 1.2 });
+  },
+  // …and the mark taken off: the same note, bent down. The pair has to be
+  // told apart by ear alone, since the tile is usually under a thumb.
+  deselect() {
+    blip(880, { time: 0.05, type: 'sine', gain: 0.055, slide: -160 });
+    grit({ time: 0.012, gain: 0.05, band: 3000, q: 1.2 });
+  },
+  // A mode comes on — discard armed, or a tool taken up off the bench. A latch
+  // rather than a note: what changed is what the next tap will MEAN, and no
+  // pitched voice says that as plainly as two dry clicks.
+  arm() {
+    grit({ time: 0.01, gain: 0.18, band: 3800, q: 3 });
+    grit({ time: 0.014, gain: 0.15, band: 2400, q: 2.6, when: 0.052 });
+  },
+  // …and off again, with the tool set back down after it.
+  disarm() {
+    grit({ time: 0.012, gain: 0.14, band: 2400, q: 2.6 });
+    grit({ time: 0.01, gain: 0.12, band: 3600, q: 3, when: 0.04 });
+    knock(150, { time: 0.06, gain: 0.16, when: 0.06, drop: 0.55 });
+  },
+  // A tap the board won't take. bad() is the press jamming on a whole word;
+  // this is one refused tile, and says no without accusing you of anything.
+  nudge() {
+    knock(110, { time: 0.09, gain: 0.22, drop: 0.4 });
+    grit({ time: 0.05, gain: 0.1, low: 400, attack: 0.005 });
+  },
+
+  // ─── The shelf, the sheets, the page ────────────────────────────────────────
+  // A patron takes a new seat: a chair pulled in, and someone settling into it.
+  // Seat order is a rule of precedence, so the drop is worth a body.
+  seat() {
+    knock(110, { time: 0.12, gain: 0.32, drop: 0.6 });
+    grit({ time: 0.07, gain: 0.14, low: 600, attack: 0.006 });
+    blip(330, { time: 0.1, type: 'sine', gain: 0.04, when: 0.03 });
+  },
+  // A patron leaves the shelf, or a ghost is let go: the door, and no coin in
+  // it. The refund is already counting up in the purse; this is the departure.
+  dismiss() {
+    knock(100, { time: 0.14, gain: 0.3, drop: 0.5 });
+    grit({ time: 0.09, gain: 0.16, low: 500 });
+  },
+  // A sheet rises: the brass latch, and the door swinging in on the room
+  // behind it. Nothing answers it on the way out — a sheet closing is its own
+  // silence, and a pair of doors on every inspector would wear thin fast.
+  sheetOpen() {
+    grit({ time: 0.014, gain: 0.16, band: 3600, q: 2.6 });
+    grit({ time: 0.2, gain: 0.1, low: 1400, attack: 0.05, when: 0.03 });
+  },
+  // A view changes inside a sheet. One dry tick and no more: you walk in and
+  // out of four stalls a fair, and this is navigation, not an act.
+  page() {
+    grit({ time: 0.014, gain: 0.12, band: 3400, q: 2.4 });
+  },
+  // A new chapter: one bell, struck and left to ring. The same overtones as
+  // chime() — mallet, fundamental, fifth, and the inharmonic a real bell
+  // carries — but held four times as long, because nothing is being counted.
+  chapter() {
+    grit({ time: 0.02, gain: 0.1, band: 4000, q: 1 });
+    blip(990,  { time: 0.42, type: 'sine', gain: 0.12 });
+    blip(1485, { time: 0.36, type: 'sine', gain: 0.07, when: 0.05 });
+    blip(2732, { time: 0.16, type: 'sine', gain: 0.03, when: 0.01 });
+  },
+  // The quota bar reaches its mark: a gauge clicking over. Threaded under the
+  // count rather than stopping it — the page is made, and the figure carries on.
+  quotaMet() {
+    for (let i = 0; i < 3; i++) {
+      grit({ time: 0.01, gain: 0.1, band: 3200, q: 2.6, when: i * 0.04 });
+    }
+    blip(1319, { time: 0.2, type: 'sine', gain: 0.07, when: 0.12 });
+  },
 };

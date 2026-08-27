@@ -144,7 +144,9 @@ function cancelDiscardMode(quiet = false) {
   if (!state.discardMode) return false;
   state.discardMode = false;
   clearAllSelected();
-  if (!quiet) log('Discard cancelled.');
+  // `quiet` already marks the cancellations that are incidental — a mode swept
+  // aside on the way to doing something else — and those want no latch either.
+  if (!quiet) { sfx.disarm(); log('Discard cancelled.'); }
   renderAll();
   return true;
 }
@@ -157,7 +159,7 @@ function cancelSundryMode(quiet = false) {
   state.sundryMode = -1;
   state.tubeOffer = null;
   clearAllSelected();
-  if (!quiet) log(`The ${kind === 'tube' ? 'tube' : 'ratchet'} goes back on the workbench.`);
+  if (!quiet) { sfx.disarm(); log(`The ${kind === 'tube' ? 'tube' : 'ratchet'} goes back on the workbench.`); }
   renderAll();
   return true;
 }
@@ -1146,7 +1148,7 @@ async function pageComplete() {
 function offerColophon() {
   openColophon();
   renderAll();
-  if (colophon.offers.length) { renderColophon(); return true; }
+  if (colophon.offers.length) { sfx.sheetOpen(); renderColophon(); return true; }
   closeColophon();
   renderColophon();
   applyColophonSkip();
@@ -1159,6 +1161,7 @@ function offerColophon() {
 // the coins are already in the purse to spend down here (they are credited as
 // the page completes, ahead of the Colophon).
 export function openTheBlackMarket() {
+  sfx.sheetOpen();
   openBlackMarket();
   renderAll();
   renderBlackMarket();
@@ -1169,6 +1172,7 @@ export function openTheBlackMarket() {
 export function openTheMarket() {
   const { parts = [], total = 0 } = state.pendingReward ?? {};
   state.pendingReward = null;
+  sfx.sheetOpen();
   openMarket(parts, total);
   renderAll();
   renderMarket();
@@ -1220,6 +1224,7 @@ async function advancePage() {
   pulse($('bagBtn'), 'pouch--bump', 300);
 
   if (newChapter) {
+    sfx.chapter();
     await showBanner(chapterLabel(state.chapter), chapterTitle(state.chapter), 1350);
   }
 
@@ -1270,6 +1275,7 @@ async function doDiscard() {
     if (state.discards <= 0) { log('No discards left this page.', 'warn'); return; }
     cancelSundryMode(true);
     state.discardMode = true;
+    sfx.arm();
     log('Tap tiles to discard, then press again.');
     renderAll();
     return;
@@ -1348,17 +1354,13 @@ document.addEventListener('keydown', e => {
   }
 
   if (e.key === 'Enter')  { submitWord(); return; }
-  if (e.key === 'Escape') {
-    hidePopover();
-    if (!cancelSundryMode() && !cancelDiscardMode()) { clearWord(); renderAll(); }
-    return;
-  }
-  if (e.key === ' ')      { e.preventDefault(); shuffleRack(); renderAll(); return; }
+  if (e.key === 'Escape') { hidePopover(); clearOrCancel(); return; }
+  if (e.key === ' ')      { e.preventDefault(); shuffleRack(); sfx.shuffle(); renderAll(); return; }
 
   if (e.key === 'Backspace') {
     e.preventDefault();
     const t = state.word.pop();
-    if (t) state.rack.push(t);
+    if (t) { state.rack.push(t); sfx.retrieve(); }
     renderAll();
     return;
   }
@@ -1368,18 +1370,31 @@ document.addEventListener('keydown', e => {
   const target = L === 'Q' ? 'QU' : L;
   const t = state.rack.find(t =>
     (t.letterType === 'dual' && t.activeVariant === 1 ? t.altLetter : t.letter) === target);
-  if (t && TILE_POINTS[target]) { moveRackToWord(t.id); renderAll(); }
+  if (t && TILE_POINTS[target]) { moveRackToWord(t.id); sfx.place(); renderAll(); }
 });
 
 // ─── Buttons & delegation ─────────────────────────────────────────────────────
+
+// Escape and the Clear button ask for the same three things in the same order:
+// put a tool away, or come out of discard mode, or — failing both — empty the
+// groove. Only the last of those is a clear, and only a groove with something
+// in it makes a sound.
+function clearOrCancel() {
+  if (cancelSundryMode() || cancelDiscardMode()) return;
+  if (state.word.length) sfx.clear();
+  clearWord();
+  renderAll();
+}
 
 $('btnPrint')?.addEventListener('click', submitWord);
 $('btnClear')?.addEventListener('click', () => {
   if (state.isAnimating) return;
   hidePopover();
-  if (!cancelSundryMode() && !cancelDiscardMode()) { clearWord(); renderAll(); }
+  clearOrCancel();
 });
-$('btnShuffle')?.addEventListener('click', () => { if (!state.isAnimating) { shuffleRack(); renderAll(); } });
+$('btnShuffle')?.addEventListener('click', () => {
+  if (!state.isAnimating) { shuffleRack(); sfx.shuffle(); renderAll(); }
+});
 $('btnDiscard')?.addEventListener('click', doDiscard);
 
 // The workbench: first tap arms a tool, board taps pick its targets, a second
@@ -1723,6 +1738,7 @@ async function useSundry(idx, e = null) {
     cancelSundryMode(true);
     clearAllSelected();
     state.sundryMode = idx;
+    sfx.arm();
     log(armed?.kind === 'loupe'
       ? `Tap a tile to double it — ${LOUPE_CAP} Points is the loupe's limit.`
       : armed?.kind === 'tongs'
@@ -1797,10 +1813,10 @@ export async function spendArmedSundry() {
   if (state.sundryMode >= 0) await useSundry(state.sundryMode);
 }
 
-$('bagBtn')?.addEventListener('click', () => { if (!state.isAnimating) openInspector('bag'); });
-$('discardBtn')?.addEventListener('click', () => { if (!state.isAnimating) openInspector('discard'); });
+$('bagBtn')?.addEventListener('click', () => { if (!state.isAnimating) { sfx.sheetOpen(); openInspector('bag'); } });
+$('discardBtn')?.addEventListener('click', () => { if (!state.isAnimating) { sfx.sheetOpen(); openInspector('discard'); } });
 
-$('manuscriptBtn')?.addEventListener('click', () => { if (!state.isAnimating) openManuscript(); });
+$('manuscriptBtn')?.addEventListener('click', () => { if (!state.isAnimating) { sfx.sheetOpen(); openManuscript(); } });
 $('manuscriptModal')?.addEventListener('click', e => {
   if (e.target.closest('[data-close-manuscript]') || e.target.id === 'manuscriptModal') closeManuscript();
 });
@@ -1815,6 +1831,7 @@ function dismissPatron(ref) {
   const r = sellPatron(ref);
   if (r.reason) { log(r.reason, 'warn'); return; }
   if (r.ok) {
+    sfx.dismiss();
     log(`${r.name} departs with thanks — ${r.refund} Coin${r.refund !== 1 ? 's' : ''} returned.`);
     if (r.headsman) log(`🪓 The Headsman approves — ×${r.headsman.mult} Mult now.`);
     renderAll();
@@ -1827,6 +1844,7 @@ function dismissPatron(ref) {
 $('ghostBtn')?.addEventListener('click', () => {
   if (state.isAnimating) return;
   hidePopover();
+  sfx.sheetOpen();
   openGhosts();
 });
 
@@ -1840,6 +1858,7 @@ $('ghostModal')?.addEventListener('click', e => {
     const r = sellPatron(sell.dataset.sellGhost);
     if (r.reason) { log(r.reason, 'warn'); return; }
     if (r.ok) {
+      sfx.dismiss();
       log(`${r.name} is let go — a ghost's contract is worth nothing.`);
       if (r.headsman) log(`🪓 The Headsman approves — ×${r.headsman.mult} Mult now.`);
       renderAll();
@@ -2083,7 +2102,7 @@ $('popover')?.addEventListener('click', e => {
   if (flip) {
     hidePopover();
     if (state.isAnimating || sheetUp() || state.gameOver) return;
-    toggleDualVariant(Number(flip.dataset.flip));
+    if (toggleDualVariant(Number(flip.dataset.flip))) sfx.flip();
     renderAll();
   }
 });
@@ -2122,6 +2141,7 @@ function setTextContent(id, v) { const el = $(id); if (el) el.textContent = v; }
 
 $('settingsBtn')?.addEventListener('click', () => {
   syncSettingsUI();
+  sfx.sheetOpen();
   $('settingsModal')?.classList.add('show');
 });
 $('settingsClose')?.addEventListener('click', () => $('settingsModal')?.classList.remove('show'));
@@ -2201,6 +2221,7 @@ async function beginRun() {
   startPage();
   state.isAnimating = true;
   renderAll();
+  sfx.chapter();
   await showBanner(chapterLabel(1), chapterTitle(1), 1250);
   const { arrivals } = runPageHooks();
   const lent = bossReplenish(state, castLentTile, lentInHand);
@@ -2222,6 +2243,7 @@ function leaveChamber() {
 function openTheChamber() {
   if (state.inMarket || state.inColophon || state.isAnimating) return;
   $('settingsModal')?.classList.remove('show');
+  sfx.sheetOpen();
   openChamber({ atStart: false });
   renderChamber();
 }

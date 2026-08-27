@@ -1451,11 +1451,12 @@ function onMarketClick(e) {
     market.view = 'stall';
     market.activeStall = visit.dataset.visitStall;
     market.stallSel = -1;
+    sfx.page();
     renderMarket();
     return;
   }
   if (e.target.closest('#btnStallBack')) {
-    market.view = 'shop'; market.activeStall = null; market.returning = true; renderMarket();
+    market.view = 'shop'; market.activeStall = null; market.returning = true; sfx.page(); renderMarket();
     return;
   }
   const stallTile = e.target.closest('[data-stall-tid]');
@@ -1517,6 +1518,7 @@ function onMarketClick(e) {
       // Back to the market, where the stall card's risen price can be seen.
       market.view = 'shop'; market.activeStall = null; market.stallSel = -1;
       market.returning = true;
+      sfx.page();
     }
     renderAll(); renderMarket();   // full rebuild: the price and grid both changed
     return;
@@ -1524,11 +1526,11 @@ function onMarketClick(e) {
 
   // ── Collection (read-only) ──────────────────────────────────────────────────
   if (e.target.closest('#btnOpenCollection')) {
-    market.view = 'collection'; renderMarket();
+    market.view = 'collection'; sfx.page(); renderMarket();
     return;
   }
   if (e.target.closest('#btnCollectionBack')) {
-    market.view = 'shop'; market.returning = true; renderMarket();
+    market.view = 'shop'; market.returning = true; sfx.page(); renderMarket();
     return;
   }
   if (e.target.closest('#btnMarketContinue')) flow.nextPage();
@@ -1602,7 +1604,7 @@ function onChamberClick(e) {
   let touched = true;
 
   const tab = hit('data-tc-tab');
-  if (tab) { chamber.tab = tab.dataset.tcTab; sfx.draw(); return finishChamber(); }
+  if (tab) { chamber.tab = tab.dataset.tcTab; sfx.page(); return finishChamber(); }
 
   const coins = hit('data-tc-coins');
   if (coins) {

@@ -1193,11 +1193,14 @@ export function spendReshuffleSundry() {
   return true;
 }
 
+// Returns whether the tile actually turned: a right-click lands on plenty of
+// tiles with only one face, and those must not sound as though something moved.
 export function toggleDualVariant(id) {
   const tile = state.rack.find(t => t.id === id) ?? state.word.find(t => t.id === id);
-  if (!tile || tile.letterType !== 'dual') return;
+  if (!tile || tile.letterType !== 'dual') return false;
   tile.activeVariant = tile.activeVariant === 0 ? 1 : 0;
   tile.basePoints = TILE_POINTS[getActiveLetter(tile)] ?? 1;
+  return true;
 }
 
 // A patron out of nowhere, for nothing: The Paramour's love potion. Rarity is

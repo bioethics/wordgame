@@ -151,6 +151,7 @@ h1 .amp{color:var(--brass); font-style:italic; font-weight:400;}
   color:var(--brass-hi); border:1px solid rgba(217,166,75,.35); border-radius:4px;
   padding:2px 6px; margin-left:8px; vertical-align:1px;
 }
+.opt-name .tag--quiet{color:var(--dim); border-color:var(--rule);}
 .opt-desc{font-size:.8125rem; color:var(--dim); margin-top:1px;}
 .opt-acts{display:flex; gap:6px; align-items:center;}
 .mini{
@@ -203,14 +204,17 @@ footer{margin-top:70px; padding-top:22px; border-top:1px solid var(--rule); colo
   <header class="mast">
     <div class="eyebrow">Great Work · audio audit</div>
     <h1>Sound Specimen<br><span class="amp">Sheet</span></h1>
-    <p class="dek">Twenty moments in the print house that pass in silence — every one of them a place where the ear expects
-    something and gets nothing. Each has <b>five candidates</b> to strike and compare, built from the same three
-    primitives as the sounds already in the game: <code>blip</code>, <code>knock</code>, <code>grit</code>.
-    The first candidate in each rank is my pick. Choose as you go; the ledger at the foot compiles what you chose.</p>
+    <p class="dek"><b>All twenty are now wired into the game.</b> This was the bench they were chosen on: twenty moments
+    in the print house that passed in silence, each with five candidates built from the same three primitives as the
+    sounds already there — <code>blip</code>, <code>knock</code>, <code>grit</code>. The candidate that shipped is
+    marked <b>in the game</b> in each rank; strike any of the others to hear what was passed over, and re-choose if
+    you want to change your mind. The ledger at the foot always shows the current set.</p>
     <div class="tally">
       <div><span class="num" id="tSilent">20</span><span class="lab">silent moments</span></div>
       <div><span class="num" id="tOpts">100</span><span class="lab">candidates</span></div>
-      <div><span class="num" id="tPicked">0</span><span class="lab">chosen so far</span></div>
+      <div><span class="num" id="tPicked">0</span><span class="lab">chosen</span></div>
+      <div><span class="num">18</span><span class="lab">now sounded</span></div>
+      <div><span class="num">2</span><span class="lab">left silent</span></div>
     </div>
   </header>
 
@@ -219,9 +223,9 @@ footer{margin-top:70px; padding-top:22px; border-top:1px solid var(--rule); colo
     <div class="bench-head">
       <div>
         <div class="eyebrow">Try them in place</div>
-        <p>Tap a tile to set it in the groove, tap it again to take it back. The bench uses whatever you have
-        chosen for <em>Set</em>, <em>Take back</em>, <em>Shuffle</em> and <em>Clear</em> — so you can hear a
-        candidate at the pace you'd actually meet it, not one strike at a time.</p>
+        <p>Tap a tile to set it in the groove, tap it again to take it back. The bench plays whatever is currently
+        chosen for <em>Set</em>, <em>Take back</em>, <em>Shuffle</em> and <em>Clear</em> — which is what the game
+        now plays — so you can hear the set at the pace you'd actually meet it, not one strike at a time.</p>
       </div>
     </div>
     <div class="groove" id="groove" role="list" aria-label="Word groove"></div>
@@ -239,9 +243,11 @@ footer{margin-top:70px; padding-top:22px; border-top:1px solid var(--rule); colo
   </div>
 
   <section class="already">
-    <h3>Already sounded — left alone</h3>
-    <p>For completeness, these are the moments that <em>do</em> have a voice today, so nothing below duplicates them.
-    Scoring in particular is richly scored already; the gap is almost entirely in the quiet minute before you press Print.</p>
+    <h3>The voices that were already there</h3>
+    <p>These had a voice before this audit, and nothing above duplicates them. Scoring in particular was richly scored
+    already; the gap was almost entirely in the quiet minute before you press Print. One was changed: the Testing
+    Chamber's tabs used <code>draw()</code> as a stand-in for a page turn, and now use <code>page()</code> like every
+    other view change.</p>
     <ul>
       <li>Drawing and landing a tile — <code>draw</code>, <code>land</code></li>
       <li>Tiles flying to the pile — <code>discard</code>, <code>file</code></li>
@@ -261,12 +267,13 @@ footer{margin-top:70px; padding-top:22px; border-top:1px solid var(--rule); colo
 
   <section class="ledger">
     <h2>Your ledger</h2>
-    <p>Everything you chose above, in the order the game would need it. Hand this back and I'll write the picks into
-    <code>js/anim.js</code> and wire each call site.</p>
+    <p>The current set, in the order the game needs it. Everything below is live in
+    <code>js/anim.js</code> with its call sites wired; change a choice above and this updates, and I can move the
+    game to match.</p>
     <pre class="out" id="out"></pre>
     <div class="bench-actions">
       <button class="btn btn--brass" id="bCopy">Copy the ledger</button>
-      <button class="btn" id="bClearPicks">Clear all choices</button>
+      <button class="btn" id="bClearPicks">Reset to what shipped</button>
     </div>
   </section>
 
@@ -699,9 +706,13 @@ const SLOTS=[
 
 /* ═══ Render ═══════════════════════════════════════════════════════════════ */
 const RANKS=['A','B','C','D','E'];
+/* What actually went into the game — the choices made on this bench. */
+const SHIPPED={place:4,retrieve:3,reorder:3,lift:3,clear:2,shuffle:2,flip:0,
+  select:0,deselect:0,arm:0,disarm:0,nudge:1,seat:0,dismiss:1,
+  inspect:4,sheetOpen:4,sheetClose:4,page:2,chapter:2,quotaMet:2};
 const $=id=>document.getElementById(id);
-let picks={};
-try{ picks=JSON.parse(localStorage.getItem('gw-sfx-picks')||'{}')||{}; }catch{ picks={}; }
+let picks={...SHIPPED};
+try{ const st=JSON.parse(localStorage.getItem('gw-sfx-picks')||'null'); if(st) picks=st; }catch{ picks={...SHIPPED}; }
 const save=()=>{ try{ localStorage.setItem('gw-sfx-picks',JSON.stringify(picks)); }catch{} };
 
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -721,9 +732,11 @@ function buildSheet(){
         +(slot.note?'<p class="slot-gap" style="color:var(--warn);opacity:.85;font-size:.875rem"><em>'+esc(slot.note)+'</em></p>':'')
         +'<div class="opts">'
         +slot.opts.map((o,oi)=>
-          '<div class="opt'+(oi===0?' first':'')+'" data-opt="'+slot.id+':'+oi+'">'
+          '<div class="opt'+(oi===SHIPPED[slot.id]?' first':'')+'" data-opt="'+slot.id+':'+oi+'">'
           +'<button class="rank" data-play="'+slot.id+':'+oi+'" aria-label="Play '+esc(o.n)+'">'+RANKS[oi]+'</button>'
-          +'<div class="opt-txt"><div class="opt-name">'+esc(o.n)+(oi===0?'<span class="tag">my pick</span>':'')+'</div>'
+          +'<div class="opt-txt"><div class="opt-name">'+esc(o.n)
+            +(oi===SHIPPED[slot.id]?'<span class="tag">in the game</span>':'')
+            +(oi===0&&SHIPPED[slot.id]!==0?'<span class="tag tag--quiet">my pick</span>':'')+'</div>'
           +'<div class="opt-desc">'+esc(o.d)+'</div></div>'
           +'<div class="opt-acts">'
           +(slot.repeat?'<button class="mini" data-run="'+slot.id+':'+oi+'">×'+slot.repeat+'</button>':'')
@@ -752,7 +765,7 @@ function run(id,oi){
 /* Play whatever is chosen for a slot; fall back to the recommended first option. */
 function chosen(id,i){
   const slot=slotById(id);
-  slot.opts[picks[id]??0].f(i);
+  slot.opts[picks[id] ?? SHIPPED[id] ?? 0].f(i);
 }
 
 function refresh(){
@@ -782,9 +795,11 @@ function writeLedger(){
       const oi=picks[slot.id];
       const name=slot.code.replace('sfx.','').replace('()','');
       if(oi==null){
-        lines.push('<span class="c">'+esc(name.padEnd(12))+'  — not chosen yet (my pick: '+esc(slot.opts[0].n)+')</span>');
+        lines.push('<span class="c">'+esc(name.padEnd(12))+'  — cleared</span>');
       }else{
-        lines.push('<span class="k">'+esc(name.padEnd(12))+'</span>  '+RANKS[oi]+'  '+esc(slot.opts[oi].n));
+        const live=oi===SHIPPED[slot.id];
+        lines.push('<span class="k">'+esc(name.padEnd(12))+'</span>  '+RANKS[oi]+'  '+esc(slot.opts[oi].n)
+          +(live?'':'  <span class="c">← differs from the game</span>'));
       }
     });
     if(si<SECTIONS.length-1) lines.push('');
@@ -865,7 +880,7 @@ $('bCopy').addEventListener('click',async()=>{
   catch{ btn.textContent='Select the text above'; }
   setTimeout(()=>{btn.textContent='Copy the ledger';},1600);
 });
-$('bClearPicks').addEventListener('click',()=>{ picks={}; save(); refresh(); });
+$('bClearPicks').addEventListener('click',()=>{ picks={...SHIPPED}; save(); refresh(); });
 
 /* ─── Boot ────────────────────────────────────────────────────────────── */
 buildSheet();

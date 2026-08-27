@@ -16,6 +16,7 @@ import {
   toggleSelected, toggleSundrySelect, toggleDualVariant, sundrySelected,
 } from './state.js';
 import { renderAll, showTilePopover, showPopover, hidePopover, log } from './render.js';
+import { sfx } from './anim.js';
 import { computeScore } from './scoring.js';
 import { patronById, patronName } from './patrons.js';
 import { market, stallById } from './market.js';
@@ -108,6 +109,7 @@ function startDrag(x, y) {
   press.dragging = true;
   clearTimeout(press.timer);
   hidePopover();
+  sfx.lift();
   ghost = makeGhost(press.el, x, y);
   press.el.classList.add('tile--held');
 }
@@ -124,14 +126,24 @@ function endDrag(x, y) {
 
   if (target === wordEl) {
     const idx = insertIndex(wordEl, x);
-    if (press.zone === 'rack') moveRackToWord(press.id, idx);
-    else                       reorderWord(press.id, idx);
+    if (press.zone === 'rack') { moveRackToWord(press.id, idx); sfx.place(); }
+    else                       { reorderWord(press.id, idx);    sfx.reorder(); }
   } else if (target === rackEl) {
     const idx = insertIndex(rackEl, x);
-    if (press.zone === 'word') moveWordToRack(press.id, idx);
-    else                       reorderRack(press.id, idx);
+    if (press.zone === 'word') { moveWordToRack(press.id, idx); sfx.retrieve(); }
+    else                       { reorderRack(press.id, idx);    sfx.reorder(); }
   }
   // No target → the tile just returns to where it was (re-render fixes it)
+}
+
+// Every refusal a mark can meet — a cursed tile, a lent one, a second target
+// for a one-target tool — is a warning in the status bar and nothing else. The
+// nudge is what says the tap landed and was turned down, at a single tile's
+// scale rather than the whole word's (which is bad()).
+function markSound(r) {
+  if (r === 'on')       sfx.select();
+  else if (r === 'off') sfx.deselect();
+  else if (r !== 'none') sfx.nudge();
 }
 
 function releasePress(commit) {
@@ -153,21 +165,25 @@ function releasePress(commit) {
       if (r === 'unoffered') log('Only the glowing tiles are on offer.', 'warn');
       if (r === 'capped')    log('That tile is already at its finest — the loupe goes no further.', 'warn');
       // A tile just taken up (rather than put back down) is the second tap:
-      // spend the tool on it now instead of asking for a third.
+      // spend the tool on it now instead of asking for a third. No mark is
+      // sounded there — the tool's own voice is a fuller answer than a tick.
       if (r === 'on' && sundrySpends(kind)) {
         renderAll();
         spendSundry();
         return;
       }
+      markSound(r);
     } else if (press.zone === 'rack') {
       if (selectingToDiscard()) {
         const r = toggleSelected(press.id);
         if (r === 'cursed') log('A cursed tile cannot be discarded — it has to be played.', 'warn');
         if (r === 'lent')   log('A lent tile cannot be discarded — play it or let the page end.', 'warn');
+        markSound(r);
       }
-      else                      moveRackToWord(press.id);
+      else                    { moveRackToWord(press.id); sfx.place(); }
     } else {
       moveWordToRack(press.id);
+      sfx.retrieve();
     }
     renderAll();
   } else if (wasDrag) {
@@ -215,7 +231,7 @@ export function initInput({ spendArmedSundry, spendsOnPick } = {}) {
       if (!tileEl) return;
       e.preventDefault();
       if (press || blocked()) return;
-      toggleDualVariant(Number(tileEl.dataset.id));
+      if (toggleDualVariant(Number(tileEl.dataset.id))) sfx.flip();
       renderAll();
     });
   }
@@ -294,6 +310,7 @@ function endShelfPress(commit, x) {
     const moved = reorderPatrons(shelfPress.ref, shelfInsertIndex(shelf, x));
     shelfDropped = true;             // suppress the trailing click either way
     if (moved) {
+      sfx.seat();
       const seat = state.patrons.findIndex(p =>
         String(p.uid) === String(shelfPress.ref) || p.id === shelfPress.ref);
       const def = patronById(state.patrons[seat]?.id);

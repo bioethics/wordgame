@@ -22,7 +22,7 @@ import { marketSnapshot, patronRefund } from './market.js';
 import { chamberSnapshot } from './chamber.js';
 import { colophonSnapshot } from './colophon.js';
 import { blackMarketSnapshot } from './blackmarket.js';
-import { setNum, sleep, fmtMult, readingTime } from './anim.js';
+import { setNum, sleep, fmtMult, readingTime, sfx } from './anim.js';
 
 const $ = id => document.getElementById(id);
 
@@ -759,7 +759,9 @@ function renderStatus() {
   const fill = $('quotaFill');
   if (fill) {
     fill.style.width = `${Math.min(100, (state.pageScore / state.quota) * 100)}%`;
-    fill.classList.toggle('quota-fill--done', state.pageScore >= state.quota);
+    const done = state.pageScore >= state.quota;
+    fill.classList.toggle('quota-fill--done', done);
+    quotaCrossed(done);
   }
   $('quotaCard')?.classList.toggle('quota-card--deadline', deadline);
   // Hung on the body so the stylesheet can relight the whole room without every
@@ -782,6 +784,18 @@ function renderStatus() {
       ? `The manuscript — ${n} word${n === 1 ? '' : 's'} printed this run`
       : 'The manuscript — nothing printed yet';
   }
+}
+
+// The bar is redrawn constantly, so the bell has to be hung on the CROSSING
+// rather than on the state: every path that can make a page — a word, a
+// patron's late bonus, the Chamber — comes through here, and each should ring
+// once. `null` is the first render of a session, where a page already made
+// (a save restored mid-page) must not ring for something that happened before.
+let _quotaDone = null;
+function quotaCrossed(done) {
+  const rang = _quotaDone === false && done;
+  _quotaDone = done;
+  if (rang) sfx.quotaMet();
 }
 
 // ─── The editor's bar (Deadline pages only) ───────────────────────────────────
