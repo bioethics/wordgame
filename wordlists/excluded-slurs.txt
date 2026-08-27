@@ -49,9 +49,11 @@ fagots
 # ─── Predating this branch, never barred until now ────────────────────────────
 tranny
 trannies
-squaw
-squaws
-# The Australian lolly is the reason this one looked arguable. Nestlé renamed it
-# Red Ripper in 2020 over the same objection, so the sweet is not a defence.
-redskin
-redskins
+
+# squaw and redskin were barred here briefly and then let back in: a game where
+# a word only ever prints for its own author, alone, is a different act than
+# speaking it to someone, and that lower bar is where the line was redrawn —
+# nigger and its kin stay barred because nothing in them is ambiguous, but a
+# word carrying a live, sourced defence (squaw's Algonquian "woman", the
+# reclamation debate) or another life outside the slur (redskin was a Nestlé
+# lolly until a 2020 rename over this same objection) clears it.
