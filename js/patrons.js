@@ -133,7 +133,7 @@ import {
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
   HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, RIPPER_WORDS, splitMarks, isImmutable,
   TWINS_POINTS, CHILD_STEP, ABECEDARIAN_MULT, ABECEDARIAN_CASE, caseGlyphs, MEDIEVAL,
-  ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS, IMPRESARIO,
+  ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS, PURVEYOR,
   SHORTHAIR_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
   medievalExpansions, POSTNOM, GHOST_HIRE, USURER,
   PRINCE, princeMult,
@@ -215,6 +215,10 @@ const readsCypher = (tiles, c) =>
 // reads as every colour at once. Every colour-caring patron goes through here,
 // so rainbow metal reaches all of them for free.
 const painted = (tiles, colour) => tiles.filter(t => countsAsColour(t, colour));
+
+// What the cat's meals are worth, rounded so nothing ever shows the raw
+// 0.30000000000000004 that repeated addition of a tenth produces.
+const shorthairMult = eaten => Math.round((eaten ?? 0) * SHORTHAIR_MULT * 100) / 100;
 
 // A plain sort: one letter of the alphabet and nothing else. Everything the
 // press can set that ISN'T one of these — a ligature (several letters on one
@@ -685,21 +689,21 @@ const PATRON_BEHAVIOURS = [
     // use, and sell on without regret — which is a shape the roster is otherwise
     // short of.
     //
-    // Every number lives in IMPRESARIO (js/constants.js) and is read through the
+    // Every number lives in PURVEYOR (js/constants.js) and is read through the
     // effective-* getters in js/state.js, so the Market, the Colophon and the
     // workbench cannot disagree about what the seat is worth.
-    id: 'impresario',
+    id: 'purveyor',
     when: 'meta',   // read by the effective-* getters in js/state.js
     // The six numbers, laid out where there is room for them. Read straight off
-    // IMPRESARIO, so retuning the seat retunes what it promises.
+    // PURVEYOR, so retuning the seat retunes what it promises.
     popover() {
       const rows = [
-        ['Tiles at the Market',    IMPRESARIO.tiles],
-        ['Patrons calling',        IMPRESARIO.patrons],
-        ['Stalls pitched',         IMPRESARIO.stalls],
-        ['Tiles inside a stall',   IMPRESARIO.proposals],
-        ['Cards at the Colophon',  IMPRESARIO.upgrades],
-        ['Tiles a paint tube offers', IMPRESARIO.paint],
+        ['Tiles at the Market',    PURVEYOR.tiles],
+        ['Patrons calling',        PURVEYOR.patrons],
+        ['Stalls pitched',         PURVEYOR.stalls],
+        ['Tiles inside a stall',   PURVEYOR.proposals],
+        ['Cards at the Colophon',  PURVEYOR.upgrades],
+        ['Tiles a paint tube offers', PURVEYOR.paint],
       ];
       return `<ul class="tip-list">${rows
         .map(([what, n]) => `<li><span>${what}</span><b>+${n}</b></li>`).join('')}</ul>`;
@@ -1346,7 +1350,7 @@ const PATRON_BEHAVIOURS = [
     effect({ word, data, addCoins, addMult }) {
       if (word.includes('RAT')) addCoins(1);
       const fed = data?.eaten ?? 0;
-      if (fed) addMult(fed * SHORTHAIR_MULT);
+      if (fed) addMult(shorthairMult(fed));
     },
     onPrinted({ tiles, script, data, burn }) {
       const notes = [], said = [];
@@ -1362,8 +1366,8 @@ const PATRON_BEHAVIOURS = [
       if (eaten.length) {
         data.eaten = (data.eaten ?? 0) + eaten.length;
         said.push(eaten.length > 1
-          ? `The cat eats ${eaten.length} RAT tiles — gone for good, and +${eaten.length * SHORTHAIR_MULT} Mult on every word.`
-          : `The cat eats the RAT tile — gone for good, and +${SHORTHAIR_MULT} Mult on every word.`);
+          ? `The cat eats ${eaten.length} RAT tiles — gone for good, and +${shorthairMult(eaten.length)} Mult on every word.`
+          : `The cat eats the RAT tile — gone for good, and +${shorthairMult(1)} Mult on every word.`);
       }
       return (notes.length || said.length)
         ? { note: notes.join(' · ') || null, say: said, burned: eaten }
@@ -1372,7 +1376,7 @@ const PATRON_BEHAVIOURS = [
     instDesc(data) {
       const fed = data?.eaten ?? 0;
       if (!fed) return PATRON_CARDS.shorthair.desc;
-      return `${fed} rat${fed > 1 ? 's' : ''} eaten — +${fed * SHORTHAIR_MULT} Mult on every word. `
+      return `${fed} rat${fed > 1 ? 's' : ''} eaten — +${shorthairMult(fed)} Mult on every word. `
            + PATRON_CARDS.shorthair.desc;
     },
   },

@@ -293,7 +293,7 @@ export const PATRON_CARDS = {
     desc: 'When you spend a discard, arms your next word with +{WINNOWER_BONUS} Points.',
   },
   scholar: {
-    name: 'The Scholar', emoji: '📜', rarity: 'common', cost: 3,
+    name: 'The Grandiloquent', emoji: '📜', rarity: 'common', cost: 3,
     desc: '+10 points for words of 5+ letters.',
   },
   stumbler: {
@@ -320,11 +320,11 @@ export const PATRON_CARDS = {
     name: 'The Innkeeper', emoji: '🍻', rarity: 'common', cost: 5,
     desc: '+5 Points per patron you hold, including The Innkeeper.',
   },
-  impresario: {
+  purveyor: {
     // The card states the shape; the six exact numbers are in the tap-through
     // (the `popover` on this patron's def in js/patrons.js), where a list can be
     // read properly and a calling card cannot.
-    name: 'The Impresario', emoji: '🎪', rarity: 'rare', cost: 9,
+    name: 'The Purveyor', emoji: '🏪', rarity: 'rare', cost: 9,
     desc: 'Widens every choice: more tiles, patrons and stalls at the Market, more cards at the Colophon. Tap for the terms.',
   },
   glover: {
@@ -360,7 +360,7 @@ export const PATRON_CARDS = {
     desc: 'Words starting with the same letter as your last word get ×2 Mult.',
   },
   typesetter: {
-    name: 'The Typesetter', emoji: '🔠', rarity: 'uncommon', cost: 6,
+    name: 'The Typesetter', emoji: '🔣', rarity: 'uncommon', cost: 6,
     desc: 'Each non-standard tile (e.g., QU, RAT, medieval glyphs) give +{TYPESETTER_STEP} Mult.',
   },
   alderman: {

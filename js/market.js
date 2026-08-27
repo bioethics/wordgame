@@ -355,7 +355,7 @@ function pruneStalls() {
 // work commissioned this visit, and is wiped only when openMarket runs.
 function rollStalls() {
   // More stalls than there are stallholders is simply all of them — the slice
-  // takes what exists, so The Impresario's extra pitch is a no-op on a Market
+  // takes what exists, so The Purveyor's extra pitch is a no-op on a Market
   // already showing the whole row.
   const ids = shuffle([...Object.keys(STALL_DEFS)]).slice(0, effectiveMarketStalls());
   market.stalls = ids.map(id => {

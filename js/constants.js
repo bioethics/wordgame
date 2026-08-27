@@ -357,7 +357,7 @@ export const APPLICATORS = {
 // roster shows a thin slice of the game and makes guild assembly unreliable.
 export const PATRON_OFFERS = 4;
 // Tiles laid out on the Market's own row, before the Medievalist's extra stall
-// slot and before The Impresario widens it.
+// slot and before The Purveyor widens it.
 export const MARKET_TILE_OFFERS = 4;
 export const TUBE_PRICE    = 2;
 export const SUNDRY_SELL   = 1;   // what the Market pays to take one back
@@ -689,8 +689,11 @@ export const EXPECTANTS_BONUS   = 15;
 
 // The cat's Mult, added per RAT tile it has eaten. Permanent and stacking, and
 // paid from the word AFTER the meal — the eating happens once a word has
-// printed, like every other permanent gain.
-export const SHORTHAIR_MULT     = 1;
+// printed, like every other permanent gain. Small on purpose: the cat is free,
+// found rather than bought, and RAT tiles arrive a page at a time from the Rat
+// Catcher, so this is a slow engine that rewards keeping both seats rather than
+// a windfall for one lucky word.
+export const SHORTHAIR_MULT     = 0.2;
 
 // The Cartographer reads the VOWELS of a word and asks that they run in
 // alphabetical order — A before E before I before O before U — counting each
@@ -895,7 +898,7 @@ export const BLACK_SUNDRY_STOCK = [
   ...Object.keys(PACKAGES).map(theme => ({ kind: 'package', theme, price: 7 })),
 ];
 
-// ─── The Impresario's extra options ───────────────────────────────────────────
+// ─── The Purveyor's extra options ───────────────────────────────────────────
 // One seat that widens every CHOICE the game puts in front of you rather than
 // improving any of them. Each number is added to the count wherever that choice
 // is dealt, read through the effective-* getters in js/state.js so there is one
@@ -905,7 +908,7 @@ export const BLACK_SUNDRY_STOCK = [
 // Nothing here pays Points or Mult, which is the point: it is a seat you buy
 // early, when what you lack is the RIGHT tile rather than more of them, and it
 // quietly stops mattering once your press knows what it wants.
-export const IMPRESARIO = {
+export const PURVEYOR = {
   stalls:     1,   // more stalls pitched at the Market
   tiles:      2,   // more tiles laid out at the Market
   patrons:    1,   // more calling cards at the Market
@@ -991,12 +994,12 @@ export const KNOBS = {
   CHILD_STEP, ABECEDARIAN_MULT, ESPALIER_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,
   ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS,
   SHORTHAIR_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
-  IMPRESARIO_STALLS:    IMPRESARIO.stalls,
-  IMPRESARIO_TILES:     IMPRESARIO.tiles,
-  IMPRESARIO_PATRONS:   IMPRESARIO.patrons,
-  IMPRESARIO_UPGRADES:  IMPRESARIO.upgrades,
-  IMPRESARIO_PAINT:     IMPRESARIO.paint,
-  IMPRESARIO_PROPOSALS: IMPRESARIO.proposals,
+  PURVEYOR_STALLS:    PURVEYOR.stalls,
+  PURVEYOR_TILES:     PURVEYOR.tiles,
+  PURVEYOR_PATRONS:   PURVEYOR.patrons,
+  PURVEYOR_UPGRADES:  PURVEYOR.upgrades,
+  PURVEYOR_PAINT:     PURVEYOR.paint,
+  PURVEYOR_PROPOSALS: PURVEYOR.proposals,
   STOKER_BASE, STOKER_STEP, RAGMAN_COINS, RAGMAN_ODDS,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, DIPPER_PAINT_CHANCE, REVENANT_ODDS,
   MAGPIE_WEIGHT, MAKO_WEIGHT, TWINS_POINTS,
