@@ -118,6 +118,9 @@ function buildStarterCollection() {
 export const settings = {
   animSpeed: 1,     // 0.5 – 3, divides every duration
   sound:     true,
+  theme:     'candlelit',   // a key of THEMES in js/appearance.js
+  layout:    'classic',     // a key of LAYOUTS in js/appearance.js
+  uiScale:   'auto',        // 'auto', or a fixed zoom factor (0.85 – 1.75)
 };
 
 export function loadSettings() {
@@ -125,6 +128,12 @@ export function loadSettings() {
     const s = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
     if (typeof s.animSpeed === 'number') settings.animSpeed = Math.min(3, Math.max(0.5, s.animSpeed));
     if (typeof s.sound === 'boolean')    settings.sound = s.sound;
+    // Appearance keys are validated against their tables in js/appearance.js
+    // (state.js stays importable by everything, so it can't look them up here).
+    if (typeof s.theme  === 'string')    settings.theme  = s.theme;
+    if (typeof s.layout === 'string')    settings.layout = s.layout;
+    if (typeof s.uiScale === 'number')   settings.uiScale = Math.min(1.75, Math.max(0.85, s.uiScale));
+    else if (s.uiScale === 'auto')       settings.uiScale = 'auto';
   } catch { /* defaults */ }
 }
 

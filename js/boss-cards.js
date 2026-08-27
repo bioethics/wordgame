@@ -65,27 +65,27 @@ export const BOSS_CARDS = {
   },
   bribrarian: {
     name: 'The Bribrarian', emoji: '🤝',
-    desc: 'I will spike every word you write. Unless you would like to come to an arrangement...',
+    desc: 'I will spike every word you write. Though if this makes you unahppy, perhaps we could come to an arrangement...',
   },
   epitaphist: {
     name: 'The Epitaphist', emoji: '⚱️',
-    desc: 'One line, and it must last. You have a single word for this page — half the quota to meet with it, and a discard more to find it.',
+    desc: 'You have one word, and a bonus discard to help you assemble it. Find a good one.',
   },
   reviewer: {
-    name: 'The Reviewer', emoji: '🧐',
-    desc: 'Your best work is still not good enough. Every word is multiplied by my temper — somewhere between ×{REVIEWER_WORST} and ×{REVIEWER_BEST}, re-rolled after each one.',
+    name: 'Peer Reviewer #2', emoji: '🧐',
+    desc: 'Your best work is never good enough. Every word is penalised, depending on my mood at that moment — somewhere between ×{REVIEWER_WORST} and ×{REVIEWER_BEST}.',
   },
   eeeditor: {
     name: 'The Eeeditor', emoji: '🅴',
-    desc: 'E is a good letter. Here: I saved {LENT_COUNT} especially for you. They sit in your hand all page, taking {LENT_COUNT} of its places, and each one you print is replaced at once.',
+    desc: 'E is a good letter. Here: I saved {LENT_COUNT} especially for you.',
   },
   editooor: {
     name: 'The Editooor', emoji: '🅾️',
-    desc: 'O is the shape of a mouth saying oh. Take {LENT_COUNT}, with my compliments — they sit in your hand all page, taking {LENT_COUNT} of its places, and each one you print is replaced at once.',
+    desc: 'O is such a sensual, sophisticated letter. Take {LENT_COUNT}, with my compliments.',
   },
   redactor: {
     name: 'The Redactor', emoji: '📝',
-    desc: 'This is a draft, not a book. A {REDACTOR_SHARE} of your tiles come back wrapped for the page: they still spell, but they bring no Points, paint, trim or metal of their own.',
+    desc: 'This is just the first draft. A {REDACTOR_SHARE} of your tiles are replaced with draft tiles, which score nothing.',
   },
   completist: {
     name: 'The Hoarder', emoji: '🗄️',
@@ -93,10 +93,10 @@ export const BOSS_CARDS = {
   },
   economiser: {
     name: 'The Economiser', emoji: '🗑️',
-    desc: 'Idle type is dead capital. Every word you print melts down one tile you left unused in your hand — destroyed, and gone from your collection for good.',
+    desc: 'Efficiency! After each word, I will destroy one tile left unused in your hand; clearly you do not need it.',
   },
   janussian: {
     name: 'The Janussian Typist', emoji: '\ud83c\udfad',
-    desc: 'I contain a whole masthead. Every word is read by a different editor — whose face I am wearing is on the bar before you set it.',
+    desc: 'I contain multitudes. Multitudes of editors. I like to wear their faces.',
   },
 };

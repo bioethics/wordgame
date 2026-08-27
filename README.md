@@ -710,6 +710,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | `js/render.js` | board-side DOM: tiles, shelf, workbench, status, readout, popovers, overlays |
 | `js/sheets.js` | the full-screen sheets — Market, stalls, Colophon, draft — HTML and click handling, with game flow injected from main.js |
 | `js/anim.js` | flights, floaters, tweens, sparkles, WebAudio sfx — every duration respects the speed setting |
+| `js/appearance.js` | the room (theme), the table's layout, and the UI scale — `THEMES`, `LAYOUTS`, auto-fit, and `uiZoom()`, the factor every rect-to-style write divides by |
 | `js/main.js` | orchestration: submit cinematic, page/chapter flow, input, settings |
 | `js/drag.js` | pointer input: tap / drag / long-press for rack, word and the patron shelf (where a drag reseats a patron, changing the order effects fire in), mouse and touch alike |
 | `js/dict.js` | dictionary loading/caching (also reads a `window.FOLIO_WORDLIST` global, for single-file bundles) |
@@ -733,6 +734,39 @@ after its word as a raised figure the way a footnote mark does. Every page keeps
 its folio number in the margin in lower-case romans, except a Deadline, which is
 marked with a fleuron rather than numbered. The first word of each chapter takes
 a drop cap, and the best word of the run is illuminated.
+
+**Appearance** — Settings holds the room, the layout and the UI size, all
+persisted in `folio_settings_v1` and applied before first paint by an inline
+script in `index.html`. The **UI scale** is a plain CSS zoom on `<body>`
+driven by `--ui` — auto-fit sizes the board to the window (high-res monitors
+finally get a board that fills them), a fixed factor is there for taste. Two
+consequences run through the code: rects and pointer events arrive in
+*visual* coordinates while a px written into the page is re-multiplied on
+the way out, so everything that positions FX from `getBoundingClientRect`
+divides by `uiZoom()` (`js/appearance.js`); and viewport units are *not*
+divided by the zoom, so lengths meant as a share of the real window are
+written in the compensated units `--vwu`/`--vhu`/`--vmu` (`css/style.css`).
+
+**Themes** repaint the ROOM — page, watermark, wood, leather, groove,
+readout, the Market's tint — through the tokens at the top of `css/style.css`,
+one `html[data-theme=…]` block per room at the foot of the file: *Candlelit*
+(the original), *Foolscap* (daylight), *Hellbox* (embers), *Moonstone* (the
+night shift), *The Baize* (green felt). The objects standing in the room —
+parchment cards, ivory tiles, paints, trims, liveries — keep their colours in
+every theme, because their colours mean things; surfaces that stay dark
+everywhere (the readout, the editor's bar, the candlelit sheets) re-pin the
+dark room's ink so no theme can strand their text; and `body.deadline-on`
+pins every room dark, so the third page always feels like the third page.
+A new theme is one block of token overrides plus a `THEMES` entry in
+`js/appearance.js`.
+
+**Layouts** — the board's sections sit in two wrappers, `.rail` (chapter,
+quota, pips, the editor's bar, the log) and `.board` (shelf, readout,
+groove, rack, actions). In the classic **Folio** column the wrappers
+dissolve (`display: contents`) and explicit `order` keeps the original
+interleaving; the **Workshop** layout makes them real columns on wide
+screens — ledger left, press right — and collapses back to Folio below
+1200px.
 
 A *Developer* section in Settings has shortcuts: +20 Coins, open the Market,
 clear the current page. The console exposes `window.folio = { state, settings }`.

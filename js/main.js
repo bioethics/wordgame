@@ -54,6 +54,10 @@ import {
 } from './anim.js';
 import { initInput, initInspect, initShelfDrag } from './drag.js';
 import {
+  THEMES, LAYOUTS, initAppearance, activeTheme, activeLayout,
+  setTheme, setLayout, setUiScale,
+} from './appearance.js';
+import {
   PATRON_DEFS, patronById, doubledReading, boundNouns, patronName, patronShelf,
 } from './patrons.js';
 import { randomQuip } from './quips.js';
@@ -2135,7 +2139,71 @@ function syncSettingsUI() {
   setTextContent('animSpeedLabel', `×${settings.animSpeed}`);
   const snd = $('soundToggle');
   if (snd) snd.checked = settings.sound;
+  syncAppearanceUI();
 }
+
+// ─── Appearance: room, layout, UI size ────────────────────────────────────────
+
+function syncAppearanceUI() {
+  const swatches = $('themeSwatches');
+  if (swatches) {
+    swatches.innerHTML = Object.entries(THEMES).map(([id, t]) => `
+      <button class="theme-swatch${id === activeTheme() ? ' theme-swatch--on' : ''}"
+              data-theme-pick="${id}" title="${t.name} — ${t.blurb}">
+        <span class="theme-swatch-chips">${
+          t.swatch.map(c => `<span class="theme-swatch-chip" style="background:${c}"></span>`).join('')
+        }</span>
+        <span class="theme-swatch-name">${t.name}</span>
+      </button>`).join('');
+  }
+
+  const layouts = $('layoutPicker');
+  if (layouts) {
+    layouts.innerHTML = Object.entries(LAYOUTS).map(([id, l]) => `
+      <button class="layout-pick${id === activeLayout() ? ' layout-pick--on' : ''}" data-layout-pick="${id}">
+        <span class="layout-pick-name">${l.name}</span>
+        <span class="layout-pick-blurb">${l.blurb}</span>
+      </button>`).join('');
+  }
+
+  const auto = settings.uiScale === 'auto';
+  const box = $('uiScaleAuto');
+  if (box) box.checked = auto;
+  const scale = $('uiScaleSlider');
+  if (scale) {
+    scale.disabled = auto;
+    // In auto, the slider shows what auto chose — read back off the page.
+    const applied = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--ui')) || 1;
+    scale.value = auto ? Math.min(1.75, Math.max(0.85, applied)) : settings.uiScale;
+    setTextContent('uiScaleLabel', `${Math.round((auto ? applied : settings.uiScale) * 100)}%`);
+  }
+}
+
+$('themeSwatches')?.addEventListener('click', e => {
+  const pick = e.target.closest('[data-theme-pick]');
+  if (!pick) return;
+  setTheme(pick.dataset.themePick);
+  sfx.page();
+  syncAppearanceUI();
+});
+
+$('layoutPicker')?.addEventListener('click', e => {
+  const pick = e.target.closest('[data-layout-pick]');
+  if (!pick) return;
+  setLayout(pick.dataset.layoutPick);
+  sfx.page();
+  syncAppearanceUI();
+});
+
+$('uiScaleAuto')?.addEventListener('change', e => {
+  setUiScale(e.target.checked ? 'auto' : Number($('uiScaleSlider')?.value) || 1);
+  syncAppearanceUI();
+});
+
+$('uiScaleSlider')?.addEventListener('input', e => {
+  setUiScale(Number(e.target.value));
+  setTextContent('uiScaleLabel', `${Math.round(Number(e.target.value) * 100)}%`);
+});
 
 function setTextContent(id, v) { const el = $(id); if (el) el.textContent = v; }
 
@@ -2251,6 +2319,7 @@ function openTheChamber() {
 (async function init() {
   loadSettings();
   applySpeedCSS();
+  initAppearance();
   initInput({ spendArmedSundry, spendsOnPick });
   initInspect();
   initShelfDrag();
