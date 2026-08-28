@@ -28,10 +28,17 @@ import {
 export const TILE_POINTS = {
   A:1, B:4, C:3, D:3, E:1, F:5, G:3, H:4,
   I:1, J:10, K:6, L:1, M:3, N:1, O:1, P:3,
+  // The lone Q. It is NOT in BAG_COUNTS and no shop deals one, so no press
+  // begins with it and none is ever handed to you: the ratchet steps a P or an
+  // R into one, and the Punchcutter will cut one into the back of a dual. That
+  // is the whole of the supply, which makes owning a Q an achievement rather
+  // than an accident — and a mixed blessing, since almost every Q word in the
+  // dictionary wants the U as well.
+  Q:8,
   QU:10, R:1, S:1, T:1, U:2, V:6, W:6, X:8,
   Y:5, Z:8,
   // A ligature scores what its letters score apart — CH is C+H — so it buys a
-  // tile slot, never free points. QU keeps 10: there is no lone Q to sum from.
+  // tile slot, never free points. QU is Q+U, 8+2, exactly as it always was.
   ING:5, CH:7, CK:9, TH:5, WH:10,
   RAT:3,                    // R+A+T, exactly what the three would score apart
   '*': 0,                   // a rule is a mark on the copy, not a letter — see RULE
@@ -674,6 +681,44 @@ export const PRINCE = {
 export const princeMult = solved =>
   Math.min(PRINCE.crown, PRINCE.base + (solved ?? 0) * PRINCE.step);
 
+// ─── Banded curves ────────────────────────────────────────────────────────────
+// Two seats grow a figure one step at a time and want that step to CHANGE as
+// the figure grows — the Beekeeper's hive slows as it fills, the Abecedarian's
+// case quickens. They are the same idea read in opposite directions, so they
+// share one table shape and one walker rather than each rolling its own.
+//
+// A band table is `[{ upTo, step }, …]` in order: while the reading is under
+// `upTo`, each step adds `step`; the last band has no ceiling. What the reading
+// IS differs, which is the only parameter:
+//
+//   by: 'total'   the running figure itself — the Beekeeper, whose hive slows
+//                 once the MULTIPLIER passes ×2 and again past ×3
+//   by: 'count'   how many steps have been taken — the Abecedarian, whose case
+//                 quickens once the fifteenth SORT is in it
+//
+// Walked one step at a time on purpose: a step that crosses a threshold pays
+// the new rate for the rest of itself rather than the whole of it, so the curve
+// has no jumps in it wherever you happen to land.
+export function walkBands(n, bands, { base = 0, by = 'total' } = {}) {
+  let total = base;
+  for (let i = 0; i < n; i++) {
+    const reading = by === 'count' ? i : total;
+    const band = bands.find(b => reading < b.upTo) ?? bands[bands.length - 1];
+    total += band.step;
+  }
+  return Math.round(total * 100) / 100;
+}
+
+// The same table said aloud, so a card can never drift from the arithmetic:
+// "+0.2 Mult, then +0.1 past ×2, then +0.05 past ×3". `unit` is what the
+// thresholds are counted in as the card says them ('×' for the hive, '' for a
+// plain count of sorts).
+export const bandSentence = (bands, unit = '') => bands
+  .map((b, i) => (i === 0
+    ? `+${b.step}`
+    : `+${b.step} past ${unit}${bands[i - 1].upTo}`))
+  .join(', then ');
+
 // ─── The Beekeeper's hive ─────────────────────────────────────────────────────
 // A permanent ×Mult that grows with every B printed — and the one seat that had
 // no ceiling at all, so a press built to spell B's ran away with the run. It
@@ -691,25 +736,12 @@ export const BEEKEEPER_BANDS = [
   { upTo: Infinity, step: 0.05 },
 ];
 
-// What `bees` bees are worth, walked one bee at a time so a bee that crosses a
-// threshold pays the slower rate for the rest of its step rather than the whole
-// of it — the curve has no jumps in it, wherever you land.
-export function beekeeperMult(bees = 0) {
-  let mult = BEEKEEPER_BASE;
-  for (let i = 0; i < bees; i++) {
-    const band = BEEKEEPER_BANDS.find(b => mult < b.upTo) ?? BEEKEEPER_BANDS[BEEKEEPER_BANDS.length - 1];
-    mult += band.step;
-  }
-  return Math.round(mult * 100) / 100;
-}
+// What `bees` bees are worth. The thresholds are read against the multiplier
+// itself, so the hive slows as it fills.
+export const beekeeperMult = (bees = 0) =>
+  walkBands(bees, BEEKEEPER_BANDS, { base: BEEKEEPER_BASE, by: 'total' });
 
-// The card's own sentence, built from the bands so the writing can never drift
-// from the arithmetic: "+0.2 Mult per B, +0.1 past ×2, then +0.05 past ×3".
-export const beekeeperSteps = () => BEEKEEPER_BANDS
-  .map((b, i) => (i === 0
-    ? `+${b.step} Mult`
-    : `+${b.step} past ×${BEEKEEPER_BANDS[i - 1].upTo}`))
-  .join(', then ');
+export const beekeeperSteps = () => bandSentence(BEEKEEPER_BANDS, '×');
 
 export const BEEKEEPER_STEP     = 0.2;    // the first band's step — quoted on the card
 
@@ -736,11 +768,44 @@ export const CHILD_STEP         = 1;
 // the run has never pressed before — the one seat in the game that pays for
 // BREADTH, where everything else pays for doubling down.
 //
-// The case is 26 letters, two marks and the four medieval sorts: 32 at
-// ABECEDARIAN_MULT apiece, so a complete case is +1.6 Mult and a complete
-// alphabet alone is +1.4. Add a sort to the game and the ceiling rises on its
-// own, which is the point of counting the case rather than a fixed list.
-export const ABECEDARIAN_MULT   = 0.05;
+// The case is every sort the press can set — see ABECEDARIAN_CASE below, which
+// is built from the game's own tables. Add a sort to the game and the ceiling
+// rises on its own, which is the point of counting the case rather than a fixed
+// list.
+//
+// The seat is the Beekeeper's mirror: where the hive SLOWS as it fills, the
+// case QUICKENS. Both walk a band table (walkBands, above); the only difference
+// is what the thresholds are read against — the hive against its own
+// multiplier, the case against how many sorts are in it.
+//
+// Quickening is the right shape for a collection, and for a reason worth
+// writing down. A collection's last places are its dearest by construction:
+// the alphabet turns up on its own, but RAT waits on The Rat Catcher, OLOGY on
+// The Scientist, OO and FU on two registers' parcels, the interrobang on a cut
+// and the Q on the ratchet. A flat rate pays most for the sorts that cost you
+// nothing and least for the ones you went out and got. This pays the other way
+// round — and it turns a half-filled case from a sunk cost into a reason to go
+// hunting, which is what the seat is FOR.
+//
+// The case is 45 places and the bands fall on its thirds, so the sentence stays
+// short: +0.05 a sort, +0.1 past fifteen, +0.15 past thirty. A complete case is
+// +4.5 Mult, and it is the hardest thing in the game to finish.
+export const ABECEDARIAN_BANDS = [
+  { upTo: 15, step: 0.05 },
+  { upTo: 30, step: 0.1 },
+  { upTo: Infinity, step: 0.15 },
+];
+
+// What a case of `sorts` sorts is worth. Read by count, so each place is worth
+// more than the one before it.
+export const abecedarianMult = (sorts = 0) =>
+  walkBands(sorts, ABECEDARIAN_BANDS, { by: 'count' });
+
+export const abecedarianSteps = () => bandSentence(ABECEDARIAN_BANDS);
+
+// The first band's step, quoted on the card as what a sort is worth to begin
+// with. Kept as its own name because several places want just that number.
+export const ABECEDARIAN_MULT   = ABECEDARIAN_BANDS[0].step;
 
 // The Astronomer's step, per word already printed this page. Additive: over a
 // five-word page it builds 0 · 0.5 · 1 · 1.5 · 2, so the seat pays for holding
@@ -891,27 +956,41 @@ export const bribeMult = paid =>
   Math.round(Math.min(1, SPIKE_MULT + BRIBRARIAN.step * Math.max(0, paid)) * 100) / 100;
 
 // Every sort the Abecedarian keeps a place for, in the order the case is laid
-// out. Built from the tables above rather than written out, so a letter added to
+// out. Built from the tables above rather than written out, so a sort added to
 // the press is a place added here without anyone remembering to.
+//
+// It keeps a place for EVERY tile the press can set, not merely every letter:
+// the alphabet (the lone Q included, which no bag holds and no shop sells), all
+// ten ligatures, both marks, the interrobang, the four medieval sorts, the
+// fleuron and the rule. That is the seat's whole idea taken seriously — it is
+// paid for BREADTH, so the case should be the breadth of the press rather than
+// the breadth of the alphabet. Several of the places can only be filled by
+// going and getting them: RAT comes from The Rat Catcher, OLOGY is lent by The
+// Scientist and never owned, OO and FU fall out of two registers' parcels, the
+// interrobang has to be cut, and the Q has to be made on the ratchet. A
+// complete case is a genuine collection, and every place in it is +0.05.
 export const ABECEDARIAN_CASE = [
   ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  ...LIGATURES,
   ...MARKS,
+  INTERROBANG,
   ...Object.keys(MEDIEVAL),
+  FLEURON,
+  RULE,
 ];
 
-// What a printed tile gives up to the case. A ligature is several sorts cast
-// together, so it yields every letter in it — the only road to a Q, there being
-// no plain Q in the case, only QU. A medieval sort is NOT its reading: þ stands
-// for TH, but it is a letter in its own right and is collected as one. The
-// interrobang is the exception that proves the rule — cut from a ? and a !, so
-// it gives up both and is worth nothing new on its own. The fleuron is
-// decoration, never a sort, and gives up nothing.
+// What a printed tile gives up to the case: ITSELF. A QU is a QU — one sort,
+// cast and set as one thing — and the case has a place for it, so it no longer
+// gives up a Q and a U it never really was. (It used to decompose, which was
+// the only road to a Q back when the press had no lone Q to strike; the ratchet
+// is that road now, and a much better one, because you have to choose it.) The
+// interrobang keeps the one exception, and keeps it for the same reason it
+// always had: it is physically cut from a ? and a !, so it fills all three
+// places at once.
 export function caseGlyphs(letter) {
   if (!letter) return [];
-  if (MEDIEVAL[letter]) return [letter];
-  if (letter === INTERROBANG) return ['?', '!'];
-  if (letter === FLEURON) return [];
-  return [...letter].filter(ch => ABECEDARIAN_CASE.includes(ch));
+  if (letter === INTERROBANG) return [INTERROBANG, '?', '!'];
+  return ABECEDARIAN_CASE.includes(letter) ? [letter] : [];
 }
 
 // ─── The Colophon (a permanent upgrade, chosen when a chapter clears) ─────────
@@ -1128,7 +1207,10 @@ export const KNOBS = {
   LOVERS_APART:   LOVERS.apart,
   LOVERS_UNITED:  LOVERS.united,
   // A full case, quoted so the ceiling follows the case itself.
-  ABECEDARIAN_CASE_MULT: Math.round(ABECEDARIAN_CASE.length * ABECEDARIAN_MULT * 100) / 100,
+  ABECEDARIAN_CASE_MULT: abecedarianMult(ABECEDARIAN_CASE.length),
+  ABECEDARIAN_CASE_SIZE: ABECEDARIAN_CASE.length,
+  // The whole curve as one phrase, so the card cannot drift from the bands.
+  ABECEDARIAN_STEPS: abecedarianSteps(),
   PACKAGE_CHANCE: oddsText(PACKAGE_ODDS),
   RIPPER_WORDS:   `${RIPPER_WORDS.slice(0, -1).join(', ')} or ${RIPPER_WORDS.at(-1)}`,
 

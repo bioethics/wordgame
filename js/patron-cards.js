@@ -63,7 +63,7 @@ export const PATRON_CARDS = {
   },
   antiquary: {
     name: 'The Antiquary', emoji: '🏺', rarity: 'uncommon', cost: 6, guild: 'amber',
-    desc: 'Words containing a J, QU, X or Z tile pay 2 Coins.',
+    desc: 'Words containing a J, Q, QU, X or Z tile pay 2 Coins.',
   },
   scientist: {
     name: 'The Scientist', emoji: '🔬', rarity: 'uncommon', cost: 6, guild: 'amber',
@@ -125,7 +125,7 @@ export const PATRON_CARDS = {
   },
   abecedarian: {
     name: 'The Abecedarian', emoji: '🔠', rarity: 'rare', cost: 8, guild: 'jade',
-    desc: 'Collects letters. The first time you print any letter, this patron gains +{ABECEDARIAN_MULT} Mult, for good. A full case is +{ABECEDARIAN_CASE_MULT}.',
+    desc: 'Collects sorts — every tile the press can set, not merely every letter. The first time you print any of them he gains Mult for good, and the fuller the case the more each new sort is worth: {ABECEDARIAN_STEPS}. {ABECEDARIAN_CASE_SIZE} places in all, and a complete case is +{ABECEDARIAN_CASE_MULT} Mult.',
   },
   beekeeper: {
     name: 'The Beekeeper', emoji: '🐝', rarity: 'uncommon', cost: 6, guild: 'jade',
@@ -332,7 +332,7 @@ export const PATRON_CARDS = {
   },
   silentknight: {
     name: 'The Silent Knight', emoji: '\u2694\ufe0f', rarity: 'rare', cost: 8, guild: 'azure',
-    desc: 'Words with silent letters cause the silent knight to gain a laurel, and recast the the silent letter in a special material.',
+    desc: 'Print a word holding a letter that is written and never spoken — the K in KNOT — and that letter is struck into blind emboss, for good, and he takes a laurel for it. A blind sort is a letter no editor can see: it is the metal that does the work, and he is the only press that makes it.',
   },
   innkeeper: {
     name: 'The Innkeeper', emoji: '🍻', rarity: 'common', cost: 5,

@@ -4971,24 +4971,32 @@ input[type='checkbox'] {
    stands in type, one that has not is an empty box. The whole point of the seat
    is seeing at a glance which letters you still owe it — so the gaps have to
    read as gaps, not as dim type. */
+/* The case holds every SORT the press can set, so its boxes carry ligatures
+   (ING, OLOGY) as well as single letters. They are laid on a flowing row rather
+   than a fixed eight-column grid — a compositor's case has boxes of different
+   widths for exactly this reason — and each box is at least as wide as it is
+   tall, so the alphabet still reads as a tidy run of squares. */
 .case-grid {
   margin: 9px 0 2px;
   padding: 7px 8px;
   border-radius: 7px;
   background: rgba(45, 138, 92, 0.07);
   border: 1px dashed rgba(45, 138, 92, 0.35);
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 3px;
 }
 .case-sort {
-  aspect-ratio: 1;
+  min-width: 21px;
+  height: 21px;
+  padding: 0 3px;
   display: grid;
   place-items: center;
   border-radius: 3px;
   font-family: var(--serif);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
+  letter-spacing: -0.2px;
   color: rgba(120, 150, 130, 0.45);
   background: rgba(0, 0, 0, 0.22);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);

@@ -5,7 +5,7 @@ import {
   ALDERMAN_STEP,
 } from './constants.js';
 import {
-  PATRON_DEFS, patronById, guildsOf, guildSeats, resolveMedieval, hasSilence,
+  PATRON_DEFS, patronById, guildsOf, guildSeats, resolveMedieval,
 } from './patrons.js';
 import { bossById } from './bosses.js';
 import {
@@ -635,24 +635,26 @@ export function computeScore(wordTiles) {
     // rather than read. Asked BEFORE the judge, so a seat at the table is the
     // difference between a spike and a shrug — and asked of the same word the
     // dictionary saw, marks and medieval readings already resolved.
+    // A sort struck into the paper carrying no ink is a letter the desk cannot
+    // see, so a word with one set into it is passed over. The immunity belongs
+    // to the METAL and to nothing else: The Silent Knight is how blind sorts
+    // are made (he strikes a silent letter into one, permanently, in his
+    // onPrinted) and the alley is where they are bought, but neither seat nor
+    // shop grants the pardon — the tile in the word does. One is enough.
     //
-    // Blind emboss argues the same case from the METAL rather than the seat: a
-    // sort struck into the paper carrying no ink is a letter the desk cannot
-    // see, and a word with one set into it is passed over. It is the one thing
-    // the metal does, and the reason to want it — The Silent Knight strikes
-    // them, the alley sells them, and either way what you are buying is a word
-    // the editor does not read. One blind tile in the word is enough.
+    // He used to carry a word-level pardon of his own, which made the seat and
+    // its own product do the same job twice; now his loop reads straight
+    // through: print a silent letter, gain a permanent tile the editors cannot
+    // read, and use it on every word after.
     const blind = wordTiles.some(t => t.material === 'blind');
-    const unheard = (owns('silentknight') && hasSilence(letters)) || blind;
-    if (unheard) {
+    if (blind) {
       patronSteps.push({
-        id: blind ? 'blind' : 'silentknight',
-        text: blind
-          ? `The ${def.name.replace(/^The /, '')} never saw it — a blind sort`
-          : `The ${def.name.replace(/^The /, '')} never heard it — a silent letter`,
+        id: 'blind',
+        text: `The ${def.name.replace(/^The /, '')} never saw it — a blind sort`,
         unheard: true,
       });
     }
+    const unheard = blind;
     const reason = unheard ? null : def?.judge?.(letters, wordTiles, data, preTotal);
     if (reason) {
       spiked = true;

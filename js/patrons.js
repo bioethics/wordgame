@@ -141,7 +141,7 @@ import {
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, isMark,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
   HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, LAUREATE_MULT_STEP, RIPPER_WORDS, splitMarks, isImmutable,
-  TWINS_POINTS, CHILD_STEP, ABECEDARIAN_MULT, ABECEDARIAN_CASE, caseGlyphs, MEDIEVAL,
+  TWINS_POINTS, CHILD_STEP, ABECEDARIAN_MULT, ABECEDARIAN_CASE, abecedarianMult, caseGlyphs, MEDIEVAL,
   ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS, PURVEYOR,
   SHORTHAIR_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
   medievalExpansions, POSTNOM, GHOST_HIRE, USURER,
@@ -161,9 +161,12 @@ import { PATRON_CARDS } from './patron-cards.js';
 
 const VOWELS = 'AEIOU';
 
-// The four dearest letters in the case — 8+ Points apiece, one of each in the
-// starting bag. The Antiquary pays a finder's fee for any of them.
-const RARE_LETTERS = ['J', 'QU', 'X', 'Z'];
+// The dearest letters in the case — 8+ Points apiece. Four of them ship one
+// apiece in the starting bag; the lone Q ships nowhere at all and has to be
+// made on the ratchet, which is exactly why it belongs here. The Antiquary pays
+// a finder's fee for any of them, and a Q you went to the trouble of striking
+// should not be the one rare sort he fails to notice.
+const RARE_LETTERS = ['J', 'Q', 'QU', 'X', 'Z'];
 
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 
@@ -365,10 +368,6 @@ export function twinPairs(tiles) {
   }
   return pairs;
 }
-
-// What a case of sorts is worth, rounded so the card never shows 0.30000000004.
-const abecedarianMult = seen =>
-  Math.round((seen?.length ?? 0) * ABECEDARIAN_MULT * 100) / 100;
 
 // What a twinned pair is worth in Points — the seat's smaller half, paid per
 // pair however the pair is made.
@@ -1007,14 +1006,18 @@ const PATRON_BEHAVIOURS = [
     when: 'score',
     effect({ data, addMult }) {
       const n = (data?.seen ?? []).length;
-      if (n) addMult(Math.round(n * ABECEDARIAN_MULT * 100) / 100);
+      if (n) addMult(abecedarianMult(n));
     },
+    // The case quickens as it fills, so what the NEXT sort is worth is half the
+    // decision — the same reading the Beekeeper's hive gives, pointing the
+    // other way.
     tally(data) {
       const n = (data?.seen ?? []).length;
       const all = ABECEDARIAN_CASE.length;
-      return n
-        ? `${n} of ${all} sorts collected \u2014 +${Math.round(n * ABECEDARIAN_MULT * 100) / 100} Mult.`
-        : `An empty case \u2014 ${all} sorts to find.`;
+      if (!n) return `An empty case \u2014 ${all} sorts to find, and the first is worth +${ABECEDARIAN_MULT}.`;
+      const next = Math.round((abecedarianMult(n + 1) - abecedarianMult(n)) * 100) / 100;
+      return `${n} of ${all} sorts collected \u2014 +${abecedarianMult(n)} Mult.`
+           + (n < all ? ` The next is worth +${next}.` : ' The case is complete.');
     },
     onPrinted({ tiles, data }) {
       const seen = (data.seen ??= []);
@@ -1031,15 +1034,16 @@ const PATRON_BEHAVIOURS = [
       return {
         note: `${fresh.join(' ')} — new`,
         say: [full
-          ? `the case is complete: every sort in the press, and +${abecedarianMult(seen)} Mult for good.`
-          : `${fresh.join(', ')} set for the first time — ${seen.length} of ${ABECEDARIAN_CASE.length} sorts, +${abecedarianMult(seen)} Mult.`],
+          ? `the case is complete: every sort in the press, and +${abecedarianMult(seen.length)} Mult for good.`
+          : `${fresh.join(', ')} set for the first time — ${seen.length} of ${ABECEDARIAN_CASE.length} sorts, +${abecedarianMult(seen.length)} Mult.`],
       };
     },
     instDesc(data) {
       const n = (data?.seen ?? []).length;
       if (!n) return PATRON_CARDS.abecedarian.desc;
-      return `${n} of ${ABECEDARIAN_CASE.length} sorts pressed — +${abecedarianMult(data.seen)} Mult on every word. `
-           + `Each new one is worth +${ABECEDARIAN_MULT} more, for good.`;
+      const next = Math.round((abecedarianMult(n + 1) - abecedarianMult(n)) * 100) / 100;
+      return `${n} of ${ABECEDARIAN_CASE.length} sorts pressed — +${abecedarianMult(n)} Mult on every word. `
+           + `The next is worth +${next}, for good.`;
     },
     // The case itself, laid out as a compositor would find it: what has been
     // pressed stands in type, what has not is an empty place.

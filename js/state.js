@@ -1050,9 +1050,13 @@ export function toggleSundrySelect(id) {
 
 // ─── The ratchet's alphabet ───────────────────────────────────────────────────
 // The ring a letter steps around, taken from the game's own sorts rather than
-// A-Z: the press carries no lone Q (only the QU sort), so Q simply isn't a
-// place a letter can land — P steps up to R, and R back down to P. It wraps, so
-// A steps down to Z.
+// A-Z — which is now the whole alphabet, Q included. The press stocks no lone Q
+// (it is absent from BAG_COUNTS, so no bag holds one and no shop deals one),
+// and the ratchet is the door: step a P forward or an R back and you have made
+// one. That is deliberate. A Q is a poor letter to hold — nearly every Q word
+// wants the U with it — so what you have really made is a sort for the
+// Abecedarian's case, which is the one seat that pays for owning everything.
+// The ring wraps, so A steps down to Z.
 const SHIFT_RING = Object.keys(TILE_POINTS)
   .filter(l => /^[A-Z]$/.test(l))   // letters only — no marks, and no fleuron
   .sort();

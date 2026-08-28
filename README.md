@@ -199,7 +199,7 @@ plus an optional **trim** and **nick**.
 | Paint | crimson / azure / jade / amber — each raises its colour's multiplier by 1 |
 | Trim | **Gold** pays 1 Coin · **Silver** +5 Points, counted into the tile's corner number wherever it appears · **Cobalt** refreshes 1 Discard · **Purple** raises the fifth multiplier by 0.5 |
 | Nick | A notch in one edge; the notched side is the direction. **Right** ×2 Points to everything on its right · **Left** ×2 to its left. Nicks don't stack — a tile is multiplied once at most. While you compose, an affected tile's corner number shows the multiplied value |
-| Letterform | Dual tiles hold two letters (flip to switch; paint, trim and nick belong to the tile, so both faces wear them) · Ligatures ING · CH · CK · TH · WH · QU spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Medieval sorts** þ · ȝ · Æ · Ƿ and **marks** ? · ! — below |
+| Letterform | Dual tiles hold two letters (flip to switch; paint, trim and nick belong to the tile, so both faces wear them) · Ligatures ING · CH · CK · TH · WH · QU spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Medieval sorts** þ · ȝ · Æ · Ƿ and **marks** ? · ! — below · the lone **Q**, which no bag holds and no shop sells: the ratchet is the only door to one |
 | Material | What the tile is cast from, under everything else: ordinary lead, or **cursed** / **ghost** / **rainbow** / **rose** / **blind** |
 | Growth | Permanent +1s a patron (The Grafter) writes into a tile, worn as a jade corner number |
 
@@ -230,12 +230,17 @@ paint, trims and nicks.
   letter is felt and never seen. A word set with one in it is **never spiked**:
   the editor cannot read what was never printed. That makes it worth a great
   deal on a Deadline and nothing at all on the other two pages, which is what
-  it is priced for. *The Silent Knight* strikes them out of silent letters, and
-  the alley sells them; it generalises his own argument from the seat to the
-  sort. (It carried no effect for a long while and its card said so; this is
-  the effect that note was waiting for.) A blind sort is cast in cool grey
-  against the case's warm ivory — the one metal whose point is being unreadable
-  should not itself be unreadable at a glance.
+  it is priced for. The pardon belongs to the METAL and to nothing else —
+  *the Silent Knight* is how blind sorts are made (print a word holding a
+  letter that is written and never spoken and he strikes that letter into
+  blind emboss, for good, taking a laurel for it) and the alley is where they
+  are bought, but neither seat nor shop grants the pardon: the tile in the word
+  does. He used to carry a word-level pardon of his own, which made the seat
+  and its own product do the same job twice; his loop reads straight through
+  now — print a silent letter, gain a permanent tile the editors cannot read,
+  and use it on every word after. A blind sort is cast in cool grey against the
+  case's warm ivory: the one metal whose point is being unreadable should not
+  itself be unreadable at a glance.
 
 **The Editors** — every chapter's third page is its **Deadline**, and the room
 knows it: the candles go redder and the wood darkens, fading with the page
@@ -278,15 +283,25 @@ is always a way back in.
 
 **The Abecedarian** is the one seat paid for *breadth*. Everything else in the
 game rewards doubling down — one colour, one letter, one shape — and this one
-keeps a **case of every sort the press can set** and pays +0.05 Mult, for good,
-the first time you print each. Which makes it the only reason there is to set
-your Q, your X, your Z: the letters every other patron teaches you to throw
-away. A ligature gives up every letter in it (the only road to a Q, there being
-no plain Q in the case, only `QU`); a medieval sort is collected as *itself*,
-because þ stands for TH but is a letter in its own right; the interrobang, cut
-from a `?` and a `!`, gives up both and is worth nothing new. Twenty-six letters,
-two marks and four medieval sorts: a full case is **+1.6 Mult**, and the
-alphabet alone is +1.4. Add a sort to the press and the ceiling rises on its own.
+keeps a **case of every sort the press can set**, paying for each the first time
+you print it. Every TILE has a place, not merely every letter: the alphabet, all
+ten ligatures (`QU` is a QU, not a Q and a U), both marks, the interrobang, the
+four medieval sorts, the fleuron and the rule — **45 places**. A medieval sort
+is collected as *itself*, because þ stands for TH but is a letter in its own
+right; the interrobang is the one exception, physically cut from a `?` and a `!`
+and so filling all three places at once.
+
+**The case quickens as it fills**: +0.05 a sort, +0.1 past fifteen, +0.15 past
+thirty, so a complete case is **+4.5 Mult**. That shape is the Beekeeper's read
+backwards — the hive slows, the case quickens, and both walk the same band table
+(`walkBands` in `js/constants.js`). It is the right way round for a collection,
+because a collection's last places are its dearest by construction: the alphabet
+turns up on its own, but RAT waits on *the Rat Catcher*, OLOGY on *the
+Scientist*, `OO` and `FU` on two registers' parcels, the interrobang on a cut,
+and the lone **Q** on the ratchet. A flat rate would pay most for the sorts that
+cost you nothing; this pays for the ones you went out and got, and turns a
+half-filled case from a sunk cost into a reason to go hunting. Add a sort to the
+press and the ceiling rises on its own.
 
 (The seat that used to hold this name — three-letter words grow their tiles — is
 **The Child** now. An abecedarian is properly a *primer of the alphabet*, which
@@ -433,7 +448,8 @@ permanent — the candidates are the tube's to choose, the pick is yours. The
 **ratchet** asks for the letter FIRST and the direction second: tap the tool,
 tap a letter in your hand, and the slot offers that letter's two neighbours **by
 name** — tap one and it is stepped, for good. It walks the press's own alphabet
-rather than A-Z, so P offers O and R — there is no lone Q sort to land on — and
+rather than A-Z, which now includes Q: no bag holds a lone Q and no shop sells
+one, so stepping a P forward or an R back is how a Q gets made at all — and
 ligatures and marks can't be stepped. (It used to want the direction set blind
 beforehand, which meant its two arrows sat on the bench at rest, reading as two
 tools sharing one slot; and it asked you to carry the press's alphabet in your
@@ -703,7 +719,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | The editor roster, the conflict pairs, the Redactor's share | `js/bosses.js` → `BOSS_CONFLICTS`, `REDACTOR_SHARE` |
 | Animation step timings | `js/constants.js` → `ANIM` (all divided by the Settings speed slider) |
 | Chapter titles | `js/chapters.js` — a flat array, add as many as you like; each run draws its own and won't repeat until the list runs out |
-| The Stenographer's acronyms | `wordlists/acronyms.txt` — one per line, `#` comments; letters only, and no lone Q (the press has no Q sort to set it with) |
+| The Stenographer's acronyms | `wordlists/acronyms.txt` — one per line, `#` comments; letters only. A lone Q is settable now (the ratchet makes one), but it is rare enough that an acronym leaning on it will mostly go unset |
 | Finding words the dictionary is MISSING | `tools/find-dictionary-gaps.mjs` — three modes, none of which writes anything. `derived` (we hold PULMONOLOGY but not PULMONOLOGIST) is the highest-yield; `paradigm` finds a word whose rhyme-neighbours all inflect where it doesn't; `frequency` wants a corpus and is the only one that can find a word with no foothold here at all, but its head is thick with proper nouns. Every mode prints candidates for a human to read, never a list to paste |
 | The Expectant Parents' baby names | `wordlists/names.txt` — same format; regenerate from the US and England & Wales charts with `tools/build-names-list.mjs` |
 | Words barred from the game entirely | `wordlists/excluded-slurs.txt` — one per line, `#` comments. Enforced at load by `js/excluded.js` against the dictionary, every themed list, and The Neologist's coining sheet, so an entry here can't come back through a word list, a custom dictionary or a coined word. Whole-word matches only |
