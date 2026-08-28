@@ -556,6 +556,17 @@ function runPrintedHooks(tiles, script) {
   state.lastFirstLetter = splitMarks(script.word)?.letters?.[0] ?? null;
   const burned = new Map();   // id → tile (a tile can only burn once)
   const said = [];
+  // Coats laid on tiles that are still standing in the groove. A seat that
+  // dresses a tile after the word has scored (The Nudist) would otherwise do it
+  // invisibly — the tiles fly to the pile a beat later wearing paint the player
+  // never saw arrive — so the paints and trims are collected here and shown on
+  // the tiles themselves before they leave (dressPrinted, below).
+  const dressed = new Map();  // id → { tile, colour?, trim? }
+  const noteDress = (tile, key, value) => {
+    const at = dressed.get(tile.id) ?? { tile };
+    at[key] = value;
+    dressed.set(tile.id, at);
+  };
 
   for (const p of allSeats()) {
     const def = patronById(p.id);
@@ -565,8 +576,16 @@ function runPrintedHooks(tiles, script) {
       tiles: tiles.filter(t => !burned.has(t.id)),   // ash is out of everyone's reach
       script, state, data: p.data,
       grow:   growTile,
-      paint:  paintTile,
-      trim:   trimTile,
+      paint:  (t, colour) => {
+        const ok = paintTile(t, colour);
+        if (ok) noteDress(t, 'colour', colour);
+        return ok;
+      },
+      trim:   (t, kind) => {
+        const ok = trimTile(t, kind);
+        if (ok) noteDress(t, 'trim', kind);
+        return ok;
+      },
       recast: recastTile,
       burn:  t => !!trashFromCollection(t.tid),
       // The same bench the discard hooks get: it refuses rather than overflows.
@@ -591,8 +610,46 @@ function runPrintedHooks(tiles, script) {
       if (card) speechBubble(card, r.bubble, { cls: 'speech-bubble--wordle', duration: 2600 });
     }
   }
-  return { burned: [...burned.values()], said };
+  return { burned: [...burned.values()], said, dressed: [...dressed.values()] };
 }
+
+// Coats laid AFTER the word scored, shown on the tiles while they are still in
+// the groove. The tiles' own elements are dressed in place rather than
+// re-rendered, because the flight to the discard pile is holding references to
+// them — so the paint arrives on the very tile that is about to fly away, which
+// is the whole point of showing it at all.
+async function dressPrinted(dressed) {
+  if (!dressed.length) return;
+  let shown = 0;
+  for (const { tile, colour, trim } of dressed) {
+    const el = wordTileEl(tile.id);
+    if (!el) continue;
+    if (trim) el.classList.add(`tile--trim-${trim}`);
+    if (colour) {
+      const glyph = COLOURS[colour].glyph;
+      el.querySelector('.tile-letter')?.style.setProperty('color', glyph);
+      el.querySelector('.tile-alt')?.style.setProperty('color', glyph);
+      el.style.setProperty('--glow', glyph);
+    } else if (trim) {
+      el.style.setProperty('--glow', TRIM_GLOW[trim] ?? '#f6d68a');
+    }
+    pulse(el, 'tile--painted', 620);
+    sparkleBurst(el, 7);
+    shown++;
+  }
+  if (!shown) return;
+  sfx.chime();
+  await sleep(ANIM.stepColour);
+}
+
+// What a trim glows as it lands — the metal's own colour, so a gilding reads as
+// gold rather than as generic brass.
+const TRIM_GLOW = {
+  gold:   '#f6d68a',
+  silver: '#dbe4f0',
+  cobalt: '#8ec6ff',
+  purple: '#cfa6ff',
+};
 
 // Tiles thrown away, offered to whoever cares. Runs after they've left the rack
 // but before the hand tops up, so a patron that paints one is writing to a tile
@@ -1050,8 +1107,11 @@ async function submitWord() {
 
   // Patrons that reach beyond the score fire before the tiles retire, so a
   // grown tile carries its growth wherever it goes next (even back to the bag).
-  const { burned, said } = runPrintedHooks(printed, script);
+  const { burned, said, dressed } = runPrintedHooks(printed, script);
   reportPaintEchoes();   // the Arsonist, Nudist or Illuminator may have painted
+  // Whatever those seats laid on the tiles is shown while the tiles are still
+  // standing — the coats land, and only then does the word go to the pile.
+  await dressPrinted(dressed.filter(d => !burned.some(b => b.id === d.tile.id)));
   if (burned.length) {
     await animateBurn(burned.map(t => rectOf.get(t.id)?.el).filter(Boolean));
   }
@@ -1427,11 +1487,31 @@ $('sundries')?.addEventListener('click', async e => {
 async function useSundry(idx, e = null) {
   const armed = state.sundries[idx];
 
-  // Reading the arrow first means a tap that lands on one both turns the tool
-  // around and does whatever that tap was going to do anyway. There is no event
-  // at all when the board calls in — the tile was the tap.
+  // The ratchet asks for the letter first and the direction second, because the
+  // direction is only meaningful once there is a letter to point it at: the
+  // arrows are labelled with what THIS letter would become, and tapping one is
+  // what spends the tool. (It used to run the other way round — set a direction
+  // blind, then tap a tile and watch it go — which meant the arrows had to sit
+  // on the bench at rest, reading as two tools in one slot.)
   const arrow = e?.target?.closest?.('[data-shift]');
-  if (arrow && armed?.kind === 'ratchet') state.ratchetDir = Number(arrow.dataset.shift);
+  if (armed?.kind === 'ratchet') {
+    if (state.sundryMode !== idx) {
+      cancelDiscardMode(true);
+      cancelSundryMode(true);
+      clearAllSelected();
+      state.sundryMode = idx;
+      sfx.arm();
+      log(logLine('ratchetArmed'));
+      renderAll();
+      return;
+    }
+    const picked = sundrySelected()[0];
+    if (!picked) { cancelSundryMode(); return; }
+    // A letter is chosen; only an arrow moves it. A tap anywhere else on the
+    // tool is not a direction, so it says so rather than guessing one.
+    if (!arrow) { log(logLine('ratchetPickWay'), 'warn'); return; }
+    state.ratchetDir = Number(arrow.dataset.shift);
+  }
 
   if (armed?.kind === 'reshuffle') {
     log(logLine('reshuffleSpend'), 'warn');
@@ -1746,11 +1826,7 @@ async function useSundry(idx, e = null) {
     clearAllSelected();
     state.sundryMode = idx;
     sfx.arm();
-    log(armed?.kind === 'loupe'
-      ? `Tap a tile to double it — ${LOUPE_CAP} Points is the loupe's limit.`
-      : armed?.kind === 'tongs'
-      ? 'Tap a tile, then the tongs again to feed it to the furnace.'
-      : 'Tap one letter to step it. The arrows say which way — set them first.');
+    log(logLine(armed?.kind === 'loupe' ? 'loupeArmed' : 'tongsArmed', LOUPE_CAP));
     renderAll();
     return;
   }
@@ -1810,10 +1886,13 @@ async function useSundry(idx, e = null) {
   log(logLine('ratchetSteps', result.from, result.to), 'good');
 }
 
-// Which tools go off the instant a target is picked. Everything beneficial
-// does; the tongs do not, because a mis-tapped tile would be ash before you
-// saw it, and the confirming tap is the only chance to change your mind.
-export const spendsOnPick = kind => kind !== 'tongs';
+// Which tools go off the instant a target is picked. Most beneficial ones do.
+// The tongs do not, because a mis-tapped tile would be ash before you saw it,
+// and the confirming tap is the only chance to change your mind. The ratchet
+// does not either, for a different reason: picking the tile is only half of
+// what it needs — the other half is which way, and its arrows ask that once
+// there is a letter for them to name.
+export const spendsOnPick = kind => kind !== 'tongs' && kind !== 'ratchet';
 
 // The board has picked a target for the armed tool — spend it where it stands.
 export async function spendArmedSundry() {

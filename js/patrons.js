@@ -114,6 +114,15 @@
 // tap-through, under the desc and above the dismissal — for a seat with
 // something to SHOW rather than say, like the Prince's cypher of boxes.
 //
+// `tally(data)` is what a seat has ACCUMULATED, in one plain sentence: the
+// Beekeeper's hive and what the next bee is worth, the Stoker's stacks, the
+// Usurer's book. Anything a seat carries that changes what it pays belongs
+// here, because a number kept privately in `data` is a number the player is
+// being asked to remember. Read by seatTally() below, which pairs it with the
+// laurels every seat may wear and hands both to the popover — so tapping any
+// patron answers "what is this one worth to me *now*". Return null (or leave
+// the hook off) for a seat whose worth never moves.
+//
 // `guild` (a card field) is thematic, not mechanical: it drives the calling
 // card's ribbon and the seat's livery pin, and nothing else — except the
 // Alderman, who pays ×1.5 per guild on the shelf, and the guild-counting seats
@@ -125,7 +134,7 @@
 // of the standard half-cost — read by patronRefund in market.js.
 
 import {
-  GRAFTER_STEP, STOKER_BASE, STOKER_STEP, BEEKEEPER_STEP, ARSONIST_ODDS,
+  GRAFTER_STEP, STOKER_BASE, STOKER_STEP, beekeeperMult, ARSONIST_ODDS,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE,
   RAGMAN_ODDS, RAGMAN_COINS, REVENANT_ODDS, MATERIALS,
   PACKAGE_ODDS, PACKAGES, PACKAGE_OF_PATRON,
@@ -1000,6 +1009,13 @@ const PATRON_BEHAVIOURS = [
       const n = (data?.seen ?? []).length;
       if (n) addMult(Math.round(n * ABECEDARIAN_MULT * 100) / 100);
     },
+    tally(data) {
+      const n = (data?.seen ?? []).length;
+      const all = ABECEDARIAN_CASE.length;
+      return n
+        ? `${n} of ${all} sorts collected \u2014 +${Math.round(n * ABECEDARIAN_MULT * 100) / 100} Mult.`
+        : `An empty case \u2014 ${all} sorts to find.`;
+    },
     onPrinted({ tiles, data }) {
       const seen = (data.seen ??= []);
       const fresh = [];
@@ -1077,10 +1093,15 @@ const PATRON_BEHAVIOURS = [
           if (paint(t, colour)) daubed.push(`${getActiveLetter(t)} ${COLOURS[colour].label.toLowerCase()}`);
         }
       }
+      // `say`, not `note`: what he dressed goes to the status line at the foot
+      // of the board rather than floating over his card. A floater is right for
+      // a number you watch land; this is a list of tiles and what each is now
+      // wearing, which wants reading rather than glancing at — and the coats
+      // themselves are already being shown on the tiles (dressPrinted, main.js).
       const notes = [];
       if (dressed.length) notes.push(`dressed in ${dressed.join(', ')}`);
       if (daubed.length)  notes.push(`painted ${daubed.join(', ')}`);
-      return notes.length ? { note: notes.join(' · ') } : null;
+      return notes.length ? { say: [notes.join(' · ')] } : null;
     },
   },
   {
@@ -1162,6 +1183,12 @@ const PATRON_BEHAVIOURS = [
     id: 'cellarer',
     when: 'meta',
     refundBonus(data) { return data?.aged ?? 0; },
+    tally(data) {
+      const n = data?.aged ?? 0;
+      return n
+        ? `${n} page${n === 1 ? '' : 's'} aged through \u2014 +${n} Coins on his dismissal.`
+        : null;
+    },
     onPageComplete({ state, data }) {
       if (!state.rack.some(t => countsAsColour(t, 'jade'))) return null;
       data.aged = (data.aged ?? 0) + 1;
@@ -1455,6 +1482,10 @@ const PATRON_BEHAVIOURS = [
     effect({ data, xMult }) {
       xMult(stokerMult(data?.stacks ?? 0));
     },
+    tally(data) {
+      const n = data?.stacks ?? 0;
+      return `${n} tile${n === 1 ? '' : 's'} burnt — \u00d7${stokerMult(n)} Mult.`;
+    },
     onPrinted({ tiles, data, burn }) {
       const burned = [];
       for (const t of painted(tiles, 'crimson')) {
@@ -1678,14 +1709,24 @@ const PATRON_BEHAVIOURS = [
     // caught pay from the next word on.
     effect({ data, xMult }) {
       const bees = data?.bees ?? 0;
-      if (bees) xMult(Math.round((1 + bees * BEEKEEPER_STEP) * 100) / 100);
+      if (bees) xMult(beekeeperMult(bees));
     },
     onPrinted({ tiles, data }) {
       const caught = tiles.filter(t => getActiveLetter(t) === 'B').length;
       if (!caught) return null;
       data.bees = (data.bees ?? 0) + caught;
-      const mult = Math.round((1 + data.bees * BEEKEEPER_STEP) * 100) / 100;
-      return { note: `${caught === 1 ? 'a bee' : `${caught} bees`} — ×${mult} Mult` };
+      return {
+        note: `${caught === 1 ? 'a bee' : `${caught} bees`} — ×${beekeeperMult(data.bees)} Mult`,
+      };
+    },
+    // What the hive is worth right now, and what the next bee would add — the
+    // curve slows twice, so a seat that says only "×2.4" hides the decision.
+    tally(data) {
+      const bees = data?.bees ?? 0;
+      if (!bees) return 'No bees yet — ×1 Mult.';
+      const now  = beekeeperMult(bees);
+      const next = Math.round((beekeeperMult(bees + 1) - now) * 100) / 100;
+      return `${bees} bee${bees > 1 ? 's' : ''} in the hive — ×${now} Mult. The next is worth +${next}.`;
     },
   },
   {
@@ -1998,6 +2039,22 @@ export const laurelWorth = laurels => {
     : '';
   return `${laurels > 1 ? `${laurels} laurels` : 'A laurel'} — ${points}${mult} every word`;
 };
+
+// Everything a seat is carrying that changes what it pays, as plain lines for
+// the card's tap-through. Two sources: the laurels any patron may wear (priced
+// through laurelWorth, so The Laureate's arrival re-prices them here too), and
+// the seat's own `tally(data)` — its hive, its stacks, its book. A seat with
+// nothing accumulated returns an empty list and the popover shows no strip at
+// all, so the ordinary card stays as short as it always was.
+export function seatTally(def, data) {
+  const lines = [];
+  const laurels = data?.honorifics ?? 0;
+  if (laurels) lines.push(laurelWorth(laurels));
+  const own = def?.tally?.(data);
+  if (Array.isArray(own)) lines.push(...own.filter(Boolean));
+  else if (own) lines.push(own);
+  return lines;
+}
 
 export const guildSeats = colour =>
   allSeats().filter(p => guildsOf(patronById(p.id)).includes(colour)).length;

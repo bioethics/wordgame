@@ -179,7 +179,11 @@ export const LOG_TEXT = {
   painted:         'Painted {0} {1}.',                               // letter · colour
   tongsGrip:       'The tongs grip {0} — ash, and +{1} Points waiting on the next word.',
   tongsFloater:    '+{0} to the next word',                          // over the groove, not in the log
+  ratchetArmed:    'Tap a letter — the ratchet will offer you a step either way.',
+  ratchetPickWay:  'Tap one of the two letters on the ratchet to step it there.',
   ratchetSteps:    'The ratchet steps {0} to {1} — and there it stays.',
+  loupeArmed:      'Tap a tile to double it — {0} Points is the loupe\'s limit.',
+  tongsArmed:      'Tap a tile, then the tongs again to feed it to the furnace.',
 
   // ─── Seats kept and given up ────────────────────────────────────────────────
   patronDeparts:   '{0} departs with thanks — {1} Coins returned.',
@@ -314,7 +318,7 @@ export const MATERIAL_TEXT = {
   },
   blind: {
     label: 'Blind', metal: 'Blind emboss',
-    desc: 'Worth nothing on its own.',
+    desc: 'Struck into the paper carrying no ink. A word set with one in it is never spiked — the editor cannot see what was never printed.',
   },
   rose: {
     label: 'Rose', metal: 'Rose metal',
@@ -331,7 +335,7 @@ export const MATERIAL_TEXT = {
 export const SUNDRY_TEXT = {
   ratchet: {
     head: 'Ratchet',
-    body: 'Step a letter a single place up or down the alphabet.',
+    body: 'Tap a letter in your hand, then choose which of its two neighbours it becomes — permanently. (The press carries no lone Q, so P steps straight to R.)',
   },
   reshuffle: {
     head: 'Reshuffle',

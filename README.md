@@ -200,7 +200,7 @@ plus an optional **trim** and **nick**.
 | Trim | **Gold** pays 1 Coin · **Silver** +5 Points, counted into the tile's corner number wherever it appears · **Cobalt** refreshes 1 Discard · **Purple** raises the fifth multiplier by 0.5 |
 | Nick | A notch in one edge; the notched side is the direction. **Right** ×2 Points to everything on its right · **Left** ×2 to its left. Nicks don't stack — a tile is multiplied once at most. While you compose, an affected tile's corner number shows the multiplied value |
 | Letterform | Dual tiles hold two letters (flip to switch; paint, trim and nick belong to the tile, so both faces wear them) · Ligatures ING · CH · CK · TH · WH · QU spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Medieval sorts** þ · ȝ · Æ · Ƿ and **marks** ? · ! — below |
-| Material | What the tile is cast from, under everything else: ordinary lead, or **cursed** / **ghost** / **rainbow** / **rose** |
+| Material | What the tile is cast from, under everything else: ordinary lead, or **cursed** / **ghost** / **rainbow** / **rose** / **blind** |
 | Growth | Permanent +1s a patron (The Grafter) writes into a tile, worn as a jade corner number |
 
 **Materials** — most type is lead. A **wrapped tile** (4 Coins at the Market) is
@@ -226,6 +226,16 @@ paint, trims and nicks.
 - **Rose** (rose metal) — print a sort struck in it and a seated patron is
   crowned with a laurel. Not consumed, so it pays every time you fit it into a
   word. It comes only out of a party bag.
+- **Blind** (blind emboss) — struck into the paper carrying no ink, so the
+  letter is felt and never seen. A word set with one in it is **never spiked**:
+  the editor cannot read what was never printed. That makes it worth a great
+  deal on a Deadline and nothing at all on the other two pages, which is what
+  it is priced for. *The Silent Knight* strikes them out of silent letters, and
+  the alley sells them; it generalises his own argument from the seat to the
+  sort. (It carried no effect for a long while and its card said so; this is
+  the effect that note was waiting for.) A blind sort is cast in cool grey
+  against the case's warm ivory — the one metal whose point is being unreadable
+  should not itself be unreadable at a glance.
 
 **The Editors** — every chapter's third page is its **Deadline**, and the room
 knows it: the candles go redder and the wood darkens, fading with the page
@@ -420,12 +430,15 @@ the Colophon can add two more). Arming a tool is one tap and picking its target
 is the second, which also spends it. The **paint tube**: tap it mid-page and two
 random unpainted tiles from your hand light up; tap one and the paint is
 permanent — the candidates are the tube's to choose, the pick is yours. The
-**ratchet** keeps the same rhythm, stepping one letter a single place along the
-alphabet (D becomes C or E, A becomes Z or B); two arrows say which way it
-points, so set them before you pick the letter. The **tongs** are the one tool
-that still wants a confirming tap on itself, because they destroy the tile.
-It walks the press's own alphabet rather than A-Z, so P steps straight to R —
-there is no lone Q sort to land on — and ligatures and marks can't be stepped.
+**ratchet** asks for the letter FIRST and the direction second: tap the tool,
+tap a letter in your hand, and the slot offers that letter's two neighbours **by
+name** — tap one and it is stepped, for good. It walks the press's own alphabet
+rather than A-Z, so P offers O and R — there is no lone Q sort to land on — and
+ligatures and marks can't be stepped. (It used to want the direction set blind
+beforehand, which meant its two arrows sat on the bench at rest, reading as two
+tools sharing one slot; and it asked you to carry the press's alphabet in your
+head, Q-shaped hole and all.) The **tongs** are the one other tool that wants a
+confirming tap on itself, because they destroy the tile.
 The **reshuffle** is banked until spent, on the Market's own offers (free, and
 it doesn't touch the escalating reroll price) or on a Colophon pick.
 
@@ -520,9 +533,12 @@ guilds**, each paint keeping a family that makes committing to it an archetype:
 amber pays coins, jade compounds forever, crimson burns tiles for power, azure
 bends the rules of spelling — plus neutral wildcards and the word-shape
 classics. A guild member's card wears its livery and its seat a small livery
-pin; neutral patrons stay plain ivory. *The Alderman* reads the liveries: ×1.5
-Mult per guild represented on your shelf, counted once each and whether or not
-it fires. Some patrons act after a word prints (burning, growing, painting) or
+pin; neutral patrons stay plain ivory. *The Alderman* reads the liveries:
+**+0.5 Mult per guild** represented on your shelf, counted once each and
+whether or not it fires. He ADDS rather than multiplies — a full table of
+liveries is +2 Mult, not ×5. He used to compound, and a shelf flying four
+flags turned one seat into the whole run; the seat is paid for breadth, and
+breadth should be worth a great deal without being worth everything. Some patrons act after a word prints (burning, growing, painting) or
 as a chapter turns, not only while it scores. While you compose, every patron
 whose condition the word already meets wakes up and wears a badge of exactly
 what it stands to add, while the rest dim away. It reads off the same score
@@ -680,6 +696,10 @@ bigger step than the last and a built press has to multiply rather than add:
 | Patron names, emoji, rarities, costs, guilds and card text | `js/patron-cards.js` — one flat table keyed by patron id; `{KNOB}` braces in a `desc` are filled from the `KNOBS` object at the top of the file |
 | What a patron *does* | `js/patrons.js`, against the same id |
 | Patron tuning that reaches beyond a score (growth steps, burn odds, trim chance, dye count, coined-word length) | `js/constants.js` → `GRAFTER_STEP`, `STOKER_BASE`, `STOKER_STEP`, `ARSONIST_ODDS`, `NUDIST_TRIM_CHANCE`, `DIPPER_PAINT_CHANCE`, `GAMBLER_ODDS`, `DYE_TILES_PER_CHAPTER`, `NEOLOGIST_LENGTH` |
+| The Beekeeper's curve | `js/constants.js` → `BEEKEEPER_BANDS` — `{ upTo, step }` in order, so the hive slows as it fills (+0.2 to ×2, +0.1 to ×3, +0.05 thereafter) instead of climbing for ever at one rate. `beekeeperMult()` walks it a bee at a time, so crossing a threshold never jumps; `beekeeperSteps()` writes the card's own sentence from the same table, so the words cannot drift from the arithmetic |
+| The Alderman's guild step | `js/constants.js` → `ALDERMAN_STEP` (added per guild, not multiplied — see pass 4½ in `js/scoring.js`) |
+| What the alley may ask for a tile | `js/constants.js` → `BLACK_TILE_MAX_PRICE`, the ceiling every black-market tile is clamped to, plus `BLACK_MATERIAL_STOCK` and `BLACK_TILE_SURCHARGE`. The Market's own tiles are priced by `tilePrice` in `js/market.js`, off `TILE_BASE_PRICE` and the `price` on each entry of `TRIMS` / `NICKS` |
+| What a seat has ACCUMULATED, shown when you tap its card | `js/patrons.js` → the `tally(data)` hook, gathered with the seat's laurels by `seatTally()`. A number a seat keeps privately in `data` is a number the player is being asked to remember — put it here instead |
 | The editor roster, the conflict pairs, the Redactor's share | `js/bosses.js` → `BOSS_CONFLICTS`, `REDACTOR_SHARE` |
 | Animation step timings | `js/constants.js` → `ANIM` (all divided by the Settings speed slider) |
 | Chapter titles | `js/chapters.js` — a flat array, add as many as you like; each run draws its own and won't repeat until the list runs out |

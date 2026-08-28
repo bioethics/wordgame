@@ -1060,6 +1060,17 @@ const SHIFT_RING = Object.keys(TILE_POINTS)
 export const shiftable = tile =>
   !!tile && !isImmutable(tile) && SHIFT_RING.includes(getActiveLetter(tile));
 
+// Where a letter would land stepping each way — what the ratchet's two arrows
+// are labelled with, so the choice names its own outcome instead of asking the
+// player to hold the press's alphabet in their head (it has no lone Q, so P
+// steps straight to R). Null for a tile the ratchet has no purchase on.
+export function shiftPreview(tile) {
+  if (!shiftable(tile)) return null;
+  const i = SHIFT_RING.indexOf(getActiveLetter(tile));
+  const at = d => SHIFT_RING[(i + d + SHIFT_RING.length) % SHIFT_RING.length];
+  return { from: getActiveLetter(tile), up: at(1), down: at(-1) };
+}
+
 // Step the showing face one place along the ring, written through to the
 // collection template — the new letter is permanent, and re-prices the tile.
 export function shiftTile(tile, dir) {

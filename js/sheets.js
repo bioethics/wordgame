@@ -1167,7 +1167,7 @@ function chamberSundriesHTML() {
 function sundryGlyph(s) {
   if (s.kind === 'tube')       return `<span class="paint-tube paint-tube--${s.colour}"></span>`;
   if (s.kind === 'reshuffle')  return '<span class="sundry-shuffle">↻</span>';
-  if (s.kind === 'ratchet')    return '<span class="ratchet-arrows"><span class="ratchet-arrow ratchet-arrow--on">▲</span><span class="ratchet-arrow">▼</span></span>';
+  if (s.kind === 'ratchet')    return '<span class="ratchet-mark">⇅</span>';
   if (s.kind === 'wrapped')    return '<span class="wrapped-mark"></span>';
   if (s.kind === 'package')    return `<span class="sundry--pkg-${s.theme}"><span class="wrapped-mark"></span></span>`;
   if (s.kind === 'applicator') return APPLICATORS[s.material]?.glyph ?? '🧪';

@@ -87,10 +87,16 @@
       <div id="sundries" class="sundries" aria-label="Sundries"></div>
     </section>
 
-    <!-- Score readout: Points × the colour multipliers = total -->
+    <!-- Score readout: Points × the colour multipliers = total.
+         The two sides are wrapped so the row can be a fixed three-track grid:
+         a number growing a digit — which is exactly what a patron waking up
+         does — then grows outward from its own operator instead of shoving the
+         chips and the total sideways. -->
     <section id="readout" class="readout readout--idle" aria-live="polite">
-      <div class="slab slab--points"><span class="slab-label">Points</span><span id="roPoints" class="slab-num">0</span></div>
-      <span class="ro-op">×</span>
+      <div class="ro-side ro-side--in">
+        <div class="slab slab--points"><span class="slab-label">Points</span><span id="roPoints" class="slab-num">0</span></div>
+        <span class="ro-op">×</span>
+      </div>
       <div class="ro-chips" aria-label="Colour multipliers">
         <span id="chip-length"  class="chip chip--length"  title="Length multiplier — 6-letter words earn ×2, +0.5 per letter beyond">×1</span>
         <span id="chip-crimson" class="chip chip--crimson" title="Crimson multiplier">×1</span>
@@ -101,8 +107,10 @@
         <span id="chip-cursed"  class="chip chip--cursed"  title="Cursed-tile multiplier">×1</span>
         <span id="chip-bold"    class="chip chip--bold"    title="Set bold — the word is bracketed by a pair of rules">×1</span>
       </div>
-      <span class="ro-op">=</span>
-      <div class="ro-total-wrap"><span id="roTotalPlain" class="ro-total ro-total--struck" hidden>0</span><span id="roTotal" class="ro-total">0</span></div>
+      <div class="ro-side ro-side--out">
+        <span class="ro-op">=</span>
+        <div class="ro-total-wrap"><span id="roTotalPlain" class="ro-total ro-total--struck" hidden>0</span><span id="roTotal" class="ro-total">0</span></div>
+      </div>
     </section>
 
     <!-- Word groove -->

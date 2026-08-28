@@ -6,7 +6,7 @@ import {
   state, settings, saveState, getActiveLetter, getActiveColour, selectedCount,
   effectivePatronSlots, effectiveSundrySlots, effectiveGhostSlots,
   effectiveWordsPerPage, chapterTitle,
-  sundrySelected, restingPoints, getActiveGrowth, isWrapped,
+  sundrySelected, restingPoints, getActiveGrowth, isWrapped, shiftPreview,
 } from './state.js';
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
@@ -15,7 +15,7 @@ import {
   sundryTip, FLEURON, TOOL_LOOK, PACKAGES, APPLICATORS, MEDIEVAL, letterGlyph,
   INTERROBANG, POSTNOM, BAG_COUNTS, BRIBRARIAN, bribeMult, isRule, RULE, BOLD_MULT,
 } from './constants.js';
-import { patronById, guildsOf, patronName, patronShelf, patronEmoji, laurelWorth } from './patrons.js';
+import { patronById, guildsOf, patronName, patronShelf, patronEmoji, laurelWorth, seatTally } from './patrons.js';
 import { bossById } from './bosses.js';
 import { computeScore } from './scoring.js';
 import { marketSnapshot, patronRefund } from './market.js';
@@ -287,9 +287,16 @@ export function showPatronPopover(def, anchorEl, seat = null) {
   const refund = ghost ? 0 : seat ? patronRefund(seat) : Math.floor(def.cost / 2);
   // A patron with a hold over you (the Usurer's book) offers no way out at all.
   const held = seat ? def.holds?.(seat.data) : null;
+  // What this seat has accumulated — its laurels, its hive, its book. Only ever
+  // for a seat you actually hold: a calling card in the Market has no history.
+  const tally = seat ? seatTally(def, seat.data) : [];
+  const tallyHTML = tally.length
+    ? `<div class="tip-tally">${tally.map(l => `<div class="tip-tally-line">${l}</div>`).join('')}</div>`
+    : '';
   showPopover(anchorEl, `
     <div class="tip-head">${patronEmoji(def, seat?.data)} ${name} <span class="op-rarity">${def.rarity}</span></div>
     <div class="tip-line">${desc}</div>
+    ${tallyHTML}
     ${def.popover?.(seat?.data) ?? ''}
     ${act}
     ${held
@@ -676,22 +683,27 @@ function renderSundries() {
         <span class="sundry-shuffle">↻</span>
         <span class="sundry-name">Reshuffle</span>`;
     } else if (s?.kind === 'ratchet') {
+      // Pick the letter first, then say which way it goes — and the two arrows
+      // only appear once there IS a letter, each labelled with what that letter
+      // would actually become. Idle, the tool is one ⇅ mark like every other
+      // sundry: it used to show its two arrows at rest, which read as two tools
+      // sharing a slot rather than one tool with a choice in it.
       const armed  = state.sundryMode === i;
-      const picked = armed && sundrySelected().length > 0;
-      // The arrows only choose direction — spending is a tap anywhere on the slot.
-      const dir = state.ratchetDir ?? 1;
+      const step   = armed ? shiftPreview(sundrySelected()[0]) : null;
       slot = document.createElement('button');
       slot.className = `sundry sundry--ratchet${armed ? ' sundry--armed' : ''}`
-                     + (picked ? ' sundry--ready' : '');
+                     + (step ? ' sundry--ready' : '');
       slot.dataset.sundry = i;
-      slot.innerHTML = `
-        <span class="ratchet-arrows">
-          <span class="ratchet-arrow${dir === 1 ? ' ratchet-arrow--on' : ''}"
-                data-shift="1" title="A step later — D to E">▲</span>
-          <span class="ratchet-arrow${dir === -1 ? ' ratchet-arrow--on' : ''}"
-                data-shift="-1" title="A step earlier — D to C">▼</span>
-        </span>
-        <span class="sundry-name">${picked ? 'Step it' : armed ? 'Pick a letter' : 'Ratchet'}</span>`;
+      slot.innerHTML = step
+        ? `<span class="ratchet-arrows">
+             <span class="ratchet-arrow" data-shift="-1"
+                   title="Step ${step.from} back to ${step.down}">${step.down}</span>
+             <span class="ratchet-arrow" data-shift="1"
+                   title="Step ${step.from} on to ${step.up}">${step.up}</span>
+           </span>
+           <span class="sundry-name">${step.from} →</span>`
+        : `<span class="ratchet-mark">⇅</span>
+           <span class="sundry-name">${armed ? 'Pick a letter' : 'Ratchet'}</span>`;
     } else if (s?.kind === 'wrapped') {
       // No material on the slot: nothing is decided until it is opened.
       slot = document.createElement('button');

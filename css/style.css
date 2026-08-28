@@ -821,6 +821,15 @@ button.sundry:hover { transform: translateY(-2px); }
 .sundry:hover .sundry-x { opacity: 1; }
 .sundry-x:hover { transform: scale(1.15); }
 
+/* In the SHOP the ✕ is always out. On the board it is a tidy-up you go looking
+   for, so hiding it until hover is right; at the Market, letting a seat or a
+   tool go IS one of the things you came to do, and a control you have to
+   discover by hovering is a control most players never find. */
+.sheet--market .sundry-x,
+.sheet--market .patron-x { opacity: 0.62; }
+.sheet--market .sundry:hover .sundry-x,
+.sheet--market .patron:hover .patron-x { opacity: 1; }
+
 /* ── One tap left ─────────────────────────────────────────────────────────────
    An armed tool with its targets picked waits on a tap *on the tool*, so it
    breathes in --paintcol above the dimmed table (.table--tool-ready). */
@@ -994,6 +1003,9 @@ button.sundry:hover { transform: translateY(-2px); }
 .offer-ratchet .ratchet-mark { margin-top: 5px; width: 26px; height: 26px; }
 
 .ratchet-arrows { display: flex; gap: 4px; margin-top: 3px; }
+/* Each arrow is a DESTINATION now — the letter that letter would become — so
+   both are live choices rather than a set direction and a dim alternative, and
+   both are shown at full strength. */
 .ratchet-arrow {
   display: grid;
   place-items: center;
@@ -1001,13 +1013,14 @@ button.sundry:hover { transform: translateY(-2px); }
   border-radius: 4px;
   background: linear-gradient(160deg, #d8dde3, #97a1ac 60%, #6d7681);
   color: #21262c;
-  font-size: 12px;
+  font-family: var(--serif);
+  font-size: 13px;
   font-weight: 900;
   cursor: pointer;
   box-shadow: inset 0 -2px 4px rgba(40, 50, 60, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.7);
   transition: transform calc(0.1s / var(--aspd)), filter calc(0.1s / var(--aspd)),
               opacity calc(0.1s / var(--aspd));
-  opacity: 0.45;
+  opacity: 1;
 }
 /* Both arrows stay legible — the dim one is an offer, not a disabled control. */
 .ratchet-arrow--on {
@@ -1067,10 +1080,16 @@ button.sundry:hover { transform: translateY(-2px); }
   opacity: 0.72;
 }
 
+/* A lit seat reads through LIGHT, not through movement: the glow, the gold
+   sheen sweep and the badge do the talking, and the card itself barely stirs.
+   It used to rise 3px and overshoot to scale(1.06), which on a tight shelf made
+   a waking card look like it was shouldering its neighbours — and since seats
+   arm and disarm on every single tile you place, the whole row appeared to
+   twitch as you composed. The lift is a hair now, and nothing scales. */
 .patron--armed {
   z-index: 2;
   border-color: var(--brass-hi);
-  transform: translateY(-3px);
+  transform: translateY(-1.5px);
   animation: patronLit calc(2.2s / var(--aspd)) ease-in-out infinite;
 }
 @keyframes patronLit {
@@ -1120,10 +1139,11 @@ button.sundry:hover { transform: translateY(-2px); }
   animation: patronLit calc(2.2s / var(--aspd)) ease-in-out infinite,
              patronRise calc(0.42s / var(--aspd)) ease-out;
 }
+/* The wake-up flourish: a single soft rise, no overshoot and no scaling. */
 @keyframes patronRise {
-  0%   { transform: translateY(4px)  scale(0.94); }
-  60%  { transform: translateY(-6px) scale(1.06); }
-  100% { transform: translateY(-3px) scale(1); }
+  0%   { transform: translateY(1.5px); }
+  55%  { transform: translateY(-3px); }
+  100% { transform: translateY(-1.5px); }
 }
 
 /* What it stands to add — the readout's own language for Points and Mult */
@@ -1172,15 +1192,19 @@ button.sundry:hover { transform: translateY(-2px); }
 .patron--firing {
   animation: patronFire calc(0.52s / var(--aspd)) ease;
 }
+/* Firing is the print cinematic — a patron actually paying, once, with the
+   board's attention on it. That one keeps its whole flourish; it is the
+   per-keystroke arming above that had to stop shouting. Starts and ends on the
+   armed rest position so it settles where the card already sits. */
 @keyframes patronFire {
-  0%   { transform: translateY(-3px) scale(1); }
+  0%   { transform: translateY(-1.5px) scale(1); }
   35%  { transform: translateY(-11px) scale(1.14) rotate(-2.5deg);
          box-shadow:
            inset 0 0 0 2px rgba(255, 248, 226, 1),
            0 0 0 5px rgba(246, 214, 138, 0.6),
            0 0 34px 6px rgba(246, 214, 138, 0.85),
            0 12px 24px rgba(0, 0, 0, 0.5); }
-  100% { transform: translateY(-3px) scale(1); }
+  100% { transform: translateY(-1.5px) scale(1); }
 }
 
 /* ─── Status row ──────────────────────────────────────────────────────────────── */
@@ -1361,8 +1385,15 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 /* ─── Readout ─────────────────────────────────────────────────────────────────── */
+/* Three fixed tracks, not a centred row. A number gaining a digit — which is
+   what a patron waking up does to the projection — used to re-centre the whole
+   line, so the chips and the total shuffled sideways every time a seat lit up.
+   Now the side tracks are equal, the chips sit dead centre whatever the figures
+   do, and each number grows outward from its own operator: the thing that
+   changed is the only thing that moves. */
 .readout {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
   justify-content: center;
   gap: 10px;
@@ -1381,6 +1412,18 @@ button.sundry:hover { transform: translateY(-2px); }
   30% { transform: scale(1.045); }
   100% { transform: scale(1); }
 }
+
+/* Each side track holds its number and its operator, with the operator pinned
+   against the chips — so the operators never move and the figures grow away
+   from them. */
+.ro-side {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.ro-side--in  { justify-content: flex-end; }
+.ro-side--out { justify-content: flex-start; }
 
 .slab {
   display: flex;
@@ -4517,23 +4560,30 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 
 /* Blind emboss — struck into the paper, carrying no ink. Debossed rather than
-   coloured: the letter reads as pressed-in, never as painted. */
+   coloured: the letter reads as pressed-in, never as painted.
+   Deliberately COOL against the case's warm ivory. It used to sit a shade or
+   two off ordinary lead, which meant the one metal whose whole point is being
+   unreadable was itself unreadable at a glance; uninked stock is greyer than
+   cast type, so this leans that way and the two never trade places in a rack. */
 .tile--mat-blind {
-  background: linear-gradient(168deg, #efe3c6 0%, #e2d3ae 62%, #d4c398 100%);
+  background: linear-gradient(168deg, #e9e6da 0%, #d8d4c4 58%, #c6c2b0 100%);
+  border-color: rgba(108, 104, 88, 0.55);
+  --tile-lift: #8f8b79;
 }
 .tile--mat-blind .tile-letter {
   color: transparent;
   text-shadow:
-    0 1px 0 rgba(255, 252, 240, 0.85),
-    0 -1px 1px rgba(120, 96, 52, 0.55);
+    0 1.5px 0 rgba(255, 255, 250, 0.95),
+    0 -1px 1.5px rgba(86, 82, 64, 0.6);
 }
-.tile--mat-blind .tile-pts { color: #9c8557; }
+.tile--mat-blind .tile-pts { color: #7c7860; }
+.tile--mat-blind .tile-alt { color: #7c7860; }
 .tile--mat-blind::after {
   content: '';
   position: absolute;
   inset: 5px;
   border-radius: 5px;
-  border: 1px dashed rgba(140, 114, 66, 0.5);
+  border: 1px dashed rgba(104, 100, 82, 0.55);
   pointer-events: none;
 }
 .tc-swatch--mat-blind { color: #cbb98d; }
@@ -4852,6 +4902,22 @@ input[type='checkbox'] {
   color: var(--parch-dim);
 }
 .tip-line { color: #5c4a2e; margin-top: 3px; }
+
+/* What a seat has ACCUMULATED — its laurels, its hive, its book. Ruled off from
+   the card's standing description, because one is what the patron promises and
+   the other is what it has actually done for you so far. */
+.tip-tally {
+  margin-top: 7px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(120, 90, 40, 0.28);
+}
+.tip-tally-line {
+  font-size: 12px;
+  font-weight: 700;
+  color: #6b5320;
+  margin-top: 2px;
+}
+.tip-tally-line + .tip-tally-line { margin-top: 3px; }
 
 /* A short table of terms inside a calling card's tap-through — the Purveyor's
    six widened choices. Label left, figure right, so the column of numbers reads

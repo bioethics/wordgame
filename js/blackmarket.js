@@ -34,7 +34,7 @@ import { state, adoptTemplate, shuffle, allSeats, nextId, effectivePatronSlots,
          effectiveSundrySlots } from './state.js';
 import {
   BLACK_TILE_OFFERS, BLACK_PATRON_OFFERS, BLACK_SUNDRY_OFFERS,
-  BLACK_MATERIAL_STOCK, BLACK_MARK_PRICE, BLACK_TILE_SURCHARGE,
+  BLACK_MATERIAL_STOCK, BLACK_MARK_PRICE, BLACK_TILE_SURCHARGE, BLACK_TILE_MAX_PRICE,
   BLACK_PATRON_MARKUP, BLACK_TILE_FEATURES, BLACK_SUNDRY_STOCK,
   MARKS, MARK_TRIM, makeTileTemplate,
 } from './constants.js';
@@ -56,12 +56,17 @@ const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 // because ghost tiles are immutable ever after (isImmutable) — paint or a trim
 // on one is a thing no stall could ever add, which is exactly what the alley is
 // selling. The price is the tile's own worth plus what the metal asks.
+// The ceiling is applied at the point of sale rather than by trimming what the
+// alley stocks: the table still lays out gorgeous things, they just never ask
+// an absurd price for one. (See BLACK_TILE_MAX_PRICE.)
+const alleyPrice = p => Math.min(p, BLACK_TILE_MAX_PRICE);
+
 function materialOffer(material) {
   const template = randomSpecialTile(BLACK_TILE_FEATURES);
   template.material = material;
   return {
     template,
-    price: tilePrice(template) + BLACK_MATERIAL_STOCK[material].price,
+    price: alleyPrice(tilePrice(template) + BLACK_MATERIAL_STOCK[material].price),
     sold: false,
     material,
   };
@@ -76,7 +81,7 @@ function markOffer() {
 
 function plainOffer() {
   const template = randomSpecialTile(BLACK_TILE_FEATURES);
-  return { template, price: tilePrice(template) + BLACK_TILE_SURCHARGE, sold: false };
+  return { template, price: alleyPrice(tilePrice(template) + BLACK_TILE_SURCHARGE), sold: false };
 }
 
 // The table, shuffled so the contraband isn't always laid out in the same corner.

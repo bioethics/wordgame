@@ -426,11 +426,15 @@ export const SILVER_BONUS = 5;
 // retireMercury in state.js); its rule now belongs to The Fountain (returnsToBag).
 // Prices here, words in js/text.js — the knobs in the descriptions are filled at
 // the foot of this file.
+// `price` is what the finery ADDS to a tile's asking price at the Market (see
+// tilePrice in js/market.js) — the stalls charge their own bases, so these move
+// the shop's tiles and nothing else. Trimmed down a step in 2026: a tile
+// wearing two features was asking double figures, which is a lot for one sort.
 export const TRIMS = {
   gold:    { ...TRIM_TEXT.gold,   price: 2 },
   silver:  { ...TRIM_TEXT.silver, price: 2 },
-  cobalt:  { ...TRIM_TEXT.cobalt, price: 3 },
-  purple:  { ...TRIM_TEXT.purple, price: 4 },
+  cobalt:  { ...TRIM_TEXT.cobalt, price: 2 },
+  purple:  { ...TRIM_TEXT.purple, price: 3 },
 };
 
 // Half a step where a painted letter is a whole one: one purple trim gives ×1.5,
@@ -445,8 +449,8 @@ export const PURPLE_TRIM_STEP = 0.5;
 // bonuses (see the tileBonus pass in scoring.js) go through it as well.
 export const NICK_MULT = 2;
 export const NICKS = {
-  right: { ...NICK_TEXT.right, mult: NICK_MULT, price: 4 },
-  left:  { ...NICK_TEXT.left,  mult: NICK_MULT, price: 4 },
+  right: { ...NICK_TEXT.right, mult: NICK_MULT, price: 3 },
+  left:  { ...NICK_TEXT.left,  mult: NICK_MULT, price: 3 },
 };
 
 // ─── The measure (the length multiplier) ──────────────────────────────────────
@@ -588,8 +592,13 @@ export const MARK_TRIM = 'purple';   // what a wrapped mark always comes wearing
 // Words in js/text.js; this is only which metals exist and what they wear on
 // the board. The long notes on why blind and rose are what they are:
 //   blind — struck into the paper carrying no ink, so the letter is felt and
-//           never seen. The metal a silent letter is recast in, The Silent
-//           Knight the only road to it.
+//           never seen. The metal a silent letter is recast in: The Silent
+//           Knight strikes them, and the alley sells them. What it DOES follows
+//           from what it is — a letter the desk cannot see, so a word carrying
+//           one is never spiked (scoring.js pass 4¾, beside the Knight's own
+//           argument, which it generalises from the seat to the sort). It was
+//           inert for a long while and the card admitted as much; this is the
+//           effect that note was waiting for.
 //   rose  — a real alloy, soft enough to melt in boiling water, so no press
 //           could set a page in it. Out of The Poppet's party bag only.
 export const MATERIALS = {
@@ -665,7 +674,52 @@ export const PRINCE = {
 export const princeMult = solved =>
   Math.min(PRINCE.crown, PRINCE.base + (solved ?? 0) * PRINCE.step);
 
-export const BEEKEEPER_STEP     = 0.2;    // permanent ×Mult per B printed
+// ─── The Beekeeper's hive ─────────────────────────────────────────────────────
+// A permanent ×Mult that grows with every B printed — and the one seat that had
+// no ceiling at all, so a press built to spell B's ran away with the run. It
+// keeps its early pace and then slows twice: full steps up to the first
+// threshold, half steps to the second, quarter steps for ever after. So the
+// tenth bee is still worth catching and the fiftieth is not a different game.
+//
+// The bands are read in order, each { upTo, step }: the step applies while the
+// multiplier is under `upTo`, and the last band has no ceiling. Retuning is a
+// number here — the card quotes all of it through beekeeperCard().
+export const BEEKEEPER_BASE  = 1;
+export const BEEKEEPER_BANDS = [
+  { upTo: 2, step: 0.2 },
+  { upTo: 3, step: 0.1 },
+  { upTo: Infinity, step: 0.05 },
+];
+
+// What `bees` bees are worth, walked one bee at a time so a bee that crosses a
+// threshold pays the slower rate for the rest of its step rather than the whole
+// of it — the curve has no jumps in it, wherever you land.
+export function beekeeperMult(bees = 0) {
+  let mult = BEEKEEPER_BASE;
+  for (let i = 0; i < bees; i++) {
+    const band = BEEKEEPER_BANDS.find(b => mult < b.upTo) ?? BEEKEEPER_BANDS[BEEKEEPER_BANDS.length - 1];
+    mult += band.step;
+  }
+  return Math.round(mult * 100) / 100;
+}
+
+// The card's own sentence, built from the bands so the writing can never drift
+// from the arithmetic: "+0.2 Mult per B, +0.1 past ×2, then +0.05 past ×3".
+export const beekeeperSteps = () => BEEKEEPER_BANDS
+  .map((b, i) => (i === 0
+    ? `+${b.step} Mult`
+    : `+${b.step} past ×${BEEKEEPER_BANDS[i - 1].upTo}`))
+  .join(', then ');
+
+export const BEEKEEPER_STEP     = 0.2;    // the first band's step — quoted on the card
+
+// ─── The Alderman's guilds ────────────────────────────────────────────────────
+// +Mult per guild flying a livery at your table, ADDED once per guild rather
+// than multiplied: four guilds are +2 Mult, not ×5. He used to multiply, and a
+// full table of liveries turned him into the whole run — the seat is paid for
+// BREADTH, and breadth should be worth a good deal without being worth
+// everything.
+export const ALDERMAN_STEP      = 0.5;
 export const ARSONIST_ODDS      = { paint: 0.10, burn: 0.01 };  // per tile played
 export const NUDIST_TRIM_CHANCE = 0.25;   // per bare letter in an all-bare word
 // A bare tile that misses the trim may still catch a colour — half the trim's
@@ -907,18 +961,25 @@ export const BLACK_MARKET_MINIMUM = 10;
 // rainbow reads as every colour at once and costs the most; hellbox iron is a
 // liability as much as a tile (it cannot be discarded) and is nearly given away.
 //
-// Blind emboss is the cheapest of the five, and honestly so: it carries no
-// effect of its own yet, so what the alley is selling is the METAL — the thing
-// The Silent Knight otherwise has to earn a silent letter to strike. Until it
-// does something, it is a curiosity at a curiosity's price, and the card says as
-// much rather than dressing it up.
+// Blind emboss shares the bottom of the list with hellbox iron, and no longer
+// because it does nothing: a word carrying one is never spiked, which is worth
+// a great deal on a Deadline page and nothing at all on the other two. A metal
+// that pays on one page in three is priced for one page in three.
 export const BLACK_MATERIAL_STOCK = {
-  rainbow: { max: 2, price: 13 },
-  ghost:   { max: 2, price: 11 },
-  rose:    { max: 2, price: 9 },
-  cursed:  { max: 2, price: 5 },
-  blind:   { max: 2, price: 3 },
+  rainbow: { max: 2, price: 5 },
+  ghost:   { max: 2, price: 4 },
+  rose:    { max: 2, price: 4 },
+  cursed:  { max: 2, price: 2 },
+  blind:   { max: 2, price: 2 },
 };
+
+// Nothing on the alley's table asks more than this, whatever it is made of and
+// however it is dressed. The surcharges above ride on a tile's own worth, and a
+// well-dressed tile in a rare metal used to reach the high teens — a price
+// nothing in the game is worth, and doubly so here, where getting through the
+// door cost a Colophon pick and BLACK_MARKET_MINIMUM in the purse. The ceiling
+// is the promise the alley makes: dear, never absurd.
+export const BLACK_TILE_MAX_PRICE = 12;
 
 // Punctuation, in lead under a purple trim — the same tile a wrapper holds, and
 // the only other door to one.
@@ -927,7 +988,7 @@ export const BLACK_MARK_PRICE = 7;
 // What the alley adds to an ordinary tile's list price, and to a patron's fee.
 // The patron markup rides on the seat's own data, so a dismissal pays back half
 // of what you ACTUALLY paid (patronRefund) rather than half of the list.
-export const BLACK_TILE_SURCHARGE  = 2;
+export const BLACK_TILE_SURCHARGE  = 1;
 export const BLACK_PATRON_MARKUP   = 4;
 // Ordinary black-market stock is never plainly dressed: two features minimum.
 export const BLACK_TILE_FEATURES   = 2;
@@ -1041,6 +1102,10 @@ export const KNOBS = {
 
   // Patron tuning
   CHILD_STEP, ABECEDARIAN_MULT, ESPALIER_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,
+  ALDERMAN_STEP,
+  // The Beekeeper's whole curve as one phrase, so his card can never drift from
+  // the bands: "+0.2 Mult, then +0.1 past ×2, then +0.05 past ×3".
+  BEEKEEPER_STEPS: beekeeperSteps(),
   ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS,
   SHORTHAIR_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
   PURVEYOR_STALLS:    PURVEYOR.stalls,

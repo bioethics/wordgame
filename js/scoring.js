@@ -2,6 +2,7 @@ import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, PURPLE_TRIM_STEP, REWARD, CURSED_MULT,
   CURSED_PENALTY, SPIKE_MULT, SILVER_BONUS, isDeadline, splitMarks, isRule, BOLD_MULT,
   HONORIFIC_STEP, LAUREATE_MULT_STEP, FLEURON, FLEURON_PAGE_COIN, lengthMult, POSTNOM,
+  ALDERMAN_STEP,
 } from './constants.js';
 import {
   PATRON_DEFS, patronById, guildsOf, guildSeats, resolveMedieval, hasSilence,
@@ -585,9 +586,11 @@ export function computeScore(wordTiles) {
   currentUid = null;
 
   // ── Pass 4½: the Alderman counts the guilds at his table ───────────────────
-  // One ×1.5 per guild represented on the shelf. Whether those patrons fired on
-  // this word doesn't matter, and a guild counts once however many wear its
-  // livery. He speaks after everyone else, so he multiplies the whole score.
+  // +ALDERMAN_STEP per guild represented on the shelf, ADDED once each rather
+  // than multiplied — four liveries are +2 Mult, not ×5. Whether those patrons
+  // fired on this word doesn't matter, and a guild counts once however many
+  // wear it. He speaks after everyone else, so what he adds is added to the
+  // finished multiplier.
   if (owns('alderman')) {
     // guildsOf, not .guild: a dual-livery patron flies two flags from one seat.
     const guilds = new Set();
@@ -595,9 +598,11 @@ export function computeScore(wordTiles) {
       for (const g of guildsOf(patronById(p.id))) guilds.add(g);
     }
     for (const g of guilds) {
-      mult *= 1.5;
+      mult += ALDERMAN_STEP;
       patronSteps.push({
-        id: 'alderman', text: `×1.5 Mult — the ${COLOURS[g].label} guild`, xmult: 1.5,
+        id: 'alderman',
+        text: `+${ALDERMAN_STEP} Mult — the ${COLOURS[g].label} guild`,
+        mult: ALDERMAN_STEP,
       });
     }
     if (guilds.size) mult = Math.round(mult * 1000) / 1000;
@@ -630,11 +635,21 @@ export function computeScore(wordTiles) {
     // rather than read. Asked BEFORE the judge, so a seat at the table is the
     // difference between a spike and a shrug — and asked of the same word the
     // dictionary saw, marks and medieval readings already resolved.
-    const unheard = owns('silentknight') && hasSilence(letters);
+    //
+    // Blind emboss argues the same case from the METAL rather than the seat: a
+    // sort struck into the paper carrying no ink is a letter the desk cannot
+    // see, and a word with one set into it is passed over. It is the one thing
+    // the metal does, and the reason to want it — The Silent Knight strikes
+    // them, the alley sells them, and either way what you are buying is a word
+    // the editor does not read. One blind tile in the word is enough.
+    const blind = wordTiles.some(t => t.material === 'blind');
+    const unheard = (owns('silentknight') && hasSilence(letters)) || blind;
     if (unheard) {
       patronSteps.push({
-        id: 'silentknight',
-        text: `The ${def.name.replace(/^The /, '')} never heard it — a silent letter`,
+        id: blind ? 'blind' : 'silentknight',
+        text: blind
+          ? `The ${def.name.replace(/^The /, '')} never saw it — a blind sort`
+          : `The ${def.name.replace(/^The /, '')} never heard it — a silent letter`,
         unheard: true,
       });
     }

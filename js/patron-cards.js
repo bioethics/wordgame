@@ -129,7 +129,7 @@ export const PATRON_CARDS = {
   },
   beekeeper: {
     name: 'The Beekeeper', emoji: '🐝', rarity: 'uncommon', cost: 6, guild: 'jade',
-    desc: '×1 Mult to begin with, raised by {BEEKEEPER_STEP} for good with every B you print.',
+    desc: '×1 Mult to begin with, raised for good with every B you print — {BEEKEEPER_STEPS}. The hive fills; it never quite stops.',
   },
   wordler: {
     name: 'The Wordler', emoji: '🟩', rarity: 'uncommon', cost: 7, guild: ['amber', 'jade'],
@@ -383,7 +383,7 @@ export const PATRON_CARDS = {
   },
   alderman: {
     name: 'The Alderman', emoji: '🎩', rarity: 'uncommon', cost: 7,
-    desc: '×1.5 Mult for each guild with a patron at your table.',
+    desc: '+{ALDERMAN_STEP} Mult for each guild with a patron at your table.',
   },
   calligrapher: {
     name: 'The Calligrapher', emoji: '✒️', rarity: 'common', cost: 7,
