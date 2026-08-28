@@ -381,11 +381,25 @@ foiled stock and names its letters, since the multiplier is nowhere in the
 description. It costs 3 Coins over the odds, half of which comes back if you
 dismiss it. `POSTNOM` in `js/constants.js`.
 
-**Misspellings** — two patrons forgive a word the dictionary turns away, and
-neither corrects it: what you set is what prints. *Titivillus* takes one wrong
-or transposed vowel (WIERD for WEIRD) if the word holds an azure letter; *the
-Skimmer* takes the middle letters in any order, provided first and last are
-right. Your book fills with misprints, which is the point of them.
+**Misspellings** — three patrons forgive a word the dictionary turns away, and
+none of them corrects it: what you set is what prints. *Titivillus* takes one
+wrong or transposed vowel (WIERD for WEIRD) if the word holds an azure letter;
+*the Skimmer* takes the middle letters in any order, provided first and last are
+right. *The Bloodless Bohemian Bookbinder* has two licences and they are one
+voice: he cannot say W, so a **V may be read as a W** (VORD stands as WORD, never
+the other way about), and any **run of O's may be read as any shorter run**, so a
+word may be howled to whatever length you like — BOB set as BOOOOOB, DOOM as
+DOOOOOOM. Since the word prints as you set it, every howled O counts for the
+measure, which turns a pile of cheap O tiles into a length engine and is the
+whole of why he is worth seven Coins. Your book fills with misprints, which is
+the point of them.
+
+He is also the one patron the Market will not offer you on request: he is
+**locked** until a ghost has turned up in the run — one dealt dead at the
+counter, one the Ripper made, one a merger left with nowhere to sit. A ghost
+calls a ghost. The condition lives on the behaviour as `locked()` and is read
+live, so the seat starts being dealt at the next spread; the Testing Chamber
+ignores the lock and prints the card's `unlockNote` beside it.
 
 **Compounds** — *the Binder* licenses a construction English makes freely: any
 two nouns set end to end count as a word, so DOOM and HAT make DOOMHAT (its
@@ -742,6 +756,8 @@ bigger step than the last and a built press has to multiply rather than add:
 | Rewards & interest | `js/constants.js` → `REWARD` |
 | Colophon roster, offer count, repeat cap, skip grant | `js/constants.js` → `UPGRADE_OFFERS`, `MAX_UPGRADE_REPEATS`, `SKIP_COIN_GRANT`; definitions in `js/upgrades.js` |
 | Everything the Generic can roll — triggers, weights, effects, epithets, faces, price | `js/patron-generic.js`, the whole file. `GENERIC_TRIGGERS_A/B` carry the weights, `GENERIC_EFFECTS` the `cost` each must be paired against |
+| How often the Serpent actually swallows the S | `js/constants.js` → `SERPENT_EAT_ODDS`. The ×2 is paid either way, so this is the whole of the bet; the card quotes it through the `SERPENT_EAT_CHANCE` knob and can never drift from it |
+| What unlocks a locked patron | the `locked()` predicate on its behaviour in `js/patrons.js` (read live off `state`, checked by every pool that deals a card), with the sentence explaining it on the card as `unlockNote` |
 | How often the Market offers each tier | `js/patrons.js` → `RARITY_WEIGHT` (`ubiquitous` is 3× `common`) |
 | Patron reaction odds | `js/constants.js` → `REACTION` (`floor`/`ceil` as fractions of the page's whole quota: silence below `floor`, a certainty at `ceil`); the lines themselves in `js/quips.js` — a flat array, add more any time |
 | How far a patron's asking price can drift | `js/constants.js` → `PATRON_HAGGLE` (`spread` Coins each way, `chance` per side) |

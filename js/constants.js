@@ -467,6 +467,14 @@ export const NICKS = {
   left:  { ...NICK_TEXT.left,  price: 3 },
 };
 
+// ─── The Serpent's appetite ───────────────────────────────────────────────────
+// The odds the S at the end of a word is swallowed. The ×2 is paid either way,
+// so this is the only thing standing between the seat and a flat tax on every
+// plural you own: at even money an S word stops being a road you never take and
+// becomes a bet you decide to run. Raise it towards 1 to make the seat greedier;
+// the ×2 does not move with it.
+export const SERPENT_EAT_ODDS = 0.5;
+
 // ─── The measure (the length multiplier) ──────────────────────────────────────
 // The one multiplier every press owns from its first page: the word itself.
 // LENGTH_MULT_MIN letters or more earns its own chip — ×LENGTH_MULT_BASE at the
@@ -1198,6 +1206,9 @@ export const KNOBS = {
   // Patron tuning
   CHILD_STEP, ABECEDARIAN_MULT, ESPALIER_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,
   ALDERMAN_STEP,
+  // "1-in-2", off the odds themselves, so the card can never quote a bet the
+  // snake doesn't run.
+  SERPENT_EAT_CHANCE: oddsText(SERPENT_EAT_ODDS),
   // The Beekeeper's whole curve as one phrase, so his card can never drift from
   // the bands: "+0.2 Mult, then +0.1 past ×2, then +0.05 past ×3".
   BEEKEEPER_STEPS: beekeeperSteps(),

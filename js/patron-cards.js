@@ -31,7 +31,10 @@
 // a new one.
 //
 // Optional, and rare: `unlisted` keeps a patron out of the Market's pool (the
-// cat is found, never sold), `stackable` lets you hold more than one copy,
+// cat is found, never sold), `unlockNote` is the sentence a LOCKED patron shows
+// in the Testing Chamber saying what opens it (the lock itself is a `locked()`
+// predicate on the behaviour, since a card holds no functions),
+// `stackable` lets you hold more than one copy,
 // `supersedes` lists the patrons this one replaces — holding it keeps them off
 // the Market too — and `portrait` takes a path to an image
 // ('img/patrons/scholar.png') to show on the calling card in place of the emoji.
@@ -221,7 +224,7 @@ export const PATRON_CARDS = {
   },
   serpent: {
     name: 'The Serpent', emoji: '🐍', rarity: 'uncommon', cost: 7, guild: 'crimson',
-    desc: 'Words ending in S get ×2 Mult. Also, the S is destroyed.',
+    desc: 'Words ending in S get ×2 Mult — and then, a {SERPENT_EAT_CHANCE} chance he swallows the S.',
   },
   mako: {
     name: 'The Shortfin Mako', emoji: '🦈', rarity: 'uncommon', cost: 6, guild: 'crimson',
@@ -318,6 +321,16 @@ export const PATRON_CARDS = {
   scholar: {
     name: 'The Grandiloquent', emoji: '📜', rarity: 'common', cost: 3,
     desc: '+10 points for words of 5+ letters.',
+  },
+  // The one seat the Market will not offer you until your run has met a ghost —
+  // `locked` on the behaviour in js/patrons.js, `unlockNote` here because it is
+  // copy. Prague-gothic and played straight: the cape, the coffin and the
+  // candelabra need no reconciling with a print shop, because the print shop is
+  // where he died.
+  bookbinder: {
+    name: 'The Bloodless Bohemian Bookbinder', emoji: '🧛', rarity: 'uncommon', cost: 7, guild: 'azure',
+    desc: 'He died at the case in Prague and never left it. He cannot say W, so a V stands in for one wherever a word wants it — and any O may be howled to any length, BOB set as BOOOOOB, every O of it counting for the measure.',
+    unlockNote: 'Calls only once a ghost has been seen in the run — a ghost calls a ghost.',
   },
   ditherer: {
     name: 'The Ditherer', emoji: '🤔', rarity: 'common', cost: 3, guild: 'azure',

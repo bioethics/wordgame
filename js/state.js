@@ -168,6 +168,7 @@ export const state = {
   luck: 1,             // scales every "good outcome" roll (see luckyRoll) — a future dial
   rackBonus: 0,        // hand size lent for the rest of THIS page (the Ragman's azure)
   primedMult: {},      // source id → ×Mult armed for the NEXT word (the Generic)
+  metGhost: false,     // has a ghost turned up in this run? (unlocks the Bookbinder)
   primed: {},          // source id → Points armed for the NEXT word (the tongs,
                        // the Winnower). Spent when a word prints, dropped at a
                        // page turn; scoring reads it so the preview shows it.
@@ -254,8 +255,17 @@ export const effectiveGhostSlots = () => effectivePatronSlots();
 export const makeGhost = seat => {
   (seat.data ??= {}).ghost = true;
   (state.ghosts ??= []).push(seat);
+  meetGhost();
   return seat;
 };
+
+// A run remembers having met a ghost, by whatever door — a seat killed into the
+// graveyard, a lover merged with nowhere to sit, or a calling card that came up
+// dead at the counter (js/market.js sets it there, since a card you were merely
+// SHOWN is still a meeting). One patron reads it: the Bookbinder is locked until
+// it turns. It lives on `state`, so it is a thing a run earns and the next run
+// has to earn again.
+export const meetGhost = () => { state.metGhost = true; };
 
 export const owns = id => allSeats().some(p => p.id === id);
 
@@ -443,6 +453,7 @@ export function loadState() {
     state.freeRerolls ??= 0;
     state.rackBonus ??= 0;
     state.primedMult ??= {};
+    state.metGhost ??= false;
     state.ghosts ??= [];
     state.blackMarketVisits ??= 0;
     if (savedId)  _nextId  = savedId;
@@ -476,7 +487,7 @@ export function newRun() {
     wordsLeft: WORDS_PER_PAGE, discards: DISCARDS_PER_PAGE,
     discardsMax: DISCARDS_PER_PAGE, wordsPrinted: 0,
     coins: STARTING_COINS, patrons: [], ghosts: [], sundries: [], upgradeCounts: {},
-    luck: 1, rackBonus: 0, primedMult: {}, ratchetDir: 1, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
+    luck: 1, rackBonus: 0, primedMult: {}, metGhost: false, ratchetDir: 1, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
     boss: null, bossesSeen: [],
     experiments: {},
     compost: [], compostPending: 0, freeRerolls: 0,
@@ -1272,7 +1283,7 @@ export function grantRandomPatron(defs, rarity = null) {
   if (state.patrons.length >= effectivePatronSlots()) return null;
   const held = new Set(allSeats().map(p => p.id));
   const spent = supersededIds(defs);
-  const pool = defs.filter(d => !d.unlisted && (d.stackable || !held.has(d.id))
+  const pool = defs.filter(d => !d.unlisted && !d.locked?.() && (d.stackable || !held.has(d.id))
                              && !spent.has(d.id)
                              && (!rarity || d.rarity === rarity));
   if (!pool.length) return null;

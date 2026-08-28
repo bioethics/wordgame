@@ -1,6 +1,6 @@
 import {
   state, adoptTemplate, shuffle, owns, allSeats, trashFromCollection, nextId,
-  effectivePatronSlots, effectiveSundrySlots, luckyRoll, makeGhost,
+  effectivePatronSlots, effectiveSundrySlots, luckyRoll, makeGhost, meetGhost,
   effectiveMarketStalls, effectiveMarketTiles, effectiveMarketPatrons,
   effectiveProposalRange,
   marryLovers, supersededIds, completesLovers,
@@ -153,6 +153,7 @@ function weightedPatronSample(n) {
   for (const def of PATRON_DEFS) {
     // A stackable patron is never crossed off — you can always be sold another.
     if (def.unlisted) continue;          // the cat is found, never sold
+    if (def.locked?.()) continue;        // …and one is not called until a ghost has been
     if (spent.has(def.id)) continue;
     if (ownedIds.has(def.id) && !def.stackable) continue;
     for (let i = 0; i < (RARITY_WEIGHT[def.rarity] ?? 1); i++) pool.push(def.id);
@@ -169,6 +170,9 @@ function weightedPatronSample(n) {
     // it rides luck like every other one. Being dead is part of the copy, so it
     // sits on `data` beside the postnom — that is what patronCost prices.
     const ghost = luckyRoll(GHOST_HIRE.odds);
+    // Being shown one is meeting one: the run remembers it whether or not the
+    // card is ever bought, which is what calls the Bookbinder to the counter.
+    if (ghost) meetGhost();
     const data = { ...rolled, ...(postnom ? { postnom } : {}), ...(haggle ? { haggle } : {}),
                    ...(ghost ? { ghost: true } : {}) };
     out.push({ id, sold: false, data: Object.keys(data).length ? data : null });

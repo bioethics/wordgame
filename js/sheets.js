@@ -1101,8 +1101,9 @@ function chamberPatronsHTML() {
         <div class="op-card-body">
           <div class="op-name">${esc(def.name)}</div>
           <div class="op-title">${def.rarity}${guilds.length ? ` · ${guilds.join(' & ')}` : ''}${
-            def.unlisted ? ' · unlisted' : ''}</div>
-          <div class="op-desc">${esc(def.desc)}</div>
+            def.unlisted ? ' · unlisted' : ''}${def.locked?.() ? ' · locked' : ''}</div>
+          <div class="op-desc">${esc(def.desc)}</div>${def.unlockNote
+            ? `<div class="op-desc op-desc--lock">🔒 ${esc(def.unlockNote)}</div>` : ''}
         </div>
         <div class="tc-patron-acts">
           <button class="btn-price" data-tc-seat="${def.id}">Seat</button>

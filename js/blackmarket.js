@@ -104,7 +104,8 @@ function rollTileOffers() {
 function rollPatronOffers() {
   const owned = new Set(allSeats().map(p => p.id));
   const pool = PATRON_DEFS.filter(def =>
-    def.rarity === 'rare' && !def.unlisted && (def.stackable || !owned.has(def.id)));
+    def.rarity === 'rare' && !def.unlisted && !def.locked?.()
+    && (def.stackable || !owned.has(def.id)));
 
   return shuffle(pool).slice(0, BLACK_PATRON_OFFERS).map(def => {
     // Per-copy state rolls here exactly as it does at the Market, so the card

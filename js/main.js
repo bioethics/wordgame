@@ -485,6 +485,65 @@ function titivillusPardon(letters) {
   return null;
 }
 
+// The Bloodless Bohemian Bookbinder's two licences, tried together because they
+// are one voice: the accent and the howl.
+//
+//   the accent — he cannot say W. Any V in the word may be READ as a W, each one
+//     independently, and it is one-directional: a W is always a W, so the licence
+//     never shortens the road to a word that has a V in it already.
+//   the howl — any run of O's may be read as any SHORTER run, down to one. Which
+//     is to say you may howl an O as long as you like and the word still stands:
+//     BOB set as BOOOOOB, DOOM as DOOOOOOM. It only ever collapses, so no O can
+//     be conjured that the word did not have, and the run has to be one run — the
+//     O's are adjacent, because a howl is.
+//
+// Neither correction is applied to the tiles: BOOOOOB prints as BOOOOOB and the
+// measure counts all seven letters of it, which is the whole of why the seat is
+// worth its price. `letters` never leaves this function.
+//
+// The search is every combination of both, which is 2^(V's) × the product of the
+// O-run lengths — a handful for any real word, and capped anyway, because a hand
+// of nine O's should cost the press nothing.
+const HOWL_CAP = 4096;
+function bookbinderPardon(letters) {
+  // Where the choices are: each V is read V or W, each run of O's is read at any
+  // length from one up to what was set.
+  const slots = [];
+  for (let i = 0; i < letters.length; i++) {
+    if (letters[i] === 'V') { slots.push({ at: i, len: 1, options: ['V', 'W'] }); continue; }
+    if (letters[i] !== 'O') continue;
+    let j = i;
+    while (letters[j + 1] === 'O') j += 1;
+    const run = j - i + 1;
+    if (run > 1) {
+      slots.push({ at: i, len: run, options: Array.from({ length: run }, (_, k) => 'O'.repeat(k + 1)) });
+    }
+    i = j;
+  }
+  if (!slots.length) return null;
+  const total = slots.reduce((n, s) => n * s.options.length, 1);
+  if (total > HOWL_CAP) return null;
+
+  // Walk the combinations as one mixed-radix counter, rebuilding the word from
+  // the slots each time. Every one is tried; the word as SET falls out somewhere
+  // in the middle and is the one skipped, the dictionary having already turned
+  // it away.
+  for (let n = 0; n < total; n++) {
+    let rest = n;
+    let out = '';
+    let at = 0;
+    for (const slot of slots) {
+      const choice = slot.options[rest % slot.options.length];
+      rest = Math.floor(rest / slot.options.length);
+      out += letters.slice(at, slot.at) + choice;
+      at = slot.at + slot.len;
+    }
+    out += letters.slice(at);
+    if (out !== letters && DICT.has(out)) return out;
+  }
+  return null;
+}
+
 // Any combination of the word's Zs may be read as S — a handful of lookups at
 // most. The tile is still a Z where it counts: it prints as Z and scores ten.
 function izzardPardon(letters) {
@@ -515,6 +574,7 @@ function binderPardon(letters) {
 // Haplographer's licence also feeds The Twins at scoring.)
 const PARDONS = [
   { id: 'izzard',       find: izzardPardon },
+  { id: 'bookbinder',   find: bookbinderPardon },
   { id: 'titivillus',   find: titivillusPardon },
   { id: 'haplographer', find: doubledReading },
   { id: 'skimmer',      find: scrambleMatch },
@@ -2467,8 +2527,11 @@ function openTheChamber() {
     }
   }
 
-  // Console access for tinkering & automated tests
-  window.folio = { state, settings };
+  // Console access for tinkering & automated tests. `pardonWord` is here because
+  // the excuses are the one set of rules with no module of their own — they need
+  // the dictionary, the themed lists and the rack all at once — and a rule you
+  // cannot ask a question of is a rule nobody checks.
+  window.folio = { state, settings, pardonWord };
 
   window.addEventListener('beforeunload', persist);
 })();

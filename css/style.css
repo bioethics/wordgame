@@ -4377,6 +4377,9 @@ button.sundry:hover { transform: translateY(-2px); }
   padding: 8px 9px;
 }
 .tc-patron--ubiquitous { border-left-color: #7c8a9c; }
+/* What opens a locked patron, said only in the Testing Chamber — a dev screen
+   has no business keeping secrets, and the Market gives nothing away. */
+.op-desc--lock { opacity: 0.72; font-style: italic; margin-top: 2px; }
 .tc-patron--common   { border-left-color: #7c8a9c; }
 .tc-patron--uncommon { border-left-color: #5d9ac0; }
 .tc-patron--rare     { border-left-color: #c09a4a; }

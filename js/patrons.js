@@ -132,6 +132,14 @@
 //
 // Optional `refundBonus(data)`: extra Coins this seat's dismissal pays on top
 // of the standard half-cost — read by patronRefund in market.js.
+//
+// Optional `locked()`: while it returns true the patron is out of every pool
+// that deals a card — the Market's counter, the Black Market's, the love
+// potion's — as though it were `unlisted`, and it starts being dealt the moment
+// the condition turns. Read live off `state`, never cached, so a run that meets
+// the condition mid-Market is offered the seat at the next deal. The Testing
+// Chamber ignores it and lists the patron anyway, with the card's `unlockNote`
+// beside it: a dev screen has no business keeping secrets.
 
 import {
   GRAFTER_STEP, STOKER_BASE, STOKER_STEP, beekeeperMult, ARSONIST_ODDS,
@@ -147,7 +155,7 @@ import {
   medievalExpansions, POSTNOM, GHOST_HIRE, USURER,
   PRINCE, princeMult,
   WORDLER,
-  WINNOWER_BONUS,
+  WINNOWER_BONUS, SERPENT_EAT_ODDS,
   LOVERS,
 } from './constants.js';
 import {
@@ -1535,8 +1543,43 @@ const PATRON_BEHAVIOURS = [
       // The last tile that is an S and nothing else: marks trailing it are
       // skipped, a ligature ending in S is left alone.
       const last = [...tiles].reverse().find(t => !isMark(getActiveLetter(t)));
-      if (!last || getActiveLetter(last) !== 'S' || !burn(last)) return null;
+      if (!last || getActiveLetter(last) !== 'S') return null;
+      // He strikes at SERPENT_EAT_ODDS and misses the rest of the time — and the
+      // ×2 is already paid, so what the seat asks is a bet rather than a toll.
+      // Not a luckyRoll: keeping the S is the good outcome, so the luck dial
+      // rides on the ESCAPE, which is the one the player would wish for.
+      if (luckyRoll(1 - SERPENT_EAT_ODDS)) return { note: 'the S wriggles free' };
+      if (!burn(last)) return null;
       return { note: 'the S swallowed', burned: [last] };
+    },
+  },
+  {
+    // Two licences, one voice, both of them spent at the dictionary check in
+    // main.js (bookbinderPardon) — so like every other excuse in the game the
+    // word PRINTS as you set it. That is not a detail here, it is the engine:
+    // BOOOOOB prints as seven letters and the measure counts all seven, which
+    // turns a howl into a length multiplier and a pile of cheap O tiles into a
+    // build. The accent is the cheaper half and the one that saves a hand — a V
+    // for a W wherever the word wants one.
+    //
+    // He is `locked` until the run has met a ghost. Nothing about the seat cares
+    // which ghost or how: a card dealt dead at the counter, a patron the Ripper
+    // took, a lover merged with nowhere to sit. state.metGhost is set at those
+    // doors (makeGhost in js/state.js, the Market's deal in js/market.js) and
+    // cleared with the run, so this is a thing a run earns rather than a thing
+    // an account unlocks.
+    id: 'bookbinder',
+    when: 'meta',       // the licences are read at the dictionary check
+    locked: () => !state.metGhost,
+    instShelf: () => 'Bookbinder',
+    popover() {
+      const row = (head, body) =>
+        `<div class="gen-term"><span class="gen-term-head">${head}</span>${body}</div>`;
+      return `<div class="gen-terms">`
+        + row('accent', 'a V may be read as a W — VORD stands as WORD. Never the other way about.')
+        + row('howl', 'a run of O’s may be read as any shorter run — BOOOOOB stands as BOB.')
+        + row('and', 'the word still prints as you set it, so every howled O counts for the measure.')
+        + `</div>`;
     },
   },
   {
