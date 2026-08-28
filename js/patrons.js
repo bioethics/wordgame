@@ -1109,6 +1109,20 @@ const PATRON_BEHAVIOURS = [
     },
   },
   {
+    // The Factor's flat cousin, and the cheap way in: one free re-roll, banked
+    // every page, where the Factor's count is whatever amber the hand ended
+    // with. They stack — both write into state.freeRerolls — and both expire
+    // when that Market closes (closeMarket in js/market.js), because a credit
+    // with a stallholder is a credit with THIS fair. Which is the whole of what
+    // the seat is: a page's worth of indecision, paid for by the stall.
+    id: 'ditherer',
+    when: 'meta',
+    onPageComplete({ state }) {
+      state.freeRerolls = (state.freeRerolls ?? 0) + 1;
+      return { note: 'a free re-roll banked' };
+    },
+  },
+  {
     // ONE forged sort a page, chosen off a plate of the whole case. It spells
     // and does nothing else — worth no Points, and nothing can be written on it
     // (spellsOnly and isImmutable in js/state.js) — so what it buys is LENGTH,
@@ -2104,15 +2118,11 @@ const PATRON_BEHAVIOURS = [
     effect({ word, xMult }) { if (inTheme('verbs', word)) xMult(2); },
   },
 
-  // ── Misspellings · the four excuses ─────────────────────────────────────────
-  // Titivillus (azure) forgives anything a vowel can do wrong; these three
-  // forgive the consonants their oldest slips. All four are consulted at the
-  // dictionary check in main.js, and the word prints exactly as you set it,
-  // misspelling and all. Only the Haplographer also touches the score.
-  {
-    id: 'stumbler',
-    when: 'meta',
-  },
+  // ── Misspellings · the three excuses ────────────────────────────────────────
+  // Titivillus (azure) forgives anything a vowel can do wrong; these two forgive
+  // the consonants their oldest slips. All three are consulted at the dictionary
+  // check in main.js, and the word prints exactly as you set it, misspelling and
+  // all. Only the Haplographer also touches the score.
   {
     // Haplography: writing once what ought to be written twice. The licence
     // cuts both ways from one rule — see licencedIndex at the top of the file.

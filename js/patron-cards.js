@@ -319,9 +319,9 @@ export const PATRON_CARDS = {
     name: 'The Grandiloquent', emoji: '📜', rarity: 'common', cost: 3,
     desc: '+10 points for words of 5+ letters.',
   },
-  stumbler: {
-    name: 'The Stumbler', emoji: '🥾', rarity: 'common', cost: 3,
-    desc: 'Words are accepted with one pair of adjacent letters swapped (e.g., TEH counts as THE).',
+  ditherer: {
+    name: 'The Ditherer', emoji: '🤔', rarity: 'common', cost: 3, guild: 'azure',
+    desc: 'Never buys the first thing they see. Every page ends with a free re-roll banked for that page’s Market.',
   },
   copyist: {
     name: 'The Copyist', emoji: '📑', rarity: 'common', cost: 4,

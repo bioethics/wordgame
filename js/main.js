@@ -485,17 +485,6 @@ function titivillusPardon(letters) {
   return null;
 }
 
-// Any two neighbours changing places — TEH for THE. Unlike The Skimmer, this
-// one can reach the ends of the word.
-function stumblerPardon(letters) {
-  for (let i = 0; i < letters.length - 1; i++) {
-    if (letters[i] === letters[i + 1]) continue;
-    const fixed = letters.slice(0, i) + letters[i + 1] + letters[i] + letters.slice(i + 2);
-    if (DICT.has(fixed)) return fixed;
-  }
-  return null;
-}
-
 // Any combination of the word's Zs may be read as S — a handful of lookups at
 // most. The tile is still a Z where it counts: it prints as Z and scores ten.
 function izzardPardon(letters) {
@@ -527,7 +516,6 @@ function binderPardon(letters) {
 const PARDONS = [
   { id: 'izzard',       find: izzardPardon },
   { id: 'titivillus',   find: titivillusPardon },
-  { id: 'stumbler',     find: stumblerPardon },
   { id: 'haplographer', find: doubledReading },
   { id: 'skimmer',      find: scrambleMatch },
   { id: 'binder',       find: binderPardon },
@@ -2427,9 +2415,20 @@ function openTheChamber() {
   const restored = loadState();
   // A seat whose patron no longer exists is dropped rather than carried: an old
   // save would otherwise hand the shelf an id nothing answers to, which the
-  // board cannot draw.
-  const orphaned = restored ? state.patrons.filter(p => !patronById(p.id)).length : 0;
-  if (orphaned) state.patrons = state.patrons.filter(p => patronById(p.id));
+  // board cannot draw. The graveyard and the Market's counter are culled with
+  // it — a retired patron can be waiting on a saved card as easily as sitting
+  // at the table, and a calling card with no patron behind it is the same crash.
+  let orphaned = 0;
+  if (restored) {
+    const known = list => list.filter(p => patronById(p.id));
+    orphaned = state.patrons.length + state.ghosts.length - known(state.patrons).length
+             - known(state.ghosts).length;
+    state.patrons = known(state.patrons);
+    state.ghosts  = known(state.ghosts);
+    if (restored.market?.patronOffers) {
+      restored.market.patronOffers = restored.market.patronOffers.filter(o => patronById(o.id));
+    }
+  }
 
   if (!restored) {
     await startFreshRun();

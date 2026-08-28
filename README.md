@@ -381,10 +381,9 @@ foiled stock and names its letters, since the multiplier is nowhere in the
 description. It costs 3 Coins over the odds, half of which comes back if you
 dismiss it. `POSTNOM` in `js/constants.js`.
 
-**Misspellings** — three patrons forgive a word the dictionary turns away, and
-none of them correct it: what you set is what prints. *Titivillus* takes one
-wrong or transposed vowel (WIERD for WEIRD) if the word holds an azure letter;
-*the Stumbler* takes one pair of adjacent letters swapped (TEH for THE); *the
+**Misspellings** — two patrons forgive a word the dictionary turns away, and
+neither corrects it: what you set is what prints. *Titivillus* takes one wrong
+or transposed vowel (WIERD for WEIRD) if the word holds an azure letter; *the
 Skimmer* takes the middle letters in any order, provided first and last are
 right. Your book fills with misprints, which is the point of them.
 
