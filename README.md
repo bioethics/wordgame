@@ -291,8 +291,13 @@ is collected as *itself*, because þ stands for TH but is a letter in its own
 right; the interrobang is the one exception, physically cut from a `?` and a `!`
 and so filling all three places at once.
 
-**The case quickens as it fills**: +0.05 a sort, +0.1 past fifteen, +0.15 past
-thirty, so a complete case is **+4.5 Mult**. That shape is the Beekeeper's read
+**The case quickens as it fills**: +0.03 a sort, +0.05 past fifteen, +0.08 past
+thirty, so a complete case is **+2.4 Mult** — the top of what any single seat
+pays, which is where the hardest collection in the game belongs and no further.
+(The early rate is under the flat +0.05 this seat used to pay, and that is not a
+nerf by stealth: the case counts SORTS now, so a ligature or a mark fills a
+place a letter alone used to, and the first dozen come in faster than they ever
+did.) That shape is the Beekeeper's read
 backwards — the hive slows, the case quickens, and both walk the same band table
 (`walkBands` in `js/constants.js`). It is the right way round for a collection,
 because a collection's last places are its dearest by construction: the alphabet

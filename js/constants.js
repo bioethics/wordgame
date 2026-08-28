@@ -788,12 +788,21 @@ export const CHILD_STEP         = 1;
 // hunting, which is what the seat is FOR.
 //
 // The case is 45 places and the bands fall on its thirds, so the sentence stays
-// short: +0.05 a sort, +0.1 past fifteen, +0.15 past thirty. A complete case is
-// +4.5 Mult, and it is the hardest thing in the game to finish.
+// short: +0.03 a sort, +0.05 past fifteen, +0.08 past thirty. A complete case is
+// +2.4 Mult — the top of the range any single seat pays, which is where the
+// hardest collection in the game belongs, and no further. (It was briefly
+// +4.5, on bands of 0.05/0.1/0.15. That was not a top-tier seat, it was the
+// whole run: an additive +4.5 lands as a ×5.5 on everything the table has said
+// in front of it.)
+//
+// The early rate is lower than the flat +0.05 this seat used to pay, and that
+// is right rather than a nerf by stealth: the case counts SORTS now, so a
+// ligature or a mark fills a place that a letter alone used to, and the first
+// dozen places come in faster than they ever did.
 export const ABECEDARIAN_BANDS = [
-  { upTo: 15, step: 0.05 },
-  { upTo: 30, step: 0.1 },
-  { upTo: Infinity, step: 0.15 },
+  { upTo: 15, step: 0.03 },
+  { upTo: 30, step: 0.05 },
+  { upTo: Infinity, step: 0.08 },
 ];
 
 // What a case of `sorts` sorts is worth. Read by count, so each place is worth
