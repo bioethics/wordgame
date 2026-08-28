@@ -19,7 +19,7 @@ import {
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
   REACTION, NEOLOGIST_LENGTH, MATERIALS, TRIMS, WRAPPED_CONTENTS, MARK_TRIM,
-  chapterLabel, COLOURS, MULT_TRACKS, NICKS, splitMarks, isDeadline,
+  chapterLabel, COLOURS, MULT_TRACKS, splitMarks, isDeadline,
   FLEURON, TOOLBOX_POOL, HONORIFIC_STEP, TONGS_BONUS, LOUPE_CAP, RIPPER_WORDS, sundryTip, TOOL_LOOK,
   PACKAGES, APPLICATORS, SILVER_BONUS, BAG_COUNTS,
   lengthFlourish, medievalExpansions, USURER, BRIBRARIAN, bribeMult, isRule, RULE,
@@ -977,16 +977,19 @@ async function submitWord() {
     await sleep(ANIM.stepTile);
   }
 
-  // ── Pass 2: nicks multiply their targets ───────────────────────────────────
+  // ── Pass 2: nicks read one side of the word ────────────────────────────────
+  // The reading runs outward from the nick — each tile it counts flashes its own
+  // figure — and the sum lands back on the nick, which is where the Points go.
   for (const nick of script.nickSteps) {
     const src = wordTileEl(nick.sourceId);
     if (src) pulse(src, 'tile--nick-firing', 480);
     sfx.aura();
     for (const hit of nick.hits) {
       const el = wordTileEl(hit.id);
-      if (el) { pulse(el, 'tile--nick-hit', 460); floatText(el, `×${NICKS[nick.kind].mult}`, 'fl-aura'); }
-      pointsSoFar += hit.delta;
+      if (el) { pulse(el, 'tile--nick-hit', 460); floatText(el, `${hit.delta}`, 'fl-aura'); }
     }
+    if (src) floatText(src, `+${nick.points}`, 'fl-aura', { dy: -74 });
+    pointsSoFar += nick.points;
     tweenNum(ro.points, pointsSoFar);
     await sleep(ANIM.stepNick);
   }

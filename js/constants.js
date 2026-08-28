@@ -449,15 +449,21 @@ export const TRIMS = {
 export const PURPLE_TRIM_STEP = 0.5;
 
 // ─── Nicks (a notch cut out of one edge of the tile) ──────────────────────────
-// Nicks do not stack: a letter is multiplied at most once however many nicks
-// point at it, and where two compete the earlier tile in the word claims it.
-// Keep the multiplier low — a nick reaches across every letter on one side of it,
-// so its value grows with the word where a trim's stays put, and patron tile
-// bonuses (see the tileBonus pass in scoring.js) go through it as well.
-export const NICK_MULT = 2;
+// A nick reads every tile on the side it points to and adds their Points to its
+// own — so a right nick on the first letter scores the rest of the word twice,
+// and a left nick on a trailing ‽ reaches back over everything before it. Patron
+// tile bonuses (the tileBonus pass in scoring.js) are on the tiles by then, so
+// they are read too.
+//
+// Nicks DO stack, and are meant to: two of them each read their own side and
+// each take their own sum. What stops that compounding away is the resting rule
+// — a tile that carries a nick of its own is read at its RESTING value, the
+// number it wears in the hand (face + growth + a silver trim, restingPoints in
+// js/state.js). So a nick never reads another nick's winnings, only the tile
+// underneath, and a row of nicks adds up instead of multiplying up.
 export const NICKS = {
-  right: { ...NICK_TEXT.right, mult: NICK_MULT, price: 3 },
-  left:  { ...NICK_TEXT.left,  mult: NICK_MULT, price: 3 },
+  right: { ...NICK_TEXT.right, price: 3 },
+  left:  { ...NICK_TEXT.left,  price: 3 },
 };
 
 // ─── The measure (the length multiplier) ──────────────────────────────────────
@@ -1176,7 +1182,7 @@ export function sundryTip(s) {
 
 export const KNOBS = {
   // Tiles and their finery
-  SILVER_BONUS, PURPLE_TRIM_STEP, NICK_MULT, LENGTH_MULT_MIN, LENGTH_MULT_BASE,
+  SILVER_BONUS, PURPLE_TRIM_STEP, LENGTH_MULT_MIN, LENGTH_MULT_BASE,
   CURSED_MULT, CURSED_PENALTY, LOUPE_CAP, TONGS_BONUS, WASH_COUNT,
   GHOST_METAL: MATERIALS.ghost.metal.toLowerCase(),
 

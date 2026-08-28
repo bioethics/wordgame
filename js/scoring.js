@@ -1,5 +1,5 @@
 import {
-  TILE_POINTS, TRIMS, NICKS, COLOURS, PURPLE_TRIM_STEP, REWARD, CURSED_MULT,
+  TILE_POINTS, TRIMS, COLOURS, PURPLE_TRIM_STEP, REWARD, CURSED_MULT,
   CURSED_PENALTY, SPIKE_MULT, SILVER_BONUS, isDeadline, splitMarks, isRule, BOLD_MULT,
   HONORIFIC_STEP, LAUREATE_MULT_STEP, FLEURON, FLEURON_PAGE_COIN, lengthMult, POSTNOM,
   ALDERMAN_STEP,
@@ -10,7 +10,7 @@ import {
 import { bossById } from './bosses.js';
 import {
   state, owns, allSeats, getActiveLetter, getActiveColour, getActiveGrowth,
-  returnsToBag, isWrapped, spellsOnly,
+  returnsToBag, isWrapped, spellsOnly, restingPoints,
 } from './state.js';
 
 // ─── Score a word ─────────────────────────────────────────────────────────────
@@ -41,8 +41,10 @@ import {
 //                     them while the word is still being composed
 //   tileBoostSteps: [{ id, uid, emoji, points, hits: [{ id, delta }] }]
 //   tileGrowth:     Set(id) — tiles whose boost is permanent growth
-//   nickSteps:      [{ sourceId, kind, mult, hits: [{ id, delta }] }]
-//   nickAffected:   Map(id → mult) — for the live preview
+//   nickSteps:      [{ sourceId, kind, points, hits: [{ id, delta }] }]
+//                     — `points` is what the nick took; `hits` are the tiles it
+//                     read, each with what it was worth to the reading
+//   nickGains:      Map(id → points) — for the live preview
 //   colourSteps:    [{ colour, ids, count, mult }] — incl. 'length', 'purple', 'cursed'
 //   patronSteps:    [{ id, uid, text, points?, mult?, xmult?, running? }]
 //   perTile:        Map(id → { final, parts[] }) — for tooltips
@@ -267,9 +269,9 @@ export function computeScore(wordTiles) {
   // An echoing patron doesn't just double what its letters are worth — the
   // whole tile prints again: gold pays a second Coin, cobalt buys a second
   // refresh, paint, purple and cursed all count twice. `echo[i]` is how many
-  // times tile i counts, doubling per matching seat. The one thing an echo
-  // can't repeat is the nick: nicks don't stack, so a second reading finds
-  // every target already claimed.
+  // times tile i counts, doubling per matching seat. A nick's winnings land on
+  // its own tile in pass 2, before the echo doubles it in pass 2½ — so an echoed
+  // nick reads its side once and is paid for it twice.
   const echoSeats = allSeats().filter(p => patronById(p.id)?.tileEcho);
   const echo = wordTiles.map(t => echoSeats.reduce(
     (n, p) => patronById(p.id).tileEcho(t, p.data ?? {}, wordTiles) ? n * 2 : n, 1));
@@ -345,31 +347,46 @@ export function computeScore(wordTiles) {
   }
   tileSteps.forEach((step, i) => { step.points = contrib[i]; });
 
-  // ── Pass 2: nicks multiply their targets ──────────────────────────────────
-  // Nicks don't stack: each letter is multiplied at most once however many
-  // nicks point at it. Earlier tiles claim their targets first, so a second
-  // nick covering the same ground does nothing.
+  // ── Pass 2: nicks read one side of the word ───────────────────────────────
+  // A nick adds up every tile on the side it points to and takes that much for
+  // itself. Nothing is taken away from the tiles it reads — the Points are
+  // scored a second time, on the nick.
+  //
+  // What each tile is worth to a reading nick is fixed BEFORE any nick pays, in
+  // `readAs`, and that is the whole of the stacking rule:
+  //
+  //   • an ordinary tile is read at its full value here — face, growth, silver,
+  //     a tongs grip, whatever the patrons have just written onto it;
+  //   • a tile that carries a nick of its own is read at its RESTING value, the
+  //     number it wears in the hand.
+  //
+  // So nicks stack — two of them each read their own side and each take their
+  // own sum — but no nick ever reads another nick's winnings, and a row of them
+  // adds up instead of multiplying up. Reading order stops mattering too: every
+  // sum is drawn from the same frozen list, so a left nick and a right nick
+  // facing each other give the same answer whichever pays first.
+  const readAs = wordTiles.map((t, i) => (t.nick ? restingPoints(t) : contrib[i]));
   const nickSteps = [];
-  const nickAffected = new Map();
-  const claimed = new Set();
+  const nickGains = new Map();
   wordTiles.forEach((t, i) => {
     if (!t.nick) return;
     const targets = [];
     if (t.nick === 'right') for (let j = i + 1; j < n; j++) targets.push(j);
     if (t.nick === 'left')  for (let j = 0; j < i; j++)     targets.push(j);
 
-    const m = NICKS[t.nick]?.mult ?? 1;
     const hits = [];
+    let gain = 0;
     for (const j of targets) {
-      if (claimed.has(j)) continue;
-      claimed.add(j);
-      const delta = contrib[j] * (m - 1);
-      contrib[j] *= m;
-      noteMap[j].push(`×${m} nick`);
-      nickAffected.set(wordTiles[j].id, m);
-      if (delta > 0) hits.push({ id: wordTiles[j].id, delta });
+      const delta = readAs[j];
+      if (delta <= 0) continue;
+      gain += delta;
+      hits.push({ id: wordTiles[j].id, delta });
     }
-    if (hits.length) nickSteps.push({ sourceId: t.id, kind: t.nick, mult: m, hits });
+    if (!gain) return;
+    contrib[i] += gain;
+    noteMap[i].push(`+${gain} — nick`);
+    nickGains.set(t.id, gain);
+    nickSteps.push({ sourceId: t.id, kind: t.nick, points: gain, hits });
   });
 
   // ── Pass 2½: patrons whose chosen letters score again ─────────────────────
@@ -688,7 +705,7 @@ export function computeScore(wordTiles) {
 
   return {
     word, letters, points, mult, total, coins, refresh, spiked, plainTotal, adjusted, bold,
-    tileSteps, tilePaintSteps, tilePaint, tileBoostSteps, tileGrowth, nickSteps, nickAffected,
+    tileSteps, tilePaintSteps, tilePaint, tileBoostSteps, tileGrowth, nickSteps, nickGains,
     colourSteps, patronSteps, perTile,
     twinSteps: twin.steps, twinCloned: twin.cloned, twinSummons: twin.summons,
     twinPairMarks: twin.marks,

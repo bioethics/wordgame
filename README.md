@@ -69,7 +69,7 @@ long-press on touch, wherever the thing appears. Nothing is summarised beneath
 market cards. What a sundry does is written once, in `js/text.js` →
 `SUNDRY_TEXT`, and looked up through `sundryTip` in `js/constants.js`. On print the score replays in the order it happens: *the Twins*
 recast the doubled pairs, patrons write bonuses onto the tiles, the tiles pay,
-nicks fire, each colour's multiplier lights, and the patrons weigh in seat by
+the nicks read their side, each colour's multiplier lights, and the patrons weigh in seat by
 seat.
 
 ### Seat order
@@ -86,7 +86,7 @@ Points that care.)
 
 Two things happen before the table speaks. Patrons whose promise reads
 *"such-and-such tiles gain +N Points"* write that number onto the tile itself,
-so **the nicks and the Monogrammists multiply it**; where it is written in for
+so **the nicks read it and the Monogrammists double it**; where it is written in for
 keeps the groove shows it in **jade** rather than brass. And the tongs' heat and
 the toll for a curse left in hand land first, so any multiplier seated at all
 catches them.
@@ -198,7 +198,7 @@ plus an optional **trim** and **nick**.
 | --- | --- |
 | Paint | crimson / azure / jade / amber — each raises its colour's multiplier by 1 |
 | Trim | **Gold** pays 1 Coin · **Silver** +5 Points, counted into the tile's corner number wherever it appears · **Cobalt** refreshes 1 Discard · **Purple** raises the fifth multiplier by 0.5 |
-| Nick | A notch in one edge; the notched side is the direction. **Right** ×2 Points to everything on its right · **Left** ×2 to its left. Nicks don't stack — a tile is multiplied once at most. While you compose, an affected tile's corner number shows the multiplied value |
+| Nick | A notch in one edge; the notched side is the direction. The nick reads every tile on that side and **adds their Points to its own** — a right nick on the first letter scores the rest of the word twice over. Nicks *do* stack, but a tile that carries a nick of its own is read at its **resting value** (the number it wears in the hand), so no nick ever reads another nick's winnings. While you compose, the nicked tile's corner number already shows what it will take |
 | Letterform | Dual tiles hold two letters (flip to switch; paint, trim and nick belong to the tile, so both faces wear them) · Ligatures ING · CH · CK · TH · WH · QU spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Medieval sorts** þ · ȝ · Æ · Ƿ and **marks** ? · ! — below · the lone **Q**, which no bag holds and no shop sells: the ratchet is the only door to one |
 | Material | What the tile is cast from, under everything else: ordinary lead, or **cursed** / **ghost** / **rainbow** / **rose** / **blind** |
 | Growth | Permanent +1s a patron (The Grafter) writes into a tile, worn as a jade corner number |
@@ -685,7 +685,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Letters only one patron can hand you | `js/constants.js` → `EXCLUSIVE_LETTERS` (RAT belongs to the Rat Catcher; shop, draft and heap all skip them) |
 | Compost heap size & what you may take a visit | `js/constants.js` → `COMPOST_HEAP_MAX`, `COMPOST_PER_MARKET` |
 | Purple trim step size | `js/constants.js` → `PURPLE_TRIM_STEP` |
-| Nick multiplier & prices | `js/constants.js` → `NICK_MULT`, `NICKS` |
+| Nick prices & the resting rule | `js/constants.js` → `NICKS`; the reading itself is pass 2 in `js/scoring.js` |
 | The length multiplier — threshold, base, step, and the milestone copy | `js/constants.js` → `LENGTH_MULT_MIN`, `LENGTH_MULT_BASE`, `LENGTH_MULT_STEP`, `LENGTH_FLOURISHES` |
 | Tube price / tiles per tube / workbench slots / sell-back | `js/constants.js` → `TUBE_PRICE`, `TUBE_TILES`, `SUNDRY_SLOTS`, `SUNDRY_SELL` |
 | Reshuffle sundry price | `js/constants.js` → `RESHUFFLE_PRICE` |
@@ -696,7 +696,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Tool tuning — doubling cap, laurel step, tongs bonus, wash count | `js/constants.js` → `LOUPE_CAP`, `HONORIFIC_STEP`, `TONGS_BONUS`, `WASH_COUNT` |
 | What a laurel is worth in Mult while The Laureate is seated | `js/constants.js` → `LAUREATE_MULT_STEP`. Paid in `js/scoring.js` pass 4 beside the laurel's Points; the badge copy is `laurelWorth` in `js/patrons.js`, which the shelf, the graveyard and the Market's shelf strip all read |
 | Where the patrons' turns happen, and what a ×Mult reaches | `js/scoring.js` → pass 4. Points that must be multiplied by the table have to land before it (the tongs' heat and the curse's toll do, in pass 3½) |
-| Patrons that improve the tiles rather than the word | `js/patrons.js` → the `tileBonus` hook (pass 1½ in `js/scoring.js`); the number goes onto the tile, so nicks and Monogrammists carry it |
+| Patrons that improve the tiles rather than the word | `js/patrons.js` → the `tileBonus` hook (pass 1½ in `js/scoring.js`); the number goes onto the tile, so nicks read it and Monogrammists carry it |
 | Patrons that PAINT a tile rather than pay it | `js/patrons.js` → the `tilePaint` hook (pass ½ in `js/scoring.js`, before anything is counted). The colour lands on a copy of the word, so the multipliers count it and the groove shows it under a dashed edge while you compose; the seat's own `onPrinted` makes it permanent when the word prints |
 | The fleuron — price, page rent, how often it is offered | `js/constants.js` → `FLEURON_PRICE`, `FLEURON_PAGE_COIN`, `FLEURON_OFFER_CHANCE` (the glyph itself is `FLEURON`) |
 | Stall roster, base prices, spread size | `js/constants.js` → `STALL_DEFS`, `STALLS_PER_SHOP`, `PROPOSAL_RANGE`, `SMELT_MIN_COLLECTION` |

@@ -279,8 +279,12 @@ export const TRIM_TEXT = {
 
 // ─── Nicks (a notch cut out of one edge) ──────────────────────────────────────
 export const NICK_TEXT = {
-  right: { label: 'Right nick', desc: '×{NICK_MULT} Points to every tile on its right.' },
-  left:  { label: 'Left nick',  desc: '×{NICK_MULT} Points to every tile on its left.' },
+  right: { label: 'Right nick',
+           desc: 'Scores again every tile on its right — their Points are added to this one. '
+               + 'A nicked tile among them counts only the number it wears in the hand.' },
+  left:  { label: 'Left nick',
+           desc: 'Scores again every tile on its left — their Points are added to this one. '
+               + 'A nicked tile among them counts only the number it wears in the hand.' },
 };
 
 // ─── Colours (tile paint) ─────────────────────────────────────────────────────
