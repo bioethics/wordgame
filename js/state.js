@@ -167,6 +167,7 @@ export const state = {
   ratchetDir: 1,       // which way an armed ratchet is pointing: +1 later, -1 earlier
   luck: 1,             // scales every "good outcome" roll (see luckyRoll) — a future dial
   rackBonus: 0,        // hand size lent for the rest of THIS page (the Ragman's azure)
+  primedMult: {},      // source id → ×Mult armed for the NEXT word (the Generic)
   primed: {},          // source id → Points armed for the NEXT word (the tongs,
                        // the Winnower). Spent when a word prints, dropped at a
                        // page turn; scoring reads it so the preview shows it.
@@ -441,6 +442,7 @@ export function loadState() {
     state.compostPending ??= 0;
     state.freeRerolls ??= 0;
     state.rackBonus ??= 0;
+    state.primedMult ??= {};
     state.ghosts ??= [];
     state.blackMarketVisits ??= 0;
     if (savedId)  _nextId  = savedId;
@@ -474,7 +476,7 @@ export function newRun() {
     wordsLeft: WORDS_PER_PAGE, discards: DISCARDS_PER_PAGE,
     discardsMax: DISCARDS_PER_PAGE, wordsPrinted: 0,
     coins: STARTING_COINS, patrons: [], ghosts: [], sundries: [], upgradeCounts: {},
-    luck: 1, rackBonus: 0, ratchetDir: 1, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
+    luck: 1, rackBonus: 0, primedMult: {}, ratchetDir: 1, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
     boss: null, bossesSeen: [],
     experiments: {},
     compost: [], compostPending: 0, freeRerolls: 0,
@@ -531,6 +533,7 @@ export function startPage() {
   // anything — clear them rather than leave dangling ids around.
   for (const s of state.sundries ?? []) s.offer = null;
   state.primed    = {};   // a page turn lets the furnace's heat out
+  state.primedMult = {};  // and takes back anything armed against a word never printed
   state.rackBonus = 0;    // and takes back any hand the Ragman widened
   rollGamble();
 }
@@ -778,6 +781,17 @@ export function trimTile(tile, kind) {
   tile.trim = kind;
   const tmpl = state.collection.find(c => c.tid === tile.tid);
   if (tmpl) tmpl.trim = kind;
+  return true;
+}
+
+// A notch cut into one edge, written through to the collection template like a
+// trim — the Dresser's trade, done by a patron instead. One nick to an edge and
+// no second: a tile that already carries one refuses.
+export function nickTile(tile, kind) {
+  if (tile.nick || isImmutable(tile)) return false;
+  tile.nick = kind;
+  const tmpl = state.collection.find(c => c.tid === tile.tid);
+  if (tmpl) tmpl.nick = kind;
   return true;
 }
 
@@ -1241,6 +1255,17 @@ export function primePoints(source, n) {
   state.primed ??= {};
   state.primed[source] = (state.primed[source] ?? 0) + n;
   return state.primed[source];
+}
+
+// The same, in Mult. It lands with the word's own arithmetic rather than at a
+// seat (scoring's pass 3½), so it multiplies EVERYTHING the next word earns,
+// patrons included — which is what "the next word is worth half as much again"
+// has to mean to be worth saying. Stacks by multiplying, and is spent with the
+// Points when that word commits.
+export function primeMult(source, m) {
+  state.primedMult ??= {};
+  state.primedMult[source] = Math.round((state.primedMult[source] ?? 1) * m * 1000) / 1000;
+  return state.primedMult[source];
 }
 
 export function grantRandomPatron(defs, rarity = null) {

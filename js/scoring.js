@@ -8,6 +8,7 @@ import {
   PATRON_DEFS, patronById, guildsOf, guildSeats, resolveMedieval,
 } from './patrons.js';
 import { bossById } from './bosses.js';
+import { snapOf } from './patron-generic.js';
 import {
   state, owns, allSeats, getActiveLetter, getActiveColour, getActiveGrowth,
   returnsToBag, isWrapped, spellsOnly, restingPoints,
@@ -48,6 +49,10 @@ import {
 //   colourSteps:    [{ colour, ids, count, mult }] — incl. 'length', 'purple', 'cursed'
 //   patronSteps:    [{ id, uid, text, points?, mult?, xmult?, running? }]
 //   perTile:        Map(id → { final, parts[] }) — for tooltips
+//   at:             the press as this word was SCORED — words printed, page score,
+//                     quota, discards, chapter, page. onPrinted runs after the commit
+//                     has banked the score and bumped the counters, so a seat asking
+//                     'was this the second word of the page?' afterwards must ask here
 // }
 //
 // score = Points × Mult. Mult is the product of the colour multipliers: each
@@ -504,6 +509,22 @@ export function computeScore(wordTiles) {
     });
   }
 
+  // Mult armed the same way, and it lands in the WORD'S multiplier rather than
+  // at a seat — so it multiplies everything, patrons behind it included. That is
+  // what "the next word is worth half as much again" has to mean; a promise that
+  // quietly skipped the seats below it would be a smaller thing than it says.
+  // It rides the colour steps so the readout gives it a chip of its own.
+  {
+    const armed = Object.values(state.primedMult ?? {}).reduce((a, m) => a * m, 1);
+    if (armed !== 1) {
+      colourSteps.push({
+        colour: 'primed', ids: wordTiles.map(t => t.id),
+        count: letters.length, mult: armed,
+      });
+      mult = Math.round(mult * armed * 1000) / 1000;
+    }
+  }
+
   // A cursed tile you didn't set takes its due from the word you set instead,
   // once per curse still in the rack. Points, not Mult, so it lands before the
   // multipliers. The tile can never be discarded, so the floor at zero (below)
@@ -706,7 +727,7 @@ export function computeScore(wordTiles) {
   return {
     word, letters, points, mult, total, coins, refresh, spiked, plainTotal, adjusted, bold,
     tileSteps, tilePaintSteps, tilePaint, tileBoostSteps, tileGrowth, nickSteps, nickGains,
-    colourSteps, patronSteps, perTile,
+    colourSteps, patronSteps, perTile, at: snapOf(state),
     twinSteps: twin.steps, twinCloned: twin.cloned, twinSummons: twin.summons,
     twinPairMarks: twin.marks,
   };

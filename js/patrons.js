@@ -153,11 +153,17 @@ import {
 import {
   state, getActiveColour, getActiveLetter, countsAsColour, luckyRoll,
   paintRandomTiles, restingPoints, shuffle, owns, allSeats, effectiveSundrySlots,
-  strikeMaterial,
+  strikeMaterial, primeMult,
 } from './state.js';
 import { inTheme, themeSize, THEME_SETS, silentAt, SILENT } from './themes.js';
 import { DICT } from './dict.js';
 import { PATRON_CARDS } from './patron-cards.js';
+// The Generic's whole roster of triggers, effects and names — one file, meant
+// to be retuned between playtests. Nothing about that patron is decided here.
+import {
+  rollGeneric, genericFires, genericClause, genericName, snapOf,
+  triggerA, triggerB, effectOf,
+} from './patron-generic.js';
 
 const VOWELS = 'AEIOU';
 
@@ -579,6 +585,174 @@ const PATRON_BEHAVIOURS = [
       if (!data?.letters?.length) return PATRON_CARDS.monogrammist.desc;
       const [a, b, c] = data.letters;
       return `A tile showing ${a}, ${b} or ${c} prints twice — Points, trim and paint alike.`;
+    },
+  },
+  {
+    // The other patron that is ROLLED rather than written, and the one whose
+    // whole roster lives outside this file: js/patron-generic.js holds every
+    // trigger it can ask for, every effect it can pay, the weights that marry
+    // the two, and the names and epithets it goes by. That file is the tuning
+    // table; this is only the machine that reads it.
+    //
+    // One trigger about the WORD and one about the TILES OR THE PAGE, ANDed,
+    // paired with an effect worth exactly what the two conditions are worth
+    // together. The price is flat, so a roll is a bargain or a swindle and
+    // reading which is the whole of the decision at the Market.
+    //
+    // The roll is stored as three ids on the seat's data, never as functions —
+    // so a save survives a retuning of the tables, and a trigger deleted from
+    // them leaves a seat that quietly does nothing rather than one that throws.
+    id: 'generic',
+    when: 'score',
+    onOffer: () => rollGeneric(),
+
+    instName(data)  { return genericName(data) ?? PATRON_CARDS.generic.name; },
+    instShelf(data) { return data?.who ?? 'Generic'; },
+    instEmoji(data) { return data?.face ?? PATRON_CARDS.generic.emoji; },
+    instDesc(data)  { return genericClause(data) ?? PATRON_CARDS.generic.desc; },
+
+    // The half of the roster that pays while the word is being scored. Pure, as
+    // every scoring hook must be: the two triggers are read off the live press
+    // through snapOf, and nothing is written anywhere.
+    effect({ word, tiles, state: st, data, addPoints, addCoins, xMult }) {
+      const e = effectOf(data);
+      if (!e || !genericFires(data, { word, tiles, at: snapOf(st) })) return;
+      if (e.kind === 'points')     addPoints(e.n);
+      if (e.kind === 'coins')      addCoins(e.n);
+      if (e.kind === 'perChapter') addPoints(e.n * (st.chapter ?? 1));
+      if (e.kind === 'xmult')      xMult(e.n);
+    },
+
+    // …and the tile that prints twice, where that is what it rolled. `n` is the
+    // place in the word, so 0 is the first tile and 1 the second — the tile, not
+    // the letter, so an ING ligature doubling is three letters doubled.
+    tileEcho(tile, data, tiles) {
+      const e = effectOf(data);
+      if (e?.kind !== 'echo' || !tiles?.length) return false;
+      if (tiles[e.n]?.id !== tile.id) return false;
+      return genericFires(data, { word: wordLetters(tiles), tiles, at: snapOf(state) });
+    },
+
+    // Everything that CHANGES something. Asked against the snapshot the script
+    // carried out of scoring (script.at), never against the live press: by the
+    // time this runs the commit has banked the score, bumped the word count and
+    // paid the discards back, so "was this the second word of the page?" has a
+    // different answer here than it had a moment ago.
+    onPrinted(ctx) {
+      const { tiles, script, state: st, data, grow, nick, bench } = ctx;
+      const e = effectOf(data);
+      if (!e || !script) return null;
+      const fired = genericFires(data, {
+        word: script.letters, tiles, at: script.at ?? snapOf(st),
+      });
+      if (!fired) return null;
+
+      // The valve. Everything that leaves something PERMANENT behind is capped
+      // at one a page — a nick, a laurel, growth, a gift on the bench — because
+      // those compound over a run where Points and Mult decay against the
+      // climbing quota. Points, Coins, Mult and the echo are uncapped on
+      // purpose: they are paid for the word and gone with it.
+      const page = `${st.chapter}.${st.page}`;
+      if (e.oncePerPage && data.spentOn === page) return null;
+      const spend = () => { data.spentOn = page; data.paid = (data.paid ?? 0) + 1; };
+
+      if (e.kind === 'grow') {
+        const got = tiles.filter(t => grow(t, e.n));
+        if (!got.length) return null;
+        spend();
+        return { say: [`${got.length} tile${got.length > 1 ? 's' : ''} keep +${e.n} Point${e.n > 1 ? 's' : ''}, for good.`] };
+      }
+
+      if (e.kind === 'nick') {
+        const bare = tiles.filter(t => !t.nick && !isImmutable(t));
+        if (!bare.length) return null;
+        const target = bare[Math.floor(Math.random() * bare.length)];
+        const side = Math.random() < 0.5 ? 'left' : 'right';
+        if (!nick?.(target, side)) return null;
+        spend();
+        return { say: [`A ${side} nick is cut into the ${getActiveLetter(target)} — it will read the tiles on its ${side} from now on.`] };
+      }
+
+      if (e.kind === 'paintPot') {
+        const colour = shuffle(Object.keys(COLOURS))[0];
+        if (!bench?.({ kind: 'tube', colour })) return { note: 'no room on the bench', refused: true };
+        spend();
+        return { say: [`A pot of ${COLOURS[colour].label.toLowerCase()} paint, onto the workbench.`] };
+      }
+
+      if (e.kind === 'parcel') {
+        const theme = shuffle(Object.keys(PACKAGES))[0];
+        if (!bench?.({ kind: 'package', theme })) return { note: 'no room on the bench', refused: true };
+        spend();
+        return { say: [`${PACKAGES[theme].label}, onto the workbench.`] };
+      }
+
+      if (e.kind === 'laurel') {
+        // Any seat but this one, so a Generic can't crown itself in a loop. With
+        // nobody else at the table it goes without rather than picking itself.
+        const others = (st.patrons ?? []).filter(p => p.uid !== ctx.uid && p.id !== 'generic');
+        const pool = others.length ? others : (st.patrons ?? []).filter(p => p.uid !== ctx.uid);
+        if (!pool.length) return null;
+        const seat = pool[Math.floor(Math.random() * pool.length)];
+        seat.data ??= {};
+        seat.data.honorifics = (seat.data.honorifics ?? 0) + 1;
+        spend();
+        const def = patronById(seat.id);
+        return { say: [`${patronName(def, seat.data)} takes a laurel — `
+                     + `+${seat.data.honorifics * HONORIFIC_STEP} Points every word.`] };
+      }
+
+      if (e.kind === 'refund') {
+        if (st.discards >= st.discardsMax) return null;
+        st.discards = Math.min(st.discardsMax, st.discards + e.n);
+        data.paid = (data.paid ?? 0) + 1;
+        return { note: `+${e.n} discard` };
+      }
+
+      if (e.kind === 'draw') {
+        st.rackBonus = (st.rackBonus ?? 0) + e.n;
+        spend();
+        return { say: [`${e.n} more places in the hand for the rest of the page.`] };
+      }
+
+      if (e.kind === 'primeMult') {
+        primeMult('generic', e.n);
+        data.paid = (data.paid ?? 0) + 1;
+        return { note: `next word ×${e.n}` };
+      }
+
+      // The score-time kinds have already been paid; they are counted here so
+      // the card's tally can say how many times this seat has come good.
+      data.paid = (data.paid ?? 0) + 1;
+      return null;
+    },
+
+    // What the seat has actually done for you, which for this patron is the one
+    // number worth knowing: a roll that has never fired is a roll you misread.
+    tally(data) {
+      const e = effectOf(data);
+      if (!e) return null;
+      const paid = data?.paid ?? 0;
+      const spent = e.oncePerPage && data?.spentOn === `${state.chapter}.${state.page}`;
+      const done = paid === 0 ? 'Has not come good yet.'
+                 : paid === 1 ? 'Has come good once.'
+                 : `Has come good ${paid} times.`;
+      return done + (e.oncePerPage
+        ? ` Pays once a page — ${spent ? 'already spent on this one.' : 'ready.'}` : '');
+    },
+
+    // The two conditions apart, because ANDed together in one sentence they are
+    // easy to half-read — and half-reading them is how a card gets bought.
+    popover(data) {
+      const a = triggerA(data), b = triggerB(data), e = effectOf(data);
+      if (!a || !b || !e) return '';
+      const row = (head, body) =>
+        `<div class="gen-term"><span class="gen-term-head">${head}</span>${body}</div>`;
+      return `<div class="gen-terms">`
+        + row('if', `a word that ${a.clause}`)
+        + row('and', b.clause)
+        + row('pays', e.clause)
+        + `</div>`;
     },
   },
   {
@@ -2063,4 +2237,9 @@ export function seatTally(def, data) {
 export const guildSeats = colour =>
   allSeats().filter(p => guildsOf(patronById(p.id)).includes(colour)).length;
 
-export const RARITY_WEIGHT = { common: 3, uncommon: 2, rare: 1 };
+// How often the Market's pool holds each card. 'ubiquitous' is three times a
+// common one, and is for the two patrons that are ROLLED rather than written —
+// the Monogrammist and the Generic. What makes those two worth meeting is the
+// roll, and you learn nothing about a table of rolls from one card a run: they
+// have to turn up often enough that you start reading them at a glance.
+export const RARITY_WEIGHT = { ubiquitous: 9, common: 3, uncommon: 2, rare: 1 };

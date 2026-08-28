@@ -1065,7 +1065,8 @@ export function renderCounts() {
 // word (see the CSS), so the readout doesn't carry a slot most runs never use.
 // Bold rides at the end with cursed: its chip only appears when the word is
 // actually bracketed, so the rack doesn't carry a slot most words never use.
-export const CHIP_COLOURS = ['length', ...Object.keys(COLOURS), 'purple', 'cursed', 'bold'];
+// Primed likewise — nothing arms one until a seat that does is at the table.
+export const CHIP_COLOURS = ['length', ...Object.keys(COLOURS), 'purple', 'cursed', 'bold', 'primed'];
 
 export function updateReadoutPreview(script) {
   const ro = $('readout');

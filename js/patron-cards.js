@@ -7,8 +7,12 @@
 //
 //   name     what the card and the popover call it
 //   emoji    the portrait
-//   rarity   'common' | 'uncommon' | 'rare' — sets how often the Market offers
-//            it (RARITY_WEIGHT in js/patrons.js) and the card's ring colour
+//   rarity   'ubiquitous' | 'common' | 'uncommon' | 'rare' — sets how often the
+//            Market offers it (RARITY_WEIGHT in js/patrons.js) and the card's
+//            ring colour. 'ubiquitous' is for the two patrons that are ROLLED
+//            rather than written (the Monogrammist and the Generic): they turn
+//            up three times as often as a common one, because what makes them
+//            worth meeting is the roll, and one roll tells you nothing.
 //   cost     Coins at the Market, before the day's haggle and any postnom
 //   guild    'amber' | 'jade' | 'crimson' | 'azure', or an array for a patron
 //            of two liveries; omit for a wildcard. Guild-counting patrons
@@ -37,6 +41,7 @@
 // the same thing on a calling card as it does on a tooltip. The list of knobs
 // available is KNOBS at the foot of js/constants.js.
 import { KNOBS, LOVERS } from './constants.js';
+import { GENERIC_PRICE } from './patron-generic.js';
 import { fillKnobs } from './text.js';
 
 export const PATRON_CARDS = {
@@ -323,8 +328,16 @@ export const PATRON_CARDS = {
     desc: '×2 Mult for words that have already been printed in your manuscript.',
   },
   monogrammist: {
-    name: 'The Monogrammist', emoji: '🪭', rarity: 'common', cost: 4, stackable: true,
+    name: 'The Monogrammist', emoji: '🪭', rarity: 'ubiquitous', cost: 4, stackable: true,
     desc: 'Arrives with three letters of its own; a tile showing one prints twice.',
+  },
+  // Rolled, not written: the name, the two conditions and what they pay are all
+  // decided when the Market lays the card out. The tables it rolls from are
+  // js/patron-generic.js, which is where to go to retune it — nothing about
+  // this patron is settled here but its price and how often you meet one.
+  generic: {
+    name: 'The Generic', emoji: '🧍', rarity: 'ubiquitous', cost: GENERIC_PRICE, stackable: true,
+    desc: 'An ordinary person with two ordinary conditions and one thing they will do for you.',
   },
   twins: {
     name: 'The Twins', emoji: '👯', rarity: 'common', cost: 4,

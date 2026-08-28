@@ -10,7 +10,7 @@ import {
   effectiveGhostSlots, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected, takePaintEchoes,
   rollTubeOffer, applyWash, washOff, effectiveSundrySlots, takeGhostEchoes,
-  getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile, recastTile,
+  getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile, nickTile, recastTile,
   trashFromCollection, mergeTiles, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
   castCounterfeit, effectiveRackSize, handCount, pluckFromBag,
   grantRandomPatron,
@@ -574,7 +574,7 @@ function runPrintedHooks(tiles, script) {
     p.data ??= {};
     const r = def.onPrinted({
       tiles: tiles.filter(t => !burned.has(t.id)),   // ash is out of everyone's reach
-      script, state, data: p.data,
+      script, state, data: p.data, uid: p.uid,
       grow:   growTile,
       paint:  (t, colour) => {
         const ok = paintTile(t, colour);
@@ -586,6 +586,7 @@ function runPrintedHooks(tiles, script) {
         if (ok) noteDress(t, 'trim', kind);
         return ok;
       },
+      nick:   (t, kind) => nickTile(t, kind),
       recast: recastTile,
       burn:  t => !!trashFromCollection(t.tid),
       // The same bench the discard hooks get: it refuses rather than overflows.
@@ -1099,7 +1100,10 @@ async function submitWord() {
   rollGamble();
 
   // The tongs' heat went into this word; the furnace is cold again for the next.
+  // The armed Mult is spent the same way, and by the same rule: primed against
+  // ONE word, and that word has now been printed.
   state.primed = {};
+  state.primedMult = {};
 
   // The editor's memory moves on likewise — chains advance, bars re-set,
   // tempers and measures re-roll — here and never during scoring. It is given

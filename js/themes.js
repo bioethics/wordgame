@@ -80,6 +80,20 @@ export function adoptTheme(key, text) {
 // True when `word` (letters only, marks already split off) is on the list.
 export const inTheme = (key, word) => THEME_SETS[key]?.has(word) ?? false;
 
+// One entry off a list at random — the register the Generic borrows a name from.
+// The array is cached because a Set of five thousand names would otherwise be
+// copied out every time the Market lays a card, and it is rebuilt whenever the
+// list's size no longer matches (which is the only way a list ever changes:
+// adoptTheme clears and refills it in one go).
+const themeArrays = {};
+export function themePick(key) {
+  const set = THEME_SETS[key];
+  if (!set?.size) return null;
+  const cached = themeArrays[key];
+  const arr = cached?.length === set.size ? cached : (themeArrays[key] = [...set]);
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
 // A word's position in an ordered list, or null. Rank 0 is the file's first line.
 export const themeRank = (key, word) => THEME_RANKS[key]?.get(word) ?? null;
 

@@ -63,8 +63,11 @@ editor's beside it**, so a spike reads as a thing done *to* a score rather than
 as the score. The print shows it happening: the number the word was worth lands
 whole, and then the desk reaches over and crosses it out.
 
-The readout shows a live projection with a chip per colour, and **everything
-that does something explains itself where it sits**: hover with a mouse,
+The readout shows a live projection with a chip per colour — plus the measure,
+the purple trims, a cursed tile, a bold word, and a **primed** multiplier armed
+against this word before it was set, each of which appears only while it has
+something to say — and **everything that does something explains itself where it
+sits**: hover with a mouse,
 long-press on touch, wherever the thing appears. Nothing is summarised beneath
 market cards. What a sundry does is written once, in `js/text.js` →
 `SUNDRY_TEXT`, and looked up through `sundryTip` in `js/constants.js`. On print the score replays in the order it happens: *the Twins*
@@ -586,6 +589,37 @@ a patron *does* lives against the same id in `js/patrons.js`. The two are
 married at the bottom of `js/patrons.js`, and a card with no behaviour (or a
 behaviour with no card) throws on load naming the id.
 
+Rarity decides how thick the Market's pool is with a card — `RARITY_WEIGHT` at
+the foot of `js/patrons.js`, `{ ubiquitous: 9, common: 3, uncommon: 2, rare: 1 }`.
+**Ubiquitous** is not a lesser tier but a more frequent one, and it belongs to
+the two patrons that are *rolled* rather than written — the Monogrammist and
+the Generic. What makes those worth meeting is the roll, and one card a run
+teaches you nothing about a table of them, so they turn up three times as often
+as a common patron.
+
+### The Generic — a patron rolled from a table
+
+One trigger about the **word**, one about the **tiles or the page**, ANDed, and
+an effect worth exactly what the two conditions are worth together. *Alice the
+Generic: a word that ends in R, with a gold-trimmed tile in it — ×2 Mult.* The
+price is flat, so the pairing does all the work: a cheap condition married to a
+cheap effect is a poor buy and an awkward one married to a rich effect is a
+windfall, and reading which is which at the counter is the whole decision.
+
+Everything it can be lives in one file meant to be edited between playtests —
+**`js/patron-generic.js`**: `GENERIC_TRIGGERS_A` (the word, weights 1–4),
+`GENERIC_TRIGGERS_B` (the tiles and the page, weights 2–4), `GENERIC_EFFECTS`
+(each with the `cost` it must be paired against, 3–8), `GENERIC_EPITHETS` and
+`GENERIC_FACES` (what it goes by — the name itself comes off
+`wordlists/names.txt`), and `GENERIC_PRICE`. Move a weight and it re-pairs with
+a different band of effects at once; the file checks itself at load and refuses
+to start if a pairing exists that no effect can pay.
+
+Anything that leaves something **permanent** behind — a nick, a laurel, growth,
+a gift on the bench — carries `oncePerPage`, because those compound over a run
+where Points and Mult decay against a climbing quota. Points, Coins, Mult and
+the echo are uncapped on purpose: they are paid for the word and gone with it.
+
 A `desc` may contain `{KNOB}` placeholders, filled as the module loads —
 `{ESPALIER_STEP}` for the value itself, `{1/NUDIST_TRIM_CHANCE}` for "a 1-in-4
 chance" — so retuning a number retunes the card text with it. New knobs are
@@ -603,6 +637,7 @@ you use, and its header is a map of the rest.
 | Trims, nicks, colours, metals, tools, parcels, stalls, the Colophon's picks, and the headings and buttons of the Market, the Black Market and the Colophon | `js/text.js` |
 | **Every line the status log speaks** — plus the banners, the board's refusals, and the end screens | `js/text.js` → `LOG_TEXT`, one keyed table with `{0}` slots for the moving parts; the code only decides *when* a line is said |
 | Every patron — name, portrait, price, rarity, guild, card text | `js/patron-cards.js` (behaviour: `js/patrons.js`; the one-line notes a patron's own hooks report — "3 Coins collected" — stay beside the hook that computes them) |
+| The Generic's trigger and effect clauses, its epithets and its faces | `js/patron-generic.js` — the sentence on its card is built from them, so the writing and the tuning are the same edit |
 | Every editor — name, portrait, the house rule in their own voice, **the live bar line (`demand`/`demandFirst`) and the spike reason (`spike`)** | `js/boss-cards.js` (behaviour: `js/bosses.js`) — the bar re-reads these on every render, so an edit shows the moment the page reloads |
 | The unsolicited opinions patrons pop after a good word | `js/quips.js` |
 | Chapter titles | `js/chapters.js` |
@@ -707,6 +742,8 @@ bigger step than the last and a built press has to multiply rather than add:
 | How loaded offered tiles are | `js/constants.js` → `FEATURE_CHAIN_CHANCE`, `MAX_FEATURES` (one feature free, then keep rolling); generation in `js/market.js` → `randomSpecialTile` |
 | Rewards & interest | `js/constants.js` → `REWARD` |
 | Colophon roster, offer count, repeat cap, skip grant | `js/constants.js` → `UPGRADE_OFFERS`, `MAX_UPGRADE_REPEATS`, `SKIP_COIN_GRANT`; definitions in `js/upgrades.js` |
+| Everything the Generic can roll — triggers, weights, effects, epithets, faces, price | `js/patron-generic.js`, the whole file. `GENERIC_TRIGGERS_A/B` carry the weights, `GENERIC_EFFECTS` the `cost` each must be paired against |
+| How often the Market offers each tier | `js/patrons.js` → `RARITY_WEIGHT` (`ubiquitous` is 3× `common`) |
 | Patron reaction odds | `js/constants.js` → `REACTION` (`floor`/`ceil` as fractions of the page's whole quota: silence below `floor`, a certainty at `ceil`); the lines themselves in `js/quips.js` — a flat array, add more any time |
 | How far a patron's asking price can drift | `js/constants.js` → `PATRON_HAGGLE` (`spread` Coins each way, `chance` per side) |
 | How long a line stays up to be read | `js/anim.js` → `READ_BASE` / `READ_PER_CHAR` / `READ_MAX`. Every bubble, floater and bar message holds for a span measured off its own length, so a long line is given longer, not read faster |
@@ -741,6 +778,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | `js/scoring.js` | pure score computation — returns a step-by-step *script* the UI replays |
 | `js/patron-cards.js` | the patron roster as data: name, emoji, rarity, cost, guild and card text, keyed by id |
 | `js/patrons.js` | what each patron does, against the same ids — and the merge that marries the two |
+| `js/patron-generic.js` | the Generic's whole roster: the triggers it can ask for, the effects it can pay, the weights that marry the two, and the names it goes by. Pure data plus the roller — the tuning table |
 | `js/bosses.js` | the editors: the Deadline roster, `BOSS_CONFLICTS`, `REDACTOR_SHARE` |
 | `js/upgrades.js` | the Colophon's upgrade definitions (pure data, no logic) |
 | `js/colophon.js` | the Colophon's ephemeral screen state: rolling, capping, applying, reshuffling |

@@ -302,6 +302,7 @@ export const MULT_TRACK_TEXT = {
   purple: { label: 'Purple' },
   cursed: { label: 'Cursed' },
   length: { label: 'Length' },
+  primed: { label: 'Primed' },
 };
 
 // ─── Metals (what a sort is cast in) ──────────────────────────────────────────

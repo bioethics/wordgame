@@ -396,7 +396,11 @@ header {
   color: color-mix(in srgb, var(--wood-ink) 32%, transparent);
 }
 
-/* One ring token per rarity, so the lit state below can add a glow layer. */
+/* One ring token per rarity, so the lit state below can add a glow layer.
+   Ubiquitous shares the common ring on purpose: it is not a lesser card, only
+   one you meet more often, and a fourth colour here would read as a fourth
+   tier. */
+.patron--ubiquitous,
 .patron--common   { --ring: rgba(138, 95, 29, 0.35); }
 .patron--uncommon { --ring: rgba(47, 116, 92, 0.55); }
 .patron--rare     { --ring: rgba(112, 64, 160, 0.55); }
@@ -477,7 +481,7 @@ header {
   .offer-patron.offer-patron--postnom { animation: none; }
 }
 
-.patron--common, .patron--uncommon, .patron--rare {
+.patron--ubiquitous, .patron--common, .patron--uncommon, .patron--rare {
   background: linear-gradient(170deg, var(--card-face) 0%, var(--card-face-2) 100%);
   color: var(--parch-ink);
   border: 1px solid var(--brass-dark);
@@ -494,6 +498,7 @@ header {
    Not the parchment card drained but its negative: slate under moonlight,
    light-inked, edged in the dashed glow the ghost TILE wears, breathing.
    Only ever seen behind the graveyard door. */
+.patron--ghost.patron--ubiquitous,
 .patron--ghost.patron--common,
 .patron--ghost.patron--uncommon,
 .patron--ghost.patron--rare {
@@ -1502,6 +1507,9 @@ button.sundry:hover { transform: translateY(-2px); }
    rules. Set in the readout's own ink, heavy, because that is what it says. */
 .chip--bold    { background: #1d1a17;        color: #f6ecd2; font-weight: 900; }
 .chip--bold:not(.chip--on) { display: none; }
+/* …and the primed chip only while a multiplier is armed against this word. */
+.chip--primed  { background: #2f6357;        color: #dffaf1; }
+.chip--primed:not(.chip--on) { display: none; }
 .chip--on.chip--length  { box-shadow: 0 0 10px rgba(125, 143, 160, 0.65); }
 .chip--on.chip--crimson { box-shadow: 0 0 10px rgba(201, 79, 67, 0.6); }
 .chip--on.chip--azure   { box-shadow: 0 0 10px rgba(79, 134, 201, 0.6); }
@@ -1509,6 +1517,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .chip--on.chip--amber   { box-shadow: 0 0 10px rgba(210, 154, 58, 0.6); }
 .chip--on.chip--purple  { box-shadow: 0 0 10px rgba(138, 95, 176, 0.6); }
 .chip--on.chip--cursed  { box-shadow: 0 0 12px rgba(201, 60, 45, 0.75); }
+.chip--on.chip--primed  { box-shadow: 0 0 10px rgba(63, 122, 109, 0.7); }
 .ro-total {
   font-family: var(--serif);
   font-weight: 900;
@@ -2656,6 +2665,8 @@ button.sundry:hover { transform: translateY(-2px); }
 .fl-set--amber   { color: #ffd68c; }
 .fl-set--purple  { color: #cfa6ff; }
 .fl-set--cursed  { color: #ff7a66; }
+.fl-set--primed  { color: #9fe6d4; }
+.fl-set--bold    { color: #f6ecd2; }
 .fl-mat--cursed  { color: #ff7a66; font-size: 19px; }
 .fl-mat--ghost   { color: #dceaff; font-size: 19px; }
 .fl-mat--rainbow { color: #ffe9c9; font-size: 19px; }
@@ -4365,6 +4376,7 @@ button.sundry:hover { transform: translateY(-2px); }
   border-radius: 10px;
   padding: 8px 9px;
 }
+.tc-patron--ubiquitous { border-left-color: #7c8a9c; }
 .tc-patron--common   { border-left-color: #7c8a9c; }
 .tc-patron--uncommon { border-left-color: #5d9ac0; }
 .tc-patron--rare     { border-left-color: #c09a4a; }
@@ -4919,6 +4931,35 @@ input[type='checkbox'] {
 }
 .tip-tally-line + .tip-tally-line { margin-top: 3px; }
 
+/* ─── The Generic's terms ──────────────────────────────────────────────────────
+   Its card is two conditions ANDed and one payment, and read as one sentence
+   they are easy to half-read — which is how a bad roll gets bought. So the
+   popover breaks them out: a small caps label per line, the clause beside it. */
+.gen-terms {
+  margin-top: 7px;
+  padding-top: 6px;
+  border-top: 1px dashed rgba(138, 95, 29, 0.35);
+  display: grid;
+  gap: 3px;
+}
+.gen-term {
+  display: grid;
+  grid-template-columns: 2.6em 1fr;
+  gap: 8px;
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: #5c4a2e;
+  text-align: left;
+}
+.gen-term-head {
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, #5c4a2e 62%, transparent);
+}
+.tip-pop--ghost .gen-term { color: #b9cde8; }
+.tip-pop--ghost .gen-term-head { color: rgba(185, 205, 232, 0.6); }
+.tip-pop--ghost .gen-terms { border-top-color: rgba(178, 214, 255, 0.3); }
+
 /* A short table of terms inside a calling card's tap-through — the Purveyor's
    six widened choices. Label left, figure right, so the column of numbers reads
    at a glance. */
@@ -5279,6 +5320,7 @@ input[type='checkbox'] {
       0 0 22px 3px rgba(246, 214, 138, 0.7);
   }
   .patron--armed::after { animation: none; opacity: 0; }
+  .patron--ghost.patron--ubiquitous,
   .patron--ghost.patron--common,
   .patron--ghost.patron--uncommon,
   .patron--ghost.patron--rare,

@@ -262,6 +262,7 @@ export const MULT_TRACKS = {
   purple: { label: MULT_TRACK_TEXT.purple.label, glyph: '#8a5fb0', bright: '#cfa6ff' },
   cursed: { label: MULT_TRACK_TEXT.cursed.label, glyph: '#c93c2d', bright: '#ff7a66' },
   length: { label: MULT_TRACK_TEXT.length.label, glyph: '#7d8fa0', bright: '#d9e6f2' },   // type-metal steel
+  primed: { label: MULT_TRACK_TEXT.primed.label, glyph: '#3f7a6d', bright: '#9fe6d4' },   // armed, not earned
 };
 
 // Tiles painted by one Colophon paint pick — random, and only unpainted ones.
