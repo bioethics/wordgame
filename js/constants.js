@@ -1083,6 +1083,14 @@ export const BLACK_SUNDRY_OFFERS = 4;
 // always three things you can actually use.
 export const BLACK_MARKET_MINIMUM = 10;
 
+// The Fence's cut. He knows the alley's people, so everything down there asks
+// this much less — tiles, sundries and the rare patrons alike — and the door
+// itself gets cheaper with it: the minimum in the purse above is discounted by
+// the same fraction, since the card is only "a wasted pick" at prices you can't
+// meet, and his prices are lower. Rounded UP at the point of sale and floored at
+// a Coin, so nothing in the alley is ever free.
+export const FENCE_DISCOUNT = 0.5;
+
 // One to two tiles in each rare material every visit, and what the alley asks on
 // top of the tile's own worth. Priced by what the metal is worth to a press:
 // rainbow reads as every colour at once and costs the most; hellbox iron is a
@@ -1226,6 +1234,7 @@ export const KNOBS = {
   // The Black Market
   BLACK_TILE_OFFERS, BLACK_PATRON_OFFERS, BLACK_SUNDRY_OFFERS,
   BLACK_PATRON_MARKUP, BLACK_MARKET_MINIMUM,
+  FENCE_OFF: `${Math.round(FENCE_DISCOUNT * 100)}%`,
 
   // Patron tuning
   CHILD_STEP, ABECEDARIAN_MULT, ESPALIER_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,

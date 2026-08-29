@@ -30,13 +30,13 @@
 // survives the save, so a patron that changes character once it has been down
 // the alley has a number to read. Nothing consumes it yet.
 
-import { state, adoptTemplate, shuffle, allSeats, nextId, effectivePatronSlots,
+import { state, adoptTemplate, shuffle, allSeats, owns, nextId, effectivePatronSlots,
          effectiveSundrySlots } from './state.js';
 import {
   BLACK_TILE_OFFERS, BLACK_PATRON_OFFERS, BLACK_SUNDRY_OFFERS,
   BLACK_MATERIAL_STOCK, BLACK_MARK_PRICE, BLACK_TILE_SURCHARGE, BLACK_TILE_MAX_PRICE,
   BLACK_PATRON_MARKUP, BLACK_TILE_FEATURES, BLACK_SUNDRY_STOCK,
-  MARKS, MARK_TRIM, makeTileTemplate,
+  MARKS, MARK_TRIM, makeTileTemplate, FENCE_DISCOUNT,
 } from './constants.js';
 import { randomSpecialTile, tilePrice } from './market.js';
 import { PATRON_DEFS, patronById, patronCost, patronName, rollPostnom } from './patrons.js';
@@ -49,6 +49,19 @@ export const blackMarket = {
 };
 
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+
+// ─── What the alley asks ──────────────────────────────────────────────────────
+// The Fence's cut, and the single door every price in here goes through — the
+// three buy functions below and both halves of the sheet (blackMarketHTML and
+// updateBlackMarketState in js/sheets.js). Checked LIVE rather than baked into
+// the offers, exactly as The Chapman's free amber is at the fair (offerPrice in
+// js/market.js), so hiring him off the alley's own table re-prices the rest of
+// the visit in front of you — and dismissing him puts it back up.
+//
+// Rounded UP and floored at a Coin: half of three is two here, and nothing in
+// the alley is ever given away.
+export const alleyAsks = n =>
+  (owns('fence') ? Math.max(1, Math.ceil(n * (1 - FENCE_DISCOUNT))) : n);
 
 // ─── Stock ────────────────────────────────────────────────────────────────────
 
@@ -162,11 +175,12 @@ export function restoreBlackMarket(snapshot) {
 export function buyBlackTile(idx) {
   const offer = blackMarket.tileOffers[idx];
   if (!offer || offer.sold)   return { ok: false, reason: 'Gone already.' };
-  if (state.coins < offer.price) return { ok: false, reason: `You need ${offer.price} Coins.` };
-  state.coins -= offer.price;
+  const price = alleyAsks(offer.price);
+  if (state.coins < price) return { ok: false, reason: `You need ${price} Coins.` };
+  state.coins -= price;
   state.collection.push(adoptTemplate(offer.template));
   offer.sold = true;
-  return { ok: true, template: offer.template, price: offer.price };
+  return { ok: true, template: offer.template, price };
 }
 
 export function buyBlackPatron(idx) {
@@ -176,7 +190,7 @@ export function buyBlackPatron(idx) {
   if (state.patrons.length >= effectivePatronSlots()) {
     return { ok: false, reason: 'No empty seats at your table.' };
   }
-  const cost = patronCost(def, offer.data);
+  const cost = alleyAsks(patronCost(def, offer.data));
   if (state.coins < cost) return { ok: false, reason: `You need ${cost} Coins.` };
   state.coins -= cost;
   const seat = { id: offer.id, uid: nextId(), data: { ...offer.data } };
@@ -191,8 +205,9 @@ export function buyBlackSundry(idx) {
   if (state.sundries.length >= effectiveSundrySlots()) {
     return { ok: false, reason: 'Your workbench is full.' };
   }
-  if (state.coins < offer.price) return { ok: false, reason: `You need ${offer.price} Coins.` };
-  state.coins -= offer.price;
+  const price = alleyAsks(offer.price);
+  if (state.coins < price) return { ok: false, reason: `You need ${price} Coins.` };
+  state.coins -= price;
   const { kind, material, theme } = offer;
   state.sundries.push({ kind, ...(material ? { material } : {}), ...(theme ? { theme } : {}) });
   offer.sold = true;

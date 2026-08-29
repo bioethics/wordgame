@@ -735,6 +735,20 @@ not half a list price you never saw — and there is no re-roll. The alley shows
 you what it has, once. `js/blackmarket.js`, and the constants beginning `BLACK_`
 in `js/constants.js`.
 
+Unless you have hired **The Fence** (rare, amber), who is the alley what *The
+Chapman* is to the fair, and built the same way — a guarantee and a price, both
+read live off `owns` rather than baked into the offers. The Black Market becomes
+one of the Colophon's picks **every chapter** rather than a card you hope for,
+and everything down there — tiles, sundries and the rare patrons alike — asks
+`FENCE_DISCOUNT` less, rounded up and floored at a Coin. The entry requirement
+comes down with the prices, since a door is only unaffordable at the prices
+behind it. Because it is live, hiring him off the alley's own counter re-prices
+the rest of the visit in front of you, and dismissing him puts it back up. Every
+price in the alley goes through one function, `alleyAsks` in `js/blackmarket.js`
+— the three buys and both halves of the sheet — so the figure on the button is
+always the figure you are charged. He scores nothing at all, which is the
+company he keeps: a seat you buy for what it does to the *shape* of a run.
+
 **Discarding** — press *Discard* to arm it, tap the tiles to throw away, then
 press it again to confirm (press with nothing selected to cancel).
 
@@ -791,6 +805,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Opening draft spread & pick counts | `js/constants.js` → `DRAFT` |
 | How loaded offered tiles are | `js/constants.js` → `FEATURE_CHAIN_CHANCE`, `MAX_FEATURES` (one feature free, then keep rolling); generation in `js/market.js` → `randomSpecialTile` |
 | Rewards & interest | `js/constants.js` → `REWARD` |
+| The Fence's cut, and the alley's entry requirement | `js/constants.js` → `FENCE_DISCOUNT`, `BLACK_MARKET_MINIMUM` (the minimum is discounted by the same fraction; both go through `alleyAsks` in `js/blackmarket.js`) |
 | Colophon roster, offer count, repeat cap, skip grant | `js/constants.js` → `UPGRADE_OFFERS`, `MAX_UPGRADE_REPEATS`, `SKIP_COIN_GRANT`; definitions in `js/upgrades.js` |
 | Everything the Generic can roll — triggers, weights, effects, epithets, faces, price | `js/patron-generic.js`, the whole file. `GENERIC_TRIGGERS_A/B` carry the weights, `GENERIC_EFFECTS` the `cost` each must be paired against |
 | The Lye Boy's ramp — what a scrubbed coat is worth, and where it should slow | `js/constants.js` → `LYE_BOY_BANDS` (one band today; add a row to slow it, and `lyeBoySteps()` rewrites the card with it) |

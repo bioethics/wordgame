@@ -85,6 +85,10 @@ export const PATRON_CARDS = {
     name: 'The Chapman', emoji: '🛒', rarity: 'uncommon', cost: 7, guild: 'amber',
     desc: 'At the Market, amber tiles are free. At least one tile at the Market is always amber.',
   },
+  fence: {
+    name: 'The Fence', emoji: '🗝️', rarity: 'rare', cost: 9, guild: 'amber',
+    desc: 'He keeps the alley door. The Black Market is always one of the Colophon’s picks, and everything down there — tiles, tools and rare patrons alike — asks {FENCE_OFF} less.',
+  },
   usurer: {
     name: 'The Usurer', emoji: '🧾', rarity: 'common', cost: 1, guild: 'amber',
     desc: 'Tap for a loan of {USURER_LOAN} Coins. He cannot be dismissed until {USURER_OWED} is paid; until then, he collects {USURER_COLLECT} per page.',

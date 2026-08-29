@@ -25,7 +25,7 @@ import {
   colophon, closeColophon, applyColophonPick, applyColophonSkip, reshuffleColophon,
 } from './colophon.js';
 import {
-  blackMarket, closeBlackMarket, buyBlackTile, buyBlackPatron, buyBlackSundry,
+  blackMarket, closeBlackMarket, buyBlackTile, buyBlackPatron, buyBlackSundry, alleyAsks,
 } from './blackmarket.js';
 // Every heading, note and button label on these three sheets is copy, and lives
 // in js/text.js with the rest of the game's writing.
@@ -782,7 +782,7 @@ function blackMarketHTML() {
         <div class="offer-tile-slot" data-bm-tile="${i}"></div>
         <div class="bm-tile-note">${blackTileNote(o)}</div>
         <span class="op-sold">${BT.gone}</span>
-        <button class="btn-price" data-buy-bm-tile="${i}">${coinHTML(o.price)}</button>
+        <button class="btn-price" data-buy-bm-tile="${i}">${coinHTML(alleyAsks(o.price))}</button>
       </div>`).join('');
 
   const patrons = blackMarket.patronOffers.map((o, i) => {
@@ -808,7 +808,7 @@ function blackMarketHTML() {
         <button class="btn-price btn-price--over" data-buy-bm-patron="${i}"
                 title="${fillSlots(BT.markupTip, def.cost, BLACK_PATRON_MARKUP)}${
                   o.data?.postnom ? ` · ${fillSlots(BT.postnomTip, POSTNOM.surcharge, o.data.postnom)}` : ''}">${
-          coinHTML(patronCost(def, o.data))}</button>
+          coinHTML(alleyAsks(patronCost(def, o.data)))}</button>
       </div>`;
   }).join('') || `<p class="sheet-note">${BT.noPatrons}</p>`;
 
@@ -825,7 +825,7 @@ function blackMarketHTML() {
         ${mark}
         <div class="op-body"><div class="op-name">${tip.head}</div></div>
         <span class="op-sold">bought</span>
-        <button class="btn-price" data-buy-bm-sundry="${i}">${coinHTML(o.price)}</button>
+        <button class="btn-price" data-buy-bm-sundry="${i}">${coinHTML(alleyAsks(o.price))}</button>
       </div>`;
   }).join('');
 
@@ -900,15 +900,21 @@ export function updateBlackMarketState() {
                 : kind === 'tile'   ? blackMarket.tileOffers[idx]
                 :                     blackMarket.sundryOffers[idx];
     if (!offer) continue;
-    const cost = kind === 'patron'
+    const cost = alleyAsks(kind === 'patron'
       ? patronCost(patronById(offer.id), offer.data)
-      : offer.price;
+      : offer.price);
     const afford = state.coins >= cost
       && (kind !== 'patron' || !seatsFull)
       && (kind !== 'sundry' || !benchFull);
     card.classList.toggle('offer--sold', !!offer.sold);
     const btn = card.querySelector('.btn-price');
-    if (btn) btn.disabled = offer.sold || !afford;
+    if (btn) {
+      btn.disabled = offer.sold || !afford;
+      // The figure, not just whether it can be met: The Fence may have been
+      // hired off this very table a moment ago, and every price behind him just
+      // came down.
+      btn.innerHTML = coinHTML(cost);
+    }
   }
 
   const seats = m.querySelector('[data-seats]');

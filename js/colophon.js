@@ -8,6 +8,8 @@ import {
   MAX_UPGRADE_REPEATS, SKIP_COIN_GRANT, PAINT_PER_POT, BLACK_MARKET_MINIMUM,
 } from './constants.js';
 import { UPGRADE_DEFS, upgradeById } from './upgrades.js';
+import { alleyAsks } from './blackmarket.js';
+import { owns } from './state.js';
 
 export const colophon = {
   open:   false,
@@ -23,7 +25,9 @@ const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 // a choice, so it stays shut.
 function eligibleIds() {
   const noPaintLeft = !unpaintedTiles().length;
-  const tooPoorForTheAlley = state.coins < BLACK_MARKET_MINIMUM;
+  // The Fence lowers the bar as well as the prices behind it: the card is only
+  // "a wasted pick" at prices you cannot meet, and his are lower.
+  const tooPoorForTheAlley = state.coins < alleyAsks(BLACK_MARKET_MINIMUM);
   return UPGRADE_DEFS
     // `endless` picks ignore the repeat cap — the Black Market is a door, not a
     // bonus, and the alley is open however many times you have been down it.
@@ -43,6 +47,16 @@ function rollOffers() {
   const structural = eligible.filter(id => upgradeById(id).kind === 'structural');
   const offers = [];
   if (structural.length) offers.push(pick(structural));
+
+  // The Fence keeps the alley door, and keeping it means it is always on offer —
+  // taken out of the pool rather than added beside it, so the spread stays at n
+  // and one of it is his. He is the only reason the alley is ever a certainty;
+  // without him it is one card among the rest, dealt or not. This cannot
+  // overfill the spread: two guarantees can only both fire when two things are
+  // eligible, and n is at least the smaller of that count and the offer size.
+  if (owns('fence') && eligible.includes('blackmarket') && !offers.includes('blackmarket')) {
+    offers.push('blackmarket');
+  }
 
   const pool = shuffle(eligible.filter(id => !offers.includes(id)));
   while (offers.length < n && pool.length) offers.push(pool.shift());

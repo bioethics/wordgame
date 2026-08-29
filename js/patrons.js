@@ -1088,6 +1088,24 @@ const PATRON_BEHAVIOURS = [
     when: 'meta',   // the guarantee is in rollOffers, the price in offerPrice — js/market.js
   },
   {
+    // The Chapman one flight down, and built the same way: a guarantee and a
+    // price, both read LIVE off `owns` rather than baked in, so hiring him
+    // changes what is already on the table and dismissing him puts it back.
+    //
+    // He buys two things a run cannot otherwise plan for. The alley is the only
+    // place rare patrons are sold one-in-one — the fair's own pool runs
+    // three-to-one towards commons — so a rare build stops being a thing you
+    // hope for and becomes a thing you shop for. And the Colophon pick the alley
+    // costs stops being a gamble on the spread: it is simply there, every
+    // chapter, for the rest of the run.
+    //
+    // He scores nothing at all, which is the company he keeps (the Purveyor,
+    // the Chapman): a seat you buy for what it does to the SHAPE of a run.
+    id: 'fence',
+    when: 'meta',   // the guarantee is in rollOffers — js/colophon.js;
+                    // the price in alleyAsks — js/blackmarket.js
+  },
+  {
     id: 'bursar',
     when: 'score',
     effect({ tiles, state, addMult }) {
