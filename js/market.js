@@ -124,6 +124,10 @@ export function randomSpecialTile(floor = 1) {
   return tmpl;
 }
 
+// An undressed sort — what squib lead is cast on, since the tile is bought to
+// be lost and dressing it would only price up the loss.
+export const randomBareTile = () => makeTileTemplate(pick(LETTER_POOL));
+
 function randomTileOffer() {
   const tmpl = randomSpecialTile();
   return { template: tmpl, price: tilePrice(tmpl), sold: false };

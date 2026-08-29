@@ -31,14 +31,15 @@
 // the alley has a number to read. Nothing consumes it yet.
 
 import { state, adoptTemplate, shuffle, allSeats, owns, nextId, effectivePatronSlots,
-         effectiveSundrySlots } from './state.js';
+         effectiveSundrySlots, restingPoints } from './state.js';
 import {
   BLACK_TILE_OFFERS, BLACK_PATRON_OFFERS, BLACK_SUNDRY_OFFERS,
   BLACK_MATERIAL_STOCK, BLACK_MARK_PRICE, BLACK_TILE_SURCHARGE, BLACK_TILE_MAX_PRICE,
   BLACK_PATRON_MARKUP, BLACK_TILE_FEATURES, BLACK_SUNDRY_STOCK,
+  HACKER_BASE_PRICE, HACKER_CAP, HACKER_OFFERS, isImmutable,
   MARKS, MARK_TRIM, makeTileTemplate, FENCE_DISCOUNT,
 } from './constants.js';
-import { randomSpecialTile, tilePrice } from './market.js';
+import { randomSpecialTile, randomBareTile, tilePrice } from './market.js';
 import { PATRON_DEFS, patronById, patronCost, patronName, rollPostnom } from './patrons.js';
 
 export const blackMarket = {
@@ -46,6 +47,7 @@ export const blackMarket = {
   tileOffers:   [],   // [{ template, price, sold, material?, mark? }]
   patronOffers: [],   // [{ id, sold, data }]
   sundryOffers: [],   // [{ kind, price, sold, material?, theme? }]
+  hacker:       { proposals: [], uses: 0 },   // [tid…]; price doubles per use
 };
 
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
@@ -75,7 +77,11 @@ export const alleyAsks = n =>
 const alleyPrice = p => Math.min(p, BLACK_TILE_MAX_PRICE);
 
 function materialOffer(material) {
-  const template = randomSpecialTile(BLACK_TILE_FEATURES);
+  // A metal stocked `bare` arrives on an undressed sort (squib lead: the tile
+  // destroys itself when it goes off, so finery would be money buried with it).
+  const template = BLACK_MATERIAL_STOCK[material].bare
+    ? randomBareTile()
+    : randomSpecialTile(BLACK_TILE_FEATURES);
   template.material = material;
   return {
     template,
@@ -140,6 +146,38 @@ function rollSundryOffers() {
     .map(s => ({ ...s, sold: false }));
 }
 
+// ─── The Tile Hacker (the alley's one stall) ──────────────────────────────────
+// A spread of YOUR OWN sorts off the collection, and for a price the number in
+// the corner is struck double — permanent growth, written to the template like
+// the loupe's, capped hard at HACKER_CAP. The same tile can be struck again on
+// a later look while it is under the cap, and the price doubles with every
+// strike this visit, so the road from 2 to 50 costs real money by the end. The
+// Fence's cut applies here as everywhere in the alley.
+export const hackerEligible = t =>
+  !isImmutable(t) && restingPoints(t) > 0 && restingPoints(t) < HACKER_CAP;
+
+const rollHackerOffers = () =>
+  shuffle(state.collection.filter(hackerEligible)).slice(0, HACKER_OFFERS).map(t => t.tid);
+
+export const hackerPrice = () =>
+  alleyAsks(HACKER_BASE_PRICE * 2 ** (blackMarket.hacker?.uses ?? 0));
+
+export function hackTile(tid) {
+  const tmpl = state.collection.find(t => t.tid === tid);
+  if (!tmpl || !hackerEligible(tmpl)) return { ok: false, reason: 'Not available.' };
+  const price = hackerPrice();
+  if (state.coins < price) return { ok: false, reason: `You need ${price} Coins.` };
+  state.coins -= price;
+  blackMarket.hacker.uses += 1;
+  const from  = restingPoints(tmpl);
+  const delta = Math.min(HACKER_CAP, from * 2) - from;
+  // Growth follows the face the template is showing, the same rule growTile
+  // keeps — written here directly because the template IS the store.
+  const field = tmpl.activeVariant === 1 ? 'altBonusPoints' : 'bonusPoints';
+  tmpl[field] = (tmpl[field] ?? 0) + delta;
+  return { ok: true, tmpl, from, to: from + delta, price };
+}
+
 // ─── Open / close ─────────────────────────────────────────────────────────────
 
 export function openBlackMarket() {
@@ -149,6 +187,7 @@ export function openBlackMarket() {
   blackMarket.tileOffers   = rollTileOffers();
   blackMarket.patronOffers = rollPatronOffers();
   blackMarket.sundryOffers = rollSundryOffers();
+  blackMarket.hacker       = { proposals: rollHackerOffers(), uses: 0 };
 }
 
 export function closeBlackMarket() {
@@ -166,6 +205,13 @@ export function restoreBlackMarket(snapshot) {
   blackMarket.tileOffers   ??= [];
   blackMarket.patronOffers ??= [];
   blackMarket.sundryOffers ??= [];
+  // An old save may hold no bench, and a saved spread may name sorts that have
+  // since been smelted or struck to the cap — deal or prune accordingly.
+  blackMarket.hacker ??= { proposals: rollHackerOffers(), uses: 0 };
+  blackMarket.hacker.proposals = blackMarket.hacker.proposals.filter(tid => {
+    const t = state.collection.find(c => c.tid === tid);
+    return t && hackerEligible(t);
+  });
   state.inBlackMarket = true;
 }
 

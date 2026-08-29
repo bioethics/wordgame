@@ -1510,6 +1510,9 @@ button.sundry:hover { transform: translateY(-2px); }
 /* …and the primed chip only while a multiplier is armed against this word. */
 .chip--primed  { background: #2f6357;        color: #dffaf1; }
 .chip--primed:not(.chip--on) { display: none; }
+/* …and the explosive chip only when a squib is in the word. */
+.chip--explosive { background: #7a3510;      color: #ffdcb8; }
+.chip--explosive:not(.chip--on) { display: none; }
 .chip--on.chip--length  { box-shadow: 0 0 10px rgba(125, 143, 160, 0.65); }
 .chip--on.chip--crimson { box-shadow: 0 0 10px rgba(201, 79, 67, 0.6); }
 .chip--on.chip--azure   { box-shadow: 0 0 10px rgba(79, 134, 201, 0.6); }
@@ -1518,6 +1521,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .chip--on.chip--purple  { box-shadow: 0 0 10px rgba(138, 95, 176, 0.6); }
 .chip--on.chip--cursed  { box-shadow: 0 0 12px rgba(201, 60, 45, 0.75); }
 .chip--on.chip--primed  { box-shadow: 0 0 10px rgba(63, 122, 109, 0.7); }
+.chip--on.chip--explosive { box-shadow: 0 0 12px rgba(217, 111, 31, 0.75); }
 .ro-total {
   font-family: var(--serif);
   font-weight: 900;
@@ -2084,6 +2088,48 @@ button.sundry:hover { transform: translateY(-2px); }
 .tile--mat-ghost .tile-pts { color: #33506b; }
 
 /* Rose metal — a party favour, so the letter takes the manuscript hand. */
+/* ─── Squib lead — a charge in a tile ─────────────────────────────────────────
+   Charcoal with a hot core: the tile is a wrapped charge and reads as one. The
+   slow smoulder is the warning label; the fuse and singe below are the event. */
+.tile--mat-explosive {
+  background:
+    radial-gradient(120% 85% at 50% 100%, #7a3510 0%, #3a1a08 45%, #201009 100%);
+  border-color: #8a4a1a;
+  color: #ffcf9e;
+  --tile-lift: #4a2410;
+  --trim-ring: 0 0 12px rgba(255, 140, 40, 0.5);
+  animation: squibSmoulder calc(2.6s / var(--aspd)) ease-in-out infinite;
+}
+.tile--mat-explosive .tile-letter { color: #ffb066; text-shadow: 0 0 8px rgba(255, 120, 30, 0.55); }
+.tile--mat-explosive .tile-pts { color: #e8955c; }
+@keyframes squibSmoulder {
+  0%, 100% { box-shadow: 0 0 4px rgba(255, 120, 30, 0.25); filter: brightness(1); }
+  50%      { box-shadow: 0 0 12px rgba(255, 120, 30, 0.55); filter: brightness(1.12); }
+}
+
+/* The fuse: the shake before the blast, so the eye is on the right tile. */
+.tile--fuse { animation: squibFuse calc(0.62s / var(--aspd)) ease-in; z-index: 5; }
+@keyframes squibFuse {
+  0%   { transform: translate(0, 0) rotate(0deg); filter: brightness(1); }
+  20%  { transform: translate(-2px, 1px) rotate(-2deg); }
+  40%  { transform: translate(2px, -1px) rotate(2deg); filter: brightness(1.3); }
+  60%  { transform: translate(-2px, -1px) rotate(-3deg); }
+  80%  { transform: translate(2px, 1px) rotate(3deg); filter: brightness(1.7);
+         box-shadow: 0 0 0 3px rgba(255, 150, 50, 0.8), 0 0 26px rgba(255, 120, 30, 0.9); }
+  100% { transform: translate(0, 0) rotate(0deg); filter: brightness(2.2);
+         box-shadow: 0 0 0 5px rgba(255, 190, 90, 0.9), 0 0 40px rgba(255, 140, 40, 1); }
+}
+
+/* A neighbour the blast spared: knocked, scorched at the edge, still standing. */
+.tile--singed { animation: squibSinge calc(0.62s / var(--aspd)) ease-out; z-index: 4; }
+@keyframes squibSinge {
+  0%   { transform: translateX(0); filter: brightness(1); }
+  25%  { transform: translateX(5px) rotate(2deg); filter: brightness(1.4) sepia(0.4);
+         box-shadow: 0 0 14px rgba(255, 130, 40, 0.7); }
+  60%  { transform: translateX(-3px) rotate(-1deg); }
+  100% { transform: translateX(0) rotate(0deg); filter: brightness(1); }
+}
+
 .tile--mat-rose {
   background: linear-gradient(168deg, #ffd9e6 0%, #f3aec6 52%, #e089a8 100%);
   border-color: #c97d9a;
@@ -2680,6 +2726,7 @@ button.sundry:hover { transform: translateY(-2px); }
 .fl-set--purple  { color: #cfa6ff; }
 .fl-set--cursed  { color: #ff7a66; }
 .fl-set--primed  { color: #9fe6d4; }
+.fl-set--explosive { color: #ffb066; }
 .fl-set--bold    { color: #f6ecd2; }
 .fl-mat--cursed  { color: #ff7a66; font-size: 19px; }
 .fl-mat--ghost   { color: #dceaff; font-size: 19px; }
@@ -5345,7 +5392,8 @@ input[type='checkbox'] {
   .patron--murdered { animation: none; }
   .patron--just-armed .patron-take, .patron-take--bump { animation: none; }
   /* Materials still have to read as themselves — hold the colour, drop motion. */
-  .tile--mat-cursed, .tile--mat-rainbow, .tile--gift { animation: none; }
+  .tile--mat-cursed, .tile--mat-rainbow, .tile--mat-explosive, .tile--gift { animation: none; }
+  .tile--fuse, .tile--singed { animation: none; }
   .boss-bar--firing, .boss-bar--spiking { animation: none; }
   /* A tool waiting on its last tap still has to read as waiting — hold the glow
      at the top of the breath, drop the breathing. */

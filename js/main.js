@@ -14,13 +14,14 @@ import {
   trashFromCollection, mergeTiles, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
   castCounterfeit, effectiveRackSize, handCount, pluckFromBag,
   grantRandomPatron,
-  rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost,
+  rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost, luckyRoll,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
   REACTION, NEOLOGIST_LENGTH, MATERIALS, TRIMS, WRAPPED_CONTENTS, MARK_TRIM,
   chapterLabel, COLOURS, MULT_TRACKS, splitMarks, isDeadline,
   FLEURON, TOOLBOX_POOL, HONORIFIC_STEP, TONGS_BONUS, LOUPE_CAP, RIPPER_WORDS, sundryTip, TOOL_LOOK,
+  EXPLOSIVE_SPREAD_ODDS,
   PACKAGES, APPLICATORS, SILVER_BONUS, BAG_COUNTS,
   lengthFlourish, medievalExpansions, USURER, BRIBRARIAN, bribeMult, isRule, RULE,
 } from './constants.js';
@@ -328,6 +329,69 @@ async function editorEats() {
   renderAll();
   log(logLine('economiserEats', getActiveLetter(doomed)), 'warn');
   reportPaintEchoes();   // The Revenant may have caught it
+}
+
+// ─── Squib lead (a tile that goes off) ────────────────────────────────────────
+// The ×Mult was paid in scoring, with the colours; this is the charge going
+// off, in the commit, after the word's coats have been shown. The squib itself
+// is always destroyed; each tile BESIDE it in the printed word rolls
+// independently, and the roll rides luck on the ESCAPE — surviving is the
+// outcome a player would wish for, the same reasoning as the Serpent's.
+//
+// Destruction runs through burnTile → trashFromCollection like every other
+// road to it, so the Composter is fed and the Revenant stands at the graveside.
+// A tile the furnace refuses (the collection floor, a lent tile with no
+// template) simply survives — a fizzle, said so. Tiles are taken in word
+// order, and a tile already burned by a patron this word is out of reach.
+async function detonatePrinted(printed, alreadyBurned, rectOf) {
+  const squibs = printed.filter(t => t.material === 'explosive');
+  if (!squibs.length) return [];
+  const gone = new Set(alreadyBurned.map(t => t.id));
+  const out = [];
+  const burnTile = t => (gone.has(t.id) ? false : !!trashFromCollection(t.tid));
+
+  for (const squib of squibs) {
+    if (gone.has(squib.id)) continue;
+    const el = rectOf.get(squib.id)?.el;
+
+    // The fuse: the squib shakes before it blows, so the eye is on the right
+    // tile when the neighbours start rolling.
+    if (el) { pulse(el, 'tile--fuse', 620); sfx.aura(); await sleep(620); }
+
+    if (!burnTile(squib)) {
+      log(logLine('squibFizzle', getActiveLetter(squib)), 'warn');
+      continue;
+    }
+    gone.add(squib.id);
+    out.push(squib);
+    let msg = logLine('squibBoom', getActiveLetter(squib));
+    sfx.burn();
+    if (el) await animateBurn([el]);
+
+    // The neighbours, each on its own flip. `printed` is word order, so the
+    // squib at either end of the word stands beside exactly one tile.
+    const at = printed.indexOf(squib);
+    for (const j of [at - 1, at + 1]) {
+      const t = printed[j];
+      if (!t || gone.has(t.id)) continue;
+      const nEl = rectOf.get(t.id)?.el;
+      const spared = luckyRoll(1 - EXPLOSIVE_SPREAD_ODDS);
+      if (spared || !burnTile(t)) {
+        msg += logLine('squibSpared', getActiveLetter(t));
+        if (nEl) { pulse(nEl, 'tile--singed', 620); floatText(nEl, '✓', 'fl-points', { dy: -50 }); }
+        sfx.gain();
+      } else {
+        gone.add(t.id);
+        out.push(t);
+        msg += logLine('squibTakes', getActiveLetter(t));
+        if (nEl) { floatText(nEl, '💥', 'fl-curse', { dy: -50 }); await animateBurn([nEl]); }
+        sfx.bad();
+      }
+      await sleep(ANIM.stepTile);
+    }
+    log(msg, 'warn');
+  }
+  return out;
 }
 
 // ─── Rose metal (a tile that crowns) ──────────────────────────────────────────
@@ -1197,6 +1261,13 @@ async function submitWord() {
   if (burned.length) {
     await animateBurn(burned.map(t => rectOf.get(t.id)?.el).filter(Boolean));
   }
+
+  // The squibs go off after every seat has spoken — a patron may have burned or
+  // dressed a neighbour already — and their dead join the burned list, so they
+  // retire nowhere and the Revenant's echoes are reported below with the rest.
+  const blasted = await detonatePrinted(printed, burned, rectOf);
+  burned.push(...blasted);
+  if (blasted.length) reportPaintEchoes();
 
   // The wash comes off before the tiles retire, so The Fountain sees them bare:
   // an azure wash buys the multiplier, not the trip back to the bag.

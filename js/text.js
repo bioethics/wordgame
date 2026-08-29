@@ -223,6 +223,12 @@ export const LOG_TEXT = {
   bmInMetal:       ' in {0}',                                        // ⌐ the metal's name
   bmPatronSeat:    '{0} takes a seat — {1} Coins, and no questions.',
   bmSundry:        '{0} goes on the workbench.',
+  bmHacked:        '“{0}” struck up from {1} to {2} Points — {3} Coins.',
+  // The squib. Boom then one clause per neighbour, joined in js/main.js.
+  squibBoom:       '💥 The squib in {0} goes off — the tile is destroyed.',
+  squibTakes:      ' {0} is blown to pieces beside it.',
+  squibSpared:     ' {0} survives the blast.',
+  squibFizzle:     '💥 The squib in {0} fizzles — your collection is too small to lose a sort.',
   bmDismissed:     '{0} is dismissed{1}.',                           // name · ⌐bmForCoins or ''
   bmForCoins:      ' for {0} Coins',                                 // ⌐
   compostLifted:   'Lifted from the heap — it joins the bag next page.',
@@ -303,6 +309,7 @@ export const MULT_TRACK_TEXT = {
   cursed: { label: 'Cursed' },
   length: { label: 'Length' },
   primed: { label: 'Primed' },
+  explosive: { label: 'Explosive' },
 };
 
 // ─── Metals (what a sort is cast in) ──────────────────────────────────────────
@@ -328,6 +335,14 @@ export const MATERIAL_TEXT = {
   rose: {
     label: 'Rose', metal: 'Rose metal',
     desc: 'Crowns a random patron with a laurel.',
+  },
+  // A squib is a small charge — and, in the print trade, a short explosive
+  // piece of writing. Both meanings are doing work here.
+  explosive: {
+    label: 'Explosive', metal: 'Squib lead',
+    desc: '×{EXPLOSIVE_MULT} Mult when printed. Then the charge goes off: this tile is destroyed, '
+        + 'and each tile beside it in the word has a {EXPLOSIVE_SPREAD_CHANCE} chance of going with it. '
+        + 'Set at either end of the word, it stands beside only one.',
   },
 };
 
@@ -551,6 +566,12 @@ export const BLACK_MARKET_TEXT = {
   // The tooltip on a patron's price. {0} the fair's price, {1} the alley's markup.
   markupTip:  '{0} at the fair · {1} Coins over, for the walk',
   postnomTip: '{0} Coins over for the {1}',          // {0} surcharge, {1} the letters
+  // The Tile Hacker's bench. {0} in the sub is the hard cap.
+  hacker:     'The Tile Hacker',
+  hackerSub:  'your own sorts, face value doubled — to a limit of {0}',
+  hackNote:   '{0} → {1} Points, for good',          // {0} now, {1} after the strike
+  hackMaxed:  'struck to the limit',
+  noHacks:    'Nothing on the bench worth striking tonight.',
 };
 
 export const COLOPHON_TEXT = {

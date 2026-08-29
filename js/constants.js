@@ -263,6 +263,7 @@ export const MULT_TRACKS = {
   cursed: { label: MULT_TRACK_TEXT.cursed.label, glyph: '#c93c2d', bright: '#ff7a66' },
   length: { label: MULT_TRACK_TEXT.length.label, glyph: '#7d8fa0', bright: '#d9e6f2' },   // type-metal steel
   primed: { label: MULT_TRACK_TEXT.primed.label, glyph: '#3f7a6d', bright: '#9fe6d4' },   // armed, not earned
+  explosive: { label: MULT_TRACK_TEXT.explosive.label, glyph: '#d96f1f', bright: '#ffb066' },   // squib lead
 };
 
 // Tiles painted by one Colophon paint pick — random, and only unpainted ones.
@@ -653,6 +654,7 @@ export const MATERIALS = {
   rainbow: { ...MATERIAL_TEXT.rainbow, emoji: '🌈' },
   blind:   { ...MATERIAL_TEXT.blind,   emoji: '\u25cc' },
   rose:    { ...MATERIAL_TEXT.rose,    emoji: '🎀' },
+  explosive: { ...MATERIAL_TEXT.explosive, emoji: '💥' },
 };
 
 // Tiles nothing can be done to: a ghost; any tile an editor has merely lent you
@@ -668,6 +670,17 @@ export const isImmutable = tile =>
 // at this fraction of its score. Soft on purpose — a cost to weigh, not a wall.
 // Scoring applies it as a visible ×Mult step; the editor's bar quotes it.
 export const SPIKE_MULT = 0.2;
+
+// ─── Squib lead (the explosive sort) ──────────────────────────────────────────
+// ×Mult per squib in the word, paid with the colour multipliers — and then the
+// charge goes off in the commit (detonatePrinted in js/main.js): the tile
+// itself is always destroyed, and each tile BESIDE it in the word rolls
+// EXPLOSIVE_SPREAD_ODDS to be destroyed with it, independently. Set at either
+// end of the word it stands beside only one tile, which is the whole of the
+// play: the multiplier costs the squib and a coin flip, and where the flip
+// lands is up to you.
+export const EXPLOSIVE_MULT        = 2;
+export const EXPLOSIVE_SPREAD_ODDS = 0.5;
 
 // ─── Patron tuning (the colour-guild overhaul) ────────────────────────────────
 // Knobs for patron effects that reach beyond a single score. Plain score numbers
@@ -1083,6 +1096,16 @@ export const BLACK_SUNDRY_OFFERS = 4;
 // always three things you can actually use.
 export const BLACK_MARKET_MINIMUM = 10;
 
+// ─── The Tile Hacker (the alley's one stall) ──────────────────────────────────
+// A spread of YOUR OWN sorts, and for a price the face value is struck double —
+// written in as permanent growth, capped hard at HACKER_CAP, which is the
+// ceiling every tile in the game answers to (the interrobang sits exactly on
+// it). The price doubles with every strike, the same escalation every fair
+// stall runs, so the road from 2 to 50 costs real money by the end.
+export const HACKER_BASE_PRICE = 2;
+export const HACKER_CAP        = 50;
+export const HACKER_OFFERS     = 4;
+
 // The Fence's cut. He knows the alley's people, so everything down there asks
 // this much less — tiles, sundries and the rare patrons alike — and the door
 // itself gets cheaper with it: the minimum in the purse above is discounted by
@@ -1106,6 +1129,9 @@ export const BLACK_MATERIAL_STOCK = {
   rose:    { max: 2, price: 4 },
   cursed:  { max: 2, price: 2 },
   blind:   { max: 2, price: 2 },
+  // Sold BARE and cheap on purpose: the tile destroys itself when it goes off,
+  // so dressing one would only price up a thing you are buying to lose.
+  explosive: { max: 2, price: 0, bare: true },
 };
 
 // Nothing on the alley's table asks more than this, whatever it is made of and
@@ -1235,6 +1261,9 @@ export const KNOBS = {
   BLACK_TILE_OFFERS, BLACK_PATRON_OFFERS, BLACK_SUNDRY_OFFERS,
   BLACK_PATRON_MARKUP, BLACK_MARKET_MINIMUM,
   FENCE_OFF: `${Math.round(FENCE_DISCOUNT * 100)}%`,
+  EXPLOSIVE_MULT,
+  EXPLOSIVE_SPREAD_CHANCE: oddsText(EXPLOSIVE_SPREAD_ODDS),
+  HACKER_CAP,
 
   // Patron tuning
   CHILD_STEP, ABECEDARIAN_MULT, ESPALIER_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,

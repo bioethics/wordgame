@@ -1,5 +1,5 @@
 import {
-  TILE_POINTS, TRIMS, COLOURS, PURPLE_TRIM_STEP, REWARD, CURSED_MULT,
+  TILE_POINTS, TRIMS, COLOURS, PURPLE_TRIM_STEP, REWARD, CURSED_MULT, EXPLOSIVE_MULT,
   CURSED_PENALTY, SPIKE_MULT, SILVER_BONUS, isDeadline, splitMarks, isRule, BOLD_MULT,
   HONORIFIC_STEP, LAUREATE_MULT_STEP, FLEURON, FLEURON_PAGE_COIN, lengthMult, POSTNOM,
   ALDERMAN_STEP,
@@ -431,12 +431,14 @@ export function computeScore(wordTiles) {
   const byColour = {};
   const purples  = [];
   const cursed   = [];
+  const squibs   = [];
   wordTiles.forEach((t, i) => {
     const entry = { id: t.id, weight: echo[i] };
     const c = getActiveColour(t);
     if (c) (byColour[c] ??= []).push(entry);
     if (t.trim === 'purple')      purples.push(entry);
     if (t.material === 'cursed')  cursed.push(entry);
+    if (t.material === 'explosive') squibs.push(entry);
   });
   const weigh = list => list.reduce((n, e) => n + e.weight, 0);
   const idsOf = list => list.map(e => e.id);
@@ -488,6 +490,17 @@ export function computeScore(wordTiles) {
     const count = weigh(cursed);
     const m = CURSED_MULT ** count;
     colourSteps.push({ colour: 'cursed', ids: idsOf(cursed), count, mult: m });
+    mult *= m;
+  }
+
+  // Squib lead pays the same way — its ×Mult lands here, with the word's own
+  // arithmetic, and the charge itself goes off later, in the commit
+  // (detonatePrinted in js/main.js). Scoring stays pure: nothing explodes on a
+  // keystroke, the preview simply shows what the word will be worth.
+  if (squibs.length) {
+    const count = weigh(squibs);
+    const m = EXPLOSIVE_MULT ** count;
+    colourSteps.push({ colour: 'explosive', ids: idsOf(squibs), count, mult: m });
     mult *= m;
   }
   mult = Math.round(mult * 1000) / 1000;   // keep half-steps off floating-point drift

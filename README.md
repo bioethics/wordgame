@@ -240,7 +240,7 @@ plus an optional **trim** and **nick**.
 | Trim | **Gold** pays 1 Coin · **Silver** +5 Points, counted into the tile's corner number wherever it appears · **Cobalt** refreshes 1 Discard · **Purple** raises the fifth multiplier by 0.5 |
 | Nick | A notch in one edge; the notched side is the direction. The nick reads every tile on that side and **adds their Points to its own** — a right nick on the first letter scores the rest of the word twice over. Nicks *do* stack, but a tile that carries a nick of its own is read at its **resting value** (the number it wears in the hand), so no nick ever reads another nick's winnings. While you compose, the nicked tile's corner number already shows what it will take |
 | Letterform | Dual tiles hold two letters (flip to switch; paint, trim and nick belong to the tile, so both faces wear them) · Ligatures ING · CH · CK · TH · WH · QU spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Medieval sorts** þ · ȝ · Æ · Ƿ and **marks** ? · ! — below · the lone **Q**, which no bag holds and no shop sells: the ratchet is the only door to one |
-| Material | What the tile is cast from, under everything else: ordinary lead, or **cursed** / **ghost** / **rainbow** / **rose** / **blind** |
+| Material | What the tile is cast from, under everything else: ordinary lead, or **cursed** / **ghost** / **rainbow** / **rose** / **blind** / **explosive** |
 | Growth | Permanent +1s a patron (The Grafter) writes into a tile, worn as a jade corner number |
 
 **Materials** — most type is lead. A **wrapped tile** (4 Coins at the Market) is
@@ -266,6 +266,17 @@ paint, trims and nicks.
 - **Rose** (rose metal) — print a sort struck in it and a seated patron is
   crowned with a laurel. Not consumed, so it pays every time you fit it into a
   word. It comes only out of a party bag.
+- **Explosive** (squib lead) — a squib is a small charge, and in the trade a
+  short explosive piece of writing; this is both. **×2 Mult when printed**, and
+  then the charge goes off: the tile is destroyed, and each tile *beside it in
+  the word* rolls an independent 1-in-2 to be destroyed with it. Set at either
+  end of the word it stands beside only one tile, which is the whole play —
+  the multiplier costs the squib and a coin flip, and where the flip lands is
+  yours to place. Survival rides luck (the escape is the outcome you'd wish
+  for, the Serpent's rule), destruction runs through the same furnace as every
+  other (the Composter is fed, the Revenant stands at the graveside), and two
+  squibs in one word compound to ×4 — with a wider blast radius. Sold bare and
+  cheap at the Black Market, nowhere else.
 - **Blind** (blind emboss) — struck into the paper carrying no ink, so the
   letter is felt and never seen. A word set with one in it is **never spiked**:
   the editor cannot read what was never printed. That makes it worth a great
@@ -735,6 +746,14 @@ not half a list price you never saw — and there is no re-roll. The alley shows
 you what it has, once. `js/blackmarket.js`, and the constants beginning `BLACK_`
 in `js/constants.js`.
 
+The alley also keeps its one stall, **The Tile Hacker**: a spread of *your own*
+sorts, and for a price the number in the corner is struck **double** — permanent
+growth, written to the collection, capped hard at 50 (the ceiling every tile in
+the game answers to; the interrobang sits exactly on it). The price starts at 2
+Coins and doubles with every strike this visit, so the road from 2 to 50 costs
+real money by the end — and the same tile can be struck again on a later look
+while it is under the cap. `hackTile` and friends in `js/blackmarket.js`.
+
 Unless you have hired **The Fence** (rare, amber), who is the alley what *The
 Chapman* is to the fair, and built the same way — a guarantee and a price, both
 read live off `owns` rather than baked into the offers. The Black Market becomes
@@ -805,6 +824,8 @@ bigger step than the last and a built press has to multiply rather than add:
 | Opening draft spread & pick counts | `js/constants.js` → `DRAFT` |
 | How loaded offered tiles are | `js/constants.js` → `FEATURE_CHAIN_CHANCE`, `MAX_FEATURES` (one feature free, then keep rolling); generation in `js/market.js` → `randomSpecialTile` |
 | Rewards & interest | `js/constants.js` → `REWARD` |
+| Squib lead — the ×Mult and the blast radius's odds | `js/constants.js` → `EXPLOSIVE_MULT`, `EXPLOSIVE_SPREAD_ODDS`; the ×Mult pays in scoring's pass 3, the charge goes off in `detonatePrinted` (`js/main.js`) |
+| The Tile Hacker — base price, cap, spread size | `js/constants.js` → `HACKER_BASE_PRICE`, `HACKER_CAP`, `HACKER_OFFERS` |
 | The Fence's cut, and the alley's entry requirement | `js/constants.js` → `FENCE_DISCOUNT`, `BLACK_MARKET_MINIMUM` (the minimum is discounted by the same fraction; both go through `alleyAsks` in `js/blackmarket.js`) |
 | Colophon roster, offer count, repeat cap, skip grant | `js/constants.js` → `UPGRADE_OFFERS`, `MAX_UPGRADE_REPEATS`, `SKIP_COIN_GRANT`; definitions in `js/upgrades.js` |
 | Everything the Generic can roll — triggers, weights, effects, epithets, faces, price | `js/patron-generic.js`, the whole file. `GENERIC_TRIGGERS_A/B` carry the weights, `GENERIC_EFFECTS` the `cost` each must be paired against |

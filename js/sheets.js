@@ -4,13 +4,13 @@
 
 import {
   state, owns, effectivePatronSlots, effectiveSundrySlots, spendReshuffleSundry,
-  takePaintEchoes, takeGhostEchoes, completesLovers,
+  takePaintEchoes, takeGhostEchoes, completesLovers, restingPoints,
 } from './state.js';
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
   ANIM, SUNDRY_SELL, tileCount, sundryTip, TOOL_LOOK, PACKAGES, APPLICATORS,
   colourDesc, POSTNOM, GHOST_HIRE, MATERIALS, TILE_POINTS, letterGlyph,
-  BLACK_PATRON_MARKUP,
+  BLACK_PATRON_MARKUP, HACKER_CAP,
 } from './constants.js';
 import { PATRON_DEFS, patronById, guildsOf, patronName, patronShelf, patronEmoji, patronCost, laurelWorth } from './patrons.js';
 import { upgradeById } from './upgrades.js';
@@ -26,6 +26,7 @@ import {
 } from './colophon.js';
 import {
   blackMarket, closeBlackMarket, buyBlackTile, buyBlackPatron, buyBlackSundry, alleyAsks,
+  hackerEligible, hackerPrice, hackTile,
 } from './blackmarket.js';
 // Every heading, note and button label on these three sheets is copy, and lives
 // in js/text.js with the rest of the game's writing.
@@ -829,6 +830,21 @@ function blackMarketHTML() {
       </div>`;
   }).join('');
 
+  const hacks = (blackMarket.hacker?.proposals ?? []).map((tid, i) => {
+    const tmpl = state.collection.find(t => t.tid === tid);
+    if (!tmpl) return '';
+    const from  = restingPoints(tmpl);
+    const maxed = !hackerEligible(tmpl);
+    const note  = maxed ? BT.hackMaxed
+                        : fillSlots(BT.hackNote, from, Math.min(HACKER_CAP, from * 2));
+    return `
+      <div class="bm-tile bm-hack" data-bm-offer="hack" data-idx="${i}">
+        <div class="offer-tile-slot" data-bm-hack-tile="${i}"></div>
+        <div class="bm-tile-note">${note}</div>
+        <button class="btn-price" data-buy-bm-hack="${i}" ${maxed ? 'disabled' : ''}>${coinHTML(hackerPrice())}</button>
+      </div>`;
+  }).join('') || `<p class="sheet-note">${BT.noHacks}</p>`;
+
   return `
     <div class="sheet sheet--market sheet--black">
       <div class="sheet-head">
@@ -847,6 +863,11 @@ function blackMarketHTML() {
       <section class="bm-sec">
         <h3 class="market-sec">${BT.tiles} <span class="market-sub">${BT.tilesSub}</span></h3>
         <div class="bm-tiles">${tiles}</div>
+      </section>
+
+      <section class="bm-sec">
+        <h3 class="market-sec">${BT.hacker} <span class="market-sub">${fillSlots(BT.hackerSub, HACKER_CAP)}</span></h3>
+        <div class="bm-tiles bm-hacks">${hacks}</div>
       </section>
 
       <div class="bm-grid">
@@ -879,6 +900,11 @@ export function renderBlackMarket() {
     const slot = m.querySelector(`[data-bm-tile="${i}"]`);
     if (slot && !slot.children.length) slot.appendChild(makeTileEl({ ...o.template, id: '' }, 'offer'));
   });
+  (blackMarket.hacker?.proposals ?? []).forEach((tid, i) => {
+    const slot = m.querySelector(`[data-bm-hack-tile="${i}"]`);
+    const tmpl = state.collection.find(t => t.tid === tid);
+    if (slot && tmpl && !slot.children.length) slot.appendChild(makeTileEl({ ...tmpl, id: '' }, 'offer'));
+  });
   updateBlackMarketState();
 }
 
@@ -896,6 +922,19 @@ export function updateBlackMarketState() {
   for (const card of m.querySelectorAll('[data-bm-offer]')) {
     const kind = card.dataset.bmOffer;
     const idx  = Number(card.dataset.idx);
+    // The Hacker's bench: no `sold` — a struck tile may be struck again under
+    // the cap — so the button is priced and gated here and nothing else applies.
+    if (kind === 'hack') {
+      const tid  = blackMarket.hacker?.proposals?.[idx];
+      const tmpl = state.collection.find(t => t.tid === tid);
+      const cost = hackerPrice();
+      const btn  = card.querySelector('.btn-price');
+      if (btn) {
+        btn.disabled = !tmpl || !hackerEligible(tmpl) || state.coins < cost;
+        btn.innerHTML = coinHTML(cost);
+      }
+      continue;
+    }
     const offer = kind === 'patron' ? blackMarket.patronOffers[idx]
                 : kind === 'tile'   ? blackMarket.tileOffers[idx]
                 :                     blackMarket.sundryOffers[idx];
@@ -962,6 +1001,19 @@ function onBlackMarketClick(e) {
     sfx.coin(); sfx.chime();
     log(logLine('bmPatronSeat', r.name, r.price), 'good');
     renderAll(); updateBlackMarketState();
+    return;
+  }
+
+  const hackB = e.target.closest('[data-buy-bm-hack]');
+  if (hackB) {
+    const tid = blackMarket.hacker?.proposals?.[Number(hackB.dataset.buyBmHack)];
+    const r = hackTile(tid);
+    if (!r.ok) { if (r.reason) log(r.reason, 'warn'); sfx.bad(); return; }
+    sfx.coin(); sfx.chime();
+    log(logLine('bmHacked', r.tmpl.letter, r.from, r.to, r.price), 'good');
+    // A full re-render, not a patch: the corner number on the tile just changed,
+    // and the note beside it with it.
+    renderAll(); renderBlackMarket();
     return;
   }
 
