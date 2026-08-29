@@ -37,6 +37,8 @@ import {
   BLACK_MATERIAL_STOCK, BLACK_MARK_PRICE, BLACK_TILE_SURCHARGE, BLACK_TILE_MAX_PRICE,
   BLACK_PATRON_MARKUP, BLACK_TILE_FEATURES, BLACK_SUNDRY_STOCK,
   HACKER_BASE_PRICE, HACKER_CAP, HACKER_OFFERS, isImmutable,
+  SHELL_BASE_PRICE, SHELL_SHOWN, SHELL_COINS, SHELL_PRIZES, SHELL_RARE_ODDS,
+  BATTER, COLOURS, PACKAGES,
   MARKS, MARK_TRIM, makeTileTemplate, FENCE_DISCOUNT,
 } from './constants.js';
 import { randomSpecialTile, randomBareTile, tilePrice } from './market.js';
@@ -48,6 +50,7 @@ export const blackMarket = {
   patronOffers: [],   // [{ id, sold, data }]
   sundryOffers: [],   // [{ kind, price, sold, material?, theme? }]
   hacker:       { proposals: [], uses: 0 },   // [tid…]; price doubles per use
+  shell:        { shells: [], uses: 0 },      // [kind…]; price doubles per play
 };
 
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
@@ -175,7 +178,86 @@ export function hackTile(tid) {
   // keeps — written here directly because the template IS the store.
   const field = tmpl.activeVariant === 1 ? 'altBonusPoints' : 'bonusPoints';
   tmpl[field] = (tmpl[field] ?? 0) + delta;
+  // A fresh spread after every strike, the same as a fair stall's — so the
+  // bench is a new decision each time rather than the same six growing dearer.
+  blackMarket.hacker.proposals = rollHackerOffers();
   return { ok: true, tmpl, from, to: from + delta, price };
+}
+
+// ─── The Shell Game (the alley's other stall) ─────────────────────────────────
+// Three shells dealt off SHELL_PRIZES, all three shown, and the one you get
+// decided when you pay — never by you. The deal is fresh after every play.
+//
+// Two of the four kinds resolve to a TILE, and both go straight into the
+// collection rather than the hand: the alley sells stock, not a hand of cards.
+// A sundry with nowhere to go pays out in Coins instead, so a full workbench
+// can never eat a prize outright.
+
+const shellDeal = () => {
+  const pool = SHELL_PRIZES.flatMap(p => Array(p.weight).fill(p.kind));
+  const out = [];
+  while (out.length < SHELL_SHOWN && pool.length) {
+    const kind = pick(pool);
+    out.push(kind);
+    for (let i = pool.length - 1; i >= 0; i--) if (pool[i] === kind) pool.splice(i, 1);
+  }
+  return out;
+};
+
+export const shellPrice = () =>
+  alleyAsks(SHELL_BASE_PRICE * 2 ** (blackMarket.shell?.uses ?? 0));
+
+// Every sundry the game holds, in one list — the fair's stock, the alley's, and
+// a tube in each colour. The shell game is the one place they all mix.
+const everySundry = () => [
+  ...Object.keys(COLOURS).map(colour => ({ kind: 'tube', colour })),
+  { kind: 'reshuffle' }, { kind: 'ratchet' }, { kind: 'toolbox' }, { kind: 'bodkin' },
+  { kind: 'loupe' }, { kind: 'laurel' }, { kind: 'tongs' }, { kind: 'wash' },
+  { kind: 'applicator', material: 'rainbow' }, { kind: 'applicator', material: 'cursed' },
+  ...Object.keys(PACKAGES).map(theme => ({ kind: 'package', theme })),
+];
+
+export function playShell() {
+  const shells = blackMarket.shell?.shells ?? [];
+  if (!shells.length) return { ok: false, reason: 'Nothing on the crate.' };
+  const price = shellPrice();
+  if (state.coins < price) return { ok: false, reason: `You need ${price} Coins.` };
+  state.coins -= price;
+  blackMarket.shell.uses += 1;
+
+  // Which shell, decided here and nowhere earlier: the deal is what you bought,
+  // the outcome is what you gambled on.
+  const kind = pick(shells);
+  const won = { kind, price };
+
+  if (kind === 'coins') {
+    state.coins += SHELL_COINS;
+    won.coins = SHELL_COINS;
+  } else if (kind === 'batter') {
+    won.template = makeTileTemplate(BATTER);
+    state.collection.push(adoptTemplate(won.template));
+  } else if (kind === 'sort') {
+    // Contraband as often as SHELL_RARE_ODDS, ballast the rest of the time —
+    // and ballast is a real cost, since every plain sort thins the bag.
+    const rare = Math.random() < SHELL_RARE_ODDS;
+    won.template = rare ? randomSpecialTile(BLACK_TILE_FEATURES) : randomBareTile();
+    if (rare) won.template.material = pick(Object.keys(BLACK_MATERIAL_STOCK));
+    state.collection.push(adoptTemplate(won.template));
+  } else {
+    const sundry = pick(everySundry());
+    if (state.sundries.length >= effectiveSundrySlots()) {
+      // No room, so it is sold on for you rather than lost.
+      state.coins += SHELL_COINS;
+      won.refused = sundry;
+      won.coins = SHELL_COINS;
+    } else {
+      state.sundries.push(sundry);
+      won.sundry = sundry;
+    }
+  }
+
+  blackMarket.shell.shells = shellDeal();
+  return { ok: true, ...won };
 }
 
 // ─── Open / close ─────────────────────────────────────────────────────────────
@@ -188,6 +270,7 @@ export function openBlackMarket() {
   blackMarket.patronOffers = rollPatronOffers();
   blackMarket.sundryOffers = rollSundryOffers();
   blackMarket.hacker       = { proposals: rollHackerOffers(), uses: 0 };
+  blackMarket.shell        = { shells: shellDeal(), uses: 0 };
 }
 
 export function closeBlackMarket() {
@@ -208,6 +291,8 @@ export function restoreBlackMarket(snapshot) {
   // An old save may hold no bench, and a saved spread may name sorts that have
   // since been smelted or struck to the cap — deal or prune accordingly.
   blackMarket.hacker ??= { proposals: rollHackerOffers(), uses: 0 };
+  blackMarket.shell  ??= { shells: shellDeal(), uses: 0 };
+  if (!blackMarket.shell.shells?.length) blackMarket.shell.shells = shellDeal();
   blackMarket.hacker.proposals = blackMarket.hacker.proposals.filter(tid => {
     const t = state.collection.find(c => c.tid === tid);
     return t && hackerEligible(t);

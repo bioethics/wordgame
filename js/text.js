@@ -125,6 +125,7 @@ export const LOG_TEXT = {
   marksGoLast:   'Marks go last, as ? or ! or ?!.',
   markNeedsWord: 'A mark needs a word in front of it.',
   fleuronAlone:  'The fleuron sets no word — it prints alone.',
+  batterAlone:   'A batter sets no word — it is ruined type, and prints alone.',
   notAWord:      "“{0}” isn't in the dictionary.",              // {0} the word
 
   // ─── The printed word ───────────────────────────────────────────────────────
@@ -224,6 +225,13 @@ export const LOG_TEXT = {
   bmPatronSeat:    '{0} takes a seat — {1} Coins, and no questions.',
   bmSundry:        '{0} goes on the workbench.',
   bmHacked:        '“{0}” struck up from {1} to {2} Points — {3} Coins.',
+  // The shell game. {0} is what came out from under the shell.
+  shellPlayed:     '🐚 The shells go round… and it is {0}.',
+  shellCoinsWon:   '{0} Coins',
+  shellSortWon:    'a sort — “{1}”{0}',                             // {0} ⌐bmInMetal or '' · {1} letter
+  shellSundryWon:  '{0}, onto the workbench',
+  shellBatterWon:  'a batter — ruined type, worth nothing and spelling nothing. Set it alone, once, for the case',
+  shellNoRoom:     'the workbench is full, so the prize is {0} Coins instead',
   // The squib. Boom then one clause per neighbour, joined in js/main.js.
   squibBoom:       '💥 The squib in {0} goes off — the tile is destroyed.',
   squibTakes:      ' {0} is blown to pieces beside it.',
@@ -315,6 +323,18 @@ export const MULT_TRACK_TEXT = {
 // ─── Metals (what a sort is cast in) ──────────────────────────────────────────
 // `metal` is the name of the material itself, as a founder would say it; `label`
 // is the short word the board uses.
+// The two sorts that spell nothing and stand alone. Read by the tile tooltip.
+export const SOLO_TEXT = {
+  '☙': { head: 'The fleuron',
+         body: 'An ornament, not a letter. It joins no word — set it ALONE for its Point — '
+             + 'and it pays a Coin every page it sits in your collection.' },
+  '▨': { head: 'A batter',
+         body: 'Type broken past printing. Worth no Points, spelling nothing, and it can only be '
+             + 'set alone — so printing it spends a whole word to put a ruin on the paper. '
+             + 'It is still a SORT, though, and The Abecedarian’s case has a place for it: set it '
+             + 'once, ever, and that place is filled for good.' },
+};
+
 export const MATERIAL_TEXT = {
   cursed: {
     label: 'Cursed', metal: 'Hellbox iron',
@@ -568,6 +588,15 @@ export const BLACK_MARKET_TEXT = {
   postnomTip: '{0} Coins over for the {1}',          // {0} surcharge, {1} the letters
   // The Tile Hacker's bench. {0} in the sub is the hard cap.
   hacker:     'The Tile Hacker',
+  // The shell game.
+  shell:      'The Shell Game',
+  shellSub:   'three shells, one prize — and the choosing is not yours',
+  shellPlay:  'Play',
+  shellCoins: '{0} Coins',
+  shellSort:  'A sort — contraband, or ballast',
+  shellSundry:'Something off the workbench',
+  shellBatter:'A battered sort — ruined type',
+  shellWon:   'you got',
   hackerSub:  'your own sorts, face value doubled — to a limit of {0}',
   hackNote:   '{0} → {1} Points, for good',          // {0} now, {1} after the strike
   hackMaxed:  'struck to the limit',

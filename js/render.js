@@ -12,7 +12,7 @@ import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
   WORDS_PER_PAGE, PAGES_PER_CHAPTER, tileCount,
   colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
-  sundryTip, FLEURON, TOOL_LOOK, PACKAGES, APPLICATORS, MEDIEVAL, letterGlyph,
+  sundryTip, FLEURON, BATTER, TOOL_LOOK, PACKAGES, APPLICATORS, MEDIEVAL, letterGlyph,
   INTERROBANG, POSTNOM, BAG_COUNTS, BRIBRARIAN, bribeMult, isRule, RULE, BOLD_MULT,
 } from './constants.js';
 import { patronById, guildsOf, patronName, patronShelf, patronEmoji, laurelWorth, seatTally } from './patrons.js';
@@ -24,7 +24,7 @@ import { colophonSnapshot } from './colophon.js';
 import { blackMarketSnapshot } from './blackmarket.js';
 import { setNum, sleep, fmtMult, readingTime, sfx } from './anim.js';
 import { uiZoom } from './appearance.js';
-import { logLine } from './text.js';
+import { logLine, SOLO_TEXT } from './text.js';
 
 const $ = id => document.getElementById(id);
 
@@ -59,6 +59,7 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   // Four or more letters outgrow the ligature type sizes, so the tile doubles.
   if (active.length >= 4) div.classList.add('tile--wide');
   if (tile.letter === FLEURON) div.classList.add('tile--fleuron');
+  if (tile.letter === BATTER)  div.classList.add('tile--batter');
   if (tile.wash && !tile.colour) div.classList.add('tile--washed');
   // The paper goes over everything the tile was, so this class is added LAST and
   // the CSS covers trim ring, nick and metal alike.
@@ -194,6 +195,8 @@ export function tileFeatures(tile) {
   if (isMark(tile.letter)) {
     out.push({ head: 'Mark', body: 'Spells nothing — goes on the end of a word. One ? or one ! or ?!.' });
   }
+  // The two sorts that stand alone, each in its own words (SOLO_TEXT).
+  if (SOLO_TEXT[tile.letter]) out.push(SOLO_TEXT[tile.letter]);
   if (getActiveGrowth(tile)) {
     out.push({ head: 'Grown', body: `+${getActiveGrowth(tile)} Points set permanently into this letter.` });
   }

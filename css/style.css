@@ -2088,23 +2088,60 @@ button.sundry:hover { transform: translateY(-2px); }
 .tile--mat-ghost .tile-pts { color: #33506b; }
 
 /* Rose metal — a party favour, so the letter takes the manuscript hand. */
+/* A batter — type broken past printing. Chipped, grey, and the only tile in the
+   game whose face is deliberately ugly: it should look like something you were
+   given rather than something you bought. */
+.tile--batter {
+  background: linear-gradient(158deg, #9a958c 0%, #7d786f 48%, #5f5b54 100%);
+  border-color: #4f4b45;
+  color: #3b3833;
+  --tile-lift: #4a463f;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.22), inset 2px -2px 6px rgba(0, 0, 0, 0.35);
+}
+.tile--batter .tile-letter { color: #3b3833; opacity: 0.82; transform: rotate(-4deg); }
+.tile--batter .tile-pts { color: #55514a; }
+
 /* ─── Squib lead — a charge in a tile ─────────────────────────────────────────
    Charcoal with a hot core: the tile is a wrapped charge and reads as one. The
    slow smoulder is the warning label; the fuse and singe below are the event. */
+/* Black powder, not embers — the cursed tile is a deep red glow, so this one is
+   near-black with HAZARD STRIPES and a cold yellow spark. Stripes are the thing
+   that separates them at a glance: no other tile in the game has a pattern. */
 .tile--mat-explosive {
   background:
-    radial-gradient(120% 85% at 50% 100%, #7a3510 0%, #3a1a08 45%, #201009 100%);
-  border-color: #8a4a1a;
-  color: #ffcf9e;
-  --tile-lift: #4a2410;
-  --trim-ring: 0 0 12px rgba(255, 140, 40, 0.5);
-  animation: squibSmoulder calc(2.6s / var(--aspd)) ease-in-out infinite;
+    repeating-linear-gradient(135deg,
+      rgba(255, 196, 60, 0.16) 0 6px,
+      rgba(0, 0, 0, 0) 6px 13px),
+    linear-gradient(168deg, #34302a 0%, #1c1a17 55%, #100f0d 100%);
+  border-color: #cf9a2a;
+  color: #ffe9a8;
+  --tile-lift: #22201c;
+  --trim-ring: 0 0 12px rgba(255, 200, 70, 0.45);
+  animation: squibSpark calc(2.2s / var(--aspd)) ease-in-out infinite;
 }
-.tile--mat-explosive .tile-letter { color: #ffb066; text-shadow: 0 0 8px rgba(255, 120, 30, 0.55); }
-.tile--mat-explosive .tile-pts { color: #e8955c; }
-@keyframes squibSmoulder {
-  0%, 100% { box-shadow: 0 0 4px rgba(255, 120, 30, 0.25); filter: brightness(1); }
-  50%      { box-shadow: 0 0 12px rgba(255, 120, 30, 0.55); filter: brightness(1.12); }
+.tile--mat-explosive .tile-letter {
+  color: #ffe08a;
+  text-shadow: 0 0 9px rgba(255, 210, 90, 0.7), 0 1px 0 rgba(0, 0, 0, 0.6);
+}
+.tile--mat-explosive .tile-pts { color: #d9b45e; }
+/* The lit fuse: a spark at the shoulder, which the cursed tile has nothing like. */
+.tile--mat-explosive::after {
+  content: '';
+  position: absolute;
+  top: 3px; right: 4px;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #fff3c4;
+  box-shadow: 0 0 6px 2px rgba(255, 200, 70, 0.9);
+  animation: squibFuseLit calc(1.1s / var(--aspd)) ease-in-out infinite;
+}
+@keyframes squibSpark {
+  0%, 100% { box-shadow: 0 0 4px rgba(255, 190, 60, 0.2); }
+  50%      { box-shadow: 0 0 13px rgba(255, 190, 60, 0.45); }
+}
+@keyframes squibFuseLit {
+  0%, 100% { opacity: 0.55; transform: scale(0.8); }
+  50%      { opacity: 1;    transform: scale(1.25); }
 }
 
 /* The fuse: the shake before the blast, so the eye is on the right tile. */
@@ -4438,6 +4475,36 @@ button.sundry:hover { transform: translateY(-2px); }
   padding: 8px 9px;
 }
 .tc-patron--ubiquitous { border-left-color: #7c8a9c; }
+/* ─── The Shell Game (the alley's crate) ──────────────────────────────────────
+   Three shells in a row and the play button beside them. Deliberately plainer
+   than the tile tables above: this is a crate in an alley, not a display. */
+.bm-shells {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(120, 200, 170, 0.16);
+}
+.bm-shell {
+  flex: 1 1 130px;
+  min-width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 11px 8px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px dashed rgba(140, 210, 185, 0.28);
+  text-align: center;
+}
+.bm-shell-glyph { font-size: 27px; line-height: 1.1; }
+.bm-shells .bm-tile-note { margin: 0; }
+.bm-shell-play { align-self: center; white-space: nowrap; }
+
 /* What opens a locked patron, said only in the Testing Chamber — a dev screen
    has no business keeping secrets, and the Market gives nothing away. */
 .op-desc--lock { opacity: 0.72; font-style: italic; margin-top: 2px; }
@@ -5394,6 +5461,7 @@ input[type='checkbox'] {
   /* Materials still have to read as themselves — hold the colour, drop motion. */
   .tile--mat-cursed, .tile--mat-rainbow, .tile--mat-explosive, .tile--gift { animation: none; }
   .tile--fuse, .tile--singed { animation: none; }
+  .tile--mat-explosive::after { animation: none; opacity: 0.9; }
   .boss-bar--firing, .boss-bar--spiking { animation: none; }
   /* A tool waiting on its last tap still has to read as waiting — hold the glow
      at the top of the breath, drop the breathing. */

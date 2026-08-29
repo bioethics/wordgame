@@ -42,6 +42,7 @@ export const TILE_POINTS = {
   ING:5, CH:7, CK:9, TH:5, WH:10,
   RAT:3,                    // R+A+T, exactly what the three would score apart
   '*': 0,                   // a rule is a mark on the copy, not a letter — see RULE
+  '▨': 0,                   // a batter is ruined type — see BATTER
   OLOGY:11,                 // O+L+O+G+Y — The Scientist's loan, and no one else's
   OO:2, FU:7,               // out of the Sexton's and the Vulgarian's packages only
   // The medieval sorts pay well over what they stand for — TH is 5, thorn 10.
@@ -66,7 +67,7 @@ export const LIGATURES = ['ING', 'CH', 'CK', 'TH', 'WH', 'QU', 'RAT', 'OLOGY', '
 // Letters no shop or heap will ever hand you: each comes from one patron
 // and nowhere else. RAT is The Rat Catcher's; OLOGY The Scientist's, only ever on
 // loan; the fleuron sells at its own price (FLEURON_PRICE).
-export const EXCLUSIVE_LETTERS = ['RAT', 'OLOGY', '☙', 'Þ', 'Ȝ', 'Ƿ', 'Æ', '‽', 'OO', 'FU', '*'];
+export const EXCLUSIVE_LETTERS = ['RAT', 'OLOGY', '☙', 'Þ', 'Ȝ', 'Ƿ', 'Æ', '‽', 'OO', 'FU', '*', '▨'];
 
 // ─── The medieval sorts (The Medievalist's stall) ─────────────────────────────
 // Each STANDS FOR ordinary letters when the word is read: the tile prints as its
@@ -186,6 +187,26 @@ export const GHOST_HIRE = { odds: 0.01, surcharge: 3 };   // odds per patron car
 // alone, for its single point, spending a whole word slot — and the one tile that
 // earns while idle, paying 1 Coin per page completion wherever it sits.
 export const FLEURON = '☙';
+
+// ─── The batter (a sort broken past use) ──────────────────────────────────────
+// "Batter" is the trade's own word for type damaged past printing — a face
+// bruised flat, a shoulder knocked in. This is one: worth NOTHING, spelling
+// nothing, and like the fleuron it can only be set alone, so printing it spends
+// a whole word of the page to put a ruined sort on the paper.
+//
+// Which would make it pure punishment but for one thing: it is a SORT, and the
+// Abecedarian's case has a place for it (ABECEDARIAN_CASE below). Setting it
+// once, ever, is worth its permanent step of Mult — so the right move with a
+// batter is to print it the moment a cheap page can spare the word, and never
+// think about it again. It comes out of the alley's shell game and nowhere
+// else, which is why it is on EXCLUSIVE_LETTERS.
+export const BATTER = '▨';
+
+// Sorts that spell nothing and can only be set ALONE — the ornament and the
+// ruin. Every gate that used to name the fleuron reads this instead, so a third
+// one would need no new law (spellsAlone in js/main.js).
+export const SOLO_SORTS = [FLEURON, BATTER];
+export const isSolo     = L => SOLO_SORTS.includes(L);
 
 // ─── The rules (the compositor's marks for emphasis) ──────────────────────────
 // A pair of sorts that bracket a word and set it BOLD. They spell nothing, take
@@ -1038,6 +1059,7 @@ export const ABECEDARIAN_CASE = [
   ...Object.keys(MEDIEVAL),
   FLEURON,
   RULE,
+  BATTER,
 ];
 
 // What a printed tile gives up to the case: ITSELF. A QU is a QU — one sort,
@@ -1104,7 +1126,31 @@ export const BLACK_MARKET_MINIMUM = 10;
 // stall runs, so the road from 2 to 50 costs real money by the end.
 export const HACKER_BASE_PRICE = 2;
 export const HACKER_CAP        = 50;
-export const HACKER_OFFERS     = 4;
+export const HACKER_OFFERS     = 6;
+
+// ─── The Shell Game (the alley's other stall) ─────────────────────────────────
+// Three shells on a crate, and under one of them is your prize. The stall deals
+// SHELL_SHOWN kinds out of the table below, shows you all three, and takes a
+// price — and then which of the three you actually get is not yours to decide.
+// So the decision is never "which do I want" (you don't get to choose) but "is
+// this spread of three worth two Coins", which is a real question when one of
+// the shells has a ruined sort under it.
+//
+// EDIT THIS TABLE to retune the gamble. `weight` decides how often a kind is
+// among the three dealt; every kind dealt is equally likely to be the one you
+// get, so the odds of any outcome are (its share of the deal) ÷ 3.
+export const SHELL_BASE_PRICE = 2;
+export const SHELL_SHOWN      = 3;
+export const SHELL_COINS      = 5;
+export const SHELL_PRIZES = [
+  { kind: 'coins',  weight: 3 },   // SHELL_COINS Coins, and the only sure good
+  { kind: 'sundry', weight: 3 },   // one tool, tube or parcel from the whole game
+  { kind: 'sort',   weight: 3 },   // a tile — sometimes contraband, often ballast
+  { kind: 'batter', weight: 2 },   // a sort broken past use (BATTER, above)
+];
+// How often the sort under a shell is a RARE one (a metal off the alley's own
+// table) rather than an ordinary sort that only thickens the bag.
+export const SHELL_RARE_ODDS  = 0.4;
 
 // The Fence's cut. He knows the alley's people, so everything down there asks
 // this much less — tiles, sundries and the rare patrons alike — and the door
@@ -1263,7 +1309,7 @@ export const KNOBS = {
   FENCE_OFF: `${Math.round(FENCE_DISCOUNT * 100)}%`,
   EXPLOSIVE_MULT,
   EXPLOSIVE_SPREAD_CHANCE: oddsText(EXPLOSIVE_SPREAD_ODDS),
-  HACKER_CAP,
+  HACKER_CAP, SHELL_COINS,
 
   // Patron tuning
   CHILD_STEP, ABECEDARIAN_MULT, ESPALIER_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,

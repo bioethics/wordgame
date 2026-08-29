@@ -20,7 +20,7 @@ import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
   REACTION, NEOLOGIST_LENGTH, MATERIALS, TRIMS, WRAPPED_CONTENTS, MARK_TRIM,
   chapterLabel, COLOURS, MULT_TRACKS, splitMarks, isDeadline,
-  FLEURON, TOOLBOX_POOL, HONORIFIC_STEP, TONGS_BONUS, LOUPE_CAP, RIPPER_WORDS, sundryTip, TOOL_LOOK,
+  FLEURON, BATTER, isSolo, TOOLBOX_POOL, HONORIFIC_STEP, TONGS_BONUS, LOUPE_CAP, RIPPER_WORDS, sundryTip, TOOL_LOOK,
   EXPLOSIVE_SPREAD_ODDS,
   PACKAGES, APPLICATORS, SILVER_BONUS, BAG_COUNTS,
   lengthFlourish, medievalExpansions, USURER, BRIBRARIAN, bribeMult, isRule, RULE,
@@ -977,11 +977,13 @@ async function submitWord() {
   const parts = splitMarks(w.toUpperCase());
   if (!parts)          return reject(logLine('marksGoLast'));
   if (!parts.letters)  return reject(logLine('markNeedsWord'));
-  // The fleuron decorates the page, never a word: alone it stands, beside
-  // anything else it is refused before the dictionary is even asked.
-  const fleuronAlone = parts.letters === FLEURON;
-  if (parts.letters.includes(FLEURON) && !fleuronAlone) {
-    return reject(logLine('fleuronAlone'));
+  // The ornament and the ruin decorate the page, never a word: alone they stand,
+  // beside anything else they are refused before the dictionary is even asked.
+  // One gate for both (SOLO_SORTS in js/constants.js), so a third would need no
+  // new law here.
+  const soloAlone = isSolo(parts.letters);
+  if (!soloAlone && [...parts.letters].some(isSolo)) {
+    return reject(logLine(parts.letters.includes(BATTER) ? 'batterAlone' : 'fleuronAlone'));
   }
   // A medieval sort stands for ordinary letters, so the word is READ before it
   // is judged: every reading is tried, in the sort's own order, and the first
@@ -992,7 +994,7 @@ async function submitWord() {
   const readings = medievalExpansions(parts.letters) ?? [parts.letters];
   let pardoned = null;
   let vouched = null;   // patron id — the lexicon patrons vouch, they don't pardon
-  if (!fleuronAlone && !readings.some(r => DICT.has(r))) {
+  if (!soloAlone && !readings.some(r => DICT.has(r))) {
     // The lexicon patrons are checked before the pardons: their entries are
     // legitimate in their own right, not misspellings of something else.
     const stenographed = owns('stenographer') && readings.find(r => THEME_SETS.acronyms.has(r));
@@ -1006,7 +1008,7 @@ async function submitWord() {
       }
       if (!pardoned) return reject(logLine('notAWord', w));
     }
-  } else if (!fleuronAlone) {
+  } else if (!soloAlone) {
     parts.letters = readings.find(r => DICT.has(r));
   }
 

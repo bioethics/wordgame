@@ -10,7 +10,7 @@ import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
   ANIM, SUNDRY_SELL, tileCount, sundryTip, TOOL_LOOK, PACKAGES, APPLICATORS,
   colourDesc, POSTNOM, GHOST_HIRE, MATERIALS, TILE_POINTS, letterGlyph,
-  BLACK_PATRON_MARKUP, HACKER_CAP,
+  BLACK_PATRON_MARKUP, HACKER_CAP, SHELL_COINS,
 } from './constants.js';
 import { PATRON_DEFS, patronById, guildsOf, patronName, patronShelf, patronEmoji, patronCost, laurelWorth } from './patrons.js';
 import { upgradeById } from './upgrades.js';
@@ -26,7 +26,7 @@ import {
 } from './colophon.js';
 import {
   blackMarket, closeBlackMarket, buyBlackTile, buyBlackPatron, buyBlackSundry, alleyAsks,
-  hackerEligible, hackerPrice, hackTile,
+  hackerEligible, hackerPrice, hackTile, shellPrice, playShell,
 } from './blackmarket.js';
 // Every heading, note and button label on these three sheets is copy, and lives
 // in js/text.js with the rest of the game's writing.
@@ -845,6 +845,21 @@ function blackMarketHTML() {
       </div>`;
   }).join('') || `<p class="sheet-note">${BT.noHacks}</p>`;
 
+  const SHELL_FACE = {
+    coins:  { glyph: '🪙', note: fillSlots(BT.shellCoins, SHELL_COINS) },
+    sort:   { glyph: '🔠', note: BT.shellSort },
+    sundry: { glyph: '🧰', note: BT.shellSundry },
+    batter: { glyph: '▨',  note: BT.shellBatter },
+  };
+  const shells = (blackMarket.shell?.shells ?? []).map((kind, i) => {
+    const face = SHELL_FACE[kind] ?? { glyph: '❓', note: '' };
+    return `
+      <div class="bm-shell" data-shell="${i}">
+        <span class="bm-shell-glyph">${face.glyph}</span>
+        <div class="bm-tile-note">${face.note}</div>
+      </div>`;
+  }).join('');
+
   return `
     <div class="sheet sheet--market sheet--black">
       <div class="sheet-head">
@@ -868,6 +883,14 @@ function blackMarketHTML() {
       <section class="bm-sec">
         <h3 class="market-sec">${BT.hacker} <span class="market-sub">${fillSlots(BT.hackerSub, HACKER_CAP)}</span></h3>
         <div class="bm-tiles bm-hacks">${hacks}</div>
+      </section>
+
+      <section class="bm-sec">
+        <h3 class="market-sec">${BT.shell} <span class="market-sub">${BT.shellSub}</span></h3>
+        <div class="bm-shells" data-bm-offer="shell" data-idx="0">
+          ${shells}
+          <button class="btn-price bm-shell-play" data-play-shell>${BT.shellPlay} ${coinHTML(shellPrice())}</button>
+        </div>
       </section>
 
       <div class="bm-grid">
@@ -924,6 +947,15 @@ export function updateBlackMarketState() {
     const idx  = Number(card.dataset.idx);
     // The Hacker's bench: no `sold` — a struck tile may be struck again under
     // the cap — so the button is priced and gated here and nothing else applies.
+    if (kind === 'shell') {
+      const btn = card.querySelector('.btn-price');
+      if (btn) {
+        const cost = shellPrice();
+        btn.disabled = state.coins < cost;
+        btn.innerHTML = `${BT.shellPlay} ${coinHTML(cost)}`;
+      }
+      continue;
+    }
     if (kind === 'hack') {
       const tid  = blackMarket.hacker?.proposals?.[idx];
       const tmpl = state.collection.find(t => t.tid === tid);
@@ -1001,6 +1033,27 @@ function onBlackMarketClick(e) {
     sfx.coin(); sfx.chime();
     log(logLine('bmPatronSeat', r.name, r.price), 'good');
     renderAll(); updateBlackMarketState();
+    return;
+  }
+
+  const playS = e.target.closest('[data-play-shell]');
+  if (playS) {
+    const r = playShell();
+    if (!r.ok) { if (r.reason) log(r.reason, 'warn'); sfx.bad(); return; }
+    // What came out from under the shell, said in its own words.
+    const got = r.kind === 'coins' || r.refused
+      ? (r.refused
+          ? fillSlots(logLine('shellNoRoom'), r.coins).trim()
+          : logLine('shellCoinsWon', r.coins).trim())
+      : r.kind === 'batter' ? logLine('shellBatterWon').trim()
+      : r.kind === 'sort'
+        ? logLine('shellSortWon', r.template.material
+            ? logLine('bmInMetal', MATERIALS[r.template.material].metal.toLowerCase()) : '',
+            r.template.letter).trim()
+        : logLine('shellSundryWon', sundryTip(r.sundry)?.head ?? 'a sundry').trim();
+    log(logLine('shellPlayed', got), r.kind === 'batter' ? 'warn' : 'good');
+    if (r.kind === 'batter') sfx.bad(); else { sfx.coin(); sfx.chime(); }
+    renderAll(); renderBlackMarket();
     return;
   }
 

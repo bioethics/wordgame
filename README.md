@@ -337,7 +337,7 @@ game rewards doubling down — one colour, one letter, one shape — and this on
 keeps a **case of every sort the press can set**, paying for each the first time
 you print it. Every TILE has a place, not merely every letter: the alphabet, all
 ten ligatures (`QU` is a QU, not a Q and a U), both marks, the interrobang, the
-four medieval sorts, the fleuron and the rule — **45 places**. A medieval sort
+four medieval sorts, the fleuron, the rule and the batter — **46 places**. A medieval sort
 is collected as *itself*, because þ stands for TH but is a letter in its own
 right; the interrobang is the one exception, physically cut from a `?` and a `!`
 and so filling all three places at once.
@@ -595,6 +595,16 @@ The **fleuron** ❧'s mirror, ☙, is a tile rather than a sundry: a printer's
 ornament in gold that sets no word at all. It can only be printed alone, for its
 single Point, and pays 1 Coin every time a page completes, wherever it is.
 
+The **batter** ▨ is its opposite number and the alley's booby prize: type broken
+past printing. Worth **no Points**, spelling nothing, and — like the fleuron —
+settable only alone, so printing one spends a whole word of the page to put a
+ruin on the paper. What redeems it is that it is still a *sort*, and the
+Abecedarian's case has a place for it: set it once, ever, and the place is
+filled for good. So the right move with a batter is to print it the moment a
+cheap page can spare the word, and never think about it again. It comes out of
+the Shell Game and nowhere else. Both sorts go through one gate (`SOLO_SORTS`
+in `js/constants.js`), so a third would need no new law.
+
 **The compost heap** appears at the Market while the Composter is seated: every
 tile destroyed anywhere rots down into a jade tile with complications of its
 own. The heap holds the freshest six, older rot is turned under, and you may
@@ -746,13 +756,26 @@ not half a list price you never saw — and there is no re-roll. The alley shows
 you what it has, once. `js/blackmarket.js`, and the constants beginning `BLACK_`
 in `js/constants.js`.
 
-The alley also keeps its one stall, **The Tile Hacker**: a spread of *your own*
-sorts, and for a price the number in the corner is struck **double** — permanent
-growth, written to the collection, capped hard at 50 (the ceiling every tile in
-the game answers to; the interrobang sits exactly on it). The price starts at 2
-Coins and doubles with every strike this visit, so the road from 2 to 50 costs
-real money by the end — and the same tile can be struck again on a later look
-while it is under the cap. `hackTile` and friends in `js/blackmarket.js`.
+The alley also keeps **two stalls, always open**.
+
+**The Tile Hacker** deals six of *your own* sorts, and for a price the number in
+the corner is struck **double** — permanent growth, written to the collection,
+capped hard at 50 (the ceiling every tile in the game answers to; the
+interrobang sits exactly on it). The price starts at 2 Coins and doubles with
+every strike this visit, so the road from 1 to 50 costs 62 Coins walked end to
+end. A fresh six is dealt after every strike, so the bench is a new decision
+each time rather than the same spread growing dearer.
+
+**The Shell Game** deals three shells off a table of four prizes — 5 Coins, a
+sundry from the whole game, a sort (contraband as often as `SHELL_RARE_ODDS`,
+ballast the rest of the time), and a **batter** — shows you all three, and takes
+its price. Which of the three you get is decided when you pay and is *not*
+yours: so the decision is never "which do I want" but "is this spread worth two
+Coins", which is a real question when one of the shells has a ruin under it.
+Every dealt shell is equally likely to be the one you get, so the odds of any
+outcome are its share of the deal ÷ 3. A sundry with nowhere to go pays out in
+Coins instead, so a full workbench can never eat a prize outright. Both stalls
+double their price with use, and the Fence's cut applies to both.
 
 Unless you have hired **The Fence** (rare, amber), who is the alley what *The
 Chapman* is to the fair, and built the same way — a guarantee and a price, both
@@ -826,6 +849,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Rewards & interest | `js/constants.js` → `REWARD` |
 | Squib lead — the ×Mult and the blast radius's odds | `js/constants.js` → `EXPLOSIVE_MULT`, `EXPLOSIVE_SPREAD_ODDS`; the ×Mult pays in scoring's pass 3, the charge goes off in `detonatePrinted` (`js/main.js`) |
 | The Tile Hacker — base price, cap, spread size | `js/constants.js` → `HACKER_BASE_PRICE`, `HACKER_CAP`, `HACKER_OFFERS` |
+| The Shell Game — what is under the shells and how often | `js/constants.js` → `SHELL_PRIZES` (a `weight` per kind — how often it is among the three dealt), `SHELL_BASE_PRICE`, `SHELL_SHOWN`, `SHELL_COINS`, `SHELL_RARE_ODDS` |
 | The Fence's cut, and the alley's entry requirement | `js/constants.js` → `FENCE_DISCOUNT`, `BLACK_MARKET_MINIMUM` (the minimum is discounted by the same fraction; both go through `alleyAsks` in `js/blackmarket.js`) |
 | Colophon roster, offer count, repeat cap, skip grant | `js/constants.js` → `UPGRADE_OFFERS`, `MAX_UPGRADE_REPEATS`, `SKIP_COIN_GRANT`; definitions in `js/upgrades.js` |
 | Everything the Generic can roll — triggers, weights, effects, epithets, faces, price | `js/patron-generic.js`, the whole file. `GENERIC_TRIGGERS_A/B` carry the weights, `GENERIC_EFFECTS` the `cost` each must be paired against |
