@@ -10,7 +10,7 @@ import {
   effectiveGhostSlots, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected, takePaintEchoes,
   rollTubeOffer, applyWash, washOff, effectiveSundrySlots, takeGhostEchoes,
-  getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile, nickTile, recastTile,
+  getActiveColour, getActiveLetter, countsAsColour, growTile, paintTile, trimTile, nickTile, stripPaint, recastTile,
   trashFromCollection, mergeTiles, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
   castCounterfeit, effectiveRackSize, handCount, pluckFromBag,
   grantRandomPatron,
@@ -616,7 +616,14 @@ function runPrintedHooks(tiles, script) {
     dressed.set(tile.id, at);
   };
 
-  for (const p of allSeats()) {
+  // Seat order is the rule everywhere, with one documented exception: a seat
+  // that CLEANS UP after the table (`speaksLast`, the Lye Boy) has to run when
+  // the table has finished painting, or seating it in front of a painter would
+  // be strictly better than seating it behind.
+  const seats = allSeats();
+  const inOrder = [...seats.filter(p => !patronById(p.id)?.speaksLast),
+                   ...seats.filter(p =>  patronById(p.id)?.speaksLast)];
+  for (const p of inOrder) {
     const def = patronById(p.id);
     if (!def?.onPrinted) continue;
     p.data ??= {};
@@ -633,6 +640,14 @@ function runPrintedHooks(tiles, script) {
         const ok = trimTile(t, kind);
         if (ok) noteDress(t, 'trim', kind);
         return ok;
+      },
+      // The mirror of `paint`, and noted the same way so the coat is seen LEAVING
+      // the tile before it flies off — the same courtesy the Nudist's brushwork
+      // gets, and the only way a player watches a multiplier being sold.
+      strip:  (t) => {
+        const was = stripPaint(t);
+        if (was) noteDress(t, 'stripped', was);
+        return was;
       },
       nick:   (t, kind) => nickTile(t, kind),
       recast: recastTile,
@@ -670,10 +685,22 @@ function runPrintedHooks(tiles, script) {
 async function dressPrinted(dressed) {
   if (!dressed.length) return;
   let shown = 0;
-  for (const { tile, colour, trim } of dressed) {
+  for (const { tile, colour, trim, stripped } of dressed) {
     const el = wordTileEl(tile.id);
     if (!el) continue;
     if (trim) el.classList.add(`tile--trim-${trim}`);
+    // A coat coming OFF: the letter goes back to its ink and the tile flashes
+    // the colour it is losing, so the trade is watched rather than reported.
+    if (stripped && !colour) {
+      el.querySelector('.tile-letter')?.style.removeProperty('color');
+      el.querySelector('.tile-alt')?.style.removeProperty('color');
+      el.classList.remove('tile--washed');
+      el.style.setProperty('--glow', COLOURS[stripped].glyph);
+      pulse(el, 'tile--stripped', 620);
+      sparkleBurst(el, 5);
+      shown++;
+      continue;
+    }
     if (colour) {
       const glyph = COLOURS[colour].glyph;
       el.querySelector('.tile-letter')?.style.setProperty('color', glyph);

@@ -222,6 +222,10 @@ export const PATRON_CARDS = {
     name: 'The Headsman', emoji: '🪓', rarity: 'uncommon', cost: 7, guild: 'crimson',
     desc: '×1 Mult to begin with, raised by {HEADSMAN_STEP} for good with every patron you dismiss.',
   },
+  lyeboy: {
+    name: 'The Lye Boy', emoji: '🪣', rarity: 'uncommon', cost: 6, guild: 'crimson',
+    desc: 'The apprentice who washes the forme when the day is done. Every painted tile in a word he sees is scrubbed bare — a wash counts, and so does a coat laid mid-word — and he keeps {LYE_BOY_STEPS} Mult for each one, for good.',
+  },
   serpent: {
     name: 'The Serpent', emoji: '🐍', rarity: 'uncommon', cost: 7, guild: 'crimson',
     desc: 'Words ending in S get ×2 Mult — and then, a {SERPENT_EAT_CHANCE} chance he swallows the S.',

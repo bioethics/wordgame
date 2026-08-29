@@ -467,6 +467,30 @@ export const NICKS = {
   left:  { ...NICK_TEXT.left,  price: 3 },
 };
 
+// ─── The Lye Boy's bucket ─────────────────────────────────────────────────────
+// He scrubs every coat off the tiles of a printed word and keeps a little Mult
+// for each one, for good. What he is really selling is a CONVERSION: paint is
+// the game's multiplicative engine — three crimson tiles are ×4, and the colours
+// multiply across each other, so a well-dressed word reaches ×12 and past it —
+// and he trades all of that for an additive number that never needs the right
+// tile in the right word and never stops growing.
+//
+// Which means the step has to be paid honestly. A committed run feeds him
+// perhaps forty or fifty coats (bought paint, a wash pot, a painting seat), and
+// at a quarter each that lands near +12 Mult — about what a good colour build
+// was worth, only permanent and drawn from every word instead of the lucky ones.
+//
+// ONE BAND on purpose: this is meant to be played with before it is capped. The
+// Beekeeper and the Abecedarian both needed slowing in the end, and when this
+// one does, it is a row in the table below and nothing else — the card quotes
+// the whole of it through lyeBoySteps().
+export const LYE_BOY_BANDS = [
+  { upTo: Infinity, step: 0.25 },
+];
+export const LYE_BOY_STEP = LYE_BOY_BANDS[0].step;   // the first band's step, quoted on the card
+export const lyeBoyMult = coats => walkBands(coats, LYE_BOY_BANDS, { base: 0, by: 'total' });
+export const lyeBoySteps = () => bandSentence(LYE_BOY_BANDS, '+');
+
 // ─── The Serpent's appetite ───────────────────────────────────────────────────
 // The odds the S at the end of a word is swallowed. The ×2 is paid either way,
 // so this is the only thing standing between the seat and a flat tax on every
@@ -1205,7 +1229,10 @@ export const KNOBS = {
 
   // Patron tuning
   CHILD_STEP, ABECEDARIAN_MULT, ESPALIER_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,
-  ALDERMAN_STEP,
+  ALDERMAN_STEP, LYE_BOY_STEP,
+  // The Lye Boy's whole curve as one phrase, so his card cannot drift from the
+  // bands — one band today, and the sentence grows with the table.
+  LYE_BOY_STEPS: lyeBoySteps(),
   // "1-in-2", off the odds themselves, so the card can never quote a bet the
   // snake doesn't run.
   SERPENT_EAT_CHANCE: oddsText(SERPENT_EAT_ODDS),

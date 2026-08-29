@@ -133,6 +133,12 @@
 // Optional `refundBonus(data)`: extra Coins this seat's dismissal pays on top
 // of the standard half-cost — read by patronRefund in market.js.
 //
+// Optional `speaksLast`: this seat's onPrinted runs after every other seat's,
+// whatever order it sits in. For a patron that CLEANS UP after the table — it
+// would otherwise be reading a forme the other seats are still painting, and
+// seating it in front of them would be strictly better than seating it behind.
+// Everything else obeys seat order, which is a promise to the player.
+//
 // Optional `locked()`: while it returns true the patron is out of every pool
 // that deals a card — the Market's counter, the Black Market's, the love
 // potion's — as though it were `unlisted`, and it starts being dealt the moment
@@ -155,7 +161,7 @@ import {
   medievalExpansions, POSTNOM, GHOST_HIRE, USURER,
   PRINCE, princeMult,
   WORDLER,
-  WINNOWER_BONUS, SERPENT_EAT_ODDS,
+  WINNOWER_BONUS, SERPENT_EAT_ODDS, lyeBoyMult,
   LOVERS,
 } from './constants.js';
 import {
@@ -1535,6 +1541,61 @@ const PATRON_BEHAVIOURS = [
     // more than the ×2 is worth. The meal goes through the same burn every
     // destruction does, so the Smelter's floor and a lent tile both refuse it —
     // and the word keeps its ×2 either way, paid before the meal.
+    // The one seat that SPENDS the paint economy instead of feeding on it, and
+    // the answer to a late run where the build is already built. Paint is the
+    // game's multiplicative engine — each painted tile is +1 to its colour's
+    // multiplier and the colours multiply ACROSS one another, so a well-dressed
+    // word reaches ×12 and past it. He takes all of that away and gives back an
+    // additive number that never needs the right colour in the right word, never
+    // stops growing, and cannot be drawn badly.
+    //
+    // What makes it a decision rather than a one-time cost is that the ramp is
+    // paid PER COAT, not per word: once your tiles are bare he pays nothing, so
+    // keeping him fed means buying paint — a tube, a pot, a wash — and that is
+    // the point. He is a sink that turns Coins into permanent Mult, which is the
+    // thing a rich late run has nowhere to put.
+    //
+    // A wash counts (getActiveColour reads a wash as paint, so anything that can
+    // see a coat can take one) and so does a coat laid mid-word by a painting
+    // seat, which is read off the script rather than the tile — pass ½ paints a
+    // COPY, and the seat that laid it may not have made it permanent yet.
+    //
+    // `speaksLast` is load-bearing. Without it, seating him in FRONT of a painter
+    // would let him count that painter's coat and leave it on the tile, which is
+    // strictly better than seating him behind and would make the seat free. He
+    // washes the forme after the day's printing; there is no other order for it.
+    id: 'lyeboy',
+    when: 'score',
+    speaksLast: true,
+    effect({ data, addMult }) {
+      const m = lyeBoyMult(data?.coats ?? 0);
+      if (m) addMult(m);
+    },
+    onPrinted({ tiles, script, data, strip }) {
+      const taken = [];
+      for (const t of tiles) {
+        // What the WORD wore, which is not always what the tile wears: a coat
+        // laid in scoring's pass ½ is on the copy the score was read from.
+        const coat = getActiveColour(t) ?? script?.tilePaint?.get(t.id) ?? null;
+        if (!coat || isImmutable(t)) continue;
+        strip?.(t);
+        taken.push(coat);
+      }
+      if (!taken.length) return null;
+      data.coats = (data.coats ?? 0) + taken.length;
+      return { note: `+${lyeBoyMult(data.coats)} Mult`,
+               say: [`${taken.length} coat${taken.length > 1 ? 's' : ''} scrubbed off — `
+                   + `+${lyeBoyMult(data.coats)} Mult on every word from here.`] };
+    },
+    tally(data) {
+      const coats = data?.coats ?? 0;
+      if (!coats) return 'The bucket is clean — no coats drunk yet.';
+      const next = Math.round((lyeBoyMult(coats + 1) - lyeBoyMult(coats)) * 100) / 100;
+      return `${coats} coat${coats > 1 ? 's' : ''} scrubbed off — +${lyeBoyMult(coats)} Mult on every word. `
+           + `The next is worth +${next}.`;
+    },
+  },
+  {
     id: 'serpent',
     when: 'score',
     effect({ word, xMult }) { if (word.length > 1 && word.endsWith('S')) xMult(2); },

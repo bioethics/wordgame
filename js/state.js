@@ -785,6 +785,23 @@ export function washOff(tiles) {
   return rinsed;
 }
 
+// The mirror of paintTile: the coat comes off and the collection template loses
+// it too, so the tile is bare wherever it turns up next. A WASH goes with it —
+// getActiveColour reads the two as one thing, so anything that can see a coat
+// has to be able to take it — and the metal underneath is untouched, which is
+// why a rainbow tile survives the bucket still reading as every colour.
+// Returns the colour taken, or null if there was nothing to take.
+export function stripPaint(tile) {
+  if (isImmutable(tile)) return null;
+  const was = getActiveColour(tile);
+  if (!was) return null;
+  tile.colour = null;
+  tile.wash = null;
+  const tmpl = state.collection.find(c => c.tid === tile.tid);
+  if (tmpl) { tmpl.colour = null; tmpl.wash = null; }
+  return was;
+}
+
 // A trim belongs to the tile, not to either face. Refuses a tile that already
 // wears one — trims don't stack.
 export function trimTile(tile, kind) {

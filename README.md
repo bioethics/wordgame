@@ -87,12 +87,49 @@ behind. Drag a card along the shelf to reseat it, on the board or on **Your
 table** at the top of the Market. (Additive Mult and ×Mult commute; it is the
 Points that care.)
 
+The one documented exception is a seat that **cleans up after the table**
+(`speaksLast` on its behaviour — currently only *The Lye Boy*). Its `onPrinted`
+runs after every other seat's, wherever you sit it: it would otherwise be
+scrubbing a forme the other seats are still painting, and seating it in front of
+a painter would be strictly better than seating it behind. Everything else obeys
+seat order, which is a promise to the player.
+
 Two things happen before the table speaks. Patrons whose promise reads
 *"such-and-such tiles gain +N Points"* write that number onto the tile itself,
 so **the nicks read it and the Monogrammists double it**; where it is written in for
 keeps the groove shows it in **jade** rather than brass. And the tongs' heat and
 the toll for a curse left in hand land first, so any multiplier seated at all
 catches them.
+
+### The Lye Boy — selling the paint engine
+
+Paint is the game's *multiplicative* half: each painted tile is +1 to its
+colour's multiplier and the colours multiply **across** one another, so a
+well-dressed word reaches ×12 and past it. **The Lye Boy** (crimson, uncommon)
+is the one seat that spends that engine instead of feeding on it. Every painted
+tile in a word he sees is scrubbed bare — permanently, written through to the
+collection — and he keeps **+0.25 Mult for each coat**, for good.
+
+What makes it a decision rather than a one-time cost is that the ramp is paid
+**per coat, not per word**. Once your tiles are bare he pays nothing, so keeping
+him fed means buying paint — a tube, a pot, a wash. He is a sink that turns
+Coins into permanent Mult, which is the thing a rich late run has nowhere to
+put. A committed run feeds him forty or fifty coats and lands near +12 Mult:
+about what a good colour build was worth, only permanent, and drawn from every
+word instead of the lucky ones.
+
+A **wash** counts (`getActiveColour` reads a wash as paint, so anything that can
+see a coat can take one), and so does a coat laid *mid-word* by a painting seat
+— read off the script rather than the tile, since scoring's pass ½ paints a
+copy. Which makes the painters his feeders rather than his rivals: an
+Illuminator lays a colour, the word scores with it, and he drinks it. A tile's
+**metal** is untouched, so a rainbow tile survives the bucket still reading as
+every colour.
+
+His curve is `LYE_BOY_BANDS` in `js/constants.js` — deliberately **one band**,
+because this is meant to be played with before it is capped. The Beekeeper and
+the Abecedarian both needed slowing in the end; when this one does, it is a row
+in that table and nothing else, and the card quotes the whole of it.
 
 **Ghosts.** *The Ripper* kills one of your other patrons when you print one of
 his watchwords — KILL, MURDER, SLAY, DIE, STAB, SLASH, REAP or KNIFE — then
@@ -756,6 +793,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Rewards & interest | `js/constants.js` → `REWARD` |
 | Colophon roster, offer count, repeat cap, skip grant | `js/constants.js` → `UPGRADE_OFFERS`, `MAX_UPGRADE_REPEATS`, `SKIP_COIN_GRANT`; definitions in `js/upgrades.js` |
 | Everything the Generic can roll — triggers, weights, effects, epithets, faces, price | `js/patron-generic.js`, the whole file. `GENERIC_TRIGGERS_A/B` carry the weights, `GENERIC_EFFECTS` the `cost` each must be paired against |
+| The Lye Boy's ramp — what a scrubbed coat is worth, and where it should slow | `js/constants.js` → `LYE_BOY_BANDS` (one band today; add a row to slow it, and `lyeBoySteps()` rewrites the card with it) |
 | How often the Serpent actually swallows the S | `js/constants.js` → `SERPENT_EAT_ODDS`. The ×2 is paid either way, so this is the whole of the bet; the card quotes it through the `SERPENT_EAT_CHANCE` knob and can never drift from it |
 | What unlocks a locked patron | the `locked()` predicate on its behaviour in `js/patrons.js` (read live off `state`, checked by every pool that deals a card), with the sentence explaining it on the card as `unlockNote` |
 | How often the Market offers each tier | `js/patrons.js` → `RARITY_WEIGHT` (`ubiquitous` is 3× `common`) |
