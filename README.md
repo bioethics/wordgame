@@ -691,6 +691,14 @@ a gift on the bench — carries `oncePerPage`, because those compound over a run
 where Points and Mult decay against a climbing quota. Points, Coins, Mult and
 the echo are uncapped on purpose: they are paid for the word and gone with it.
 
+A seat that has *accumulated* something says so in its **tally** — the strip
+under the desc in the tap-through, fed by `tally(data)` on the behaviour and by
+the laurels every patron may wear. That is not the same as `instDesc`, which is
+for what a seat **is** rather than what it has **done**: the Monogrammist's
+rolled letters, the Generic's rolled clause, the Prince crowned, the Usurer's
+book. Put a running count in `instDesc` and the card stops explaining its own
+rule the moment the seat is used — which is exactly when a player asks it to.
+
 A `desc` may contain `{KNOB}` placeholders, filled as the module loads —
 `{ESPALIER_STEP}` for the value itself, `{1/NUDIST_TRIM_CHANCE}` for "a 1-in-4
 chance" — so retuning a number retunes the card text with it. New knobs are

@@ -110,6 +110,11 @@
 // A seat whose OWN state changes what it is (the Azure Prince takes a crown)
 // uses the same four, so every view agrees about what it is called and wears.
 //
+// instDesc is for what a seat IS, never for what it has DONE. A count of what a
+// seat has collected goes in `tally` below, which has its own strip under the
+// desc — put it in instDesc and the card stops explaining its own rule the
+// moment the seat is used, which is exactly when a player asks it to.
+//
 // `popover(data)` is the other half of that: extra HTML for the card's
 // tap-through, under the desc and above the dismissal — for a seat with
 // something to SHOW rather than say, like the Prince's cypher of boxes.
@@ -847,11 +852,14 @@ const PATRON_BEHAVIOURS = [
             + `A laurel with it: +${data.honorifics * HONORIFIC_STEP} Points every word.`],
       };
     },
-    instDesc(data) {
+    // What he has struck, in the tally strip where accumulated things belong —
+    // NOT in instDesc, which used to replace his rule with this count the moment
+    // he struck his first letter, so a seat you had used stopped explaining what
+    // it did. It also quoted his laurels, which seatTally already prints just
+    // above (laurelWorth), so the card said the same thing twice.
+    tally(data) {
       const n = data?.struck ?? 0;
-      if (!n) return PATRON_CARDS.silentknight.desc;
-      return `${n} letter${n > 1 ? 's' : ''} struck blind. `
-           + `+${(data.honorifics ?? 0) * HONORIFIC_STEP} Points every word.`;
+      return n ? `${n} letter${n > 1 ? 's' : ''} struck into blind emboss, for good.` : null;
     },
   },
   {
@@ -1257,13 +1265,6 @@ const PATRON_BEHAVIOURS = [
           ? `the case is complete: every sort in the press, and +${abecedarianMult(seen.length)} Mult for good.`
           : `${fresh.join(', ')} set for the first time — ${seen.length} of ${ABECEDARIAN_CASE.length} sorts, +${abecedarianMult(seen.length)} Mult.`],
       };
-    },
-    instDesc(data) {
-      const n = (data?.seen ?? []).length;
-      if (!n) return PATRON_CARDS.abecedarian.desc;
-      const next = Math.round((abecedarianMult(n + 1) - abecedarianMult(n)) * 100) / 100;
-      return `${n} of ${ABECEDARIAN_CASE.length} sorts pressed — +${abecedarianMult(n)} Mult on every word. `
-           + `The next is worth +${next}, for good.`;
     },
     // The case itself, laid out as a compositor would find it: what has been
     // pressed stands in type, what has not is an empty place.
@@ -1758,11 +1759,9 @@ const PATRON_BEHAVIOURS = [
         ? { note: notes.join(' · ') || null, say: said, burned: eaten }
         : null;
     },
-    instDesc(data) {
+    tally(data) {
       const fed = data?.eaten ?? 0;
-      if (!fed) return PATRON_CARDS.shorthair.desc;
-      return `${fed} rat${fed > 1 ? 's' : ''} eaten — +${shorthairMult(fed)} Mult on every word. `
-           + PATRON_CARDS.shorthair.desc;
+      return fed ? `${fed} rat${fed > 1 ? 's' : ''} eaten — +${shorthairMult(fed)} Mult on every word.` : null;
     },
   },
   {
