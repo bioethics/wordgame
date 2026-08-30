@@ -14,7 +14,7 @@ import {
   trashFromCollection, mergeTiles, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
   castCounterfeit, effectiveRackSize, handCount, pluckFromBag,
   grantRandomPatron,
-  rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost, luckyRoll,
+  rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost, luckyRoll, isSquib,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
@@ -344,7 +344,7 @@ async function editorEats() {
 // template) simply survives — a fizzle, said so. Tiles are taken in word
 // order, and a tile already burned by a patron this word is out of reach.
 async function detonatePrinted(printed, alreadyBurned, rectOf) {
-  const squibs = printed.filter(t => t.material === 'explosive');
+  const squibs = printed.filter(isSquib);
   if (!squibs.length) return [];
   const gone = new Set(alreadyBurned.map(t => t.id));
   const out = [];

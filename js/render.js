@@ -6,7 +6,7 @@ import {
   state, settings, saveState, getActiveLetter, getActiveColour, selectedCount,
   effectivePatronSlots, effectiveSundrySlots, effectiveGhostSlots,
   effectiveWordsPerPage, chapterTitle,
-  sundrySelected, restingPoints, getActiveGrowth, isWrapped, shiftPreview,
+  sundrySelected, restingPoints, getActiveGrowth, isWrapped, shiftPreview, isSquib,
 } from './state.js';
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
@@ -60,6 +60,9 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   if (active.length >= 4) div.classList.add('tile--wide');
   if (tile.letter === FLEURON) div.classList.add('tile--fleuron');
   if (tile.letter === BATTER)  div.classList.add('tile--batter');
+  // A tile the Powdermonkey has primed wears his fuse without being restruck —
+  // its own paper, a lit shoulder. A real squib carries the hazard stripes too.
+  if (tile.material !== 'explosive' && isSquib(tile)) div.classList.add('tile--primed');
   if (tile.wash && !tile.colour) div.classList.add('tile--washed');
   // The paper goes over everything the tile was, so this class is added LAST and
   // the CSS covers trim ring, nick and metal alike.

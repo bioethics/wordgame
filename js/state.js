@@ -269,6 +269,46 @@ export const meetGhost = () => { state.metGhost = true; };
 
 export const owns = id => allSeats().some(p => p.id === id);
 
+// ─── The primed tile (The Powdermonkey) ───────────────────────────────────────
+// One tile of the hand carries his charge: it scores and goes off exactly as
+// squib lead does without being cast in it. The mark is a tile id on his seat,
+// never a change to the tile — a tile is not RESTRUCK, it is only holding
+// something for him, and it must be able to hand it back.
+//
+// isSquib is the one question every reader asks (scoring's pass 3 for the
+// ×Mult, detonatePrinted in js/main.js for the charge), so the two roads to a
+// squib can never drift apart.
+const primerSeat = () => allSeats().find(p => p.id === 'powdermonkey');
+
+export const isSquib = tile =>
+  tile?.material === 'explosive' || (!!tile && primerSeat()?.data?.primed === tile.id);
+
+// Re-mark when the hand has CHANGED, or when the mark has gone stale. The second
+// case is not hypothetical: a bag that runs dry mid-page draws nothing, so the
+// hand changes without a draw and the mark would be left pointing at a tile that
+// has been printed away — and the seat would go quietly dead for the rest of the
+// page. The word counts as held, or composing with the primed tile would throw
+// the charge off it mid-word.
+export function refreshSquib(drew) {
+  const seat = primerSeat();
+  if (!seat) return;
+  const held = [...state.rack, ...state.word].some(t => t.id === seat.data?.primed);
+  if (drew || !held) primeSquib();
+}
+
+// A fresh mark, called wherever the hand changes. Ghosts and lent tiles are
+// passed over: nothing can be done to them, and a charge is something done.
+export function primeSquib() {
+  const seat = primerSeat();
+  if (!seat) return null;
+  seat.data ??= {};
+  const pool = state.rack.filter(t => !isImmutable(t) && t.material !== 'explosive');
+  seat.data.primed = pool.length
+    ? pool[Math.floor(Math.random() * pool.length)].id
+    : null;
+  return seat.data.primed;
+}
+
 // ─── Chapter titles ───────────────────────────────────────────────────────────
 // Drawn at random from js/chapters.js the first time a chapter is named, then
 // kept in state for the rest of the run — a reload must not rename a chapter
@@ -586,6 +626,9 @@ export function drawUpToRackSize() {
     state.rack.push(tile);
     drawn.push(tile);
   }
+  // A changed hand gets a fresh charge — and so does a stale mark, which is how
+  // an emptied bag would otherwise kill the seat for a page (refreshSquib).
+  refreshSquib(drawn.length > 0);
   return drawn;
 }
 

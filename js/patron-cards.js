@@ -55,7 +55,7 @@ export const PATRON_CARDS = {
   },
   goldsmith: {
     name: 'The Goldsmith', emoji: '🪙', rarity: 'common', cost: 4, guild: 'amber',
-    desc: 'Amber tiles gain +4 Points.',
+    desc: 'Amber tiles gain +{GOLDSMITH_POINTS} Points — and each one is a throw of the dice: a {GOLDSMITH_CHANCE} chance of {GOLDSMITH_PURSE} Coins.',
   },
   weld: {
     name: 'The Weld', emoji: '🌼', rarity: 'common', cost: 4, guild: 'amber',
@@ -230,6 +230,10 @@ export const PATRON_CARDS = {
     name: 'The Lye Boy', emoji: '🪣', rarity: 'uncommon', cost: 6, guild: 'crimson',
     desc: 'The apprentice who washes the forme when the day is done. Every painted tile in a word he sees is scrubbed bare — a wash counts, and so does a coat laid mid-word — and he keeps {LYE_BOY_STEPS} Mult for each one, for good.',
   },
+  powdermonkey: {
+    name: 'The Powdermonkey', emoji: '🧨', rarity: 'uncommon', cost: 7, guild: 'crimson',
+    desc: 'He keeps one tile of your hand primed, and marks a fresh one whenever the hand changes. A primed tile scores and goes off exactly as squib lead does: ×{EXPLOSIVE_MULT} Mult, then it is destroyed, and each tile beside it in the word takes a {EXPLOSIVE_SPREAD_CHANCE} chance of going with it.',
+  },
   serpent: {
     name: 'The Serpent', emoji: '🐍', rarity: 'uncommon', cost: 7, guild: 'crimson',
     desc: 'Every S is worth +{SERPENT_POINTS} Points. A word ending in S gets ×2 Mult as well — and then, a {SERPENT_EAT_CHANCE} chance he swallows that last S.',
@@ -371,6 +375,10 @@ export const PATRON_CARDS = {
   innkeeper: {
     name: 'The Innkeeper', emoji: '🍻', rarity: 'common', cost: 5,
     desc: '+5 Points per patron you hold, including The Innkeeper.',
+  },
+  quoin: {
+    name: 'The Quoin', emoji: '🔩', rarity: 'rare', cost: 11,
+    desc: '×{QUOIN_MULT} Mult when two tiles of one colour stand side by side in the word. A word’s order is its spelling, so the paint has to be laid where the letters will meet — and a rainbow tile, counting as every colour, locks tight beside any painted neighbour.',
   },
   purveyor: {
     // The card states the shape; the six exact numbers are in the tap-through

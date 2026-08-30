@@ -167,6 +167,7 @@ import {
   PRINCE, princeMult,
   WORDLER,
   WINNOWER_BONUS, SERPENT_EAT_ODDS, SERPENT_POINTS, lyeBoyMult,
+  QUOIN_MULT, GOLDSMITH_POINTS, GOLDSMITH_ODDS, GOLDSMITH_PURSE,
   LOVERS,
 } from './constants.js';
 import {
@@ -889,6 +890,30 @@ const PATRON_BEHAVIOURS = [
     when: 'meta',
   },
   {
+    // The one seat that reads POSITION. Two tiles of a colour side by side, and
+    // the forme is locked. countsAsColour rather than getActiveColour, so a
+    // rainbow tile — which counts as every colour and has never had a job in the
+    // multiplier game — locks tight beside any painted neighbour.
+    //
+    // The constraint is real because a word's order is its spelling: you cannot
+    // shuffle the tiles to suit, so the paint has to be laid where the letters
+    // will MEET. Which makes the build "paint a doubled letter, or both halves of
+    // a bigram you keep drawing" — a way of thinking about paint that nothing
+    // else in the game asks for.
+    //
+    // ×3 is set against the colour engine, which pays for spreading colour (one
+    // of each is ×16) and punishes stacking it (four of one is ×5): it makes two
+    // of a colour beat two spread (×9 to ×4) and four of a colour pull level with
+    // four spread (×15 to ×16). The dead build opens; the live one is untouched.
+    id: 'quoin',
+    when: 'score',
+    effect({ tiles, xMult }) {
+      const locked = tiles.some((t, i) => i > 0
+        && Object.keys(COLOURS).some(c => countsAsColour(t, c) && countsAsColour(tiles[i - 1], c)));
+      if (locked) xMult(QUOIN_MULT);
+    },
+  },
+  {
     // The one seat that pays in CHOICE and in nothing else. It adds no Points,
     // no Mult and no Coins; it widens every spread the game lays in front of you
     // — the Market's tiles, patrons and stalls, the Colophon's cards, the tiles a
@@ -1077,9 +1102,35 @@ const PATRON_BEHAVIOURS = [
 
   // ── Amber · the counting-house ──────────────────────────────────────────────
   {
+    // Points on every amber tile, and a throw of the dice on each one besides.
+    // The Points decay against the climbing quota and the purse does not, which
+    // is what takes this seat from an early-chapters trinket to one worth keeping.
+    //
+    // The dice are thrown in onPrinted, never in effect: scoring runs on every
+    // keystroke to draw the preview, and a roll made there would be thrown dozens
+    // of times a word and shown to you before you had committed to it. luckyRoll
+    // because a windfall is a thing to be lucky about — and a jackpot is the one
+    // hidden roll a player actually perceives, so this is the best work the luck
+    // dial has ever been given.
     id: 'goldsmith',
     when: 'score',
-    tileBonus: t => (countsAsColour(t, 'amber') ? 4 : 0),
+    tileBonus: t => (countsAsColour(t, 'amber') ? GOLDSMITH_POINTS : 0),
+    onPrinted({ tiles, state, data }) {
+      let struck = 0;
+      for (const t of tiles) if (countsAsColour(t, 'amber') && luckyRoll(GOLDSMITH_ODDS)) struck += 1;
+      if (!struck) return null;
+      const purse = struck * GOLDSMITH_PURSE;
+      state.coins += purse;
+      data.struck = (data.struck ?? 0) + struck;
+      return { note: `+${purse}`,
+               say: [struck > 1
+                 ? `${struck} of the amber came up gold — ${purse} Coins.`
+                 : `The amber came up gold — ${GOLDSMITH_PURSE} Coins.`] };
+    },
+    tally(data) {
+      const n = data?.struck ?? 0;
+      return n ? `${n} amber tile${n > 1 ? 's' : ''} came up gold — ${n * GOLDSMITH_PURSE} Coins so far.` : null;
+    },
   },
   dyePatron('weld', 'amber'),
   {
@@ -1612,6 +1663,23 @@ const PATRON_BEHAVIOURS = [
       const next = Math.round((lyeBoyMult(coats + 1) - lyeBoyMult(coats)) * 100) / 100;
       return `${coats} coat${coats > 1 ? 's' : ''} scrubbed off — +${lyeBoyMult(coats)} Mult on every word. `
            + `The next is worth +${next}.`;
+    },
+  },
+  {
+    // He carries the charge and hands it to whichever tile is nearest — a fresh
+    // one every time the hand changes (primeSquib in js/state.js, hung off
+    // drawUpToRackSize, the one door every draw comes through). The seat has no
+    // score hook at all: a primed tile IS a squib to everything that asks
+    // (isSquib in js/state.js), so scoring pays its ×Mult in pass 3 and
+    // detonatePrinted sets it off in the commit, neither knowing he exists.
+    //
+    // The mark MOVING is the design. Held until spent it would settle on your
+    // best tile and sit there being a dead seat until you gave in; moving, it is
+    // a fresh offer every hand — junk worth cashing, or a tile to step around.
+    id: 'powdermonkey',
+    when: 'meta',   // the ×Mult is scoring's pass 3; the charge is js/main.js
+    tally(data) {
+      return data?.primed ? 'One tile of your hand is primed.' : null;
     },
   },
   {

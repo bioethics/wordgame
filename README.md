@@ -101,6 +101,43 @@ keeps the groove shows it in **jade** rather than brass. And the tongs' heat and
 the toll for a curse left in hand land first, so any multiplier seated at all
 catches them.
 
+### The Quoin — the seat that reads position
+
+Colour multipliers pay for **spreading** colour (one of each is ×16) and punish
+**stacking** it (four of one is ×5), so nobody stacks a colour on purpose. **The
+Quoin** (rare, 11 Coins) is named for the wedge that locks a forme of type tight,
+and it pays for type that sits tight: **×3 Mult when two tiles of one colour
+stand side by side in the word**. That makes two of a colour beat two spread (×9
+to ×4) and four of a colour pull level with four spread (×15 to ×16) — the dead
+build opens, the live one is untouched.
+
+It is the only patron in the game that reads **position**, and the constraint is
+real because *a word's order is its spelling*: you cannot shuffle the tiles to
+suit. So the build is to paint letters that turn up adjacent — a doubled letter
+(21% of words hold one) or both halves of a bigram you keep drawing (ER, IN, ES,
+ED). Nothing else asks you to think about paint that way.
+
+It reads `countsAsColour` rather than `getActiveColour`, deliberately: a rainbow
+tile counts as *every* colour, so one beside any painted neighbour locks the
+forme. That is a real job in the multiplier game for a metal that has never had
+one — rainbow lifts no multiplier of its own.
+
+### The Powdermonkey — a charge that moves
+
+He keeps **one tile of your hand primed**, and marks a fresh one every time the
+hand changes. A primed tile scores and goes off exactly as squib lead does
+without being cast in it: ×2 Mult, then destroyed, each neighbour on a 1-in-2.
+The seat has no score hook at all — a primed tile *is* a squib to everything that
+asks (`isSquib` in `js/state.js`), so scoring pays its ×Mult and `detonatePrinted`
+sets it off, neither knowing he exists.
+
+The mark **moving** is the design. Held until spent it would settle on your best
+tile and sit there being a dead seat until you gave in; moving, it is a fresh
+offer every hand — junk worth cashing, or a tile to step around. He also has a
+shape over a run worth keeping: early your bag is ballast and feeding him costs
+nothing, and late every tile you own is dressed and grown, so the same ×Mult asks
+a real price. A seat that gets *dearer* as the run goes on is rare.
+
 ### The Lye Boy — selling the paint engine
 
 Paint is the game's *multiplicative* half: each painted tile is +1 to its
@@ -864,6 +901,8 @@ bigger step than the last and a built press has to multiply rather than add:
 | Colophon roster, offer count, repeat cap, skip grant | `js/constants.js` → `UPGRADE_OFFERS`, `MAX_UPGRADE_REPEATS`, `SKIP_COIN_GRANT`; definitions in `js/upgrades.js` |
 | Everything the Generic can roll — triggers, weights, effects, epithets, faces, price | `js/patron-generic.js`, the whole file. `GENERIC_TRIGGERS_A/B` carry the weights, `GENERIC_EFFECTS` the `cost` each must be paired against |
 | The Lye Boy's ramp — what a scrubbed coat is worth, and where it should slow | `js/constants.js` → `LYE_BOY_BANDS` (one band today; add a row to slow it, and `lyeBoySteps()` rewrites the card with it) |
+| The Quoin's lock | `js/constants.js` → `QUOIN_MULT`. Set against the colour engine: ×3 makes stacking a colour pull level with spreading it |
+| The Goldsmith's purse — the Points, the odds and the prize | `js/constants.js` → `GOLDSMITH_POINTS`, `GOLDSMITH_ODDS` (rolled **per amber tile**, so the seat scales with commitment), `GOLDSMITH_PURSE`. The run-level arithmetic is in the comment beside them; if a run stops caring about Coins by chapter seven, the odds are the knob, not the purse |
 | The Serpent — what an S is worth, and how often he swallows the last one | `js/constants.js` → `SERPENT_POINTS` (paid on every S in the word, written onto the tile so a nick reads it and his own ×2 doubles it), `SERPENT_EAT_ODDS`. The ×2 is paid either way, so this is the whole of the bet; the card quotes it through the `SERPENT_EAT_CHANCE` knob and can never drift from it |
 | What unlocks a locked patron | the `locked()` predicate on its behaviour in `js/patrons.js` (read live off `state`, checked by every pool that deals a card), with the sentence explaining it on the card as `unlockNote` |
 | How often the Market offers each tier | `js/patrons.js` → `RARITY_WEIGHT` (`ubiquitous` is 3× `common`) |

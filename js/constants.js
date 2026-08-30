@@ -716,6 +716,67 @@ export const SPIKE_MULT = 0.2;
 export const EXPLOSIVE_MULT        = 2;
 export const EXPLOSIVE_SPREAD_ODDS = 0.5;
 
+// ─── The Powdermonkey's primed tile ───────────────────────────────────────────
+// He keeps one tile of the hand primed — it SCORES and GOES OFF exactly as squib
+// lead does, without being cast in it — and marks a fresh one every time the
+// hand changes (primeSquib in js/state.js, called from drawUpToRackSize, the one
+// door every draw comes through). Re-marking per hand rather than holding until
+// spent is the whole of what makes him playable: a mark that stuck to your best
+// tile would simply be a dead seat until you gave in, where a mark that moves is
+// a fresh offer every hand — sometimes junk worth cashing, sometimes a tile you
+// step around.
+//
+// He has a shape over a run worth keeping: early your bag is mostly ballast and
+// feeding him costs nothing, and late every tile you own is dressed and grown,
+// so the same ×Mult asks a real price. A seat that gets DEARER as the run goes
+// on is rare, and it is the reason this one is not simply free Mult.
+
+// ─── The Quoin's lock ─────────────────────────────────────────────────────────
+// A quoin is the wedge that locks a forme of type tight, and this seat pays for
+// type that sits tight: two tiles of one colour SIDE BY SIDE in the word.
+//
+// It is the one patron that reads position, and the constraint is real because a
+// word's order is its spelling — you cannot shuffle the tiles to suit. So the
+// build is to paint letters that turn up ADJACENT: a doubled letter (21% of
+// words hold one) or both halves of a bigram you keep drawing (ER, IN, ES, ED).
+//
+// The number is set against the colour engine, which pays for SPREADING colour
+// (one of each is ×16) and punishes stacking it (four of one is ×5). At ×3 this
+// makes two-of-a-colour beat two spread (×9 against ×4) and four-of-a-colour
+// pull level with four spread (×15 against ×16) — so it opens the build nobody
+// plays without breaking the one everybody does.
+//
+// It reads countsAsColour, not getActiveColour, which is deliberate: a rainbow
+// tile counts as every colour, so one beside ANY painted tile locks the forme.
+// That is a real job in the multiplier game for a metal that has never had one.
+export const QUOIN_MULT = 3;
+
+// ─── The Goldsmith's purse ────────────────────────────────────────────────────
+// +Points on every amber tile, and a roll of the dice on each one besides.
+//
+// The Points are the part that decays — worth a great deal against a first-page
+// quota of 30 and nothing at all against a late one in the tens of thousands —
+// so the seat used to die by chapter three. The purse is the part that does not:
+// Coins keep their value, and the prices that matter late (the alley's stalls
+// double with every use) are paid in them.
+//
+// Rolled PER AMBER TILE, which is what makes the seat scale with commitment
+// rather than sitting flat. The arithmetic over a run of ~90 words, against a
+// lifetime income of about 300 Coins:
+//
+//   1 amber tile a word →  3.0% a word ·  2.7 payouts · +27% lifetime income
+//   3 amber tiles       →  8.7% a word ·  8.1 payouts · +81%
+//   5 amber tiles       → 14.1% a word · 13.5 payouts · +135%
+//
+// That top line is a lot, and it is allowed to be for two reasons: the amber
+// guild IS the money guild, so its signature common should pay in money; and
+// Coins have hard diminishing returns here, because the alley caps a tile at
+// BLACK_TILE_MAX_PRICE and there is only so much to buy. If a run stops caring
+// about Coins by chapter seven, the ODDS are the knob to turn, not the purse.
+export const GOLDSMITH_POINTS = 3;
+export const GOLDSMITH_ODDS   = 0.03;   // per amber tile in the word
+export const GOLDSMITH_PURSE  = 30;
+
 // ─── Patron tuning (the colour-guild overhaul) ────────────────────────────────
 // Knobs for patron effects that reach beyond a single score. Plain score numbers
 // stay in js/patrons.js with their patron.
@@ -1322,7 +1383,9 @@ export const KNOBS = {
   FENCE_OFF: `${Math.round(FENCE_DISCOUNT * 100)}%`,
   EXPLOSIVE_MULT,
   EXPLOSIVE_SPREAD_CHANCE: oddsText(EXPLOSIVE_SPREAD_ODDS),
-  HACKER_CAP, SHELL_COINS,
+  HACKER_CAP, SHELL_COINS, QUOIN_MULT,
+  GOLDSMITH_POINTS, GOLDSMITH_PURSE,
+  GOLDSMITH_CHANCE: oddsText(GOLDSMITH_ODDS),
 
   // Patron tuning
   CHILD_STEP, ABECEDARIAN_MULT, ESPALIER_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,

@@ -11,7 +11,7 @@ import { bossById } from './bosses.js';
 import { snapOf } from './patron-generic.js';
 import {
   state, owns, allSeats, getActiveLetter, getActiveColour, getActiveGrowth,
-  returnsToBag, isWrapped, spellsOnly, restingPoints,
+  returnsToBag, isWrapped, spellsOnly, restingPoints, isSquib, countsAsColour,
 } from './state.js';
 
 // ─── Score a word ─────────────────────────────────────────────────────────────
@@ -438,7 +438,7 @@ export function computeScore(wordTiles) {
     if (c) (byColour[c] ??= []).push(entry);
     if (t.trim === 'purple')      purples.push(entry);
     if (t.material === 'cursed')  cursed.push(entry);
-    if (t.material === 'explosive') squibs.push(entry);
+    if (isSquib(t)) squibs.push(entry);
   });
   const weigh = list => list.reduce((n, e) => n + e.weight, 0);
   const idsOf = list => list.map(e => e.id);
