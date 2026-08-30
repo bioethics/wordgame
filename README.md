@@ -768,10 +768,12 @@ each time rather than the same spread growing dearer.
 
 **The Shell Game** deals three shells off a table of four prizes — 5 Coins, a
 sundry from the whole game, a sort (contraband as often as `SHELL_RARE_ODDS`,
-ballast the rest of the time), and a **batter** — shows you all three, and takes
-its price. Which of the three you get is decided when you pay and is *not*
-yours: so the decision is never "which do I want" but "is this spread worth two
-Coins", which is a real question when one of the shells has a ruin under it.
+ballast the rest of the time), and a **batter**. Each shell is resolved **whole**
+when the crate is laid out and shows you the *actual* prize under it: the tool by
+name, the sort drawn in its own metal. Which of the three you get is the only
+thing decided when you pay, and it is not yours to decide — so the question is
+never "which do I want" but "is this spread worth two Coins", which is a real one
+when a ruin is under one of them.
 Every dealt shell is equally likely to be the one you get, so the odds of any
 outcome are its share of the deal ÷ 3. A sundry with nowhere to go pays out in
 Coins instead, so a full workbench can never eat a prize outright. Both stalls
@@ -854,7 +856,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Colophon roster, offer count, repeat cap, skip grant | `js/constants.js` → `UPGRADE_OFFERS`, `MAX_UPGRADE_REPEATS`, `SKIP_COIN_GRANT`; definitions in `js/upgrades.js` |
 | Everything the Generic can roll — triggers, weights, effects, epithets, faces, price | `js/patron-generic.js`, the whole file. `GENERIC_TRIGGERS_A/B` carry the weights, `GENERIC_EFFECTS` the `cost` each must be paired against |
 | The Lye Boy's ramp — what a scrubbed coat is worth, and where it should slow | `js/constants.js` → `LYE_BOY_BANDS` (one band today; add a row to slow it, and `lyeBoySteps()` rewrites the card with it) |
-| How often the Serpent actually swallows the S | `js/constants.js` → `SERPENT_EAT_ODDS`. The ×2 is paid either way, so this is the whole of the bet; the card quotes it through the `SERPENT_EAT_CHANCE` knob and can never drift from it |
+| The Serpent — what an S is worth, and how often he swallows the last one | `js/constants.js` → `SERPENT_POINTS` (paid on every S in the word, written onto the tile so a nick reads it and his own ×2 doubles it), `SERPENT_EAT_ODDS`. The ×2 is paid either way, so this is the whole of the bet; the card quotes it through the `SERPENT_EAT_CHANCE` knob and can never drift from it |
 | What unlocks a locked patron | the `locked()` predicate on its behaviour in `js/patrons.js` (read live off `state`, checked by every pool that deals a card), with the sentence explaining it on the card as `unlockNote` |
 | How often the Market offers each tier | `js/patrons.js` → `RARITY_WEIGHT` (`ubiquitous` is 3× `common`) |
 | Patron reaction odds | `js/constants.js` → `REACTION` (`floor`/`ceil` as fractions of the page's whole quota: silence below `floor`, a certainty at `ceil`); the lines themselves in `js/quips.js` — a flat array, add more any time |

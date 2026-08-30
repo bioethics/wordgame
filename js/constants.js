@@ -521,6 +521,19 @@ export const lyeBoySteps = () => bandSentence(LYE_BOY_BANDS, '+');
 // the ×2 does not move with it.
 export const SERPENT_EAT_ODDS = 0.5;
 
+// …and what every S in the word is worth to him, eaten or not. Small on purpose:
+// the seat's payoff is still the ×2, and this is only there so he is not SILENT
+// on the two words in three that hold an S without ending in one. Half the
+// dictionary holds an S, so the card now lights up on half your words instead
+// of under a third of them — and because it lands on the tile (the tileBonus
+// pass), the corner number moves as you compose, which is the whole point.
+//
+// It is worth more than it looks on exactly the words the seat is built for:
+// tileBonus pays in pass 1½ and his ×2 is a patron multiplier in pass 4, so an
+// ends-in-S word (1.31 S's on average) takes about +4 Points and then has them
+// doubled by his own hand.
+export const SERPENT_POINTS = 3;
+
 // ─── The measure (the length multiplier) ──────────────────────────────────────
 // The one multiplier every press owns from its first page: the word itself.
 // LENGTH_MULT_MIN letters or more earns its own chip — ×LENGTH_MULT_BASE at the
@@ -1319,7 +1332,7 @@ export const KNOBS = {
   LYE_BOY_STEPS: lyeBoySteps(),
   // "1-in-2", off the odds themselves, so the card can never quote a bet the
   // snake doesn't run.
-  SERPENT_EAT_CHANCE: oddsText(SERPENT_EAT_ODDS),
+  SERPENT_EAT_CHANCE: oddsText(SERPENT_EAT_ODDS), SERPENT_POINTS,
   // The Beekeeper's whole curve as one phrase, so his card can never drift from
   // the bands: "+0.2 Mult, then +0.1 past ×2, then +0.05 past ×3".
   BEEKEEPER_STEPS: beekeeperSteps(),

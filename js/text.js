@@ -231,7 +231,7 @@ export const LOG_TEXT = {
   shellSortWon:    'a sort — “{1}”{0}',                             // {0} ⌐bmInMetal or '' · {1} letter
   shellSundryWon:  '{0}, onto the workbench',
   shellBatterWon:  'a batter — ruined type, worth nothing and spelling nothing. Set it alone, once, for the case',
-  shellNoRoom:     'the workbench is full, so the prize is {0} Coins instead',
+  shellNoRoom:     '{0} — but the workbench is full, so it is sold on for {1} Coins',
   // The squib. Boom then one clause per neighbour, joined in js/main.js.
   squibBoom:       '💥 The squib in {0} goes off — the tile is destroyed.',
   squibTakes:      ' {0} is blown to pieces beside it.',
@@ -590,11 +590,10 @@ export const BLACK_MARKET_TEXT = {
   hacker:     'The Tile Hacker',
   // The shell game.
   shell:      'The Shell Game',
-  shellSub:   'three shells, one prize — and the choosing is not yours',
+  shellSub:   'you can see all three — which one you get is the gamble',
   shellPlay:  'Play',
   shellCoins: '{0} Coins',
-  shellSort:  'A sort — contraband, or ballast',
-  shellSundry:'Something off the workbench',
+  shellSortPlain: 'An ordinary sort',
   shellBatter:'A battered sort — ruined type',
   shellWon:   'you got',
   hackerSub:  'your own sorts, face value doubled — to a limit of {0}',

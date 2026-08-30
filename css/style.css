@@ -950,9 +950,17 @@ button.sundry:hover { transform: translateY(-2px); }
   --paper-a: #e58aa6; --paper-b: #c9577a; --paper-c: #a53d5e;
   --twine-a: #fff0f4; --twine-b: #f3c3d2;
 }
+/* Grave goods were reading as the plain brown parcel's grey cousin. They are
+   now the darkest thing on any counter: near-black waxed paper, bone twine, and
+   a faint corpse-light at the edge — so the sinister one looks sinister. */
 .sundry--pkg-spooky .wrapped-mark {
-  --paper-a: #4a5b58; --paper-b: #33413f; --paper-c: #202a29;
-  --twine-a: #e6e9df; --twine-b: #b3b9a8;
+  --paper-a: #24352e; --paper-b: #101a16; --paper-c: #050907;
+  --twine-a: #e9efdc; --twine-b: #8fa088;
+  border-color: rgba(96, 148, 116, 0.72);
+  box-shadow:
+    inset 0 2px 3px rgba(150, 210, 170, 0.14),
+    inset 0 -4px 7px rgba(0, 0, 0, 0.72),
+    0 0 9px rgba(88, 178, 124, 0.38);
 }
 .sundry--pkg-cute .wrapped-mark {
   --paper-a: #8fd8e8; --paper-b: #6ab3d8; --paper-c: #a98ede;
@@ -4501,7 +4509,17 @@ button.sundry:hover { transform: translateY(-2px); }
   border: 1px dashed rgba(140, 210, 185, 0.28);
   text-align: center;
 }
-.bm-shell-glyph { font-size: 27px; line-height: 1.1; }
+.bm-shell-glyph {
+  font-size: 27px;
+  line-height: 1.1;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bm-shell-coin { font-size: 19px; font-weight: 700; color: var(--brass-bright, #f0cf8a); }
+.bm-shell-sundry { display: flex; align-items: center; justify-content: center; }
+.bm-shell .offer-tile-slot { display: flex; align-items: center; justify-content: center; }
 .bm-shells .bm-tile-note { margin: 0; }
 .bm-shell-play { align-self: center; white-space: nowrap; }
 

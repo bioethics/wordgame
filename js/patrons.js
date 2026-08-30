@@ -161,7 +161,7 @@ import {
   medievalExpansions, POSTNOM, GHOST_HIRE, USURER,
   PRINCE, princeMult,
   WORDLER,
-  WINNOWER_BONUS, SERPENT_EAT_ODDS, lyeBoyMult,
+  WINNOWER_BONUS, SERPENT_EAT_ODDS, SERPENT_POINTS, lyeBoyMult,
   LOVERS,
 } from './constants.js';
 import {
@@ -1616,6 +1616,11 @@ const PATRON_BEHAVIOURS = [
   {
     id: 'serpent',
     when: 'score',
+    // Every S in the word, wherever it sits — written onto the tile, so the
+    // groove shows it as you compose and a nick reads it. The S he is about to
+    // swallow is paid too: it does its work and THEN he takes it, which is a
+    // better bargain than it sounds and a much better story.
+    tileBonus: t => (getActiveLetter(t) === 'S' ? SERPENT_POINTS : 0),
     effect({ word, xMult }) { if (word.length > 1 && word.endsWith('S')) xMult(2); },
     onPrinted({ tiles, burn }) {
       if (!wordLetters(tiles).endsWith('S')) return null;

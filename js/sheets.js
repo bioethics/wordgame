@@ -816,7 +816,7 @@ function blackMarketHTML() {
   const sundries = blackMarket.sundryOffers.map((o, i) => {
     const tip = sundryTip(o) ?? { head: 'Sundry', body: '' };
     const mark = o.kind === 'package'
-        ? '<span class="wrapped-mark wrapped-mark--offer"></span>'
+        ? `<span class="sundry--pkg-${o.theme}"><span class="wrapped-mark wrapped-mark--offer"></span></span>`
       : o.kind === 'applicator'
         ? `<span class="sundry-glyph sundry-glyph--offer">${APPLICATORS[o.material].glyph}</span>`
         : `<span class="sundry-glyph sundry-glyph--offer">${TOOL_LOOK[o.kind]?.glyph ?? '✒'}</span>`;
@@ -845,14 +845,20 @@ function blackMarketHTML() {
       </div>`;
   }).join('') || `<p class="sheet-note">${BT.noHacks}</p>`;
 
-  const SHELL_FACE = {
-    coins:  { glyph: '🪙', note: fillSlots(BT.shellCoins, SHELL_COINS) },
-    sort:   { glyph: '🔠', note: BT.shellSort },
-    sundry: { glyph: '🧰', note: BT.shellSundry },
-    batter: { glyph: '▨',  note: BT.shellBatter },
-  };
-  const shells = (blackMarket.shell?.shells ?? []).map((kind, i) => {
-    const face = SHELL_FACE[kind] ?? { glyph: '❓', note: '' };
+  // Each shell shows the ACTUAL prize under it — the tool by name, the sort in
+  // its metal — because the gamble is which of the three you get, and a gamble
+  // you cannot read is not a decision.
+  const shells = (blackMarket.shell?.shells ?? []).map((p, i) => {
+    const face = p.kind === 'coins'
+        ? { glyph: `<span class="bm-shell-coin">${coinHTML(p.coins)}</span>`,
+            note: fillSlots(BT.shellCoins, p.coins) }
+      : p.kind === 'sundry'
+        ? { glyph: `<span class="bm-shell-sundry">${sundryGlyph(p.sundry)}</span>`,
+            note: sundryTip(p.sundry)?.head ?? 'A sundry' }
+      : { glyph: `<span class="offer-tile-slot" data-bm-shell-tile="${i}"></span>`,
+          note: p.kind === 'batter' ? BT.shellBatter
+              : p.template.material ? MATERIALS[p.template.material].metal
+              : BT.shellSortPlain };
     return `
       <div class="bm-shell" data-shell="${i}">
         <span class="bm-shell-glyph">${face.glyph}</span>
@@ -922,6 +928,12 @@ export function renderBlackMarket() {
   blackMarket.tileOffers.forEach((o, i) => {
     const slot = m.querySelector(`[data-bm-tile="${i}"]`);
     if (slot && !slot.children.length) slot.appendChild(makeTileEl({ ...o.template, id: '' }, 'offer'));
+  });
+  (blackMarket.shell?.shells ?? []).forEach((p, i) => {
+    const slot = m.querySelector(`[data-bm-shell-tile="${i}"]`);
+    if (slot && p.template && !slot.children.length) {
+      slot.appendChild(makeTileEl({ ...p.template, id: '' }, 'offer'));
+    }
   });
   (blackMarket.hacker?.proposals ?? []).forEach((tid, i) => {
     const slot = m.querySelector(`[data-bm-hack-tile="${i}"]`);
@@ -1041,10 +1053,9 @@ function onBlackMarketClick(e) {
     const r = playShell();
     if (!r.ok) { if (r.reason) log(r.reason, 'warn'); sfx.bad(); return; }
     // What came out from under the shell, said in its own words.
-    const got = r.kind === 'coins' || r.refused
-      ? (r.refused
-          ? fillSlots(logLine('shellNoRoom'), r.coins).trim()
-          : logLine('shellCoinsWon', r.coins).trim())
+    const got = r.refused
+        ? fillSlots(logLine('shellNoRoom').trim(), sundryTip(r.refused)?.head ?? 'it', r.coins)
+      : r.kind === 'coins'  ? logLine('shellCoinsWon', r.coins).trim()
       : r.kind === 'batter' ? logLine('shellBatterWon').trim()
       : r.kind === 'sort'
         ? logLine('shellSortWon', r.template.material

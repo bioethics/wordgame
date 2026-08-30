@@ -193,20 +193,6 @@ export function hackTile(tid) {
 // A sundry with nowhere to go pays out in Coins instead, so a full workbench
 // can never eat a prize outright.
 
-const shellDeal = () => {
-  const pool = SHELL_PRIZES.flatMap(p => Array(p.weight).fill(p.kind));
-  const out = [];
-  while (out.length < SHELL_SHOWN && pool.length) {
-    const kind = pick(pool);
-    out.push(kind);
-    for (let i = pool.length - 1; i >= 0; i--) if (pool[i] === kind) pool.splice(i, 1);
-  }
-  return out;
-};
-
-export const shellPrice = () =>
-  alleyAsks(SHELL_BASE_PRICE * 2 ** (blackMarket.shell?.uses ?? 0));
-
 // Every sundry the game holds, in one list — the fair's stock, the alley's, and
 // a tube in each colour. The shell game is the one place they all mix.
 const everySundry = () => [
@@ -217,6 +203,36 @@ const everySundry = () => [
   ...Object.keys(PACKAGES).map(theme => ({ kind: 'package', theme })),
 ];
 
+// A shell's prize, resolved WHOLE at deal time rather than when you pay: the
+// actual tool, the actual sort in the actual metal. The gamble is which of the
+// three you get, and nothing else — so a shell showing you a loupe is showing
+// you a loupe, and the decision is a real one.
+function resolveShell(kind) {
+  if (kind === 'coins')  return { kind, coins: SHELL_COINS };
+  if (kind === 'sundry') return { kind, sundry: pick(everySundry()) };
+  if (kind === 'batter') return { kind, template: makeTileTemplate(BATTER) };
+  // Contraband as often as SHELL_RARE_ODDS, ballast the rest of the time — and
+  // ballast is a real cost, since every plain sort thins the bag.
+  const rare = Math.random() < SHELL_RARE_ODDS;
+  const template = rare ? randomSpecialTile(BLACK_TILE_FEATURES) : randomBareTile();
+  if (rare) template.material = pick(Object.keys(BLACK_MATERIAL_STOCK));
+  return { kind, template };
+}
+
+const shellDeal = () => {
+  const pool = SHELL_PRIZES.flatMap(p => Array(p.weight).fill(p.kind));
+  const out = [];
+  while (out.length < SHELL_SHOWN && pool.length) {
+    const kind = pick(pool);
+    out.push(resolveShell(kind));
+    for (let i = pool.length - 1; i >= 0; i--) if (pool[i] === kind) pool.splice(i, 1);
+  }
+  return out;
+};
+
+export const shellPrice = () =>
+  alleyAsks(SHELL_BASE_PRICE * 2 ** (blackMarket.shell?.uses ?? 0));
+
 export function playShell() {
   const shells = blackMarket.shell?.shells ?? [];
   if (!shells.length) return { ok: false, reason: 'Nothing on the crate.' };
@@ -225,35 +241,22 @@ export function playShell() {
   state.coins -= price;
   blackMarket.shell.uses += 1;
 
-  // Which shell, decided here and nowhere earlier: the deal is what you bought,
-  // the outcome is what you gambled on.
-  const kind = pick(shells);
-  const won = { kind, price };
+  // WHICH shell is the whole of the gamble — the prizes themselves were settled
+  // when the crate was laid out, and you have been looking at them since.
+  const prize = pick(shells);
+  const won = { ...prize, price };
 
-  if (kind === 'coins') {
+  if (prize.kind === 'coins') {
+    state.coins += prize.coins;
+  } else if (prize.template) {
+    state.collection.push(adoptTemplate(prize.template));
+  } else if (state.sundries.length >= effectiveSundrySlots()) {
+    // No room, so it is sold on for you rather than lost.
     state.coins += SHELL_COINS;
+    won.refused = prize.sundry;
     won.coins = SHELL_COINS;
-  } else if (kind === 'batter') {
-    won.template = makeTileTemplate(BATTER);
-    state.collection.push(adoptTemplate(won.template));
-  } else if (kind === 'sort') {
-    // Contraband as often as SHELL_RARE_ODDS, ballast the rest of the time —
-    // and ballast is a real cost, since every plain sort thins the bag.
-    const rare = Math.random() < SHELL_RARE_ODDS;
-    won.template = rare ? randomSpecialTile(BLACK_TILE_FEATURES) : randomBareTile();
-    if (rare) won.template.material = pick(Object.keys(BLACK_MATERIAL_STOCK));
-    state.collection.push(adoptTemplate(won.template));
   } else {
-    const sundry = pick(everySundry());
-    if (state.sundries.length >= effectiveSundrySlots()) {
-      // No room, so it is sold on for you rather than lost.
-      state.coins += SHELL_COINS;
-      won.refused = sundry;
-      won.coins = SHELL_COINS;
-    } else {
-      state.sundries.push(sundry);
-      won.sundry = sundry;
-    }
+    state.sundries.push(prize.sundry);
   }
 
   blackMarket.shell.shells = shellDeal();

@@ -232,7 +232,7 @@ export const PATRON_CARDS = {
   },
   serpent: {
     name: 'The Serpent', emoji: '🐍', rarity: 'uncommon', cost: 7, guild: 'crimson',
-    desc: 'Words ending in S get ×2 Mult — and then, a {SERPENT_EAT_CHANCE} chance he swallows the S.',
+    desc: 'Every S is worth +{SERPENT_POINTS} Points. A word ending in S gets ×2 Mult as well — and then, a {SERPENT_EAT_CHANCE} chance he swallows that last S.',
   },
   mako: {
     name: 'The Shortfin Mako', emoji: '🦈', rarity: 'uncommon', cost: 6, guild: 'crimson',
