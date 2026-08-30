@@ -13,6 +13,7 @@ import {
   TILE_BASE_PRICE, REROLL_BASE,
   SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, RATCHET_PRICE, BODKIN_PRICE, SUNDRY_SELL, HEADSMAN_STEP,
   TOOLBOX_PRICE, FLEURON, FLEURON_PRICE, FLEURON_OFFER_CHANCE,
+  QUIRE_PRICE, QUIRE_OFFER_CHANCE, QUIRE_DRESSED, QUIRE_MIDDLING,
   RULE, RULE_PACK_PRICE, RULE_PACK_CHANCE,
   STALL_DEFS, SMELT_MIN_COLLECTION,
   FEATURE_CHAIN_CHANCE, MAX_FEATURES, MEDIEVAL_LETTERS, isMedieval,
@@ -128,6 +129,23 @@ export function randomSpecialTile(floor = 1) {
 // be lost and dressing it would only price up the loss.
 export const randomBareTile = () => makeTileTemplate(pick(LETTER_POOL));
 
+// A sort dressed to order. addRandomFeature deals only in paint, trims, nicks
+// and second faces — never a metal — so nothing here can tread on the alley.
+function dressedTile(n) {
+  const tmpl = randomBareTile();
+  for (let i = 0; i < n; i++) if (!addRandomFeature(tmpl)) break;
+  return tmpl;
+}
+
+// The quire: one well-dressed sort, one middling, one bare. Bought as a lot at
+// a flat price, and the bare one comes whether you want it or not.
+export const rollQuire = () => ({
+  templates: [dressedTile(QUIRE_DRESSED), dressedTile(QUIRE_MIDDLING), randomBareTile()],
+  price: QUIRE_PRICE,
+  sold: false,
+  quire: true,
+});
+
 function randomTileOffer() {
   const tmpl = randomSpecialTile();
   return { template: tmpl, price: tilePrice(tmpl), sold: false };
@@ -217,7 +235,7 @@ export const isAmberTile = tmpl => tmpl?.colour === 'amber';
 // Checked live rather than baked into the offer, so hiring or dismissing The
 // Chapman mid-visit re-prices the shelf immediately.
 export const offerPrice = offer =>
-  owns('chapman') && isAmberTile(offer.template) ? 0 : offer.price;
+  (owns('chapman') && isAmberTile(offer.template) ? 0 : offer.price);
 
 // Patrons/tiles/sundries — "New offers" also re-rolls the stalls (see rollStalls).
 function rollOffers() {
@@ -227,6 +245,13 @@ function rollOffers() {
   if (Math.random() < FLEURON_OFFER_CHANCE) {
     const i = Math.floor(Math.random() * market.tileOffers.length);
     market.tileOffers[i] = { template: makeTileTemplate(FLEURON), price: FLEURON_PRICE, sold: false };
+  }
+  // …and a quire displaces one too: three sorts sold as a lot, one of them
+  // ballast. Rolled after the fleuron so the two cannot land on one slot and
+  // quietly overwrite each other.
+  if (Math.random() < QUIRE_OFFER_CHANCE) {
+    const i = Math.floor(Math.random() * market.tileOffers.length);
+    market.tileOffers[i] = rollQuire();
   }
   // …and so does the pair of rules, which is sold as a PAIR and no other way:
   // one rule alone is worth nothing at all, so half a purchase would be a trap.
@@ -519,12 +544,13 @@ export function buyTile(idx) {
   const price = offerPrice(offer);
   if (state.coins < price)         return { ok: false, reason: `You need ${price} Coins.` };
   state.coins -= price;
-  // A pack buys several of the same sort at one price — the rules, which are
-  // only ever sold two at a time.
-  const n = offer.pack ?? 1;
-  for (let k = 0; k < n; k++) state.collection.push(adoptTemplate(offer.template));
+  // A lot buys several sorts at one price. Two shapes: `pack` is n copies of one
+  // template (the rules, only ever sold as a pair) and `templates` is a list of
+  // different ones (a quire).
+  const bought = offer.templates ?? Array(offer.pack ?? 1).fill(offer.template);
+  for (const t of bought) state.collection.push(adoptTemplate(t));
   offer.sold = true;
-  return { ok: true, template: offer.template, price, pack: n };
+  return { ok: true, template: bought[0], templates: bought, price, pack: bought.length };
 }
 
 // ─── The compost heap (The Composter) ─────────────────────────────────────────

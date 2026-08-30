@@ -628,6 +628,23 @@ rattles around in there at half the rate:
   each colour. A washed tile counts as its colour to patrons *and* to the
   multiplier, and keeps the promise until it prints. Real paint replaces a wash.
 
+A **quire** — a gathering of sheets, and here a gathering of sorts — displaces a
+Market tile slot at `QUIRE_OFFER_CHANCE`, the same door the fleuron uses. Three
+sorts sold as one lot at a flat 8 Coins: **one well dressed** (three of the four
+features the fair deals in — paint, trim, nick, a second face), **one with a
+single feature**, and **one bare**. Never a metal: `addRandomFeature` does not
+deal in them, so rare materials stay the alley's alone.
+
+Bought separately the three run to about 14 Coins, so the price is a real
+discount — and what you pay for it with is *choice*, since you pick neither the
+letters nor which features land. And with the **ballast**: every other road in
+the game takes tiles *out* of a press (the smelter, the tongs, the Serpent's
+meal, a squib), so a run trends slimmer and cleaner the longer it goes. The quire
+is the one road that puts junk back in, which is what makes the smelter's fee and
+the Composter's heap matter again. The dilution is milder than it sounds — two
+dressed tiles ride in with the one dud, so a pack buyer ends a run with *more*
+dressed tiles per hand than someone buying singles, at the same value per Coin.
+
 The **fleuron** ❧'s mirror, ☙, is a tile rather than a sundry: a printer's
 ornament in gold that sets no word at all. It can only be printed alone, for its
 single Point, and pays 1 Coin every time a page completes, wherever it is.
@@ -886,6 +903,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Where the patrons' turns happen, and what a ×Mult reaches | `js/scoring.js` → pass 4. Points that must be multiplied by the table have to land before it (the tongs' heat and the curse's toll do, in pass 3½) |
 | Patrons that improve the tiles rather than the word | `js/patrons.js` → the `tileBonus` hook (pass 1½ in `js/scoring.js`); the number goes onto the tile, so nicks read it and Monogrammists carry it |
 | Patrons that PAINT a tile rather than pay it | `js/patrons.js` → the `tilePaint` hook (pass ½ in `js/scoring.js`, before anything is counted). The colour lands on a copy of the word, so the multipliers count it and the groove shows it under a dashed edge while you compose; the seat's own `onPrinted` makes it permanent when the word prints |
+| The quire — price, how often it displaces a tile slot, and how dressed its sorts are | `js/constants.js` → `QUIRE_PRICE`, `QUIRE_OFFER_CHANCE`, `QUIRE_DRESSED`, `QUIRE_MIDDLING` (the roll is `rollQuire` in `js/market.js`) |
 | The fleuron — price, page rent, how often it is offered | `js/constants.js` → `FLEURON_PRICE`, `FLEURON_PAGE_COIN`, `FLEURON_OFFER_CHANCE` (the glyph itself is `FLEURON`) |
 | Stall roster, base prices, spread size | `js/constants.js` → `STALL_DEFS`, `STALLS_PER_SHOP`, `PROPOSAL_RANGE`, `SMELT_MIN_COLLECTION` |
 | Marks: which ones exist, legal tails, and what they arrive wearing | `js/constants.js` → `MARKS`, `MARK_RUNS`, `MARK_TRIM` (and `TILE_POINTS`). How often one turns up is `WRAPPED_CONTENTS`, since a wrapper is the only source |

@@ -75,6 +75,13 @@ export function renderMarket() {
     renderCollectionGrid();
   } else {
     market.tileOffers.forEach((o, i) => {
+      if (o.quire) {
+        o.templates.forEach((t, k) => {
+          const slot = m.querySelector(`[data-offer-tile="${i}"][data-quire-slot="${k}"]`);
+          if (slot && !slot.children.length) slot.appendChild(makeTileEl({ ...t, id: '' }, 'offer'));
+        });
+        return;
+      }
       const slot = m.querySelector(`[data-offer-tile="${i}"]`);
       if (slot && !slot.children.length) slot.appendChild(makeTileEl({ ...o.template, id: '' }, 'offer'));
     });
@@ -320,6 +327,18 @@ function marketShopHTML() {
   // Nothing is summarised under the tile — hover or long-press it.
   const tileCards = market.tileOffers.map((o, i) => {
     const price = offerPrice(o);
+    // A quire holds three sorts in one slot, so it shows all three and says so.
+    if (o.quire) {
+      return `
+      <div class="offer-tile offer-quire" data-offer="tile" data-idx="${i}">
+        <div class="offer-quire-slots">${o.templates
+          .map((_, k) => `<div class="offer-tile-slot" data-offer-tile="${i}" data-quire-slot="${k}"></div>`)
+          .join('')}</div>
+        <div class="bm-tile-note">${MT.quireNote}</div>
+        <span class="op-sold">bought</span>
+        <button class="btn-price" data-buy-tile="${i}">${coinHTML(price)}</button>
+      </div>`;
+    }
     return `
       <div class="offer-tile${price === 0 ? ' offer-tile--free' : ''}" data-offer="tile" data-idx="${i}">
         <div class="offer-tile-slot" data-offer-tile="${i}"></div>
@@ -1498,8 +1517,10 @@ function onMarketClick(e) {
     const r = buyTile(Number(buyT.dataset.buyTile));
     if (!r.ok) { log(r.reason, 'warn'); sfx.bad(); }
     else {
-      sfx.coin(); log(logLine('tileBought'), 'good');
-      flyPurchase(card?.querySelector('.tile'), $('bagBtn'));
+      sfx.coin();
+      log(r.pack > 1 ? logLine('quireBought', r.pack) : logLine('tileBought'), 'good');
+      // A quire sends all three sorts to the bag, not just the one on top.
+      for (const el of card?.querySelectorAll('.tile') ?? []) flyPurchase(el, $('bagBtn'));
     }
     renderAll(); updateMarketState();
     return;

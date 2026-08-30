@@ -4501,6 +4501,24 @@ button.sundry:hover { transform: translateY(-2px); }
   padding: 8px 9px;
 }
 .tc-patron--ubiquitous { border-left-color: #7c8a9c; }
+/* ─── The quire (three sorts in one Market slot) ──────────────────────────────
+   Wider than an ordinary tile card and banded, so it reads as a LOT rather than
+   as three offers that happen to be touching. */
+.offer-quire {
+  grid-column: span 2;
+  background: rgba(255, 248, 226, 0.05);
+  border: 1px dashed rgba(138, 95, 29, 0.45);
+  border-radius: 12px;
+  padding: 8px 8px 6px;
+}
+.offer-quire-slots {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 6px;
+}
+.offer-quire .bm-tile-note { margin-top: 5px; text-align: center; }
+
 /* ─── The Shell Game (the alley's crate) ──────────────────────────────────────
    Three shells in a row and the play button beside them. Deliberately plainer
    than the tile tables above: this is a crate in an alley, not a display. */

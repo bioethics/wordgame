@@ -230,7 +230,35 @@ export const RULE_PACK_CHANCE = 0.15;   // odds a Market tile slot holds the pai
 
 export const FLEURON_PRICE        = 3;
 export const FLEURON_PAGE_COIN    = 1;     // paid per fleuron owned, every page
-export const FLEURON_OFFER_CHANCE = 0.15;  // odds a Market tile slot holds one
+export const FLEURON_OFFER_CHANCE = 0.12;  // odds a Market tile slot holds one
+
+// ─── The quire (a gathering of sorts, sold as one) ───────────────────────────
+// A quire is a gathering of sheets folded together, and this is one: three sorts
+// bought as a lot, taking a single tile slot at the fair (QUIRE_OFFER_CHANCE,
+// the same door the fleuron uses).
+//
+//   · one WELL DRESSED — QUIRE_DRESSED features, rolled out of the four the
+//     fair deals in (paint, trim, nick, a second face). Only 12% of ordinary
+//     offers carry three, so this is the draw: a tile you could not reliably
+//     buy on the row however long you looked.
+//   · one with a SINGLE feature.
+//   · one BARE, and the bare one is the point.
+//
+// No metal, ever — addRandomFeature does not deal in them, so rare materials
+// stay the alley's alone and the Black Market keeps a pillar it is charging a
+// Colophon pick for.
+//
+// Bought separately the three run to about 14 Coins, so QUIRE_PRICE is a deal
+// of some size; what you are paying for the discount with is CHOICE, since you
+// pick neither the letters nor which features land. And with the cruft: every
+// other road in the game TAKES tiles out of a press (the smelter, the tongs,
+// the Serpent's meal, a squib), so a run trends slimmer and cleaner the longer
+// it goes. This is the one road that puts ballast back in — which is what makes
+// the smelter's fee and the Composter's heap matter again.
+export const QUIRE_PRICE         = 8;
+export const QUIRE_OFFER_CHANCE  = 0.12;
+export const QUIRE_DRESSED       = 3;    // features on the good sort
+export const QUIRE_MIDDLING      = 1;    // …and on the second
 
 // ─── Marks (punctuation tiles) ────────────────────────────────────────────────
 // Not letters and not ligatures: a mark spells nothing and is simply appended to
@@ -1383,7 +1411,7 @@ export const KNOBS = {
   FENCE_OFF: `${Math.round(FENCE_DISCOUNT * 100)}%`,
   EXPLOSIVE_MULT,
   EXPLOSIVE_SPREAD_CHANCE: oddsText(EXPLOSIVE_SPREAD_ODDS),
-  HACKER_CAP, SHELL_COINS, QUOIN_MULT,
+  HACKER_CAP, SHELL_COINS, QUOIN_MULT, QUIRE_PRICE, QUIRE_DRESSED,
   GOLDSMITH_POINTS, GOLDSMITH_PURSE,
   GOLDSMITH_CHANCE: oddsText(GOLDSMITH_ODDS),
 

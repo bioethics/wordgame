@@ -225,6 +225,7 @@ export const LOG_TEXT = {
   bmPatronSeat:    '{0} takes a seat — {1} Coins, and no questions.',
   bmSundry:        '{0} goes on the workbench.',
   bmHacked:        '“{0}” struck up from {1} to {2} Points — {3} Coins.',
+  quireBought:     'A quire of {0} sorts, gathered into the bag — ballast and all.',
   // The shell game. {0} is what came out from under the shell.
   shellPlayed:     '🐚 The shells go round… and it is {0}.',
   shellCoinsWon:   '{0} Coins',
@@ -536,6 +537,8 @@ export const LENGTH_FLOURISH_BEYOND = 'the stuff of legend.';
 // beside a heading; a `note` is the sentence under a title.
 
 export const MARKET_TEXT = {
+  // The quire's caption, under the three sorts it holds.
+  quireNote:  'A quire — three sorts, and one of them is ballast',
   title:        'The Market',
   patrons:      'Patrons',
   patronsSub:   'calling today',
