@@ -420,7 +420,10 @@ export const PATRON_CARDS = {
     desc: '+{ALDERMAN_STEP} Mult for each guild with a patron at your table.',
   },
   calligrapher: {
-    name: 'The Calligrapher', emoji: '✒️', rarity: 'common', cost: 7,
+    // Cheap on purpose. +3 a painted tile is a modest thing that stops mattering
+    // once the multipliers are running, so it wants to be an easy early yes and
+    // an easy later sale rather than a seven-Coin commitment.
+    name: 'The Calligrapher', emoji: '✒️', rarity: 'common', cost: 5,
     desc: '+3 Points for painted tiles.',
   },
   closer: {
