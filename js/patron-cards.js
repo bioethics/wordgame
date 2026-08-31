@@ -17,8 +17,7 @@
 //   guild    'amber' | 'jade' | 'crimson' | 'azure', or an array for a patron
 //            of two liveries; omit for a wildcard. Guild-counting patrons
 //            (the Orchardist, the Banker, the Alderman) read this.
-//   desc     one sentence, concrete, under ~110 characters. State the rule,
-//            not the feeling — the flavour belongs to the name and the quips.
+//   desc     the rule, plainly. The house style is in CLAUDE.md.
 //
 // A desc may carry {KNOBS} in braces, filled as the module loads, so tuning a
 // number in constants.js retunes the card text with it:
@@ -137,7 +136,7 @@ export const PATRON_CARDS = {
   },
   abecedarian: {
     name: 'The Abecedarian', emoji: '🔠', rarity: 'rare', cost: 8, guild: 'jade',
-    desc: 'Collects sorts — every tile the press can set, not merely every letter. The first time you print any of them he gains Mult for good, and the fuller the case the more each new sort is worth: {ABECEDARIAN_STEPS}. {ABECEDARIAN_CASE_SIZE} places in all, and a complete case is +{ABECEDARIAN_CASE_MULT} Mult.',
+    desc: 'Gains Mult, for good, the first time you print each different sort — up to a max of +{ABECEDARIAN_CASE_MULT} Mult total.',
   },
   beekeeper: {
     name: 'The Beekeeper', emoji: '🐝', rarity: 'uncommon', cost: 6, guild: 'jade',
@@ -350,7 +349,7 @@ export const PATRON_CARDS = {
   // where he died.
   bookbinder: {
     name: 'The Bloodless Bohemian Bookbinder', emoji: '🧛', rarity: 'uncommon', cost: 7, guild: 'azure',
-    desc: 'He died at the case in Prague and never left it. He cannot say W, so a V stands in for one wherever a word wants it — and any O may be howled to any length, BOB set as BOOOOOB, every O of it counting for the measure.',
+    desc: 'A W may be spelled with a V. An O may repeat any number of times.',
     unlockNote: 'Calls only once a ghost has been seen in the run — a ghost calls a ghost.',
   },
   ditherer: {
@@ -379,7 +378,7 @@ export const PATRON_CARDS = {
   },
   silentknight: {
     name: 'The Silent Knight', emoji: '\u2694\ufe0f', rarity: 'rare', cost: 8, guild: 'azure',
-    desc: 'Print a word holding a letter that is written and never spoken — the K in KNOT — and that letter is struck into blind emboss, for good, and he takes a laurel for it. A blind sort is a letter no editor can see: it is the metal that does the work, and he is the only press that makes it.',
+    desc: 'Print a word with a silent letter to strike it in Blind emboss, for good, and gain a laurel.',
   },
   innkeeper: {
     name: 'The Innkeeper', emoji: '🍻', rarity: 'common', cost: 5,
@@ -387,11 +386,11 @@ export const PATRON_CARDS = {
   },
   gardener: {
     name: 'The Gardener', emoji: '🍃', rarity: 'rare', cost: 10, guild: 'jade',
-    desc: 'Every jade sort you print shaves a little off the quota — every page from then on, for the rest of the run. Each one takes a smaller slice than the last, and the whole trims to {GARDENER_CAP_PCT} and no further.',
+    desc: 'Each jade sort printed permanently cuts the quota — less each time.',
   },
   spendthrift: {
     name: 'The Spendthrift', emoji: '💸', rarity: 'uncommon', cost: 6, guild: ['amber', 'jade'],
-    desc: 'Paid for what you SPEND, not what you hold. Every {SPENDTHRIFT_STEP} Coins out of the purse, one sort of your collection gains Points for good — as many as the chapter you are on.',
+    desc: 'Every {SPENDTHRIFT_STEP} Coins spent, one sort in your collection permanently gains Points equal to the current chapter.',
   },
   beadle: {
     name: 'The Beadle', emoji: '🎖️', rarity: 'rare', cost: 9, guild: 'amber',
@@ -435,7 +434,7 @@ export const PATRON_CARDS = {
     // a {KNOB}. Retune any of the three and Frank starts lying; re-check the sum
     // by hand before you do.
     name: 'Fifteen-fingered Frank', emoji: '🖐️', rarity: 'uncommon', cost: 7, guild: 'azure',
-    desc: 'Frank counts every word on his fingers, and grows a new one each time — {DEVIL_STEP} more room in the hand, for the rest of the page. Doesn’t ask how. The page turn takes them all back.',
+    desc: '+{DEVIL_STEP} hand size per word printed this page.',
   },
   counterfeiter: {
     name: 'The Counterfeiter', emoji: '💵', rarity: 'uncommon', cost: 7, guild: 'azure',
