@@ -211,12 +211,16 @@ export const PATRON_CARDS = {
     desc: 'Every page, gain a RAT tile to your hand that is painted a random colour.',
   },
   quartermaster: {
-    // Moved from crimson to AZURE. Azure is the guild of second chances — the
-    // pardons, the washes, the cobalt refresh — and a discard is the plainest
-    // second chance there is, so the seat that deals in them belongs here. It
-    // also lets him count himself towards his own threshold, which is what makes
+    // Crimson AND azure, because a discard is both halves at once: it DISMISSES
+    // tiles, which is crimson's whole business, and what it buys you is
+    // FLEXIBILITY — a second look at the hand — which is azure's. He was crimson
+    // alone and read as a destruction seat that never destroyed anything.
+    //
+    // The azure half is also mechanical: his own threshold counts azure seats,
+    // and a dual livery lets him count himself towards it, which is what makes
     // the second discard a thing you build for rather than a thing you find.
-    name: 'The Quartermaster', emoji: '🎒', rarity: 'uncommon', cost: 5, guild: 'azure',
+    name: 'The Quartermaster', emoji: '🎒', rarity: 'uncommon', cost: 5,
+    guild: ['crimson', 'azure'],
     desc: 'Begin each page with an extra Discard — and a second one while two of your seats fly azure, himself counted.',
   },
   arsonist: {

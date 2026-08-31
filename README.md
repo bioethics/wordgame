@@ -176,11 +176,14 @@ accident. The favours are read live at the price (`stallPrice` in `js/market.js`
 so hiring a second crimson mid-Market opens the smelter *that same visit*, and
 `stall.uses` makes it once per visit rather than once per stall.
 
-**The Quartermaster** moved from crimson to **azure** in the same pass. Azure is
-the guild of second chances — the pardons, the washes, the cobalt refresh — and a
-discard is the plainest second chance there is. He gives +1 Discard, and a second
-while two of your seats fly azure, *himself counted*: which is what makes the
-second discard a thing you build for rather than a thing you find.
+**The Quartermaster** now flies **crimson *and* azure**, because a discard is both
+halves at once: it **dismisses** tiles, which is crimson's whole business, and
+what it buys you is **flexibility** — a second look at the hand — which is
+azure's. He was crimson alone and read as a destruction seat that never destroyed
+anything. He gives +1 Discard, and a second while two of your seats fly azure,
+*himself counted* — which is what makes the second discard a thing you build for
+rather than a thing you find, and is the mechanical half of the same argument: a
+dual livery is what lets him count towards his own threshold.
 
 ### The Lye Boy — selling the paint engine
 
