@@ -221,7 +221,7 @@ export const PATRON_CARDS = {
     // the second discard a thing you build for rather than a thing you find.
     name: 'The Quartermaster', emoji: '🎒', rarity: 'uncommon', cost: 5,
     guild: ['crimson', 'azure'],
-    desc: 'Begin each page with an extra Discard — and a second one while two of your seats fly azure, himself counted.',
+    desc: 'Begin each page with an extra Discard — and a second one if you have two azure patrons.',
   },
   arsonist: {
     name: 'The Arsonist', emoji: '🧨', rarity: 'uncommon', cost: 6, guild: 'crimson',
@@ -355,7 +355,7 @@ export const PATRON_CARDS = {
   },
   ditherer: {
     name: 'The Ditherer', emoji: '🤔', rarity: 'common', cost: 3, guild: 'azure',
-    desc: 'Never buys the first thing they see. Every page ends with a free re-roll banked for that page’s Market.',
+    desc: 'Grants a free reroll at the end of every page.',
   },
   copyist: {
     name: 'The Copyist', emoji: '📑', rarity: 'common', cost: 4,
@@ -371,7 +371,7 @@ export const PATRON_CARDS = {
   // this patron is settled here but its price and how often you meet one.
   generic: {
     name: 'The Generic', emoji: '🧍', rarity: 'ubiquitous', cost: GENERIC_PRICE, stackable: true,
-    desc: 'An ordinary person with two ordinary conditions and one thing they will do for you.',
+    desc: 'An ordinary person who does generic things.',
   },
   twins: {
     name: 'The Twins', emoji: '👯', rarity: 'common', cost: 4,
