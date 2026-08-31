@@ -428,8 +428,14 @@ export const PATRON_CARDS = {
     // Uncommon at 7 because it does NOTHING on the first word of a page and is
     // bounded by the bag besides — a hand of fifteen needs fifteen sorts left to
     // put in it. If it plays too strong the knob is DEVIL_STEP, not the price.
-    name: 'The Printer’s Devil', emoji: '👹', rarity: 'uncommon', cost: 7, guild: 'azure',
-    desc: 'The boy fetches as you go: every word you print widens your hand by {DEVIL_STEP} for the rest of the page. The page turn takes it all back.',
+    //
+    // The name is exact today and only today: RACK_SIZE (10) + WORDS_PER_PAGE (5)
+    // × DEVIL_STEP (1) lands him on fifteen fingers on the last word of an
+    // ordinary page. Nothing enforces that — unlike the desc, a name can't carry
+    // a {KNOB}. Retune any of the three and Frank starts lying; re-check the sum
+    // by hand before you do.
+    name: 'Fifteen-fingered Frank', emoji: '🖐️', rarity: 'uncommon', cost: 7, guild: 'azure',
+    desc: 'Frank counts every word on his fingers, and grows a new one each time — {DEVIL_STEP} more room in the hand, for the rest of the page. Doesn’t ask how. The page turn takes them all back.',
   },
   counterfeiter: {
     name: 'The Counterfeiter', emoji: '💵', rarity: 'uncommon', cost: 7, guild: 'azure',

@@ -1091,12 +1091,17 @@ export const DIPPER_PAINT_CHANCE = 1 / 12;
 // the only cost is the page spent without them. Payouts are small for that reason.
 export const RAGMAN_ODDS   = 0.5;   // per painted tile discarded
 export const RAGMAN_COINS  = 1;     // amber: what the rag fetches
-// ─── The Printer's Devil ──────────────────────────────────────────────────────
-// What the boy fetches per word printed. It rides state.rackBonus, so it is
-// felt on the very next refill and the page turn takes all of it back
-// (startPage in js/state.js). Nothing on the first word of a page — the widening
-// is the press warming up, and it is bounded by the bag besides: a hand of
-// fifteen is a hand of fifteen only while there are fifteen sorts to put in it.
+// ─── Fifteen-fingered Frank ────────────────────────────────────────────────────
+// What Frank grows per word printed. It rides state.rackBonus, so it is felt on
+// the very next refill and the page turn takes all of it back (startPage in
+// js/state.js). Nothing on the first word of a page — the widening is the press
+// warming up, and it is bounded by the bag besides: a hand of fifteen is a hand
+// of fifteen only while there are fifteen sorts to put in it.
+//
+// His name is arithmetic, not a round number: RACK_SIZE + WORDS_PER_PAGE ×
+// DEVIL_STEP lands on fifteen today. Nothing checks that at load — a name can't
+// carry a {KNOB} the way a card's desc can — so retuning any of the three
+// makes him a liar and nothing will tell you.
 export const DEVIL_STEP = 1;
 
 // The Revenant's due: odds a tile destroyed anywhere comes back in ghost metal.

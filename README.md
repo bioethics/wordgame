@@ -140,19 +140,27 @@ a real price. A seat that gets *dearer* as the run goes on is rare.
 
 ### Four seats that pay outside the word
 
-**The Printer's Devil** (azure, uncommon, 7 Coins) is the plainest of them and the
-easiest to feel: **every word printed widens your hand by one for the rest of the
-page**, and the page turn takes all of it back. Nothing on the first word, +1 on
-the second, +4 by the fifth — so he pays most exactly where the length multiplier
-does, and a page you are already winning is a page he makes easier. He rides
-`state.rackBonus`, the one term in `effectiveRackSize` that is neither permanent
-nor the editor's, which is why the reset is free: `startPage` already clears it.
+**Fifteen-fingered Frank** (azure, uncommon, 7 Coins) is the plainest of them and
+the easiest to feel: **every word printed grows him a finger — and widens your
+hand by one — for the rest of the page**, and the page turn takes them all back.
+Nothing on the first word, +1 on the second, +4 by the fifth — so he pays most
+exactly where the length multiplier does, and a page you are already winning is a
+page he makes easier. He rides `state.rackBonus`, the one term in
+`effectiveRackSize` that is neither permanent nor the editor's, which is why the
+reset is free: `startPage` already clears it.
 
 He is bounded by the press. A hand of fifteen needs fifteen sorts left in the bag,
 so a slim collection feels him less than a fat one — the right way round for a
 seat you buy to make a big hand bigger. A **spiked** word still counts: it is a
 word printed, an editor's page is where a wide hand is worth most, and letting the
 toll take the fetch as well would be two punishments for one word.
+
+His name is arithmetic rather than a round number: `RACK_SIZE` (10) +
+`WORDS_PER_PAGE` (5) × `DEVIL_STEP` (1) lands him on **fifteen fingers exactly**
+on the last word of an ordinary page — the same fifteen the paragraph above
+arrives at from the bag's side. Nothing enforces the pun: a patron's name can't
+carry a `{KNOB}` the way its `desc` can, so retuning any of the three quietly
+makes him a liar.
 
 
 Most patrons are paid at the moment a word scores. These four are not, and each
@@ -1026,7 +1034,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Patron names, emoji, rarities, costs, guilds and card text | `js/patron-cards.js` — one flat table keyed by patron id; `{KNOB}` braces in a `desc` are filled from the `KNOBS` object at the top of the file |
 | What a patron *does* | `js/patrons.js`, against the same id |
 | Patron tuning that reaches beyond a score (growth steps, burn odds, trim chance, dye count, coined-word length) | `js/constants.js` → `GRAFTER_STEP`, `STOKER_BASE`, `STOKER_STEP`, `ARSONIST_ODDS`, `NUDIST_TRIM_CHANCE`, `DIPPER_PAINT_CHANCE`, `GAMBLER_ODDS`, `DYE_TILES_PER_CHAPTER`, `NEOLOGIST_LENGTH` |
-| The Printer's Devil's fetch | `js/constants.js` → `DEVIL_STEP` (places per word printed; it rides `state.rackBonus`, so the page turn takes it back for free) |
+| Fifteen-fingered Frank's growth | `js/constants.js` → `DEVIL_STEP` (places per word printed; it rides `state.rackBonus`, so the page turn takes it back for free). His name quotes `RACK_SIZE + WORDS_PER_PAGE × DEVIL_STEP` at authoring time — retune any of the three and re-check the sum by hand |
 | The Beekeeper's curve | `js/constants.js` → `BEEKEEPER_BANDS` — `{ upTo, step }` in order, so the hive slows as it fills (+0.2 to ×2, +0.1 to ×3, +0.05 thereafter) instead of climbing for ever at one rate. `beekeeperMult()` walks it a bee at a time, so crossing a threshold never jumps; `beekeeperSteps()` writes the card's own sentence from the same table, so the words cannot drift from the arithmetic |
 | The Alderman's guild step | `js/constants.js` → `ALDERMAN_STEP` (added per guild, not multiplied — see pass 4½ in `js/scoring.js`) |
 | What the alley may ask for a tile | `js/constants.js` → `BLACK_TILE_MAX_PRICE`, the ceiling every black-market tile is clamped to, plus `BLACK_MATERIAL_STOCK` and `BLACK_TILE_SURCHARGE`. The Market's own tiles are priced by `tilePrice` in `js/market.js`, off `TILE_BASE_PRICE` and the `price` on each entry of `TRIMS` / `NICKS` |

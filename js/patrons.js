@@ -2325,16 +2325,18 @@ const PATRON_BEHAVIOURS = [
     },
   },
   {
-    // The press warming up. Every word printed widens the hand for the rest of
-    // the page, and the page turn takes all of it back — it rides
+    // Frank. Every word printed grows him a finger — and widens the hand by
+    // one — for the rest of the page; the page turn takes them all back. Rides
     // state.rackBonus, the one term in effectiveRackSize that is neither
     // permanent nor the editor's, and startPage clears it.
     //
     // The shape is the point: nothing on the first word, +1 on the second, +4 by
-    // the fifth, so the seat pays most where the length multiplier does. And it
-    // is bounded by the press — a hand of fifteen needs fifteen sorts left in
-    // the bag — so a slim collection feels it less than a fat one, which is the
-    // right way round for a seat that costs seven.
+    // the fifth, so the seat pays most where the length multiplier does — and on
+    // an ordinary five-word page he tops out at fifteen fingers exactly, which
+    // is also, not entirely by design, how many sorts a hand that size needs
+    // left in the bag to fill it. He is bounded by the press either way, so a
+    // slim collection feels him less than a fat one — the right way round for a
+    // seat that costs seven.
     //
     // A SPIKED word counts. It is still a word printed, and an editor's page is
     // where a wider hand is worth most; letting the toll take the fetch as well
@@ -2345,12 +2347,12 @@ const PATRON_BEHAVIOURS = [
     onPrinted({ state, data }) {
       state.rackBonus = (state.rackBonus ?? 0) + DEVIL_STEP;
       data.fetched = (data.fetched ?? 0) + DEVIL_STEP;
-      return { note: `+${data.fetched} hand` };
+      return { note: `+${data.fetched} finger${data.fetched > 1 ? 's' : ''}` };
     },
     tally(data) {
       const n = data?.fetched ?? 0;
-      return n ? `The boy has fetched ${n} place${n > 1 ? 's' : ''} this page.`
-               : 'Nothing fetched yet — the first word of a page pays him nothing.';
+      return n ? `${n} finger${n > 1 ? 's' : ''} grown so far this page.`
+               : 'No fingers grown yet — the first word of a page pays him nothing.';
     },
   },
   {
