@@ -3,17 +3,17 @@ import {
   effectivePatronSlots, effectiveSundrySlots, luckyRoll, makeGhost, meetGhost,
   effectiveMarketStalls, effectiveMarketTiles, effectiveMarketPatrons,
   effectiveProposalRange,
-  marryLovers, supersededIds, completesLovers,
+  marryLovers, supersededIds, completesLovers, spendCoins,
 } from './state.js';
 import {
   BAG_COUNTS, LIGATURES, EXCLUSIVE_LETTERS, isMark, MARKS, INTERROBANG,
-  TILE_POINTS, TRIMS, NICKS, COLOURS,
+  TILE_POINTS, TRIMS, NICKS, COLOURS, dualPairsFor,
   WRAPPED_PRICE, WRAPPED_OFFER_CHANCE, isImmutable,
   COMPOST_HEAP_MAX,
   TILE_BASE_PRICE, REROLL_BASE,
   SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, RATCHET_PRICE, BODKIN_PRICE, SUNDRY_SELL, HEADSMAN_STEP,
   TOOLBOX_PRICE, FLEURON, FLEURON_PRICE, FLEURON_OFFER_CHANCE,
-  QUIRE_PRICE, QUIRE_OFFER_CHANCE, QUIRE_DRESSED, QUIRE_MIDDLING,
+  QUIRE_PRICE, QUIRE_OFFER_CHANCE, QUIRE_DRESSED, QUIRE_MIDDLING, BEADLE_THRESHOLD,
   RULE, RULE_PACK_PRICE, RULE_PACK_CHANCE,
   STALL_DEFS, SMELT_MIN_COLLECTION,
   FEATURE_CHAIN_CHANCE, MAX_FEATURES, MEDIEVAL_LETTERS, isMedieval,
@@ -21,6 +21,7 @@ import {
 } from './constants.js';
 import {
   PATRON_DEFS, RARITY_WEIGHT, patronById, guildSeats, rollPostnom, patronCost, patronName,
+  BEADLE_STALLS,
 } from './patrons.js';
 
 // ─── Shop state (ephemeral between pages) ─────────────────────────────────────
@@ -59,17 +60,6 @@ function buildLetterPool() {
 const LETTER_POOL = buildLetterPool();
 
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
-
-function dualPairsFor(letter) {
-  const pts = TILE_POINTS[letter] ?? 1;
-  // No fleuron on either face: "it prints alone" has to stay the whole truth.
-  // Nothing on EXCLUSIVE_LETTERS either, or the Punchcutter would cut a thorn
-  // into the back of a Z — the Medievalist's stock without the Medievalist.
-  return Object.keys(TILE_POINTS)
-    .filter(l => l !== letter && l.length === 1 && !isMark(l) && l !== FLEURON
-              && !EXCLUSIVE_LETTERS.includes(l)
-              && Math.abs(TILE_POINTS[l] - pts) <= 2);
-}
 
 // The one cut the Punchcutter will make on a mark, and the only road to an
 // interrobang. It asks that you own BOTH marks, and consumes neither.
@@ -246,13 +236,10 @@ function rollOffers() {
     const i = Math.floor(Math.random() * market.tileOffers.length);
     market.tileOffers[i] = { template: makeTileTemplate(FLEURON), price: FLEURON_PRICE, sold: false };
   }
-  // …and a quire displaces one too: three sorts sold as a lot, one of them
-  // ballast. Rolled after the fleuron so the two cannot land on one slot and
-  // quietly overwrite each other.
-  if (Math.random() < QUIRE_OFFER_CHANCE) {
-    const i = Math.floor(Math.random() * market.tileOffers.length);
-    market.tileOffers[i] = rollQuire();
-  }
+  // A quire is APPENDED rather than displacing a slot: three sorts sold as a
+  // lot, laid out in a band under the row. The tile row keeps its shape whether
+  // one turns up or not, which is worth more than the symmetry of displacing.
+  if (Math.random() < QUIRE_OFFER_CHANCE) market.tileOffers.push(rollQuire());
   // …and so does the pair of rules, which is sold as a PAIR and no other way:
   // one rule alone is worth nothing at all, so half a purchase would be a trap.
   // Bold is an experiment, off in the main game: the shop only stocks the pair
@@ -302,7 +289,18 @@ function guaranteeAmber() {
 // ─── Stalls ───────────────────────────────────────────────────────────────────
 
 export const stallById   = id => market.stalls.find(s => s.id === id);
-export const stallPrice  = stall => (STALL_DEFS[stall.id]?.base ?? 1) * 2 ** stall.uses;
+// The Beadle's favour: while a guild is BEADLE_THRESHOLD seats deep, its stall
+// works once a visit for nothing. Read live at the price rather than granted, so
+// hiring or dismissing a seat mid-visit re-prices the row — the same way the
+// Fence's cut does in the alley. `uses` is what makes it once a visit: the
+// second commission at that stall is charged as the first would have been.
+export const beadleFavour = stall =>
+  owns('beadle') && stall.uses === 0
+  && Object.entries(BEADLE_STALLS).some(([colour, id]) =>
+       id === stall.id && guildSeats(colour) >= BEADLE_THRESHOLD);
+
+export const stallPrice  = stall =>
+  (beadleFavour(stall) ? 0 : (STALL_DEFS[stall.id]?.base ?? 1) * 2 ** stall.uses);
 
 // ── Proposal stalls ───────────────────────────────────────────────────────────
 // A spread of your own tiles, each paired with a proposed change. Each stall is
@@ -469,7 +467,7 @@ export function buyPatron(id) {
   }
   const cost = patronCost(def, offer.data);
   if (state.coins < cost)              return { ok: false, reason: `You need ${cost} Coins.` };
-  state.coins -= cost;
+  spendCoins(cost);
   const seat = { id, uid: nextId(), data: offer.data ? { ...offer.data } : {} };
   if (ghost) makeGhost(seat);
   else       state.patrons.push(seat);
@@ -543,7 +541,7 @@ export function buyTile(idx) {
   if (!offer || offer.sold)        return { ok: false, reason: 'Not available.' };
   const price = offerPrice(offer);
   if (state.coins < price)         return { ok: false, reason: `You need ${price} Coins.` };
-  state.coins -= price;
+  spendCoins(price);
   // A lot buys several sorts at one price. Two shapes: `pack` is n copies of one
   // template (the rules, only ever sold as a pair) and `templates` is a list of
   // different ones (a quire).
@@ -592,7 +590,7 @@ export function buySundry(idx) {
   if (!offer || offer.sold)                          return { ok: false, reason: 'Not available.' };
   if (state.sundries.length >= effectiveSundrySlots()) return { ok: false, reason: 'Your workbench is full.' };
   if (state.coins < offer.price)                     return { ok: false, reason: `You need ${offer.price} Coins.` };
-  state.coins -= offer.price;
+  spendCoins(offer.price);
   state.sundries.push({ kind: offer.kind, colour: offer.colour });
   offer.sold = true;
   return { ok: true, offer };
@@ -607,7 +605,7 @@ export function rerollMarket() {
     return true;
   }
   if (state.coins < market.rerollCost) return false;
-  state.coins -= market.rerollCost;
+  spendCoins(market.rerollCost);
   market.rerollCost *= 2;
   rollOffers();
   rollStalls();
@@ -633,7 +631,7 @@ function stallTarget(stallId, tid) {
 }
 
 function payStall(stall, price) {
-  state.coins -= price;
+  spendCoins(price);
   stall.uses += 1;
   market.stallWear[stall.id] = stall.uses;   // remembered across re-rolls this visit
   market.stallSel = -1;

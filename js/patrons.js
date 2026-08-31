@@ -168,12 +168,13 @@ import {
   WORDLER,
   WINNOWER_BONUS, SERPENT_EAT_ODDS, SERPENT_POINTS, lyeBoyMult,
   QUOIN_MULT, GOLDSMITH_POINTS, GOLDSMITH_ODDS, GOLDSMITH_PURSE,
+  gardenerRelief, SPENDTHRIFT_STEP, BEADLE_THRESHOLD, BEADLE_PAGE_COIN,
   LOVERS,
 } from './constants.js';
 import {
   state, getActiveColour, getActiveLetter, countsAsColour, luckyRoll,
   paintRandomTiles, restingPoints, shuffle, owns, allSeats, effectiveSundrySlots,
-  strikeMaterial, primeMult,
+  strikeMaterial, primeMult, spendCoins, growTile,
 } from './state.js';
 import { inTheme, themeSize, THEME_SETS, silentAt, SILENT } from './themes.js';
 import { DICT } from './dict.js';
@@ -257,6 +258,10 @@ const painted = (tiles, colour) => tiles.filter(t => countsAsColour(t, colour));
 
 // What the cat's meals are worth, rounded so nothing ever shows the raw
 // 0.30000000000000004 that repeated addition of a tenth produces.
+// Which guild opens which door for The Beadle. Amber is absent on purpose: its
+// favour is a Coin on every page, not a stall (computeReward in js/scoring.js).
+export const BEADLE_STALLS = { crimson: 'smelter', azure: 'punchcutter', jade: 'gilder' };
+
 const shorthairMult = eaten => Math.round((eaten ?? 0) * SHORTHAIR_MULT * 100) / 100;
 
 // A plain sort: one letter of the alphabet and nothing else. Everything the
@@ -735,6 +740,18 @@ const PATRON_BEHAVIOURS = [
         return { say: [`${e.n} more places in the hand for the rest of the page.`] };
       }
 
+      if (e.kind === 'relief') {
+        // This page's bar, brought down where it stands. The Gardener's relief is
+        // permanent and read when the quota is SET; hers is a reprieve on the
+        // page in front of you, so it is applied to the live figure.
+        const was = st.quota;
+        st.quota = Math.max(1, Math.round(st.quota * (1 - e.n)));
+        if (st.quota >= was) return null;
+        spend();
+        return { note: `quota −${was - st.quota}`,
+                 say: [`The quota comes down from ${was.toLocaleString()} to ${st.quota.toLocaleString()} for this page.`] };
+      }
+
       if (e.kind === 'primeMult') {
         primeMult('generic', e.n);
         data.paid = (data.paid ?? 0) + 1;
@@ -890,6 +907,98 @@ const PATRON_BEHAVIOURS = [
     when: 'meta',
   },
   {
+    // The bar comes DOWN. Every other seat in the game pays you more; this one
+    // asks for less, and permanently — the relief accumulates across the whole
+    // run and is read where the page's quota is set (startPage in js/state.js).
+    //
+    // It approaches GARDENER_CAP and never arrives inside a run: each jade sort takes
+    // GARDENER_RATE of whatever slack is left, so the first is worth about 1%
+    // and the hundredth almost nothing. A discount that could reach 100% would
+    // end the game; one that climbed straight would make the last chapters a
+    // formality. This one is generous early, when a page is a fight, and
+    // decorative late, when it is not — which is the opposite of how it reads,
+    // and the reason it is worth a rare seat.
+    //
+    // countsAsColour, so a rainbow sort is jade for him like everyone else.
+    id: 'gardener',
+    when: 'meta',
+    onPrinted({ tiles, state, data }) {
+      const jade = tiles.filter(t => countsAsColour(t, 'jade')).length;
+      if (!jade) return null;
+      data.seen = (data.seen ?? 0) + jade;
+      const was = state.quotaRelief ?? 0;
+      state.quotaRelief = gardenerRelief(data.seen);
+      const gained = Math.round((state.quotaRelief - was) * 1000) / 10;
+      return { note: `−${gained}%`,
+               say: [`${jade} jade sort${jade > 1 ? 's' : ''} pressed — every quota from here `
+                   + `is ${Math.round(state.quotaRelief * 1000) / 10}% lighter.`] };
+    },
+    tally(data) {
+      const seen = data?.seen ?? 0;
+      if (!seen) return `Nothing pressed yet — the first jade sort is worth about ${Math.round(gardenerRelief(1) * 1000) / 10}%.`;
+      const next = Math.round((gardenerRelief(seen + 1) - gardenerRelief(seen)) * 1000) / 10;
+      return `${seen} jade sort${seen > 1 ? 's' : ''} pressed — every quota ${Math.round(gardenerRelief(seen) * 1000) / 10}% lighter. `
+           + `The next is worth ${next}% more.`;
+    },
+  },
+  {
+    // The ledger's other half. The reward already pays interest on Coins HELD,
+    // so nothing in the game rewarded spending them — this seat does, and it
+    // pays in the one currency that never decays: Points written into the case
+    // for good. The amount is the chapter, so the same seat is worth more the
+    // deeper you are, which is the right way round for a seat you buy early.
+    //
+    // It reads state.coinsSpent, kept by spendCoins in js/state.js — the one
+    // door every purchase in the game goes through, which is why this could be
+    // written at all. `paid` is the running total already honoured, so a page
+    // turn or a save cannot pay the same five Coins twice.
+    id: 'spendthrift',
+    when: 'meta',
+    onPageComplete({ state, data }) {
+      const due = Math.floor((state.coinsSpent ?? 0) / SPENDTHRIFT_STEP) - (data.paid ?? 0);
+      if (due <= 0) return null;
+      data.paid = (data.paid ?? 0) + due;
+      const grown = [];
+      for (let i = 0; i < due; i++) {
+        const pool = state.collection.filter(t => !isImmutable(t));
+        if (!pool.length) break;
+        const t = pool[Math.floor(Math.random() * pool.length)];
+        if (growTile(t, state.chapter)) grown.push(getActiveLetter(t));
+      }
+      if (!grown.length) return null;
+      return { note: `+${state.chapter} × ${grown.length}`,
+               say: [`${grown.length} sort${grown.length > 1 ? 's' : ''} the richer for what you spent — `
+                   + `${grown.join(', ')}, +${state.chapter} Points each, for good.`] };
+    },
+    tally(data) {
+      const paid = data?.paid ?? 0;
+      return paid ? `${paid} sort${paid > 1 ? 's' : ''} grown out of the purse so far.` : null;
+    },
+  },
+  {
+    // The Alderman pays Mult for BREADTH of livery; the Beadle pays favours for
+    // DEPTH. Two seats of a colour and that guild's stall opens its door — the
+    // smelter, the punchcutter and the gilder each work once a visit for nothing
+    // — and two ambers put a Coin on every page. Two is the threshold because it
+    // is the first count that cannot happen by accident.
+    //
+    // The stall favours are read live at the price (stallPrice in js/market.js)
+    // rather than granted, so hiring or dismissing a seat mid-visit re-prices
+    // the row, the same way the Fence's cut does in the alley.
+    id: 'beadle',
+    when: 'meta',   // the favours are stallPrice in js/market.js; the Coin is computeReward
+    tally() {
+      const open = Object.entries(BEADLE_STALLS)
+        .filter(([colour]) => guildSeats(colour) >= BEADLE_THRESHOLD)
+        .map(([, stall]) => stall);
+      const amber = guildSeats('amber') >= BEADLE_THRESHOLD;
+      const lines = [];
+      if (open.length) lines.push(`Working for nothing: ${open.join(', ')}.`);
+      if (amber) lines.push(`Amber is two deep — every page pays ${BEADLE_PAGE_COIN} Coin more.`);
+      return lines.length ? lines : 'No guild is two deep yet — no door is open.';
+    },
+  },
+  {
     // The one seat that reads POSITION. Two tiles of a colour side by side, and
     // the forme is locked. countsAsColour rather than getActiveColour, so a
     // rainbow tile — which counts as every colour and has never had a job in the
@@ -1014,7 +1123,7 @@ const PATRON_BEHAVIOURS = [
       if (!owed) return null;
       const take = Math.min(owed, USURER.collect, state.coins);
       if (!take) return { note: 'nothing to collect — the book stands' };
-      state.coins -= take;
+      spendCoins(take);
       data.debt = owed - take;
       return { note: data.debt ? `${take} Coins collected, ${data.debt} still owed` : `${take} Coins collected — the book is clear` };
     },
@@ -2346,6 +2455,22 @@ export const PATRON_DEFS = PATRON_BEHAVIOURS.map(behaviour => {
   const seated = new Set(PATRON_BEHAVIOURS.map(b => b.id));
   const orphan = Object.keys(PATRON_CARDS).filter(id => !seated.has(id));
   if (orphan.length) throw new Error(`patron-cards: no behaviour for ${orphan.join(', ')} in js/patrons.js`);
+}
+
+// A portrait is how a seat is recognised at a glance — on the shelf, on the
+// calling card, in the ticker — so two patrons wearing the same emoji is a real
+// bug and not a cosmetic one. It happens easily: the jade guild alone has four
+// growing things in it. Checked at load, like the marriage above, because the
+// only other way to find it is to notice it in a screenshot.
+{
+  const worn = new Map();
+  for (const c of Object.values(PATRON_CARDS)) {
+    if (!c.emoji) continue;
+    if (worn.has(c.emoji)) {
+      throw new Error(`patron-cards: ${worn.get(c.emoji)} and ${c.name} both wear ${c.emoji} — give one its own portrait`);
+    }
+    worn.set(c.emoji, c.name);
+  }
 }
 
 export const patronById = id => PATRON_DEFS.find(d => d.id === id);

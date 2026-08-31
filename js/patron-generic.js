@@ -25,7 +25,8 @@
 // an effect whose cost matches, and the check at the foot of this file refuses
 // to load a table with a weight no effect can answer.
 
-import { COLOURS, TRIMS, PACKAGES } from './constants.js';
+import { COLOURS, TRIMS, PACKAGES, ALMONER_RELIEF, KNOBS } from './constants.js';
+import { fillKnobs } from './text.js';
 import { state, restingPoints, countsAsColour } from './state.js';
 import { themePick } from './themes.js';
 
@@ -175,6 +176,13 @@ export const GENERIC_EFFECTS = [
     oncePerPage: true },
 
   // ── 7 ──
+  // The one effect that lowers the bar instead of raising the score, and the
+  // only reason it is not dearer: it lands on THIS page only, so a late-page
+  // firing is worth little and an early one is worth a great deal. Stacks with
+  // The Gardener, whose relief is permanent — hers comes off the page in front
+  // of you, his off every page after.
+  { id: 'relief',      cost: 7, kind: 'relief', n: ALMONER_RELIEF,
+    clause: 'this page’s quota cut by {ALMONER_RELIEF_PCT}', oncePerPage: true },
   { id: 'draw2',       cost: 7, kind: 'draw',    n: 2,
     clause: 'two more tiles in hand for the rest of the page', oncePerPage: true },
   { id: 'parcel',      cost: 7, kind: 'parcel',  clause: 'a parcel onto the workbench',
@@ -248,6 +256,10 @@ export function rollGeneric() {
 export const triggerA = data => GENERIC_TRIGGERS_A.find(t => t.id === data?.a) ?? null;
 export const triggerB = data => GENERIC_TRIGGERS_B.find(t => t.id === data?.b) ?? null;
 export const effectOf = data => GENERIC_EFFECTS.find(e => e.id === data?.effect) ?? null;
+
+// An effect's clause may quote a {KNOB}, the same as any card's desc — filled
+// once here, as the module loads, so nothing downstream has to know.
+for (const e of GENERIC_EFFECTS) e.clause = fillKnobs(e.clause, KNOBS, 'patron-generic: effect');
 
 // Both triggers, ANDed. A roll missing either half never fires.
 export function genericFires(data, ctx) {

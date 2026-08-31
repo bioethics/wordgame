@@ -538,7 +538,7 @@ export const LENGTH_FLOURISH_BEYOND = 'the stuff of legend.';
 
 export const MARKET_TEXT = {
   // The quire's caption, under the three sorts it holds.
-  quireNote:  'A quire — three sorts, and one of them is ballast',
+  quireNote:  'A quire — 3 sorts, one plain',
   title:        'The Market',
   patrons:      'Patrons',
   patronsSub:   'calling today',

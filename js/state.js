@@ -169,6 +169,8 @@ export const state = {
   rackBonus: 0,        // hand size lent for the rest of THIS page (the Ragman's azure)
   primedMult: {},      // source id → ×Mult armed for the NEXT word (the Generic)
   metGhost: false,     // has a ghost turned up in this run? (unlocks the Bookbinder)
+  coinsSpent: 0,       // every Coin that has left the purse (The Spendthrift)
+  quotaRelief: 0,      // the Gardener's standing discount on every quota
   primed: {},          // source id → Points armed for the NEXT word (the tongs,
                        // the Winnower). Spent when a word prints, dropped at a
                        // page turn; scoring reads it so the preview shows it.
@@ -266,6 +268,19 @@ export const makeGhost = seat => {
 // it turns. It lives on `state`, so it is a thing a run earns and the next run
 // has to earn again.
 export const meetGhost = () => { state.metGhost = true; };
+
+// ─── Spending ─────────────────────────────────────────────────────────────────
+// Every Coin that leaves the purse goes through here — the fair, the alley, both
+// its stalls, the re-roll, the Usurer's collection. It is the one place that can
+// count what a run has SPENT rather than what it is holding, which is the whole
+// of what The Spendthrift reads. Holding coins is already paid for (the reward's
+// interest); this is the other half of the ledger.
+export function spendCoins(n) {
+  if (!(n > 0)) return 0;
+  state.coins -= n;
+  state.coinsSpent = (state.coinsSpent ?? 0) + n;
+  return n;
+}
 
 export const owns = id => allSeats().some(p => p.id === id);
 
@@ -494,6 +509,8 @@ export function loadState() {
     state.rackBonus ??= 0;
     state.primedMult ??= {};
     state.metGhost ??= false;
+    state.coinsSpent ??= 0;
+    state.quotaRelief ??= 0;
     state.ghosts ??= [];
     state.blackMarketVisits ??= 0;
     if (savedId)  _nextId  = savedId;
@@ -527,7 +544,7 @@ export function newRun() {
     wordsLeft: WORDS_PER_PAGE, discards: DISCARDS_PER_PAGE,
     discardsMax: DISCARDS_PER_PAGE, wordsPrinted: 0,
     coins: STARTING_COINS, patrons: [], ghosts: [], sundries: [], upgradeCounts: {},
-    luck: 1, rackBonus: 0, primedMult: {}, metGhost: false, ratchetDir: 1, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
+    luck: 1, rackBonus: 0, primedMult: {}, metGhost: false, coinsSpent: 0, quotaRelief: 0, ratchetDir: 1, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
     boss: null, bossesSeen: [],
     experiments: {},
     compost: [], compostPending: 0, freeRerolls: 0,
@@ -544,7 +561,10 @@ export function newRun() {
 
 // Reshuffle the whole collection into the bag and reset page counters.
 // (Drawing the opening rack is left to the caller so it can be animated.)
-export function startPage() {
+// `quartermaster` is how many Discards that seat is worth this page — one for
+// sitting down, two while azure is two seats deep, none without him. Passed in
+// because the liveries live on the cards, which this file must not import.
+export function startPage({ quartermaster = 0 } = {}) {
   // Last page's wrappers come off first, before anything else looks at a tile.
   // Unconditional, so a wrapper can never outlive the editor that laid it,
   // however the page was left — cleared, lost, or reloaded halfway through.
@@ -561,8 +581,14 @@ export function startPage() {
   // all theirs to bend, so nothing above may be settled before this line.
   if (isDeadline(state.page)) assignBoss();
   else state.boss = null;
+  // The Gardener's relief is permanent and accumulates across the run, so it is
+  // read here rather than being applied to a quota already set. state.quotaRelief
+  // is maintained by his onPrinted — state.js cannot ask patrons.js which seat it
+  // belongs to (patrons.js imports this file), so the seat keeps the number here.
   state.quota        = Math.max(1, Math.round(
-    quotaFor(state.chapter, state.page) * (activeBoss(state)?.quotaMult ?? 1)));
+    quotaFor(state.chapter, state.page)
+    * (activeBoss(state)?.quotaMult ?? 1)
+    * (1 - Math.min(0.9, state.quotaRelief ?? 0))));
   state.wordsLeft    = effectiveWordsPerPage();
   // The Redactor wraps a share of the CASE, not of the hand: bag and collection
   // share templates, so a wrapped tile stays wrapped when it is discarded and
@@ -574,7 +600,12 @@ export function startPage() {
   }
   state.discardsMax = activeBoss(state)?.noDiscards
     ? 0
-    : DISCARDS_PER_PAGE + (owns('quartermaster') ? 1 : 0) + (state.upgradeCounts?.discard ?? 0)
+    // The Quartermaster's Discards come in as an argument rather than being
+    // counted here: they depend on how many seats fly AZURE, and the liveries
+    // live on the cards, which this file must not import (patron-cards reaches
+    // patron-generic, which reaches back here). main.js knows both and hands the
+    // number down — see startPage's caller.
+    : DISCARDS_PER_PAGE + quartermaster + (state.upgradeCounts?.discard ?? 0)
       + (activeBoss(state)?.discardBonus ?? 0);
   state.discards    = state.discardsMax;
   state.discardMode = false;
@@ -747,8 +778,12 @@ export function growTile(tile, n = 1) {
   if (isImmutable(tile)) return false;
   const field = tile.activeVariant === 1 ? 'altBonusPoints' : 'bonusPoints';
   tile[field] = (tile[field] ?? 0) + n;
+  // Growth is ADDITIVE, so the write-through has to check it is not writing to
+  // the same object twice: a caller reaching into state.collection directly (The
+  // Spendthrift picks a sort out of the case, not out of the hand) hands us the
+  // template itself, and growing it here and again below would pay double.
   const tmpl = state.collection.find(c => c.tid === tile.tid);
-  if (tmpl) tmpl[field] = (tmpl[field] ?? 0) + n;
+  if (tmpl && tmpl !== tile) tmpl[field] = (tmpl[field] ?? 0) + n;
   return tile[field];
 }
 

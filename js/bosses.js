@@ -30,7 +30,9 @@
 //   lent: { letter, count }— tiles held IN the hand all page, topped back up as
 //                            they print (the Eeeditor). May instead be a
 //                            function of data, for an editor that lends only
-//                            some of the time (the Janussian Typist).
+//                            some of the time (the Janussian Typist). Give it
+//                            `roll()` instead of `letter` and each tile is rolled
+//                            for itself, overrides and all (the Powder Editor).
 //   wraps: <share>         — that fraction of the COLLECTION is wrapped for the
 //                            page: it spells and nothing else (the Redactor).
 //                            Laid and cleared in startPage; read via isWrapped.
@@ -43,7 +45,7 @@
 // because scoring and the bar both read it.
 
 import { inTheme, themeRank, themeSize } from './themes.js';
-import { BRIBRARIAN, bribeMult, KNOBS } from './constants.js';
+import { BRIBRARIAN, bribeMult, KNOBS, BAG_COUNTS, TILE_POINTS, dualPairsFor } from './constants.js';
 import { BOSS_CARDS } from './boss-cards.js';
 import { fillKnobs } from './text.js';
 
@@ -118,6 +120,31 @@ function rollColumn(data) {
   do { n = COLUMN_MIN + Math.floor(Math.random() * (COLUMN_MAX - COLUMN_MIN + 1)); }
   while (n === data.required);
   data.required = n;
+}
+
+// ─── The Powder Editor's charges ──────────────────────────────────────────────
+// Ordinary letters only: the dear ones (J, Q, X, Z and their like) would be a
+// charge you dare not print, which is a place in the hand and nothing else. The
+// pool is drawn from the bag's own counts, so what he lends is what a press
+// actually sets — and each charge is given a second face, because half the
+// puzzle is where the thing will FIT and the other half is what it takes.
+const POWDER_CHARGES = 2;
+const POWDER_DEAR    = 6;    // a letter worth this or more is too dear to lend
+
+const powderPool = Object.keys(BAG_COUNTS)
+  .filter(L => L.length === 1 && (TILE_POINTS[L] ?? 9) < POWDER_DEAR);
+
+function rollCharge() {
+  const letter = powderPool[Math.floor(Math.random() * powderPool.length)];
+  const pairs = dualPairsFor(letter);
+  return {
+    letter,
+    material: 'explosive',
+    ...(pairs.length ? {
+      letterType: 'dual',
+      altLetter: pairs[Math.floor(Math.random() * pairs.length)],
+    } : {}),
+  };
 }
 
 const BOSS_BEHAVIOURS = [
@@ -243,6 +270,32 @@ const BOSS_BEHAVIOURS = [
     // Nothing to break: the page itself is the rule.
   },
   {
+    // The one editor who arms you and then insists you use it. He lends
+    // POWDER_CHARGES sorts cast in squib lead, each double-faced and each an
+    // ordinary letter — never the dear ones, since a J or an X you dare not
+    // print is a place in the hand and nothing else. Print a word without one
+    // and he spikes it.
+    //
+    // Which makes every word the same puzzle: the charge has to go IN, and
+    // where it goes decides what it takes with it. At either end of the word it
+    // stands beside one tile; in the middle, two. The second face is the other
+    // half of the puzzle — the same charge can be two different letters, so
+    // where it will FIT is a choice as well as where it will hurt.
+    //
+    // Two, not three: three would leave nothing of the hand to protect, and the
+    // fun is in the protecting. They are lent, so they cost places all page and
+    // are topped back up the instant one goes off.
+    id: 'powdereditor',
+    lent: { count: POWDER_CHARGES, roll: rollCharge },
+    //
+    // HIS charges, strictly: the Powdermonkey's mark explodes too, but it is
+    // free and re-marked every hand, so counting it would let one seated patron
+    // answer the editor for nothing and the puzzle would go away. The two also
+    // read apart on the desk (tile--mat-explosive against tile--primed).
+    judge: (letters, tiles) => (tiles ?? []).some(t => t.material === 'explosive')
+      ? null : say('powdereditor', 'spike'),
+  },
+  {
     id: 'reviewer',
     setup: data => rollMood(data),
     demand: data => say('reviewer', 'demand', { MOOD: data.mood }),
@@ -354,6 +407,7 @@ const BOSS_KNOBS = {
   REVIEWER_WORST:    MOOD_RANGE.worst,
   REVIEWER_BEST:     MOOD_RANGE.best,
   LENT_COUNT:        LENT_COUNT,
+  POWDER_CHARGES:    POWDER_CHARGES,
   POPULIST_BAND:     POPULIST_BAND.toLocaleString(),
   OBSCURANTIST_BAND: OBSCURANTIST_BAND.toLocaleString(),
   BRIBRARIAN_STEPS:  BRIBRARIAN.steps,
@@ -385,6 +439,21 @@ export const BOSS_DEFS = BOSS_BEHAVIOURS.map(behaviour => {
   const seated = new Set(BOSS_BEHAVIOURS.map(b => b.id));
   const orphan = Object.keys(BOSS_CARDS).filter(id => !seated.has(id));
   if (orphan.length) throw new Error(`boss-cards: no behaviour for ${orphan.join(', ')} in js/bosses.js`);
+}
+
+// Two editors wearing the same portrait, checked at load for the same reason the
+// patrons' are (see the matching block in js/patrons.js). Editors and patrons
+// may share one — they never appear side by side — so the two lists are checked
+// separately rather than against each other.
+{
+  const worn = new Map();
+  for (const c of Object.values(BOSS_CARDS)) {
+    if (!c.emoji) continue;
+    if (worn.has(c.emoji)) {
+      throw new Error(`boss-cards: ${worn.get(c.emoji)} and ${c.name} both wear ${c.emoji} — give one its own portrait`);
+    }
+    worn.set(c.emoji, c.name);
+  }
 }
 
 
@@ -522,7 +591,11 @@ export function bossReplenish(state, cast, held) {
   const lent = typeof def?.lent === 'function' ? def.lent(data) : def?.lent;
   if (lent) {
     for (let i = held().length; i < lent.count; i++) {
-      made.push(cast(lent.letter, lent.lender ? { lender: lent.lender } : {}));
+      // A lender may hand out ONE letter over and over (the Eeeditor's E's) or
+      // roll each tile for itself (the Powder Editor's charges, each a different
+      // sort with a different second face). `roll` returns the whole override.
+      const o = lent.roll ? lent.roll() : { letter: lent.letter };
+      made.push(cast(o.letter, { ...(lent.lender ? { lender: lent.lender } : {}), ...o }));
     }
   }
 

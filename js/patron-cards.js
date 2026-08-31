@@ -211,8 +211,13 @@ export const PATRON_CARDS = {
     desc: 'Every page, gain a RAT tile to your hand that is painted a random colour.',
   },
   quartermaster: {
-    name: 'The Quartermaster', emoji: '🎒', rarity: 'uncommon', cost: 5, guild: 'crimson',
-    desc: 'Begin each page with an extra Discard.',
+    // Moved from crimson to AZURE. Azure is the guild of second chances — the
+    // pardons, the washes, the cobalt refresh — and a discard is the plainest
+    // second chance there is, so the seat that deals in them belongs here. It
+    // also lets him count himself towards his own threshold, which is what makes
+    // the second discard a thing you build for rather than a thing you find.
+    name: 'The Quartermaster', emoji: '🎒', rarity: 'uncommon', cost: 5, guild: 'azure',
+    desc: 'Begin each page with an extra Discard — and a second one while two of your seats fly azure, himself counted.',
   },
   arsonist: {
     name: 'The Arsonist', emoji: '🧨', rarity: 'uncommon', cost: 6, guild: 'crimson',
@@ -227,11 +232,11 @@ export const PATRON_CARDS = {
     desc: '×1 Mult to begin with, raised by {HEADSMAN_STEP} for good with every patron you dismiss.',
   },
   lyeboy: {
-    name: 'The Lye Boy', emoji: '🪣', rarity: 'uncommon', cost: 6, guild: 'crimson',
+    name: 'The Lye Boy', emoji: '🧼', rarity: 'uncommon', cost: 6, guild: 'crimson',
     desc: 'The apprentice who washes the forme when the day is done. Every painted tile in a word he sees is scrubbed bare — a wash counts, and so does a coat laid mid-word — and he keeps {LYE_BOY_STEPS} Mult for each one, for good.',
   },
   powdermonkey: {
-    name: 'The Powdermonkey', emoji: '🧨', rarity: 'uncommon', cost: 7, guild: 'crimson',
+    name: 'The Powdermonkey', emoji: '🎇', rarity: 'uncommon', cost: 7, guild: 'crimson',
     desc: 'He keeps one tile of your hand primed, and marks a fresh one whenever the hand changes. A primed tile scores and goes off exactly as squib lead does: ×{EXPLOSIVE_MULT} Mult, then it is destroyed, and each tile beside it in the word takes a {EXPLOSIVE_SPREAD_CHANCE} chance of going with it.',
   },
   serpent: {
@@ -375,6 +380,18 @@ export const PATRON_CARDS = {
   innkeeper: {
     name: 'The Innkeeper', emoji: '🍻', rarity: 'common', cost: 5,
     desc: '+5 Points per patron you hold, including The Innkeeper.',
+  },
+  gardener: {
+    name: 'The Gardener', emoji: '🍃', rarity: 'rare', cost: 10, guild: 'jade',
+    desc: 'Every jade sort you print shaves a little off the quota — every page from then on, for the rest of the run. Each one takes a smaller slice than the last, and the whole trims to {GARDENER_CAP_PCT} and no further.',
+  },
+  spendthrift: {
+    name: 'The Spendthrift', emoji: '💸', rarity: 'uncommon', cost: 6, guild: ['amber', 'jade'],
+    desc: 'Paid for what you SPEND, not what you hold. Every {SPENDTHRIFT_STEP} Coins out of the purse, one sort of your collection gains Points for good — as many as the chapter you are on.',
+  },
+  beadle: {
+    name: 'The Beadle', emoji: '🎖️', rarity: 'rare', cost: 9, guild: 'amber',
+    desc: 'Keeps the guilds’ books, and their doors. {BEADLE_THRESHOLD} crimson seats and the smelter works for nothing · {BEADLE_THRESHOLD} azure and the punchcutter does · {BEADLE_THRESHOLD} jade and the gilder does · {BEADLE_THRESHOLD} amber and every page pays {BEADLE_PAGE_COIN} Coin more. One favour from each stall per visit.',
   },
   quoin: {
     name: 'The Quoin', emoji: '🔩', rarity: 'rare', cost: 11,

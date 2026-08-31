@@ -15,7 +15,7 @@ import {
 import { PATRON_DEFS, patronById, guildsOf, patronName, patronShelf, patronEmoji, patronCost, laurelWorth } from './patrons.js';
 import { upgradeById } from './upgrades.js';
 import {
-  market, stallById, stallPrice, isProposalStall,
+  market, stallById, stallPrice, beadleFavour, isProposalStall,
   offerPrice, compostLeft, takeCompost,
   buyPatron, buyTile, buySundry, sellPatron, sellSundry, patronRefund,
   rerollMarket, freeRerollMarket,
@@ -390,7 +390,8 @@ function marketShopHTML() {
         </div>
         <div class="stall-action">
           <button class="btn-price btn-visit" data-visit-stall="${s.id}">Visit</button>
-          <div class="stall-from">work from ${coinHTML(stallPrice(s))}</div>
+          <div class="stall-from">${beadleFavour(s)
+            ? 'the Beadle’s favour — free' : `work from ${coinHTML(stallPrice(s))}`}</div>
         </div>
       </div>`;
   }).join('');
@@ -594,7 +595,11 @@ export function updateStallState() {
   // the tid of a collection tile.
   const sel = market.stallSel >= 0 && !isProposalStall(market.activeStall)
     ? state.collection.find(t => t.tid === market.stallSel) : null;
-  const priceTag = `for ${price} Coin${price === 1 ? '' : 's'}`;
+  // A stall the Beadle has opened costs nothing, and "for 0 Coins" is not what a
+  // free thing says. Every label below reads this one string.
+  const priceTag = beadleFavour(stall)
+    ? 'on the Beadle’s favour'
+    : `for ${price} Coin${price === 1 ? '' : 's'}`;
   let label = '', ready = false;
 
   switch (market.activeStall) {

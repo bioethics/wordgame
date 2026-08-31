@@ -138,6 +138,50 @@ shape over a run worth keeping: early your bag is ballast and feeding him costs
 nothing, and late every tile you own is dressed and grown, so the same ×Mult asks
 a real price. A seat that gets *dearer* as the run goes on is rare.
 
+### Four seats that pay outside the word
+
+Most patrons are paid at the moment a word scores. These four are not, and each
+one attaches to a number the game already keeps but never spent.
+
+**The Gardener** (jade, rare, 10 Coins) brings the **bar down** instead of
+pushing the score up — the only seat in the game that does. Every jade sort
+printed shaves a slice off *every quota for the rest of the run*, and each slice
+is smaller than the last: `gardenerRelief` in `js/constants.js` takes
+`GARDENER_RATE` of whatever slack is left, so the first print is worth about 1%,
+twenty-five prints reach 20%, and the whole approaches `GARDENER_CAP` (50%) and
+never arrives inside a run. A relief that could reach 100% would end the game;
+one that climbed straight would make the last chapters a formality. This one is
+generous early, when a page is a fight, and decorative late, when it is not —
+which is the opposite of how it reads, and the reason it is worth a rare seat.
+It is read where the quota is *set* (`startPage` in `js/state.js`), so it is
+permanent and never has to be re-applied.
+
+**The Spendthrift** (amber-jade, uncommon, 6 Coins) is the reward's other half.
+The page reward already pays interest on Coins **held**, so nothing in the game
+rewarded spending them. He does: every `SPENDTHRIFT_STEP` Coins out of the purse,
+one random sort of your collection gains Points **for good**, as many as the
+chapter you are on. He is worth more the deeper you are, which is the right way
+round for a seat you buy early. He could only be written because every purchase
+in the game goes through one door — `spendCoins` in `js/state.js` — which keeps
+`state.coinsSpent`; a new shop that debits `state.coins` directly would be
+invisible to him, and that is the reason to route it through the door.
+
+**The Beadle** (amber, rare, 9 Coins) keeps the guilds' books, *and their doors*.
+The Alderman pays Mult for **breadth** of livery; the Beadle pays favours for
+**depth**. `BEADLE_THRESHOLD` (2) seats of a colour and that guild's stall works
+once a visit for nothing — crimson opens the smelter, azure the punchcutter,
+jade the gilder — and two ambers put `BEADLE_PAGE_COIN` on the end of every page.
+Two is the threshold because it is the first count that cannot happen by
+accident. The favours are read live at the price (`stallPrice` in `js/market.js`),
+so hiring a second crimson mid-Market opens the smelter *that same visit*, and
+`stall.uses` makes it once per visit rather than once per stall.
+
+**The Quartermaster** moved from crimson to **azure** in the same pass. Azure is
+the guild of second chances — the pardons, the washes, the cobalt refresh — and a
+discard is the plainest second chance there is. He gives +1 Discard, and a second
+while two of your seats fly azure, *himself counted*: which is what makes the
+second discard a thing you build for rather than a thing you find.
+
 ### The Lye Boy — selling the paint engine
 
 Paint is the game's *multiplicative* half: each painted tile is +1 to its
@@ -359,6 +403,7 @@ of the words instead:
 - **Completist** — deals two extra tiles and permits no discards.
 - **Eeeditor** — keeps three places in your hand filled with plain E, restoring
   one the moment you print it; **Editooor** — the same in O.
+- **The Incendiary** — below; the lending editor whose loan you have to spend.
 - **Economiser** and **Redactor** — below; the two whose rules reach past the
   word in the groove.
 
@@ -433,12 +478,38 @@ so a word passes if the list has heard of it — the Obscurantist bars the first
 altogether, so its 8,000 entries are a game number too. Rebuild it with
 `tools/build-common-list.mjs`, and never sort it alphabetically.
 
-Three editors **lend** tiles. A lent tile is cast from no collection template:
+Four editors **lend** tiles. A lent tile is cast from no collection template:
 no paint, trim or nick, never discardable or returned to the bag, gone when the
 page ends. The Enthusiast's gift rides *above* your hand size; the Eeeditor's
 three E's sit *in* the hand and take three of its places, a cage you build
-around, and the Editooor runs the same cage in O. The two kinds are coloured
-apart on the board: warm brass for the gift, cold ink-blue for the lender's own.
+around, the Editooor runs the same cage in O, and the Incendiary's two charges
+(below) take two places and go off when you spend them. The two kinds are
+coloured apart on the board: warm brass for the gift, cold ink-blue for the
+lender's own. A lent tile that is *destroyed* leaves nothing behind — there is no
+template to trash — so `detonatePrinted` treats an ephemeral charge as spent
+rather than as a dud.
+
+**The Incendiary** lends differently. Two of your places are charged with **squib
+lead** — a common letter each, never a dear one, so a charge you dare not print
+is never just a place gone — and **every word must carry one**, or it is spiked.
+Printing it sets it off: the charge is destroyed, and each tile standing beside
+it in the word goes on its own 1-in-2. Which makes every word the same puzzle,
+and it is a *placement* puzzle rather than a spelling one: at either end of the
+word the charge stands beside one tile, in the middle beside two, so the question
+is never only "what can I spell" but "what am I willing to stand next to it".
+
+Both charges come **double-faced**, cut with a second letter within two Points of
+the first, because half the puzzle is where the thing will *fit*. And they are
+topped straight back up — `bossReplenish` restores a lent tile the instant one
+leaves the hand — so the supply never runs out and the toll is paid on every
+word of the page. Two, not three: three leaves nothing of the hand to protect,
+and the protecting is the fun. `POWDER_CHARGES` and `POWDER_DEAR` in
+`js/bosses.js` are the whole of the tuning.
+
+He asks for **his** charges specifically, not for anything explosive: *the
+Powdermonkey*'s mark is free and re-marked every hand, so counting it would let
+one seated patron answer the editor for nothing and the puzzle would go away.
+The two read apart on the desk — hazard stripes against the primed mark.
 
 **The Economiser** is the only editor whose cost outlives its page: after each
 word you set, one tile you *didn't* is destroyed for good. It reaches only into
@@ -628,8 +699,11 @@ rattles around in there at half the rate:
   each colour. A washed tile counts as its colour to patrons *and* to the
   multiplier, and keeps the promise until it prints. Real paint replaces a wash.
 
-A **quire** — a gathering of sheets, and here a gathering of sorts — displaces a
-Market tile slot at `QUIRE_OFFER_CHANCE`, the same door the fleuron uses. Three
+A **quire** — a gathering of sheets, and here a gathering of sorts — is added to
+the Market's tile row at `QUIRE_OFFER_CHANCE`, the same door the fleuron uses. It
+sits as a band across the foot of the row rather than in a slot, so the grid of
+four keeps its shape whether a quire turns up or not: the pack is a **bonus lot**,
+never a tile you lost the chance to buy. Three
 sorts sold as one lot at a flat 8 Coins: **one well dressed** (three of the four
 features the fair deals in — paint, trim, nick, a second face), **one with a
 single feature**, and **one bare**. Never a metal: `addRandomFeature` does not
@@ -903,7 +977,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Where the patrons' turns happen, and what a ×Mult reaches | `js/scoring.js` → pass 4. Points that must be multiplied by the table have to land before it (the tongs' heat and the curse's toll do, in pass 3½) |
 | Patrons that improve the tiles rather than the word | `js/patrons.js` → the `tileBonus` hook (pass 1½ in `js/scoring.js`); the number goes onto the tile, so nicks read it and Monogrammists carry it |
 | Patrons that PAINT a tile rather than pay it | `js/patrons.js` → the `tilePaint` hook (pass ½ in `js/scoring.js`, before anything is counted). The colour lands on a copy of the word, so the multipliers count it and the groove shows it under a dashed edge while you compose; the seat's own `onPrinted` makes it permanent when the word prints |
-| The quire — price, how often it displaces a tile slot, and how dressed its sorts are | `js/constants.js` → `QUIRE_PRICE`, `QUIRE_OFFER_CHANCE`, `QUIRE_DRESSED`, `QUIRE_MIDDLING` (the roll is `rollQuire` in `js/market.js`) |
+| The quire — price, how often it is offered, and how dressed its sorts are | `js/constants.js` → `QUIRE_PRICE`, `QUIRE_OFFER_CHANCE`, `QUIRE_DRESSED`, `QUIRE_MIDDLING` (the roll is `rollQuire` in `js/market.js`) |
 | The fleuron — price, page rent, how often it is offered | `js/constants.js` → `FLEURON_PRICE`, `FLEURON_PAGE_COIN`, `FLEURON_OFFER_CHANCE` (the glyph itself is `FLEURON`) |
 | Stall roster, base prices, spread size | `js/constants.js` → `STALL_DEFS`, `STALLS_PER_SHOP`, `PROPOSAL_RANGE`, `SMELT_MIN_COLLECTION` |
 | Marks: which ones exist, legal tails, and what they arrive wearing | `js/constants.js` → `MARKS`, `MARK_RUNS`, `MARK_TRIM` (and `TILE_POINTS`). How often one turns up is `WRAPPED_CONTENTS`, since a wrapper is the only source |
@@ -939,6 +1013,11 @@ bigger step than the last and a built press has to multiply rather than add:
 | What the alley may ask for a tile | `js/constants.js` → `BLACK_TILE_MAX_PRICE`, the ceiling every black-market tile is clamped to, plus `BLACK_MATERIAL_STOCK` and `BLACK_TILE_SURCHARGE`. The Market's own tiles are priced by `tilePrice` in `js/market.js`, off `TILE_BASE_PRICE` and the `price` on each entry of `TRIMS` / `NICKS` |
 | What a seat has ACCUMULATED, shown when you tap its card | `js/patrons.js` → the `tally(data)` hook, gathered with the seat's laurels by `seatTally()`. A number a seat keeps privately in `data` is a number the player is being asked to remember — put it here instead |
 | The editor roster, the conflict pairs, the Redactor's share | `js/bosses.js` → `BOSS_CONFLICTS`, `REDACTOR_SHARE` |
+| The Incendiary's charges — how many, and how dear a letter he will lend | `js/bosses.js` → `POWDER_CHARGES`, `POWDER_DEAR` (a letter worth this or more is kept out, so the pool is common letters only; each charge is given a second face by `dualPairsFor` in `js/constants.js`) |
+| The Gardener's relief — the first slice, how fast it slows, and the ceiling | `js/constants.js` → `GARDENER_RATE`, `GARDENER_CAP` (the curve is `gardenerRelief`; the quota reads `state.quotaRelief` in `startPage`, `js/state.js`) |
+| The Spendthrift's step | `js/constants.js` → `SPENDTHRIFT_STEP` (Coins spent per sort grown; the growth is the chapter number, and the running total is `state.coinsSpent`, kept by `spendCoins`) |
+| The Beadle's threshold and page Coin | `js/constants.js` → `BEADLE_THRESHOLD`, `BEADLE_PAGE_COIN`; which stall each guild opens is `BEADLE_STALLS` in `js/patrons.js`, read live by `stallPrice`/`beadleFavour` in `js/market.js` |
+| The Generic's quota reprieve | `js/constants.js` → `ALMONER_RELIEF` (the `relief` effect at cost 7 in `js/patron-generic.js`; it cuts the live page's quota, where the Gardener's cuts every quota as it is set) |
 | Animation step timings | `js/constants.js` → `ANIM` (all divided by the Settings speed slider) |
 | Chapter titles | `js/chapters.js` — a flat array, add as many as you like; each run draws its own and won't repeat until the list runs out |
 | The Stenographer's acronyms | `wordlists/acronyms.txt` — one per line, `#` comments; letters only. A lone Q is settable now (the ratchet makes one), but it is rare enough that an acronym leaning on it will mostly go unset |
@@ -979,6 +1058,23 @@ bigger step than the last and a built press has to multiply rather than add:
 Scoring is deliberately pure (`computeScore` never mutates state), so the same
 function powers the live preview, the tooltips and the replayed cinematic — they
 can't disagree.
+
+**Single doors.** Three things happen in exactly one place, on purpose, and every
+route to them goes through it: destruction through `trashFromCollection` (which
+is where *the Revenant*'s rite and the Composter's heap are performed, so neither
+needs a hook), paint through `paintTile` (where *the Dabbler* is heard), and Coins
+leaving the purse through `spendCoins` (which keeps `state.coinsSpent` for *the
+Spendthrift*). A new shop that debits `state.coins` directly would be invisible to
+the seat that watches it — the reason to route it through the door is that the
+door is where the game listens.
+
+**Checked as the module loads.** A patron or an editor whose card and behaviour
+don't marry throws by name, in both directions; so does a `{KNOB}` in a card with
+nothing to fill it, an effect the Generic can roll and cannot pay, and **two
+patrons wearing the same emoji**. A portrait is how a seat is recognised at a
+glance — on the shelf, on the card, in the ticker — and the jade guild alone has
+four growing things in it, so a clash is a real bug and the only other way to
+find it is to notice it in a screenshot.
 
 The **manuscript** is the strip under the board: every word printed this run,
 set as one long line of type, newest last, the earlier ones running off the left

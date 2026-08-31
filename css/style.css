@@ -4505,7 +4505,9 @@ button.sundry:hover { transform: translateY(-2px); }
    Wider than an ordinary tile card and banded, so it reads as a LOT rather than
    as three offers that happen to be touching. */
 .offer-quire {
-  grid-column: span 2;
+  /* A band across the foot of the row rather than a slot within it, so the tile
+     grid keeps its shape whether a quire turns up or not. */
+  grid-column: 1 / -1;
   background: rgba(255, 248, 226, 0.05);
   border: 1px dashed rgba(138, 95, 29, 0.45);
   border-radius: 12px;
@@ -4518,6 +4520,106 @@ button.sundry:hover { transform: translateY(-2px); }
   gap: 6px;
 }
 .offer-quire .bm-tile-note { margin-top: 5px; text-align: center; }
+
+/* ─── Reaching for a lot (Market hover) ───────────────────────────────────────
+   The Market is the one screen you shop on, and until now the goods lay flat:
+   the tile-hover rule further up is deliberately switched OFF inside an offer
+   card ("the card reacts, not the tile") but nothing was ever written for the
+   card, so nothing moved at all. This is that half.
+
+   The motion is one idea in three places — the lot comes UP off the desk toward
+   you. A patron's calling card also STRAIGHTENS as it rises (the cards lie at
+   ±0.7deg, so picking one up squares it), and z-index puts the lifted one in
+   front of its neighbours instead of under the next card's shadow.
+
+   Everything here is transform and shadow only — no width, height, margin or
+   padding moves — so a hovered lot never pushes its neighbours around. Sold
+   lots are inert: there is nothing left to reach for. */
+@media (hover: hover) {
+  .offer-patron, .offer-tile, .offer-paint, .offer-quire {
+    transition:
+      transform calc(0.16s / var(--aspd)) cubic-bezier(0.34, 1.3, 0.64, 1),
+      box-shadow calc(0.16s / var(--aspd)) ease,
+      filter calc(0.16s / var(--aspd)) ease,
+      border-color calc(0.16s / var(--aspd)) ease,
+      background-color calc(0.16s / var(--aspd)) ease;
+  }
+
+  /* The depth is a drop-shadow rather than a box-shadow so the card keeps
+     whatever shadow its own kind wears — the foil ring on a posthumous card,
+     the blue nimbus on a ghost's — instead of having it overwritten. */
+  .offer-patron:hover:not(.offer--sold),
+  .offer-patron:nth-child(even):hover:not(.offer--sold) {
+    transform: rotate(0deg) translateY(-5px) scale(1.025);
+    z-index: 3;
+    filter: drop-shadow(0 9px 13px rgba(40, 26, 8, 0.42));
+  }
+  /* The portrait leans out of its panel a little as the card comes up. */
+  .offer-patron .op-portrait .op-emoji {
+    transition: transform calc(0.18s / var(--aspd)) cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+  .offer-patron:hover:not(.offer--sold) .op-portrait .op-emoji {
+    transform: scale(1.12) rotate(-3deg);
+  }
+
+  .offer-tile:hover:not(.offer--sold),
+  .offer-paint:hover:not(.offer--sold) {
+    transform: translateY(-4px);
+    z-index: 3;
+    background: rgba(255, 252, 241, 0.75);
+    border-color: rgba(138, 95, 29, 0.75);
+    box-shadow: 0 9px 18px rgba(100, 70, 20, 0.28);
+  }
+  /* The sort itself rises inside the card — this is the lift the rule up at
+     `.offer-tile .tile:hover` cancels, given back from the card so it fires
+     wherever on the card the cursor happens to be. */
+  .offer-tile:hover:not(.offer--sold) .tile:not(.tile--mini) {
+    transform: translateY(-3px) rotate(-1.5deg) scale(1.05);
+    box-shadow:
+      var(--trim-ring),
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.85),
+      inset 0 -2px 3px rgba(120, 90, 40, 0.25),
+      0 7px 0 -1px var(--tile-lift),
+      0 15px 24px rgba(0, 0, 0, 0.5);
+  }
+  /* The compost heap is a bed, not a shop counter: warm green rather than ivory. */
+  .sheet--market .offer-tile.offer-compost:hover:not(.offer--sold) {
+    background: linear-gradient(180deg, #23301e 0%, #172313 100%);
+    border-color: rgba(63, 163, 113, 0.75);
+    box-shadow: 0 9px 18px rgba(0, 0, 0, 0.5);
+  }
+  /* A quire is a gathering of leaves, so hovering RIFFLES it: the band lifts as
+     one and the three sorts fan out of true. */
+  .offer-quire:hover:not(.offer--sold) {
+    transform: translateY(-4px);
+    background: rgba(255, 248, 226, 0.1);
+    border-color: rgba(138, 95, 29, 0.75);
+    box-shadow: 0 9px 18px rgba(100, 70, 20, 0.25);
+  }
+  .offer-quire-slots .tile { transition: transform calc(0.18s / var(--aspd)) cubic-bezier(0.34, 1.3, 0.64, 1); }
+  .offer-quire:hover:not(.offer--sold) .offer-quire-slots > *:nth-child(1) .tile { transform: translateY(-3px) rotate(-4deg); }
+  .offer-quire:hover:not(.offer--sold) .offer-quire-slots > *:nth-child(2) .tile { transform: translateY(-5px); }
+  .offer-quire:hover:not(.offer--sold) .offer-quire-slots > *:nth-child(3) .tile { transform: translateY(-3px) rotate(4deg); }
+
+  /* The price is what you are reaching for: it brightens with the lot. */
+  .offer-patron:hover:not(.offer--sold) .btn-price:not(:disabled),
+  .offer-tile:hover:not(.offer--sold) .btn-price:not(:disabled),
+  .offer-paint:hover:not(.offer--sold) .btn-price:not(:disabled),
+  .offer-quire:hover:not(.offer--sold) .btn-price:not(:disabled) {
+    filter: brightness(1.09);
+  }
+}
+
+/* Reduced motion keeps the emphasis and drops the travel: the lot still tells
+   you it is under the cursor, it simply does not move to say so. */
+@media (prefers-reduced-motion: reduce) {
+  .offer-patron:hover, .offer-patron:nth-child(even):hover,
+  .offer-tile:hover, .offer-paint:hover, .offer-quire:hover { transform: none; }
+  .offer-patron:hover { filter: none; }
+  .offer-patron:hover .op-portrait .op-emoji,
+  .offer-tile:hover .tile,
+  .offer-quire:hover .offer-quire-slots .tile { transform: none; }
+}
 
 /* ─── The Shell Game (the alley's crate) ──────────────────────────────────────
    Three shells in a row and the play button beside them. Deliberately plainer

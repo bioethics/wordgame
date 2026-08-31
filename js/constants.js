@@ -278,6 +278,21 @@ export const INTERROBANG = '‽';
 export const MARK_RUNS  = ['?', '!', '?!', INTERROBANG];   // every legal tail
 export const isMark     = ch => MARKS.includes(ch) || ch === INTERROBANG;
 
+// Which letters may share a slug with this one. The Punchcutter cuts the second
+// face, the Market sells duals ready-cut, and the Powder Editor's charges come
+// double-sided — all three ask the same question, so it is answered here.
+// Faces stay within two points of each other so a dual can't smuggle in a Z;
+// no fleuron on either face ("it prints alone" has to stay the whole truth) and
+// nothing on EXCLUSIVE_LETTERS, or a thorn would end up cut into the back of a Z
+// — the Medievalist's stock without the Medievalist.
+export function dualPairsFor(letter) {
+  const pts = TILE_POINTS[letter] ?? 1;
+  return Object.keys(TILE_POINTS)
+    .filter(l => l !== letter && l.length === 1 && !isMark(l) && l !== FLEURON
+              && !EXCLUSIVE_LETTERS.includes(l)
+              && Math.abs(TILE_POINTS[l] - pts) <= 2);
+}
+
 // Split a composed word into its letters and its trailing marks. Returns null
 // when the marks aren't a legal tail — doubled, reversed, or mid-word.
 export function splitMarks(str) {
@@ -801,6 +816,41 @@ export const QUOIN_MULT = 3;
 // Coins have hard diminishing returns here, because the alley caps a tile at
 // BLACK_TILE_MAX_PRICE and there is only so much to buy. If a run stops caring
 // about Coins by chapter seven, the ODDS are the knob to turn, not the purse.
+// ─── Relief from the quota ────────────────────────────────────────────────────
+// Two seats bring the bar DOWN instead of climbing it, which is the one axis the
+// roster never touched: every other patron pays you more, and these two ask for
+// less. They stack, and both are read where the page's quota is set (startPage
+// in js/state.js).
+//
+// The Almoner shaves a slice off the CURRENT page when a word of hers prints —
+// a one-page reprieve, big and immediate. The Gardener's relief is permanent and
+// accumulates over the whole run, approaching but never reaching GARDENER_CAP:
+// each jade sort printed takes GARDENER_RATE of whatever is still on the table,
+// so the first is worth about 1% and the thousandth almost nothing. That shape
+// is the point — a discount that could reach 100% would end the game, and one
+// that climbed in a straight line would make the last chapters a formality.
+export const ALMONER_RELIEF = 0.15;   // the Generic's effect, on this page only
+export const GARDENER_CAP   = 0.5;    // the Gardener can never pass this
+export const GARDENER_RATE  = 0.02;   // …and takes this share of the gap per jade sort
+export const gardenerRelief = seen =>
+  Math.round(GARDENER_CAP * (1 - (1 - GARDENER_RATE) ** (seen ?? 0)) * 10000) / 10000;
+
+// ─── The Spendthrift's ledger ─────────────────────────────────────────────────
+// Coins SPENT, not coins held — the other half of a ledger whose first half (the
+// reward's interest) already pays you for hoarding. Every SPENDTHRIFT_STEP that
+// leaves the purse writes Points into one sort of the collection, for good, and
+// the amount is the chapter number, so the same seat pays more the deeper the
+// run goes. It reads state.coinsSpent, maintained by spendCoins in js/state.js —
+// the one door every purchase in the game goes through.
+export const SPENDTHRIFT_STEP = 5;
+
+// ─── The Alderman's opposite: the Beadle's thresholds ────────────────────────
+// Where the Alderman pays Mult for BREADTH of livery, the Beadle pays favours
+// for DEPTH: two seats of a colour and that guild's stall opens its door. Two is
+// the number because it is the first count that cannot happen by accident.
+export const BEADLE_THRESHOLD = 2;
+export const BEADLE_PAGE_COIN = 1;   // what two ambers pay, every page
+
 export const GOLDSMITH_POINTS = 3;
 export const GOLDSMITH_ODDS   = 0.03;   // per amber tile in the word
 export const GOLDSMITH_PURSE  = 30;
@@ -1413,6 +1463,9 @@ export const KNOBS = {
   EXPLOSIVE_SPREAD_CHANCE: oddsText(EXPLOSIVE_SPREAD_ODDS),
   HACKER_CAP, SHELL_COINS, QUOIN_MULT, QUIRE_PRICE, QUIRE_DRESSED,
   GOLDSMITH_POINTS, GOLDSMITH_PURSE,
+  BEADLE_THRESHOLD, BEADLE_PAGE_COIN, SPENDTHRIFT_STEP,
+  ALMONER_RELIEF_PCT: `${Math.round(ALMONER_RELIEF * 100)}%`,
+  GARDENER_CAP_PCT:   `${Math.round(GARDENER_CAP * 100)}%`,
   GOLDSMITH_CHANCE: oddsText(GOLDSMITH_ODDS),
 
   // Patron tuning

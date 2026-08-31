@@ -31,7 +31,7 @@
 // the alley has a number to read. Nothing consumes it yet.
 
 import { state, adoptTemplate, shuffle, allSeats, owns, nextId, effectivePatronSlots,
-         effectiveSundrySlots, restingPoints } from './state.js';
+         effectiveSundrySlots, restingPoints, spendCoins } from './state.js';
 import {
   BLACK_TILE_OFFERS, BLACK_PATRON_OFFERS, BLACK_SUNDRY_OFFERS,
   BLACK_MATERIAL_STOCK, BLACK_MARK_PRICE, BLACK_TILE_SURCHARGE, BLACK_TILE_MAX_PRICE,
@@ -170,7 +170,7 @@ export function hackTile(tid) {
   if (!tmpl || !hackerEligible(tmpl)) return { ok: false, reason: 'Not available.' };
   const price = hackerPrice();
   if (state.coins < price) return { ok: false, reason: `You need ${price} Coins.` };
-  state.coins -= price;
+  spendCoins(price);
   blackMarket.hacker.uses += 1;
   const from  = restingPoints(tmpl);
   const delta = Math.min(HACKER_CAP, from * 2) - from;
@@ -238,7 +238,7 @@ export function playShell() {
   if (!shells.length) return { ok: false, reason: 'Nothing on the crate.' };
   const price = shellPrice();
   if (state.coins < price) return { ok: false, reason: `You need ${price} Coins.` };
-  state.coins -= price;
+  spendCoins(price);
   blackMarket.shell.uses += 1;
 
   // WHICH shell is the whole of the gamble — the prizes themselves were settled
@@ -311,7 +311,7 @@ export function buyBlackTile(idx) {
   if (!offer || offer.sold)   return { ok: false, reason: 'Gone already.' };
   const price = alleyAsks(offer.price);
   if (state.coins < price) return { ok: false, reason: `You need ${price} Coins.` };
-  state.coins -= price;
+  spendCoins(price);
   state.collection.push(adoptTemplate(offer.template));
   offer.sold = true;
   return { ok: true, template: offer.template, price };
@@ -326,7 +326,7 @@ export function buyBlackPatron(idx) {
   }
   const cost = alleyAsks(patronCost(def, offer.data));
   if (state.coins < cost) return { ok: false, reason: `You need ${cost} Coins.` };
-  state.coins -= cost;
+  spendCoins(cost);
   const seat = { id: offer.id, uid: nextId(), data: { ...offer.data } };
   state.patrons.push(seat);
   offer.sold = true;
@@ -341,7 +341,7 @@ export function buyBlackSundry(idx) {
   }
   const price = alleyAsks(offer.price);
   if (state.coins < price) return { ok: false, reason: `You need ${price} Coins.` };
-  state.coins -= price;
+  spendCoins(price);
   const { kind, material, theme } = offer;
   state.sundries.push({ kind, ...(material ? { material } : {}), ...(theme ? { theme } : {}) });
   offer.sold = true;

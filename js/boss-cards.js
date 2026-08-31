@@ -39,6 +39,7 @@
 //   {REVIEWER_WORST}     the sourest temper The Reviewer can be in
 //   {REVIEWER_BEST}      the kindest
 //   {LENT_COUNT}         places the two lending editors fill
+//   {POWDER_CHARGES}     charges The Incendiary keeps in your hand
 
 export const BOSS_CARDS = {
   padder: {
@@ -116,6 +117,11 @@ export const BOSS_CARDS = {
   editooor: {
     name: 'The Editooor', emoji: '🅾️',
     desc: 'O is such a sensual, sophisticated letter. Take {LENT_COUNT}, with my compliments.',
+  },
+  powdereditor: {
+    name: 'The Incendiary', emoji: '💣',
+    desc: 'Nothing sells like an explosive piece. {POWDER_CHARGES} of your places are charged, both faces cut so you can find a home for them, and every word had better carry one of MINE. I replace what you spend.',
+    spike: 'no charge of mine in it',
   },
   redactor: {
     name: 'The Redactor', emoji: '📝',

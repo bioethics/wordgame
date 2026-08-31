@@ -14,7 +14,7 @@ import {
   trashFromCollection, mergeTiles, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
   castCounterfeit, effectiveRackSize, handCount, pluckFromBag,
   grantRandomPatron,
-  rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost, luckyRoll, isSquib,
+  rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost, luckyRoll, isSquib, spendCoins,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
@@ -59,7 +59,7 @@ import {
   setTheme, setLayout, setUiScale,
 } from './appearance.js';
 import {
-  PATRON_DEFS, patronById, doubledReading, boundNouns, patronName, patronShelf,
+  PATRON_DEFS, patronById, doubledReading, boundNouns, patronName, patronShelf, guildSeats,
 } from './patrons.js';
 import { randomQuip } from './quips.js';
 import { logLine } from './text.js';
@@ -348,7 +348,11 @@ async function detonatePrinted(printed, alreadyBurned, rectOf) {
   if (!squibs.length) return [];
   const gone = new Set(alreadyBurned.map(t => t.id));
   const out = [];
-  const burnTile = t => (gone.has(t.id) ? false : !!trashFromCollection(t.tid));
+  // A lent tile has no template in the collection, so trashFromCollection has
+  // nothing to find and would report a fizzle. It still goes off — it just
+  // leaves nothing behind, and the lender tops it back up next hand.
+  const burnTile = t =>
+    gone.has(t.id) ? false : t.ephemeral ? true : !!trashFromCollection(t.tid);
 
   for (const squib of squibs) {
     if (gone.has(squib.id)) continue;
@@ -424,6 +428,14 @@ async function roseCrowns(printed) {
   renderAll();
   await sleep(ANIM.stepColour);
 }
+
+// How many Discards The Quartermaster is worth: one for sitting down, and a
+// second while two of your seats fly azure — himself among them, which is what
+// makes the second a thing you build towards rather than happen upon. Counted
+// here because js/state.js cannot read the liveries (they live on the cards,
+// which reach back to it) and this file can.
+const quartermasterDiscards = () =>
+  (!owns('quartermaster') ? 0 : guildSeats('azure') >= 2 ? 2 : 1);
 
 // ─── The Ripper (a patron killed, a seat freed) ───────────────────────────────
 // Print one of his watchwords and one of your OTHER patrons dies where it sits:
@@ -1435,7 +1447,7 @@ async function advancePage() {
   const sweepRects = [...document.querySelectorAll('#rack .tile, #word .tile')]
     .slice(0, 12)
     .map(el => ({ el, r: rect(el) }));
-  startPage();
+  startPage({ quartermaster: quartermasterDiscards() });
   renderAll();
   const to = bagRect();
   const flights = [];
@@ -2198,7 +2210,7 @@ function usurerRepay() {
   const owed = seat?.data?.debt ?? 0;
   if (!owed) return;
   if (state.coins < owed) { log(logLine('usurerShort', owed, state.coins), 'warn'); return; }
-  state.coins -= owed;
+  spendCoins(owed);
   seat.data.debt = 0;
   sfx.coin();
   log(logLine('usurerClear'), 'good');
@@ -2220,7 +2232,7 @@ function takeTheConsideration() {
       const paid = Math.max(0, Math.min(BRIBRARIAN.steps, Number(pick.dataset.bribe) || 0));
       $('overlayModal')?.removeEventListener('click', done);
       data.paid    = paid;
-      state.coins -= paid;
+      spendCoins(paid);
       hideOverlay();
       if (paid) {
         sfx.coin();
@@ -2522,7 +2534,7 @@ async function beginRun() {
   renderChamber();
   if (!atStart) { renderAll(); return; }
 
-  startPage();
+  startPage({ quartermaster: quartermasterDiscards() });
   state.isAnimating = true;
   renderAll();
   sfx.chapter();

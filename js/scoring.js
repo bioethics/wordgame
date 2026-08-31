@@ -2,7 +2,7 @@ import {
   TILE_POINTS, TRIMS, COLOURS, PURPLE_TRIM_STEP, REWARD, CURSED_MULT, EXPLOSIVE_MULT,
   CURSED_PENALTY, SPIKE_MULT, SILVER_BONUS, isDeadline, splitMarks, isRule, BOLD_MULT,
   HONORIFIC_STEP, LAUREATE_MULT_STEP, FLEURON, FLEURON_PAGE_COIN, lengthMult, POSTNOM,
-  ALDERMAN_STEP,
+  ALDERMAN_STEP, BEADLE_THRESHOLD, BEADLE_PAGE_COIN,
 } from './constants.js';
 import {
   PATRON_DEFS, patronById, guildsOf, guildSeats, resolveMedieval,
@@ -775,6 +775,13 @@ export function computeReward() {
   if (owns('banker')) {
     // +1 Coin per amber patron seated, the Banker counting himself.
     parts.push({ label: 'The Banker', coins: guildSeats('amber') });
+  }
+
+  // The Beadle's amber favour: a Coin on every page while amber is two seats
+  // deep. His other three favours are stall prices (js/market.js); this one has
+  // no stall to open, so it is paid here.
+  if (owns('beadle') && guildSeats('amber') >= BEADLE_THRESHOLD) {
+    parts.push({ label: 'The Beadle — amber, two deep', coins: BEADLE_PAGE_COIN });
   }
 
   // A coin per fleuron owned, every page, wherever it sits. Unconditional by
