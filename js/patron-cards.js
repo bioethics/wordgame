@@ -424,6 +424,13 @@ export const PATRON_CARDS = {
     name: 'The Expectant Parents', emoji: '🤰', rarity: 'uncommon', cost: 4,
     desc: 'Common baby names count as words. +{EXPECTANTS_BONUS} Points for baby names.',
   },
+  devil: {
+    // Uncommon at 7 because it does NOTHING on the first word of a page and is
+    // bounded by the bag besides — a hand of fifteen needs fifteen sorts left to
+    // put in it. If it plays too strong the knob is DEVIL_STEP, not the price.
+    name: 'The Printer’s Devil', emoji: '👹', rarity: 'uncommon', cost: 7, guild: 'azure',
+    desc: 'The boy fetches as you go: every word you print widens your hand by {DEVIL_STEP} for the rest of the page. The page turn takes it all back.',
+  },
   counterfeiter: {
     name: 'The Counterfeiter', emoji: '💵', rarity: 'uncommon', cost: 7, guild: 'azure',
     desc: 'Once per page, you may ask the Counterfeiter to provide you with one temporary tile.',

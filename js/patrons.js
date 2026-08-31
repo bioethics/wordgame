@@ -155,7 +155,7 @@
 import {
   GRAFTER_STEP, STOKER_BASE, STOKER_STEP, beekeeperMult, ARSONIST_ODDS,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE,
-  RAGMAN_ODDS, RAGMAN_COINS, REVENANT_ODDS, MATERIALS,
+  RAGMAN_ODDS, RAGMAN_COINS, DEVIL_STEP, REVENANT_ODDS, MATERIALS,
   PACKAGE_ODDS, PACKAGES, PACKAGE_OF_PATRON,
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, isMark,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
@@ -2322,6 +2322,35 @@ const PATRON_BEHAVIOURS = [
     effect({ tiles, addMult }) {
       const pairs = Object.keys(COLOURS).filter(c => painted(tiles, c).length === 2).length;
       if (pairs) addMult(Math.round(pairs * GLOVER_STEP * 100) / 100);
+    },
+  },
+  {
+    // The press warming up. Every word printed widens the hand for the rest of
+    // the page, and the page turn takes all of it back — it rides
+    // state.rackBonus, the one term in effectiveRackSize that is neither
+    // permanent nor the editor's, and startPage clears it.
+    //
+    // The shape is the point: nothing on the first word, +1 on the second, +4 by
+    // the fifth, so the seat pays most where the length multiplier does. And it
+    // is bounded by the press — a hand of fifteen needs fifteen sorts left in
+    // the bag — so a slim collection feels it less than a fat one, which is the
+    // right way round for a seat that costs seven.
+    //
+    // A SPIKED word counts. It is still a word printed, and an editor's page is
+    // where a wider hand is worth most; letting the toll take the fetch as well
+    // would be two punishments for one word.
+    id: 'devil',
+    when: 'meta',
+    onPageStart({ data }) { data.fetched = 0; return null; },
+    onPrinted({ state, data }) {
+      state.rackBonus = (state.rackBonus ?? 0) + DEVIL_STEP;
+      data.fetched = (data.fetched ?? 0) + DEVIL_STEP;
+      return { note: `+${data.fetched} hand` };
+    },
+    tally(data) {
+      const n = data?.fetched ?? 0;
+      return n ? `The boy has fetched ${n} place${n > 1 ? 's' : ''} this page.`
+               : 'Nothing fetched yet — the first word of a page pays him nothing.';
     },
   },
   {
