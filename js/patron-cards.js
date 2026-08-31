@@ -55,7 +55,7 @@ export const PATRON_CARDS = {
   },
   goldsmith: {
     name: 'The Goldsmith', emoji: '🪙', rarity: 'common', cost: 4, guild: 'amber',
-    desc: 'Amber tiles gain +{GOLDSMITH_POINTS} Points — and each one is a throw of the dice: a {GOLDSMITH_CHANCE} chance of {GOLDSMITH_PURSE} Coins.',
+    desc: 'Amber tiles gain +{GOLDSMITH_POINTS} Points. Also, each has a {GOLDSMITH_CHANCE} chance of granting {GOLDSMITH_PURSE} Coins.',
   },
   weld: {
     name: 'The Weld', emoji: '🌼', rarity: 'common', cost: 4, guild: 'amber',
