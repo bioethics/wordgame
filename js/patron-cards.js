@@ -86,7 +86,7 @@ export const PATRON_CARDS = {
   },
   fence: {
     name: 'The Fence', emoji: '🗝️', rarity: 'rare', cost: 9, guild: 'amber',
-    desc: 'He keeps the alley door. The Black Market is always one of the Colophon’s picks, and everything down there — tiles, tools and rare patrons alike — asks {FENCE_OFF} less.',
+    desc: 'The Black Market is always one of the Colophon’s picks, and everything in it asks {FENCE_OFF} less.',
   },
   usurer: {
     name: 'The Usurer', emoji: '🧾', rarity: 'common', cost: 1, guild: 'amber',
@@ -168,7 +168,7 @@ export const PATRON_CARDS = {
   },
   laureate: {
     name: 'The Laureate', emoji: '👑', rarity: 'uncommon', cost: 5, guild: 'jade',
-    desc: 'A word holding both a gold-trimmed and a silver-trimmed tile crowns this patron with a laurel — +{HONORIFIC_STEP} Points on every word, for good. Also, while seated, every laurel at your table gives its wearer +{LAUREATE_MULT_STEP} Mult.',
+    desc: 'A word with both a gold-trimmed and a silver-trimmed tile earns a laurel: +{HONORIFIC_STEP} Points on every word, for good. While seated, every laurel at your table also gives +{LAUREATE_MULT_STEP} Mult.',
   },
   grafter: {
     name: 'The Grafter', emoji: '🌿', rarity: 'rare', cost: 8, guild: 'jade',
@@ -236,11 +236,11 @@ export const PATRON_CARDS = {
   },
   lyeboy: {
     name: 'The Lye Boy', emoji: '🧼', rarity: 'uncommon', cost: 6, guild: 'crimson',
-    desc: 'The apprentice who washes the forme when the day is done. Every painted tile in a word he sees is scrubbed bare — a wash counts, and so does a coat laid mid-word — and he keeps {LYE_BOY_STEPS} Mult for each one, for good.',
+    desc: 'Strips the paint from every painted tile in the word, permanently, and keeps {LYE_BOY_STEPS} Mult for each coat.',
   },
   powdermonkey: {
     name: 'The Powdermonkey', emoji: '🎇', rarity: 'uncommon', cost: 7, guild: 'crimson',
-    desc: 'He keeps one tile of your hand primed, and marks a fresh one whenever the hand changes. A primed tile scores and goes off exactly as squib lead does: ×{EXPLOSIVE_MULT} Mult, then it is destroyed, and each tile beside it in the word takes a {EXPLOSIVE_SPREAD_CHANCE} chance of going with it.',
+    desc: 'Keeps one tile of your hand primed to act as Squib lead, marking a fresh one whenever the hand changes.',
   },
   serpent: {
     name: 'The Serpent', emoji: '🐍', rarity: 'uncommon', cost: 7, guild: 'crimson',
@@ -394,11 +394,11 @@ export const PATRON_CARDS = {
   },
   beadle: {
     name: 'The Beadle', emoji: '🎖️', rarity: 'rare', cost: 9, guild: 'amber',
-    desc: 'Keeps the guilds’ books, and their doors. {BEADLE_THRESHOLD} crimson seats and the smelter works for nothing · {BEADLE_THRESHOLD} azure and the punchcutter does · {BEADLE_THRESHOLD} jade and the gilder does · {BEADLE_THRESHOLD} amber and every page pays {BEADLE_PAGE_COIN} Coin more. One favour from each stall per visit.',
+    desc: 'Any guild with {BEADLE_THRESHOLD} seats opens its stall, free once a visit: crimson the smelter, azure the punchcutter, jade the gilder. {BEADLE_THRESHOLD} amber also pays +{BEADLE_PAGE_COIN} Coin a page.',
   },
   quoin: {
     name: 'The Quoin', emoji: '🔩', rarity: 'rare', cost: 11,
-    desc: '×{QUOIN_MULT} Mult when two tiles of one colour stand side by side in the word. A word’s order is its spelling, so the paint has to be laid where the letters will meet — and a rainbow tile, counting as every colour, locks tight beside any painted neighbour.',
+    desc: '×{QUOIN_MULT} Mult when two tiles of one colour stand side by side in the word.',
   },
   purveyor: {
     // The card states the shape; the six exact numbers are in the tap-through

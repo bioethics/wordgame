@@ -175,6 +175,14 @@ export function tileFeatures(tile) {
   if (tile.material) {
     const m = MATERIALS[tile.material];
     if (m) out.push({ head: `${m.label} tile`, body: m.desc });
+  } else if (isSquib(tile)) {
+    // The Powdermonkey's mark is not cast in anything — it wears the fuse
+    // without being restruck — so there is no material to hang a row on, and
+    // until now a primed tile explained itself nowhere at all. It goes off
+    // exactly as squib lead does, so it borrows squib lead's own words: without
+    // this the seat's card has to re-describe the whole effect, or name a metal
+    // the player has no way to look up.
+    out.push({ head: 'Primed', body: MATERIALS.explosive.desc });
   }
   if (tile.colour) {
     out.push({ head: `${COLOURS[tile.colour].label} paint`, body: colourDesc(tile.colour) });

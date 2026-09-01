@@ -3131,6 +3131,13 @@ button.sundry:hover { transform: translateY(-2px); }
   bottom: -9px;
   z-index: 2;
 }
+
+/* The price tag hangs off the bottom-right corner and sits ABOVE the card, so a
+   desc whose last line runs the full width ends up reading "…+1 Coin a pa[9]".
+   Clearing the tag's height here means the copy never has to be written around
+   it. Only cards already at full height grow — the rest absorb it inside
+   min-height. */
+.offer-patron .op-desc { padding-bottom: 14px; }
 .offer-patron .op-sold {
   position: absolute;
   inset: 0;
