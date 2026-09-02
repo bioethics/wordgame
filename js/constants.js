@@ -1060,6 +1060,15 @@ export const TYPESETTER_STEP    = 0.2;
 // The Expectant Parents' fee for a name.
 export const EXPECTANTS_BONUS   = 15;
 
+// The Sesquipedalian's rate, per letter of the longest word the run has set.
+// Additive, like the Astronomer's, and read off the manuscript rather than a
+// tally of the seat's own: the record is the RUN'S, so a word set before he was
+// hired counts, and a save needs nothing new. Ten letters is +1 Mult on every
+// word after — about what one long word's measure is worth, paid again for the
+// rest of the run. Rounded here so a nine-letter word never shows +0.9000000001.
+export const SESQUIPEDALIAN_STEP = 0.1;
+export const sesquipedalianMult  = n => Math.round(n * SESQUIPEDALIAN_STEP * 100) / 100;
+
 // The cat's Mult, added per RAT tile it has eaten. Permanent and stacking, and
 // paid from the word AFTER the meal — the eating happens once a word has
 // printed, like every other permanent gain. Small on purpose: the cat is free,
@@ -1494,6 +1503,7 @@ export const KNOBS = {
   // the bands: "+0.2 Mult, then +0.1 past ×2, then +0.05 past ×3".
   BEEKEEPER_STEPS: beekeeperSteps(),
   ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS,
+  SESQUIPEDALIAN_STEP,
   SHORTHAIR_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
   PURVEYOR_STALLS:    PURVEYOR.stalls,
   PURVEYOR_TILES:     PURVEYOR.tiles,

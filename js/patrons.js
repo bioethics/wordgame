@@ -162,6 +162,7 @@ import {
   HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, LAUREATE_MULT_STEP, RIPPER_WORDS, splitMarks, isImmutable,
   TWINS_POINTS, CHILD_STEP, ABECEDARIAN_MULT, ABECEDARIAN_CASE, abecedarianMult, caseGlyphs, MEDIEVAL,
   ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS, PURVEYOR,
+  sesquipedalianMult,
   SHORTHAIR_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
   medievalExpansions, POSTNOM, GHOST_HIRE, USURER,
   PRINCE, princeMult,
@@ -298,6 +299,23 @@ const vowelRun = tiles => {
   }
   return { seq, count };
 };
+
+// The longest word in the manuscript, measured as the measure measures it —
+// letters, not tiles: the marks left off and a medieval sort read as what it
+// stands for, so þORN is five and CAT? is three. Returns the word as the book
+// prints it, for saying, and its length, for paying. `butLast` leaves the
+// newest line unread: recordWord (js/state.js) files a word before the printed
+// hooks run, so a hook asking whether that word broke the record has to read
+// the book as it stood a moment before.
+function longestPrinted({ butLast = false } = {}) {
+  const rows = state.manuscript ?? [];
+  let best = { word: '', n: 0 };
+  for (const r of butLast ? rows.slice(0, -1) : rows) {
+    const n = resolveMedieval(splitMarks(r.word)?.letters ?? r.word).length;
+    if (n > best.n) best = { word: r.word, n };
+  }
+  return best;
+}
 
 // Adjacent doubled pairs, counted without overlapping: AAA is one pair,
 // AAAA is two. BALLOON has two (LL, OO).
@@ -1169,6 +1187,35 @@ const PATRON_BEHAVIOURS = [
     id: 'novelist',
     when: 'score',
     effect({ word, xMult }) { if (word.length >= 7) xMult(2); },
+  },
+  {
+    // Paid for the run's longest word, on every word. He reads the manuscript,
+    // as the Copyist does, rather than keeping a tally of his own: the record
+    // belongs to the run, so a word set before he was hired counts, and there
+    // is nothing on his seat to save or to drift from the book. The word in the
+    // groove counts as well — `word` is the same letters the measure counts,
+    // BALLOON seven whoever struck the second L — so the preview and the print
+    // agree, and the record word is paid itself rather than only every word
+    // after it. A seat that only ever paid for the LAST long word would ask you
+    // to set your best word twice.
+    id: 'sesquipedalian',
+    when: 'score',
+    effect({ word, addMult }) {
+      const n = Math.max(longestPrinted().n, word.length);
+      if (n) addMult(sesquipedalianMult(n));
+    },
+    // The note marks a record and nothing else: the seat pays on every word,
+    // and a badge on every word would be the readout said twice.
+    onPrinted({ script }) {
+      const n = script?.letters?.length ?? 0;
+      if (!n || n <= longestPrinted({ butLast: true }).n) return null;
+      return { note: `${n} letters — the longest yet, +${sesquipedalianMult(n)} Mult` };
+    },
+    tally() {
+      const { word, n } = longestPrinted();
+      if (!n) return 'Nothing printed yet — the first word sets the mark.';
+      return `${word}, ${n} letters, is the longest so far — +${sesquipedalianMult(n)} Mult on every word.`;
+    },
   },
 
   // ── Rares ───────────────────────────────────────────────────────────────────

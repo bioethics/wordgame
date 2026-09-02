@@ -238,6 +238,29 @@ because this is meant to be played with before it is capped. The Beekeeper and
 the Abecedarian both needed slowing in the end; when this one does, it is a row
 in that table and nothing else, and the card quotes the whole of it.
 
+### The Sesquipedalian — the record the run keeps
+
+**The Sesquipedalian** (uncommon, 6 Coins) is paid for the longest word the run
+has set: `SESQUIPEDALIAN_STEP` (0.1) Mult per letter of it, added on every word
+thereafter. He keeps no tally of his own. The manuscript already holds every
+word printed this run, so he reads that, as *the Copyist* does — which means a
+word set before he was hired counts, a save needs nothing new, and there is no
+second record that can drift from the book. The word in the groove counts too,
+read live off the same letters the measure counts, so the preview and the print
+agree and the record word is paid itself rather than only every word after it;
+a seat that paid for the *last* long word would ask you to set your best word
+twice.
+
+Letters, not tiles, like every rule about a word's shape: þORN is five, BALLOON
+is seven whoever struck the second L, and a trailing mark is not counted. Ten
+letters is +1 Mult for the rest of the run — about what one long word's measure
+is worth, paid again on every word — which is generous in the first chapters,
+where +1 is a third of the multiplier, and small by the last, where the colour
+engine stands at ×12 and a seat that only adds is a seat you sell. A record is
+announced once, over his card, when a word breaks it; the tap-through says what
+the record is and what it pays. `SESQUIPEDALIAN_STEP` in `js/constants.js`; the
+reading of the book is `longestPrinted` in `js/patrons.js`.
+
 **Ghosts.** *The Ripper* kills one of your other patrons when you print one of
 his watchwords — KILL, MURDER, SLAY, DIE, STAB, SLASH, REAP or KNIFE — then
 flees back to the Market's pool. The match is exact, so SLAYER walks past him. The victim moves off the
@@ -1037,6 +1060,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Fifteen-fingered Frank's growth | `js/constants.js` → `DEVIL_STEP` (places per word printed; it rides `state.rackBonus`, so the page turn takes it back for free). His name quotes `RACK_SIZE + WORDS_PER_PAGE × DEVIL_STEP` at authoring time — retune any of the three and re-check the sum by hand |
 | The Beekeeper's curve | `js/constants.js` → `BEEKEEPER_BANDS` — `{ upTo, step }` in order, so the hive slows as it fills (+0.2 to ×2, +0.1 to ×3, +0.05 thereafter) instead of climbing for ever at one rate. `beekeeperMult()` walks it a bee at a time, so crossing a threshold never jumps; `beekeeperSteps()` writes the card's own sentence from the same table, so the words cannot drift from the arithmetic |
 | The Alderman's guild step | `js/constants.js` → `ALDERMAN_STEP` (added per guild, not multiplied — see pass 4½ in `js/scoring.js`) |
+| The Sesquipedalian's rate | `js/constants.js` → `SESQUIPEDALIAN_STEP`, per letter of the run's longest word. The record is read off `state.manuscript` by `longestPrinted` in `js/patrons.js` (the word in the groove counts), and `sesquipedalianMult` rounds the sum so the badge never shows a floating-point tail |
 | What the alley may ask for a tile | `js/constants.js` → `BLACK_TILE_MAX_PRICE`, the ceiling every black-market tile is clamped to, plus `BLACK_MATERIAL_STOCK` and `BLACK_TILE_SURCHARGE`. The Market's own tiles are priced by `tilePrice` in `js/market.js`, off `TILE_BASE_PRICE` and the `price` on each entry of `TRIMS` / `NICKS` |
 | What a seat has ACCUMULATED, shown when you tap its card | `js/patrons.js` → the `tally(data)` hook, gathered with the seat's laurels by `seatTally()`. A number a seat keeps privately in `data` is a number the player is being asked to remember — put it here instead |
 | The editor roster, the conflict pairs, the Redactor's share | `js/bosses.js` → `BOSS_CONFLICTS`, `REDACTOR_SHARE` |

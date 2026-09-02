@@ -479,6 +479,14 @@ export const PATRON_CARDS = {
     name: 'The Novelist', emoji: '🖋️', rarity: 'uncommon', cost: 7,
     desc: '×2 Mult for words of 7+ letters.',
   },
+  sesquipedalian: {
+    // "Counting the word being set" is the one clause that earns its place: the
+    // seat reads the groove as well as the book, so the record word is paid
+    // itself. Left out, a player would set a ten-letter word, see +1 Mult land
+    // at once, and wonder what the card meant by "printed".
+    name: 'The Sesquipedalian', emoji: '📏', rarity: 'uncommon', cost: 6,
+    desc: '+{SESQUIPEDALIAN_STEP} Mult per letter of the longest word printed this run, counting the word being set.',
+  },
   ragman: {
     name: 'The Ragman', emoji: '🧺', rarity: 'uncommon', cost: 7,
     desc: 'Discarding painted tiles has a 1-in-{1/RAGMAN_ODDS} chance of paying a prize. Crimson: gain the tongs. Amber: +{RAGMAN_COINS} Coin. Jade: +1 hand size for the page. Azure: +1 discard.',
