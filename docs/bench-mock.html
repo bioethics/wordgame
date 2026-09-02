@@ -1,0 +1,1112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Compositor's Bench</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&display=swap">
+<style>
+  /* ═══ The Compositor's Bench — a proof of concept for Great Work's board ═══
+     One working surface with the game's objects on it, each object BEING the
+     information it carries: the composing stick is a ruler (the measure is
+     read off its scale), the manuscript sheet is the status (chapter, folio,
+     quota, the words of the page), the type case shows the hand size as
+     compartments, and the proof slip sets the whole arithmetic in type.
+     Scoring here is a sketch — no dictionary, three patrons, one page. */
+
+  :root {
+    --bench:      #3d2b20;
+    --bench-hi:   #4c372a;
+    --bench-edge: #241811;
+    --paper:      #ede3c9;
+    --paper-2:    #dfd2b0;
+    --paper-ink:  #221c16;
+    --paper-dim:  #6d5c45;
+    --paper-rule: rgba(60, 42, 22, 0.22);
+    --ink:        #1f1a15;
+    --red:        #b23a1e;
+    --red-dk:     #7d2711;
+    --brass:      #cba15a;
+    --brass-hi:   #ebc989;
+    --brass-dk:   #7c5a22;
+    --steel:      #a3abb3;
+    --steel-dk:   #5f6870;
+    --ivory:      #f6efdc;
+    --ivory-2:    #e4d7b4;
+    --tile-ink:   #2a2117;
+
+    --crimson: #c94f43;
+    --azure:   #4f86c9;
+    --jade:    #3fa371;
+    --amber:   #d29a3a;
+
+    --serif:   'Fraunces', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+    --fell:    'IM Fell English', 'Iowan Old Style', Georgia, serif;
+    --fell-sc: 'IM Fell English SC', 'IM Fell English', Georgia, serif;
+
+    --tile-w: 62px;
+    --tile-h: 70px;
+    --gap:    8px;
+    --inset:  18px;
+  }
+
+  * { box-sizing: border-box; }
+  html { background: var(--bench); }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--paper);
+    font-family: var(--fell);
+    font-size: 15px;
+    line-height: 1.35;
+    background:
+      radial-gradient(1200px 700px at 50% -10%, rgba(255, 214, 150, 0.10), transparent 60%),
+      radial-gradient(900px 500px at 50% 110%, rgba(0, 0, 0, 0.35), transparent 60%),
+      repeating-linear-gradient(92deg, rgba(255, 226, 180, 0.035) 0 2px, transparent 2px 9px, rgba(0, 0, 0, 0.06) 9px 11px, transparent 11px 23px),
+      linear-gradient(180deg, var(--bench-hi), var(--bench) 40%, #34241a);
+    -webkit-font-smoothing: antialiased;
+  }
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  }
+  button { font: inherit; color: inherit; }
+  button:focus-visible, .tile:focus-visible { outline: 3px solid var(--brass-hi); outline-offset: 2px; }
+
+  .bench {
+    position: relative;
+    z-index: 1;
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 14px 22px 40px;
+  }
+
+  /* ─── The shop sign ─────────────────────────────────────────────────────── */
+  .sign {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 4px 6px 14px;
+  }
+  .sign h1 {
+    margin: 0;
+    font-family: var(--fell-sc);
+    font-weight: 400;
+    font-size: 26px;
+    letter-spacing: 2px;
+    color: var(--ivory);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+  }
+  .sign h1 .mark { color: var(--brass); }
+  .sign .sub { font-style: italic; color: rgba(237, 227, 201, 0.62); }
+  .sign .spacer { flex: 1; }
+  .purse {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: var(--serif); font-weight: 700; font-size: 18px;
+    color: var(--brass-hi);
+  }
+  .coin {
+    width: 16px; height: 16px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffe9a8, #d3a539 60%, #8a5f16);
+    box-shadow: inset 0 0 0 1.5px rgba(90, 60, 8, 0.5), 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  /* ─── The desk grid ─────────────────────────────────────────────────────── */
+  .desk {
+    display: grid;
+    grid-template-columns: 330px 1fr;
+    grid-template-areas:
+      "sheet rack"
+      "stick stick"
+      "case  case"
+      "ctrl  ctrl";
+    gap: 18px 22px;
+    align-items: start;
+  }
+  .sheet { grid-area: sheet; }
+  .rack  { grid-area: rack; }
+  .stick-row { grid-area: stick; }
+  .case-row  { grid-area: case; }
+  .controls  { grid-area: ctrl; }
+
+  /* ─── The manuscript sheet: the page you are filling ────────────────────── */
+  .sheet {
+    position: relative;
+    color: var(--paper-ink);
+    background:
+      repeating-linear-gradient(0deg, rgba(120, 95, 60, 0.05) 0 1px, transparent 1px 3px),
+      linear-gradient(170deg, var(--ivory) 0%, var(--paper) 45%, var(--paper-2) 100%);
+    padding: 16px 20px 14px;
+    transform: rotate(-0.6deg);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.5),
+      0 1px 2px rgba(0, 0, 0, 0.35),
+      0 14px 28px -10px rgba(0, 0, 0, 0.65);
+  }
+  .sheet::before {
+    content: '';
+    position: absolute; left: 0; right: 0; top: 0; height: 6px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.08), transparent);
+  }
+  .sheet-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 10px;
+    border-bottom: 1px solid var(--paper-ink);
+    padding-bottom: 6px;
+  }
+  .sheet-head .chapter {
+    font-family: var(--fell-sc);
+    font-size: 15px;
+    letter-spacing: 1px;
+  }
+  .sheet-head .folio { font-style: italic; color: var(--paper-dim); white-space: nowrap; }
+  .sheet-title {
+    margin: 4px 0 8px;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--paper-dim);
+  }
+  .lines { display: grid; gap: 0; }
+  .line {
+    position: relative;
+    height: 30px;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    padding: 0 0 3px 22px;
+    border-bottom: 1px solid var(--paper-rule);
+    font-family: var(--fell-sc);
+    font-size: 17px;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+  }
+  .line::before {
+    content: attr(data-n);
+    position: absolute; left: 0; bottom: 4px;
+    font-family: var(--fell);
+    font-size: 11px; font-style: italic;
+    color: var(--paper-dim);
+    letter-spacing: 0;
+  }
+  .line .score {
+    font-family: var(--serif);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0;
+    color: var(--paper-dim);
+    font-variant-numeric: tabular-nums;
+  }
+  .line--next::after {
+    content: '';
+    position: absolute; left: 22px; bottom: 6px;
+    width: 8px; height: 14px;
+    border-left: 2px solid var(--red);
+    opacity: 0.55;
+    animation: caret 1.2s steps(1) infinite;
+  }
+  @keyframes caret { 50% { opacity: 0; } }
+  .line--fresh .w { animation: inkIn 0.55s cubic-bezier(.2, 1.1, .4, 1) both; }
+  @keyframes inkIn {
+    0%   { opacity: 0; transform: translateY(4px); filter: blur(1.5px); }
+    100% { opacity: 1; transform: none; filter: none; }
+  }
+  .sheet-foot {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 6px 14px;
+    font-family: var(--fell-sc);
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+  .quota-figure { font-family: var(--serif); font-weight: 700; font-size: 15px; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+  .quota-figure b { color: var(--red); }
+  .quota-rule {
+    grid-column: 1 / -1;
+    height: 6px;
+    border: 1px solid rgba(40, 30, 15, 0.5);
+    background: rgba(255, 255, 255, 0.35);
+  }
+  .quota-rule i {
+    display: block; height: 100%;
+    width: 0;
+    background: var(--ink);
+    transition: width 0.5s cubic-bezier(.2, .8, .3, 1);
+  }
+  .quota-rule.met i { background: var(--red); }
+  .spoils { display: inline-flex; gap: 6px; align-items: center; color: var(--paper-dim); }
+  .spoils b { font-family: var(--serif); color: var(--red); font-size: 15px; letter-spacing: 0; }
+  .spoils b.used { color: var(--paper-rule); text-decoration: line-through; }
+
+  /* ─── The letter rack: calling cards in their slots ─────────────────────── */
+  .rack {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+    padding: 12px 12px 14px;
+    background: linear-gradient(180deg, #2b1d14, var(--bench-edge));
+    border-radius: 6px;
+    box-shadow:
+      inset 0 3px 10px rgba(0, 0, 0, 0.7),
+      inset 0 -1px 0 rgba(255, 220, 170, 0.12),
+      0 1px 0 rgba(255, 220, 170, 0.08);
+    min-height: 152px;
+  }
+  .slot {
+    position: relative;
+    min-height: 124px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.35);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+  }
+  .card {
+    position: absolute; inset: 6px 5px 4px;
+    padding: 8px 8px 7px;
+    color: var(--paper-ink);
+    background: linear-gradient(170deg, var(--ivory) 0%, var(--paper) 60%, var(--paper-2) 100%);
+    border: 1px solid rgba(138, 95, 29, 0.45);
+    box-shadow:
+      inset 0 0 0 3px rgba(255, 252, 240, 0.9),
+      inset 0 0 0 4px var(--hair, rgba(138, 95, 29, 0.35)),
+      0 3px 8px rgba(0, 0, 0, 0.45);
+    transform: rotate(var(--tilt, -0.8deg)) translateY(0);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    cursor: help;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .slot:nth-child(even) .card { --tilt: 0.7deg; }
+  .card--uncommon { --hair: rgba(47, 116, 92, 0.6); }
+  .card--rare     { --hair: rgba(112, 64, 160, 0.6); }
+  .card .face { font-size: 22px; line-height: 1; }
+  .card .name {
+    font-family: var(--fell-sc);
+    font-size: 12.5px;
+    letter-spacing: 0.6px;
+    line-height: 1.15;
+    margin-top: 2px;
+  }
+  .card .rule {
+    font-size: 11px;
+    line-height: 1.25;
+    color: var(--paper-dim);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+  .card .pin {
+    position: absolute; top: -3px; right: 12px;
+    width: 10px; height: 26px;
+    background: linear-gradient(175deg, color-mix(in srgb, var(--pin) 55%, white) -40%, var(--pin) 60%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%);
+  }
+  .card--armed {
+    transform: rotate(var(--tilt, -0.8deg)) translateY(-6px);
+    box-shadow:
+      inset 0 0 0 3px rgba(255, 252, 240, 0.9),
+      inset 0 0 0 4px var(--hair, rgba(138, 95, 29, 0.35)),
+      0 10px 18px rgba(0, 0, 0, 0.55);
+  }
+  .card:not(.card--armed) { filter: saturate(0.85) brightness(0.93); }
+  .take {
+    position: absolute; left: -8px; bottom: -8px;
+    padding: 2px 7px 3px;
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: 15px;
+    font-variant-numeric: tabular-nums;
+    color: var(--red);
+    background: rgba(255, 255, 255, 0.55);
+    border: 2px solid var(--red);
+    border-radius: 3px;
+    transform: rotate(-8deg);
+    mix-blend-mode: multiply;
+    animation: stamp 0.28s cubic-bezier(.3, 1.6, .5, 1) both;
+  }
+  @keyframes stamp {
+    0%   { transform: rotate(-8deg) scale(1.6); opacity: 0; }
+    100% { transform: rotate(-8deg) scale(1); opacity: 1; }
+  }
+  .slot--empty::after {
+    content: '❧';
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    font-size: 18px;
+    color: rgba(237, 227, 201, 0.18);
+  }
+
+  /* ─── The composing stick: the groove, and a ruler ──────────────────────── */
+  .stick-row {
+    display: grid;
+    grid-template-columns: 1fr 250px;
+    gap: 18px;
+    align-items: stretch;
+  }
+  .stick {
+    position: relative;
+    min-height: 136px;
+    padding: 16px 0 0 var(--inset);
+    border-radius: 3px;
+    background:
+      linear-gradient(180deg, var(--brass-hi) 0%, var(--brass) 12%, #b78a3c 55%, #8f6828 100%);
+    box-shadow:
+      inset 0 2px 0 rgba(255, 245, 210, 0.55),
+      inset 0 -3px 0 rgba(60, 38, 8, 0.55),
+      0 12px 22px -8px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+  }
+  /* The set line: a channel milled into the stick, the tiles sitting in it. */
+  .stick::before {
+    content: '';
+    position: absolute; left: 0; right: 0; top: 12px;
+    height: calc(var(--tile-h) + 8px);
+    background: linear-gradient(180deg, #6a4a1a, #8a6528 30%, #7a5820);
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.55), inset 0 -1px 0 rgba(255, 230, 170, 0.25);
+  }
+  .stick-tiles {
+    position: relative;
+    display: flex;
+    gap: var(--gap);
+    height: var(--tile-h);
+    align-items: center;
+  }
+  .stick-tiles:empty::after {
+    content: 'set a word';
+    position: absolute; left: 8px; top: 50%;
+    transform: translateY(-50%);
+    font-style: italic;
+    color: rgba(255, 240, 210, 0.45);
+    font-size: 16px;
+  }
+  .knee {
+    position: absolute;
+    top: 9px;
+    width: 18px;
+    height: calc(var(--tile-h) + 14px);
+    border-radius: 2px;
+    background: linear-gradient(90deg, #c8cfd6, var(--steel) 45%, var(--steel-dk));
+    box-shadow: 0 0 0 1px rgba(30, 30, 30, 0.6), 2px 3px 8px rgba(0, 0, 0, 0.5);
+    transition: left 0.22s cubic-bezier(.2, .8, .3, 1);
+  }
+  .knee::after {
+    content: '';
+    position: absolute; left: 5px; top: 8px;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff, #7a828a 70%);
+  }
+  .rule-bar {
+    position: absolute;
+    left: 0; right: 0;
+    bottom: 0;
+    height: 42px;
+  }
+  .tick {
+    position: absolute;
+    bottom: 10px;
+    width: 1px;
+    height: 8px;
+    background: rgba(50, 32, 4, 0.55);
+  }
+  .tick.major { height: 13px; width: 2px; }
+  .tick.on    { background: var(--ink); }
+  .tick-label {
+    position: absolute;
+    bottom: 24px;
+    transform: translateX(-50%);
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--red-dk);
+    opacity: 0.8;
+    white-space: nowrap;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .tick-label.here {
+    transform: translateX(-50%) scale(1.35);
+    opacity: 1;
+    color: var(--red);
+    text-shadow: 0 0 6px rgba(255, 245, 210, 0.6);
+  }
+  .rule-name {
+    position: absolute; left: var(--inset); bottom: 2px;
+    font-family: var(--fell-sc);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: rgba(60, 38, 8, 0.7);
+  }
+
+  /* ─── The proof slip ────────────────────────────────────────────────────── */
+  .proof {
+    position: relative;
+    color: var(--paper-ink);
+    background: linear-gradient(175deg, var(--ivory), var(--paper) 70%, var(--paper-2));
+    padding: 10px 14px 12px;
+    transform: rotate(0.9deg);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 12px 22px -10px rgba(0, 0, 0, 0.6);
+    display: flex; flex-direction: column;
+    min-height: 136px;
+  }
+  .proof::before {
+    /* a clip, holding the slip to the stick's end */
+    content: '';
+    position: absolute; left: -9px; top: 22px;
+    width: 18px; height: 34px;
+    border: 3px solid var(--steel-dk);
+    border-radius: 9px;
+    background: linear-gradient(90deg, #d5dbe0, var(--steel));
+  }
+  .proof-head {
+    font-family: var(--fell-sc);
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--paper-dim);
+    border-bottom: 1px solid var(--paper-rule);
+    padding-bottom: 3px;
+    margin-bottom: 4px;
+  }
+  .factors {
+    display: flex; flex-wrap: wrap; align-items: baseline;
+    gap: 2px 8px;
+    flex: 1;
+    font-family: var(--serif);
+    font-variant-numeric: tabular-nums;
+  }
+  .factor { display: inline-flex; flex-direction: column; align-items: center; line-height: 1; }
+  .factor .v { font-size: 20px; font-weight: 700; }
+  .factor .l {
+    font-family: var(--fell-sc);
+    font-size: 9.5px; letter-spacing: 1px;
+    color: var(--paper-dim);
+    margin-top: 2px;
+  }
+  .factor--seat .v { color: var(--red); }
+  .factor--crimson .v { color: var(--crimson); }
+  .factor--azure   .v { color: var(--azure); }
+  .factor--jade    .v { color: var(--jade); }
+  .factor--amber   .v { color: var(--amber); }
+  .factor--measure .v { color: var(--red-dk); }
+  .factors .idle { font-family: var(--fell); font-style: italic; color: var(--paper-dim); }
+  .total-row {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 8px;
+    border-top: 2px solid var(--paper-ink);
+    padding-top: 4px;
+    margin-top: 6px;
+  }
+  .total-row .l { font-family: var(--fell-sc); font-size: 11px; letter-spacing: 2px; color: var(--paper-dim); }
+  .total {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: 40px;
+    line-height: 0.95;
+    font-variant-numeric: tabular-nums;
+    font-variation-settings: 'opsz' 144;
+    letter-spacing: -1px;
+  }
+  .total.slam { animation: slam 0.45s cubic-bezier(.2, 1.4, .4, 1); }
+  @keyframes slam { 0% { transform: scale(1.35); color: var(--red); } 100% { transform: none; } }
+
+  /* ─── Tiles: sorts of type ──────────────────────────────────────────────── */
+  .tile {
+    position: relative;
+    width: var(--tile-w);
+    height: var(--tile-h);
+    flex: none;
+    padding: 0;
+    border: 1px solid rgba(86, 60, 24, 0.55);
+    border-radius: 5px;
+    background: linear-gradient(168deg, var(--ivory) 0%, #efe3c4 55%, var(--ivory-2) 100%);
+    color: var(--tile-ink);
+    cursor: pointer;
+    box-shadow:
+      var(--ring, 0 0 0 0 transparent),
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.85),
+      inset 0 -2px 3px rgba(120, 90, 40, 0.25),
+      0 4px 0 -1px #b3955e,
+      0 7px 12px rgba(0, 0, 0, 0.45);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+  .tile:hover { transform: translateY(-3px) rotate(-1deg); }
+  .tile .L {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: 30px;
+    font-variation-settings: 'opsz' 144;
+    line-height: 1;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+  .tile .p {
+    position: absolute; right: 5px; bottom: 3px;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    color: #6b5a3a;
+  }
+  .tile .p.boosted { color: var(--red); }
+  /* A coat of paint: the letter takes the colour, and a band along the top
+     edge says so even where the letter is small. */
+  .tile--crimson .L { color: var(--crimson); } .tile--crimson::before { background: var(--crimson); }
+  .tile--azure   .L { color: var(--azure); }   .tile--azure::before   { background: var(--azure); }
+  .tile--jade    .L { color: var(--jade); }    .tile--jade::before    { background: var(--jade); }
+  .tile--amber   .L { color: var(--amber); }   .tile--amber::before   { background: var(--amber); }
+  .tile[class*="tile--"]::before {
+    content: '';
+    position: absolute; left: 6px; right: 6px; top: 3px;
+    height: 3px; border-radius: 2px;
+    opacity: 0.85;
+  }
+  .tile--gold   { --ring: inset 0 0 0 2.5px #d8ad4a; }
+  .tile--silver { --ring: inset 0 0 0 2.5px #b9c3ce; }
+  .tile--selected {
+    transform: translateY(-6px) rotate(-1.5deg);
+    box-shadow:
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.85),
+      0 4px 0 -1px #b3955e,
+      0 0 0 2.5px var(--red),
+      0 10px 16px rgba(0, 0, 0, 0.5);
+  }
+  .tile--selected::after {
+    content: '✕';
+    position: absolute; top: -18px; left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--serif); font-weight: 900; font-size: 12px;
+    color: var(--red);
+  }
+
+  /* ─── The type case, the bag and the hellbox ────────────────────────────── */
+  .case-row {
+    display: grid;
+    grid-template-columns: 84px 1fr 84px;
+    grid-template-areas: "bag case box";
+    gap: 14px;
+    align-items: center;
+  }
+  .bag { grid-area: bag; }
+  .case { grid-area: case; }
+  .hellbox { grid-area: box; }
+  .case {
+    display: grid;
+    grid-template-columns: repeat(var(--places, 10), minmax(0, 1fr));
+    gap: 6px;
+    padding: 9px;
+    border-radius: 4px;
+    background: linear-gradient(180deg, #7a5537 0%, #5b3d27 20%, #3e2919 100%);
+    box-shadow:
+      inset 0 2px 0 rgba(255, 220, 170, 0.18),
+      inset 0 -6px 12px rgba(0, 0, 0, 0.45),
+      0 10px 22px -8px rgba(0, 0, 0, 0.7);
+  }
+  .place {
+    display: grid; place-items: center;
+    height: calc(var(--tile-h) + 16px);
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.32);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6), inset 0 -1px 0 rgba(255, 220, 170, 0.08);
+  }
+  .thing {
+    display: grid; justify-items: center; gap: 4px;
+    background: none; border: 0; cursor: default;
+    font-family: var(--fell-sc);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: rgba(237, 227, 201, 0.7);
+  }
+  .thing .shape {
+    position: relative;
+    width: 56px; height: 52px;
+  }
+  .bag .shape {
+    border-radius: 45% 45% 50% 50% / 30% 30% 60% 60%;
+    background: linear-gradient(160deg, #b08a5a, #7b5a33 60%, #4f3820);
+    box-shadow: inset 0 -6px 10px rgba(0, 0, 0, 0.4), 0 6px 10px rgba(0, 0, 0, 0.5);
+  }
+  .bag .shape::before {
+    content: '';
+    position: absolute; left: 16px; right: 16px; top: -6px; height: 12px;
+    border-radius: 6px 6px 3px 3px;
+    background: linear-gradient(180deg, #c6a06c, #8a6640);
+    box-shadow: 0 2px 0 #4f3820;
+  }
+  .hellbox .shape {
+    top: 6px;
+    height: 40px;
+    border-radius: 3px;
+    background: linear-gradient(180deg, #4d372a, #2f2017);
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.7), 0 6px 10px rgba(0, 0, 0, 0.5);
+    border-top: 5px solid #6a4a32;
+  }
+  .count {
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 24px; height: 24px; padding: 0 6px;
+    display: grid; place-items: center;
+    border-radius: 12px;
+    font-family: var(--serif); font-weight: 700; font-size: 12px; letter-spacing: 0;
+    color: var(--ink);
+    background: var(--brass);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  }
+
+  /* ─── The press and the lesser controls ─────────────────────────────────── */
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .controls .spacer { flex: 1; }
+  .btn {
+    display: inline-flex; align-items: baseline; gap: 8px;
+    padding: 9px 16px 10px;
+    border: 1px solid rgba(255, 230, 190, 0.18);
+    border-radius: 3px;
+    background: linear-gradient(180deg, #5b3f2c, #3d2a1c);
+    color: var(--paper);
+    font-family: var(--fell-sc);
+    font-size: 15px;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    box-shadow: 0 3px 0 #1d120b, 0 6px 12px rgba(0, 0, 0, 0.45);
+  }
+  .btn kbd { font-family: var(--fell); font-style: italic; font-size: 12px; letter-spacing: 0; opacity: 0.6; }
+  .btn:hover:not(:disabled) { filter: brightness(1.15); }
+  .btn:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 1px 0 #1d120b; }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn--armed { background: linear-gradient(180deg, #8a3a26, #5e2314); border-color: rgba(255, 160, 130, 0.35); }
+  .press {
+    padding: 14px 34px 15px;
+    font-size: 22px;
+    letter-spacing: 4px;
+    color: var(--ivory);
+    background: linear-gradient(180deg, #c8462a 0%, var(--red) 40%, #8d2c14 100%);
+    border: 1px solid rgba(60, 10, 0, 0.7);
+    box-shadow: 0 5px 0 #4d1608, 0 10px 22px rgba(178, 58, 30, 0.35);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+  }
+  .press:active:not(:disabled) { transform: translateY(4px); box-shadow: 0 1px 0 #4d1608; }
+  .press kbd { color: rgba(255, 230, 210, 0.75); }
+  .status {
+    flex-basis: 100%;
+    min-height: 22px;
+    text-align: right;
+    font-style: italic;
+    color: rgba(237, 227, 201, 0.6);
+  }
+
+  /* ─── What this mock argues ─────────────────────────────────────────────── */
+  .legend {
+    margin: 34px auto 0;
+    max-width: 720px;
+    color: var(--paper-ink);
+    background: linear-gradient(175deg, var(--ivory), var(--paper) 60%, var(--paper-2));
+    padding: 16px 22px 14px;
+    transform: rotate(0.4deg);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 12px 22px -10px rgba(0, 0, 0, 0.6);
+    font-size: 14.5px;
+  }
+  .legend h2 {
+    margin: 0 0 6px;
+    font-family: var(--fell-sc);
+    font-weight: 400;
+    font-size: 15px;
+    letter-spacing: 2px;
+    border-bottom: 1px solid var(--paper-ink);
+    padding-bottom: 4px;
+  }
+  .legend ol { margin: 0; padding-left: 1.2em; }
+  .legend li { margin: 4px 0; }
+  .legend li b { font-family: var(--fell-sc); font-weight: 400; letter-spacing: 0.5px; }
+  .legend p { margin: 8px 0 0; font-style: italic; color: var(--paper-dim); }
+
+  /* ─── Phones ────────────────────────────────────────────────────────────── */
+  @media (max-width: 760px) {
+    :root { --tile-w: 44px; --tile-h: 52px; --gap: 5px; --inset: 10px; }
+    .bench { padding: 8px 10px 30px; }
+    .sign { flex-wrap: wrap; gap: 8px 12px; padding-bottom: 8px; }
+    .sign h1 { font-size: 20px; }
+    .sign .sub { display: none; }
+    .desk {
+      grid-template-columns: 1fr;
+      grid-template-areas: "sheet" "rack" "stick" "case" "ctrl";
+      gap: 10px;
+    }
+    .sheet { transform: none; padding: 10px 12px 10px; }
+    .sheet-title { display: none; }
+    .line { height: 24px; font-size: 14px; }
+    .rack { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; padding: 8px; min-height: 0; }
+    .slot { min-height: 74px; }
+    .card { inset: 4px 3px 3px; padding: 4px; }
+    .card .name { font-size: 9px; letter-spacing: 0; line-height: 1.1; overflow-wrap: anywhere; }
+    .card .rule { display: none; }
+    .card .face { font-size: 18px; }
+    .take { font-size: 12px; left: -6px; bottom: -7px; padding: 1px 5px 2px; }
+    .stick-row { grid-template-columns: 1fr; gap: 10px; }
+    .stick { min-height: 112px; padding-top: 12px; }
+    .stick::before { top: 8px; }
+    .knee { top: 5px; width: 12px; }
+    .rule-bar { height: 38px; }
+    .tick-label { font-size: 10.5px; bottom: 20px; }
+    .proof { transform: none; min-height: 0; padding: 8px 12px 10px; flex-direction: row; align-items: center; gap: 10px; }
+    .proof::before { display: none; }
+    .proof-head { display: none; }
+    .total-row { border-top: 0; border-left: 2px solid var(--paper-ink); padding: 0 0 0 10px; margin: 0; flex-direction: column; align-items: flex-end; }
+    .total { font-size: 30px; }
+    .case-row { grid-template-columns: 1fr 1fr; grid-template-areas: "case case" "bag box"; gap: 8px; }
+    .case { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 5px; padding: 7px; }
+    .place { height: calc(var(--tile-h) + 10px); }
+    .thing { grid-auto-flow: column; align-items: center; justify-self: start; }
+    .hellbox { justify-self: end; }
+    .thing .shape { width: 40px; height: 36px; }
+    .btn { padding: 8px 12px 9px; font-size: 13px; }
+    .btn kbd { display: none; }
+    .press { padding: 12px 22px; font-size: 18px; flex: 1; justify-content: center; }
+    .status { text-align: center; }
+    .tile .L { font-size: 22px; }
+    .tile .p { font-size: 9.5px; right: 3px; bottom: 2px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="bench">
+  <header class="sign">
+    <h1>Great Work <span class="mark">❦</span></h1>
+    <span class="sub">the board, re-set as a compositor's bench — a proof of concept</span>
+    <span class="spacer"></span>
+    <span class="purse"><span class="coin"></span><span id="coins">3</span></span>
+  </header>
+
+  <main class="desk">
+    <section class="sheet" id="sheet" aria-label="The page being set"></section>
+    <section class="rack" id="rack" aria-label="Patrons"></section>
+
+    <section class="stick-row">
+      <div class="stick" id="stick" aria-label="The composing stick">
+        <div class="stick-tiles" id="word" role="list"></div>
+        <div class="knee" id="knee" aria-hidden="true"></div>
+        <div class="rule-bar" id="ruleBar" aria-hidden="true"></div>
+        <span class="rule-name">the measure</span>
+      </div>
+      <aside class="proof" id="proof" aria-live="polite"></aside>
+    </section>
+
+    <section class="case-row">
+      <button class="thing bag" title="Sorts waiting in the bag" type="button">
+        <span class="shape"><span class="count" id="bagCount">0</span></span>
+        <span>bag</span>
+      </button>
+      <div class="case" id="case" role="list" aria-label="The type case — your hand"></div>
+      <button class="thing hellbox" title="Sorts printed or spoiled this page" type="button">
+        <span class="shape"><span class="count" id="boxCount">0</span></span>
+        <span>hellbox</span>
+      </button>
+    </section>
+
+    <section class="controls">
+      <button class="btn" id="btnDiscard" type="button"><span id="discardLabel">Discard</span><kbd>spoil sorts for fresh</kbd></button>
+      <button class="btn" id="btnShuffle" type="button">Shuffle<kbd>space</kbd></button>
+      <button class="btn" id="btnClear" type="button">Clear<kbd>esc</kbd></button>
+      <span class="spacer"></span>
+      <button class="btn press" id="btnPrint" type="button">Print<kbd>↵</kbd></button>
+      <p class="status" id="status">tap a sort in the case, or type</p>
+    </section>
+  </main>
+
+  <aside class="legend">
+    <h2>What this bench argues</h2>
+    <ol>
+      <li><b>The stick is a ruler.</b> The length multiplier is engraved along the composing stick, so how far a word reaches <em>is</em> the measure — you read ×2½ off the scale under the seventh sort rather than off a chip.</li>
+      <li><b>The page is the status.</b> Chapter, folio, quota, words left and the words already set are one sheet of paper: the page you are filling. The quota inks in along its foot.</li>
+      <li><b>The case shows the hand.</b> One compartment per place, so a wider hand is more compartments, not a number somewhere.</li>
+      <li><b>The proof sets the arithmetic in type.</b> Points, then each seat in running order, then the measure and the paints — named, in order, and only the factors that apply.</li>
+      <li><b>One surface, no panels.</b> Objects on a bench instead of six rounded boxes; small capitals from the printed page instead of sans-serif micro-labels; the one loud thing is the red ink.</li>
+    </ol>
+    <p>Everything here is a sketch of the board only: three patrons, no dictionary, one page. Tap a sort or type; ↵ prints.</p>
+  </aside>
+</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const PTS = { A:1,B:4,C:3,D:2,E:1,F:5,G:3,H:4,I:1,J:10,K:6,L:1,M:3,N:1,O:1,P:3,Q:10,R:1,S:1,T:1,U:2,V:6,W:6,X:8,Y:5,Z:8 };
+  const VOWELS = 'AEIOU';
+  const HAND = 10, WORDS = 5, QUOTA = 30, CAPACITY_MAX = 16;
+  // The measure is engraved in halves (×2½); everything else reads decimal.
+  const fmt = v => {
+    const r = Math.round(v * 100) / 100;
+    if (Number.isInteger(r)) return String(r);
+    if (Math.abs(r * 2 - Math.round(r * 2)) < 1e-9) return `${Math.floor(r) || ''}½`;
+    return String(r);
+  };
+  const dec = v => String(Math.round(v * 100) / 100);
+
+  let nextId = 1;
+  const mk = (L, extra = {}) => ({ id: nextId++, L, pts: PTS[L], ...extra });
+  const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+  const PATRONS = [
+    { id: 'siren', name: 'The Siren', face: '🎶', rarity: 'common', pin: '#2e6fb2',
+      rule: 'Vowels gain +2 Points, or +6 if they are azure.' },
+    { id: 'sesquipedalian', name: 'The Sesquipedalian', face: '📏', rarity: 'uncommon', pin: null,
+      rule: '+0.1 Mult per letter of the longest word printed this run, counting the word being set.' },
+    { id: 'novelist', name: 'The Novelist', face: '🖋️', rarity: 'uncommon', pin: null,
+      rule: '×2 Mult for words of 7+ letters.' },
+    null, null,
+  ];
+
+  const S = {
+    bag: [], hand: [], word: [], page: [],
+    box: 0, wordsLeft: WORDS, discards: 2, quota: QUOTA, pageScore: 0,
+    longest: 0, discardMode: false, selected: new Set(), done: false, last: null,
+  };
+
+  function seed() {
+    S.hand = [
+      mk('P'), mk('R', { trim: 'gold' }), mk('I', { colour: 'azure' }), mk('N'), mk('T'),
+      mk('E', { colour: 'jade' }), mk('R'), mk('S', { trim: 'silver' }), mk('A'), mk('O', { colour: 'azure' }),
+    ];
+    S.bag = shuffle('EEEEEAAAIIOOUNNRRTTLLSSDDGBCMPFHVWYKJXQZ'.split('')).map(L => mk(L));
+    // a little dressing in the bag, so later hands have colour too
+    S.bag[3].colour = 'crimson'; S.bag[9].colour = 'amber'; S.bag[14].trim = 'gold'; S.bag[20].colour = 'jade';
+  }
+
+  // ── Scoring: a sketch of the real thing, in the real order ──────────────────
+  function score(word) {
+    const n = word.length;
+    const tiles = word.map(t => ({ ...t, shown: t.pts + (t.trim === 'silver' ? 5 : 0) }));
+    let sirenTake = 0;
+    for (const t of tiles) if (VOWELS.includes(t.L)) { const b = t.colour === 'azure' ? 6 : 2; t.shown += b; sirenTake += b; }
+    const base = tiles.reduce((a, t) => a + t.shown, 0);
+    const measure = n >= 6 ? 2 + (n - 6) * 0.5 : 1;
+    const colours = {};
+    for (const t of tiles) if (t.colour) colours[t.colour] = (colours[t.colour] || 0) + 1;
+
+    const seats = [], takes = {};
+    let points = base;
+    if (sirenTake) takes.siren = `+${sirenTake}`;
+    let pmult = 1;
+    if (n) {
+      const m = Math.round(Math.max(S.longest, n) * 10) / 100;
+      pmult += m; takes.sesquipedalian = `+${dec(m)}`;
+      seats.push({ id: 'sesquipedalian', label: 'Sesquipedalian', value: `+${dec(m)}` });
+    }
+    points = Math.round(points * pmult);
+    if (n >= 7) { points *= 2; takes.novelist = '×2'; seats.push({ id: 'novelist', label: 'Novelist', value: '×2' }); }
+
+    const factors = [];
+    if (measure > 1) factors.push({ kind: 'measure', label: 'the measure', value: `×${fmt(measure)}` });
+    for (const [c, k] of Object.entries(colours)) factors.push({ kind: c, label: c, value: `×${k + 1}` });
+    const mult = measure * Object.values(colours).reduce((a, k) => a * (k + 1), 1);
+    const total = n ? Math.round(points * mult) : 0;
+    return { n, tiles, base, seats, takes, factors, total };
+  }
+
+  // ── Rendering ───────────────────────────────────────────────────────────────
+  function tileEl(t, zone, shown) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'tile' + (t.colour ? ` tile--${t.colour}` : '') + (t.trim ? ` tile--${t.trim}` : '')
+                + (S.selected.has(t.id) ? ' tile--selected' : '');
+    b.dataset.id = t.id; b.dataset.zone = zone;
+    b.setAttribute('role', 'listitem');
+    const resting = t.pts + (t.trim === 'silver' ? 5 : 0);
+    const p = shown ?? resting;
+    b.innerHTML = `<span class="L">${t.L}</span><span class="p${p !== resting ? ' boosted' : ''}">${p}</span>`;
+    b.title = [t.colour ? `painted ${t.colour}` : '', t.trim ? `${t.trim} trim` : ''].filter(Boolean).join(', ') || 'plain lead';
+    return b;
+  }
+
+  function renderSheet() {
+    const lines = [];
+    for (let i = 0; i < WORDS; i++) {
+      const r = S.page[i];
+      const next = !r && i === S.page.length && !S.done;
+      lines.push(`<div class="line${next ? ' line--next' : ''}${r?.fresh ? ' line--fresh' : ''}" data-n="${i + 1}">`
+        + (r ? `<span class="w">${r.word}</span><span class="score">${r.score}</span>` : '') + `</div>`);
+    }
+    const met = S.pageScore >= S.quota;
+    const pct = Math.min(100, Math.round(100 * S.pageScore / S.quota));
+    $('sheet').innerHTML = `
+      <div class="sheet-head"><span class="chapter">Chapter I</span><span class="folio">page 1 of 3</span></div>
+      <div class="sheet-title">“The coming of the insects”</div>
+      <div class="lines">${lines.join('')}</div>
+      <div class="sheet-foot">
+        <span>quota <span class="quota-figure"><b>${S.pageScore}</b> / ${S.quota}</span>${met ? ' — met' : ''}</span>
+        <span class="spoils">spoils ${[0, 1].map(i => `<b class="${i < 2 - S.discards ? 'used' : ''}">✕</b>`).join('')}</span>
+        <span class="quota-rule${met ? ' met' : ''}"><i style="width:${pct}%"></i></span>
+      </div>`;
+    S.page.forEach(r => { r.fresh = false; });
+  }
+
+  function renderRack(sc) {
+    $('rack').innerHTML = PATRONS.map(p => {
+      if (!p) return `<div class="slot slot--empty" title="An empty seat — patrons are hired at the Market"></div>`;
+      const take = sc.takes[p.id];
+      return `<div class="slot"><div class="card card--${p.rarity}${take ? ' card--armed' : ''}" title="${p.name} — ${p.rule}">
+        ${p.pin ? `<span class="pin" style="--pin:${p.pin}"></span>` : ''}
+        <span class="face">${p.face}</span><span class="name">${p.name}</span><span class="rule">${p.rule}</span>
+        ${take ? `<span class="take">${take}</span>` : ''}
+      </div></div>`;
+    }).join('');
+  }
+
+  function renderStick(sc) {
+    const w = $('word');
+    w.innerHTML = '';
+    sc.tiles.forEach(t => w.appendChild(tileEl(t, 'word', t.shown)));
+    // the ruler: one tick per em, the multiplier engraved from the sixth
+    const css = getComputedStyle(document.documentElement);
+    const tw = parseFloat(css.getPropertyValue('--tile-w')), gap = parseFloat(css.getPropertyValue('--gap')), inset = parseFloat(css.getPropertyValue('--inset'));
+    const slot = tw + gap;
+    const stickW = $('stick').clientWidth;
+    const capacity = Math.min(CAPACITY_MAX, Math.floor((stickW - inset - 24) / slot));
+    let ticks = '';
+    for (let i = 1; i <= capacity; i++) {
+      const x = inset + i * slot - gap / 2;
+      const major = i >= 6;
+      ticks += `<span class="tick${major ? ' major' : ''}${i <= sc.n ? ' on' : ''}" style="left:${x}px"></span>`;
+      if (major) ticks += `<span class="tick-label${i === sc.n ? ' here' : ''}" style="left:${x}px">×${fmt(2 + (i - 6) * 0.5)}</span>`;
+    }
+    $('ruleBar').innerHTML = ticks;
+    const last = w.lastElementChild;
+    $('knee').style.left = `${last ? inset + last.offsetLeft + last.offsetWidth + 5 : inset - 2}px`;
+  }
+
+  function renderProof(sc) {
+    const parts = [];
+    if (sc.n) {
+      parts.push(`<span class="factor"><span class="v">${sc.base}</span><span class="l">points</span></span>`);
+      for (const s of sc.seats) parts.push(`<span class="factor factor--seat"><span class="v">${s.value}</span><span class="l">${s.label}</span></span>`);
+      for (const f of sc.factors) parts.push(`<span class="factor factor--${f.kind}"><span class="v">${f.value}</span><span class="l">${f.label}</span></span>`);
+    } else if (S.last) {
+      parts.push(`<span class="idle">last printed: ${S.last.word}</span>`);
+    } else {
+      parts.push(`<span class="idle">nothing set</span>`);
+    }
+    const total = sc.n ? sc.total : S.last ? S.last.total : '—';
+    $('proof').innerHTML = `<div class="proof-head">proof</div><div class="factors">${parts.join('')}</div>
+      <div class="total-row"><span class="l">${sc.n || !S.last ? 'total' : 'printed'}</span><span class="total" id="total">${total}</span></div>`;
+  }
+
+  function renderCase() {
+    const c = $('case');
+    c.style.setProperty('--places', HAND);
+    c.innerHTML = '';
+    for (let i = 0; i < HAND; i++) {
+      const place = document.createElement('div');
+      place.className = 'place';
+      const t = S.hand[i];
+      if (t) place.appendChild(tileEl(t, 'hand'));
+      c.appendChild(place);
+    }
+    $('bagCount').textContent = S.bag.length;
+    $('boxCount').textContent = S.box;
+  }
+
+  function renderControls(sc) {
+    const sel = S.selected.size;
+    $('btnPrint').disabled = !S.word.length || S.done;
+    $('btnClear').disabled = !S.word.length && !S.discardMode;
+    $('btnShuffle').disabled = S.hand.length < 2;
+    $('btnDiscard').disabled = (!S.discardMode && S.discards <= 0) || S.done;
+    $('btnDiscard').classList.toggle('btn--armed', S.discardMode);
+    $('discardLabel').textContent = !S.discardMode ? 'Discard' : sel ? `Discard ${sel}` : 'Cancel';
+    $('status').textContent = S.done ? 'the page is set — the Market would open here'
+      : S.discardMode ? 'tap the sorts to spoil, then confirm'
+      : sc.n ? `${sc.n} letter${sc.n === 1 ? '' : 's'} — ${S.wordsLeft} word${S.wordsLeft === 1 ? '' : 's'} left on the page`
+      : 'tap a sort in the case, or type';
+  }
+
+  function render() {
+    const sc = score(S.word);
+    renderSheet(); renderRack(sc); renderStick(sc); renderProof(sc); renderCase(); renderControls(sc);
+  }
+
+  // ── Actions ─────────────────────────────────────────────────────────────────
+  const moveToWord = id => { const i = S.hand.findIndex(t => t.id === id); if (i < 0) return; S.word.push(S.hand.splice(i, 1)[0]); };
+  const moveToHand = id => { const i = S.word.findIndex(t => t.id === id); if (i < 0) return; S.hand.push(S.word.splice(i, 1)[0]); };
+  const refill = () => { while (S.hand.length < HAND && S.bag.length) S.hand.push(S.bag.shift()); };
+
+  function print() {
+    if (!S.word.length || S.done) return;
+    const sc = score(S.word);
+    const word = S.word.map(t => t.L).join('');
+    S.page.push({ word, score: sc.total, fresh: true });
+    S.last = { word, total: sc.total };
+    S.pageScore += sc.total;
+    S.longest = Math.max(S.longest, sc.n);
+    S.wordsLeft -= 1;
+    S.box += S.word.length;
+    S.word = [];
+    refill();
+    if (S.wordsLeft <= 0 || S.pageScore >= S.quota) S.done = true;
+    render();
+    $('total').classList.add('slam');
+  }
+
+  function discard() {
+    if (S.done) return;
+    if (!S.discardMode) { if (S.discards <= 0) return; S.discardMode = true; S.selected.clear(); render(); return; }
+    if (!S.selected.size) { S.discardMode = false; render(); return; }
+    S.hand = S.hand.filter(t => !S.selected.has(t.id));
+    S.box += S.selected.size;
+    S.selected.clear();
+    S.discards -= 1;
+    S.discardMode = false;
+    refill();
+    render();
+  }
+
+  function clear() {
+    if (S.discardMode) { S.discardMode = false; S.selected.clear(); }
+    else while (S.word.length) moveToHand(S.word[S.word.length - 1].id);
+    render();
+  }
+
+  document.addEventListener('click', e => {
+    const tile = e.target.closest('.tile');
+    if (!tile) return;
+    const id = Number(tile.dataset.id);
+    if (S.discardMode) {
+      if (tile.dataset.zone !== 'hand') return;
+      S.selected.has(id) ? S.selected.delete(id) : S.selected.add(id);
+    } else if (tile.dataset.zone === 'hand') moveToWord(id);
+    else moveToHand(id);
+    render();
+  });
+  $('btnPrint').addEventListener('click', print);
+  $('btnDiscard').addEventListener('click', discard);
+  $('btnClear').addEventListener('click', clear);
+  $('btnShuffle').addEventListener('click', () => { shuffle(S.hand); render(); });
+
+  document.addEventListener('keydown', e => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === 'Enter') { print(); e.preventDefault(); }
+    else if (e.key === 'Escape') { clear(); }
+    else if (e.key === ' ') { shuffle(S.hand); render(); e.preventDefault(); }
+    else if (e.key === 'Backspace') { if (S.word.length) { moveToHand(S.word[S.word.length - 1].id); render(); } e.preventDefault(); }
+    else if (/^[a-z]$/i.test(e.key) && !S.discardMode) {
+      const L = e.key.toUpperCase();
+      const t = S.hand.find(t => t.L === L);
+      if (t) { moveToWord(t.id); render(); }
+    }
+  });
+  window.addEventListener('resize', () => renderStick(score(S.word)));
+
+  seed();
+  // open with a word half set, so the first look shows the stick at work
+  for (const L of ['P', 'R', 'I', 'N', 'T']) moveToWord(S.hand.find(t => t.L === L).id);
+  render();
+})();
+</script>
+</body>
+</html>
