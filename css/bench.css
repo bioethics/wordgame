@@ -771,9 +771,18 @@ html[data-look="bench"] .rack-row {
 /* One socket per place the hand holds (--places, set in renderRack): the
    sockets are a stripe pattern one em wide on the case's content box, so a
    sort sits in its socket and an empty place shows the recess. Its width is
-   the hand's, centred in the row; a hand too wide for a phone wraps. */
+   the hand's, centred in the row; a hand too wide for a phone wraps.
+
+   The width has to be exact, because auto-fill cuts a column only where a
+   whole one fits: two pixels short and the last place drops to a second row
+   with the space for it still showing. Everything on the page is border-box,
+   so the figure must carry the padding AND the border, and the two pixels of
+   slack are for the sub-pixel rounding the UI zoom introduces — spare width
+   is harmless here, since the columns are fixed and packed from the start. */
 html[data-look="bench"] .rack {
   --bn-case-gap: 7px;
+  --bn-case-pad: 11px;    /* the case's own side walls */
+  --bn-case-pad-y: 10px;  /* the head; the foot takes 2px more, for the lip */
   --bn-slot: calc(var(--tile-w) + var(--bn-case-gap));
   display: grid;
   grid-template-columns: repeat(auto-fill, var(--tile-w));
@@ -783,10 +792,13 @@ html[data-look="bench"] .rack {
   align-items: center;
   justify-items: center;
   gap: 10px var(--bn-case-gap);
-  width: min(100%, calc(var(--places, 10) * var(--bn-slot) - var(--bn-case-gap) + 22px));
+  width: min(100%, calc(var(--places, 10) * var(--bn-slot) - var(--bn-case-gap)
+                        + 2 * var(--bn-case-pad) + 2px + 2px));
   justify-self: center;
-  min-height: 0;
-  padding: 10px 11px 12px;
+  /* An empty case still shows its sockets, so the deal has somewhere to land
+     and the board doesn't jump as the last sort leaves the hand. */
+  min-height: calc(var(--tile-h) + 6px + 2 * var(--bn-case-pad-y) + 4px);
+  padding: var(--bn-case-pad-y) var(--bn-case-pad) calc(var(--bn-case-pad-y) + 2px);
   border-radius: 4px;
   border: 1px solid rgba(0, 0, 0, 0.6);
   background-image:
@@ -833,14 +845,13 @@ html[data-look="bench"] .btn {
   border: 1px solid rgba(255, 230, 190, 0.18);
   box-shadow: 0 3px 0 #1d120b, 0 6px 12px rgba(0, 0, 0, 0.45);
 }
-html[data-look="bench"] .btn kbd {
-  font-family: var(--bn-fell);
-  font-style: italic;
-  font-size: 12px;
-  letter-spacing: 0;
-  text-transform: none;
-  opacity: 0.6;
-}
+/* Nobody needs telling what Discard and Shuffle mean, and a shortcut printed
+   on every button is four captions of furniture in the one place the eye has
+   real work to do. The keys are listed in Settings instead; the buttons keep
+   their tooltips. (The one caption that was guidance rather than a shortcut —
+   "tap tiles, then confirm" — is already said in the status bar the moment a
+   discard is armed: LOG_TEXT.discardArmed in js/text.js.) */
+html[data-look="bench"] .btn kbd { display: none; }
 html[data-look="bench"] .btn-quiet { background: linear-gradient(180deg, #5b3f2c, #3d2a1c); }
 html[data-look="bench"] .btn-discard {
   color: #dbe6f4;
@@ -936,10 +947,11 @@ html[data-look="bench"] .log {
   html[data-look="bench"] .rack-row { grid-template-columns: 1fr 1fr; gap: 6px; }
   html[data-look="bench"] .rack {
     --bn-case-gap: 5px;
+    --bn-case-pad: 8px;
+    --bn-case-pad-y: 7px;
     grid-column: 1 / -1;
     grid-row: 1;
     gap: 8px var(--bn-case-gap);
-    padding: 7px 8px 9px;
   }
   html[data-look="bench"] .btn { padding: 9px 6px; font-size: 13px; letter-spacing: 1px; }
   html[data-look="bench"] .btn kbd { display: none; }

@@ -5015,6 +5015,31 @@ input[type='checkbox'] {
 .file-label:hover { background: rgba(120, 90, 40, 0.22); }
 .file-input { display: none; }
 
+/* The keyboard shortcuts, off the board. A definition list because that is
+   what it is: the key, then what it does. */
+.key-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 5px 10px;
+  margin: 0;
+  font-size: 12.5px;
+}
+.key-list dt {
+  justify-self: start;
+  padding: 2px 7px 3px;
+  border-radius: 5px;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--parch-ink);
+  background: rgba(120, 90, 40, 0.14);
+  border: 1px solid rgba(120, 90, 40, 0.4);
+  box-shadow: 0 1.5px 0 rgba(100, 70, 20, 0.3);
+}
+.key-list dd { margin: 0; color: var(--parch-dim); }
+
 .dev-tools { margin-top: 14px; }
 .dev-tools summary {
   font-size: 11px;

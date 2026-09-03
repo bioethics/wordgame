@@ -49,7 +49,16 @@ The proof slip is the readout: Points, then the measure and the paints as inked
 stamps, only those that apply, and the total under a rule; what each *patron*
 adds stays on its own calling card, in the order the seats speak, because seat
 order is a rule of the game and a bar would flatten it. The type case is the
-hand, one socket per place, so a wider hand is more sockets.
+hand, one socket per place, so a wider hand is more sockets — and the case is
+sized to those places exactly, because `auto-fill` cuts a column only where a
+whole one fits and two pixels short drops the last sort to a second row with
+the space for it still showing.
+
+The bench's buttons say what they do and stop: no shortcut printed under each
+one, and no "swap tiles for new" under Discard. The keys are listed in Settings
+instead, and the one caption that was guidance rather than a shortcut — what to
+do once a discard is armed — is already said in the status bar (`discardArmed`
+in `js/text.js`). Retro keeps its captions.
 
 **Retro** is the board as it was — panels, chips and pips. It is `css/style.css`
 untouched: every rule of the bench lives in `css/bench.css` (the board) and

@@ -470,6 +470,15 @@ html[data-look="bench"] .theme-swatch-name, html[data-look="bench"] .layout-pick
 html[data-look="bench"] .theme-swatch-name { font-size: 10.5px; }
 html[data-look="bench"] .layout-pick-name { font-size: 13px; }
 html[data-look="bench"] .layout-pick-blurb { font-family: var(--bn-fell); font-style: italic; font-size: 11px; }
+html[data-look="bench"] .key-list dt {
+  font-family: var(--bn-fell-sc);
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--bn-ink);
+  border-radius: 2px;
+}
+html[data-look="bench"] .key-list dd { font-family: var(--bn-fell); color: var(--bn-dim); }
 html[data-look="bench"] .dev-tools summary { font-family: var(--bn-fell-sc); font-weight: 400; text-transform: none; letter-spacing: 1.5px; }
 html[data-look="bench"] .dev-row .btn { font-size: 12px; padding: 6px 10px; }
 html[data-look="bench"] .btn-danger { font-size: 14px; }
