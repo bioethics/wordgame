@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Fair and the Alley</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Caveat:wght@500;700&display=swap">
+<style>
+  /* ═══ The Fair and the Alley — the Market and the Black Market, re-set in the
+     bench's idiom, for review before they are built.
+
+     THE MARKET is a fair: a trestle of scrubbed deal under a striped awning,
+     laid over the bench. Calling cards in a tray, sorts in a type case with
+     tags tied on, sundries as things on the table, stalls as hanging signs.
+     Everything you hold — your table, your workbench — sits at the top, the
+     way it does now. One red: the awning and the leaving.
+
+     THE BLACK MARKET is the alley at night: a tarpaulin, one lantern, a black
+     cloth on the trestle. Prices are chalked, notes are pencilled, and the
+     back room's cards are the same ivory stock in worse light. */
+
+  :root {
+    --bench:      #3d2b20;
+    --bench-hi:   #4c372a;
+    --deal:       #b08b5e;
+    --deal-hi:    #c9a473;
+    --deal-lo:    #8d6b45;
+    --paper:      #ede3c9;
+    --paper-2:    #dfd2b0;
+    --ivory:      #f6efdc;
+    --ivory-2:    #e4d7b4;
+    --ink:        #221c16;
+    --dim:        #6d5c45;
+    --rule:       rgba(60, 42, 22, 0.24);
+    --red:        #b23a1e;
+    --red-dk:     #7d2711;
+    --brass:      #cba15a;
+    --brass-hi:   #ebc989;
+    --tag:        #e8d9a8;
+    --tile-ink:   #2a2117;
+    --night:      #0e1017;
+    --night-2:    #171a24;
+    --cloth:      #14151a;
+    --lantern:    rgba(255, 190, 110, 0.22);
+    --chalk:      #e9e3d2;
+
+    --crimson: #c94f43;
+    --azure:   #4f86c9;
+    --jade:    #3fa371;
+    --amber:   #d29a3a;
+
+    --serif:   'Fraunces', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+    --fell:    'IM Fell English', 'Iowan Old Style', Georgia, serif;
+    --fell-sc: 'IM Fell English SC', 'IM Fell English', Georgia, serif;
+    --hand:    'Caveat', 'Segoe Script', 'Bradley Hand', cursive;
+
+    --tile-w: 58px;
+    --tile-h: 64px;
+  }
+
+  * { box-sizing: border-box; }
+  html { background: var(--bench); }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--paper);
+    font-family: var(--fell);
+    font-size: 15px;
+    line-height: 1.35;
+    background:
+      radial-gradient(900px 500px at 50% 110%, rgba(0, 0, 0, 0.45), transparent 60%),
+      repeating-linear-gradient(92deg, rgba(255, 226, 180, 0.035) 0 2px, transparent 2px 9px, rgba(0, 0, 0, 0.06) 9px 11px, transparent 11px 23px),
+      linear-gradient(180deg, var(--bench-hi), var(--bench) 40%, #2a1c13);
+    -webkit-font-smoothing: antialiased;
+  }
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  button:focus-visible { outline: 3px solid var(--brass-hi); outline-offset: 2px; }
+
+  /* ─── The switch between the two ─────────────────────────────────────────── */
+  .which {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; gap: 14px;
+    padding: 10px 22px;
+    background: linear-gradient(180deg, rgba(20, 12, 8, 0.92), rgba(20, 12, 8, 0.75));
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(255, 220, 170, 0.12);
+  }
+  .which h1 { margin: 0; font-family: var(--fell-sc); font-weight: 400; font-size: 20px; letter-spacing: 2px; }
+  .which .sub { font-style: italic; color: rgba(237, 227, 201, 0.6); }
+  .which .spacer { flex: 1; }
+  .which button {
+    font-family: var(--fell-sc); font-size: 14px; letter-spacing: 1.5px;
+    padding: 6px 14px 7px; border-radius: 3px;
+    color: var(--paper); background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 230, 190, 0.2);
+  }
+  .which button[aria-pressed="true"] { background: var(--red); border-color: rgba(60, 10, 0, 0.6); color: #fff2e8; }
+  .view[hidden] { display: none; }
+
+  /* ─── The trestle ────────────────────────────────────────────────────────── */
+  .trestle {
+    position: relative;
+    max-width: 1180px;
+    margin: 30px auto 60px;
+    padding: 30px 30px 26px;
+    border-radius: 6px;
+    color: var(--paper);
+    background:
+      repeating-linear-gradient(90deg, rgba(255, 240, 210, 0.05) 0 3px, transparent 3px 14px, rgba(0, 0, 0, 0.05) 14px 16px, transparent 16px 31px),
+      linear-gradient(180deg, var(--deal-hi) 0%, var(--deal) 30%, var(--deal-lo) 100%);
+    box-shadow:
+      inset 0 2px 0 rgba(255, 245, 220, 0.5),
+      inset 0 -4px 0 rgba(60, 38, 18, 0.5),
+      0 30px 60px -20px rgba(0, 0, 0, 0.8);
+  }
+  /* The awning: canvas in the red, scalloped along its hem. */
+  .awning {
+    position: absolute; left: -14px; right: -14px; top: -22px;
+    height: 44px;
+    background: repeating-linear-gradient(90deg, var(--red) 0 42px, #efe2c2 42px 84px);
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0 8px 14px rgba(0, 0, 0, 0.4);
+  }
+  .awning::after {
+    content: '';
+    position: absolute; left: 0; right: 0; bottom: -12px; height: 12px;
+    background:
+      radial-gradient(12px 12px at 21px 0, var(--red) 11px, transparent 12px) 0 0 / 42px 12px repeat-x,
+      radial-gradient(12px 12px at 21px 0, #efe2c2 11px, transparent 12px) 42px 0 / 84px 12px repeat-x;
+  }
+  .head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 6px 20px;
+    margin: 18px 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(60, 38, 18, 0.35);
+  }
+  .head h2 {
+    margin: 0;
+    font-family: var(--fell-sc);
+    font-weight: 400;
+    font-size: 34px;
+    letter-spacing: 3px;
+    line-height: 1;
+    color: #3a2712;
+    text-shadow: 0 1px 0 rgba(255, 245, 220, 0.5);
+  }
+  .head .note { font-style: italic; color: #4a3520; margin-top: 4px; }
+  .purse {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: var(--serif); font-weight: 700; font-size: 20px;
+    color: #3a2712;
+  }
+  .coin {
+    display: inline-block;
+    width: 15px; height: 15px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffe9a8, #d3a539 60%, #8a5f16);
+    box-shadow: inset 0 0 0 1.5px rgba(90, 60, 8, 0.5), 0 1px 2px rgba(0, 0, 0, 0.5);
+    vertical-align: -1px;
+  }
+  .reward {
+    text-align: right;
+    font-size: 13px;
+    color: #4a3520;
+    font-style: italic;
+  }
+  .reward b { font-style: normal; font-family: var(--serif); color: #2f6e3e; }
+
+  /* Section labels are painted on the wood. */
+  .sec {
+    display: flex; align-items: baseline; gap: 10px;
+    margin: 0 0 10px;
+    font-family: var(--fell-sc);
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: #3a2712;
+  }
+  .sec .sub { font-family: var(--fell); font-style: italic; font-size: 13px; letter-spacing: 0; color: #5a4328; }
+  .sec::after { content: ''; flex: 1; height: 1px; background: rgba(60, 38, 18, 0.3); align-self: center; }
+
+  /* ─── What you hold: the table and the workbench ─────────────────────────── */
+  .hold { display: grid; grid-template-columns: 1fr auto; gap: 18px; margin-bottom: 22px; }
+  .rack {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+    padding: 9px;
+    border-radius: 5px;
+    background: linear-gradient(180deg, #2b1d14, #1a110b);
+    box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.7);
+  }
+  .rack--bench { grid-template-columns: repeat(2, 72px); }
+  .slot { position: relative; min-height: 84px; border-radius: 4px; background: rgba(0, 0, 0, 0.35); box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6); }
+  .slot--empty::after { content: '❧'; position: absolute; inset: 0; display: grid; place-items: center; color: rgba(237, 227, 201, 0.18); font-size: 16px; }
+  .seat {
+    position: absolute; inset: 5px 4px 3px;
+    padding: 6px 7px;
+    display: flex; flex-direction: column; gap: 2px;
+    color: var(--ink);
+    background: linear-gradient(170deg, var(--ivory), var(--paper) 60%, var(--paper-2));
+    border: 1px solid rgba(138, 95, 29, 0.45);
+    box-shadow: inset 0 0 0 3px rgba(255, 252, 240, 0.9), inset 0 0 0 4px var(--hair, rgba(138, 95, 29, 0.35)), 0 3px 8px rgba(0, 0, 0, 0.45);
+    transform: rotate(-0.8deg);
+    cursor: grab;
+  }
+  .slot:nth-child(even) .seat { transform: rotate(0.7deg); }
+  .seat--uncommon { --hair: rgba(47, 116, 92, 0.6); }
+  .seat--rare { --hair: rgba(112, 64, 160, 0.6); }
+  .seat .face { font-size: 20px; line-height: 1; }
+  .seat .name { font-family: var(--fell-sc); font-size: 11.5px; letter-spacing: 0.4px; line-height: 1.1; }
+  .x {
+    position: absolute; top: -7px; right: -7px;
+    width: 19px; height: 19px; border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    background: #7c2f28; color: #ffd9d2;
+    font-size: 10px; line-height: 1; padding: 0;
+  }
+  .tool {
+    position: absolute; inset: 6px 5px 4px;
+    display: grid; place-items: center; gap: 2px;
+    color: var(--ink);
+    background: linear-gradient(170deg, var(--ivory), var(--paper) 60%, var(--paper-2));
+    border: 1px solid rgba(138, 95, 29, 0.45);
+    box-shadow: inset 0 0 0 2px rgba(255, 252, 240, 0.9), 0 3px 8px rgba(0, 0, 0, 0.45);
+    font-size: 22px;
+  }
+  .tool small { font-family: var(--fell-sc); font-size: 9px; letter-spacing: 0.5px; color: var(--dim); }
+
+  /* ─── The grid of the fair ───────────────────────────────────────────────── */
+  .fair { display: grid; grid-template-columns: 1.05fr 1fr; gap: 26px; }
+  .col { min-width: 0; }
+
+  /* Calling cards, as now — ivory, a double rule tinted by rarity, a ribbon
+     for the livery — with the price as a paper tag tied to the corner. */
+  .cards { display: grid; gap: 12px; }
+  .card {
+    position: relative;
+    display: grid;
+    grid-template-columns: 78px 1fr;
+    gap: 10px;
+    min-height: 104px;
+    padding: 7px;
+    color: var(--ink);
+    background: linear-gradient(170deg, var(--ivory) 0%, var(--paper) 55%, var(--paper-2) 100%);
+    border: 1px solid rgba(138, 95, 29, 0.55);
+    box-shadow: inset 0 0 0 3px rgba(255, 252, 240, 0.9), inset 0 0 0 4px var(--hair, rgba(138, 95, 29, 0.4)), 0 4px 12px rgba(60, 40, 15, 0.3);
+    transform: rotate(-0.7deg);
+    cursor: pointer;
+  }
+  .card:nth-child(even) { transform: rotate(0.6deg); }
+  .card--uncommon { --hair: rgba(47, 116, 92, 0.55); --title: #2f745c; }
+  .card--rare     { --hair: rgba(112, 64, 160, 0.55); --title: #7040a0; }
+  .card--foil {
+    background:
+      linear-gradient(115deg, rgba(255, 255, 255, 0) 30%, rgba(255, 246, 214, 0.55) 44%, rgba(255, 214, 140, 0.75) 50%, rgba(255, 246, 214, 0.55) 56%, rgba(255, 255, 255, 0) 70%),
+      linear-gradient(170deg, #fbf1d6 0%, #f0dcae 100%);
+  }
+  .portrait {
+    display: grid; place-items: center;
+    background: repeating-linear-gradient(0deg, rgba(120, 95, 60, 0.08) 0 1px, transparent 1px 3px), rgba(255, 252, 240, 0.5);
+    border: 1px solid rgba(138, 95, 29, 0.3);
+    font-size: 34px;
+  }
+  .card .name { font-family: var(--fell-sc); font-size: 15px; letter-spacing: 0.5px; line-height: 1.1; }
+  .card .meta { font-family: var(--fell-sc); font-size: 10px; letter-spacing: 1.5px; color: var(--title, #7a5a2a); margin: 2px 0 4px; }
+  .card .rule { font-size: 12.5px; line-height: 1.3; color: #3d3020; }
+  .ribbon {
+    position: absolute; top: -3px; right: 16px;
+    width: 13px; height: 34px;
+    background: linear-gradient(175deg, color-mix(in srgb, var(--liv) 55%, white) -45%, var(--liv) 60%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+    box-shadow: 0 2px 3px rgba(60, 40, 15, 0.35);
+  }
+  .ribbon + .ribbon { right: 31px; height: 28px; }
+  /* The tag: manila stock, a punched hole and a string, the price in type. */
+  .tag {
+    position: absolute; right: -8px; bottom: -10px;
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 9px 4px 14px;
+    font-family: var(--serif); font-weight: 700; font-size: 14px;
+    color: var(--ink);
+    background: var(--tag);
+    border: 1px solid rgba(90, 65, 25, 0.5);
+    clip-path: polygon(8px 0, 100% 0, 100% 100%, 8px 100%, 0 50%);
+    transform: rotate(3deg);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+  }
+  .tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--deal-lo); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.4); margin-left: -6px; }
+  .tag--over { color: var(--red); }
+  .tag--free { color: #2f6e3e; }
+  .tag s { color: var(--dim); font-weight: 400; font-size: 12px; }
+
+  /* Sorts in a type case, a tag tied under each socket. */
+  .case {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 12px;
+    border-radius: 4px;
+    background: linear-gradient(180deg, #7a5537 0%, #5b3d27 20%, #3e2919 100%);
+    box-shadow: inset 0 2px 0 rgba(255, 220, 170, 0.18), inset 0 -6px 12px rgba(0, 0, 0, 0.45), 0 10px 22px -8px rgba(0, 0, 0, 0.7);
+  }
+  .socket {
+    position: relative;
+    display: grid; place-items: center;
+    padding: 12px 8px 22px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.34);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+  }
+  .socket .tag { right: auto; left: 50%; bottom: -8px; transform: translateX(-50%) rotate(-2deg); }
+  .socket .note {
+    position: absolute; left: 6px; top: 4px;
+    font-family: var(--hand); font-size: 13px; color: rgba(255, 240, 210, 0.7);
+  }
+  .tile {
+    position: relative;
+    width: var(--tile-w); height: var(--tile-h);
+    border: 1px solid rgba(86, 60, 24, 0.55);
+    border-radius: 5px;
+    background: linear-gradient(168deg, var(--ivory) 0%, #efe3c4 55%, var(--ivory-2) 100%);
+    color: var(--tile-ink);
+    box-shadow: var(--ring, 0 0 0 0 transparent), inset 0 1.5px 0 rgba(255, 255, 255, 0.85), inset 0 -2px 3px rgba(120, 90, 40, 0.25), 0 4px 0 -1px #b3955e, 0 7px 12px rgba(0, 0, 0, 0.45);
+  }
+  .tile .L { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--serif); font-weight: 900; font-size: 27px; line-height: 1; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6); }
+  .tile .L.two { font-size: 19px; letter-spacing: -1px; }
+  .tile .p { position: absolute; right: 5px; bottom: 3px; font-family: var(--serif); font-weight: 700; font-size: 11px; color: #6b5a3a; }
+  .tile .alt { position: absolute; right: 5px; top: 3px; font-family: var(--serif); font-weight: 700; font-size: 9px; color: #6b5a3a; }
+  .tile--crimson .L { color: var(--crimson); } .tile--azure .L { color: var(--azure); } .tile--jade .L { color: var(--jade); } .tile--amber .L { color: var(--amber); }
+  .tile[class*="tile--"]:not(.tile--gold):not(.tile--silver):not(.tile--ghost):not(.tile--rainbow):not(.tile--cursed):not(.tile--rose):not(.tile--blind)::before { content: ''; position: absolute; left: 6px; right: 6px; top: 3px; height: 3px; border-radius: 2px; background: currentColor; opacity: 0.85; }
+  .tile--crimson::before { color: var(--crimson); } .tile--azure::before { color: var(--azure); } .tile--jade::before { color: var(--jade); } .tile--amber::before { color: var(--amber); }
+  .tile--gold   { --ring: inset 0 0 0 2.5px #d8ad4a; }
+  .tile--silver { --ring: inset 0 0 0 2.5px #b9c3ce; }
+  .tile--nick-r { clip-path: polygon(0 0, 100% 0, 100% 38%, 88% 50%, 100% 62%, 100% 100%, 0 100%); }
+  /* The alley's metals */
+  .tile--ghost { background: linear-gradient(168deg, #dfe8f4, #b9c7d8); border: 1px dashed rgba(120, 150, 190, 0.8); opacity: 0.85; }
+  .tile--rainbow { background: linear-gradient(135deg, #f7c5c5, #f7e7b5 30%, #c9f0c9 55%, #bcd9ff 80%, #e2c9ff); }
+  .tile--cursed { background: linear-gradient(168deg, #3b2a2a, #1c1212); color: #ffb9a6; border-color: #000; }
+  .tile--cursed .L { color: #ff9d8e; text-shadow: none; } .tile--cursed .p { color: #d89a8c; }
+  .tile--rose { background: linear-gradient(168deg, #ffe4ea, #f5bfcc); }
+  .tile--blind { background: linear-gradient(168deg, #d9dbd6, #bfc3bd); }
+  .tile--blind .L { color: transparent; text-shadow: 0 1px 0 rgba(255,255,255,.7), 0 -1px 0 rgba(0,0,0,.25); }
+  .tile--squib { background: repeating-linear-gradient(45deg, #f0d59a 0 8px, #e2b34a 8px 16px); }
+
+  /* Sundries on the table: the object, its name, a tag. */
+  .things { display: grid; gap: 8px; }
+  .thing {
+    position: relative;
+    display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 10px;
+    padding: 8px 12px;
+    border-radius: 3px;
+    background: rgba(60, 38, 18, 0.28);
+    border: 1px solid rgba(60, 38, 18, 0.35);
+    cursor: pointer;
+  }
+  .thing .glyph { font-size: 22px; text-align: center; }
+  .thing .name { font-family: var(--fell-sc); font-size: 14px; letter-spacing: 0.5px; color: #2f2013; }
+  .thing .what { font-size: 12px; font-style: italic; color: #5a4328; }
+  .thing .tag { position: static; transform: rotate(2deg); }
+  .tube { width: 14px; height: 24px; margin: 0 auto; border-radius: 3px 3px 4px 4px; background: linear-gradient(90deg, #f0e6cc, #d9c9a0); border: 1px solid rgba(60, 38, 18, 0.5); position: relative; }
+  .tube::before { content: ''; position: absolute; left: 3px; right: 3px; top: -6px; height: 6px; background: var(--col); border-radius: 2px 2px 0 0; }
+  .tube::after { content: ''; position: absolute; left: 2px; right: 2px; top: 6px; bottom: 4px; background: var(--col); opacity: 0.85; border-radius: 1px; }
+
+  /* Stalls: signs hung on a rail. */
+  .stalls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 22px; }
+  .sign {
+    position: relative;
+    padding: 14px 16px 12px;
+    color: var(--paper);
+    background: linear-gradient(180deg, #4a3222, #33221a);
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    border-radius: 3px;
+    box-shadow: inset 0 1px 0 rgba(255, 220, 170, 0.15), 0 8px 16px -6px rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+  }
+  .sign::before, .sign::after {
+    content: ''; position: absolute; top: -12px; width: 2px; height: 12px; background: #8a7358;
+  }
+  .sign::before { left: 24px; } .sign::after { right: 24px; }
+  .sign .name { font-family: var(--fell-sc); font-size: 18px; letter-spacing: 2px; }
+  .sign .trade { font-style: italic; font-size: 13px; color: rgba(237, 227, 201, 0.7); margin-top: 2px; }
+  .sign .tag { bottom: auto; top: 10px; right: 12px; }
+
+  .foot { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 26px; }
+  .foot .spacer { flex: 1; }
+  .btn {
+    display: inline-flex; align-items: baseline; gap: 8px;
+    padding: 9px 16px 10px;
+    border: 1px solid rgba(255, 230, 190, 0.18);
+    border-radius: 3px;
+    background: linear-gradient(180deg, #5b3f2c, #3d2a1c);
+    color: var(--paper);
+    font-family: var(--fell-sc); font-size: 15px; letter-spacing: 1.5px;
+    box-shadow: 0 3px 0 #1d120b, 0 6px 12px rgba(0, 0, 0, 0.45);
+  }
+  .btn .coin { width: 12px; height: 12px; }
+  .btn--go {
+    padding: 12px 30px 13px; font-size: 19px; letter-spacing: 3px;
+    color: #f6efdc;
+    background: linear-gradient(180deg, #c8462a 0%, var(--red) 40%, #8d2c14 100%);
+    border: 1px solid rgba(60, 10, 0, 0.7);
+    box-shadow: 0 5px 0 #4d1608, 0 10px 22px rgba(178, 58, 30, 0.35);
+  }
+
+  /* ─── The alley ──────────────────────────────────────────────────────────── */
+  .alley {
+    background:
+      radial-gradient(520px 380px at 12% 0%, var(--lantern), transparent 65%),
+      repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0 3px, transparent 3px 14px),
+      linear-gradient(180deg, var(--night-2), var(--night) 40%, #090a0f);
+    color: #d9d4c6;
+    box-shadow: inset 0 2px 0 rgba(255, 220, 170, 0.08), 0 30px 60px -20px rgba(0, 0, 0, 0.9);
+  }
+  .alley .tarp {
+    position: absolute; left: -14px; right: -14px; top: -22px; height: 40px;
+    background: linear-gradient(180deg, #2d3a2a, #1c261b);
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0 8px 14px rgba(0, 0, 0, 0.6);
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 92% 100%, 84% 70%, 76% 100%, 68% 70%, 60% 100%, 52% 70%, 44% 100%, 36% 70%, 28% 100%, 20% 70%, 12% 100%, 4% 70%, 0 100%);
+  }
+  .alley .lantern {
+    position: absolute; left: 34px; top: -6px;
+    width: 26px; height: 44px;
+    border-radius: 6px 6px 8px 8px;
+    background: linear-gradient(180deg, #3a2a10, #7a5a1a 30%, #ffd27a 60%, #e0a040 100%);
+    border: 2px solid #1e1a12;
+    box-shadow: 0 0 40px 14px rgba(255, 190, 110, 0.35);
+  }
+  .alley .head { border-bottom-color: rgba(233, 227, 210, 0.18); }
+  .alley .head h2 { color: var(--chalk); text-shadow: none; font-family: var(--hand); font-weight: 700; font-size: 40px; letter-spacing: 0; }
+  .alley .head .note, .alley .reward { color: rgba(233, 227, 210, 0.7); }
+  .alley .purse { color: var(--chalk); }
+  .alley .sec { color: var(--chalk); }
+  .alley .sec .sub { color: rgba(233, 227, 210, 0.6); }
+  .alley .sec::after { background: rgba(233, 227, 210, 0.18); }
+  .alley .rack { background: linear-gradient(180deg, #0b0c10, #050608); }
+  .alley .seat, .alley .tool, .alley .card { filter: brightness(0.86) saturate(0.85); }
+  .alley .cloth {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 14px 10px;
+    padding: 18px 14px 14px;
+    background:
+      radial-gradient(400px 200px at 20% 0%, rgba(255, 190, 110, 0.08), transparent 70%),
+      var(--cloth);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8);
+  }
+  .alley .lot { position: relative; display: grid; justify-items: center; gap: 6px; padding-bottom: 20px; cursor: pointer; }
+  .alley .lot .chalk { font-family: var(--hand); font-size: 14px; color: rgba(233, 227, 210, 0.75); line-height: 1; white-space: nowrap; }
+  .alley .tag {
+    position: absolute; bottom: -8px; right: auto; left: 50%; transform: translateX(-50%) rotate(-2deg);
+    color: var(--chalk); background: #2a2c33; border-color: rgba(255, 255, 255, 0.25);
+    font-family: var(--hand); font-weight: 700; font-size: 16px;
+  }
+  .alley .tag::before { background: #0a0b0f; }
+  .alley .tag--over { color: #ffb08c; }
+  /* Only the lots on the cloth hang their tags from the middle; a thing on the
+     table and a card in the back room keep theirs where the fair puts them. */
+  .alley .thing .tag { position: static; transform: rotate(2deg); }
+  .alley .card .tag { left: auto; right: -8px; bottom: -10px; transform: rotate(3deg); }
+  .alley .cloth--six { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .alley .struck { position: absolute; top: 2px; right: 6px; font-family: var(--serif); font-weight: 900; font-size: 13px; color: #ffb08c; transform: rotate(-12deg); border: 2px solid #ffb08c; border-radius: 3px; padding: 0 4px; opacity: 0.9; }
+
+  .shells { display: grid; grid-template-columns: repeat(3, 1fr) auto; align-items: end; gap: 16px; padding: 16px 18px 14px; background: linear-gradient(180deg, #5a4630, #3c2e1f); border: 1px solid rgba(0, 0, 0, 0.6); border-radius: 3px; box-shadow: inset 0 2px 0 rgba(255, 220, 170, 0.12); }
+  .shell { display: grid; justify-items: center; gap: 6px; text-align: center; }
+  .shell .dome { width: 62px; height: 40px; border-radius: 31px 31px 6px 6px / 40px 40px 6px 6px; background: radial-gradient(circle at 40% 30%, #c39a6a, #6e4b2c 70%, #3e2915); box-shadow: 0 6px 10px rgba(0, 0, 0, 0.6); }
+  .shell .chalk { font-family: var(--hand); font-size: 15px; color: var(--chalk); }
+  .shell .what { font-size: 12px; font-style: italic; color: rgba(233, 227, 210, 0.6); }
+  .alley .bm-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 26px; margin-top: 22px; }
+  .alley .card { color: var(--ink); }
+  .alley .card .tag { font-family: var(--serif); background: #2a2c33; color: #ffb08c; }
+  .alley .btn--go { background: linear-gradient(180deg, #4a5a72, #2d3a4f 40%, #1c2635); box-shadow: 0 5px 0 #0c1119, 0 10px 22px rgba(0, 0, 0, 0.5); border-color: rgba(0, 0, 0, 0.7); }
+  .alley .thing { background: rgba(255, 255, 255, 0.04); border-color: rgba(255, 255, 255, 0.08); }
+  .alley .thing .name { color: var(--chalk); } .alley .thing .what { color: rgba(233, 227, 210, 0.6); }
+
+  /* ─── The argument, on a slip ────────────────────────────────────────────── */
+  .legend {
+    max-width: 760px; margin: 0 auto 60px;
+    color: var(--ink);
+    background: linear-gradient(175deg, var(--ivory), var(--paper) 60%, var(--paper-2));
+    padding: 16px 22px 14px;
+    transform: rotate(0.4deg);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 12px 22px -10px rgba(0, 0, 0, 0.6);
+    font-size: 14.5px;
+  }
+  .legend h2 { margin: 0 0 6px; font-family: var(--fell-sc); font-weight: 400; font-size: 15px; letter-spacing: 2px; border-bottom: 1px solid var(--ink); padding-bottom: 4px; }
+  .legend ul { margin: 0; padding-left: 1.2em; }
+  .legend li { margin: 4px 0; }
+  .legend b { font-family: var(--fell-sc); font-weight: 400; letter-spacing: 0.5px; }
+
+  @media (max-width: 820px) {
+    .trestle { margin: 24px 8px 40px; padding: 26px 12px 20px; }
+    .fair, .alley .bm-grid { grid-template-columns: 1fr; }
+    .hold { grid-template-columns: 1fr; }
+    .rack--bench { grid-template-columns: repeat(2, 72px); }
+    .alley .cloth { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .alley .cloth--six { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .stalls { grid-template-columns: 1fr; }
+    .shells { grid-template-columns: repeat(3, 1fr); }
+    .head { grid-template-columns: 1fr; }
+    .reward { text-align: left; }
+    .head h2 { font-size: 26px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<div class="which">
+  <h1>The Fair and the Alley</h1>
+  <span class="sub">the Market and the Black Market, re-set for the bench — for review</span>
+  <span class="spacer"></span>
+  <button id="pickFair" aria-pressed="true">The Market</button>
+  <button id="pickAlley" aria-pressed="false">The Black Market</button>
+</div>
+
+<!-- ═══ THE MARKET ═══════════════════════════════════════════════════════════ -->
+<section class="view trestle" id="fair">
+  <div class="awning" aria-hidden="true"></div>
+  <div class="head">
+    <div>
+      <h2>The Market</h2>
+      <div class="note">Between pages. Four callers, four sorts, three sundries and two stalls; New offers re-rolls the lot.</div>
+    </div>
+    <div>
+      <div class="purse"><span class="coin"></span> 9</div>
+      <div class="reward">The page paid <b>3</b> for the page and <b>1</b> in interest — <b>4 Coins</b></div>
+    </div>
+  </div>
+
+  <div class="hold">
+    <div>
+      <div class="sec">Your table <span class="sub">3 of 5 seated · drag a card to change the running order</span></div>
+      <div class="rack">
+        <div class="slot"><div class="seat"><span class="face">🎶</span><span class="name">Siren</span><button class="x" title="Dismiss for 2 Coins">✕</button></div></div>
+        <div class="slot"><div class="seat seat--uncommon"><span class="face">📏</span><span class="name">Sesquipedalian</span><button class="x">✕</button></div></div>
+        <div class="slot"><div class="seat seat--uncommon"><span class="face">🖋️</span><span class="name">Novelist</span><button class="x">✕</button></div></div>
+        <div class="slot slot--empty"></div>
+        <div class="slot slot--empty"></div>
+      </div>
+    </div>
+    <div>
+      <div class="sec">Workbench <span class="sub">1 of 2</span></div>
+      <div class="rack rack--bench">
+        <div class="slot"><div class="tool"><span class="tube" style="--col:var(--azure)"></span><small>tube</small><button class="x" title="Sell back for 1 Coin">✕</button></div></div>
+        <div class="slot slot--empty"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fair">
+    <div class="col">
+      <div class="sec">Patrons <span class="sub">calling today</span></div>
+      <div class="cards">
+        <div class="card card--uncommon">
+          <div class="portrait">🌒</div>
+          <div><div class="name">The Closer</div><div class="meta">uncommon</div><div class="rule">×3 Mult on the final word of each page.</div></div>
+          <span class="tag"><span class="coin"></span>7</span>
+        </div>
+        <div class="card card--foil">
+          <span class="ribbon" style="--liv:#2d8a5c"></span>
+          <div class="portrait">💠</div>
+          <div><div class="name">Dr Lapidary, PhD</div><div class="meta">common · jade · PhD · ×1.2 Mult</div><div class="rule">Jade tiles score for +1 Point for every jade tile in your collection.</div></div>
+          <span class="tag tag--over"><span class="coin"></span>9</span>
+        </div>
+        <div class="card card--uncommon">
+          <span class="ribbon" style="--liv:#a87010"></span><span class="ribbon" style="--liv:#2d8a5c"></span>
+          <div class="portrait">💸</div>
+          <div><div class="name">The Spendthrift</div><div class="meta">uncommon · amber &amp; jade</div><div class="rule">Every 5 Coins spent, one sort in your collection permanently gains Points equal to the current chapter.</div></div>
+          <span class="tag tag--free"><span class="coin"></span>5 <s>6</s></span>
+        </div>
+        <div class="card card--uncommon">
+          <span class="ribbon" style="--liv:#2d8a5c"></span>
+          <div class="portrait">🖍️</div>
+          <div><div class="name">The Dabbler</div><div class="meta">uncommon · jade</div><div class="rule">Whenever a tile is painted, a second unpainted tile has a 1-in-2 chance of taking the same colour.</div></div>
+          <span class="tag"><span class="coin"></span>7</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="sec">Tiles</div>
+      <div class="case">
+        <div class="socket"><div class="tile tile--silver"><span class="L two">CK</span><span class="p">14</span></div><span class="tag"><span class="coin"></span>5</span></div>
+        <div class="socket"><div class="tile tile--amber"><span class="L">T</span><span class="p">1</span></div><span class="tag tag--free">free</span></div>
+        <div class="socket"><div class="tile tile--nick-r"><span class="L">I</span><span class="p">1</span></div><span class="tag"><span class="coin"></span>5</span></div>
+        <div class="socket"><div class="tile tile--azure"><span class="L">O</span><span class="alt">⇄R</span><span class="p">1</span></div><span class="tag"><span class="coin"></span>8</span></div>
+      </div>
+
+      <div class="sec" style="margin-top:22px">Sundries <span class="sub">1 of 2 on the workbench</span></div>
+      <div class="things">
+        <div class="thing"><span class="tube" style="--col:var(--amber)"></span><span><span class="name">Tube of amber</span><br><span class="what">paints one tile of two the tube lays out, for good</span></span><span class="tag"><span class="coin"></span>2</span></div>
+        <div class="thing"><span class="glyph">🧰</span><span><span class="name">Toolbox</span><br><span class="what">opens into two different tools, if the bench has room</span></span><span class="tag"><span class="coin"></span>4</span></div>
+        <div class="thing"><span class="glyph">↻</span><span><span class="name">Reshuffle</span><br><span class="what">banked until spent — on these offers, or a Colophon pick</span></span><span class="tag"><span class="coin"></span>4</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec" style="margin-top:26px">Stalls <span class="sub">prices double with each purchase</span></div>
+  <div class="stalls">
+    <div class="sign"><div class="name">The Smelter</div><div class="trade">Melt a sort of your case down for good.</div><span class="tag"><span class="coin"></span>2</span></div>
+    <div class="sign"><div class="name">The Gilder</div><div class="trade">Six of your sorts laid out, each with a trim proposed — commission one.</div><span class="tag"><span class="coin"></span>2</span></div>
+  </div>
+
+  <div class="foot">
+    <button class="btn">New offers <span class="coin"></span>2</button>
+    <button class="btn">Reshuffle · 1 left</button>
+    <button class="btn">Your collection</button>
+    <span class="spacer"></span>
+    <button class="btn btn--go">Leave the Market ❧</button>
+  </div>
+</section>
+
+<!-- ═══ THE BLACK MARKET ═════════════════════════════════════════════════════ -->
+<section class="view trestle alley" id="alley" hidden>
+  <div class="tarp" aria-hidden="true"></div>
+  <div class="lantern" aria-hidden="true"></div>
+  <div class="head">
+    <div>
+      <h2>The Black Market</h2>
+      <div class="note">Nothing here is a bargain, and there is no re-roll. The alley shows you what it has, once.</div>
+    </div>
+    <div><div class="purse"><span class="coin"></span> 14</div></div>
+  </div>
+
+  <div class="hold">
+    <div>
+      <div class="sec">Your table <span class="sub">3 of 5 seated</span></div>
+      <div class="rack">
+        <div class="slot"><div class="seat"><span class="face">🎶</span><span class="name">Siren</span></div></div>
+        <div class="slot"><div class="seat seat--uncommon"><span class="face">📏</span><span class="name">Sesquipedalian</span></div></div>
+        <div class="slot"><div class="seat seat--uncommon"><span class="face">🖋️</span><span class="name">Novelist</span></div></div>
+        <div class="slot slot--empty"></div>
+        <div class="slot slot--empty"></div>
+      </div>
+    </div>
+    <div>
+      <div class="sec">Workbench <span class="sub">1 of 2</span></div>
+      <div class="rack rack--bench">
+        <div class="slot"><div class="tool"><span class="tube" style="--col:var(--azure)"></span><small>tube</small></div></div>
+        <div class="slot slot--empty"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">Tiles <span class="sub">sixteen on one long table — the rare metals, chosen rather than gambled for, and punctuation</span></div>
+  <div class="cloth" id="cloth"></div>
+
+  <div class="sec" style="margin-top:22px">The Tile Hacker <span class="sub">six of your own sorts, the number in the corner struck double — to 50, and the price doubles with every strike</span></div>
+  <div class="cloth cloth--six" id="hacker"></div>
+
+  <div class="sec" style="margin-top:22px">The Shell Game <span class="sub">three shells, one prize — yours is not yours to choose</span></div>
+  <div class="shells">
+    <div class="shell"><div class="dome"></div><span class="chalk">5 Coins</span><span class="what">the purse</span></div>
+    <div class="shell"><div class="dome"></div><span class="chalk">a loupe</span><span class="what">a sundry from the whole game</span></div>
+    <div class="shell"><div class="dome"></div><span class="chalk">a batter ▨</span><span class="what">type broken past printing</span></div>
+    <button class="btn">Play <span class="coin"></span>2</button>
+  </div>
+
+  <div class="bm-grid">
+    <div class="col">
+      <div class="sec">Patrons <span class="sub">the back room — every one of them rare, and marked up</span></div>
+      <div class="cards">
+        <div class="card card--rare"><span class="ribbon" style="--liv:#2e6fb2"></span><div class="portrait">🗿</div><div><div class="name">The Sculptor</div><div class="meta">rare · azure</div><div class="rule">×2 Mult when the word is a noun.</div></div><span class="tag tag--over"><span class="coin"></span>12 <s>9</s></span></div>
+        <div class="card card--rare"><span class="ribbon" style="--liv:#2d8a5c"></span><div class="portrait">🍃</div><div><div class="name">The Gardener</div><div class="meta">rare · jade</div><div class="rule">Each jade sort printed permanently cuts the quota — less each time.</div></div><span class="tag tag--over"><span class="coin"></span>13 <s>10</s></span></div>
+        <div class="card card--rare"><div class="portrait">🔩</div><div><div class="name">The Quoin</div><div class="meta">rare</div><div class="rule">×3 Mult when two tiles of one colour stand side by side in the word.</div></div><span class="tag tag--over"><span class="coin"></span>14 <s>11</s></span></div>
+        <div class="card card--rare"><span class="ribbon" style="--liv:#b23a2e"></span><div class="portrait">💀</div><div><div class="name">The Revenant</div><div class="meta">rare · crimson</div><div class="rule">Every tile destroyed has a 1-in-2 chance of being revived in ghost metal.</div></div><span class="tag tag--over"><span class="coin"></span>11 <s>8</s></span></div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="sec">Sundries <span class="sub">under the counter — things no stall will sell</span></div>
+      <div class="things">
+        <div class="thing"><span class="glyph">🧪</span><span><span class="name">Love potion</span><br><span class="what">a random patron takes an empty seat, free</span></span><span class="tag"><span class="coin"></span>6</span></div>
+        <div class="thing"><span class="glyph">🌈</span><span><span class="name">Rainbow applicator</span><br><span class="what">strikes one of two sorts in rainbow roll</span></span><span class="tag"><span class="coin"></span>7</span></div>
+        <div class="thing"><span class="glyph">🎁</span><span><span class="name">A party bag</span><br><span class="what">rose metal, an applicator, or a pot of wash</span></span><span class="tag"><span class="coin"></span>5</span></div>
+        <div class="thing"><span class="glyph">🏵️</span><span><span class="name">Laurel</span><br><span class="what">crowns a random seated patron: +3 Points every word</span></span><span class="tag"><span class="coin"></span>4</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span class="spacer"></span>
+    <button class="btn btn--go">Back to the fair ❧</button>
+  </div>
+</section>
+
+<aside class="legend">
+  <h2>What changes, and what doesn't</h2>
+  <ul>
+    <li><b>The Market is a fair, not a sheet.</b> A trestle of deal under a striped awning, laid over the bench; the section names are painted on the wood in the sheet's small capitals, and every price is a paper tag tied to the thing it prices.</li>
+    <li><b>The calling cards stay.</b> They were already the best-looking thing in the shop — ivory, a rule tinted by rarity, a ribbon for the livery, foil for a postnom. Only the tag changes.</li>
+    <li><b>Sorts sit in a type case</b>, the same sockets as the hand's case on the board, so a tile for sale looks like a tile you could own.</li>
+    <li><b>Stalls are signs</b> hung from a rail, with the trade written under the name; the stall's own view opens beneath its awning as now.</li>
+    <li><b>The alley is the same trestle at night</b>: a tarpaulin for the awning, one lantern, a black cloth, and chalk where the fair has type. Nothing there is a bargain, and the tags say so in red.</li>
+    <li><b>Not drawn here:</b> the stall views (Gilder, Punchcutter, Dresser, Painter, Smelter, Stereotyper), the compost heap, the quire lot, the collection sheet, and the Colophon — each follows from these two once the idiom is agreed.</li>
+  </ul>
+</aside>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const show = which => {
+    $('fair').hidden = which !== 'fair';
+    $('alley').hidden = which !== 'alley';
+    $('pickFair').setAttribute('aria-pressed', which === 'fair');
+    $('pickAlley').setAttribute('aria-pressed', which === 'alley');
+    window.scrollTo({ top: 0 });
+  };
+  $('pickFair').addEventListener('click', () => show('fair'));
+  $('pickAlley').addEventListener('click', () => show('alley'));
+
+  const PTS = { A:1,B:4,C:3,D:2,E:1,F:5,G:3,H:4,I:1,J:10,K:6,L:1,M:3,N:1,O:1,P:3,Q:10,R:1,S:1,T:1,U:2,V:6,W:6,X:8,Y:5,Z:8,'?':1,'!':1 };
+  const tile = (L, cls = '', extra = '') => `<div class="tile ${cls}"><span class="L${L.length > 1 ? ' two' : ''}">${L}</span>${extra}<span class="p">${PTS[L] ?? 1}</span></div>`;
+  const lot = (L, cls, note, price, over = true) =>
+    `<div class="lot">${tile(L, cls)}<span class="chalk">${note}</span><span class="tag${over ? ' tag--over' : ''}"><span class="coin"></span>${price}</span></div>`;
+
+  $('cloth').innerHTML = [
+    lot('R', 'tile--rainbow', 'rainbow roll', 9), lot('E', 'tile--ghost', 'ghost metal', 7), lot('S', 'tile--cursed', 'hellbox iron', 6), lot('A', 'tile--rose', 'rose metal', 8),
+    lot('N', 'tile--blind', 'blind emboss', 7), lot('T', 'tile--squib', 'squib lead', 4), lot('?', '', 'a mark', 5), lot('!', '', 'a mark', 5),
+    lot('L', 'tile--jade tile--gold', 'jade, gilt', 6), lot('D', 'tile--crimson', 'crimson', 4), lot('QU', 'tile--azure', 'azure', 8), lot('I', 'tile--silver', 'silvered', 5),
+    lot('O', 'tile--ghost', 'ghost metal', 7), lot('M', 'tile--rainbow', 'rainbow roll', 10), lot('C', 'tile--amber', 'amber', 4), lot('H', '', 'plain lead', 3),
+  ].join('');
+
+  const hack = (L, cls, from, to, price, maxed = false) =>
+    `<div class="lot"><span class="struck">×2</span>${tile(L, cls)}<span class="chalk">${from} → ${to}${maxed ? ' — capped' : ''}</span><span class="tag"><span class="coin"></span>${price}</span></div>`;
+  $('hacker').innerHTML = [
+    hack('Z', '', 8, 16, 2), hack('E', 'tile--jade', 1, 2, 2), hack('K', 'tile--silver', 11, 22, 2),
+    hack('I', 'tile--azure', 7, 14, 2), hack('S', '', 1, 2, 2), hack('CK', 'tile--silver', 14, 28, 2),
+  ].join('');
+})();
+</script>
+</body>
+</html>
