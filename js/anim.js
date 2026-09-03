@@ -679,6 +679,16 @@ export const sfx = {
     knock(100, { time: 0.14, gain: 0.3, drop: 0.5 });
     grit({ time: 0.09, gain: 0.16, low: 500 });
   },
+  // The ghosts' drawer: wood sliding in its runners, then the stop. Out, the
+  // run is longer and the stop lighter; home, it is a short shove and a shut.
+  drawerOpen() {
+    grit({ time: 0.22, gain: 0.13, low: 900, attack: 0.03 });
+    knock(130, { time: 0.07, gain: 0.2, when: 0.2, drop: 0.55 });
+  },
+  drawerShut() {
+    grit({ time: 0.14, gain: 0.12, low: 700, attack: 0.01 });
+    knock(95, { time: 0.1, gain: 0.3, when: 0.13, drop: 0.5 });
+  },
   // A sheet rises: the brass latch, and the door swinging in on the room
   // behind it. Nothing answers it on the way out — a sheet closing is its own
   // silence, and a pair of doors on every inspector would wear thin fast.

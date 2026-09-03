@@ -313,7 +313,8 @@ reading of the book is `longestPrinted` in `js/patrons.js`.
 **Ghosts.** *The Ripper* kills one of your other patrons when you print one of
 his watchwords — KILL, MURDER, SLAY, DIE, STAB, SLASH, REAP or KNIFE — then
 flees back to the Market's pool. The match is exact, so SLAYER walks past him. The victim moves off the
-shelf into your **ghosts**, behind a door beside the patron row, keeping its
+shelf into your **ghosts**, in a drawer that pulls out over the patron row
+from the door on its edge (and pulls itself out when a ghost speaks), keeping its
 whole effect — score turn, hooks, laurels — and giving up only its seat, which
 is the entire payment. Ghosts speak **after every living patron**, so a killed
 ×Mult that sat late keeps its worth and a killed +Points that sat early loses

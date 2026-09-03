@@ -341,7 +341,76 @@ header {
   gap: 10px;
   align-items: stretch;
 }
-.shelf-row:has(.ghost-btn:not(.hidden)) { grid-template-columns: 1fr auto auto; }
+/* The shelf and its door share a wrap, so the ghosts' drawer can slide out
+   over the shelf alone. The door takes a column of its own once it shows. */
+.shelf-wrap {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+  align-items: stretch;
+  min-width: 0;
+}
+.shelf-wrap:has(.ghost-btn:not(.hidden)) { grid-template-columns: minmax(0, 1fr) auto; }
+.shelf-clip { position: relative; min-width: 0; }
+/* Clipped only while the drawer is out, so the shelf's shadows and the
+   cards' overhangs are never cut in the ordinary way of things. */
+.shelf-clip--live { clip-path: inset(-14px); }
+
+/* ─── The ghosts' drawer ───────────────────────────────────────────────────────
+   The graveyard, pulled out over the shelf: the same seats in the same
+   geometry, slate under moonlight, with the tally on its left cheek. Opened
+   and shut by the door (openGhostDrawer / closeGhostDrawer in js/render.js). */
+.ghost-drawer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  border-radius: var(--r-md);
+  border: 1px solid rgba(150, 195, 250, 0.35);
+  background:
+    radial-gradient(90% 120% at 50% 0%, rgba(70, 110, 170, 0.14), transparent 70%),
+    linear-gradient(180deg, #0a0e1a 0%, #04060d 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(170, 200, 245, 0.14),
+    -6px 0 18px rgba(0, 0, 0, 0.55),
+    0 10px 26px rgba(0, 0, 0, 0.45);
+  transform: translateX(104%);
+  transition: transform calc(0.24s / var(--aspd)) cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+.ghost-drawer[hidden] { display: none; }   /* the class's grid would outrank the attribute */
+.ghost-drawer--open { transform: none; }
+.ghost-drawer-head {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  padding: 8px 12px 8px 14px;
+  max-width: 120px;
+  border-right: 1px dashed rgba(178, 214, 255, 0.3);
+  color: #e4efff;
+}
+.ghost-drawer-title {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  text-shadow: 0 0 12px rgba(140, 195, 255, 0.45);
+}
+.ghost-drawer-tally {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: #c3d3ef;
+}
+.ghost-drawer-note { font-size: 10.5px; line-height: 1.25; color: #9fb8d8; }
+.ghost-drawer .shelf { background: none; border: 0; box-shadow: none; }
+.ghost-btn--open {
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(150, 195, 250, 0.25);
+}
+@media (prefers-reduced-motion: reduce) { .ghost-drawer { transition: none; } }
 
 .shelf {
   display: grid;

@@ -42,6 +42,7 @@ import {
   showGameOver, showVictory, openInspector, closeInspector, openBagPicker, coinHTML,
   showPatronPopover, hidePopover, openManuscript, closeManuscript,
   openGhosts, closeGhosts, ghostsOpen,
+  toggleGhostDrawer, closeGhostDrawer, ghostDrawerOpen, peekGhostDrawer,
   showCoinWordSheet, setCoinNote, showCounterfeitSheet, showStruckTotal, showBribeSheet,
 } from './render.js';
 import {
@@ -98,11 +99,18 @@ async function evaporateTwins() {
 const rackTileEl = id => document.querySelector(`#rack .tile[data-id="${id}"]`);
 
 // Where a seat's news is shown — by uid where there is one, so each copy of a
-// stackable patron flashes and badges as itself. A ghost has given its card up,
-// so its notes float over the graveyard door instead.
-const patronCard = p => document.querySelector(
-  p.uid != null ? `#shelf .patron[data-uid="${p.uid}"]` : `#shelf .patron[data-patron="${p.id}"]`)
-  ?? (state.ghosts?.some(g => g.uid === p.uid) ? $('ghostBtn') : null);
+// stackable patron flashes and badges as itself. A ghost has given its card up
+// for one in the drawer, so the drawer is pulled out to show it speaking
+// (peekGhostDrawer: it slides home on its own once the ghosts have had their
+// say) — and the door stands in only if the card is somehow not there.
+const patronCard = p => {
+  const sel = p.uid != null ? `[data-uid="${p.uid}"]` : `[data-patron="${p.id}"]`;
+  const seated = document.querySelector(`#shelf .patron${sel}`);
+  if (seated) return seated;
+  if (!state.ghosts?.some(g => g.uid === p.uid)) return null;
+  peekGhostDrawer();
+  return document.querySelector(`#ghostDrawer .patron${sel}`) ?? $('ghostBtn');
+};
 
 async function animateDraw(drawn) {
   if (!drawn.length) return;
@@ -1588,6 +1596,8 @@ document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeGhosts();
     return;
   }
+  // The drawer shuts on Escape and takes nothing else: the hand is still in play.
+  if (ghostDrawerOpen() && e.key === 'Escape') { closeGhostDrawer(); return; }
 
   if (e.key === 'Enter')  { submitWord(); return; }
   if (e.key === 'Escape') { hidePopover(); clearOrCancel(); return; }
@@ -2100,16 +2110,25 @@ function dismissPatron(ref) {
   }
 }
 
-// The graveyard door beside the shelf, and the sheet behind it. A ghost is
-// dismissed the way a patron is — sellPatron finds it and pays nothing.
+// The graveyard door on the shelf's edge pulls the ghosts' drawer out over
+// the shelf, and pushes it home again. (The Market's ghost pill opens the
+// sheet instead — there is no shelf on screen there.) A ghost is dismissed
+// the way a patron is — sellPatron finds it and pays nothing.
 $('ghostBtn')?.addEventListener('click', () => {
   if (state.isAnimating) return;
   hidePopover();
-  sfx.sheetOpen();
-  openGhosts();
+  toggleGhostDrawer();
 });
 
-$('ghostModal')?.addEventListener('click', e => {
+// Anywhere else on the page shuts the drawer; the shelf under it is wanted back.
+document.addEventListener('click', e => {
+  if (!ghostDrawerOpen()) return;
+  if (e.target.closest('.shelf-wrap, #popover')) return;
+  closeGhostDrawer();
+});
+
+// The sheet and the drawer show the same cards and answer the same taps.
+const onGhostTap = e => {
   if (e.target.closest('[data-close-ghosts]') || e.target === $('ghostModal')) {
     closeGhosts();
     return;
@@ -2122,8 +2141,8 @@ $('ghostModal')?.addEventListener('click', e => {
       sfx.dismiss();
       log(logLine('ghostLetGo', r.name));
       if (r.headsman) log(logLine('headsmanNow', r.headsman.mult));
-      renderAll();
-      if (state.ghosts.length) openGhosts(); else closeGhosts();
+      renderAll();                              // renderGhosts refreshes or shuts the drawer
+      if (ghostsOpen()) { if (state.ghosts.length) openGhosts(); else closeGhosts(); }
     }
     return;
   }
@@ -2134,7 +2153,9 @@ $('ghostModal')?.addEventListener('click', e => {
               ?? state.ghosts.find(p => p.id === card.dataset.patron);
     if (def) showPatronPopover(def, card, seat);
   }
-});
+};
+$('ghostModal')?.addEventListener('click', onGhostTap);
+$('ghostDrawer')?.addEventListener('click', onGhostTap);
 
 $('shelf')?.addEventListener('click', e => {
   if (state.isAnimating) return;

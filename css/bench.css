@@ -132,13 +132,12 @@ html[data-look="bench"] .btn-icon {
 
 /* ── The desk: one grid ───────────────────────────────────────────────────────
    Beside the manuscript sheet, two rows: the patrons' shelf across the whole
-   width, and under it the workbench, the graveyard door and — on a Deadline —
-   the editor's slab, which takes whatever the tools leave. The shelf-row is
-   dissolved so its three children can sit in two rows; the sheet spans both,
-   plus a third, flexible row that soaks up the sheet's extra height, so the
-   shelf and the bench stack close and the slack falls below them rather than
-   between. (The door's column is `auto`: gone, it leaves a gap's width in the
-   slab's flexible run, where nobody can see it.) */
+   width (the graveyard door is a tab on its edge), and under it the workbench
+   and — on a Deadline — the editor's slab, which takes whatever the tools
+   leave. The shelf-row is dissolved so its children can sit in two rows; the
+   sheet spans both, plus a third, flexible row that soaks up the sheet's
+   extra height, so the shelf and the bench stack close and the slack falls
+   below them rather than between. */
 /* The flexible row only works while the grid's own height is indefinite: given a
    viewport to fill (retro's min-height, centred), a fr row would take the whole
    surplus and open a hole in the middle of the board. So the bench centres the
@@ -154,16 +153,16 @@ html[data-look="bench"] .table {
   margin: auto;
   align-content: start;
   padding: 6px 22px 36px;
-  grid-template-columns: minmax(270px, 320px) auto auto minmax(0, 1fr) 252px;
+  grid-template-columns: minmax(270px, 320px) auto minmax(0, 1fr) 252px;
   grid-template-rows: auto auto minmax(0, 1fr) auto auto auto auto;
   grid-template-areas:
-    "status shelf  shelf  shelf  shelf"
-    "status tools  ghost  boss   boss"
-    "status .      .      .      ."
-    "word   word   word   word   proof"
-    "rack   rack   rack   rack   rack"
-    "action action action action action"
-    "log    log    log    log    log";
+    "status shelf  shelf  shelf"
+    "status tools  boss   boss"
+    "status .      .      ."
+    "word   word   word   proof"
+    "rack   rack   rack   rack"
+    "action action action action"
+    "log    log    log    log";
   gap: 16px 20px;
   align-items: start;
 }
@@ -171,9 +170,8 @@ html[data-look="bench"] .rail,
 html[data-look="bench"] .board,
 html[data-look="bench"] .shelf-row   { display: contents; position: static; }
 html[data-look="bench"] .status-row  { grid-area: status; }
-html[data-look="bench"] .shelf       { grid-area: shelf; }
+html[data-look="bench"] .shelf-wrap  { grid-area: shelf; }
 html[data-look="bench"] .sundries    { grid-area: tools; }
-html[data-look="bench"] .ghost-btn   { grid-area: ghost; align-self: stretch; }
 html[data-look="bench"] .boss-bar    { grid-area: boss; align-self: stretch; }
 html[data-look="bench"] .groove-wrap { grid-area: word; }
 html[data-look="bench"] .readout     { grid-area: proof; }
@@ -630,6 +628,83 @@ html[data-look="bench"] .sundry-name {
   text-transform: none;
 }
 
+/* ── The graveyard door: a tab on the shelf's edge ────────────────────────── */
+/* The door is not a column here but a tab that slides out from under the
+   shelf's right edge when the first ghost turns up, and stays as the handle
+   of the drawer. It emerges by its `right` offset, not a transform, so the
+   hover nudge and the vertical centring are left alone. */
+html[data-look="bench"] .shelf-wrap { display: block; }
+html[data-look="bench"] .shelf-clip { z-index: 1; }
+html[data-look="bench"] .ghost-btn {
+  position: absolute;
+  top: 50%;
+  right: -18px;
+  z-index: 0;
+  width: 36px;
+  height: 68px;
+  padding: 0 0 0 6px;
+  gap: 3px;
+  border-radius: 0 7px 7px 0;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  border-left: 0;
+  background: linear-gradient(90deg, #1b2438, #2b3550 55%, #1a2136);
+  box-shadow:
+    inset 0 1px 0 rgba(170, 200, 245, 0.2),
+    inset -2px 0 4px rgba(0, 0, 0, 0.35),
+    3px 3px 8px rgba(0, 0, 0, 0.5);
+  transform: translate(0, -50%);
+  animation: bnNub calc(0.45s / var(--aspd)) cubic-bezier(0.2, 0.9, 0.3, 1.15) both;
+}
+@keyframes bnNub { from { right: 12px; } to { right: -18px; } }
+html[data-look="bench"] .ghost-btn:hover { transform: translate(3px, -50%); }
+html[data-look="bench"] .ghost-btn-mark { font-size: 17px; }
+html[data-look="bench"] .ghost-btn-count {
+  font-family: var(--serif);
+  font-size: 11px;
+  font-weight: 900;
+  color: #c3d3ef;
+}
+html[data-look="bench"] .ghost-btn--open {
+  background: linear-gradient(90deg, #121a2c, #1c2439 55%, #121828);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.65), 3px 3px 8px rgba(0, 0, 0, 0.5);
+}
+html[data-look="bench"] .ghost-drawer { border-radius: 6px; }
+html[data-look="bench"] .ghost-drawer-title {
+  font-family: var(--bn-fell-sc);
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: none;
+}
+html[data-look="bench"] .ghost-drawer-note { font-family: var(--bn-fell); font-style: italic; font-size: 11.5px; }
+html[data-look="bench"] .ghost-drawer .shelf { background: none; border: 0; box-shadow: none; }
+
+/* A ghost's card is the parchment's negative — slate under moonlight, light
+   ink — in the drawer and in the Market's sheet alike. Retro says so already
+   (style.css); the bench's ivory outranks it, hence the repetition. */
+html[data-look="bench"] .patron--ghost.patron--ubiquitous,
+html[data-look="bench"] .patron--ghost.patron--common,
+html[data-look="bench"] .patron--ghost.patron--uncommon,
+html[data-look="bench"] .patron--ghost.patron--rare {
+  background:
+    radial-gradient(125% 80% at 50% -12%, rgba(126, 178, 240, 0.22), transparent 72%),
+    linear-gradient(170deg, #1a2338 0%, #0d1322 100%);
+  color: #d3e3fb;
+  border: 1px dashed rgba(178, 214, 255, 0.5);
+  box-shadow:
+    inset 0 0 0 2px rgba(150, 195, 250, 0.12),
+    inset 0 0 20px rgba(96, 148, 214, 0.22),
+    0 4px 16px rgba(0, 0, 0, 0.65),
+    0 0 20px rgba(122, 172, 236, 0.25);
+}
+html[data-look="bench"] .patron--ghost .patron-name { color: #d3e3fb; }
+html[data-look="bench"] .patron--ghost .patron-desc { color: #9fb8d8; }
+html[data-look="bench"] .patron--ghost.patron--empty {
+  background: rgba(0, 0, 0, 0.45);
+  color: rgba(180, 205, 240, 0.3);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.7);
+}
+
 /* ── The composing stick ──────────────────────────────────────────────────── */
 html[data-look="bench"] .groove-wrap {
   display: block;
@@ -1010,9 +1085,12 @@ html[data-look="bench"] .log {
   }
   /* One column: the shelf, the door and the bench share a row again. */
   html[data-look="bench"] .shelf-row { display: grid; grid-area: shelf; }
-  html[data-look="bench"] .shelf,
-  html[data-look="bench"] .sundries,
-  html[data-look="bench"] .ghost-btn { grid-area: auto; align-self: auto; }
+  html[data-look="bench"] .shelf-wrap,
+  html[data-look="bench"] .sundries { grid-area: auto; }
+  /* The tab rides the shelf's own edge, over it rather than out from under
+     it, clear of the workbench beside it. */
+  html[data-look="bench"] .ghost-btn { right: -6px; width: 30px; height: 60px; z-index: 2; border-radius: 6px; border-left: 1px solid rgba(0, 0, 0, 0.6); }
+  @keyframes bnNub { from { right: 12px; } to { right: -6px; } }
   html[data-look="bench"] .status-row { transform: none; padding: 10px 12px 9px; }
   html[data-look="bench"] .page-line { height: 24px; font-size: 14px; }
   html[data-look="bench"] .boss-bar { align-self: auto; padding: 8px 12px 9px 14px; }
@@ -1058,6 +1136,11 @@ html[data-look="bench"] .log {
   html[data-look="bench"] .page-line { height: 22px; font-size: 13px; }
   html[data-look="bench"] .quota-card { margin-top: 5px; }
   html[data-look="bench"] .shelf, html[data-look="bench"] .sundries { padding: 6px 6px 7px; gap: 5px; }
+  html[data-look="bench"] .ghost-btn { right: -4px; width: 24px; height: 52px; padding-left: 3px; }
+  html[data-look="bench"] .ghost-btn-mark { font-size: 14px; }
+  html[data-look="bench"] .ghost-drawer-head { max-width: 64px; padding: 4px 8px; gap: 1px; }
+  html[data-look="bench"] .ghost-drawer-tally { font-size: 15px; }
+  html[data-look="bench"] .ghost-drawer-note { display: none; }
   html[data-look="bench"] .patron { min-height: 60px; padding: 4px 3px 3px; }
   html[data-look="bench"] .patron-emoji { font-size: 17px; }
   html[data-look="bench"] .patron-name { font-size: 8px; }
@@ -1090,4 +1173,5 @@ html[data-look="bench"] .log {
   html[data-look="bench"] .patron--just-armed .patron-take,
   html[data-look="bench"] .patron-take--bump { animation: none; }
   html[data-look="bench"] .knee, html[data-look="bench"] .tick-label { transition: none; }
+  html[data-look="bench"] .ghost-btn { animation: none; }
 }

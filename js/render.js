@@ -614,11 +614,91 @@ function renderGhosts() {
   if (!btn) return;
   const ghosts = state.ghosts ?? [];
   btn.classList.toggle('hidden', ghosts.length === 0);
-  if (!ghosts.length) return;
+  if (!ghosts.length) { closeGhostDrawer({ sound: false }); return; }
   const named = ghosts.map(p => patronName(patronById(p.id), p.data)).join(', ');
   btn.innerHTML = `<span class="ghost-btn-mark">👻</span>
     <span class="ghost-btn-count">${ghosts.length}</span>`;
   btn.title = `${named} — dead, and working still. Ghosts act after every seated patron.`;
+  // A drawer already out shows the graveyard as it now stands.
+  if (ghostDrawerOpen()) fillGhostDrawer();
+}
+
+// ─── The ghosts' drawer ───────────────────────────────────────────────────────
+// The graveyard pulled out over the shelf from the door on its edge: the same
+// cards the sheet shows, in the shelf's own geometry, with the tally on the
+// drawer's cheek. The sheet (openGhosts, below) stays for the Market, where
+// there is no shelf on screen to slide over.
+function fillGhostDrawer() {
+  const d = $('ghostDrawer');
+  if (!d) return;
+  const n = state.ghosts?.length ?? 0, slots = effectiveGhostSlots();
+  d.innerHTML = `
+    <div class="ghost-drawer-head">
+      <span class="ghost-drawer-title">Ghosts</span>
+      <span class="ghost-drawer-tally">${n} of ${slots}</span>
+      <span class="ghost-drawer-note">act after every seated patron</span>
+    </div>
+    <div class="shelf shelf--ghosts shelf--drawer" style="--seat-count:${slots}">${ghostCardsHTML()}</div>`;
+}
+
+let _drawerShutTimer = null;
+let _peekTimer = null;
+export function openGhostDrawer({ sound = true } = {}) {
+  const d = $('ghostDrawer');
+  if (!d || !state.ghosts?.length) return;
+  clearTimeout(_drawerShutTimer);
+  if (sound) sfx.drawerOpen();
+  fillGhostDrawer();
+  d.closest('.shelf-clip')?.classList.add('shelf-clip--live');
+  d.hidden = false;
+  void d.offsetWidth;                       // land the closed position first, so it slides
+  d.classList.add('ghost-drawer--open');
+  const btn = $('ghostBtn');
+  btn?.classList.add('ghost-btn--open');
+  btn?.setAttribute('aria-expanded', 'true');
+}
+
+export function closeGhostDrawer({ sound = true } = {}) {
+  const d = $('ghostDrawer');
+  if (!d || d.hidden || !d.classList.contains('ghost-drawer--open')) return;
+  clearTimeout(_peekTimer); _peekTimer = null;
+  if (sound) sfx.drawerShut();
+  d.classList.remove('ghost-drawer--open');
+  const btn = $('ghostBtn');
+  btn?.classList.remove('ghost-btn--open');
+  btn?.setAttribute('aria-expanded', 'false');
+  // Put away once it has slid home. Timed rather than transitionend: a drawer
+  // shut while a sheet covers it, or under reduced motion, never fires one.
+  clearTimeout(_drawerShutTimer);
+  _drawerShutTimer = setTimeout(() => {
+    if (d.classList.contains('ghost-drawer--open')) return;   // reopened meanwhile
+    d.hidden = true;
+    d.closest('.shelf-clip')?.classList.remove('shelf-clip--live');
+  }, 300 / (settings.animSpeed || 1));
+}
+
+export const ghostDrawerOpen = () => {
+  const d = $('ghostDrawer');
+  return !!d && !d.hidden && d.classList.contains('ghost-drawer--open');
+};
+
+// Opened by hand, the drawer stays out until it is shut by hand.
+export function toggleGhostDrawer() {
+  if (ghostDrawerOpen()) { closeGhostDrawer(); return; }
+  openGhostDrawer();
+  clearTimeout(_peekTimer); _peekTimer = null;
+}
+
+// A ghost has something to show — a score, a note, a word. The drawer pulls
+// itself out so the card can be seen speaking, and slides home once the
+// ghosts have been quiet for a beat. Each call pushes the beat back, so a run
+// of ghosts scoring keeps it out. A drawer the player pulled out is left alone.
+export function peekGhostDrawer(hold = 1500) {
+  if (ghostDrawerOpen()) { if (!_peekTimer) return; }
+  else openGhostDrawer();
+  clearTimeout(_peekTimer);
+  _peekTimer = setTimeout(() => { _peekTimer = null; closeGhostDrawer(); },
+                          hold / (settings.animSpeed || 1));
 }
 
 export function openGhosts() {

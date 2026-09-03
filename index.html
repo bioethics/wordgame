@@ -94,10 +94,18 @@
     <!-- The press: shelf, readout, groove, rack, actions. -->
     <div class="board">
 
-    <!-- Patron shelf · the graveyard door · sundries workbench -->
+    <!-- Patron shelf · the graveyard door · sundries workbench. The ghosts'
+         drawer slides out over the shelf (openGhostDrawer in js/render.js);
+         the door is its handle — a tab on the shelf's edge in the bench look,
+         a door beside it in retro. -->
     <section class="shelf-row">
-      <div id="shelf" class="shelf" aria-label="Patrons"></div>
-      <button id="ghostBtn" class="ghost-btn hidden" aria-label="Your ghosts"></button>
+      <div class="shelf-wrap">
+        <div class="shelf-clip">
+          <div id="shelf" class="shelf" aria-label="Patrons"></div>
+          <div id="ghostDrawer" class="ghost-drawer" hidden aria-label="Your ghosts"></div>
+        </div>
+        <button id="ghostBtn" class="ghost-btn hidden" aria-label="Your ghosts" aria-expanded="false"></button>
+      </div>
       <div id="sundries" class="sundries" aria-label="Sundries"></div>
     </section>
 
