@@ -19,8 +19,8 @@
        for labels; Fraunces for numerals and tiles, as before.
    The rooms tint the bench top; the Deadline still pulls it to ember. The
    tiles, the paints and the trims keep their colours, because they mean
-   things. The full-screen sheets (the Market, the alley, the Colophon) are
-   not restyled here — yet. */
+   things. The full-screen sheets — the Market, the alley, the Colophon, the
+   book, the rest — are css/bench-sheets.css, scoped the same way. */
 
 html[data-look="bench"] {
   --bn-bench:      #3d2b20;

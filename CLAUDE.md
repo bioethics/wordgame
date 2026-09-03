@@ -50,12 +50,13 @@ the way in. Prose written from memory of the flavour drifts away from the code.
 
 The board has two looks (Settings → Look): **the Bench**, the default, and
 **Retro**, the original. Retro is `css/style.css` untouched. Every rule of the
-bench is in `css/bench.css`, scoped to `html[data-look="bench"]`, so the two
-never bleed. Add furniture only the bench has (the stick's scale, the sheet's
-lines, the rule on a card) by rendering it always, putting it away in
-`style.css` (`display: none`) and bringing it out in `bench.css` — never by
-branching the DOM on the look. The full-screen sheets (Market, Black Market,
-Colophon) are not yet restyled for the bench.
+bench is in `css/bench.css` (the board) and `css/bench-sheets.css` (the Market,
+the alley, the Colophon, the book, the popover, the banner, the small sheets),
+each rule scoped to `html[data-look="bench"]`, so the two never bleed. Add
+furniture only the bench has (the stick's scale, the sheet's lines, the rule on
+a card) by rendering it always, putting it away in `style.css` (`display:
+none`) and bringing it out in `bench.css` — never by branching the DOM on the
+look. The Testing Chamber and the graveyard keep their own skins in both.
 
 ## Elsewhere
 

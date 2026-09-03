@@ -52,15 +52,25 @@ order is a rule of the game and a bar would flatten it. The type case is the
 hand, one socket per place, so a wider hand is more sockets.
 
 **Retro** is the board as it was — panels, chips and pips. It is `css/style.css`
-untouched: every rule of the bench lives in `css/bench.css` and is scoped to
-`html[data-look="bench"]`, so the two cannot bleed into one another, and a
-piece of furniture only the bench has (the scale, the knee, the sheet's lines,
-the rule on a card) is put away by one line in `style.css` and brought out in
-`bench.css`. The rooms tint the bench top — the Baize is green felt under the
-paper — and the Deadline still pulls it to ember. The layouts belong to retro;
-the bench holds the Folio column underneath and puts the picker away. The
-full-screen sheets — the Market, the alley, the Colophon — keep their own skin
-for now.
+untouched: every rule of the bench lives in `css/bench.css` (the board) and
+`css/bench-sheets.css` (the sheets), each scoped to `html[data-look="bench"]`,
+so the two cannot bleed into one another, and a piece of furniture only the
+bench has (the scale, the knee, the sheet's lines, the rule on a card) is put
+away by one line in `style.css` and brought out in `bench.css`. The rooms tint
+the bench top — the Baize is green felt under the paper — and the Deadline
+still pulls it to ember. The layouts belong to retro; the bench holds the Folio
+column underneath and puts the picker away.
+
+The sheets follow the same idiom. The Market is a fair: a trestle of scrubbed
+deal under a striped awning, the calling cards as they were, the sorts in the
+hand's own type case with swing tags, the sundries as things on the table, the
+stalls as signs hung from a rail, each under its own awning. The Black Market
+is the same trestle at night — a tarpaulin, one lantern, a black cloth, and
+chalk where the fair has type. The Colophon is a printed leaf with three picks
+on it, the manuscript a bound book with its initials rubricated, and the
+banner a broadside. The Testing Chamber and the graveyard keep their own
+skins in both looks: a dev bench has no idiom to honour, and the ghosts'
+darkness is the point of them.
 
 ## How a word scores
 
@@ -1130,7 +1140,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | `js/sheets.js` | the full-screen sheets — Market, stalls, Colophon, draft — HTML and click handling, with game flow injected from main.js |
 | `js/anim.js` | flights, floaters, tweens, sparkles, WebAudio sfx — every duration respects the speed setting |
 | `js/appearance.js` | the look (the Bench or Retro), the room (theme), the table's layout, and the UI scale — `LOOKS`, `THEMES`, `LAYOUTS`, auto-fit, and `uiZoom()`, the factor every rect-to-style write divides by |
-| `css/bench.css` | the Bench look, every rule scoped to `html[data-look="bench"]` over `css/style.css`, which is Retro whole |
+| `css/bench.css`, `css/bench-sheets.css` | the Bench look — the board, and the sheets — every rule scoped to `html[data-look="bench"]` over `css/style.css`, which is Retro whole |
 | `js/main.js` | orchestration: submit cinematic, page/chapter flow, input, settings |
 | `js/drag.js` | pointer input: tap / drag / long-press for rack, word and the patron shelf (where a drag reseats a patron, changing the order effects fire in), mouse and touch alike |
 | `js/dict.js` | dictionary loading/caching (also reads a `window.FOLIO_WORDLIST` global, for single-file bundles) |

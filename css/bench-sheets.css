@@ -1,0 +1,532 @@
+/* ═══ THE BENCH — the sheets ═══════════════════════════════════════════════════
+   The full-screen sheets in the bench's idiom, laid over css/style.css like
+   css/bench.css and scoped the same way, so Retro keeps every sheet as it was.
+
+     · THE MARKET is a fair: a trestle of scrubbed deal under a striped awning,
+       laid over the bench. The calling cards stay as they were — they were the
+       best-looking thing in the shop — with their swing tags; the sorts sit in
+       the same type case the hand does; the sundries are things on the table;
+       the stalls are signs hung from a rail, each under its own awning.
+     · THE BLACK MARKET is the same trestle at night: a tarpaulin for the awning,
+       one lantern, a black cloth, and chalk where the fair has type.
+     · THE COLOPHON, THE MANUSCRIPT, THE INSPECTOR, SETTINGS and the END SCREENS
+       are sheets of paper, as the board's own sheet is: small capitals from the
+       printed page for headings, Fell for the prose, one red ink.
+   The Testing Chamber and the graveyard keep their own skins: a dev bench has
+   no idiom to honour, and the ghosts' darkness is the point of them. */
+
+/* ── The room dims ────────────────────────────────────────────────────────── */
+html[data-look="bench"] .modal { background: rgba(22, 13, 7, 0.72); }
+html[data-look="bench"] .modal--black { background: rgba(4, 5, 8, 0.86); }
+
+/* ── A sheet of paper ─────────────────────────────────────────────────────── */
+html[data-look="bench"] .sheet:not(.sheet--chamber):not(.sheet--ghosts):not(.sheet--market) {
+  border: 0;
+  border-radius: 3px;
+  color: var(--bn-ink);
+  background: var(--bn-paper-face);
+  box-shadow: var(--bn-paper-shadow), 0 40px 90px rgba(0, 0, 0, 0.7);
+}
+html[data-look="bench"] .sheet:not(.sheet--chamber):not(.sheet--ghosts):not(.sheet--market) h2 {
+  font-family: var(--bn-fell-sc);
+  font-weight: 400;
+  font-size: 27px;
+  letter-spacing: 2px;
+  color: var(--bn-ink);
+}
+html[data-look="bench"] .sheet:not(.sheet--chamber):not(.sheet--ghosts):not(.sheet--market) .sheet-note {
+  font-family: var(--bn-fell);
+  font-style: italic;
+  font-size: 13.5px;
+  color: var(--bn-dim);
+}
+html[data-look="bench"] .sheet:not(.sheet--chamber):not(.sheet--ghosts):not(.sheet--market) .sheet-note b { color: var(--bn-ink); }
+html[data-look="bench"] .sheet:not(.sheet--chamber):not(.sheet--ghosts):not(.sheet--market) .x { color: var(--bn-dim); border-radius: 3px; }
+html[data-look="bench"] .sheet:not(.sheet--chamber):not(.sheet--ghosts):not(.sheet--market) .x:hover { background: rgba(60, 38, 18, 0.12); color: var(--bn-ink); }
+
+/* Labels painted on wood or ruled on paper: one style for every section head. */
+html[data-look="bench"] .market-sec {
+  font-family: var(--bn-fell-sc);
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: #3a2712;
+  gap: 10px;
+}
+html[data-look="bench"] .market-sec::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  align-self: center;
+  background: rgba(60, 38, 18, 0.3);
+}
+html[data-look="bench"] .market-sub {
+  font-family: var(--bn-fell);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0;
+  color: #5a4328;
+}
+html[data-look="bench"] .market-sub--done { color: #2f6e3e; font-weight: 400; }
+
+/* ── The fair: a trestle under an awning ──────────────────────────────────── */
+html[data-look="bench"] .sheet--market {
+  position: relative;
+  padding-top: 56px;
+  color: var(--bn-ink);
+  border: 0;
+  border-radius: 6px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 240, 210, 0.05) 0 3px, transparent 3px 14px, rgba(0, 0, 0, 0.05) 14px 16px, transparent 16px 31px),
+    linear-gradient(180deg, #c9a473 0%, #b08b5e 30%, #8d6b45 100%);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 245, 220, 0.5),
+    inset 0 -4px 0 rgba(60, 38, 18, 0.5),
+    0 30px 60px -20px rgba(0, 0, 0, 0.8);
+}
+/* The awning: canvas in the red — or a stall's own colour — scalloped along
+   its hem. One element, the scallops cut by a mask. */
+html[data-look="bench"] .sheet--market::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 44px;
+  border: 0;
+  border-radius: 6px 6px 0 0;
+  background: repeating-linear-gradient(90deg, var(--awning, var(--bn-red)) 0 42px, #efe2c2 42px 84px);
+  -webkit-mask:
+    linear-gradient(#000, #000) 0 0 / 100% calc(100% - 12px) no-repeat,
+    radial-gradient(12px 12px at 21px 0, #000 11px, transparent 12px) 0 100% / 42px 12px repeat-x;
+  mask:
+    linear-gradient(#000, #000) 0 0 / 100% calc(100% - 12px) no-repeat,
+    radial-gradient(12px 12px at 21px 0, #000 11px, transparent 12px) 0 100% / 42px 12px repeat-x;
+  pointer-events: none;
+}
+html[data-look="bench"] .sheet--market .market-title {
+  font-family: var(--bn-fell-sc);
+  font-weight: 400;
+  font-size: 34px;
+  letter-spacing: 3px;
+  line-height: 1;
+  background: linear-gradient(120deg, #3a2712, #5a3c1c);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+html[data-look="bench"] .sheet--market .sheet-head {
+  align-items: flex-end;
+  padding-bottom: 10px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(60, 38, 18, 0.35);
+}
+html[data-look="bench"] .sheet--market .sheet-note { color: #4a3520; }
+html[data-look="bench"] .sheet--market .market-purse {
+  margin-top: 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: #3a2712;
+  font-size: 20px;
+}
+html[data-look="bench"] .sheet--market .reward-line {
+  font-family: var(--bn-fell);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--bn-dim);
+  background: var(--bn-paper-face);
+  border: 0;
+  border-bottom: 2px dashed rgba(60, 38, 18, 0.35);
+  box-shadow: var(--bn-paper-shadow);
+}
+html[data-look="bench"] .sheet--market .reward-part b { font-style: normal; font-family: var(--serif); }
+html[data-look="bench"] .sheet--market .reward-total { color: var(--bn-ink); font-style: normal; }
+html[data-look="bench"] .sheet--market .stall-warn { color: var(--bn-red); font-weight: 400; }
+
+/* The calling cards keep their stock; only their type changes. */
+html[data-look="bench"] .op-card-body .op-name,
+html[data-look="bench"] .op-name {
+  font-family: var(--bn-fell-sc);
+  font-weight: 400;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+}
+html[data-look="bench"] .op-title {
+  font-family: var(--bn-fell-sc);
+  font-weight: 400;
+  font-size: 10.5px;
+  letter-spacing: 1.5px;
+  text-transform: none;
+}
+html[data-look="bench"] .op-card-body .op-desc,
+html[data-look="bench"] .op-desc { font-family: var(--bn-fell); font-size: 12.5px; line-height: 1.3; }
+html[data-look="bench"] .op-rarity { font-family: var(--bn-fell-sc); font-weight: 400; text-transform: none; letter-spacing: 1px; }
+html[data-look="bench"] .sheet--market .op-sold {
+  font-family: var(--bn-fell-sc);
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: none;
+  color: var(--bn-red);
+  border-radius: 3px;
+}
+/* The swing tags were already tags; they take the bench's numerals. */
+html[data-look="bench"] .sheet--market .btn-price {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--bn-ink);
+  background: linear-gradient(180deg, #ede0b4, #dfcf9c);
+}
+html[data-look="bench"] .sheet--market .btn-price--under { background: linear-gradient(180deg, #dff2e3, #b6ddc4); }
+html[data-look="bench"] .sheet--market .btn-price--over  { background: linear-gradient(180deg, #fbdfd9, #eebbb0); }
+html[data-look="bench"] .sheet--market .offer-tile--free .btn-price {
+  font-family: var(--bn-fell-sc);
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: none;
+  font-size: 12px;
+  color: #2f6e3e;
+  background: linear-gradient(180deg, #dff2e3, #b6ddc4);
+}
+
+/* Sorts in the type case — the hand's case, at the fair. */
+html[data-look="bench"] .sheet--market .offer-tiles {
+  border-radius: 4px;
+  background: linear-gradient(180deg, #7a5537 0%, #5b3d27 20%, #3e2919 100%);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 220, 170, 0.18),
+    inset 0 -6px 12px rgba(0, 0, 0, 0.45),
+    0 10px 22px -8px rgba(0, 0, 0, 0.7);
+}
+html[data-look="bench"] .sheet--market .offer-tile {
+  border: 0;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.34);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+html[data-look="bench"] .sheet--market .offer-tiles.offer-tiles--compost {
+  background: linear-gradient(180deg, #2b2418 0%, #1d1810 60%, #141009 100%);
+}
+
+/* Sundries: things on the table, a tag beside each. */
+html[data-look="bench"] .sheet--market .offer-paint {
+  border-radius: 3px;
+  background: rgba(60, 38, 18, 0.28);
+  border: 1px solid rgba(60, 38, 18, 0.35);
+  box-shadow: none;
+}
+html[data-look="bench"] .sheet--market .offer-paint .op-name { color: #2f2013; }
+html[data-look="bench"] .sheet--market .offer-paint .op-desc { color: #5a4328; font-style: italic; }
+
+/* Stalls: signs hung from a rail, each under its own awning. */
+html[data-look="bench"] .sheet--market .offer-stall {
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  border-radius: 3px;
+  background: linear-gradient(180deg, #4a3222, #33221a);
+  box-shadow: inset 0 1px 0 rgba(255, 220, 170, 0.15), 0 8px 16px -6px rgba(0, 0, 0, 0.7);
+}
+html[data-look="bench"] .sheet--market .offer-stall .op-name { color: var(--bn-paper); font-size: 17px; letter-spacing: 1.5px; }
+html[data-look="bench"] .sheet--market .offer-stall .op-desc { color: rgba(237, 227, 201, 0.72); font-style: italic; }
+html[data-look="bench"] .sheet--market .stall-from { font-family: var(--bn-fell); font-style: italic; font-weight: 400; text-transform: none; letter-spacing: 0; color: rgba(237, 227, 201, 0.6); }
+html[data-look="bench"] .sheet--market .stall-emoji { border-radius: 3px; }
+
+/* Inside a stall the awning is the stall's, and the keys and spreads are paper. */
+html[data-look="bench"] .sheet--stall { padding-top: 56px; }
+html[data-look="bench"] .sheet--market .trim-key {
+  border-radius: 3px;
+  background: rgba(255, 250, 235, 0.45);
+  border: 1px solid rgba(60, 38, 18, 0.3);
+  color: var(--bn-dim);
+  font-family: var(--bn-fell);
+}
+html[data-look="bench"] .sheet--market .trim-key-item b { color: var(--bn-ink); }
+html[data-look="bench"] .sheet--market .mini-grid {
+  border-radius: 4px;
+  background: linear-gradient(180deg, #7a5537 0%, #5b3d27 20%, #3e2919 100%);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 2px 0 rgba(255, 220, 170, 0.18), inset 0 -6px 12px rgba(0, 0, 0, 0.45);
+}
+
+/* The foot of the trestle. */
+html[data-look="bench"] .sheet--market .market-foot { border-top: 1px solid rgba(60, 38, 18, 0.35); }
+html[data-look="bench"] .sheet--market .market-foot .btn-quiet {
+  color: var(--bn-paper);
+  background: linear-gradient(180deg, #5b3f2c, #3d2a1c);
+  border-color: rgba(255, 230, 190, 0.18);
+  box-shadow: 0 3px 0 #1d120b, 0 6px 12px rgba(0, 0, 0, 0.45);
+  font-weight: 400;
+  letter-spacing: 1.5px;
+}
+
+/* The tally chips of the collection, on wood rather than leather. */
+html[data-look="bench"] .case-tally-chip {
+  font-family: var(--bn-fell);
+  color: var(--bn-paper);
+  background: rgba(30, 18, 8, 0.6);
+  border-color: rgba(255, 230, 190, 0.2);
+  border-radius: 3px;
+}
+html[data-look="bench"] .case-tally-chip b { color: var(--bn-brass-hi); }
+
+/* ── The alley: the same trestle at night ─────────────────────────────────── */
+html[data-look="bench"] .sheet--market.sheet--black {
+  color: #d9d4c6;
+  background:
+    radial-gradient(520px 380px at 12% 0%, rgba(255, 190, 110, 0.22), transparent 65%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0 3px, transparent 3px 14px),
+    linear-gradient(180deg, #171a24, #0e1017 40%, #090a0f);
+  box-shadow: inset 0 2px 0 rgba(255, 220, 170, 0.08), 0 30px 60px -20px rgba(0, 0, 0, 0.9);
+}
+/* A tarpaulin for the awning, and one lantern under it. */
+html[data-look="bench"] .sheet--market.sheet--black::before {
+  height: 40px;
+  background: linear-gradient(180deg, #2d3a2a, #1c261b);
+  -webkit-mask: none;
+  mask: none;
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 92% 100%, 84% 70%, 76% 100%, 68% 70%, 60% 100%, 52% 70%, 44% 100%, 36% 70%, 28% 100%, 20% 70%, 12% 100%, 4% 70%, 0 100%);
+}
+html[data-look="bench"] .sheet--market.sheet--black::after {
+  content: '';
+  position: absolute;
+  left: 34px; top: 16px;
+  width: 24px; height: 40px;
+  border-radius: 6px 6px 8px 8px;
+  background: linear-gradient(180deg, #3a2a10, #7a5a1a 30%, #ffd27a 60%, #e0a040 100%);
+  border: 2px solid #1e1a12;
+  box-shadow: 0 0 40px 14px rgba(255, 190, 110, 0.35);
+  pointer-events: none;
+}
+html[data-look="bench"] .sheet--black .sheet-head { border-bottom-color: rgba(233, 227, 210, 0.18); }
+html[data-look="bench"] .sheet--black .bm-title {
+  font-family: var(--hand);
+  font-weight: 700;
+  font-size: 40px;
+  letter-spacing: 0;
+  background: linear-gradient(120deg, #f2ecdc, #d9d4c6);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+html[data-look="bench"] .sheet--black .sheet-note { color: rgba(233, 227, 210, 0.7); }
+html[data-look="bench"] .sheet--black .market-sec { color: #e9e3d2; }
+html[data-look="bench"] .sheet--black .market-sec::after { background: rgba(233, 227, 210, 0.18); }
+html[data-look="bench"] .sheet--black .market-sub { color: rgba(233, 227, 210, 0.6); }
+html[data-look="bench"] .sheet--black .market-purse.bm-purse { color: #e9e3d2; }
+html[data-look="bench"] .sheet--black .market-foot { border-top-color: rgba(233, 227, 210, 0.18); }
+
+/* The cloth, and what is laid on it: no cards, chalk under each sort. */
+html[data-look="bench"] .sheet--black .bm-tiles {
+  gap: 14px 10px;
+  padding: 18px 14px 14px;
+  border-radius: 3px;
+  background:
+    radial-gradient(400px 200px at 20% 0%, rgba(255, 190, 110, 0.08), transparent 70%),
+    #14151a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8);
+}
+html[data-look="bench"] .sheet--black .bm-tile {
+  padding: 6px 4px 8px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+html[data-look="bench"] .sheet--black .bm-tile--rainbow::after { display: none; }
+html[data-look="bench"] .sheet--black .bm-tile-note {
+  font-family: var(--hand);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--note, rgba(233, 227, 210, 0.75));
+  line-height: 1.1;
+}
+html[data-look="bench"] .sheet--black .btn-price {
+  font-family: var(--hand);
+  font-weight: 700;
+  font-size: 16px;
+  color: #e9e3d2;
+  background: #2a2c33;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: none;
+}
+html[data-look="bench"] .sheet--black .btn-price::before { background: #0a0b0f; }
+html[data-look="bench"] .sheet--black .btn-price--over { color: #ffb08c; background: #2a2c33; box-shadow: none; }
+html[data-look="bench"] .sheet--black .op-sold { color: #ffb08c; border-color: #ffb08c; }
+
+/* The crate the shells stand on. */
+html[data-look="bench"] .sheet--black .bm-shells {
+  border-radius: 3px;
+  background: linear-gradient(180deg, #5a4630, #3c2e1f);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 2px 0 rgba(255, 220, 170, 0.12);
+}
+html[data-look="bench"] .sheet--black .bm-shell { border: 0; background: none; }
+
+/* The back room's cards keep their ivory in worse light; the sundries sit on
+   the cloth beside them. */
+html[data-look="bench"] .sheet--black .offer-patron { filter: brightness(0.9) saturate(0.85); }
+html[data-look="bench"] .sheet--black .offer-paint.bm-sundry {
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+}
+html[data-look="bench"] .sheet--black .offer-paint.bm-sundry .op-name { color: #e9e3d2; }
+html[data-look="bench"] .sheet--black .offer-paint.bm-sundry .op-desc { color: rgba(233, 227, 210, 0.6); }
+html[data-look="bench"] .sheet--black .btn-print {
+  background: linear-gradient(180deg, #4a5a72, #2d3a4f 40%, #1c2635);
+  border-color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 5px 0 #0c1119, 0 10px 22px rgba(0, 0, 0, 0.5);
+}
+
+/* ── The Colophon: a printed leaf, three picks on it ──────────────────────── */
+html[data-look="bench"] .sheet--market.sheet--colophon {
+  padding-top: 24px;
+  color: var(--bn-ink);
+  border-radius: 3px;
+  background: var(--bn-paper-face);
+  box-shadow: var(--bn-paper-shadow), 0 40px 90px rgba(0, 0, 0, 0.7);
+}
+html[data-look="bench"] .sheet--colophon::before { display: none; }
+html[data-look="bench"] .sheet--colophon .sheet-note { color: var(--bn-dim); }
+html[data-look="bench"] .sheet--colophon .market-title { background: linear-gradient(120deg, var(--bn-ink), #4a3520); -webkit-background-clip: text; background-clip: text; }
+html[data-look="bench"] .sheet--colophon .market-sec::after { display: none; }
+html[data-look="bench"] .colophon-card {
+  border-radius: 3px;
+  color: var(--bn-ink);
+  background: linear-gradient(170deg, var(--bn-ivory) 0%, var(--bn-paper) 60%, var(--bn-paper-2) 100%);
+  border: 1px solid rgba(138, 95, 29, 0.45);
+  box-shadow: inset 0 0 0 3px rgba(255, 252, 240, 0.9), inset 0 0 0 4px rgba(138, 95, 29, 0.35), 0 4px 12px rgba(60, 40, 15, 0.3);
+  transform: rotate(-0.7deg);
+}
+html[data-look="bench"] .colophon-card:nth-child(even) { transform: rotate(0.6deg); }
+html[data-look="bench"] .colophon-card:hover {
+  transform: translateY(-5px) rotate(-0.7deg);
+  border-color: rgba(138, 95, 29, 0.6);
+  box-shadow: inset 0 0 0 3px rgba(255, 252, 240, 0.9), inset 0 0 0 4px var(--bn-red), 0 12px 22px rgba(0, 0, 0, 0.45);
+}
+html[data-look="bench"] .colophon-card:nth-child(even):hover { transform: translateY(-5px) rotate(0.6deg); }
+html[data-look="bench"] .colophon-card-name { font-family: var(--bn-fell-sc); font-weight: 400; font-size: 15px; letter-spacing: 0.5px; color: var(--bn-ink); }
+html[data-look="bench"] .colophon-card-desc { font-family: var(--bn-fell); font-size: 12.5px; color: var(--bn-dim); }
+html[data-look="bench"] .colophon-card--crimson:hover { box-shadow: inset 0 0 0 3px rgba(255, 252, 240, 0.9), inset 0 0 0 4px var(--crimson), 0 12px 22px rgba(0, 0, 0, 0.45); }
+html[data-look="bench"] .colophon-card--azure:hover   { box-shadow: inset 0 0 0 3px rgba(255, 252, 240, 0.9), inset 0 0 0 4px var(--azure),   0 12px 22px rgba(0, 0, 0, 0.45); }
+html[data-look="bench"] .colophon-card--jade:hover    { box-shadow: inset 0 0 0 3px rgba(255, 252, 240, 0.9), inset 0 0 0 4px var(--jade),    0 12px 22px rgba(0, 0, 0, 0.45); }
+html[data-look="bench"] .colophon-card--amber:hover   { box-shadow: inset 0 0 0 3px rgba(255, 252, 240, 0.9), inset 0 0 0 4px var(--amber),   0 12px 22px rgba(0, 0, 0, 0.45); }
+/* The alley's card is the one dark thing on the leaf, and says so. */
+html[data-look="bench"] .colophon-card--blackmarket {
+  color: #e9e3d2;
+  background: linear-gradient(180deg, #171a24, #0e1017);
+  border-color: rgba(0, 0, 0, 0.7);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 6px 14px rgba(0, 0, 0, 0.5);
+}
+html[data-look="bench"] .colophon-card--blackmarket .colophon-card-name { font-family: var(--hand); font-weight: 700; font-size: 19px; color: #e9e3d2; }
+html[data-look="bench"] .colophon-card--blackmarket .colophon-card-desc { color: rgba(233, 227, 210, 0.65); }
+html[data-look="bench"] .colophon-card--blackmarket:hover { box-shadow: inset 0 0 0 1px rgba(255, 190, 110, 0.5), 0 0 24px rgba(255, 190, 110, 0.25), 0 12px 22px rgba(0, 0, 0, 0.55); }
+
+/* ── The manuscript, bound ────────────────────────────────────────────────── */
+html[data-look="bench"] .book-head { border-bottom-color: var(--bn-ink); }
+html[data-look="bench"] .book-blank { font-family: var(--bn-fell); color: var(--bn-dim); }
+html[data-look="bench"] .book-chapter-num {
+  font-family: var(--bn-fell-sc);
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: none;
+  color: var(--bn-dim);
+}
+html[data-look="bench"] .book-chapter-title { font-family: var(--bn-fell); font-weight: 400; font-size: 18px; color: var(--bn-ink); }
+html[data-look="bench"] .book-rule { border-top-color: rgba(60, 38, 18, 0.35); }
+html[data-look="bench"] .book-chapter-tally { font-family: var(--bn-fell); font-style: italic; font-size: 12px; color: var(--bn-dim); }
+html[data-look="bench"] .book-folio { font-family: var(--bn-fell); color: var(--bn-dim); }
+html[data-look="bench"] .book-folio--deadline { color: var(--bn-red); }
+html[data-look="bench"] .book-prose { font-family: var(--bn-fell); font-size: 15.5px; line-height: 1.9; color: var(--bn-ink); }
+html[data-look="bench"] .book-word { font-family: var(--bn-fell-sc); font-variant-caps: normal; letter-spacing: 1px; }
+html[data-look="bench"] .book-score { font-family: var(--serif); color: var(--bn-dim); }
+/* The opening initial is rubricated. */
+html[data-look="bench"] .book-initial { font-family: var(--serif); color: var(--bn-red); }
+html[data-look="bench"] .book-entry--best .book-word { color: var(--bn-red-dk); background: rgba(178, 58, 30, 0.12); }
+html[data-look="bench"] .book-entry--best .book-score { color: var(--bn-red-dk); }
+
+/* ── The inspector: the case, opened ──────────────────────────────────────── */
+html[data-look="bench"] .sheet--inspector .mini-grid {
+  border-radius: 4px;
+  background: linear-gradient(180deg, #7a5537 0%, #5b3d27 20%, #3e2919 100%);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 2px 0 rgba(255, 220, 170, 0.18), inset 0 -6px 12px rgba(0, 0, 0, 0.45);
+}
+
+/* ── Settings ─────────────────────────────────────────────────────────────── */
+html[data-look="bench"] .set-row { border-bottom: 1px solid var(--bn-rule); }
+html[data-look="bench"] .set-row > label { font-family: var(--bn-fell-sc); font-weight: 400; font-size: 15px; letter-spacing: 1px; }
+html[data-look="bench"] .set-value { font-family: var(--serif); }
+html[data-look="bench"] .set-note { font-family: var(--bn-fell); font-style: italic; color: var(--bn-dim); }
+html[data-look="bench"] .file-label { border-radius: 3px; font-family: var(--bn-fell-sc); font-weight: 400; letter-spacing: 1px; }
+html[data-look="bench"] .theme-swatch, html[data-look="bench"] .layout-pick { border-radius: 3px; }
+html[data-look="bench"] .theme-swatch-name, html[data-look="bench"] .layout-pick-name { font-family: var(--bn-fell-sc); font-weight: 400; letter-spacing: 0.5px; }
+html[data-look="bench"] .theme-swatch-name { font-size: 10.5px; }
+html[data-look="bench"] .layout-pick-name { font-size: 13px; }
+html[data-look="bench"] .layout-pick-blurb { font-family: var(--bn-fell); font-style: italic; font-size: 11px; }
+html[data-look="bench"] .dev-tools summary { font-family: var(--bn-fell-sc); font-weight: 400; text-transform: none; letter-spacing: 1.5px; }
+html[data-look="bench"] .dev-row .btn { font-size: 12px; padding: 6px 10px; }
+html[data-look="bench"] .btn-danger { font-size: 14px; }
+
+/* ── The end screens, and the small sheets built like them ────────────────── */
+html[data-look="bench"] .sheet--end { border-radius: 3px; }
+html[data-look="bench"] .end-title { font-family: var(--bn-fell-sc); font-weight: 400; font-size: 30px; letter-spacing: 2px; color: var(--bn-ink); }
+html[data-look="bench"] .end-title--win { background: linear-gradient(120deg, var(--bn-red), var(--bn-red-dk)); -webkit-background-clip: text; background-clip: text; }
+html[data-look="bench"] .end-sub { font-family: var(--bn-fell); color: var(--bn-dim); opacity: 1; }
+html[data-look="bench"] .run-stat { border-radius: 3px; background: rgba(60, 38, 18, 0.08); border: 1px solid rgba(60, 38, 18, 0.3); }
+
+/* ── The popover: a slip of paper ─────────────────────────────────────────── */
+html[data-look="bench"] .tip-pop {
+  border: 0;
+  border-radius: 3px;
+  color: var(--bn-ink);
+  background: var(--bn-paper-face);
+  box-shadow: var(--bn-paper-shadow), 0 14px 40px rgba(0, 0, 0, 0.6);
+  font-family: var(--bn-fell);
+  font-size: 13.5px;
+}
+html[data-look="bench"] .tip-head { font-family: var(--bn-fell-sc); font-weight: 400; font-size: 16px; letter-spacing: 0.5px; }
+html[data-look="bench"] .tip-pts { font-family: var(--bn-fell-sc); font-weight: 400; letter-spacing: 1px; text-transform: none; font-size: 11px; color: var(--bn-dim); }
+html[data-look="bench"] .tip-line { color: #3d3020; }
+html[data-look="bench"] .tip-tally { border-top-color: var(--bn-rule); }
+html[data-look="bench"] .tip-tally-line { font-family: var(--bn-fell); font-style: italic; font-weight: 400; color: var(--bn-red-dk); }
+
+/* ── The banner: a broadside ──────────────────────────────────────────────── */
+html[data-look="bench"] .banner-inner {
+  padding: 26px 58px 24px;
+  color: var(--bn-ink);
+  background: var(--bn-paper-face);
+  box-shadow: var(--bn-paper-shadow), 0 30px 70px rgba(0, 0, 0, 0.6);
+}
+html[data-look="bench"] .banner-title {
+  font-family: var(--bn-fell-sc);
+  font-weight: 400;
+  font-size: 40px;
+  letter-spacing: 3px;
+  color: var(--bn-ink);
+  text-shadow: none;
+}
+html[data-look="bench"] .banner-sub { font-family: var(--bn-fell); color: var(--bn-red); }
+html[data-look="bench"] .banner-rule { color: var(--bn-red); }
+html[data-look="bench"] #banner.banner--dismissible .banner-inner::after {
+  font-family: var(--bn-fell-sc);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: none;
+  color: var(--bn-dim);
+}
+
+@media (max-width: 600px) {
+  html[data-look="bench"] .sheet--market { padding-top: 48px; }
+  html[data-look="bench"] .sheet--market .market-title { font-size: 26px; }
+  html[data-look="bench"] .sheet--black .bm-title { font-size: 32px; }
+  html[data-look="bench"] .banner-inner { padding: 20px 26px 18px; }
+  html[data-look="bench"] .banner-title { font-size: 28px; }
+}
