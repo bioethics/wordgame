@@ -77,19 +77,27 @@ code, pre { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
 
 /* the cue sheet */
 .cues { display: grid; gap: 14px; }
-.cues h2, .rack h2, .sheetwrap h2, .api h2 { margin: 0 0 8px; font: 500 11px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
-.moods { display: grid; gap: 6px; }
+.cues h2, .rack h2, .sheetwrap h2, .api h2, .cuesheet h2 { margin: 0 0 8px; font: 500 11px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.cuehead { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+.moods { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; align-items: start; margin-top: 4px; }
+@media (max-width: 1000px) { .moods { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .moods { grid-template-columns: 1fr; } }
+.famcol { display: grid; gap: 6px; }
 .mood {
-  display: grid; gap: 3px; text-align: left; padding: 10px 12px 10px 14px; border-radius: 6px;
+  display: grid; gap: 3px; text-align: left; padding: 8px 10px 9px 12px; border-radius: 6px;
   background: var(--bg-1); border: 1px solid var(--leather-2); border-left: 3px solid var(--leather-2); color: var(--ivory-2);
   transition: border-color .15s, background .15s;
 }
 .mood:hover { background: var(--leather); border-color: var(--wood); }
-.mood .name { font-family: var(--serif); font-size: 18px; font-weight: 500; color: var(--ivory); font-variation-settings: 'SOFT' 60; }
-.mood .blurb { color: var(--muted); font-size: 12px; line-height: 1.45; }
+.mood .name { font-family: var(--serif); font-size: 16px; font-weight: 500; color: var(--ivory); font-variation-settings: 'SOFT' 60; }
+.mood .blurb { color: var(--muted); font-size: 11.5px; line-height: 1.4; }
 .mood[aria-pressed="true"] { border-left-color: var(--brass); background: var(--leather); }
 .mood[aria-pressed="true"] .name { color: var(--brass-hi); }
 .mood[data-next="true"] { border-left-color: var(--brass-dark); border-left-style: dashed; }
+.fam { margin: 0 0 2px; font: 500 11px/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--brass-dark); }
+.fam:first-child { margin-top: 0; }
+.atphrase { display: flex; gap: 8px; align-items: center; color: var(--muted); font-size: 12px; }
+.atphrase input { accent-color: var(--brass); }
 .turn { justify-self: start; padding: 8px 14px; border-radius: 6px; background: transparent; border: 1px solid var(--wood-light); color: var(--ivory-2); }
 .turn:hover { border-color: var(--brass); color: var(--brass-hi); }
 
@@ -120,6 +128,7 @@ code, pre { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
 .sheet .head .title { font-size: 20px; font-weight: 500; font-variation-settings: 'SOFT' 80; }
 .sheet .head .meta { color: var(--parch-dim); font-style: italic; font-size: 14px; }
 .chart { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.chart .bar:nth-child(4n+1) { border-left-width: 2.5px; }
 @media (max-width: 600px) { .chart { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .bar {
   display: flex; align-items: baseline; gap: 4px; min-height: 48px; padding: 8px 10px; border-left: 1.5px solid var(--parch-ink);
@@ -162,16 +171,12 @@ code, pre { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
       <canvas id="roll" aria-label="A player-piano roll: notes descend to the keyboard as they sound."></canvas>
       <div class="legend">
         <span><i style="background:#f8f0dc"></i>piano</span><span><i style="background:#8db8ff"></i>upright bass</span>
-        <span><i style="background:#cfa6ff"></i>vibraphone</span><span><i style="background:#8fdfae"></i>clarinet</span>
+        <span><i style="background:#cfa6ff"></i>vibraphone</span><span><i style="background:#8fdfae"></i>clarinet</span><span><i style="background:#e0866f"></i>muted trumpet</span>
         <span><i style="background:#d9a64b"></i>ride · hat · snare · kick, in the gutter</span>
       </div>
     </div>
 
     <aside class="cues">
-      <div>
-        <h2>Cue sheet</h2>
-        <div class="moods" id="moods"></div>
-      </div>
       <button class="turn" id="turn">Take it somewhere else ↷</button>
       <div class="rack" id="rack">
         <h2>The rack</h2>
@@ -186,6 +191,11 @@ code, pre { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
     </aside>
   </section>
 
+  <section class="cuesheet">
+    <div class="cuehead"><h2>Cue sheet</h2><label class="atphrase"><input id="atPhrase" type="checkbox" checked> change at the phrase, with a break</label></div>
+    <div class="moods" id="moods"></div>
+  </section>
+
   <section class="sheetwrap">
     <div class="sheet">
       <div class="head"><span class="title" id="sheetTitle">Chart</span><span class="meta" id="sheetMeta">eight bars, decorated fresh each chorus</span></div>
@@ -196,7 +206,7 @@ code, pre { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
 
   <section class="api">
     <h2>Plugging it in</h2>
-    <p>One script, one global. The game calls four things; the band does the rest, including the join between moods (a ii–V pivot on the next bar line, tempo drifting toward the new one).</p>
+    <p>One script, one global. The game calls four things; the band does the rest, including the join between moods: it finishes the two-bar phrase, plays a break (one hit on the V of the new key, then the hi-hat counting two beats in the new tempo under a pickup line), and the new band walks in on the downbeat. Keys are kept, or move to the relative, so the join is a turn rather than a cut.</p>
 <pre><span class="cm">// index.html</span>
 &lt;script src="js/music.js"&gt;&lt;/script&gt;
 
@@ -204,7 +214,8 @@ code, pre { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
 Music.<span class="k">start</span>(<span class="s">'workshop'</span>);
 
 <span class="cm">// wherever the scene changes</span>
-Music.<span class="k">setMood</span>(<span class="s">'market'</span>);        <span class="cm">// 'workshop' | 'calm' | 'market' | 'blackmarket' | 'editor'</span>
+Music.<span class="k">setMood</span>(<span class="s">'market'</span>);        <span class="cm">// any id from Music.moods; waits for the phrase and plays a break</span>
+Music.<span class="k">setMood</span>(<span class="s">'editor'</span>, { now: true });   <span class="cm">// or at the very next bar line</span>
 
 <span class="cm">// off-grid remarks, spelled in the current key</span>
 Music.<span class="k">cue</span>(<span class="s">'good'</span>);             <span class="cm">// 'good' | 'bad' | 'hire' | 'page' | 'turn'</span>
@@ -218,23 +229,29 @@ Music.<span class="k">on</span>(<span class="s">'bar'</span>, info =&gt; …);  
 <script>
 (() => {
   const $ = s => document.querySelector(s);
-  const COLORS = { piano: '#f8f0dc', bass: '#8db8ff', vibes: '#cfa6ff', clarinet: '#8fdfae' };
+  const COLORS = { piano: '#f8f0dc', bass: '#8db8ff', vibes: '#cfa6ff', clarinet: '#8fdfae', trumpet: '#e0866f' };
   const DRUM = { ride: ['#d9a64b', 2.2], bell: ['#f6d68a', 3.2], hat: ['#9c8a96', 1.5], kick: ['#d9a64b', 3.6], snare: ['#e8dab6', 2.4], rim: ['#ff8273', 2.4], sweep: ['#6d5f6b', 0] };
-  const LEVELS = { piano: 1, bass: .9, drums: .8, vibes: .8, clarinet: .8, drone: 1 };
+  const LEVELS = { piano: 1, bass: 1, drums: .7, vibes: .8, clarinet: .8, trumpet: .8, drone: 1 };
   const LO = 28, HI = 96, GUTTER = 28, KEY_H = 46;
   let PPS = 120;                                           // pixels per second; set from the roll's height so about five seconds show
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ── the cue sheet ── */
   const moodBtns = {};
+  let lastFamily = null, col = null;
   for (const m of Music.moods) {
+    if (m.family !== lastFamily) {
+      col = document.createElement('div'); col.className = 'famcol';
+      const h = document.createElement('h3'); h.className = 'fam'; h.textContent = m.family;
+      col.appendChild(h); $('#moods').appendChild(col); lastFamily = m.family;
+    }
     const b = document.createElement('button');
     b.className = 'mood'; b.type = 'button'; b.setAttribute('aria-pressed', 'false');
     const name = document.createElement('span'), blurb = document.createElement('span');
     name.className = 'name'; name.textContent = m.label; blurb.className = 'blurb'; blurb.textContent = m.blurb;
     b.append(name, blurb);
-    b.addEventListener('click', () => { if (Music.running) Music.setMood(m.id); else { Music.start(m.id); applyRack(); } refresh(); });
-    $('#moods').appendChild(b); moodBtns[m.id] = b;
+    b.addEventListener('click', () => { if (Music.running) Music.setMood(m.id, { now: !$('#atPhrase').checked }); else { Music.start(m.id); applyRack(); } refresh(); });
+    col.appendChild(b); moodBtns[m.id] = b;
   }
   function markMoods() {
     const cur = Music.mood, pend = Music.pending;
@@ -260,7 +277,7 @@ Music.<span class="k">on</span>(<span class="s">'bar'</span>, info =&gt; …);  
   /* ── the rack ── */
   const chans = {};
   const rack = $('#rack');
-  [['piano', 'Piano'], ['bass', 'Upright bass'], ['drums', 'Drums'], ['vibes', 'Vibraphone', 1], ['clarinet', 'Clarinet', 1], ['drone', 'The drone', 1]].forEach(([id, label, guest]) => {
+  [['piano', 'Piano'], ['bass', 'Upright bass'], ['drums', 'Drums'], ['vibes', 'Vibraphone', 1], ['clarinet', 'Clarinet', 1], ['trumpet', 'Muted trumpet', 1], ['drone', 'The drone', 1]].forEach(([id, label, guest]) => {
     const row = document.createElement('div'); row.className = 'chan' + (guest ? ' guest' : '');
     const lab = document.createElement('label'); lab.htmlFor = 'lv-' + id; lab.textContent = label;
     const sl = document.createElement('input'); sl.type = 'range'; sl.id = 'lv-' + id; sl.min = 0; sl.max = 1.2; sl.step = .01; sl.value = LEVELS[id];
@@ -280,7 +297,8 @@ Music.<span class="k">on</span>(<span class="s">'bar'</span>, info =&gt; …);  
   }
   function markGuests() {
     const m = Music.moods.find(x => x.id === Music.mood);
-    for (const id of ['vibes', 'clarinet', 'drone']) chans[id].row.classList.toggle('off', !m || !m.extras.includes(id));
+    for (const id of ['vibes', 'clarinet', 'trumpet', 'drone']) chans[id].row.classList.toggle('off', !m || !m.extras.includes(id));
+    for (const id of ['bass', 'drums']) chans[id].row.classList.toggle('off', !m || m.without.includes(id));
   }
   function refresh() { setPlayUI(); markMoods(); markGuests(); }
 
@@ -289,23 +307,25 @@ Music.<span class="k">on</span>(<span class="s">'bar'</span>, info =&gt; …);  
   Music.on('mood', refresh);
   Music.on('bar', info => {
     bar = info;
-    $('#chord').textContent = info.chords.join('   ');
-    const where = info.phraseBar < 0 ? 'turnaround' : 'bar ' + (info.phraseBar + 1) + ' of ' + info.chart.length + ', chorus ' + (info.chorus + 1);
+    $('#chord').textContent = info.break ? '— break —' : info.chords.join('   ');
+    const where = info.break ? 'a break, into ' + info.label : (info.phraseBar < 0 ? 'turnaround' : 'bar ' + (info.phraseBar + 1) + ' of ' + info.chart.length + (info.headChorus ? ', the head' : ', solo chorus ' + info.chorus));
     const facts = $('#facts'); facts.textContent = '';
     const line1 = document.createElement('div');
     const k = document.createElement('b'); k.textContent = info.keyName;
     const t = document.createElement('b'); t.textContent = String(info.bpm);
-    line1.append(k, ' · ', t, ' bpm · swing ' + Math.round(info.swing * 100));
+    line1.append(k, ' · ', t, ' bpm · ' + info.beats + '/4 · swing ' + Math.round(info.swing * 100));
     const line2 = document.createElement('div'); line2.textContent = where;
-    if (info.lead === 'clarinet') { const s = document.createElement('span'); s.className = 'lead'; s.textContent = ' · clarinet has the tune'; line2.appendChild(s); }
+    if (info.lead !== 'piano') { const s = document.createElement('span'); s.className = 'lead'; s.textContent = ' · ' + (info.lead === 'trumpet' ? 'muted trumpet' : info.lead) + ' has the tune'; line2.appendChild(s); }
     else if (info.resting) line2.append(' · the tune is resting');
     facts.append(line1, line2);
     if (info.nextKey) { const g = document.createElement('div'); g.className = 'goto'; g.textContent = '→ ' + info.nextKey + ' next'; facts.appendChild(g); }
+    if (info.pending) { const g = document.createElement('div'); g.className = 'goto'; g.textContent = '→ ' + info.pending + ' at the phrase'; facts.appendChild(g); }
     renderChart(info);
     markMoods();
   });
   function renderChart(info) {
     const chart = $('#chart');
+    if (info.break) return;
     const key = info.mood + '|' + info.keyName + '|' + info.chart.map(b => b.map(c => c.name + c.sub).join(',')).join('|');
     if (key !== chartKey) {
       chartKey = key; chart.textContent = '';
@@ -320,7 +340,7 @@ Music.<span class="k">on</span>(<span class="s">'bar'</span>, info =&gt; …);  
       });
       $('#sheetTitle').textContent = info.label + ', in ' + info.keyName;
     }
-    $('#sheetMeta').textContent = 'chorus ' + (info.chorus + 1) + ' · ' + info.bpm + ' bpm';
+    $('#sheetMeta').textContent = (info.headChorus ? 'the head, plain' : 'solo chorus ' + info.chorus + ', decorated') + ' · ' + info.bpm + ' bpm · ' + info.beats + '/4';
     [...chart.children].forEach((d, i) => d.classList.toggle('live', i === info.phraseBar));
   }
 
