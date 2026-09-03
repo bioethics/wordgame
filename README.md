@@ -32,6 +32,36 @@ python -m http.server 8431 --bind 0.0.0.0
 # on the phone: http://<your-computer's-ip>:8431
 ```
 
+### The two looks
+
+The board has two looks, chosen in Settings. **The Bench** is the default: one
+working surface with the game's objects on it, each object being the
+information it carries. The composing stick is the groove, and it is a ruler —
+the measure is cut along its edge (`renderRule` in `js/render.js`), a tick per
+sort and the multiplier each length earns from the sixth, so how far a word
+reaches *is* the length multiplier, and the steel knee closes on the word's
+end. The marks are re-cut for the word in the groove rather than engraved once,
+because the measure counts letters where the stick holds tiles: a þ or a CH is
+one sort of two letters, so every tick says what the word would be worth if it
+ended there. The manuscript sheet is the status — chapter, folio, quota, and
+the words of the page on ruled lines, with the word pips as the lines' bullets.
+The proof slip is the readout: Points, then the measure and the paints as inked
+stamps, only those that apply, and the total under a rule; what each *patron*
+adds stays on its own calling card, in the order the seats speak, because seat
+order is a rule of the game and a bar would flatten it. The type case is the
+hand, one socket per place, so a wider hand is more sockets.
+
+**Retro** is the board as it was — panels, chips and pips. It is `css/style.css`
+untouched: every rule of the bench lives in `css/bench.css` and is scoped to
+`html[data-look="bench"]`, so the two cannot bleed into one another, and a
+piece of furniture only the bench has (the scale, the knee, the sheet's lines,
+the rule on a card) is put away by one line in `style.css` and brought out in
+`bench.css`. The rooms tint the bench top — the Baize is green felt under the
+paper — and the Deadline still pulls it to ember. The layouts belong to retro;
+the bench holds the Folio column underneath and puts the picker away. The
+full-screen sheets — the Market, the alley, the Colophon — keep their own skin
+for now.
+
 ## How a word scores
 
 ```
@@ -1099,7 +1129,8 @@ bigger step than the last and a built press has to multiply rather than add:
 | `js/render.js` | board-side DOM: tiles, shelf, workbench, status, readout, popovers, overlays |
 | `js/sheets.js` | the full-screen sheets — Market, stalls, Colophon, draft — HTML and click handling, with game flow injected from main.js |
 | `js/anim.js` | flights, floaters, tweens, sparkles, WebAudio sfx — every duration respects the speed setting |
-| `js/appearance.js` | the room (theme), the table's layout, and the UI scale — `THEMES`, `LAYOUTS`, auto-fit, and `uiZoom()`, the factor every rect-to-style write divides by |
+| `js/appearance.js` | the look (the Bench or Retro), the room (theme), the table's layout, and the UI scale — `LOOKS`, `THEMES`, `LAYOUTS`, auto-fit, and `uiZoom()`, the factor every rect-to-style write divides by |
+| `css/bench.css` | the Bench look, every rule scoped to `html[data-look="bench"]` over `css/style.css`, which is Retro whole |
 | `js/main.js` | orchestration: submit cinematic, page/chapter flow, input, settings |
 | `js/drag.js` | pointer input: tap / drag / long-press for rack, word and the patron shelf (where a drag reseats a patron, changing the order effects fire in), mouse and touch alike |
 | `js/dict.js` | dictionary loading/caching (also reads a `window.FOLIO_WORDLIST` global, for single-file bundles) |

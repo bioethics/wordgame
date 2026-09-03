@@ -61,8 +61,29 @@ export const LAYOUTS = {
   },
 };
 
+// ─── The looks ────────────────────────────────────────────────────────────────
+// A look is the board's whole idiom, where a room is only its colour. THE
+// BENCH is the default: one working surface, the composing stick carrying the
+// measure as an engraved scale, the page you are filling as a sheet of paper,
+// the hand as a type case with a place per sort. RETRO is the board as it was
+// — panels, chips and pips — kept whole in css/style.css; the bench is
+// css/bench.css laid over it, keyed off html[data-look]. The layouts belong to
+// retro alone: the bench has a desk of its own, so it holds the Folio column
+// underneath and the picker is put away while it is on.
+export const LOOKS = {
+  bench: {
+    name: 'The Bench',
+    blurb: 'one working surface — the stick, the sheet, the case',
+  },
+  retro: {
+    name: 'Retro',
+    blurb: 'the original board — panels, chips and pips',
+  },
+};
+
 const DEFAULT_THEME  = 'candlelit';
 const DEFAULT_LAYOUT = 'classic';
+const DEFAULT_LOOK   = 'bench';
 
 // ─── UI scale ─────────────────────────────────────────────────────────────────
 // Auto sizes the board to the window: the classic column is designed around
@@ -77,10 +98,12 @@ export const SCALE_MAX = 1.75;
 const AUTO_FIT = {
   classic: { w: 1320, h: 920 },
   desk:    { w: 1720, h: 800 },
+  bench:   { w: 1300, h: 900 },
 };
 
 function autoScale() {
-  const fit = AUTO_FIT[activeLayout()] ?? AUTO_FIT.classic;
+  const fit = activeLook() === 'bench' ? AUTO_FIT.bench
+            : AUTO_FIT[activeLayout()] ?? AUTO_FIT.classic;
   const s = Math.min(innerWidth / fit.w, innerHeight / fit.h, SCALE_MAX);
   return Math.max(1, s);
 }
@@ -108,6 +131,7 @@ export function applyScale() {
 
 export function activeTheme()  { return THEMES[settings.theme]   ? settings.theme  : DEFAULT_THEME; }
 export function activeLayout() { return LAYOUTS[settings.layout] ? settings.layout : DEFAULT_LAYOUT; }
+export function activeLook()   { return LOOKS[settings.look]     ? settings.look   : DEFAULT_LOOK; }
 
 export function applyTheme() {
   const id = activeTheme();
@@ -117,8 +141,15 @@ export function applyTheme() {
 }
 
 export function applyLayout() {
-  document.documentElement.dataset.layout = activeLayout();
+  // The bench has its own desk: the Workshop rail would fight it for the
+  // width, so the Folio column holds underneath whatever the retro pick was.
+  document.documentElement.dataset.layout = activeLook() === 'bench' ? 'classic' : activeLayout();
   applyScale();                   // the two layouts fit a window differently
+}
+
+export function applyLook() {
+  document.documentElement.dataset.look = activeLook();
+  applyLayout();                  // the looks fit a window differently too
 }
 
 export function setTheme(id) {
@@ -133,6 +164,12 @@ export function setLayout(id) {
   saveSettings();
 }
 
+export function setLook(id) {
+  settings.look = LOOKS[id] ? id : DEFAULT_LOOK;
+  applyLook();
+  saveSettings();
+}
+
 export function setUiScale(v) {
   settings.uiScale = v === 'auto' ? 'auto'
     : Math.max(SCALE_MIN, Math.min(SCALE_MAX, Number(v) || 1));
@@ -142,7 +179,7 @@ export function setUiScale(v) {
 
 export function initAppearance() {
   applyTheme();
-  applyLayout();                  // calls applyScale
+  applyLook();                    // calls applyLayout, which calls applyScale
   let raf = 0;
   window.addEventListener('resize', () => {
     cancelAnimationFrame(raf);

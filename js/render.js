@@ -5,7 +5,7 @@
 import {
   state, settings, saveState, getActiveLetter, getActiveColour, selectedCount,
   effectivePatronSlots, effectiveSundrySlots, effectiveGhostSlots,
-  effectiveWordsPerPage, chapterTitle,
+  effectiveWordsPerPage, effectiveRackSize, chapterTitle,
   sundrySelected, restingPoints, getActiveGrowth, isWrapped, shiftPreview, isSquib,
 } from './state.js';
 import {
@@ -14,6 +14,7 @@ import {
   colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
   sundryTip, FLEURON, BATTER, TOOL_LOOK, PACKAGES, APPLICATORS, MEDIEVAL, letterGlyph,
   INTERROBANG, POSTNOM, BAG_COUNTS, BRIBRARIAN, bribeMult, isRule, RULE, BOLD_MULT,
+  lengthMult, LENGTH_MULT_MIN,
 } from './constants.js';
 import { patronById, guildsOf, patronName, patronShelf, patronEmoji, laurelWorth, seatTally } from './patrons.js';
 import { bossById } from './bosses.js';
@@ -497,6 +498,7 @@ function renderShelf(script) {
         slot.innerHTML = `
           <span class="patron-emoji">${patronEmoji(def, p.data)}</span>
           <span class="patron-name">${label}</span>
+          <span class="patron-desc">${desc}</span>
           ${p.data?.postnom ? `<span class="patron-postnom" title="${patronName(def, p.data)} — a distinguished patron: ×${POSTNOM.mult} Mult, paid at this seat's turn in the running order">${p.data.postnom}</span>` : ''}
           ${laurels ? `<span class="patron-laurel" title="${laurelWorth(laurels)}, paid at this seat's turn, lost if this patron is dismissed">🏵️${laurels > 1 ? `<b>${laurels}</b>` : ''}</span>` : ''}
           <button class="patron-x" data-sell="${p.uid ?? def.id}" title="Dismiss ${name} for ${refund} Coins">✕</button>`;
@@ -804,6 +806,7 @@ function renderStatus() {
   renderPips('wordPips', Math.max(effectiveWordsPerPage(), state.wordsLeft), state.wordsLeft, 'pip--word');
   const dMax = Math.max(state.discardsMax ?? 2, state.discards);
   renderPips('discardPips', dMax, state.discards, 'pip--swap');
+  renderPageLines();
 
   const coinsEl = $('coinCount');
   if (coinsEl) setNum(coinsEl, state.coins);
@@ -880,6 +883,33 @@ function renderBossBar(script) {
     ${verdict}`;
 }
 
+// ─── The sheet's lines (the bench look) ───────────────────────────────────────
+// The page you are filling, as ruled lines: one per word the page asks for,
+// each set word on its line with its score, and the word pips as the lines'
+// bullets — lit while the line is still to be set, spent once it is. Retro
+// keeps its pip row and hides this; the two are the same count read two ways.
+let _pageLines = -1;
+function renderPageLines() {
+  const el = $('pageLines');
+  if (!el) return;
+  const rows = (state.manuscript ?? []).filter(r => r.chapter === state.chapter && r.page === state.page);
+  const total = Math.max(state.wordsLeft + state.wordsPrinted, rows.length, 1);
+  // Only a freshly set line inks in; a page restored from a save is already dry.
+  const grew = _pageLines >= 0 && rows.length > _pageLines;
+  _pageLines = rows.length;
+  let html = '';
+  for (let i = 0; i < total; i++) {
+    const r = rows[i];
+    const cls = r
+      ? `page-line page-line--set${r.bold ? ' page-line--bold' : ''}${grew && i === rows.length - 1 ? ' page-line--fresh' : ''}`
+      : `page-line page-line--open${i === rows.length ? ' page-line--next' : ''}`;
+    html += `<span class="${cls}"><span class="pip pip--word${r ? '' : ' pip--on'}"></span>${
+      r ? `<span class="page-word">${r.word.toLowerCase()}</span><span class="page-score">${r.score.toLocaleString()}</span>` : ''
+    }</span>`;
+  }
+  el.innerHTML = html;
+}
+
 function renderPips(id, total, filled, cls, maxShown = total) {
   const el = $(id);
   if (!el) return;
@@ -953,6 +983,9 @@ export function renderRack(ghostIds = null) {
     if (ghostIds?.has(t.id)) tileEl.classList.add('tile--ghost');
     el.appendChild(tileEl);
   });
+  // The bench's type case cuts one place per sort the hand holds, so a wider
+  // hand is more compartments (css/bench.css reads this). Harmless in retro.
+  el.style.setProperty('--places', Math.max(1, effectiveRackSize()));
   reserveHandHeight(el, '--rack-reserve');
 }
 
@@ -963,7 +996,77 @@ if (typeof window !== 'undefined') {
     if (rack) reserveHandHeight(rack, '--rack-reserve');
     const word = $('word');
     if (word) reserveHandHeight(word, '--word-reserve');
+    // The stick's scale is cut to the tiles' measured positions — cut it again.
+    if (!state.isAnimating) renderWord();
   });
+}
+
+// ─── The measure, engraved (the bench look) ───────────────────────────────────
+// The composing stick carries a scale: a tick per sort along the set line and,
+// from LENGTH_MULT_MIN letters, the multiplier each length earns — so how far a
+// word reaches IS the measure, read off the stick rather than off a chip. The
+// marks are cut for the word in the groove rather than engraved once, because
+// the measure counts LETTERS where the stick holds tiles: a þ or a CH is one
+// sort of two letters, a mark is a sort of none. Each tick therefore says what
+// the word would be worth if it ended there, and the knee closes on what it is
+// worth now. Retro hides the scale and the knee, and nothing here is measured.
+const RULE_SLOTS_BEYOND = 8;   // empty ems shown past the last sort
+const benchOn = () => document.documentElement.dataset.look !== 'retro';
+
+// Letters of measure one sort contributes, as scoring counts them: a medieval
+// sort as what it stands for (its first reading — ȝ and Æ are ambiguous, and the
+// knee's own label is read off the script, which knows), a mark as nothing.
+const measureOf = tile => {
+  const L = getActiveLetter(tile) ?? '';
+  if (!L || isMark(L)) return 0;
+  return MEDIEVAL[L]?.reads?.[0]?.length ?? L.length;
+};
+
+function renderRule(script, placed) {
+  const bar = $('wordRule'), knee = $('wordKnee'), word = $('word');
+  if (!bar || !knee || !word) return;
+  if (!benchOn()) { bar.innerHTML = ''; return; }
+
+  const cs   = getComputedStyle(word);
+  const gap  = parseFloat(cs.columnGap) || 0;
+  const padL = parseFloat(cs.paddingLeft) || 0;
+  const root = getComputedStyle(document.documentElement);
+  const tileW = parseFloat(root.getPropertyValue('--tile-w')) || 68;
+  // Tile offsets are read inside #word's padding box; the scale is drawn in
+  // the wrap around it, so its own edge is added back.
+  const origin = word.offsetLeft + word.clientLeft;
+  const room = (word.offsetLeft + word.offsetWidth) - 4;
+  // A word wrapped to a second row has no scale to read: the ticks stop.
+  const firstTop = placed[0]?.el.offsetTop;
+  const oneRow = placed.every(p => p.el.offsetTop === firstTop);
+
+  const ticks = [];
+  let letters = 0, x = origin + padL - gap / 2;
+  const cut = (at, n, here = false) => {
+    if (at > room) return false;
+    const major = n >= LENGTH_MULT_MIN;
+    ticks.push(`<span class="tick${major ? ' tick--major' : ''}${here || at <= x ? ' tick--on' : ''}" style="left:${at}px"></span>`);
+    if (major) ticks.push(`<span class="tick-label${here ? ' tick--here' : ''}" style="left:${at}px">×${fmtMult(lengthMult(n))}</span>`);
+    return true;
+  };
+  if (oneRow) {
+    placed.forEach((p, i) => {
+      letters += measureOf(p.tile);
+      x = origin + p.el.offsetLeft + p.el.offsetWidth + gap / 2;
+      const last = i === placed.length - 1;
+      // The knee's mark is the script's own count, which resolves the readings.
+      cut(x, last && script ? script.letters.length : letters, last);
+    });
+    if (placed.length && script) letters = script.letters.length;
+    for (let k = 1; k <= RULE_SLOTS_BEYOND; k++) {
+      if (!cut(x + k * (tileW + gap), letters + k)) break;
+    }
+  }
+  bar.innerHTML = ticks.join('');
+
+  const last = placed[placed.length - 1]?.el;
+  knee.style.left = `${last ? origin + last.offsetLeft + last.offsetWidth + 4 : origin + padL - 3}px`;
+  knee.classList.toggle('knee--off', !oneRow);
 }
 
 // Last render's displayed contributions, so changes can be animated.
@@ -1055,14 +1158,18 @@ export function renderWord(script = computeScore(state.word)) {
   };
 
   // A phantom takes the place it was struck into, which may be the end of the
-  // word — hence the extra turn past the last tile.
+  // word — hence the extra turn past the last tile. `placed` keeps each tile
+  // beside its element, in groove order, for the stick's scale.
+  const placed = [];
+  const place = (tile, tileEl) => { el.appendChild(tileEl); placed.push({ tile, el: tileEl }); };
   for (let i = 0; i <= state.word.length; i++) {
     const su = summonsAt.get(i);
-    if (su) el.appendChild(phantomTwinEl(su));
-    if (state.word[i]) el.appendChild(wordTileEl(state.word[i]));
+    if (su) place(su, phantomTwinEl(su));
+    if (state.word[i]) place(state.word[i], wordTileEl(state.word[i]));
   }
   _lastWordPts = nowPts;
   reserveHandHeight(el, '--word-reserve');
+  renderRule(script, placed);
 
   updateReadoutPreview(script);
 }

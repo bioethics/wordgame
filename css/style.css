@@ -1578,6 +1578,13 @@ button.sundry:hover { transform: translateY(-2px); }
 
 .hidden { display: none !important; }
 
+/* ─── The bench's furniture, put away ─────────────────────────────────────────
+   The stick's scale and knee, and the sheet's ruled lines, belong to the bench
+   look (css/bench.css). Here they are absent, and the groove's wrap dissolves so
+   #word stays a grid item of the column with the order it has always had. */
+.groove-wrap { display: contents; }
+.rule-bar, .knee, .page-lines, .patron-desc { display: none; }
+
 /* ─── Word groove ─────────────────────────────────────────────────────────────── */
 /* The groove reserves room for the WHOLE HAND, exactly as the rack does —
    --word-reserve is measured in render.js from rack and word together — so a

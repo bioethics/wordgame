@@ -18,11 +18,15 @@
       try {
         var s = JSON.parse(localStorage.getItem('folio_settings_v1') || '{}');
         var de = document.documentElement;
+        var look = typeof s.look === 'string' ? s.look : 'bench';
+        de.dataset.look = look;
         if (typeof s.theme  === 'string') de.dataset.theme  = s.theme;
-        if (typeof s.layout === 'string') de.dataset.layout = s.layout;
+        // The bench keeps the Folio column under it (applyLayout in js/appearance.js).
+        if (typeof s.layout === 'string') de.dataset.layout = look === 'bench' ? 'classic' : s.layout;
+        var fitW = look === 'bench' ? 1300 : (s.layout === 'desk' ? 1720 : 1320);
+        var fitH = look === 'bench' ? 900  : (s.layout === 'desk' ? 800  : 920);
         var ui = typeof s.uiScale === 'number' ? s.uiScale
-          : Math.max(1, Math.min(innerWidth / (s.layout === 'desk' ? 1720 : 1320),
-                                 innerHeight / (s.layout === 'desk' ? 800 : 920), 1.75));
+          : Math.max(1, Math.min(innerWidth / fitW, innerHeight / fitH, 1.75));
         ui = Math.min(ui, Math.max(1, innerWidth / 1180));
         de.style.setProperty('--ui', String(Math.round(ui * 1000) / 1000));
       } catch (e) { /* first visit, or storage denied — the defaults hold */ }
@@ -30,8 +34,10 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=Inter:wght@400;600;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=Inter:wght@400;600;800&family=Caveat:wght@500;700&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css" />
+  <!-- The bench look, laid over the board above and keyed off html[data-look] -->
+  <link rel="stylesheet" href="css/bench.css" />
 </head>
 <body>
 
@@ -68,6 +74,10 @@
         <div class="pips-row"><span class="pips-label">Words</span><span id="wordPips" class="pips"></span></div>
         <div class="pips-row"><span class="pips-label">Discards</span><span id="discardPips" class="pips"></span></div>
       </div>
+      <!-- The bench look's sheet: one ruled line per word of the page, the
+           word pips as their bullets (renderStatus in js/render.js). Retro
+           keeps its pip row and never shows this. -->
+      <div id="pageLines" class="page-lines" aria-label="The words of this page"></div>
     </section>
 
     <!-- The editor's bar: who holds the desk this Deadline, and their demand -->
@@ -115,8 +125,14 @@
       </div>
     </section>
 
-    <!-- Word groove -->
-    <div id="word" class="word-groove" role="list" aria-label="Current word" data-placeholder="compose a word…"></div>
+    <!-- Word groove — in the bench look, the composing stick. The scale and
+         the knee are drawn by renderRule (js/render.js); the wrap dissolves
+         in retro, which hides both. -->
+    <div class="groove-wrap">
+      <div id="word" class="word-groove" role="list" aria-label="Current word" data-placeholder="compose a word…"></div>
+      <div id="wordRule" class="rule-bar" aria-hidden="true"></div>
+      <div id="wordKnee" class="knee" aria-hidden="true"></div>
+    </div>
 
     <!-- Bag · rack · tray -->
     <section class="rack-row">
@@ -211,13 +227,20 @@
       </div>
 
       <div class="set-row">
+        <label>Look</label>
+        <div class="set-control">
+          <div id="lookPicker" class="appearance-swatches"></div>
+        </div>
+      </div>
+
+      <div class="set-row">
         <label>Room</label>
         <div class="set-control">
           <div id="themeSwatches" class="appearance-swatches"></div>
         </div>
       </div>
 
-      <div class="set-row">
+      <div class="set-row" id="layoutRow">
         <label>Layout</label>
         <div class="set-control">
           <div id="layoutPicker" class="appearance-swatches"></div>

@@ -55,8 +55,8 @@ import {
 } from './anim.js';
 import { initInput, initInspect, initShelfDrag } from './drag.js';
 import {
-  THEMES, LAYOUTS, initAppearance, activeTheme, activeLayout,
-  setTheme, setLayout, setUiScale,
+  THEMES, LAYOUTS, LOOKS, initAppearance, activeTheme, activeLayout, activeLook,
+  setTheme, setLayout, setLook, setUiScale,
 } from './appearance.js';
 import {
   PATRON_DEFS, patronById, doubledReading, boundNouns, patronName, patronShelf, guildSeats,
@@ -2393,6 +2393,17 @@ function syncSettingsUI() {
 // ─── Appearance: room, layout, UI size ────────────────────────────────────────
 
 function syncAppearanceUI() {
+  const looks = $('lookPicker');
+  if (looks) {
+    looks.innerHTML = Object.entries(LOOKS).map(([id, l]) => `
+      <button class="layout-pick${id === activeLook() ? ' layout-pick--on' : ''}" data-look-pick="${id}">
+        <span class="layout-pick-name">${l.name}</span>
+        <span class="layout-pick-blurb">${l.blurb}</span>
+      </button>`).join('');
+  }
+  // The layouts are retro's: the bench brings a desk of its own.
+  $('layoutRow')?.classList.toggle('hidden', activeLook() === 'bench');
+
   const swatches = $('themeSwatches');
   if (swatches) {
     swatches.innerHTML = Object.entries(THEMES).map(([id, t]) => `
@@ -2441,6 +2452,17 @@ $('layoutPicker')?.addEventListener('click', e => {
   setLayout(pick.dataset.layoutPick);
   sfx.page();
   syncAppearanceUI();
+});
+
+$('lookPicker')?.addEventListener('click', e => {
+  const pick = e.target.closest('[data-look-pick]');
+  if (!pick) return;
+  setLook(pick.dataset.lookPick);
+  sfx.page();
+  syncAppearanceUI();
+  // The stick's scale and the case's places are measured off the look's own
+  // geometry, so the board is drawn again rather than left to the next word.
+  if (!state.isAnimating) renderAll();
 });
 
 $('uiScaleAuto')?.addEventListener('change', e => {
