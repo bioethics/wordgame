@@ -44,11 +44,14 @@
 
   <header>
     <span class="logo">Great Work <span class="logo-mark">❦</span></span>
-    <span id="dictDot" class="dict-dot" title="Dictionary"></span>
     <div class="header-spacer"></div>
     <div class="coin-purse" title="Coins"><span class="coin coin--lg"></span><span id="coinCount">0</span></div>
     <button id="manuscriptBtn" class="btn-icon btn-icon--manuscript" title="The manuscript — every word printed this run">❦</button>
-    <button id="settingsBtn" class="btn-icon" title="Settings">⚙</button>
+    <!-- A drawn gear rather than the ⚙ glyph: a glyph's ink sits where its font
+         put it, so a text gear turns about the button's centre and not its own. -->
+    <button id="settingsBtn" class="btn-icon btn-icon--settings" title="Settings">
+      <svg class="gear" viewBox="-12 -12 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M7.78 -1.87 L11.06 -1.75 L11.06 1.75 L7.78 1.87 L6.82 4.18 L9.06 6.58 L6.58 9.06 L4.18 6.82 L1.87 7.78 L1.75 11.06 L-1.75 11.06 L-1.87 7.78 L-4.18 6.82 L-6.58 9.06 L-9.06 6.58 L-6.82 4.18 L-7.78 1.87 L-11.06 1.75 L-11.06 -1.75 L-7.78 -1.87 L-6.82 -4.18 L-9.06 -6.58 L-6.58 -9.06 L-4.18 -6.82 L-1.87 -7.78 L-1.75 -11.06 L1.75 -11.06 L1.87 -7.78 L4.18 -6.82 L6.58 -9.06 L9.06 -6.58 L6.82 -4.18Z M3.4 0 A3.4 3.4 0 1 0 -3.4 0 A3.4 3.4 0 1 0 3.4 0Z"/></svg>
+    </button>
   </header>
 
   <main class="table">
@@ -291,7 +294,7 @@
         <label>Word list</label>
         <div class="set-control set-control--stack">
           <label class="file-label">Load a .txt list<input id="fileInput" class="file-input" type="file" accept=".txt" /></label>
-          <span id="dictStatus" class="set-note">loading…</span>
+          <span class="dict-line"><span id="dictDot" class="dict-dot" title="Dictionary"></span><span id="dictStatus" class="set-note">loading…</span></span>
         </div>
       </div>
 

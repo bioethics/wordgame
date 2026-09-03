@@ -1009,8 +1009,12 @@ if (typeof window !== 'undefined') {
 // the measure counts LETTERS where the stick holds tiles: a þ or a CH is one
 // sort of two letters, a mark is a sort of none. Each tick therefore says what
 // the word would be worth if it ended there, and the knee closes on what it is
-// worth now. Retro hides the scale and the knee, and nothing here is measured.
-const RULE_SLOTS_BEYOND = 8;   // empty ems shown past the last sort
+// worth now. The scale runs the whole length of the stick — every em that fits,
+// not eight past the word — so the marks a word could reach are all in view
+// before it starts; a sort added lights a tick, it never conjures one. Retro
+// hides the scale and the knee, and nothing here is measured.
+const RULE_SLOTS_MAX = 64;     // a ceiling on the loop, well past any stick
+const RULE_LABEL_ROOM = 16;    // a label is centred on its tick; keep it inside the brass
 const benchOn = () => document.documentElement.dataset.look !== 'retro';
 
 // Letters of measure one sort contributes, as scoring counts them: a medieval
@@ -1035,7 +1039,7 @@ function renderRule(script, placed) {
   // Tile offsets are read inside #word's padding box; the scale is drawn in
   // the wrap around it, so its own edge is added back.
   const origin = word.offsetLeft + word.clientLeft;
-  const room = (word.offsetLeft + word.offsetWidth) - 4;
+  const room = (word.offsetLeft + word.offsetWidth) - RULE_LABEL_ROOM;
   // A word wrapped to a second row has no scale to read: the ticks stop.
   const firstTop = placed[0]?.el.offsetTop;
   const oneRow = placed.every(p => p.el.offsetTop === firstTop);
@@ -1058,7 +1062,7 @@ function renderRule(script, placed) {
       cut(x, last && script ? script.letters.length : letters, last);
     });
     if (placed.length && script) letters = script.letters.length;
-    for (let k = 1; k <= RULE_SLOTS_BEYOND; k++) {
+    for (let k = 1; k <= RULE_SLOTS_MAX; k++) {
       if (!cut(x + k * (tileW + gap), letters + k)) break;
     }
   }

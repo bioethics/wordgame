@@ -52,6 +52,7 @@ import { openBlackMarket, restoreBlackMarket } from './blackmarket.js';
 import {
   sleep, dur, flyClone, popReveal, floatText, tweenNum, setNum, fmtMult,
   pulse, sparkleBurst, sfx, applySpeedCSS, speechBubble, flourishTime,
+  snapTiles, flipTiles,
 } from './anim.js';
 import { initInput, initInspect, initShelfDrag } from './drag.js';
 import {
@@ -1590,7 +1591,7 @@ document.addEventListener('keydown', e => {
 
   if (e.key === 'Enter')  { submitWord(); return; }
   if (e.key === 'Escape') { hidePopover(); clearOrCancel(); return; }
-  if (e.key === ' ')      { e.preventDefault(); shuffleRack(); sfx.shuffle(); renderAll(); return; }
+  if (e.key === ' ')      { e.preventDefault(); doShuffle(); return; }
 
   if (e.key === 'Backspace') {
     e.preventDefault();
@@ -1627,9 +1628,16 @@ $('btnClear')?.addEventListener('click', () => {
   hidePopover();
   clearOrCancel();
 });
-$('btnShuffle')?.addEventListener('click', () => {
-  if (!state.isAnimating) { shuffleRack(); sfx.shuffle(); renderAll(); }
-});
+// The sorts are tossed from their old sockets to their new (flipTiles) — the
+// render lands them, the animation only says how they got there.
+function doShuffle() {
+  if (state.isAnimating) return;
+  const rack = $('rack');
+  const before = snapTiles(rack);
+  shuffleRack(); sfx.shuffle(); renderAll();
+  flipTiles(rack, before);
+}
+$('btnShuffle')?.addEventListener('click', doShuffle);
 $('btnDiscard')?.addEventListener('click', doDiscard);
 
 // The workbench: first tap arms a tool, board taps pick its targets, a second

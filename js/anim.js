@@ -66,6 +66,47 @@ export function flyClone(el, fromRect, toRect, {
   ]).then(() => clone.remove());
 }
 
+// ─── Shuffling the case ───────────────────────────────────────────────────────
+// The rack is rebuilt from scratch on every render, so a shuffle would simply
+// swap the letters in place. Instead: note where each sort sat (snapTiles),
+// let the render land them in their new sockets, then start each from its old
+// place and slide it home (flipTiles) — a short toss, a little lift and turn on
+// the way, staggered by a few ms so the hand ripples rather than snaps.
+// Web Animations rather than a class, so nothing fights the tiles' own
+// transform transition, and nothing is left on the element afterwards.
+export function snapTiles(container) {
+  const at = new Map();
+  if (!container) return at;
+  for (const el of container.querySelectorAll('.tile[data-id]')) {
+    at.set(el.dataset.id, el.getBoundingClientRect());
+  }
+  return at;
+}
+
+export function flipTiles(container, before, { duration = 240 } = {}) {
+  if (!container || !before.size) return;
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+  let i = 0;
+  for (const el of container.querySelectorAll('.tile[data-id]')) {
+    const was = before.get(el.dataset.id);
+    if (!was) continue;
+    const now = el.getBoundingClientRect();
+    // Rects are visual; the transform is written into the zoomed page. Divide.
+    const z  = uiZoom() || 1;
+    const dx = (was.left - now.left) / z, dy = (was.top - now.top) / z;
+    if (!dx && !dy) continue;
+    // The farther a sort travels, the higher it is tossed and the more it turns.
+    const reach = Math.min(1, Math.hypot(dx, dy) / 300);
+    const lift  = -(6 + 14 * reach);
+    const turn  = (dx < 0 ? -1 : 1) * (4 + 10 * reach);
+    el.animate([
+      { transform: `translate(${dx}px, ${dy}px) rotate(0deg)` },
+      { transform: `translate(${dx / 2}px, ${dy / 2 + lift}px) rotate(${turn}deg)`, offset: 0.5 },
+      { transform: 'translate(0, 0) rotate(0deg)' },
+    ], { duration: dur(duration), delay: dur(i++ * 14), easing: 'cubic-bezier(.3, .7, .3, 1)', fill: 'backwards' });
+  }
+}
+
 // Reveal a tile that was rendered ghosted (used after a fly-in lands)
 export function popReveal(el) {
   if (!el) return;

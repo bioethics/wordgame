@@ -250,11 +250,13 @@ header {
 }
 .logo-mark { color: var(--brass); font-size: 20px; }
 
+/* The dictionary's state, beside its status line in Settings. */
+.dict-line { display: inline-flex; align-items: center; gap: 7px; }
 .dict-dot {
+  flex: none;
   width: 8px; height: 8px;
   border-radius: 50%;
   background: var(--muted);
-  margin-top: 6px;
 }
 .dict-dot--good { background: var(--good); box-shadow: 0 0 8px rgba(143, 223, 174, 0.7); }
 .dict-dot--warn { background: var(--warn); box-shadow: 0 0 8px rgba(255, 193, 105, 0.7); }
@@ -299,6 +301,8 @@ header {
   transition: transform calc(0.12s / var(--aspd)), border-color calc(0.12s / var(--aspd));
 }
 .btn-icon:hover { border-color: var(--brass); transform: rotate(40deg); }
+.btn-icon--settings { display: grid; place-items: center; padding: 0; }
+.btn-icon .gear { display: block; width: 19px; height: 19px; }
 
 /* ─── Table layout ────────────────────────────────────────────────────────────── */
 .table {
