@@ -622,13 +622,16 @@ const QUOTA_GROWTH_RAMP  = 0.1;
 // Chapter 1 alone gets a gentler on-ramp. QUOTA_GROWTH_START anchors chapter 2's
 // climb off QUOTA_BASE directly, so easing here — rather than lowering
 // QUOTA_BASE itself — leaves chapter 2 onward untouched.
-const CHAPTER_1_EASE = 0.75;   // 40/56/80 → 30/40/60
+const CHAPTER_1_EASE = 0.65;   // 40/56/80 → 25/35/50
 
-// The middle of the run sags: by chapter 4 a press that has met three Markets is
-// compounding while the quota still climbs at the rate set for a bare hand. These
-// are per-chapter nudges rather than a change to the growth rate, so the dip
-// lifts without compounding into the back half; chapter 6 on is untouched.
-const CHAPTER_EASE = { 4: 1.2, 5: 1.15 };
+// Per-chapter nudges, either way, rather than a change to the growth rate — so
+// neither the opening's mercy nor the middle's correction compounds into the
+// chapters after it. Chapters 2 and 3 come DOWN: the opening is where a run is
+// lost to a hand that has met one Market and owes nothing to a bad draw yet.
+// Chapters 4 and 5 go UP, because by then a press that has met three Markets is
+// compounding while the quota still climbs at the rate set for a bare hand.
+// Chapter 6 on is untouched at either end.
+const CHAPTER_EASE = { 2: 0.9, 3: 0.95, 4: 1.2, 5: 1.15 };
 
 // Quotas are targets, not arithmetic: show a round number. Under 100 they
 // land on 5s, above it on two significant figures — 4,937 reads as 4,900.
@@ -987,6 +990,14 @@ export const NUDIST_PAINT_CHANCE = 0.125;
 // properly a primer of the alphabet, which is what the new seat keeps; a child
 // is what learns from it, which is what this one is.)
 export const CHILD_STEP         = 1;
+
+// The Centurion reads a roman numeral as a word, and every sort that spells one
+// gains this much for good. Strict notation: subtractive pairs only where they
+// belong, nothing repeated past three, so IIII and VX are not numbers and MIX
+// (1009) is. The empty string passes the pattern and is refused before it.
+export const CENTURION_STEP     = 1;
+const ROMAN_RE = /^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/;
+export const isRomanNumeral = s => !!s && ROMAN_RE.test(s);
 
 // ─── The Abecedarian's case ───────────────────────────────────────────────────
 // Every sort the press can put on a page, once each, for good. +Mult per sort
@@ -1491,7 +1502,7 @@ export const KNOBS = {
   GOLDSMITH_CHANCE: oddsText(GOLDSMITH_ODDS),
 
   // Patron tuning
-  CHILD_STEP, ABECEDARIAN_MULT, ESPALIER_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,
+  CHILD_STEP, CENTURION_STEP, ABECEDARIAN_MULT, ESPALIER_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,
   ALDERMAN_STEP, LYE_BOY_STEP,
   // The Lye Boy's whole curve as one phrase, so his card cannot drift from the
   // bands — one band today, and the sentence grows with the table.

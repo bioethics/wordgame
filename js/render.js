@@ -465,10 +465,14 @@ function renderShelf(script) {
   const seats = effectivePatronSlots();
   // Laurels ride the signature, or a crowning mid-page would wait for the next
   // seating change to show. So does anything else that changes a seat's FACE —
-  // the Azure Prince's cyphers rename him and hand him a crown — read through
-  // the same instName the card will use, so nothing can drift out of step.
-  const sig = `${seats}|${state.patrons.map(p =>
-    `${p.uid ?? p.id}~${p.data?.honorifics ?? 0}~${patronShelf(patronById(p.id), p.data)}`).join(',')}`;
+  // the Azure Prince's cyphers rename him and hand him a crown, the Ripper
+  // strikes a spent watchword off his own rule — so BOTH the name and the rule
+  // are read here through the very calls the card will make, and nothing a seat
+  // can say about itself is able to drift out of step with what it shows.
+  const sig = `${seats}|${state.patrons.map(p => {
+    const def = patronById(p.id);
+    return `${p.uid ?? p.id}~${p.data?.honorifics ?? 0}~${patronShelf(def, p.data)}~${def?.instDesc?.(p.data) ?? ''}`;
+  }).join(',')}`;
 
   if (sig !== _shelfSig) {
     _shelfSig = sig;

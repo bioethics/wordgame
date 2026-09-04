@@ -160,6 +160,7 @@ import {
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, isMark,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
   HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, LAUREATE_MULT_STEP, RIPPER_WORDS, splitMarks, isImmutable,
+  CENTURION_STEP, isRomanNumeral,
   TWINS_POINTS, CHILD_STEP, ABECEDARIAN_MULT, ABECEDARIAN_CASE, abecedarianMult, caseGlyphs, MEDIEVAL,
   ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS, PURVEYOR,
   sesquipedalianMult,
@@ -1503,6 +1504,25 @@ const PATRON_BEHAVIOURS = [
     },
   },
   {
+    // A number is not a word, so he has to vouch for one at the dictionary gate
+    // (main.js, beside the Stenographer's acronyms) as well as pay for it here.
+    // The gate reads the RESOLVED word and this reads the board, which agree:
+    // no medieval sort stands for a roman letter. Notation is strict, so the
+    // seat is a puzzle rather than a licence to lay M's — and the overlap with
+    // ordinary English is the point of him: MIX is 1009, and pays.
+    id: 'centurion',
+    when: 'score',
+    bonusIsGrowth: true,
+    tileBonus: (t, { tiles }) =>
+      (isRomanNumeral(wordLetters(tiles)) && !isImmutable(t) ? CENTURION_STEP : 0),
+    onPrinted({ tiles, grow }) {
+      if (!isRomanNumeral(wordLetters(tiles))) return null;
+      const grown = tiles.filter(t => grow(t, CENTURION_STEP));
+      if (!grown.length) return null;
+      return { note: `${grown.map(getActiveLetter).join(', ')} grown +${CENTURION_STEP}` };
+    },
+  },
+  {
     // The word must be wholly bare — no paint, no trim, no nick on ANY tile — a
     // bar that rises as the run dresses your collection, so the seat pays best
     // early and quietly retires itself. Two independent rolls per tile, so one
@@ -1903,6 +1923,15 @@ const PATRON_BEHAVIOURS = [
     // running it.
     id: 'ripper',
     when: 'meta',   // the deed is done in js/main.js as the word commits
+    // A watchword is spent by the killing, and the card strikes it out — the
+    // list on the seat is the list still live. Built by striking the printed
+    // desc rather than writing the sentence twice, so the card stays the one
+    // place it is worded.
+    instDesc(data) {
+      const spent = data?.spent ?? [];
+      if (!spent.length) return null;
+      return spent.reduce((d, w) => d.replace(w, `<s>${w}</s>`), PATRON_CARDS.ripper.desc);
+    },
   },
   {
     // Already on the other side of the table, which is what makes it the one

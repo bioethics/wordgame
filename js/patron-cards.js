@@ -256,7 +256,7 @@ export const PATRON_CARDS = {
   },
   ripper: {
     name: 'The Ripper', emoji: '🔪', rarity: 'rare', cost: 9, guild: 'crimson',
-    desc: 'Print {RIPPER_WORDS} and one of your other patrons becomes a ghost. Then, this patron flees.',
+    desc: 'Print {RIPPER_WORDS} and one of your other patrons becomes a ghost. Each word works once.',
   },
   typefounder: {
     name: 'The Typefounder', emoji: '⚗️', rarity: 'rare', cost: 10, guild: 'crimson',
@@ -291,6 +291,10 @@ export const PATRON_CARDS = {
   stenographer: {
     name: 'The Stenographer', emoji: '📟', rarity: 'uncommon', cost: 6, guild: 'azure',
     desc: 'Common acronyms and abbreviations count as words: LOL, BRB, WTF, etc.',
+  },
+  centurion: {
+    name: 'The Centurion', emoji: '🏛️', rarity: 'uncommon', cost: 7, guild: ['azure', 'jade'],
+    desc: 'Roman numerals count as words: XIV, MMXXVI, MIX. Each sort spelling one gains +{CENTURION_STEP} Point, for good.',
   },
   fountain: {
     name: 'The Fountain', emoji: '⛲', rarity: 'uncommon', cost: 7, guild: 'azure',

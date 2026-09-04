@@ -150,8 +150,8 @@ export const LOG_TEXT = {
   ripperAlone:      '🔪 The Ripper turns the knife over, and finds nobody at the table but himself.',
   ripperNoRoom:     '🔪 The Ripper stays his hand — there is no room left among your ghosts.',
   ripperMurder:     '🔪 {0} is murdered — and works on as a ghost, its seat now empty.{1}',
-  ripperWaits:      ' The Ripper waits for another word.',           // ⌐
-  ripperGone:       ' The Ripper is gone.',                          // ⌐
+  ripperSpent:      ' {0} is struck from his card, and will not call him again.',   // ⌐ {0} the watchword
+  ripperBlunt:      ' {0} was the last word he answered to; every one is struck now.',  // ⌐
   benchFullGift:    '{0} {1} had something for you, and your workbench is full.',   // {0} emoji · {1} name
   dabblerSplash:    '🖍️ The Dabbler splashes {0} {1} as well.',                     // {0} letter · {1} colour
   revenantHand:     '💀 The Revenant walks {0} back out of the hellbox in ghost metal — it costs you no room in the hand.',

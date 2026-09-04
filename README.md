@@ -311,8 +311,13 @@ the record is and what it pays. `SESQUIPEDALIAN_STEP` in `js/constants.js`; the
 reading of the book is `longestPrinted` in `js/patrons.js`.
 
 **Ghosts.** *The Ripper* kills one of your other patrons when you print one of
-his watchwords — KILL, MURDER, SLAY, DIE, STAB, SLASH, REAP or KNIFE — then
-flees back to the Market's pool. The match is exact, so SLAYER walks past him. The victim moves off the
+his watchwords — KILL, MURDER, SLAY, DIE, STAB, SLASH, REAP or KNIFE — and then
+that word is **spent**: it is struck through on his card and never calls him
+again. He keeps his seat through all eight, so he is a magazine rather than a
+single shot, and what he leaves behind at the end is a patron whose rule is
+entirely crossed out and whose seat you may now want back. The match is exact,
+so SLAYER walks past him. A refusal — nobody else at the table, no room among
+the ghosts — spends nothing. The victim moves off the
 shelf into your **ghosts**, in a drawer that pulls out over the patron row
 from the door on its edge (and pulls itself out when a ghost speaks), keeping its
 whole effect — score turn, hooks, laurels — and giving up only its seat, which
@@ -661,6 +666,16 @@ two nouns set end to end count as a word, so DOOM and HAT make DOOMHAT (its
 nouns are `wordlists/nouns.txt`). What it coins is a noun like any other,
 so *the Sculptor* pays ×2 for it — one seat makes the word legal, the other pays
 for what it is. The halves stay singular, so CATS and HAT still don't.
+
+**Numbers** — *the Centurion* reads a roman numeral as a word, so XIV, MMXXVI
+and LIX are all settable, and every sort that spells one gains **+1 Point for
+good**. Notation is strict: the subtractive pairs only where they belong and
+nothing repeated past three, so IIII and VX are not numbers and the seat is a
+puzzle rather than a licence to lay M's. The overlap with ordinary English is
+the pleasure of him — MIX is 1009 and pays, DIM is not a number at all — and
+because the growth is permanent he is a jade seat as much as an azure one,
+which is why he flies both. `isRomanNumeral` in `js/constants.js`; he vouches
+for the word at the dictionary gate in `js/main.js`, beside the Stenographer.
 
 **Marks** — `?` and `!` spell nothing. A mark is appended to a finished word:
 one `?`, one `!`, or `?!` — never doubled, reversed or mid-word. The dictionary
@@ -1057,7 +1072,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Knob | Where |
 | --- | --- |
 | Quota curve | `js/constants.js` → `quotaFor`, `QUOTA_BASE`, `QUOTA_GROWTH_START`, `QUOTA_GROWTH_RAMP`. The rate itself grows: chapter 2 asks ×1.7 of chapter 1, chapter 3 ×1.8 of chapter 2, and so on. START makes the whole run harder; RAMP makes the ending harder without touching the opening — a harder mode is a bigger pair |
-| A single chapter that plays too easy or too hard | `js/constants.js` → `CHAPTER_1_EASE` and `CHAPTER_EASE` (a per-chapter multiplier on that chapter's quota only) |
+| A single chapter that plays too easy or too hard | `js/constants.js` → `CHAPTER_1_EASE` and `CHAPTER_EASE` (a per-chapter multiplier on that chapter's quota only, either way: chapters 2–3 sit under 1 to soften the opening, 4–5 over it to answer a compounding press) |
 | Trim effects & prices | `js/constants.js` → `TRIMS` (effects live in `js/scoring.js`); silver's Points are `SILVER_BONUS`, read by scoring, the trim's card and the tile's own number alike |
 | Materials, the cursed ×Mult, wrapped-tile price & how often one is offered | `js/constants.js` → `MATERIALS`, `CURSED_MULT`, `CURSED_MAX_POINTS`, `WRAPPED_PRICE`, `WRAPPED_OFFER_CHANCE` |
 | What is inside a wrapped tile | `js/constants.js` → `WRAPPED_CONTENTS`, a flat list rolled evenly — repeat an entry to make it likelier — and `MARK_TRIM` for what a wrapped mark wears |

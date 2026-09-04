@@ -21,6 +21,7 @@ import {
   REACTION, NEOLOGIST_LENGTH, MATERIALS, TRIMS, WRAPPED_CONTENTS, MARK_TRIM,
   chapterLabel, COLOURS, MULT_TRACKS, splitMarks, isDeadline,
   FLEURON, BATTER, isSolo, TOOLBOX_POOL, HONORIFIC_STEP, TONGS_BONUS, LOUPE_CAP, RIPPER_WORDS, sundryTip, TOOL_LOOK,
+  isRomanNumeral,
   EXPLOSIVE_SPREAD_ODDS,
   PACKAGES, APPLICATORS, SILVER_BONUS, BAG_COUNTS,
   lengthFlourish, medievalExpansions, USURER, BRIBRARIAN, bribeMult, isRule, RULE,
@@ -446,20 +447,29 @@ async function roseCrowns(printed) {
 const quartermasterDiscards = () =>
   (!owns('quartermaster') ? 0 : guildSeats('azure') >= 2 ? 2 : 1);
 
-// ─── The Ripper (a patron killed, a seat freed) ───────────────────────────────
+// ─── The Ripper (a patron killed, a watchword spent) ──────────────────────────
 // Print one of his watchwords and one of your OTHER patrons dies where it sits:
 // it moves from the shelf to state.ghosts, keeping every part of its effect and
-// giving up only its seat, and then the Ripper flees. Done here rather than in
-// an onPrinted hook because a hook cannot remove its own seat from the loop
-// that is running it. He refuses rather than half-acts: no other patron to
-// kill, or no room among the ghosts, and nothing happens at all. The victim is
-// chosen blind.
+// giving up only its seat. He keeps HIS seat and loses the WORD: it is struck
+// from his card (instDesc in js/patrons.js) and never calls him again, so the
+// seat is a magazine of eight rather than a single shot, and the last of them
+// leaves a spent patron you may still want to dismiss. Done here rather than in
+// an onPrinted hook because a hook must not edit the seating of the loop that
+// is running it. He refuses rather than half-acts: no other patron to kill, or
+// no room among the ghosts, and nothing happens at all — and a refusal spends
+// nothing. The victim is chosen blind.
 async function ripperStrikes(script) {
-  // He may be seated OR haunting: a ghost has nowhere to flee to, so a Ripper
-  // who has met The Revenant keeps his knife.
+  // He may be seated OR haunting: a Ripper who has met The Revenant keeps his
+  // knife, and now runs out of words at the same rate a living one does.
   const killer = allSeats().find(p => p.id === 'ripper');
-  if (!killer || !RIPPER_WORDS.includes(script?.letters)) return;
+  const word = script?.letters;
+  if (!killer || !RIPPER_WORDS.includes(word)) return;
+  const spent = killer.data?.spent ?? [];
+  if (spent.includes(word)) return;      // struck from the card, and inert
   const alreadyDead = (state.ghosts ?? []).includes(killer);
+  // Spent by the deed, not by the attempt: the two refusals below return first.
+  const strikeWord = () => { (killer.data ??= {}).spent = [...spent, word]; };
+  const spentNote = () => logLine(spent.length + 1 >= RIPPER_WORDS.length ? 'ripperBlunt' : 'ripperSpent', word);
 
   const victims = state.patrons.filter(p => p !== killer);
   if (!victims.length) {
@@ -495,12 +505,13 @@ async function ripperStrikes(script) {
       makeGhost(killer);
       state.patrons.splice(state.patrons.indexOf(killer), 1);
     }
+    strikeWord();
     state.isAnimating = false;
     renderAll();
-    log(alreadyDead
+    log((alreadyDead
       ? `💀 The knife passes straight through ${name}. You cannot murder the dead.`
-      : `💀 ${name} was already dead, and the knife turns in the Ripper's hand: he is murdered, and haunts your table now — with nowhere left to flee to.`,
-      'warn');
+      : `💀 ${name} was already dead, and the knife turns in the Ripper's hand: he is murdered, and haunts your table now.`)
+      + spentNote(), 'warn');
     return;
   }
 
@@ -519,12 +530,11 @@ async function ripperStrikes(script) {
 
   makeGhost(victim);
   state.patrons.splice(state.patrons.indexOf(victim), 1);
-  if (!alreadyDead) state.patrons.splice(state.patrons.indexOf(killer), 1);
+  strikeWord();
 
   state.isAnimating = false;
   renderAll();
-  log(logLine('ripperMurder', name,
-    logLine(alreadyDead ? 'ripperWaits' : 'ripperGone')), 'warn');
+  log(logLine('ripperMurder', name, spentNote()), 'warn');
 }
 
 // ─── Titivillus (one wrong vowel forgiven) ────────────────────────────────────
@@ -1020,8 +1030,10 @@ async function submitWord() {
     // legitimate in their own right, not misspellings of something else.
     const stenographed = owns('stenographer') && readings.find(r => THEME_SETS.acronyms.has(r));
     const named        = owns('expectants')   && readings.find(r => THEME_SETS.names.has(r));
+    const numbered     = owns('centurion')    && readings.find(r => isRomanNumeral(r));
     if (stenographed)      { vouched = 'stenographer'; parts.letters = stenographed; }
     else if (named)        { vouched = 'expectants';   parts.letters = named; }
+    else if (numbered)     { vouched = 'centurion';    parts.letters = numbered; }
     else {
       for (const r of readings) {
         const excuse = pardonWord(r);
