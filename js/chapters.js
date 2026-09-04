@@ -127,7 +127,7 @@ export const CHAPTER_TITLES = [
   'The Paris sewerage system',
   'Revenge',
   'The Can of Worms, Opened',
-  'Enter the Genetically Modified Gorilla',
+  'Enter the Genetically Modified Gorillas',
   'The Large Sad Thing is Back',
   'The Antwerp Incident',
   'An ethical violation',
@@ -198,7 +198,7 @@ export const CHAPTER_TITLES = [
   'Galaxo Fails to Save Anybody',
   '“I suppose you’re wondering why Galaxo is hiding out in your barn.”',
   'Sad sexy alcoholism',
-  'Bob’s Right-Hand Man',
+  "Uncle Howard's Right-Hand Man",
   '“No! Don’t probe me there!”',
   'A hot wilted morning in December',
   'Existential angst!',
@@ -246,5 +246,12 @@ export const CHAPTER_TITLES = [
   'The hiking accident',
   'Monsters on the mezzanine',
   'War Mouse',
-  'A faux pas at the dinner party'
+  'A faux pas at the dinner party',
+  'A serious case of The Sillies',
+  'A singularly unfortunate event',
+  'A character who is a novelist works on his own novel',
+  'The supremely sexy robot',
+  'The Robot Uprising',
+  'Plague!',
+  'One last shift of policework before retirement'
 ];
