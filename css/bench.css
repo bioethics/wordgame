@@ -860,21 +860,17 @@ html[data-look="bench"] .readout--idle { opacity: 1; }
 html[data-look="bench"] .readout--idle .ro-side,
 html[data-look="bench"] .readout--idle .ro-chips { opacity: 0.45; }
 html[data-look="bench"] .ro-op { display: none; }
+/* No title on the slip: the slab already says Points, and the rule under it and
+   the "total" below say what the sheet is doing. The row is end-aligned so the
+   Points figure sits over the total rather than out on its own at the left
+   margin, where a slip with nothing set would read as a stray number. */
 html[data-look="bench"] .ro-side--in {
   grid-area: in;
-  justify-content: flex-start;
+  justify-content: flex-end;
   align-items: baseline;
   gap: 6px;
   border-bottom: 1px solid var(--bn-rule);
   padding-bottom: 4px;
-}
-html[data-look="bench"] .ro-side--in::before {
-  content: 'proof';
-  margin-right: auto;
-  font-family: var(--bn-fell-sc);
-  font-size: 11px;
-  letter-spacing: 2px;
-  color: var(--bn-dim);
 }
 html[data-look="bench"] .slab {
   flex-direction: row;

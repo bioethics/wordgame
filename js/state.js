@@ -297,8 +297,18 @@ export const owns = id => allSeats().some(p => p.id === id);
 // squib can never drift apart.
 const primerSeat = () => allSeats().find(p => p.id === 'powdermonkey');
 
-export const isSquib = tile =>
-  tile?.material === 'explosive' || (!!tile && primerSeat()?.data?.primed === tile.id);
+// The mark is checked for EXISTENCE before it is compared, because the two
+// sides of that comparison are both `undefined` in the ordinary case and
+// `undefined === undefined` is true: with no Powdermonkey seated there is no
+// mark, and a TEMPLATE — which is what the bag and the collection hold — has a
+// `tid` and no `id` at all. Left to itself the test called every tile in the
+// bag primed, and the inspector drew each one wearing a fuse.
+export const isSquib = (tile) => {
+  if (!tile) return false;
+  if (tile.material === 'explosive') return true;
+  const mark = primerSeat()?.data?.primed;
+  return mark != null && tile.id === mark;
+};
 
 // Re-mark when the hand has CHANGED, or when the mark has gone stale. The second
 // case is not hypothetical: a bag that runs dry mid-page draws nothing, so the
