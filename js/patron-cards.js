@@ -74,11 +74,11 @@ export const PATRON_CARDS = {
   },
   scientist: {
     name: 'The Scientist', emoji: '🔬', rarity: 'uncommon', cost: 6, guild: 'amber',
-    desc: 'Once a page, you may ask him for a free OLOGY tile — gold-trimmed, and gone when the page ends.',
+    desc: 'Once a page, you may ask him for a free temporary OLOGY tile with a gold trim.',
   },
   bursar: {
     name: 'The Bursar', emoji: '💰', rarity: 'uncommon', cost: 7, guild: 'amber',
-    desc: 'Words with an amber tile gain +1 Mult for every 5 Coins you hold (max +5).',
+    desc: 'Words with an amber tile: +1 Mult for every 5 Coins you hold (max +5).',
   },
   chapman: {
     name: 'The Chapman', emoji: '🛒', rarity: 'uncommon', cost: 7, guild: 'amber',
@@ -86,11 +86,11 @@ export const PATRON_CARDS = {
   },
   fence: {
     name: 'The Fence', emoji: '🗝️', rarity: 'rare', cost: 9, guild: 'amber',
-    desc: 'The Black Market is always one of the Colophon’s picks, and everything in it asks {FENCE_OFF} less.',
+    desc: 'The Black Market is always available via the Colophon. All Black Market merchandise costs {FENCE_OFF} less.',
   },
   usurer: {
     name: 'The Usurer', emoji: '🧾', rarity: 'common', cost: 1, guild: 'amber',
-    desc: 'Tap for a loan of {USURER_LOAN} Coins. He cannot be dismissed until {USURER_OWED} is paid; until then, he collects {USURER_COLLECT} per page.',
+    desc: 'Tap for a loan of {USURER_LOAN} Coins. He will collect {USURER_COLLECT} per page until the debt is paid.',
   },
   magpie: {
     name: 'The Magpie', emoji: '🐦', rarity: 'uncommon', cost: 7, guild: 'amber',
@@ -98,15 +98,15 @@ export const PATRON_CARDS = {
   },
   shorthair: {
     name: 'The Domestic Shorthair', emoji: '🐈', rarity: 'rare', cost: 0, guild: 'amber', unlisted: true,
-    desc: 'Print any word spelling out R-A-T (e.g., pirate or gratis) for 1 Coin and 1 laurel. Also, eats RAT tiles for +{SHORTHAIR_MULT} Mult.',
+    desc: "Any word with the letters R-A-T (e.g., pirate or gratis) give 1 Coin and 1 laurel. Also, this patron eats the ratcatcher's RAT tiles for +{SHORTHAIR_MULT} Mult.",
   },
   medievalist: {
     name: 'The Medievalist', emoji: '🏰', rarity: 'rare', cost: 8, guild: ['amber', 'azure'],
-    desc: 'Opens a new stall at the Market, selling medieval sorts: þ, ȝ, Æ and Ƿ.',
+    desc: 'Opens a new stall at the Market.',
   },
   romeo: {
     name: 'Romeo', emoji: '🌹', rarity: 'uncommon', cost: 6, guild: 'amber',
-    desc: '×{LOVERS_APART} Mult when the word contains an amber paint, but no jade tiles.',
+    desc: '×{LOVERS_APART} Mult when the word contains an amber-painted tile, and no jade tiles.',
   },
 
   // ── Jade · growth and permanence ────────────────────────────────────────────
@@ -294,11 +294,11 @@ export const PATRON_CARDS = {
   },
   centurion: {
     name: 'The Centurion', emoji: '🏛️', rarity: 'uncommon', cost: 7, guild: ['azure', 'jade'],
-    desc: 'Roman numerals count as words: XIV, MMXXVI, MIX. Each sort spelling one gains +{CENTURION_STEP} Point, for good.',
+    desc: 'Roman numerals count as words. (E.g., VII, XIV, MMXXVI.) Each sort used to spell one permanently gains +{CENTURION_STEP} Point.',
   },
   fountain: {
     name: 'The Fountain', emoji: '⛲', rarity: 'uncommon', cost: 7, guild: 'azure',
-    desc: 'Azure tiles return to the bag when printed, instead of the discard pile.',
+    desc: 'Azure tiles return to the bag after printing (not the discard pile).',
   },
   marbler: {
     name: 'The Marbler', emoji: '🌀', rarity: 'uncommon', cost: 7, guild: 'azure',
@@ -314,7 +314,7 @@ export const PATRON_CARDS = {
   },
   neologist: {
     name: 'The Neologist', emoji: '📖', rarity: 'rare', cost: 10, guild: 'azure',
-    desc: 'Add one six-letter word of your choosing to the dictionary permanently. Then this patron leaves.',
+    desc: 'Add one six-letter word of your choosing to the dictionary, permanently. Then this patron leaves.',
   },
   poet: {
     name: 'The Poet', emoji: '🪶', rarity: 'rare', cost: 10, guild: 'azure',
@@ -326,11 +326,11 @@ export const PATRON_CARDS = {
   },
   binder: {
     name: 'The Binder', emoji: '🔗', rarity: 'rare', cost: 12, guild: 'azure',
-    desc: 'Any two nouns stacked together count as a word. DOOM and HAT make DOOMHAT.',
+    desc: 'Any two nouns stacked together count as a word. (E.g., DOOM and HAT make DOOMHAT.)',
   },
   blueprince: {
     name: 'The Azure Prince', emoji: '🔷', rarity: 'rare', cost: 5, guild: 'azure',
-    desc: 'Will reward you if you do something for him, but he will only hint at what this is.',
+    desc: 'Rewards you if you do something for him, but will only hint at what this is.',
   },
 
   // ── No guild · the wildcards ────────────────────────────────────────────────
@@ -374,7 +374,7 @@ export const PATRON_CARDS = {
   // this patron is settled here but its price and how often you meet one.
   generic: {
     name: 'The Generic', emoji: '🧍', rarity: 'ubiquitous', cost: GENERIC_PRICE, stackable: true,
-    desc: 'An ordinary person who does generic things.',
+    desc: 'An ordinary person who does ordinary things.',
   },
   twins: {
     name: 'The Twins', emoji: '👯', rarity: 'common', cost: 4,
@@ -442,7 +442,7 @@ export const PATRON_CARDS = {
   },
   counterfeiter: {
     name: 'The Counterfeiter', emoji: '💵', rarity: 'uncommon', cost: 7, guild: 'azure',
-    desc: 'Once per page, you may ask the Counterfeiter to provide you with one temporary tile.',
+    desc: 'Once per page, you may ask the Counterfeiter to loan you a tile with a letter of your choice.',
   },
   haplographer: {
     name: 'The Haplographer', emoji: '🔂', rarity: 'uncommon', cost: 6,
@@ -450,11 +450,11 @@ export const PATRON_CARDS = {
   },
   herald: {
     name: 'The Herald', emoji: '📯', rarity: 'uncommon', cost: 6,
-    desc: 'Words that start and end with the same letter get ×2 Mult.',
+    desc: '×2 Mult for words that start and end with the same letter.',
   },
   skald: {
     name: 'The Skald', emoji: '🎵', rarity: 'uncommon', cost: 6,
-    desc: 'Words starting with the same letter as your last word get ×2 Mult.',
+    desc: '×2 Mult for words starting with the same letter as the last word played.',
   },
   typesetter: {
     name: 'The Typesetter', emoji: '🔣', rarity: 'uncommon', cost: 6,
@@ -468,7 +468,7 @@ export const PATRON_CARDS = {
     // Cheap on purpose. +3 a painted tile is a modest thing that stops mattering
     // once the multipliers are running, so it wants to be an easy early yes and
     // an easy later sale rather than a seven-Coin commitment.
-    name: 'The Calligrapher', emoji: '✒️', rarity: 'common', cost: 5,
+    name: 'The Calligrapher', emoji: '✒️', rarity: 'common', cost: 2,
     desc: '+3 Points for painted tiles.',
   },
   closer: {
@@ -488,8 +488,8 @@ export const PATRON_CARDS = {
     // seat reads the groove as well as the book, so the record word is paid
     // itself. Left out, a player would set a ten-letter word, see +1 Mult land
     // at once, and wonder what the card meant by "printed".
-    name: 'The Sesquipedalian', emoji: '📏', rarity: 'uncommon', cost: 6,
-    desc: '+{SESQUIPEDALIAN_STEP} Mult per letter of the longest word printed this run, counting the word being set.',
+    name: 'The Sesquipedalian', emoji: '📏', rarity: 'common', cost: 6,
+    desc: '+{SESQUIPEDALIAN_STEP} Mult per letter of the longest word printed this run.',
   },
   ragman: {
     name: 'The Ragman', emoji: '🧺', rarity: 'uncommon', cost: 7,
