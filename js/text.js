@@ -100,32 +100,32 @@ export const fillSlots = (str, ...values) =>
 export const LOG_TEXT = {
   // ─── Modes & small refusals ─────────────────────────────────────────────────
   discardCancelled: 'Discard cancelled.',
-  discardArmed:     'Tap tiles to discard, then press again.',
-  noDiscardsLeft:   'No discards left this page.',
+  discardArmed:     'Select tiles to discard, then press again.',
+  noDiscardsLeft:   'No discards left.',
   toolBack:         'The {0} goes back on the workbench.',           // {0} tube | ratchet
-  sundryThrownAway: '{0} — thrown away, and the slot is free.',      // {0} the tool's name
+  sundryThrownAway: '{0} — thrown away.',      // {0} the tool's name
   reshuffleSpend:   'Spend this at the Market or the Colophon.',
   dictLoading:      'The dictionary is still loading…',
 
   // The board's refusals when a tap can't mean what it asked (js/drag.js).
   oneTileAtATime:  'One tile at a time — deselect first.',
-  immutableTile:   'A lent tile takes no paint — nor does a ghost.',
-  unshiftable:     'The ratchet steps single letters — not ligatures or marks.',
+  immutableTile:   'This tile cannnot be painted.',
+  unshiftable:     'The ratchet can only alter single letters.',
   unoffered:       'Only the glowing tiles are on offer.',
-  loupeCapped:     'That tile is already at its finest — the loupe goes no further.',
-  cursedNoDiscard: 'A cursed tile cannot be discarded — it has to be played.',
-  lentNoDiscard:   'A lent tile cannot be discarded — play it or let the page end.',
-  seatOrder:       '{0} takes seat {1} — patrons act in the order they sit.',
+  loupeCapped:     'That tile cannot be enhanced further.',
+  cursedNoDiscard: 'This tile cannot be discarded.',
+  lentNoDiscard:   'This tile cannot be discarded.',
+  seatOrder:       '{0} takes seat {1}.',
 
   // The press's refusals when a word can't print as set.
   ruleNeedsPair: 'A rule needs its pair — one at each end.',
   ruleTwoMost:   'Two rules to a word, no more.',
   ruleBracket:   'Rules bracket the word — one at each end.',
   ruleWantsWord: 'The rules want a word between them.',
-  marksGoLast:   'Marks go last, as ? or ! or ?!.',
+  marksGoLast:   'Are marks placed last? Yes!',
   markNeedsWord: 'A mark needs a word in front of it.',
-  fleuronAlone:  'The fleuron sets no word — it prints alone.',
-  batterAlone:   'A batter sets no word — it is ruined type, and prints alone.',
+  fleuronAlone:  'This tile can only be printed alone.',
+  batterAlone:   'This tile can only be printed alone.',
   notAWord:      "“{0}” isn't in the dictionary.",              // {0} the word
 
   // ─── The printed word ───────────────────────────────────────────────────────
@@ -142,26 +142,26 @@ export const LOG_TEXT = {
   vouchExpectants:  '  🤰 The Expectant Parents had that very name on their list.',  // ⌐
 
   // ─── Patrons acting beyond the score ────────────────────────────────────────
-  catNotice:        '🐈 Somewhere beyond the lamplight, something sits up and takes an interest.',
-  economiserSpares: '🗑️ The Economiser reaches into the case, and thinks better of it — the press is down to its last sorts.',
+  catNotice:        '🐈 Beyond the lamplight, something sits up and takes an interest.',
+  economiserSpares: '🗑️ The Economiser reaches into the case, but thinks better of it — the press is down to its last sorts.',
   economiserEats:   '🗑️ The Economiser melts down the {0} you left in the case — gone for good.',
-  roseNoTable:      '🎀 The rose metal shines, and there is nobody at the table to crown.',
+  roseNoTable:      '🎀 The rose metal shines, but there is nobody at the table to crown.',
   roseCrown:        '🎀 {0} was struck in rose metal — {1} is crowned, +{2} Points on every word.',
   ripperAlone:      '🔪 The Ripper turns the knife over, and finds nobody at the table but himself.',
   ripperNoRoom:     '🔪 The Ripper stays his hand — there is no room left among your ghosts.',
-  ripperMurder:     '🔪 {0} is murdered — and works on as a ghost, its seat now empty.{1}',
+  ripperMurder:     '🔪 {0} is murdered — and now works on as a ghost.{1}',
   ripperSpent:      ' {0} is struck from his card, and will not call him again.',   // ⌐ {0} the watchword
   ripperBlunt:      ' {0} was the last word he answered to; every one is struck now.',  // ⌐
-  ripperHaunts:     ' The word carries. Nothing a ghost is called wears out.',       // ⌐
-  benchFullGift:    '{0} {1} had something for you, and your workbench is full.',   // {0} emoji · {1} name
+  ripperHaunts:     ' The ghost of the Ripper will always come when he is called.',       // ⌐
+  benchFullGift:    '{0} {1} had something for you, but your workbench is full.',   // {0} emoji · {1} name
   dabblerSplash:    '🖍️ The Dabbler splashes {0} {1} as well.',                     // {0} letter · {1} colour
-  revenantHand:     '💀 The Revenant walks {0} back out of the hellbox in ghost metal — it costs you no room in the hand.',
+  revenantHand:     '💀 The Revenant walks {0} back out of the hellbox in ghost metal.',
   revenantCase:     '💀 The Revenant walks {0} back out of the hellbox — it will be waiting in the case.',
   neologistRetires: '“{0}” is a word now, and always will be. The Neologist retires, satisfied.',
 
   // ─── Tools spent on the board ───────────────────────────────────────────────
-  bodkinEmptyBag:  'The bag is empty — nothing left in it to reach for. The bodkin keeps.',
-  bodkinGone:      'That one has already left the bag. The bodkin keeps.',
+  bodkinEmptyBag:  'The bag is empty.',
+  bodkinGone:      'That tile has already left the bag.',
   bodkinFinds:     'The bodkin finds the {0} and lifts it out of the bag.{1}',
   bodkinOverHand:  ' Your hand is over its size — nothing will be drawn until it is back under.',  // ⌐
   packageOpened:   '{0} {1} — {2}',                                  // emoji · parcel name · what was inside
@@ -169,28 +169,28 @@ export const LOG_TEXT = {
   applicatorOffer: 'The applicator offers {0} tiles — tap the one to strike in {1}.',
   applicatorOne:   'Only one tile will take a new metal — tap it.',
   struckIn:        '{0} is struck in {1} — {2}',                     // letter · metal · what the metal does
-  potionSeat:      'The potion is uncorked — {0} is smitten, and takes a seat for nothing.',
-  laurelNone:      'No patron seated to crown — the laurel keeps.',
-  laurelCrown:     "🏵️ {0} is crowned — +{1} Points on every word, paid at that seat's turn, while the seat is kept{2}.",
+  potionSeat:      'The potion is uncorked — and attracts {0}.',
+  laurelNone:      'No available patron to crown.',
+  laurelCrown:     "🏵️ {0} is crowned — +{1} Points on every word{2}.",
   laurelCount:     ' ({0} laurels now)',                             // ⌐
   washNone:        'Nothing in your hand will take the wash — it keeps.',
   washSettles:     'The wash settles: {0} — faint, and spent when each tile prints.',   // {0} "E amber, R jade"
-  tubeNone:        'Nothing in your hand will take paint — the tube keeps.',
-  tubeOffer:       'The tube offers {0} tiles — tap the one to paint.',
+  tubeNone:        'Nothing in your hand will take paint.',
+  tubeOffer:       'Tap the tile you wish to paint.',
   tubeOne:         'Only one tile will take paint — tap it.',
   painted:         'Painted {0} {1}.',                               // letter · colour
   tongsGrip:       'The tongs grip {0} — ash, and +{1} Points waiting on the next word.',
   tongsFloater:    '+{0} to the next word',                          // over the groove, not in the log
-  ratchetArmed:    'Tap a letter — the ratchet will offer you a step either way.',
+  ratchetArmed:    'Tap a letter to adjust it.',
   ratchetPickWay:  'Tap one of the two letters on the ratchet to step it there.',
-  ratchetSteps:    'The ratchet steps {0} to {1} — and there it stays.',
-  loupeArmed:      'Tap a tile to double it — {0} Points is the loupe\'s limit.',
-  tongsArmed:      'Tap a tile, then the tongs again to feed it to the furnace.',
+  ratchetSteps:    'The ratchet adjusts {0} to {1}.',
+  loupeArmed:      'Tap a tile to double its points, up to {0} Points.',
+  tongsArmed:      'Tap a tile, then tap the tongs again to feed it to the furnace.',
 
   // ─── Seats kept and given up ────────────────────────────────────────────────
   patronDeparts:   '{0} departs with thanks — {1} Coins returned.',
   patronDeparts1:  '{0} departs with thanks — 1 Coin returned.',
-  ghostLetGo:      "{0} is let go — a ghost's contract is worth nothing.",
+  ghostLetGo:      "{0} fades into nothingness.",
   headsmanNow:     '🪓 The Headsman approves — ×{0} Mult now.',
   headsmanAt:      '🪓 The Headsman is at ×{0} Mult.',
   soldBack:        'Sold back for {0} Coin.',
@@ -232,7 +232,7 @@ export const LOG_TEXT = {
   shellCoinsWon:   '{0} Coins',
   shellSortWon:    'a sort — “{1}”{0}',                             // {0} ⌐bmInMetal or '' · {1} letter
   shellSundryWon:  '{0}, onto the workbench',
-  shellBatterWon:  'a batter — ruined type, worth nothing and spelling nothing. Set it alone, once, for the case',
+  shellBatterWon:  'a batter — a ruined type, worth nothing, that can spell nothing but itself.',
   shellNoRoom:     '{0} — but the workbench is full, so it is sold on for {1} Coins',
   // The squib. Boom then one clause per neighbour, joined in js/main.js.
   squibBoom:       '💥 The squib in {0} goes off — the tile is destroyed.',
@@ -352,7 +352,7 @@ export const MATERIAL_TEXT = {
   },
   blind: {
     label: 'Blind', metal: 'Blind emboss',
-    desc: 'Struck into the paper carrying no ink. A word set with one in it is never spiked — the editor cannot see what was never printed.',
+    desc: 'Words set with this tile cannot be spiked by editors.',
   },
   rose: {
     label: 'Rose', metal: 'Rose metal',
@@ -362,9 +362,8 @@ export const MATERIAL_TEXT = {
   // piece of writing. Both meanings are doing work here.
   explosive: {
     label: 'Explosive', metal: 'Squib lead',
-    desc: '×{EXPLOSIVE_MULT} Mult when printed. Then the charge goes off: this tile is destroyed, '
-        + 'and each tile beside it in the word has a {EXPLOSIVE_SPREAD_CHANCE} chance of going with it. '
-        + 'Set at either end of the word, it stands beside only one.',
+    desc: '×{EXPLOSIVE_MULT} Mult when printed. Then: the tile is destroyed.'
+        + 'Each adjacent tile has a {EXPLOSIVE_SPREAD_CHANCE} chance of being destroyed too. '
   },
 };
 
@@ -377,7 +376,7 @@ export const MATERIAL_TEXT = {
 export const SUNDRY_TEXT = {
   ratchet: {
     head: 'Ratchet',
-    body: 'Tap a letter in your hand, then choose which of its two neighbours it becomes — permanently. (The press carries no lone Q, so P steps straight to R.)',
+    body: 'Tap a letter in your hand, then choose in what direction it should be adjusted.',
   },
   reshuffle: {
     head: 'Reshuffle',
