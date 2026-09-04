@@ -2577,10 +2577,12 @@ export const patronName = (def, data) => {
 // card's own emoji is the fallback.
 export const patronEmoji = (def, data) => def?.instEmoji?.(data) ?? def?.emoji ?? '';
 
-// The short form the shelf's cards wear, where there is room for a word.
+// The short form the shelf's cards wear, where there is room for a word. A
+// lettered patron is styled on the seat exactly as it is everywhere else —
+// "Dr Assayer, PhD" — so the card's face and its popover agree.
 export const patronShelf = (def, data) => {
   const base = def?.instShelf?.(data) ?? dropArticle(def?.name ?? '');
-  return data?.postnom ? `${base}, ${data.postnom}` : base;
+  return data?.postnom ? `Dr ${base}, ${data.postnom}` : base;
 };
 
 // Rolled as a card is laid out at the Market, never later: what is on the card
@@ -2626,13 +2628,15 @@ export const laurelWorth = laurels => {
 };
 
 // Everything a seat is carrying that changes what it pays, as plain lines for
-// the card's tap-through. Two sources: the laurels any patron may wear (priced
-// through laurelWorth, so The Laureate's arrival re-prices them here too), and
-// the seat's own `tally(data)` — its hive, its stacks, its book. A seat with
+// the card's tap-through. Three sources: the letters after a name, whose ×Mult
+// is nowhere in the desc; the laurels any patron may wear (priced through
+// laurelWorth, so The Laureate's arrival re-prices them here too); and the
+// seat's own `tally(data)` — its hive, its stacks, its book. A seat with
 // nothing accumulated returns an empty list and the popover shows no strip at
 // all, so the ordinary card stays as short as it always was.
 export function seatTally(def, data) {
   const lines = [];
+  if (data?.postnom) lines.push(`${data.postnom} — ×${POSTNOM.mult} Mult, paid at this seat's turn`);
   const laurels = data?.honorifics ?? 0;
   if (laurels) lines.push(laurelWorth(laurels));
   const own = def?.tally?.(data);

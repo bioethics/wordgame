@@ -464,12 +464,12 @@ html[data-look="bench"] .sundries {
    too, so the pin (.patron::before, retro's absolute enamel) takes a cell. */
 html[data-look="bench"] .patron {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
   grid-template-rows: auto auto minmax(0, 1fr);
   grid-template-areas:
-    "emoji .    postnom laurel silk"
-    "name  name name    name   name"
-    "desc  desc desc    desc   desc";
+    "emoji .    laurel silk"
+    "name  name name   name"
+    "desc  desc desc   desc";
   align-items: start;
   align-content: start;
   min-height: 108px;
@@ -514,16 +514,12 @@ html[data-look="bench"] .patron-livery--second {
   background: linear-gradient(175deg, var(--livery2-brt) -45%, var(--livery2) 60%);
   order: -1;                   /* the primary silk keeps the outside */
 }
-html[data-look="bench"] .patron-postnom {
-  grid-area: postnom;
-  position: static;
-  bottom: auto; left: auto;
-  align-self: center;
-  font-size: 8.5px;
-  color: #4a3208;
-  background: linear-gradient(175deg, #ffe9ae 0%, #e0b451 100%);
-  box-shadow: inset 0 0 0 1px rgba(122, 83, 19, 0.55), 0 1px 1px rgba(0, 0, 0, 0.25);
-}
+/* The seat's name already reads "Dr Assayer, PhD" (patronShelf in js/patrons.js),
+   so the gilt tab would only say it twice. The foil and the gilt name still
+   mark the seat as lettered, and the ×Mult those letters carry is in the
+   popover's tally. Retro keeps the tab: its name is one ellipsised line, which
+   a long enough patron truncates before the letters ever show. */
+html[data-look="bench"] .patron-postnom { display: none; }
 html[data-look="bench"] .patron-laurel {
   grid-area: laurel;
   position: static;
@@ -1120,7 +1116,7 @@ html[data-look="bench"] .log {
   html[data-look="bench"] .page-line { height: 24px; font-size: 14px; }
   html[data-look="bench"] .boss-bar { align-self: auto; padding: 8px 12px 9px 14px; }
   html[data-look="bench"] .boss-name { font-size: 14px; letter-spacing: 1.5px; }
-  html[data-look="bench"] .patron-postnom, html[data-look="bench"] .patron-laurel { display: none; }
+  html[data-look="bench"] .patron-laurel { display: none; }
   html[data-look="bench"] .patron-liveries { height: 19px; }
   html[data-look="bench"] .patron-livery { width: 10px; margin-top: -8px; }
   html[data-look="bench"] .patron-livery--first  { height: 24px; }
