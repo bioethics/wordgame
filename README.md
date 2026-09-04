@@ -311,13 +311,22 @@ the record is and what it pays. `SESQUIPEDALIAN_STEP` in `js/constants.js`; the
 reading of the book is `longestPrinted` in `js/patrons.js`.
 
 **Ghosts.** *The Ripper* kills one of your other patrons when you print one of
-his watchwords — KILL, MURDER, SLAY, DIE, STAB, SLASH, REAP or KNIFE — and then
-that word is **spent**: it is struck through on his card and never calls him
-again. He keeps his seat through all eight, so he is a magazine rather than a
-single shot, and what he leaves behind at the end is a patron whose rule is
-entirely crossed out and whose seat you may now want back. The match is exact,
-so SLAYER walks past him. A refusal — nobody else at the table, no room among
-the ghosts — spends nothing. The victim moves off the
+his watchwords — KILL, MURDER, SLAY, DIE, STAB, SLASH, REAP, KNIFE, SMITE or
+SEVER — and then that word is **spent**: it is struck through on his card and
+never calls him again. He keeps his seat through all ten, so he is a magazine
+rather than a single shot, and what he leaves behind at the end is a patron
+whose rule is entirely crossed out and whose seat you may now want back. The
+match is exact, so SLAYER walks past him. A refusal — nobody else at the table,
+no room among the ghosts — spends nothing.
+
+A **dead** Ripper is a different seat, and the card rewrites itself to say so.
+None of the living words reaches him — he is past the knife — and he answers
+instead to HAUNT, GHOST, WRAITH, PHANTOM or SEANCE, which **never wear out**:
+the spending is a debt of the body and his is in the ground. Dying is therefore
+a promotion he cannot choose and you cannot arrange, since which patron dies is
+blind; you reach it only by his knife turning on *the Revenant*, or by the
+Market dealing him dead. It is paid for in the case rather than in uses, every
+spectral word asking more of the hand than KILL or DIE does. The victim moves off the
 shelf into your **ghosts**, in a drawer that pulls out over the patron row
 from the door on its edge (and pulls itself out when a ghost speaks), keeping its
 whole effect — score turn, hooks, laurels — and giving up only its seat, which

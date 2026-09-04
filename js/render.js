@@ -589,7 +589,11 @@ function paintArmed(shelf, script) {
 // order, its hooks, its laurels — so it lives behind a door beside the shelf.
 
 // One card per ghost slot, filled or not — The Ripper stays his hand when there
-// is no room left, so the empties matter too.
+// is no room left, so the empties matter too. A ghost keeps its whole effect,
+// so its card carries its rule like any seated one — and a ghost whose rule has
+// been REWRITTEN (the Ripper, who answers to other words once he is dead) would
+// otherwise have nowhere to say so. Retro puts every card's desc away, so this
+// shows on the bench alone, where the drawer has the room for it.
 function ghostCardsHTML() {
   const slots = effectiveGhostSlots();
   let out = '';
@@ -613,6 +617,7 @@ function ghostCardsHTML() {
 (dead, and working still · ✕ lets it go for nothing)">
         <span class="patron-emoji">${patronEmoji(def, p.data)}</span>
         <span class="patron-name">${label}</span>
+        <span class="patron-desc">${desc}</span>
         ${laurels ? `<span class="patron-laurel" title="${laurelWorth(laurels)}, paid at this ghost's turn">🏵️${laurels > 1 ? `<b>${laurels}</b>` : ''}</span>` : ''}
         <button class="patron-x" data-sell-ghost="${p.uid ?? def.id}" title="Let ${name} go — a ghost's contract is worth nothing">✕</button>
       </div>`;

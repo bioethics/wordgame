@@ -1141,8 +1141,25 @@ export const REVENANT_ODDS = 0.5;
 // should never be a surprise. Anything added here lengthens the Ripper's card,
 // which quotes the whole list through the {RIPPER_WORDS} knob.
 export const RIPPER_WORDS = [
-  'KILL', 'MURDER', 'SLAY', 'DIE', 'STAB', 'SLASH', 'REAP', 'KNIFE',
+  'KILL', 'MURDER', 'SLAY', 'DIE', 'STAB', 'SLASH', 'REAP', 'KNIFE', 'SMITE', 'SEVER',
 ];
+
+// What a DEAD Ripper answers to, and the living one never does: he is past the
+// knife, and the words that reach him now are the ones you would use on a
+// ghost. These do not wear out — the spending in RIPPER_WORDS is a debt of the
+// body, and he has left his behind — so the trade is that every one of them
+// asks more of the case than KILL or DIE does. HAUNT is the floor at one scarce
+// letter; SEANCE and PHANTOM are a late-run hand's work. Same law as above:
+// each must read as nothing but a haunting, or it would fire on a word set for
+// score. GHOST is deliberate — printing the word is the deed.
+export const RIPPER_GHOST_WORDS = [
+  'HAUNT', 'GHOST', 'WRAITH', 'PHANTOM', 'SEANCE',
+];
+
+// "A, B, C or D" — the phrasing the Ripper's cards and the log all quote, so a
+// word added above reaches every one of them without being written out again.
+export const wordListText = words =>
+  words.length < 2 ? (words[0] ?? '') : `${words.slice(0, -1).join(', ')} or ${words.at(-1)}`;
 // The Headsman: permanent ×Mult per patron dismissed while he is seated.
 export const HEADSMAN_STEP = 0.2;
 // The Gambler's coin, tossed once per word, not per keystroke: scoring runs on
@@ -1541,7 +1558,8 @@ export const KNOBS = {
   // The whole curve as one phrase, so the card cannot drift from the bands.
   ABECEDARIAN_STEPS: abecedarianSteps(),
   PACKAGE_CHANCE: oddsText(PACKAGE_ODDS),
-  RIPPER_WORDS:   `${RIPPER_WORDS.slice(0, -1).join(', ')} or ${RIPPER_WORDS.at(-1)}`,
+  RIPPER_WORDS:       wordListText(RIPPER_WORDS),
+  RIPPER_GHOST_WORDS: wordListText(RIPPER_GHOST_WORDS),
 
   // The parcels, by the name each one goes by
   PARCEL_SPOOKY:   PACKAGES.spooky.label,

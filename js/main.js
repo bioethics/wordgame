@@ -21,7 +21,7 @@ import {
   REACTION, NEOLOGIST_LENGTH, MATERIALS, TRIMS, WRAPPED_CONTENTS, MARK_TRIM,
   chapterLabel, COLOURS, MULT_TRACKS, splitMarks, isDeadline,
   FLEURON, BATTER, isSolo, TOOLBOX_POOL, HONORIFIC_STEP, TONGS_BONUS, LOUPE_CAP, RIPPER_WORDS, sundryTip, TOOL_LOOK,
-  isRomanNumeral,
+  isRomanNumeral, RIPPER_GHOST_WORDS,
   EXPLOSIVE_SPREAD_ODDS,
   PACKAGES, APPLICATORS, SILVER_BONUS, BAG_COUNTS,
   lengthFlourish, medievalExpansions, USURER, BRIBRARIAN, bribeMult, isRule, RULE,
@@ -452,24 +452,37 @@ const quartermasterDiscards = () =>
 // it moves from the shelf to state.ghosts, keeping every part of its effect and
 // giving up only its seat. He keeps HIS seat and loses the WORD: it is struck
 // from his card (instDesc in js/patrons.js) and never calls him again, so the
-// seat is a magazine of eight rather than a single shot, and the last of them
-// leaves a spent patron you may still want to dismiss. Done here rather than in
-// an onPrinted hook because a hook must not edit the seating of the loop that
-// is running it. He refuses rather than half-acts: no other patron to kill, or
-// no room among the ghosts, and nothing happens at all — and a refusal spends
-// nothing. The victim is chosen blind.
+// seat is a magazine of ten rather than a single shot, and the last of them
+// leaves a spent patron you may still want to dismiss.
+//
+// A DEAD Ripper is a different seat. None of the living words reaches him — he
+// is past the knife — and he answers instead to RIPPER_GHOST_WORDS, which never
+// wear out: the spending is a debt of the body, and his is in the ground. So
+// dying is a promotion he cannot choose, paid for in the case, since every
+// spectral word asks more of the hand than KILL or DIE does.
+//
+// Done here rather than in an onPrinted hook because a hook must not edit the
+// seating of the loop that is running it. He refuses rather than half-acts: no
+// other patron to kill, or no room among the ghosts, and nothing happens at all
+// — and a refusal spends nothing. The victim is chosen blind.
 async function ripperStrikes(script) {
-  // He may be seated OR haunting: a Ripper who has met The Revenant keeps his
-  // knife, and now runs out of words at the same rate a living one does.
+  // He may be seated OR haunting — killed by his own knife turning on The
+  // Revenant, or dealt dead at the Market. `data.ghost` is what the CARD reads
+  // (instDesc in js/patrons.js), so the rule he answers to and the rule he
+  // shows you cannot come apart.
   const killer = allSeats().find(p => p.id === 'ripper');
   const word = script?.letters;
-  if (!killer || !RIPPER_WORDS.includes(word)) return;
+  if (!killer) return;
+  const haunting = !!killer.data?.ghost;
+  if (!(haunting ? RIPPER_GHOST_WORDS : RIPPER_WORDS).includes(word)) return;
   const spent = killer.data?.spent ?? [];
-  if (spent.includes(word)) return;      // struck from the card, and inert
+  if (!haunting && spent.includes(word)) return;      // struck from the card, and inert
   const alreadyDead = (state.ghosts ?? []).includes(killer);
   // Spent by the deed, not by the attempt: the two refusals below return first.
-  const strikeWord = () => { (killer.data ??= {}).spent = [...spent, word]; };
-  const spentNote = () => logLine(spent.length + 1 >= RIPPER_WORDS.length ? 'ripperBlunt' : 'ripperSpent', word);
+  // A ghost spends nothing, so his card is never struck through.
+  const strikeWord = () => { if (!haunting) (killer.data ??= {}).spent = [...spent, word]; };
+  const spentNote = () => haunting ? logLine('ripperHaunts')
+    : logLine(spent.length + 1 >= RIPPER_WORDS.length ? 'ripperBlunt' : 'ripperSpent', word);
 
   const victims = state.patrons.filter(p => p !== killer);
   if (!victims.length) {
@@ -510,7 +523,7 @@ async function ripperStrikes(script) {
     renderAll();
     log((alreadyDead
       ? `💀 The knife passes straight through ${name}. You cannot murder the dead.`
-      : `💀 ${name} was already dead, and the knife turns in the Ripper's hand: he is murdered, and haunts your table now.`)
+      : `💀 ${name} was already dead, and the knife turns in the Ripper's hand: he is murdered, and haunts your table now — and answers to other words from here.`)
       + spentNote(), 'warn');
     return;
   }

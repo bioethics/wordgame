@@ -160,7 +160,7 @@ import {
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, isMark,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
   HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, LAUREATE_MULT_STEP, RIPPER_WORDS, splitMarks, isImmutable,
-  CENTURION_STEP, isRomanNumeral,
+  CENTURION_STEP, isRomanNumeral, RIPPER_GHOST_WORDS, wordListText,
   TWINS_POINTS, CHILD_STEP, ABECEDARIAN_MULT, ABECEDARIAN_CASE, abecedarianMult, caseGlyphs, MEDIEVAL,
   ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS, PURVEYOR,
   sesquipedalianMult,
@@ -1923,11 +1923,18 @@ const PATRON_BEHAVIOURS = [
     // running it.
     id: 'ripper',
     when: 'meta',   // the deed is done in js/main.js as the word commits
-    // A watchword is spent by the killing, and the card strikes it out — the
-    // list on the seat is the list still live. Built by striking the printed
-    // desc rather than writing the sentence twice, so the card stays the one
-    // place it is worded.
+    // Two cards in one seat. Alive: a watchword is spent by the killing and the
+    // card strikes it out, so the list on the seat is the list still live —
+    // built by striking the PRINTED desc rather than writing the sentence
+    // twice, so the card stays the one place it is worded. Dead: the whole rule
+    // is replaced, because none of the living words reaches him any more. That
+    // second card is what the Market shows for a Ripper dealt dead, so nobody
+    // buys one rule and gets the other.
     instDesc(data) {
+      if (data?.ghost) {
+        return `Print ${wordListText(RIPPER_GHOST_WORDS)} and one of your other patrons `
+             + 'becomes a ghost. These words do not wear out.';
+      }
       const spent = data?.spent ?? [];
       if (!spent.length) return null;
       return spent.reduce((d, w) => d.replace(w, `<s>${w}</s>`), PATRON_CARDS.ripper.desc);
