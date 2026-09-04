@@ -854,8 +854,9 @@ more), dismissable for half their cost. The roster is built around **colour
 guilds**, each paint keeping a family that makes committing to it an archetype:
 amber pays coins, jade compounds forever, crimson burns tiles for power, azure
 bends the rules of spelling — plus neutral wildcards and the word-shape
-classics. A guild member's card wears its livery and its seat a small livery
-pin; neutral patrons stay plain ivory. *The Alderman* reads the liveries:
+classics. A guild member's card wears its livery, and so does its seat — a
+ribbon over the card's top edge on the bench, a small enamel pin in retro;
+neutral patrons stay plain ivory. *The Alderman* reads the liveries:
 **+0.5 Mult per guild** represented on your shelf, counted once each and
 whether or not it fires. He ADDS rather than multiplies — a full table of
 liveries is +2 Mult, not ×5. He used to compound, and a shelf flying four

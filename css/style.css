@@ -733,6 +733,10 @@ header {
   z-index: 2;
 }
 
+/* The bench wears the Market's ribbons here instead (css/bench.css); retro's
+   seat keeps the enamel pin above, so the silk stays in the drawer. */
+.patron-liveries { display: none; }
+
 /* A dual-livery seat wears a second pin beside the first. It rides the same
    pseudo-element as extra box-shadow dots — ::after is spoken for by
    --armed and --empty — so one badge carries both enamels. */

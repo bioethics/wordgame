@@ -485,7 +485,7 @@ function renderShelf(script) {
         const name  = patronName(def, p.data);
         const label = patronShelf(def, p.data);
         const desc  = def.instDesc?.(p.data)  ?? def.desc;
-        const [livery, livery2] = guildsOf(def);   // a dual-livery seat wears both pins
+        const [livery, livery2] = guildsOf(def);   // a dual-livery seat wears both silks
         const refund = patronRefund(p);
         slot.className = `patron patron--${def.rarity}${livery ? ` patron--g-${livery}` : ''}`
                        + (livery2 ? ` patron--g2-${livery2}` : '')
@@ -499,6 +499,7 @@ function renderShelf(script) {
           <span class="patron-emoji">${patronEmoji(def, p.data)}</span>
           <span class="patron-name">${label}</span>
           <span class="patron-desc">${desc}</span>
+          ${livery ? `<span class="patron-liveries">${liveryHTML(def)}</span>` : ''}
           ${p.data?.postnom ? `<span class="patron-postnom" title="${patronName(def, p.data)} — a distinguished patron: ×${POSTNOM.mult} Mult, paid at this seat's turn in the running order">${p.data.postnom}</span>` : ''}
           ${laurels ? `<span class="patron-laurel" title="${laurelWorth(laurels)}, paid at this seat's turn, lost if this patron is dismissed">🏵️${laurels > 1 ? `<b>${laurels}</b>` : ''}</span>` : ''}
           <button class="patron-x" data-sell="${p.uid ?? def.id}" title="Dismiss ${name} for ${refund} Coins">✕</button>`;
@@ -513,6 +514,12 @@ function renderShelf(script) {
 
   paintArmed(shelf, script);
 }
+
+// A seat's guild, worn as the Market's own silk: one ribbon per livery, the
+// second shorter, bound in beside the first. Rendered always and shown only on
+// the bench (css/bench.css) — retro keeps its enamel pins.
+const liveryHTML = def => guildsOf(def).slice(0, 2).map((g, i) =>
+  `<i class="patron-livery patron-livery--${i ? 'second' : 'first'}"></i>`).join('');
 
 // What each patron stands to add, read off the score script; several steps fold
 // into one badge. Keyed by the seat's uid where the step carries one (so
