@@ -690,6 +690,16 @@ html[data-look="bench"] .ghost-btn--open {
   box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.65), 3px 3px 8px rgba(0, 0, 0, 0.5);
 }
 html[data-look="bench"] .ghost-drawer { border-radius: 6px; }
+/* The shop's table is the same furniture in a smaller room: its cards are half
+   the height of the board's, so the tab and the drawer's cheek come down to
+   match, and the tab keeps inside the sheet's own padding rather than hanging
+   into its scroll. */
+html[data-look="bench"] .shelf-wrap--market > .ghost-btn { right: -20px; width: 32px; height: 54px; }
+html[data-look="bench"] .shelf-wrap--market .ghost-drawer-head { max-width: 96px; padding: 6px 10px; }
+html[data-look="bench"] .shelf-wrap--market .ghost-drawer-tally { font-size: 15px; }
+html[data-look="bench"] .shelf-wrap--market .ghost-drawer-note { display: none; }
+@keyframes bnNubMarket { from { right: 10px; } to { right: -20px; } }
+html[data-look="bench"] .shelf-wrap--market > .ghost-btn { animation-name: bnNubMarket; }
 html[data-look="bench"] .ghost-drawer-title {
   font-family: var(--bn-fell-sc);
   font-weight: 400;

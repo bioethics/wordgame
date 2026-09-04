@@ -610,14 +610,19 @@ function ghostCardsHTML() {
     const label = patronShelf(def, p.data);
     const desc  = def.instDesc?.(p.data) ?? def.desc;
     const laurels = p.data?.honorifics ?? 0;
+    // A ghost gave up its seat and nothing else — its guild included, which the
+    // Alderman still counts and the dyes still answer to. So it flies its livery
+    // like any living card: the silk on the bench, the enamel pin in retro.
+    const [livery, livery2] = guildsOf(def);
     out += `
-      <div class="patron patron--ghost patron--${def.rarity}"
+      <div class="patron patron--ghost patron--${def.rarity}${livery ? ` patron--g-${livery}` : ''}${livery2 ? ` patron--g2-${livery2}` : ''}"
            data-patron="${def.id}"${p.uid != null ? ` data-uid="${p.uid}"` : ''}
            title="${name} — ${desc}
 (dead, and working still · ✕ lets it go for nothing)">
         <span class="patron-emoji">${patronEmoji(def, p.data)}</span>
         <span class="patron-name">${label}</span>
         <span class="patron-desc">${desc}</span>
+        ${livery ? `<span class="patron-liveries">${liveryHTML(def)}</span>` : ''}
         ${laurels ? `<span class="patron-laurel" title="${laurelWorth(laurels)}, paid at this ghost's turn">🏵️${laurels > 1 ? `<b>${laurels}</b>` : ''}</span>` : ''}
         <button class="patron-x" data-sell-ghost="${p.uid ?? def.id}" title="Let ${name} go — a ghost's contract is worth nothing">✕</button>
       </div>`;
@@ -630,13 +635,13 @@ function renderGhosts() {
   if (!btn) return;
   const ghosts = state.ghosts ?? [];
   btn.classList.toggle('hidden', ghosts.length === 0);
-  if (!ghosts.length) { closeGhostDrawer({ sound: false }); return; }
-  const named = ghosts.map(p => patronName(patronById(p.id), p.data)).join(', ');
-  btn.innerHTML = `<span class="ghost-btn-mark">👻</span>
-    <span class="ghost-btn-count">${ghosts.length}</span>`;
-  btn.title = `${named} — dead, and working still. Ghosts act after every seated patron.`;
-  // A drawer already out shows the graveyard as it now stands.
-  if (ghostDrawerOpen()) fillGhostDrawer();
+  if (ghosts.length) {
+    const named = ghosts.map(p => patronName(patronById(p.id), p.data)).join(', ');
+    btn.innerHTML = `<span class="ghost-btn-mark">👻</span>
+      <span class="ghost-btn-count">${ghosts.length}</span>`;
+    btn.title = `${named} — dead, and working still. Ghosts act after every seated patron.`;
+  }
+  refreshGhostDrawers();
 }
 
 // ─── The ghosts' drawer ───────────────────────────────────────────────────────
@@ -644,8 +649,24 @@ function renderGhosts() {
 // cards the sheet shows, in the shelf's own geometry, with the tally on the
 // drawer's cheek. The sheet (openGhosts, below) stays for the Market, where
 // there is no shelf on screen to slide over.
-function fillGhostDrawer() {
-  const d = $('ghostDrawer');
+// The board's table and the Market's are the same furniture: seats in a shelf,
+// a graveyard door on its edge, and a drawer that pulls out over them. Every
+// hand below works on the WRAP holding all three, so one set of them opens
+// either drawer and neither table has to know the other exists.
+const boardWrap = () => $('shelf')?.closest('.shelf-wrap') ?? null;
+const drawerIn  = wrap => wrap?.querySelector('.ghost-drawer') ?? null;
+const doorIn    = wrap => wrap?.querySelector('.ghost-btn') ?? null;
+// Timers per table rather than per module, or the Market's drawer sliding home
+// would cancel the board's.
+const _drawerTimers = new WeakMap();
+const timersOf = wrap => {
+  let t = _drawerTimers.get(wrap);
+  if (!t) _drawerTimers.set(wrap, t = { shut: null, peek: null });
+  return t;
+};
+
+function fillGhostDrawer(wrap = boardWrap()) {
+  const d = drawerIn(wrap);
   if (!d) return;
   const n = state.ghosts?.length ?? 0, slots = effectiveGhostSlots();
   d.innerHTML = `
@@ -657,52 +678,73 @@ function fillGhostDrawer() {
     <div class="shelf shelf--ghosts shelf--drawer" style="--seat-count:${slots}">${ghostCardsHTML()}</div>`;
 }
 
-let _drawerShutTimer = null;
-let _peekTimer = null;
-export function openGhostDrawer({ sound = true } = {}) {
-  const d = $('ghostDrawer');
+export function openGhostDrawer({ wrap = boardWrap(), sound = true } = {}) {
+  const d = drawerIn(wrap);
   if (!d || !state.ghosts?.length) return;
-  clearTimeout(_drawerShutTimer);
+  const t = timersOf(wrap);
+  clearTimeout(t.shut);
   if (sound) sfx.drawerOpen();
-  fillGhostDrawer();
+  fillGhostDrawer(wrap);
   d.closest('.shelf-clip')?.classList.add('shelf-clip--live');
   d.hidden = false;
   void d.offsetWidth;                       // land the closed position first, so it slides
   d.classList.add('ghost-drawer--open');
-  const btn = $('ghostBtn');
+  const btn = doorIn(wrap);
   btn?.classList.add('ghost-btn--open');
   btn?.setAttribute('aria-expanded', 'true');
 }
 
-export function closeGhostDrawer({ sound = true } = {}) {
-  const d = $('ghostDrawer');
+export function closeGhostDrawer({ wrap = boardWrap(), sound = true } = {}) {
+  const d = drawerIn(wrap);
   if (!d || d.hidden || !d.classList.contains('ghost-drawer--open')) return;
-  clearTimeout(_peekTimer); _peekTimer = null;
+  const t = timersOf(wrap);
+  clearTimeout(t.peek); t.peek = null;
   if (sound) sfx.drawerShut();
   d.classList.remove('ghost-drawer--open');
-  const btn = $('ghostBtn');
+  const btn = doorIn(wrap);
   btn?.classList.remove('ghost-btn--open');
   btn?.setAttribute('aria-expanded', 'false');
   // Put away once it has slid home. Timed rather than transitionend: a drawer
   // shut while a sheet covers it, or under reduced motion, never fires one.
-  clearTimeout(_drawerShutTimer);
-  _drawerShutTimer = setTimeout(() => {
+  clearTimeout(t.shut);
+  t.shut = setTimeout(() => {
     if (d.classList.contains('ghost-drawer--open')) return;   // reopened meanwhile
     d.hidden = true;
     d.closest('.shelf-clip')?.classList.remove('shelf-clip--live');
   }, 300 / (settings.animSpeed || 1));
 }
 
-export const ghostDrawerOpen = () => {
-  const d = $('ghostDrawer');
+export const ghostDrawerOpen = (wrap = boardWrap()) => {
+  const d = drawerIn(wrap);
   return !!d && !d.hidden && d.classList.contains('ghost-drawer--open');
 };
 
 // Opened by hand, the drawer stays out until it is shut by hand.
-export function toggleGhostDrawer() {
-  if (ghostDrawerOpen()) { closeGhostDrawer(); return; }
-  openGhostDrawer();
-  clearTimeout(_peekTimer); _peekTimer = null;
+export function toggleGhostDrawer(wrap = boardWrap()) {
+  if (ghostDrawerOpen(wrap)) { closeGhostDrawer({ wrap }); return; }
+  openGhostDrawer({ wrap });
+  const t = timersOf(wrap);
+  clearTimeout(t.peek); t.peek = null;
+}
+
+// Every table's drawer, wherever it is. A drawer standing open shows the
+// graveyard as it now stands, so letting a ghost go from one is seen by both;
+// the last ghost leaving shuts them all.
+export function refreshGhostDrawers() {
+  for (const d of document.querySelectorAll('.ghost-drawer')) {
+    const wrap = d.closest('.shelf-wrap');
+    if (!state.ghosts?.length) closeGhostDrawer({ wrap, sound: false });
+    else if (ghostDrawerOpen(wrap)) fillGhostDrawer(wrap);
+  }
+}
+
+// Whichever drawers are out, put them away — every table but the one just
+// clicked in (`keep`), so a click on the board's own drawer never shuts it.
+export function closeGhostDrawersExcept(keep = null) {
+  for (const d of document.querySelectorAll('.ghost-drawer')) {
+    const wrap = d.closest('.shelf-wrap');
+    if (wrap !== keep && ghostDrawerOpen(wrap)) closeGhostDrawer({ wrap });
+  }
 }
 
 // A ghost has something to show — a score, a note, a word. The drawer pulls
@@ -710,11 +752,13 @@ export function toggleGhostDrawer() {
 // ghosts have been quiet for a beat. Each call pushes the beat back, so a run
 // of ghosts scoring keeps it out. A drawer the player pulled out is left alone.
 export function peekGhostDrawer(hold = 1500) {
-  if (ghostDrawerOpen()) { if (!_peekTimer) return; }
-  else openGhostDrawer();
-  clearTimeout(_peekTimer);
-  _peekTimer = setTimeout(() => { _peekTimer = null; closeGhostDrawer(); },
-                          hold / (settings.animSpeed || 1));
+  const wrap = boardWrap();
+  const t = timersOf(wrap);
+  if (ghostDrawerOpen(wrap)) { if (!t.peek) return; }   // pulled out by hand: leave it
+  else openGhostDrawer({ wrap });
+  clearTimeout(t.peek);
+  t.peek = setTimeout(() => { t.peek = null; closeGhostDrawer({ wrap }); },
+                      hold / (settings.animSpeed || 1));
 }
 
 export function openGhosts() {

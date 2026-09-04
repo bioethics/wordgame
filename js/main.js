@@ -44,6 +44,7 @@ import {
   showPatronPopover, hidePopover, openManuscript, closeManuscript,
   openGhosts, closeGhosts, ghostsOpen,
   toggleGhostDrawer, closeGhostDrawer, ghostDrawerOpen, peekGhostDrawer,
+  closeGhostDrawersExcept,
   showCoinWordSheet, setCoinNote, showCounterfeitSheet, showStruckTotal, showBribeSheet,
 } from './render.js';
 import {
@@ -2145,14 +2146,17 @@ $('ghostBtn')?.addEventListener('click', () => {
   toggleGhostDrawer();
 });
 
-// Anywhere else on the page shuts the drawer; the shelf under it is wanted back.
+// A click anywhere outside a table shuts THAT table's drawer — the board's and
+// the Market's alike, each minding only its own, so opening one puts the other
+// away and a tap inside a drawer never shuts the drawer you tapped.
 document.addEventListener('click', e => {
-  if (!ghostDrawerOpen()) return;
-  if (e.target.closest('.shelf-wrap, #popover')) return;
-  closeGhostDrawer();
+  if (e.target.closest('#popover')) return;
+  closeGhostDrawersExcept(e.target.closest('.shelf-wrap'));
 });
 
-// The sheet and the drawer show the same cards and answer the same taps.
+// Every drawer and the sheet show the same cards and answer the same taps, so
+// the handler is delegated rather than bound: the Market builds its drawer long
+// after this runs, and rebuilds it whenever the shop changes.
 const onGhostTap = e => {
   if (e.target.closest('[data-close-ghosts]') || e.target === $('ghostModal')) {
     closeGhosts();
@@ -2166,7 +2170,9 @@ const onGhostTap = e => {
       sfx.dismiss();
       log(logLine('ghostLetGo', r.name));
       if (r.headsman) log(logLine('headsmanNow', r.headsman.mult));
-      renderAll();                              // renderGhosts refreshes or shuts the drawer
+      renderAll();                   // renderGhosts refreshes or shuts every drawer
+      if (state.inMarket) renderMarket();                 // and the shop's own door
+      if (state.inBlackMarket) renderBlackMarket();
       if (ghostsOpen()) { if (state.ghosts.length) openGhosts(); else closeGhosts(); }
     }
     return;
@@ -2179,8 +2185,9 @@ const onGhostTap = e => {
     if (def) showPatronPopover(def, card, seat);
   }
 };
-$('ghostModal')?.addEventListener('click', onGhostTap);
-$('ghostDrawer')?.addEventListener('click', onGhostTap);
+document.addEventListener('click', e => {
+  if (e.target.closest('#ghostModal, .ghost-drawer')) onGhostTap(e);
+});
 
 $('shelf')?.addEventListener('click', e => {
   if (state.isAnimating) return;

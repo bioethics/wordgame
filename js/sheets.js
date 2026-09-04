@@ -42,7 +42,7 @@ import {
   setBuild, freshBuild, buildPoints, canBeDual,
 } from './chamber.js';
 import {
-  makeTileEl, coinHTML, log, renderAll, persist, showPatronPopover, openGhosts,
+  makeTileEl, coinHTML, log, renderAll, persist, showPatronPopover, toggleGhostDrawer,
 } from './render.js';
 import { sfx, pulse, sparkleBurst, flyClone, sleep } from './anim.js';
 
@@ -153,6 +153,7 @@ export function updateMarketState() {
   // A full table or bench makes the tally urgent rather than a footnote.
   m.querySelector('[data-market-shelf-wrap]')?.classList.toggle('market-shelf--wanted', seatsFull);
   m.querySelector('[data-market-bench-wrap]')?.classList.toggle('market-shelf--wanted', benchFull);
+  refreshGhostDoor(m);
 
   const reroll = m.querySelector('#btnReroll');
   if (reroll) reroll.disabled = !(state.freeRerolls > 0) && state.coins < market.rerollCost;
@@ -271,21 +272,41 @@ function marketBenchHTML() {
     </section>`;
 }
 
-// The graveyard door, restated for the same reason. Its sheet is a modal at the
-// body level, so it opens over the Market without either knowing the other.
-const marketGhostDoorHTML = () => {
+// The graveyard door, and the drawer behind it — the board's furniture exactly
+// (the .shelf-wrap / .shelf-clip / .ghost-drawer set that js/render.js works
+// on), so the Market's table opens the same way the bench's does rather than
+// throwing a modal over the shop. The door is rendered whatever the count and
+// hidden when there is nothing behind it, as the board's is.
+const ghostDoorHTML = () => {
   const n = state.ghosts?.length ?? 0;
-  if (!n) return '';
-  return `<button class="market-ghosts" data-open-ghosts>
-    <span class="ghost-btn-mark">👻</span>${n} ghost${n > 1 ? 's' : ''}</button>`;
+  return `<button class="ghost-btn${n ? '' : ' hidden'}" data-market-ghost-door
+            aria-label="Your ghosts" aria-expanded="false">
+    <span class="ghost-btn-mark">👻</span><span class="ghost-btn-count">${n}</span></button>`;
 };
+
+// Kept live like the seat tally: a hire dealt dead at either counter is a ghost
+// the moment it is bought, and the door has to appear without a rebuild.
+function refreshGhostDoor(sheet) {
+  const door = sheet?.querySelector('[data-market-ghost-door]');
+  if (!door) return;
+  const n = state.ghosts?.length ?? 0;
+  door.classList.toggle('hidden', n === 0);
+  door.querySelector('.ghost-btn-count').textContent = n;
+  door.title = n ? 'Your ghosts — dead, and working still' : '';
+}
 
 function marketShelfHTML() {
   const fullSeats = state.patrons.length >= effectivePatronSlots();
   return `
     <section class="market-shelf${fullSeats ? ' market-shelf--wanted' : ''}" data-market-shelf-wrap>
-      <h3 class="market-sec">${MT.table} <span class="market-sub" data-seats>${seatsLabel()}</span><span class="market-sub market-sub--hint">${MT.tableHint}</span>${marketGhostDoorHTML()}</h3>
-      <div class="shelf shelf--market" data-market-shelf style="--seat-count:${effectivePatronSlots()}">${marketShelfCardsHTML()}</div>
+      <h3 class="market-sec">${MT.table} <span class="market-sub" data-seats>${seatsLabel()}</span><span class="market-sub market-sub--hint">${MT.tableHint}</span></h3>
+      <div class="shelf-wrap shelf-wrap--market">
+        <div class="shelf-clip">
+          <div class="shelf shelf--market" data-market-shelf style="--seat-count:${effectivePatronSlots()}">${marketShelfCardsHTML()}</div>
+          <div class="ghost-drawer" hidden aria-label="Your ghosts"></div>
+        </div>
+        ${ghostDoorHTML()}
+      </div>
     </section>`;
 }
 
@@ -1043,6 +1064,7 @@ export function updateBlackMarketState() {
   }
   m.querySelector('[data-market-shelf-wrap]')?.classList.toggle('market-shelf--wanted', seatsFull);
   m.querySelector('[data-market-bench-wrap]')?.classList.toggle('market-shelf--wanted', benchFull);
+  refreshGhostDoor(m);
 }
 
 // ─── Black Market actions ─────────────────────────────────────────────────────
@@ -1145,8 +1167,6 @@ function onBlackMarketClick(e) {
     if (def) showPatronPopover(def, seatCard, seat);
     return;
   }
-  if (e.target.closest('[data-open-ghosts]')) { openGhosts(); return; }
-
   if (e.target.closest('#btnBlackMarketLeave')) {
     closeBlackMarket();
     renderBlackMarket();
@@ -1584,7 +1604,8 @@ function onMarketClick(e) {
     return;
   }
 
-  if (e.target.closest('[data-open-ghosts]')) { openGhosts(); return; }
+  const marketDoor = e.target.closest('[data-market-ghost-door]');
+  if (marketDoor) { toggleGhostDrawer(marketDoor.closest('.shelf-wrap')); return; }
   if (e.target.closest('#btnReroll')) {
     if (rerollMarket()) { sfx.draw(); renderAll(); renderMarket(); }
     return;
