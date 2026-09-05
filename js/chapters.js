@@ -255,5 +255,4 @@ export const CHAPTER_TITLES = [
   'Plague!',
   'One last shift at the police station before retirement',
   'Get inside the Danger Cube',
-  '''ger
 ];
