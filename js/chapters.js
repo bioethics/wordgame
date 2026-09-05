@@ -183,7 +183,7 @@ export const CHAPTER_TITLES = [
   'The chickens get their revenge',
   'Lord Hurburton’s Dainty Daughter',
   'The Mermaid Of The Lower Reservoir',
-  'Charles Augustus Milverton and Bob',
+  'Charles Augustus Milverton',
   'The Sun, The Sun!',
   'The stranger’s treasure map',
   'Foreshadowing!',
@@ -253,5 +253,7 @@ export const CHAPTER_TITLES = [
   'The supremely sexy robot',
   'The Robot Uprising',
   'Plague!',
-  'One last shift of policework before retirement'
+  'One last shift at the police station before retirement',
+  'Get inside the Danger Cube',
+  '''ger
 ];
