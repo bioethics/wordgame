@@ -60,12 +60,15 @@ fits and two pixels short drops the last sort to a second row with the space
 for it still showing.
 
 The desk is retro's column with the manuscript sheet standing beside its top:
-the shelf across the whole press, then the workbench and the proof strip side
-by side, then the stick, the case and the buttons at full width. The sheet
-spans the shelf and the proof row and is stretched to them — a page is ruled
-to its foot, so any slack is empty lines inside the paper rather than a hole
-beside it. The shelf keeps its whole width whatever the seat count; the
-workbench shares the proof row instead. On a Deadline the editor's slab is
+the shelf across the whole press, then the proof strip, then the stick, the
+case, and the buttons with the workbench at their left, all at full width.
+The sheet spans the shelf and the proof row and is stretched to them — a page
+is ruled to its foot, so any slack is empty lines inside the paper rather
+than a hole beside it. The shelf keeps its whole width whatever the seat
+count, and the stick and the case keep theirs whatever the hand; the
+workbench stands beside Discard because a sundry is the same gesture (arm it,
+then tap the tiles), and because the button row is the one place nothing
+competes with it for width as its slots grow. On a Deadline the editor's slab is
 the proof strip's header, set flush on its top (and on an ordinary page that
 row is not there at all, switched on the slab's own `hidden` with `:has()`),
 so the editor reads the proof and a spike strikes the total right beneath. A

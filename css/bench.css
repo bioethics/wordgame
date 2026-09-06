@@ -10,14 +10,15 @@
        closes on the word's end.
      · The manuscript sheet is the status: chapter, folio, quota and the words
        of the page on ruled lines, the word pips as the lines' bullets.
-     · The proof strip is the readout, above the stick beside the workbench:
-       Points × the measure and the paints as stamps = the total, read the way
-       the sum is done. A stamp is struck blind while it is ×1 and inked in
-       its colour when it applies. What each PATRON adds stays on its own
-       card, in the order the seats speak. On a Deadline the editor's slab is
-       the strip's header.
+     · The proof strip is the readout, above the stick: Points × the measure
+       and the paints as stamps = the total, read the way the sum is done. A
+       stamp is struck blind while it is ×1 and inked in its colour when it
+       applies. What each PATRON adds stays on its own card, in the order the
+       seats speak. On a Deadline the editor's slab is the strip's header.
      · The type case is the hand, one socket per place, so a wider hand is more
        sockets. The bag and the hellbox stand either side.
+     · The workbench stands beside Discard, with the buttons: a sundry is the
+       same gesture — arm it, then tap the tiles.
      · The sheet stands beside the shelf and the proof row and is ruled to
        their foot, so the desk is retro's column with the page beside it and
        no object ever sits beside a hole.
@@ -157,14 +158,15 @@ html[data-look="bench"] .btn-icon {
 
 /* ── The desk ─────────────────────────────────────────────────────────────────
    Retro's column, with the manuscript sheet standing beside its top: the
-   patrons' shelf across the whole press, then the workbench and the proof
-   strip side by side, then the stick, the case and the buttons at the desk's
-   full width. The sheet spans the shelf and the proof row and is STRETCHED to
-   them — a sheet of paper is ruled to its foot, so the slack lives inside the
-   paper as empty lines rather than beside it as a hole in the bench. The
-   shelf keeps its whole width whatever the seat count (seven, at most); the
-   workbench (four slots, at most) shares its row with the strip instead,
-   which still leaves the strip room for Points × five stamps = total.
+   patrons' shelf across the whole press, then the proof strip, then the
+   stick, the case, and the buttons with the workbench at their left, all at
+   the desk's full width. The sheet spans the shelf and the proof row and is
+   STRETCHED to them — a sheet of paper is ruled to its foot, so the slack
+   lives inside the paper as empty lines rather than beside it as a hole in
+   the bench. The shelf keeps its whole width whatever the seat count (seven,
+   at most), and the stick and the case keep theirs whatever the hand (twelve
+   places, at most); the workbench (four slots, at most) has the button row,
+   where nothing competes with it for width.
 
    On a Deadline the editor's slab is the proof strip's header: a row of its
    own only in the grid, joined flush to the strip's top by eating the row
@@ -190,11 +192,11 @@ html[data-look="bench"] .table {
   grid-template-rows: none;
   grid-template-areas:
     "sheet  shelf  shelf"
-    "sheet  tools  boss"
-    "sheet  tools  proof"
+    "sheet  boss   boss"
+    "sheet  proof  proof"
     "stick  stick  stick"
     "case   case   case"
-    "action action action"
+    "tools  action action"
     "log    log    log";
   gap: 16px 20px;
   align-items: start;
@@ -202,10 +204,10 @@ html[data-look="bench"] .table {
 html[data-look="bench"] .table:has(.boss-bar.hidden) {
   grid-template-areas:
     "sheet  shelf  shelf"
-    "sheet  tools  proof"
+    "sheet  proof  proof"
     "stick  stick  stick"
     "case   case   case"
-    "action action action"
+    "tools  action action"
     "log    log    log";
 }
 html[data-look="bench"] .rail,
@@ -213,12 +215,25 @@ html[data-look="bench"] .board,
 html[data-look="bench"] .shelf-row   { display: contents; position: static; }
 html[data-look="bench"] .status-row  { grid-area: sheet; align-self: stretch; }
 html[data-look="bench"] .shelf-wrap  { grid-area: shelf; }
-html[data-look="bench"] .sundries    { grid-area: tools; align-self: stretch; align-content: center; }
+/* The workbench stands beside Discard, with the buttons: a sundry is the same
+   gesture as a discard — arm it, then tap the tiles — so the tools are that
+   button's siblings, off the sum above and off the bag → case → hellbox line.
+   It can never be wider than the sheet's column, however many slots the
+   Colophon adds: the slots give way down to 52px before the tray would. */
+html[data-look="bench"] .sundries {
+  grid-area: tools;
+  justify-self: end;
+  align-self: center;
+  width: fit-content;
+  max-width: 100%;
+  grid-template-columns: repeat(var(--slot-count, 2), minmax(52px, 74px));
+  padding: 6px 8px 8px;
+}
 html[data-look="bench"] .boss-bar    { grid-area: boss; }
 html[data-look="bench"] .readout     { grid-area: proof; align-self: stretch; }
 html[data-look="bench"] .groove-wrap { grid-area: stick; }
 html[data-look="bench"] .rack-row    { grid-area: case; }
-html[data-look="bench"] .action-row  { grid-area: action; }
+html[data-look="bench"] .action-row  { grid-area: action; align-self: center; }
 html[data-look="bench"] .log         { grid-area: log; }
 
 /* ── The manuscript sheet: the page you are filling ───────────────────────── */
@@ -1201,6 +1216,10 @@ html[data-look="bench"] .log {
   html[data-look="bench"] .ro-total-wrap { min-width: 56px; }
   html[data-look="bench"] .boss-bar { padding: 8px 12px 24px 14px; }
   html[data-look="bench"] .boss-rule { font-size: 13px; }
+  /* The tray comes down with the rest, so the button row does not push the
+     desk past a 768px window. */
+  html[data-look="bench"] .sundries { padding: 4px 6px 6px; }
+  html[data-look="bench"] .sundry { min-height: 56px; }
 }
 @media (max-width: 880px) {
   html[data-look="bench"] .table,
@@ -1215,6 +1234,7 @@ html[data-look="bench"] .log {
   html[data-look="bench"] .shelf-row { display: grid; grid-area: shelf; }
   html[data-look="bench"] .shelf-wrap,
   html[data-look="bench"] .sundries { grid-area: auto; align-self: auto; }
+  html[data-look="bench"] .sundries { justify-self: auto; width: auto; max-width: none; padding: 10px 10px 12px; }
   html[data-look="bench"] .status-row { align-self: auto; }
   html[data-look="bench"] .readout { align-self: auto; }
   html[data-look="bench"] .boss-bar { z-index: auto; margin-bottom: 0; border-radius: 2px; }
