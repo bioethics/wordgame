@@ -66,9 +66,12 @@ The sheet spans the shelf and the proof row and is stretched to them — a page
 is ruled to its foot, so any slack is empty lines inside the paper rather
 than a hole beside it. The shelf keeps its whole width whatever the seat
 count, and the stick and the case keep theirs whatever the hand; the
-workbench stands beside Discard because a sundry is the same gesture (arm it,
-then tap the tiles), and because the button row is the one place nothing
-competes with it for width as its slots grow. On a Deadline the editor's slab is
+workbench stands after Discard, Shuffle and Clear, cut from the buttons' own
+wood with Print at the row's end, because a sundry is the same gesture (arm
+it, then tap the tiles), and because the button row is the one place nothing
+competes with it for width as its slots grow. (The button row stays one flex
+box across the desk; the tray is laid over its spacer, in the press column,
+on the row's own grid lines — nothing is reparented.) On a Deadline the editor's slab is
 the proof strip's header, set flush on its top (and on an ordinary page that
 row is not there at all, switched on the slab's own `hidden` with `:has()`),
 so the editor reads the proof and a spike strikes the total right beneath. A
