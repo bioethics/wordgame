@@ -10,16 +10,17 @@
        closes on the word's end.
      · The manuscript sheet is the status: chapter, folio, quota and the words
        of the page on ruled lines, the word pips as the lines' bullets.
-     · The proof slip is the readout, pinned under the sheet: points, the
-       measure and the paints as stamps — struck blind while they are ×1,
-       inked in their colour when they apply — and the total under a rule,
-       level with Print. What each PATRON adds stays on its own card, in the
-       order the seats speak.
+     · The proof strip is the readout, above the stick beside the workbench:
+       Points × the measure and the paints as stamps = the total, read the way
+       the sum is done. A stamp is struck blind while it is ×1 and inked in
+       its colour when it applies. What each PATRON adds stays on its own
+       card, in the order the seats speak. On a Deadline the editor's slab is
+       the strip's header.
      · The type case is the hand, one socket per place, so a wider hand is more
-       sockets. The bag and the hellbox stand at the ends of the button row.
-     · The paper stands in a column on the left and the press takes the width
-       on the right, so no object ever sits beside a taller one and the
-       editor's slab, on a Deadline, is a row of its own across the press.
+       sockets. The bag and the hellbox stand either side.
+     · The sheet stands beside the shelf and the proof row and is ruled to
+       their foot, so the desk is retro's column with the page beside it and
+       no object ever sits beside a hole.
      · One surface, one red ink. Small capitals from the printed page (IM Fell)
        for labels; Fraunces for numerals and tiles, as before.
      · A lamp: a pool of candlelight over the bench that follows the pointer.
@@ -154,27 +155,25 @@ html[data-look="bench"] .btn-icon {
   border-color: rgba(255, 230, 190, 0.2);
 }
 
-/* ── The desk: the ledger and the press ──────────────────────────────────────
-   Two columns. The paper stands on the left — the manuscript sheet, and under
-   it the proof slip — and the press takes the width on the right: the shelf
-   with the workbench at its end, the editor's slab across the whole press on a
-   Deadline, the stick, the case, and the buttons with the bag and the hellbox
-   at their ends. Nothing sits beside a taller neighbour, so there is no hole
-   for the editor to leave: the sheet spans the shelf, the slab and the stick,
-   which together stand about its height, and the slip spans the case and the
-   buttons, its total level with Print.
+/* ── The desk ─────────────────────────────────────────────────────────────────
+   Retro's column, with the manuscript sheet standing beside its top: the
+   patrons' shelf across the whole press, then the workbench and the proof
+   strip side by side, then the stick, the case and the buttons at the desk's
+   full width. The sheet spans the shelf and the proof row and is STRETCHED to
+   them — a sheet of paper is ruled to its foot, so the slack lives inside the
+   paper as empty lines rather than beside it as a hole in the bench. The
+   shelf keeps its whole width whatever the seat count (seven, at most); the
+   workbench (four slots, at most) shares its row with the strip instead,
+   which still leaves the strip room for Points × five stamps = total.
 
-   The case and its two pouches cannot share a row with the sheet — a 68px
-   sort ten times over is 769px of case, and the desk is 1240 — so the bag and
-   the hellbox stand at the ends of the button row instead, which is where the
-   rack-row's dissolution puts them (bagRect and pileRect in js/main.js read
-   the pouches where they are, so the flights follow).
-
-   The editor's row is not there at all on an ordinary page: an empty auto row
-   would still cost a gap, so the areas are switched on the slab's own
-   `hidden` — :has() is already how the shelf makes room for the graveyard
-   door (style.css). Every wrapper stays dissolved (display: contents) and
-   each object is placed by area, so the DOM is retro's, untouched. */
+   On a Deadline the editor's slab is the proof strip's header: a row of its
+   own only in the grid, joined flush to the strip's top by eating the row
+   gap, so the editor reads the proof and the spike strikes the total right
+   beneath. On an ordinary page that row is not there at all — an empty auto
+   row would still cost a gap — so the areas are switched on the slab's own
+   `hidden`, as :has() already makes the shelf room for the graveyard door
+   (style.css). Every wrapper is dissolved (display: contents) and each object
+   placed by area, so the DOM is retro's, untouched. */
 /* The bench centres the board as a flex column with auto margins rather than
    with retro's min-height, so the grid is exactly as tall as what is on it. */
 html[data-look="bench"] body { display: flex; flex-direction: column; }
@@ -187,49 +186,51 @@ html[data-look="bench"] .table {
   margin: auto;
   align-content: start;
   padding: 6px 22px 36px;
-  grid-template-columns: minmax(270px, 320px) auto minmax(0, 1fr) auto;
+  grid-template-columns: minmax(270px, 320px) auto minmax(0, 1fr);
   grid-template-rows: none;
   grid-template-areas:
-    "sheet  shelf  shelf  tools"
-    "sheet  boss   boss   boss"
-    "sheet  stick  stick  stick"
-    "proof  case   case   case"
-    "proof  bag    action hellbox"
-    "log    log    log    log";
+    "sheet  shelf  shelf"
+    "sheet  tools  boss"
+    "sheet  tools  proof"
+    "stick  stick  stick"
+    "case   case   case"
+    "action action action"
+    "log    log    log";
   gap: 16px 20px;
   align-items: start;
 }
 html[data-look="bench"] .table:has(.boss-bar.hidden) {
   grid-template-areas:
-    "sheet  shelf  shelf  tools"
-    "sheet  stick  stick  stick"
-    "proof  case   case   case"
-    "proof  bag    action hellbox"
-    "log    log    log    log";
+    "sheet  shelf  shelf"
+    "sheet  tools  proof"
+    "stick  stick  stick"
+    "case   case   case"
+    "action action action"
+    "log    log    log";
 }
 html[data-look="bench"] .rail,
 html[data-look="bench"] .board,
-html[data-look="bench"] .shelf-row,
-html[data-look="bench"] .rack-row    { display: contents; position: static; }
-html[data-look="bench"] .status-row  { grid-area: sheet; }
+html[data-look="bench"] .shelf-row   { display: contents; position: static; }
+html[data-look="bench"] .status-row  { grid-area: sheet; align-self: stretch; }
 html[data-look="bench"] .shelf-wrap  { grid-area: shelf; }
-html[data-look="bench"] .sundries    { grid-area: tools; }
+html[data-look="bench"] .sundries    { grid-area: tools; align-self: stretch; align-content: center; }
 html[data-look="bench"] .boss-bar    { grid-area: boss; }
+html[data-look="bench"] .readout     { grid-area: proof; align-self: stretch; }
 html[data-look="bench"] .groove-wrap { grid-area: stick; }
-html[data-look="bench"] .readout     { grid-area: proof; align-self: center; }
-html[data-look="bench"] .rack        { grid-area: case; }
-html[data-look="bench"] .pouch       { align-self: center; }
-html[data-look="bench"] #bagBtn      { grid-area: bag; justify-self: start; }
-html[data-look="bench"] #discardBtn  { grid-area: hellbox; justify-self: end; }
-html[data-look="bench"] .action-row  { grid-area: action; align-self: center; }
+html[data-look="bench"] .rack-row    { grid-area: case; }
+html[data-look="bench"] .action-row  { grid-area: action; }
 html[data-look="bench"] .log         { grid-area: log; }
 
 /* ── The manuscript sheet: the page you are filling ───────────────────────── */
+/* Head, lines, and the quota with the discards beside it at the foot. The lines
+   track is the flexible one: the sheet is stretched to the rows beside it, and
+   whatever height that gives it beyond its words is more ruled paper. */
 html[data-look="bench"] .status-row {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-areas: "head" "lines" "quota" "pips";
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-areas: "head head" "lines lines" "quota pips";
   gap: 0;
   align-items: start;
   padding: 14px 18px 12px;
@@ -306,20 +307,34 @@ html[data-look="bench"] .deadline-tag {
   padding: 1px 7px;
 }
 
-/* The lines: one per word of the page, the pips as their bullets. */
+/* The lines: one per word of the page, the pips as their bullets. The rules
+   are the box's background at the lines' own pitch, so they run on below the
+   last word to the sheet's foot; the lines themselves carry no border. */
 html[data-look="bench"] .page-lines {
+  --bn-line: 24px;
   grid-area: lines;
+  align-self: stretch;
   display: grid;
+  align-content: start;
   padding: 2px 0 0;
+  /* Two pixels at half strength rather than one at full: the sheet is tilted,
+     and a one-pixel rule rasterised at 0.6° steps between pixel rows every
+     hundred pixels and reads as dashes. */
+  background:
+    repeating-linear-gradient(180deg,
+      transparent 0 calc(var(--bn-line) - 2px),
+      rgba(60, 42, 22, 0.13) calc(var(--bn-line) - 2px) var(--bn-line));
+  background-origin: content-box;
+  background-clip: content-box;
 }
 html[data-look="bench"] .page-line {
   position: relative;
-  height: 28px;
+  height: var(--bn-line);
   display: flex;
   align-items: flex-end;
   gap: 9px;
   padding-bottom: 4px;
-  border-bottom: 1px solid var(--bn-rule);
+  border: 0;
   font-family: var(--bn-fell-sc);
   font-size: 17px;
   letter-spacing: 1.2px;
@@ -405,7 +420,8 @@ html[data-look="bench"] .pips-card {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  margin-top: 6px;
+  align-self: end;
+  margin: 8px 0 0 14px;
   gap: 0;
 }
 /* The word pips are on the lines now; only the discards keep their row. */
@@ -421,16 +437,19 @@ html[data-look="bench"] .pips-label {
 
 /* ── The editor's slab ────────────────────────────────────────────────────────
    Everything else on the bench is paper, brass and wood; the editor is a block
-   of black ink with a red edge, lit from within. It lies across the whole
-   press between the shelf and the stick, its lines centred, and it does not
-   tilt: it was not left here, it was set down. */
+   of black ink with a red edge, lit from within. It is the proof strip's
+   header: set down flush on the strip's top — the negative margin eats the
+   grid's row gap and the extra padding runs on under the slip — its lines
+   centred, and it does not tilt, so the slip squares up to meet it. */
 html[data-look="bench"] .boss-bar {
   position: relative;
+  z-index: 0;
   align-content: center;
   gap: 12px;
   row-gap: 4px;
-  padding: 10px 16px 11px 18px;
-  border-radius: 2px;
+  margin-bottom: -16px;
+  padding: 10px 16px 27px 18px;
+  border-radius: 2px 2px 0 0;
   color: #e6d6b8;
   background:
     radial-gradient(120% 140% at 0% 50%, rgba(178, 58, 30, 0.28), transparent 55%),
@@ -882,28 +901,34 @@ html[data-look="bench"] .knee::after {
   background: radial-gradient(circle at 35% 35%, #fff, #7a828a 70%);
 }
 
-/* ── The proof slip ───────────────────────────────────────────────────────── */
+/* ── The proof strip ──────────────────────────────────────────────────────────
+   Retro's three tracks, on paper: Points at the left, the stamps in the
+   middle, the total at the right, read the way the sum is done. It stands
+   above the stick beside the workbench, as tall as the row. */
 html[data-look="bench"] .readout {
   position: relative;
+  z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-areas: "in" "chips" "out";
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas: "in chips out";
   height: auto;
-  min-height: calc(var(--tile-h) + 66px);
-  padding: 10px 14px 12px;
-  gap: 2px;
-  align-items: start;
+  min-height: 84px;
+  padding: 8px 18px;
+  gap: 12px;
+  align-items: center;
   justify-content: stretch;
   border: 0;
   border-radius: 0;
   color: var(--bn-ink);
   background: var(--bn-paper-face);
   box-shadow: var(--bn-paper-shadow);
-  transform: rotate(0.9deg);
+  transform: rotate(0.4deg);
   opacity: 1;
 }
+/* With the editor's slab on its top the slip is set square, so the two meet. */
+html[data-look="bench"] .table:not(:has(.boss-bar.hidden)) .readout { transform: none; }
 html[data-look="bench"] .readout::before {
-  /* the clip holding the slip to the bench, under the sheet */
+  /* the clip holding the slip to the bench */
   content: '';
   position: absolute; left: 50%; top: -9px;
   width: 34px; height: 18px;
@@ -912,21 +937,21 @@ html[data-look="bench"] .readout::before {
   border-radius: 9px;
   background: linear-gradient(180deg, #d5dbe0, var(--bn-steel));
 }
+html[data-look="bench"] .table:not(:has(.boss-bar.hidden)) .readout::before { display: none; }
 html[data-look="bench"] .readout--idle { opacity: 1; }
 html[data-look="bench"] .readout--idle .ro-side,
 html[data-look="bench"] .readout--idle .ro-chips { opacity: 0.45; }
-html[data-look="bench"] .ro-op { display: none; }
-/* No title on the slip: the slab already says Points, and the rule under it and
-   the "total" below say what the sheet is doing. The row is end-aligned so the
-   Points figure sits over the total rather than out on its own at the left
-   margin, where a slip with nothing set would read as a stray number. */
+html[data-look="bench"] .ro-op {
+  display: inline;
+  font-family: var(--bn-fell);
+  font-size: 22px;
+  color: var(--bn-dim);
+}
 html[data-look="bench"] .ro-side--in {
   grid-area: in;
   justify-content: flex-end;
   align-items: baseline;
-  gap: 6px;
-  border-bottom: 1px solid var(--bn-rule);
-  padding-bottom: 4px;
+  gap: 10px;
 }
 html[data-look="bench"] .slab {
   flex-direction: row;
@@ -939,7 +964,7 @@ html[data-look="bench"] .slab {
   box-shadow: none;
 }
 html[data-look="bench"] .slab--points { background: none; }
-html[data-look="bench"] .slab-num { font-size: 24px; color: var(--bn-ink); text-shadow: none; }
+html[data-look="bench"] .slab-num { font-size: 27px; color: var(--bn-ink); text-shadow: none; }
 html[data-look="bench"] .slab-label {
   order: 2;
   font-family: var(--bn-fell-sc);
@@ -961,11 +986,11 @@ html[data-look="bench"] .slab-label {
    glow. */
 html[data-look="bench"] .ro-chips {
   grid-area: chips;
-  justify-content: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 5px 6px;
-  min-height: 34px;
-  padding: 5px 0 3px;
+  min-height: 0;
+  padding: 0;
 }
 html[data-look="bench"] .chip {
   --stamp: var(--bn-ink);
@@ -1024,20 +1049,11 @@ html[data-look="bench"] .chip--pop {
 }
 html[data-look="bench"] .ro-side--out {
   grid-area: out;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: baseline;
-  border-top: 2px solid var(--bn-ink);
-  padding-top: 4px;
-  margin-top: 2px;
+  gap: 10px;
 }
-html[data-look="bench"] .ro-side--out::before {
-  content: 'total';
-  font-family: var(--bn-fell-sc);
-  font-size: 11px;
-  letter-spacing: 2px;
-  color: var(--bn-dim);
-}
-html[data-look="bench"] .ro-total-wrap { min-width: 0; text-align: right; }
+html[data-look="bench"] .ro-total-wrap { min-width: 72px; text-align: right; }
 html[data-look="bench"] .ro-total {
   font-size: 40px;
   letter-spacing: -1px;
@@ -1171,51 +1187,44 @@ html[data-look="bench"] .log {
 }
 
 /* ── Narrow benches ───────────────────────────────────────────────────────── */
-/* A desk narrower than ~1160px has less than 769px of press beside the sheet,
-   so the sheet gives up a little width and the sorts come down a size — to
-   58px, and under 1040px to retro's phone size, 52px, which keeps the case and
-   the stick to one row each in a 1024px window even with a scrollbar taking
-   its 15px. The sheet's column must be narrowed here by hand: a grid hands a
-   minmax(270px, 320px) track its maximum before a minmax(0, 1fr) beside it
-   gets anything, so the sheet would never yield on its own. Retro drops its
-   sorts at its own breakpoints (style.css); these are the bench's alone, and
-   stop above retro's so they never outrank them. */
+/* Beside the sheet on a desk under ~1160px the proof row is narrow and, on a
+   Deadline, the editor's demand wraps to three lines: the strip and its stamps
+   come in a size so the five stamps keep one line and a 1024×768 window keeps
+   the whole desk without a scrollbar. */
 @media (min-width: 881px) and (max-width: 1160px) {
-  html[data-look="bench"] { --tile-w: 58px; --tile-h: 62px; }
-  html[data-look="bench"] .table { grid-template-columns: minmax(250px, 280px) auto minmax(0, 1fr) auto; }
-  html[data-look="bench"] .status-row { padding: 12px 14px 10px; }
-  /* The buttons stand between the bag and the hellbox, under the workbench's
-     column; narrower here so Print keeps their row. */
-  html[data-look="bench"] .btn { padding: 9px 12px 10px; font-size: 14px; letter-spacing: 1px; }
-  html[data-look="bench"] .btn-print { padding: 12px 22px 13px; font-size: 19px; letter-spacing: 3px; }
-}
-@media (min-width: 881px) and (max-width: 1040px) {
-  html[data-look="bench"] { --tile-w: 52px; --tile-h: 56px; }
+  html[data-look="bench"] .table { padding-bottom: 10px; }
+  html[data-look="bench"] .readout { min-height: 72px; padding: 6px 12px; gap: 8px; }
+  html[data-look="bench"] .ro-chips { gap: 4px; }
+  html[data-look="bench"] .chip { padding: 1px 6px 2px; font-size: 13px; }
+  html[data-look="bench"] .ro-op { font-size: 18px; }
+  html[data-look="bench"] .ro-total { font-size: 34px; }
+  html[data-look="bench"] .ro-total-wrap { min-width: 56px; }
+  html[data-look="bench"] .boss-bar { padding: 8px 12px 24px 14px; }
+  html[data-look="bench"] .boss-rule { font-size: 13px; }
 }
 @media (max-width: 880px) {
   html[data-look="bench"] .table,
   html[data-look="bench"] .table:has(.boss-bar.hidden) {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: none;
-    grid-template-areas: "sheet" "shelf" "boss" "stick" "proof" "case" "action" "log";
+    grid-template-areas: "sheet" "shelf" "boss" "proof" "stick" "case" "action" "log";
     gap: 10px;
   }
-  /* One column: the shelf, the door and the bench share a row again, and the
-     bag and the hellbox go back to the case's sides. */
+  /* One column: the shelf, the door and the bench share a row again, the sheet
+     is its own height, and the editor's slab is a bar of its own. */
   html[data-look="bench"] .shelf-row { display: grid; grid-area: shelf; }
   html[data-look="bench"] .shelf-wrap,
-  html[data-look="bench"] .sundries { grid-area: auto; }
-  html[data-look="bench"] .rack-row { display: grid; grid-area: case; }
-  html[data-look="bench"] .rack,
-  html[data-look="bench"] #bagBtn,
-  html[data-look="bench"] #discardBtn { grid-area: auto; justify-self: auto; }
+  html[data-look="bench"] .sundries { grid-area: auto; align-self: auto; }
+  html[data-look="bench"] .status-row { align-self: auto; }
   html[data-look="bench"] .readout { align-self: auto; }
+  html[data-look="bench"] .boss-bar { z-index: auto; margin-bottom: 0; border-radius: 2px; }
   /* The tab rides the shelf's own edge, over it rather than out from under
      it, clear of the workbench beside it. */
   html[data-look="bench"] .ghost-btn { right: -6px; width: 30px; height: 60px; z-index: 2; border-radius: 6px; border-left: 1px solid rgba(0, 0, 0, 0.6); }
   @keyframes bnNub { from { right: 12px; } to { right: -6px; } }
   html[data-look="bench"] .status-row { transform: none; padding: 10px 12px 9px; }
-  html[data-look="bench"] .page-line { height: 24px; font-size: 14px; }
+  html[data-look="bench"] .page-lines { --bn-line: 24px; }
+  html[data-look="bench"] .page-line { font-size: 14px; }
   html[data-look="bench"] .boss-bar { align-self: auto; padding: 8px 12px 9px 14px; }
   html[data-look="bench"] .boss-name { font-size: 14px; letter-spacing: 1.5px; }
   html[data-look="bench"] .patron-laurel { display: none; }
@@ -1230,26 +1239,15 @@ html[data-look="bench"] .log {
   html[data-look="bench"] .patron-take { font-size: 10px; padding: 1px 5px 2px; left: -6px; bottom: -7px; }
   html[data-look="bench"] .readout {
     transform: none;
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas: "in out" "chips out";
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas: "in chips out";
     align-items: center;
     min-height: 0;
     padding: 8px 12px 10px;
-    column-gap: 10px;
+    column-gap: 8px;
   }
   html[data-look="bench"] .readout::before { display: none; }
-  html[data-look="bench"] .ro-side--in { border: 0; padding: 0; }
-  html[data-look="bench"] .ro-chips { min-height: 0; padding: 2px 0 0; }
-  html[data-look="bench"] .ro-side--out {
-    flex-direction: column;
-    align-items: flex-end;
-    border-top: 0;
-    border-left: 2px solid var(--bn-ink);
-    padding: 0 0 0 10px;
-    margin: 0;
-    align-self: stretch;
-    justify-content: center;
-  }
+  html[data-look="bench"] .ro-op { font-size: 18px; }
   html[data-look="bench"] .ro-total { font-size: 30px; }
   html[data-look="bench"] .rack { width: 100%; }
   html[data-look="bench"] .btn-print { font-size: 18px; letter-spacing: 3px; padding: 12px 20px; }
@@ -1260,7 +1258,8 @@ html[data-look="bench"] .log {
   html[data-look="bench"] .logo { font-size: 19px; letter-spacing: 1px; }
   html[data-look="bench"] .table { padding: 2px 10px calc(8px + env(safe-area-inset-bottom)); gap: 8px; }
   html[data-look="bench"] .chapter-label { font-size: 14px; }
-  html[data-look="bench"] .page-line { height: 22px; font-size: 13px; }
+  html[data-look="bench"] .page-lines { --bn-line: 22px; }
+  html[data-look="bench"] .page-line { font-size: 13px; }
   html[data-look="bench"] .quota-card { margin-top: 5px; }
   html[data-look="bench"] .shelf, html[data-look="bench"] .sundries { padding: 6px 6px 7px; gap: 5px; }
   html[data-look="bench"] .ghost-btn { right: -4px; width: 24px; height: 52px; padding-left: 3px; }

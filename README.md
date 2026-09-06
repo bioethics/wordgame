@@ -45,11 +45,11 @@ because the measure counts letters where the stick holds tiles: a þ or a CH is
 one sort of two letters, so every tick says what the word would be worth if it
 ended there. The manuscript sheet is the status — chapter, folio, quota, and
 the words of the page on ruled lines, with the word pips as the lines' bullets.
-The proof slip is the readout, pinned under the sheet: Points, then the measure
-and the four paints as stamps — struck blind while they are ×1, so the eye
-knows what could light, and inked solid in their colour when they apply, with
-the rarer tracks (purple, cursed, a squib, bold, primed) appearing only when
-they have something to say — and the total under a rule. When the print reaches
+The proof strip is the readout, above the stick: Points, then the measure and
+the four paints as stamps — struck blind while they are ×1, so the eye knows
+what could light, and inked solid in their colour when they apply, with the
+rarer tracks (purple, cursed, a squib, bold, primed) appearing only when they
+have something to say — then the total at the right. When the print reaches
 a track its stamp pops and the ink blooms into the paper and dries back, which
 is retro's glow in a medium that cannot glow. What each *patron* adds stays on
 its own calling card, in the order the seats speak, because seat order is a
@@ -59,18 +59,19 @@ those places exactly, because `auto-fill` cuts a column only where a whole one
 fits and two pixels short drops the last sort to a second row with the space
 for it still showing.
 
-The desk is two columns: the paper — the sheet, and the slip under it — on the
-left, and the press on the right: the shelf with the workbench at its end, the
-editor's slab across the whole press on a Deadline (and no row at all on an
-ordinary page, switched on the slab's own `hidden` with `:has()`), the stick,
-the case, and the buttons with the bag and the hellbox at their ends. Nothing
-sits beside a taller neighbour, so the editor's coming and going leaves no
-hole. A ten-place case of 68px sorts is 769px wide, which is why the pouches
-left the case's sides for the button row, and why a desk narrower than
-~1160px lets the sheet in a little and brings the sorts down a size (`bench.css`,
-the narrow benches). A lamp — a pool of candlelight, `body::before` — follows
-the pointer over the bench (`initLamp` in `js/appearance.js`), and stays put
-on touch and under reduced motion.
+The desk is retro's column with the manuscript sheet standing beside its top:
+the shelf across the whole press, then the workbench and the proof strip side
+by side, then the stick, the case and the buttons at full width. The sheet
+spans the shelf and the proof row and is stretched to them — a page is ruled
+to its foot, so any slack is empty lines inside the paper rather than a hole
+beside it. The shelf keeps its whole width whatever the seat count; the
+workbench shares the proof row instead. On a Deadline the editor's slab is
+the proof strip's header, set flush on its top (and on an ordinary page that
+row is not there at all, switched on the slab's own `hidden` with `:has()`),
+so the editor reads the proof and a spike strikes the total right beneath. A
+lamp — a pool of candlelight, `body::before` — follows the pointer over the
+bench (`initLamp` in `js/appearance.js`), and stays put on touch and under
+reduced motion.
 
 The bench's buttons say what they do and stop: no shortcut printed under each
 one, and no "swap tiles for new" under Discard. The keys are listed in Settings
