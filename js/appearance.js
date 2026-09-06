@@ -185,4 +185,29 @@ export function initAppearance() {
     cancelAnimationFrame(raf);
     raf = requestAnimationFrame(applyScale);
   });
+  initLamp();
+}
+
+// ─── The lamp ─────────────────────────────────────────────────────────────────
+// The bench's candle (body::before in css/bench.css) follows the pointer: --lx
+// and --ly are where it hangs, as percentages of the viewport, so the body's
+// zoom cannot skew them. One write per frame. A finger is not a hand holding
+// a candle, and a reader who asked for less motion gets a still lamp, so on
+// both the light stays where the stylesheet's defaults leave it. Retro never
+// draws the pseudo-element, so the two custom properties cost it nothing.
+function initLamp() {
+  if (!window.matchMedia?.('(hover: hover)').matches) return;
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+  let x = 0, y = 0, raf = 0;
+  const paint = () => {
+    raf = 0;
+    const de = document.documentElement.style;
+    de.setProperty('--lx', `${(100 * x / innerWidth).toFixed(2)}%`);
+    de.setProperty('--ly', `${(100 * y / innerHeight).toFixed(2)}%`);
+  };
+  window.addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse') return;
+    x = e.clientX; y = e.clientY;
+    if (!raf) raf = requestAnimationFrame(paint);
+  }, { passive: true });
 }
