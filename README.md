@@ -449,6 +449,43 @@ your gorgeous L and *then* the counterfeit L and you keep a second gorgeous L
 for good; put the forgery in front and nothing happens to the good tile behind
 it — there is nothing to strike from a fake.
 
+### The Corrector — the seat that sits on the dice
+
+Every chance the game rolls that a player would *want* to win goes through one
+function: `luckyRoll` in `js/state.js`. The Goldsmith's amber coming up gold, the
+Dabbler's splash, a register's parcel, the Nudist's found trim, the Gambler's
+coin, the Revenant at the graveside, the tile that survives the squib beside it —
+all of them ask the same question in the same place. Misfortune deliberately does
+not: the Arsonist's fire is rolled raw, since a dial that also softened the
+game's few punishments would be pulling in two directions at once.
+
+**The Corrector** (azure, rare, 8 Coins) is that function's second branch and
+nothing else. A roll that comes out wrong is pulled again, once, so *p* becomes
+1−(1−*p*)²: a 1-in-4 lands 7 times in 16, and the Gambler's coin comes down heads
+three times in four. Once, never a loop — retrying until it works is a certainty
+with extra steps, and a certainty is not luck.
+
+He is named for the office: the corrector of an early press read the proof
+against the copy, marked what the compositor had got wrong, and sent the forme
+back to the stone to be pulled again. The seat does to the dice what the office
+did to the sheet.
+
+He stacks with `state.luck`, the dial the roll was built around and which has sat
+at ×1 since it was written. Luck scales the odds of each roll; the Corrector adds
+the second one. Two ×2 dials would have been one dial twice; these compose
+without collapsing into each other.
+
+The design problem the seat has is that **it is invisible**. Every roll it
+touches is hidden inside something else — a windfall that didn't come, a splash
+that didn't land — so a player could hold him a whole chapter and see nothing
+happen. So he counts: how many rolls he has pulled again, and how many came good
+the second time, kept on the seat's own `data` and shown in the card's
+tap-through (`tally`). It is the only evidence the seat produces, which is why it
+is not optional furniture here the way it is on a seat that speaks in the
+readout. Nothing writes to `data` during scoring, either — every roll in the list
+above is thrown in an `onPrinted` or at a page turn, never in the live preview,
+which is what makes counting from inside `luckyRoll` safe.
+
 ## The pieces
 
 A tile is a **letter** (or ligature, or mark), optionally **painted** a colour,
@@ -583,6 +620,23 @@ press and the ceiling rises on its own.
 (The seat that used to hold this name — three-letter words grow their tiles — is
 **The Child** now. An abecedarian is properly a *primer of the alphabet*, which
 is what the case is; a child is what learns from one.)
+
+**The notice of dismissal** is the one thing in the game that answers an editor
+by removing them. It is a sundry (`dismissal`), sold at nine Coins in the alley
+and nowhere else, and served on a tap: the editor leaves the desk and the rest of
+the page is ordinary. Every reader of `state.boss` already handles its absence —
+scoring's pass 4¾ skips, the bar hides, `bossOnPrinted` and `bossReplenish` return
+at the door, the Economiser stops being asked for its toll — so `dismissEditor`
+in `js/state.js` clears the seat and that is the whole act.
+
+What it does *not* undo is what the desk has already done: the quota was counted
+out when the page was dealt and stays where it is, the hand is the size it was
+drawn to, a discard the desk took is spent, and a sort the Economiser has eaten
+is gone. The Redactor's wrapping is the single exception, lifted with him,
+because it is not a thing done but a thing being done — he is holding the paper
+over those sorts, and it comes off when he goes. The page is still a Deadline
+afterwards: the banner reads off the page number rather than off who is sitting
+at the desk, so serving notice cannot demote the page you then clear.
 
 **The Bribrarian** is the one editor with nothing to satisfy. He does not read
 your words: he penalises every one of them, and the whole of the lever is money
@@ -739,6 +793,14 @@ the instant that Market rolls, bought or not, until you spell CAT again. Any
 word spelling out R-A-T pays her a Coin and earns her a laurel (PIRATE and
 GRATIS count). What she EATS is narrower: only a **RAT ligature tile**, which
 comes from *the Rat Catcher* and nowhere else.
+
+The two seats now want opposite things from the same pile. *The Rat Catcher*
+strikes one RAT into the case a page and pays `RATCATCHER_MULT` (0.1) Mult for
+every RAT the case holds — read live off the collection, so a rat that leaves
+stops paying. The cat's meal is the larger step (`SHORTHAIR_MULT`, 0.2) and takes
+the tile out of the case to get it, so every rat she eats trades his +0.1 for her
++0.2, permanently and one way. Both seats still want the rat man; the cat wants
+his rats gone and he wants them kept.
 
 **The opening draft** — before page 1 you kit out the press from a free spread:
 2 paints of 4, 4 tiles of 10, no coins involved. The starting collection ships
@@ -1039,8 +1101,9 @@ rather than gambled for out of a wrapper, plus punctuation, which comes no other
 way. Four patrons in the back room, every one of them rare — the Market's own
 list is weighted three-to-one towards commons, so this is the only place a rare
 build can be assembled on purpose. Four sundries under the counter, drawn from
-the four guild tools, the two applicators, the love potion and the four
-registers' parcels: things a patron may give you and no stall will sell.
+the four guild tools, the two applicators, the love potion, the notice of
+dismissal and the four registers' parcels: things a patron may give you and no
+stall will sell.
 
 Nothing there is a bargain. Tiles carry a surcharge, patrons a markup that rides
 on the seat itself — so dismissing one refunds half of what you actually paid,
@@ -1129,6 +1192,8 @@ bigger step than the last and a built press has to multiply rather than add:
 | Ratchet sundry price | `js/constants.js` → `RATCHET_PRICE`; how far it steps, `RATCHET_RANGE` there or a `range` on the tool (the alphabet it walks is derived from `TILE_POINTS` — see `SHIFT_RING` in `js/state.js`) |
 | Toolbox price and what is inside it | `js/constants.js` → `TOOLBOX_PRICE`, `TOOLBOX_POOL` (repeat an entry to make it likelier; the box always yields two *different* tools) |
 | Tool tuning — doubling cap, laurel step, tongs bonus, wash count | `js/constants.js` → `LOUPE_CAP`, `HONORIFIC_STEP`, `TONGS_BONUS`, `WASH_COUNT` |
+| The notice of dismissal — its price and where it is stocked | `js/constants.js` → `BLACK_SUNDRY_STOCK` (the alley is its only shop; the shell game's pool is `everySundry` in `js/blackmarket.js`). What it does is `dismissEditor` in `js/state.js`, spent in `useSundry` in `js/main.js` |
+| The luck dial, and what rides on it | `js/state.js` → `luckyRoll` and `state.luck`. Every roll a player would want to win goes through it; misfortunes deliberately do not. *The Corrector* is its second branch — one reroll of a failed roll, counted on his own seat |
 | What a laurel is worth in Mult while The Laureate is seated | `js/constants.js` → `LAUREATE_MULT_STEP`. Paid in `js/scoring.js` pass 4 beside the laurel's Points; the badge copy is `laurelWorth` in `js/patrons.js`, which the shelf, the graveyard and the Market's shelf strip all read |
 | Where the patrons' turns happen, and what a ×Mult reaches | `js/scoring.js` → pass 4. Points that must be multiplied by the table have to land before it (the tongs' heat and the curse's toll do, in pass 3½) |
 | Patrons that improve the tiles rather than the word | `js/patrons.js` → the `tileBonus` hook (pass 1½ in `js/scoring.js`); the number goes onto the tile, so nicks read it and Monogrammists carry it |

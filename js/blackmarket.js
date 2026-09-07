@@ -17,7 +17,8 @@
 //             place a rare build can be assembled on purpose.
 //   Sundries  BLACK_SUNDRY_OFFERS from BLACK_SUNDRY_STOCK — the four guild tools
 //             (the toolbox's own, sold at no stall), the two applicators, the
-//             love potion, and the four registers' parcels.
+//             love potion, the notice of dismissal, and the four registers'
+//             parcels.
 //
 // Everything carries a markup, and there is no re-roll: the alley shows you what
 // it has, once, and you take it or you don't.
@@ -199,6 +200,7 @@ const everySundry = () => [
   ...Object.keys(COLOURS).map(colour => ({ kind: 'tube', colour })),
   { kind: 'reshuffle' }, { kind: 'ratchet' }, { kind: 'toolbox' }, { kind: 'bodkin' },
   { kind: 'loupe' }, { kind: 'laurel' }, { kind: 'tongs' }, { kind: 'wash' },
+  { kind: 'dismissal' },
   { kind: 'applicator', material: 'rainbow' }, { kind: 'applicator', material: 'cursed' },
   ...Object.keys(PACKAGES).map(theme => ({ kind: 'package', theme })),
 ];

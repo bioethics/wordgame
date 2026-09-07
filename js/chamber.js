@@ -63,7 +63,7 @@ export const CHAMBER_SUNDRIES = [
   ...Object.keys(COLOURS).map(colour => ({ kind: 'tube', colour })),
   { kind: 'ratchet' }, { kind: 'toolbox' }, { kind: 'reshuffle' },
   { kind: 'wrapped' }, { kind: 'loupe' }, { kind: 'laurel' },
-  { kind: 'tongs' }, { kind: 'wash' }, { kind: 'potion' },
+  { kind: 'tongs' }, { kind: 'wash' }, { kind: 'potion' }, { kind: 'dismissal' },
   ...Object.keys(APPLICATORS).map(material => ({ kind: 'applicator', material })),
   ...Object.keys(PACKAGES).map(theme => ({ kind: 'package', theme })),
 ];

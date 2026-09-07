@@ -206,8 +206,13 @@ export const PATRON_CARDS = {
     desc: 'As each chapter ends, {DYE_TILES_PER_CHAPTER} tiles of your collection are painted crimson.',
   },
   ratcatcher: {
-    name: 'The Rat Catcher', emoji: '🐀', rarity: 'uncommon', cost: 2, guild: 'crimson',
-    desc: 'Every page, gain a RAT tile to your hand that is painted a random colour.',
+    // Priced at 2 while he only handed out tiles — a seat that also thickened
+    // your bag, which is a real cost. The standing +Mult per rat in the case is
+    // an engine rather than a trinket, and 5 is what the other uncommon engines
+    // ask.
+    name: 'The Rat Catcher', emoji: '🐀', rarity: 'uncommon', cost: 5, guild: 'crimson',
+    desc: 'Every page, gain a RAT tile to your hand that is painted a random colour. '
+        + '+{RATCATCHER_MULT} Mult for every RAT tile in your collection.',
   },
   quartermaster: {
     // Crimson AND azure, because a discard is both halves at once: it DISMISSES
@@ -311,6 +316,10 @@ export const PATRON_CARDS = {
   titivillus: {
     name: 'Titivillus', emoji: '😈', rarity: 'rare', cost: 9, guild: 'azure',
     desc: 'Words with an azure tile accept one vowel-based spelling mistake (swapped, changed, missing or extra.)',
+  },
+  corrector: {
+    name: 'The Corrector', emoji: '✏️', rarity: 'rare', cost: 8, guild: 'azure',
+    desc: 'Any roll of chance that would have gone your way and didn’t is taken a second time.',
   },
   neologist: {
     name: 'The Neologist', emoji: '📖', rarity: 'rare', cost: 10, guild: 'azure',

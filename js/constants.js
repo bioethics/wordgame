@@ -430,6 +430,10 @@ export const TOOL_LOOK = {
   tongs:   { glyph: '🗜️', label: TOOL_TEXT.tongs },
   wash:    { glyph: '💧', label: TOOL_TEXT.wash },
   potion:  { glyph: '🧪', label: TOOL_TEXT.potion },
+  // Served on the editor at the desk, and good nowhere else. It has no target
+  // to pick on the board, so it spends on a single tap like the potion — and
+  // like the potion it KEEPS when there is nobody to serve it on.
+  dismissal: { glyph: '📄', label: TOOL_TEXT.dismissal },
 };
 
 // The applicators strike one tile in hand into a new material. Like the tube, the
@@ -1093,6 +1097,15 @@ export const sesquipedalianMult  = n => Math.round(n * SESQUIPEDALIAN_STEP * 100
 // a windfall for one lucky word.
 export const SHORTHAIR_MULT     = 0.2;
 
+// The Rat Catcher's own Mult, added per RAT tile in the collection. His page
+// gift is one RAT a page, so the seat pays a slow, standing +Mult that a long
+// run compounds: ten pages in, +1 Mult on every word, and it costs nothing to
+// keep. Note what it does to the cat: SHORTHAIR_MULT is the larger step, but
+// eating a RAT takes the tile out of the collection, so the pair trades this
+// seat's +0.1 for the cat's +0.2 every time it feeds. Both seats still want the
+// Rat Catcher; they simply want him for opposite reasons.
+export const RATCATCHER_MULT    = 0.1;
+
 // The Cartographer reads the VOWELS of a word and asks that they run in
 // alphabetical order — A before E before I before O before U — counting each
 // TILE once, so the OO ligature is a single O and two separate O tiles are two.
@@ -1410,13 +1423,18 @@ export const BLACK_TILE_FEATURES   = 2;
 // The sundry counter. Four are laid out per visit, drawn from things the Market
 // itself never stocks: the four guild tools (TOOLBOX_POOL's own, minus the
 // ratchet, which the Market does sell), the two applicators, the love potion,
-// and the four registers' parcels.
+// the notice of dismissal, and the four registers' parcels.
 export const BLACK_SUNDRY_STOCK = [
   { kind: 'loupe',  price: 6 },
   { kind: 'laurel', price: 6 },
   { kind: 'tongs',  price: 4 },
   { kind: 'wash',   price: 4 },
   { kind: 'potion', price: 12 },
+  // The one door to a notice of dismissal, which is what makes it rare: the
+  // alley itself is a Colophon pick, and four kinds of twelve are laid out a
+  // visit. Priced under the potion because it buys ONE page — a Deadline is
+  // the hardest page in the chapter, and never more than a third of them.
+  { kind: 'dismissal', price: 9 },
   { kind: 'applicator', material: 'rainbow', price: 10 },
   { kind: 'applicator', material: 'cursed',  price: 5 },
   ...Object.keys(PACKAGES).map(theme => ({ kind: 'package', theme, price: 7 })),
@@ -1537,7 +1555,7 @@ export const KNOBS = {
   BEEKEEPER_STEPS: beekeeperSteps(),
   ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS,
   SESQUIPEDALIAN_STEP,
-  SHORTHAIR_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
+  SHORTHAIR_MULT, RATCATCHER_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
   PURVEYOR_STALLS:    PURVEYOR.stalls,
   PURVEYOR_TILES:     PURVEYOR.tiles,
   PURVEYOR_PATRONS:   PURVEYOR.patrons,

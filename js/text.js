@@ -181,6 +181,9 @@ export const LOG_TEXT = {
   painted:         'Painted {0} {1}.',                               // letter · colour
   tongsGrip:       'The tongs grip {0} — ash, and +{1} Points waiting on the next word.',
   tongsFloater:    '+{0} to the next word',                          // over the groove, not in the log
+  dismissalNoDesk: 'There is no editor at the desk — the notice keeps.',
+  dismissalServed: '📄 {0} {1} is served with notice, and leaves the desk. The page is yours.',   // emoji · name
+  dismissalUnwraps:' The redactions come off with them.',                                        // ⌐
   ratchetArmed:    'Tap a letter to adjust it.',
   ratchetSteps:    'The ratchet adjusts {0} to {1}.',
   loupeArmed:      'Tap a tile to double its points, up to {0} Points.',
@@ -216,6 +219,7 @@ export const LOG_TEXT = {
   bannerDeadlineMet:  'Deadline met',
   bannerPageDone:     'Page complete',
   bannerBossPleased:  '{0} {1} is satisfied — {2} of {3}',           // emoji · name · score · quota
+  bannerDeskEmpty:    'Nobody at the desk — {0} of {1}',             // score · quota
   bannerPageScore:    '{0} of {1} — {2}',                            // score · quota · chapter title
   appendicesBegin:    'The appendices begin — quotas keep climbing. Good luck.',
 
@@ -443,6 +447,13 @@ export const SUNDRY_TEXT = {
     head: '{0} applicator',
     body: 'Lays out two tiles from your hand; the one you pick is struck in {1}. {2}',
   },
+  dismissal: {
+    head: 'Notice of dismissal',
+    body: 'Serve it on the editor at a Deadline and they leave the desk: their rule ends '
+        + 'with them, and the rest of the page is ordinary. What the page has already been '
+        + 'made to pay stands — the quota, a spent discard, a sort eaten. Keeps until there '
+        + 'is an editor to serve it on.',
+  },
 };
 
 // The short names the bench and the shop card use for a tool.
@@ -454,6 +465,9 @@ export const TOOL_TEXT = {
   tongs:   'Tongs',
   wash:    'Ink wash',
   potion:  'Love potion',
+  // Short, because this is the name the workbench slot and the held row wear,
+  // where there is room for one word. The full title is SUNDRY_TEXT above.
+  dismissal: 'Dismissal',
 };
 
 export const APPLICATOR_TEXT = {

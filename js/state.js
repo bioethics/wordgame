@@ -381,6 +381,28 @@ function assignBoss() {
   state.boss = { id: def.id, data };
 }
 
+// The notice of dismissal (the sundry): the editor leaves the desk mid-page.
+// Every reader of state.boss already handles its absence — scoring's pass 4¾
+// skips, the bar hides, bossOnPrinted and bossReplenish return at the door, the
+// Economiser's toll stops being asked for — so clearing it is the whole act.
+//
+// What is NOT undone: the quota was counted out when the page was dealt, the
+// hand is the size it was drawn to, a spent discard is spent, and a sort the
+// desk has already eaten is gone. The wrapping is the one thing lifted, because
+// it isn't a thing DONE but a thing being done: the Redactor holds the paper
+// over those sorts, and it comes off with them. It is cleared on the live tiles
+// too — templateToTile copies the flag onto whatever is in hand — so a wrapped
+// sort in the middle of the word you are composing reads as itself again.
+export function dismissEditor() {
+  if (!state.boss) return null;
+  const gone = state.boss;
+  state.boss = null;
+  let unwrapped = 0;
+  for (const t of state.collection) if (t.wrapped) { delete t.wrapped; unwrapped += 1; }
+  for (const t of [...state.rack, ...state.word, ...state.discardPile]) delete t.wrapped;
+  return { ...gone, unwrapped };
+}
+
 // A tile an editor lends you: real for this page, but cast from no template, so
 // it takes no permanent change (isImmutable covers it) and is gone as soon as
 // the next page rebuilds the bag from the collection.
@@ -421,7 +443,34 @@ export const lentInHand = () =>
 // Every chance roll a player would *want* to succeed goes through here, so the
 // luck dial (state.luck, ×1 by default) can scale it. Deliberately NOT used for
 // bad outcomes (e.g. Arsonist burns).
-export const luckyRoll = p => Math.random() < Math.min(1, p * (state.luck ?? 1));
+//
+// The Corrector sits on this one function and nothing else: a roll that comes
+// out wrong is pulled a second time, the way a proof read against the copy sent
+// the forme back to the stone. ONE reroll, never a loop — the odds become
+// 1-(1-p)², so a 1-in-4 lands 7 times in 16 and a 1-in-2 three times in four.
+// The dial still scales both rolls, so the two stack rather than compete.
+//
+// The count kept on his seat is the only sign the player has that he is working:
+// every roll he touches is hidden somewhere else in the game (a windfall that
+// didn't come, a splash that didn't land), so without it the seat would be an
+// invisible promise. Safe to write from here because no luckyRoll is thrown
+// during scoring — the previews re-run on every keystroke, and each of these
+// rolls is thrown in an onPrinted or a page turn instead.
+const correctorSeat = () => allSeats().find(p => p.id === 'corrector');
+
+export const luckyRoll = p => {
+  const odds = Math.min(1, p * (state.luck ?? 1));
+  if (Math.random() < odds) return true;
+  // A roll with no chance in it has nothing to correct, and counting one on his
+  // card would be a tally of work never done.
+  const seat = odds > 0 ? correctorSeat() : null;
+  if (!seat) return false;
+  const data = (seat.data ??= {});
+  data.pulled = (data.pulled ?? 0) + 1;
+  if (!(Math.random() < odds)) return false;
+  data.saved = (data.saved ?? 0) + 1;
+  return true;
+};
 
 // ─── Persist ──────────────────────────────────────────────────────────────────
 

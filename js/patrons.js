@@ -164,7 +164,7 @@ import {
   TWINS_POINTS, CHILD_STEP, ABECEDARIAN_MULT, ABECEDARIAN_CASE, abecedarianMult, caseGlyphs, MEDIEVAL,
   ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS, PURVEYOR,
   sesquipedalianMult,
-  SHORTHAIR_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
+  SHORTHAIR_MULT, RATCATCHER_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
   medievalExpansions, POSTNOM, GHOST_HIRE, USURER,
   PRINCE, princeMult,
   WORDLER,
@@ -258,13 +258,16 @@ const readsCypher = (tiles, c) =>
 // so rainbow metal reaches all of them for free.
 const painted = (tiles, colour) => tiles.filter(t => countsAsColour(t, colour));
 
-// What the cat's meals are worth, rounded so nothing ever shows the raw
-// 0.30000000000000004 that repeated addition of a tenth produces.
 // Which guild opens which door for The Beadle. Amber is absent on purpose: its
 // favour is a Coin on every page, not a stall (computeReward in js/scoring.js).
 export const BEADLE_STALLS = { crimson: 'smelter', azure: 'punchcutter', jade: 'gilder' };
 
+// What the cat's meals are worth, rounded so nothing ever shows the raw
+// 0.30000000000000004 that repeated addition of a tenth produces.
 const shorthairMult = eaten => Math.round((eaten ?? 0) * SHORTHAIR_MULT * 100) / 100;
+// The Rat Catcher's, off the same rounding, and the cat's mirror image: his
+// number counts the rats still in the case, hers counts the ones that aren't.
+const ratcatcherMult = rats => Math.round((rats ?? 0) * RATCATCHER_MULT * 100) / 100;
 
 // A plain sort: one letter of the alphabet and nothing else. Everything the
 // press can set that ISN'T one of these — a ligature (several letters on one
@@ -2025,14 +2028,33 @@ const PATRON_BEHAVIOURS = [
     },
   },
   {
+    // Two halves that feed each other: a RAT a page into the case, and +Mult for
+    // every RAT the case holds. Left as a gift alone the seat was a tile
+    // dispenser that also thickened your bag; the Mult is what makes the pile
+    // worth having rather than worth spelling away.
     id: 'ratcatcher',
-    when: 'meta',
+    when: 'score',
+    // The COLLECTION is counted, not the hand: the rats are his catch, and a
+    // catch does not stop being one because it is at the bottom of the bag.
+    // Read live off the case, so a RAT eaten by the cat (or blown up beside a
+    // squib) stops paying the moment it is gone. A ligature can take no second
+    // face — the punchcutter refuses them — so the letter itself is the count.
+    effect({ state, addMult }) {
+      const rats = state.collection.filter(t => t.letter === 'RAT').length;
+      if (rats) addMult(ratcatcherMult(rats));
+    },
     // RAT is a ligature worth 3 Points — exactly what R, A and T score apart —
     // and it comes from nowhere else in the game (see EXCLUSIVE_LETTERS).
     onPageStart({ cast }) {
       const colour = pick(Object.keys(COLOURS));
       const tile = cast({ letter: 'RAT', colour });
       return { note: `a ${COLOURS[colour].label.toLowerCase()} RAT`, tiles: [tile] };
+    },
+    tally() {
+      const rats = state.collection.filter(t => t.letter === 'RAT').length;
+      return rats
+        ? `${rats} RAT tile${rats === 1 ? '' : 's'} in the case — +${ratcatcherMult(rats)} Mult on every word.`
+        : 'No RAT tiles in the case — the next page brings one.';
     },
   },
   {
@@ -2250,6 +2272,30 @@ const PATRON_BEHAVIOURS = [
   {
     id: 'fountain',
     when: 'meta',   // read by retirePrinted, and by scoring's `returns` flag
+  },
+  {
+    // The corrector of the press read the proof against the copy, marked what
+    // the compositor had got wrong, and sent the forme back to the stone to be
+    // pulled again. That is the entire seat: a roll that came out wrong is
+    // pulled again. The work itself is one branch inside luckyRoll (js/state.js)
+    // — every roll in the game a player would want to win already goes through
+    // it, so the seat reaches the Goldsmith's jackpots, the Dabbler's splashes,
+    // the registers' parcels, the Gambler's coin and the squib you survive,
+    // without knowing that any of them exist.
+    //
+    // Which also means the seat is invisible: every one of those rolls is hidden
+    // inside something else. The tally is the only place it can be seen, so it
+    // is not optional furniture here the way it is on a seat that pays in the
+    // readout.
+    id: 'corrector',
+    when: 'meta',   // the reroll lives in luckyRoll (js/state.js)
+    tally(data) {
+      const pulled = data?.pulled ?? 0;
+      if (!pulled) return null;
+      const saved = data?.saved ?? 0;
+      return `${pulled} roll${pulled === 1 ? '' : 's'} pulled again — `
+           + `${saved || 'none'} came good the second time.`;
+    },
   },
   {
     id: 'titivillus',

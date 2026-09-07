@@ -15,6 +15,7 @@ import {
   castCounterfeit, effectiveRackSize, handCount, pluckFromBag,
   grantRandomPatron,
   rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost, luckyRoll, isSquib, spendCoins,
+  dismissEditor,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
@@ -1403,13 +1404,20 @@ async function pageComplete() {
   state.stats.pages += 1;
   sfx.win();
   const bossDef = state.boss ? bossById(state.boss.id) : null;
+  // A Deadline served with a notice of dismissal is still a Deadline: the page
+  // is read off the page number, not off who is sitting at the desk, so
+  // clearing the desk cannot demote the page you cleared.
+  const deadline = isDeadline(state.page);
   await showBanner(
-    logLine(bossDef ? 'bannerDeadlineMet' : 'bannerPageDone'),
+    logLine(deadline ? 'bannerDeadlineMet' : 'bannerPageDone'),
     bossDef
       ? logLine('bannerBossPleased', bossDef.emoji, bossDef.name,
           state.pageScore.toLocaleString(), state.quota.toLocaleString())
-      : logLine('bannerPageScore', state.pageScore.toLocaleString(),
-          state.quota.toLocaleString(), chapterTitle(state.chapter)));
+      : deadline
+        ? logLine('bannerDeskEmpty', state.pageScore.toLocaleString(),
+            state.quota.toLocaleString())
+        : logLine('bannerPageScore', state.pageScore.toLocaleString(),
+            state.quota.toLocaleString(), chapterTitle(state.chapter)));
 
   for (const note of runPageCompleteHooks()) log(note, 'good');
 
@@ -1946,6 +1954,40 @@ async function useSundry(idx, e = null, confirmed = false) {
     renderAll();
     const def = patronById(seat.id);
     log(logLine('potionSeat', patronName(def, seat.data)), 'good');
+    return;
+  }
+
+  // The notice of dismissal. Nothing on the board to aim it at: the target is
+  // the desk, and there is one or there isn't. Like the potion it KEEPS when it
+  // cannot be used — a tool that burnt itself on a wrong tap would be a trap,
+  // and this one is only usable on a third of the pages in the first place.
+  if (armed?.kind === 'dismissal') {
+    const def = state.boss ? bossById(state.boss.id) : null;
+    if (!def) { log(logLine('dismissalNoDesk'), 'warn'); return; }
+    cancelDiscardMode(true);
+    cancelSundryMode(true);
+
+    // Said over the bar the editor is sitting in, so it has to be shown BEFORE
+    // the seat is cleared — the bar hides itself the moment there is nobody in
+    // it (renderBossBar).
+    state.isAnimating = true;
+    renderAll();
+    sfx.chime();
+    const bar = $('bossBar');
+    if (bar) {
+      pulse(bar, 'boss-bar--warn', 620);
+      sparkleBurst(bar, 12);
+      floatText(bar, `${def.emoji} dismissed`, 'fl-points', { dy: -34 });
+    }
+    await sleep(ANIM.stepColour);
+
+    const left = dismissEditor();
+    const at = state.sundries.indexOf(armed);
+    if (at >= 0) state.sundries.splice(at, 1);
+    state.isAnimating = false;
+    renderAll();
+    log(logLine('dismissalServed', def.emoji, def.name)
+      + (left?.unwrapped ? logLine('dismissalUnwraps') : ''), 'good');
     return;
   }
 
