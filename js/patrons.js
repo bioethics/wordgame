@@ -178,7 +178,8 @@ import {
   WORDLER,
   WINNOWER_BONUS, SERPENT_EAT_ODDS, SERPENT_POINTS, lyeBoyMult,
   QUOIN_MULT, GOLDSMITH_POINTS, GOLDSMITH_ODDS, GOLDSMITH_PURSE,
-  gardenerRelief, SPENDTHRIFT_STEP, BEADLE_THRESHOLD, BEADLE_PAGE_COIN,
+  gardenerRelief, chapelRelief, CHAPEL_FLOOR, CHAPEL_STEP,
+  SPENDTHRIFT_STEP, BEADLE_THRESHOLD, BEADLE_PAGE_COIN,
   LOVERS,
 } from './constants.js';
 import {
@@ -2313,6 +2314,29 @@ const PATRON_BEHAVIOURS = [
       const saved = data?.saved ?? 0;
       return `${pulled} roll${pulled === 1 ? '' : 's'} pulled again — `
            + `${saved || 'none'} came good the second time.`;
+    },
+  },
+  {
+    // The chapel was the printing house's own society — every workman in the
+    // shop belonged to it — and the Father of the Chapel was the one who
+    // settled the day's stint with the master. This is the third seat that
+    // lowers the bar rather than raising the score, and the only one that asks
+    // nothing of the press to do it: it reads the manuscript, and a house that
+    // has set a great deal of type is a house that is asked for less.
+    //
+    // The relief is worked out where the quota is (startPage in js/state.js),
+    // read live off the book rather than banked, so it is exactly as large as
+    // the run is long and it leaves with the seat. Nothing here writes to
+    // state.quotaRelief: that number is the Gardener's, and he assigns it.
+    id: 'chapel',
+    when: 'meta',   // read at the quota (startPage in js/state.js)
+    tally() {
+      const words = state.manuscript?.length ?? 0;
+      const off = Math.round(chapelRelief(words) * 100);
+      const set = `${words} word${words === 1 ? '' : 's'} in the manuscript`;
+      return off >= CHAPEL_FLOOR * 100
+        ? `${set} — every quota at its floor, ${off}% lighter.`
+        : `${set} — every quota ${off}% lighter. The next word takes another ${Math.round(CHAPEL_STEP * 100)}%.`;
     },
   },
   {

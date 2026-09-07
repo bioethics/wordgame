@@ -317,6 +317,11 @@ export const PATRON_CARDS = {
     name: 'Titivillus', emoji: '😈', rarity: 'rare', cost: 9, guild: 'azure',
     desc: 'Words with an azure tile accept one vowel-based spelling mistake (swapped, changed, missing or extra.)',
   },
+  chapel: {
+    name: 'The Father of the Chapel', emoji: '⛪', rarity: 'uncommon', cost: 7, guild: 'azure',
+    desc: 'Every quota is {CHAPEL_STEP_PCT} lighter for each word in the manuscript, '
+        + 'down to a floor of {CHAPEL_FLOOR_PCT}. The discount goes when the seat does.',
+  },
   corrector: {
     name: 'The Corrector', emoji: '✏️', rarity: 'rare', cost: 8, guild: 'azure',
     desc: 'Any roll of chance that would have gone your way and didn’t is taken a second time.',

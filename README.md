@@ -254,6 +254,25 @@ which is the opposite of how it reads, and the reason it is worth a rare seat.
 It is read where the quota is *set* (`startPage` in `js/state.js`), so it is
 permanent and never has to be re-applied.
 
+**The Father of the Chapel** (azure, uncommon, 7 Coins) is the same axis with the
+opposite curve. The chapel was the printing house's own society — every workman
+in the shop belonged to it — and its Father settled the day's stint with the
+master; this one settles yours, taking `CHAPEL_STEP` (1%) off every quota for
+each word in the **manuscript**, down to a floor of `CHAPEL_FLOOR` (half). Where
+the Gardener's relief is a curve that climbs steeply and then barely moves, this
+one is a straight line that stops dead: nothing on a run's first page, a point a
+word, and at the fiftieth word — a run's fourth chapter or so — it is at its
+floor and every quota after that is halved.
+
+The two differ in what they ask, too. The Gardener wants jade sorts, so he is a
+seat you build towards; the Chapel wants only that the run has been long, so it
+is a seat you buy for the run you are already having. And its relief is **not
+permanent**: it is read live off the book while the seat is held, writes nothing
+to `state.quotaRelief` (that number is the Gardener's, and he assigns rather than
+adds to it), and hands the whole discount back if the seat is dismissed. Both
+reliefs stack, under the game's own floor of 90% off — a quota discounted to
+nothing would end the run from the other direction.
+
 **The Spendthrift** (amber-jade, uncommon, 6 Coins) is the reward's other half.
 The page reward already pays interest on Coins **held**, so nothing in the game
 rewarded spending them. He does: every `SPENDTHRIFT_STEP` Coins out of the purse,
@@ -1283,6 +1302,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | The Gardener's relief — the first slice, how fast it slows, and the ceiling | `js/constants.js` → `GARDENER_RATE`, `GARDENER_CAP` (the curve is `gardenerRelief`; the quota reads `state.quotaRelief` in `startPage`, `js/state.js`) |
 | The Spendthrift's step | `js/constants.js` → `SPENDTHRIFT_STEP` (Coins spent per sort grown; the growth is the chapter number, and the running total is `state.coinsSpent`, kept by `spendCoins`) |
 | The Beadle's threshold and page Coin | `js/constants.js` → `BEADLE_THRESHOLD`, `BEADLE_PAGE_COIN`; which stall each guild opens is `BEADLE_STALLS` in `js/patrons.js`, read live by `stallPrice`/`beadleFavour` in `js/market.js` |
+| The Father of the Chapel's relief — the slice per word, and the floor | `js/constants.js` → `CHAPEL_STEP`, `CHAPEL_FLOOR` (the curve is `chapelRelief`, read live off `state.manuscript` in `startPage`, `js/state.js` — it banks nothing and leaves with the seat) |
 | The Generic's quota reprieve | `js/constants.js` → `ALMONER_RELIEF` (the `relief` effect at cost 7 in `js/patron-generic.js`; it cuts the live page's quota, where the Gardener's cuts every quota as it is set) |
 | Animation step timings | `js/constants.js` → `ANIM` (all divided by the Settings speed slider) |
 | Chapter titles | `js/chapters.js` — a flat array, add as many as you like; each run draws its own and won't repeat until the list runs out |

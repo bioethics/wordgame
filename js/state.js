@@ -5,7 +5,7 @@ import {
   MARKS, MARK_TRIM, SILVER_BONUS, FLEURON, LOUPE_CAP, TONGS_BONUS, WASH_COUNT,
   REVENANT_ODDS,
   COLOURS, TRIMS, NICKS, MATERIALS,
-  quotaFor, makeTileTemplate, GAMBLER_ODDS, isDeadline,
+  quotaFor, makeTileTemplate, GAMBLER_ODDS, isDeadline, chapelRelief,
   MAGPIE_WEIGHT, MAKO_WEIGHT,
   PURVEYOR, TUBE_CHOICES, STALLS_PER_SHOP, MARKET_TILE_OFFERS, PATRON_OFFERS,
   UPGRADE_OFFERS, PROPOSAL_RANGE,
@@ -653,10 +653,17 @@ export function startPage({ quartermaster = 0 } = {}) {
   // read here rather than being applied to a quota already set. state.quotaRelief
   // is maintained by his onPrinted — state.js cannot ask patrons.js which seat it
   // belongs to (patrons.js imports this file), so the seat keeps the number here.
+  // Two reliefs, one clamp. The Gardener's is permanent and lives in state (see
+  // above); the Father of the Chapel's is read live off the manuscript for as
+  // long as the seat is held, so it needs nothing saved and goes with it.
+  // The floor of 0.9 is the game's, not either seat's: a quota discounted to
+  // nothing would end the run in the other direction.
+  const relief = Math.min(0.9,
+    (state.quotaRelief ?? 0) + (owns('chapel') ? chapelRelief(state.manuscript?.length ?? 0) : 0));
   state.quota        = Math.max(1, Math.round(
     quotaFor(state.chapter, state.page)
     * (activeBoss(state)?.quotaMult ?? 1)
-    * (1 - Math.min(0.9, state.quotaRelief ?? 0))));
+    * (1 - relief)));
   state.wordsLeft    = effectiveWordsPerPage();
   // The Redactor wraps a share of the CASE, not of the hand: bag and collection
   // share templates, so a wrapped tile stays wrapped when it is discarded and

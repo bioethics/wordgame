@@ -847,6 +847,27 @@ export const GARDENER_RATE  = 0.02;   // …and takes this share of the gap per 
 export const gardenerRelief = seen =>
   Math.round(GARDENER_CAP * (1 - (1 - GARDENER_RATE) ** (seen ?? 0)) * 10000) / 10000;
 
+// The third of them, and the one that asks nothing of the press: the Father of
+// the Chapel reads the MANUSCRIPT — every word this run has printed — and takes
+// CHAPEL_STEP off every quota for each of them, to a floor of CHAPEL_FLOOR.
+//
+// Straight, where the Gardener's is a curve, and that is the whole difference
+// between the two seats. His climbs steeply and then barely moves; hers is worth
+// nothing on the first page of a run and exactly as much as the last word gave
+// it, every word, until it stops dead at the floor — CHAPEL_STEP into
+// CHAPEL_FLOOR words, so around the fiftieth word printed, which a run reaches
+// in its fourth chapter or so. A seat bought for the run you are already having
+// rather than the one you are planning.
+//
+// Unlike the Gardener's, this relief is NOT permanent: it is read live off the
+// book while the seat is held (startPage in js/state.js), so dismissing the seat
+// hands the whole discount back. Nothing is written to state.quotaRelief, which
+// belongs to the Gardener alone and is his to overwrite.
+export const CHAPEL_FLOOR = 0.5;    // the quota is never cut past half
+export const CHAPEL_STEP  = 0.01;   // …and this much comes off it per word printed
+export const chapelRelief = words =>
+  Math.min(CHAPEL_FLOOR, Math.max(0, words ?? 0) * CHAPEL_STEP);
+
 // ─── The Spendthrift's ledger ─────────────────────────────────────────────────
 // Coins SPENT, not coins held — the other half of a ledger whose first half (the
 // reward's interest) already pays you for hoarding. Every SPENDTHRIFT_STEP that
@@ -1567,6 +1588,8 @@ export const KNOBS = {
   BEADLE_THRESHOLD, BEADLE_PAGE_COIN, SPENDTHRIFT_STEP,
   ALMONER_RELIEF_PCT: `${Math.round(ALMONER_RELIEF * 100)}%`,
   GARDENER_CAP_PCT:   `${Math.round(GARDENER_CAP * 100)}%`,
+  CHAPEL_STEP_PCT:    `${Math.round(CHAPEL_STEP * 100)}%`,
+  CHAPEL_FLOOR_PCT:   `${Math.round(CHAPEL_FLOOR * 100)}%`,
   GOLDSMITH_CHANCE: oddsText(GOLDSMITH_ODDS),
 
   // Patron tuning
