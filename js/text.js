@@ -182,7 +182,6 @@ export const LOG_TEXT = {
   tongsGrip:       'The tongs grip {0} — ash, and +{1} Points waiting on the next word.',
   tongsFloater:    '+{0} to the next word',                          // over the groove, not in the log
   ratchetArmed:    'Tap a letter to adjust it.',
-  ratchetPickWay:  'Tap one of the two letters on the ratchet to step it there.',
   ratchetSteps:    'The ratchet adjusts {0} to {1}.',
   loupeArmed:      'Tap a tile to double its points, up to {0} Points.',
   tongsArmed:      'Tap a tile, then tap the tongs again to feed it to the furnace.',
@@ -373,10 +372,29 @@ export const MATERIAL_TEXT = {
 //   tube        {0} the colour's name, {1} what that colour does
 //   applicator  {0} the applicator's name, {1} the metal, {2} what the metal does
 //   package     handled by PACKAGE_TEXT below — a parcel says its own name
+// ─── The ratchet's popover ────────────────────────────────────────────────────
+// It opens on the tile being stepped. Each chip is named for the letter one
+// more step that way would land on, so no line here has to say "up" or "down":
+// the letters do it.
+export const RATCHET_TEXT = {
+  head: 'Ratchet',
+  chip: 'Step {0} to {1}',
+  from: 'from {0}',
+  rest: 'Step it either way.',
+  go:   'Step it',
+};
+
+export function ratchetLine(key, ...values) {
+  const s = RATCHET_TEXT[key];
+  if (s == null) throw new Error(`RATCHET_TEXT has no line '${key}'`);
+  return fillSlots(s, ...values);
+}
+
 export const SUNDRY_TEXT = {
   ratchet: {
     head: 'Ratchet',
-    body: 'Tap a letter in your hand, then choose in what direction it should be adjusted.',
+    body: 'Tap a letter in your hand, then step it along the alphabet and confirm. '
+        + 'The new letter is permanent.',
   },
   reshuffle: {
     head: 'Reshuffle',

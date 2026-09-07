@@ -166,7 +166,10 @@ export const state = {
                     // a Monogrammist's letters); uid tells copies of a stackable patron apart
   sundries: [],     // [{ kind: 'tube', colour } | { kind: 'reshuffle' }] — the workbench
   upgradeCounts: {}, // id → times taken this run, from the Colophon (see js/upgrades.js)
-  ratchetDir: 1,       // which way an armed ratchet is pointing: +1 later, -1 earlier
+  ratchetOffset: 0,    // how far the open ratchet popover has walked the letter:
+                       // +1 a place later in the press's alphabet, -1 earlier.
+                       // Transient, like sundryMode — it lives only while the
+                       // popover is open, and a save comes back at rest.
   luck: 1,             // scales every "good outcome" roll (see luckyRoll) — a future dial
   rackBonus: 0,        // hand size lent for the rest of THIS page (the Ragman's azure)
   primedMult: {},      // source id → ×Mult armed for the NEXT word (the Generic)
@@ -497,12 +500,11 @@ export function loadState() {
     const mercury = retireMercury(s);
     const { _nextId: savedId, _nextTid: savedTid, _v, _market, _chamber, _colophon,
             _blackmarket, ...fields } = s;
-    Object.assign(state, fields, { isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null });
+    Object.assign(state, fields, { isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null, ratchetOffset: 0 });
     state.sundries ??= [];
     state.experiments ??= {};
     state.upgradeCounts ??= {};
     state.luck ??= 1;
-    state.ratchetDir ??= 1;
     // `ledger` was the manuscript's name in older saves. Tested on emptiness
     // rather than `??=`: state.manuscript defaults to [], which is not nullish,
     // so a coalescing assign would throw an old save's words away.
@@ -556,7 +558,7 @@ export function newRun() {
     wordsLeft: WORDS_PER_PAGE, discards: DISCARDS_PER_PAGE,
     discardsMax: DISCARDS_PER_PAGE, wordsPrinted: 0,
     coins: STARTING_COINS, patrons: [], ghosts: [], sundries: [], upgradeCounts: {},
-    luck: 1, rackBonus: 0, primedMult: {}, metGhost: false, coinsSpent: 0, quotaRelief: 0, ratchetDir: 1, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
+    luck: 1, rackBonus: 0, primedMult: {}, metGhost: false, coinsSpent: 0, quotaRelief: 0, ratchetOffset: 0, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
     boss: null, bossesSeen: [],
     experiments: {},
     compost: [], compostPending: 0, freeRerolls: 0,
@@ -565,7 +567,7 @@ export function newRun() {
     manuscript: [],
     endless: false, inMarket: false, inChamber: false, inColophon: false,
     inBlackMarket: false, blackMarketVisits: 0,
-    isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null, gameOver: false,
+    isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null, ratchetOffset: 0, gameOver: false,
     catPending: false,
   });
   startPage();
@@ -1196,15 +1198,18 @@ const SHIFT_RING = Object.keys(TILE_POINTS)
 export const shiftable = tile =>
   !!tile && !isImmutable(tile) && SHIFT_RING.includes(getActiveLetter(tile));
 
-// Where a letter would land stepping each way — what the ratchet's two arrows
-// are labelled with, so the choice names its own outcome instead of asking the
+// Where a letter lands after `offset` places — what the ratchet's popover is
+// labelled with, so every choice names its own outcome instead of asking the
 // player to hold the press's alphabet in their head (it has no lone Q, so P
-// steps straight to R). Null for a tile the ratchet has no purchase on.
-export function shiftPreview(tile) {
+// steps straight to R). Any offset, because a ratchet may walk more than one
+// place; the ring closes, so A steps back to Z. Null for a tile the ratchet
+// has no purchase on.
+export function shiftPreview(tile, offset = 0) {
   if (!shiftable(tile)) return null;
-  const i = SHIFT_RING.indexOf(getActiveLetter(tile));
-  const at = d => SHIFT_RING[(i + d + SHIFT_RING.length) % SHIFT_RING.length];
-  return { from: getActiveLetter(tile), up: at(1), down: at(-1) };
+  const from = getActiveLetter(tile);
+  const i = SHIFT_RING.indexOf(from);
+  const n = SHIFT_RING.length;
+  return { from, to: SHIFT_RING[((i + offset) % n + n) % n] };
 }
 
 // Step the showing face one place along the ring, written through to the
@@ -1225,20 +1230,24 @@ export function shiftTile(tile, dir) {
 
 // Spend the armed sundry on the selected tiles. Changes to the showing face are
 // written through to the collection template, so paint and letter alike outlive
-// the page. `dir` is the ratchet's direction (+1 later in the alphabet, -1
-// earlier) and is ignored by every other kind.
+// the page. `dir` is how far the ratchet steps (+1 a place later in the press's
+// alphabet, -1 earlier, more for a ratchet that walks further) and is ignored by
+// every other kind.
 export function applySundry(idx, dir = 0) {
   const sundry = state.sundries[idx];
   if (!sundry) return null;
 
   if (sundry.kind === 'ratchet') {
     const tile = sundrySelected().filter(t => !isImmutable(t))[0];
-    if (!tile) return null;
+    // A step of nowhere spends the tool for nothing, so it is refused here as
+    // well as greyed out in the popover.
+    if (!tile || !dir) return null;
     const from = getActiveLetter(tile);
     if (!shiftTile(tile, dir)) return null;
     tile.selected = false;
     state.sundries.splice(idx, 1);
     state.sundryMode = -1;
+    state.ratchetOffset = 0;
     return { kind: 'ratchet', from, to: getActiveLetter(tile), ids: [tile.id] };
   }
 

@@ -14,7 +14,7 @@ import {
   colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
   sundryTip, FLEURON, BATTER, TOOL_LOOK, PACKAGES, APPLICATORS, MEDIEVAL, letterGlyph,
   INTERROBANG, POSTNOM, BAG_COUNTS, BRIBRARIAN, bribeMult, isRule, RULE, BOLD_MULT,
-  lengthMult, LENGTH_MULT_MIN,
+  lengthMult, LENGTH_MULT_MIN, RATCHET_RANGE,
 } from './constants.js';
 import { patronById, guildsOf, patronName, patronShelf, patronEmoji, laurelWorth, seatTally } from './patrons.js';
 import { bossById } from './bosses.js';
@@ -25,7 +25,7 @@ import { colophonSnapshot } from './colophon.js';
 import { blackMarketSnapshot } from './blackmarket.js';
 import { setNum, sleep, fmtMult, readingTime, sfx } from './anim.js';
 import { uiZoom } from './appearance.js';
-import { logLine, SOLO_TEXT } from './text.js';
+import { logLine, SOLO_TEXT, ratchetLine } from './text.js';
 
 const $ = id => document.getElementById(id);
 
@@ -287,6 +287,70 @@ export function showTilePopover(tile, anchorEl, breakdown = null, { canFlip = tr
       : '<div class="tip-line">A plain tile.</div>'}
     ${breakdown ? `<div class="tip-line tip-calc">In this word: ${breakdown.parts.join(' · ')} → <b>${breakdown.final} Points</b></div>` : ''}
     ${flip}`);
+}
+
+// The ratchet's choice, on the tile it would change. Each chip is labelled with
+// the letter one more step that way would land on, so the choice always names
+// its own outcome — the press's alphabet has no lone Q, and nobody should have
+// to hold that hole in their head. A tool that walks further (`range`) simply
+// gets more steps before its chips run out.
+export function showRatchetPopover(tile, anchorEl, offset = 0, range = RATCHET_RANGE) {
+  const at = n => shiftPreview(tile, n);
+  const here = at(offset);
+  if (!here) return;
+  const chip = (dir, glyph) => {
+    const next = offset + dir;
+    const step = Math.abs(next) > range ? null : at(next);
+    return step
+      ? `<span class="ratchet-arrow" data-ratchet-step="${dir}"
+               title="${ratchetLine('chip', here.to, step.to)}">${glyph}${step.to}</span>`
+      : `<span class="ratchet-arrow ratchet-arrow--spent">${glyph}</span>`;
+  };
+  showPopover(anchorEl, `
+    <div class="tip-head">${ratchetLine('head')}</div>
+    <div class="ratchet-pick">
+      ${chip(-1, '◂')}
+      <span class="ratchet-to">${here.to}</span>
+      ${chip(1, '▸')}
+    </div>
+    <div class="tip-line ratchet-from">${
+      offset ? ratchetLine('from', here.from) : ratchetLine('rest')}</div>
+    <button class="btn btn-quiet tip-btn" data-ratchet-go ${offset ? '' : 'disabled'}>${
+      ratchetLine('go')}</button>`);
+}
+
+// Walk the open popover's letter without rebuilding it: showPopover would
+// re-measure, re-place and re-play its entrance, and the popover should sit
+// still while the letter moves inside it.
+export function updateRatchetPopover(tile, offset, range = RATCHET_RANGE) {
+  const pop = $('popover');
+  if (!pop || pop.classList.contains('hidden')) return false;
+  const to = pop.querySelector('.ratchet-to');
+  if (!to) return false;
+  const here = shiftPreview(tile, offset);
+  if (!here) return false;
+  to.textContent = here.to;
+  for (const el of pop.querySelectorAll('[data-ratchet-step], .ratchet-arrow--spent')) {
+    const dir = Number(el.dataset.ratchetStep ?? (el.textContent.startsWith('◂') ? -1 : 1));
+    const glyph = dir < 0 ? '◂' : '▸';
+    const next = offset + dir;
+    const step = Math.abs(next) > range ? null : shiftPreview(tile, next);
+    el.classList.toggle('ratchet-arrow--spent', !step);
+    if (step) {
+      el.dataset.ratchetStep = String(dir);
+      el.textContent = `${glyph}${step.to}`;
+      el.title = ratchetLine('chip', here.to, step.to);
+    } else {
+      delete el.dataset.ratchetStep;
+      el.textContent = glyph;
+      el.removeAttribute('title');
+    }
+  }
+  const from = pop.querySelector('.ratchet-from');
+  if (from) from.textContent = offset ? ratchetLine('from', here.from) : ratchetLine('rest');
+  const go = pop.querySelector('[data-ratchet-go]');
+  if (go) go.disabled = !offset;
+  return true;
 }
 
 export function showPatronPopover(def, anchorEl, seat = null) {
@@ -839,27 +903,20 @@ function renderSundries() {
         <span class="sundry-shuffle">↻</span>
         <span class="sundry-name">Reshuffle</span>`;
     } else if (s?.kind === 'ratchet') {
-      // Pick the letter first, then say which way it goes — and the two arrows
-      // only appear once there IS a letter, each labelled with what that letter
-      // would actually become. Idle, the tool is one ⇅ mark like every other
-      // sundry: it used to show its two arrows at rest, which read as two tools
-      // sharing a slot rather than one tool with a choice in it.
+      // The tool is one ⇅ mark in every state: the letter is picked on the
+      // board and stepped in a popover on the tile itself (showRatchetPopover),
+      // so the slot carries no choice at all. It used to hold the two
+      // destinations as chips, which made every workbench slot as tall as the
+      // one tool that needed the room.
       const armed  = state.sundryMode === i;
-      const step   = armed ? shiftPreview(sundrySelected()[0]) : null;
+      const picked = armed && sundrySelected().length > 0;
       slot = document.createElement('button');
       slot.className = `sundry sundry--ratchet${armed ? ' sundry--armed' : ''}`
-                     + (step ? ' sundry--ready' : '');
+                     + (picked ? ' sundry--ready' : '');
       slot.dataset.sundry = i;
-      slot.innerHTML = step
-        ? `<span class="ratchet-arrows">
-             <span class="ratchet-arrow" data-shift="-1"
-                   title="Step ${step.from} back to ${step.down}">${step.down}</span>
-             <span class="ratchet-arrow" data-shift="1"
-                   title="Step ${step.from} on to ${step.up}">${step.up}</span>
-           </span>
-           <span class="sundry-name">${step.from} →</span>`
-        : `<span class="ratchet-mark">⇅</span>
-           <span class="sundry-name">${armed ? 'Pick a letter' : 'Ratchet'}</span>`;
+      slot.innerHTML = `
+        <span class="ratchet-mark">⇅</span>
+        <span class="sundry-name">${armed && !picked ? 'Pick a letter' : 'Ratchet'}</span>`;
     } else if (s?.kind === 'wrapped') {
       // No material on the slot: nothing is decided until it is opened.
       slot = document.createElement('button');

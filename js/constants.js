@@ -449,6 +449,11 @@ export const MARKET_TILE_OFFERS = 4;
 export const TUBE_PRICE    = 2;
 export const SUNDRY_SELL   = 1;   // what the Market pays to take one back
 export const RATCHET_PRICE = 3;   // the ratchet: one letter, one step either way
+// How far an ordinary ratchet walks that letter. A tool may carry its own
+// `range` instead — the popover's stepper clamps to it and shiftTile takes any
+// offset — so a rarer ratchet that walks two or three places is that field and
+// nothing else.
+export const RATCHET_RANGE = 1;
 // The bodkin: the compositor's needle, for picking one sort out of the case. The
 // dearest sundry, and deliberately — every other one improves a tile you happened
 // to draw, where this decides WHICH tile you draw. It answers a Deadline's

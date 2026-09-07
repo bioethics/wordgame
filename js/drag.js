@@ -33,6 +33,7 @@ const LONG_PRESS_MS  = 450;
 // pieces in through initInput rather than being imported back.
 let spendSundry  = async () => {};
 let sundrySpends = () => false;
+let sundryPicked = () => {};
 
 // ─── Insert-index helper ───────────────────────────────────────────────────────
 
@@ -156,6 +157,7 @@ function releasePress(commit) {
   if (!press) return;
   clearTimeout(press.timer);
   const wasDrag = press.dragging, popped = press.popped;
+  let picked = null;                 // a tool's target, told to main after the render
   ghost?.remove();
   ghost = null;
   press.el.classList.remove('tile--held');
@@ -165,6 +167,10 @@ function releasePress(commit) {
     if (selectingForSundry()) {
       const kind = state.sundries[state.sundryMode]?.kind;
       const r = toggleSundrySelect(press.id);
+      // Taken up, or put back down: a tool with something left to ask (the
+      // ratchet's step) is told after the render, so it can open on the tile's
+      // new element rather than the one about to be swept away.
+      if (r === 'on' || r === 'off') picked = { kind, id: r === 'on' ? press.id : null };
       if (r === 'full')      log(logLine('oneTileAtATime'), 'warn');
       if (r === 'immutable') log(logLine('immutableTile'), 'warn');
       if (r === 'unshiftable') log(logLine('unshiftable'), 'warn');
@@ -192,6 +198,8 @@ function releasePress(commit) {
       sfx.retrieve();
     }
     renderAll();
+    if (picked) sundryPicked(picked.kind, picked.id == null ? null
+      : [...state.word, ...state.rack].find(t => t.id === picked.id));
   } else if (wasDrag) {
     renderAll();   // re-render even on a no-op drop to restore the held tile
   }
@@ -200,9 +208,10 @@ function releasePress(commit) {
 
 // ─── Init ──────────────────────────────────────────────────────────────────────
 
-export function initInput({ spendArmedSundry, spendsOnPick } = {}) {
+export function initInput({ spendArmedSundry, spendsOnPick, onSundryPick } = {}) {
   if (spendArmedSundry) spendSundry  = spendArmedSundry;
   if (spendsOnPick)     sundrySpends = spendsOnPick;
+  if (onSundryPick)     sundryPicked = onSundryPick;
 
   const rackEl = document.getElementById('rack');
   const wordEl = document.getElementById('word');

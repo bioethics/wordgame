@@ -17,9 +17,9 @@
        seats speak. On a Deadline the editor's slab is the strip's header.
      · The type case is the hand, one socket per place, so a wider hand is more
        sockets. The bag and the hellbox stand either side.
-     · The workbench stands after the three verbs, in their wood, with Print
-       at the row's end: a sundry is the same gesture — arm it, then tap the
-       tiles.
+     · The workbench leads the last row, in the buttons' wood, with the three
+       verbs beside it and Print at the end: a sundry is the same gesture —
+       arm it, then tap the tiles.
      · The sheet stands beside the shelf and the proof row and is ruled to
        their foot, so the desk is retro's column with the page beside it and
        no object ever sits beside a hole.
@@ -166,9 +166,8 @@ html[data-look="bench"] .btn-icon {
    lives inside the paper as empty lines rather than beside it as a hole in
    the bench. The shelf keeps its whole width whatever the seat count (seven,
    at most), and the stick and the case keep theirs whatever the hand (twelve
-   places, at most); the workbench (four slots, at most) has the button row,
-   after the three verbs and before Print, where nothing competes with it
-   for width.
+   places, at most); the workbench (four slots, at most) leads the button row
+   from the desk's left edge, where nothing competes with it for width.
 
    On a Deadline the editor's slab is the proof strip's header: a row of its
    own only in the grid, joined flush to the strip's top by eating the row
@@ -190,9 +189,7 @@ html[data-look="bench"] .table {
   margin: auto;
   align-content: start;
   padding: 6px 22px 36px;
-  /* The sheet's column is as wide as the three verbs under it (~275px at the
-     bench's button sizes), so the tray in the next column follows Clear. */
-  grid-template-columns: minmax(270px, 290px) auto minmax(0, 1fr);
+  grid-template-columns: minmax(270px, 320px) auto minmax(0, 1fr);
   grid-template-rows: none;
   grid-template-areas:
     "sheet  shelf  shelf"
@@ -200,7 +197,7 @@ html[data-look="bench"] .table {
     "sheet  proof  proof"
     "stick  stick  stick"
     "case   case   case"
-    "action action action"
+    "tools  action action"
     "log    log    log";
   gap: 16px 20px;
   align-items: start;
@@ -211,7 +208,7 @@ html[data-look="bench"] .table:has(.boss-bar.hidden) {
     "sheet  proof  proof"
     "stick  stick  stick"
     "case   case   case"
-    "action action action"
+    "tools  action action"
     "log    log    log";
 }
 html[data-look="bench"] .rail,
@@ -219,21 +216,22 @@ html[data-look="bench"] .board,
 html[data-look="bench"] .shelf-row   { display: contents; position: static; }
 html[data-look="bench"] .status-row  { grid-area: sheet; align-self: stretch; }
 html[data-look="bench"] .shelf-wrap  { grid-area: shelf; }
-/* The workbench stands after the three verbs, with the buttons: a sundry is
-   the same gesture as a discard — arm it, then tap the tiles — so the tools
-   are those buttons' siblings, off the sum above and off the bag → case →
-   hellbox line. The button row stays one flex box across the desk (Discard,
-   Shuffle, Clear, a spacer, Print); the tray is laid over the spacer's
-   stretch, in the press column, on the row's own lines so it finds the row
-   whichever area map is live. It paints above the spacer (which comes later
-   in the DOM) so its slots take the tap. */
+/* The workbench leads the last row, under the sheet at the desk's own left
+   edge, and the three verbs follow it: a sundry is the same gesture as a
+   discard — arm it, then tap the tiles — so the tools and those buttons are
+   one family, off the sum above and off the bag → case → hellbox line. The
+   tray is the larger object, so it goes first.
+
+   It never outgrows its column, however many slots the Colophon adds: the
+   slots give way to 52px before the tray would, and four of them sit inside
+   the sheet's width at about 68px each. */
 html[data-look="bench"] .sundries {
-  grid-row: action-start / action-end;
-  grid-column: 2 / 3;
+  grid-area: tools;
   justify-self: start;
   align-self: center;
-  position: relative;
-  z-index: 1;
+  width: fit-content;
+  max-width: 100%;
+  grid-template-columns: repeat(var(--slot-count, 2), minmax(52px, 74px));
 }
 html[data-look="bench"] .boss-bar    { grid-area: boss; }
 html[data-look="bench"] .readout     { grid-area: proof; align-self: stretch; }
@@ -543,14 +541,23 @@ html[data-look="bench"] .sundries {
 }
 /* The tray sits with the buttons, so it is cut from their wood — raised, with
    their lip — and only its slots are recessed. (Beside the shelf on a narrow
-   bench it goes back to the shelf's finish, below.) */
+   bench it goes back to the shelf's finish, below.) It stands about as tall
+   as Print, which is as close to the verbs as a box of tools can come: a slot
+   holds a glyph and a name and nothing else now that the ratchet asks for its
+   step in a popover rather than on the bench. */
 html[data-look="bench"] .sundries {
-  padding: 6px 8px 8px;
+  padding: 5px 8px 6px;
   border-radius: 3px;
   border: 1px solid rgba(255, 230, 190, 0.18);
   background: linear-gradient(180deg, #5b3f2c, #3d2a1c);
   box-shadow: 0 3px 0 #1d120b, 0 6px 12px rgba(0, 0, 0, 0.45);
 }
+html[data-look="bench"] .sundry {
+  min-height: 44px;
+  gap: 3px;
+  padding: 5px 5px 4px;
+}
+html[data-look="bench"] .sundry-glyph { font-size: 19px; }
 /* The card is a small grid, so everything it says has a cell of its own and
    nothing lies over anything else: the portrait heads the first row, and the
    card's honours — the guild pin, the letters after the name, the laurels —
@@ -1232,10 +1239,6 @@ html[data-look="bench"] .log {
   html[data-look="bench"] .ro-total-wrap { min-width: 56px; }
   html[data-look="bench"] .boss-bar { padding: 8px 12px 24px 14px; }
   html[data-look="bench"] .boss-rule { font-size: 13px; }
-  /* The tray comes down with the rest, so the button row does not push the
-     desk past a 768px window. */
-  html[data-look="bench"] .sundries { padding: 4px 6px 6px; }
-  html[data-look="bench"] .sundry { min-height: 56px; }
 }
 @media (max-width: 880px) {
   html[data-look="bench"] .table,
@@ -1251,10 +1254,12 @@ html[data-look="bench"] .log {
   html[data-look="bench"] .shelf-wrap,
   html[data-look="bench"] .sundries { grid-area: auto; align-self: auto; }
   html[data-look="bench"] .sundries {
-    grid-row: auto;
-    grid-column: auto;
     justify-self: auto;
-    z-index: auto;
+    width: auto;
+    max-width: none;
+    /* Retro's own phone sizing again, which the wide desk's flexible slots
+       would otherwise outrank from a higher-specificity selector. */
+    grid-template-columns: repeat(var(--slot-count, 2), 52px);
     padding: 10px 10px 12px;
     border-radius: 6px;
     border: 1px solid rgba(0, 0, 0, 0.6);
@@ -1311,6 +1316,7 @@ html[data-look="bench"] .log {
   html[data-look="bench"] .page-line { font-size: 13px; }
   html[data-look="bench"] .quota-card { margin-top: 5px; }
   html[data-look="bench"] .shelf, html[data-look="bench"] .sundries { padding: 6px 6px 7px; gap: 5px; }
+  html[data-look="bench"] .sundries { grid-template-columns: repeat(var(--slot-count, 2), 40px); }
   html[data-look="bench"] .ghost-btn { right: -4px; width: 24px; height: 52px; padding-left: 3px; }
   html[data-look="bench"] .ghost-btn-mark { font-size: 14px; }
   html[data-look="bench"] .ghost-drawer-head { max-width: 64px; padding: 4px 8px; gap: 1px; }

@@ -503,6 +503,9 @@ html[data-look="bench"] .tip-pop {
 html[data-look="bench"] .tip-head { font-family: var(--bn-fell-sc); font-weight: 400; font-size: 16px; letter-spacing: 0.5px; }
 html[data-look="bench"] .tip-pts { font-family: var(--bn-fell-sc); font-weight: 400; letter-spacing: 1px; text-transform: none; font-size: 11px; color: var(--bn-dim); }
 html[data-look="bench"] .tip-line { color: #3d3020; }
+/* The ratchet's letter is set in the slip's own red ink; its chips keep their
+   steel, which is the composing stick's own metal. */
+html[data-look="bench"] .ratchet-to { color: var(--bn-red-dk); }
 html[data-look="bench"] .tip-tally { border-top-color: var(--bn-rule); }
 html[data-look="bench"] .tip-tally-line { font-family: var(--bn-fell); font-style: italic; font-weight: 400; color: var(--bn-red-dk); }
 

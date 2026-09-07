@@ -66,12 +66,13 @@ The sheet spans the shelf and the proof row and is stretched to them — a page
 is ruled to its foot, so any slack is empty lines inside the paper rather
 than a hole beside it. The shelf keeps its whole width whatever the seat
 count, and the stick and the case keep theirs whatever the hand; the
-workbench stands after Discard, Shuffle and Clear, cut from the buttons' own
-wood with Print at the row's end, because a sundry is the same gesture (arm
-it, then tap the tiles), and because the button row is the one place nothing
-competes with it for width as its slots grow. (The button row stays one flex
-box across the desk; the tray is laid over its spacer, in the press column,
-on the row's own grid lines — nothing is reparented.) On a Deadline the editor's slab is
+workbench leads the last row from the desk's own left edge, cut from the
+buttons' wood, with Discard, Shuffle and Clear beside it and Print at the end,
+because a sundry is the same gesture (arm it, then tap the tiles), and because
+the button row is the one place nothing competes with the tray for width as
+its slots grow — it is the larger object, so it goes first. Its slots hold a
+glyph and a name and nothing else, now that the ratchet asks for its step in a
+popover, so the tray stands about as tall as Print rather than half again. On a Deadline the editor's slab is
 the proof strip's header, set flush on its top (and on an ordinary page that
 row is not there at all, switched on the slab's own `hidden` with `:has()`),
 so the editor reads the proof and a spike strikes the total right beneath. A
@@ -770,15 +771,21 @@ the Colophon can add two more). Arming a tool is one tap and picking its target
 is the second, which also spends it. The **paint tube**: tap it mid-page and two
 random unpainted tiles from your hand light up; tap one and the paint is
 permanent — the candidates are the tube's to choose, the pick is yours. The
-**ratchet** asks for the letter FIRST and the direction second: tap the tool,
-tap a letter in your hand, and the slot offers that letter's two neighbours **by
-name** — tap one and it is stepped, for good. It walks the press's own alphabet
-rather than A-Z, which now includes Q: no bag holds a lone Q and no shop sells
-one, so stepping a P forward or an R back is how a Q gets made at all — and
-ligatures and marks can't be stepped. (It used to want the direction set blind
-beforehand, which meant its two arrows sat on the bench at rest, reading as two
-tools sharing one slot; and it asked you to carry the press's alphabet in your
-head, Q-shaped hole and all.) The **tongs** are the one other tool that wants a
+**ratchet** asks for the letter FIRST and the step second: tap the tool, tap a
+letter in your hand, and the choice opens **on that tile** — the letter it would
+become, large, with a step either way named for where THAT one would land.
+Confirm and it is stepped, for good. It walks the press's own alphabet rather
+than A-Z, which now includes Q: no bag holds a lone Q and no shop sells one, so
+stepping a P forward or an R back is how a Q gets made at all — and ligatures
+and marks can't be stepped. How far it may walk is `RATCHET_RANGE`, or a
+`range` on the tool itself, so a rarer ratchet that goes two or three places is
+that one field and nothing else: `shiftTile` has always taken any offset. (It
+used to want the direction set blind beforehand, which meant its two arrows sat
+on the bench at rest, reading as two tools sharing one slot, and asked you to
+carry the press's alphabet in your head, Q-shaped hole and all. Then the two
+destinations became chips inside the slot, named at last — but a chip needs
+room, so the one tool with a choice in it set the height of every slot on the
+workbench.) The **tongs** are the one other tool that wants a
 confirming tap on itself, because they destroy the tile.
 The **reshuffle** is banked until spent, on the Market's own offers (free, and
 it doesn't touch the escalating reroll price) or on a Colophon pick.
@@ -1119,7 +1126,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Reshuffle sundry price | `js/constants.js` → `RESHUFFLE_PRICE` |
 | Bodkin price | `js/constants.js` → `BODKIN_PRICE`. What it reaches into is `pluckFromBag` in `js/state.js`, and the sheet it opens is `openBagPicker` in `js/render.js` — the bag inspector's own grid, made choosable |
 | How many sundries a shop lays out | `js/constants.js` → `SUNDRY_OFFERS` (the pool is `SUNDRY_PRICES` plus one tube per colour, in `js/market.js`) |
-| Ratchet sundry price | `js/constants.js` → `RATCHET_PRICE` (the alphabet it walks is derived from `TILE_POINTS` — see `SHIFT_RING` in `js/state.js`) |
+| Ratchet sundry price | `js/constants.js` → `RATCHET_PRICE`; how far it steps, `RATCHET_RANGE` there or a `range` on the tool (the alphabet it walks is derived from `TILE_POINTS` — see `SHIFT_RING` in `js/state.js`) |
 | Toolbox price and what is inside it | `js/constants.js` → `TOOLBOX_PRICE`, `TOOLBOX_POOL` (repeat an entry to make it likelier; the box always yields two *different* tools) |
 | Tool tuning — doubling cap, laurel step, tongs bonus, wash count | `js/constants.js` → `LOUPE_CAP`, `HONORIFIC_STEP`, `TONGS_BONUS`, `WASH_COUNT` |
 | What a laurel is worth in Mult while The Laureate is seated | `js/constants.js` → `LAUREATE_MULT_STEP`. Paid in `js/scoring.js` pass 4 beside the laurel's Points; the badge copy is `laurelWorth` in `js/patrons.js`, which the shelf, the graveyard and the Market's shelf strip all read |

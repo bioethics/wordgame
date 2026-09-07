@@ -25,6 +25,7 @@ import {
   EXPLOSIVE_SPREAD_ODDS,
   PACKAGES, APPLICATORS, SILVER_BONUS, BAG_COUNTS,
   lengthFlourish, medievalExpansions, USURER, BRIBRARIAN, bribeMult, isRule, RULE,
+  RATCHET_RANGE,
 } from './constants.js';
 import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
 import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
@@ -41,7 +42,8 @@ import {
   renderDictStatus, readoutEls, renderChips, setChip,
   log, showBanner, hideOverlay,
   showGameOver, showVictory, openInspector, closeInspector, openBagPicker, coinHTML,
-  showPatronPopover, hidePopover, openManuscript, closeManuscript,
+  showPatronPopover, hidePopover, showRatchetPopover, updateRatchetPopover,
+  openManuscript, closeManuscript,
   openGhosts, closeGhosts, ghostsOpen,
   toggleGhostDrawer, closeGhostDrawer, ghostDrawerOpen, peekGhostDrawer,
   closeGhostDrawersExcept,
@@ -170,11 +172,24 @@ function cancelDiscardMode(quiet = false) {
 
 // ─── Sundry mode (an armed tube or ratchet) ───────────────────────────────────
 
+// How far the armed ratchet may walk a letter. A tool carrying its own `range`
+// walks that far instead, which is the whole of a rarer ratchet.
+const ratchetRange = () => state.sundries[state.sundryMode]?.range ?? RATCHET_RANGE;
+
+// The ratchet's choice opens on the tile it would change, not on the tool.
+function openRatchetChoice(tile) {
+  if (!tile) return;
+  const el = wordTileEl(tile.id) ?? rackTileEl(tile.id);
+  if (el) showRatchetPopover(tile, el, state.ratchetOffset ?? 0, ratchetRange());
+}
+
 function cancelSundryMode(quiet = false) {
   if (state.sundryMode < 0) return false;
   const kind = state.sundries[state.sundryMode]?.kind;
   state.sundryMode = -1;
   state.tubeOffer = null;
+  state.ratchetOffset = 0;
+  hidePopover();
   clearAllSelected();
   if (!quiet) { sfx.disarm(); log(logLine('toolBack', kind === 'tube' ? 'tube' : 'ratchet')); }
   renderAll();
@@ -1695,22 +1710,23 @@ $('sundries')?.addEventListener('click', async e => {
 // SPENDS it — js/drag.js calls back here the moment a target is chosen. Going
 // back up to the tool to confirm was a click that asked nothing and told you
 // nothing. The tongs are the exception (see spendsOnPick).
-async function useSundry(idx, e = null) {
+async function useSundry(idx, e = null, confirmed = false) {
   const armed = state.sundries[idx];
 
-  // The ratchet asks for the letter first and the direction second, because the
-  // direction is only meaningful once there is a letter to point it at: the
-  // arrows are labelled with what THIS letter would become, and tapping one is
-  // what spends the tool. (It used to run the other way round — set a direction
-  // blind, then tap a tile and watch it go — which meant the arrows had to sit
-  // on the bench at rest, reading as two tools in one slot.)
-  const arrow = e?.target?.closest?.('[data-shift]');
+  // The ratchet asks for the letter first and the step second, because a step
+  // is only meaningful once there is a letter to walk: the choice opens on the
+  // tile itself, each way named with the letter it would land on, and the
+  // popover's own button is what spends the tool. (It used to want a direction
+  // set blind beforehand; then it held the two destinations as chips in its
+  // slot, which made every workbench slot as tall as the one tool needing the
+  // room.)
   if (armed?.kind === 'ratchet') {
     if (state.sundryMode !== idx) {
       cancelDiscardMode(true);
       cancelSundryMode(true);
       clearAllSelected();
       state.sundryMode = idx;
+      state.ratchetOffset = 0;
       sfx.arm();
       log(logLine('ratchetArmed'));
       renderAll();
@@ -1718,10 +1734,9 @@ async function useSundry(idx, e = null) {
     }
     const picked = sundrySelected()[0];
     if (!picked) { cancelSundryMode(); return; }
-    // A letter is chosen; only an arrow moves it. A tap anywhere else on the
-    // tool is not a direction, so it says so rather than guessing one.
-    if (!arrow) { log(logLine('ratchetPickWay'), 'warn'); return; }
-    state.ratchetDir = Number(arrow.dataset.shift);
+    // Tapping the tool again while a letter is held brings its choice back
+    // rather than doing anything to the letter.
+    if (!confirmed) { openRatchetChoice(picked); return; }
   }
 
   if (armed?.kind === 'reshuffle') {
@@ -2050,7 +2065,7 @@ async function useSundry(idx, e = null) {
     ? (wordTileEl(sundrySelected()[0]?.id) ?? rackTileEl(sundrySelected()[0]?.id))
     : null;
 
-  const result = applySundry(idx, state.ratchetDir ?? 1);
+  const result = applySundry(idx, state.ratchetOffset ?? 0);
   if (!result) { cancelSundryMode(); renderAll(); return; }
 
   state.isAnimating = true;
@@ -2104,6 +2119,15 @@ async function useSundry(idx, e = null) {
 // what it needs — the other half is which way, and its arrows ask that once
 // there is a letter for them to name.
 export const spendsOnPick = kind => kind !== 'tongs' && kind !== 'ratchet';
+
+// The board has taken a target for the armed tool, or put it back down. Only
+// the ratchet has anything left to ask, and it asks on the tile itself.
+export function onSundryPick(kind, tile) {
+  if (kind !== 'ratchet') return;
+  state.ratchetOffset = 0;
+  if (tile) openRatchetChoice(tile);
+  else hidePopover();
+}
 
 // The board has picked a target for the armed tool — spend it where it stands.
 export async function spendArmedSundry() {
@@ -2411,6 +2435,29 @@ $('popover')?.addEventListener('click', e => {
     }
     return;
   }
+  // The ratchet's stepper: it walks the letter inside the open popover, which
+  // is redrawn in place rather than rebuilt, so it neither moves nor replays
+  // its entrance while the choice changes.
+  const step = e.target.closest('[data-ratchet-step]');
+  if (step) {
+    if (state.isAnimating || sheetUp() || state.gameOver) return;
+    const tile = sundrySelected()[0];
+    if (!tile) { hidePopover(); return; }
+    const range = ratchetRange();
+    const next  = (state.ratchetOffset ?? 0) + Number(step.dataset.ratchetStep);
+    if (Math.abs(next) > range) return;
+    state.ratchetOffset = next;
+    sfx.tick();
+    updateRatchetPopover(tile, next, range);
+    return;
+  }
+  const go = e.target.closest('[data-ratchet-go]');
+  if (go) {
+    hidePopover();
+    if (state.isAnimating || sheetUp() || state.gameOver) return;
+    if (state.sundryMode >= 0) void useSundry(state.sundryMode, null, true);
+    return;
+  }
   const flip = e.target.closest('[data-flip]');
   if (flip) {
     hidePopover();
@@ -2651,7 +2698,7 @@ function openTheChamber() {
   loadSettings();
   applySpeedCSS();
   initAppearance();
-  initInput({ spendArmedSundry, spendsOnPick });
+  initInput({ spendArmedSundry, spendsOnPick, onSundryPick });
   initInspect();
   initShelfDrag();
   initSheets({ nextPage: beginNextPage, beginRun, openMarket: openTheMarket,
