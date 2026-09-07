@@ -66,7 +66,7 @@ import {
   setTheme, setLayout, setLook, setUiScale,
 } from './appearance.js';
 import {
-  PATRON_DEFS, patronById, doubledReading, boundNouns, patronName, patronShelf, guildSeats,
+  PATRON_DEFS, patronById, doubledReading, boundNouns, patronName, patronEmoji, patronShelf, guildSeats,
 } from './patrons.js';
 import { randomQuip } from './quips.js';
 import { logLine } from './text.js';
@@ -974,7 +974,10 @@ function runPageCompleteHooks() {
     if (!def?.onPageComplete) continue;
     p.data ??= {};
     const r = def.onPageComplete({ state, data: p.data });
-    if (r?.note) notes.push(`${def.emoji} ${def.name}: ${r.note}`);
+    // The seat's OWN name and face, not the card's: a patron whose state changes
+    // what it is called (the Expectant Parents' child, growing a stage a page)
+    // must be named here as it is named everywhere else.
+    if (r?.note) notes.push(`${patronEmoji(def, p.data)} ${patronName(def, p.data)}: ${r.note}`);
   }
   return notes;
 }

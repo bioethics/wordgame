@@ -471,6 +471,10 @@ export function buyPatron(id) {
   const seat = { id, uid: nextId(), data: offer.data ? { ...offer.data } : {} };
   if (ghost) makeGhost(seat);
   else       state.patrons.push(seat);
+  // onOffer's mirror: what a seat does to the world by being TAKEN, once the
+  // copy is real and paid for. The Expectant Parents' child empties the register
+  // it was waiting in, so no second copy of the same child is ever dealt.
+  def.onHired?.({ state, data: seat.data });
   offer.sold = true;
   const bought = { ok: true, def, seat, ghost, name: patronName(def, seat.data) };
   // Buying the second lover marries them on the spot, so what you walk away

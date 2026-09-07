@@ -181,6 +181,9 @@ export const state = {
                        // page turn; scoring reads it so the preview shows it.
   ghosts: [],          // patrons The Ripper has killed — they work on, off the shelf
   lastFirstLetter: null,  // first letter of the last word printed this run (The Skald)
+  babyName: null,      // the name The Expectant Parents have given their child, and
+                       // so the name of the seat waiting at the Market. One at a
+                       // time: a newer name replaces it, and hiring it empties it
   gambleWon: false,    // this word's coin, tossed by rollGamble (The Gambler)
   chapterTitles: {},   // chapter → the title this run drew for it
   boss: null,          // the Deadline's editor: { id, data } while page 3 runs, else null
@@ -574,6 +577,7 @@ export function loadState() {
     state.metGhost ??= false;
     state.coinsSpent ??= 0;
     state.quotaRelief ??= 0;
+    state.babyName ??= null;
     state.ghosts ??= [];
     state.blackMarketVisits ??= 0;
     if (savedId)  _nextId  = savedId;
@@ -608,6 +612,7 @@ export function newRun() {
     discardsMax: DISCARDS_PER_PAGE, wordsPrinted: 0,
     coins: STARTING_COINS, patrons: [], ghosts: [], sundries: [], upgradeCounts: {},
     luck: 1, rackBonus: 0, primedMult: {}, metGhost: false, coinsSpent: 0, quotaRelief: 0, ratchetOffset: 0, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
+    babyName: null,
     boss: null, bossesSeen: [],
     experiments: {},
     compost: [], compostPending: 0, freeRerolls: 0,
@@ -1455,6 +1460,7 @@ export function grantRandomPatron(defs, rarity = null) {
   const def = pool[Math.floor(Math.random() * pool.length)];
   const seat = { id: def.id, uid: nextId(), data: def.onOffer?.() ?? {} };
   state.patrons.push(seat);
+  def.onHired?.({ state, data: seat.data });
   // A gift can be the last half of a couple, so the wedding is checked here as
   // it is at the Market. The merged seat is handed back in the pair's place,
   // which is what the caller animates and names.

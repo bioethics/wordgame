@@ -1080,6 +1080,34 @@ export const TYPESETTER_STEP    = 0.2;
 // The Expectant Parents' fee for a name.
 export const EXPECTANTS_BONUS   = 15;
 
+// ─── …and their child ─────────────────────────────────────────────────────────
+// Print a name while they are seated and they name the baby after it. The child
+// then goes looking for a seat of its own: `state.babyName` is the register, it
+// holds exactly one child at a time, a newer name replaces whoever was waiting,
+// and hiring the seat empties it (the 'baby' patron in js/patrons.js).
+//
+// Each stage pays its number TWICE — that many Points on every word, and that
+// many Coins if the seat is dismissed. The same number in both places is what
+// makes a free patron a decision: it is worth more the longer you keep it, and
+// worth most at the moment you give it up. The last stage drops the prefix and
+// stops growing, because a grown Grace is nobody's baby.
+export const BABY_STAGES = [
+  { prefix: 'Baby',     emoji: '👶', pays: 1 },
+  { prefix: 'Toddler',  emoji: '🍼', pays: 2 },
+  { prefix: 'Child',    emoji: '🧒', pays: 3 },
+  { prefix: 'Teenager', emoji: '🧑', pays: 5 },
+  { prefix: '',         emoji: '🎓', pays: 10 },
+];
+export const babyGrown = data => (data?.stage ?? 0) >= BABY_STAGES.length - 1;
+export const babyStage = data =>
+  BABY_STAGES[Math.min(Math.max(data?.stage ?? 0, 0), BABY_STAGES.length - 1)];
+
+// GRACE in the forme, Grace on the calling card. Every other word in the game is
+// type and is shown as type; a name is a person, and this is the one place that
+// difference is worth drawing.
+export const titleCase = w =>
+  (w ? w[0].toUpperCase() + w.slice(1).toLowerCase() : '');
+
 // The Sesquipedalian's rate, per letter of the longest word the run has set.
 // Additive, like the Astronomer's, and read off the manuscript rather than a
 // tally of the seat's own: the record is the RUN'S, so a word set before he was
@@ -1554,6 +1582,7 @@ export const KNOBS = {
   // the bands: "+0.2 Mult, then +0.1 past ×2, then +0.05 past ×3".
   BEEKEEPER_STEPS: beekeeperSteps(),
   ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS,
+  BABY_POINTS: BABY_STAGES[0].pays, BABY_COINS: BABY_STAGES[0].pays,
   SESQUIPEDALIAN_STEP,
   SHORTHAIR_MULT, RATCATCHER_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
   PURVEYOR_STALLS:    PURVEYOR.stalls,

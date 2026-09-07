@@ -434,7 +434,22 @@ export const PATRON_CARDS = {
   },
   expectants: {
     name: 'The Expectant Parents', emoji: '🤰', rarity: 'uncommon', cost: 4,
-    desc: 'Common baby names count as words. +{EXPECTANTS_BONUS} Points for baby names.',
+    desc: 'Common baby names count as words. +{EXPECTANTS_BONUS} Points for baby names, '
+        + 'and the baby is named after the last one printed — the child then looks for '
+        + 'a seat of its own at the Market.',
+  },
+  baby: {
+    // Dressed on the board rather than here: the whole card is a placeholder
+    // until the parents print a name, and instName / instEmoji / instDesc make
+    // the seat whichever child is waiting. `emoji` still has to be unique across
+    // the roster — the load check reads this field, never instEmoji.
+    //
+    // Ubiquitous because a child that is not offered is not a child: it comes
+    // and goes with one name, and a weight that showed it every third Market
+    // would make naming one a lottery rather than a decision.
+    name: 'The Baby', emoji: '👶', rarity: 'ubiquitous', cost: 0, guild: ['jade', 'amber'],
+    unlockNote: 'Print a name while The Expectant Parents are seated.',
+    desc: '+{BABY_POINTS} Point on every word. Dismissed for {BABY_COINS} Coin. Still growing.',
   },
   devil: {
     // Uncommon at 7 because it does NOTHING on the first word of a page and is

@@ -486,6 +486,48 @@ readout. Nothing writes to `data` during scoring, either — every roll in the l
 above is thrown in an `onPrinted` or at a page turn, never in the live preview,
 which is what makes counting from inside `luckyRoll` safe.
 
+### The Expectant Parents' child
+
+*The Expectant Parents* (uncommon, 4 Coins) pay +15 Points for a common baby
+name and vouch for names at the dictionary check, so ELSIE and MILO are words
+while they are seated. They now do one thing more: **they name the baby after
+the last name you print**, and the child goes looking for a seat of its own.
+
+The register is `state.babyName`, and it holds exactly one child. Print another
+name and the parents change their minds — the name in the register is replaced,
+and so is the card waiting at the Market. Printing the same name twice says
+nothing the second time: one baby, announced once.
+
+**The child is a patron** (`baby`), free, ubiquitous, jade and amber, and
+`locked()` out of every pool until there is a name in the register. Hiring it
+empties the register (`onHired`, the mirror of `onOffer` — every door onto the
+shelf calls it, so a love potion cannot smuggle one in), and **dismissing it does
+not put the name back**: a child you gave up does not come round again. Another
+name printed is the only door to another child, which is also the door to a
+younger one.
+
+Each page it survives, it grows a stage:
+
+| | pays | dismissed for |
+|---|---|---|
+| 👶 Baby *[name]* | +1 Point every word | 1 Coin |
+| 🍼 Toddler *[name]* | +2 | 2 |
+| 🧒 Child *[name]* | +3 | 3 |
+| 🧑 Teenager *[name]* | +5 | 5 |
+| 🎓 *[name]* | +10 | 10 |
+
+The same number in both columns is the whole seat. It is free to take, so there
+is no decision at the Market; the decision is *when to stop keeping it*, and
+every page makes both halves of that harder — the Points you would lose and the
+Coins you would gain rise together, and on the fifth page the growing stops
+whether you have made up your mind or not. It grows on a page **survived**, not a
+page begun (`onPageComplete`), so the run that ends on a Deadline ends with the
+child the age it was.
+
+GRACE in the forme, **Grace** on the calling card: `titleCase` in
+`js/constants.js` is used for this and nothing else. Every other word in the game
+is type and is shown as type; a name is a person.
+
 ## The pieces
 
 A tile is a **letter** (or ligature, or mark), optionally **painted** a colour,
@@ -1193,6 +1235,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Toolbox price and what is inside it | `js/constants.js` → `TOOLBOX_PRICE`, `TOOLBOX_POOL` (repeat an entry to make it likelier; the box always yields two *different* tools) |
 | Tool tuning — doubling cap, laurel step, tongs bonus, wash count | `js/constants.js` → `LOUPE_CAP`, `HONORIFIC_STEP`, `TONGS_BONUS`, `WASH_COUNT` |
 | The notice of dismissal — its price and where it is stocked | `js/constants.js` → `BLACK_SUNDRY_STOCK` (the alley is its only shop; the shell game's pool is `everySundry` in `js/blackmarket.js`). What it does is `dismissEditor` in `js/state.js`, spent in `useSundry` in `js/main.js` |
+| The child's stages — what each is called, wears, and pays | `js/constants.js` → `BABY_STAGES` (the same number is Points every word and Coins at the ✕). The register it waits in is `state.babyName`; the seat is `baby` in `js/patrons.js` |
 | The luck dial, and what rides on it | `js/state.js` → `luckyRoll` and `state.luck`. Every roll a player would want to win goes through it; misfortunes deliberately do not. *The Corrector* is its second branch — one reroll of a failed roll, counted on his own seat |
 | What a laurel is worth in Mult while The Laureate is seated | `js/constants.js` → `LAUREATE_MULT_STEP`. Paid in `js/scoring.js` pass 4 beside the laurel's Points; the badge copy is `laurelWorth` in `js/patrons.js`, which the shelf, the graveyard and the Market's shelf strip all read |
 | Where the patrons' turns happen, and what a ×Mult reaches | `js/scoring.js` → pass 4. Points that must be multiplied by the table have to land before it (the tongs' heat and the curse's toll do, in pass 3½) |

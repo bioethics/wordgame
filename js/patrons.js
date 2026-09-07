@@ -135,6 +135,13 @@
 // is worth to those builds without touching its own effect. Read it through
 // guildsOf(def), which always returns an array.
 //
+// Optional `onHired({ state, data })`: what taking the seat does to the WORLD,
+// run once as the copy becomes real — onOffer's mirror. Every door onto the
+// shelf calls it (buyPatron in market.js, grantRandomPatron here in state.js),
+// so it cannot be dodged by arriving through a love potion. The Expectant
+// Parents' child empties the register it was waiting in, which is what stops a
+// second copy of the same child from ever being dealt.
+//
 // Optional `refundBonus(data)`: extra Coins this seat's dismissal pays on top
 // of the standard half-cost — read by patronRefund in market.js.
 //
@@ -163,6 +170,7 @@ import {
   CENTURION_STEP, isRomanNumeral, RIPPER_GHOST_WORDS, wordListText,
   TWINS_POINTS, CHILD_STEP, ABECEDARIAN_MULT, ABECEDARIAN_CASE, abecedarianMult, caseGlyphs, MEDIEVAL,
   ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS, PURVEYOR,
+  BABY_STAGES, babyStage, babyGrown, titleCase,
   sesquipedalianMult,
   SHORTHAIR_MULT, RATCATCHER_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
   medievalExpansions, POSTNOM, GHOST_HIRE, USURER,
@@ -264,6 +272,16 @@ export const BEADLE_STALLS = { crimson: 'smelter', azure: 'punchcutter', jade: '
 
 // What the cat's meals are worth, rounded so nothing ever shows the raw
 // 0.30000000000000004 that repeated addition of a tenth produces.
+// What a child is called at each stage — "Baby Grace", then "Toddler Grace",
+// then "Grace". A seat that arrived without a name (the Testing Chamber seats
+// anything) wears its stage alone rather than a blank.
+const babyTitle = data => {
+  const stage = babyStage(data);
+  const name = titleCase(data?.name ?? '');
+  if (!name) return stage.prefix || 'The Child';
+  return stage.prefix ? `${stage.prefix} ${name}` : name;
+};
+
 const shorthairMult = eaten => Math.round((eaten ?? 0) * SHORTHAIR_MULT * 100) / 100;
 // The Rat Catcher's, off the same rounding, and the cat's mirror image: his
 // number counts the rats still in the case, hers counts the ones that aren't.
@@ -2363,6 +2381,80 @@ const PATRON_BEHAVIOURS = [
     when: 'score',
     effect({ word, addPoints }) {
       if (themeSize('names') && inTheme('names', word)) addPoints(EXPECTANTS_BONUS);
+    },
+    // …and they take the name. The register (state.babyName) holds one child at
+    // a time, so printing a second name is the parents changing their minds
+    // rather than a second child — and the seat waiting at the Market is
+    // renamed with it. Silent when the name has not moved: printing GRACE twice
+    // running is one baby, announced once.
+    onPrinted({ script, state }) {
+      const word = script?.letters;
+      if (!word || !themeSize('names') || !inTheme('names', word)) return null;
+      if (state.babyName === word) return null;
+      const renamed = !!state.babyName;
+      state.babyName = word;
+      const name = titleCase(word);
+      return {
+        note: `it's a ${name}!`,
+        say: [renamed
+          ? `The Expectant Parents think again, and the child is ${name} after all. `
+            + `Baby ${name} will be looking for a seat at the Market.`
+          : `The Expectant Parents name the baby ${name}. `
+            + `Baby ${name} will be looking for a seat at the Market.`],
+      };
+    },
+  },
+  {
+    // The child of the seat above, and the only patron in the game the PLAYER
+    // names. It is out of every pool until the parents print a name and out of
+    // it again the moment it is hired: state.babyName is the register, holding
+    // exactly one child. Dismissing the seat does not put the name back — a
+    // child you gave up does not come round again — so the only door to another
+    // is printing another name, which is also the door to a bigger one.
+    //
+    // Free, and worth its stage in Points every word and in Coins at the ✕. The
+    // two numbers being the same is the whole decision: every page it sits
+    // through raises both, so the seat you are keeping for the Points is also
+    // the seat that is quietly getting dearer to sell, and it stops growing on
+    // the fifth page whether you have made up your mind or not.
+    id: 'baby',
+    when: 'score',
+    locked: () => !state.babyName,
+    onOffer: () => ({ name: state.babyName, stage: 0 }),
+    onHired: ({ state }) => { state.babyName = null; },
+    effect({ data, addPoints }) { addPoints(babyStage(data).pays); },
+
+    // A page SURVIVED, not a page begun: the hook runs as the quota clears, so
+    // a child grows on the pages you win and the run ends on the one you don't.
+    onPageComplete({ data }) {
+      if (babyGrown(data)) return null;
+      data.stage = (data.stage ?? 0) + 1;
+      const { pays } = babyStage(data);
+      // The line is printed under the seat's new name, so the note says only
+      // what the birthday changed.
+      return { note: babyGrown(data)
+        ? `grown up — +${pays} Points on every word, ${pays} Coins at the ✕, and no more birthdays.`
+        : `+${pays} Points on every word now, and ${pays} Coins at the ✕.` };
+    },
+
+    refundBonus: data => babyStage(data).pays,
+    instName:  data => babyTitle(data),
+    instShelf: data => babyTitle(data),
+    instEmoji: data => babyStage(data).emoji,
+    instDesc(data) {
+      const { pays } = babyStage(data);
+      return `+${pays} Point${pays === 1 ? '' : 's'} on every word. `
+           + `Dismissed for ${pays} Coin${pays === 1 ? '' : 's'}. `
+           + (babyGrown(data) ? 'Grown.' : 'Still growing.');
+    },
+    // What the desc can't say without repeating itself every page: where the
+    // next step goes, and that there is a last one. A player who knows the
+    // fifth page is the end of it can decide when to let the seat go.
+    tally(data) {
+      const next = BABY_STAGES[(data?.stage ?? 0) + 1];
+      if (!next) return 'Grown, and no longer growing.';
+      const called = next.prefix ? next.prefix.toLowerCase() : 'grown';
+      return `Next page, ${called}: +${next.pays} Points on every word, ${next.pays} Coins at the ✕.`;
     },
   },
   {
