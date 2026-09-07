@@ -17,9 +17,9 @@
        seats speak. On a Deadline the editor's slab is the strip's header.
      · The type case is the hand, one socket per place, so a wider hand is more
        sockets. The bag and the hellbox stand either side.
-     · The workbench leads the last row, in the buttons' wood, with the three
-       verbs beside it and Print at the end: a sundry is the same gesture —
-       arm it, then tap the tiles.
+     · The last row is three parts: the workbench at the left in the buttons'
+       wood, the three verbs on the board's centre line, Print at the right.
+       A sundry is the same gesture as a discard — arm it, then tap the tiles.
      · The sheet stands beside the shelf and the proof row and is ruled to
        their foot, so the desk is retro's column with the page beside it and
        no object ever sits beside a hole.
@@ -197,7 +197,7 @@ html[data-look="bench"] .table {
     "sheet  proof  proof"
     "stick  stick  stick"
     "case   case   case"
-    "tools  action action"
+    "action action action"
     "log    log    log";
   gap: 16px 20px;
   align-items: start;
@@ -208,7 +208,7 @@ html[data-look="bench"] .table:has(.boss-bar.hidden) {
     "sheet  proof  proof"
     "stick  stick  stick"
     "case   case   case"
-    "tools  action action"
+    "action action action"
     "log    log    log";
 }
 html[data-look="bench"] .rail,
@@ -216,19 +216,15 @@ html[data-look="bench"] .board,
 html[data-look="bench"] .shelf-row   { display: contents; position: static; }
 html[data-look="bench"] .status-row  { grid-area: sheet; align-self: stretch; }
 html[data-look="bench"] .shelf-wrap  { grid-area: shelf; }
-/* The workbench leads the last row, under the sheet at the desk's own left
-   edge, and the three verbs follow it: a sundry is the same gesture as a
-   discard — arm it, then tap the tiles — so the tools and those buttons are
-   one family, off the sum above and off the bag → case → hellbox line. The
-   tray is the larger object, so it goes first.
+/* The workbench shares the last row with the buttons: a sundry is the same
+   gesture as a discard — arm it, then tap the tiles — so the tools and those
+   buttons are one family, off the sum above and off the bag → case → hellbox
+   line. Where each of them stands is under "The last row, in three parts".
 
-   It never outgrows its column, however many slots the Colophon adds: the
-   slots give way to 52px before the tray would, and four of them sit inside
-   the sheet's width at about 68px each. */
+   The tray never outgrows the sheet's column, however many slots the Colophon
+   adds: the slots give way to 52px before the tray would, and four of them sit
+   inside that width at about 68px each. */
 html[data-look="bench"] .sundries {
-  grid-area: tools;
-  justify-self: start;
-  align-self: center;
   width: fit-content;
   max-width: 100%;
   grid-template-columns: repeat(var(--slot-count, 2), minmax(52px, 74px));
@@ -1222,6 +1218,43 @@ html[data-look="bench"] .log {
   font-family: var(--bn-fell);
   font-style: italic;
   color: rgba(237, 227, 201, 0.62);
+}
+
+/* ── The last row, in three parts ─────────────────────────────────────────────
+   The tray at the desk's left edge, the three verbs on the board's centre line
+   — the type case's line, directly above them — and Print holding the right
+   edge. All of it belongs to the wide desk: below 880px the row is retro's own
+   again, and the tray goes back to the shelf's side, so nothing here needs
+   undoing there.
+
+   The row spans the whole desk, which is what puts the verbs on its centre;
+   the tray is placed on that row's own grid lines beside them. Two things
+   follow from the row being that wide. Its box covers the tray's corner and
+   paints later in the DOM, so the tray is lifted into a layer of its own or
+   its slots stop taking taps. And Print has to leave the flow to hold the
+   right edge — otherwise it counts toward what is being centred and pulls the
+   verbs left — which means restating the nudge it makes when pressed, since
+   that is a transform too. */
+@media (min-width: 881px) {
+  html[data-look="bench"] .sundries {
+    grid-row: action-start / action-end;
+    grid-column: 1 / 2;
+    justify-self: start;
+    align-self: center;
+    position: relative;
+    z-index: 1;
+  }
+  html[data-look="bench"] .action-row    { position: relative; justify-content: center; }
+  html[data-look="bench"] .action-spacer { display: none; }
+  html[data-look="bench"] .btn-print {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  html[data-look="bench"] .btn-print:active:not(:disabled) {
+    transform: translateY(calc(-50% + 4px));
+  }
 }
 
 /* ── Narrow benches ───────────────────────────────────────────────────────── */
