@@ -223,8 +223,9 @@ html[data-look="bench"] .shelf-wrap  { grid-area: shelf; }
 
    The tray never outgrows the sheet's column, however many slots the Colophon
    adds: the slots give way to 52px before the tray would, and four of them sit
-   inside that width at about 68px each. */
-html[data-look="bench"] .sundries {
+   inside that width at about 68px each. (The board's bench by id, here and
+   below: the Market's is .sundries--market, on a trestle, at its own size.) */
+html[data-look="bench"] #sundries {
   width: fit-content;
   max-width: 100%;
   grid-template-columns: repeat(var(--slot-count, 2), minmax(52px, 74px));
@@ -541,19 +542,19 @@ html[data-look="bench"] .sundries {
    as Print, which is as close to the verbs as a box of tools can come: a slot
    holds a glyph and a name and nothing else now that the ratchet asks for its
    step in a popover rather than on the bench. */
-html[data-look="bench"] .sundries {
+html[data-look="bench"] #sundries {
   padding: 5px 8px 6px;
   border-radius: 3px;
   border: 1px solid rgba(255, 230, 190, 0.18);
   background: linear-gradient(180deg, #5b3f2c, #3d2a1c);
   box-shadow: 0 3px 0 #1d120b, 0 6px 12px rgba(0, 0, 0, 0.45);
 }
-html[data-look="bench"] .sundry {
+html[data-look="bench"] #sundries .sundry {
   min-height: 44px;
   gap: 3px;
   padding: 5px 5px 4px;
 }
-html[data-look="bench"] .sundry-glyph { font-size: 19px; }
+html[data-look="bench"] #sundries .sundry-glyph { font-size: 19px; }
 /* The card is a small grid, so everything it says has a cell of its own and
    nothing lies over anything else: the portrait heads the first row, and the
    card's honours — the guild pin, the letters after the name, the laurels —
@@ -1236,7 +1237,9 @@ html[data-look="bench"] .log {
    verbs left — which means restating the nudge it makes when pressed, since
    that is a transform too. */
 @media (min-width: 881px) {
-  html[data-look="bench"] .sundries {
+  /* #sundries, not .sundries: the Market keeps a workbench of its own wearing
+     the same class, and the board's grid lines mean nothing to it. */
+  html[data-look="bench"] #sundries {
     grid-row: action-start / action-end;
     grid-column: 1 / 2;
     justify-self: start;
@@ -1246,13 +1249,18 @@ html[data-look="bench"] .log {
   }
   html[data-look="bench"] .action-row    { position: relative; justify-content: center; }
   html[data-look="bench"] .action-spacer { display: none; }
-  html[data-look="bench"] .btn-print {
+  /* The board's Print, named through the row it belongs to: .btn-print is a
+     LOOK, worn by the Market's "Next page", the Chamber's "Begin the run",
+     every sheet's confirm. Pinning the class pinned all of them, against
+     whatever happened to be positioned near them. .action-row is the board's
+     alone. */
+  html[data-look="bench"] .action-row .btn-print {
     position: absolute;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
   }
-  html[data-look="bench"] .btn-print:active:not(:disabled) {
+  html[data-look="bench"] .action-row .btn-print:active:not(:disabled) {
     transform: translateY(calc(-50% + 4px));
   }
 }
@@ -1285,8 +1293,8 @@ html[data-look="bench"] .log {
      is its own height, and the editor's slab is a bar of its own. */
   html[data-look="bench"] .shelf-row { display: grid; grid-area: shelf; }
   html[data-look="bench"] .shelf-wrap,
-  html[data-look="bench"] .sundries { grid-area: auto; align-self: auto; }
-  html[data-look="bench"] .sundries {
+  html[data-look="bench"] #sundries { grid-area: auto; align-self: auto; }
+  html[data-look="bench"] #sundries {
     justify-self: auto;
     width: auto;
     max-width: none;
@@ -1349,7 +1357,7 @@ html[data-look="bench"] .log {
   html[data-look="bench"] .page-line { font-size: 13px; }
   html[data-look="bench"] .quota-card { margin-top: 5px; }
   html[data-look="bench"] .shelf, html[data-look="bench"] .sundries { padding: 6px 6px 7px; gap: 5px; }
-  html[data-look="bench"] .sundries { grid-template-columns: repeat(var(--slot-count, 2), 40px); }
+  html[data-look="bench"] #sundries { grid-template-columns: repeat(var(--slot-count, 2), 40px); }
   html[data-look="bench"] .ghost-btn { right: -4px; width: 24px; height: 52px; padding-left: 3px; }
   html[data-look="bench"] .ghost-btn-mark { font-size: 14px; }
   html[data-look="bench"] .ghost-drawer-head { max-width: 64px; padding: 4px 8px; gap: 1px; }
