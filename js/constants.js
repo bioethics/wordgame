@@ -874,14 +874,26 @@ export const gardenerRelief = seen =>
   Math.round(RELIEF_CAP * (1 - (1 - GARDENER_RATE) ** (seen ?? 0)) * 10000) / 10000;
 
 // The case the press opens with, counted from the bag itself so it cannot drift
-// from the sorts actually dealt. The Chapel pays for the type you have added to
-// it and not a penny for the type you started with: a run that buys nothing is
-// a run he is worth nothing to.
+// from the sorts actually dealt.
 export const STARTING_CASE  = Object.values(BAG_COUNTS).reduce((n, c) => n + c, 0);
-export const CHAPEL_RATE    = 0.02;   // …and the Chapel's, per sort past that
+
+// The Chapel counts from CHAPEL_BASE, which sits a few sorts UNDER the case you
+// are dealt on purpose. A press that has bought nothing and burnt nothing opens
+// four sorts over the line and starts at about 2% off, which is a small enough
+// gift to be a nudge rather than a reason to hire him — and a press that has
+// been thinning walks back under the line and gets nothing at all. So he is not
+// merely indifferent to the smelter, he is against it, which is the whole
+// argument he exists to make.
+//
+// The rate is a share of the remaining slack per sort, as the Gardener's is:
+// at 1% a case of 100 is about 20% off and one of 150 about 32%. 1.5% and 2%
+// are the same curve pulled forward (a case of 100 reaching 28% and 35%), so
+// this is the one number to move if he turns out too slow to be worth a seat.
+export const CHAPEL_BASE    = 50;
+export const CHAPEL_RATE    = 0.01;
 export const chapelRelief = tiles =>
   Math.round(RELIEF_CAP
-    * (1 - (1 - CHAPEL_RATE) ** Math.max(0, (tiles ?? 0) - STARTING_CASE)) * 10000) / 10000;
+    * (1 - (1 - CHAPEL_RATE) ** Math.max(0, (tiles ?? 0) - CHAPEL_BASE)) * 10000) / 10000;
 
 // One pool of slack, taken by both. Each relief is read as the share of the
 // ceiling it has claimed; what is left over is what the next seat gets to bite
@@ -1615,7 +1627,7 @@ export const KNOBS = {
   BEADLE_THRESHOLD, BEADLE_PAGE_COIN, SPENDTHRIFT_STEP,
   ALMONER_RELIEF_PCT: `${Math.round(ALMONER_RELIEF * 100)}%`,
   RELIEF_CAP_PCT:     `${Math.round(RELIEF_CAP * 100)}%`,
-  STARTING_CASE,
+  STARTING_CASE, CHAPEL_BASE,
   GOLDSMITH_CHANCE: oddsText(GOLDSMITH_ODDS),
 
   // Patron tuning

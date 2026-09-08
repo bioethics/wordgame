@@ -258,17 +258,27 @@ permanent and never has to be re-applied.
 in a different currency. The chapel was the printing house's own society — every
 workman in the shop belonged to it — and its Father settled the day's stint with
 the master; this one settles yours, and counts **the case** to do it. Every sort
-in your collection past the `STARTING_CASE` (54) you were dealt takes
-`CHAPEL_RATE` of the remaining slack, so +10 sorts is about 9% off every quota,
-+50 is 32%, and it approaches the same 50%. The bag you were dealt is worth
-nothing to him: the whole argument is about type you went out and bought.
+past `CHAPEL_BASE` (50) takes `CHAPEL_RATE` (1%) of the remaining slack, and it
+approaches the same 50%:
+
+| case | 50 | 54 | 70 | 100 | 150 | 200 |
+|---|---|---|---|---|---|---|
+| off every quota | — | 2% | 9% | 20% | 32% | 39% |
+
+The line sits a few sorts *under* the 54 you are dealt, so an untouched press
+opens about 2% ahead — small enough to be a nudge rather than a reason to hire
+him. A press that has been **thinning** has already spent that and walks back
+under the line to nothing, which is the point: he is not indifferent to the
+smelter, he is against it. (`CHAPEL_RATE` is the knob if he turns out too slow to
+be worth a seat; 1.5% and 2% are the same curve pulled forward, a case of 100
+reaching 27% and 32%.)
 
 He is the one seat that pays for a **fat** collection, and everything else that
 touches the case wants it thin — the Smelter, the tongs, the Stoker, the squib —
 because a slim bag brings your painted jewels round every page. So he does not
 break deck-building, he opens the other end of it, and he is honest about the
 price: the sorts you buy to feed him are the sorts diluting every draw you make.
-+50 sorts is a quota cut by a third and a bag half again as hard to find anything
+A case of 100 is a fifth off every quota and a bag twice as hard to find anything
 in.
 
 **The two share one ceiling.** Each takes a share of whatever slack the other
@@ -1323,7 +1333,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | The Gardener's relief — the first slice and how fast it slows | `js/constants.js` → `GARDENER_RATE` (the curve is `gardenerRelief`; his share is banked in `state.quotaRelief`) |
 | The Spendthrift's step | `js/constants.js` → `SPENDTHRIFT_STEP` (Coins spent per sort grown; the growth is the chapter number, and the running total is `state.coinsSpent`, kept by `spendCoins`) |
 | The Beadle's threshold and page Coin | `js/constants.js` → `BEADLE_THRESHOLD`, `BEADLE_PAGE_COIN`; which stall each guild opens is `BEADLE_STALLS` in `js/patrons.js`, read live by `stallPrice`/`beadleFavour` in `js/market.js` |
-| The Father of the Chapel's relief — the slice per sort, and where counting starts | `js/constants.js` → `CHAPEL_RATE`, `STARTING_CASE` (the curve is `chapelRelief`, read live off the collection — it banks nothing and leaves with the seat) |
+| The Father of the Chapel's relief — the slice per sort, and where counting starts | `js/constants.js` → `CHAPEL_RATE`, `CHAPEL_BASE` (the curve is `chapelRelief`, read live off the collection — it banks nothing and leaves with the seat). `STARTING_CASE`, the size of the bag you are dealt, is derived from `BAG_COUNTS` and is what the base is set just under |
 | The ceiling both reliefs share, and how they divide it | `js/constants.js` → `RELIEF_CAP` and `combineRelief` (each takes a share of the slack the other left). Both cards and the quota read one door: `totalQuotaRelief` in `js/state.js` |
 | The Generic's quota reprieve | `js/constants.js` → `ALMONER_RELIEF` (the `relief` effect at cost 7 in `js/patron-generic.js`; it cuts the live page's quota, where the Gardener's cuts every quota as it is set) |
 | Animation step timings | `js/constants.js` → `ANIM` (all divided by the Settings speed slider) |

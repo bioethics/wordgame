@@ -322,7 +322,7 @@ export const PATRON_CARDS = {
     // GROWN, which is jade's whole business, and it puts him in the same livery
     // as The Gardener, whose ceiling he shares.
     name: 'The Father of the Chapel', emoji: '⛪', rarity: 'uncommon', cost: 7, guild: 'jade',
-    desc: 'Every sort in your collection past the {STARTING_CASE} you were dealt takes a slice '
+    desc: 'Every sort in your collection past {CHAPEL_BASE} takes a slice '
         + 'off every quota, approaching {RELIEF_CAP_PCT}. The Gardener draws on the same ceiling, '
         + 'and the discount goes when the seat does.',
   },

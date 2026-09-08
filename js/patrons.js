@@ -178,7 +178,7 @@ import {
   WORDLER,
   WINNOWER_BONUS, SERPENT_EAT_ODDS, SERPENT_POINTS, lyeBoyMult,
   QUOIN_MULT, GOLDSMITH_POINTS, GOLDSMITH_ODDS, GOLDSMITH_PURSE,
-  gardenerRelief, chapelRelief, CHAPEL_RATE, RELIEF_CAP, STARTING_CASE,
+  gardenerRelief, chapelRelief, CHAPEL_BASE,
   SPENDTHRIFT_STEP, BEADLE_THRESHOLD, BEADLE_PAGE_COIN,
   LOVERS,
 } from './constants.js';
@@ -2344,9 +2344,9 @@ const PATRON_BEHAVIOURS = [
     // tongs, the Stoker, the squib — because a slim bag brings your painted
     // jewels round every page. He is the counterweight, and he is honest about
     // what it costs: the sorts you buy to feed him are the sorts diluting every
-    // draw you make. Only type past STARTING_CASE counts, so the bag you were
-    // dealt is worth nothing to him and the argument is entirely about what you
-    // went out and bought.
+    // draw you make. He counts from CHAPEL_BASE, which sits just under the case
+    // you are dealt: an untouched press starts a couple of percent ahead, and a
+    // press that has been thinning has already spent that and more.
     //
     // He takes a share of the slack the Gardener left rather than a slice of
     // the quota (combineRelief in js/constants.js), so the pair approach half
@@ -2357,14 +2357,15 @@ const PATRON_BEHAVIOURS = [
     when: 'meta',   // read at the quota (totalQuotaRelief → startPage, js/state.js)
     tally() {
       const tiles = state.collection?.length ?? 0;
-      const over  = Math.max(0, tiles - STARTING_CASE);
+      const over  = Math.max(0, tiles - CHAPEL_BASE);
       const now   = totalQuotaRelief();
       const next  = Math.round(
         (totalQuotaRelief({ chapel: chapelRelief(tiles + 1) }) - now) * 1000) / 10;
-      const held  = `${tiles} sorts in the case, ${over} past the bag you were dealt`;
       return over
-        ? `${held} — every quota ${Math.round(now * 1000) / 10}% lighter. The next sort takes another ${next}%.`
-        : `${held} — nothing yet. The first sort you add takes about ${next}%.`;
+        ? `${tiles} sorts in the case, ${over} past the ${CHAPEL_BASE} he counts from — every quota `
+          + `${Math.round(now * 1000) / 10}% lighter. The next sort takes another ${next}%.`
+        : `${tiles} sorts in the case, none past the ${CHAPEL_BASE} he counts from — nothing yet. `
+          + `The next sort takes about ${next}%.`;
     },
   },
   {
