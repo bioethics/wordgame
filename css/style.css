@@ -1590,6 +1590,11 @@ button.sundry:hover { transform: translateY(-2px); }
   transition: opacity calc(0.2s / var(--aspd)), transform calc(0.2s / var(--aspd)), box-shadow calc(0.2s / var(--aspd));
 }
 .chip--on { opacity: 1; }
+/* Due: counted-to-be, but not yet counted. Between the dim of a track that
+   does nothing and the full light of one that has fired, and without the
+   glow — so the print still reads as each colour lighting in its turn, while
+   the row the projection showed stays on the readout throughout. */
+.chip--on.chip--due { opacity: 0.55; box-shadow: none !important; }
 .chip--pop { animation: chipPop calc(0.42s / var(--aspd)) cubic-bezier(.3,1.5,.5,1); }
 @keyframes chipPop {
   0%   { transform: scale(1); }

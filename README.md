@@ -25,7 +25,16 @@ one HTML file, `great-work-single.html` by default; pass a path to override.
 The game is touch-native: tap a rack tile to play it, tap a word tile to take it
 back, drag to reorder (tiles on the board, patron cards on the shelf), and
 long-press any tile or patron for its details — also how you flip a dual tile on
-touch. To test on a device, serve on your LAN:
+touch. The narrow board puts the patrons above the page, and Print at the end of
+the verbs' row rather than on a row of its own, because the stick is two courses
+deep there and a press below the fold is no press at all.
+
+**Nothing on it resizes as you compose.** The case holds every row the hand
+fills and the stick is milled as deep as the hand could fill it, both from the
+first frame — so moving a sort from one to the other never collapses the case
+under your thumb nor drops a course of bare brass over the scale. Both are built
+from the row counts `reserveHandHeight` measures (`--rack-rows`, `--word-rows`
+in `js/render.js`), which is why the two can't disagree. To test on a device, serve on your LAN:
 
 ```
 python -m http.server 8431 --bind 0.0.0.0
@@ -49,9 +58,13 @@ The proof strip is the readout, above the stick: Points, then the measure and
 the four paints as stamps — struck blind while they are ×1, so the eye knows
 what could light, and inked solid in their colour when they apply, with the
 rarer tracks (purple, cursed, a squib, bold, primed) appearing only when they
-have something to say — then the total at the right. When the print reaches
-a track its stamp pops and the ink blooms into the paper and dries back, which
-is retro's glow in a medium that cannot glow. What each *patron* adds stays on
+have something to say — then the total at the right. A print does not clear
+them and light them again one by one: every stamp that will count is on the
+slip from the first frame, **outlined in its colour and not yet struck**, and
+each fills as the print reaches it, its ink blooming into the paper and drying
+back — retro's glow in a medium that cannot glow. (Retro does the same in its
+own terms: a chip due to count sits between its dim and its lit state until
+its turn comes.) What each *patron* adds stays on
 its own calling card, in the order the seats speak, because seat order is a
 rule of the game and a bar would flatten it. The type case is the hand, one
 socket per place, so a wider hand is more sockets — and the case is sized to
@@ -147,8 +160,8 @@ long-press on touch, wherever the thing appears. Nothing is summarised beneath
 market cards. What a sundry does is written once, in `js/text.js` →
 `SUNDRY_TEXT`, and looked up through `sundryTip` in `js/constants.js`. On print the score replays in the order it happens: *the Twins*
 recast the doubled pairs, patrons write bonuses onto the tiles, the tiles pay,
-the nicks read their side, each colour's multiplier lights, and the patrons weigh in seat by
-seat.
+the nicks read their side, each colour's multiplier fills in from its outline,
+and the patrons weigh in seat by seat.
 
 ### Seat order
 

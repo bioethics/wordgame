@@ -1167,6 +1167,22 @@ function reserveHandHeight(el, prop) {
   }
   const padY = parseFloat(cs.paddingTop || 0) + parseFloat(cs.paddingBottom || 0);
   el.style.setProperty(prop, `${rows * tileH + (rows - 1) * rowGap + padY}px`);
+  // The count as well as the height: the bench's case and stick are built of
+  // rows of their own (a socket is taller than the sort in it, the stick's
+  // channel is milled around them), so they do that arithmetic themselves.
+  el.style.setProperty(prop.replace('-reserve', '-rows'), String(rows));
+}
+
+// Both halves of the hand at once. They reserve for the same tiles, so measuring
+// one without the other leaves the other a row short — which is what happened
+// every deal: the tiles arrive through renderRack, and the stick, last measured
+// with an empty hand, stayed one row tall until the first keystroke and then
+// grew under the player's fingers.
+function reserveHand() {
+  const rack = $('rack');
+  if (rack) reserveHandHeight(rack, '--rack-reserve');
+  const word = $('word');
+  if (word) reserveHandHeight(word, '--word-reserve');
 }
 
 export function renderRack(ghostIds = null) {
@@ -1183,16 +1199,13 @@ export function renderRack(ghostIds = null) {
   // The bench's type case cuts one place per sort the hand holds, so a wider
   // hand is more compartments (css/bench.css reads this). Harmless in retro.
   el.style.setProperty('--places', Math.max(1, effectiveRackSize()));
-  reserveHandHeight(el, '--rack-reserve');
+  reserveHand();
 }
 
 // A resize, rotation or breakpoint changes how many tiles fit a row — measure again.
 if (typeof window !== 'undefined') {
   window.addEventListener('resize', () => {
-    const rack = $('rack');
-    if (rack) reserveHandHeight(rack, '--rack-reserve');
-    const word = $('word');
-    if (word) reserveHandHeight(word, '--word-reserve');
+    reserveHand();
     // The stick's scale is cut to the tiles' measured positions — cut it again.
     if (!state.isAnimating) renderWord();
   });
@@ -1369,7 +1382,7 @@ export function renderWord(script = computeScore(state.word)) {
     if (state.word[i]) place(state.word[i], wordTileEl(state.word[i]));
   }
   _lastWordPts = nowPts;
-  reserveHandHeight(el, '--word-reserve');
+  reserveHand();
   renderRule(script, placed);
 
   updateReadoutPreview(script);
@@ -1400,20 +1413,25 @@ export function updateReadoutPreview(script) {
   renderChips(script?.colourSteps);
 }
 
-// One ×N chip per colour (and purple trim); dim while ×1
-export function renderChips(colourSteps = null) {
+// One ×N chip per colour (and purple trim); dim while ×1. `due` marks a chip
+// that WILL count but has not been reached yet — the print starts with every
+// applying chip due, so the row the projection showed stays on the slip and
+// each one fills as its turn comes, rather than the lot going out and coming
+// back a chip at a time.
+export function renderChips(colourSteps = null, due = false) {
   for (const c of CHIP_COLOURS) {
     const el = $(`chip-${c}`);
     if (!el) continue;
     const step = colourSteps?.find(s => s.colour === c);
-    setChip(el, step ? step.mult : 1);
+    setChip(el, step ? step.mult : 1, due);
   }
 }
 
-export function setChip(el, mult) {
+export function setChip(el, mult, due = false) {
   if (!el) return;
   el.textContent = `×${fmtMult(mult)}`;
   el.classList.toggle('chip--on', mult > 1);
+  el.classList.toggle('chip--due', due && mult > 1);
 }
 
 // The figure the Deadline's editor crossed out. Shown beside the real total,
