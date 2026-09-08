@@ -144,7 +144,8 @@ export const PATRON_CARDS = {
   },
   wordler: {
     name: 'The Wordler', emoji: '🟩', rarity: 'uncommon', cost: 7, guild: ['amber', 'jade'],
-    desc: 'Amber and jade tiles gain +{WORDLER_BONUS} Points. Also, he will reward you for spelling a secret 5-letter word.',
+    desc: 'Amber and jade tiles gain +{WORDLER_BONUS} Points. Every word you print is marked against '
+        + 'a secret 5-letter word, and he will reward you for spelling it.',
   },
   cellarer: {
     name: 'The Cellarer', emoji: '🧀', rarity: 'uncommon', cost: 6, guild: ['jade', 'amber'],
@@ -354,7 +355,7 @@ export const PATRON_CARDS = {
   // ── No guild · the wildcards ────────────────────────────────────────────────
   apprentice: {
     name: 'The Apprentice', emoji: '🧹', rarity: 'common', cost: 3,
-    desc: '+10 Points for 4-letter words.',
+    desc: 'Each letter of a {APPRENTICE_LENGTH}-letter word gains +{APPRENTICE_STEP} Points.',
   },
   winnower: {
     name: 'The Winnower', emoji: '🌾', rarity: 'common', cost: 4,

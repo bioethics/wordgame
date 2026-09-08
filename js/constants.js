@@ -924,6 +924,19 @@ export const GOLDSMITH_POINTS = 3;
 export const GOLDSMITH_ODDS   = 0.03;   // per amber tile in the word
 export const GOLDSMITH_PURSE  = 30;
 
+// ─── The Apprentice's four ────────────────────────────────────────────────────
+// Four Points a letter, on a word of four letters. It pays onto the TILES
+// (tileBonus, js/patrons.js) rather than as a lump on the word, so a nick reads
+// the number, an echo doubles it, and the groove shows the true corner figure
+// while the word is still being composed.
+//
+// Per LETTER, so a tile carrying two of them carries eight: a four-letter word
+// is worth 16 however it is spelled, and a ligature is not quietly taxed for
+// being one tile. Marks take nothing — they are not part of the word's shape,
+// which is the thing being counted.
+export const APPRENTICE_LENGTH = 4;
+export const APPRENTICE_STEP   = 4;
+
 // ─── Patron tuning (the colour-guild overhaul) ────────────────────────────────
 // Knobs for patron effects that reach beyond a single score. Plain score numbers
 // stay in js/patrons.js with their patron.
@@ -1632,6 +1645,7 @@ export const KNOBS = {
 
   // Patron tuning
   CHILD_STEP, CENTURION_STEP, ABECEDARIAN_MULT, ESPALIER_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,
+  APPRENTICE_LENGTH, APPRENTICE_STEP,
   ALDERMAN_STEP, LYE_BOY_STEP,
   // The Lye Boy's whole curve as one phrase, so his card cannot drift from the
   // bands — one band today, and the sentence grows with the table.

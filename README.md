@@ -160,8 +160,15 @@ long-press on touch, wherever the thing appears. Nothing is summarised beneath
 market cards. What a sundry does is written once, in `js/text.js` →
 `SUNDRY_TEXT`, and looked up through `sundryTip` in `js/constants.js`. On print the score replays in the order it happens: *the Twins*
 recast the doubled pairs, patrons write bonuses onto the tiles, the tiles pay,
-the nicks read their side, each colour's multiplier fills in from its outline,
-and the patrons weigh in seat by seat.
+the nicks read their side, the patrons weigh in seat by seat, and only then does
+each colour's multiplier fill in from its outline.
+
+The colours coming **last** is the arithmetic, not a flourish. `total = Points ×
+Mult`: the patrons build the Points figure and the multiplier is applied to the
+finished figure, so a seat adding +16 at the far end of the shelf has that +16
+multiplied by everything the word's colours are worth. The replay used to fill
+the chips first, which said the opposite — that a late +16 arrived after the ×6
+and was worth sixteen. It is worth ninety-six.
 
 ### Seat order
 
@@ -1302,7 +1309,9 @@ bigger step than the last and a built press has to multiply rather than add:
 | The luck dial, and what rides on it | `js/state.js` → `luckyRoll` and `state.luck`. Every roll a player would want to win goes through it; misfortunes deliberately do not. *The Corrector* is its second branch — one reroll of a failed roll, counted on his own seat |
 | What a laurel is worth in Mult while The Laureate is seated | `js/constants.js` → `LAUREATE_MULT_STEP`. Paid in `js/scoring.js` pass 4 beside the laurel's Points; the badge copy is `laurelWorth` in `js/patrons.js`, which the shelf, the graveyard and the Market's shelf strip all read |
 | Where the patrons' turns happen, and what a ×Mult reaches | `js/scoring.js` → pass 4. Points that must be multiplied by the table have to land before it (the tongs' heat and the curse's toll do, in pass 3½) |
-| Patrons that improve the tiles rather than the word | `js/patrons.js` → the `tileBonus` hook (pass 1½ in `js/scoring.js`); the number goes onto the tile, so nicks read it and Monogrammists carry it |
+| Patrons that improve the tiles rather than the word | `js/patrons.js` → the `tileBonus` hook (pass 1½ in `js/scoring.js`); the number goes onto the tile, so nicks read it and Monogrammists carry it. The hook's ctx carries `letters` as well as `tiles`, for a seat paying per tile for a property of the word's *shape* |
+| The Apprentice's four | `js/constants.js` → `APPRENTICE_LENGTH`, `APPRENTICE_STEP`. Paid through `tileBonus` per LETTER, so a ligature carries its share and a four-letter word is worth 16 however it is spelled; a mark takes nothing, not being part of the shape |
+| The Wordler — the secret's length, how far down the list its answer may sit, how many guesses his board keeps | `js/constants.js` → `WORDLER`. **Every** word printed is a guess: a short one is marked as far as it reaches, a long one on its first `length` letters with the tail shown unjudged (`markGuess` in `js/patrons.js`, and `WORDLE_MARKS` for the four squares). Only an exact match solves him |
 | Patrons that PAINT a tile rather than pay it | `js/patrons.js` → the `tilePaint` hook (pass ½ in `js/scoring.js`, before anything is counted). The colour lands on a copy of the word, so the multipliers count it and the groove shows it under a dashed edge while you compose; the seat's own `onPrinted` makes it permanent when the word prints |
 | The quire — price, how often it is offered, and how dressed its sorts are | `js/constants.js` → `QUIRE_PRICE`, `QUIRE_OFFER_CHANCE`, `QUIRE_DRESSED`, `QUIRE_MIDDLING` (the roll is `rollQuire` in `js/market.js`) |
 | The fleuron — price, page rent, how often it is offered | `js/constants.js` → `FLEURON_PRICE`, `FLEURON_PAGE_COIN`, `FLEURON_OFFER_CHANCE` (the glyph itself is `FLEURON`) |

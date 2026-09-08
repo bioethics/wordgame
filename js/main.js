@@ -1204,35 +1204,14 @@ async function submitWord() {
     await sleep(ANIM.stepNick);
   }
 
-  // ── Pass 3: colour multipliers ─────────────────────────────────────────────
-  // Each colour rings the bell a step higher (sfx.chime), so a many-coloured
-  // word audibly stacks its multipliers.
-  for (const [ci, step] of script.colourSteps.entries()) {
-    const glow  = MULT_TRACKS[step.colour]?.glyph ?? '#8a5fb0';
-    const label = MULT_TRACKS[step.colour]?.label ?? 'Purple';
-    for (const id of step.ids) {
-      const el = wordTileEl(id);
-      if (el) {
-        el.style.setProperty('--glow', glow);
-        pulse(el, 'tile--set-glow', 620);
-      }
-    }
-    sfx.chime(ci);
-    // The measure's arithmetic and its flourish are one floater, not two that
-    // would collide on the same beat (flourishTime, js/anim.js).
-    if (step.colour === 'length') {
-      const line = `${step.count} letters — ×${fmtMult(step.mult)} Mult: ${lengthFlourish(step.count)}`;
-      floatText($('word'), line, 'fl-flourish', { dy: -138, duration: flourishTime(line) });
-      sparkleBurst($('word'), Math.min(6 + step.count, 18));
-    } else {
-      floatText($('word'), `${label} ×${fmtMult(step.mult)}`, `fl-set fl-set--${step.colour}`, { dy: -60 });
-    }
-    setChip(ro.chip(step.colour), step.mult);
-    pulse(ro.chip(step.colour), 'chip--pop', 420);
-    await sleep(ANIM.stepColour);
-  }
-
-  // ── Pass 4: patrons weigh in ───────────────────────────────────────────────
+  // ── Pass 3: patrons weigh in ───────────────────────────────────────────────
+  // Before the colours, because that is the arithmetic: the patrons build the
+  // Points figure in seat order and the colour multipliers are applied to the
+  // finished figure (`total = Points × Mult`). Replaying the chips first said
+  // the opposite — that a seat adding +10 at the end of the shelf was adding it
+  // after the ×12, and so worth ten. It is worth a hundred and twenty, and the
+  // print now shows that: the Points column finishes, THEN the multiplier lands
+  // on it.
   for (const p of script.patronSteps) {
     const card = patronCard(p);
     if (card) {
@@ -1260,6 +1239,36 @@ async function submitWord() {
     else if (p.mult || p.xmult) sfx.mult();
     if (p.coins) sfx.coin();
     await sleep(ANIM.stepPatron);
+  }
+
+  // ── Pass 4: colour multipliers ─────────────────────────────────────────────
+  // Last, on the finished Points figure, reading left to right across the
+  // readout: Points × Mult = total.
+  // Each colour rings the bell a step higher (sfx.chime), so a many-coloured
+  // word audibly stacks its multipliers.
+  for (const [ci, step] of script.colourSteps.entries()) {
+    const glow  = MULT_TRACKS[step.colour]?.glyph ?? '#8a5fb0';
+    const label = MULT_TRACKS[step.colour]?.label ?? 'Purple';
+    for (const id of step.ids) {
+      const el = wordTileEl(id);
+      if (el) {
+        el.style.setProperty('--glow', glow);
+        pulse(el, 'tile--set-glow', 620);
+      }
+    }
+    sfx.chime(ci);
+    // The measure's arithmetic and its flourish are one floater, not two that
+    // would collide on the same beat (flourishTime, js/anim.js).
+    if (step.colour === 'length') {
+      const line = `${step.count} letters — ×${fmtMult(step.mult)} Mult: ${lengthFlourish(step.count)}`;
+      floatText($('word'), line, 'fl-flourish', { dy: -138, duration: flourishTime(line) });
+      sparkleBurst($('word'), Math.min(6 + step.count, 18));
+    } else {
+      floatText($('word'), `${label} ×${fmtMult(step.mult)}`, `fl-set fl-set--${step.colour}`, { dy: -60 });
+    }
+    setChip(ro.chip(step.colour), step.mult);
+    pulse(ro.chip(step.colour), 'chip--pop', 420);
+    await sleep(ANIM.stepColour);
   }
 
   // ── Finale: the total lands ────────────────────────────────────────────────

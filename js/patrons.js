@@ -33,7 +33,7 @@
 // answer that wandered would make the live preview a lie.
 //
 //   tileBonus(tile, ctx) — Points written onto ONE TILE before the word is
-//     scored; ctx { tiles, state, data }. Return 0 for a tile the patron
+//     scored; ctx { tiles, letters, state, data }. Return 0 for a tile the patron
 //     doesn't touch. The number lands on the tile itself, so nicks and
 //     Monogrammists multiply it. A patron paying for a PROPERTY of the whole
 //     word (the Firebrand's two crimson tiles) is not this: it stays an effect()
@@ -168,6 +168,7 @@ import {
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
   HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, LAUREATE_MULT_STEP, RIPPER_WORDS, splitMarks, isImmutable,
   CENTURION_STEP, isRomanNumeral, RIPPER_GHOST_WORDS, wordListText,
+  APPRENTICE_LENGTH, APPRENTICE_STEP,
   TWINS_POINTS, CHILD_STEP, ABECEDARIAN_MULT, ABECEDARIAN_CASE, abecedarianMult, caseGlyphs, MEDIEVAL,
   ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS, PURVEYOR,
   BABY_STAGES, babyStage, babyGrown, titleCase,
@@ -228,17 +229,30 @@ const usurerOwed = data => (data?.ghost ? 0 : data?.debt ?? 0);
 // pass would mark the second L of LLAMA yellow against a secret holding one L.
 // The squares are the emoji Wordle shares in, which need no styling and are
 // read instantly by anyone who has played it.
+// Wordle's three marks, and a fourth of this game's own: the letters past the
+// secret's length are shown UNJUDGED rather than dropped, so the squares under a
+// word always stand one to a letter. PRINTER against a five-letter secret is
+// marked on PRINT and trails two hollow squares.
+const WORDLE_MARKS = { right: '🟩', moved: '🟨', absent: '⬜', unjudged: '▫️' };
+
+// Every word printed is a guess now, whatever its length, so this has to answer
+// for guesses shorter and longer than the secret. Two things follow from that:
+// only the first `secret.length` places are judged at all, and the tally of
+// letters still to be found is built from the WHOLE secret rather than from the
+// places the guess happens to reach — otherwise a three-letter guess could not
+// be told that its T is in the answer's fifth place.
 const markGuess = (guess, secret) => {
-  const mark = Array.from(guess, () => '⬜');
+  const judged = Math.min(guess.length, secret.length);
+  const mark = Array.from(guess, () => WORDLE_MARKS.unjudged);
   const left = {};
-  for (let i = 0; i < guess.length; i++) {
-    if (guess[i] === secret[i]) mark[i] = '🟩';
+  for (let i = 0; i < secret.length; i++) {
+    if (i < judged && guess[i] === secret[i]) mark[i] = WORDLE_MARKS.right;
     else left[secret[i]] = (left[secret[i]] ?? 0) + 1;
   }
-  for (let i = 0; i < guess.length; i++) {
-    if (mark[i] === '🟩' || !left[guess[i]]) continue;
-    mark[i] = '🟨';
-    left[guess[i]] -= 1;
+  for (let i = 0; i < judged; i++) {
+    if (mark[i] === WORDLE_MARKS.right) continue;
+    if (left[guess[i]]) { mark[i] = WORDLE_MARKS.moved; left[guess[i]] -= 1; }
+    else                 mark[i] = WORDLE_MARKS.absent;
   }
   return mark.join('');
 };
@@ -604,9 +618,19 @@ function dyePatron(id, colour) {
 const PATRON_BEHAVIOURS = [
   // ── Commons ─────────────────────────────────────────────────────────────────
   {
+    // Four Points a letter, on a word of four letters — onto the tiles rather
+    // than onto the word, so the nicks and the echoes read the number and the
+    // groove wears it while you compose. The trigger counts LETTERS (a word's
+    // shape always does) and so does the payment, so CHAT spelled CH+A+T pays
+    // the CH eight and totals the same sixteen as C+H+A+T. A mark takes
+    // nothing: it is not one of the four.
     id: 'apprentice',
     when: 'score',
-    effect({ word, addPoints }) { if (word.length === 4) addPoints(10); },
+    tileBonus(t, { letters }) {
+      if (letters.length !== APPRENTICE_LENGTH) return 0;
+      const L = getActiveLetter(t);
+      return isMark(L) ? 0 : L.length * APPRENTICE_STEP;
+    },
   },
   {
     // The first seat that pays for THROWING TILES AWAY. Once per discard, not
@@ -2166,7 +2190,12 @@ const PATRON_BEHAVIOURS = [
     onPrinted({ script, data }) {
       if (data.solved) return null;
       const guess = script?.letters ?? '';
-      if (guess.length !== WORDLER.length) return null;
+      // EVERY word is a guess, whatever its length: a short one is marked as
+      // far as it reaches and a long one on its first WORDLER.length letters,
+      // with the tail shown unjudged. He used to answer only words of exactly
+      // his own length, which meant most pages told you nothing and the puzzle
+      // was a lottery on how your rack happened to fall.
+      if (!guess) return null;
       data.secret ??= rollSecret();
       if (!data.secret) return null;
 
@@ -2195,7 +2224,8 @@ const PATRON_BEHAVIOURS = [
       // Elliptical until you have shown him a five-letter word; the squares
       // teach the rule better than a sentence would, so the card waits.
       return tried
-        ? `Amber and jade tiles gain +${WORDLER.bonus} Points. His word is ${WORDLER.length} letters — print it and they print twice.`
+        ? `Amber and jade tiles gain +${WORDLER.bonus} Points. Every word you print is marked against his `
+          + `secret ${WORDLER.length}-letter word — set it and they print twice.`
         : `Amber and jade tiles gain +${WORDLER.bonus} Points. He loves a secret word.`;
     },
 
