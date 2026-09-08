@@ -1081,10 +1081,12 @@ async function submitWord() {
   const ro = readoutEls();
 
   // Start the readout from zero so the build-up reads clearly. Last word's
-  // crossing-out goes with it: this word has not been judged yet.
+  // crossing-out goes with it: this word has not been judged yet. The chips
+  // are NOT cleared with the figures — they stay as the projection showed
+  // them, due rather than counted, and each fills in as the print reaches it.
   setNum(ro.points, 0); setNum(ro.total, 0);
   showStruckTotal(null);
-  renderChips(null);
+  renderChips(script.colourSteps, true);
   ro.root.classList.remove('readout--idle');
   ro.root.classList.add('readout--live');
 
