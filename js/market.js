@@ -8,7 +8,7 @@ import {
 import {
   BAG_COUNTS, LIGATURES, EXCLUSIVE_LETTERS, isMark, MARKS, INTERROBANG,
   TILE_POINTS, TRIMS, NICKS, COLOURS, dualPairsFor,
-  WRAPPED_PRICE, WRAPPED_OFFER_CHANCE, isImmutable,
+  WRAPPED_PRICE, WRAPPED_OFFER_CHANCE, DISMISSAL_PRICE, DISMISSAL_OFFER_CHANCE, isImmutable,
   COMPOST_HEAP_MAX,
   TILE_BASE_PRICE, REROLL_BASE,
   SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, RATCHET_PRICE, BODKIN_PRICE, SUNDRY_SELL, HEADSMAN_STEP,
@@ -214,6 +214,16 @@ function rollSundryOffers() {
   if (offers.length && Math.random() < WRAPPED_OFFER_CHANCE) {
     offers[Math.floor(Math.random() * offers.length)] = {
       kind: 'wrapped', colour: null, price: WRAPPED_PRICE, sold: false,
+    };
+  }
+
+  // …and, on the rare visit, a notice of dismissal. It displaces LAST and so is
+  // never displaced itself: it is the rarest thing the fair puts on this counter
+  // by a distance, and a rarity a commoner offer could paint over would not be
+  // one. The alley is still where you go to look for one on purpose.
+  if (offers.length && Math.random() < DISMISSAL_OFFER_CHANCE) {
+    offers[Math.floor(Math.random() * offers.length)] = {
+      kind: 'dismissal', colour: null, price: DISMISSAL_PRICE, sold: false,
     };
   }
   return offers;

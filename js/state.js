@@ -5,7 +5,7 @@ import {
   MARKS, MARK_TRIM, SILVER_BONUS, FLEURON, LOUPE_CAP, TONGS_BONUS, WASH_COUNT,
   REVENANT_ODDS,
   COLOURS, TRIMS, NICKS, MATERIALS,
-  quotaFor, makeTileTemplate, GAMBLER_ODDS, isDeadline, chapelRelief,
+  quotaFor, makeTileTemplate, GAMBLER_ODDS, isDeadline, chapelRelief, combineRelief,
   MAGPIE_WEIGHT, MAKO_WEIGHT,
   PURVEYOR, TUBE_CHOICES, STALLS_PER_SHOP, MARKET_TILE_OFFERS, PATRON_OFFERS,
   UPGRADE_OFFERS, PROPOSAL_RANGE,
@@ -627,6 +627,21 @@ export function newRun() {
   startPage();
 }
 
+// What every quota is discounted by, all in. Two seats draw on one ceiling: the
+// Gardener's share is banked in state.quotaRelief and survives him; the Father
+// of the Chapel's is worked out live from the size of the case and leaves with
+// the seat. combineRelief (js/constants.js) has each take a share of the slack
+// the other left, so the pair approach half from two directions and never pass
+// it. Read here rather than at either seat, so the quota, both cards and the log
+// can never disagree about what the table is worth.
+// Either share may be overridden, which is how each card answers "and what
+// would the NEXT one be worth" without either of them having to know how the
+// pool is shared: ask for the total with a bigger share of your own in it.
+export const totalQuotaRelief = ({ gardener, chapel } = {}) =>
+  combineRelief(
+    gardener ?? state.quotaRelief ?? 0,
+    chapel   ?? (owns('chapel') ? chapelRelief(state.collection?.length ?? 0) : 0));
+
 // Reshuffle the whole collection into the bag and reset page counters.
 // (Drawing the opening rack is left to the caller so it can be animated.)
 // `quartermaster` is how many Discards that seat is worth this page — one for
@@ -653,17 +668,13 @@ export function startPage({ quartermaster = 0 } = {}) {
   // read here rather than being applied to a quota already set. state.quotaRelief
   // is maintained by his onPrinted — state.js cannot ask patrons.js which seat it
   // belongs to (patrons.js imports this file), so the seat keeps the number here.
-  // Two reliefs, one clamp. The Gardener's is permanent and lives in state (see
-  // above); the Father of the Chapel's is read live off the manuscript for as
-  // long as the seat is held, so it needs nothing saved and goes with it.
-  // The floor of 0.9 is the game's, not either seat's: a quota discounted to
-  // nothing would end the run in the other direction.
-  const relief = Math.min(0.9,
-    (state.quotaRelief ?? 0) + (owns('chapel') ? chapelRelief(state.manuscript?.length ?? 0) : 0));
+  // Both reliefs, through one door (totalQuotaRelief, above). No clamp is
+  // needed here any more: the ceiling lives in combineRelief, which cannot
+  // return more than RELIEF_CAP however many seats bite into it.
   state.quota        = Math.max(1, Math.round(
     quotaFor(state.chapter, state.page)
     * (activeBoss(state)?.quotaMult ?? 1)
-    * (1 - relief)));
+    * (1 - totalQuotaRelief())));
   state.wordsLeft    = effectiveWordsPerPage();
   // The Redactor wraps a share of the CASE, not of the hand: bag and collection
   // share templates, so a wrapped tile stays wrapped when it is discarded and

@@ -208,9 +208,9 @@ export const PATRON_CARDS = {
   ratcatcher: {
     // Priced at 2 while he only handed out tiles — a seat that also thickened
     // your bag, which is a real cost. The standing +Mult per rat in the case is
-    // an engine rather than a trinket, and 5 is what the other uncommon engines
-    // ask.
-    name: 'The Rat Catcher', emoji: '🐀', rarity: 'uncommon', cost: 5, guild: 'crimson',
+    // small (a quarter of the cat's step, and the rats are ballast in the
+    // meantime), so 3 rather than the 5 an engine would ask.
+    name: 'The Rat Catcher', emoji: '🐀', rarity: 'uncommon', cost: 3, guild: 'crimson',
     desc: 'Every page, gain a RAT tile to your hand that is painted a random colour. '
         + '+{RATCATCHER_MULT} Mult for every RAT tile in your collection.',
   },
@@ -318,9 +318,13 @@ export const PATRON_CARDS = {
     desc: 'Words with an azure tile accept one vowel-based spelling mistake (swapped, changed, missing or extra.)',
   },
   chapel: {
-    name: 'The Father of the Chapel', emoji: '⛪', rarity: 'uncommon', cost: 7, guild: 'azure',
-    desc: 'Every quota is {CHAPEL_STEP_PCT} lighter for each word in the manuscript, '
-        + 'down to a floor of {CHAPEL_FLOOR_PCT}. The discount goes when the seat does.',
+    // Jade, not the azure he was drafted in: the seat pays for a case that has
+    // GROWN, which is jade's whole business, and it puts him in the same livery
+    // as The Gardener, whose ceiling he shares.
+    name: 'The Father of the Chapel', emoji: '⛪', rarity: 'uncommon', cost: 7, guild: 'jade',
+    desc: 'Every sort in your collection past the {STARTING_CASE} you were dealt takes a slice '
+        + 'off every quota, approaching {RELIEF_CAP_PCT}. The Gardener draws on the same ceiling, '
+        + 'and the discount goes when the seat does.',
   },
   corrector: {
     name: 'The Corrector', emoji: '✏️', rarity: 'rare', cost: 8, guild: 'azure',

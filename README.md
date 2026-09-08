@@ -246,7 +246,7 @@ pushing the score up — the only seat in the game that does. Every jade sort
 printed shaves a slice off *every quota for the rest of the run*, and each slice
 is smaller than the last: `gardenerRelief` in `js/constants.js` takes
 `GARDENER_RATE` of whatever slack is left, so the first print is worth about 1%,
-twenty-five prints reach 20%, and the whole approaches `GARDENER_CAP` (50%) and
+twenty-five prints reach 20%, and the whole approaches `RELIEF_CAP` (50%) and
 never arrives inside a run. A relief that could reach 100% would end the game;
 one that climbed straight would make the last chapters a formality. This one is
 generous early, when a page is a fight, and decorative late, when it is not —
@@ -254,24 +254,37 @@ which is the opposite of how it reads, and the reason it is worth a rare seat.
 It is read where the quota is *set* (`startPage` in `js/state.js`), so it is
 permanent and never has to be re-applied.
 
-**The Father of the Chapel** (azure, uncommon, 7 Coins) is the same axis with the
-opposite curve. The chapel was the printing house's own society — every workman
-in the shop belonged to it — and its Father settled the day's stint with the
-master; this one settles yours, taking `CHAPEL_STEP` (1%) off every quota for
-each word in the **manuscript**, down to a floor of `CHAPEL_FLOOR` (half). Where
-the Gardener's relief is a curve that climbs steeply and then barely moves, this
-one is a straight line that stops dead: nothing on a run's first page, a point a
-word, and at the fiftieth word — a run's fourth chapter or so — it is at its
-floor and every quota after that is halved.
+**The Father of the Chapel** (jade, uncommon, 7 Coins) is the same axis, bought
+in a different currency. The chapel was the printing house's own society — every
+workman in the shop belonged to it — and its Father settled the day's stint with
+the master; this one settles yours, and counts **the case** to do it. Every sort
+in your collection past the `STARTING_CASE` (54) you were dealt takes
+`CHAPEL_RATE` of the remaining slack, so +10 sorts is about 9% off every quota,
++50 is 32%, and it approaches the same 50%. The bag you were dealt is worth
+nothing to him: the whole argument is about type you went out and bought.
 
-The two differ in what they ask, too. The Gardener wants jade sorts, so he is a
-seat you build towards; the Chapel wants only that the run has been long, so it
-is a seat you buy for the run you are already having. And its relief is **not
-permanent**: it is read live off the book while the seat is held, writes nothing
-to `state.quotaRelief` (that number is the Gardener's, and he assigns rather than
-adds to it), and hands the whole discount back if the seat is dismissed. Both
-reliefs stack, under the game's own floor of 90% off — a quota discounted to
-nothing would end the run from the other direction.
+He is the one seat that pays for a **fat** collection, and everything else that
+touches the case wants it thin — the Smelter, the tongs, the Stoker, the squib —
+because a slim bag brings your painted jewels round every page. So he does not
+break deck-building, he opens the other end of it, and he is honest about the
+price: the sorts you buy to feed him are the sorts diluting every draw you make.
++50 sorts is a quota cut by a third and a bag half again as hard to find anything
+in.
+
+**The two share one ceiling.** Each takes a share of whatever slack the other
+left rather than a slice of the quota (`combineRelief`), so a table holding both
+approaches half from two directions and never passes it: 40% and 30% come to 46%,
+not 70%. Both cards quote the table's *total* rather than their own account
+(`totalQuotaRelief` in `js/state.js`), so the two can never promise a quota the
+page then doesn't set. Their reliefs differ in where they live: the Gardener's is
+banked in `state.quotaRelief` and survives him, the Chapel's is worked out live
+from the size of the case and leaves with the seat.
+
+A note on what any of this is worth. A flat percentage against a curve that grows
+×2.5 a chapter does the most where the game is already easiest: halving chapter
+X's quota only sets it back to about chapter IX, while halving chapter II's makes
+it easier than chapter I. Both seats are generous early, decorative late, and
+that is the shape, not a bug in it.
 
 **The Spendthrift** (amber-jade, uncommon, 6 Coins) is the reward's other half.
 The page reward already pays interest on Coins **held**, so nothing in the game
@@ -683,8 +696,13 @@ press and the ceiling rises on its own.
 is what the case is; a child is what learns from one.)
 
 **The notice of dismissal** is the one thing in the game that answers an editor
-by removing them. It is a sundry (`dismissal`), sold at nine Coins in the alley
-and nowhere else, and served on a tap: the editor leaves the desk and the rest of
+by removing them. It is a sundry (`dismissal`), six Coins, kept in stock down the
+alley and turning up at the fair on `DISMISSAL_OFFER_CHANCE` (1 in 10) of visits
+— the rarest thing on the Market's counter by a distance, since a wrapped tile is
+five times as likely and any given tube or tool three times again. Rare rather
+than dear, deliberately: six Coins is inside a bad page's reward, so the question
+is never whether you can afford one but whether the editor in front of you is the
+one worth spending it on. Served on a tap: the editor leaves the desk and the rest of
 the page is ordinary. Every reader of `state.boss` already handles its absence —
 scoring's pass 4¾ skips, the bar hides, `bossOnPrinted` and `bossReplenish` return
 at the door, the Economiser stops being asked for its toll — so `dismissEditor`
@@ -856,12 +874,14 @@ GRATIS count). What she EATS is narrower: only a **RAT ligature tile**, which
 comes from *the Rat Catcher* and nowhere else.
 
 The two seats now want opposite things from the same pile. *The Rat Catcher*
-strikes one RAT into the case a page and pays `RATCATCHER_MULT` (0.1) Mult for
+strikes one RAT into the case a page and pays `RATCATCHER_MULT` (0.05) Mult for
 every RAT the case holds — read live off the collection, so a rat that leaves
-stops paying. The cat's meal is the larger step (`SHORTHAIR_MULT`, 0.2) and takes
-the tile out of the case to get it, so every rat she eats trades his +0.1 for her
-+0.2, permanently and one way. Both seats still want the rat man; the cat wants
-his rats gone and he wants them kept.
+stops paying. The cat's step is four times his (`SHORTHAIR_MULT`, 0.2) and takes
+the tile out of the case to get it, so a table holding both wants the rats
+**eaten**: he is the feeder, she is the engine. His own trickle is deliberately
+small, because the rats are ballast while they wait — one a page, thickening the
+bag against every jewel in it — and that dilution, not the number, is what keeps
+the seat honest.
 
 **The opening draft** — before page 1 you kit out the press from a free spread:
 2 paints of 4, 4 tiles of 10, no coins involved. The starting collection ships
@@ -1164,7 +1184,8 @@ list is weighted three-to-one towards commons, so this is the only place a rare
 build can be assembled on purpose. Four sundries under the counter, drawn from
 the four guild tools, the two applicators, the love potion, the notice of
 dismissal and the four registers' parcels: things a patron may give you and no
-stall will sell.
+stall will sell — bar the notice, which the fair does stock, one visit in ten, at
+the same price. What the alley sells there is knowing where to find one.
 
 Nothing there is a bargain. Tiles carry a surcharge, patrons a markup that rides
 on the seat itself — so dismissing one refunds half of what you actually paid,
@@ -1253,7 +1274,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Ratchet sundry price | `js/constants.js` → `RATCHET_PRICE`; how far it steps, `RATCHET_RANGE` there or a `range` on the tool (the alphabet it walks is derived from `TILE_POINTS` — see `SHIFT_RING` in `js/state.js`) |
 | Toolbox price and what is inside it | `js/constants.js` → `TOOLBOX_PRICE`, `TOOLBOX_POOL` (repeat an entry to make it likelier; the box always yields two *different* tools) |
 | Tool tuning — doubling cap, laurel step, tongs bonus, wash count | `js/constants.js` → `LOUPE_CAP`, `HONORIFIC_STEP`, `TONGS_BONUS`, `WASH_COUNT` |
-| The notice of dismissal — its price and where it is stocked | `js/constants.js` → `BLACK_SUNDRY_STOCK` (the alley is its only shop; the shell game's pool is `everySundry` in `js/blackmarket.js`). What it does is `dismissEditor` in `js/state.js`, spent in `useSundry` in `js/main.js` |
+| The notice of dismissal — its price, and how often the fair has one | `js/constants.js` → `DISMISSAL_PRICE`, `DISMISSAL_OFFER_CHANCE` (it displaces a Market sundry slot last, in `rollSundryOffers`, `js/market.js`, so a commoner offer can never paint over it; the alley's own stock is `BLACK_SUNDRY_STOCK` and the shell game's pool `everySundry`). What it does is `dismissEditor` in `js/state.js`, spent in `useSundry` in `js/main.js` |
 | The child's stages — what each is called, wears, and pays | `js/constants.js` → `BABY_STAGES` (the same number is Points every word and Coins at the ✕). The register it waits in is `state.babyName`; the seat is `baby` in `js/patrons.js` |
 | The luck dial, and what rides on it | `js/state.js` → `luckyRoll` and `state.luck`. Every roll a player would want to win goes through it; misfortunes deliberately do not. *The Corrector* is its second branch — one reroll of a failed roll, counted on his own seat |
 | What a laurel is worth in Mult while The Laureate is seated | `js/constants.js` → `LAUREATE_MULT_STEP`. Paid in `js/scoring.js` pass 4 beside the laurel's Points; the badge copy is `laurelWorth` in `js/patrons.js`, which the shelf, the graveyard and the Market's shelf strip all read |
@@ -1299,10 +1320,11 @@ bigger step than the last and a built press has to multiply rather than add:
 | What a seat has ACCUMULATED, shown when you tap its card | `js/patrons.js` → the `tally(data)` hook, gathered with the seat's laurels by `seatTally()`. A number a seat keeps privately in `data` is a number the player is being asked to remember — put it here instead |
 | The editor roster, the conflict pairs, the Redactor's share | `js/bosses.js` → `BOSS_CONFLICTS`, `REDACTOR_SHARE` |
 | The Incendiary's charges — how many, and how dear a letter he will lend | `js/bosses.js` → `POWDER_CHARGES`, `POWDER_DEAR` (a letter worth this or more is kept out, so the pool is common letters only; each charge is given a second face by `dualPairsFor` in `js/constants.js`) |
-| The Gardener's relief — the first slice, how fast it slows, and the ceiling | `js/constants.js` → `GARDENER_RATE`, `GARDENER_CAP` (the curve is `gardenerRelief`; the quota reads `state.quotaRelief` in `startPage`, `js/state.js`) |
+| The Gardener's relief — the first slice and how fast it slows | `js/constants.js` → `GARDENER_RATE` (the curve is `gardenerRelief`; his share is banked in `state.quotaRelief`) |
 | The Spendthrift's step | `js/constants.js` → `SPENDTHRIFT_STEP` (Coins spent per sort grown; the growth is the chapter number, and the running total is `state.coinsSpent`, kept by `spendCoins`) |
 | The Beadle's threshold and page Coin | `js/constants.js` → `BEADLE_THRESHOLD`, `BEADLE_PAGE_COIN`; which stall each guild opens is `BEADLE_STALLS` in `js/patrons.js`, read live by `stallPrice`/`beadleFavour` in `js/market.js` |
-| The Father of the Chapel's relief — the slice per word, and the floor | `js/constants.js` → `CHAPEL_STEP`, `CHAPEL_FLOOR` (the curve is `chapelRelief`, read live off `state.manuscript` in `startPage`, `js/state.js` — it banks nothing and leaves with the seat) |
+| The Father of the Chapel's relief — the slice per sort, and where counting starts | `js/constants.js` → `CHAPEL_RATE`, `STARTING_CASE` (the curve is `chapelRelief`, read live off the collection — it banks nothing and leaves with the seat) |
+| The ceiling both reliefs share, and how they divide it | `js/constants.js` → `RELIEF_CAP` and `combineRelief` (each takes a share of the slack the other left). Both cards and the quota read one door: `totalQuotaRelief` in `js/state.js` |
 | The Generic's quota reprieve | `js/constants.js` → `ALMONER_RELIEF` (the `relief` effect at cost 7 in `js/patron-generic.js`; it cuts the live page's quota, where the Gardener's cuts every quota as it is set) |
 | Animation step timings | `js/constants.js` → `ANIM` (all divided by the Settings speed slider) |
 | Chapter titles | `js/chapters.js` — a flat array, add as many as you like; each run draws its own and won't repeat until the list runs out |

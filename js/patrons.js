@@ -178,14 +178,14 @@ import {
   WORDLER,
   WINNOWER_BONUS, SERPENT_EAT_ODDS, SERPENT_POINTS, lyeBoyMult,
   QUOIN_MULT, GOLDSMITH_POINTS, GOLDSMITH_ODDS, GOLDSMITH_PURSE,
-  gardenerRelief, chapelRelief, CHAPEL_FLOOR, CHAPEL_STEP,
+  gardenerRelief, chapelRelief, CHAPEL_RATE, RELIEF_CAP, STARTING_CASE,
   SPENDTHRIFT_STEP, BEADLE_THRESHOLD, BEADLE_PAGE_COIN,
   LOVERS,
 } from './constants.js';
 import {
   state, getActiveColour, getActiveLetter, countsAsColour, luckyRoll,
   paintRandomTiles, restingPoints, shuffle, owns, allSeats, effectiveSundrySlots,
-  strikeMaterial, primeMult, spendCoins, growTile,
+  strikeMaterial, primeMult, spendCoins, growTile, totalQuotaRelief,
 } from './state.js';
 import { inTheme, themeSize, THEME_SETS, silentAt, SILENT } from './themes.js';
 import { DICT } from './dict.js';
@@ -952,7 +952,7 @@ const PATRON_BEHAVIOURS = [
     // asks for less, and permanently — the relief accumulates across the whole
     // run and is read where the page's quota is set (startPage in js/state.js).
     //
-    // It approaches GARDENER_CAP and never arrives inside a run: each jade sort takes
+    // It approaches RELIEF_CAP and never arrives inside a run: each jade sort takes
     // GARDENER_RATE of whatever slack is left, so the first is worth about 1%
     // and the hundredth almost nothing. A discount that could reach 100% would
     // end the game; one that climbed straight would make the last chapters a
@@ -960,26 +960,43 @@ const PATRON_BEHAVIOURS = [
     // decorative late, when it is not — which is the opposite of how it reads,
     // and the reason it is worth a rare seat.
     //
+    // He banks his own share in state.quotaRelief, but what he SAYS is the
+    // table's total (totalQuotaRelief), because the Chapel bites into the same
+    // ceiling: a line quoting his account alone would be a promise the quota
+    // does not keep once she sits down.
+    //
     // countsAsColour, so a rainbow sort is jade for him like everyone else.
     id: 'gardener',
     when: 'meta',
     onPrinted({ tiles, state, data }) {
       const jade = tiles.filter(t => countsAsColour(t, 'jade')).length;
       if (!jade) return null;
+      const was = totalQuotaRelief();
       data.seen = (data.seen ?? 0) + jade;
-      const was = state.quotaRelief ?? 0;
       state.quotaRelief = gardenerRelief(data.seen);
-      const gained = Math.round((state.quotaRelief - was) * 1000) / 10;
+      const now = totalQuotaRelief();
+      const gained = Math.round((now - was) * 1000) / 10;
       return { note: `−${gained}%`,
                say: [`${jade} jade sort${jade > 1 ? 's' : ''} pressed — every quota from here `
-                   + `is ${Math.round(state.quotaRelief * 1000) / 10}% lighter.`] };
+                   + `is ${Math.round(now * 1000) / 10}% lighter.`] };
     },
+    // Both numbers are the table's, not his: what a player needs off this card
+    // is what the quota will actually be, and the next sort's worth shrinks
+    // when another seat has already taken slack he was going to take.
     tally(data) {
       const seen = data?.seen ?? 0;
-      if (!seen) return `Nothing pressed yet — the first jade sort is worth about ${Math.round(gardenerRelief(1) * 1000) / 10}%.`;
-      const next = Math.round((gardenerRelief(seen + 1) - gardenerRelief(seen)) * 1000) / 10;
-      return `${seen} jade sort${seen > 1 ? 's' : ''} pressed — every quota ${Math.round(gardenerRelief(seen) * 1000) / 10}% lighter. `
-           + `The next is worth ${next}% more.`;
+      // The total is read from the quota's own door, so the card quotes what
+      // the page will actually be set at. The STEP is measured between two
+      // points on his own curve instead of against that total — one more sort,
+      // everything else held still — so it stays a true step even if his banked
+      // share and his counter were ever to part company.
+      const now  = totalQuotaRelief();
+      const step = Math.round((totalQuotaRelief({ gardener: gardenerRelief(seen + 1) })
+                             - totalQuotaRelief({ gardener: gardenerRelief(seen) })) * 1000) / 10;
+      return seen
+        ? `${seen} jade sort${seen > 1 ? 's' : ''} pressed — every quota ${Math.round(now * 1000) / 10}% lighter. `
+          + `The next is worth ${step}% more.`
+        : `Nothing pressed yet — the first jade sort is worth about ${step}%.`;
     },
   },
   {
@@ -2319,24 +2336,35 @@ const PATRON_BEHAVIOURS = [
   {
     // The chapel was the printing house's own society — every workman in the
     // shop belonged to it — and the Father of the Chapel was the one who
-    // settled the day's stint with the master. This is the third seat that
-    // lowers the bar rather than raising the score, and the only one that asks
-    // nothing of the press to do it: it reads the manuscript, and a house that
-    // has set a great deal of type is a house that is asked for less.
+    // settled the day's stint with the master. This settles yours, and he
+    // counts the CASE to do it: a house with more type in it is a house asked
+    // for less, which is the one argument in the game for a fat collection.
     //
-    // The relief is worked out where the quota is (startPage in js/state.js),
-    // read live off the book rather than banked, so it is exactly as large as
-    // the run is long and it leaves with the seat. Nothing here writes to
-    // state.quotaRelief: that number is the Gardener's, and he assigns it.
+    // Everything else that touches the case wants it thin — the Smelter, the
+    // tongs, the Stoker, the squib — because a slim bag brings your painted
+    // jewels round every page. He is the counterweight, and he is honest about
+    // what it costs: the sorts you buy to feed him are the sorts diluting every
+    // draw you make. Only type past STARTING_CASE counts, so the bag you were
+    // dealt is worth nothing to him and the argument is entirely about what you
+    // went out and bought.
+    //
+    // He takes a share of the slack the Gardener left rather than a slice of
+    // the quota (combineRelief in js/constants.js), so the pair approach half
+    // from two directions and never pass it. Nothing is banked — state.
+    // quotaRelief is the Gardener's alone — so the discount is exactly as large
+    // as the case is today, and it leaves with the seat.
     id: 'chapel',
-    when: 'meta',   // read at the quota (startPage in js/state.js)
+    when: 'meta',   // read at the quota (totalQuotaRelief → startPage, js/state.js)
     tally() {
-      const words = state.manuscript?.length ?? 0;
-      const off = Math.round(chapelRelief(words) * 100);
-      const set = `${words} word${words === 1 ? '' : 's'} in the manuscript`;
-      return off >= CHAPEL_FLOOR * 100
-        ? `${set} — every quota at its floor, ${off}% lighter.`
-        : `${set} — every quota ${off}% lighter. The next word takes another ${Math.round(CHAPEL_STEP * 100)}%.`;
+      const tiles = state.collection?.length ?? 0;
+      const over  = Math.max(0, tiles - STARTING_CASE);
+      const now   = totalQuotaRelief();
+      const next  = Math.round(
+        (totalQuotaRelief({ chapel: chapelRelief(tiles + 1) }) - now) * 1000) / 10;
+      const held  = `${tiles} sorts in the case, ${over} past the bag you were dealt`;
+      return over
+        ? `${held} — every quota ${Math.round(now * 1000) / 10}% lighter. The next sort takes another ${next}%.`
+        : `${held} — nothing yet. The first sort you add takes about ${next}%.`;
     },
   },
   {

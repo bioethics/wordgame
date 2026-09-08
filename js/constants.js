@@ -719,6 +719,20 @@ export const CURSED_PENALTY    = 666;  // Points lost per unplayed curse in hand
 export const WRAPPED_PRICE        = 4;
 export const WRAPPED_OFFER_CHANCE = 0.5;  // odds one of a Market's sundry slots holds one
 
+// ─── The notice of dismissal ──────────────────────────────────────────────────
+// Served on the editor at a Deadline, who then leaves the desk (dismissEditor in
+// js/state.js). The alley keeps it in stock; the fair turns one up on
+// DISMISSAL_OFFER_CHANCE of visits and no more often than that, which makes it
+// the rarest thing on the Market's counter by a distance — a wrapped tile is
+// five times as likely, and any given tube or tool three times again.
+//
+// Rare rather than dear, deliberately. Six Coins is inside a bad page's reward,
+// so the decision is never "can I afford this"; it is whether the editor in
+// front of you is the one worth spending it on, and that decision only comes
+// round on a third of the pages.
+export const DISMISSAL_PRICE        = 6;
+export const DISMISSAL_OFFER_CHANCE = 0.1;
+
 // What is inside a wrapped tile, and the only place these odds live. Three
 // entries name a material from MATERIALS; 'mark' is a punctuation tile in lead
 // under a purple trim. Flat pick, so repeating an entry makes it likelier.
@@ -829,44 +843,54 @@ export const QUOIN_MULT = 3;
 // BLACK_TILE_MAX_PRICE and there is only so much to buy. If a run stops caring
 // about Coins by chapter seven, the ODDS are the knob to turn, not the purse.
 // ─── Relief from the quota ────────────────────────────────────────────────────
-// Two seats bring the bar DOWN instead of climbing it, which is the one axis the
-// roster never touched: every other patron pays you more, and these two ask for
-// less. They stack, and both are read where the page's quota is set (startPage
-// in js/state.js).
+// Three seats bring the bar DOWN instead of climbing it, which is the one axis
+// the roster never touched: every other patron pays you more, and these ask for
+// less. All three are read where the page's quota is set (startPage in
+// js/state.js).
 //
 // The Almoner shaves a slice off the CURRENT page when a word of hers prints —
-// a one-page reprieve, big and immediate. The Gardener's relief is permanent and
-// accumulates over the whole run, approaching but never reaching GARDENER_CAP:
-// each jade sort printed takes GARDENER_RATE of whatever is still on the table,
-// so the first is worth about 1% and the thousandth almost nothing. That shape
-// is the point — a discount that could reach 100% would end the game, and one
-// that climbed in a straight line would make the last chapters a formality.
+// a one-page reprieve, big and immediate, and separate from everything below.
+//
+// The other two share ONE ceiling, RELIEF_CAP. Each takes a share of whatever
+// slack is still on the table rather than a flat slice of the quota, so both
+// approach half and neither can be added to the other to pass it: a table
+// holding both gets there faster, not further (combineRelief, below). Half is
+// where it stops because a quota discounted to nothing would end the run from
+// the other direction — and because a percentage against a curve that grows
+// ×2.5 a chapter is worth less than it sounds at the top: halving chapter X's
+// quota only sets it back to about chapter IX.
+//
+//   The Gardener   — permanent, and paid for in PRINTING: each jade sort pressed
+//                    takes GARDENER_RATE of the remaining slack, banked in
+//                    state.quotaRelief and kept even if he leaves the shelf.
+//   The Chapel     — read live, and paid for in TYPE: each sort in the case past
+//                    the starting bag takes CHAPEL_RATE of the remaining slack.
+//                    Nothing is banked, so the discount is exactly as large as
+//                    the case is today and it goes when the seat does.
 export const ALMONER_RELIEF = 0.15;   // the Generic's effect, on this page only
-export const GARDENER_CAP   = 0.5;    // the Gardener can never pass this
-export const GARDENER_RATE  = 0.02;   // …and takes this share of the gap per jade sort
+export const RELIEF_CAP     = 0.5;    // no quota is ever cut past half
+export const GARDENER_RATE  = 0.02;   // the Gardener's share of the gap per jade sort
 export const gardenerRelief = seen =>
-  Math.round(GARDENER_CAP * (1 - (1 - GARDENER_RATE) ** (seen ?? 0)) * 10000) / 10000;
+  Math.round(RELIEF_CAP * (1 - (1 - GARDENER_RATE) ** (seen ?? 0)) * 10000) / 10000;
 
-// The third of them, and the one that asks nothing of the press: the Father of
-// the Chapel reads the MANUSCRIPT — every word this run has printed — and takes
-// CHAPEL_STEP off every quota for each of them, to a floor of CHAPEL_FLOOR.
-//
-// Straight, where the Gardener's is a curve, and that is the whole difference
-// between the two seats. His climbs steeply and then barely moves; hers is worth
-// nothing on the first page of a run and exactly as much as the last word gave
-// it, every word, until it stops dead at the floor — CHAPEL_STEP into
-// CHAPEL_FLOOR words, so around the fiftieth word printed, which a run reaches
-// in its fourth chapter or so. A seat bought for the run you are already having
-// rather than the one you are planning.
-//
-// Unlike the Gardener's, this relief is NOT permanent: it is read live off the
-// book while the seat is held (startPage in js/state.js), so dismissing the seat
-// hands the whole discount back. Nothing is written to state.quotaRelief, which
-// belongs to the Gardener alone and is his to overwrite.
-export const CHAPEL_FLOOR = 0.5;    // the quota is never cut past half
-export const CHAPEL_STEP  = 0.01;   // …and this much comes off it per word printed
-export const chapelRelief = words =>
-  Math.min(CHAPEL_FLOOR, Math.max(0, words ?? 0) * CHAPEL_STEP);
+// The case the press opens with, counted from the bag itself so it cannot drift
+// from the sorts actually dealt. The Chapel pays for the type you have added to
+// it and not a penny for the type you started with: a run that buys nothing is
+// a run he is worth nothing to.
+export const STARTING_CASE  = Object.values(BAG_COUNTS).reduce((n, c) => n + c, 0);
+export const CHAPEL_RATE    = 0.02;   // …and the Chapel's, per sort past that
+export const chapelRelief = tiles =>
+  Math.round(RELIEF_CAP
+    * (1 - (1 - CHAPEL_RATE) ** Math.max(0, (tiles ?? 0) - STARTING_CASE)) * 10000) / 10000;
+
+// One pool of slack, taken by both. Each relief is read as the share of the
+// ceiling it has claimed; what is left over is what the next seat gets to bite
+// into. Two seats at 40% and 30% of the ceiling come to 46% of it and not 70%,
+// so the pair can never walk the quota to nothing between them — which is the
+// whole reason they are written against a shared cap rather than added up.
+export const combineRelief = (...reliefs) =>
+  Math.round(RELIEF_CAP * (1 - reliefs.reduce(
+    (gap, r) => gap * (1 - Math.min(1, Math.max(0, r ?? 0) / RELIEF_CAP)), 1)) * 10000) / 10000;
 
 // ─── The Spendthrift's ledger ─────────────────────────────────────────────────
 // Coins SPENT, not coins held — the other half of a ledger whose first half (the
@@ -1148,12 +1172,15 @@ export const SHORTHAIR_MULT     = 0.2;
 
 // The Rat Catcher's own Mult, added per RAT tile in the collection. His page
 // gift is one RAT a page, so the seat pays a slow, standing +Mult that a long
-// run compounds: ten pages in, +1 Mult on every word, and it costs nothing to
-// keep. Note what it does to the cat: SHORTHAIR_MULT is the larger step, but
-// eating a RAT takes the tile out of the collection, so the pair trades this
-// seat's +0.1 for the cat's +0.2 every time it feeds. Both seats still want the
-// Rat Catcher; they simply want him for opposite reasons.
-export const RATCATCHER_MULT    = 0.1;
+// run compounds — and the rats are ballast while they wait, thickening the bag
+// against every jewel in it, which is the seat's real brake.
+//
+// A quarter of the cat's step, not half: SHORTHAIR_MULT is a one-time
+// conversion that also takes the ballast back out of the case, so a table
+// holding both wants the rats EATEN. The rat man is the feeder; she is the
+// engine. (It ran at 0.1 for an afternoon, which made him an engine of his own
+// and left the cat with nothing to do but agree with him.)
+export const RATCATCHER_MULT    = 0.05;
 
 // The Cartographer reads the VOWELS of a word and asks that they run in
 // alphabetical order — A before E before I before O before U — counting each
@@ -1479,11 +1506,11 @@ export const BLACK_SUNDRY_STOCK = [
   { kind: 'tongs',  price: 4 },
   { kind: 'wash',   price: 4 },
   { kind: 'potion', price: 12 },
-  // The one door to a notice of dismissal, which is what makes it rare: the
-  // alley itself is a Colophon pick, and four kinds of twelve are laid out a
-  // visit. Priced under the potion because it buys ONE page — a Deadline is
-  // the hardest page in the chapter, and never more than a third of them.
-  { kind: 'dismissal', price: 9 },
+  // The alley is where a notice of dismissal can be looked for rather than
+  // hoped for: four kinds of twelve are laid out a visit, against the one visit
+  // in ten the fair turns one up at all. Same price in both places — the alley
+  // sells certainty here, not a markup.
+  { kind: 'dismissal', price: DISMISSAL_PRICE },
   { kind: 'applicator', material: 'rainbow', price: 10 },
   { kind: 'applicator', material: 'cursed',  price: 5 },
   ...Object.keys(PACKAGES).map(theme => ({ kind: 'package', theme, price: 7 })),
@@ -1587,9 +1614,8 @@ export const KNOBS = {
   GOLDSMITH_POINTS, GOLDSMITH_PURSE,
   BEADLE_THRESHOLD, BEADLE_PAGE_COIN, SPENDTHRIFT_STEP,
   ALMONER_RELIEF_PCT: `${Math.round(ALMONER_RELIEF * 100)}%`,
-  GARDENER_CAP_PCT:   `${Math.round(GARDENER_CAP * 100)}%`,
-  CHAPEL_STEP_PCT:    `${Math.round(CHAPEL_STEP * 100)}%`,
-  CHAPEL_FLOOR_PCT:   `${Math.round(CHAPEL_FLOOR * 100)}%`,
+  RELIEF_CAP_PCT:     `${Math.round(RELIEF_CAP * 100)}%`,
+  STARTING_CASE,
   GOLDSMITH_CHANCE: oddsText(GOLDSMITH_ODDS),
 
   // Patron tuning
