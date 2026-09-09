@@ -33,7 +33,7 @@
 // answer that wandered would make the live preview a lie.
 //
 //   tileBonus(tile, ctx) — Points written onto ONE TILE before the word is
-//     scored; ctx { tiles, state, data }. Return 0 for a tile the patron
+//     scored; ctx { tiles, letters, state, data }. Return 0 for a tile the patron
 //     doesn't touch. The number lands on the tile itself, so nicks and
 //     Monogrammists multiply it. A patron paying for a PROPERTY of the whole
 //     word (the Firebrand's two crimson tiles) is not this: it stays an effect()
@@ -135,6 +135,13 @@
 // is worth to those builds without touching its own effect. Read it through
 // guildsOf(def), which always returns an array.
 //
+// Optional `onHired({ state, data })`: what taking the seat does to the WORLD,
+// run once as the copy becomes real — onOffer's mirror. Every door onto the
+// shelf calls it (buyPatron in market.js, grantRandomPatron here in state.js),
+// so it cannot be dodged by arriving through a love potion. The Expectant
+// Parents' child empties the register it was waiting in, which is what stops a
+// second copy of the same child from ever being dealt.
+//
 // Optional `refundBonus(data)`: extra Coins this seat's dismissal pays on top
 // of the standard half-cost — read by patronRefund in market.js.
 //
@@ -161,22 +168,25 @@ import {
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
   HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, LAUREATE_MULT_STEP, RIPPER_WORDS, splitMarks, isImmutable,
   CENTURION_STEP, isRomanNumeral, RIPPER_GHOST_WORDS, wordListText,
+  APPRENTICE_LENGTH, APPRENTICE_STEP,
   TWINS_POINTS, CHILD_STEP, ABECEDARIAN_MULT, ABECEDARIAN_CASE, abecedarianMult, caseGlyphs, MEDIEVAL,
   ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS, PURVEYOR,
+  BABY_STAGES, babyStage, babyGrown, titleCase,
   sesquipedalianMult,
-  SHORTHAIR_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
+  SHORTHAIR_MULT, RATCATCHER_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
   medievalExpansions, POSTNOM, GHOST_HIRE, USURER,
   PRINCE, princeMult,
   WORDLER,
   WINNOWER_BONUS, SERPENT_EAT_ODDS, SERPENT_POINTS, lyeBoyMult,
   QUOIN_MULT, GOLDSMITH_POINTS, GOLDSMITH_ODDS, GOLDSMITH_PURSE,
-  gardenerRelief, SPENDTHRIFT_STEP, BEADLE_THRESHOLD, BEADLE_PAGE_COIN,
+  gardenerRelief, chapelRelief, CHAPEL_BASE,
+  SPENDTHRIFT_STEP, BEADLE_THRESHOLD, BEADLE_PAGE_COIN,
   LOVERS,
 } from './constants.js';
 import {
   state, getActiveColour, getActiveLetter, countsAsColour, luckyRoll,
   paintRandomTiles, restingPoints, shuffle, owns, allSeats, effectiveSundrySlots,
-  strikeMaterial, primeMult, spendCoins, growTile,
+  strikeMaterial, primeMult, spendCoins, growTile, totalQuotaRelief,
 } from './state.js';
 import { inTheme, themeSize, THEME_SETS, silentAt, SILENT } from './themes.js';
 import { DICT } from './dict.js';
@@ -219,17 +229,30 @@ const usurerOwed = data => (data?.ghost ? 0 : data?.debt ?? 0);
 // pass would mark the second L of LLAMA yellow against a secret holding one L.
 // The squares are the emoji Wordle shares in, which need no styling and are
 // read instantly by anyone who has played it.
+// Wordle's three marks, and a fourth of this game's own: the letters past the
+// secret's length are shown UNJUDGED rather than dropped, so the squares under a
+// word always stand one to a letter. PRINTER against a five-letter secret is
+// marked on PRINT and trails two hollow squares.
+const WORDLE_MARKS = { right: '🟩', moved: '🟨', absent: '⬜', unjudged: '▫️' };
+
+// Every word printed is a guess now, whatever its length, so this has to answer
+// for guesses shorter and longer than the secret. Two things follow from that:
+// only the first `secret.length` places are judged at all, and the tally of
+// letters still to be found is built from the WHOLE secret rather than from the
+// places the guess happens to reach — otherwise a three-letter guess could not
+// be told that its T is in the answer's fifth place.
 const markGuess = (guess, secret) => {
-  const mark = Array.from(guess, () => '⬜');
+  const judged = Math.min(guess.length, secret.length);
+  const mark = Array.from(guess, () => WORDLE_MARKS.unjudged);
   const left = {};
-  for (let i = 0; i < guess.length; i++) {
-    if (guess[i] === secret[i]) mark[i] = '🟩';
+  for (let i = 0; i < secret.length; i++) {
+    if (i < judged && guess[i] === secret[i]) mark[i] = WORDLE_MARKS.right;
     else left[secret[i]] = (left[secret[i]] ?? 0) + 1;
   }
-  for (let i = 0; i < guess.length; i++) {
-    if (mark[i] === '🟩' || !left[guess[i]]) continue;
-    mark[i] = '🟨';
-    left[guess[i]] -= 1;
+  for (let i = 0; i < judged; i++) {
+    if (mark[i] === WORDLE_MARKS.right) continue;
+    if (left[guess[i]]) { mark[i] = WORDLE_MARKS.moved; left[guess[i]] -= 1; }
+    else                 mark[i] = WORDLE_MARKS.absent;
   }
   return mark.join('');
 };
@@ -258,13 +281,26 @@ const readsCypher = (tiles, c) =>
 // so rainbow metal reaches all of them for free.
 const painted = (tiles, colour) => tiles.filter(t => countsAsColour(t, colour));
 
-// What the cat's meals are worth, rounded so nothing ever shows the raw
-// 0.30000000000000004 that repeated addition of a tenth produces.
 // Which guild opens which door for The Beadle. Amber is absent on purpose: its
 // favour is a Coin on every page, not a stall (computeReward in js/scoring.js).
 export const BEADLE_STALLS = { crimson: 'smelter', azure: 'punchcutter', jade: 'gilder' };
 
+// What the cat's meals are worth, rounded so nothing ever shows the raw
+// 0.30000000000000004 that repeated addition of a tenth produces.
+// What a child is called at each stage — "Baby Grace", then "Toddler Grace",
+// then "Grace". A seat that arrived without a name (the Testing Chamber seats
+// anything) wears its stage alone rather than a blank.
+const babyTitle = data => {
+  const stage = babyStage(data);
+  const name = titleCase(data?.name ?? '');
+  if (!name) return stage.prefix || 'The Child';
+  return stage.prefix ? `${stage.prefix} ${name}` : name;
+};
+
 const shorthairMult = eaten => Math.round((eaten ?? 0) * SHORTHAIR_MULT * 100) / 100;
+// The Rat Catcher's, off the same rounding, and the cat's mirror image: his
+// number counts the rats still in the case, hers counts the ones that aren't.
+const ratcatcherMult = rats => Math.round((rats ?? 0) * RATCATCHER_MULT * 100) / 100;
 
 // A plain sort: one letter of the alphabet and nothing else. Everything the
 // press can set that ISN'T one of these — a ligature (several letters on one
@@ -582,9 +618,19 @@ function dyePatron(id, colour) {
 const PATRON_BEHAVIOURS = [
   // ── Commons ─────────────────────────────────────────────────────────────────
   {
+    // Four Points a letter, on a word of four letters — onto the tiles rather
+    // than onto the word, so the nicks and the echoes read the number and the
+    // groove wears it while you compose. The trigger counts LETTERS (a word's
+    // shape always does) and so does the payment, so CHAT spelled CH+A+T pays
+    // the CH eight and totals the same sixteen as C+H+A+T. A mark takes
+    // nothing: it is not one of the four.
     id: 'apprentice',
     when: 'score',
-    effect({ word, addPoints }) { if (word.length === 4) addPoints(10); },
+    tileBonus(t, { letters }) {
+      if (letters.length !== APPRENTICE_LENGTH) return 0;
+      const L = getActiveLetter(t);
+      return isMark(L) ? 0 : L.length * APPRENTICE_STEP;
+    },
   },
   {
     // The first seat that pays for THROWING TILES AWAY. Once per discard, not
@@ -930,7 +976,7 @@ const PATRON_BEHAVIOURS = [
     // asks for less, and permanently — the relief accumulates across the whole
     // run and is read where the page's quota is set (startPage in js/state.js).
     //
-    // It approaches GARDENER_CAP and never arrives inside a run: each jade sort takes
+    // It approaches RELIEF_CAP and never arrives inside a run: each jade sort takes
     // GARDENER_RATE of whatever slack is left, so the first is worth about 1%
     // and the hundredth almost nothing. A discount that could reach 100% would
     // end the game; one that climbed straight would make the last chapters a
@@ -938,26 +984,43 @@ const PATRON_BEHAVIOURS = [
     // decorative late, when it is not — which is the opposite of how it reads,
     // and the reason it is worth a rare seat.
     //
+    // He banks his own share in state.quotaRelief, but what he SAYS is the
+    // table's total (totalQuotaRelief), because the Chapel bites into the same
+    // ceiling: a line quoting his account alone would be a promise the quota
+    // does not keep once she sits down.
+    //
     // countsAsColour, so a rainbow sort is jade for him like everyone else.
     id: 'gardener',
     when: 'meta',
     onPrinted({ tiles, state, data }) {
       const jade = tiles.filter(t => countsAsColour(t, 'jade')).length;
       if (!jade) return null;
+      const was = totalQuotaRelief();
       data.seen = (data.seen ?? 0) + jade;
-      const was = state.quotaRelief ?? 0;
       state.quotaRelief = gardenerRelief(data.seen);
-      const gained = Math.round((state.quotaRelief - was) * 1000) / 10;
+      const now = totalQuotaRelief();
+      const gained = Math.round((now - was) * 1000) / 10;
       return { note: `−${gained}%`,
                say: [`${jade} jade sort${jade > 1 ? 's' : ''} pressed — every quota from here `
-                   + `is ${Math.round(state.quotaRelief * 1000) / 10}% lighter.`] };
+                   + `is ${Math.round(now * 1000) / 10}% lighter.`] };
     },
+    // Both numbers are the table's, not his: what a player needs off this card
+    // is what the quota will actually be, and the next sort's worth shrinks
+    // when another seat has already taken slack he was going to take.
     tally(data) {
       const seen = data?.seen ?? 0;
-      if (!seen) return `Nothing pressed yet — the first jade sort is worth about ${Math.round(gardenerRelief(1) * 1000) / 10}%.`;
-      const next = Math.round((gardenerRelief(seen + 1) - gardenerRelief(seen)) * 1000) / 10;
-      return `${seen} jade sort${seen > 1 ? 's' : ''} pressed — every quota ${Math.round(gardenerRelief(seen) * 1000) / 10}% lighter. `
-           + `The next is worth ${next}% more.`;
+      // The total is read from the quota's own door, so the card quotes what
+      // the page will actually be set at. The STEP is measured between two
+      // points on his own curve instead of against that total — one more sort,
+      // everything else held still — so it stays a true step even if his banked
+      // share and his counter were ever to part company.
+      const now  = totalQuotaRelief();
+      const step = Math.round((totalQuotaRelief({ gardener: gardenerRelief(seen + 1) })
+                             - totalQuotaRelief({ gardener: gardenerRelief(seen) })) * 1000) / 10;
+      return seen
+        ? `${seen} jade sort${seen > 1 ? 's' : ''} pressed — every quota ${Math.round(now * 1000) / 10}% lighter. `
+          + `The next is worth ${step}% more.`
+        : `Nothing pressed yet — the first jade sort is worth about ${step}%.`;
     },
   },
   {
@@ -2025,14 +2088,33 @@ const PATRON_BEHAVIOURS = [
     },
   },
   {
+    // Two halves that feed each other: a RAT a page into the case, and +Mult for
+    // every RAT the case holds. Left as a gift alone the seat was a tile
+    // dispenser that also thickened your bag; the Mult is what makes the pile
+    // worth having rather than worth spelling away.
     id: 'ratcatcher',
-    when: 'meta',
+    when: 'score',
+    // The COLLECTION is counted, not the hand: the rats are his catch, and a
+    // catch does not stop being one because it is at the bottom of the bag.
+    // Read live off the case, so a RAT eaten by the cat (or blown up beside a
+    // squib) stops paying the moment it is gone. A ligature can take no second
+    // face — the punchcutter refuses them — so the letter itself is the count.
+    effect({ state, addMult }) {
+      const rats = state.collection.filter(t => t.letter === 'RAT').length;
+      if (rats) addMult(ratcatcherMult(rats));
+    },
     // RAT is a ligature worth 3 Points — exactly what R, A and T score apart —
     // and it comes from nowhere else in the game (see EXCLUSIVE_LETTERS).
     onPageStart({ cast }) {
       const colour = pick(Object.keys(COLOURS));
       const tile = cast({ letter: 'RAT', colour });
       return { note: `a ${COLOURS[colour].label.toLowerCase()} RAT`, tiles: [tile] };
+    },
+    tally() {
+      const rats = state.collection.filter(t => t.letter === 'RAT').length;
+      return rats
+        ? `${rats} RAT tile${rats === 1 ? '' : 's'} in the case — +${ratcatcherMult(rats)} Mult on every word.`
+        : 'No RAT tiles in the case — the next page brings one.';
     },
   },
   {
@@ -2108,7 +2190,12 @@ const PATRON_BEHAVIOURS = [
     onPrinted({ script, data }) {
       if (data.solved) return null;
       const guess = script?.letters ?? '';
-      if (guess.length !== WORDLER.length) return null;
+      // EVERY word is a guess, whatever its length: a short one is marked as
+      // far as it reaches and a long one on its first WORDLER.length letters,
+      // with the tail shown unjudged. He used to answer only words of exactly
+      // his own length, which meant most pages told you nothing and the puzzle
+      // was a lottery on how your rack happened to fall.
+      if (!guess) return null;
       data.secret ??= rollSecret();
       if (!data.secret) return null;
 
@@ -2137,7 +2224,8 @@ const PATRON_BEHAVIOURS = [
       // Elliptical until you have shown him a five-letter word; the squares
       // teach the rule better than a sentence would, so the card waits.
       return tried
-        ? `Amber and jade tiles gain +${WORDLER.bonus} Points. His word is ${WORDLER.length} letters — print it and they print twice.`
+        ? `Amber and jade tiles gain +${WORDLER.bonus} Points. Every word you print is marked against his `
+          + `secret ${WORDLER.length}-letter word — set it and they print twice.`
         : `Amber and jade tiles gain +${WORDLER.bonus} Points. He loves a secret word.`;
     },
 
@@ -2252,6 +2340,65 @@ const PATRON_BEHAVIOURS = [
     when: 'meta',   // read by retirePrinted, and by scoring's `returns` flag
   },
   {
+    // The corrector of the press read the proof against the copy, marked what
+    // the compositor had got wrong, and sent the forme back to the stone to be
+    // pulled again. That is the entire seat: a roll that came out wrong is
+    // pulled again. The work itself is one branch inside luckyRoll (js/state.js)
+    // — every roll in the game a player would want to win already goes through
+    // it, so the seat reaches the Goldsmith's jackpots, the Dabbler's splashes,
+    // the registers' parcels, the Gambler's coin and the squib you survive,
+    // without knowing that any of them exist.
+    //
+    // Which also means the seat is invisible: every one of those rolls is hidden
+    // inside something else. The tally is the only place it can be seen, so it
+    // is not optional furniture here the way it is on a seat that pays in the
+    // readout.
+    id: 'corrector',
+    when: 'meta',   // the reroll lives in luckyRoll (js/state.js)
+    tally(data) {
+      const pulled = data?.pulled ?? 0;
+      if (!pulled) return null;
+      const saved = data?.saved ?? 0;
+      return `${pulled} roll${pulled === 1 ? '' : 's'} pulled again — `
+           + `${saved || 'none'} came good the second time.`;
+    },
+  },
+  {
+    // The chapel was the printing house's own society — every workman in the
+    // shop belonged to it — and the Father of the Chapel was the one who
+    // settled the day's stint with the master. This settles yours, and he
+    // counts the CASE to do it: a house with more type in it is a house asked
+    // for less, which is the one argument in the game for a fat collection.
+    //
+    // Everything else that touches the case wants it thin — the Smelter, the
+    // tongs, the Stoker, the squib — because a slim bag brings your painted
+    // jewels round every page. He is the counterweight, and he is honest about
+    // what it costs: the sorts you buy to feed him are the sorts diluting every
+    // draw you make. He counts from CHAPEL_BASE, which sits just under the case
+    // you are dealt: an untouched press starts a couple of percent ahead, and a
+    // press that has been thinning has already spent that and more.
+    //
+    // He takes a share of the slack the Gardener left rather than a slice of
+    // the quota (combineRelief in js/constants.js), so the pair approach half
+    // from two directions and never pass it. Nothing is banked — state.
+    // quotaRelief is the Gardener's alone — so the discount is exactly as large
+    // as the case is today, and it leaves with the seat.
+    id: 'chapel',
+    when: 'meta',   // read at the quota (totalQuotaRelief → startPage, js/state.js)
+    tally() {
+      const tiles = state.collection?.length ?? 0;
+      const over  = Math.max(0, tiles - CHAPEL_BASE);
+      const now   = totalQuotaRelief();
+      const next  = Math.round(
+        (totalQuotaRelief({ chapel: chapelRelief(tiles + 1) }) - now) * 1000) / 10;
+      return over
+        ? `${tiles} sorts in the case, ${over} past the ${CHAPEL_BASE} he counts from — every quota `
+          + `${Math.round(now * 1000) / 10}% lighter. The next sort takes another ${next}%.`
+        : `${tiles} sorts in the case, none past the ${CHAPEL_BASE} he counts from — nothing yet. `
+          + `The next sort takes about ${next}%.`;
+    },
+  },
+  {
     id: 'titivillus',
     when: 'meta',   // consulted at the dictionary check in main.js — the typo prints as typed
   },
@@ -2317,6 +2464,80 @@ const PATRON_BEHAVIOURS = [
     when: 'score',
     effect({ word, addPoints }) {
       if (themeSize('names') && inTheme('names', word)) addPoints(EXPECTANTS_BONUS);
+    },
+    // …and they take the name. The register (state.babyName) holds one child at
+    // a time, so printing a second name is the parents changing their minds
+    // rather than a second child — and the seat waiting at the Market is
+    // renamed with it. Silent when the name has not moved: printing GRACE twice
+    // running is one baby, announced once.
+    onPrinted({ script, state }) {
+      const word = script?.letters;
+      if (!word || !themeSize('names') || !inTheme('names', word)) return null;
+      if (state.babyName === word) return null;
+      const renamed = !!state.babyName;
+      state.babyName = word;
+      const name = titleCase(word);
+      return {
+        note: `it's a ${name}!`,
+        say: [renamed
+          ? `The Expectant Parents think again, and the child is ${name} after all. `
+            + `Baby ${name} will be looking for a seat at the Market.`
+          : `The Expectant Parents name the baby ${name}. `
+            + `Baby ${name} will be looking for a seat at the Market.`],
+      };
+    },
+  },
+  {
+    // The child of the seat above, and the only patron in the game the PLAYER
+    // names. It is out of every pool until the parents print a name and out of
+    // it again the moment it is hired: state.babyName is the register, holding
+    // exactly one child. Dismissing the seat does not put the name back — a
+    // child you gave up does not come round again — so the only door to another
+    // is printing another name, which is also the door to a bigger one.
+    //
+    // Free, and worth its stage in Points every word and in Coins at the ✕. The
+    // two numbers being the same is the whole decision: every page it sits
+    // through raises both, so the seat you are keeping for the Points is also
+    // the seat that is quietly getting dearer to sell, and it stops growing on
+    // the fifth page whether you have made up your mind or not.
+    id: 'baby',
+    when: 'score',
+    locked: () => !state.babyName,
+    onOffer: () => ({ name: state.babyName, stage: 0 }),
+    onHired: ({ state }) => { state.babyName = null; },
+    effect({ data, addPoints }) { addPoints(babyStage(data).pays); },
+
+    // A page SURVIVED, not a page begun: the hook runs as the quota clears, so
+    // a child grows on the pages you win and the run ends on the one you don't.
+    onPageComplete({ data }) {
+      if (babyGrown(data)) return null;
+      data.stage = (data.stage ?? 0) + 1;
+      const { pays } = babyStage(data);
+      // The line is printed under the seat's new name, so the note says only
+      // what the birthday changed.
+      return { note: babyGrown(data)
+        ? `grown up — +${pays} Points on every word, ${pays} Coins at the ✕, and no more birthdays.`
+        : `+${pays} Points on every word now, and ${pays} Coins at the ✕.` };
+    },
+
+    refundBonus: data => babyStage(data).pays,
+    instName:  data => babyTitle(data),
+    instShelf: data => babyTitle(data),
+    instEmoji: data => babyStage(data).emoji,
+    instDesc(data) {
+      const { pays } = babyStage(data);
+      return `+${pays} Point${pays === 1 ? '' : 's'} on every word. `
+           + `Dismissed for ${pays} Coin${pays === 1 ? '' : 's'}. `
+           + (babyGrown(data) ? 'Grown.' : 'Still growing.');
+    },
+    // What the desc can't say without repeating itself every page: where the
+    // next step goes, and that there is a last one. A player who knows the
+    // fifth page is the end of it can decide when to let the seat go.
+    tally(data) {
+      const next = BABY_STAGES[(data?.stage ?? 0) + 1];
+      if (!next) return 'Grown, and no longer growing.';
+      const called = next.prefix ? next.prefix.toLowerCase() : 'grown';
+      return `Next page, ${called}: +${next.pays} Points on every word, ${next.pays} Coins at the ✕.`;
     },
   },
   {

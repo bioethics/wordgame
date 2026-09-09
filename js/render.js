@@ -7,6 +7,7 @@ import {
   effectivePatronSlots, effectiveSundrySlots, effectiveGhostSlots,
   effectiveWordsPerPage, effectiveRackSize, chapterTitle,
   sundrySelected, restingPoints, getActiveGrowth, isWrapped, shiftPreview, isSquib,
+  runDifficulty,
 } from './state.js';
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
@@ -14,7 +15,7 @@ import {
   colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
   sundryTip, FLEURON, BATTER, TOOL_LOOK, PACKAGES, APPLICATORS, MEDIEVAL, letterGlyph,
   INTERROBANG, POSTNOM, BAG_COUNTS, BRIBRARIAN, bribeMult, isRule, RULE, BOLD_MULT,
-  lengthMult, LENGTH_MULT_MIN, RATCHET_RANGE,
+  lengthMult, LENGTH_MULT_MIN, RATCHET_RANGE, DEFAULT_DIFFICULTY,
 } from './constants.js';
 import { patronById, guildsOf, patronName, patronShelf, patronEmoji, laurelWorth, seatTally } from './patrons.js';
 import { bossById } from './bosses.js';
@@ -1632,6 +1633,14 @@ export function hideOverlay() {
   $('overlayModal')?.classList.remove('show');
 }
 
+// Which book this was, said only when it was not the standard one. Runs on the
+// gentler climb are not the same number as runs on the full one, and the end
+// screen is the one place that is worth saying.
+const editionHTML = () =>
+  state.difficulty === DEFAULT_DIFFICULTY
+    ? ''
+    : `<p class="end-sub end-edition">${logLine('endEdition', runDifficulty().label)}</p>`;
+
 const statsHTML = () => `
   <div class="run-stats">
     <div class="run-stat"><span class="run-stat-num">${state.stats.pages}</span><span class="run-stat-label">pages completed</span></div>
@@ -1650,6 +1659,7 @@ export function showGameOver() {
         isDeadline(state.page) ? logLine('endLoseDeadline') : logLine('endLosePage', state.page),
         state.quota.toLocaleString(),
         state.boss ? logLine('endLoseBoss', bossById(state.boss.id)?.emoji ?? '', bossById(state.boss.id)?.name ?? '') : '')}</p>
+      ${editionHTML()}
       ${statsHTML()}
       <button class="btn btn-print btn-big" data-overlay-action="newrun">${logLine('endNewRun')}</button>
     </div>`);
@@ -1661,6 +1671,7 @@ export function showVictory() {
       <div class="end-flourish end-flourish--win">❦</div>
       <h2 class="end-title end-title--win">${logLine('endWinTitle')}</h2>
       <p class="end-sub">${logLine('endWinSub')}</p>
+      ${editionHTML()}
       ${statsHTML()}
       <div class="end-actions">
         <button class="btn btn-quiet" data-overlay-action="endless">${logLine('endEndless')}</button>

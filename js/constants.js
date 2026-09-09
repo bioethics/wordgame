@@ -9,7 +9,7 @@
 import {
   TRIM_TEXT, NICK_TEXT, COLOUR_TEXT, COLOUR_DESC, MULT_TRACK_TEXT, MATERIAL_TEXT,
   SUNDRY_TEXT, TOOL_TEXT, APPLICATOR_TEXT, PACKAGE_TEXT, STALL_TEXT,
-  LENGTH_FLOURISHES, LENGTH_FLOURISH_BEYOND,
+  LENGTH_FLOURISHES, LENGTH_FLOURISH_BEYOND, DIFFICULTY_TEXT,
   fillTable, fillKnobs, fillSlots,
 } from './text.js';
 
@@ -430,6 +430,10 @@ export const TOOL_LOOK = {
   tongs:   { glyph: '🗜️', label: TOOL_TEXT.tongs },
   wash:    { glyph: '💧', label: TOOL_TEXT.wash },
   potion:  { glyph: '🧪', label: TOOL_TEXT.potion },
+  // Served on the editor at the desk, and good nowhere else. It has no target
+  // to pick on the board, so it spends on a single tap like the potion — and
+  // like the potion it KEEPS when there is nobody to serve it on.
+  dismissal: { glyph: '📄', label: TOOL_TEXT.dismissal },
 };
 
 // The applicators strike one tile in hand into a new material. Like the tube, the
@@ -646,11 +650,36 @@ function roundQuota(n) {
   return Math.round(n / mag) * mag;
 }
 
-export function quotaFor(chapter, page) {
+// ─── Difficulty ───────────────────────────────────────────────────────────────
+// Chosen on the prospectus at the top of a run (js/start.js) and kept for the
+// whole of it. Two dials, and both are read where a page is counted out in
+// startPage: `quotaMult` scales the quota BEFORE it is rounded, so an eased
+// quota is still a round target rather than 28; `discards` is added to the
+// page's allowance, and an editor who bans discards still bans them.
+//
+// The gentler book is a fifth off the climb and a third Discard — the two
+// things a run is actually lost to (see the CHAPTER_EASE note above: a bad
+// draw against a quota set for a press you haven't built yet). Everything
+// else — the Market's prices, the editors, the reward — is left alone.
+export const DIFFICULTIES = {
+  largeprint: { ...DIFFICULTY_TEXT.largeprint, quotaMult: 0.8, discards: 1 },
+  standard:   { ...DIFFICULTY_TEXT.standard,   quotaMult: 1,   discards: 0 },
+};
+
+export const DEFAULT_DIFFICULTY = 'standard';
+
+// A key that is certainly in the table, and the row it names. Every reader goes
+// through these, so a save carrying a difficulty that has since been retired
+// falls back to the standard book rather than throwing.
+export const difficultyKey = id => (DIFFICULTIES[id] ? id : DEFAULT_DIFFICULTY);
+export const difficultyOf  = id => DIFFICULTIES[difficultyKey(id)];
+
+export function quotaFor(chapter, page, difficulty = DEFAULT_DIFFICULTY) {
   let raw = QUOTA_BASE;
   for (let c = 2; c <= chapter; c++) raw *= QUOTA_GROWTH_START + (c - 2) * QUOTA_GROWTH_RAMP;
   if (chapter === 1) raw *= CHAPTER_1_EASE;
   raw *= CHAPTER_EASE[chapter] ?? 1;
+  raw *= difficultyOf(difficulty).quotaMult;
   return roundQuota(raw * PAGE_FACTORS[page - 1]);
 }
 
@@ -714,6 +743,20 @@ export const CURSED_MAX_POINTS = 3;   // never cast on a letter worth more than 
 export const CURSED_PENALTY    = 666;  // Points lost per unplayed curse in hand
 export const WRAPPED_PRICE        = 4;
 export const WRAPPED_OFFER_CHANCE = 0.5;  // odds one of a Market's sundry slots holds one
+
+// ─── The notice of dismissal ──────────────────────────────────────────────────
+// Served on the editor at a Deadline, who then leaves the desk (dismissEditor in
+// js/state.js). The alley keeps it in stock; the fair turns one up on
+// DISMISSAL_OFFER_CHANCE of visits and no more often than that, which makes it
+// the rarest thing on the Market's counter by a distance — a wrapped tile is
+// five times as likely, and any given tube or tool three times again.
+//
+// Rare rather than dear, deliberately. Six Coins is inside a bad page's reward,
+// so the decision is never "can I afford this"; it is whether the editor in
+// front of you is the one worth spending it on, and that decision only comes
+// round on a third of the pages.
+export const DISMISSAL_PRICE        = 6;
+export const DISMISSAL_OFFER_CHANCE = 0.1;
 
 // What is inside a wrapped tile, and the only place these odds live. Three
 // entries name a material from MATERIALS; 'mark' is a punctuation tile in lead
@@ -825,23 +868,66 @@ export const QUOIN_MULT = 3;
 // BLACK_TILE_MAX_PRICE and there is only so much to buy. If a run stops caring
 // about Coins by chapter seven, the ODDS are the knob to turn, not the purse.
 // ─── Relief from the quota ────────────────────────────────────────────────────
-// Two seats bring the bar DOWN instead of climbing it, which is the one axis the
-// roster never touched: every other patron pays you more, and these two ask for
-// less. They stack, and both are read where the page's quota is set (startPage
-// in js/state.js).
+// Three seats bring the bar DOWN instead of climbing it, which is the one axis
+// the roster never touched: every other patron pays you more, and these ask for
+// less. All three are read where the page's quota is set (startPage in
+// js/state.js).
 //
 // The Almoner shaves a slice off the CURRENT page when a word of hers prints —
-// a one-page reprieve, big and immediate. The Gardener's relief is permanent and
-// accumulates over the whole run, approaching but never reaching GARDENER_CAP:
-// each jade sort printed takes GARDENER_RATE of whatever is still on the table,
-// so the first is worth about 1% and the thousandth almost nothing. That shape
-// is the point — a discount that could reach 100% would end the game, and one
-// that climbed in a straight line would make the last chapters a formality.
+// a one-page reprieve, big and immediate, and separate from everything below.
+//
+// The other two share ONE ceiling, RELIEF_CAP. Each takes a share of whatever
+// slack is still on the table rather than a flat slice of the quota, so both
+// approach half and neither can be added to the other to pass it: a table
+// holding both gets there faster, not further (combineRelief, below). Half is
+// where it stops because a quota discounted to nothing would end the run from
+// the other direction — and because a percentage against a curve that grows
+// ×2.5 a chapter is worth less than it sounds at the top: halving chapter X's
+// quota only sets it back to about chapter IX.
+//
+//   The Gardener   — permanent, and paid for in PRINTING: each jade sort pressed
+//                    takes GARDENER_RATE of the remaining slack, banked in
+//                    state.quotaRelief and kept even if he leaves the shelf.
+//   The Chapel     — read live, and paid for in TYPE: each sort in the case past
+//                    the starting bag takes CHAPEL_RATE of the remaining slack.
+//                    Nothing is banked, so the discount is exactly as large as
+//                    the case is today and it goes when the seat does.
 export const ALMONER_RELIEF = 0.15;   // the Generic's effect, on this page only
-export const GARDENER_CAP   = 0.5;    // the Gardener can never pass this
-export const GARDENER_RATE  = 0.02;   // …and takes this share of the gap per jade sort
+export const RELIEF_CAP     = 0.5;    // no quota is ever cut past half
+export const GARDENER_RATE  = 0.02;   // the Gardener's share of the gap per jade sort
 export const gardenerRelief = seen =>
-  Math.round(GARDENER_CAP * (1 - (1 - GARDENER_RATE) ** (seen ?? 0)) * 10000) / 10000;
+  Math.round(RELIEF_CAP * (1 - (1 - GARDENER_RATE) ** (seen ?? 0)) * 10000) / 10000;
+
+// The case the press opens with, counted from the bag itself so it cannot drift
+// from the sorts actually dealt.
+export const STARTING_CASE  = Object.values(BAG_COUNTS).reduce((n, c) => n + c, 0);
+
+// The Chapel counts from CHAPEL_BASE, which sits a few sorts UNDER the case you
+// are dealt on purpose. A press that has bought nothing and burnt nothing opens
+// four sorts over the line and starts at about 2% off, which is a small enough
+// gift to be a nudge rather than a reason to hire him — and a press that has
+// been thinning walks back under the line and gets nothing at all. So he is not
+// merely indifferent to the smelter, he is against it, which is the whole
+// argument he exists to make.
+//
+// The rate is a share of the remaining slack per sort, as the Gardener's is:
+// at 1% a case of 100 is about 20% off and one of 150 about 32%. 1.5% and 2%
+// are the same curve pulled forward (a case of 100 reaching 28% and 35%), so
+// this is the one number to move if he turns out too slow to be worth a seat.
+export const CHAPEL_BASE    = 50;
+export const CHAPEL_RATE    = 0.01;
+export const chapelRelief = tiles =>
+  Math.round(RELIEF_CAP
+    * (1 - (1 - CHAPEL_RATE) ** Math.max(0, (tiles ?? 0) - CHAPEL_BASE)) * 10000) / 10000;
+
+// One pool of slack, taken by both. Each relief is read as the share of the
+// ceiling it has claimed; what is left over is what the next seat gets to bite
+// into. Two seats at 40% and 30% of the ceiling come to 46% of it and not 70%,
+// so the pair can never walk the quota to nothing between them — which is the
+// whole reason they are written against a shared cap rather than added up.
+export const combineRelief = (...reliefs) =>
+  Math.round(RELIEF_CAP * (1 - reliefs.reduce(
+    (gap, r) => gap * (1 - Math.min(1, Math.max(0, r ?? 0) / RELIEF_CAP)), 1)) * 10000) / 10000;
 
 // ─── The Spendthrift's ledger ─────────────────────────────────────────────────
 // Coins SPENT, not coins held — the other half of a ledger whose first half (the
@@ -862,6 +948,19 @@ export const BEADLE_PAGE_COIN = 1;   // what two ambers pay, every page
 export const GOLDSMITH_POINTS = 3;
 export const GOLDSMITH_ODDS   = 0.03;   // per amber tile in the word
 export const GOLDSMITH_PURSE  = 30;
+
+// ─── The Apprentice's four ────────────────────────────────────────────────────
+// Four Points a letter, on a word of four letters. It pays onto the TILES
+// (tileBonus, js/patrons.js) rather than as a lump on the word, so a nick reads
+// the number, an echo doubles it, and the groove shows the true corner figure
+// while the word is still being composed.
+//
+// Per LETTER, so a tile carrying two of them carries eight: a four-letter word
+// is worth 16 however it is spelled, and a ligature is not quietly taxed for
+// being one tile. Marks take nothing — they are not part of the word's shape,
+// which is the thing being counted.
+export const APPRENTICE_LENGTH = 4;
+export const APPRENTICE_STEP   = 4;
 
 // ─── Patron tuning (the colour-guild overhaul) ────────────────────────────────
 // Knobs for patron effects that reach beyond a single score. Plain score numbers
@@ -1076,6 +1175,34 @@ export const TYPESETTER_STEP    = 0.2;
 // The Expectant Parents' fee for a name.
 export const EXPECTANTS_BONUS   = 15;
 
+// ─── …and their child ─────────────────────────────────────────────────────────
+// Print a name while they are seated and they name the baby after it. The child
+// then goes looking for a seat of its own: `state.babyName` is the register, it
+// holds exactly one child at a time, a newer name replaces whoever was waiting,
+// and hiring the seat empties it (the 'baby' patron in js/patrons.js).
+//
+// Each stage pays its number TWICE — that many Points on every word, and that
+// many Coins if the seat is dismissed. The same number in both places is what
+// makes a free patron a decision: it is worth more the longer you keep it, and
+// worth most at the moment you give it up. The last stage drops the prefix and
+// stops growing, because a grown Grace is nobody's baby.
+export const BABY_STAGES = [
+  { prefix: 'Baby',     emoji: '👶', pays: 1 },
+  { prefix: 'Toddler',  emoji: '🍼', pays: 2 },
+  { prefix: 'Child',    emoji: '🧒', pays: 3 },
+  { prefix: 'Teenager', emoji: '🧑', pays: 5 },
+  { prefix: '',         emoji: '🎓', pays: 10 },
+];
+export const babyGrown = data => (data?.stage ?? 0) >= BABY_STAGES.length - 1;
+export const babyStage = data =>
+  BABY_STAGES[Math.min(Math.max(data?.stage ?? 0, 0), BABY_STAGES.length - 1)];
+
+// GRACE in the forme, Grace on the calling card. Every other word in the game is
+// type and is shown as type; a name is a person, and this is the one place that
+// difference is worth drawing.
+export const titleCase = w =>
+  (w ? w[0].toUpperCase() + w.slice(1).toLowerCase() : '');
+
 // The Sesquipedalian's rate, per letter of the longest word the run has set.
 // Additive, like the Astronomer's, and read off the manuscript rather than a
 // tally of the seat's own: the record is the RUN'S, so a word set before he was
@@ -1092,6 +1219,18 @@ export const sesquipedalianMult  = n => Math.round(n * SESQUIPEDALIAN_STEP * 100
 // Catcher, so this is a slow engine that rewards keeping both seats rather than
 // a windfall for one lucky word.
 export const SHORTHAIR_MULT     = 0.2;
+
+// The Rat Catcher's own Mult, added per RAT tile in the collection. His page
+// gift is one RAT a page, so the seat pays a slow, standing +Mult that a long
+// run compounds — and the rats are ballast while they wait, thickening the bag
+// against every jewel in it, which is the seat's real brake.
+//
+// A quarter of the cat's step, not half: SHORTHAIR_MULT is a one-time
+// conversion that also takes the ballast back out of the case, so a table
+// holding both wants the rats EATEN. The rat man is the feeder; she is the
+// engine. (It ran at 0.1 for an afternoon, which made him an engine of his own
+// and left the cat with nothing to do but agree with him.)
+export const RATCATCHER_MULT    = 0.05;
 
 // The Cartographer reads the VOWELS of a word and asks that they run in
 // alphabetical order — A before E before I before O before U — counting each
@@ -1410,13 +1549,18 @@ export const BLACK_TILE_FEATURES   = 2;
 // The sundry counter. Four are laid out per visit, drawn from things the Market
 // itself never stocks: the four guild tools (TOOLBOX_POOL's own, minus the
 // ratchet, which the Market does sell), the two applicators, the love potion,
-// and the four registers' parcels.
+// the notice of dismissal, and the four registers' parcels.
 export const BLACK_SUNDRY_STOCK = [
   { kind: 'loupe',  price: 6 },
   { kind: 'laurel', price: 6 },
   { kind: 'tongs',  price: 4 },
   { kind: 'wash',   price: 4 },
   { kind: 'potion', price: 12 },
+  // The alley is where a notice of dismissal can be looked for rather than
+  // hoped for: four kinds of twelve are laid out a visit, against the one visit
+  // in ten the fair turns one up at all. Same price in both places — the alley
+  // sells certainty here, not a markup.
+  { kind: 'dismissal', price: DISMISSAL_PRICE },
   { kind: 'applicator', material: 'rainbow', price: 10 },
   { kind: 'applicator', material: 'cursed',  price: 5 },
   ...Object.keys(PACKAGES).map(theme => ({ kind: 'package', theme, price: 7 })),
@@ -1520,11 +1664,13 @@ export const KNOBS = {
   GOLDSMITH_POINTS, GOLDSMITH_PURSE,
   BEADLE_THRESHOLD, BEADLE_PAGE_COIN, SPENDTHRIFT_STEP,
   ALMONER_RELIEF_PCT: `${Math.round(ALMONER_RELIEF * 100)}%`,
-  GARDENER_CAP_PCT:   `${Math.round(GARDENER_CAP * 100)}%`,
+  RELIEF_CAP_PCT:     `${Math.round(RELIEF_CAP * 100)}%`,
+  STARTING_CASE, CHAPEL_BASE,
   GOLDSMITH_CHANCE: oddsText(GOLDSMITH_ODDS),
 
   // Patron tuning
   CHILD_STEP, CENTURION_STEP, ABECEDARIAN_MULT, ESPALIER_STEP, HEADSMAN_STEP, BEEKEEPER_STEP,
+  APPRENTICE_LENGTH, APPRENTICE_STEP,
   ALDERMAN_STEP, LYE_BOY_STEP,
   // The Lye Boy's whole curve as one phrase, so his card cannot drift from the
   // bands — one band today, and the sentence grows with the table.
@@ -1536,8 +1682,9 @@ export const KNOBS = {
   // the bands: "+0.2 Mult, then +0.1 past ×2, then +0.05 past ×3".
   BEEKEEPER_STEPS: beekeeperSteps(),
   ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS,
+  BABY_POINTS: BABY_STAGES[0].pays, BABY_COINS: BABY_STAGES[0].pays,
   SESQUIPEDALIAN_STEP,
-  SHORTHAIR_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
+  SHORTHAIR_MULT, RATCATCHER_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
   PURVEYOR_STALLS:    PURVEYOR.stalls,
   PURVEYOR_TILES:     PURVEYOR.tiles,
   PURVEYOR_PATRONS:   PURVEYOR.patrons,
@@ -1566,6 +1713,9 @@ export const KNOBS = {
   RIPPER_WORDS:       wordListText(RIPPER_WORDS),
   RIPPER_GHOST_WORDS: wordListText(RIPPER_GHOST_WORDS),
 
+  // How much of the climb the gentler book takes off, as the card says it.
+  LARGE_PRINT_CUT: `${Math.round((1 - DIFFICULTIES.largeprint.quotaMult) * 100)}%`,
+
   // The parcels, by the name each one goes by
   PARCEL_SPOOKY:   PACKAGES.spooky.label,
   PARCEL_ROMANTIC: PACKAGES.romantic.label,
@@ -1579,3 +1729,4 @@ fillTable(MATERIALS, KNOBS, 'text: MATERIAL_TEXT');
 fillTable(STALL_DEFS, KNOBS, 'text: STALL_TEXT');
 fillTable(PACKAGES,  KNOBS, 'text: PACKAGE_TEXT');
 fillTable(SUNDRY_TEXT, KNOBS, 'text: SUNDRY_TEXT');
+fillTable(DIFFICULTIES, KNOBS, 'text: DIFFICULTY_TEXT');

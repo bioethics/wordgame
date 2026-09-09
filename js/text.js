@@ -181,6 +181,9 @@ export const LOG_TEXT = {
   painted:         'Painted {0} {1}.',                               // letter · colour
   tongsGrip:       'The tongs grip {0} — ash, and +{1} Points waiting on the next word.',
   tongsFloater:    '+{0} to the next word',                          // over the groove, not in the log
+  dismissalNoDesk: 'There is no editor at the desk — the notice keeps.',
+  dismissalServed: '📄 {0} {1} is served with notice, and leaves the desk. The page is yours.',   // emoji · name
+  dismissalUnwraps:' The redactions come off with them.',                                        // ⌐
   ratchetArmed:    'Tap a letter to adjust it.',
   ratchetSteps:    'The ratchet adjusts {0} to {1}.',
   loupeArmed:      'Tap a tile to double its points, up to {0} Points.',
@@ -216,6 +219,7 @@ export const LOG_TEXT = {
   bannerDeadlineMet:  'Deadline met',
   bannerPageDone:     'Page complete',
   bannerBossPleased:  '{0} {1} is satisfied — {2} of {3}',           // emoji · name · score · quota
+  bannerDeskEmpty:    'Nobody at the desk — {0} of {1}',             // score · quota
   bannerPageScore:    '{0} of {1} — {2}',                            // score · quota · chapter title
   appendicesBegin:    'The appendices begin — quotas keep climbing. Good luck.',
 
@@ -270,6 +274,10 @@ export const LOG_TEXT = {
   endLoseBoss:     ' {0} {1} remains unimpressed.',                  // ⌐ emoji · name
   endWinTitle:     'The folio is complete',
   endWinSub:       "Ten chapters set, proofed, and printed. The house's finest work.",
+  // Said on the end screens only when the run was NOT the standard book: a
+  // score is a different number on an eased climb, and this is where knowing
+  // which one it was matters. {0} is the difficulty's own name.
+  endEdition:      'A {0} edition.',
   endNewRun:       'Begin a new folio',
   endEndless:      'Keep printing (appendices)',
 };
@@ -443,6 +451,13 @@ export const SUNDRY_TEXT = {
     head: '{0} applicator',
     body: 'Lays out two tiles from your hand; the one you pick is struck in {1}. {2}',
   },
+  dismissal: {
+    head: 'Notice of dismissal',
+    body: 'Serve it on the editor at a Deadline and they leave the desk: their rule ends '
+        + 'with them, and the rest of the page is ordinary. What the page has already been '
+        + 'made to pay stands — the quota, a spent discard, a sort eaten. Keeps until there '
+        + 'is an editor to serve it on.',
+  },
 };
 
 // The short names the bench and the shop card use for a tool.
@@ -454,6 +469,9 @@ export const TOOL_TEXT = {
   tongs:   'Tongs',
   wash:    'Ink wash',
   potion:  'Love potion',
+  // Short, because this is the name the workbench slot and the held row wear,
+  // where there is room for one word. The full title is SUNDRY_TEXT above.
+  dismissal: 'Dismissal',
 };
 
 export const APPLICATOR_TEXT = {
@@ -550,6 +568,21 @@ export const LENGTH_FLOURISHES = {
 };
 export const LENGTH_FLOURISH_BEYOND = 'the stuff of legend.';
 
+// ─── Difficulty (settled at the top of a run, kept for it) ────────────────────
+// The numbers themselves are DIFFICULTIES in js/constants.js; the {KNOB} below
+// is filled from the multiplier there, so the card cannot quote a cut the page
+// does not take.
+export const DIFFICULTY_TEXT = {
+  largeprint: {
+    label: 'Large Print',
+    desc:  'Every quota {LARGE_PRINT_CUT} lower, and one more Discard a page.',
+  },
+  standard: {
+    label: 'Standard',
+    desc:  'The full climb — nothing eased.',
+  },
+};
+
 // ═══ THE SHEETS ════════════════════════════════════════════════════════════════
 // Headings, sub-headings, notes and buttons. A `sub` is the small grey line
 // beside a heading; a `note` is the sentence under a title.
@@ -631,4 +664,26 @@ export const COLOPHON_TEXT = {
   skipTip:     'Decline all three',
   reshuffle:   '↻ Reshuffle',
   reshuffleTip:'Spend a banked reshuffle',
+};
+
+// The prospectus — the sheet a run opens on, and the only place the difficulty
+// is asked. Each of the three says its own rule once: the difficulty's sub says
+// it will not be asked again, `settled` says the other two will be there in
+// Settings whenever they are wanted.
+export const START_TEXT = {
+  title:      'The Prospectus',
+  note:       'How the press is set, before the first page.',
+  look:       'Look',
+  lookSub:    'the board itself',
+  room:       'Room',
+  roomSub:    'the light it is worked in',
+  layout:     'Layout',
+  layoutSub:  'where the ledger stands',
+  difficulty: 'Difficulty',
+  difficultySub: 'fixed for the run once it begins',
+  settled:    'The look and the room are yours to change at any time, from Settings.',
+  chamber:    'The Testing Chamber',
+  chamberNote:'A playtest bench, not part of the game — seats, sorts and sundries '
+            + 'for nothing, and the run begins from there.',
+  begin:      'Begin the run ❧',
 };

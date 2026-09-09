@@ -125,6 +125,38 @@ banner a broadside. The Testing Chamber and the graveyard keep their own
 skins in both looks: a dev bench has no idiom to honour, and the ghosts'
 darkness is the point of them.
 
+### What a run opens on
+
+A new run opens on **the prospectus** — the thing a printer put out before a
+book existed: this is the edition we mean to print, this is what it will look
+like, subscribe if you like the sound of it. Three things are settled on it: the
+board's **look**, the room's **theme**, and the run's **difficulty**.
+
+The first two are preferences. They live in `settings`, they are the same
+buttons Settings lays out (built once, in `js/appearance.js`, so the two sheets
+cannot drift apart), and they can be changed at any point in a run. The third
+belongs to the RUN. It is fixed when the first page is dealt, saved with the
+run, and named on the end screen whenever it was not the standard book — a
+score on an eased climb is a different number, and the end screen is the one
+place that is worth saying.
+
+**Large Print** is the gentler edition: every quota a fifth lower, and a third
+Discard on every page. Those two are what a run is actually lost to — the quota
+climbing at a rate set for a press you have not built yet, and a hand that will
+not spell against it. Nothing else moves; the Market's prices, the editors, the
+reward and the Colophon are the same book either way. The dials are `quotaMult`
+and `discards` on `DIFFICULTIES` (`js/constants.js`), and both are read where a
+page is counted out in `startPage` — the quota BEFORE it is rounded, so an eased
+target is still a round number to aim at rather than 28. An editor who bans
+Discards still bans them.
+
+The Testing Chamber opens *from* the prospectus rather than in front of it, and
+says what it is on the way in: a playtest bench, where seats, sorts and sundries
+cost nothing and the run begins from there. Somebody who pressed "New run" did
+not ask for one. The walk goes both ways — the chamber's foot hands the
+prospectus back — and `atStart` survives it, so the chamber a run opened on
+still ends in "Begin the run" however many times you go between the two.
+
 ## How a word scores
 
 ```
@@ -165,8 +197,15 @@ long-press on touch, wherever the thing appears. Nothing is summarised beneath
 market cards. What a sundry does is written once, in `js/text.js` →
 `SUNDRY_TEXT`, and looked up through `sundryTip` in `js/constants.js`. On print the score replays in the order it happens: *the Twins*
 recast the doubled pairs, patrons write bonuses onto the tiles, the tiles pay,
-the nicks read their side, each colour's multiplier fills in from its outline,
-and the patrons weigh in seat by seat.
+the nicks read their side, the patrons weigh in seat by seat, and only then does
+each colour's multiplier fill in from its outline.
+
+The colours coming **last** is the arithmetic, not a flourish. `total = Points ×
+Mult`: the patrons build the Points figure and the multiplier is applied to the
+finished figure, so a seat adding +16 at the far end of the shelf has that +16
+multiplied by everything the word's colours are worth. The replay used to fill
+the chips first, which said the opposite — that a late +16 arrived after the ×6
+and was worth sixteen. It is worth ninety-six.
 
 ### Seat order
 
@@ -264,13 +303,55 @@ pushing the score up — the only seat in the game that does. Every jade sort
 printed shaves a slice off *every quota for the rest of the run*, and each slice
 is smaller than the last: `gardenerRelief` in `js/constants.js` takes
 `GARDENER_RATE` of whatever slack is left, so the first print is worth about 1%,
-twenty-five prints reach 20%, and the whole approaches `GARDENER_CAP` (50%) and
+twenty-five prints reach 20%, and the whole approaches `RELIEF_CAP` (50%) and
 never arrives inside a run. A relief that could reach 100% would end the game;
 one that climbed straight would make the last chapters a formality. This one is
 generous early, when a page is a fight, and decorative late, when it is not —
 which is the opposite of how it reads, and the reason it is worth a rare seat.
 It is read where the quota is *set* (`startPage` in `js/state.js`), so it is
 permanent and never has to be re-applied.
+
+**The Father of the Chapel** (jade, uncommon, 7 Coins) is the same axis, bought
+in a different currency. The chapel was the printing house's own society — every
+workman in the shop belonged to it — and its Father settled the day's stint with
+the master; this one settles yours, and counts **the case** to do it. Every sort
+past `CHAPEL_BASE` (50) takes `CHAPEL_RATE` (1%) of the remaining slack, and it
+approaches the same 50%:
+
+| case | 50 | 54 | 70 | 100 | 150 | 200 |
+|---|---|---|---|---|---|---|
+| off every quota | — | 2% | 9% | 20% | 32% | 39% |
+
+The line sits a few sorts *under* the 54 you are dealt, so an untouched press
+opens about 2% ahead — small enough to be a nudge rather than a reason to hire
+him. A press that has been **thinning** has already spent that and walks back
+under the line to nothing, which is the point: he is not indifferent to the
+smelter, he is against it. (`CHAPEL_RATE` is the knob if he turns out too slow to
+be worth a seat; 1.5% and 2% are the same curve pulled forward, a case of 100
+reaching 27% and 32%.)
+
+He is the one seat that pays for a **fat** collection, and everything else that
+touches the case wants it thin — the Smelter, the tongs, the Stoker, the squib —
+because a slim bag brings your painted jewels round every page. So he does not
+break deck-building, he opens the other end of it, and he is honest about the
+price: the sorts you buy to feed him are the sorts diluting every draw you make.
+A case of 100 is a fifth off every quota and a bag twice as hard to find anything
+in.
+
+**The two share one ceiling.** Each takes a share of whatever slack the other
+left rather than a slice of the quota (`combineRelief`), so a table holding both
+approaches half from two directions and never passes it: 40% and 30% come to 46%,
+not 70%. Both cards quote the table's *total* rather than their own account
+(`totalQuotaRelief` in `js/state.js`), so the two can never promise a quota the
+page then doesn't set. Their reliefs differ in where they live: the Gardener's is
+banked in `state.quotaRelief` and survives him, the Chapel's is worked out live
+from the size of the case and leaves with the seat.
+
+A note on what any of this is worth. A flat percentage against a curve that grows
+×2.5 a chapter does the most where the game is already easiest: halving chapter
+X's quota only sets it back to about chapter IX, while halving chapter II's makes
+it easier than chapter I. Both seats are generous early, decorative late, and
+that is the shape, not a bug in it.
 
 **The Spendthrift** (amber-jade, uncommon, 6 Coins) is the reward's other half.
 The page reward already pays interest on Coins **held**, so nothing in the game
@@ -467,6 +548,85 @@ your gorgeous L and *then* the counterfeit L and you keep a second gorgeous L
 for good; put the forgery in front and nothing happens to the good tile behind
 it — there is nothing to strike from a fake.
 
+### The Corrector — the seat that sits on the dice
+
+Every chance the game rolls that a player would *want* to win goes through one
+function: `luckyRoll` in `js/state.js`. The Goldsmith's amber coming up gold, the
+Dabbler's splash, a register's parcel, the Nudist's found trim, the Gambler's
+coin, the Revenant at the graveside, the tile that survives the squib beside it —
+all of them ask the same question in the same place. Misfortune deliberately does
+not: the Arsonist's fire is rolled raw, since a dial that also softened the
+game's few punishments would be pulling in two directions at once.
+
+**The Corrector** (azure, rare, 8 Coins) is that function's second branch and
+nothing else. A roll that comes out wrong is pulled again, once, so *p* becomes
+1−(1−*p*)²: a 1-in-4 lands 7 times in 16, and the Gambler's coin comes down heads
+three times in four. Once, never a loop — retrying until it works is a certainty
+with extra steps, and a certainty is not luck.
+
+He is named for the office: the corrector of an early press read the proof
+against the copy, marked what the compositor had got wrong, and sent the forme
+back to the stone to be pulled again. The seat does to the dice what the office
+did to the sheet.
+
+He stacks with `state.luck`, the dial the roll was built around and which has sat
+at ×1 since it was written. Luck scales the odds of each roll; the Corrector adds
+the second one. Two ×2 dials would have been one dial twice; these compose
+without collapsing into each other.
+
+The design problem the seat has is that **it is invisible**. Every roll it
+touches is hidden inside something else — a windfall that didn't come, a splash
+that didn't land — so a player could hold him a whole chapter and see nothing
+happen. So he counts: how many rolls he has pulled again, and how many came good
+the second time, kept on the seat's own `data` and shown in the card's
+tap-through (`tally`). It is the only evidence the seat produces, which is why it
+is not optional furniture here the way it is on a seat that speaks in the
+readout. Nothing writes to `data` during scoring, either — every roll in the list
+above is thrown in an `onPrinted` or at a page turn, never in the live preview,
+which is what makes counting from inside `luckyRoll` safe.
+
+### The Expectant Parents' child
+
+*The Expectant Parents* (uncommon, 4 Coins) pay +15 Points for a common baby
+name and vouch for names at the dictionary check, so ELSIE and MILO are words
+while they are seated. They now do one thing more: **they name the baby after
+the last name you print**, and the child goes looking for a seat of its own.
+
+The register is `state.babyName`, and it holds exactly one child. Print another
+name and the parents change their minds — the name in the register is replaced,
+and so is the card waiting at the Market. Printing the same name twice says
+nothing the second time: one baby, announced once.
+
+**The child is a patron** (`baby`), free, ubiquitous, jade and amber, and
+`locked()` out of every pool until there is a name in the register. Hiring it
+empties the register (`onHired`, the mirror of `onOffer` — every door onto the
+shelf calls it, so a love potion cannot smuggle one in), and **dismissing it does
+not put the name back**: a child you gave up does not come round again. Another
+name printed is the only door to another child, which is also the door to a
+younger one.
+
+Each page it survives, it grows a stage:
+
+| | pays | dismissed for |
+|---|---|---|
+| 👶 Baby *[name]* | +1 Point every word | 1 Coin |
+| 🍼 Toddler *[name]* | +2 | 2 |
+| 🧒 Child *[name]* | +3 | 3 |
+| 🧑 Teenager *[name]* | +5 | 5 |
+| 🎓 *[name]* | +10 | 10 |
+
+The same number in both columns is the whole seat. It is free to take, so there
+is no decision at the Market; the decision is *when to stop keeping it*, and
+every page makes both halves of that harder — the Points you would lose and the
+Coins you would gain rise together, and on the fifth page the growing stops
+whether you have made up your mind or not. It grows on a page **survived**, not a
+page begun (`onPageComplete`), so the run that ends on a Deadline ends with the
+child the age it was.
+
+GRACE in the forme, **Grace** on the calling card: `titleCase` in
+`js/constants.js` is used for this and nothing else. Every other word in the game
+is type and is shown as type; a name is a person.
+
 ## The pieces
 
 A tile is a **letter** (or ligature, or mark), optionally **painted** a colour,
@@ -601,6 +761,28 @@ press and the ceiling rises on its own.
 (The seat that used to hold this name — three-letter words grow their tiles — is
 **The Child** now. An abecedarian is properly a *primer of the alphabet*, which
 is what the case is; a child is what learns from one.)
+
+**The notice of dismissal** is the one thing in the game that answers an editor
+by removing them. It is a sundry (`dismissal`), six Coins, kept in stock down the
+alley and turning up at the fair on `DISMISSAL_OFFER_CHANCE` (1 in 10) of visits
+— the rarest thing on the Market's counter by a distance, since a wrapped tile is
+five times as likely and any given tube or tool three times again. Rare rather
+than dear, deliberately: six Coins is inside a bad page's reward, so the question
+is never whether you can afford one but whether the editor in front of you is the
+one worth spending it on. Served on a tap: the editor leaves the desk and the rest of
+the page is ordinary. Every reader of `state.boss` already handles its absence —
+scoring's pass 4¾ skips, the bar hides, `bossOnPrinted` and `bossReplenish` return
+at the door, the Economiser stops being asked for its toll — so `dismissEditor`
+in `js/state.js` clears the seat and that is the whole act.
+
+What it does *not* undo is what the desk has already done: the quota was counted
+out when the page was dealt and stays where it is, the hand is the size it was
+drawn to, a discard the desk took is spent, and a sort the Economiser has eaten
+is gone. The Redactor's wrapping is the single exception, lifted with him,
+because it is not a thing done but a thing being done — he is holding the paper
+over those sorts, and it comes off when he goes. The page is still a Deadline
+afterwards: the banner reads off the page number rather than off who is sitting
+at the desk, so serving notice cannot demote the page you then clear.
 
 **The Bribrarian** is the one editor with nothing to satisfy. He does not read
 your words: he penalises every one of them, and the whole of the lever is money
@@ -757,6 +939,16 @@ the instant that Market rolls, bought or not, until you spell CAT again. Any
 word spelling out R-A-T pays her a Coin and earns her a laurel (PIRATE and
 GRATIS count). What she EATS is narrower: only a **RAT ligature tile**, which
 comes from *the Rat Catcher* and nowhere else.
+
+The two seats now want opposite things from the same pile. *The Rat Catcher*
+strikes one RAT into the case a page and pays `RATCATCHER_MULT` (0.05) Mult for
+every RAT the case holds — read live off the collection, so a rat that leaves
+stops paying. The cat's step is four times his (`SHORTHAIR_MULT`, 0.2) and takes
+the tile out of the case to get it, so a table holding both wants the rats
+**eaten**: he is the feeder, she is the engine. His own trickle is deliberately
+small, because the rats are ballast while they wait — one a page, thickening the
+bag against every jewel in it — and that dilution, not the number, is what keeps
+the seat honest.
 
 **The opening draft** — before page 1 you kit out the press from a free spread:
 2 paints of 4, 4 tiles of 10, no coins involved. The starting collection ships
@@ -1057,8 +1249,10 @@ rather than gambled for out of a wrapper, plus punctuation, which comes no other
 way. Four patrons in the back room, every one of them rare — the Market's own
 list is weighted three-to-one towards commons, so this is the only place a rare
 build can be assembled on purpose. Four sundries under the counter, drawn from
-the four guild tools, the two applicators, the love potion and the four
-registers' parcels: things a patron may give you and no stall will sell.
+the four guild tools, the two applicators, the love potion, the notice of
+dismissal and the four registers' parcels: things a patron may give you and no
+stall will sell — bar the notice, which the fair does stock, one visit in ten, at
+the same price. What the alley sells there is knowing where to find one.
 
 Nothing there is a bargain. Tiles carry a surcharge, patrons a markup that rides
 on the seat itself — so dismissing one refunds half of what you actually paid,
@@ -1131,6 +1325,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Knob | Where |
 | --- | --- |
 | Quota curve | `js/constants.js` → `quotaFor`, `QUOTA_BASE`, `QUOTA_GROWTH_START`, `QUOTA_GROWTH_RAMP`. The rate itself grows: chapter 2 asks ×1.7 of chapter 1, chapter 3 ×1.8 of chapter 2, and so on. START makes the whole run harder; RAMP makes the ending harder without touching the opening — a harder mode is a bigger pair |
+| The difficulty dials, and a new edition | `js/constants.js` → `DIFFICULTIES` (a `quotaMult` and a `discards` per row; the copy is `DIFFICULTY_TEXT` in `js/text.js`, and `{LARGE_PRINT_CUT}` is filled from the multiplier itself so a card cannot quote a cut the page does not take). A third edition is a row here and nothing else — the prospectus lays out whatever the table holds |
 | A single chapter that plays too easy or too hard | `js/constants.js` → `CHAPTER_1_EASE` and `CHAPTER_EASE` (a per-chapter multiplier on that chapter's quota only, either way: chapters 2–3 sit under 1 to soften the opening, 4–5 over it to answer a compounding press) |
 | Trim effects & prices | `js/constants.js` → `TRIMS` (effects live in `js/scoring.js`); silver's Points are `SILVER_BONUS`, read by scoring, the trim's card and the tile's own number alike |
 | Materials, the cursed ×Mult, wrapped-tile price & how often one is offered | `js/constants.js` → `MATERIALS`, `CURSED_MULT`, `CURSED_MAX_POINTS`, `WRAPPED_PRICE`, `WRAPPED_OFFER_CHANCE` |
@@ -1147,9 +1342,14 @@ bigger step than the last and a built press has to multiply rather than add:
 | Ratchet sundry price | `js/constants.js` → `RATCHET_PRICE`; how far it steps, `RATCHET_RANGE` there or a `range` on the tool (the alphabet it walks is derived from `TILE_POINTS` — see `SHIFT_RING` in `js/state.js`) |
 | Toolbox price and what is inside it | `js/constants.js` → `TOOLBOX_PRICE`, `TOOLBOX_POOL` (repeat an entry to make it likelier; the box always yields two *different* tools) |
 | Tool tuning — doubling cap, laurel step, tongs bonus, wash count | `js/constants.js` → `LOUPE_CAP`, `HONORIFIC_STEP`, `TONGS_BONUS`, `WASH_COUNT` |
+| The notice of dismissal — its price, and how often the fair has one | `js/constants.js` → `DISMISSAL_PRICE`, `DISMISSAL_OFFER_CHANCE` (it displaces a Market sundry slot last, in `rollSundryOffers`, `js/market.js`, so a commoner offer can never paint over it; the alley's own stock is `BLACK_SUNDRY_STOCK` and the shell game's pool `everySundry`). What it does is `dismissEditor` in `js/state.js`, spent in `useSundry` in `js/main.js` |
+| The child's stages — what each is called, wears, and pays | `js/constants.js` → `BABY_STAGES` (the same number is Points every word and Coins at the ✕). The register it waits in is `state.babyName`; the seat is `baby` in `js/patrons.js` |
+| The luck dial, and what rides on it | `js/state.js` → `luckyRoll` and `state.luck`. Every roll a player would want to win goes through it; misfortunes deliberately do not. *The Corrector* is its second branch — one reroll of a failed roll, counted on his own seat |
 | What a laurel is worth in Mult while The Laureate is seated | `js/constants.js` → `LAUREATE_MULT_STEP`. Paid in `js/scoring.js` pass 4 beside the laurel's Points; the badge copy is `laurelWorth` in `js/patrons.js`, which the shelf, the graveyard and the Market's shelf strip all read |
 | Where the patrons' turns happen, and what a ×Mult reaches | `js/scoring.js` → pass 4. Points that must be multiplied by the table have to land before it (the tongs' heat and the curse's toll do, in pass 3½) |
-| Patrons that improve the tiles rather than the word | `js/patrons.js` → the `tileBonus` hook (pass 1½ in `js/scoring.js`); the number goes onto the tile, so nicks read it and Monogrammists carry it |
+| Patrons that improve the tiles rather than the word | `js/patrons.js` → the `tileBonus` hook (pass 1½ in `js/scoring.js`); the number goes onto the tile, so nicks read it and Monogrammists carry it. The hook's ctx carries `letters` as well as `tiles`, for a seat paying per tile for a property of the word's *shape* |
+| The Apprentice's four | `js/constants.js` → `APPRENTICE_LENGTH`, `APPRENTICE_STEP`. Paid through `tileBonus` per LETTER, so a ligature carries its share and a four-letter word is worth 16 however it is spelled; a mark takes nothing, not being part of the shape |
+| The Wordler — the secret's length, how far down the list its answer may sit, how many guesses his board keeps | `js/constants.js` → `WORDLER`. **Every** word printed is a guess: a short one is marked as far as it reaches, a long one on its first `length` letters with the tail shown unjudged (`markGuess` in `js/patrons.js`, and `WORDLE_MARKS` for the four squares). Only an exact match solves him |
 | Patrons that PAINT a tile rather than pay it | `js/patrons.js` → the `tilePaint` hook (pass ½ in `js/scoring.js`, before anything is counted). The colour lands on a copy of the word, so the multipliers count it and the groove shows it under a dashed edge while you compose; the seat's own `onPrinted` makes it permanent when the word prints |
 | The quire — price, how often it is offered, and how dressed its sorts are | `js/constants.js` → `QUIRE_PRICE`, `QUIRE_OFFER_CHANCE`, `QUIRE_DRESSED`, `QUIRE_MIDDLING` (the roll is `rollQuire` in `js/market.js`) |
 | The fleuron — price, page rent, how often it is offered | `js/constants.js` → `FLEURON_PRICE`, `FLEURON_PAGE_COIN`, `FLEURON_OFFER_CHANCE` (the glyph itself is `FLEURON`) |
@@ -1157,7 +1357,6 @@ bigger step than the last and a built press has to multiply rather than add:
 | Marks: which ones exist, legal tails, and what they arrive wearing | `js/constants.js` → `MARKS`, `MARK_RUNS`, `MARK_TRIM` (and `TILE_POINTS`). How often one turns up is `WRAPPED_CONTENTS`, since a wrapper is the only source |
 | What a proposal stall works on & offers | `js/market.js` → `PROPOSAL_STALLS` (one `eligible`/`propose` pair per stall — a new one is a few lines) |
 | Letters per draft paint pot | `js/constants.js` → `PAINT_PER_POT` |
-| Opening draft spread & pick counts | `js/constants.js` → `DRAFT` |
 | How loaded offered tiles are | `js/constants.js` → `FEATURE_CHAIN_CHANCE`, `MAX_FEATURES` (one feature free, then keep rolling); generation in `js/market.js` → `randomSpecialTile` |
 | Rewards & interest | `js/constants.js` → `REWARD` |
 | Squib lead — the ×Mult and the blast radius's odds | `js/constants.js` → `EXPLOSIVE_MULT`, `EXPLOSIVE_SPREAD_ODDS`; the ×Mult pays in scoring's pass 3, the charge goes off in `detonatePrinted` (`js/main.js`) |
@@ -1190,9 +1389,11 @@ bigger step than the last and a built press has to multiply rather than add:
 | What a seat has ACCUMULATED, shown when you tap its card | `js/patrons.js` → the `tally(data)` hook, gathered with the seat's laurels by `seatTally()`. A number a seat keeps privately in `data` is a number the player is being asked to remember — put it here instead |
 | The editor roster, the conflict pairs, the Redactor's share | `js/bosses.js` → `BOSS_CONFLICTS`, `REDACTOR_SHARE` |
 | The Incendiary's charges — how many, and how dear a letter he will lend | `js/bosses.js` → `POWDER_CHARGES`, `POWDER_DEAR` (a letter worth this or more is kept out, so the pool is common letters only; each charge is given a second face by `dualPairsFor` in `js/constants.js`) |
-| The Gardener's relief — the first slice, how fast it slows, and the ceiling | `js/constants.js` → `GARDENER_RATE`, `GARDENER_CAP` (the curve is `gardenerRelief`; the quota reads `state.quotaRelief` in `startPage`, `js/state.js`) |
+| The Gardener's relief — the first slice and how fast it slows | `js/constants.js` → `GARDENER_RATE` (the curve is `gardenerRelief`; his share is banked in `state.quotaRelief`) |
 | The Spendthrift's step | `js/constants.js` → `SPENDTHRIFT_STEP` (Coins spent per sort grown; the growth is the chapter number, and the running total is `state.coinsSpent`, kept by `spendCoins`) |
 | The Beadle's threshold and page Coin | `js/constants.js` → `BEADLE_THRESHOLD`, `BEADLE_PAGE_COIN`; which stall each guild opens is `BEADLE_STALLS` in `js/patrons.js`, read live by `stallPrice`/`beadleFavour` in `js/market.js` |
+| The Father of the Chapel's relief — the slice per sort, and where counting starts | `js/constants.js` → `CHAPEL_RATE`, `CHAPEL_BASE` (the curve is `chapelRelief`, read live off the collection — it banks nothing and leaves with the seat). `STARTING_CASE`, the size of the bag you are dealt, is derived from `BAG_COUNTS` and is what the base is set just under |
+| The ceiling both reliefs share, and how they divide it | `js/constants.js` → `RELIEF_CAP` and `combineRelief` (each takes a share of the slack the other left). Both cards and the quota read one door: `totalQuotaRelief` in `js/state.js` |
 | The Generic's quota reprieve | `js/constants.js` → `ALMONER_RELIEF` (the `relief` effect at cost 7 in `js/patron-generic.js`; it cuts the live page's quota, where the Gardener's cuts every quota as it is set) |
 | Animation step timings | `js/constants.js` → `ANIM` (all divided by the Settings speed slider) |
 | Chapter titles | `js/chapters.js` — a flat array, add as many as you like; each run draws its own and won't repeat until the list runs out |
@@ -1220,9 +1421,10 @@ bigger step than the last and a built press has to multiply rather than add:
 | `js/quips.js` | patron reaction lines — a flat, editable array; no logic beyond `{word}` substitution |
 | `js/chapters.js` | chapter titles — a flat, editable array; a run draws one per chapter and keeps it |
 | `js/market.js` | market state: offers, buying, sundries, stalls, rerolls |
-| `js/draft.js` | the opening draft: free spread, picks, applying them |
+| `js/start.js` | the prospectus a run opens on: the sheet's own flag, and the difficulty pick that writes to both the run and the remembered default |
+| `js/chamber.js` | the Testing Chamber: coins, seats, sundries and struck sorts written straight into the run, through the game's own doors |
 | `js/render.js` | board-side DOM: tiles, shelf, workbench, status, readout, popovers, overlays |
-| `js/sheets.js` | the full-screen sheets — Market, stalls, Colophon, draft — HTML and click handling, with game flow injected from main.js |
+| `js/sheets.js` | the full-screen sheets — the prospectus, Market, stalls, Colophon, the chamber — HTML and click handling, with game flow injected from main.js |
 | `js/anim.js` | flights, floaters, tweens, sparkles, WebAudio sfx — every duration respects the speed setting |
 | `js/appearance.js` | the look (the Bench or Retro), the room (theme), the table's layout, and the UI scale — `LOOKS`, `THEMES`, `LAYOUTS`, auto-fit, and `uiZoom()`, the factor every rect-to-style write divides by |
 | `css/bench.css`, `css/bench-sheets.css` | the Bench look — the board, and the sheets — every rule scoped to `html[data-look="bench"]` over `css/style.css`, which is Retro whole |

@@ -1,7 +1,8 @@
 // Game flow: the print cinematic, page and chapter turnover, board input
 // modes, settings, and init. Board rendering is render.js; the full-screen
-// sheets (Market, Colophon, Testing Chamber) render and handle themselves in sheets.js,
-// with the flow callbacks below injected via initSheets().
+// sheets (the prospectus, Market, Colophon, Testing Chamber) render and handle
+// themselves in sheets.js, with the flow callbacks below injected via
+// initSheets().
 
 import {
   state, settings, loadSettings, saveSettings, loadState, clearSave,
@@ -15,6 +16,7 @@ import {
   castCounterfeit, effectiveRackSize, handCount, pluckFromBag,
   grantRandomPatron,
   rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost, luckyRoll, isSquib, spendCoins,
+  dismissEditor, runDifficulty,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
@@ -50,8 +52,9 @@ import {
   showCoinWordSheet, setCoinNote, showCounterfeitSheet, showStruckTotal, showBribeSheet,
 } from './render.js';
 import {
-  initSheets, renderMarket, renderColophon, renderChamber, renderBlackMarket,
+  initSheets, renderMarket, renderColophon, renderChamber, renderBlackMarket, renderStart,
 } from './sheets.js';
+import { start, openStart, closeStart } from './start.js';
 import { chamber, openChamber, closeChamber, restoreChamber } from './chamber.js';
 import { openBlackMarket, restoreBlackMarket } from './blackmarket.js';
 import {
@@ -61,11 +64,12 @@ import {
 } from './anim.js';
 import { initInput, initInspect, initShelfDrag } from './drag.js';
 import {
-  THEMES, LAYOUTS, LOOKS, initAppearance, activeTheme, activeLayout, activeLook,
+  initAppearance, activeLook,
   setTheme, setLayout, setLook, setUiScale,
+  lookPicksHTML, layoutPicksHTML, themePicksHTML,
 } from './appearance.js';
 import {
-  PATRON_DEFS, patronById, doubledReading, boundNouns, patronName, patronShelf, guildSeats,
+  PATRON_DEFS, patronById, doubledReading, boundNouns, patronName, patronEmoji, patronShelf, guildSeats,
 } from './patrons.js';
 import { randomQuip } from './quips.js';
 import { logLine } from './text.js';
@@ -973,7 +977,10 @@ function runPageCompleteHooks() {
     if (!def?.onPageComplete) continue;
     p.data ??= {};
     const r = def.onPageComplete({ state, data: p.data });
-    if (r?.note) notes.push(`${def.emoji} ${def.name}: ${r.note}`);
+    // The seat's OWN name and face, not the card's: a patron whose state changes
+    // what it is called (the Expectant Parents' child, growing a stage a page)
+    // must be named here as it is named everywhere else.
+    if (r?.note) notes.push(`${patronEmoji(def, p.data)} ${patronName(def, p.data)}: ${r.note}`);
   }
   return notes;
 }
@@ -990,11 +997,12 @@ function runChapterHooks() {
   return notes;
 }
 
-// A full-screen sheet is up — the Market, the Black Market, the Colophon or the
-// Testing Chamber. Every board action asks this rather than naming them, so the
-// next sheet is a line here and nowhere else.
+// A full-screen sheet is up — the prospectus, the Market, the Black Market, the
+// Colophon or the Testing Chamber. Every board action asks this rather than
+// naming them, so the next sheet is a line here and nowhere else.
 const sheetUp = () =>
-  state.inMarket || state.inChamber || state.inColophon || state.inBlackMarket;
+  state.inMarket || state.inChamber || state.inColophon || state.inBlackMarket
+  || state.inStart;
 
 // ─── Submit (PRINT) ───────────────────────────────────────────────────────────
 
@@ -1200,35 +1208,14 @@ async function submitWord() {
     await sleep(ANIM.stepNick);
   }
 
-  // ── Pass 3: colour multipliers ─────────────────────────────────────────────
-  // Each colour rings the bell a step higher (sfx.chime), so a many-coloured
-  // word audibly stacks its multipliers.
-  for (const [ci, step] of script.colourSteps.entries()) {
-    const glow  = MULT_TRACKS[step.colour]?.glyph ?? '#8a5fb0';
-    const label = MULT_TRACKS[step.colour]?.label ?? 'Purple';
-    for (const id of step.ids) {
-      const el = wordTileEl(id);
-      if (el) {
-        el.style.setProperty('--glow', glow);
-        pulse(el, 'tile--set-glow', 620);
-      }
-    }
-    sfx.chime(ci);
-    // The measure's arithmetic and its flourish are one floater, not two that
-    // would collide on the same beat (flourishTime, js/anim.js).
-    if (step.colour === 'length') {
-      const line = `${step.count} letters — ×${fmtMult(step.mult)} Mult: ${lengthFlourish(step.count)}`;
-      floatText($('word'), line, 'fl-flourish', { dy: -138, duration: flourishTime(line) });
-      sparkleBurst($('word'), Math.min(6 + step.count, 18));
-    } else {
-      floatText($('word'), `${label} ×${fmtMult(step.mult)}`, `fl-set fl-set--${step.colour}`, { dy: -60 });
-    }
-    setChip(ro.chip(step.colour), step.mult);
-    pulse(ro.chip(step.colour), 'chip--pop', 420);
-    await sleep(ANIM.stepColour);
-  }
-
-  // ── Pass 4: patrons weigh in ───────────────────────────────────────────────
+  // ── Pass 3: patrons weigh in ───────────────────────────────────────────────
+  // Before the colours, because that is the arithmetic: the patrons build the
+  // Points figure in seat order and the colour multipliers are applied to the
+  // finished figure (`total = Points × Mult`). Replaying the chips first said
+  // the opposite — that a seat adding +10 at the end of the shelf was adding it
+  // after the ×12, and so worth ten. It is worth a hundred and twenty, and the
+  // print now shows that: the Points column finishes, THEN the multiplier lands
+  // on it.
   for (const p of script.patronSteps) {
     const card = patronCard(p);
     if (card) {
@@ -1256,6 +1243,36 @@ async function submitWord() {
     else if (p.mult || p.xmult) sfx.mult();
     if (p.coins) sfx.coin();
     await sleep(ANIM.stepPatron);
+  }
+
+  // ── Pass 4: colour multipliers ─────────────────────────────────────────────
+  // Last, on the finished Points figure, reading left to right across the
+  // readout: Points × Mult = total.
+  // Each colour rings the bell a step higher (sfx.chime), so a many-coloured
+  // word audibly stacks its multipliers.
+  for (const [ci, step] of script.colourSteps.entries()) {
+    const glow  = MULT_TRACKS[step.colour]?.glyph ?? '#8a5fb0';
+    const label = MULT_TRACKS[step.colour]?.label ?? 'Purple';
+    for (const id of step.ids) {
+      const el = wordTileEl(id);
+      if (el) {
+        el.style.setProperty('--glow', glow);
+        pulse(el, 'tile--set-glow', 620);
+      }
+    }
+    sfx.chime(ci);
+    // The measure's arithmetic and its flourish are one floater, not two that
+    // would collide on the same beat (flourishTime, js/anim.js).
+    if (step.colour === 'length') {
+      const line = `${step.count} letters — ×${fmtMult(step.mult)} Mult: ${lengthFlourish(step.count)}`;
+      floatText($('word'), line, 'fl-flourish', { dy: -138, duration: flourishTime(line) });
+      sparkleBurst($('word'), Math.min(6 + step.count, 18));
+    } else {
+      floatText($('word'), `${label} ×${fmtMult(step.mult)}`, `fl-set fl-set--${step.colour}`, { dy: -60 });
+    }
+    setChip(ro.chip(step.colour), step.mult);
+    pulse(ro.chip(step.colour), 'chip--pop', 420);
+    await sleep(ANIM.stepColour);
   }
 
   // ── Finale: the total lands ────────────────────────────────────────────────
@@ -1405,13 +1422,20 @@ async function pageComplete() {
   state.stats.pages += 1;
   sfx.win();
   const bossDef = state.boss ? bossById(state.boss.id) : null;
+  // A Deadline served with a notice of dismissal is still a Deadline: the page
+  // is read off the page number, not off who is sitting at the desk, so
+  // clearing the desk cannot demote the page you cleared.
+  const deadline = isDeadline(state.page);
   await showBanner(
-    logLine(bossDef ? 'bannerDeadlineMet' : 'bannerPageDone'),
+    logLine(deadline ? 'bannerDeadlineMet' : 'bannerPageDone'),
     bossDef
       ? logLine('bannerBossPleased', bossDef.emoji, bossDef.name,
           state.pageScore.toLocaleString(), state.quota.toLocaleString())
-      : logLine('bannerPageScore', state.pageScore.toLocaleString(),
-          state.quota.toLocaleString(), chapterTitle(state.chapter)));
+      : deadline
+        ? logLine('bannerDeskEmpty', state.pageScore.toLocaleString(),
+            state.quota.toLocaleString())
+        : logLine('bannerPageScore', state.pageScore.toLocaleString(),
+            state.quota.toLocaleString(), chapterTitle(state.chapter)));
 
   for (const note of runPageCompleteHooks()) log(note, 'good');
 
@@ -1948,6 +1972,40 @@ async function useSundry(idx, e = null, confirmed = false) {
     renderAll();
     const def = patronById(seat.id);
     log(logLine('potionSeat', patronName(def, seat.data)), 'good');
+    return;
+  }
+
+  // The notice of dismissal. Nothing on the board to aim it at: the target is
+  // the desk, and there is one or there isn't. Like the potion it KEEPS when it
+  // cannot be used — a tool that burnt itself on a wrong tap would be a trap,
+  // and this one is only usable on a third of the pages in the first place.
+  if (armed?.kind === 'dismissal') {
+    const def = state.boss ? bossById(state.boss.id) : null;
+    if (!def) { log(logLine('dismissalNoDesk'), 'warn'); return; }
+    cancelDiscardMode(true);
+    cancelSundryMode(true);
+
+    // Said over the bar the editor is sitting in, so it has to be shown BEFORE
+    // the seat is cleared — the bar hides itself the moment there is nobody in
+    // it (renderBossBar).
+    state.isAnimating = true;
+    renderAll();
+    sfx.chime();
+    const bar = $('bossBar');
+    if (bar) {
+      pulse(bar, 'boss-bar--warn', 620);
+      sparkleBurst(bar, 12);
+      floatText(bar, `${def.emoji} dismissed`, 'fl-points', { dy: -34 });
+    }
+    await sleep(ANIM.stepColour);
+
+    const left = dismissEditor();
+    const at = state.sundries.indexOf(armed);
+    if (at >= 0) state.sundries.splice(at, 1);
+    state.isAnimating = false;
+    renderAll();
+    log(logLine('dismissalServed', def.emoji, def.name)
+      + (left?.unwrapped ? logLine('dismissalUnwraps') : ''), 'good');
     return;
   }
 
@@ -2504,36 +2562,19 @@ function syncSettingsUI() {
 
 function syncAppearanceUI() {
   const looks = $('lookPicker');
-  if (looks) {
-    looks.innerHTML = Object.entries(LOOKS).map(([id, l]) => `
-      <button class="layout-pick${id === activeLook() ? ' layout-pick--on' : ''}" data-look-pick="${id}">
-        <span class="layout-pick-name">${l.name}</span>
-        <span class="layout-pick-blurb">${l.blurb}</span>
-      </button>`).join('');
-  }
+  if (looks) looks.innerHTML = lookPicksHTML();
   // The layouts are retro's: the bench brings a desk of its own.
   $('layoutRow')?.classList.toggle('hidden', activeLook() === 'bench');
 
   const swatches = $('themeSwatches');
-  if (swatches) {
-    swatches.innerHTML = Object.entries(THEMES).map(([id, t]) => `
-      <button class="theme-swatch${id === activeTheme() ? ' theme-swatch--on' : ''}"
-              data-theme-pick="${id}" title="${t.name} — ${t.blurb}">
-        <span class="theme-swatch-chips">${
-          t.swatch.map(c => `<span class="theme-swatch-chip" style="background:${c}"></span>`).join('')
-        }</span>
-        <span class="theme-swatch-name">${t.name}</span>
-      </button>`).join('');
-  }
+  if (swatches) swatches.innerHTML = themePicksHTML();
 
   const layouts = $('layoutPicker');
-  if (layouts) {
-    layouts.innerHTML = Object.entries(LAYOUTS).map(([id, l]) => `
-      <button class="layout-pick${id === activeLayout() ? ' layout-pick--on' : ''}" data-layout-pick="${id}">
-        <span class="layout-pick-name">${l.name}</span>
-        <span class="layout-pick-blurb">${l.blurb}</span>
-      </button>`).join('');
-  }
+  if (layouts) layouts.innerHTML = layoutPicksHTML();
+
+  // The run's own setting, which Settings can only report: it was fixed on the
+  // prospectus and the next run is where it can be changed.
+  setTextContent('runDifficulty', runDifficulty().label);
 
   const auto = settings.uiScale === 'auto';
   const box = $('uiScaleAuto');
@@ -2647,21 +2688,28 @@ $('devWinPage')?.addEventListener('click', () => {
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
 
+// A new run opens on the prospectus (js/start.js) — the look, the room and the
+// difficulty, settled before a tile is drawn. newRun first, so the sheet is
+// picking for a run that already exists and every pick writes straight into it.
 async function startFreshRun() {
   clearSave();
   hideOverlay();
   closeMarket();
   renderMarket();
   newRun();
-  openChamber({ atStart: true });
+  openStart();
   renderAll();
-  renderChamber();
+  renderStart();
 }
 
-// Leaving the chamber at the top of a run → the run proper begins. The bag is
-// shuffled here rather than in newRun, so whatever the chamber struck is in it.
+// The run proper begins — from the prospectus, or from the Testing Chamber if
+// the player walked through to it first. The bag is shuffled here rather than
+// in newRun, so whatever the chamber struck is in it. Mid-run the chamber's own
+// button lands here too, and there `atStart` is false: it simply closes.
 async function beginRun() {
-  const atStart = chamber.atStart;
+  const atStart = chamber.open ? chamber.atStart : start.open;
+  closeStart();
+  renderStart();
   closeChamber();
   renderChamber();
   if (!atStart) { renderAll(); return; }
@@ -2687,6 +2735,25 @@ function leaveChamber() {
   renderAll();
 }
 
+// The prospectus's door to the chamber, and the chamber's back out of it. The
+// chamber keeps `atStart` through the walk, so it still ends in "Begin the run"
+// however many times the player goes between the two.
+function chamberFromStart() {
+  closeStart();
+  renderStart();
+  sfx.sheetOpen();
+  openChamber({ atStart: true });
+  renderChamber();
+}
+
+function backToStart() {
+  closeChamber();
+  renderChamber();
+  sfx.sheetOpen();
+  openStart();
+  renderStart();
+}
+
 // Opened from Settings, at any point in a run.
 function openTheChamber() {
   if (state.inMarket || state.inColophon || state.isAnimating) return;
@@ -2704,7 +2771,8 @@ function openTheChamber() {
   initInspect();
   initShelfDrag();
   initSheets({ nextPage: beginNextPage, beginRun, openMarket: openTheMarket,
-             openBlackMarket: openTheBlackMarket, leaveChamber });
+             openBlackMarket: openTheBlackMarket, leaveChamber,
+             chamberFromStart, backToStart });
 
   renderDictStatus('loading', 0);
   // The exclusion list lands before a single word does: adoptWordlist and
@@ -2738,6 +2806,12 @@ function openTheChamber() {
     await startFreshRun();
   } else {
     if (state.gameOver) { renderAll(); showGameOver(); }
+    // The prospectus has nothing to snapshot — every pick was written straight
+    // through — so the run's own flag is enough to come back to it.
+    else if (state.inStart) {
+      openStart();
+      renderAll(); renderStart();
+    }
     else if (restored.chamber) {
       restoreChamber(restored.chamber);
       renderAll(); renderChamber();

@@ -5,7 +5,9 @@
 // ordinary Market. One visit per pick; the pick has no repeat cap, so the alley
 // is available every chapter for the rest of the run.
 //
-// What makes it worth the walk is that NOTHING here is sold anywhere else:
+// What makes it worth the walk is that almost nothing here is sold anywhere else
+// (the notice of dismissal is the one exception, and the fair turns one up on a
+// tenth of its visits):
 //
 //   Tiles     BLACK_TILE_OFFERS of them, and one to two cast in each rare
 //             material — chosen off a table rather than gambled for out of a
@@ -17,7 +19,9 @@
 //             place a rare build can be assembled on purpose.
 //   Sundries  BLACK_SUNDRY_OFFERS from BLACK_SUNDRY_STOCK — the four guild tools
 //             (the toolbox's own, sold at no stall), the two applicators, the
-//             love potion, and the four registers' parcels.
+//             love potion, the notice of dismissal (the one thing down here the
+//             fair also stocks, rarely, at the same price — what the alley sells
+//             is knowing where to find one) and the four registers' parcels.
 //
 // Everything carries a markup, and there is no re-roll: the alley shows you what
 // it has, once, and you take it or you don't.
@@ -199,6 +203,7 @@ const everySundry = () => [
   ...Object.keys(COLOURS).map(colour => ({ kind: 'tube', colour })),
   { kind: 'reshuffle' }, { kind: 'ratchet' }, { kind: 'toolbox' }, { kind: 'bodkin' },
   { kind: 'loupe' }, { kind: 'laurel' }, { kind: 'tongs' }, { kind: 'wash' },
+  { kind: 'dismissal' },
   { kind: 'applicator', material: 'rainbow' }, { kind: 'applicator', material: 'cursed' },
   ...Object.keys(PACKAGES).map(theme => ({ kind: 'package', theme })),
 ];

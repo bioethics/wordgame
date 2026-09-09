@@ -331,7 +331,10 @@ export function computeScore(wordTiles) {
   for (const p of allSeats()) {
     const def = patronById(p.id);
     if (!def?.tileBonus) continue;
-    const bctx = { tiles: wordTiles, state, data: p.data ?? {} };
+    // `letters` rides along because a seat may pay per tile for a property of
+    // the WORD's shape — the Apprentice's four letters — and shape is counted
+    // in letters everywhere in the game.
+    const bctx = { tiles: wordTiles, letters, state, data: p.data ?? {} };
     const hits = [];
     let added = 0;
     wordTiles.forEach((t, i) => {

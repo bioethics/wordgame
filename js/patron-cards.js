@@ -144,7 +144,8 @@ export const PATRON_CARDS = {
   },
   wordler: {
     name: 'The Wordler', emoji: '🟩', rarity: 'uncommon', cost: 7, guild: ['amber', 'jade'],
-    desc: 'Amber and jade tiles gain +{WORDLER_BONUS} Points. Also, he will reward you for spelling a secret 5-letter word.',
+    desc: 'Amber and jade tiles gain +{WORDLER_BONUS} Points. Every word you print is marked against '
+        + 'a secret 5-letter word, and he will reward you for spelling it.',
   },
   cellarer: {
     name: 'The Cellarer', emoji: '🧀', rarity: 'uncommon', cost: 6, guild: ['jade', 'amber'],
@@ -206,8 +207,13 @@ export const PATRON_CARDS = {
     desc: 'As each chapter ends, {DYE_TILES_PER_CHAPTER} tiles of your collection are painted crimson.',
   },
   ratcatcher: {
-    name: 'The Rat Catcher', emoji: '🐀', rarity: 'uncommon', cost: 2, guild: 'crimson',
-    desc: 'Every page, gain a RAT tile to your hand that is painted a random colour.',
+    // Priced at 2 while he only handed out tiles — a seat that also thickened
+    // your bag, which is a real cost. The standing +Mult per rat in the case is
+    // small (a quarter of the cat's step, and the rats are ballast in the
+    // meantime), so 3 rather than the 5 an engine would ask.
+    name: 'The Rat Catcher', emoji: '🐀', rarity: 'uncommon', cost: 3, guild: 'crimson',
+    desc: 'Every page, gain a RAT tile to your hand that is painted a random colour. '
+        + '+{RATCATCHER_MULT} Mult for every RAT tile in your collection.',
   },
   quartermaster: {
     // Crimson AND azure, because a discard is both halves at once: it DISMISSES
@@ -312,6 +318,19 @@ export const PATRON_CARDS = {
     name: 'Titivillus', emoji: '😈', rarity: 'rare', cost: 9, guild: 'azure',
     desc: 'Words with an azure tile accept one vowel-based spelling mistake (swapped, changed, missing or extra.)',
   },
+  chapel: {
+    // Jade, not the azure he was drafted in: the seat pays for a case that has
+    // GROWN, which is jade's whole business, and it puts him in the same livery
+    // as The Gardener, whose ceiling he shares.
+    name: 'The Father of the Chapel', emoji: '⛪', rarity: 'uncommon', cost: 7, guild: 'jade',
+    desc: 'Every sort in your collection past {CHAPEL_BASE} takes a slice '
+        + 'off every quota, approaching {RELIEF_CAP_PCT}. The Gardener draws on the same ceiling, '
+        + 'and the discount goes when the seat does.',
+  },
+  corrector: {
+    name: 'The Corrector', emoji: '✏️', rarity: 'rare', cost: 8, guild: 'azure',
+    desc: 'Any roll of chance that would have gone your way and didn’t is taken a second time.',
+  },
   neologist: {
     name: 'The Neologist', emoji: '📖', rarity: 'rare', cost: 10, guild: 'azure',
     desc: 'Add one six-letter word of your choosing to the dictionary, permanently. Then this patron leaves.',
@@ -336,7 +355,7 @@ export const PATRON_CARDS = {
   // ── No guild · the wildcards ────────────────────────────────────────────────
   apprentice: {
     name: 'The Apprentice', emoji: '🧹', rarity: 'common', cost: 3,
-    desc: '+10 Points for 4-letter words.',
+    desc: 'Each letter of a {APPRENTICE_LENGTH}-letter word gains +{APPRENTICE_STEP} Points.',
   },
   winnower: {
     name: 'The Winnower', emoji: '🌾', rarity: 'common', cost: 4,
@@ -425,7 +444,22 @@ export const PATRON_CARDS = {
   },
   expectants: {
     name: 'The Expectant Parents', emoji: '🤰', rarity: 'uncommon', cost: 4,
-    desc: 'Common baby names count as words. +{EXPECTANTS_BONUS} Points for baby names.',
+    desc: 'Common baby names count as words. +{EXPECTANTS_BONUS} Points for baby names, '
+        + 'and the baby is named after the last one printed — the child then looks for '
+        + 'a seat of its own at the Market.',
+  },
+  baby: {
+    // Dressed on the board rather than here: the whole card is a placeholder
+    // until the parents print a name, and instName / instEmoji / instDesc make
+    // the seat whichever child is waiting. `emoji` still has to be unique across
+    // the roster — the load check reads this field, never instEmoji.
+    //
+    // Ubiquitous because a child that is not offered is not a child: it comes
+    // and goes with one name, and a weight that showed it every third Market
+    // would make naming one a lottery rather than a decision.
+    name: 'The Baby', emoji: '👶', rarity: 'ubiquitous', cost: 0, guild: ['jade', 'amber'],
+    unlockNote: 'Print a name while The Expectant Parents are seated.',
+    desc: '+{BABY_POINTS} Point on every word. Dismissed for {BABY_COINS} Coin. Still growing.',
   },
   devil: {
     // Uncommon at 7 because it does NOTHING on the first word of a page and is

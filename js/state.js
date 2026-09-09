@@ -5,7 +5,8 @@ import {
   MARKS, MARK_TRIM, SILVER_BONUS, FLEURON, LOUPE_CAP, TONGS_BONUS, WASH_COUNT,
   REVENANT_ODDS,
   COLOURS, TRIMS, NICKS, MATERIALS,
-  quotaFor, makeTileTemplate, GAMBLER_ODDS, isDeadline,
+  quotaFor, makeTileTemplate, GAMBLER_ODDS, isDeadline, chapelRelief, combineRelief,
+  DEFAULT_DIFFICULTY, difficultyKey, difficultyOf,
   MAGPIE_WEIGHT, MAKO_WEIGHT,
   PURVEYOR, TUBE_CHOICES, STALLS_PER_SHOP, MARKET_TILE_OFFERS, PATRON_OFFERS,
   UPGRADE_OFFERS, PROPOSAL_RANGE,
@@ -122,6 +123,10 @@ export const settings = {
   layout:    'classic',     // a key of LAYOUTS in js/appearance.js
   look:      'bench',       // a key of LOOKS in js/appearance.js — the bench, or the retro board
   uiScale:   'auto',        // 'auto', or a fixed zoom factor (0.85 – 1.75)
+  // NOT the difficulty a run is being played at — that is state.difficulty, and
+  // it is fixed once the run begins. This is only what the prospectus opens on,
+  // so a player who wants the gentler book is not asked to say so every time.
+  difficulty: DEFAULT_DIFFICULTY,   // a key of DIFFICULTIES in js/constants.js
 };
 
 export function loadSettings() {
@@ -136,6 +141,7 @@ export function loadSettings() {
     if (typeof s.look   === 'string')    settings.look   = s.look;
     if (typeof s.uiScale === 'number')   settings.uiScale = Math.min(1.75, Math.max(0.85, s.uiScale));
     else if (s.uiScale === 'auto')       settings.uiScale = 'auto';
+    if (typeof s.difficulty === 'string') settings.difficulty = difficultyKey(s.difficulty);
   } catch { /* defaults */ }
 }
 
@@ -181,6 +187,9 @@ export const state = {
                        // page turn; scoring reads it so the preview shows it.
   ghosts: [],          // patrons The Ripper has killed — they work on, off the shelf
   lastFirstLetter: null,  // first letter of the last word printed this run (The Skald)
+  babyName: null,      // the name The Expectant Parents have given their child, and
+                       // so the name of the seat waiting at the Market. One at a
+                       // time: a newer name replaces it, and hiring it empties it
   gambleWon: false,    // this word's coin, tossed by rollGamble (The Gambler)
   chapterTitles: {},   // chapter → the title this run drew for it
   boss: null,          // the Deadline's editor: { id, data } while page 3 runs, else null
@@ -194,12 +203,18 @@ export const state = {
   manuscript: [],   // { word, score, chapter, page } for every word printed this run,
                     // in the order they were set — the book the run is writing
 
+  // Fixed for the run, chosen on the prospectus (js/start.js). Read through
+  // runDifficulty below rather than off the field, so a retired key can't be
+  // handed to a table that no longer has the row.
+  difficulty: DEFAULT_DIFFICULTY,
+
   endless:   false,
   // Experiments — mechanics kept out of the main game but switchable back on
   // from the Testing Chamber. An experiment is off unless a run turned it on,
   // so a plain new game never meets one.
   experiments: {},
   inMarket: false,
+  inStart:  false,       // the prospectus is up — the sheet a run opens on
   inChamber: false,      // the Testing Chamber is up
   inColophon: false,     // the end-of-chapter upgrade pick is up
   inBlackMarket: false,  // the alley is open (js/blackmarket.js)
@@ -210,6 +225,12 @@ export const state = {
   tubeOffer: null,       // ids of the tiles an armed tube is offering — transient, never saved
   gameOver:  false,
 };
+
+// ─── The run's difficulty ───────────────────────────────────────────────────
+// What the prospectus settled: the row of DIFFICULTIES this run is played on.
+// Everything that eases a page asks here rather than reading state.difficulty,
+// so there is one place a bad or retired key is turned back into a real row.
+export const runDifficulty = () => difficultyOf(state.difficulty);
 
 // ─── Effective sizes ────────────────────────────────────────────────────────
 // Base constants plus whatever the Colophon has permanently granted this run.
@@ -381,6 +402,28 @@ function assignBoss() {
   state.boss = { id: def.id, data };
 }
 
+// The notice of dismissal (the sundry): the editor leaves the desk mid-page.
+// Every reader of state.boss already handles its absence — scoring's pass 4¾
+// skips, the bar hides, bossOnPrinted and bossReplenish return at the door, the
+// Economiser's toll stops being asked for — so clearing it is the whole act.
+//
+// What is NOT undone: the quota was counted out when the page was dealt, the
+// hand is the size it was drawn to, a spent discard is spent, and a sort the
+// desk has already eaten is gone. The wrapping is the one thing lifted, because
+// it isn't a thing DONE but a thing being done: the Redactor holds the paper
+// over those sorts, and it comes off with them. It is cleared on the live tiles
+// too — templateToTile copies the flag onto whatever is in hand — so a wrapped
+// sort in the middle of the word you are composing reads as itself again.
+export function dismissEditor() {
+  if (!state.boss) return null;
+  const gone = state.boss;
+  state.boss = null;
+  let unwrapped = 0;
+  for (const t of state.collection) if (t.wrapped) { delete t.wrapped; unwrapped += 1; }
+  for (const t of [...state.rack, ...state.word, ...state.discardPile]) delete t.wrapped;
+  return { ...gone, unwrapped };
+}
+
 // A tile an editor lends you: real for this page, but cast from no template, so
 // it takes no permanent change (isImmutable covers it) and is gone as soon as
 // the next page rebuilds the bag from the collection.
@@ -421,7 +464,34 @@ export const lentInHand = () =>
 // Every chance roll a player would *want* to succeed goes through here, so the
 // luck dial (state.luck, ×1 by default) can scale it. Deliberately NOT used for
 // bad outcomes (e.g. Arsonist burns).
-export const luckyRoll = p => Math.random() < Math.min(1, p * (state.luck ?? 1));
+//
+// The Corrector sits on this one function and nothing else: a roll that comes
+// out wrong is pulled a second time, the way a proof read against the copy sent
+// the forme back to the stone. ONE reroll, never a loop — the odds become
+// 1-(1-p)², so a 1-in-4 lands 7 times in 16 and a 1-in-2 three times in four.
+// The dial still scales both rolls, so the two stack rather than compete.
+//
+// The count kept on his seat is the only sign the player has that he is working:
+// every roll he touches is hidden somewhere else in the game (a windfall that
+// didn't come, a splash that didn't land), so without it the seat would be an
+// invisible promise. Safe to write from here because no luckyRoll is thrown
+// during scoring — the previews re-run on every keystroke, and each of these
+// rolls is thrown in an onPrinted or a page turn instead.
+const correctorSeat = () => allSeats().find(p => p.id === 'corrector');
+
+export const luckyRoll = p => {
+  const odds = Math.min(1, p * (state.luck ?? 1));
+  if (Math.random() < odds) return true;
+  // A roll with no chance in it has nothing to correct, and counting one on his
+  // card would be a tally of work never done.
+  const seat = odds > 0 ? correctorSeat() : null;
+  if (!seat) return false;
+  const data = (seat.data ??= {});
+  data.pulled = (data.pulled ?? 0) + 1;
+  if (!(Math.random() < odds)) return false;
+  data.saved = (data.saved ?? 0) + 1;
+  return true;
+};
 
 // ─── Persist ──────────────────────────────────────────────────────────────────
 
@@ -513,6 +583,10 @@ export function loadState() {
       delete state.ledger;
     }
     state.manuscript ??= [];
+    // A save written before the prospectus existed was played on the standard
+    // book, and says nothing about a difficulty — hence the fallback rather
+    // than a version bump, which would have thrown the run itself away.
+    state.difficulty = difficultyKey(state.difficulty);
     state.lastFirstLetter ??= null;
     state.chapterTitles ??= {};
     state.boss ??= null;
@@ -525,6 +599,7 @@ export function loadState() {
     state.metGhost ??= false;
     state.coinsSpent ??= 0;
     state.quotaRelief ??= 0;
+    state.babyName ??= null;
     state.ghosts ??= [];
     state.blackMarketVisits ??= 0;
     if (savedId)  _nextId  = savedId;
@@ -547,31 +622,51 @@ export function clearSave() {
 
 // ─── Run / page lifecycle ─────────────────────────────────────────────────────
 
-export function newRun() {
+// `difficulty` defaults to whatever the last run was set to (settings.difficulty)
+// — the prospectus opens on that and writes back whatever it is changed to.
+export function newRun({ difficulty = settings.difficulty } = {}) {
   _nextId = 1;
   _nextTid = 1;
+  const diff = difficultyKey(difficulty);
   Object.assign(state, {
+    difficulty: diff,
     collection: buildStarterCollection(),
     bag: [], rack: [], word: [], discardPile: [],
     chapter: 1, page: 1,
-    quota: quotaFor(1, 1), pageScore: 0,
+    quota: quotaFor(1, 1, diff), pageScore: 0,
     wordsLeft: WORDS_PER_PAGE, discards: DISCARDS_PER_PAGE,
     discardsMax: DISCARDS_PER_PAGE, wordsPrinted: 0,
     coins: STARTING_COINS, patrons: [], ghosts: [], sundries: [], upgradeCounts: {},
     luck: 1, rackBonus: 0, primedMult: {}, metGhost: false, coinsSpent: 0, quotaRelief: 0, ratchetOffset: 0, lastFirstLetter: null, gambleWon: false, chapterTitles: {},
+    babyName: null,
     boss: null, bossesSeen: [],
     experiments: {},
     compost: [], compostPending: 0, freeRerolls: 0,
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
     manuscript: [],
-    endless: false, inMarket: false, inChamber: false, inColophon: false,
+    endless: false, inMarket: false, inStart: false, inChamber: false, inColophon: false,
     inBlackMarket: false, blackMarketVisits: 0,
     isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null, ratchetOffset: 0, gameOver: false,
     catPending: false,
   });
   startPage();
 }
+
+// What every quota is discounted by, all in. Two seats draw on one ceiling: the
+// Gardener's share is banked in state.quotaRelief and survives him; the Father
+// of the Chapel's is worked out live from the size of the case and leaves with
+// the seat. combineRelief (js/constants.js) has each take a share of the slack
+// the other left, so the pair approach half from two directions and never pass
+// it. Read here rather than at either seat, so the quota, both cards and the log
+// can never disagree about what the table is worth.
+// Either share may be overridden, which is how each card answers "and what
+// would the NEXT one be worth" without either of them having to know how the
+// pool is shared: ask for the total with a bigger share of your own in it.
+export const totalQuotaRelief = ({ gardener, chapel } = {}) =>
+  combineRelief(
+    gardener ?? state.quotaRelief ?? 0,
+    chapel   ?? (owns('chapel') ? chapelRelief(state.collection?.length ?? 0) : 0));
 
 // Reshuffle the whole collection into the bag and reset page counters.
 // (Drawing the opening rack is left to the caller so it can be animated.)
@@ -599,10 +694,13 @@ export function startPage({ quartermaster = 0 } = {}) {
   // read here rather than being applied to a quota already set. state.quotaRelief
   // is maintained by his onPrinted — state.js cannot ask patrons.js which seat it
   // belongs to (patrons.js imports this file), so the seat keeps the number here.
+  // Both reliefs, through one door (totalQuotaRelief, above). No clamp is
+  // needed here any more: the ceiling lives in combineRelief, which cannot
+  // return more than RELIEF_CAP however many seats bite into it.
   state.quota        = Math.max(1, Math.round(
-    quotaFor(state.chapter, state.page)
+    quotaFor(state.chapter, state.page, state.difficulty)
     * (activeBoss(state)?.quotaMult ?? 1)
-    * (1 - Math.min(0.9, state.quotaRelief ?? 0))));
+    * (1 - totalQuotaRelief())));
   state.wordsLeft    = effectiveWordsPerPage();
   // The Redactor wraps a share of the CASE, not of the hand: bag and collection
   // share templates, so a wrapped tile stays wrapped when it is discarded and
@@ -620,7 +718,7 @@ export function startPage({ quartermaster = 0 } = {}) {
     // patron-generic, which reaches back here). main.js knows both and hands the
     // number down — see startPage's caller.
     : DISCARDS_PER_PAGE + quartermaster + (state.upgradeCounts?.discard ?? 0)
-      + (activeBoss(state)?.discardBonus ?? 0);
+      + (activeBoss(state)?.discardBonus ?? 0) + runDifficulty().discards;
   state.discards    = state.discardsMax;
   state.discardMode = false;
   state.sundryMode = -1;
@@ -1406,6 +1504,7 @@ export function grantRandomPatron(defs, rarity = null) {
   const def = pool[Math.floor(Math.random() * pool.length)];
   const seat = { id: def.id, uid: nextId(), data: def.onOffer?.() ?? {} };
   state.patrons.push(seat);
+  def.onHired?.({ state, data: seat.data });
   // A gift can be the last half of a couple, so the wedding is checked here as
   // it is at the Market. The merged seat is handed back in the pair's place,
   // which is what the caller animates and names.
