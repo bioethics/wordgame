@@ -5979,6 +5979,30 @@ html[data-theme="baize"] {
   }
 }
 
+/* ═══ The Prospectus (the sheet a run opens on) ════════════════════════════════
+   Three pickers and a door. The pick cards and the room swatches are Settings'
+   own, below — everything here is the spacing around them and the fence around
+   the chamber's door. */
+.sheet--start { width: min(620px, calc(94 * var(--vwu))); }
+
+.start-row { margin-bottom: 20px; }
+.start-row .market-sec { margin-bottom: 9px; }
+.start-note { margin-top: 9px; }
+
+/* The chamber is fenced off from the three choices above it: a dashed rule says
+   "not part of the book" before the sentence inside has to. */
+.start-bench {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 12px 14px;
+  border: 1px dashed rgba(122, 92, 40, 0.5);
+  border-radius: 12px;
+  background: rgba(255, 252, 240, 0.4);
+}
+.start-bench .sheet-note { flex: 1 1 240px; margin: 0; }
+
 /* ═══ Appearance controls (Settings) ═══════════════════════════════════════════ */
 .appearance-swatches {
   display: flex;
@@ -6017,7 +6041,9 @@ html[data-theme="baize"] {
   color: var(--parch-ink);
 }
 
-.layout-pick {
+/* A PICK CARD — a name and a line saying what the thing is. Used by the looks
+   and the layouts in Settings, and by the difficulties on the prospectus. */
+.pick-card {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -6031,13 +6057,13 @@ html[data-theme="baize"] {
   text-align: left;
   transition: transform calc(0.12s / var(--aspd)), box-shadow calc(0.12s / var(--aspd));
 }
-.layout-pick:hover { transform: translateY(-2px); }
-.layout-pick--on {
+.pick-card:hover { transform: translateY(-2px); }
+.pick-card--on {
   border-color: rgba(138, 95, 29, 0.7);
   box-shadow: 0 0 0 2.5px var(--brass), 0 4px 10px rgba(60, 40, 15, 0.25);
 }
-.layout-pick-name { font-size: 12px; font-weight: 800; color: var(--parch-ink); }
-.layout-pick-blurb { font-size: 10px; color: var(--parch-dim); }
+.pick-card-name { font-size: 12px; font-weight: 800; color: var(--parch-ink); }
+.pick-card-blurb { font-size: 10px; color: var(--parch-dim); }
 
 .scale-control { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .scale-auto { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; }

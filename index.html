@@ -206,6 +206,9 @@
     </div>
   </div>
 
+  <!-- The Prospectus — the sheet a run opens on: look, room, difficulty -->
+  <div id="startModal" class="modal" role="dialog" aria-modal="true" aria-label="The Prospectus"></div>
+
   <!-- The Testing Chamber (a playtest bench, not part of the game) -->
   <div id="chamberModal" class="modal" role="dialog" aria-modal="true" aria-label="The Testing Chamber"></div>
 
@@ -308,8 +311,10 @@
 
       <div class="set-row">
         <label>Run</label>
-        <div class="set-control">
-          <button id="btnNewRun" class="btn btn-danger">Abandon &amp; start anew</button>
+        <div class="set-control set-control--stack">
+          <button id="btnNewRun" class="btn btn-danger">New run</button>
+          <span class="set-note">Playing on <b id="runDifficulty">Standard</b>. A new run
+            ends this one and opens the prospectus, where the difficulty is chosen.</span>
         </div>
       </div>
 

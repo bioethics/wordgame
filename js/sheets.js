@@ -1,6 +1,7 @@
-// The full-screen sheets — the Market (with its stalls and collection view), the
-// Colophon, and the Testing Chamber: their HTML and click handling. Board-side
-// rendering is render.js; game flow stays in main.js, injected via initSheets().
+// The full-screen sheets — the prospectus a run opens on, the Market (with its
+// stalls and collection view), the Colophon, and the Testing Chamber: their
+// HTML and click handling. Board-side rendering is render.js; game flow stays
+// in main.js, injected via initSheets().
 
 import {
   state, owns, effectivePatronSlots, effectiveSundrySlots, spendReshuffleSundry,
@@ -10,7 +11,7 @@ import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
   ANIM, SUNDRY_SELL, tileCount, sundryTip, TOOL_LOOK, PACKAGES, APPLICATORS,
   colourDesc, POSTNOM, GHOST_HIRE, MATERIALS, TILE_POINTS, letterGlyph,
-  BLACK_PATRON_MARKUP, HACKER_CAP, SHELL_COINS,
+  BLACK_PATRON_MARKUP, HACKER_CAP, SHELL_COINS, DIFFICULTIES, difficultyKey,
 } from './constants.js';
 import { PATRON_DEFS, patronById, guildsOf, patronName, patronShelf, patronEmoji, patronCost, laurelWorth } from './patrons.js';
 import { upgradeById } from './upgrades.js';
@@ -28,10 +29,11 @@ import {
   blackMarket, closeBlackMarket, buyBlackTile, buyBlackPatron, buyBlackSundry, alleyAsks,
   hackerEligible, hackerPrice, hackTile, shellPrice, playShell,
 } from './blackmarket.js';
-// Every heading, note and button label on these three sheets is copy, and lives
-// in js/text.js with the rest of the game's writing.
+// Every heading, note and button label on these sheets is copy, and lives in
+// js/text.js with the rest of the game's writing.
 import {
-  MARKET_TEXT as MT, BLACK_MARKET_TEXT as BT, COLOPHON_TEXT as CT, fillSlots, logLine,
+  MARKET_TEXT as MT, BLACK_MARKET_TEXT as BT, COLOPHON_TEXT as CT, START_TEXT as ST,
+  fillSlots, logLine,
 } from './text.js';
 import {
   chamber, chamberPatrons, CHAMBER_COINS, chamberLetters, CHAMBER_SUNDRIES,
@@ -41,6 +43,11 @@ import {
   giveSundry, dropSundry, strikeTile, scrapTile, scrapAllTiles,
   setBuild, freshBuild, buildPoints, canBeDual,
 } from './chamber.js';
+import { start, setDifficulty } from './start.js';
+import {
+  pickCardHTML, lookPicksHTML, layoutPicksHTML, themePicksHTML, activeLook,
+  setLook, setTheme, setLayout,
+} from './appearance.js';
 import {
   makeTileEl, coinHTML, log, renderAll, persist, showPatronPopover, toggleGhostDrawer,
 } from './render.js';
@@ -1193,6 +1200,103 @@ const TAB_LABELS = {
 const esc = s => String(s ?? '').replace(/[&<>"]/g,
   c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
+// ─── The Prospectus ───────────────────────────────────────────────────────────
+// The sheet a run opens on (js/start.js). Three pickers and a door: the look
+// and the room are the same buttons Settings lays out — built by appearance.js
+// so the two sheets cannot drift — and the difficulty is the run's own, asked
+// here because a run cannot be asked again once it has begun.
+//
+// The layout row keeps Settings' rule: it belongs to Retro, and the bench has a
+// desk of its own, so with the bench on it isn't drawn at all.
+
+export function renderStart() {
+  const m = $('startModal');
+  if (!m) return;
+  if (!start.open) { m.classList.remove('show'); m.innerHTML = ''; return; }
+
+  const here = difficultyKey(state.difficulty);
+  const difficulties = Object.entries(DIFFICULTIES)
+    .map(([id, d]) => pickCardHTML('data-start-diff', id, d.label, d.desc, id === here))
+    .join('');
+
+  m.innerHTML = `
+    <div class="sheet sheet--start">
+      <div class="sheet-head">
+        <div>
+          <h2>${ST.title}</h2>
+          <p class="sheet-note">${ST.note}</p>
+        </div>
+      </div>
+
+      <div class="start-row">
+        <h3 class="market-sec">${ST.look}<span class="market-sub">${ST.lookSub}</span></h3>
+        <div class="appearance-swatches">${lookPicksHTML('data-start-look')}</div>
+      </div>
+
+      <div class="start-row">
+        <h3 class="market-sec">${ST.room}<span class="market-sub">${ST.roomSub}</span></h3>
+        <div class="appearance-swatches">${themePicksHTML('data-start-room')}</div>
+      </div>
+
+      ${activeLook() === 'bench' ? '' : `
+        <div class="start-row">
+          <h3 class="market-sec">${ST.layout}<span class="market-sub">${ST.layoutSub}</span></h3>
+          <div class="appearance-swatches">${layoutPicksHTML('data-start-layout')}</div>
+        </div>`}
+
+      <div class="start-row">
+        <h3 class="market-sec">${ST.difficulty}<span class="market-sub">${ST.difficultySub}</span></h3>
+        <div class="appearance-swatches">${difficulties}</div>
+        <p class="sheet-note start-note">${ST.settled}</p>
+      </div>
+
+      <div class="start-bench">
+        <button class="btn btn-quiet" id="btnStartChamber">${ST.chamber}</button>
+        <p class="sheet-note">${ST.chamberNote}</p>
+      </div>
+
+      <div class="market-foot">
+        <div class="market-spacer"></div>
+        <button class="btn btn-print btn-big" id="btnStartBegin">${ST.begin}</button>
+      </div>
+    </div>`;
+  m.classList.add('show');
+}
+
+// Every pick is written straight through as it is made — the look and the room
+// to settings, the difficulty to the run — so there is nothing here to confirm
+// and no state to lose if the tab is closed on the sheet.
+function onStartClick(e) {
+  const hit = sel => e.target.closest(`[${sel}]`);
+
+  const look = hit('data-start-look');
+  if (look) {
+    setLook(look.dataset.startLook);
+    sfx.page();
+    renderStart();          // the layout row comes and goes with the look
+    renderAll();
+    return;
+  }
+  const room = hit('data-start-room');
+  if (room) { setTheme(room.dataset.startRoom); sfx.page(); return renderStart(); }
+
+  const layout = hit('data-start-layout');
+  if (layout) { setLayout(layout.dataset.startLayout); sfx.page(); renderAll(); return renderStart(); }
+
+  const diff = hit('data-start-diff');
+  if (diff) {
+    setDifficulty(diff.dataset.startDiff);
+    sfx.page();
+    renderStart();
+    renderAll();            // the quota on the sheet behind follows the pick
+    persist();
+    return;
+  }
+
+  if (e.target.closest('#btnStartChamber')) return flow.chamberFromStart();
+  if (e.target.closest('#btnStartBegin'))   return flow.beginRun();
+}
+
 export function renderChamber() {
   const m = $('chamberModal');
   if (!m) return;
@@ -1227,7 +1331,9 @@ export function renderChamber() {
       <div class="tc-body">${body}</div>
 
       <div class="market-foot">
-        ${chamber.atStart ? '' : '<button class="btn btn-quiet" id="btnChamberClose">← Back to the page</button>'}
+        ${chamber.atStart
+          ? '<button class="btn btn-quiet" id="btnChamberBack">← Back to the prospectus</button>'
+          : '<button class="btn btn-quiet" id="btnChamberClose">← Back to the page</button>'}
         <div class="market-spacer"></div>
         <button class="btn btn-print btn-big" id="btnChamberBegin">${
           chamber.atStart ? 'Begin the run ❧' : 'Done ❧'}</button>
@@ -1496,7 +1602,8 @@ function chamberRunHTML() {
 // know about pages and chapters.
 
 let flow = { nextPage: () => {}, beginRun: () => {}, openMarket: () => {},
-             openBlackMarket: () => {}, leaveChamber: () => {} };
+             openBlackMarket: () => {}, leaveChamber: () => {},
+             chamberFromStart: () => {}, backToStart: () => {} };
 
 // The clones ride the #fx layer, which sits above the modal.
 function flyPurchase(fromEl, toEl, opts = {}) {
@@ -1884,6 +1991,7 @@ function onChamberClick(e) {
 
   // ── Leaving
   if (e.target.closest('#btnChamberBegin')) return flow.beginRun();
+  if (e.target.closest('#btnChamberBack'))  return flow.backToStart();
   if (e.target.closest('#btnChamberClose')) return flow.leaveChamber();
 
   touched = false;
@@ -1920,6 +2028,7 @@ export function initSheets(flowCallbacks) {
   $('marketModal')?.addEventListener('click', onMarketClick);
   $('blackMarketModal')?.addEventListener('click', onBlackMarketClick);
   $('colophonModal')?.addEventListener('click', onColophonClick);
+  $('startModal')?.addEventListener('click', onStartClick);
   $('chamberModal')?.addEventListener('click', onChamberClick);
   $('chamberModal')?.addEventListener('input', onChamberInput);
 }

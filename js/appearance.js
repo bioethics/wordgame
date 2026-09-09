@@ -177,6 +177,40 @@ export function setUiScale(v) {
   saveSettings();
 }
 
+// ─── The pickers ──────────────────────────────────────────────────────────────
+// The tables' own face. Settings and the prospectus (js/start.js) lay out the
+// same buttons, so the markup is built here rather than in both: each caller
+// names the data attribute its own handler reads, and the two sheets cannot
+// drift apart. A PICK CARD is a name and a line saying what the thing is — the
+// looks, the layouts, and the prospectus's difficulties, which is why it is
+// exported rather than kept to this file. The ROOMS are pick cards' opposite:
+// three colours and a name, because a room is a colour and saying so in words
+// would be describing a swatch to someone already looking at it.
+
+export const pickCardHTML = (attr, id, name, blurb, on) => `
+  <button class="pick-card${on ? ' pick-card--on' : ''}" ${attr}="${id}">
+    <span class="pick-card-name">${name}</span>
+    <span class="pick-card-blurb">${blurb}</span>
+  </button>`;
+
+export const lookPicksHTML = (attr = 'data-look-pick') =>
+  Object.entries(LOOKS).map(([id, l]) =>
+    pickCardHTML(attr, id, l.name, l.blurb, id === activeLook())).join('');
+
+export const layoutPicksHTML = (attr = 'data-layout-pick') =>
+  Object.entries(LAYOUTS).map(([id, l]) =>
+    pickCardHTML(attr, id, l.name, l.blurb, id === activeLayout())).join('');
+
+export const themePicksHTML = (attr = 'data-theme-pick') =>
+  Object.entries(THEMES).map(([id, t]) => `
+    <button class="theme-swatch${id === activeTheme() ? ' theme-swatch--on' : ''}"
+            ${attr}="${id}" title="${t.name} — ${t.blurb}">
+      <span class="theme-swatch-chips">${
+        t.swatch.map(c => `<span class="theme-swatch-chip" style="background:${c}"></span>`).join('')
+      }</span>
+      <span class="theme-swatch-name">${t.name}</span>
+    </button>`).join('');
+
 export function initAppearance() {
   applyTheme();
   applyLook();                    // calls applyLayout, which calls applyScale

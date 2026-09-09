@@ -1,7 +1,8 @@
 // Game flow: the print cinematic, page and chapter turnover, board input
 // modes, settings, and init. Board rendering is render.js; the full-screen
-// sheets (Market, Colophon, Testing Chamber) render and handle themselves in sheets.js,
-// with the flow callbacks below injected via initSheets().
+// sheets (the prospectus, Market, Colophon, Testing Chamber) render and handle
+// themselves in sheets.js, with the flow callbacks below injected via
+// initSheets().
 
 import {
   state, settings, loadSettings, saveSettings, loadState, clearSave,
@@ -15,7 +16,7 @@ import {
   castCounterfeit, effectiveRackSize, handCount, pluckFromBag,
   grantRandomPatron,
   rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost, luckyRoll, isSquib, spendCoins,
-  dismissEditor,
+  dismissEditor, runDifficulty,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
@@ -51,8 +52,9 @@ import {
   showCoinWordSheet, setCoinNote, showCounterfeitSheet, showStruckTotal, showBribeSheet,
 } from './render.js';
 import {
-  initSheets, renderMarket, renderColophon, renderChamber, renderBlackMarket,
+  initSheets, renderMarket, renderColophon, renderChamber, renderBlackMarket, renderStart,
 } from './sheets.js';
+import { start, openStart, closeStart } from './start.js';
 import { chamber, openChamber, closeChamber, restoreChamber } from './chamber.js';
 import { openBlackMarket, restoreBlackMarket } from './blackmarket.js';
 import {
@@ -62,8 +64,9 @@ import {
 } from './anim.js';
 import { initInput, initInspect, initShelfDrag } from './drag.js';
 import {
-  THEMES, LAYOUTS, LOOKS, initAppearance, activeTheme, activeLayout, activeLook,
+  initAppearance, activeLook,
   setTheme, setLayout, setLook, setUiScale,
+  lookPicksHTML, layoutPicksHTML, themePicksHTML,
 } from './appearance.js';
 import {
   PATRON_DEFS, patronById, doubledReading, boundNouns, patronName, patronEmoji, patronShelf, guildSeats,
@@ -994,11 +997,12 @@ function runChapterHooks() {
   return notes;
 }
 
-// A full-screen sheet is up — the Market, the Black Market, the Colophon or the
-// Testing Chamber. Every board action asks this rather than naming them, so the
-// next sheet is a line here and nowhere else.
+// A full-screen sheet is up — the prospectus, the Market, the Black Market, the
+// Colophon or the Testing Chamber. Every board action asks this rather than
+// naming them, so the next sheet is a line here and nowhere else.
 const sheetUp = () =>
-  state.inMarket || state.inChamber || state.inColophon || state.inBlackMarket;
+  state.inMarket || state.inChamber || state.inColophon || state.inBlackMarket
+  || state.inStart;
 
 // ─── Submit (PRINT) ───────────────────────────────────────────────────────────
 
@@ -2558,36 +2562,19 @@ function syncSettingsUI() {
 
 function syncAppearanceUI() {
   const looks = $('lookPicker');
-  if (looks) {
-    looks.innerHTML = Object.entries(LOOKS).map(([id, l]) => `
-      <button class="layout-pick${id === activeLook() ? ' layout-pick--on' : ''}" data-look-pick="${id}">
-        <span class="layout-pick-name">${l.name}</span>
-        <span class="layout-pick-blurb">${l.blurb}</span>
-      </button>`).join('');
-  }
+  if (looks) looks.innerHTML = lookPicksHTML();
   // The layouts are retro's: the bench brings a desk of its own.
   $('layoutRow')?.classList.toggle('hidden', activeLook() === 'bench');
 
   const swatches = $('themeSwatches');
-  if (swatches) {
-    swatches.innerHTML = Object.entries(THEMES).map(([id, t]) => `
-      <button class="theme-swatch${id === activeTheme() ? ' theme-swatch--on' : ''}"
-              data-theme-pick="${id}" title="${t.name} — ${t.blurb}">
-        <span class="theme-swatch-chips">${
-          t.swatch.map(c => `<span class="theme-swatch-chip" style="background:${c}"></span>`).join('')
-        }</span>
-        <span class="theme-swatch-name">${t.name}</span>
-      </button>`).join('');
-  }
+  if (swatches) swatches.innerHTML = themePicksHTML();
 
   const layouts = $('layoutPicker');
-  if (layouts) {
-    layouts.innerHTML = Object.entries(LAYOUTS).map(([id, l]) => `
-      <button class="layout-pick${id === activeLayout() ? ' layout-pick--on' : ''}" data-layout-pick="${id}">
-        <span class="layout-pick-name">${l.name}</span>
-        <span class="layout-pick-blurb">${l.blurb}</span>
-      </button>`).join('');
-  }
+  if (layouts) layouts.innerHTML = layoutPicksHTML();
+
+  // The run's own setting, which Settings can only report: it was fixed on the
+  // prospectus and the next run is where it can be changed.
+  setTextContent('runDifficulty', runDifficulty().label);
 
   const auto = settings.uiScale === 'auto';
   const box = $('uiScaleAuto');
@@ -2701,21 +2688,28 @@ $('devWinPage')?.addEventListener('click', () => {
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
 
+// A new run opens on the prospectus (js/start.js) — the look, the room and the
+// difficulty, settled before a tile is drawn. newRun first, so the sheet is
+// picking for a run that already exists and every pick writes straight into it.
 async function startFreshRun() {
   clearSave();
   hideOverlay();
   closeMarket();
   renderMarket();
   newRun();
-  openChamber({ atStart: true });
+  openStart();
   renderAll();
-  renderChamber();
+  renderStart();
 }
 
-// Leaving the chamber at the top of a run → the run proper begins. The bag is
-// shuffled here rather than in newRun, so whatever the chamber struck is in it.
+// The run proper begins — from the prospectus, or from the Testing Chamber if
+// the player walked through to it first. The bag is shuffled here rather than
+// in newRun, so whatever the chamber struck is in it. Mid-run the chamber's own
+// button lands here too, and there `atStart` is false: it simply closes.
 async function beginRun() {
-  const atStart = chamber.atStart;
+  const atStart = chamber.open ? chamber.atStart : start.open;
+  closeStart();
+  renderStart();
   closeChamber();
   renderChamber();
   if (!atStart) { renderAll(); return; }
@@ -2741,6 +2735,25 @@ function leaveChamber() {
   renderAll();
 }
 
+// The prospectus's door to the chamber, and the chamber's back out of it. The
+// chamber keeps `atStart` through the walk, so it still ends in "Begin the run"
+// however many times the player goes between the two.
+function chamberFromStart() {
+  closeStart();
+  renderStart();
+  sfx.sheetOpen();
+  openChamber({ atStart: true });
+  renderChamber();
+}
+
+function backToStart() {
+  closeChamber();
+  renderChamber();
+  sfx.sheetOpen();
+  openStart();
+  renderStart();
+}
+
 // Opened from Settings, at any point in a run.
 function openTheChamber() {
   if (state.inMarket || state.inColophon || state.isAnimating) return;
@@ -2758,7 +2771,8 @@ function openTheChamber() {
   initInspect();
   initShelfDrag();
   initSheets({ nextPage: beginNextPage, beginRun, openMarket: openTheMarket,
-             openBlackMarket: openTheBlackMarket, leaveChamber });
+             openBlackMarket: openTheBlackMarket, leaveChamber,
+             chamberFromStart, backToStart });
 
   renderDictStatus('loading', 0);
   // The exclusion list lands before a single word does: adoptWordlist and
@@ -2792,6 +2806,12 @@ function openTheChamber() {
     await startFreshRun();
   } else {
     if (state.gameOver) { renderAll(); showGameOver(); }
+    // The prospectus has nothing to snapshot — every pick was written straight
+    // through — so the run's own flag is enough to come back to it.
+    else if (state.inStart) {
+      openStart();
+      renderAll(); renderStart();
+    }
     else if (restored.chamber) {
       restoreChamber(restored.chamber);
       renderAll(); renderChamber();

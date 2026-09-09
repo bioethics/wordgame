@@ -120,6 +120,38 @@ banner a broadside. The Testing Chamber and the graveyard keep their own
 skins in both looks: a dev bench has no idiom to honour, and the ghosts'
 darkness is the point of them.
 
+### What a run opens on
+
+A new run opens on **the prospectus** — the thing a printer put out before a
+book existed: this is the edition we mean to print, this is what it will look
+like, subscribe if you like the sound of it. Three things are settled on it: the
+board's **look**, the room's **theme**, and the run's **difficulty**.
+
+The first two are preferences. They live in `settings`, they are the same
+buttons Settings lays out (built once, in `js/appearance.js`, so the two sheets
+cannot drift apart), and they can be changed at any point in a run. The third
+belongs to the RUN. It is fixed when the first page is dealt, saved with the
+run, and named on the end screen whenever it was not the standard book — a
+score on an eased climb is a different number, and the end screen is the one
+place that is worth saying.
+
+**Large Print** is the gentler edition: every quota a fifth lower, and a third
+Discard on every page. Those two are what a run is actually lost to — the quota
+climbing at a rate set for a press you have not built yet, and a hand that will
+not spell against it. Nothing else moves; the Market's prices, the editors, the
+reward and the Colophon are the same book either way. The dials are `quotaMult`
+and `discards` on `DIFFICULTIES` (`js/constants.js`), and both are read where a
+page is counted out in `startPage` — the quota BEFORE it is rounded, so an eased
+target is still a round number to aim at rather than 28. An editor who bans
+Discards still bans them.
+
+The Testing Chamber opens *from* the prospectus rather than in front of it, and
+says what it is on the way in: a playtest bench, where seats, sorts and sundries
+cost nothing and the run begins from there. Somebody who pressed "New run" did
+not ask for one. The walk goes both ways — the chamber's foot hands the
+prospectus back — and `atStart` survives it, so the chamber a run opened on
+still ends in "Begin the run" however many times you go between the two.
+
 ## How a word scores
 
 ```
@@ -1288,6 +1320,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Knob | Where |
 | --- | --- |
 | Quota curve | `js/constants.js` → `quotaFor`, `QUOTA_BASE`, `QUOTA_GROWTH_START`, `QUOTA_GROWTH_RAMP`. The rate itself grows: chapter 2 asks ×1.7 of chapter 1, chapter 3 ×1.8 of chapter 2, and so on. START makes the whole run harder; RAMP makes the ending harder without touching the opening — a harder mode is a bigger pair |
+| The difficulty dials, and a new edition | `js/constants.js` → `DIFFICULTIES` (a `quotaMult` and a `discards` per row; the copy is `DIFFICULTY_TEXT` in `js/text.js`, and `{LARGE_PRINT_CUT}` is filled from the multiplier itself so a card cannot quote a cut the page does not take). A third edition is a row here and nothing else — the prospectus lays out whatever the table holds |
 | A single chapter that plays too easy or too hard | `js/constants.js` → `CHAPTER_1_EASE` and `CHAPTER_EASE` (a per-chapter multiplier on that chapter's quota only, either way: chapters 2–3 sit under 1 to soften the opening, 4–5 over it to answer a compounding press) |
 | Trim effects & prices | `js/constants.js` → `TRIMS` (effects live in `js/scoring.js`); silver's Points are `SILVER_BONUS`, read by scoring, the trim's card and the tile's own number alike |
 | Materials, the cursed ×Mult, wrapped-tile price & how often one is offered | `js/constants.js` → `MATERIALS`, `CURSED_MULT`, `CURSED_MAX_POINTS`, `WRAPPED_PRICE`, `WRAPPED_OFFER_CHANCE` |
@@ -1319,7 +1352,6 @@ bigger step than the last and a built press has to multiply rather than add:
 | Marks: which ones exist, legal tails, and what they arrive wearing | `js/constants.js` → `MARKS`, `MARK_RUNS`, `MARK_TRIM` (and `TILE_POINTS`). How often one turns up is `WRAPPED_CONTENTS`, since a wrapper is the only source |
 | What a proposal stall works on & offers | `js/market.js` → `PROPOSAL_STALLS` (one `eligible`/`propose` pair per stall — a new one is a few lines) |
 | Letters per draft paint pot | `js/constants.js` → `PAINT_PER_POT` |
-| Opening draft spread & pick counts | `js/constants.js` → `DRAFT` |
 | How loaded offered tiles are | `js/constants.js` → `FEATURE_CHAIN_CHANCE`, `MAX_FEATURES` (one feature free, then keep rolling); generation in `js/market.js` → `randomSpecialTile` |
 | Rewards & interest | `js/constants.js` → `REWARD` |
 | Squib lead — the ×Mult and the blast radius's odds | `js/constants.js` → `EXPLOSIVE_MULT`, `EXPLOSIVE_SPREAD_ODDS`; the ×Mult pays in scoring's pass 3, the charge goes off in `detonatePrinted` (`js/main.js`) |
@@ -1384,9 +1416,10 @@ bigger step than the last and a built press has to multiply rather than add:
 | `js/quips.js` | patron reaction lines — a flat, editable array; no logic beyond `{word}` substitution |
 | `js/chapters.js` | chapter titles — a flat, editable array; a run draws one per chapter and keeps it |
 | `js/market.js` | market state: offers, buying, sundries, stalls, rerolls |
-| `js/draft.js` | the opening draft: free spread, picks, applying them |
+| `js/start.js` | the prospectus a run opens on: the sheet's own flag, and the difficulty pick that writes to both the run and the remembered default |
+| `js/chamber.js` | the Testing Chamber: coins, seats, sundries and struck sorts written straight into the run, through the game's own doors |
 | `js/render.js` | board-side DOM: tiles, shelf, workbench, status, readout, popovers, overlays |
-| `js/sheets.js` | the full-screen sheets — Market, stalls, Colophon, draft — HTML and click handling, with game flow injected from main.js |
+| `js/sheets.js` | the full-screen sheets — the prospectus, Market, stalls, Colophon, the chamber — HTML and click handling, with game flow injected from main.js |
 | `js/anim.js` | flights, floaters, tweens, sparkles, WebAudio sfx — every duration respects the speed setting |
 | `js/appearance.js` | the look (the Bench or Retro), the room (theme), the table's layout, and the UI scale — `LOOKS`, `THEMES`, `LAYOUTS`, auto-fit, and `uiZoom()`, the factor every rect-to-style write divides by |
 | `css/bench.css`, `css/bench-sheets.css` | the Bench look — the board, and the sheets — every rule scoped to `html[data-look="bench"]` over `css/style.css`, which is Retro whole |

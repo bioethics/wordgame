@@ -6,6 +6,7 @@ import {
   REVENANT_ODDS,
   COLOURS, TRIMS, NICKS, MATERIALS,
   quotaFor, makeTileTemplate, GAMBLER_ODDS, isDeadline, chapelRelief, combineRelief,
+  DEFAULT_DIFFICULTY, difficultyKey, difficultyOf,
   MAGPIE_WEIGHT, MAKO_WEIGHT,
   PURVEYOR, TUBE_CHOICES, STALLS_PER_SHOP, MARKET_TILE_OFFERS, PATRON_OFFERS,
   UPGRADE_OFFERS, PROPOSAL_RANGE,
@@ -122,6 +123,10 @@ export const settings = {
   layout:    'classic',     // a key of LAYOUTS in js/appearance.js
   look:      'bench',       // a key of LOOKS in js/appearance.js — the bench, or the retro board
   uiScale:   'auto',        // 'auto', or a fixed zoom factor (0.85 – 1.75)
+  // NOT the difficulty a run is being played at — that is state.difficulty, and
+  // it is fixed once the run begins. This is only what the prospectus opens on,
+  // so a player who wants the gentler book is not asked to say so every time.
+  difficulty: DEFAULT_DIFFICULTY,   // a key of DIFFICULTIES in js/constants.js
 };
 
 export function loadSettings() {
@@ -136,6 +141,7 @@ export function loadSettings() {
     if (typeof s.look   === 'string')    settings.look   = s.look;
     if (typeof s.uiScale === 'number')   settings.uiScale = Math.min(1.75, Math.max(0.85, s.uiScale));
     else if (s.uiScale === 'auto')       settings.uiScale = 'auto';
+    if (typeof s.difficulty === 'string') settings.difficulty = difficultyKey(s.difficulty);
   } catch { /* defaults */ }
 }
 
@@ -197,12 +203,18 @@ export const state = {
   manuscript: [],   // { word, score, chapter, page } for every word printed this run,
                     // in the order they were set — the book the run is writing
 
+  // Fixed for the run, chosen on the prospectus (js/start.js). Read through
+  // runDifficulty below rather than off the field, so a retired key can't be
+  // handed to a table that no longer has the row.
+  difficulty: DEFAULT_DIFFICULTY,
+
   endless:   false,
   // Experiments — mechanics kept out of the main game but switchable back on
   // from the Testing Chamber. An experiment is off unless a run turned it on,
   // so a plain new game never meets one.
   experiments: {},
   inMarket: false,
+  inStart:  false,       // the prospectus is up — the sheet a run opens on
   inChamber: false,      // the Testing Chamber is up
   inColophon: false,     // the end-of-chapter upgrade pick is up
   inBlackMarket: false,  // the alley is open (js/blackmarket.js)
@@ -213,6 +225,12 @@ export const state = {
   tubeOffer: null,       // ids of the tiles an armed tube is offering — transient, never saved
   gameOver:  false,
 };
+
+// ─── The run's difficulty ───────────────────────────────────────────────────
+// What the prospectus settled: the row of DIFFICULTIES this run is played on.
+// Everything that eases a page asks here rather than reading state.difficulty,
+// so there is one place a bad or retired key is turned back into a real row.
+export const runDifficulty = () => difficultyOf(state.difficulty);
 
 // ─── Effective sizes ────────────────────────────────────────────────────────
 // Base constants plus whatever the Colophon has permanently granted this run.
@@ -565,6 +583,10 @@ export function loadState() {
       delete state.ledger;
     }
     state.manuscript ??= [];
+    // A save written before the prospectus existed was played on the standard
+    // book, and says nothing about a difficulty — hence the fallback rather
+    // than a version bump, which would have thrown the run itself away.
+    state.difficulty = difficultyKey(state.difficulty);
     state.lastFirstLetter ??= null;
     state.chapterTitles ??= {};
     state.boss ??= null;
@@ -600,14 +622,18 @@ export function clearSave() {
 
 // ─── Run / page lifecycle ─────────────────────────────────────────────────────
 
-export function newRun() {
+// `difficulty` defaults to whatever the last run was set to (settings.difficulty)
+// — the prospectus opens on that and writes back whatever it is changed to.
+export function newRun({ difficulty = settings.difficulty } = {}) {
   _nextId = 1;
   _nextTid = 1;
+  const diff = difficultyKey(difficulty);
   Object.assign(state, {
+    difficulty: diff,
     collection: buildStarterCollection(),
     bag: [], rack: [], word: [], discardPile: [],
     chapter: 1, page: 1,
-    quota: quotaFor(1, 1), pageScore: 0,
+    quota: quotaFor(1, 1, diff), pageScore: 0,
     wordsLeft: WORDS_PER_PAGE, discards: DISCARDS_PER_PAGE,
     discardsMax: DISCARDS_PER_PAGE, wordsPrinted: 0,
     coins: STARTING_COINS, patrons: [], ghosts: [], sundries: [], upgradeCounts: {},
@@ -619,7 +645,7 @@ export function newRun() {
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
     manuscript: [],
-    endless: false, inMarket: false, inChamber: false, inColophon: false,
+    endless: false, inMarket: false, inStart: false, inChamber: false, inColophon: false,
     inBlackMarket: false, blackMarketVisits: 0,
     isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null, ratchetOffset: 0, gameOver: false,
     catPending: false,
@@ -672,7 +698,7 @@ export function startPage({ quartermaster = 0 } = {}) {
   // needed here any more: the ceiling lives in combineRelief, which cannot
   // return more than RELIEF_CAP however many seats bite into it.
   state.quota        = Math.max(1, Math.round(
-    quotaFor(state.chapter, state.page)
+    quotaFor(state.chapter, state.page, state.difficulty)
     * (activeBoss(state)?.quotaMult ?? 1)
     * (1 - totalQuotaRelief())));
   state.wordsLeft    = effectiveWordsPerPage();
@@ -692,7 +718,7 @@ export function startPage({ quartermaster = 0 } = {}) {
     // patron-generic, which reaches back here). main.js knows both and hands the
     // number down — see startPage's caller.
     : DISCARDS_PER_PAGE + quartermaster + (state.upgradeCounts?.discard ?? 0)
-      + (activeBoss(state)?.discardBonus ?? 0);
+      + (activeBoss(state)?.discardBonus ?? 0) + runDifficulty().discards;
   state.discards    = state.discardsMax;
   state.discardMode = false;
   state.sundryMode = -1;

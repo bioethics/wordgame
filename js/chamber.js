@@ -1,7 +1,9 @@
 // THE TESTING CHAMBER — a playtest bench, not a part of the game.
 //
-// It opens at the top of a new run and can be reopened from Settings
-// at any point in a run. Everything here writes directly to the run's state:
+// It is opened FROM the prospectus at the top of a run (js/start.js) — which
+// says what it is on the way in, rather than opening it in front of somebody
+// who only pressed "New run" — and from Settings at any point in a run.
+// Everything here writes directly to the run's state:
 // coins, seats, the workbench, and the case of tiles the bag is shuffled from.
 // Nothing is priced, nothing is rolled, nothing is earned.
 //
@@ -69,8 +71,9 @@ export const CHAMBER_SUNDRIES = [
 ];
 
 // What the chamber is showing, and what the tile-maker is holding. `atStart` is
-// the difference between the chamber that opens a run — which ends in "Begin the
-// run" — and the one Settings opens mid-page, which simply closes.
+// the difference between the chamber a run opened on — which ends in "Begin the
+// run", and can hand the prospectus back — and the one Settings opens mid-page,
+// which simply closes onto the page it left.
 export const chamber = {
   open:    false,
   atStart: false,

@@ -9,7 +9,7 @@
 import {
   TRIM_TEXT, NICK_TEXT, COLOUR_TEXT, COLOUR_DESC, MULT_TRACK_TEXT, MATERIAL_TEXT,
   SUNDRY_TEXT, TOOL_TEXT, APPLICATOR_TEXT, PACKAGE_TEXT, STALL_TEXT,
-  LENGTH_FLOURISHES, LENGTH_FLOURISH_BEYOND,
+  LENGTH_FLOURISHES, LENGTH_FLOURISH_BEYOND, DIFFICULTY_TEXT,
   fillTable, fillKnobs, fillSlots,
 } from './text.js';
 
@@ -650,11 +650,36 @@ function roundQuota(n) {
   return Math.round(n / mag) * mag;
 }
 
-export function quotaFor(chapter, page) {
+// ─── Difficulty ───────────────────────────────────────────────────────────────
+// Chosen on the prospectus at the top of a run (js/start.js) and kept for the
+// whole of it. Two dials, and both are read where a page is counted out in
+// startPage: `quotaMult` scales the quota BEFORE it is rounded, so an eased
+// quota is still a round target rather than 28; `discards` is added to the
+// page's allowance, and an editor who bans discards still bans them.
+//
+// The gentler book is a fifth off the climb and a third Discard — the two
+// things a run is actually lost to (see the CHAPTER_EASE note above: a bad
+// draw against a quota set for a press you haven't built yet). Everything
+// else — the Market's prices, the editors, the reward — is left alone.
+export const DIFFICULTIES = {
+  largeprint: { ...DIFFICULTY_TEXT.largeprint, quotaMult: 0.8, discards: 1 },
+  standard:   { ...DIFFICULTY_TEXT.standard,   quotaMult: 1,   discards: 0 },
+};
+
+export const DEFAULT_DIFFICULTY = 'standard';
+
+// A key that is certainly in the table, and the row it names. Every reader goes
+// through these, so a save carrying a difficulty that has since been retired
+// falls back to the standard book rather than throwing.
+export const difficultyKey = id => (DIFFICULTIES[id] ? id : DEFAULT_DIFFICULTY);
+export const difficultyOf  = id => DIFFICULTIES[difficultyKey(id)];
+
+export function quotaFor(chapter, page, difficulty = DEFAULT_DIFFICULTY) {
   let raw = QUOTA_BASE;
   for (let c = 2; c <= chapter; c++) raw *= QUOTA_GROWTH_START + (c - 2) * QUOTA_GROWTH_RAMP;
   if (chapter === 1) raw *= CHAPTER_1_EASE;
   raw *= CHAPTER_EASE[chapter] ?? 1;
+  raw *= difficultyOf(difficulty).quotaMult;
   return roundQuota(raw * PAGE_FACTORS[page - 1]);
 }
 
@@ -1688,6 +1713,9 @@ export const KNOBS = {
   RIPPER_WORDS:       wordListText(RIPPER_WORDS),
   RIPPER_GHOST_WORDS: wordListText(RIPPER_GHOST_WORDS),
 
+  // How much of the climb the gentler book takes off, as the card says it.
+  LARGE_PRINT_CUT: `${Math.round((1 - DIFFICULTIES.largeprint.quotaMult) * 100)}%`,
+
   // The parcels, by the name each one goes by
   PARCEL_SPOOKY:   PACKAGES.spooky.label,
   PARCEL_ROMANTIC: PACKAGES.romantic.label,
@@ -1701,3 +1729,4 @@ fillTable(MATERIALS, KNOBS, 'text: MATERIAL_TEXT');
 fillTable(STALL_DEFS, KNOBS, 'text: STALL_TEXT');
 fillTable(PACKAGES,  KNOBS, 'text: PACKAGE_TEXT');
 fillTable(SUNDRY_TEXT, KNOBS, 'text: SUNDRY_TEXT');
+fillTable(DIFFICULTIES, KNOBS, 'text: DIFFICULTY_TEXT');

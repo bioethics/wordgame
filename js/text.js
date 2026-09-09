@@ -274,6 +274,10 @@ export const LOG_TEXT = {
   endLoseBoss:     ' {0} {1} remains unimpressed.',                  // ⌐ emoji · name
   endWinTitle:     'The folio is complete',
   endWinSub:       "Ten chapters set, proofed, and printed. The house's finest work.",
+  // Said on the end screens only when the run was NOT the standard book: a
+  // score is a different number on an eased climb, and this is where knowing
+  // which one it was matters. {0} is the difficulty's own name.
+  endEdition:      'A {0} edition.',
   endNewRun:       'Begin a new folio',
   endEndless:      'Keep printing (appendices)',
 };
@@ -564,6 +568,21 @@ export const LENGTH_FLOURISHES = {
 };
 export const LENGTH_FLOURISH_BEYOND = 'the stuff of legend.';
 
+// ─── Difficulty (settled at the top of a run, kept for it) ────────────────────
+// The numbers themselves are DIFFICULTIES in js/constants.js; the {KNOB} below
+// is filled from the multiplier there, so the card cannot quote a cut the page
+// does not take.
+export const DIFFICULTY_TEXT = {
+  largeprint: {
+    label: 'Large Print',
+    desc:  'Every quota {LARGE_PRINT_CUT} lower, and one more Discard a page.',
+  },
+  standard: {
+    label: 'Standard',
+    desc:  'The full climb — nothing eased.',
+  },
+};
+
 // ═══ THE SHEETS ════════════════════════════════════════════════════════════════
 // Headings, sub-headings, notes and buttons. A `sub` is the small grey line
 // beside a heading; a `note` is the sentence under a title.
@@ -645,4 +664,26 @@ export const COLOPHON_TEXT = {
   skipTip:     'Decline all three',
   reshuffle:   '↻ Reshuffle',
   reshuffleTip:'Spend a banked reshuffle',
+};
+
+// The prospectus — the sheet a run opens on, and the only place the difficulty
+// is asked. Each of the three says its own rule once: the difficulty's sub says
+// it will not be asked again, `settled` says the other two will be there in
+// Settings whenever they are wanted.
+export const START_TEXT = {
+  title:      'The Prospectus',
+  note:       'How the press is set, before the first page.',
+  look:       'Look',
+  lookSub:    'the board itself',
+  room:       'Room',
+  roomSub:    'the light it is worked in',
+  layout:     'Layout',
+  layoutSub:  'where the ledger stands',
+  difficulty: 'Difficulty',
+  difficultySub: 'fixed for the run once it begins',
+  settled:    'The look and the room are yours to change at any time, from Settings.',
+  chamber:    'The Testing Chamber',
+  chamberNote:'A playtest bench, not part of the game — seats, sorts and sundries '
+            + 'for nothing, and the run begins from there.',
+  begin:      'Begin the run ❧',
 };
