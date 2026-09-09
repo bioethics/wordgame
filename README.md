@@ -25,16 +25,21 @@ one HTML file, `great-work-single.html` by default; pass a path to override.
 The game is touch-native: tap a rack tile to play it, tap a word tile to take it
 back, drag to reorder (tiles on the board, patron cards on the shelf), and
 long-press any tile or patron for its details — also how you flip a dual tile on
-touch. The narrow board puts the patrons above the page, and Print at the end of
-the verbs' row rather than on a row of its own, because the stick is two courses
-deep there and a press below the fold is no press at all.
+touch. The narrow board puts the patrons above the page and Print hard right of
+the verbs, and it spends whatever height the phone has **between** its rows
+(`align-content: space-between`) rather than centring the board and leaving a
+band of bare bench under the sign.
 
 **Nothing on it resizes as you compose.** The case holds every row the hand
-fills and the stick is milled as deep as the hand could fill it, both from the
-first frame — so moving a sort from one to the other never collapses the case
-under your thumb nor drops a course of bare brass over the scale. Both are built
-from the row counts `reserveHandHeight` measures (`--rack-rows`, `--word-rows`
-in `js/render.js`), which is why the two can't disagree. To test on a device, serve on your LAN:
+fills, from the first frame, so moving a sort into the stick never collapses it
+under your thumb; it is built from the row count `reserveHandHeight` measures
+(`--rack-rows` in `js/render.js`). The stick stays **one course deep** whatever
+you set in it: a word too long for the measure is set in a smaller size instead
+of turning onto a second line — `fitWord` in `js/render.js` hands down the size
+and the factor, and `css/bench.css` takes the sort's own details (its letter,
+its corner figure, its nick) down by the same factor, so a long word is smaller
+type rather than squashed type. The scale is cut to the size the line is
+actually set at, and the knee still closes on the last sort. To test on a device, serve on your LAN:
 
 ```
 python -m http.server 8431 --bind 0.0.0.0

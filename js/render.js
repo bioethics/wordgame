@@ -1182,7 +1182,43 @@ function reserveHand() {
   const rack = $('rack');
   if (rack) reserveHandHeight(rack, '--rack-reserve');
   const word = $('word');
-  if (word) reserveHandHeight(word, '--word-reserve');
+  if (!word) return;
+  reserveHandHeight(word, '--word-reserve');
+  // The bench's stick is one course deep and stays that way: a word too long
+  // for the measure is SET SMALLER (fitWord) rather than turned onto a second
+  // line, so the reserve the packing just wrote does not apply to it.
+  if (benchOn()) word.style.setProperty('--word-rows', '1');
+}
+
+// A compositor with more sorts than measure sets the line in a smaller size.
+// The stick reports the size its type is set at (--word-tile-w/h, and the
+// factor itself for the details that are drawn in fixed pixels), so the whole
+// word keeps one course however long it runs. Below FIT_FLOOR it stops
+// shrinking and the line simply turns, which no ordinary hand can reach.
+const FIT_FLOOR = 0.4;
+function fitWord(el) {
+  const cs = getComputedStyle(el);
+  const inner = el.clientWidth
+    - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
+  const root = getComputedStyle(document.documentElement);
+  const tileW = parseFloat(root.getPropertyValue('--tile-w')) || 0;
+  const tileH = parseFloat(root.getPropertyValue('--tile-h')) || 0;
+  const gap = parseFloat(cs.columnGap || 0) || 0;
+  if (!(inner > 0) || !tileW || !tileH) return;
+
+  // What the word standing in the stick asks for at full size — a glyph of
+  // four or more letters is drawn double width, as it is in the hand.
+  const n = el.querySelectorAll('.tile').length;
+  let want = 0;
+  for (const t of el.querySelectorAll('.tile')) {
+    want += (t.querySelector('.tile-letter')?.textContent?.length ?? 1) >= 4 ? tileW * 2 : tileW;
+  }
+  want += Math.max(0, n - 1) * gap;
+
+  const fit = want > inner ? Math.max(FIT_FLOOR, (inner - Math.max(0, n - 1) * gap) / (want - Math.max(0, n - 1) * gap)) : 1;
+  el.style.setProperty('--word-fit', String(Math.round(fit * 1000) / 1000));
+  el.style.setProperty('--word-tile-w', `${Math.floor(tileW * fit)}px`);
+  el.style.setProperty('--word-tile-h', `${Math.floor(tileH * fit)}px`);
 }
 
 export function renderRack(ghostIds = null) {
@@ -1244,8 +1280,10 @@ function renderRule(script, placed) {
   const cs   = getComputedStyle(word);
   const gap  = parseFloat(cs.columnGap) || 0;
   const padL = parseFloat(cs.paddingLeft) || 0;
-  const root = getComputedStyle(document.documentElement);
-  const tileW = parseFloat(root.getPropertyValue('--tile-w')) || 68;
+  // The size the line is actually set at, which is the root's only until a long
+  // word makes the stick set it smaller (fitWord).
+  const tileW = parseFloat(cs.getPropertyValue('--word-tile-w'))
+    || parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--tile-w')) || 68;
   // Tile offsets are read inside #word's padding box; the scale is drawn in
   // the wrap around it, so its own edge is added back.
   const origin = word.offsetLeft + word.clientLeft;
@@ -1382,6 +1420,7 @@ export function renderWord(script = computeScore(state.word)) {
     if (state.word[i]) place(state.word[i], wordTileEl(state.word[i]));
   }
   _lastWordPts = nowPts;
+  if (benchOn()) fitWord(el);
   reserveHand();
   renderRule(script, placed);
 

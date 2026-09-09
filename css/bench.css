@@ -871,6 +871,31 @@ html[data-look="bench"] .word-groove {
   box-shadow: none;
 }
 html[data-look="bench"] .word-groove:has(.tile) { border: 0; box-shadow: none; }
+/* Sorts set to the measure. A word too long for the stick is set in a smaller
+   size rather than turned onto a second line (fitWord in js/render.js hands
+   down the size and the factor), so the stick stays one course deep. The
+   details below are drawn in fixed pixels in css/style.css — the letter at
+   30px and its 2/3/4-letter variants, the corner figure at 11px, the nick's
+   bite at 9px — so each is taken down by the same factor: a smaller sort, not
+   a squashed one. */
+html[data-look="bench"] .word-groove .tile {
+  width: var(--word-tile-w, var(--tile-w));
+  height: var(--word-tile-h, var(--tile-h));
+  border-radius: calc(9px * var(--word-fit, 1));
+  --nick-r: calc(9px * var(--word-fit, 1));
+}
+html[data-look="bench"] .word-groove .tile--wide { width: calc(var(--word-tile-w, var(--tile-w)) * 2); }
+html[data-look="bench"] .word-groove .tile-letter { font-size: calc(30px * var(--word-fit, 1)); }
+html[data-look="bench"] .word-groove .tile-letter[data-len='2'] { font-size: calc(21px * var(--word-fit, 1)); }
+html[data-look="bench"] .word-groove .tile-letter[data-len='3'] { font-size: calc(16px * var(--word-fit, 1)); }
+html[data-look="bench"] .word-groove .tile-letter[data-len='4'],
+html[data-look="bench"] .word-groove .tile-letter[data-len='5'] { font-size: calc(24px * var(--word-fit, 1)); }
+html[data-look="bench"] .word-groove .tile-pts {
+  font-size: calc(11px * var(--word-fit, 1));
+  right: calc(5px * var(--word-fit, 1));
+  bottom: calc(4px * var(--word-fit, 1));
+}
+
 /* The set line: a channel milled into the stick, the sorts sitting in it. */
 html[data-look="bench"] .word-groove::before {
   content: '';
@@ -1387,9 +1412,19 @@ html[data-look="bench"] .log {
 @media (max-width: 600px) {
   html[data-look="bench"] header { padding: 6px 12px 0; }
   html[data-look="bench"] .logo { font-size: 19px; letter-spacing: 1px; }
-  html[data-look="bench"] .table { padding: 2px 10px calc(8px + env(safe-area-inset-bottom)); gap: 6px; }
+  /* The desk takes the room the phone actually has and spends it BETWEEN its
+     rows: centring it left a band of bare bench under the sign and squeezed
+     everything below into 6px. A grid can never be pressed below its own
+     content, so a short phone still simply scrolls. */
+  html[data-look="bench"] .table {
+    flex: 1 1 auto;
+    margin: 0 auto;
+    align-content: space-between;
+    padding: 2px 10px calc(8px + env(safe-area-inset-bottom));
+    gap: 10px;
+  }
   html[data-look="bench"] .chapter-label { font-size: 14px; }
-  html[data-look="bench"] .page-lines { --bn-line: 19px; }
+  html[data-look="bench"] .page-lines { --bn-line: 22px; }
   html[data-look="bench"] .page-line { font-size: 13px; }
   html[data-look="bench"] .quota-card { margin-top: 5px; }
   html[data-look="bench"] .shelf, html[data-look="bench"] .sundries { padding: 6px 6px 7px; gap: 5px; }
@@ -1435,7 +1470,9 @@ html[data-look="bench"] .log {
      own: the stick is two courses deep on a phone, and the press is no use
      under the fold. The spacer between them (retro's) does the pushing. */
   html[data-look="bench"] .action-row { display: flex; gap: 6px; flex-wrap: nowrap; }
-  html[data-look="bench"] .btn-print { grid-column: auto; padding: 11px 14px; font-size: 16px; letter-spacing: 2px; }
+  /* Hard right, on its own: retro hides the row's spacer at this width
+     (css/style.css), so there is nothing to push Print over with. */
+  html[data-look="bench"] .btn-print { grid-column: auto; margin-left: auto; padding: 11px 14px; font-size: 16px; letter-spacing: 2px; }
   html[data-look="bench"] .ro-total { font-size: 26px; }
   html[data-look="bench"] .slab-num { font-size: 19px; }
 }
