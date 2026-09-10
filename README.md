@@ -72,6 +72,33 @@ those places exactly, because `auto-fill` cuts a column only where a whole one
 fits and two pixels short drops the last sort to a second row with the space
 for it still showing.
 
+The proof strip is a slip of paper under a steel clip, and it is not fixed to
+the desk. Brush a pointer past it and it swings on the clip, wobbles twice, and
+comes to rest at a new slight angle — where it stays. Nothing is put back when
+the pointer leaves: it has been knocked, not animated, and the next time you
+pass it lies a little differently again. (`initSlipWriggle` in `js/anim.js`, and
+`--slip-loose` in the stylesheets, which is how the LOOK says whether the strip
+may swing at all: the bench's paper yes, retro's bolted panel no, and neither
+while the editor's slab is resting on top of it.)
+
+**A hover may grow a thing. It may not move it.** This is a rule, not a
+preference, and everything that reacts to a pointer follows it — the offer
+cards at the fair, the picks at the Colophon, the sorts in the case, the
+pouches. A hover that MOVES what is being hovered is a trap: the card slides
+out from under the pointer, loses the hover that moved it, falls back under the
+pointer, and starts again — and a pointer parked in the band between the two
+positions makes the thing shake itself to pieces at 60Hz. The market's calling
+cards used to rise 5px and square themselves as they came, and both halves were
+traps: the bottom five pixels, and the corners the straightening pulled inward.
+A scale-up about the centre cannot be one, because the grown shape CONTAINS the
+resting shape at every point of the way — wherever the pointer was when the
+hover began, it is still inside. So the lot grows, its shadow deepens, and the
+travel goes where it is free: to the sorts and portraits INSIDE the card, which
+move within a hover box that is standing still. The slip above is the other
+half of the same rule — it moves, but it has no second state to fall back to,
+and a knock it makes itself is ignored (a hand that has not moved has not
+brushed anything).
+
 The desk is retro's column with the manuscript sheet standing beside its top:
 the shelf across the whole press, then the proof strip, then the stick, the
 case, and the buttons with the workbench at their left, all at full width.
@@ -964,12 +991,28 @@ in the **discard pile**. *Your collection* opens the case read-only, headed by a
 tally by colour — rainbow metal tallied apart, since it counts as every colour
 and would otherwise be counted four times over.
 
-**No two Markets price a patron alike.** A calling card's price is rolled as it
-is laid out: half the time the price on the tin, a quarter a Coin cheaper, a
-quarter a Coin dearer, and the card says which so a bargain can be spotted while
-scanning the row. It rides on the offer, so *New offers* re-rolls it too; the
-cat, being found rather than bought, is never haggled over, and no card asks
-less than a Coin. `PATRON_HAGGLE` in `js/constants.js`.
+**The fair holds sales, and never the other kind.** A calling card's price is
+rolled as it is laid out: three times in four the price on the tin, and one in
+four a Coin under it, marked — the tag's paper goes green and the usual price is
+struck out beside the day's, so a bargain is spotted while scanning the row
+rather than remembered. It never goes the other way. A coin quietly ADDED would
+read as the fair cheating you, and sour every price you can't check; the same
+coin taken off reads as a find. (The alley is the exception, and says so in red:
+its markup is the point of the alley.) The roll rides on the offer, so *New
+offers* re-rolls it too; the cat, being found rather than bought, is never
+haggled over, and no card asks less than a Coin — a discount that would take one
+below that is simply not a sale, and the tag is not dressed as one.
+`PATRON_HAGGLE` and `rollHaggle` in `js/constants.js`, `sale` in `js/sheets.js`.
+
+**And no two Markets price a SORT alike either.** What a tile is worth is a
+formula — a base, plus what each piece of finery adds — but what it is asked is
+that formula plus the day: a quarter either way, to the nearest Coin, never
+below one. Unmarked, deliberately. A sort's worth is situational in a way no
+formula knows (a second H is worth nothing to a press that has one and
+everything to one spelling THE), so a "bargain" tag here would only be the
+shop's opinion of a tile, and the shop cannot see your hand. What the wobble
+buys is that a price can be read as a judgement rather than as arithmetic you
+could have done from the tile itself. `askingPrice` in `js/constants.js`.
 
 **Sundries** are consumables kept on the **workbench** (two slots to start, and
 the Colophon can add two more). Arming a tool is one tap and picking its target
@@ -1367,7 +1410,8 @@ bigger step than the last and a built press has to multiply rather than add:
 | What unlocks a locked patron | the `locked()` predicate on its behaviour in `js/patrons.js` (read live off `state`, checked by every pool that deals a card), with the sentence explaining it on the card as `unlockNote` |
 | How often the Market offers each tier | `js/patrons.js` → `RARITY_WEIGHT` (`ubiquitous` is 3× `common`) |
 | Patron reaction odds | `js/constants.js` → `REACTION` (`floor`/`ceil` as fractions of the page's whole quota: silence below `floor`, a certainty at `ceil`); the lines themselves in `js/quips.js` — a flat array, add more any time |
-| How far a patron's asking price can drift | `js/constants.js` → `PATRON_HAGGLE` (`spread` Coins each way, `chance` per side) |
+| How often the fair holds a sale, and how deep | `js/constants.js` → `PATRON_HAGGLE` (`chance` of a sale, `spread` Coins off) and `rollHaggle`, which only ever discounts. The tag's green paper and struck-out list price are `sale`/`priceTagHTML` in `js/sheets.js` |
+| How far a sort's asking price wobbles off its formula | `js/constants.js` → `TILE_PRICE_FUZZ` and `askingPrice` (a fraction of the list price either way, at least a Coin of swing, never below one). Rolled once as an offer is laid out and kept on it, so a tag can't change under a player reading it |
 | How long a line stays up to be read | `js/anim.js` → `READ_BASE` / `READ_PER_CHAR` / `READ_MAX`. Every bubble, floater and bar message holds for a span measured off its own length, so a long line is given longer, not read faster |
 | Words / discards / seats per page | `js/constants.js` |
 | Where every word list lives | `wordlists/` — the dictionary (`wordlist.txt`), all ten themed lists, the dummy-letter list (`silent.txt`) and `excluded-slurs.txt`, in one folder. The paths are `THEME_FILES` and `SILENT_FILE` in `js/themes.js`, which is also where `tools/build-single.mjs` reads the folder name from, so moving them is a change to that one file (plus `js/dict.js` and `js/excluded.js`, which fetch their own) |
@@ -1380,7 +1424,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | The Beekeeper's curve | `js/constants.js` → `BEEKEEPER_BANDS` — `{ upTo, step }` in order, so the hive slows as it fills (+0.2 to ×2, +0.1 to ×3, +0.05 thereafter) instead of climbing for ever at one rate. `beekeeperMult()` walks it a bee at a time, so crossing a threshold never jumps; `beekeeperSteps()` writes the card's own sentence from the same table, so the words cannot drift from the arithmetic |
 | The Alderman's guild step | `js/constants.js` → `ALDERMAN_STEP` (added per guild, not multiplied — see pass 4½ in `js/scoring.js`) |
 | The Sesquipedalian's rate | `js/constants.js` → `SESQUIPEDALIAN_STEP`, per letter of the run's longest word. The record is read off `state.manuscript` by `longestPrinted` in `js/patrons.js` (the word in the groove counts), and `sesquipedalianMult` rounds the sum so the badge never shows a floating-point tail |
-| What the alley may ask for a tile | `js/constants.js` → `BLACK_TILE_MAX_PRICE`, the ceiling every black-market tile is clamped to, plus `BLACK_MATERIAL_STOCK` and `BLACK_TILE_SURCHARGE`. The Market's own tiles are priced by `tilePrice` in `js/market.js`, off `TILE_BASE_PRICE` and the `price` on each entry of `TRIMS` / `NICKS` |
+| What the alley may ask for a tile | `js/constants.js` → `BLACK_TILE_MAX_PRICE`, the ceiling every black-market tile is clamped to, plus `BLACK_MATERIAL_STOCK` and `BLACK_TILE_SURCHARGE`. The Market's own tiles are priced by `tilePrice` in `js/market.js`, off `TILE_BASE_PRICE` and the `price` on each entry of `TRIMS` / `NICKS` — and then through `askingPrice` for the day's wobble, the alley's included |
 | What a seat has ACCUMULATED, shown when you tap its card | `js/patrons.js` → the `tally(data)` hook, gathered with the seat's laurels by `seatTally()`. A number a seat keeps privately in `data` is a number the player is being asked to remember — put it here instead |
 | The editor roster, the conflict pairs, the Redactor's share | `js/bosses.js` → `BOSS_CONFLICTS`, `REDACTOR_SHARE` |
 | The Incendiary's charges — how many, and how dear a letter he will lend | `js/bosses.js` → `POWDER_CHARGES`, `POWDER_DEAR` (a letter worth this or more is kept out, so the pool is common letters only; each charge is given a second face by `dualPairsFor` in `js/constants.js`) |

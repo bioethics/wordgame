@@ -14,6 +14,64 @@ export function applySpeedCSS() {
   document.documentElement.style.setProperty('--aspd', settings.animSpeed);
 }
 
+// ─── The proof slip, knocked askew ────────────────────────────────────────────
+// The bench pins the proof strip to the desk under a steel clip. Brush past it
+// with the pointer and it swings on the clip, wobbles, and comes to rest at a
+// NEW angle — and stays there: it has been knocked, not animated. Nothing is
+// put back when the pointer leaves, which is also why this can't be the
+// flickering trap that a hover which MOVES a thing usually is (see the note
+// over the Market's offer cards in css/style.css): there are not two states to
+// oscillate between, only a slip that lies a little differently than it did.
+//
+// Whether the slip is loose at all is the stylesheet's to say, through
+// --slip-loose: 1 on the bench, 0 on retro's bolted-down panel and 0 while the
+// editor's slab sits on top of it. The look is never branched on here.
+
+const SLIP_RANGE = 1.15;   // degrees either side of square
+const SLIP_MOVED = 0.5;    // …and at least this far from where it lay, or the
+                           //    knock would be one nobody could see
+const SLIP_REST  = 340;    // ms before the same slip will swing again
+const SLIP_HAND  = 4;      // px the hand must have travelled to count as a
+                           //    second brush rather than the paper's own swing
+
+export function initSlipWriggle(el) {
+  if (!el) return;
+  if (!window.matchMedia?.('(hover: hover)').matches) return;
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+  let last = 0;
+  let lies = null;                    // where it lies now, in degrees
+  let hand = null;                    // where the pointer was at the last knock
+  el.addEventListener('pointerenter', e => {
+    if (e.pointerType !== 'mouse') return;
+    if (getComputedStyle(el).getPropertyValue('--slip-loose').trim() !== '1') return;
+    // A swing can carry the paper's own edge out from under a hand that never
+    // moved, and the strip is wide enough that its ends travel a good deal
+    // further than its middle — which arrives back here as a pointerenter the
+    // hand did not make. A knock needs a hand that has gone somewhere since the
+    // last one; otherwise the slip would flap under a still cursor for ever.
+    if (hand && Math.hypot(e.clientX - hand.x, e.clientY - hand.y) < SLIP_HAND) return;
+    const now = performance.now();
+    if (now - last < SLIP_REST) return;
+    last = now;
+    hand = { x: e.clientX, y: e.clientY };
+    lies ??= parseFloat(getComputedStyle(el).rotate) || 0;
+    let to = lies;
+    while (Math.abs(to - lies) < SLIP_MOVED) to = (Math.random() * 2 - 1) * SLIP_RANGE;
+    // Paper on a clip does not glide to a stop: it goes past, comes back short,
+    // and settles. The two overshoots are fractions of the swing itself, so a
+    // small knock wobbles less than a big one.
+    const swing = to - lies;
+    el.style.setProperty('--slip-tilt', `${to.toFixed(2)}deg`);
+    el.animate([
+      { rotate: `${lies.toFixed(2)}deg` },
+      { rotate: `${(to + swing * 0.42).toFixed(2)}deg`, offset: 0.35 },
+      { rotate: `${(to - swing * 0.16).toFixed(2)}deg`, offset: 0.68 },
+      { rotate: `${to.toFixed(2)}deg` },
+    ], { duration: dur(460), easing: 'ease-out' });
+    lies = to;
+  });
+}
+
 // ─── FX layer ─────────────────────────────────────────────────────────────────
 
 const fx = () => document.getElementById('fx');

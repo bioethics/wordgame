@@ -666,9 +666,9 @@ header {
     inset 0 2px 0 rgba(170, 200, 245, 0.18),
     inset 0 -6px 12px rgba(0, 0, 0, 0.4),
     0 10px 26px rgba(0, 0, 0, 0.45);
-  transition: transform calc(0.14s / var(--aspd)), box-shadow calc(0.16s / var(--aspd));
+  transition: transform calc(0.14s / var(--aspd)), scale calc(0.14s / var(--aspd)), box-shadow calc(0.16s / var(--aspd));
 }
-.ghost-btn:hover { transform: translateY(-2px); }
+.ghost-btn:hover { scale: 1.06; }
 .ghost-btn-mark  { font-size: 20px; line-height: 1; filter: drop-shadow(0 0 6px rgba(150, 190, 255, 0.5)); }
 .ghost-btn-count {
   font-family: var(--sans);
@@ -694,9 +694,9 @@ header {
   font-weight: 800;
   letter-spacing: 0.4px;
   cursor: pointer;
-  transition: transform calc(0.12s / var(--aspd)), border-color calc(0.14s / var(--aspd));
+  transition: transform calc(0.12s / var(--aspd)), scale calc(0.12s / var(--aspd)), border-color calc(0.14s / var(--aspd));
 }
-.market-ghosts:hover { transform: translateY(-1px); border-color: rgba(190, 215, 255, 0.7); }
+.market-ghosts:hover { scale: 1.03; border-color: rgba(190, 215, 255, 0.7); }
 .market-ghosts .ghost-btn-mark { font-size: 13px; }
 
 /* The sheet sits above the Market, which is itself a modal at z-index 200 —
@@ -876,7 +876,7 @@ header {
   gap: 4px;
   padding: 7px 5px 6px;
   font-family: var(--sans);
-  transition: transform calc(0.12s / var(--aspd)), box-shadow calc(0.15s / var(--aspd));
+  transition: transform calc(0.12s / var(--aspd)), scale calc(0.12s / var(--aspd)), box-shadow calc(0.15s / var(--aspd));
 }
 .sundry--crimson { --paintcol: var(--crimson); }
 .sundry--azure   { --paintcol: var(--azure); }
@@ -893,7 +893,7 @@ button.sundry, .sundry--card {
     0 4px 10px rgba(0, 0, 0, 0.45);
   cursor: pointer;
 }
-button.sundry:hover { transform: translateY(-2px); }
+button.sundry:hover { scale: 1.06; }
 
 .sundry--armed {
   transform: translateY(-3px);
@@ -904,7 +904,8 @@ button.sundry:hover { transform: translateY(-2px); }
     0 0 18px var(--paintcol, var(--warn)),
     0 6px 12px rgba(0, 0, 0, 0.45);
 }
-.sundry--armed:hover { transform: translateY(-3px); }
+/* (No hover rule of its own: an armed tool is already raised, and the hover
+   only grows it — nothing to hold in place.) */
 
 /* The workbench's answer to the patron card's ✕: hidden until hover, by design.
    Touch never hovers, so the slot's long-press popover carries the same act. */
@@ -1132,11 +1133,11 @@ button.sundry:hover { transform: translateY(-2px); }
   font-weight: 900;
   cursor: pointer;
   box-shadow: inset 0 -2px 4px rgba(40, 50, 60, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.7);
-  transition: transform calc(0.1s / var(--aspd)), filter calc(0.1s / var(--aspd)),
+  transition: transform calc(0.1s / var(--aspd)), scale calc(0.1s / var(--aspd)), filter calc(0.1s / var(--aspd)),
               opacity calc(0.1s / var(--aspd));
   opacity: 1;
 }
-.ratchet-arrow:hover { transform: translateY(-2px); filter: brightness(1.15); opacity: 1; }
+.ratchet-arrow:hover { scale: 1.12; filter: brightness(1.15); opacity: 1; }
 .sundry--ratchet.sundry--armed { --paintcol: var(--steel); }
 
 /* An armed tube tints both zones and marks picked tiles with a brush. */
@@ -1500,6 +1501,10 @@ button.sundry:hover { transform: translateY(-2px); }
    do, and each number grows outward from its own operator: the thing that
    changed is the only thing that moves. */
 .readout {
+  /* Bolted down: retro's readout is a panel, not a slip of paper under a clip,
+     so the knock that swings the bench's proof strip (initSlipWriggle, in
+     js/anim.js) asks here and is told no. */
+  --slip-loose: 0;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
@@ -1776,11 +1781,11 @@ button.sundry:hover { transform: translateY(-2px); }
   cursor: pointer;
   padding: 4px 6px;
   border-radius: var(--r-md);
-  transition: transform calc(0.15s / var(--aspd)),
+  transition: transform calc(0.15s / var(--aspd)), scale calc(0.15s / var(--aspd)),
               filter calc(0.22s / var(--aspd)) ease,
               opacity calc(0.22s / var(--aspd)) ease;
 }
-.pouch:hover { transform: translateY(-3px); }
+.pouch:hover { scale: 1.05; }
 .pouch--bump { animation: pouchBump calc(0.3s / var(--aspd)) ease; }
 @keyframes pouchBump {
   0%, 100% { transform: scale(1); }
@@ -1859,12 +1864,18 @@ button.sundry:hover { transform: translateY(-2px); }
   box-shadow: var(--tile-shadow);
   transition:
     transform calc(0.12s / var(--aspd)) ease,
+    scale calc(0.12s / var(--aspd)) ease,
+    rotate calc(0.12s / var(--aspd)) ease,
     box-shadow calc(0.15s / var(--aspd)) ease,
     filter calc(0.12s / var(--aspd)) ease;
 }
 @media (hover: hover) {
+  /* Growth, not a lift — see the note at the market's offer cards: a hover that
+     moves the sort out from under the pointer is a hover that flickers. The
+     1deg of tilt is safe alongside it, being far less than the 8% covers. */
   .tile:hover:not(.tile--held):not(.tile--mini) {
-    transform: translateY(-4px) rotate(-1deg) scale(1.05);
+    rotate: -1deg;
+    scale: 1.08;
     z-index: 3;
     box-shadow:
       var(--trim-ring),
@@ -1876,7 +1887,8 @@ button.sundry:hover { transform: translateY(-2px); }
   /* Inside an offer card the card reacts, not the tile. (Needs to out-specify
      the lift rule above, hence the same two :not()s.) */
   .offer-tile .tile:hover:not(.tile--held):not(.tile--mini) {
-    transform: none;
+    rotate: 0deg;
+    scale: 1;
     box-shadow: var(--tile-shadow);
   }
 }
@@ -3121,9 +3133,11 @@ button.sundry:hover { transform: translateY(-2px); }
     inset 0 0 0 3px rgba(255, 252, 240, 0.9),
     inset 0 0 0 4px var(--hairline, rgba(138, 95, 29, 0.4)),
     0 4px 12px rgba(60, 40, 15, 0.3);
-  transform: rotate(-0.7deg);
+  /* The tilt is `rotate`, not `transform`: the hover below then only has to say
+     `scale`, and never has to know which way this particular card lies. */
+  rotate: -0.7deg;
 }
-.offer-patron:nth-child(even) { transform: rotate(0.6deg); }
+.offer-patron:nth-child(even) { rotate: 0.6deg; }
 .offer-patron--uncommon { --hairline: rgba(47, 116, 92, 0.55);  --title-col: #2f745c; }
 .offer-patron--rare     { --hairline: rgba(112, 64, 160, 0.55); --title-col: #7040a0; }
 
@@ -3598,13 +3612,13 @@ button.sundry:hover { transform: translateY(-2px); }
   border: 2px solid rgba(40, 25, 10, 0.5);
   cursor: pointer;
   box-shadow: inset 0 -6px 8px rgba(0, 0, 0, 0.2), inset 0 2px 3px rgba(255, 255, 255, 0.4);
-  transition: transform calc(0.12s / var(--aspd)), outline-color calc(0.12s / var(--aspd));
+  transition: transform calc(0.12s / var(--aspd)), scale calc(0.12s / var(--aspd)), outline-color calc(0.12s / var(--aspd));
 }
 .paint-swatch--crimson { background: var(--crimson); }
 .paint-swatch--azure   { background: var(--azure); }
 .paint-swatch--jade    { background: var(--jade); }
 .paint-swatch--amber   { background: var(--amber); }
-.paint-swatch:hover { transform: translateY(-2px); }
+.paint-swatch:hover { scale: 1.08; }
 .paint-swatch--sel {
   outline: 2.5px solid #2f6e3e;
   outline-offset: 2px;
@@ -3862,12 +3876,19 @@ button.sundry:hover { transform: translateY(-2px); }
 .sheet--market .btn-price:active:not(:disabled) { transform: rotate(0deg) scale(0.98); }
 .sheet--market .btn-price:disabled { filter: grayscale(0.6) drop-shadow(0 2px 3px rgba(0, 0, 0, 0.4)); opacity: 0.45; }
 
-/* The day's haggle: the tag's own paper is tinted — cool green when the patron
-   is going a Coin under, warm red a Coin over. One coin either way is worth a
-   glance, not a sentence, so it says nothing in words until the tag is hovered.
-   After the tag's own rule, so it wins on order at equal specificity. */
+/* A SALE: the tag's own paper goes cool green, and the price it usually asks is
+   struck out beside the one it is asking today. The fair never asks OVER its
+   list price (rollHaggle, js/constants.js) — the warm red tag belongs to the
+   alley, whose markup is the point of the alley. After the tag's own rule, so
+   it wins on order at equal specificity. */
 .sheet--market .btn-price--under { background: linear-gradient(180deg, #dff2e3, #b6ddc4); }
 .sheet--market .btn-price--over  { background: linear-gradient(180deg, #fbdfd9, #eebbb0); }
+.price-was {
+  margin-right: 5px;
+  font-weight: 700;
+  opacity: 0.55;
+  text-decoration-thickness: 1.5px;
+}
 
 /* ── SOLD, stamped in ink ────────────────────────────────────────────────────── */
 .sheet--market .op-sold {
@@ -4350,10 +4371,10 @@ button.sundry:hover { transform: translateY(-2px); }
   box-shadow:
     inset 0 0 0 1px rgba(255, 235, 200, 0.06),
     0 8px 20px rgba(0, 0, 0, 0.45);
-  transition: transform calc(0.12s / var(--aspd)), box-shadow calc(0.12s / var(--aspd)), border-color calc(0.12s / var(--aspd));
+  transition: transform calc(0.12s / var(--aspd)), scale calc(0.12s / var(--aspd)), box-shadow calc(0.12s / var(--aspd)), border-color calc(0.12s / var(--aspd));
 }
 .colophon-card:hover {
-  transform: translateY(-4px);
+  scale: 1.03;
   border-color: var(--brass);
   box-shadow: inset 0 0 0 1px rgba(255, 235, 200, 0.08), 0 0 22px rgba(217, 166, 75, 0.25), 0 12px 26px rgba(0, 0, 0, 0.5);
 }
@@ -4642,9 +4663,21 @@ button.sundry:hover { transform: translateY(-2px); }
    card, so nothing moved at all. This is that half.
 
    The motion is one idea in three places — the lot comes UP off the desk toward
-   you. A patron's calling card also STRAIGHTENS as it rises (the cards lie at
-   ±0.7deg, so picking one up squares it), and z-index puts the lifted one in
-   front of its neighbours instead of under the next card's shadow.
+   you, GROWING into the room rather than travelling across it, with a deeper
+   shadow under it and z-index putting it in front of its neighbours instead of
+   under the next card's shadow.
+
+   THE LOT MAY GROW; IT MAY NOT MOVE. A hover that shifts the thing being
+   hovered is a trap: the card slides out from under the pointer, loses the
+   hover that moved it, falls back under the pointer, and starts again — the
+   pointer sits in the band between the two positions and the card shakes
+   itself to pieces at 60Hz. A lot used to rise 5px and square itself as it
+   came, and both were traps: the bottom 5px, and the corners the straightening
+   pulled inward. A scale-up about the centre cannot be one, because the grown
+   box CONTAINS the resting box at every point of the way — wherever the
+   pointer was when the hover began, it is still inside. So: scale and shadow
+   out here, and the travel where it is free — on the sorts and portraits
+   INSIDE the card, which move within a hover box that is standing still.
 
    Everything here is transform and shadow only — no width, height, margin or
    padding moves — so a hovered lot never pushes its neighbours around. Sold
@@ -4652,6 +4685,7 @@ button.sundry:hover { transform: translateY(-2px); }
 @media (hover: hover) {
   .offer-patron, .offer-tile, .offer-paint, .offer-quire {
     transition:
+      scale calc(0.16s / var(--aspd)) cubic-bezier(0.34, 1.3, 0.64, 1),
       transform calc(0.16s / var(--aspd)) cubic-bezier(0.34, 1.3, 0.64, 1),
       box-shadow calc(0.16s / var(--aspd)) ease,
       filter calc(0.16s / var(--aspd)) ease,
@@ -4662,9 +4696,8 @@ button.sundry:hover { transform: translateY(-2px); }
   /* The depth is a drop-shadow rather than a box-shadow so the card keeps
      whatever shadow its own kind wears — the foil ring on a posthumous card,
      the blue nimbus on a ghost's — instead of having it overwritten. */
-  .offer-patron:hover:not(.offer--sold),
-  .offer-patron:nth-child(even):hover:not(.offer--sold) {
-    transform: rotate(0deg) translateY(-5px) scale(1.025);
+  .offer-patron:hover:not(.offer--sold) {
+    scale: 1.035;
     z-index: 3;
     filter: drop-shadow(0 9px 13px rgba(40, 26, 8, 0.42));
   }
@@ -4678,7 +4711,7 @@ button.sundry:hover { transform: translateY(-2px); }
 
   .offer-tile:hover:not(.offer--sold),
   .offer-paint:hover:not(.offer--sold) {
-    transform: translateY(-4px);
+    scale: 1.04;
     z-index: 3;
     background: rgba(255, 252, 241, 0.75);
     border-color: rgba(138, 95, 29, 0.75);
@@ -4705,7 +4738,7 @@ button.sundry:hover { transform: translateY(-2px); }
   /* A quire is a gathering of leaves, so hovering RIFFLES it: the band lifts as
      one and the three sorts fan out of true. */
   .offer-quire:hover:not(.offer--sold) {
-    transform: translateY(-4px);
+    scale: 1.04;
     background: rgba(255, 248, 226, 0.1);
     border-color: rgba(138, 95, 29, 0.75);
     box-shadow: 0 9px 18px rgba(100, 70, 20, 0.25);
@@ -4727,8 +4760,10 @@ button.sundry:hover { transform: translateY(-2px); }
 /* Reduced motion keeps the emphasis and drops the travel: the lot still tells
    you it is under the cursor, it simply does not move to say so. */
 @media (prefers-reduced-motion: reduce) {
-  .offer-patron:hover, .offer-patron:nth-child(even):hover,
-  .offer-tile:hover, .offer-paint:hover, .offer-quire:hover { transform: none; }
+  .offer-patron:hover, .offer-tile:hover, .offer-paint:hover, .offer-quire:hover {
+    transform: none;
+    scale: 1;
+  }
   .offer-patron:hover { filter: none; }
   .offer-patron:hover .op-portrait .op-emoji,
   .offer-tile:hover .tile,
@@ -6020,9 +6055,9 @@ html[data-theme="baize"] {
   background: rgba(255, 252, 240, 0.5);
   cursor: pointer;
   font-family: var(--sans);
-  transition: transform calc(0.12s / var(--aspd)), box-shadow calc(0.12s / var(--aspd));
+  transition: transform calc(0.12s / var(--aspd)), scale calc(0.12s / var(--aspd)), box-shadow calc(0.12s / var(--aspd));
 }
-.theme-swatch:hover { transform: translateY(-2px); }
+.theme-swatch:hover { scale: 1.05; }
 .theme-swatch--on {
   border-color: rgba(138, 95, 29, 0.7);
   box-shadow: 0 0 0 2.5px var(--brass), 0 4px 10px rgba(60, 40, 15, 0.25);
@@ -6055,9 +6090,9 @@ html[data-theme="baize"] {
   cursor: pointer;
   font-family: var(--sans);
   text-align: left;
-  transition: transform calc(0.12s / var(--aspd)), box-shadow calc(0.12s / var(--aspd));
+  transition: transform calc(0.12s / var(--aspd)), scale calc(0.12s / var(--aspd)), box-shadow calc(0.12s / var(--aspd));
 }
-.pick-card:hover { transform: translateY(-2px); }
+.pick-card:hover { scale: 1.03; }
 .pick-card--on {
   border-color: rgba(138, 95, 29, 0.7);
   box-shadow: 0 0 0 2.5px var(--brass), 0 4px 10px rgba(60, 40, 15, 0.25);

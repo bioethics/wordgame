@@ -17,7 +17,7 @@ import {
   RULE, RULE_PACK_PRICE, RULE_PACK_CHANCE,
   STALL_DEFS, SMELT_MIN_COLLECTION,
   FEATURE_CHAIN_CHANCE, MAX_FEATURES, MEDIEVAL_LETTERS, isMedieval,
-  makeTileTemplate, rollHaggle, GHOST_HIRE,
+  makeTileTemplate, rollHaggle, askingPrice, GHOST_HIRE,
 } from './constants.js';
 import {
   PATRON_DEFS, RARITY_WEIGHT, patronById, guildSeats, rollPostnom, patronCost, patronName,
@@ -138,11 +138,14 @@ export const rollQuire = () => ({
 
 function randomTileOffer() {
   const tmpl = randomSpecialTile();
-  return { template: tmpl, price: tilePrice(tmpl), sold: false };
+  return { template: tmpl, price: askingPrice(tilePrice(tmpl)), sold: false };
 }
 
-// Exported for the Black Market, which prices the same way and then adds the
-// alley's markup on top (js/blackmarket.js).
+// What the sort is WORTH. What it is ASKED is this through askingPrice
+// (js/constants.js), rolled once as the offer is laid out and then kept on the
+// offer — so the tag cannot change under a player looking at it, and a re-roll
+// is a genuinely new day. Exported for the Black Market, which prices the same
+// way and then adds the alley's markup on top (js/blackmarket.js).
 export function tilePrice(tmpl) {
   let p = TILE_BASE_PRICE;
   if (tmpl.trim) p += TRIMS[tmpl.trim]?.price ?? 0;
@@ -283,7 +286,7 @@ function stockTheMedievalStall() {
   const tmpl = makeTileTemplate(pick(MEDIEVAL_LETTERS));
   const target = 1 + (Math.random() < FEATURE_CHAIN_CHANCE ? 1 : 0);
   while (featureCount(tmpl) < target && addRandomFeature(tmpl)) { /* dress it */ }
-  market.tileOffers.push({ template: tmpl, price: tilePrice(tmpl), sold: false, medieval: true });
+  market.tileOffers.push({ template: tmpl, price: askingPrice(tilePrice(tmpl)), sold: false, medieval: true });
 }
 
 // The Chapman knows a supplier: without this, amber paint turns up on roughly
@@ -293,7 +296,7 @@ function guaranteeAmber() {
   if (market.tileOffers.some(o => isAmberTile(o.template))) return;
   const offer = pick(market.tileOffers);
   offer.template.colour = 'amber';
-  offer.price = tilePrice(offer.template);
+  offer.price = askingPrice(tilePrice(offer.template));
 }
 
 // ─── Stalls ───────────────────────────────────────────────────────────────────

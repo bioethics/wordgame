@@ -347,8 +347,8 @@ function marketShopHTML() {
           <div class="op-desc">${desc}</div>
         </div>
         <span class="op-sold">seated</span>
-        <button class="btn-price${haggleClass(def, o.data)}" data-buy-patron="${def.id}"${haggleTip(def, o.data)}>${
-          patronCost(def, o.data) === 0 ? 'Free' : coinHTML(patronCost(def, o.data))}</button>
+        <button class="btn-price${haggleClass(def, o.data)}" data-buy-patron="${def.id}"${
+          haggleTip(def, o.data)}>${priceTagHTML(def, o.data)}</button>
       </div>`;
   }).join('') || `<p class="sheet-note">${MT.noPatrons}</p>`;
 
@@ -371,7 +371,7 @@ function marketShopHTML() {
       <div class="offer-tile${price === 0 ? ' offer-tile--free' : ''}" data-offer="tile" data-idx="${i}">
         <div class="offer-tile-slot" data-offer-tile="${i}"></div>
         <span class="op-sold">bought</span>
-        <button class="btn-price" data-buy-tile="${i}">${price === 0 ? 'Free' : coinHTML(price)}</button>
+        <button class="btn-price" data-buy-tile="${i}">${price === 0 ? MT.free : coinHTML(price)}</button>
       </div>`;
   }).join('');
 
@@ -680,24 +680,36 @@ export function updateStallState() {
   btn.disabled = !ready || state.coins < price;
 }
 
-// Marked on the price tag rather than spelled out in words: a tag tipped
-// green-side-down is under the odds, red-side-down over, and the tooltip says
-// which for anyone who wants it said. An unexplained difference would read as a
-// fault rather than a bargain, but it needs a glance, not a sentence. A free
-// patron never haggles (see patronCost), so its tag is never marked.
-const haggled = (def, data) => (def?.cost ? (data?.haggle ?? 0) : 0);
-const haggleClass = (def, data) => {
-  const h = haggled(def, data);
-  return h ? (h < 0 ? ' btn-price--under' : ' btn-price--over') : '';
+// A SALE, and the fair holds no other kind of haggle (rollHaggle in
+// js/constants.js): the tag's paper goes green and the list price is struck out
+// beside the day's. Both figures come back through patronCost rather than by
+// arithmetic on the discount, because the asking price has a floor of one Coin
+// — a card the discount would take below it is simply not on sale, and must not
+// be dressed as one. A free patron never haggles, so its tag is never marked.
+const sale = (def, data) => {
+  if (!def?.cost || !((data?.haggle ?? 0) < 0)) return null;
+  const now  = patronCost(def, data);
+  const list = patronCost(def, { ...data, haggle: 0 });
+  return list > now ? { list, now } : null;
+};
+const haggleClass = (def, data) => (sale(def, data) ? ' btn-price--under' : '');
+
+// What the tag says. On sale it shows the working; otherwise it is the figure
+// alone, or the word for a patron who costs nothing at all.
+const priceTagHTML = (def, data) => {
+  const cost = patronCost(def, data);
+  if (cost === 0) return MT.free;
+  const s = sale(def, data);
+  return s ? `<s class="price-was">${s.list}</s>${coinHTML(cost)}` : coinHTML(cost);
 };
 // The tag carries the surcharges too — the letters after a name, and a ghost's
 // free seat — so the asking price is never an unexplained number. All of it in
 // the tooltip: the card itself already says what a postnom and a ghost are.
 const haggleTip = (def, data) => {
   if (!def?.cost) return '';
-  const h = haggled(def, data);
+  const s = sale(def, data);
   const notes = [];
-  if (h) notes.push(`${h < 0 ? 'Going cheap today — a Coin under' : 'A Coin over'} the usual ${def.cost}`);
+  if (s) notes.push(fillSlots(MT.saleTip, s.list));
   if (data?.postnom) notes.push(`${POSTNOM.surcharge} Coins over for the ${data.postnom}`);
   if (data?.ghost)   notes.push(`${GHOST_HIRE.surcharge} Coins over for a ghost — it needs no seat`);
   return notes.length ? ` title="${notes.join(' · ')}"` : '';

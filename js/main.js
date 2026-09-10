@@ -60,7 +60,7 @@ import { openBlackMarket, restoreBlackMarket } from './blackmarket.js';
 import {
   sleep, dur, flyClone, popReveal, floatText, tweenNum, setNum, fmtMult,
   pulse, sparkleBurst, sfx, applySpeedCSS, speechBubble, flourishTime,
-  snapTiles, flipTiles,
+  snapTiles, flipTiles, initSlipWriggle,
 } from './anim.js';
 import { initInput, initInspect, initShelfDrag } from './drag.js';
 import {
@@ -2770,6 +2770,7 @@ function openTheChamber() {
   initInput({ spendArmedSundry, spendsOnPick, onSundryPick });
   initInspect();
   initShelfDrag();
+  initSlipWriggle($('readout'));   // the proof slip swings when brushed
   initSheets({ nextPage: beginNextPage, beginRun, openMarket: openTheMarket,
              openBlackMarket: openTheBlackMarket, leaveChamber,
              chamberFromStart, backToStart });

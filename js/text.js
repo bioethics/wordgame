@@ -605,6 +605,10 @@ export const MARKET_TEXT = {
   compostTake:  '{0} rotted down — take as many as you like',   // {0} how many are on the heap
   compostSpent: 'the heap is bare — burn something',
   compostEmpty: 'nothing has rotted down yet',
+  free:         'Free',
+  // The tag already shows the working — the list price struck out beside the
+  // day's — so the tooltip only has to name what a struck figure means.
+  saleTip:      'On sale — the fair usually asks {0}',   // {0} the list price
   reroll:       'New offers',
   rerollTip:    'Re-rolls patrons, tiles, sundries and stalls — the fee doubles each time. '
               + "A stall you've already paid keeps its raised price this visit.",

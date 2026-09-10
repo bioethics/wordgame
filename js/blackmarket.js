@@ -43,7 +43,7 @@ import {
   HACKER_BASE_PRICE, HACKER_CAP, HACKER_OFFERS, isImmutable,
   SHELL_BASE_PRICE, SHELL_SHOWN, SHELL_COINS, SHELL_PRIZES, SHELL_RARE_ODDS,
   BATTER, COLOURS, PACKAGES,
-  MARKS, MARK_TRIM, makeTileTemplate, FENCE_DISCOUNT,
+  MARKS, MARK_TRIM, makeTileTemplate, FENCE_DISCOUNT, askingPrice,
 } from './constants.js';
 import { randomSpecialTile, randomBareTile, tilePrice } from './market.js';
 import { PATRON_DEFS, patronById, patronCost, patronName, rollPostnom } from './patrons.js';
@@ -92,7 +92,7 @@ function materialOffer(material) {
   template.material = material;
   return {
     template,
-    price: alleyPrice(tilePrice(template) + BLACK_MATERIAL_STOCK[material].price),
+    price: alleyPrice(askingPrice(tilePrice(template)) + BLACK_MATERIAL_STOCK[material].price),
     sold: false,
     material,
   };
@@ -107,7 +107,7 @@ function markOffer() {
 
 function plainOffer() {
   const template = randomSpecialTile(BLACK_TILE_FEATURES);
-  return { template, price: alleyPrice(tilePrice(template) + BLACK_TILE_SURCHARGE), sold: false };
+  return { template, price: alleyPrice(askingPrice(tilePrice(template)) + BLACK_TILE_SURCHARGE), sold: false };
 }
 
 // The table, shuffled so the contraband isn't always laid out in the same corner.

@@ -401,15 +401,16 @@ html[data-look="bench"] .colophon-card {
   background: linear-gradient(170deg, var(--bn-ivory) 0%, var(--bn-paper) 60%, var(--bn-paper-2) 100%);
   border: 1px solid rgba(138, 95, 29, 0.45);
   box-shadow: inset 0 0 0 3px rgba(255, 252, 240, 0.9), inset 0 0 0 4px rgba(138, 95, 29, 0.35), 0 4px 12px rgba(60, 40, 15, 0.3);
-  transform: rotate(-0.7deg);
+  /* The tilt is `rotate`, so the hover only has to say how much bigger — see
+     the note over the Market's offer cards in css/style.css. A pick that
+     travelled under the pointer would shake; one that grows cannot. */
+  rotate: -0.7deg;
 }
-html[data-look="bench"] .colophon-card:nth-child(even) { transform: rotate(0.6deg); }
+html[data-look="bench"] .colophon-card:nth-child(even) { rotate: 0.6deg; }
 html[data-look="bench"] .colophon-card:hover {
-  transform: translateY(-5px) rotate(-0.7deg);
   border-color: rgba(138, 95, 29, 0.6);
   box-shadow: inset 0 0 0 3px rgba(255, 252, 240, 0.9), inset 0 0 0 4px var(--bn-red), 0 12px 22px rgba(0, 0, 0, 0.45);
 }
-html[data-look="bench"] .colophon-card:nth-child(even):hover { transform: translateY(-5px) rotate(0.6deg); }
 html[data-look="bench"] .colophon-card-name { font-family: var(--bn-fell-sc); font-weight: 400; font-size: 15px; letter-spacing: 0.5px; color: var(--bn-ink); }
 html[data-look="bench"] .colophon-card-desc { font-family: var(--bn-fell); font-size: 12.5px; color: var(--bn-dim); }
 html[data-look="bench"] .colophon-card--crimson:hover { box-shadow: inset 0 0 0 3px rgba(255, 252, 240, 0.9), inset 0 0 0 4px var(--crimson), 0 12px 22px rgba(0, 0, 0, 0.45); }

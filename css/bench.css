@@ -776,7 +776,8 @@ html[data-look="bench"] .ghost-btn {
   animation: bnNub calc(0.45s / var(--aspd)) cubic-bezier(0.2, 0.9, 0.3, 1.15) both;
 }
 @keyframes bnNub { from { right: 12px; } to { right: -18px; } }
-html[data-look="bench"] .ghost-btn:hover { transform: translate(3px, -50%); }
+/* The tab does not slide out from under the pointer — it grows, from the base
+   rule's `scale`. (The note over the Market's offer cards, css/style.css.) */
 html[data-look="bench"] .ghost-btn-mark { font-size: 17px; }
 html[data-look="bench"] .ghost-btn-count {
   font-family: var(--serif);
@@ -977,11 +978,23 @@ html[data-look="bench"] .readout {
   color: var(--bn-ink);
   background: var(--bn-paper-face);
   box-shadow: var(--bn-paper-shadow);
-  transform: rotate(0.4deg);
+  /* How it lies. `rotate` rather than `transform` so a knock (initSlipWriggle in
+     js/anim.js) can rewrite the angle without knowing what else the slip wears,
+     and the pivot is the clip above it rather than the slip's own middle — a
+     pinned strip swings from its pin. --slip-loose is the stylesheet telling
+     the knock whether this slip may swing at all. */
+  --slip-loose: 1;
+  rotate: var(--slip-tilt, 0.4deg);
+  transform-origin: 50% -9px;
   opacity: 1;
 }
-/* With the editor's slab on its top the slip is set square, so the two meet. */
-html[data-look="bench"] .table:not(:has(.boss-bar.hidden)) .readout { transform: none; }
+/* With the editor's slab on its top the slip is set square, so the two meet —
+   and is held there: a strip with something resting on it does not swing. */
+html[data-look="bench"] .table:not(:has(.boss-bar.hidden)) .readout {
+  --slip-loose: 0;
+  rotate: 0deg;
+  transform: none;
+}
 html[data-look="bench"] .readout::before {
   /* the clip holding the slip to the bench */
   content: '';

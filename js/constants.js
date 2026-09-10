@@ -146,16 +146,19 @@ export const POSTNOM = {
 };
 
 // ─── What a patron is asking today ────────────────────────────────────────────
-// The asking price is rolled as the card is laid out, a coin either side of the
-// def's cost. It rides on the OFFER rather than the def, so a re-roll re-rolls
-// it. A free patron (the cat) is never haggled; no card asks less than one Coin.
-export const PATRON_HAGGLE = { spread: 1, chance: 0.25 };   // per side; the rest is list price
-export const rollHaggle = () => {
-  const r = Math.random();
-  return r < PATRON_HAGGLE.chance ? -PATRON_HAGGLE.spread
-       : r < PATRON_HAGGLE.chance * 2 ? PATRON_HAGGLE.spread
-       : 0;
-};
+// Rolled as the card is laid out, and riding on the OFFER rather than on the
+// def, so a re-roll re-rolls it. A free patron (the cat) is never haggled, and
+// no card asks less than one Coin.
+//
+// It only ever goes DOWN: a card is at its list price or on sale, never dearer
+// than the card says. An unexplained coin ON TOP reads as the fair cheating you
+// and sours every price you can't check; the same coin OFF reads as a find, and
+// the tag shows the working — the list price struck out, the day's price beside
+// it (`sale` in js/sheets.js). The alley is the exception, and says so in red:
+// its markup is the point of the alley.
+export const PATRON_HAGGLE = { spread: 1, chance: 0.25 };   // a Coin off, one card in four
+export const rollHaggle = () =>
+  (Math.random() < PATRON_HAGGLE.chance ? -PATRON_HAGGLE.spread : 0);
 
 // ─── The Usurer's book ────────────────────────────────────────────────────────
 // He lends against the SEAT, not against interest: hiring him is the fee, and
@@ -712,6 +715,23 @@ export const REWARD = {
 
 export const TILE_BASE_PRICE = 2;
 export const REROLL_BASE     = 2;
+
+// What a sort is WORTH is a formula (tilePrice in js/market.js: a base, plus
+// what the finery adds). What it is ASKED is that formula plus the day —
+// a quarter either way, to the nearest Coin, never below one. Two reasons for
+// the wobble, and neither is realism: a price that is the sum of its parts can
+// be read off the tile without looking at the tag, which makes every purchase
+// arithmetic rather than a judgement; and a sort's worth to a hand is
+// situational in a way no formula knows — a second H is worth nothing to a
+// press that already has one, and everything to one spelling THE. A price that
+// moves lets the shop be wrong about a tile in the direction you happen to
+// need. Unmarked, deliberately: a bargain tag would put the shop's opinion back
+// on the tile, and the shop does not know your hand.
+export const TILE_PRICE_FUZZ = 0.25;
+export const askingPrice = (p) => {
+  const spread = Math.max(1, Math.round(p * TILE_PRICE_FUZZ));
+  return Math.max(1, p + Math.floor(Math.random() * (2 * spread + 1)) - spread);
+};
 
 // ─── Animation base timings (ms, divided by the speed setting) ────────────────
 export const ANIM = {
