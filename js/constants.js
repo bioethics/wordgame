@@ -700,6 +700,29 @@ export const chapterLabel = ch =>
 
 export const isDeadline = page => page === PAGES_PER_CHAPTER;
 
+// ─── Dusk: the room going down as the page fills ──────────────────────────────
+// Every word set takes a little more light out of the shop — except where the
+// hand is. The layer is darkness with one pool of clear in it, and the pool
+// travels with the pointer, so the press stays lit under the cursor while the
+// rest of the room goes to evening.
+//
+// The CURVE is the whole of the drama: it is why the first words cost almost
+// nothing and the last one costs everything. Over a five-word page the fall
+// runs 3% · 17% · 47% · 100% — the first three words are barely a shadow, and
+// then the evening comes on quickly, so the last word of a page is composed in
+// a properly dark room. Raising `curve` holds the light longer and drops it
+// harder at the end; `max` is how dark the far corners ever get.
+//
+// A page of one word never darkens at all: there is no build-up to be had, and
+// a page that opened in the dark would be a different effect entirely.
+export const DUSK = { max: 0.68, curve: 2.6 };
+
+export const duskFor = (printed, left) => {
+  const words = printed + left;                       // what this page holds, all in
+  const t = Math.min(1, printed / Math.max(1, words - 1));
+  return DUSK.max * t ** DUSK.curve;
+};
+
 // ─── Economy ──────────────────────────────────────────────────────────────────
 // Income is tuned against the Market's sinks and the quota climb; move `base` if
 // either changes much.

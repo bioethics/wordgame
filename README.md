@@ -81,6 +81,26 @@ pass it lies a little differently again. (`initSlipWriggle` in `js/anim.js`, and
 may swing at all: the bench's paper yes, retro's bolted panel no, and neither
 while the editor's slab is resting on top of it.)
 
+**The room goes down as the page fills.** On a machine with a cursor, every
+word set takes a little more light out of the shop — except where the hand is.
+One layer over the board is dark everywhere but a single pool of clear, and the
+pool travels with the pointer (it hangs from `--lx`/`--ly`, the same two numbers
+the bench's candle hangs from), so the press stays lit under the cursor while
+the rest of the room goes to evening. The curve is the drama: over a five-word
+page the fall runs 3% · 17% · 47% · 100%, so the first three words are barely a
+shadow and the last is composed in a properly dark room. A page turn puts the
+lamps back up. `DUSK` and `duskFor` in `js/constants.js`, "Dusk" in
+`css/style.css`, and one line in `renderStatus` — the number is written and the
+stylesheet eases it, so a print takes the light out over a second and a half
+rather than stepping it.
+
+It is off where there is no cursor. A finger leaves no pool of light behind it,
+so on a touch screen this would be the room simply going dark; the fine-pointer
+media query is what makes "desktop" the stylesheet's call rather than a flag the
+game has to carry about, and it is off again for a reader who asked for less
+motion (whose lamp stands still, and would leave a dark patch parked in the
+middle of the screen).
+
 **A hover may grow a thing. It may not move it.** This is a rule, not a
 preference, and everything that reacts to a pointer follows it — the offer
 cards at the fair, the picks at the Colophon, the sorts in the case, the
@@ -1434,6 +1454,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | The Father of the Chapel's relief — the slice per sort, and where counting starts | `js/constants.js` → `CHAPEL_RATE`, `CHAPEL_BASE` (the curve is `chapelRelief`, read live off the collection — it banks nothing and leaves with the seat). `STARTING_CASE`, the size of the bag you are dealt, is derived from `BAG_COUNTS` and is what the base is set just under |
 | The ceiling both reliefs share, and how they divide it | `js/constants.js` → `RELIEF_CAP` and `combineRelief` (each takes a share of the slack the other left). Both cards and the quota read one door: `totalQuotaRelief` in `js/state.js` |
 | The Generic's quota reprieve | `js/constants.js` → `ALMONER_RELIEF` (the `relief` effect at cost 7 in `js/patron-generic.js`; it cuts the live page's quota, where the Gardener's cuts every quota as it is set) |
+| How dark the room gets as a page fills, and how late | `js/constants.js` → `DUSK` (`max`, the darkness at the far corners; `curve`, which is why the first words cost almost nothing and the last costs everything) and `duskFor`, which reads the page's own length so a six-word page still saves its drama for the last word. The layer is "Dusk" in `css/style.css` |
 | Animation step timings | `js/constants.js` → `ANIM` (all divided by the Settings speed slider) |
 | Chapter titles | `js/chapters.js` — a flat array, add as many as you like; each run draws its own and won't repeat until the list runs out |
 | The Stenographer's acronyms | `wordlists/acronyms.txt` — one per line, `#` comments; letters only. A lone Q is settable now (the ratchet makes one), but it is rare enough that an acronym leaning on it will mostly go unset |

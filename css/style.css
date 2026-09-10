@@ -164,6 +164,52 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
 }
 
+/* ─── Dusk ─────────────────────────────────────────────────────────────────────
+   The shop goes down as the page fills. One layer over the board: dark
+   everywhere, with a single pool of clear in it that travels with the pointer
+   — hung from --lx/--ly, the same two numbers the bench's candle hangs from
+   (initLamp, js/appearance.js). What you are working on stays lit; the rest of
+   the room goes to evening around it.
+
+   How far down is --dusk, set per word printed by renderStatus (js/render.js)
+   off the curve in js/constants.js, and EASED rather than stepped — a word
+   takes the light out over a second and a half, and a page turn puts the lamps
+   back up over the same. Nothing here is stepped, animated or repainted per
+   frame except the gradient's centre, which is a paint the candle is already
+   paying for.
+
+   Only where there is a cursor. A finger leaves no pool of light behind it, so
+   on a touch screen this would simply be the room going dark — hence the
+   fine-pointer query, which is also what makes "desktop" the stylesheet's call
+   rather than a flag the game has to carry about. It sits above the board and
+   the candle and below the sheets (200), and is never in the way of a click. */
+#dusk { display: none; }
+
+@media (hover: hover) and (pointer: fine) {
+  #dusk {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 12;
+    pointer-events: none;
+    opacity: var(--dusk, 0);
+    background: radial-gradient(circle calc(48 * var(--vmu)) at var(--lx, 50%) var(--ly, 40%),
+      rgba(7, 3, 9, 0)    0%,
+      rgba(7, 3, 9, 0.10) 32%,
+      rgba(7, 3, 9, 0.46) 64%,
+      rgba(7, 3, 9, 0.95) 100%);
+    transition: opacity calc(1.5s / var(--aspd)) cubic-bezier(0.35, 0, 0.25, 1);
+    will-change: opacity;
+  }
+}
+
+/* A reader who asked for less motion is not given a room that moves: the lamp
+   stands still for them (initLamp bails), so a pool tracking nothing would be
+   a dark patch in the middle of the screen rather than a light in the hand. */
+@media (prefers-reduced-motion: reduce) {
+  #dusk { display: none; }
+}
+
 /* ─── The Deadline's light ─────────────────────────────────────────────────────
    Everything transitions, so it reads as the light going out rather than as a
    repaint. Hung off `body.deadline-on`, toggled in renderStatus (js/render.js). */

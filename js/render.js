@@ -15,7 +15,7 @@ import {
   colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
   sundryTip, FLEURON, BATTER, TOOL_LOOK, PACKAGES, APPLICATORS, MEDIEVAL, letterGlyph,
   INTERROBANG, POSTNOM, BAG_COUNTS, BRIBRARIAN, bribeMult, isRule, RULE, BOLD_MULT,
-  lengthMult, LENGTH_MULT_MIN, RATCHET_RANGE, DEFAULT_DIFFICULTY,
+  lengthMult, LENGTH_MULT_MIN, RATCHET_RANGE, DEFAULT_DIFFICULTY, duskFor,
 } from './constants.js';
 import { patronById, guildsOf, patronName, patronShelf, patronEmoji, laurelWorth, seatTally } from './patrons.js';
 import { bossById } from './bosses.js';
@@ -1000,6 +1000,13 @@ function renderStatus() {
   // Hung on the body so the stylesheet can relight the whole room without every
   // component having to be told (see "The Deadline's light" in style.css).
   document.body.classList.toggle('deadline-on', deadline);
+  // And the room goes down as the page fills — a little more of the shop lost
+  // to the evening with every word set, except the pool the pointer carries
+  // (DUSK in js/constants.js, "Dusk" in css/style.css). Written as a number and
+  // left to the stylesheet to ease, so a print takes the light out slowly and a
+  // page turn puts it back up.
+  document.documentElement.style.setProperty(
+    '--dusk', duskFor(state.wordsPrinted, state.wordsLeft).toFixed(3));
 
   renderPips('wordPips', Math.max(effectiveWordsPerPage(), state.wordsLeft), state.wordsLeft, 'pip--word');
   const dMax = Math.max(state.discardsMax ?? 2, state.discards);
