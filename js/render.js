@@ -1002,9 +1002,9 @@ function renderStatus() {
   document.body.classList.toggle('deadline-on', deadline);
   // And the room goes down as the page fills — a little more of the shop lost
   // to the evening with every word set, except the pool the pointer carries
-  // (DUSK in js/constants.js, "Dusk" in css/style.css). Written as a number and
-  // left to the stylesheet to ease, so a print takes the light out slowly and a
-  // page turn puts it back up.
+  // (DUSK in js/constants.js, "Dusk" in css/bench.css). Written as a number
+  // whatever the look, and left to the stylesheet to decide whether any room is
+  // dark enough to notice: the bench's is, retro's and a phone's are not.
   document.documentElement.style.setProperty(
     '--dusk', duskFor(state.wordsPrinted, state.wordsLeft).toFixed(3));
 

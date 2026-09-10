@@ -135,6 +135,48 @@ html[data-look="bench"] body::before {
   mix-blend-mode: soft-light;
 }
 
+/* ── Dusk: the shop going down as the page fills ──────────────────────────────
+   The candle above is the light; this is the dark it stands in. One layer over
+   the board, dark everywhere with a single pool of clear in it, hung from the
+   same --lx/--ly the candle hangs from — so the two share a centre and the
+   press stays lit under the hand while the rest of the room goes to evening.
+
+   How far down is --dusk, written per word printed by renderStatus
+   (js/render.js) off the curve in js/constants.js, and EASED rather than
+   stepped: a word takes the light out over a second and a half, and a page turn
+   puts the lamps back up over the same. Nothing repaints per frame but the
+   gradient's centre, which is a paint the candle is already paying for.
+
+   Every condition on the room going dark is in the one query, because each is
+   the same objection. A FINGER leaves no pool of light behind it, so a touch
+   screen would simply go dark. The NARROW BOARD is a phone's board whatever is
+   pointing at it, and the whole of it is the working area — there is no room
+   left over to lose. A reader who asked for LESS MOTION has a lamp that stands
+   still (initLamp bails), so a pool tracking nothing would be a dark patch
+   parked mid-screen. And retro never asks at all: this rule is the bench's, and
+   the default in css/style.css puts the layer away for everyone else.
+
+   It lies over the board and the candle (10) and under the sheets (200), so a
+   Market is never dimmed, and it is never in the way of a click. */
+@media (min-width: 881px) and (hover: hover) and (pointer: fine)
+   and (prefers-reduced-motion: no-preference) {
+  html[data-look="bench"] #dusk {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 12;
+    pointer-events: none;
+    opacity: var(--dusk, 0);
+    background: radial-gradient(circle calc(48 * var(--vmu)) at var(--lx, 50%) var(--ly, 40%),
+      rgba(7, 3, 9, 0)    0%,
+      rgba(7, 3, 9, 0.10) 32%,
+      rgba(7, 3, 9, 0.46) 64%,
+      rgba(7, 3, 9, 0.95) 100%);
+    transition: opacity calc(1.5s / var(--aspd)) cubic-bezier(0.35, 0, 0.25, 1);
+    will-change: opacity;
+  }
+}
+
 /* ── The shop sign ────────────────────────────────────────────────────────── */
 html[data-look="bench"] header { max-width: 1240px; padding: 12px 22px 4px; }
 html[data-look="bench"] .logo {

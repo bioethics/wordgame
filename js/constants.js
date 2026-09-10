@@ -704,7 +704,8 @@ export const isDeadline = page => page === PAGES_PER_CHAPTER;
 // Every word set takes a little more light out of the shop — except where the
 // hand is. The layer is darkness with one pool of clear in it, and the pool
 // travels with the pointer, so the press stays lit under the cursor while the
-// rest of the room goes to evening.
+// rest of the room goes to evening. The bench's, and only on a board wide
+// enough to have room to lose — the conditions are all in css/bench.css.
 //
 // The CURVE is the whole of the drama: it is why the first words cost almost
 // nothing and the last one costs everything. Over a five-word page the fall

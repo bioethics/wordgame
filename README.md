@@ -81,25 +81,27 @@ pass it lies a little differently again. (`initSlipWriggle` in `js/anim.js`, and
 may swing at all: the bench's paper yes, retro's bolted panel no, and neither
 while the editor's slab is resting on top of it.)
 
-**The room goes down as the page fills.** On a machine with a cursor, every
-word set takes a little more light out of the shop — except where the hand is.
-One layer over the board is dark everywhere but a single pool of clear, and the
-pool travels with the pointer (it hangs from `--lx`/`--ly`, the same two numbers
-the bench's candle hangs from), so the press stays lit under the cursor while
-the rest of the room goes to evening. The curve is the drama: over a five-word
+**The shop goes down as the page fills.** The candle above is the light; the
+dusk is the dark it stands in. Every word set takes a little more of the room
+away — except where the hand is: one layer over the board is dark everywhere
+but a single pool of clear, hung from the same `--lx`/`--ly` the candle hangs
+from, so the two share a centre and the press stays lit under the cursor while
+the rest of the shop goes to evening. The curve is the drama: over a five-word
 page the fall runs 3% · 17% · 47% · 100%, so the first three words are barely a
 shadow and the last is composed in a properly dark room. A page turn puts the
 lamps back up. `DUSK` and `duskFor` in `js/constants.js`, "Dusk" in
-`css/style.css`, and one line in `renderStatus` — the number is written and the
+`css/bench.css`, and one line in `renderStatus` — the number is written and the
 stylesheet eases it, so a print takes the light out over a second and a half
 rather than stepping it.
 
-It is off where there is no cursor. A finger leaves no pool of light behind it,
-so on a touch screen this would be the room simply going dark; the fine-pointer
-media query is what makes "desktop" the stylesheet's call rather than a flag the
-game has to carry about, and it is off again for a reader who asked for less
-motion (whose lamp stands still, and would leave a dark patch parked in the
-middle of the screen).
+Every condition on it sits in that one media query, because each is the same
+objection. A finger leaves no pool of light behind it, so a touch screen would
+simply go dark. The narrow board is a phone's board whatever is pointing at it,
+and the whole of it is the working area — there is no room left over to lose. A
+reader who asked for less motion has a lamp that stands still, so a pool
+tracking nothing would be a dark patch parked mid-screen. And retro never asks:
+the rule is the bench's, `css/style.css` puts the layer away for everyone else,
+and a room lit by its theme stays lit.
 
 **A hover may grow a thing. It may not move it.** This is a rule, not a
 preference, and everything that reacts to a pointer follows it — the offer
