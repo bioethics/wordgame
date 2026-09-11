@@ -86,7 +86,18 @@ html[data-look="bench"] .sheet--market {
     0 30px 60px -20px rgba(0, 0, 0, 0.8);
 }
 /* The awning: canvas in the red — or a stall's own colour — scalloped along
-   its hem. One element, the scallops cut by a mask. */
+   its hem. One element, the scallops cut by a mask.
+   ROUND, not repeat. A pattern tiled at a fixed pitch ends wherever the right
+   edge happens to fall, and the awning's was ending on a slice of red a third
+   of a stripe wide with its scallop cut down the middle — a hem no awning ever
+   had, and the one thing on the sheet that looked like a mistake. `round` asks
+   the browser for a WHOLE number of tiles instead, stretching each by the
+   fraction that makes them fit; at the widths this sheet is ever laid out to
+   that is a percent or two, and both ends come out on a whole stripe.
+   The hem rides the same 84px tile as the canvas above it — two scallops to a
+   tile, at the quarter and three-quarter marks, which is where the middle of
+   each stripe is — so the two layers round to the same count and can never
+   drift out of phase with each other. */
 html[data-look="bench"] .sheet--market::before {
   content: '';
   position: absolute;
@@ -94,13 +105,16 @@ html[data-look="bench"] .sheet--market::before {
   height: 44px;
   border: 0;
   border-radius: 6px 6px 0 0;
-  background: repeating-linear-gradient(90deg, var(--awning, var(--bn-red)) 0 42px, #efe2c2 42px 84px);
+  background: linear-gradient(90deg, var(--awning, var(--bn-red)) 0 50%, #efe2c2 50% 100%)
+    0 0 / 84px 100% round no-repeat;
   -webkit-mask:
     linear-gradient(#000, #000) 0 0 / 100% calc(100% - 12px) no-repeat,
-    radial-gradient(12px 12px at 21px 0, #000 11px, transparent 12px) 0 100% / 42px 12px repeat-x;
+    radial-gradient(12px 12px at 25% 0, #000 11px, transparent 12px) 0 100% / 84px 12px round no-repeat,
+    radial-gradient(12px 12px at 75% 0, #000 11px, transparent 12px) 0 100% / 84px 12px round no-repeat;
   mask:
     linear-gradient(#000, #000) 0 0 / 100% calc(100% - 12px) no-repeat,
-    radial-gradient(12px 12px at 21px 0, #000 11px, transparent 12px) 0 100% / 42px 12px repeat-x;
+    radial-gradient(12px 12px at 25% 0, #000 11px, transparent 12px) 0 100% / 84px 12px round no-repeat,
+    radial-gradient(12px 12px at 75% 0, #000 11px, transparent 12px) 0 100% / 84px 12px round no-repeat;
   pointer-events: none;
 }
 html[data-look="bench"] .sheet--market .market-title {

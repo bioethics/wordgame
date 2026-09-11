@@ -3538,9 +3538,12 @@ button.sundry:hover { scale: 1.06; }
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 6px;
-  background: repeating-linear-gradient(90deg,
-    var(--awning, rgba(178, 58, 46, 0.75)) 0 14px,
-    rgba(242, 231, 203, 0.9) 14px 28px);
+  /* `round` rather than a fixed pitch, so the last stripe on a sign is a whole
+     one however wide the sign is dealt — see the awning over the fair itself in
+     css/bench-sheets.css, where the same slice was doing more damage. */
+  background: linear-gradient(90deg,
+    var(--awning, rgba(178, 58, 46, 0.75)) 0 50%,
+    rgba(242, 231, 203, 0.9) 50% 100%) 0 0 / 28px 100% round no-repeat;
   border-bottom: 1px solid rgba(138, 95, 29, 0.35);
 }
 
@@ -3579,9 +3582,9 @@ button.sundry:hover { scale: 1.06; }
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 9px;
-  background: repeating-linear-gradient(90deg,
-    var(--awning, rgba(178, 58, 46, 0.75)) 0 18px,
-    rgba(242, 231, 203, 0.9) 18px 36px);
+  background: linear-gradient(90deg,
+    var(--awning, rgba(178, 58, 46, 0.75)) 0 50%,
+    rgba(242, 231, 203, 0.9) 50% 100%) 0 0 / 36px 100% round no-repeat;
   border-bottom: 1px solid rgba(138, 95, 29, 0.35);
 }
 
