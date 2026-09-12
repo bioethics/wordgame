@@ -548,6 +548,44 @@ your gorgeous L and *then* the counterfeit L and you keep a second gorgeous L
 for good; put the forgery in front and nothing happens to the good tile behind
 it — there is nothing to strike from a fake.
 
+### The Tinker — a counter that walks to you
+
+Tap his card mid-page and the pack has exactly one thing in it: a tool, at the
+price a shop asks for it. No markup for the visit, no discount for the seat. Buy
+it and the pack is bare until the next word printed, when he packs another.
+
+What the seat sells is a **door**, not a bargain. Four of the seven tools he
+carries — the loupe, the laurel, the tongs, the ink wash — are the guild tools,
+which no stall stocks: without him the roads to one are a 4-Coin toolbox that
+picks for you and an alley that only opens if the Colophon offers the pick.
+Seated, he is a standing road to a laurel. You have only to be holding six Coins
+on the right word.
+
+That last clause is the tension the seat is made of. He re-packs after **every
+word**, so what he is carrying and what you want are two questions with
+different answers, and both change each time you print. A pack you could browse
+would be a second Market between pages; a pack that turns over every word is a
+run of small yes-or-nows on the page you are standing on.
+
+He is also the first thing on the board that will take Coins off you, and two
+amber seats read the same five Coins in opposite directions. *The Bursar* pays
++1 Mult for every 5 you are **holding**, so each purchase costs him a step.
+*The Spendthrift* grows a sort for every 5 you have **spent**, and does not care
+what they bought — so a Tinker in front of him is a purse turned into permanent
+Points, one tool at a time.
+
+The button is a board control, and is put away while a sheet is up — the Market,
+the alley, the Colophon, the chamber — as *the Scientist's* and *the
+Counterfeiter's* are. A popover drawn over a sheet paints above it but takes no
+clicks from it, which is true of the Dismiss button on any calling card opened
+from the Market's shelf strip as well; rather than draw a Buy that cannot be
+pressed, the card shows what is in the pack and stops there.
+
+`TOOL_PRICE` in `js/constants.js` is what a tool costs, read by his pack and by
+the alley's counter both, because two doors quoting one tool out of two tables
+is how the two prices drift apart. `TINKER_PACK` is what he carries; repeat an
+entry to make it likelier, as `TOOLBOX_POOL` does.
+
 ### The Corrector — the seat that sits on the dice
 
 Every chance the game rolls that a player would *want* to win goes through one
@@ -1026,9 +1064,9 @@ recast — see below).
 
 The **toolbox** opens into two *different* tools — the first in the box's own
 slot, the second only if the bench has room, else it rolls away. No shop sells
-four of the five, one per guild's temperament; the box is the only door to three
-of them, *the Ragman* pays the fourth for a crimson rag, and the odd ratchet
-rattles around in there at half the rate:
+four of the five, one per guild's temperament; the box and *the Tinker's* pack
+are the doors to three of them, *the Ragman* pays the fourth for a crimson rag,
+and the odd ratchet rattles around in there at half the rate:
 
 - **Loupe** (jade) — a tile's value doubles, to a maximum of 30, written in for
   good. It doubles the whole corner number, so raising a common letter first (a
@@ -1341,6 +1379,8 @@ bigger step than the last and a built press has to multiply rather than add:
 | How many sundries a shop lays out | `js/constants.js` → `SUNDRY_OFFERS` (the pool is `SUNDRY_PRICES` plus one tube per colour, in `js/market.js`) |
 | Ratchet sundry price | `js/constants.js` → `RATCHET_PRICE`; how far it steps, `RATCHET_RANGE` there or a `range` on the tool (the alphabet it walks is derived from `TILE_POINTS` — see `SHIFT_RING` in `js/state.js`) |
 | Toolbox price and what is inside it | `js/constants.js` → `TOOLBOX_PRICE`, `TOOLBOX_POOL` (repeat an entry to make it likelier; the box always yields two *different* tools) |
+| What a tool costs, wherever it is sold | `js/constants.js` → `TOOL_PRICE`. One table, read by *the Tinker's* pack and by the alley's counter (`BLACK_SUNDRY_STOCK`); the three the fair stocks keep their own constants and this quotes them |
+| The Tinker's pack — what he carries, and how often | `js/constants.js` → `TINKER_PACK` (repeat an entry to make it likelier). The roll is `packOne` in `js/patrons.js`, fired again by his `onPrinted`; the sale is `buyFromTinker` in `js/main.js` |
 | Tool tuning — doubling cap, laurel step, tongs bonus, wash count | `js/constants.js` → `LOUPE_CAP`, `HONORIFIC_STEP`, `TONGS_BONUS`, `WASH_COUNT` |
 | The notice of dismissal — its price, and how often the fair has one | `js/constants.js` → `DISMISSAL_PRICE`, `DISMISSAL_OFFER_CHANCE` (it displaces a Market sundry slot last, in `rollSundryOffers`, `js/market.js`, so a commoner offer can never paint over it; the alley's own stock is `BLACK_SUNDRY_STOCK` and the shell game's pool `everySundry`). What it does is `dismissEditor` in `js/state.js`, spent in `useSundry` in `js/main.js` |
 | The child's stages — what each is called, wears, and pays | `js/constants.js` → `BABY_STAGES` (the same number is Points every word and Coins at the ✕). The register it waits in is `state.babyName`; the seat is `baby` in `js/patrons.js` |

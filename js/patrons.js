@@ -182,10 +182,11 @@ import {
   gardenerRelief, chapelRelief, CHAPEL_BASE,
   SPENDTHRIFT_STEP, BEADLE_THRESHOLD, BEADLE_PAGE_COIN,
   LOVERS,
+  TINKER_PACK, TOOL_PRICE, TOOL_LOOK, sundryTip,
 } from './constants.js';
 import {
   state, getActiveColour, getActiveLetter, countsAsColour, luckyRoll,
-  paintRandomTiles, restingPoints, shuffle, owns, allSeats, effectiveSundrySlots,
+  paintRandomTiles, restingPoints, shuffle, owns, allSeats, effectiveSundrySlots, sheetUp,
   strikeMaterial, primeMult, spendCoins, growTile, totalQuotaRelief,
 } from './state.js';
 import { inTheme, themeSize, THEME_SETS, silentAt, SILENT } from './themes.js';
@@ -218,6 +219,14 @@ const rollCypher = () => {
   return { len, at: Math.floor(Math.random() * len) };
 };
 const princeCrowned = data => princeMult(data?.solved ?? 0) >= PRINCE.crown;
+
+// ─── The Tinker's pack ────────────────────────────────────────────────────────
+// What he is carrying this word, and how it draws itself. The ratchet is the one
+// tool with no TOOL_LOOK entry — the bench draws it as a pair of arrows, since
+// the choice it offers is made on the tile rather than in the slot — so it is
+// named here, as it is at the fair's counter and in the chamber.
+const packOne   = () => pick(TINKER_PACK);
+const toolGlyph = kind => (kind === 'ratchet' ? '⇅' : TOOL_LOOK[kind]?.glyph ?? '✒');
 
 // What The Usurer is still owed. A ghost is owed nothing: being murdered
 // settles the account, and a dead lender will not open a new one either.
@@ -1208,6 +1217,62 @@ const PATRON_BEHAVIOURS = [
       spendCoins(take);
       data.debt = owed - take;
       return { note: data.debt ? `${take} Coins collected, ${data.debt} still owed` : `${take} Coins collected — the book is clear` };
+    },
+  },
+  {
+    // A counter that walks to you. One tool out of the pack at a time, at the
+    // price a shop asks for it (TOOL_PRICE) — no markup for the visit and no
+    // discount for the seat, because what the seat sells is the DOOR and not a
+    // bargain. Four of the seven he carries are the guild tools, which no stall
+    // stocks at all: seated, he is a standing road to a loupe that runs through
+    // neither a 4-Coin gamble nor an alley that opens once a chapter.
+    //
+    // The pack is packed again after every word printed, and a sale empties it
+    // until then, so he is one tool per word at the very most. That is what
+    // keeps him from being a second shop: there is nothing to browse, only what
+    // is in the pack right now, and a tool you cannot afford this word may well
+    // not be there the next.
+    id: 'tinker',
+    when: 'meta',   // bought from his card — the button is below, the sale in js/main.js
+    // Packed as the copy is dealt rather than as the page turns, so a Tinker who
+    // arrives in the middle of one — uncorked out of a love potion, which rolls
+    // a seat through onOffer and seats it on the spot — is carrying something
+    // the moment he sits down.
+    onOffer: () => ({ tool: packOne() }),
+    // A seat that arrived by some road other than a shop is carrying nothing
+    // yet; the first word would fill the pack anyway, and this fills it sooner.
+    onPageStart({ data }) { data.tool ??= packOne(); return null; },
+    // Silent: a note over the card every single word would say nothing a tap on
+    // the card does not say better, and it would say it after every word for the
+    // rest of the run.
+    onPrinted({ data }) { data.tool = packOne(); return null; },
+
+    // What the pack holds, in the tool's own words — a laurel bought on the
+    // strength of its name alone is a laurel bought blind.
+    popover(data) {
+      const kind = data?.tool;
+      const tip  = kind ? sundryTip({ kind }) : null;
+      if (!tip) return '';
+      return `<div class="tip-feat"><b>${toolGlyph(kind)} ${tip.head}</b>${tip.body}</div>`;
+    },
+
+    // No button while a sheet is up, as the Scientist and the Counterfeiter also
+    // put theirs away: a popover drawn over the Market or the alley paints above
+    // the sheet but takes no clicks from it, so a Buy there would be a control
+    // that cannot be pressed. The pack is a thing you reach for at the bench.
+    act: ({ seat, data }) => {
+      if (!seat || sheetUp()) return '';
+      const kind = data?.tool;
+      if (!kind) {
+        return `<button class="btn btn-quiet tip-btn" disabled>The pack is empty until you print again</button>`;
+      }
+      if (state.sundries.length >= effectiveSundrySlots()) {
+        return `<button class="btn btn-quiet tip-btn" disabled>Your workbench is full</button>`;
+      }
+      const price = TOOL_PRICE[kind];
+      const name  = (sundryTip({ kind })?.head ?? kind).toLowerCase();
+      return `<button class="btn btn-quiet tip-btn" data-patron-act="tinker"${
+        state.coins < price ? ' disabled' : ''}>Buy the ${name} — ${price} Coins</button>`;
     },
   },
   {

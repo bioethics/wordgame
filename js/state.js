@@ -247,6 +247,16 @@ export const effectiveRackSize    = () => RACK_SIZE    + (state.upgradeCounts?.h
 export const effectivePatronSlots = () => PATRON_SLOTS + (state.upgradeCounts?.patronSeat    ?? 0);
 export const effectiveSundrySlots = () => SUNDRY_SLOTS + (state.upgradeCounts?.workbenchSlot ?? 0);
 
+// A full-screen sheet is up — the prospectus, the Market, the Black Market, the
+// Colophon or the Testing Chamber. Every board action asks this rather than
+// naming them, so the next sheet is a line here and nowhere else. It lives
+// beside the flags it reads, because the board (js/main.js) is not the only
+// thing that wants the answer: a patron with a button on its card has to know
+// whether there is a board to press it on.
+export const sheetUp = () =>
+  state.inMarket || state.inChamber || state.inColophon || state.inBlackMarket
+  || state.inStart;
+
 // ─── How many of each CHOICE is dealt ─────────────────────────────────────────
 // The Purveyor widens every one of them and improves none (PURVEYOR in
 // js/constants.js). Every count is asked here rather than at the place it is

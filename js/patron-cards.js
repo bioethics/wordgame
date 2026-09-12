@@ -84,6 +84,10 @@ export const PATRON_CARDS = {
     name: 'The Chapman', emoji: '🛒', rarity: 'uncommon', cost: 7, guild: 'amber',
     desc: 'At the Market, amber tiles are free. At least one tile at the Market is always amber.',
   },
+  tinker: {
+    name: 'The Tinker', emoji: '🛠️', rarity: 'uncommon', cost: 6, guild: 'amber',
+    desc: 'Tap to buy the one tool in his pack, at its usual price — including tools no shop stocks. A different tool after every word printed.',
+  },
   fence: {
     name: 'The Fence', emoji: '🗝️', rarity: 'rare', cost: 9, guild: 'amber',
     desc: 'The Black Market is always available via the Colophon. All Black Market merchandise costs {FENCE_OFF} less.',

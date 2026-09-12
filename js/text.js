@@ -207,6 +207,11 @@ export const LOG_TEXT = {
   counterfeitMade: '💵 A counterfeit {0} — worth nothing, and yours till the page turns.',
   scienceStandards:'🔬 One tile per page — science has standards.',
   scientistLends:  '🔬 The Scientist lends a gold-trimmed OLOGY tile — for this page only.',
+  // {0} the tool's name · {1} what it cost · {2} what you have
+  tinkerBought:    '🛠️ {0}, out of the pack and onto the workbench — {1} Coins.',
+  tinkerShort:     '🛠️ {0} is {1} Coins. You have {2}.',
+  tinkerNoRoom:    '🛠️ Your workbench is full — there is nowhere to put it.',
+  tinkerEmpty:     '🛠️ The pack is empty until you print again.',
 
   // ─── The Bribrarian's desk ──────────────────────────────────────────────────
   bribePaid:       '🤝 {0} Coins across the desk — every word this page at ×{1} Mult.{2}',

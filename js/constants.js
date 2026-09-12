@@ -465,6 +465,39 @@ export const RATCHET_RANGE = 1;
 // walks straight past the two seats that bend the draw (the Magpie, the Mako).
 export const BODKIN_PRICE  = 5;
 
+// ─── What a tool costs, in one place ──────────────────────────────────────────
+// The three the fair stocks keep their own constants above, because the fair's
+// counter is built from them; the four guild tools had their prices written into
+// BLACK_SUNDRY_STOCK, which was fine while the alley was the only counter that
+// sold them. The Tinker is a second counter and asks the SAME price, so the
+// figure has to live somewhere both can read it. The alley's stock now quotes
+// this table, which means repricing a tool is one edit and both doors follow.
+//
+// A price here is the list price — what a thing is worth. Markups (the alley's
+// on tiles and seats) and discounts (the Fence's) are applied at the point of
+// sale and never written in here.
+export const TOOL_PRICE = {
+  ratchet: RATCHET_PRICE,
+  toolbox: TOOLBOX_PRICE,
+  bodkin:  BODKIN_PRICE,
+  loupe:  6,
+  laurel: 6,
+  tongs:  4,
+  wash:   4,
+};
+
+// ─── The Tinker's pack ────────────────────────────────────────────────────────
+// One tool out of the pack at a time, at TOOL_PRICE, re-packed after every word
+// printed (his onPrinted in js/patrons.js). Four of the seven are the guild
+// tools, which is the whole of what the seat is worth: no stall sells those, and
+// the two other doors to them are a 4-Coin gamble and an alley that opens once a
+// chapter. Repeat an entry to make it likelier, as TOOLBOX_POOL does.
+//
+// The love potion and the notice of dismissal are tools by the game's filing
+// (TOOL_LOOK draws them) and not by the pack's: one is a philtre and the other a
+// piece of paper, and neither is a thing a man mending pots would be carrying.
+export const TINKER_PACK = ['ratchet', 'toolbox', 'bodkin', 'loupe', 'laurel', 'tongs', 'wash'];
+
 // "one tile" / "2 tiles" — keeps counted copy reading right
 export const tileCount = n => n === 1 ? 'one tile' : `${n} tiles`;
 
@@ -1550,11 +1583,16 @@ export const BLACK_TILE_FEATURES   = 2;
 // itself never stocks: the four guild tools (TOOLBOX_POOL's own, minus the
 // ratchet, which the Market does sell), the two applicators, the love potion,
 // the notice of dismissal, and the four registers' parcels.
+//
+// The four tools are priced from TOOL_PRICE rather than here, because the alley
+// is no longer the only counter that sells them — The Tinker's pack asks the
+// same figure, and two counters quoting one tool from two tables is how they
+// drift apart.
 export const BLACK_SUNDRY_STOCK = [
-  { kind: 'loupe',  price: 6 },
-  { kind: 'laurel', price: 6 },
-  { kind: 'tongs',  price: 4 },
-  { kind: 'wash',   price: 4 },
+  { kind: 'loupe',  price: TOOL_PRICE.loupe },
+  { kind: 'laurel', price: TOOL_PRICE.laurel },
+  { kind: 'tongs',  price: TOOL_PRICE.tongs },
+  { kind: 'wash',   price: TOOL_PRICE.wash },
   { kind: 'potion', price: 12 },
   // The alley is where a notice of dismissal can be looked for rather than
   // hoped for: four kinds of twelve are laid out a visit, against the one visit

@@ -16,13 +16,14 @@ import {
   castCounterfeit, effectiveRackSize, handCount, pluckFromBag,
   grantRandomPatron,
   rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost, luckyRoll, isSquib, spendCoins,
-  dismissEditor, runDifficulty,
+  dismissEditor, runDifficulty, sheetUp,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
   REACTION, NEOLOGIST_LENGTH, MATERIALS, TRIMS, WRAPPED_CONTENTS, MARK_TRIM,
   chapterLabel, COLOURS, MULT_TRACKS, splitMarks, isDeadline,
   FLEURON, BATTER, isSolo, TOOLBOX_POOL, HONORIFIC_STEP, TONGS_BONUS, LOUPE_CAP, RIPPER_WORDS, sundryTip, TOOL_LOOK,
+  TOOL_PRICE,
   isRomanNumeral, RIPPER_GHOST_WORDS,
   EXPLOSIVE_SPREAD_ODDS,
   PACKAGES, APPLICATORS, SILVER_BONUS, BAG_COUNTS,
@@ -996,13 +997,6 @@ function runChapterHooks() {
   }
   return notes;
 }
-
-// A full-screen sheet is up — the prospectus, the Market, the Black Market, the
-// Colophon or the Testing Chamber. Every board action asks this rather than
-// naming them, so the next sheet is a line here and nowhere else.
-const sheetUp = () =>
-  state.inMarket || state.inChamber || state.inColophon || state.inBlackMarket
-  || state.inStart;
 
 // ─── Submit (PRINT) ───────────────────────────────────────────────────────────
 
@@ -2362,6 +2356,32 @@ function usurerRepay() {
   renderAll(); if (state.inMarket) renderMarket(); persist();
 }
 
+// ─── The Tinker's pack ────────────────────────────────────────────────────────
+// The sale behind the button on his card. What is being sold and what it costs
+// are read off the seat rather than passed in from the button, so a popover left
+// open across a word can never sell one tool at another's price. The pack is
+// emptied by the sale; his onPrinted fills it again at the next word.
+//
+// allSeats rather than state.patrons: a murdered Tinker is still at the table,
+// and a ghost who keeps packing his bag every word may as well keep selling out
+// of it.
+function buyFromTinker() {
+  const seat = allSeats().find(p => p.id === 'tinker');
+  const kind = seat?.data?.tool;
+  if (!kind) { log(logLine('tinkerEmpty'), 'warn'); return; }
+  const price = TOOL_PRICE[kind];
+  const name  = sundryTip({ kind })?.head ?? 'The tool';
+  if (state.sundries.length >= effectiveSundrySlots()) { log(logLine('tinkerNoRoom'), 'warn'); return; }
+  if (state.coins < price) { log(logLine('tinkerShort', name, price, state.coins), 'warn'); return; }
+  spendCoins(price);
+  state.sundries.push({ kind });
+  seat.data.tool = null;
+  sfx.coin();
+  log(logLine('tinkerBought', name, price), 'good');
+  renderAll();
+  persist();
+}
+
 // ─── The Bribrarian's consideration ───────────────────────────────────────────
 // Blocks the page until it is settled, because settling it is the first move of
 // the page and there is no sensible default: taking nothing is a choice as much
@@ -2475,6 +2495,7 @@ $('popover')?.addEventListener('click', e => {
       if (act.dataset.patronAct === 'counterfeiter') openCounterfeitPlate();
       if (act.dataset.patronAct === 'usurer-borrow') usurerBorrow();
       if (act.dataset.patronAct === 'usurer-repay')  usurerRepay();
+      if (act.dataset.patronAct === 'tinker') buyFromTinker();
     }
     return;
   }
