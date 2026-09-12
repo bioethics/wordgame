@@ -16,7 +16,7 @@ import {
   castCounterfeit, effectiveRackSize, handCount, pluckFromBag,
   grantRandomPatron,
   rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost, luckyRoll, isSquib, spendCoins,
-  dismissEditor, runDifficulty, sheetUp,
+  dismissEditor, runDifficulty,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
@@ -997,6 +997,13 @@ function runChapterHooks() {
   }
   return notes;
 }
+
+// A full-screen sheet is up — the prospectus, the Market, the Black Market, the
+// Colophon or the Testing Chamber. Every board action asks this rather than
+// naming them, so the next sheet is a line here and nowhere else.
+const sheetUp = () =>
+  state.inMarket || state.inChamber || state.inColophon || state.inBlackMarket
+  || state.inStart;
 
 // ─── Submit (PRINT) ───────────────────────────────────────────────────────────
 
@@ -2379,6 +2386,8 @@ function buyFromTinker() {
   sfx.coin();
   log(logLine('tinkerBought', name, price), 'good');
   renderAll();
+  if (state.inMarket) renderMarket();
+  if (state.inBlackMarket) renderBlackMarket();
   persist();
 }
 

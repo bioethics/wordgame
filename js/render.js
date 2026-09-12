@@ -258,6 +258,8 @@ export function showPopover(anchorEl, html, skin = '') {
   // The class list is SET rather than added to: a skin (a ghost's card) must
   // not outlive the popover that asked for it.
   pop.className = `tip-pop${skin ? ` ${skin}` : ''}`;
+  // Opened, until the hover system says otherwise (markHoverTip, below).
+  delete pop.dataset.hover;
 
   // All arithmetic in visual coordinates (rects report them under the UI
   // scale's zoom); the final write divides, since a px written into the
@@ -477,6 +479,29 @@ export function setCoinNote(msg, bad = false) {
 export function hidePopover() {
   const pop = $('popover');
   if (pop && !pop.classList.contains('hidden')) pop.classList.add('hidden');
+}
+
+// ─── Summoned, or opened ──────────────────────────────────────────────────────
+// One element serves two kinds of popover, and only one of them belongs to the
+// pointer. A tip the pointer SUMMONED by hovering (showTipFor in js/drag.js)
+// should go the moment the pointer moves on. A card the player OPENED — a
+// patron's, with a Dismiss on it and sometimes a button that spends or buys —
+// must not, because the walk to those buttons crosses the sheet underneath: the
+// popover is transparent to the pointer everywhere but its buttons (.tip-pop is
+// `pointer-events: none`), so a mouse crossing its own body is a mouse over the
+// Market, and hiding on that took the card away before it could be pressed. It
+// only ever bit a mouse — touch opens these by long-press, and the hover
+// handlers let touch through untouched — which is why it went unnoticed on a
+// game played with a thumb.
+//
+// So the mark, and two doors: the hover system hides through hideHoverTip and
+// takes back only what it put up; everything else still calls hidePopover.
+export function markHoverTip() {
+  const pop = $('popover');
+  if (pop) pop.dataset.hover = '1';
+}
+export function hideHoverTip() {
+  if ($('popover')?.dataset.hover) hidePopover();
 }
 
 // ─── Main render ───────────────────────────────────────────────────────────────

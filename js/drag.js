@@ -15,7 +15,7 @@ import {
   reorderWord, reorderRack, reorderPatrons,
   toggleSelected, toggleSundrySelect, toggleDualVariant, sundrySelected,
 } from './state.js';
-import { renderAll, showTilePopover, showPopover, hidePopover, log } from './render.js';
+import { renderAll, showTilePopover, showPopover, hidePopover, markHoverTip, hideHoverTip, log } from './render.js';
 import { sfx } from './anim.js';
 import { uiZoom } from './appearance.js';
 import { logLine } from './text.js';
@@ -424,12 +424,14 @@ function showTipFor(target) {
       <button class="btn btn-quiet tip-btn" data-pop-discard="${bin}">${
         state.inMarket ? 'Sell it back' : 'Throw it away'}</button>`;
     showPopover(target, `<div class="tip-head">${head}</div><div class="tip-feat">${target.dataset.tipBody ?? ''}</div>${drop}`);
+    markHoverTip();
     return true;
   }
   const tileEl = target.matches('.tile') ? target : target.querySelector('.tile');
   const tmpl = tileEl && templateFor(tileEl);
   if (!tmpl) return false;
   showTilePopover(tmpl, tileEl, null, { canFlip: false });
+  markHoverTip();
   return true;
 }
 
@@ -459,16 +461,21 @@ export function initInspect() {
     .map(id => document.getElementById(id)).filter(Boolean);
 
   for (const root of roots) {
+    // hideHoverTip, not hidePopover: a pointer moving over the sheet takes back
+    // the tip it summoned and leaves alone the card the player opened (see
+    // "Summoned, or opened" in js/render.js). A patron's card is opened by a
+    // click here and its buttons are reached by crossing the sheet, so hiding on
+    // that movement was hiding the card on the way to its own Dismiss.
     root.addEventListener('pointerover', e => {
       if (e.pointerType === 'touch') return;          // touch uses long-press
       const target = tipTargetOf(e.target);
       clearTimeout(_hoverTimer);
-      if (!target) { hidePopover(); return; }
+      if (!target) { hideHoverTip(); return; }
       _hoverTimer = setTimeout(() => showTipFor(target), HOVER_DELAY);
     });
     root.addEventListener('pointerout', e => {
       if (e.pointerType === 'touch') return;
-      if (!tipTargetOf(e.relatedTarget ?? document.body)) { clearTimeout(_hoverTimer); hidePopover(); }
+      if (!tipTargetOf(e.relatedTarget ?? document.body)) { clearTimeout(_hoverTimer); hideHoverTip(); }
     });
 
     root.addEventListener('pointerdown', e => {

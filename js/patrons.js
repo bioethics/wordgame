@@ -186,7 +186,7 @@ import {
 } from './constants.js';
 import {
   state, getActiveColour, getActiveLetter, countsAsColour, luckyRoll,
-  paintRandomTiles, restingPoints, shuffle, owns, allSeats, effectiveSundrySlots, sheetUp,
+  paintRandomTiles, restingPoints, shuffle, owns, allSeats, effectiveSundrySlots,
   strikeMaterial, primeMult, spendCoins, growTile, totalQuotaRelief,
 } from './state.js';
 import { inTheme, themeSize, THEME_SETS, silentAt, SILENT } from './themes.js';
@@ -1256,12 +1256,11 @@ const PATRON_BEHAVIOURS = [
       return `<div class="tip-feat"><b>${toolGlyph(kind)} ${tip.head}</b>${tip.body}</div>`;
     },
 
-    // No button while a sheet is up, as the Scientist and the Counterfeiter also
-    // put theirs away: a popover drawn over the Market or the alley paints above
-    // the sheet but takes no clicks from it, so a Buy there would be a control
-    // that cannot be pressed. The pack is a thing you reach for at the bench.
+    // Offered wherever the card is opened, the Market's own shelf strip
+    // included: the fair stocks three of his seven, and a tool is a tool
+    // whichever counter it comes off.
     act: ({ seat, data }) => {
-      if (!seat || sheetUp()) return '';
+      if (!seat) return '';
       const kind = data?.tool;
       if (!kind) {
         return `<button class="btn btn-quiet tip-btn" disabled>The pack is empty until you print again</button>`;

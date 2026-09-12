@@ -46,6 +46,35 @@ python -m http.server 8431 --bind 0.0.0.0
 # on the phone: http://<your-computer's-ip>:8431
 ```
 
+### Summoned, or opened
+
+One element, `#popover`, serves two kinds of popover, and only one of them
+belongs to the pointer. A **tip the pointer summoned** by hovering a tile or a
+shop card (`showTipFor` in `js/drag.js`) should go the moment the pointer moves
+on. A **card the player opened** by clicking — a patron's, with a Dismiss on it,
+and sometimes a button that spends or buys — must not.
+
+The hover system used to take both away. Its handlers sit on the Market, the
+alley, the chamber, the collection view and the board's own workbench, and any
+`pointerover` on something without a tip called `hidePopover()`. That reached
+past its own work and into the player's: inside those sheets a calling card
+opened by a click was dismissed by the smallest movement of the mouse, so its
+Dismiss button, *the Usurer's* borrow and settle, and *the Tinker's* Buy could
+be read but never pressed. Moving *towards* a button was enough to lose it —
+`.tip-pop` is `pointer-events: none` everywhere but its buttons, so a mouse
+crossing the popover's own body is, as far as the page is concerned, a mouse
+over the Market underneath.
+
+It only ever bit a mouse. The same handlers let touch through untouched
+(`pointerType === 'touch'` returns early, since touch opens a tip by
+long-press), which is why a game played mostly with a thumb never showed it.
+
+So the popover is marked with how it was summoned: `markHoverTip` stamps the
+ones the hover system puts up, `showPopover` clears the stamp for everyone else,
+and the hover handlers hide through `hideHoverTip`, which takes back only what
+they put there. Everything else — a pointer down outside it, Escape, a drag
+starting, the next popover — still calls `hidePopover` and takes anything.
+
 ### The two looks
 
 The board has two looks, chosen in Settings. **The Bench** is the default: one
@@ -574,12 +603,10 @@ amber seats read the same five Coins in opposite directions. *The Bursar* pays
 what they bought — so a Tinker in front of him is a purse turned into permanent
 Points, one tool at a time.
 
-The button is a board control, and is put away while a sheet is up — the Market,
-the alley, the Colophon, the chamber — as *the Scientist's* and *the
-Counterfeiter's* are. A popover drawn over a sheet paints above it but takes no
-clicks from it, which is true of the Dismiss button on any calling card opened
-from the Market's shelf strip as well; rather than draw a Buy that cannot be
-pressed, the card shows what is in the pack and stops there.
+His card sells from wherever it is opened, the Market's own shelf strip
+included — the fair stocks three of his seven, and a tool is a tool whichever
+counter it comes off. Getting that working meant fixing something older —
+**Summoned, or opened**, under *Running it*.
 
 `TOOL_PRICE` in `js/constants.js` is what a tool costs, read by his pack and by
 the alley's counter both, because two doors quoting one tool out of two tables
