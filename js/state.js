@@ -50,6 +50,16 @@ export function shuffle(arr) {
 let _nextId = 1;
 export const nextId = () => _nextId++;
 
+// A run's name in the records: when it began, and a little noise. Drawn from
+// the crypto source rather than the game's own dice, so naming a run can never
+// move a seeded one's rolls.
+function newRunId() {
+  const noise = globalThis.crypto?.getRandomValues
+    ? globalThis.crypto.getRandomValues(new Uint32Array(1))[0].toString(36)
+    : String(Date.now() % 1e6);
+  return `${Date.now().toString(36)}-${noise}`;
+}
+
 // Collection templates carry a stable id (tid) so live rack tiles, stall
 // selections and gilder proposals can all point back at the owned tile —
 // painting a tile mid-word has to reach the template it was drawn from.
@@ -224,6 +234,9 @@ export const state = {
                     // in the order they were set — the book the run is writing
   pageLog: [],      // one row per page as it ends — its quota, what it scored, what it
                     // cost — for the run report a tester can copy (js/report.js)
+  runId: null,      // this run's name in the records (js/records.js), so a folio that goes
+                    // on into the appendices updates its one entry rather than adding another
+  assisted: false,  // set by the Testing Chamber and the dev shortcuts: kept out of the records
 
   // Fixed for the run, chosen on the prospectus (js/start.js). Read through
   // runDifficulty below rather than off the field, so a retired key can't be
@@ -724,6 +737,8 @@ export function loadState() {
     }
     state.manuscript ??= [];
     state.pageLog ??= [];
+    state.runId ??= newRunId();
+    state.assisted ??= false;
     // A save written before the prospectus existed was played on the standard
     // book, and says nothing about a difficulty — hence the fallback rather
     // than a version bump, which would have thrown the run itself away.
@@ -787,7 +802,7 @@ export function newRun({ difficulty = settings.difficulty } = {}) {
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
     manuscript: [],
-    pageLog: [],
+    pageLog: [], runId: newRunId(), assisted: false,
     endless: false, inMarket: false, inStart: false, inChamber: false, inColophon: false,
     inBlackMarket: false, blackMarketVisits: 0,
     isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null, gameOver: false,

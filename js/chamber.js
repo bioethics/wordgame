@@ -91,6 +91,7 @@ export function openChamber({ atStart = false } = {}) {
   chamber.filter  = '';
   chamber.build ??= freshBuild();
   state.inChamber = true;
+  state.assisted = true;   // a run the chamber has touched is kept out of the records
 }
 
 export function closeChamber() {

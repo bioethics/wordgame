@@ -12,7 +12,7 @@ import {
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
   WORDS_PER_PAGE, PAGES_PER_CHAPTER, tileCount,
-  colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
+  colourDesc, chapterLabel, roman, FINAL_CHAPTER, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
   sundryTip, FLEURON, BATTER, TOOL_LOOK, PACKAGES, APPLICATORS, MEDIEVAL, letterGlyph,
   INTERROBANG, POSTNOM, BAG_COUNTS, BRIBRARIAN, bribeMult, isRule, RULE, BOLD_MULT,
   lengthMult, LENGTH_MULT_MIN, RATCHET_RANGE, DEFAULT_DIFFICULTY,
@@ -1725,7 +1725,24 @@ const statsHTML = () => `
     <div class="run-stat"><span class="run-stat-num">${state.stats.bestWord || '—'}</span><span class="run-stat-label">best word${state.stats.bestScore ? ` · ${state.stats.bestScore.toLocaleString()}` : ''}</span></div>
   </div>`;
 
-export function showGameOver() {
+// How this run stands in the records (recordRun in js/records.js), said under
+// its own numbers: the furthest this book has been taken, and the best word.
+const recordsHTML = standing => {
+  if (state.assisted) return `<p class="end-sub end-records">${logLine('endAssisted')}</p>`;
+  if (!standing) return '';
+  const { edition, furthest, furthestIsNew, bestWord, bestWordIsNew, line, runs, folios } = standing;
+  const where = r => (r.won && r.chapter >= FINAL_CHAPTER && !r.lost
+    ? logLine('endFolioDone') : `${chapterLabel(r.chapter)}, page ${r.page}`);
+  const lines = [
+    furthestIsNew ? logLine('endFurthestNew', edition) : logLine('endFurthest', edition, where(furthest)),
+    bestWordIsNew ? logLine('endBestWordNew', line.bestWord)
+      : bestWord ? logLine('endBestWord', bestWord.bestWord, bestWord.bestScore.toLocaleString()) : '',
+    logLine('endRunsRecorded', runs, folios),
+  ].filter(Boolean);
+  return `<div class="end-records">${lines.map(l => `<p class="end-sub">${l}</p>`).join('')}</div>`;
+};
+
+export function showGameOver(standing = null) {
   showOverlay(`
     <div class="sheet sheet--dark sheet--end">
       <div class="end-flourish">✕</div>
@@ -1737,6 +1754,7 @@ export function showGameOver() {
         state.boss ? logLine('endLoseBoss', bossById(state.boss.id)?.emoji ?? '', bossById(state.boss.id)?.name ?? '') : '')}</p>
       ${editionHTML()}
       ${statsHTML()}
+      ${recordsHTML(standing)}
       <div class="end-actions">
         <button class="btn btn-quiet" data-overlay-action="report">${SETTINGS_TEXT.report}</button>
         <button class="btn btn-print btn-big" data-overlay-action="newrun">${logLine('endNewRun')}</button>
@@ -1756,7 +1774,7 @@ export function showStandDown(message) {
     </div>`);
 }
 
-export function showVictory() {
+export function showVictory(standing = null) {
   showOverlay(`
     <div class="sheet sheet--end">
       <div class="end-flourish end-flourish--win">❦</div>
@@ -1764,6 +1782,7 @@ export function showVictory() {
       <p class="end-sub">${logLine('endWinSub')}</p>
       ${editionHTML()}
       ${statsHTML()}
+      ${recordsHTML(standing)}
       <div class="end-actions">
         <button class="btn btn-quiet" data-overlay-action="report">${SETTINGS_TEXT.report}</button>
         <button class="btn btn-quiet" data-overlay-action="endless">${logLine('endEndless')}</button>

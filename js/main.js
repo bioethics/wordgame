@@ -74,6 +74,7 @@ import {
 } from './patrons.js';
 import { randomQuip } from './quips.js';
 import { runReportText, copyText } from './report.js';
+import { recordRun } from './records.js';
 import { logLine, SETTINGS_TEXT, TOOL_IN_A_SENTENCE } from './text.js';
 
 const $ = id => document.getElementById(id);
@@ -1503,7 +1504,7 @@ async function beginNextPage() {
   if (finishedFinalPage && !state.endless) {
     state.endless = true;
     persist();
-    showVictory();
+    showVictory(recordRun());
     return;   // advance continues when they pick an overlay action
   }
 
@@ -1575,8 +1576,9 @@ async function gameLost() {
   state.gameOver = true;
   sfx.lose();
   persist();
+  const standing = recordRun();
   await sleep(350);
-  showGameOver();
+  showGameOver(standing);
 }
 
 // ─── Discard ──────────────────────────────────────────────────────────────────
@@ -2754,9 +2756,11 @@ $('btnNewRun')?.addEventListener('click', async () => {
 
 // Dev helpers — only on the page in dev mode (devMode in js/state.js)
 if (devMode) $('devTools')?.removeAttribute('hidden');
-$('devCoins')?.addEventListener('click', () => { state.coins += 20; renderAll(); if (state.inMarket) renderMarket(); });
+// Each is a thumb on the scale, so a run that uses one is kept out of the records.
+$('devCoins')?.addEventListener('click', () => { state.assisted = true; state.coins += 20; renderAll(); if (state.inMarket) renderMarket(); });
 $('devMarket')?.addEventListener('click', () => {
   if (sheetUp() || state.isAnimating) return;
+  state.assisted = true;
   $('settingsModal')?.classList.remove('show');
   openMarket([], 0);
   renderAll(); renderMarket();
@@ -2764,6 +2768,7 @@ $('devMarket')?.addEventListener('click', () => {
 $('devChamber')?.addEventListener('click', () => openTheChamber());
 $('devWinPage')?.addEventListener('click', () => {
   if (sheetUp() || state.isAnimating || state.gameOver) return;
+  state.assisted = true;
   $('settingsModal')?.classList.remove('show');
   state.pageScore = state.quota;
   pageComplete();
@@ -2923,7 +2928,7 @@ function openTheChamber() {
   let fresh = !readable;
   if (readable) {
     try {
-      if (state.gameOver) { renderAll(); showGameOver(); }
+      if (state.gameOver) { renderAll(); showGameOver(recordRun()); }
       // The prospectus has nothing to snapshot — every pick was written straight
       // through — so the run's own flag is enough to come back to it.
       else if (state.inStart) {

@@ -289,6 +289,14 @@ export const LOG_TEXT = {
   endEdition:      'A {0} edition.',
   endNewRun:       'Begin a new folio',
   endEndless:      'Keep printing (appendices)',
+  // How the run stands against the others in the records (js/records.js).
+  endAssisted:     'A Testing Chamber run — kept out of your records.',
+  endFurthestNew:  'Your furthest yet on the {0} book.',                  // edition
+  endFurthest:     'Your furthest on the {0} book: {1}.',                 // edition · where
+  endFolioDone:    'the folio complete',
+  endBestWordNew:  '{0} is your best word yet.',
+  endBestWord:     'Your best word: {0}, {1}.',                           // word · score
+  endRunsRecorded: 'Runs recorded: {0}. Folios completed: {1}.',
 };
 
 // ─── Settings ─────────────────────────────────────────────────────────────────
