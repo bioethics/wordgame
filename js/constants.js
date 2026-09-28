@@ -661,13 +661,22 @@ function roundQuota(n) {
 // quota is still a round target rather than 28; `discards` is added to the
 // page's allowance, and an editor who bans discards still bans them.
 //
-// The gentler book is a fifth off the climb and a third Discard — the two
-// things a run is actually lost to (see the CHAPTER_EASE note above: a bad
-// draw against a quota set for a press you haven't built yet). Everything
-// else — the Market's prices, the editors, the reward — is left alone.
+// The gentler book eases the climb and adds a third Discard — the two things a
+// run is actually lost to (see the CHAPTER_EASE note above: a bad draw against a
+// quota set for a press you haven't built yet). Everything else — the Market's
+// prices, the editors, the reward — is left alone.
+//
+// The ease COMPOUNDS. It used to be a flat fifth off every quota, and because
+// the quota grows by a multiple each chapter a flat cut is worth less the
+// further a run gets: about 0.4 of a chapter at chapter 2, a quarter of one at
+// the wall in chapters 8–9, which is where runs are lost. So `quotaMult` still
+// takes the fifth off the opening, and `growthEase` comes off every chapter's
+// growth rate after it (×1.7 into chapter 2 becomes ×1.62, and so on up the
+// ramp), leaving chapter 8 about two fifths under the standard book and the
+// last chapter nearly half — half a chapter's grace at the wall, not a quarter.
 export const DIFFICULTIES = {
-  largeprint: { ...DIFFICULTY_TEXT.largeprint, quotaMult: 0.8, discards: 1 },
-  standard:   { ...DIFFICULTY_TEXT.standard,   quotaMult: 1,   discards: 0 },
+  largeprint: { ...DIFFICULTY_TEXT.largeprint, quotaMult: 0.8, growthEase: 0.08, discards: 1 },
+  standard:   { ...DIFFICULTY_TEXT.standard,   quotaMult: 1,   growthEase: 0,    discards: 0 },
 };
 
 export const DEFAULT_DIFFICULTY = 'standard';
@@ -679,12 +688,26 @@ export const difficultyKey = id => (DIFFICULTIES[id] ? id : DEFAULT_DIFFICULTY);
 export const difficultyOf  = id => DIFFICULTIES[difficultyKey(id)];
 
 export function quotaFor(chapter, page, difficulty = DEFAULT_DIFFICULTY) {
+  const { quotaMult, growthEase = 0 } = difficultyOf(difficulty);
   let raw = QUOTA_BASE;
-  for (let c = 2; c <= chapter; c++) raw *= QUOTA_GROWTH_START + (c - 2) * QUOTA_GROWTH_RAMP;
+  for (let c = 2; c <= chapter; c++) raw *= QUOTA_GROWTH_START + (c - 2) * QUOTA_GROWTH_RAMP - growthEase;
   if (chapter === 1) raw *= CHAPTER_1_EASE;
   raw *= CHAPTER_EASE[chapter] ?? 1;
-  raw *= difficultyOf(difficulty).quotaMult;
+  raw *= quotaMult;
   return roundQuota(raw * PAGE_FACTORS[page - 1]);
+}
+
+// How far under the standard book a difficulty's quota sits at a chapter, as a
+// fraction (0.2 is a fifth lower) — worked from the dials, before rounding, so
+// the prospectus card quotes the curve and not an accident of it.
+export function difficultyCut(chapter, difficulty) {
+  const { quotaMult, growthEase = 0 } = difficultyOf(difficulty);
+  let ratio = quotaMult;
+  for (let c = 2; c <= chapter; c++) {
+    const rate = QUOTA_GROWTH_START + (c - 2) * QUOTA_GROWTH_RAMP;
+    ratio *= (rate - growthEase) / rate;
+  }
+  return 1 - ratio;
 }
 
 export function roman(n) {
@@ -1718,7 +1741,8 @@ export const KNOBS = {
   RIPPER_GHOST_WORDS: wordListText(RIPPER_GHOST_WORDS),
 
   // How much of the climb the gentler book takes off, as the card says it.
-  LARGE_PRINT_CUT: `${Math.round((1 - DIFFICULTIES.largeprint.quotaMult) * 100)}%`,
+  LARGE_PRINT_CUT: `${Math.round(difficultyCut(1, 'largeprint') * 100)}%`,
+  LARGE_PRINT_END: `${Math.round(difficultyCut(FINAL_CHAPTER, 'largeprint') * 100)}%`,
 
   // The parcels, by the name each one goes by
   PARCEL_SPOOKY:   PACKAGES.spooky.label,

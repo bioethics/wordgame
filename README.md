@@ -140,15 +140,24 @@ run, and named on the end screen whenever it was not the standard book — a
 score on an eased climb is a different number, and the end screen is the one
 place that is worth saying.
 
-**Large Print** is the gentler edition: every quota a fifth lower, and a third
-Discard on every page. Those two are what a run is actually lost to — the quota
-climbing at a rate set for a press you have not built yet, and a hand that will
-not spell against it. Nothing else moves; the Market's prices, the editors, the
-reward and the Colophon are the same book either way. The dials are `quotaMult`
-and `discards` on `DIFFICULTIES` (`js/constants.js`), and both are read where a
-page is counted out in `startPage` — the quota BEFORE it is rounded, so an eased
-target is still a round number to aim at rather than 28. An editor who bans
-Discards still bans them.
+**Large Print** is the gentler edition: a gentler climb, and a third Discard on
+every page. Those two are what a run is actually lost to — the quota climbing at
+a rate set for a press you have not built yet, and a hand that will not spell
+against it. Nothing else moves; the Market's prices, the editors, the reward and
+the Colophon are the same book either way.
+
+The climb's ease COMPOUNDS. The quota grows by a multiple each chapter, so a flat
+cut is worth less the further a run gets — the fifth off every quota this edition
+used to take was about 0.4 of a chapter's grace at chapter 2, and a quarter of one
+at the wall in chapters 8–9, where runs are lost. So the fifth still comes off the
+opening (`quotaMult`), and `growthEase` comes off every chapter's growth rate
+after it: 20% under the standard book at chapter 1, 30% at chapter 4, 40% at
+chapter 8, 44% at the last. The prospectus card quotes both ends from the dials
+themselves (`difficultyCut`), so it cannot promise a curve the pages do not keep.
+All three dials sit on `DIFFICULTIES` (`js/constants.js`) and are read where a
+page is counted out — the quota BEFORE it is rounded, so an eased target is still
+a round number to aim at rather than 28. An editor who bans Discards still bans
+them.
 
 The Testing Chamber opens *from* the prospectus rather than in front of it, and
 says what it is on the way in: a playtest bench, where seats, sorts and sundries
@@ -1329,7 +1338,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Knob | Where |
 | --- | --- |
 | Quota curve | `js/constants.js` → `quotaFor`, `QUOTA_BASE`, `QUOTA_GROWTH_START`, `QUOTA_GROWTH_RAMP`. The rate itself grows: chapter 2 asks ×1.7 of chapter 1, chapter 3 ×1.8 of chapter 2, and so on. START makes the whole run harder; RAMP makes the ending harder without touching the opening — a harder mode is a bigger pair |
-| The difficulty dials, and a new edition | `js/constants.js` → `DIFFICULTIES` (a `quotaMult` and a `discards` per row; the copy is `DIFFICULTY_TEXT` in `js/text.js`, and `{LARGE_PRINT_CUT}` is filled from the multiplier itself so a card cannot quote a cut the page does not take). A third edition is a row here and nothing else — the prospectus lays out whatever the table holds |
+| The difficulty dials, and a new edition | `js/constants.js` → `DIFFICULTIES` (a `quotaMult`, a `growthEase` and a `discards` per row; the copy is `DIFFICULTY_TEXT` in `js/text.js`, and `{LARGE_PRINT_CUT}` / `{LARGE_PRINT_END}` are worked from the dials by `difficultyCut` so a card cannot quote a cut the pages do not take). A third edition is a row here and nothing else — the prospectus lays out whatever the table holds |
 | A single chapter that plays too easy or too hard | `js/constants.js` → `CHAPTER_1_EASE` and `CHAPTER_EASE` (a per-chapter multiplier on that chapter's quota only, either way: chapters 2–3 sit under 1 to soften the opening, 4–5 over it to answer a compounding press) |
 | Trim effects & prices | `js/constants.js` → `TRIMS` (effects live in `js/scoring.js`); silver's Points are `SILVER_BONUS`, read by scoring, the trim's card and the tile's own number alike |
 | Materials, the cursed ×Mult, wrapped-tile price & how often one is offered | `js/constants.js` → `MATERIALS`, `CURSED_MULT`, `CURSED_MAX_POINTS`, `WRAPPED_PRICE`, `WRAPPED_OFFER_CHANCE` |

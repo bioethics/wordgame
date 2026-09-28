@@ -17,7 +17,7 @@ import {
   grantRandomPatron,
   rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost, luckyRoll, isSquib, spendCoins,
   dismissEditor, runDifficulty, lockBoard, unlockBoard, resetBoardLock,
-  barSaving, isSaveKey, setAsideSave, devMode, toggleSelected,
+  barSaving, isSaveKey, setAsideSave, devMode, toggleSelected, logPage,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
@@ -73,6 +73,7 @@ import {
   PATRON_DEFS, patronById, doubledReading, boundNouns, patronName, patronEmoji, patronShelf, guildSeats,
 } from './patrons.js';
 import { randomQuip } from './quips.js';
+import { runReportText, copyText } from './report.js';
 import { logLine, SETTINGS_TEXT, TOOL_IN_A_SENTENCE } from './text.js';
 
 const $ = id => document.getElementById(id);
@@ -1420,6 +1421,7 @@ function renderAllStable() {
 
 async function pageComplete() {
   lockBoard();
+  logPage('cleared');
   state.stats.pages += 1;
   sfx.win();
   const bossDef = state.boss ? bossById(state.boss.id) : null;
@@ -1569,6 +1571,7 @@ async function advancePage() {
 // ─── Loss ─────────────────────────────────────────────────────────────────────
 
 async function gameLost() {
+  logPage('lost');
   state.gameOver = true;
   sfx.lose();
   persist();
@@ -2567,6 +2570,8 @@ $('overlayModal')?.addEventListener('click', async e => {
   const btn = e.target.closest('[data-overlay-action]');
   if (!btn) return;
   const action = btn.dataset.overlayAction;
+  // The report is copied from the end screen and the end screen stays up.
+  if (action === 'report') { await copyRunReport(btn); return; }
   hideOverlay();
   if (action === 'newrun') {
     await startFreshRun();
@@ -2706,6 +2711,16 @@ $('fileInput')?.addEventListener('change', e => {
   };
   reader.readAsText(file);
 });
+
+// The run report goes to the clipboard, and the button that sent it says so for
+// a moment — the only sign a copy leaves.
+async function copyRunReport(btn) {
+  const ok = await copyText(runReportText());
+  if (!btn) return;
+  btn.textContent = ok ? SETTINGS_TEXT.reportCopied : SETTINGS_TEXT.reportFailed;
+  setTimeout(() => { btn.textContent = SETTINGS_TEXT.report; }, 2200);
+}
+$('btnRunReport')?.addEventListener('click', e => copyRunReport(e.currentTarget));
 
 // New run ends the run in hand, so it asks twice: the first press arms it, as
 // Discard's does, and it disarms itself if the second never comes. There is

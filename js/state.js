@@ -23,6 +23,7 @@ const SETTINGS_KEY = 'folio_settings_v1';
 // game's way, and still there for a hand to recover.
 const SAVE_ASIDE_KEY = 'folio_save_v1_set_aside';
 const SAVE_VERSION = 14;  // v14: the opening draft is gone, the Testing Chamber in its place
+export const saveVersion = SAVE_VERSION;   // named in the run report (js/report.js)
 
 // ─── Dev mode ─────────────────────────────────────────────────────────────────
 // The Testing Chamber and Settings' Developer shortcuts (+20 Coins, Clear page)
@@ -221,6 +222,8 @@ export const state = {
   stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
   manuscript: [],   // { word, score, chapter, page } for every word printed this run,
                     // in the order they were set — the book the run is writing
+  pageLog: [],      // one row per page as it ends — its quota, what it scored, what it
+                    // cost — for the run report a tester can copy (js/report.js)
 
   // Fixed for the run, chosen on the prospectus (js/start.js). Read through
   // runDifficulty below rather than off the field, so a retired key can't be
@@ -720,6 +723,7 @@ export function loadState() {
       delete state.ledger;
     }
     state.manuscript ??= [];
+    state.pageLog ??= [];
     // A save written before the prospectus existed was played on the standard
     // book, and says nothing about a difficulty — hence the fallback rather
     // than a version bump, which would have thrown the run itself away.
@@ -783,6 +787,7 @@ export function newRun({ difficulty = settings.difficulty } = {}) {
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
     manuscript: [],
+    pageLog: [],
     endless: false, inMarket: false, inStart: false, inChamber: false, inColophon: false,
     inBlackMarket: false, blackMarketVisits: 0,
     isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null, gameOver: false,
@@ -1330,6 +1335,19 @@ export function mergeTiles(left, right) {
 }
 
 // ─── The manuscript ───────────────────────────────────────────────────────────
+
+// A page's line in the run report, written as the page ends, cleared or lost:
+// what it asked, what it got, and what it cost to get it. Where a run is lost,
+// and by how much, is the thing a curve is tuned from.
+export function logPage(outcome) {
+  state.pageLog ??= [];
+  state.pageLog.push({
+    chapter: state.chapter, page: state.page, quota: state.quota, score: state.pageScore,
+    words: effectiveWordsPerPage() - state.wordsLeft,
+    discards: Math.max(0, (state.discardsMax ?? 0) - (state.discards ?? 0)),
+    editor: state.boss?.id ?? null, outcome,
+  });
+}
 
 export function recordWord(word, score, bold = false) {
   state.manuscript ??= [];

@@ -299,6 +299,10 @@ export const SETTINGS_TEXT = {
   // New run ends the run in hand, so it asks twice: the first press arms it,
   // like Discard, and it disarms itself if the second never comes.
   newRunConfirm: 'Press again to end this run',
+  // The run report (js/report.js): the button, and what it says once pressed.
+  report:        'Copy run report',
+  reportCopied:  'Copied — paste it anywhere',
+  reportFailed:  'Could not reach the clipboard',
 };
 
 // Look a line up and fill its slots — loudly, so a mistyped key is a crash at
@@ -601,7 +605,7 @@ export const LENGTH_FLOURISH_BEYOND = 'the stuff of legend.';
 export const DIFFICULTY_TEXT = {
   largeprint: {
     label: 'Large Print',
-    desc:  'Every quota {LARGE_PRINT_CUT} lower, and one more Discard a page.',
+    desc:  'Quotas {LARGE_PRINT_CUT} lower at the start and {LARGE_PRINT_END} lower by the last chapter, and one more Discard a page.',
   },
   standard: {
     label: 'Standard',

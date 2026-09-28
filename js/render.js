@@ -26,7 +26,7 @@ import { colophonSnapshot } from './colophon.js';
 import { blackMarketSnapshot } from './blackmarket.js';
 import { setNum, sleep, fmtMult, readingTime, sfx } from './anim.js';
 import { uiZoom } from './appearance.js';
-import { logLine, SOLO_TEXT, ratchetLine } from './text.js';
+import { logLine, SOLO_TEXT, ratchetLine, SETTINGS_TEXT } from './text.js';
 
 const $ = id => document.getElementById(id);
 
@@ -1737,7 +1737,10 @@ export function showGameOver() {
         state.boss ? logLine('endLoseBoss', bossById(state.boss.id)?.emoji ?? '', bossById(state.boss.id)?.name ?? '') : '')}</p>
       ${editionHTML()}
       ${statsHTML()}
-      <button class="btn btn-print btn-big" data-overlay-action="newrun">${logLine('endNewRun')}</button>
+      <div class="end-actions">
+        <button class="btn btn-quiet" data-overlay-action="report">${SETTINGS_TEXT.report}</button>
+        <button class="btn btn-print btn-big" data-overlay-action="newrun">${logLine('endNewRun')}</button>
+      </div>
     </div>`);
 }
 
@@ -1762,6 +1765,7 @@ export function showVictory() {
       ${editionHTML()}
       ${statsHTML()}
       <div class="end-actions">
+        <button class="btn btn-quiet" data-overlay-action="report">${SETTINGS_TEXT.report}</button>
         <button class="btn btn-quiet" data-overlay-action="endless">${logLine('endEndless')}</button>
         <button class="btn btn-print btn-big" data-overlay-action="newrun">${logLine('endNewRun')}</button>
       </div>
