@@ -23,6 +23,7 @@ import {
   PATRON_DEFS, RARITY_WEIGHT, patronById, guildSeats, rollPostnom, patronCost, patronName,
   BEADLE_STALLS,
 } from './patrons.js';
+import { random } from './rng.js';
 
 // ─── Shop state (ephemeral between pages) ─────────────────────────────────────
 
@@ -59,7 +60,7 @@ function buildLetterPool() {
 }
 const LETTER_POOL = buildLetterPool();
 
-const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+const pick = arr => arr[Math.floor(random() * arr.length)];
 
 // The one cut the Punchcutter will make on a mark, and the only road to an
 // interrobang. It asks that you own BOTH marks, and consumes neither.
@@ -86,7 +87,7 @@ export function addRandomFeature(tmpl) {
       && !isMark(tmpl.letter) && !isMedieval(tmpl.letter)) missing.push('dual');
 
   while (missing.length) {
-    const f = missing.splice(Math.floor(Math.random() * missing.length), 1)[0];
+    const f = missing.splice(Math.floor(random() * missing.length), 1)[0];
     if (f === 'colour') { tmpl.colour = pick(Object.keys(COLOURS)); return true; }
     if (f === 'trim')   { tmpl.trim   = pick(Object.keys(TRIMS));   return true; }
     if (f === 'nick')   { tmpl.nick   = pick(Object.keys(NICKS));   return true; }
@@ -103,7 +104,7 @@ export function addRandomFeature(tmpl) {
 // How many features this tile gets: one for free, then keep rolling.
 function rollFeatureCount(floor = 1) {
   let n = 1;
-  while (n < MAX_FEATURES && Math.random() < FEATURE_CHAIN_CHANCE) n++;
+  while (n < MAX_FEATURES && random() < FEATURE_CHAIN_CHANCE) n++;
   return Math.max(floor, n);
 }
 
@@ -211,8 +212,8 @@ function rollSundryOffers() {
       ? { kind: entry, colour: null, price: SUNDRY_PRICES[entry], sold: false }
       : { kind: 'tube', colour: entry, price: TUBE_PRICE, sold: false });
 
-  if (offers.length && Math.random() < WRAPPED_OFFER_CHANCE) {
-    offers[Math.floor(Math.random() * offers.length)] = {
+  if (offers.length && random() < WRAPPED_OFFER_CHANCE) {
+    offers[Math.floor(random() * offers.length)] = {
       kind: 'wrapped', colour: null, price: WRAPPED_PRICE, sold: false,
     };
   }
@@ -221,8 +222,8 @@ function rollSundryOffers() {
   // never displaced itself: it is the rarest thing the fair puts on this counter
   // by a distance, and a rarity a commoner offer could paint over would not be
   // one. The alley is still where you go to look for one on purpose.
-  if (offers.length && Math.random() < DISMISSAL_OFFER_CHANCE) {
-    offers[Math.floor(Math.random() * offers.length)] = {
+  if (offers.length && random() < DISMISSAL_OFFER_CHANCE) {
+    offers[Math.floor(random() * offers.length)] = {
       kind: 'dismissal', colour: null, price: DISMISSAL_PRICE, sold: false,
     };
   }
@@ -242,20 +243,20 @@ function rollOffers() {
   market.patronOffers = weightedPatronSample(effectiveMarketPatrons());
   market.tileOffers   = Array.from({ length: effectiveMarketTiles() }, randomTileOffer);
   // The fleuron displaces a tile slot now and then, at its own flat price.
-  if (Math.random() < FLEURON_OFFER_CHANCE) {
-    const i = Math.floor(Math.random() * market.tileOffers.length);
+  if (random() < FLEURON_OFFER_CHANCE) {
+    const i = Math.floor(random() * market.tileOffers.length);
     market.tileOffers[i] = { template: makeTileTemplate(FLEURON), price: FLEURON_PRICE, sold: false };
   }
   // A quire is APPENDED rather than displacing a slot: three sorts sold as a
   // lot, laid out in a band under the row. The tile row keeps its shape whether
   // one turns up or not, which is worth more than the symmetry of displacing.
-  if (Math.random() < QUIRE_OFFER_CHANCE) market.tileOffers.push(rollQuire());
+  if (random() < QUIRE_OFFER_CHANCE) market.tileOffers.push(rollQuire());
   // …and so does the pair of rules, which is sold as a PAIR and no other way:
   // one rule alone is worth nothing at all, so half a purchase would be a trap.
   // Bold is an experiment, off in the main game: the shop only stocks the pair
   // for a run that switched it on in the Testing Chamber.
-  if (state.experiments?.bold && Math.random() < RULE_PACK_CHANCE) {
-    const i = Math.floor(Math.random() * market.tileOffers.length);
+  if (state.experiments?.bold && random() < RULE_PACK_CHANCE) {
+    const i = Math.floor(random() * market.tileOffers.length);
     market.tileOffers[i] = {
       template: makeTileTemplate(RULE), price: RULE_PACK_PRICE, sold: false, pack: 2,
     };
@@ -281,7 +282,7 @@ function offerTheCat() {
 function stockTheMedievalStall() {
   if (!owns('medievalist')) return;
   const tmpl = makeTileTemplate(pick(MEDIEVAL_LETTERS));
-  const target = 1 + (Math.random() < FEATURE_CHAIN_CHANCE ? 1 : 0);
+  const target = 1 + (random() < FEATURE_CHAIN_CHANCE ? 1 : 0);
   while (featureCount(tmpl) < target && addRandomFeature(tmpl)) { /* dress it */ }
   market.tileOffers.push({ template: tmpl, price: tilePrice(tmpl), sold: false, medieval: true });
 }
@@ -326,7 +327,7 @@ function biasedSample(tiles, n) {
   const pool = [...tiles];
   const out = [];
   while (out.length < n && pool.length) {
-    let roll = Math.random() * pool.reduce((sum, t) => sum + letterWeight(t), 0);
+    let roll = random() * pool.reduce((sum, t) => sum + letterWeight(t), 0);
     let i = 0;
     while (i < pool.length - 1 && (roll -= letterWeight(pool[i])) > 0) i++;
     out.push(pool.splice(i, 1)[0]);

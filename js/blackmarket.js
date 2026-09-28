@@ -47,6 +47,7 @@ import {
 } from './constants.js';
 import { randomSpecialTile, randomBareTile, tilePrice } from './market.js';
 import { PATRON_DEFS, patronById, patronCost, patronName, rollPostnom } from './patrons.js';
+import { random } from './rng.js';
 
 export const blackMarket = {
   open:         false,
@@ -57,7 +58,7 @@ export const blackMarket = {
   shell:        { shells: [], uses: 0 },      // [kind…]; price doubles per play
 };
 
-const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+const pick = arr => arr[Math.floor(random() * arr.length)];
 
 // ─── What the alley asks ──────────────────────────────────────────────────────
 // The Fence's cut, and the single door every price in here goes through — the
@@ -114,7 +115,7 @@ function plainOffer() {
 function rollTileOffers() {
   const offers = [];
   for (const [material, stock] of Object.entries(BLACK_MATERIAL_STOCK)) {
-    const n = 1 + Math.floor(Math.random() * stock.max);   // 1..max
+    const n = 1 + Math.floor(random() * stock.max);   // 1..max
     for (let i = 0; i < n; i++) offers.push(materialOffer(material));
   }
   offers.push(markOffer());
@@ -218,7 +219,7 @@ function resolveShell(kind) {
   if (kind === 'batter') return { kind, template: makeTileTemplate(BATTER) };
   // Contraband as often as SHELL_RARE_ODDS, ballast the rest of the time — and
   // ballast is a real cost, since every plain sort thins the bag.
-  const rare = Math.random() < SHELL_RARE_ODDS;
+  const rare = random() < SHELL_RARE_ODDS;
   const template = rare ? randomSpecialTile(BLACK_TILE_FEATURES) : randomBareTile();
   if (rare) template.material = pick(Object.keys(BLACK_MATERIAL_STOCK));
   return { kind, template };

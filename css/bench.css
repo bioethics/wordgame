@@ -1494,9 +1494,12 @@ html[data-look="bench"] .log {
      own: the stick is two courses deep on a phone, and the press is no use
      under the fold. The spacer between them (retro's) does the pushing. */
   html[data-look="bench"] .action-row { display: flex; gap: 6px; flex-wrap: nowrap; }
+  html[data-look="bench"] .btn-print { padding: 11px 14px; font-size: 16px; letter-spacing: 2px; }
   /* Hard right, on its own: retro hides the row's spacer at this width
-     (css/style.css), so there is nothing to push Print over with. */
-  html[data-look="bench"] .btn-print { grid-column: auto; margin-left: auto; padding: 11px 14px; font-size: 16px; letter-spacing: 2px; }
+     (css/style.css), so there is nothing to push Print over with. Scoped to
+     the row: the sheets' own big buttons (Begin a new folio) are .btn-print
+     too, and an auto margin shoved them off-centre wherever their row wrapped. */
+  html[data-look="bench"] .action-row .btn-print { grid-column: auto; margin-left: auto; }
   html[data-look="bench"] .ro-total { font-size: 26px; }
   html[data-look="bench"] .slab-num { font-size: 19px; }
 }

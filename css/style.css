@@ -5238,6 +5238,9 @@ input[type='checkbox'] {
 
 /* ─── End screens ─────────────────────────────────────────────────────────────── */
 .modal--center { z-index: 260; }
+/* The manuscript opens over the end screen (Read the manuscript), and closing it
+   comes back there. From the board nothing else is up at this height. */
+#manuscriptModal { z-index: 270; }
 
 .sheet--end {
   width: min(560px, calc(94 * var(--vwu)));
@@ -5285,6 +5288,7 @@ input[type='checkbox'] {
   opacity: 0.75;
   max-width: 400px;
 }
+.end-seed { font-style: normal; font-size: 13px; letter-spacing: 1px; margin-bottom: 12px; }
 
 .run-stats {
   display: grid;
@@ -6078,6 +6082,27 @@ html[data-theme="baize"] {
 .start-row { margin-bottom: 20px; }
 .start-row .market-sec { margin-bottom: 9px; }
 .start-note { margin-top: 9px; }
+
+/* The seed: a short line of capitals, set like the coinage field but smaller. */
+.seed-input {
+  width: min(280px, 100%);
+  padding: 8px 12px;
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--parch-ink);
+  background: rgba(255, 252, 240, 0.7);
+  border: 1px solid #a98545;
+  border-radius: 10px;
+  box-shadow: inset 0 2px 6px rgba(90, 60, 20, 0.22);
+}
+.seed-input:focus {
+  outline: none;
+  border-color: #7c5410;
+  box-shadow: inset 0 2px 6px rgba(90, 60, 20, 0.22), 0 0 0 3px rgba(200, 144, 48, 0.3);
+}
 
 /* The chamber is fenced off from the three choices above it: a dashed rule says
    "not part of the book" before the sentence inside has to. */

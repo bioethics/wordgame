@@ -281,6 +281,7 @@ export const LOG_TEXT = {
   endLoseDeadline: 'the Deadline',
   endLosePage:     'page {0}',
   endLoseBoss:     ' {0} {1} remains unimpressed.',                  // ⌐ emoji · name
+  endLoseAppendix: 'The folio itself was complete: this run ended in its appendices.',
   endWinTitle:     'The folio is complete',
   endWinSub:       "Ten chapters set, proofed, and printed. The house's finest work.",
   // Said on the end screens only when the run was NOT the standard book: a
@@ -288,9 +289,13 @@ export const LOG_TEXT = {
   // which one it was matters. {0} is the difficulty's own name.
   endEdition:      'A {0} edition.',
   endNewRun:       'Begin a new folio',
+  endBook:         'Read the manuscript',
+  endSeed:         'Seed {0}',                                           // the run's seed
+  endSeedChosen:   'Seed {0}, chosen',
   endEndless:      'Keep printing (appendices)',
   // How the run stands against the others in the records (js/records.js).
   endAssisted:     'A Testing Chamber run — kept out of your records.',
+  endSeedKept:     'Played on a chosen seed — kept out of your records.',
   endFurthestNew:  'Your furthest yet on the {0} book.',                  // edition
   endFurthest:     'Your furthest on the {0} book: {1}.',                 // edition · where
   endFolioDone:    'the folio complete',
@@ -311,6 +316,8 @@ export const SETTINGS_TEXT = {
   report:        'Copy run report',
   reportCopied:  'Copied — paste it anywhere',
   reportFailed:  'Could not reach the clipboard',
+  // Under the report button: the seed this run was dealt from.
+  seed:          "This run's seed: {0}.",
 };
 
 // Look a line up and fill its slots — loudly, so a mistyped key is a crash at
@@ -720,6 +727,10 @@ export const START_TEXT = {
   difficulty: 'Difficulty',
   difficultySub: 'fixed for the run once it begins',
   settled:    'The look and the room are yours to change at any time, from Settings.',
+  seed:       'Seed',
+  seedSub:    'every roll the run makes',
+  seedNote:   'Each run draws its own. Type the seed from an end screen or a run report '
+            + 'to deal that run again. A run on a chosen seed is kept out of your records.',
   chamber:    'The Testing Chamber',
   chamberNote:'A playtest bench, not part of the game — seats, sorts and sundries '
             + 'for nothing, and the run begins from there.',

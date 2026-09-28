@@ -197,6 +197,7 @@ import {
   rollGeneric, genericFires, genericClause, genericName, snapOf,
   triggerA, triggerB, effectOf,
 } from './patron-generic.js';
+import { random } from './rng.js';
 
 const VOWELS = 'AEIOU';
 
@@ -207,7 +208,7 @@ const VOWELS = 'AEIOU';
 // should not be the one rare sort he fails to notice.
 const RARE_LETTERS = ['J', 'Q', 'QU', 'X', 'Z'];
 
-const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+const pick = arr => arr[Math.floor(random() * arr.length)];
 
 // ─── The Azure Prince's cypher ────────────────────────────────────────────────
 // A row of boxes with one marked: `len` tiles, an azure tile standing at `at`
@@ -215,7 +216,7 @@ const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 // puzzle twice running.
 const rollCypher = () => {
   const len = pick(PRINCE.lengths);
-  return { len, at: Math.floor(Math.random() * len) };
+  return { len, at: Math.floor(random() * len) };
 };
 const princeCrowned = data => princeMult(data?.solved ?? 0) >= PRINCE.crown;
 
@@ -665,7 +666,7 @@ const PATRON_BEHAVIOURS = [
     onOffer() {
       return {
         letters: shuffle(Object.keys(BAG_COUNTS)).slice(0, 3),
-        num: 1 + Math.floor(Math.random() * 99000),
+        num: 1 + Math.floor(random() * 99000),
       };
     },
     tileEcho(tile, data) { return (data.letters ?? []).includes(getActiveLetter(tile)); },
@@ -756,8 +757,8 @@ const PATRON_BEHAVIOURS = [
       if (e.kind === 'nick') {
         const bare = tiles.filter(t => !t.nick && !isImmutable(t));
         if (!bare.length) return null;
-        const target = bare[Math.floor(Math.random() * bare.length)];
-        const side = Math.random() < 0.5 ? 'left' : 'right';
+        const target = bare[Math.floor(random() * bare.length)];
+        const side = random() < 0.5 ? 'left' : 'right';
         if (!nick?.(target, side)) return null;
         spend();
         return { say: [`A ${side} nick is cut into the ${getActiveLetter(target)} — it will read the tiles on its ${side} from now on.`] };
@@ -783,7 +784,7 @@ const PATRON_BEHAVIOURS = [
         const others = (st.patrons ?? []).filter(p => p.uid !== ctx.uid && p.id !== 'generic');
         const pool = others.length ? others : (st.patrons ?? []).filter(p => p.uid !== ctx.uid);
         if (!pool.length) return null;
-        const seat = pool[Math.floor(Math.random() * pool.length)];
+        const seat = pool[Math.floor(random() * pool.length)];
         seat.data ??= {};
         seat.data.honorifics = (seat.data.honorifics ?? 0) + 1;
         spend();
@@ -1044,7 +1045,7 @@ const PATRON_BEHAVIOURS = [
       for (let i = 0; i < due; i++) {
         const pool = state.collection.filter(t => !isImmutable(t));
         if (!pool.length) break;
-        const t = pool[Math.floor(Math.random() * pool.length)];
+        const t = pool[Math.floor(random() * pool.length)];
         if (growTile(t, state.chapter)) grown.push(getActiveLetter(t));
       }
       if (!grown.length) return null;
@@ -1600,7 +1601,7 @@ const PATRON_BEHAVIOURS = [
       const dressed = [], daubed = [];
       for (const t of tiles) {
         if (luckyRoll(NUDIST_TRIM_CHANCE)) {
-          const kind = kinds[Math.floor(Math.random() * kinds.length)];
+          const kind = kinds[Math.floor(random() * kinds.length)];
           if (trim(t, kind)) dressed.push(TRIMS[kind].label);
         }
         if (luckyRoll(NUDIST_PAINT_CHANCE)) {
@@ -1797,7 +1798,7 @@ const PATRON_BEHAVIOURS = [
       for (const t of tiles) {
         // The burn is the Arsonist's own bad luck, so it dodges the luck dial;
         // the free paint is a gift, so it doesn't.
-        if (Math.random() < ARSONIST_ODDS.burn && burn(t)) { burned.push(t); continue; }
+        if (random() < ARSONIST_ODDS.burn && burn(t)) { burned.push(t); continue; }
         if (luckyRoll(ARSONIST_ODDS.paint) && paint(t, 'crimson')) flushed.push(t);
       }
       if (!burned.length && !flushed.length) return null;
@@ -1830,7 +1831,7 @@ const PATRON_BEHAVIOURS = [
     when: 'meta',
     onDiscard({ tiles, paint, trash }) {
       if (tiles.length !== 2) return null;
-      const [drained, bled] = Math.random() < 0.5 ? [tiles[0], tiles[1]] : [tiles[1], tiles[0]];
+      const [drained, bled] = random() < 0.5 ? [tiles[0], tiles[1]] : [tiles[1], tiles[0]];
       // Each half stands on its own: a ghost refuses the paint but its partner
       // still drains, and the Smelter's floor can spare the drained tile while
       // its partner still bleeds.
@@ -2845,8 +2846,8 @@ export const patronShelf = (def, data) => {
 // Rolled as a card is laid out at the Market, never later: what is on the card
 // is what you are buying.
 export const rollPostnom = () =>
-  (Math.random() < POSTNOM.odds
-    ? POSTNOM.titles[Math.floor(Math.random() * POSTNOM.titles.length)]
+  (random() < POSTNOM.odds
+    ? POSTNOM.titles[Math.floor(random() * POSTNOM.titles.length)]
     : null);
 
 // What a card costs today — the card's price, plus the surcharge a lettered one

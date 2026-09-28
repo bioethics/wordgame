@@ -12,6 +12,7 @@ import {
   LENGTH_FLOURISHES, LENGTH_FLOURISH_BEYOND, DIFFICULTY_TEXT,
   fillTable, fillKnobs, fillSlots,
 } from './text.js';
+import { random } from './rng.js';
 
 // ─── Letterforms ──────────────────────────────────────────────────────────────
 // Bag tiles are template objects so they can carry trim/nick/colour before being
@@ -151,7 +152,7 @@ export const POSTNOM = {
 // it. A free patron (the cat) is never haggled; no card asks less than one Coin.
 export const PATRON_HAGGLE = { spread: 1, chance: 0.25 };   // per side; the rest is list price
 export const rollHaggle = () => {
-  const r = Math.random();
+  const r = random();
   return r < PATRON_HAGGLE.chance ? -PATRON_HAGGLE.spread
        : r < PATRON_HAGGLE.chance * 2 ? PATRON_HAGGLE.spread
        : 0;

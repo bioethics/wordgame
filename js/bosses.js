@@ -48,6 +48,7 @@ import { inTheme, themeRank, themeSize } from './themes.js';
 import { BRIBRARIAN, bribeMult, KNOBS, BAG_COUNTS, TILE_POINTS, dualPairsFor } from './constants.js';
 import { BOSS_CARDS } from './boss-cards.js';
 import { fillKnobs } from './text.js';
+import { random } from './rng.js';
 
 // The Columnist's measures. With ten tiles in hand three is always reachable
 // and six is a genuine reach. Never the same measure twice running.
@@ -110,14 +111,14 @@ const shareInWords = share => {
   return SHARE_WORDS[d] ?? `1 tile in ${d}`;
 };
 function rollMood(data) {
-  const r = Math.random();
+  const r = random();
   const spread = MOOD_RANGE.best - MOOD_RANGE.worst;
   data.mood = Math.round((MOOD_RANGE.best - spread * r * r) * 20) / 20;
 }
 
 function rollColumn(data) {
   let n;
-  do { n = COLUMN_MIN + Math.floor(Math.random() * (COLUMN_MAX - COLUMN_MIN + 1)); }
+  do { n = COLUMN_MIN + Math.floor(random() * (COLUMN_MAX - COLUMN_MIN + 1)); }
   while (n === data.required);
   data.required = n;
 }
@@ -135,14 +136,14 @@ const powderPool = Object.keys(BAG_COUNTS)
   .filter(L => L.length === 1 && (TILE_POINTS[L] ?? 9) < POWDER_DEAR);
 
 function rollCharge() {
-  const letter = powderPool[Math.floor(Math.random() * powderPool.length)];
+  const letter = powderPool[Math.floor(random() * powderPool.length)];
   const pairs = dualPairsFor(letter);
   return {
     letter,
     material: 'explosive',
     ...(pairs.length ? {
       letterType: 'dual',
-      altLetter: pairs[Math.floor(Math.random() * pairs.length)],
+      altLetter: pairs[Math.floor(random() * pairs.length)],
     } : {}),
   };
 }
@@ -226,7 +227,7 @@ const BOSS_BEHAVIOURS = [
     setup: (data, state) => {
       const singles = state.collection.filter(t => /^[A-Z]$/.test(t.letter));
       data.letter = singles.length
-        ? singles[Math.floor(Math.random() * singles.length)].letter : 'E';
+        ? singles[Math.floor(random() * singles.length)].letter : 'E';
     },
     demand: data => say('enthusiast', 'demand', { LETTER: data.letter }),
     judge: (letters, tiles, data) => !letters.includes(data.letter)
@@ -502,13 +503,13 @@ const faceView = data => ({
 // rolled alongside it — the Columnist's measure, the Enthusiast's letter.
 function rollFace(data, state) {
   const pool = JANUS_FACES.filter(id => id !== data.face);
-  data.face = pool[Math.floor(Math.random() * pool.length)];
+  data.face = pool[Math.floor(random() * pool.length)];
   if (data.face === 'columnist') rollColumn(data);
   if (data.face === 'reviewer')  rollMood(data);
   if (data.face === 'enthusiast') {
     const singles = (state?.collection ?? []).filter(t => /^[A-Z]$/.test(t.letter));
     data.letter = singles.length
-      ? singles[Math.floor(Math.random() * singles.length)].letter : 'E';
+      ? singles[Math.floor(random() * singles.length)].letter : 'E';
   }
   // A loan belongs to the word it was made for. The lending face's tiles take
   // real places in the hand, so leaving them behind would silently narrow the

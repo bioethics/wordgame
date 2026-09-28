@@ -16,6 +16,7 @@ import { SUNDRY_TEXT } from './text.js';
 import { upgradeById } from './upgrades.js';
 import { CHAPTER_TITLES } from './chapters.js';
 import { BOSS_DEFS, activeBoss, bossConflicts } from './bosses.js';
+import { random, seedRng, rngState, setRngState, freshSeed, tidySeed, sameSeed } from './rng.js';
 
 const SAVE_KEY     = 'folio_save_v1';
 const SETTINGS_KEY = 'folio_settings_v1';
@@ -41,7 +42,7 @@ export const devMode = (() => {
 
 export function shuffle(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(random() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
   return arr;
@@ -237,6 +238,11 @@ export const state = {
   runId: null,      // this run's name in the records (js/records.js), so a folio that goes
                     // on into the appendices updates its one entry rather than adding another
   assisted: false,  // set by the Testing Chamber and the dev shortcuts: kept out of the records
+  seed: null,       // what the run's dice were seeded with (js/rng.js) — named in the run
+                    // report and on the end screen, and typed on the prospectus to deal a
+                    // run again
+  seedChosen: false, // typed rather than drawn: a run whose future was known going in is
+                    // kept out of the records, as an assisted one is
 
   // Fixed for the run, chosen on the prospectus (js/start.js). Read through
   // runDifficulty below rather than off the field, so a retired key can't be
@@ -414,7 +420,7 @@ export function primeSquib() {
   seat.data ??= {};
   const pool = state.rack.filter(t => !isImmutable(t) && t.material !== 'explosive');
   seat.data.primed = pool.length
-    ? pool[Math.floor(Math.random() * pool.length)].id
+    ? pool[Math.floor(random() * pool.length)].id
     : null;
   return seat.data.primed;
 }
@@ -430,7 +436,7 @@ export function chapterTitle(ch) {
   const used = new Set(Object.values(state.chapterTitles));
   const fresh = CHAPTER_TITLES.filter(t => !used.has(t));
   const pool = fresh.length ? fresh : CHAPTER_TITLES;
-  state.chapterTitles[ch] = pool[Math.floor(Math.random() * pool.length)] ?? '';
+  state.chapterTitles[ch] = pool[Math.floor(random() * pool.length)] ?? '';
   return state.chapterTitles[ch];
 }
 
@@ -454,7 +460,7 @@ function assignBoss() {
   const fresh = roster.filter(b => !state.bossesSeen.includes(b.id));
   const pool = fresh.length ? fresh : roster;
   if (!fresh.length) state.bossesSeen = [];
-  const def = pool[Math.floor(Math.random() * pool.length)];
+  const def = pool[Math.floor(random() * pool.length)];
   state.bossesSeen.push(def.id);
   const data = {};
   def.setup?.(data, state);
@@ -540,14 +546,14 @@ const correctorSeat = () => allSeats().find(p => p.id === 'corrector');
 
 export const luckyRoll = p => {
   const odds = Math.min(1, p * (state.luck ?? 1));
-  if (Math.random() < odds) return true;
+  if (random() < odds) return true;
   // A roll with no chance in it has nothing to correct, and counting one on his
   // card would be a tally of work never done.
   const seat = odds > 0 ? correctorSeat() : null;
   if (!seat) return false;
   const data = (seat.data ??= {});
   data.pulled = (data.pulled ?? 0) + 1;
-  if (!(Math.random() < odds)) return false;
+  if (!(random() < odds)) return false;
   data.saved = (data.saved ?? 0) + 1;
   return true;
 };
@@ -605,7 +611,7 @@ export function saveState(extra = {}) {
     const s = {
       ...state, rack, word,
       isAnimating: false, sundryMode: -1, tubeOffer: null,
-      _nextId, _nextTid, _v: SAVE_VERSION,
+      _nextId, _nextTid, _rng: rngState(), _v: SAVE_VERSION,
       ...extra,                       // e.g. a market snapshot
     };
     localStorage.setItem(SAVE_KEY, JSON.stringify(s));
@@ -721,8 +727,8 @@ export function loadState() {
     migrateSave(s);
     if (!Array.isArray(s.collection) || !Array.isArray(s.rack)) { setAsideSave(raw); return { setAside: true }; }
     const { n: repaired, mercury } = repairSave(s);
-    const { _nextId: savedId, _nextTid: savedTid, _v, _market, _chamber, _colophon,
-            _blackmarket, ...fields } = s;
+    const { _nextId: savedId, _nextTid: savedTid, _rng: savedRng, _v, _market, _chamber,
+            _colophon, _blackmarket, ...fields } = s;
     Object.assign(state, fields, { isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null, ratchetOffset: 0 });
     state.sundries ??= [];
     state.experiments ??= {};
@@ -739,6 +745,12 @@ export function loadState() {
     state.pageLog ??= [];
     state.runId ??= newRunId();
     state.assisted ??= false;
+    // The dice carry on from where they stood. A save from before runs had
+    // seeds is given one now: what it has played so far was not dealt from it,
+    // but everything from here on is.
+    state.seedChosen ??= false;
+    if (!state.seed) { state.seed = freshSeed(); seedRng(state.seed); }
+    else if (!setRngState(savedRng)) seedRng(state.seed);
     // A save written before the prospectus existed was played on the standard
     // book, and says nothing about a difficulty — hence the fallback rather
     // than a version bump, which would have thrown the run itself away.
@@ -785,6 +797,8 @@ export function newRun({ difficulty = settings.difficulty } = {}) {
   _nextTid = 1;
   boardHolds = 0;   // the fresh state below writes isAnimating: false itself
   const diff = difficultyKey(difficulty);
+  const seed = freshSeed();
+  seedRng(seed);
   Object.assign(state, {
     difficulty: diff,
     collection: buildStarterCollection(),
@@ -802,13 +816,36 @@ export function newRun({ difficulty = settings.difficulty } = {}) {
     totalScore: 0,
     stats: { words: 0, pages: 0, bestWord: '', bestScore: 0 },
     manuscript: [],
-    pageLog: [], runId: newRunId(), assisted: false,
+    pageLog: [], runId: newRunId(), assisted: false, seed, seedChosen: false,
     endless: false, inMarket: false, inStart: false, inChamber: false, inColophon: false,
     inBlackMarket: false, blackMarketVisits: 0,
     isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null, gameOver: false,
     catPending: false,
   });
   startPage();
+}
+
+// The run proper begins (beginRun, js/main.js): the dice go back to the start of
+// the seed — the one drawn in newRun, or the one typed on the prospectus since —
+// and what was drawn for the page behind the prospectus is forgotten, so the
+// caller's startPage deals the opening page from the seed alone. Two runs begun
+// on one seed and played alike are the same run.
+export function reseedRun() {
+  seedRng(state.seed);
+  state.chapterTitles = {};
+}
+
+// Written from the prospectus. Blank puts back a seed of the run's own; anything
+// else is played as typed, and marks the run as one whose seed was chosen.
+export function chooseSeed(typed) {
+  const seed = tidySeed(typed);
+  if (!seed) {
+    if (state.seedChosen) { state.seed = freshSeed(); state.seedChosen = false; }
+  } else if (!sameSeed(seed, state.seed)) {
+    state.seed = seed;
+    state.seedChosen = true;
+  }
+  return state.seed;
 }
 
 // What every quota is discounted by, all in. Two seats draw on one ceiling: the
@@ -838,6 +875,10 @@ export function startPage({ quartermaster = 0 } = {}) {
   for (const t of state.collection) delete t.wrapped;
 
   state.bag  = shuffle([...state.collection]);
+  // The chapter's title is drawn here, as its first page is dealt, rather than
+  // whenever the board first asks for it — a roll at a fixed place in the run,
+  // so a seed deals the same titles as the same bag. Later pages find it drawn.
+  chapterTitle(state.chapter);
   state.rack = [];
   state.word = [];
   state.discardPile = [];
@@ -911,7 +952,7 @@ function drawFromBag() {
   const weigh = t => (magpie && t.trim === 'gold' ? MAGPIE_WEIGHT : 1)
                    * (mako && countsAsColour(t, 'crimson') ? MAKO_WEIGHT : 1);
   const total = state.bag.reduce((n, t) => n + weigh(t), 0);
-  let roll = Math.random() * total;
+  let roll = random() * total;
   for (let i = state.bag.length - 1; i >= 0; i--) {
     roll -= weigh(state.bag[i]);
     if (roll <= 0) return state.bag.splice(i, 1)[0];
@@ -967,14 +1008,14 @@ export function castTile(overrides = {}) {
 export function castMaterialTile(material) {
   const letters = Object.keys(BAG_COUNTS).filter(L =>
     material !== 'cursed' || (TILE_POINTS[L] ?? 99) <= CURSED_MAX_POINTS);
-  return castTile({ letter: letters[Math.floor(Math.random() * letters.length)], material });
+  return castTile({ letter: letters[Math.floor(random() * letters.length)], material });
 }
 
 // The other thing a wrapper can hold: a mark in ordinary lead, under the trim
 // it always comes wearing. Nothing else in the game hands one out (see MARKS).
 export function castMarkTile() {
   return castTile({
-    letter: MARKS[Math.floor(Math.random() * MARKS.length)],
+    letter: MARKS[Math.floor(random() * MARKS.length)],
     trim: MARK_TRIM,
   });
 }
@@ -1027,7 +1068,7 @@ export function retirePrinted(tiles) {
   for (const t of tiles) {
     if (returnsToBag(t)) {
       const { id, selected, basePoints, ...template } = t;
-      const at = Math.floor(Math.random() * (state.bag.length + 1));
+      const at = Math.floor(random() * (state.bag.length + 1));
       state.bag.splice(at, 0, template);
       toBag.push(t);
     } else {
@@ -1087,7 +1128,7 @@ function dabblerSplash(painted, colour) {
   if (splashing || !owns('dabbler') || !luckyRoll(DABBLER_ODDS)) return;
   const bare = unpaintedTiles().filter(t => t.tid !== painted.tid && !isImmutable(t));
   if (!bare.length) return;
-  const extra = bare[Math.floor(Math.random() * bare.length)];
+  const extra = bare[Math.floor(random() * bare.length)];
   splashing = true;
   paintTile(extra, colour);   // the same road as every other coat
   splashing = false;
@@ -1672,7 +1713,7 @@ export function grantRandomPatron(defs, rarity = null) {
                              && !spent.has(d.id)
                              && (!rarity || d.rarity === rarity));
   if (!pool.length) return null;
-  const def = pool[Math.floor(Math.random() * pool.length)];
+  const def = pool[Math.floor(random() * pool.length)];
   const seat = { id: def.id, uid: nextId(), data: def.onOffer?.() ?? {} };
   state.patrons.push(seat);
   def.onHired?.({ state, data: seat.data });

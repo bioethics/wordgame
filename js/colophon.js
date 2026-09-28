@@ -10,13 +10,14 @@ import {
 import { UPGRADE_DEFS, upgradeById } from './upgrades.js';
 import { alleyAsks } from './blackmarket.js';
 import { owns } from './state.js';
+import { random } from './rng.js';
 
 export const colophon = {
   open:   false,
   offers: [],   // [id]
 };
 
-const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+const pick = arr => arr[Math.floor(random() * arr.length)];
 
 // A card is dealt only if it is worth something to THIS press right now. Two
 // picks have a condition beyond the repeat cap: a paint pot with nothing left to

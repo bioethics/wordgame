@@ -1717,6 +1717,12 @@ const editionHTML = () =>
     ? ''
     : `<p class="end-sub end-edition">${logLine('endEdition', runDifficulty().label)}</p>`;
 
+// The seed the run was dealt from (js/rng.js), for anyone who wants to deal it
+// again from the prospectus, or send it with a report.
+const seedHTML = () => state.seed
+  ? `<p class="end-sub end-seed">${logLine(state.seedChosen ? 'endSeedChosen' : 'endSeed', state.seed)}</p>`
+  : '';
+
 const statsHTML = () => `
   <div class="run-stats">
     <div class="run-stat"><span class="run-stat-num">${state.stats.pages}</span><span class="run-stat-label">${state.stats.pages === 1 ? 'page' : 'pages'} completed</span></div>
@@ -1729,6 +1735,7 @@ const statsHTML = () => `
 // its own numbers: the furthest this book has been taken, and the best word.
 const recordsHTML = standing => {
   if (state.assisted) return `<p class="end-sub end-records">${logLine('endAssisted')}</p>`;
+  if (state.seedChosen) return `<p class="end-sub end-records">${logLine('endSeedKept')}</p>`;
   if (!standing) return '';
   const { edition, furthest, furthestIsNew, bestWord, bestWordIsNew, line, runs, folios } = standing;
   const where = r => (r.won && r.chapter >= FINAL_CHAPTER && !r.lost
@@ -1752,10 +1759,13 @@ export function showGameOver(standing = null) {
         isDeadline(state.page) ? logLine('endLoseDeadline') : logLine('endLosePage', state.page),
         state.quota.toLocaleString(),
         state.boss ? logLine('endLoseBoss', bossById(state.boss.id)?.emoji ?? '', bossById(state.boss.id)?.name ?? '') : '')}</p>
+      ${state.endless ? `<p class="end-sub">${logLine('endLoseAppendix')}</p>` : ''}
       ${editionHTML()}
       ${statsHTML()}
       ${recordsHTML(standing)}
+      ${seedHTML()}
       <div class="end-actions">
+        <button class="btn btn-quiet" data-overlay-action="book">${logLine('endBook')}</button>
         <button class="btn btn-quiet" data-overlay-action="report">${SETTINGS_TEXT.report}</button>
         <button class="btn btn-print btn-big" data-overlay-action="newrun">${logLine('endNewRun')}</button>
       </div>
@@ -1783,7 +1793,9 @@ export function showVictory(standing = null) {
       ${editionHTML()}
       ${statsHTML()}
       ${recordsHTML(standing)}
+      ${seedHTML()}
       <div class="end-actions">
+        <button class="btn btn-quiet" data-overlay-action="book">${logLine('endBook')}</button>
         <button class="btn btn-quiet" data-overlay-action="report">${SETTINGS_TEXT.report}</button>
         <button class="btn btn-quiet" data-overlay-action="endless">${logLine('endEndless')}</button>
         <button class="btn btn-print btn-big" data-overlay-action="newrun">${logLine('endNewRun')}</button>

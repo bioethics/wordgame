@@ -10,7 +10,10 @@
 // and then carried on into the appendices updates its one line when the
 // appendices end, rather than counting twice. A run the Testing Chamber or a
 // dev shortcut has touched (state.assisted) is never recorded: its numbers
-// were not earned, and a record is only worth what it excludes.
+// were not earned, and a record is only worth what it excludes. Nor is a run
+// played on a seed typed in on the prospectus (state.seedChosen), whose bag and
+// Markets could be known before it began. A drawn seed is kept on the line, so
+// a run worth remembering can be dealt again.
 
 import { state, runDifficulty } from './state.js';
 
@@ -44,6 +47,7 @@ function lineForThisRun() {
     total: state.totalScore,
     bestWord: state.stats.bestWord || null,
     bestScore: state.stats.bestScore || 0,
+    seed: state.seed,
   };
 }
 
@@ -62,10 +66,10 @@ function bestsExcept(runs, id, edition) {
 }
 
 // Called as a run ends — at the loss, or at the folio's completion. Returns how
-// this run stands, for the end screen: null for an assisted run, which the
-// screen says is kept out.
+// this run stands, for the end screen: null for an assisted run or a chosen
+// seed, which the screen says are kept out.
 export function recordRun() {
-  if (state.assisted || !state.runId) return null;
+  if (state.assisted || state.seedChosen || !state.runId) return null;
   const r = read();
   const line = lineForThisRun();
   const before = bestsExcept(r.runs, line.id, line.edition);

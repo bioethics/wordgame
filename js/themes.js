@@ -12,6 +12,7 @@
 
 import { isExcluded } from './excluded.js';
 import { fetchText } from './net.js';
+import { random } from './rng.js';
 
 export const THEME_FILES = {
   cute:       'wordlists/theme-cute.txt',
@@ -92,7 +93,7 @@ export function themePick(key) {
   if (!set?.size) return null;
   const cached = themeArrays[key];
   const arr = cached?.length === set.size ? cached : (themeArrays[key] = [...set]);
-  return arr[Math.floor(Math.random() * arr.length)];
+  return arr[Math.floor(random() * arr.length)];
 }
 
 // A word's position in an ordered list, or null. Rank 0 is the file's first line.

@@ -6,7 +6,9 @@
 import {
   state, owns, effectivePatronSlots, effectiveSundrySlots, spendReshuffleSundry,
   takePaintEchoes, takeGhostEchoes, completesLovers, restingPoints, lockBoard, unlockBoard, devMode,
+  chooseSeed,
 } from './state.js';
+import { SEED_MAX } from './rng.js';
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
   ANIM, SUNDRY_SELL, tileCount, sundryTip, TOOL_LOOK, PACKAGES, APPLICATORS,
@@ -1250,6 +1252,13 @@ export function renderStart() {
         <p class="sheet-note start-note">${ST.settled}</p>
       </div>
 
+      <div class="start-row">
+        <h3 class="market-sec"><label for="startSeed">${ST.seed}</label><span class="market-sub">${ST.seedSub}</span></h3>
+        <input class="seed-input" id="startSeed" type="text" value="${state.seed ?? ''}"
+               maxlength="${SEED_MAX}" spellcheck="false" autocomplete="off" autocapitalize="characters">
+        <p class="sheet-note start-note">${ST.seedNote}</p>
+      </div>
+
       ${devMode ? `
         <div class="start-bench">
           <button class="btn btn-quiet" id="btnStartChamber">${ST.chamber}</button>
@@ -1294,8 +1303,19 @@ function onStartClick(e) {
     return;
   }
 
-  if (e.target.closest('#btnStartChamber')) return flow.chamberFromStart();
-  if (e.target.closest('#btnStartBegin'))   return flow.beginRun();
+  if (e.target.closest('#btnStartChamber')) { takeSeed(); return flow.chamberFromStart(); }
+  if (e.target.closest('#btnStartBegin'))   { takeSeed(); return flow.beginRun(); }
+}
+
+// The seed is written through when the field is left, as the other picks are
+// when they are tapped — and read once more on the way out of the sheet, so a
+// seed typed and never blurred still deals the run. A blank field puts back a
+// seed of the run's own (chooseSeed), and the field shows whatever is kept.
+function takeSeed() {
+  const field = $('startSeed');
+  if (!field) return;
+  field.value = chooseSeed(field.value);
+  persist();
 }
 
 export function renderChamber() {
@@ -2030,6 +2050,10 @@ export function initSheets(flowCallbacks) {
   $('blackMarketModal')?.addEventListener('click', onBlackMarketClick);
   $('colophonModal')?.addEventListener('click', onColophonClick);
   $('startModal')?.addEventListener('click', onStartClick);
+  $('startModal')?.addEventListener('change', e => { if (e.target.id === 'startSeed') takeSeed(); });
+  $('startModal')?.addEventListener('keydown', e => {
+    if (e.target.id === 'startSeed' && e.key === 'Enter') { e.preventDefault(); takeSeed(); e.target.blur(); }
+  });
   $('chamberModal')?.addEventListener('click', onChamberClick);
   $('chamberModal')?.addEventListener('input', onChamberInput);
 }

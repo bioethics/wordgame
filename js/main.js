@@ -17,7 +17,7 @@ import {
   grantRandomPatron,
   rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost, luckyRoll, isSquib, spendCoins,
   dismissEditor, runDifficulty, lockBoard, unlockBoard, resetBoardLock,
-  barSaving, isSaveKey, setAsideSave, devMode, toggleSelected, logPage,
+  barSaving, isSaveKey, setAsideSave, devMode, toggleSelected, logPage, reseedRun,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
@@ -75,7 +75,8 @@ import {
 import { randomQuip } from './quips.js';
 import { runReportText, copyText } from './report.js';
 import { recordRun } from './records.js';
-import { logLine, SETTINGS_TEXT, TOOL_IN_A_SENTENCE } from './text.js';
+import { logLine, fillSlots, SETTINGS_TEXT, TOOL_IN_A_SENTENCE } from './text.js';
+import { random } from './rng.js';
 
 const $ = id => document.getElementById(id);
 const rect = el => el?.getBoundingClientRect();
@@ -162,7 +163,7 @@ async function animateDiscard(rects, to = pileRect(), bump = 'discardBtn') {
 // What comes out of a wrapped tile — a flat pick from WRAPPED_CONTENTS in
 // constants.js, which is where the odds are set.
 const pickWrapped = () =>
-  WRAPPED_CONTENTS[Math.floor(Math.random() * WRAPPED_CONTENTS.length)];
+  WRAPPED_CONTENTS[Math.floor(random() * WRAPPED_CONTENTS.length)];
 
 // ─── Discard mode ─────────────────────────────────────────────────────────────
 
@@ -216,7 +217,7 @@ function benchPut(sundry) {
 // One prize from a weighted [id, weight] table.
 function pickLoot(table) {
   const total = table.reduce((n, [, w]) => n + w, 0);
-  let roll = Math.random() * total;
+  let roll = random() * total;
   for (const [id, w] of table) { roll -= w; if (roll <= 0) return id; }
   return table[table.length - 1][0];
 }
@@ -260,7 +261,7 @@ async function openPackage(prize, pkg) {
     }
     case 'rosetile': {
       const letters = Object.keys(BAG_COUNTS);
-      const tile = castTile({ letter: letters[Math.floor(Math.random() * letters.length)], material: 'rose' });
+      const tile = castTile({ letter: letters[Math.floor(random() * letters.length)], material: 'rose' });
       await flyIn(tile, MATERIALS.rose.label, 'fl-set fl-mat--rose');
       return `a ${getActiveLetter(tile)} struck in rose metal — print it and a patron is crowned.`;
     }
@@ -349,7 +350,7 @@ async function editorEats() {
   if (!(typeof eats === 'function' ? eats(state.boss?.data) : eats)) return;
   const spare = state.rack.filter(t => state.collection.some(c => c.tid === t.tid));
   if (!spare.length) return;
-  const doomed = spare[Math.floor(Math.random() * spare.length)];
+  const doomed = spare[Math.floor(random() * spare.length)];
   if (!trashFromCollection(doomed.tid)) {
     log(logLine('economiserSpares'), 'warn');
     return;
@@ -444,7 +445,7 @@ async function roseCrowns(printed) {
     return;
   }
   for (const tile of roses) {
-    const seat = state.patrons[Math.floor(Math.random() * state.patrons.length)];
+    const seat = state.patrons[Math.floor(random() * state.patrons.length)];
     seat.data ??= {};
     seat.data.honorifics = (seat.data.honorifics ?? 0) + 1;
     const def = patronById(seat.id);
@@ -517,7 +518,7 @@ async function ripperStrikes(script) {
     return;
   }
 
-  const victim = victims[Math.floor(Math.random() * victims.length)];
+  const victim = victims[Math.floor(random() * victims.length)];
   const def = patronById(victim.id);
   const name = patronName(def, victim.data);
 
@@ -1934,7 +1935,7 @@ async function useSundry(idx, e = null, confirmed = false) {
   if (armed?.kind === 'toolbox') {
     cancelDiscardMode(true);
     cancelSundryMode(true);
-    const pickOne = arr => arr[Math.floor(Math.random() * arr.length)];
+    const pickOne = arr => arr[Math.floor(random() * arr.length)];
     const first  = pickOne(TOOLBOX_POOL);
     const second = pickOne(TOOLBOX_POOL.filter(k => k !== first));
     state.sundries[idx] = { kind: first };
@@ -2039,7 +2040,7 @@ async function useSundry(idx, e = null, confirmed = false) {
     if (!state.patrons.length) { log(logLine('laurelNone'), 'warn'); return; }
     cancelDiscardMode(true);
     cancelSundryMode(true);
-    const seat = state.patrons[Math.floor(Math.random() * state.patrons.length)];
+    const seat = state.patrons[Math.floor(random() * state.patrons.length)];
     seat.data ??= {};
     seat.data.honorifics = (seat.data.honorifics ?? 0) + 1;
     state.sundries.splice(idx, 1);
@@ -2572,8 +2573,10 @@ $('overlayModal')?.addEventListener('click', async e => {
   const btn = e.target.closest('[data-overlay-action]');
   if (!btn) return;
   const action = btn.dataset.overlayAction;
-  // The report is copied from the end screen and the end screen stays up.
+  // The report is copied from the end screen and the end screen stays up; the
+  // book opens over it, and closing the book comes back to it.
   if (action === 'report') { await copyRunReport(btn); return; }
+  if (action === 'book') { sfx.sheetOpen(); openManuscript(); return; }
   hideOverlay();
   if (action === 'newrun') {
     await startFreshRun();
@@ -2595,6 +2598,7 @@ function syncSettingsUI() {
   if (snd) snd.checked = settings.sound;
   const marks = $('paintMarksToggle');
   if (marks) marks.checked = !!settings.paintMarks;
+  setTextContent('runSeedNote', state.seed ? fillSlots(SETTINGS_TEXT.seed, state.seed) : '');
   syncAppearanceUI();
 }
 
@@ -2812,8 +2816,10 @@ async function startFreshRun() {
 
 // The run proper begins — from the prospectus, or from the Testing Chamber if
 // the player walked through to it first. The bag is shuffled here rather than
-// in newRun, so whatever the chamber struck is in it. Mid-run the chamber's own
-// button lands here too, and there `atStart` is false: it simply closes.
+// in newRun, so whatever the chamber struck is in it — and from the seed's
+// first roll (reseedRun), so the seed on the prospectus deals the opening page
+// whatever was drawn behind the sheet. Mid-run the chamber's own button lands
+// here too, and there `atStart` is false: it simply closes.
 async function beginRun() {
   const atStart = chamber.open ? chamber.atStart : start.open;
   closeStart();
@@ -2822,6 +2828,7 @@ async function beginRun() {
   renderChamber();
   if (!atStart) { renderAll(); return; }
 
+  reseedRun();
   startPage({ quartermaster: quartermasterDiscards() });
   lockBoard();
   renderAll();

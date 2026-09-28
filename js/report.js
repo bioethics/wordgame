@@ -4,9 +4,10 @@
 // from, and until now it lived only in whoever was playing. The report reads it
 // all off the state: each page's quota against what it scored (state.pageLog,
 // written as every page ends), what it cost in words and discards, the editor at
-// the desk, and the press as it stands — the table in seat order, the bench,
-// the case. Plain text, in columns, so it reads the same pasted into a message
-// as into a spreadsheet.
+// the desk, the words set on each page, and the press as it stands — the table
+// in seat order, the bench, the case. Plain text, in columns, so it reads the
+// same pasted into a message as into a spreadsheet. The seed in its header
+// (js/rng.js) deals the same run again from the prospectus.
 
 import { state, runDifficulty, saveVersion, effectivePatronSlots } from './state.js';
 import { chapterLabel, sundryTip } from './constants.js';
@@ -30,7 +31,8 @@ export function runReportText() {
   const lines = [];
   const edition = runDifficulty().label;
   lines.push('GREAT WORK — run report');
-  lines.push(`${new Date().toISOString().slice(0, 10)} · ${edition} edition · save v${saveVersion}`);
+  lines.push(`${new Date().toISOString().slice(0, 10)} · ${edition} edition · `
+    + `seed ${state.seed ?? '—'}${state.seedChosen ? ' (chosen)' : ''} · save v${saveVersion}`);
   lines.push(standing());
   const some = (k, one, many) => `${n(k)} ${k === 1 ? one : many}`;
   lines.push(`${some(state.stats.pages, 'page', 'pages')} cleared · ${some(state.stats.words, 'word', 'words')} · ${n(state.totalScore)} total`
@@ -46,6 +48,20 @@ export function runReportText() {
       lines.push(`${pad(`${r.chapter}.${r.page}`, 6)}${pad(n(r.quota), 10, true)}${pad(n(r.score), 10, true)}${pad(ratio, 8, true)}  `
         + `${pad(r.words, 5, true)}  ${pad(r.discards, 4, true)}  ${editor}${r.outcome === 'lost' ? '  ✗ lost' : ''}`);
     }
+    lines.push('');
+  }
+
+  // The words as they were set, page by page. With the seed, these are most of
+  // what it takes to deal a run again and follow it to wherever it went wrong.
+  const set = new Map();
+  for (const r of state.manuscript ?? []) {
+    const key = `${r.chapter}.${r.page}`;
+    if (!set.has(key)) set.set(key, []);
+    set.get(key).push(`${r.word} ${n(r.score)}`);
+  }
+  if (set.size) {
+    lines.push('The words, page by page:');
+    for (const [key, words] of set) lines.push(`${pad(key, 6)}${words.join(' · ')}`);
     lines.push('');
   }
 

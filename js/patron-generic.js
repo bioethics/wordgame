@@ -29,8 +29,9 @@ import { COLOURS, TRIMS, PACKAGES, ALMONER_RELIEF, KNOBS } from './constants.js'
 import { fillKnobs } from './text.js';
 import { state, restingPoints, countsAsColour } from './state.js';
 import { themePick } from './themes.js';
+import { random } from './rng.js';
 
-const pick = list => list[Math.floor(Math.random() * list.length)];
+const pick = list => list[Math.floor(random() * list.length)];
 
 // "an amber tile", "a jade tile". The clauses are built from the colour and trim
 // tables rather than written out, so the article has to be worked out too.
