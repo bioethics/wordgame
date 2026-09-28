@@ -21,6 +21,7 @@
         var look = typeof s.look === 'string' ? s.look : 'bench';
         de.dataset.look = look;
         if (typeof s.theme  === 'string') de.dataset.theme  = s.theme;
+        if (s.paintMarks === true) de.setAttribute('data-paint-marks', '');
         // The bench keeps the Folio column under it (applyLayout in js/appearance.js).
         if (typeof s.layout === 'string') de.dataset.layout = look === 'bench' ? 'classic' : s.layout;
         var fitW = look === 'bench' ? 1300 : (s.layout === 'desk' ? 1720 : 1320);
@@ -286,6 +287,14 @@
         </div>
       </div>
 
+      <div class="set-row">
+        <label for="paintMarksToggle">Colour shapes</label>
+        <div class="set-control">
+          <input type="checkbox" id="paintMarksToggle" />
+          <span class="set-note">Each paint gets a shape as well as a colour, on its tiles and its multiplier: crimson ▲, jade ◆, amber ●, azure ■.</span>
+        </div>
+      </div>
+
       <!-- The board's buttons used to carry these; they are furniture in the
            one place the eye has work to do, so the list lives here instead. -->
       <div class="set-row">
@@ -297,6 +306,7 @@
             <dt>esc</dt><dd>clear, or cancel a discard</dd>
             <dt>⌫</dt><dd>take back the last tile</dd>
             <dt>a–z</dt><dd>play that letter</dd>
+            <dt>− or del</dt><dd>discard: then a–z marks tiles, and ↵ or − throws them</dd>
           </dl>
         </div>
       </div>

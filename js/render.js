@@ -82,6 +82,15 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   letter.textContent = letterGlyph(active);
   if (paint) letter.style.color = COLOURS[paint].glyph;
   div.appendChild(letter);
+  // Colour shapes (Settings): the paint's shape as well as its colour, for a
+  // player who cannot tell crimson, amber and jade apart. Drawn on every painted
+  // tile and shown only while the setting is on (css/style.css).
+  if (paint) {
+    const mark = document.createElement('span');
+    mark.className = `tile-mark tile-mark--${paint}`;
+    mark.style.color = COLOURS[paint].glyph;
+    div.appendChild(mark);
+  }
 
   // Point value (bottom-right): what the tile is worth at rest, silver included.
   // An override beating that means the *word* changed it — hence --boosted.

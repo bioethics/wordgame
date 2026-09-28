@@ -140,6 +140,7 @@ export const settings = {
   layout:    'classic',     // a key of LAYOUTS in js/appearance.js
   look:      'bench',       // a key of LOOKS in js/appearance.js — the bench, or the retro board
   uiScale:   'auto',        // 'auto', or a fixed zoom factor (0.85 – 1.75)
+  paintMarks: false,        // colour shapes: each paint's shape beside its colour (css/style.css)
   // NOT the difficulty a run is being played at — that is state.difficulty, and
   // it is fixed once the run begins. This is only what the prospectus opens on,
   // so a player who wants the gentler book is not asked to say so every time.
@@ -151,6 +152,7 @@ export function loadSettings() {
     const s = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
     if (typeof s.animSpeed === 'number') settings.animSpeed = Math.min(3, Math.max(0.5, s.animSpeed));
     if (typeof s.sound === 'boolean')    settings.sound = s.sound;
+    if (typeof s.paintMarks === 'boolean') settings.paintMarks = s.paintMarks;
     // Appearance keys are validated against their tables in js/appearance.js
     // (state.js stays importable by everything, so it can't look them up here).
     if (typeof s.theme  === 'string')    settings.theme  = s.theme;

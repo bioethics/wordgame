@@ -1970,6 +1970,43 @@ button.sundry:hover { transform: translateY(-2px); }
   text-shadow: 0 1px 0 rgba(255, 250, 232, 0.8);
 }
 
+/* ─── Colour shapes (Settings) ─────────────────────────────────────────────────
+   Each paint in its own shape as well as its own colour — a flame for crimson,
+   a gem for jade, a coin for amber, a square for azure — so a player who cannot
+   tell crimson, amber and jade apart (under deuteranopia the three read as one
+   olive) can still tell the paints apart, on a tile and on its multiplier. The
+   tile's mark is always drawn and shown only by the setting's attribute. */
+.tile-mark { display: none; }
+html[data-paint-marks] .tile-mark {
+  display: block;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 9px;
+  height: 9px;
+  background: currentColor;
+  pointer-events: none;
+}
+html[data-paint-marks] .tile--mini .tile-mark { top: 3px; left: 3px; width: 6px; height: 6px; }
+.tile-mark--crimson { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.tile-mark--jade    { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+.tile-mark--amber   { border-radius: 50%; }
+html[data-paint-marks] .chip--crimson::before,
+html[data-paint-marks] .chip--azure::before,
+html[data-paint-marks] .chip--jade::before,
+html[data-paint-marks] .chip--amber::before {
+  content: '';
+  display: inline-block;
+  width: 0.6em;
+  height: 0.6em;
+  margin-right: 0.25em;
+  background: currentColor;
+  vertical-align: 0.02em;
+}
+html[data-paint-marks] .chip--crimson::before { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+html[data-paint-marks] .chip--jade::before    { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+html[data-paint-marks] .chip--amber::before   { border-radius: 50%; }
+
 /* ─── The medieval sorts (The Medievalist's stall) ─────────────────────────────
    A warmer, redder lead than the ordinary case — the glyph carries the rest. */
 .tile--medieval {

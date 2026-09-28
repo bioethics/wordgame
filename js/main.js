@@ -17,7 +17,7 @@ import {
   grantRandomPatron,
   rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost, luckyRoll, isSquib, spendCoins,
   dismissEditor, runDifficulty, lockBoard, unlockBoard, resetBoardLock,
-  barSaving, isSaveKey, setAsideSave, devMode,
+  barSaving, isSaveKey, setAsideSave, devMode, toggleSelected,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
@@ -1667,7 +1667,10 @@ document.addEventListener('keydown', e => {
   // The drawer shuts on Escape and takes nothing else: the hand is still in play.
   if (ghostDrawerOpen() && e.key === 'Escape') { closeGhostDrawer(); return; }
 
-  if (e.key === 'Enter')  { submitWord(); return; }
+  // Discard by keyboard: − (or Delete) arms it, as the button's first press
+  // does; letters then mark tiles as taps do; ↵ or − again throws them.
+  if (e.key === '-' || e.key === 'Delete') { e.preventDefault(); doDiscard(); return; }
+  if (e.key === 'Enter')  { if (state.discardMode) doDiscard(); else submitWord(); return; }
   if (e.key === 'Escape') { hidePopover(); clearOrCancel(); return; }
   if (e.key === ' ')      { e.preventDefault(); doShuffle(); return; }
 
@@ -1682,8 +1685,24 @@ document.addEventListener('keydown', e => {
   const L = e.key.toUpperCase();
   if (L.length !== 1 || L < 'A' || L > 'Z') return;
   const target = L === 'Q' ? 'QU' : L;
-  const t = state.rack.find(t =>
-    (t.letterType === 'dual' && t.activeVariant === 1 ? t.altLetter : t.letter) === target);
+  const face = t => (t.letterType === 'dual' && t.activeVariant === 1 ? t.altLetter : t.letter);
+
+  // With Discard armed a letter MARKS a tile rather than setting it: an
+  // unmarked one first, and once every such tile is marked, the next press
+  // takes a mark back off — the tap's toggle, a letter at a time.
+  if (state.discardMode) {
+    const same = state.rack.filter(t => face(t) === target);
+    const pick = same.find(t => !t.selected) ?? same.findLast(t => t.selected);
+    if (!pick) return;
+    const r = toggleSelected(pick.id);
+    if (r === 'cursed') log(logLine('cursedNoDiscard'), 'warn');
+    if (r === 'lent')   log(logLine('lentNoDiscard'), 'warn');
+    if (r === 'on') sfx.select(); else if (r === 'off') sfx.deselect(); else sfx.nudge();
+    renderAll();
+    return;
+  }
+
+  const t = state.rack.find(t => face(t) === target);
   if (t && TILE_POINTS[target]) { moveRackToWord(t.id); sfx.place(); renderAll(); }
 });
 
@@ -2567,6 +2586,8 @@ function syncSettingsUI() {
   setTextContent('animSpeedLabel', `×${settings.animSpeed}`);
   const snd = $('soundToggle');
   if (snd) snd.checked = settings.sound;
+  const marks = $('paintMarksToggle');
+  if (marks) marks.checked = !!settings.paintMarks;
   syncAppearanceUI();
 }
 
@@ -2664,6 +2685,14 @@ $('soundToggle')?.addEventListener('change', e => {
   // Answer the toggle so the player hears the new state — and because this
   // runs inside a user gesture, it primes the AudioContext for everything after.
   if (settings.sound) sfx.land();
+});
+
+// Colour shapes: one attribute on <html>, which index.html also sets before the
+// first paint; every mark is already drawn and waits on it (css/style.css).
+$('paintMarksToggle')?.addEventListener('change', e => {
+  settings.paintMarks = e.target.checked;
+  document.documentElement.toggleAttribute('data-paint-marks', settings.paintMarks);
+  saveSettings();
 });
 
 $('fileInput')?.addEventListener('change', e => {
