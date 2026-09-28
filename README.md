@@ -766,7 +766,7 @@ is what the case is; a child is what learns from one.)
 by removing them. It is a sundry (`dismissal`), six Coins, kept in stock down the
 alley and turning up at the fair on `DISMISSAL_OFFER_CHANCE` (1 in 10) of visits
 — the rarest thing on the Market's counter by a distance, since a wrapped tile is
-five times as likely and any given tube or tool three times again. Rare rather
+five times as likely and any given tube or tool more than four. Rare rather
 than dear, deliberately: six Coins is inside a bad page's reward, so the question
 is never whether you can afford one but whether the editor in front of you is the
 one worth spending it on. Served on a tap: the editor leaves the desk and the rest of
@@ -957,12 +957,15 @@ drafted: the first is hired at the first Market, once you know what the press
 needs.
 
 **The Market** (between pages) keeps a fixed layout with churning contents:
-4 patrons, 4 tiles (5 with the Medievalist's stall), 3 **sundries** and 2
+4 patrons, 4 tiles (5 with the Medievalist's stall), 4 **sundries** and 2
 **stalls** from a roster of six. (The sundry slots went from two to three when
 the shop's own stock reached eight kinds — four tubes, the reshuffle, the
 ratchet, the toolbox and the bodkin — because two slots showed only a quarter of
-the range a visit, which is too thin to build towards. The workbench still holds
-`SUNDRY_SLOTS`, so a third offer widens the choice without widening the pocket.) *New offers* re-rolls everything, and its own
+the range a visit, which is too thin to build towards; then from three to four so
+they could stand two by two under the type case, which brings that column level
+with the patrons' where three full-width rows left it hanging below them. The
+workbench still holds `SUNDRY_SLOTS`, so the extra offers widen the choice
+without widening the pocket.) *New offers* re-rolls everything, and its own
 price doubles with each press. Tiles live in your **collection**; each page the
 whole collection shuffles into the **bag**, and printed or discarded tiles wait
 in the **discard pile**. *Your collection* opens the case read-only, headed by a

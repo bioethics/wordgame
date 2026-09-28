@@ -3386,6 +3386,14 @@ button.sundry:hover { transform: translateY(-2px); }
   border: 1px solid rgba(138, 95, 29, 0.45);
   box-shadow: 0 2px 7px rgba(100, 70, 20, 0.15);
 }
+/* The Market's four, two by two under the type case: the sorts' own shape, and
+   it brings that column down level with the patrons'. Half a column is narrow
+   for a glyph, a name and a tag, so the card tightens and a long name turns
+   onto a second line rather than pushing its tag out; a row's pair stand as
+   tall as each other. One column again where the sheet is phone-narrow. */
+.offer-sundries { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.offer-sundries .offer-paint { gap: 9px; padding: 8px 10px; }
+@media (max-width: 560px) { .offer-sundries { grid-template-columns: 1fr; } }
 .paint-pot {
   width: 26px; height: 30px;
   border-radius: 4px 4px 8px 8px;

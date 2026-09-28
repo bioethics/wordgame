@@ -210,6 +210,14 @@ html[data-look="bench"] .sheet--market .offer-tile {
 html[data-look="bench"] .sheet--market .offer-tiles.offer-tiles--compost {
   background: linear-gradient(180deg, #2b2418 0%, #1d1810 60%, #141009 100%);
 }
+/* A quire's label is written on the case's dark wood, not on the trestle, so
+   it takes the stall signs' pale ink — in the trestle's it could not be seen. */
+html[data-look="bench"] .sheet--market .offer-quire .bm-tile-note {
+  font-family: var(--bn-fell);
+  font-style: italic;
+  font-size: 13px;
+  color: rgba(237, 227, 201, 0.72);
+}
 
 /* Sundries: things on the table, a tag beside each. */
 html[data-look="bench"] .sheet--market .offer-paint {

@@ -453,7 +453,7 @@ function marketShopHTML() {
           <h3 class="market-sec">${MT.tiles}</h3>
           <div class="offer-tiles">${tileCards}</div>
           <h3 class="market-sec market-sec--paint">${MT.sundries} <span class="market-sub" data-bench>${benchLabel()}</span></h3>
-          <div class="offer-list">${sundryCards}</div>
+          <div class="offer-list offer-sundries">${sundryCards}</div>
         </section>
       </div>
 

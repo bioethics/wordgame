@@ -338,12 +338,16 @@ export const PAINT_PER_POT   = 3;
 // and one random unpainted tile in hand takes the colour, permanently. The tile
 // is the paint's choice — aimed paint only ever hit the same four workhorses.
 export const SUNDRY_SLOTS  = 2;   // sundries the workbench can hold
-// Three, against a shop stocking eight kinds — four tubes, the reshuffle, the
+// Four, against a shop stocking eight kinds — four tubes, the reshuffle, the
 // ratchet, the toolbox and the bodkin, with a wrapped tile displacing one about
 // half the time. At two slots any particular one showed up a quarter of the
-// time, which is not often enough to build towards; at three it is over a third,
-// and the workbench still only holds SUNDRY_SLOTS, so the choice stays a choice.
-export const SUNDRY_OFFERS = 3;   // sundries offered per shop
+// time, which is not often enough to build towards; three made it three in
+// eight, and four makes it an even chance before a wrapper takes its slot. Four
+// is also the shape the counter wants: two by two under the type case, which
+// brings that column down level with the patrons' — three full-width rows left
+// it hanging below them. The workbench still only holds SUNDRY_SLOTS, so the
+// choice stays a choice.
+export const SUNDRY_OFFERS = 4;   // sundries offered per shop
 
 // ─── The registers' packages ──────────────────────────────────────────────────
 // The four register patrons pay ×3 Mult for a word on their list, a condition you
