@@ -544,6 +544,10 @@ function renderShelf(script) {
     _armedIds = new Set();
     shelf.innerHTML = '';
     shelf.classList.toggle('shelf--empty', state.patrons.length === 0);
+    // More seats than a new press has: a phone gives such a shelf a row of its
+    // own (css/bench.css), since beside the workbench there is no room for them.
+    shelf.classList.toggle('shelf--crowded', seats > 5);
+    shelf.classList.toggle('shelf--packed', seats > 8);
     shelf.style.setProperty('--seat-count', seats);
 
     for (let i = 0; i < seats; i++) {

@@ -1390,7 +1390,9 @@ html[data-look="bench"] .log {
   html[data-look="bench"] .patron-livery--second { height: 19px; }
   html[data-look="bench"] .patron { min-height: 76px; padding: 5px 4px 4px; gap: 2px; }
   html[data-look="bench"] .patron-emoji { font-size: 19px; }
-  html[data-look="bench"] .patron-name { display: block; font-size: 9px; letter-spacing: 0; overflow-wrap: anywhere; }
+  /* A name too long for its card is hyphenated where English would break it
+     (GOLD-SMITH, not GOLDSMIT/H); anywhere is the last resort. */
+  html[data-look="bench"] .patron-name { display: block; font-size: 9px; letter-spacing: 0; overflow-wrap: anywhere; -webkit-hyphens: auto; hyphens: auto; }
   html[data-look="bench"] .patron-desc { display: none; }
   html[data-look="bench"] .patron-take { font-size: 10px; padding: 1px 5px 2px; left: -6px; bottom: -7px; }
   html[data-look="bench"] .readout {
@@ -1414,10 +1416,13 @@ html[data-look="bench"] .log {
   html[data-look="bench"] .logo { font-size: 19px; letter-spacing: 1px; }
   /* The desk takes the room the phone actually has and spends it BETWEEN its
      rows: centring it left a band of bare bench under the sign and squeezed
-     everything below into 6px. A grid can never be pressed below its own
-     content, so a short phone still simply scrolls. */
+     everything below into 6px. It GROWS into the room and never SHRINKS: with
+     min-height: 0 (above) a shrinkable desk was pressed to the phone's height,
+     and a grid pressed below its content sizes its rows to their minimums —
+     the readout's and the stick's are nothing — so the hand drew over the stick
+     on any phone shorter than the desk. Unshrinkable, a short phone scrolls. */
   html[data-look="bench"] .table {
-    flex: 1 1 auto;
+    flex: 1 0 auto;
     margin: 0 auto;
     align-content: space-between;
     padding: 2px 10px calc(8px + env(safe-area-inset-bottom));
@@ -1428,6 +1433,14 @@ html[data-look="bench"] .log {
   html[data-look="bench"] .page-line { font-size: 13px; }
   html[data-look="bench"] .quota-card { margin-top: 5px; }
   html[data-look="bench"] .shelf, html[data-look="bench"] .sundries { padding: 6px 6px 7px; gap: 5px; }
+  /* Beyond the five seats a press starts with, the shelf takes the whole row
+     and the workbench goes beneath it, at the right: beside it, the extra
+     cards ran off the shelf and over the workbench. */
+  html[data-look="bench"] .shelf-row:has(.shelf--crowded) { grid-template-columns: minmax(0, 1fr); }
+  html[data-look="bench"] .shelf-row:has(.shelf--crowded) #sundries { justify-self: end; }
+  /* Past eight a phone's cards are narrower than any name, so a seat shows its
+     face alone, as retro's do on a small screen; a tap still reads the card. */
+  html[data-look="bench"] .shelf--packed .patron-name { display: none; }
   html[data-look="bench"] #sundries { grid-template-columns: repeat(var(--slot-count, 2), 40px); }
   html[data-look="bench"] .ghost-btn { right: -4px; width: 24px; height: 52px; padding-left: 3px; }
   html[data-look="bench"] .ghost-btn-mark { font-size: 14px; }

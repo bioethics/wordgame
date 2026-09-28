@@ -439,8 +439,10 @@ header {
 
 .shelf {
   display: grid;
-  /* Extra seats from the Colophon grow this — see renderShelf() */
-  grid-template-columns: repeat(var(--seat-count, 5), 1fr);
+  /* Extra seats from the Colophon grow this — see renderShelf(). minmax(0, …)
+     so a seat can be narrower than its card's content: a bare 1fr cannot, and
+     enough seats would push the shelf off the side of the page. */
+  grid-template-columns: repeat(var(--seat-count, 5), minmax(0, 1fr));
   gap: 10px;
   padding: 10px 12px 12px;
   background: var(--surf-wood);
@@ -2979,8 +2981,14 @@ button.sundry:hover { transform: translateY(-2px); }
   place-items: center;
   padding: 22px;
   overflow: auto;
+  /* One column exactly as wide as the room inside the padding, so the cap
+     below has something to measure against: sheets are sized in viewport
+     units, and 94vw of a phone plus the padding is wider than the phone —
+     every sheet sat off-centre and could be dragged sideways. */
+  grid-template-columns: minmax(0, 1fr);
 }
 .modal.show { display: grid; }
+.modal > .sheet { max-width: 100%; }
 
 .sheet {
   background:
@@ -5608,7 +5616,7 @@ input[type='checkbox'] {
 @media (max-width: 880px) {
   .status-row { grid-template-columns: 1fr 1fr; }
   .quota-card { grid-column: 1 / -1; order: -1; }
-  .shelf { grid-template-columns: repeat(var(--seat-count, 5), 1fr); gap: 6px; }
+  .shelf { grid-template-columns: repeat(var(--seat-count, 5), minmax(0, 1fr)); gap: 6px; }
   .patron-name { display: none; }
   .sundries { grid-template-columns: repeat(var(--slot-count, 2), 52px); gap: 6px; }
   .sundry-name { display: none; }
