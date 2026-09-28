@@ -1171,18 +1171,70 @@ function applyPaintingMode(el) {
 // fixes: a bigger hand still grows both, once, as the page is dealt. Written
 // as a custom property CSS maxes against its own minimum, so the stylesheet's
 // floors stay in charge of the empty case.
-function reserveHandHeight(el, prop) {
-  const cs = getComputedStyle(el);
-  const inner = el.clientWidth
-    - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
-  if (!(inner > 0)) return;                     // not laid out yet — nothing to measure
+// ─── The hand's geometry ─────────────────────────────────────────────────────
+// reserveHand and fitWord pack the hand against the case's and the stick's inner
+// widths. Read as clientWidth straight after a render, each made the browser lay
+// the whole page out there and then — twice a keypress, ahead of renderRule's
+// own read, which lays it out once more because it has to: it places the ticks
+// by where the sorts actually landed. On a slow phone that was a dozen of a key's
+// twenty-odd milliseconds. The widths change rarely (a resize, a wider hand,
+// another look), so a ResizeObserver, which hears them after layout has happened
+// anyway, keeps them, and the packing reads a remembered number. When one does
+// change the hand is re-reserved on the next frame — never inside the observer,
+// whose callback must not resize what it watches.
+const geometry = new WeakMap();   // el → { inner, padY, colGap, rowGap, tileW, tileH }
+let geometryWatch = null;
 
-  const root  = getComputedStyle(document.documentElement);
-  const tileW = parseFloat(root.getPropertyValue('--tile-w')) || 0;
-  const tileH = parseFloat(root.getPropertyValue('--tile-h')) || 0;
+function measureGeometry(el) {
+  const cs   = getComputedStyle(el);
+  const root = getComputedStyle(document.documentElement);
+  const g = {
+    inner:  el.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0),
+    padY:   parseFloat(cs.paddingTop || 0) + parseFloat(cs.paddingBottom || 0),
+    colGap: parseFloat(cs.columnGap || 0) || 0,
+    rowGap: parseFloat(cs.rowGap || 0) || 0,
+    tileW:  parseFloat(root.getPropertyValue('--tile-w')) || 0,
+    tileH:  parseFloat(root.getPropertyValue('--tile-h')) || 0,
+  };
+  // Not laid out yet (a hidden board, the first frame): measure again next time.
+  if (g.inner > 0) geometry.set(el, g);
+  return g;
+}
+
+function geometryOf(el) {
+  if (typeof ResizeObserver === 'undefined') return measureGeometry(el);
+  geometryWatch ??= new ResizeObserver(entries => {
+    let changed = false;
+    for (const e of entries) {
+      const was = geometry.get(e.target);
+      if (was && Math.abs(was.inner - e.contentRect.width) < 0.5) continue;
+      geometry.delete(e.target);
+      changed = true;
+    }
+    if (changed) requestAnimationFrame(refitHand);
+  });
+  const g = geometry.get(el);
+  if (g) return g;
+  geometryWatch.observe(el);
+  return measureGeometry(el);
+}
+// A media query can swap the tile size without the case changing width.
+if (typeof window !== 'undefined') {
+  window.addEventListener('resize', () => {
+    for (const id of ['rack', 'word']) { const el = $(id); if (el) geometry.delete(el); }
+  });
+}
+
+function refitHand() {
+  reserveHand();
+  const word = $('word');
+  if (word && benchOn()) fitWord(word);
+}
+
+function reserveHandHeight(el, prop) {
+  const { inner, padY, colGap, rowGap, tileW, tileH } = geometryOf(el);
+  if (!(inner > 0)) return;                     // not laid out yet — nothing to measure
   if (!tileW || !tileH) return;
-  const colGap = parseFloat(cs.columnGap || 0) || 0;
-  const rowGap = parseFloat(cs.rowGap || 0) || 0;
 
   // Same packing flex-wrap does, over the whole hand in rack order. A tile
   // showing four or more letters is drawn double width (see makeTileEl).
@@ -1193,7 +1245,6 @@ function reserveHandHeight(el, prop) {
     if (run > 0 && run + colGap + w > inner + 0.5) { rows++; run = w; }
     else run += (run > 0 ? colGap : 0) + w;
   }
-  const padY = parseFloat(cs.paddingTop || 0) + parseFloat(cs.paddingBottom || 0);
   el.style.setProperty(prop, `${rows * tileH + (rows - 1) * rowGap + padY}px`);
   // The count as well as the height: the bench's case and stick are built of
   // rows of their own (a socket is taller than the sort in it, the stick's
@@ -1225,13 +1276,7 @@ function reserveHand() {
 // shrinking and the line simply turns, which no ordinary hand can reach.
 const FIT_FLOOR = 0.4;
 function fitWord(el) {
-  const cs = getComputedStyle(el);
-  const inner = el.clientWidth
-    - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
-  const root = getComputedStyle(document.documentElement);
-  const tileW = parseFloat(root.getPropertyValue('--tile-w')) || 0;
-  const tileH = parseFloat(root.getPropertyValue('--tile-h')) || 0;
-  const gap = parseFloat(cs.columnGap || 0) || 0;
+  const { inner, colGap: gap, tileW, tileH } = geometryOf(el);
   if (!(inner > 0) || !tileW || !tileH) return;
 
   // What the word standing in the stick asks for at full size — a glyph of
