@@ -10,13 +10,18 @@ import {
   MAGPIE_WEIGHT, MAKO_WEIGHT,
   PURVEYOR, TUBE_CHOICES, STALLS_PER_SHOP, MARKET_TILE_OFFERS, PATRON_OFFERS,
   UPGRADE_OFFERS, PROPOSAL_RANGE,
-  LOVERS,
+  LOVERS, APPLICATORS, PACKAGES, STALL_DEFS,
 } from './constants.js';
+import { SUNDRY_TEXT } from './text.js';
+import { upgradeById } from './upgrades.js';
 import { CHAPTER_TITLES } from './chapters.js';
 import { BOSS_DEFS, activeBoss, bossConflicts } from './bosses.js';
 
 const SAVE_KEY     = 'folio_save_v1';
 const SETTINGS_KEY = 'folio_settings_v1';
+// Where a save that cannot be read is put, rather than deleted: out of the
+// game's way, and still there for a hand to recover.
+const SAVE_ASIDE_KEY = 'folio_save_v1_set_aside';
 const SAVE_VERSION = 14;  // v14: the opening draft is gone, the Testing Chamber in its place
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -225,6 +230,30 @@ export const state = {
   tubeOffer: null,       // ids of the tiles an armed tube is offering — transient, never saved
   gameOver:  false,
 };
+
+// ─── The board's lock ───────────────────────────────────────────────────────
+// `state.isAnimating` is what every handler asks before it acts, and it is only
+// ever written through these. They COUNT: a flow that animates inside another —
+// the Economiser's burn, the Ripper's knife, both inside a print — takes and
+// gives back its own hold without letting go of the outer one. Written as a
+// plain flag, the inner flow's `false` opened the board a second before the
+// print had drawn or checked the quota, and a second Print in that second
+// completed the page twice. A flow that throws halfway is answered in main.js,
+// which hands the whole lock back (resetBoardLock) rather than leave the board
+// frozen until a reload.
+let boardHolds = 0;
+export function lockBoard() {
+  boardHolds += 1;
+  state.isAnimating = true;
+}
+export function unlockBoard() {
+  boardHolds = Math.max(0, boardHolds - 1);
+  state.isAnimating = boardHolds > 0;
+}
+export function resetBoardLock() {
+  boardHolds = 0;
+  state.isAnimating = false;
+}
 
 // ─── The run's difficulty ───────────────────────────────────────────────────
 // What the prospectus settled: the row of DIFFICULTIES this run is played on.
@@ -531,7 +560,15 @@ function migrateSave(node) {
   for (const v of Object.values(node)) migrateSave(v);
 }
 
+// Set when this tab must not write: the save on disk is newer than the code
+// reading it, or another tab has written since. Either way, writing would put
+// an older run over a newer one.
+let saveBarred = false;
+export const barSaving = () => { saveBarred = true; };
+export const isSaveKey = key => key === SAVE_KEY;
+
 export function saveState(extra = {}) {
+  if (saveBarred) return;
   try {
     const rack = state.rack.map(t => ({ ...t, selected: false }));
     const word = state.word.map(t => ({ ...t, selected: false }));
@@ -545,29 +582,115 @@ export function saveState(extra = {}) {
   } catch { /* quota */ }
 }
 
-// One-time repair for saves holding the retired mercury trim: a tile still
-// wearing one would look itself up in a table that no longer has the row, which
-// throws wherever a trim is described. Cobalt is the nearest swap. The whole
-// save is walked — a trim can be on a template, a live tile or an unbought
-// offer. Returns how many were repaired, so the board can say so.
-function retireMercury(node) {
-  if (Array.isArray(node)) return node.reduce((n, v) => n + retireMercury(v), 0);
-  if (!node || typeof node !== 'object') return 0;
-  let n = 0;
-  if (node.trim === 'mercury') { node.trim = 'cobalt'; n += 1; }
-  for (const v of Object.values(node)) n += retireMercury(v);
-  return n;
+// ─── Reading a save back ──────────────────────────────────────────────────────
+// A save outlives the code that wrote it, in both directions, and none of the
+// ways it can fail to come back may cost the player the run without a word:
+//
+//   · written by NEWER code — a tab left open on an old build, or an old build
+//     still cached after a deploy. Never touched, and nothing written over it;
+//     the board asks for a reload, which brings the newer code to read it.
+//   · written by OLDER code with no migration forward, or not readable at all.
+//     Set aside under SAVE_ASIDE_KEY rather than deleted, and a fresh run begins.
+//   · readable, but naming things the game no longer makes — a retired trim, a
+//     colour, a tool, a stall, a Colophon pick. Each would look itself up in a
+//     table without the row and throw wherever it is drawn, on every reload.
+//     Repaired in place, and the board says how many.
+//
+// A version bump that changes a save's SHAPE adds a step here, keyed by the
+// version it upgrades FROM: MIGRATIONS[14] turns a v14 save into a v15 one.
+const MIGRATIONS = {};
+
+let loadedRaw = null;   // the save as last read, for setting aside if drawing it fails
+
+export function setAsideSave(raw = loadedRaw) {
+  if (raw == null) return;
+  try { localStorage.setItem(SAVE_ASIDE_KEY, raw); } catch { /* quota */ }
 }
 
+const SUNDRY_KINDS = new Set([...Object.keys(SUNDRY_TEXT), 'package']);
+function knownSundry(t) {
+  if (!t || !SUNDRY_KINDS.has(t.kind)) return false;
+  if (t.kind === 'tube')       return !!COLOURS[t.colour];
+  if (t.kind === 'applicator') return !!APPLICATORS[t.material];
+  if (t.kind === 'package')    return !!PACKAGES[t.theme];
+  return true;
+}
+
+// Tiles are found by their shape — anything with a string `letter` — wherever
+// they are: templates, the hand, the bag, a Market offer, a stall's spread. A
+// tile keeps its letter and loses whatever it wears that nobody makes any more.
+// The mercury trim's retirement keeps its own count and its own line: it is a
+// swap to cobalt rather than a loss, and the Fountain is where its job went.
+function repairTiles(node, tally) {
+  if (Array.isArray(node)) { node.forEach(v => repairTiles(v, tally)); return; }
+  if (!node || typeof node !== 'object') return;
+  if (typeof node.letter === 'string') {
+    if (node.trim === 'mercury') { node.trim = 'cobalt'; tally.mercury += 1; }
+    for (const [key, table] of [['trim', TRIMS], ['colour', COLOURS], ['wash', COLOURS],
+                                ['nick', NICKS], ['material', MATERIALS]]) {
+      if (node[key] != null && !table[node[key]]) { delete node[key]; tally.n += 1; }
+    }
+  }
+  for (const v of Object.values(node)) repairTiles(v, tally);
+}
+
+function repairSave(s) {
+  const tally = { n: 0, mercury: 0 };
+  repairTiles(s, tally);
+  const keep = (list, ok) => {
+    if (!Array.isArray(list)) return list;
+    const kept = list.filter(ok);
+    tally.n += list.length - kept.length;
+    return kept;
+  };
+  s.sundries = keep(s.sundries, knownSundry);
+  if (s._market) {
+    s._market.sundryOffers = keep(s._market.sundryOffers, knownSundry);
+    s._market.stalls       = keep(s._market.stalls, st => !!STALL_DEFS[st?.id]);
+    // A spread proposing a colour, trim or nick nobody makes is dropped whole:
+    // restoreMarket deals a fresh one to any proposal stall that has none.
+    const proposes = pr => (pr?.colour == null || COLOURS[pr.colour])
+      && (pr?.trim == null || TRIMS[pr.trim]) && (pr?.nick == null || NICKS[pr.nick]);
+    for (const st of s._market.stalls ?? []) {
+      if (Array.isArray(st.proposals) && !st.proposals.every(proposes)) {
+        delete st.proposals;
+        tally.n += 1;
+      }
+    }
+  }
+  if (s._blackmarket) {
+    s._blackmarket.sundryOffers = keep(s._blackmarket.sundryOffers, knownSundry);
+    if (s._blackmarket.shell) {
+      s._blackmarket.shell.shells = keep(s._blackmarket.shell.shells,
+        p => p?.kind !== 'sundry' || knownSundry(p.sundry));
+    }
+  }
+  if (s._colophon) s._colophon.offers = keep(s._colophon.offers, id => !!upgradeById(id));
+  return tally;
+}
+
+// null — nothing saved (or storage cannot be read at all)
+// { newer: true } — left alone; the caller asks for a reload
+// { setAside: true } — could not be read; kept under SAVE_ASIDE_KEY
+// otherwise the sheet snapshots to restore, and what was repaired
 export function loadState() {
+  let raw;
+  try { raw = localStorage.getItem(SAVE_KEY); } catch { return null; }
+  if (!raw) return null;
+  loadedRaw = raw;
+  let s;
+  try { s = JSON.parse(raw); } catch { s = null; }
+  if (!s || typeof s !== 'object') { setAsideSave(raw); return { setAside: true }; }
+  if (typeof s._v === 'number' && s._v > SAVE_VERSION) { barSaving(); return { newer: true }; }
+  for (let v = s._v; typeof v === 'number' && v < SAVE_VERSION && MIGRATIONS[v]; v += 1) {
+    MIGRATIONS[v](s);
+    s._v = v + 1;
+  }
+  if (s._v !== SAVE_VERSION) { setAsideSave(raw); return { setAside: true }; }
   try {
-    const raw = localStorage.getItem(SAVE_KEY);
-    if (!raw) return null;
-    const s = JSON.parse(raw);
-    if (s._v !== SAVE_VERSION) return null;
     migrateSave(s);
-    if (!Array.isArray(s.collection) || !Array.isArray(s.rack)) return null;
-    const mercury = retireMercury(s);
+    if (!Array.isArray(s.collection) || !Array.isArray(s.rack)) { setAsideSave(raw); return { setAside: true }; }
+    const { n: repaired, mercury } = repairSave(s);
     const { _nextId: savedId, _nextTid: savedTid, _v, _market, _chamber, _colophon,
             _blackmarket, ...fields } = s;
     Object.assign(state, fields, { isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null, ratchetOffset: 0 });
@@ -612,8 +735,8 @@ export function loadState() {
     // list it sits in.
     state.ghosts?.forEach(p => { p.uid ??= nextId(); (p.data ??= {}).ghost = true; });
     return { market: _market ?? null, chamber: _chamber ?? null, colophon: _colophon ?? null,
-             blackmarket: _blackmarket ?? null, mercury };
-  } catch { return null; }
+             blackmarket: _blackmarket ?? null, mercury, repaired };
+  } catch { setAsideSave(raw); return { setAside: true }; }
 }
 
 export function clearSave() {
@@ -627,6 +750,7 @@ export function clearSave() {
 export function newRun({ difficulty = settings.difficulty } = {}) {
   _nextId = 1;
   _nextTid = 1;
+  boardHolds = 0;   // the fresh state below writes isAnimating: false itself
   const diff = difficultyKey(difficulty);
   Object.assign(state, {
     difficulty: diff,
@@ -647,7 +771,7 @@ export function newRun({ difficulty = settings.difficulty } = {}) {
     manuscript: [],
     endless: false, inMarket: false, inStart: false, inChamber: false, inColophon: false,
     inBlackMarket: false, blackMarketVisits: 0,
-    isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null, ratchetOffset: 0, gameOver: false,
+    isAnimating: false, discardMode: false, sundryMode: -1, tubeOffer: null, gameOver: false,
     catPending: false,
   });
   startPage();

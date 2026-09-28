@@ -16,7 +16,8 @@ import {
   castCounterfeit, effectiveRackSize, handCount, pluckFromBag,
   grantRandomPatron,
   rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost, luckyRoll, isSquib, spendCoins,
-  dismissEditor, runDifficulty,
+  dismissEditor, runDifficulty, lockBoard, unlockBoard, resetBoardLock,
+  barSaving, isSaveKey, setAsideSave,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
@@ -30,7 +31,7 @@ import {
   RATCHET_RANGE,
 } from './constants.js';
 import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
-import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
+import { DICT, dictLoaded, dictStatus, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
 import { THEME_SETS, loadThemes } from './themes.js';
 import { loadExclusions, exclusionsLoaded, isExcluded } from './excluded.js';
 
@@ -43,7 +44,7 @@ import {
   renderAll, renderRack, renderWord, renderCounts, renderButtons, persist,
   renderDictStatus, readoutEls, renderChips, setChip,
   log, showBanner, hideOverlay,
-  showGameOver, showVictory, openInspector, closeInspector, openBagPicker, coinHTML,
+  showGameOver, showVictory, showStandDown, openInspector, closeInspector, openBagPicker, coinHTML,
   showPatronPopover, hidePopover, showRatchetPopover, updateRatchetPopover,
   openManuscript, closeManuscript,
   openGhosts, closeGhosts, ghostsOpen,
@@ -56,7 +57,7 @@ import {
 } from './sheets.js';
 import { start, openStart, closeStart } from './start.js';
 import { chamber, openChamber, closeChamber, restoreChamber } from './chamber.js';
-import { openBlackMarket, restoreBlackMarket } from './blackmarket.js';
+import { openBlackMarket, closeBlackMarket, restoreBlackMarket } from './blackmarket.js';
 import {
   sleep, dur, flyClone, popReveal, floatText, tweenNum, setNum, fmtMult,
   pulse, sparkleBurst, sfx, applySpeedCSS, speechBubble, flourishTime,
@@ -72,7 +73,7 @@ import {
   PATRON_DEFS, patronById, doubledReading, boundNouns, patronName, patronEmoji, patronShelf, guildSeats,
 } from './patrons.js';
 import { randomQuip } from './quips.js';
-import { logLine } from './text.js';
+import { logLine, SETTINGS_TEXT } from './text.js';
 
 const $ = id => document.getElementById(id);
 const rect = el => el?.getBoundingClientRect();
@@ -352,10 +353,10 @@ async function editorEats() {
     return;
   }
   const el = rackTileEl(doomed.id);
-  state.isAnimating = true;
+  lockBoard();
   if (el) await animateBurn([el]);
   state.rack = state.rack.filter(t => t.id !== doomed.id);
-  state.isAnimating = false;
+  unlockBoard();
   renderAll();
   log(logLine('economiserEats', getActiveLetter(doomed)), 'warn');
   reportPaintEchoes();   // The Revenant may have caught it
@@ -526,7 +527,7 @@ async function ripperStrikes(script) {
   if (victim.id === 'revenant') {
     const hers = patronCard(victim);
     const his  = patronCard(killer);
-    state.isAnimating = true;
+    lockBoard();
     if (hers) { pulse(hers, 'patron--firing', 900); sparkleBurst(hers, 14); }
     sfx.lose();
     if (!alreadyDead && his) {
@@ -539,7 +540,7 @@ async function ripperStrikes(script) {
       state.patrons.splice(state.patrons.indexOf(killer), 1);
     }
     strikeWord();
-    state.isAnimating = false;
+    unlockBoard();
     renderAll();
     log((alreadyDead
       ? `💀 The knife passes straight through ${name}. You cannot murder the dead.`
@@ -551,7 +552,7 @@ async function ripperStrikes(script) {
   const card = patronCard(victim);
   const knife = patronCard(killer);
 
-  state.isAnimating = true;
+  lockBoard();
   if (card) {
     pulse(card, 'patron--murdered', 900);
     sparkleBurst(card, 12);
@@ -565,7 +566,7 @@ async function ripperStrikes(script) {
   state.patrons.splice(state.patrons.indexOf(victim), 1);
   strikeWord();
 
-  state.isAnimating = false;
+  unlockBoard();
   renderAll();
   log(logLine('ripperMurder', name, spentNote()), 'warn');
 }
@@ -1013,7 +1014,7 @@ async function submitWord() {
   cancelDiscardMode(true);
   cancelSundryMode(true);
 
-  if (!dictLoaded) { log(logLine('dictLoading'), 'warn'); return; }
+  if (!dictLoaded) { log(logLine(dictStatus === 'failed' ? 'dictFailed' : 'dictLoading'), 'warn'); return; }
 
   const reject = msg => {
     log(msg, 'bad');
@@ -1082,7 +1083,7 @@ async function submitWord() {
     parts.letters = readings.find(r => DICT.has(r));
   }
 
-  state.isAnimating = true;
+  lockBoard();
   renderButtons();
 
   const script = computeScore(state.word);
@@ -1392,8 +1393,8 @@ async function submitWord() {
   // ── Outcomes ───────────────────────────────────────────────────────────────
   // Check the quota BEFORE topping the rack up: announcing "page complete"
   // straight after dealing a fresh hand you never get to use reads as a bug.
-  if (state.pageScore >= state.quota) { state.isAnimating = false; await pageComplete(); return; }
-  if (state.wordsLeft === 0)          { state.isAnimating = false; await gameLost(); return; }
+  if (state.pageScore >= state.quota) { unlockBoard(); await pageComplete(); return; }
+  if (state.wordsLeft === 0)          { unlockBoard(); await gameLost(); return; }
 
   // Anything the editor lends is replaced before the hand tops up, so the
   // places it holds are never briefly free for the draw to take.
@@ -1401,7 +1402,7 @@ async function submitWord() {
   const drawn = drawUpToRackSize();
   await animateDraw([...relent, ...drawn]);
 
-  state.isAnimating = false;
+  unlockBoard();
   renderAll();
 
   if (state.rack.length === 0 && !state.bag.length) { await gameLost(); return; }
@@ -1418,7 +1419,7 @@ function renderAllStable() {
 // ─── Page completion → Shop ────────────────────────────────────────────────
 
 async function pageComplete() {
-  state.isAnimating = true;
+  lockBoard();
   state.stats.pages += 1;
   sfx.win();
   const bossDef = state.boss ? bossById(state.boss.id) : null;
@@ -1442,7 +1443,7 @@ async function pageComplete() {
   const reward = computeReward();
   state.coins += reward.total;
 
-  state.isAnimating = false;
+  unlockBoard();
 
   // A cleared chapter pays its Colophon BEFORE the Market opens, so the upgrade
   // is in hand while you shop: an extra seat or workbench slot changes what is
@@ -1517,7 +1518,7 @@ async function advancePage() {
   const chapterNotes = newChapter ? runChapterHooks() : [];
   if (newChapter) reportPaintEchoes();   // a dye's coat may have splashed
 
-  state.isAnimating = true;
+  lockBoard();
 
   // Sweep the table back into the bag
   const sweepRects = [...document.querySelectorAll('#rack .tile, #word .tile')]
@@ -1559,7 +1560,7 @@ async function advancePage() {
   const drawn = drawUpToRackSize();
   await animateDraw([...arrivals, ...lent, ...drawn]);
 
-  state.isAnimating = false;
+  unlockBoard();
   renderAll();   // the status bar settles back to the manuscript on its own
   const said = [...chapterNotes, ...notes];
   if (said.length) log(said.join('  '), 'good');
@@ -1599,7 +1600,7 @@ async function doDiscard() {
   if (!result) { cancelDiscardMode(); return; }
   state.discardMode = false;
 
-  state.isAnimating = true;
+  lockBoard();
   renderButtons();
 
   // Dipped before filed: the vat has its moment while the tiles are still on the
@@ -1630,7 +1631,7 @@ async function doDiscard() {
     .map(el => ({ el, r: rect(el) })));
   await animateDraw(drawn);
 
-  state.isAnimating = false;
+  unlockBoard();
   renderAll();
 
   reportPaintEchoes();   // the Dipper or Bloodletter may have painted
@@ -1791,7 +1792,7 @@ async function useSundry(idx, e = null, confirmed = false) {
         return;
       }
       state.sundries.splice(at, 1);
-      state.isAnimating = true;
+      lockBoard();
       renderAll();
       sfx.chime();
       const el = rackTileEl(tile.id);
@@ -1802,7 +1803,7 @@ async function useSundry(idx, e = null, confirmed = false) {
         floatText(el, `${TOOL_LOOK.bodkin.glyph} picked out`, 'fl-set');
       }
       await sleep(ANIM.stepColour);
-      state.isAnimating = false;
+      unlockBoard();
       renderAll();
       const over = handCount() > effectiveRackSize();
       log(logLine('bodkinFinds', getActiveLetter(tile),
@@ -1822,7 +1823,7 @@ async function useSundry(idx, e = null, confirmed = false) {
     const tile = isMarkTile ? castMarkTile() : castMaterialTile(content);
     state.sundries.splice(idx, 1);
 
-    state.isAnimating = true;
+    lockBoard();
     renderAll();
     sfx.chime();
     const el = rackTileEl(tile.id);
@@ -1834,7 +1835,7 @@ async function useSundry(idx, e = null, confirmed = false) {
                 isMarkTile ? 'fl-set fl-set--purple' : `fl-set fl-mat--${content}`);
     }
     await sleep(ANIM.stepColour);
-    state.isAnimating = false;
+    unlockBoard();
     renderAll();
     log(isMarkTile
       ? `The wrapping comes off: a “${getActiveLetter(tile)}”, ${TRIMS[MARK_TRIM].label.toLowerCase()}-trimmed — no shop sells marks, and it is yours for good.`
@@ -1853,12 +1854,12 @@ async function useSundry(idx, e = null, confirmed = false) {
     const prize = pickLoot(pkg.loot);
     state.sundries.splice(idx, 1);          // the paper comes off first
 
-    state.isAnimating = true;
+    lockBoard();
     renderAll();
     sfx.chime();
     const said = await openPackage(prize, pkg);
     await sleep(ANIM.stepColour);
-    state.isAnimating = false;
+    unlockBoard();
     renderAll();
     log(logLine('packageOpened', pkg.emoji, pkg.label, said), 'good');
     reportPaintEchoes();
@@ -1887,7 +1888,7 @@ async function useSundry(idx, e = null, confirmed = false) {
     const result = applySundry(idx);
     if (!result) { cancelSundryMode(); return; }
 
-    state.isAnimating = true;
+    lockBoard();
     renderAll();
     sfx.chime();
     const el = wordTileEl(result.ids[0]) ?? rackTileEl(result.ids[0]);
@@ -1897,7 +1898,7 @@ async function useSundry(idx, e = null, confirmed = false) {
       floatText(el, MATERIALS[result.material].label, `fl-set fl-mat--${result.material}`);
     }
     await sleep(ANIM.stepColour);
-    state.isAnimating = false;
+    unlockBoard();
     renderAll();
     log(logLine('struckIn', result.letters[0], MATERIALS[result.material].metal.toLowerCase(), MATERIALS[result.material].desc), 'good');
     return;
@@ -1920,7 +1921,7 @@ async function useSundry(idx, e = null, confirmed = false) {
     // which draws itself with arrows and so has no TOOL_LOOK entry.
     const nameOf = k => sundryTip({ kind: k })?.head ?? k;
 
-    state.isAnimating = true;
+    lockBoard();
     renderAll();
     sfx.chime();
     const bench = $('sundries');
@@ -1931,7 +1932,7 @@ async function useSundry(idx, e = null, confirmed = false) {
         : nameOf(first), 'fl-points', { dy: -46 });
     }
     await sleep(ANIM.stepColour);
-    state.isAnimating = false;
+    unlockBoard();
     renderAll();
     log(roomForSecond
       ? `The toolbox opens: a ${nameOf(first).toLowerCase()} and a ${nameOf(second).toLowerCase()}.`
@@ -1958,7 +1959,7 @@ async function useSundry(idx, e = null, confirmed = false) {
     cancelSundryMode(true);
     state.sundries.splice(idx, 1);
 
-    state.isAnimating = true;
+    lockBoard();
     renderAll();
     sfx.chime();
     const card = patronCard(seat);
@@ -1968,7 +1969,7 @@ async function useSundry(idx, e = null, confirmed = false) {
       floatText(card, '🧪 smitten', 'fl-points', { dy: -44 });
     }
     await sleep(ANIM.stepColour);
-    state.isAnimating = false;
+    unlockBoard();
     renderAll();
     const def = patronById(seat.id);
     log(logLine('potionSeat', patronName(def, seat.data)), 'good');
@@ -1988,7 +1989,7 @@ async function useSundry(idx, e = null, confirmed = false) {
     // Said over the bar the editor is sitting in, so it has to be shown BEFORE
     // the seat is cleared — the bar hides itself the moment there is nobody in
     // it (renderBossBar).
-    state.isAnimating = true;
+    lockBoard();
     renderAll();
     sfx.chime();
     const bar = $('bossBar');
@@ -2002,7 +2003,7 @@ async function useSundry(idx, e = null, confirmed = false) {
     const left = dismissEditor();
     const at = state.sundries.indexOf(armed);
     if (at >= 0) state.sundries.splice(at, 1);
-    state.isAnimating = false;
+    unlockBoard();
     renderAll();
     log(logLine('dismissalServed', def.emoji, def.name)
       + (left?.unwrapped ? logLine('dismissalUnwraps') : ''), 'good');
@@ -2018,7 +2019,7 @@ async function useSundry(idx, e = null, confirmed = false) {
     seat.data.honorifics = (seat.data.honorifics ?? 0) + 1;
     state.sundries.splice(idx, 1);
 
-    state.isAnimating = true;
+    lockBoard();
     renderAll();
     sfx.chime();
     const card = patronCard(seat);
@@ -2028,7 +2029,7 @@ async function useSundry(idx, e = null, confirmed = false) {
       floatText(card, `🏵️ +${HONORIFIC_STEP}`, 'fl-points', { dy: -44 });
     }
     await sleep(ANIM.stepColour);
-    state.isAnimating = false;
+    unlockBoard();
     renderAll();
     const def = patronById(seat.id);
     const name = patronName(def, seat.data);
@@ -2046,7 +2047,7 @@ async function useSundry(idx, e = null, confirmed = false) {
     if (!washed.length) { log(logLine('washNone'), 'warn'); return; }
     state.sundries.splice(idx, 1);
 
-    state.isAnimating = true;
+    lockBoard();
     renderAll();
     sfx.chime();
     for (const { tile, colour } of washed) {
@@ -2057,7 +2058,7 @@ async function useSundry(idx, e = null, confirmed = false) {
       sparkleBurst(el, 6);
     }
     await sleep(ANIM.stepColour);
-    state.isAnimating = false;
+    unlockBoard();
     renderAll();
     const said = washed.map(w => `${getActiveLetter(w.tile)} ${COLOURS[w.colour].label.toLowerCase()}`);
     log(logLine('washSettles', said.join(', ')), 'good');
@@ -2086,7 +2087,7 @@ async function useSundry(idx, e = null, confirmed = false) {
     const result = applySundry(idx);
     if (!result) { cancelSundryMode(); return; }
 
-    state.isAnimating = true;
+    lockBoard();
     renderAll();
     sfx.chime();
     const el = wordTileEl(result.ids[0]) ?? rackTileEl(result.ids[0]);
@@ -2097,7 +2098,7 @@ async function useSundry(idx, e = null, confirmed = false) {
       floatText(el, COLOURS[result.colour].label, `fl-set fl-set--${result.colour}`);
     }
     await sleep(ANIM.stepColour);
-    state.isAnimating = false;
+    unlockBoard();
     renderAll();
     log(logLine('painted', result.letters[0], COLOURS[result.colour].label.toLowerCase()), 'good');
     reportPaintEchoes();
@@ -2128,7 +2129,7 @@ async function useSundry(idx, e = null, confirmed = false) {
   const result = applySundry(idx, state.ratchetOffset ?? 0);
   if (!result) { cancelSundryMode(); renderAll(); return; }
 
-  state.isAnimating = true;
+  lockBoard();
 
   if (result.kind === 'tongs') {
     if (gripped) await animateBurn([gripped]);
@@ -2136,7 +2137,7 @@ async function useSundry(idx, e = null, confirmed = false) {
     const groove = $('word');
     if (groove) floatText(groove, logLine('tongsFloater', TONGS_BONUS), 'fl-points', { dy: -30 });
     await sleep(ANIM.stepColour);
-    state.isAnimating = false;
+    unlockBoard();
     renderAll();
     log(logLine('tongsGrip', result.letters[0], result.bonus), 'good');
     reportPaintEchoes();   // The Revenant stands over the furnace too
@@ -2153,7 +2154,7 @@ async function useSundry(idx, e = null, confirmed = false) {
       floatText(el, `${result.from} → ${result.to} Points`, 'fl-points', { dy: -54 });
     }
     await sleep(ANIM.stepColour);
-    state.isAnimating = false;
+    unlockBoard();
     renderAll();
     log(result.to < result.from * 2
       ? `The loupe doubles ${result.letters[0]} — capped at ${LOUPE_CAP} Points, for good.`
@@ -2167,7 +2168,7 @@ async function useSundry(idx, e = null, confirmed = false) {
     floatText(el, `${result.from} → ${result.to}`, 'fl-points', { dy: -54 });
   }
   await sleep(ANIM.stepColour);
-  state.isAnimating = false;
+  unlockBoard();
   renderAll();
   log(logLine('ratchetSteps', result.from, result.to), 'good');
 }
@@ -2369,6 +2370,10 @@ function usurerRepay() {
 // what that costs rather than refusing it.
 function takeTheConsideration() {
   const data = state.boss?.data ?? {};
+  // The sheet is up: said on the save, so a reload puts it back rather than
+  // dealing the hand past it and playing the page at his unbribed ×0.2.
+  data.asking = true;
+  persist();
   showBribeSheet(state.coins);
   return new Promise(resolve => {
     const done = e => {
@@ -2377,6 +2382,7 @@ function takeTheConsideration() {
       const paid = Math.max(0, Math.min(BRIBRARIAN.steps, Number(pick.dataset.bribe) || 0));
       $('overlayModal')?.removeEventListener('click', done);
       data.paid    = paid;
+      delete data.asking;
       spendCoins(paid);
       hideOverlay();
       if (paid) {
@@ -2419,7 +2425,7 @@ async function takeCounterfeit(letter) {
   hideOverlay();
 
   const tile = castCounterfeit(letter);
-  state.isAnimating = true;
+  lockBoard();
   renderButtons();
   renderRack(new Set([tile.id]));
   renderCounts();
@@ -2433,7 +2439,7 @@ async function takeCounterfeit(letter) {
     sparkleBurst(el, 9);
     sfx.land();
   }
-  state.isAnimating = false;
+  unlockBoard();
   log(logLine('counterfeitMade', letter), 'good');
   renderAll();
 }
@@ -2447,7 +2453,7 @@ async function lendOlogyTile() {
   seat.data.used = true;
 
   const tile = castLentTile('OLOGY', { aboveHand: true, lender: 'scientist', trim: 'gold' });
-  state.isAnimating = true;
+  lockBoard();
   renderButtons();
   renderRack(new Set([tile.id]));
   const el = rackTileEl(tile.id);
@@ -2459,7 +2465,7 @@ async function lendOlogyTile() {
     popReveal(el);
     sparkleBurst(el, 9);
   }
-  state.isAnimating = false;
+  unlockBoard();
   log(logLine('scientistLends'), 'good');
   renderAll();
 }
@@ -2544,6 +2550,8 @@ $('overlayModal')?.addEventListener('click', async e => {
   } else if (action === 'endless') {
     log(logLine('appendicesBegin'));
     await advancePage();
+  } else if (action === 'reload') {
+    location.reload();
   }
 });
 
@@ -2629,6 +2637,7 @@ $('uiScaleSlider')?.addEventListener('input', e => {
 function setTextContent(id, v) { const el = $(id); if (el) el.textContent = v; }
 
 $('settingsBtn')?.addEventListener('click', () => {
+  disarmNewRun();
   syncSettingsUI();
   sfx.sheetOpen();
   $('settingsModal')?.classList.add('show');
@@ -2665,7 +2674,32 @@ $('fileInput')?.addEventListener('change', e => {
   reader.readAsText(file);
 });
 
+// New run ends the run in hand, so it asks twice: the first press arms it, as
+// Discard's does, and it disarms itself if the second never comes. There is
+// nothing to lose on the prospectus or once the press has fallen silent, so
+// those go straight through. And never mid-print: a print still in flight
+// would land its Coins and its word in the run that replaced it.
+let newRunArmed = false, newRunTimer = null;
+function disarmNewRun(label = SETTINGS_TEXT.newRun) {
+  clearTimeout(newRunTimer);
+  newRunTimer = null;
+  newRunArmed = false;
+  setTextContent('btnNewRun', label);
+}
 $('btnNewRun')?.addEventListener('click', async () => {
+  if (state.isAnimating) {
+    disarmNewRun(logLine('newRunBusy'));
+    newRunTimer = setTimeout(() => disarmNewRun(), 2500);
+    return;
+  }
+  const atStake = !state.inStart && !state.gameOver;
+  if (atStake && !newRunArmed) {
+    disarmNewRun(SETTINGS_TEXT.newRunConfirm);
+    newRunArmed = true;
+    newRunTimer = setTimeout(() => disarmNewRun(), 4000);
+    return;
+  }
+  disarmNewRun();
   $('settingsModal')?.classList.remove('show');
   await startFreshRun();
 });
@@ -2685,6 +2719,26 @@ $('devWinPage')?.addEventListener('click', () => {
   state.pageScore = state.quota;
   pageComplete();
 });
+
+// ─── When something throws ────────────────────────────────────────────────────
+// Every handler asks `isAnimating` before it acts, so a flow that throws while
+// it holds the board would leave the board locked until a reload. Whatever
+// broke, the lock is handed back and the board redrawn from state, and the
+// status bar says so. A board that is not locked is left alone: nothing is
+// stuck, and a redraw that throws again must not call itself round in a ring.
+let recovering = false;
+function recoverBoard() {
+  if (recovering || !state.isAnimating) return;
+  recovering = true;
+  try {
+    resetBoardLock();
+    renderAll();
+    log(logLine('boardRecovered'), 'warn');
+  } catch { /* the error event already has the story */ }
+  finally { recovering = false; }
+}
+window.addEventListener('error', recoverBoard);
+window.addEventListener('unhandledrejection', recoverBoard);
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
 
@@ -2715,7 +2769,7 @@ async function beginRun() {
   if (!atStart) { renderAll(); return; }
 
   startPage({ quartermaster: quartermasterDiscards() });
-  state.isAnimating = true;
+  lockBoard();
   renderAll();
   sfx.chapter();
   await showBanner(chapterLabel(1), chapterTitle(1), 1250);
@@ -2723,7 +2777,7 @@ async function beginRun() {
   const lent = bossReplenish(state, castLentTile, lentInHand);
   const drawn = drawUpToRackSize();
   await animateDraw([...arrivals, ...lent, ...drawn]);
-  state.isAnimating = false;
+  unlockBoard();
   renderAll();
 }
 
@@ -2781,69 +2835,125 @@ function openTheChamber() {
   if (!exclusionsLoaded) {
     log(logLine('exclusionsMissing'), 'warn');
   }
-  loadDict((status, count) => renderDictStatus(status, count));
+  // A failed first download is said on the board, once, not only in Settings.
+  let dictWarned = false;
+  loadDict((status, count) => {
+    renderDictStatus(status, count);
+    if (status === 'failed' && !dictWarned) { dictWarned = true; log(logLine('dictFailed'), 'warn'); }
+  });
   loadThemes();
 
   const restored = loadState();
+
+  // A save written by newer code is not this code's to read or to write over.
+  if (restored?.newer) {
+    showStandDown(logLine('saveNewer'));
+    window.folio = { state, settings, pardonWord };
+    window.folioStarted?.();
+    return;
+  }
+  const readable = !!restored && !restored.setAside;
+
   // A seat whose patron no longer exists is dropped rather than carried: an old
   // save would otherwise hand the shelf an id nothing answers to, which the
-  // board cannot draw. The graveyard and the Market's counter are culled with
-  // it — a retired patron can be waiting on a saved card as easily as sitting
-  // at the table, and a calling card with no patron behind it is the same crash.
+  // board cannot draw. The graveyard and both counters are culled with it — a
+  // retired patron can be waiting on a saved card as easily as sitting at the
+  // table, and a calling card with no patron behind it is the same crash.
   let orphaned = 0;
-  if (restored) {
+  if (readable) {
     const known = list => list.filter(p => patronById(p.id));
     orphaned = state.patrons.length + state.ghosts.length - known(state.patrons).length
              - known(state.ghosts).length;
     state.patrons = known(state.patrons);
     state.ghosts  = known(state.ghosts);
-    if (restored.market?.patronOffers) {
-      restored.market.patronOffers = restored.market.patronOffers.filter(o => patronById(o.id));
+    for (const sheet of [restored.market, restored.blackmarket]) {
+      if (sheet?.patronOffers) sheet.patronOffers = sheet.patronOffers.filter(o => patronById(o.id));
     }
   }
 
-  if (!restored) {
+  let fresh = !readable;
+  if (readable) {
+    try {
+      if (state.gameOver) { renderAll(); showGameOver(); }
+      // The prospectus has nothing to snapshot — every pick was written straight
+      // through — so the run's own flag is enough to come back to it.
+      else if (state.inStart) {
+        openStart();
+        renderAll(); renderStart();
+      }
+      else if (restored.chamber) {
+        restoreChamber(restored.chamber);
+        renderAll(); renderChamber();
+      }
+      else if (restored.market) {
+        restoreMarket(restored.market);
+        renderAll(); renderMarket();
+        log(logLine('welcomeBack'));
+      }
+      else if (restored.colophon) {
+        restoreColophon(restored.colophon);
+        renderAll(); renderColophon();
+        log(logLine('welcomeBack'));
+      }
+      else if (restored.blackmarket) {
+        restoreBlackMarket(restored.blackmarket);
+        renderAll(); renderBlackMarket();
+        log(logLine('welcomeBack'));
+      } else if (state.boss?.id === 'bribrarian' && state.boss.data?.asking) {
+        // Reloaded with the Bribrarian's hand out: the page was dealt, nothing
+        // drawn and nothing paid, so the sheet comes back before the hand does.
+        // Not awaited: the rest of init has listeners to hang meanwhile. The
+        // board is held while the sheet is up, as it is on the way in.
+        renderAll();
+        lockBoard();
+        takeTheConsideration().then(async () => {
+          const lent = bossReplenish(state, castLentTile, lentInHand);
+          const drawn = drawUpToRackSize();
+          await animateDraw([...lent, ...drawn]);
+          unlockBoard();
+          renderAll();
+        });
+      } else {
+        bossReplenish(state, castLentTile, lentInHand);   // restore anything a mid-deal reload lost
+        drawUpToRackSize();                               // top up in case a save landed mid-draw
+        renderAll();
+        log(logLine('welcomeBack'));
+      }
+    } catch {
+      // The save read, and then drew no board — something in it the repairs
+      // did not know to look for. It is kept aside rather than lost, and the run
+      // begins again: better than a board that will not draw on every reload.
+      setAsideSave();
+      for (const close of [closeChamber, closeColophon, closeBlackMarket, closeMarket]) close();
+      renderChamber(); renderColophon(); renderBlackMarket();
+      fresh = true;
+    }
+  }
+
+  if (fresh) {
     await startFreshRun();
+    if (restored) log(logLine('saveSetAside'), 'warn');
   } else {
-    if (state.gameOver) { renderAll(); showGameOver(); }
-    // The prospectus has nothing to snapshot — every pick was written straight
-    // through — so the run's own flag is enough to come back to it.
-    else if (state.inStart) {
-      openStart();
-      renderAll(); renderStart();
-    }
-    else if (restored.chamber) {
-      restoreChamber(restored.chamber);
-      renderAll(); renderChamber();
-    }
-    else if (restored.market) {
-      restoreMarket(restored.market);
-      renderAll(); renderMarket();
-      log(logLine('welcomeBack'));
-    }
-    else if (restored.colophon) {
-      restoreColophon(restored.colophon);
-      renderAll(); renderColophon();
-      log(logLine('welcomeBack'));
-    }
-    else if (restored.blackmarket) {
-      restoreBlackMarket(restored.blackmarket);
-      renderAll(); renderBlackMarket();
-      log(logLine('welcomeBack'));
-    } else {
-      bossReplenish(state, castLentTile, lentInHand);   // restore anything a mid-deal reload lost
-      drawUpToRackSize();                               // top up in case a save landed mid-draw
-      renderAll();
-      log(logLine('welcomeBack'));
-    }
     // Said last, so they aren't lines "Welcome back." writes over.
     if (restored.mercury) {
       log(logLine(restored.mercury > 1 ? 'mercuryRetired' : 'mercuryRetired1', restored.mercury), 'warn');
+    }
+    if (restored.repaired) {
+      log(logLine(restored.repaired > 1 ? 'saveRepaired' : 'saveRepaired1', restored.repaired), 'warn');
     }
     if (orphaned) {
       log(logLine(orphaned > 1 ? 'orphanSeats' : 'orphanSeat1', orphaned), 'warn');
     }
   }
+
+  // Another tab writing the save means this tab's run is out of date, and its
+  // next write would put the older run back over the newer. It stops writing at
+  // once and asks for a reload, which reads what the other tab left.
+  window.addEventListener('storage', e => {
+    if (e.key !== null && !isSaveKey(e.key)) return;
+    barSaving();
+    showStandDown(logLine('saveElsewhere'));
+  });
 
   // Console access for tinkering & automated tests. `pardonWord` is here because
   // the excuses are the one set of rules with no module of their own — they need
@@ -2852,4 +2962,5 @@ function openTheChamber() {
   window.folio = { state, settings, pardonWord };
 
   window.addEventListener('beforeunload', persist);
+  window.folioStarted?.();   // index.html's load guard can stand down
 })();

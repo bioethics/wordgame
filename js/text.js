@@ -106,6 +106,7 @@ export const LOG_TEXT = {
   sundryThrownAway: '{0} — thrown away.',      // {0} the tool's name
   reshuffleSpend:   'Spend this at the Market or the Colophon.',
   dictLoading:      'The dictionary is still loading…',
+  dictFailed:       'The dictionary could not be downloaded, so words cannot be judged yet. Trying again…',
 
   // The board's refusals when a tap can't mean what it asked (js/drag.js).
   oneTileAtATime:  'One tile at a time — deselect first.',
@@ -265,6 +266,15 @@ export const LOG_TEXT = {
   mercuryRetired1:   'The mercury trim has been retired — 1 tile wears cobalt instead. Azure tiles find their way back to the bag through The Fountain now.',
   orphanSeats:       '{0} seats are no longer in the roster and have left the shelf.',
   orphanSeat1:       '1 seat is no longer in the roster and has left the shelf.',
+  boardRecovered:    'Something went wrong partway through, and the board has been handed back to you.',
+  // A save that cannot come back is never deleted (loadState in js/state.js).
+  saveSetAside:      'The saved run could not be read, so a new one begins. The old save has been kept, not deleted.',
+  saveRepaired:      '{0} things in this save are no longer made, and have been taken out of it.',
+  saveRepaired1:     '1 thing in this save is no longer made, and has been taken out of it.',
+  saveNewer:         'This run was saved by a newer edition of the game. Reload the page to carry on with it.',
+  saveElsewhere:     'This run has been played on in another tab since. Reload to carry on from where that tab left it.',
+  standDownReload:   'Reload',
+  newRunBusy:        'Let the press finish first.',
 
   // ─── The end of the run ─────────────────────────────────────────────────────
   endLoseTitle:    'The press falls silent',
@@ -280,6 +290,16 @@ export const LOG_TEXT = {
   endEdition:      'A {0} edition.',
   endNewRun:       'Begin a new folio',
   endEndless:      'Keep printing (appendices)',
+};
+
+// ─── Settings ─────────────────────────────────────────────────────────────────
+// What the Settings sheet says that index.html cannot say once and leave: the
+// words that change with the run. Its standing copy is in index.html itself.
+export const SETTINGS_TEXT = {
+  newRun:        'New run',
+  // New run ends the run in hand, so it asks twice: the first press arms it,
+  // like Discard, and it disarms itself if the second never comes.
+  newRunConfirm: 'Press again to end this run',
 };
 
 // Look a line up and fill its slots — loudly, so a mistyped key is a crash at

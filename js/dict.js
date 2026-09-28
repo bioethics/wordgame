@@ -1,12 +1,16 @@
 import { isExcluded } from './excluded.js';
+import { fetchText } from './net.js';
 
 const DICT_KEY   = 'wordfun_wordlist';
 const COINED_KEY = 'folio_coined_words_v1';
 
 export let DICT = new Set();
 export let dictLoaded = false;
-
-const FALLBACK = 'test words word board letter letters quiz play game read write stone notes road train rail me you he she we be bee at it is an are was has had not but for are';
+// 'loading' until a list is in hand, 'loaded' after, and 'failed' while the
+// first download has not arrived and there was no copy from an earlier visit.
+// There is no stand-in list: forty words would tell a player that ABED is not
+// a word, and a refusal the press cannot stand behind is worse than a wait.
+export let dictStatus = 'loading';
 
 // Words coined by The Neologist — the player's own, kept for good, across runs.
 export function coinedWords() {
@@ -74,37 +78,45 @@ export async function loadDict(onStatus) {
   // A bundled build (single-file/artifact) embeds the list as a global
   if (typeof window !== 'undefined' && window.FOLIO_WORDLIST) {
     adoptWordlist(window.FOLIO_WORDLIST);
+    dictStatus = 'loaded';
     onStatus('loaded', DICT.size);
     return;
   }
 
   // Use cached copy immediately so first paint isn't blocked
-  try {
-    const saved = localStorage.getItem(DICT_KEY);
-    if (saved) { adoptWordlist(saved); onStatus('loaded', DICT.size); }
-  } catch { /* ignore */ }
-
-  if (location.protocol.startsWith('http')) {
-    try {
-      const res = await fetch('wordlists/wordlist.txt', { cache: 'no-store' });
-      if (res.ok) {
-        const text = await res.text();
-        adoptWordlist(text);
-        onStatus('loaded', DICT.size);
-        try { localStorage.setItem(DICT_KEY, text); } catch { /* quota */ }
-        return;
-      }
-    } catch { /* fall through */ }
+  let saved = null;
+  try { saved = localStorage.getItem(DICT_KEY); } catch { /* ignore */ }
+  if (saved) { adoptWordlist(saved); dictStatus = 'loaded'; onStatus('loaded', DICT.size); }
+  if (!location.protocol.startsWith('http')) {
+    if (!dictLoaded) { dictStatus = 'failed'; onStatus('failed', 0); }
+    return;
   }
 
-  if (!dictLoaded) {
-    adoptWordlist(FALLBACK);
-    onStatus('fallback', DICT.size);
+  // The fetch revalidates, so an unchanged list costs a 304 — and is neither
+  // rebuilt nor written back to storage, which it used to be on every load.
+  // With nothing cached, a failure is said and the download tried again,
+  // further apart each time; with a copy in hand it simply waits for next load.
+  for (let attempt = 0; ; attempt++) {
+    const text = await fetchText('wordlists/wordlist.txt', 30000);
+    if (text != null) {
+      if (text !== saved) {
+        adoptWordlist(text);
+        try { localStorage.setItem(DICT_KEY, text); } catch { /* quota */ }
+      }
+      dictStatus = 'loaded';
+      onStatus('loaded', DICT.size);
+      return;
+    }
+    if (dictLoaded) return;
+    dictStatus = 'failed';
+    onStatus('failed', 0);
+    await new Promise(r => setTimeout(r, Math.min(60000, 5000 * 2 ** attempt)));
   }
 }
 
 export function loadCustom(text) {
   const n = adoptWordlist(text);
+  dictStatus = 'loaded';
   try { localStorage.setItem(DICT_KEY, text); } catch { /* quota */ }
   return n;
 }

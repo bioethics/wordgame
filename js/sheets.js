@@ -5,7 +5,7 @@
 
 import {
   state, owns, effectivePatronSlots, effectiveSundrySlots, spendReshuffleSundry,
-  takePaintEchoes, takeGhostEchoes, completesLovers, restingPoints,
+  takePaintEchoes, takeGhostEchoes, completesLovers, restingPoints, lockBoard, unlockBoard,
 } from './state.js';
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
@@ -1821,7 +1821,7 @@ async function pickColophon(id) {
   const r = applyColophonPick(id);
   if (!r) return;
 
-  state.isAnimating = true;
+  lockBoard();
   sfx.coin(); sfx.chime();
   if (card) { pulse(card, 'colophon-card--picked', 560); sparkleBurst(card, 16); }
   renderAll();
@@ -1833,7 +1833,7 @@ async function pickColophon(id) {
   await sleep(620);
   closeColophon();
   renderColophon();
-  state.isAnimating = false;
+  unlockBoard();
   // The alley stands between the Colophon and the fair; its own Leave button
   // carries on to the Market, so both roads end in the same place.
   if (r.def.kind === 'blackmarket') flow.openBlackMarket();
@@ -1844,7 +1844,7 @@ async function skipColophon() {
   if (state.isAnimating) return;
   applyColophonSkip();
 
-  state.isAnimating = true;
+  lockBoard();
   sfx.coin();
   renderAll();
   log(logLine('colophonSkipped', SKIP_COIN_GRANT), 'good');
@@ -1852,7 +1852,7 @@ async function skipColophon() {
   await sleep(420);
   closeColophon();
   renderColophon();
-  state.isAnimating = false;
+  unlockBoard();
   flow.openMarket();
 }
 

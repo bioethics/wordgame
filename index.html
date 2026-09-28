@@ -32,9 +32,8 @@
       } catch (e) { /* first visit, or storage denied — the defaults hold */ }
     })();
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=Inter:wght@400;600;800&family=Caveat:wght@500;700&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+  <!-- The typefaces, from the game's own origin (tools/fetch-fonts.mjs) -->
+  <link rel="stylesheet" href="css/fonts.css" />
   <link rel="stylesheet" href="css/style.css" />
   <!-- The bench look, laid over the board above and keyed off html[data-look] -->
   <link rel="stylesheet" href="css/bench.css" />
@@ -330,6 +329,53 @@
     </div>
   </div>
 
+  <script>
+    // If the press never starts — a file of the game failed to arrive, or a
+    // page from a new deploy met old code still cached — say so, rather than
+    // leave a board that looks alive and answers nothing. main.js calls
+    // folioStarted() as its init finishes; until then a script error puts this
+    // up at once, and a long wait puts up a gentler version that takes itself
+    // down if the press starts after all. Styled inline: the stylesheets may be
+    // among what failed to arrive.
+    (function () {
+      var note = null, started = false;
+      function show(text) {
+        if (started) return;
+        if (!note) {
+          note = document.createElement('div');
+          note.setAttribute('role', 'alert');
+          note.style.cssText = 'position:fixed;left:50%;top:18px;transform:translateX(-50%);z-index:9999;'
+            + 'max-width:min(92vw,520px);padding:14px 18px;border-radius:6px;background:#f3e8cf;color:#2b1d10;'
+            + 'font:16px/1.4 Georgia,serif;box-shadow:0 10px 30px rgba(0,0,0,.5);text-align:center';
+          document.body.appendChild(note);
+        }
+        note.textContent = text + ' ';
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = 'Reload';
+        b.style.cssText = 'margin-left:6px;font:inherit;padding:2px 12px;cursor:pointer';
+        b.onclick = function () { location.reload(); };
+        note.appendChild(b);
+      }
+      var failed = function () {
+        show('The press did not start. Reload the page; if that does not help, try again in a few minutes.');
+      };
+      var slow = setTimeout(function () {
+        show('The press is slow to start. If nothing appears, reload the page.');
+      }, 15000);
+      window.addEventListener('error', function (e) {
+        // A module that failed to load reports on its <script>; one that failed
+        // to run reports as a script error. A missing image is neither.
+        if (e.target && e.target.tagName === 'SCRIPT' || e instanceof ErrorEvent) failed();
+      }, true);
+      window.addEventListener('unhandledrejection', failed);
+      window.folioStarted = function () {
+        started = true;
+        clearTimeout(slow);
+        if (note) note.remove();
+      };
+    })();
+  </script>
   <script type="module" src="js/main.js"></script>
 </body>
 </html>

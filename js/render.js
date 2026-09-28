@@ -1578,14 +1578,14 @@ export function renderDictStatus(status, count) {
   const txt = $('dictStatus');
   if (dot) {
     dot.className = 'dict-dot';
-    dot.classList.add(status === 'loaded' ? 'dict-dot--good' : status === 'fallback' ? 'dict-dot--warn' : 'dict-dot--wait');
+    dot.classList.add(status === 'loaded' ? 'dict-dot--good' : status === 'failed' ? 'dict-dot--warn' : 'dict-dot--wait');
     dot.title = status === 'loaded' ? `Dictionary: ${count.toLocaleString()} words`
-              : status === 'fallback' ? 'Dictionary: tiny built-in list — load a word list in Settings'
+              : status === 'failed' ? 'Dictionary: could not be downloaded — trying again'
               : 'Dictionary loading…';
   }
   if (txt) {
     txt.textContent = status === 'loaded' ? `${count.toLocaleString()} words loaded`
-                    : status === 'fallback' ? 'Tiny built-in list (load a .txt word list)'
+                    : status === 'failed' ? 'Could not be downloaded — trying again (or load a .txt word list)'
                     : 'loading…';
   }
 }
@@ -1662,6 +1662,18 @@ export function showGameOver() {
       ${editionHTML()}
       ${statsHTML()}
       <button class="btn btn-print btn-big" data-overlay-action="newrun">${logLine('endNewRun')}</button>
+    </div>`);
+}
+
+// When this tab has to stop — the save on disk is newer than this code, or
+// another tab has played on since — the one thing left to do is reload, so the
+// sheet says why and offers only that.
+export function showStandDown(message) {
+  showOverlay(`
+    <div class="sheet sheet--end">
+      <div class="end-flourish">❦</div>
+      <p class="end-sub">${message}</p>
+      <button class="btn btn-print btn-big" data-overlay-action="reload">${logLine('standDownReload')}</button>
     </div>`);
 }
 

@@ -155,22 +155,28 @@ function markSound(r) {
 
 function releasePress(commit) {
   if (!press) return;
-  clearTimeout(press.timer);
-  const wasDrag = press.dragging, popped = press.popped;
+  // Let go FIRST. A pointerdown is refused while a press is held, so any way out
+  // of here that left one behind — a tool spent on the tap returns early — would
+  // leave the hand dead: on touch every new finger is a new pointer, and nothing
+  // would ever arrive to release the old one.
+  const p = press;
+  press = null;
+  clearTimeout(p.timer);
+  const wasDrag = p.dragging, popped = p.popped;
   let picked = null;                 // a tool's target, told to main after the render
   ghost?.remove();
   ghost = null;
-  press.el.classList.remove('tile--held');
+  p.el.classList.remove('tile--held');
 
   if (commit && !wasDrag && !popped && !blocked()) {
     // A plain tap
     if (selectingForSundry()) {
       const kind = state.sundries[state.sundryMode]?.kind;
-      const r = toggleSundrySelect(press.id);
+      const r = toggleSundrySelect(p.id);
       // Taken up, or put back down: a tool with something left to ask (the
       // ratchet's step) is told after the render, so it can open on the tile's
       // new element rather than the one about to be swept away.
-      if (r === 'on' || r === 'off') picked = { kind, id: r === 'on' ? press.id : null };
+      if (r === 'on' || r === 'off') picked = { kind, id: r === 'on' ? p.id : null };
       if (r === 'full')      log(logLine('oneTileAtATime'), 'warn');
       if (r === 'immutable') log(logLine('immutableTile'), 'warn');
       if (r === 'unshiftable') log(logLine('unshiftable'), 'warn');
@@ -185,16 +191,16 @@ function releasePress(commit) {
         return;
       }
       markSound(r);
-    } else if (press.zone === 'rack') {
+    } else if (p.zone === 'rack') {
       if (selectingToDiscard()) {
-        const r = toggleSelected(press.id);
+        const r = toggleSelected(p.id);
         if (r === 'cursed') log(logLine('cursedNoDiscard'), 'warn');
         if (r === 'lent')   log(logLine('lentNoDiscard'), 'warn');
         markSound(r);
       }
-      else                    { moveRackToWord(press.id); sfx.place(); }
+      else                    { moveRackToWord(p.id); sfx.place(); }
     } else {
-      moveWordToRack(press.id);
+      moveWordToRack(p.id);
       sfx.retrieve();
     }
     renderAll();
@@ -203,7 +209,6 @@ function releasePress(commit) {
   } else if (wasDrag) {
     renderAll();   // re-render even on a no-op drop to restore the held tile
   }
-  press = null;
 }
 
 // ─── Init ──────────────────────────────────────────────────────────────────────

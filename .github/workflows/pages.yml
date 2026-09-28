@@ -1,0 +1,50 @@
+# Deploys the game to GitHub Pages on every push to main.
+#
+# Two steps stand between a push and the page. tools/check.mjs loads the rules
+# in Node, where every self-check the game runs on itself (cards and behaviours
+# that don't marry, a missing {KNOB}, two patrons with one emoji) fails the
+# deploy instead of a player's page. tools/build-pages.mjs then versions the code
+# and styles, so no browser can run a page from one deploy against modules from
+# another (the header of that file says why that mattered).
+#
+# ONE-TIME SETUP: Settings → Pages → Build and deployment → Source must be
+# "GitHub Actions" (not "Deploy from a branch"), or the deploy step is refused.
+# The custom domain stays where it is set, under Settings → Pages.
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: The game's own self-checks
+        run: node tools/check.mjs
+      - name: Build the versioned site
+        run: node tools/build-pages.mjs _site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4

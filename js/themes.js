@@ -11,6 +11,7 @@
 // dict.js does with window.FOLIO_WORDLIST.
 
 import { isExcluded } from './excluded.js';
+import { fetchText } from './net.js';
 
 export const THEME_FILES = {
   cute:       'wordlists/theme-cute.txt',
@@ -109,17 +110,15 @@ export async function loadThemes() {
   }
   if (typeof location === 'undefined' || !location.protocol.startsWith('http')) return;
   await Promise.all([
+    // A list that never arrives just never matches — themeSize tells the
+    // editors "not loaded" from "the list says no".
     ...Object.entries(THEME_FILES).map(async ([k, file]) => {
-      try {
-        const res = await fetch(file, { cache: 'no-store' });
-        if (res.ok) adoptTheme(k, await res.text());
-      } catch { /* a missing list just never matches */ }
+      const text = await fetchText(file, 20000);
+      if (text != null) adoptTheme(k, text);
     }),
     (async () => {
-      try {
-        const res = await fetch(SILENT_FILE, { cache: 'no-store' });
-        if (res.ok) adoptSilent(await res.text());
-      } catch { /* likewise */ }
+      const text = await fetchText(SILENT_FILE, 20000);
+      if (text != null) adoptSilent(text);
     })(),
   ]);
 }

@@ -12,6 +12,8 @@
 // inflections it means to catch, and substring matching would take innocent
 // words down with them.
 
+import { fetchText } from './net.js';
+
 const CACHE_KEY = 'folio_excluded_v1';
 const FILE      = 'wordlists/excluded-slurs.txt';
 
@@ -36,28 +38,28 @@ export function adoptExclusions(text) {
 
 // Must finish BEFORE any word list is adopted — main.js awaits it ahead of
 // loadDict and loadThemes, because a filter that arrives late filters nothing.
-// The last good copy is cached, so only a first-ever failure leaves the set
-// empty, which the returned count tells the caller.
+// With a copy cached from an earlier visit the start never waits on the
+// network: the cached list is adopted at once and refreshed behind it, and a
+// refreshed list takes hold of the word lists on the NEXT load (isExcluded
+// itself reads the live set). Only a first-ever visit waits, and not for long:
+// a failure leaves the set empty, which the returned count tells the caller.
 export async function loadExclusions() {
   // A bundled build embeds every wordlists/*.txt file, this one included
   if (typeof window !== 'undefined' && window.FOLIO_THEMES?.['excluded-slurs']) {
     return adoptExclusions(window.FOLIO_THEMES['excluded-slurs']);
   }
 
-  try {
-    const saved = localStorage.getItem(CACHE_KEY);
-    if (saved) adoptExclusions(saved);
-  } catch { /* no cache is not an error */ }
+  let cached = null;
+  try { cached = localStorage.getItem(CACHE_KEY); } catch { /* no cache is not an error */ }
+  if (cached) adoptExclusions(cached);
 
   if (typeof location !== 'undefined' && location.protocol.startsWith('http')) {
-    try {
-      const res = await fetch(FILE, { cache: 'no-store' });
-      if (res.ok) {
-        const text = await res.text();
-        adoptExclusions(text);
-        try { localStorage.setItem(CACHE_KEY, text); } catch { /* quota */ }
-      }
-    } catch { /* fall through to whatever the cache gave us */ }
+    const refresh = fetchText(FILE, 4000).then(text => {
+      if (text == null || text === cached) return;
+      adoptExclusions(text);
+      try { localStorage.setItem(CACHE_KEY, text); } catch { /* quota */ }
+    });
+    if (!cached) await refresh;
   }
 
   return EXCLUDED.size;
