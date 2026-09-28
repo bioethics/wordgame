@@ -232,7 +232,13 @@ export function tileFeatures(tile) {
   return out;
 }
 
-export function tileTitleLines(tile, breakdown = null) {
+const points = n => `${n} ${n === 1 ? 'Point' : 'Points'}`;
+
+// What a tile is worth at rest — the number in its corner — and, when there is
+// more to it than the face, what that is made of. The hover title and the
+// long-press popover both say it through here, so the one inspector a touch
+// screen has can never read a grown silver R as its face value again.
+function restingLine(tile) {
   const active = getActiveLetter(tile);
   const face   = TILE_POINTS[active] ?? 1;
   const grown  = getActiveGrowth(tile);
@@ -240,10 +246,16 @@ export function tileTitleLines(tile, breakdown = null) {
   const parts = [`${face} base`];
   if (grown)  parts.push(`${grown} grown`);
   if (silver) parts.push(`${silver} silver`);
+  return { total: points(restingPoints(tile)), parts: parts.length > 1 ? parts.join(' + ') : '' };
+}
+
+export function tileTitleLines(tile, breakdown = null) {
+  const active = getActiveLetter(tile);
+  const { total, parts } = restingLine(tile);
   // Headed by the glyph the tile actually shows, not the canonical capital.
-  const lines = [`${letterGlyph(active)} — ${restingPoints(tile)} Points${parts.length > 1 ? ` (${parts.join(' + ')})` : ''}`];
+  const lines = [`${letterGlyph(active)} — ${total}${parts ? ` (${parts})` : ''}`];
   for (const f of tileFeatures(tile)) lines.push(`${f.head}: ${f.body}`);
-  if (breakdown) lines.push(`This word: ${breakdown.parts.join(', ')} → ${breakdown.final} Points`);
+  if (breakdown) lines.push(`This word: ${breakdown.parts.join(', ')} → ${points(breakdown.final)}`);
   return lines;
 }
 
@@ -281,12 +293,14 @@ export function showTilePopover(tile, anchorEl, breakdown = null, { canFlip = tr
   const flip = canFlip && tile.letterType === 'dual' && tile.id
     ? `<button class="btn btn-quiet tip-btn" data-flip="${tile.id}">Flip to ${tile.activeVariant === 1 ? tile.letter : tile.altLetter}</button>`
     : '';
+  const { total, parts } = restingLine(tile);
   showPopover(anchorEl, `
-    <div class="tip-head">${active} <span class="tip-pts">${TILE_POINTS[active] ?? 1} Points</span></div>
+    <div class="tip-head">${letterGlyph(active)} <span class="tip-pts">${total}</span></div>
+    ${parts ? `<div class="tip-line">${parts}</div>` : ''}
     ${feats.length
       ? feats.map(f => `<div class="tip-feat"><b>${f.head}</b>${f.body}</div>`).join('')
-      : '<div class="tip-line">A plain tile.</div>'}
-    ${breakdown ? `<div class="tip-line tip-calc">In this word: ${breakdown.parts.join(' · ')} → <b>${breakdown.final} Points</b></div>` : ''}
+      : parts ? '' : '<div class="tip-line">A plain tile.</div>'}
+    ${breakdown ? `<div class="tip-line tip-calc">In this word: ${breakdown.parts.join(' · ')} → <b>${points(breakdown.final)}</b></div>` : ''}
     ${flip}`);
 }
 

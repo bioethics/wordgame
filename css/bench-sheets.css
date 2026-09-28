@@ -260,6 +260,16 @@ html[data-look="bench"] .sheet--market .mini-grid {
 
 /* The foot of the trestle. */
 html[data-look="bench"] .sheet--market .market-foot { border-top: 1px solid rgba(60, 38, 18, 0.35); }
+@media (min-width: 601px) {
+  /* Pinned to the sheet's foot (style.css), so it is the trestle's own deal: the
+     grain lines up, spanning the sheet's width as it does, and the colour is
+     where the trestle's gradient ends. */
+  html[data-look="bench"] .sheet--market:not(.sheet--colophon) .market-foot {
+    background:
+      repeating-linear-gradient(90deg, rgba(255, 240, 210, 0.05) 0 3px, transparent 3px 14px, rgba(0, 0, 0, 0.05) 14px 16px, transparent 16px 31px),
+      #8d6b45;
+  }
+}
 html[data-look="bench"] .sheet--market .market-foot .btn-quiet {
   color: var(--bn-paper);
   background: linear-gradient(180deg, #5b3f2c, #3d2a1c);
@@ -323,6 +333,11 @@ html[data-look="bench"] .sheet--black .market-sec::after { background: rgba(233,
 html[data-look="bench"] .sheet--black .market-sub { color: rgba(233, 227, 210, 0.6); }
 html[data-look="bench"] .sheet--black .market-purse.bm-purse { color: #e9e3d2; }
 html[data-look="bench"] .sheet--black .market-foot { border-top-color: rgba(233, 227, 210, 0.18); }
+@media (min-width: 601px) {
+  html[data-look="bench"] .sheet--black .market-foot {
+    background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0 3px, transparent 3px 14px), #090a0f;
+  }
+}
 
 /* The cloth, and what is laid on it: no cards, chalk under each sort. */
 html[data-look="bench"] .sheet--black .bm-tiles {

@@ -204,7 +204,6 @@ export const LOG_TEXT = {
   usurerShort:     '🧾 {0} Coins would clear the book. You have {1}.',
   usurerClear:     '🧾 The book is clear. He bows, and is yours to dismiss.',
   plateCold:       '💵 The plate is cold until the next page.',
-  plateHandFull:   '💵 Your hand is full — there is nowhere to put a forgery.',
   counterfeitMade: '💵 A counterfeit {0} — worth nothing, and yours till the page turns.',
   scienceStandards:'🔬 One tile per page — science has standards.',
   scientistLends:  '🔬 The Scientist lends a gold-trimmed OLOGY tile — for this page only.',

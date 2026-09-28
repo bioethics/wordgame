@@ -101,6 +101,7 @@
   --market-bg:
     radial-gradient(700px 320px at 50% -10%, rgba(233, 178, 102, 0.16), transparent 65%),
     linear-gradient(175deg, #342030 0%, #251523 55%, #1e1120 100%);
+  --market-foot-bg: #1e1120;   /* where the gradient above ends: the Market's pinned foot */
 
   /* Card stock — parchment in every theme. Cards are objects, not room. */
   --card-face:   #f2e7cb;
@@ -3735,6 +3736,28 @@ button.sundry:hover { transform: translateY(-2px); }
 .sheet--market .sheet-note   { color: var(--muted); }
 .sheet--market .sheet-note b { color: var(--parch); }
 .sheet--market .market-foot { border-top-color: rgba(243, 222, 184, 0.16); }
+/* The way out stays in reach. The Market is taller than a laptop's screen, and
+   Next page — the last thing anyone does here — sat below the fold with no
+   scrollbar to say it was there. The foot rides the sheet's bottom edge while
+   the rest scrolls beneath it, across the sheet's whole width, in the colour
+   the sheet ends in. The sheet's bottom padding moves into the foot: a sticky
+   box is held inside its scroller's padding, and left there it pinned the foot
+   a padding's height up, with the offers showing through beneath. (Not the
+   Colophon: short, and its foot comes and goes with its offers. Not a phone:
+   there the foot wraps to two rows and would take a fifth of the sheet, and
+   scrolling to the bottom is the gesture a phone expects anyway.) */
+@media (min-width: 601px) {
+  .sheet.sheet--market:not(.sheet--colophon) { padding-bottom: 0; }
+  .sheet--market:not(.sheet--colophon) .market-foot {
+    position: sticky;
+    bottom: 0;
+    z-index: 6;
+    margin-inline: -30px;
+    padding: 14px 30px 26px;
+    background: var(--market-foot-bg);
+  }
+  .sheet--market.sheet--black .market-foot { background: #060d0b; }
+}
 .sheet--market .market-foot .btn-quiet {
   background: rgba(243, 222, 184, 0.07);
   color: var(--parch);
@@ -5858,6 +5881,7 @@ html[data-theme="foolscap"] {
   --market-bg:
     radial-gradient(700px 320px at 50% -10%, rgba(255, 214, 150, 0.14), transparent 65%),
     linear-gradient(175deg, #4a3826 0%, #372818 55%, #2b1f12 100%);
+  --market-foot-bg: #2b1f12;   /* where the gradient above ends: the Market's pinned foot */
 }
 /* The quiet button is bare leather elsewhere; here it is pressed paper —
    except on a Deadline, when the shutters take the paper too. */
@@ -5894,6 +5918,7 @@ html[data-theme="hellbox"] {
   --market-bg:
     radial-gradient(700px 320px at 50% -10%, rgba(255, 140, 90, 0.14), transparent 65%),
     linear-gradient(175deg, #3a1c1c 0%, #2a1114 55%, #200c10 100%);
+  --market-foot-bg: #200c10;   /* where the gradient above ends: the Market's pinned foot */
 }
 
 /* ── Moonstone — the night shift ────────────────────────────────────────────── */
@@ -5921,6 +5946,7 @@ html[data-theme="moonstone"] {
   --market-bg:
     radial-gradient(700px 320px at 50% -10%, rgba(150, 190, 255, 0.12), transparent 65%),
     linear-gradient(175deg, #232c44 0%, #182034 55%, #121828 100%);
+  --market-foot-bg: #121828;   /* where the gradient above ends: the Market's pinned foot */
 }
 
 /* ── The Baize — the gaming table ───────────────────────────────────────────── */
@@ -5945,6 +5971,7 @@ html[data-theme="baize"] {
   --market-bg:
     radial-gradient(700px 320px at 50% -10%, rgba(233, 178, 102, 0.14), transparent 65%),
     linear-gradient(175deg, #21362a 0%, #172a1f 55%, #102016 100%);
+  --market-foot-bg: #102016;   /* where the gradient above ends: the Market's pinned foot */
 }
 
 /* ═══ The Workshop layout ══════════════════════════════════════════════════════

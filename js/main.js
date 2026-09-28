@@ -2404,8 +2404,12 @@ function takeTheConsideration() {
 // ONE sort, and the plate is cold until the next page — which is what keeps a
 // free letter from being a free hand. Opening the plate to look costs nothing;
 // the offer is spent the moment something is taken, and the plate closes on it.
-
-const handRoom = () => Math.max(0, effectiveRackSize() - handCount());
+//
+// The forgery goes into the hand even when the hand is full, as the bodkin's
+// pick does: it once waited for a free place, and the hand is refilled to the
+// brim after every print and every discard, so the plate almost never opened.
+// It still costs its place — it counts towards the hand, so the next refill
+// draws one fewer — which is the price the seat was written with.
 
 function openCounterfeitPlate() {
   if (state.isAnimating || sheetUp() || state.gameOver) return;
@@ -2413,13 +2417,12 @@ function openCounterfeitPlate() {
   if (!seat) return;
   seat.data ??= {};
   if (seat.data.used) { log(logLine('plateCold'), 'warn'); return; }
-  if (handRoom() <= 0) { log(logLine('plateHandFull'), 'warn'); return; }
   showCounterfeitSheet();
 }
 
 async function takeCounterfeit(letter) {
   const seat = state.patrons.find(p => p.id === 'counterfeiter');
-  if (!seat || seat.data?.used || handRoom() <= 0) return;
+  if (!seat || seat.data?.used) return;
   seat.data ??= {};
   seat.data.used = true;          // one a page, spent the moment it is taken
   hideOverlay();

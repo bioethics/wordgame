@@ -85,6 +85,17 @@ html[data-look="bench"][data-theme="foolscap"] {
     repeating-linear-gradient(92deg, rgba(255, 240, 210, 0.05) 0 2px, transparent 2px 9px, rgba(0, 0, 0, 0.05) 9px 11px, transparent 11px 23px),
     linear-gradient(180deg, var(--bn-bench-hi), var(--bn-bench) 40%, #7a5a3e);
 }
+/* Two of retro's Foolscap settings reach the bench and must be answered here:
+   its paper-coloured quiet buttons (style.css), which outrank the bench's
+   wood and left Shuffle and Clear cream on cream; and its daylight room-ink,
+   dark for retro's pale room, which the status line's manuscript strip mixes
+   its words from — dark on the bench's brown wood, and gone. The strip takes
+   the bench's cream instead, and its own line solid: at 62% on this lighter
+   wood it fell under 3:1, and solid it reads at nearly 5:1. */
+html[data-look="bench"][data-theme="foolscap"] body:not(.deadline-on) .btn-quiet {
+  background: linear-gradient(180deg, #5b3f2c, #3d2a1c);
+}
+html[data-look="bench"][data-theme="foolscap"] .log { color: #ede3c9; --room-ink: #ede3c9; }
 html[data-look="bench"][data-theme="hellbox"] {
   --bn-bench: #2a1512; --bn-bench-hi: #3a1d18; --bn-bench-edge: #14090a;
   --page-bg:
