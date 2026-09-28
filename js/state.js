@@ -24,6 +24,18 @@ const SETTINGS_KEY = 'folio_settings_v1';
 const SAVE_ASIDE_KEY = 'folio_save_v1_set_aside';
 const SAVE_VERSION = 14;  // v14: the opening draft is gone, the Testing Chamber in its place
 
+// ─── Dev mode ─────────────────────────────────────────────────────────────────
+// The Testing Chamber and Settings' Developer shortcuts (+20 Coins, Clear page)
+// are for the person building the game, not the person playing it. They show
+// where the game is being worked on — served from this machine, or opened from
+// a file — and anywhere else only with ?dev in the address, which is also the
+// way in when testing on a phone over the LAN.
+export const devMode = (() => {
+  if (typeof location === 'undefined') return false;
+  if (['localhost', '127.0.0.1', '::1', '[::1]', ''].includes(location.hostname)) return true;
+  return new URLSearchParams(location.search).has('dev');
+})();
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 export function shuffle(arr) {

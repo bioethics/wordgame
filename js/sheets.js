@@ -5,7 +5,7 @@
 
 import {
   state, owns, effectivePatronSlots, effectiveSundrySlots, spendReshuffleSundry,
-  takePaintEchoes, takeGhostEchoes, completesLovers, restingPoints, lockBoard, unlockBoard,
+  takePaintEchoes, takeGhostEchoes, completesLovers, restingPoints, lockBoard, unlockBoard, devMode,
 } from './state.js';
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
@@ -1250,10 +1250,11 @@ export function renderStart() {
         <p class="sheet-note start-note">${ST.settled}</p>
       </div>
 
-      <div class="start-bench">
-        <button class="btn btn-quiet" id="btnStartChamber">${ST.chamber}</button>
-        <p class="sheet-note">${ST.chamberNote}</p>
-      </div>
+      ${devMode ? `
+        <div class="start-bench">
+          <button class="btn btn-quiet" id="btnStartChamber">${ST.chamber}</button>
+          <p class="sheet-note">${ST.chamberNote}</p>
+        </div>` : ''}
 
       <div class="market-foot">
         <div class="market-spacer"></div>

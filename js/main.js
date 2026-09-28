@@ -17,7 +17,7 @@ import {
   grantRandomPatron,
   rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost, luckyRoll, isSquib, spendCoins,
   dismissEditor, runDifficulty, lockBoard, unlockBoard, resetBoardLock,
-  barSaving, isSaveKey, setAsideSave,
+  barSaving, isSaveKey, setAsideSave, devMode,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
@@ -2704,7 +2704,8 @@ $('btnNewRun')?.addEventListener('click', async () => {
   await startFreshRun();
 });
 
-// Dev helpers
+// Dev helpers — only on the page in dev mode (devMode in js/state.js)
+if (devMode) $('devTools')?.removeAttribute('hidden');
 $('devCoins')?.addEventListener('click', () => { state.coins += 20; renderAll(); if (state.inMarket) renderMarket(); });
 $('devMarket')?.addEventListener('click', () => {
   if (sheetUp() || state.isAnimating) return;
