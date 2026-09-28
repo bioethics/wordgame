@@ -7,10 +7,16 @@
 //
 //   name   what the Deadline banner and the editor's bar call them
 //   emoji  the portrait
-//   desc   the standing rule, IN THE EDITOR'S OWN VOICE. They are the one part
-//          of the game that talks to the player directly, so write them as
-//          speech — a demand, an excuse, a boast — not as a rules note. Say what
-//          is spiked, and say it in a sentence they would actually say.
+//   desc   the standing rule, stated plainly — the same rule as every card's
+//          desc (CLAUDE.md, "Card copy"): what is spiked, or what the editor
+//          does, and nothing else. It is what the Deadline banner leads with,
+//          what the bar shows for an editor with no live line, and what the
+//          Janussian Typist's bar quotes for a face he borrows, so it has to be
+//          the rule a player can act on at a glance.
+//   voice  the editor in their own words — a demand, an excuse, a boast. Said
+//          once, under the rule, as the editor takes the desk. The editors are
+//          the one part of the game that talks to the player directly; this is
+//          where they do it, and where no rule has to be dug out of the talk.
 //
 // Editors whose demand CHANGES as the page goes carry their bar lines here too
 // — these are what the bar actually shows while you compose, so this file is
@@ -35,6 +41,8 @@
 //   {POPULIST_BAND}      how far down the frequency list The Populist reads
 //   {OBSCURANTIST_BAND}  how far down the list The Obscurantist refuses
 //   {BRIBRARIAN_STEPS}   what it costs to buy The Bribrarian outright
+//   {BRIBRARIAN_STEP}    what each Coin laid down buys back
+//   {BRIBRARIAN_FLOOR}   his pen with nothing paid (the standard spike)
 //   {REDACTOR_SHARE}     the share The Redactor wraps, in words: "third"
 //   {REVIEWER_WORST}     the sourest temper The Reviewer can be in
 //   {REVIEWER_BEST}      the kindest
@@ -44,100 +52,119 @@
 export const BOSS_CARDS = {
   padder: {
     name: 'The Padder', emoji: '🪶',
-    desc: 'I pay by the word, so the words had better be long: anything under {PADDER_MIN} letters is spiked.',
+    desc: 'Words under {PADDER_MIN} letters are spiked.',
+    voice: 'I pay by the word, so the words had better be long.',
     spike: 'too short — {PADDER_MIN} letters at least',
   },
   populist: {
     name: 'The Populist', emoji: '📣',
-    desc: 'Popular fiction is profitable fiction. Every word must be one the common reader knows — anything outside the {POPULIST_BAND} commonest words in English is spiked.',
+    desc: 'Words outside the {POPULIST_BAND} commonest in English are spiked.',
+    voice: 'Popular fiction is profitable fiction. Every word must be one the common reader knows.',
     spike: 'too rare — plain English only',
   },
   obscurantist: {
     name: 'The Obscurantist', emoji: '🕯️',
-    desc: 'True literature demands erudition: the {OBSCURANTIST_BAND} commonest words in English are spiked.',
+    desc: 'The {OBSCURANTIST_BAND} commonest words in English are spiked.',
+    voice: 'True literature demands erudition.',
     spike: 'too plain — one of the {OBSCURANTIST_BAND} commonest words',
   },
   minimalist: {
     name: 'The Minimalist', emoji: '⬜',
-    desc: 'Adjectives are the enemy of clean modern prose. Adjectives and adverbs are spiked.',
+    desc: 'Adjectives and adverbs are spiked.',
+    voice: 'Adjectives are the enemy of clean modern prose.',
     spike: 'an adjective — say it plainly or not at all',
   },
   columnist: {
     name: 'The Columnist', emoji: '📰',
-    desc: 'Everything must fit the column; I will tell you how many letters to use. Off-measure words are spiked.',
+    desc: 'Each word must be exactly the length the bar names, or it is spiked. The length changes after every word.',
+    voice: 'Everything must fit the column; I will tell you how many letters to use.',
     demand: 'This word: exactly {N} letters.',
     spike: 'off the measure — exactly {N} letters',
   },
   serialist: {
     name: 'The Serialist', emoji: '🔗',
-    desc: 'We need continuity. Each word must begin with the letter the previous word ended on, or be spiked.',
+    desc: 'Each word must begin with the letter the previous word ended on, or it is spiked.',
+    voice: 'We need continuity.',
     demand: 'This word must open with {LAST}.',
     demandFirst: 'The first word is free — but mind how it ends.',
     spike: 'a broken chain — it must open with {LAST}',
   },
   indexer: {
     name: 'The Indexer', emoji: '🗂️',
-    desc: 'Order above all else: each word must come after the last one in dictionary order. Any exceptions are spiked.',
+    desc: 'Each word must come after the previous one in alphabetical order, or it is spiked.',
+    voice: 'Order above all else.',
     demand: 'This word must sort after {LAST}.',
     demandFirst: 'The first word may be anything — the index begins there.',
     spike: 'out of order — it must sort after {LAST}',
   },
   escalationist: {
     name: 'The Escalationist', emoji: '📈',
-    desc: 'Build to a climax: every word must outscore the one before it, or be spiked.',
+    desc: 'Each word must outscore the one before it, or it is spiked.',
+    voice: 'Build to a climax.',
     demand: 'This word must beat {BAR}.',
     demandFirst: 'The first word sets the bar. Open softly.',
     spike: 'no climax — it had to beat {BAR}',
   },
   enthusiast: {
     name: '#1 Specific Letter Enthusiast', emoji: '🤩',
-    desc: 'I really love one specific letter. I will gift you a temporary copy, but words that do not use it are spiked.',
+    desc: 'Every word must contain one letter, named on the bar, or it is spiked. You are lent a tile of it for the page, above your hand size.',
+    voice: 'I really love one specific letter. I will gift you a temporary copy.',
     demand: 'Every word must contain {LETTER}.',
     spike: 'no {LETTER} — the Enthusiast is crushed',
   },
   bribrarian: {
     name: 'The Bribrarian', emoji: '🤝',
-    desc: 'I will spike every word you write. Though if this makes you unahppy, perhaps we could come to an arrangement...',
+    desc: 'Every word is scored at ×{BRIBRARIAN_FLOOR} Mult. Each Coin paid before the page raises that by {BRIBRARIAN_STEP}; {BRIBRARIAN_STEPS} Coins restore ×1.',
+    voice: 'I will spike every word you write. Though if this makes you unhappy, perhaps we could come to an arrangement...',
     demand: '{PAID} of {BRIBRARIAN_STEPS} Coins laid down: every word at ×{MULT} Mult.',
     demandPaid: 'Paid in full — the pen is kind. ×1 Mult.',
   },
   epitaphist: {
     name: 'The Epitaphist', emoji: '⚱️',
-    desc: 'You have one word, and a bonus discard to help you assemble it. Find a good one.',
+    desc: 'One word for the whole page. The quota is halved, and you have one extra discard.',
+    voice: 'You have one word, and a bonus discard to help you assemble it. Find a good one.',
   },
   reviewer: {
     name: 'Peer Reviewer #2', emoji: '🧐',
-    desc: 'Your best work is never good enough. Every word is penalised, depending on my mood at that moment — somewhere between ×{REVIEWER_WORST} and ×{REVIEWER_BEST}.',
+    desc: 'Every word is scored at a Mult between ×{REVIEWER_WORST} and ×{REVIEWER_BEST}, drawn again before each word and shown on the bar.',
+    voice: 'Your best work is never good enough.',
     demand: 'The current temper: ×{MOOD} Mult.',
   },
   eeeditor: {
     name: 'The Eeeditor', emoji: '🅴',
-    desc: 'E is a good letter. Here: I saved {LENT_COUNT} especially for you.',
+    desc: '{LENT_COUNT} places in your hand hold lent E’s all page. They cannot be discarded, and each one printed is replaced.',
+    voice: 'E is a good letter. Here: I saved {LENT_COUNT} especially for you.',
   },
   editooor: {
     name: 'The Editooor', emoji: '🅾️',
-    desc: 'O is such a sensual, sophisticated letter. Take {LENT_COUNT}, with my compliments.',
+    desc: '{LENT_COUNT} places in your hand hold lent O’s all page. They cannot be discarded, and each one printed is replaced.',
+    voice: 'O is such a sensual, sophisticated letter. Take {LENT_COUNT}, with my compliments.',
   },
   powdereditor: {
     name: 'The Incendiary', emoji: '💣',
-    desc: 'Nothing sells like an explosive piece. {POWDER_CHARGES} of your places are charged, both faces cut so you can find a home for them, and every word had better carry one of MINE. I replace what you spend.',
+    desc: '{POWDER_CHARGES} places in your hand hold lent charges in squib lead, each with two faces, replaced as they are spent. Every word must carry one of them, or it is spiked.',
+    voice: 'Nothing sells like an explosive piece.',
     spike: 'no charge of mine in it',
   },
   redactor: {
     name: 'The Redactor', emoji: '📝',
-    desc: 'This is just the first draft. A {REDACTOR_SHARE} of your tiles are replaced with draft tiles, which score nothing.',
+    desc: 'A {REDACTOR_SHARE} of your tiles are wrapped for the page: each still spells its letter, and does nothing else.',
+    voice: 'This is just the first draft.',
   },
   completist: {
     name: 'The Hoarder', emoji: '🗄️',
-    desc: 'Waste nothing, and you can always find what you need: +2 hand size, but 0 discards.',
+    desc: '+2 hand size, and no discards.',
+    voice: 'Waste nothing, and you can always find what you need.',
   },
   economiser: {
     name: 'The Economiser', emoji: '🗑️',
-    desc: 'Efficiency! After each word, I will destroy one tile left unused in your hand; clearly you do not need it.',
+    desc: 'After each word, one tile left in your hand is destroyed for good.',
+    voice: 'Efficiency! Whatever you did not use, clearly you do not need.',
   },
   janussian: {
     name: 'The Janussian Typist', emoji: '\ud83c\udfad',
-    desc: 'I contain multitudes. Multitudes of editors. I like to wear their faces.',
+    desc: 'Each word is judged by another editor’s rule, drawn before the word and named on the bar.',
+    voice: 'I contain multitudes. Multitudes of editors. I like to wear their faces.',
     demand: 'Wearing {FACE} — {LINE}',
   },
 };

@@ -5,9 +5,9 @@
 // SPIKED: printed and counted at ×SPIKE_MULT (constants.js), and the live
 // preview shows the spike coming.
 //
-// THIS FILE IS BEHAVIOUR ONLY. An editor's name, portrait and the rule in their
-// own voice live against the same id in js/boss-cards.js — edit there to rename
-// one or reword what they say. The two halves are married just past the end of
+// THIS FILE IS BEHAVIOUR ONLY. An editor's name, portrait, rule and voice live
+// against the same id in js/boss-cards.js — edit there to rename one or reword
+// what they say. The two halves are married just past the end of
 // the BOSS_BEHAVIOURS array below, exactly as patrons and their calling cards
 // are. Each editor's own tuning numbers stay here, with the editor, and are
 // quotable from its card as {KNOBS}.
@@ -411,6 +411,8 @@ const BOSS_KNOBS = {
   POPULIST_BAND:     POPULIST_BAND.toLocaleString(),
   OBSCURANTIST_BAND: OBSCURANTIST_BAND.toLocaleString(),
   BRIBRARIAN_STEPS:  BRIBRARIAN.steps,
+  BRIBRARIAN_STEP:   BRIBRARIAN.step,
+  BRIBRARIAN_FLOOR:  bribeMult(0),
 };
 
 // An editor's live lines — the bar's demand, the spike's reason — live on its
@@ -432,6 +434,7 @@ export const BOSS_DEFS = BOSS_BEHAVIOURS.map(behaviour => {
     name:  card.name,
     emoji: card.emoji,
     desc:  fillKnobs(card.desc, BOSS_KNOBS, `boss-cards: ${behaviour.id}`),
+    voice: card.voice ? fillKnobs(card.voice, BOSS_KNOBS, `boss-cards: ${behaviour.id}.voice`) : '',
   };
 });
 

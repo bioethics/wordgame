@@ -110,7 +110,7 @@ export const LOG_TEXT = {
 
   // The board's refusals when a tap can't mean what it asked (js/drag.js).
   oneTileAtATime:  'One tile at a time — deselect first.',
-  immutableTile:   'This tile cannnot be painted.',
+  immutableTile:   'This tile cannot be painted.',
   unshiftable:     'The ratchet can only alter single letters.',
   unoffered:       'Only the glowing tiles are on offer.',
   loupeCapped:     'That tile cannot be enhanced further.',
@@ -131,7 +131,7 @@ export const LOG_TEXT = {
 
   // ─── The printed word ───────────────────────────────────────────────────────
   // {0} word · {1} points · {2} mult · {3} total — then the suffixes it may carry.
-  printedWord:      '”{0}” — {1} × {2} = {3}.',
+  printedWord:      '“{0}” — {1} × {2} = {3}.',
   printedCoins:     '  +{0} Coins.',                                 // ⌐ {0} how many
   printedCoin1:     '  +1 Coin.',                                    // ⌐
   printedDiscards:  '  +{0} Discards.',                              // ⌐
@@ -235,7 +235,7 @@ export const LOG_TEXT = {
   shellCoinsWon:   '{0} Coins',
   shellSortWon:    'a sort — “{1}”{0}',                             // {0} ⌐bmInMetal or '' · {1} letter
   shellSundryWon:  '{0}, onto the workbench',
-  shellBatterWon:  'a batter — a ruined type, worth nothing, that can spell nothing but itself.',
+  shellBatterWon:  'a batter — a ruined type, worth nothing, that can spell nothing but itself',
   shellNoRoom:     '{0} — but the workbench is full, so it is sold on for {1} Coins',
   // The squib. Boom then one clause per neighbour, joined in js/main.js.
   squibBoom:       '💥 The squib in {0} goes off — the tile is destroyed.',
@@ -388,7 +388,7 @@ export const MATERIAL_TEXT = {
   // piece of writing. Both meanings are doing work here.
   explosive: {
     label: 'Explosive', metal: 'Squib lead',
-    desc: '×{EXPLOSIVE_MULT} Mult when printed. Then: the tile is destroyed.'
+    desc: '×{EXPLOSIVE_MULT} Mult when printed. Then: the tile is destroyed. '
         + 'Each adjacent tile has a {EXPLOSIVE_SPREAD_CHANCE} chance of being destroyed too. '
   },
 };
@@ -459,7 +459,7 @@ export const SUNDRY_TEXT = {
   },
   potion: {
     head: 'Love potion',
-    body: 'Uncork it and a RARE patron takes an empty seat at your table.'
+    body: 'Uncork it and a RARE patron takes an empty seat at your table. '
         + 'You sexy thing, you.',
   },
   tube: {
@@ -491,6 +491,13 @@ export const TOOL_TEXT = {
   // Short, because this is the name the workbench slot and the held row wear,
   // where there is room for one word. The full title is SUNDRY_TEXT above.
   dismissal: 'Dismissal',
+};
+
+// A tool named mid-sentence, with its article — "a loupe", "an ink wash", and
+// the tongs as the pair they are. The toolbox's opening line reads these.
+export const TOOL_IN_A_SENTENCE = {
+  loupe: 'a loupe', laurel: 'a laurel', tongs: 'a pair of tongs', wash: 'an ink wash',
+  ratchet: 'a ratchet', bodkin: 'a bodkin', toolbox: 'a toolbox', potion: 'a love potion',
 };
 
 export const APPLICATOR_TEXT = {
@@ -561,7 +568,7 @@ export const UPGRADE_TEXT = {
   workbenchSlot: { name: '+1 Workbench slot',  desc: 'Room for one more sundry.' },
   blackmarket:   {
     name: 'The Black Market',
-    desc: 'An unmarked door leads to the black market.' 
+    desc: 'An unmarked door leads to the black market. '
         + 'Sells goods that are otherwise difficult or impossible to come by.',
   },
 };

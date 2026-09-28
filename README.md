@@ -15,7 +15,7 @@ python -m http.server 8431
 ```
 
 (ES modules don't run from `file://`, and the bundled `wordlists/wordlist.txt`
-— 72k words — is fetched over HTTP. A custom list can be loaded in Settings.)
+— some 82,600 words — is fetched over HTTP. A custom list can be loaded in Settings.)
 
 `node tools/build-single.mjs` bundles the whole game — wordlist included — into
 one HTML file, `great-work-single.html` by default; pass a path to override.
@@ -950,11 +950,12 @@ small, because the rats are ballast while they wait — one a page, thickening t
 bag against every jewel in it — and that dilution, not the number, is what keeps
 the seat honest.
 
-**The opening draft** — before page 1 you kit out the press from a free spread:
-2 paints of 4, 4 tiles of 10, no coins involved. The starting collection ships
-unpainted, so those two paints are where colour enters the run. No patron is
-drafted: the first is hired at the first Market, once you know what the press
-needs.
+**The opening** — a run begins on the standard bag (`BAG_COUNTS`), unpainted,
+with 3 Coins and an empty table. There is no draft before page 1 any more (it
+went at save version 14, with the Testing Chamber taking its place as the way to
+start a run already kitted out): colour enters at the first Market, through its
+tubes, its painted sorts and the Painter's stall, and the first patron is hired
+there too, once you know what the press needs.
 
 **The Market** (between pages) keeps a fixed layout with churning contents:
 4 patrons, 4 tiles (5 with the Medievalist's stall), 4 **sundries** and 2
@@ -1214,7 +1215,7 @@ you use, and its header is a map of the rest.
 | **Every line the status log speaks** — plus the banners, the board's refusals, and the end screens | `js/text.js` → `LOG_TEXT`, one keyed table with `{0}` slots for the moving parts; the code only decides *when* a line is said |
 | Every patron — name, portrait, price, rarity, guild, card text | `js/patron-cards.js` (behaviour: `js/patrons.js`; the one-line notes a patron's own hooks report — "3 Coins collected" — stay beside the hook that computes them) |
 | The Generic's trigger and effect clauses, its epithets and its faces | `js/patron-generic.js` — the sentence on its card is built from them, so the writing and the tuning are the same edit |
-| Every editor — name, portrait, the house rule in their own voice, **the live bar line (`demand`/`demandFirst`) and the spike reason (`spike`)** | `js/boss-cards.js` (behaviour: `js/bosses.js`) — the bar re-reads these on every render, so an edit shows the moment the page reloads |
+| Every editor — name, portrait, the house rule stated plainly (`desc`, which card-copy rules govern as they do a patron's), a line in their own voice (`voice`, said under the rule as they take the desk), **the live bar line (`demand`/`demandFirst`) and the spike reason (`spike`)** | `js/boss-cards.js` (behaviour: `js/bosses.js`) — the bar re-reads these on every render, so an edit shows the moment the page reloads |
 | The unsolicited opinions patrons pop after a good word | `js/quips.js` |
 | Chapter titles | `js/chapters.js` |
 | The themed word lists | `wordlists/` — beside the dictionary and the barred-words list |
@@ -1320,8 +1321,8 @@ bigger step than the last and a built press has to multiply rather than add:
 
 | | ch 1 | ch 4 | ch 7 | ch 10 | App. II |
 | --- | --- | --- | --- | --- | --- |
-| page 1 | 40 | 230 | 2,100 | 30,000 | 210,000 |
-| Deadline | 80 | 470 | 4,300 | 59,000 | 420,000 |
+| page 1 | 25 | 280 | 2,100 | 30,000 | 210,000 |
+| Deadline | 50 | 560 | 4,300 | 59,000 | 420,000 |
 
 ## Where to tune the design
 
@@ -1413,7 +1414,7 @@ bigger step than the last and a built press has to multiply rather than add:
 
 | File | Role |
 | --- | --- |
-| `js/state.js` | game state, save/load (`folio_save_v1`, schema v12), settings, tile ops, painting, sundries, effective hand/seat/workbench sizes, the manuscript |
+| `js/state.js` | game state, save/load (`folio_save_v1`, schema v14), settings, tile ops, painting, sundries, effective hand/seat/workbench sizes, the manuscript |
 | `js/scoring.js` | pure score computation — returns a step-by-step *script* the UI replays |
 | `js/patron-cards.js` | the patron roster as data: name, emoji, rarity, cost, guild and card text, keyed by id |
 | `js/patrons.js` | what each patron does, against the same ids — and the merge that marries the two |

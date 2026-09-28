@@ -1613,14 +1613,18 @@ export function renderDictStatus(status, count) {
 // `hold` is how long the banner stays up: a number fixes it, 'read' holds it
 // long enough to read the subtitle. A 'read' banner is also dismissible on tap —
 // fixed-length ones are not, so a stray tap can't skip the chapter title.
-export async function showBanner(title, sub = '', hold = 1150) {
+// `voice` is an editor's own line, set quietly under the rule it announces
+// (boss-cards.js); every other banner leaves it empty, and empty it is not drawn.
+export async function showBanner(title, sub = '', hold = 1150, voice = '') {
   const b = $('banner');
   if (!b) return;
   const readable = hold === 'read';
-  if (readable) hold = readingTime(sub);
+  if (readable) hold = readingTime(voice ? `${sub} ${voice}` : sub);
 
   b.querySelector('.banner-title').textContent = title;
   b.querySelector('.banner-sub').textContent = sub;
+  const said = b.querySelector('.banner-voice');
+  if (said) said.textContent = voice ? `“${voice}”` : '';
   b.classList.toggle('banner--dismissible', readable);
   b.classList.add('banner--show');
 
@@ -1661,10 +1665,10 @@ const editionHTML = () =>
 
 const statsHTML = () => `
   <div class="run-stats">
-    <div class="run-stat"><span class="run-stat-num">${state.stats.pages}</span><span class="run-stat-label">pages completed</span></div>
-    <div class="run-stat"><span class="run-stat-num">${state.stats.words}</span><span class="run-stat-label">words printed</span></div>
+    <div class="run-stat"><span class="run-stat-num">${state.stats.pages}</span><span class="run-stat-label">${state.stats.pages === 1 ? 'page' : 'pages'} completed</span></div>
+    <div class="run-stat"><span class="run-stat-num">${state.stats.words}</span><span class="run-stat-label">${state.stats.words === 1 ? 'word' : 'words'} printed</span></div>
     <div class="run-stat"><span class="run-stat-num">${state.totalScore.toLocaleString()}</span><span class="run-stat-label">total score</span></div>
-    <div class="run-stat"><span class="run-stat-num">${state.stats.bestWord || '—'}</span><span class="run-stat-label">best word${state.stats.bestScore ? ` · ${state.stats.bestScore}` : ''}</span></div>
+    <div class="run-stat"><span class="run-stat-num">${state.stats.bestWord || '—'}</span><span class="run-stat-label">best word${state.stats.bestScore ? ` · ${state.stats.bestScore.toLocaleString()}` : ''}</span></div>
   </div>`;
 
 export function showGameOver() {

@@ -2970,6 +2970,16 @@ button.sundry:hover { transform: translateY(-2px); }
   color: var(--brass-hi);
   margin-bottom: 6px;
 }
+/* An editor's own words, under the rule they have just announced. */
+.banner-voice {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 34em;
+  margin: 0 auto 8px;
+}
+.banner-voice:empty { display: none; }
 
 /* ─── Modals & sheets ─────────────────────────────────────────────────────────── */
 .modal {

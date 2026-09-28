@@ -557,6 +557,7 @@ html[data-look="bench"] .banner-title {
   text-shadow: none;
 }
 html[data-look="bench"] .banner-sub { font-family: var(--bn-fell); color: var(--bn-red); }
+html[data-look="bench"] .banner-voice { font-family: var(--bn-fell); color: var(--bn-dim); }
 html[data-look="bench"] .banner-rule { color: var(--bn-red); }
 html[data-look="bench"] #banner.banner--dismissible .banner-inner::after {
   font-family: var(--bn-fell-sc);

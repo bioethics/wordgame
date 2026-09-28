@@ -73,7 +73,7 @@ import {
   PATRON_DEFS, patronById, doubledReading, boundNouns, patronName, patronEmoji, patronShelf, guildSeats,
 } from './patrons.js';
 import { randomQuip } from './quips.js';
-import { logLine, SETTINGS_TEXT } from './text.js';
+import { logLine, SETTINGS_TEXT, TOOL_IN_A_SENTENCE } from './text.js';
 
 const $ = id => document.getElementById(id);
 const rect = el => el?.getBoundingClientRect();
@@ -1547,7 +1547,7 @@ async function advancePage() {
     sfx.bad();
     // The rule is a paragraph, not a title — hold the banner long enough to
     // read it, however long that particular rule runs.
-    await showBanner(`${def.emoji} ${def.name}`, def.desc, 'read');
+    await showBanner(`${def.emoji} ${def.name}`, def.desc, 'read', def.voice);
     log(logLine('bossTakesDesk', def.emoji, def.name, def.desc), 'warn');
     // …and one of them puts his hand out before you have seen a tile.
     if (state.boss.id === 'bribrarian') await takeTheConsideration();
@@ -1920,6 +1920,7 @@ async function useSundry(idx, e = null, confirmed = false) {
     // Named through sundryTip rather than TOOL_LOOK: the pool holds the ratchet,
     // which draws itself with arrows and so has no TOOL_LOOK entry.
     const nameOf = k => sundryTip({ kind: k })?.head ?? k;
+    const aTool  = k => TOOL_IN_A_SENTENCE[k] ?? `a ${nameOf(k).toLowerCase()}`;
 
     lockBoard();
     renderAll();
@@ -1935,8 +1936,8 @@ async function useSundry(idx, e = null, confirmed = false) {
     unlockBoard();
     renderAll();
     log(roomForSecond
-      ? `The toolbox opens: a ${nameOf(first).toLowerCase()} and a ${nameOf(second).toLowerCase()}.`
-      : `The toolbox opens: a ${nameOf(first).toLowerCase()} — no room on the bench for the second tool, and it rolls away.`,
+      ? `The toolbox opens: ${aTool(first)} and ${aTool(second)}.`
+      : `The toolbox opens: ${aTool(first)} — no room on the bench for the second tool, and it rolls away.`,
       'good');
     return;
   }
