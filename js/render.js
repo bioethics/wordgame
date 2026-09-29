@@ -1720,7 +1720,7 @@ const editionHTML = () =>
 // The seed the run was dealt from (js/rng.js), for anyone who wants to deal it
 // again from the prospectus, or send it with a report.
 const seedHTML = () => state.seed
-  ? `<p class="end-sub end-seed">${logLine(state.seedChosen ? 'endSeedChosen' : 'endSeed', state.seed)}</p>`
+  ? `<p class="end-sub end-seed">${logLine(state.seedChosen ? 'endSeedChosen' : 'endSeed', `<span class="seed-value">${state.seed}</span>`)}</p>`
   : '';
 
 const statsHTML = () => `

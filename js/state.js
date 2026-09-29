@@ -749,6 +749,9 @@ export function loadState() {
     // seeds is given one now: what it has played so far was not dealt from it,
     // but everything from here on is.
     state.seedChosen ??= false;
+    // Held to the characters a typed seed may have, so it can be printed as it
+    // stands wherever it is shown, however the save came to hold it.
+    state.seed = tidySeed(state.seed) || null;
     if (!state.seed) { state.seed = freshSeed(); seedRng(state.seed); }
     else if (!setRngState(savedRng)) seedRng(state.seed);
     // A save written before the prospectus existed was played on the standard

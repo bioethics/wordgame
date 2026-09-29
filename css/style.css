@@ -5289,6 +5289,8 @@ input[type='checkbox'] {
   max-width: 400px;
 }
 .end-seed { font-style: normal; font-size: 13px; letter-spacing: 1px; margin-bottom: 12px; }
+/* A seed is copied out by hand, so it is set upright wherever it is shown. */
+.seed-value { font-style: normal; letter-spacing: 1px; white-space: nowrap; }
 
 .run-stats {
   display: grid;

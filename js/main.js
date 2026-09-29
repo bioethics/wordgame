@@ -2598,7 +2598,11 @@ function syncSettingsUI() {
   if (snd) snd.checked = settings.sound;
   const marks = $('paintMarksToggle');
   if (marks) marks.checked = !!settings.paintMarks;
-  setTextContent('runSeedNote', state.seed ? fillSlots(SETTINGS_TEXT.seed, state.seed) : '');
+  // The seed itself is set upright: the notes are italic, and in italic Fell a
+  // U reads as a V — the misreading the seed's alphabet exists to avoid.
+  const seedNote = $('runSeedNote');
+  if (seedNote) seedNote.innerHTML = state.seed
+    ? fillSlots(SETTINGS_TEXT.seed, `<span class="seed-value">${state.seed}</span>`) : '';
   syncAppearanceUI();
 }
 
