@@ -71,6 +71,7 @@ import {
 } from './appearance.js';
 import {
   PATRON_DEFS, patronById, doubledReading, boundNouns, patronName, patronEmoji, patronShelf, guildSeats,
+  stereotypeSources, castStereotype,
 } from './patrons.js';
 import { randomQuip } from './quips.js';
 import { runReportText, copyText } from './report.js';
@@ -2499,6 +2500,24 @@ async function lendOlogyTile() {
   renderAll();
 }
 
+// The Stereotyper's cast: a seat chosen at random from the rest of the table
+// (stereotypeSources), and the blank becomes it for good (castStereotype).
+function takeStereotype(uid) {
+  const seat = state.patrons.find(p => p.uid === uid && p.id === 'stereotyper');
+  if (!seat) return;
+  const sources = stereotypeSources(seat);
+  if (!sources.length) { log(logLine('stereotypeNone'), 'warn'); return; }
+  const source = sources[Math.floor(random() * sources.length)];
+  const def = castStereotype(seat, source);
+  sfx.chime();
+  log(logLine('stereotypeCast', patronName(def, source.data)), 'good');
+  renderAll();
+  if (state.inMarket) renderMarket();
+  persist();
+  const card = patronCard(seat);
+  if (card) { pulse(card, 'patron--firing', 520); sparkleBurst(card, 9); }
+}
+
 // Popover actions (flip a dual tile, dismiss a patron, use a patron)
 $('popover')?.addEventListener('click', e => {
   const act = e.target.closest('[data-patron-act]');
@@ -2510,6 +2529,7 @@ $('popover')?.addEventListener('click', e => {
       if (act.dataset.patronAct === 'counterfeiter') openCounterfeitPlate();
       if (act.dataset.patronAct === 'usurer-borrow') usurerBorrow();
       if (act.dataset.patronAct === 'usurer-repay')  usurerRepay();
+      if (act.dataset.patronAct === 'stereotyper')   takeStereotype(Number(act.dataset.seat));
     }
     return;
   }

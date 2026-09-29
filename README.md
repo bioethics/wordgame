@@ -622,6 +622,22 @@ your gorgeous L and *then* the counterfeit L and you keep a second gorgeous L
 for good; put the forgery in front and nothing happens to the good tile behind
 it — there is nothing to strike from a fake.
 
+### The Stereotyper — a blank that becomes a copy
+
+A stereotype is a plate cast from a forme of type already set: a copy of a page
+someone else composed. The Stereotyper (rare, 12 Coins) does nothing at all
+until you tap it and take a cast; then it turns, for good, into an exact copy of
+another patron at your table, chosen at random — data and all, so a Monogrammist
+comes with its letters and a Stoker with its stacks. The seat's id and data are
+simply rewritten (`castStereotype` in `js/patrons.js`), so there is no
+delegation to keep in step: every hook, card and tally is the copy's own. What
+the seat *is* rather than does stays with it — its laurels, its postnominal, and
+the price paid, carried across as a markup so dismissing the copy still pays
+back half of what the Stereotyper cost. A few seats are never cast from, being
+one of a kind by design: the lovers and their marriage, the Usurer, the cat, the
+Expectant Parents and their child, and any Stereotyper still blank. The pick is
+one of the run's seeded rolls. It can be taken at the Market as on the board.
+
 ### The Corrector — the seat that sits on the dice
 
 Every chance the game rolls that a player would *want* to win goes through one

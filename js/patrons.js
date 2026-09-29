@@ -1461,6 +1461,23 @@ const PATRON_BEHAVIOURS = [
     onPageStart({ data }) { data.used = false; return null; },
   },
   {
+    // A stereotype is a plate cast from a forme of set type — a copy of a page
+    // already made. He is a blank until the player asks for a cast, and then he
+    // IS the patron he was cast from: the seat's id and data become the copy's
+    // (castStereotype in js/main.js), so every hook, card and tally is simply
+    // that patron's, with nothing here to delegate or keep in step. What the
+    // seat is rather than does — its laurels, its postnominal, the price paid
+    // for it — stays the seat's own. Usable at the Market as on the board.
+    id: 'stereotyper',
+    when: 'meta',
+    act: ({ seat }) => {
+      if (!seat || state.inColophon) return '';
+      return stereotypeSources(seat).length
+        ? `<button class="btn btn-quiet tip-btn" data-patron-act="stereotyper" data-seat="${seat.uid}">Take a cast</button>`
+        : `<button class="btn btn-quiet tip-btn" disabled>No other patron to cast from</button>`;
+    },
+  },
+  {
     // Used from his card mid-page rather than at a sheet: tap the card, take the
     // loan. Cast through castLentTile wearing gold trim from birth — the one way
     // a lent tile wears metal, since nothing can be written to it later. Once a
@@ -2912,3 +2929,32 @@ export const guildSeats = colour =>
 // roll, and you learn nothing about a table of rolls from one card a run: they
 // have to turn up often enough that you start reading them at a glance.
 export const RARITY_WEIGHT = { ubiquitous: 9, common: 3, uncommon: 2, rare: 1 };
+
+// The seats the Stereotyper may be cast from: anyone else at the table, bar the
+// ones that are one of a kind by design — the lovers and their marriage, the
+// Usurer's single book, the free cat, the parents and the child they name — and
+// other Stereotypers still blank, since a cast of nothing is nothing.
+const NOT_CAST = new Set(['stereotyper', 'romeo', 'juliet', 'lovers', 'usurer', 'shorthair', 'expectants', 'baby']);
+export const stereotypeSources = seat =>
+  state.patrons.filter(p => p !== seat && !NOT_CAST.has(p.id) && patronById(p.id));
+
+// What stays with the seat through a cast: what it wears and what it cost.
+const SEAT_OWN = ['honorifics', 'postnom', 'markup', 'haggle', 'ghost'];
+
+// Turn a Stereotyper's seat into a copy of `source`. The price is carried
+// across as a markup, so dismissing the copy still pays back half of what the
+// Stereotyper cost rather than half of the copy's list price.
+export function castStereotype(seat, source) {
+  const before = patronById(seat.id);
+  const paid = patronCost(before, seat.data);
+  const copy = structuredClone(source.data ?? {});
+  for (const k of SEAT_OWN) delete copy[k];
+  for (const k of SEAT_OWN) if (seat.data?.[k] !== undefined) copy[k] = seat.data[k];
+  const def = patronById(source.id);
+  seat.id = source.id;
+  delete copy.haggle;
+  copy.markup = 0;
+  copy.markup = paid - patronCost(def, copy);
+  seat.data = copy;
+  return def;
+}
