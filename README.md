@@ -20,6 +20,47 @@ python -m http.server 8431
 `node tools/build-single.mjs` bundles the whole game — wordlist included — into
 one HTML file, `great-work-single.html` by default; pass a path to override.
 
+`node tools/check.mjs` loads the rules in Node, which runs every self-check the
+modules run on themselves as they load (see **Checked as the module loads**,
+under Architecture). A failure there is a failed deploy rather than a player's
+broken page.
+
+### Deploying
+
+A push to `main` deploys the site through GitHub Actions
+(`.github/workflows/pages.yml`): the self-checks, then `tools/build-pages.mjs`,
+which puts the code and the styles in a folder named for their own contents,
+`v/<hash>/`, and points `index.html` there. Pages lets a browser keep a file for
+ten minutes and the game is ES modules imported by relative path, so without it
+a returning player could be handed the new `index.html` against yesterday's
+`state.js` — a mix that fails to link. A page older than the deploy asks for a
+folder that has gone, and the load guard inline in `index.html` (which waits for
+`window.folioStarted`) offers a reload instead of a dead board.
+
+**One setting has to be changed by hand, once:** Settings → Pages → Build and
+deployment → Source must be **GitHub Actions**, not "Deploy from a branch", or
+the deploy step is refused. `CNAME` is copied into the build, and the custom
+domain stays set where it is.
+
+The typefaces are served from the game's own origin — `css/fonts/`, described by
+`css/fonts.css` — rather than linked from Google, whose stylesheet is
+render-blocking: a request to it that never answered held back every script
+behind it. `node tools/fetch-fonts.mjs` fetches them again if the families
+change (Latin and Latin Extended only, each face's `unicode-range` kept). Every
+word list is fetched through `fetchText` (`js/net.js`), with a timeout and
+`no-cache`, so a hung request cannot hold the board and a deploy's lists are
+always current. If the dictionary cannot be had at all, the board says so and
+refuses to judge words against nothing, and keeps asking.
+
+### Developer mode
+
+The Testing Chamber and Settings' Developer shortcuts are for whoever is building
+the game. They show where it is being worked on — served from `localhost`,
+`127.0.0.1` or `::1`, or opened from a file — and anywhere else only with `?dev`
+in the address, which is also the way in on a phone over the LAN (`devMode` in
+`js/state.js`). A run either has touched is marked `assisted` and kept out of the
+records.
+
 ### Playing on a phone
 
 The game is touch-native: tap a rack tile to play it, tap a word tile to take it
@@ -102,7 +143,15 @@ The bench's buttons say what they do and stop: no shortcut printed under each
 one, and no "swap tiles for new" under Discard. The keys are listed in Settings
 instead, and the one caption that was guidance rather than a shortcut — what to
 do once a discard is armed — is already said in the status bar (`discardArmed`
-in `js/text.js`). Retro keeps its captions.
+in `js/text.js`). Retro keeps its captions. A discard can be made from the
+keyboard alone: − (or Delete) arms it, letters then mark tiles as taps do, and
+↵ or − again throws them.
+
+**Colour shapes** (Settings) give each paint a shape as well as a colour —
+crimson ▲, jade ◆, amber ●, azure ■ — on its tiles and on its multiplier, for
+anyone who cannot tell the four apart by colour. It is `data-paint-marks` on
+`<html>`, set before the first paint like the look and the room; the marks are
+always drawn and put away by CSS when the setting is off.
 
 **Retro** is the board as it was — panels, chips and pips. It is `css/style.css`
 untouched: every rule of the bench lives in `css/bench.css` (the board) and
@@ -158,6 +207,22 @@ All three dials sit on `DIFFICULTIES` (`js/constants.js`) and are read where a
 page is counted out — the quota BEFORE it is rounded, so an eased target is still
 a round number to aim at rather than 28. An editor who bans Discards still bans
 them.
+
+The prospectus also shows the run's **seed**. Every roll the game makes — the
+bag's shuffle, the Market's offers, the editor at the desk, every chance a
+patron takes — comes from one generator, `js/rng.js`, seeded as the run begins,
+and its position is saved with the run, so a reload carries on the same
+sequence. Each run draws a fresh seed of eight characters with nothing easily
+misread in them (no 0 or O, no 1, I or L). Typing one on the prospectus — from
+an end screen, a run report, a friend — deals that run again, and the same moves
+make the same run; case, spaces and dashes are forgiven, and any word or date
+will do as a seed. The dice are re-cut when the run begins (`reseedRun`), so the
+page dealt behind the sheet does not count, and a chapter's title is drawn as
+its first page is dealt rather than whenever the board first asks for it. What
+only the eye sees — a sparkle, whether a patron speaks up, which quip — stays on
+`Math.random`, so a new quip or a faster animation can never move a run's rolls.
+A run on a chosen seed is kept out of the records: its bag and its Markets could
+be known before it began.
 
 The Testing Chamber opens *from* the prospectus rather than in front of it, and
 says what it is on the way in: a playtest bench, where seats, sorts and sundries
@@ -1419,6 +1484,57 @@ bigger step than the last and a built press has to multiply rather than add:
 | The Frontispiece's opening multiplier & growth | `js/constants.js` → `FRONTISPIECE` |
 | The star-crossed lovers — who marries whom, and for how much | `js/constants.js` → `LOVERS` (`pair`, `merged`, `apart`, `united`); the wedding itself is `marryLovers` in `js/state.js` |
 
+## Saves, records and the run report
+
+**The save** (`folio_save_v1`) is written as the run goes and read back on load
+(`loadState` in `js/state.js`). A save outlives the code that wrote it, in both
+directions, and none of the ways it can fail may cost a run without a word:
+
+- written by **newer** code — a tab left open on an old build, or an old build
+  still cached after a deploy — it is left untouched, nothing is written over
+  it, and the board asks for a reload;
+- written by **older** code with no migration forward, or not readable at all,
+  it is set aside under `folio_save_v1_set_aside` rather than deleted, and a
+  fresh run begins. So is a save that reads but throws as the board draws it;
+- readable, but naming things the game no longer makes — a retired trim,
+  colour, tool, stall or Colophon pick — it is repaired in place, and the board
+  says how many things were taken out.
+
+A version bump that changes a save's shape adds a step to `MIGRATIONS`, keyed by
+the version it upgrades from. **Two tabs** on one save cannot overwrite each
+other: the moment one writes, the other stops saving and asks for a reload (the
+`storage` event).
+
+**The board's lock.** Every handler asks `state.isAnimating` before it acts, and
+it is written only through `lockBoard` and `unlockBoard`, which count: a flow
+that animates inside another (the Economiser's burn, the Ripper's knife, both
+inside a print) takes and gives back its own hold without letting go of the
+outer one. A flow that throws halfway is answered at the window
+(`recoverBoard` in `js/main.js`), which hands the whole lock back and says so,
+rather than leave the board frozen.
+
+**The records** (`folio_records_v1`, `js/records.js`) keep a line for each run
+that ended, lost or won, apart from the save — as the coined words are kept. The
+end screen reads them to say how the run stands against the others: the
+furthest this edition has been taken, the best word, the runs and folios
+recorded. A folio carried on into the appendices updates its one line rather than
+counting twice. Runs the Testing Chamber or a dev shortcut touched, and runs on a
+chosen seed, are not recorded. The last 200 are kept, with their seeds; they are
+the ground any meta-progression would be built on.
+
+**The run report** (`js/report.js` — Settings → Report, and on both end screens)
+is plain text to paste into a message: the date, the edition, the seed and the
+save version; where the run stands; each page's quota against its score, the
+words and discards it took and the editor at the desk; the words set on each
+page; and the press as it stands — the table in seat order, the ghosts, the
+workbench, the case, the purse. With the seed, it is most of what it takes to
+deal a run again and follow it to wherever it went wrong.
+
+**The end screens** give the run's numbers, its standing in the records and its
+seed, and offer the book: *Read the manuscript* opens the bound manuscript over
+the end screen, and closing it comes back there. A loss in the appendices says
+the folio itself was complete.
+
 ## Architecture
 
 | File | Role |
@@ -1446,6 +1562,11 @@ bigger step than the last and a built press has to multiply rather than add:
 | `js/dict.js` | dictionary loading/caching (also reads a `window.FOLIO_WORDLIST` global, for single-file bundles) |
 | `js/themes.js` | the themed lists in `wordlists/` — registers, parts of speech, acronyms and names — as Sets, and the one table of paths every list is found through (also reads a `window.FOLIO_THEMES` global, for single-file bundles) |
 | `js/excluded.js` | the barred-words list, loaded before any word list and applied by `dict.js` and `themes.js` as they build their Sets |
+| `js/net.js` | `fetchText`: every fetch the game makes, with a timeout and `no-cache`, answering `null` rather than hanging |
+| `js/rng.js` | the run's dice: one seeded generator every game roll comes from, its position for the save, fresh seeds, and the forgiving reading of typed ones |
+| `js/records.js` | the records across runs (`folio_records_v1`), and how a run that has just ended stands against them |
+| `js/report.js` | the run report, as plain text, and the two doors to the clipboard |
+| `tools/` | `check.mjs` (the self-checks), `build-pages.mjs` (the versioned site), `build-single.mjs` (the one-file bundle), `fetch-fonts.mjs` (the typefaces) |
 
 Scoring is deliberately pure (`computeScore` never mutates state), so the same
 function powers the live preview, the tooltips and the replayed cinematic — they
@@ -1515,5 +1636,7 @@ interleaving; the **Workshop** layout makes them real columns on wide
 screens — ledger left, press right — and collapses back to Folio below
 1200px.
 
-A *Developer* section in Settings has shortcuts: +20 Coins, open the Market,
-clear the current page. The console exposes `window.folio = { state, settings }`.
+A *Developer* section in Settings (in developer mode only — see **Running it**)
+has shortcuts: +20 Coins, open the Market, clear the current page. A run they
+touch is marked assisted and kept out of the records. The console exposes
+`window.folio = { state, settings, pardonWord }`.
