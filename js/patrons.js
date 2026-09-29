@@ -1461,20 +1461,20 @@ const PATRON_BEHAVIOURS = [
     onPageStart({ data }) { data.used = false; return null; },
   },
   {
-    // A stereotype is a plate cast from a forme of set type — a copy of a page
-    // already made. He is a blank until the player asks for a cast, and then he
-    // IS the patron he was cast from: the seat's id and data become the copy's
-    // (castStereotype in js/main.js), so every hook, card and tally is simply
-    // that patron's, with nothing here to delegate or keep in step. What the
-    // seat is rather than does — its laurels, its postnominal, the price paid
-    // for it — stays the seat's own. Usable at the Market as on the board.
-    id: 'stereotyper',
+    // Nothing of his own until he is asked to copy, and then he IS the patron
+    // he took from: the seat's id and data become the copy's (plagiarise,
+    // below), so every hook, card and tally is simply that patron's, with
+    // nothing here to delegate or keep in step. What the seat is rather than
+    // does — its laurels, its postnominal, the price paid for it — stays the
+    // seat's own. Usable at the Market as on the board. (Not to be confused
+    // with the Stereotyper, the Market stall that casts a copy of a TILE.)
+    id: 'plagiarist',
     when: 'meta',
     act: ({ seat }) => {
       if (!seat || state.inColophon) return '';
-      return stereotypeSources(seat).length
-        ? `<button class="btn btn-quiet tip-btn" data-patron-act="stereotyper" data-seat="${seat.uid}">Take a cast</button>`
-        : `<button class="btn btn-quiet tip-btn" disabled>No other patron to cast from</button>`;
+      return plagiarismSources(seat).length
+        ? `<button class="btn btn-quiet tip-btn" data-patron-act="plagiarist" data-seat="${seat.uid}">Copy a patron</button>`
+        : `<button class="btn btn-quiet tip-btn" disabled>No other patron to copy</button>`;
     },
   },
   {
@@ -2930,21 +2930,21 @@ export const guildSeats = colour =>
 // have to turn up often enough that you start reading them at a glance.
 export const RARITY_WEIGHT = { ubiquitous: 9, common: 3, uncommon: 2, rare: 1 };
 
-// The seats the Stereotyper may be cast from: anyone else at the table, bar the
-// ones that are one of a kind by design — the lovers and their marriage, the
-// Usurer's single book, the free cat, the parents and the child they name — and
-// other Stereotypers still blank, since a cast of nothing is nothing.
-const NOT_CAST = new Set(['stereotyper', 'romeo', 'juliet', 'lovers', 'usurer', 'shorthair', 'expectants', 'baby']);
-export const stereotypeSources = seat =>
-  state.patrons.filter(p => p !== seat && !NOT_CAST.has(p.id) && patronById(p.id));
+// The seats the Plagiarist may copy: anyone else at the table, bar the ones
+// that are one of a kind by design — the lovers and their marriage, the Usurer's
+// single book, the free cat, the parents and the child they name — and other
+// Plagiarists still blank, since a copy of nothing is nothing.
+const NOT_COPIED = new Set(['plagiarist', 'romeo', 'juliet', 'lovers', 'usurer', 'shorthair', 'expectants', 'baby']);
+export const plagiarismSources = seat =>
+  state.patrons.filter(p => p !== seat && !NOT_COPIED.has(p.id) && patronById(p.id));
 
-// What stays with the seat through a cast: what it wears and what it cost.
+// What stays with the seat through a copy: what it wears and what it cost.
 const SEAT_OWN = ['honorifics', 'postnom', 'markup', 'haggle', 'ghost'];
 
-// Turn a Stereotyper's seat into a copy of `source`. The price is carried
+// Turn a Plagiarist's seat into a copy of `source`. The price is carried
 // across as a markup, so dismissing the copy still pays back half of what the
-// Stereotyper cost rather than half of the copy's list price.
-export function castStereotype(seat, source) {
+// Plagiarist cost rather than half of the copy's list price.
+export function plagiarise(seat, source) {
   const before = patronById(seat.id);
   const paid = patronCost(before, seat.data);
   const copy = structuredClone(source.data ?? {});

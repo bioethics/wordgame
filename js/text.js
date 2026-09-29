@@ -207,8 +207,8 @@ export const LOG_TEXT = {
   counterfeitMade: '💵 A counterfeit {0} — worth nothing, and yours till the page turns.',
   scienceStandards:'🔬 One tile per page — science has standards.',
   scientistLends:  '🔬 The Scientist lends a gold-trimmed OLOGY tile — for this page only.',
-  stereotypeCast:  '🫥 The Stereotyper is cast from {0}, and is a copy of it for good.',   // source name
-  stereotypeNone:  'There is no other patron at the table to cast from.',
+  plagiaristCopies: '🫥 The Plagiarist copies {0}, and is a copy of it for good.',   // source name
+  plagiaristNone:  'There is no other patron at the table to copy.',
 
   // ─── The Bribrarian's desk ──────────────────────────────────────────────────
   bribePaid:       '🤝 {0} Coins across the desk — every word this page at ×{1} Mult.{2}',

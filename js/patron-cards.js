@@ -395,8 +395,8 @@ export const PATRON_CARDS = {
     name: 'The Generic', emoji: '🧍', rarity: 'ubiquitous', cost: GENERIC_PRICE, stackable: true,
     desc: 'An ordinary person who does ordinary things.',
   },
-  stereotyper: {
-    name: 'The Stereotyper', emoji: '🫥', rarity: 'rare', cost: 12,
+  plagiarist: {
+    name: 'The Plagiarist', emoji: '🫥', rarity: 'rare', cost: 12,
     desc: 'Does nothing. Tap it to turn it, for good, into an exact copy of another patron at your table, chosen at random.',
   },
   twins: {

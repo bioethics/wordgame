@@ -71,7 +71,7 @@ import {
 } from './appearance.js';
 import {
   PATRON_DEFS, patronById, doubledReading, boundNouns, patronName, patronEmoji, patronShelf, guildSeats,
-  stereotypeSources, castStereotype,
+  plagiarismSources, plagiarise,
 } from './patrons.js';
 import { randomQuip } from './quips.js';
 import { runReportText, copyText } from './report.js';
@@ -2500,17 +2500,17 @@ async function lendOlogyTile() {
   renderAll();
 }
 
-// The Stereotyper's cast: a seat chosen at random from the rest of the table
-// (stereotypeSources), and the blank becomes it for good (castStereotype).
-function takeStereotype(uid) {
-  const seat = state.patrons.find(p => p.uid === uid && p.id === 'stereotyper');
+// The Plagiarist's copy: a seat chosen at random from the rest of the table
+// (plagiarismSources), and the blank becomes it for good (plagiarise).
+function takePlagiarism(uid) {
+  const seat = state.patrons.find(p => p.uid === uid && p.id === 'plagiarist');
   if (!seat) return;
-  const sources = stereotypeSources(seat);
-  if (!sources.length) { log(logLine('stereotypeNone'), 'warn'); return; }
+  const sources = plagiarismSources(seat);
+  if (!sources.length) { log(logLine('plagiaristNone'), 'warn'); return; }
   const source = sources[Math.floor(random() * sources.length)];
-  const def = castStereotype(seat, source);
+  const def = plagiarise(seat, source);
   sfx.chime();
-  log(logLine('stereotypeCast', patronName(def, source.data)), 'good');
+  log(logLine('plagiaristCopies', patronName(def, source.data)), 'good');
   renderAll();
   if (state.inMarket) renderMarket();
   persist();
@@ -2529,7 +2529,7 @@ $('popover')?.addEventListener('click', e => {
       if (act.dataset.patronAct === 'counterfeiter') openCounterfeitPlate();
       if (act.dataset.patronAct === 'usurer-borrow') usurerBorrow();
       if (act.dataset.patronAct === 'usurer-repay')  usurerRepay();
-      if (act.dataset.patronAct === 'stereotyper')   takeStereotype(Number(act.dataset.seat));
+      if (act.dataset.patronAct === 'plagiarist')    takePlagiarism(Number(act.dataset.seat));
     }
     return;
   }
