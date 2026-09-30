@@ -309,6 +309,27 @@ export const LOG_TEXT = {
 // ─── Settings ─────────────────────────────────────────────────────────────────
 // What the Settings sheet says that index.html cannot say once and leave: the
 // words that change with the run. Its standing copy is in index.html itself.
+// The bag's sheet (and the discard pile's, and the bodkin's): the ways its tiles
+// can be sorted, and the names of the groups each way makes.
+export const BAG_SORT_TEXT = {
+  sortBy:     'Sort by',
+  letter:     'Letter',
+  colour:     'Colour',
+  trim:       'Trim',
+  metal:      'Metal',
+  points:     'Points',
+  vowels:     'Vowels',
+  consonants: 'Consonants',
+  marks:      'Marks',
+  rainbow:    'Rainbow',
+  unpainted:  'Unpainted',
+  noTrim:     'No trim',
+  lead:       'Lead',
+  wrapped:    'Wrapped',
+  pointsGroup: '{0} Points',
+  pointsGroup1: '1 Point',
+};
+
 export const SETTINGS_TEXT = {
   newRun:        'New run',
   // New run ends the run in hand, so it asks twice: the first press arms it,

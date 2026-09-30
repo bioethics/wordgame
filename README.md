@@ -1619,6 +1619,17 @@ its folio number in the margin in lower-case romans, except a Deadline, which is
 marked with a fleuron rather than numbered. The first word of each chapter takes
 a drop cap, and the best word of the run is illuminated.
 
+**The bag's sheet** (the bag button; the discard pile and the bodkin's pick are
+the same sheet) sorts its tiles by letter, colour, trim, metal or points. A strip
+of counts heads it — Jade 4 against Amber 7 at a glance — and the tiles below
+are grouped under the same names; tapping a count brings its group into view.
+Paint is counted as the collection's tally counts it, so the groups add up to
+the bag, and rainbow metal is a group of its own rather than four. A tile the
+Redactor has wrapped waits in a Wrapped group, since only its letter counts
+while it is wrapped. The last sort chosen is remembered (`settings.bagSort`);
+the sorts themselves are `BAG_SORTS` in `js/render.js`, and a new one is one
+entry there plus its label in `BAG_SORT_TEXT` (`js/text.js`).
+
 **Appearance** — Settings holds the room, the layout and the UI size, all
 persisted in `folio_settings_v1` and applied before first paint by an inline
 script in `index.html`. The **UI scale** is a plain CSS zoom on `<body>`

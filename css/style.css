@@ -3093,6 +3093,60 @@ html[data-paint-marks] .chip--amber::before   { border-radius: 50%; }
 .sheet--settings { width: min(480px, calc(94 * var(--vwu))); }
 .sheet--inspector { width: min(680px, calc(94 * var(--vwu))); }
 
+/* ── Sorting the bag ─────────────────────────────────────────────────────────
+   A row of sorts, the counts for the one chosen, then the tiles in groups. */
+.bag-sorts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 2px 0 8px;
+}
+.bag-sorts-label {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 13px;
+  opacity: 0.75;
+  margin-right: 2px;
+}
+.bag-sort-btn {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  color: var(--parch-ink);
+  background: rgba(120, 90, 40, 0.1);
+  border: 1px solid rgba(120, 90, 40, 0.4);
+  cursor: pointer;
+}
+.bag-sort-btn:hover { background: rgba(120, 90, 40, 0.2); }
+.bag-sort-btn[aria-pressed="true"] {
+  color: var(--parch);
+  background: #6b4a22;
+  border-color: #6b4a22;
+}
+.bag-tally { margin: 0 0 10px; }
+.bag-tally:empty { display: none; }
+
+/* Two classes deep: .mini-grid's own flex is written later in this file. */
+.mini-grid.mini-grid--grouped { display: block; }
+.bag-group + .bag-group {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(120, 90, 40, 0.35);
+}
+.bag-group-head {
+  margin: 0 0 6px;
+  font-family: var(--serif);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.bag-group-head b { font-variant-numeric: tabular-nums; opacity: 0.7; margin-left: 3px; }
+.bag-group-tiles { display: flex; flex-wrap: wrap; gap: 7px; }
+
 .sheet--dark {
   background: linear-gradient(175deg, #322034 0%, #241626 100%);
   color: var(--parch);
@@ -3756,6 +3810,15 @@ html[data-paint-marks] .chip--amber::before   { border-radius: 50%; }
 .case-tally-chip--amber   { --chip: #ffd68c; }
 .case-tally-chip--bare    { --chip: rgba(243, 222, 184, 0.4); }
 /* Rainbow metal is every colour at once, and its chip says so. */
+/* The same chips, as the bag sheet's counts (openBagSheet in js/render.js):
+   buttons there, that bring their group into view. The trims take their own
+   metal's colour, and a metal wears its emoji in place of the dot. */
+button.case-tally-chip { font-family: inherit; cursor: pointer; }
+.case-tally-chip--trim-gold   { --chip: #f1c75a; }
+.case-tally-chip--trim-silver { --chip: #d9dde3; }
+.case-tally-chip--trim-cobalt { --chip: #5f86d6; }
+.case-tally-chip--trim-purple { --chip: #b58ae0; }
+.case-tally-emoji { font-style: normal; font-size: 12px; line-height: 1; }
 .case-tally-chip--rainbow .case-tally-dot {
   background: conic-gradient(#ff9d8e, #ffd68c, #90e8ba, #8ec6ff, #ff9d8e);
   box-shadow: 0 0 0 1px rgba(10, 4, 12, 0.55), 0 0 7px rgba(255, 235, 200, 0.5);

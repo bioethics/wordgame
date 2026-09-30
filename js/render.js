@@ -3,7 +3,7 @@
 // (Market, Colophon, Testing Chamber) live in sheets.js.
 
 import {
-  state, settings, saveState, getActiveLetter, getActiveColour, selectedCount,
+  state, settings, saveState, saveSettings, getActiveLetter, getActiveColour, selectedCount,
   effectivePatronSlots, effectiveSundrySlots, effectiveGhostSlots,
   effectiveWordsPerPage, effectiveRackSize, chapterTitle,
   sundrySelected, restingPoints, getActiveGrowth, isWrapped, shiftPreview, isSquib,
@@ -26,7 +26,7 @@ import { colophonSnapshot } from './colophon.js';
 import { blackMarketSnapshot } from './blackmarket.js';
 import { setNum, sleep, fmtMult, readingTime, sfx } from './anim.js';
 import { uiZoom } from './appearance.js';
-import { logLine, SOLO_TEXT, ratchetLine, SETTINGS_TEXT } from './text.js';
+import { logLine, SOLO_TEXT, ratchetLine, SETTINGS_TEXT, BAG_SORT_TEXT as BT, fillSlots } from './text.js';
 
 const $ = id => document.getElementById(id);
 
@@ -1805,34 +1805,181 @@ export function showVictory(standing = null) {
 
 // ─── Inspector (bag / tray contents) ──────────────────────────────────────────
 
-export function openInspector(kind) {
+// ─── Sorting the bag ──────────────────────────────────────────────────────────
+// The bag, the discard pile and the bodkin's pick share one sheet, and one way
+// of looking through it: a row of sorts, a strip of counts for whichever is
+// chosen — Jade 4 against Amber 7 at a glance — and the tiles beneath, grouped
+// under the same names. Each sort names a tile's group; groups come in the
+// order listed, and within a group the tiles run A to Z.
+//
+// Paint is read as the collection's tally reads it (tile.colour, else a wash),
+// so the buckets add up to the whole bag; rainbow metal, which scores as every
+// colour, is a group of its own rather than four. A tile the Redactor has
+// wrapped is only a spelling while it is wrapped, so everywhere but the letter
+// sort it waits in a Wrapped group of its own.
+const VOWEL_SET = new Set(['A', 'E', 'I', 'O', 'U']);
+const letterOf = t => t.letter ?? '';
+
+const BAG_SORTS = {
+  letter: {
+    groups: () => [
+      { key: 'vowel', label: BT.vowels },
+      { key: 'consonant', label: BT.consonants },
+      { key: 'mark', label: BT.marks },
+    ],
+    // One flat run, A to Z: the counts sit above it, the tiles are not split.
+    flat: true,
+    of: t => (isMark(letterOf(t)) ? 'mark' : VOWEL_SET.has(letterOf(t)) ? 'vowel' : 'consonant'),
+  },
+  colour: {
+    groups: () => [
+      ...Object.entries(COLOURS).map(([key, c]) => ({ key, label: c.label, chip: key })),
+      { key: 'rainbow', label: BT.rainbow, chip: 'rainbow' },
+      { key: 'bare', label: BT.unpainted, chip: 'bare' },
+    ],
+    of: t => (t.material === 'rainbow' ? 'rainbow' : (COLOURS[t.colour ?? t.wash] ? (t.colour ?? t.wash) : 'bare')),
+  },
+  trim: {
+    groups: () => [
+      ...Object.entries(TRIMS).map(([key, tr]) => ({ key, label: tr.label, chip: `trim-${key}` })),
+      { key: 'none', label: BT.noTrim, chip: 'bare' },
+    ],
+    of: t => (TRIMS[t.trim] ? t.trim : 'none'),
+  },
+  metal: {
+    // Most metals are absent from most bags; only the ones there are counted.
+    hideEmpty: true,
+    groups: () => [
+      ...Object.entries(MATERIALS).map(([key, mt]) => ({ key, label: mt.label, emoji: mt.emoji })),
+      { key: 'lead', label: BT.lead, chip: 'bare' },
+    ],
+    of: t => (MATERIALS[t.material] ? t.material : 'lead'),
+  },
+  points: {
+    // The groups are whatever values the bag holds, highest first.
+    hideEmpty: true,
+    groups: items => [...new Set(items.map(restingPoints))].sort((a, b) => b - a)
+      .map(n => ({ key: String(n), label: n === 1 ? BT.pointsGroup1 : fillSlots(BT.pointsGroup, n) })),
+    of: t => String(restingPoints(t)),
+  },
+};
+const bagSort = () => (BAG_SORTS[settings.bagSort] ? settings.bagSort : 'letter');
+
+function groupBag(items, sortKey) {
+  const sort = BAG_SORTS[sortKey];
+  const byLetter = (a, b) => letterOf(a).localeCompare(letterOf(b));
+  const wrapsApart = !sort.flat;
+  const groups = sort.groups(items.filter(t => !(wrapsApart && isWrapped(t))))
+    .map(g => ({ ...g, tiles: [] }));
+  const wrapped = { key: 'wrapped', label: BT.wrapped, chip: 'bare', tiles: [] };
+  for (const t of items) {
+    if (wrapsApart && isWrapped(t)) { wrapped.tiles.push(t); continue; }
+    groups.find(g => g.key === sort.of(t))?.tiles.push(t);
+  }
+  if (wrapped.tiles.length) groups.push(wrapped);
+  for (const g of groups) g.tiles.sort(byLetter);
+  return { groups, flat: !!sort.flat, all: [...items].sort(byLetter) };
+}
+
+// A count, in the collection tally's own chip: a paint's dot, a trim's, or a
+// metal's emoji. Tapping one brings its group into view.
+const bagChipHTML = g => {
+  const mark = g.emoji ? `<i class="case-tally-emoji">${g.emoji}</i>` : g.chip ? '<i class="case-tally-dot"></i>' : '';
+  return `<button type="button" class="case-tally-chip${g.chip ? ` case-tally-chip--${g.chip}` : ''}${g.tiles.length ? '' : ' case-tally-chip--none'}"
+    data-bag-jump="${g.key}">${mark}${g.label} <b>${g.tiles.length}</b></button>`;
+};
+
+let inspectorView = null;   // { kind, onPick } — what the open sheet is showing
+
+function fillInspector() {
+  const m = $('inspectorModal');
+  if (!m || !inspectorView) return;
+  const { kind, onPick } = inspectorView;
+  const items = kind === 'discard' ? state.discardPile : state.bag;
+  const sortKey = bagSort();
+  const { groups, flat, all } = groupBag(items, sortKey);
+
+  m.querySelectorAll('[data-bag-sort]').forEach(b =>
+    b.setAttribute('aria-pressed', String(b.dataset.bagSort === sortKey)));
+  m.querySelector('#inspectorTally').innerHTML =
+    items.length ? groups.filter(g => g.tiles.length || !(flat || BAG_SORTS[sortKey].hideEmpty)).map(bagChipHTML).join('') : '';
+
+  const grid = m.querySelector('#inspectorGrid');
+  grid.innerHTML = '';
+  grid.classList.toggle('mini-grid--grouped', !flat);
+  if (!items.length) { grid.innerHTML = '<p class="sheet-note">Empty.</p>'; return; }
+
+  // data-tid is what makes a tile inspectable (drag.js → templateFor), so the
+  // bag and the discard pile explain their tiles like everywhere else does.
+  const tileEl = tmpl => {
+    const el = makeTileEl({ ...tmpl, id: '' }, 'inspect', { mini: true });
+    if (tmpl.tid != null) el.dataset.tid = tmpl.tid;
+    if (onPick) {
+      el.classList.add('mini-tile--pick');
+      el.addEventListener('click', ev => {
+        ev.stopPropagation();      // the modal's own handler would read this as "close"
+        closeInspector();
+        onPick(tmpl);
+      });
+    }
+    return el;
+  };
+  if (flat) { all.forEach(t => grid.appendChild(tileEl(t))); return; }
+  for (const g of groups) {
+    if (!g.tiles.length) continue;
+    const row = document.createElement('section');
+    row.className = 'bag-group';
+    row.dataset.bagGroup = g.key;
+    row.innerHTML = `<h4 class="bag-group-head">${g.label} <b>${g.tiles.length}</b></h4><div class="bag-group-tiles"></div>`;
+    const tiles = row.querySelector('.bag-group-tiles');
+    g.tiles.forEach(t => tiles.appendChild(tileEl(t)));
+    grid.appendChild(row);
+  }
+}
+
+function openBagSheet(view, title, note) {
   const m = $('inspectorModal');
   if (!m) return;
-  const items = kind === 'bag' ? state.bag : state.discardPile;
-  const title = kind === 'bag' ? `In the bag — ${items.length} tile${items.length === 1 ? '' : 's'}`
-                               : `Discard pile — ${items.length} tile${items.length === 1 ? '' : 's'}`;
-  const sorted = [...items].sort((a, b) => a.letter.localeCompare(b.letter));
+  inspectorView = view;
+  const sorts = Object.keys(BAG_SORTS).map(k =>
+    `<button type="button" class="bag-sort-btn" data-bag-sort="${k}">${BT[k]}</button>`).join('');
   m.innerHTML = `
     <div class="sheet sheet--inspector">
       <div class="sheet-head">
         <h2>${title}</h2>
         <button class="x" data-close-inspector>✕</button>
       </div>
-      <p class="sheet-note">${kind === 'bag'
-        ? 'Waiting to be drawn.'
-        : 'Printed or discarded this page.'}</p>
-      <div class="mini-grid" id="inspectorGrid"></div>
+      <p class="sheet-note">${note}</p>
+      <div class="bag-sorts" role="group" aria-label="${BT.sortBy}">
+        <span class="bag-sorts-label">${BT.sortBy}</span>${sorts}
+      </div>
+      <div class="case-tally bag-tally" id="inspectorTally"></div>
+      <div class="mini-grid${view.onPick ? ' mini-grid--pick' : ''}" id="inspectorGrid"></div>
     </div>`;
-  const grid = m.querySelector('#inspectorGrid');
-  // data-tid is what makes a tile inspectable (drag.js → templateFor), so the
-  // bag and the discard pile explain their tiles like everywhere else does.
-  sorted.forEach(tmpl => {
-    const el = makeTileEl({ ...tmpl, id: '' }, 'inspect', { mini: true });
-    if (tmpl.tid != null) el.dataset.tid = tmpl.tid;
-    grid.appendChild(el);
+  m.querySelector('.sheet').addEventListener('click', e => {
+    const sort = e.target.closest('[data-bag-sort]');
+    if (sort) {
+      settings.bagSort = sort.dataset.bagSort;
+      saveSettings();
+      fillInspector();
+      return;
+    }
+    const jump = e.target.closest('[data-bag-jump]');
+    if (jump) {
+      m.querySelector(`[data-bag-group="${jump.dataset.bagJump}"]`)
+        ?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
   });
-  if (!sorted.length) grid.innerHTML = '<p class="sheet-note">Empty.</p>';
+  fillInspector();
   m.classList.add('show');
+}
+
+export function openInspector(kind) {
+  const items = kind === 'bag' ? state.bag : state.discardPile;
+  const n = `${items.length} tile${items.length === 1 ? '' : 's'}`;
+  openBagSheet({ kind, onPick: null },
+    kind === 'bag' ? `In the bag — ${n}` : `Discard pile — ${n}`,
+    kind === 'bag' ? 'Waiting to be drawn.' : 'Printed or discarded this page.');
 }
 
 // ─── The manuscript, bound (every word printed this run) ──────────────────────
@@ -1926,32 +2073,11 @@ export function closeManuscript() {
 // inside onPick — so closing the sheet by the ✕, the backdrop or Escape simply
 // leaves it on the bench, unspent, and no cancel path is needed.
 export function openBagPicker(onPick) {
-  const m = $('inspectorModal');
-  if (!m) return;
-  const sorted = [...state.bag].sort((a, b) => a.letter.localeCompare(b.letter));
-  m.innerHTML = `
-    <div class="sheet sheet--inspector">
-      <div class="sheet-head">
-        <h2>${TOOL_LOOK.bodkin.glyph} Reach into the bag</h2>
-        <button class="x" data-close-inspector>✕</button>
-      </div>
-      <p class="sheet-note">${sorted.length} tile${sorted.length === 1 ? '' : 's'} waiting.
-        Take any one of them straight to hand — the bodkin is spent on whichever you pick.</p>
-      <div class="mini-grid mini-grid--pick" id="inspectorGrid"></div>
-    </div>`;
-  const grid = m.querySelector('#inspectorGrid');
-  for (const tmpl of sorted) {
-    const el = makeTileEl({ ...tmpl, id: '' }, 'inspect', { mini: true });
-    if (tmpl.tid != null) el.dataset.tid = tmpl.tid;   // as the inspector does, so it explains itself
-    el.classList.add('mini-tile--pick');
-    el.addEventListener('click', ev => {
-      ev.stopPropagation();      // the modal's own handler would read this as "close"
-      closeInspector();
-      onPick(tmpl);
-    });
-    grid.appendChild(el);
-  }
-  m.classList.add('show');
+  const n = state.bag.length;
+  openBagSheet({ kind: 'bag', onPick },
+    `${TOOL_LOOK.bodkin.glyph} Reach into the bag`,
+    `${n} tile${n === 1 ? '' : 's'} waiting. Take any one of them straight to hand — `
+    + 'the bodkin is spent on whichever you pick.');
 }
 
 export function closeInspector() {

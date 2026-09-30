@@ -475,6 +475,26 @@ html[data-look="bench"] .book-entry--best .book-word { color: var(--bn-red-dk); 
 html[data-look="bench"] .book-entry--best .book-score { color: var(--bn-red-dk); }
 
 /* ── The inspector: the case, opened ──────────────────────────────────────── */
+html[data-look="bench"] .bag-sorts-label { font-family: var(--bn-fell); color: var(--bn-dim); opacity: 1; }
+html[data-look="bench"] .bag-sort-btn {
+  font-family: var(--bn-fell-sc);
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 1px;
+  border-radius: 3px;
+  color: var(--bn-ink);
+  background: rgba(60, 38, 18, 0.06);
+  border-color: var(--bn-rule);
+}
+html[data-look="bench"] .bag-sort-btn[aria-pressed="true"] {
+  color: var(--bn-paper);
+  background: var(--bn-ink);
+  border-color: var(--bn-ink);
+}
+/* The groups sit in the case, on dark wood: their heads in paper, ruled apart
+   in the case's own light. */
+html[data-look="bench"] .bag-group-head { font-family: var(--bn-fell-sc); font-weight: 400; font-size: 14px; letter-spacing: 1px; color: var(--bn-paper); }
+html[data-look="bench"] .bag-group + .bag-group { border-top-color: rgba(255, 230, 190, 0.18); }
 html[data-look="bench"] .sheet--inspector .mini-grid {
   border-radius: 4px;
   background: linear-gradient(180deg, #7a5537 0%, #5b3d27 20%, #3e2919 100%);
