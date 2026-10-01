@@ -345,12 +345,13 @@ function marketShopHTML() {
           <div class="op-name">${name}</div>
           <div class="op-title">${def.rarity}${liveries.length ? ` · <span class="op-guild">${liveries.join(' & ')}</span>` : ''}${
             o.data?.postnom ? ` · <span class="op-postnom">${o.data.postnom} · ×${POSTNOM.mult} Mult</span>` : ''}${
-            o.data?.ghost ? ' · <span class="op-ghost">👻 a ghost</span>' : ''}</div>
+            o.data?.ghost ? ' · <span class="op-ghost">👻 a ghost</span>' : ''}${
+            haggled(def, o.data) < 0 ? ` · <span class="op-sale">${MT.onSale}</span>` : ''}</div>
           <div class="op-desc">${desc}</div>
         </div>
         <span class="op-sold">seated</span>
         <button class="btn-price${haggleClass(def, o.data)}" data-buy-patron="${def.id}"${haggleTip(def, o.data)}>${
-          patronCost(def, o.data) === 0 ? 'Free' : coinHTML(patronCost(def, o.data))}</button>
+          patronCost(def, o.data) === 0 ? 'Free' : wasPriceHTML(def, o.data) + coinHTML(patronCost(def, o.data))}</button>
       </div>`;
   }).join('') || `<p class="sheet-note">${MT.noPatrons}</p>`;
 
@@ -389,13 +390,15 @@ function marketShopHTML() {
   // One source for every sundry's words (constants.js → sundryTip).
   const sundryCards = market.sundryOffers.map((o, i) => {
     const tip  = sundryTip(o);
+    const app  = o.kind === 'applicator' ? APPLICATORS[o.material] : null;
     const mark = o.kind === 'wrapped'   ? '<span class="wrapped-mark wrapped-mark--offer"></span>'
                : o.kind === 'ratchet'   ? '<span class="ratchet-mark">⇅</span>'
                : o.kind === 'reshuffle' ? '<span class="sundry-shuffle sundry-shuffle--offer">↻</span>'
+               : app                    ? `<span class="sundry-glyph sundry-glyph--offer">${app.glyph}</span>`
                : TOOL_LOOK[o.kind]      ? `<span class="sundry-glyph sundry-glyph--offer">${TOOL_LOOK[o.kind].glyph}</span>`
                :                          `<span class="paint-tube paint-tube--${o.colour}"></span>`;
     const extra = o.kind === 'wrapped' ? ' offer-wrapped' : o.kind === 'ratchet' ? ' offer-ratchet'
-                : TOOL_LOOK[o.kind] ? ' offer-tool'
+                : app || TOOL_LOOK[o.kind] ? ' offer-tool'
                 : o.kind === 'tube' ? ` offer-paint--${o.colour}` : '';
     return `
       <div class="offer-paint${extra}" data-offer="sundry" data-idx="${i}"
@@ -682,16 +685,18 @@ export function updateStallState() {
   btn.disabled = !ready || state.coins < price;
 }
 
-// Marked on the price tag rather than spelled out in words: a tag tipped
-// green-side-down is under the odds, red-side-down over, and the tooltip says
-// which for anyone who wants it said. An unexplained difference would read as a
-// fault rather than a bargain, but it needs a glance, not a sentence. A free
-// patron never haggles (see patronCost), so its tag is never marked.
+// A card on sale says so twice at a glance: the tag turns green with the old
+// price struck through beside the new, and the card's title line reads "on
+// sale". The tooltip says by how much. A free patron is never on sale (see
+// patronCost), so its tag is never marked. (A card laid out before sales
+// replaced the haggle may still ask a Coin over; its tag keeps the red.)
 const haggled = (def, data) => (def?.cost ? (data?.haggle ?? 0) : 0);
 const haggleClass = (def, data) => {
   const h = haggled(def, data);
   return h ? (h < 0 ? ' btn-price--under' : ' btn-price--over') : '';
 };
+const wasPriceHTML = (def, data) =>
+  (haggled(def, data) < 0 ? `<s class="price-was">${patronCost(def, { ...data, haggle: 0 })}</s>` : '');
 // The tag carries the surcharges too — the letters after a name, and a ghost's
 // free seat — so the asking price is never an unexplained number. All of it in
 // the tooltip: the card itself already says what a postnom and a ghost are.
@@ -699,7 +704,8 @@ const haggleTip = (def, data) => {
   if (!def?.cost) return '';
   const h = haggled(def, data);
   const notes = [];
-  if (h) notes.push(`${h < 0 ? 'Going cheap today — a Coin under' : 'A Coin over'} the usual ${def.cost}`);
+  if (h < 0) notes.push(`On sale — ${-h} Coin${h === -1 ? '' : 's'} off the usual ${def.cost}`);
+  if (h > 0) notes.push(`A Coin over the usual ${def.cost}`);
   if (data?.postnom) notes.push(`${POSTNOM.surcharge} Coins over for the ${data.postnom}`);
   if (data?.ghost)   notes.push(`${GHOST_HIRE.surcharge} Coins over for a ghost — it needs no seat`);
   return notes.length ? ` title="${notes.join(' · ')}"` : '';

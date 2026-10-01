@@ -82,6 +82,14 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   letter.textContent = letterGlyph(active);
   if (paint) letter.style.color = COLOURS[paint].glyph;
   div.appendChild(letter);
+  // A lucky sort carries its clover in a corner, its own element rather than a
+  // pseudo-element, which the trims, the selection and the fuses already use.
+  if (tile.material === 'lucky') {
+    const clover = document.createElement('span');
+    clover.className = 'tile-clover';
+    clover.setAttribute('aria-hidden', 'true');
+    div.appendChild(clover);
+  }
   // Colour shapes (Settings): the paint's shape as well as its colour, for a
   // player who cannot tell crimson, amber and jade apart. Drawn on every painted
   // tile and shown only while the setting is on (css/style.css).
@@ -185,7 +193,10 @@ export function tileFeatures(tile) {
   }
   if (tile.material) {
     const m = MATERIALS[tile.material];
-    if (m) out.push({ head: `${m.label} tile`, body: m.desc });
+    // A lucky sort says where the dial it moves stands now: luck is read nowhere
+    // else on the board, and the rule alone would leave it a number to remember.
+    const now = tile.material === 'lucky' ? ` ${logLine('luckNow', (state.luck ?? 1).toFixed(2))}` : '';
+    if (m) out.push({ head: `${m.label} tile`, body: m.desc + now });
   } else if (isSquib(tile)) {
     // The Powdermonkey's mark is not cast in anything — it wears the fuse
     // without being restruck — so there is no material to hang a row on, and

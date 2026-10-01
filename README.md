@@ -659,9 +659,10 @@ against the copy, marked what the compositor had got wrong, and sent the forme
 back to the stone to be pulled again. The seat does to the dice what the office
 did to the sheet.
 
-He stacks with `state.luck`, the dial the roll was built around and which has sat
-at ×1 since it was written. Luck scales the odds of each roll; the Corrector adds
-the second one. Two ×2 dials would have been one dial twice; these compose
+He stacks with `state.luck`, the dial the roll was built around. It sat at ×1 for
+a long while; printing **lucky** sorts (penny bronze, above) is what moves it now,
+to ×2 at most. Luck scales the odds of each roll; the Corrector adds the second
+one. Two ×2 dials would have been one dial twice; these compose
 without collapsing into each other.
 
 The design problem the seat has is that **it is invisible**. Every roll it
@@ -728,7 +729,7 @@ plus an optional **trim** and **nick**.
 | Trim | **Gold** pays 1 Coin · **Silver** +5 Points, counted into the tile's corner number wherever it appears · **Cobalt** refreshes 1 Discard · **Purple** raises the fifth multiplier by 0.5 |
 | Nick | A notch in one edge; the notched side is the direction. The nick reads every tile on that side and **adds their Points to its own** — a right nick on the first letter scores the rest of the word twice over. Nicks *do* stack, but a tile that carries a nick of its own is read at its **resting value** (the number it wears in the hand), so no nick ever reads another nick's winnings. While you compose, the nicked tile's corner number already shows what it will take |
 | Letterform | Dual tiles hold two letters (flip to switch; paint, trim and nick belong to the tile, so both faces wear them) · Ligatures ING · CH · CK · TH · WH · QU spell several letters from one tile (RAT too, but only from the Rat Catcher) · **Medieval sorts** þ · ȝ · Æ · Ƿ and **marks** ? · ! — below · the lone **Q**, which no bag holds and no shop sells: the ratchet is the only door to one |
-| Material | What the tile is cast from, under everything else: ordinary lead, or **cursed** / **ghost** / **rainbow** / **rose** / **blind** / **explosive** |
+| Material | What the tile is cast from, under everything else: ordinary lead, or **cursed** / **ghost** / **rainbow** / **rose** / **blind** / **explosive** / **lucky** |
 | Growth | Permanent +1s a patron (The Grafter) writes into a tile, worn as a jade corner number |
 
 **Materials** — most type is lead. A **wrapped tile** (4 Coins at the Market) is
@@ -780,6 +781,20 @@ paint, trims and nicks.
   and use it on every word after. A blind sort is cast in cool grey against the
   case's warm ivory: the one metal whose point is being unreadable should not
   itself be unreadable at a glance.
+- **Lucky** (penny bronze, the metal of a penny found heads-up) — drawn from
+  the bag **three times as often** as a plain sort, and each one printed adds
+  **0.05 to your luck**, from ×1 up to ×2. Luck is the multiplier on every
+  chance that goes your way — a patron's odds, a ghost at the Market, a sale
+  (`luckyRoll`, under *The Corrector* below) — and lucky sorts are the only
+  thing in the game that move it. The cap is the real number: luck lifts every
+  wanted roll at once, and at ×2 a coin toss is already a certainty. The luck
+  rises the moment the word prints, before any of that word's own rolls, and
+  the printed line says where it now stands; a lucky sort's tooltip says it too,
+  and the run report carries it. Struck by the **lucky applicator**, which the
+  Market sells (5 Coins). Knobs: `LUCKY` in `js/constants.js`; the weighting is
+  `drawFromBag` and the rise `raiseLuck`, both in `js/state.js`. A lucky sort
+  carries a four-leaf clover in its lower left, its own element in the tile
+  rather than a pseudo-element, since trims, selection and fuses hold those.
 
 **The Editors** — every chapter's third page is its **Deadline**, and the room
 knows it: the candles go redder and the wood darkens, fading with the page
@@ -1063,12 +1078,17 @@ in the **discard pile**. *Your collection* opens the case read-only, headed by a
 tally by colour — rainbow metal tallied apart, since it counts as every colour
 and would otherwise be counted four times over.
 
-**No two Markets price a patron alike.** A calling card's price is rolled as it
-is laid out: half the time the price on the tin, a quarter a Coin cheaper, a
-quarter a Coin dearer, and the card says which so a bargain can be spotted while
-scanning the row. It rides on the offer, so *New offers* re-rolls it too; the
-cat, being found rather than bought, is never haggled over, and no card asks
-less than a Coin. `PATRON_HAGGLE` in `js/constants.js`.
+**Some patrons are on sale.** As a calling card is laid out it may come **on
+sale** — a quarter off, at least a Coin — and the card says so twice: "on sale"
+on its title line, and the old price struck through beside the new on a green
+tag. A card is never dearer than its list price (it used to be as likely to come
+a Coin dear as a Coin cheap, and the dear ones only ever read as a tax). A sale
+is a wanted outcome, so it rides luck through `luckyRoll`: one card in four at
+×1 luck, one in two at ×2, and the Corrector pulls a missed sale again. It rides
+on the offer, so *New offers* re-rolls it too; the cat, being found rather than
+bought, is never on sale. `PATRON_SALE` in `js/constants.js`; the discount is
+kept as a negative `haggle` on the offer, which `patronCost` prices, so
+dismissing a patron bought on sale pays back half of what you actually paid.
 
 **Sundries** are consumables kept on the **workbench** (two slots to start, and
 the Colophon can add two more). Arming a tool is one tap and picking its target
@@ -1112,8 +1132,10 @@ sold back for a Coin, and opens on a tap:
 | 📦 **A plain brown wrapper** | a pair of tongs · a **curse applicator** · a silver-trimmed **FU** |
 
 The **applicators** are the tube's gesture pointed at the metal: each lays out
-two tiles from your hand and strikes the one you pick in rainbow or hellbox
-iron, refusing any tile already wearing a material. **OO** and **FU** are
+two tiles from your hand and strikes the one you pick in its metal, refusing any
+tile already wearing a material. Rainbow and hellbox iron come out of parcels
+and the alley; **penny bronze**, which strikes a sort lucky, is the one the
+Market sells, among its everyday sundries. **OO** and **FU** are
 ligatures no shop will sell you — OO counts as a doubled letter by itself, so it
 quietly pays *the Twins* (though it is one tile, so there is nothing for them to
 recast — see below).
@@ -1438,7 +1460,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Tool tuning — doubling cap, laurel step, tongs bonus, wash count | `js/constants.js` → `LOUPE_CAP`, `HONORIFIC_STEP`, `TONGS_BONUS`, `WASH_COUNT` |
 | The notice of dismissal — its price, and how often the fair has one | `js/constants.js` → `DISMISSAL_PRICE`, `DISMISSAL_OFFER_CHANCE` (it displaces a Market sundry slot last, in `rollSundryOffers`, `js/market.js`, so a commoner offer can never paint over it; the alley's own stock is `BLACK_SUNDRY_STOCK` and the shell game's pool `everySundry`). What it does is `dismissEditor` in `js/state.js`, spent in `useSundry` in `js/main.js` |
 | The child's stages — what each is called, wears, and pays | `js/constants.js` → `BABY_STAGES` (the same number is Points every word and Coins at the ✕). The register it waits in is `state.babyName`; the seat is `baby` in `js/patrons.js` |
-| The luck dial, and what rides on it | `js/state.js` → `luckyRoll` and `state.luck`. Every roll a player would want to win goes through it; misfortunes deliberately do not. *The Corrector* is its second branch — one reroll of a failed roll, counted on his own seat |
+| The luck dial, and what rides on it | `js/state.js` → `luckyRoll` and `state.luck`. Every roll a player would want to win goes through it, the Market's sales included; misfortunes deliberately do not. *The Corrector* is its second branch — one reroll of a failed roll, counted on his own seat. Lucky sorts are what raise it (`raiseLuck`) |
 | What a laurel is worth in Mult while The Laureate is seated | `js/constants.js` → `LAUREATE_MULT_STEP`. Paid in `js/scoring.js` pass 4 beside the laurel's Points; the badge copy is `laurelWorth` in `js/patrons.js`, which the shelf, the graveyard and the Market's shelf strip all read |
 | Where the patrons' turns happen, and what a ×Mult reaches | `js/scoring.js` → pass 4. Points that must be multiplied by the table have to land before it (the tongs' heat and the curse's toll do, in pass 3½) |
 | Patrons that improve the tiles rather than the word | `js/patrons.js` → the `tileBonus` hook (pass 1½ in `js/scoring.js`); the number goes onto the tile, so nicks read it and Monogrammists carry it. The hook's ctx carries `letters` as well as `tiles`, for a seat paying per tile for a property of the word's *shape* |
@@ -1466,7 +1488,8 @@ bigger step than the last and a built press has to multiply rather than add:
 | What unlocks a locked patron | the `locked()` predicate on its behaviour in `js/patrons.js` (read live off `state`, checked by every pool that deals a card), with the sentence explaining it on the card as `unlockNote` |
 | How often the Market offers each tier | `js/patrons.js` → `RARITY_WEIGHT` (`ubiquitous` is 3× `common`) |
 | Patron reaction odds | `js/constants.js` → `REACTION` (`floor`/`ceil` as fractions of the page's whole quota: silence below `floor`, a certainty at `ceil`); the lines themselves in `js/quips.js` — a flat array, add more any time |
-| How far a patron's asking price can drift | `js/constants.js` → `PATRON_HAGGLE` (`spread` Coins each way, `chance` per side) |
+| How often a patron is on sale, and how much off | `js/constants.js` → `PATRON_SALE` (`chance` before luck, `off` as a share of the price, at least a Coin) |
+| Lucky sorts — how often drawn, what they add to luck, where luck stops, the applicator's price | `js/constants.js` → `LUCKY` (`draw`, `step`, `cap`, `applicatorPrice`). The card quotes the first three through `{LUCKY_DRAW}`, `{LUCKY_STEP}` and `{LUCKY_CAP}` |
 | How long a line stays up to be read | `js/anim.js` → `READ_BASE` / `READ_PER_CHAR` / `READ_MAX`. Every bubble, floater and bar message holds for a span measured off its own length, so a long line is given longer, not read faster |
 | Words / discards / seats per page | `js/constants.js` |
 | Where every word list lives | `wordlists/` — the dictionary (`wordlist.txt`), all ten themed lists, the dummy-letter list (`silent.txt`) and `excluded-slurs.txt`, in one folder. The paths are `THEME_FILES` and `SILENT_FILE` in `js/themes.js`, which is also where `tools/build-single.mjs` reads the folder name from, so moving them is a change to that one file (plus `js/dict.js` and `js/excluded.js`, which fetch their own) |

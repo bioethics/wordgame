@@ -147,16 +147,17 @@ export const POSTNOM = {
 };
 
 // ─── What a patron is asking today ────────────────────────────────────────────
-// The asking price is rolled as the card is laid out, a coin either side of the
-// def's cost. It rides on the OFFER rather than the def, so a re-roll re-rolls
-// it. A free patron (the cat) is never haggled; no card asks less than one Coin.
-export const PATRON_HAGGLE = { spread: 1, chance: 0.25 };   // per side; the rest is list price
-export const rollHaggle = () => {
-  const r = random();
-  return r < PATRON_HAGGLE.chance ? -PATRON_HAGGLE.spread
-       : r < PATRON_HAGGLE.chance * 2 ? PATRON_HAGGLE.spread
-       : 0;
-};
+// Now and then a calling card is laid out ON SALE: `off` of its price, at least
+// a Coin. Never the other way — a card used to be as likely to come a Coin dear
+// as a Coin cheap, and the dear ones only ever read as a tax. A sale is a wanted
+// outcome, so its `chance` rides luck (luckyRoll, thrown where the card is laid
+// out in js/market.js): ×1 luck puts a card in four on sale, ×2 one in two. It
+// rides on the OFFER rather than the def, so a re-roll re-rolls it, and it is
+// stored as a negative `haggle` on the offer's data, which is what patronCost
+// prices. A free patron (the cat) is never on sale.
+export const PATRON_SALE = { chance: 0.25, off: 0.25 };
+export const saleDiscount = cost =>
+  (cost > 0 ? Math.max(1, Math.round(cost * PATRON_SALE.off)) : 0);
 
 // ─── The Usurer's book ────────────────────────────────────────────────────────
 // He lends against the SEAT, not against interest: hiring him is the fee, and
@@ -448,6 +449,7 @@ export const TOOL_LOOK = {
 export const APPLICATORS = {
   rainbow: { glyph: '🌈', label: APPLICATOR_TEXT.rainbow },
   cursed:  { glyph: '🩸', label: APPLICATOR_TEXT.cursed },
+  lucky:   { glyph: '🍀', label: APPLICATOR_TEXT.lucky },
 };
 // Patrons offered per Market. Scale with the roster: too few offers against a big
 // roster shows a thin slice of the game and makes guild assembly unreliable.
@@ -804,6 +806,8 @@ export const MARK_TRIM = 'purple';   // what a wrapped mark always comes wearing
 //           effect that note was waiting for.
 //   rose  — a real alloy, soft enough to melt in boiling water, so no press
 //           could set a page in it. Out of The Poppet's party bag only.
+//   lucky — penny bronze, the metal of a penny found heads-up. Struck by the
+//           Market's lucky applicator, and nowhere else (see LUCKY, below).
 export const MATERIALS = {
   cursed:  { ...MATERIAL_TEXT.cursed,  emoji: '🩸' },
   ghost:   { ...MATERIAL_TEXT.ghost,   emoji: '👻' },
@@ -811,7 +815,18 @@ export const MATERIALS = {
   blind:   { ...MATERIAL_TEXT.blind,   emoji: '\u25cc' },
   rose:    { ...MATERIAL_TEXT.rose,    emoji: '🎀' },
   explosive: { ...MATERIAL_TEXT.explosive, emoji: '💥' },
+  lucky:   { ...MATERIAL_TEXT.lucky,   emoji: '🍀' },
 };
+
+// ─── Lucky — penny bronze ─────────────────────────────────────────────────────
+// The one thing in the game that moves state.luck, the dial every wanted roll is
+// multiplied by (luckyRoll in js/state.js). A lucky sort is drawn `draw` times as
+// often as a plain one (drawFromBag), and each one printed adds `step` to the
+// run's luck (raiseLuck), up to `cap`. The cap matters more than the step: luck
+// multiplies EVERY chance in the player's favour at once — a patron's odds, a
+// ghost at the Market, a sale — and at ×2 a coin toss is already a certainty.
+// The applicator that strikes one is sold at the fair for `applicatorPrice`.
+export const LUCKY = { draw: 3, step: 0.05, cap: 2, applicatorPrice: 5 };
 
 // Tiles nothing can be done to: a ghost; any tile an editor has merely lent you
 // (see js/bosses.js) — no collection template stands behind a lent tile, so paint
@@ -1677,6 +1692,7 @@ export const KNOBS = {
   SILVER_BONUS, PURPLE_TRIM_STEP, LENGTH_MULT_MIN, LENGTH_MULT_BASE,
   CURSED_MULT, CURSED_PENALTY, LOUPE_CAP, TONGS_BONUS, WASH_COUNT,
   GHOST_METAL: MATERIALS.ghost.metal.toLowerCase(),
+  LUCKY_DRAW: LUCKY.draw, LUCKY_STEP: LUCKY.step, LUCKY_CAP: LUCKY.cap,
 
   // The workbench and the Colophon
   HONORIFIC_STEP, LAUREATE_MULT_STEP, WINNOWER_BONUS, DYE_TILES_PER_CHAPTER, PAINT_PER_POT,

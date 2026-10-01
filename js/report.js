@@ -74,7 +74,7 @@ export function runReportText() {
   const count = test => col.filter(test).length;
   lines.push(`The case: ${col.length} sorts — ${count(t => t.colour)} painted, ${count(t => t.trim)} trimmed, `
     + `${count(t => t.nick)} nicked, ${count(t => t.material)} in rare metal`);
-  lines.push(`Coins: ${n(state.coins)}`);
+  lines.push(`Coins: ${n(state.coins)} · Luck ×${(state.luck ?? 1).toFixed(2)}`);
   return lines.join('\n');
 }
 

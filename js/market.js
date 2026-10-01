@@ -12,12 +12,13 @@ import {
   COMPOST_HEAP_MAX,
   TILE_BASE_PRICE, REROLL_BASE,
   SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, RATCHET_PRICE, BODKIN_PRICE, SUNDRY_SELL, HEADSMAN_STEP,
+  LUCKY,
   TOOLBOX_PRICE, FLEURON, FLEURON_PRICE, FLEURON_OFFER_CHANCE,
   QUIRE_PRICE, QUIRE_OFFER_CHANCE, QUIRE_DRESSED, QUIRE_MIDDLING, BEADLE_THRESHOLD,
   RULE, RULE_PACK_PRICE, RULE_PACK_CHANCE,
   STALL_DEFS, SMELT_MIN_COLLECTION,
   FEATURE_CHAIN_CHANCE, MAX_FEATURES, MEDIEVAL_LETTERS, isMedieval,
-  makeTileTemplate, rollHaggle, GHOST_HIRE,
+  makeTileTemplate, PATRON_SALE, saleDiscount, GHOST_HIRE,
 } from './constants.js';
 import {
   PATRON_DEFS, RARITY_WEIGHT, patronById, guildSeats, rollPostnom, patronCost, patronName,
@@ -174,10 +175,12 @@ function weightedPatronSample(n) {
   const out = [];
   while (out.length < n && pool.length) {
     const id = pick(pool);
-    // Per-copy state (the Monogrammist's letters, the postnom, the day's asking
-    // price) rolls here, so the card shows exactly what you would be buying.
+    // Per-copy state (the Monogrammist's letters, the postnom, the day's sale)
+    // rolls here, so the card shows exactly what you would be buying. The sale
+    // is a wanted outcome, so it rides luck (PATRON_SALE in js/constants.js).
     const postnom = rollPostnom();
-    const haggle = rollHaggle();
+    const cost = patronById(id)?.cost ?? 0;
+    const haggle = cost && luckyRoll(PATRON_SALE.chance) ? -saleDiscount(cost) : 0;
     const rolled = patronById(id)?.onOffer?.() ?? null;
     // …and once in a long while, one who is already dead. A wanted outcome, so
     // it rides luck like every other one. Being dead is part of the copy, so it
@@ -203,14 +206,22 @@ const SUNDRY_PRICES = {
   bodkin:    BODKIN_PRICE,
 };
 
+// Everything the counter can lay out, one entry per kind: a tube of each
+// colour, the everyday tools, and the one applicator the fair sells — penny
+// bronze, which strikes a tile lucky (LUCKY in js/constants.js). The alley's
+// two applicators stay the alley's.
+const sundryStock = () => [
+  ...Object.keys(COLOURS).map(colour => ({ kind: 'tube', colour, price: TUBE_PRICE })),
+  ...Object.entries(SUNDRY_PRICES).map(([kind, price]) => ({ kind, colour: null, price })),
+  { kind: 'applicator', material: 'lucky', colour: null, price: LUCKY.applicatorPrice },
+];
+
 function rollSundryOffers() {
   // Shuffled and sliced, so a shop never lays out the same kind twice — the four
   // tubes count as four kinds, being four different colours.
-  const offers = shuffle([...Object.keys(COLOURS), ...Object.keys(SUNDRY_PRICES)])
+  const offers = shuffle(sundryStock())
     .slice(0, SUNDRY_OFFERS)
-    .map(entry => SUNDRY_PRICES[entry] != null
-      ? { kind: entry, colour: null, price: SUNDRY_PRICES[entry], sold: false }
-      : { kind: 'tube', colour: entry, price: TUBE_PRICE, sold: false });
+    .map(entry => ({ ...entry, sold: false }));
 
   if (offers.length && random() < WRAPPED_OFFER_CHANCE) {
     offers[Math.floor(random() * offers.length)] = {
@@ -606,7 +617,8 @@ export function buySundry(idx) {
   if (state.sundries.length >= effectiveSundrySlots()) return { ok: false, reason: 'Your workbench is full.' };
   if (state.coins < offer.price)                     return { ok: false, reason: `You need ${offer.price} Coins.` };
   spendCoins(offer.price);
-  state.sundries.push({ kind: offer.kind, colour: offer.colour });
+  state.sundries.push({ kind: offer.kind, colour: offer.colour,
+                        ...(offer.material ? { material: offer.material } : {}) });
   offer.sold = true;
   return { ok: true, offer };
 }

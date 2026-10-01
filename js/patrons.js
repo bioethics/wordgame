@@ -2868,11 +2868,12 @@ export const rollPostnom = () =>
     : null);
 
 // What a card costs today — the card's price, plus the surcharge a lettered one
-// asks, plus the day's haggle (rollHaggle in constants.js), plus whatever the
-// seller adds on their own account (`markup` — the Black Market's, and the only
-// one so far). Read live from the offer rather than baked in, the way tile
-// prices are. A patron the card prices at NOTHING stays at nothing: the cat is
-// found, not bought. Everyone else asks at least a Coin however the haggle went.
+// asks, less the day's sale (`haggle`, negative; PATRON_SALE in constants.js),
+// plus whatever the seller adds on their own account (`markup` — the Black
+// Market's, and the Plagiarist's carried price). Read live from the offer rather
+// than baked in, the way tile prices are. A patron the card prices at NOTHING
+// stays at nothing: the cat is found, not bought. Everyone else asks at least a
+// Coin however deep the sale.
 //
 // The markup rides on the seat's `data` and so travels with the seat, which is
 // what makes patronRefund pay back half of what you ACTUALLY paid rather than

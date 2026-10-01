@@ -17,7 +17,7 @@ import {
   grantRandomPatron,
   rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost, luckyRoll, isSquib, spendCoins,
   dismissEditor, runDifficulty, lockBoard, unlockBoard, resetBoardLock,
-  barSaving, isSaveKey, setAsideSave, devMode, toggleSelected, logPage, reseedRun,
+  barSaving, isSaveKey, setAsideSave, devMode, toggleSelected, logPage, reseedRun, raiseLuck, spellsOnly,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
@@ -28,7 +28,7 @@ import {
   EXPLOSIVE_SPREAD_ODDS,
   PACKAGES, APPLICATORS, SILVER_BONUS, BAG_COUNTS,
   lengthFlourish, medievalExpansions, USURER, BRIBRARIAN, bribeMult, isRule, RULE,
-  RATCHET_RANGE,
+  RATCHET_RANGE, LUCKY,
 } from './constants.js';
 import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
 import { DICT, dictLoaded, dictStatus, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
@@ -1322,6 +1322,18 @@ async function submitWord() {
   }
   recordWord(script.word, script.total, script.bold);
 
+  // Lucky sorts pay in luck the moment the word prints (raiseLuck, js/state.js),
+  // before any roll below is thrown — so the Gambler's next coin and this word's
+  // own patrons already feel it. Each one says so over its own tile.
+  const luckGained = raiseLuck(printed);
+  if (luckGained) {
+    for (const t of printed) {
+      const el = t.material === 'lucky' && !spellsOnly(t) ? rectOf.get(t.id)?.el : null;
+      if (el) floatText(el, '🍀', 'fl-set fl-mat--lucky');
+    }
+    sfx.chime();
+  }
+
   // This word is spent, so the Gambler's coin goes back in the air — here
   // rather than in the score effect, which re-runs on every keystroke.
   rollGamble();
@@ -1372,6 +1384,9 @@ async function submitWord() {
   if (script.refresh) msg += logLine(script.refresh > 1 ? 'printedDiscards' : 'printedDiscard1', script.refresh);
   if (toBag.length)   msg += logLine('printedBagged', toBag.length);
   if (burned.length)  msg += logLine('printedBurned', burned.length);
+  if (luckGained) {
+    msg += logLine(state.luck >= LUCKY.cap ? 'printedLuckMax' : 'printedLuck', state.luck.toFixed(2));
+  }
   if (pardoned) {
     const def = patronById(pardoned.id);
     msg += logLine('pardonStands', def.emoji, def.name, pardoned.stands);

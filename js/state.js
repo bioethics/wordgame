@@ -10,7 +10,7 @@ import {
   MAGPIE_WEIGHT, MAKO_WEIGHT,
   PURVEYOR, TUBE_CHOICES, STALLS_PER_SHOP, MARKET_TILE_OFFERS, PATRON_OFFERS,
   UPGRADE_OFFERS, PROPOSAL_RANGE,
-  LOVERS, APPLICATORS, PACKAGES, STALL_DEFS,
+  LOVERS, APPLICATORS, PACKAGES, STALL_DEFS, LUCKY,
 } from './constants.js';
 import { SUNDRY_TEXT } from './text.js';
 import { upgradeById } from './upgrades.js';
@@ -209,7 +209,8 @@ export const state = {
                        // +1 a place later in the press's alphabet, -1 earlier.
                        // Transient, like sundryMode — it lives only while the
                        // popover is open, and a save comes back at rest.
-  luck: 1,             // scales every "good outcome" roll (see luckyRoll) — a future dial
+  luck: 1,             // scales every "good outcome" roll (see luckyRoll); raised by
+                       // printing lucky sorts (raiseLuck), to LUCKY.cap
   rackBonus: 0,        // hand size lent for the rest of THIS page (the Ragman's azure)
   primedMult: {},      // source id → ×Mult armed for the NEXT word (the Generic)
   metGhost: false,     // has a ghost turned up in this run? (unlocks the Bookbinder)
@@ -945,17 +946,21 @@ export const handCount = () =>
   [...state.rack, ...state.word].filter(t => t.material !== 'ghost' && !t.aboveHand).length;
 
 // One tile off the bag — the end of it, hence the pop; a weighted reach if
-// anyone at the table is watching the bag. The Magpie catches a gold trim, the
-// Shortfin Mako crimson paint (rainbow metal reads as crimson here as it does
-// everywhere), and their weights multiply on a tile that answers both. Every
-// draw in the game comes through drawUpToRackSize, so the opening hand and
-// every top-up run the same rule.
+// anyone at the table is watching the bag, or if anything in it is lucky. The
+// Magpie catches a gold trim, the Shortfin Mako crimson paint (rainbow metal
+// reads as crimson here as it does everywhere), and a lucky sort is reached for
+// LUCKY.draw times as often on its own account; the weights multiply on a tile
+// that answers more than one. A wrapped sort is only a spelling, so its metal
+// tips nothing. Every draw in the game comes through drawUpToRackSize, so the
+// opening hand and every top-up run the same rule.
+const drawnLucky = t => t.material === 'lucky' && !t.wrapped;
 function drawFromBag() {
   const magpie = owns('magpie');
   const mako   = owns('mako');
-  if (!magpie && !mako) return state.bag.pop();
+  if (!magpie && !mako && !state.bag.some(drawnLucky)) return state.bag.pop();
   const weigh = t => (magpie && t.trim === 'gold' ? MAGPIE_WEIGHT : 1)
-                   * (mako && countsAsColour(t, 'crimson') ? MAKO_WEIGHT : 1);
+                   * (mako && countsAsColour(t, 'crimson') ? MAKO_WEIGHT : 1)
+                   * (drawnLucky(t) ? LUCKY.draw : 1);
   const total = state.bag.reduce((n, t) => n + weigh(t), 0);
   let roll = random() * total;
   for (let i = state.bag.length - 1; i >= 0; i--) {
@@ -963,6 +968,18 @@ function drawFromBag() {
     if (roll <= 0) return state.bag.splice(i, 1)[0];
   }
   return state.bag.pop();
+}
+
+// Lucky sorts in a word that has just printed: each adds LUCKY.step to the
+// run's luck, to LUCKY.cap at most. Rounded to the hundredth, so the dial reads
+// ×1.15 rather than whatever twenty additions of a twentieth come to. Returns
+// what it rose by — 0 when there was no lucky sort, or the dial was full.
+export function raiseLuck(tiles) {
+  const n = tiles.filter(t => t.material === 'lucky' && !spellsOnly(t)).length;
+  if (!n) return 0;
+  const was = state.luck ?? 1;
+  state.luck = Math.min(LUCKY.cap, Math.round((was + n * LUCKY.step) * 100) / 100);
+  return state.luck - was;
 }
 
 // Returns the tiles drawn (so the caller can animate them in).

@@ -138,6 +138,9 @@ export const LOG_TEXT = {
   printedDiscard1:  '  +1 Discard.',                                 // ⌐
   printedBagged:    '  {0} slipped back into the bag.',              // ⌐ {0} tile count
   printedBurned:    '  {0} burned to ash.',                          // ⌐
+  printedLuck:      '  Luck rises to ×{0}.',                         // ⌐ the new luck, 2 places
+  printedLuckMax:   '  Luck rises to ×{0}, as high as it goes.',     // ⌐
+  luckNow:          'Your luck is ×{0}.',                            // under a lucky tile's rule
   pardonStands:     '  {0} {1} lets it stand for {2}.',              // ⌐ emoji · name · the word it reads as
   vouchSteno:       '  📟 The Stenographer vouches for it.',         // ⌐
   vouchExpectants:  '  🤰 The Expectant Parents had that very name on their list.',  // ⌐
@@ -428,6 +431,13 @@ export const MATERIAL_TEXT = {
   },
   // A squib is a small charge — and, in the print trade, a short explosive
   // piece of writing. Both meanings are doing work here.
+  // Luck starts at ×1 and is the multiplier on every roll that goes the
+  // player's way (luckyRoll in js/state.js); this is the only thing that moves it.
+  lucky: {
+    label: 'Lucky', metal: 'Penny bronze',
+    desc: '{LUCKY_DRAW}× as likely to be drawn. Each one printed adds {LUCKY_STEP} to your luck, '
+        + 'from ×1 up to ×{LUCKY_CAP}. Luck multiplies the odds of every chance in your favour.',
+  },
   explosive: {
     label: 'Explosive', metal: 'Squib lead',
     desc: '×{EXPLOSIVE_MULT} Mult when printed. Then: the tile is destroyed. '
@@ -545,6 +555,7 @@ export const TOOL_IN_A_SENTENCE = {
 export const APPLICATOR_TEXT = {
   rainbow: 'Rainbow roll',
   cursed:  'Hellbox iron',
+  lucky:   'Penny bronze',
 };
 
 // ─── The registers' parcels ───────────────────────────────────────────────────
@@ -661,6 +672,7 @@ export const MARKET_TEXT = {
   title:        'The Market',
   patrons:      'Patrons',
   patronsSub:   'calling today',
+  onSale:       'on sale',          // on a calling card's title line (PATRON_SALE)
   noPatrons:    'No patrons calling today.',
   tiles:        'Tiles',
   sundries:     'Sundries',
