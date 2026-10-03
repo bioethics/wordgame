@@ -2284,9 +2284,10 @@ html[data-paint-marks] .chip--amber::before   { border-radius: 50%; }
   border-color: #cf9a2a;
   color: #ffe9a8;
   --tile-lift: #22201c;
-  --trim-ring: 0 0 12px rgba(255, 200, 70, 0.45);
   animation: squibSpark calc(2.2s / var(--aspd)) ease-in-out infinite;
 }
+/* The glow gives way to a trim's ring (--trim-ring) when the sort has one. */
+.tile--mat-explosive:not([class*="tile--trim-"]) { --trim-ring: 0 0 12px rgba(255, 200, 70, 0.45); }
 .tile--mat-explosive .tile-letter {
   color: #ffe08a;
   text-shadow: 0 0 9px rgba(255, 210, 90, 0.7), 0 1px 0 rgba(0, 0, 0, 0.6);
@@ -2357,9 +2358,10 @@ html[data-paint-marks] .chip--amber::before   { border-radius: 50%; }
   background: linear-gradient(168deg, #ffd9e6 0%, #f3aec6 52%, #e089a8 100%);
   border-color: #c97d9a;
   color: #6d2340;
-  --trim-ring: 0 0 14px rgba(255, 170, 200, 0.55);
   --tile-lift: #d98fae;
 }
+/* The glow gives way to a trim's ring (--trim-ring) when the sort has one. */
+.tile--mat-rose:not([class*="tile--trim-"]) { --trim-ring: 0 0 14px rgba(255, 170, 200, 0.55); }
 .tile--mat-rose .tile-letter {
   font-family: var(--hand);
   font-weight: 700;
