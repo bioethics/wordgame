@@ -9,7 +9,7 @@
 import {
   TRIM_TEXT, NICK_TEXT, COLOUR_TEXT, COLOUR_DESC, MULT_TRACK_TEXT, MATERIAL_TEXT,
   SUNDRY_TEXT, TOOL_TEXT, APPLICATOR_TEXT, PACKAGE_TEXT, STALL_TEXT,
-  LENGTH_FLOURISHES, LENGTH_FLOURISH_BEYOND, DIFFICULTY_TEXT,
+  LENGTH_FLOURISHES, LENGTH_FLOURISH_BEYOND, DIFFICULTY_TEXT, DISTINCTION_TEXT, FOUNDRY_TEXT,
   fillTable, fillKnobs, fillSlots,
 } from './text.js';
 
@@ -661,9 +661,13 @@ function roundQuota(n) {
 // things a run is actually lost to (see the CHAPTER_EASE note above: a bad
 // draw against a quota set for a press you haven't built yet). Everything
 // else — the Market's prices, the editors, the reward — is left alone.
+//
+// `winEms` is what a win pays into the Foundry beside its crate (js/foundry.js):
+// the harder the book, the more it pays, so a harder edition added here should
+// carry more than the one below it.
 export const DIFFICULTIES = {
-  largeprint: { ...DIFFICULTY_TEXT.largeprint, quotaMult: 0.8, discards: 1 },
-  standard:   { ...DIFFICULTY_TEXT.standard,   quotaMult: 1,   discards: 0 },
+  largeprint: { ...DIFFICULTY_TEXT.largeprint, quotaMult: 0.8, discards: 1, winEms: 10 },
+  standard:   { ...DIFFICULTY_TEXT.standard,   quotaMult: 1,   discards: 0, winEms: 25 },
 };
 
 export const DEFAULT_DIFFICULTY = 'standard';
@@ -1634,6 +1638,102 @@ export function sundryTip(s) {
   return t ? { head: t.head, body: t.body } : null;
 }
 
+// ═══ The Foundry (what outlives a run) ═════════════════════════════════════════
+// Everything here belongs to the player rather than to any run: the stock of
+// sorts won from crates, the ems they sell for, and the founts — named starting
+// cases — built out of them. The state is js/foundry.js; the sheet is
+// js/foundry-sheet.js. Nothing in a run reads these numbers except where a run
+// PAYS into the Foundry (a win, an appendix, a distinction).
+
+// A crate is six sorts, and every one of them is graded before it is cast. The
+// grade decides how much finery the sort carries; the slots below decide which
+// grades a crate can hold. Slots are dealt in this order and revealed in it, so
+// the crate always ends on its best sort.
+//   plain       nothing on it — a letter or a ligature, bare
+//   dressed     one coat: paint, a trim, a nick or a second face
+//   fine        two of those
+//   rare        three of them, or a metal and one
+//   masterwork  all four, or a metal and two or three
+export const CRATE_SIZE = 6;
+export const CRATE_GRADES = ['plain', 'dressed', 'fine', 'rare', 'masterwork'];
+export const CRATE_SLOTS = {
+  // The crate a win pays, and the crate the ems buy.
+  crate: [
+    { plain: 88, dressed: 12 },
+    { plain: 88, dressed: 12 },
+    { plain: 88, dressed: 12 },
+    { plain: 55, dressed: 40, fine: 5 },
+    { dressed: 75, fine: 25 },
+    { fine: 58, rare: 32, masterwork: 10 },
+  ],
+  // FINE_CRATE_ODDS of ordinary crates turn out to be one of these when the lid
+  // comes off, and the larger distinctions pay one outright.
+  fine: [
+    { plain: 70, dressed: 30 },
+    { plain: 70, dressed: 30 },
+    { plain: 70, dressed: 30 },
+    { dressed: 70, fine: 30 },
+    { fine: 60, rare: 40 },
+    { rare: 65, masterwork: 35 },
+  ],
+};
+export const FINE_CRATE_ODDS = 0.1;
+export const CRATE_PRICE     = 45;   // ems
+
+// What a crate's sorts are cast from. Every letter the Market deals and nothing
+// it doesn't — no Q, no patron's own sorts (EXCLUSIVE_LETTERS), no marks — with
+// the bag's own proportions for the letters and a little extra weight on the
+// ligatures, which are the plain sorts most worth finding.
+export const CRATE_LIGATURE_WEIGHT = 2;
+
+// Which metals a crate can hold, by weight. Rose metal is The Poppet's alone.
+// Cursed iron keeps its rule (CURSED_MAX_POINTS) and squib lead comes bare, as
+// they do in the alley.
+export const CRATE_METALS = { rainbow: 3, ghost: 3, blind: 3, cursed: 2, explosive: 1 };
+
+// What a sort sells back for, by grade, in ems. A ligature is worth one more.
+export const GRADE_EMS = { plain: 1, dressed: 3, fine: 6, rare: 12, masterwork: 24 };
+export const LIGATURE_EMS_BONUS = 1;
+
+// A fount is the case a run starts with: the house's own BAG_COUNTS, with some
+// of its sorts taken out and sorts from your stock put in their places. Plain
+// sorts swap without limit — that is how a fount's letters are reshaped — but
+// no more than this many may be dressed.
+export const FOUNT_DRESSED_MAX = 12;
+export const FOUNT_MAX         = 6;    // founts of your own, beside the house's
+
+// What a run pays into the Foundry. A win pays a crate and its difficulty's
+// `winEms` (on DIFFICULTIES above); every appendix chapter cleared after it
+// pays APPENDIX_EMS, and every APPENDIX_CRATE_EVERY-th one a crate as well. A
+// run that has been through the Testing Chamber, or touched a dev button, pays
+// nothing at all (state.playtested).
+export const APPENDIX_EMS         = 10;
+export const APPENDIX_CRATE_EVERY = 3;
+
+// Distinctions: one-off honours, each paid once and kept for good. `ems` or
+// `crate` ('crate' | 'fine') is the reward; `at` is the threshold the check
+// reads, where it has one. The checks are in js/foundry.js (checkDistinctions);
+// names and rules are DISTINCTION_TEXT in js/text.js.
+export const DISTINCTIONS = {
+  finis:       { ...DISTINCTION_TEXT.finis,       crate: 'fine' },
+  fullclimb:   { ...DISTINCTION_TEXT.fullclimb,   ems: 40 },
+  ownfount:    { ...DISTINCTION_TEXT.ownfount,    ems: 30 },
+  appendix3:   { ...DISTINCTION_TEXT.appendix3,   crate: 'fine', at: 3 },
+  appendix6:   { ...DISTINCTION_TEXT.appendix6,   ems: 100, at: 6 },
+  nine:        { ...DISTINCTION_TEXT.nine,        ems: 15, at: 9 },
+  twelve:      { ...DISTINCTION_TEXT.twelve,      ems: 40, at: 12 },
+  thousand:    { ...DISTINCTION_TEXT.thousand,    ems: 15, at: 1000 },
+  tenthousand: { ...DISTINCTION_TEXT.tenthousand, ems: 30, at: 10000 },
+  bigword:     { ...DISTINCTION_TEXT.bigword,     crate: 'fine', at: 100000 },
+  allcolours:  { ...DISTINCTION_TEXT.allcolours,  ems: 15 },
+  quixote:     { ...DISTINCTION_TEXT.quixote,     ems: 20 },
+  interrobang: { ...DISTINCTION_TEXT.interrobang, ems: 30 },
+  onestroke:   { ...DISTINCTION_TEXT.onestroke,   ems: 25 },
+  crates10:    { ...DISTINCTION_TEXT.crates10,    crate: 'crate', at: 10 },
+  crates50:    { ...DISTINCTION_TEXT.crates50,    crate: 'fine', at: 50 },
+  fullfount:   { ...DISTINCTION_TEXT.fullfount,   ems: 20 },
+};
+
 // ═══ Filling the copy's knobs ══════════════════════════════════════════════════
 // One table of every number the writing is allowed to quote, and one pass that
 // fills them in. Both the tables above and js/patron-cards.js read this, so a
@@ -1716,6 +1816,9 @@ export const KNOBS = {
   // How much of the climb the gentler book takes off, as the card says it.
   LARGE_PRINT_CUT: `${Math.round((1 - DIFFICULTIES.largeprint.quotaMult) * 100)}%`,
 
+  // The Foundry
+  FOUNT_DRESSED_MAX, CRATE_SIZE, APPENDIX_EMS, APPENDIX_CRATE_EVERY,
+
   // The parcels, by the name each one goes by
   PARCEL_SPOOKY:   PACKAGES.spooky.label,
   PARCEL_ROMANTIC: PACKAGES.romantic.label,
@@ -1730,3 +1833,9 @@ fillTable(STALL_DEFS, KNOBS, 'text: STALL_TEXT');
 fillTable(PACKAGES,  KNOBS, 'text: PACKAGE_TEXT');
 fillTable(SUNDRY_TEXT, KNOBS, 'text: SUNDRY_TEXT');
 fillTable(DIFFICULTIES, KNOBS, 'text: DIFFICULTY_TEXT');
+fillTable(DISTINCTIONS, KNOBS, 'text: DISTINCTION_TEXT');
+// The Foundry's sheet quotes its own numbers — the cap, the crate's size — and
+// is a flat table of lines rather than a table of entries, so it is filled here.
+for (const [k, line] of Object.entries(FOUNDRY_TEXT)) {
+  FOUNDRY_TEXT[k] = fillKnobs(line, KNOBS, `text: FOUNDRY_TEXT.${k}`);
+}

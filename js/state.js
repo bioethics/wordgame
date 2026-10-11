@@ -105,13 +105,25 @@ function templateToTile(template) {
   };
 }
 
-// Plain and unpainted — the Market is where colour enters the run.
-function buildStarterCollection() {
+// The house's case is plain and unpainted — the Market is where colour enters
+// the run. A fount of the player's own (js/foundry.js) hands its templates in
+// as `starting` instead; they are copies, so the run may do as it likes to them.
+function buildStarterCollection(starting = null) {
+  if (starting?.length) return starting.map(adoptTemplate);
   const col = [];
   for (const [L, count] of Object.entries(BAG_COUNTS)) {
     for (let i = 0; i < count; i++) col.push(adoptTemplate(makeTileTemplate(L)));
   }
   return col;
+}
+
+// The prospectus changes the fount after the run exists: the case is dealt
+// again from the new one, and the bag with it. Nothing else has touched the
+// case by then — no page has been played.
+export function restock(starting, fount = null) {
+  state.collection = buildStarterCollection(starting);
+  state.bag = shuffle([...state.collection]);
+  state.fount = fount;
 }
 
 // ─── Settings (persist independently of the run) ──────────────────────────────
@@ -209,6 +221,11 @@ export const state = {
   difficulty: DEFAULT_DIFFICULTY,
 
   endless:   false,
+  // What the run pays into the Foundry (js/foundry.js), which outlives it.
+  fount: null,         // { id, name, swapped } — the fount the run was dealt from
+  playtested: false,   // the Testing Chamber or a dev button was used: pays nothing
+  foundryPaid: 0,      // the last chapter whose clearing has been paid for
+  takings: [],         // [{ label, ems, crate }] — what it paid, for the end screens
   // Experiments — mechanics kept out of the main game but switchable back on
   // from the Testing Chamber. An experiment is off unless a run turned it on,
   // so a plain new game never meets one.
@@ -602,6 +619,10 @@ export function loadState() {
     state.babyName ??= null;
     state.ghosts ??= [];
     state.blackMarketVisits ??= 0;
+    state.fount ??= null;
+    state.playtested ??= false;
+    state.foundryPaid ??= 0;
+    state.takings ??= [];
     if (savedId)  _nextId  = savedId;
     if (savedTid) _nextTid = savedTid;
     // Seats saved before uids existed get one now — after the counters above,
@@ -624,13 +645,14 @@ export function clearSave() {
 
 // `difficulty` defaults to whatever the last run was set to (settings.difficulty)
 // — the prospectus opens on that and writes back whatever it is changed to.
-export function newRun({ difficulty = settings.difficulty } = {}) {
+export function newRun({ difficulty = settings.difficulty, starting = null, fount = null } = {}) {
   _nextId = 1;
   _nextTid = 1;
   const diff = difficultyKey(difficulty);
   Object.assign(state, {
     difficulty: diff,
-    collection: buildStarterCollection(),
+    collection: buildStarterCollection(starting),
+    fount, playtested: false, foundryPaid: 0, takings: [],
     bag: [], rack: [], word: [], discardPile: [],
     chapter: 1, page: 1,
     quota: quotaFor(1, 1, diff), pageScore: 0,

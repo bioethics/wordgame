@@ -692,6 +692,22 @@ export const sfx = {
   // A sheet rises: the brass latch, and the door swinging in on the room
   // behind it. Nothing answers it on the way out — a sheet closing is its own
   // silence, and a pair of doors on every inspector would wear thin fast.
+  // The Foundry's crate: a nail drawn, the lid coming up, a board set down.
+  prise() {
+    grit({ time: 0.22, gain: 0.16, band: 900, q: 1.4, sweep: 1600, attack: 0.15 });
+    knock(240, { time: 0.06, gain: 0.3, when: 0.2 });
+    knock(150, { time: 0.12, gain: 0.35, drop: 0.4, when: 0.32 });
+    grit({ time: 0.08, gain: 0.14, low: 700, when: 0.32 });
+  },
+  // A sort turned face up, louder the finer it is: a plain one is a clack, a
+  // masterwork the page-complete fanfare.
+  reveal(grade = 'plain') {
+    if (grade === 'plain')   { clack(220, { gain: 0.8 }); return; }
+    if (grade === 'dressed') { clack(240, { gain: 0.8 }); sfx.gain(); return; }
+    if (grade === 'fine')    { clack(240, { gain: 0.8 }); sfx.chime(2); return; }
+    if (grade === 'rare')    { sfx.mult(); sfx.chime(4); return; }
+    sfx.win();
+  },
   sheetOpen() {
     grit({ time: 0.014, gain: 0.16, band: 3600, q: 2.6 });
     grit({ time: 0.2, gain: 0.1, low: 1400, attack: 0.05, when: 0.03 });

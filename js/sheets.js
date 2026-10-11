@@ -44,6 +44,8 @@ import {
   setBuild, freshBuild, buildPoints, canBeDual,
 } from './chamber.js';
 import { start, setDifficulty } from './start.js';
+import { foundry } from './foundry.js';
+import { fountPicksHTML } from './foundry-sheet.js';
 import {
   pickCardHTML, lookPicksHTML, layoutPicksHTML, themePicksHTML, activeLook,
   setLook, setTheme, setLayout,
@@ -1216,8 +1218,10 @@ export function renderStart() {
 
   const here = difficultyKey(state.difficulty);
   const difficulties = Object.entries(DIFFICULTIES)
-    .map(([id, d]) => pickCardHTML('data-start-diff', id, d.label, d.desc, id === here))
+    .map(([id, d]) => pickCardHTML('data-start-diff', id, d.label,
+      `${d.desc} ${fillSlots(ST.winPays, d.winEms ?? 0)}`, id === here))
     .join('');
+  const crates = foundry.crates.length;
 
   m.innerHTML = `
     <div class="sheet sheet--start">
@@ -1248,6 +1252,17 @@ export function renderStart() {
         <h3 class="market-sec">${ST.difficulty}<span class="market-sub">${ST.difficultySub}</span></h3>
         <div class="appearance-swatches">${difficulties}</div>
         <p class="sheet-note start-note">${ST.settled}</p>
+      </div>
+
+      <div class="start-row">
+        <h3 class="market-sec">${ST.fount}<span class="market-sub">${ST.fountSub}</span></h3>
+        <div class="appearance-swatches">${fountPicksHTML('data-start-fount')}</div>
+        <div class="start-foundry">
+          <button class="btn btn-quiet" id="btnStartFoundry">${ST.foundry}${
+            crates ? ` <span class="start-foundry-n">${crates}</span>` : ''}</button>
+          <p class="sheet-note">${ST.foundryNote}${crates
+            ? ` <b>${fillSlots(ST.foundryWaiting, crates === 1 ? ST.crate1 : fillSlots(ST.crates, crates))}</b>` : ''}</p>
+        </div>
       </div>
 
       <div class="start-bench">
@@ -1292,6 +1307,10 @@ function onStartClick(e) {
     persist();
     return;
   }
+
+  const fount = hit('data-start-fount');
+  if (fount) { flow.chooseFount(fount.dataset.startFount); sfx.page(); return renderStart(); }
+  if (e.target.closest('#btnStartFoundry')) return flow.openFoundry();
 
   if (e.target.closest('#btnStartChamber')) return flow.chamberFromStart();
   if (e.target.closest('#btnStartBegin'))   return flow.beginRun();
@@ -1603,7 +1622,8 @@ function chamberRunHTML() {
 
 let flow = { nextPage: () => {}, beginRun: () => {}, openMarket: () => {},
              openBlackMarket: () => {}, leaveChamber: () => {},
-             chamberFromStart: () => {}, backToStart: () => {} };
+             chamberFromStart: () => {}, backToStart: () => {},
+             chooseFount: () => {}, openFoundry: () => {} };
 
 // The clones ride the #fx layer, which sits above the modal.
 function flyPurchase(fromEl, toEl, opts = {}) {
@@ -2003,7 +2023,11 @@ function onChamberInput(e) {
   const field = e.target.closest('[data-tc-field]');
   if (field) {
     const n = Number(field.value);
-    if (Number.isFinite(n)) { state[field.dataset.tcField] = n; renderAll(); persist(); }
+    if (Number.isFinite(n)) {
+      state[field.dataset.tcField] = n;
+      state.playtested = true;       // see playtest() in js/chamber.js
+      renderAll(); persist();
+    }
     return;
   }
   if (e.target.id === 'tcFilter') {

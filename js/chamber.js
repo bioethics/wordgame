@@ -55,6 +55,7 @@ export const EXPERIMENTS = [
 
 export const experimentOn  = id => !!state.experiments?.[id];
 export function toggleExperiment(id) {
+  playtest();
   state.experiments ??= {};
   state.experiments[id] = !state.experiments[id];
   return state.experiments[id];
@@ -98,9 +99,15 @@ export function closeChamber() {
   state.inChamber = false;
 }
 
+// Anything the chamber writes into a run marks it a playtest, and a playtest
+// pays nothing into the Foundry (js/foundry.js). Walking in and out again
+// without touching anything does not count: only the writes below call this.
+const playtest = () => { state.playtested = true; };
+
 // ─── Coins ────────────────────────────────────────────────────────────────────
 
 export function grantCoins(n) {
+  playtest();
   state.coins += n;
   return state.coins;
 }
@@ -114,6 +121,7 @@ export function grantCoins(n) {
 export function seatPatron(id) {
   const def = patronById(id);
   if (!def) return { ok: false, reason: 'No such patron.' };
+  playtest();
   if (!def.stackable && state.patrons.some(p => p.id === id)) {
     return { ok: false, reason: 'Already seated.' };
   }
@@ -124,6 +132,7 @@ export function seatPatron(id) {
 }
 
 export function unseatPatron(uid) {
+  playtest();
   const i = state.patrons.findIndex(p => p.uid === uid);
   if (i < 0) return null;
   const [seat] = state.patrons.splice(i, 1);
@@ -134,17 +143,20 @@ export function unseatPatron(uid) {
 export function hauntPatron(id) {
   const def = patronById(id);
   if (!def) return { ok: false, reason: 'No such patron.' };
+  playtest();
   const seat = { id, uid: nextId(), data: {} };
   makeGhost(seat);
   return { ok: true, def, seat };
 }
 
 export function addSeats(n) {
+  playtest();
   state.upgradeCounts.patronSeat = Math.max(0, (state.upgradeCounts.patronSeat ?? 0) + n);
   return effectivePatronSlots();
 }
 
 export function addBenchSlots(n) {
+  playtest();
   state.upgradeCounts.workbenchSlot =
     Math.max(0, (state.upgradeCounts.workbenchSlot ?? 0) + n);
   return effectiveSundrySlots();
@@ -153,12 +165,14 @@ export function addBenchSlots(n) {
 // ─── The workbench ────────────────────────────────────────────────────────────
 
 export function giveSundry(spec) {
+  playtest();
   if (state.sundries.length >= effectiveSundrySlots()) addBenchSlots(1);
   state.sundries.push({ ...spec });
   return state.sundries.length;
 }
 
 export function dropSundry(idx) {
+  playtest();
   if (idx < 0 || idx >= state.sundries.length) return null;
   return state.sundries.splice(idx, 1)[0];
 }
@@ -169,6 +183,7 @@ export function dropSundry(idx) {
 // run for good, exactly as a bought one is.
 
 export function strikeTile(tmpl, count = 1) {
+  playtest();
   const made = [];
   for (let i = 0; i < count; i++) made.push(adoptTemplate({ ...tmpl }));
   state.collection.push(...made);
@@ -178,12 +193,14 @@ export function strikeTile(tmpl, count = 1) {
 // No SMELT_MIN_COLLECTION floor here: emptying the case is a thing worth being
 // able to test, and startPage draws what it finds.
 export function scrapTile(tid) {
+  playtest();
   const i = state.collection.findIndex(c => c.tid === tid);
   if (i < 0) return null;
   return state.collection.splice(i, 1)[0];
 }
 
 export function scrapAllTiles() {
+  playtest();
   const n = state.collection.length;
   state.collection.length = 0;
   return n;

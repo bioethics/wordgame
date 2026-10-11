@@ -27,6 +27,7 @@ import { blackMarketSnapshot } from './blackmarket.js';
 import { setNum, sleep, fmtMult, readingTime, sfx } from './anim.js';
 import { uiZoom } from './appearance.js';
 import { logLine, SOLO_TEXT, ratchetLine } from './text.js';
+import { rewardText } from './foundry.js';
 
 const $ = id => document.getElementById(id);
 
@@ -1637,9 +1638,28 @@ export function hideOverlay() {
 // gentler climb are not the same number as runs on the full one, and the end
 // screen is the one place that is worth saying.
 const editionHTML = () =>
-  state.difficulty === DEFAULT_DIFFICULTY
+  (state.difficulty === DEFAULT_DIFFICULTY
     ? ''
-    : `<p class="end-sub end-edition">${logLine('endEdition', runDifficulty().label)}</p>`;
+    : `<p class="end-sub end-edition">${logLine('endEdition', runDifficulty().label)}</p>`)
+  + (state.fount && state.fount.id !== 'house'
+    ? `<p class="end-sub end-edition">${logLine('endFount', escHTML(state.fount.name))}</p>`
+    : '');
+
+const escHTML = s => String(s ?? '').replace(/[&<>"]/g,
+  c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+// What the run paid into the Foundry (js/foundry.js), line by line. A loss
+// that paid nothing says what would have; a playtest says why it paid nothing.
+const takingsHTML = () => {
+  if (state.playtested) return `<p class="end-sub end-takings-note">${logLine('takingsPlaytest')}</p>`;
+  const t = state.takings ?? [];
+  if (!t.length) return `<p class="end-sub end-takings-note">${logLine('takingsNone')}</p>`;
+  return `
+    <div class="end-takings">
+      <div class="end-takings-head">${logLine('takingsHead')}</div>
+      ${t.map(x => `<div class="end-taking"><span>${escHTML(x.label)}</span><b>${rewardText(x)}</b></div>`).join('')}
+    </div>`;
+};
 
 const statsHTML = () => `
   <div class="run-stats">
@@ -1661,6 +1681,7 @@ export function showGameOver() {
         state.boss ? logLine('endLoseBoss', bossById(state.boss.id)?.emoji ?? '', bossById(state.boss.id)?.name ?? '') : '')}</p>
       ${editionHTML()}
       ${statsHTML()}
+      ${takingsHTML()}
       <button class="btn btn-print btn-big" data-overlay-action="newrun">${logLine('endNewRun')}</button>
     </div>`);
 }
@@ -1673,6 +1694,7 @@ export function showVictory() {
       <p class="end-sub">${logLine('endWinSub')}</p>
       ${editionHTML()}
       ${statsHTML()}
+      ${takingsHTML()}
       <div class="end-actions">
         <button class="btn btn-quiet" data-overlay-action="endless">${logLine('endEndless')}</button>
         <button class="btn btn-print btn-big" data-overlay-action="newrun">${logLine('endNewRun')}</button>

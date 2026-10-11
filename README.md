@@ -129,8 +129,10 @@ darkness is the point of them.
 
 A new run opens on **the prospectus** — the thing a printer put out before a
 book existed: this is the edition we mean to print, this is what it will look
-like, subscribe if you like the sound of it. Three things are settled on it: the
-board's **look**, the room's **theme**, and the run's **difficulty**.
+like, subscribe if you like the sound of it. Four things are settled on it: the
+board's **look**, the room's **theme**, the run's **difficulty**, and the
+**fount** it is dealt from — the last with a door beside it to the Foundry,
+where founts are built (below).
 
 The first two are preferences. They live in `settings`, they are the same
 buttons Settings lays out (built once, in `js/appearance.js`, so the two sheets
@@ -156,6 +158,74 @@ cost nothing and the run begins from there. Somebody who pressed "New run" did
 not ask for one. The walk goes both ways — the chamber's foot hands the
 prospectus back — and `atStart` survives it, so the chamber a run opened on
 still ends in "Begin the run" however many times you go between the two.
+
+### The Foundry — what outlives a run
+
+Everything above dies with the run. The Foundry doesn't. It keeps its own
+`localStorage` key (`folio_foundry_v1`), apart from the run's save, the way The
+Neologist's coined words keep theirs, and it holds four things:
+
+- **Ems** — the Foundry's money. Compositors on piece-work were paid by the
+  thousand ems they set, which makes the em the one unit in the trade that was
+  earned by the page. Sorts sell for ems; crates cost them (`CRATE_PRICE`, 45).
+  Coins never convert: they are the run's, and die with it.
+- **Crates** waiting to be opened. Six sorts apiece, each **graded** before it
+  is cast — *plain*, *dressed* (one coat of paint, trim, nick or second face),
+  *fine* (two), *rare* (three, or a metal and one), *masterwork* (all four, or a
+  metal and two or three). The slots are fixed — three that are nearly always
+  plain, one that might not be, one dressed or better, one showpiece — so a
+  crate is usually three or four plain sorts, one or two dressed and one with
+  several coats, with the luck living in the last slot and in the one-in-ten
+  crate that turns out **fine** when the lid comes off. Opening one is a small
+  ceremony: the lid comes up on six sorts lying face down, each glowing faintly
+  in its grade's colour (none, azure, jade, gold, rose), so the crate says it
+  holds something good before it says what; they turn one tap at a time in
+  ascending order, each a little louder than the last, and a sort whose exact
+  combination you have never held wears a **New** stamp. The sorts are in the
+  stock the moment the lid is up — the turning is only the showing, so closing
+  the tab mid-reveal loses nothing.
+- **The stock**: every sort won and not yet sold, gathered into piles of
+  identical sorts (thirty plain Es are one pile, ×30). Tap a pile to lay it out
+  above the grid and sell from it; a sort a fount is using sells last.
+- **Founts** — named starting cases, up to six of your own beside the house's.
+  A fount is the house's `BAG_COUNTS` with sorts taken out and sorts from the
+  stock put in their places, so it is always `STARTING_CASE` (54) sorts.
+  **Plain sorts swap without limit** — that is how a fount's letters are
+  reshaped, and why the plain sorts in a crate are worth having: a CH, a
+  seventh E, a second S — but no more than **12 of the sorts put in may be
+  dressed** (`FOUNT_DRESSED_MAX`). A fount is a **loadout, not a spend**: the run
+  is dealt copies (`fountTemplates`), so nothing a run does to a tile reaches
+  the stock, and one sort may sit in every fount you own. Selling a sort a fount
+  is using puts the house sort back in its place.
+
+The prospectus lists the founts as pick cards; choosing one re-deals the run's
+case from it (`restock` in `js/state.js`). The re-deal is by content, so walking
+into the Foundry and out again without changing anything leaves the case alone —
+including any sort the Testing Chamber has struck into it.
+
+**What pays in.** A **win** pays a crate and its difficulty's `winEms` (25 on
+Standard, 10 on Large Print — a harder edition added to `DIFFICULTIES` should
+carry more). Every **appendix** chapter cleared after it pays `APPENDIX_EMS` (10),
+and every third a crate besides. **Distinctions** — seventeen one-off honours
+(a nine-letter word, a 10,000-Point word, a Q, a Deadline met with its first
+word, Appendix III, a win in a fount of your own, ten crates opened …) — each pay
+once, in ems or a crate, and are kept for good. Losses pay only what
+distinctions they earned on the way down. The win is paid as the tenth chapter's
+last page is cleared, before the victory screen is drawn, and
+`state.foundryPaid` records the last chapter paid for, so a reload on the far
+side of it can never pay twice. Both end screens list what the run paid in.
+
+**A playtest pays nothing.** Anything the Testing Chamber writes into a run —
+coins, a seat, a struck sort, an experiment — and any dev button in Settings
+marks it `state.playtested`, and a playtest run earns no crate, no ems and no
+distinction. Walking into the chamber and out again without touching anything
+does not count. (The two dev buttons that grant crates and ems write to the
+Foundry, not the run, and exist to playtest the Foundry itself.)
+
+The odds came out, over 20,000 rolled crates, at about 3.2 plain, 1.5 dressed,
+0.9 fine and 0.4 rare-or-better sorts a crate, worth about 20 ems sold whole —
+so a crate's own sale buys back somewhat under half of the next, and the win's
+ems make up most of the rest.
 
 ## How a word scores
 
@@ -1377,6 +1447,12 @@ bigger step than the last and a built press has to multiply rather than add:
 | How far a patron's asking price can drift | `js/constants.js` → `PATRON_HAGGLE` (`spread` Coins each way, `chance` per side) |
 | How long a line stays up to be read | `js/anim.js` → `READ_BASE` / `READ_PER_CHAR` / `READ_MAX`. Every bubble, floater and bar message holds for a span measured off its own length, so a long line is given longer, not read faster |
 | Words / discards / seats per page | `js/constants.js` |
+| What a crate holds — the six slots' grade odds, a fine crate's odds, the price | `js/constants.js` → `CRATE_SLOTS` (one row of grade weights per slot, revealed in order), `FINE_CRATE_ODDS`, `CRATE_PRICE`; the casting is `castGrade` in `js/foundry.js`, which dresses sorts with the Market's own `addRandomFeature` |
+| Which letters and metals a crate can hold | `js/constants.js` → `CRATE_LIGATURE_WEIGHT` (the letters are `BAG_COUNTS` plus the dealt ligatures), `CRATE_METALS` (rose metal is left out; cursed iron and squib lead keep their alley rules) |
+| What a sort sells for | `js/constants.js` → `GRADE_EMS`, `LIGATURE_EMS_BONUS`; a sort's grade is read off what it carries (`gradeOf`, `js/foundry.js`) |
+| How many dressed sorts a fount may hold, and how many founts | `js/constants.js` → `FOUNT_DRESSED_MAX`, `FOUNT_MAX` |
+| What a run pays the Foundry | `js/constants.js` → `winEms` on each row of `DIFFICULTIES`, `APPENDIX_EMS`, `APPENDIX_CRATE_EVERY` |
+| The distinctions — what each asks and pays | `js/constants.js` → `DISTINCTIONS` (`ems` or `crate`, and `at` for a threshold); names and rules in `DISTINCTION_TEXT` (`js/text.js`); the checks are `checkDistinctions` in `js/foundry.js`, asked at a word printed, a page cleared, a win and an appendix |
 | Where every word list lives | `wordlists/` — the dictionary (`wordlist.txt`), all ten themed lists, the dummy-letter list (`silent.txt`) and `excluded-slurs.txt`, in one folder. The paths are `THEME_FILES` and `SILENT_FILE` in `js/themes.js`, which is also where `tools/build-single.mjs` reads the folder name from, so moving them is a change to that one file (plus `js/dict.js` and `js/excluded.js`, which fetch their own) |
 | The Silent Knight's dummy letters | `wordlists/silent.txt` — one `word index` pair per line, the index naming the letter that is written and not spoken (`knot 0`). Read into a Map by `adoptSilent` in `js/themes.js` |
 | The Ripper's watchwords | `js/constants.js` → `RIPPER_WORDS`. Matching is exact and the Ripper's card quotes the whole list, so a long one is a long card |
@@ -1424,6 +1500,8 @@ bigger step than the last and a built press has to multiply rather than add:
 | `js/chapters.js` | chapter titles — a flat, editable array; a run draws one per chapter and keeps it |
 | `js/market.js` | market state: offers, buying, sundries, stalls, rerolls |
 | `js/start.js` | the prospectus a run opens on: the sheet's own flag, and the difficulty pick that writes to both the run and the remembered default |
+| `js/foundry.js` | the Foundry — everything kept between runs (`folio_foundry_v1`): ems, crates and their grading, the stock, founts and the templates a run is dealt from them, what a run pays in, the distinctions |
+| `js/foundry-sheet.js` | the Foundry's sheet: the crate opening, the stock and its piles, the fount editor, the distinctions; and the founts' pick cards the prospectus borrows |
 | `js/chamber.js` | the Testing Chamber: coins, seats, sundries and struck sorts written straight into the run, through the game's own doors |
 | `js/render.js` | board-side DOM: tiles, shelf, workbench, status, readout, popovers, overlays |
 | `js/sheets.js` | the full-screen sheets — the prospectus, Market, stalls, Colophon, the chamber — HTML and click handling, with game flow injected from main.js |

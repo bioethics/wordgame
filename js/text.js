@@ -278,8 +278,25 @@ export const LOG_TEXT = {
   // score is a different number on an eased climb, and this is where knowing
   // which one it was matters. {0} is the difficulty's own name.
   endEdition:      'A {0} edition.',
+  endFount:        'Set in {0}.',                                    // {0} the fount's name
   endNewRun:       'Begin a new folio',
   endEndless:      'Keep printing (appendices)',
+
+  // ─── The Foundry, paid from the run (js/foundry.js) ─────────────────────────
+  // {0} the distinction's name · {1} its rule · {2} what it paid (foundryReward…)
+  distinctionEarned: 'Distinction — {0}: {1} {2} for the Foundry.',
+  appendixPaid:      '{0} cleared — {1} for the Foundry.',          // {0} Appendix II · {1} reward
+  // Each line of the end screen's takings, and the rewards they name.
+  takingsHead:       'For the Foundry',
+  takingsWin:        'A win on {0}',                                // {0} the difficulty's name
+  takingsAppendix:   '{0} cleared',                                 // {0} Appendix II
+  takingsDistinction:'Distinction: {0}',                            // {0} its name
+  takingsPlaytest:   'A playtest run — nothing for the Foundry.',
+  takingsNone:       'Nothing for the Foundry this time. A win pays a crate.',
+  rewardEms:         '{0} ems',
+  rewardEm1:         '1 em',
+  rewardCrate:       'a crate',
+  rewardFine:        'a fine crate',
 };
 
 // Look a line up and fill its slots — loudly, so a mistyped key is a crash at
@@ -670,6 +687,114 @@ export const COLOPHON_TEXT = {
 // is asked. Each of the three says its own rule once: the difficulty's sub says
 // it will not be asked again, `settled` says the other two will be there in
 // Settings whenever they are wanted.
+// ═══ THE FOUNDRY ═══════════════════════════════════════════════════════════════
+// What outlives a run (js/foundry.js, js/foundry-sheet.js). The rule for the
+// distinctions' `desc` is the cards' rule: what to do, plainly. {0} is the
+// distinction's own threshold where it has one.
+export const DISTINCTION_TEXT = {
+  finis:       { name: 'Finis',               desc: 'Win a run.' },
+  fullclimb:   { name: 'Unabridged',          desc: 'Win a run on Standard.' },
+  ownfount:    { name: 'Private Press',       desc: 'Win a run set in a fount of your own.' },
+  appendix3:   { name: 'Addenda',             desc: 'Clear Appendix III.' },
+  appendix6:   { name: 'The Supplement',      desc: 'Clear Appendix VI.' },
+  nine:        { name: 'Long Measure',        desc: 'Print a word of {0} letters or more.' },
+  twelve:      { name: 'Full Measure',        desc: 'Print a word of {0} letters or more.' },
+  thousand:    { name: 'Four Figures',        desc: 'Score {0} Points or more with one word.' },
+  tenthousand: { name: 'Five Figures',        desc: 'Score {0} Points or more with one word.' },
+  bigword:     { name: 'Six Figures',         desc: 'Score {0} Points or more with one word.' },
+  allcolours:  { name: 'Four-Colour Process', desc: 'Print a word that counts as all four colours.' },
+  quixote:     { name: 'Quixotic',            desc: 'Print a word with a Q tile in it (not QU).' },
+  interrobang: { name: 'Interrobang',         desc: 'Print a word with an interrobang in it.' },
+  onestroke:   { name: 'At One Stroke',       desc: 'Meet a Deadline\'s quota with its first word.' },
+  crates10:    { name: 'Regular Custom',      desc: 'Open {0} crates.' },
+  crates50:    { name: 'On Account',          desc: 'Open {0} crates.' },
+  fullfount:   { name: 'Fully Dressed',       desc: 'Fill all {FOUNT_DRESSED_MAX} dressed places in a fount.' },
+};
+
+export const GRADE_TEXT = {
+  plain:      'Plain',
+  dressed:    'Dressed',
+  fine:       'Fine',
+  rare:       'Rare',
+  masterwork: 'Masterwork',
+};
+
+export const FOUNDRY_TEXT = {
+  title:       'The Foundry',
+  note:        'Crates of sorts, and the founts you build from them. Everything here is kept between runs.',
+  ems:         'ems',
+  emsTip:      'Ems — what the Foundry pays for sorts and charges for crates. Kept between runs.',
+  tabCrates:   'Crates',
+  tabStock:    'Stock',
+  tabFounts:   'Founts',
+  tabHonours:  'Distinctions',
+  back:        'Back to the prospectus',
+
+  // The crates
+  waiting:     '{0} crates waiting',
+  waiting1:    '1 crate waiting',
+  waitingFine: '{0} of them fine',
+  noCrates:    'No crates waiting. A win pays one, and the appendices pay one every {APPENDIX_CRATE_EVERY} chapters.',
+  crateOdds:   '{CRATE_SIZE} sorts a crate, the best of them last. One crate in ten opens fine.',
+  open:        'Prise it open',
+  buy:         'Buy a crate',
+  cantAfford:  'Not enough ems.',
+  crateLabel:  'Sorts — with care',
+  fineLabel:   'Fine sorts — with care',
+  fineCrate:   'A fine crate!',
+  turnAll:     'Turn them all',
+  tapToTurn:   'Tap a sort to turn it over.',
+  intoStock:   'Into stock',
+  openNext:    'Open the next',
+  isNew:       'New',
+  haulWorth:   'Worth {0} ems in all.',
+  sold:        'Sold',
+
+  // The stock
+  stockNote:   '{0} sorts. Tap one to look it over, or to sell it.',
+  plainSort:   'A plain sort: nothing on it but the letter.',
+  someInFounts:'Some of these are set in {0}; the spares sell first.',
+  stockEmpty:  'Nothing in stock yet. Open a crate.',
+  filterAll:   'All',
+  filterDressed: 'Dressed',
+  filterPlain: 'Plain',
+  sellFor:     'Sell one for {0}',
+  sellSpares:  'Sell all {0} for {1}',
+  sellMini:    'Sell',
+  pileOf:      '{0} alike in stock.',
+  inFounts:    'Set in {0} — selling it puts the house sort back.',
+
+  // The founts
+  houseName:   'The house fount',
+  houseBlurb:  'The {STARTING_CASE} sorts every press starts with.',
+  fountName:   'Fount {0}',
+  fountBlurb:  '{0} swapped · {1} dressed',
+  newFount:    'New fount',
+  fountsFull:  'Six founts is the most the Foundry will keep.',
+  fountsNote:  'A fount is the case a run starts with: the house\'s {STARTING_CASE} sorts, with sorts from your stock put in place of some of them. Pick one on the prospectus.',
+  editNote:    'Tap a sort in the fount, then a sort from your stock to put in its place — or the other way round. Tap a sort you put in to take it out again.',
+  dressedCount:'{0} of {FOUNT_DRESSED_MAX} dressed',
+  swappedCount:'{0} swapped',
+  takingOut:   'Taking out {0} — now pick a sort from your stock.',
+  puttingIn:   'Putting in {0} — now pick a sort in the fount to replace.',
+  dressedFull: 'All {FOUNT_DRESSED_MAX} dressed places are filled. Take one out first.',
+  inFount:     'In the fount',
+  fromStock:   'From your stock',
+  stockAllIn:  'Every sort you own is already in this fount.',
+  rename:      'Name',
+  deleteFount: 'Throw it out',
+  useFount:    'Use for the next run',
+  inUse:       'Used for the next run',
+  editFount:   'Edit',
+  doneEditing: 'Done',
+  vowels:      '{0} vowels',
+  houseLocked: 'The house fount cannot be changed. Make a new fount to build your own.',
+
+  // The distinctions
+  honoursNote: '{0} of {1} earned. Each pays once.',
+  earned:      'Earned',
+};
+
 export const START_TEXT = {
   title:      'The Prospectus',
   note:       'How the press is set, before the first page.',
@@ -682,8 +807,17 @@ export const START_TEXT = {
   difficulty: 'Difficulty',
   difficultySub: 'fixed for the run once it begins',
   settled:    'The look and the room are yours to change at any time, from Settings.',
+  winPays:    'A win pays a crate and {0} ems.',
+  fount:      'Fount',
+  fountSub:   'the sorts the run starts with',
+  foundry:    'The Foundry',
+  foundryNote:'Open crates, sell sorts, and build founts of your own.',
+  foundryWaiting: '{0} to open.',                                   // {0} crate1 / crates
+  crate1:     '1 crate',
+  crates:     '{0} crates',
   chamber:    'The Testing Chamber',
   chamberNote:'A playtest bench, not part of the game — seats, sorts and sundries '
-            + 'for nothing, and the run begins from there.',
+            + 'for nothing, and the run begins from there. A run given anything '
+            + 'there pays nothing into the Foundry.',
   begin:      'Begin the run ❧',
 };

@@ -23,6 +23,7 @@ import { computeScore } from './scoring.js';
 import { patronById, patronName } from './patrons.js';
 import { market, stallById } from './market.js';
 import { proposalPreview, updateMarketState } from './sheets.js';
+import { stockByUid } from './foundry.js';
 
 
 const DRAG_THRESHOLD = 8;     // px of travel before a press becomes a drag
@@ -410,7 +411,7 @@ let _hoverTimer = null, _holdTimer = null, _held = null;
 
 function tipTargetOf(el) {
   return el.closest('[data-tip-head]')
-      || el.closest('.offer-tile, [data-stall-tid], [data-tid]');
+      || el.closest('.offer-tile, [data-stall-tid], [data-tid], [data-fd-uid]:not([data-fd-uid=""])');
 }
 
 function showTipFor(target) {
@@ -435,6 +436,9 @@ function showTipFor(target) {
 
 // Recover the template a preview tile was built from
 function templateFor(tileEl) {
+  // A sort in the Foundry's stock is no part of the run, and is looked up there.
+  const uid = tileEl.closest('[data-fd-uid]')?.dataset.fdUid;
+  if (uid) return stockByUid(Number(uid));
   const tid = tileEl.closest('[data-stall-tid]')?.dataset.stallTid
            ?? tileEl.closest('[data-tid]')?.dataset.tid;
   if (tid != null) return state.collection.find(t => t.tid === Number(tid));
@@ -455,7 +459,7 @@ function templateFor(tileEl) {
 export function initInspect() {
   // The three sheets, plus the board's own workbench. A long-press swallows the
   // click that follows, so reading a tool can't also arm it.
-  const roots = ['marketModal', 'chamberModal', 'inspectorModal', 'sundries']
+  const roots = ['marketModal', 'chamberModal', 'inspectorModal', 'foundryModal', 'sundries']
     .map(id => document.getElementById(id)).filter(Boolean);
 
   for (const root of roots) {

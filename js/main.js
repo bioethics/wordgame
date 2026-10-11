@@ -16,7 +16,7 @@ import {
   castCounterfeit, effectiveRackSize, handCount, pluckFromBag,
   grantRandomPatron,
   rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost, luckyRoll, isSquib, spendCoins,
-  dismissEditor, runDifficulty,
+  dismissEditor, runDifficulty, restock,
 } from './state.js';
 import {
   TILE_POINTS, ANIM, PAGES_PER_CHAPTER, FINAL_CHAPTER,
@@ -73,6 +73,11 @@ import {
 } from './patrons.js';
 import { randomQuip } from './quips.js';
 import { logLine } from './text.js';
+import {
+  loadFoundry, fountTemplates, fountRecord, selectFount, payWin, payAppendix,
+  checkDistinctions, devGrant,
+} from './foundry.js';
+import { openFoundry, closeFoundry, renderFoundry, initFoundrySheet } from './foundry-sheet.js';
 
 const $ = id => document.getElementById(id);
 const rect = el => el?.getBoundingClientRect();
@@ -1316,6 +1321,7 @@ async function submitWord() {
     state.stats.bestWord  = script.word;
   }
   recordWord(script.word, script.total, script.bold);
+  sayDistinctions(checkDistinctions('word', { script, printed }));
 
   // This word is spent, so the Gambler's coin goes back in the air — here
   // rather than in the score effect, which re-runs on every keystroke.
@@ -1420,6 +1426,7 @@ function renderAllStable() {
 async function pageComplete() {
   state.isAnimating = true;
   state.stats.pages += 1;
+  sayDistinctions(checkDistinctions('page', { deadline: isDeadline(state.page) }));
   sfx.win();
   const bossDef = state.boss ? bossById(state.boss.id) : null;
   // A Deadline served with a notice of dismissal is still a Deadline: the page
@@ -1499,6 +1506,7 @@ async function beginNextPage() {
   const finishedFinalPage = state.chapter === FINAL_CHAPTER && state.page === PAGES_PER_CHAPTER;
   if (finishedFinalPage && !state.endless) {
     state.endless = true;
+    sayDistinctions(payWin());
     persist();
     showVictory();
     return;   // advance continues when they pick an overlay action
@@ -1509,6 +1517,14 @@ async function beginNextPage() {
 
 async function advancePage() {
   const newChapter = state.page === PAGES_PER_CHAPTER;
+  // An appendix chapter just cleared pays into the Foundry, before the count
+  // moves on — payAppendix reads the chapter being left.
+  if (newChapter) {
+    const paid = payAppendix(state.chapter);
+    // Saved at once: the Foundry has already banked it, and the run's own save
+    // must agree before the next await, or a reload here would pay it twice.
+    if (paid) { persist(); log(paid.line, 'good'); sfx.gain(); sayDistinctions(paid.awarded); }
+  }
   if (newChapter) { state.page = 1; state.chapter += 1; }
   else            { state.page += 1; }
 
@@ -2671,9 +2687,15 @@ $('btnNewRun')?.addEventListener('click', async () => {
 });
 
 // Dev helpers
-$('devCoins')?.addEventListener('click', () => { state.coins += 20; renderAll(); if (state.inMarket) renderMarket(); });
+// Every dev button but the Foundry's own marks the run a playtest, which pays
+// nothing into the Foundry — see js/foundry.js.
+$('devCoins')?.addEventListener('click', () => {
+  state.playtested = true;
+  state.coins += 20; renderAll(); if (state.inMarket) renderMarket();
+});
 $('devMarket')?.addEventListener('click', () => {
   if (sheetUp() || state.isAnimating) return;
+  state.playtested = true;
   $('settingsModal')?.classList.remove('show');
   openMarket([], 0);
   renderAll(); renderMarket();
@@ -2681,10 +2703,64 @@ $('devMarket')?.addEventListener('click', () => {
 $('devChamber')?.addEventListener('click', () => openTheChamber());
 $('devWinPage')?.addEventListener('click', () => {
   if (sheetUp() || state.isAnimating || state.gameOver) return;
+  state.playtested = true;
   $('settingsModal')?.classList.remove('show');
   state.pageScore = state.quota;
   pageComplete();
 });
+
+// The Foundry's own: they write to the Foundry, not to the run.
+$('devCrate')?.addEventListener('click', () => {
+  devGrant({ crates: 1 });
+  if (start.open) renderStart();
+  renderFoundry();
+});
+$('devEms')?.addEventListener('click', () => { devGrant({ ems: 100 }); renderFoundry(); });
+
+// ─── The Foundry ──────────────────────────────────────────────────────────────
+
+// A distinction earned in the run is said on the board as it lands.
+function sayDistinctions(list = []) {
+  for (const a of list) log(a.line, 'good');
+  if (list.length) sfx.chime(4);
+}
+
+// The prospectus deals the run's case from the chosen fount, again whenever the
+// choice or the fount itself changes underneath it. Compared by content, so
+// opening the Foundry and closing it again leaves a case alone — including any
+// sort the Testing Chamber struck into it, which a re-deal would throw away.
+let dealtFrom = '';
+const fountSig = () => JSON.stringify(fountTemplates());
+function redealIfChanged() {
+  if (!state.inStart) return;
+  const sig = fountSig();
+  if (sig === dealtFrom) { state.fount = fountRecord(); return; }
+  dealtFrom = sig;
+  restock(fountTemplates(), fountRecord());
+  renderAll();
+  persist();
+}
+
+function chooseFount(id) {
+  selectFount(id);
+  redealIfChanged();
+}
+
+// The Foundry opens over the prospectus and hands back to it; the run under
+// both has not begun, so `state.inStart` holds throughout and a reload comes
+// back to the prospectus.
+function openTheFoundry() {
+  sfx.sheetOpen();
+  openFoundry();
+  renderFoundry();
+}
+
+function backFromFoundry() {
+  closeFoundry();
+  renderFoundry();
+  redealIfChanged();
+  renderStart();
+}
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
 
@@ -2696,7 +2772,8 @@ async function startFreshRun() {
   hideOverlay();
   closeMarket();
   renderMarket();
-  newRun();
+  newRun({ starting: fountTemplates(), fount: fountRecord() });
+  dealtFrom = fountSig();
   openStart();
   renderAll();
   renderStart();
@@ -2765,6 +2842,7 @@ function openTheChamber() {
 
 (async function init() {
   loadSettings();
+  loadFoundry();
   applySpeedCSS();
   initAppearance();
   initInput({ spendArmedSundry, spendsOnPick, onSundryPick });
@@ -2772,7 +2850,8 @@ function openTheChamber() {
   initShelfDrag();
   initSheets({ nextPage: beginNextPage, beginRun, openMarket: openTheMarket,
              openBlackMarket: openTheBlackMarket, leaveChamber,
-             chamberFromStart, backToStart });
+             chamberFromStart, backToStart, chooseFount, openFoundry: openTheFoundry });
+  initFoundrySheet({ back: backFromFoundry, fountsChanged: () => { if (start.open) renderStart(); } });
 
   renderDictStatus('loading', 0);
   // The exclusion list lands before a single word does: adoptWordlist and
@@ -2809,6 +2888,7 @@ function openTheChamber() {
     // The prospectus has nothing to snapshot — every pick was written straight
     // through — so the run's own flag is enough to come back to it.
     else if (state.inStart) {
+      dealtFrom = fountSig();
       openStart();
       renderAll(); renderStart();
     }

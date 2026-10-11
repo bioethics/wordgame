@@ -468,6 +468,54 @@ html[data-look="bench"] .start-bench {
   background: rgba(60, 38, 18, 0.05);
 }
 
+/* ── The Foundry ──────────────────────────────────────────────────────────── */
+/* Paper, like the prospectus it opens over; the floor the crates stand on keeps
+   its boards in both looks. What changes is the type and the ink: Fell for the
+   words, the bench's one red for the tab and the stamp, and the stock and the
+   fount laid in the same wooden type case as the inspector's. */
+html[data-look="bench"] .fd-tabs { border-bottom-color: var(--bn-rule); }
+html[data-look="bench"] .fd-tab { font-family: var(--bn-fell-sc); font-weight: 400; letter-spacing: 1px; color: var(--bn-dim); }
+@media (max-width: 560px) { html[data-look="bench"] .fd-tab { letter-spacing: 0.3px; } }
+html[data-look="bench"] .sheet--foundry .fd-sell-mini.btn { font-family: var(--sans); font-size: 11px; letter-spacing: 0; text-transform: none; }
+html[data-look="bench"] .fd-tab--on { color: var(--bn-ink); border-bottom-color: var(--bn-red); }
+html[data-look="bench"] .fd-ems { border-radius: 3px; font-family: var(--serif); color: var(--bn-ink); background: rgba(60, 38, 18, 0.07); border-color: var(--bn-rule); }
+html[data-look="bench"] .fd-news,
+html[data-look="bench"] .fd-status { font-family: var(--bn-fell); color: var(--bn-red-dk); }
+html[data-look="bench"] .fd-floor { border-radius: 4px; }
+html[data-look="bench"] .fd-floor-note,
+html[data-look="bench"] .fd-sold { font-family: var(--bn-fell); }
+html[data-look="bench"] .fd-fine-banner,
+html[data-look="bench"] .fd-crate-stencil { font-family: var(--bn-fell-sc); font-weight: 400; }
+html[data-look="bench"] .fd-new { background: var(--bn-red); border-radius: 2px; }
+html[data-look="bench"] .sheet--foundry .mini-grid {
+  border-radius: 4px;
+  background: linear-gradient(180deg, #7a5537 0%, #5b3d27 20%, #3e2919 100%);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 2px 0 rgba(255, 220, 170, 0.18), inset 0 -6px 12px rgba(0, 0, 0, 0.45);
+}
+html[data-look="bench"] .sheet--foundry .mini-grid > .sheet-note { color: #e8d3ad; }
+html[data-look="bench"] .fd-filter,
+html[data-look="bench"] .fd-count { border-radius: 3px; font-family: var(--bn-fell-sc); font-weight: 400; letter-spacing: 0.5px; border-color: var(--bn-rule); }
+html[data-look="bench"] .fd-filter--on { background: var(--bn-ink); color: #f6ecd6; }
+html[data-look="bench"] .fd-detail { border-radius: 3px; border-color: var(--bn-rule); background: rgba(255, 252, 244, 0.6); font-family: var(--bn-fell); }
+html[data-look="bench"] .fd-detail-text { font-size: 13.5px; }
+html[data-look="bench"] .fd-detail-n,
+html[data-look="bench"] .fd-detail-use { font-family: var(--bn-fell); }
+html[data-look="bench"] .fd-fount,
+html[data-look="bench"] .fd-honour { border-radius: 3px; border-color: var(--bn-rule); background: rgba(60, 38, 18, 0.04); }
+html[data-look="bench"] .fd-fount-name,
+html[data-look="bench"] .fd-honour-name { font-family: var(--bn-fell-sc); font-weight: 400; letter-spacing: 0.5px; }
+html[data-look="bench"] .fd-fount-blurb,
+html[data-look="bench"] .fd-honour-desc,
+html[data-look="bench"] .fd-fount-inuse { font-family: var(--bn-fell); font-style: italic; color: var(--bn-dim); }
+html[data-look="bench"] .fd-honour-mark { color: var(--bn-red); }
+html[data-look="bench"] .fd-honour--on { background: rgba(178, 58, 30, 0.07); border-color: rgba(178, 58, 30, 0.35); }
+html[data-look="bench"] .fd-rename { font-family: var(--bn-fell-sc); font-weight: 400; text-transform: none; letter-spacing: 1px; font-size: 13px; }
+html[data-look="bench"] .fd-rename input { border-radius: 3px; border-color: var(--bn-rule); background: rgba(255, 252, 244, 0.8); }
+html[data-look="bench"] .start-foundry-n { background: var(--bn-red); border-radius: 2px; }
+html[data-look="bench"] .end-takings { border-radius: 3px; border-color: var(--bn-rule); font-family: var(--bn-fell); }
+html[data-look="bench"] .end-takings-head { font-family: var(--bn-fell-sc); font-weight: 400; text-transform: none; letter-spacing: 1.5px; font-size: 13px; }
+
 /* ── Settings ─────────────────────────────────────────────────────────────── */
 html[data-look="bench"] .set-row { border-bottom: 1px solid var(--bn-rule); }
 html[data-look="bench"] .set-row > label { font-family: var(--bn-fell-sc); font-weight: 400; font-size: 15px; letter-spacing: 1px; }
