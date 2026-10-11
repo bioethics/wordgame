@@ -68,26 +68,55 @@ every dictionary loaded afterward — persisted in its own `localStorage` key
 a second instance of the same pattern: its own key, its own shape, read at
 run start alongside the dictionary and the per-run save.
 
-**Open questions for whoever designs this for real:**
+**Settled, 2026-10:**
 
-- What "round" means here — full run (win or bust), or something smaller
-  (a chapter)? Booster packs presumably want to be rare enough that a bag
-  is built up over many runs, not one.
-- Booster-pack contents: weighted toward the existing trim/paint/nick/material
-  vocabulary, or does meta-progression want tiles no in-run source offers?
-  Staying inside the existing vocabulary is the cheaper build and keeps a
-  "collection" from becoming a second patron roster to balance.
-- How much of a standard bag a custom one may replace — some floor of plain
-  tiles probably has to stay, or an endgame bag trivialises the early bag-
-  driven part of the run.
-- Where "difficulty scales" actually lives right now (chapter/quota growth
-  within a run) versus whether this idea implies something scaling *between*
-  runs too — a second axis that doesn't exist yet.
-- Interaction with the Colophon and Market, which already do permanent-ish
-  upgrades and tile shopping within a run — three systems all pointing at
-  "make your tiles better" want a story for how they don't step on each
-  other.
-- A second currency (booster-pack money, distinct from in-run Coins) is a
-  new piece of UI and a new thing to balance — worth asking whether Coins
-  earned but unspent at a run's end could just convert instead, before
-  building a parallel economy.
+- **A pack is opened at the end of a full run**, not a chapter.
+- **Packs hold existing tile types only**: trims, paints, nicks, materials.
+  Nothing a pack deals is a tile the run itself could never offer.
+- **A custom bag may replace at most a quarter of the standard bag**: 13 of
+  the 54 tiles in `BAG_COUNTS`, rounding down. The quarter is a first guess,
+  there to be tuned.
+- **Difficulty does not climb between runs.** The difficulty picker on the
+  prospectus (`DIFFICULTIES` in `js/constants.js`) is the only dial; what a
+  run carries forward is the bag, and nothing else.
+- **No clash with the Colophon or the Market.** A custom bag is the set of
+  tiles a run *starts* with, settled once before page 1. The Market and the
+  Colophon improve tiles during a run. The two never act at the same time.
+- **Coins do not convert.** Unspent Coins die with the run, as they do now.
+  The pack currency comes from selling tiles out of the collection, and only
+  from that.
+- **The way in is the prospectus** (`js/start.js`): beside look, room and
+  difficulty, a link to a sheet where bags are built and one is chosen for
+  the run.
+
+**Where it would plug in:**
+
+- `newRun({ difficulty })` in `js/state.js` already takes the prospectus's
+  choice; a chosen bag rides beside it and replaces `buildStarterCollection()`,
+  which is the one place the starting case is made.
+- The Market's **quire** (`rollQuire` in `js/market.js`) is a three-tile pack
+  already — one well-dressed sort, one middling, one bare, bought as a lot.
+  `randomSpecialTile` deals from the same letter pool the Market does, so it
+  already skips `EXCLUSIVE_LETTERS` and the Q. It never deals a material,
+  though (that is the alley's and the wrapped tile's business), so a pack
+  that can hold one needs a roll of its own.
+- `tilePrice` (`js/market.js`) is a ready-made basis for what a tile sells for.
+
+**Still open:**
+
+- **Which endings earn a pack.** A run can bust before Chapter X, be won at
+  Chapter X, or be won and carried into the Appendices until it busts. Is the
+  pack handed over at the win, at the final bust, or both? Does a won run earn
+  more than a lost one?
+- **Is a bag a loadout or a spend?** If the run is dealt *copies* of the bag's
+  tiles, anything that destroys a tile mid-run (`trashFromCollection`) costs
+  the collection nothing, and one gilded K can sit in several bags at once. If
+  the run takes the tiles themselves, every destroyed sort is lost for good,
+  which is a much harsher game.
+- **Does a replacement have to match its letter?** Swapping a plain K for a
+  gilded K leaves the bag's spelling alone. Swapping a plain E for a gilded Z
+  changes it, and thirteen such swaps could strip out most of the vowels.
+  Either a replacement keeps its letter, or the quarter needs a vowel floor
+  of its own.
+- Pack size, pack price, the sale price of a tile, and what the currency is
+  called.

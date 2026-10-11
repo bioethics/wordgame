@@ -950,11 +950,13 @@ small, because the rats are ballast while they wait — one a page, thickening t
 bag against every jewel in it — and that dilution, not the number, is what keeps
 the seat honest.
 
-**The opening draft** — before page 1 you kit out the press from a free spread:
-2 paints of 4, 4 tiles of 10, no coins involved. The starting collection ships
-unpainted, so those two paints are where colour enters the run. No patron is
-drafted: the first is hired at the first Market, once you know what the press
-needs.
+**The starting case** — every run is dealt from the same 54 sorts
+(`BAG_COUNTS`), plain and unpainted (`buildStarterCollection` in
+`js/state.js`). Nothing is kitted out before page 1: the Market that follows it
+is where colour enters the run and where the first patron is hired, once you
+know what the press needs. (An opening draft, a free spread of paints and tiles
+before page 1, used to stand here. It went when the Testing Chamber arrived —
+`SAVE_VERSION` 14.)
 
 **The Market** (between pages) keeps a fixed layout with churning contents:
 4 patrons, 4 tiles (5 with the Medievalist's stall), 3 **sundries** and 2
@@ -1330,7 +1332,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Trim effects & prices | `js/constants.js` → `TRIMS` (effects live in `js/scoring.js`); silver's Points are `SILVER_BONUS`, read by scoring, the trim's card and the tile's own number alike |
 | Materials, the cursed ×Mult, wrapped-tile price & how often one is offered | `js/constants.js` → `MATERIALS`, `CURSED_MULT`, `CURSED_MAX_POINTS`, `WRAPPED_PRICE`, `WRAPPED_OFFER_CHANCE` |
 | What is inside a wrapped tile | `js/constants.js` → `WRAPPED_CONTENTS`, a flat list rolled evenly — repeat an entry to make it likelier — and `MARK_TRIM` for what a wrapped mark wears |
-| Letters only one patron can hand you | `js/constants.js` → `EXCLUSIVE_LETTERS` (RAT belongs to the Rat Catcher; shop, draft and heap all skip them) |
+| Letters only one patron can hand you | `js/constants.js` → `EXCLUSIVE_LETTERS` (RAT belongs to the Rat Catcher; the shop and the heap both skip them) |
 | Compost heap size & what you may take a visit | `js/constants.js` → `COMPOST_HEAP_MAX`, `COMPOST_PER_MARKET` |
 | Purple trim step size | `js/constants.js` → `PURPLE_TRIM_STEP` |
 | Nick prices & the resting rule | `js/constants.js` → `NICKS`; the reading itself is pass 2 in `js/scoring.js` |
@@ -1356,7 +1358,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Stall roster, base prices, spread size | `js/constants.js` → `STALL_DEFS`, `STALLS_PER_SHOP`, `PROPOSAL_RANGE`, `SMELT_MIN_COLLECTION` |
 | Marks: which ones exist, legal tails, and what they arrive wearing | `js/constants.js` → `MARKS`, `MARK_RUNS`, `MARK_TRIM` (and `TILE_POINTS`). How often one turns up is `WRAPPED_CONTENTS`, since a wrapper is the only source |
 | What a proposal stall works on & offers | `js/market.js` → `PROPOSAL_STALLS` (one `eligible`/`propose` pair per stall — a new one is a few lines) |
-| Letters per draft paint pot | `js/constants.js` → `PAINT_PER_POT` |
+| Tiles one Colophon paint pick colours | `js/constants.js` → `PAINT_PER_POT` |
 | How loaded offered tiles are | `js/constants.js` → `FEATURE_CHAIN_CHANCE`, `MAX_FEATURES` (one feature free, then keep rolling); generation in `js/market.js` → `randomSpecialTile` |
 | Rewards & interest | `js/constants.js` → `REWARD` |
 | Squib lead — the ×Mult and the blast radius's odds | `js/constants.js` → `EXPLOSIVE_MULT`, `EXPLOSIVE_SPREAD_ODDS`; the ×Mult pays in scoring's pass 3, the charge goes off in `detonatePrinted` (`js/main.js`) |
