@@ -42,8 +42,17 @@ const js = (await build({
 })).outputFiles[0].text;
 
 const css = fs.readFileSync(path.join(root, 'daily/daily.css'), 'utf8');
-const wordlist = fs.readFileSync(path.join(root, 'wordlists/wordlist.txt'), 'utf8');
-const excluded = fs.readFileSync(path.join(root, 'wordlists/excluded-slurs.txt'), 'utf8');
+// The dictionary is filtered HERE, the way daily/main.js filters it at load
+// (A–Z entries only, minus the exclusions), so the page carries the playable
+// words and nothing else. The exclusion list itself never ships: it is a list
+// of slurs, and a page that only needs the words left after it has no use for it.
+const excludedSet = new Set(fs.readFileSync(path.join(root, 'wordlists/excluded-slurs.txt'), 'utf8')
+  .replace(/\r/g, '').split('\n').map(l => l.trim()).filter(l => l && !l.startsWith('#'))
+  .map(l => l.toUpperCase()));
+const wordlist = fs.readFileSync(path.join(root, 'wordlists/wordlist.txt'), 'utf8')
+  .replace(/\r/g, '').split('\n').map(w => w.trim().toUpperCase())
+  .filter(w => /^[A-Z]+$/.test(w) && !excludedSet.has(w)).join('\n');
+const excluded = '';
 
 let html = fs.readFileSync(path.join(root, 'daily/index.html'), 'utf8');
 const swap = (from, to) => {
@@ -56,6 +65,33 @@ swap('<script type="module" src="main.js"></script>',
 window.FOLIO_THEMES = ${JSON.stringify({ 'excluded-slurs': excluded })};
 ${home ? `window.DAILY_HOME = ${JSON.stringify(home)};` : ''}</script>
 <script>\n${js}\n</script>`);
+
+// --artifact: the same page as a claude.ai artifact, for playtesting from a
+// phone with no server at all. The artifact host wraps the file in its own
+// skeleton (doctype, head, body, a viewport meta, safe-area padding on :root),
+// so it gets the page's contents rather than a whole document, a name rather
+// than a caption for its title, and no top/bottom safe-area padding of its own
+// (the host already pads :root by those insets). The shared result leaves out
+// a link, since the framed page's own address is not one anyone could open.
+if (process.argv.includes('--artifact')) {
+  const body = html.match(/<body>([\s\S]*)<\/body>/)?.[1];
+  const fonts = html.match(/<link href="https:\/\/fonts\.googleapis\.com[^>]*>/)?.[0];
+  if (!body || !fonts) throw new Error('daily/index.html: could not find the body or the fonts link');
+  const page = `<title>The Daily Proof</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+${fonts}
+<style>
+${css}
+.page { padding-block: 14px 28px; }
+</style>
+<script>window.DAILY_NO_LINK = true;</script>
+${body.trim()}
+`;
+  fs.mkdirSync(out, { recursive: true });
+  fs.writeFileSync(path.join(out, 'daily-proof.html'), page);
+  console.log(`wrote ${path.join(out, 'daily-proof.html')} (${Math.round(page.length / 1024)} KB)`);
+  process.exit(0);
+}
 
 fs.mkdirSync(out, { recursive: true });
 fs.writeFileSync(path.join(out, 'index.html'), html);

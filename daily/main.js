@@ -39,7 +39,9 @@ const has = w => WORDSET.has(w);
 
 async function loadWords() {
   const get = async (file, embedded) => {
-    if (embedded) return embedded;
+    // An embedded list may be empty on purpose (a bundle ships its dictionary
+    // already filtered), so only a MISSING one sends the page to the network.
+    if (embedded != null) return embedded;
     // Relative to the PAGE (/daily/), which is where the game's lists sit beside.
     // A bundled build (tools/build-daily.mjs) never gets here: it carries both.
     const res = await fetch(`../wordlists/${file}`);
@@ -90,7 +92,8 @@ let solveAbort = null;
 function openChallenge(n) {
   n = Math.max(1, Math.floor(n) || 1);
   if (!PLAYTEST) n = Math.min(n, todaysNumber());
-  if (location.hash !== `#${n}`) history.replaceState(null, '', `#${n}`);
+  // A framed host (a claude.ai artifact) may refuse to have its address rewritten.
+  try { if (location.hash !== `#${n}`) history.replaceState(null, '', `#${n}`); } catch { /* framed */ }
   solveAbort?.abort();
   hidePop();
 
@@ -724,7 +727,8 @@ function renderResult() {
       fill(RESULT.shareHead, S.n),
       `${[...r.set].map(letterGlyph).join('')} — ${fmtN(r.score)}`,
       r.rank === 1 ? RESULT.best : `${gradeLabel(r)} (${fill(RESULT.place, fmtN(r.rank), fmtN(r.size))})`,
-      `${location.origin}${location.pathname}#${S.n}`,
+      // Inside a frame the page's own address is not one anybody could open.
+      ...(window.DAILY_NO_LINK ? [] : [`${location.origin}${location.pathname}#${S.n}`]),
     ];
     try { await navigator.clipboard.writeText(lines.join('\n')); share.textContent = RESULT.copied; }
     catch { share.textContent = lines.join(' · '); }
@@ -840,7 +844,25 @@ function wire() {
 }
 
 // ─── Start ────────────────────────────────────────────────────────────────────
-async function start() {
+// A host that can swap the page under a running game (a claude.ai artifact,
+// republished mid-playtest) asks for what to carry across; this is the case as
+// it was being set. Everything printed is in localStorage already.
+const snapshot = () => ({
+  n: S.n, word: S.word, applied: S.applied, order: S.order,
+  faces: S.tiles.map(t => [t.id, t.activeVariant ?? 0]),
+});
+function resume(data) {
+  if (!data || data.n !== S.n || S.result) return;
+  const ids = new Set(S.tiles.map(t => t.id));
+  for (const [id, face] of data.faces ?? []) { const t = S.tiles.find(x => x.id === id); if (t) t.activeVariant = face; }
+  if (Array.isArray(data.order) && data.order.length === ids.size && data.order.every(id => ids.has(id))) S.order = data.order;
+  S.word = (data.word ?? []).filter(id => ids.has(id));
+  S.applied = data.applied ?? null;
+  render();
+}
+
+async function start(carried = {}) {
+  window.claude?.hot?.snapshot?.(snapshot);
   // On its own subdomain the full game is somewhere else entirely; the build
   // says where (tools/build-daily.mjs, --home).
   if (window.DAILY_HOME) document.querySelector('.mast-house').href = window.DAILY_HOME;
@@ -856,7 +878,9 @@ async function start() {
     return;
   }
   const fromHash = parseInt(location.hash.slice(1), 10);
-  openChallenge(fromHash || todaysNumber());
+  openChallenge(carried?.n || fromHash || todaysNumber());
+  resume(carried);
 }
 
-start();
+if (window.claude?.hot?.ready) window.claude.hot.ready(start);
+else start(window.claude?.hot?.data ?? {});

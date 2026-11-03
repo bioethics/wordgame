@@ -1642,8 +1642,13 @@ site holding nothing but the daily, bundled into one page:
 node tools/build-daily.mjs --cname daily.julianandliesl.xyz
 ```
 
-writes `dist-daily/index.html` (word list and exclusions embedded, nothing
-fetched but the fonts) and its `CNAME`. The masthead's *Great Work* points
+writes `dist-daily/index.html` (the dictionary embedded already filtered, so
+the exclusion list itself never ships; nothing fetched but the fonts) and its
+`CNAME`. With `--artifact` instead it writes `dist-daily/daily-proof.html`, the
+same page as a claude.ai artifact (contents only — the host supplies the
+skeleton), which is the quickest way to playtest from a phone: publish it and
+open the link. A republish mid-game keeps the case being set (the
+`window.claude.hot` snapshot in `daily/main.js`). The masthead's *Great Work* points
 back at the full game. `.github/workflows/daily-subdomain.yml` rebuilds and
 publishes it whenever the daily or anything it reads changes; it does nothing
 until it is told where to publish. To switch it on:
