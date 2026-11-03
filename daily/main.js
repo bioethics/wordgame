@@ -19,11 +19,14 @@ import {
 } from './score.js';
 import {
   COLOURS, TRIMS, NICKS, MEDIEVAL, isMark, letterGlyph, colourDesc,
-  LOUPE_CAP, CURSED_MULT, CURSED_PENALTY, EXPLOSIVE_MULT,
+  LOUPE_CAP, CURSED_MULT, CURSED_PENALTY, EXPLOSIVE_MULT, LENGTH_MULT_MIN, lengthMult, lengthFlourish,
 } from '../js/constants.js';
 import { adoptExclusions, isExcluded } from '../js/excluded.js';
 import { loadSettings } from '../js/state.js';
-import { sfx, snapTiles, flipTiles } from '../js/anim.js';
+import {
+  sfx, snapTiles, flipTiles, applySpeedCSS, sleep, pulse, floatText, tweenNum, setNum,
+  sparkleBurst, fmtMult, flourishTime,
+} from '../js/anim.js';
 import { OMEN_TEXT, TOOL_TEXT, SORT_TEXT, UI, RESULT, fill } from './text.js';
 import { drawField } from './chart.js';
 
@@ -108,6 +111,7 @@ function openChallenge(n) {
   });
   S.tiles = S.deal.tiles.map(t => ({ ...t }));
   S.order = S.tiles.map(t => t.id);
+  S.tracks = tracksOf(S.tiles);
 
   // A proof already printed comes back as it was printed.
   const saved = loadStore()[n];
@@ -133,6 +137,20 @@ function openChallenge(n) {
   });
 
   render({ fresh: true });
+}
+
+// Every multiplier this case could light, in the order the readout reads them:
+// the measure always, then each paint the case holds, then purple and the
+// metals where a sort carries them. They wait on the sheet faintly from the
+// first frame, so the player sees what there is to reach for (the bench's blind
+// stamps, css/bench.css), and ink in as the word lights them.
+function tracksOf(tiles) {
+  const out = ['length'];
+  for (const c of Object.keys(COLOURS)) if (tiles.some(t => t.colour === c)) out.push(c);
+  if (tiles.some(t => t.trim === 'purple')) out.push('purple');
+  if (tiles.some(t => t.material === 'cursed')) out.push('cursed');
+  if (tiles.some(t => t.material === 'explosive')) out.push('explosive');
+  return out;
 }
 
 // ─── Composing ────────────────────────────────────────────────────────────────
@@ -180,10 +198,28 @@ function typeLetter(L) {
   if (locked()) return;
   const eff = new Map(effective().map(t => [t.id, t]));
   const free = S.order.filter(id => !S.word.includes(id)).map(id => S.tiles.find(t => t.id === id));
-  const showing = free.find(t => activeLetter(eff.get(t.id)) === L);
+  // Q finds a lone Q first and the QU ligature after it, as on the full board.
+  const showing = free.find(t => activeLetter(eff.get(t.id)) === L)
+    ?? (L === 'Q' ? free.find(t => activeLetter(eff.get(t.id)) === 'QU') : null);
   if (showing) { place(showing.id); return; }
   const other = free.find(t => t.letterType === 'dual' && faceLetter(eff.get(t.id), t.activeVariant ? 0 : 1) === L);
   if (other) { other.activeVariant = other.activeVariant ? 0 : 1; place(other.id); }
+}
+
+function clearWord() {
+  if (locked() || !S.word.length) return;
+  S.word = []; S.note = '';
+  sfx.clear();
+  render();
+}
+function shuffle() {
+  if (locked()) return;
+  for (let i = S.order.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [S.order[i], S.order[j]] = [S.order[j], S.order[i]];
+  }
+  sfx.shuffle();
+  render();
 }
 
 function refuse(id) {
@@ -255,11 +291,10 @@ async function print() {
   }
   const sc = scoreWord(word, rest, has);
   S.printing = true;
+  S.hurry = false;
   S.note = '';
   render();
-  sfx.crank(480);
-  await countUp($('roTotal'), sc.total, 480);
-  sfx.total();
+  await replay(word, sc);
 
   const n = S.n;
   if (!S.field) { S.note = UI.waiting; render(); }
@@ -282,19 +317,116 @@ async function print() {
   requestAnimationFrame(() => $('result').scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth', block: 'start' }));
 }
 
-// The total counted up as the press comes down, then stamped.
-function countUp(el, to, ms) {
-  return new Promise(done => {
-    if (reducedMotion() || !to) { el.textContent = fmtN(to); done(); return; }
-    const t0 = performance.now();
-    const tick = now => {
-      const k = Math.min(1, (now - t0) / ms);
-      el.textContent = fmtN(Math.round(to * (1 - (1 - k) ** 3)));
-      if (k < 1) requestAnimationFrame(tick);
-      else { el.classList.remove('ro-stamp'); void el.offsetWidth; el.classList.add('ro-stamp'); done(); }
-    };
-    requestAnimationFrame(tick);
-  });
+// ─── The print, replayed ──────────────────────────────────────────────────────
+// The full game's print (submitWord in js/main.js), for one word and an empty
+// table, in the order the arithmetic runs:
+//   1. each sort pays its own Points, a note higher up the scale each time,
+//      voiced by its metal;
+//   2. each nick reads its side — every sort it counts flashes its figure —
+//      and the sum lands back on the nick;
+//   3. a curse left in the case takes its toll;
+//   4. the multipliers, on the finished Points: each stamp's sorts glow, the
+//      bell rings a step higher, and the stamp inks in — the measure with its
+//      cheer;
+//   5. the press comes down on the total.
+// A tap or a key during it hurries the rest through (S.hurry), since the tenth
+// time a player has seen it they know what it says.
+const ANIM = { tile: 300, nick: 430, chip: 560, hold: 820 };   // constants.js ANIM, the game's pace
+const beat = ms => (S.hurry ? Promise.resolve() : sleep(ms));
+const tween = (el, to, opts = {}) => tweenNum(el, to, S.hurry ? { ...opts, duration: 60 } : opts);
+
+const TRACK_GLOW = {
+  length: '#d9e6f2', purple: '#cfa6ff', cursed: '#ff7a66', explosive: '#ffb066',
+  ...Object.fromEntries(Object.entries(COLOURS).map(([c, v]) => [c, v.bright])),
+};
+const trackHas = (kind, t) =>
+  kind === 'length' || t.colour === kind
+  || (kind === 'purple' && t.trim === 'purple') || t.material === kind;
+
+async function replay(word, sc) {
+  const stickTile = id => $('stick').querySelector(`.tile[data-id="${id}"]`);
+  const ro = { points: $('roPoints'), mult: $('roMult'), total: $('roTotal') };
+  setNum(ro.points, 0); setNum(ro.total, 0); setNum(ro.mult, 1, fmtMult);
+  // Every stamp the word will light is outlined in its colour, due rather than
+  // struck, and fills as the print reaches it.
+  for (const c of $('roChips').querySelectorAll('.chip--on')) c.classList.add('chip--due');
+
+  const own = sc.perTile.map(p => p.points - p.nick);
+  let running = 0;
+
+  // 1. The sorts.
+  for (const [i, t] of word.entries()) {
+    const el = stickTile(t.id);
+    pulse(el, 'tile--scoring', 360);
+    if (!S.hurry) floatText(el, `+${own[i]}`, 'fl-points');
+    sfx.tick(i, t.material ?? null);
+    running += own[i];
+    tween(ro.points, running);
+    await beat(ANIM.tile);
+  }
+
+  // 2. The nicks.
+  for (const [i, t] of word.entries()) {
+    const gain = sc.perTile[i].nick;
+    if (!gain) continue;
+    const src = stickTile(t.id);
+    pulse(src, 'tile--nick-firing', 480);
+    sfx.aura();
+    const read = t.nick === 'right' ? word.map((_, j) => j).filter(j => j > i) : word.map((_, j) => j).filter(j => j < i);
+    for (const j of read) {
+      const el = stickTile(word[j].id);
+      pulse(el, 'tile--nick-hit', 460);
+      if (!S.hurry) floatText(el, `${own[j]}`, 'fl-aura');
+    }
+    if (!S.hurry) floatText(src, `+${gain}`, 'fl-aura', { dy: -74 });
+    running += gain;
+    tween(ro.points, running);
+    await beat(ANIM.nick);
+  }
+
+  // 3. The curse's toll.
+  if (sc.toll) {
+    if (!S.hurry) floatText($('stick'), `−${fmtN(sc.toll)}`, 'fl-curse', { dy: -60 });
+    sfx.bad();
+    running -= sc.toll;
+    tween(ro.points, running);
+    await beat(ANIM.chip);
+  }
+
+  // 4. The multipliers.
+  let mult = 1;
+  for (const [ci, ch] of sc.chips.entries()) {
+    for (const t of word) {
+      if (!trackHas(ch.kind, t)) continue;
+      const el = stickTile(t.id);
+      el?.style.setProperty('--glow', TRACK_GLOW[ch.kind]);
+      pulse(el, 'tile--set-glow', 620);
+    }
+    sfx.chime(ci);
+    if (!S.hurry) {
+      if (ch.kind === 'length') {
+        const line = `${ch.count} letters — ×${fmtMult(ch.mult)}: ${lengthFlourish(ch.count)}`;
+        floatText($('stick'), line, 'fl-flourish', { dy: -138, duration: flourishTime(line) });
+        sparkleBurst($('stick'), Math.min(6 + ch.count, 18));
+      } else {
+        floatText($('stick'), `${chipName(ch.kind)} ×${fmtMult(ch.mult)}`, `fl-set fl-set--${ch.kind}`, { dy: -60 });
+      }
+    }
+    const chip = chipEl(ch.kind);
+    chip?.classList.remove('chip--due');
+    pulse(chip, 'chip--pop', 500);
+    mult *= ch.mult;
+    tween(ro.mult, Math.round(mult * 1000) / 1000, { fmt: fmtMult });
+    await beat(ANIM.chip);
+  }
+
+  // 5. The press comes down.
+  sfx.crank(480);
+  await tween(ro.total, sc.total, { duration: 480 });
+  sfx.total();
+  if (!S.hurry) sparkleBurst(ro.total, 12);
+  pulse($('readout'), 'readout--slam', 500);
+  await beat(ANIM.hold);
 }
 
 function setAgain() {
@@ -414,7 +546,9 @@ function showTileInfo(id, anchor) {
   showPop(anchor, pop => {
     const lines = tileLines(t);
     const paid = S.word.includes(id) ? lastPays.get(id) : null;
-    if (paid != null && paid !== restingOf(t)) lines.push({ head: fill(UI.inWord, paid) });
+    if (paid != null && paid !== restingOf(t)) {
+      lines.push({ head: fill(UI.inWord, paid), body: fill(UI.inWordParts, restingOf(t), paid - restingOf(t)) });
+    }
     popLines(pop, lines.length ? lines : [{ head: `${activeLetter(t)} · ${restingOf(t)}` }]);
     if (t.letterType === 'dual' && !locked()) {
       const b = document.createElement('button');
@@ -504,9 +638,75 @@ function renderStick(word, sc) {
   }
   lastPays = pays;
   fitStick();
+  renderRule(word, sc);
   $('status').textContent = S.note;
 }
 
+// ─── The measure, engraved ────────────────────────────────────────────────────
+// The full game's stick (renderRule in js/render.js): a tick per place along its
+// foot and, from LENGTH_MULT_MIN letters, the multiplier each length earns, with
+// a steel knee closing on the word's end. Cut for the word in the stick rather
+// than engraved once, because the measure counts LETTERS where the stick holds
+// sorts — a þ or a CH is one sort of two letters, a mark is a sort of none — so
+// each tick says what the word would be worth if it ended there. The scale runs
+// the whole stick, so every multiplier within reach is in view from the start.
+const measureOf = t => {
+  const L = activeLetter(t);
+  if (!L || isMark(L)) return 0;
+  return MEDIEVAL[L]?.reads?.[0]?.length ?? L.length;
+};
+const LABEL_SPACING = 30;   // px a label needs from its neighbour before it is cut
+
+function renderRule(word, sc) {
+  const stick = $('stick'), bar = $('rule'), knee = $('knee');
+  const cs = getComputedStyle(stick);
+  const gap = parseFloat(cs.columnGap) || 0;
+  const padL = parseFloat(cs.paddingLeft) || 0;
+  const tiles = [...stick.querySelectorAll(':scope > .tile')];
+  const tfs = parseFloat(cs.getPropertyValue('--tfs')) || 16;
+  const sortW = tiles[0]?.offsetWidth ?? tfs * 4.25;
+  const origin = stick.offsetLeft + stick.clientLeft;
+  const room = origin + stick.clientWidth - 4;
+
+  const ticks = [], labels = [];
+  let letters = 0;
+  let x = origin + padL - gap / 2;
+  const cut = (at, n, here = false) => {
+    if (at > room) return false;
+    const major = n >= LENGTH_MULT_MIN;
+    ticks.push(`<span class="tick${major ? ' tick--major' : ''}${here || at <= x ? ' tick--on' : ''}" style="left:${at}px"></span>`);
+    if (major) labels.push({ at, n, here });
+    return true;
+  };
+  tiles.forEach((el, i) => {
+    letters += measureOf(word[i]);
+    x = origin + el.offsetLeft + el.offsetWidth + gap / 2;
+    const last = i === tiles.length - 1;
+    // The knee's mark is the score's own count, which resolves the readings.
+    cut(x, last && sc ? sc.letters.length : letters, last);
+  });
+  if (tiles.length && sc) letters = sc.letters.length;
+  for (let k = 1; k <= 64; k++) if (!cut(x + k * (sortW + gap), letters + k)) break;
+
+  // Labels where they fit: the word's own first, then left to right, each kept
+  // clear of the ones already cut — a crowded stick labels fewer lengths.
+  const drawn = [];
+  for (const l of [...labels.filter(l => l.here), ...labels.filter(l => !l.here)]) {
+    if (drawn.some(d => Math.abs(d.at - l.at) < LABEL_SPACING)) continue;
+    drawn.push(l);
+    // Kept inside the steel: a label at the stick's end is nudged in, not cut off.
+    const at = Math.min(origin + stick.clientWidth - 14, Math.max(origin + 14, l.at));
+    ticks.push(`<span class="tick-label${l.here ? ' tick--here' : ''}" style="left:${at}px">×${fmtMult(lengthMult(l.n))}</span>`);
+  }
+  bar.innerHTML = ticks.join('');
+
+  const last = tiles[tiles.length - 1];
+  knee.style.left = `${last ? origin + last.offsetLeft + last.offsetWidth + 3 : origin + padL - 4}px`;
+  knee.style.top = `${stick.offsetTop + (last?.offsetTop ?? parseFloat(cs.paddingTop)) - 3}px`;
+  knee.style.height = `${(last?.offsetHeight ?? tfs * 4.5) + 6}px`;
+}
+
+const KNEE_ROOM = 16;
 // One course of type, whatever the word: a word too long for the measure is set
 // in a smaller size (fitWord in js/render.js does the same on the bench).
 function fitStick() {
@@ -516,7 +716,8 @@ function fitStick() {
   host.style.removeProperty('gap');
   if (!n) return;
   const cs = getComputedStyle(host);
-  const avail = host.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+  // The knee closes on the word's end, so a fitted word leaves it its width.
+  const avail = host.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - KNEE_ROOM;
   const base = parseFloat(getComputedStyle(host.querySelector('.tile')).fontSize);
   // A sort is 4.25em wide; the type size that lets n of them and their gaps fit.
   const sizeFor = gap => (avail - (n - 1) * gap) / (n * 4.25);
@@ -528,19 +729,27 @@ function fitStick() {
 }
 
 const CHIP_NAMES = { purple: 'Purple', cursed: 'Hellbox iron', explosive: 'Squib lead' };
+const chipName = (kind, count) =>
+  (kind === 'length' ? fill(UI.letters, count) : COLOURS[kind]?.label ?? CHIP_NAMES[kind]);
+const chipEl = kind => $('roChips').querySelector(`.chip[data-kind="${kind}"]`);
+
 function renderReadout(sc) {
   $('roPoints').textContent = fmtN(sc?.points ?? 0);
   if (!S.printing) $('roTotal').textContent = fmtN(sc?.total ?? 0);
   $('roMult').textContent = String(+(sc?.mult ?? 1).toFixed(2));
+  for (const id of ['roPoints', 'roTotal', 'roMult']) $(id)._val = undefined;
   const chips = $('roChips');
   chips.replaceChildren();
-  // Each multiplier a swatch and its figure; the name rides on hover.
-  for (const ch of sc?.chips ?? []) {
+  // One stamp per track the case can light: blind at ×1, inked when lit. The
+  // name rides on hover.
+  for (const kind of S.tracks) {
+    const ch = sc?.chips.find(c => c.kind === kind);
     const c = document.createElement('span');
-    c.className = `chip chip--${ch.kind}`;
-    c.title = ch.kind === 'length' ? fill(UI.letters, ch.count) : COLOURS[ch.kind]?.label ?? CHIP_NAMES[ch.kind];
+    c.className = `chip chip--${kind}${ch ? ' chip--on' : ''}`;
+    c.dataset.kind = kind;
+    c.title = chipName(kind, ch?.count ?? sc?.letters.length ?? 0);
     const sw = document.createElement('i');
-    const v = document.createElement('b'); v.textContent = `×${+ch.mult.toFixed(2)}`;
+    const v = document.createElement('b'); v.textContent = `×${fmtMult(ch?.mult ?? 1)}`;
     c.append(sw, v);
     chips.appendChild(c);
   }
@@ -920,6 +1129,9 @@ function wire() {
   document.addEventListener('pointerdown', e => {
     if (!e.target.closest('#pop, .tile, #almanac')) hidePop();
   });
+  // A tap or a key while the print runs hurries the replay through.
+  addEventListener('pointerdown', () => { if (S.printing) S.hurry = true; }, true);
+  addEventListener('keydown', () => { if (S.printing) S.hurry = true; }, true);
 
   // Tiles are focusable; Enter or Space taps them like a pointer would.
   document.addEventListener('keydown', e => {
@@ -937,25 +1149,19 @@ function wire() {
     if (/^[a-z]$/i.test(e.key)) { typeLetter(e.key.toUpperCase()); e.preventDefault(); }
     else if (e.key === 'Backspace') { const last = S.word[S.word.length - 1]; if (last != null) unplace(last); e.preventDefault(); }
     else if (e.key === 'Enter' && !onControl) { print(); e.preventDefault(); }
-    else if (e.key === 'Escape') { hidePop(); if (S.armed) toolTap(); }
+    // Space shuffles the case and Escape puts the tool away or empties the
+    // stick, as on the full game's board (Space on a button presses it).
+    else if (e.key === ' ' && !onControl) { shuffle(); e.preventDefault(); }
+    else if (e.key === 'Escape') {
+      if (!$('pop').hidden) hidePop();
+      else if (S.armed) toolTap();
+      else clearWord();
+    }
   });
 
   $('printBtn').addEventListener('click', print);
-  $('clearBtn').addEventListener('click', () => {
-    if (locked() || !S.word.length) return;
-    S.word = []; S.note = '';
-    sfx.clear();
-    render();
-  });
-  $('shuffleBtn').addEventListener('click', () => {
-    if (locked()) return;
-    for (let i = S.order.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [S.order[i], S.order[j]] = [S.order[j], S.order[i]];
-    }
-    sfx.shuffle();
-    render();
-  });
+  $('clearBtn').addEventListener('click', clearWord);
+  $('shuffleBtn').addEventListener('click', shuffle);
   $('toolBtn').addEventListener('click', toolTap);
   $('prevBtn').addEventListener('click', () => openChallenge(S.n - 1));
   $('nextBtn').addEventListener('click', () => openChallenge(S.n + 1));
@@ -966,7 +1172,10 @@ function wire() {
   let rz = 0;
   addEventListener('resize', () => {
     cancelAnimationFrame(rz);
-    rz = requestAnimationFrame(() => { fitStick(); resizeChart?.(); hidePop(); });
+    rz = requestAnimationFrame(() => {
+      if (!S.printing) { const { word, rest } = wordAndRest(); fitStick(); renderRule(word, word.length ? scoreWord(word, rest, has) : null); }
+      resizeChart?.(); hidePop();
+    });
   });
 }
 
@@ -990,7 +1199,8 @@ function resume(data) {
 
 async function start(carried = {}) {
   window.claude?.hot?.snapshot?.(snapshot);
-  loadSettings();   // the full game's sound setting, where the two share a site
+  loadSettings();   // the full game's sound and speed settings, where the two share a site
+  applySpeedCSS();
   // On its own subdomain the full game is somewhere else entirely; the build
   // says where (tools/build-daily.mjs, --home).
   if (window.DAILY_HOME) document.querySelector('.mast-house').href = window.DAILY_HOME;

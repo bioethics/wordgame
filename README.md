@@ -1535,6 +1535,27 @@ toss to wherever they are going and the sounds are the game's own
 (`snapTiles`/`flipTiles` and `sfx` from `js/anim.js`), following the full
 game's sound setting where the two share a site.
 
+The board is the bench's, cut down to one word. Each sort in the stick wears
+what it pays in the word being set — its own figure plus whatever its nick
+reads, in brass when that beats its resting value, popping when it changes —
+so a nick's reach is read off the tiles as the word is built. The stick is a
+ruler (`renderRule`): a tick per place along its foot, the length multiplier
+each place would earn from the sixth letter, and a steel knee that closes on
+the word's end. The readout carries a stamp for every multiplier the CASE could
+light — the measure, each paint the case holds, purple and the metals where a
+sort carries them — blind until the word lights it, so what there is to reach
+for is on the sheet before a sort is set.
+
+Printing replays the score the way the full game does (`submitWord`'s passes):
+each sort pays in turn, a note higher up the scale and voiced by its metal;
+each nick reads its side and the sum lands back on it; a curse takes its toll;
+the stamps fill one at a time on the finished Points, the measure with its
+cheer (`lengthFlourish`); and the press comes down on the total. A tap or a key
+hurries it through. The floaters and sparkles are `js/anim.js`'s own, drawn
+into a `#fx` layer, with `--aspd` set from the game's speed setting so the
+copied keyframes run at the game's pace. Space shuffles and Escape empties the
+stick, as on the full board.
+
 And it says almost nothing. The readout is three figures and the chips that
 make the middle one; the stick has no prompt; the almanac's day is a name,
 and the tool a glyph. What each of those means is a tap, a hold or a hover

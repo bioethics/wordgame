@@ -39,7 +39,13 @@
         <span class="ro-op ro-op--eq">=</span>
         <b class="ro-total" id="roTotal">0</b>
       </div>
-      <div class="stick" id="stick" aria-label="The word"></div>
+      <!-- The stick, the measure engraved along its foot, and the knee that
+           closes on the word's end (renderRule in js/render.js). -->
+      <div class="stick-wrap">
+        <div class="stick" id="stick" aria-label="The word"></div>
+        <div class="rule-bar" id="rule" aria-hidden="true"></div>
+        <div class="knee" id="knee" aria-hidden="true"></div>
+      </div>
       <p class="status" id="status" aria-live="polite"></p>
     </section>
 
@@ -60,6 +66,8 @@
   </div>
 
   <div class="pop" id="pop" hidden></div>
+  <!-- Where the print's floaters and sparkles rise (js/anim.js draws into it). -->
+  <div id="fx" aria-hidden="true"></div>
 
   <script type="module" src="main.js"></script>
 </body>

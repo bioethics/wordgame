@@ -43,6 +43,10 @@
   --fell-sc: 'IM Fell English SC', 'IM Fell English', Georgia, serif;
   --sans:  'Inter', ui-sans-serif, system-ui, 'Segoe UI', sans-serif;
 
+  /* The game's animation-speed divisor; js/anim.js applySpeedCSS sets it from
+     the full game's settings, and the copied keyframes below read it. */
+  --aspd: 1;
+
   color-scheme: dark;
 }
 
@@ -197,43 +201,64 @@ button { font: inherit; color: inherit; }
   .ro-chips { min-height: 22px; }
 }
 
+/* The stamps — one per multiplier the case could light (tracksOf in main.js).
+   Blind while it is ×1: a faint impression in its colour. Inked when the word
+   lights it: solid, the figure in paper. Due, during the print: outlined in
+   its colour and not yet struck, filling as the replay reaches it (the bench's
+   stamps, css/bench.css). */
 .chip {
+  --stamp: #55677a;
   display: inline-flex;
   align-items: center;
   gap: 4px;
   padding: 2px 7px 2px 6px;
   border-radius: 4px;
-  border: 1px solid var(--rule);
-  background: rgba(255, 255, 255, 0.35);
-  color: var(--ink);
+  border: 1.5px solid color-mix(in srgb, var(--stamp) 28%, transparent);
+  background: none;
+  color: rgba(34, 28, 22, 0.32);
   white-space: nowrap;
+  transition: color calc(0.2s / var(--aspd)), background-color calc(0.2s / var(--aspd)),
+              border-color calc(0.2s / var(--aspd));
 }
-.chip i { width: 9px; height: 9px; border-radius: 50%; background: var(--chip, var(--steel)); flex-shrink: 0; }
+.chip i { width: 9px; height: 9px; border-radius: 50%; background: var(--stamp); opacity: 0.35; flex-shrink: 0; }
 .chip b { font-family: var(--serif); font-weight: 900; font-size: 13px; }
-.chip--length    { --chip: #7d8fa0; }
-.chip--crimson   { --chip: #b23a2e; }
-.chip--azure     { --chip: #2e6fb2; }
-.chip--jade      { --chip: #2d8a5c; }
-.chip--amber     { --chip: #a87010; }
-.chip--purple    { --chip: #8a5fb0; }
-.chip--cursed    { --chip: #c93c2d; }
-.chip--explosive { --chip: #d96f1f; }
-.chip--toll { color: var(--red); border-color: rgba(178, 58, 30, 0.4); font-family: var(--serif); font-weight: 900; font-size: 13px; }
+.chip--on { background: var(--stamp); border-color: var(--stamp); color: var(--ivory); }
+.chip--on i { background: var(--ivory); opacity: 0.85; }
+.chip--on.chip--due { background: none; color: var(--stamp); }
+.chip--on.chip--due i { background: var(--stamp); opacity: 1; }
+.chip--pop { animation: inkBloom calc(0.5s / var(--aspd)) cubic-bezier(.3, 1.5, .5, 1); }
+@keyframes inkBloom {
+  0%   { transform: scale(1);    box-shadow: 0 0 0 0 var(--stamp); }
+  40%  { transform: scale(1.32); box-shadow: 0 0 16px 4px var(--stamp); }
+  100% { transform: scale(1);    box-shadow: 0 0 0 0 transparent; }
+}
+.chip--length    { --stamp: #55677a; }
+.chip--crimson   { --stamp: #b23a2e; }
+.chip--azure     { --stamp: #2e6fb2; }
+.chip--jade      { --stamp: #2d8a5c; }
+.chip--amber     { --stamp: #a87010; }
+.chip--purple    { --stamp: #7040a0; }
+.chip--cursed    { --stamp: #8f2018; }
+.chip--explosive { --stamp: #9a4210; }
+.chip--toll { --stamp: #b23a1e; color: var(--red); border-color: rgba(178, 58, 30, 0.45); font-family: var(--serif); font-weight: 900; font-size: 13px; }
 
-.ro-stamp { animation: stamp 0.42s cubic-bezier(.2, 1.6, .4, 1); }
-@keyframes stamp {
-  0%   { transform: scale(1.5) rotate(-4deg); opacity: 0.4; }
-  100% { transform: none; opacity: 1; }
+.readout--slam { animation: roSlam calc(0.5s / var(--aspd)) ease; }
+@keyframes roSlam {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.045); }
+  100% { transform: scale(1); }
 }
 
 /* The composing stick: a steel channel the word is set into, one course deep. */
+.stick-wrap { position: relative; }
 .stick {
   --tfs: 16px;
+  position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 5px;
-  height: 92px;
-  padding: 8px 10px 12px;
+  height: 110px;
+  padding: 8px 10px 30px;
   border-radius: 6px;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.35), transparent 30%),
@@ -254,7 +279,56 @@ button { font: inherit; color: inherit; }
    some back. */
 @media (max-width: 420px) {
   .sheet { padding: 8px 10px 6px; }
-  .stick { padding: 8px 6px 12px; }
+  .stick { padding: 8px 6px 30px; }
+}
+
+/* The measure, engraved along the stick's foot (renderRule in main.js): a tick
+   per place, the multiplier each length earns from the sixth, the word's own
+   enlarged. And the knee, a steel block that closes on the word's end. */
+.rule-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 28px; pointer-events: none; }
+.tick {
+  position: absolute;
+  bottom: 5px;
+  width: 1px; height: 6px;
+  background: rgba(30, 36, 42, 0.38);
+}
+.tick--major { width: 2px; height: 10px; }
+.tick--on { background: #1c2228; }
+.tick-label {
+  position: absolute;
+  bottom: 15px;
+  transform: translateX(-50%);
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 1;
+  color: var(--red-dk);
+  opacity: 0.75;
+  white-space: nowrap;
+  transition: transform calc(0.2s / var(--aspd)) ease, opacity calc(0.2s / var(--aspd)) ease;
+}
+.tick-label.tick--here {
+  transform: translateX(-50%) scale(1.3);
+  opacity: 1;
+  color: var(--red);
+  text-shadow: 0 0 6px rgba(255, 245, 210, 0.7);
+}
+.knee {
+  position: absolute;
+  width: 12px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #dde2e7, var(--steel) 45%, var(--steel-dk));
+  box-shadow: 0 0 0 1px rgba(30, 30, 30, 0.55), 2px 3px 7px rgba(0, 0, 0, 0.45);
+  transition: left calc(0.22s / var(--aspd)) cubic-bezier(.2, .8, .3, 1);
+  pointer-events: none;
+  z-index: 2;
+}
+.knee::after {
+  content: '';
+  position: absolute; left: 3px; top: 7px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff, #7a828a 70%);
 }
 
 /* Refusals only — and it holds its line, so one appearing moves nothing. */
@@ -503,6 +577,74 @@ button { font: inherit; color: inherit; }
   animation: none;
 }
 .tile--held { opacity: 0.3; filter: grayscale(0.5); }
+
+/* ─── The print's effects (css/style.css's own) ────────────────────────────── */
+#fx { position: fixed; inset: 0; pointer-events: none; z-index: 300; }
+.floater {
+  position: fixed;
+  transform: translateX(-50%);
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: 21px;
+  white-space: nowrap;
+  z-index: 320;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85), 0 0 18px rgba(0, 0, 0, 0.5);
+}
+.fl-points { color: #8db8ff; }
+.fl-aura   { color: var(--brass-hi); }
+.fl-curse  { color: #ff7a66; font-size: 19px; font-weight: 800; text-shadow: 0 0 8px rgba(201, 60, 45, 0.65), 0 2px 6px rgba(0, 0, 0, 0.85); }
+.fl-flourish {
+  color: #f3debc;
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9), 0 0 20px rgba(246, 214, 138, 0.35);
+}
+.fl-set            { font-size: 19px; }
+.fl-set--crimson   { color: #ff9d8e; }
+.fl-set--azure     { color: #8ec6ff; }
+.fl-set--jade      { color: #90e8ba; }
+.fl-set--amber     { color: #ffd68c; }
+.fl-set--purple    { color: #cfa6ff; }
+.fl-set--cursed    { color: #ff7a66; }
+.fl-set--explosive { color: #ffb066; }
+.sparkle {
+  position: fixed;
+  width: 9px; height: 9px;
+  border-radius: 2px;
+  background: linear-gradient(135deg, #fff3cf, var(--brass));
+  box-shadow: 0 0 8px rgba(246, 214, 138, 0.8);
+  z-index: 315;
+}
+
+.tile--scoring { animation: tileScore calc(0.36s / var(--aspd)) cubic-bezier(.3, 1.4, .5, 1); z-index: 4; }
+@keyframes tileScore {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.22) translateY(-6px);
+         box-shadow: 0 0 0 3.5px rgba(141, 184, 255, 0.65), 0 14px 24px rgba(0, 0, 0, 0.5); }
+  100% { transform: scale(1); }
+}
+.tile--nick-firing { animation: nickFire calc(0.48s / var(--aspd)) ease; z-index: 4; }
+@keyframes nickFire {
+  0%   { transform: scale(1) rotate(0); }
+  35%  { transform: scale(1.16) rotate(-3deg);
+         box-shadow: 0 0 0 4px rgba(246, 214, 138, 0.7), 0 0 26px rgba(246, 214, 138, 0.6); }
+  100% { transform: scale(1) rotate(0); }
+}
+.tile--nick-hit { animation: nickHit calc(0.46s / var(--aspd)) ease; }
+@keyframes nickHit {
+  0%   { transform: scale(1); filter: brightness(1); }
+  40%  { transform: scale(1.14); filter: brightness(1.3);
+         box-shadow: 0 0 0 3px rgba(246, 214, 138, 0.55), 0 10px 18px rgba(0, 0, 0, 0.45); }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+.tile--set-glow { animation: setGlow calc(0.62s / var(--aspd)) ease; }
+@keyframes setGlow {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.13) translateY(-4px);
+         box-shadow: 0 0 0 3.5px var(--glow, #fff), 0 0 26px var(--glow, #fff); }
+  100% { transform: scale(1); }
+}
 
 /* ═══ THE SORTS ═════════════════════════════════════════════════════════════
    css/style.css's tile, re-cut in em. 16px makes the game's 68 × 72 sort. */

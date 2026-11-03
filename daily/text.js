@@ -56,6 +56,7 @@ export const UI = {
   flipTo: 'Flip to {0}',
   letters: '{0} letters',
   inWord: 'Pays {0} in this word',
+  inWordParts: '{0} + {1} from its nick',
   notAWord: 'Not in the dictionary.',
   marksLast: 'Marks go at the end.',
   markAlone: 'A mark needs a word.',
