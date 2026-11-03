@@ -564,6 +564,26 @@ button { font: inherit; color: inherit; }
   pointer-events: none;
 }
 .tile-pts--grown { color: var(--good); opacity: 1; font-weight: 900; }
+/* In the word a sort's corner figure is what it will actually pay, and it is
+   brass when that beats its resting value — only a nick's reach can do that
+   here (style.css's .tile-pts--boosted). It pops when it changes. */
+.tile-pts--boosted {
+  opacity: 1;
+  font-size: 0.8125em;
+  font-weight: 900;
+  color: #8a5f1d;
+  text-shadow: 0 1px 0 rgba(255, 245, 215, 0.9), 0 0 0.5em rgba(217, 166, 75, 0.7);
+}
+.tile--mat-cursed .tile-pts--boosted, .tile--mat-explosive .tile-pts--boosted { color: #ffd68c; text-shadow: 0 0 0.5em rgba(255, 190, 90, 0.8); }
+.pts-pop {
+  animation: ptsPop 0.5s cubic-bezier(.3, 1.6, .5, 1) both;
+  transform-origin: bottom right;
+}
+@keyframes ptsPop {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(2.1); filter: brightness(1.5); }
+  100% { transform: scale(1); }
+}
 
 /* The second face: a button on the tile's shoulder that flips it. */
 .tile-alt {
@@ -604,7 +624,7 @@ button { font: inherit; color: inherit; }
 
 /* Trims — only the two that change a word's score are ever dealt here. */
 .tile--trim-silver { --trim-ring: inset 0 0 0 0.1875em #aab4c4; --tile-lift: #7e8794; }
-.tile--trim-silver .tile-pts:not(.tile-pts--grown) {
+.tile--trim-silver .tile-pts:not(.tile-pts--grown):not(.tile-pts--boosted) {
   opacity: 1; font-weight: 900; color: #6b7a8f;
   text-shadow: 0 1px 0 rgba(250, 252, 255, 0.95), 0 0 0.45em rgba(160, 174, 194, 0.8);
 }

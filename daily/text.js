@@ -55,6 +55,7 @@ export const UI = {
   number: '№ {0}',
   flipTo: 'Flip to {0}',
   letters: '{0} letters',
+  inWord: 'Pays {0} in this word',
   notAWord: 'Not in the dictionary.',
   marksLast: 'Marks go at the end.',
   markAlone: 'A mark needs a word.',

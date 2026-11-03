@@ -19,7 +19,7 @@ import {
 } from './score.js';
 import {
   COLOURS, TRIMS, NICKS, MEDIEVAL, isMark, letterGlyph, colourDesc,
-  TILE_POINTS, LOUPE_CAP, CURSED_MULT, CURSED_PENALTY, EXPLOSIVE_MULT,
+  LOUPE_CAP, CURSED_MULT, CURSED_PENALTY, EXPLOSIVE_MULT,
 } from '../js/constants.js';
 import { adoptExclusions, isExcluded } from '../js/excluded.js';
 import { loadSettings } from '../js/state.js';
@@ -309,7 +309,10 @@ function setAgain() {
 // ─── Tiles ────────────────────────────────────────────────────────────────────
 // The game's tile, drawn with the game's class names (makeTileEl in
 // js/render.js), so daily.css can carry the same paint, trims, nicks and metals.
-function tileEl(t, zone, { mini = false } = {}) {
+// `pays`, when given, is what the tile is worth in the word it stands in — its
+// own figure plus whatever its nick reads — and the corner shows that instead of
+// the resting value, in brass when it is more (makeTileEl's `pts` in js/render.js).
+function tileEl(t, zone, { mini = false, pays = null } = {}) {
   const div = document.createElement(mini ? 'span' : 'div');
   div.className = `tile${mini ? ' tile--mini' : ''}`;
   div.dataset.id = t.id;
@@ -331,10 +334,12 @@ function tileEl(t, zone, { mini = false } = {}) {
   if (t.colour) letter.style.color = COLOURS[t.colour].glyph;
   div.appendChild(letter);
 
-  const pts = document.createElement('span');
-  pts.className = `tile-pts${grown ? ' tile-pts--grown' : ''}`;
-  pts.textContent = restingOf(t);
-  div.appendChild(pts);
+  const resting = restingOf(t);
+  const shown = pays ?? resting;
+  const ptsEl = document.createElement('span');
+  ptsEl.className = `tile-pts${grown ? ' tile-pts--grown' : ''}${shown !== resting ? ' tile-pts--boosted' : ''}`;
+  ptsEl.textContent = shown;
+  div.appendChild(ptsEl);
 
   if (t.letterType === 'dual' && t.altLetter) {
     const alt = document.createElement('span');
@@ -408,6 +413,8 @@ function showTileInfo(id, anchor) {
   const t = effective().find(x => x.id === id);
   showPop(anchor, pop => {
     const lines = tileLines(t);
+    const paid = S.word.includes(id) ? lastPays.get(id) : null;
+    if (paid != null && paid !== restingOf(t)) lines.push({ head: fill(UI.inWord, paid) });
     popLines(pop, lines.length ? lines : [{ head: `${activeLetter(t)} · ${restingOf(t)}` }]);
     if (t.letterType === 'dual' && !locked()) {
       const b = document.createElement('button');
@@ -425,11 +432,14 @@ function showTileInfo(id, anchor) {
 // set, lifted, dragged or shuffled travels rather than blinks.
 function render({ fresh = false } = {}) {
   const before = fresh ? new Map() : new Map([...snapTiles($('case')), ...snapTiles($('stick'))]);
+  if (fresh) lastPays = new Map();
+  const { word, rest } = wordAndRest();
+  const sc = word.length ? scoreWord(word, rest, has) : null;
   renderHeader();
   renderAlmanac();
   renderCase(fresh);
-  renderStick();
-  renderReadout();
+  renderStick(word, sc);
+  renderReadout(sc);
   renderBench();
   renderResult();
   if (before.size) { flipTiles($('case'), before); flipTiles($('stick'), before); }
@@ -470,15 +480,29 @@ function renderCase(fresh) {
 
 const toolFits = t => (S.deal.tool === 'loupe' ? loupeDelta(t, t.activeVariant) > 0 : shiftable(t, t.activeVariant));
 
-function renderStick() {
+// The stick's corner figures are live: each sort shows what it pays in THIS
+// word, so a nick's reach is read off the tiles as the word is built, and a
+// figure that changes pops (renderWord's pts-pop in js/render.js).
+let lastPays = new Map();
+function renderStick(word, sc) {
   const host = $('stick');
   host.replaceChildren();
-  const { word } = wordAndRest();
+  const pays = new Map((sc?.perTile ?? []).map(p => [p.id, p.points]));
+  let popped = 0;
   for (const t of word) {
-    const el = tileEl(t, 'stick');
+    const el = tileEl(t, 'stick', { pays: pays.get(t.id) });
     if (S.armed && toolFits(t)) el.classList.add('tile--target');
+    const was = lastPays.get(t.id);
+    const now = pays.get(t.id);
+    if ((was != null && was !== now) || (was == null && now !== restingOf(t))) {
+      const ptsEl = el.querySelector('.tile-pts');
+      ptsEl.classList.add('pts-pop');
+      ptsEl.style.animationDelay = `${popped++ * 60}ms`;
+    }
+    if (now !== restingOf(t)) el.title += `\n${fill(UI.inWord, now)}`;
     host.appendChild(el);
   }
+  lastPays = pays;
   fitStick();
   $('status').textContent = S.note;
 }
@@ -504,9 +528,7 @@ function fitStick() {
 }
 
 const CHIP_NAMES = { purple: 'Purple', cursed: 'Hellbox iron', explosive: 'Squib lead' };
-function renderReadout() {
-  const { word, rest } = wordAndRest();
-  const sc = word.length ? scoreWord(word, rest, has) : null;
+function renderReadout(sc) {
   $('roPoints').textContent = fmtN(sc?.points ?? 0);
   if (!S.printing) $('roTotal').textContent = fmtN(sc?.total ?? 0);
   $('roMult').textContent = String(+(sc?.mult ?? 1).toFixed(2));
@@ -570,10 +592,13 @@ function settingOf(entry) {
   return entry.plan.map(p => byId.get(p.id));
 }
 
+// A word set small — on the slip, or a setting in the best-of list — with each
+// sort's figure as it paid in that word, so a winning setting shows its nicks.
 function miniWord(tiles) {
   const row = document.createElement('span');
   row.className = 'mini-word';
-  for (const t of tiles) row.appendChild(tileEl(t, 'mini', { mini: true }));
+  const pays = new Map((scoreWord(tiles, [], has)?.perTile ?? []).map(p => [p.id, p.points]));
+  for (const t of tiles) row.appendChild(tileEl(t, 'mini', { mini: true, pays: pays.get(t.id) }));
   return row;
 }
 
