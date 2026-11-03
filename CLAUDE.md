@@ -58,6 +58,16 @@ a card) by rendering it always, putting it away in `style.css` (`display:
 none`) and bringing it out in `bench.css` — never by branching the DOM on the
 look. The Testing Chamber and the graveyard keep their own skins in both.
 
+## The Daily Proof
+
+`daily/` is a separate page (one word, sixteen sorts, ranked against every word
+the case could set). It imports the game's numbers from `js/constants.js` but
+keeps its own fast copy of the base scoring in `daily/score.js`. After changing
+any base arithmetic — a trim, the measure, a metal — run
+`node tools/daily-check.mjs`, which fails if the two disagree. Its player-facing
+strings are in `daily/text.js` and follow the card-copy rules above. README.md →
+"The Daily Proof" has the rest, subdomain publishing included.
+
 ## Elsewhere
 
 Flavour is welcome, at length, in code comments and in README.md — nobody

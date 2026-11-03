@@ -20,6 +20,10 @@ python -m http.server 8431
 `node tools/build-single.mjs` bundles the whole game — wordlist included — into
 one HTML file, `great-work-single.html` by default; pass a path to override.
 
+**The Daily Proof** — one word from sixteen sorts, ranked against every word
+the case could have set — is at `/daily/` on the same server. It has its own
+section at the foot of this file.
+
 ### Playing on a phone
 
 The game is touch-native: tap a rack tile to play it, tap a word tile to take it
@@ -1504,3 +1508,165 @@ screens — ledger left, press right — and collapses back to Folio below
 
 A *Developer* section in Settings has shortcuts: +20 Coins, open the Market,
 clear the current page. The console exposes `window.folio = { state, settings }`.
+
+## The Daily Proof
+
+`/daily/` — one word, from one case of sixteen sorts, printed once. What comes
+back is not a score so much as a place: the page has counted every word in the
+game's dictionary that those sixteen sorts could have set, scored each one at
+its best, and tells you where yours stands among them — *top 0.5%, #4 of 1,412
+words*. The brackets are fine at the top and broad underneath (0.1, 0.25, 0.5,
+1, 2, 3, 5, 7.5, 10, 15, 20, 30, 40, 50, 65, 80, 100 — `BRACKETS` in
+`daily/score.js`), because the difference between first and tenth is the
+whole story and the difference between 900th and 1,000th is no story at all.
+The best word in the case is said in words rather than as a percentage: on a
+field of 400, first place is "top 0.25%", which undersells it.
+
+It is the base game with an empty table. No patrons, no editors, no Market —
+just the arithmetic every press owns from its first page: Points × the
+measure × the paints × purple × the metals. Every sort is the game's sort,
+drawn with the game's classes and explained in the game's words (`TRIMS`,
+`NICKS`, `colourDesc`).
+
+### The luck
+
+Each challenge is dealt from a seed (`dealChallenge` in `daily/deal.js`), so
+everyone who opens № 12 gets the same sixteen sorts. The dressing comes in two
+layers.
+
+**The almanac.** Before a tile is drawn, the challenge draws one page of the
+printer's almanac (`OMENS`), which tilts the whole case. Most nudge the odds
+— *Wet Ink* paints more of it, *A Fresh Blade* nicks more, *Purple Passage*
+trims more in purple, *Double-Struck* cuts more second faces, *Fat Matter* and
+*Lean Matter* dress far more or far fewer tiles. A few put something in the
+case outright — *Tied Letters* three ligatures, *Old Stock* two medieval sorts,
+*Marginalia* a ? and a !, *From the Hellbox* a sort in Hellbox iron, *Squib
+Day* one in squib lead, *The Tool Chest* a tool on the bench. *Fair Copy*, the
+commonest, does nothing at all, and a plain case is a perfectly good puzzle.
+(A "fat" take, in the trade, was easy copy that paid the compositor well by
+the piece; "lean" was the reverse. The almanac uses them the same way.)
+
+**The sorts.** Then each tile rolls for itself, the way the Market dresses its
+tiles: a 42% chance of one feature, and while a 40% chain holds, another, up
+to three, never two of a kind (`LUCK`). So most of the case is plain lead, a
+handful is dressed, and once in a while one sort comes up loaded. The letters
+are drawn without replacement from one press's bag (`BAG_COUNTS`), redrawn
+until five to seven of them are vowels, so every case can spell without the
+deal ever consulting the dictionary — the same number deals the same case
+even if the word list changes.
+
+Only features that change ONE word's score are in the pool. Gold pays a Coin
+and cobalt refunds a Discard; in a game of one word there is nothing to buy
+and nothing to discard, so those trims never appear. Neither do the metals
+that speak only to patrons and editors (rainbow, rose, blind, ghost). Hellbox
+iron keeps its whole rule, toll and all: it is ×2 in the word and −666 Points
+out of it, which makes a hellbox day the one where a single letter must be in
+whatever you print — a mandatory letter, arrived at by the game's own
+mechanics rather than bolted on.
+
+### The tool
+
+About a third of cases (`LUCK.tool`) put one tool on the bench — the
+**Ratchet** (the wrench: step one letter to its neighbour in the alphabet,
+either way, A round to Z) or the **Loupe** (double one tile's value, to 30).
+Those two are the sundries that pose a *decision* inside a single word. The
+others do not: the tongs would be a flat +8 on every word, the ink wash free
+paint, the laurel and the potion need patrons, and the bodkin reaches into a
+bag this mode doesn't have. Until you print, tapping the tool again takes it
+back, so it is something to think with rather than something to spend.
+
+The ranking takes the tool into account, which is what makes it fair. The
+field is every word the case could set *with the tool used as well as it can
+be* — a ratchet day's field is much larger (it makes a near-wildcard of every
+letter), and a loupe day's top scores higher.
+
+### Counting the field
+
+`solveCase` in `daily/score.js` walks every word of the dictionary against the
+case — every tile that could fill each place, every face of a dual, every
+ligature and medieval reading, every legal tail of marks, every place the tool
+could go — and keeps each word at its best. Tiles identical in every respect
+are tried once per step, and a cheap count of which letters the case can
+supply (generously, so it can only ever rule out the impossible) sets most of
+the dictionary aside before the walk is asked anything. It runs a dozen
+milliseconds at a time from the moment the case is dealt, so by the time a
+word is printed the field is usually already waiting; on a desktop a case
+averages well under 100 ms, and a big ratchet day can take most of a second.
+
+Your place is one more than the number of words that score strictly more than
+yours, so ties go your way. The slip says when your word was worth more set
+differently, and the best of the case is listed with each word's own setting
+— tap a row to see how it was built.
+
+The field is drawn as one curve, score against place, with the place on a log
+axis for the same reason the brackets narrow at the top. The field is gray,
+your word is the one red mark, and the two inks were run through the dataviz
+validator against the paper (ΔE 18.9 for normal vision, 11.9 deutan).
+
+### Holding it to the game
+
+The scorer in `daily/score.js` is `computeScore` re-written for speed — the
+solver calls it tens of thousands of times a case, and the real one builds a
+whole replay script every call. So it is checked against the real one:
+
+```
+node tools/daily-check.mjs 1-40
+```
+
+scores thousands of random arrangements from real deals both ways and fails
+on any difference in Points, Mult or total; runs the solver against a naive
+search with no shortcuts on a sample of every case; replays every plan the
+solver reports; and prints a table of what the luck dealt, field sizes and
+solve times. **Run it after any change to the base arithmetic** — a trim's
+value, the measure, a metal — since the daily will otherwise quietly keep the
+old rule.
+
+### Numbering, and the playtest switch
+
+Challenge № 1 is 3 November 2026 (`EPOCH` in `daily/deal.js`) and every day
+after is one more; the number is the URL's hash (`/daily/#12`). While the mode
+is being tried out, `PLAYTEST` at the top of `daily/main.js` lets you walk to
+any number and set a printed case again. Turn it off and the page is a daily:
+today's case and the ones before it, printed once each. Bumping `DEAL_SALT`
+re-deals every challenge, for when the luck's tuning changes enough that old
+numbers shouldn't keep their old cases. Printed proofs are kept in
+`localStorage` under `great-work-daily-v1`.
+
+### On its own subdomain
+
+GitHub Pages serves one custom domain per repository, and this one already
+answers to `great.julianandliesl.xyz` — so a subdomain is a second, tiny Pages
+site holding nothing but the daily, bundled into one page:
+
+```
+node tools/build-daily.mjs --cname daily.julianandliesl.xyz
+```
+
+writes `dist-daily/index.html` (word list and exclusions embedded, nothing
+fetched but the fonts) and its `CNAME`. The masthead's *Great Work* points
+back at the full game. `.github/workflows/daily-subdomain.yml` rebuilds and
+publishes it whenever the daily or anything it reads changes; it does nothing
+until it is told where to publish. To switch it on:
+
+1. Create an empty repository for the site (say `bioethics/daily-proof`) and
+   turn on Pages for it, deploying from its `main` branch.
+2. Make a deploy key (`ssh-keygen -t ed25519 -f daily_key -N ""`). Add the
+   public half to the site's repository under *Deploy keys*, with write
+   access; add the private half to THIS repository as the secret
+   `DAILY_DEPLOY_KEY`.
+3. On this repository, set the variables `DAILY_PAGES_REPO`
+   (`bioethics/daily-proof`) and `DAILY_DOMAIN` (`daily.julianandliesl.xyz`).
+4. At the DNS host, add a CNAME record for `daily` pointing at
+   `bioethics.github.io`.
+5. Run the workflow once from the Actions tab; after that it runs itself.
+
+| File | Role |
+| --- | --- |
+| `daily/deal.js` | the seeded deal: the almanac, the per-sort luck, the tool, the numbering |
+| `daily/score.js` | the scorer, the tools' effects, the solver, the ranking and its brackets |
+| `daily/main.js` | the page: composing, the tool, printing, the slip, the saved proofs |
+| `daily/chart.js` | the field, drawn |
+| `daily/text.js` | every word the page shows a player |
+| `daily/daily.css` | the page, and the game's sorts re-cut in em |
+| `tools/daily-check.mjs` | the daily held to the game |
+| `tools/build-daily.mjs` | the one-page bundle for the subdomain |

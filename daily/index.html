@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#2a1d15" />
+  <title>The Daily Proof — Great Work</title>
+  <meta name="description" content="One word from sixteen sorts, ranked against every word they could have set." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❦</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Inter:wght@400;600;800&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="daily.css" />
+</head>
+<body>
+  <div class="page">
+
+    <header class="masthead">
+      <a class="mast-house" href="../" title="Great Work — the full game">Great Work <span aria-hidden="true">❦</span></a>
+      <h1 class="mast-title">The Daily Proof</h1>
+      <nav class="mast-nav" aria-label="Challenges">
+        <button id="prevBtn" class="nav-btn" aria-label="Previous challenge">‹</button>
+        <div class="nav-num">
+          <span id="numLabel">№ 1</span>
+          <span id="dateLabel" class="nav-date"></span>
+        </div>
+        <button id="nextBtn" class="nav-btn" aria-label="Next challenge">›</button>
+      </nav>
+    </header>
+
+    <!-- The proof sheet: what the luck dealt, the readout, the stick. -->
+    <section class="sheet">
+      <div class="almanac" id="almanac">
+        <span class="almanac-label">The almanac</span>
+        <span class="almanac-omen"><b id="omenName">…</b> <span id="omenDesc"></span></span>
+      </div>
+
+      <div class="readout" id="readout" aria-live="polite">
+        <div class="ro-points"><span class="ro-label">Points</span><b id="roPoints">0</b></div>
+        <span class="ro-op ro-op--x">×</span>
+        <div class="ro-mult"><span class="ro-label">Mult</span><b id="roMult">1</b></div>
+        <div class="ro-chips" id="roChips"></div>
+        <span class="ro-op ro-op--eq">=</span>
+        <div class="ro-total"><span class="ro-label">Total</span><b id="roTotal">0</b></div>
+      </div>
+
+      <div class="stick" id="stick" aria-label="The word"></div>
+      <p class="status" id="status" aria-live="polite"></p>
+    </section>
+
+    <!-- The case: sixteen sockets, one per sort. A sort in the stick leaves its
+         socket empty, so nothing moves under your thumb. -->
+    <section class="case" aria-label="The case"><div class="case-grid" id="case"></div></section>
+
+    <section class="bench">
+      <button id="toolBtn" class="tool" hidden></button>
+      <div class="bench-verbs">
+        <button id="clearBtn" class="btn">Clear</button>
+        <button id="shuffleBtn" class="btn">Shuffle</button>
+      </div>
+      <button id="printBtn" class="btn btn-print">Print</button>
+    </section>
+    <p class="count" id="count"></p>
+
+    <section class="result" id="result" hidden aria-live="polite"></section>
+
+    <details class="rules" id="rules">
+      <summary>How it scores</summary>
+      <dl id="rulesList"></dl>
+    </details>
+
+  </div>
+
+  <div class="pop" id="pop" hidden></div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
