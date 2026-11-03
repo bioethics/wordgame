@@ -15,9 +15,10 @@
 <body>
   <div class="page">
 
+    <!-- The title, the day's page of the almanac under it, and the number. -->
     <header class="masthead">
-      <a class="mast-house" href="../" title="Great Work — the full game">Great Work <span aria-hidden="true">❦</span></a>
-      <h1 class="mast-title">The Daily Proof</h1>
+      <h1 class="mast-title"><a class="mast-house" href="../" title="Great Work" aria-label="Great Work, the full game">❦</a> The Daily Proof</h1>
+      <button class="almanac" id="almanac" type="button"></button>
       <nav class="mast-nav" aria-label="Challenges">
         <button id="prevBtn" class="nav-btn" aria-label="Previous challenge">‹</button>
         <div class="nav-num">
@@ -28,22 +29,16 @@
       </nav>
     </header>
 
-    <!-- The proof sheet: what the luck dealt, the readout, the stick. -->
+    <!-- The proof sheet: Points × Mult = total, and the stick under it. -->
     <section class="sheet">
-      <div class="almanac" id="almanac">
-        <span class="almanac-label">The almanac</span>
-        <span class="almanac-omen"><b id="omenName">…</b> <span id="omenDesc"></span></span>
-      </div>
-
       <div class="readout" id="readout" aria-live="polite">
-        <div class="ro-points"><span class="ro-label">Points</span><b id="roPoints">0</b></div>
+        <b class="ro-points" id="roPoints">0</b>
         <span class="ro-op ro-op--x">×</span>
-        <div class="ro-mult"><span class="ro-label">Mult</span><b id="roMult">1</b></div>
+        <b class="ro-mult" id="roMult">1</b>
         <div class="ro-chips" id="roChips"></div>
         <span class="ro-op ro-op--eq">=</span>
-        <div class="ro-total"><span class="ro-label">Total</span><b id="roTotal">0</b></div>
+        <b class="ro-total" id="roTotal">0</b>
       </div>
-
       <div class="stick" id="stick" aria-label="The word"></div>
       <p class="status" id="status" aria-live="polite"></p>
     </section>
@@ -52,22 +47,15 @@
          socket empty, so nothing moves under your thumb. -->
     <section class="case" aria-label="The case"><div class="case-grid" id="case"></div></section>
 
+    <!-- The tool leads the row, the verbs beside it, Print hard right. -->
     <section class="bench">
       <button id="toolBtn" class="tool" hidden></button>
-      <div class="bench-verbs">
-        <button id="clearBtn" class="btn">Clear</button>
-        <button id="shuffleBtn" class="btn">Shuffle</button>
-      </div>
+      <button id="clearBtn" class="btn">Clear</button>
+      <button id="shuffleBtn" class="btn">Shuffle</button>
       <button id="printBtn" class="btn btn-print">Print</button>
     </section>
-    <p class="count" id="count"></p>
 
     <section class="result" id="result" hidden aria-live="polite"></section>
-
-    <details class="rules" id="rules">
-      <summary>How it scores</summary>
-      <dl id="rulesList"></dl>
-    </details>
 
   </div>
 

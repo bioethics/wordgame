@@ -36,8 +36,8 @@ export function drawField(host, ranked, you, { onFocusRank, xLabel = '' } = {}) 
   const N = ranked.length;
   if (!N) return;
   const W = Math.max(280, host.clientWidth || 320);
-  const H = 190;
-  const m = { l: 44, r: 14, t: 16, b: 34 };
+  const H = xLabel ? 190 : 176;
+  const m = { l: 40, r: 12, t: 16, b: xLabel ? 34 : 22 };
   const iw = W - m.l - m.r, ih = H - m.t - m.b;
   const maxS = Math.max(1, ranked[0].score);
   const step = niceStep(maxS);
@@ -75,8 +75,7 @@ export function drawField(host, ranked, you, { onFocusRank, xLabel = '' } = {}) 
     const t = el('text', { x: px, y: H - m.b + 15, class: 'field-tick', 'text-anchor': p === 100 ? 'end' : 'middle' }, svg);
     t.textContent = `${p}%`;
   }
-  const xl = el('text', { x: m.l, y: H - 4, class: 'field-axis' }, svg);
-  xl.textContent = xLabel;
+  if (xLabel) el('text', { x: m.l, y: H - 4, class: 'field-axis' }, svg).textContent = xLabel;
 
   // The curve. Sampled per pixel column rather than per word: a field of
   // fifteen thousand words is fifteen thousand points nobody can see.

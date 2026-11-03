@@ -1528,6 +1528,20 @@ measure × the paints × purple × the metals. Every sort is the game's sort,
 drawn with the game's classes and explained in the game's words (`TRIMS`,
 `NICKS`, `colourDesc`).
 
+The hands are the game's too (`js/drag.js`, ported into `daily/main.js`): tap a
+sort to set it or lift it, drag it between the case and the stick or to a new
+place in either, hold it to read it and flip a dual, right-click to flip. Sorts
+toss to wherever they are going and the sounds are the game's own
+(`snapTiles`/`flipTiles` and `sfx` from `js/anim.js`), following the full
+game's sound setting where the two share a site.
+
+And it says almost nothing. The readout is three figures and the chips that
+make the middle one; the stick has no prompt; the almanac's day is a name,
+and the tool a glyph. What each of those means is a tap, a hold or a hover
+away, never printed on the board — a player learns the page in one word, and
+the words that would have taught it are the ones they would have stopped
+reading by the second.
+
 ### The luck
 
 Each challenge is dealt from a seed (`dealChallenge` in `daily/deal.js`), so
@@ -1594,9 +1608,10 @@ word is printed the field is usually already waiting; on a desktop a case
 averages well under 100 ms, and a big ratchet day can take most of a second.
 
 Your place is one more than the number of words that score strictly more than
-yours, so ties go your way. The slip says when your word was worth more set
-differently, and the best of the case is listed with each word's own setting
-— tap a row to see how it was built.
+yours, so ties go your way. The best of the case is listed under the slip,
+each word with its own setting a tap away, and your word sits among them as
+you printed it — your place, your score, your setting — with the case's
+better setting of the same word beneath it when there was one.
 
 The field is drawn as one curve, score against place, with the place on a log
 axis for the same reason the brackets narrow at the top. The field is gray,
@@ -1648,8 +1663,8 @@ the exclusion list itself never ships; nothing fetched but the fonts) and its
 same page as a claude.ai artifact (contents only — the host supplies the
 skeleton), which is the quickest way to playtest from a phone: publish it and
 open the link. A republish mid-game keeps the case being set (the
-`window.claude.hot` snapshot in `daily/main.js`). The masthead's *Great Work* points
-back at the full game. `.github/workflows/daily-subdomain.yml` rebuilds and
+`window.claude.hot` snapshot in `daily/main.js`). The masthead's fleuron
+points back at the full game. `.github/workflows/daily-subdomain.yml` rebuilds and
 publishes it whenever the daily or anything it reads changes; it does nothing
 until it is told where to publish. To switch it on:
 
