@@ -18,8 +18,8 @@ import {
   restingOf, ringStep, shiftable, loupeDelta,
 } from './score.js';
 import {
-  COLOURS, TRIMS, NICKS, MEDIEVAL, isMark, letterGlyph, colourDesc,
-  LOUPE_CAP, CURSED_MULT, CURSED_PENALTY, EXPLOSIVE_MULT, LENGTH_MULT_MIN, lengthMult, lengthFlourish,
+  COLOURS, TRIMS, NICKS, MEDIEVAL, letterGlyph, colourDesc,
+  LOUPE_CAP, CURSED_MULT, CURSED_PENALTY, LENGTH_MULT_MIN, lengthMult, lengthFlourish,
 } from '../js/constants.js';
 import { adoptExclusions, isExcluded } from '../js/excluded.js';
 import { loadSettings } from '../js/state.js';
@@ -34,7 +34,8 @@ import { drawField } from './chart.js';
 // one again. Turn it off and the page is a daily — today's case, once.
 const PLAYTEST = true;
 
-const STORE = 'great-work-daily-v1';
+// Keyed to the deal's salt: a re-dealt case must not reopen on an old proof.
+const STORE = 'great-work-daily-v2';
 const $ = id => document.getElementById(id);
 const fmtN = n => n.toLocaleString('en-GB');
 const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -141,7 +142,7 @@ function openChallenge(n) {
 
 // Every multiplier this case could light, in the order the readout reads them:
 // the measure always, then each paint the case holds, then purple and the
-// metals where a sort carries them. They wait on the sheet faintly from the
+// metal where a sort carries it. They wait on the sheet faintly from the
 // first frame, so the player sees what there is to reach for (the bench's blind
 // stamps, css/bench.css), and ink in as the word lights them.
 function tracksOf(tiles) {
@@ -149,7 +150,6 @@ function tracksOf(tiles) {
   for (const c of Object.keys(COLOURS)) if (tiles.some(t => t.colour === c)) out.push(c);
   if (tiles.some(t => t.trim === 'purple')) out.push('purple');
   if (tiles.some(t => t.material === 'cursed')) out.push('cursed');
-  if (tiles.some(t => t.material === 'explosive')) out.push('explosive');
   return out;
 }
 
@@ -282,7 +282,7 @@ async function print() {
   const { word, rest } = wordAndRest();
   const j = judge(word, has);
   if (!j.ok) {
-    S.note = j.why === 'marksLast' ? UI.marksLast : j.why === 'markAlone' ? UI.markAlone : UI.notAWord;
+    S.note = UI.notAWord;
     sfx.bad();
     render();
     const st = $('stick');
@@ -336,7 +336,7 @@ const beat = ms => (S.hurry ? Promise.resolve() : sleep(ms));
 const tween = (el, to, opts = {}) => tweenNum(el, to, S.hurry ? { ...opts, duration: 60 } : opts);
 
 const TRACK_GLOW = {
-  length: '#d9e6f2', purple: '#cfa6ff', cursed: '#ff7a66', explosive: '#ffb066',
+  length: '#d9e6f2', purple: '#cfa6ff', cursed: '#ff7a66',
   ...Object.fromEntries(Object.entries(COLOURS).map(([c, v]) => [c, v.bright])),
 };
 const trackHas = (kind, t) =>
@@ -502,14 +502,12 @@ function tileLines(t) {
   if (med) {
     const reads = med.reads.length > 1
       ? `${med.reads.slice(0, -1).join(', ')} or ${med.reads[med.reads.length - 1]}` : med.reads[0];
-    out.push({ head: fill(SORT_TEXT.medievalHead, med.name, reads), body: med.note });
+    out.push({ head: fill(SORT_TEXT.medievalHead, med.name, reads), body: fill(SORT_TEXT.medievalBody, reads) });
   }
   if (t.material === 'cursed') out.push({ head: SORT_TEXT.cursed.head, body: fill(SORT_TEXT.cursed.body, CURSED_MULT, CURSED_PENALTY) });
-  if (t.material === 'explosive') out.push({ head: SORT_TEXT.explosive.head, body: fill(SORT_TEXT.explosive.body, EXPLOSIVE_MULT) });
   if (t.colour) out.push({ head: `${COLOURS[t.colour].label} paint`, body: colourDesc(t.colour) });
   if (t.trim) out.push({ head: `${TRIMS[t.trim].label} trim`, body: TRIMS[t.trim].desc });
   if (t.nick) out.push({ head: NICKS[t.nick].label, body: NICKS[t.nick].desc });
-  if (isMark(L)) out.push({ head: SORT_TEXT.markHead, body: SORT_TEXT.mark });
   if (t.ratcheted != null && t.ratcheted === t.activeVariant) out.push({ head: fill(SORT_TEXT.ratcheted, t.ratchetFrom) });
   if (t.louped != null && t.louped === t.activeVariant) out.push({ head: SORT_TEXT.louped });
   return out;
@@ -647,12 +645,12 @@ function renderStick(word, sc) {
 // foot and, from LENGTH_MULT_MIN letters, the multiplier each length earns, with
 // a steel knee closing on the word's end. Cut for the word in the stick rather
 // than engraved once, because the measure counts LETTERS where the stick holds
-// sorts — a þ or a CH is one sort of two letters, a mark is a sort of none — so
+// sorts — a þ or a CH is one sort of two letters — so
 // each tick says what the word would be worth if it ended there. The scale runs
 // the whole stick, so every multiplier within reach is in view from the start.
 const measureOf = t => {
   const L = activeLetter(t);
-  if (!L || isMark(L)) return 0;
+  if (!L) return 0;
   return MEDIEVAL[L]?.reads?.[0]?.length ?? L.length;
 };
 const LABEL_SPACING = 30;   // px a label needs from its neighbour before it is cut
@@ -728,7 +726,7 @@ function fitStick() {
   host.style.setProperty('--tfs', `${Math.max(4, Math.min(base, sizeFor(gap)))}px`);
 }
 
-const CHIP_NAMES = { purple: 'Purple', cursed: 'Hellbox iron', explosive: 'Squib lead' };
+const CHIP_NAMES = { purple: 'Purple', cursed: 'Hellbox iron' };
 const chipName = (kind, count) =>
   (kind === 'length' ? fill(UI.letters, count) : COLOURS[kind]?.label ?? CHIP_NAMES[kind]);
 const chipEl = kind => $('roChips').querySelector(`.chip[data-kind="${kind}"]`);

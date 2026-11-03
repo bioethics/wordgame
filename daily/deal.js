@@ -20,6 +20,11 @@
 // and nothing to discard, so those two trims never appear. Neither do the metals
 // that speak only to patrons and editors (rainbow, rose, blind, ghost).
 //
+// Two more are left out because in one word they pose no choice. A mark (? or
+// !) only ever rides on the end, so it is a flat Point or two on whatever word
+// you set; and squib lead's whole game is the blast that follows the print,
+// which one word never sees, leaving a plain ×2 that is just another stamp.
+//
 // The deal is pure: a number in, a case out, no dictionary consulted. A vowel
 // floor and ceiling keep every case playable without asking which words exist,
 // so the same number deals the same case even if the word list is changed.
@@ -30,7 +35,8 @@ import {
 
 // Bump the salt and every challenge is re-dealt — for when the tuning below
 // changes enough that the old numbers should not keep their old cases.
-export const DEAL_SALT = 'great-work-daily-v1';
+// v2: the marks and squib lead taken out of the case.
+export const DEAL_SALT = 'great-work-daily-v2';
 export const CASE_SIZE = 16;
 
 // ─── Seeded randomness ────────────────────────────────────────────────────────
@@ -81,7 +87,6 @@ export const LUCK = {
   // plain letter. Small — these are finds.
   ligature: 0.03,
   medieval: 0.01,
-  mark: 0.012,
   // The chance a tool is on the bench.
   tool: 0.35,
   tools: [['ratchet', 55], ['loupe', 45]],
@@ -106,9 +111,7 @@ export const OMENS = {
   double:     { odds: 2, weights: { dual: 3 } },
   tied:       { odds: 2, force: { ligatures: 3 } },
   oldstock:   { odds: 1.5, force: { medieval: 2 } },
-  marginalia: { odds: 1.5, force: { marks: true } },
   hellbox:    { odds: 1.5, force: { cursed: 1 } },
-  squib:      { odds: 1.5, force: { explosive: 1 } },
   fat:        { odds: 1.5, dressed: 1.7 },
   lean:       { odds: 1.5, dressed: 0.35 },
   toolchest:  { odds: 2, force: { tool: true } },
@@ -149,19 +152,11 @@ export function dealChallenge(n) {
   }
   const forcedMed = force.medieval ?? 0;
   for (let k = 0; k < forcedMed; k++) placeMedieval(rng, tiles, consonants);
-  if (force.marks) {
-    for (const m of ['?', '!']) { const c = consonants(); if (c.length) recast(pick(rng, c), m); }
-  }
   for (const t of tiles) {
     if (!/^[A-Z]$/.test(t.letter) || VOWELS.has(t.letter)) continue;
     const r = rng();
     if (r < LUCK.ligature) recast(t, pickWeighted(rng, LIGATURE_WEIGHTS));
     else if (r < LUCK.ligature + LUCK.medieval) placeMedieval(rng, tiles, () => [t]);
-    else if (r < LUCK.ligature + LUCK.medieval + LUCK.mark) {
-      const have = new Set(tiles.map(x => x.letter));
-      const free = ['?', '!'].filter(m => !have.has(m));
-      if (free.length) recast(t, pick(rng, free));
-    }
   }
 
   // 3. Features, tile by tile: dressed at all? then chain.
@@ -178,14 +173,10 @@ export function dealChallenge(n) {
 
   // 4. Metals the almanac casts.
   if (force.cursed) {
-    // Never on a dear letter (CURSED_MAX_POINTS), and never a mark: a curse
-    // has to be something you can build a word around.
+    // Never on a dear letter (CURSED_MAX_POINTS): a curse has to be something
+    // you can build a word around.
     const ok = tiles.filter(t => /^[A-Z]$/.test(t.letter) && TILE_POINTS[t.letter] <= CURSED_MAX_POINTS);
     if (ok.length) pick(rng, ok).material = 'cursed';
-  }
-  if (force.explosive) {
-    const ok = tiles.filter(t => !t.material && !/^[?!]$/.test(t.letter));
-    if (ok.length) pick(rng, ok).material = 'explosive';
   }
 
   // 5. The bench.

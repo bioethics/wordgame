@@ -115,7 +115,8 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
 }
 
 // Every feature a tile carries — the tile's only explanation, so these say what
-// a thing does rather than naming it.
+// a thing does rather than naming it, and stop: one short line each, the rule
+// and nothing the player learns by setting the tile once.
 export function tileFeatures(tile) {
   const out = [];
   // A forgery has nothing under it, so it is said first and there is nothing
@@ -123,11 +124,7 @@ export function tileFeatures(tile) {
   if (tile.counterfeit) {
     out.push({
       head: 'A counterfeit sort',
-      body: 'Forged on The Counterfeiter\'s plate. It spells, and does nothing else — no '
-          + 'Points, no paint, no trim, no metal, no nick, and nothing can ever be laid on '
-          + 'it. It takes a place in your hand like any other tile, and it is gone when the '
-          + 'page turns. What it buys is length, and whatever your table can make of a '
-          + 'letter that is merely there.',
+      body: 'Spells, and nothing else: no Points, paint, trim, metal or nick, and nothing can be added. Gone when the page ends.',
     });
   }
   // First, because it hides everything: while the wrapper is on none of the
@@ -135,14 +132,12 @@ export function tileFeatures(tile) {
   if (isWrapped(tile)) {
     out.push({
       head: 'In manuscript',
-      body: 'The Redactor has wrapped this tile and pencilled the letter on top. It still '
-          + 'spells, and does nothing else — no Points, no paint, no trim, no metal, no '
-          + 'nick, and nothing can be laid on it. The wrapping comes off when the page ends, '
-          + 'and everything below is waiting underneath.',
+      body: 'Wrapped by The Redactor: spells, and nothing else, until the page ends. Then everything below comes back.',
     });
   }
   // A medieval sort explains what it STANDS FOR first — not guessable from the
-  // glyph, and the whole reason to hold one.
+  // glyph, and the whole reason to hold one. (Each sort's history is still in
+  // MEDIEVAL's `note`, in js/constants.js.)
   const med = MEDIEVAL[getActiveLetter(tile)];
   if (med) {
     const reads = med.reads.length > 1
@@ -150,30 +145,17 @@ export function tileFeatures(tile) {
       : med.reads[0];
     out.push({
       head: `${med.name} — reads as ${reads}`,
-      body: `Set it where you would set ${reads}: the dictionary, your patrons and the `
-          + `editor all see the letters it stands for, so it counts for the measure as `
-          + `${med.reads[0].length > 1 ? 'those letters do' : 'one letter'}. It prints as `
-          + `${med.glyph} and scores its own ${TILE_POINTS[getActiveLetter(tile)]} Points. ${med.note}`,
+      body: `Counts as ${reads} everywhere, length included. Scores ${TILE_POINTS[getActiveLetter(tile)]}.`,
     });
   }
   if (getActiveLetter(tile) === INTERROBANG) {
     out.push({
       head: 'Interrobang',
-      body: `One glyph for ?! — so it says in a single tile what has always taken two, and `
-          + `it can close a word by itself. Worth ${TILE_POINTS[INTERROBANG]} Points, the most of any `
-          + `sort in the case. There is only one road to one: hold a ? and a !, and let the `
-          + `Punchcutter cut the pair together.`,
+      body: `?! in one tile: closes a word by itself. ${TILE_POINTS[INTERROBANG]} Points.`,
     });
   }
-  // What the tile *is* comes next — a material, or the fleuron.
-  if (tile.letter === FLEURON) {
-    out.push({
-      head: 'Fleuron',
-      body: 'A printer’s ornament, struck in gold. It sets no word — it can only print '
-          + 'alone, for its 1 Point — and it pays 1 Coin every time a page completes, '
-          + 'wherever it happens to be.',
-    });
-  }
+  // What the tile *is* comes next — a material. (The fleuron and the batter
+  // explain themselves once, below, from SOLO_TEXT.)
   if (tile.material) {
     const m = MATERIALS[tile.material];
     if (m) out.push({ head: `${m.label} tile`, body: m.desc });
@@ -191,43 +173,33 @@ export function tileFeatures(tile) {
   } else if (tile.wash) {
     out.push({
       head: `${COLOURS[tile.wash].label} wash`,
-      body: `Counts as ${COLOURS[tile.wash].label} — patrons and multiplier alike — until this tile prints, then it washes off. Real paint would replace it.`,
+      body: `Counts as ${COLOURS[tile.wash].label} until printed, then washes off.`,
     });
   }
   if (tile.trim) out.push({ head: `${TRIMS[tile.trim].label} trim`, body: TRIMS[tile.trim].desc });
   if (tile.nick) out.push({ head: NICKS[tile.nick]?.label ?? 'Nick', body: NICKS[tile.nick]?.desc ?? '' });
   if (tile.letterType === 'dual') {
-    out.push({
-      head: `Dual letter`,
-      body: `Holds ${tile.letter} and ${tile.altLetter} — flip to swap. Paint, trim and nick belong to the tile, so both letters wear them.`,
-    });
+    out.push({ head: 'Dual letter', body: `Holds ${tile.letter} and ${tile.altLetter}; flip to swap.` });
   }
   if (LIGATURES.includes(tile.letter)) {
-    out.push({ head: 'Ligature', body: `One tile that spells ${tile.letter}.` });
+    out.push({ head: 'Ligature', body: `Spells ${tile.letter}.` });
   }
   if (isMark(tile.letter)) {
-    out.push({ head: 'Mark', body: 'Spells nothing — goes on the end of a word. One ? or one ! or ?!.' });
+    out.push({ head: 'Mark', body: 'Goes on the end of a word: ?, ! or ?!.' });
   }
   // The two sorts that stand alone, each in its own words (SOLO_TEXT).
   if (SOLO_TEXT[tile.letter]) out.push(SOLO_TEXT[tile.letter]);
   if (getActiveGrowth(tile)) {
-    out.push({ head: 'Grown', body: `+${getActiveGrowth(tile)} Points set permanently into this letter.` });
+    out.push({ head: 'Grown', body: `+${getActiveGrowth(tile)} Points, for good.` });
   }
   if (tile.ephemeral) {
     out.push(tile.lender === 'scientist'
-      ? {
-          head: 'The Scientist’s loan',
-          body: 'Lent for this page only — it rides above your hand size, and vanishes when the page ends, played or not.',
-        }
+      ? { head: 'The Scientist’s loan', body: 'Lent for this page; takes no place in your hand.' }
       : tile.aboveHand
-      ? {
-          head: 'The Enthusiast’s gift',
-          body: 'Lent for this page only — it rides above your hand size, and vanishes when the page ends, played or not.',
-        }
-      : {
-          head: 'The Eeeditor’s E',
-          body: 'Lent for this page only, and holding one of your hand’s own places. It takes no paint, trim or nick, it cannot be discarded, and printing it brings another at once.',
-        });
+      ? { head: 'The Enthusiast’s gift', body: 'Lent for this page; takes no place in your hand.' }
+      // Every lender that fills a place in the hand (the Eeeditor, the
+      // Editooor, the Incendiary) tops it straight back up.
+      : { head: 'On loan', body: 'Lent for this page, in one of your hand’s places. Can’t be modified or discarded; printing it brings another.' });
   }
   return out;
 }

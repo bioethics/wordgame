@@ -1575,8 +1575,8 @@ printer's almanac (`OMENS`), which tilts the whole case. Most nudge the odds
 trims more in purple, *Double-Struck* cuts more second faces, *Fat Matter* and
 *Lean Matter* dress far more or far fewer tiles. A few put something in the
 case outright — *Tied Letters* three ligatures, *Old Stock* two medieval sorts,
-*Marginalia* a ? and a !, *From the Hellbox* a sort in Hellbox iron, *Squib
-Day* one in squib lead, *The Tool Chest* a tool on the bench. *Fair Copy*, the
+*From the Hellbox* a sort in Hellbox iron, *The Tool Chest* a tool on the
+bench. *Fair Copy*, the
 commonest, does nothing at all, and a plain case is a perfectly good puzzle.
 (A "fat" take, in the trade, was easy copy that paid the compositor well by
 the piece; "lean" was the reverse. The almanac uses them the same way.)
@@ -1593,7 +1593,11 @@ even if the word list changes.
 Only features that change ONE word's score are in the pool. Gold pays a Coin
 and cobalt refunds a Discard; in a game of one word there is nothing to buy
 and nothing to discard, so those trims never appear. Neither do the metals
-that speak only to patrons and editors (rainbow, rose, blind, ghost). Hellbox
+that speak only to patrons and editors (rainbow, rose, blind, ghost). Nor do
+marks or squib lead: a mark only rides on the end of a word, so it is a flat
+Point or two whatever you set, and squib lead's game is the blast after the
+print, which one word never sees — leaving a plain ×2 with no decision in it.
+Hellbox
 iron keeps its whole rule, toll and all: it is ×2 in the word and −666 Points
 out of it, which makes a hellbox day the one where a single letter must be in
 whatever you print — a mandatory letter, arrived at by the game's own

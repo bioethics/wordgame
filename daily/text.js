@@ -17,9 +17,7 @@ export const OMEN_TEXT = {
   double:     { name: 'Double-Struck',         desc: 'More tiles with a second face than usual.' },
   tied:       { name: 'Tied Letters',          desc: 'Three tiles are ligatures.' },
   oldstock:   { name: 'Old Stock',             desc: 'Two tiles are medieval sorts.' },
-  marginalia: { name: 'Marginalia',            desc: 'A ? and a ! are in the case.' },
   hellbox:    { name: 'From the Hellbox',      desc: 'One tile is cast in Hellbox iron.' },
-  squib:      { name: 'Squib Day',             desc: 'One tile is cast in Squib lead.' },
   fat:        { name: 'Fat Matter',            desc: 'Far more features than usual.' },
   lean:       { name: 'Lean Matter',           desc: 'Far fewer features than usual.' },
   toolchest:  { name: 'The Tool Chest',        desc: 'A tool is on the bench.' },
@@ -30,22 +28,20 @@ export const OMEN_TEXT = {
 export const TOOL_TEXT = {
   ratchet: {
     name: 'Ratchet', glyph: '🔧',
-    desc: 'Step one letter to its neighbour in the alphabet, either way. Tap again to undo.',
+    desc: 'Step a letter one place either way. Tap again to undo.',
     on: '{0} to {1}',                  // the choice's accessible name: {0} from, {1} to
   },
   loupe: {
     name: 'Loupe', glyph: '🔍',
-    desc: 'Double one tile’s value (to a max of {0}). Tap again to undo.',
+    desc: 'Double a tile’s value (max {0}). Tap again to undo.',
   },
 };
 
 // ─── The sorts, held ──────────────────────────────────────────────────────────
 export const SORT_TEXT = {
   medievalHead: '{0} — reads as {1}',
-  cursed: { head: 'Hellbox iron', body: '×{0} Mult when printed. A word set without it loses {1} Points.' },
-  explosive: { head: 'Squib lead', body: '×{0} Mult when printed.' },
-  markHead: 'Mark',
-  mark: 'Goes on the end of a word: one ?, one !, or ?!.',
+  medievalBody: 'Counts as {0} everywhere, length included.',
+  cursed: { head: 'Hellbox iron', body: '×{0} Mult. A word set without it loses {1} Points.' },
   ratcheted: 'Stepped from {0}',
   louped: 'Doubled by the loupe',
 };
@@ -58,8 +54,6 @@ export const UI = {
   inWord: 'Pays {0} in this word',
   inWordParts: '{0} + {1} from its nick',
   notAWord: 'Not in the dictionary.',
-  marksLast: 'Marks go at the end.',
-  markAlone: 'A mark needs a word.',
   waiting: 'Counting the field…',
   dictFallback: 'The word list could not be loaded.',
 };

@@ -297,17 +297,15 @@ export const TRIM_TEXT = {
   gold:   { label: 'Gold',   desc: '+1 Coin.' },
   silver: { label: 'Silver', desc: '+{SILVER_BONUS} Points.' },
   cobalt: { label: 'Cobalt', desc: 'Refunds a Discard.' },
-  purple: { label: 'Purple', desc: 'Adds +{PURPLE_TRIM_STEP} to the purple multiplier.' },
+  purple: { label: 'Purple', desc: '+{PURPLE_TRIM_STEP} to the purple multiplier.' },
 };
 
 // ─── Nicks (a notch cut out of one edge) ──────────────────────────────────────
 export const NICK_TEXT = {
   right: { label: 'Right nick',
-           desc: 'Scores again every tile on its right — their Points are added to this one. '
-               + 'A nicked tile among them counts only the number it wears in the hand.' },
+           desc: 'Adds the Points of every tile to its right; a nicked one counts at its value in hand.' },
   left:  { label: 'Left nick',
-           desc: 'Scores again every tile on its left — their Points are added to this one. '
-               + 'A nicked tile among them counts only the number it wears in the hand.' },
+           desc: 'Adds the Points of every tile to its left; a nicked one counts at its value in hand.' },
 };
 
 // ─── Colours (tile paint) ─────────────────────────────────────────────────────
@@ -318,7 +316,7 @@ export const COLOUR_TEXT = {
   jade:    { label: 'Jade' },
   amber:   { label: 'Amber' },
 };
-export const COLOUR_DESC = 'Each {0} tile adds +1 to the {0} multiplier.';
+export const COLOUR_DESC = '+1 to the {0} multiplier.';
 
 // The multiplier chips that come from somewhere other than paint.
 export const MULT_TRACK_TEXT = {
@@ -335,23 +333,19 @@ export const MULT_TRACK_TEXT = {
 // The two sorts that spell nothing and stand alone. Read by the tile tooltip.
 export const SOLO_TEXT = {
   '☙': { head: 'The fleuron',
-         body: 'An ornament, not a letter. It joins no word — set it ALONE for its Point — '
-             + 'and it pays a Coin every page it sits in your collection.' },
+         body: 'Prints only alone, for 1 Point. Pays 1 Coin every page, wherever it is.' },
   '▨': { head: 'A batter',
-         body: 'Type broken past printing. Worth no Points, spelling nothing, and it can only be '
-             + 'set alone — so printing it spends a whole word to put a ruin on the paper. '
-             + 'It is still a SORT, though, and The Abecedarian’s case has a place for it: set it '
-             + 'once, ever, and that place is filled for good.' },
+         body: 'Worth nothing, spells nothing, prints only alone. Fills its place in The Abecedarian’s case.' },
 };
 
 export const MATERIAL_TEXT = {
   cursed: {
     label: 'Cursed', metal: 'Hellbox iron',
-    desc: '×{CURSED_MULT} Mult when printed. Cannot be discarded. Words set while this remains in your hand lose {CURSED_PENALTY} Points.',
+    desc: '×{CURSED_MULT} Mult. Can’t be discarded. While it’s in your hand, each word set without it loses {CURSED_PENALTY} Points.',
   },
   ghost: {
     label: 'Ghost', metal: 'Ghost metal',
-    desc: 'Does not count against your hand size. Unmodifiable.',
+    desc: 'Takes no place in your hand. Can’t be modified.',
   },
   rainbow: {
     label: 'Rainbow', metal: 'Rainbow roll',
@@ -359,18 +353,18 @@ export const MATERIAL_TEXT = {
   },
   blind: {
     label: 'Blind', metal: 'Blind emboss',
-    desc: 'Words set with this tile cannot be spiked by editors.',
+    desc: 'Its word can’t be spiked.',
   },
   rose: {
     label: 'Rose', metal: 'Rose metal',
-    desc: 'Crowns a random patron with a laurel.',
+    desc: 'Each time it’s printed, crowns a random patron with a laurel.',
   },
   // A squib is a small charge — and, in the print trade, a short explosive
   // piece of writing. Both meanings are doing work here.
   explosive: {
     label: 'Explosive', metal: 'Squib lead',
-    desc: '×{EXPLOSIVE_MULT} Mult when printed. Then: the tile is destroyed.'
-        + 'Each adjacent tile has a {EXPLOSIVE_SPREAD_CHANCE} chance of being destroyed too. '
+    desc: '×{EXPLOSIVE_MULT} Mult. Destroyed when printed; each tile beside it has a '
+        + '{EXPLOSIVE_SPREAD_CHANCE} chance to go too.',
   },
 };
 
@@ -401,8 +395,7 @@ export function ratchetLine(key, ...values) {
 export const SUNDRY_TEXT = {
   ratchet: {
     head: 'Ratchet',
-    body: 'Tap a letter in your hand, then step it along the alphabet and confirm. '
-        + 'The new letter is permanent.',
+    body: 'Step a letter in your hand one place along the alphabet, for good.',
   },
   reshuffle: {
     head: 'Reshuffle',
@@ -422,26 +415,23 @@ export const SUNDRY_TEXT = {
   },
   laurel: {
     head: 'Laurel',
-    body: 'Crowns a random seated patron. A crowned patron pays +{HONORIFIC_STEP} Points on every word, '
-        + 'at its own turn. Patrons can balance an infinite number of laurels on their heads.',
+    body: 'Crowns a random seated patron: +{HONORIFIC_STEP} Points on every word, at its seat. Laurels stack.',
   },
   tongs: {
     head: 'Tongs',
-    body: 'Destroys a tile. Also, gives your next word +{TONGS_BONUS} Points.',
+    body: 'Destroys a tile. Your next word gets +{TONGS_BONUS} Points.',
   },
   wash: {
     head: 'Ink wash',
-    body: 'Up to {WASH_COUNT} unpainted tiles in your hand gain temporary paint, which '
-        + 'washes off on printing.',
+    body: 'Up to {WASH_COUNT} unpainted tiles in your hand take paint that washes off when printed.',
   },
   wrapped: {
     head: 'A wrapped tile',
-    body: 'Unwrap it to gain one tile made of an exotic material.',
+    body: 'Unwrap it for one tile cast in an exotic material.',
   },
   potion: {
     head: 'Love potion',
-    body: 'Uncork it and a RARE patron takes an empty seat at your table.'
-        + 'You sexy thing, you.',
+    body: 'A rare patron takes an empty seat at your table.',
   },
   tube: {
     head: 'Tube of {0}',
@@ -453,10 +443,8 @@ export const SUNDRY_TEXT = {
   },
   dismissal: {
     head: 'Notice of dismissal',
-    body: 'Serve it on the editor at a Deadline and they leave the desk: their rule ends '
-        + 'with them, and the rest of the page is ordinary. What the page has already been '
-        + 'made to pay stands — the quota, a spent discard, a sort eaten. Keeps until there '
-        + 'is an editor to serve it on.',
+    body: 'Serve it at a Deadline: the editor leaves and their rule ends. What they have already '
+        + 'taken stays taken. Keeps until there is an editor to serve.',
   },
 };
 
