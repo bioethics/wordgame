@@ -1650,7 +1650,7 @@ letter), and a loupe day's top scores higher.
 ### The week
 
 Each day of the week has its own kind of case, by the calendar date of the
-challenge (`WEEK` in `daily/deal.js`; № 1 was a Tuesday):
+challenge (`WEEK` in `daily/deal.js`; № 1 is a Thursday):
 
 | Day | Case |
 | --- | --- |
@@ -1915,14 +1915,14 @@ old rule.
 
 ### Numbering, and the playtest switch
 
-Challenge № 1 is 3 November 2026 (`EPOCH` in `daily/deal.js`) and every day
+Challenge № 1 is 5 November 2026 (`EPOCH` in `daily/deal.js`) and every day
 after is one more; the number is the URL's hash (`/daily/#12`). While the mode
 is being tried out, `PLAYTEST` at the top of `daily/main.js` lets you walk to
 any number and set a printed case again. Turn it off and the page is a daily:
 today's case and the ones before it, printed once each. Bumping `DEAL_SALT`
 re-deals every challenge, for when the luck's tuning changes enough that old
 numbers shouldn't keep their old cases. Printed proofs are kept in
-`localStorage` under `great-work-daily-v3`, the number moving with the salt so
+`localStorage` under `great-work-daily-v4`, the number moving with the salt so
 a re-dealt case never reopens on an old proof.
 
 ### On its own subdomain

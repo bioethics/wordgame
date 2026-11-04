@@ -37,7 +37,8 @@ import {
 // changes enough that the old numbers should not keep their old cases.
 // v2: the marks and squib lead taken out of the case.
 // v3: the week — patrons, editors and two-word days.
-export const DEAL_SALT = 'great-work-daily-v3';
+// v4: № 1 moved to 5 November, and Tuesday's patrons dealt what they read.
+export const DEAL_SALT = 'great-work-daily-v4';
 export const CASE_SIZE = 16;
 
 // ─── Seeded randomness ────────────────────────────────────────────────────────
@@ -286,8 +287,11 @@ export const EDITOR_DAYS = ['columnist', 'populist', 'serialist', 'enthusiast', 
 export const PAIR = { size: 20, vowels: [7, 9], min: 5, noOmens: ['hellbox', 'toolchest'] };
 
 export const weekdayOf = n => new Date(EPOCH + (n - 1) * 864e5).getUTCDay();
-// Weeks run Sunday to Saturday, counted from the week of № 1.
-const weekOf = n => Math.floor((n - 1 + weekdayOf(1)) / 7);
+// How many of this weekday came before № n. Each weekday falls once in every
+// seven numbers from № 1, so this counts every kind of day's turns from 0,
+// whatever weekday № 1 was (counting calendar weeks instead skipped the first
+// turn of any day that fell before № 1 in its week).
+const turnOf = n => Math.floor((n - 1) / 7);
 
 // The k-th turn of a roster: shuffled afresh for each lap, by a seed.
 function turn(list, k, key) {
@@ -303,7 +307,7 @@ function turn(list, k, key) {
 
 export function dayOf(n) {
   const kind = WEEK[weekdayOf(n)];
-  const w = weekOf(n);
+  const w = turnOf(n);
   if (kind === 'patron') return { kind, id: turn(DAY_PATRONS, w, 'patron') };
   if (kind === 'editor') return { kind, id: turn(EDITOR_DAYS, w, 'editor') };
   if (kind === 'choice') {
@@ -579,6 +583,6 @@ export function monogramFor(deal, rng) {
 // Challenge № 1 is the first day of the proof; every day after is one more.
 // While the mode is being tried out the page lets you walk to any number, so
 // "today's" is only where it opens.
-export const EPOCH = Date.UTC(2026, 10, 3);   // 3 November 2026 — № 1
+export const EPOCH = Date.UTC(2026, 10, 5);   // 5 November 2026 — № 1
 export const todaysNumber = (now = new Date()) =>
   Math.max(1, Math.floor((Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) - EPOCH) / 864e5) + 1);

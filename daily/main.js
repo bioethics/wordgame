@@ -41,7 +41,7 @@ import { drawField } from './chart.js';
 const PLAYTEST = true;
 
 // Keyed to the deal's salt: a re-dealt case must not reopen on an old proof.
-const STORE = 'great-work-daily-v3';
+const STORE = 'great-work-daily-v4';
 const $ = id => document.getElementById(id);
 const fmtN = n => n.toLocaleString('en-GB');
 const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
