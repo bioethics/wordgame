@@ -1792,7 +1792,9 @@ async function start(carried = {}) {
   applySpeedCSS();
   // On its own subdomain the full game is somewhere else entirely; the build
   // says where (tools/build-daily.mjs, --home).
-  if (window.DAILY_HOME) document.querySelector('.mast-house').href = window.DAILY_HOME;
+  if (window.DAILY_HOME) $('modeHome').href = window.DAILY_HOME;
+  // Framed as an artifact there is no other mode to go to: the ❦ is only a ❦.
+  if (window.DAILY_NO_LINK) { $('modeBtn').disabled = true; $('modeList').remove(); }
   wire();
   try {
     await loadWords();
@@ -1808,3 +1810,15 @@ async function start(carried = {}) {
 
 if (window.claude?.hot?.ready) window.claude.hot.ready(start);
 else start(window.claude?.hot?.data ?? {});
+
+// ─── The two ways to play ─────────────────────────────────────────────────────
+// The name in the corner opens a short list of the modes, the one you are in
+// marked; a tap anywhere else, or Escape, puts it away. (The same menu sits
+// under the ❦ of the other page.)
+{
+  const btn = document.getElementById('modeBtn'), list = document.getElementById('modeList');
+  const show = on => { list.hidden = !on; btn.setAttribute('aria-expanded', on ? 'true' : 'false'); };
+  btn?.addEventListener('click', e => { e.stopPropagation(); show(list.hidden); });
+  document.addEventListener('click', e => { if (list && !list.hidden && !list.contains(e.target)) show(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && list && !list.hidden) { show(false); btn.focus(); } });
+}

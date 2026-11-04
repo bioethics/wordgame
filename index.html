@@ -43,7 +43,12 @@
 <body>
 
   <header>
-    <span class="logo">Great Work <span class="logo-mark">❦</span></span>
+    <!-- The name opens the modes: this one, and the Daily Proof (daily/). -->
+    <button class="logo mode-btn" id="modeBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="modeList">Great Work <span class="logo-mark">❦</span><span class="mode-caret" aria-hidden="true">▾</span></button>
+    <nav class="mode-list" id="modeList" aria-label="Modes" hidden>
+      <a class="mode-item" href="daily/">Daily mode <span class="mode-tag">beta</span></a>
+      <span class="mode-item mode-item--here" aria-current="page">Roguelike mode <span class="mode-tag">alpha</span></span>
+    </nav>
     <div class="header-spacer"></div>
     <div class="coin-purse" title="Coins"><span class="coin coin--lg"></span><span id="coinCount">0</span></div>
     <button id="manuscriptBtn" class="btn-icon btn-icon--manuscript" title="The manuscript — every word printed this run">❦</button>

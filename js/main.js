@@ -2853,3 +2853,15 @@ function openTheChamber() {
 
   window.addEventListener('beforeunload', persist);
 })();
+
+// ─── The two ways to play ─────────────────────────────────────────────────────
+// The name in the corner opens a short list of the modes, the one you are in
+// marked; a tap anywhere else, or Escape, puts it away. (The same menu sits
+// under the ❦ of the other page.)
+{
+  const btn = document.getElementById('modeBtn'), list = document.getElementById('modeList');
+  const show = on => { list.hidden = !on; btn.setAttribute('aria-expanded', on ? 'true' : 'false'); };
+  btn?.addEventListener('click', e => { e.stopPropagation(); show(list.hidden); });
+  document.addEventListener('click', e => { if (list && !list.hidden && !list.contains(e.target)) show(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && list && !list.hidden) { show(false); btn.focus(); } });
+}

@@ -98,6 +98,36 @@ button { font: inherit; color: inherit; }
 }
 .mast-house { color: var(--brass); text-decoration: none; font-size: 0.8em; }
 .mast-house:hover { color: var(--brass-hi); }
+button.mast-house { background: none; border: 0; padding: 0; cursor: pointer; font: inherit; font-size: 0.8em; color: var(--brass); }
+button.mast-house:disabled { cursor: default; }
+.masthead { position: relative; }
+/* ─── The modes menu (the name in the corner; the ❦ on the Daily Proof) ──────── */
+.mode-btn { background: none; border: 0; padding: 0; margin: 0; cursor: pointer; text-align: left; }
+.mode-caret { font-size: 0.5em; margin-left: 6px; color: var(--brass); vertical-align: 0.25em; }
+.mode-list {
+  position: absolute; top: 2.4em; left: 0; z-index: 60;
+  display: grid; gap: 2px; min-width: 232px; padding: 6px;
+  border-radius: 10px;
+  background: #241820;
+  border: 1px solid rgba(217, 166, 75, 0.45);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55);
+}
+.mode-list[hidden] { display: none; }
+.mode-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 12px; border-radius: 7px;
+  font: 600 15.5px var(--serif); color: #f2e7cb; text-decoration: none; white-space: nowrap;
+}
+a.mode-item:hover, a.mode-item:focus-visible { background: rgba(217, 166, 75, 0.16); outline: none; }
+.mode-item::before { content: '✓'; width: 1em; color: transparent; }
+.mode-item--here, .mode-item--here::before { color: #f6d68a; }
+.mode-tag {
+  margin-left: auto;
+  font: 700 9.5px var(--sans); letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(242, 231, 203, 0.6);
+  border: 1px solid rgba(242, 231, 203, 0.3); border-radius: 4px; padding: 2px 5px;
+}
+
 
 /* The day's page of the almanac: its name, and a tap for what it means. */
 .almanac {
