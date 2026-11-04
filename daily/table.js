@@ -313,7 +313,7 @@ export function compileTable(seat, desk, has) {
 // ─── A day's tables ───────────────────────────────────────────────────────────
 // What the solver prices each word under, for a day as daily/deal.js deals it:
 // nothing on a plain or two-word day; the one patron or the one editor; or each
-// of the three patrons on offer, in the order the page shows them.
+// of the patrons on offer, in the order the page shows them.
 export function tablesForDay(day, has) {
   if (day?.kind === 'patron') return [compileTable(day.patron, null, has)];
   if (day?.kind === 'editor') return [compileTable(null, day.editor, has)];

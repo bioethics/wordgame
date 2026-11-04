@@ -11,7 +11,7 @@
 // almanac's own, since most of its pages are the traits they deal.
 export const TRAIT_TEXT = {
   twoUp:    { name: 'Two-Up',               desc: 'Two words from one case, {0} letters or more each, their scores added.' },
-  choice:   { name: 'A Choice of Patrons',  desc: 'Seat one of three.' },
+  choice:   { name: 'A Choice of Patrons',  desc: 'Seat one of two.' },
   patron:   { name: 'A Patron Calls',       desc: 'Seated for every reader.' },
   deadline: { name: 'Deadline',             desc: 'An editor at the desk. A word that breaks the rule is spiked.' },
   hellbox:  { name: 'From the Hellbox',     desc: 'One tile is cast in Hellbox iron.' },

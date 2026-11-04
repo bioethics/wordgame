@@ -1648,7 +1648,7 @@ challenge (`WEEK` in `daily/deal.js`; № 1 was a Tuesday):
 
 | Day | Case |
 | --- | --- |
-| Sunday | **A choice of three patrons.** Tap a card to seat it (and read it); the readout re-prices the word under whoever is seated. Three from one tier, the tiers alternating by week. |
+| Sunday | **A choice of two patrons.** Tap a card to seat it (and read it); the readout re-prices the word under whoever is seated. Two from one tier, the tiers alternating by week. |
 | Monday, Wednesday, Friday | Plain. |
 | Tuesday | **The day's patron**, seated for everyone. |
 | Thursday | **An editor at the desk.** The card carries the day's rule on its face; a word that breaks it is spiked — scored at ×0.2, exactly as at a Deadline, never refused. |
@@ -1666,7 +1666,7 @@ The ranking is always against the field *as that day prices it*. On a patron
 day every word is scored with the patron seated; on an editor day every word
 is scored under the desk, spike and all, so a spiked word is in the field at a
 fifth of its worth rather than missing from it; on a choice day every word is
-scored under each of the three and kept at whichever pays it most. So a
+scored under each patron on offer and kept at whichever pays it most. So a
 choice-day reader who seats the wrong patron for their word is ranked
 against readers who seated the right one.
 
@@ -1698,17 +1698,23 @@ and The Monogrammist 25% — low, but it fires on every case and changes *which
 tiles* the best word is set from (its letters print twice, paint and all),
 which the figure doesn't see. None is ever dead.
 
-**The choice of three** (`CHOICE_TIERS`). A trio is only a choice if no one of
-it is the answer. Over the sixty cases, the best word was found under each
-member of every possible trio, and a tier admitted a patron only if no trio
-holding it was won by one member more than about half the time:
+**The choice of two** (`CHOICE_TIERS`). A pair is only a choice if neither is
+the answer. Over the sixty cases, the best word was found under each member
+of every possible pair, and a tier admitted a patron only if, in every pair
+holding it, the weaker patron still gave the better word on about a third of
+cases or more:
 
 - *rich* — The Sexton, The Paramour, The Poppet, The Vulgarian, The Serpent.
-  The worst trio is won by one member half the time, and every member wins its
-  share (the Sexton most, 169 trio-cases; the Poppet least, 91).
+  The most lopsided pair (the Poppet against the Vulgarian) splits 19–39;
+  four pairs are near coin-flips; the loser's best word is typically within
+  four-fifths of the winner's.
 - *plain* — The Herald, The Cartographer, The Sculptor, The Twins. Quieter
-  seats (each lifts the best score by a few per cent), so the runner-up is
-  usually within a tenth; the worst trio is won by one member 45% of the time.
+  seats (each lifts the best score by a few per cent), so the loser's best is
+  usually within a tenth; the most lopsided pair splits 65–35.
+
+Sunday offered three until 4 November (the trio figures: worst trio won by
+one member half the time in the rich tier, 45% in the plain); two is quicker
+to weigh on a phone and measures as well.
 
 The tiers have moved once. While the register lists were short the Sexton took
 70% of the trios he was in and sat out, and the Poet and the Athlete made up
@@ -1716,7 +1722,7 @@ the rich tier with the other three registers. When the lists gained their
 missing inflections (romantic grew by half) the registers drew level and the
 two parts-of-speech patrons fell between the tiers — trios holding the Poet
 were won by one register up to 67% of the time, and in the plain tier the Poet
-took 57%. Both still sit on Tuesdays. The tiers want re-measuring whenever a
+took 57%; as pairs it loses to the Sexton 5–54. Both still sit on Tuesdays. The tiers want re-measuring whenever a
 list grows. The Serpent is offered but never forced, since a case without an S
 leaves him nothing (10% of cases).
 

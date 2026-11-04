@@ -216,7 +216,7 @@ export function dealChallenge(n, opts = {}) {
 // Each day of the week has its own kind of case, by the calendar date of the
 // challenge (№ 1 was a Tuesday). Three plain days; one with a patron seated for
 // everyone; one with an editor at the desk; one of two words; and one where the
-// reader picks a patron from three.
+// reader picks a patron from two.
 //
 // Who sits is chosen by turn rather than by chance: each roster is shuffled
 // once per lap of it, so every patron and every editor comes round before any
@@ -234,17 +234,18 @@ export const DAY_PATRONS = [
   'sexton', 'counterfeiter', 'paramour', 'athlete', 'poppet', 'cartographer',
   'vulgarian', 'monogrammist', 'poet', 'herald',
 ];
-// Offered three at a time, from one tier, so that no one of the three is the
-// obvious answer: in the measured cases no trio from either tier is won by one
-// member more than half the time, and every member wins some. The two tiers
-// alternate by week.
+// Offered two at a time, from one tier, so that neither is the obvious answer:
+// in the measured cases the weaker of any pair from either tier still gives the
+// better word on a third of cases or more, and its best word is typically
+// within four-fifths of the stronger's. The two tiers alternate by week. (They
+// were offered three at a time until 4 November; two is quicker to weigh.)
 //
 // The tiers moved once already. When the register lists were short, the Sexton
 // took seven trios in ten and sat out; once the lists filled in with their
 // inflections (4 November) the four registers drew level, and the Poet and the
 // Athlete, whose lists did not grow, fell between the tiers — a fifth wheel
 // among the registers, too strong among the plain. Re-run tools/daily-table.mjs
-// after any list grows, and check the trios (README, "The table").
+// after any list grows, and check the pairs (README, "The table").
 export const CHOICE_TIERS = {
   rich:  ['sexton', 'paramour', 'poppet', 'vulgarian', 'serpent'],
   plain: ['herald', 'cartographer', 'sculptor', 'twins'],
@@ -283,14 +284,14 @@ export function dayOf(n) {
   if (kind === 'choice') {
     const tier = w % 2 ? 'plain' : 'rich';
     const pool = CHOICE_TIERS[tier];
-    // Three of the tier, a different three each week where the tier allows.
+    // Two of the tier, a different two each week where the tier allows.
     const rng = rngFor(`${DEAL_SALT}:choice:${w}`);
     const order = [...pool];
     for (let i = order.length - 1; i > 0; i--) {
       const j = Math.floor(rng() * (i + 1));
       [order[i], order[j]] = [order[j], order[i]];
     }
-    return { kind, tier, ids: order.slice(0, 3) };
+    return { kind, tier, ids: order.slice(0, 2) };
   }
   return { kind };
 }

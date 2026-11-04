@@ -101,7 +101,7 @@ const S = {
   order: [],        // socket order (drag and Shuffle rearrange it)
   words: [[]],      // tile ids in each stick, in order — two sticks on a two-word day
   active: 0,        // the stick a tap or a key sets into
-  seat: 0,          // on a day of three patrons, the one seated
+  seat: 0,          // on a day with a choice of patrons, the one seated
   tables: [],       // the day's compiled seatings (tablesForDay)
   applied: null,    // the tool's use: { kind, id, face, offset? }
   armed: false,
@@ -119,7 +119,7 @@ const pairDay = () => S.deal?.day.kind === 'pair';
 const placedIn = id => S.words.findIndex(w => w.includes(id));
 const placed = id => placedIn(id) >= 0;
 // The table a word is scored under right now: the day's patron or editor, or
-// on a day of three, whichever is seated.
+// on a choice day, whichever is seated.
 const tableNow = () => (S.tables.length ? S.tables[S.deal.day.kind === 'choice' ? S.seat : 0] : null);
 const seatNow = () => (S.deal.day.kind === 'choice' ? S.deal.day.choices[S.seat] : S.deal.day.patron) ?? null;
 
@@ -843,7 +843,7 @@ function renderAlmanac() {
 }
 
 // ─── The seats ────────────────────────────────────────────────────────────────
-// Who sits today. A patron is a card; three on offer are three cards, one
+// Who sits today. A patron is a card; two on offer are two cards, one
 // seated, and a tap seats another (and reads it); the editor's card carries the
 // day's rule on its face, since it is the one thing a reader must know before
 // setting a word. A card lights while the word in hand is one it rules on.
@@ -1095,7 +1095,7 @@ function renderReadout(sc) {
   const chips = $('roChips');
   chips.replaceChildren();
   // One stamp per track the case can light: blind at ×1, inked when lit. The
-  // name rides on hover. The seat's stamp wears its patron; on a day of three,
+  // name rides on hover. The seat's stamp wears its patron; on a choice day,
   // whichever is seated, and none for a seat that rules no ×Mult.
   const shown = chipsShown(sc);
   for (const kind of S.tracks) {
