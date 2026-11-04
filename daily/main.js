@@ -57,10 +57,13 @@ let WORDSET = new Set();
 // (spellingsFor in daily/table.js): the page judges and the solver counts with
 // both, so the field is the field the day's patron allows.
 let EXTRA = new Set();
+// …and a licence that judges at print rather than listing (the Binder, whose
+// every compound is too many to list: spellingsFor lists the field's).
+let ACCEPTS = null;
 const inDict = w => WORDSET.has(w);
-const has = w => WORDSET.has(w) || EXTRA.has(w);
+const has = w => WORDSET.has(w) || EXTRA.has(w) || (ACCEPTS !== null && ACCEPTS(w));
 // A word only the licence lets through.
-const byLicence = tiles => EXTRA.size > 0 && judge(tiles, has).ok && !judge(tiles, inDict).ok;
+const byLicence = tiles => (EXTRA.size > 0 || ACCEPTS !== null) && judge(tiles, has).ok && !judge(tiles, inDict).ok;
 
 async function loadWords() {
   const get = async (file, embedded) => {
@@ -160,6 +163,7 @@ function openChallenge(n) {
     field: null, note: '', printing: false, open: new Set(), openInit: false,
   });
   EXTRA = new Set();
+  ACCEPTS = null;
   S.tables = tablesForDay(deal.day, has);
   S.traits = traitsOf(deal);
   S.tiles = deal.tiles.map(t => ({ ...t }));
@@ -182,6 +186,8 @@ function openChallenge(n) {
   S.counting = lists.then(() => {
     if (ac.signal.aborted) return null;
     EXTRA = spellingsFor(S.tables, WORDS, inDict, deal.tiles, deal.tool);
+    const judges = S.tables.map(T => T.accepts).filter(Boolean);
+    ACCEPTS = judges.length ? w => judges.some(f => f(w)) : null;
     render();   // the seats can judge now that their lists are in
     return deal.day.kind === 'pair' ? countPairs(deal, ac.signal) : countWords(deal, ac.signal);
   }).then(field => {

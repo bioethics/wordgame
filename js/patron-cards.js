@@ -283,7 +283,11 @@ export const PATRON_CARDS = {
     desc: 'Any Z may be played as an S.',
   },
   siren: {
-    name: 'The Siren', emoji: '🎶', rarity: 'rare', cost: 9, guild: 'azure',
+    name: 'The Siren', emoji: '🎶', rarity: 'common', cost: 4, guild: 'azure',
+    desc: 'Vowels gain +2 Points, or +6 if they are azure.',
+  },
+  yodeller: {
+    name: 'The Yodeller', emoji: '🏔️', rarity: 'rare', cost: 9, guild: 'azure',
     desc: '×2 Mult for words with at least as many vowels as consonants.',
   },
   woad: {
@@ -550,7 +554,7 @@ export const PATRON_CARDS = {
     desc: '×3 Mult for words The Sexton finds spooky — and a {PACKAGE_CHANCE} chance of {PARCEL_SPOOKY} for the workbench.',
   },
   seadog: {
-    name: 'The Seadog', emoji: '⚓', rarity: 'rare', cost: 7,
+    name: 'The Seadog', emoji: '⚓', rarity: 'rare', cost: 7, guild: 'azure',
     desc: '×3 Mult for words The Seadog finds nautical — and a {PACKAGE_CHANCE} chance of {PARCEL_NAUTICAL} for the workbench.',
   },
   vulgarian: {

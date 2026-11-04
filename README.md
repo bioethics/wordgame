@@ -1713,7 +1713,8 @@ between two words to look for:
   ×3 for a word on a themed list.
 - *plain*, on Fridays — ×2 for a word of a given form: The Cartographer
   (vowels in order), The Poet (an adjective or adverb),
-  The Siren (as many vowels as consonants — hers in the game too), and four
+  The Yodeller (as many vowels as consonants — made for this, and seated in the
+  game as well), and four
   adapted for the daily (`adapted: true` in `daily/table.js`, which
   `daily-check` names and does not hold to the game): The Herald (the first
   letter again, anywhere after it), The Stammerer (a doubled letter), The
@@ -1726,7 +1727,7 @@ A tier is a choice only if a player would hesitate, so its members should
 pay on a like share of the words a player actually finds. Measured as
 *reach* — the share of each day's top 5% of words a patron pays on, over
 sixty cases on its own days — the Friday seven run 9–18%: Cartographer 9,
-Commoner 14, Stammerer 14, Antiquary 16, Herald, Poet and Siren 18. The
+Commoner 14, Stammerer 14, Antiquary 16, Herald, Poet and Yodeller 18. The
 Athlete reaches 33% (half of all good words are verbs) and sits on Tuesday,
 and so does the Sculptor, at 43% once his list became every word whose
 ordinary meaning is a noun; the game's own Herald (first and last the same) reached 3%, and
@@ -1754,13 +1755,15 @@ any name, dictionary word or not; the Haplographer lets one letter of a
 doubled pair be set once (MATE for MATTE); the Bloodless Bohemian Bookbinder
 reads a V as a W and lets a run of O's be howled as long as the case allows
 (BOOOOB); and the Binder lets two nouns stacked stand as one word (MUSICWORLD,
-PERSONBUS) — in the daily, two of his nouns that are also among the 8,000
-commonest words, three letters or more each and twelve in all, because the
-daily must list every compound before it can count the field, and any two of
-his 12,000 is half a million (on his days, as bounded: 4,000 to 42,000
-compounds, the field four to eleven times its plain size, counted in under
-three seconds on a desktop; the best word was a compound on all eight days
-measured). What is set is what prints and scores — BOOOOB counts six letters
+PERSONBUS). The Binder is judged at print, as in the game: any two of his
+12,000 nouns (`accepts`). But the field a word is ranked against has to be
+listed before it can be counted, and any two of 12,000 is half a million, so
+the field's compounds are his nouns that are also among the 8,000 commonest
+words, three letters or more each and twelve in all (on his days 4,000 to
+42,000 compounds, counted in under three seconds on a desktop; the best word
+was a compound on all eight days measured). A rarer compound set on the day
+(ACEDIN, ACHECHOIR) is scored the same and placed among them. What is set is
+what prints and scores — BOOOOB counts six letters
 on the measure. Each lists the spellings it admits beyond the dictionary
 (`spell` in `daily/table.js`, bounded by the case's V's and O's for the
 Bookbinder, whose day always deals at least two of each — `SEAT_LETTERS` in
@@ -1778,10 +1781,8 @@ game.
 **Left out**, and why:
 
 - *Free money.* The Lexicographer (fires on 100% of best words, moves 12%),
-  The Novelist (100%, 0%), The Jeweller (82%, 8%), The Glover (55%, 7%).
-  Each is a multiplier on whatever you would have set. (The Siren was here,
-  at +2 a vowel, until she became ×2 for a word at least half vowels, in the
-  game and the daily alike, on 4 November.)
+  The Novelist (100%, 0%), The Siren (100%, 17%), The Jeweller (82%, 8%),
+  The Glover (55%, 7%). Each is a multiplier on whatever you would have set.
 - *Usually dead.* The Harlequin (no word in the field reaches four colours on
   93% of cases), The Marbler (78%), The Firebrand (77%), The Alloy (72%), The
   Typesetter (43%); Romeo and Juliet, dead on about 40% and never moving the

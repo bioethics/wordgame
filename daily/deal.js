@@ -263,7 +263,7 @@ export const CHOICE_TIERS = {
   // generous of these, so he sits on Tuesday instead — and so, since the noun
   // list grew (4 November) to every word whose ordinary meaning is a noun, does
   // the Sculptor, at 43%.
-  plain: ['herald', 'cartographer', 'poet', 'stammerer', 'siren', 'antiquary', 'commoner'],
+  plain: ['herald', 'cartographer', 'poet', 'stammerer', 'yodeller', 'antiquary', 'commoner'],
 };
 // Each bites: the best word unseated is spiked on a quarter to all of cases,
 // and the best word under them is a different one on two-fifths or more.

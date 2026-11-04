@@ -198,7 +198,7 @@ export const PATRONS = {
   // patron that pays otherwise in the game is ADAPTED here (and daily-check,
   // which holds every other seat to the game's computeScore, knows it).
   stammerer: { adapted: true, effect({ letters, xMult }) { if (doubledPairs(letters)) xMult(2); } },
-  siren: {
+  yodeller: {
     effect({ letters, xMult }) {
       const v = [...letters].filter(c => VOWELS.includes(c)).length;
       if (letters.length > 1 && v * 2 >= letters.length) xMult(2);
@@ -259,6 +259,13 @@ export const PATRONS = {
   firebrand: { effect({ tiles, addPoints }) { if (countColour(tiles, 'crimson') >= 2) addPoints(15); } },
 
   // What the tiles are worth.
+  siren: {
+    tileBonus(t) {
+      const L = glyph(t);
+      if (L.length !== 1 || !VOWELS.includes(L)) return 0;
+      return t.colour === 'azure' ? 6 : 2;
+    },
+  },
   jeweller: { tileBonus: (t, letters, resting) => (resting >= 8 ? Math.round(resting * 0.5) : 0) },
   typesetter: {
     effect({ tiles, addMult }) {
@@ -295,19 +302,26 @@ export const PATRONS = {
     },
   },
   binder: {
-    // Two nouns stacked count as a word: MUSIC and WORLD make MUSICWORLD. The
-    // game's Binder takes any two of his 12,000 (wordlists/nouns.txt), because
-    // he only ever judges the word in front of him; the daily must list every
-    // compound the case could set before the field can be counted, and any two
-    // of 12,000 is a field of half a million that takes a phone a minute. So
-    // the daily's halves are his nouns that are also among the 8,000 commonest
-    // words, BINDER_HALF letters or more, and a compound is at most
-    // BINDER_MAX letters. On his days (sixteen tiles) that lists 4,000 to
+    // Two nouns stacked count as a word: MUSIC and WORLD make MUSICWORLD. At
+    // print the daily judges as the game does — any two of his 12,000
+    // (wordlists/nouns.txt), three letters each or more (accepts). But the
+    // field a word is ranked against must be listed before it can be counted,
+    // and any two of 12,000 is a field of half a million that takes a phone a
+    // minute. So the FIELD's compounds (spell) are his nouns that are also
+    // among the 8,000 commonest words, BINDER_HALF letters or more, at most
+    // BINDER_MAX in all; a rarer compound set on the day is scored the same
+    // and placed among them. On his days (sixteen tiles) that lists 4,000 to
     // 42,000 compounds and counts in 0.1–3 s on a desktop; the best word was a
     // compound on all eight measured, and the same with halves of four letters
     // (which would bar PERSONBUS for about a third of the time).
     adapted: true,
     lists: ['nouns', 'common'],
+    accepts(letters) {
+      for (let i = 3; i <= letters.length - 3; i++) {
+        if (LISTS.nouns.has(letters.slice(0, i)) && LISTS.nouns.has(letters.slice(i))) return true;
+      }
+      return false;
+    },
     spell(words, has, tiles, tool) {
       const A = 65, count = w => { const c = new Int8Array(26); for (let i = 0; i < w.length; i++) c[w.charCodeAt(i) - A]++; return c; };
       // What the case could supply, generously: per tile, the most of each
@@ -425,6 +439,7 @@ export function compileTable(seat, desk, has) {
     tileBonus: p?.tileBonus ?? null,
     effect: p?.effect ?? null,
     spell: p?.spell ?? null,
+    accepts: p?.accepts ?? null,
     judge: e ? (L, tiles) => e.judge(L, tiles, edata) : null,
   };
 }
