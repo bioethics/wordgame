@@ -1709,8 +1709,10 @@ of every possible pair, and a tier admitted a patron only if, in every pair
 holding it, the weaker patron still gave the better word on about a third of
 cases or more:
 
-- *rich* — The Sexton, The Paramour, The Poppet, The Vulgarian, The Serpent.
-  The most lopsided pair (the Poppet against the Vulgarian) splits 19–39;
+- *rich* — The Sexton, The Paramour, The Poppet, The Vulgarian, The Serpent,
+  The Monogrammist. The Monogrammist joined on 4 November, measured an even
+  match for each of the others (26–34 to 31–29 over 60 cases; against the
+  plain tier it would win 83–92%). The most lopsided pair (the Poppet against the Vulgarian) splits 19–39;
   four pairs are near coin-flips; the loser's best word is typically within
   four-fifths of the winner's.
 - *plain* — The Herald, The Cartographer, The Sculptor, The Twins. Quieter

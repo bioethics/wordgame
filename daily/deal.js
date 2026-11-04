@@ -248,7 +248,9 @@ export const DAY_PATRONS = [
 // among the registers, too strong among the plain. Re-run tools/daily-table.mjs
 // after any list grows, and check the pairs (README, "The table").
 export const CHOICE_TIERS = {
-  rich:  ['sexton', 'paramour', 'poppet', 'vulgarian', 'serpent'],
+  // The Monogrammist joined on 4 November: an even match for each of the rest
+  // (26–34 to 31–29 over 60 cases), and far too strong for the plain tier.
+  rich:  ['sexton', 'paramour', 'poppet', 'vulgarian', 'serpent', 'monogrammist'],
   plain: ['herald', 'cartographer', 'sculptor', 'twins'],
 };
 // Each bites: the best word unseated is spiked on a quarter to all of cases,
