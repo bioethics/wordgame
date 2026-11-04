@@ -1200,6 +1200,22 @@ const seatMark = idx => {
   return m;
 };
 
+// On a patron day the seat is everyone's, so its mark goes on a setting only
+// where it paid: where the setting scores differently without it, or uses the
+// tile it lent.
+const patronMark = (tiles, T) => {
+  const p = S.deal.day.kind === 'patron' ? S.deal.day.patron : null;
+  if (!p || !T) return null;
+  const paid = tiles.some(t => t.blank)
+    || scoreWord(tiles, [], has, T).total !== scoreWord(tiles, [], has, null).total;
+  if (!paid) return null;
+  const m = document.createElement('span');
+  m.className = 'best-seat';
+  m.textContent = patronEmoji(p.id);
+  m.title = patronName(p.id);
+  return m;
+};
+
 let resizeChart = null;
 function renderResult() {
   const host = $('result');
@@ -1389,12 +1405,12 @@ function bestWords(r, field) {
         set.className = 'best-set';
         if (e.yours && !e.plan) {
           set.appendChild(miniWord(wordAndRest(0).word));
-          const m = seatMark(r.seat); if (m) set.appendChild(m);
+          const m = seatMark(r.seat) ?? patronMark(wordAndRest(0).word, tableNow()); if (m) set.appendChild(m);
           if (r.applied) set.appendChild(toolMark(r.applied));
         } else {
           const { tiles, T } = setOut(e);
           set.appendChild(miniWord(tiles, T));
-          const m = seatMark(e.seat); if (m) set.appendChild(m);
+          const m = seatMark(e.seat) ?? patronMark(tiles, T); if (m) set.appendChild(m);
           if (e.tool) set.appendChild(toolMark(e.tool));
         }
         li.appendChild(set);
@@ -1403,7 +1419,7 @@ function bestWords(r, field) {
           alt.className = 'best-set best-set--better';
           const { tiles, T } = setOut(e.better);
           alt.appendChild(miniWord(tiles, T));
-          const m = seatMark(e.better.seat); if (m) alt.appendChild(m);
+          const m = seatMark(e.better.seat) ?? patronMark(tiles, T); if (m) alt.appendChild(m);
           if (e.better.tool) alt.appendChild(toolMark(e.better.tool));
           const v = document.createElement('b');
           v.className = 'best-alt-score';
