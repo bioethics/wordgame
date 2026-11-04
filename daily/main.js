@@ -1001,21 +1001,27 @@ function renderPairSum(scs) {
 // than engraved once, because the measure counts LETTERS where the stick holds
 // sorts — a þ or a CH is one sort of two letters — so
 // each tick says what the word would be worth if it ended there. Ahead of the
-// word the scale is squeezed to fit (see AHEAD), so the lengths that pay are in
-// view before the first sort is set.
+// word the ticks are a full-size sort apart, where the next sort will land
+// before fitStick shrinks a long word to fit.
 const measureOf = t => {
   const L = activeLetter(t);
   if (!L || L === '_') return L === '_' ? 1 : 0;
   return MEDIEVAL[L]?.reads?.[0]?.length ?? L.length;
 };
 const LABEL_SPACING = 30;   // px a label needs from its neighbour before it is cut
-// The scale ahead of the word reaches at least AHEAD letters, or two past the
-// word. At full size a phone's stick holds four sorts, and the measure only
-// starts paying at the sixth letter, so a tick per sort's width showed an
-// empty stick no multiplier at all. Ticks ahead are a sort's width apart
-// where that fits, closer where it doesn't, and never closer than MIN_STEP.
-const AHEAD = LENGTH_MULT_MIN + 4;
-const MIN_STEP = 14;
+
+// The step a sort takes at full size (4.25em of the stick's own --tfs, and the
+// gap), read with fitStick's overrides for a long word set aside.
+function fullStep(stick) {
+  const tfs = stick.style.getPropertyValue('--tfs'), gap = stick.style.gap;
+  stick.style.removeProperty('--tfs');
+  stick.style.removeProperty('gap');
+  const cs = getComputedStyle(stick);
+  const step = (parseFloat(cs.getPropertyValue('--tfs')) || 16) * 4.25 + (parseFloat(cs.columnGap) || 0);
+  if (tfs) stick.style.setProperty('--tfs', tfs);
+  if (gap) stick.style.gap = gap;
+  return step;
+}
 
 function renderRule(k, word, sc) {
   const stick = stickEl(k), bar = ruleEl(k), knee = kneeEl(k);
@@ -1024,7 +1030,6 @@ function renderRule(k, word, sc) {
   const padL = parseFloat(cs.paddingLeft) || 0;
   const tiles = [...stick.querySelectorAll(':scope > .tile')];
   const tfs = parseFloat(cs.getPropertyValue('--tfs')) || 16;
-  const sortW = tiles[0]?.offsetWidth ?? tfs * 4.25;
   const origin = stick.offsetLeft + stick.clientLeft;
   const room = origin + stick.clientWidth - 4;
 
@@ -1046,8 +1051,7 @@ function renderRule(k, word, sc) {
     cut(x, last && sc ? sc.letters.length : letters, last);
   });
   if (tiles.length && sc) letters = sc.letters.length;
-  const reach = Math.max(AHEAD, letters + 2) - letters;
-  const step = Math.min(sortW + gap, Math.max(MIN_STEP, (room - x) / reach));
+  const step = fullStep(stick);
   for (let j = 1; j <= 64; j++) if (!cut(x + j * step, letters + j)) break;
 
   // Labels where they fit: the word's own first, then left to right, each kept

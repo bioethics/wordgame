@@ -1544,10 +1544,10 @@ so a nick's reach is read off the tiles as the word is built. The stick is a
 ruler (`renderRule`): a tick per place along its foot, the length multiplier
 each place would earn from the sixth letter, and a steel knee that closes on
 the word's end. Under the word the ticks sit at the sorts' edges; ahead of it
-they close up to fit, out to ten letters or two past the word, so ×2 to ×4
-are on the stick before a sort is set. (A phone's stick holds four sorts at
-full size, so ticks a sort's width apart showed an empty stick no multiplier
-at all.) The readout carries a stamp for every multiplier the CASE could
+they are a full-size sort apart, where the next sort will land before a long
+word is shrunk to fit, so the stick is ruled from the start. (A phone's stick
+holds four sorts at full size, so there the multipliers, which start at the
+sixth letter, come into view as the word reaches them.) The readout carries a stamp for every multiplier the CASE could
 light — the measure, each paint the case holds, purple and the metals where a
 sort carries them — blind until the word lights it, so what there is to reach
 for is on the sheet before a sort is set.
