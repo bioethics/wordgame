@@ -712,7 +712,8 @@ function tileEl(t, zone, { mini = false, pays = null } = {}) {
     div.setAttribute('role', 'button');
     div.tabIndex = 0;
     div.setAttribute('aria-label', `${L === '_' ? UI.blankHead : L}, ${restingOf(t)}`);
-    div.title = tileLines(t).map(f => (f.body ? `${f.head}: ${f.body}` : f.head)).join('\n');
+    // A head that is already a sentence ("Thorn — reads as TH.") takes no colon.
+    div.title = tileLines(t).map(f => (f.body ? `${f.head}${/[.!?]$/.test(f.head) ? '' : ':'} ${f.body}` : f.head)).join('\n');
   }
   return div;
 }
@@ -727,7 +728,11 @@ function tileLines(t) {
   if (med) {
     const reads = med.reads.length > 1
       ? `${med.reads.slice(0, -1).join(', ')} or ${med.reads[med.reads.length - 1]}` : med.reads[0];
-    out.push({ head: fill(SORT_TEXT.medievalHead, med.name, reads), body: fill(SORT_TEXT.medievalBody, reads) });
+    // How many letters it counts as, over every reading: Thorn two, Wynn one,
+    // Yogh and Ash one or two.
+    const lens = [...new Set(med.reads.map(r => r.length))].sort((a, b) => a - b);
+    const count = `${lens.map(n => SORT_TEXT.letterCount[n] ?? n).join(' or ')} letter${lens.at(-1) > 1 ? 's' : ''}`;
+    out.push({ head: fill(SORT_TEXT.medievalHead, med.name, reads), body: fill(SORT_TEXT.medievalBody, count) });
   }
   if (t.material === 'cursed') out.push({ head: SORT_TEXT.cursed.head, body: fill(SORT_TEXT.cursed.body, CURSED_MULT, CURSED_PENALTY) });
   if (t.colour) out.push({ head: `${COLOURS[t.colour].label} paint`, body: colourDesc(t.colour) });

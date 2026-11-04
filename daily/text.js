@@ -45,8 +45,9 @@ export const TOOL_TEXT = {
 
 // ─── The sorts, held ──────────────────────────────────────────────────────────
 export const SORT_TEXT = {
-  medievalHead: '{0} — reads as {1}',
-  medievalBody: 'Counts as {0} everywhere, length included.',
+  medievalHead: '{0} — reads as {1}.',
+  medievalBody: 'Counts as {0}.',              // "two letters", "one or two letters"
+  letterCount: ['', 'one', 'two', 'three'],
   cursed: { head: 'Hellbox iron', body: '×{0} Mult. A word set without it loses {1} Points.' },
   ratcheted: 'Stepped from {0}',
   louped: 'Doubled by the loupe',

@@ -143,10 +143,12 @@ export function tileFeatures(tile) {
     const reads = med.reads.length > 1
       ? `${med.reads.slice(0, -1).join(', ')} or ${med.reads[med.reads.length - 1]}`
       : med.reads[0];
-    out.push({
-      head: `${med.name} — reads as ${reads}`,
-      body: `Counts as ${reads} everywhere, length included. Scores ${TILE_POINTS[getActiveLetter(tile)]}.`,
-    });
+    // How many letters it counts as, over every reading: Thorn two, Wynn one,
+    // Yogh and Ash one or two. (Its Points are the corner figure.)
+    const lens = [...new Set(med.reads.map(r => r.length))].sort((a, b) => a - b);
+    const NUM = ['', 'one', 'two', 'three'];
+    const count = `${lens.map(n => NUM[n] ?? n).join(' or ')} letter${lens.at(-1) > 1 ? 's' : ''}`;
+    out.push({ head: `${med.name} — reads as ${reads}.`, body: `Counts as ${count}.` });
   }
   if (getActiveLetter(tile) === INTERROBANG) {
     out.push({
@@ -214,7 +216,8 @@ export function tileTitleLines(tile, breakdown = null) {
   if (silver) parts.push(`${silver} silver`);
   // Headed by the glyph the tile actually shows, not the canonical capital.
   const lines = [`${letterGlyph(active)} — ${restingPoints(tile)} Points${parts.length > 1 ? ` (${parts.join(' + ')})` : ''}`];
-  for (const f of tileFeatures(tile)) lines.push(`${f.head}: ${f.body}`);
+  // A head that is already a sentence ("Thorn — reads as TH.") takes no colon.
+  for (const f of tileFeatures(tile)) lines.push(`${f.head}${/[.!?]$/.test(f.head) ? '' : ':'} ${f.body}`);
   if (breakdown) lines.push(`This word: ${breakdown.parts.join(', ')} → ${breakdown.final} Points`);
   return lines;
 }
