@@ -32,6 +32,7 @@ import {
 } from '../js/anim.js';
 import {
   TRAIT_TEXT, TOOL_TEXT, SORT_TEXT, UI, RESULT, PATRON_TEXT, EDITOR_TEXT, SPIKE_TEXT, PAIR_TEXT, fill,
+  DAILY_CARDS,
 } from './text.js';
 import { drawField } from './chart.js';
 
@@ -861,8 +862,8 @@ function renderAlmanac() {
 // seated, and a tap seats another (and reads it); the editor's card carries the
 // day's rule on its face, since it is the one thing a reader must know before
 // setting a word. A card lights while the word in hand is one it rules on.
-const patronName = id => PATRON_CARDS[id]?.name ?? id;
-const patronEmoji = id => PATRON_CARDS[id]?.emoji ?? '';
+const patronName = id => PATRON_CARDS[id]?.name ?? DAILY_CARDS[id]?.name ?? id;
+const patronEmoji = id => PATRON_CARDS[id]?.emoji ?? DAILY_CARDS[id]?.emoji ?? '';
 const patronRule = seat => fill(PATRON_TEXT[seat.id] ?? '', (seat.data?.letters ?? []).join(', ').replace(/, ([^,]*)$/, ' or $1'));
 const editorRule = desk => fill(EDITOR_TEXT[desk.id].rule, desk.data.n ?? desk.data.letter ?? '');
 const editorVoice = desk => fill(EDITOR_TEXT[desk.id].voice, desk.data.n ?? desk.data.letter ?? '');

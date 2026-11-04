@@ -49,6 +49,7 @@ export const LIST_FILES = {
   romantic:   'wordlists/theme-romantic.txt',
   cute:       'wordlists/theme-cute.txt',
   rude:       'wordlists/theme-rude.txt',
+  commoner:   'wordlists/commoner.txt',
   nautical:   'wordlists/theme-nautical.txt',
   names:      'wordlists/names.txt',
 };
@@ -189,7 +190,10 @@ export const PATRONS = {
       if (back === letters || has(back)) xMult(4);
     },
   },
-  herald:   { effect({ letters, xMult }) { if (letters.length >= 3 && letters[0] === letters[letters.length - 1]) xMult(2); } },
+  // Adapted: the game's Herald wants the word to END on its first letter, which
+  // a good word does about one time in twenty-five — too seldom to stand in a
+  // Friday choice. The daily's hears the first letter again anywhere after it.
+  herald:   { adapted: true, effect({ letters, xMult }) { if (/^(.).*\1/.test(letters)) xMult(2); } },
   novelist: { effect({ letters, xMult }) { if (letters.length >= 7) xMult(2); } },
   cartographer: {
     effect({ tiles, xMult }) {
@@ -199,9 +203,20 @@ export const PATRONS = {
       xMult(CARTOGRAPHER_MULT);
     },
   },
-  stammerer: {
-    effect({ letters, addMult }) { const n = doubledPairs(letters); if (n) addMult(0.5 * n); },
+  // The daily's ×2 versions, for the Friday choice: a tier pays one way, so a
+  // patron that pays otherwise in the game is ADAPTED here (and daily-check,
+  // which holds every other seat to the game's computeScore, knows it).
+  stammerer: { adapted: true, effect({ letters, xMult }) { if (doubledPairs(letters)) xMult(2); } },
+  siren: {
+    adapted: true,
+    effect({ letters, xMult }) {
+      const v = [...letters].filter(c => VOWELS.includes(c)).length;
+      if (letters.length > 1 && v * 2 >= letters.length) xMult(2);
+    },
   },
+  antiquary: { adapted: true, effect({ letters, xMult }) { if (/[JQXZ]/.test(letters)) xMult(2); } },
+  // The daily's own: no such seat in the game.
+  commoner: { adapted: true, lists: ['commoner'], effect({ letters, xMult }) { if (inList('commoner', letters)) xMult(2); } },
   serpent: {
     tileBonus: t => (glyph(t) === 'S' ? SERPENT_POINTS : 0),
     effect({ letters, xMult }) { if (letters.length > 1 && letters.endsWith('S')) xMult(2); },
@@ -254,13 +269,6 @@ export const PATRONS = {
   firebrand: { effect({ tiles, addPoints }) { if (countColour(tiles, 'crimson') >= 2) addPoints(15); } },
 
   // What the tiles are worth.
-  siren: {
-    tileBonus(t) {
-      const L = glyph(t);
-      if (L.length !== 1 || !VOWELS.includes(L)) return 0;
-      return t.colour === 'azure' ? 6 : 2;
-    },
-  },
   jeweller: { tileBonus: (t, letters, resting) => (resting >= 8 ? Math.round(resting * 0.5) : 0) },
   typesetter: {
     effect({ tiles, addMult }) {

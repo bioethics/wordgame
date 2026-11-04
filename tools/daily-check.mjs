@@ -97,8 +97,11 @@ const GAME_DESK = {
   serialist:  d => ({ last: d.letter }),
   enthusiast: d => ({ letter: d.letter }),
 };
+// The daily's own ×2 versions (adapted: true in daily/table.js) are not the
+// game's patrons and are not held to computeScore; they are counted, below.
+const adapted = Object.keys(TB.PATRONS).filter(id => TB.PATRONS[id].adapted);
 const seatings = [
-  ...Object.keys(TB.PATRONS).map(id => ({
+  ...Object.keys(TB.PATRONS).filter(id => !TB.PATRONS[id].adapted).map(id => ({
     seat: { id, data: id === 'monogrammist' ? { letters: ['E', 'S', 'T'] } : {} }, desk: null })),
   ...Object.keys(TB.EDITORS).map(id => ({
     seat: null, desk: { id, data: { n: 6, letter: 'S', band: 500 } } })),
@@ -140,7 +143,7 @@ for (const { seat, desk } of seatings) {
   }
 }
 state.patrons = []; state.boss = null;
-console.log(`seated: ${seatedCompared} arrangements under ${seatings.length} seatings compared with computeScore`);
+console.log(`seated: ${seatedCompared} arrangements under ${seatings.length} seatings compared with computeScore (${adapted.length} adapted for the daily, not compared: ${adapted.join(', ')})`);
 
 // The Expectant Parents pay on names, which a random setting almost never
 // spells: so score real names — in the dictionary and out of it — under both.

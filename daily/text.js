@@ -58,6 +58,11 @@ export const SORT_TEXT = {
 // portraits are the game's own (PATRON_CARDS, BOSS_CARDS); where the game's card
 // says more than one word can use — a Coin, a package, a next word — the rule is
 // said again here without it. {0} is filled per day (The Monogrammist's letters).
+// The daily's own patrons, who have no card in the game to take a name from.
+export const DAILY_CARDS = {
+  commoner: { name: 'The Commoner', emoji: '🍺' },
+};
+
 export const PATRON_TEXT = {
   expectants:    'Common baby names count as words. +15 Points for a baby name.',
   haplographer:  'A single letter may read as a double: MATE counts as MATTE.',
@@ -69,9 +74,13 @@ export const PATRON_TEXT = {
   vulgarian:     '×3 Mult for words The Vulgarian finds rude.',
   poet:          '×2 Mult when the word is an adjective or an adverb.',
   athlete:       '×2 Mult when the word is a verb.',
+  stammerer:     '×2 Mult for words with a doubled letter (LL, OO…).',
+  siren:         '×2 Mult for words with at least as many vowels as consonants.',
+  antiquary:     '×2 Mult for words with a J, Q, X or Z.',
+  commoner:      '×2 Mult for everyday words: the 8,000 commonest in English, with their plurals and tenses.',
   sculptor:      '×2 Mult when the word is a noun.',
   cartographer:  '×2 Mult for words whose vowels run in alphabetical order. A repeated vowel breaks the run.',
-  herald:        '×2 Mult for words that start and end with the same letter.',
+  herald:        '×2 Mult for words whose first letter appears again later in the word.',
   serpent:       'Every S is worth +3 Points. A word ending in S gets ×2 Mult.',
   twins:         'Every doubled letter (LL, OO…) pays +5 Points, and the second tile takes every feature of the first.',
   monogrammist:  'A tile showing {0} prints twice — Points, trim and paint alike.',

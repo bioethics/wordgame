@@ -1711,9 +1711,26 @@ between two words to look for:
 
 - *rich*, on Sundays — The Sexton, The Paramour, The Poppet, The Vulgarian:
   ×3 for a word on a themed list.
-- *plain*, on Fridays — The Herald, The Cartographer, The Sculptor, The Poet,
-  The Athlete: ×2 for a word of a given form (same first and last letter,
-  vowels in order, a noun, an adjective or adverb, a verb).
+- *plain*, on Fridays — ×2 for a word of a given form: The Cartographer
+  (vowels in order), The Sculptor (a noun), The Poet (an adjective or adverb),
+  and five adapted for the daily (`adapted: true` in `daily/table.js`, which
+  `daily-check` names and does not hold to the game): The Herald (the first
+  letter again, anywhere after it), The Stammerer (a doubled letter), The
+  Siren (as many vowels as consonants), The Antiquary (a J, Q, X or Z; his day
+  deals one, `SEAT_SHAPES`), and The Commoner, the daily's own (the 8,000
+  commonest words and their plurals and tenses, `wordlists/commoner.txt`,
+  built by `tools/build-commoner.mjs`).
+
+A tier is a choice only if a player would hesitate, so its members should
+pay on a like share of the words a player actually finds. Measured as
+*reach* — the share of each day's top 5% of words a patron pays on, over
+sixty cases on its own days — the Friday eight run 9–18%: Cartographer 9,
+Commoner 13, Stammerer 14, Antiquary 16, Herald, Sculptor, Poet and Siren
+18. The Athlete reaches 33% (half of all good words are verbs) and sits on
+Tuesday; the game's own Herald (first and last the same) reached 3%, and
+dealing him doubled letters only 5%, hence the daily's ear for the first
+letter anywhere. The Sunday registers run 5–13% (the Seadog's list is the
+smallest).
 
 Until 4 November the tiers were cut by measurement instead: over sixty cases,
 which patron of a pair gave the better *best* word, a tier admitting a

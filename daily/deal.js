@@ -147,23 +147,11 @@ export function dealChallenge(n, opts = {}) {
     const v = letters.filter(L => VOWELS.has(L)).length;
     if (v >= vowels[0] && v <= vowels[1]) break;
   }
-  // A seat that reads particular letters gets them: the Bookbinder's day holds
-  // a V (for the accent) and two O's (for the howl) at least, the Serpent's an S. An O takes
-  // another vowel's place and a V another consonant's, so the vowel band
-  // holds, and they are set aside from the letterforms below, so no ligature
-  // or medieval sort takes one.
-  const keep = new Set();
-  for (const [L, k] of Object.entries(lettersFor(day))) {
-    const vowel = VOWELS.has(L);
-    let have = letters.filter(x => x === L).length;
-    while (have < k) {
-      const at = letters.flatMap((x, i) => (x !== L && !keep.has(i) && VOWELS.has(x) === vowel ? [i] : []));
-      if (!at.length) break;
-      const i = at[Math.floor(rng() * at.length)];
-      letters[i] = L; keep.add(i); have++;
-    }
-    letters.forEach((x, i) => { if (x === L) keep.add(i); });
-  }
+  // A seat that reads particular letters gets them (SEAT_SHAPES). A letter
+  // dealt in takes the place of one of its own kind, vowel for vowel, so the
+  // vowel band holds, and what is dealt in is set aside from the letterforms
+  // below, so no ligature or medieval sort takes it.
+  const keep = shapeLetters(letters, shapeFor(day), rng);
   const tiles = letters.map((L, id) => ({ ...makeTileTemplate(L), id }));
   const consonants = () => tiles.filter(t => !keep.has(t.id) && !VOWELS.has(t.letter) && t.letter.length === 1
     && TILE_POINTS[t.letter] != null && /^[A-Z]$/.test(t.letter));
@@ -268,8 +256,12 @@ export const DAY_PATRONS = [
 export const CHOICE_TIERS = {
   // ×3 for a word on a themed list.
   rich:  ['sexton', 'paramour', 'poppet', 'vulgarian', 'seadog'],
-  // ×2 for a word of a given form.
-  plain: ['herald', 'cartographer', 'sculptor', 'poet', 'athlete'],
+  // ×2 for a word of a given form. Four are the daily's own ×2 versions of
+  // patrons that pay otherwise in the game (adapted in daily/table.js), and
+  // the Herald's and the Antiquary's days are dealt what they read
+  // (SEAT_SHAPES). The Athlete pays on twice as many good words as the most
+  // generous of these, so he sits on Tuesday instead.
+  plain: ['herald', 'cartographer', 'sculptor', 'poet', 'stammerer', 'siren', 'antiquary', 'commoner'],
 };
 // Each bites: the best word unseated is spiked on a quarter to all of cases,
 // and the best word under them is a different one on two-fifths or more.
@@ -319,15 +311,77 @@ export function dayOf(n) {
   return { kind };
 }
 
-// The letters a day's seat must find in the case: the Bookbinder's V's and O's.
-// The Serpent forced on everyone must have an S to bite (a case without one
-// left him nothing on a tenth of days).
-const SEAT_LETTERS = { bookbinder: { V: 1, O: 2 }, serpent: { S: 1 } };
-function lettersFor(day) {
+// What a day's seat must find in the case, dealt in when the draw didn't:
+//   letters — at least so many of a letter: the Bookbinder's V (the accent)
+//             and O's (the howl); the Serpent's S, forced on everyone, without
+//             which a tenth of cases left him nothing.
+//   pairs   — at least so many letters held twice (none asks for it now: dealing
+//             the Herald pairs moved him from 3% of good words to 5%).
+//   rare    — at least so many of J, X, Z and QU between them: the Antiquary's.
+//             One, not two: with two he paid on 27% of good words, the most of
+//             any ×2 on Friday by half again; with one, 16%.
+const SEAT_SHAPES = {
+  bookbinder: { letters: { V: 1, O: 2 } },
+  serpent:    { letters: { S: 1 } },
+  antiquary:  { rare: 1 },
+};
+const RARE = ['J', 'X', 'Z', 'QU'];
+function shapeFor(day) {
   const ids = day.kind === 'patron' ? [day.id] : day.kind === 'choice' ? day.ids : [];
-  const out = {};
-  for (const id of ids) for (const [L, k] of Object.entries(SEAT_LETTERS[id] ?? {})) out[L] = Math.max(out[L] ?? 0, k);
+  const out = { letters: {}, pairs: 0, rare: 0 };
+  for (const id of ids) {
+    const s = SEAT_SHAPES[id] ?? {};
+    for (const [L, k] of Object.entries(s.letters ?? {})) out.letters[L] = Math.max(out.letters[L] ?? 0, k);
+    out.pairs = Math.max(out.pairs, s.pairs ?? 0);
+    out.rare = Math.max(out.rare, s.rare ?? 0);
+  }
   return out;
+}
+// Deals the shape into the drawn letters, in place; returns the positions to
+// keep from the letterforms.
+function shapeLetters(letters, shape, rng) {
+  const keep = new Set();
+  const pick = a => a[Math.floor(rng() * a.length)];
+  const single = x => /^[A-Z]$/.test(x);
+  for (const [L, k] of Object.entries(shape.letters)) {
+    const vowel = VOWELS.has(L);
+    let have = letters.filter(x => x === L).length;
+    while (have < k) {
+      const at = letters.flatMap((x, i) => (x !== L && !keep.has(i) && single(x) && VOWELS.has(x) === vowel ? [i] : []));
+      if (!at.length) break;
+      const i = pick(at);
+      letters[i] = L; keep.add(i); have++;
+    }
+    letters.forEach((x, i) => { if (x === L) keep.add(i); });
+  }
+  if (shape.rare) {
+    let have = letters.filter(x => RARE.includes(x)).length;
+    while (have < shape.rare) {
+      const at = letters.flatMap((x, i) => (!keep.has(i) && single(x) && !VOWELS.has(x) && !RARE.includes(x) ? [i] : []));
+      if (!at.length) break;
+      const i = pick(at);
+      letters[i] = pick(RARE); keep.add(i); have++;
+    }
+    letters.forEach((x, i) => { if (RARE.includes(x)) keep.add(i); });
+  }
+  if (shape.pairs) {
+    const count = () => { const c = {}; for (const x of letters) if (single(x)) c[x] = (c[x] ?? 0) + 1; return c; };
+    let c = count();
+    while (Object.values(c).filter(n => n >= 2).length < shape.pairs) {
+      // A letter held once is matched by recasting another of its kind — one
+      // that is held once too, or three times or more, so no pair is broken.
+      const lone = Object.keys(c).filter(L => c[L] === 1);
+      const L = lone.length ? pick(lone) : null;
+      if (!L) break;
+      const at = letters.flatMap((x, i) => (x !== L && !keep.has(i) && single(x) && VOWELS.has(x) === VOWELS.has(L) && c[x] !== 2 ? [i] : []));
+      if (!at.length) { delete c[L]; if (!Object.keys(c).some(x => c[x] === 1)) break; continue; }
+      const i = pick(at);
+      letters[i] = L;
+      letters.forEach((x, j) => { if (x === L) keep.add(j); });
+      c = count();
+    }
+  }
+  return keep;
 }
 
 // What a seated patron needs from the case: The Monogrammist's three letters,
