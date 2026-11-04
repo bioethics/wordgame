@@ -147,8 +147,25 @@ export function dealChallenge(n, opts = {}) {
     const v = letters.filter(L => VOWELS.has(L)).length;
     if (v >= vowels[0] && v <= vowels[1]) break;
   }
+  // A seat that reads particular letters gets them: the Bookbinder's day holds
+  // two V's (for the accent) and two O's (for the howl) at least. An O takes
+  // another vowel's place and a V another consonant's, so the vowel band
+  // holds, and they are set aside from the letterforms below, so no ligature
+  // or medieval sort takes one.
+  const keep = new Set();
+  for (const [L, k] of Object.entries(lettersFor(day))) {
+    const vowel = VOWELS.has(L);
+    let have = letters.filter(x => x === L).length;
+    while (have < k) {
+      const at = letters.flatMap((x, i) => (x !== L && !keep.has(i) && VOWELS.has(x) === vowel ? [i] : []));
+      if (!at.length) break;
+      const i = at[Math.floor(rng() * at.length)];
+      letters[i] = L; keep.add(i); have++;
+    }
+    letters.forEach((x, i) => { if (x === L) keep.add(i); });
+  }
   const tiles = letters.map((L, id) => ({ ...makeTileTemplate(L), id }));
-  const consonants = () => tiles.filter(t => !VOWELS.has(t.letter) && t.letter.length === 1
+  const consonants = () => tiles.filter(t => !keep.has(t.id) && !VOWELS.has(t.letter) && t.letter.length === 1
     && TILE_POINTS[t.letter] != null && /^[A-Z]$/.test(t.letter));
 
   // 2. Letterforms. A ligature or a medieval sort replaces a consonant, so the
@@ -162,7 +179,7 @@ export function dealChallenge(n, opts = {}) {
   const forcedMed = force.medieval ?? 0;
   for (let k = 0; k < forcedMed; k++) placeMedieval(rng, tiles, consonants);
   for (const t of tiles) {
-    if (!/^[A-Z]$/.test(t.letter) || VOWELS.has(t.letter)) continue;
+    if (!/^[A-Z]$/.test(t.letter) || VOWELS.has(t.letter) || keep.has(t.id)) continue;
     const r = rng();
     if (r < LUCK.ligature) recast(t, pickWeighted(rng, LIGATURE_WEIGHTS));
     else if (r < LUCK.ligature + LUCK.medieval) placeMedieval(rng, tiles, () => [t]);
@@ -301,6 +318,15 @@ export function dayOf(n) {
     return { kind, tier, ids: turn(pairs, w, `choice:${tier}`) };
   }
   return { kind };
+}
+
+// The letters a day's seat must find in the case: the Bookbinder's V's and O's.
+const SEAT_LETTERS = { bookbinder: { V: 2, O: 2 } };
+function lettersFor(day) {
+  const ids = day.kind === 'patron' ? [day.id] : day.kind === 'choice' ? day.ids : [];
+  const out = {};
+  for (const id of ids) for (const [L, k] of Object.entries(SEAT_LETTERS[id] ?? {})) out[L] = Math.max(out[L] ?? 0, k);
+  return out;
 }
 
 // What a seated patron needs from the case: The Monogrammist's three letters,

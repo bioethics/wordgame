@@ -1743,11 +1743,13 @@ reads a V as a W and lets a run of O's be howled as long as the case allows
 (BOOOOB). What is set is what prints and scores — BOOOOB counts six letters
 on the measure. Each lists the spellings it admits beyond the dictionary
 (`spell` in `daily/table.js`, bounded by the case's V's and O's for the
-Bookbinder), and on its day the page judges and the solver counts with the
+Bookbinder, whose day always deals at least two of each — `SEAT_LETTERS` in
+`daily/deal.js`), and on its day the page judges and the solver counts with the
 dictionary and those together, so the field is the one the patron allows.
-Measured over sixty cases they rarely move the single best word (the
-Bookbinder 28%, the others under a tenth) but widen the field by a sixth to a
-third, which is the point: the yardstick above is a solver's, and a player is
+Measured over sixty cases the Parents and the Haplographer rarely move the
+single best word (under a tenth) but widen the field by a sixth and a third;
+on his own days, with his letters dealt, the Bookbinder widens it by three
+fifths and sets the best word nine times in ten (NEVSVOOMAN, OOOVERVALUED), which is the point: the yardstick above is a solver's, and a player is
 rarely setting the best word. The names list is a lexicon, so the build keeps
 it whole rather than cutting it to the dictionary (`LEXICONS`), and
 `daily-check` scores three hundred real names under the Parents against the
