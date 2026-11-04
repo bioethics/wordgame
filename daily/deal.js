@@ -243,7 +243,7 @@ export const DAY_PATRONS = [
   // Out of the choice tiers, 4 November: their pay is Points or a tile's own
   // value, which can't be weighed against another patron's ×Mult.
   'serpent', 'twins',
-  'seadog',
+  'seadog', 'sculptor', 'binder',
 ];
 // Offered two at a time, from one tier. A tier is patrons that pay the SAME
 // WAY, so the choice is between two words to look for, never between two kinds
@@ -260,8 +260,10 @@ export const CHOICE_TIERS = {
   // patrons that pay otherwise in the game (adapted in daily/table.js), and
   // the Herald's and the Antiquary's days are dealt what they read
   // (SEAT_SHAPES). The Athlete pays on twice as many good words as the most
-  // generous of these, so he sits on Tuesday instead.
-  plain: ['herald', 'cartographer', 'sculptor', 'poet', 'stammerer', 'siren', 'antiquary', 'commoner'],
+  // generous of these, so he sits on Tuesday instead — and so, since the noun
+  // list grew (4 November) to every word whose ordinary meaning is a noun, does
+  // the Sculptor, at 43%.
+  plain: ['herald', 'cartographer', 'poet', 'stammerer', 'siren', 'antiquary', 'commoner'],
 };
 // Each bites: the best word unseated is spiked on a quarter to all of cases,
 // and the best word under them is a different one on two-fifths or more.

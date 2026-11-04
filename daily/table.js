@@ -32,7 +32,7 @@
 import {
   COLOURS, LOVERS, QUOIN_MULT, GLOVER_STEP, TYPESETTER_STEP, TWINS_POINTS,
   SERPENT_POINTS, APPRENTICE_LENGTH, APPRENTICE_STEP, CARTOGRAPHER_MULT,
-  CARTOGRAPHER_MIN_VOWELS, isMark, EXPECTANTS_BONUS,
+  CARTOGRAPHER_MIN_VOWELS, isMark, EXPECTANTS_BONUS, MEDIEVAL,
 } from '../js/constants.js';
 import { isExcluded } from '../js/excluded.js';
 
@@ -144,6 +144,11 @@ function vowelRun(tiles) {
 
 // The Sculptor's list: every word whose ordinary meaning is a noun, and its plurals.
 const readsAsNoun = word => inList('nounforms', word);
+
+// The daily's Binder: halves of BINDER_HALF letters or more, compounds of at
+// most BINDER_MAX (see PATRONS.binder).
+export const BINDER_HALF = 3;
+export const BINDER_MAX = 12;
 
 // ─── The patrons ──────────────────────────────────────────────────────────────
 const register = theme => ({
@@ -289,6 +294,51 @@ export const PATRONS = {
       return [...out];
     },
   },
+  binder: {
+    // Two nouns stacked count as a word: MUSIC and WORLD make MUSICWORLD. The
+    // game's Binder takes any two of his 12,000 (wordlists/nouns.txt), because
+    // he only ever judges the word in front of him; the daily must list every
+    // compound the case could set before the field can be counted, and any two
+    // of 12,000 is a field of half a million that takes a phone a minute. So
+    // the daily's halves are his nouns that are also among the 8,000 commonest
+    // words, BINDER_HALF letters or more, and a compound is at most
+    // BINDER_MAX letters. On his days (sixteen tiles) that lists 4,000 to
+    // 42,000 compounds and counts in 0.1–3 s on a desktop; the best word was a
+    // compound on all eight measured, and the same with halves of four letters
+    // (which would bar PERSONBUS for about a third of the time).
+    adapted: true,
+    lists: ['nouns', 'common'],
+    spell(words, has, tiles, tool) {
+      const A = 65, count = w => { const c = new Int8Array(26); for (let i = 0; i < w.length; i++) c[w.charCodeAt(i) - A]++; return c; };
+      // What the case could supply, generously: per tile, the most of each
+      // letter any one face (read through a medieval sort) holds; a blank or
+      // the ratchet is a letter of slack.
+      const have = new Int8Array(26);
+      let slack = tool === 'ratchet' ? 1 : 0;
+      for (const t of tiles) {
+        if (t.blank) { slack++; continue; }
+        const most = new Int8Array(26);
+        for (const f of [t.letter, t.altLetter]) {
+          if (!f) continue;
+          const c = count((MEDIEVAL[f]?.reads?.[0] ?? f).replace(/[^A-Z]/g, ''));
+          for (let i = 0; i < 26; i++) if (c[i] > most[i]) most[i] = c[i];
+        }
+        for (let i = 0; i < 26; i++) have[i] += most[i];
+      }
+      const over = need => { let o = 0; for (let i = 0; i < 26; i++) if (need[i] > have[i]) o += need[i] - have[i]; return o; };
+      const max = Math.min(BINDER_MAX, tiles.length);
+      const halves = [...LISTS.nouns.keys()]
+        .filter(w => w.length >= BINDER_HALF && w.length <= max - BINDER_HALF && /^[A-Z]+$/.test(w) && LISTS.common.has(w))
+        .map(w => [w, count(w)]).filter(([, c]) => over(c) <= slack);
+      const out = new Set(), sum = new Int8Array(26);
+      for (const [a, ca] of halves) for (const [b, cb] of halves) {
+        if (a.length + b.length > max) continue;
+        for (let i = 0; i < 26; i++) sum[i] = ca[i] + cb[i];
+        if (over(sum) <= slack) { const w = a + b; if (!has(w)) out.add(w); }
+      }
+      return [...out];
+    },
+  },
   bookbinder: {
     // The accent: a V may be read as a W. The howl: a run of O's may be set as
     // long as the case allows and still read as the word's own run.
@@ -380,9 +430,9 @@ export function compileTable(seat, desk, has) {
 }
 
 // The spellings the day's licences admit beyond the dictionary (none on most days).
-export function spellingsFor(tables, words, has, tiles) {
+export function spellingsFor(tables, words, has, tiles, tool = null) {
   const out = new Set();
-  for (const T of tables) if (T.spell) for (const s of T.spell(words, has, tiles)) out.add(s);
+  for (const T of tables) if (T.spell) for (const s of T.spell(words, has, tiles, tool)) out.add(s);
   return out;
 }
 

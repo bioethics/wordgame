@@ -181,7 +181,7 @@ function openChallenge(n) {
   const lists = loadLists(listsNeeded(seatIdsOfDay(deal.day)));
   S.counting = lists.then(() => {
     if (ac.signal.aborted) return null;
-    EXTRA = spellingsFor(S.tables, WORDS, inDict, deal.tiles);
+    EXTRA = spellingsFor(S.tables, WORDS, inDict, deal.tiles, deal.tool);
     render();   // the seats can judge now that their lists are in
     return deal.day.kind === 'pair' ? countPairs(deal, ac.signal) : countWords(deal, ac.signal);
   }).then(field => {
