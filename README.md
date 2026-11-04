@@ -1572,7 +1572,10 @@ everyone who opens № 12 gets the same sixteen sorts. The dressing comes in two
 layers.
 
 **The almanac.** Before a tile is drawn, the challenge draws one page of the
-printer's almanac (`OMENS`), which tilts the whole case. Most nudge the odds
+printer's almanac (`OMENS`), which tilts the whole case. The page itself is
+never shown: the label under the masthead names what the case turned out to
+be (*What the day is*, below), and most of the time that is the page's own
+trait, under the page's own name. Most nudge the odds
 — *Wet Ink* paints more of it, *A Fresh Blade* nicks more, *Purple Passage*
 trims more in purple, *Double-Struck* cuts more second faces, *Fat Matter* and
 *Lean Matter* dress far more or far fewer tiles. A few put something in the
@@ -1604,6 +1607,23 @@ iron keeps its whole rule, toll and all: it is ×2 in the word and −666 Points
 out of it, which makes a hellbox day the one where a single letter must be in
 whatever you print — a mandatory letter, arrived at by the game's own
 mechanics rather than bolted on.
+
+### What the day is
+
+The label under the masthead names the one thing most worth knowing about the
+case before a sort is set, read off the case as dealt rather than off the
+almanac page that tilted the dice — a Fair Copy page can deal a lean case, and
+a Purple Passage page an ordinary one. `traitsOf` in `daily/deal.js` lists
+every trait the case has, most salient first; the label shows the first and a
+tap lists the rest. The order is how much each changes the way a case is
+played: who sits (*Two-Up*, *A Choice of Patrons*, *A Patron Calls*,
+*Deadline*), then Hellbox iron (a letter every good word must hold), then how
+dressed the case is (*Lean Matter*, *Fat Matter*), then a tool, then strange
+letterforms (*Old Stock*, *Tied Letters*), then one dressing far commoner than
+usual (*Wet Ink* and the rest), and *Fair Copy* when none of those holds. The
+bars (`TRAIT_BARS`) sit at about the tenth and ninetieth percentile of a Fair
+Copy deal, per sixteen sorts, so a label marks a case that looks unusual. The
+share line carries the label.
 
 ### The tool
 

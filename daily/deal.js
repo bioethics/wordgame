@@ -99,8 +99,9 @@ const MEDIEVAL_WEIGHTS = [['Þ', 3], ['Ȝ', 2], ['Æ', 2], ['Ƿ', 1]];
 const VOWELS = new Set(['A', 'E', 'I', 'O', 'U']);
 
 // ─── The almanac ──────────────────────────────────────────────────────────────
-// Names and rules in daily/text.js (OMEN_TEXT). Here: how often each is drawn,
-// and what it does to the odds. `weights` multiplies the feature weights;
+// Here: how often each is drawn, and what it does to the odds. The page never
+// names the omen; it names what the case turned out to be (traitsOf, below),
+// which is usually the omen's own trait and borrows its name. `weights` multiplies the feature weights;
 // `dressed` multiplies the chance a tile is dressed at all; `force` puts things
 // in the case outright.
 export const OMENS = {
@@ -351,6 +352,60 @@ function dress(rng, t, f) {
     }
   }
 }
+
+// ─── What the day is, at a glance ─────────────────────────────────────────────
+// The masthead names a case by what is most worth knowing about it before a
+// sort is set — read off the case as dealt, not off the almanac page that
+// tilted the dice, since a fair page can deal a lean case and a wet-ink page a
+// dry one. In order of how much each changes the way the case is played:
+//
+//   1. who sits — two words, a choice of patrons, a patron, an editor
+//   2. Hellbox iron — one letter every good word must hold
+//   3. how dressed the case is — mostly plain, or mostly dressed
+//   4. a tool on the bench
+//   5. strange letterforms — medieval sorts, ligatures
+//   6. one dressing far commoner than usual — paint, silver, purple, nicks, faces
+//
+// Returns every trait the case has, most salient first; the masthead shows the
+// first and a tap lists them all. Thresholds are set per sixteen sorts, at
+// about the tenth and ninetieth percentile of a Fair Copy deal, so a label
+// marks a case that looks unusual rather than one the omen merely nudged.
+export const TRAIT_BARS = {
+  lean: 4, fat: 11,                                  // dressed sorts, per sixteen
+  paint: 7, silver: 5, purple: 4, nick: 5, dual: 4,  // one dressing, per sixteen
+  ligatures: 2, medieval: 1,
+};
+export function traitsOf(deal) {
+  const out = [];
+  const t = deal.tiles;
+  const per16 = n => (n * 16) / t.length;
+  const count = f => t.filter(f).length;
+  const day = deal.day?.kind;
+  if (day === 'pair') out.push('twoUp');
+  if (day === 'choice') out.push('choice');
+  if (day === 'patron') out.push('patron');
+  if (day === 'editor') out.push('deadline');
+  if (t.some(x => x.material === 'cursed')) out.push('hellbox');
+  const dressed = per16(count(x => x.colour || x.trim || x.nick || x.letterType === 'dual' || x.material));
+  if (dressed <= TRAIT_BARS.lean) out.push('lean');
+  if (dressed >= TRAIT_BARS.fat) out.push('fat');
+  if (deal.tool) out.push(deal.tool);
+  if (count(x => MEDIEVAL_SORTS.includes(x.letter)) >= TRAIT_BARS.medieval) out.push('oldstock');
+  if (count(x => LIGATURE_SORTS.includes(x.letter)) >= TRAIT_BARS.ligatures) out.push('tied');
+  // The dressing furthest over its bar, if any is over at all.
+  const tilts = [
+    ['wetink', per16(count(x => x.colour)) / TRAIT_BARS.paint],
+    ['silver', per16(count(x => x.trim === 'silver')) / TRAIT_BARS.silver],
+    ['purple', per16(count(x => x.trim === 'purple')) / TRAIT_BARS.purple],
+    ['blade',  per16(count(x => x.nick)) / TRAIT_BARS.nick],
+    ['double', per16(count(x => x.letterType === 'dual')) / TRAIT_BARS.dual],
+  ].filter(([, r]) => r >= 1).sort((a, b) => b[1] - a[1]);
+  out.push(...tilts.map(([k]) => k));
+  if (!out.length) out.push('fair');
+  return out;
+}
+const MEDIEVAL_SORTS = MEDIEVAL_WEIGHTS.map(([L]) => L);
+const LIGATURE_SORTS = LIGATURE_WEIGHTS.map(([L]) => L);
 
 // ─── What a seat brings ───────────────────────────────────────────────────────
 // A patron or editor who lends a tile puts it at the end of the case, plain and

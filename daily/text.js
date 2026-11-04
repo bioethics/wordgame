@@ -5,22 +5,28 @@
 // Tile features borrow the game's own wording (TRIMS, NICKS, colourDesc in
 // js/constants.js), so a sort means the same thing on both pages.
 
-// ─── The almanac ──────────────────────────────────────────────────────────────
-// One per challenge, drawn before the tiles (OMENS in daily/deal.js). The name
-// is all the page shows; a tap reads the desc.
-export const OMEN_TEXT = {
-  fair:       { name: 'Fair Copy',             desc: 'Ordinary odds.' },
-  wetink:     { name: 'Wet Ink',               desc: 'More paint than usual.' },
-  silver:     { name: 'The Silversmith Calls', desc: 'More silver trims than usual.' },
-  blade:      { name: 'A Fresh Blade',         desc: 'More nicks than usual.' },
-  purple:     { name: 'Purple Passage',        desc: 'More purple trims than usual.' },
-  double:     { name: 'Double-Struck',         desc: 'More tiles with a second face than usual.' },
-  tied:       { name: 'Tied Letters',          desc: 'Three tiles are ligatures.' },
-  oldstock:   { name: 'Old Stock',             desc: 'Two tiles are medieval sorts.' },
-  hellbox:    { name: 'From the Hellbox',      desc: 'One tile is cast in Hellbox iron.' },
-  fat:        { name: 'Fat Matter',            desc: 'Far more features than usual.' },
-  lean:       { name: 'Lean Matter',           desc: 'Far fewer features than usual.' },
-  toolchest:  { name: 'The Tool Chest',        desc: 'A tool is on the bench.' },
+// ─── What the day is ──────────────────────────────────────────────────────────
+// The masthead's label: the case's most salient trait (traitsOf in
+// daily/deal.js), with every trait it has listed on a tap. Most names are the
+// almanac's own, since most of its pages are the traits they deal.
+export const TRAIT_TEXT = {
+  twoUp:    { name: 'Two-Up',               desc: 'Two words from one case, {0} letters or more each, their scores added.' },
+  choice:   { name: 'A Choice of Patrons',  desc: 'Seat one of three.' },
+  patron:   { name: 'A Patron Calls',       desc: 'Seated for every reader.' },
+  deadline: { name: 'Deadline',             desc: 'An editor at the desk. A word that breaks the rule is spiked.' },
+  hellbox:  { name: 'From the Hellbox',     desc: 'One tile is cast in Hellbox iron.' },
+  lean:     { name: 'Lean Matter',          desc: 'Most of the case is plain.' },
+  fat:      { name: 'Fat Matter',           desc: 'Most of the case is dressed.' },
+  ratchet:  { name: 'The Ratchet',          desc: 'A ratchet on the bench.' },
+  loupe:    { name: 'The Loupe',            desc: 'A loupe on the bench.' },
+  oldstock: { name: 'Old Stock',            desc: 'Medieval sorts in the case.' },
+  tied:     { name: 'Tied Letters',         desc: 'Ligatures in the case.' },
+  wetink:   { name: 'Wet Ink',              desc: 'More paint than usual.' },
+  silver:   { name: 'The Silversmith Calls', desc: 'More silver trims than usual.' },
+  purple:   { name: 'Purple Passage',       desc: 'More purple trims than usual.' },
+  blade:    { name: 'A Fresh Blade',        desc: 'More nicks than usual.' },
+  double:   { name: 'Double-Struck',        desc: 'More tiles with a second face than usual.' },
+  fair:     { name: 'Fair Copy',            desc: 'Nothing out of the ordinary.' },
 };
 
 // ─── The tools ────────────────────────────────────────────────────────────────
@@ -120,7 +126,7 @@ export const RESULT = {
   copied: 'Copied',
   again: 'Again',
   next: 'Next ›',
-  shareHead: 'Great Work · Daily Proof № {0}',
+  shareHead: 'Great Work · Daily Proof № {0} · {1}',
 };
 
 export const fill = (s, ...v) => s.replace(/\{(\d)\}/g, (_, i) => v[i] ?? '');

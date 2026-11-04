@@ -12,7 +12,7 @@
 // sort makes on its way somewhere are the game's own (js/anim.js), and they
 // follow the game's sound setting.
 
-import { dealChallenge, todaysNumber, EPOCH } from './deal.js';
+import { dealChallenge, todaysNumber, traitsOf, EPOCH } from './deal.js';
 import {
   scoreWord, judge, withTool, solveCase, rankOf, bracketOf, BRACKETS, activeLetter, faceLetter,
   restingOf, ringStep, shiftable, loupeDelta, settingOf, solveWords, solvePairs, pairBest, RING,
@@ -31,7 +31,7 @@ import {
   sparkleBurst, fmtMult, flourishTime,
 } from '../js/anim.js';
 import {
-  OMEN_TEXT, TOOL_TEXT, SORT_TEXT, UI, RESULT, PATRON_TEXT, EDITOR_TEXT, SPIKE_TEXT, PAIR_TEXT, fill,
+  TRAIT_TEXT, TOOL_TEXT, SORT_TEXT, UI, RESULT, PATRON_TEXT, EDITOR_TEXT, SPIKE_TEXT, PAIR_TEXT, fill,
 } from './text.js';
 import { drawField } from './chart.js';
 
@@ -151,6 +151,7 @@ function openChallenge(n) {
     field: null, note: '', printing: false, open: new Set(), openInit: false,
   });
   S.tables = tablesForDay(deal.day, has);
+  S.traits = traitsOf(deal);
   S.tiles = deal.tiles.map(t => ({ ...t }));
   S.order = S.tiles.map(t => t.id);
   S.tracks = tracksOf(S.tiles);
@@ -825,11 +826,14 @@ function renderHeader() {
   $('nextBtn').disabled = !PLAYTEST && S.n >= todaysNumber();
 }
 
+// The day's label: the case's most salient trait, and on a tap all of them.
+const traitLines = () => S.traits.map(k => ({
+  head: TRAIT_TEXT[k].name, body: fill(TRAIT_TEXT[k].desc, S.deal.day.min ?? ''),
+}));
 function renderAlmanac() {
-  const o = OMEN_TEXT[S.deal.omen];
   const el = $('almanac');
-  el.textContent = o.name;
-  el.title = o.desc;
+  el.textContent = TRAIT_TEXT[S.traits[0]].name;
+  el.title = traitLines().map(l => `${l.head}: ${l.body}`).join('\n');
 }
 
 // ─── The seats ────────────────────────────────────────────────────────────────
@@ -1231,7 +1235,7 @@ function renderResult() {
   share.textContent = RESULT.share;
   share.addEventListener('click', async () => {
     const lines = [
-      fill(RESULT.shareHead, S.n),
+      fill(RESULT.shareHead, S.n, TRAIT_TEXT[S.traits[0]].name),
       `${label} — ${fmtN(r.score)}`,
       `${r.rank === 1 ? RESULT.best : gradeLabel(r)} (${fill(pairs ? RESULT.placePairs : RESULT.place, fmtN(r.rank), fmtN(r.size))})`,
       // Inside a frame the page's own address is not one anybody could open.
@@ -1566,9 +1570,8 @@ function wire() {
   // The almanac's day has nothing to do but be read, so a tap reads it.
   $('almanac').addEventListener('click', e => {
     e.stopPropagation();
-    const o = OMEN_TEXT[S.deal.omen];
     if (!$('pop').hidden) { hidePop(); return; }
-    showPop($('almanac'), pop => popLines(pop, [{ head: o.name, body: o.desc }]));
+    showPop($('almanac'), pop => popLines(pop, traitLines()));
   });
   document.addEventListener('pointerdown', e => {
     if (!e.target.closest('#pop, .tile, #almanac, .seat')) hidePop();
