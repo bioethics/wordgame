@@ -78241,6 +78241,8 @@ vacationer
 vacationers
 vacationing
 vacations
+vacay
+vacays
 vaccinate
 vaccinated
 vaccinates
