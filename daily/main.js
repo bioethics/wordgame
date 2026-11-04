@@ -1234,6 +1234,7 @@ function renderResult() {
   top.className = 'slip-word';
   top.appendChild(pairs ? miniPair(wordAndRest(0).word, wordAndRest(1).word) : miniWord(wordAndRest(0).word));
   if (S.deal.day.kind === 'choice') top.appendChild(seatMark(r.seat));
+  else { const m = patronMark(wordAndRest(0).word, tableNow()); if (m) top.appendChild(m); }
   const score = document.createElement('b');
   score.className = 'slip-score';
   score.textContent = fmtN(r.score);
