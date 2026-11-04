@@ -1,8 +1,9 @@
 // Bundle the Daily Proof into one page that stands on its own — for serving it
 // from a subdomain, which on GitHub Pages means a second Pages site (one custom
 // domain per repository). The modules are bundled, the stylesheet inlined, and
-// the game's word list and exclusions embedded as window.FOLIO_WORDLIST and
-// window.FOLIO_THEMES, which daily/main.js reads before it would fetch.
+// the game's word list, its exclusions and the lists the day's seats read
+// embedded as window.FOLIO_WORDLIST and window.FOLIO_THEMES, which
+// daily/main.js reads before it would fetch.
 //
 //   node tools/build-daily.mjs [--out dir] [--cname daily.example.com] [--home url]
 //
@@ -54,6 +55,20 @@ const wordlist = fs.readFileSync(path.join(root, 'wordlists/wordlist.txt'), 'utf
   .filter(w => /^[A-Z]+$/.test(w) && !excludedSet.has(w)).join('\n');
 const excluded = '';
 
+// The lists the day's patrons and editors read (LIST_FILES in daily/table.js),
+// cut to the words the dictionary holds — the only ones a case can set — in
+// their own order, since the editors read how far down `common` a word sits.
+// Embedded under the file's own name, which is what daily/main.js asks for.
+const { LIST_FILES } = await import(pathToFileURL(path.join(root, 'daily/table.js')).href);
+const playable = new Set(wordlist.split('\n'));
+const lists = {};
+for (const file of Object.values(LIST_FILES)) {
+  const name = path.basename(file, '.txt');
+  lists[name] = fs.readFileSync(path.join(root, file), 'utf8')
+    .replace(/\r/g, '').split('\n').map(l => l.trim().toUpperCase())
+    .filter(w => w && playable.has(w)).join('\n');
+}
+
 let html = fs.readFileSync(path.join(root, 'daily/index.html'), 'utf8');
 const swap = (from, to) => {
   if (!html.includes(from)) throw new Error(`daily/index.html no longer contains: ${from}`);
@@ -62,7 +77,7 @@ const swap = (from, to) => {
 swap('<link rel="stylesheet" href="daily.css" />', `<style>\n${css}\n</style>`);
 swap('<script type="module" src="main.js"></script>',
   `<script>window.FOLIO_WORDLIST = ${JSON.stringify(wordlist)};
-window.FOLIO_THEMES = ${JSON.stringify({ 'excluded-slurs': excluded })};
+window.FOLIO_THEMES = ${JSON.stringify({ 'excluded-slurs': excluded, ...lists })};
 ${home ? `window.DAILY_HOME = ${JSON.stringify(home)};` : ''}</script>
 <script>\n${js}\n</script>`);
 

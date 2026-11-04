@@ -1522,11 +1522,13 @@ whole story and the difference between 900th and 1,000th is no story at all.
 The best word in the case is said in words rather than as a percentage: on a
 field of 400, first place is "top 0.25%", which undersells it.
 
-It is the base game with an empty table. No patrons, no editors, no Market —
-just the arithmetic every press owns from its first page: Points × the
-measure × the paints × purple × the metals. Every sort is the game's sort,
-drawn with the game's classes and explained in the game's words (`TRIMS`,
-`NICKS`, `colourDesc`).
+Three days a week it is the base game with an empty table. No patrons, no
+editors, no Market — just the arithmetic every press owns from its first page:
+Points × the measure × the paints × purple × the metals. The other four seat
+somebody, or ask for two words (*The week*, below). Every sort is the game's
+sort, drawn with the game's classes and explained in the game's words
+(`TRIMS`, `NICKS`, `colourDesc`), and every patron and editor is the game's
+own, scored by the game's own passes.
 
 The hands are the game's too (`js/drag.js`, ported into `daily/main.js`): tap a
 sort to set it or lift it, drag it between the case and the stick or to a new
@@ -1619,6 +1621,146 @@ field is every word the case could set *with the tool used as well as it can
 be* — a ratchet day's field is much larger (it makes a near-wildcard of every
 letter), and a loupe day's top scores higher.
 
+### The week
+
+Each day of the week has its own kind of case, by the calendar date of the
+challenge (`WEEK` in `daily/deal.js`; № 1 was a Tuesday):
+
+| Day | Case |
+| --- | --- |
+| Sunday | **A choice of three patrons.** Tap a card to seat it (and read it); the readout re-prices the word under whoever is seated. Three from one tier, the tiers alternating by week. |
+| Monday, Wednesday, Friday | Plain. |
+| Tuesday | **The day's patron**, seated for everyone. |
+| Thursday | **An editor at the desk.** The card carries the day's rule on its face; a word that breaks it is spiked — scored at ×0.2, exactly as at a Deadline, never refused. |
+| Saturday | **Two words** from a case of twenty, each six letters or more, their scores added. |
+
+Who sits is chosen by turn rather than by chance: each roster is shuffled once
+per lap of it (`turn` in `daily/deal.js`), so every patron and every editor
+comes round before any comes round twice. The seat is rolled on a seed stream
+of its own, so a case is the same sixteen sorts whoever sits at it. A patron
+who brings a tile (The Counterfeiter's blank) or an editor who lends one (the
+Enthusiast's letter) puts it at the end of the case, which is then
+seventeen.
+
+The ranking is always against the field *as that day prices it*. On a patron
+day every word is scored with the patron seated; on an editor day every word
+is scored under the desk, spike and all, so a spiked word is in the field at a
+fifth of its worth rather than missing from it; on a choice day every word is
+scored under each of the three and kept at whichever pays it most. So a
+choice-day reader who seats the wrong patron for their word is ranked
+against readers who seated the right one.
+
+### The table
+
+`daily/table.js` holds every patron and editor the daily can seat, each a port
+of the same id in `js/patrons.js` or `js/bosses.js` cut down to what it does
+to ONE word. Coins, laurels, packages, permanent growth and anything that
+waits for the next word are gone, because there is no next word.
+`tools/daily-check.mjs` seats each one in the game's own `computeScore` and
+fails on any difference, so a daily patron is the game's patron, not a
+paraphrase of its card.
+
+The roster is a cull, and it was cut by measurement rather than by reading the
+cards. `node tools/daily-table.mjs 1-60` solves sixty cases once with every
+candidate priced at each leaf and reports, per seat: how much it lifts the best
+score (*power*), how often the best word becomes a different word (*moved*),
+how often it touches the best word at all (*fired*), and how often nothing in
+the field triggers it (*dead*). The question a daily seat must answer is
+*moved*: a patron that only multiplies the word you were already going to set
+poses no question, however generous it is.
+
+**The day's patron** (`DAY_PATRONS`), with how often each moved the best word:
+The Counterfeiter 88% (a blank, any letter, worth 0 — the wildcard the
+ratchet is a cramped version of), The Poppet 82%, The Paramour 80%, The
+Vulgarian 75%, The Sexton 68% (the four registers: ×3 for a word on a themed
+list), The Athlete 57%, The Poet 47%, The Cartographer 42%, The Herald 32%,
+and The Monogrammist 25% — low, but it fires on every case and changes *which
+tiles* the best word is set from (its letters print twice, paint and all),
+which the figure doesn't see. None is ever dead.
+
+**The choice of three** (`CHOICE_TIERS`). A trio is only a choice if no one of
+it is the answer. Over the sixty cases, the best word was found under each
+member of every possible trio, and a tier admitted a patron only if no trio
+holding it was won by one member more than about half the time:
+
+- *rich* — The Paramour, The Poppet, The Vulgarian, The Poet, The Athlete,
+  The Serpent. The worst trio is won by one member 48% of the time, the
+  runner-up's best is typically 80–85% of the winner's, and every member wins
+  some trio outright.
+- *plain* — The Herald, The Cartographer, The Sculptor, The Twins. Quieter
+  seats (each lifts the best score by a few per cent), so the runner-up is
+  usually within a tenth; the worst trio is won by one member 55% of the time.
+
+The Sexton is the case against offering every strong patron: he takes 70% of
+the trios he is in, so he sits on Tuesdays only. The Serpent is offered but
+never forced, since a case without an S leaves him nothing (27% of cases).
+
+**Left out**, and why:
+
+- *Free money.* The Lexicographer (fires on 100% of best words, moves 12%),
+  The Novelist (100%, 0%), The Siren (100%, 17%), The Jeweller (82%, 8%),
+  The Glover (55%, 7%). Each is a multiplier on whatever you would have set.
+- *Usually dead.* The Harlequin (no word in the field reaches four colours on
+  93% of cases), The Marbler (78%), The Firebrand (77%), The Alloy (72%), The
+  Typesetter (43%); Romeo and Juliet, dead on about 40% and never moving the
+  best word when alive.
+- *Never wins.* The Mirror (moves 3%: reversible words are short), The
+  Apprentice (0%: no four-letter word survives the measure), The Illuminator
+  (0%: the word with three colours was already the best word), The Scientist
+  (8%: a plain OLOGY tile can't compete with a dressed case).
+- *Lopsided.* The Quoin is dead on 45% of cases and enormous when alive — too
+  unreliable for a Tuesday, too strong for a trio. The Stammerer wins almost
+  no trio and makes any it sits in a two-horse race.
+- *Not about one word at all*: everything paid in Coins, re-rolls, hand size,
+  discards, chapters, laurels or the Market, and the misspelling licences
+  (Titivillus, the Skimmer, the Binder, the Haplographer), which would each
+  need the solver to search a different dictionary.
+
+**The editors** (`EDITOR_DAYS`), with how often the best word under them is a
+different word: The Populist 87% (common words only), The Columnist 78–92%
+(an exact measure, rolled 6, 7 or 8), The Serialist 80% (open with a rolled
+letter), the #1 Specific Letter Enthusiast 45% (use a rolled letter, lent as
+an extra tile), The Minimalist 28% (no adjectives or adverbs). Two of them
+were tuned by the measurement. At a measure of 4 or 5 the Columnist is
+toothless — a spiked long word beats every word of the right length 80–90% of
+the time — so his measure starts at the sixth letter, where the spike is a
+real trade: at 6 the spiked word still wins about a fifth of the time, which
+is the tension the soft spike exists for. And the Enthusiast's letter is drawn
+from the case's dearer letters (worth 3 or more), which nearly doubles how
+often he bites (45% against 23%), since the long words a case can set mostly
+hold its cheap letters already. The Padder and the Obscurantist never bit
+once (long words are seldom short or common), and the rest of the masthead
+reshapes a page or a run rather than a word.
+
+### Two words
+
+Saturday asks for two words from one case, each scored on its own and added.
+Added freely, that is not a puzzle: the multipliers compound, so the best pair
+was the best single word plus a scrap of what it left — SATURNINE + RUIN for
+4,089 against SATURNINE's 4,074 — on thirteen of sixteen measured cases. So
+both words must reach the measure (six letters, where the length multiplier
+begins), and the case is twenty sorts rather than sixteen: at sixteen or
+eighteen some cases leave fewer than fifteen legal pairs, at twenty the
+thinnest of forty measured cases left 617 and the median 68,000. A two-word
+day draws no tool and no Hellbox iron, whose rules are written for a single
+word.
+
+Ranking a pair means knowing what every PAIR could have scored, and a pair is
+not two bests added — two words may want the same sort. So each word of the
+measure is solved for every set of tiles that can spell it (`plansFor`, a
+bitmask of sorts and the best score that set allows; identical sorts are kept
+apart here, since the second word may need the E the first one left), and a
+pair is the best sum over two sets that don't overlap (`pairBest`, which
+stops as soon as no later setting could win). `solvePairs` walks every pair a
+slice at a time and keeps the sums in a typed array — a few hundred thousand
+on an ordinary case, about a second on a desktop — and the best dozen with
+their settings for the slip.
+
+Two sticks: a tap on one takes it in hand, a sort dragged between them moves
+across, and Enter on a finished first word moves to the second. Each stick
+wears its word's total; the sum is under them. Print checks both words, then
+replays one, then the other, then lands the sum.
+
 ### Counting the field
 
 `solveCase` in `daily/score.js` walks every word of the dictionary against the
@@ -1654,10 +1796,13 @@ node tools/daily-check.mjs 1-40
 ```
 
 scores thousands of random arrangements from real deals both ways and fails
-on any difference in Points, Mult or total; runs the solver against a naive
-search with no shortcuts on a sample of every case; replays every plan the
-solver reports; and prints a table of what the luck dealt, field sizes and
-solve times. **Run it after any change to the base arithmetic** — a trim's
+on any difference in Points, Mult or total — once with an empty table, then
+again with every patron and every editor in `daily/table.js` seated in the
+game's own state; runs the solver against a naive search with no shortcuts on
+a sample of every case, under each table the day prices words with; checks
+the two-word pair search against brute force on a sample of pairs; replays
+every plan the solver reports; and prints a table of what the luck dealt,
+field sizes and solve times. **Run it after any change to the base arithmetic** — a trim's
 value, the measure, a metal — since the daily will otherwise quietly keep the
 old rule.
 
@@ -1670,7 +1815,8 @@ any number and set a printed case again. Turn it off and the page is a daily:
 today's case and the ones before it, printed once each. Bumping `DEAL_SALT`
 re-deals every challenge, for when the luck's tuning changes enough that old
 numbers shouldn't keep their old cases. Printed proofs are kept in
-`localStorage` under `great-work-daily-v1`.
+`localStorage` under `great-work-daily-v3`, the number moving with the salt so
+a re-dealt case never reopens on an old proof.
 
 ### On its own subdomain
 
@@ -1682,8 +1828,9 @@ site holding nothing but the daily, bundled into one page:
 node tools/build-daily.mjs --cname daily.julianandliesl.xyz
 ```
 
-writes `dist-daily/index.html` (the dictionary embedded already filtered, so
-the exclusion list itself never ships; nothing fetched but the fonts) and its
+writes `dist-daily/index.html` (the dictionary and the seats' lists embedded
+already filtered, so the exclusion list itself never ships; nothing fetched
+but the fonts) and its
 `CNAME`. With `--artifact` instead it writes `dist-daily/daily-proof.html`, the
 same page as a claude.ai artifact (contents only — the host supplies the
 skeleton), which is the quickest way to playtest from a phone: publish it and
@@ -1707,11 +1854,13 @@ until it is told where to publish. To switch it on:
 
 | File | Role |
 | --- | --- |
-| `daily/deal.js` | the seeded deal: the almanac, the per-sort luck, the tool, the numbering |
-| `daily/score.js` | the scorer, the tools' effects, the solver, the ranking and its brackets |
+| `daily/deal.js` | the seeded deal: the almanac, the per-sort luck, the tool, the week and who sits, the numbering |
+| `daily/score.js` | the scorer, the tools' effects, the solver, the pair search, the ranking and its brackets |
+| `daily/table.js` | the patrons and editors a day can seat, and the lists they read |
 | `daily/main.js` | the page: composing, the tool, printing, the slip, the saved proofs |
 | `daily/chart.js` | the field, drawn |
 | `daily/text.js` | every word the page shows a player |
 | `daily/daily.css` | the page, and the game's sorts re-cut in em |
 | `tools/daily-check.mjs` | the daily held to the game |
+| `tools/daily-table.mjs` | every candidate seat measured against real cases — the evidence for the rosters |
 | `tools/build-daily.mjs` | the one-page bundle for the subdomain |

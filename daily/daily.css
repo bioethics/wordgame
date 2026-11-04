@@ -145,6 +145,52 @@ button { font: inherit; color: inherit; }
 }
 .nav-date { font-family: var(--sans); font-weight: 600; font-size: 11px; color: var(--cream-dim); }
 
+/* ─── The seats ────────────────────────────────────────────────────────────── */
+/* Who sits today (renderSeats in main.js). A card per patron, gold-edged when
+   it is the one seated and lit while the word in hand is one it rules on; the
+   editor's card carries the day's rule on its face and goes red when the word
+   in hand would be spiked. */
+.seats { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+.seats[hidden] { display: none; }
+.seat {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: "emoji name" "emoji rule";
+  align-items: center;
+  column-gap: 8px;
+  min-height: 44px;
+  padding: 6px 12px 6px 9px;
+  border-radius: 8px;
+  border: 1px solid rgba(203, 161, 90, 0.4);
+  background: linear-gradient(170deg, rgba(255, 228, 185, 0.1), rgba(0, 0, 0, 0.16));
+  color: var(--cream);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color calc(0.2s / var(--aspd)), box-shadow calc(0.2s / var(--aspd)), opacity calc(0.2s / var(--aspd));
+}
+.seat-emoji { grid-area: emoji; font-size: 22px; line-height: 1; }
+.seat-name { grid-area: name; font-family: var(--fell-sc); font-size: 16px; letter-spacing: 0.02em; line-height: 1.1; }
+.seat-rule { grid-area: rule; font-size: 13px; font-weight: 600; color: var(--brass-hi); line-height: 1.25; }
+.seat--only, .seat--desk { flex: 1 1 auto; }
+.seat--choice { flex: 1 1 0; min-width: 0; grid-template-areas: "emoji" "name"; grid-template-columns: 1fr; justify-items: center; text-align: center; row-gap: 2px; padding: 7px 6px; }
+.seat--choice .seat-name { font-size: 14px; }
+.seat--choice:not(.seat--on) { opacity: 0.62; }
+.seat--choice:not(.seat--on):hover { opacity: 0.9; }
+.seat--on { border-color: var(--brass-hi); box-shadow: 0 0 0 1px var(--brass-hi), 0 0 14px rgba(235, 201, 137, 0.25); }
+.seat--lit { border-color: #ffe6a6; box-shadow: 0 0 0 2px #ffe6a6, 0 0 18px rgba(255, 220, 140, 0.45); }
+.seat--spiked { border-color: #ff9a8a; box-shadow: 0 0 0 2px rgba(255, 120, 100, 0.7); }
+.seat--spiked .seat-rule { color: #ffb4a6; }
+.seat:disabled { cursor: default; opacity: 0.35; }
+.seat--firing { animation: seatFire calc(0.62s / var(--aspd)) ease; }
+@keyframes seatFire { 40% { transform: scale(1.06); box-shadow: 0 0 0 2px #ffe6a6, 0 0 26px rgba(255, 220, 140, 0.8); } }
+.seat-pair {
+  margin: 0;
+  font-family: var(--fell);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--brass-hi);
+}
+
 /* ─── The proof sheet ──────────────────────────────────────────────────────── */
 .sheet, .slip, .field, .best {
   background:
@@ -239,6 +285,13 @@ button { font: inherit; color: inherit; }
 .chip--amber     { --stamp: #a87010; }
 .chip--purple    { --stamp: #7040a0; }
 .chip--cursed    { --stamp: #8f2018; }
+.chip--seat      { --stamp: #9a7a2e; }
+.chip--spike     { --stamp: #a3301f; }
+.chip--seat i, .chip--spike i {
+  width: auto; height: auto; border-radius: 0; background: none; opacity: 0.55;
+  font-style: normal; font-size: 13px; line-height: 1;
+}
+.chip--seat.chip--on i, .chip--spike.chip--on i { opacity: 1; background: none; }
 .chip--toll { --stamp: #b23a1e; color: var(--red); border-color: rgba(178, 58, 30, 0.45); font-family: var(--serif); font-weight: 900; font-size: 13px; }
 
 .readout--slam { animation: roSlam calc(0.5s / var(--aspd)) ease; }
@@ -248,8 +301,44 @@ button { font: inherit; color: inherit; }
   100% { transform: scale(1); }
 }
 
-/* The composing stick: a steel channel the word is set into, one course deep. */
+/* The composing stick: a steel channel the word is set into, one course deep.
+   On a two-word day there are two, and the one in hand is edged in brass;
+   each carries its word's total at its end. */
 .stick-wrap { position: relative; }
+.stick-wrap[hidden] { display: none; }
+.stick-wrap + .stick-wrap { margin-top: 8px; }
+/* Two sticks are one course each but less steel apiece, so the case stays in
+   reach on a phone. */
+.stick-wrap:not([hidden]) + .stick-wrap:not([hidden]) .stick,
+.stick-wrap:has(+ .stick-wrap:not([hidden])) .stick { height: 94px; padding-top: 6px; }
+.stick-wrap[data-stick] { border-radius: 8px; }
+.stick-wrap--active { box-shadow: 0 0 0 2px var(--brass), 0 0 12px rgba(203, 161, 90, 0.35); }
+.stick-sum {
+  /* In the steel's foot, left of the measure's first labels. */
+  position: absolute;
+  left: 8px; bottom: 5px;
+  z-index: 3;
+  padding: 0 6px;
+  border-radius: 3px;
+  background: rgba(34, 28, 22, 0.72);
+  color: var(--ivory);
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: 13px;
+  line-height: 18px;
+  pointer-events: none;
+}
+.stick-sum[hidden] { display: none; }
+.pair-sum {
+  margin: 8px 2px 0;
+  text-align: right;
+  font-family: var(--serif);
+  font-size: 15px;
+  color: var(--dim);
+}
+.pair-sum[hidden] { display: none; }
+.pair-sum b { font-weight: 900; font-size: 22px; color: rgba(34, 28, 22, 0.32); margin-left: 4px; }
+.pair-sum--live b { color: var(--red); }
 .stick {
   --tfs: 16px;
   position: relative;
@@ -344,10 +433,12 @@ button { font: inherit; color: inherit; }
   margin-top: 14px;
 }
 .case-grid {
-  /* Four across, the sockets sized to the case's own width. */
-  --tfs: min(16px, calc((100cqw - 24px - 3 * 10px) / 17));
+  /* Four across (five for a bigger case: --cols, set by renderCase), the
+     sockets sized to the case's own width. */
+  --cols: 4;
+  --tfs: min(16px, calc((100cqw - 24px - (var(--cols) - 1) * 10px) / (var(--cols) * 4.25)));
   display: grid;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(var(--cols), auto);
   justify-content: center;
   gap: 10px;
   padding: 12px;
@@ -359,8 +450,8 @@ button { font: inherit; color: inherit; }
 }
 @container (min-width: 620px) {
   .case-grid {
-    grid-template-columns: repeat(8, auto);
-    --tfs: min(16px, calc((100cqw - 24px - 7 * 10px) / 34));
+    grid-template-columns: repeat(calc(var(--cols) * 2), auto);
+    --tfs: min(16px, calc((100cqw - 24px - (var(--cols) * 2 - 1) * 10px) / (var(--cols) * 8.5)));
   }
 }
 .socket {
@@ -563,6 +654,23 @@ button { font: inherit; color: inherit; }
 .ratchet-choice b { font-size: 22px; font-weight: 900; }
 .ratchet-choice:hover { filter: brightness(1.07); }
 
+/* The blank asks for its letter: the alphabet in a grid on the tile. */
+.pop--blank { padding: 8px; }
+.blank-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 6px; }
+.blank-choice {
+  min-width: 34px;
+  min-height: 36px;
+  border-radius: 5px;
+  border: 1px solid rgba(86, 60, 24, 0.5);
+  background: linear-gradient(168deg, var(--ivory), var(--ivory-2));
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: 17px;
+  color: var(--tile-ink);
+  cursor: pointer;
+}
+.blank-choice:hover { filter: brightness(1.06); }
+
 /* ─── A sort in the hand ───────────────────────────────────────────────────── */
 /* What a drag carries under the pointer, and what it leaves behind. */
 .drag-ghost {
@@ -606,6 +714,8 @@ button { font: inherit; color: inherit; }
 .fl-set--amber     { color: #ffd68c; }
 .fl-set--purple    { color: #cfa6ff; }
 .fl-set--cursed    { color: #ff7a66; }
+.fl-set--seat      { color: #ffe6a6; }
+.fl-set--spike     { color: #ff9a8a; }
 .sparkle {
   position: fixed;
   width: 9px; height: 9px;
@@ -786,6 +896,20 @@ button { font: inherit; color: inherit; }
 .tile--mat-cursed .tile-pts, .tile--mat-cursed .tile-alt { color: #ff9d8e; opacity: 0.95; }
 @keyframes cursedBreathe { 50% { filter: brightness(1.22) saturate(1.15); } }
 
+/* The Counterfeiter's blank: bank-note paper with a letter printed on it, or
+   nothing yet. The editor's loan wears a brass ring. A tile The Twins recast
+   wears a jade one while it is the first tile's copy. */
+.tile--blank {
+  background:
+    repeating-linear-gradient(135deg, rgba(60, 110, 80, 0.08) 0 0.18em, transparent 0.18em 0.42em),
+    linear-gradient(168deg, #eef2e2 0%, #dfe6cf 100%);
+  border-style: dashed;
+  --tile-lift: #8d9a7c;
+}
+.tile--blank .tile-letter { color: #2c4a38; }
+.tile--lent { --trim-ring: inset 0 0 0 0.125em rgba(203, 161, 90, 0.9); }
+.tile--recast { --trim-ring: inset 0 0 0 0.125em rgba(45, 138, 92, 0.75); }
+
 /* The tools' marks on the sort they were used on. */
 .tile--ratcheted::before {
   content: '';
@@ -810,6 +934,12 @@ button { font: inherit; color: inherit; }
 
 .tile--mini { --tfs: 9px; cursor: default; touch-action: auto; }
 .mini-word { display: inline-flex; flex-wrap: wrap; gap: 3px; }
+.mini-pair { display: inline-grid; grid-template-columns: auto auto; align-items: center; gap: 4px 6px; }
+.mini-pair > .mini-word:first-child { grid-column: 2; }
+.mini-pair .mini-word { flex-wrap: nowrap; }
+.mini-pair .tile--mini { --tfs: 7px; }
+.mini-plus { font-family: var(--serif); font-weight: 900; font-size: 15px; color: var(--dim); }
+.best-seat { font-size: 15px; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }

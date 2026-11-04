@@ -15,19 +15,24 @@
 import { dealChallenge, todaysNumber, EPOCH } from './deal.js';
 import {
   scoreWord, judge, withTool, solveCase, rankOf, bracketOf, BRACKETS, activeLetter, faceLetter,
-  restingOf, ringStep, shiftable, loupeDelta,
+  restingOf, ringStep, shiftable, loupeDelta, settingOf, solveWords, solvePairs, pairBest, RING,
 } from './score.js';
+import { tablesForDay, seatIdsOfDay, listsNeeded, LISTS, LIST_FILES, adoptList, PATRONS } from './table.js';
 import {
-  COLOURS, TRIMS, NICKS, MEDIEVAL, letterGlyph, colourDesc,
+  COLOURS, TRIMS, NICKS, MEDIEVAL, letterGlyph, colourDesc, SPIKE_MULT,
   LOUPE_CAP, CURSED_MULT, CURSED_PENALTY, LENGTH_MULT_MIN, lengthMult, lengthFlourish,
 } from '../js/constants.js';
+import { PATRON_CARDS } from '../js/patron-cards.js';
+import { BOSS_CARDS } from '../js/boss-cards.js';
 import { adoptExclusions, isExcluded } from '../js/excluded.js';
 import { loadSettings } from '../js/state.js';
 import {
   sfx, snapTiles, flipTiles, applySpeedCSS, sleep, pulse, floatText, tweenNum, setNum,
   sparkleBurst, fmtMult, flourishTime,
 } from '../js/anim.js';
-import { OMEN_TEXT, TOOL_TEXT, SORT_TEXT, UI, RESULT, fill } from './text.js';
+import {
+  OMEN_TEXT, TOOL_TEXT, SORT_TEXT, UI, RESULT, PATRON_TEXT, EDITOR_TEXT, SPIKE_TEXT, PAIR_TEXT, fill,
+} from './text.js';
 import { drawField } from './chart.js';
 
 // While the mode is being tried out: walk to any challenge, and set a printed
@@ -35,7 +40,7 @@ import { drawField } from './chart.js';
 const PLAYTEST = true;
 
 // Keyed to the deal's salt: a re-dealt case must not reopen on an old proof.
-const STORE = 'great-work-daily-v2';
+const STORE = 'great-work-daily-v3';
 const $ = id => document.getElementById(id);
 const fmtN = n => n.toLocaleString('en-GB');
 const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -65,6 +70,24 @@ async function loadWords() {
   WORDSET = new Set(WORDS);
 }
 
+// The lists today's seats read (the registers, the parts of speech, the
+// commonest words), fetched the first time a day asks for them. An embedded
+// bundle carries them in FOLIO_THEMES under the same names as the files.
+const listLoads = new Map();
+function loadLists(keys) {
+  return Promise.all(keys.map(key => {
+    if (!listLoads.has(key)) {
+      const file = LIST_FILES[key];
+      const name = file.split('/').pop().replace(/\.txt$/, '');
+      const embedded = window.FOLIO_THEMES?.[name];
+      listLoads.set(key, (embedded != null ? Promise.resolve(embedded)
+        : fetch(`../${file}`).then(r => { if (!r.ok) throw new Error(`${file}: ${r.status}`); return r.text(); }))
+        .then(text => adoptList(key, text)));
+    }
+    return listLoads.get(key);
+  }));
+}
+
 // ─── Saved proofs ─────────────────────────────────────────────────────────────
 const loadStore = () => { try { return JSON.parse(localStorage.getItem(STORE) || '{}'); } catch { return {}; } };
 const saveStore = s => { try { localStorage.setItem(STORE, JSON.stringify(s)); } catch { /* private window */ } };
@@ -75,7 +98,10 @@ const S = {
   deal: null,
   tiles: [],        // the case, faces as currently flipped
   order: [],        // socket order (drag and Shuffle rearrange it)
-  word: [],         // tile ids in the stick, in order
+  words: [[]],      // tile ids in each stick, in order — two sticks on a two-word day
+  active: 0,        // the stick a tap or a key sets into
+  seat: 0,          // on a day of three patrons, the one seated
+  tables: [],       // the day's compiled seatings (tablesForDay)
   applied: null,    // the tool's use: { kind, id, face, offset? }
   armed: false,
   field: null,      // { results, scores, ranked } once counted
@@ -88,12 +114,24 @@ const S = {
 };
 
 const effective = () => withTool(S.tiles, S.applied);
-function wordAndRest() {
+const pairDay = () => S.deal?.day.kind === 'pair';
+const placedIn = id => S.words.findIndex(w => w.includes(id));
+const placed = id => placedIn(id) >= 0;
+// The table a word is scored under right now: the day's patron or editor, or
+// on a day of three, whichever is seated.
+const tableNow = () => (S.tables.length ? S.tables[S.deal.day.kind === 'choice' ? S.seat : 0] : null);
+const seatNow = () => (S.deal.day.kind === 'choice' ? S.deal.day.choices[S.seat] : S.deal.day.patron) ?? null;
+
+function wordAndRest(k = S.active) {
   const eff = effective();
   const byId = new Map(eff.map(t => [t.id, t]));
-  const inWord = new Set(S.word);
-  return { word: S.word.map(id => byId.get(id)), rest: eff.filter(t => !inWord.has(t.id)), byId };
+  const inAny = new Set(S.words.flat());
+  return { word: (S.words[k] ?? []).map(id => byId.get(id)), rest: eff.filter(t => !inAny.has(t.id)), byId };
 }
+const scoreOf = k => {
+  const { word, rest } = wordAndRest(k);
+  return word.length ? scoreWord(word, rest, has, tableNow()) : null;
+};
 
 // ─── A challenge ──────────────────────────────────────────────────────────────
 let solveAbort = null;
@@ -106,39 +144,82 @@ function openChallenge(n) {
   solveAbort?.abort();
   hidePop();
 
+  const deal = dealChallenge(n);
   Object.assign(S, {
-    n, deal: dealChallenge(n), word: [], applied: null, armed: false, result: null,
+    n, deal, words: deal.day.kind === 'pair' ? [[], []] : [[]], active: 0, seat: 0,
+    applied: null, armed: false, result: null,
     field: null, note: '', printing: false, open: new Set(), openInit: false,
   });
-  S.tiles = S.deal.tiles.map(t => ({ ...t }));
+  S.tables = tablesForDay(deal.day, has);
+  S.tiles = deal.tiles.map(t => ({ ...t }));
   S.order = S.tiles.map(t => t.id);
   S.tracks = tracksOf(S.tiles);
 
   // A proof already printed comes back as it was printed.
   const saved = loadStore()[n];
   if (saved) {
-    for (const { id, face } of saved.faces ?? []) {
-      const t = S.tiles.find(x => x.id === id);
-      if (t) t.activeVariant = face;
-    }
-    S.word = saved.word ?? [];
+    restoreFaces(saved);
+    S.words = saved.words ?? [saved.word ?? []];
     S.applied = saved.applied ?? null;
+    S.seat = saved.seat ?? 0;
     S.result = saved;
   }
 
   const ac = new AbortController();
   solveAbort = ac;
-  S.counting = solveCase(S.deal.tiles, S.deal.tool, WORDS, has, { signal: ac.signal }).then(res => {
-    if (!res || S.n !== n) return null;
-    const ranked = [...res.results].map(([word, r]) => ({ word, ...r }))
-      .sort((a, b) => b.score - a.score || a.word.localeCompare(b.word));
-    S.field = { ...res, ranked };
+  const lists = loadLists(listsNeeded(seatIdsOfDay(deal.day)));
+  S.counting = lists.then(() => {
+    if (ac.signal.aborted) return null;
+    render();   // the seats can judge now that their lists are in
+    return deal.day.kind === 'pair' ? countPairs(deal, ac.signal) : countWords(deal, ac.signal);
+  }).then(field => {
+    if (!field || S.n !== n) return null;
+    S.field = field;
     if (S.result) renderResult();
     return S.field;
   });
 
   render({ fresh: true });
 }
+
+function countWords(deal, signal) {
+  return solveCase(deal.tiles, deal.tool, WORDS, has, { signal, tables: S.tables }).then(res => {
+    if (!res) return null;
+    const ranked = [...res.results].map(([word, r]) => ({ word, ...r }))
+      .sort((a, b) => b.score - a.score || a.word.localeCompare(b.word));
+    return { ...res, ranked };
+  });
+}
+
+// A two-word day counts every word of the measure and then every pair of them.
+async function countPairs(deal, signal) {
+  const long = WORDS.filter(w => w.length >= deal.day.min);
+  const words = await solveWords(deal.tiles, long, has, { signal });
+  if (!words) return null;
+  const pairs = await solvePairs(words, { signal });
+  if (!pairs) return null;
+  const byWord = new Map(words.words.map(e => [e.word, e]));
+  const { scores, top } = pairs;
+  return {
+    pairs: true, scores, top, byWord,
+    // The chart reads places through this rather than an array of millions.
+    ranked: {
+      length: scores.length,
+      get: i => ({ score: scores[i], word: top[i] && top[i].score === scores[i] ? top[i].words.join(' + ') : '' }),
+    },
+  };
+}
+
+function restoreFaces(saved) {
+  for (const { id, face, letter } of saved.faces ?? []) {
+    const t = S.tiles.find(x => x.id === id);
+    if (!t) continue;
+    t.activeVariant = face;
+    if (letter) t.letter = letter;
+  }
+}
+const facesNow = () => S.tiles.filter(t => t.letterType === 'dual' || t.blank)
+  .map(t => ({ id: t.id, face: t.activeVariant ?? 0, ...(t.blank ? { letter: t.letter } : {}) }));
 
 // Every multiplier this case could light, in the order the readout reads them:
 // the measure always, then each paint the case holds, then purple and the
@@ -150,22 +231,35 @@ function tracksOf(tiles) {
   for (const c of Object.keys(COLOURS)) if (tiles.some(t => t.colour === c)) out.push(c);
   if (tiles.some(t => t.trim === 'purple')) out.push('purple');
   if (tiles.some(t => t.material === 'cursed')) out.push('cursed');
+  // A seat that rules ×Mult on the word has a stamp of its own; the editor's
+  // spike waits blind until a word breaks the rule.
+  if (S.deal.day.patron && stamps(S.deal.day.patron.id)) out.push('seat');
+  if (S.deal.day.choices?.some(c => stamps(c.id))) out.push('seat');
+  if (S.deal.day.editor) out.push('spike');
   return out;
 }
+// The patrons whose ruling is a ×Mult on the word, rather than Points on tiles.
+const stamps = id => !!PATRONS[id]?.effect && id !== 'twins';
 
 // ─── Composing ────────────────────────────────────────────────────────────────
 const locked = () => !!S.result || S.printing;
 
-function place(id, at = S.word.length) {
-  if (locked() || S.word.includes(id)) return;
-  S.word.splice(at, 0, id);
+function place(id, at = S.words[S.active].length) {
+  if (locked() || placed(id)) return;
+  S.words[S.active].splice(at, 0, id);
   S.note = '';
   sfx.place();
   render();
+  // A blank set without a letter asks for one, on the spot.
+  const t = S.tiles.find(x => x.id === id);
+  if (t?.blank && t.letter === '_') pickBlank(id);
 }
 function unplace(id) {
   if (locked()) return;
-  S.word = S.word.filter(x => x !== id);
+  const k = placedIn(id);
+  if (k < 0) return;
+  S.words[k] = S.words[k].filter(x => x !== id);
+  S.active = k;
   S.note = '';
   sfx.retrieve();
   render();
@@ -173,6 +267,7 @@ function unplace(id) {
 function flip(id) {
   if (locked()) return;
   const t = S.tiles.find(x => x.id === id);
+  if (t?.blank) { pickBlank(id); return; }
   if (t?.letterType !== 'dual') return;
   t.activeVariant = t.activeVariant === 1 ? 0 : 1;
   sfx.flip();
@@ -192,23 +287,64 @@ function tapTile(id, zone) {
   if (zone === 'case') place(id); else unplace(id);
 }
 
+// On a two-word day, which stick a tap or a key sets into.
+function setActive(k) {
+  if (!pairDay() || k === S.active || locked()) return;
+  S.active = k;
+  sfx.select();
+  render();
+}
+
+// The blank: a row of letters on the tile itself, as the ratchet asks which way.
+function pickBlank(id) {
+  if (locked()) return;
+  const el = document.querySelector(`.tile[data-id="${id}"]`);
+  showPop(el, pop => {
+    const h = document.createElement('div'); h.className = 'pop-head'; h.textContent = UI.blankPick;
+    const grid = document.createElement('div');
+    grid.className = 'blank-grid';
+    for (const L of RING) {
+      const b = document.createElement('button');
+      b.className = 'blank-choice';
+      b.textContent = L;
+      b.addEventListener('click', () => setBlank(id, L));
+      grid.appendChild(b);
+    }
+    pop.append(h, grid);
+  }, 'pop--blank');
+}
+function setBlank(id, L) {
+  const t = S.tiles.find(x => x.id === id);
+  if (!t || locked()) return;
+  t.letter = L;
+  hidePop();
+  sfx.flip();
+  render();
+}
+
 // The keyboard: a letter places the first sort in the case showing it (or a
-// dual whose other face does, flipped), Backspace lifts the last, Enter prints.
+// dual whose other face does, flipped, or the blank, set as it), Backspace
+// lifts the last, Enter prints.
 function typeLetter(L) {
   if (locked()) return;
   const eff = new Map(effective().map(t => [t.id, t]));
-  const free = S.order.filter(id => !S.word.includes(id)).map(id => S.tiles.find(t => t.id === id));
+  const free = S.order.filter(id => !placed(id)).map(id => S.tiles.find(t => t.id === id));
   // Q finds a lone Q first and the QU ligature after it, as on the full board.
-  const showing = free.find(t => activeLetter(eff.get(t.id)) === L)
+  const showing = free.find(t => !t.blank && activeLetter(eff.get(t.id)) === L)
     ?? (L === 'Q' ? free.find(t => activeLetter(eff.get(t.id)) === 'QU') : null);
   if (showing) { place(showing.id); return; }
   const other = free.find(t => t.letterType === 'dual' && faceLetter(eff.get(t.id), t.activeVariant ? 0 : 1) === L);
-  if (other) { other.activeVariant = other.activeVariant ? 0 : 1; place(other.id); }
+  if (other) { other.activeVariant = other.activeVariant ? 0 : 1; place(other.id); return; }
+  const blank = free.find(t => t.blank);
+  if (blank && RING.includes(L)) { blank.letter = L; place(blank.id); }
 }
 
 function clearWord() {
-  if (locked() || !S.word.length) return;
-  S.word = []; S.note = '';
+  if (locked() || !S.words.some(w => w.length)) return;
+  // On a two-word day Clear empties the stick in hand, then the other.
+  if (pairDay() && S.words[S.active].length) S.words[S.active] = [];
+  else S.words = S.words.map(() => []);
+  S.note = '';
   sfx.clear();
   render();
 }
@@ -241,6 +377,7 @@ function toolTap() {
 function useToolOn(id) {
   const t = S.tiles.find(x => x.id === id);
   const face = t.activeVariant ?? 0;
+  if (t.blank || t.ephemeral) { refuse(id); return; }
   if (S.deal.tool === 'loupe') {
     if (!loupeDelta(t, face)) { refuse(id); return; }
     S.applied = { kind: 'loupe', id, face };
@@ -275,37 +412,55 @@ function useToolOn(id) {
 }
 
 // ─── Printing ─────────────────────────────────────────────────────────────────
+function reject(note, k = S.active) {
+  S.note = note;
+  sfx.bad();
+  render();
+  const st = stickEl(k);
+  st.classList.remove('stick--reject'); void st.offsetWidth; st.classList.add('stick--reject');
+}
+
 async function print() {
-  if (locked() || !S.word.length) return;
+  if (locked() || !S.words.some(w => w.length)) return;
   hidePop();
   S.armed = false;
-  const { word, rest } = wordAndRest();
-  const j = judge(word, has);
-  if (!j.ok) {
-    S.note = UI.notAWord;
-    sfx.bad();
-    render();
-    const st = $('stick');
-    st.classList.remove('stick--reject'); void st.offsetWidth; st.classList.add('stick--reject');
-    return;
+  const K = S.words.length;
+  // Every stick judged before anything prints: a word that is no word, and on
+  // a two-word day a missing or a short one, sends the print back.
+  const sets = [];
+  for (let k = 0; k < K; k++) {
+    const { word, rest } = wordAndRest(k);
+    if (!word.length) { S.active = k; reject(PAIR_TEXT.both, k); return; }
+    const j = judge(word, has);
+    if (!j.ok) {
+      S.active = k;
+      reject(K > 1 ? fill(UI.notWords, word.map(activeLetter).join('')) : UI.notAWord, k);
+      return;
+    }
+    if (pairDay() && j.letters.length < S.deal.day.min) { S.active = k; reject(fill(PAIR_TEXT.short, S.deal.day.min), k); return; }
+    sets.push({ word, letters: j.letters, sc: scoreWord(word, rest, has, tableNow()) });
   }
-  const sc = scoreWord(word, rest, has);
   S.printing = true;
   S.hurry = false;
   S.note = '';
   render();
-  await replay(word, sc);
+  let sum = 0;
+  for (let k = 0; k < K; k++) {
+    if (K > 1) { S.active = k; renderSticksActive(); renderReadout(sets[k].sc); }
+    await replay(sets[k].word, sets[k].sc, k);
+    sum += sets[k].sc.total;
+    if (K > 1) await sumUp(k, sets[k].sc.total, sum);
+  }
 
   const n = S.n;
   if (!S.field) { S.note = UI.waiting; render(); }
   const field = S.field ?? await S.counting;
   if (!field || S.n !== n) return;
-  const { rank, field: size, pct } = rankOf(sc.total, field.scores);
+  const { rank, field: size, pct } = rankOf(sum, field.scores);
   S.result = {
-    set: sc.set, letters: j.letters, score: sc.total, rank, size, pct,
-    bracket: bracketOf(pct), word: [...S.word], applied: S.applied,
-    faces: S.tiles.filter(t => t.letterType === 'dual').map(t => ({ id: t.id, face: t.activeVariant })),
-    at: Date.now(),
+    sets: sets.map(x => x.sc.set), letters: sets.map(x => x.letters), scores: sets.map(x => x.sc.total),
+    score: sum, rank, size, pct, bracket: bracketOf(pct),
+    words: S.words.map(w => [...w]), applied: S.applied, seat: S.seat, faces: facesNow(), at: Date.now(),
   };
   S.printing = false;
   S.note = '';
@@ -315,6 +470,21 @@ async function print() {
   render();
   if (rank === 1) sfx.win();
   requestAnimationFrame(() => $('result').scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth', block: 'start' }));
+}
+
+// A two-word day's running sum: the word's total lands on its stick, then the
+// pair's on the line beneath.
+async function sumUp(k, total, sum) {
+  const badge = $(`stickSum${k}`);
+  badge.hidden = false;
+  tween(badge, total, { duration: 260 });
+  pulse(badge, 'chip--pop', 500);
+  const line = $('pairSum');
+  line.hidden = false;
+  await tween(line.querySelector('b'), sum, { duration: 360 });
+  sfx.total();
+  pulse(line, 'readout--slam', 500);
+  await beat(ANIM.chip);
 }
 
 // ─── The print, replayed ──────────────────────────────────────────────────────
@@ -336,38 +506,55 @@ const beat = ms => (S.hurry ? Promise.resolve() : sleep(ms));
 const tween = (el, to, opts = {}) => tweenNum(el, to, S.hurry ? { ...opts, duration: 60 } : opts);
 
 const TRACK_GLOW = {
-  length: '#d9e6f2', purple: '#cfa6ff', cursed: '#ff7a66',
+  length: '#d9e6f2', purple: '#cfa6ff', cursed: '#ff7a66', seat: '#ffe6a6', spike: '#ff9a8a',
   ...Object.fromEntries(Object.entries(COLOURS).map(([c, v]) => [c, v.bright])),
 };
 const trackHas = (kind, t) =>
-  kind === 'length' || t.colour === kind
+  kind === 'length' || kind === 'seat' || kind === 'spike' || t.colour === kind
   || (kind === 'purple' && t.trim === 'purple') || t.material === kind;
 
-async function replay(word, sc) {
-  const stickTile = id => $('stick').querySelector(`.tile[data-id="${id}"]`);
+// What the readout's stamps are, in the order it reads them: the word's own
+// multipliers, then the seat's ruling, then the spike.
+function chipsShown(sc) {
+  if (!sc) return [];
+  const own = sc.chips.filter(c => c.kind !== 'spike');
+  const out = [...own];
+  if (sc.seatX && sc.seatX !== 1) out.push({ kind: 'seat', mult: sc.seatX });
+  const sp = sc.chips.find(c => c.kind === 'spike');
+  if (sp) out.push(sp);
+  return out;
+}
+
+async function replay(word, sc, k = 0) {
+  const stickTile = id => stickEl(k).querySelector(`.tile[data-id="${id}"]`);
   const ro = { points: $('roPoints'), mult: $('roMult'), total: $('roTotal') };
   setNum(ro.points, 0); setNum(ro.total, 0); setNum(ro.mult, 1, fmtMult);
   // Every stamp the word will light is outlined in its colour, due rather than
   // struck, and fills as the print reaches it.
   for (const c of $('roChips').querySelectorAll('.chip--on')) c.classList.add('chip--due');
 
-  const own = sc.perTile.map(p => p.points - p.nick);
+  // Each tile's own figure (its face, its growth, a patron's Points on it),
+  // what its nick reads, and whether it prints twice.
+  const parts = sc.perTile.map(p => {
+    const once = p.points / p.echo;
+    return { own: once - p.nick, nick: p.nick, again: p.echo > 1 ? once : 0 };
+  });
   let running = 0;
 
   // 1. The sorts.
   for (const [i, t] of word.entries()) {
     const el = stickTile(t.id);
     pulse(el, 'tile--scoring', 360);
-    if (!S.hurry) floatText(el, `+${own[i]}`, 'fl-points');
+    if (!S.hurry) floatText(el, `+${parts[i].own}`, 'fl-points');
     sfx.tick(i, t.material ?? null);
-    running += own[i];
+    running += parts[i].own;
     tween(ro.points, running);
     await beat(ANIM.tile);
   }
 
   // 2. The nicks.
   for (const [i, t] of word.entries()) {
-    const gain = sc.perTile[i].nick;
+    const gain = parts[i].nick;
     if (!gain) continue;
     const src = stickTile(t.id);
     pulse(src, 'tile--nick-firing', 480);
@@ -376,7 +563,7 @@ async function replay(word, sc) {
     for (const j of read) {
       const el = stickTile(word[j].id);
       pulse(el, 'tile--nick-hit', 460);
-      if (!S.hurry) floatText(el, `${own[j]}`, 'fl-aura');
+      if (!S.hurry) floatText(el, `${restingOf(word[j])}`, 'fl-aura');
     }
     if (!S.hurry) floatText(src, `+${gain}`, 'fl-aura', { dy: -74 });
     running += gain;
@@ -384,32 +571,58 @@ async function replay(word, sc) {
     await beat(ANIM.nick);
   }
 
+  // 2½. The tiles that print twice (The Monogrammist).
+  if (parts.some(p => p.again)) {
+    for (const [i, t] of word.entries()) {
+      if (!parts[i].again) continue;
+      const el = stickTile(t.id);
+      pulse(el, 'tile--scoring', 360);
+      if (!S.hurry) floatText(el, `×2`, 'fl-points');
+      sfx.tick(i, null);
+      running += parts[i].again;
+      tween(ro.points, running);
+      await beat(ANIM.tile);
+    }
+    seatFire();
+  }
+
   // 3. The curse's toll.
   if (sc.toll) {
-    if (!S.hurry) floatText($('stick'), `−${fmtN(sc.toll)}`, 'fl-curse', { dy: -60 });
+    if (!S.hurry) floatText(stickEl(k), `−${fmtN(sc.toll)}`, 'fl-curse', { dy: -60 });
     sfx.bad();
     running -= sc.toll;
     tween(ro.points, running);
     await beat(ANIM.chip);
   }
 
-  // 4. The multipliers.
+  // 3½. A seat's Points (The Twins' pairs).
+  if (sc.seatPoints) {
+    seatFire();
+    if (!S.hurry) floatText(stickEl(k), `+${sc.seatPoints}`, 'fl-points', { dy: -60 });
+    sfx.aura();
+    running += sc.seatPoints;
+    tween(ro.points, running);
+    await beat(ANIM.chip);
+  }
+
+  // 4. The multipliers, the seat's among them, and the spike last.
   let mult = 1;
-  for (const [ci, ch] of sc.chips.entries()) {
+  for (const [ci, ch] of chipsShown(sc).entries()) {
     for (const t of word) {
       if (!trackHas(ch.kind, t)) continue;
       const el = stickTile(t.id);
       el?.style.setProperty('--glow', TRACK_GLOW[ch.kind]);
       pulse(el, 'tile--set-glow', 620);
     }
-    sfx.chime(ci);
+    if (ch.kind === 'spike') sfx.bad(); else sfx.chime(ci);
+    if (ch.kind === 'seat' || ch.kind === 'spike') seatFire();
     if (!S.hurry) {
       if (ch.kind === 'length') {
         const line = `${ch.count} letters — ×${fmtMult(ch.mult)}: ${lengthFlourish(ch.count)}`;
-        floatText($('stick'), line, 'fl-flourish', { dy: -138, duration: flourishTime(line) });
-        sparkleBurst($('stick'), Math.min(6 + ch.count, 18));
+        floatText(stickEl(k), line, 'fl-flourish', { dy: -138, duration: flourishTime(line) });
+        sparkleBurst(stickEl(k), Math.min(6 + ch.count, 18));
       } else {
-        floatText($('stick'), `${chipName(ch.kind)} ×${fmtMult(ch.mult)}`, `fl-set fl-set--${ch.kind}`, { dy: -60 });
+        floatText(stickEl(k), `${chipName(ch.kind)} ×${fmtMult(ch.mult)}`, `fl-set fl-set--${ch.kind}`, { dy: -60 });
       }
     }
     const chip = chipEl(ch.kind);
@@ -429,11 +642,17 @@ async function replay(word, sc) {
   await beat(ANIM.hold);
 }
 
+// The seated card, lit as it speaks.
+function seatFire() {
+  const card = $('seats').querySelector('.seat--on, .seat--desk, .seat--only');
+  if (card) pulse(card, 'seat--firing', 620);
+}
+
 function setAgain() {
   const store = loadStore();
   delete store[S.n];
   saveStore(store);
-  Object.assign(S, { result: null, word: [], applied: null, open: new Set(), openInit: false });
+  Object.assign(S, { result: null, words: S.words.map(() => []), active: 0, applied: null, open: new Set(), openInit: false });
   render({ fresh: true });
   window.scrollTo({ top: 0, behavior: reducedMotion() ? 'auto' : 'smooth' });
 }
@@ -450,6 +669,9 @@ function tileEl(t, zone, { mini = false, pays = null } = {}) {
   div.dataset.id = t.id;
   div.dataset.zone = zone;
   const L = activeLetter(t);
+  if (t.blank) div.classList.add('tile--blank');
+  if (t.ephemeral) div.classList.add('tile--lent');
+  if (t.recast) div.classList.add('tile--recast');
   if (t.trim) div.classList.add(`tile--trim-${t.trim}`);
   if (t.nick) div.classList.add(`tile--nick-${t.nick}`);
   if (t.material) div.classList.add(`tile--mat-${t.material}`);
@@ -462,7 +684,7 @@ function tileEl(t, zone, { mini = false, pays = null } = {}) {
   const letter = document.createElement('span');
   letter.className = 'tile-letter';
   letter.dataset.len = L.length;
-  letter.textContent = letterGlyph(L);
+  letter.textContent = L === '_' ? '' : letterGlyph(L);
   if (t.colour) letter.style.color = COLOURS[t.colour].glyph;
   div.appendChild(letter);
 
@@ -488,7 +710,7 @@ function tileEl(t, zone, { mini = false, pays = null } = {}) {
   if (!mini) {
     div.setAttribute('role', 'button');
     div.tabIndex = 0;
-    div.setAttribute('aria-label', `${L}, ${restingOf(t)}`);
+    div.setAttribute('aria-label', `${L === '_' ? UI.blankHead : L}, ${restingOf(t)}`);
     div.title = tileLines(t).map(f => (f.body ? `${f.head}: ${f.body}` : f.head)).join('\n');
   }
   return div;
@@ -498,6 +720,8 @@ function tileEl(t, zone, { mini = false, pays = null } = {}) {
 function tileLines(t) {
   const out = [];
   const L = activeLetter(t);
+  if (t.blank) out.push({ head: UI.blankHead, body: UI.blankBody });
+  if (t.ephemeral) out.push({ head: UI.lentHead });
   const med = MEDIEVAL[L];
   if (med) {
     const reads = med.reads.length > 1
@@ -543,7 +767,7 @@ function showTileInfo(id, anchor) {
   const t = effective().find(x => x.id === id);
   showPop(anchor, pop => {
     const lines = tileLines(t);
-    const paid = S.word.includes(id) ? lastPays.get(id) : null;
+    const paid = placed(id) ? lastPays.get(id) : null;
     if (paid != null && paid !== restingOf(t)) {
       lines.push({ head: fill(UI.inWord, paid), body: fill(UI.inWordParts, restingOf(t), paid - restingOf(t)) });
     }
@@ -555,6 +779,13 @@ function showTileInfo(id, anchor) {
       b.addEventListener('click', () => { hidePop(); flip(id); });
       pop.appendChild(b);
     }
+    if (t.blank && !locked()) {
+      const b = document.createElement('button');
+      b.className = 'pop-btn';
+      b.textContent = UI.blankChange;
+      b.addEventListener('click', () => pickBlank(id));
+      pop.appendChild(b);
+    }
   });
 }
 
@@ -562,19 +793,28 @@ function showTileInfo(id, anchor) {
 // Every render notes where each sort sat and, once the board is rebuilt, tosses
 // it from there to its new place (snapTiles/flipTiles in js/anim.js) — so a sort
 // set, lifted, dragged or shuffled travels rather than blinks.
+const stickEl = k => $(k ? 'stick1' : 'stick');
+const ruleEl  = k => $(k ? 'rule1' : 'rule');
+const kneeEl  = k => $(k ? 'knee1' : 'knee');
+const zones = () => [$('case'), stickEl(0), stickEl(1)];
+
 function render({ fresh = false } = {}) {
-  const before = fresh ? new Map() : new Map([...snapTiles($('case')), ...snapTiles($('stick'))]);
+  const before = fresh ? new Map() : new Map(zones().flatMap(z => [...snapTiles(z)]));
   if (fresh) lastPays = new Map();
-  const { word, rest } = wordAndRest();
-  const sc = word.length ? scoreWord(word, rest, has) : null;
+  const scs = S.words.map((_, k) => scoreOf(k));
+  const sc = scs[S.active];
   renderHeader();
   renderAlmanac();
+  renderSeats(sc);
   renderCase(fresh);
-  renderStick(word, sc);
-  renderReadout(sc);
+  for (let k = 0; k < 2; k++) renderStick(k, scs[k]);
+  renderSticksActive();
+  renderPairSum(scs);
+  if (!S.printing) renderReadout(sc);
   renderBench();
   renderResult();
-  if (before.size) { flipTiles($('case'), before); flipTiles($('stick'), before); }
+  $('status').textContent = S.note;
+  if (before.size) for (const z of zones()) flipTiles(z, before);
 }
 
 function renderHeader() {
@@ -592,14 +832,82 @@ function renderAlmanac() {
   el.title = o.desc;
 }
 
+// ─── The seats ────────────────────────────────────────────────────────────────
+// Who sits today. A patron is a card; three on offer are three cards, one
+// seated, and a tap seats another (and reads it); the editor's card carries the
+// day's rule on its face, since it is the one thing a reader must know before
+// setting a word. A card lights while the word in hand is one it rules on.
+const patronName = id => PATRON_CARDS[id]?.name ?? id;
+const patronEmoji = id => PATRON_CARDS[id]?.emoji ?? '';
+const patronRule = seat => fill(PATRON_TEXT[seat.id] ?? '', (seat.data?.letters ?? []).join(', ').replace(/, ([^,]*)$/, ' or $1'));
+const editorRule = desk => fill(EDITOR_TEXT[desk.id].rule, desk.data.n ?? desk.data.letter ?? '');
+const editorVoice = desk => fill(EDITOR_TEXT[desk.id].voice, desk.data.n ?? desk.data.letter ?? '');
+
+function seatCard(cls, emoji, name, rule = null) {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = `seat ${cls}`;
+  const e = document.createElement('span'); e.className = 'seat-emoji'; e.textContent = emoji;
+  const n = document.createElement('span'); n.className = 'seat-name'; n.textContent = name;
+  b.append(e, n);
+  if (rule) { const r = document.createElement('span'); r.className = 'seat-rule'; r.textContent = rule; b.appendChild(r); }
+  return b;
+}
+
+function renderSeats(sc) {
+  const host = $('seats');
+  const day = S.deal.day;
+  host.replaceChildren();
+  host.hidden = day.kind === 'plain';
+  host.dataset.kind = day.kind;
+  const lit = !!sc && (!!sc.seat || sc.perTile.some(p => p.echo > 1 || p.bonus));
+  if (day.kind === 'patron') {
+    const p = day.patron;
+    const card = seatCard(`seat--only${lit ? ' seat--lit' : ''}`, patronEmoji(p.id), patronName(p.id));
+    card.addEventListener('click', () => readSeat(card, patronName(p.id), patronRule(p)));
+    host.appendChild(card);
+  } else if (day.kind === 'choice') {
+    day.choices.forEach((p, i) => {
+      const on = i === S.seat;
+      const card = seatCard(`seat--choice${on ? ' seat--on' : ''}${on && lit ? ' seat--lit' : ''}`, patronEmoji(p.id), patronName(p.id));
+      card.setAttribute('aria-pressed', on ? 'true' : 'false');
+      card.disabled = locked() && !on;
+      card.addEventListener('click', () => {
+        if (!on && !locked()) { S.seat = i; S.tracks = tracksOf(S.tiles); sfx.select(); render(); }
+        const now = $('seats').children[i];
+        readSeat(now, patronName(p.id), patronRule(p));
+      });
+      host.appendChild(card);
+    });
+  } else if (day.kind === 'editor') {
+    const d = day.editor;
+    const card = seatCard(`seat--desk${sc?.spiked ? ' seat--spiked' : ''}`, BOSS_CARDS[d.id]?.emoji ?? '', BOSS_CARDS[d.id]?.name ?? d.id, editorRule(d));
+    card.addEventListener('click', () => readSeat(card, BOSS_CARDS[d.id]?.name, `${editorVoice(d)} ${fill(SPIKE_TEXT, SPIKE_MULT)}`));
+    host.appendChild(card);
+  } else if (day.kind === 'pair') {
+    const r = document.createElement('p');
+    r.className = 'seat-pair';
+    r.textContent = fill(PAIR_TEXT.rule, day.min);
+    host.appendChild(r);
+  }
+}
+function readSeat(anchor, head, body) {
+  if (!$('pop').hidden && $('pop')._anchor === anchor) { hidePop(); return; }
+  showPop(anchor, pop => popLines(pop, [{ head, body }]));
+  $('pop')._anchor = anchor;
+}
+
 function renderCase(fresh) {
   const host = $('case');
   host.replaceChildren();
+  // Four sockets across for a case of sixteen, five for anything bigger, so
+  // a lent tile or a two-word day's twenty still fills whole rows.
+  host.style.setProperty('--cols', S.tiles.length > 16 ? 5 : 4);
   const eff = new Map(effective().map(t => [t.id, t]));
   S.order.forEach((id, i) => {
     const socket = document.createElement('div');
     socket.className = 'socket';
-    if (!S.word.includes(id)) {
+    if (!placed(id)) {
       const el = tileEl(eff.get(id), 'case');
       if (S.armed && toolFits(eff.get(id))) el.classList.add('tile--target');
       if (fresh && !reducedMotion()) { el.classList.add('tile--dealt'); el.style.animationDelay = `${i * 28}ms`; }
@@ -610,20 +918,29 @@ function renderCase(fresh) {
   host.classList.toggle('case--locked', locked());
 }
 
-const toolFits = t => (S.deal.tool === 'loupe' ? loupeDelta(t, t.activeVariant) > 0 : shiftable(t, t.activeVariant));
+const toolFits = t => !t.blank && !t.ephemeral
+  && (S.deal.tool === 'loupe' ? loupeDelta(t, t.activeVariant) > 0 : shiftable(t, t.activeVariant));
 
 // The stick's corner figures are live: each sort shows what it pays in THIS
 // word, so a nick's reach is read off the tiles as the word is built, and a
-// figure that changes pops (renderWord's pts-pop in js/render.js).
+// figure that changes pops (renderWord's pts-pop in js/render.js). A tile The
+// Twins recast is drawn as what it now reads as.
 let lastPays = new Map();
-function renderStick(word, sc) {
-  const host = $('stick');
+function renderStick(k, sc) {
+  const host = stickEl(k);
   host.replaceChildren();
+  const wrap = host.closest('.stick-wrap');
+  wrap.hidden = k >= S.words.length;
+  if (k >= S.words.length) return;
+  const { word } = wordAndRest(k);
   const pays = new Map((sc?.perTile ?? []).map(p => [p.id, p.points]));
+  const shownAs = new Map((sc?.recasts ?? []).map(r => [r.id, { ...r.tile, recast: true }]));
   let popped = 0;
-  for (const t of word) {
+  for (const t0 of word) {
+    const t = shownAs.get(t0.id) ?? t0;
     const el = tileEl(t, 'stick', { pays: pays.get(t.id) });
-    if (S.armed && toolFits(t)) el.classList.add('tile--target');
+    el.dataset.stick = k;
+    if (S.armed && toolFits(t0)) el.classList.add('tile--target');
     const was = lastPays.get(t.id);
     const now = pays.get(t.id);
     if ((was != null && was !== now) || (was == null && now !== restingOf(t))) {
@@ -634,10 +951,37 @@ function renderStick(word, sc) {
     if (now !== restingOf(t)) el.title += `\n${fill(UI.inWord, now)}`;
     host.appendChild(el);
   }
-  lastPays = pays;
-  fitStick();
-  renderRule(word, sc);
-  $('status').textContent = S.note;
+  for (const [id, v] of pays) lastPays.set(id, v);
+  fitStick(k);
+  renderRule(k, word, sc);
+  const badge = $(`stickSum${k}`);
+  badge.hidden = !pairDay() || !sc;
+  if (!S.printing) badge.textContent = sc ? fmtN(sc.total) : '';
+}
+
+function renderSticksActive() {
+  for (const w of document.querySelectorAll('.stick-wrap')) {
+    w.classList.toggle('stick-wrap--active', pairDay() && Number(w.dataset.stick) === S.active && !S.result);
+  }
+}
+
+// The pair's sum, under the two sticks.
+function renderPairSum(scs) {
+  let line = $('pairSum');
+  if (!line) {
+    line = document.createElement('p');
+    line.id = 'pairSum';
+    line.className = 'pair-sum';
+    line.innerHTML = '<span></span> <b>0</b>';
+    $('status').before(line);
+  }
+  line.hidden = !pairDay();
+  if (!pairDay() || S.printing) return;
+  const [a, b] = scs.map(x => x?.total ?? 0);
+  line.querySelector('span').textContent = `${fmtN(a)} + ${fmtN(b)} =`;
+  line.querySelector('b').textContent = fmtN(a + b);
+  line.querySelector('b')._val = undefined;
+  line.classList.toggle('pair-sum--live', scs.every(Boolean));
 }
 
 // ─── The measure, engraved ────────────────────────────────────────────────────
@@ -650,13 +994,13 @@ function renderStick(word, sc) {
 // the whole stick, so every multiplier within reach is in view from the start.
 const measureOf = t => {
   const L = activeLetter(t);
-  if (!L) return 0;
+  if (!L || L === '_') return L === '_' ? 1 : 0;
   return MEDIEVAL[L]?.reads?.[0]?.length ?? L.length;
 };
 const LABEL_SPACING = 30;   // px a label needs from its neighbour before it is cut
 
-function renderRule(word, sc) {
-  const stick = $('stick'), bar = $('rule'), knee = $('knee');
+function renderRule(k, word, sc) {
+  const stick = stickEl(k), bar = ruleEl(k), knee = kneeEl(k);
   const cs = getComputedStyle(stick);
   const gap = parseFloat(cs.columnGap) || 0;
   const padL = parseFloat(cs.paddingLeft) || 0;
@@ -684,7 +1028,7 @@ function renderRule(word, sc) {
     cut(x, last && sc ? sc.letters.length : letters, last);
   });
   if (tiles.length && sc) letters = sc.letters.length;
-  for (let k = 1; k <= 64; k++) if (!cut(x + k * (sortW + gap), letters + k)) break;
+  for (let j = 1; j <= 64; j++) if (!cut(x + j * (sortW + gap), letters + j)) break;
 
   // Labels where they fit: the word's own first, then left to right, each kept
   // clear of the ones already cut — a crowded stick labels fewer lengths.
@@ -707,8 +1051,8 @@ function renderRule(word, sc) {
 const KNEE_ROOM = 16;
 // One course of type, whatever the word: a word too long for the measure is set
 // in a smaller size (fitWord in js/render.js does the same on the bench).
-function fitStick() {
-  const host = $('stick');
+function fitStick(k) {
+  const host = stickEl(k);
   const n = host.querySelectorAll('.tile').length;
   host.style.removeProperty('--tfs');
   host.style.removeProperty('gap');
@@ -726,27 +1070,34 @@ function fitStick() {
   host.style.setProperty('--tfs', `${Math.max(4, Math.min(base, sizeFor(gap)))}px`);
 }
 
-const CHIP_NAMES = { purple: 'Purple', cursed: 'Hellbox iron' };
+const CHIP_NAMES = { purple: 'Purple', cursed: 'Hellbox iron', spike: 'Spiked' };
 const chipName = (kind, count) =>
-  (kind === 'length' ? fill(UI.letters, count) : COLOURS[kind]?.label ?? CHIP_NAMES[kind]);
+  (kind === 'length' ? fill(UI.letters, count)
+    : kind === 'seat' ? patronName(seatNow()?.id)
+    : COLOURS[kind]?.label ?? CHIP_NAMES[kind]);
 const chipEl = kind => $('roChips').querySelector(`.chip[data-kind="${kind}"]`);
 
 function renderReadout(sc) {
-  $('roPoints').textContent = fmtN(sc?.points ?? 0);
+  $('roPoints').textContent = fmtN(sc?.shownPoints ?? 0);
   if (!S.printing) $('roTotal').textContent = fmtN(sc?.total ?? 0);
-  $('roMult').textContent = String(+(sc?.mult ?? 1).toFixed(2));
+  $('roMult').textContent = String(+(sc?.shownMult ?? 1).toFixed(2));
   for (const id of ['roPoints', 'roTotal', 'roMult']) $(id)._val = undefined;
   const chips = $('roChips');
   chips.replaceChildren();
   // One stamp per track the case can light: blind at ×1, inked when lit. The
-  // name rides on hover.
+  // name rides on hover. The seat's stamp wears its patron; on a day of three,
+  // whichever is seated, and none for a seat that rules no ×Mult.
+  const shown = chipsShown(sc);
   for (const kind of S.tracks) {
-    const ch = sc?.chips.find(c => c.kind === kind);
+    if (kind === 'seat' && !stamps(seatNow()?.id)) continue;
+    const ch = shown.find(c => c.kind === kind);
     const c = document.createElement('span');
     c.className = `chip chip--${kind}${ch ? ' chip--on' : ''}`;
     c.dataset.kind = kind;
     c.title = chipName(kind, ch?.count ?? sc?.letters.length ?? 0);
     const sw = document.createElement('i');
+    if (kind === 'seat') sw.textContent = patronEmoji(seatNow().id);
+    if (kind === 'spike') sw.textContent = '✂';
     const v = document.createElement('b'); v.textContent = `×${fmtMult(ch?.mult ?? 1)}`;
     c.append(sw, v);
     chips.appendChild(c);
@@ -776,8 +1127,9 @@ function renderBench() {
     btn.disabled = locked();
     btn.setAttribute('aria-pressed', S.armed ? 'true' : 'false');
   }
-  $('printBtn').disabled = locked() || !S.word.length;
-  $('clearBtn').disabled = locked() || !S.word.length;
+  const any = S.words.some(w => w.length);
+  $('printBtn').disabled = locked() || !any;
+  $('clearBtn').disabled = locked() || !any;
   $('shuffleBtn').disabled = locked();
 }
 
@@ -789,25 +1141,40 @@ function gradeLabel(r) {
   return r.bracket > last ? fill(RESULT.bottom, 100 - last) : fill(RESULT.top, r.bracket);
 }
 
-function settingOf(entry) {
-  // A plan replayed onto a fresh copy of the case: faces as the plan set them,
-  // and the tool where the plan put it.
-  const base = S.deal.tiles.map(t => ({ ...t }));
-  for (const p of entry.plan) { const t = base.find(x => x.id === p.id); if (t) t.activeVariant = p.face; }
-  const eff = withTool(base, entry.tool);
-  const byId = new Map(eff.map(t => [t.id, t]));
-  return entry.plan.map(p => byId.get(p.id));
-}
+// A solver's entry set out on the case, under the table it was best under.
+const setOut = (entry, seatIdx = entry.seat ?? 0) => ({
+  tiles: settingOf(S.deal.tiles, entry).word,
+  T: S.tables.length ? S.tables[S.deal.day.kind === 'choice' ? seatIdx : 0] : null,
+});
 
 // A word set small — on the slip, or a setting in the best-of list — with each
 // sort's figure as it paid in that word, so a winning setting shows its nicks.
-function miniWord(tiles) {
+function miniWord(tiles, T = tableNow()) {
   const row = document.createElement('span');
   row.className = 'mini-word';
-  const pays = new Map((scoreWord(tiles, [], has)?.perTile ?? []).map(p => [p.id, p.points]));
-  for (const t of tiles) row.appendChild(tileEl(t, 'mini', { mini: true, pays: pays.get(t.id) }));
+  const sc = scoreWord(tiles, [], has, T);
+  const pays = new Map((sc?.perTile ?? []).map(p => [p.id, p.points]));
+  const shownAs = new Map((sc?.recasts ?? []).map(r => [r.id, r.tile]));
+  for (const t of tiles) row.appendChild(tileEl(shownAs.get(t.id) ?? t, 'mini', { mini: true, pays: pays.get(t.id) }));
   return row;
 }
+// Two words, side by side, for a two-word day.
+function miniPair(a, b) {
+  const row = document.createElement('span');
+  row.className = 'mini-pair';
+  const plus = document.createElement('span'); plus.className = 'mini-plus'; plus.textContent = '+';
+  row.append(miniWord(a, null), plus, miniWord(b, null));
+  return row;
+}
+const seatMark = idx => {
+  const c = S.deal.day.choices?.[idx];
+  if (!c) return null;
+  const m = document.createElement('span');
+  m.className = 'best-seat';
+  m.textContent = patronEmoji(c.id);
+  m.title = patronName(c.id);
+  return m;
+};
 
 let resizeChart = null;
 function renderResult() {
@@ -817,13 +1184,16 @@ function renderResult() {
   host.replaceChildren();
   resizeChart = null;
   if (!r) return;
+  const pairs = pairDay();
+  const label = r.sets.map(x => [...x].map(letterGlyph).join('')).join(' + ');
 
-  // The slip: your word, its score, its place.
+  // The slip: your word (or words), the score, the place.
   const slip = document.createElement('div');
   slip.className = 'slip';
   const top = document.createElement('div');
   top.className = 'slip-word';
-  top.appendChild(miniWord(wordAndRest().word));
+  top.appendChild(pairs ? miniPair(wordAndRest(0).word, wordAndRest(1).word) : miniWord(wordAndRest(0).word));
+  if (S.deal.day.kind === 'choice') top.appendChild(seatMark(r.seat));
   const score = document.createElement('b');
   score.className = 'slip-score';
   score.textContent = fmtN(r.score);
@@ -833,7 +1203,7 @@ function renderResult() {
   grade.textContent = r.rank === 1 ? RESULT.best : gradeLabel(r);
   const place = document.createElement('div');
   place.className = 'slip-place';
-  place.textContent = fill(RESULT.place, fmtN(r.rank), fmtN(r.size));
+  place.textContent = fill(pairs ? RESULT.placePairs : RESULT.place, fmtN(r.rank), fmtN(r.size));
   slip.append(top, grade, place);
   host.appendChild(slip);
 
@@ -847,82 +1217,11 @@ function renderResult() {
   plot.className = 'field-plot';
   fig.appendChild(plot);
   host.appendChild(fig);
-  const label = [...r.set].map(letterGlyph).join('');
   const draw = () => drawField(plot, field.ranked, { rank: r.rank, score: r.score, label });
   draw();
   resizeChart = draw;
 
-  // The best of the case, each with how it was set — the winner's open.
-  if (!S.openInit) {
-    S.open.add(field.ranked[0].word);
-    // Your own row opens too when the case could have set your word better.
-    if ((field.results.get(r.letters)?.score ?? 0) > r.score) S.open.add('\u0000yours');
-    S.openInit = true;
-  }
-  const best = document.createElement('ol');
-  best.className = 'best best-list';
-  // Your word is in the list as YOU printed it — your place, your score, your
-  // setting — and, when the case could have set it better, that setting under it.
-  const mine = field.ranked.find(e => e.word === r.letters);
-  const yours = { word: r.letters, score: r.score, yours: true, better: mine && mine.score > r.score ? mine : null };
-  const shown = field.ranked.slice(0, 10).filter(e => e.word !== r.letters || !yours.better);
-  const at = shown.findIndex(e => e.word === r.letters);
-  if (at >= 0) shown[at] = { ...shown[at], yours: true };
-  else {
-    // Slotted in where its place puts it, so the list stays in order.
-    const k = shown.findIndex(e => e.score < r.score);
-    shown.splice(k < 0 ? shown.length : k, 0, yours);
-  }
-  const toolMark = tool => {
-    const note = document.createElement('span');
-    note.className = 'best-tool';
-    note.textContent = TOOL_TEXT[tool.kind].glyph;
-    note.title = TOOL_TEXT[tool.kind].name;
-    return note;
-  };
-  for (const e of shown) {
-    const key = e.yours ? '\u0000yours' : e.word;
-    const li = document.createElement('li');
-    li.className = `best-row${e.yours ? ' best-row--yours' : ''}`;
-    const btn = document.createElement('button');
-    btn.className = 'best-head';
-    btn.setAttribute('aria-expanded', S.open.has(key) ? 'true' : 'false');
-    const pl = document.createElement('span'); pl.className = 'best-place';
-    pl.textContent = fmtN(e.yours ? r.rank : rankOf(e.score, field.scores).rank);
-    const w = document.createElement('span'); w.className = 'best-word'; w.textContent = e.word;
-    const sc = document.createElement('b'); sc.className = 'best-score'; sc.textContent = fmtN(e.score);
-    btn.append(pl, w, sc);
-    btn.addEventListener('click', () => {
-      if (S.open.has(key)) S.open.delete(key); else S.open.add(key);
-      renderResult();
-    });
-    li.appendChild(btn);
-    if (S.open.has(key)) {
-      const set = document.createElement('div');
-      set.className = 'best-set';
-      if (e.yours && !e.plan) {
-        set.appendChild(miniWord(wordAndRest().word));
-        if (r.applied) set.appendChild(toolMark(r.applied));
-      } else {
-        set.appendChild(miniWord(settingOf(e)));
-        if (e.tool) set.appendChild(toolMark(e.tool));
-      }
-      li.appendChild(set);
-      if (e.better) {
-        const alt = document.createElement('div');
-        alt.className = 'best-set best-set--better';
-        alt.appendChild(miniWord(settingOf(e.better)));
-        if (e.better.tool) alt.appendChild(toolMark(e.better.tool));
-        const v = document.createElement('b');
-        v.className = 'best-alt-score';
-        v.textContent = fmtN(e.better.score);
-        alt.appendChild(v);
-        li.appendChild(alt);
-      }
-    }
-    best.appendChild(li);
-  }
-  host.appendChild(best);
+  host.appendChild(pairs ? bestPairs(r, field) : bestWords(r, field));
 
   // The way on.
   const acts = document.createElement('div');
@@ -933,8 +1232,8 @@ function renderResult() {
   share.addEventListener('click', async () => {
     const lines = [
       fill(RESULT.shareHead, S.n),
-      `${[...r.set].map(letterGlyph).join('')} — ${fmtN(r.score)}`,
-      `${r.rank === 1 ? RESULT.best : gradeLabel(r)} (${fill(RESULT.place, fmtN(r.rank), fmtN(r.size))})`,
+      `${label} — ${fmtN(r.score)}`,
+      `${r.rank === 1 ? RESULT.best : gradeLabel(r)} (${fill(pairs ? RESULT.placePairs : RESULT.place, fmtN(r.rank), fmtN(r.size))})`,
       // Inside a frame the page's own address is not one anybody could open.
       ...(window.DAILY_NO_LINK ? [] : [`${location.origin}${location.pathname}#${S.n}`]),
     ];
@@ -957,6 +1256,145 @@ function renderResult() {
     acts.appendChild(next);
   }
   host.appendChild(acts);
+}
+
+// One row of a best-of list: place, name, score, and a setting under it when open.
+function bestRow({ key, place, name, score, yours, open, fillSet }) {
+  const li = document.createElement('li');
+  li.className = `best-row${yours ? ' best-row--yours' : ''}`;
+  const btn = document.createElement('button');
+  btn.className = 'best-head';
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  const pl = document.createElement('span'); pl.className = 'best-place'; pl.textContent = fmtN(place);
+  const w = document.createElement('span'); w.className = 'best-word'; w.textContent = name;
+  const sc = document.createElement('b'); sc.className = 'best-score'; sc.textContent = fmtN(score);
+  btn.append(pl, w, sc);
+  btn.addEventListener('click', () => {
+    if (S.open.has(key)) S.open.delete(key); else S.open.add(key);
+    renderResult();
+  });
+  li.appendChild(btn);
+  if (open) fillSet(li);
+  return li;
+}
+const toolMark = tool => {
+  const note = document.createElement('span');
+  note.className = 'best-tool';
+  note.textContent = TOOL_TEXT[tool.kind].glyph;
+  note.title = TOOL_TEXT[tool.kind].name;
+  return note;
+};
+
+// The best of the case, each with how it was set — the winner's open. Your
+// word is in the list as YOU printed it, and, when the case could have set it
+// better, that setting under it.
+function bestWords(r, field) {
+  const mineWord = r.letters[0];
+  if (!S.openInit) {
+    S.open.add(field.ranked[0].word);
+    if ((field.results.get(mineWord)?.score ?? 0) > r.score) S.open.add('\u0000yours');
+    S.openInit = true;
+  }
+  const list = document.createElement('ol');
+  list.className = 'best best-list';
+  const mine = field.ranked.find(e => e.word === mineWord);
+  const yours = { word: mineWord, score: r.score, yours: true, better: mine && mine.score > r.score ? mine : null };
+  const shown = field.ranked.slice(0, 10).filter(e => e.word !== mineWord || !yours.better);
+  const at = shown.findIndex(e => e.word === mineWord);
+  if (at >= 0) shown[at] = { ...shown[at], yours: true };
+  else {
+    const k = shown.findIndex(e => e.score < r.score);
+    shown.splice(k < 0 ? shown.length : k, 0, yours);
+  }
+  for (const e of shown) {
+    const key = e.yours ? '\u0000yours' : e.word;
+    list.appendChild(bestRow({
+      key, name: e.word, score: e.score, yours: e.yours, open: S.open.has(key),
+      place: e.yours ? r.rank : rankOf(e.score, field.scores).rank,
+      fillSet: li => {
+        const set = document.createElement('div');
+        set.className = 'best-set';
+        if (e.yours && !e.plan) {
+          set.appendChild(miniWord(wordAndRest(0).word));
+          const m = seatMark(r.seat); if (m) set.appendChild(m);
+          if (r.applied) set.appendChild(toolMark(r.applied));
+        } else {
+          const { tiles, T } = setOut(e);
+          set.appendChild(miniWord(tiles, T));
+          const m = seatMark(e.seat); if (m) set.appendChild(m);
+          if (e.tool) set.appendChild(toolMark(e.tool));
+        }
+        li.appendChild(set);
+        if (e.better) {
+          const alt = document.createElement('div');
+          alt.className = 'best-set best-set--better';
+          const { tiles, T } = setOut(e.better);
+          alt.appendChild(miniWord(tiles, T));
+          const m = seatMark(e.better.seat); if (m) alt.appendChild(m);
+          if (e.better.tool) alt.appendChild(toolMark(e.better.tool));
+          const v = document.createElement('b');
+          v.className = 'best-alt-score';
+          v.textContent = fmtN(e.better.score);
+          alt.appendChild(v);
+          li.appendChild(alt);
+        }
+      },
+    }));
+  }
+  return list;
+}
+
+// The same for a two-word day: the best pairs, yours among them.
+function bestPairs(r, field) {
+  const name = ws => ws.join(' + ');
+  const mineKey = name(r.letters);
+  const A = field.byWord.get(r.letters[0]), B = field.byWord.get(r.letters[1]);
+  const pb = A && B ? pairBest(A, B) : { score: -1 };
+  const better = pb.score > r.score
+    ? { score: pb.score, plans: [A.plans[pb.a].plan, B.plans[pb.b].plan] } : null;
+  if (!S.openInit) {
+    if (field.top[0]) S.open.add(name(field.top[0].words));
+    if (better) S.open.add('\u0000yours');
+    S.openInit = true;
+  }
+  const list = document.createElement('ol');
+  list.className = 'best best-list';
+  const same = e => name(e.words) === mineKey || name([...e.words].reverse()) === mineKey;
+  const shown = field.top.slice(0, 10).filter(e => !same(e) || !better);
+  const at = shown.findIndex(same);
+  const yours = { words: r.letters, score: r.score, yours: true, better };
+  if (at >= 0) shown[at] = { ...shown[at], yours: true };
+  else {
+    const k = shown.findIndex(e => e.score < r.score);
+    shown.splice(k < 0 ? shown.length : k, 0, yours);
+  }
+  const tilesOf = plan => settingOf(S.deal.tiles, { plan }).word;
+  for (const e of shown) {
+    const key = e.yours ? '\u0000yours' : name(e.words);
+    list.appendChild(bestRow({
+      key, name: name(e.words), score: e.score, yours: e.yours, open: S.open.has(key),
+      place: e.yours ? r.rank : rankOf(e.score, field.scores).rank,
+      fillSet: li => {
+        const set = document.createElement('div');
+        set.className = 'best-set';
+        set.appendChild(e.yours && !e.plans
+          ? miniPair(wordAndRest(0).word, wordAndRest(1).word)
+          : miniPair(tilesOf(e.plans[0]), tilesOf(e.plans[1])));
+        li.appendChild(set);
+        if (e.better) {
+          const alt = document.createElement('div');
+          alt.className = 'best-set best-set--better';
+          alt.appendChild(miniPair(tilesOf(e.better.plans[0]), tilesOf(e.better.plans[1])));
+          const v = document.createElement('b');
+          v.className = 'best-alt-score';
+          v.textContent = fmtN(e.better.score);
+          alt.appendChild(v);
+          li.appendChild(alt);
+        }
+      },
+    }));
+  }
+  return list;
 }
 
 // ─── The hands ────────────────────────────────────────────────────────────────
@@ -986,9 +1424,9 @@ function moveGhost(x, y) {
   ghost.style.top = `${y - ghost._dy}px`;
 }
 
-// Where in the stick a drop lands: before the nearest sort's centre, or after it.
-function stickIndex(x) {
-  const tiles = [...$('stick').querySelectorAll(':scope > .tile')];
+// Where in a stick a drop lands: before the nearest sort's centre, or after it.
+function stickIndex(x, k) {
+  const tiles = [...stickEl(k).querySelectorAll(':scope > .tile')];
   let best = tiles.length, bestDist = Infinity;
   tiles.forEach((t, i) => {
     const b = t.getBoundingClientRect();
@@ -1013,18 +1451,26 @@ function socketIndex(x, y) {
 function endDrag(p, x, y) {
   const under = document.elementFromPoint(x, y);
   const { id, zone } = p;
-  if (under?.closest('#stick, .stick-wrap')) {
-    const at = stickIndex(x);
-    if (zone === 'case') {
-      S.word.splice(at, 0, id);
-      sfx.place();
-    } else {
-      moveIn(S.word, id, at);
+  const wrap = under?.closest('.stick-wrap');
+  if (wrap) {
+    const k = Number(wrap.dataset.stick) || 0;
+    const from = placedIn(id);
+    const at = stickIndex(x, k);
+    if (from === k) {
+      moveIn(S.words[k], id, at);
       sfx.reorder();
+    } else {
+      // From the case, or across from the other stick.
+      if (from >= 0) S.words[from] = S.words[from].filter(w => w !== id);
+      S.words[k].splice(at, 0, id);
+      sfx.place();
     }
+    S.active = k;
+    const t = S.tiles.find(x2 => x2.id === id);
+    if (zone === 'case' && t?.blank && t.letter === '_') requestAnimationFrame(() => pickBlank(id));
   } else if (under?.closest('.case')) {
     const at = socketIndex(x, y);
-    if (zone === 'stick') { S.word = S.word.filter(w => w !== id); sfx.retrieve(); }
+    if (zone === 'stick') { const k = placedIn(id); S.words[k] = S.words[k].filter(w => w !== id); sfx.retrieve(); }
     else sfx.reorder();
     // A socket is a place, not a gap: the sort lands in the one it was dropped on.
     S.order.splice(S.order.indexOf(id), 1);
@@ -1048,7 +1494,7 @@ function releasePress(commit, e) {
 }
 
 function wireHands() {
-  for (const root of [$('case'), $('stick')]) {
+  for (const root of [$('case'), $('stick'), $('stick1')]) {
     root.addEventListener('pointerdown', e => {
       const el = e.target.closest('.tile');
       if (!el || press) return;
@@ -1125,8 +1571,12 @@ function wire() {
     showPop($('almanac'), pop => popLines(pop, [{ head: o.name, body: o.desc }]));
   });
   document.addEventListener('pointerdown', e => {
-    if (!e.target.closest('#pop, .tile, #almanac')) hidePop();
+    if (!e.target.closest('#pop, .tile, #almanac, .seat')) hidePop();
   });
+  // On a two-word day, a tap on a stick's open steel takes that stick in hand.
+  for (const w of document.querySelectorAll('.stick-wrap')) {
+    w.addEventListener('click', e => { if (!e.target.closest('.tile')) setActive(Number(w.dataset.stick)); });
+  }
   // A tap or a key while the print runs hurries the replay through.
   addEventListener('pointerdown', () => { if (S.printing) S.hurry = true; }, true);
   addEventListener('keydown', () => { if (S.printing) S.hurry = true; }, true);
@@ -1145,8 +1595,19 @@ function wire() {
     // Enter on a focused button presses that button, not Print.
     const onControl = e.target.closest?.('button, summary, a, svg');
     if (/^[a-z]$/i.test(e.key)) { typeLetter(e.key.toUpperCase()); e.preventDefault(); }
-    else if (e.key === 'Backspace') { const last = S.word[S.word.length - 1]; if (last != null) unplace(last); e.preventDefault(); }
-    else if (e.key === 'Enter' && !onControl) { print(); e.preventDefault(); }
+    else if (e.key === 'Backspace') {
+      const w = S.words[S.active];
+      // On a two-word day an empty second stick hands back to the first.
+      if (!w.length && S.active > 0) setActive(S.active - 1);
+      else if (w.length) unplace(w[w.length - 1]);
+      e.preventDefault();
+    }
+    else if (e.key === 'Enter' && !onControl) {
+      // Enter on a first word moves to the second while it is empty.
+      if (pairDay() && S.active === 0 && S.words[0].length && !S.words[1].length) setActive(1);
+      else print();
+      e.preventDefault();
+    }
     // Space shuffles the case and Escape puts the tool away or empties the
     // stick, as on the full game's board (Space on a button presses it).
     else if (e.key === ' ' && !onControl) { shuffle(); e.preventDefault(); }
@@ -1171,7 +1632,9 @@ function wire() {
   addEventListener('resize', () => {
     cancelAnimationFrame(rz);
     rz = requestAnimationFrame(() => {
-      if (!S.printing) { const { word, rest } = wordAndRest(); fitStick(); renderRule(word, word.length ? scoreWord(word, rest, has) : null); }
+      if (!S.printing) {
+        for (let k = 0; k < S.words.length; k++) { fitStick(k); renderRule(k, wordAndRest(k).word, scoreOf(k)); }
+      }
       resizeChart?.(); hidePop();
     });
   });
@@ -1182,15 +1645,16 @@ function wire() {
 // republished mid-playtest) asks for what to carry across; this is the case as
 // it was being set. Everything printed is in localStorage already.
 const snapshot = () => ({
-  n: S.n, word: S.word, applied: S.applied, order: S.order,
-  faces: S.tiles.map(t => [t.id, t.activeVariant ?? 0]),
+  n: S.n, words: S.words, active: S.active, seat: S.seat, applied: S.applied, order: S.order, faces: facesNow(),
 });
 function resume(data) {
-  if (!data || data.n !== S.n || S.result) return;
+  if (!data || data.n !== S.n || S.result || !Array.isArray(data.words) || data.words.length !== S.words.length) return;
   const ids = new Set(S.tiles.map(t => t.id));
-  for (const [id, face] of data.faces ?? []) { const t = S.tiles.find(x => x.id === id); if (t) t.activeVariant = face; }
+  restoreFaces(data);
   if (Array.isArray(data.order) && data.order.length === ids.size && data.order.every(id => ids.has(id))) S.order = data.order;
-  S.word = (data.word ?? []).filter(id => ids.has(id));
+  S.words = data.words.map(w => w.filter(id => ids.has(id)));
+  S.active = Math.min(data.active ?? 0, S.words.length - 1);
+  S.seat = data.seat ?? 0;
   S.applied = data.applied ?? null;
   render();
 }

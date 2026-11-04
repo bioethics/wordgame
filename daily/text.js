@@ -46,6 +46,51 @@ export const SORT_TEXT = {
   louped: 'Doubled by the loupe',
 };
 
+// ─── The table ────────────────────────────────────────────────────────────────
+// A seated patron's rule as it stands in a game of one word. Names and
+// portraits are the game's own (PATRON_CARDS, BOSS_CARDS); where the game's card
+// says more than one word can use — a Coin, a package, a next word — the rule is
+// said again here without it. {0} is filled per day (The Monogrammist's letters).
+export const PATRON_TEXT = {
+  sexton:        '×3 Mult for words on the spooky list — thousands of them.',
+  paramour:      '×3 Mult for words on the romantic list — thousands of them.',
+  poppet:        '×3 Mult for words on the cute list — thousands of them.',
+  vulgarian:     '×3 Mult for words on the rude list — thousands of them.',
+  poet:          '×2 Mult when the word is an adjective or an adverb.',
+  athlete:       '×2 Mult when the word is a verb.',
+  sculptor:      '×2 Mult when the word is a noun.',
+  cartographer:  '×2 Mult for words whose vowels run in alphabetical order. A repeated vowel breaks the run.',
+  herald:        '×2 Mult for words that start and end with the same letter.',
+  serpent:       'Every S is worth +3 Points. A word ending in S gets ×2 Mult.',
+  twins:         'Every doubled letter (LL, OO…) pays +5 Points, and the second tile takes every feature of the first.',
+  monogrammist:  'A tile showing {0} prints twice — Points, trim and paint alike.',
+  counterfeiter: 'A blank joins the case: any letter, worth 0.',
+};
+
+// The editor at the desk. `rule` is the line the desk shows all day, filled
+// from what the day rolled ({0}); `voice` is what the editor says on a tap,
+// in their own voice as at a Deadline (BOSS_CARDS in js/boss-cards.js).
+export const EDITOR_TEXT = {
+  columnist:  { rule: 'Exactly {0} letters.',
+                voice: 'Everything must fit the column, and today the column is {0} letters. Off-measure words are spiked.' },
+  serialist:  { rule: 'Open with {0}.',
+                voice: 'We need continuity. Every word opens with {0}, or it is spiked.' },
+  enthusiast: { rule: 'Use a {0}.',
+                voice: 'I really love {0}. Here is a copy of it — but a word without one is spiked.' },
+  populist:   { rule: 'Common words only.',
+                voice: 'Popular fiction is profitable fiction. Anything outside the 8,000 commonest words in English is spiked.' },
+  minimalist: { rule: 'No adjectives or adverbs.',
+                voice: 'Adjectives are the enemy of clean modern prose. Adjectives and adverbs are spiked.' },
+};
+export const SPIKE_TEXT = 'A spiked word scores ×{0}.';
+
+// A two-word day.
+export const PAIR_TEXT = {
+  rule: 'Two words, {0} letters or more each. Their scores are added.',
+  short: 'Each word needs {0} letters or more.',
+  both: 'Set a second word.',
+};
+
 // ─── The board ────────────────────────────────────────────────────────────────
 export const UI = {
   number: '№ {0}',
@@ -54,6 +99,12 @@ export const UI = {
   inWord: 'Pays {0} in this word',
   inWordParts: '{0} + {1} from its nick',
   notAWord: 'Not in the dictionary.',
+  notWords: '{0} is not in the dictionary.',
+  blankPick: 'Set the blank as…',
+  blankChange: 'Change the letter',
+  blankHead: 'Counterfeit blank',
+  blankBody: 'Any letter. Scores 0.',
+  lentHead: 'Lent by the editor',
   waiting: 'Counting the field…',
   dictFallback: 'The word list could not be loaded.',
 };
@@ -64,6 +115,7 @@ export const RESULT = {
   top: 'Top {0}%',
   bottom: 'Bottom {0}%',
   place: '#{0} of {1}',
+  placePairs: '#{0} of {1} pairs',
   share: 'Copy',
   copied: 'Copied',
   again: 'Again',

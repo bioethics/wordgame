@@ -29,6 +29,10 @@
       </nav>
     </header>
 
+    <!-- Who sits today, when anyone does: a patron, a choice of three, or the
+         editor at the desk (deal.day in daily/deal.js). -->
+    <section class="seats" id="seats" hidden></section>
+
     <!-- The proof sheet: Points × Mult = total, and the stick under it. -->
     <section class="sheet">
       <div class="readout" id="readout" aria-live="polite">
@@ -41,10 +45,18 @@
       </div>
       <!-- The stick, the measure engraved along its foot, and the knee that
            closes on the word's end (renderRule in js/render.js). -->
-      <div class="stick-wrap">
+      <div class="stick-wrap" data-stick="0">
         <div class="stick" id="stick" aria-label="The word"></div>
         <div class="rule-bar" id="rule" aria-hidden="true"></div>
         <div class="knee" id="knee" aria-hidden="true"></div>
+        <b class="stick-sum" id="stickSum0" hidden></b>
+      </div>
+      <!-- The second word, on a two-word day. -->
+      <div class="stick-wrap" data-stick="1" hidden>
+        <div class="stick" id="stick1" aria-label="The second word"></div>
+        <div class="rule-bar" id="rule1" aria-hidden="true"></div>
+        <div class="knee" id="knee1" aria-hidden="true"></div>
+        <b class="stick-sum" id="stickSum1" hidden></b>
       </div>
       <p class="status" id="status" aria-live="polite"></p>
     </section>

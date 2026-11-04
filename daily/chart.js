@@ -30,16 +30,19 @@ const fmtFor = top => (top >= 10000
   ? n => (n ? `${+(n / 1000).toFixed(1)}K` : '0')
   : n => n.toLocaleString('en-GB'));
 
-// ranked: [{ word, score }] best first. you: { rank, score, label }.
+// ranked: [{ word, score }] best first — or, for a field too big to hold as
+// objects (every pair a two-word case could set), { length, get(i) } giving
+// the same shape on demand. you: { rank, score, label }.
 export function drawField(host, ranked, you, { onFocusRank, xLabel = '' } = {}) {
   host.replaceChildren();
+  const at = Array.isArray(ranked) ? i => ranked[i] : ranked.get;
   const N = ranked.length;
   if (!N) return;
   const W = Math.max(280, host.clientWidth || 320);
   const H = xLabel ? 190 : 176;
   const m = { l: 40, r: 12, t: 16, b: xLabel ? 34 : 22 };
   const iw = W - m.l - m.r, ih = H - m.t - m.b;
-  const maxS = Math.max(1, ranked[0].score);
+  const maxS = Math.max(1, at(0).score);
   const step = niceStep(maxS);
   const yTop = Math.ceil(maxS / step) * step;
 
@@ -51,7 +54,7 @@ export function drawField(host, ranked, you, { onFocusRank, xLabel = '' } = {}) 
   const svg = el('svg', {
     viewBox: `0 0 ${W} ${H}`, width: W, height: H, class: 'field-svg',
     role: 'img', tabindex: '0',
-    'aria-label': `${N} words, best first. Yours is ${you.label} at place ${you.rank}.`,
+    'aria-label': `${N} settings, best first. Yours is ${you.label} at place ${you.rank}.`,
   }, host);
 
   // Gridlines and y ticks — hairline, recessive.
@@ -85,7 +88,7 @@ export function drawField(host, ranked, you, { onFocusRank, xLabel = '' } = {}) 
     const px = Math.round(x(r));
     if (px === lastPx && r !== N) continue;
     lastPx = px;
-    pts.push([x(r), y(ranked[r - 1].score)]);
+    pts.push([x(r), y(at(r - 1).score)]);
   }
   const line = pts.map(([a, b], i) => `${i ? 'L' : 'M'}${a.toFixed(1)},${b.toFixed(1)}`).join('');
   el('path', { d: `${line}L${pts[pts.length - 1][0].toFixed(1)},${y(0)}L${pts[0][0].toFixed(1)},${y(0)}Z`, class: 'field-area' }, svg);
@@ -113,13 +116,13 @@ export function drawField(host, ranked, you, { onFocusRank, xLabel = '' } = {}) 
   let focus = you.rank;
   const show = rank => {
     focus = rank;
-    const w = ranked[rank - 1];
+    const w = at(rank - 1);
     const px = x(rank), py = y(w.score);
     cross.setAttribute('x1', px); cross.setAttribute('x2', px); cross.setAttribute('visibility', 'visible');
     dot.setAttribute('cx', px); dot.setAttribute('cy', py); dot.setAttribute('visibility', 'visible');
     tip.replaceChildren();
     const v = document.createElement('b'); v.textContent = w.score.toLocaleString('en-GB');
-    const k = document.createElement('span'); k.textContent = `${w.word} · #${rank.toLocaleString('en-GB')}`;
+    const k = document.createElement('span'); k.textContent = `${w.word ? `${w.word} · ` : ''}#${rank.toLocaleString('en-GB')}`;
     tip.append(v, k);
     tip.hidden = false;
     const left = Math.min(W - 8 - tip.offsetWidth, Math.max(8, px - tip.offsetWidth / 2));

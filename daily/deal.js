@@ -36,7 +36,8 @@ import {
 // Bump the salt and every challenge is re-dealt — for when the tuning below
 // changes enough that the old numbers should not keep their old cases.
 // v2: the marks and squib lead taken out of the case.
-export const DEAL_SALT = 'great-work-daily-v2';
+// v3: the week — patrons, editors and two-word days.
+export const DEAL_SALT = 'great-work-daily-v3';
 export const CASE_SIZE = 16;
 
 // ─── Seeded randomness ────────────────────────────────────────────────────────
@@ -118,9 +119,16 @@ export const OMENS = {
 };
 
 // ─── The deal ─────────────────────────────────────────────────────────────────
-export function dealChallenge(n) {
-  const rng = rngFor(`${DEAL_SALT}:${n}`);
-  const omenId = pickWeighted(rng, Object.entries(OMENS).map(([id, o]) => [id, o.odds]));
+export function dealChallenge(n, opts = {}) {
+  const day = opts.day ?? dayOf(n);
+  const pair = day.kind === 'pair';
+  const { size = pair ? PAIR.size : CASE_SIZE, vowels = pair ? PAIR.vowels : LUCK.vowels, salt = '' } = opts;
+  const rng = rngFor(`${DEAL_SALT}:${salt}${n}`);
+  // A two-word day draws from the almanac's quieter pages: no tool and no
+  // cursed iron, whose rules are written for one word (the toll is charged to
+  // "a word set without it", and a case of two words always sets one).
+  const omens = Object.entries(OMENS).filter(([id]) => !pair || !PAIR.noOmens.includes(id));
+  const omenId = pickWeighted(rng, omens.map(([id, o]) => [id, o.odds]));
   const omen = OMENS[omenId];
   const force = omen.force ?? {};
   const weights = Object.fromEntries(Object.entries(LUCK.weights)
@@ -134,9 +142,9 @@ export function dealChallenge(n) {
   for (let tries = 0; tries < 200; tries++) {
     const pool = [...bag];
     letters = [];
-    for (let i = 0; i < CASE_SIZE; i++) letters.push(pool.splice(Math.floor(rng() * pool.length), 1)[0]);
+    for (let i = 0; i < size; i++) letters.push(pool.splice(Math.floor(rng() * pool.length), 1)[0]);
     const v = letters.filter(L => VOWELS.has(L)).length;
-    if (v >= LUCK.vowels[0] && v <= LUCK.vowels[1]) break;
+    if (v >= vowels[0] && v <= vowels[1]) break;
   }
   const tiles = letters.map((L, id) => ({ ...makeTileTemplate(L), id }));
   const consonants = () => tiles.filter(t => !VOWELS.has(t.letter) && t.letter.length === 1
@@ -180,9 +188,131 @@ export function dealChallenge(n) {
   }
 
   // 5. The bench.
-  const tool = (force.tool || rng() < LUCK.tool) ? pickWeighted(rng, LUCK.tools) : null;
+  const toolRoll = rng();
+  const tool = !pair && (force.tool || toolRoll < LUCK.tool) ? pickWeighted(rng, LUCK.tools) : null;
 
-  return { n, omen: omenId, tiles, tool };
+  // 6. The table: who sits today, rolled on a stream of its own so the case
+  //    above is the same whoever is seated.
+  const srng = rngFor(`${DEAL_SALT}:seat:${n}`);
+  const deal = { n, omen: omenId, tiles, tool, day: { kind: day.kind } };
+  if (day.kind === 'patron') {
+    deal.day.patron = seatFor(day.id, deal, srng);
+  } else if (day.kind === 'choice') {
+    deal.day.tier = day.tier;
+    deal.day.choices = day.ids.map(id => seatFor(id, deal, srng));
+  } else if (day.kind === 'editor') {
+    deal.day.editor = deskFor(day.id, deal, srng);
+  } else if (pair) {
+    deal.day.min = PAIR.min;
+  }
+  // A seat or a desk that lends a tile puts it at the end of the case.
+  const lends = deal.day.patron?.adds ?? deal.day.editor?.adds;
+  if (lends) deal.tiles = withAdded(deal.tiles, lends);
+  return deal;
+}
+
+// ─── The week ─────────────────────────────────────────────────────────────────
+// Each day of the week has its own kind of case, by the calendar date of the
+// challenge (№ 1 was a Tuesday). Three plain days; one with a patron seated for
+// everyone; one with an editor at the desk; one of two words; and one where the
+// reader picks a patron from three.
+//
+// Who sits is chosen by turn rather than by chance: each roster is shuffled
+// once per lap of it, so every patron and every editor comes round before any
+// comes round twice.
+//
+// The rosters are the cull. tools/daily-table.mjs measured every patron the
+// game has against sixty cases, and a patron is here only if it changes WHICH
+// word is best on a good share of them — README.md, "The table", has the
+// figures and the reasons for each one left out.
+export const WEEK = ['choice', 'plain', 'patron', 'plain', 'editor', 'plain', 'pair'];   // Sunday first
+
+// Seated for everyone: each moves the best word to a different word on a third
+// to nine-tenths of cases, and none is ever without a word to fire on.
+export const DAY_PATRONS = [
+  'sexton', 'counterfeiter', 'paramour', 'athlete', 'poppet', 'cartographer',
+  'vulgarian', 'monogrammist', 'poet', 'herald',
+];
+// Offered three at a time, from one tier, so that no one of the three is the
+// obvious answer: in the measured cases no patron in either tier is the best
+// choice more than about half the time against any two of its tier-mates. The
+// two tiers alternate by week. The Sexton is too strong to offer (the best of
+// any three holding him, seven times in ten); the Mirror too narrow (never).
+export const CHOICE_TIERS = {
+  rich:  ['paramour', 'poppet', 'vulgarian', 'poet', 'athlete', 'serpent'],
+  plain: ['herald', 'cartographer', 'sculptor', 'twins'],
+};
+// Each bites: the best word unseated is spiked on a quarter to all of cases,
+// and the best word under them is a different one on two-fifths or more.
+export const EDITOR_DAYS = ['columnist', 'populist', 'serialist', 'enthusiast', 'minimalist'];
+
+// A two-word day: a bigger case, and both words at least six letters — the
+// measure where the length multiplier begins — so neither can be a scrap left
+// over from the other. Added together, the sum of a long word and a scrap is
+// all but the long word alone; the floor makes the split the puzzle.
+export const PAIR = { size: 20, vowels: [7, 9], min: 6, noOmens: ['hellbox', 'toolchest'] };
+
+export const weekdayOf = n => new Date(EPOCH + (n - 1) * 864e5).getUTCDay();
+// Weeks run Sunday to Saturday, counted from the week of № 1.
+const weekOf = n => Math.floor((n - 1 + weekdayOf(1)) / 7);
+
+// The k-th turn of a roster: shuffled afresh for each lap, by a seed.
+function turn(list, k, key) {
+  const lap = Math.floor(k / list.length);
+  const rng = rngFor(`${DEAL_SALT}:${key}:${lap}`);
+  const order = [...list];
+  for (let i = order.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [order[i], order[j]] = [order[j], order[i]];
+  }
+  return order[k % list.length];
+}
+
+export function dayOf(n) {
+  const kind = WEEK[weekdayOf(n)];
+  const w = weekOf(n);
+  if (kind === 'patron') return { kind, id: turn(DAY_PATRONS, w, 'patron') };
+  if (kind === 'editor') return { kind, id: turn(EDITOR_DAYS, w, 'editor') };
+  if (kind === 'choice') {
+    const tier = w % 2 ? 'plain' : 'rich';
+    const pool = CHOICE_TIERS[tier];
+    // Three of the tier, a different three each week where the tier allows.
+    const rng = rngFor(`${DEAL_SALT}:choice:${w}`);
+    const order = [...pool];
+    for (let i = order.length - 1; i > 0; i--) {
+      const j = Math.floor(rng() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    return { kind, tier, ids: order.slice(0, 3) };
+  }
+  return { kind };
+}
+
+// What a seated patron needs from the case: The Monogrammist's three letters,
+// and what The Counterfeiter lends.
+function seatFor(id, deal, rng) {
+  const seat = { id, data: {} };
+  if (id === 'monogrammist') seat.data.letters = monogramFor(deal, rng);
+  if (id === 'counterfeiter') seat.adds = { letter: '_', counterfeit: true, blank: true };
+  return seat;
+}
+
+// What an editor rolls for the day: the Columnist's measure, the Serialist's
+// letter, the Enthusiast's darling and the copy of it he lends.
+const COLUMN_MEASURES = [6, 7, 8];
+function deskFor(id, deal, rng) {
+  const desk = { id, data: {} };
+  const singles = [...new Set(deal.tiles.map(t => t.letter).filter(L => /^[A-Z]$/.test(L) && L !== 'Q'))];
+  if (id === 'columnist') desk.data.n = pick(rng, COLUMN_MEASURES);
+  if (id === 'serialist') desk.data.letter = pick(rng, singles);
+  if (id === 'enthusiast') {
+    // A letter worth three or more, so the rule bites: the long words a case
+    // can set mostly hold its cheap letters already.
+    const dear = singles.filter(L => TILE_POINTS[L] >= 3);
+    desk.data.letter = pick(rng, dear.length ? dear : singles);
+    desk.adds = { letter: desk.data.letter, ephemeral: true };
+  }
+  return desk;
 }
 
 function placeMedieval(rng, tiles, candidates) {
@@ -220,6 +350,29 @@ function dress(rng, t, f) {
       break;
     }
   }
+}
+
+// ─── What a seat brings ───────────────────────────────────────────────────────
+// A patron or editor who lends a tile puts it at the end of the case, plain and
+// undressed: The Scientist's OLOGY, The Counterfeiter's blank, the Enthusiast's
+// darling letter.
+export function withAdded(tiles, adds) {
+  return [...tiles, { ...makeTileTemplate(adds.letter === '_' ? 'A' : adds.letter), id: tiles.length,
+    letter: adds.letter, ...(adds.counterfeit ? { counterfeit: true } : {}),
+    ...(adds.blank ? { blank: true } : {}), ...(adds.ephemeral ? { ephemeral: true } : {}) }];
+}
+
+// The Monogrammist's three letters, drawn from the case so that all three can
+// be set: plain single letters only, likelier the more of them the case holds.
+export function monogramFor(deal, rng) {
+  const pool = deal.tiles.map(t => t.letter).filter(L => /^[A-Z]$/.test(L));
+  const out = [];
+  while (out.length < 3 && pool.length) {
+    const L = pool[Math.floor(rng() * pool.length)];
+    out.push(L);
+    for (let i = pool.length - 1; i >= 0; i--) if (pool[i] === L) pool.splice(i, 1);
+  }
+  return out;
 }
 
 // ─── Numbering ────────────────────────────────────────────────────────────────

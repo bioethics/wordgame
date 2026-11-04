@@ -61,10 +61,14 @@ look. The Testing Chamber and the graveyard keep their own skins in both.
 ## The Daily Proof
 
 `daily/` is a separate page (one word, sixteen sorts, ranked against every word
-the case could set). It imports the game's numbers from `js/constants.js` but
-keeps its own fast copy of the base scoring in `daily/score.js`. After changing
-any base arithmetic — a trim, the measure, a metal — run
-`node tools/daily-check.mjs`, which fails if the two disagree. Its player-facing
+the case could set; on some days a patron, an editor, or two words). It imports
+the game's numbers from `js/constants.js` but keeps its own fast copy of the
+base scoring in `daily/score.js`, and its own one-word ports of the patrons and
+editors it seats in `daily/table.js`. After changing any base arithmetic — a
+trim, the measure, a metal — or the behaviour of a patron or editor the daily
+seats, run `node tools/daily-check.mjs`, which fails if the two disagree. The
+daily's rosters were chosen by `node tools/daily-table.mjs`; re-run it before
+adding a seat. Its player-facing
 strings are in `daily/text.js` and follow the card-copy rules above. README.md →
 "The Daily Proof" has the rest, subdomain publishing included.
 
