@@ -1817,8 +1817,8 @@ better setting of the same word beneath it when there was one.
 
 The list is the top ten, and a word in the top ten is seen against what beat
 it. A word further down sees only the ten and a long jump, so between them
-and yours the list puts up to three stepping stones, set off by a dashed rule
-above and below. Each is chosen by score, the lowest-scoring setting worth
+and yours the list puts up to three stepping stones, in a tinted panel with
+a dashed edge, apart from the ten and from yours. Each is chosen by score, the lowest-scoring setting worth
 at least three-quarters, half and a quarter of the way from your score up to
 the tenth best. A stone is a target nearer to hand than the best, and score
 spacing keeps the three from bunching at the steep head of the field, as

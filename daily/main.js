@@ -1324,19 +1324,22 @@ function stonesBetween(r, tenth, pick, same) {
   }
   return out;
 }
-// The stones go in just above your row, set off from the ten and from yours
-// by a dashed rule on either side.
+// The stones go in just above your row, in a panel of their own: a list
+// inside the list, opened by one marker and closed by the next.
 function withStones(shown, stones) {
   if (!stones.length) return shown;
   const k = shown.findIndex(e => e.yours);
   const at = k < 0 ? shown.length : k;
-  return [...shown.slice(0, at), { gap: true }, ...stones, { gap: true }, ...shown.slice(at)];
+  return [...shown.slice(0, at), { mark: 'open' }, ...stones, { mark: 'close' }, ...shown.slice(at)];
 }
-function gapRow() {
+function stonePanel(list) {
   const li = document.createElement('li');
-  li.className = 'best-gap';
-  li.setAttribute('aria-hidden', 'true');
-  return li;
+  li.className = 'best-stones';
+  const inner = document.createElement('ol');
+  inner.className = 'best-stones-list';
+  li.appendChild(inner);
+  list.appendChild(li);
+  return inner;
 }
 
 // The best of the case, each with how it was set — the winner's open. Your
@@ -1374,10 +1377,11 @@ function bestWords(r, field) {
     return R[j];
   };
   const stones = stonesBetween(r, R[9]?.score, pickWord, e => e.word === mineWord);
+  let into = list;
   for (const e of withStones(shown, stones)) {
-    if (e.gap) { list.appendChild(gapRow()); continue; }
+    if (e.mark) { into = e.mark === 'open' ? stonePanel(list) : list; continue; }
     const key = e.yours ? '\u0000yours' : e.word;
-    list.appendChild(bestRow({
+    into.appendChild(bestRow({
       key, name: e.word, score: e.score, yours: e.yours, stone: e.stone, open: S.open.has(key),
       place: e.yours ? r.rank : rankOf(e.score, field.scores).rank,
       fillSet: li => {
@@ -1446,10 +1450,11 @@ function bestPairs(r, field) {
     return lo && field.withScore ? field.withScore(sc[lo - 1]) : null;
   };
   const stones = stonesBetween(r, field.scores[9], pickPair, same);
+  let into = list;
   for (const e of withStones(shown, stones)) {
-    if (e.gap) { list.appendChild(gapRow()); continue; }
+    if (e.mark) { into = e.mark === 'open' ? stonePanel(list) : list; continue; }
     const key = e.yours ? '\u0000yours' : name(e.words);
-    list.appendChild(bestRow({
+    into.appendChild(bestRow({
       key, name: name(e.words), score: e.score, yours: e.yours, stone: e.stone, open: S.open.has(key),
       place: e.yours ? r.rank : rankOf(e.score, field.scores).rank,
       fillSet: li => {
