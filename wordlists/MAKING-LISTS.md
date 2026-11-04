@@ -192,6 +192,89 @@ For the Daily Proof, it also needs:
 - a run of `tools/daily-check.mjs` and `tools/daily-table.mjs` before it goes in
   a roster.
 
+## The Register Foundry
+
+`tools/foundry/register-foundry.html` is the recipe above as one page,
+published as a private claude.ai artifact so it can be run from a phone. It
+asks Claude through the page itself, keeps every run in the artifact's
+database (so a run survives reloads and a Claude session can read the result
+back from `runs/{id}/parts/final`), and offers the finished list as a
+download. It has five routes in, each meant to catch what the others miss:
+
+1. **Brainstorm by facet**: Claude splits the theme into 10–16 facets and
+   lists words for each (step 1's cluster brainstorm).
+2. **Sweep the dictionary**: two readers with differently worded instructions
+   each read every word, 2,000 to a call (step 3).
+3. **Neighbours**: words linked to the ones found so far in WordNet and in two
+   thesauruses (step 1's ranked related-words list, with no network).
+4. **Inflections** of everything found (step 2, by rule rather than by
+   inheritance).
+5. **The audit**: the 150 words a player would most surely expect, checked
+   against the kept list.
+
+Words from routes 1, 2 and 5 go straight to three judges, who score 0–3 blind:
+one asks whether a player would expect the word, one checks its everyday
+sense, and one argues against it. Neighbours and inflections are far noisier,
+so a fast model screens them first, 400 to a call, and only survivors reach
+the judges. A keep rule (expansive, balanced or strict) turns the scores into
+kept, cut and disputed words, and you settle the disputed ones by tapping.
+
+### Its sources
+
+An artifact page can't fetch from the web, so anything beyond Claude and the
+dictionary has to be published with the page. Three open word resources are,
+all taken from the npm registry, which a Claude Code session can reach when
+other hosts are blocked:
+
+| Package | What it is | Licence |
+| --- | --- | --- |
+| `wordnet-db@3.1.14` | WordNet 3.1's database | WordNet's own (BSD-style) |
+| `moby@1.1.2` | Grady Ward's Moby thesaurus | public domain |
+| `thesaurus@0.0.1` | OpenOffice's en_US thesaurus (MyThes) | LGPL |
+
+To rebuild the folder the page is published from:
+
+```
+mkdir -p ~/sources && cd ~/sources
+npm pack wordnet-db@3.1.14 moby@1.1.2 thesaurus@0.0.1
+for t in *.tgz; do mkdir -p "${t%.tgz}" && tar -xzf "$t" -C "${t%.tgz}"; done
+cd -  # back to the repo
+python3 -I tools/foundry/build.py ~/sources /some/out/dir
+```
+
+The script reads the packages only as data. It writes the page, `dict.txt`
+(`wordlist.txt` minus the block list), `lists/` (the current theme lists, for
+the page's comparison), and the link data: `rel/a.txt`…`rel/z.txt` (17.8 MB
+in all) and `rel/deg.txt`. Of the 82,105 dictionary words, 45,152 have links:
+about half a million from WordNet and 1.9 million from the thesauruses. Then
+republish `register-foundry.html` from that folder with every other file
+passed as `files`.
+
+### What the neighbours are worth
+
+Measured on the four lists: seed with a random half of a list, then see how
+much of the other half the links find.
+
+- **Counting links ranks hubs first.** The best-connected words on no list are
+  UPSET, BAD, TURN, RUN, SET and GO. Within the dictionary RUN has 886 links
+  and SET 1,187, so a list of ten thousand words reaches each over a hundred
+  times. Taking every word
+  linked to two or more seeds gives 15,000–18,000 words, 8–12% of them on the
+  list.
+- **So the page ranks by share**: links to seeds ÷ (all the word's links + 4).
+  The +4 stops a word with three links, all to seeds, from outranking
+  LOVESOME (38 of 42 links into romantic). Taking the best 5,000 by share
+  recovers 23–31% of the hidden half, and 18–29% of the 5,000 are on the
+  list. That understates them, since a good word the old list lacks counts
+  as a miss. The page's default is 5,000; screening them costs 13 quick calls.
+- **About half of each list can't be reached by links at all.** Recall stays
+  under 50% whatever the threshold, which is why this is a route and not a
+  method.
+- **The best-share words on no list are mostly finds.** WITCHY, BUGABOO,
+  FOETID and JIMJAMS for spooky; LOVESOME, TWINKLY, BEJEWELLED and HONIED for
+  romantic; GNOMISH, DOLLISH, PAPOOSE and PREEMIE for cute; NETTLESOME, POOH,
+  UNLADYLIKE, EARFUL and COWPIE for rude.
+
 ## Where the four came from
 
 What the session history, the commits and the author's Drive show:

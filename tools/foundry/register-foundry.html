@@ -1,0 +1,823 @@
+<title>Register Foundry</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* A type-foundry's casting sheet: one column of steps, each a card with its
+   own progress, words set as small slugs in mono. Brass for what acts, ink
+   for what is read, a jade/rust pair only for kept and cut. */
+:root {
+  --bg: #f3efe6; --card: #fbf8f1; --ink: #23201b; --dim: #6b6458; --rule: #ddd5c4;
+  --brass: #9a6b1f; --brass-hi: #b8862f; --on-brass: #fffaf0;
+  --keep: #2f7a52; --keep-bg: #e3f1e8; --cut: #a3412b; --cut-bg: #f6e3dc;
+  --dispute: #8a5a00; --dispute-bg: #f7ecd2; --flag: #7a2d6e; --flag-bg: #f1e2ee;
+  --slug: #efe9dc; --bar: #e6dfcf;
+  --display: 'Fraunces', Georgia, serif;
+  --sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #1b1916; --card: #24211d; --ink: #ece6d8; --dim: #a59c8a; --rule: #3a352d;
+  --brass: #d3a24c; --brass-hi: #e6b964; --on-brass: #1b1916;
+  --keep: #7cc89c; --keep-bg: #1f3329; --cut: #e48f78; --cut-bg: #3a2420;
+  --dispute: #e2b45a; --dispute-bg: #3a3020; --flag: #d99ccc; --flag-bg: #36233a;
+  --slug: #2d2a24; --bar: #34302a; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #1b1916; --card: #24211d; --ink: #ece6d8; --dim: #a59c8a; --rule: #3a352d;
+  --brass: #d3a24c; --brass-hi: #e6b964; --on-brass: #1b1916;
+  --keep: #7cc89c; --keep-bg: #1f3329; --cut: #e48f78; --cut-bg: #3a2420;
+  --dispute: #e2b45a; --dispute-bg: #3a3020; --flag: #d99ccc; --flag-bg: #36233a;
+  --slug: #2d2a24; --bar: #34302a; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 var(--sans); }
+.wrap { max-width: 760px; margin: 0 auto; padding-block: 20px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 14px; }
+h1 { font: 800 28px/1.1 var(--display); margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+h2 { font: 600 19px/1.2 var(--display); margin: 0; text-wrap: balance; }
+.lede { color: var(--dim); margin: 2px 0 0; font-size: 14px; }
+header { display: grid; gap: 10px; }
+.runbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+select, input[type=text], textarea {
+  font: inherit; color: var(--ink); background: var(--card); border: 1px solid var(--rule);
+  border-radius: 6px; padding: 8px 10px; min-width: 0; }
+textarea { width: 100%; resize: vertical; min-height: 64px; }
+input[type=text] { width: 100%; }
+select:focus-visible, input:focus-visible, textarea:focus-visible, button:focus-visible { outline: 2px solid var(--brass-hi); outline-offset: 2px; }
+.btn { font: 600 14px var(--sans); border-radius: 6px; padding: 8px 14px; border: 1px solid var(--brass);
+  background: var(--brass); color: var(--on-brass); cursor: pointer; min-height: 38px; }
+.btn.ghost { background: transparent; color: var(--brass); }
+.btn:disabled { opacity: 0.45; cursor: default; }
+.card { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; display: grid; gap: 12px; min-width: 0; }
+.card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.step { font: 500 12px var(--mono); color: var(--brass); letter-spacing: 0.04em; }
+.why { color: var(--dim); font-size: 13.5px; margin: 0; max-width: 62ch; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 560px) { .grid2 { grid-template-columns: 1fr; } }
+label { display: grid; gap: 4px; font-size: 13px; color: var(--dim); min-width: 0; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.task { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center;
+  padding: 10px 0; border-top: 1px solid var(--rule); }
+.task:first-of-type { border-top: 0; padding-top: 0; }
+.task b { font-weight: 600; }
+.task small { grid-column: 1 / -1; color: var(--dim); font-size: 13px; }
+.bar { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--bar); overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: var(--brass); transition: width .3s; }
+.status { font-size: 13.5px; min-height: 1.4em; color: var(--dim); }
+.status.err { color: var(--cut); }
+.tally { display: flex; flex-wrap: wrap; gap: 8px; }
+.tab { font: 500 13px var(--sans); border: 1px solid var(--rule); background: transparent; color: var(--ink);
+  border-radius: 999px; padding: 5px 12px; cursor: pointer; font-variant-numeric: tabular-nums; }
+.tab[aria-pressed=true] { border-color: var(--ink); background: var(--ink); color: var(--card); }
+.slugs { display: flex; flex-wrap: wrap; gap: 5px; max-height: 340px; overflow-y: auto; padding: 2px; }
+.slug { font: 400 13px var(--mono); background: var(--slug); color: var(--ink); border: 1px solid transparent;
+  border-radius: 4px; padding: 3px 7px; cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.slug .sc { font-size: 10.5px; color: var(--dim); letter-spacing: 0.04em; }
+.slug.keep { background: var(--keep-bg); color: var(--keep); }
+.slug.cut, .slug.screened { background: var(--cut-bg); color: var(--cut); text-decoration: line-through; text-decoration-thickness: 1px; }
+.slug.screened { background: transparent; border-color: var(--rule); }
+.slug.disputed { background: var(--dispute-bg); color: var(--dispute); }
+.slug.flag { background: var(--flag-bg); color: var(--flag); }
+.slug.ov { border-color: currentColor; }
+.more { font-size: 13px; color: var(--dim); }
+details summary { cursor: pointer; color: var(--brass); font-size: 13.5px; }
+.example { font: 600 11px var(--mono); color: var(--dispute); background: var(--dispute-bg); padding: 2px 6px; border-radius: 4px; }
+.mono { font-family: var(--mono); font-size: 13px; }
+.cmp { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.cmp div { background: var(--slug); border-radius: 6px; padding: 8px 10px; font-size: 13px; }
+.cmp b { display: block; font: 600 20px var(--display); font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: reduce) { .bar i { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Register Foundry</h1>
+      <p class="lede">Casts a themed word list for Great Work: five routes in, a quick screen and three judges to narrow it, and you for the close calls.</p>
+    </div>
+    <div class="runbar">
+      <select id="runSel" aria-label="List"></select>
+      <button class="btn ghost" id="newBtn" type="button">New list</button>
+      <span class="status" id="dictStatus">Loading the dictionary…</span>
+    </div>
+  </header>
+
+  <!-- 1. The brief -->
+  <section class="card" id="briefCard">
+    <div class="card-head"><h2>Brief</h2><span class="step">1 · WHAT THE LIST IS</span></div>
+    <p class="why">Every reader and judge sees this and nothing else, so say what the theme covers, what is near it but out, and which way to lean on the edges.</p>
+    <div class="grid2">
+      <label>Name<input type="text" id="fName" placeholder="nautical"></label>
+      <label>Patron (optional)<input type="text" id="fPatron" placeholder="The Bosun"></label>
+    </div>
+    <label>What it covers<textarea id="fBrief" rows="3"></textarea></label>
+    <div class="grid2">
+      <label>Clearly in<textarea id="fIns" rows="2"></textarea></label>
+      <label>Clearly out<textarea id="fOuts" rows="2"></textarea></label>
+    </div>
+    <details>
+      <summary>Settings</summary>
+      <div class="grid2" style="margin-top:10px">
+        <label>Calls per tap<select id="fPerTap"><option>4</option><option selected>6</option><option>10</option><option>16</option></select></label>
+        <label>Dictionary chunk size<select id="fChunk"><option>1500</option><option selected>2000</option><option>3000</option></select></label>
+        <label>Model for reading<select id="fTierRead"><option value="quick">Quick</option><option value="default" selected>Default</option><option value="complex">Most capable</option></select></label>
+        <label>Model for judging<select id="fTierJudge"><option value="quick">Quick</option><option value="default" selected>Default</option><option value="complex">Most capable</option></select></label>
+      </div>
+    </details>
+    <div class="row"><button class="btn" id="saveBrief" type="button">Save brief</button><span class="status" id="briefStatus"></span></div>
+  </section>
+
+  <!-- 2. Find candidates -->
+  <section class="card" id="genCard">
+    <div class="card-head"><h2>Find candidates</h2><span class="step">2 · FIVE ROUTES IN</span></div>
+    <p class="why">Each route misses things the others catch, so start broad: the judges narrow it. A word found by several routes is safe; a word found by one gets their full attention.</p>
+    <div>
+      <div class="task">
+        <span><b>Brainstorm by facet.</b> Claude splits the theme into facets, then lists words for each.</span>
+        <button class="btn" id="runFacets" type="button">Run</button>
+        <div class="bar"><i id="barFacets"></i></div>
+        <small id="sumFacets">Not started.</small>
+      </div>
+      <div class="task">
+        <span><b>Sweep the dictionary.</b> Two readers with different instructions each read every word, a chunk per call.</span>
+        <button class="btn" id="runSweep" type="button">Run</button>
+        <div class="bar"><i id="barSweep"></i></div>
+        <small id="sumSweep">Not started.</small>
+      </div>
+      <div class="task">
+        <span><b>Add neighbours.</b> Words linked to the ones found so far in WordNet (synonyms, kinds of, parts of, derived words) and in two thesauruses (Moby and OpenOffice), best first: a word most of whose links lead back to found words beats one linked to everything. No calls; they go through the quick screen.</span>
+        <button class="btn" id="runRel" type="button">Add</button>
+        <div class="row" style="grid-column:1/-1">
+          <label style="flex:1 1 140px">From<select id="fRelSeeds"><option value="found" selected>Found by Claude or you</option><option value="kept">Kept so far</option></select></label>
+          <label style="flex:1 1 140px">Add<select id="fRelTake"><option value="1000">the best 1,000</option><option value="2500">the best 2,500</option><option value="5000" selected>the best 5,000</option><option value="10000">the best 10,000</option><option value="0">every word linked twice</option></select></label>
+        </div>
+        <small id="sumRel">Not run yet.</small>
+      </div>
+      <div class="task">
+        <span><b>Add inflections.</b> Plurals, verb forms and derivations of every word found by Claude, by you, or passed by the screen. No calls.</span>
+        <button class="btn" id="runMorph" type="button">Add</button>
+        <small id="sumMorph">Not run yet.</small>
+      </div>
+    </div>
+    <div class="row"><button class="btn ghost" id="stopBtn" type="button" hidden>Stop</button><span class="status" id="genStatus"></span></div>
+  </section>
+
+  <!-- 3. Judge -->
+  <section class="card" id="judgeCard">
+    <div class="card-head"><h2>Judge</h2><span class="step">3 · THREE BLIND JUDGES</span></div>
+    <p class="why">Each judge scores every candidate 0–3 without seeing the others or where the word came from: one asks if a player would expect it, one checks the word's everyday sense, one argues against it.</p>
+    <div class="task">
+      <span><b>Quick screen.</b> Words that came in only as neighbours or inflections are read 400 at a time by a fast model, which keeps anything that could plausibly fit. Survivors go on to the judges.</span>
+      <button class="btn" id="runScreen" type="button">Run</button>
+      <div class="bar"><i id="barScreen"></i></div>
+      <small id="sumScreen">Nothing to screen yet.</small>
+    </div>
+    <div class="task">
+      <span><b>Score candidates.</b> 250 words per call, the three judges in turn.</span>
+      <button class="btn" id="runJudge" type="button">Run</button>
+      <div class="bar"><i id="barJudge"></i></div>
+      <small id="sumJudge">Nothing to judge yet.</small>
+    </div>
+    <span class="status" id="judgeStatus"></span>
+  </section>
+
+  <!-- 4. Decide -->
+  <section class="card" id="decideCard">
+    <div class="card-head"><h2>Decide</h2><span class="step">4 · YOUR RULE, YOUR CALLS</span></div>
+    <div class="grid2">
+      <label>Keep rule<select id="fRule">
+        <option value="expansive" selected>Expansive: two judges say plausible</option>
+        <option value="balanced">Balanced: two judges say it clearly fits</option>
+        <option value="strict">Strict: all three say it clearly fits</option>
+      </select></label>
+      <label>Show<select id="fSrc"><option value="all">Every route</option><option value="one">Found by one route only</option><option value="many">Found by two or more</option></select></label>
+    </div>
+    <div class="tally" id="tabs" role="group" aria-label="Which words"></div>
+    <p class="why" id="tabWhy"></p>
+    <div class="slugs" id="slugs"></div>
+    <div class="more" id="moreNote"></div>
+  </section>
+
+  <!-- 5. Audit -->
+  <section class="card" id="auditCard">
+    <div class="card-head"><h2>Audit</h2><span class="step">5 · WHAT DID WE MISS</span></div>
+    <div class="task">
+      <span><b>Obvious words.</b> A separate call lists the words any player would expect; the ones the dictionary holds but the list doesn't appear below, a tap to keep.</span>
+      <button class="btn" id="runObvious" type="button">Check</button>
+      <small id="sumObvious">Not run yet.</small>
+    </div>
+    <div class="slugs" id="obvSlugs"></div>
+    <div class="task">
+      <span><b>Compare with a current list.</b> How far the kept list agrees with one of the game's four.</span>
+      <select id="cmpSel" aria-label="List to compare"><option value="">Choose…</option><option>spooky</option><option>romantic</option><option>cute</option><option>rude</option></select>
+    </div>
+    <div id="cmpOut"></div>
+  </section>
+
+  <!-- 6. Export -->
+  <section class="card" id="exportCard">
+    <div class="card-head"><h2>Export</h2><span class="step">6 · CAST IT</span></div>
+    <p class="why" id="exportWhy">Nothing kept yet.</p>
+    <div class="row">
+      <button class="btn" id="dlBtn" type="button" disabled>Download list</button>
+      <button class="btn ghost" id="saveFinal" type="button" disabled>Save for Claude</button>
+      <span class="status" id="exportStatus"></span>
+    </div>
+  </section>
+</div>
+
+<script>
+// ═══ Register Foundry ═════════════════════════════════════════════════════
+// The pipeline, all in the page. State lives in the artifact's db so a run
+// survives reloads and Claude can read it back:
+//   runs/{id}                 the brief and settings
+//   runs/{id}/parts/state     facets, which chunks each sweeper has read, audit
+//   runs/{id}/parts/c-{a..z}  candidates by first letter, each word one string
+//                             "routes|j1,j2,j3|flags" (routes: b brainstorm,
+//                             A/B sweepers, w WordNet, t thesaurus, m
+//                             inflection, o obvious-words audit; judges: 0-3
+//                             or -; flags: x slur, K/C your keep/cut, S/s
+//                             passed/failed the quick screen)
+// Every call to Claude is made from a tap and runs in a bounded batch.
+
+const $ = id => document.getElementById(id);
+const fmt = n => n.toLocaleString('en-GB');
+const LETTERS = 'abcdefghijklmnopqrstuvwxyz'.split('');
+const EXAMPLE = {
+  name: 'nautical', patron: 'The Bosun',
+  brief: 'The sea and the people and craft that go on it: ships and their parts, sailors and their trades and slang, knots, navigation, weather at sea, ports, pirates and naval battles, sea creatures as sailors meet them, and the romance of a voyage.',
+  ins: 'anchor, bosun, galleon, barnacle, starboard, keelhaul, mariner, squall, harbour, scurvy',
+  outs: 'river fishing as a hobby, swimming pools, beach holidays, generic water words with no sea in them (sink, tap, puddle)',
+};
+const S = {
+  dict: null, dictArr: [], lists: {},
+  runs: [], id: null, meta: null, state: null,
+  cands: new Map(), dirty: new Set(), stateDirty: false,
+  busy: false, ctl: null, tab: 'disputed', show: 300,
+  rel: new Map(), relLoaded: new Set(), relPreview: null, deg: null,
+};
+// Words Claude or you found go straight to the judges; words that came in
+// only as WordNet or thesaurus neighbours, or as inflections, go through the
+// quick screen first. (A word a judge has already scored stays with the
+// judges: runs begun before the screen existed.)
+const STRONG = new Set(['b', 'A', 'B', 'o', 'u']);
+const viaRoute = c => [...c.r].some(r => STRONG.has(r));
+const found = c => viaRoute(c) || c.f.includes('K');
+const strong = c => found(c) || c.f.includes('S') || c.j.some(x => x != null);
+const needsScreen = c => !strong(c) && !/[sC]/.test(c.f);
+const judgeable = c => strong(c) && !/[KC]/.test(c.f);
+const screenable = c => !viaRoute(c) && !/[KC]/.test(c.f) && (/[sS]/.test(c.f) || c.j.every(x => x == null));
+let db = null, sample = null, downloads = null;
+
+// ─── Candidates ────────────────────────────────────────────────────────────
+const enc = c => `${[...c.r].sort().join('')}|${c.j.map(x => (x == null ? '-' : x)).join(',')}|${c.f}`;
+const dec = s => { const [r, j, f] = s.split('|'); return { r: new Set(r), j: j.split(',').map(x => (x === '-' ? null : +x)), f: f || '' }; };
+function addCand(w, route) {
+  w = w.toLowerCase();
+  if (!S.dict.has(w)) return false;
+  let c = S.cands.get(w);
+  const fresh = !c;
+  if (!c) { c = { r: new Set(), j: [null, null, null], f: '' }; S.cands.set(w, c); }
+  if (!c.r.has(route)) { c.r.add(route); S.dirty.add(w[0]); }
+  return fresh;
+}
+function verdict(c) {
+  if (c.f.includes('K')) return 'keep';
+  if (c.f.includes('C')) return 'cut';
+  if (c.f.includes('x')) return 'flag';
+  if (c.f.includes('s')) return 'screened';
+  if (!strong(c)) return 'pending';
+  if (c.j.some(x => x == null)) return 'pending';
+  const yes = c.j.filter(x => x >= 1).length, firm = c.j.filter(x => x >= 2).length;
+  const rule = $('fRule').value;
+  if (rule === 'balanced') return firm >= 2 ? 'keep' : yes <= 1 ? 'cut' : 'disputed';
+  if (rule === 'strict') return firm === 3 ? 'keep' : firm <= 1 ? 'cut' : 'disputed';
+  return yes >= 2 ? 'keep' : yes === 0 ? 'cut' : 'disputed';
+}
+
+// ─── Storage ───────────────────────────────────────────────────────────────
+const runRef = id => db.doc(`runs/${id}`);
+const partRef = (id, k) => db.doc(`runs/${id}/parts/${k}`);
+async function flush() {
+  if (!db || !S.id) return;
+  const jobs = [];
+  for (const L of S.dirty) {
+    const d = {};
+    for (const [w, c] of S.cands) if (w[0] === L) d[w] = enc(c);
+    jobs.push(partRef(S.id, `c-${L}`).set({ d }));
+  }
+  S.dirty.clear();
+  if (S.stateDirty) { jobs.push(partRef(S.id, 'state').set(S.state)); S.stateDirty = false; }
+  await Promise.all(jobs);
+}
+const blankState = () => ({ facets: [], facetsDone: [], sweep: {}, chunk: 0, morph: 0, obvious: [] });
+async function loadRuns() {
+  const snap = await db.collection('runs').get();
+  S.runs = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => (b.at ?? 0) - (a.at ?? 0));
+}
+async function openRun(id) {
+  S.id = id; S.cands = new Map(); S.dirty.clear();
+  S.meta = S.runs.find(r => r.id === id) ?? null;
+  S.state = blankState();
+  if (id && db) {
+    const parts = await db.collection(`runs/${id}/parts`).get();
+    for (const p of parts.docs) {
+      const v = p.data();
+      if (p.id === 'state') S.state = { ...blankState(), ...v };
+      else if (p.id.startsWith('c-')) for (const [w, s] of Object.entries(v.d ?? {})) S.cands.set(w, dec(s));
+    }
+  }
+  fillBrief(); render();
+}
+
+// ─── Calling Claude ────────────────────────────────────────────────────────
+const briefText = () => {
+  const m = S.meta;
+  return `Theme: ${m.name}${m.patron ? ` (the patron ${m.patron} pays ×3 for a word on this list)` : ''}\n`
+    + `What it covers: ${m.brief}\nClearly in: ${m.ins}\nClearly out: ${m.outs}`;
+};
+const GAME = 'You are helping build a themed word list for a word game. A word on the list pays a bonus when a player spells it, and players guess what is on the list by feel, so the list should hold every word a player would plausibly expect to count, and nothing that would baffle them.';
+const STOP_CODES = ['not_granted', 'sampling_disabled', 'not_declared', 'capability_disabled', 'capability_removed', 'session_expired', 'rate_limited'];
+const errCopy = e => ({
+  not_granted: 'Claude access was declined for this page. Allow it from the page’s Permissions menu, then tap again.',
+  sampling_disabled: 'Claude isn’t available for this account here.',
+  rate_limited: 'Claude is busy or a usage limit was reached. Wait a while, then tap again.',
+  session_expired: 'Sign in again, then tap again.',
+}[e?.code] ?? `A call failed (${e?.code ?? 'error'}). Tap again to retry the rest.`);
+
+// Run a list of tasks, two at a time, stopping on anything that says stop.
+async function runTasks(tasks, statusEl, label) {
+  if (S.busy || !tasks.length) return;
+  S.busy = true; S.ctl = new AbortController(); $('stopBtn').hidden = false; renderButtons();
+  let i = 0, done = 0, failed = 0, stopErr = null;
+  statusEl.className = 'status'; statusEl.textContent = `${label}: 0 of ${tasks.length} calls…`;
+  const worker = async () => {
+    while (i < tasks.length && !S.ctl.signal.aborted && !stopErr) {
+      const t = tasks[i++];
+      try { await t(S.ctl.signal); done++; }
+      catch (e) {
+        if (e?.code === 'cancelled') break;
+        if (STOP_CODES.includes(e?.code)) { stopErr = e; break; }
+        failed++; console.warn(e);
+      }
+      statusEl.textContent = `${label}: ${done} of ${tasks.length} calls${failed ? `, ${failed} failed` : ''}…`;
+      render();
+    }
+  };
+  await Promise.all([worker(), worker()]);
+  try { await flush(); } catch (e) { console.warn(e); }
+  S.busy = false; $('stopBtn').hidden = true;
+  statusEl.className = stopErr || failed ? 'status err' : 'status';
+  statusEl.textContent = stopErr ? errCopy(stopErr)
+    : S.ctl.signal.aborted ? `Stopped after ${done} calls.`
+    : `${label}: ${done} call${done === 1 ? '' : 's'} done${failed ? `, ${failed} failed — tap again to retry them` : ''}.`;
+  render();
+}
+const ask = (prompt, tier, signal) => sample.json(prompt, { modelTier: tier, signal });
+
+// ─── Route 1: facets ───────────────────────────────────────────────────────
+async function facetsTasks() {
+  const tier = S.meta.tierRead;
+  if (!S.state.facets.length) {
+    return [async signal => {
+      const out = await ask(`${GAME}\n\n${briefText()}\n\nSplit this theme into 10 to 16 facets that together cover everything a player would expect on the list: places, objects, people, creatures, actions, sounds, moods, slang, history. Reply with only a JSON array of objects {"facet": string, "hint": string}, the hint one short phrase.`, tier, signal);
+      S.state.facets = (Array.isArray(out) ? out : []).filter(f => f?.facet).slice(0, 16).map(f => ({ facet: String(f.facet), hint: String(f.hint ?? '') }));
+      S.stateDirty = true;
+    }];
+  }
+  return S.state.facets.map((f, k) => k).filter(k => !S.state.facetsDone.includes(k)).map(k => async signal => {
+    const f = S.state.facets[k];
+    const out = await ask(`${GAME}\n\n${briefText()}\n\nFacet: ${f.facet} — ${f.hint}\n\nList as many single English words as you can (up to 200) that belong to this facet of the theme: common and rare, archaic and slang, nouns, verbs and adjectives, with their plurals and verb forms. Single words only: no spaces or hyphens. Reply with only a JSON array of lowercase strings.`, tier, signal);
+    for (const w of Array.isArray(out) ? out : []) if (typeof w === 'string') addCand(w.trim(), 'b');
+    S.state.facetsDone.push(k); S.stateDirty = true;
+  });
+}
+
+// ─── Route 2: the dictionary sweep ─────────────────────────────────────────
+const SWEEPERS = {
+  A: 'Choose every word a player would expect to count for this theme. Lean towards including: a word is in if one of its ordinary senses belongs to the theme.',
+  B: 'Choose every word whose meaning, typical setting or strong association belongs to the world of this theme: its places, things, people, creatures, actions, sounds and moods. Lean towards including.',
+};
+function sweepTasks() {
+  if (!S.state.chunk) { S.state.chunk = +S.meta.chunk || 2000; S.stateDirty = true; }
+  const size = S.state.chunk, n = Math.ceil(S.dictArr.length / size), out = [];
+  for (let i = 0; i < n; i++) for (const who of ['A', 'B']) {
+    if (S.state.sweep[`${who}${i}`]) continue;
+    out.push(async signal => {
+      const chunk = S.dictArr.slice(i * size, (i + 1) * size);
+      const inChunk = new Set(chunk);
+      const picks = await ask(`${GAME}\n\n${briefText()}\n\n${SWEEPERS[who]} Leave out words that only connect through a far-fetched sense, and function words.\n\nRead every word below. Reply with only a JSON array of the words you choose, spelled exactly as given (an empty array if none fit).\n\n${chunk.join(' ')}`, S.meta.tierRead, signal);
+      for (const w of Array.isArray(picks) ? picks : []) if (typeof w === 'string' && inChunk.has(w.trim().toLowerCase())) addCand(w.trim(), who);
+      S.state.sweep[`${who}${i}`] = 1; S.stateDirty = true;
+    });
+  }
+  return out;
+}
+const sweepTotal = () => 2 * Math.ceil(S.dictArr.length / (S.state?.chunk || +S.meta?.chunk || 2000));
+
+// ─── Route 3: inflections, from the dictionary alone ───────────────────────
+function relatives(w) {
+  const out = new Set(), add = x => { if (x.length > 1) out.add(x); };
+  const last = w.at(-1), stem = w.slice(0, -1);
+  ['s', 'es', 'ed', 'ing', 'er', 'ers', 'est', 'ly', 'ness', 'y'].forEach(s => add(w + s));
+  if (last === 'e') ['d', 'r', 'rs', 'st'].forEach(s => add(w + s)), ['ing', 'y', 'ily'].forEach(s => add(stem + s));
+  if (/[^aeiou]y$/.test(w)) ['ies', 'ied', 'ier', 'iest', 'ily', 'iness'].forEach(s => add(stem + s));
+  if (/[^aeiou][aeiou][bdgklmnprt]$/.test(w)) ['ed', 'ing', 'er', 'ers', 'y'].forEach(s => add(w + last + s));
+  // …and the other way: the base of an inflection.
+  for (const [suf, rep] of [['ies', 'y'], ['ied', 'y'], ['ier', 'y'], ['iest', 'y'], ['ily', 'y'], ['iness', 'y'], ['es', ''], ['s', ''], ['ed', ''], ['ed', 'e'], ['ing', ''], ['ing', 'e'], ['ly', ''], ['ness', ''], ['er', ''], ['est', '']]) {
+    if (w.endsWith(suf) && w.length > suf.length + 2) {
+      const b = w.slice(0, -suf.length) + rep;
+      add(b);
+      if (b.length > 2 && b.at(-1) === b.at(-2) && !rep) add(b.slice(0, -1));
+    }
+  }
+  return out;
+}
+function runMorph() {
+  let added = 0;
+  const seeds = [...S.cands].filter(([, c]) => strong(c) && verdict(c) !== 'cut').map(([w]) => w);
+  for (const w of seeds) for (const x of relatives(w)) if (addCand(x, 'm')) added++;
+  S.state.morph = Date.now(); S.stateDirty = true;
+  flush().catch(console.warn);
+  $('genStatus').className = 'status';
+  $('genStatus').textContent = `Inflections: ${fmt(added)} new candidates from ${fmt(seeds.length)} found words.`;
+  render();
+}
+
+// ─── Routes 4 and 5: WordNet and the thesauruses ───────────────────────────
+// rel/<letter>.txt holds, for each dictionary word with links, its WordNet
+// neighbours and its thesaurus neighbours, all within the dictionary. Loaded a
+// letter at a time, only the letters the seeds need.
+async function loadDeg() {
+  if (S.deg) return;
+  const res = await fetch('rel/deg.txt');
+  if (!res.ok) throw new Error(`rel/deg.txt: ${res.status}`);
+  S.deg = new Map((await res.text()).split('\n').filter(Boolean).map(l => { const [w, n] = l.split('\t'); return [w, +n]; }));
+}
+async function loadRel(letters) {
+  await Promise.all([...letters].filter(L => !S.relLoaded.has(L)).map(async L => {
+    const res = await fetch(`rel/${L}.txt`);
+    if (!res.ok) throw new Error(`rel/${L}.txt: ${res.status}`);
+    const t = await res.text();
+    // Keep each line whole and split only the ones a seed asks for: the
+    // shards hold 2.4 million links, too many to explode on a phone.
+    let i = 0;
+    while (i < t.length) {
+      const nl = t.indexOf('\n', i), end = nl < 0 ? t.length : nl, tab = t.indexOf('\t', i);
+      if (tab > i && tab < end) S.rel.set(t.slice(i, tab), t.slice(tab + 1, end));
+      i = end + 1;
+    }
+    S.relLoaded.add(L);
+  }));
+}
+function relSeeds() {
+  const kept = $('fRelSeeds').value === 'kept';
+  return [...S.cands].filter(([, c]) => (kept ? verdict(c) === 'keep' : found(c) && verdict(c) !== 'cut')).map(([w]) => w);
+}
+// Who reaches whom: for each word the seeds link to, how many seeds link to
+// it and by which route. Ranked by the share of the word's own links that
+// lead back to seeds, smoothed (+4) so a word with three links, all to seeds,
+// doesn't outrank one with forty-two, thirty-eight to seeds. A raw count
+// would rank hubs first: "run" has 886 links and "set" 1,187, so a big
+// theme reaches each a hundred times. Measured on the four lists (seeding
+// with half of each, looking for the other half), the best 5,000 by share
+// recovered 23–31% of the hidden half, 18–29% of them on the list; taking
+// everything linked twice reached 32–46%, at 8–12%.
+async function reach() {
+  const seeds = relSeeds();
+  await Promise.all([loadDeg(), loadRel(new Set(seeds.map(w => w[0])))]);
+  const hits = new Map();
+  for (const sd of seeds) {
+    const line = S.rel.get(sd);
+    if (!line) continue;
+    const [wn, th] = line.split('\t');
+    for (const [route, list] of [['w', wn], ['t', th]]) for (const x of list ? list.split(' ') : []) {
+      const h = hits.get(x) ?? { n: 0, last: null, routes: new Set() };
+      if (h.last !== sd) { h.last = sd; h.n++; }
+      h.routes.add(route);
+      hits.set(x, h);
+    }
+  }
+  const ranked = [...hits].filter(([w, h]) => h.n >= 2 && !S.cands.has(w))
+    .map(([w, h]) => [w, h, h.n / ((S.deg.get(w) ?? h.n) + 4)]).sort((a, b) => b[2] - a[2]);
+  return { seeds: seeds.length, ranked };
+}
+async function previewRel() {
+  if (!S.meta || !S.dict) return;
+  $('sumRel').textContent = 'Counting…';
+  let seeds, ranked;
+  try { ({ seeds, ranked } = await reach()); }
+  catch (e) { $('sumRel').textContent = 'The link data could not be loaded.'; console.warn(e); return; }
+  const take = Math.min(+$('fRelTake').value || Infinity, ranked.length);
+  S.relPreview = !seeds ? 'Find some words first.'
+    : `From ${fmt(seeds)} words: ${fmt(ranked.length)} new words are linked to two or more. Adding ${fmt(take)} costs ${fmt(Math.ceil(take / 400))} quick screening calls. Best first: ${ranked.slice(0, 12).map(r => r[0]).join(', ')}.`;
+  render();
+}
+async function runRel() {
+  S.busy = true; renderButtons();
+  try {
+    const take = +$('fRelTake').value || Infinity;
+    const { seeds, ranked } = await reach();
+    let added = 0;
+    for (const [w, h] of ranked.slice(0, take)) {
+      for (const r of h.routes) addCand(w, r);
+      added++;
+    }
+    S.state.rel = { at: Date.now(), added: (S.state.rel?.added ?? 0) + added, seeds }; S.stateDirty = true; S.relPreview = null;
+    await flush();
+    $('genStatus').className = 'status';
+    $('genStatus').textContent = `Neighbours: ${fmt(added)} new candidates, waiting for the quick screen.`;
+  } catch (e) { $('genStatus').className = 'status err'; $('genStatus').textContent = 'The link data could not be loaded.'; console.warn(e); }
+  S.busy = false; render();
+}
+
+// ─── The quick screen ──────────────────────────────────────────────────────
+function screenTasks(perTap) {
+  const todo = [...S.cands].filter(([, c]) => needsScreen(c)).map(([w]) => w).sort();
+  const BATCH = 400, tasks = [];
+  for (let i = 0; i < todo.length && tasks.length < perTap; i += BATCH) {
+    const words = todo.slice(i, i + BATCH);
+    tasks.push(async signal => {
+      const out = await ask(`${GAME}\n\n${briefText()}\n\nThese words came from a thesaurus, WordNet, or adding endings to words already found, so many are noise. Keep every word a player might plausibly expect to count for this theme in one of its ordinary senses; drop the rest. Lean towards keeping: the judges look again at everything you keep.\n\nReply with only a JSON array of the words you keep, spelled exactly as given.\n\n${words.join(' ')}`, 'quick', signal);
+      const kept = new Set((Array.isArray(out) ? out : []).map(w => String(w).toLowerCase().trim()));
+      for (const w of words) { const c = S.cands.get(w); c.f = c.f.replace(/[sS]/g, '') + (kept.has(w) ? 'S' : 's'); S.dirty.add(w[0]); }
+    });
+  }
+  return tasks;
+}
+
+// ─── The judges ────────────────────────────────────────────────────────────
+const JUDGES = [
+  'You are judge 1: the player test. Would a player who was told the theme expect this word to count?',
+  'You are judge 2: the sense test. Is the word’s everyday meaning — the one most people would think of first — part of this theme, or is a common secondary meaning part of it?',
+  'You are judge 3: the skeptic. Look for the reason a player would be surprised to see this word on the list, then score fairly: a word that survives your doubt deserves its score.',
+];
+const SCALE = 'Score each word: 3 = core, anyone would say it fits; 2 = clearly fits; 1 = plausible, a fair number of players would expect it; 0 = doesn’t fit, or only through a far-fetched sense. Also list any word that is a slur against a group of people.';
+function judgeTasks(perTap) {
+  const tasks = [];
+  const BATCH = 250;
+  for (let k = 0; k < 3; k++) {
+    const todo = [...S.cands].filter(([, c]) => c.j[k] == null && judgeable(c)).map(([w]) => w).sort();
+    for (let i = 0; i < todo.length && tasks.length < perTap * 3; i += BATCH) {
+      const words = todo.slice(i, i + BATCH);
+      const task = async signal => {
+        const out = await ask(`${GAME}\n\n${briefText()}\n\n${JUDGES[k]}\n${SCALE}\n\nReply with only a JSON object {"scores": {"word": score, …}, "slurs": [words]} covering every word below.\n\n${words.join(' ')}`, S.meta.tierJudge, signal);
+        const sc = out?.scores ?? {};
+        for (const w of words) {
+          const v = Number(sc[w]);
+          if (Number.isFinite(v)) { S.cands.get(w).j[k] = Math.max(0, Math.min(3, Math.round(v))); S.dirty.add(w[0]); }
+        }
+        for (const w of Array.isArray(out?.slurs) ? out.slurs : []) {
+          const c = S.cands.get(String(w).toLowerCase());
+          if (c && !c.f.includes('x')) { c.f += 'x'; S.dirty.add(String(w)[0].toLowerCase()); }
+        }
+      };
+      task.judge = k;
+      tasks.push(task);
+    }
+  }
+  // Interleave the judges so a short tap still moves all three.
+  const by = [0, 1, 2].map(k => tasks.filter(t => t.judge === k));
+  const out = [];
+  for (let i = 0; out.length < perTap && by.some(b => b[i]); i++) for (const b of by) if (b[i] && out.length < perTap) out.push(b[i]);
+  return out;
+}
+
+// ─── Audit ─────────────────────────────────────────────────────────────────
+async function obviousTask(signal) {
+  const out = await ask(`${GAME}\n\n${briefText()}\n\nList the 150 single words a player would most surely expect to find on this list — the obvious ones, the first that come to mind, with common plurals and verb forms. Reply with only a JSON array of lowercase strings.`, S.meta.tierRead, signal);
+  S.state.obvious = (Array.isArray(out) ? out : []).map(w => String(w).toLowerCase().trim()).filter(w => S.dict.has(w));
+  S.stateDirty = true;
+}
+
+// ─── Rendering ─────────────────────────────────────────────────────────────
+function renderRuns() {
+  const sel = $('runSel');
+  sel.replaceChildren();
+  if (!S.runs.length) sel.append(new Option('Example: nautical (not saved)', ''));
+  for (const r of S.runs) sel.append(new Option(`${r.name}${r.patron ? ` — ${r.patron}` : ''}`, r.id));
+  sel.value = S.id ?? '';
+}
+function fillBrief() {
+  const m = S.meta ?? EXAMPLE;
+  $('fName').value = m.name ?? ''; $('fPatron').value = m.patron ?? '';
+  $('fBrief').value = m.brief ?? ''; $('fIns').value = m.ins ?? ''; $('fOuts').value = m.outs ?? '';
+  if (S.meta) { $('fPerTap').value = S.meta.perTap ?? '6'; $('fChunk').value = S.meta.chunk ?? '2000';
+    $('fTierRead').value = S.meta.tierRead ?? 'default'; $('fTierJudge').value = S.meta.tierJudge ?? 'default'; }
+  $('briefStatus').innerHTML = S.meta ? '' : '<span class="example">EXAMPLE</span> Edit it and save to start a list.';
+  $('fChunk').disabled = !!(S.state?.chunk && Object.keys(S.state.sweep).length);
+}
+function renderButtons() {
+  const ready = !!(S.meta && S.dict && sample && db);
+  for (const id of ['runFacets', 'runSweep', 'runRel', 'runMorph', 'runScreen', 'runJudge', 'runObvious']) $(id).disabled = !ready || S.busy;
+  $('saveBrief').disabled = S.busy || !db;
+}
+function render() {
+  renderButtons();
+  const st = S.state ?? blankState();
+  const routes = { b: 0, A: 0, B: 0, w: 0, t: 0, m: 0 };
+  for (const c of S.cands.values()) for (const r of c.r) routes[r] = (routes[r] ?? 0) + 1;
+  // Facets
+  const nf = st.facets.length;
+  $('barFacets').style.width = nf ? `${(100 * st.facetsDone.length) / nf}%` : '0';
+  $('sumFacets').textContent = !nf ? 'Not started.' : `${st.facetsDone.length} of ${nf} facets done (${st.facets.map(f => f.facet).join(', ')}) · ${fmt(routes.b)} words found.`;
+  $('runFacets').textContent = !nf ? 'Run' : st.facetsDone.length < nf ? 'Continue' : 'Done';
+  if (nf && st.facetsDone.length >= nf) $('runFacets').disabled = true;
+  // Sweep
+  if (S.meta && S.dict) {
+    const tot = sweepTotal(), dn = Object.keys(st.sweep).length;
+    $('barSweep').style.width = `${(100 * dn) / tot}%`;
+    $('sumSweep').textContent = !dn ? `Not started · ${fmt(tot)} calls in all.` : `${dn} of ${tot} chunk readings done · reader A chose ${fmt(routes.A)} words, reader B ${fmt(routes.B)}.`;
+    $('runSweep').textContent = !dn ? 'Run' : dn < tot ? 'Continue' : 'Done';
+    if (dn >= tot) $('runSweep').disabled = true;
+  }
+  $('sumMorph').textContent = st.morph ? `${fmt(routes.m)} candidates came in as inflections. Run again after more words are found.` : 'Not run yet.';
+  if (S.relPreview) $('sumRel').textContent = S.relPreview;
+  else if (st.rel) $('sumRel').textContent = `${fmt(st.rel.added ?? 0)} neighbours added so far, last from ${fmt(st.rel.seeds)} words. Change a setting above to see what another run would add.`;
+  // Screen
+  const weak = [...S.cands.values()].filter(screenable);
+  const screened = weak.filter(c => /[sS]/.test(c.f)).length;
+  $('barScreen').style.width = weak.length ? `${(100 * screened) / weak.length}%` : '0';
+  $('sumScreen').textContent = !weak.length ? 'Nothing to screen yet.'
+    : `${fmt(screened)} of ${fmt(weak.length)} screened · ${fmt(weak.filter(c => c.f.includes('S')).length)} passed · ${fmt(Math.ceil((weak.length - screened) / 400))} calls left.`;
+  // Judge
+  const all = [...S.cands.values()];
+  const open = all.filter(judgeable);
+  const scored = open.reduce((a, c) => a + c.j.filter(x => x != null).length, 0);
+  const need = open.length * 3;
+  $('barJudge').style.width = need ? `${(100 * scored) / need}%` : '0';
+  $('sumJudge').textContent = !open.length ? 'Nothing to judge yet.' : `${fmt(open.length)} to judge · ${fmt(open.filter(c => c.j.every(x => x != null)).length)} fully judged · ${fmt(Math.ceil((need - scored) / 250))} calls left.`;
+  // Decide
+  renderDecide();
+  // Audit
+  const kept = new Set([...S.cands].filter(([, c]) => verdict(c) === 'keep').map(([w]) => w));
+  const missing = (st.obvious ?? []).filter(w => !kept.has(w));
+  $('sumObvious').textContent = !st.obvious?.length ? 'Not run yet.' : `${st.obvious.length} obvious words, ${missing.length} not on the kept list${missing.length ? ' — tap one to keep it' : ''}.`;
+  const os = $('obvSlugs'); os.replaceChildren();
+  for (const w of missing) os.append(slug(w, S.cands.get(w)));
+  renderCompare(kept);
+  // Export
+  $('exportWhy').textContent = kept.size ? `${fmt(kept.size)} words kept under the current rule${S.meta ? `, as theme-${S.meta.name}.txt` : ''}.` : 'Nothing kept yet.';
+  $('dlBtn').disabled = !kept.size || !downloads; $('saveFinal').disabled = !kept.size || !db;
+}
+const TABS = [
+  ['disputed', 'Disputed', 'The judges split. Tap a word to keep it; tap again to cut it; once more to leave it to the rule.'],
+  ['flag', 'Flagged', 'A judge called these slurs. They stay off the list unless you keep them.'],
+  ['keep', 'Kept', 'On the list under the current rule. Tap to cut.'],
+  ['cut', 'Cut', 'Off the list under the current rule. Tap to keep.'],
+  ['screened', 'Screened out', 'Neighbours and inflections the quick screen dropped; no judge saw them. Tap to keep.'],
+  ['pending', 'Not yet judged', 'Waiting on the quick screen or a judge.'],
+];
+function renderDecide() {
+  const groups = { keep: [], cut: [], disputed: [], flag: [], screened: [], pending: [] };
+  const src = $('fSrc').value;
+  for (const [w, c] of S.cands) {
+    const routes = [...c.r].filter(r => r !== 'm').length;
+    if (src === 'one' && routes > 1) continue;
+    if (src === 'many' && routes < 2) continue;
+    groups[verdict(c)].push(w);
+  }
+  const tabs = $('tabs'); tabs.replaceChildren();
+  for (const [k, label] of TABS) {
+    const b = document.createElement('button');
+    b.className = 'tab'; b.type = 'button';
+    b.textContent = `${label} ${fmt(groups[k].length)}`;
+    b.setAttribute('aria-pressed', S.tab === k ? 'true' : 'false');
+    b.onclick = () => { S.tab = k; S.show = 300; render(); };
+    tabs.append(b);
+  }
+  $('tabWhy').textContent = TABS.find(t => t[0] === S.tab)[2];
+  const list = groups[S.tab].sort();
+  const host = $('slugs'); host.replaceChildren();
+  for (const w of list.slice(0, S.show)) host.append(slug(w, S.cands.get(w)));
+  const more = $('moreNote'); more.replaceChildren();
+  if (list.length > S.show) {
+    const b = document.createElement('button'); b.className = 'btn ghost'; b.type = 'button';
+    const rest = list.length - S.show;
+    b.textContent = rest <= 300 ? `Show the other ${fmt(rest)}` : `Show 300 more of ${fmt(rest)}`;
+    b.onclick = () => { S.show += 300; render(); };
+    more.append(b);
+  }
+}
+function slug(w, c) {
+  const b = document.createElement('button');
+  b.type = 'button';
+  const v = c ? verdict(c) : 'cut';
+  b.className = `slug ${v}${c?.f.match(/[KC]/) ? ' ov' : ''}`;
+  b.append(w);
+  if (c) {
+    const sc = document.createElement('span'); sc.className = 'sc';
+    sc.textContent = `${c.f.includes('s') ? '' : `${c.j.map(x => (x == null ? '·' : x)).join('')} `}${[...c.r].sort().join('')}`;
+    b.append(sc);
+    b.title = `${c.f.includes('s') ? 'Dropped by the quick screen' : `Judges ${c.j.map(x => (x == null ? '–' : x)).join(' / ')}`} · found by ${[...c.r].map(r => ({ b: 'brainstorm', A: 'reader A', B: 'reader B', w: 'WordNet', t: 'thesaurus', m: 'inflection', o: 'audit', u: 'you' }[r])).join(', ')}`;
+  }
+  b.onclick = () => toggle(w);
+  return b;
+}
+function toggle(w) {
+  if (!S.meta) return;
+  let c = S.cands.get(w);
+  if (!c) { addCand(w, 'o'); c = S.cands.get(w); }
+  if (!c) return;
+  const base = c.f.replace(/[KC]/g, '');
+  c.f = c.f.includes('K') ? base + 'C' : c.f.includes('C') ? base : base + 'K';
+  S.dirty.add(w[0]);
+  clearTimeout(toggle.t); toggle.t = setTimeout(() => flush().catch(console.warn), 800);
+  render();
+}
+async function renderCompare(kept) {
+  const name = $('cmpSel').value, out = $('cmpOut');
+  if (!name) { out.replaceChildren(); return; }
+  if (!S.lists[name]) {
+    out.textContent = 'Loading…';
+    try { S.lists[name] = new Set((await (await fetch(`lists/${name}.txt`)).text()).split('\n').filter(Boolean)); }
+    catch { out.textContent = 'That list could not be loaded.'; return; }
+  }
+  const L = S.lists[name];
+  const both = [...kept].filter(w => L.has(w)), onlyNew = [...kept].filter(w => !L.has(w)), onlyOld = [...L].filter(w => !kept.has(w));
+  out.innerHTML = '';
+  const g = document.createElement('div'); g.className = 'cmp';
+  for (const [n, label] of [[both.length, 'on both'], [onlyNew.length, 'only on the new list'], [onlyOld.length, `only on ${name}`]]) {
+    const d = document.createElement('div'); const b = document.createElement('b'); b.textContent = fmt(n); d.append(b, label); g.append(d);
+  }
+  out.append(g);
+  const ex = document.createElement('p'); ex.className = 'why mono';
+  const pick = a => a.sort(() => 0.5 - Math.random()).slice(0, 24).join(' ');
+  ex.textContent = `Only new: ${pick(onlyNew) || '—'}\nOnly ${name}: ${pick(onlyOld) || '—'}`;
+  ex.style.whiteSpace = 'pre-wrap';
+  out.append(ex);
+}
+
+// ─── Wiring ────────────────────────────────────────────────────────────────
+const slugify = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'list';
+$('saveBrief').onclick = async () => {
+  const name = slugify($('fName').value.trim());
+  const meta = {
+    name, patron: $('fPatron').value.trim(), brief: $('fBrief').value.trim(),
+    ins: $('fIns').value.trim(), outs: $('fOuts').value.trim(),
+    perTap: $('fPerTap').value, chunk: $('fChunk').value,
+    tierRead: $('fTierRead').value, tierJudge: $('fTierJudge').value, at: Date.now(),
+  };
+  if (!meta.brief) { $('briefStatus').textContent = 'Say what the theme covers first.'; return; }
+  const id = S.id ?? `${name}-${Date.now().toString(36)}`;
+  try {
+    await runRef(id).set(meta);
+    const fresh = !S.id;
+    S.id = id; S.meta = { id, ...meta };
+    await loadRuns();
+    if (fresh) { S.state = blankState(); S.stateDirty = true; await flush(); }
+    renderRuns(); fillBrief(); render();
+    $('briefStatus').textContent = 'Saved.';
+  } catch (e) { $('briefStatus').textContent = 'Could not save — are you signed in?'; console.warn(e); }
+};
+$('newBtn').onclick = () => { S.id = null; S.meta = null; S.state = blankState(); S.cands = new Map(); renderRuns(); fillBrief(); render(); };
+$('runSel').onchange = e => openRun(e.target.value || null);
+$('runFacets').onclick = async () => { const t = await facetsTasks(); runTasks(t.slice(0, +S.meta.perTap), $('genStatus'), 'Brainstorm'); };
+$('runSweep').onclick = () => runTasks(sweepTasks().slice(0, +S.meta.perTap), $('genStatus'), 'Sweep');
+$('runMorph').onclick = runMorph;
+$('runRel').onclick = runRel;
+$('fRelSeeds').onchange = previewRel; $('fRelTake').onchange = previewRel;
+$('runScreen').onclick = () => runTasks(screenTasks(+S.meta.perTap), $('judgeStatus'), 'Screening');
+$('runJudge').onclick = () => runTasks(judgeTasks(+S.meta.perTap), $('judgeStatus'), 'Judging');
+$('runObvious').onclick = () => runTasks([obviousTask], $('judgeStatus'), 'Audit');
+$('stopBtn').onclick = () => S.ctl?.abort();
+$('fRule').onchange = render; $('fSrc').onchange = render; $('cmpSel').onchange = render;
+$('dlBtn').onclick = async () => {
+  const kept = [...S.cands].filter(([, c]) => verdict(c) === 'keep').map(([w]) => w).sort();
+  try { await downloads.save({ filename: `theme-${S.meta?.name ?? 'list'}.txt`, data: kept.join('\n') + '\n' }); $('exportStatus').textContent = 'Saved.'; }
+  catch (e) { $('exportStatus').textContent = e?.code === 'unavailable' ? 'Downloads aren’t available here.' : 'Not saved.'; }
+};
+$('saveFinal').onclick = async () => {
+  const kept = [...S.cands].filter(([, c]) => verdict(c) === 'keep').map(([w]) => w).sort();
+  try {
+    await partRef(S.id, 'final').set({ rule: $('fRule').value, count: kept.length, at: Date.now(), words: kept.join('\n') });
+    $('exportStatus').textContent = `Saved ${fmt(kept.length)} words where Claude can read them.`;
+  } catch (e) { $('exportStatus').textContent = 'Could not save.'; console.warn(e); }
+};
+
+// ─── Start ─────────────────────────────────────────────────────────────────
+(async () => {
+  renderRuns(); render(); fillBrief();
+  fetch('dict.txt').then(r => r.text()).then(t => {
+    S.dictArr = t.split('\n').filter(Boolean); S.dict = new Set(S.dictArr);
+    $('dictStatus').textContent = `${fmt(S.dictArr.length)} words in the dictionary.`;
+    render();
+  }).catch(() => { $('dictStatus').textContent = 'The dictionary could not be loaded.'; });
+  // Outside a Claude viewer there is no window.claude: the page still shows itself.
+  const use = n => (window.claude?.use ? window.claude.use(n) : Promise.resolve(null));
+  const [d, s, dl] = await Promise.all([use('db'), use('sample'), use('downloads')]);
+  db = d; sample = s; downloads = dl;
+  if (!db) $('briefStatus').textContent = 'Saving needs you signed in to Claude.';
+  if (!sample) $('genStatus').textContent = 'Claude can’t be asked from this view.';
+  if (db) {
+    const timer = setTimeout(() => { $('dictStatus').textContent += ' Saved lists are slow to load.'; }, 10000);
+    try { await loadRuns(); } catch (e) { console.warn(e); }
+    clearTimeout(timer);
+    renderRuns();
+    if (S.runs.length) await openRun(S.runs[0].id);
+  }
+  render();
+})();
+</script>
