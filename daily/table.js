@@ -45,6 +45,7 @@ export const LIST_FILES = {
   adjectives: 'wordlists/adjectives.txt',
   verbs:      'wordlists/verbs.txt',
   nouns:      'wordlists/nouns.txt',
+  nounforms:  'wordlists/noun-forms.txt',
   spooky:     'wordlists/theme-spooky.txt',
   romantic:   'wordlists/theme-romantic.txt',
   cute:       'wordlists/theme-cute.txt',
@@ -141,23 +142,8 @@ function vowelRun(tiles) {
   return { seq, count };
 }
 
-const IRREGULAR_PLURALS = {
-  CHILDREN: 'CHILD', DICE: 'DIE', FEET: 'FOOT', GEESE: 'GOOSE', LICE: 'LOUSE',
-  MICE: 'MOUSE', OXEN: 'OX', PEOPLE: 'PERSON', TEETH: 'TOOTH',
-};
-function nounSingulars(word) {
-  const irregular = IRREGULAR_PLURALS[word];
-  if (irregular) return [irregular];
-  const drop = n => word.slice(0, -n);
-  if (word.length > 3 && word.endsWith('MEN'))  return [drop(3) + 'MAN'];
-  if (word.length > 3 && word.endsWith('IES'))  return [drop(3) + 'Y'];
-  if (word.length > 3 && word.endsWith('VES'))  return [drop(3) + 'F', drop(3) + 'FE'];
-  if (word.length > 3 && word.endsWith('ES'))   return [drop(2), drop(1)];
-  if (word.length > 3 && word.endsWith('I'))    return [drop(1) + 'US'];
-  if (word.length > 3 && word.endsWith('S') && !word.endsWith('SS')) return [drop(1)];
-  return [];
-}
-const readsAsNoun = word => inList('nouns', word) || nounSingulars(word).some(w => inList('nouns', w));
+// The Sculptor's list: every word whose ordinary meaning is a noun, and its plurals.
+const readsAsNoun = word => inList('nounforms', word);
 
 // ─── The patrons ──────────────────────────────────────────────────────────────
 const register = theme => ({
@@ -176,7 +162,7 @@ export const PATRONS = {
   // The parts of speech: ×2.
   poet:     { lists: ['adjectives'], effect({ letters, xMult }) { if (inList('adjectives', letters)) xMult(2); } },
   athlete:  { lists: ['verbs'],      effect({ letters, xMult }) { if (inList('verbs', letters)) xMult(2); } },
-  sculptor: { lists: ['nouns'],      effect({ letters, xMult }) { if (readsAsNoun(letters)) xMult(2); } },
+  sculptor: { lists: ['nounforms'],  effect({ letters, xMult }) { if (readsAsNoun(letters)) xMult(2); } },
   lexicographer: {
     lists: ['common'],
     effect({ letters, xMult }) { if (LISTS.common.size && letters && !inList('common', letters)) xMult(1.5); },

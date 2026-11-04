@@ -20,6 +20,7 @@ export const THEME_FILES = {
   nautical:   'wordlists/theme-nautical.txt',
   acronyms:   'wordlists/acronyms.txt',
   nouns:      'wordlists/nouns.txt',
+  nounforms:  'wordlists/noun-forms.txt',
   adjectives: 'wordlists/adjectives.txt',
   verbs:      'wordlists/verbs.txt',
   names:      'wordlists/names.txt',

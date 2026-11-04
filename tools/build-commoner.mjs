@@ -2,7 +2,7 @@
 // English (wordlists/common.txt) and their everyday inflections. That is a
 // plural where the word is a noun, the other tenses where it is a verb, and
 // the comparative and superlative where it is an adjective. Each form is
-// checked against the game's own parts-of-speech lists (nouns.txt,
+// checked against the game's own parts-of-speech lists (noun-forms.txt,
 // verbs.txt, adjectives.txt), so a form is only added when the list says the
 // word really is that part of speech: SEVERED is SEVER's and not SEVERE's,
 // and nobody gets YEARLIES or EXCEPTS. Derivations (-LY, -NESS, -ER for a
@@ -21,7 +21,7 @@ const read = f => fs.readFileSync(path.join(root, 'wordlists', f), 'utf8')
 
 const common = read('common.txt');
 const dict = new Set(read('wordlist.txt'));
-const nouns = new Set(read('nouns.txt'));
+const nounForms = new Set(read('noun-forms.txt'));   // the Sculptor's: nouns and their plurals
 const verbs = new Set(read('verbs.txt'));
 const adjs = new Set(read('adjectives.txt'));
 
@@ -55,7 +55,7 @@ function degrees(b) {
 const forms = new Set();
 for (const b of common) {
   if (!CONS.test(b) && b.length < 2) continue;
-  if (nouns.has(b)) for (const f of plurals(b)) if (dict.has(f)) forms.add(f);
+  if (nounForms.has(b)) for (const f of plurals(b)) if (nounForms.has(f) && dict.has(f)) forms.add(f);
   if (verbs.has(b)) for (const f of tenses(b)) if (verbs.has(f) && dict.has(f)) forms.add(f);
   if (adjs.has(b)) for (const f of degrees(b)) if (adjs.has(f) && dict.has(f)) forms.add(f);
 }

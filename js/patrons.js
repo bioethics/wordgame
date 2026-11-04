@@ -517,39 +517,13 @@ export function boundNouns(word) {
   return null;
 }
 
-// Plurals the nouns list doesn't carry. nouns.txt holds singular lemmas only —
-// it is The Binder's compounding list first, where two entries have to fit the
-// rack together — so rather than double the file, a plural is read back to its
-// singular here and looked up as that. A candidate that isn't a noun simply
-// misses: the list is the judge, this only decides what to ask it.
-const IRREGULAR_PLURALS = {
-  CHILDREN: 'CHILD', DICE: 'DIE', FEET: 'FOOT', GEESE: 'GOOSE', LICE: 'LOUSE',
-  MICE: 'MOUSE', OXEN: 'OX', PEOPLE: 'PERSON', TEETH: 'TOOTH',
-};
-
-function nounSingulars(word) {
-  const irregular = IRREGULAR_PLURALS[word];
-  if (irregular) return [irregular];
-  const drop = n => word.slice(0, -n);
-  // MEN covers its compounds too, WOMEN and POSTMEN alike.
-  if (word.length > 3 && word.endsWith('MEN'))  return [drop(3) + 'MAN'];
-  if (word.length > 3 && word.endsWith('IES'))  return [drop(3) + 'Y'];
-  if (word.length > 3 && word.endsWith('VES'))  return [drop(3) + 'F', drop(3) + 'FE'];
-  // BOXES → BOX and HORSES → HORSE are the same ending read two ways.
-  if (word.length > 3 && word.endsWith('ES'))   return [drop(2), drop(1)];
-  if (word.length > 3 && word.endsWith('I'))    return [drop(1) + 'US'];   // CACTI, FUNGI
-  // A word ending in SS is no plural: GLASS is one glass.
-  if (word.length > 3 && word.endsWith('S') && !word.endsWith('SS')) return [drop(1)];
-  return [];
-}
-
-// Whether a word reads as a noun — on the list outright, the plural of one on
-// it, or two entries stacked while The Binder is seated. That last half is his
-// alone: without the seat DOOMHAT is no word at all. His halves stay singular,
-// so DOOM and HAT make a word and CATS and HAT still don't.
+// Whether a word reads as a noun — on The Sculptor's list (noun-forms.txt,
+// every word whose ordinary meaning is a noun, and its plurals), or two of The
+// Binder's nouns stacked while he is seated. That last half is his alone:
+// without the seat DOOMHAT is no word at all. His halves stay singular, so
+// DOOM and HAT make a word and CATS and HAT still don't.
 const readsAsNoun = word =>
-  inTheme('nouns', word)
-  || nounSingulars(word).some(w => inTheme('nouns', w))
+  inTheme('nounforms', word)
   || (owns('binder') && !!boundNouns(word));
 
 // Every colour represented in a set of tiles, read the way patrons read colour —
