@@ -1391,7 +1391,6 @@ ejaculation
 ejaculatory
 elated
 elation
-elbows
 elderflower
 elegance
 elegant
@@ -1750,7 +1749,6 @@ fiance
 fiancee
 fiancees
 fiances
-fibula
 fickle
 fiction
 fidelity
@@ -2657,7 +2655,6 @@ knightly
 knights
 knoll
 knuckled
-knuckles
 lace
 lacerating
 lacework
@@ -6556,7 +6553,6 @@ feting
 fetishes
 feverishly
 fevers
-fibulas
 fickleness
 fictions
 fidgeted

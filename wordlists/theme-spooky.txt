@@ -842,7 +842,6 @@ critters
 creeks
 leeches
 apprehensive
-diurnal
 foreboding
 possessing
 shrieking
@@ -963,7 +962,6 @@ unidentifiable
 predators
 bandaged
 stinking
-warm
 decrepit
 earthworms
 brackish
@@ -2139,7 +2137,6 @@ craziness
 nastiness
 intrigued
 ranting
-afternoon
 colored
 trudge
 frustrated
@@ -2400,7 +2397,6 @@ recluse
 benighted
 tinge
 noises
-brightness
 wheezing
 scavenge
 harbingers
@@ -2751,7 +2747,6 @@ chomp
 fiendish
 scrolls
 sick
-brighter
 electrocute
 brandish
 pawing
@@ -3423,7 +3418,6 @@ dream
 velveteen
 dissection
 thumped
-warmed
 hasten
 seemed
 incrimination
@@ -8334,7 +8328,6 @@ aches
 adorns
 afterlives
 aftermaths
-afternoons
 albatrosses
 albinos
 alchemists
@@ -9968,10 +9961,6 @@ wants
 warders
 warier
 wariest
-warmer
-warmest
-warming
-warms
 warning
 warns
 waxed
@@ -10172,7 +10161,6 @@ dewiest
 disinterment
 distastefully
 distrustfully
-diurnally
 djinn
 djinni
 djinns
