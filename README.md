@@ -1703,35 +1703,27 @@ and The Monogrammist 25% — low, but it fires on every case and changes *which
 tiles* the best word is set from (its letters print twice, paint and all),
 which the figure doesn't see. None is ever dead.
 
-**The choice of two** (`CHOICE_TIERS`). A pair is only a choice if neither is
-the answer. Over the sixty cases, the best word was found under each member
-of every possible pair, and a tier admitted a patron only if, in every pair
-holding it, the weaker patron still gave the better word on about a third of
-cases or more:
+**The choice of two** (`CHOICE_TIERS`). A pair is only a choice if a player
+can weigh it, so a tier is patrons that pay the same way, and the choice is
+between two words to look for:
 
-- *rich* — The Sexton, The Paramour, The Poppet, The Vulgarian, The Serpent,
-  The Monogrammist. The Monogrammist joined on 4 November, measured an even
-  match for each of the others (26–34 to 31–29 over 60 cases; against the
-  plain tier it would win 83–92%). The most lopsided pair (the Poppet against the Vulgarian) splits 19–39;
-  four pairs are near coin-flips; the loser's best word is typically within
-  four-fifths of the winner's.
-- *plain* — The Herald, The Cartographer, The Sculptor, The Twins. Quieter
-  seats (each lifts the best score by a few per cent), so the loser's best is
-  usually within a tenth; the most lopsided pair splits 65–35.
+- *rich*, on Sundays — The Sexton, The Paramour, The Poppet, The Vulgarian:
+  ×3 for a word on a themed list.
+- *plain*, on Fridays — The Herald, The Cartographer, The Sculptor, The Poet,
+  The Athlete: ×2 for a word of a given form (same first and last letter,
+  vowels in order, a noun, an adjective or adverb, a verb).
 
-Sunday offered three until 4 November (the trio figures: worst trio won by
-one member half the time in the rich tier, 45% in the plain); two is quicker
-to weigh on a phone and measures as well.
-
-The tiers have moved once. While the register lists were short the Sexton took
-70% of the trios he was in and sat out, and the Poet and the Athlete made up
-the rich tier with the other three registers. When the lists gained their
-missing inflections (romantic grew by half) the registers drew level and the
-two parts-of-speech patrons fell between the tiers — trios holding the Poet
-were won by one register up to 67% of the time, and in the plain tier the Poet
-took 57%; as pairs it loses to the Sexton 5–54. Both still sit on Tuesdays. The tiers want re-measuring whenever a
-list grows. The Serpent is offered but never forced, since a case without an S
-leaves him nothing (10% of cases).
+Until 4 November the tiers were cut by measurement instead: over sixty cases,
+which patron of a pair gave the better *best* word, a tier admitting a
+patron only if the weaker of every pair holding it still won about a third of
+the time. That put the Twins (+5 Points a doubled letter) among the ×2's, and
+the Serpent (Points for every S) and the Monogrammist (its letters print
+twice) among the ×3's, and it asked the wrong question: the best word is the
+solver's, and no player is reliably setting it. What a player can't do is
+weigh +Points against ×Mult, so those three went to Tuesday, where nobody is
+choosing — the Serpent's Tuesday deals him an S (`SEAT_LETTERS`), since a
+case without one leaves him nothing. Sunday offered three at a time until the
+same day; two is quicker to weigh on a phone.
 
 **Licences** (4 November), on the Tuesday rotation: three patrons that change
 what counts as a word rather than what it scores, as the game's pardons and

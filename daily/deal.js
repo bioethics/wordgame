@@ -148,7 +148,7 @@ export function dealChallenge(n, opts = {}) {
     if (v >= vowels[0] && v <= vowels[1]) break;
   }
   // A seat that reads particular letters gets them: the Bookbinder's day holds
-  // two V's (for the accent) and two O's (for the howl) at least. An O takes
+  // a V (for the accent) and two O's (for the howl) at least, the Serpent's an S. An O takes
   // another vowel's place and a V another consonant's, so the vowel band
   // holds, and they are set aside from the letterforms below, so no ligature
   // or medieval sort takes one.
@@ -252,25 +252,23 @@ export const DAY_PATRONS = [
   'vulgarian', 'monogrammist', 'poet', 'herald',
   // Licences, 4 November: each changes what counts as a word.
   'expectants', 'haplographer', 'bookbinder',
+  // Out of the choice tiers, 4 November: their pay is Points or a tile's own
+  // value, which can't be weighed against another patron's ×Mult.
+  'serpent', 'twins',
 ];
-// Offered two at a time, from one tier, so that neither is the obvious answer:
-// in the measured cases the weaker of any pair from either tier still gives the
-// better word on a third of cases or more, and its best word is typically
-// within four-fifths of the stronger's. Sunday offers the rich tier and Friday
-// the plain, every pair of a tier once a lap. (They were offered three at a
-// time, on Sundays only, the tiers alternating by week, until 4 November.)
-//
-// The tiers moved once already. When the register lists were short, the Sexton
-// took seven trios in ten and sat out; once the lists filled in with their
-// inflections (4 November) the four registers drew level, and the Poet and the
-// Athlete, whose lists did not grow, fell between the tiers — a fifth wheel
-// among the registers, too strong among the plain. Re-run tools/daily-table.mjs
-// after any list grows, and check the pairs (README, "The table").
+// Offered two at a time, from one tier. A tier is patrons that pay the SAME
+// WAY, so the choice is between two words to look for, never between two kinds
+// of pay a player can't weigh (+Points against ×Mult, say): ×3 for a themed
+// word on Sunday, ×2 for a word of a given form on Friday, every pair of a tier
+// once a lap. (Until 4 November the tiers were cut by how often each patron
+// gave the solver's single best word, which no player is setting; the Twins,
+// the Serpent and the Monogrammist, whose pay is Points or a tile's own value,
+// moved to Tuesday then.)
 export const CHOICE_TIERS = {
-  // The Monogrammist joined on 4 November: an even match for each of the rest
-  // (26–34 to 31–29 over 60 cases), and far too strong for the plain tier.
-  rich:  ['sexton', 'paramour', 'poppet', 'vulgarian', 'serpent', 'monogrammist'],
-  plain: ['herald', 'cartographer', 'sculptor', 'twins'],
+  // ×3 for a word on a themed list.
+  rich:  ['sexton', 'paramour', 'poppet', 'vulgarian'],
+  // ×2 for a word of a given form.
+  plain: ['herald', 'cartographer', 'sculptor', 'poet', 'athlete'],
 };
 // Each bites: the best word unseated is spiked on a quarter to all of cases,
 // and the best word under them is a different one on two-fifths or more.
@@ -321,7 +319,9 @@ export function dayOf(n) {
 }
 
 // The letters a day's seat must find in the case: the Bookbinder's V's and O's.
-const SEAT_LETTERS = { bookbinder: { V: 2, O: 2 } };
+// The Serpent forced on everyone must have an S to bite (a case without one
+// left him nothing on a tenth of days).
+const SEAT_LETTERS = { bookbinder: { V: 1, O: 2 }, serpent: { S: 1 } };
 function lettersFor(day) {
   const ids = day.kind === 'patron' ? [day.id] : day.kind === 'choice' ? day.ids : [];
   const out = {};
