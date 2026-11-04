@@ -590,7 +590,7 @@ function registerPatron(id, theme) {
     effect({ word, xMult }) { if (inTheme(theme, word)) xMult(3); },
     onPrinted({ script, bench }) {
       const word = script?.letters;
-      if (!word || !inTheme(theme, word) || !luckyRoll(PACKAGE_ODDS)) return null;
+      if (!word || !inTheme(theme, word) || !luckyRoll(PACKAGES[theme].odds ?? PACKAGE_ODDS)) return null;
       if (!bench?.({ kind: 'package', theme })) return { note: 'no room on the bench', refused: true };
       return { note: PACKAGES[theme].label };
     },

@@ -383,9 +383,10 @@ export const PACKAGES = {
               loot: [['rosetile', 4], ['applicator-rainbow', 3], ['wash', 2]] },
   rude:     { ...PACKAGE_TEXT.rude,     patron: 'vulgarian',  emoji: '📦',
               loot: [['tongs', 3], ['applicator-cursed', 3], ['futile', 3]] },
-  // The sea's own colour, its wash, and a ghost ship's OO.
-  nautical: { ...PACKAGE_TEXT.nautical, patron: 'seadog',     emoji: '🍾',
-              loot: [['tube-azure', 3], ['wash', 3], ['oo-ghost', 2]] },
+  // The sea's own colour, its wash, and foreign gold. Every other parcel comes
+  // at PACKAGE_ODDS; the Seadog's list is the smallest, so his comes oftener.
+  nautical: { ...PACKAGE_TEXT.nautical, patron: 'seadog',     emoji: '🍾', odds: 1 / 2,
+              loot: [['tube-azure', 3], ['wash', 3], ['doubloon', 3]] },
 };
 
 // theme → the patron who sends it, and back again.
@@ -433,6 +434,7 @@ export const TOOL_LOOK = {
   tongs:   { glyph: '🗜️', label: TOOL_TEXT.tongs },
   wash:    { glyph: '💧', label: TOOL_TEXT.wash },
   potion:  { glyph: '🧪', label: TOOL_TEXT.potion },
+  doubloon: { glyph: '🪙', label: TOOL_TEXT.doubloon },
   // Served on the editor at the desk, and good nowhere else. It has no target
   // to pick on the board, so it spends on a single tap like the potion — and
   // like the potion it KEEPS when there is nobody to serve it on.
@@ -455,6 +457,10 @@ export const PATRON_OFFERS = 4;
 export const MARKET_TILE_OFFERS = 4;
 export const TUBE_PRICE    = 2;
 export const SUNDRY_SELL   = 1;   // what the Market pays to take one back
+// …except a doubloon (the Seadog's sea loot), which is foreign gold and does
+// nothing else: it is only ever sold.
+export const DOUBLOON_PRICE = 3;
+export const sundrySellPrice = s => (s?.kind === 'doubloon' ? DOUBLOON_PRICE : SUNDRY_SELL);
 export const RATCHET_PRICE = 3;   // the ratchet: one letter, one step either way
 // How far an ordinary ratchet walks that letter. A tool may carry its own
 // `range` instead — the popover's stepper clamps to it and shiftTile takes any
@@ -1725,6 +1731,8 @@ export const KNOBS = {
   PARCEL_CUTE:     PACKAGES.cute.label,
   PARCEL_RUDE:     PACKAGES.rude.label,
   PARCEL_NAUTICAL: PACKAGES.nautical.label,
+  PARCEL_NAUTICAL_CHANCE: oddsText(PACKAGES.nautical.odds),
+  DOUBLOON_PRICE,
 };
 
 fillTable(TRIMS,     KNOBS, 'text: TRIM_TEXT');

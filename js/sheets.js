@@ -9,7 +9,7 @@ import {
 } from './state.js';
 import {
   TRIMS, NICKS, COLOURS, STALL_DEFS, SMELT_MIN_COLLECTION, SKIP_COIN_GRANT,
-  ANIM, SUNDRY_SELL, tileCount, sundryTip, TOOL_LOOK, PACKAGES, APPLICATORS,
+  ANIM, SUNDRY_SELL, sundrySellPrice, tileCount, sundryTip, TOOL_LOOK, PACKAGES, APPLICATORS,
   colourDesc, POSTNOM, GHOST_HIRE, MATERIALS, TILE_POINTS, letterGlyph,
   BLACK_PATRON_MARKUP, HACKER_CAP, SHELL_COINS, DIFFICULTIES, difficultyKey,
 } from './constants.js';
@@ -252,13 +252,13 @@ function benchSlotHTML(s, i) {
   :                          { cls: '', mark: '', name: tip.head };
   return `
     <div class="sundry sundry--card ${look.cls}" data-bench-slot="${i}"
-         data-tip-head="${tip.head}" data-tip-body="${tip.body} The ✕ sells it back for ${SUNDRY_SELL} Coin."
+         data-tip-head="${tip.head}" data-tip-body="${tip.body} The ✕ sells it back for ${coinsOf(sundrySellPrice(s))}."
          title="${tip.head} — ${tip.body}">
       ${look.mark}
       <span class="sundry-name">${look.name}</span>
       <span class="sundry-x" role="button" tabindex="0" data-sell-sundry="${i}"
-            aria-label="Sell the ${look.name.toLowerCase()} back for ${SUNDRY_SELL} Coin"
-            title="Sell it back for ${SUNDRY_SELL} Coin">✕</span>
+            aria-label="Sell the ${look.name.toLowerCase()} back for ${coinsOf(sundrySellPrice(s))}"
+            title="Sell it back for ${coinsOf(sundrySellPrice(s))}">✕</span>
     </div>`;
 }
 
@@ -1197,6 +1197,7 @@ const TAB_LABELS = {
   labs:     'Experimental',
 };
 
+const coinsOf = n => `${n} Coin${n === 1 ? '' : 's'}`;
 const esc = s => String(s ?? '').replace(/[&<>"]/g,
   c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 

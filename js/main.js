@@ -28,6 +28,7 @@ import {
   PACKAGES, APPLICATORS, SILVER_BONUS, BAG_COUNTS,
   lengthFlourish, medievalExpansions, USURER, BRIBRARIAN, bribeMult, isRule, RULE,
   RATCHET_RANGE,
+  DOUBLOON_PRICE,
 } from './constants.js';
 import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
 import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
@@ -273,6 +274,9 @@ async function openPackage(prize, pkg) {
       benchPut({ kind: 'applicator', material });
       return `${APPLICATORS[material].label} in an applicator, for the workbench.`;
     }
+    case 'doubloon':
+      benchPut('doubloon');
+      return `a gold doubloon for the workbench — the Market buys it for ${DOUBLOON_PRICE} Coins.`;
     case 'potion':
       benchPut('potion');
       return 'a love potion for the workbench — uncork it when a seat is free.';
@@ -1767,6 +1771,10 @@ async function useSundry(idx, e = null, confirmed = false) {
 
   if (armed?.kind === 'reshuffle') {
     log(logLine('reshuffleSpend'), 'warn');
+    return;
+  }
+  if (armed?.kind === 'doubloon') {
+    log(logLine('doubloonSpend'), 'warn');
     return;
   }
 

@@ -105,6 +105,7 @@ export const LOG_TEXT = {
   toolBack:         'The {0} goes back on the workbench.',           // {0} tube | ratchet
   sundryThrownAway: '{0} — thrown away.',      // {0} the tool's name
   reshuffleSpend:   'Spend this at the Market or the Colophon.',
+  doubloonSpend:    'Sell this at the Market.',
   dictLoading:      'The dictionary is still loading…',
 
   // The board's refusals when a tap can't mean what it asked (js/drag.js).
@@ -429,6 +430,10 @@ export const SUNDRY_TEXT = {
     head: 'A wrapped tile',
     body: 'Unwrap it for one tile cast in an exotic material.',
   },
+  doubloon: {
+    head: 'Doubloon',
+    body: 'Foreign gold. The Market buys it for {DOUBLOON_PRICE} Coins.',
+  },
   potion: {
     head: 'Love potion',
     body: 'A rare patron takes an empty seat at your table.',
@@ -457,6 +462,7 @@ export const TOOL_TEXT = {
   tongs:   'Tongs',
   wash:    'Ink wash',
   potion:  'Love potion',
+  doubloon: 'Doubloon',
   // Short, because this is the name the workbench slot and the held row wear,
   // where there is room for one word. The full title is SUNDRY_TEXT above.
   dismissal: 'Dismissal',

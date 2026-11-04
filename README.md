@@ -1021,7 +1021,7 @@ sold back for a Coin, and opens on a tap:
 | ⚰️ **Grave goods** | an azure **OO** in ghost metal · the same in cursed iron (rarer) · a tube of azure |
 | 🎁 **A party bag** | a tile struck in **rose metal** (weighted highest — the Poppet's list is the smallest of the four) · a **rainbow applicator** · a pot of ink wash |
 | 📦 **A plain brown wrapper** | a pair of tongs · a **curse applicator** · a silver-trimmed **FU** |
-| 🍾 **A message in a bottle** | a tube of azure · a pot of ink wash · an azure **OO** in ghost metal (rarer) |
+| 🍾 **A message in a bottle** (1-in-2, not 2-in-3: the Seadog's list is the smallest) | a tube of azure · a pot of ink wash · a gold **doubloon**, which does nothing but sell: the Market buys it for 3 Coins (`DOUBLOON_PRICE`) |
 
 The **applicators** are the tube's gesture pointed at the metal: each lays out
 two tiles from your hand and strikes the one you pick in rainbow or hellbox

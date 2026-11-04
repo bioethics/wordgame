@@ -11,7 +11,7 @@ import {
   WRAPPED_PRICE, WRAPPED_OFFER_CHANCE, DISMISSAL_PRICE, DISMISSAL_OFFER_CHANCE, isImmutable,
   COMPOST_HEAP_MAX,
   TILE_BASE_PRICE, REROLL_BASE,
-  SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, RATCHET_PRICE, BODKIN_PRICE, SUNDRY_SELL, HEADSMAN_STEP,
+  SUNDRY_OFFERS, TUBE_PRICE, RESHUFFLE_PRICE, RATCHET_PRICE, BODKIN_PRICE, SUNDRY_SELL, sundrySellPrice, HEADSMAN_STEP,
   TOOLBOX_PRICE, FLEURON, FLEURON_PRICE, FLEURON_OFFER_CHANCE,
   QUIRE_PRICE, QUIRE_OFFER_CHANCE, QUIRE_DRESSED, QUIRE_MIDDLING, BEADLE_THRESHOLD,
   RULE, RULE_PACK_PRICE, RULE_PACK_CHANCE,
@@ -546,8 +546,9 @@ export function sellSundry(idx) {
   const s = state.sundries[idx];
   if (!s) return { ok: false };
   state.sundries.splice(idx, 1);
-  state.coins += SUNDRY_SELL;
-  return { ok: true, refund: SUNDRY_SELL, sundry: s };
+  const refund = sundrySellPrice(s);
+  state.coins += refund;
+  return { ok: true, refund, sundry: s };
 }
 
 export function buyTile(idx) {
