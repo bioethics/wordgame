@@ -580,6 +580,16 @@ button { font: inherit; color: inherit; }
 /* The best of the case: place, word, score; a tap shows how it was set. */
 .best { list-style: none; margin: 0; padding: 4px 14px 6px; }
 .best-row + .best-row { border-top: 1px solid var(--rule); }
+/* The stepping stones' heading: a label between dashed rules, so the words
+   under it read as a different list from the ten above. */
+.best-gap {
+  display: flex; align-items: center; gap: 10px;
+  padding: 16px 0 6px;
+  font: 700 10.5px var(--sans); letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--dim);
+}
+.best-gap::before, .best-gap::after { content: ''; flex: 1; border-top: 1px dashed rgba(60, 42, 22, 0.32); }
+.best-row--stone .best-place { font-style: italic; }
 .best-head {
   width: 100%;
   display: grid;
@@ -922,11 +932,18 @@ button { font: inherit; color: inherit; }
 }
 .tile--louped { --trim-ring: inset 0 0 0 0.125em rgba(45, 138, 92, 0.75); }
 
-/* A tile the armed tool would take. */
-.tile--target { animation: target 1s ease-in-out infinite; }
-@keyframes target {
-  50% { box-shadow: var(--trim-ring), 0 0 0 0.19em var(--brass-hi), 0 0.3125em 0 -0.0625em var(--tile-lift), 0 0 1em rgba(235, 201, 137, 0.6); }
+/* A tile the armed tool would take: a brass ring pulses round it. A nicked
+   tile is cut by a mask, and a mask clips whatever is drawn outside the tile,
+   so its ring goes inside instead: drawn outside, it simply vanished, and a
+   silver sort with a nick looked like one the ratchet couldn't take. */
+.tile--target {
+  --target-glow: var(--trim-ring), 0 0 0 0.19em var(--brass-hi), 0 0.3125em 0 -0.0625em var(--tile-lift), 0 0 1em rgba(235, 201, 137, 0.6);
+  animation: target 1s ease-in-out infinite;
 }
+.tile--target.tile--nick-left, .tile--target.tile--nick-right {
+  --target-glow: inset 0 0 0 0.19em var(--brass-hi), inset 0 0 0.9em rgba(235, 201, 137, 0.7), var(--trim-ring);
+}
+@keyframes target { 50% { box-shadow: var(--target-glow); } }
 
 /* Dealt: each sort drops into its socket in turn. */
 .tile--dealt { animation: dealt 0.34s cubic-bezier(.2, 1.3, .4, 1) both; }
@@ -943,4 +960,6 @@ button { font: inherit; color: inherit; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
+  /* The tool's targets still have to show: the ring holds still. */
+  .tile--target { box-shadow: var(--target-glow); }
 }

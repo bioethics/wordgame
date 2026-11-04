@@ -201,9 +201,9 @@ async function countPairs(deal, signal) {
   const pairs = await solvePairs(words, { signal });
   if (!pairs) return null;
   const byWord = new Map(words.words.map(e => [e.word, e]));
-  const { scores, top } = pairs;
+  const { scores, top, withScore } = pairs;
   return {
-    pairs: true, scores, top, byWord,
+    pairs: true, scores, top, byWord, withScore,
     // The chart reads places through this rather than an array of millions.
     ranked: {
       length: scores.length,
@@ -1269,9 +1269,9 @@ function renderResult() {
 }
 
 // One row of a best-of list: place, name, score, and a setting under it when open.
-function bestRow({ key, place, name, score, yours, open, fillSet }) {
+function bestRow({ key, place, name, score, yours, stone, open, fillSet }) {
   const li = document.createElement('li');
-  li.className = `best-row${yours ? ' best-row--yours' : ''}`;
+  li.className = `best-row${yours ? ' best-row--yours' : ''}${stone ? ' best-row--stone' : ''}`;
   const btn = document.createElement('button');
   btn.className = 'best-head';
   btn.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -1295,6 +1295,35 @@ const toolMark = tool => {
   return note;
 };
 
+// Stepping stones: when your word is well down the field, a few settings
+// between the tenth best and yours, spaced by score (three-quarters, half and
+// a quarter of the way up from yours), so there is something to aim at short
+// of the very best. pick(s) names the lowest-scoring setting worth at least s;
+// a stone that is your own word, or ties with the tenth, is left out.
+function stonesBetween(r, tenth, pick, same) {
+  const out = [];
+  if (r.rank <= 10 || !(tenth > r.score)) return out;
+  for (const f of [0.75, 0.5, 0.25]) {
+    const e = pick(r.score + (tenth - r.score) * f);
+    if (!e || e.score <= r.score || e.score >= tenth || same(e)) continue;
+    if (!out.some(o => o.score === e.score)) out.push({ ...e, stone: true });
+  }
+  return out;
+}
+// The stones go in just above your row, under a heading of their own.
+function withStones(shown, stones) {
+  if (!stones.length) return shown;
+  const k = shown.findIndex(e => e.yours);
+  const at = k < 0 ? shown.length : k;
+  return [...shown.slice(0, at), { gap: true }, ...stones, ...shown.slice(at)];
+}
+function gapRow() {
+  const li = document.createElement('li');
+  li.className = 'best-gap';
+  li.textContent = RESULT.stones;
+  return li;
+}
+
 // The best of the case, each with how it was set — the winner's open. Your
 // word is in the list as YOU printed it, and, when the case could have set it
 // better, that setting under it.
@@ -1316,10 +1345,25 @@ function bestWords(r, field) {
     const k = shown.findIndex(e => e.score < r.score);
     shown.splice(k < 0 ? shown.length : k, 0, yours);
   }
-  for (const e of shown) {
+  // The lowest-scoring word worth at least s: the field is best first, so a
+  // binary search for the first word worth less, then back to the start of
+  // the score it lands on (the first of a tie, alphabetically).
+  const R = field.ranked;
+  const pickWord = target => {
+    let lo = 0, hi = R.length;
+    while (lo < hi) { const mid = (lo + hi) >> 1; if (R[mid].score >= target) lo = mid + 1; else hi = mid; }
+    if (!lo) return null;
+    let j = lo - 1;
+    while (j > 0 && R[j - 1].score === R[lo - 1].score) j--;
+    while (j < lo - 1 && R[j].word === mineWord) j++;
+    return R[j];
+  };
+  const stones = stonesBetween(r, R[9]?.score, pickWord, e => e.word === mineWord);
+  for (const e of withStones(shown, stones)) {
+    if (e.gap) { list.appendChild(gapRow()); continue; }
     const key = e.yours ? '\u0000yours' : e.word;
     list.appendChild(bestRow({
-      key, name: e.word, score: e.score, yours: e.yours, open: S.open.has(key),
+      key, name: e.word, score: e.score, yours: e.yours, stone: e.stone, open: S.open.has(key),
       place: e.yours ? r.rank : rankOf(e.score, field.scores).rank,
       fillSet: li => {
         const set = document.createElement('div');
@@ -1379,10 +1423,19 @@ function bestPairs(r, field) {
     shown.splice(k < 0 ? shown.length : k, 0, yours);
   }
   const tilesOf = plan => settingOf(S.deal.tiles, { plan }).word;
-  for (const e of shown) {
+  // The lowest pair score worth at least s, and a pair that scores it.
+  const pickPair = target => {
+    const sc = field.scores;
+    let lo = 0, hi = sc.length;
+    while (lo < hi) { const mid = (lo + hi) >> 1; if (sc[mid] >= target) lo = mid + 1; else hi = mid; }
+    return lo && field.withScore ? field.withScore(sc[lo - 1]) : null;
+  };
+  const stones = stonesBetween(r, field.scores[9], pickPair, same);
+  for (const e of withStones(shown, stones)) {
+    if (e.gap) { list.appendChild(gapRow()); continue; }
     const key = e.yours ? '\u0000yours' : name(e.words);
     list.appendChild(bestRow({
-      key, name: name(e.words), score: e.score, yours: e.yours, open: S.open.has(key),
+      key, name: name(e.words), score: e.score, yours: e.yours, stone: e.stone, open: S.open.has(key),
       place: e.yours ? r.rank : rankOf(e.score, field.scores).rank,
       fillSet: li => {
         const set = document.createElement('div');

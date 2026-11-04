@@ -690,13 +690,16 @@ export function pairBest(A, B) {
 // Every pair of words the case could set — a word may be paired with itself
 // where the case holds it twice — scored at its best, a slice at a time. The
 // sums are kept in a typed array, unsorted until asked; the best few keep
-// their settings for the slip.
+// their settings for the slip, and the first pair to reach each score is
+// remembered, so withScore(s) can name a pair worth s (the stepping stones
+// between the best and yours).
 export async function solvePairs(field, { budget = 12, signal, onProgress, keep = 12 } = {}) {
   const W = field.words;
   const N = W.length;
   let buf = new Int32Array(Math.min(1 << 20, Math.max(16, (N * (N + 1)) / 2)));
   let size = 0;
   const top = [];   // [{ score, i, j, a, b }] best first, at most `keep`
+  const seen = new Map();   // score → { i, j, a, b }, the first pair to reach it
   let i = 0;
   while (i < N) {
     const stop = performance.now() + budget;
@@ -707,6 +710,7 @@ export async function solvePairs(field, { budget = 12, signal, onProgress, keep 
         if (r.score < 0) continue;
         if (size === buf.length) { const b = new Int32Array(buf.length * 2); b.set(buf); buf = b; }
         buf[size++] = r.score;
+        if (!seen.has(r.score)) seen.set(r.score, { i, j, a: r.a, b: r.b });
         if (top.length < keep || r.score > top[top.length - 1].score) {
           top.push({ score: r.score, i, j, a: r.a, b: r.b });
           top.sort((x, y) => y.score - x.score);
@@ -719,12 +723,13 @@ export async function solvePairs(field, { budget = 12, signal, onProgress, keep 
     if (i < N) await new Promise(res => setTimeout(res, 0));
   }
   const scores = buf.slice(0, size).sort().reverse();   // best first
-  const named = top.map(t => ({
+  const name = t => ({
     score: t.score,
     words: [W[t.i].word, W[t.j].word],
     plans: [W[t.i].plans[t.a].plan, W[t.j].plans[t.b].plan],
-  }));
-  return { scores, top: named };
+  });
+  const withScore = score => { const t = seen.get(score); return t ? name({ score, ...t }) : null; };
+  return { scores, top: top.map(name), withScore };
 }
 
 // ─── Ranking ──────────────────────────────────────────────────────────────────

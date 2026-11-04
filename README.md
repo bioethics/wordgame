@@ -1811,8 +1811,24 @@ each word with its own setting a tap away, and your word sits among them as
 you printed it — your place, your score, your setting — with the case's
 better setting of the same word beneath it when there was one.
 
-The field is drawn as one curve, score against place, with the place on a log
-axis for the same reason the brackets narrow at the top. The field is gray,
+The list is the top ten, and a word in the top ten is seen against what beat
+it. A word further down sees only the ten and a long jump, so between them
+and yours the list puts up to three stepping stones, under a heading that
+says what they are. Each is chosen by score, the lowest-scoring setting worth
+at least three-quarters, half and a quarter of the way from your score up to
+the tenth best. A stone is a target nearer to hand than the best, and score
+spacing keeps the three from bunching at the steep head of the field, as
+spacing by place would. On a two-word day the pairs are too many to keep, so
+`solvePairs` remembers the first pair to reach each score as it counts, and a
+stone names that pair.
+
+The field is drawn as one curve, score against place. The place runs on a
+log axis anchored at the top 1%, log(1 + place ÷ one per cent of the field).
+Below 1% it reads like a log axis, fine at the top and broad underneath;
+above it, it turns linear, so the top 1% takes about a sixth of the width.
+On a plain log axis that 1% took two fifths, so a word in the top 1.5% sat
+halfway along and looked far down the field. The marks are 1%, 10%, 50% and
+100%; the slip's grade keeps its finer brackets. The field is gray,
 your word is the one red mark, and the two inks were run through the dataviz
 validator against the paper (ΔE 18.9 for normal vision, 11.9 deutan).
 

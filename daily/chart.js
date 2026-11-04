@@ -1,11 +1,14 @@
 // The field, drawn: every word the case could set, best first, as one curve —
 // score against place — with the printed word marked on it.
 //
-// The place runs on a LOG axis, for the same reason the brackets are fine at
-// the top and broad underneath: the difference between first and tenth is the
-// whole story, and the difference between 900th and 1,000th is no story at all.
-// Score runs linear, so the drop from the head of the field to its body reads
-// at its real size.
+// The place runs on a log axis anchored at the top 1%: log(1 + place ÷ one
+// per cent of the field). Below the 1% mark it is an ordinary log axis, fine
+// at the top and broad underneath, because the difference between 900th and
+// 1,000th is no story at all. Above it the axis turns linear, so the top 1%
+// takes about a sixth of the width. A plain log axis gave it two fifths, and
+// a word in the top 1.5% sat halfway along, looking much further down the
+// field than it was. Score runs linear, so the drop from the head of the
+// field to its body reads at its real size.
 //
 // Emphasis, not categories: the field is one gray series and the printed word
 // is the one mark in the press's red (validated against the paper — see the
@@ -46,10 +49,11 @@ export function drawField(host, ranked, you, { onFocusRank, xLabel = '' } = {}) 
   const step = niceStep(maxS);
   const yTop = Math.ceil(maxS / step) * step;
 
-  const lnN = Math.log(Math.max(2, N));
-  const x = rank => m.l + (Math.log(rank) / lnN) * iw;
+  const c = Math.max(1, N / 100);
+  const span = Math.log1p(Math.max(1, N - 1) / c);
+  const x = rank => m.l + (Math.log1p((rank - 1) / c) / span) * iw;
   const y = s => m.t + ih - (s / yTop) * ih;
-  const rankAt = px => Math.min(N, Math.max(1, Math.round(Math.exp(((px - m.l) / iw) * lnN))));
+  const rankAt = px => Math.min(N, Math.max(1, Math.round(1 + c * Math.expm1(((px - m.l) / iw) * span))));
 
   const svg = el('svg', {
     viewBox: `0 0 ${W} ${H}`, width: W, height: H, class: 'field-svg',
@@ -65,14 +69,16 @@ export function drawField(host, ranked, you, { onFocusRank, xLabel = '' } = {}) 
     t.textContent = fmt(s);
   }
 
-  // The brackets the field is reported in, where they fall inside it.
-  // On a log axis 50% and 100% sit close, so a guide too near the one before
-  // it is left out rather than printed over it.
-  const marks = [0.1, 1, 10, 50, 100].filter(p => (p / 100) * N >= 1);
+  // The brackets the field is reported in, where they fall inside it, from
+  // the top 1% down. 50% and 100% sit close, and 100%'s label hangs left of
+  // its line, so a guide with no room for its label after the one before is
+  // left out rather than printed over it: on a phone that is the 100%, and
+  // the curve meeting the edge says as much.
+  const marks = [1, 10, 50, 100].filter(p => (p / 100) * N >= 1);
   let lastGuide = -Infinity;
-  for (const p of [...marks].reverse()) {
+  for (const p of marks) {
     const px = x(Math.max(1, (p / 100) * N));
-    if (Math.abs(lastGuide - px) < 34) continue;
+    if (px - lastGuide < (p === 100 ? 52 : 34)) continue;
     lastGuide = px;
     el('line', { x1: px, x2: px, y1: m.t, y2: m.t + ih, class: 'field-guide' }, svg);
     const t = el('text', { x: px, y: H - m.b + 15, class: 'field-tick', 'text-anchor': p === 100 ? 'end' : 'middle' }, svg);
