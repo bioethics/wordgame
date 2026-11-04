@@ -42,7 +42,8 @@ const lines = file => fs.readFileSync(file, 'utf8').replace(/\r/g, '').split('\n
 const words = file => lines(file).map(l => l.trim()).filter(l => l && !l.startsWith('#'));
 
 // The dictionary as the game reads it: A–Z entries, upper-cased, minus the
-// block list. (Entries with a marker, like abductee+, never match in play.)
+// block list. (Anything else, like the source's old annotation marks, never
+// matches in play.)
 const DICT = new Set(words(path.join(root, 'wordlists/wordlist.txt'))
   .map(w => w.toUpperCase()).filter(w => /^[A-Z]+$/.test(w) && !isExcluded(w)));
 

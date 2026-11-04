@@ -46,9 +46,10 @@ const fmtN = n => n.toLocaleString('en-GB');
 const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ─── The dictionary ───────────────────────────────────────────────────────────
-// The game's own list and the game's own exclusions. Entries carrying a marker
-// (abductee+) never match in the game — adoptWordlist keeps the marker — so
-// they are left out here too, rather than becoming words only this page knows.
+// The game's own list and the game's own exclusions, filtered to plain A–Z
+// entries as a guard: the list once carried its source's annotation marks
+// (abductee+), which the game never matched, and an entry like that must not
+// become a word only this page knows.
 let WORDS = [];
 let WORDSET = new Set();
 const has = w => WORDSET.has(w);
