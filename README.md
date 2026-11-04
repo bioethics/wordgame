@@ -1747,6 +1747,17 @@ choosing — the Serpent's Tuesday deals him an S (`SEAT_LETTERS`), since a
 case without one leaves him nothing. Sunday offered three at a time until the
 same day; two is quicker to weigh on a phone.
 
+**The weaker seats**, on Tuesdays since 4 November: the Apprentice, the
+Jeweller, the Novelist, the Typesetter, the Stammerer, Romeo, Juliet, the
+Siren and the Firebrand. On a day nobody chooses, a patron need not move the
+best word, only pay, and each day is dealt what its seat reads
+(`SEAT_SHAPES`): azure for the Siren, one of it on a vowel; three crimson for
+the Firebrand; three amber and one jade for Romeo, and the reverse for Juliet;
+two ligatures for the Typesetter; a J, X, Z or QU for the Jeweller. Measured on
+their own days, every one has something to pay on, and they pay on 8–100% of
+the top 5% of words, except the Apprentice, whose four-letter words are never
+among the best: he is there for the player who sets one.
+
 **Licences** (4 November), on the Tuesday rotation: three patrons that change
 what counts as a word rather than what it scores, as the game's pardons and
 lexicons do (`pardonWord` and the lexicon patrons in `js/main.js`). The

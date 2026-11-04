@@ -151,7 +151,8 @@ export function dealChallenge(n, opts = {}) {
   // dealt in takes the place of one of its own kind, vowel for vowel, so the
   // vowel band holds, and what is dealt in is set aside from the letterforms
   // below, so no ligature or medieval sort takes it.
-  const keep = shapeLetters(letters, shapeFor(day), rng);
+  const shape = shapeFor(day);
+  const keep = shapeLetters(letters, shape, rng);
   const tiles = letters.map((L, id) => ({ ...makeTileTemplate(L), id }));
   const consonants = () => tiles.filter(t => !keep.has(t.id) && !VOWELS.has(t.letter) && t.letter.length === 1
     && TILE_POINTS[t.letter] != null && /^[A-Z]$/.test(t.letter));
@@ -159,7 +160,7 @@ export function dealChallenge(n, opts = {}) {
   // 2. Letterforms. A ligature or a medieval sort replaces a consonant, so the
   //    vowel band holds; Æ is the exception, a vowel standing in for a vowel.
   const recast = (t, letter) => { t.letter = letter; };
-  const forcedLig = force.ligatures ?? 0;
+  const forcedLig = (force.ligatures ?? 0) + shape.ligatures;
   for (let k = 0; k < forcedLig; k++) {
     const c = consonants(); if (!c.length) break;
     recast(pick(rng, c), pickWeighted(rng, LIGATURE_WEIGHTS));
@@ -184,6 +185,9 @@ export function dealChallenge(n, opts = {}) {
       dress(rng, t, pickWeighted(rng, open));
     }
   }
+
+  // 3½. Paint the seat reads, dealt in when the features above left it short.
+  paintFor(tiles, shape.paint, rng);
 
   // 4. Metals the almanac casts.
   if (force.cursed) {
@@ -244,6 +248,10 @@ export const DAY_PATRONS = [
   // value, which can't be weighed against another patron's ×Mult.
   'serpent', 'twins',
   'seadog', 'sculptor',
+  // The weaker seats, 4 November: on a day nobody chooses, a patron need not
+  // move the best word, only pay — and the deal gives each what it reads.
+  'apprentice', 'jeweller', 'novelist', 'typesetter', 'stammerer',
+  'romeo', 'juliet', 'siren', 'firebrand',
 ];
 // Offered two at a time, from one tier. A tier is patrons that pay the SAME
 // WAY, so the choice is between two words to look for, never between two kinds
@@ -320,24 +328,62 @@ export function dayOf(n) {
 //   pairs   — at least so many letters held twice (none asks for it now: dealing
 //             the Herald pairs moved him from 3% of good words to 5%).
 //   rare    — at least so many of J, X, Z and QU between them: the Antiquary's.
+//   ligatures — so many consonants recast as ligatures: the Typesetter's, who
+//             otherwise found nothing to pay for on two cases in five.
+//   paint   — at least so many tiles of a colour, painted after the features:
+//             the Siren's azure (one of them a vowel), the Firebrand's crimson,
+//             and for Romeo and Juliet three of their own colour and one of the
+//             rival's, to keep out of the word. (Two and two left either paying
+//             on almost no good word: the best words wore both or neither.)
 //             One, not two: with two he paid on 27% of good words, the most of
 //             any ×2 on Friday by half again; with one, 16%.
 const SEAT_SHAPES = {
   bookbinder: { letters: { V: 1, O: 2 } },
   serpent:    { letters: { S: 1 } },
   antiquary:  { rare: 1 },
+  typesetter: { ligatures: 2 },
+  siren:      { paint: { azure: 2, azureVowel: 1 } },
+  firebrand:  { paint: { crimson: 3 } },
+  romeo:      { paint: { amber: 3, jade: 1 } },
+  juliet:     { paint: { jade: 3, amber: 1 } },
+  jeweller:   { rare: 1 },
 };
 const RARE = ['J', 'X', 'Z', 'QU'];
 function shapeFor(day) {
   const ids = day.kind === 'patron' ? [day.id] : day.kind === 'choice' ? day.ids : [];
-  const out = { letters: {}, pairs: 0, rare: 0 };
+  const out = { letters: {}, pairs: 0, rare: 0, ligatures: 0, paint: {} };
   for (const id of ids) {
     const s = SEAT_SHAPES[id] ?? {};
     for (const [L, k] of Object.entries(s.letters ?? {})) out.letters[L] = Math.max(out.letters[L] ?? 0, k);
+    for (const [c, k] of Object.entries(s.paint ?? {})) out.paint[c] = Math.max(out.paint[c] ?? 0, k);
     out.pairs = Math.max(out.pairs, s.pairs ?? 0);
     out.rare = Math.max(out.rare, s.rare ?? 0);
+    out.ligatures = Math.max(out.ligatures, s.ligatures ?? 0);
   }
   return out;
+}
+
+// Paints tiles to the seat's shape, in place. A tile already wearing another
+// colour the shape wants, or one cast in a metal, is left alone; an unpainted
+// letter is taken first, and a tile of a colour the shape doesn't mention only
+// when there is no other.
+function paintFor(tiles, paint, rng) {
+  const wants = Object.keys(paint).filter(c => c in COLOURS);
+  if (!wants.length) return;
+  const pick = a => a[Math.floor(rng() * a.length)];
+  const free = t => !t.material && /^[A-Z]$/.test(t.letter) && !wants.includes(t.colour);
+  const take = (c, filter = () => true) => {
+    const bare = tiles.filter(t => free(t) && !t.colour && filter(t));
+    const pool = bare.length ? bare : tiles.filter(t => free(t) && filter(t));
+    if (!pool.length) return false;
+    pick(pool).colour = c;
+    return true;
+  };
+  if (paint.azureVowel && !tiles.some(t => t.colour === 'azure' && VOWELS.has(t.letter))) take('azure', t => VOWELS.has(t.letter));
+  for (const c of wants) {
+    let have = tiles.filter(t => t.colour === c).length;
+    while (have < paint[c] && take(c)) have++;
+  }
 }
 // Deals the shape into the drawn letters, in place; returns the positions to
 // keep from the letterforms.
