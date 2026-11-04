@@ -580,15 +580,9 @@ button { font: inherit; color: inherit; }
 /* The best of the case: place, word, score; a tap shows how it was set. */
 .best { list-style: none; margin: 0; padding: 4px 14px 6px; }
 .best-row + .best-row { border-top: 1px solid var(--rule); }
-/* The stepping stones' heading: a label between dashed rules, so the words
-   under it read as a different list from the ten above. */
-.best-gap {
-  display: flex; align-items: center; gap: 10px;
-  padding: 16px 0 6px;
-  font: 700 10.5px var(--sans); letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--dim);
-}
-.best-gap::before, .best-gap::after { content: ''; flex: 1; border-top: 1px dashed rgba(60, 42, 22, 0.32); }
+/* The stepping stones sit between two dashed rules, so they read as apart
+   from the ten above and from your word below. */
+.best-gap { height: 0; margin: 8px 0; border-top: 1px dashed rgba(60, 42, 22, 0.4); }
 .best-row--stone .best-place { font-style: italic; }
 .best-head {
   width: 100%;

@@ -1543,7 +1543,11 @@ reads, in brass when that beats its resting value, popping when it changes —
 so a nick's reach is read off the tiles as the word is built. The stick is a
 ruler (`renderRule`): a tick per place along its foot, the length multiplier
 each place would earn from the sixth letter, and a steel knee that closes on
-the word's end. The readout carries a stamp for every multiplier the CASE could
+the word's end. Under the word the ticks sit at the sorts' edges; ahead of it
+they close up to fit, out to ten letters or two past the word, so ×2 to ×4
+are on the stick before a sort is set. (A phone's stick holds four sorts at
+full size, so ticks a sort's width apart showed an empty stick no multiplier
+at all.) The readout carries a stamp for every multiplier the CASE could
 light — the measure, each paint the case holds, purple and the metals where a
 sort carries them — blind until the word lights it, so what there is to reach
 for is on the sheet before a sort is set.
@@ -1813,8 +1817,8 @@ better setting of the same word beneath it when there was one.
 
 The list is the top ten, and a word in the top ten is seen against what beat
 it. A word further down sees only the ten and a long jump, so between them
-and yours the list puts up to three stepping stones, under a heading that
-says what they are. Each is chosen by score, the lowest-scoring setting worth
+and yours the list puts up to three stepping stones, set off by a dashed rule
+above and below. Each is chosen by score, the lowest-scoring setting worth
 at least three-quarters, half and a quarter of the way from your score up to
 the tenth best. A stone is a target nearer to hand than the best, and score
 spacing keeps the three from bunching at the steep head of the field, as

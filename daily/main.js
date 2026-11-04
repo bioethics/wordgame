@@ -1000,14 +1000,22 @@ function renderPairSum(scs) {
 // a steel knee closing on the word's end. Cut for the word in the stick rather
 // than engraved once, because the measure counts LETTERS where the stick holds
 // sorts — a þ or a CH is one sort of two letters — so
-// each tick says what the word would be worth if it ended there. The scale runs
-// the whole stick, so every multiplier within reach is in view from the start.
+// each tick says what the word would be worth if it ended there. Ahead of the
+// word the scale is squeezed to fit (see AHEAD), so the lengths that pay are in
+// view before the first sort is set.
 const measureOf = t => {
   const L = activeLetter(t);
   if (!L || L === '_') return L === '_' ? 1 : 0;
   return MEDIEVAL[L]?.reads?.[0]?.length ?? L.length;
 };
 const LABEL_SPACING = 30;   // px a label needs from its neighbour before it is cut
+// The scale ahead of the word reaches at least AHEAD letters, or two past the
+// word. At full size a phone's stick holds four sorts, and the measure only
+// starts paying at the sixth letter, so a tick per sort's width showed an
+// empty stick no multiplier at all. Ticks ahead are a sort's width apart
+// where that fits, closer where it doesn't, and never closer than MIN_STEP.
+const AHEAD = LENGTH_MULT_MIN + 4;
+const MIN_STEP = 14;
 
 function renderRule(k, word, sc) {
   const stick = stickEl(k), bar = ruleEl(k), knee = kneeEl(k);
@@ -1038,7 +1046,9 @@ function renderRule(k, word, sc) {
     cut(x, last && sc ? sc.letters.length : letters, last);
   });
   if (tiles.length && sc) letters = sc.letters.length;
-  for (let j = 1; j <= 64; j++) if (!cut(x + j * (sortW + gap), letters + j)) break;
+  const reach = Math.max(AHEAD, letters + 2) - letters;
+  const step = Math.min(sortW + gap, Math.max(MIN_STEP, (room - x) / reach));
+  for (let j = 1; j <= 64; j++) if (!cut(x + j * step, letters + j)) break;
 
   // Labels where they fit: the word's own first, then left to right, each kept
   // clear of the ones already cut — a crowded stick labels fewer lengths.
@@ -1310,17 +1320,18 @@ function stonesBetween(r, tenth, pick, same) {
   }
   return out;
 }
-// The stones go in just above your row, under a heading of their own.
+// The stones go in just above your row, set off from the ten and from yours
+// by a dashed rule on either side.
 function withStones(shown, stones) {
   if (!stones.length) return shown;
   const k = shown.findIndex(e => e.yours);
   const at = k < 0 ? shown.length : k;
-  return [...shown.slice(0, at), { gap: true }, ...stones, ...shown.slice(at)];
+  return [...shown.slice(0, at), { gap: true }, ...stones, { gap: true }, ...shown.slice(at)];
 }
 function gapRow() {
   const li = document.createElement('li');
   li.className = 'best-gap';
-  li.textContent = RESULT.stones;
+  li.setAttribute('aria-hidden', 'true');
   return li;
 }
 

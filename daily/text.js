@@ -123,7 +123,6 @@ export const RESULT = {
   bottom: 'Bottom {0}%',
   place: '#{0} of {1}',
   placePairs: '#{0} of {1} pairs',
-  stones: 'Between the top ten and yours',
   share: 'Copy',
   copied: 'Copied',
   again: 'Again',
