@@ -2723,7 +2723,7 @@ const PATRON_BEHAVIOURS = [
     when: 'meta',   // fires in scoring's pass 4½ — see js/scoring.js
   },
 
-  // ── The four registers ──────────────────────────────────────────────────────
+  // ── The five registers ──────────────────────────────────────────────────────
   // Each keeps one of the themed lists in wordlists/ and pays ×3 when
   // the printed word is on it — and sends a package of its own the rest of the
   // time (registerPatron, above). The lists are flat files — edit them freely.
@@ -2731,6 +2731,7 @@ const PATRON_BEHAVIOURS = [
   registerPatron('paramour',  'romantic'),
   registerPatron('poppet',    'cute'),
   registerPatron('vulgarian', 'rude'),
+  registerPatron('seadog',    'nautical'),
 
   // ── The three parts of speech ───────────────────────────────────────────────
   // The registers above ask what a word is ABOUT; these three ask what it DOES

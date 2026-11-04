@@ -487,6 +487,10 @@ export const PACKAGE_TEXT = {
     label: 'A plain brown wrapper',
     body: 'No return address. Contains one of three possible rude rewards.',
   },
+  nautical: {
+    label: 'A message in a bottle',
+    body: 'Washed up on the tide. Contains one of three possible nautical rewards.',
+  },
 };
 
 // ─── The stalls at the Market ─────────────────────────────────────────────────

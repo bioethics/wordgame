@@ -1004,8 +1004,9 @@ confirming tap on itself, because they destroy the tile.
 The **reshuffle** is banked until spent, on the Market's own offers (free, and
 it doesn't touch the escalating reroll price) or on a Colophon pick.
 
-**The registers' packages.** The four register patrons — *the Sexton* (spooky),
-*the Paramour* (romantic), *the Poppet* (cute), *the Vulgarian* (rude) — pay ×3
+**The registers' packages.** The five register patrons — *the Sexton* (spooky),
+*the Paramour* (romantic), *the Poppet* (cute), *the Vulgarian* (rude), *the
+Seadog* (nautical, the author's own list, 4 November) — pay ×3
 Mult for a word on their list, which plays like a lottery ticket: their lists
 run 3–9% of the dictionary, so a seat fires by accident about one word in
 fourteen. So the ×3 has a parcel behind it. Print a word one of them likes and
@@ -1020,6 +1021,7 @@ sold back for a Coin, and opens on a tap:
 | ⚰️ **Grave goods** | an azure **OO** in ghost metal · the same in cursed iron (rarer) · a tube of azure |
 | 🎁 **A party bag** | a tile struck in **rose metal** (weighted highest — the Poppet's list is the smallest of the four) · a **rainbow applicator** · a pot of ink wash |
 | 📦 **A plain brown wrapper** | a pair of tongs · a **curse applicator** · a silver-trimmed **FU** |
+| 🍾 **A message in a bottle** | a tube of azure · a pot of ink wash · an azure **OO** in ghost metal (rarer) |
 
 The **applicators** are the tube's gesture pointed at the metal: each lays out
 two tiles from your hand and strikes the one you pick in rainbow or hellbox
@@ -1405,7 +1407,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Finding words the dictionary is MISSING | `tools/find-dictionary-gaps.mjs` — three modes, none of which writes anything. `derived` (we hold PULMONOLOGY but not PULMONOLOGIST) is the highest-yield; `paradigm` finds a word whose rhyme-neighbours all inflect where it doesn't; `frequency` wants a corpus and is the only one that can find a word with no foothold here at all, but its head is thick with proper nouns. Every mode prints candidates for a human to read, never a list to paste |
 | The Expectant Parents' baby names | `wordlists/names.txt` — same format; regenerate from the US and England & Wales charts with `tools/build-names-list.mjs` |
 | Words barred from the game entirely | `wordlists/excluded-slurs.txt` — one per line, `#` comments. Enforced at load by `js/excluded.js` against the dictionary, every themed list, and The Neologist's coining sheet, so an entry here can't come back through a word list, a custom dictionary or a coined word. Whole-word matches only |
-| The four registers' word lists (the Sexton, the Paramour, the Poppet, the Vulgarian) | `wordlists/theme-*.txt` — one word per line, edit freely; loading in `js/themes.js`. How to make a new one or grow these: `wordlists/MAKING-LISTS.md`, with `tools/theme-list.mjs` for the mechanical steps, or the Register Foundry page (`tools/foundry/`), which runs the whole recipe through Claude from a phone |
+| The five registers' word lists (the Sexton, the Paramour, the Poppet, the Vulgarian, the Seadog) | `wordlists/theme-*.txt` — one word per line, edit freely; loading in `js/themes.js`. How to make a new one or grow these: `wordlists/MAKING-LISTS.md`, with `tools/theme-list.mjs` for the mechanical steps, or the Register Foundry page (`tools/foundry/`), which runs the whole recipe through Claude from a phone |
 | The three parts of speech (the Sculptor, the Poet, the Athlete) | `wordlists/nouns.txt`, `adjectives.txt`, `verbs.txt` — same format. The nouns list holds singulars only: plurals are read back to their singular in `readsAsNoun` (`js/patrons.js`), which is also where the irregular ones (MICE, TEETH, CHILDREN) are named. It is The Binder's list too, so an entry added there can be stacked into a compound as well as paid for |
 | The Frontispiece's opening multiplier & growth | `js/constants.js` → `FRONTISPIECE` |
 | The star-crossed lovers — who marries whom, and for how much | `js/constants.js` → `LOVERS` (`pair`, `merged`, `apart`, `united`); the wedding itself is `marryLovers` in `js/state.js` |

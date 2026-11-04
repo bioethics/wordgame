@@ -549,6 +549,10 @@ export const PATRON_CARDS = {
     name: 'The Sexton', emoji: '⚰️', rarity: 'rare', cost: 8,
     desc: '×3 Mult for words The Sexton finds spooky — and a {PACKAGE_CHANCE} chance of {PARCEL_SPOOKY} for the workbench.',
   },
+  seadog: {
+    name: 'The Seadog', emoji: '⚓', rarity: 'rare', cost: 7,
+    desc: '×3 Mult for words The Seadog finds nautical — and a {PACKAGE_CHANCE} chance of {PARCEL_NAUTICAL} for the workbench.',
+  },
   vulgarian: {
     name: 'The Vulgarian', emoji: '🍑', rarity: 'rare', cost: 8,
     desc: '×3 Mult for words The Vulgarian finds rude — and a {PACKAGE_CHANCE} chance of {PARCEL_RUDE} for the workbench.',

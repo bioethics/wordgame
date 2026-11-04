@@ -1,8 +1,9 @@
 # Making a themed list
 
-The four register lists — `theme-spooky.txt`, `theme-romantic.txt`,
-`theme-cute.txt`, `theme-rude.txt` — each pay ×3 Mult when the printed word is
-on them (the Sexton, the Paramour, the Poppet, the Vulgarian). This is how to
+The five register lists — `theme-spooky.txt`, `theme-romantic.txt`,
+`theme-cute.txt`, `theme-rude.txt`, `theme-nautical.txt` — each pay ×3 Mult
+when the printed word is on them (the Sexton, the Paramour, the Poppet, the
+Vulgarian, the Seadog). This is how to
 make another, or grow these when the dictionary grows. The mechanical steps
 are `tools/theme-list.mjs`; the step that matters is reading, and no script
 does it.
@@ -330,6 +331,13 @@ What the session history, the commits and the author's Drive show:
   CAVIAR, OYSTERS, PENTHOUSE, LIMOUSINE, BALLROOM, JEWELLERY), with
   the kings and princes its queens and princesses lacked: +178 with
   inflections.
+
+- **4 November, the fifth.** `theme-nautical.txt`, the author's own (v5),
+  for the Seadog: 5,332 words, 247 of them not yet in the dictionary (mostly
+  fish and rigging: WRASSE, LUGSAIL, XEBEC) and unplayable until they are;
+  6.2% of the dictionary, the smallest list, so the Seadog is priced like the
+  Poppet. 306 of the author's nautical words (AFTERDECK to YELLOWFIN, with
+  CTHULHU and JABBERWOCKY) joined the dictionary with it.
 
 Not found anywhere these sessions can reach: the tool or chat that produced
 the ranked lists and the later batches. The ranking, the drift into

@@ -49,6 +49,7 @@ export const LIST_FILES = {
   romantic:   'wordlists/theme-romantic.txt',
   cute:       'wordlists/theme-cute.txt',
   rude:       'wordlists/theme-rude.txt',
+  nautical:   'wordlists/theme-nautical.txt',
   names:      'wordlists/names.txt',
 };
 // Lists that are words in their own right rather than a cut of the dictionary:
@@ -169,6 +170,7 @@ export const PATRONS = {
   paramour:  register('romantic'),
   poppet:    register('cute'),
   vulgarian: register('rude'),
+  seadog:    register('nautical'),
 
   // The parts of speech: ×2.
   poet:     { lists: ['adjectives'], effect({ letters, xMult }) { if (inList('adjectives', letters)) xMult(2); } },

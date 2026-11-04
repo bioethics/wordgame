@@ -383,6 +383,9 @@ export const PACKAGES = {
               loot: [['rosetile', 4], ['applicator-rainbow', 3], ['wash', 2]] },
   rude:     { ...PACKAGE_TEXT.rude,     patron: 'vulgarian',  emoji: '📦',
               loot: [['tongs', 3], ['applicator-cursed', 3], ['futile', 3]] },
+  // The sea's own colour, its wash, and a ghost ship's OO.
+  nautical: { ...PACKAGE_TEXT.nautical, patron: 'seadog',     emoji: '🍾',
+              loot: [['tube-azure', 3], ['wash', 3], ['oo-ghost', 2]] },
 };
 
 // theme → the patron who sends it, and back again.
@@ -1721,6 +1724,7 @@ export const KNOBS = {
   PARCEL_ROMANTIC: PACKAGES.romantic.label,
   PARCEL_CUTE:     PACKAGES.cute.label,
   PARCEL_RUDE:     PACKAGES.rude.label,
+  PARCEL_NAUTICAL: PACKAGES.nautical.label,
 };
 
 fillTable(TRIMS,     KNOBS, 'text: TRIM_TEXT');

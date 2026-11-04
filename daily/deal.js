@@ -255,6 +255,7 @@ export const DAY_PATRONS = [
   // Out of the choice tiers, 4 November: their pay is Points or a tile's own
   // value, which can't be weighed against another patron's ×Mult.
   'serpent', 'twins',
+  'seadog',
 ];
 // Offered two at a time, from one tier. A tier is patrons that pay the SAME
 // WAY, so the choice is between two words to look for, never between two kinds
@@ -266,7 +267,7 @@ export const DAY_PATRONS = [
 // moved to Tuesday then.)
 export const CHOICE_TIERS = {
   // ×3 for a word on a themed list.
-  rich:  ['sexton', 'paramour', 'poppet', 'vulgarian'],
+  rich:  ['sexton', 'paramour', 'poppet', 'vulgarian', 'seadog'],
   // ×2 for a word of a given form.
   plain: ['herald', 'cartographer', 'sculptor', 'poet', 'athlete'],
 };

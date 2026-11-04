@@ -17,6 +17,7 @@ export const THEME_FILES = {
   romantic:   'wordlists/theme-romantic.txt',
   rude:       'wordlists/theme-rude.txt',
   spooky:     'wordlists/theme-spooky.txt',
+  nautical:   'wordlists/theme-nautical.txt',
   acronyms:   'wordlists/acronyms.txt',
   nouns:      'wordlists/nouns.txt',
   adjectives: 'wordlists/adjectives.txt',
