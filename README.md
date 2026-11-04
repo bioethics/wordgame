@@ -1733,6 +1733,26 @@ took 57%; as pairs it loses to the Sexton 5–54. Both still sit on Tuesdays. Th
 list grows. The Serpent is offered but never forced, since a case without an S
 leaves him nothing (10% of cases).
 
+**Licences** (4 November), on the Tuesday rotation: three patrons that change
+what counts as a word rather than what it scores, as the game's pardons and
+lexicons do (`pardonWord` and the lexicon patrons in `js/main.js`). The
+Expectant Parents let common baby names stand as words and pay +15 Points for
+any name, dictionary word or not; the Haplographer lets one letter of a
+doubled pair be set once (MATE for MATTE); the Bloodless Bohemian Bookbinder
+reads a V as a W and lets a run of O's be howled as long as the case allows
+(BOOOOB). What is set is what prints and scores — BOOOOB counts six letters
+on the measure. Each lists the spellings it admits beyond the dictionary
+(`spell` in `daily/table.js`, bounded by the case's V's and O's for the
+Bookbinder), and on its day the page judges and the solver counts with the
+dictionary and those together, so the field is the one the patron allows.
+Measured over sixty cases they rarely move the single best word (the
+Bookbinder 28%, the others under a tenth) but widen the field by a sixth to a
+third, which is the point: the yardstick above is a solver's, and a player is
+rarely setting the best word. The names list is a lexicon, so the build keeps
+it whole rather than cutting it to the dictionary (`LEXICONS`), and
+`daily-check` scores three hundred real names under the Parents against the
+game.
+
 **Left out**, and why:
 
 - *Free money.* The Lexicographer (fires on 100% of best words, moves 12%),

@@ -32,7 +32,7 @@
 import {
   COLOURS, LOVERS, QUOIN_MULT, GLOVER_STEP, TYPESETTER_STEP, TWINS_POINTS,
   SERPENT_POINTS, APPRENTICE_LENGTH, APPRENTICE_STEP, CARTOGRAPHER_MULT,
-  CARTOGRAPHER_MIN_VOWELS, isMark,
+  CARTOGRAPHER_MIN_VOWELS, isMark, EXPECTANTS_BONUS,
 } from '../js/constants.js';
 import { isExcluded } from '../js/excluded.js';
 
@@ -49,7 +49,11 @@ export const LIST_FILES = {
   romantic:   'wordlists/theme-romantic.txt',
   cute:       'wordlists/theme-cute.txt',
   rude:       'wordlists/theme-rude.txt',
+  names:      'wordlists/names.txt',
 };
+// Lists that are words in their own right rather than a cut of the dictionary:
+// tools/build-daily.mjs keeps them whole instead of trimming them to it.
+export const LEXICONS = new Set(['names']);
 
 export const LISTS = Object.fromEntries(Object.keys(LIST_FILES).map(k => [k, new Map()]));
 
@@ -266,6 +270,75 @@ export const PATRONS = {
 
   // Patrons who bring a tile instead of a rule.
   scientist:     { adds: { letter: 'OLOGY' } },
+
+  // Licences: patrons that change what counts as a word, as main.js's pardons
+  // and lexicons do in the game. What is set is what prints and scores — the
+  // licence only lets it through. spell(words, has, tiles) lists the spellings
+  // the licence admits beyond the dictionary, for the page to accept and the
+  // solver to try; the case's tiles bound the ones that need a V or an O.
+  expectants: {
+    lists: ['names'],
+    spell: (words, has) => [...LISTS.names.keys()].filter(w => /^[A-Z]+$/.test(w) && !has(w)),
+    // A name pays whether or not the dictionary holds it: GRACE is no less a name.
+    effect({ letters, addPoints }) { if (inList('names', letters)) addPoints(EXPECTANTS_BONUS); },
+  },
+  haplographer: {
+    // One letter of a doubled pair may be set once: MATE reads as MATTE.
+    spell(words, has) {
+      const out = new Set();
+      for (const W of words) for (let i = 0; i < W.length - 1; i++) {
+        if (W[i] !== W[i + 1]) continue;
+        const s = W.slice(0, i + 1) + W.slice(i + 2);
+        if (!has(s)) out.add(s);
+      }
+      return [...out];
+    },
+  },
+  bookbinder: {
+    // The accent: a V may be read as a W. The howl: a run of O's may be set as
+    // long as the case allows and still read as the word's own run.
+    spell(words, has, tiles) {
+      const faces = t => [t.letter, t.altLetter].filter(Boolean);
+      const nV = tiles.filter(t => faces(t).includes('V')).length;
+      const nO = tiles.filter(t => faces(t).includes('O')).length;
+      const out = new Set();
+      for (const W of words) {
+        const ws = [...W].flatMap((c, i) => (c === 'W' ? [i] : []));
+        const oCount = [...W].filter(c => c === 'O').length;
+        const spare = nO - oCount;
+        if (!(ws.length && nV) && !(oCount && spare > 0)) continue;
+        // Every choice of W's to set as V (as many as the case has V's)…
+        const subsets = [];
+        for (let m = 0; m < (1 << ws.length); m++) {
+          let k = 0; for (let b = m; b; b &= b - 1) k++;
+          if (k <= nV) subsets.push(m);
+        }
+        // …and every way of lengthening the word's O-runs with the spare O's.
+        const runs = [];
+        for (let i = 0; i < W.length; i++) if (W[i] === 'O' && W[i - 1] !== 'O') runs.push(i);
+        const ext = [[]];
+        for (let r = 0; r < runs.length; r++) {
+          const next = [];
+          for (const e of ext) {
+            const used = e.reduce((a, b) => a + b, 0);
+            for (let x = 0; x <= Math.max(0, spare) - used; x++) next.push([...e, x]);
+          }
+          ext.splice(0, ext.length, ...next);
+        }
+        for (const m of subsets) for (const e of ext) {
+          if (!m && e.every(x => !x)) continue;
+          let s = '', run = 0;
+          for (let i = 0; i < W.length; i++) {
+            const c = W[i];
+            s += c === 'W' && m & (1 << ws.indexOf(i)) ? 'V' : c;
+            if (c === 'O' && W[i + 1] !== 'O') s += 'O'.repeat(e[run++] ?? 0);
+          }
+          if (!has(s)) out.add(s);
+        }
+      }
+      return [...out];
+    },
+  },
   counterfeiter: { adds: { letter: '_', counterfeit: true, blank: true } },
 };
 
@@ -306,8 +379,16 @@ export function compileTable(seat, desk, has) {
     echo: p?.echo ? t => p.echo(t, pdata) : null,
     tileBonus: p?.tileBonus ?? null,
     effect: p?.effect ?? null,
+    spell: p?.spell ?? null,
     judge: e ? (L, tiles) => e.judge(L, tiles, edata) : null,
   };
+}
+
+// The spellings the day's licences admit beyond the dictionary (none on most days).
+export function spellingsFor(tables, words, has, tiles) {
+  const out = new Set();
+  for (const T of tables) if (T.spell) for (const s of T.spell(words, has, tiles)) out.add(s);
+  return out;
 }
 
 // ─── A day's tables ───────────────────────────────────────────────────────────

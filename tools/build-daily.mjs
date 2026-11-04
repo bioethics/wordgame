@@ -59,14 +59,15 @@ const excluded = '';
 // cut to the words the dictionary holds — the only ones a case can set — in
 // their own order, since the editors read how far down `common` a word sits.
 // Embedded under the file's own name, which is what daily/main.js asks for.
-const { LIST_FILES } = await import(pathToFileURL(path.join(root, 'daily/table.js')).href);
+const { LIST_FILES, LEXICONS } = await import(pathToFileURL(path.join(root, 'daily/table.js')).href);
+const lexicon = new Set([...LEXICONS].map(k => path.basename(LIST_FILES[k], '.txt')));
 const playable = new Set(wordlist.split('\n'));
 const lists = {};
 for (const file of Object.values(LIST_FILES)) {
   const name = path.basename(file, '.txt');
   lists[name] = fs.readFileSync(path.join(root, file), 'utf8')
     .replace(/\r/g, '').split('\n').map(l => l.trim().toUpperCase())
-    .filter(w => w && playable.has(w)).join('\n');
+    .filter(w => w && (lexicon.has(name) ? /^[A-Z]+$/.test(w) && !excludedSet.has(w) : playable.has(w))).join('\n');
 }
 
 let html = fs.readFileSync(path.join(root, 'daily/index.html'), 'utf8');

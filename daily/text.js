@@ -59,6 +59,9 @@ export const SORT_TEXT = {
 // says more than one word can use — a Coin, a package, a next word — the rule is
 // said again here without it. {0} is filled per day (The Monogrammist's letters).
 export const PATRON_TEXT = {
+  expectants:    'Common baby names count as words. +15 Points for a baby name.',
+  haplographer:  'A single letter may read as a double: MATE counts as MATTE.',
+  bookbinder:    'A W may be spelled with a V. An O may repeat any number of times.',
   sexton:        '×3 Mult for words The Sexton finds spooky.',
   paramour:      '×3 Mult for words The Paramour finds romantic.',
   poppet:        '×3 Mult for words The Poppet finds cute.',

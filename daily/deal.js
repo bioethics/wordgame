@@ -233,6 +233,8 @@ export const WEEK = ['choice', 'plain', 'patron', 'plain', 'editor', 'choice', '
 export const DAY_PATRONS = [
   'sexton', 'counterfeiter', 'paramour', 'athlete', 'poppet', 'cartographer',
   'vulgarian', 'monogrammist', 'poet', 'herald',
+  // Licences, 4 November: each changes what counts as a word.
+  'expectants', 'haplographer', 'bookbinder',
 ];
 // Offered two at a time, from one tier, so that neither is the obvious answer:
 // in the measured cases the weaker of any pair from either tier still gives the

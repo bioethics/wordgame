@@ -27,7 +27,7 @@ const { adoptExclusions, isExcluded } = await imp('js/excluded.js');
 const { DICT } = await imp('js/dict.js');
 const { computeScore } = await imp('js/scoring.js');
 const { state } = await imp('js/state.js');
-const { isMark, MEDIEVAL } = await imp('js/constants.js');
+const { isMark, MEDIEVAL, makeTileTemplate } = await imp('js/constants.js');
 const S = await imp('daily/score.js');
 const { dealChallenge, OMENS } = await imp('daily/deal.js');
 const TB = await imp('daily/table.js');
@@ -141,6 +141,26 @@ for (const { seat, desk } of seatings) {
 }
 state.patrons = []; state.boss = null;
 console.log(`seated: ${seatedCompared} arrangements under ${seatings.length} seatings compared with computeScore`);
+
+// The Expectant Parents pay on names, which a random setting almost never
+// spells: so score real names — in the dictionary and out of it — under both.
+{
+  const T = TB.compileTable({ id: 'expectants', data: {} }, null, has);
+  state.patrons = [{ id: 'expectants', uid: 1, data: {} }];
+  state.ghosts = []; state.boss = null; state.rack = [];
+  const names = [...TB.LISTS.names.keys()].filter(w => /^[A-Z]{3,10}$/.test(w));
+  const step = Math.max(1, Math.floor(names.length / 300));
+  let compared = 0, paid = 0;
+  for (let i = 0; i < names.length; i += step) {
+    const word = [...names[i]].map((L, id) => ({ ...makeTileTemplate(L), id, activeVariant: 0 }));
+    const theirs = computeScore(word);
+    const ours = S.scoreWord(word, [], w => has(w) || TB.LISTS.names.has(w), T);
+    compared++; if (ours.seat) paid++;
+    if (theirs.total !== ours.total) fail(`expectants ${names[i]}: game ${theirs.total}, daily ${ours.total}`);
+  }
+  state.patrons = [];
+  console.log(`names: ${compared} names scored under The Expectant Parents (${paid} paid), matching computeScore`);
+}
 
 // ─── 2. The solver against a naive search ─────────────────────────────────────
 // Every way the tool could be used (or not), applied up front through withTool;

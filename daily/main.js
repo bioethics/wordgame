@@ -17,7 +17,7 @@ import {
   scoreWord, judge, withTool, solveCase, rankOf, bracketOf, BRACKETS, activeLetter, faceLetter,
   restingOf, ringStep, shiftable, loupeDelta, settingOf, solveWords, solvePairs, pairBest, RING,
 } from './score.js';
-import { tablesForDay, seatIdsOfDay, listsNeeded, LISTS, LIST_FILES, adoptList, PATRONS } from './table.js';
+import { tablesForDay, seatIdsOfDay, listsNeeded, LISTS, LIST_FILES, adoptList, PATRONS, spellingsFor } from './table.js';
 import {
   COLOURS, TRIMS, NICKS, MEDIEVAL, letterGlyph, colourDesc, SPIKE_MULT,
   LOUPE_CAP, CURSED_MULT, CURSED_PENALTY, LENGTH_MULT_MIN, lengthMult, lengthFlourish,
@@ -52,7 +52,14 @@ const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').match
 // become a word only this page knows.
 let WORDS = [];
 let WORDSET = new Set();
-const has = w => WORDSET.has(w);
+// The dictionary, and on a licence's day the spellings it admits besides
+// (spellingsFor in daily/table.js): the page judges and the solver counts with
+// both, so the field is the field the day's patron allows.
+let EXTRA = new Set();
+const inDict = w => WORDSET.has(w);
+const has = w => WORDSET.has(w) || EXTRA.has(w);
+// A word only the licence lets through.
+const byLicence = tiles => EXTRA.size > 0 && judge(tiles, has).ok && !judge(tiles, inDict).ok;
 
 async function loadWords() {
   const get = async (file, embedded) => {
@@ -151,6 +158,7 @@ function openChallenge(n) {
     applied: null, armed: false, result: null,
     field: null, note: '', printing: false, open: new Set(), openInit: false,
   });
+  EXTRA = new Set();
   S.tables = tablesForDay(deal.day, has);
   S.traits = traitsOf(deal);
   S.tiles = deal.tiles.map(t => ({ ...t }));
@@ -172,6 +180,7 @@ function openChallenge(n) {
   const lists = loadLists(listsNeeded(seatIdsOfDay(deal.day)));
   S.counting = lists.then(() => {
     if (ac.signal.aborted) return null;
+    EXTRA = spellingsFor(S.tables, WORDS, inDict, deal.tiles);
     render();   // the seats can judge now that their lists are in
     return deal.day.kind === 'pair' ? countPairs(deal, ac.signal) : countWords(deal, ac.signal);
   }).then(field => {
@@ -185,7 +194,8 @@ function openChallenge(n) {
 }
 
 function countWords(deal, signal) {
-  return solveCase(deal.tiles, deal.tool, WORDS, has, { signal, tables: S.tables }).then(res => {
+  const words = EXTRA.size ? WORDS.concat([...EXTRA]) : WORDS;
+  return solveCase(deal.tiles, deal.tool, words, has, { signal, tables: S.tables }).then(res => {
     if (!res) return null;
     const ranked = [...res.results].map(([word, r]) => ({ word, ...r }))
       .sort((a, b) => b.score - a.score || a.word.localeCompare(b.word));
@@ -874,7 +884,7 @@ function renderSeats(sc) {
   host.replaceChildren();
   host.hidden = day.kind === 'plain';
   host.dataset.kind = day.kind;
-  const lit = !!sc && (!!sc.seat || sc.perTile.some(p => p.echo > 1 || p.bonus));
+  const lit = !!sc && (!!sc.seat || sc.perTile.some(p => p.echo > 1 || p.bonus) || byLicence(wordAndRest(S.active).word));
   if (day.kind === 'patron') {
     const p = day.patron;
     const card = seatCard(`seat--only${lit ? ' seat--lit' : ''}`, patronEmoji(p.id), patronName(p.id));
@@ -1224,7 +1234,7 @@ const seatMark = idx => {
 const patronMark = (tiles, T) => {
   const p = S.deal.day.kind === 'patron' ? S.deal.day.patron : null;
   if (!p || !T) return null;
-  const paid = tiles.some(t => t.blank)
+  const paid = tiles.some(t => t.blank) || byLicence(tiles)
     || scoreWord(tiles, [], has, T).total !== scoreWord(tiles, [], has, null).total;
   if (!paid) return null;
   const m = document.createElement('span');
