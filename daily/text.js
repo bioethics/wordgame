@@ -19,7 +19,7 @@ export const TRAIT_TEXT = {
   fat:      { name: 'Fat Matter',           desc: 'Most of the case is dressed.' },
   ratchet:  { name: 'The Ratchet',          desc: 'A ratchet on the bench.' },
   loupe:    { name: 'The Loupe',            desc: 'A loupe on the bench.' },
-  oldstock: { name: 'Old Stock',            desc: 'Medieval sorts in the case.' },
+  oldstock: { name: 'Old Stock',            desc: 'A medieval sort in the case.' },
   tied:     { name: 'Tied Letters',         desc: 'Ligatures in the case.' },
   wetink:   { name: 'Wet Ink',              desc: 'More paint than usual.' },
   silver:   { name: 'The Silversmith Calls', desc: 'More silver trims than usual.' },

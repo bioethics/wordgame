@@ -401,6 +401,11 @@ button { font: inherit; color: inherit; }
   color: var(--red);
   text-shadow: 0 0 6px rgba(255, 245, 210, 0.7);
 }
+/* Beside the tick, at its own height, when the sorts leave no room above it. */
+.rule-bar--beside .tick-label { bottom: 2px; font-size: 10px; transform: translateX(4px); transform-origin: left bottom; }
+.rule-bar--beside .tick-label.tick--here { transform: translateX(4px) scale(1.2); }
+.rule-bar--beside .tick-label--left { transform: translateX(calc(-100% - 4px)); transform-origin: right bottom; }
+.rule-bar--beside .tick-label--left.tick--here { transform: translateX(calc(-100% - 4px)) scale(1.2); }
 .knee {
   position: absolute;
   width: 12px;

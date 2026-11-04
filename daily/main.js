@@ -350,12 +350,16 @@ function clearWord() {
   sfx.clear();
   render();
 }
+// The sorts still in the case are shuffled into the first sockets; the empty
+// ones, whose sorts are on the stick, go to the end.
 function shuffle() {
   if (locked()) return;
-  for (let i = S.order.length - 1; i > 0; i--) {
+  const loose = S.order.filter(id => !placed(id));
+  for (let i = loose.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [S.order[i], S.order[j]] = [S.order[j], S.order[i]];
+    [loose[i], loose[j]] = [loose[j], loose[i]];
   }
+  S.order = [...loose, ...S.order.filter(id => placed(id))];
   sfx.shuffle();
   render();
 }
@@ -1009,6 +1013,7 @@ const measureOf = t => {
   return MEDIEVAL[L]?.reads?.[0]?.length ?? L.length;
 };
 const LABEL_SPACING = 30;   // px a label needs from its neighbour before it is cut
+const LABEL_ROOM = 30;      // px under the sorts a label needs to stand over its tick
 
 // The step a sort takes at full size (4.25em of the stick's own --tfs, and the
 // gap), read with fitStick's overrides for a long word set aside.
@@ -1054,15 +1059,28 @@ function renderRule(k, word, sc) {
   const step = fullStep(stick);
   for (let j = 1; j <= 64; j++) if (!cut(x + j * step, letters + j)) break;
 
+  // A label stands over its tick when the sorts leave room for it, and beside
+  // it, at the tick's own height, when they don't (full-size sorts on a two-word
+  // day's shorter sticks): a label never runs into a letter. When a long word
+  // is shrunk to fit, the room opens and the labels stand up again.
+  const wrapH = stick.offsetTop + stick.offsetHeight;
+  const sortFoot = tiles.length
+    ? Math.max(...tiles.map(el => stick.offsetTop + el.offsetTop + el.offsetHeight))
+    : stick.offsetTop + parseFloat(cs.paddingTop) + (parseFloat(cs.getPropertyValue('--tfs')) || 16) * 4.5;
+  const beside = wrapH - (sortFoot + tfs * 0.3) < LABEL_ROOM;
+  bar.classList.toggle('rule-bar--beside', beside);
+
   // Labels where they fit: the word's own first, then left to right, each kept
   // clear of the ones already cut — a crowded stick labels fewer lengths.
   const drawn = [];
   for (const l of [...labels.filter(l => l.here), ...labels.filter(l => !l.here)]) {
     if (drawn.some(d => Math.abs(d.at - l.at) < LABEL_SPACING)) continue;
     drawn.push(l);
-    // Kept inside the steel: a label at the stick's end is nudged in, not cut off.
-    const at = Math.min(origin + stick.clientWidth - 14, Math.max(origin + 14, l.at));
-    ticks.push(`<span class="tick-label${l.here ? ' tick--here' : ''}" style="left:${at}px">×${fmtMult(lengthMult(l.n))}</span>`);
+    // Kept inside the steel: a label at the stick's end is nudged in (over its
+    // tick) or turned to the tick's left (beside it), not cut off.
+    const left = beside && l.at > room - 30;
+    const at = beside ? l.at : Math.min(origin + stick.clientWidth - 14, Math.max(origin + 14, l.at));
+    ticks.push(`<span class="tick-label${l.here ? ' tick--here' : ''}${left ? ' tick-label--left' : ''}" style="left:${at}px">×${fmtMult(lengthMult(l.n))}</span>`);
   }
   bar.innerHTML = ticks.join('');
 

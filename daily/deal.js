@@ -112,7 +112,7 @@ export const OMENS = {
   purple:     { odds: 2, weights: { purple: 3 } },
   double:     { odds: 2, weights: { dual: 3 } },
   tied:       { odds: 2, force: { ligatures: 3 } },
-  oldstock:   { odds: 1.5, force: { medieval: 2 } },
+  oldstock:   { odds: 1.5, force: { medieval: 1 } },
   hellbox:    { odds: 1.5, force: { cursed: 1 } },
   fat:        { odds: 1.5, dressed: 1.7 },
   lean:       { odds: 1.5, dressed: 0.35 },
@@ -254,11 +254,13 @@ export const CHOICE_TIERS = {
 // and the best word under them is a different one on two-fifths or more.
 export const EDITOR_DAYS = ['columnist', 'populist', 'serialist', 'enthusiast', 'minimalist'];
 
-// A two-word day: a bigger case, and both words at least six letters — the
-// measure where the length multiplier begins — so neither can be a scrap left
-// over from the other. Added together, the sum of a long word and a scrap is
-// all but the long word alone; the floor makes the split the puzzle.
-export const PAIR = { size: 20, vowels: [7, 9], min: 6, noOmens: ['hellbox', 'toolchest'] };
+// A two-word day: a bigger case, and both words at least five letters, so
+// neither can be a scrap left over from the other. Added together, the sum of
+// a long word and a scrap is all but the long word alone; the floor makes the
+// split the puzzle. (It was six, where the length multiplier begins, until 4
+// November; five plays as well, and on six measured cases moved the best pair
+// on one.)
+export const PAIR = { size: 20, vowels: [7, 9], min: 5, noOmens: ['hellbox', 'toolchest'] };
 
 export const weekdayOf = n => new Date(EPOCH + (n - 1) * 864e5).getUTCDay();
 // Weeks run Sunday to Saturday, counted from the week of № 1.
@@ -323,8 +325,10 @@ function deskFor(id, deal, rng) {
   return desk;
 }
 
+// One medieval sort to a case at most: two is more strangeness than a word wants.
 function placeMedieval(rng, tiles, candidates) {
   const sort = pickWeighted(rng, MEDIEVAL_WEIGHTS);
+  if (tiles.some(t => MEDIEVAL_SORTS.includes(t.letter))) return;
   // Æ stands for vowels, so it takes a vowel's place; the rest take a consonant's.
   const pool = sort === 'Æ'
     ? tiles.filter(t => t.letter === 'A' || t.letter === 'E')

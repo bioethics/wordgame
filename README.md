@@ -1656,7 +1656,7 @@ challenge (`WEEK` in `daily/deal.js`; № 1 was a Tuesday):
 | Monday, Wednesday, Friday | Plain. |
 | Tuesday | **The day's patron**, seated for everyone. |
 | Thursday | **An editor at the desk.** The card carries the day's rule on its face; a word that breaks it is spiked — scored at ×0.2, exactly as at a Deadline, never refused. |
-| Saturday | **Two words** from a case of twenty, each six letters or more, their scores added. |
+| Saturday | **Two words** from a case of twenty, each five letters or more, their scores added. |
 
 Who sits is chosen by turn rather than by chance: each roster is shuffled once
 per lap of it (`turn` in `daily/deal.js`), so every patron and every editor
@@ -1773,8 +1773,9 @@ Saturday asks for two words from one case, each scored on its own and added.
 Added freely, that is not a puzzle: the multipliers compound, so the best pair
 was the best single word plus a scrap of what it left — SATURNINE + RUIN for
 4,089 against SATURNINE's 4,074 — on thirteen of sixteen measured cases. So
-both words must reach the measure (six letters, where the length multiplier
-begins), and the case is twenty sorts rather than sixteen: at sixteen or
+both words must be five letters or more (six, where the length multiplier
+begins, until 4 November; five kept the best pair on five of six measured
+cases and roughly trebled the field), and the case is twenty sorts rather than sixteen: at sixteen or
 eighteen some cases leave fewer than fifteen legal pairs, at twenty the
 thinnest of forty measured cases left 617 and the median 68,000. A two-word
 day draws no tool and no Hellbox iron, whose rules are written for a single
