@@ -1703,17 +1703,22 @@ it is the answer. Over the sixty cases, the best word was found under each
 member of every possible trio, and a tier admitted a patron only if no trio
 holding it was won by one member more than about half the time:
 
-- *rich* — The Paramour, The Poppet, The Vulgarian, The Poet, The Athlete,
-  The Serpent. The worst trio is won by one member 48% of the time, the
-  runner-up's best is typically 80–85% of the winner's, and every member wins
-  some trio outright.
+- *rich* — The Sexton, The Paramour, The Poppet, The Vulgarian, The Serpent.
+  The worst trio is won by one member half the time, and every member wins its
+  share (the Sexton most, 169 trio-cases; the Poppet least, 91).
 - *plain* — The Herald, The Cartographer, The Sculptor, The Twins. Quieter
   seats (each lifts the best score by a few per cent), so the runner-up is
-  usually within a tenth; the worst trio is won by one member 55% of the time.
+  usually within a tenth; the worst trio is won by one member 45% of the time.
 
-The Sexton is the case against offering every strong patron: he takes 70% of
-the trios he is in, so he sits on Tuesdays only. The Serpent is offered but
-never forced, since a case without an S leaves him nothing (27% of cases).
+The tiers have moved once. While the register lists were short the Sexton took
+70% of the trios he was in and sat out, and the Poet and the Athlete made up
+the rich tier with the other three registers. When the lists gained their
+missing inflections (romantic grew by half) the registers drew level and the
+two parts-of-speech patrons fell between the tiers — trios holding the Poet
+were won by one register up to 67% of the time, and in the plain tier the Poet
+took 57%. Both still sit on Tuesdays. The tiers want re-measuring whenever a
+list grows. The Serpent is offered but never forced, since a case without an S
+leaves him nothing (10% of cases).
 
 **Left out**, and why:
 

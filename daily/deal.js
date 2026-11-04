@@ -228,19 +228,25 @@ export function dealChallenge(n, opts = {}) {
 // figures and the reasons for each one left out.
 export const WEEK = ['choice', 'plain', 'patron', 'plain', 'editor', 'plain', 'pair'];   // Sunday first
 
-// Seated for everyone: each moves the best word to a different word on a third
-// to nine-tenths of cases, and none is ever without a word to fire on.
+// Seated for everyone: each moves the best word to a different word on three
+// cases in ten to nearly all, and none is ever without a word to fire on.
 export const DAY_PATRONS = [
   'sexton', 'counterfeiter', 'paramour', 'athlete', 'poppet', 'cartographer',
   'vulgarian', 'monogrammist', 'poet', 'herald',
 ];
 // Offered three at a time, from one tier, so that no one of the three is the
-// obvious answer: in the measured cases no patron in either tier is the best
-// choice more than about half the time against any two of its tier-mates. The
-// two tiers alternate by week. The Sexton is too strong to offer (the best of
-// any three holding him, seven times in ten); the Mirror too narrow (never).
+// obvious answer: in the measured cases no trio from either tier is won by one
+// member more than half the time, and every member wins some. The two tiers
+// alternate by week.
+//
+// The tiers moved once already. When the register lists were short, the Sexton
+// took seven trios in ten and sat out; once the lists filled in with their
+// inflections (4 November) the four registers drew level, and the Poet and the
+// Athlete, whose lists did not grow, fell between the tiers — a fifth wheel
+// among the registers, too strong among the plain. Re-run tools/daily-table.mjs
+// after any list grows, and check the trios (README, "The table").
 export const CHOICE_TIERS = {
-  rich:  ['paramour', 'poppet', 'vulgarian', 'poet', 'athlete', 'serpent'],
+  rich:  ['sexton', 'paramour', 'poppet', 'vulgarian', 'serpent'],
   plain: ['herald', 'cartographer', 'sculptor', 'twins'],
 };
 // Each bites: the best word unseated is spiked on a quarter to all of cases,
