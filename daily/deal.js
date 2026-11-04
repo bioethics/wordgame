@@ -243,7 +243,7 @@ export const DAY_PATRONS = [
   // Out of the choice tiers, 4 November: their pay is Points or a tile's own
   // value, which can't be weighed against another patron's ×Mult.
   'serpent', 'twins',
-  'seadog', 'sculptor', 'binder',
+  'seadog', 'sculptor',
 ];
 // Offered two at a time, from one tier. A tier is patrons that pay the SAME
 // WAY, so the choice is between two words to look for, never between two kinds

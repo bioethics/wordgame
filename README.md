@@ -1747,7 +1747,7 @@ choosing — the Serpent's Tuesday deals him an S (`SEAT_LETTERS`), since a
 case without one leaves him nothing. Sunday offered three at a time until the
 same day; two is quicker to weigh on a phone.
 
-**Licences** (4 November), on the Tuesday rotation: four patrons that change
+**Licences** (4 November), on the Tuesday rotation: three patrons that change
 what counts as a word rather than what it scores, as the game's pardons and
 lexicons do (`pardonWord` and the lexicon patrons in `js/main.js`). The
 Expectant Parents let common baby names stand as words and pay +15 Points for
@@ -1755,15 +1755,11 @@ any name, dictionary word or not; the Haplographer lets one letter of a
 doubled pair be set once (MATE for MATTE); the Bloodless Bohemian Bookbinder
 reads a V as a W and lets a run of O's be howled as long as the case allows
 (BOOOOB); and the Binder lets two nouns stacked stand as one word (MUSICWORLD,
-PERSONBUS). The Binder is judged at print, as in the game: any two of his
-12,000 nouns (`accepts`). But the field a word is ranked against has to be
-listed before it can be counted, and any two of 12,000 is half a million, so
-the field's compounds are his nouns that are also among the 8,000 commonest
-words, three letters or more each and twelve in all (on his days 4,000 to
-42,000 compounds, counted in under three seconds on a desktop; the best word
-was a compound on all eight days measured). A rarer compound set on the day
-(ACEDIN, ACHECHOIR) is scored the same and placed among them. What is set is
-what prints and scores — BOOOOB counts six letters
+PERSONBUS) in the campaign, but not in the daily: the daily must list every word a
+case could set before it can rank one, and any two of his 12,000 nouns is
+half a million; bounded to common nouns it ran to 42,000 compounds and
+still ranked the field against a list a rarer compound wasn't on. He was
+tried on Tuesdays on 4 November and cut. What is set is what prints and scores — BOOOOB counts six letters
 on the measure. Each lists the spellings it admits beyond the dictionary
 (`spell` in `daily/table.js`, bounded by the case's V's and O's for the
 Bookbinder, whose day always deals at least two of each — `SEAT_LETTERS` in

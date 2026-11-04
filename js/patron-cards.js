@@ -287,7 +287,7 @@ export const PATRON_CARDS = {
     desc: 'Vowels gain +2 Points, or +6 if they are azure.',
   },
   yodeller: {
-    name: 'The Yodeller', emoji: '🏔️', rarity: 'rare', cost: 9, guild: 'azure',
+    name: 'The Yodeller', emoji: '🏔️', rarity: 'rare', cost: 9,
     desc: '×2 Mult for words with at least as many vowels as consonants.',
   },
   woad: {

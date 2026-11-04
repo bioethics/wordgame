@@ -67,7 +67,6 @@ export const PATRON_TEXT = {
   expectants:    'Common baby names count as words. +15 Points for a baby name.',
   haplographer:  'A single letter may read as a double: MATE counts as MATTE.',
   bookbinder:    'A W may be spelled with a V. An O may repeat any number of times.',
-  binder:        'Any two nouns stacked together count as a word: MUSIC and WORLD make MUSICWORLD.',
   sexton:        '×3 Mult for words The Sexton finds spooky.',
   paramour:      '×3 Mult for words The Paramour finds romantic.',
   poppet:        '×3 Mult for words The Poppet finds cute.',
