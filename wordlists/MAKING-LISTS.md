@@ -44,10 +44,18 @@ stand on its own.
 
 ### 1. Seed
 
-Brainstorm by sub-topic, in clusters, with every inflection: *kitten kittens
-kitty kitties cat cats puppy puppies pup pups…* is how cute begins. A few
-hundred to a few thousand words. Clusters are cheap to produce and easy to
-check for gaps, since a missing member of a cluster stands out.
+Two ways in, and the four lists used both (*Where the four came from*, below):
+
+- **A cluster brainstorm.** Brainstorm by sub-topic, in clusters, with every
+  inflection: *kitten kittens kitty kitties cat cats puppy puppies pup pups…*
+  is how cute begins. A few hundred to a few thousand words. Clusters are cheap
+  to produce and easy to check for gaps, since a missing member of a cluster
+  stands out.
+- **A ranked related-words list.** Ask a word-similarity tool for everything
+  near the theme word, closest first. It is wide and fast, and it is how
+  spooky, rude and romantic seem to have begun. Cut it where it stops being on
+  theme. Its tail is association and then noise: the first spooky list carried
+  SKANK, BITCH and YOU until a review struck them.
 
 Check them in with a dry run, which reports anything the dictionary doesn't
 hold, and anything barred:
@@ -186,20 +194,55 @@ For the Daily Proof, it also needs:
 
 ## Where the four came from
 
-What could be recovered from the session history and the commits:
+What the session history, the commits and the author's Drive show:
 
-- **15 August.** The four lists were built outside these sessions, by the
-  author's own process, and uploaded at 1,352 (cute), 3,690 (romantic),
-  2,922 (rude) and 4,754 (spooky) words. A Claude session then read all four in
-  full on the "low in, high out" brief. It struck the clangers and deduplicated
-  cute (160 repeats). It also brainstormed about 350 further candidates, of
-  which 81 survived the dictionary check (commit 5fe6de6).
-- **17 August.** The author appended a large batch to each list. They also
-  classified the 5,595 new dictionary words of that week into the four themes,
-  and started the block list (`excluded-slurs.txt`).
-- **21 and 26 August.** Longer "merged" cute and romantic lists, then v3 and v4
+- **15 August, before any session saw them.** Spooky, rude and romantic each
+  began as one long ranked list: closest to the theme at the top, then looser
+  associations, then noise. A Drive document made at 09:39 that morning opens
+  *creepy, ghastly, spooky, ghostly, eerie, ghoulish, haunted, demon…* and
+  drifts down to *comforting, skank, orgy*. `spooky-words.txt` (09:43–11:07)
+  ends in *could, you, download, database, investors*. The first committed
+  spooky list (d152116, 4,754 lines) keeps that order and carries the tail's
+  noise: ARTIFACT at line 2,507, SKANK at 2,842, BITCH at 2,990. It closes on
+  a hand-made cluster (*bellows, tinderbox, bolted, barred, shutters,
+  hinges…*). Cute began differently, as clusters by sub-topic with every
+  inflection: *kitten kittens kitty kitties cat cats puppy…*.
+- **15 August, review.** A Claude session read all four in full on the "low
+  in, high out" brief. It struck the tails' noise and the slurs, deduplicated
+  cute (160 repeats), and added 81 of about 350 brainstormed candidates that
+  passed the dictionary check (5fe6de6). The author declined an offer to
+  draft further themes the same way: they had "a different workflow for the
+  word lists".
+- **17 August.** The author added inflections of existing entries by hand
+  (POLTERGEISTS, MANACLING, BROOMSTICKS). They also sorted the week's 5,595
+  new dictionary words into the four themes, and started the block list.
+- **21–26 August.** Longer cute and romantic lists ("merged"), then v3 and v4
   of the rest, replaced the originals wholesale (67bba18, 1152258, 7afa065).
-  How those versions were generated isn't recorded in anything these sessions
-  can reach.
+  Their additions were pasted into Drive documents and uploaded. Some are
+  words no dictionary holds (*batpup, bearling*), the mark of a generator
+  rather than a dictionary.
 - **27 August.** The sweep in step 6, with the slur findings and the decision
   to bar at the block list only (489cc17, 8159cfd).
+- **4 November.** The recipe's steps 2 and 6, with `tools/theme-list.mjs`.
+  Eighty-five list entries the dictionary couldn't set were made playable.
+  The four lists' 6,693 inflection proposals were read by five parallel
+  readers, one per list and two for romantic. They kept 4,352 and cut drift
+  (MATERS, LETTERING), wrong bases (DINS from DINE, HEROINS from HEROINE),
+  comparatives nobody says (SPLENDIDER), and -er words that name a device
+  (TUNER, BOILER). Romantic grew most, from 5,668 to 8,560: it had held most
+  of its words in one form only, DRAGON without DRAGONS. The 487 words the
+  dictionary gained when its 12dicts marks were stripped were swept by hand,
+  and 45 joined a list.
+
+Not found anywhere these sessions can reach: the tool or chat that produced
+the ranked lists and the later batches. The ranking, the drift into
+association and the noisy tails look like a word-similarity tool. The
+clusters and the invented words look like a language model. The author's
+claude.ai chats are the likeliest place, and they can't be read from here.
+
+So the recipe above keeps both seeds:
+
+- **A ranked related-words list.** It is quick and wide, but it needs cutting
+  where it stops being on theme, and step 4 must read its tail.
+- **A cluster brainstorm.** It is narrower but cleaner, and still needs step
+  1's dictionary check, since a generator will invent words.
