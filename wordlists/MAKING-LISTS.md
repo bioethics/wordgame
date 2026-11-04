@@ -24,7 +24,7 @@ Hence the rule every round so far has run on, in the original brief's words:
 *"a low barrier for additional admissions, but a high barrier against removal;
 just get rid of the really glaring mistakes."*
 
-How big a list is decides how often its patron fires. The four cover 7–13% of
+How big a list is decides how often its patron fires. The four cover 9–13% of
 the playable dictionary (`node tools/theme-list.mjs check`). At that coverage
 the register patrons change the Daily Proof's best word on 68–82% of cases
 (`tools/daily-table.mjs`), the most of any patron measured. A list of 1–2%
@@ -316,6 +316,14 @@ What the session history, the commits and the author's Drive show:
   of its words in one form only, DRAGON without DRAGONS. The 487 words the
   dictionary gained when its 12dicts marks were stripped were swept by hand,
   and 45 joined a list.
+- **4 November, later.** The Foundry's link ranking (*What the neighbours are
+  worth*, above), run with each whole list as its seeds. The 350 best-share
+  candidates for each list were read against the list's rulings. 346 were
+  kept, and 212 of their inflections: spooky +118, romantic +174, cute +124,
+  rude +142. The read also filled gaps in the lists' own rulings: IDOLISE
+  beside IDOLIZE and VALOR beside VALOUR on romantic, CHILD and CHILDREN on
+  cute, SARCASM beside SARCASTIC on rude. MONGOLOID came up for rude and was
+  left off, as a slur the block list doesn't yet bar.
 
 Not found anywhere these sessions can reach: the tool or chat that produced
 the ranked lists and the later batches. The ranking, the drift into
