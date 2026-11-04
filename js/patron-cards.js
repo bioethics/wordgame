@@ -535,7 +535,7 @@ export const PATRON_CARDS = {
   },
   poppet: {
     name: 'The Poppet', emoji: '🧸', rarity: 'rare', cost: 7,
-    desc: '×3 Mult for any of the thousands of words The Poppet finds cute — and a {PACKAGE_CHANCE} chance of {PARCEL_CUTE} for the workbench.',
+    desc: '×3 Mult for words The Poppet finds cute — and a {PACKAGE_CHANCE} chance of {PARCEL_CUTE} for the workbench.',
   },
   illuminator: {
     name: 'The Illuminator', emoji: '🎨', rarity: 'rare', cost: 8,
@@ -543,15 +543,15 @@ export const PATRON_CARDS = {
   },
   paramour: {
     name: 'The Paramour', emoji: '💘', rarity: 'rare', cost: 8,
-    desc: '×3 Mult for any of the thousands of words The Paramour finds romantic — and a {PACKAGE_CHANCE} chance of {PARCEL_ROMANTIC} for the workbench.',
+    desc: '×3 Mult for words The Paramour finds romantic — and a {PACKAGE_CHANCE} chance of {PARCEL_ROMANTIC} for the workbench.',
   },
   sexton: {
     name: 'The Sexton', emoji: '⚰️', rarity: 'rare', cost: 8,
-    desc: '×3 Mult for any of the thousands of words The Sexton finds spooky — and a {PACKAGE_CHANCE} chance of {PARCEL_SPOOKY} for the workbench.',
+    desc: '×3 Mult for words The Sexton finds spooky — and a {PACKAGE_CHANCE} chance of {PARCEL_SPOOKY} for the workbench.',
   },
   vulgarian: {
     name: 'The Vulgarian', emoji: '🍑', rarity: 'rare', cost: 8,
-    desc: '×3 Mult for any of the thousands of words The Vulgarian finds rude — and a {PACKAGE_CHANCE} chance of {PARCEL_RUDE} for the workbench.',
+    desc: '×3 Mult for words The Vulgarian finds rude — and a {PACKAGE_CHANCE} chance of {PARCEL_RUDE} for the workbench.',
   },
   astronomer: {
     name: 'The Astronomer', emoji: '🔭', rarity: 'rare', cost: 9,

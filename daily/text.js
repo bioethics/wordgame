@@ -59,10 +59,10 @@ export const SORT_TEXT = {
 // says more than one word can use — a Coin, a package, a next word — the rule is
 // said again here without it. {0} is filled per day (The Monogrammist's letters).
 export const PATRON_TEXT = {
-  sexton:        '×3 Mult for words on the spooky list — thousands of them.',
-  paramour:      '×3 Mult for words on the romantic list — thousands of them.',
-  poppet:        '×3 Mult for words on the cute list — thousands of them.',
-  vulgarian:     '×3 Mult for words on the rude list — thousands of them.',
+  sexton:        '×3 Mult for words The Sexton finds spooky.',
+  paramour:      '×3 Mult for words The Paramour finds romantic.',
+  poppet:        '×3 Mult for words The Poppet finds cute.',
+  vulgarian:     '×3 Mult for words The Vulgarian finds rude.',
   poet:          '×2 Mult when the word is an adjective or an adverb.',
   athlete:       '×2 Mult when the word is a verb.',
   sculptor:      '×2 Mult when the word is a noun.',
