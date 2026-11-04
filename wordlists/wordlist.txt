@@ -3188,7 +3188,7 @@ arcade
 arcades
 arcadia
 arcadian
-arcana+
+arcana
 arcane
 arced
 arch
@@ -4172,10 +4172,10 @@ aureus
 auricle
 auricles
 auricular
-aurora+
+aurora
 aurorae+
 auroral
-auroras+
+auroras
 auscultation
 auscultations
 auspice
@@ -4570,8 +4570,8 @@ backfire
 backfired
 backfires
 backfiring
-backflip+
-backflips+
+backflip
+backflips
 backgammon
 background
 backgrounder
@@ -4615,7 +4615,7 @@ backpedals
 backrest
 backrests
 backroom
-backrooms^
+backrooms
 backs
 backseat
 backseats
@@ -5705,8 +5705,8 @@ bedrolls
 bedroom
 bedrooms
 beds
-bedsheet+
-bedsheets+
+bedsheet
+bedsheets
 bedside
 bedsides
 bedsit
@@ -5984,6 +5984,7 @@ bellowers
 bellowing
 bellows
 bells
+belltower
 bellwether
 bellwethers
 belly
@@ -6492,6 +6493,7 @@ billed
 biller
 billers
 billet
+billetdoux
 billeted
 billeter
 billeters
@@ -7580,10 +7582,10 @@ boles
 boll
 bollard
 bollards
-bollix+
-bollixed+
-bollixes+
-bollixing+
+bollix
+bollixed
+bollixes
+bollixing
 bollocking
 bollockings
 bollocks
@@ -7662,8 +7664,8 @@ boner
 boners
 bones
 boney
-boneyard+
-boneyards+
+boneyard
+boneyards
 boneyer
 boneyest
 bonfire
@@ -7960,8 +7962,8 @@ boudoir
 boudoirs
 bouffant
 bouffants
-bougainvillaea&
-bougainvillaeas&
+bougainvillaea
+bougainvillaeas
 bougainvillea
 bougainvilleas
 bough
@@ -8980,8 +8982,8 @@ bulldozer
 bulldozers
 bulldozes
 bulldozing
-bulldyke^
-bulldykes^
+bulldyke
+bulldykes
 bulled
 bullet
 bulleted
@@ -9630,8 +9632,8 @@ cajoles
 cajoling
 cake
 caked
-cakehole+
-cakeholes+
+cakehole
+cakeholes
 cakes
 cakewalk
 cakewalks
@@ -9907,6 +9909,7 @@ candlelit
 candles
 candlestick
 candlesticks
+candlewashed
 candlewick
 candlewicks
 candling
@@ -10678,7 +10681,7 @@ catastrophe
 catastrophes
 catastrophic
 catastrophically
-catatonia+
+catatonia
 catatonic
 catatonics
 catbird
@@ -11832,8 +11835,8 @@ chimers
 chimes
 chiming
 chimney
-chimneypiece^
-chimneypieces^
+chimneypiece
+chimneypieces
 chimneys
 chimp
 chimpanzee
@@ -13351,8 +13354,8 @@ coitus
 cojones+
 coke
 coked
-cokehead+
-cokeheads+
+cokehead
+cokeheads
 cokes
 coking
 cola
@@ -13362,10 +13365,10 @@ colas
 colchicine
 cold
 coldblooded
-coldcock+
-coldcocked+
-coldcocking+
-coldcocks+
+coldcock
+coldcocked
+coldcocking
+coldcocks
 colder
 coldest
 coldhearted
@@ -15747,8 +15750,8 @@ cosset
 cosseted
 cosseting
 cossets
-cossetted&
-cossetting&
+cossetted
+cossetting
 cost
 costal
 costar
@@ -16270,7 +16273,7 @@ cranny
 crap
 crape
 crapes
-crapola+
+crapola
 crapped
 crapper
 crappie
@@ -17281,8 +17284,8 @@ cusser
 cussers
 cusses
 cussing
-cussword+
-cusswords+
+cussword
+cusswords
 custard
 custards
 custodial
@@ -21638,7 +21641,7 @@ doomsayer
 doomsayers
 doomsday
 doona^
-doonas^
+doonas
 door
 doorbell
 doorbells
@@ -22387,7 +22390,7 @@ ductility
 ducting
 ductless
 ducts
-ductwork+
+ductwork
 dud
 dude
 duded
@@ -22889,7 +22892,7 @@ ecstasy
 ecstatic
 ecstatically
 ectopic
-ectoplasm+
+ectoplasm
 ectoplasmic
 ecumenical
 ecumenically
@@ -25062,7 +25065,7 @@ ewe
 ewer
 ewers
 ewes
-eww+
+eww
 ex
 exacerbate
 exacerbated
@@ -26217,7 +26220,7 @@ fannies
 fanning
 fanny
 fans
-fantabulous+
+fantabulous
 fantail
 fantails
 fantasia
@@ -27583,7 +27586,7 @@ flays
 flea
 fleabag
 fleabags
-fleabitten^
+fleabitten
 fleapit
 fleapits
 fleas
@@ -30998,8 +31001,8 @@ goblin
 goblins
 gobs
 gobsmacked
-gobstopper+
-gobstoppers+
+gobstopper
+gobstoppers
 god
 godawful
 godchild
@@ -31078,8 +31081,8 @@ golds
 goldsmith
 goldsmiths
 goldstone
-golem+
-golems+
+golem
+golems
 golf
 golfed
 golfer
@@ -31385,8 +31388,8 @@ grandiloquence
 grandiloquent
 grandiose
 grandiosity
-grandkid+
-grandkids+
+grandkid
+grandkids
 grandly
 grandma
 grandmas
@@ -32408,7 +32411,7 @@ haemophiliacs
 haemorrhage
 haemorrhaged
 haemorrhages
-haemorrhagic&
+haemorrhagic
 haemorrhaging
 haemorrhoid
 haemorrhoid&
@@ -32709,8 +32712,8 @@ handpick
 handpicked
 handpicking
 handpicks
-handprint+
-handprints+
+handprint
+handprints
 handrail
 handrails
 hands
@@ -33047,8 +33050,8 @@ hatches
 hatchet
 hatchets
 hatching
-hatchling+
-hatchlings+
+hatchling
+hatchlings
 hatchway
 hatchways
 hate
@@ -38948,7 +38951,7 @@ jilter
 jilters
 jilting
 jilts
-jimjams+
+jimjams
 jimmied
 jimmies
 jimmy
@@ -40308,10 +40311,10 @@ lap
 laparoscopic
 laparoscopy
 laparotomy
-lapdance+
+lapdance
 lapdancer
 lapdancers
-lapdances+
+lapdances
 lapdancing
 lapdog
 lapdogs
@@ -40643,7 +40646,7 @@ leaders
 leadership
 leaderships
 leading
-leadoff^
+leadoff
 leads
 leaf
 leafed
@@ -44851,7 +44854,7 @@ minerals
 miners
 mines
 mineshaft+
-mineshafts+
+mineshafts
 minestrone
 minestrones
 minesweeper
@@ -45870,7 +45873,7 @@ montane
 montero
 month
 monthlies
-monthlong+
+monthlong
 monthly
 months
 monument
@@ -45932,6 +45935,7 @@ moonstones
 moonstruck
 moonwalk
 moonwalks
+moonwashed
 moor
 moored
 moorhen
@@ -52499,7 +52503,7 @@ perplexes
 perplexing
 perplexities
 perplexity
-perps+
+perps
 perquisite
 perquisites
 perry
@@ -54213,7 +54217,7 @@ polarizer
 polarizes
 polarizing
 pole
-poleax&
+poleax
 poleaxe
 poleaxed
 poleaxes
@@ -54667,8 +54671,8 @@ portly
 portmanteau
 portmanteaus
 portmanteaux
-portobello+
-portobellos+
+portobello
+portobellos
 portrait
 portraitist
 portraitists
@@ -62904,7 +62908,7 @@ saplings
 sapped
 sapper
 sappers
-sapphic^
+sapphic
 sapphire
 sapphires
 sappier
@@ -65328,8 +65332,8 @@ shit
 shite
 shites
 shitfaced
-shithead+
-shitheads+
+shithead
+shitheads
 shitless
 shitload
 shits
@@ -67628,7 +67632,7 @@ sociologist
 sociologists
 sociology
 sociopath
-sociopathic+
+sociopathic
 sociopaths
 sociopolitical^
 sock
@@ -68712,7 +68716,7 @@ splodge
 splodged
 splodges
 splodging
-splodgy&
+splodgy
 splosh
 sploshed
 sploshes
@@ -69426,6 +69430,7 @@ stared
 starer
 starers
 stares
+starfall
 starfish
 starfishes
 starfruit
@@ -70842,7 +70847,7 @@ suborner
 suborners
 suborning
 suborns
-subpar+
+subpar
 subparagraph
 subpart
 subplot
@@ -71064,7 +71069,7 @@ suckles
 suckling
 sucklings
 sucks
-sucky+
+sucky
 sucrose
 suction
 suctioned
@@ -71515,8 +71520,8 @@ supervene
 supervened
 supervenes
 supervening
-supervillain+
-supervillains+
+supervillain
+supervillains
 supervise
 supervised
 supervises
@@ -75290,7 +75295,7 @@ transgresses
 transgressing
 transgression
 transgressions
-transgressive+
+transgressive
 transgressor
 transgressors
 transience
@@ -80003,7 +80008,7 @@ wags
 wagtail
 wagtails
 waif
-waiflike^
+waiflike
 waifs
 wail
 wailed
@@ -81577,8 +81582,8 @@ wisdom
 wise
 wiseacre
 wiseacres
-wiseass+
-wiseasses+
+wiseass
+wiseasses
 wisecrack
 wisecracked
 wisecracker
@@ -82133,8 +82138,8 @@ wriggled
 wriggler
 wrigglers
 wriggles
-wrigglier+
-wriggliest+
+wrigglier
+wriggliest
 wriggling
 wrigglingly
 wriggly

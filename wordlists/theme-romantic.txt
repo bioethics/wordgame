@@ -4363,7 +4363,7 @@ songwriter
 songwriting
 sonnet
 sonnets
-sonnetteer
+sonneteer
 sonorous
 soothing
 soporific
