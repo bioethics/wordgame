@@ -7043,6 +7043,8 @@ blender
 blenders
 blending
 blends
+blennies
+blenny
 blent
 bless
 blessed
@@ -8052,6 +8054,8 @@ bowel
 bowels
 bower
 bowers
+bowfin
+bowfins
 bowhead
 bowing
 bowl
@@ -8573,6 +8577,7 @@ brisking
 briskly
 briskness
 brisks
+brisling
 bristle
 bristled
 bristles
@@ -9158,6 +9163,8 @@ burbler
 burblers
 burbles
 burbling
+burbot
+burbots
 burbs
 burden
 burdened
@@ -10089,6 +10096,8 @@ caparisoning
 caparisons
 cape
 caped
+capelin
+capelins
 caper
 capered
 caperer
@@ -10878,6 +10887,7 @@ cavalcades
 cavalier
 cavalierly
 cavaliers
+cavalla
 cavalries
 cavalry
 cavalryman
@@ -11391,6 +11401,8 @@ chapters
 char
 charabanc
 charabancs
+characin
+characins
 character
 characterful
 characterisation
@@ -12377,6 +12389,8 @@ cirques
 cirrhosis
 cirrus
 cis
+cisco
+ciscoes
 cisgender
 cissies
 cissy
@@ -13105,6 +13119,7 @@ cobbles
 cobblestone
 cobblestones
 cobbling
+cobia
 cobnut
 cobnuts
 cobra
@@ -13322,6 +13337,7 @@ cohesion
 cohesive
 cohesively
 cohesiveness
+coho
 cohort
 cohorts
 coif
@@ -17268,6 +17284,7 @@ cushioned
 cushioning
 cushions
 cushy
+cusk
 cusp
 cuspid
 cuspidor
@@ -17447,6 +17464,7 @@ dabblers
 dabbles
 dabbling
 dabs
+dace
 dacha
 dachas
 dachshund
@@ -29764,6 +29782,7 @@ gaped
 gapes
 gaping
 gaps
+gar
 garage
 garaged
 garages
@@ -29858,6 +29877,7 @@ garrulity
 garrulous
 garrulously
 garrulousness
+gars
 garter
 garters
 gas
@@ -30971,6 +30991,7 @@ gobblers
 gobbles
 gobbling
 gobby
+gobies
 goblet
 goblets
 goblin
@@ -30979,6 +31000,7 @@ gobs
 gobsmacked
 gobstopper
 gobstoppers
+goby
 god
 godawful
 godchild
@@ -31976,6 +31998,8 @@ grunges
 grungier
 grungiest
 grungy
+grunion
+grunions
 grunt
 grunted
 grunter
@@ -32021,6 +32045,8 @@ guava
 guavas
 gubbins
 gubernatorial
+gudgeon
+gudgeons
 guerilla
 guerillas
 guernsey
@@ -39875,6 +39901,7 @@ koans
 kohl
 kohlrabi
 kohlrabies
+kokanee
 kombi
 kombis
 kombucha
@@ -41424,6 +41451,7 @@ linesman
 linesmen
 lineup
 lineups
+ling
 lingcod
 linger
 lingered
@@ -41439,6 +41467,7 @@ lingoes
 lingonberries
 lingonberry
 lingos
+lings
 lingua
 lingual
 linguine
@@ -49116,6 +49145,7 @@ oozing
 oozy
 op
 opacity
+opah
 opal
 opalescence
 opalescent
@@ -54051,6 +54081,7 @@ poetry
 poets
 pogrom
 pogroms
+pogy
 poi
 poignancy
 poignant
@@ -62940,8 +62971,10 @@ saunterers
 sauntering
 saunters
 saurian
+sauries
 sauropod
 sauropods
+saury
 sausage
 sausages
 saute
@@ -63790,6 +63823,8 @@ sculling
 scullion
 scullions
 sculls
+sculpin
+sculpins
 sculpt
 sculpted
 sculpting
@@ -64671,6 +64706,7 @@ severest
 severing
 severity
 severs
+sevruga
 sew
 sewage
 sewed
@@ -67001,6 +67037,8 @@ smolder
 smoldered
 smoldering
 smolders
+smolt
+smolts
 smooch
 smooched
 smooches
@@ -69633,6 +69671,8 @@ sterilizer
 sterilizers
 sterilizes
 sterilizing
+sterlet
+sterlets
 sterling
 stern
 sterna
@@ -70280,6 +70320,8 @@ stringy
 strip
 stripe
 striped
+striper
+stripers
 stripes
 stripey
 stripier
@@ -72716,6 +72758,8 @@ tauter
 tautest
 tautly
 tautness
+tautog
+tautogs
 tautological
 tautologies
 tautologist
@@ -81886,6 +81930,8 @@ wrapping
 wrappings
 wraps
 wrapt
+wrasse
+wrasses
 wrath
 wrathful
 wrathfully

@@ -334,6 +334,7 @@ bivalve
 bivalves
 blackfish
 bleaching
+blennies
 blenny
 blew
 blister
@@ -461,6 +462,7 @@ bowed
 bower
 bowers
 bowfin
+bowfins
 bowhead
 bowing
 bowline
@@ -568,6 +570,7 @@ buoyed
 buoying
 buoys
 burbot
+burbots
 burgee
 burrow
 burrowed
@@ -652,6 +655,7 @@ canvassing
 cape
 caped
 capelin
+capelins
 capes
 capsize
 capsized
@@ -753,6 +757,7 @@ channelling
 channels
 char
 characin
+characins
 chard
 charred
 charring
@@ -805,6 +810,7 @@ churning
 churns
 cirriped
 cisco
+ciscoes
 clam
 clammed
 clamming
@@ -1747,6 +1753,7 @@ gantline
 gar
 garboard
 garfish
+gars
 gasket
 gaskets
 gastropod
@@ -1813,6 +1820,7 @@ goatfish
 gob
 gobbed
 gobbing
+gobies
 gobs
 goby
 godwit
@@ -1901,8 +1909,10 @@ growlers
 groyne
 groynes
 grunion
+grunions
 guano
 gudgeon
+gudgeons
 guernsey
 guillemot
 guillemots
@@ -2462,6 +2472,7 @@ liners
 lines
 ling
 lingcod
+lings
 lining
 linings
 lionfish
@@ -3686,6 +3697,7 @@ sargasso
 sargassum
 sark
 sashimi
+sauries
 saury
 sawfish
 scad
@@ -3747,6 +3759,7 @@ scullers
 sculling
 sculls
 sculpin
+sculpins
 scum
 scummed
 scumming
@@ -4406,6 +4419,7 @@ stepped
 stepping
 steps
 sterlet
+sterlets
 stern
 sterner
 sternest
@@ -4465,6 +4479,7 @@ streams
 stringer
 stringers
 striper
+stripers
 stroke
 stroked
 strokes
@@ -4711,6 +4726,7 @@ taut
 tauter
 tautest
 tautog
+tautogs
 tavern
 taverns
 teak
@@ -5291,6 +5307,7 @@ wracked
 wracking
 wracks
 wrasse
+wrasses
 wreck
 wreckage
 wrecked
