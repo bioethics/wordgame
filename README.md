@@ -1652,10 +1652,11 @@ challenge (`WEEK` in `daily/deal.js`; № 1 was a Tuesday):
 
 | Day | Case |
 | --- | --- |
-| Sunday | **A choice of two patrons.** Tap a card to seat it (and read it); the readout re-prices the word under whoever is seated. Two from one tier, the tiers alternating by week. |
-| Monday, Wednesday, Friday | Plain. |
+| Sunday | **A choice of two patrons**, from the rich tier. Tap a card to seat it (and read it); the readout re-prices the word under whoever is seated. |
+| Monday, Wednesday | Plain. |
 | Tuesday | **The day's patron**, seated for everyone. |
 | Thursday | **An editor at the desk.** The card carries the day's rule on its face; a word that breaks it is spiked — scored at ×0.2, exactly as at a Deadline, never refused. |
+| Friday | **A choice of two patrons**, from the plain tier. |
 | Saturday | **Two words** from a case of twenty, each five letters or more, their scores added. |
 
 Who sits is chosen by turn rather than by chance: each roster is shuffled once

@@ -226,7 +226,7 @@ export function dealChallenge(n, opts = {}) {
 // game has against sixty cases, and a patron is here only if it changes WHICH
 // word is best on a good share of them — README.md, "The table", has the
 // figures and the reasons for each one left out.
-export const WEEK = ['choice', 'plain', 'patron', 'plain', 'editor', 'plain', 'pair'];   // Sunday first
+export const WEEK = ['choice', 'plain', 'patron', 'plain', 'editor', 'choice', 'pair'];   // Sunday first
 
 // Seated for everyone: each moves the best word to a different word on three
 // cases in ten to nearly all, and none is ever without a word to fire on.
@@ -237,8 +237,9 @@ export const DAY_PATRONS = [
 // Offered two at a time, from one tier, so that neither is the obvious answer:
 // in the measured cases the weaker of any pair from either tier still gives the
 // better word on a third of cases or more, and its best word is typically
-// within four-fifths of the stronger's. The two tiers alternate by week. (They
-// were offered three at a time until 4 November; two is quicker to weigh.)
+// within four-fifths of the stronger's. Sunday offers the rich tier and Friday
+// the plain, every pair of a tier once a lap. (They were offered three at a
+// time, on Sundays only, the tiers alternating by week, until 4 November.)
 //
 // The tiers moved once already. When the register lists were short, the Sexton
 // took seven trios in ten and sat out; once the lists filled in with their
@@ -284,16 +285,16 @@ export function dayOf(n) {
   if (kind === 'patron') return { kind, id: turn(DAY_PATRONS, w, 'patron') };
   if (kind === 'editor') return { kind, id: turn(EDITOR_DAYS, w, 'editor') };
   if (kind === 'choice') {
-    const tier = w % 2 ? 'plain' : 'rich';
+    // Sunday offers two of the rich tier, Friday two of the plain, so the
+    // choice days alternate. (Until 4 November there was only Sunday, and the
+    // tiers alternated by week.)
+    const friday = weekdayOf(n) === 5;
+    const tier = friday ? 'plain' : 'rich';
+    // Every pair of the tier once a lap, in a shuffled order, as the forced
+    // patrons rotate: no pair comes round again until all the others have.
     const pool = CHOICE_TIERS[tier];
-    // Two of the tier, a different two each week where the tier allows.
-    const rng = rngFor(`${DEAL_SALT}:choice:${w}`);
-    const order = [...pool];
-    for (let i = order.length - 1; i > 0; i--) {
-      const j = Math.floor(rng() * (i + 1));
-      [order[i], order[j]] = [order[j], order[i]];
-    }
-    return { kind, tier, ids: order.slice(0, 2) };
+    const pairs = pool.flatMap((a, i) => pool.slice(i + 1).map(b => [a, b]));
+    return { kind, tier, ids: turn(pairs, w, `choice:${tier}`) };
   }
   return { kind };
 }
