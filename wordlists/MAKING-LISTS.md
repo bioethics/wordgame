@@ -324,6 +324,10 @@ What the session history, the commits and the author's Drive show:
   beside IDOLIZE and VALOR beside VALOUR on romantic, CHILD and CHILDREN on
   cute, SARCASM beside SARCASTIC on rude. MONGOLOID came up for rude and was
   left off, as a slur the block list doesn't yet bar.
+  A ruling followed: general luxury belongs on romantic (POSH, RITZY,
+  CAVIAR, OYSTERS, PENTHOUSE, LIMOUSINE, BALLROOM, JEWELLERY), with
+  the kings and princes its queens and princesses lacked: +178 with
+  inflections.
 
 Not found anywhere these sessions can reach: the tool or chat that produced
 the ranked lists and the later batches. The ranking, the drift into
