@@ -208,7 +208,6 @@ export const PATRONS = {
   // which holds every other seat to the game's computeScore, knows it).
   stammerer: { adapted: true, effect({ letters, xMult }) { if (doubledPairs(letters)) xMult(2); } },
   siren: {
-    adapted: true,
     effect({ letters, xMult }) {
       const v = [...letters].filter(c => VOWELS.includes(c)).length;
       if (letters.length > 1 && v * 2 >= letters.length) xMult(2);

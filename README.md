@@ -1010,7 +1010,7 @@ Seadog* (nautical, the author's own list, 4 November) — pay ×3
 Mult for a word on their list, which plays like a lottery ticket: their lists
 run 3–9% of the dictionary, so a seat fires by accident about one word in
 fourteen. So the ×3 has a parcel behind it. Print a word one of them likes and
-there is a 1-in-2 chance a **package** lands on the workbench — one roll per
+there is a 2-in-3 chance (`PACKAGE_ODDS`) a **package** lands on the workbench — one roll per
 firing register, so a word both spooky and romantic rolls twice, and a full
 bench turns the gift away and says so. A package is a sundry like any other,
 sold back for a Coin, and opens on a tap:
@@ -1021,7 +1021,7 @@ sold back for a Coin, and opens on a tap:
 | ⚰️ **Grave goods** | an azure **OO** in ghost metal · the same in cursed iron (rarer) · a tube of azure |
 | 🎁 **A party bag** | a tile struck in **rose metal** (weighted highest — the Poppet's list is the smallest of the four) · a **rainbow applicator** · a pot of ink wash |
 | 📦 **A plain brown wrapper** | a pair of tongs · a **curse applicator** · a silver-trimmed **FU** |
-| 🍾 **A message in a bottle** (1-in-2, not 2-in-3: the Seadog's list is the smallest) | a tube of azure · a pot of ink wash · a gold **doubloon**, which does nothing but sell: the Market buys it for 3 Coins (`DOUBLOON_PRICE`) |
+| 🍾 **A message in a bottle** | a tube of azure · a pot of ink wash · a gold **doubloon**, which does nothing but sell: the Market buys it for 3 Coins (`DOUBLOON_PRICE`) |
 
 The **applicators** are the tube's gesture pointed at the metal: each lays out
 two tiles from your hand and strikes the one you pick in rainbow or hellbox
@@ -1713,11 +1713,12 @@ between two words to look for:
   ×3 for a word on a themed list.
 - *plain*, on Fridays — ×2 for a word of a given form: The Cartographer
   (vowels in order), The Sculptor (a noun), The Poet (an adjective or adverb),
-  and five adapted for the daily (`adapted: true` in `daily/table.js`, which
+  The Siren (as many vowels as consonants — hers in the game too), and four
+  adapted for the daily (`adapted: true` in `daily/table.js`, which
   `daily-check` names and does not hold to the game): The Herald (the first
   letter again, anywhere after it), The Stammerer (a doubled letter), The
-  Siren (as many vowels as consonants), The Antiquary (a J, Q, X or Z; his day
-  deals one, `SEAT_SHAPES`), and The Commoner, the daily's own (the 8,000
+  Antiquary (a J, Q, X or Z; his day deals one, `SEAT_SHAPES`), and The
+  Commoner, the daily's own (the 8,000
   commonest words and their plurals and tenses, `wordlists/commoner.txt`,
   built by `tools/build-commoner.mjs`).
 
@@ -1769,8 +1770,10 @@ game.
 **Left out**, and why:
 
 - *Free money.* The Lexicographer (fires on 100% of best words, moves 12%),
-  The Novelist (100%, 0%), The Siren (100%, 17%), The Jeweller (82%, 8%),
-  The Glover (55%, 7%). Each is a multiplier on whatever you would have set.
+  The Novelist (100%, 0%), The Jeweller (82%, 8%), The Glover (55%, 7%).
+  Each is a multiplier on whatever you would have set. (The Siren was here,
+  at +2 a vowel, until she became ×2 for a word at least half vowels, in the
+  game and the daily alike, on 4 November.)
 - *Usually dead.* The Harlequin (no word in the field reaches four colours on
   93% of cases), The Marbler (78%), The Firebrand (77%), The Alloy (72%), The
   Typesetter (43%); Romeo and Juliet, dead on about 40% and never moving the

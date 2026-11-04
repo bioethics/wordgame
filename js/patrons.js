@@ -2318,13 +2318,15 @@ const PATRON_BEHAVIOURS = [
     },
   },
   {
+    // A song is mostly vowel. ×2 for a word with at least as many vowels as
+    // consonants (Y is a consonant to her): AUDIO and AREA, not STRENGTH. She
+    // was a +2-per-vowel seat until 4 November; the Daily Proof wanted a ×2 of
+    // her for its Friday choice, and the game took the same.
     id: 'siren',
     when: 'score',
-    tileBonus(t) {
-      const L = getActiveLetter(t);
-      if (L.length !== 1 || !VOWELS.includes(L)) return 0;
-      // countsAsColour, not getActiveColour: a rainbow vowel sings for +6.
-      return countsAsColour(t, 'azure') ? 6 : 2;
+    effect({ word, xMult }) {
+      const v = [...word].filter(c => VOWELS.includes(c)).length;
+      if (word.length > 1 && v * 2 >= word.length) xMult(2);
     },
   },
   dyePatron('woad', 'azure'),

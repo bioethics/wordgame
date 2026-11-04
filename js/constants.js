@@ -383,9 +383,9 @@ export const PACKAGES = {
               loot: [['rosetile', 4], ['applicator-rainbow', 3], ['wash', 2]] },
   rude:     { ...PACKAGE_TEXT.rude,     patron: 'vulgarian',  emoji: '📦',
               loot: [['tongs', 3], ['applicator-cursed', 3], ['futile', 3]] },
-  // The sea's own colour, its wash, and foreign gold. Every other parcel comes
-  // at PACKAGE_ODDS; the Seadog's list is the smallest, so his comes oftener.
-  nautical: { ...PACKAGE_TEXT.nautical, patron: 'seadog',     emoji: '🍾', odds: 1 / 2,
+  // The sea's own colour, its wash, and foreign gold. (A parcel may carry its
+  // own `odds`; none does, so every one comes at PACKAGE_ODDS.)
+  nautical: { ...PACKAGE_TEXT.nautical, patron: 'seadog',     emoji: '🍾',
               loot: [['tube-azure', 3], ['wash', 3], ['doubloon', 3]] },
 };
 
@@ -1731,7 +1731,6 @@ export const KNOBS = {
   PARCEL_CUTE:     PACKAGES.cute.label,
   PARCEL_RUDE:     PACKAGES.rude.label,
   PARCEL_NAUTICAL: PACKAGES.nautical.label,
-  PARCEL_NAUTICAL_CHANCE: oddsText(PACKAGES.nautical.odds),
   DOUBLOON_PRICE,
 };
 
