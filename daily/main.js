@@ -936,7 +936,7 @@ function renderCase(fresh) {
       const el = tileEl(eff.get(id), 'case');
       if (S.armed && toolFits(eff.get(id))) {
         el.classList.add('tile--target');
-        if (nicked(el)) socket.classList.add('socket--halo');
+        socket.classList.add('socket--halo');
       }
       if (fresh && !reducedMotion()) { el.classList.add('tile--dealt'); el.style.animationDelay = `${i * 28}ms`; }
       socket.appendChild(el);
@@ -949,13 +949,16 @@ function renderCase(fresh) {
 const toolFits = t => !t.blank && !t.ephemeral
   && (S.deal.tool === 'loupe' ? loupeDelta(t, t.activeVariant) > 0 : shiftable(t, t.activeVariant));
 
-// A nicked sort is cut by a mask, and the mask cuts away everything drawn
-// outside the sort as well, the armed tool's ring with it (Safari has no
-// mask-clip: no-clip to stop it). So a nicked target's ring is drawn by what
-// holds it: its socket in the case, a halo wrapped round it in the stick.
-const nicked = el => el.classList.contains('tile--nick-left') || el.classList.contains('tile--nick-right');
+// The armed tool's ring is drawn by what holds a target, never by the target
+// itself: its socket in the case, a halo wrapped round it in the stick. A
+// nicked sort is cut by a mask that cuts away anything drawn outside it, the
+// ring included (Safari has no mask-clip: no-clip to stop it); and a ring in
+// the sort's own shadow could not pulse, only blink, because the shadow it
+// sits in has inset layers where the ring has outer ones and a browser only
+// tweens shadows whose layers pair up. A socket or a halo has nothing in the
+// way, so every target pulses the same.
 function withHalo(el) {
-  if (!el.classList.contains('tile--target') || !nicked(el)) return el;
+  if (!el.classList.contains('tile--target')) return el;
   const halo = document.createElement('div');
   halo.className = 'halo';
   halo.appendChild(el);
@@ -1235,6 +1238,7 @@ function miniPair(a, b) {
   row.className = 'mini-pair';
   const plus = document.createElement('span'); plus.className = 'mini-plus'; plus.textContent = '+';
   row.append(miniWord(a, null), plus, miniWord(b, null));
+  row.style.setProperty('--n', Math.max(a.length, b.length));   // the CSS sizes the sorts to fit
   return row;
 }
 const seatMark = idx => {
