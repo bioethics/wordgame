@@ -669,6 +669,7 @@ dominos
 scrapbooks
 juveniles
 storybook
+trims
 ritzy
 upscale
 jingles
@@ -728,9 +729,11 @@ glitzy
 funfair
 bells
 kindergartens
+drummers
 delicately
 princess
 insouciance
+cafes
 carriage
 youngest
 countrified
@@ -739,6 +742,7 @@ colorfully
 tailors
 piggybacking
 lithe
+honked
 bodices
 homespun
 daydreams
@@ -748,6 +752,7 @@ adornments
 gamine
 ravishing
 mementos
+bistros
 bookshelves
 stylishly
 flashy
@@ -777,6 +782,7 @@ cummerbund
 whirling
 christening
 schoolboys
+trimming
 sketchbooks
 giddiness
 sharpener
@@ -924,6 +930,7 @@ gamboled
 fairgrounds
 soupspoon
 brick
+booty
 meatballs
 fluffiest
 schoolkid
@@ -941,6 +948,7 @@ dollies
 catnaps
 dummies
 titmouse
+swine
 teakettle
 lollies
 cozier
@@ -959,8 +967,10 @@ eiderdown
 sweetmeats
 jimjams
 silkiness
+gelding
 hearthrug
 flapjack
+geldings
 cozies
 checkers
 squirrelling
@@ -1089,7 +1099,10 @@ style
 kit
 fur
 knitting
+recess
 buzz
+whipped
+cock
 taffy
 warbler
 story
@@ -1352,6 +1365,7 @@ lisped
 stubbier
 woollies
 bounciest
+saucily
 fluffs
 blancmange
 squeakiest
@@ -1564,6 +1578,8 @@ almonds
 alyssum
 amble
 ambled
+amulet
+amulets
 anemone
 angel
 angelfish
@@ -1605,6 +1621,7 @@ ballerinas
 bananaquit
 banteng
 barbet
+barking
 barrettes
 bashful
 basketful
@@ -1618,6 +1635,7 @@ bean
 bearcat
 beautiful
 bed
+bedding
 bedecked
 bedjacket
 bedjackets
@@ -1721,6 +1739,7 @@ bunting
 buntings
 burpcloth
 bushbuck
+butt
 buttermilk
 butterscotch
 buttery
@@ -1901,6 +1920,7 @@ dappling
 dashing
 daydreamer
 daydreamers
+dazzling
 dearly
 decorated
 degu
@@ -1958,6 +1978,7 @@ dresses
 dribble
 dribbled
 dribbles
+drop
 drowsiness
 drowsy
 dryad
@@ -2024,6 +2045,7 @@ fingerling
 fingerlings
 firelight
 fireside
+fit
 fizz
 flagstone
 flagstones
@@ -2061,6 +2083,7 @@ fostering
 foundling
 foundlings
 foxglove
+fresh
 frigatebird
 frilled
 fringed
@@ -2075,6 +2098,8 @@ frolickers
 frosted
 frothy
 fruit
+fruity
+fry
 fuchsia
 fuchsias
 fulvetta
@@ -2179,6 +2204,7 @@ gundi
 guppy
 gurgled
 gurgling
+gurnard
 gypsophila
 hairpin
 hairpins
@@ -2188,6 +2214,7 @@ hamantaschen
 hamper
 hampers
 handcrafted
+handful
 handmade
 handprint
 handprints
@@ -2231,6 +2258,8 @@ honeyed
 honeysuckle
 honeysuckles
 hoopoe
+hopper
+hoppers
 hornbill
 horse
 housecoats
@@ -2348,6 +2377,7 @@ linzers
 lionfish
 liquorice
 loach
+loaf
 lobelia
 lobelias
 locket
@@ -2410,6 +2440,7 @@ minikins
 mink
 minnow
 minnows
+mint
 minx
 mischievous
 mite
@@ -2418,6 +2449,7 @@ mochi
 molly
 mollycoddle
 mollycoddling
+monarch
 moneybox
 moonbeam
 moonbeams
@@ -2434,10 +2466,14 @@ mouseholes
 mousse
 mudpuppy
 mudskipper
+muffler
+mufflers
 mugful
 mugfuls
 mulberries
 mulberry
+mule
+mules
 muntjac
 murre
 muslin
@@ -2498,6 +2534,7 @@ nurtured
 nurturing
 nutcracker
 nuthatch
+nutty
 nuzzler
 nuzzlers
 nyala
@@ -2633,6 +2670,7 @@ pomander
 pomanders
 pony
 pootle
+pop
 popcorn
 poppy
 porcelain
@@ -2664,6 +2702,7 @@ primroses
 primula
 profiteroles
 pronghorn
+puck
 puddle
 puddles
 pufferfish
@@ -2683,6 +2722,7 @@ rasbora
 rascal
 raspberries
 raspberry
+ray
 razorbill
 redcurrant
 redcurrants
@@ -2695,6 +2735,7 @@ rhyming
 rickrack
 rocking
 roguish
+roller
 rook
 rootle
 rootled
@@ -2708,6 +2749,7 @@ rotund
 ruffled
 rugelach
 rustic
+sable
 sachet
 sachets
 sago
@@ -2773,6 +2815,8 @@ sitatunga
 sketchpad
 sketchpads
 skink
+skipper
+skippers
 skirt
 skirts
 skitter
@@ -2800,7 +2844,9 @@ smiled
 smiling
 smocked
 smocking
+smooth
 snacktime
+snap
 snapdragon
 snappy
 snazzy
@@ -2865,6 +2911,7 @@ sprinkled
 sprite
 spritely
 sprites
+spy
 squab
 squabs
 squeakers
@@ -2896,10 +2943,13 @@ streamers
 stretch
 stretching
 streusel
+striking
 stripes
 strudel
 strudels
 stylish
+sucker
+suckers
 suckling
 sucklings
 sugar
@@ -2937,6 +2987,8 @@ tahr
 takin
 talc
 talcum
+talisman
+talismans
 tam
 tamarin
 tams
@@ -3034,6 +3086,7 @@ waddlers
 wafer
 wagashi
 wagtail
+walkingstick
 walnut
 walnuts
 walrus
@@ -3130,6 +3183,7 @@ bantering
 banters
 bassinets
 bathmats
+beans
 bearcats
 bears
 beetles
@@ -3176,6 +3230,7 @@ bushier
 bushiest
 butterballs
 buttoned
+butts
 buzzes
 cabins
 calicos
@@ -3231,6 +3286,7 @@ cobblers
 cockatiels
 cockatoos
 cockleshells
+cocks
 cocoas
 coconuts
 comelier
@@ -3317,7 +3373,10 @@ dozier
 doziest
 dreamier
 dreamiest
+dressed
+dressing
 dribbling
+drops
 drowses
 drowsier
 drowsiest
@@ -3382,6 +3441,8 @@ friskiest
 fritters
 frothier
 frothiest
+fruitier
+fruitiest
 fruits
 furrier
 furs
@@ -3422,6 +3483,7 @@ grannies
 greengages
 grins
 guillemots
+guineas
 gumballs
 gumdrops
 guppies
@@ -3448,6 +3510,7 @@ hopscotched
 hopscotches
 hopscotching
 horses
+horsing
 hummingbirds
 hushes
 huts
@@ -3500,6 +3563,7 @@ limes
 linnets
 littler
 llamas
+loaves
 loggerheads
 lollipops
 lollops
@@ -3536,6 +3600,7 @@ milkiest
 millponds
 minis
 minks
+mints
 moles
 mollycoddled
 mollycoddles
@@ -3585,6 +3650,8 @@ nurseries
 nurtures
 nutcrackers
 nuthatches
+nuttier
+nuttiest
 ocelots
 octopuses
 okapis
@@ -3660,6 +3727,7 @@ pootles
 pootling
 popguns
 poppies
+pops
 porpoises
 portlier
 portliest
@@ -3689,11 +3757,15 @@ raccoons
 racoons
 ragamuffins
 rascals
+rattled
+rattling
+rays
 redbreasts
 reindeers
 rhymed
 ritzier
 ritziest
+rollers
 romping
 rooks
 rosebushes
@@ -3899,6 +3971,7 @@ warrens
 waterlilies
 weasels
 weenier
+weenies
 weeniest
 wellies
 whackier
@@ -4323,6 +4396,7 @@ plushiest
 plushy
 pompon
 pompons
+popinjay
 portliness
 prettied
 prettying
@@ -4389,6 +4463,7 @@ beguilingly
 bewitchingly
 boyishly
 boyishness
+brambling
 breezily
 bruins
 bubbliness
@@ -4438,6 +4513,7 @@ doughier
 doughiest
 dreamily
 drowsily
+drummer
 embroiderer
 embroiderers
 endearingly
@@ -4457,6 +4533,7 @@ friskiness
 frogspawns
 frothily
 frothiness
+fruitiness
 gamins
 gauzily
 gauziness
@@ -4479,6 +4556,8 @@ joyfully
 joyfulness
 joyously
 joyousness
+keeper
+keepers
 kindliness
 kookier
 kookiest
@@ -4513,6 +4592,7 @@ nimbleness
 nosher
 noshers
 nurturer
+nuttiness
 pal
 pally
 pals
@@ -4539,6 +4619,8 @@ quilter
 quilters
 riddler
 riddling
+rocker
+rockers
 roguishly
 roguishness
 roundness
@@ -4573,6 +4655,7 @@ squelchily
 squelchiness
 squirmingly
 squirted
+squirting
 stunningly
 stylishness
 suavely
@@ -5325,7 +5408,6 @@ brainiac
 brainier
 brainiest
 brainy
-brambling
 brontosaur
 brontosaurus
 broody
@@ -5480,7 +5562,6 @@ guernsey
 guileful
 guitarfish
 gull
-gurnard
 haberdasher
 haberdasheries
 haberdashers
@@ -5569,7 +5650,6 @@ milliner
 milliners
 millinery
 mockingbird
-monarch
 mongoose
 mongrel
 monkeyshines
@@ -5613,7 +5693,6 @@ pipefish
 pitta
 plesiosaur
 plume
-popinjay
 postbox
 postcard
 postcards
@@ -5670,7 +5749,6 @@ roebuck
 rooster
 rottweiler
 rusticity
-sable
 sass
 sassing
 sauropod
@@ -5773,7 +5851,6 @@ village
 villages
 wader
 waggish
-walkingstick
 warthog
 waterbird
 waterfowl
@@ -6100,3 +6177,88 @@ wolverines
 wolves
 wrasses
 yaks
+admiral
+admirals
+arch
+billies
+billy
+blusher
+blushers
+boxer
+boxers
+buck
+bucks
+cherubim
+chum
+chums
+cob
+cobs
+cocker
+cockers
+cougar
+cougars
+emperor
+emperors
+fly
+gobble
+gobbled
+gobbles
+gobbling
+hind
+hinds
+honk
+honking
+honks
+hottie
+hotties
+jackass
+jacks
+mill
+mills
+mummies
+mummy
+nag
+nags
+nannies
+nanny
+picket
+pickets
+pickle
+pickles
+pie
+pies
+pointer
+pointers
+pussies
+pussy
+saucier
+sauciest
+sauciness
+saucy
+skate
+sledge
+sledges
+sledging
+sleeper
+sleepers
+snort
+snorted
+snorting
+snorts
+stocking
+stockings
+stray
+strays
+stud
+studs
+thatcher
+wean
+weans
+winkle
+winkles
+dazzlingly
+handfuls
+jackasses
+skating
+strikingly
+thatchers

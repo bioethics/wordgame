@@ -348,8 +348,8 @@ What the session history, the commits and the author's Drive show:
   the list marked it. `daily/main.js` now marks a seat only where it paid,
   as it already did on patron days. The list itself was read top to bottom,
   then the cuts, then what was left.
-  - **2,999 cut, from 7,759.** A first pass cut 3,708; the author's rulings
-    below sent 709 of them back over two rounds, to the places they had held.
+  - **2,919 cut, from 7,759.** A first pass cut 3,708; the author's rulings
+    below sent 789 of them back over three rounds, to the places they had held.
     Most of the cuts came from three places. A 518-word
     associative drift sat right after the seed clusters (GRANITE, CYRILLIC,
     UVULAR, WIDOW, TRANSLITERATION), and an 84-word one further down
@@ -372,11 +372,15 @@ What the session history, the commits and the author's Drive show:
     (TAFFETA, ORGANDIE, SEERSUCKER), hats and hair (PILLBOX, FASCINATOR,
     BOUFFANT, QUIFF), and CAFES, BISTROS, BOUTIQUES. The rough synonyms for
     cute-as-fashionable are in (SHARP, SNAPPY, DRESSY, SWISH, JAZZY, DANDY);
-    SPORTY and MULES are not. A word that also names something cute is in on
-    that sense, whatever its other one: TITS, BOOBY and DICKY the birds, FOXY
-    the fox, WIENER the dog, MUFF the hand-warmer. VIXEN is out: its other
-    sense wins. Sexual vocabulary proper stays off (NUBILE, BUXOM, SEDUCTIVE,
-    TITTIES, WILLY), as do toilet words (WEES). Love's giddy end is cute as
+    SPORTY is not. Where a word is ambiguous, the author's rule is to err on
+    inclusion if one sense supports it: TITS, BOOBY and DICKY the birds, PUSSY
+    and COUGAR the cats, MULE the animal, COCK the rooster, FOXY the fox, WIENER
+    the dog, MUFF the hand-warmer, SAUCY the cheeky, NUTTY the kooky, POP the
+    dad, MINT the sweet, FIT the attractive, FRY as in small fry. Three
+    exceptions: VIXEN (the author's call, made before the rule), function
+    words (DOES, DOWN), and slurs, which are the author's to rule on one by one
+    (COON is waiting). Words with no cute sense at all stay off however rude
+    their other one: TITTIES, WILLY, NUBILE, BUXOM, SEDUCTIVE, WEES. Love's giddy end is cute as
     well as romantic; desire is romantic only. Cute is also clever, in the
     old sense (a cute trick): CLEVER, CUNNING (which in older American usage
     meant cute outright), CRAFTY, WILY, SLY, CANNY, WITTY, DROLL, QUIP, PUN,
@@ -395,8 +399,9 @@ What the session history, the commits and the author's Drive show:
     CARDAMOM), and function words.
   - **Read and left out, with a thinner case** (next to read if the list wants
     more): STOLE, PERFUME, family and school (MOTHER, BROTHER, SCHOOL,
-    TEACHER), FRY, CHANGELING, STARLIGHT, FROSTY, GUFFAW, SNICKER, COUNTESS.
-  - **1,342 added that the list never had.** The first 519, by facet. Infatuation: SMITTEN, BESOTTED, ENAMOURED, CRUSH,
+    TEACHER), CHANGELING, STARLIGHT, FROSTY, GUFFAW, SNICKER, COUNTESS.
+  - **1,424 added that the list never had.** The first 519, by facet.
+    Infatuation: SMITTEN, BESOTTED, ENAMOURED, CRUSH,
     SWOON, SMOOCH, CANOODLE, SWEETHEART, MUSHY, SOPPY, LOVESICK, GAGA. Shyness:
     SHY, COY, DEMURE, SHEEPISH, GIDDY, AFLUTTER. Silliness: SILLY, GOOFY,
     DORKY, KLUTZ, CLUMSY, DOPEY, ZANY, NINCOMPOOP. Mischief: MISCHIEF, NAUGHTY,
@@ -409,15 +414,18 @@ What the session history, the commits and the author's Drive show:
     COMFY, TOASTY, KNITTED, EARMUFFS, NIGHTLIGHT. And RAINBOW, SUNSHINE,
     FLOWER, MERMAID, OOPS, YIPPEE and WHEE. Most came from a brainstorm by
     facet; the Foundry's link ranking, run on the cleaned list, found COMFY,
-    TOASTY, SONGBIRD and the rest of its last 61. Then 823 on the author's
+    TOASTY, SONGBIRD and the rest of its last 61. Then 905 on the author's
     rulings. Birds and beasts were swept from WordNet's animal file
     (`noun.animal`, lexicographer file 05, read class by class against the
     dictionary): SWAN, PIGEON, QUAIL, KITTIWAKE, BULLDOG, LAPDOG, GUERNSEY,
     BOXFISH, ISOPOD, CRITTER. The clever and quaint facets came from a
     brainstorm, then the link ranking seeded with each facet alone
     (SLYBOOTS, MONKEYSHINES, CRACKERJACK; GRANGE, HAYRICK, HEARTHSTONE).
-    The fashion synonyms were brainstormed (DRESSY, SWISH, SPIFFING).
-  - **Measured** (`daily-table.mjs 1-48`): at 6,102 words (7.4% of the
+    The fashion synonyms were brainstormed (DRESSY, SWISH, SPIFFING). The
+    ambiguity rule was applied to every word dropped for a second sense and
+    to the whole cut list once more (PICKLE, HOTTIE, STOCKING, BLUSHER, NANNY,
+    WEAN, GOBBLE, HONK, ROLLER, SKATE, CAFES).
+  - **Measured** (`daily-table.mjs 1-48`): at 6,264 words (7.6% of the
     dictionary, down from 9.4%) the Poppet moves the best word on 73% of cases
     (85% before), fires on it on 79% (90%), and is dead on none; at the
     first round's 4,569 words it was 71% and 75%. Some of the old figure was
