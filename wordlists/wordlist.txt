@@ -4950,6 +4950,7 @@ banded
 bander
 banders
 bandicoot
+bandicoots
 bandied
 bandier
 bandies
@@ -5234,6 +5235,7 @@ baroque
 barque
 barquentine
 barques
+barra
 barrack
 barracked
 barracker
@@ -5973,6 +5975,8 @@ bell
 belladonna
 belladonnas
 bellarmine
+bellbird
+bellbirds
 bellboy
 bellboys
 belle
@@ -7280,7 +7284,9 @@ blowhard
 blowhards
 blowhole
 blowholes
+blowie
 blowier
+blowies
 blowiest
 blowing
 blowjob
@@ -7358,6 +7364,8 @@ bluestocking
 bluestockings
 bluestone
 bluesy
+bluetongue
+bluetongues
 bluff
 bluffed
 bluffer
@@ -7557,6 +7565,8 @@ bogies
 bogle
 bogles
 bogon
+bogong
+bogongs
 bogosity
 bogs
 bogus
@@ -7732,6 +7742,8 @@ boob
 boobed
 boobies
 boobing
+boobook
+boobooks
 boobs
 booby
 boodle
@@ -8053,6 +8065,8 @@ bowed
 bowel
 bowels
 bower
+bowerbird
+bowerbirds
 bowers
 bowfin
 bowfins
@@ -8660,6 +8674,8 @@ brokered
 brokering
 brokers
 broking
+brolga
+brolgas
 brollies
 brolly
 bromide
@@ -8769,6 +8785,8 @@ bruisers
 bruises
 bruising
 bruleed
+brumbies
+brumby
 brunch
 brunched
 brunches
@@ -8992,6 +9010,8 @@ bulking
 bulks
 bulky
 bull
+bullant
+bullants
 bullcrap
 bulldog
 bulldogged
@@ -9148,6 +9168,8 @@ bunters
 bunting
 buntings
 bunts
+bunyip
+bunyips
 buoy
 buoyage
 buoyancy
@@ -9384,6 +9406,8 @@ butadiene
 butane
 butch
 butcher
+butcherbird
+butcherbirds
 butchered
 butcheries
 butchering
@@ -13168,6 +13192,7 @@ cockfight
 cockfighting
 cockfights
 cockier
+cockies
 cockiest
 cockily
 cockiness
@@ -17207,6 +17232,8 @@ curmudgeonly
 curmudgeons
 currant
 currants
+currawong
+currawongs
 currencies
 currency
 current
@@ -22440,6 +22467,8 @@ duffing
 duffle
 duffs
 dug
+dugite
+dugites
 dugong
 dugongs
 dugout
@@ -28952,6 +28981,8 @@ freshers
 freshest
 freshet
 freshets
+freshie
+freshies
 freshly
 freshman
 freshmen
@@ -28969,6 +29000,8 @@ fretting
 fretwork
 friable
 friar
+friarbird
+friarbirds
 friaries
 friars
 friary
@@ -29090,6 +29123,8 @@ frogmarched
 frogmarches
 frogmarching
 frogmen
+frogmouth
+frogmouths
 frogs
 frogspawn
 frogspawns
@@ -30968,6 +31003,8 @@ goalscorer
 goalscorers
 goaltender
 goaltenders
+goanna
+goannas
 goat
 goatee
 goatees
@@ -34383,6 +34420,8 @@ honeycreeper
 honeycreepers
 honeydew
 honeydews
+honeyeater
+honeyeaters
 honeyed
 honeying
 honeymoon
@@ -38507,6 +38546,7 @@ irritation
 irritations
 irruption
 irruptions
+irukandji
 is
 ischemia
 ischemic
@@ -38622,6 +38662,8 @@ jabbering
 jabbers
 jabberwocky
 jabbing
+jabiru
+jabirus
 jabot
 jabots
 jabs
@@ -39240,6 +39282,8 @@ jumbles
 jumbling
 jumbo
 jumbos
+jumbuck
+jumbucks
 jump
 jumped
 jumper
@@ -39414,6 +39458,7 @@ keggers
 kegs
 kelp
 kelpie
+kelpies
 kelvin
 kelvins
 ken
@@ -42477,6 +42522,8 @@ lynchpins
 lynx
 lynxes
 lyre
+lyrebird
+lyrebirds
 lyres
 lyric
 lyrical
@@ -42904,6 +42951,7 @@ mallard
 mallards
 malleability
 malleable
+malleefowl
 mallet
 mallets
 mallow
@@ -43344,6 +43392,7 @@ married
 marrieds
 marries
 marring
+marron
 marrow
 marrowbone
 marrowbones
@@ -45804,6 +45853,8 @@ monotonically
 monotonous
 monotonously
 monotony
+monotreme
+monotremes
 monounsaturated
 monoxide
 monoxides
@@ -46306,6 +46357,8 @@ mown
 mows
 moxie
 mozzarella
+mozzie
+mozzies
 much
 muchness
 mucilage
@@ -46422,6 +46475,8 @@ mule
 mules
 muleteer
 muleteers
+mulgara
+mulgaras
 mulish
 mulishly
 mulishness
@@ -50572,6 +50627,8 @@ paddocked
 paddocking
 paddocks
 paddy
+pademelon
+pademelons
 padlock
 padlocked
 padlocking
@@ -51156,6 +51213,8 @@ parching
 parchment
 parchmented
 parchments
+pardalote
+pardalotes
 pardner
 pardners
 pardon
@@ -52228,6 +52287,8 @@ peremptory
 perennial
 perennially
 perennials
+perentie
+perenties
 perestroika
 perfect
 perfecta
@@ -52734,6 +52795,8 @@ pharyngitis
 pharyngology
 pharynx
 pharynxes
+phascogale
+phascogales
 phase
 phased
 phaseout
@@ -54904,6 +54967,8 @@ powwows
 pox
 poxed
 poxes
+poxier
+poxiest
 poxy
 practicability
 practicable
@@ -57396,6 +57461,8 @@ quencher
 quenchers
 quenches
 quenching
+quenda
+quendas
 queried
 queries
 querulous
@@ -58946,6 +59013,8 @@ redacting
 redaction
 redactions
 redacts
+redback
+redbacks
 redbird
 redbirds
 redbreast
@@ -61407,6 +61476,8 @@ riffling
 riffraff
 riffs
 rifle
+riflebird
+riflebirds
 rifled
 rifleman
 riflemen
@@ -62616,7 +62687,9 @@ saltcellars
 salted
 salter
 saltest
+saltie
 saltier
+salties
 saltiest
 saltine
 saltines
@@ -68467,6 +68540,8 @@ spindling
 spindly
 spindrift
 spine
+spinebill
+spinebills
 spineless
 spinelessly
 spinelessness
@@ -69941,6 +70016,7 @@ stone
 stonechat
 stonechats
 stoned
+stonefish
 stoneground
 stonemason
 stonemasons
@@ -72388,6 +72464,8 @@ tainted
 taintedness
 tainting
 taints
+taipan
+taipans
 take
 takeaway
 takeaways
@@ -73974,6 +74052,8 @@ thwarters
 thwarting
 thwarts
 thy
+thylacine
+thylacines
 thyme
 thymi
 thymine
@@ -79957,6 +80037,8 @@ wallabies
 wallaby
 wallah
 wallahs
+wallaroo
+wallaroos
 wallboard
 wallchart
 wallcharts
@@ -80323,6 +80405,8 @@ watery
 watt
 wattage
 wattle
+wattlebird
+wattlebirds
 wattled
 wattles
 wattling
@@ -80528,6 +80612,8 @@ weddings
 wedge
 wedged
 wedges
+wedgetail
+wedgetails
 wedgie
 wedgies
 wedging
@@ -80906,6 +80992,8 @@ whinny
 whinnying
 whiny
 whip
+whipbird
+whipbirds
 whipcord
 whiplash
 whiplashes
@@ -81483,6 +81571,8 @@ witched
 witcheries
 witchery
 witches
+witchetties
+witchetty
 witchier
 witchiest
 witching
@@ -81560,6 +81650,8 @@ wizening
 wizens
 wizes
 wizzes
+wobbegong
+wobbegongs
 wobble
 wobbled
 wobbler
@@ -81907,6 +81999,8 @@ wow
 wowed
 wowing
 wows
+woylie
+woylies
 wrack
 wracked
 wracking
@@ -82083,6 +82177,8 @@ xylophones
 xylophonist
 xylophonists
 ya
+yabbies
+yabby
 yacht
 yachted
 yachter
@@ -82306,6 +82402,8 @@ youthful
 youthfully
 youthfulness
 youths
+yowie
+yowies
 yowl
 yowled
 yowler
