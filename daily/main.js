@@ -1344,21 +1344,17 @@ function miniPair(a, b) {
   row.style.setProperty('--n', Math.max(a.length, b.length));   // the CSS sizes the sorts to fit
   return row;
 }
-const seatMark = idx => {
-  const c = S.deal.day.choices?.[idx];
-  if (!c) return null;
-  const m = document.createElement('span');
-  m.className = 'best-seat';
-  m.textContent = patronEmoji(c.id);
-  m.title = patronName(c.id);
-  return m;
-};
-
-// On a patron day the seat is everyone's, so its mark goes on a setting only
-// where it paid: where the setting scores differently without it, or uses the
-// tile it lent.
-const patronMark = (tiles, T) => {
-  const p = S.deal.day.kind === 'patron' ? S.deal.day.patron : null;
+// A patron's mark goes on a setting only where it paid: where the setting
+// scores differently without it, or uses the tile it lent. On a choice day the
+// patron is the seat the setting was scored under, and the same rule holds. A
+// word neither patron pays for is filed under the first seat only because a
+// tie has to go somewhere; marked, it read as the first patron paying for it
+// (SUBSEQUENT wore the Poppet's bear on № 4, at 1,728 under both seats).
+const patronMark = (tiles, seat = 0) => {
+  const day = S.deal.day;
+  const choice = day.kind === 'choice';
+  const p = choice ? day.choices[seat] : day.kind === 'patron' ? day.patron : null;
+  const T = S.tables[choice ? seat : 0];
   if (!p || !T) return null;
   const paid = tiles.some(t => t.blank) || byLicence(tiles)
     || scoreWord(tiles, [], has, T).total !== scoreWord(tiles, [], has, null).total;
@@ -1387,8 +1383,7 @@ function renderResult() {
   const top = document.createElement('div');
   top.className = 'slip-word';
   top.appendChild(pairs ? miniPair(wordAndRest(0).word, wordAndRest(1).word) : miniWord(wordAndRest(0).word));
-  if (S.deal.day.kind === 'choice') top.appendChild(seatMark(r.seat));
-  else { const m = patronMark(wordAndRest(0).word, tableNow()); if (m) top.appendChild(m); }
+  { const m = patronMark(wordAndRest(0).word, r.seat ?? 0); if (m) top.appendChild(m); }
   const score = document.createElement('b');
   score.className = 'slip-score';
   score.textContent = fmtN(r.score);
@@ -1560,12 +1555,12 @@ function bestWords(r, field) {
         set.className = 'best-set';
         if (e.yours && !e.plan) {
           set.appendChild(miniWord(wordAndRest(0).word));
-          const m = seatMark(r.seat) ?? patronMark(wordAndRest(0).word, tableNow()); if (m) set.appendChild(m);
+          const m = patronMark(wordAndRest(0).word, r.seat ?? 0); if (m) set.appendChild(m);
           if (r.applied) set.appendChild(toolMark(r.applied));
         } else {
           const { tiles, T } = setOut(e);
           set.appendChild(miniWord(tiles, T));
-          const m = seatMark(e.seat) ?? patronMark(tiles, T); if (m) set.appendChild(m);
+          const m = patronMark(tiles, e.seat ?? 0); if (m) set.appendChild(m);
           if (e.tool) set.appendChild(toolMark(e.tool));
         }
         li.appendChild(set);
@@ -1574,7 +1569,7 @@ function bestWords(r, field) {
           alt.className = 'best-set best-set--better';
           const { tiles, T } = setOut(e.better);
           alt.appendChild(miniWord(tiles, T));
-          const m = seatMark(e.better.seat) ?? patronMark(tiles, T); if (m) alt.appendChild(m);
+          const m = patronMark(tiles, e.better.seat ?? 0); if (m) alt.appendChild(m);
           if (e.better.tool) alt.appendChild(toolMark(e.better.tool));
           const v = document.createElement('b');
           v.className = 'best-alt-score';
