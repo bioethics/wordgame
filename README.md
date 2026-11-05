@@ -1876,7 +1876,12 @@ their settings for the slip.
 Two sticks: a tap on one takes it in hand, a sort dragged between them moves
 across, and Enter on a finished first word moves to the second. Each stick
 wears its word's total; the sum is under them. Print checks both words, then
-replays one, then the other, then lands the sum.
+replays the higher-scoring one in full, and the other's total drops into the
+sum with a single plop (since 5 November; both were replayed before, which
+took twice as long to say the same thing).
+
+On any day, once the word is printed and scored, the case and the bench go:
+the result stands under the stick.
 
 ### Counting the field
 

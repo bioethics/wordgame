@@ -492,13 +492,20 @@ async function print() {
   S.hurry = false;
   S.note = '';
   render();
-  let sum = 0;
+  // One word is replayed in full. On a two-word day that is the one that
+  // scored more; the other's total then drops into the sum with one plop.
+  const lead = sets.reduce((b, s, k) => (s.sc.total > sets[b].sc.total ? k : b), 0);
+  if (K > 1) { S.active = lead; renderSticksActive(); renderReadout(sets[lead].sc); }
+  await replay(sets[lead].word, sets[lead].sc, lead);
+  let sum = sets[lead].sc.total;
+  if (K > 1) await sumUp(lead, sum, sum);
   for (let k = 0; k < K; k++) {
-    if (K > 1) { S.active = k; renderSticksActive(); renderReadout(sets[k].sc); }
-    await replay(sets[k].word, sets[k].sc, k);
+    if (k === lead) continue;
     sum += sets[k].sc.total;
-    if (K > 1) await sumUp(k, sets[k].sc.total, sum);
+    await plop(k, sets[k].sc.total, sum);
   }
+  // The readout ends on the word it showed being scored.
+  S.active = lead;
 
   const n = S.n;
   if (!S.field) { S.note = UI.waiting; render(); }
@@ -530,6 +537,24 @@ async function sumUp(k, total, sum) {
   const line = $('pairSum');
   line.hidden = false;
   await tween(line.querySelector('b'), sum, { duration: 360 });
+  sfx.total();
+  pulse(line, 'readout--slam', 500);
+  await beat(ANIM.chip);
+}
+
+// The other word of a pair, all at once: its total lands on its stick and in
+// the sum with a single plop, no replay.
+async function plop(k, total, sum) {
+  S.active = k;
+  renderSticksActive();
+  const badge = $(`stickSum${k}`);
+  badge.hidden = false;
+  badge.textContent = fmtN(total);
+  pulse(badge, 'chip--pop', 500);
+  sfx.place();
+  const line = $('pairSum');
+  line.hidden = false;
+  await tween(line.querySelector('b'), sum, { duration: 240 });
   sfx.total();
   pulse(line, 'readout--slam', 500);
   await beat(ANIM.chip);
@@ -869,6 +894,11 @@ function render({ fresh = false } = {}) {
   renderResult();
   $('status').textContent = S.note;
   if (before.size) for (const z of zones()) flipTiles(z, before);
+  // Once the word is printed and scored, the case and the bench have nothing
+  // left to do: they go, and the result stands under the stick.
+  const done = !!S.result && !S.printing;
+  document.querySelector('.case').hidden = done;
+  document.querySelector('.bench').hidden = done;
   saveDraft();
 }
 

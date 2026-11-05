@@ -561,6 +561,7 @@ button.mode-item:hover, button.mode-item:focus-visible { background: rgba(217, 1
   user-select: none;
 }
 .tool[hidden] { display: none; }
+.case[hidden], .bench[hidden] { display: none; }
 /* A day that opens with a tool greets you with it: three pulses of brass once
    the case is dealt (helloTool). The glow keeps the resting shadow's layers and
    adds two outer ones, so it tweens rather than blinks. */

@@ -10,7 +10,7 @@
 // daily/deal.js), with every trait it has listed on a tap. Most names are the
 // almanac's own, since most of its pages are the traits they deal.
 export const TRAIT_TEXT = {
-  twoUp:    { name: 'Two-Up',               desc: 'Two words from one case, {0} letters or more each, their scores added.' },
+  twoUp:    { name: 'Two-Up',               desc: 'Play two words of at least {0} letters.' },
   choice:   { name: 'A Choice of Patrons',  desc: 'Seat one of two.' },
   patron:   { name: 'A Patron Calls',       desc: 'Seated for every reader.' },
   deadline: { name: 'Deadline',             desc: 'An editor at the desk. A word that breaks the rule is spiked.' },
@@ -122,7 +122,7 @@ export const SPIKE_TEXT = 'A spiked word scores ×{0}.';
 
 // A two-word day.
 export const PAIR_TEXT = {
-  rule: 'Two words, {0} letters or more each. Their scores are added.',
+  rule: 'Play two words of at least {0} letters.',
   short: 'Each word needs {0} letters or more.',
   both: 'Set a second word.',
 };
