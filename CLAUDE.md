@@ -70,7 +70,7 @@ seats, run `node tools/daily-check.mjs`, which fails if the two disagree. The
 daily's rosters were chosen by `node tools/daily-table.mjs`; re-run it before
 adding a seat. Its player-facing
 strings are in `daily/text.js` and follow the card-copy rules above. README.md →
-"The Daily Proof" has the rest, subdomain publishing included.
+"The Daily Proof" has the rest, the front door (`js/door.js`) included.
 
 ## Elsewhere
 

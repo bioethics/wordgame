@@ -12,7 +12,7 @@
 // sort makes on its way somewhere are the game's own (js/anim.js), and they
 // follow the game's sound setting.
 
-import { dealChallenge, todaysNumber, traitsOf, EPOCH, TUBE_OFFER } from './deal.js';
+import { dealChallenge, todaysNumber, traitsOf, EPOCH, TUBE_OFFER, PROOF_STORE } from './deal.js';
 import {
   scoreWord, judge, withTool, solveCase, rankOf, bracketOf, BRACKETS, activeLetter, faceLetter,
   restingOf, ringStep, shiftable, loupeDelta, settingOf, solveWords, solvePairs, pairBest, RING,
@@ -43,7 +43,7 @@ import { drawField } from './chart.js';
 const PLAYTEST = true;
 
 // Keyed to the deal's salt: a re-dealt case must not reopen on an old proof.
-const STORE = 'great-work-daily-v4';
+const STORE = PROOF_STORE;
 const $ = id => document.getElementById(id);
 const fmtN = n => n.toLocaleString('en-GB');
 const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -154,6 +154,9 @@ function openChallenge(n) {
   try { if (location.hash !== `#${n}`) history.replaceState(null, '', `#${n}`); } catch { /* framed */ }
   solveAbort?.abort();
   hidePop();
+  // A word left half-set on this day comes back (read before the first render,
+  // which would otherwise file the empty stick over it).
+  const draft = loadDrafts()[n];
 
   const deal = dealChallenge(n);
   Object.assign(S, {
@@ -194,7 +197,8 @@ function openChallenge(n) {
   });
 
   render({ fresh: true });
-  if (deal.tool && !S.result) helloTool();
+  if (draft && !S.result) resume(draft);
+  if (deal.tool && !S.result && !S.applied) helloTool();
 }
 
 // A tool on the bench is easy to miss. When a day opens with one, unprinted,
@@ -865,6 +869,23 @@ function render({ fresh = false } = {}) {
   renderResult();
   $('status').textContent = S.note;
   if (before.size) for (const z of zones()) flipTiles(z, before);
+  saveDraft();
+}
+
+// A word being set is kept, day by day, until it is printed: step across to
+// the Campaign, or to another day, and it is waiting when you come back. The
+// last few days' drafts are kept; a printed day's goes, the proof standing in
+// its place.
+const DRAFTS = `${STORE}-drafts`;
+function loadDrafts() { try { return JSON.parse(localStorage.getItem(DRAFTS) || '{}'); } catch { return {}; } }
+function saveDraft() {
+  if (!S.deal || S.printing) return;
+  const drafts = loadDrafts();
+  const empty = !S.words.some(w => w.length) && !S.applied;
+  if (S.result || empty) delete drafts[S.n];
+  else drafts[S.n] = snapshot();
+  for (const k of Object.keys(drafts).map(Number).sort((a, b) => b - a).slice(7)) delete drafts[k];
+  try { localStorage.setItem(DRAFTS, JSON.stringify(drafts)); } catch { /* private window */ }
 }
 
 function renderHeader() {

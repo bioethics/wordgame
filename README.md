@@ -1952,49 +1952,42 @@ numbers shouldn't keep their old cases. Printed proofs are kept in
 `localStorage` under `great-work-daily-v4`, the number moving with the salt so
 a re-dealt case never reopens on an old proof.
 
-### On its own subdomain
+### One site, one front door
 
-GitHub Pages serves one custom domain per repository, and this one already
-answers to `great.julianandliesl.xyz` — so a subdomain is a second, tiny Pages
-site holding nothing but the daily, bundled into one page:
+Both games live on one site, from this one repository: the Campaign at the
+root, the Daily Proof at `/daily/` (`/daily/#12` for a given number). Opened at
+its root, the site asks which, every time, with what each has waiting
+(`js/door.js`, drawn in `index.html` so it is up before the board paints):
+today's number and whether it is printed, and the run in hand, *Continue:
+Chapter II, page 3*, or *Begin a run*. The Campaign boots behind it, so
+choosing it is instant.
 
-```
-node tools/build-daily.mjs --cname daily.julianandliesl.xyz
-```
+Each game's menu crosses straight to the other, and neither loses its place.
+The daily's sends `?play=campaign`, which the head of `index.html` reads to keep
+the door shut, tidying the address back to the root. The Campaign saves its run
+as it goes (`saveState`), and the daily keeps a word being set, day by day,
+until it is printed (`saveDraft`, under the proofs' key plus `-drafts`; the last
+few days are kept).
 
-writes `dist-daily/index.html` (the dictionary and the seats' lists embedded
-already filtered, so the exclusion list itself never ships; nothing fetched
-but the fonts) and its
-`CNAME`. With `--artifact` instead it writes `dist-daily/daily-proof.html`, the
-same page as a claude.ai artifact (contents only — the host supplies the
-skeleton), which is the quickest way to playtest from a phone: publish it and
-open the link. A republish mid-game keeps the case being set (the
-`window.claude.hot` snapshot in `daily/main.js`). The masthead's fleuron
-opens the modes menu, which points back at the full game. `.github/workflows/daily-subdomain.yml` rebuilds and
-publishes it whenever the daily or anything it reads changes; it does nothing
-until it is told where to publish. To switch it on:
-
-1. Create an empty repository for the site (say `bioethics/daily-proof`) and
-   turn on Pages for it, deploying from its `main` branch.
-2. Make a deploy key (`ssh-keygen -t ed25519 -f daily_key -N ""`). Add the
-   public half to the site's repository under *Deploy keys*, with write
-   access; add the private half to THIS repository as the secret
-   `DAILY_DEPLOY_KEY`.
-3. On this repository, set the variables `DAILY_PAGES_REPO`
-   (`bioethics/daily-proof`) and `DAILY_DOMAIN` (`daily.julianandliesl.xyz`).
-4. At the DNS host, add a CNAME record for `daily` pointing at
-   `bioethics.github.io`.
-5. Run the workflow once from the Actions tab; after that it runs itself.
+`node tools/build-daily.mjs` still bundles the daily into one page: with
+`--artifact`, `dist-daily/daily-proof.html`, the page as a claude.ai artifact
+(contents only, the host supplies the skeleton), the quickest way to playtest
+from a phone. A republish mid-game keeps the case being set (the
+`window.claude.hot` snapshot in `daily/main.js`). There, with no Campaign to go
+to, the ❦ menu keeps the Daily Proof and How to play. (Until 5 November a
+workflow could also publish the bundle to a subdomain of its own, from a second
+repository; it was never switched on, and one site with a front door replaced
+it.)
 
 | File | Role |
 | --- | --- |
 | `daily/deal.js` | the seeded deal: the almanac, the per-sort luck, the tool, the week and who sits, the numbering |
 | `daily/score.js` | the scorer, the tools' effects, the solver, the pair search, the ranking and its brackets |
 | `daily/table.js` | the patrons and editors a day can seat, and the lists they read |
-| `daily/main.js` | the page: composing, the tool, printing, the slip, the saved proofs |
+| `daily/main.js` | the page: composing, the tool, printing, the slip, the saved proofs and drafts |
 | `daily/chart.js` | the field, drawn |
 | `daily/text.js` | every word the page shows a player |
 | `daily/daily.css` | the page, and the game's sorts re-cut in em |
 | `tools/daily-check.mjs` | the daily held to the game |
 | `tools/daily-table.mjs` | every candidate seat measured against real cases — the evidence for the rosters |
-| `tools/build-daily.mjs` | the one-page bundle for the subdomain |
+| `tools/build-daily.mjs` | the one-page bundle: the artifact for playtesting |

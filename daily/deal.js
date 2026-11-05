@@ -39,6 +39,9 @@ import {
 // v3: the week — patrons, editors and two-word days.
 // v4: № 1 moved to 5 November, and Tuesday's patrons dealt what they read.
 export const DEAL_SALT = 'great-work-daily-v4';
+// Printed proofs are kept under the salt (daily/main.js), so a re-dealt case
+// never reopens on an old proof; the front door (js/door.js) reads them too.
+export const PROOF_STORE = DEAL_SALT;
 export const CASE_SIZE = 16;
 
 // ─── Seeded randomness ────────────────────────────────────────────────────────
