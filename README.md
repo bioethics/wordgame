@@ -1636,7 +1636,9 @@ share line carries the label.
 
 ### The tool
 
-About a third of cases (`LUCK.tool`) put one tool on the bench — the
+About a third of cases (`LUCK.tool`) put one tool on the bench, on the days
+without a choice of patrons (a choice day, Friday or Sunday, has its decision
+already, and a two-word day has no tool either) — the
 **Ratchet** (the wrench: step one letter to its neighbour in the alphabet,
 either way, A round to Z) or the **Loupe** (double one tile's value, to 30).
 Those two are the sundries that pose a *decision* inside a single word. The

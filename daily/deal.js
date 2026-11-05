@@ -124,12 +124,16 @@ export const OMENS = {
 export function dealChallenge(n, opts = {}) {
   const day = opts.day ?? dayOf(n);
   const pair = day.kind === 'pair';
+  // A day with a choice of patrons has its decision already: no tool joins
+  // it (since 5 November), so the almanac's Toolchest is off its pages too.
+  const choice = day.kind === 'choice';
   const { size = pair ? PAIR.size : CASE_SIZE, vowels = pair ? PAIR.vowels : LUCK.vowels, salt = '' } = opts;
   const rng = rngFor(`${DEAL_SALT}:${salt}${n}`);
   // A two-word day draws from the almanac's quieter pages: no tool and no
   // cursed iron, whose rules are written for one word (the toll is charged to
   // "a word set without it", and a case of two words always sets one).
-  const omens = Object.entries(OMENS).filter(([id]) => !pair || !PAIR.noOmens.includes(id));
+  const omens = Object.entries(OMENS).filter(([id]) =>
+    !(pair && PAIR.noOmens.includes(id)) && !(choice && id === 'toolchest'));
   const omenId = pickWeighted(rng, omens.map(([id, o]) => [id, o.odds]));
   const omen = OMENS[omenId];
   const force = omen.force ?? {};
@@ -200,7 +204,7 @@ export function dealChallenge(n, opts = {}) {
 
   // 5. The bench.
   const toolRoll = rng();
-  const tool = !pair && (force.tool || toolRoll < LUCK.tool) ? pickWeighted(rng, LUCK.tools) : null;
+  const tool = !pair && !choice && (force.tool || toolRoll < LUCK.tool) ? pickWeighted(rng, LUCK.tools) : null;
 
   // 6. The table: who sits today, rolled on a stream of its own so the case
   //    above is the same whoever is seated.
