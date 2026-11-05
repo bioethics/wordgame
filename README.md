@@ -2047,7 +2047,9 @@ on an ordinary case, about a second on a desktop — and the best dozen with
 their settings for the slip.
 
 Two sticks: a tap on one takes it in hand, a sort dragged between them moves
-across, and Enter on a finished first word moves to the second. Each stick
+across, and Enter on a finished first word moves to the second. The stick in
+hand is edged in lit brass and the other stands back, faded and greyed (the
+spotlight follows the print too, from the replayed word to the plop). Each stick
 wears its word's total; the sum is under them. Print checks both words, then
 replays the higher-scoring one in full, and the other's total drops into the
 sum with a single plop (since 5 November; both were replayed before, which

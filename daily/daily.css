@@ -385,8 +385,15 @@ button.mode-item:hover, button.mode-item:focus-visible { background: rgba(217, 1
    reach on a phone. */
 .stick-wrap:not([hidden]) + .stick-wrap:not([hidden]) .stick,
 .stick-wrap:has(+ .stick-wrap:not([hidden])) .stick { height: 94px; padding-top: 6px; }
-.stick-wrap[data-stick] { border-radius: 8px; }
-.stick-wrap--active { box-shadow: 0 0 0 2px var(--brass), 0 0 12px rgba(203, 161, 90, 0.35); }
+.stick-wrap[data-stick] {
+  border-radius: 8px;
+  transition: opacity calc(0.2s / var(--aspd)), filter calc(0.2s / var(--aspd)), box-shadow calc(0.2s / var(--aspd));
+}
+/* Two words: the stick in hand is lit brass; the other stands back, faded and
+   greyed, and comes up a little under the pointer to say it can be taken. */
+.stick-wrap--active { box-shadow: 0 0 0 3px var(--brass-hi), 0 0 0 4px rgba(120, 85, 35, 0.5), 0 0 20px 3px rgba(235, 201, 137, 0.55); }
+.stick-wrap--idle { opacity: 0.45; filter: grayscale(0.85); cursor: pointer; }
+.stick-wrap--idle:hover { opacity: 0.7; }
 .stick-sum {
   /* In the steel's foot, left of the measure's first labels. */
   position: absolute;

@@ -1157,9 +1157,14 @@ function renderStick(k, sc) {
   if (!S.printing) badge.textContent = sc ? fmtN(sc.total) : '';
 }
 
+// On a two-word day the stick in hand is lit and the other stands back, faded,
+// until it's tapped; once the pair is printed both stand alike.
 function renderSticksActive() {
+  const choosing = pairDay() && !S.result;
   for (const w of document.querySelectorAll('.stick-wrap')) {
-    w.classList.toggle('stick-wrap--active', pairDay() && Number(w.dataset.stick) === S.active && !S.result);
+    const mine = Number(w.dataset.stick) === S.active;
+    w.classList.toggle('stick-wrap--active', choosing && mine);
+    w.classList.toggle('stick-wrap--idle', choosing && !mine);
   }
 }
 
