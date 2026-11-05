@@ -452,6 +452,19 @@ What the session history, the commits and the author's Drive show:
   - **The author's calls.** PANSY (the flower, and a slur), PAPOOSE, PIGMY and
     DADDY stay on cute. GOLLIWOG, GOLLIWOGS and GOLLIES are on the block list.
 
+- **5 November: spooky, romantic, rude and nautical, read whole.** On the
+  author's rule that the themes are read very broadly, in every sense of the
+  theme word, and a word comes off only if even at a stretch it doesn't
+  belong. Seven readers proposed 525 cuts; a fresh reader per list argued
+  each one back, and kept any word with a case however thin (JOLLIES the
+  ship's boat and the Royal Marines, LEST for "lest we forget", ROGERS, a
+  COURTHOUSE wedding, "get KNOTTED"); a last read kept SEES (seeing someone)
+  and ASSERTION. 66 came off, nearly all function words (KNOW, SEEMS, GONNA,
+  REALLY) and spelling accidents (URETHANE, COLONES, LUGES). Every decision,
+  with the 54 thinnest keeps listed first, is in
+  `theme-review-5-november.md`. Six entries the dictionary had dropped as
+  junk went too (CRAYOLA, MADS, ROBER…).
+
 - **5 November, definitions.** Every dictionary word now has a definition
   for the daily's results (`tools/build-definitions.mjs`; README → "The Daily
   Proof" → *Definitions*): WordNet's first sense, a base form's, a transparent

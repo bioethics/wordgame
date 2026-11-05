@@ -2721,7 +2721,6 @@ legendary
 legion
 legs
 leisurely
-lengthy
 lento
 letter
 letters
@@ -4054,7 +4053,6 @@ savored
 savoring
 savour
 saxophone
-says
 scandal
 scandalous
 scandalously

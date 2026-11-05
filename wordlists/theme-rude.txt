@@ -614,7 +614,6 @@ mocks
 dank
 reeks
 bloodshed
-pesticides
 selfish
 hurls
 denunciation
@@ -718,7 +717,6 @@ misogyny
 reprimand
 clapped
 nuisances
-herbicides
 infringement
 incompetent
 gloats
@@ -891,7 +889,6 @@ heaved
 puerile
 ruptured
 indigestion
-unbelievably
 tattered
 teats
 bullying
@@ -1129,7 +1126,6 @@ stale
 defecating
 derides
 blockage
-dented
 riots
 spoilsports
 naive
@@ -1372,13 +1368,11 @@ lazily
 goofy
 obsess
 destroy
-surgery
 yowling
 grubbing
 chomping
 catty
 shouted
-leaving
 jokes
 yapping
 embarrassment
@@ -1398,7 +1392,6 @@ squinted
 scruffy
 doodling
 hokey
-uneasiness
 robberies
 oversleep
 slothful
@@ -1598,7 +1591,6 @@ swill
 ruminates
 foulmouthed
 dunked
-sidetracks
 lucre
 toupee
 snobs
@@ -1684,7 +1676,6 @@ ignoramus
 asinine
 ridiculousness
 gossiping
-hypertension
 intolerant
 attitude
 neck
@@ -1887,7 +1878,6 @@ pawed
 vacuous
 cavemen
 plagiarists
-overused
 zit
 uproarious
 hysterically
@@ -2017,7 +2007,6 @@ espouse
 disagreed
 debilitating
 purr
-projected
 dishonest
 scuffled
 falsehood
@@ -2066,7 +2055,6 @@ raucous
 digestive
 slathered
 yelps
-pesticide
 lumpy
 hogwash
 babied
@@ -2128,7 +2116,6 @@ simpletons
 lambast
 plopping
 redness
-hypnotizing
 playpen
 incompetents
 smudged
@@ -2868,14 +2855,11 @@ impious
 hosed
 leavings
 kidded
-warhorses
 birdbrain
-easygoing
 conceits
 argumentative
 metrosexuals
 unashamedly
-trilled
 ravishing
 debases
 hovels
@@ -3276,13 +3260,11 @@ rapper
 audience
 unrefined
 goon
-species
 big
 drinking
 referee
 trouble
 channel
-refer
 men
 accused
 sink
@@ -3297,8 +3279,6 @@ tells
 abusive
 tool
 performed
-gave
-gonna
 accidentally
 binge
 alcoholic
@@ -3309,7 +3289,6 @@ fined
 crowd
 angry
 speech
-everyone
 lav
 crack
 person
@@ -3322,11 +3301,9 @@ term
 cock
 blame
 bacon
-responded
 revenge
 saying
 comic
-really
 smashed
 rap
 raw
@@ -3968,7 +3945,6 @@ toileting
 toiletry
 toilette
 ungentlemanly
-urethane
 urethral
 urinalysis
 urogenital
@@ -4271,7 +4247,6 @@ brazenness
 brickbat
 brickbats
 brimstone
-brine
 bristles
 bristlier
 bristliest
@@ -4503,7 +4478,6 @@ contrariness
 contrary
 coo
 coot
-copious
 covet
 coveted
 covetous
@@ -6140,7 +6114,6 @@ prickling
 prickly
 priggishly
 prim
-primers
 primly
 primness
 primping
@@ -7442,10 +7415,6 @@ censures
 censuring
 chafed
 chafes
-channeled
-channeling
-channelled
-channelling
 channels
 chattered
 chattering
@@ -7514,7 +7483,6 @@ coned
 conflicted
 conflicting
 conflicts
-coning
 consorted
 consorting
 contraries
@@ -7732,8 +7700,6 @@ foreskins
 fornicated
 fornicates
 fornicators
-forwarded
-forwarding
 forwards
 freebies
 fresher
@@ -7764,8 +7730,6 @@ girlies
 glamorized
 glamorizes
 glamorizing
-globed
-globing
 gloops
 gloppier
 gloppiest
@@ -7936,7 +7900,6 @@ liquored
 liquoring
 liquors
 loaves
-lobed
 lolled
 lolls
 loonies
@@ -8165,9 +8128,6 @@ reekier
 reekiest
 refereed
 referees
-referred
-referring
-refers
 remarked
 remarking
 renegaded
@@ -8413,7 +8373,6 @@ stimulating
 stomached
 stomaching
 stomachs
-storied
 stories
 straining
 strains
@@ -8435,7 +8394,6 @@ sulkies
 sullener
 sullenest
 supervillains
-surgeries
 swankest
 swarthier
 swarthiest
@@ -8511,7 +8469,6 @@ troubles
 troubling
 tubbier
 tubbiest
-tubed
 tubing
 tubs
 tugged
@@ -8557,8 +8514,6 @@ victimising
 villainies
 vulvas
 wackoes
-waged
-waging
 wallopings
 wallowed
 wallowing
@@ -8683,11 +8638,8 @@ choppily
 chutzpa
 clit
 clits
-colones
 comeliness
 consed
-conses
-consing
 contumacious
 contumelies
 contumely
@@ -8705,7 +8657,6 @@ crumbier
 crumbiest
 crumbing
 cudgellings
-curer
 cutthroats
 cyberbullies
 cyberbully
@@ -8823,8 +8774,6 @@ libeller
 libellers
 licentiously
 lumpiness
-madders
-mads
 mannishness
 miff
 miffing
@@ -8842,7 +8791,6 @@ naiver
 naivest
 nappier
 nappiest
-nites
 nuder
 nudest
 obscener
@@ -8932,7 +8880,6 @@ stubborner
 stubbornest
 stuffings
 swinish
-termly
 tinglings
 tipsily
 trumpery
@@ -9077,7 +9024,6 @@ clouters
 clumsily
 cobblers
 complacently
-copiously
 cougher
 coughers
 coveter
@@ -9092,7 +9038,6 @@ creepingly
 cringingly
 crueller
 cruellest
-curers
 cursedly
 cursedness
 cynically

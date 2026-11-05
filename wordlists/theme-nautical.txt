@@ -2509,7 +2509,6 @@ lodestars
 log
 logbook
 logbooks
-loges
 logged
 loggerhead
 loggerheads
@@ -2553,7 +2552,6 @@ lubbers
 lucent
 luff
 lug
-luges
 luggage
 lugged
 lugger
