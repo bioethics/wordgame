@@ -154,13 +154,13 @@ console.log(`seated: ${seatedCompared} arrangements under ${seatings.length} sea
   const T = TB.compileTable({ id: 'expectants', data: {} }, null, has);
   state.patrons = [{ id: 'expectants', uid: 1, data: {} }];
   state.ghosts = []; state.boss = null; state.rack = [];
-  const names = [...TB.LISTS.names.keys()].filter(w => /^[A-Z]{3,10}$/.test(w));
+  const names = [...TB.LISTS.names.keys(), ...TB.LISTS.borrowed.keys()].filter(w => /^[A-Z]{3,10}$/.test(w));
   const step = Math.max(1, Math.floor(names.length / 300));
   let compared = 0, paid = 0;
   for (let i = 0; i < names.length; i += step) {
     const word = [...names[i]].map((L, id) => ({ ...makeTileTemplate(L), id, activeVariant: 0 }));
     const theirs = computeScore(word);
-    const ours = S.scoreWord(word, [], w => has(w) || TB.LISTS.names.has(w), T);
+    const ours = S.scoreWord(word, [], w => has(w) || TB.LISTS.names.has(w) || TB.LISTS.borrowed.has(w), T);
     compared++; if (ours.seat) paid++;
     if (theirs.total !== ours.total) fail(`expectants ${names[i]}: game ${theirs.total}, daily ${ours.total}`);
   }

@@ -27,12 +27,12 @@ import {
   EXPLOSIVE_SPREAD_ODDS,
   PACKAGES, APPLICATORS, SILVER_BONUS, BAG_COUNTS,
   lengthFlourish, medievalExpansions, USURER, BRIBRARIAN, bribeMult, isRule, RULE,
-  RATCHET_RANGE,
+  RATCHET_RANGE, RUBRICATOR, rubricatorMult,
   DOUBLOON_PRICE,
 } from './constants.js';
 import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
 import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
-import { THEME_SETS, loadThemes } from './themes.js';
+import { THEME_SETS, loadThemes, isName } from './themes.js';
 import { loadExclusions, exclusionsLoaded, isExcluded } from './excluded.js';
 
 import { computeScore, computeReward } from './scoring.js';
@@ -42,7 +42,7 @@ import {
 } from './colophon.js';
 import {
   renderAll, renderRack, renderWord, renderCounts, renderButtons, persist,
-  renderDictStatus, readoutEls, renderChips, setChip,
+  renderDictStatus, readoutEls, renderChips, setChip, seatStampEl,
   log, showBanner, hideOverlay,
   showGameOver, showVictory, openInspector, closeInspector, openBagPicker, coinHTML,
   showPatronPopover, hidePopover, showRatchetPopover, updateRatchetPopover,
@@ -71,6 +71,7 @@ import {
 } from './appearance.js';
 import {
   PATRON_DEFS, patronById, doubledReading, boundNouns, patronName, patronEmoji, patronShelf, guildSeats,
+  rubricatorStrike,
 } from './patrons.js';
 import { randomQuip } from './quips.js';
 import { logLine } from './text.js';
@@ -1070,7 +1071,7 @@ async function submitWord() {
     // The lexicon patrons are checked before the pardons: their entries are
     // legitimate in their own right, not misspellings of something else.
     const stenographed = owns('stenographer') && readings.find(r => THEME_SETS.acronyms.has(r));
-    const named        = owns('expectants')   && readings.find(r => THEME_SETS.names.has(r));
+    const named        = owns('expectants')   && readings.find(r => isName(r));
     const numbered     = owns('centurion')    && readings.find(r => isRomanNumeral(r));
     if (stenographed)      { vouched = 'stenographer'; parts.letters = stenographed; }
     else if (named)        { vouched = 'expectants';   parts.letters = named; }
@@ -1098,7 +1099,7 @@ async function submitWord() {
   // them, due rather than counted, and each fills in as the print reaches it.
   setNum(ro.points, 0); setNum(ro.total, 0);
   showStruckTotal(null);
-  renderChips(script.colourSteps, true);
+  renderChips(script.colourSteps, true, script.stamps);
   ro.root.classList.remove('readout--idle');
   ro.root.classList.add('readout--live');
 
@@ -1221,10 +1222,13 @@ async function submitWord() {
   // print now shows that: the Points column finishes, THEN the multiplier lands
   // on it.
   for (const p of script.patronSteps) {
+    // A seat standing in the multiplier row as a stamp speaks there instead,
+    // after the colours (pass 4, below), so its ×Mult is never seen twice.
+    if (p.stamped) continue;
     const card = patronCard(p);
     if (card) {
       pulse(card, 'patron--firing', 520);
-      const cls = p.coins ? 'fl-coin' : p.points ? 'fl-points' : 'fl-mult';
+      const cls = p.coins ? 'fl-coin' : p.points ? 'fl-points' : p.spiked ? 'fl-spike' : 'fl-mult';
       floatText(card, p.coins ? `+${coinHTML(p.coins)}` : p.text, cls, { dy: -44 });
     } else {
       // A step with no seat of its own — the curse's toll, the editor's verdict
@@ -1277,6 +1281,23 @@ async function submitWord() {
     setChip(ro.chip(step.colour), step.mult);
     pulse(ro.chip(step.colour), 'chip--pop', 420);
     await sleep(ANIM.stepColour);
+  }
+
+  // ── Pass 4½: the seats that stand as stamps ─────────────────────────────────
+  // The ×Mult seats at the end of the shelf, inked after the colours: their
+  // card fires, the figure rises off it, and the stamp in the readout fills.
+  // A spike (the Rubricator's) sounds and floats like the editor's.
+  for (const st of script.stamps ?? []) {
+    const card = patronCard(st);
+    if (card) {
+      pulse(card, 'patron--firing', 520);
+      floatText(card, `×${fmtMult(st.mult)} Mult`, st.spiked ? 'fl-spike' : 'fl-mult', { dy: -44 });
+    }
+    if (st.spiked) sfx.bad(); else sfx.mult();
+    const el = seatStampEl(st.key);
+    el?.classList.remove('chip--due');
+    pulse(el, 'chip--pop', 420);
+    await sleep(ANIM.stepPatron);
   }
 
   // ── Finale: the total lands ────────────────────────────────────────────────
@@ -2370,6 +2391,34 @@ function usurerRepay() {
   renderAll(); if (state.inMarket) renderMarket(); persist();
 }
 
+// ─── The Rubricator's upgrade ─────────────────────────────────────────────────
+// A Coin down, then the roll: which letter it cost you is the gamble. The
+// letter rises over his card in the spike's colour, so what was struck is seen
+// where it now lives.
+function rubricatorUpgrade() {
+  const seat = state.patrons.find(p => p.id === 'rubricator');
+  if (!seat || seat.data?.ghost) return;
+  seat.data ??= {};
+  const n = seat.data.struck?.length ?? 0;
+  if (!n) return;
+  const price = RUBRICATOR.price;
+  if (state.coins < price) {
+    log(logLine('rubricatorShort', `${price} Coin${price === 1 ? '' : 's'}`, state.coins), 'warn');
+    return;
+  }
+  const letter = rubricatorStrike(seat.data);
+  if (!letter) return;
+  spendCoins(price);
+  sfx.bad();
+  const card = patronCard(seat);
+  if (card) {
+    pulse(card, 'patron--firing', 520);
+    floatText(card, letter, 'fl-spike', { dy: -44 });
+  }
+  log(logLine('rubricatorStrikes', letter, rubricatorMult(n + 1)), 'good');
+  renderAll(); if (state.inMarket) renderMarket(); persist();
+}
+
 // ─── The Bribrarian's consideration ───────────────────────────────────────────
 // Blocks the page until it is settled, because settling it is the first move of
 // the page and there is no sensible default: taking nothing is a choice as much
@@ -2483,6 +2532,7 @@ $('popover')?.addEventListener('click', e => {
       if (act.dataset.patronAct === 'counterfeiter') openCounterfeitPlate();
       if (act.dataset.patronAct === 'usurer-borrow') usurerBorrow();
       if (act.dataset.patronAct === 'usurer-repay')  usurerRepay();
+      if (act.dataset.patronAct === 'rubricator')    rubricatorUpgrade();
     }
     return;
   }

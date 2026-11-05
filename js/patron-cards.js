@@ -134,6 +134,20 @@ export const PATRON_CARDS = {
     name: 'The Child', emoji: '🐣', rarity: 'common', cost: 5, guild: 'jade',
     desc: 'Print a 3-letter word: every tile in it permanently gains +{CHILD_STEP} Point before scoring.',
   },
+  // A nod to Balatro, where the deck of jokers began with one called Joker.
+  // Jade because the seat is all growth: it starts at nothing and only gains.
+  // The values are quoted because a player may count the court 11-12-13. The
+  // hand it holds is in the tap-through (`tally`), not here.
+  joker: {
+    name: 'The Joker', emoji: '🃏', rarity: 'uncommon', cost: 5, guild: 'jade',
+    // "Associates with playing cards" in the registers' idiom ("words The
+    // Sexton finds spooky"): the list runs from BLACKJACK to TAROT to
+    // PRESTIDIGITATION, and the live preview lights the seat on any of them,
+    // so the card says there is a list and leaves the inventory to play.
+    desc: 'Print the name of a playing card (e.g., TWO, JACK, ACE) and The Joker permanently gains '
+        + "that card's Points, faces {JOKER_FACE} and aces {JOKER_ACE}. Also gains +{JOKER_THEME} for "
+        + 'other words The Joker associates with playing cards.',
+  },
   abecedarian: {
     name: 'The Abecedarian', emoji: '🔠', rarity: 'rare', cost: 8, guild: 'jade',
     desc: 'Gains Mult, for good, the first time you print each different sort — up to a max of +{ABECEDARIAN_CASE_MULT} Mult total.',
@@ -239,6 +253,16 @@ export const PATRON_CARDS = {
   headsman: {
     name: 'The Headsman', emoji: '🪓', rarity: 'uncommon', cost: 7, guild: 'crimson',
     desc: '×1 Mult to begin with, raised by {HEADSMAN_STEP} for good with every patron you dismiss.',
+  },
+  rubricator: {
+    // The rubricator was the hand that went through a finished manuscript
+    // painting the initials red — crimson's trade, at the one place in a word
+    // he ever looks. This card is the fallback for a seat that arrived with no
+    // letter rolled; every seat that has one names them (instDesc in
+    // patrons.js). What an upgrade does and costs is on the button itself, so
+    // the card only says that there is one.
+    name: 'The Rubricator', emoji: '🅰️', rarity: 'uncommon', cost: 5, guild: 'crimson',
+    desc: '×{RUBRICATOR_BASE} Mult, but words starting with one random letter are spiked. Can be upgraded.',
   },
   lyeboy: {
     name: 'The Lye Boy', emoji: '🧼', rarity: 'uncommon', cost: 6, guild: 'crimson',
@@ -448,7 +472,12 @@ export const PATRON_CARDS = {
   },
   expectants: {
     name: 'The Expectant Parents', emoji: '🤰', rarity: 'uncommon', cost: 4,
-    desc: 'Common baby names count as words. +{EXPECTANTS_BONUS} Points for baby names, '
+    // "Baby names", and no list of kinds: ZEUS, TUSCANY and HEATHCLIFF are on
+    // the register because a parent could name a child after them, so they
+    // are baby names, and the player is trusted to think the same way. Not
+    // "common" baby names any more, which would warn a player off exactly
+    // those.
+    desc: 'Baby names count as words. +{EXPECTANTS_BONUS} Points for baby names, '
         + 'and the baby is named after the last one printed — the child then looks for '
         + 'a seat of its own at the Market.',
   },
@@ -514,7 +543,7 @@ export const PATRON_CARDS = {
     desc: '×3 Mult on the final word of each page.',
   },
   harlequin: {
-    name: 'The Harlequin', emoji: '🃏', rarity: 'uncommon', cost: 7,
+    name: 'The Harlequin', emoji: '🎭', rarity: 'uncommon', cost: 7,
     desc: '×2 Mult for words containing all four colours.',
   },
   novelist: {

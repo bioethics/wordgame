@@ -4,8 +4,9 @@
 // matter. To add a list, drop the file in and give it a line in THEME_FILES.
 //
 // A list entry only scores if the dictionary (or a pardon) lets the word through
-// first, except for three that can open the door themselves: acronyms and names
-// (vouched whole at the dictionary check) and nouns (read by The Binder).
+// first, except for the few that can open the door themselves: acronyms and
+// names, both kinds (vouched whole at the dictionary check), and nouns (read by
+// The Binder).
 //
 // A bundled build embeds the lists as window.FOLIO_THEMES, checked first — as
 // dict.js does with window.FOLIO_WORDLIST.
@@ -24,6 +25,8 @@ export const THEME_FILES = {
   adjectives: 'wordlists/adjectives.txt',
   verbs:      'wordlists/verbs.txt',
   names:      'wordlists/names.txt',
+  borrowed:   'wordlists/names-borrowed.txt',
+  cards:      'wordlists/playing-cards.txt',
   common:     'wordlists/common.txt',
 };
 
@@ -81,6 +84,15 @@ export function adoptTheme(key, text) {
 
 // True when `word` (letters only, marks already split off) is on the list.
 export const inTheme = (key, word) => THEME_SETS[key]?.has(word) ?? false;
+
+// Is `word` a name The Expectant Parents answer to? Two files, one register:
+// names.txt is generated from the birth charts and borrowed is written by hand
+// (the gods, saints, places, stars and characters in books children are
+// named after), kept apart so a
+// rebuild of the first never loses the second, and so The Generic, who takes
+// his names from `names` alone, stays called Doreen. Every reader of the
+// register comes through here, so the two can never be asked separately.
+export const isName = word => inTheme('names', word) || inTheme('borrowed', word);
 
 // One entry off a list at random — the register the Generic borrows a name from.
 // The array is cached because a Set of five thousand names would otherwise be

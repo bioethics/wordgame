@@ -1315,6 +1315,68 @@ export const wordListText = words =>
   words.length < 2 ? (words[0] ?? '') : `${words.slice(0, -1).join(', ')} or ${words.at(-1)}`;
 // The Headsman: permanent ×Mult per patron dismissed while he is seated.
 export const HEADSMAN_STEP = 0.2;
+
+// ─── The Rubricator's initials ────────────────────────────────────────────────
+// The rubricator painted a manuscript's initials in red; this one refuses some.
+// He arrives with one letter struck (rolled at the Market, so the card shows
+// it) and pays ×base on every word that does not begin with a struck letter.
+// A word that does is spiked — the editors' ×SPIKE_MULT, taken at his seat in
+// place of his own. Tap his card to strike another letter, at random, for
+// +step on the ×Mult.
+//
+// The letters are the cost; the Coin is a toll. Every letter struck is a door
+// shut for the rest of the run, and strike the whole alphabet and every word is
+// spiked, so the seat prices itself: how far to take him is how much of the
+// alphabet you can live without. One Coin a letter, flat, keeps the button from
+// being pressed absent-mindedly and asks nothing more.
+//
+// For the record, what a perfect solver says the letters cost: on plain
+// ten-tile racks against the whole dictionary, the best word avoiding one
+// banned initial is worth 97–100% of the best word overall (S costs most, X and
+// Y nothing). At +0.1 a letter, every press still pays it until about sixteen
+// letters (×2.7 on the card, ×2.1 in effect), then turns. A player is not a
+// solver and has to THINK of the word that starts elsewhere, so the stopping
+// point at the table will come sooner; if it doesn't, `step` is the knob.
+export const RUBRICATOR = {
+  base:  1.2,    // ×Mult with his first letter struck
+  step:  0.1,    // ×Mult added by every letter struck after the first
+  price: 1,      // Coins per letter struck, every time
+};
+// What he pays with `n` letters struck.
+export const rubricatorMult = n => Math.round((RUBRICATOR.base + RUBRICATOR.step * Math.max(0, n - 1)) * 100) / 100;
+
+// ─── The Joker's hand ─────────────────────────────────────────────────────────
+// What each card is worth when its name is printed, at the values Balatro
+// counts them: the pips at face value, the court at ten, the ace at eleven.
+// The court at 11, 12 and 13 is the other convention a player might bring,
+// which is why the card quotes the faces and the ace as {KNOBS}.
+//
+// TEN is the card that makes him go. Measured on fresh ten-tile racks from the
+// starting bag, 37% can spell some card, and TEN alone is 20% of racks (ACE and
+// NINE 6%, the court 1% or less); the mean best card on a rack is worth 3.3, and
+// 1.8 with TEN taken out. He grows about as fast as you will spend a word on a
+// small one, which is the cost of the seat — a card name is rarely a word worth
+// printing for its own sake.
+export const JOKER_CARDS = {
+  TWO: 2, THREE: 3, FOUR: 4, FIVE: 5, SIX: 6, SEVEN: 7, EIGHT: 8, NINE: 9, TEN: 10,
+  JACK: 10, QUEEN: 10, KING: 10, ACE: 11,
+};
+// Any other word on the playing-card table (wordlists/playing-cards.txt: the
+// games, the gambling, the tarot, the conjuring) adds this much instead. A card
+// name pays its value and not this as well, so the court stays at ten.
+//
+// Measured the same way as the cards: 96% of racks can spell some word on the
+// table, but it is the best word on only 4% of them and within 80% of the best
+// on 8%; where there is one, the best of them scores 42% of the best word (14
+// base Points against 34). So a table word costs about 20 Points that turn and
+// pays this much on every word after it, a hundred-odd words in a run. At 3
+// that was 360 Points for 20, and the seat had one strategy, SET and RED on
+// every early word. At 1 it is still worth taking when it is close to your
+// best word, and a TEN is ten table words rather than three.
+export const JOKER_THEME = 1;
+// The corner of the card, for the hand he shows on tap: K, not KING.
+export const jokerRank = word =>
+  ({ JACK: 'J', QUEEN: 'Q', KING: 'K', ACE: 'A' })[word] ?? String(JOKER_CARDS[word] ?? '');
 // The Gambler's coin, tossed once per word, not per keystroke: scoring runs on
 // every letter laid to drive the live preview, so a roll inside the score effect
 // would flicker and then disagree with what printed (rollGamble in state.js).
@@ -1701,6 +1763,8 @@ export const KNOBS = {
   PURVEYOR_PAINT:     PURVEYOR.paint,
   PURVEYOR_PROPOSALS: PURVEYOR.proposals,
   STOKER_BASE, STOKER_STEP, RAGMAN_COINS, RAGMAN_ODDS, DEVIL_STEP,
+  RUBRICATOR_BASE: RUBRICATOR.base,
+  JOKER_FACE: JOKER_CARDS.KING, JOKER_ACE: JOKER_CARDS.ACE, JOKER_THEME,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, DIPPER_PAINT_CHANCE, REVENANT_ODDS,
   MAGPIE_WEIGHT, MAKO_WEIGHT, TWINS_POINTS,
   PRINCE_STEP:   PRINCE.step,

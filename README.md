@@ -226,6 +226,20 @@ behind. Drag a card along the shelf to reseat it, on the board or on **Your
 table** at the top of the Market. (Additive Mult and ×Mult commute; it is the
 Points that care.)
 
+**The seats that multiply last are stamped.** The readout reads Points × Mult =
+total, and a ×Mult seat folds into the Points at its turn — but the seats at
+the *end* of the shelf that only multiply, with nothing adding Points behind
+them, multiply the finished figure. Those stand in the multiplier row after the
+colours, one stamp each wearing the patron's face (the Rubricator's spike in
+red), the way the Daily Proof shows its seat; the Points figure stops where they
+begin, and they ink in after the colours as the word prints. A ×Mult with an
+adder seated behind it isn't a factor of the total, so it stays folded into the
+Points as before — which is the seat-order rule made visible: the multipliers
+you seat last are the ones that multiply everything. Presentation only (pass 4
+in `js/scoring.js` marks the steps `stamped`; `renderSeatStamps` in
+`js/render.js` draws them). Each seat still rounds as it speaks, so with a
+fractional ×Mult the sheet can sit a point off the total.
+
 The one documented exception is a seat that **cleans up after the table**
 (`speaksLast` on its behaviour — currently only *The Lye Boy*). Its `onPrinted`
 runs after every other seat's, wherever you sit it: it would otherwise be
@@ -592,12 +606,109 @@ readout. Nothing writes to `data` during scoring, either — every roll in the l
 above is thrown in an `onPrinted` or at a page turn, never in the live preview,
 which is what makes counting from inside `luckyRoll` safe.
 
+### The Rubricator — a ×Mult you pay for in letters
+
+The rubricator was the hand that went through a finished manuscript painting
+the initials red. **The Rubricator** (crimson, uncommon, 5 Coins) reads one
+thing about a word, its first letter, and arrives with one letter he refuses,
+rolled at the Market so the calling card names it. Every other word gets
+**×1.2** at his seat; a word starting with a struck letter is **spiked** there
+instead, at the editors' own ×0.2 (`SPIKE_MULT`). Both answers are taken at his
+seat, so seat order cuts both ways: sat in front, his ×1.2 multiplies only the
+tiles, and so does his spike.
+
+Tap his card to **upgrade**: a Coin, and another random letter is struck, and
+his ×Mult rises by 0.1. The letters never come back. The Coin is a toll, flat
+on purpose; the real price is the alphabet. Strike all twenty-six and every word
+is spiked, so the seat prices itself, and how far to take him is how much of
+the alphabet you can live without. Which letter each Coin costs you is the
+gamble: an X is nothing, an S is felt every page.
+
+A blind sort in the word means he never reads the initial, as it means for every
+editor. The metal's tooltip says its word can't be spiked, and he keeps that
+promise rather than breaking it.
+
+What a solver says the letters cost, for whoever tunes him next: on plain
+ten-tile racks against the whole dictionary, the best word avoiding one banned
+initial is worth 97–100% of the best word overall (S costs most, about 2½%; X
+and Y nothing), because a rack almost always holds another word nearly as good
+that starts elsewhere. At +0.1 a letter every press still pays a solver until
+about sixteen letters (×2.7 on the card, ×2.1 in effect). A player has to
+*think of* the word that starts elsewhere, which a solver never does, so the
+turn at the table should come well before that, the way the Obscurantist's bar
+is set by playing rather than simulating. If players run him to sixteen,
+`RUBRICATOR.step` is the knob.
+
+### The Joker — a hand of named cards
+
+A nod to Balatro, where the jokers begin with one called Joker. **The Joker**
+(jade, uncommon, 5 Coins) does nothing until you print the name of a card: TWO
+to TEN, JACK, QUEEN, KING or ACE. Each one adds its value to a total the seat
+keeps for good, at Balatro's own counting (the pips at face value, the court at
+10, the ace at 11), and the whole total is paid in Points at its seat on every
+word, so it wants to sit in front of the multipliers. The card being named pays
+on its own print, so KING shows +10 from the Joker on KING itself, which is how
+a player learns what the seat does.
+
+Any other word from the card table adds +1 (`JOKER_THEME`): the games, the
+gambling, the tarot, the fortune-telling and the conjuring, from ANTE and
+BLACKJACK to HIEROPHANT and PRESTIDIGITATION, 2,143 words in
+`wordlists/playing-cards.txt`. A card name pays its value and not the +1 as
+well, so the court stays at ten. It was +3: a table word costs about 20 Points
+the turn you take it (the best one on a rack scores 42% of the best word), and
++3 on every word after paid that back eighteen times over, so every run's first
+pages were SET and RED. The list was also struck of some fifty forms inflected
+from the wrong word (WINED is WINE's, not WIN's; RAN is the verb, and RUN is on
+the table as a noun); its header says which. The list is not named `theme-*.txt` because
+`tools/theme-list.mjs` reads those as the ×3 registers' lists and would strike
+its words from the pool the registers are read from. Tap the seat for what it
+holds ("Holding 10 A K and 4 card-table words: +35 Points on every word").
+
+What it costs is words. A card name is rarely a word worth printing for its own
+sake, and racks seldom offer one: of fresh ten-tile racks from the starting bag,
+37% can spell any card, TEN alone 20%, ACE and NINE 6%, the court 1% or less.
+The mean best card on a rack is worth 3.3, and 1.8 with TEN taken out, so TEN is
+the card that makes the seat go. The table is the other way round: 96% of racks
+can spell some word on it, but it is the best word on only 4% of them and within
+80% of the best on 8%, because what a rack offers is SET, RED or BET. Either way
+the seat grows on words you would not otherwise have printed. The values are `JOKER_CARDS` in
+`js/constants.js`; the card quotes the court and the ace as knobs, since a
+player might count them 11-12-13.
+
 ### The Expectant Parents' child
 
-*The Expectant Parents* (uncommon, 4 Coins) pay +15 Points for a common baby
-name and vouch for names at the dictionary check, so ELSIE and MILO are words
-while they are seated. They now do one thing more: **they name the baby after
-the last name you print**, and the child goes looking for a seat of its own.
+*The Expectant Parents* (uncommon, 4 Coins) pay +15 Points for a name and
+vouch for names at the dictionary check, so ELSIE and MILO are words while they
+are seated. They now do one thing more: **they name the baby after the last
+name you print**, and the child goes looking for a seat of its own.
+
+**What counts as a name** is two files read as one (`isName` in
+`js/themes.js`). `wordlists/names.txt` is the birth charts: some 5,000 names
+that reached the top thousand in the US or England & Wales for three years or
+more, regenerated with `tools/build-names-list.mjs`. Parents also name children
+after things that never chart, so `wordlists/names-borrowed.txt` adds about
+1,350 more by hand: every country whose name is one word, the capitals that
+are, states and regions (Dakota had charted already; Tuscany, Avalon and Siberia
+had not), the cities a reader would know, the gods and heroes of some twenty
+traditions, from Zeus and Anubis to Oshun, Inti and Ukko, the bright stars,
+moons, planets and constellations, the saints of the calendar (Cuthbert,
+Hildegard, Wenceslas, Dymphna), and characters in books, from Shakespeare and
+Malory to Austen, Dickens, Tolstoy and Tolkien. A saint or a character goes in
+by the name they are known by, surname or not, so HOLMES and KARENINA count.
+The charts had already let in whatever was fashionable (ATHENA, FREYA, PARIS,
+BROOKLYN, ORION, INDIA, JULIET, ATTICUS), so the second file is mostly the rest
+of the pantheon, the atlas, the calendar and the shelf.
+
+They are kept apart for two reasons. A rebuild of `names.txt` from the charts
+would erase anything written into it by hand; and **The Generic** takes his first
+name from `names.txt` alone, because "Doreen the Nondescript" is the joke and
+"Quetzalcoatl the Middling" is a different one. The borrowed list's header says
+what was struck and why — a handful of names whose everyday word would turn the
++15 on for ordinary play (TYRE, OPS, BALDER, MALE, MORE, HERO, BOO), FANNY for
+being rude in British and Australian English, and SHYLOCK and FAGIN for
+carrying their authors' antisemitism into the language — and what was kept
+although it is also a word, because the set is a promise: every one-word
+country counts, TURKEY included, and HAMLET is Hamlet first. The Daily Proof's port reads both files too.
 
 The register is `state.babyName`, and it holds exactly one child. Print another
 name and the parents change their minds — the name in the register is replaced,
@@ -1375,6 +1486,8 @@ bigger step than the last and a built press has to multiply rather than add:
 | Colophon roster, offer count, repeat cap, skip grant | `js/constants.js` → `UPGRADE_OFFERS`, `MAX_UPGRADE_REPEATS`, `SKIP_COIN_GRANT`; definitions in `js/upgrades.js` |
 | Everything the Generic can roll — triggers, weights, effects, epithets, faces, price | `js/patron-generic.js`, the whole file. `GENERIC_TRIGGERS_A/B` carry the weights, `GENERIC_EFFECTS` the `cost` each must be paired against |
 | The Lye Boy's ramp — what a scrubbed coat is worth, and where it should slow | `js/constants.js` → `LYE_BOY_BANDS` (one band today; add a row to slow it, and `lyeBoySteps()` rewrites the card with it) |
+| The Rubricator — his ×Mult, what each letter adds, and the toll | `js/constants.js` → `RUBRICATOR` (`base`, `step`, `price`, a flat Coin a letter). The spike is the editors' own `SPIKE_MULT`, so retuning theirs retunes his. The solver's figures for what the letters cost are in the comment beside the knobs |
+| The Joker's cards and what each is worth | `js/constants.js` → `JOKER_CARDS` (a word and its value; add DEUCE or KNAVE here and the seat reads them), and `JOKER_THEME` for any other word on `wordlists/playing-cards.txt`. The card quotes `{JOKER_FACE}`, `{JOKER_ACE}` and `{JOKER_THEME}` |
 | The Quoin's lock | `js/constants.js` → `QUOIN_MULT`. Set against the colour engine: ×3 makes stacking a colour pull level with spreading it |
 | The Goldsmith's purse — the Points, the odds and the prize | `js/constants.js` → `GOLDSMITH_POINTS`, `GOLDSMITH_ODDS` (rolled **per amber tile**, so the seat scales with commitment), `GOLDSMITH_PURSE`. The run-level arithmetic is in the comment beside them; if a run stops caring about Coins by chapter seven, the odds are the knob, not the purse |
 | The Serpent — what an S is worth, and how often he swallows the last one | `js/constants.js` → `SERPENT_POINTS` (paid on every S in the word, written onto the tile so a nick reads it and his own ×2 doubles it), `SERPENT_EAT_ODDS`. The ×2 is paid either way, so this is the whole of the bet; the card quotes it through the `SERPENT_EAT_CHANCE` knob and can never drift from it |
@@ -1384,7 +1497,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | How far a patron's asking price can drift | `js/constants.js` → `PATRON_HAGGLE` (`spread` Coins each way, `chance` per side) |
 | How long a line stays up to be read | `js/anim.js` → `READ_BASE` / `READ_PER_CHAR` / `READ_MAX`. Every bubble, floater and bar message holds for a span measured off its own length, so a long line is given longer, not read faster |
 | Words / discards / seats per page | `js/constants.js` |
-| Where every word list lives | `wordlists/` — the dictionary (`wordlist.txt`), all ten themed lists, the dummy-letter list (`silent.txt`) and `excluded-slurs.txt`, in one folder. The paths are `THEME_FILES` and `SILENT_FILE` in `js/themes.js`, which is also where `tools/build-single.mjs` reads the folder name from, so moving them is a change to that one file (plus `js/dict.js` and `js/excluded.js`, which fetch their own). The dictionary descends from 12dicts' `3of6game` list (version 6.0.2), the one 12dicts list whose entries carry exactly these five marks, as its README defines them: `+` a signature word, added though fewer than three of the six source dictionaries list it; `!` a neologism; `&` the British spelling of an American word or the reverse, admitted because its counterpart is in three sources; `^` one of a set of close variants (hyphenated, spaced or capitalised forms) none of which reached three sources; `$` any other word in fewer than three sources — uncommon inflections, plurals and comparatives only two sources allow. The game matches entries exactly, so a marked entry was never playable; all five marks have been stripped, and `wordlist.txt` should hold plain a–z only |
+| Where every word list lives | `wordlists/` — the dictionary (`wordlist.txt`), every themed list, the dummy-letter list (`silent.txt`) and `excluded-slurs.txt`, in one folder. The paths are `THEME_FILES` and `SILENT_FILE` in `js/themes.js`, which is also where `tools/build-single.mjs` reads the folder name from, so moving them is a change to that one file (plus `js/dict.js` and `js/excluded.js`, which fetch their own). The dictionary descends from 12dicts' `3of6game` list (version 6.0.2), the one 12dicts list whose entries carry exactly these five marks, as its README defines them: `+` a signature word, added though fewer than three of the six source dictionaries list it; `!` a neologism; `&` the British spelling of an American word or the reverse, admitted because its counterpart is in three sources; `^` one of a set of close variants (hyphenated, spaced or capitalised forms) none of which reached three sources; `$` any other word in fewer than three sources — uncommon inflections, plurals and comparatives only two sources allow. The game matches entries exactly, so a marked entry was never playable; all five marks have been stripped, and `wordlist.txt` should hold plain a–z only. Added by hand since, kept in `LC_ALL=C sort` order: 125 words of the card table that 3of6game lacked (EUCHRE, FARO, CROSSRUFF, CARTOMANCY, THIMBLERIG), for the Joker |
 | The Silent Knight's dummy letters | `wordlists/silent.txt` — one `word index` pair per line, the index naming the letter that is written and not spoken (`knot 0`). Read into a Map by `adoptSilent` in `js/themes.js` |
 | The Ripper's watchwords | `js/constants.js` → `RIPPER_WORDS`. Matching is exact and the Ripper's card quotes the whole list, so a long one is a long card |
 | Patron names, emoji, rarities, costs, guilds and card text | `js/patron-cards.js` — one flat table keyed by patron id; `{KNOB}` braces in a `desc` are filled from the `KNOBS` object at the top of the file |
@@ -1408,7 +1521,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Chapter titles | `js/chapters.js` — a flat array, add as many as you like; each run draws its own and won't repeat until the list runs out |
 | The Stenographer's acronyms | `wordlists/acronyms.txt` — one per line, `#` comments; letters only. A lone Q is settable now (the ratchet makes one), but it is rare enough that an acronym leaning on it will mostly go unset |
 | Finding words the dictionary is MISSING | `tools/find-dictionary-gaps.mjs` — three modes, none of which writes anything. `derived` (we hold PULMONOLOGY but not PULMONOLOGIST) is the highest-yield; `paradigm` finds a word whose rhyme-neighbours all inflect where it doesn't; `frequency` wants a corpus and is the only one that can find a word with no foothold here at all, but its head is thick with proper nouns. Every mode prints candidates for a human to read, never a list to paste |
-| The Expectant Parents' baby names | `wordlists/names.txt` — same format; regenerate from the US and England & Wales charts with `tools/build-names-list.mjs` |
+| The Expectant Parents' baby names | `wordlists/names.txt` — same format; regenerate from the US and England & Wales charts with `tools/build-names-list.mjs`. The gods, saints, places, stars and characters in books are `wordlists/names-borrowed.txt`, written by hand; add a line to it, and leave out anything `names.txt` already holds |
 | Words barred from the game entirely | `wordlists/excluded-slurs.txt` — one per line, `#` comments. Enforced at load by `js/excluded.js` against the dictionary, every themed list, and The Neologist's coining sheet, so an entry here can't come back through a word list, a custom dictionary or a coined word. Whole-word matches only |
 | The five registers' word lists (the Sexton, the Paramour, the Poppet, the Vulgarian, the Seadog) | `wordlists/theme-*.txt` — one word per line, edit freely; loading in `js/themes.js`. How to make a new one or grow these: `wordlists/MAKING-LISTS.md`, with `tools/theme-list.mjs` for the mechanical steps, or the Register Foundry page (`tools/foundry/`), which runs the whole recipe through Claude from a phone |
 | The three parts of speech (the Sculptor, the Poet, the Athlete) | `wordlists/noun-forms.txt` (the Sculptor's: every word whose ordinary meaning is a noun, by WordNet's tagged-corpus counts, and its plurals — regular, Latin and Greek, irregular), `adjectives.txt`, `verbs.txt`. `wordlists/nouns.txt` is The Binder's: singular, recognisable nouns (any word WordNet's corpus has met as a noun) for him to stack two of, so MUSICWORLD and PENNYECHO. Both noun lists are built by `tools/build-nouns.mjs` from WordNet 3.1 (the `wordnet-db` npm package) |

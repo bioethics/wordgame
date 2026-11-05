@@ -52,10 +52,11 @@ export const LIST_FILES = {
   commoner:   'wordlists/commoner.txt',
   nautical:   'wordlists/theme-nautical.txt',
   names:      'wordlists/names.txt',
+  borrowed:   'wordlists/names-borrowed.txt',
 };
 // Lists that are words in their own right rather than a cut of the dictionary:
 // tools/build-daily.mjs keeps them whole instead of trimming them to it.
-export const LEXICONS = new Set(['names']);
+export const LEXICONS = new Set(['names', 'borrowed']);
 
 export const LISTS = Object.fromEntries(Object.keys(LIST_FILES).map(k => [k, new Map()]));
 
@@ -74,6 +75,7 @@ export function adoptList(key, text) {
 }
 
 const inList = (key, word) => LISTS[key].has(word);
+const isName = word => inList('names', word) || inList('borrowed', word);
 const listsFor = ids => [...new Set(ids.flatMap(id => PATRONS[id]?.lists ?? EDITORS[id]?.lists ?? []))];
 // Which lists a set of seats needs before it can be judged.
 export const listsNeeded = listsFor;
@@ -277,11 +279,14 @@ export const PATRONS = {
   // licence only lets it through. spell(words, has, tiles) lists the spellings
   // the licence admits beyond the dictionary, for the page to accept and the
   // solver to try; the case's tiles bound the ones that need a V or an O.
+  // Two files, one register, as isName in js/themes.js reads them: the birth
+  // charts, and the gods, saints, places, stars and characters written in by hand.
   expectants: {
-    lists: ['names'],
-    spell: (words, has) => [...LISTS.names.keys()].filter(w => /^[A-Z]+$/.test(w) && !has(w)),
+    lists: ['names', 'borrowed'],
+    spell: (words, has) => [...new Set([...LISTS.names.keys(), ...LISTS.borrowed.keys()])]
+      .filter(w => /^[A-Z]+$/.test(w) && !has(w)),
     // A name pays whether or not the dictionary holds it: GRACE is no less a name.
-    effect({ letters, addPoints }) { if (inList('names', letters)) addPoints(EXPECTANTS_BONUS); },
+    effect({ letters, addPoints }) { if (isName(letters)) addPoints(EXPECTANTS_BONUS); },
   },
   haplographer: {
     // One letter of a doubled pair may be set once: MATE reads as MATTE.

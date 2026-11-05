@@ -72,7 +72,7 @@ export const DAILY_CARDS = {
 };
 
 export const PATRON_TEXT = {
-  expectants:    'Common baby names count as words. +15 Points for a baby name.',
+  expectants:    'Baby names count as words. +15 Points for a baby name.',
   haplographer:  'A single letter may read as a double: MATE counts as MATTE.',
   bookbinder:    'A W may be spelled with a V. An O may repeat any number of times.',
   sexton:        '×3 Mult for words The Sexton finds spooky.',

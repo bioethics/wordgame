@@ -18,8 +18,11 @@
 //       'meta'  — handled explicitly elsewhere (page start, page reward,
 //                 discards, the dictionary check), or via the hooks below.
 //
-// Score ctx: { word, tiles, state, data, addPoints(n), addMult(n), xMult(n),
-//              addCoins(n) }. The add/x helpers record an animation step.
+// Score ctx: { word, tiles, state, data, addPoints(n), addMult(n), xMult(n, why),
+//              spike(n, why), addCoins(n) }. The add/x helpers record an
+// animation step; xMult's optional `why` is appended to the step's text.
+// spike() is xMult marked as a spike, so the print reads it the way it reads
+// an editor's (the Rubricator's struck initials).
 // `data` is the seat's memory and is READ-ONLY here: scoring runs on every
 // keystroke to draw the live preview, so counters advance in onPrinted only.
 //
@@ -166,11 +169,11 @@ import {
   PACKAGE_ODDS, PACKAGES, PACKAGE_OF_PATRON,
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, isMark,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
-  HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, LAUREATE_MULT_STEP, RIPPER_WORDS, splitMarks, isImmutable,
+  HEADSMAN_STEP, RUBRICATOR, rubricatorMult, SPIKE_MULT, ESPALIER_STEP, HONORIFIC_STEP, LAUREATE_MULT_STEP, RIPPER_WORDS, splitMarks, isImmutable,
   CENTURION_STEP, isRomanNumeral, RIPPER_GHOST_WORDS, wordListText,
   APPRENTICE_LENGTH, APPRENTICE_STEP,
   TWINS_POINTS, CHILD_STEP, ABECEDARIAN_MULT, ABECEDARIAN_CASE, abecedarianMult, caseGlyphs, MEDIEVAL,
-  ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS, PURVEYOR,
+  JOKER_CARDS, JOKER_THEME, jokerRank, ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS, PURVEYOR,
   BABY_STAGES, babyStage, babyGrown, titleCase,
   sesquipedalianMult,
   SHORTHAIR_MULT, RATCATCHER_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
@@ -188,7 +191,7 @@ import {
   paintRandomTiles, restingPoints, shuffle, owns, allSeats, effectiveSundrySlots,
   strikeMaterial, primeMult, spendCoins, growTile, totalQuotaRelief,
 } from './state.js';
-import { inTheme, themeSize, THEME_SETS, silentAt, SILENT } from './themes.js';
+import { inTheme, themeSize, THEME_SETS, silentAt, SILENT, isName } from './themes.js';
 import { DICT } from './dict.js';
 import { PATRON_CARDS } from './patron-cards.js';
 // The Generic's whole roster of triggers, effects and names — one file, meant
@@ -222,6 +225,31 @@ const princeCrowned = data => princeMult(data?.solved ?? 0) >= PRINCE.crown;
 // What The Usurer is still owed. A ghost is owed nothing: being murdered
 // settles the account, and a dead lender will not open a new one either.
 const usurerOwed = data => (data?.ghost ? 0 : data?.debt ?? 0);
+
+// ─── The Joker's take ─────────────────────────────────────────────────────────
+// What printing `word` adds to his total: a card name its value, any other
+// word on the playing-card table JOKER_THEME, anything else nothing.
+const jokerGain = word =>
+  JOKER_CARDS[word] ?? (word && inTheme('cards', word) ? JOKER_THEME : 0);
+
+// ─── The Rubricator's letters ─────────────────────────────────────────────────
+// Every initial is equally likely, whatever it costs: S and X are one roll
+// each. Q is in the alphabet though no bag holds a lone one — a QU word still
+// opens on Q, and a struck Q is the luckiest roll he has.
+const INITIALS = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
+const rollInitial = struck => {
+  const left = INITIALS.filter(L => !struck.includes(L));
+  return left.length ? left[Math.floor(Math.random() * left.length)] : null;
+};
+
+// The upgrade, minus the money: one more letter onto the seat, returned so
+// the caller can say which. null when the alphabet is spent. The Coins are
+// taken by rubricatorUpgrade in js/main.js, which calls this.
+export function rubricatorStrike(data) {
+  const letter = rollInitial(data.struck ?? []);
+  if (letter) data.struck = [...(data.struck ?? []), letter];
+  return letter;
+}
 
 // ─── The Wordler's marking ────────────────────────────────────────────────────
 // Wordle's own rule, duplicates and all: greens are claimed first, then yellows
@@ -1541,6 +1569,42 @@ const PATRON_BEHAVIOURS = [
     },
   },
   {
+    // Holds the cards you have named and pays what they add up to, at its own
+    // seat, on every word: so it wants to sit in front of the multipliers.
+    // `data.points` is the running total, `data.hand` the ranks in the order
+    // they were dealt and `data.table` how many other card-table words have
+    // added JOKER_THEME each; the last two are kept only to be shown.
+    //
+    // The card being named pays on its own print: the effect counts it in
+    // before onPrinted writes it down, as the Abecedarian pays the first sort
+    // it keeps. Printing KING shows +10 from the Joker on KING itself, which is
+    // the moment a player learns what the seat does. `word` is the reading the
+    // dictionary passed, so a QU tile still spells QUEEN.
+    id: 'joker',
+    when: 'score',
+    effect({ word, data, addPoints }) {
+      const held = (data?.points ?? 0) + jokerGain(word);
+      if (held) addPoints(held);
+    },
+    onPrinted({ script, data }) {
+      const word = script?.letters;
+      const value = jokerGain(word);
+      if (!value) return null;
+      data.points = (data.points ?? 0) + value;
+      if (JOKER_CARDS[word]) data.hand = [...(data.hand ?? []), jokerRank(word)];
+      else data.table = (data.table ?? 0) + 1;
+      return { note: `+${value} for good — +${data.points} on every word` };
+    },
+    tally(data) {
+      const hand = data?.hand ?? [];
+      const table = data?.table ?? 0;
+      if (!hand.length && !table) return 'No cards yet.';
+      const cards = hand.length > 13 ? `${hand.length} cards` : hand.join(' ');
+      const words = table ? `${table} card-table word${table === 1 ? '' : 's'}` : '';
+      return `Holding ${[cards, words].filter(Boolean).join(' and ')}: +${data.points} Points on every word.`;
+    },
+  },
+  {
     // A number is not a word, so he has to vouch for one at the dictionary gate
     // (main.js, beside the Stenographer's acronyms) as well as pay for it here.
     // The gate reads the RESOLVED word and this reads the board, which agree:
@@ -2020,6 +2084,58 @@ const PATRON_BEHAVIOURS = [
     },
   },
   {
+    // Reads one thing about a word, its initial, and has two answers: his
+    // ×Mult, or the editors' spike in its place. Both are taken AT HIS SEAT,
+    // so seat order cuts both ways — sat in front, his ×1.2 multiplies only
+    // the tiles, and so does a spike; sat behind, both reach the whole table.
+    // The letters are `data.struck`, oldest first, and they never come back.
+    //
+    // `word` is the reading the dictionary passed, so a QU tile opens on Q and
+    // a thorn on T. A word carrying a blind sort is never spiked, by him or by
+    // anyone: the metal's tooltip promises that much, and a seat that broke
+    // the promise would make the tooltip a lie.
+    //
+    // The upgrade is bought from his card (`act`, then rubricatorUpgrade in
+    // js/main.js) for a flat Coin a letter. The letters are the real cost —
+    // see RUBRICATOR in constants.js.
+    id: 'rubricator',
+    when: 'score',
+    onOffer: () => ({ struck: [rollInitial([])] }),
+    // A seat that came by a door with no offer (the Testing Chamber) has no
+    // letter yet. It takes one as the next page is dealt, and sits silent
+    // until then rather than paying a ×Mult with nothing struck.
+    onPageStart({ data }) {
+      if (!data.struck?.length) data.struck = [rollInitial([])];
+      return null;
+    },
+    effect({ word, tiles, data, xMult, spike }) {
+      const struck = data?.struck ?? [];
+      if (!struck.length || !word) return;
+      const mult = rubricatorMult(struck.length);
+      if (!struck.includes(word[0])) return xMult(mult);
+      if (tiles.some(t => t.material === 'blind')) return xMult(mult, `a blind sort, so ${word[0]} goes unread`);
+      spike(SPIKE_MULT, `words starting with ${word[0]} are struck`);
+    },
+    instDesc(data) {
+      const struck = data?.struck ?? [];
+      if (!struck.length) return PATRON_CARDS.rubricator.desc;
+      const more = struck.length < INITIALS.length ? ' Can be upgraded.' : '';
+      return `×${rubricatorMult(struck.length)} Mult, but words starting with ${wordListText(struck)} `
+           + `are spiked.${more}`;
+    },
+    // What an upgrade does and costs lives on the button, so the card says
+    // only that there is one.
+    act: ({ seat, data }) => {
+      if (!seat || data?.ghost) return '';
+      const n = data?.struck?.length ?? 0;
+      if (!n || n >= INITIALS.length) return '';
+      const price = RUBRICATOR.price;
+      return `<button class="btn btn-quiet tip-btn" data-patron-act="rubricator"${
+        state.coins < price ? ' disabled' : ''}>Upgrade to ×${rubricatorMult(n + 1)} — strike a random letter (${
+        price} Coin${price === 1 ? '' : 's'})</button>`;
+    },
+  },
+  {
     // The card is `unlisted`, so it never enters the Market's pool: the only
     // way to a cat is to set the word CAT, whereupon one arrives and takes the
     // first seat at the table (see main.js). Free, so dismissing it pays
@@ -2444,12 +2560,15 @@ const PATRON_BEHAVIOURS = [
     // Names are vouched through the dictionary check in main.js, like the
     // Stenographer's acronyms — legitimate, not misspellings. Unlike his, the
     // list also PAYS whether or not the word is in the dictionary: GRACE is no
-    // less a name for being a word. wordlists/names.txt, rebuilt with
-    // tools/build-names-list.mjs.
+    // less a name for being a word. Two files, read as one through isName:
+    // wordlists/names.txt, rebuilt from the birth charts with
+    // tools/build-names-list.mjs, and wordlists/names-borrowed.txt, the gods,
+    // saints, places, stars and characters in books children are named after,
+    // written by hand.
     id: 'expectants',
     when: 'score',
     effect({ word, addPoints }) {
-      if (themeSize('names') && inTheme('names', word)) addPoints(EXPECTANTS_BONUS);
+      if (isName(word)) addPoints(EXPECTANTS_BONUS);
     },
     // …and they take the name. The register (state.babyName) holds one child at
     // a time, so printing a second name is the parents changing their minds
@@ -2458,7 +2577,7 @@ const PATRON_BEHAVIOURS = [
     // running is one baby, announced once.
     onPrinted({ script, state }) {
       const word = script?.letters;
-      if (!word || !themeSize('names') || !inTheme('names', word)) return null;
+      if (!word || !isName(word)) return null;
       if (state.babyName === word) return null;
       const renamed = !!state.babyName;
       state.babyName = word;

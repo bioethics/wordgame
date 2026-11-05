@@ -3194,6 +3194,8 @@ arcadia
 arcadian
 arcana
 arcane
+arcanum
+arcanums
 arced
 arch
 archaeological
@@ -6894,6 +6896,8 @@ blacktop
 blacktopped
 blacktopping
 blacktops
+blackwood
+blackwoods
 bladder
 bladders
 blade
@@ -7164,6 +7168,7 @@ blockbusting
 blockchain
 blockchains
 blocked
+blocker
 blockers
 blockhead
 blockheaded
@@ -9965,6 +9970,8 @@ candying
 cane
 caned
 canes
+canfield
+canfields
 canine
 canines
 caning
@@ -10328,9 +10335,11 @@ cardiology
 cardiomyopathy
 cardiopulmonary
 cardiovascular
+cardroom
 cards
 cardsharp
 cardsharps
+cardstock
 care
 cared
 careen
@@ -10534,6 +10543,7 @@ cartographer
 cartographers
 cartographic
 cartography
+cartomancy
 carton
 cartons
 cartoon
@@ -11931,6 +11941,10 @@ chippings
 chippy
 chips
 chiral
+chiromancer
+chiromancers
+chiromancies
+chiromancy
 chiropodist
 chiropodists
 chiropody
@@ -16326,6 +16340,8 @@ crapping
 crappy
 craps
 crapshoot
+crapshooter
+crapshooters
 crapshoots
 craquelin
 crash
@@ -16778,6 +16794,10 @@ crosspiece
 crosspieces
 crossroad
 crossroads
+crossruff
+crossruffed
+crossruffing
+crossruffs
 crosstalk
 crosstown
 crosswalk
@@ -21342,6 +21362,7 @@ dividers
 divides
 dividing
 divination
+divinatory
 divine
 divined
 divinely
@@ -21791,6 +21812,8 @@ doubles
 doublespeak
 doublet
 doubletalk
+doubleton
+doubletons
 doubletree
 doublets
 doublewide
@@ -24600,6 +24623,8 @@ equivocates
 equivocating
 equivocation
 equivocations
+equivoque
+equivoques
 er
 era
 eradicate
@@ -24898,6 +24923,10 @@ eucalypti
 eucalyptus
 eucalyptuses
 eucharistic
+euchre
+euchred
+euchres
+euchring
 eugenic
 eugenicist
 eugenicists
@@ -25108,6 +25137,8 @@ exacerbates
 exacerbating
 exacerbation
 exact
+exacta
+exactas
 exacted
 exacter
 exactest
@@ -26118,7 +26149,9 @@ fajitas
 fake
 faked
 faker
+fakeries
 fakers
+fakery
 fakes
 faking
 fakir
@@ -26307,6 +26340,8 @@ farmstead
 farmsteads
 farmyard
 farmyards
+faro
+faros
 farrago
 farragoes
 farragos
@@ -28628,6 +28663,10 @@ fortunate
 fortunately
 fortune
 fortunes
+fortuneteller
+fortunetellers
+fortunetelling
+fortunetellings
 forty
 fortyish
 forum
@@ -28730,6 +28769,8 @@ foxhounds
 foxhunting
 foxier
 foxiest
+foxiness
+foxinesses
 foxing
 foxtrot
 foxtrots
@@ -29746,6 +29787,8 @@ gamers
 games
 gamesmanship
 gamest
+gamester
+gamesters
 gamete
 gametes
 gamey
@@ -30320,6 +30363,10 @@ geologist
 geologists
 geology
 geomagnetic
+geomancer
+geomancers
+geomancies
+geomancy
 geometer
 geometric
 geometrical
@@ -32676,6 +32723,7 @@ hamstring
 hamstringing
 hamstrings
 hamstrung
+hanafuda
 hand
 handbag
 handbags
@@ -33880,6 +33928,8 @@ hieroglyph
 hieroglyphic
 hieroglyphics
 hieroglyphs
+hierophant
+hierophants
 hies
 hifalutin
 high
@@ -34640,6 +34690,8 @@ horsemanship
 horsemeat
 horsemen
 horseplay
+horseplayer
+horseplayers
 horsepower
 horseracing
 horseradish
@@ -39249,7 +39301,9 @@ jugging
 juggle
 juggled
 juggler
+juggleries
 jugglers
+jugglery
 juggles
 juggling
 jughead
@@ -39817,6 +39871,7 @@ knackers
 knacks
 knackwurst
 knackwursts
+knapping
 knapsack
 knapsacks
 knave
@@ -40338,6 +40393,7 @@ lankiest
 lankiness
 lanky
 lanolin
+lansquenet
 lantern
 lanterns
 lanthanum
@@ -42241,6 +42297,10 @@ lovey
 loving
 lovingly
 low
+lowball
+lowballed
+lowballing
+lowballs
 lowbrow
 lowbrows
 lowdown
@@ -42740,6 +42800,7 @@ magnums
 magpie
 magpies
 mags
+magus
 maharaja
 maharajah
 maharajahs
@@ -44143,6 +44204,8 @@ menstruating
 menstruation
 menswear
 mental
+mentalism
+mentalisms
 mentalist
 mentalists
 mentalities
@@ -45877,7 +45940,9 @@ monstrousness
 montage
 montages
 montane
+monte
 montero
+montes
 month
 monthlies
 monthlong
@@ -46488,6 +46553,8 @@ muller
 mullers
 mullet
 mullets
+mulligan
+mulligans
 mulligatawny
 mulling
 mullion
@@ -47009,6 +47076,8 @@ naphtha
 naphthalene
 napkin
 napkins
+napoleon
+napoleons
 napped
 napper
 nappier
@@ -47603,6 +47672,8 @@ newlines
 newly
 newlywed
 newlyweds
+newmarket
+newmarkets
 newness
 news
 newsagent
@@ -48886,6 +48957,8 @@ oddment
 oddments
 oddness
 odds
+oddsmaker
+oddsmakers
 ode
 odeon
 odes
@@ -49136,6 +49209,8 @@ oncologists
 oncology
 oncoming
 one
+oneiromancies
+oneiromancy
 oneness
 onerous
 ones
@@ -50030,6 +50105,10 @@ overbearing
 overbearingly
 overbearingness
 overbears
+overbid
+overbidden
+overbidding
+overbids
 overbite
 overbites
 overblown
@@ -50049,6 +50128,10 @@ overburden
 overburdened
 overburdening
 overburdens
+overcall
+overcalled
+overcalling
+overcalls
 overcame
 overcapacity
 overcast
@@ -50440,6 +50523,12 @@ overtly
 overtone
 overtones
 overtook
+overtrick
+overtricks
+overtrump
+overtrumped
+overtrumping
+overtrumps
 overture
 overtures
 overturn
@@ -51255,6 +51344,7 @@ pariah
 pariahs
 paribus
 parietal
+parimutuel
 paring
 parings
 parish
@@ -55563,6 +55653,8 @@ pressurize
 pressurized
 pressurizes
 pressurizing
+prestidigitation
+prestidigitations
 prestige
 prestigious
 presto
@@ -57244,6 +57336,8 @@ pyrites
 pyroclastic
 pyrology
 pyrolysis
+pyromancies
+pyromancy
 pyromania
 pyromaniac
 pyromaniacs
@@ -58160,6 +58254,8 @@ rater
 raters
 rates
 rather
+rathole
+ratholes
 rathskeller
 rathskellers
 ratification
@@ -58603,6 +58699,9 @@ rebuttal
 rebuttals
 rebutted
 rebutting
+rebuy
+rebuying
+rebuys
 recalcitrance
 recalcitrant
 recalculate
@@ -62203,6 +62302,7 @@ rubdowns
 rube
 rubella
 rubes
+rubicon
 rubicund
 rubidium
 rubier
@@ -63574,6 +63674,8 @@ scorekeepers
 scoreless
 scoreline
 scorelines
+scorepad
+scorepads
 scorer
 scorers
 scores
@@ -63766,6 +63868,8 @@ scribbles
 scribbling
 scribe
 scribes
+scried
+scries
 scrim
 scrimmage
 scrimmaged
@@ -63867,6 +63971,7 @@ scrutinized
 scrutinizes
 scrutinizing
 scrutiny
+scry
 scrying
 scuba
 scubaed
@@ -64239,6 +64344,8 @@ seeped
 seeping
 seeps
 seer
+seeress
+seeresses
 seers
 seersucker
 sees
@@ -66520,6 +66627,8 @@ slapdash
 slaphappy
 slaphead
 slapheads
+slapjack
+slapjacks
 slapped
 slapper
 slappers
@@ -67957,6 +68066,8 @@ sortie
 sortied
 sortieing
 sorties
+sortilege
+sortileges
 sorting
 sorts
 sos
@@ -72706,6 +72817,7 @@ tarnishes
 tarnishing
 tarns
 taro
+tarocchi
 taros
 tarot
 tarots
@@ -73752,6 +73864,10 @@ thighs
 thimble
 thimbleful
 thimblefuls
+thimblerig
+thimblerigged
+thimblerigging
+thimblerigs
 thimbles
 thin
 thine
@@ -75609,6 +75725,8 @@ tresses
 trestle
 trestles
 trews
+trey
+treys
 triad
 triads
 triage
@@ -75678,9 +75796,12 @@ trickles
 trickling
 tricklingly
 tricks
+tricksier
+tricksiest
 trickster
 tricksterism
 tricksters
+tricksy
 tricky
 tricolor
 tricolors
@@ -77230,6 +77351,8 @@ undertones
 undertook
 undertow
 undertows
+undertrick
+undertricks
 underused
 underutilised
 underutilized
@@ -78922,6 +79045,8 @@ vastly
 vastness
 vasts
 vat
+vaticinator
+vaticinators
 vats
 vatted
 vatting
