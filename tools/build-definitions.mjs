@@ -90,7 +90,7 @@ const bestSense = senses => senses.reduce((a, b) => (b.tagged > a.tagged ? b : a
 // are not in the npm package, so the common ones are here).
 const ENDINGS = {
   noun: [['s', ''], ['ses', 's'], ['xes', 'x'], ['zes', 'z'], ['ches', 'ch'], ['shes', 'sh'], ['men', 'man'], ['ies', 'y']],
-  verb: [['s', ''], ['ies', 'y'], ['es', 'e'], ['es', ''], ['ed', 'e'], ['ed', ''], ['ing', 'e'], ['ing', '']],
+  verb: [['s', ''], ['ies', 'y'], ['ied', 'y'], ['es', 'e'], ['es', ''], ['ed', 'e'], ['ed', ''], ['ing', 'e'], ['ing', '']],
   adj: [['er', ''], ['est', ''], ['er', 'e'], ['est', 'e'], ['ier', 'y'], ['iest', 'y']],
 };
 const IRREGULAR = Object.fromEntries(`
@@ -164,6 +164,16 @@ for (const w of dict) {
   if (base) { defs.set(w, `${base.toUpperCase()}: ${ownOrWordNet(base)}`); source.base++; continue; }
 }
 // 4. Transparent formations on a word that has a definition by now.
+const isVerb = v => index.get(v)?.some(s => s.pos === 'verb');
+const third = v => (/(s|x|z|ch|sh)$/.test(v) ? `${v}es` : /[^aeiou]y$/.test(v) ? `${v.slice(0, -1)}ies` : `${v}s`);
+function agentOf(w) {
+  if (!w.endsWith('er') || w.length < 6) return null;
+  const stem = w.slice(0, -2);
+  for (const v of [stem, `${stem}e`, stem.at(-1) === stem.at(-2) ? stem.slice(0, -1) : null, stem.endsWith('i') ? `${stem.slice(0, -1)}y` : null]) {
+    if (v && isVerb(v)) return `one who ${third(v)}`;
+  }
+  return null;
+}
 const has = w => defs.has(w) || own.has(w);
 for (const w of dict) {
   if (defs.has(w)) continue;
@@ -174,6 +184,10 @@ for (const w of dict) {
   else if (w.endsWith('lessly') && has(w.slice(0, -2))) made = `in a ${w.slice(0, -2)} way`;
   else if (w.endsWith('ly') && has(w.slice(0, -2)) && !w.endsWith('lly')) made = `in a ${w.slice(0, -2)} way`;
   else if (w.endsWith('less') && has(w.slice(0, -4))) made = `without ${w.slice(0, -4)}`;
+  // An agent noun on a verb WordNet knows: EMBELLISHER "one who embellishes";
+  // its plural lends the singular's, as a base form would.
+  else if (agentOf(w)) made = agentOf(w);
+  else if (w.endsWith('s') && agentOf(w.slice(0, -1))) made = `${w.slice(0, -1).toUpperCase()}: ${agentOf(w.slice(0, -1))}`;
   if (made) { defs.set(w, made); source.made++; }
 }
 

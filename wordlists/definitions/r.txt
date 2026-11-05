@@ -5,9 +5,14 @@ rabbinical	of or relating to rabbis or their teachings
 rabbis	RABBI: spiritual leader of a Jewish congregation; qualified to expound and apply Jewish law
 rabbit	any of various burrowing animals of the family Leporidae having long ears and short tails; some domesticated and raised for pets or food
 rabbited	RABBIT: any of various burrowing animals of the family Leporidae having long ears and short tails; some domesticated and raised for pets or food
+rabbiter	a person who hunts rabbits
+rabbiters	RABBITER: a person who hunts rabbits
 rabbiting	RABBIT: any of various burrowing animals of the family Leporidae having long ears and short tails; some domesticated and raised for pets or food
 rabbits	RABBIT: any of various burrowing animals of the family Leporidae having long ears and short tails; some domesticated and raised for pets or food
 rabble	a disorderly crowd of people
+rabblerouser	a person who stirs up a crowd
+rabblerousers	RABBLEROUSER: a person who stirs up a crowd
+rabblerousing	the stirring up of crowds
 rabbles	RABBLE: a disorderly crowd of people
 rabid	of or infected by rabies
 rabidly	in an extreme or fanatical manner
@@ -18,10 +23,13 @@ race	any competition
 racecourse	a course over which races are run
 racecourses	RACECOURSE: a course over which races are run
 raced	RACE: any competition
+racegoer	a person who attends horse races
+racegoers	RACEGOER: a person who attends horse races
 racehorse	a horse bred for racing
 racehorses	RACEHORSE: a horse bred for racing
 raceme	usually elongate cluster of flowers along the main stem in which the flowers at the base open first
 racemes	RACEME: usually elongate cluster of flowers along the main stem in which the flowers at the base open first
+racemic	containing equal amounts of mirror-image molecules
 racer	someone who drives racing cars at high speeds
 racers	RACER: someone who drives racing cars at high speeds
 races	RACE: any competition
@@ -84,10 +92,17 @@ radiates	RADIATE: send out rays or waves
 radiating	RADIATE: send out rays or waves
 radiation	energy that is radiated or transmitted in the form of rays or waves or particles
 radiations	RADIATION: energy that is radiated or transmitted in the form of rays or waves or particles
+radiative	giving out energy as rays
 radiator	any object that radiates energy
 radiators	RADIATOR: any object that radiates energy
 radical	two or more atoms bound together as a single unit and forming part of a molecule
+radicalisation	the process of adopting extreme views
+radicalise	cause to adopt extreme views
+radicalised	RADICALISE: cause to adopt extreme views
+radicalises	RADICALISE: cause to adopt extreme views
+radicalising	RADICALISE: cause to adopt extreme views
 radicalism	the political orientation of those who favor revolutionary change in government and society
+radicalization	the process of adopting extreme views
 radicalize	make more radical in social or political outlook
 radicalized	RADICALIZE: make more radical in social or political outlook
 radicalizes	RADICALIZE: make more radical in social or political outlook
@@ -96,10 +111,12 @@ radically	in a radical manner
 radicals	RADICAL: two or more atoms bound together as a single unit and forming part of a molecule
 radicchio	prized variety of chicory having globose heads of red leaves
 radicchios	RADICCHIO: prized variety of chicory having globose heads of red leaves
+radii	RADIUS: a straight line from the centre to the edge of a circle
 radio	medium for communication
 radioactive	exhibiting or caused by radioactivity
 radioactively	in a radioactive manner
 radioactivity	the spontaneous emission of a stream of particles or electromagnetic rays in nuclear decay
+radiobiological	relating to the effects of radiation on living things
 radiobiologist	a biologist who studies the effects of radiation on living organisms
 radiobiologists	RADIOBIOLOGIST: a biologist who studies the effects of radiation on living organisms
 radiobiology	the branch of biology that studies the effects of radiation on living organisms
@@ -115,12 +132,17 @@ radiography	the process of making a radiograph; producing an image on a radiosen
 radioing	RADIO: medium for communication
 radioisotope	a radioactive isotope of an element; produced either naturally or artificially
 radioisotopes	RADIOISOTOPE: a radioactive isotope of an element; produced either naturally or artificially
+radiologic	relating to the use of x-rays in medicine
 radiological	of or relating to radiology
 radiologist	a medical specialist who uses radioactive substances and X-rays in the treatment of disease
 radiologists	RADIOLOGIST: a medical specialist who uses radioactive substances and X-rays in the treatment of disease
 radiology	the branch of medical science dealing with the medical use of X-rays or other penetrating radiation
+radioman	a radio operator
 radiometer	meter to detect and measure radiant energy (electromagnetic or acoustic)
+radiometric	relating to measuring radiation
+radionuclide	an atom that gives off radiation
 radios	RADIO: medium for communication
+radiosurgery	surgery using focused beams of radiation
 radiotelephone	telephony that uses transmission by radio rather than by wire
 radiotelephones	RADIOTELEPHONE: telephony that uses transmission by radio rather than by wire
 radiotherapist	a medical specialist who uses radioactive substances and X-rays in the treatment of disease
@@ -146,18 +168,24 @@ rafters	RAFTER: one of several parallel sloping beams that support a roof
 rafting	RAFT: a flat float (usually made of logs or planks) that can be used for transport or as a platform for swimmers
 rafts	RAFT: a flat float (usually made of logs or planks) that can be used for transport or as a platform for swimmers
 rag	a small piece of cloth or paper
+raga	a set of notes forming the basis of an Indian musical piece
 ragamuffin	a dirty shabbily clothed urchin
 ragamuffins	RAGAMUFFIN: a dirty shabbily clothed urchin
+ragas	RAGA: a set of notes forming the basis of an Indian musical piece
 ragbag	a motley assortment of things
 ragbags	RAGBAG: a motley assortment of things
 rage	a feeling of intense anger
 raged	RAGE: a feeling of intense anger
 rages	RAGE: a feeling of intense anger
+ragga	a style of dance music from Jamaica
 ragged	being or dressed in clothes that are worn or torn
 raggeder	RAGGED: being or dressed in clothes that are worn or torn
 raggedest	RAGGED: being or dressed in clothes that are worn or torn
+raggedier	RAGGEDY: torn, untidy or worn
+raggediest	RAGGEDY: torn, untidy or worn
 raggedly	in a ragged uneven manner
 raggedness	a texture of a surface or edge that is not smooth but is irregular and uneven
+raggedy	torn, untidy or worn
 ragging	RAG: a small piece of cloth or paper
 raging	RAGE: a feeling of intense anger
 raglan	a garment (coat or sweater) that has raglan sleeves
@@ -169,7 +197,10 @@ ragtag	disparaging terms for the common people
 ragtags	RAGTAG: disparaging terms for the common people
 ragtime	music with a syncopated melody (usually for the piano)
 ragweed	widespread European weed having yellow daisylike flowers; sometimes an obnoxious weed and toxic to cattle if consumed in quantity
+ragworm	a marine worm used as fishing bait
+ragworms	RAGWORM: a marine worm used as fishing bait
 ragwort	widespread European weed having yellow daisylike flowers; sometimes an obnoxious weed and toxic to cattle if consumed in quantity
+rah	a cheer
 raid	search without warning, make a sudden surprise attack on
 raided	RAID: search without warning, make a sudden surprise attack on
 raider	someone who takes spoils or plunder (as in war)
@@ -177,7 +208,11 @@ raiders	RAIDER: someone who takes spoils or plunder (as in war)
 raiding	RAID: search without warning, make a sudden surprise attack on
 raids	RAID: search without warning, make a sudden surprise attack on
 rail	a barrier consisting of a horizontal bar and supports
+railcard	a card that gives cheaper train fares
+railcards	RAILCARD: a card that gives cheaper train fares
 railed	RAIL: a barrier consisting of a horizontal bar and supports
+railer	a person who complains loudly
+railers	RAILER: a person who complains loudly
 railing	a barrier consisting of a horizontal bar and supports
 railings	RAILING: a barrier consisting of a horizontal bar and supports
 railleries	RAILLERY: light teasing repartee
@@ -197,6 +232,8 @@ raiment	especially fine or decorative clothing
 rain	water falling in drops from vapor condensed in the atmosphere
 rainbow	an arc of colored light in the sky caused by refraction of the sun's rays by rain
 rainbows	RAINBOW: an arc of colored light in the sky caused by refraction of the sun's rays by rain
+raincheck	a postponement of an invitation until later
+rainchecks	RAINCHECK: a postponement of an invitation until later
 raincoat	a water-resistant coat
 raincoats	RAINCOAT: a water-resistant coat
 raindrop	a drop of rain
@@ -238,9 +275,14 @@ rakish	marked by up-to-dateness in dress and manners
 rakishly	in a rakish manner
 rakishness	the quality of a rake
 rallentando	gradually decreasing in tempo
+rallentandos	RALLENTANDO: a gradual slowing of the music
+rallied	RALLY: come together to support a cause
 rallies	RALLY: gather
 rally	gather
 rallying	the act of mobilizing for a common purpose
+ralph	vomit
+ralphed	RALPH: vomit
+ralphing	RALPH: vomit
 ram	strike or drive against with a heavy impact
 ramble	continue talking or writing in a desultory manner
 rambled	RAMBLE: continue talking or writing in a desultory manner
@@ -248,13 +290,16 @@ rambler	a person who takes long walks in the country
 ramblers	RAMBLER: a person who takes long walks in the country
 rambles	RAMBLE: continue talking or writing in a desultory manner
 rambling	RAMBLE: continue talking or writing in a desultory manner
+ramblings	RAMBLING: a long, wandering speech or walk
 rambunctious	noisy and lacking in restraint or discipline
 rambunctiously	in a rambunctious way
 rambunctiousness	the quality of being rambunctious
 ramekin	a cheese dish made with egg and bread crumbs that is baked and served in individual fireproof dishes
 ramekins	RAMEKIN: a cheese dish made with egg and bread crumbs that is baked and served in individual fireproof dishes
+ramen	Japanese noodles served in broth
 ramification	the act of branching out or dividing into branches
 ramifications	RAMIFICATION: the act of branching out or dividing into branches
+ramified	RAMIFY: branch out
 ramifies	RAMIFY: have or develop complicating consequences
 ramify	have or develop complicating consequences
 ramifying	RAMIFY: have or develop complicating consequences
@@ -268,6 +313,7 @@ rampaging	RAMPAGE: violently angry and destructive behavior
 rampant	unrestrained and violent
 rampantly	in an uncontrolled and rampant manner
 rampart	an embankment built around a space for defensive purposes
+ramparted	RAMPART: fortify with a defensive wall
 ramparts	RAMPART: an embankment built around a space for defensive purposes
 ramped	RAMP: an inclined surface connecting two levels
 ramping	RAMP: an inclined surface connecting two levels
@@ -286,6 +332,7 @@ rancher	a person who owns or operates a ranch
 ranchers	RANCHER: a person who owns or operates a ranch
 ranches	RANCH: farm consisting of a large tract of land along with facilities needed to raise livestock (especially cattle)
 ranching	RANCH: farm consisting of a large tract of land along with facilities needed to raise livestock (especially cattle)
+rancho	a large farm for raising livestock
 rancid	(used of decomposing oils or fats) having a rank smell or taste usually due to a chemical change or decomposition
 rancidity	the state of being rancid; having a rancid scent or flavor (as of old cooking oil)
 rancidly	in a rancid way
@@ -312,6 +359,7 @@ randomizing	RANDOMIZE: arrange in random order
 randomly	in a random manner
 randomness	a thermodynamic quantity representing the amount of energy in a system that is no longer available for doing mechanical work
 randomnesses	RANDOMNESS: a thermodynamic quantity representing the amount of energy in a system that is no longer available for doing mechanical work
+randoms	RANDOM: a stranger or unexpected person
 randy	feeling great sexual desire
 ranee	a Hindu princess or the wife of a raja
 ranees	RANEE: a Hindu princess or the wife of a raja
@@ -345,12 +393,17 @@ rankness	the property of producing abundantly and sustaining vigorous and luxuri
 ranks	RANK: a row or line of people (especially soldiers or police) standing abreast of one another
 ransack	steal goods; take as spoils
 ransacked	RANSACK: steal goods; take as spoils
+ransacker	a person who searches roughly and steals
+ransackers	RANSACKER: a person who searches roughly and steals
 ransacking	RANSACK: steal goods; take as spoils
 ransacks	RANSACK: steal goods; take as spoils
 ransom	money demanded for the return of a captured person
 ransomed	RANSOM: money demanded for the return of a captured person
+ransomer	a person who pays or demands a ransom
+ransomers	RANSOMER: a person who pays or demands a ransom
 ransoming	RANSOM: money demanded for the return of a captured person
 ransoms	RANSOM: money demanded for the return of a captured person
+ransomware	malicious software that locks files until money is paid
 rant	a loud bombastic declamation expressed with strong emotion
 ranted	RANT: a loud bombastic declamation expressed with strong emotion
 ranter	someone who rants and raves; speaks in a violent or loud manner
@@ -410,6 +463,7 @@ rapturously	in an ecstatic manner
 rare	not widely known; especially valued for its uncommonness
 rarebit	cheese melted with ale or beer served over toast
 rarebits	RAREBIT: cheese melted with ale or beer served over toast
+rared	RARE: rear or stand on hind legs
 rarefied	having low density
 rarefies	RAREFY: lessen the density or solidity of
 rarefy	lessen the density or solidity of
@@ -417,10 +471,13 @@ rarefying	RAREFY: lessen the density or solidity of
 rarely	not often
 rareness	noteworthy scarcity
 rarer	RARE: not widely known; especially valued for its uncommonness
+rares	RARE: uncommon
 rarest	RARE: not widely known; especially valued for its uncommonness
 raring	(usually followed by `to') full of eagerness
 rarities	RARITY: noteworthy scarcity
 rarity	noteworthy scarcity
+rasbora	a small freshwater fish kept in aquariums
+rasboras	RASBORA: a small freshwater fish kept in aquariums
 rascal	a deceitful and unreliable scoundrel
 rascally	playful in an appealingly bold way
 rascals	RASCAL: a deceitful and unreliable scoundrel
@@ -435,6 +492,8 @@ rasp	uttering in an irritated tone
 raspberries	RASPBERRY: woody brambles bearing usually red but sometimes black or yellow fruits that separate from the receptacle when ripe and are rounder and smaller than blackberries
 raspberry	woody brambles bearing usually red but sometimes black or yellow fruits that separate from the receptacle when ripe and are rounder and smaller than blackberries
 rasped	RASP: uttering in an irritated tone
+rasper	a person or thing that makes a harsh sound
+raspers	RASPER: a person or thing that makes a harsh sound
 raspier	RASPY: unpleasantly harsh or grating in sound
 raspiest	RASPY: unpleasantly harsh or grating in sound
 rasping	unpleasantly harsh or grating in sound
@@ -444,6 +503,8 @@ raster	the rectangular formation of parallel scanning lines that guide the elect
 rat	any of various long-tailed rodents similar to but larger than a mouse
 ratatouille	a vegetable stew; usually made with tomatoes, eggplant, zucchini, peppers, onion, and seasonings
 ratatouilles	RATATOUILLE: a vegetable stew; usually made with tomatoes, eggplant, zucchini, peppers, onion, and seasonings
+ratbag	an unpleasant or eccentric person
+ratbags	RATBAG: an unpleasant or eccentric person
 ratchet	mechanical device consisting of a toothed wheel or rack engaged with a pawl that permits it to move in only one direction
 ratcheted	RATCHET: mechanical device consisting of a toothed wheel or rack engaged with a pawl that permits it to move in only one direction
 ratcheting	RATCHET: mechanical device consisting of a toothed wheel or rack engaged with a pawl that permits it to move in only one direction
@@ -452,6 +513,8 @@ rate	a magnitude or frequency relative to a time unit
 rated	RATE: a magnitude or frequency relative to a time unit
 ratepayer	a person who pays local rates (especially a householder)
 ratepayers	RATEPAYER: a person who pays local rates (especially a householder)
+rater	a person who assesses or ranks
+raters	RATER: a person who assesses or ranks
 rates	RATE: a magnitude or frequency relative to a time unit
 rather	on the contrary
 rathole	a hole (as in the wall of a building) made by rats
@@ -459,7 +522,7 @@ ratholes	RATHOLE: a hole (as in the wall of a building) made by rats
 rathskeller	a tavern below street level featuring beer; originally a German restaurant in the basement of city hall
 rathskellers	RATHSKELLER: a tavern below street level featuring beer; originally a German restaurant in the basement of city hall
 ratification	making something valid by formally ratifying or confirming it
-ratified	formally approved and invested with legal authority
+ratified	RATIFY: approve and express assent, responsibility, or obligation
 ratifies	RATIFY: approve and express assent, responsibility, or obligation
 ratify	approve and express assent, responsibility, or obligation
 ratifying	RATIFY: approve and express assent, responsibility, or obligation
@@ -509,6 +572,8 @@ rattlers	RATTLER: pit viper with horny segments at the end of the tail that ratt
 rattles	RATTLE: make short successive sounds
 rattlesnake	pit viper with horny segments at the end of the tail that rattle when shaken
 rattlesnakes	RATTLESNAKE: pit viper with horny segments at the end of the tail that rattle when shaken
+rattletrap	a rickety old vehicle
+rattletraps	RATTLETRAP: a rickety old vehicle
 rattling	a rapid series of short loud sounds (as might be heard with a stethoscope in some types of respiratory disorders)
 rattlingly	in a rattling way
 rattlingness	the quality of being rattling
@@ -525,15 +590,20 @@ raunchiness	the quality of being raunchy
 raunchy	earthy and sexually explicit
 ravage	(usually plural) a destructive action
 ravaged	RAVAGE: (usually plural) a destructive action
+ravager	a person or thing that destroys
+ravagers	RAVAGER: a person or thing that destroys
 ravages	RAVAGE: (usually plural) a destructive action
 ravaging	RAVAGE: (usually plural) a destructive action
 rave	a dance party that lasts all night and electronically synthesized music is played
 raved	RAVE: a dance party that lasts all night and electronically synthesized music is played
 ravel	French composer and exponent of Impressionism (1875-1937)
 raveled	RAVEL: French composer and exponent of Impressionism (1875-1937)
+raveler	a person who untangles
+ravelers	RAVELER: a person who untangles
 raveling	a bit of fiber that has become separated from woven fabric
 ravelled	RAVEL: French composer and exponent of Impressionism (1875-1937)
 raveller	RAVEL: French composer and exponent of Impressionism (1875-1937)
+ravellers	RAVELLER: a person who untangles
 ravelling	a bit of fiber that has become separated from woven fabric
 ravellings	RAVELLING: a bit of fiber that has become separated from woven fabric
 ravels	RAVEL: French composer and exponent of Impressionism (1875-1937)
@@ -575,6 +645,8 @@ raze	tear down so as to make flat with the ground
 razed	torn down and broken up
 razes	RAZE: tear down so as to make flat with the ground
 razing	the event of a structure being completely demolished and leveled
+razoo	a tiny amount of money, as in not having a razoo
+razoos	RAZOO: a tiny amount of money, as in not having a razoo
 razor	edge tool used in shaving
 razorback	a mongrel hog with a thin body and long legs and a ridged back; a wild or semi-wild descendant of improved breeds; found chiefly in the southeastern United States
 razorbacks	RAZORBACK: a mongrel hog with a thin body and long legs and a ridged back; a wild or semi-wild descendant of improved breeds; found chiefly in the southeastern United States
@@ -582,7 +654,9 @@ razorbill	black-and-white northern Atlantic auk having a compressed sharp-edged 
 razorbills	RAZORBILL: black-and-white northern Atlantic auk having a compressed sharp-edged bill
 razors	RAZOR: edge tool used in shaving
 razz	a cry or noise made to express displeasure or contempt
+razzamatazz	noisy showy activity
 razzed	RAZZ: a cry or noise made to express displeasure or contempt
+razzer	a person who teases
 razzes	RAZZ: a cry or noise made to express displeasure or contempt
 razzing	a cry or noise made to express displeasure or contempt
 razzle	any exciting and complex play intended to confuse (dazzle) the opponent
@@ -593,8 +667,18 @@ reabsorption	the organic process in which the substance of some differentiated s
 reach	reach a destination, either real or abstract
 reachable	easily approached
 reached	REACH: reach a destination, either real or abstract
+reacher	a person who stretches out to touch something
+reachers	REACHER: a person who stretches out to touch something
 reaches	REACH: reach a destination, either real or abstract
 reaching	REACH: reach a destination, either real or abstract
+reacquaint	make familiar with again
+reacquainted	REACQUAINT: make familiar with again
+reacquainting	REACQUAINT: make familiar with again
+reacquaints	REACQUAINT: make familiar with again
+reacquire	obtain again
+reacquired	REACQUIRE: obtain again
+reacquires	REACQUIRE: obtain again
+reacquiring	REACQUIRE: obtain again
 react	show a response or a reaction to something
 reactance	opposition to the flow of electric current resulting from inductance and capacitance (rather than resistance)
 reactant	a chemical substance that is present at the start of a chemical reaction
@@ -609,6 +693,7 @@ reactivate	activate (an old file) anew
 reactivated	REACTIVATE: activate (an old file) anew
 reactivates	REACTIVATE: activate (an old file) anew
 reactivating	REACTIVATE: activate (an old file) anew
+reactivation	the act of making active again
 reactive	participating readily in reactions
 reactivity	responsive to stimulation
 reactor	an electrical device used to introduce reactance into a circuit
@@ -618,10 +703,15 @@ read	interpret something that is written or printed
 readabilities	READABILITY: the quality of written language that makes it easy to read and understand
 readability	the quality of written language that makes it easy to read and understand
 readable	easily deciphered
+readdress	address again
+readdressed	READDRESS: address again
+readdresses	READDRESS: address again
+readdressing	READDRESS: address again
 reader	a person who enjoys reading
 readers	READER: a person who enjoys reading
 readership	the audience reached by written communications (books or magazines or newspapers etc.)
 readerships	READERSHIP: the audience reached by written communications (books or magazines or newspapers etc.)
+readied	READY: make prepared
 readier	READY: completely prepared or in condition for immediate action or use or progress
 readies	READY: completely prepared or in condition for immediate action or use or progress
 readiest	READY: completely prepared or in condition for immediate action or use or progress
@@ -651,15 +741,20 @@ reaffirmations	REAFFIRMATION: renewed affirmation
 reaffirmed	REAFFIRM: affirm once again
 reaffirming	REAFFIRM: affirm once again
 reaffirms	REAFFIRM: affirm once again
+reafforestation	the replanting of forest
 reagent	a chemical agent for use in chemical reactions
 reagents	REAGENT: a chemical agent for use in chemical reactions
 real	being or occurring in fact or actuality; having verified existence; not illusory
 realer	REAL: being or occurring in fact or actuality; having verified existence; not illusory
+reales	REAL: a former Spanish coin
 realest	REAL: being or occurring in fact or actuality; having verified existence; not illusory
 realign	align anew or better
 realigned	REALIGN: align anew or better
 realigning	REALIGN: align anew or better
+realignment	the act of putting back into a new arrangement
+realignments	REALIGNMENT: the act of putting back into a new arrangement
 realigns	REALIGN: align anew or better
+realisable	able to be achieved or understood
 realisation	a musical composition that has been completed or enriched by someone other than the composer
 realisations	REALISATION: a musical composition that has been completed or enriched by someone other than the composer
 realise	earn on some commercial or business transaction; earn as salary or wages
@@ -700,10 +795,12 @@ reamer	a squeezer with a conical ridged center that is used for squeezing juice 
 reamers	REAMER: a squeezer with a conical ridged center that is used for squeezing juice from citrus fruit
 reaming	REAM: a large quantity of written matter
 reams	REAM: a large quantity of written matter
+reanalysis	a second analysis
 reanimate	give new life or energy to
 reanimated	given fresh life or vigor or spirit
 reanimates	REANIMATE: give new life or energy to
 reanimating	REANIMATE: give new life or energy to
+reanimation	the act of bringing back to life
 reap	gather, as of natural products
 reaped	REAP: gather, as of natural products
 reaper	someone who helps to gather the harvest
@@ -715,6 +812,17 @@ reappearances	REAPPEARANCE: the event of something appearing again
 reappeared	REAPPEAR: appear again
 reappearing	REAPPEAR: appear again
 reappears	REAPPEAR: appear again
+reapplication	the act of applying again
+reapplications	REAPPLICATION: the act of applying again
+reapplied	REAPPLY: apply again
+reapplies	REAPPLY: apply again
+reapply	apply again
+reapplying	REAPPLY: apply again
+reappoint	appoint again
+reappointed	REAPPOINT: appoint again
+reappointing	REAPPOINT: appoint again
+reappointment	the act of appointing again
+reappoints	REAPPOINT: appoint again
 reapportion	allocate, distribute, or apportion anew
 reapportioned	REAPPORTION: allocate, distribute, or apportion anew
 reapportioning	REAPPORTION: allocate, distribute, or apportion anew
@@ -730,6 +838,7 @@ reaps	REAP: gather, as of natural products
 rear	the back of a military formation or procession
 reared	REAR: the back of a military formation or procession
 rearer	REAR: the back of a military formation or procession
+rearers	REARER: a person who raises children or animals
 rearguard	a detachment assigned to protect the rear of a (retreating) military body
 rearguards	REARGUARD: a detachment assigned to protect the rear of a (retreating) military body
 rearing	the properties acquired as a consequence of the way you were treated as a child
@@ -745,6 +854,7 @@ rearrangement	changing an arrangement
 rearrangements	REARRANGEMENT: changing an arrangement
 rearranges	REARRANGE: put into a new order or arrangement
 rearranging	REARRANGE: put into a new order or arrangement
+rearrested	REARREST: arrest again
 rears	REAR: the back of a military formation or procession
 rearward	direction toward the rear
 rearwards	REARWARD: direction toward the rear
@@ -786,6 +896,18 @@ reassured	having confidence restored; freed from anxiety
 reassures	REASSURE: cause to feel sure; give reassurance to
 reassuring	restoring confidence and relieving anxiety
 reassuringly	in a reassuring manner
+reattach	attach again
+reattached	REATTACH: attach again
+reattaches	REATTACH: attach again
+reattaching	REATTACH: attach again
+reauthorisation	renewed permission
+reauthorise	give official permission again
+reauthorises	REAUTHORISE: give official permission again
+reauthorization	renewed permission
+reauthorize	give official permission again
+reauthorized	REAUTHORIZE: give official permission again
+reauthorizes	REAUTHORIZE: give official permission again
+reauthorizing	REAUTHORIZE: give official permission again
 reaves	REAVE: steal goods; take as spoils
 reawaken	awaken once again
 reawakened	REAWAKEN: awaken once again
@@ -829,12 +951,14 @@ rebuffs	REBUFF: reject outright and bluntly
 rebuild	build again
 rebuilding	building again
 rebuilds	REBUILD: build again
+rebuilt	REBUILD: build again
 rebuke	censure severely or angrily
 rebuked	REBUKE: censure severely or angrily
 rebukes	REBUKE: censure severely or angrily
 rebuking	REBUKE: censure severely or angrily
 reburial	the act of burying again
 reburials	REBURIAL: the act of burying again
+reburied	REBURY: bury again
 rebus	a puzzle where you decode a message consisting of pictures representing syllables and words
 rebuses	REBUS: a puzzle where you decode a message consisting of pictures representing syllables and words
 rebut	overthrow by argument, evidence, or proof
@@ -843,6 +967,9 @@ rebuttal	the speech act of refuting by offering a contrary contention or argumen
 rebuttals	REBUTTAL: the speech act of refuting by offering a contrary contention or argument
 rebutted	REBUT: overthrow by argument, evidence, or proof
 rebutting	REBUT: overthrow by argument, evidence, or proof
+rebuy	buy again
+rebuying	REBUY: buy again
+rebuys	REBUY: buy again
 recalcitrance	the trait of being unmanageable
 recalcitrant	stubbornly resistant to authority or control
 recalculate	calculate anew
@@ -851,6 +978,8 @@ recalculates	RECALCULATE: calculate anew
 recalculating	RECALCULATE: calculate anew
 recalculation	the act of calculating again (usually to eliminate errors or to include additional data)
 recalculations	RECALCULATION: the act of calculating again (usually to eliminate errors or to include additional data)
+recalibrate	adjust again for accuracy
+recalibration	adjustment again for accuracy
 recall	recall knowledge from memory; have a recollection
 recalled	RECALL: recall knowledge from memory; have a recollection
 recalling	RECALL: recall knowledge from memory; have a recollection
@@ -859,9 +988,13 @@ recant	formally reject or disavow a formerly held belief, usually under pressure
 recantation	a disavowal or taking back of a previous assertion
 recantations	RECANTATION: a disavowal or taking back of a previous assertion
 recanted	RECANT: formally reject or disavow a formerly held belief, usually under pressure
+recanter	a person who withdraws a statement
+recanters	RECANTER: a person who withdraws a statement
 recanting	RECANT: formally reject or disavow a formerly held belief, usually under pressure
 recants	RECANT: formally reject or disavow a formerly held belief, usually under pressure
 recap	a summary at the end that repeats the substance of a longer discussion
+recapitalisation	the restructuring of a firm's finances
+recapitalization	the restructuring of a firm's finances
 recapitulate	summarize briefly
 recapitulated	RECAPITULATE: summarize briefly
 recapitulates	RECAPITULATE: summarize briefly
@@ -930,7 +1063,12 @@ rechargeable	capable of being recharged
 recharged	RECHARGE: load anew
 recharges	RECHARGE: load anew
 recharging	RECHARGE: load anew
+recheck	check again
+rechecked	RECHECK: check again
+rechecking	RECHECK: check again
+rechecks	RECHECK: check again
 recherche	lavishly elegant and refined
+rechristened	RECHRISTEN: give a new name to
 recidivism	habitual relapse into crime
 recidivist	someone who is repeatedly arrested for criminal behavior (especially for the same criminal behavior)
 recidivists	RECIDIVIST: someone who is repeatedly arrested for criminal behavior (especially for the same criminal behavior)
@@ -947,6 +1085,10 @@ reciprocates	RECIPROCATE: act, feel, or give mutually or in return
 reciprocating	RECIPROCATE: act, feel, or give mutually or in return
 reciprocation	the act of making or doing something in return
 reciprocity	a relation of mutual dependence or action or influence
+recirculate	circulate again
+recirculated	RECIRCULATE: circulate again
+recirculates	RECIRCULATE: circulate again
+recirculating	RECIRCULATE: circulate again
 recirculation	circulation again
 recital	the act of giving an account describing incidents or a course of events
 recitals	RECITAL: the act of giving an account describing incidents or a course of events
@@ -971,10 +1113,13 @@ reckonings	RECKONING: problem solving that involves numbers or quantities
 reckons	RECKON: expect, believe, or suppose
 reclaim	claim back
 reclaimed	delivered from danger
+reclaimer	a person who recovers something
+reclaimers	RECLAIMER: a person who recovers something
 reclaiming	RECLAIM: claim back
 reclaims	RECLAIM: claim back
 reclamation	the conversion of wasteland into land suitable for use of habitation or cultivation
 reclassification	classifying something again (usually in a new category)
+reclassified	RECLASSIFY: place in a different category
 reclassifies	RECLASSIFY: classify anew, change the previous classification
 reclassify	classify anew, change the previous classification
 reclassifying	RECLASSIFY: classify anew, change the previous classification
@@ -988,9 +1133,11 @@ recluse	one who lives in solitude
 recluses	RECLUSE: one who lives in solitude
 reclusive	withdrawn from society; seeking solitude
 recognisable	capable of being recognized
+recognisably	in a way that can be identified
 recognisance	a security entered into before a court with a condition to perform some act required by law; on failure to perform that act a sum is forfeited
 recognise	show approval or appreciation of
 recognised	provided with a secure reputation
+recogniser	a person or thing that identifies
 recognises	RECOGNISE: show approval or appreciation of
 recognising	RECOGNISE: show approval or appreciation of
 recognition	the state or quality of being recognized or acknowledged
@@ -1000,10 +1147,13 @@ recognizably	to a recognizable degree
 recognizance	a security entered into before a court with a condition to perform some act required by law; on failure to perform that act a sum is forfeited
 recognize	accept (someone) to be what is claimed or accept his power and authority
 recognized	generally approved or compelling recognition
+recognizer	a person or thing that identifies
 recognizes	RECOGNIZE: accept (someone) to be what is claimed or accept his power and authority
 recognizing	RECOGNIZE: accept (someone) to be what is claimed or accept his power and authority
 recoil	draw back, as with fear or pain
 recoiled	RECOIL: draw back, as with fear or pain
+recoiler	a person who shrinks back
+recoilers	RECOILER: a person who shrinks back
 recoiling	RECOIL: draw back, as with fear or pain
 recoilingly	in a recoiling way
 recoils	RECOIL: draw back, as with fear or pain
@@ -1013,6 +1163,14 @@ recollecting	RECOLLECT: recall knowledge from memory; have a recollection
 recollection	the ability to recall past occurrences
 recollections	RECOLLECTION: the ability to recall past occurrences
 recollects	RECOLLECT: recall knowledge from memory; have a recollection
+recolor	colour again
+recolored	RECOLOR: colour again
+recoloring	RECOLOR: colour again
+recolors	RECOLOR: colour again
+recolour	colour again
+recoloured	RECOLOUR: colour again
+recolouring	RECOLOUR: colour again
+recolours	RECOLOUR: colour again
 recombinant	a cell or organism in which genetic recombination has occurred
 recombination	a combining of charges or transfer of electrons in a gas that results in the neutralization of ions; important for ions arising from the passage of high-energy particles
 recombine	undergo genetic recombination
@@ -1024,11 +1182,15 @@ recommenced	RECOMMENCE: cause to start anew
 recommences	RECOMMENCE: cause to start anew
 recommencing	RECOMMENCE: cause to start anew
 recommend	push for something
+recommendable	worth recommending
 recommendation	something (as a course of action) that is recommended as advisable
 recommendations	RECOMMENDATION: something (as a course of action) that is recommended as advisable
 recommended	RECOMMEND: push for something
+recommender	a person who recommends
+recommenders	RECOMMENDER: a person who recommends
 recommending	RECOMMEND: push for something
 recommends	RECOMMEND: push for something
+recommissioned	RECOMMISSION: bring back into service
 recommit	commit once again, as of a crime
 recommits	RECOMMIT: commit once again, as of a crime
 recommitted	RECOMMIT: commit once again, as of a crime
@@ -1037,6 +1199,11 @@ recompense	payment or reward (as for service rendered)
 recompensed	RECOMPENSE: payment or reward (as for service rendered)
 recompenses	RECOMPENSE: payment or reward (as for service rendered)
 recompensing	RECOMPENSE: payment or reward (as for service rendered)
+recompilation	the act of compiling again
+recompile	compile again
+recompiled	RECOMPILE: compile again
+recompiling	RECOMPILE: compile again
+recon	reconnaissance
 reconcilable	capable of being reconciled
 reconcile	make (one thing) compatible with (another)
 reconciled	RECONCILE: make (one thing) compatible with (another)
@@ -1049,12 +1216,23 @@ recondition	bring into an improved condition
 reconditioned	RECONDITION: bring into an improved condition
 reconditioning	RECONDITION: bring into an improved condition
 reconditions	RECONDITION: bring into an improved condition
+reconfigurable	able to be arranged differently
+reconfiguration	a new arrangement
+reconfigure	arrange differently
+reconfigured	RECONFIGURE: arrange differently
+reconfigures	RECONFIGURE: arrange differently
+reconfiguring	RECONFIGURE: arrange differently
 reconfirm	confirm again
 reconfirmed	RECONFIRM: confirm again
 reconfirming	RECONFIRM: confirm again
 reconfirms	RECONFIRM: confirm again
 reconnaissance	the act of reconnoitring (especially to gain information about an enemy or potential enemy)
 reconnaissances	RECONNAISSANCE: the act of reconnoitring (especially to gain information about an enemy or potential enemy)
+reconnect	connect again
+reconnected	RECONNECT: connect again
+reconnecting	RECONNECT: connect again
+reconnection	a second connection
+reconnects	RECONNECT: connect again
 reconnoiter	explore, often with the goal of finding something or somebody
 reconnoitered	RECONNOITER: explore, often with the goal of finding something or somebody
 reconnoitering	RECONNOITER: explore, often with the goal of finding something or somebody
@@ -1067,6 +1245,8 @@ reconquer	conquer anew
 reconquered	RECONQUER: conquer anew
 reconquering	RECONQUER: conquer anew
 reconquers	RECONQUER: conquer anew
+reconquest	the act of conquering again
+recons	RECON: reconnaissance
 reconsider	consider again; give new consideration to; usually with a view to changing
 reconsideration	a consideration of a topic (as in a meeting) with a view to changing an earlier decision
 reconsidered	RECONSIDER: consider again; give new consideration to; usually with a view to changing
@@ -1076,6 +1256,7 @@ reconstitute	construct or form anew or provide with a new structure
 reconstituted	RECONSTITUTE: construct or form anew or provide with a new structure
 reconstitutes	RECONSTITUTE: construct or form anew or provide with a new structure
 reconstituting	RECONSTITUTE: construct or form anew or provide with a new structure
+reconstitution	the act of rebuilding
 reconstruct	reassemble mentally
 reconstructed	adapted to social or economic change
 reconstructing	RECONSTRUCT: reassemble mentally
@@ -1088,10 +1269,12 @@ reconvened	RECONVENE: meet again
 reconvenes	RECONVENE: meet again
 reconvening	RECONVENE: meet again
 reconverted	RECONVERT: convert back
+recopied	RECOPY: copy again
 recopies	RECOPY: copy again
 recopy	copy again
 recopying	RECOPY: copy again
 record	anything (such as a document or a phonograph record or a photograph) providing permanent evidence of or information about past events
+recordable	able to be recorded
 recorded	set down or registered in a permanent form especially on film or tape for reproduction
 recorder	equipment for making records
 recorders	RECORDER: equipment for making records
@@ -1137,6 +1320,7 @@ recruiters	RECRUITER: someone who supplies members or employees
 recruiting	RECRUIT: register formally as a participant or member
 recruitment	the act of getting recruits; enlisting people for the army (or for a job or a cause etc.)
 recruits	RECRUIT: register formally as a participant or member
+recta	RECTUM: the final section of the large intestine
 rectal	of or involving the rectum
 rectangle	a parallelogram with four right angles
 rectangles	RECTANGLE: a parallelogram with four right angles
@@ -1187,8 +1371,11 @@ recused	RECUSE: disqualify oneself (as a judge) in a particular case
 recuses	RECUSE: disqualify oneself (as a judge) in a particular case
 recusing	RECUSE: disqualify oneself (as a judge) in a particular case
 recyclable	capable of being used again
+recyclables	RECYCLABLE: material that can be reprocessed
 recycle	cause to repeat a cycle
 recycled	RECYCLE: cause to repeat a cycle
+recycler	a person who reprocesses used materials
+recyclers	RECYCLER: a person who reprocesses used materials
 recycles	RECYCLE: cause to repeat a cycle
 recycling	used or abandoned materials for use in creating new products
 red	red color or pigment; the chromatic color resembling the hue of blood
@@ -1198,6 +1385,8 @@ redacting	REDACT: someone who puts text into appropriate form for publication
 redaction	putting something (as a literary work or a legislative bill) into acceptable form
 redactions	REDACTION: putting something (as a literary work or a legislative bill) into acceptable form
 redacts	REDACT: someone who puts text into appropriate form for publication
+redback	a venomous Australian spider with a red stripe
+redbacks	REDBACK: a venomous Australian spider with a red stripe
 redbird	the male is bright red with black wings and tail
 redbirds	REDBIRD: the male is bright red with black wings and tail
 redbreast	small Old World songbird with a reddish breast
@@ -1207,6 +1396,8 @@ redcap	a member of the military police in Britain
 redcaps	REDCAP: a member of the military police in Britain
 redcoat	British soldier; so-called because of his red coat (especially during the American Revolution)
 redcoats	REDCOAT: British soldier; so-called because of his red coat (especially during the American Revolution)
+redcurrant	a small red edible berry
+redcurrants	REDCURRANT: a small red edible berry
 redden	turn red, as if in embarrassment or shame
 reddened	REDDEN: turn red, as if in embarrassment or shame
 reddening	REDDEN: turn red, as if in embarrassment or shame
@@ -1218,6 +1409,7 @@ redecorate	redo the decoration of an apartment or house
 redecorated	REDECORATE: redo the decoration of an apartment or house
 redecorates	REDECORATE: redo the decoration of an apartment or house
 redecorating	REDECORATE: redo the decoration of an apartment or house
+redecoration	the act of decorating again
 rededicate	dedicate anew
 rededicated	REDEDICATE: dedicate anew
 rededicates	REDEDICATE: dedicate anew
@@ -1249,6 +1441,8 @@ redesigning	REDESIGN: design anew, make a new design for
 redesigns	REDESIGN: design anew, make a new design for
 redevelop	develop for a second time, in order to improve the contrast, colour, etc., of a negative or print
 redeveloped	REDEVELOP: develop for a second time, in order to improve the contrast, colour, etc., of a negative or print
+redeveloper	a person who rebuilds an area
+redevelopers	REDEVELOPER: a person who rebuilds an area
 redeveloping	REDEVELOP: develop for a second time, in order to improve the contrast, colour, etc., of a negative or print
 redevelopment	the act of improving by renewing and restoring
 redevelopments	REDEVELOPMENT: the act of improving by renewing and restoring
@@ -1257,9 +1451,17 @@ redfish	North Atlantic rockfish
 redhead	someone who has red hair
 redheaded	having red hair and usually fair skin
 redheads	REDHEAD: someone who has red hair
+redial	dial again
+redialed	REDIAL: dial again
+redialing	REDIAL: dial again
+redialled	REDIAL: dial again
+redialling	REDIAL: dial again
+redials	REDIAL: dial again
+redid	REDO: do again
 redirect	channel into a new direction
 redirected	REDIRECT: channel into a new direction
 redirecting	REDIRECT: channel into a new direction
+redirection	the act of sending in a new direction
 redirects	REDIRECT: channel into a new direction
 rediscover	discover again
 rediscovered	REDISCOVER: discover again
@@ -1272,6 +1474,13 @@ redistributed	REDISTRIBUTE: distribute anew
 redistributes	REDISTRIBUTE: distribute anew
 redistributing	REDISTRIBUTE: distribute anew
 redistribution	distributing again
+redistributive	relating to sharing out wealth differently
+redistributor	a person who shares out differently
+redistributors	REDISTRIBUTOR: a person who shares out differently
+redistrict	divide into new districts
+redistricted	REDISTRICT: divide into new districts
+redistricting	REDISTRICT: divide into new districts
+redistricts	REDISTRICT: divide into new districts
 redline	discriminate in selling or renting housing in certain areas of a neighborhood
 redlining	REDLINE: discriminate in selling or renting housing in certain areas of a neighborhood
 redneck	a poor White person in the southern United States
@@ -1282,6 +1491,7 @@ redoes	REDO: make new
 redoing	REDO: make new
 redolence	a pleasingly sweet olfactory property
 redolent	serving to bring to mind
+redone	REDO: do again
 redouble	double in magnitude, extent, or intensity
 redoubled	become much greater in intensity or size or amount
 redoubles	REDOUBLE: double in magnitude, extent, or intensity
@@ -1294,11 +1504,18 @@ redounded	REDOUND: return or recoil
 redounding	REDOUND: return or recoil
 redounds	REDOUND: return or recoil
 redraft	a draft for the amount of a dishonored draft plus the costs and charges of drafting again
+redrafted	REDRAFT: write again
+redrafting	REDRAFT: write again
 redrafts	REDRAFT: a draft for the amount of a dishonored draft plus the costs and charges of drafting again
+redraw	draw again
+redrawing	REDRAW: draw again
+redrawn	REDRAW: draw again
+redraws	REDRAW: draw again
 redress	a sum of money paid in compensation for loss or injury
 redressed	REDRESS: a sum of money paid in compensation for loss or injury
 redresses	REDRESS: a sum of money paid in compensation for loss or injury
 redressing	REDRESS: a sum of money paid in compensation for loss or injury
+redrew	REDRAW: draw again
 reds	RED: red color or pigment; the chromatic color resembling the hue of blood
 redshank	a common Old World wading bird with long red legs
 redshanks	REDSHANK: a common Old World wading bird with long red legs
@@ -1332,9 +1549,16 @@ redux	brought back
 redwood	the soft reddish wood of either of two species of sequoia trees
 redwoods	REDWOOD: the soft reddish wood of either of two species of sequoia trees
 reed	tall woody perennial grasses with hollow slender stems especially of the genera Arundo and Phragmites
+reedbuck	an African antelope living near reeds
+reedbucks	REEDBUCK: an African antelope living near reeds
 reedier	REEDY: having a tone of a reed instrument
 reediest	REEDY: having a tone of a reed instrument
 reeds	REED: tall woody perennial grasses with hollow slender stems especially of the genera Arundo and Phragmites
+reeducate	teach again
+reeducated	REEDUCATE: teach again
+reeducates	REEDUCATE: teach again
+reeducating	REEDUCATE: teach again
+reeducation	the act of teaching again
 reedy	having a tone of a reed instrument
 reef	a submerged ridge of rock or coral near the surface of the water
 reefed	REEF: a submerged ridge of rock or coral near the surface of the water
@@ -1344,9 +1568,13 @@ reefing	REEF: a submerged ridge of rock or coral near the surface of the water
 reefs	REEF: a submerged ridge of rock or coral near the surface of the water
 reek	have an element suggestive (of something)
 reeked	REEK: have an element suggestive (of something)
+reekers	REEKER: a person or thing that smells strongly
+reekier	REEKY: smoky or foul-smelling
+reekiest	REEKY: smoky or foul-smelling
 reeking	wet with secreted or exuded moisture such as sweat or tears
 reekingly	in a reeking way
 reeks	REEK: have an element suggestive (of something)
+reeky	smoky or foul-smelling
 reel	walk as if unable to control one's movements
 reelect	elect again
 reelected	REELECT: elect again
@@ -1359,6 +1587,19 @@ reeler	someone who walks unsteadily as if about to fall
 reelers	REELER: someone who walks unsteadily as if about to fall
 reeling	REEL: walk as if unable to control one's movements
 reels	REEL: walk as if unable to control one's movements
+reemerge	appear again
+reemerged	REEMERGE: appear again
+reemergence	the act of appearing again
+reemerges	REEMERGE: appear again
+reemerging	REEMERGE: appear again
+reemphasise	stress again
+reemphasised	REEMPHASISE: stress again
+reemphasises	REEMPHASISE: stress again
+reemphasising	REEMPHASISE: stress again
+reemphasize	stress again
+reemphasized	REEMPHASIZE: stress again
+reemphasizes	REEMPHASIZE: stress again
+reemphasizing	REEMPHASIZE: stress again
 reenact	enact or perform again
 reenacted	REENACT: enact or perform again
 reenacting	REENACT: enact or perform again
@@ -1369,12 +1610,25 @@ reenforce	make stronger
 reenforced	REENFORCE: make stronger
 reenforces	REENFORCE: make stronger
 reenforcing	REENFORCE: make stronger
+reengage	engage again
+reengaged	REENGAGE: engage again
+reengages	REENGAGE: engage again
+reengaging	REENGAGE: engage again
+reenlist	join the armed services again
+reenlisted	REENLIST: join the armed services again
+reenlisting	REENLIST: join the armed services again
+reenlists	REENLIST: join the armed services again
+reenter	enter again
+reentered	REENTER: enter again
+reentering	REENTER: enter again
+reenters	REENTER: enter again
 reentries	REENTRY: the act of entering again
 reentry	the act of entering again
 reestablish	bring back into original existence, use, function, or position
 reestablished	REESTABLISH: bring back into original existence, use, function, or position
 reestablishes	REESTABLISH: bring back into original existence, use, function, or position
 reestablishing	REESTABLISH: bring back into original existence, use, function, or position
+reestablishment	the act of setting up again
 reevaluate	revise or renew one's assessment
 reevaluated	REEVALUATE: revise or renew one's assessment
 reevaluates	REEVALUATE: revise or renew one's assessment
@@ -1392,6 +1646,8 @@ reexamined	REEXAMINE: look at again; examine again
 reexamines	REEXAMINE: look at again; examine again
 reexamining	REEXAMINE: look at again; examine again
 ref	the chief official (as in boxing or American football) who is expected to ensure fair play
+refactor	restructure computer code without changing what it does
+refactoring	REFACTOR: restructure computer code without changing what it does
 refashion	make new
 refashioned	REFASHION: make new
 refashioning	REFASHION: make new
@@ -1407,6 +1663,7 @@ reference	a remark that calls attention to something or someone
 referenced	REFERENCE: a remark that calls attention to something or someone
 references	REFERENCE: a remark that calls attention to something or someone
 referencing	REFERENCE: a remark that calls attention to something or someone
+referenda	REFERENDUM: a vote by all voters on a single question
 referendum	a legislative act is referred for final approval to a popular vote by the electorate
 referendums	REFERENDUM: a legislative act is referred for final approval to a popular vote by the electorate
 referent	something referred to; the object of a reference
@@ -1420,7 +1677,12 @@ referring	REFER: make reference to
 refers	REFER: make reference to
 reffed	REF: the chief official (as in boxing or American football) who is expected to ensure fair play
 reffing	REF: the chief official (as in boxing or American football) who is expected to ensure fair play
+refile	file again
+refiled	REFILE: file again
+refiles	REFILE: file again
+refiling	REFILE: file again
 refill	fill something that had previously been emptied
+refillable	able to be filled again
 refilled	REFILL: fill something that had previously been emptied
 refilling	REFILL: fill something that had previously been emptied
 refills	REFILL: fill something that had previously been emptied
@@ -1472,6 +1734,9 @@ reflexive	a personal pronoun compounded with -self to show the agent's action af
 reflexively	in a reflexive manner; by means of reflexes
 reflexives	REFLEXIVE: a personal pronoun compounded with -self to show the agent's action affects the agent
 reflexivity	the coreferential relation between a reflexive pronoun and its antecedent
+reflexological	relating to massage of the feet to treat illness
+reflexologist	a person who treats illness by massaging the feet
+reflexologists	REFLEXOLOGIST: a person who treats illness by massaging the feet
 reflexology	the study of reflex action as it relates to the behavior of organisms
 refloat	set afloat again
 reflux	an abnormal backward flow of body fluids
@@ -1480,6 +1745,7 @@ refocused	REFOCUS: focus once again
 refocuses	REFOCUS: focus once again
 refocusing	focusing again
 refocussed	REFOCUS: focus once again
+refocusses	REFOCUS: focus again
 refocussing	REFOCUS: focus once again
 reforest	forest anew
 reforestation	the restoration (replanting) of a forest that had been reduced by fire or cutting
@@ -1488,10 +1754,13 @@ reforesting	REFOREST: forest anew
 reforests	REFOREST: forest anew
 reforged	REFORGE: cast or model anew
 reform	a change for the better as a result of correcting abuses
+reformat	format again
 reformation	improvement (or an intended improvement) in the existing form or condition of institutions or practices etc.; intended to make a striking change for the better in social or political or religious affairs
 reformations	REFORMATION: improvement (or an intended improvement) in the existing form or condition of institutions or practices etc.; intended to make a striking change for the better in social or political or religious affairs
 reformatories	REFORMATORY: correctional institution for the detention and discipline and training of young or first offenders
 reformatory	correctional institution for the detention and discipline and training of young or first offenders
+reformatted	REFORMAT: format again
+reformatting	REFORMAT: format again
 reformed	of or relating to the body of Protestant Christianity arising during the Reformation; used of some Protestant churches especially Calvinist as distinct from Lutheran
 reformer	a disputant who advocates reform
 reformers	REFORMER: a disputant who advocates reform
@@ -1503,11 +1772,14 @@ reformulate	formulate or develop again, of an improved theory or hypothesis
 reformulated	REFORMULATE: formulate or develop again, of an improved theory or hypothesis
 reformulates	REFORMULATE: formulate or develop again, of an improved theory or hypothesis
 reformulating	REFORMULATE: formulate or develop again, of an improved theory or hypothesis
+reformulation	the act of expressing in a new way
+reformulations	REFORMULATION: the act of expressing in a new way
 refract	subject to refraction
 refracted	REFRACT: subject to refraction
 refracting	REFRACT: subject to refraction
 refraction	the change in direction of a propagating wave (light or sound) when passing from one medium to another
 refractive	of or relating to or capable of refraction
+refractor	something that bends light
 refractories	REFRACTORY: lining consisting of material with a high melting point; used to line the inside walls of a furnace
 refractory	lining consisting of material with a high melting point; used to line the inside walls of a furnace
 refracts	REFRACT: subject to refraction
@@ -1515,6 +1787,9 @@ refrain	the part of a song where a soloist is joined by a group of singers
 refrained	REFRAIN: the part of a song where a soloist is joined by a group of singers
 refraining	REFRAIN: the part of a song where a soloist is joined by a group of singers
 refrains	REFRAIN: the part of a song where a soloist is joined by a group of singers
+refreeze	freeze again
+refreezes	REFREEZE: freeze again
+refreezing	REFREEZE: freeze again
 refresh	refresh one's memory
 refreshed	with restored energy
 refresher	a fee (in addition to that marked on the brief) paid to counsel in a case that lasts more than one day
@@ -1547,7 +1822,10 @@ refuges	REFUGE: a safe place
 refulgence	the quality of being bright and sending out rays of light
 refulgent	radiating or as if radiating light
 refund	money returned to a payer
+refundable	able to be paid back
 refunded	REFUND: money returned to a payer
+refunder	a person who pays back
+refunders	REFUNDER: a person who pays back
 refunding	REFUND: money returned to a payer
 refunds	REFUND: money returned to a payer
 refurbish	make brighter and prettier
@@ -1573,6 +1851,7 @@ refute	overthrow by argument, evidence, or proof
 refuted	REFUTE: overthrow by argument, evidence, or proof
 refutes	REFUTE: overthrow by argument, evidence, or proof
 refuting	REFUTE: overthrow by argument, evidence, or proof
+reg	registration
 regain	get or find back; recover the use of
 regained	REGAIN: get or find back; recover the use of
 regaining	REGAIN: get or find back; recover the use of
@@ -1598,8 +1877,12 @@ regenerated	REGENERATE: reestablish on a new, usually improved, basis or make ne
 regenerates	REGENERATE: reestablish on a new, usually improved, basis or make new or like new
 regenerating	that are generating anew
 regeneration	growth anew of lost tissue or destroyed parts or organs
+regenerative	capable of growing back
 regent	members of a governing board
 regents	REGENT: members of a governing board
+regex	a pattern used to match text in computing
+regexp	a pattern used to match text in computing
+regexps	REGEXP: a pattern used to match text in computing
 reggae	popular music originating in the West Indies; repetitive bass riffs and regular chords played on the off beat by a guitar
 regicide	someone who commits regicide; the killer of a king
 regicides	REGICIDE: someone who commits regicide; the killer of a king
@@ -1618,6 +1901,7 @@ regional	characteristic of a region
 regionalism	a feature (as a pronunciation or expression or custom) that is characteristic of a particular region
 regionalisms	REGIONALISM: a feature (as a pronunciation or expression or custom) that is characteristic of a particular region
 regionally	in a regional manner
+regionals	REGIONAL: a regional contest
 regions	REGION: the extended spatial location of something
 register	record in writing; enter into a book of names or events or transactions
 registered	REGISTER: record in writing; enter into a book of names or events or transactions
@@ -1632,6 +1916,9 @@ registrations	REGISTRATION: the act of enrolling
 registries	REGISTRY: an official written record of names or events or transactions
 registry	an official written record of names or events or transactions
 regnant	exercising power or authority
+rego	vehicle registration
+regolith	the layer of loose rock covering solid rock
+regos	REGO: vehicle registration
 regress	the reasoning involved when you assume the conclusion is true and reason backward to the evidence
 regressed	REGRESS: the reasoning involved when you assume the conclusion is true and reason backward to the evidence
 regresses	REGRESS: the reasoning involved when you assume the conclusion is true and reason backward to the evidence
@@ -1653,7 +1940,10 @@ regrouping	REGROUP: organize anew, as after a setback
 regroups	REGROUP: organize anew, as after a setback
 regrow	grow anew or continue growth after an injury or interruption
 regrowing	REGROW: grow anew or continue growth after an injury or interruption
+regrown	REGROW: grow again
 regrows	REGROW: grow anew or continue growth after an injury or interruption
+regrowth	new growth after cutting or damage
+regs	REG: registration
 regular	in accordance with fixed order or procedure or principle
 regularisation	the condition of having been made regular (or more regular)
 regularise	bring into conformity with rules or principles or usage; impose regulations
@@ -1684,12 +1974,16 @@ regurgitated	REGURGITATE: pour or rush back
 regurgitates	REGURGITATE: pour or rush back
 regurgitating	REGURGITATE: pour or rush back
 regurgitation	backflow of blood through a defective heart valve
+rehab	treatment for addiction or injury
+rehabbed	REHAB: treatment for addiction or injury
+rehabbing	REHAB: treatment for addiction or injury
 rehabilitate	help to readapt, as to a former state of health or good repute
 rehabilitated	REHABILITATE: help to readapt, as to a former state of health or good repute
 rehabilitates	REHABILITATE: help to readapt, as to a former state of health or good repute
 rehabilitating	REHABILITATE: help to readapt, as to a former state of health or good repute
 rehabilitation	the restoration of someone to a useful place in society
 rehabilitative	designed to accomplish rehabilitation
+rehabs	REHAB: treatment for addiction or injury
 rehash	present or use over, with no or few changes
 rehashed	REHASH: present or use over, with no or few changes
 rehashes	REHASH: present or use over, with no or few changes
@@ -1705,12 +1999,19 @@ rehearses	REHEARSE: engage in a rehearsal (of)
 rehearsing	REHEARSE: engage in a rehearsal (of)
 reheat	heat again
 reheated	REHEAT: heat again
+reheater	a device that warms again
+reheaters	REHEATER: a device that warms again
 reheating	REHEAT: heat again
 reheats	REHEAT: heat again
+rehire	hire again
+rehired	REHIRE: hire again
+rehires	REHIRE: hire again
+rehiring	REHIRE: hire again
 rehouse	put up in a new or different housing
 rehoused	REHOUSE: put up in a new or different housing
 rehouses	REHOUSE: put up in a new or different housing
 rehousing	REHOUSE: put up in a new or different housing
+rehydrate	restore water to
 reification	regarding something abstract as a material thing
 reign	have sovereign power
 reigned	REIGN: have sovereign power
@@ -1720,6 +2021,8 @@ reignited	REIGNITE: ignite anew, as of something burning
 reignites	REIGNITE: ignite anew, as of something burning
 reigniting	REIGNITE: ignite anew, as of something burning
 reigns	REIGN: have sovereign power
+reiki	a Japanese therapy based on channelling energy through the hands
+reimbursable	able to be paid back
 reimburse	pay back for some expense incurred
 reimbursed	REIMBURSE: pay back for some expense incurred
 reimbursement	compensation paid (to someone) for damages or losses or money already spent etc.
@@ -1737,9 +2040,12 @@ reincarnates	REINCARNATE: be born anew in another body after death
 reincarnating	REINCARNATE: be born anew in another body after death
 reincarnation	embodiment in a new form (especially the reappearance or a person in another form)
 reincarnations	REINCARNATION: embodiment in a new form (especially the reappearance or a person in another form)
+reincorporated	REINCORPORATE: include again
 reindeer	Arctic deer with large antlers in both sexes; called `reindeer' in Eurasia and `caribou' in North America
 reindeers	REINDEER: Arctic deer with large antlers in both sexes; called `reindeer' in Eurasia and `caribou' in North America
 reined	REIN: one of a pair of long straps (usually connected to the bit or the headpiece) used to control a horse
+reinfection	a second infection
+reinfections	REINFECTION: a second infection
 reinforce	make stronger
 reinforced	REINFORCE: make stronger
 reinforcement	a military operation (often involving new supplies of men and materiel) to strengthen a military force or aid in the performance of its mission
@@ -1747,7 +2053,15 @@ reinforcements	REINFORCEMENT: a military operation (often involving new supplies
 reinforces	REINFORCE: make stronger
 reinforcing	REINFORCE: make stronger
 reining	REIN: one of a pair of long straps (usually connected to the bit or the headpiece) used to control a horse
+reinitialise	set back to a starting state
+reinitialised	REINITIALISE: set back to a starting state
+reinitialize	set back to a starting state
+reinitialized	REINITIALIZE: set back to a starting state
 reins	REIN: one of a pair of long straps (usually connected to the bit or the headpiece) used to control a horse
+reinsert	insert again
+reinserted	REINSERT: insert again
+reinserting	REINSERT: insert again
+reinserts	REINSERT: insert again
 reinstall	install again
 reinstalled	REINSTALL: install again
 reinstalling	REINSTALL: install again
@@ -1761,6 +2075,7 @@ reintegrate	integrate again
 reintegrated	REINTEGRATE: integrate again
 reintegrates	REINTEGRATE: integrate again
 reintegrating	REINTEGRATE: integrate again
+reintegration	the act of combining again
 reinterpret	interpret from a different viewpoint
 reinterpretation	a new or different meaning
 reinterpretations	REINTERPRETATION: a new or different meaning
@@ -1776,7 +2091,14 @@ reintroductions	REINTRODUCTION: an act of renewed introduction
 reinvent	bring back into existence
 reinvented	REINVENT: bring back into existence
 reinventing	REINVENT: bring back into existence
+reinvention	the act of changing completely
+reinventions	REINVENTION: the act of changing completely
 reinvents	REINVENT: bring back into existence
+reinvest	invest again
+reinvested	REINVEST: invest again
+reinvesting	REINVEST: invest again
+reinvestment	the act of investing again
+reinvests	REINVEST: invest again
 reinvigorate	impart vigor, strength, or vitality to
 reinvigorated	with restored energy
 reinvigorates	REINVIGORATE: impart vigor, strength, or vitality to
@@ -1793,6 +2115,8 @@ reiteration	the act of repeating over and again (or an instance thereof)
 reiterations	REITERATION: the act of repeating over and again (or an instance thereof)
 reject	refuse to accept or acknowledge
 rejected	REJECT: refuse to accept or acknowledge
+rejecter	a person who refuses
+rejecters	REJECTER: a person who refuses
 rejecting	REJECT: refuse to accept or acknowledge
 rejection	the act of rejecting something
 rejections	REJECTION: the act of rejecting something
@@ -1800,6 +2124,9 @@ rejects	REJECT: refuse to accept or acknowledge
 rejig	re-equip a factory or plant
 rejigged	REJIG: re-equip a factory or plant
 rejigger	REJIG: re-equip a factory or plant
+rejiggered	REJIGGER: rearrange
+rejiggering	REJIGGER: rearrange
+rejiggers	REJIGGER: rearrange
 rejigging	REJIG: re-equip a factory or plant
 rejigs	REJIG: re-equip a factory or plant
 rejoice	feel happiness or joy
@@ -1822,10 +2149,18 @@ rekindle	kindle anew, as of a fire
 rekindled	REKINDLE: kindle anew, as of a fire
 rekindles	REKINDLE: kindle anew, as of a fire
 rekindling	REKINDLE: kindle anew, as of a fire
+relabel	label again
+relabeled	RELABEL: label again
+relabeling	RELABEL: label again
+relabelled	RELABEL: label again
+relabelling	RELABEL: label again
+relabels	RELABEL: label again
+relaid	RELAY: lay again
 relapse	a failure to maintain a higher state
 relapsed	RELAPSE: a failure to maintain a higher state
 relapses	RELAPSE: a failure to maintain a higher state
 relapsing	a failure to maintain a higher state
+relatable	easy to identify with
 relate	make a logical or causal connection
 related	being connected either logically or causally or by shared characteristics
 relatedness	a particular manner of connectedness
@@ -1840,8 +2175,14 @@ relative	a person related by blood or marriage
 relatively	in a relative manner; by comparison to something else
 relatives	RELATIVE: a person related by blood or marriage
 relativism	the philosophical doctrine that all criteria of judgment are relative to the individuals and situations involved
+relativist	a person who believes truth depends on context
 relativistic	relating or subject to the special or the general theory of relativity
+relativists	RELATIVIST: a person who believes truth depends on context
 relativity	the theory that space and time are relative concepts rather than absolute concepts
+relaunch	launch again
+relaunched	RELAUNCH: launch again
+relaunches	RELAUNCH: launch again
+relaunching	RELAUNCH: launch again
 relax	become less tense, rest, or take one's ease
 relaxant	a drug that relaxes and relieves tension
 relaxants	RELAXANT: a drug that relaxes and relieves tension
@@ -1860,6 +2201,7 @@ relearn	learn something again, as after having forgotten or neglected it
 relearned	RELEARN: learn something again, as after having forgotten or neglected it
 relearning	RELEARN: learn something again, as after having forgotten or neglected it
 relearns	RELEARN: learn something again, as after having forgotten or neglected it
+releasable	able to be freed or issued
 release	release, as from one's grip
 released	RELEASE: release, as from one's grip
 releases	RELEASE: release, as from one's grip
@@ -1887,6 +2229,7 @@ reliance	certainty based on past experience
 reliant	relying on another for support
 relic	an antiquity that has survived from the distant past
 relics	RELIC: an antiquity that has survived from the distant past
+relied	RELY: depend on
 relief	the feeling that comes when something burdensome is removed or reduced
 reliefs	RELIEF: the feeling that comes when something burdensome is removed or reduced
 relies	RELY: have faith or confidence in
@@ -1896,6 +2239,10 @@ reliever	someone who takes the place of another (as when things get dangerous or
 relievers	RELIEVER: someone who takes the place of another (as when things get dangerous or difficult)
 relieves	RELIEVE: provide physical relief, as from pain
 relieving	RELIEVE: provide physical relief, as from pain
+relight	light again
+relighted	RELIGHT: light again
+relighting	RELIGHT: light again
+relights	RELIGHT: light again
 religion	a strong belief in a supernatural power or powers that control human destiny
 religionists	RELIGIONIST: a person addicted to religion or a religious zealot
 religions	RELIGION: a strong belief in a supernatural power or powers that control human destiny
@@ -1905,6 +2252,8 @@ religiously	by religion
 religiousness	piety by virtue of being devout
 relinquish	part with a possession or right
 relinquished	RELINQUISH: part with a possession or right
+relinquisher	a person who gives up
+relinquishers	RELINQUISHER: a person who gives up
 relinquishes	RELINQUISH: part with a possession or right
 relinquishing	RELINQUISH: part with a possession or right
 relinquishment	a verbal act of renouncing a claim or right or position etc.
@@ -1914,14 +2263,20 @@ relish	vigorous and enthusiastic enjoyment
 relished	RELISH: vigorous and enthusiastic enjoyment
 relishes	RELISH: vigorous and enthusiastic enjoyment
 relishing	RELISH: vigorous and enthusiastic enjoyment
+relisted	RELIST: list again
 relive	experience again, often in the imagination
 relived	RELIVE: experience again, often in the imagination
 relives	RELIVE: experience again, often in the imagination
 reliving	a recurrence of a prior experience
+rellie	a relative
+rellies	RELLIE: a relative
 reload	load anew
 reloaded	RELOAD: load anew
+reloader	a person or device that loads again
+reloaders	RELOADER: a person or device that loads again
 reloading	RELOAD: load anew
 reloads	RELOAD: load anew
+relocatable	able to be moved to a new place
 relocate	become established in a new location
 relocated	settled in a new location
 relocates	RELOCATE: become established in a new location
@@ -1933,6 +2288,7 @@ reluctant	unwillingness to do something contrary to your custom
 reluctantly	with reluctance
 rely	have faith or confidence in
 relying	RELY: have faith or confidence in
+remade	REMAKE: make again
 remain	stay the same; remain in a certain state
 remainder	something left after other parts have been taken away
 remaindered	REMAINDER: something left after other parts have been taken away
@@ -1948,6 +2304,10 @@ remand	refer (a matter or legal case) to another committee or authority or court
 remanded	REMAND: refer (a matter or legal case) to another committee or authority or court for decision
 remanding	REMAND: refer (a matter or legal case) to another committee or authority or court for decision
 remands	REMAND: refer (a matter or legal case) to another committee or authority or court for decision
+remap	map again
+remapped	REMAP: map again
+remapping	REMAP: map again
+remaps	REMAP: map again
 remark	a statement that expresses a personal opinion or belief or adds information
 remarkable	unusual or striking
 remarkably	to a remarkable degree or extent
@@ -1956,9 +2316,14 @@ remarking	REMARK: a statement that expresses a personal opinion or belief or add
 remarks	REMARK: a statement that expresses a personal opinion or belief or adds information
 remarriage	the act of marrying again
 remarriages	REMARRIAGE: the act of marrying again
+remarried	REMARRY: marry again
 remarries	REMARRY: marry, not for the first time
 remarry	marry, not for the first time
 remarrying	REMARRY: marry, not for the first time
+remaster	make a new improved version of a recording
+remastered	REMASTER: make a new improved version of a recording
+remastering	REMASTER: make a new improved version of a recording
+remasters	REMASTER: make a new improved version of a recording
 rematch	something (especially a game) that is played again
 rematches	REMATCH: something (especially a game) that is played again
 remediable	capable of being remedied or redressed
@@ -1968,11 +2333,14 @@ remediated	REMEDIATE: set straight or right
 remediates	REMEDIATE: set straight or right
 remediating	REMEDIATE: set straight or right
 remediation	act of correcting an error or a fault or an evil
+remedied	REMEDY: put right
 remedies	REMEDY: act of correcting an error or a fault or an evil
 remedy	act of correcting an error or a fault or an evil
 remedying	REMEDY: act of correcting an error or a fault or an evil
 remember	recall knowledge from memory; have a recollection
 remembered	REMEMBER: recall knowledge from memory; have a recollection
+rememberer	a person who recalls
+rememberers	REMEMBERER: a person who recalls
 remembering	REMEMBER: recall knowledge from memory; have a recollection
 remembers	REMEMBER: recall knowledge from memory; have a recollection
 remembrance	the ability to recall past occurrences
@@ -2000,10 +2368,16 @@ remittance	a payment of money sent to a person in another place
 remittances	REMITTANCE: a payment of money sent to a person in another place
 remitted	REMIT: send (money) in payment
 remitting	REMIT: send (money) in payment
+remix	a new version of a recording
+remixed	REMIX: a new version of a recording
+remixes	REMIX: a new version of a recording
+remixing	REMIX: a new version of a recording
 remnant	a small part or portion that remains after the main part no longer exists
 remnants	REMNANT: a small part or portion that remains after the main part no longer exists
 remodel	do over, as of (part of) a house
 remodeled	REMODEL: do over, as of (part of) a house
+remodeler	a person who rebuilds
+remodelers	REMODELER: a person who rebuilds
 remodeling	REMODEL: do over, as of (part of) a house
 remodelled	REMODEL: do over, as of (part of) a house
 remodeller	REMODEL: do over, as of (part of) a house
@@ -2024,6 +2398,10 @@ remorseful	feeling or expressing pain or sorrow for sins or offenses
 remorsefully	in a rueful manner
 remorseless	without mercy or pity
 remorselessly	without pity; in a merciless manner
+remortgage	take out a new loan on a property
+remortgaged	REMORTGAGE: take out a new loan on a property
+remortgages	REMORTGAGE: take out a new loan on a property
+remortgaging	REMORTGAGE: take out a new loan on a property
 remote	located far away spatially
 remotely	in a remote manner
 remoteness	the property of being remote
@@ -2068,6 +2446,8 @@ rend	tear or be torn violently
 rended	REND: tear or be torn violently
 render	cause to become
 rendered	RENDER: cause to become
+renderer	a person or program that produces an image
+renderers	RENDERER: a person or program that produces an image
 rendering	a performance of a musical composition or a dramatic role etc.
 renderings	RENDERING: a performance of a musical composition or a dramatic role etc.
 renders	RENDER: cause to become
@@ -2091,14 +2471,25 @@ renegotiate	negociate anew
 renegotiated	RENEGOTIATE: negociate anew
 renegotiates	RENEGOTIATE: negociate anew
 renegotiating	RENEGOTIATE: negociate anew
+renegotiation	the act of discussing terms again
 renew	reestablish on a new, usually improved, basis or make new or like new
 renewable	that can be renewed or extended
+renewables	RENEWABLE: a source of energy that does not run out
 renewal	the conversion of wasteland into land suitable for use of habitation or cultivation
 renewals	RENEWAL: the conversion of wasteland into land suitable for use of habitation or cultivation
 renewed	restored to a new condition
+renewer	a person who restores
+renewers	RENEWER: a person who restores
 renewing	tending to impart new life and vigor to
 renews	RENEW: reestablish on a new, usually improved, basis or make new or like new
 rennet	a substance that curdles milk in making cheese and junket
+renominate	nominate again
+renominated	RENOMINATE: nominate again
+renominates	RENOMINATE: nominate again
+renominating	RENOMINATE: nominate again
+renomination	the act of nominating again
+renormalisation	a method of adjusting calculations in physics
+renormalization	a method of adjusting calculations in physics
 renounce	give up, such as power, as of monarchs and emperors, or duties and obligations
 renounced	RENOUNCE: give up, such as power, as of monarchs and emperors, or duties and obligations
 renounces	RENOUNCE: give up, such as power, as of monarchs and emperors, or duties and obligations
@@ -2121,8 +2512,21 @@ renter	someone who pays rent to use land or a building or a car that is owned by
 renters	RENTER: someone who pays rent to use land or a building or a car that is owned by someone else
 renting	RENT: let for money
 rents	RENT: let for money
+renumber	number again
+renumbered	RENUMBER: number again
+renumbering	RENUMBER: number again
+renumbers	RENUMBER: number again
 renunciation	rejecting or disowning or disclaiming as invalid
 renunciations	RENUNCIATION: rejecting or disowning or disclaiming as invalid
+reoccupation	the act of taking possession again
+reoccupied	REOCCUPY: take possession again
+reoccupies	REOCCUPY: take possession again
+reoccupy	take possession again
+reoccupying	REOCCUPY: take possession again
+reoccur	happen again
+reoccurred	REOCCUR: happen again
+reoccurring	REOCCUR: happen again
+reoccurs	REOCCUR: happen again
 reopen	open again or anew
 reopened	REOPEN: open again or anew
 reopening	REOPEN: open again or anew
@@ -2131,6 +2535,7 @@ reorder	assign a new order to
 reordered	REORDER: assign a new order to
 reordering	REORDER: assign a new order to
 reorders	REORDER: assign a new order to
+reorg	a reorganisation
 reorganisation	the imposition of a new organization; organizing differently (often involving extensive and drastic changes)
 reorganisations	REORGANISATION: the imposition of a new organization; organizing differently (often involving extensive and drastic changes)
 reorganise	organize anew, as after a setback
@@ -2143,17 +2548,30 @@ reorganize	organize anew
 reorganized	REORGANIZE: organize anew
 reorganizes	REORGANIZE: organize anew
 reorganizing	REORGANIZE: organize anew
+reorged	REORG: a reorganisation
+reorging	REORG: a reorganisation
+reorgs	REORG: a reorganisation
 reorient	orient once again, after a disorientation
 reorientation	a fresh orientation; a changed set of attitudes and beliefs
 reoriented	REORIENT: orient once again, after a disorientation
 reorienting	REORIENT: orient once again, after a disorientation
 reorients	REORIENT: orient once again, after a disorientation
 rep	informal abbreviation of `representative'
+repack	pack again
+repackage	package again
+repackaged	REPACKAGE: package again
+repackages	REPACKAGE: package again
+repackaging	REPACKAGE: package again
+repacked	REPACK: pack again
+repacking	REPACK: pack again
+repacks	REPACK: pack again
+repaid	REPAY: pay back
 repaint	paint again
 repainted	REPAINT: paint again
 repainting	REPAINT: paint again
 repaints	REPAINT: paint again
 repair	the act of putting something in working order again
+repairable	able to be fixed
 repaired	REPAIR: the act of putting something in working order again
 repairer	a skilled worker who mends or repairs things
 repairers	REPAIRER: a skilled worker who mends or repairs things
@@ -2163,6 +2581,7 @@ repairmen	REPAIRMAN: a skilled worker whose job is to repair things
 repairs	REPAIR: the act of putting something in working order again
 reparation	compensation (given or received) for an insult or injury
 reparations	REPARATION: compensation (given or received) for an insult or injury
+reparative	serving to make amends
 repartee	adroitness and cleverness in reply
 repast	the food served and eaten at one time
 repasts	REPAST: the food served and eaten at one time
@@ -2172,6 +2591,10 @@ repatriates	REPATRIATE: a person who has returned to the country of origin or wh
 repatriating	REPATRIATE: a person who has returned to the country of origin or whose citizenship has been restored
 repatriation	the act of returning to the country of origin
 repatriations	REPATRIATION: the act of returning to the country of origin
+repave	pave again
+repaved	REPAVE: pave again
+repaves	REPAVE: pave again
+repaving	REPAVE: pave again
 repay	pay back
 repayable	subject to repayment
 repaying	REPAY: pay back
@@ -2180,10 +2603,14 @@ repayments	REPAYMENT: the act of returning money received previously
 repays	REPAY: pay back
 repeal	the act of abrogating; an official or legal cancellation
 repealed	REPEAL: the act of abrogating; an official or legal cancellation
+repealer	a person who cancels a law
+repealers	REPEALER: a person who cancels a law
 repealing	REPEAL: the act of abrogating; an official or legal cancellation
 repeals	REPEAL: the act of abrogating; an official or legal cancellation
 repeat	to say, state, or perform again
+repeatability	the ability to be done again with the same result
 repeatable	able or fit to be repeated or quoted
+repeatably	in a way that can be done again
 repeated	recurring again and again
 repeatedly	several time
 repeater	a person who repeats
@@ -2194,6 +2621,7 @@ repel	cause to move back by force or influence
 repellant	a compound with which fabrics are treated to repel water
 repellants	REPELLANT: a compound with which fabrics are treated to repel water
 repelled	REPEL: cause to move back by force or influence
+repellence	the quality of driving away
 repellent	a compound with which fabrics are treated to repel water
 repellently	in a repellent manner
 repellents	REPELLENT: a compound with which fabrics are treated to repel water
@@ -2203,6 +2631,8 @@ repent	turn away from sin or do penitence
 repentance	remorse for your past conduct
 repentant	feeling or expressing remorse for misdeeds
 repented	REPENT: turn away from sin or do penitence
+repenter	a person who feels regret for wrongdoing
+repenters	REPENTER: a person who feels regret for wrongdoing
 repenting	REPENT: turn away from sin or do penitence
 repents	REPENT: turn away from sin or do penitence
 repercussion	a remote or indirect consequence of some action
@@ -2239,6 +2669,8 @@ replaying	REPLAY: something (especially a game) that is played again
 replays	REPLAY: something (especially a game) that is played again
 replenish	fill something that had previously been emptied
 replenished	REPLENISH: fill something that had previously been emptied
+replenisher	a person who refills
+replenishers	REPLENISHER: a person who refills
 replenishes	REPLENISH: fill something that had previously been emptied
 replenishing	REPLENISH: fill something that had previously been emptied
 replenishment	filling again by supplying what has been used up
@@ -2248,6 +2680,7 @@ repletes	REPLETE: fill to satisfaction
 repleting	REPLETE: fill to satisfaction
 repletion	the state of being satisfactorily full and unable to take on more
 replica	copy that is not the original; something that has been copied
+replicable	able to be repeated
 replicas	REPLICA: copy that is not the original; something that has been copied
 replicate	bend or turn backward
 replicated	REPLICATE: bend or turn backward
@@ -2255,9 +2688,16 @@ replicates	REPLICATE: bend or turn backward
 replicating	REPLICATE: bend or turn backward
 replication	the act of making copies
 replications	REPLICATION: the act of making copies
+replicator	something that makes copies
+replicators	REPLICATOR: something that makes copies
+replied	REPLY: answer
 replies	REPLY: a statement (either spoken or written) that is made to reply to a question or request or criticism or accusation
 reply	a statement (either spoken or written) that is made to reply to a question or request or criticism or accusation
 replying	REPLY: a statement (either spoken or written) that is made to reply to a question or request or criticism or accusation
+repopulate	fill with people or animals again
+repopulated	REPOPULATE: fill with people or animals again
+repopulates	REPOPULATE: fill with people or animals again
+repopulating	REPOPULATE: fill with people or animals again
 report	to give an account or representation of in words
 reportable	(of income) required by law to be reported
 reportage	the news as presented by reporters for newspapers or radio or television
@@ -2312,6 +2752,7 @@ repressive	restrictive of action
 repressively	in a repressive way
 repressiveness	the quality of being repressive
 repressor	an agent that represses
+repricing	the act of setting a new price
 reprieve	a (temporary) relief from harm or discomfort
 reprieved	REPRIEVE: a (temporary) relief from harm or discomfort
 reprieves	REPRIEVE: a (temporary) relief from harm or discomfort
@@ -2354,6 +2795,14 @@ reproducing	REPRODUCE: make a copy or equivalent of
 reproduction	the process of generating offspring
 reproductions	REPRODUCTION: the process of generating offspring
 reproductive	producing new life or offspring
+reprogram	program again
+reprogramed	REPROGRAM: program again
+reprograming	REPROGRAM: program again
+reprogramme	programme again
+reprogrammed	REPROGRAM: program again
+reprogrammes	REPROGRAMME: programme again
+reprogramming	REPROGRAM: program again
+reprograms	REPROGRAM: program again
 reproof	an act or expression of criticism and censure
 reproofed	REPROOF: an act or expression of criticism and censure
 reproofing	REPROOF: an act or expression of criticism and censure
@@ -2400,6 +2849,10 @@ repurchase	the act of purchasing back something previously sold
 repurchased	REPURCHASE: the act of purchasing back something previously sold
 repurchases	REPURCHASE: the act of purchasing back something previously sold
 repurchasing	REPURCHASE: the act of purchasing back something previously sold
+repurpose	adapt for a different use
+repurposed	REPURPOSE: adapt for a different use
+repurposes	REPURPOSE: adapt for a different use
+repurposing	REPURPOSE: adapt for a different use
 reputable	having a good reputation
 reputably	in a reputable manner
 reputation	the state of being held in high esteem and honor
@@ -2427,6 +2880,8 @@ requisite	anything indispensable
 requisites	REQUISITE: anything indispensable
 requisition	the act of requiring; an authoritative request or demand, especially by a military or public authority that takes something over (usually temporarily) for military or public use
 requisitioned	REQUISITION: the act of requiring; an authoritative request or demand, especially by a military or public authority that takes something over (usually temporarily) for military or public use
+requisitioner	a person who formally demands supplies
+requisitioners	REQUISITIONER: a person who formally demands supplies
 requisitioning	REQUISITION: the act of requiring; an authoritative request or demand, especially by a military or public authority that takes something over (usually temporarily) for military or public use
 requisitions	REQUISITION: the act of requiring; an authoritative request or demand, especially by a military or public authority that takes something over (usually temporarily) for military or public use
 requital	a justly deserved penalty
@@ -2434,14 +2889,22 @@ requite	make repayment for or return something
 requited	REQUITE: make repayment for or return something
 requites	REQUITE: make repayment for or return something
 requiting	REQUITE: make repayment for or return something
+reran	RERUN: run again
 reread	read anew; read again
 rereading	REREAD: read anew; read again
 rereads	REREAD: read anew; read again
+rerelease	release again
+reroute	send by a different path
+rerouted	REROUTE: send by a different path
+reroutes	REROUTE: send by a different path
+rerouting	REROUTE: send by a different path
 rerun	broadcast again, as of a film
 rerunning	RERUN: broadcast again, as of a film
 reruns	RERUN: broadcast again, as of a film
 resale	the selling of something purchased
 resales	RESALE: the selling of something purchased
+resampling	the act of taking samples again
+resat	RESIT: sit an exam again
 reschedule	assign a new time and place for an event
 rescheduled	RESCHEDULE: assign a new time and place for an event
 reschedules	RESCHEDULE: assign a new time and place for an event
@@ -2458,6 +2921,7 @@ rescuers	RESCUER: a person who rescues you from harm or danger
 rescues	RESCUE: recovery or preservation from loss or danger
 rescuing	RESCUE: recovery or preservation from loss or danger
 reseal	seal again
+resealable	able to be closed tightly again
 resealed	RESEAL: seal again
 resealing	RESEAL: seal again
 reseals	RESEAL: seal again
@@ -2471,6 +2935,8 @@ resected	RESECT: surgically remove a part of a structure or an organ
 resection	surgical removal of part of a structure or organ
 resections	RESECTION: surgical removal of part of a structure or organ
 resell	sell (something) again after having bought it
+reseller	a person who sells goods bought from others
+resellers	RESELLER: a person who sells goods bought from others
 reselling	RESELL: sell (something) again after having bought it
 resells	RESELL: sell (something) again after having bought it
 resemblance	similarity in appearance or external or superficial details
@@ -2479,6 +2945,7 @@ resemble	appear like; be similar or bear a likeness to
 resembled	RESEMBLE: appear like; be similar or bear a likeness to
 resembles	RESEMBLE: appear like; be similar or bear a likeness to
 resembling	RESEMBLE: appear like; be similar or bear a likeness to
+resend	send again
 resent	feel bitter or indignant about
 resented	RESENT: feel bitter or indignant about
 resentful	full of or marked by resentment or indignant ill will
@@ -2535,6 +3002,8 @@ resignation	acceptance of despair
 resignations	RESIGNATION: acceptance of despair
 resigned	RESIGN: leave (a job, post, or position) voluntarily
 resignedly	with resignation and acceptance; in a resigned manner
+resigner	a person who gives up a job
+resigners	RESIGNER: a person who gives up a job
 resigning	RESIGN: leave (a job, post, or position) voluntarily
 resigns	RESIGN: leave (a job, post, or position) voluntarily
 resilience	the physical property of a material that can return to its original shape or position after deformation that does not exceed its elastic limit
@@ -2557,10 +3026,18 @@ resistivity	a material's opposition to the flow of electric current; measured in
 resistor	an electrical device that resists the flow of electrical current
 resistors	RESISTOR: an electrical device that resists the flow of electrical current
 resists	RESIST: elude, especially in a baffling way
+resit	take an exam again
+resits	RESIT: take an exam again
+resitting	RESIT: take an exam again
 resize	change the size of; make the size more appropriate
 resized	RESIZE: change the size of; make the size more appropriate
 resizes	RESIZE: change the size of; make the size more appropriate
 resizing	RESIZE: change the size of; make the size more appropriate
+reskill	train in new skills
+reskilled	RESKILL: train in new skills
+reskilling	RESKILL: train in new skills
+reskills	RESKILL: train in new skills
+resold	RESELL: sell again
 resolute	firm in purpose or belief; characterized by firmness and determination
 resolutely	showing firm determination or purpose
 resoluteness	the trait of being resolute
@@ -2569,6 +3046,7 @@ resolutions	RESOLUTION: a formal expression by a meeting; agreed to by a vote
 resolvable	capable of being solved
 resolve	bring to an end; settle conclusively
 resolved	determined
+resolver	a person or thing that settles
 resolves	RESOLVE: bring to an end; settle conclusively
 resolving	RESOLVE: bring to an end; settle conclusively
 resonance	an excited state of a stable particle causing a sharp maximum in the probability of absorption of electromagnetic radiation
@@ -2592,10 +3070,12 @@ resounding	characterized by resonance
 resoundingly	in a resounding manner
 resounds	RESOUND: ring or echo with sound
 resource	available source of wealth; a new or reserve supply that can be drawn upon when needed
+resourced	RESOURCE: supply with what is needed
 resourceful	having inner resources; adroit or imaginative
 resourcefully	in a resourceful manner
 resourcefulness	the quality of being able to cope with a difficult situation
 resources	RESOURCE: available source of wealth; a new or reserve supply that can be drawn upon when needed
+resourcing	RESOURCE: supply with what is needed
 respect	(usually preceded by `in') a detail or point
 respectability	honorableness by virtue of being respectable and having a good reputation
 respectable	characterized by socially or conventionally acceptable morals
@@ -2609,6 +3089,11 @@ respecting	RESPECT: (usually preceded by `in') a detail or point
 respective	considered individually
 respectively	in the order given
 respects	(often used with `pay') a formal expression of esteem
+respell	spell again
+respelled	RESPELL: spell again
+respelling	RESPELL: spell again
+respells	RESPELL: spell again
+respelt	RESPELL: spell again
 respiration	the metabolic processes whereby certain organisms obtain energy from organic molecules; processes that take place in the cells and tissues during which energy is released and carbon dioxide is produced and absorbed by the blood to be transported to the lungs
 respirator	a breathing device for administering long-term artificial respiration
 respirators	RESPIRATOR: a breathing device for administering long-term artificial respiration
@@ -2651,6 +3136,8 @@ restatements	RESTATEMENT: a revised statement
 restates	RESTATE: to say, state, or perform again
 restating	RESTATE: to say, state, or perform again
 restaurant	a building where people go to eat
+restauranteur	a person who owns or runs a restaurant
+restauranteurs	RESTAURANTEUR: a person who owns or runs a restaurant
 restaurants	RESTAURANT: a building where people go to eat
 restaurateur	the proprietor of a restaurant
 restaurateurs	RESTAURATEUR: the proprietor of a restaurant
@@ -2704,7 +3191,16 @@ restructure	construct or form anew or provide with a new structure
 restructured	RESTRUCTURE: construct or form anew or provide with a new structure
 restructures	RESTRUCTURE: construct or form anew or provide with a new structure
 restructuring	RESTRUCTURE: construct or form anew or provide with a new structure
+restructurings	RESTRUCTURING: a major reorganisation
 rests	REST: not move; be in a resting position
+restudied	RESTUDY: study again
+restudies	RESTUDY: study again
+restudy	study again
+restudying	RESTUDY: study again
+restyle	give a new style to
+restyled	RESTYLE: give a new style to
+restyles	RESTYLE: give a new style to
+restyling	RESTYLE: give a new style to
 resubmit	submit (information) again to a program or automatic system
 resubmits	RESUBMIT: submit (information) again to a program or automatic system
 resubmitted	RESUBMIT: submit (information) again to a program or automatic system
@@ -2721,6 +3217,10 @@ resumes	RESUME: take up or begin anew
 resuming	RESUME: take up or begin anew
 resumption	beginning again
 resumptions	RESUMPTION: beginning again
+resupplied	RESUPPLY: supply again
+resupplies	RESUPPLY: supply again
+resupply	supply again
+resupplying	RESUPPLY: supply again
 resurface	reappear on the surface
 resurfaced	RESURFACE: reappear on the surface
 resurfaces	RESURFACE: reappear on the surface
@@ -2754,6 +3254,7 @@ retainers	RETAINER: a fee charged in advance to retain the services of someone
 retaining	RETAIN: hold back within
 retains	RETAIN: hold back within
 retake	a shot or scene that is photographed again
+retaken	RETAKE: take again
 retakes	RETAKE: a shot or scene that is photographed again
 retaking	the act of taking something back
 retaliate	take revenge for a perceived wrong
@@ -2768,6 +3269,8 @@ retardant	any agent that retards or delays or hinders
 retardants	RETARDANT: any agent that retards or delays or hinders
 retardation	a decrease in rate of change
 retarded	relatively slow in mental or emotional or physical development
+retarder	something that slows or delays a process
+retarders	RETARDER: something that slows or delays a process
 retarding	RETARD: cause to move more slowly or operate at a slower rate
 retards	RETARD: cause to move more slowly or operate at a slower rate
 retch	eject the contents of the stomach through the mouth
@@ -2780,9 +3283,14 @@ retells	RETELL: render verbally
 retention	the act of retaining something
 retentive	good at remembering
 retentiveness	the power of retaining and recalling past experience
+retest	test again
+retested	RETEST: test again
+retesting	RETEST: test again
+retests	RETEST: test again
 rethink	change one's mind
 rethinking	RETHINK: change one's mind
 rethinks	RETHINK: change one's mind
+rethought	RETHINK: think about again and possibly change your mind
 reticence	the trait of being uncommunicative; not volunteering anything more than necessary
 reticent	temperamentally disinclined to talk
 reticle	a network of fine lines, dots, cross hairs, or wires in the focal plane of the eyepiece of an optical instrument
@@ -2791,6 +3299,7 @@ reticulated	RETICULATE: resembling or forming a network
 reticulation	the formation of a network of cracks or wrinkles in a photographic emulsion
 reticulations	RETICULATION: the formation of a network of cracks or wrinkles in a photographic emulsion
 retina	the innermost light-sensitive membrane covering the back wall of the eyeball; it is continuous with the optic nerve
+retinae	RETINA: the light-sensitive layer at the back of the eye
 retinal	in or relating to the retina of the eye
 retinas	RETINA: the innermost light-sensitive membrane covering the back wall of the eyeball; it is continuous with the optic nerve
 retinitis	inflammation of the retina
@@ -2806,6 +3315,9 @@ retirement	the state of being retired from one's business or occupation
 retirements	RETIREMENT: the state of being retired from one's business or occupation
 retires	RETIRE: go into retirement; stop performing one's work or withdraw from one's position
 retiring	RETIRE: go into retirement; stop performing one's work or withdraw from one's position
+retitled	RETITLE: give a new title to
+retold	RETELL: tell again
+retook	RETAKE: take again or take back
 retool	revise or reorganize, especially for the purpose of updating and improving
 retooled	RETOOL: revise or reorganize, especially for the purpose of updating and improving
 retooling	RETOOL: revise or reorganize, especially for the purpose of updating and improving
@@ -2816,6 +3328,8 @@ retorting	RETORT: a quick reply to a question or remark (especially a witty or c
 retorts	RETORT: a quick reply to a question or remark (especially a witty or critical one)
 retouch	give retouches to (hair)
 retouched	RETOUCH: give retouches to (hair)
+retoucher	a person who touches up photographs or images
+retouchers	RETOUCHER: a person who touches up photographs or images
 retouches	RETOUCH: give retouches to (hair)
 retouching	RETOUCH: give retouches to (hair)
 retrace	to go back over again
@@ -2834,6 +3348,7 @@ retrain	teach new skills
 retrained	RETRAIN: teach new skills
 retraining	training for a new occupation
 retrains	RETRAIN: teach new skills
+retransmission	the act of sending a signal or message again
 retread	a used automobile tire that has been remolded to give it new treads
 retreaded	RETREAD: a used automobile tire that has been remolded to give it new treads
 retreading	RETREAD: a used automobile tire that has been remolded to give it new treads
@@ -2853,6 +3368,7 @@ retrials	RETRIAL: a new trial in which issues already litigated and to which the
 retribution	a justly deserved penalty
 retributions	RETRIBUTION: a justly deserved penalty
 retributive	of or relating to or having the nature of retribution
+retried	RETRY: try again
 retries	RETRY: hear or try a court case anew
 retrievable	capable of being regained especially with effort
 retrieval	the operation of accessing information from the computer's memory
@@ -2866,6 +3382,8 @@ retrieving	RETRIEVE: get or find back; recover the use of
 retro	a fashion reminiscent of the past
 retroactive	descriptive of any event or stimulus or process that has an effect on the effects of events or stimuli or process that occurred previously
 retroactively	after the fact
+retrod	RETREAD: walk over again
+retrodden	RETREAD: walk over again
 retrofit	a component or accessory added to something after it has been manufactured
 retrofits	RETROFIT: a component or accessory added to something after it has been manufactured
 retrofitted	RETROFIT: a component or accessory added to something after it has been manufactured
@@ -2900,10 +3418,24 @@ retsina	Greek wine flavored with resin
 retsinas	RETSINA: Greek wine flavored with resin
 return	go or come back to place, condition, or activity where one has been before
 returnable	that may be returned
+returnables	RETURNABLE: items such as bottles that can be returned for a refund
 returned	RETURN: go or come back to place, condition, or activity where one has been before
+returnee	a person who comes back to a place or group
+returnees	RETURNEE: a person who comes back to a place or group
+returner	a person or thing that returns
+returners	RETURNER: a person or thing that returns
 returning	RETURN: go or come back to place, condition, or activity where one has been before
 returns	RETURN: go or come back to place, condition, or activity where one has been before
+retweet	repost another user's message on social media
+retweeted	RETWEET: repost another user's message on social media
+retweeting	RETWEET: repost another user's message on social media
+retweets	RETWEET: repost another user's message on social media
+retype	type again
+retyped	RETYPE: type again
+retypes	RETYPE: type again
+retyping	RETYPE: type again
 reunification	the act of coming together again
+reunified	REUNIFY: bring back together as one
 reunifies	REUNIFY: unify again, as of a country
 reunify	unify again, as of a country
 reunifying	REUNIFY: unify again, as of a country
@@ -2913,6 +3445,10 @@ reunite	have a reunion; unite again
 reunited	REUNITE: have a reunion; unite again
 reunites	REUNITE: have a reunion; unite again
 reuniting	REUNITE: have a reunion; unite again
+reupholster	cover furniture with new fabric and padding
+reupholstered	REUPHOLSTER: cover furniture with new fabric and padding
+reupholstering	REUPHOLSTER: cover furniture with new fabric and padding
+reupholsters	REUPHOLSTER: cover furniture with new fabric and padding
 reusable	capable of being used again
 reuse	use again after processing
 reused	REUSE: use again after processing
@@ -2927,10 +3463,15 @@ revalues	REVALUE: gain in value
 revaluing	REVALUE: gain in value
 revamp	to patch up or renovate; repair or restore
 revamped	REVAMP: to patch up or renovate; repair or restore
+revamper	a person who renovates or reworks something
+revampers	REVAMPER: a person who renovates or reworks something
 revamping	REVAMP: to patch up or renovate; repair or restore
+revampings	REVAMPING: the act of renovating or reworking something
 revamps	REVAMP: to patch up or renovate; repair or restore
 reveal	make visible
 revealed	REVEAL: make visible
+revealer	a person or thing that reveals
+revealers	REVEALER: a person or thing that reveals
 revealing	disclosing unintentionally something concealed
 revealingly	in a revealing way
 revealings	REVEALING: disclosing unintentionally something concealed
@@ -2948,6 +3489,7 @@ revelled	REVEL: unrestrained merrymaking
 reveller	a celebrant who shares in a noisy party
 revellers	REVELLER: a celebrant who shares in a noisy party
 revelling	REVEL: unrestrained merrymaking
+revellings	REVELLING: lively, noisy celebration
 revelries	REVELRY: unrestrained merrymaking
 revelry	unrestrained merrymaking
 revels	REVEL: unrestrained merrymaking
@@ -2960,6 +3502,7 @@ revenges	REVENGE: action taken in return for an injury or offense
 revenging	REVENGE: action taken in return for an injury or offense
 revenue	the entire amount of income before any deductions are made
 revenues	REVENUE: the entire amount of income before any deductions are made
+reverb	an echo-like effect added to sound
 reverberate	ring or echo with sound
 reverberated	REVERBERATE: ring or echo with sound
 reverberates	REVERBERATE: ring or echo with sound
@@ -2995,10 +3538,13 @@ reversion	an interest in an estate that reverts to the grantor (or his heirs) at
 reversions	REVERSION: an interest in an estate that reverts to the grantor (or his heirs) at the end of some period (e.g., the death of the grantee)
 revert	go back to a previous state
 reverted	REVERT: go back to a previous state
+reverter	a person or thing that reverts
+reverters	REVERTER: a person or thing that reverts
 reverting	REVERT: go back to a previous state
 reverts	REVERT: go back to a previous state
 revery	an abstracted state of absorption
 review	a new appraisal or evaluation
+reviewable	able to be reviewed
 reviewed	REVIEW: a new appraisal or evaluation
 reviewer	someone who reads manuscripts and judges their suitability for publication
 reviewers	REVIEWER: someone who reads manuscripts and judges their suitability for publication
@@ -3007,6 +3553,8 @@ reviews	REVIEW: a new appraisal or evaluation
 revile	spread negative information about
 reviled	REVILE: spread negative information about
 revilement	a rude expression intended to offend or hurt
+reviler	a person who abuses others with harsh words
+revilers	REVILER: a person who abuses others with harsh words
 reviles	REVILE: spread negative information about
 reviling	REVILE: spread negative information about
 revise	make revisions in
@@ -3041,6 +3589,7 @@ revive	cause to regain consciousness
 revived	REVIVE: cause to regain consciousness
 revives	REVIVE: cause to regain consciousness
 revivification	bringing again into activity and prominence
+revivified	REVIVIFY: bring back to life or vigour
 revivifies	REVIVIFY: give new life or energy to
 revivify	give new life or energy to
 revivifying	REVIVIFY: give new life or energy to
@@ -3055,6 +3604,8 @@ revokes	REVOKE: the mistake of not following suit when able to do so
 revoking	REVOKE: the mistake of not following suit when able to do so
 revolt	organized opposition to authority; a conflict in which one faction tries to wrest control from another
 revolted	REVOLT: organized opposition to authority; a conflict in which one faction tries to wrest control from another
+revolter	a person who rebels
+revolters	REVOLTER: a person who rebels
 revolting	REVOLT: organized opposition to authority; a conflict in which one faction tries to wrest control from another
 revoltingly	in a disgusting manner or to a disgusting degree
 revolts	REVOLT: organized opposition to authority; a conflict in which one faction tries to wrest control from another
@@ -3086,9 +3637,14 @@ revved	REV: increase the number of rotations per minute
 revving	REV: increase the number of rotations per minute
 reward	a recompense for worthy acts or retribution for wrongdoing
 rewarded	REWARD: a recompense for worthy acts or retribution for wrongdoing
+rewarder	a person who gives a reward
+rewarders	REWARDER: a person who gives a reward
 rewarding	providing personal satisfaction
 rewards	REWARD: a recompense for worthy acts or retribution for wrongdoing
 rewind	wind (up) again
+rewindable	able to be wound back
+rewinder	a device that winds something back
+rewinders	REWINDER: a device that winds something back
 rewinding	REWIND: wind (up) again
 rewinds	REWIND: wind (up) again
 rewire	provide with new wiring
@@ -3102,16 +3658,27 @@ rewords	REWORD: express the same message in different words
 rework	use again in altered form
 reworked	REWORK: use again in altered form
 reworking	REWORK: use again in altered form
+reworkings	REWORKING: a revised version of something
 reworks	REWORK: use again in altered form
+rewound	REWIND: wind back to the start
+rewritable	able to be written over again
 rewrite	write differently; alter the writing of
 rewrites	REWRITE: write differently; alter the writing of
 rewriting	REWRITE: write differently; alter the writing of
+rewritten	REWRITE: write again in a different form
+rewrote	REWRITE: write again in a different form
+rezone	assign a new zoning category to land
+rezoned	REZONE: assign a new zoning category to land
+rezones	REZONE: assign a new zoning category to land
+rezoning	REZONE: assign a new zoning category to land
 rhapsodic	feeling great rapture or delight
 rhapsodies	RHAPSODY: an enthusiastic expression of emotion
 rhapsodise	recite a rhapsody
 rhapsodised	RHAPSODISE: recite a rhapsody
 rhapsodises	RHAPSODISE: recite a rhapsody
 rhapsodising	RHAPSODISE: recite a rhapsody
+rhapsodist	a person who speaks or writes with extravagant enthusiasm
+rhapsodists	RHAPSODIST: a person who speaks or writes with extravagant enthusiasm
 rhapsodize	recite a rhapsody
 rhapsodized	RHAPSODIZE: recite a rhapsody
 rhapsodizes	RHAPSODIZE: recite a rhapsody
@@ -3121,6 +3688,8 @@ rhea	fertility goddess in ancient Greek mythology; wife of Cronus and mother of 
 rheas	RHEA: fertility goddess in ancient Greek mythology; wife of Cronus and mother of Zeus; identified with Roman Ops and Cybele of ancient Asia Minor
 rhenium	a rare heavy polyvalent metallic element that resembles manganese chemically and is used in some alloys; is obtained as a by-product in refining molybdenum
 rheological	of or relating to rheology
+rheologist	a scientist who studies the flow of matter
+rheologists	RHEOLOGIST: a scientist who studies the flow of matter
 rheology	the branch of physics that studies the deformation and flow of matter
 rheostat	resistor for regulating current
 rheostats	RHEOSTAT: resistor for regulating current
@@ -3134,6 +3703,7 @@ rheumatic	a person suffering with rheumatism
 rheumatics	RHEUMATIC: a person suffering with rheumatism
 rheumatism	any painful disorder of the joints or muscles or connective tissues
 rheumatoid	of or pertaining to arthritis
+rheumatological	relating to the study of rheumatic diseases
 rheumatologist	a physician specializing in rheumatic diseases
 rheumatologists	RHEUMATOLOGIST: a physician specializing in rheumatic diseases
 rheumatology	the branch of medicine dealing with the study and treatment of pathologies of the muscles or tendons or joints
@@ -3142,8 +3712,13 @@ rhinestone	an imitation diamond made from rock crystal or glass or paste
 rhinestones	RHINESTONE: an imitation diamond made from rock crystal or glass or paste
 rhinitis	an inflammation of the mucous membrane lining the nose (usually associated with nasal discharge)
 rhino	massive powerful herbivorous odd-toed ungulate of southeast Asia and Africa having very thick skin and one or two horns on the snout
+rhinoceri	RHINOCEROS: a large thick-skinned horned mammal
 rhinoceros	massive powerful herbivorous odd-toed ungulate of southeast Asia and Africa having very thick skin and one or two horns on the snout
 rhinoceroses	RHINOCEROS: massive powerful herbivorous odd-toed ungulate of southeast Asia and Africa having very thick skin and one or two horns on the snout
+rhinological	relating to the study of the nose
+rhinologist	a doctor who specialises in the nose
+rhinologists	RHINOLOGIST: a doctor who specialises in the nose
+rhinology	the study of the nose and its diseases
 rhinoplasty	cosmetic surgery to improve the appearance of your nose
 rhinos	RHINO: massive powerful herbivorous odd-toed ungulate of southeast Asia and Africa having very thick skin and one or two horns on the snout
 rhinovirus	any of a group of picornaviruses that are responsible for many upper respiratory infections
@@ -3154,11 +3729,13 @@ rho	the 17th letter of the Greek alphabet
 rhodium	a white hard metallic element that is one of the platinum group and is found in platinum ores; used in alloys with platinum
 rhododendron	any shrub of the genus Rhododendron: evergreen shrubs or small shrubby trees having leathery leaves and showy clusters of campanulate (bell-shaped) flowers
 rhododendrons	RHODODENDRON: any shrub of the genus Rhododendron: evergreen shrubs or small shrubby trees having leathery leaves and showy clusters of campanulate (bell-shaped) flowers
+rhombi	RHOMBUS: a four-sided shape with equal sides
 rhombic	resembling a rhombus
 rhomboid	a parallelogram with adjacent sides of unequal lengths; an oblique-angled parallelogram with only the opposite sides equal
 rhomboids	RHOMBOID: a parallelogram with adjacent sides of unequal lengths; an oblique-angled parallelogram with only the opposite sides equal
 rhombus	a parallelogram with four equal sides; an oblique-angled equilateral parallelogram
 rhombuses	RHOMBUS: a parallelogram with four equal sides; an oblique-angled equilateral parallelogram
+rhotic	pronouncing the letter r after a vowel
 rhubarb	long pinkish sour leafstalks usually eaten cooked and sweetened
 rhubarbs	RHUBARB: long pinkish sour leafstalks usually eaten cooked and sweetened
 rhumba	syncopated music in duple time for dancing the rumba
@@ -3180,16 +3757,21 @@ ribaldness	the quality of being ribald
 ribaldry	ribald humor
 ribbed	RIB: support resembling the rib of an animal
 ribber	RIB: support resembling the rib of an animal
+ribbers	RIBBER: a person who teases others
 ribbing	RIB: support resembling the rib of an animal
 ribbon	any long object resembling a thin line
 ribbonfish	thin deep-water tropical fish 20 to 30 feet long having a red dorsal fin
 ribbons	RIBBON: any long object resembling a thin line
+ribcage	the bony frame of ribs around the chest
+ribcages	RIBCAGE: the bony frame of ribs around the chest
 riboflavin	a B vitamin that prevents skin lesions and weight loss
+ribosomal	relating to ribosomes, the cell parts that make proteins
 ribosome	an organelle in the cytoplasm of a living cell; they attach to mRNA and move down it one codon at a time and then stop until tRNA brings the required amino acid; when it reaches a stop codon it falls apart and releases the completed protein molecule for use by the cell
 ribosomes	RIBOSOME: an organelle in the cytoplasm of a living cell; they attach to mRNA and move down it one codon at a time and then stop until tRNA brings the required amino acid; when it reaches a stop codon it falls apart and releases the completed protein molecule for use by the cell
 ribs	RIB: support resembling the rib of an animal
 rice	grains used as food either unpolished or more often polished
 riced	RICE: grains used as food either unpolished or more often polished
+ricepaper	thin edible paper made from rice
 rices	RICE: grains used as food either unpolished or more often polished
 rich	possessing material wealth
 richer	RICH: possessing material wealth
@@ -3203,6 +3785,7 @@ rick	a painful muscle spasm especially in the neck or back (`rick' and `wrick' a
 ricked	RICK: a painful muscle spasm especially in the neck or back (`rick' and `wrick' are British)
 ricketier	RICKETY: inclined to shake as from weakness or defect
 ricketiest	RICKETY: inclined to shake as from weakness or defect
+ricketily	in a shaky, unsteady way
 ricketiness	the quality of not being steady or securely fixed in place
 rickets	childhood disease caused by deficiency of vitamin D and sunlight associated with impaired metabolism of calcium and phosphorus
 rickety	inclined to shake as from weakness or defect
@@ -3228,11 +3811,13 @@ ridden	RIDE: sit and travel on the back of animal, usually while controlling its
 ridding	RID: relieve from
 riddle	pierce with many holes
 riddled	(often followed by `with') damaged throughout by numerous perforations or holes
+riddler	a person who poses riddles
 riddles	RIDDLE: pierce with many holes
 riddling	RIDDLE: pierce with many holes
 ride	sit and travel on the back of animal, usually while controlling its motions
 rider	a traveler who actively rides an animal (as a horse or camel)
 riders	RIDER: a traveler who actively rides an animal (as a horse or camel)
+ridership	the number of people who use a public transport service
 rides	RIDE: sit and travel on the back of animal, usually while controlling its motions
 ridge	a long narrow natural elevation or striation
 ridged	RIDGE: a long narrow natural elevation or striation
@@ -3272,6 +3857,8 @@ riflemen	RIFLEMAN: someone skilled in the use of a rifle
 rifles	RIFLE: a shoulder firearm with a long barrel and a rifled bore
 rifling	RIFLE: a shoulder firearm with a long barrel and a rifled bore
 rift	a gap between cloud masses
+rifted	RIFT: split or break apart
+rifting	RIFT: split or break apart
 rifts	RIFT: a gap between cloud masses
 rig	arrange the outcome of by means of deceit
 rigamarole	a set of confused and meaningless statements
@@ -3297,7 +3884,14 @@ rightists	RIGHTIST: a member of a right wing political party
 rightly	with honesty
 rightmost	farthest to the right
 rightness	according with conscience or morality
+righto	all right; okay
 rights	RIGHT: precisely, exactly
+rightsize	adjust a business to its most suitable size
+rightsized	RIGHTSIZE: adjust a business to its most suitable size
+rightsizes	RIGHTSIZE: adjust a business to its most suitable size
+rightsizing	RIGHTSIZE: adjust a business to its most suitable size
+rightward	towards the right
+rightwards	RIGHTWARD: towards the right
 rigid	incapable of or resistant to bending
 rigidity	the physical property of being stiff and resisting bending
 rigidly	in a rigid manner
@@ -3343,6 +3937,9 @@ ringmaster	the person in charge of performances in a circus ring
 ringmasters	RINGMASTER: the person in charge of performances in a circus ring
 rings	RING: sound loudly and sonorously
 ringside	first row of seating; has an unobstructed view of a boxing or wrestling ring
+ringtone	the sound a mobile phone makes when called
+ringtones	RINGTONE: the sound a mobile phone makes when called
+ringtoss	a game of throwing rings over a peg
 ringworm	infections of the skin or nails caused by fungi and appearing as itching circular patches
 rink	building that contains a surface for ice skating or roller skating
 rinks	RINK: building that contains a surface for ice skating or roller skating
@@ -3367,11 +3964,15 @@ ripe	fully developed or matured and ready to be eaten or used
 ripely	with mature or developed appearance
 ripen	cause to ripen or develop fully
 ripened	RIPEN: cause to ripen or develop fully
+ripener	something that causes ripening
+ripeners	RIPENER: something that causes ripening
 ripeness	the state of being ripe
 ripening	coming to full development; becoming mature
 ripens	RIPEN: cause to ripen or develop fully
 riper	RIPE: fully developed or matured and ready to be eaten or used
 ripest	RIPE: fully developed or matured and ready to be eaten or used
+ripoff	something that is unfairly overpriced or a cheap copy
+ripoffs	RIPOFF: something that is unfairly overpriced or a cheap copy
 riposte	a quick reply to a question or remark (especially a witty or critical one)
 riposted	RIPOSTE: a quick reply to a question or remark (especially a witty or critical one)
 ripostes	RIPOSTE: a quick reply to a question or remark (especially a witty or critical one)
@@ -3399,6 +4000,8 @@ rising	advancing or becoming higher or greater in degree or value or status
 risings	RISING: advancing or becoming higher or greater in degree or value or status
 risk	a source of danger; a possibility of incurring loss or misfortune
 risked	RISK: a source of danger; a possibility of incurring loss or misfortune
+risker	RISKY: more dangerous
+riskers	RISKER: RISKY: more dangerous
 riskier	RISKY: involving risk or danger
 riskiest	RISKY: involving risk or danger
 riskiness	a state of danger involving risk
@@ -3417,6 +4020,7 @@ ritualised	RITUALISE: make or evolve into a ritual
 ritualism	the study of religious or magical rites and ceremonies
 ritualisms	RITUALISM: the study of religious or magical rites and ceremonies
 ritualistic	of or characterized by or adhering to ritualism
+ritualistically	in a way that follows set rituals
 ritualized	RITUALIZE: make or evolve into a ritual
 ritually	in a ceremonial manner
 rituals	RITUAL: any customary observance or practice
@@ -3433,11 +4037,17 @@ rivalry	the act of competing as for profit or a prize
 rivals	RIVAL: the contestant you hope to defeat
 rive	tear or be torn violently
 rived	RIVE: tear or be torn violently
+riven	RIVE: split apart violently
 river	a large natural stream of water (larger than a creek)
 riverbank	the bank of a river
 riverbanks	RIVERBANK: the bank of a river
 riverbed	a channel occupied (or formerly occupied) by a river
 riverbeds	RIVERBED: a channel occupied (or formerly occupied) by a river
+riverboat	a boat designed for travel on rivers
+riverboats	RIVERBOAT: a boat designed for travel on rivers
+riverfront	land along the edge of a river
+riverfronts	RIVERFRONT: land along the edge of a river
+riverine	relating to or beside a river
 rivers	RIVER: a large natural stream of water (larger than a creek)
 riverside	the bank of a river
 riversides	RIVERSIDE: the bank of a river
@@ -3461,15 +4071,22 @@ road	an open way (generally public) for travel or transportation
 roadbed	a bed supporting a road
 roadbeds	ROADBED: a bed supporting a road
 roadblock	any condition that makes it difficult to make progress or to achieve an objective
+roadblocked	ROADBLOCK: block with a barrier across a road
+roadblocking	ROADBLOCK: block with a barrier across a road
 roadblocks	ROADBLOCK: any condition that makes it difficult to make progress or to achieve an objective
 roadhog	a driver who obstructs others
 roadhogs	ROADHOG: a driver who obstructs others
+roadholding	a vehicle's ability to grip the road
 roadhouse	an inn (usually outside city limits on a main road) providing meals and liquor and dancing and (sometimes) gambling
 roadhouses	ROADHOUSE: an inn (usually outside city limits on a main road) providing meals and liquor and dancing and (sometimes) gambling
+roadie	a person who helps move and set up equipment for a band
+roadies	ROADIE: a person who helps move and set up equipment for a band
 roadkill	the dead body of an animal that has been killed on a road by a vehicle
 roadrunner	speedy largely terrestrial bird found from California and Mexico to Texas
 roadrunners	ROADRUNNER: speedy largely terrestrial bird found from California and Mexico to Texas
 roads	ROAD: an open way (generally public) for travel or transportation
+roadshow	a touring show or promotion
+roadshows	ROADSHOW: a touring show or promotion
 roadside	edge of a way or road or path
 roadsides	ROADSIDE: edge of a way or road or path
 roadstead	a partly sheltered anchorage
@@ -3477,6 +4094,9 @@ roadster	an open automobile having a front seat and a rumble seat
 roadsters	ROADSTER: an open automobile having a front seat and a rumble seat
 roadway	a road (especially that part of a road) over which vehicles travel
 roadways	ROADWAY: a road (especially that part of a road) over which vehicles travel
+roadwork	repair or construction work on a road
+roadworks	ROADWORK: repair or construction work on a road
+roadworthy	fit to be driven on roads
 roam	move about aimlessly or without any destination, often in search of food or employment
 roamed	ROAM: move about aimlessly or without any destination, often in search of food or employment
 roamer	someone who leads a wandering unsettled life
@@ -3510,6 +4130,10 @@ robes	ROBE: any loose flowing garment
 robin	small Old World songbird with a reddish breast
 robing	ROBE: any loose flowing garment
 robins	ROBIN: small Old World songbird with a reddish breast
+robocall	an automated phone call with a recorded message
+robocalled	ROBOCALL: an automated phone call with a recorded message
+robocalling	ROBOCALL: an automated phone call with a recorded message
+robocalls	ROBOCALL: an automated phone call with a recorded message
 robot	a mechanism that can move automatically
 robotic	of or relating to mechanical robots
 robotics	the area of AI concerned with the practical use of robots
@@ -3529,10 +4153,12 @@ rockers	originally a British youth subculture that evolved out of the teddy boys
 rockery	a garden featuring rocks; usually alpine plants
 rocket	any vehicle self-propelled by a rocket engine
 rocketed	ROCKET: any vehicle self-propelled by a rocket engine
+rocketeer	a person who builds or flies rockets
 rocketing	ROCKET: any vehicle self-propelled by a rocket engine
 rocketry	the branch of engineering science that studies rocket design and operation
 rockets	ROCKET: any vehicle self-propelled by a rocket engine
 rockfish	the lean flesh of any of various valuable market fish caught among rocks
+rockhopper	a small crested penguin
 rockier	ROCKY: abounding in rocks or stones
 rockiest	ROCKY: abounding in rocks or stones
 rockiness	the quality of abounding in rocks and stones
@@ -3554,7 +4180,10 @@ roebucks	ROEBUCK: male roe deer
 roentgen	a unit of radiation exposure; the dose of ionizing radiation that will produce 1 electrostatic unit of electricity in 1 cc of dry air
 roentgens	ROENTGEN: a unit of radiation exposure; the dose of ionizing radiation that will produce 1 electrostatic unit of electricity in 1 cc of dry air
 roes	ROE: fish eggs or egg-filled ovary; having a grainy texture
-rogers	United States humorist remembered for his homespun commentary on politics and American society (1879-1935)
+roger	message received and understood
+rogered	ROGER: message received and understood
+rogering	ROGER: message received and understood
+rogers	ROGER: message received and understood
 rogue	a deceitful and unreliable scoundrel
 roguery	reckless or malicious behavior that causes discomfort or annoyance in others
 rogues	ROGUE: a deceitful and unreliable scoundrel
@@ -3574,27 +4203,39 @@ roisters	ROISTER: engage in boisterous, drunken merrymaking
 role	the actions and activities assigned to or required or expected of a person or group
 roles	ROLE: the actions and activities assigned to or required or expected of a person or group
 roll	move by turning over or rotating
+rollaway	able to be rolled away on wheels
+rollaways	ROLLAWAY: able to be rolled away on wheels
 rollback	the act of forcing the enemy to withdraw
 rollbacks	ROLLBACK: the act of forcing the enemy to withdraw
 rolled	ROLL: move by turning over or rotating
 roller	a grounder that rolls along the infield
+rollercoaster	an amusement ride with steep tracks and sharp drops
+rollercoasters	ROLLERCOASTER: an amusement ride with steep tracks and sharp drops
 rollers	ROLLER: a grounder that rolls along the infield
+rollerskating	gliding on shoes fitted with wheels
 rollick	play boisterously
 rollicked	ROLLICK: play boisterously
 rollicking	given to merry frolicking
+rollickings	ROLLICKING: a severe telling-off
 rollicks	ROLLICK: play boisterously
 rolling	uttered with a trill
 rollings	ROLLING: uttered with a trill
-rollmops	a pickled herring filet that has been rolled or wrapped around a pickle
+rollmop	a pickled herring fillet rolled around onions
+rollmops	ROLLMOP: a pickled herring fillet rolled around onions
+rollout	the gradual introduction of a new product or service
+rollouts	ROLLOUT: the gradual introduction of a new product or service
 rollover	the act of changing the institution that invests your pension plan without incurring a tax penalty
 rollovers	ROLLOVER: the act of changing the institution that invests your pension plan without incurring a tax penalty
 rolls	ROLL: move by turning over or rotating
+rollup	something rolled up, such as a hand-rolled cigarette
+rollups	ROLLUP: something rolled up, such as a hand-rolled cigarette
 romaine	lettuce with long dark-green leaves in a loosely packed elongated head
 romaines	ROMAINE: lettuce with long dark-green leaves in a loosely packed elongated head
 roman	relating to or characteristic of people of Rome
 romance	a relationship between two lovers
 romanced	ROMANCE: a relationship between two lovers
 romancer	ROMANCE: a relationship between two lovers
+romancers	ROMANCER: a person who woos another
 romances	ROMANCE: a relationship between two lovers
 romancing	ROMANCE: a relationship between two lovers
 romantic	a soulful or amorous idealist
@@ -3620,8 +4261,10 @@ rompers	ROMPER: a person who romps or frolics
 romping	ROMP: an easy victory
 romps	ROMP: an easy victory
 rondeau	a musical form that is often the last movement of a sonata
+rondeaux	RONDEAU: a poem with two rhymes and a repeated refrain
 rondo	a musical form that is often the last movement of a sonata
 rondos	RONDO: a musical form that is often the last movement of a sonata
+roo	kangaroo
 rood	representation of the cross on which Jesus died
 roods	ROOD: representation of the cross on which Jesus died
 roof	a protective covering that covers or forms the top of a building
@@ -3657,7 +4300,9 @@ rooming	ROOM: an area within a building enclosed by walls and floor and ceiling
 roommate	an associate who shares a room with you
 roommates	ROOMMATE: an associate who shares a room with you
 rooms	apartment consisting of a series of connected rooms used as a living unit (as in a hotel)
+roomsful	ROOMFUL: as much as fills a room
 roomy	an associate who shares a room with you
+roos	ROO: kangaroo
 roost	sit, as on a branch
 roosted	ROOST: sit, as on a branch
 rooster	adult male chicken
@@ -3669,6 +4314,7 @@ rooted	ROOT: the usually underground organ that lacks buds or leaves or nodes; a
 rooter	an enthusiastic devotee of sports
 rooters	ROOTER: an enthusiastic devotee of sports
 rooting	the process of putting forth roots and beginning to grow
+rootkit	malicious software that hides its presence on a computer
 rootle	dig with the snout
 rootled	ROOTLE: dig with the snout
 rootless	wandering aimlessly without ties to a place or community
@@ -3676,7 +4322,9 @@ rootlessness	the quality of being rootless
 rootling	ROOTLE: dig with the snout
 roots	ROOT: the usually underground organ that lacks buds or leaves or nodes; absorbs water and mineral salts; usually it anchors the plant to the ground
 rootstock	a horizontal plant stem with shoots above and roots below serving as a reproductive structure
+rooves	ROOF: the covering on top of a building
 rope	a strong line
+ropeable	very angry
 roped	ROPE: a strong line
 ropes	ROPE: a strong line
 ropey	of or resembling rope (or ropes) in being long and strong
@@ -3684,6 +4332,10 @@ ropier	ROPY: of or resembling rope (or ropes) in being long and strong
 ropiest	ROPY: of or resembling rope (or ropes) in being long and strong
 roping	ROPE: a strong line
 ropy	of or resembling rope (or ropes) in being long and strong
+rort	a dishonest scheme or an abuse of a system
+rorted	RORT: a dishonest scheme or an abuse of a system
+rorting	RORT: a dishonest scheme or an abuse of a system
+rorts	RORT: a dishonest scheme or an abuse of a system
 rosaries	ROSARY: a string of beads used in counting prayers (especially by Catholics)
 rosary	a string of beads used in counting prayers (especially by Catholics)
 rose	any of many shrubs of the genus Rosa that bear roses
@@ -3694,21 +4346,28 @@ rosebush	any of many shrubs of the genus Rosa that bear roses
 rosebushes	ROSEBUSH: any of many shrubs of the genus Rosa that bear roses
 rosehip	the fruit of a rose plant
 rosehips	ROSEHIP: the fruit of a rose plant
+rosella	a colourful Australian parrot
+rosellas	ROSELLA: a colourful Australian parrot
 rosemary	widely cultivated for its fragrant grey-green leaves used in cooking and in perfumery
 roses	ROSE: any of many shrubs of the genus Rosa that bear roses
 rosette	an ornament or pattern resembling a rose that is worn as a badge of office or as recognition of having won an honor
 rosettes	ROSETTE: an ornament or pattern resembling a rose that is worn as a badge of office or as recognition of having won an honor
+rosewater	perfumed water distilled from rose petals
 rosewood	hard dark reddish wood of a rosewood tree having a strongly marked grain; used in cabinetwork
 rosewoods	ROSEWOOD: hard dark reddish wood of a rosewood tree having a strongly marked grain; used in cabinetwork
 rosier	ROSY: reflecting optimism
 rosiest	ROSY: reflecting optimism
+rosily	in a pink or optimistic way
 rosin	any of a class of solid or semisolid viscous substances obtained either as exudations from certain plants or prepared by polymerization of simple molecules
 rosined	ROSIN: any of a class of solid or semisolid viscous substances obtained either as exudations from certain plants or prepared by polymerization of simple molecules
 rosiness	a rosy color (especially in the cheeks) taken as a sign of good health
 rosining	ROSIN: any of a class of solid or semisolid viscous substances obtained either as exudations from certain plants or prepared by polymerization of simple molecules
 rosins	ROSIN: any of a class of solid or semisolid viscous substances obtained either as exudations from certain plants or prepared by polymerization of simple molecules
 roster	a list of names
+rostered	ROSTER: put on a list of duty times
+rostering	ROSTER: put on a list of duty times
 rosters	ROSTER: a list of names
+rostra	ROSTRUM: a raised platform for speaking
 rostrum	a platform raised above the surrounding level to give prominence to the person on it
 rostrums	ROSTRUM: a platform raised above the surrounding level to give prominence to the person on it
 rosy	reflecting optimism
@@ -3725,7 +4384,10 @@ rotating	ROTATE: turn on or around an axis or a center
 rotation	the act of rotating as if on an axis
 rotational	of or pertaining to rotation
 rotations	ROTATION: the act of rotating as if on an axis
+rotator	something that rotates
 rote	memorization by repetition
+roti	a flat round unleavened bread
+rotis	ROTI: a flat round unleavened bread
 rotisserie	an oven or broiler equipped with a rotating spit on which meat cooks as it turns
 rotisseries	ROTISSERIE: an oven or broiler equipped with a rotating spit on which meat cooks as it turns
 rotogravure	printing by transferring an image from a photogravure plate to a cylinder in a rotary press
@@ -3773,6 +4435,8 @@ roughhousing	ROUGHHOUSE: engage in rough or disorderly play
 roughing	ROUGH: having or caused by an irregular surface
 roughly	(of quantities) imprecise but fairly close to correct
 roughneck	a cruel and brutal fellow
+roughnecked	ROUGHNECK: work as a labourer on an oil rig
+roughnecking	ROUGHNECK: work as a labourer on an oil rig
 roughnecks	ROUGHNECK: a cruel and brutal fellow
 roughness	a texture of a surface or edge that is not smooth but is irregular and uneven
 roughs	ROUGH: having or caused by an irregular surface
@@ -3800,6 +4464,7 @@ roundness	the fullness of a tone of voice
 rounds	ROUND: a charge of ammunition for a single shot
 roundtable	a meeting of peers for discussion and exchange of views
 roundtables	ROUNDTABLE: a meeting of peers for discussion and exchange of views
+roundtrip	a journey to a place and back again
 roundup	the activity of gathering livestock together so that they can be counted or branded or sold
 roundups	ROUNDUP: the activity of gathering livestock together so that they can be counted or branded or sold
 roundworm	infections of the skin or nails caused by fungi and appearing as itching circular patches
@@ -3808,8 +4473,13 @@ rouse	become active
 roused	ROUSE: become active
 rouses	ROUSE: become active
 rousing	capable of arousing enthusiasm or excitement
+roust	rouse or drive out roughly
 roustabout	a member of a ship's crew who performs manual labor
 roustabouts	ROUSTABOUT: a member of a ship's crew who performs manual labor
+rousted	ROUST: rouse or drive out roughly
+rouster	ROUST: rouse or drive out roughly
+rousting	ROUST: rouse or drive out roughly
+rousts	ROUST: rouse or drive out roughly
 rout	cause to flee
 route	an established line of travel or access
 routed	ROUTE: an established line of travel or access
@@ -3821,6 +4491,14 @@ routine	an unvarying or habitual method or procedure
 routinely	according to routine or established practice
 routines	ROUTINE: an unvarying or habitual method or procedure
 routing	ROUTE: an established line of travel or access
+routinise	make into a regular routine
+routinised	ROUTINISE: make into a regular routine
+routinises	ROUTINISE: make into a regular routine
+routinising	ROUTINISE: make into a regular routine
+routinize	make into a regular routine
+routinized	ROUTINIZE: make into a regular routine
+routinizes	ROUTINIZE: make into a regular routine
+routinizing	ROUTINIZE: make into a regular routine
 routs	ROUT: cause to flee
 roux	a mixture of fat and flour heated and used as a basis for sauces
 rove	move about aimlessly or without any destination, often in search of food or employment
@@ -3843,11 +4521,15 @@ rowdy	a cruel and brutal fellow
 rowdyism	rowdy behavior
 rowed	ROW: an arrangement of objects or people side by side in a line
 rowel	a small spiked wheel at the end of a spur
+roweled	ROWEL: prick with a small spiked wheel
+roweling	ROWEL: prick with a small spiked wheel
 rowelled	ROWEL: a small spiked wheel at the end of a spur
 rowelling	ROWEL: a small spiked wheel at the end of a spur
 rowels	ROWEL: a small spiked wheel at the end of a spur
 rower	someone who rows a boat
 rowers	ROWER: someone who rows a boat
+rowhouse	one of a row of joined houses
+rowhouses	ROWHOUSE: one of a row of joined houses
 rowing	ROW: an arrangement of objects or people side by side in a line
 rowlock	a holder attached to the gunwale of a boat that holds the oar in place and acts as a fulcrum for rowing
 rowlocks	ROWLOCK: a holder attached to the gunwale of a boat that holds the oar in place and acts as a fulcrum for rowing
@@ -3905,6 +4587,7 @@ rubric	an authoritative rule of conduct or procedure
 rubrics	RUBRIC: an authoritative rule of conduct or procedure
 rubs	RUB: move over something with pressure
 ruby	a transparent piece of ruby that has been cut and polished and is valued as a precious gem
+ruched	RUCHE: gathered into pleats or folds
 ruck	a crowd especially of ordinary or undistinguished persons or things
 rucked	RUCK: a crowd especially of ordinary or undistinguished persons or things
 rucking	RUCK: a crowd especially of ordinary or undistinguished persons or things
@@ -3920,6 +4603,7 @@ rudders	RUDDER: a hinged vertical airfoil mounted at the tail of an aircraft and
 ruddier	RUDDY: inclined to a healthy reddish color often associated with outdoor life
 ruddiest	RUDDY: inclined to a healthy reddish color often associated with outdoor life
 ruddiness	a healthy reddish complexion
+ruddock	the European robin
 ruddy	inclined to a healthy reddish color often associated with outdoor life
 rude	socially incorrect in behavior
 rudely	in an impolite manner
@@ -3955,6 +4639,8 @@ ruggedest	RUGGED: sturdy and strong in constitution or construction; enduring
 ruggedly	in a rugged manner
 ruggedness	the property of being big and strong
 rugger	RUG: floor covering consisting of a piece of thick heavy fabric (usually with nap or pile)
+rugrat	a small child
+rugrats	RUGRAT: a small child
 rugs	RUG: floor covering consisting of a piece of thick heavy fabric (usually with nap or pile)
 ruin	an irrecoverable state of devastation and destruction
 ruination	an irrecoverable state of devastation and destruction
@@ -3968,6 +4654,8 @@ ruinously	in a ruinous manner or to a ruinous degree
 ruinousness	the quality of being ruinous
 ruins	RUIN: an irrecoverable state of devastation and destruction
 rule	a principle or condition that customarily governs behavior
+rulebook	a book of the rules of a game or organisation
+rulebooks	RULEBOOK: a book of the rules of a game or organisation
 ruled	subject to a ruling authority
 ruler	a person who rules or commands
 rulers	RULER: a person who rules or commands
@@ -4025,15 +4713,20 @@ rums	RUM: liquor distilled from fermented molasses
 run	move fast by using one's feet, with one foot off the ground at any given time
 runabout	an open automobile having a front seat and a rumble seat
 runabouts	RUNABOUT: an open automobile having a front seat and a rumble seat
+runaround	evasive or misleading treatment
+runarounds	RUNAROUND: evasive or misleading treatment
 runaway	an easy victory
 runaways	RUNAWAY: an easy victory
 rundown	a concluding summary (as in presenting a case before a law court)
 rundowns	RUNDOWN: a concluding summary (as in presenting a case before a law court)
 rune	any character from an ancient Germanic alphabet used in Scandinavia from the 3rd century to the Middle Ages
 runes	RUN: move fast by using one's feet, with one foot off the ground at any given time
+runestone	a stone carved with runic letters
+runestones	RUNESTONE: a stone carved with runic letters
 rung	RING: sound loudly and sonorously
 rungs	RUNG: a crosspiece between the legs of a chair
 runic	relating to or consisting of runes
+runically	in the manner of runes
 runnel	a small stream
 runnels	RUNNEL: a small stream
 runner	someone who imports or exports without paying duties
@@ -4046,6 +4739,7 @@ runoff	the occurrence of surplus liquid (as water) exceeding the limit or capaci
 runoffs	RUNOFF: the occurrence of surplus liquid (as water) exceeding the limit or capacity
 runs	RUN: move fast by using one's feet, with one foot off the ground at any given time
 runt	disparaging terms for small people
+runtime	the period during which a program is running
 runts	RUNT: disparaging terms for small people
 runway	a bar or pair of parallel bars of rolled steel making the railway along which railroad cars or other vehicles can roll
 runways	RUNWAY: a bar or pair of parallel bars of rolled steel making the railway along which railroad cars or other vehicles can roll
@@ -4074,6 +4768,7 @@ rust	become destroyed by water, air, or a corrosive such as an acid
 rustbelt	urban areas in New England and Midwest characterized by concentrations of declining industries (steel or textiles)
 rusted	having accumulated rust
 rustic	characteristic of rural life
+rustically	in a simple countrified way
 rusticated	RUSTICATE: live in the country and lead a rustic life
 rusticity	the quality of being rustic or gauche
 rustics	RUSTIC: characteristic of rural life
@@ -4091,6 +4786,8 @@ rustlingly	in a rustling way
 rustlings	RUSTLING: the stealing of cattle
 rustproof	treated against rusting
 rustproofed	treated against rusting
+rustproofing	treatment that protects against rust
+rustproofs	RUSTPROOF: treat to protect against rust
 rusts	RUST: become destroyed by water, air, or a corrosive such as an acid
 rusty	covered with or consisting of rust
 rut	a groove or furrow (especially one in soft earth caused by wheels)

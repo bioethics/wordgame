@@ -5,6 +5,7 @@ iambics	IAMBIC: a verse line consisting of iambs
 iambs	IAMB: a metrical unit with unstressed-stressed syllables
 ibex	wild goat of mountain areas of Eurasia and northern Africa having large recurved horns
 ibexes	IBEX: wild goat of mountain areas of Eurasia and northern Africa having large recurved horns
+ibices	IBEX: a wild goat with large curved horns
 ibis	wading birds of warm regions having long slender down-curved bills
 ibises	IBIS: wading birds of warm regions having long slender down-curved bills
 ibuprofen	a nonsteroidal anti-inflammatory and analgesic medicine (trade names Advil and Motrin and Nuprin) used to relieve the pain of arthritis and as an antipyretic
@@ -21,8 +22,13 @@ icecap	a mass of ice and snow that permanently covers a large area of land (e.g.
 icecaps	ICECAP: a mass of ice and snow that permanently covers a large area of land (e.g., the polar regions or a mountain peak)
 iced	ICE: water frozen in the solid state
 icehouse	a house for storing ice
+icemaker	a machine that makes ice
+icemakers	ICEMAKER: a machine that makes ice
 iceman	someone who cuts and delivers ice
 ices	ICE: water frozen in the solid state
+ichnological	relating to fossil footprints and tracks
+ichnology	the study of fossil footprints and tracks
+ichthyological	relating to the study of fish
 ichthyologist	a zoologist who studies fishes
 ichthyologists	ICHTHYOLOGIST: a zoologist who studies fishes
 ichthyology	the branch of zoology that studies fishes
@@ -35,9 +41,12 @@ icily	in a cold and icy manner
 iciness	coldness due to a cold environment
 icing	ICE: water frozen in the solid state
 icings	ICING: the formation of frost or ice on a surface
+ick	expression of disgust
 ickier	ICKY: very bad
 ickiest	ICKY: very bad
+ickily	in a disgusting way
 ickiness	the quality of being icky
+ickle	little
 icky	very bad
 icon	a graphic symbol (usually a simple picture) that denotes a program or a command or a data file or a concept in a graphical user interface
 iconic	relating to or having the characteristics on an icon
@@ -45,7 +54,11 @@ iconoclasm	the orientation of an iconoclast
 iconoclast	a destroyer of images used in religious worship
 iconoclastic	characterized by attack on established beliefs or institutions
 iconoclasts	ICONOCLAST: a destroyer of images used in religious worship
+iconographic	relating to images and symbols in art
 iconography	the images and symbolic representations that are traditionally associated with a person or a subject
+iconological	relating to the interpretation of symbols in art
+iconologist	a person who studies symbols in art
+iconologists	ICONOLOGIST: a person who studies symbols in art
 iconology	the branch of art history that studies visual images and their symbolic meaning (especially in social or political terms)
 icons	ICON: a graphic symbol (usually a simple picture) that denotes a program or a command or a data file or a concept in a graphical user interface
 icy	devoid of warmth and cordiality; expressive of unfriendliness or disdain
@@ -61,6 +74,7 @@ idealising	IDEALISE: consider or render as ideal
 idealism	the philosophical theory that ideas are the only reality
 idealist	someone guided more by ideals than by practical considerations
 idealistic	of or relating to the philosophical doctrine of the reality of ideas
+idealistically	in a way based on high ideals
 idealists	IDEALIST: someone guided more by ideals than by practical considerations
 idealization	a portrayal of something as ideal
 idealizations	IDEALIZATION: a portrayal of something as ideal
@@ -149,9 +163,11 @@ idyllic	excellent and delightful in all respects
 idyllically	in an idyllic manner
 idylls	IDYLL: an episode of such pastoral or romantic charm as to qualify as the subject of a poetic idyll
 idyls	IDYL: a musical composition that evokes rural life
+if	on the condition that
 iffier	IFFY: subject to accident or chance or change
 iffiest	IFFY: subject to accident or chance or change
 iffy	subject to accident or chance or change
+ifs	IF: on the condition that
 igloo	an Eskimo hut; usually built of blocks (of sod or snow) in the shape of a dome
 igloos	IGLOO: an Eskimo hut; usually built of blocks (of sod or snow) in the shape of a dome
 igneous	produced under conditions involving intense heat
@@ -176,12 +192,15 @@ ignorant	uneducated in general; lacking knowledge or sophistication
 ignorantly	in ignorance; in an ignorant manner
 ignore	refuse to acknowledge
 ignored	IGNORE: refuse to acknowledge
+ignorer	a person who ignores
+ignorers	IGNORER: a person who ignores
 ignores	IGNORE: refuse to acknowledge
 ignoring	IGNORE: refuse to acknowledge
 iguana	large herbivorous tropical American arboreal lizards with a spiny crest along the back; used as human food in Central America and South America
 iguanas	IGUANA: large herbivorous tropical American arboreal lizards with a spiny crest along the back; used as human food in Central America and South America
 ikon	a visual representation (of an object or scene or person or abstraction) produced on a surface
 ikons	IKON: a visual representation (of an object or scene or person or abstraction) produced on a surface
+ilea	ILEUM: the last part of the small intestine
 ileum	the part of the small intestine between the jejunum and the cecum
 ilk	a kind of person
 ilks	ILK: a kind of person
@@ -190,6 +209,7 @@ illegal	prohibited by law or by official or accepted rules
 illegalities	ILLEGALITY: unlawfulness by virtue of violating some legal statute
 illegality	unlawfulness by virtue of violating some legal statute
 illegally	in an illegal manner
+illegals	ILLEGAL: people who are in a country unlawfully
 illegibility	the quality of writing (print or handwriting) that cannot be deciphered
 illegible	(of handwriting, print, etc.) not legible
 illegibly	in an illegible manner
@@ -200,6 +220,7 @@ illiberal	narrow-minded about cherished opinions
 illicit	contrary to accepted morality (especially sexual morality) or convention
 illicitly	in a manner disapproved or not allowed by custom
 illicitness	the quality of not conforming strictly to law
+illiquid	not easily turned into cash
 illiteracy	ignorance resulting from not reading
 illiterate	not able to read or write
 illiterates	ILLITERATE: not able to read or write
@@ -215,16 +236,19 @@ illuminates	ILLUMINATE: make lighter or brighter
 illuminating	tending to increase knowledge or dissipate ignorance
 illumination	a condition of spiritual awareness; divine illumination
 illuminations	ILLUMINATION: a condition of spiritual awareness; divine illumination
+illuminator	a person who decorates manuscripts with colour and gold
 illumine	make lighter or brighter
 illumined	ILLUMINE: make lighter or brighter
 illumines	ILLUMINE: make lighter or brighter
 illumining	ILLUMINE: make lighter or brighter
+illus	illustrations
 illusion	an erroneous mental representation
 illusionary	marked by or producing illusion
 illusionist	a person with unusual powers of foresight
 illusionists	ILLUSIONIST: a person with unusual powers of foresight
 illusions	ILLUSION: an erroneous mental representation
 illusive	based on or having the nature of an illusion
+illusorily	in a way that is deceptive or unreal
 illusoriness	the quality of being illusory
 illusory	based on or having the nature of an illusion
 illustrate	clarify by giving an example of
@@ -242,6 +266,8 @@ imaged	IMAGE: an iconic mental representation
 imagery	the ability to form mental images of things or events
 images	IMAGE: an iconic mental representation
 imaginable	capable of being imagined
+imaginably	in a way that can be pictured
+imaginal	relating to the mind's images, or to an insect's adult stage
 imaginary	not based on fact; existing only in the imagination
 imagination	the formation of a mental image of something that is not perceived as real and is not present to the senses
 imaginations	IMAGINATION: the formation of a mental image of something that is not perceived as real and is not present to the senses
@@ -252,7 +278,9 @@ imagined	IMAGINE: form a mental image of something that is not present or that i
 imagines	IMAGINE: form a mental image of something that is not present or that is not the case
 imaging	the ability to form mental images of things or events
 imagining	IMAGINE: form a mental image of something that is not present or that is not the case
+imaginings	IMAGINING: things pictured in the mind
 imago	an idealized image of someone (usually a parent) formed in childhood
+imagoes	IMAGO: the fully developed adult stage of an insect
 imam	the man who leads prayers in a mosque; for Shiites an imam is a recognized authority on Islamic theology and law and a spiritual guide
 imams	IMAM: the man who leads prayers in a mosque; for Shiites an imam is a recognized authority on Islamic theology and law and a spiritual guide
 imbalance	a lack of balance or state of disequilibrium
@@ -312,6 +340,7 @@ immerses	IMMERSE: thrust or throw into
 immersing	IMMERSE: thrust or throw into
 immersion	sinking until covered completely with water
 immersions	IMMERSION: sinking until covered completely with water
+immersive	deeply absorbing
 immigrant	a person who comes to a country where they were not born in order to settle there
 immigrants	IMMIGRANT: a person who comes to a country where they were not born in order to settle there
 immigrate	migrate to a new environment
@@ -326,12 +355,16 @@ immobile	not capable of movement or of being moved
 immobilisation	fixation (as by a plaster cast) of a body part in order to promote proper healing
 immobilise	hold as reserve or withdraw from circulation; of capital
 immobilised	IMMOBILISE: hold as reserve or withdraw from circulation; of capital
+immobiliser	a device that stops a vehicle from being started
+immobilisers	IMMOBILISER: a device that stops a vehicle from being started
 immobilises	IMMOBILISE: hold as reserve or withdraw from circulation; of capital
 immobilising	IMMOBILISE: hold as reserve or withdraw from circulation; of capital
 immobility	remaining in place
 immobilization	fixation (as by a plaster cast) of a body part in order to promote proper healing
 immobilize	hold as reserve or withdraw from circulation; of capital
 immobilized	IMMOBILIZE: hold as reserve or withdraw from circulation; of capital
+immobilizer	a device that stops a vehicle from being started
+immobilizers	IMMOBILIZER: a device that stops a vehicle from being started
 immobilizes	IMMOBILIZE: hold as reserve or withdraw from circulation; of capital
 immobilizing	the act of limiting movement or making incapable of movement
 immoderate	beyond reasonable limits
@@ -358,6 +391,7 @@ immortalize	be or provide a memorial to a person or an event
 immortalized	IMMORTALIZE: be or provide a memorial to a person or an event
 immortalizes	IMMORTALIZE: be or provide a memorial to a person or an event
 immortalizing	IMMORTALIZE: be or provide a memorial to a person or an event
+immortally	in a way that lasts forever
 immortals	IMMORTAL: not subject to death
 immovable	property consisting of houses and land
 immovably	so as to be incapable of moving
@@ -401,6 +435,8 @@ immutably	in an unalterable and unchangeable manner
 imp	fairies that are somewhat mischievous
 impact	the striking of one body against another
 impacted	wedged or packed in together
+impacter	something that strikes with force
+impacters	IMPACTER: something that strikes with force
 impacting	IMPACT: the striking of one body against another
 impacts	IMPACT: the striking of one body against another
 impair	make worse or less effective
@@ -415,6 +451,7 @@ impale	pierce with a sharp stake or point
 impaled	IMPALE: pierce with a sharp stake or point
 impalement	the act of piercing with a sharpened stake as a form of punishment or torture
 impalements	IMPALEMENT: the act of piercing with a sharpened stake as a form of punishment or torture
+impaler	a person who pierces with a sharp stake
 impales	IMPALE: pierce with a sharp stake or point
 impaling	IMPALE: pierce with a sharp stake or point
 impalpable	incapable of being perceived by the senses especially the sense of touch
@@ -426,6 +463,8 @@ impanelling	IMPANEL: enter into a list of prospective jurors
 impanels	IMPANEL: enter into a list of prospective jurors
 impart	transmit (knowledge or skills)
 imparted	IMPART: transmit (knowledge or skills)
+imparter	a person who passes on information
+imparters	IMPARTER: a person who passes on information
 impartial	showing lack of favoritism
 impartiality	an inclination to weigh both views or opinions equally
 impartially	in an impartial manner
@@ -434,6 +473,7 @@ imparts	IMPART: transmit (knowledge or skills)
 impassable	incapable of being passed
 impasse	a situation in which no progress can be made or no advancement is possible
 impasses	IMPASSE: a situation in which no progress can be made or no advancement is possible
+impassible	unable to feel pain or emotion
 impassioned	characterized by intense emotion
 impassive	having or revealing little emotion or sensibility; not easily aroused or excited
 impassively	in an impassive manner
@@ -441,10 +481,14 @@ impassivity	apathy demonstrated by an absence of emotional reactions
 impasto	painting that applies the pigment thickly so that brush or palette knife marks are visible
 impatience	a lack of patience; irritation with anything that causes delay
 impatiences	IMPATIENCE: a lack of patience; irritation with anything that causes delay
+impatiens	a plant with brightly coloured flowers
 impatient	restless or short-tempered under delay or opposition
 impatiently	with impatience; in an impatient manner
 impeach	challenge the honesty or veracity of
+impeachable	liable to be charged with serious misconduct in office
 impeached	IMPEACH: challenge the honesty or veracity of
+impeacher	a person who charges an official with misconduct
+impeachers	IMPEACHER: a person who charges an official with misconduct
 impeaches	IMPEACH: challenge the honesty or veracity of
 impeaching	IMPEACH: challenge the honesty or veracity of
 impeachment	a formal document charging a public official with misconduct in office
@@ -474,11 +518,13 @@ impending	close in time; about to occur
 impends	IMPEND: be imminent or about to happen
 impenetrability	the quality of being impenetrable (by people or light or missiles etc.)
 impenetrable	not admitting of penetration or passage into or through
+impenetrably	in a way that cannot be passed through
 impenitence	the trait of refusing to repent
 impenitent	not penitent or remorseful
 imperative	requiring attention or action
 imperatively	in an imperative and commanding manner
 imperatives	IMPERATIVE: requiring attention or action
+imperator	a Roman commander or emperor
 imperceptible	impossible or difficult to perceive by the mind or senses
 imperceptibly	in an imperceptible manner or to an imperceptible degree
 imperfect	not perfect; defective or inadequate
@@ -524,6 +570,7 @@ impertinent	characterized by a lightly pert and exuberant quality
 impertinently	in an impudent or impertinent manner
 imperturbability	calm and unruffled self-assurance
 imperturbable	not easily perturbed or excited or upset; marked by extreme calm and composure
+imperturbably	in a calm way that cannot be upset
 impervious	not admitting of passage or capable of being affected
 impetigo	a very contagious infection of the skin; common in children; localized redness develops into small blisters that gradually crust and erode
 impetuosity	rash impulsiveness
@@ -544,8 +591,11 @@ impiousness	unrighteousness by virtue of lacking respect for a god
 impish	naughtily or annoyingly playful
 impishly	in an appealing but bold manner
 impishness	the trait of behaving like an imp
+implacability	the quality of being unable to be appeased
 implacable	incapable of being placated
+implacably	in a way that cannot be appeased
 implant	fix or set securely or deeply
+implantable	able to be inserted into the body
 implantation	the organic process whereby a fertilized egg becomes implanted in the lining of the uterus of placental mammals
 implanted	IMPLANT: fix or set securely or deeply
 implanting	IMPLANT: fix or set securely or deeply
@@ -555,9 +605,12 @@ implausibility	the quality of provoking disbelief
 implausible	having a quality that provokes disbelief
 implausibly	not easy to believe
 implement	apply in a manner consistent with its purpose or design
+implementable	able to be put into practice
 implementation	the act of accomplishing some aim or executing some order
 implementations	IMPLEMENTATION: the act of accomplishing some aim or executing some order
 implemented	IMPLEMENT: apply in a manner consistent with its purpose or design
+implementer	a person who puts a plan into action
+implementers	IMPLEMENTER: a person who puts a plan into action
 implementing	IMPLEMENT: apply in a manner consistent with its purpose or design
 implements	IMPLEMENT: apply in a manner consistent with its purpose or design
 implicate	bring into intimate and incriminating connection
@@ -568,6 +621,7 @@ implication	something that is inferred (deduced or entailed or implied)
 implications	IMPLICATION: something that is inferred (deduced or entailed or implied)
 implicit	implied though not directly expressed; inherent in the nature of something
 implicitly	without doubting or questioning
+implied	IMPLY: suggested without saying directly
 implies	IMPLY: express or state indirectly
 implode	burst inward
 imploded	IMPLODE: burst inward
@@ -682,6 +736,8 @@ imprimatur	formal and explicit approval
 imprimaturs	IMPRIMATUR: formal and explicit approval
 imprint	a distinctive influence
 imprinted	IMPRINT: a distinctive influence
+imprinter	a person or device that stamps a mark
+imprinters	IMPRINTER: a person or device that stamps a mark
 imprinting	IMPRINT: a distinctive influence
 imprints	IMPRINT: a distinctive influence
 imprison	lock up or confine, in or as in a jail
@@ -700,22 +756,26 @@ improper	not suitable or right or appropriate
 improperly	in an improper way
 improprieties	IMPROPRIETY: an improper demeanor
 impropriety	an improper demeanor
+improv	improvisation, especially in comedy theatre
 improvable	susceptible of improvement
 improve	to make better
 improved	made more desirable or valuable or profitable; especially made ready for use or marketing
 improvement	a change for the better; progress in development
 improvements	IMPROVEMENT: a change for the better; progress in development
-improver	someone devoted to the promotion of human welfare and to social reforms
+improver	IMPROV: improvisation, especially in comedy theatre
 improvers	IMPROVER: someone devoted to the promotion of human welfare and to social reforms
-improves	IMPROVE: to make better
+improves	IMPROV: improvisation, especially in comedy theatre
 improvidence	a lack of prudence and care by someone in the management of resources
 improvident	not provident; not providing for the future
 improvidently	in an improvident manner
-improving	IMPROVE: to make better
+improving	IMPROV: improvisation, especially in comedy theatre
 improvisation	a creation spoken or written or composed extemporaneously (without prior preparation)
+improvisational	made up on the spur of the moment
 improvisations	IMPROVISATION: a creation spoken or written or composed extemporaneously (without prior preparation)
 improvise	perform without preparation
 improvised	done or made using whatever is available
+improviser	a person who makes things up on the spur of the moment
+improvisers	IMPROVISER: a person who makes things up on the spur of the moment
 improvises	IMPROVISE: perform without preparation
 improvising	IMPROVISE: perform without preparation
 imprudence	a lack of caution in practical affairs
@@ -727,14 +787,19 @@ impudent	marked by casual disrespect
 impudently	in an impudent or impertinent manner
 impugn	attack as false or wrong
 impugned	IMPUGN: attack as false or wrong
+impugner	a person who challenges something as false
+impugners	IMPUGNER: a person who challenges something as false
 impugning	IMPUGN: attack as false or wrong
 impugns	IMPUGN: attack as false or wrong
 impulse	an instinctive motive
+impulsed	IMPULSE: driven by a sudden urge
 impulses	IMPULSE: an instinctive motive
+impulsing	IMPULSE: driving by a sudden urge
 impulsion	a force that moves something along
 impulsive	proceeding from natural feeling or impulse without external stimulus
 impulsively	in an impulsive or impetuous way; without taking cautions
 impulsiveness	the trait of acting suddenly on impulse without reflection
+impulsivity	the tendency to act without thinking
 impunity	exemption from punishment or loss
 impure	combined with extraneous elements
 impurely	in a impure way
@@ -795,6 +860,7 @@ inarguable	against which no argument can be made
 inarticulate	without or deprived of the use of speech or words
 inarticulately	without eloquence; in an inarticulate manner
 inarticulateness	the quality of being inarticulate
+inasmuch	to the degree that
 inattention	lack of attention
 inattentive	showing a lack of attention or care
 inattentively	in an absentminded or preoccupied manner
@@ -813,22 +879,34 @@ inauspicious	not auspicious; boding ill
 inauspiciously	in an inauspicious manner
 inauthentic	false or fake; not what it appears to be
 inboard	located within the hull or nearest the midline of a vessel or aircraft
+inboards	INBOARD: engines or boats with motors inside the hull
 inborn	present at birth but not necessarily hereditary; acquired during fetal development
 inbound	directed or moving inward or toward a center
+inbox	the folder where new email arrives
+inboxes	INBOX: the folder where new email arrives
 inbred	produced by inbreeding
-inbreeding	the act of mating closely related individuals
+inbreed	breed from closely related parents
+inbreeding	INBREED: breed from closely related parents
+inbreeds	INBREED: breed from closely related parents
 inbuilt	existing as an essential constituent or characteristic
 incalculable	not able to be computed or enumerated
+incalculably	in a way too great to measure
 incandescence	the phenomenon of light emission by a body as its temperature is raised
 incandescent	emitting light as a result of being heated
+incant	recite as a magic spell
 incantation	a ritual recitation of words or sounds believed to have a magical effect
 incantations	INCANTATION: a ritual recitation of words or sounds believed to have a magical effect
+incantatory	like a magic chant
+incanted	INCANT: recite as a magic spell
+incanting	INCANT: recite as a magic spell
+incants	INCANT: recite as a magic spell
 incapability	lack of potential for development
 incapable	lacking capacity or ability
 incapacitate	make unable to perform a certain action
 incapacitated	INCAPACITATE: make unable to perform a certain action
 incapacitates	INCAPACITATE: make unable to perform a certain action
 incapacitating	INCAPACITATE: make unable to perform a certain action
+incapacitation	the state of being made unable to function
 incapacity	lack of intellectual power
 incarcerate	lock up or confine, in or as in a jail
 incarcerated	INCARCERATE: lock up or confine, in or as in a jail
@@ -852,6 +930,14 @@ incenses	INCENSE: a substance that produces a fragrant odor when burned
 incensing	INCENSE: a substance that produces a fragrant odor when burned
 incentive	a positive motivational influence
 incentives	INCENTIVE: a positive motivational influence
+incentivise	motivate with a reward
+incentivised	INCENTIVISE: motivate with a reward
+incentivises	INCENTIVISE: motivate with a reward
+incentivising	INCENTIVISE: motivate with a reward
+incentivize	motivate with a reward
+incentivized	INCENTIVIZE: motivate with a reward
+incentivizes	INCENTIVIZE: motivate with a reward
+incentivizing	INCENTIVIZE: motivate with a reward
 inception	an event that is a beginning; a first part or stage of subsequent events
 inceptions	INCEPTION: an event that is a beginning; a first part or stage of subsequent events
 incessant	uninterrupted in time and indefinitely long continuing
@@ -922,11 +1008,14 @@ inclusive	including much or everything; and especially including stated limits
 inclusively	in a inclusive way
 inclusiveness	the quality of being inclusive
 incognito	with your identity concealed
+incognitos	INCOGNITO: people travelling in disguise
 incoherence	lack of cohesion or clarity or organization
 incoherent	without logical or meaningful connection
 incoherently	in an incoherent manner
 incombustible	not capable of igniting and burning
 income	the financial gain (earned or unearned) accruing over a given period of time
+incomer	a newcomer to a place
+incomers	INCOMER: a newcomer to a place
 incomes	INCOME: the financial gain (earned or unearned) accruing over a given period of time
 incoming	arriving at a place or position
 incommensurate	not corresponding in size or degree or extent
@@ -936,6 +1025,7 @@ incomparably	in an incomparable manner or to an incomparable degree
 incompatibilities	INCOMPATIBILITY: the relation between propositions that cannot both be true at the same time
 incompatibility	the relation between propositions that cannot both be true at the same time
 incompatible	not compatible
+incompatibles	INCOMPATIBLE: things that cannot work or exist together
 incompatibly	without compatibility
 incompetence	lack of physical or intellectual ability or qualifications
 incompetency	lack of physical or intellectual ability or qualifications
@@ -945,8 +1035,10 @@ incompetents	INCOMPETENT: someone who is not competent to take effective action
 incomplete	not complete or total; not completed
 incompletely	not to a full degree or extent
 incompleteness	the state of being crude and incomplete and imperfect
+incompletes	INCOMPLETE: unfinished course marks
 incomprehensibility	the quality of being incomprehensible
 incomprehensible	incapable of being explained or accounted for
+incomprehensibly	in a way that cannot be understood
 incomprehension	an inability to understand
 incompressible	incapable of being compressed; resisting compression
 inconceivable	totally unlikely
@@ -970,12 +1062,14 @@ inconsistency	the relation between propositions that cannot both be true at the 
 inconsistent	displaying a lack of consistency
 inconsistently	without showing consistency
 inconsolable	sad beyond comforting; incapable of being consoled
+inconsolably	in a way that cannot be comforted
 inconspicuous	not prominent or readily noticeable
 inconspicuously	in a manner intended to avoid attracting attention
 inconspicuousness	the quality of being not easily seen
 inconstancy	unfaithfulness by virtue of being unreliable or treacherous
 inconstant	likely to change frequently often without apparent or cogent reason; variable
 incontestable	incapable of being contested or disputed
+incontestably	in a way that cannot be disputed
 incontinence	involuntary urination or defecation
 incontinent	not having control over urination and defecation
 incontrovertible	impossible to deny or disprove
@@ -993,9 +1087,11 @@ incorporating	INCORPORATE: make into a whole or make part of a whole
 incorporation	consolidating two or more things; union in (or into) one body
 incorporeal	without material form or substance
 incorporeality	the quality of not being physical; not consisting of matter
+incorporeally	without a physical body
 incorrect	not correct; not in conformity with fact or truth
 incorrectly	in an incorrect manner
 incorrectness	lack of conformity to social expectations
+incorrigibility	the quality of being impossible to reform
 incorrigible	impervious to correction by punishment
 incorrigibly	in an incorrigible manner
 incorruptibility	the incapability of being corrupted
@@ -1013,6 +1109,10 @@ incredulous	not disposed or willing to believe; unbelieving
 incredulously	in an incredulous manner
 increment	a process of becoming larger or longer or more numerous or more important
 incremental	increasing gradually by regular degrees or additions
+incrementalism	gradual change by small steps
+incrementally	by small steps
+incremented	INCREMENT: increased by a small amount
+incrementing	INCREMENT: increasing by a small amount
 increments	INCREMENT: a process of becoming larger or longer or more numerous or more important
 incriminate	suggest that someone is guilty
 incriminated	INCRIMINATE: suggest that someone is guilty
@@ -1034,6 +1134,7 @@ incubation	maintaining something at the most favorable temperature for its devel
 incubations	INCUBATION: maintaining something at the most favorable temperature for its development
 incubator	apparatus consisting of a box designed to maintain a constant temperature by the use of a thermostat; used for chicks or premature infants
 incubators	INCUBATOR: apparatus consisting of a box designed to maintain a constant temperature by the use of a thermostat; used for chicks or premature infants
+incubi	INCUBUS: a male demon thought to prey on sleeping women
 incubus	a male demon believed to lie on sleeping persons and to have sexual intercourse with sleeping women
 incubuses	INCUBUS: a male demon believed to lie on sleeping persons and to have sexual intercourse with sleeping women
 inculcate	teach and impress by frequent repetitions or admonitions
@@ -1049,6 +1150,7 @@ incumbencies	INCUMBENCY: the term during which some position is held
 incumbency	the term during which some position is held
 incumbent	the official who holds an office
 incumbents	INCUMBENT: the official who holds an office
+incunabula	books printed before 1501
 incur	make oneself subject to; bring upon oneself; become liable to
 incurable	incapable of being cured
 incurables	INCURABLE: incapable of being cured
@@ -1079,7 +1181,9 @@ indeed	in truth (often tends to intensify)
 indefatigable	showing sustained enthusiastic action with unflagging vitality
 indefatigably	with indefatigable energy
 indefensible	(of theories etc) incapable of being defended or justified
+indefensibly	in a way that cannot be justified
 indefinable	not capable of being precisely or readily described; not easily put into words
+indefinably	in a way that cannot be described
 indefinite	vague or not clearly defined or stated
 indefinitely	to an indefinite extent; for an indefinite time
 indelible	cannot be removed or erased
@@ -1090,6 +1194,7 @@ indelicate	in violation of good taste even verging on the indecent
 indelicately	in a indelicate way
 indemnification	a sum of money paid in compensation for loss or injury
 indemnifications	INDEMNIFICATION: a sum of money paid in compensation for loss or injury
+indemnified	INDEMNIFY: protected against loss or damage
 indemnifies	INDEMNIFY: secure against future loss, damage, or liability; give security for
 indemnify	secure against future loss, damage, or liability; give security for
 indemnifying	INDEMNIFY: secure against future loss, damage, or liability; give security for
@@ -1099,6 +1204,8 @@ indent	an order for goods to be exported or imported
 indentation	a concave cut into a surface or edge (as in a coastline)
 indentations	INDENTATION: a concave cut into a surface or edge (as in a coastline)
 indented	INDENT: an order for goods to be exported or imported
+indenter	a person or tool that makes a dent or recess
+indenters	INDENTER: a person or tool that makes a dent or recess
 indenting	INDENT: an order for goods to be exported or imported
 indents	INDENT: an order for goods to be exported or imported
 indenture	a concave cut into a surface or edge (as in a coastline)
@@ -1113,6 +1220,7 @@ indescribable	defying expression or description
 indescribably	to an inexpressible degree
 indestructibility	the strength to resist destruction
 indestructible	not easily destroyed
+indestructibly	in a way that cannot be destroyed
 indeterminable	not capable of being definitely decided or ascertained
 indeterminacy	the quality of being vague and poorly defined
 indeterminate	not precisely determined or established; not fixed or known in advance
@@ -1135,9 +1243,13 @@ indicative	a mood (grammatically unmarked) that represents the act or state as a
 indicatives	INDICATIVE: a mood (grammatically unmarked) that represents the act or state as an objective fact
 indicator	a number or ratio (a value on a scale of measurement) derived from a series of observed facts; can reveal relative changes as a function of time
 indicators	INDICATOR: a number or ratio (a value on a scale of measurement) derived from a series of observed facts; can reveal relative changes as a function of time
+indices	INDEX: an ordered list or pointer
+indicia	distinguishing marks or signs
 indict	accuse formally of a crime
 indictable	liable to be accused, or cause for such liability
 indicted	INDICT: accuse formally of a crime
+indicter	a person who formally charges someone with a crime
+indicters	INDICTER: a person who formally charges someone with a crime
 indicting	INDICT: accuse formally of a crime
 indictment	a formal document written for a prosecuting attorney charging a person with some offense
 indictments	INDICTMENT: a formal document written for a prosecuting attorney charging a person with some offense
@@ -1150,6 +1262,7 @@ indifferently	with indifference; in an indifferent manner
 indigence	a state of extreme poverty or destitution
 indigenous	originating where it is found
 indigent	poor enough to need help from others
+indigents	INDIGENT: a person who is very poor
 indigestible	digested with difficulty
 indigestion	a disorder of digestive function characterized by discomfort or heartburn or nausea
 indignant	angered at something unjust or wrong
@@ -1172,11 +1285,15 @@ indiscriminate	failing to make or recognize distinctions
 indiscriminately	in a random manner
 indispensability	the quality possessed by something that you cannot possibly do without
 indispensable	not to be dispensed with; essential
+indispensables	INDISPENSABLE: things that cannot be done without
+indispensably	in a way that is absolutely necessary
 indisposed	somewhat ill or prone to illness
 indisposition	a slight illness
 indispositions	INDISPOSITION: a slight illness
 indisputable	not open to question; obviously true
+indisputably	in a way that cannot be argued
 indissoluble	(of a substance) incapable of being dissolved
+indissolubly	in a way that cannot be broken
 indistinct	not clearly defined or easy to perceive or understand
 indistinctly	in a dim indistinct manner
 indistinctness	the quality of being indistinct and without sharp outlines
@@ -1201,7 +1318,9 @@ individualizing	INDIVIDUALIZE: make or mark or treat as individual
 individually	apart from others
 individuals	INDIVIDUAL: being or characteristic of a single thing or person
 individuation	discriminating the individual from the generic group or species
+indivisibility	the quality of being unable to be divided
 indivisible	impossible of undergoing division
+indivisibly	in a way that cannot be divided
 indoctrinate	teach doctrines to; teach uncritically
 indoctrinated	INDOCTRINATE: teach doctrines to; teach uncritically
 indoctrinates	INDOCTRINATE: teach doctrines to; teach uncritically
@@ -1211,6 +1330,7 @@ indolence	inactivity resulting from a dislike of work
 indolent	disinclined to work or exertion
 indolently	in an indolent manner
 indomitable	impossible to subdue
+indomitably	in a way that cannot be defeated
 indoor	located, suited for, or taking place within a building
 indoors	within a building
 indorse	be behind; approve of
@@ -1230,6 +1350,7 @@ inducements	INDUCEMENT: a positive motivational influence
 inducer	an agent capable of activating specific genes
 inducers	INDUCER: an agent capable of activating specific genes
 induces	INDUCE: cause to arise
+inducible	able to be brought about
 inducing	INDUCE: cause to arise
 induct	place ceremoniously or formally in an office or position
 inductance	an electrical phenomenon whereby an electromotive force (EMF) is generated in a closed circuit by a change in the flow of current
@@ -1271,6 +1392,7 @@ industrialized	made industrial; converted to industrialism
 industrializes	INDUSTRIALIZE: organize (the production of something) into an industry
 industrializing	INDUSTRIALIZE: organize (the production of something) into an industry
 industrially	by industrial means
+industrials	INDUSTRIAL: shares in industrial companies
 industries	INDUSTRY: the people or companies engaged in a particular kind of commercial enterprise
 industrious	characterized by hard work and perseverance
 industriously	in an industrious manner
@@ -1283,6 +1405,7 @@ inebriates	INEBRIATE: a chronic drinker
 inebriating	INEBRIATE: a chronic drinker
 inebriation	habitual intoxication; prolonged and excessive intake of alcoholic drinks leading to a breakdown in health and an addiction to alcohol such that abrupt deprivation leads to severe withdrawal symptoms
 inedible	not suitable for food
+ineducable	incapable of being taught
 ineffable	defying expression or description
 ineffably	to an inexpressible degree
 ineffective	not producing an intended effect
@@ -1300,6 +1423,7 @@ inelegant	lacking in refinement or grace or good taste
 inelegantly	without elegance
 ineligibility	the quality or state of being ineligible
 ineligible	not eligible
+ineligibles	INELIGIBLE: people not qualified to take part
 ineluctable	impossible to avoid or evade
 ineluctably	by necessity
 inept	not elegant or graceful in expression
@@ -1323,6 +1447,7 @@ inescapably	by necessity
 inessential	anything that is not essential
 inessentials	INESSENTIAL: anything that is not essential
 inestimable	beyond calculation or measure
+inestimably	in a way too great to measure
 inevitability	the quality of being unavoidable
 inevitable	incapable of being avoided or prevented
 inevitably	in such a manner as could not be otherwise
@@ -1349,12 +1474,15 @@ inextricable	not permitting extrication; incapable of being disentangled or unti
 inextricably	in an inextricable manner
 infallibility	the quality of never making an error
 infallible	incapable of failure or error
+infallibly	without ever being wrong
 infamies	INFAMY: a state of extreme dishonor
 infamous	known widely and usually unfavorably
 infamously	in a infamous way
 infamy	a state of extreme dishonor
 infancy	the early stage of growth or development
 infant	a very young child (birth to 1 year) who has not yet begun to walk or talk
+infanta	a daughter of a Spanish or Portuguese king
+infante	a son of a Spanish or Portuguese king, other than the heir
 infanticide	a person who murders an infant
 infanticides	INFANTICIDE: a person who murders an infant
 infantile	indicating a lack of maturity
@@ -1382,6 +1510,8 @@ infectious	caused by infection or capable of causing infection
 infectiously	in a contagious manner
 infectiousness	the quality of being infectious
 infective	able to cause disease
+infector	something that spreads disease
+infectors	INFECTOR: something that spreads disease
 infects	INFECT: communicate a disease to
 infelicities	INFELICITY: inappropriate and unpleasing manner or style (especially manner or style of expression)
 infelicitous	not appropriate in application; defective
@@ -1406,6 +1536,8 @@ infest	invade in great numbers
 infestation	the state of being invaded or overrun by parasites
 infestations	INFESTATION: the state of being invaded or overrun by parasites
 infested	INFEST: invade in great numbers
+infester	something that overruns a place in large numbers
+infesters	INFESTER: something that overruns a place in large numbers
 infesting	INFEST: invade in great numbers
 infests	INFEST: invade in great numbers
 infidel	a person who does not acknowledge your god
@@ -1416,6 +1548,9 @@ infield	the area of a baseball field that is enclosed by 3 bases and home plate
 infielder	a person who plays a position in the infield
 infielders	INFIELDER: a person who plays a position in the infield
 infields	INFIELD: the area of a baseball field that is enclosed by 3 bases and home plate
+infighting	quarrelling within a group
+infill	material used to fill a gap
+infilling	INFILL: material used to fill a gap
 infiltrate	cause (a liquid) to enter by penetrating the interstices
 infiltrated	INFILTRATE: cause (a liquid) to enter by penetrating the interstices
 infiltrates	INFILTRATE: cause (a liquid) to enter by penetrating the interstices
@@ -1426,6 +1561,7 @@ infiltrators	INFILTRATOR: someone who takes up a position surreptitiously for th
 infinite	having no limits or boundaries in time or space or extent or magnitude
 infinitely	without bounds
 infinitesimal	a variable that has zero as its limit
+infinitesimally	in an extremely small way
 infinitesimals	INFINITESIMAL: a variable that has zero as its limit
 infinities	INFINITY: time without end
 infinitive	the uninflected form of the verb
@@ -1447,6 +1583,7 @@ inflammation	a response of body tissues to injury or irritation; characterized b
 inflammations	INFLAMMATION: a response of body tissues to injury or irritation; characterized by pain and swelling and redness and heat
 inflammatory	characterized or caused by inflammation
 inflatable	designed to be filled with air or gas
+inflatables	INFLATABLE: objects filled with air
 inflate	exaggerate or make bigger
 inflated	enlarged beyond truth or reasonableness
 inflates	INFLATE: exaggerate or make bigger
@@ -1470,6 +1607,7 @@ inflicted	INFLICT: impose something unpleasant
 inflicting	INFLICT: impose something unpleasant
 infliction	the act of imposing something (as a tax or an embargo)
 inflicts	INFLICT: impose something unpleasant
+inflight	happening during a flight
 inflorescence	the time and process of budding and unfolding of blossoms
 inflow	the process of flowing in
 inflows	INFLOW: the process of flowing in
@@ -1483,6 +1621,7 @@ influenza	an acute febrile highly contagious viral disease
 influx	the process of flowing in
 influxes	INFLUX: the process of flowing in
 info	a message received and understood
+infobahn	the information superhighway
 infomercial	a television commercial presented in the form of a short documentary
 infomercials	INFOMERCIAL: a television commercial presented in the form of a short documentary
 inform	impart knowledge of some fact, state of affairs, or event to
@@ -1504,6 +1643,7 @@ infotainment	a film or TV program presenting the facts about a person or event
 infraction	a crime less serious than a felony
 infractions	INFRACTION: a crime less serious than a felony
 infrared	the infrared region of the electromagnetic spectrum; electromagnetic wave frequencies below the visible range
+infrastructural	relating to basic facilities and systems
 infrastructure	the basic structure or features of a system or organization
 infrastructures	INFRASTRUCTURE: the basic structure or features of a system or organization
 infrequency	noteworthy scarcity
@@ -1513,6 +1653,7 @@ infringe	go against, as of rules and laws
 infringed	INFRINGE: go against, as of rules and laws
 infringement	an act that disregards an agreement or a right
 infringements	INFRINGEMENT: an act that disregards an agreement or a right
+infringer	a person who breaks a law or right
 infringes	INFRINGE: go against, as of rules and laws
 infringing	INFRINGE: go against, as of rules and laws
 infuriate	make furious
@@ -1522,6 +1663,7 @@ infuriating	extremely annoying or displeasing
 infuriatingly	in a infuriating way
 infuse	teach and impress by frequent repetitions or admonitions
 infused	INFUSE: teach and impress by frequent repetitions or admonitions
+infuser	a device for steeping herbs or tea in hot water
 infuses	INFUSE: teach and impress by frequent repetitions or admonitions
 infusing	INFUSE: teach and impress by frequent repetitions or admonitions
 infusion	a solution obtained by steeping or soaking a substance (usually in water)
@@ -1623,6 +1765,7 @@ inhumed	placed in a grave
 inhumes	INHUME: place in a grave or tomb
 inhuming	INHUME: place in a grave or tomb
 inimical	not friendly
+inimically	in an unfriendly or harmful way
 inimitable	defying imitation; matchless
 inimitably	in an unreproducible manner
 iniquities	INIQUITY: morally objectionable behavior
@@ -1671,6 +1814,7 @@ injudicious	lacking or showing lack of judgment or discretion; unwise
 injudiciously	in an injudicious manner
 injunction	a formal command or admonition
 injunctions	INJUNCTION: a formal command or admonition
+injunctive	relating to a court order
 injure	cause injuries or bodily harm to
 injured	harmed
 injures	INJURE: cause injuries or bodily harm to
@@ -1684,6 +1828,8 @@ ink	a liquid used for printing or writing or drawing
 inkblot	a blot made with ink
 inkblots	INKBLOT: a blot made with ink
 inked	INK: a liquid used for printing or writing or drawing
+inker	a person who applies ink
+inkers	INKER: a person who applies ink
 inkier	INKY: of the color of black ink
 inkiest	INKY: of the color of black ink
 inkiness	the quality or state of the achromatic color of least lightness (bearing the least resemblance to white)
@@ -1699,10 +1845,13 @@ inky	of the color of black ink
 inlaid	adorned by inlays
 inland	situated away from an area's coast or border
 inlay	decorate the surface of by inserting wood, stone, and metal
+inlayer	a person who sets decorative pieces into a surface
+inlayers	INLAYER: a person who sets decorative pieces into a surface
 inlaying	INLAY: decorate the surface of by inserting wood, stone, and metal
 inlays	INLAY: decorate the surface of by inserting wood, stone, and metal
 inlet	an arm off of a larger body of water (often between rocky headlands)
 inlets	INLET: an arm off of a larger body of water (often between rocky headlands)
+inline	arranged in a row
 inmate	one of several resident of a dwelling (especially someone confined to a prison or hospital)
 inmates	INMATE: one of several resident of a dwelling (especially someone confined to a prison or hospital)
 inmost	being deepest within the self
@@ -1712,6 +1861,7 @@ innate	not established by conditioning or learning
 innately	in an innate manner
 inner	located inward
 innermost	being deepest within the self
+inners	INNER: the inner ring of a target
 innervate	supply nerves to (some organ or body part)
 innervated	INNERVATE: supply nerves to (some organ or body part)
 innervates	INNERVATE: supply nerves to (some organ or body part)
@@ -1719,6 +1869,7 @@ innervating	INNERVATE: supply nerves to (some organ or body part)
 innervation	the neural or electrical arousal of an organ or muscle or gland
 inning	one of nine divisions of play during which each team has a turn at bat
 innings	INNING: one of nine divisions of play during which each team has a turn at bat
+innit	isn't it
 innkeeper	the owner or manager of an inn
 innkeepers	INNKEEPER: the owner or manager of an inn
 innocence	the quality of innocent naivete
@@ -1737,10 +1888,13 @@ innovations	INNOVATION: a creation (a new device or process) resulting from stud
 innovative	ahead of the times
 innovator	someone who helps to open up a new line of research or technology or art
 innovators	INNOVATOR: someone who helps to open up a new line of research or technology or art
+innovatory	introducing new ideas or methods
 inns	INN: a hotel providing overnight lodging for travelers
 innuendo	an indirect (and usually malicious) implication
+innuendoes	INNUENDO: a hint, usually unkind or rude
 innuendos	INNUENDO: an indirect (and usually malicious) implication
 innumerable	too numerous to be counted
+innumeracy	inability to work with numbers
 innumerate	lacking knowledge and understanding of mathematical concepts and methods
 inoculate	introduce an idea or attitude into the mind of
 inoculated	INOCULATE: introduce an idea or attitude into the mind of
@@ -1785,6 +1939,7 @@ inquisitiveness	a state of active curiosity
 inquisitor	a questioner who is excessively harsh
 inquisitorial	especially indicating a form of prosecution in which proceedings are secret and the accused is questioned by a prosecutor who acts also as the judge
 inquisitors	INQUISITOR: a questioner who is excessively harsh
+inquorate	lacking enough members for valid business
 inroad	an encroachment or intrusion
 inroads	INROAD: an encroachment or intrusion
 inrush	an inflow
@@ -1797,11 +1952,14 @@ insaner	INSANE: afflicted with or characteristic of mental derangement
 insanest	INSANE: afflicted with or characteristic of mental derangement
 insanitary	not sanitary or healthful
 insanity	relatively permanent disorder of the mind
+insatiability	the state of never being satisfied
 insatiable	impossible to satisfy
 insatiableness	the quality of being insatiable
 insatiably	to an insatiable degree
 inscribe	carve, cut, or etch into a material or surface
 inscribed	written (by handwriting, printing, engraving, or carving) on or in a surface
+inscriber	a person who writes or carves words onto something
+inscribers	INSCRIBER: a person who writes or carves words onto something
 inscribes	INSCRIBE: carve, cut, or etch into a material or surface
 inscribing	INSCRIBE: carve, cut, or etch into a material or surface
 inscription	letters inscribed (especially words engraved or carved) on something
@@ -1809,6 +1967,8 @@ inscriptions	INSCRIPTION: letters inscribed (especially words engraved or carved
 inscrutability	the quality of being impossible to investigate
 inscrutable	of an obscure nature
 inscrutably	in an inscrutable manner
+inseam	the inner leg length of trousers
+inseams	INSEAM: the inner leg length of trousers
 insect	small air-breathing arthropod
 insecticidal	of or relating to insecticide
 insecticide	a chemical used to kill insects
@@ -1835,10 +1995,14 @@ insensitively	in an insensitive manner
 insensitivity	the inability to respond to affective changes in your interpersonal environment
 insentience	lacking consciousness or ability to perceive sensations
 insentient	devoid of feeling and consciousness and animation
+inseparability	the state of being impossible to part
 inseparable	not capable of being separated
+inseparables	INSEPARABLE: people or things always together
 inseparably	without possibility of separation
 insert	put or introduce into something
 inserted	INSERT: put or introduce into something
+inserter	a person or device that puts something in
+inserters	INSERTER: a person or device that puts something in
 inserting	INSERT: put or introduce into something
 insertion	a message (spoken or written) that is introduced or inserted
 insertions	INSERTION: a message (spoken or written) that is introduced or inserted
@@ -1927,6 +2091,7 @@ installation	the act of installing something (as equipment)
 installations	INSTALLATION: the act of installing something (as equipment)
 installed	INSTALL: set up for use
 installer	INSTAL: set up for use
+installers	INSTALLER: a person who fits equipment
 installing	INSTALL: set up for use
 installment	a payment of part of a debt; usually paid at regular intervals
 installments	INSTALLMENT: a payment of part of a debt; usually paid at regular intervals
@@ -1949,6 +2114,10 @@ instantiation	a representation of an idea in the form of an instance of it
 instantly	without delay or hesitation; with no time intervening
 instants	INSTANT: a very short time (as the time it takes the eye to blink or the heart to beat)
 instar	an insect or other arthropod between molts
+instate	put in a position or office
+instated	INSTATE: put in a position or office
+instates	INSTATE: put in a position or office
+instating	INSTATE: put in a position or office
 instead	in place of, or as an alternative to
 instep	the arch of the foot
 insteps	INSTEP: the arch of the foot
@@ -1964,6 +2133,7 @@ instill	impart gradually
 instillation	the introduction of a liquid (by pouring or injection) drop by drop
 instilled	INSTIL: enter drop by drop
 instiller	INSTIL: enter drop by drop
+instillers	INSTILLER: a person who gradually introduces ideas or feelings
 instilling	teaching or impressing upon the mind by frequent instruction or repetition
 instills	INSTILL: impart gradually
 instils	INSTIL: enter drop by drop
@@ -1971,22 +2141,26 @@ instinct	inborn pattern of behavior often responsive to specific stimuli
 instinctive	unthinking; prompted by (or as if by) instinct
 instinctively	as a matter of instinct
 instincts	INSTINCT: inborn pattern of behavior often responsive to specific stimuli
+instinctual	based on natural instinct
 institute	set up or lay the groundwork for
 instituted	INSTITUTE: set up or lay the groundwork for
 institutes	INSTITUTE: set up or lay the groundwork for
 instituting	INSTITUTE: set up or lay the groundwork for
 institution	an organization founded and united for a specific purpose
 institutional	relating to or constituting or involving an institution
+institutionalisation	the process of placing a person in a long-term care facility
 institutionalise	cause to be admitted; of persons to an institution
 institutionalised	officially placed in or committed to a specialized institution
 institutionalises	INSTITUTIONALISE: cause to be admitted; of persons to an institution
 institutionalising	INSTITUTIONALISE: cause to be admitted; of persons to an institution
+institutionalization	the process of placing a person in a long-term care facility
 institutionalize	cause to be admitted; of persons to an institution
 institutionalized	officially placed in or committed to a specialized institution
 institutionalizes	INSTITUTIONALIZE: cause to be admitted; of persons to an institution
 institutionalizing	INSTITUTIONALIZE: cause to be admitted; of persons to an institution
 institutionally	by an institution
 institutions	INSTITUTION: an organization founded and united for a specific purpose
+instore	inside a shop
 instruct	impart skills or knowledge to
 instructed	INSTRUCT: impart skills or knowledge to
 instructing	INSTRUCT: impart skills or knowledge to
@@ -2003,6 +2177,8 @@ instrumental	relating to or designed for or performed on musical instruments
 instrumentalist	someone who plays a musical instrument (as a profession)
 instrumentalists	INSTRUMENTALIST: someone who plays a musical instrument (as a profession)
 instrumentality	a subsidiary organ of government created for a special purpose
+instrumentally	by means of a tool or instrument
+instrumentals	INSTRUMENTAL: music without singing
 instrumentation	an artifact (or system of artifacts) that is instrumental in accomplishing some end
 instrumented	INSTRUMENT: a device that requires skill for proper use
 instrumenting	INSTRUMENT: a device that requires skill for proper use
@@ -2016,6 +2192,7 @@ insufferably	to an insufferable degree
 insufficiency	a lack of competence
 insufficient	of a quantity not able to fulfill a need or requirement
 insufficiently	to an insufficient degree
+insula	a part of the brain, or a block of buildings in ancient Rome
 insular	relating to or characteristic of or situated on an island
 insularity	the state of being isolated or detached
 insulate	protect from heat, cold, or noise by surrounding with insulating material
@@ -2028,6 +2205,8 @@ insulators	INSULATOR: a material such as glass or porcelain with negligible elec
 insulin	hormone secreted by the isles of Langerhans in the pancreas; regulates storage of glycogen in the liver and accelerates oxidation of sugar in cells
 insult	a rude expression intended to offend or hurt
 insulted	INSULT: a rude expression intended to offend or hurt
+insulter	a person who offends with rude remarks
+insulters	INSULTER: a person who offends with rude remarks
 insulting	INSULT: a rude expression intended to offend or hurt
 insultingly	in a disrespectful and insulting manner
 insults	INSULT: a rude expression intended to offend or hurt
@@ -2055,14 +2234,17 @@ insurrectionist	a person who takes part in an armed rebellion against the consti
 insurrectionists	INSURRECTIONIST: a person who takes part in an armed rebellion against the constituted authority (especially in the hope of improving conditions)
 insurrections	INSURRECTION: organized opposition to authority; a conflict in which one faction tries to wrest control from another
 intact	constituting the undiminished entirety; lacking nothing essential especially not damaged
+intagli	INTAGLIO: a design carved into a surface
 intaglio	a printing process that uses an etched or engraved plate; the plate is smeared with ink and wiped clean, then the ink left in the recesses makes the print
 intaglios	INTAGLIO: a printing process that uses an etched or engraved plate; the plate is smeared with ink and wiped clean, then the ink left in the recesses makes the print
 intake	the process of taking food into the body through the mouth (as by eating)
 intakes	INTAKE: the process of taking food into the body through the mouth (as by eating)
 intangible	assets that are saleable though not material or physical
 intangibles	INTANGIBLE: assets that are saleable though not material or physical
+intangibly	in a way that cannot be touched
 integer	any of the natural numbers (positive or negative) or zero
 integers	INTEGER: any of the natural numbers (positive or negative) or zero
+integrable	able to be integrated
 integral	existing as an essential constituent or characteristic
 integrally	in an integral manner
 integrals	INTEGRAL: existing as an essential constituent or characteristic
@@ -2078,12 +2260,23 @@ integrators	INTEGRATOR: a measuring instrument for measuring the area of an irre
 integrity	an undivided or unbroken completeness or totality with nothing wanting
 integument	an outer protective covering such as the skin of an animal or a cuticle or seed coat or rind or shell
 integuments	INTEGUMENT: an outer protective covering such as the skin of an animal or a cuticle or seed coat or rind or shell
+intel	information, especially military
 intellect	knowledge and intellectual ability
 intellects	INTELLECT: knowledge and intellectual ability
 intellectual	of or associated with or requiring the use of the mind
+intellectualise	discuss in an abstract way
+intellectualised	INTELLECTUALISE: discuss in an abstract way
+intellectualises	INTELLECTUALISE: discuss in an abstract way
+intellectualising	INTELLECTUALISE: discuss in an abstract way
+intellectualism	devotion to intellectual pursuits
+intellectualize	discuss in an abstract way
+intellectualized	INTELLECTUALIZE: discuss in an abstract way
+intellectualizes	INTELLECTUALIZE: discuss in an abstract way
+intellectualizing	INTELLECTUALIZE: discuss in an abstract way
 intellectually	in an intellectual manner
 intellectuals	INTELLECTUAL: of or associated with or requiring the use of the mind
 intelligence	the ability to comprehend; to understand and profit from experience
+intelligencer	a person who brings news
 intelligent	having the capacity for thought and reason especially to a high degree
 intelligently	in an intelligent manner
 intelligentsia	an educated and intellectual elite
@@ -2093,7 +2286,9 @@ intelligibly	in an intelligible manner
 intemperance	the quality of being intemperate
 intemperate	(of weather or climate) not mild; subject to extremes
 intend	have in mind as a purpose
+intendant	an official who manages a district or institution
 intended	resulting from one's intentions
+intendeds	INTENDED: a person one is engaged to marry
 intending	INTEND: have in mind as a purpose
 intends	INTEND: have in mind as a purpose
 intense	possessing or displaying a distinctive feature to a heightened degree
@@ -2101,7 +2296,7 @@ intensely	to a high degree; extremely; in high concentration or density
 intenser	INTENSE: possessing or displaying a distinctive feature to a heightened degree
 intensest	INTENSE: possessing or displaying a distinctive feature to a heightened degree
 intensification	action that makes something stronger or more extreme
-intensified	made more intense
+intensified	INTENSIFY: increase in extent or intensity
 intensifier	a modifier that has little meaning except to intensify the meaning it modifies
 intensifiers	INTENSIFIER: a modifier that has little meaning except to intensify the meaning it modifies
 intensifies	INTENSIFY: increase in extent or intensity
@@ -2117,6 +2312,7 @@ intention	an anticipated outcome that is intended or that guides your planned ac
 intentional	characterized by conscious design or purpose
 intentionality	expressive of intentions
 intentionally	with intention; in an intentional manner
+intentioned	having a stated kind of purpose
 intentions	INTENTION: an anticipated outcome that is intended or that guides your planned actions
 intently	with strained or eager attention
 intentness	the quality of being intent and concentrated
@@ -2129,7 +2325,9 @@ interaction	a mutual or reciprocal action; interacting
 interactions	INTERACTION: a mutual or reciprocal action; interacting
 interactive	used especially of drugs or muscles that work together so the total effect is greater than the sum of the two (or more)
 interactively	in a interactive way
+interactivity	the quality of responding to a user's input
 interacts	INTERACT: act together or towards others or with others
+interbank	between banks
 interbred	bred of closely related parents
 interbreed	breed animals or plants using parents of different races and varieties
 interbreeding	the act of mixing different species or varieties of animals or plants and thus to produce hybrids
@@ -2152,6 +2350,7 @@ intercession	a prayer to God on behalf of another person
 intercessions	INTERCESSION: a prayer to God on behalf of another person
 intercessor	a negotiator who acts as a link between parties
 intercessors	INTERCESSOR: a negotiator who acts as a link between parties
+intercessory	involving pleading on behalf of another
 interchange	a junction of highways on different levels that permits traffic to move from one to another without crossing traffic streams
 interchangeability	the quality of being capable of exchange or interchange
 interchangeable	such that the arguments or roles can be interchanged
@@ -2159,6 +2358,7 @@ interchangeably	in an interchangeable manner
 interchanged	INTERCHANGE: a junction of highways on different levels that permits traffic to move from one to another without crossing traffic streams
 interchanges	INTERCHANGE: a junction of highways on different levels that permits traffic to move from one to another without crossing traffic streams
 interchanging	INTERCHANGE: a junction of highways on different levels that permits traffic to move from one to another without crossing traffic streams
+intercity	between cities
 intercollegiate	used of competition between colleges or universities
 intercom	a communication system linking different rooms within a building or ship etc
 intercoms	INTERCOM: a communication system linking different rooms within a building or ship etc
@@ -2172,6 +2372,10 @@ interconnects	INTERCONNECT: be interwoven or interconnected
 intercontinental	extending or taking place between or among continents
 intercostal	muscles between the ribs; they contract during inspiration
 intercourse	communication between individuals
+intercultural	between different cultures
+intercut	alternate film shots from different scenes
+intercuts	INTERCUT: alternate film shots from different scenes
+intercutting	INTERCUT: alternate film shots from different scenes
 interdenominational	occurring between or among or common to different churches or denominations
 interdepartmental	between or among departments
 interdependence	a reciprocal relation between interdependent entities (objects or individuals or groups)
@@ -2188,8 +2392,10 @@ interesting	arousing or holding the attention
 interestingly	in an interesting manner
 interests	INTEREST: a sense of concern with and curiosity about someone or something
 interface	a surface forming a common boundary between two things (two objects or liquids or chemical phases)
+interfaced	INTERFACE: connected or interacted
 interfaces	INTERFACE: a surface forming a common boundary between two things (two objects or liquids or chemical phases)
 interfacial	relating to or situated at an interface
+interfacing	INTERFACE: connecting or interacting
 interfaith	involving persons of different religious faiths
 interfere	come between so as to be hindrance or obstacle
 interfered	INTERFERE: come between so as to be hindrance or obstacle
@@ -2198,8 +2404,13 @@ interferences	INTERFERENCE: a policy of intervening in the affairs of other coun
 interferes	INTERFERE: come between so as to be hindrance or obstacle
 interfering	intrusive in a meddling or offensive manner
 interferometer	any measuring instrument that uses interference patterns to make accurate measurements of waves
+interferometric	relating to measurement using wave interference
+interferometry	measurement using interference of waves
 interferon	an antiviral protein produced by cells that have been invaded by a virus; inhibits replication of the virus
 intergalactic	between or among galaxies
+intergenerational	between different generations
+interglacial	the warmer period between ice ages
+intergovernmental	between governments
 interim	the time between one event, process, or period and another
 interior	the region that is inside of something
 interiors	INTERIOR: the region that is inside of something
@@ -2222,7 +2433,11 @@ interleaved	INTERLEAVE: provide (books) with blank leaves
 interleaves	INTERLEAVE: provide (books) with blank leaves
 interleaving	INTERLEAVE: provide (books) with blank leaves
 interleukin	any of several lymphokines that promote macrophages and killer T cells and B cells and other components of the immune system
+interline	insert between lines
 interlinear	written between lines of text
+interlined	INTERLINE: insert between lines
+interlines	INTERLINE: insert between lines
+interlining	INTERLINE: insert between lines
 interlink	be interwoven or interconnected
 interlinked	INTERLINK: be interwoven or interconnected
 interlinking	linked or locked closely together as by dovetailing
@@ -2246,6 +2461,7 @@ interludes	INTERLUDE: an intervening period or episode
 interluding	INTERLUDE: an intervening period or episode
 intermarriage	marriage to a person belonging to a tribe or group other than your own as required by custom or law
 intermarriages	INTERMARRIAGE: marriage to a person belonging to a tribe or group other than your own as required by custom or law
+intermarried	INTERMARRY: married someone from a different group
 intermarries	INTERMARRY: marry within the same ethnic, social, or family group
 intermarry	marry within the same ethnic, social, or family group
 intermarrying	INTERMARRY: marry within the same ethnic, social, or family group
@@ -2255,6 +2471,7 @@ intermediate	lying between two extremes in time or space or state
 intermediates	INTERMEDIATE: lying between two extremes in time or space or state
 interment	the ritual placing of a corpse in a grave
 interments	INTERMENT: the ritual placing of a corpse in a grave
+intermezzi	INTERMEZZO: a short piece of music between sections
 intermezzo	a short movement coming between the major sections of a symphony
 intermezzos	INTERMEZZO: a short movement coming between the major sections of a symphony
 interminable	tiresomely long; seemingly without end
@@ -2286,6 +2503,7 @@ internalized	INTERNALIZE: incorporate within oneself; make subjective or persona
 internalizes	INTERNALIZE: incorporate within oneself; make subjective or personal
 internalizing	INTERNALIZE: incorporate within oneself; make subjective or personal
 internally	on or from the inside
+internals	INTERNAL: inner parts
 international	concerning or belonging to all or at least two or more nations
 internationalisation	the act of bringing something under international control
 internationalise	put under international control
@@ -2308,6 +2526,8 @@ interned	INTERN: an advanced student or graduate in medicine gaining supervised 
 internee	a person who is interned
 internees	INTERNEE: a person who is interned
 internes	INTERNE: an advanced student or graduate in medicine gaining supervised practical experience (`houseman' is a British term)
+interneship	the period of training as an intern
+interneships	INTERNESHIP: the period of training as an intern
 internet	a computer network consisting of a worldwide network of computer networks that use the TCP/IP network protocols to facilitate data transmission and exchange
 interning	INTERN: an advanced student or graduate in medicine gaining supervised practical experience (`houseman' is a British term)
 internist	a specialist in internal medicine
@@ -2316,8 +2536,10 @@ internment	confinement during wartime
 interns	INTERN: an advanced student or graduate in medicine gaining supervised practical experience (`houseman' is a British term)
 internship	the position of a medical intern
 internships	INTERNSHIP: the position of a medical intern
+interoffice	between offices
 interoperability	the ability to exchange and use information (usually in a large heterogeneous network made up of several local area networks)
 interoperable	able to exchange and use information
+interoperate	work together with other systems
 interpersonal	occurring among or involving several people
 interplanetary	between or among planets
 interplay	reciprocal action and reaction
@@ -2381,6 +2603,8 @@ intersect	meet at a point
 intersected	INTERSECT: meet at a point
 intersecting	crossed or intersected in the form of an X
 intersection	a point where lines intersect
+intersectional	relating to overlapping social identities
+intersectionality	the overlap of social categories that shapes experience
 intersections	INTERSECTION: a point where lines intersect
 intersects	INTERSECT: meet at a point
 intersex	one having both male and female sexual characteristics and organs; at birth an unambiguous assignment of male or female cannot be made
@@ -2399,6 +2623,7 @@ intertwine	spin, wind, or twist together
 intertwined	INTERTWINE: spin, wind, or twist together
 intertwines	INTERTWINE: spin, wind, or twist together
 intertwining	INTERTWINE: spin, wind, or twist together
+interurban	between cities
 interval	a definite length of time marked off by two instants
 intervals	INTERVAL: a definite length of time marked off by two instants
 intervene	get involved, so as to alter or hinder an action, or through force or threat of force
@@ -2406,6 +2631,9 @@ intervened	INTERVENE: get involved, so as to alter or hinder an action, or throu
 intervenes	INTERVENE: get involved, so as to alter or hinder an action, or through force or threat of force
 intervening	INTERVENE: get involved, so as to alter or hinder an action, or through force or threat of force
 intervention	the act of intervening (as to mediate a dispute, etc.)
+interventionism	the practice of interfering in the affairs of others
+interventionist	a person who favours stepping in to affect events
+interventionists	INTERVENTIONIST: a person who favours stepping in to affect events
 interventions	INTERVENTION: the act of intervening (as to mediate a dispute, etc.)
 interview	conduct an interview in television, newspaper, and radio reporting
 interviewed	INTERVIEW: conduct an interview in television, newspaper, and radio reporting
@@ -2415,10 +2643,12 @@ interviewer	a person who conducts an interview
 interviewers	INTERVIEWER: a person who conducts an interview
 interviewing	INTERVIEW: conduct an interview in television, newspaper, and radio reporting
 interviews	INTERVIEW: conduct an interview in television, newspaper, and radio reporting
+interwar	between the two world wars
 interweave	interlace by or as if by weaving
 interweaved	INTERWEAVE: interlace by or as if by weaving
 interweaves	INTERWEAVE: interlace by or as if by weaving
 interweaving	INTERWEAVE: interlace by or as if by weaving
+interwove	INTERWEAVE: wove together
 interwoven	linked or locked closely together as by dovetailing
 intestate	having made no legally valid will before death or not disposed of by a legal will
 intestinal	of or relating to or inside the intestines
@@ -2440,6 +2670,9 @@ intimidates	INTIMIDATE: make timid or fearful
 intimidating	INTIMIDATE: make timid or fearful
 intimidatingly	in a intimidating way
 intimidation	the act of intimidating a weaker person to make them do something
+intimidator	a person who frightens others into doing things
+intimidators	INTIMIDATOR: a person who frightens others into doing things
+into	to the inside of
 intolerable	incapable of being tolerated or endured
 intolerably	to an unacceptable degree
 intolerance	impatience with annoyances
@@ -2471,12 +2704,15 @@ intranets	INTRANET: a restricted computer network; a private network created usi
 intransigence	the trait of being intransigent; stubbornly refusing to compromise
 intransigent	impervious to pleas, persuasion, requests, reason
 intransigently	in a intransigent way
+intransigents	INTRANSIGENT: people who refuse to change their position
 intransitive	a verb (or verb construction) that does not take an object
 intransitively	in an intransitive manner
 intransitives	INTRANSITIVE: a verb (or verb construction) that does not take an object
+intraocular	within the eye
 intrastate	relating to or existing within the boundaries of a state
 intrauterine	within the womb
 intravenous	within or by means of a vein
+intravenouses	INTRAVENOUS: a drip feeding fluid into a vein
 intravenously	in an intravenous manner
 intrench	fix firmly or securely
 intrenched	INTRENCH: fix firmly or securely
@@ -2592,6 +2828,7 @@ inventive	(used of persons or artifacts) marked by independence and creativity i
 inventively	in an inventive manner
 inventiveness	the power of creative imagination
 inventor	someone who is the first to think of or make something
+inventoried	INVENTORY: listed in a stock record
 inventories	INVENTORY: a detailed list of all the items in stock
 inventors	INVENTOR: someone who is the first to think of or make something
 inventory	a detailed list of all the items in stock
@@ -2648,6 +2885,7 @@ invigoration	quality of being active or spirited or alive and vigorous
 invincibility	the property being difficult or impossible to defeat
 invincible	incapable of being overcome or subdued
 invincibly	in an invincible manner
+inviolability	the quality of being safe from attack or violation
 inviolable	incapable of being transgressed or dishonored
 inviolate	(of a woman) having the hymen unbroken
 invisibility	the quality of not being perceivable by the eye
@@ -2655,6 +2893,7 @@ invisible	impossible or nearly impossible to see; imperceptible by the eye
 invisibly	without being seen
 invitation	a request (spoken or written) to participate or be present or take part in something
 invitational	pertaining to or characteristic of an invitation
+invitationals	INVITATIONAL: contests for invited participants
 invitations	INVITATION: a request (spoken or written) to participate or be present or take part in something
 invite	increase the likelihood of
 invited	INVITE: increase the likelihood of
@@ -2671,6 +2910,8 @@ invoices	INVOICE: an itemized statement of money owed for goods shipped or servi
 invoicing	INVOICE: an itemized statement of money owed for goods shipped or services rendered
 invoke	summon into action or bring into existence, often as if by magic
 invoked	INVOKE: summon into action or bring into existence, often as if by magic
+invoker	a person who calls upon a higher power
+invokers	INVOKER: a person who calls upon a higher power
 invokes	INVOKE: summon into action or bring into existence, often as if by magic
 invoking	INVOKE: summon into action or bring into existence, often as if by magic
 involuntarily	against your will
@@ -2684,6 +2925,7 @@ involves	INVOLVE: connect closely and often incriminatingly
 involving	INVOLVE: connect closely and often incriminatingly
 invulnerability	having the strength to withstand attack
 invulnerable	immune to attack; impregnable
+invulnerably	in a way that cannot be harmed
 inward	relating to or existing in the mind or thoughts
 inwardly	with respect to private feelings
 inwards	to or toward the inside of
@@ -2703,15 +2945,20 @@ ionic	containing or involving or occurring in the form of ions
 ionisation	the condition of being dissociated into ions (as by heat or radiation or chemical reaction or electrical discharge)
 ionise	become converted into ions
 ionised	converted totally or partly into ions
+ioniser	a device that adds electric charge to air or particles
+ionisers	IONISER: a device that adds electric charge to air or particles
 ionises	IONISE: become converted into ions
 ionising	IONISE: become converted into ions
 ionization	the condition of being dissociated into ions (as by heat or radiation or chemical reaction or electrical discharge)
 ionize	become converted into ions
 ionized	converted totally or partly into ions
+ionizer	a device that adds electric charge to air or particles
+ionizers	IONIZER: a device that adds electric charge to air or particles
 ionizes	IONIZE: become converted into ions
 ionizing	IONIZE: become converted into ions
 ionosphere	the outer region of the Earth's atmosphere; contains a high concentration of free electrons
 ionospheres	IONOSPHERE: the outer region of the Earth's atmosphere; contains a high concentration of free electrons
+ionospheric	relating to the upper atmosphere layer of charged particles
 ions	ION: a particle that is electrically charged (positive or negative); an atom or molecule or group that has lost or gained one or more electrons
 iota	a tiny or scarcely detectable amount
 iotas	IOTA: a tiny or scarcely detectable amount
@@ -2719,10 +2966,12 @@ ipecac	a medicinal drug used to evoke vomiting (especially in cases of drug over
 ipecacs	IPECAC: a medicinal drug used to evoke vomiting (especially in cases of drug overdose or poisoning)
 irascibility	a feeling of resentful anger
 irascible	quickly aroused to anger
+irascibly	in an easily angered way
 irate	feeling or showing extreme anger
 irately	in an irate manner
 irateness	the quality of being irate
 ire	a strong emotion; a feeling that is oriented toward some real or supposed grievance
+irides	IRIS: the coloured part of the eye
 iridescence	the visual property of something having a milky brightness and a play of colors from the surface
 iridescent	varying in color when seen in different lights or from different angles
 iridium	a heavy brittle metallic element of the platinum group; used in alloys; occurs in natural alloys with platinum or osmium
@@ -2738,6 +2987,7 @@ ironclad	a wooden warship of the 19th century that is plated with iron or steel 
 ironclads	IRONCLAD: a wooden warship of the 19th century that is plated with iron or steel armor
 ironed	IRON: a heavy ductile magnetic metallic element; is silver-white in pure form but readily rusts; used in construction and tools and armament; plays a role in the transport of oxygen by the blood
 ironer	IRON: a heavy ductile magnetic metallic element; is silver-white in pure form but readily rusts; used in construction and tools and armament; plays a role in the transport of oxygen by the blood
+ironers	IRONER: a person or machine that presses clothes
 ironic	humorously sarcastic or mocking
 ironical	characterized by often poignant difference or incongruity between what is expected and what actually is
 ironically	contrary to plan or expectation
@@ -2747,12 +2997,14 @@ ironmonger	someone who sells hardware
 ironmongers	IRONMONGER: someone who sells hardware
 ironmongery	the merchandise that is sold in an ironmonger's shop
 irons	metal shackles; for hands or legs
+ironstone	rock rich in iron, or hard pottery
 ironware	instrumentalities (tools or implements) made of metal
 ironwood	handsome East Indian evergreen tree often planted as an ornamental for its fragrant white flowers that yield a perfume; source of very heavy hardwood used for railroad ties
 ironwoods	IRONWOOD: handsome East Indian evergreen tree often planted as an ornamental for its fragrant white flowers that yield a perfume; source of very heavy hardwood used for railroad ties
 ironwork	work made of iron (gratings or rails or railings etc)
 ironworks	the workplace where iron is smelted or where iron goods are made
 irony	witty language used to convey insults or scorn
+irradiance	the power of radiation falling on a surface
 irradiate	give spiritual insight to; in religion
 irradiated	IRRADIATE: give spiritual insight to; in religion
 irradiates	IRRADIATE: give spiritual insight to; in religion
@@ -2763,10 +3015,14 @@ irrationality	the state of being irrational; lacking powers of understanding
 irrationally	in an irrational manner
 irrationals	IRRATIONAL: not consistent with or using reason
 irreconcilable	impossible to reconcile
+irreconcilably	in a way that cannot be settled
 irrecoverable	incapable of being recovered or regained
 irredeemable	insusceptible of reform
+irredeemably	in a way that cannot be rescued
 irreducible	incapable of being made smaller or simpler
+irreducibly	in a way that cannot be simplified
 irrefutable	impossible to deny or disprove
+irrefutably	in a way that cannot be disproved
 irregardless	regardless; a combination of irrespective and regardless sometimes used humorously
 irregular	contrary to rule or accepted order or general practice
 irregularities	IRREGULARITY: behavior that breaches the rule or etiquette or custom or morality
@@ -2782,10 +3038,12 @@ irrelevantly	in an irrelevant manner
 irreligion	the quality of not being devout
 irreligious	hostile or indifferent to religion
 irremediable	impossible to remedy or correct or redress
+irremediably	in a way that cannot be fixed
 irreparable	impossible to repair, rectify, or amend
 irreparably	in an irreparable manner or to an irreparable degree
 irreplaceable	impossible to replace
 irrepressible	impossible to repress or control
+irrepressibly	in a way that cannot be held back
 irreproachable	free of guilt; not subject to blame
 irreproachably	in an irreproachable and blameless manner
 irresistible	impossible to resist; overpowering
@@ -2806,6 +3064,7 @@ irreversible	incapable of being reversed
 irreversibly	in an irreversible manner
 irrevocable	incapable of being retracted or revoked
 irrevocably	in an irrevocable manner
+irrigable	able to be watered by channels
 irrigate	supply with water, as with channels or ditches or streams
 irrigated	IRRIGATE: supply with water, as with channels or ditches or streams
 irrigates	IRRIGATE: supply with water, as with channels or ditches or streams
@@ -2825,6 +3084,8 @@ irritation	the psychological state of being irritated or annoyed
 irritations	IRRITATION: the psychological state of being irritated or annoyed
 irruption	a sudden violent entrance; a bursting in
 irruptions	IRRUPTION: a sudden violent entrance; a bursting in
+irukandji	a tiny, highly venomous box jellyfish of northern Australia
+is	third person singular of be
 ischaemia	local anemia in a given body part sometimes resulting from vasoconstriction or thrombosis or embolism
 ischaemic	relating to or affected by ischemia
 ischemia	local anemia in a given body part sometimes resulting from vasoconstriction or thrombosis or embolism
@@ -2850,6 +3111,7 @@ isolation	a state of separation between persons or groups
 isolationism	a policy of nonparticipation in international economic and political relations
 isolationist	of or relating to isolationism
 isolationists	ISOLATIONIST: of or relating to isolationism
+isolator	a switch or device that cuts off a supply
 isomer	a compound that exists in forms having different arrangements of atoms but the same molecular weight
 isomeric	of or relating to or exhibiting isomerism
 isomers	ISOMER: a compound that exists in forms having different arrangements of atoms but the same molecular weight
@@ -2858,6 +3120,7 @@ isometrics	muscle-building exercises (or a system of musclebuilding exercises) i
 isomorphic	having similar appearance but genetically different
 isomorphism	similarity or identity of form or shape or structure
 isopod	any of various small terrestrial or aquatic crustaceans with seven pairs of legs adapted for crawling
+isopropyl	a chemical group found in rubbing alcohol
 isosceles	(of a triangle) having two sides of equal length
 isotherm	an isogram connecting points having the same temperature at a given time
 isothermal	of a process or change taking place at constant temperature
@@ -2874,6 +3137,7 @@ issuer	an institution that issues something (securities or publications or curre
 issuers	ISSUER: an institution that issues something (securities or publications or currency etc.)
 issues	ISSUE: prepare and issue for public distribution or sale
 issuing	ISSUE: prepare and issue for public distribution or sale
+isthmi	ISTHMUS: a narrow strip of land joining two larger areas
 isthmus	a relatively narrow strip of land (with water on both sides) connecting two larger land areas
 isthmuses	ISTHMUS: a relatively narrow strip of land (with water on both sides) connecting two larger land areas
 it	the branch of engineering that deals with the use of computers and telecommunications to retrieve and store and transmit information
@@ -2915,11 +3179,15 @@ iteration	a single execution of a set of instructions that are to be repeated
 iterations	ITERATION: a single execution of a set of instructions that are to be repeated
 iterative	the aspect of the verb that expresses the repetition of an action
 iteratively	in a iterative way
+iterator	something that repeats a process step by step
+iterators	ITERATOR: something that repeats a process step by step
 itinerant	a laborer who moves from place to place as demanded by employment
 itinerants	ITINERANT: a laborer who moves from place to place as demanded by employment
 itineraries	ITINERARY: an established line of travel or access
 itinerary	an established line of travel or access
 its	IT: the branch of engineering that deals with the use of computers and telecommunications to retrieve and store and transmit information
+itself	that thing, as the object or for emphasis
+itsy	tiny
 ivies	IVY: Old World vine with lobed evergreen leaves and black berrylike fruits
 ivories	IVORY: a hard smooth ivory colored dentine that makes up most of the tusks of elephants and walruses
 ivory	a hard smooth ivory colored dentine that makes up most of the tusks of elephants and walruses

@@ -15,13 +15,19 @@ nacreous	consisting of or resembling mother-of-pearl
 nada	a quantity of no importance
 nadir	an extreme state of adversity; the lowest point of anything
 nadirs	NADIR: an extreme state of adversity; the lowest point of anything
+naff	unfashionable or tasteless
+naffer	NAFF: unfashionable or tasteless
+naffest	NAFF: unfashionable or tasteless
 nag	bother persistently with trivial complaints
 nagged	NAG: bother persistently with trivial complaints
 nagger	NAG: bother persistently with trivial complaints
 naggers	NAGGER: someone (especially a woman) who annoys people by constantly finding fault
 nagging	continually complaining or faultfinding
 nags	NAG: bother persistently with trivial complaints
+nagware	software that repeatedly pesters users to pay
+nah	no
 naiad	submerged aquatic plant having narrow leaves and small flowers; of fresh or brackish water
+naiades	NAIAD: a water nymph
 naiads	NAIAD: submerged aquatic plant having narrow leaves and small flowers; of fresh or brackish water
 nail	attach something somewhere by means of nails
 nailbrush	a brush used to clean a person's fingernails
@@ -42,9 +48,15 @@ naivety	lack of sophistication or worldliness
 naked	completely unclothed
 nakedly	in an exposed manner; without protection or defense
 nakedness	the state of being without clothing or covering of any kind
+namaskar	a respectful Indian greeting with pressed palms
 name	assign a specified (usually proper) proper name to
+namecheck	mention by name
+namechecked	NAMECHECK: mention by name
+namechecking	NAMECHECK: mention by name
+namechecks	NAMECHECK: mention by name
 named	NAME: assign a specified (usually proper) proper name to
 namedropper	NAMEDROP: refer to people that one assumes one's interlocutors admire in order to try to impress them
+namedroppers	NAMEDROPPER: someone who mentions famous people to impress
 nameless	being or having an unknown or unnamed source
 namely	as follows
 nameplate	a plate bearing a name
@@ -54,8 +66,13 @@ namesake	a person with the same name as another
 namesakes	NAMESAKE: a person with the same name as another
 naming	NAME: assign a specified (usually proper) proper name to
 nan	your grandmother
+nana	a grandmother
+nanas	NANA: a grandmother
 nannies	NANNY: a woman who is the custodian of children
 nanny	a woman who is the custodian of children
+nannying	NANNY: look after children, or overprotect
+nanobot	a microscopic robot
+nanobots	NANOBOT: a microscopic robot
 nanometer	a metric unit of length equal to one billionth of a meter
 nanometers	NANOMETER: a metric unit of length equal to one billionth of a meter
 nanometre	a metric unit of length equal to one billionth of a meter
@@ -63,11 +80,15 @@ nanometres	NANOMETRE: a metric unit of length equal to one billionth of a meter
 nanosecond	one billionth (10^-9) of a second; one thousandth of a microsecond
 nanoseconds	NANOSECOND: one billionth (10^-9) of a second; one thousandth of a microsecond
 nanotechnologies	NANOTECHNOLOGY: the branch of engineering that deals with things smaller than 100 nanometers (especially with the manipulation of individual molecules)
+nanotechnologist	an expert in technology at the molecular scale
+nanotechnologists	NANOTECHNOLOGIST: an expert in technology at the molecular scale
 nanotechnology	the branch of engineering that deals with things smaller than 100 nanometers (especially with the manipulation of individual molecules)
 nanotube	a fullerene molecule having a cylindrical or toroidal shape
 nans	NAN: your grandmother
 nap	a period of time spent sleeping
 napalm	gasoline jelled with aluminum soaps; highly incendiary liquid used in fire bombs and flamethrowers
+napalmed	NAPALM: attack with jellied petrol bombs
+napalming	NAPALM: attack with jellied petrol bombs
 napalms	NAPALM: gasoline jelled with aluminum soaps; highly incendiary liquid used in fire bombs and flamethrowers
 nape	the back side of the neck
 napes	NAPE: the back side of the neck
@@ -85,10 +106,13 @@ nappiest	NAPPY: garment consisting of a folded cloth drawn up between the legs a
 napping	not prepared or vigilant
 nappy	garment consisting of a folded cloth drawn up between the legs and fastened at the waist; worn by infants to catch excrement
 naps	NAP: a period of time spent sleeping
+naptime	the time set aside for a nap
 narc	a lawman concerned with narcotics violations
+narcissi	NARCISSUS: a spring flower with a trumpet-shaped centre
 narcissism	an exceptional interest in and admiration for yourself
 narcissist	someone in love with themselves
 narcissistic	characteristic of those having an inflated idea of their own importance
+narcissistically	in an excessively self-admiring way
 narcissists	NARCISSIST: someone in love with themselves
 narcissus	bulbous plant having erect linear leaves and showy yellow or white flowers either solitary or in clusters
 narcissuses	NARCISSUS: bulbous plant having erect linear leaves and showy yellow or white flowers either solitary or in clusters
@@ -102,6 +126,7 @@ nark	an informer or spy working for the police
 narked	NARK: an informer or spy working for the police
 narking	NARK: an informer or spy working for the police
 narks	NARK: an informer or spy working for the police
+narky	bad-tempered
 narrate	provide commentary for a film, for example
 narrated	NARRATE: provide commentary for a film, for example
 narrates	NARRATE: provide commentary for a film, for example
@@ -110,6 +135,10 @@ narration	a message that tells the particulars of an act or occurrence or course
 narrations	NARRATION: a message that tells the particulars of an act or occurrence or course of events; presented in writing or drama or cinema or as a radio or television program
 narrative	a message that tells the particulars of an act or occurrence or course of events; presented in writing or drama or cinema or as a radio or television program
 narratives	NARRATIVE: a message that tells the particulars of an act or occurrence or course of events; presented in writing or drama or cinema or as a radio or television program
+narratological	relating to the study of narrative
+narratologist	a student of narrative
+narratologists	NARRATOLOGIST: a student of narrative
+narratology	the study of narrative
 narrator	someone who tells a story
 narrators	NARRATOR: someone who tells a story
 narrow	make or become more narrow or restricted
@@ -139,6 +168,7 @@ nasally	in a nasal manner
 nasals	NASAL: of or in or relating to the nose
 nascent	being born or beginning
 nastier	NASTY: offensive or even (of persons) malicious
+nasties	NASTY: unpleasant things
 nastiest	NASTY: offensive or even (of persons) malicious
 nastily	in a nasty ill-tempered manner
 nastiness	a state characterized by foul or disgusting dirt and refuse
@@ -146,6 +176,7 @@ nasturtium	any tropical American plant of the genus Tropaeolum having pungent ju
 nasturtiums	NASTURTIUM: any tropical American plant of the genus Tropaeolum having pungent juice and long-spurred yellow to red flowers
 nasty	offensive or even (of persons) malicious
 natal	relating to or accompanying birth
+natch	naturally
 nation	a politically organized body of people under a single government
 national	of or relating to or belonging to a nation or country
 nationalisation	the action of forming or becoming a nation
@@ -205,11 +236,13 @@ naturally	as might be expected
 naturalness	the quality of being natural or based on natural principles
 naturals	NATURAL: in accordance with nature; relating to or concerning nature
 nature	the essential qualities or characteristics by which something is recognized
+natured	having a particular disposition
 natures	NATURE: the essential qualities or characteristics by which something is recognized
 naturism	going without clothes as a social practice
 naturist	a person who practices nudity for reasons of health or religion
 naturists	NATURIST: a person who practices nudity for reasons of health or religion
 naturopath	a therapist who practices naturopathy
+naturopathic	relating to treating illness by natural means
 naturopaths	NATUROPATH: a therapist who practices naturopathy
 naturopathy	a method of treating disease using food and exercise and heat to assist the natural healing process
 naught	a quantity of no importance
@@ -220,6 +253,7 @@ naughtiness	an attribute of mischievous children
 naughts	NAUGHT: a quantity of no importance
 naughty	suggestive of sexual impropriety
 nausea	the state that precedes vomiting
+nauseam	used in the phrase ad nauseam, to a sickening degree
 nauseate	upset and make nauseated
 nauseated	feeling nausea; feeling about to vomit
 nauseates	NAUSEATE: upset and make nauseated
@@ -229,6 +263,9 @@ nauseous	causing or able to cause nausea
 nauseously	in a nauseous way
 nauseousness	the quality of being nauseous
 nautical	relating to or involving ships or shipping or navigation or seamen
+nautically	in a way relating to ships and sailing
+nautili	NAUTILUS: a sea mollusc with a spiral shell
+nautiloid	resembling a nautilus
 nautilus	a submarine that is propelled by nuclear power
 nautiluses	NAUTILUS: a submarine that is propelled by nuclear power
 naval	connected with or belonging to or used in a navy
@@ -253,9 +290,11 @@ navvy	a laborer who is obliged to do menial work
 navy	an organization of military vessels belonging to a country and available for sea warfare
 nay	a negative
 nays	NAY: a negative
-naysayer	someone with an aggressively negative attitude
+naysay	deny or oppose
+naysayer	NAYSAY: deny or oppose
 naysayers	NAYSAYER: someone with an aggressively negative attitude
-naysaying	the act of saying no to a request
+naysaying	NAYSAY: deny or oppose
+naysays	NAYSAY: deny or oppose
 neanderthal	ill-mannered and coarse and contemptible in behavior or appearance
 neanderthals	NEANDERTHAL: ill-mannered and coarse and contemptible in behavior or appearance
 neap	a less than average tide occurring at the first and third quarters of the moon
@@ -268,6 +307,7 @@ nearing	NEAR: near in time or place or relationship
 nearly	(of actions or states) slightly short of or not quite accomplished; all but
 nearness	the spatial property resulting from a relatively small distance
 nears	NEAR: near in time or place or relationship
+nearshore	close to the shore
 nearside	the side of a vehicle nearest the kerb
 nearsighted	unable to see distant objects clearly
 nearsightedness	eyesight abnormality resulting from the eye's faulty refractive ability; distant objects appear blurred
@@ -278,9 +318,11 @@ neatening	NEATEN: put (things or places) in order
 neatens	NEATEN: put (things or places) in order
 neater	NEAT: clean or organized
 neatest	NEAT: clean or organized
+neath	beneath
 neatly	with neatness
 neatness	the state of being neat and smart and trim
 nebula	a medicinal liquid preparation intended for use in an atomizer
+nebulae	NEBULA: a cloud of gas and dust in space
 nebular	of or relating to or resembling a nebula
 nebulas	NEBULA: a medicinal liquid preparation intended for use in an atomizer
 nebuliser	a dispenser that turns a liquid (such as perfume) into a fine mist
@@ -299,25 +341,40 @@ neck	the part of an organism (human or animal) that connects the head to the res
 necked	NECK: the part of an organism (human or animal) that connects the head to the rest of the body
 neckerchief	a kerchief worn around the neck
 neckerchiefs	NECKERCHIEF: a kerchief worn around the neck
+neckerchieves	NECKERCHIEF: a cloth worn around the neck
 necking	NECK: the part of an organism (human or animal) that connects the head to the rest of the body
 necklace	jewelry consisting of a cord or chain (often bearing gems) worn about the neck as an ornament (especially by women)
+necklaced	wearing a necklace
 necklaces	NECKLACE: jewelry consisting of a cord or chain (often bearing gems) worn about the neck as an ornament (especially by women)
+necklacing	NECKLACE: adorn with a necklace
 neckline	the line formed by the edge of a garment around the neck
 necklines	NECKLINE: the line formed by the edge of a garment around the neck
 necks	NECK: the part of an organism (human or animal) that connects the head to the rest of the body
 necktie	neckwear consisting of a long narrow piece of material worn (mostly by men) under a collar and tied in knot at the front
 neckties	NECKTIE: neckwear consisting of a long narrow piece of material worn (mostly by men) under a collar and tied in knot at the front
+necrological	relating to death notices
+necrologist	a writer of obituaries
+necrologists	NECROLOGIST: a writer of obituaries
 necrology	a notice of someone's death; usually includes a short biography
 necromancer	one who practices magic or sorcery
 necromancers	NECROMANCER: one who practices magic or sorcery
 necromancy	the belief in magical spells that harness occult forces or evil spirits to produce unnatural effects in the world
 necromantic	relating to or associated with necromancy
+necromantically	in the manner of conjuring the dead
 necrophilia	an irresistible sexual attraction to dead bodies
+necrophiliac	a person sexually attracted to corpses
+necrophiliacs	NECROPHILIAC: a person sexually attracted to corpses
+necropoleis	NECROPOLIS: a large cemetery
 necropolis	a tract of land used for burials
 necropolises	NECROPOLIS: a tract of land used for burials
+necropolitan	relating to a large cemetery
 necropsy	an examination and dissection of a dead body to determine cause of death or the changes produced by disease
 necrosis	the localized death of living cells (as from infection or the interruption of blood supply)
 necrotic	relating to or affected by necrosis
+necrotize	cause tissue to die
+necrotized	NECROTIZE: cause tissue to die
+necrotizes	NECROTIZE: cause tissue to die
+necrotizing	NECROTIZE: cause tissue to die
 nectar	a sweet liquid secretion that is attractive to pollinators
 nectaries	NECTARY: a gland (often a protuberance or depression) that secretes nectar
 nectarine	variety or mutation of the peach bearing fruit with smooth skin and (usually) yellow flesh
@@ -333,9 +390,12 @@ neediest	NEEDY: needy people collectively
 neediness	a state of extreme poverty
 needing	NEED: a condition requiring relief
 needle	the leaf of a conifer
+needlebook	a small folder for holding needles
 needled	NEEDLE: the leaf of a conifer
 needlefish	elongate European surface-dwelling predacious fishes with long toothed jaws; abundant in coastal waters
 needlepoint	lace worked with a needle in a buttonhole stitch on a paper pattern
+needler	someone who teases or provokes
+needlers	NEEDLER: someone who teases or provokes
 needles	NEEDLE: the leaf of a conifer
 needless	unnecessary and unwarranted
 needlessly	without need
@@ -369,12 +429,15 @@ neglectful	not showing due care or attention
 neglectfully	in a neglectful manner
 neglecting	NEGLECT: leave undone or leave out
 neglects	NEGLECT: leave undone or leave out
+neglig	NEGLIGEE: a woman's light dressing gown
 negligee	a loose dressing gown for women
 negligees	NEGLIGEE: a loose dressing gown for women
 negligence	failure to act with the prudence that a reasonable person would exercise under the same circumstances
 negligent	characterized by neglect and undue lack of concern
 negligently	in a negligent manner
 negligible	so small as to be meaningless; insignificant
+negligibly	in a way too small to matter
+negligs	NEGLIG: NEGLIGEE: a woman's light dressing gown
 negotiable	capable of being passed or negotiated
 negotiate	discuss the terms of an arrangement
 negotiated	NEGOTIATE: discuss the terms of an arrangement
@@ -406,8 +469,10 @@ neighing	NEIGH: the characteristic sounds made by a horse
 neighs	NEIGH: the characteristic sounds made by a horse
 neither	not either; not one or the other
 nelsons	NELSON: English admiral who defeated the French fleets of Napoleon but was mortally wounded at Trafalgar (1758-1805)
+nematic	of a liquid crystal with parallel molecules
 nematode	unsegmented worms with elongated rounded body pointed at both ends; mostly free-living but some are parasitic
 nematodes	NEMATODE: unsegmented worms with elongated rounded body pointed at both ends; mostly free-living but some are parasitic
+nemeses	NEMESIS: an unbeatable rival or cause of downfall
 nemesis	the goddess of divine retribution and vengeance
 neoclassic	characteristic of a revival of an earlier classical style
 neoclassical	characteristic of a revival of an earlier classical style
@@ -428,7 +493,10 @@ neon	a colorless odorless gaseous element that give a red glow in a vacuum tube;
 neonatal	relating to or affecting the infant during the first month after birth
 neonate	a baby from birth to four weeks
 neonates	NEONATE: a baby from birth to four weeks
+neonatologist	a doctor specialising in newborn babies
+neonatologists	NEONATOLOGIST: a doctor specialising in newborn babies
 neonatology	that branch of pediatric medicine concerned with the newborn; the diagnosis and treatment of neonates
+neophilia	love of new things
 neophyte	a plant that is found in an area where it had not been recorded previously
 neophytes	NEOPHYTE: a plant that is found in an area where it had not been recorded previously
 neoplasm	an abnormal new mass of tissue that serves no purpose
@@ -438,12 +506,19 @@ nephew	a son of your brother or sister
 nephews	NEPHEW: a son of your brother or sister
 nephrite	an amphibole mineral consisting of calcium magnesium silicate in monoclinic crystalline form; a source of jade that is less valuable than from jadeite; once believed to cure kidney disorders
 nephritis	an inflammation of the kidney
+nephrological	relating to the study of kidneys
+nephrologist	a kidney specialist
+nephrologists	NEPHROLOGIST: a kidney specialist
 nephrology	the branch of medicine concerned with the kidney - its development and anatomy and physiology and disorders
 nephropathy	a disease affecting the kidneys
 nepotism	favoritism shown to relatives or close friends by those in power (as by giving them jobs)
 neptunium	a radioactive transuranic metallic element; found in trace amounts in uranium ores; a by-product of the production of plutonium
 nerd	an insignificant student who is ridiculed as being affected or boringly studious
+nerdier	NERDY: socially awkward and obsessively studious
+nerdiest	NERDY: socially awkward and obsessively studious
 nerds	NERD: an insignificant student who is ridiculed as being affected or boringly studious
+nerdy	socially awkward and obsessively studious
+neroli	a fragrant oil from orange blossom
 nerve	any bundle of nerve fibers running to various organs and tissues of the body
 nerved	NERVE: any bundle of nerve fibers running to various organs and tissues of the body
 nerveless	marked by calm self-control (especially in trying circumstances); unemotional
@@ -462,6 +537,8 @@ nest	a structure in which animals lay eggs or give birth to their young
 nested	NEST: a structure in which animals lay eggs or give birth to their young
 nester	someone who settles lawfully on government land with the intent to acquire title to it
 nesters	NESTER: someone who settles lawfully on government land with the intent to acquire title to it
+nestful	as many as a nest holds
+nestfuls	NESTFUL: as many as a nest holds
 nesting	NEST: a structure in which animals lay eggs or give birth to their young
 nestle	move or arrange oneself in a comfortable and cozy position
 nestled	NESTLE: move or arrange oneself in a comfortable and cozy position
@@ -471,13 +548,23 @@ nestlings	NESTLING: young bird not yet fledged
 nests	NEST: a structure in which animals lay eggs or give birth to their young
 net	a computer network consisting of a worldwide network of computer networks that use the TCP/IP network protocols to facilitate data transmission and exchange
 netball	a team game that resembles basketball; a soccer ball is to be thrown so that it passes through a ring on the top of a post
+netbook	a small, cheap laptop computer
+netbooks	NETBOOK: a small, cheap laptop computer
+nethead	an enthusiastic internet user
+netheads	NETHEAD: an enthusiastic internet user
 nether	lower
 nethermost	farthest down
+nethers	the genitals or lower body
 netherworld	the world of the dead
+netiquette	accepted manners for online behaviour
+netiquettes	NETIQUETTE: accepted manners for online behaviour
+netizen	a regular internet user
+netizens	NETIZEN: a regular internet user
 nets	NET: a computer network consisting of a worldwide network of computer networks that use the TCP/IP network protocols to facilitate data transmission and exchange
 nett	catch with a net
 netted	NET: a computer network consisting of a worldwide network of computer networks that use the TCP/IP network protocols to facilitate data transmission and exchange
 netter	NET: a computer network consisting of a worldwide network of computer networks that use the TCP/IP network protocols to facilitate data transmission and exchange
+netters	NETTER: someone who plays netball or uses nets
 netting	NET: a computer network consisting of a worldwide network of computer networks that use the TCP/IP network protocols to facilitate data transmission and exchange
 nettle	any of numerous plants having stinging hairs that cause skin irritation on contact (especially of the genus Urtica or family Urticaceae)
 nettled	aroused to impatience or anger
@@ -498,28 +585,54 @@ neurobiological	of or relating to the biological study of the nervous system
 neurobiologist	a specialist in neurobiology
 neurobiologists	NEUROBIOLOGIST: a specialist in neurobiology
 neurobiology	the branch of biology that deals with the anatomy and physiology and pathology of the nervous system
+neuroendocrinological	relating to the nervous and hormone systems
+neuroendocrinologist	a specialist in the nervous and hormone systems
+neuroendocrinologists	NEUROENDOCRINOLOGIST: a specialist in the nervous and hormone systems
+neuroendocrinology	the study of the nervous and hormone systems
+neuroethology	the study of the nervous basis of animal behaviour
 neurogenic	arising in or stimulated by nerve tissues
 neurologic	of or relating to or used in or practicing neurology
 neurological	of or relating to or used in or practicing neurology
+neurologically	in a way relating to the nervous system
 neurologist	a medical specialist in the nervous system and the disorders affecting it
 neurologists	NEUROLOGIST: a medical specialist in the nervous system and the disorders affecting it
 neurology	the branch of medical science that deals with the nervous system
 neuromuscular	affecting or characteristic of both neural and muscular tissue
 neuron	a cell that is specialized to conduct nerve impulses
 neuronal	of or relating to neurons
+neurone	a nerve cell
+neurones	NEURONE: a nerve cell
 neurons	NEURON: a cell that is specialized to conduct nerve impulses
+neuropathological	relating to diseases of the nervous system
+neuropathologist	a specialist in diseases of the nervous system
+neuropathologists	NEUROPATHOLOGIST: a specialist in diseases of the nervous system
+neuropathology	the study of diseases of the nervous system
 neuropathy	any pathology of the peripheral nerves
+neuropharmacological	relating to how drugs affect the nervous system
+neuropharmacologist	a specialist in how drugs affect the nervous system
+neuropharmacologists	NEUROPHARMACOLOGIST: a specialist in how drugs affect the nervous system
+neuropharmacology	the study of how drugs affect the nervous system
 neurophysiological	of or concerned with neurophysiology
+neurophysiologist	a specialist in how the nervous system works
+neurophysiologists	NEUROPHYSIOLOGIST: a specialist in how the nervous system works
 neurophysiology	the branch of neuroscience that studies the physiology of the nervous system
 neuropsychological	of or concerned with neuropsychology
+neuropsychologist	a specialist in the brain and behaviour
+neuropsychologists	NEUROPSYCHOLOGIST: a specialist in the brain and behaviour
 neuropsychology	the branch of psychology that is concerned with the physiological bases of psychological processes
+neuroradiological	relating to imaging of the nervous system
+neuroradiologist	a specialist in imaging the nervous system
+neuroradiologists	NEURORADIOLOGIST: a specialist in imaging the nervous system
+neuroradiology	imaging of the brain and nervous system
 neuroscience	the scientific study of the nervous system
 neurosciences	NEUROSCIENCE: the scientific study of the nervous system
 neuroscientist	a neurobiologist who specializes in the study of the brain
+neuroses	NEUROSIS: a mild mental disorder involving anxiety
 neurosis	a mental or personality disturbance not attributable to any known neurological or organic dysfunction
 neurosurgeon	someone who does surgery on the nervous system (especially the brain)
 neurosurgeons	NEUROSURGEON: someone who does surgery on the nervous system (especially the brain)
 neurosurgery	any surgery that involves the nervous system (brain or spinal cord or peripheral nerves)
+neurosurgical	relating to surgery on the brain or nerves
 neurotic	characteristic of or affected by neurosis
 neurotically	in a neurotic manner
 neuroticism	a mental or personality disturbance not attributable to any known neurological or organic dysfunction
@@ -534,14 +647,19 @@ neutral	having no personal preference
 neutralisation	a chemical reaction in which an acid and a base interact with the formation of a salt; with strong acids and bases the essential reaction is the combination of hydrogen ions with hydroxyl ions to form water
 neutralise	get rid of (someone who may be a threat) by killing
 neutralised	made neutral in some respect; deprived of distinctive characteristics
+neutraliser	something that cancels out an effect
+neutralisers	NEUTRALISER: something that cancels out an effect
 neutralises	NEUTRALISE: get rid of (someone who may be a threat) by killing
 neutralising	NEUTRALISE: get rid of (someone who may be a threat) by killing
 neutrality	nonparticipation in a dispute or war
 neutralization	action intended to keep a country politically neutral or exclude it from a possible war
 neutralize	make politically neutral and thus inoffensive
 neutralized	made neutral in some respect; deprived of distinctive characteristics
+neutralizer	something that cancels out an effect
+neutralizers	NEUTRALIZER: something that cancels out an effect
 neutralizes	NEUTRALIZE: make politically neutral and thus inoffensive
 neutralizing	NEUTRALIZE: make politically neutral and thus inoffensive
+neutrally	in an unbiased way
 neutrals	NEUTRAL: having no personal preference
 neutrino	an elementary, electrically neutral particle with a very small mass
 neutrinos	NEUTRINO: an elementary, electrically neutral particle with a very small mass
@@ -557,6 +675,8 @@ newbie	any new participant in some activity
 newbies	NEWBIE: any new participant in some activity
 newborn	recently born
 newborns	NEWBORN: recently born
+newbuild	a newly constructed house
+newbuilds	NEWBUILD: a newly constructed house
 newcomer	any new participant in some activity
 newcomers	NEWCOMER: any new participant in some activity
 newel	the post at the top or bottom of a flight of stairs; it supports the handrail
@@ -565,6 +685,8 @@ newer	NEW: not of long duration; having just (or relatively recently) come into 
 newest	NEW: not of long duration; having just (or relatively recently) come into being or been made or acquired or discovered
 newfangled	(of a new kind or fashion) gratuitously new
 newfound	newly discovered
+newline	a character marking the start of a new line of text
+newlines	NEWLINE: a character marking the start of a new line of text
 newly	very recently
 newlywed	someone recently married
 newlyweds	NEWLYWED: someone recently married
@@ -572,6 +694,8 @@ newmarket	a long close-fitting coat worn for riding in the 19th century
 newmarkets	NEWMARKET: a long close-fitting coat worn for riding in the 19th century
 newness	the quality of being new; the opposite of oldness
 news	information about recent and important events
+newsagencies	NEWSAGENCY: a shop selling newspapers and magazines
+newsagency	a shop selling newspapers and magazines
 newsagent	someone who sells newspapers
 newsagents	NEWSAGENT: someone who sells newspapers
 newsboy	a boy who delivers newspapers
@@ -582,10 +706,13 @@ newscasters	NEWSCASTER: someone who broadcasts the news
 newscasts	NEWSCAST: a broadcast of news or commentary on the news
 newsflash	a short news announcement concerning some on-going news story
 newsflashes	NEWSFLASH: a short news announcement concerning some on-going news story
+newsgroup	an online discussion forum
+newsgroups	NEWSGROUP: an online discussion forum
 newsier	NEWSY: full of news
 newsiest	NEWSY: full of news
 newsletter	report or open letter giving informal or confidential news of interest to a special group
 newsletters	NEWSLETTER: report or open letter giving informal or confidential news of interest to a special group
+newsmagazine	a magazine covering current events
 newsman	a person who investigates and reports or edits news stories
 newsmen	NEWSMAN: a person who investigates and reports or edits news stories
 newspaper	a daily or weekly publication on folded sheets; contains news and articles and advertisements
@@ -613,6 +740,7 @@ newton	English mathematician and physicist; remembered for developing the calcul
 newtons	NEWTON: English mathematician and physicist; remembered for developing the calculus and for his law of gravitation and his three laws of motion (1642-1727)
 newts	NEWT: small usually bright-colored semiaquatic salamanders of North America and Europe and northern Asia
 next	immediately following in time or order
+nextdoor	in the adjacent house or room
 nexus	the means of connection between things linked in series
 nexuses	NEXUS: the means of connection between things linked in series
 niacin	a B vitamin essential for the normal function of the nervous system and the gastrointestinal tract
@@ -624,6 +752,8 @@ nibblers	NIBBLER: a biter who takes dainty repeated bites
 nibbles	NIBBLE: a small byte
 nibbling	NIBBLE: a small byte
 nibblingly	in a nibbling way
+niblet	a small piece of food
+niblets	NIBLET: a small piece of food
 nibs	NIB: the writing point of a pen
 nice	pleasant or pleasing or agreeable in nature or appearance
 nicely	in a nice way
@@ -633,6 +763,7 @@ nicest	NICE: pleasant or pleasing or agreeable in nature or appearance
 niceties	NICETY: conformity with some esthetic standard of correctness or propriety
 nicety	conformity with some esthetic standard of correctness or propriety
 niche	a position particularly well suited to the person who occupies it
+niched	NICHE: placed in a recess or specialised position
 niches	NICHE: a position particularly well suited to the person who occupies it
 nick	an impression in a surface (as made by a blow)
 nicked	NICK: an impression in a surface (as made by a blow)
@@ -643,6 +774,8 @@ nickels	NICKEL: a hard malleable ductile silvery metallic element that is resist
 nicker	the characteristic sounds made by a horse
 nickers	NICKER: the characteristic sounds made by a horse
 nicking	NICK: an impression in a surface (as made by a blow)
+nickle	NICKEL: a silvery metal, or a five-cent coin
+nickles	NICKLE: NICKEL: a silvery metal, or a five-cent coin
 nicknack	miscellaneous curios
 nicknacks	NICKNACK: miscellaneous curios
 nickname	a familiar name for a person (often a shortened version of a person's given name)
@@ -655,6 +788,8 @@ niece	a daughter of your brother or sister
 nieces	NIECE: a daughter of your brother or sister
 nifedipine	calcium blocker (trade name Procardia); appears to increase the risk of recurrent heart attacks
 niff	an unpleasant smell
+niffed	NIFF: smelled bad
+niffing	NIFF: smelling bad
 niffs	NIFF: an unpleasant smell
 niffy	malodorous
 niftier	NIFTY: very good
@@ -692,12 +827,14 @@ nightgowns	NIGHTGOWN: lingerie consisting of a loose dress designed to be worn i
 nighthawk	a person who likes to be active late at night
 nighthawks	NIGHTHAWK: a person who likes to be active late at night
 nightie	lingerie consisting of a loose dress designed to be worn in bed by women
-nighties	NIGHTIE: lingerie consisting of a loose dress designed to be worn in bed by women
+nighties	NIGHTY: a nightdress
 nightingale	European songbird noted for its melodious nocturnal song
 nightingales	NIGHTINGALE: European songbird noted for its melodious nocturnal song
 nightjar	mainly crepuscular or nocturnal nonpasserine birds with mottled greyish-brown plumage and large eyes; feed on insects
 nightjars	NIGHTJAR: mainly crepuscular or nocturnal nonpasserine birds with mottled greyish-brown plumage and large eyes; feed on insects
 nightlife	the entertainment available to people seeking nighttime diversion
+nightlight	a dim lamp left on at night
+nightlights	NIGHTLIGHT: a dim lamp left on at night
 nightly	happening every night
 nightmare	a situation resembling a terrifying dream
 nightmares	NIGHTMARE: a situation resembling a terrifying dream
@@ -709,19 +846,27 @@ nightshirt	nightclothes worn by men
 nightshirts	NIGHTSHIRT: nightclothes worn by men
 nightspot	a spot that is open late at night and that provides entertainment (as singers or dancers) as well as dancing and food and drink
 nightspots	NIGHTSPOT: a spot that is open late at night and that provides entertainment (as singers or dancers) as well as dancing and food and drink
+nightstalker	a person who prowls at night
+nightstalkers	NIGHTSTALKER: a person who prowls at night
+nightstand	a small table beside a bed
+nightstands	NIGHTSTAND: a small table beside a bed
 nightstick	a short stout club used primarily by policemen
 nightsticks	NIGHTSTICK: a short stout club used primarily by policemen
 nighttime	the time after sunset and before sunrise while it is dark outside
 nighttimes	NIGHTTIME: the time after sunset and before sunrise while it is dark outside
 nightwalker	terrestrial worm that burrows into and helps aerate soil; often surfaces when the ground is cool or wet; used as bait by anglers
 nightwalkers	NIGHTWALKER: terrestrial worm that burrows into and helps aerate soil; often surfaces when the ground is cool or wet; used as bait by anglers
+nightwatchman	a person guarding premises at night
+nightwatchmen	NIGHTWATCHMAN: a person guarding premises at night
 nightwear	garments designed to be worn in bed
+nighty	a nightdress
 nihilism	a revolutionary doctrine that advocates destruction of the social system for its own sake
 nihilist	someone who rejects all theories of morality or religious belief
 nihilistic	of or relating to nihilism
 nihilists	NIHILIST: someone who rejects all theories of morality or religious belief
 nil	a quantity of no importance
-nimbies	NIMBY: someone who objects to siting something in their own neighborhood but does not object to it being sited elsewhere; an acronym for not in my backyard
+nimbi	NIMBUS: a rain cloud, or a halo
+nimbies	NIMBI: NIMBUS: a rain cloud, or a halo
 nimble	moving quickly and lightly
 nimbleness	intelligence as revealed by quickness and alertness of mind
 nimbler	NIMBLE: moving quickly and lightly
@@ -744,6 +889,8 @@ nineties	the decade from 1890 to 1899
 ninetieth	position 90 in a countable series of things
 ninetieths	NINETIETH: position 90 in a countable series of things
 ninety	being ten more than eighty
+ningaui	a small mouselike Australian marsupial
+ningauis	NINGAUI: a small mouselike Australian marsupial
 ninja	a member of the ninja who were trained in martial arts and hired for espionage or sabotage or assassinations; a person skilled in ninjutsu
 ninjas	NINJA: a member of the ninja who were trained in martial arts and hired for espionage or sabotage or assassinations; a person skilled in ninjutsu
 ninnies	NINNY: a stupid foolish person
@@ -764,13 +911,18 @@ nippy	a sharp biting taste
 nips	NIP: squeeze tightly between the fingers
 nirvana	the beatitude that transcends the cycle of reincarnation; characterized by the extinction of desire and suffering and individual consciousness
 nit	a luminance unit equal to 1 candle per square meter measured perpendicular to the rays from the source
-niter	used especially as a fertilizer and explosive
+nite	night
+niter	NITE: night
+nites	NITE: night
 nitpick	be overly critical; criticize minor details
 nitpicked	NITPICK: be overly critical; criticize minor details
 nitpicker	someone who makes small and unjustified criticisms
 nitpickers	NITPICKER: someone who makes small and unjustified criticisms
+nitpickier	NITPICKY: overly concerned with trivial faults
+nitpickiest	NITPICKY: overly concerned with trivial faults
 nitpicking	NITPICK: be overly critical; criticize minor details
 nitpicks	NITPICK: be overly critical; criticize minor details
+nitpicky	overly concerned with trivial faults
 nitrate	any compound containing the nitrate group (such as a salt or ester of nitric acid)
 nitrated	NITRATE: any compound containing the nitrate group (such as a salt or ester of nitric acid)
 nitrates	NITRATE: any compound containing the nitrate group (such as a salt or ester of nitric acid)
@@ -789,6 +941,7 @@ nitroglycerin	a heavy yellow poisonous oily explosive liquid obtained by nitrati
 nitroglycerine	a heavy yellow poisonous oily explosive liquid obtained by nitrating glycerol; used in making explosives and medically as a vasodilator (trade names Nitrospan and Nitrostat)
 nitrous	of or containing nitrogen
 nits	NIT: a luminance unit equal to 1 candle per square meter measured perpendicular to the rays from the source
+nitty	full of nits
 nitwit	a stupid incompetent person
 nitwits	NITWIT: a stupid incompetent person
 nix	a quantity of no importance
@@ -819,11 +972,14 @@ nobs	NOB: informal term for an upper-class or wealthy person
 noctilucent	shining or glowing by night
 nocturnal	belonging to or active during the night
 nocturnally	at night
+nocturnals	NOCTURNAL: an animal active at night
 nocturne	a pensive lyrical piece of music (especially for the piano)
 nocturnes	NOCTURNE: a pensive lyrical piece of music (especially for the piano)
 nod	express or signify by nodding
+nodal	relating to a node
 nodded	NOD: express or signify by nodding
 nodding	NOD: express or signify by nodding
+noddy	a fool; also a tropical tern
 node	a connecting point at which several lines come together
 nodes	NOD: express or signify by nodding
 nods	NOD: express or signify by nodding
@@ -832,8 +988,10 @@ nodule	a small node
 nodules	NODULE: a small node
 noel	period extending from Dec. 24 to Jan. 6
 noels	NOEL: period extending from Dec. 24 to Jan. 6
+noes	NO: refusals or negative votes
 noggin	informal terms for a human head
 noggins	NOGGIN: informal terms for a human head
+noir	a dark, cynical style of crime fiction or film
 noise	sound of any kind (especially unintelligible or dissonant sound)
 noised	NOISE: sound of any kind (especially unintelligible or dissonant sound)
 noiseless	making no sound
@@ -869,7 +1027,10 @@ nominatives	NOMINATIVE: the category of nouns serving as the grammatical subject
 nominee	a politician who is running for public office
 nominees	NOMINEE: a politician who is running for public office
 non	negation of a word or group of words
+nonabrasive	not scratching or wearing away
 nonabsorbent	not capable of absorbing or soaking up (liquids)
+nonabsorbents	NONABSORBENT: not soaking up liquid
+nonacademic	not concerned with scholarly study
 nonagenarian	someone whose age is in the nineties
 nonagenarians	NONAGENARIAN: someone whose age is in the nineties
 nonaggression	a policy of not initiating hostilities
@@ -881,6 +1042,8 @@ nonappearances	NONAPPEARANCE: failure to appear (especially as at court)
 nonattendance	the failure to attend
 nonbeliever	someone who refuses to believe (as in a divinity)
 nonbelievers	NONBELIEVER: someone who refuses to believe (as in a divinity)
+nonbinding	not legally obligatory
+nonbreakable	not able to be broken easily
 nonce	the present occasion
 nonchalance	the trait of remaining calm and seeming not to care; a casual lack of concern
 nonchalant	marked by blithe unconcern
@@ -889,8 +1052,10 @@ noncom	a military officer appointed from enlisted personnel
 noncombatant	a member of the armed forces who does not participate in combat (e.g. a chaplain or surgeon)
 noncombatants	NONCOMBATANT: a member of the armed forces who does not participate in combat (e.g. a chaplain or surgeon)
 noncommercial	not connected with or engaged in commercial enterprises
+noncommercials	NONCOMMERCIAL: not for profit
 noncommissioned	(of military officers) appointed from enlisted personnel
 noncommittal	refusing to bind oneself to a particular course of action or view or the like
+noncommittally	in a way that avoids taking a position
 noncompetitive	not involving competition or competitiveness
 noncompliance	the failure to obey
 noncoms	NONCOM: a military officer appointed from enlisted personnel
@@ -901,12 +1066,22 @@ nonconformist	a Protestant in England who is not a member of the Church of Engla
 nonconformists	NONCONFORMIST: a Protestant in England who is not a member of the Church of England
 nonconformity	lack of harmony or correspondence
 noncontagious	(of disease) not capable of being passed on
+noncontributory	not involving payments by the member
+noncooperation	refusal to work together
+noncustodial	not involving custody
+nondairy	containing no milk products
 nondeductible	not allowable as a deduction
 nondenominational	not restricted to a particular religious denomination
 nondescript	lacking distinct or individual characteristics; dull and uninteresting
+nondestructive	not causing damage
+nondeterministic	not having a predictable outcome
+nondisclosure	the act of keeping information secret
+nondiscrimination	the practice of treating people fairly alike
+nondiscriminatory	not treating people unfairly
 nondrinker	a person who refrains from drinking intoxicating beverages
 nondrinkers	NONDRINKER: a person who refrains from drinking intoxicating beverages
 none	not at all or in no way
+nonempty	containing at least one element
 nonentities	NONENTITY: the state of not existing
 nonentity	the state of not existing
 nonessential	anything that is not essential
@@ -916,30 +1091,44 @@ nonesuches	NONESUCH: model of excellence or perfection of a kind; one having no 
 nonetheless	despite anything to the contrary (usually preceding a concession)
 nonevent	an anticipated event that turns out to be far less significant than was expected
 nonevents	NONEVENT: an anticipated event that turns out to be far less significant than was expected
+nonexclusive	not limited to one person or group
+nonexecutive	not involved in day-to-day management
 nonexempt	(of goods or funds) subject to taxation
 nonexistence	the state of not existing
 nonexistent	not having existence or being or actuality
+nonfarm	not related to farming
 nonfat	without fat or fat solids
 nonfatal	not bringing death
+nonferrous	not containing iron
 nonfiction	prose writing that is not fictional
 nonfinite	(of verbs) not having tense, person, or number (as a participle or gerund or infinitive)
 nonflammable	impossible to ignite
 nonfunctional	not having or performing a function
+nong	a fool
+nongovernmental	independent of any government
+nongs	NONG: a fool
+nonhazardous	not dangerous
 nonhuman	not human; not belonging to or produced by or appropriate to human beings
 nonindustrial	not having highly developed manufacturing enterprises
 noninterference	a foreign policy of staying out of other countries' disputes
 nonintervention	a foreign policy of staying out of other countries' disputes
 noninvasive	relating to a technique that does not involve puncturing the skin or entering a body cavity
+nonissue	a matter of no importance
+nonissues	NONISSUE: a matter of no importance
 nonjudgmental	refraining from making judgments especially ones based on personal opinions or standards
 nonlethal	not capable of causing death
 nonlinear	designating or involving an equation whose terms are not of the first degree
+nonlinearity	the quality of not following a straight line
 nonliving	not endowed with life
+nonmalignant	not cancerous
 nonmember	a person who is not a member
 nonmembers	NONMEMBER: a person who is not a member
 nonmetallic	not containing or resembling or characteristic of a metal
 nonmilitary	not associated with soldiers or the military
 nonnative	not being or composed of aborigines
+nonnatives	NONNATIVE: not originating in a place
 nonnegative	either positive or zero
+nonnegotiable	not open to discussion
 nonobjective	not representing or imitating external reality or the objects of nature
 nonparametric	not involving an estimation of the parameters of a statistic
 nonpareil	model of excellence or perfection of a kind; one having no equal
@@ -948,6 +1137,7 @@ nonpartisan	a person who is nonpartisan
 nonpartisans	NONPARTISAN: a person who is nonpartisan
 nonpayment	act of failing to meet a financial obligation
 nonpayments	NONPAYMENT: act of failing to meet a financial obligation
+nonperforming	not producing income or repayments
 nonperson	a person regarded as nonexistent and having no rights; a person whose existence is systematically ignored (especially for ideological or political reasons)
 nonpersons	NONPERSON: a person regarded as nonexistent and having no rights; a person whose existence is systematically ignored (especially for ideological or political reasons)
 nonphysical	lacking substance or reality; incapable of being touched or seen
@@ -956,16 +1146,22 @@ nonplused	filled with bewilderment
 nonpluses	NONPLUS: be a mystery or bewildering to
 nonplusing	NONPLUS: be a mystery or bewildering to
 nonplussed	filled with bewilderment
+nonplusses	NONPLUS: confuse completely
 nonplussing	NONPLUS: be a mystery or bewildering to
 nonpoisonous	not producing poison
 nonpolitical	not political
+nonpolluting	not causing pollution
 nonprescription	purchasable without a doctor's prescription
 nonproductive	not directly productive
 nonprofessional	not professional; not engaged in a profession or engaging in as a profession or for gain
+nonprofessionals	NONPROFESSIONAL: an amateur
 nonprofit	an organization chartered for other than profit-making activities
 nonprofits	NONPROFIT: an organization chartered for other than profit-making activities
 nonproliferation	the prevention of something increasing or spreading (especially the prevention of an increase in the number of countries possessing nuclear weapons)
 nonpublic	not invested with or related to prominent position or status etc.
+nonrefillable	not designed to be filled again
+nonrefundable	not able to be paid back
+nonreligious	not connected with religion
 nonrenewable	that can not be renewed
 nonrepresentational	of or relating to a style of art in which objects do not resemble those known in physical nature
 nonresident	not living in a particular place or owned by permanent residents
@@ -973,15 +1169,21 @@ nonresidential	not residential
 nonresidents	NONRESIDENT: not living in a particular place or owned by permanent residents
 nonrestrictive	not limiting the reference of a modified word or phrase
 nonreturnable	that may not be returned
+nonreturnables	NONRETURNABLE: not able to be sent back
 nonrigid	designating an airship having a shape maintained only by internal gas pressure and without a supporting structure
+nonscheduled	not on a regular timetable
+nonseasonal	not related to a particular season
 nonsectarian	not restricted to one sect or school or party
 nonsense	a message that seems to convey no meaning
 nonsensical	so unreasonable as to invite derision
+nonsensically	in a way that makes no sense
+nonsexist	not discriminating by gender
 nonsexual	not having or involving sex
 nonskid	designed to reduce or prevent skidding
 nonslip	designed to reduce or prevent slipping
 nonsmoker	a person who does not smoke tobacco
 nonsmokers	NONSMOKER: a person who does not smoke tobacco
+nonsmoking	where smoking is not allowed
 nonspecific	not caused by a specific agent; used also of staining in making microscope slides
 nonstandard	not conforming to the language usage of a prestige group within a community
 nonstarter	a person with a record of failing; someone who loses consistently
@@ -989,31 +1191,53 @@ nonstarters	NONSTARTER: a person with a record of failing; someone who loses con
 nonsteroidal	an organic compound that does no contain a steroid
 nonstick	(of surfaces especially of cooking utensils) permitting easy removal of adherent food particles
 nonstop	a flight made without intermediate stops between source and destination
+nonsupport	failure to provide support
 nonsurgical	not surgical
 nontaxable	(of goods or funds) not subject to taxation
 nontechnical	not characteristic of or skilled in applied arts and sciences
+nonthreatening	not seeming dangerous
 nontoxic	not producing or resulting from poison
 nontraditional	not conforming to or in accord with tradition
 nontransferable	incapable of being transferred
+nontrivial	important or significant
 nonuniform	not homogeneous
 nonunion	not belonging to or not allowing affiliation with a trade union
+nonuser	a person who does not use something
+nonusers	NONUSER: a person who does not use something
 nonverbal	being other than verbal communication
 nonviolence	peaceful resistance to a government by fasting or refusing to cooperate
 nonviolent	abstaining (on principle) from the use of violence
 nonvolatile	not volatilizing readily
+nonvoting	without the right to vote
+nonwhite	not belonging to a white ethnic group
+nonwhites	NONWHITE: not belonging to a white ethnic group
+nonzero	not equal to zero
+noodge	nag or pester
+noodged	NOODGE: nag or pester
+noodges	NOODGE: nag or pester
+noodging	NOODGE: nag or pester
 noodle	a ribbonlike strip of pasta
+noodled	NOODLE: play music idly, or ponder
+noodlehead	a fool
+noodleheads	NOODLEHEAD: a fool
 noodles	NOODLE: a ribbonlike strip of pasta
+noodling	NOODLE: play music idly, or ponder
 nook	a sheltered and secluded place
 nookie	slang for sexual intercourse
 nooks	NOOK: a sheltered and secluded place
 nooky	slang for sexual intercourse
 noon	the middle of the day
 noonday	the middle of the day
+noontime	midday
 noose	a trap for birds or small mammals; often has a slip noose
 noosed	NOOSE: a trap for birds or small mammals; often has a slip noose
 nooses	NOOSE: a trap for birds or small mammals; often has a slip noose
 noosing	NOOSE: a trap for birds or small mammals; often has a slip noose
+nope	no
+noplace	nowhere
+nor	and not
 norepinephrine	a catecholamine precursor of epinephrine that is secreted by the adrenal medulla and also released at synapses
+nori	dried seaweed used in Japanese cooking
 norm	a standard or model or pattern regarded as typical
 normal	conforming with or constituting a norm or standard or level or type or social norm; not abnormal
 normalcy	being within certain limits that define the range of normal functioning
@@ -1048,6 +1272,7 @@ northern	in or characteristic of a region of the United States north of (approxi
 northerner	an inhabitant of the North
 northerners	NORTHERNER: an inhabitant of the North
 northernmost	situated farthest north
+northing	distance travelled or measured northwards
 northward	in a northern direction
 northwards	NORTHWARD: in a northern direction
 northwest	the northwestern region of the United States
@@ -1067,8 +1292,13 @@ nosedive	a sudden sharp drop or rapid decline
 nosedived	NOSEDIVE: a sudden sharp drop or rapid decline
 nosedives	NOSEDIVE: a sudden sharp drop or rapid decline
 nosediving	NOSEDIVE: a sudden sharp drop or rapid decline
+nosedove	NOSEDIVE: plunge steeply downward
 nosegay	an arrangement of flowers that is usually given as a present
 nosegays	NOSEGAY: an arrangement of flowers that is usually given as a present
+noseprint	the pattern of ridges on an animal's nose
+noseprints	NOSEPRINT: the pattern of ridges on an animal's nose
+nosering	a ring worn in the nose
+noserings	NOSERING: a ring worn in the nose
 noses	NOSE: the organ of smell and entrance to the respiratory tract; the prominent part of the face of man or other mammals
 nosey	offensively curious or inquisitive
 nosh	a snack or light meal
@@ -1079,6 +1309,7 @@ noshes	NOSH: a snack or light meal
 noshing	NOSH: a snack or light meal
 nosier	NOSY: offensively curious or inquisitive
 nosiest	NOSY: offensively curious or inquisitive
+nosily	in an inquisitive way
 nosiness	offensive inquisitiveness
 nosing	NOSE: the organ of smell and entrance to the respiratory tract; the prominent part of the face of man or other mammals
 nostalgia	longing for something past
@@ -1095,6 +1326,7 @@ notability	a celebrity who is an inspiration to others
 notable	a celebrity who is an inspiration to others
 notables	NOTABLE: a celebrity who is an inspiration to others
 notably	especially; in particular
+notarial	relating to a notary
 notaries	NOTARY: someone legally empowered to witness signatures and certify a document's validity and to take depositions
 notarise	authenticate as a notary
 notarised	NOTARISE: authenticate as a notary
@@ -1113,12 +1345,16 @@ notation	a technical system of symbols used to represent special things
 notations	NOTATION: a technical system of symbols used to represent special things
 notch	a V-shaped indentation
 notched	NOTCH: a V-shaped indentation
+notcher	something or someone that cuts notches
+notchers	NOTCHER: something or someone that cuts notches
 notches	NOTCH: a V-shaped indentation
 notching	NOTCH: a V-shaped indentation
 note	a brief written record
 notebook	a book with blank pages for recording notes or memoranda
 notebooks	NOTEBOOK: a book with blank pages for recording notes or memoranda
 noted	widely known and esteemed
+notelet	a small folded card for short letters
+notelets	NOTELET: a small folded card for short letters
 notepad	a pad of paper for keeping notes
 notepads	NOTEPAD: a pad of paper for keeping notes
 notepaper	writing paper intended for writing short notes or letters
@@ -1130,36 +1366,47 @@ nothings	NOTHING: a quantity of no importance
 notice	an announcement containing information about an event
 noticeable	capable or worthy of being noticed
 noticeably	in a noticeable manner
+noticeboard	a board for posting notices
+noticeboards	NOTICEBOARD: a board for posting notices
 noticed	NOTICE: an announcement containing information about an event
 notices	NOTICE: an announcement containing information about an event
 noticing	NOTICE: an announcement containing information about an event
 notifiable	requiring that official notification be given
 notification	an accusation of crime made by a grand jury on its own initiative
 notifications	NOTIFICATION: an accusation of crime made by a grand jury on its own initiative
+notified	NOTIFY: inform formally
 notifies	NOTIFY: inform (somebody) of something
 notify	inform (somebody) of something
 notifying	NOTIFY: inform (somebody) of something
 noting	NOTE: a brief written record
 notion	a vague idea in which some confidence is placed
 notional	not based on fact; existing only in the imagination
+notionally	in theory rather than in practice
 notions	NOTION: a vague idea in which some confidence is placed
 notoriety	the state of being known for some unfavorable act or quality
 notorious	known widely and usually unfavorably
 notoriously	to a notorious degree
 notwithstanding	despite anything to the contrary (usually preceding a concession)
 nougat	nuts or fruit pieces in a sugar paste
+nougatine	a brittle sweet of caramelised sugar and nuts
+nougatines	NOUGATINE: a brittle sweet of caramelised sugar and nuts
 nougats	NOUGAT: nuts or fruit pieces in a sugar paste
 nought	a mathematical element that when added to another number yields the same number
+noughties	the years 2000 to 2009
 noughts	NOUGHT: a mathematical element that when added to another number yields the same number
 noun	a content word that can be used to refer to a person, place, thing, quality, or action
 nouns	NOUN: a content word that can be used to refer to a person, place, thing, quality, or action
 nourish	provide with nourishment
 nourished	being provided with adequate nourishment
+nourisher	something that feeds or sustains
+nourishers	NOURISHER: something that feeds or sustains
 nourishes	NOURISH: provide with nourishment
 nourishing	NOURISH: provide with nourishment
 nourishment	a source of materials to nourish the body
 nous	common sense
+nouveau	newly arrived, especially newly rich
 nova	a star that ejects some of its material in the form of a cloud and becomes more luminous in the process
+novae	NOVA: a star that suddenly brightens
 novas	NOVA: a star that ejects some of its material in the form of a cloud and becomes more luminous in the process
 novation	the replacement of one obligation by another by mutual agreement of both parties; usually the replacement of one of the original parties to a contract with the consent of the remaining party
 novel	an extended fictional work in prose; usually in the form of a story
@@ -1173,6 +1420,7 @@ novelization	converting something into the form of a novel
 novelizations	NOVELIZATION: converting something into the form of a novel
 novella	a short novel
 novellas	NOVELLA: a short novel
+novelle	NOVELLA: a short novel
 novels	NOVEL: an extended fictional work in prose; usually in the form of a story
 novelties	NOVELTY: originality by virtue of being refreshingly novel
 novelty	originality by virtue of being refreshingly novel
@@ -1186,6 +1434,7 @@ now	in the historical present; at this point in the narration of a series of pas
 nowadays	the period of time that is happening now; any continuous stretch of time including the moment of speech
 nowhere	an insignificant place
 nowise	in no manner
+nowt	nothing
 noxious	injurious to physical or mental health
 noxiously	in a detrimental manner
 noxiousness	the quality of being noxious
@@ -1193,6 +1442,7 @@ nozzle	a projecting spout from which a fluid is discharged
 nozzles	NOZZLE: a projecting spout from which a fluid is discharged
 nth	last or greatest in an indefinitely large series
 nuance	a subtle difference in meaning or opinion or attitude
+nuanced	showing subtle shades of meaning
 nuances	NUANCE: a subtle difference in meaning or opinion or attitude
 nub	a small lump or protuberance
 nubbin	a small nub (especially an undeveloped fruit or ear of corn)
@@ -1205,6 +1455,9 @@ nucleate	form into a nucleus
 nucleated	NUCLEATE: form into a nucleus
 nucleates	NUCLEATE: form into a nucleus
 nucleating	NUCLEATE: form into a nucleus
+nucleation	the starting of crystal or bubble formation
+nuclei	NUCLEUS: the central part of an atom or cell
+nucleic	relating to the nucleus of a cell
 nucleolus	a small round body of protein in a cell nucleus; such organelles contain RNA and are involved in protein synthesis
 nucleon	a constituent (proton or neutron) of an atomic nucleus
 nucleons	NUCLEON: a constituent (proton or neutron) of an atomic nucleus
@@ -1231,6 +1484,7 @@ nudists	NUDIST: a person who practices nudity for reasons of health or religion
 nudity	the state of being without clothing or covering of any kind
 nugget	a solid lump of a precious metal (especially gold) as found in the earth
 nuggets	NUGGET: a solid lump of a precious metal (especially gold) as found in the earth
+nuggety	short, stocky and tough
 nuisance	a broad legal concept including anything that disturbs the reasonable use of your property or endangers life and health or is offensive
 nuisances	NUISANCE: a broad legal concept including anything that disturbs the reasonable use of your property or endangers life and health or is offensive
 nuke	the warhead of a missile designed to deliver an atom bomb
@@ -1262,6 +1516,8 @@ numbingly	in a numbing way
 numbly	in a numb manner; without feeling
 numbness	partial or total lack of sensation in a part of the body; a symptom of nerve damage or dysfunction
 numbs	NUMB: lacking sensation
+numbskull	a stupid person
+numbskulls	NUMBSKULL: a stupid person
 numeracy	skill with numbers and mathematics
 numeral	a symbol used to represent a number
 numerals	NUMERAL: a symbol used to represent a number
@@ -1282,7 +1538,8 @@ numerologists	NUMEROLOGIST: a believer in numerology
 numerology	the study of the supposed occult influence of numbers on human affairs
 numerous	amounting to a large indefinite number
 numinous	evincing the presence of a deity
-numismatics	the collection and study of money (and coins in particular)
+numismatic	relating to coins
+numismatics	NUMISMATIC: relating to coins
 numismatist	a collector and student of money (and coins in particular)
 numismatists	NUMISMATIST: a collector and student of money (and coins in particular)
 numskull	a stupid person; these words are used to express a low opinion of someone's intelligence
@@ -1309,6 +1566,7 @@ nurses	NURSE: one skilled in caring for young children or the sick (usually unde
 nursing	the work of caring for the sick or injured or infirm
 nurture	help develop, help grow
 nurtured	NURTURE: help develop, help grow
+nurturer	someone who cares for and encourages growth
 nurtures	NURTURE: help develop, help grow
 nurturing	NURTURE: help develop, help grow
 nut	usually large hard-shelled seed
@@ -1320,8 +1578,12 @@ nuthatch	any of various small short-tailed songbirds with strong feet and a shar
 nuthatches	NUTHATCH: any of various small short-tailed songbirds with strong feet and a sharp beak that feed on small nuts and insects
 nuthouse	pejorative terms for an insane asylum
 nuthouses	NUTHOUSE: pejorative terms for an insane asylum
+nutmeat	the edible kernel of a nut
+nutmeats	NUTMEAT: the edible kernel of a nut
 nutmeg	East Indian tree widely cultivated in the tropics for its aromatic seed; source of two spices: nutmeg and mace
 nutmegs	NUTMEG: East Indian tree widely cultivated in the tropics for its aromatic seed; source of two spices: nutmeg and mace
+nutraceutical	a food with a claimed health benefit
+nutraceuticals	NUTRACEUTICAL: a food with a claimed health benefit
 nutria	aquatic South American rodent resembling a small beaver; bred for its fur
 nutrias	NUTRIA: aquatic South American rodent resembling a small beaver; bred for its fur
 nutrient	any substance that can be metabolized by an animal to give energy and build tissue
@@ -1348,6 +1610,8 @@ nutting	NUT: usually large hard-shelled seed
 nutty	having the flavor of nuts
 nuzzle	move or arrange oneself in a comfortable and cozy position
 nuzzled	NUZZLE: move or arrange oneself in a comfortable and cozy position
+nuzzler	someone who gently rubs with the nose
+nuzzlers	NUZZLER: someone who gently rubs with the nose
 nuzzles	NUZZLE: move or arrange oneself in a comfortable and cozy position
 nuzzling	NUZZLE: move or arrange oneself in a comfortable and cozy position
 nyala	city in Sudan

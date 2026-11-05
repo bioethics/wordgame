@@ -1976,6 +1976,34 @@ fellows, the best word is worth about half what it was. He sits from № 8, so
 № 1 kept the roster it was dealt (`REDACTOR_FROM`); from there the six editors
 take their turns on a seed of their own.
 
+### Definitions
+
+Each word in the results list carries its definition beneath it, a line cut
+short until the row is opened (a pair's two are written out when it is), and
+the Expectant Parents' names read "a given name". They come from
+`wordlists/definitions/a.txt` … `z.txt`, "word<TAB>definition", built by
+`tools/build-definitions.mjs` from, first match winning:
+
+1. `wordlists/definitions-own.txt`, written for the game: overrides of
+   WordNet's choice, and the words WordNet doesn't know (6,600 written on 5
+   November, for words like ARVO, CRINGEWORTHY, BIOFILM and CLAFOUTIS, plus
+   the function words: THE, THAT, THAN, THEY);
+2. WordNet's gloss of the word's commonest sense, examples and field labels
+   cut;
+3. a base form, by WordNet's endings and a table of irregulars, written "STOP:
+   come to a halt, stop moving" for STOPPED, and reaching the hand-written
+   ones too (TONIER, "TONY: stylish and fashionable");
+4. a transparent formation on a defined word: UNMELTED "not melted",
+   HORNLESSNESS "the quality of being hornless", EMBELLISHER "one who
+   embellishes".
+
+On 5 November that defined all but 273 of the 83,191 words, mostly specialist
+or junk; they wait in `wordlists/definitions-missing.txt`, the list to write
+next. WordNet's definitions are Princeton's, under the WordNet licence, whose
+notice travels with them (`wordlists/definitions/WORDNET-LICENSE.txt`). The page
+fetches a letter's file the first time a result needs it; the artifact build
+embeds them all.
+
 ### Two words
 
 Saturday asks for two words from one case, each scored on its own and added.

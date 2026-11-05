@@ -15,8 +15,11 @@ dachshund	small long-bodied short-legged German breed of dog having a short slee
 dachshunds	DACHSHUND: small long-bodied short-legged German breed of dog having a short sleek coat and long drooping ears; suited for following game into burrows
 dacoit	a member of an armed gang of robbers
 dacoits	DACOIT: a member of an armed gang of robbers
+dacquoise	a dessert of nut meringue layers with cream
+dacquoises	DACQUOISE: a dessert of nut meringue layers with cream
 dactyl	a metrical unit with stressed-unstressed-unstressed syllables
 dactylic	of or consisting of dactyls
+dactylics	DACTYLIC: verse made of long-short-short feet
 dactyls	DACTYL: a metrical unit with stressed-unstressed-unstressed syllables
 dad	an informal term for a father; probably derived from baby talk
 daddies	DADDY: an informal term for a father; probably derived from baby talk
@@ -27,8 +30,11 @@ dados	DADO: panel forming the lower part of an interior wall when it is finished
 dads	DAD: an informal term for a father; probably derived from baby talk
 daemon	an evil supernatural being
 daemons	DAEMON: an evil supernatural being
+daffier	DAFFY: silly or slightly crazy
+daffiest	DAFFY: silly or slightly crazy
 daffodil	any of numerous varieties of Narcissus plants having showy often yellow flowers with a trumpet-shaped central crown
 daffodils	DAFFODIL: any of numerous varieties of Narcissus plants having showy often yellow flowers with a trumpet-shaped central crown
+daffy	silly or slightly crazy
 daft	informal or slang terms for mentally irregular
 dafter	DAFT: informal or slang terms for mentally irregular
 daftest	DAFT: informal or slang terms for mentally irregular
@@ -37,11 +43,16 @@ daftness	informal terms for insanity
 dag	10 grams
 dagger	a short knife with a pointed blade used for piercing or stabbing
 daggers	DAGGER: a short knife with a pointed blade used for piercing or stabbing
+daggy	unfashionable in an endearing way
 dags	DAG: 10 grams
 daguerreotype	a photograph made by an early photographic process; the image was produced on a silver plate sensitized to iodine and developed in mercury vapor
+daguerreotyped	DAGUERREOTYPE: photograph with an early metal-plate process
 daguerreotypes	DAGUERREOTYPE: a photograph made by an early photographic process; the image was produced on a silver plate sensitized to iodine and developed in mercury vapor
+daguerreotyping	DAGUERREOTYPE: photograph with an early metal-plate process
 dahlia	any of several plants of or developed from the species Dahlia pinnata having tuberous roots and showy rayed variously colored flower heads; native to the mountains of Mexico and Central America and Colombia
 dahlias	DAHLIA: any of several plants of or developed from the species Dahlia pinnata having tuberous roots and showy rayed variously colored flower heads; native to the mountains of Mexico and Central America and Colombia
+daifuku	a Japanese sweet of soft rice cake with a sweet filling
+daifukus	DAIFUKU: a Japanese sweet of soft rice cake with a sweet filling
 dailies	DAILY: every day; without missing a day
 daily	every day; without missing a day
 daintier	DAINTY: delicately beautiful
@@ -68,6 +79,7 @@ dale	an open river valley (in a hilly area)
 dales	DALE: an open river valley (in a hilly area)
 dalliance	the deliberate act of delaying and playing instead of working
 dalliances	DALLIANCE: the deliberate act of delaying and playing instead of working
+dallied	DALLY: waste time or linger
 dallies	DALLY: behave carelessly or indifferently
 dally	behave carelessly or indifferently
 dallying	DALLY: behave carelessly or indifferently
@@ -80,20 +92,25 @@ damaged	DAMAGE: the occurrence of a change for the worse
 damages	DAMAGE: the occurrence of a change for the worse
 damaging	(sometimes followed by `to') causing harm or injury
 damask	a table linen made from linen with a damask pattern
+damasked	DAMASK: woven or decorated with a rich pattern
+damasking	DAMASK: weave or decorate with a rich pattern
 damasks	DAMASK: a table linen made from linen with a damask pattern
 dame	informal terms for a (young) woman
 dames	DAME: informal terms for a (young) woman
 dammed	DAM: a barrier constructed to contain the flow of water or to keep out the sea
 damming	DAM: a barrier constructed to contain the flow of water or to keep out the sea
+dammit	an exclamation of anger
 damn	used as expletives
 damnable	deserving a curse
 damnableness	the quality of being damnable
 damnably	in a damnable manner
 damnation	the act of damning
 damnations	DAMNATION: the act of damning
+damndest	DAMNEDEST: utmost
 damned	expletives used informally as intensifiers
 damnedest	DAMNED: expletives used informally as intensifiers
 damner	DAMN: used as expletives
+damners	DAMNER: one who condemns
 damning	DAMN: used as expletives
 damns	DAMN: used as expletives
 damp	slightly wet
@@ -122,6 +139,8 @@ damsons	DAMSON: dark purple plum of the damson tree
 dance	an artistic form of nonverbal communication
 danceable	suitable for dancing
 danced	DANCE: an artistic form of nonverbal communication
+dancefloor	an area for dancing
+dancefloors	DANCEFLOOR: an area for dancing
 dancer	a performer who dances professionally
 dancers	DANCER: a performer who dances professionally
 dances	DANCE: an artistic form of nonverbal communication
@@ -137,15 +156,22 @@ dandled	DANDLE: move (a baby) up and down in one's arms or on one's knees
 dandles	DANDLE: move (a baby) up and down in one's arms or on one's knees
 dandling	DANDLE: move (a baby) up and down in one's arms or on one's knees
 dandruff	a condition in which white scales of dead skin are shed by the scalp
+dandruffy	having flakes of dead skin on the scalp
 dandy	a man who is much concerned with his dress and appearance
+dang	a mild expression of annoyance
+danged	DANG: a mild expression of annoyance
 danger	the condition of being susceptible to harm or injury
 dangerous	involving or causing danger or risk; liable to hurt or harm
 dangerously	in a dangerous manner
 dangers	DANGER: the condition of being susceptible to harm or injury
+danging	DANG: a mild expression of annoyance
 dangle	hang freely
 dangled	DANGLE: hang freely
 dangles	DANGLE: hang freely
 dangling	DANGLE: hang freely
+dangs	DANG: a mild expression of annoyance
+danio	a small striped freshwater fish kept in aquariums
+danios	DANIO: a small striped freshwater fish kept in aquariums
 danish	a Scandinavian language that is the official language of Denmark
 danishes	DANISH: a Scandinavian language that is the official language of Denmark
 dank	unpleasantly cool and humid
@@ -166,16 +192,23 @@ dared	DARE: take upon oneself; act presumptuously, without permission
 daredevil	a reckless impetuous irresponsible person
 daredevils	DAREDEVIL: a reckless impetuous irresponsible person
 dares	DARE: take upon oneself; act presumptuously, without permission
+daresay	think it likely
 daring	a challenge to do something dangerous or foolhardy
 daringly	in an original manner
 dark	absence of light or illumination
 darken	become dark or darker
 darkened	DARKEN: become dark or darker
+darkener	something that makes darker
+darkeners	DARKENER: something that makes darker
 darkening	becoming dark or darker as from waning light or clouding over
 darkens	DARKEN: become dark or darker
 darker	DARK: absence of light or illumination
 darkest	DARK: absence of light or illumination
-darkling	uncannily or threateningly dark or obscure
+darkle	grow dark or gloomy
+darkled	DARKLE: grow dark or gloomy
+darkles	DARKLE: grow dark or gloomy
+darkling	DARKLE: grow dark or gloomy
+darklings	DARKLING: in the dark
 darkly	without light
 darkness	absence of light or illumination
 darkroom	a room in which photographs are developed
@@ -201,6 +234,8 @@ dash	run or move very quickly or hastily
 dashboard	protective covering consisting of a panel to protect people from the splashing water or mud etc.
 dashboards	DASHBOARD: protective covering consisting of a panel to protect people from the splashing water or mud etc.
 dashed	DASH: run or move very quickly or hastily
+dasher	one that rushes
+dashers	DASHER: one that rushes
 dashes	DASH: run or move very quickly or hastily
 dashiki	a loose and brightly colored African shirt
 dashikis	DASHIKI: a loose and brightly colored African shirt
@@ -208,10 +243,17 @@ dashing	lively and spirited
 dashingly	in a highly fashionable manner
 dastardly	despicably cowardly
 data	a collection of facts from which conclusions may be drawn
+databank	a large store of data
+databanks	DATABANK: a large store of data
 database	an organized body of related information
 databases	DATABASE: an organized body of related information
 datable	that can be given a date
+dataset	a collection of related data
+datasets	DATASET: a collection of related data
+datatype	a kind of data a computer language treats in a particular way
 date	the specified day of the month
+datebook	a diary for appointments
+datebooks	DATEBOOK: a diary for appointments
 dated	marked by features of the immediate and usually discounted past
 dateless	having no known beginning and presumably no end
 dateline	an imaginary line on the surface of the earth following (approximately) the 180th meridian
@@ -234,6 +276,8 @@ daughter	a female human offspring
 daughters	DAUGHTER: a female human offspring
 daunt	cause to lose courage
 daunted	DAUNT: cause to lose courage
+daunter	one who discourages
+daunters	DAUNTER: one who discourages
 daunting	DAUNT: cause to lose courage
 dauntingly	to a degree or in a manner that daunts
 dauntless	invulnerable to fear or intimidation
@@ -267,9 +311,12 @@ daydreamer	someone who indulges in idle or absentminded daydreaming
 daydreamers	DAYDREAMER: someone who indulges in idle or absentminded daydreaming
 daydreaming	DAYDREAM: have a daydream; indulge in a fantasy
 daydreams	DAYDREAM: have a daydream; indulge in a fantasy
+daydreamt	DAYDREAM: have pleasant thoughts while awake
 daylight	the time after sunrise and before sunset while it is light outside
 daylights	DAYLIGHT: the time after sunrise and before sunset while it is light outside
 daylong	lasting through an entire day
+dayroom	a communal sitting room in an institution
+dayrooms	DAYROOM: a communal sitting room in an institution
 days	the time during which someone's life continues
 daytime	the time after sunrise and before sunset while it is light outside
 daze	the feeling of distress and disbelief that you have when something bad happens accidentally
@@ -278,6 +325,7 @@ dazes	DAZE: the feeling of distress and disbelief that you have when something b
 dazing	DAZE: the feeling of distress and disbelief that you have when something bad happens accidentally
 dazzle	to cause someone to lose clear vision, especially from intense light
 dazzled	DAZZLE: to cause someone to lose clear vision, especially from intense light
+dazzler	one who or that which dazzles
 dazzles	DAZZLE: to cause someone to lose clear vision, especially from intense light
 dazzling	amazingly impressive; suggestive of the flashing of lightning
 dazzlingly	in a manner or to a degree that dazzles the beholder
@@ -297,6 +345,8 @@ deadbolt	the part of a lock that is engaged or withdrawn with a key
 deadbolts	DEADBOLT: the part of a lock that is engaged or withdrawn with a key
 deaden	make vague or obscure or make (an image) less visible
 deadened	devoid of physical sensation; numb
+deadener	something that reduces sound or feeling
+deadeners	DEADENER: something that reduces sound or feeling
 deadening	DEADEN: make vague or obscure or make (an image) less visible
 deadeningly	in a deadening way
 deadens	DEADEN: make vague or obscure or make (an image) less visible
@@ -304,20 +354,30 @@ deader	DEAD: no longer having or seeming to have or expecting to have life
 deadest	DEAD: no longer having or seeming to have or expecting to have life
 deadeye	a dead shot
 deadhead	a nonenterprising person who is not paying his way
+deadheaded	DEADHEAD: remove withered flowers from a plant
+deadheading	DEADHEAD: remove withered flowers from a plant
 deadheads	DEADHEAD: a nonenterprising person who is not paying his way
 deadlier	DEADLY: causing or capable of causing death
 deadliest	DEADLY: causing or capable of causing death
 deadlight	a strong shutter over a ship's porthole that is closed in stormy weather
+deadlily	in a deadly way
 deadline	the point in time at which something must be completed
 deadlines	DEADLINE: the point in time at which something must be completed
 deadliness	the quality of being deadly
 deadlock	a situation in which no progress can be made or no advancement is possible
 deadlocked	at a complete standstill because of opposition of two unrelenting forces or factions
+deadlocking	DEADLOCK: bring to a standstill
 deadlocks	DEADLOCK: a situation in which no progress can be made or no advancement is possible
 deadly	causing or capable of causing death
+deadnettle	a plant like a nettle but without a sting
+deadnettles	DEADNETTLE: a plant like a nettle but without a sting
 deadpan	deliberately impassive in manner
 deadpanned	DEADPAN: deliberately impassive in manner
 deadpanning	DEADPAN: deliberately impassive in manner
+deadpans	DEADPAN: speak with a blank, expressionless face
+deadset	completely, or truly
+deadweight	a heavy load that does not help
+deadweights	DEADWEIGHT: a heavy load that does not help
 deadwood	a branch or a part of a tree that is dead
 deaf	people who have severe hearing impairments
 deafen	be unbearably loud
@@ -329,6 +389,8 @@ deafer	DEAF: people who have severe hearing impairments
 deafest	DEAF: people who have severe hearing impairments
 deafness	partial or complete loss of hearing
 deal	act on verbally or in some form of artistic expression
+dealbreaker	a factor that makes an agreement impossible
+dealbreakers	DEALBREAKER: a factor that makes an agreement impossible
 dealer	someone who purchases and maintains an inventory of goods to be sold
 dealers	DEALER: someone who purchases and maintains an inventory of goods to be sold
 dealership	a business established or operated under an authorization to sell or distribute a company's goods or services in a particular area
@@ -364,6 +426,7 @@ deathtrap	any structure that is very unsafe; where people are likely to be kille
 deathtraps	DEATHTRAP: any structure that is very unsafe; where people are likely to be killed
 deathwatch	minute wingless psocopterous insects injurious to books and papers
 deathwatches	DEATHWATCH: minute wingless psocopterous insects injurious to books and papers
+deaves	DEAVE: deafen
 deb	a young woman making her debut into society
 debacle	a sudden and violent collapse
 debacles	DEBACLE: a sudden and violent collapse
@@ -430,6 +493,8 @@ debugging	DEBUG: locate and correct errors in a computer program code
 debugs	DEBUG: locate and correct errors in a computer program code
 debunk	expose while ridiculing; especially of pretentious or false claims and ideas
 debunked	DEBUNK: expose while ridiculing; especially of pretentious or false claims and ideas
+debunker	one who exposes false claims
+debunkers	DEBUNKER: one who exposes false claims
 debunking	the exposure of falseness or pretensions
 debunks	DEBUNK: expose while ridiculing; especially of pretentious or false claims and ideas
 debut	present for the first time to the public
@@ -469,6 +534,8 @@ decapitating	DECAPITATE: cut the head of
 decapitation	execution by cutting off the victim's head
 decapitations	DECAPITATION: execution by cutting off the victim's head
 decapod	crustaceans characteristically having five pairs of locomotor appendages each joined to a segment of the thorax
+decathlete	an athlete who competes in ten events
+decathletes	DECATHLETE: an athlete who competes in ten events
 decathlon	an athletic contest consisting of ten different events
 decathlons	DECATHLON: an athletic contest consisting of ten different events
 decay	the process of gradually becoming inferior
@@ -499,6 +566,8 @@ decelerating	DECELERATE: lose velocity; move more slowly
 deceleration	a decrease in rate of change
 decencies	DECENCY: the quality of conforming to standards of propriety and morality
 decency	the quality of conforming to standards of propriety and morality
+decennial	happening every ten years
+decennials	DECENNIAL: happening every ten years
 decent	socially or conventionally correct; refined or virtuous
 decently	in a decent manner
 decentralisation	the spread of power away from the center to local branches or governments
@@ -518,9 +587,12 @@ deceptively	in a misleading way
 deceptiveness	the quality of being deceptive
 decibel	a logarithmic unit of sound intensity; 10 times the logarithm of the ratio of the sound intensity to some reference intensity
 decibels	DECIBEL: a logarithmic unit of sound intensity; 10 times the logarithm of the ratio of the sound intensity to some reference intensity
+decidable	able to be settled one way or the other
 decide	reach, make, or come to a decision about something
 decided	DECIDE: reach, make, or come to a decision about something
 decidedly	without question and beyond doubt
+decider	something that settles a matter
+deciders	DECIDER: something that settles a matter
 decides	DECIDE: reach, make, or come to a decision about something
 deciding	DECIDE: reach, make, or come to a decision about something
 deciduous	(of plants and shrubs) shedding foliage at the end of the growing season
@@ -544,17 +616,22 @@ decisive	determining or having the power to determine an outcome
 decisively	with firmness
 decisiveness	the trait of resoluteness as evidenced by firmness of character or purpose
 deck	any of various platforms built into a vessel
+deckchair	a folding chair with a canvas seat
+deckchairs	DECKCHAIR: a folding chair with a canvas seat
 decked	DECK: any of various platforms built into a vessel
 decker	English dramatist and pamphleteer (1572-1632)
 deckers	DECKER: English dramatist and pamphleteer (1572-1632)
 deckhand	a member of a ship's crew who performs manual labor
 deckhands	DECKHAND: a member of a ship's crew who performs manual labor
+deckhouse	a small cabin on a ship's deck
 decking	DECK: any of various platforms built into a vessel
 deckle	rough edge left by a deckle on handmade paper or produced artificially on machine-made paper
 deckles	DECKLE: rough edge left by a deckle on handmade paper or produced artificially on machine-made paper
 decks	DECK: any of various platforms built into a vessel
 declaim	recite in elocution
 declaimed	DECLAIM: recite in elocution
+declaimer	one who speaks in a loud, dramatic way
+declaimers	DECLAIMER: one who speaks in a loud, dramatic way
 declaiming	DECLAIM: recite in elocution
 declaims	DECLAIM: recite in elocution
 declamation	vehement oratory
@@ -587,6 +664,10 @@ declines	DECLINE: grow worse
 declining	DECLINE: grow worse
 declivities	DECLIVITY: a downward slope or bend
 declivity	a downward slope or bend
+declutter	remove unneeded items from a place
+decluttered	DECLUTTER: remove unneeded items from a place
+decluttering	DECLUTTER: remove unneeded items from a place
+declutters	DECLUTTER: remove unneeded items from a place
 decoction	the extraction of water-soluble drug substances by boiling
 decode	convert code into ordinary language
 decoded	DECODE: convert code into ordinary language
@@ -594,6 +675,7 @@ decoder	the kind of intellectual who converts messages from a code to plain text
 decoders	DECODER: the kind of intellectual who converts messages from a code to plain text
 decodes	DECODE: convert code into ordinary language
 decoding	the activity of making clear or converting from code into plain text
+decoherence	loss of the ordered relationship between waves or quantum states
 decolletage	a low-cut neckline on a woman's dress
 decolletages	DECOLLETAGE: a low-cut neckline on a woman's dress
 decollete	(of a garment) having a low-cut neckline
@@ -654,13 +736,17 @@ decorously	in a proper and decorous manner
 decors	DECOR: decoration consisting of the layout and furnishings of a livable interior
 decorum	propriety in manners and conduct
 decoupage	art produced by decorating a surface with cutouts and then coating it with several layers of varnish or lacquer
+decoupaged	DECOUPAGE: decorate with paper cutouts
 decoupages	DECOUPAGE: art produced by decorating a surface with cutouts and then coating it with several layers of varnish or lacquer
+decoupaging	DECOUPAGE: decorate with paper cutouts
 decouple	disconnect or separate
 decoupled	DECOUPLE: disconnect or separate
 decouples	DECOUPLE: disconnect or separate
 decoupling	DECOUPLE: disconnect or separate
 decoy	a beguiler who leads someone into danger (usually as part of a plot)
 decoyed	DECOY: a beguiler who leads someone into danger (usually as part of a plot)
+decoyer	one who lures into a trap
+decoyers	DECOYER: one who lures into a trap
 decoying	DECOY: a beguiler who leads someone into danger (usually as part of a plot)
 decoys	DECOY: a beguiler who leads someone into danger (usually as part of a plot)
 decrease	decrease in size, extent, or range
@@ -673,13 +759,17 @@ decreed	DECREE: a legally binding command or decision entered on the court recor
 decreeing	DECREE: a legally binding command or decision entered on the court record (as if issued by a court or judge)
 decrees	DECREE: a legally binding command or decision entered on the court record (as if issued by a court or judge)
 decrement	the amount by which something decreases
+decremented	DECREMENT: decrease by a small amount
+decrementing	DECREMENT: decrease by a small amount
 decrements	DECREMENT: the amount by which something decreases
 decrepit	worn and broken down by hard use
 decrepitly	in a decrepit way
 decrepitness	the quality of being decrepit
 decrepitude	a state of deterioration due to old age or long use
+decrescendi	DECRESCENDO: a gradual decrease in loudness
 decrescendo	a gradual decrease in loudness
 decrescendos	DECRESCENDO: a gradual decrease in loudness
+decried	DECRY: criticise openly
 decries	DECRY: express strong disapproval of
 decriminalisation	legislation that makes something legal that was formerly illegal
 decriminalise	make legal
@@ -699,11 +789,13 @@ decrypting	DECRYPT: convert code into ordinary language
 decryption	the activity of making clear or converting from code into plain text
 dedicate	give entirely to a specific person, activity, or cause
 dedicated	devoted to a cause or ideal or purpose
-dedicatees	DEDICATE: give entirely to a specific person, activity, or cause
+dedicatee	a person to whom a work is dedicated
+dedicatees	DEDICATEE: a person to whom a work is dedicated
 dedicates	DEDICATE: give entirely to a specific person, activity, or cause
 dedicating	DEDICATE: give entirely to a specific person, activity, or cause
 dedication	complete and wholehearted fidelity
 dedications	DEDICATION: complete and wholehearted fidelity
+dedicatory	relating to a dedication
 deduce	reason by deduction; establish by deduction
 deduced	DEDUCE: reason by deduction; establish by deduction
 deduces	DEDUCE: reason by deduction; establish by deduction
@@ -719,7 +811,13 @@ deductions	DEDUCTION: a reduction in the gross amount on which a tax is calculat
 deductive	relating to logical deduction
 deducts	DEDUCT: make a subtraction
 deed	a legal document signed and sealed and delivered to effect a transfer of property and to show the legal right to possess it
+deeded	DEED: transfer by a legal document
+deeding	DEED: transfer by a legal document
 deeds	DEED: a legal document signed and sealed and delivered to effect a transfer of property and to show the legal right to possess it
+deejay	a person who plays recorded music
+deejayed	DEEJAY: a person who plays recorded music
+deejaying	DEEJAY: a person who plays recorded music
+deejays	DEEJAY: a person who plays recorded music
 deem	keep in mind or convey as a conviction or view
 deemed	DEEM: keep in mind or convey as a conviction or view
 deeming	DEEM: keep in mind or convey as a conviction or view
@@ -727,18 +825,28 @@ deems	DEEM: keep in mind or convey as a conviction or view
 deep	relatively deep or strong; affecting one deeply
 deepen	make more intense, stronger, or more marked
 deepened	DEEPEN: make more intense, stronger, or more marked
+deepener	something that makes deeper
+deepeners	DEEPENER: something that makes deeper
 deepening	a process of becoming deeper and more profound
 deepens	DEEPEN: make more intense, stronger, or more marked
 deeper	DEEP: relatively deep or strong; affecting one deeply
 deepest	DEEP: relatively deep or strong; affecting one deeply
+deepfake	a fake video or recording made with artificial intelligence
+deepfakes	DEEPFAKE: a fake video or recording made with artificial intelligence
 deeply	to a great depth psychologically or emotionally
 deepness	the intellectual ability to penetrate deeply into ideas
 deeps	DEEP: relatively deep or strong; affecting one deeply
+deepwater	in or relating to deep seas
 deer	distinguished from Bovidae by the male's having solid deciduous antlers
 deers	DEER: distinguished from Bovidae by the male's having solid deciduous antlers
 deerskin	leather from the hide of a deer
 deerstalker	a tight-fitting hat with visors front and back; formerly worn by hunters
 deerstalkers	DEERSTALKER: a tight-fitting hat with visors front and back; formerly worn by hunters
+deescalate	reduce the intensity of
+deescalated	DEESCALATE: reduce the intensity of
+deescalates	DEESCALATE: reduce the intensity of
+deescalating	DEESCALATE: reduce the intensity of
+def	excellent
 deface	mar or spoil the appearance of
 defaced	DEFACE: mar or spoil the appearance of
 defacement	the act of damaging the appearance or surface of something
@@ -758,6 +866,8 @@ defaulting	DEFAULT: loss due to not showing up
 defaults	DEFAULT: loss due to not showing up
 defeat	an unsuccessful ending to a struggle or contest
 defeated	DEFEAT: an unsuccessful ending to a struggle or contest
+defeater	one who beats another
+defeaters	DEFEATER: one who beats another
 defeating	DEFEAT: an unsuccessful ending to a struggle or contest
 defeatism	acceptance of the inevitability of defeat
 defeatist	someone who is resigned to defeat without offering positive suggestions
@@ -774,12 +884,15 @@ defecting	DEFECT: an imperfection in a bodily system
 defection	withdrawing support or help despite allegiance or responsibility
 defections	DEFECTION: withdrawing support or help despite allegiance or responsibility
 defective	having a defect
+defectives	DEFECTIVE: a faulty thing or person
 defector	a person who abandons their duty (as on a military post)
 defectors	DEFECTOR: a person who abandons their duty (as on a military post)
 defects	DEFECT: an imperfection in a bodily system
 defence	an unconscious process that tries to reduce the anxiety associated with instinctive desires
+defenced	DEFENCE: protected with a fence
 defenceless	lacking protection or support
 defences	DEFENCE: an unconscious process that tries to reduce the anxiety associated with instinctive desires
+defencing	DEFENCE: protecting
 defend	argue or speak in defense of
 defendant	a person or institution against whom an action is brought in a court of law; the person being sued or accused
 defendants	DEFENDANT: a person or institution against whom an action is brought in a court of law; the person being sued or accused
@@ -791,9 +904,12 @@ defends	DEFEND: argue or speak in defense of
 defenestration	the act of throwing someone or something out of a window
 defenestrations	DEFENESTRATION: the act of throwing someone or something out of a window
 defense	military action or resources protecting a country against potential enemies
+defensed	DEFENSE: defended
 defenseless	lacking protection or support
+defenseman	a player in a defensive position in hockey
 defenses	DEFENSE: military action or resources protecting a country against potential enemies
 defensible	capable of being defended
+defensing	DEFENSE: defending
 defensive	intended or appropriate for defending against or deterring aggression or attack
 defensively	in an apologetic and defensive manner
 defensiveness	excessive sensitivity to criticism
@@ -819,6 +935,7 @@ deficiency	the state of needing something that is absent or unavailable
 deficient	inadequate in amount or degree
 deficit	the property of being an amount by which something is less than expected or required
 deficits	DEFICIT: the property of being an amount by which something is less than expected or required
+defied	DEFY: openly resist
 defies	DEFY: resist or confront with resistance
 defile	a narrow pass (especially one between mountains)
 defiled	morally blemished; stained or impure
@@ -830,12 +947,15 @@ defilingly	in a defiling way
 definable	capable of being defined, limited, or explained
 define	determine the essential quality of
 defined	clearly characterized or delimited
+definer	one who explains the meaning of things
+definers	DEFINER: one who explains the meaning of things
 defines	DEFINE: determine the essential quality of
 defining	any process serving to define the shape of something
 definite	precise; explicit and clearly defined
 definitely	without question and beyond doubt
 definiteness	the quality of being predictable with great confidence
 definition	a concise explanation of the meaning of a word or phrase or symbol
+definitional	relating to the meaning of a term
 definitions	DEFINITION: a concise explanation of the meaning of a word or phrase or symbol
 definitive	clearly defined or formulated
 definitively	in a definitive way
@@ -860,6 +980,7 @@ deflowers	DEFLOWER: deprive of virginity
 defog	free from mist
 defogged	DEFOG: free from mist
 defogger	DEFOG: free from mist
+defoggers	DEFOGGER: a device that clears mist from glass
 defogging	DEFOG: free from mist
 defogs	DEFOG: free from mist
 defoliant	a chemical that is sprayed on plants and causes their leaves to fall off
@@ -875,13 +996,24 @@ deforested	DEFOREST: remove the trees from
 deforesting	DEFOREST: remove the trees from
 deforests	DEFOREST: remove the trees from
 deform	make formless
+deformable	able to be bent out of shape
 deformation	a change for the worse
 deformations	DEFORMATION: a change for the worse
 deformed	so badly formed or out of shape as to be ugly
+deformer	one that spoils the shape of something
+deformers	DEFORMER: one that spoils the shape of something
 deforming	DEFORM: make formless
 deformities	DEFORMITY: an affliction in which some part of the body is misshapen or malformed
 deformity	an affliction in which some part of the body is misshapen or malformed
 deforms	DEFORM: make formless
+defrag	rearrange computer files to speed up a disk
+defragged	DEFRAG: rearrange computer files to speed up a disk
+defragging	DEFRAG: rearrange computer files to speed up a disk
+defragment	rearrange computer files to speed up a disk
+defragmented	DEFRAGMENT: rearrange computer files to speed up a disk
+defragmenting	DEFRAGMENT: rearrange computer files to speed up a disk
+defragments	DEFRAGMENT: rearrange computer files to speed up a disk
+defrags	DEFRAG: rearrange computer files to speed up a disk
 defraud	deprive of by deceit
 defrauded	DEFRAUD: deprive of by deceit
 defrauder	a person who swindles you by means of deception or fraud
@@ -891,6 +1023,8 @@ defrauds	DEFRAUD: deprive of by deceit
 defray	bear the expenses of
 defrayal	the act of paying money
 defrayed	DEFRAY: bear the expenses of
+defrayer	one who pays costs
+defrayers	DEFRAYER: one who pays costs
 defraying	DEFRAY: bear the expenses of
 defrays	DEFRAY: bear the expenses of
 defrock	divest of the frock; of church officials
@@ -923,6 +1057,7 @@ degenerates	DEGENERATE: a person whose behavior deviates from what is acceptable
 degenerating	DEGENERATE: a person whose behavior deviates from what is acceptable especially in sexual behavior
 degeneration	the process of declining from a higher to a lower level of effective power or vitality or essential quality
 degenerative	(of illness) marked by gradual deterioration of organs and cells along with loss of function
+degradable	able to break down chemically
 degradation	changing to a lower state (a less respected state)
 degradations	DEGRADATION: changing to a lower state (a less respected state)
 degrade	reduce the level of land, as by erosion
@@ -931,6 +1066,8 @@ degrades	DEGRADE: reduce the level of land, as by erosion
 degrading	DEGRADE: reduce the level of land, as by erosion
 degree	a position on a scale of intensity or amount or quality
 degrees	DEGREE: a position on a scale of intensity or amount or quality
+degu	a small burrowing rodent from Chile
+degus	DEGU: a small burrowing rodent from Chile
 dehumanisation	the act of degrading people with respect to their best qualities
 dehumanise	deprive of human qualities
 dehumanised	divested of human qualities or attributes
@@ -941,6 +1078,7 @@ dehumanize	deprive of human qualities
 dehumanized	divested of human qualities or attributes
 dehumanizes	DEHUMANIZE: deprive of human qualities
 dehumanizing	DEHUMANIZE: deprive of human qualities
+dehumidified	DEHUMIDIFY: remove moisture from the air
 dehumidifier	an applicance to extract moisture from the air and make the environment more comfortable
 dehumidifiers	DEHUMIDIFIER: an applicance to extract moisture from the air and make the environment more comfortable
 dehumidifies	DEHUMIDIFY: make less humid
@@ -951,6 +1089,9 @@ dehydrated	suffering from excessive loss of water from the body
 dehydrates	DEHYDRATE: preserve by removing all water and liquids from
 dehydrating	DEHYDRATE: preserve by removing all water and liquids from
 dehydration	dryness resulting from the removal of water
+dehydrator	a device that removes water from food
+dehydrators	DEHYDRATOR: a device that removes water from food
+dehydrogenase	an enzyme that removes hydrogen from a compound
 deice	make or become free of frost or ice
 deiced	DEICE: make or become free of frost or ice
 deicer	heater that removes ice or frost (as from a windshield or a refrigerator or the wings of an airplane)
@@ -959,6 +1100,7 @@ deices	DEICE: make or become free of frost or ice
 deicing	DEICE: make or become free of frost or ice
 deictic	a word specifying identity or spatial or temporal location from the perspective of a speaker or hearer in the context in which the communication occurs
 deification	the condition of being treated like a god
+deified	DEIFY: treat as a god
 deifies	DEIFY: consider as a god or godlike
 deify	consider as a god or godlike
 deifying	DEIFY: consider as a god or godlike
@@ -975,9 +1117,11 @@ dejectedly	in a dejected manner
 dejecting	DEJECT: lower someone's spirits; make downhearted
 dejection	a state of melancholy depression
 dejects	DEJECT: lower someone's spirits; make downhearted
+delamination	separation into layers
 delay	cause to be slowed down or delayed
 delayed	DELAY: cause to be slowed down or delayed
 delayer	a person who delays; to put off until later or cause to be late
+delayering	removing levels of management
 delayers	DELAYER: a person who delays; to put off until later or cause to be late
 delaying	DELAY: cause to be slowed down or delayed
 delays	DELAY: cause to be slowed down or delayed
@@ -996,6 +1140,10 @@ deletes	DELETE: remove or make invisible
 deleting	DELETE: remove or make invisible
 deletion	any process whereby sounds or words are left out of spoken words or phrases
 deletions	DELETION: any process whereby sounds or words are left out of spoken words or phrases
+deleverage	reduce debt
+deleveraged	DELEVERAGE: reduce debt
+deleverages	DELEVERAGE: reduce debt
+deleveraging	DELEVERAGE: reduce debt
 deli	a shop selling ready-to-eat food products
 deliberate	carefully thought out in advance
 deliberated	DELIBERATE: carefully thought out in advance
@@ -1009,6 +1157,7 @@ delicacies	DELICACY: the quality of being beautiful and delicate in appearance
 delicacy	the quality of being beautiful and delicate in appearance
 delicate	exquisitely fine and subtle and pleasing; susceptible to injury
 delicately	in a delicate manner
+delicates	DELICATE: clothes needing gentle washing
 delicatessen	ready-to-eat food products
 delicatessens	DELICATESSEN: ready-to-eat food products
 delicious	greatly pleasing or entertaining
@@ -1021,9 +1170,12 @@ delightful	greatly pleasing or entertaining
 delightfully	in a delightful manner
 delighting	DELIGHT: give pleasure to or be pleasing to
 delights	DELIGHT: give pleasure to or be pleasing to
+deliminator	a character that marks the boundary of data
 delimit	determine the essential quality of
 delimitation	a line that indicates a boundary
 delimited	DELIMIT: determine the essential quality of
+delimiter	a character that marks the boundary of data
+delimiters	DELIMITER: a character that marks the boundary of data
 delimiting	DELIMIT: determine the essential quality of
 delimits	DELIMIT: determine the essential quality of
 delineate	show the form or outline of
@@ -1037,7 +1189,11 @@ delinquency	nonpayment of a debt when due
 delinquent	a young offender
 delinquently	in a delinquent way
 delinquents	DELINQUENT: a young offender
+delint	remove lint
+delinted	DELINT: remove lint
+delinting	DELINT: remove lint
 deliquescent	(especially of certain salts) becoming liquid by absorbing moisture from the air
+deliria	DELIRIUM: a confused state of mind
 delirious	experiencing delirium
 deliriously	as if in a delirium
 delirium	state of violent mental agitation
@@ -1062,14 +1218,20 @@ delouse	free of lice
 deloused	DELOUSE: free of lice
 delouses	DELOUSE: free of lice
 delousing	DELOUSE: free of lice
+delphinia	DELPHINIUM: a tall garden flower with spikes of blue flowers
 delphinium	any plant of the genus Delphinium having palmately divided leaves and showy spikes of variously colored spurred flowers; some contain extremely poisonous substances
 delphiniums	DELPHINIUM: any plant of the genus Delphinium having palmately divided leaves and showy spikes of variously colored spurred flowers; some contain extremely poisonous substances
 delta	a low triangular area of alluvial deposits where a river divides before entering a larger body of water
+deltaic	relating to the land at a river's mouth
 deltas	DELTA: a low triangular area of alluvial deposits where a river divides before entering a larger body of water
+deltiologist	a collector of postcards
+deltiologists	DELTIOLOGIST: a collector of postcards
+deltiology	the collecting of postcards
 deltoid	a large triangular muscle covering the shoulder joint and serving to abduct and flex and extend and rotate the arm
 deltoids	DELTOID: a large triangular muscle covering the shoulder joint and serving to abduct and flex and extend and rotate the arm
 delude	be false to; be dishonest with
 deluded	DELUDE: be false to; be dishonest with
+deluder	one who deceives
 deludes	DELUDE: be false to; be dishonest with
 deluding	DELUDE: be false to; be dishonest with
 deludingly	in a deluding way
@@ -1099,6 +1261,7 @@ demagnetizes	DEMAGNETIZE: erase (a magnetic storage device)
 demagnetizing	DEMAGNETIZE: erase (a magnetic storage device)
 demagog	a political leader who seeks support by appealing to popular passions and prejudices
 demagogic	characteristic of or resembling a demagogue
+demagogry	appeal to people's prejudices to gain power
 demagogs	DEMAGOG: a political leader who seeks support by appealing to popular passions and prejudices
 demagogue	a political leader who seeks support by appealing to popular passions and prejudices
 demagoguery	impassioned appeals to the prejudices and emotions of the populace
@@ -1126,18 +1289,27 @@ demented	affected with madness or insanity
 dementedly	in an insane manner
 dementia	mental deterioration of organic or functional origin
 dementias	DEMENTIA: mental deterioration of organic or functional origin
+demerge	split a merged company back into separate ones
+demerged	DEMERGE: split a merged company back into separate ones
+demerger	the splitting of a merged company
+demergers	DEMERGER: the splitting of a merged company
+demerges	DEMERGE: split a merged company back into separate ones
+demerging	DEMERGE: split a merged company back into separate ones
 demerit	a mark against a person for misconduct or failure; usually given in school or armed forces
 demerits	DEMERIT: a mark against a person for misconduct or failure; usually given in school or armed forces
+demersal	living near the sea floor
 demesne	extensive landed property (especially in the country) retained by the owner for his own use
 demesnes	DEMESNE: extensive landed property (especially in the country) retained by the owner for his own use
 demigod	a person with great powers and abilities
 demigods	DEMIGOD: a person with great powers and abilities
 demijohn	large bottle with a short narrow neck; often has small handles at neck and is enclosed in wickerwork
 demijohns	DEMIJOHN: large bottle with a short narrow neck; often has small handles at neck and is enclosed in wickerwork
+demilitarisation	removal of military forces from an area
 demilitarise	do away with the military organization and potential of
 demilitarised	DEMILITARISE: do away with the military organization and potential of
 demilitarises	DEMILITARISE: do away with the military organization and potential of
 demilitarising	DEMILITARISE: do away with the military organization and potential of
+demilitarization	removal of military forces from an area
 demilitarize	do away with the military organization and potential of
 demilitarized	DEMILITARIZE: do away with the military organization and potential of
 demilitarizes	DEMILITARIZE: do away with the military organization and potential of
@@ -1190,6 +1362,7 @@ demoed	DEMO: a visual presentation showing how something works
 demographer	a scientist who studies the growth and density of populations and their vital statistics
 demographers	DEMOGRAPHER: a scientist who studies the growth and density of populations and their vital statistics
 demographic	a statistic characterizing human populations (or segments of human populations broken down by age or sex or income etc.)
+demographically	in terms of population statistics
 demographics	DEMOGRAPHIC: a statistic characterizing human populations (or segments of human populations broken down by age or sex or income etc.)
 demography	the branch of sociology that studies the characteristics of human populations
 demoing	DEMO: a visual presentation showing how something works
@@ -1210,16 +1383,23 @@ demoniac	someone who acts as if possessed by a demon
 demoniacal	of, pertaining to, or like a demon or possession by a demon
 demoniacally	in a very agitated manner; as if possessed by an evil spirit
 demonic	extremely evil or cruel; expressive of cruelty or befitting hell
+demonically	in an evil way
 demonisation	to represent as diabolically evil
 demonise	make into a demon
 demonised	DEMONISE: make into a demon
 demonises	DEMONISE: make into a demon
+demonish	like a demon
 demonising	DEMONISE: make into a demon
 demonization	to represent as diabolically evil
 demonize	make into a demon
 demonized	DEMONIZE: make into a demon
 demonizes	DEMONIZE: make into a demon
 demonizing	DEMONIZE: make into a demon
+demonological	relating to the study of demons
+demonologies	DEMONOLOGY: the study of demons
+demonologist	a student of demons
+demonologists	DEMONOLOGIST: a student of demons
+demonology	the study of demons
 demons	DEMON: an evil supernatural being
 demonstrable	necessarily or demonstrably true
 demonstrably	in an obvious and provable manner
@@ -1252,6 +1432,11 @@ demotic	a simplified cursive form of the ancient hieratic script
 demoting	DEMOTE: assign to a lower position; reduce in rank
 demotion	act of lowering in rank or position
 demotions	DEMOTION: act of lowering in rank or position
+demotivate	make less eager to work
+demotivated	DEMOTIVATE: make less eager to work
+demotivates	DEMOTIVATE: make less eager to work
+demotivating	DEMOTIVATE: make less eager to work
+demount	take down from a mounting
 demur	take exception to
 demure	affectedly modest or shy especially in a playful or provocative way
 demurely	in a demure manner
@@ -1260,6 +1445,7 @@ demurest	DEMURE: affectedly modest or shy especially in a playful or provocative
 demurred	DEMUR: take exception to
 demurring	DEMUR: take exception to
 demurs	DEMUR: take exception to
+demystified	DEMYSTIFY: make easier to understand
 demystifies	DEMYSTIFY: make less mysterious or remove the mystery from
 demystify	make less mysterious or remove the mystery from
 demystifying	DEMYSTIFY: make less mysterious or remove the mystery from
@@ -1274,6 +1460,7 @@ denationalize	put under private control or ownership
 denationalized	DENATIONALIZE: put under private control or ownership
 denationalizes	DENATIONALIZE: put under private control or ownership
 denationalizing	DENATIONALIZE: put under private control or ownership
+denaturation	change in the natural properties of a substance
 denature	add nonfissionable material to (fissionable material) so as to make unsuitable for use in an atomic bomb
 denatured	changed in nature or natural quality
 denatures	DENATURE: add nonfissionable material to (fissionable material) so as to make unsuitable for use in an atomic bomb
@@ -1281,11 +1468,20 @@ denaturing	DENATURE: add nonfissionable material to (fissionable material) so as
 dendrite	short fiber that conducts toward the cell body of the neuron
 dendrites	DENDRITE: short fiber that conducts toward the cell body of the neuron
 dendritic	of or relating to or resembling a dendrite
+dendrochronological	relating to dating by tree rings
+dendrochronologist	one who dates events by tree rings
+dendrochronologists	DENDROCHRONOLOGIST: one who dates events by tree rings
+dendrochronology	the dating of events by tree rings
+dendrological	relating to the study of trees
+dendrologist	a student of trees
+dendrologists	DENDROLOGIST: a student of trees
 dendrology	the study of wooden plants
 dengue	an infectious disease of the tropics transmitted by mosquitoes and characterized by rash and aching head and joints
+deniability	the chance to deny knowing something
 deniable	capable of being denied or contradicted
 denial	the act of refusing to comply (as with a request)
 denials	DENIAL: the act of refusing to comply (as with a request)
+denied	DENY: declare untrue
 denier	a unit of measurement for the fineness of silk or nylon or rayon
 deniers	DENIER: a unit of measurement for the fineness of silk or nylon or rayon
 denies	DENY: declare untrue; contradict
@@ -1294,8 +1490,11 @@ denigrated	DENIGRATE: cause to seem less serious; play down
 denigrates	DENIGRATE: cause to seem less serious; play down
 denigrating	(used of statements) harmful and often untrue; tending to discredit or malign
 denigration	a belittling comment
+denigrator	one who runs down another's reputation
+denigrators	DENIGRATOR: one who runs down another's reputation
 denim	(used in the plural) close-fitting trousers of heavy denim for manual work or casual wear
 denims	DENIM: (used in the plural) close-fitting trousers of heavy denim for manual work or casual wear
+denitrification	removal of nitrogen compounds from soil or water
 denizen	a person who inhabits a particular place
 denizens	DENIZEN: a person who inhabits a particular place
 denominate	assign a name or title to
@@ -1357,17 +1556,33 @@ deodorant	a toiletry applied to the skin in order to mask unpleasant odors
 deodorants	DEODORANT: a toiletry applied to the skin in order to mask unpleasant odors
 deodorise	eliminate the odor from
 deodorised	DEODORISE: eliminate the odor from
+deodoriser	something that removes smells
+deodorisers	DEODORISER: something that removes smells
 deodorises	DEODORISE: eliminate the odor from
 deodorising	DEODORISE: eliminate the odor from
 deodorize	eliminate the odor from
 deodorized	DEODORIZE: eliminate the odor from
+deodorizer	something that removes smells
+deodorizers	DEODORIZER: something that removes smells
 deodorizes	DEODORIZE: eliminate the odor from
 deodorizing	DEODORIZE: eliminate the odor from
+deontological	relating to ethics based on duty
+deontologist	one who believes ethics rests on duty
+deontologists	DEONTOLOGIST: one who believes ethics rests on duty
+deontology	ethics based on duty and rules
 depart	move away from a place into another direction
 departed	DEPART: move away from a place into another direction
 departing	DEPART: move away from a place into another direction
 department	a specialized division of a large organization
 departmental	of or relating to a department
+departmentalise	divide into separate sections
+departmentalised	DEPARTMENTALISE: divide into separate sections
+departmentalises	DEPARTMENTALISE: divide into separate sections
+departmentalising	DEPARTMENTALISE: divide into separate sections
+departmentalize	divide into separate sections
+departmentalized	DEPARTMENTALIZE: divide into separate sections
+departmentalizes	DEPARTMENTALIZE: divide into separate sections
+departmentalizing	DEPARTMENTALIZE: divide into separate sections
 departments	DEPARTMENT: a specialized division of a large organization
 departs	DEPART: move away from a place into another direction
 departure	the act of departing
@@ -1400,6 +1615,8 @@ depersonalizes	DEPERSONALIZE: make impersonal or present as an object
 depersonalizing	DEPERSONALIZE: make impersonal or present as an object
 depict	show in, or as in, a picture
 depicted	DEPICT: show in, or as in, a picture
+depicter	one who portrays
+depicters	DEPICTER: one who portrays
 depicting	DEPICT: show in, or as in, a picture
 depiction	a graphic or vivid verbal description
 depictions	DEPICTION: a graphic or vivid verbal description
@@ -1422,6 +1639,7 @@ deplored	DEPLORE: express strong disapproval of
 deplores	DEPLORE: express strong disapproval of
 deploring	DEPLORE: express strong disapproval of
 deploy	place troops or weapons in battle formation
+deployable	able to be put into use
 deployed	DEPLOY: place troops or weapons in battle formation
 deploying	DEPLOY: place troops or weapons in battle formation
 deployment	the distribution of forces in preparation for battle or work
@@ -1437,6 +1655,14 @@ depolarize	eliminate the polarization of
 depolarized	DEPOLARIZE: eliminate the polarization of
 depolarizes	DEPOLARIZE: eliminate the polarization of
 depolarizing	DEPOLARIZE: eliminate the polarization of
+depoliticise	remove political character from
+depoliticised	DEPOLITICISE: remove political character from
+depoliticises	DEPOLITICISE: remove political character from
+depoliticising	DEPOLITICISE: remove political character from
+depoliticize	remove political character from
+depoliticized	DEPOLITICIZE: remove political character from
+depoliticizes	DEPOLITICIZE: remove political character from
+depoliticizing	DEPOLITICIZE: remove political character from
 deponent	a person who testifies or gives a deposition
 deponents	DEPONENT: a person who testifies or gives a deposition
 depopulate	reduce in population
@@ -1462,6 +1688,7 @@ depositary	a facility where things can be deposited for storage or safekeeping
 deposited	DEPOSIT: put, fix, force, or implant
 depositing	DEPOSIT: put, fix, force, or implant
 deposition	the natural process of laying down a deposit of something
+depositional	relating to laying down of sediment
 depositions	DEPOSITION: the natural process of laying down a deposit of something
 depositor	a person who has deposited money in a bank or similar institution
 depositories	DEPOSITORY: a facility where things can be deposited for storage or safekeeping
@@ -1501,12 +1728,20 @@ depression	a mental state characterized by a pessimistic sense of inadequacy and
 depressions	DEPRESSION: a mental state characterized by a pessimistic sense of inadequacy and a despondent lack of activity
 depressive	someone suffering psychological depression
 depressives	DEPRESSIVE: someone suffering psychological depression
+depressurisation	reduction of pressure
+depressurization	reduction of pressure
 deprivation	a state of extreme poverty
 deprivations	DEPRIVATION: a state of extreme poverty
 deprive	take away possessions from someone
 deprived	DEPRIVE: take away possessions from someone
 deprives	DEPRIVE: take away possessions from someone
 depriving	DEPRIVE: take away possessions from someone
+deprogram	free someone from fixed beliefs
+deprogramed	DEPROGRAM: free someone from fixed beliefs
+deprograming	DEPROGRAM: free someone from fixed beliefs
+deprogrammed	DEPROGRAM: free someone from fixed beliefs
+deprogramming	DEPROGRAM: free someone from fixed beliefs
+deprograms	DEPROGRAM: free someone from fixed beliefs
 depth	the extent downward or backward or inward
 depths	DEPTH: the extent downward or backward or inward
 deputation	a group of representatives or delegates
@@ -1528,6 +1763,8 @@ deputy	someone authorized to exercise the powers of sheriff in emergencies
 derail	cause to run off the tracks
 derailed	DERAIL: cause to run off the tracks
 derailing	DERAIL: cause to run off the tracks
+derailleur	a bicycle gear that moves the chain between sprockets
+derailleurs	DERAILLEUR: a bicycle gear that moves the chain between sprockets
 derailment	an accident in which a train runs off its track
 derailments	DERAILMENT: an accident in which a train runs off its track
 derails	DERAIL: cause to run off the tracks
@@ -1551,6 +1788,8 @@ derelictness	the quality of being derelict
 derelicts	DERELICT: a person without a home, job, or property
 deride	treat or speak of with contempt
 derided	DERIDE: treat or speak of with contempt
+derider	one who derides
+deriders	DERIDER: one who derides
 derides	DERIDE: treat or speak of with contempt
 deriding	DERIDE: treat or speak of with contempt
 derision	contemptuous laughter
@@ -1618,6 +1857,7 @@ describe	give a description of
 described	DESCRIBE: give a description of
 describes	DESCRIBE: give a description of
 describing	DESCRIBE: give a description of
+descried	DESCRY: catch sight of
 descries	DESCRY: catch sight of
 description	a statement that represents something in words
 descriptions	DESCRIPTION: a statement that represents something in words
@@ -1633,11 +1873,22 @@ desecrates	DESECRATE: violate the sacred character of a place or language
 desecrating	DESECRATE: violate the sacred character of a place or language
 desecration	blasphemous behavior; the act of depriving something of its sacred character
 desecrations	DESECRATION: blasphemous behavior; the act of depriving something of its sacred character
+desecrator	one who treats something sacred with disrespect
+desecrators	DESECRATOR: one who treats something sacred with disrespect
+deseed	remove the seeds from
+deseeded	DESEED: remove the seeds from
+deseeding	DESEED: remove the seeds from
+deseeds	DESEED: remove the seeds from
 desegregate	open (a place) to members of all races and ethnic groups
 desegregated	DESEGREGATE: open (a place) to members of all races and ethnic groups
 desegregates	DESEGREGATE: open (a place) to members of all races and ethnic groups
 desegregating	DESEGREGATE: open (a place) to members of all races and ethnic groups
 desegregation	the action of incorporating a racial or religious group into a community
+deselect	remove from a chosen group
+deselected	DESELECT: remove from a chosen group
+deselecting	DESELECT: remove from a chosen group
+deselection	removal from a chosen group
+deselects	DESELECT: remove from a chosen group
 desensitisation	the process of reducing sensitivity
 desensitise	cause not to be sensitive
 desensitised	DESENSITISE: cause not to be sensitive
@@ -1669,6 +1920,7 @@ desiccated	thoroughly dried out
 desiccates	DESICCATE: preserve by removing all water and liquids from
 desiccating	DESICCATE: preserve by removing all water and liquids from
 desiccation	dryness resulting from the removal of water
+desiderata	DESIDERATUM: something wanted or needed
 desideratum	something desired as a necessity
 design	the act of working out the form of something (as by making a sketch or outline or plan)
 designate	assign a name or title to
@@ -1677,6 +1929,7 @@ designates	DESIGNATE: assign a name or title to
 designating	DESIGNATE: assign a name or title to
 designation	identifying word or words by which someone or something is called and classified or distinguished from others
 designations	DESIGNATION: identifying word or words by which someone or something is called and classified or distinguished from others
+designator	a name or mark that identifies
 designed	DESIGN: the act of working out the form of something (as by making a sketch or outline or plan)
 designer	a person who specializes in interior design
 designers	DESIGNER: a person who specializes in interior design
@@ -1684,6 +1937,7 @@ designing	DESIGN: the act of working out the form of something (as by making a s
 designs	DESIGN: the act of working out the form of something (as by making a sketch or outline or plan)
 desirability	the quality of being worthy of desiring
 desirable	worth having or seeking or achieving
+desirably	in an attractive or wanted way
 desire	the feeling that accompanies an unsatisfied state
 desired	wanted intensely
 desires	DESIRE: the feeling that accompanies an unsatisfied state
@@ -1694,6 +1948,10 @@ desisted	DESIST: choose not to consume
 desisting	DESIST: choose not to consume
 desists	DESIST: choose not to consume
 desk	a piece of furniture with a writing surface and usually drawers or other compartments
+deskill	reduce the skill needed for a job
+deskilled	DESKILL: reduce the skill needed for a job
+deskilling	DESKILL: reduce the skill needed for a job
+deskills	DESKILL: reduce the skill needed for a job
 desks	DESK: a piece of furniture with a writing surface and usually drawers or other compartments
 desktop	the top of a desk
 desktops	DESKTOP: the top of a desk
@@ -1713,9 +1971,12 @@ despairingly	with desperation
 despairs	DESPAIR: a state in which all hope is lost or absent
 despatch	send away towards a designated goal
 despatched	DESPATCH: send away towards a designated goal
+despatcher	one who sends off
+despatchers	DESPATCHER: one who sends off
 despatches	DESPATCH: send away towards a designated goal
 despatching	DESPATCH: send away towards a designated goal
 desperado	a bold outlaw (especially on the American frontier)
+desperadoes	DESPERADO: a reckless outlaw
 desperados	DESPERADO: a bold outlaw (especially on the American frontier)
 desperate	arising from or marked by despair or loss of hope
 desperately	with great urgency
@@ -1725,6 +1986,8 @@ despicableness	unworthiness by virtue of lacking higher values
 despicably	in a despicable manner
 despise	look down on with disdain
 despised	treated with dislike or contempt
+despiser	one who looks down on another
+despisers	DESPISER: one who looks down on another
 despises	DESPISE: look down on with disdain
 despising	DESPISE: look down on with disdain
 despite	lack of respect accompanied by a feeling of intense dislike
@@ -1747,6 +2010,7 @@ dessertspoon	as much as a dessert spoon will hold
 dessertspoonful	as much as a dessert spoon will hold
 dessertspoonfuls	DESSERTSPOONFUL: as much as a dessert spoon will hold
 dessertspoons	DESSERTSPOON: as much as a dessert spoon will hold
+dessertspoonsful	DESSERTSPOONFUL: the amount a dessertspoon holds
 destabilisation	the action of destabilizing; making something less stable (especially of a government or country or economy)
 destabilise	become unstable
 destabilised	DESTABILISE: become unstable
@@ -1785,23 +2049,31 @@ destruction	the termination of something by causing so much damage to it that it
 destructive	causing destruction or much damage
 destructively	in a destructive manner
 destructiveness	the quality of causing destruction
+destructor	a furnace for burning rubbish
 destructs	DESTRUCT: destroy (one's own missile or rocket)
+desultorily	in a halfhearted, aimless way
 desultory	marked by lack of definite plan or regularity or purpose; jumping from one thing to another
 detach	cause to become detached or separated; take off
 detachable	designed to be unfastened or disconnected without damage
 detached	showing lack of emotional involvement
+detacher	one who separates
+detachers	DETACHER: one who separates
 detaches	DETACH: cause to become detached or separated; take off
 detaching	DETACH: cause to become detached or separated; take off
 detachment	avoiding emotional involvement
 detachments	DETACHMENT: avoiding emotional involvement
 detail	an isolated fact that is considered separately from the whole
 detailed	developed or executed with care and in minute detail
+detailer	one who cleans a vehicle thoroughly
+detailers	DETAILER: one who cleans a vehicle thoroughly
 detailing	DETAIL: an isolated fact that is considered separately from the whole
 details	true confidential information
 detain	deprive of freedom; take into confinement
 detained	DETAIN: deprive of freedom; take into confinement
 detainee	some held in custody
 detainees	DETAINEE: some held in custody
+detainer	a person who holds another in custody
+detainers	DETAINER: a person who holds another in custody
 detaining	DETAIN: deprive of freedom; take into confinement
 detainment	a state of being confined (usually for a short time)
 detains	DETAIN: deprive of freedom; take into confinement
@@ -1855,6 +2127,8 @@ detest	dislike intensely; feel antipathy or aversion towards
 detestable	offensive to the mind
 detestation	hate coupled with disgust
 detested	DETEST: dislike intensely; feel antipathy or aversion towards
+detester	one who hates
+detesters	DETESTER: one who hates
 detesting	DETEST: dislike intensely; feel antipathy or aversion towards
 detests	DETEST: dislike intensely; feel antipathy or aversion towards
 dethrone	remove a monarch from the throne
@@ -1878,6 +2152,7 @@ detox	the hospital ward or clinic in which patients are detoxified
 detoxed	DETOX: the hospital ward or clinic in which patients are detoxified
 detoxes	DETOX: the hospital ward or clinic in which patients are detoxified
 detoxification	a treatment for addiction to drugs or alcohol intended to remove the physiological effects of the addictive substances
+detoxified	DETOXIFY: remove poisons from
 detoxifies	DETOXIFY: remove poison from
 detoxify	remove poison from
 detoxifying	DETOXIFY: remove poison from
@@ -1915,6 +2190,8 @@ devastates	DEVASTATE: cause extensive destruction or ruin utterly
 devastating	making light of
 devastatingly	in a devastating way
 devastation	the state of being decayed or destroyed
+devastator	one who ruins completely
+devastators	DEVASTATOR: one who ruins completely
 develop	make something new, such as a product or a mental or artistic creation
 developed	being changed over time so as to be e.g. stronger or more complete or more useful
 developer	someone who develops real estate (especially someone who prepares a site for residential or commercial use)
@@ -1926,6 +2203,7 @@ developmentally	with respect to development
 developments	DEVELOPMENT: act of improving by expanding or enlarging or refining
 develops	DEVELOP: make something new, such as a product or a mental or artistic creation
 deviance	a state or condition markedly different from the norm
+deviancy	departure from accepted behaviour
 deviant	markedly different from an accepted norm
 deviants	DEVIANT: markedly different from an accepted norm
 deviate	turn aside; turn away from
@@ -1958,6 +2236,7 @@ devise	come up with (an idea, plan, explanation, theory, or principle) after a m
 devised	DEVISE: come up with (an idea, plan, explanation, theory, or principle) after a mental effort
 devises	DEVISE: come up with (an idea, plan, explanation, theory, or principle) after a mental effort
 devising	DEVISE: come up with (an idea, plan, explanation, theory, or principle) after a mental effort
+devo	devastated
 devoice	utter with tense vocal chords
 devoiced	DEVOICE: utter with tense vocal chords
 devoices	DEVOICE: utter with tense vocal chords
@@ -1994,6 +2273,8 @@ devoutness	piety by virtue of being devout
 dew	water that has condensed on a cool surface overnight from water vapor in the air
 dewberries	DEWBERRY: any of several trailing blackberry brambles especially of North America
 dewberry	any of several trailing blackberry brambles especially of North America
+dewclaw	a small toe on the side of a dog's leg
+dewclaws	DEWCLAW: a small toe on the side of a dog's leg
 dewdrop	a drop of dew
 dewdrops	DEWDROP: a drop of dew
 dewier	DEWY: wet with dew
@@ -2027,6 +2308,7 @@ diacritical	capable of distinguishing
 diacritics	DIACRITIC: a mark added to a letter to indicate a special pronunciation
 diadem	an ornamental jeweled headdress signifying sovereignty
 diadems	DIADEM: an ornamental jeweled headdress signifying sovereignty
+diaereses	DIAERESIS: a mark over a vowel showing it is pronounced separately
 diaeresis	a diacritical mark (two dots) placed over a vowel to indicate that it does not form a diphthong with an adjacent vowel
 diagnose	determine or distinguish the nature of a problem or an illness through a diagnostic analysis
 diagnosed	DIAGNOSE: determine or distinguish the nature of a problem or an illness through a diagnostic analysis
@@ -2034,6 +2316,7 @@ diagnoses	DIAGNOSE: determine or distinguish the nature of a problem or an illne
 diagnosing	identifying the nature or cause of some phenomenon
 diagnosis	identifying the nature or cause of some phenomenon
 diagnostic	concerned with diagnosis; used for furthering diagnosis
+diagnostically	in a way that helps identify illness
 diagnostician	a doctor who specializes in medical diagnosis
 diagnosticians	DIAGNOSTICIAN: a doctor who specializes in medical diagnosis
 diagnostics	the branch of medical science dealing with the classification of disease
@@ -2054,13 +2337,21 @@ dialectal	belonging to or characteristic of a dialect
 dialectic	any formal system of reasoning that arrives at the truth by the exchange of logical arguments
 dialectical	of or relating to or employing dialectic
 dialectics	DIALECTIC: any formal system of reasoning that arrives at the truth by the exchange of logical arguments
+dialectological	relating to the study of dialects
+dialectologist	a student of dialects
+dialectologists	DIALECTOLOGIST: a student of dialects
 dialectology	the branch of philology that is devoted to the study of dialects
 dialects	DIALECT: the usage or vocabulary that is characteristic of a specific group of people
 dialed	DIAL: the face of a timepiece; graduated to show the hours
+dialer	a device or program for making telephone calls
+dialers	DIALER: a device or program for making telephone calls
 dialing	DIAL: the face of a timepiece; graduated to show the hours
+dialings	DIALING: the act of making a telephone call
 dialled	DIAL: the face of a timepiece; graduated to show the hours
 dialler	DIAL: the face of a timepiece; graduated to show the hours
+diallers	DIALLER: a device for making telephone calls
 dialling	DIAL: the face of a timepiece; graduated to show the hours
+diallings	DIALLING: the act of making a telephone call
 dialog	a conversation between two persons
 dialogs	DIALOG: a conversation between two persons
 dialogue	a conversation between two persons
@@ -2081,11 +2372,14 @@ diamondback	large deadly rattlesnake with diamond-shaped markings
 diamondbacks	DIAMONDBACK: large deadly rattlesnake with diamond-shaped markings
 diamonds	DIAMOND: a transparent piece of diamond that has been cut and polished and is valued as a precious gem
 diaper	garment consisting of a folded cloth drawn up between the legs and fastened at the waist; worn by infants to catch excrement
+diapered	DIAPER: wearing a nappy
+diapering	DIAPER: putting a nappy on
 diapers	DIAPER: garment consisting of a folded cloth drawn up between the legs and fastened at the waist; worn by infants to catch excrement
 diaphanous	so thin as to transmit light
 diaphanously	in a diaphanous way
 diaphanousness	the quality of being diaphanous
 diaphragm	a mechanical device in a camera that controls size of aperture of the lens
+diaphragmatic	relating to the muscle beneath the lungs
 diaphragms	DIAPHRAGM: a mechanical device in a camera that controls size of aperture of the lens
 diaries	DIARY: a daily written record of (usually personal) experiences and observations
 diarist	someone who keeps a diary or journal
@@ -2097,6 +2391,7 @@ diaspora	the body of Jews (or Jewish communities) outside Palestine or modern Is
 diasporas	DIASPORA: the body of Jews (or Jewish communities) outside Palestine or modern Israel
 diastolic	of or relating to a diastole or happening during a diastole
 diatom	microscopic unicellular marine or freshwater colonial alga having cell walls impregnated with silica
+diatomaceous	made of tiny algae shells
 diatomic	of or relating to a molecule made up of two atoms
 diatoms	DIATOM: microscopic unicellular marine or freshwater colonial alga having cell walls impregnated with silica
 diatonic	based on the standard major or minor scales consisting of 5 tones and 2 semitones without modulation by accidentals
@@ -2107,6 +2402,8 @@ dibber	a wooden hand tool with a pointed end; used to make holes in the ground f
 dibbers	DIBBER: a wooden hand tool with a pointed end; used to make holes in the ground for planting seeds or bulbs
 dibble	a wooden hand tool with a pointed end; used to make holes in the ground for planting seeds or bulbs
 dibbled	DIBBLE: a wooden hand tool with a pointed end; used to make holes in the ground for planting seeds or bulbs
+dibbler	a pointed tool for making holes in soil
+dibblers	DIBBLER: a pointed tool for making holes in soil
 dibbles	DIBBLE: a wooden hand tool with a pointed end; used to make holes in the ground for planting seeds or bulbs
 dibbling	DIBBLE: a wooden hand tool with a pointed end; used to make holes in the ground for planting seeds or bulbs
 dibs	a claim of rights
@@ -2117,6 +2414,9 @@ dicey	of uncertain outcome; especially fraught with risk
 dichotomies	DICHOTOMY: being twofold; a classification into two opposed parts or subclasses
 dichotomous	divided or dividing into two sharply distinguished parts or classifications
 dichotomy	being twofold; a classification into two opposed parts or subclasses
+dichroic	showing two colours depending on the angle
+dicier	DICEY: risky
+diciest	DICEY: risky
 dicing	DICE: a small cube with 1 to 6 spots on the six faces; used in gambling to generate random numbers
 dick	someone who is a detective
 dickens	a word used in exclamations of confusion
@@ -2134,6 +2434,7 @@ dicks	DICK: someone who is a detective
 dicky	a small third seat in the back of an old-fashioned two-seater
 dicotyledon	flowering plant with two cotyledons; the stem grows by deposit on its outside
 dicotyledons	DICOTYLEDON: flowering plant with two cotyledons; the stem grows by deposit on its outside
+dicta	DICTUM: a formal statement
 dictate	an authoritative rule
 dictated	determined or decided upon as by an authority
 dictates	DICTATE: an authoritative rule
@@ -2158,6 +2459,9 @@ diddled	DIDDLE: deprive of by deceit
 diddles	DIDDLE: deprive of by deceit
 diddling	DIDDLE: deprive of by deceit
 diddly	a small worthless amount
+diddums	a mocking expression of sympathy
+didgeridoo	a long wooden Aboriginal wind instrument
+didgeridoos	DIDGERIDOO: a long wooden Aboriginal wind instrument
 die	pass from physical life and lose all bodily attributes and functions necessary to sustain life
 dieback	a disease of plants characterized by the gradual dying of the young shoots starting at the tips and progressing to the larger branches
 died	DIE: pass from physical life and lose all bodily attributes and functions necessary to sustain life
@@ -2165,9 +2469,12 @@ diehard	one who adheres to traditional views
 diehards	DIEHARD: one who adheres to traditional views
 dielectric	a material such as glass or porcelain with negligible electrical or thermal conductivity
 dielectrics	DIELECTRIC: a material such as glass or porcelain with negligible electrical or thermal conductivity
+diereses	DIERESIS: a mark over a vowel showing it is pronounced separately
 dieresis	a diacritical mark (two dots) placed over a vowel to indicate that it does not form a diphthong with an adjacent vowel
 dies	DIE: pass from physical life and lose all bodily attributes and functions necessary to sustain life
 diesel	German engineer (born in France) who invented the diesel engine (1858-1913)
+dieseled	DIESEL: run on after the engine is switched off
+dieseling	DIESEL: running on after the engine is switched off
 diesels	DIESEL: German engineer (born in France) who invented the diesel engine (1858-1913)
 diet	a prescribed selection of foods
 dietaries	DIETARY: of or relating to the diet
@@ -2183,6 +2490,7 @@ dieting	DIET: a prescribed selection of foods
 dietitian	a specialist in the study of diet and nutrition
 dietitians	DIETITIAN: a specialist in the study of diet and nutrition
 diets	DIET: a prescribed selection of foods
+diffed	DIFF: compare two files for differences
 differ	be different
 differed	DIFFER: be different
 difference	the quality of being unlike or dissimilar
@@ -2201,6 +2509,7 @@ differentiator	a person who (or that which) differentiates
 differently	in another and different manner
 differing	DIFFER: be different
 differs	DIFFER: be different
+difficile	hard to please or deal with
 difficult	not easy; requiring great physical or mental effort to accomplish or comprehend or endure
 difficulties	DIFFICULTY: an effort that is inconvenient
 difficultly	in a difficult way
@@ -2208,11 +2517,13 @@ difficulty	an effort that is inconvenient
 diffidence	lack of self-confidence
 diffident	showing modest reserve
 diffidently	in a diffident manner
+diffing	DIFF: compare two files for differences
 diffract	undergo diffraction
 diffracted	DIFFRACT: undergo diffraction
 diffracting	DIFFRACT: undergo diffraction
 diffraction	when light passes sharp edges or goes through narrow slits the rays are deflected and produce fringes of light and dark bands
 diffracts	DIFFRACT: undergo diffraction
+diffs	DIFF: a list of differences between files
 diffuse	move outward
 diffused	(of light rays) subjected to scattering by reflection from a rough surface or transmission through a translucent material
 diffusely	in a diffuse manner
@@ -2223,7 +2534,9 @@ diffuses	DIFFUSE: move outward
 diffusing	spreading by diffusion
 diffusion	the process in which there is movement of a substance from an area of high concentration of that substance to an area of lower concentration
 diffusive	spreading by diffusion
+diffusivity	how readily a substance spreads through another
 dig	turn up, loosen, or remove earth
+digerati	people skilled at computers and the internet
 digest	convert food into absorbable substances
 digested	DIGEST: convert food into absorbable substances
 digester	autoclave consisting of a vessel in which plant or animal materials are digested
@@ -2258,6 +2571,7 @@ digitizer	device for converting analogue signals into digital signals
 digitizes	DIGITIZE: put into digital form, as for use in a computer
 digitizing	DIGITIZE: put into digital form, as for use in a computer
 digits	DIGIT: one of the elements that collectively form a system of numeration
+diglossia	use of two forms of a language in different settings
 dignified	having or expressing dignity; especially formality or stateliness in bearing or appearance
 dignifies	DIGNIFY: confer dignity or honor upon
 dignify	confer dignity or honor upon
@@ -2276,10 +2590,13 @@ digression	a message that departs from the main subject
 digressions	DIGRESSION: a message that departs from the main subject
 digressive	of superficial relevance if any
 digs	DIG: turn up, loosen, or remove earth
+dihedral	formed by two intersecting planes
 dike	offensive term for a lesbian who is noticeably masculine
 diked	DIKE: offensive term for a lesbian who is noticeably masculine
 dikes	DIKE: offensive term for a lesbian who is noticeably masculine
 diking	DIKE: offensive term for a lesbian who is noticeably masculine
+diktat	an order imposed without consent
+diktats	DIKTAT: an order imposed without consent
 dilapidated	in deplorable condition
 dilapidation	a state of deterioration due to old age or long use
 dilatation	the state of being stretched beyond normal dimensions
@@ -2292,16 +2609,22 @@ dilator	a muscle or nerve that dilates or widens a body part
 dilators	DILATOR: a muscle or nerve that dilates or widens a body part
 dilatory	wasting time
 dildo	a vibrating device that substitutes for an erect penis to provide vaginal stimulation
+dildoes	DILDO: a sex toy shaped like a penis
 dildos	DILDO: a vibrating device that substitutes for an erect penis to provide vaginal stimulation
 dilemma	state of uncertainty or perplexity especially as requiring a choice between equally unfavorable options
 dilemmas	DILEMMA: state of uncertainty or perplexity especially as requiring a choice between equally unfavorable options
 dilettante	an amateur who engages in an activity without serious intentions and who pretends to have knowledge
 dilettantes	DILETTANTE: an amateur who engages in an activity without serious intentions and who pretends to have knowledge
+dilettanti	DILETTANTE: a person who dabbles in a subject
+dilettantism	casual, shallow interest in a subject
 diligence	conscientiousness in paying proper attention to a task; giving the degree of care required in a given situation
 diligent	quietly and steadily persevering especially in detail or exactness
 diligently	with diligence; in a diligent manner
 dill	aromatic Old World herb having aromatic threadlike foliage and seeds used as seasoning
+dillies	DILLY: something remarkable
 dills	DILL: aromatic Old World herb having aromatic threadlike foliage and seeds used as seasoning
+dilly	something remarkable
+dillydallied	DILLYDALLY: waste time
 dillydallies	DILLYDALLY: postpone doing what one should be doing
 dillydally	postpone doing what one should be doing
 dillydallying	DILLYDALLY: postpone doing what one should be doing
@@ -2317,6 +2640,7 @@ dime	a United States coin worth one tenth of a dollar
 dimension	the magnitude of something in a particular direction (especially length or width or height)
 dimensional	of or relating to dimensions
 dimensionality	the spatial property of having dimensions
+dimensionally	in terms of size or measurement
 dimensionless	without dimension
 dimensions	DIMENSION: the magnitude of something in a particular direction (especially length or width or height)
 dimer	a compound whose molecules are composed of two identical monomers
@@ -2327,6 +2651,7 @@ diminished	impaired by diminution
 diminishes	DIMINISH: decrease in size, extent, or range
 diminishing	becoming smaller or less or appearing to do so
 diminuendo	a gradual decrease in loudness
+diminuendoes	DIMINUENDO: a gradual decrease in loudness
 diminuendos	DIMINUENDO: a gradual decrease in loudness
 diminution	change toward something smaller or lower
 diminutions	DIMINUTION: change toward something smaller or lower
@@ -2376,16 +2701,21 @@ dinging	DINGE: discoloration due to dirtiness
 dingle	a small wooded hollow
 dingles	DINGLE: a small wooded hollow
 dingo	wolflike yellowish-brown wild dog of Australia
+dingoes	DINGO: a wild Australian dog
 dings	DING: a ringing sound
 dingy	thickly covered with ingrained dirt or soot
 dining	DIN: a loud harsh or strident noise
 dink	a couple who both have careers and no children (an acronym for dual income no kids)
+dinker	a double-seat ride on a bicycle
 dinkier	DINKY: a small locomotive
 dinkies	DINKY: a small locomotive
 dinkiest	DINKY: a small locomotive
+dinkum	genuine
 dinky	a small locomotive
 dinned	DIN: a loud harsh or strident noise
 dinner	the main meal of the day served in the evening or at midday
+dinnered	DINNER: have dinner
+dinnering	DINNER: having dinner
 dinners	DINNER: the main meal of the day served in the evening or at midday
 dinnertime	the customary or habitual hour for the evening meal
 dinnerware	the tableware (plates and platters and serving bowls etc.) used in serving a meal
@@ -2417,6 +2747,7 @@ diploma	a document certifying the successful completion of a course of study
 diplomacy	negotiation between nations
 diplomas	DIPLOMA: a document certifying the successful completion of a course of study
 diplomat	an official engaged in international negotiations
+diplomata	DIPLOMA: a certificate of a course completed
 diplomatic	relating to or characteristic of diplomacy
 diplomatically	with diplomacy; in a diplomatic manner
 diplomats	DIPLOMAT: an official engaged in international negotiations
@@ -2425,11 +2756,16 @@ dipoles	DIPOLE: a pair of equal and opposite electric charges or magnetic poles 
 dipped	DIP: immerse briefly into a liquid so as to wet, coat, or saturate
 dipper	a ladle that has a cup with a long handle
 dippers	DIPPER: a ladle that has a cup with a long handle
+dippier	DIPPY: silly or scatterbrained
+dippiest	DIPPY: silly or scatterbrained
 dipping	DIP: immerse briefly into a liquid so as to wet, coat, or saturate
+dippy	silly or scatterbrained
 dips	DIP: immerse briefly into a liquid so as to wet, coat, or saturate
+dipso	a heavy drinker
 dipsomania	an intense persistent desire to drink alcoholic beverages to excess
 dipsomaniac	a person who drinks alcohol to excess habitually
 dipsomaniacs	DIPSOMANIAC: a person who drinks alcohol to excess habitually
+dipsos	DIPSO: a heavy drinker
 dipstick	a graduated rod dipped into a container to indicate the fluid level
 dipsticks	DIPSTICK: a graduated rod dipped into a container to indicate the fluid level
 diptych	a painting or carving (especially an altarpiece) on two panels (usually hinged like a book)
@@ -2452,6 +2788,7 @@ directness	trueness of course toward a goal
 director	someone who controls resources and expenditures
 directorate	a group of persons chosen to govern the affairs of a corporation or other large institution
 directorates	DIRECTORATE: a group of persons chosen to govern the affairs of a corporation or other large institution
+directorial	relating to directing
 directories	DIRECTORY: an alphabetical list of names and addresses
 directors	DIRECTOR: someone who controls resources and expenditures
 directorship	the position of a director of a business concern
@@ -2466,6 +2803,7 @@ direness	the quality of being dire
 direr	DIRE: fraught with extreme danger; nearly hopeless
 direst	DIRE: fraught with extreme danger; nearly hopeless
 dirge	a song or hymn of mourning composed or performed as a memorial to a dead person
+dirgeful	sorrowful and mournful
 dirges	DIRGE: a song or hymn of mourning composed or performed as a memorial to a dead person
 dirhams	DIRHAM: 100 dirhams equal 1 riyal in Qatar
 dirigible	a steerable self-propelled aircraft
@@ -2475,6 +2813,11 @@ dirks	DIRK: a relatively long dagger with a straight blade
 dirndl	a full skirt with a gathered waistband
 dirndls	DIRNDL: a full skirt with a gathered waistband
 dirt	the part of the earth's surface consisting of humus and disintegrated rock
+dirtbag	a despicable person
+dirtbags	DIRTBAG: a despicable person
+dirtball	a despicable person
+dirtballs	DIRTBALL: a despicable person
+dirtied	DIRTY: make unclean
 dirtier	DIRTY: soiled or likely to soil with dirt or grime
 dirties	DIRTY: soiled or likely to soil with dirt or grime
 dirtiest	DIRTY: soiled or likely to soil with dirt or grime
@@ -2505,6 +2848,7 @@ disaffected	discontented as toward authority
 disaffecting	DISAFFECT: arouse hostility or indifference in where there had formerly been love, affection, or friendliness
 disaffection	the feeling of being alienated from other people
 disaffects	DISAFFECT: arouse hostility or indifference in where there had formerly been love, affection, or friendliness
+disaggregated	DISAGGREGATE: break into separate parts
 disagree	be of different opinions
 disagreeable	not to your liking
 disagreeably	in a disagreeable manner
@@ -2592,6 +2936,8 @@ disbars	DISBAR: remove from the bar; expel from the practice of law by official 
 disbelief	doubt about the truth of something
 disbelieve	reject as false; refuse to accept
 disbelieved	DISBELIEVE: reject as false; refuse to accept
+disbeliever	one who does not believe
+disbelievers	DISBELIEVER: one who does not believe
 disbelieves	DISBELIEVE: reject as false; refuse to accept
 disbelieving	DISBELIEVE: reject as false; refuse to accept
 disbelievingly	in an incredulous manner
@@ -2608,6 +2954,8 @@ discarding	DISCARD: throw or cast away
 discards	DISCARD: throw or cast away
 discern	detect with the senses
 discerned	DISCERN: detect with the senses
+discerner	one who perceives clearly
+discerners	DISCERNER: one who perceives clearly
 discernible	perceptible by the senses or intellect
 discerning	having or revealing keen insight and good judgment
 discerningly	in a discerning way
@@ -2666,6 +3014,8 @@ discomfiting	DISCOMFIT: cause to lose one's composure
 discomfits	DISCOMFIT: cause to lose one's composure
 discomfiture	anxious embarrassment
 discomfort	the state of being tense and feeling pain
+discomforted	DISCOMFORT: make uneasy
+discomforting	DISCOMFORT: making uneasy
 discomforts	DISCOMFORT: the state of being tense and feeling pain
 discommode	to cause inconvenience or discomfort to
 discommoded	DISCOMMODE: to cause inconvenience or discomfort to
@@ -2766,6 +3116,7 @@ discrete	constituting a separate entity or part
 discretely	in a discrete way
 discretion	freedom to act or judge on one's own
 discretionary	having or using the ability to act or decide according to your own discretion or judgment
+discriminant	a quantity that helps to tell cases apart
 discriminate	recognize or perceive the difference
 discriminated	DISCRIMINATE: recognize or perceive the difference
 discriminates	DISCRIMINATE: recognize or perceive the difference
@@ -2813,6 +3164,10 @@ disemboweling	DISEMBOWEL: remove the entrails of
 disembowelled	DISEMBOWEL: remove the entrails of
 disembowelling	DISEMBOWEL: remove the entrails of
 disembowels	DISEMBOWEL: remove the entrails of
+disempower	take away the power of
+disempowered	DISEMPOWER: take away the power of
+disempowering	DISEMPOWER: take away the power of
+disempowers	DISEMPOWER: take away the power of
 disenchant	free from enchantment
 disenchanted	freed from enchantment
 disenchanting	freeing from illusion or false belief
@@ -2880,6 +3235,10 @@ disgruntles	DISGRUNTLE: put into a bad mood or into bad humour
 disgruntling	DISGRUNTLE: put into a bad mood or into bad humour
 disguise	an outward semblance that misrepresents the true nature of something
 disguised	having its true character concealed with the intent of misleading
+disguisement	the act of disguising
+disguisements	DISGUISEMENT: the act of disguising
+disguiser	one who disguises
+disguisers	DISGUISER: one who disguises
 disguises	DISGUISE: an outward semblance that misrepresents the true nature of something
 disguising	DISGUISE: an outward semblance that misrepresents the true nature of something
 disgust	strong feelings of dislike
@@ -3016,6 +3375,8 @@ dismantled	torn down and broken up
 dismantlement	the act of taking something apart (as a piece of machinery)
 dismantles	DISMANTLE: tear down so as to make flat with the ground
 dismantling	the act of taking something apart (as a piece of machinery)
+dismast	remove the mast from a ship
+dismasted	DISMAST: remove the mast from a ship
 dismay	the feeling of despair in the face of obstacles
 dismayed	struck with fear, dread, or consternation
 dismaying	causing consternation
@@ -3030,6 +3391,8 @@ dismiss	bar from attention or consideration
 dismissal	a judgment disposing of the matter without a trial
 dismissals	DISMISSAL: a judgment disposing of the matter without a trial
 dismissed	DISMISS: bar from attention or consideration
+dismisser	one who sends away or rejects
+dismissers	DISMISSER: one who sends away or rejects
 dismisses	DISMISS: bar from attention or consideration
 dismissing	DISMISS: bar from attention or consideration
 dismissive	showing indifference or disregard
@@ -3043,6 +3406,8 @@ disobedient	not obeying or complying with commands of those in authority
 disobediently	in a disobedient manner
 disobey	refuse to go along with; refuse to follow; be disobedient
 disobeyed	DISOBEY: refuse to go along with; refuse to follow; be disobedient
+disobeyer	one who does not obey
+disobeyers	DISOBEYER: one who does not obey
 disobeying	DISOBEY: refuse to go along with; refuse to follow; be disobedient
 disobeys	DISOBEY: refuse to go along with; refuse to follow; be disobedient
 disoblige	to cause inconvenience or discomfort to
@@ -3131,6 +3496,7 @@ displacements	DISPLACEMENT: act of taking the place of another especially using 
 displaces	DISPLACE: cause to move, usually with force or pressure
 displacing	DISPLACE: cause to move, usually with force or pressure
 display	something intended to communicate a particular impression
+displayable	able to be shown
 displayed	DISPLAY: something intended to communicate a particular impression
 displaying	DISPLAY: something intended to communicate a particular impression
 displays	DISPLAY: something intended to communicate a particular impression
@@ -3149,9 +3515,11 @@ disposal	the power to use something or someone
 disposals	DISPOSAL: the power to use something or someone
 dispose	give, sell, or transfer to another
 disposed	DISPOSE: give, sell, or transfer to another
+disposer	one who gets rid of something
 disposes	DISPOSE: give, sell, or transfer to another
 disposing	DISPOSE: give, sell, or transfer to another
 disposition	your usual mood
+dispositional	relating to a person's natural temperament
 dispositions	DISPOSITION: your usual mood
 dispossess	deprive of the possession of real estate
 dispossessed	physically or spiritually homeless or deprived of security
@@ -3166,6 +3534,7 @@ disproportionately	out of proportion
 disproportions	DISPROPORTION: lack of proportion; imbalance among the parts of something
 disprove	prove to be false
 disproved	DISPROVE: prove to be false
+disproven	DISPROVE: shown to be false
 disproves	DISPROVE: prove to be false
 disproving	DISPROVE: prove to be false
 disputable	capable of being disproved
@@ -3213,12 +3582,15 @@ disrobes	DISROBE: get undressed
 disrobing	DISROBE: get undressed
 disrupt	make a break in
 disrupted	DISRUPT: make a break in
+disrupter	one who causes disorder
+disrupters	DISRUPTER: one who causes disorder
 disrupting	DISRUPT: make a break in
 disruption	an act of delaying or interrupting the continuity
 disruptions	DISRUPTION: an act of delaying or interrupting the continuity
 disruptive	characterized by unrest or disorder or insubordination
 disruptively	in a disruptive manner
 disruptiveness	the quality of being disruptive
+disruptor	one who causes disorder
 disrupts	DISRUPT: make a break in
 diss	treat, mention, or speak to rudely
 dissatisfaction	the feeling of being displeased and discontent
@@ -3349,6 +3721,8 @@ distinguishes	DISTINGUISH: mark as different
 distinguishing	DISTINGUISH: mark as different
 distort	make false by mutilation or addition; as of a message or story
 distorted	DISTORT: make false by mutilation or addition; as of a message or story
+distorter	one who twists out of shape
+distorters	DISTORTER: one who twists out of shape
 distorting	DISTORT: make false by mutilation or addition; as of a message or story
 distortion	a change for the worse
 distortions	DISTORTION: a change for the worse
@@ -3368,6 +3742,7 @@ distresses	DISTRESS: psychological suffering
 distressful	causing distress or worry or anxiety
 distressing	causing distress or worry or anxiety
 distressingly	unpleasantly
+distributable	able to be shared out
 distributaries	DISTRIBUTARY: a branch of a river that flows away from the main stream and does not rejoin it
 distributary	a branch of a river that flows away from the main stream and does not rejoin it
 distribute	administer or bestow, as in small portions
@@ -3380,6 +3755,8 @@ distributions	DISTRIBUTION: an arrangement of values of a variable showing their
 distributive	serving to distribute or allot or disperse
 distributor	someone who markets merchandise
 distributors	DISTRIBUTOR: someone who markets merchandise
+distributorship	the right to sell a company's goods in an area
+distributorships	DISTRIBUTORSHIP: the right to sell a company's goods in an area
 district	a region marked off for administrative or other purposes
 districts	DISTRICT: a region marked off for administrative or other purposes
 distrust	doubt about someone's honesty
@@ -3397,6 +3774,7 @@ disturbers	DISTURBER: a troubler who interrupts or interferes with peace and qui
 disturbing	causing distress or worry or anxiety
 disturbingly	in a disturbing manner
 disturbs	DISTURB: move deeply
+disulfide	a compound with two linked sulfur atoms
 disunion	the termination or destruction of union
 disunite	part; cease or break association with
 disunited	having been divided; having the unity destroyed
@@ -3406,15 +3784,22 @@ disunity	lack of unity (usually resulting from dissension)
 disuse	the state of something that has been unused and neglected
 disused	no longer in use
 disuses	DISUSE: the state of something that has been unused and neglected
+disusing	DISUSE: ceasing to use
 disyllabic	having or characterized by or consisting of two syllables
 ditch	a long narrow excavation in the earth
 ditched	DITCH: a long narrow excavation in the earth
+ditcher	one who digs ditches
+ditchers	DITCHER: one who digs ditches
 ditches	DITCH: a long narrow excavation in the earth
 ditching	DITCH: a long narrow excavation in the earth
 dither	an excited state of agitation
 dithered	DITHER: an excited state of agitation
+ditherer	one who is indecisive
+ditherers	DITHERER: one who is indecisive
 dithering	the process of representing intermediate colors by patterns of tiny colored dots that simulate the desired color
 dithers	DITHER: an excited state of agitation
+ditransitive	taking two objects
+ditsy	silly and scatterbrained
 ditties	DITTY: a short simple song (or the words of a poem intended to be sung)
 ditto	a mark used to indicate the word above it should be repeated
 dittoed	DITTO: a mark used to indicate the word above it should be repeated
@@ -3422,9 +3807,15 @@ dittoes	DITTO: a mark used to indicate the word above it should be repeated
 dittoing	DITTO: a mark used to indicate the word above it should be repeated
 dittos	DITTO: a mark used to indicate the word above it should be repeated
 ditty	a short simple song (or the words of a poem intended to be sung)
+ditz	a silly, scatterbrained person
+ditzes	DITZ: a silly, scatterbrained person
+ditzier	DITZY: silly and scatterbrained
+ditziest	DITZY: silly and scatterbrained
+ditzy	silly and scatterbrained
 diuretic	any substance that tends to increase the flow of urine, which causes the body to get rid of excess water
 diuretics	DIURETIC: any substance that tends to increase the flow of urine, which causes the body to get rid of excess water
 diurnal	of or belonging to or active during the day
+diurnally	every day
 diva	a distinguished female operatic singer; a female operatic star
 divalent	having a valence of two or having two valences
 divan	a long backless sofa (usually with pillows against a wall)
@@ -3455,6 +3846,8 @@ diversities	DIVERSITY: noticeable heterogeneity
 diversity	noticeable heterogeneity
 divert	turn aside; turn away from
 diverted	DIVERT: turn aside; turn away from
+diverter	something that turns aside
+diverters	DIVERTER: something that turns aside
 diverticulitis	inflammation of a diverticulum in the digestive tract (especially the colon); characterized by painful abdominal cramping and fever and constipation
 diverting	DIVERT: turn aside; turn away from
 diverts	DIVERT: turn aside; turn away from
@@ -3464,6 +3857,7 @@ divested	DIVEST: take away possessions from someone
 divesting	DIVEST: take away possessions from someone
 divestiture	an order to an offending party to rid itself of property; it has the purpose of depriving the defendant of the gains of wrongful behavior
 divestitures	DIVESTITURE: an order to an offending party to rid itself of property; it has the purpose of depriving the defendant of the gains of wrongful behavior
+divestment	selling off of assets
 divests	DIVEST: take away possessions from someone
 divide	separate into parts or portions
 divided	separated into parts or pieces
@@ -3508,8 +3902,11 @@ divulge	make known to the public information that was previously known only to a
 divulged	DIVULGE: make known to the public information that was previously known only to a few people or that was meant to be kept a secret
 divulges	DIVULGE: make known to the public information that was previously known only to a few people or that was meant to be kept a secret
 divulging	DIVULGE: make known to the public information that was previously known only to a few people or that was meant to be kept a secret
+divvied	DIVVY: share out
 divvies	DIVVY: short for dividend; especially one paid by a cooperative society
 divvy	short for dividend; especially one paid by a cooperative society
+divvying	DIVVY: share out
+dizzied	DIZZY: make giddy
 dizzier	DIZZY: having or causing a whirling sensation; liable to falling
 dizzies	DIZZY: having or causing a whirling sensation; liable to falling
 dizziest	DIZZY: having or causing a whirling sensation; liable to falling
@@ -3522,8 +3919,15 @@ djinni	an invisible spirit mentioned in the Koran and believed by Muslims to inh
 djinns	DJINN: an invisible spirit mentioned in the Koran and believed by Muslims to inhabit the earth and influence mankind by appearing in the form of humans or animals
 do	engage in
 doable	capable of existing or taking place or proving true; possible to do
+dob	inform on someone
+dobbed	DOB: inform on someone
+dobber	someone who informs on others
+dobbers	DOBBER: someone who informs on others
+dobbing	DOB: inform on someone
+dobby	a device on a loom for patterned weave
 doberman	medium large breed of dog of German origin with a glossy black and tan coat; used as a watchdog
 dobermans	DOBERMAN: medium large breed of dog of German origin with a glossy black and tan coat; used as a watchdog
+dobs	DOB: inform on someone
 doc	a licensed medical practitioner
 docent	a teacher at some universities
 docents	DOCENT: a teacher at some universities
@@ -3541,6 +3945,9 @@ docketing	DOCKET: place on the docket for legal action
 dockets	DOCKET: place on the docket for legal action
 dockhand	a laborer who loads and unloads vessels in a port
 docking	DOCK: an enclosure in a court of law where the defendant sits during the trial
+dockland	the area around the docks
+docklands	DOCKLAND: the area around the docks
+dockmaster	an official in charge of a dock
 docks	DOCK: an enclosure in a court of law where the defendant sits during the trial
 dockside	the region adjacent to a boat dock
 dockworker	a laborer who loads and unloads vessels in a port
@@ -3563,13 +3970,18 @@ doctrines	DOCTRINE: a belief (or system of beliefs) accepted as authoritative by
 docudrama	a film or TV program presenting the facts about a person or event
 docudramas	DOCUDRAMA: a film or TV program presenting the facts about a person or event
 document	writing that provides information (especially information of an official nature)
+documentarian	a maker of documentaries
 documentaries	DOCUMENTARY: a film or TV program presenting the facts about a person or event
 documentary	a film or TV program presenting the facts about a person or event
 documentation	confirmation that some fact or statement is true through the use of documentary evidence
 documentations	DOCUMENTATION: confirmation that some fact or statement is true through the use of documentary evidence
 documented	DOCUMENT: writing that provides information (especially information of an official nature)
+documenter	one who records in writing
+documenters	DOCUMENTER: one who records in writing
 documenting	DOCUMENT: writing that provides information (especially information of an official nature)
 documents	DOCUMENT: writing that provides information (especially information of an official nature)
+docusoap	a television series following real people's lives
+docusoaps	DOCUSOAP: a television series following real people's lives
 dodder	a leafless annual parasitic vine of the genus Cuscuta having whitish or yellow filamentous stems; obtain nourishment through haustoria
 doddered	DODDER: a leafless annual parasitic vine of the genus Cuscuta having whitish or yellow filamentous stems; obtain nourishment through haustoria
 dodderer	one who dodders from old age and weakness
@@ -3579,6 +3991,7 @@ dodders	DODDER: a leafless annual parasitic vine of the genus Cuscuta having whi
 doddery	mentally or physically infirm with age
 doddle	an easy task
 dodge	make a sudden movement in a new direction so as to avoid
+dodgeball	a game in which players throw a ball to hit others
 dodged	DODGE: make a sudden movement in a new direction so as to avoid
 dodgem	a small low-powered electrically powered vehicle driven on a special platform where there are many others to be dodged
 dodgems	DODGEM: a small low-powered electrically powered vehicle driven on a special platform where there are many others to be dodged
@@ -3587,10 +4000,12 @@ dodgers	DODGER: a shifty deceptive person
 dodges	DODGE: make a sudden movement in a new direction so as to avoid
 dodgier	DODGY: of uncertain outcome; especially fraught with risk
 dodgiest	DODGY: of uncertain outcome; especially fraught with risk
+dodgily	in a questionable or dishonest way
 dodginess	the quality of being dodgy
 dodging	nonperformance of something distasteful (as by deceit or trickery) that you are supposed to do
 dodgy	of uncertain outcome; especially fraught with risk
 dodo	someone whose style is out of fashion
+dodoes	DODO: an extinct flightless bird
 dodos	DODO: someone whose style is out of fashion
 doe	the federal department responsible for maintaining a national energy policy of the United States; created in 1977
 doer	a person who acts and gets things done
@@ -3598,10 +4013,15 @@ doers	DOER: a person who acts and gets things done
 does	DO: engage in
 doff	remove
 doffed	DOFF: remove
+doffer	one who takes off a hat or garment
+doffers	DOFFER: one who takes off a hat or garment
 doffing	DOFF: remove
 doffs	DOFF: remove
 dog	a member of the genus Canis (probably descended from the common wolf) that has been domesticated by man since prehistoric times; occurs in many breeds
+dogcatcher	an official who catches stray dogs
+dogcatchers	DOGCATCHER: an official who catches stray dogs
 doge	formerly the chief magistrate in the republics of Venice and Genoa
+dogeared	having corners folded or worn from use
 doges	DOG: a member of the genus Canis (probably descended from the common wolf) that has been domesticated by man since prehistoric times; occurs in many breeds
 dogfight	a fiercely disputed contest
 dogfights	DOGFIGHT: a fiercely disputed contest
@@ -3612,9 +4032,17 @@ doggedly	with obstinate determination
 doggedness	persistent determination
 doggerel	a comic verse of irregular measure
 doggie	informal terms for dogs
+doggier	DOGGY: like a dog
 doggies	DOGGIE: informal terms for dogs
+doggiest	DOGGY: like a dog
 dogging	relentless and indefatigable in pursuit or as if in pursuit
 doggo	quietly in concealment
+doggone	a mild expression of annoyance
+doggoned	DOGGONE: a mild expression of annoyance
+doggoner	DOGGONE: more damned
+doggones	DOGGONE: a mild expression of annoyance
+doggonest	DOGGONE: most damned
+doggoning	DOGGONE: a mild expression of annoyance
 doggy	informal terms for dogs
 doghouse	outbuilding that serves as a shelter for a dog
 doghouses	DOGHOUSE: outbuilding that serves as a shelter for a dog
@@ -3626,6 +4054,7 @@ doglegging	DOGLEG: angle that resembles the hind leg of a dog
 doglegs	DOGLEG: angle that resembles the hind leg of a dog
 dogma	a religious doctrine that is proclaimed as true without proof
 dogmas	DOGMA: a religious doctrine that is proclaimed as true without proof
+dogmata	DOGMA: a firmly held belief
 dogmatic	characterized by assertion of unproved or unprovable principles
 dogmatically	in a narrow-minded dogmatic manner
 dogmatism	the intolerance and prejudice of a bigot
@@ -3650,10 +4079,12 @@ doings	manner of acting or controlling yourself
 dolce	gently and sweetly
 doldrums	a state of inactivity (in business or art etc)
 dole	a share of money or food or clothing that has been charitably given
+doled	DOLE: hand out
 doleful	filled with or evoking sadness
 dolefully	with sadness; in a sorrowful manner
 dolefulness	sadness caused by grief or affliction
 doles	DOLE: a share of money or food or clothing that has been charitably given
+doling	DOLE: hand out
 doll	a small replica of a person; used as a toy
 dollar	the basic monetary unit in many countries; equal to 100 cents
 dollars	DOLLAR: the basic monetary unit in many countries; equal to 100 cents
@@ -3662,7 +4093,12 @@ dollhouse	a house so small that it is likened to a child's plaything
 dollhouses	DOLLHOUSE: a house so small that it is likened to a child's plaything
 dollies	DOLLY: conveyance consisting of a wheeled support on which a camera can be mounted
 dolling	DOL: a unit of pain intensity
+dollish	like a doll
+dollishly	in a manner like a doll
+dollishness	the quality of being like a doll
 dollop	a small measure (usually of food)
+dolloped	DOLLOP: put down in a soft lump
+dolloping	DOLLOP: put down in a soft lump
 dollops	DOLLOP: a small measure (usually of food)
 dolls	DOLL: a small replica of a person; used as a toy
 dolly	conveyance consisting of a wheeled support on which a camera can be mounted
@@ -3707,12 +4143,15 @@ dominated	controlled or ruled by superior authority or power
 dominates	DOMINATE: be larger in number, quantity, power, status or importance
 dominating	most powerful or important or influential
 domination	social control by dominating
+dominator	one who rules over others
+dominatrices	DOMINATRIX: a woman who takes the controlling role in sex play
 dominatrix	a dominating woman (especially one who plays that role in a sadomasochistic sexual relationship)
 dominatrixes	DOMINATRIX: a dominating woman (especially one who plays that role in a sadomasochistic sexual relationship)
 domineer	rule or exercise power over (somebody) in a cruel and autocratic manner
 domineered	DOMINEER: rule or exercise power over (somebody) in a cruel and autocratic manner
 domineering	tending to domineer
 domineers	DOMINEER: rule or exercise power over (somebody) in a cruel and autocratic manner
+doming	DOME: covering with a rounded roof
 dominion	dominance or power through legal authority
 dominions	DOMINION: dominance or power through legal authority
 domino	United States rhythm and blues pianist and singer and composer (born in 1928)
@@ -3726,6 +4165,7 @@ donating	DONATE: give to a charity or good cause
 donation	a voluntary gift (as of money or service or ideas) made to some worthwhile cause
 donations	DONATION: a voluntary gift (as of money or service or ideas) made to some worthwhile cause
 done	having finished or arrived at completion
+dongas	DONGA: a dry gully
 dongle	an electronic device that must be attached to a computer in order for it to use protected software
 dongles	DONGLE: an electronic device that must be attached to a computer in order for it to use protected software
 dongs	DONG: the basic unit of money in Vietnam
@@ -3744,21 +4184,30 @@ donut	a small ring-shaped friedcake
 donuts	DONUT: a small ring-shaped friedcake
 doodad	something unspecified whose name is either forgotten or not known
 doodads	DOODAD: something unspecified whose name is either forgotten or not known
+doodah	a thing whose name is forgotten
+doodahs	DOODAH: a thing whose name is forgotten
 doodle	an aimless drawing
 doodlebug	a small motor vehicle
 doodlebugs	DOODLEBUG: a small motor vehicle
 doodled	DOODLE: an aimless drawing
+doodler	one who scribbles absentmindedly
+doodlers	DOODLER: one who scribbles absentmindedly
 doodles	DOODLE: an aimless drawing
 doodling	DOODLE: an aimless drawing
 doofus	a stupid incompetent person
 doofuses	DOOFUS: a stupid incompetent person
 doohickey	something unspecified whose name is either forgotten or not known
 doohickeys	DOOHICKEY: something unspecified whose name is either forgotten or not known
+doolally	crazy
 doom	an unpleasant or disastrous destiny
 doomed	people who are destined to die soon
 dooming	DOOM: an unpleasant or disastrous destiny
 dooms	DOOM: an unpleasant or disastrous destiny
+doomsayer	one who predicts disaster
+doomsayers	DOOMSAYER: one who predicts disaster
 doomsday	day at the end of time following Armageddon when God will decree the fates of all individual humans according to the good and evil of their earthly lives
+doona	a quilt used as a bed cover
+doonas	DOONA: a quilt used as a bed cover
 door	a swinging or sliding barrier that will close the entrance to a room or building or vehicle
 doorbell	a push button at an outer door that gives a ringing or buzzing signal when pushed
 doorbells	DOORBELL: a push button at an outer door that gives a ringing or buzzing signal when pushed
@@ -3786,6 +4235,8 @@ doorstop	a stop that keeps open doors from moving
 doorstops	DOORSTOP: a stop that keeps open doors from moving
 doorway	the entrance (the space in a wall) through which you enter or leave a room or building; the space that a door can close
 doorways	DOORWAY: the entrance (the space in a wall) through which you enter or leave a room or building; the space that a door can close
+doozies	DOOZY: something remarkable
+doozy	something remarkable
 dopamine	a monoamine neurotransmitter found in the brain and essential for the normal functioning of the central nervous system; as a drug (trade names Dopastat and Intropin) it is used to treat shock and hypotension
 dope	street names for marijuana
 doped	treated or impregnated with a foreign substance
@@ -3798,14 +4249,20 @@ doping	DOPE: street names for marijuana
 doppelganger	a ghostly double of a living person that haunts its living counterpart
 doppelgangers	DOPPELGANGER: a ghostly double of a living person that haunts its living counterpart
 dopy	having or revealing stupidity
+dorayaki	a Japanese pancake sandwich filled with sweet red bean
+dorayakis	DORAYAKI: a Japanese pancake sandwich filled with sweet red bean
 dories	DORY: a small boat of shallow draft with cross thwarts for seats and rowlocks for oars with which it is propelled
 dork	a dull stupid fatuous person
+dorkier	DORKY: socially awkward
+dorkiest	DORKY: socially awkward
 dorks	DORK: a dull stupid fatuous person
+dorky	socially awkward
 dorm	a college or university building containing living quarters for students
 dormancy	a state of quiet (but possibly temporary) inaction
 dormant	in a condition of biological rest or suspended animation
 dormer	a gabled extension built out from a sloping roof to accommodate a vertical window
 dormers	DORMER: a gabled extension built out from a sloping roof to accommodate a vertical window
+dormice	DORMOUSE: a small mouse-like rodent that hibernates
 dormitories	DORMITORY: a college or university building containing living quarters for students
 dormitory	a college or university building containing living quarters for students
 dormouse	small furry-tailed squirrel-like Old World rodent that becomes torpid in cold weather
@@ -3820,6 +4277,7 @@ dosages	DOSAGE: the quantity of an active agent (substance or radiation) taken i
 dose	a measured portion of medicine taken at any one time
 dosed	treated with some kind of application
 doses	DOSE: a measured portion of medicine taken at any one time
+dosh	money
 dosimeter	a measuring instrument for measuring doses of ionizing radiation (X-rays or radioactivity)
 dosimeters	DOSIMETER: a measuring instrument for measuring doses of ionizing radiation (X-rays or radioactivity)
 dosimetry	measuring the dose of radiation emitted by a radioactive source
@@ -3834,11 +4292,15 @@ dosshouses	DOSSHOUSE: a cheap lodging house
 dossier	a collection of papers containing detailed information about a particular person or subject (usually a person's record)
 dossiers	DOSSIER: a collection of papers containing detailed information about a particular person or subject (usually a person's record)
 dossing	DOS: the federal department in the United States that sets and maintains foreign policies
+dost	DO: an old form meaning 'you do'
 dot	a very small circular shape
 dotage	mental infirmity as a consequence of old age; sometimes shown by foolish infatuations
+dotcom	a company that does business on the internet
+dotcoms	DOTCOM: a company that does business on the internet
 dote	be foolish or senile due to old age
 doted	DOT: a very small circular shape
 dotes	DOT: a very small circular shape
+doth	DO: an old form meaning 'does'
 doting	DOT: a very small circular shape
 dotingly	in a doting way
 dots	DOT: a very small circular shape
@@ -3854,10 +4316,13 @@ doubleheaders	DOUBLEHEADER: two games instead of one (especially in baseball whe
 doubles	DOUBLE: increase twofold
 doublespeak	any language that pretends to communicate but actually does not
 doublet	a man's close-fitting jacket; worn during the Renaissance
+doubletalk	deliberately confusing speech
 doubleton	a pair of playing cards that are the only cards in their suit in the hand dealt to a player
 doubletons	DOUBLETON: a pair of playing cards that are the only cards in their suit in the hand dealt to a player
 doubletree	a crossbar on a wagon or carriage to which two whiffletrees are attached in order to harness two horses abreast
 doublets	DOUBLET: a man's close-fitting jacket; worn during the Renaissance
+doublewide	a large mobile home
+doublewides	DOUBLEWIDE: a large mobile home
 doubling	DOUBLE: increase twofold
 doubloon	a former Spanish gold coin
 doubloons	DOUBLOON: a former Spanish gold coin
@@ -3883,6 +4348,9 @@ doughiest	DOUGHY: having the consistency of dough because of insufficient leaven
 doughnut	a toroidal shape
 doughnuts	DOUGHNUT: a toroidal shape
 doughs	DOUGH: a flour mixture stiff enough to knead or roll
+doughtier	DOUGHTY: brave and determined
+doughtiest	DOUGHTY: brave and determined
+doughty	brave and determined
 doughy	having the consistency of dough because of insufficient leavening or improper cooking
 doula	an assistant (often the father of the soon-to-be-born child) who provides support for a woman in labor by encouraging her to use techniques learned in childbirth-preparation classes
 doulas	DOULA: an assistant (often the father of the soon-to-be-born child) who provides support for a woman in labor by encouraging her to use techniques learned in childbirth-preparation classes
@@ -3895,8 +4363,10 @@ doused	DOUSE: put out, as of a candle or a light
 douses	DOUSE: put out, as of a candle or a light
 dousing	the act of wetting something by submerging it
 dove	any of numerous small pigeons
+dovecot	a shelter for pigeons
 dovecote	a birdhouse for pigeons
-dovecotes	DOVECOTE: a birdhouse for pigeons
+dovecotes	DOVECOT: a shelter for pigeons
+dovecots	DOVECOT: a shelter for pigeons
 dovekie	small short-billed auk abundant in Arctic regions
 dovekies	DOVEKIE: small short-billed auk abundant in Arctic regions
 doves	DOVE: any of numerous small pigeons
@@ -3914,6 +4384,7 @@ dowdily	in a dowdy unfashionable manner
 dowdiness	having a drab or dowdy quality; lacking stylishness or elegance
 dowdy	British marshal of the RAF who commanded the British air defense forces that defeated the Luftwaffe during the Battle of Britain (1882-1970)
 dowel	a fastener that is inserted into holes in two adjacent pieces and holds them together
+doweled	DOWEL: fastened with pegs
 doweling	fastening by dowels
 dowelled	DOWEL: a fastener that is inserted into holes in two adjacent pieces and holds them together
 dowelling	DOWEL: a fastener that is inserted into holes in two adjacent pieces and holds them together
@@ -3940,22 +4411,35 @@ downhills	DOWNHILL: sloping down rather steeply
 downier	DOWNY: like down or as soft as down
 downiest	DOWNY: like down or as soft as down
 downing	DOWN: being or moving lower in position or less in some value
+downlighter	a light fitting recessed in a ceiling
+downlighters	DOWNLIGHTER: a light fitting recessed in a ceiling
 download	transfer a file or program from a central computer to a smaller computer or to a computer at a remote location
+downloadable	able to be copied from the internet
 downloaded	DOWNLOAD: transfer a file or program from a central computer to a smaller computer or to a computer at a remote location
 downloading	DOWNLOAD: transfer a file or program from a central computer to a smaller computer or to a computer at a remote location
 downloads	DOWNLOAD: transfer a file or program from a central computer to a smaller computer or to a computer at a remote location
 downmarket	designed for low-income consumers
+downpayment	a first payment made when buying something
+downpayments	DOWNPAYMENT: a first payment made when buying something
+downpipe	a pipe carrying rainwater from a roof
+downpipes	DOWNPIPE: a pipe carrying rainwater from a roof
 downplay	represent as less significant or important
 downplayed	DOWNPLAY: represent as less significant or important
 downplaying	DOWNPLAY: represent as less significant or important
 downplays	DOWNPLAY: represent as less significant or important
 downpour	a heavy rain
 downpours	DOWNPOUR: a heavy rain
+downrange	in the direction of the target
 downright	thoroughgoing
 downriver	away from the source or with the current
 downs	DOWN: being or moving lower in position or less in some value
 downscale	intended for people with low incomes
+downscaled	DOWNSCALE: reduce in size
+downscales	DOWNSCALE: reduce in size
+downscaling	DOWNSCALE: reduce in size
 downshift	a change from a financially rewarding but stressful career to a less well paid but more fulfilling one
+downshifted	DOWNSHIFT: change to a lower gear
+downshifting	DOWNSHIFT: change to a lower gear
 downshifts	DOWNSHIFT: a change from a financially rewarding but stressful career to a less well paid but more fulfilling one
 downside	a negative aspect of something that is generally positive
 downsides	DOWNSIDE: a negative aspect of something that is generally positive
@@ -3963,14 +4447,20 @@ downsize	dismiss from work
 downsized	DOWNSIZE: dismiss from work
 downsizes	DOWNSIZE: dismiss from work
 downsizing	the reduction of expenditures in order to become financially stable
+downspout	a pipe carrying rainwater from a roof
+downspouts	DOWNSPOUT: a pipe carrying rainwater from a roof
 downstage	the front half of the stage (as seen from the audience)
 downstairs	on a floor below
+downstate	in the southern part of a state
 downstream	away from the source or with the current
 downswing	a swing downward of a golf club
 downswings	DOWNSWING: a swing downward of a golf club
+downtempo	music played at a slow pace
 downtime	a period of time when something (as a machine or factory) is not operating (especially as a result of malfunctions)
 downtown	the central area or commercial center of a town or city
 downtowns	DOWNTOWN: the central area or commercial center of a town or city
+downtrend	a gradual decline
+downtrends	DOWNTREND: a gradual decline
 downtrodden	abused or oppressed by people in power
 downturn	a worsening of business or economic activity
 downturns	DOWNTURN: a worsening of business or economic activity
@@ -3987,6 +4477,7 @@ dowser	someone who uses a divining rod to find underground water
 dowsers	DOWSER: someone who uses a divining rod to find underground water
 dowses	DOWSE: searching for underground water or minerals by using a dowsing rod
 dowsing	searching for underground water or minerals by using a dowsing rod
+doxological	relating to a hymn of praise
 doxologies	DOXOLOGY: a hymn or verse in Christian liturgy glorifying God
 doxology	a hymn or verse in Christian liturgy glorifying God
 doyen	a man who is the senior member of a group
@@ -4007,10 +4498,13 @@ dozy	half asleep
 drab	lacking in liveliness or charm or surprise
 drabber	DRAB: lacking in liveliness or charm or surprise
 drabbest	DRAB: lacking in liveliness or charm or surprise
+drabble	a very short story of exactly one hundred words
 drably	in a drab manner
 drabness	having a drab or dowdy quality; lacking stylishness or elegance
 drabs	DRAB: lacking in liveliness or charm or surprise
 drachma	a unit of apothecary weight equal to an eighth of an ounce or to 60 grains
+drachmae	DRACHMA: the former currency of Greece
+drachmai	DRACHMA: the former currency of Greece
 drachmas	DRACHMA: a unit of apothecary weight equal to an eighth of an ounce or to 60 grains
 draconian	of or relating to Draco or his harsh code of laws
 draft	a document ordering the payment of money; drawn by one person or bank on another
@@ -4027,6 +4521,8 @@ drafts	DRAFT: a document ordering the payment of money; drawn by one person or b
 draftsman	a skilled worker who draws plans of buildings or machines
 draftsmanship	the creation of artistic pictures or diagrams
 draftsmen	DRAFTSMAN: a skilled worker who draws plans of buildings or machines
+draftswoman	a woman who draws plans
+draftswomen	DRAFTSWOMAN: a woman who draws plans
 drafty	not airtight
 drag	pull, as against a resistance
 dragee	silvery candy beads used for decorating cakes
@@ -4044,11 +4540,15 @@ dragooned	DRAGOON: a member of a European military unit formerly composed of hea
 dragooning	DRAGOON: a member of a European military unit formerly composed of heavily armed cavalrymen
 dragoons	DRAGOON: a member of a European military unit formerly composed of heavily armed cavalrymen
 drags	DRAG: pull, as against a resistance
+dragster	a car built for short, fast straight-line races
+dragsters	DRAGSTER: a car built for short, fast straight-line races
 drain	flow off gradually
 drainage	emptying something accomplished by allowing liquid to run out of it
 drainboard	a board beside a kitchen sink and inclined to drain into the sink
 drainboards	DRAINBOARD: a board beside a kitchen sink and inclined to drain into the sink
 drained	DRAIN: flow off gradually
+drainer	a rack for draining dishes
+drainers	DRAINER: a rack for draining dishes
 draining	DRAIN: flow off gradually
 drainpipe	a pipe through which liquid is carried away
 drainpipes	DRAINPIPE: a pipe through which liquid is carried away
@@ -4087,16 +4587,28 @@ drapes	DRAPE: arrange in a particular way
 draping	DRAPE: arrange in a particular way
 drastic	forceful and extreme and rigorous
 drastically	in a drastic manner
+drat	a mild exclamation of annoyance
+drats	DRAT: a mild exclamation of annoyance
+dratted	DRAT: a mild exclamation of annoyance
+dratting	DRAT: a mild exclamation of annoyance
 draught	a serving of drink (usually alcoholic) drawn from a keg
+draughtboard	a chequered board for playing draughts
+draughtboards	DRAUGHTBOARD: a chequered board for playing draughts
 draughted	DRAUGHT: a serving of drink (usually alcoholic) drawn from a keg
 draughtier	DRAUGHTY: not airtight
 draughtiest	DRAUGHTY: not airtight
+draughtily	in a way that lets in cold air
 draughtiness	the quality of being draughty
 draughting	DRAUGHT: a serving of drink (usually alcoholic) drawn from a keg
 draughts	DRAUGHT: a serving of drink (usually alcoholic) drawn from a keg
 draughtsman	a skilled worker who draws plans of buildings or machines
+draughtsmanship	skill in drawing
 draughtsmen	DRAUGHTSMAN: a skilled worker who draws plans of buildings or machines
+draughtswoman	a woman who draws plans
+draughtswomen	DRAUGHTSWOMAN: a woman who draws plans
 draughty	not airtight
+draugr	a restless undead corpse in Norse legend
+draugrs	DRAUGR: a restless undead corpse in Norse legend
 draw	cause to move by pulling
 drawback	the quality of being a hindrance
 drawbacks	DRAWBACK: the quality of being a hindrance
@@ -4133,6 +4645,8 @@ dreadnought	battleship that has big guns all of the same caliber
 dreadnoughts	DREADNOUGHT: battleship that has big guns all of the same caliber
 dreads	DREAD: fearful expectation or anticipation
 dream	a series of mental images and emotions occurring during sleep
+dreamboat	an extremely attractive person
+dreamboats	DREAMBOAT: an extremely attractive person
 dreamed	conceived of or imagined or hoped for
 dreamer	someone who is dreaming
 dreamers	DREAMER: someone who is dreaming
@@ -4163,8 +4677,12 @@ dredgers	DREDGER: a barge (or a vessel resembling a barge) that is used for dred
 dredges	DREDGE: a power shovel to remove material from a channel or riverbed
 dredging	DREDGE: a power shovel to remove material from a channel or riverbed
 dregs	sediment that has settled at the bottom of a liquid
+dreidel	a four-sided spinning top used at Hanukkah
+dreidels	DREIDEL: a four-sided spinning top used at Hanukkah
 drench	drench or submerge or be drenched or submerged
 drenched	abundantly covered or supplied with; often used in combination
+drencher	a heavy downpour
+drenchers	DRENCHER: a heavy downpour
 drenches	DRENCH: drench or submerge or be drenched or submerged
 drenching	the act of making something completely wet
 dress	put on clothes
@@ -4189,6 +4707,7 @@ dribbler	a basketball player who is dribbling the ball to advance it
 dribblers	DRIBBLER: a basketball player who is dribbling the ball to advance it
 dribbles	DRIBBLE: run or flow slowly, as in drops or in an unsteady stream
 dribbling	DRIBBLE: run or flow slowly, as in drops or in an unsteady stream
+dribbly	tending to drip or dribble
 driblet	a small indefinite quantity (especially of a liquid)
 driblets	DRIBLET: a small indefinite quantity (especially of a liquid)
 dried	not still wet
@@ -4204,8 +4723,11 @@ drifting	DRIFT: be in motion due to some air or water current
 driftingly	in a drifting way
 drifts	DRIFT: be in motion due to some air or water current
 driftwood	wood that is floating or that has been washed ashore
+drifty	tending to be blown into drifts
 drill	make a hole, especially with a pointed power or hand tool
 drilled	trained in a skill by repetitious practice
+driller	one who bores holes
+drillers	DRILLER: one who bores holes
 drilling	DRILL: make a hole, especially with a pointed power or hand tool
 drills	DRILL: make a hole, especially with a pointed power or hand tool
 drily	in a dry laconic manner
@@ -4219,15 +4741,20 @@ drinks	DRINK: take in liquids
 drip	fall in drops
 dripped	DRIP: fall in drops
 dripper	DRIP: fall in drops
+drippers	DRIPPER: a device that releases liquid in drops
 drippier	DRIPPY: wet with light rain
 drippiest	DRIPPY: wet with light rain
 dripping	DRIP: fall in drops
 drippings	fat that exudes from meat and drips off while it is being roasted or fried
 drippy	wet with light rain
 drips	DRIP: fall in drops
+drivable	able to be driven
 drive	operate or control a vehicle
 drivel	a worthless message
 driveled	DRIVEL: a worthless message
+driveler	one who talks nonsense
+drivelers	DRIVELER: one who talks nonsense
+driveline	the parts that carry power from engine to wheels
 driveling	DRIVEL: a worthless message
 drivelled	DRIVEL: a worthless message
 driveller	someone whose talk is trivial drivel
@@ -4241,6 +4768,8 @@ drivers	DRIVER: the operator of a motor vehicle
 drives	DRIVE: operate or control a vehicle
 driveshaft	a rotating shaft that transmits power from the engine to the point of application
 driveshafts	DRIVESHAFT: a rotating shaft that transmits power from the engine to the point of application
+drivetime	the hours when people commute by car
+drivetrain	the parts that carry power from engine to wheels
 driveway	a road leading up to a private house
 driveways	DRIVEWAY: a road leading up to a private house
 driving	having the power of driving or impelling
@@ -4250,26 +4779,36 @@ drizzled	DRIZZLE: very light rain; stronger than mist but less than a shower
 drizzles	DRIZZLE: very light rain; stronger than mist but less than a shower
 drizzling	(of rain) falling lightly in very small drops
 drizzly	wet with light rain
+droid	a robot
+droids	DROID: a robot
 droll	comical in an odd or whimsical manner
 droller	DROLL: comical in an odd or whimsical manner
 drolleries	DROLLERY: a comic incident or series of incidents
 drollery	a comic incident or series of incidents
 drollest	DROLL: comical in an odd or whimsical manner
 drollness	the quality of being droll
+drolly	in an amusingly odd way
 dromedaries	DROMEDARY: one-humped camel of the hot deserts of northern Africa and southwestern Asia
 dromedary	one-humped camel of the hot deserts of northern Africa and southwestern Asia
 drone	stingless male bee in a colony of social bees (especially honeybees) whose sole function is to mate with the queen
 droned	DRONE: stingless male bee in a colony of social bees (especially honeybees) whose sole function is to mate with the queen
+droner	one that makes a steady humming sound
+droners	DRONER: one that makes a steady humming sound
 drones	DRONE: stingless male bee in a colony of social bees (especially honeybees) whose sole function is to mate with the queen
+drongo	a fool
+drongos	DRONGO: a fool
 droning	DRONE: stingless male bee in a colony of social bees (especially honeybees) whose sole function is to mate with the queen
 drool	pretentious or silly talk or writing
 drooled	DROOL: pretentious or silly talk or writing
+droolier	DROOLY: dribbling saliva
+drooliest	DROOLY: dribbling saliva
 drooling	DROOL: pretentious or silly talk or writing
 drools	DROOL: pretentious or silly talk or writing
 droop	droop, sink, or settle from or as if from pressure or loss of tautness
 drooped	DROOP: droop, sink, or settle from or as if from pressure or loss of tautness
 droopier	DROOPY: hanging down (as from exhaustion or weakness)
 droopiest	DROOPY: hanging down (as from exhaustion or weakness)
+droopily	in a limp, hanging way
 droopiness	the quality of being droopy
 drooping	DROOP: droop, sink, or settle from or as if from pressure or loss of tautness
 droopingly	in a drooping manner
@@ -4293,6 +4832,7 @@ dross	worthless or dangerous material that should be removed
 drought	a shortage of rainfall
 droughts	DROUGHT: a shortage of rainfall
 drouth	a prolonged shortage
+drouthes	DROUTH: a long dry spell
 drouths	DROUTH: a prolonged shortage
 drove	DRIVE: operate or control a vehicle
 drover	someone who drives a herd
@@ -4300,7 +4840,10 @@ drovers	DROVER: someone who drives a herd
 droves	DROVE: a group of animals (a herd or flock) moving together
 drown	cover completely or make imperceptible
 drowned	DROWN: cover completely or make imperceptible
+drowner	one who submerges
+drowners	DROWNER: one who submerges
 drowning	DROWN: cover completely or make imperceptible
+drownings	DROWNING: death by suffocation in water
 drowns	DROWN: cover completely or make imperceptible
 drowse	sleep lightly or for a short period of time
 drowsed	DROWSE: sleep lightly or for a short period of time
@@ -4324,13 +4867,17 @@ drudges	DRUDGE: one who works hard at boring tasks
 drudging	doing arduous or unpleasant work
 drug	a substance that is used as a medicine or narcotic
 drugged	under the influence of narcotics
+druggie	a drug user
+druggies	DRUGGIE: a drug user
 drugging	the administration of a sedative agent or drug
 druggist	a health professional trained in the art of preparing and dispensing drugs
 druggists	DRUGGIST: a health professional trained in the art of preparing and dispensing drugs
+druggy	a drug user
 drugs	DRUG: a substance that is used as a medicine or narcotic
 drugstore	a retail shop where medicine and other articles are sold
 drugstores	DRUGSTORE: a retail shop where medicine and other articles are sold
 druid	a pre-Christian priest among the Celts of ancient Gaul and Britain and Ireland
+druidic	relating to ancient Celtic priests
 druidism	the system of religion and philosophy taught by the Druids and their rites and ceremonies
 druidisms	DRUIDISM: the system of religion and philosophy taught by the Druids and their rites and ceremonies
 druids	DRUID: a pre-Christian priest among the Celts of ancient Gaul and Britain and Ireland
@@ -4343,6 +4890,8 @@ drummed	DRUM: a musical percussion instrument; usually consists of a hollow cyli
 drummer	someone who plays a drum
 drummers	DRUMMER: someone who plays a drum
 drumming	DRUM: a musical percussion instrument; usually consists of a hollow cylinder with a membrane stretched across each end
+drumroll	a rapid series of drum beats
+drumrolls	DRUMROLL: a rapid series of drum beats
 drums	DRUM: a musical percussion instrument; usually consists of a hollow cylinder with a membrane stretched across each end
 drumstick	the lower joint of the leg of a fowl
 drumsticks	DRUMSTICK: the lower joint of the leg of a fowl
@@ -4391,7 +4940,11 @@ duck	to move (the head or body) quickly downwards or away
 duckbill	primitive fish of the Mississippi valley having a long paddle-shaped snout
 duckbills	DUCKBILL: primitive fish of the Mississippi valley having a long paddle-shaped snout
 ducked	DUCK: to move (the head or body) quickly downwards or away
+ducker	one who ducks
+duckers	DUCKER: one who ducks
+duckier	DUCKY: very nice
 duckies	DUCKY: a special loved one
+duckiest	DUCKY: very nice
 ducking	hunting ducks
 duckling	flesh of a young domestic duck
 ducklings	DUCKLING: flesh of a young domestic duck
@@ -4401,12 +4954,16 @@ ducky	a special loved one
 duct	a bodily passage or tube lined with epithelial cells and conveying a secretion or other substance
 ductile	easily influenced
 ductility	the malleability of something that can be drawn into threads or wires or hammered into thin sheets
+ducting	a system of pipes for air
 ductless	not having a duct
 ducts	DUCT: a bodily passage or tube lined with epithelial cells and conveying a secretion or other substance
+ductwork	a system of pipes for air
 dud	someone who is unsuccessful
 dude	an informal form of address for a man
+duded	DUDE: dressed up
 dudes	DUDE: an informal form of address for a man
 dudgeon	a feeling of intense indignation (now used only in the phrase `in high dudgeon')
+duding	DUDE: dressing up
 duds	informal terms for clothing
 due	owed and payable immediately or on demand
 duel	a prearranged fight with deadly weapons by two people (accompanied by seconds) in order to settle a quarrel over a point of honor
@@ -4420,23 +4977,33 @@ duelled	DUEL: a prearranged fight with deadly weapons by two people (accompanied
 dueller	DUEL: a prearranged fight with deadly weapons by two people (accompanied by seconds) in order to settle a quarrel over a point of honor
 duellers	DUELLER: a person who fights duels
 duelling	DUEL: a prearranged fight with deadly weapons by two people (accompanied by seconds) in order to settle a quarrel over a point of honor
+duellings	DUELLING: fighting in a formal combat
 duellist	a person who fights duels
 duellists	DUELLIST: a person who fights duels
 duels	DUEL: a prearranged fight with deadly weapons by two people (accompanied by seconds) in order to settle a quarrel over a point of honor
 dues	DUE: owed and payable immediately or on demand
 duet	two items of the same kind
 duets	DUET: two items of the same kind
+duettist	one who sings or plays in a duet
+duettists	DUETTIST: one who sings or plays in a duet
 duff	a stiff flour pudding steamed or boiled usually and containing e.g. currants and raisins and citron
+duffed	DUFF: hit badly
 duffel	a large cylindrical bag of heavy cloth; for carrying personal belongings
 duffer	an incompetent or clumsy person
 duffers	DUFFER: an incompetent or clumsy person
+duffing	DUFF: hit badly
 duffle	a large cylindrical bag of heavy cloth; for carrying personal belongings
 duffs	DUFF: a stiff flour pudding steamed or boiled usually and containing e.g. currants and raisins and citron
 dug	DIG: turn up, loosen, or remove earth
+dugite	a venomous Australian snake
+dugites	DUGITE: a venomous Australian snake
 dugong	sirenian tusked mammal found from eastern Africa to Australia; the flat tail is bilobate
 dugongs	DUGONG: sirenian tusked mammal found from eastern Africa to Australia; the flat tail is bilobate
 dugout	either of two low shelters on either side of a baseball diamond where the players and coaches sit during the game
 dugouts	DUGOUT: either of two low shelters on either side of a baseball diamond where the players and coaches sit during the game
+duh	an exclamation used when something is obvious
+duiker	a small African antelope
+duikers	DUIKER: a small African antelope
 duke	a British peer of the highest rank
 dukedom	the dignity or rank or position of a duke
 dukedoms	DUKEDOM: the dignity or rank or position of a duke
@@ -4454,6 +5021,7 @@ dulling	DULL: lacking in liveliness or animation
 dullness	the quality of being slow to understand
 dulls	DULL: lacking in liveliness or animation
 dully	without liveliness
+dulness	dullness
 duly	in accordance with what is appropriate or suitable for the circumstances
 dumb	slow to learn or understand; lacking intellectual acuity
 dumbbell	an exercising weight; two spheres connected by a short bar that serves as a handle
@@ -4471,8 +5039,10 @@ dumbwaiter	a small elevator used to convey food (or other goods) from one floor 
 dumbwaiters	DUMBWAITER: a small elevator used to convey food (or other goods) from one floor of a building to another
 dumdum	a soft-nosed small-arms bullet that expands when it hits a target and causes a gaping wound
 dumdums	DUMDUM: a soft-nosed small-arms bullet that expands when it hits a target and causes a gaping wound
+dumfound	astonish
 dumfounded	as if struck dumb with astonishment and surprise
-dumfounding	bewildering or striking dumb with wonder
+dumfounding	DUMFOUND: astonish
+dumfounds	DUMFOUND: astonish
 dummies	DUMMY: a person who does not talk
 dummy	a person who does not talk
 dump	throw away as refuse
@@ -4491,6 +5061,7 @@ dun	horse of a dull brownish grey color
 dunce	a stupid person; these words are used to express a low opinion of someone's intelligence
 dunces	DUNCE: a stupid person; these words are used to express a low opinion of someone's intelligence
 dunderhead	a stupid person; these words are used to express a low opinion of someone's intelligence
+dunderheaded	stupid
 dunderheads	DUNDERHEAD: a stupid person; these words are used to express a low opinion of someone's intelligence
 dune	a ridge of sand created by the wind; found in deserts or near lakes and oceans
 dunes	DUNE: a ridge of sand created by the wind; found in deserts or near lakes and oceans
@@ -4499,6 +5070,7 @@ dungaree	a coarse durable twill-weave cotton fabric
 dungarees	DUNGAREE: a coarse durable twill-weave cotton fabric
 dunged	DUNG: fecal matter of animals
 dungeon	the main tower within the walls of a medieval castle or fortress
+dungeoned	DUNGEON: shut in a dark underground cell
 dungeons	DUNGEON: the main tower within the walls of a medieval castle or fortress
 dunging	DUNG: fecal matter of animals
 dungs	DUNG: fecal matter of animals
@@ -4510,16 +5082,26 @@ dunking	DUNK: immerse briefly into a liquid so as to wet, coat, or saturate
 dunks	DUNK: immerse briefly into a liquid so as to wet, coat, or saturate
 dunlin	small common sandpiper that breeds in northern or Arctic regions and winters in southern United States or Mediterranean regions
 dunlins	DUNLIN: small common sandpiper that breeds in northern or Arctic regions and winters in southern United States or Mediterranean regions
+dunnart	a small mouselike Australian marsupial
+dunnarts	DUNNART: a small mouselike Australian marsupial
 dunned	DUN: horse of a dull brownish grey color
 dunner	DUN: horse of a dull brownish grey color
 dunnest	DUN: horse of a dull brownish grey color
+dunnies	DUNNY: an outdoor toilet
 dunning	DUN: horse of a dull brownish grey color
+dunno	do not know
+dunny	an outdoor toilet
 duns	DUN: horse of a dull brownish grey color
 duo	two items of the same kind
+duodena	DUODENUM: the first part of the small intestine
 duodenal	in or relating to the duodenum
 duodenum	the part of the small intestine between the stomach and the jejunum
 duodenums	DUODENUM: the part of the small intestine between the stomach and the jejunum
+duopolies	DUOPOLY: a market controlled by two sellers
+duopoly	a market controlled by two sellers
 duos	DUO: two items of the same kind
+dupatta	a long scarf worn by women in South Asia
+dupattas	DUPATTA: a long scarf worn by women in South Asia
 dupe	fool or hoax
 duped	DUPE: fool or hoax
 dupes	DUPE: fool or hoax
@@ -4539,13 +5121,16 @@ duplicity	a fraudulent or duplicitous representation
 durability	permanence by virtue of the power to resist stress or force
 durable	existing for a long time
 durables	consumer goods that are not destroyed by use
+durably	in a long-lasting way
 duration	the period of time during which something continues
 durations	DURATION: the period of time during which something continues
 duress	compulsory force or threat
 durian	tree of southeastern Asia having edible oval fruit with a hard spiny rind
+during	throughout the course of
 dusk	the time of day immediately following sunset
 duskier	DUSKY: lighted by or as if by twilight
 duskiest	DUSKY: lighted by or as if by twilight
+duskily	in a dim or darkish way
 duskiness	the state of being poorly illuminated
 dusking	DUSK: the time of day immediately following sunset
 dusks	DUSK: the time of day immediately following sunset
@@ -4560,14 +5145,18 @@ duster	a windstorm that lifts up clouds of dust or sand
 dusters	DUSTER: a windstorm that lifts up clouds of dust or sand
 dustier	DUSTY: covered with a layer of dust
 dustiest	DUSTY: covered with a layer of dust
+dustily	in a dusty manner
 dustiness	the state of being covered with dust
 dusting	DUST: fine powdery material such as dry earth or pollen that can be blown about in the air
+dustings	DUSTING: a light covering of powder
 dustless	without dust
 dustman	someone employed to collect and dispose of refuse
 dustmen	DUSTMAN: someone employed to collect and dispose of refuse
 dustpan	the quantity that a dustpan will hold
 dustpans	DUSTPAN: the quantity that a dustpan will hold
 dusts	DUST: fine powdery material such as dry earth or pollen that can be blown about in the air
+dustsheet	a cloth that protects furniture from dust
+dustsheets	DUSTSHEET: a cloth that protects furniture from dust
 dustup	an angry dispute
 dustups	DUSTUP: an angry dispute
 dusty	covered with a layer of dust
@@ -4586,6 +5175,7 @@ dwarfing	DWARF: a person who is markedly small
 dwarfish	atypically small
 dwarfism	a genetic abnormality resulting in short stature
 dwarfs	DWARF: a person who is markedly small
+dwarves	DWARF: a very small person or creature
 dweeb	an insignificant student who is ridiculed as being affected or boringly studious
 dweebs	DWEEB: an insignificant student who is ridiculed as being affected or boringly studious
 dwell	think moodily or anxiously about something
@@ -4595,6 +5185,7 @@ dwellers	DWELLER: a person who inhabits a particular place
 dwelling	housing that someone is living in
 dwellings	DWELLING: housing that someone is living in
 dwells	DWELL: think moodily or anxiously about something
+dwelt	DWELL: live in a place
 dwindle	become smaller or lose substance
 dwindled	DWINDLE: become smaller or lose substance
 dwindles	DWINDLE: become smaller or lose substance
@@ -4645,6 +5236,7 @@ dysphoric	generalized feeling of distress
 dysplasia	abnormal development (of organs or cells) or an abnormal structure resulting from such growth
 dyspnea	difficult or labored respiration
 dyspnoea	difficult or labored respiration
+dystonia	a disorder of involuntary muscle contractions
 dystopia	state in which the conditions of life are extremely bad as from deprivation or oppression or terror
 dystopian	of or pertaining to or resembling a dystopia
 dystopias	DYSTOPIA: state in which the conditions of life are extremely bad as from deprivation or oppression or terror

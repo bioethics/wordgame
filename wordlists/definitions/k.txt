@@ -1,7 +1,14 @@
 kabob	cubes of meat marinated and cooked on a skewer usually with vegetables
 kabobs	KABOB: cubes of meat marinated and cooked on a skewer usually with vegetables
+kaboom	sound of a sudden explosion
+kabuki	traditional Japanese theatre with stylised acting
+kaffeeklatsch	an informal social gathering over coffee
+kaffeeklatsches	KAFFEEKLATSCH: an informal social gathering over coffee
 kaftan	a woman's dress style that imitates the caftan cloaks worn by men in the Near East
 kaftans	KAFTAN: a woman's dress style that imitates the caftan cloaks worn by men in the Near East
+kahuna	an important or powerful person
+kahunas	KAHUNA: an important or powerful person
+kaizen	a philosophy of continuous gradual improvement
 kale	informal terms for money
 kaleidoscope	a complex pattern of constantly changing colors and shapes
 kaleidoscopes	KALEIDOSCOPE: a complex pattern of constantly changing colors and shapes
@@ -12,6 +19,7 @@ kamikaze	a fighter plane used for suicide missions by Japanese pilots in World W
 kamikazes	KAMIKAZE: a fighter plane used for suicide missions by Japanese pilots in World War II
 kangaroo	any of several herbivorous leaping marsupials of Australia and New Guinea having large powerful hind legs and a long thick tail
 kangaroos	KANGAROO: any of several herbivorous leaping marsupials of Australia and New Guinea having large powerful hind legs and a long thick tail
+kanji	Chinese characters used in Japanese writing
 kaolin	a fine usually white clay formed by the weathering of aluminous minerals (as feldspar); used in ceramics and as an absorbent and as a filler (e.g., in paper)
 kapok	a plant fiber from the kapok tree; used for stuffing and insulation
 kappa	the 10th letter of the Greek alphabet
@@ -24,26 +32,39 @@ karat	the unit of measurement for the proportion of gold in an alloy; 18-karat g
 karate	a traditional Japanese system of unarmed combat; sharp blows and kicks are given to pressure-sensitive points on the body of the opponent
 karats	KARAT: the unit of measurement for the proportion of gold in an alloy; 18-karat gold is 75% gold; 24-karat gold is pure gold
 karma	the effects of a person's actions that determine his destiny in his next incarnation
+karmic	relating to the effects of one's actions on one's fate
+kart	a small low racing vehicle
+karts	KART: a small low racing vehicle
 karyotype	the appearance of the chromosomal makeup of a somatic cell in an individual or species (including the number and arrangement and size and structure of the chromosomes)
+katakana	a Japanese syllabic script used mainly for foreign words
 katydid	large green long-horned grasshopper of North America; males produce shrill sounds by rubbing together special organs on the forewings
 katydids	KATYDID: large green long-horned grasshopper of North America; males produce shrill sounds by rubbing together special organs on the forewings
 kayak	a small canoe consisting of a light frame made watertight with animal skins; used by Eskimos
 kayaked	KAYAK: a small canoe consisting of a light frame made watertight with animal skins; used by Eskimos
+kayaker	a person who paddles a kayak
+kayakers	KAYAKER: a person who paddles a kayak
 kayaking	KAYAK: a small canoe consisting of a light frame made watertight with animal skins; used by Eskimos
 kayaks	KAYAK: a small canoe consisting of a light frame made watertight with animal skins; used by Eskimos
 kazoo	a toy wind instrument that has a membrane that makes a sound when you hum into the mouthpiece
 kazoos	KAZOO: a toy wind instrument that has a membrane that makes a sound when you hum into the mouthpiece
 kebab	cubes of meat marinated and cooked on a skewer usually with vegetables
 kebabs	KEBAB: cubes of meat marinated and cooked on a skewer usually with vegetables
+kebob	KEBAB: pieces of meat grilled on a skewer
+kebobs	KEBOB: KEBAB: pieces of meat grilled on a skewer
 kedgeree	a dish of rice and hard-boiled eggs and cooked flaked fish
 keel	a projection or ridge that suggests a keel
 keelboat	river boat with a shallow draught and a keel but no sails; used to carry freight; moved by rowing or punting or towing
 keeled	having a ridge or shaped like a ridge or suggesting the keel of a ship
+keelhaul	punish by dragging under a ship's keel
+keelhauled	KEELHAUL: punish by dragging under a ship's keel
+keelhauling	KEELHAUL: punish by dragging under a ship's keel
+keelhauls	KEELHAUL: punish by dragging under a ship's keel
 keeling	KEEL: a projection or ridge that suggests a keel
 keels	KEEL: a projection or ridge that suggests a keel
 keen	having or demonstrating ability to recognize or draw fine distinctions
 keened	KEEN: having or demonstrating ability to recognize or draw fine distinctions
 keener	KEEN: having or demonstrating ability to recognize or draw fine distinctions
+keeners	KEENER: a person who is very eager
 keenest	KEEN: having or demonstrating ability to recognize or draw fine distinctions
 keening	KEEN: having or demonstrating ability to recognize or draw fine distinctions
 keenly	in a keen or penetrating way
@@ -58,6 +79,7 @@ keepsake	something of sentimental value
 keepsakes	KEEPSAKE: something of sentimental value
 keg	the quantity contained in a keg
 kegger	KEG: the quantity contained in a keg
+keggers	KEGGER: a party where beer is served from kegs
 kegs	KEG: the quantity contained in a keg
 kelp	large brown seaweeds having fluted leathery fronds
 kelpie	water spirit in the form of a horse that likes to drown its riders
@@ -65,6 +87,7 @@ kelpies	KELPIE: water spirit in the form of a horse that likes to drown its ride
 kelvin	the basic unit of thermodynamic temperature adopted under the Systeme International d'Unites
 kelvins	KELVIN: the basic unit of thermodynamic temperature adopted under the Systeme International d'Unites
 ken	range of what one can know or understand
+kendo	Japanese fencing with bamboo swords
 kenned	KEN: range of what one can know or understand
 kennel	outbuilding that serves as a shelter for a dog
 kenneled	KENNEL: outbuilding that serves as a shelter for a dog
@@ -79,9 +102,14 @@ kept	KEEP: cause to continue in a certain state, position, or activity; e.g., `k
 keratin	a fibrous scleroprotein that occurs in the outer layer of the skin and in horny tissues such as hair, feathers, nails, and hooves
 keratitis	inflammation of the cornea causing watery painful eyes and blurred vision
 kerb	an edge between a sidewalk and a roadway consisting of a line of curbstones (usually forming part of a gutter)
+kerbed	having a raised edge along a road
+kerbing	the raised stone edge of a road
 kerbs	KERB: an edge between a sidewalk and a roadway consisting of a line of curbstones (usually forming part of a gutter)
+kerbside	the edge of the road beside the kerb
+kerbsides	KERBSIDE: the edge of the road beside the kerb
 kerchief	a square scarf that is folded into a triangle and worn over the head or about the neck
 kerchiefs	KERCHIEF: a square scarf that is folded into a triangle and worn over the head or about the neck
+kerchieves	KERCHIEF: a cloth worn over the head or neck
 kerfuffle	a disorderly outburst or tumult
 kerfuffles	KERFUFFLE: a disorderly outburst or tumult
 kernel	the inner and usually edible part of a seed or grain or nut or fruit stone
@@ -93,6 +121,8 @@ kestrels	KESTREL: small North American falcon
 ketch	a sailing vessel with two masts; the mizzen is forward of the rudderpost
 ketches	KETCH: a sailing vessel with two masts; the mizzen is forward of the rudderpost
 ketchup	thick spicy sauce made from tomatoes
+keto	relating to a very low-carbohydrate diet
+ketogenic	relating to a diet that makes the body burn fat
 ketone	any of a class of organic compounds having a carbonyl group linked to a carbon atom in each of two hydrocarbon radicals
 ketones	KETONE: any of a class of organic compounds having a carbonyl group linked to a carbon atom in each of two hydrocarbon radicals
 ketosis	an abnormal increase of ketone bodies in the blood as in diabetes mellitus
@@ -101,7 +131,13 @@ kettledrum	a large hemispherical brass or copper percussion instrument with a dr
 kettledrums	KETTLEDRUM: a large hemispherical brass or copper percussion instrument with a drumhead that can be tuned by adjusting the tension on it
 kettles	KETTLE: a metal pot for stewing or boiling; usually has a lid
 key	metal device shaped in such a way that when it is inserted into the appropriate lock the lock's mechanism can be rotated
+keybinding	an assigned keyboard shortcut
+keybindings	KEYBINDING: an assigned keyboard shortcut
 keyboard	device consisting of a set of keys on a piano or organ or typewriter or typesetting machine or computer or the like
+keyboarded	KEYBOARD: typed on a keyboard
+keyboarder	a person who types or plays a keyboard
+keyboarders	KEYBOARDER: a person who types or plays a keyboard
+keyboarding	KEYBOARD: typing on a keyboard
 keyboardist	a musician who plays a keyboard instrument
 keyboardists	KEYBOARDIST: a musician who plays a keyboard instrument
 keyboards	KEYBOARD: device consisting of a set of keys on a piano or organ or typewriter or typesetting machine or computer or the like
@@ -111,17 +147,31 @@ keyed	KEY: metal device shaped in such a way that when it is inserted into the a
 keyhole	the hole where a key is inserted
 keyholes	KEYHOLE: the hole where a key is inserted
 keying	KEY: metal device shaped in such a way that when it is inserted into the appropriate lock the lock's mechanism can be rotated
+keylogger	software that records what is typed
+keyloggers	KEYLOGGER: software that records what is typed
 keynote	the principal theme in a speech or literary work
 keynoted	KEYNOTE: the principal theme in a speech or literary work
+keynoter	a person who gives the main speech at a conference
+keynoters	KEYNOTER: a person who gives the main speech at a conference
 keynotes	KEYNOTE: the principal theme in a speech or literary work
 keynoting	KEYNOTE: the principal theme in a speech or literary work
 keypad	a keyboard that is a data input device for computers; arrangement of keys is modelled after the typewriter keyboard
 keypads	KEYPAD: a keyboard that is a data input device for computers; arrangement of keys is modelled after the typewriter keyboard
+keypunch	a machine for punching holes in cards to record data
+keypunched	KEYPUNCH: a machine for punching holes in cards to record data
+keypuncher	KEYPUNCH: a machine for punching holes in cards to record data
+keypunchers	KEYPUNCHER: an operator of a card-punching machine
+keypunches	KEYPUNCH: a machine for punching holes in cards to record data
+keypunching	KEYPUNCH: a machine for punching holes in cards to record data
+keyring	a ring for holding keys
+keyrings	KEYRING: a ring for holding keys
 keys	KEY: metal device shaped in such a way that when it is inserted into the appropriate lock the lock's mechanism can be rotated
 keystone	a central cohesive source of support and stability
 keystones	KEYSTONE: a central cohesive source of support and stability
 keystroke	the stroke of a key; one depression of a key on a keyboard
 keystrokes	KEYSTROKE: the stroke of a key; one depression of a key on a keyboard
+keyword	a word used as a search term or a key to meaning
+keywords	KEYWORD: a word used as a search term or a key to meaning
 khaki	of a yellowish brown color
 khakis	KHAKI: of a yellowish brown color
 khan	a title given to rulers or other important people in Asian countries
@@ -130,6 +180,7 @@ khedive	one of the Turkish viceroys who ruled Egypt between 1867 and 1914
 kibble	coarsely ground grain in the form of pellets (as for pet food)
 kibbles	KIBBLE: coarsely ground grain in the form of pellets (as for pet food)
 kibbutz	a collective farm or settlement owned by its members in modern Israel; children are reared collectively
+kibbutzim	KIBBUTZ: an Israeli communal farm
 kibitz	make unwanted and intrusive comments
 kibitzed	KIBITZ: make unwanted and intrusive comments
 kibitzer	a meddler who offers unwanted advice to others
@@ -138,29 +189,44 @@ kibitzes	KIBITZ: make unwanted and intrusive comments
 kibitzing	KIBITZ: make unwanted and intrusive comments
 kibosh	stop from happening or developing
 kick	drive or propel with the foot
+kickass	very impressive or forceful
 kickback	a commercial bribe paid by a seller to a purchasing agent in order to induce the agent to enter into the transaction
 kickbacks	KICKBACK: a commercial bribe paid by a seller to a purchasing agent in order to induce the agent to enter into the transaction
+kickball	a playground game like baseball played with a large ball
+kickboxing	a combat sport using punches and kicks
 kicked	KICK: drive or propel with the foot
 kicker	a player who kicks the football
 kickers	KICKER: a player who kicks the football
+kickier	KICKY: exciting and stylish
+kickiest	KICKY: exciting and stylish
 kicking	KICK: drive or propel with the foot
 kickoff	a kick from the center of the field to start a football game or to resume it after a score
 kickoffs	KICKOFF: a kick from the center of the field to start a football game or to resume it after a score
 kicks	KICK: drive or propel with the foot
 kickstand	a swiveling metal rod attached to a bicycle or motorcycle or other two-wheeled vehicle; the rod lies horizontally when not in use but can be kicked into a vertical position as a support to hold the vehicle upright when it is not being ridden
 kickstands	KICKSTAND: a swiveling metal rod attached to a bicycle or motorcycle or other two-wheeled vehicle; the rod lies horizontally when not in use but can be kicked into a vertical position as a support to hold the vehicle upright when it is not being ridden
+kickstart	start something with a sudden push
+kickstarted	KICKSTART: start something with a sudden push
+kickstarting	KICKSTART: start something with a sudden push
+kickstarts	KICKSTART: start something with a sudden push
+kicky	exciting and stylish
 kid	tell false information to for fun
 kidded	KID: tell false information to for fun
 kidder	KID: tell false information to for fun
+kidders	KIDDER: a person who teases or jokes
 kiddie	informal term for a young child
 kiddies	KIDDIE: informal term for a young child
 kidding	KID: tell false information to for fun
+kiddo	a child
+kiddoes	KIDDO: a child
+kiddos	KIDDO: a child
 kiddy	informal term for a young child
 kidnap	take away to an undisclosed location against their will and usually in order to extract a ransom
 kidnaped	KIDNAP: take away to an undisclosed location against their will and usually in order to extract a ransom
 kidnaper	someone who unlawfully seizes and detains a victim (usually for ransom)
 kidnapers	KIDNAPER: someone who unlawfully seizes and detains a victim (usually for ransom)
 kidnaping	KIDNAP: take away to an undisclosed location against their will and usually in order to extract a ransom
+kidnapings	KIDNAPING: the crime of abducting people
 kidnapped	KIDNAP: take away to an undisclosed location against their will and usually in order to extract a ransom
 kidnapper	someone who unlawfully seizes and detains a victim (usually for ransom)
 kidnappers	KIDNAPPER: someone who unlawfully seizes and detains a victim (usually for ransom)
@@ -170,12 +236,18 @@ kidnaps	KIDNAP: take away to an undisclosed location against their will and usua
 kidney	either of two bean-shaped excretory organs that filter wastes (especially urea) from the blood and excrete them and water in urine
 kidneys	KIDNEY: either of two bean-shaped excretory organs that filter wastes (especially urea) from the blood and excrete them and water in urine
 kids	KID: tell false information to for fun
+kidult	an adult who enjoys things meant for children
+kidults	KIDULT: an adult who enjoys things meant for children
+kielbasa	a Polish smoked sausage
+kielbasas	KIELBASA: a Polish smoked sausage
+kielbasy	KIELBASA: a Polish smoked sausage
 kill	cause to die; put to death, usually intentionally or knowingly
 killdeer	American plover of inland waters and fields having a distinctive cry
 killdeers	KILLDEER: American plover of inland waters and fields having a distinctive cry
 killed	KILL: cause to die; put to death, usually intentionally or knowingly
 killer	someone who causes the death of a person or animal
 killers	KILLER: someone who causes the death of a person or animal
+killick	a small anchor
 killifish	small mostly marine warm-water carp-like schooling fishes; used as bait or aquarium fishes or in mosquito control
 killing	an event that causes someone to die
 killings	KILLING: an event that causes someone to die
@@ -183,6 +255,8 @@ killjoy	someone who spoils the pleasure of others
 killjoys	KILLJOY: someone who spoils the pleasure of others
 kills	KILL: cause to die; put to death, usually intentionally or knowingly
 kiln	a furnace for firing or burning or drying such things as porcelain or bricks
+kilned	KILN: dried or baked in an oven
+kilning	KILN: drying or baking in an oven
 kilns	KILN: a furnace for firing or burning or drying such things as porcelain or bricks
 kilo	one thousand grams; the basic unit of mass adopted under the Systeme International d'Unites
 kilobyte	a unit of information equal to 1000 bytes
@@ -190,6 +264,8 @@ kilobytes	KILOBYTE: a unit of information equal to 1000 bytes
 kilocycle	one thousand periods per second
 kilocycles	KILOCYCLE: one thousand periods per second
 kilogram	one thousand grams; the basic unit of mass adopted under the Systeme International d'Unites
+kilogramme	KILOGRAM: a unit of mass equal to a thousand grams
+kilogrammes	KILOGRAMME: KILOGRAM: a unit of mass equal to a thousand grams
 kilograms	KILOGRAM: one thousand grams; the basic unit of mass adopted under the Systeme International d'Unites
 kilohertz	one thousand periods per second
 kilohertzes	KILOHERTZ: one thousand periods per second
@@ -203,10 +279,12 @@ kilotons	KILOTON: one thousand tons
 kilowatt	a unit of power equal to 1000 watts
 kilowatts	KILOWATT: a unit of power equal to 1000 watts
 kilt	a knee-length pleated tartan skirt worn by men as part of the traditional dress in the Highlands of northern Scotland
+kilted	wearing a kilt
 kilter	in working order
 kilters	KILTER: in working order
 kilts	KILT: a knee-length pleated tartan skirt worn by men as part of the traditional dress in the Highlands of northern Scotland
 kimberlite	a rare type of peridotite that sometimes contains diamonds; found in South Africa and Siberia
+kimchi	a Korean dish of spicy fermented vegetables
 kimono	a loose robe; imitated from robes originally worn by Japanese
 kimonos	KIMONO: a loose robe; imitated from robes originally worn by Japanese
 kin	a person having kinship with another or others
@@ -225,6 +303,8 @@ kindest	KIND: a category of things distinguished by some common characteristic o
 kindhearted	having or proceeding from an innately kind disposition
 kindle	catch fire
 kindled	set afire
+kindler	something that lights a fire or stirs feelings
+kindlers	KINDLER: something that lights a fire or stirs feelings
 kindles	KINDLE: catch fire
 kindlier	KINDLY: showing or motivated by sympathy and understanding and generosity
 kindliest	KINDLY: showing or motivated by sympathy and understanding and generosity
@@ -235,10 +315,15 @@ kindness	the quality of being warmhearted and considerate and humane and sympath
 kindnesses	KINDNESS: the quality of being warmhearted and considerate and humane and sympathetic
 kindred	similar in quality or character
 kinds	KIND: a category of things distinguished by some common characteristic or quality
-kinematics	the branch of mechanics concerned with motion without reference to force or mass
+kinematic	relating to motion without regard to its causes
+kinematics	KINEMATIC: relating to motion without regard to its causes
+kinesiological	relating to the study of body movement
+kinesiologist	a person who studies body movement
+kinesiologists	KINESIOLOGIST: a person who studies body movement
 kinesiology	the branch of physiology that studies the mechanics and anatomy in relation to human movement
 kinesthetic	of or relating to kinesthesis
 kinetic	relating to the motion of material bodies and the forces associated therewith
+kinetically	in a way involving motion
 kinetics	the branch of mechanics concerned with the forces that cause motions of bodies
 kinfolk	people descended from a common ancestor
 kinfolks	KINFOLK: people descended from a common ancestor
@@ -277,6 +362,8 @@ kiosks	KIOSK: small area set off by walls for special use
 kip	sleep
 kipped	KIP: sleep
 kipper	salted and smoked herring
+kippered	KIPPER: preserved by smoking
+kippering	KIPPER: preserving by smoking
 kippers	KIPPER: salted and smoked herring
 kipping	KIP: sleep
 kips	KIP: sleep
@@ -284,11 +371,14 @@ kirk	a Scottish church
 kirks	KIRK: a Scottish church
 kismet	the will of Allah
 kiss	the act of caressing with the lips (or an instance thereof)
+kissable	inviting to be kissed
 kissed	KISS: the act of caressing with the lips (or an instance thereof)
 kisser	someone who kisses
 kissers	KISSER: someone who kisses
 kisses	KISS: the act of caressing with the lips (or an instance thereof)
 kissing	affectionate play (or foreplay without contact with the genital organs)
+kissogram	a novelty greeting delivered with a kiss
+kissograms	KISSOGRAM: a novelty greeting delivered with a kiss
 kit	a case for containing a set of articles
 kitbag	a knapsack (usually for a soldier)
 kitbags	KITBAG: a knapsack (usually for a soldier)
@@ -302,6 +392,7 @@ kited	KIT: a case for containing a set of articles
 kites	KIT: a case for containing a set of articles
 kith	your friends and acquaintances
 kiting	KIT: a case for containing a set of articles
+kitling	a kitten
 kits	KIT: a case for containing a set of articles
 kitsch	excessively garish or sentimental art; usually considered in bad taste
 kitschier	KITSCHY: effusively or insincerely emotional
@@ -316,19 +407,36 @@ kitting	KIT: a case for containing a set of articles
 kittiwake	small pearl-grey gull of northern regions; nests on cliffs and has a rudimentary hind toe
 kitty	the combined stakes of the betters
 kiwi	climbing vine native to China; cultivated in New Zealand for its fuzzy edible fruit with green meat
+kiwifruit	a green fruit with brown fuzzy skin
+kiwifruits	KIWIFRUIT: a green fruit with brown fuzzy skin
 kiwis	KIWI: climbing vine native to China; cultivated in New Zealand for its fuzzy edible fruit with green meat
 klaxon	a kind of loud horn formerly used on motor vehicles
 klaxons	KLAXON: a kind of loud horn formerly used on motor vehicles
+kleptocracies	KLEPTOCRACY: a government run by thieves
+kleptocracy	a government run by thieves
 kleptomania	an irresistible impulse to steal in the absence of any economic motive
 kleptomaniac	someone with an irrational urge to steal in the absence of an economic motive
 kleptomaniacs	KLEPTOMANIAC: someone with an irrational urge to steal in the absence of an economic motive
+klipspringer	a small African antelope that lives on rocky hills
+klipspringers	KLIPSPRINGER: a small African antelope that lives on rocky hills
 kludge	a badly assembled collection of parts hastily assembled to serve some particular purpose (often used to refer to computing systems or software that has been badly put together)
+kludged	KLUDGE: put together clumsily from mismatched parts
 kludges	KLUDGE: a badly assembled collection of parts hastily assembled to serve some particular purpose (often used to refer to computing systems or software that has been badly put together)
+kludging	KLUDGE: putting together clumsily from mismatched parts
+kludgy	clumsily put together
+kluge	a clumsy makeshift solution
+kluged	KLUGE: a clumsy makeshift solution
+kluges	KLUGE: a clumsy makeshift solution
 klutz	a clumsy dolt
 klutzes	KLUTZ: a clumsy dolt
+klutzier	KLUTZY: clumsy
+klutziest	KLUTZY: clumsy
+klutziness	clumsiness
+klutzy	clumsy
 knack	a special way of doing something
 knacker	someone who buys old buildings or ships and breaks them up to recover the materials in them
 knackered	very tired
+knackering	exhausting
 knackers	KNACKER: someone who buys old buildings or ships and breaks them up to recover the materials in them
 knacks	KNACK: a special way of doing something
 knackwurst	short thick highly seasoned sausage
@@ -345,6 +453,8 @@ knavishly	in an artful manner
 knavishness	the quality of being knavish
 knead	make uniform
 kneaded	KNEAD: make uniform
+kneader	a person or machine that works dough
+kneaders	KNEADER: a person or machine that works dough
 kneading	KNEAD: make uniform
 kneads	KNEAD: make uniform
 knee	hinge joint in the human leg connecting the tibia and fibula with the femur and protected in front by the patella
@@ -352,6 +462,8 @@ kneecap	a small flat triangular bone in front of the knee that protects the knee
 kneecapped	KNEECAP: a small flat triangular bone in front of the knee that protects the knee joint
 kneecapping	KNEECAP: a small flat triangular bone in front of the knee that protects the knee joint
 kneecaps	KNEECAP: a small flat triangular bone in front of the knee that protects the knee joint
+kneed	KNEE: struck with the knee
+kneeing	KNEE: striking with the knee
 kneel	rest one's weight on one's knees
 kneeled	KNEEL: rest one's weight on one's knees
 kneeler	a person in a kneeling position
@@ -365,12 +477,14 @@ knelling	KNELL: the sound of a bell rung slowly to announce a death or a funeral
 knells	KNELL: the sound of a bell rung slowly to announce a death or a funeral or the end of something
 knelt	KNEEL: rest one's weight on one's knees
 knew	KNOW: be cognizant or aware of a fact or a specific piece of information; possess knowledge or information about
+knicker	a woman's undergarment
 knickerbockers	(used in the plural) trousers ending above the knee
-knickers	(used in the plural) trousers ending above the knee
+knickers	KNICKER: a woman's undergarment
 knickknack	a small inexpensive mass-produced article
 knickknacks	KNICKKNACK: a small inexpensive mass-produced article
 knife	edge tool used as a cutting instrument; has a pointed blade with a sharp edge and a handle
 knifed	KNIFE: edge tool used as a cutting instrument; has a pointed blade with a sharp edge and a handle
+knifepoint	the sharp tip of a knife
 knifes	KNIFE: edge tool used as a cutting instrument; has a pointed blade with a sharp edge and a handle
 knifing	KNIFE: edge tool used as a cutting instrument; has a pointed blade with a sharp edge and a handle
 knight	originally a person of noble birth trained to arms and chivalry; today in Great Britain a person honored by the sovereign for personal merit
@@ -387,14 +501,20 @@ knitter	KNIT: make (textiles) by knitting
 knitters	KNITTER: someone who makes garments (or fabrics) by intertwining yarn or thread
 knitting	KNIT: make (textiles) by knitting
 knitwear	knitted clothing
+knives	KNIFE: a blade with a handle used for cutting
 knob	a circular rounded projection or protuberance
 knobbier	KNOBBY: having knobs
 knobbiest	KNOBBY: having knobs
 knobbly	having knobs
 knobby	having knobs
+knobhead	a stupid person
+knobheaded	KNOBHEAD: a stupid person
+knobheads	KNOBHEAD: a stupid person
 knobs	KNOB: a circular rounded projection or protuberance
 knock	deliver a sharp blow or push
 knockabout	a sloop with a simplified rig and no bowsprit
+knockback	a refusal or setback
+knockbacks	KNOCKBACK: a refusal or setback
 knockdown	a blow that knocks the opponent off his feet
 knockdowns	KNOCKDOWN: a blow that knocks the opponent off his feet
 knocked	KNOCK: deliver a sharp blow or push
@@ -417,32 +537,44 @@ knots	KNOT: a tight cluster of people or things
 knotted	tied with a knot
 knottier	KNOTTY: making great mental demands; hard to comprehend or solve or believe
 knottiest	KNOTTY: making great mental demands; hard to comprehend or solve or believe
+knottily	in a tangled or complicated way
 knottiness	puzzling complexity
 knotting	KNOT: a tight cluster of people or things
 knotty	making great mental demands; hard to comprehend or solve or believe
+knotweed	a fast-spreading plant with hollow stems
 know	be cognizant or aware of a fact or a specific piece of information; possess knowledge or information about
 knowable	capable of being known
 knower	a person who knows or apprehends
 knowers	KNOWER: a person who knows or apprehends
+knowhow	practical skill and knowledge
 knowing	evidencing the possession of inside information
 knowingly	with full knowledge and deliberation
 knowings	KNOWING: evidencing the possession of inside information
 knowledge	the psychological result of perception and learning and reasoning
 knowledgeable	highly educated; having extensive information or understanding
+knowledgeably	in a well-informed way
 known	apprehended with certainty
 knows	KNOW: be cognizant or aware of a fact or a specific piece of information; possess knowledge or information about
 knuckle	a joint of a finger when the fist is closed
 knuckled	KNUCKLE: a joint of a finger when the fist is closed
+knuckleduster	a metal weapon worn over the knuckles
+knuckledusters	KNUCKLEDUSTER: a metal weapon worn over the knuckles
 knucklehead	a stupid person; these words are used to express a low opinion of someone's intelligence
 knuckleheads	KNUCKLEHEAD: a stupid person; these words are used to express a low opinion of someone's intelligence
 knuckles	KNUCKLE: a joint of a finger when the fist is closed
 knuckling	KNUCKLE: a joint of a finger when the fist is closed
+knurled	having a ridged pattern for grip
 koala	sluggish tailless Australian arboreal marsupial with grey furry ears and coat; feeds on eucalyptus leaves and bark
 koalas	KOALA: sluggish tailless Australian arboreal marsupial with grey furry ears and coat; feeds on eucalyptus leaves and bark
 koan	a paradoxical anecdote or a riddle that has no solution; used in Zen Buddhism to show the inadequacy of logical reasoning
 koans	KOAN: a paradoxical anecdote or a riddle that has no solution; used in Zen Buddhism to show the inadequacy of logical reasoning
 kohl	a cosmetic preparation used by women in Egypt and Arabia to darken the edges of their eyelids
 kohlrabi	plant cultivated for its enlarged fleshy turnip-shaped edible stem
+kohlrabies	KOHLRABI: a vegetable with a swollen edible stem
+kokanee	a freshwater form of sockeye salmon
+kombi	a Volkswagen van
+kombis	KOMBI: a Volkswagen van
+kombucha	a fermented fizzy tea drink
 kook	someone regarded as eccentric or crazy and standing out from a group
 kookaburra	Australian kingfisher having a loud cackling cry
 kookaburras	KOOKABURRA: Australian kingfisher having a loud cackling cry
@@ -456,25 +588,40 @@ kopeck	100 kopecks equal 1 ruble in Russia
 kopecks	KOPECK: 100 kopecks equal 1 ruble in Russia
 kopek	100 kopecks equal 1 ruble in Russia
 kopeks	KOPEK: 100 kopecks equal 1 ruble in Russia
+korma	a mild creamy curry
+kormas	KORMA: a mild creamy curry
 kosher	conforming to dietary laws
+koshered	KOSHER: made fit under Jewish dietary law
+koshering	KOSHER: making fit under Jewish dietary law
 koshers	KOSHER: conforming to dietary laws
+kowari	a small carnivorous marsupial of Australian deserts
+kowaris	KOWARI: a small carnivorous marsupial of Australian deserts
 kowtow	a former Chinese custom of touching the ground with the forehead as a sign of respect or submission
 kowtowed	KOWTOW: a former Chinese custom of touching the ground with the forehead as a sign of respect or submission
+kowtower	a person who acts with excessive deference
+kowtowers	KOWTOWER: a person who acts with excessive deference
 kowtowing	KOWTOW: a former Chinese custom of touching the ground with the forehead as a sign of respect or submission
 kowtows	KOWTOW: a former Chinese custom of touching the ground with the forehead as a sign of respect or submission
+kraken	a legendary giant sea monster
 krill	shrimp-like planktonic crustaceans; major source of food for e.g. baleen whales
 krona	the basic unit of money in Sweden
 krone	the basic unit of money in Norway
+kroner	KRONE: the currency of Denmark and Norway
+kronor	KRONA: the currency of Sweden
 krypton	a colorless element that is one of the six inert gasses; occurs in trace amounts in air
 kudos	an expression of approval and commendation
 kudzu	fast-growing vine from eastern Asia having tuberous starchy roots and hairy trifoliate leaves and racemes of purple flowers followed by long hairy pods containing many seeds; grown for fodder and forage and root starch; widespread in the southern United States
 kudzus	KUDZU: fast-growing vine from eastern Asia having tuberous starchy roots and hairy trifoliate leaves and racemes of purple flowers followed by long hairy pods containing many seeds; grown for fodder and forage and root starch; widespread in the southern United States
+kultarr	a small hopping marsupial of the Australian outback
+kultarrs	KULTARR: a small hopping marsupial of the Australian outback
 kumquat	any of several trees or shrubs of the genus Fortunella bearing small orange-colored edible fruits with thick sweet-flavored skin and sour pulp
 kumquats	KUMQUAT: any of several trees or shrubs of the genus Fortunella bearing small orange-colored edible fruits with thick sweet-flavored skin and sour pulp
 kurta	a loose collarless shirt worn by many people on the Indian subcontinent (usually with a salwar or churidars or pyjama)
 kurtas	KURTA: a loose collarless shirt worn by many people on the Indian subcontinent (usually with a salwar or churidars or pyjama)
 kvetch	a constant complainer
 kvetched	KVETCH: a constant complainer
+kvetcher	a person who complains habitually
+kvetchers	KVETCHER: a person who complains habitually
 kvetches	KVETCH: a constant complainer
 kvetching	KVETCH: a constant complainer
 kwashiorkor	severe malnutrition in children resulting from a diet excessively high in carbohydrates and low in protein

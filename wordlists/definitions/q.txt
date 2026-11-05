@@ -1,3 +1,4 @@
+qua	in the capacity of
 quack	an untrained person who pretends to be a physician and who dispenses medical advice
 quacked	QUACK: an untrained person who pretends to be a physician and who dispenses medical advice
 quackery	medical practice and advice based on observation and experience in ignorance of scientific findings
@@ -13,6 +14,7 @@ quadraphonic	of or relating to quadraphony
 quadratic	an equation in which the highest power of an unknown quantity is a square
 quadratics	a branch of algebra dealing with quadratic equations
 quadrature	the construction of a square having the same area as some other figure
+quadrennial	happening every four years
 quadriceps	a muscle of the thigh that extends the leg
 quadricepses	QUADRICEPS: a muscle of the thigh that extends the leg
 quadrilateral	a four-sided polygon
@@ -25,6 +27,7 @@ quadriphonic	of or relating to quadraphony
 quadriplegia	paralysis of both arms and both legs
 quadriplegic	a person who is paralyzed in both arms and both legs
 quadriplegics	QUADRIPLEGIC: a person who is paralyzed in both arms and both legs
+quadrophonic	using four channels of sound
 quadruped	an animal especially a mammal having four limbs specialized for walking
 quadrupeds	QUADRUPED: an animal especially a mammal having four limbs specialized for walking
 quadruple	increase fourfold
@@ -37,6 +40,7 @@ quadruplicated	QUADRUPLICATE: any four copies; any of four things that correspon
 quadruplicates	QUADRUPLICATE: any four copies; any of four things that correspond to one another exactly
 quadruplicating	QUADRUPLICATE: any four copies; any of four things that correspond to one another exactly
 quadrupling	increase by a factor of four
+quadrupole	a set of four electric or magnetic poles
 quads	QUAD: one of four children born at the same time from the same pregnancy
 quaff	a hearty draft
 quaffed	QUAFF: a hearty draft
@@ -84,8 +88,10 @@ quandaries	QUANDARY: a situation from which extrication is difficult especially 
 quandary	a situation from which extrication is difficult especially an unpleasant or trying one
 quango	a quasi nongovernmental organization; an organization that is financed by the government yet acts independently of the government
 quangos	QUANGO: a quasi nongovernmental organization; an organization that is financed by the government yet acts independently of the government
+quanta	QUANTUM: a discrete amount of energy
 quantifiable	capable of being quantified
 quantification	a limitation imposed on the variables of a proposition (as by the quantifiers `some' or `all' or `no')
+quantified	QUANTIFY: express as an amount
 quantifier	a word (such as `some' or `all' or `no') that binds the variables in a logical proposition
 quantifiers	QUANTIFIER: a word (such as `some' or `all' or `no') that binds the variables in a logical proposition
 quantifies	QUANTIFY: use as a quantifier
@@ -93,6 +99,7 @@ quantify	use as a quantifier
 quantifying	QUANTIFY: use as a quantifier
 quantisation	the act of dividing into quanta or expressing in terms of quantum theory
 quantised	QUANTISE: approximate (a signal varying continuously in amplitude) by one whose amplitude is restricted to a prescribed set of discrete values
+quantitation	the measuring of an amount
 quantitative	expressible as a quantity or relating to or susceptible of measurement
 quantitatively	in a quantitative manner
 quantities	QUANTITY: how much there is or how many there are of something that you can quantify
@@ -119,6 +126,7 @@ quarrels	QUARREL: an angry dispute
 quarrelsome	given to quarreling
 quarrelsomely	in a quarrelsome way
 quarrelsomeness	an inclination to be quarrelsome and contentious
+quarried	QUARRY: dig stone from the ground
 quarries	QUARRY: a person who is the aim of an attack (especially a victim of ridicule or exploitation) by some hostile person or influence
 quarry	a person who is the aim of an attack (especially a victim of ridicule or exploitation) by some hostile person or influence
 quarrying	the extraction of building stone or slate from an open surface quarry
@@ -158,12 +166,16 @@ quashing	QUASH: put down by force or intimidation
 quasi	having some resemblance
 quatrain	a stanza of four lines
 quatrains	QUATRAIN: a stanza of four lines
+quatre	four
 quaver	a tremulous sound
 quavered	QUAVER: a tremulous sound
 quavering	(of the voice) quivering as from weakness or fear
 quavers	QUAVER: a tremulous sound
+quavery	trembling or shaky in sound
 quay	wharf usually built parallel to the shoreline
 quays	QUAY: wharf usually built parallel to the shoreline
+quayside	the edge of a wharf
+quaysides	QUAYSIDE: the edge of a wharf
 queasier	QUEASY: causing or able to cause nausea
 queasiest	QUEASY: causing or able to cause nausea
 queasily	in a queasy manner
@@ -186,12 +198,19 @@ queerness	a strange attitude or habit
 queers	QUEER: beyond or deviating from the usual or expected
 quell	suppress or crush completely
 quelled	QUELL: suppress or crush completely
+queller	a person who puts down or suppresses
+quellers	QUELLER: a person who puts down or suppresses
 quelling	QUELL: suppress or crush completely
 quells	QUELL: suppress or crush completely
 quench	satisfy (thirst)
 quenched	QUENCH: satisfy (thirst)
+quencher	something that satisfies thirst or puts out a flame
+quenchers	QUENCHER: something that satisfies thirst or puts out a flame
 quenches	QUENCH: satisfy (thirst)
 quenching	QUENCH: satisfy (thirst)
+quenda	a small Western Australian bandicoot
+quendas	QUENDA: a small Western Australian bandicoot
+queried	QUERY: ask a question about
 queries	QUERY: an instance of questioning
 querulous	habitually complaining
 querulously	in a peevish manner
@@ -237,6 +256,7 @@ quickening	the process of showing signs of life
 quickens	QUICKEN: move faster
 quicker	more quickly
 quickest	QUICK: accomplished rapidly and without delay
+quickfire	following one another rapidly
 quickie	hurried repair
 quickies	QUICKIE: hurried repair
 quicklime	a white crystalline oxide used in the production of calcium hydroxide
@@ -273,6 +293,8 @@ quill	pen made from a bird's feather
 quills	QUILL: pen made from a bird's feather
 quilt	bedding made of two layers of cloth filled with stuffing and stitched together
 quilted	made of layers of fabric held together by patterned stitching
+quilter	a person who makes padded stitched covers
+quilters	QUILTER: a person who makes padded stitched covers
 quilting	QUILT: bedding made of two layers of cloth filled with stuffing and stitched together
 quilts	QUILT: bedding made of two layers of cloth filled with stuffing and stitched together
 quin	one of five children born at the same time from the same pregnancy
@@ -281,14 +303,17 @@ quinces	QUINCE: small Asian tree with pinkish flowers and pear-shaped fruit; wid
 quine	United States philosopher and logician who championed an empirical view of knowledge that depended on language (1908-2001)
 quines	QUINE: United States philosopher and logician who championed an empirical view of knowledge that depended on language (1908-2001)
 quinine	a bitter alkaloid extracted from chinchona bark; used in malaria therapy
+quinoa	a grain-like seed eaten as a food
 quins	QUIN: one of five children born at the same time from the same pregnancy
 quint	the cardinal number that is the sum of four and one
 quintal	a unit of weight equal to 100 kilograms
 quintessence	the fifth and highest element after air and earth and fire and water; was believed to be the substance composing all heavenly bodies
 quintessences	QUINTESSENCE: the fifth and highest element after air and earth and fire and water; was believed to be the substance composing all heavenly bodies
 quintessential	representing the perfect example of a class or quality
+quintessentially	in the most typical way
 quintet	a musical composition for five performers
 quintets	QUINTET: a musical composition for five performers
+quintile	one of five equal groups in a statistical range
 quints	QUINT: the cardinal number that is the sum of four and one
 quintuple	a set of five similar things considered as a unit
 quintupled	QUINTUPLE: a set of five similar things considered as a unit
@@ -299,6 +324,7 @@ quintupling	increasing by a factor of five
 quip	make jokes or quips
 quipped	QUIP: make jokes or quips
 quipper	QUIP: make jokes or quips
+quippers	QUIPPER: a person who makes witty remarks
 quipping	QUIP: make jokes or quips
 quips	QUIP: make jokes or quips
 quire	a quantity of paper; 24 or 25 sheets
@@ -327,17 +353,27 @@ quivered	QUIVER: shake with fast, tremulous movements
 quivering	QUIVER: shake with fast, tremulous movements
 quiveringly	in a quivering way
 quivers	QUIVER: shake with fast, tremulous movements
+quivery	shaking slightly
 quixotic	not sensible about practical matters; idealistic and unrealistic
 quiz	an examination consisting of a few short questions
 quizmaster	the host or chairman of a radio or tv quiz show or panel game
 quizmasters	QUIZMASTER: the host or chairman of a radio or tv quiz show or panel game
 quizzed	QUIZ: an examination consisting of a few short questions
+quizzes	QUIZ: a test of knowledge
 quizzical	playfully vexing (especially by ridicule)
 quizzically	in a quizzical and questioning manner
 quizzing	QUIZ: an examination consisting of a few short questions
+quo	a thing, as in status quo
 quoit	game equipment consisting of a ring of iron or circle of rope used in playing the game of quoits
+quoited	QUOIT: throw a ring at a peg
+quoiting	QUOIT: throw a ring at a peg
 quoits	a game in which iron rings (or open iron rings) are thrown at a stake in the ground in the hope of encircling it
+quokka	a small Australian marsupial that looks as if it is smiling
+quokkas	QUOKKA: a small Australian marsupial that looks as if it is smiling
+quoll	a spotted Australian marsupial that eats meat
+quolls	QUOLL: a spotted Australian marsupial that eats meat
 quondam	belonging to some prior time
+quorate	having enough members present for a meeting to proceed
 quorum	a gathering of the minimal number of members of an organization to conduct business
 quorums	QUORUM: a gathering of the minimal number of members of an organization to conduct business
 quota	a prescribed number
@@ -348,7 +384,9 @@ quotations	QUOTATION: a short note recognizing a source of information or of a q
 quote	repeat a passage from
 quoted	QUOTE: repeat a passage from
 quotes	QUOTE: repeat a passage from
+quoth	said
 quotidian	found in the ordinary course of events
 quotient	the ratio of two quantities to be divided
 quotients	QUOTIENT: the ratio of two quantities to be divided
 quoting	QUOTE: repeat a passage from
+qwerty	the standard layout of an English keyboard

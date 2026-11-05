@@ -72,6 +72,11 @@ adding a seat. Its player-facing
 strings are in `daily/text.js` and follow the card-copy rules above. README.md →
 "The Daily Proof" has the rest, the front door (`js/door.js`) included.
 
+**After adding words to the dictionary**, rebuild the definitions the daily
+shows (`node tools/build-definitions.mjs <wordnet dict dir>`) and write any it
+lists in `wordlists/definitions-missing.txt` into
+`wordlists/definitions-own.txt`, plainly, in your own words.
+
 ## Elsewhere
 
 Flavour is welcome, at length, in code comments and in README.md — nobody

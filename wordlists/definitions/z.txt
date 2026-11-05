@@ -1,3 +1,4 @@
+zaibatsu	a large Japanese business conglomerate
 zanier	ZANY: a buffoon in one of the old comedies; imitates others for ludicrous effect
 zanies	ZANY: a buffoon in one of the old comedies; imitates others for ludicrous effect
 zaniest	ZANY: a buffoon in one of the old comedies; imitates others for ludicrous effect
@@ -8,6 +9,7 @@ zapped	ZAP: a sudden event that imparts energy or excitement, usually with a dra
 zapper	an electrical device that can injure or kill by means of electric currents
 zappers	ZAPPER: an electrical device that can injure or kill by means of electric currents
 zapping	ZAP: a sudden event that imparts energy or excitement, usually with a dramatic impact
+zappy	lively and energetic
 zaps	ZAP: a sudden event that imparts energy or excitement, usually with a dramatic impact
 zeal	a feeling of strong eagerness (usually in favor of a person or cause)
 zealot	a member of an ancient Jewish sect in Judea in the first century who fought to the death against the Romans and who killed or persecuted Jews who collaborated with the Romans
@@ -35,6 +37,8 @@ zephyr	a slight wind (usually refreshing)
 zephyrs	ZEPHYR: a slight wind (usually refreshing)
 zeppelin	German inventor who designed and built the first rigid motorized dirigible (1838-1917)
 zeppelins	ZEPPELIN: German inventor who designed and built the first rigid motorized dirigible (1838-1917)
+zeppole	a deep-fried Italian doughnut
+zeppoles	ZEPPOLE: a deep-fried Italian doughnut
 zero	indicating the absence of any or all units under consideration
 zeroed	ZERO: indicating the absence of any or all units under consideration
 zeroes	ZERO: indicating the absence of any or all units under consideration
@@ -61,11 +65,18 @@ zillions	ZILLION: a very large indefinite number (usually hyperbole)
 zinc	a bluish-white lustrous metallic element; brittle at ordinary temperatures but malleable when heated; used in a wide variety of alloys and in galvanizing iron; it occurs naturally as zinc sulphide in zinc blende
 zinced	ZINC: a bluish-white lustrous metallic element; brittle at ordinary temperatures but malleable when heated; used in a wide variety of alloys and in galvanizing iron; it occurs naturally as zinc sulphide in zinc blende
 zincing	ZINC: a bluish-white lustrous metallic element; brittle at ordinary temperatures but malleable when heated; used in a wide variety of alloys and in galvanizing iron; it occurs naturally as zinc sulphide in zinc blende
+zincked	ZINC: coated with zinc
+zincking	ZINC: coat with zinc
 zincs	ZINC: a bluish-white lustrous metallic element; brittle at ordinary temperatures but malleable when heated; used in a wide variety of alloys and in galvanizing iron; it occurs naturally as zinc sulphide in zinc blende
+zine	a small self-published magazine
+zines	ZINE: a small self-published magazine
 zing	a brief high-pitched buzzing or humming sound
+zinged	ZING: move with a sharp humming sound
 zinger	a striking or amusing or caustic remark
 zingers	ZINGER: a striking or amusing or caustic remark
+zinging	ZING: move with a sharp humming sound
 zings	ZING: a brief high-pitched buzzing or humming sound
+zingy	lively and refreshing in taste
 zinnia	any of various plants of the genus Zinnia cultivated for their variously and brightly colored flower heads
 zinnias	ZINNIA: any of various plants of the genus Zinnia cultivated for their variously and brightly colored flower heads
 zip	close with a zipper
@@ -86,19 +97,29 @@ zit	a small inflamed elevation of the skin; a pustule or papule; common symptom 
 zither	a musical stringed instrument with strings stretched over a flat sounding board; it is laid flat and played with a plectrum and with fingers
 zithers	ZITHER: a musical stringed instrument with strings stretched over a flat sounding board; it is laid flat and played with a plectrum and with fingers
 zits	ZIT: a small inflamed elevation of the skin; a pustule or papule; common symptom in acne
+zitty	covered in pimples
 zodiac	a belt-shaped region in the heavens on either side to the ecliptic; divided into 12 constellations or signs for astrological purposes
 zodiacal	relating to or included in the zodiac
 zodiacs	ZODIAC: a belt-shaped region in the heavens on either side to the ecliptic; divided into 12 constellations or signs for astrological purposes
 zombi	a spirit or supernatural force that reanimates a dead body
 zombie	a dead body that has been brought back to life by a supernatural force
+zombielike	like a mindless walking corpse
 zombies	ZOMBIE: a dead body that has been brought back to life by a supernatural force
+zombification	turning a person into a mindless zombie
+zombified	ZOMBIFY: turn into a mindless zombie
+zombifies	ZOMBIFY: turn into a mindless zombie
+zombify	turn into a mindless zombie
+zombifying	ZOMBIFY: turn into a mindless zombie
 zombis	ZOMBI: a spirit or supernatural force that reanimates a dead body
 zonal	relating to or of the nature of a zone
 zone	a locally circumscribed place characterized by some distinctive features
 zoned	ZONE: a locally circumscribed place characterized by some distinctive features
 zones	ZONE: a locally circumscribed place characterized by some distinctive features
 zoning	dividing an area into zones or sections reserved for different purposes such as residence and business and manufacturing etc
+zonked	exhausted or intoxicated
 zoo	the facility where wild animals are housed for exhibition
+zookeeper	a person who looks after animals in a zoo
+zookeepers	ZOOKEEPER: a person who looks after animals in a zoo
 zoological	concerning the study of animals and their classification and properties
 zoologist	a specialist in the branch of biology dealing with animals
 zoologists	ZOOLOGIST: a specialist in the branch of biology dealing with animals

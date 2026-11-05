@@ -452,6 +452,13 @@ What the session history, the commits and the author's Drive show:
   - **The author's calls.** PANSY (the flower, and a slur), PAPOOSE, PIGMY and
     DADDY stay on cute. GOLLIWOG, GOLLIWOGS and GOLLIES are on the block list.
 
+- **5 November, definitions.** Every dictionary word now has a definition
+  for the daily's results (`tools/build-definitions.mjs`; README → "The Daily
+  Proof" → *Definitions*): WordNet's first sense, a base form's, a transparent
+  formation, or one written for the game in `definitions-own.txt`. **After
+  adding words, re-run it**, and write whatever it lists in
+  `definitions-missing.txt` into `definitions-own.txt`.
+
 Not found anywhere these sessions can reach: the tool or chat that produced
 the ranked lists and the later batches. The ranking, the drift into
 association and the noisy tails look like a word-similarity tool. The

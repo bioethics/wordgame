@@ -3,11 +3,14 @@ gabardine	a firm durable fabric with a twill weave
 gabardines	GABARDINE: a firm durable fabric with a twill weave
 gabbed	GAB: light informal conversation for social occasions
 gabber	GAB: light informal conversation for social occasions
+gabbers	GABBER: a chatterer
 gabbier	GABBY: full of trivial conversation
 gabbiest	GABBY: full of trivial conversation
 gabbing	GAB: light informal conversation for social occasions
 gabble	speak (about unimportant matters) rapidly and incessantly
 gabbled	GABBLE: speak (about unimportant matters) rapidly and incessantly
+gabbler	one who talks fast and unclearly
+gabblers	GABBLER: one who talks fast and unclearly
 gabbles	GABBLE: speak (about unimportant matters) rapidly and incessantly
 gabbling	GABBLE: speak (about unimportant matters) rapidly and incessantly
 gabby	full of trivial conversation
@@ -31,11 +34,15 @@ gadgetry	appliances collectively
 gadgets	GADGET: a device or control that is very useful for a particular job
 gadolinium	a ductile silvery-white ductile ferromagnetic trivalent metallic element of the rare earth group
 gads	GAD: an anxiety disorder characterized by chronic free-floating anxiety and such symptoms as tension or sweating or trembling or lightheadedness or irritability etc that has lasted for more than six months
+gadwall	a grey dabbling duck
+gadwalls	GADWALL: a grey dabbling duck
 gaff	a sharp metal spike or spur that is fastened to the leg of a gamecock
 gaffe	a socially awkward or tactless act
+gaffed	GAFF: hook a fish with a pole
 gaffer	an elderly man
 gaffers	GAFFER: an elderly man
 gaffes	GAFFE: a socially awkward or tactless act
+gaffing	GAFF: hook a fish with a pole
 gaffs	GAFF: a sharp metal spike or spur that is fastened to the leg of a gamecock
 gag	a humorous anecdote or remark intended to provoke laughter
 gaga	mentally or physically infirm with age
@@ -44,6 +51,7 @@ gaged	GAGE: street names for marijuana
 gages	GAGE: street names for marijuana
 gagged	GAG: a humorous anecdote or remark intended to provoke laughter
 gagger	GAG: a humorous anecdote or remark intended to provoke laughter
+gaggers	GAGGER: one who gags
 gagging	GAG: a humorous anecdote or remark intended to provoke laughter
 gaggle	a flock of geese
 gaggles	GAGGLE: a flock of geese
@@ -59,7 +67,10 @@ gainful	yielding a fair profit
 gainfully	in a gainful way
 gaining	GAIN: obtain
 gains	GAIN: obtain
+gainsaid	GAINSAY: deny or contradict
 gainsay	take exception to
+gainsayer	one who denies or contradicts
+gainsayers	GAINSAYER: one who denies or contradicts
 gainsaying	GAINSAY: take exception to
 gainsays	GAINSAY: take exception to
 gait	the rate of moving (especially walking or running)
@@ -72,12 +83,16 @@ galactic	of or relating to a galaxy (especially our galaxy the Milky Way)
 galactose	a simple sugar found in lactose
 galago	agile long-tailed nocturnal African lemur with dense woolly fur and large eyes and ears
 galagos	GALAGO: agile long-tailed nocturnal African lemur with dense woolly fur and large eyes and ears
+galah	a pink and grey Australian cockatoo, or a fool
+galahs	GALAH: a pink and grey Australian cockatoo, or a fool
 galas	GALA: a gay festivity
 galaxies	GALAXY: a splendid assemblage (especially of famous people)
 galaxy	a splendid assemblage (especially of famous people)
 gale	a strong wind moving 45-90 knots; force 7 to 10 on Beaufort scale
 galena	soft blue-grey mineral; lead sulfide; a major source of lead
 gales	GALE: a strong wind moving 45-90 knots; force 7 to 10 on Beaufort scale
+galette	a flat round cake or pastry
+galettes	GALETTE: a flat round cake or pastry
 gall	an open sore on the back of a horse caused by ill-fitting or badly adjusted saddle
 gallant	a man who is much concerned with his dress and appearance
 gallantly	in a gallant manner
@@ -92,17 +107,23 @@ galleries	GALLERY: spectators at a golf or tennis match
 gallery	spectators at a golf or tennis match
 galley	a large medieval vessel with a single deck propelled by sails and oars with guns at stern and prow; a complement of 1,000 men; used mainly in the Mediterranean for war and trading
 galleys	GALLEY: a large medieval vessel with a single deck propelled by sails and oars with guns at stern and prow; a complement of 1,000 men; used mainly in the Mediterranean for war and trading
+galliard	a lively dance of the sixteenth century
+galliards	GALLIARD: a lively dance of the sixteenth century
 galling	causing irritation or annoyance
 gallingly	in a galling way
 gallium	a rare silvery (usually trivalent) metallic element; brittle at low temperatures but liquid above room temperature; occurs in trace amounts in bauxite and zinc ores
 gallivant	wander aimlessly in search of pleasure
 gallivanted	GALLIVANT: wander aimlessly in search of pleasure
+gallivanter	one who roams about for pleasure
+gallivanters	GALLIVANTER: one who roams about for pleasure
 gallivanting	GALLIVANT: wander aimlessly in search of pleasure
 gallivants	GALLIVANT: wander aimlessly in search of pleasure
 gallon	United States liquid unit equal to 4 quarts or 3.785 liters
 gallons	GALLON: United States liquid unit equal to 4 quarts or 3.785 liters
 gallop	ride at a galloping pace
 galloped	GALLOP: ride at a galloping pace
+galloper	a horse going at a gallop
+gallopers	GALLOPER: a horse going at a gallop
 galloping	GALLOP: ride at a galloping pace
 gallops	GALLOP: ride at a galloping pace
 gallows	an instrument of execution consisting of a wooden frame from which a condemned person is executed by hanging
@@ -141,6 +162,7 @@ gambles	GAMBLE: take a risk in the hope of a favorable outcome
 gambling	the act of playing for stakes in the hope of winning (including the payment of a price for a chance to win a prize)
 gambol	gay or light-hearted recreational activity for diversion or amusement
 gamboled	GAMBOL: gay or light-hearted recreational activity for diversion or amusement
+gamboler	one who gambols
 gamboling	GAMBOL: gay or light-hearted recreational activity for diversion or amusement
 gambolled	GAMBOL: gay or light-hearted recreational activity for diversion or amusement
 gambolling	GAMBOL: gay or light-hearted recreational activity for diversion or amusement
@@ -155,10 +177,14 @@ gamelan	a traditional Indonesian ensemble typically including many tuned percuss
 gamelans	GAMELAN: a traditional Indonesian ensemble typically including many tuned percussion instruments including bamboo xylophones and wooden or bronze chimes and gongs
 gamely	in a plucky manner
 gameness	disability of walking due to crippling of the legs or feet
+gameplay	the way a game is played
 gamer	GAME: a contest with rules to determine a winner
+gamers	GAMER: a person who plays video games
 games	GAME: a contest with rules to determine a winner
 gamesmanship	the use of dubious (although not technically illegal) methods to win a game
 gamest	GAME: a contest with rules to determine a winner
+gamester	a gambler
+gamesters	GAMESTER: a gambler
 gamete	a mature sexual reproductive cell having a single set of unpaired chromosomes
 gametes	GAMETE: a mature sexual reproductive cell having a single set of unpaired chromosomes
 gamey	suggestive of sexual impropriety
@@ -177,20 +203,26 @@ gammy	sore or lame
 gamut	a complete extent or range
 gamuts	GAMUT: a complete extent or range
 gamy	suggestive of sexual impropriety
+ganache	a rich mixture of chocolate and cream
+ganaches	GANACHE: a rich mixture of chocolate and cream
 gander	mature male goose
 ganders	GANDER: mature male goose
 gang	an association of criminals
+gangbusters	with great energy or success, as in going like gangbusters
 ganged	GANG: an association of criminals
 ganger	the foreman of a work gang
 gangers	GANGER: the foreman of a work gang
 ganging	GANG: an association of criminals
 gangland	underworld organizations
+ganglia	GANGLION: a cluster of nerve cells
 ganglier	GANGLY: tall and thin and having long slender limbs
 gangliest	GANGLY: tall and thin and having long slender limbs
 gangling	tall and thin and having long slender limbs
 ganglion	an encapsulated neural structure consisting of a collection of cell bodies or neurons
 ganglions	GANGLION: an encapsulated neural structure consisting of a collection of cell bodies or neurons
 gangly	tall and thin and having long slender limbs
+gangmaster	a person who supplies casual labourers
+gangmasters	GANGMASTER: a person who supplies casual labourers
 gangplank	a temporary bridge for getting on and off a vessel at dockside
 gangplanks	GANGPLANK: a temporary bridge for getting on and off a vessel at dockside
 gangrene	necrotic tissue; a mortified or gangrenous part or mass
@@ -262,6 +294,8 @@ gargles	GARGLE: a medicated solution used for gargling and rinsing the mouth
 gargling	GARGLE: a medicated solution used for gargling and rinsing the mouth
 gargoyle	a spout that terminates in a grotesquely carved figure of a person or animal
 gargoyles	GARGOYLE: a spout that terminates in a grotesquely carved figure of a person or animal
+gargoylish	resembling a gargoyle
+gargoylishly	in a way resembling a gargoyle
 garish	tastelessly showy
 garishly	in a tastelessly garish manner
 garishness	tasteless showiness
@@ -289,6 +323,12 @@ garnishes	GARNISH: something (such as parsley) added to a dish for flavor or dec
 garnishing	GARNISH: something (such as parsley) added to a dish for flavor or decoration
 garnishment	a court order to an employer to withhold all or part of an employee's wages and to send the money to the court or to the person who won a lawsuit against the employee
 garnishments	GARNISHMENT: a court order to an employer to withhold all or part of an employee's wages and to send the money to the court or to the person who won a lawsuit against the employee
+garniture	a decoration or trimming
+garnitures	GARNITURE: a decoration or trimming
+garote	GARROTE: strangle with a cord
+garoted	GAROTE: GARROTE: strangle with a cord
+garotes	GAROTE: GARROTE: strangle with a cord
+garoting	GAROTE: GARROTE: strangle with a cord
 garotte	an instrument of execution for execution by strangulation
 garotted	GAROTTE: an instrument of execution for execution by strangulation
 garottes	GAROTTE: an instrument of execution for execution by strangulation
@@ -325,6 +365,8 @@ gash	cut open
 gashed	GASH: cut open
 gashes	GASH: cut open
 gashing	GASH: cut open
+gasholder	a large tank for storing gas
+gasholders	GASHOLDER: a large tank for storing gas
 gasket	seal consisting of a ring for packing pistons or sealing a pipe joint
 gaskets	GASKET: seal consisting of a ring for packing pistons or sealing a pipe joint
 gaslight	light yielded by the combustion of illuminating gas
@@ -338,11 +380,15 @@ gasometer	a meter for measuring the amount of gas flowing through a particular p
 gasometers	GASOMETER: a meter for measuring the amount of gas flowing through a particular pipe
 gasp	a short labored intake of breath with the mouth open
 gasped	GASP: a short labored intake of breath with the mouth open
+gasper	a cheap cigarette
+gaspers	GASPER: a cheap cigarette
 gasping	GASP: a short labored intake of breath with the mouth open
 gasps	GASP: a short labored intake of breath with the mouth open
 gassed	GAS: the state of matter distinguished from the solid and liquid states by: relatively low density and viscosity; relatively great expansion and contraction with changes in pressure and temperature; the ability to diffuse readily; and the spontaneous tendency to become distributed uniformly throughout any container
+gasses	GAS: a substance that is neither solid nor liquid
 gassier	GASSY: resembling gas
 gassiest	GASSY: resembling gas
+gassily	in a gassy way
 gassiness	the quality of being gassy
 gassing	the process of interacting with gas
 gassy	resembling gas
@@ -350,6 +396,7 @@ gastrectomy	surgical removal of all or part of the stomach
 gastric	relating to or involving the stomach
 gastritis	inflammation of the lining of the stomach; nausea and loss of appetite and discomfort after eating
 gastroenteritis	inflammation of the stomach and intestines; can be caused by Salmonella enteritidis
+gastroenterological	relating to the stomach and intestines
 gastroenterologist	a physician who specializes in diseases of the gastrointestinal tract
 gastroenterologists	GASTROENTEROLOGIST: a physician who specializes in diseases of the gastrointestinal tract
 gastroenterology	the branch of medicine that studies the gastrointestinal tract and its diseases
@@ -361,12 +408,19 @@ gastronomical	of or relating to gastronomy
 gastronomy	a particular style of cookery (as of a region)
 gastropod	a class of mollusks typically having a one-piece coiled shell and flattened muscular foot with a head bearing stalked eyes
 gastropods	GASTROPOD: a class of mollusks typically having a one-piece coiled shell and flattened muscular foot with a head bearing stalked eyes
+gastropub	a pub serving high-quality food
+gastropubs	GASTROPUB: a pub serving high-quality food
 gasworks	the workplace where coal gas is manufactured
 gate	a movable barrier in a fence or wall
 gateau	any of various rich and elaborate cakes
 gateaus	GATEAU: any of various rich and elaborate cakes
-gatecrasher	someone who gets in (to a party) without an invitation or without paying
+gateaux	GATEAU: a rich cake
+gatecrash	attend a party uninvited
+gatecrashed	GATECRASH: attend a party uninvited
+gatecrasher	GATECRASH: attend a party uninvited
 gatecrashers	GATECRASHER: someone who gets in (to a party) without an invitation or without paying
+gatecrashes	GATECRASH: attend a party uninvited
+gatecrashing	GATECRASH: attend a party uninvited
 gated	GATE: a movable barrier in a fence or wall
 gatefold	an oversize page that is folded in to a book or magazine
 gatehouse	a house built at a gateway; usually the gatekeeper's residence
@@ -421,32 +475,41 @@ gavel	a small mallet used by a presiding officer or a judge
 gavels	GAVEL: a small mallet used by a presiding officer or a judge
 gavotte	an old formal French dance in quadruple time
 gavottes	GAVOTTE: an old formal French dance in quadruple time
+gawd	an exclamation, God
 gawk	look with amazement; look stupidly
 gawked	GAWK: look with amazement; look stupidly
 gawker	a spectator who stares stupidly without intelligent awareness
 gawkers	GAWKER: a spectator who stares stupidly without intelligent awareness
 gawkier	GAWKY: lacking grace in movement or posture
 gawkiest	GAWKY: lacking grace in movement or posture
+gawkily	clumsily
 gawkiness	the carriage of someone whose movements and posture are extremely ungainly and inelegant
 gawking	GAWK: look with amazement; look stupidly
 gawks	GAWK: look with amazement; look stupidly
 gawky	lacking grace in movement or posture
 gawp	look with amazement; look stupidly
 gawped	GAWP: look with amazement; look stupidly
+gawper	one who stares
+gawpers	GAWPER: one who stares
 gawping	GAWP: look with amazement; look stupidly
 gawps	GAWP: look with amazement; look stupidly
 gay	bright and pleasant; promoting a feeling of cheer
+gaydar	supposed ability to sense someone's sexual orientation
 gayer	GAY: bright and pleasant; promoting a feeling of cheer
 gayest	GAY: bright and pleasant; promoting a feeling of cheer
+gayety	GAIETY: cheerful merriment
 gayly	in a joyous manner
 gayness	a sexual attraction to (or sexual relations with) persons of the same sex
 gays	GAY: bright and pleasant; promoting a feeling of cheer
 gaze	a long fixed look
 gazebo	a small roofed building affording shade and rest
+gazeboes	GAZEBO: a garden shelter with a view
 gazebos	GAZEBO: a small roofed building affording shade and rest
 gazed	GAZE: a long fixed look
 gazelle	small swift graceful antelope of Africa and Asia having lustrous eyes
 gazelles	GAZELLE: small swift graceful antelope of Africa and Asia having lustrous eyes
+gazer	one who gazes
+gazers	GAZER: one who gazes
 gazes	GAZE: a long fixed look
 gazette	a newspaper or official journal
 gazetted	GAZETTE: a newspaper or official journal
@@ -472,16 +535,26 @@ gearshift	a mechanical device for engaging and disengaging gears
 gearshifts	GEARSHIFT: a mechanical device for engaging and disengaging gears
 gearstick	a mechanical device for engaging and disengaging gears
 gearsticks	GEARSTICK: a mechanical device for engaging and disengaging gears
+gearwheel	a toothed wheel
+gearwheels	GEARWHEEL: a toothed wheel
 gecko	any of various small chiefly tropical and usually nocturnal insectivorous terrestrial lizards typically with immovable eyelids; completely harmless
+geckoes	GECKO: a small climbing lizard
 geckos	GECKO: any of various small chiefly tropical and usually nocturnal insectivorous terrestrial lizards typically with immovable eyelids; completely harmless
+geddit	do you understand
 gee	a unit of force equal to the force exerted by gravity; used to indicate the force to which a body is subjected when it is accelerated
 geed	GEE: a unit of force equal to the force exerted by gravity; used to indicate the force to which a body is subjected when it is accelerated
+geegaw	a showy trinket
+geegaws	GEEGAW: a showy trinket
 geeing	GEE: a unit of force equal to the force exerted by gravity; used to indicate the force to which a body is subjected when it is accelerated
 geek	a carnival performer who does disgusting acts
+geekier	GEEKY: socially awkward and obsessively keen on technical things
+geekiest	GEEKY: socially awkward and obsessively keen on technical things
 geeks	GEEK: a carnival performer who does disgusting acts
+geeky	socially awkward and obsessively keen on technical things
 gees	GEE: a unit of force equal to the force exerted by gravity; used to indicate the force to which a body is subjected when it is accelerated
 geese	GOOSE: web-footed long-necked typically gregarious migratory aquatic birds usually larger and less aquatic than ducks
-geezer	a man who is (usually) old and/or eccentric
+geez	an exclamation of surprise
+geezer	GEEZ: an exclamation of surprise
 geezers	GEEZER: a man who is (usually) old and/or eccentric
 geisha	a Japanese woman trained to entertain men with conversation and singing and dancing
 geishas	GEISHA: a Japanese woman trained to entertain men with conversation and singing and dancing
@@ -491,8 +564,12 @@ gelatine	a colorless water-soluble glutinous protein obtained from animal tissue
 gelatinous	thick like gelatin
 gelatinously	in a gelatinous way
 gelatinousness	the property of having a viscosity like jelly
+gelato	Italian ice cream
+gelatos	GELATO: Italian ice cream
 geld	cut off the testicles (of male animals such as horses)
 gelded	(of a male animal) having the testicles removed
+gelder	one who castrates animals
+gelders	GELDER: one who castrates animals
 gelding	castrated male horse
 geldings	GELDING: castrated male horse
 gelds	GELD: cut off the testicles (of male animals such as horses)
@@ -503,6 +580,14 @@ gelling	GEL: a colloid in a more solid form than a sol
 gels	GEL: a colloid in a more solid form than a sol
 gelt	informal terms for money
 gem	art highly prized for its beauty or perfection
+gemmological	relating to the study of gems
+gemmologist	a person who studies gems
+gemmologists	GEMMOLOGIST: a person who studies gems
+gemmology	the study of gemstones
+gemological	relating to the study of gems
+gemologist	a person who studies gems
+gemologists	GEMOLOGIST: a person who studies gems
+gemology	the study of gemstones
 gems	GEM: art highly prized for its beauty or perfection
 gemstone	a crystalline rock that can be cut and polished for jewelry
 gemstones	GEMSTONE: a crystalline rock that can be cut and polished for jewelry
@@ -511,6 +596,7 @@ gendarme	a French policeman
 gendarmerie	French police force; a group of gendarmes or gendarmes collectively
 gendarmes	GENDARME: a French policeman
 gender	a grammatical category in inflected languages governing the agreement between nouns and pronouns and adjectives; in some languages it is quite arbitrary but in Indo-European languages it is usually based on sex or animateness
+gendered	marked by or relating to gender
 genderless	without gender
 genders	GENDER: a grammatical category in inflected languages governing the agreement between nouns and pronouns and adjectives; in some languages it is quite arbitrary but in Indo-European languages it is usually based on sex or animateness
 gene	a segment of DNA that is involved in producing a polypeptide chain; it can include regions preceding and following the coding DNA as well as introns between the exons; it is considered a unit of heredity
@@ -519,6 +605,7 @@ genealogies	GENEALOGY: successive generations of kin
 genealogist	an expert in genealogy
 genealogists	GENEALOGIST: an expert in genealogy
 genealogy	successive generations of kin
+genera	GENUS: a group of related species
 general	applying to all or most members of a category or group
 generalisation	an idea or conclusion having general application
 generalisations	GENERALISATION: an idea or conclusion having general application
@@ -559,6 +646,7 @@ generosity	the trait of being willing to give your money or time
 generous	willing to give and share unstintingly
 generously	in a generous manner
 genes	GENE: a segment of DNA that is involved in producing a polypeptide chain; it can include regions preceding and following the coding DNA as well as introns between the exons; it is considered a unit of heredity
+geneses	GENESIS: the origin of something
 genesis	a coming into being
 genet	French diplomat who in 1793 tried to draw the United States into the war between France and England (1763-1834)
 genetic	occurring among members of a family usually by heredity
@@ -572,6 +660,7 @@ geniality	a disposition to be friendly and approachable (easy to talk to)
 genially	in an affable manner
 genie	an invisible spirit mentioned in the Koran and believed by Muslims to inhabit the earth and influence mankind by appearing in the form of humans or animals
 genies	GENIE: an invisible spirit mentioned in the Koran and believed by Muslims to inhabit the earth and influence mankind by appearing in the form of humans or animals
+genii	GENIUS: an attendant spirit of a person or place
 genital	of or relating to the external sex organs
 genitalia	external sex organ
 genitals	external sex organ
@@ -582,11 +671,13 @@ genius	someone who has exceptional intellectual ability and originality
 geniuses	GENIUS: someone who has exceptional intellectual ability and originality
 genned	GEN: informal term for information
 genning	GEN: informal term for information
+genocidal	relating to the mass killing of a people
 genocide	systematic killing of a racial or cultural group
 genocides	GENOCIDE: systematic killing of a racial or cultural group
 genome	the ordering of genes in a haploid set of chromosomes of a particular organism; the full DNA sequence of an organism
 genomes	GENOME: the ordering of genes in a haploid set of chromosomes of a particular organism; the full DNA sequence of an organism
-genomics	the branch of genetics that studies organisms in terms of their genomes (their full DNA sequences)
+genomic	relating to genomes
+genomics	GENOMIC: relating to genomes
 genotype	a group of organisms sharing a specific genetic constitution
 genotypes	GENOTYPE: a group of organisms sharing a specific genetic constitution
 genre	a kind of literary or artistic work
@@ -615,8 +706,10 @@ gentlewoman	a woman of refinement
 gentlewomen	GENTLEWOMAN: a woman of refinement
 gentling	GENTLE: soft and mild; not harsh or stern or severe
 gently	in a gradual manner
+gentoo	a penguin with a white patch above each eye
 gentries	GENTRY: the most powerful members of a society
 gentrification	the restoration of run-down urban areas by the middle class (resulting in the displacement of low-income residents)
+gentrified	GENTRIFY: renew a poor area so that wealthier people move in
 gentrifies	GENTRIFY: renovate so as to make it conform to middle-class aspirations
 gentrify	renovate so as to make it conform to middle-class aspirations
 gentrifying	GENTRIFY: renovate so as to make it conform to middle-class aspirations
@@ -633,14 +726,24 @@ genuinely	in accordance with truth or fact or reality
 genuineness	the state of being genuine
 genus	a general kind of something
 genuses	GENUS: a general kind of something
+geocache	a hidden container found using GPS coordinates
+geocached	GEOCACHE: a hidden container found using GPS coordinates
+geocaches	GEOCACHE: a hidden container found using GPS coordinates
+geocaching	GEOCACHE: a hidden container found using GPS coordinates
 geocentric	having the earth as the center
+geochemical	relating to the chemistry of the Earth
 geochemistry	the chemistry of the earth's crust
+geochronological	relating to the dating of rocks and Earth events
+geochronologist	a scientist who dates rocks and Earth events
+geochronologists	GEOCHRONOLOGIST: a scientist who dates rocks and Earth events
+geochronology	the dating of rocks and Earth events
 geode	a hollow rock or nodule with the cavity usually lined with crystals
 geodes	GEODE: a hollow rock or nodule with the cavity usually lined with crystals
 geodesic	the shortest line between two points on a mathematically defined surface (as a straight line on a plane or an arc of a great circle on a sphere)
 geodesics	GEODESIC: the shortest line between two points on a mathematically defined surface (as a straight line on a plane or an arc of a great circle on a sphere)
 geodesy	the branch of geology that studies the shape of the earth and the determination of the exact position of geographical points
 geodetic	of or relating to or determined by geodesy
+geoengineering	large-scale deliberate alteration of the Earth's climate
 geographer	an expert on geography
 geographers	GEOGRAPHER: an expert on geography
 geographic	of or relating to the science of geography
@@ -655,6 +758,7 @@ geologies	GEOLOGY: a science that deals with the history of the earth as recorde
 geologist	a specialist in geology
 geologists	GEOLOGIST: a specialist in geology
 geology	a science that deals with the history of the earth as recorded in rocks
+geomagnetic	relating to the Earth's magnetism
 geomancer	one who practices geomancy
 geomancers	GEOMANCER: one who practices geomancy
 geomancies	GEOMANCY: divination by means of signs connected with the earth (as points taken at random or the arrangement of particles thrown down at random or from the configuration of a region and its relation to another)
@@ -666,6 +770,8 @@ geometrically	with respect to geometry
 geometries	GEOMETRY: the pure mathematics of points and lines and curves and surfaces
 geometry	the pure mathematics of points and lines and curves and surfaces
 geomorphological	pertaining to geological structure
+geomorphologist	a scientist who studies landforms
+geomorphologists	GEOMORPHOLOGIST: a scientist who studies landforms
 geomorphology	the branch of geology that studies the characteristics and configuration and evolution of rocks and land forms
 geophysical	of or concerned with geophysics
 geophysicist	a geologist who uses physical principles to study the properties of the earth
@@ -727,6 +833,7 @@ gesture	motion of hands or body to emphasize or help to express a thought or fee
 gestured	GESTURE: motion of hands or body to emphasize or help to express a thought or feeling
 gestures	GESTURE: motion of hands or body to emphasize or help to express a thought or feeling
 gesturing	GESTURE: motion of hands or body to emphasize or help to express a thought or feeling
+gesundheit	said after someone sneezes
 get	come into the possession of something concrete or abstract
 getaway	the attribute of being capable of rapid acceleration
 getaways	GETAWAY: the attribute of being capable of rapid acceleration
@@ -738,8 +845,11 @@ gewgaw	cheap showy jewelry or ornament on clothing
 gewgaws	GEWGAW: cheap showy jewelry or ornament on clothing
 geyser	to overflow like a geyser
 geysers	GEYSER: to overflow like a geyser
+gharial	a long-snouted crocodile-like reptile of India
+gharials	GHARIAL: a long-snouted crocodile-like reptile of India
 ghastlier	GHASTLY: shockingly repellent; inspiring horror
 ghastliest	GHASTLY: shockingly repellent; inspiring horror
+ghastlily	in a ghastly way
 ghastliness	the quality of being ghastly
 ghastly	shockingly repellent; inspiring horror
 ghat	stairway in India leading down to a landing on the water
@@ -748,6 +858,7 @@ ghee	clarified butter used in Indian cookery
 gherkin	any of various small cucumbers pickled whole
 gherkins	GHERKIN: any of various small cucumbers pickled whole
 ghetto	formerly the restricted quarter of many European cities in which Jews were required to live
+ghettoes	GHETTO: a poor area where a minority group lives
 ghettoise	put in a ghetto
 ghettoised	GHETTOISE: put in a ghetto
 ghettoises	GHETTOISE: put in a ghetto
@@ -763,6 +874,7 @@ ghosting	GHOST: a mental representation of some haunting experience
 ghostlier	GHOSTLY: resembling or characteristic of a phantom
 ghostliest	GHOSTLY: resembling or characteristic of a phantom
 ghostlike	resembling or characteristic of a phantom
+ghostlily	in a ghostly way
 ghostliness	strangeness by virtue of being mysterious and inspiring fear
 ghostly	resembling or characteristic of a phantom
 ghosts	GHOST: a mental representation of some haunting experience
@@ -771,11 +883,14 @@ ghostwriter	a writer who gives the credit of authorship to someone else
 ghostwriters	GHOSTWRITER: a writer who gives the credit of authorship to someone else
 ghostwrites	GHOSTWRITE: write for someone else
 ghostwriting	GHOSTWRITE: write for someone else
+ghostwritten	GHOSTWRITE: write for someone else who is credited as author
+ghostwrote	GHOSTWRITE: write for someone else who is credited as author
 ghoul	someone who takes bodies from graves and sells them for anatomical dissection
 ghoulish	suggesting the horror of death and decay
 ghoulishly	in a ghoulish way
 ghoulishness	the quality of being ghoulish
 ghouls	GHOUL: someone who takes bodies from graves and sells them for anatomical dissection
+gianduja	a chocolate and hazelnut paste
 giant	any creature of exceptional size
 giantess	a female giant
 giantesses	GIANTESS: a female giant
@@ -810,6 +925,7 @@ gifted	GIFT: something acquired without compensation
 giftedness	the quality of being gifted
 gifting	GIFT: something acquired without compensation
 gifts	GIFT: something acquired without compensation
+giftwrap	wrap a present attractively
 gig	long and light rowing boat; especially for racing
 gigabit	a unit of information equal to 1000 megabits or 10^9 (1,000,000,000) bits
 gigabits	GIGABIT: a unit of information equal to 1000 megabits or 10^9 (1,000,000,000) bits
@@ -817,6 +933,10 @@ gigabyte	a unit of information equal to 1000 megabytes or 10^9 (1,000,000,000) b
 gigabytes	GIGABYTE: a unit of information equal to 1000 megabytes or 10^9 (1,000,000,000) bytes
 gigahertz	1,000,000,000 periods per second
 gigantic	so exceedingly large or extensive as to suggest a giant or mammoth
+gigapixel	a billion pixels
+gigapixels	GIGAPIXEL: a billion pixels
+gigawatt	a billion watts
+gigawatts	GIGAWATT: a billion watts
 gigged	GIG: long and light rowing boat; especially for racing
 gigging	GIG: long and light rowing boat; especially for racing
 giggle	a foolish or nervous laugh
@@ -824,7 +944,10 @@ giggled	GIGGLE: a foolish or nervous laugh
 giggler	a person who laughs nervously
 gigglers	GIGGLER: a person who laughs nervously
 giggles	GIGGLE: a foolish or nervous laugh
+gigglier	GIGGLY: inclined to giggle
+giggliest	GIGGLY: inclined to giggle
 giggling	GIGGLE: a foolish or nervous laugh
+giggly	inclined to giggle
 gigolo	a man who has sex with and is supported by a woman
 gigolos	GIGOLO: a man who has sex with and is supported by a woman
 gigs	GIG: long and light rowing boat; especially for racing
@@ -834,6 +957,7 @@ gilding	GILD: decorate with, or as if with, gold leaf or liquid gold
 gilds	GILD: decorate with, or as if with, gold leaf or liquid gold
 gill	a British imperial capacity unit (liquid or dry) equal to 5 fluid ounces or 142.066 cubic centimeters
 gillies	GILLIE: a young male attendant on a Scottish Highlander chief
+gillnet	a net that traps fish by their gills
 gills	GILL: a British imperial capacity unit (liquid or dry) equal to 5 fluid ounces or 142.066 cubic centimeters
 gilt	having the deep slightly brownish color of gold
 gilts	GILT: having the deep slightly brownish color of gold
@@ -843,9 +967,12 @@ gimcrack	ornamental objects of no great value
 gimcracks	GIMCRACK: ornamental objects of no great value
 gimlet	a cocktail made of gin or vodka and lime juice
 gimlets	GIMLET: a cocktail made of gin or vodka and lime juice
+gimme	give me
+gimmes	GIMME: give me
 gimmick	a drawback or difficulty that is not readily evident
 gimmickry	a collection of gimmicks
 gimmicks	GIMMICK: a drawback or difficulty that is not readily evident
+gimmicky	relying on attention-getting devices
 gimp	disability of walking due to crippling of the legs or feet
 gimps	GIMP: disability of walking due to crippling of the legs or feet
 gimpy	disabled in the feet or legs
@@ -863,11 +990,14 @@ gingery	having a taste like that of ginger
 gingham	a clothing fabric in a plaid weave
 gingivitis	inflammation of the gums
 gingko	deciduous dioecious Chinese tree having fan-shaped leaves and fleshy yellow seeds; exists almost exclusively in cultivation especially as an ornamental street tree
+gingkoes	GINKGO: a Chinese tree with fan-shaped leaves
 gingkos	GINGKO: deciduous dioecious Chinese tree having fan-shaped leaves and fleshy yellow seeds; exists almost exclusively in cultivation especially as an ornamental street tree
 ginkgo	deciduous dioecious Chinese tree having fan-shaped leaves and fleshy yellow seeds; exists almost exclusively in cultivation especially as an ornamental street tree
+ginkgoes	GINKGO: a Chinese tree with fan-shaped leaves
 ginkgos	GINKGO: deciduous dioecious Chinese tree having fan-shaped leaves and fleshy yellow seeds; exists almost exclusively in cultivation especially as an ornamental street tree
 ginned	GIN: strong liquor flavored with juniper berries
 ginning	GIN: strong liquor flavored with juniper berries
+ginormous	extremely large
 gins	GIN: strong liquor flavored with juniper berries
 ginseng	aromatic root of ginseng plants
 gipsies	GIPSY: a laborer who moves from place to place as demanded by employment
@@ -889,13 +1019,20 @@ girlfriend	any female friend
 girlfriends	GIRLFRIEND: any female friend
 girlhood	the childhood of a girl
 girlhoods	GIRLHOOD: the childhood of a girl
+girlie	girlish
+girlies	GIRLIE: girlish
 girlish	befitting or characteristic of a young girl
 girlishly	like a girl
 girls	GIRL: a young female
+girly	girlish
 giro	a check given by the British government to someone who is unemployed; it can be cashed either at a bank or at the post office
 giros	GIRO: a check given by the British government to someone who is unemployed; it can be cashed either at a bank or at the post office
+girt	GIRD: encircle with a belt
+girted	GIRT: GIRD: encircle with a belt
 girth	the distance around a person's body
 girths	GIRTH: the distance around a person's body
+girting	GIRT: GIRD: encircle with a belt
+girts	GIRT: GIRD: encircle with a belt
 gismo	something unspecified whose name is either forgotten or not known
 gismos	GISMO: something unspecified whose name is either forgotten or not known
 gist	the central meaning or theme of a speech or literary work
@@ -904,6 +1041,8 @@ gits	GIT: a person who is deemed to be despicable or contemptible
 give	cause to have, in the abstract sense or physical sense
 giveaway	a gift of public land or resources for the private gain of a limited group
 giveaways	GIVEAWAY: a gift of public land or resources for the private gain of a limited group
+giveback	a benefit given back, as by workers in a bargain
+givebacks	GIVEBACK: a benefit given back, as by workers in a bargain
 given	acknowledged as a supposition
 givens	GIVEN: acknowledged as a supposition
 giver	someone who devotes himself completely
@@ -926,6 +1065,10 @@ glaciation	the condition of being covered with glaciers or masses of ice; the re
 glaciations	GLACIATION: the condition of being covered with glaciers or masses of ice; the result of glacial action
 glacier	a slowly moving mass of ice
 glaciers	GLACIER: a slowly moving mass of ice
+glaciological	relating to the study of glaciers
+glaciologist	a scientist who studies glaciers
+glaciologists	GLACIOLOGIST: a scientist who studies glaciers
+glaciology	the study of glaciers
 glad	showing or causing joy and pleasure; especially made happy
 gladden	make glad or happy
 gladdened	made joyful
@@ -940,11 +1083,13 @@ gladiatorial	of or relating to or resembling gladiators or their combat
 gladiators	GLADIATOR: a professional combatant or a captive who entertained the public by engaging in mortal combat
 gladiola	any of numerous plants of the genus Gladiolus native chiefly to tropical and South Africa having sword-shaped leaves and one-sided spikes of brightly colored funnel-shaped flowers; widely cultivated
 gladiolas	GLADIOLA: any of numerous plants of the genus Gladiolus native chiefly to tropical and South Africa having sword-shaped leaves and one-sided spikes of brightly colored funnel-shaped flowers; widely cultivated
+gladioli	GLADIOLUS: a plant with sword-shaped leaves and tall spikes of flowers
 gladiolus	any of numerous plants of the genus Gladiolus native chiefly to tropical and South Africa having sword-shaped leaves and one-sided spikes of brightly colored funnel-shaped flowers; widely cultivated
 gladioluses	GLADIOLUS: any of numerous plants of the genus Gladiolus native chiefly to tropical and South Africa having sword-shaped leaves and one-sided spikes of brightly colored funnel-shaped flowers; widely cultivated
 gladly	in a willing manner
 gladness	experiencing joy and pleasure
 glads	GLAD: showing or causing joy and pleasure; especially made happy
+glam	glamorous
 glamor	alluring beauty or charm (often with sex-appeal)
 glamorise	make glamorous and attractive
 glamorised	GLAMORISE: make glamorous and attractive
@@ -971,6 +1116,7 @@ glanced	GLANCE: throw a glance at; take a brief look at
 glances	GLANCE: throw a glance at; take a brief look at
 glancing	GLANCE: throw a glance at; take a brief look at
 gland	any of various organs that synthesize substances needed by the body and release it through ducts or directly into the bloodstream
+glandes	GLANS: the rounded tip of the penis or clitoris
 glands	GLAND: any of various organs that synthesize substances needed by the body and release it through ducts or directly into the bloodstream
 glandular	relating to or affecting or functioning as a gland
 glans	a small rounded structure; especially that at the end of the penis or clitoris
@@ -984,8 +1130,11 @@ glasnost	a policy of the Soviet government allowing freer discussion of social p
 glass	a brittle transparent solid with irregular atomic structure
 glassblower	someone skilled in blowing bottles from molten glass
 glassblowers	GLASSBLOWER: someone skilled in blowing bottles from molten glass
+glassblowing	shaping molten glass by blowing
 glassed	GLASS: a brittle transparent solid with irregular atomic structure
 glasses	optical instrument consisting of a frame that holds a pair of lenses for correcting defective vision
+glassfrog	a small translucent tree frog of Central and South America
+glassfrogs	GLASSFROG: a small translucent tree frog of Central and South America
 glassful	the quantity a glass will hold
 glassfuls	GLASSFUL: the quantity a glass will hold
 glasshouse	a building with glass walls and roof; for the cultivation and exhibition of plants under controlled conditions
@@ -994,6 +1143,7 @@ glassier	GLASSY: resembling glass in smoothness and shininess and slickness
 glassiest	GLASSY: resembling glass in smoothness and shininess and slickness
 glassing	GLASS: a brittle transparent solid with irregular atomic structure
 glassware	an article of tableware made of glass
+glasswing	a butterfly with transparent wings
 glasswort	bushy plant of Old World salt marshes and sea beaches having prickly leaves; burned to produce a crude soda ash
 glassy	resembling glass in smoothness and shininess and slickness
 glaucoma	an eye disease that damages the optic nerve and impairs vision (sometimes progressing to blindness)
@@ -1017,11 +1167,13 @@ gleaned	GLEAN: gather, as of natural products
 gleaner	someone who picks up grain left in the field by the harvesters
 gleaners	GLEANER: someone who picks up grain left in the field by the harvesters
 gleaning	GLEAN: gather, as of natural products
+gleanings	GLEANING: something gathered bit by bit
 gleans	GLEAN: gather, as of natural products
 glee	great merriment
 gleeful	full of high-spirited delight
 gleefully	in a joyous and gleeful manner
 glen	a narrow secluded valley (in the mountains)
+glenoid	relating to the shallow socket of the shoulder joint
 glens	GLEN: a narrow secluded valley (in the mountains)
 glib	marked by lack of intellectual depth
 glibber	GLIB: marked by lack of intellectual depth
@@ -1049,6 +1201,7 @@ glint	be shiny, as if wet
 glinted	GLINT: be shiny, as if wet
 glinting	having brief brilliant points or flashes of light
 glints	GLINT: be shiny, as if wet
+glissandi	GLISSANDO: a slide between musical notes
 glissando	a rapid series of ascending or descending notes on the musical scale
 glissandos	GLISSANDO: a rapid series of ascending or descending notes on the musical scale
 glisten	be shiny, as if wet
@@ -1056,17 +1209,26 @@ glistened	GLISTEN: be shiny, as if wet
 glistening	reflecting light
 glistens	GLISTEN: be shiny, as if wet
 glitch	a fault or defect in a computer program, system, or machine
+glitched	GLITCH: suffer a sudden fault
 glitches	GLITCH: a fault or defect in a computer program, system, or machine
+glitching	GLITCH: suffer a sudden fault
+glitchy	prone to faults
 glitter	the quality of shining with a bright reflected light
+glitterati	fashionable, glamorous people
 glittered	GLITTER: the quality of shining with a bright reflected light
 glittering	having brief brilliant points or flashes of light
 glitters	GLITTER: the quality of shining with a bright reflected light
 glittery	having brief brilliant points or flashes of light
 glitz	tasteless showiness
+glitzier	GLITZY: showy and glamorous
+glitziest	GLITZY: showy and glamorous
+glitzy	showy and glamorous
 gloaming	the time of day immediately following sunset
 gloamings	GLOAMING: the time of day immediately following sunset
 gloat	dwell on with satisfaction
 gloated	GLOAT: dwell on with satisfaction
+gloater	one who gloats
+gloaters	GLOATER: one who gloats
 gloating	GLOAT: dwell on with satisfaction
 gloats	GLOAT: dwell on with satisfaction
 glob	a compact mass
@@ -1076,6 +1238,9 @@ globalise	make world-wide in scope or application
 globalised	GLOBALISE: make world-wide in scope or application
 globalises	GLOBALISE: make world-wide in scope or application
 globalising	GLOBALISE: make world-wide in scope or application
+globalism	the policy of treating the whole world as one's sphere of influence
+globalist	a supporter of treating the whole world as one's sphere of influence
+globalists	GLOBALIST: a supporter of treating the whole world as one's sphere of influence
 globalization	growth to a global or worldwide scale
 globalize	make world-wide in scope or application
 globalized	GLOBALIZE: make world-wide in scope or application
@@ -1086,6 +1251,7 @@ globe	the 3rd planet from the sun; the planet we live on
 globes	GLOBE: the 3rd planet from the sun; the planet we live on
 globetrotter	someone who travels widely and often
 globetrotters	GLOBETROTTER: someone who travels widely and often
+globetrotting	travelling widely
 globose	having the shape of a sphere or ball
 globs	GLOB: a compact mass
 globular	having the shape of a sphere or ball
@@ -1106,7 +1272,13 @@ gloominess	an atmosphere of depression and melancholy
 glooming	depressingly dark
 glooms	GLOOM: a state of partial or total darkness
 gloomy	depressingly dark
+gloop	a thick, sticky liquid
+gloops	GLOOP: a thick, sticky liquid
 glop	any gummy shapeless matter; usually unpleasant
+gloppier	GLOPPY: thick and sticky
+gloppiest	GLOPPY: thick and sticky
+gloppy	thick and sticky
+gloried	GLORY: rejoice proudly
 glories	GLORY: a state of high honor
 glorification	a state of high honor
 glorified	accorded sacrosanct or authoritative standing
@@ -1121,6 +1293,8 @@ gloss	an explanation or definition of an obscure word in a text
 glossaries	GLOSSARY: an alphabetical list of technical terms in some specialized field of knowledge; usually published as an appendix to a text on that field
 glossary	an alphabetical list of technical terms in some specialized field of knowledge; usually published as an appendix to a text on that field
 glossed	GLOSS: an explanation or definition of an obscure word in a text
+glosser	one who glosses
+glossers	GLOSSER: one who glosses
 glosses	GLOSS: an explanation or definition of an obscure word in a text
 glossier	GLOSSY: a magazine printed on good quality paper
 glossies	GLOSSY: a magazine printed on good quality paper
@@ -1129,6 +1303,7 @@ glossiness	the property of being smooth and shiny
 glossing	GLOSS: an explanation or definition of an obscure word in a text
 glossy	a magazine printed on good quality paper
 glottal	of or relating to or produced by the glottis
+glottides	GLOTTIS: the opening between the vocal cords
 glottis	the vocal apparatus of the larynx; the true vocal folds and the space between them where the voice tone is generated
 glottises	GLOTTIS: the vocal apparatus of the larynx; the true vocal folds and the space between them where the voice tone is generated
 glottochronological	pertaining to the study of the evolution of languages from a common source
@@ -1149,6 +1324,7 @@ glows	GLOW: an alert and refreshed state
 glowworm	the luminous larva or wingless grub-like female of a firefly
 glowworms	GLOWWORM: the luminous larva or wingless grub-like female of a firefly
 glucagon	a hormone secreted by the pancreas; stimulates increases in blood sugar levels in the blood (thus opposing the action of insulin)
+gluconeogenesis	the making of glucose in the body from non-carbohydrates
 glucose	a monosaccharide sugar that has several forms; an important source of physiological energy
 glucoside	a glycoside derived from glucose
 glue	join or attach with or as if with glue
@@ -1156,6 +1332,8 @@ glued	affixed or as if affixed with glue or paste
 glueing	GLUE: join or attach with or as if with glue
 glues	GLUE: join or attach with or as if with glue
 gluey	having the sticky properties of an adhesive
+gluier	GLUEY: sticky
+gluiest	GLUEY: sticky
 gluing	GLUE: join or attach with or as if with glue
 glum	moody and melancholic
 glumly	in a sullen manner
@@ -1167,7 +1345,9 @@ gluons	GLUON: a gauge boson that mediates strong interaction among quarks
 glut	overeat or eat immodestly; make a pig of oneself
 glutamate	a salt or ester of glutamic acid
 glutamine	a crystalline amino acid occurring in proteins; important in protein metabolism
+glutathione	an antioxidant molecule found in cells
 gluteal	of or relating to or near the gluteus muscles
+glutei	GLUTEUS: a buttock muscle
 gluten	a protein substance that remains when starch is removed from cereal grains; gives cohesiveness to dough
 gluteus	any one of three large skeletal muscles that form the buttock and move the thigh
 glutinous	having the sticky properties of an adhesive
@@ -1191,6 +1371,7 @@ glycoprotein	a conjugated protein having a carbohydrate component
 glycoproteins	GLYCOPROTEIN: a conjugated protein having a carbohydrate component
 glycosides	GLYCOSIDE: a group of compounds derived from monosaccharides
 glyph	glyptic art in the form of a symbolic figure carved or incised in relief
+glyphic	relating to carved symbols
 glyphs	GLYPH: glyptic art in the form of a symbolic figure carved or incised in relief
 gnarl	something twisted and tight and swollen
 gnarled	used of old persons or old trees; covered with knobs or knots
@@ -1202,6 +1383,8 @@ gnarls	GNARL: something twisted and tight and swollen
 gnarly	used of old persons or old trees; covered with knobs or knots
 gnash	grind together, of teeth
 gnashed	GNASH: grind together, of teeth
+gnasher	a tooth
+gnashers	GNASHER: a tooth
 gnashes	GNASH: grind together, of teeth
 gnashing	GNASH: grind together, of teeth
 gnashingly	in a gnashing way
@@ -1215,6 +1398,7 @@ gnawer	relatively small placental mammals having a single pair of constantly gro
 gnawers	GNAWER: relatively small placental mammals having a single pair of constantly growing incisor teeth specialized for gnawing
 gnawing	GNAW: bite or chew on with the teeth
 gnawingly	in a gnawing way
+gnawn	GNAW: bite at repeatedly
 gnaws	GNAW: bite or chew on with the teeth
 gneiss	a laminated metamorphic rock similar to granite
 gnocchi	a small dumpling made of potato or flour or semolina that is boiled or baked and is usually served with a sauce or with grated cheese
@@ -1234,14 +1418,19 @@ goalie	the soccer or hockey player assigned to protect the goal
 goalies	GOALIE: the soccer or hockey player assigned to protect the goal
 goalkeeper	the soccer or hockey player assigned to protect the goal
 goalkeepers	GOALKEEPER: the soccer or hockey player assigned to protect the goal
+goalkeeping	the job of defending the goal
 goalless	having no points scores
 goalmouth	the area immediately in front of the goal
 goalmouths	GOALMOUTH: the area immediately in front of the goal
 goalpost	one of a pair of posts (usually joined by a crossbar) that are set up as a goal at each end of a playing field
 goalposts	GOALPOST: one of a pair of posts (usually joined by a crossbar) that are set up as a goal at each end of a playing field
 goals	GOAL: the state of affairs that a plan is intended to achieve and that (when achieved) terminates behavior intended to achieve it
+goalscorer	a player who scores goals
+goalscorers	GOALSCORER: a player who scores goals
 goaltender	the soccer or hockey player assigned to protect the goal
 goaltenders	GOALTENDER: the soccer or hockey player assigned to protect the goal
+goanna	a large Australian lizard
+goannas	GOANNA: a large Australian lizard
 goat	any of numerous agile ruminants related to sheep but having a beard and straight horns
 goatee	a small chin beard trimmed to a point; named for its resemblance to a goat's beard
 goatees	GOATEE: a small chin beard trimmed to a point; named for its resemblance to a goat's beard
@@ -1258,11 +1447,13 @@ gobbets	GOBBET: a lump or chunk of raw meat
 gobbing	GOB: a man who serves as a sailor
 gobble	eat hastily without proper chewing
 gobbled	GOBBLE: eat hastily without proper chewing
+gobbledegook	confusing jargon or nonsense
 gobbledygook	incomprehensible or pompous jargon of specialists
 gobbler	a hasty eater who swallows large mouthfuls
 gobblers	GOBBLER: a hasty eater who swallows large mouthfuls
 gobbles	GOBBLE: eat hastily without proper chewing
 gobbling	GOBBLE: eat hastily without proper chewing
+gobby	loud-mouthed
 gobies	GOBY: small spiny-finned fish of coastal or brackish waters having a large head and elongated tapering body having the ventral fins modified as a sucker
 goblet	a drinking glass with a base and stem
 goblets	GOBLET: a drinking glass with a base and stem
@@ -1270,10 +1461,15 @@ goblin	a small grotesque supernatural creature that makes trouble for human bein
 goblins	GOBLIN: a small grotesque supernatural creature that makes trouble for human beings
 gobs	a large number or amount
 gobsmacked	utterly astounded
+gobstopper	a large hard round sweet
+gobstoppers	GOBSTOPPER: a large hard round sweet
 goby	small spiny-finned fish of coastal or brackish waters having a large head and elongated tapering body having the ventral fins modified as a sucker
 god	the supernatural being conceived as the perfect and omnipotent and omniscient originator and ruler of the universe; the object of worship in monotheistic religions
+godawful	extremely bad
 godchild	an infant who is sponsored by an adult (the godparent) at baptism
+godchildren	GODCHILD: a child one sponsors at baptism
 goddam	expletives used informally as intensifiers
+goddammit	an exclamation of anger
 goddamn	used as expletives
 goddamned	expletives used informally as intensifiers
 goddaughter	a female godchild
@@ -1283,6 +1479,7 @@ goddesses	GODDESS: a female deity
 godfather	any man who serves as a sponsor for a child at baptism
 godfathers	GODFATHER: any man who serves as a sponsor for a child at baptism
 godforsaken	located in a dismal or remote area; desolate
+godhood	the state of being a god
 godless	not revering god
 godlessness	impiety by virtue of not being a godly person
 godlier	GODLY: showing great reverence for god
@@ -1309,6 +1506,7 @@ goers	GOER: someone who leaves
 goes	GO: change location; move, travel, or proceed, also metaphorically
 gofer	an employee whose duties include running errands
 gofers	GOFER: an employee whose duties include running errands
+goggas	GOGGA: an insect or creepy-crawly
 goggle	look with amazement; look stupidly
 goggled	GOGGLE: look with amazement; look stupidly
 goggles	tight-fitting spectacles worn to protect the eyes
@@ -1322,6 +1520,8 @@ goitres	GOITRE: abnormally enlarged thyroid gland; can result from underproducti
 gold	coins made of gold
 goldbrick	a soldier who performs his duties without proper care or effort
 goldbricked	GOLDBRICK: a soldier who performs his duties without proper care or effort
+goldbricker	a person who avoids work
+goldbrickers	GOLDBRICKER: a person who avoids work
 goldbricking	the evasion of work or duty
 goldbricks	GOLDBRICK: a soldier who performs his duties without proper care or effort
 golden	having the deep slightly brownish color of gold
@@ -1351,6 +1551,7 @@ golfing	playing golf
 golfs	GOLF: a game played on a large open course with 9 or 18 holes; the object is use as few strokes as possible in playing all the holes
 goliath	a giant Philistine warrior who was slain by David with a slingshot
 goliaths	GOLIATH: a giant Philistine warrior who was slain by David with a slingshot
+golly	an exclamation of surprise
 gonad	a gland in which gametes (sex cells) are produced
 gonadal	of or relating to the gonads
 gonadotropin	hormone secreted by the anterior pituitary gland and placenta; stimulates the gonads and controls reproductive activity
@@ -1366,6 +1567,7 @@ gong	a percussion instrument consisting of a metal plate that is struck with a s
 gonged	GONG: a percussion instrument consisting of a metal plate that is struck with a softheaded drumstick
 gonging	GONG: a percussion instrument consisting of a metal plate that is struck with a softheaded drumstick
 gongs	GONG: a percussion instrument consisting of a metal plate that is struck with a softheaded drumstick
+gonna	going to
 gonorrhea	a common venereal disease caused by the bacterium Neisseria gonorrhoeae; symptoms are painful urination and pain around the urethra
 gonorrhoea	a common venereal disease caused by the bacterium Neisseria gonorrhoeae; symptoms are painful urination and pain around the urethra
 gonzo	conspicuously or grossly unconventional or unusual
@@ -1377,12 +1579,17 @@ goodby	a farewell remark
 goodbye	a farewell remark
 goodbyes	GOODBYE: a farewell remark
 goodbys	GOODBY: a farewell remark
-goodies	GOODY: something considered choice to eat
+goodhearted	kind
+goodie	a pleasing thing, or a hero
+goodies	GOODIE: a pleasing thing, or a hero
 goodish	moderately good of its kind
 goodlier	GOODLY: large in amount or extent or degree
 goodliest	GOODLY: large in amount or extent or degree
 goodly	large in amount or extent or degree
 goodness	that which is pleasing or valuable or useful
+goodnight	a farewell said at night
+goodnights	GOODNIGHT: a farewell said at night
+goodo	all right
 goods	GOOD: having desirable or positive qualities especially those suitable for a thing specified
 goodwill	an intangible asset valued according to the advantage or reputation a business has acquired (over and above its tangible assets)
 goody	something considered choice to eat
@@ -1393,6 +1600,7 @@ goofballs	GOOFBALL: a man who is a stupid incompetent fool
 goofed	GOOF: commit a faux pas or a fault or make a serious mistake
 goofier	GOOFY: a cartoon character created by Walt Disney
 goofiest	GOOFY: a cartoon character created by Walt Disney
+goofily	in a silly way
 goofiness	the quality of being goofy
 goofing	GOOF: commit a faux pas or a fault or make a serious mistake
 goofs	GOOF: commit a faux pas or a fault or make a serious mistake
@@ -1405,6 +1613,8 @@ googling	GOOGLE: a widely used search engine that uses text-matching techniques 
 googly	a cricket ball bowled as if to break one way that actually breaks in the opposite way
 googol	a cardinal number represented as 1 followed by 100 zeros (ten raised to the power of a hundred)
 googols	GOOGOL: a cardinal number represented as 1 followed by 100 zeros (ten raised to the power of a hundred)
+gooier	GOOEY: sticky and soft
+gooiest	GOOEY: sticky and soft
 goon	an awkward stupid person
 goons	GOON: an awkward stupid person
 goop	any thick, viscous matter
@@ -1416,6 +1626,7 @@ goosed	GOOSE: web-footed long-necked typically gregarious migratory aquatic bird
 goosefish	fishes having large mouths with a wormlike filament attached for luring prey
 gooseflesh	reflex erection of hairs of the skin in response to cold or emotional stress or skin irritation
 gooseneck	something in a thin curved form (like the neck of a goose)
+goosepimples	GOOSEPIMPLE: a small bump on the skin from cold or fear
 gooses	GOOSE: web-footed long-necked typically gregarious migratory aquatic birds usually larger and less aquatic than ducks
 goosing	GOOSE: web-footed long-necked typically gregarious migratory aquatic birds usually larger and less aquatic than ducks
 gopher	a zealously energetic person (especially a salesman)
@@ -1441,11 +1652,15 @@ gorier	GORY: covered with blood
 goriest	GORY: covered with blood
 gorilla	largest anthropoid ape; terrestrial and vegetarian; of forests of central west Africa
 gorillas	GORILLA: largest anthropoid ape; terrestrial and vegetarian; of forests of central west Africa
+gorily	in a bloody way
 goriness	the quality of being gory
 goring	GORE: wound by piercing with a sharp or penetrating object or instrument
 gormless	lacking intelligence and vitality
+gorp	trail mix
+gorps	GORP: trail mix
 gorse	very spiny and dense evergreen shrub with fragrant golden-yellow flowers; common throughout western Europe
 gory	covered with blood
+gosh	an exclamation of surprise
 goshawk	large hawk of Eurasia and North America used in falconry
 goshawks	GOSHAWK: large hawk of Eurasia and North America used in falconry
 gosling	young goose
@@ -1454,6 +1669,7 @@ gospel	the four books in the New Testament (Matthew, Mark, Luke, and John) that 
 gospels	the four books in the New Testament (Matthew, Mark, Luke, and John) that tell the story of Christ's life and teachings
 gossamer	characterized by unusual lightness and delicacy
 gossamers	GOSSAMER: characterized by unusual lightness and delicacy
+gossamery	light and delicate
 gossip	light informal conversation for social occasions
 gossiped	GOSSIP: light informal conversation for social occasions
 gossiper	a person given to gossiping and divulging personal information about others
@@ -1464,9 +1680,12 @@ gossipping	GOSSIP: light informal conversation for social occasions
 gossips	GOSSIP: light informal conversation for social occasions
 gossipy	prone to friendly informal communication
 got	GET: come into the possession of something concrete or abstract
+gotcha	I understand, or caught you
+gotchas	GOTCHA: I understand, or caught you
 goth	a crude uncouth ill-bred person lacking culture or refinement
 gothic	extinct East Germanic language of the ancient Goths; the only surviving record being fragments of a 4th-century translation of the Bible by Bishop Ulfilas
 goths	GOTH: a crude uncouth ill-bred person lacking culture or refinement
+gotta	got to
 gotten	GET: come into the possession of something concrete or abstract
 gouache	an opaque watercolor prepared with gum
 gouaches	GOUACHE: an opaque watercolor prepared with gum
@@ -1478,6 +1697,8 @@ gouges	GOUGE: force with the thumb
 gouging	GOUGE: force with the thumb
 goulash	a rich meat stew highly seasoned with paprika
 goulashes	GOULASH: a rich meat stew highly seasoned with paprika
+gourami	a freshwater fish of southeast Asia
+gouramis	GOURAMI: a freshwater fish of southeast Asia
 gourd	bottle made from the dried shell of a bottle gourd
 gourds	GOURD: bottle made from the dried shell of a bottle gourd
 gourmand	a person who is devoted to eating and drinking to excess
@@ -1549,6 +1770,7 @@ gradients	GRADIENT: a graded change in the magnitude of some physical quantity o
 grading	the act of arranging in a graduated series
 grads	GRAD: one-hundredth of a right angle
 gradual	proceeding in small stages
+gradualism	the belief in slow change
 gradually	in a gradual manner
 graduate	receive an academic degree upon completion of one's studies
 graduated	GRADUATE: receive an academic degree upon completion of one's studies
@@ -1560,6 +1782,8 @@ graffiti	a rude decoration inscribed on rocks or walls
 graffito	a rude decoration inscribed on rocks or walls
 graft	tissue or organ transplanted from a donor to a recipient; in some cases the patient can be both donor and recipient
 grafted	GRAFT: tissue or organ transplanted from a donor to a recipient; in some cases the patient can be both donor and recipient
+grafter	a hard worker
+grafters	GRAFTER: a hard worker
 grafting	the act of grafting something onto something else
 grafts	GRAFT: tissue or organ transplanted from a donor to a recipient; in some cases the patient can be both donor and recipient
 grahams	GRAHAM: United States evangelical preacher famous as a mass evangelist (born in 1918)
@@ -1567,6 +1791,8 @@ grail	the object of any prolonged endeavor
 grails	GRAIL: the object of any prolonged endeavor
 grain	a relatively small granular particle of a substance
 grained	GRAIN: a relatively small granular particle of a substance
+grainer	one who grains
+grainers	GRAINER: one who grains
 grainier	GRAINY: composed of or covered with particles resembling meal in texture or consistency
 grainiest	GRAINY: composed of or covered with particles resembling meal in texture or consistency
 grains	GRAIN: a relatively small granular particle of a substance
@@ -1589,8 +1815,11 @@ granaries	GRANARY: a storehouse for threshed grain or animal feed
 granary	a storehouse for threshed grain or animal feed
 grand	of behavior that is impressive and ambitious in scale or scope
 grandad	the father of your father or mother
+grandaddies	GRANDADDY: grandfather
+grandaddy	grandfather
 grandads	GRANDAD: the father of your father or mother
 grandchild	a child of your son or daughter
+grandchildren	GRANDCHILD: a child of your son or daughter
 granddad	the father of your father or mother
 granddaddies	GRANDDADDY: the father of your father or mother
 granddaddy	the father of your father or mother
@@ -1603,12 +1832,16 @@ grander	GRAND: of behavior that is impressive and ambitious in scale or scope
 grandest	GRAND: of behavior that is impressive and ambitious in scale or scope
 grandeur	the quality of being magnificent or splendid or grand
 grandfather	the father of your father or mother
+grandfathered	GRANDFATHER: exempt from new rules
+grandfathering	GRANDFATHER: exempt from new rules
 grandfatherly	in a grandfather way
 grandfathers	GRANDFATHER: the father of your father or mother
 grandiloquence	high-flown style; excessive use of verbal ornamentation
 grandiloquent	lofty in style
 grandiose	impressive because of unnecessary largeness or grandeur; used to show disapproval
 grandiosity	high-flown style; excessive use of verbal ornamentation
+grandkid	a child of your son or daughter
+grandkids	GRANDKID: a child of your son or daughter
 grandly	in a grand manner
 grandma	the mother of your father or mother
 grandmas	GRANDMA: the mother of your father or mother
@@ -1674,6 +1907,7 @@ graphically	in a diagrammatic manner
 graphics	GRAPHIC: written or drawn or engraved
 graphing	GRAPH: a visual representation of the relations between certain quantities, represented as points, plotted with reference to a set of axes
 graphite	used as a lubricant and as a moderator in nuclear reactors
+graphological	relating to the analysis of handwriting
 graphologist	a specialist in inferring character from handwriting
 graphologists	GRAPHOLOGIST: a specialist in inferring character from handwriting
 graphology	the study of handwriting (especially as an indicator of the writer's character or disposition)
@@ -1687,6 +1921,8 @@ grapples	GRAPPLE: succeed in doing, achieving, or producing (something) with the
 grappling	the act of engaging in close hand-to-hand combat
 grasp	hold firmly
 grasped	GRASP: hold firmly
+grasper	one who grasps
+graspers	GRASPER: one who grasps
 grasping	understanding with difficulty
 graspingly	in a grasping way
 graspingness	the quality of being grasping
@@ -1718,8 +1954,10 @@ gratifies	GRATIFY: make happy or satisfied
 gratify	make happy or satisfied
 gratifying	GRATIFY: make happy or satisfied
 gratifyingly	in a gratifying manner
+gratin	a dish topped with a browned crust of crumbs or cheese
 grating	a barrier that has parallel or crossed bars blocking a passage but admitting air
 gratings	GRATING: a barrier that has parallel or crossed bars blocking a passage but admitting air
+gratins	GRATIN: a dish topped with a browned crust of crumbs or cheese
 gratis	costing nothing
 gratitude	a feeling of thankfulness and appreciation
 gratuities	GRATUITY: a relatively small amount of money given for services rendered (as by a waiter)
@@ -1731,6 +1969,7 @@ grave	death of a person
 graved	GRAVE: death of a person
 gravedigger	a person who earns a living by digging graves
 gravediggers	GRAVEDIGGER: a person who earns a living by digging graves
+gravedigging	the digging of graves
 gravel	rock fragments and pebbles
 graveled	GRAVEL: rock fragments and pebbles
 graveling	GRAVEL: rock fragments and pebbles
@@ -1743,6 +1982,8 @@ graven	cut into a desired shape
 graveness	a manner that is serious and solemn
 graver	GRAVE: death of a person
 graves	GRAVE: death of a person
+graveside	the area next to a grave
+gravesides	GRAVESIDE: the area next to a grave
 gravest	GRAVE: death of a person
 gravestone	a stone that is used to mark a grave
 gravestones	GRAVESTONE: a stone that is used to mark a grave
@@ -1771,10 +2012,13 @@ grayer	GRAY: a neutral achromatic color midway between white and black
 grayest	GRAY: a neutral achromatic color midway between white and black
 graying	GRAY: a neutral achromatic color midway between white and black
 grayish	of an achromatic color of any lightness intermediate between the extremes of white and black
+grayling	a silvery freshwater fish with a large dorsal fin
 grayness	a neutral achromatic color midway between white and black
 grays	GRAY: a neutral achromatic color midway between white and black
 graze	feed as in a meadow or pasture
 grazed	GRAZE: feed as in a meadow or pasture
+grazer	an animal that feeds on grass
+grazers	GRAZER: an animal that feeds on grass
 grazes	GRAZE: feed as in a meadow or pasture
 grazing	GRAZE: feed as in a meadow or pasture
 grease	a thick fatty oil (especially one used to lubricate machinery)
@@ -1816,6 +2060,9 @@ greened	GREEN: green color or pigment; resembling the color of growing grass
 greener	GREEN: green color or pigment; resembling the color of growing grass
 greenery	green foliage
 greenest	GREEN: green color or pigment; resembling the color of growing grass
+greenfield	undeveloped land
+greenfinch	an olive-green finch
+greenfinches	GREENFINCH: an olive-green finch
 greenflies	GREENFLY: greenish aphid; pest on garden and crop plants
 greenfly	greenish aphid; pest on garden and crop plants
 greengage	sweet green or greenish-yellow variety of plum
@@ -1826,8 +2073,14 @@ greenhorn	an awkward and inexperienced youth
 greenhorns	GREENHORN: an awkward and inexperienced youth
 greenhouse	a building with glass walls and roof; for the cultivation and exhibition of plants under controlled conditions
 greenhouses	GREENHOUSE: a building with glass walls and roof; for the cultivation and exhibition of plants under controlled conditions
+greenie	an environmentalist
+greenies	GREENIE: an environmentalist
 greening	GREEN: green color or pigment; resembling the color of growing grass
 greenish	of the color between blue and yellow in the color spectrum; similar to the color of fresh grass
+greenlight	approve
+greenlighted	GREENLIGHT: approve
+greenlighting	GREENLIGHT: approve
+greenlights	GREENLIGHT: approve
 greenly	with green color
 greenness	the lush appearance of flourishing vegetation
 greenroom	a backstage room in a theater where performers rest or have visitors
@@ -1835,7 +2088,9 @@ greenrooms	GREENROOM: a backstage room in a theater where performers rest or hav
 greens	any of various leafy plants or their leaves and stems eaten as vegetables
 greenshank	large European sandpiper with greenish legs
 greenshanks	GREENSHANK: large European sandpiper with greenish legs
+greenstone	a green rock such as jade
 greensward	surface layer of ground containing a mat of grass and grass roots
+greenwash	mislead people about environmental credentials
 greet	express greetings upon meeting someone
 greeted	GREET: express greetings upon meeting someone
 greeter	a person who greets
@@ -1853,6 +2108,10 @@ grenades	GRENADE: a small explosive bomb thrown by hand or fired from a missile
 grenadier	an infantryman equipped with grenades
 grenadiers	GRENADIER: an infantryman equipped with grenades
 grenadine	thin syrup made from pomegranate juice; used in mixed drinks
+grep	search text for a pattern
+grepped	GREP: search text for a pattern
+grepping	GREP: search text for a pattern
+greps	GREP: search text for a pattern
 grew	GROW: pass into a condition gradually, take on a specific property or attribute; become
 grey	of an achromatic color of any lightness intermediate between the extremes of white and black
 greyed	GREY: of an achromatic color of any lightness intermediate between the extremes of white and black
@@ -1864,6 +2123,8 @@ greying	GREY: of an achromatic color of any lightness intermediate between the e
 greyish	of an achromatic color of any lightness intermediate between the extremes of white and black
 greyness	a neutral achromatic color midway between white and black
 greys	GREY: of an achromatic color of any lightness intermediate between the extremes of white and black
+gribble	a small marine creature that bores into wood
+gribbles	GRIBBLE: a small marine creature that bores into wood
 grid	a pattern of regularly spaced horizontal and vertical lines
 griddle	cooking utensil consisting of a flat heated surface (as on top of a stove) on which food is cooked
 griddlecake	a scone made by dropping a spoonful of batter on a griddle
@@ -1872,6 +2133,7 @@ griddles	GRIDDLE: cooking utensil consisting of a flat heated surface (as on top
 gridiron	a cooking utensil of parallel metal bars; used to grill fish or meat
 gridirons	GRIDIRON: a cooking utensil of parallel metal bars; used to grill fish or meat
 gridlock	a traffic jam so bad that no movement is possible
+gridlocked	blocked by traffic
 gridlocks	GRIDLOCK: a traffic jam so bad that no movement is possible
 grids	GRID: a pattern of regularly spaced horizontal and vertical lines
 grief	intense sorrow caused by loss of a loved one (especially by death)
@@ -1892,6 +2154,8 @@ grifter	a person who swindles you by means of deception or fraud
 grill	a restaurant where food is cooked on a grill
 grille	small opening (like a window in a door) through which business can be transacted
 grilled	GRILL: a restaurant where food is cooked on a grill
+griller	a device for grilling
+grillers	GRILLER: a device for grilling
 grilles	GRILLE: small opening (like a window in a door) through which business can be transacted
 grilling	GRILL: a restaurant where food is cooked on a grill
 grillings	GRILLING: cooking by direct exposure to radiant heat (as over a fire or under a grill)
@@ -1906,6 +2170,7 @@ grimed	GRIME: the state of being covered with unclean things
 grimes	GRIME: the state of being covered with unclean things
 grimier	GRIMY: thickly covered with ingrained dirt or soot
 grimiest	GRIMY: thickly covered with ingrained dirt or soot
+grimily	in a dirty way
 griminess	the state of being grimy
 griming	GRIME: the state of being covered with unclean things
 grimly	in a grim implacable manner
@@ -1916,6 +2181,8 @@ grimoire	a manual of black magic (for invoking spirits and demons)
 grimoires	GRIMOIRE: a manual of black magic (for invoking spirits and demons)
 grimy	thickly covered with ingrained dirt or soot
 grin	a facial expression characterized by turning up the corners of the mouth; usually shows pleasure or amusement
+grinch	a killjoy
+grinches	GRINCH: a killjoy
 grind	press or grind with a crushing noise
 grinder	a large sandwich made of a long crusty roll split lengthwise and filled with meats and cheese (and tomato and onion and lettuce and condiments); different names are used in different sections of the United States
 grinders	GRINDER: a large sandwich made of a long crusty roll split lengthwise and filled with meats and cheese (and tomato and onion and lettuce and condiments); different names are used in different sections of the United States
@@ -1933,11 +2200,14 @@ griots	GRIOT: a storyteller in West Africa; perpetuates the oral traditions of a
 grip	the act of grasping
 gripe	informal terms for objecting
 griped	GRIP: the act of grasping
+griper	one who complains
+gripers	GRIPER: one who complains
 gripes	GRIP: the act of grasping
 griping	GRIP: the act of grasping
 grippe	an acute febrile highly contagious viral disease
 gripped	GRIP: the act of grasping
 gripper	GRIP: the act of grasping
+grippers	GRIPPER: something that grips
 gripping	GRIP: the act of grasping
 grips	GRIP: the act of grasping
 grislier	GRISLY: shockingly repellent; inspiring horror
@@ -1955,6 +2225,7 @@ grit	a hard coarse-grained siliceous sandstone
 grits	coarsely ground hulled corn boiled as a breakfast dish in the southern United States
 gritted	GRIT: a hard coarse-grained siliceous sandstone
 gritter	GRIT: a hard coarse-grained siliceous sandstone
+gritters	GRITTER: a vehicle that spreads grit on roads
 grittier	GRITTY: composed of or covered with particles resembling meal in texture or consistency
 grittiest	GRITTY: composed of or covered with particles resembling meal in texture or consistency
 grittiness	the quality of being gritty
@@ -1962,6 +2233,8 @@ gritting	GRIT: a hard coarse-grained siliceous sandstone
 gritty	composed of or covered with particles resembling meal in texture or consistency
 grizzle	a grey wig
 grizzled	having dark hairs mixed with grey or white
+grizzler	a whining person
+grizzlers	GRIZZLER: a whining person
 grizzles	GRIZZLE: a grey wig
 grizzlier	GRIZZLY: powerful brownish-yellow bear of the uplands of western North America
 grizzlies	GRIZZLY: powerful brownish-yellow bear of the uplands of western North America
@@ -1982,6 +2255,7 @@ grocery	a marketplace where groceries are sold
 grog	rum cut with water
 groggier	GROGGY: stunned or confused and slow to react (as from blows or drunkenness or exhaustion)
 groggiest	GROGGY: stunned or confused and slow to react (as from blows or drunkenness or exhaustion)
+groggily	in a dazed, unsteady way
 grogginess	a dazed and staggering state caused by alcohol
 groggy	stunned or confused and slow to react (as from blows or drunkenness or exhaustion)
 groin	the crease at the junction of the inner part of the thigh with the trunk together with the adjacent region and often including the external genitals
@@ -1994,6 +2268,8 @@ grommet	fastener consisting of a metal ring for lining a small hole to permit th
 grommets	GROMMET: fastener consisting of a metal ring for lining a small hole to permit the attachment of cords or lines
 groom	educate for a future role or function
 groomed	neat and smart in appearance; well cared for
+groomer	one who grooms
+groomers	GROOMER: one who grooms
 grooming	GROOM: educate for a future role or function
 grooms	GROOM: educate for a future role or function
 groomsman	a male attendant of the bridegroom at a wedding
@@ -2007,6 +2283,8 @@ grooving	GROOVE: a long narrow furrow cut either by a natural process (such as e
 groovy	very good
 grope	feel about uncertainly or blindly
 groped	GROPE: feel about uncertainly or blindly
+groper	one who gropes
+gropers	GROPER: one who gropes
 gropes	GROPE: feel about uncertainly or blindly
 groping	GROPE: feel about uncertainly or blindly
 grosbeak	any of various finches of Europe or America having a massive and powerful bill
@@ -2027,6 +2305,7 @@ grotesques	GROTESQUE: distorted and unnatural in shape or size; abnormal and hid
 grottier	GROTTY: very unpleasant or offensive
 grottiest	GROTTY: very unpleasant or offensive
 grotto	a small cave (usually with attractive features)
+grottoes	GROTTO: a small picturesque cave
 grottos	GROTTO: a small cave (usually with attractive features)
 grotty	very unpleasant or offensive
 grouch	a bad-tempered person
@@ -2041,6 +2320,8 @@ grouchy	annoyed and irritable
 ground	the solid part of the earth's surface
 groundbreaking	the ceremonial breaking of the ground to formally begin a construction project
 groundbreakings	GROUNDBREAKING: the ceremonial breaking of the ground to formally begin a construction project
+groundcloth	a waterproof sheet laid on the ground
+groundcloths	GROUNDCLOTH: a waterproof sheet laid on the ground
 grounded	GROUND: the solid part of the earth's surface
 grounder	a hit that travels along the ground
 grounders	GROUNDER: a hit that travels along the ground
@@ -2060,6 +2341,11 @@ groundskeeper	someone who maintains the grounds (of an estate or park or athleti
 groundskeepers	GROUNDSKEEPER: someone who maintains the grounds (of an estate or park or athletic field)
 groundsman	someone who maintains the grounds (of an estate or park or athletic field)
 groundsmen	GROUNDSMAN: someone who maintains the grounds (of an estate or park or athletic field)
+groundstroke	a tennis stroke made after the ball bounces
+groundstrokes	GROUNDSTROKE: a tennis stroke made after the ball bounces
+groundswell	a gathering wave of public feeling
+groundswells	GROUNDSWELL: a gathering wave of public feeling
+groundwater	water held underground
 groundwork	the fundamental assumptions from which something is begun or developed or calculated or explained
 group	any number of entities (members) considered as a unit
 grouped	GROUP: any number of entities (members) considered as a unit
@@ -2074,10 +2360,14 @@ groupthink	decision making by a group (especially in a manner that discourages c
 groupware	software that can be used by a group of people who are working on the same information but may be distributed in space
 grouse	flesh of any of various grouse of the family Tetraonidae; usually roasted; flesh too dry to broil
 groused	GROUSE: flesh of any of various grouse of the family Tetraonidae; usually roasted; flesh too dry to broil
+grouser	a complainer
+grousers	GROUSER: a complainer
 grouses	GROUSE: flesh of any of various grouse of the family Tetraonidae; usually roasted; flesh too dry to broil
 grousing	GROUSE: flesh of any of various grouse of the family Tetraonidae; usually roasted; flesh too dry to broil
 grout	a thin mortar that can be poured and used to fill cracks in masonry or brickwork
 grouted	GROUT: a thin mortar that can be poured and used to fill cracks in masonry or brickwork
+grouter	one who fills gaps between tiles
+grouters	GROUTER: one who fills gaps between tiles
 grouting	GROUT: a thin mortar that can be poured and used to fill cracks in masonry or brickwork
 grouts	GROUT: a thin mortar that can be poured and used to fill cracks in masonry or brickwork
 grove	a small growth of trees without underbrush
@@ -2113,6 +2403,7 @@ groynes	GROYNE: a protective structure of stone or concrete; extends from shore 
 grub	informal terms for a meal
 grubbed	GRUB: informal terms for a meal
 grubber	GRUB: informal terms for a meal
+grubbers	GRUBBER: one who grubs
 grubbier	GRUBBY: small sculpin of the coast of New England
 grubbiest	GRUBBY: small sculpin of the coast of New England
 grubbily	in a dingy manner
@@ -2123,12 +2414,16 @@ grubs	GRUB: informal terms for a meal
 grubstake	funds advanced to a prospector or to someone starting a business in return for a share of the profits
 grudge	a resentment strong enough to justify retaliation
 grudged	GRUDGE: a resentment strong enough to justify retaliation
+grudger	one who grudges
+grudgers	GRUDGER: one who grudges
 grudges	GRUDGE: a resentment strong enough to justify retaliation
 grudging	GRUDGE: a resentment strong enough to justify retaliation
 grudgingly	in a grudging manner
 gruel	a thin porridge (usually oatmeal or cornmeal)
 grueling	characterized by effort to the point of exhaustion; especially physical effort
+gruelings	GRUELING: exhausting
 gruelling	characterized by effort to the point of exhaustion; especially physical effort
+gruellings	GRUELLING: exhausting
 gruesome	shockingly repellent; inspiring horror
 gruesomely	in a gruesome manner
 gruesomeness	the quality of being ghastly
@@ -2151,6 +2446,9 @@ grumpier	GRUMPY: annoyed and irritable
 grumpiest	GRUMPY: annoyed and irritable
 grumpily	in an ill-natured manner
 grumpiness	a fussy and eccentric disposition
+grumping	complaining
+grumpish	somewhat grumpy
+grumpishness	a somewhat grumpy mood
 grumps	GRUMP: a bad-tempered person
 grumpy	annoyed and irritable
 grunge	the state of being covered with unclean things
@@ -2158,6 +2456,8 @@ grunges	GRUNGE: the state of being covered with unclean things
 grungier	GRUNGY: thickly covered with ingrained dirt or soot
 grungiest	GRUNGY: thickly covered with ingrained dirt or soot
 grungy	thickly covered with ingrained dirt or soot
+grunion	a small Californian fish that spawns on beaches
+grunions	GRUNION: a small Californian fish that spawns on beaches
 grunt	the short low gruff noise of the kind made by hogs
 grunted	GRUNT: the short low gruff noise of the kind made by hogs
 grunter	a person who grunts
@@ -2166,6 +2466,8 @@ grunting	GRUNT: the short low gruff noise of the kind made by hogs
 grunts	GRUNT: the short low gruff noise of the kind made by hogs
 gryphon	winged monster with the head of an eagle and the body of a lion
 gryphons	GRYPHON: winged monster with the head of an eagle and the body of a lion
+grysbok	a small southern African antelope
+grysboks	GRYSBOK: a small southern African antelope
 guacamole	a dip made of mashed avocado mixed with chopped onions and other seasonings
 guanaco	wild llama
 guanacos	GUANACO: wild llama
@@ -2175,10 +2477,12 @@ guarantee	give surety or assume responsibility
 guaranteed	GUARANTEE: give surety or assume responsibility
 guaranteeing	GUARANTEE: give surety or assume responsibility
 guarantees	GUARANTEE: give surety or assume responsibility
+guarantied	GUARANTY: a promise to answer for a debt or duty
 guaranties	GUARANTY: a collateral agreement to answer for the debt of another in case that person defaults
 guarantor	one who provides a warrant or guarantee to another
 guarantors	GUARANTOR: one who provides a warrant or guarantee to another
 guaranty	a collateral agreement to answer for the debt of another in case that person defaults
+guarantying	GUARANTY: a promise to answer for a debt or duty
 guard	a person who keeps watch over something or someone
 guarded	GUARD: a person who keeps watch over something or someone
 guardedly	in a conservative manner
@@ -2207,6 +2511,7 @@ guernsey	a Channel Island to the northwest of Jersey
 guerrilla	a member of an irregular armed force that fights a stronger force by sabotage and harassment
 guerrillas	GUERRILLA: a member of an irregular armed force that fights a stronger force by sabotage and harassment
 guess	expect, believe, or suppose
+guessable	able to be guessed
 guessed	GUESS: expect, believe, or suppose
 guesser	a person who guesses
 guessers	GUESSER: a person who guesses
@@ -2218,8 +2523,12 @@ guesstimates	GUESSTIMATE: an estimate that combines reasoning with guessing
 guesstimating	GUESSTIMATE: an estimate that combines reasoning with guessing
 guesswork	an estimate based on little or no information
 guest	a visitor to whom hospitality is extended
+guestbook	a book for visitors to sign
+guestbooks	GUESTBOOK: a book for visitors to sign
+guested	GUEST: appear as a visitor
 guesthouse	a house separate from the main house; for housing guests
 guesthouses	GUESTHOUSE: a house separate from the main house; for housing guests
+guesting	GUEST: appear as a visitor
 guestroom	a bedroom that is kept for the use of guests
 guestrooms	GUESTROOM: a bedroom that is kept for the use of guests
 guests	GUEST: a visitor to whom hospitality is extended
@@ -2248,6 +2557,7 @@ guildhalls	GUILDHALL: the hall of a guild or corporation
 guilds	GUILD: a formal association of people with similar interests
 guile	shrewdness as demonstrated by being skilled in deception
 guileful	marked by skill in deception
+guilefully	in a cunning, deceitful way
 guilefulness	the quality of being guileful
 guileless	free of deceit
 guilelessness	the quality of being guileless
@@ -2265,6 +2575,8 @@ guiltiness	the state of having committed an offense
 guiltless	free from evil or guilt
 guilty	responsible for or chargeable with a reprehensible act
 guinea	a former British gold coin worth 21 shillings
+guineafowl	a speckled African game bird
+guineafowls	GUINEAFOWL: a speckled African game bird
 guineas	GUINEA: a former British gold coin worth 21 shillings
 guise	an artful or simulated semblance
 guises	GUISE: an artful or simulated semblance
@@ -2282,10 +2594,14 @@ gulfs	GULF: an arm of a sea or ocean partly enclosed by land; larger than a bay
 gulfweed	brown algae with rounded bladders forming dense floating masses in tropical Atlantic waters as in the Sargasso Sea
 gull	make a fool or dupe of
 gulled	GULL: make a fool or dupe of
+guller	one who gulls
 gullet	the passage between the pharynx and the stomach
 gullets	GULLET: the passage between the pharynx and the stomach
+gulley	GULLY: a narrow channel cut by water
+gulleys	GULLEY: GULLY: a narrow channel cut by water
 gullibility	tendency to believe too readily and therefore to be easily deceived
 gullible	naive and easily deceived or tricked
+gullibly	in an easily fooled way
 gullies	GULLY: deep ditch cut by running water (especially after a prolonged downpour)
 gulling	GULL: make a fool or dupe of
 gulls	GULL: make a fool or dupe of
@@ -2297,7 +2613,11 @@ gulpers	GULPER: a drinker who swallows large amounts greedily
 gulping	a spasmodic reflex of the throat made as if in swallowing
 gulps	GULP: to swallow hurriedly or greedily or in one draught
 gum	a preparation (usually made of sweetened chicle) for chewing
+gumball	a ball of chewing gum
+gumballs	GUMBALL: a ball of chewing gum
 gumbo	any of various fine-grained silty soils that become waxy and very sticky mud when saturated with water
+gumboot	a waterproof rubber boot
+gumboots	GUMBOOT: a waterproof rubber boot
 gumbos	GUMBO: any of various fine-grained silty soils that become waxy and very sticky mud when saturated with water
 gumdrop	a jellied candy coated with sugar crystals
 gumdrops	GUMDROP: a jellied candy coated with sugar crystals
@@ -2310,14 +2630,27 @@ gumption	sound practical judgment
 gums	GUM: a preparation (usually made of sweetened chicle) for chewing
 gumshoe	someone who is a detective
 gumshoes	GUMSHOE: someone who is a detective
+gumtree	a eucalyptus tree
 gun	a weapon that discharges a missile at high velocity (especially from a metal tube or barrel)
 gunboat	a small shallow-draft boat carrying mounted guns; used by costal patrols
 gunboats	GUNBOAT: a small shallow-draft boat carrying mounted guns; used by costal patrols
+gundi	a small rodent of North Africa
+gundis	GUNDI: a small rodent of North Africa
+gundog	a dog trained to find game for hunters
+gundogs	GUNDOG: a dog trained to find game for hunters
 gunfight	a fight involving shooting small arms with the intent to kill or frighten
+gunfighter	a person skilled at fighting with guns
+gunfighters	GUNFIGHTER: a person skilled at fighting with guns
 gunfights	GUNFIGHT: a fight involving shooting small arms with the intent to kill or frighten
 gunfire	the act of shooting a gun
+gunge	an unpleasant sticky substance
+gunged	GUNGE: an unpleasant sticky substance
+gunges	GUNGE: an unpleasant sticky substance
+gunging	GUNGE: an unpleasant sticky substance
+gungy	sticky and dirty
 gunk	any thick, viscous matter
 gunks	GUNK: any thick, viscous matter
+gunky	sticky and dirty
 gunman	a professional killer who uses a gun
 gunmen	GUNMAN: a professional killer who uses a gun
 gunmetal	a type of bronze used for parts subject to wear or corrosion (especially corrosion by sea water)
@@ -2338,6 +2671,8 @@ gunrunner	a smuggler of guns
 gunrunners	GUNRUNNER: a smuggler of guns
 gunrunning	the smuggling of guns and ammunition into a country secretly and illegally
 guns	GUN: a weapon that discharges a missile at high velocity (especially from a metal tube or barrel)
+gunship	a heavily armed helicopter
+gunships	GUNSHIP: a heavily armed helicopter
 gunshot	the act of shooting a gun
 gunshots	GUNSHOT: the act of shooting a gun
 gunslinger	a professional killer who uses a gun
@@ -2348,14 +2683,20 @@ gunwale	wale at the top of the side of boat; topmost planking of a wooden vessel
 gunwales	GUNWALE: wale at the top of the side of boat; topmost planking of a wooden vessel
 guppies	GUPPY: small freshwater fish of South America and the West Indies; often kept in aquariums
 guppy	small freshwater fish of South America and the West Indies; often kept in aquariums
+gurdwara	a Sikh place of worship
+gurdwaras	GURDWARA: a Sikh place of worship
 gurgle	the bubbling sound of water flowing from a bottle with a narrow neck
 gurgled	GURGLE: the bubbling sound of water flowing from a bottle with a narrow neck
 gurgles	GURGLE: the bubbling sound of water flowing from a bottle with a narrow neck
 gurgling	GURGLE: the bubbling sound of water flowing from a bottle with a narrow neck
+gurn	pull a distorted face
 gurnard	bottom-dwelling coastal fishes with spiny armored heads and fingerlike pectoral fins used for crawling along the sea bottom
 gurnards	GURNARD: bottom-dwelling coastal fishes with spiny armored heads and fingerlike pectoral fins used for crawling along the sea bottom
+gurned	GURN: pull a distorted face
 gurney	a metal stretcher with wheels
 gurneys	GURNEY: a metal stretcher with wheels
+gurning	GURN: pull a distorted face
+gurns	GURN: pull a distorted face
 guru	a Hindu or Buddhist religious leader and spiritual teacher
 gurus	GURU: a Hindu or Buddhist religious leader and spiritual teacher
 gush	gush forth in a sudden stream or jet
@@ -2371,14 +2712,22 @@ gushy	extravagantly demonstrative
 gusset	a piece of chain mail covering a place unprotected by armor plate
 gusseted	provided or reinforced with gussets
 gussets	GUSSET: a piece of chain mail covering a place unprotected by armor plate
+gussied	GUSSY: smarten up
+gussies	GUSSY: smarten up
+gussy	smarten up
+gussying	GUSSY: smarten up
 gust	a strong current of air
 gustatory	of or relating to gustation
+gusted	GUST: blow in sudden bursts
 gustier	GUSTY: blowing in puffs or short intermittent blasts
 gustiest	GUSTY: blowing in puffs or short intermittent blasts
+gusting	GUST: blow in sudden bursts
 gusto	vigorous and enthusiastic enjoyment
 gusts	GUST: a strong current of air
 gusty	blowing in puffs or short intermittent blasts
 gut	the part of the alimentary canal between the stomach and the anus
+gutful	more than enough
+gutfuls	GUTFUL: more than enough
 gutless	lacking courage or vitality
 gutlessness	the trait of lacking courage and determination; fearful of loss or injury
 guts	fortitude and determination
@@ -2395,8 +2744,10 @@ guttersnipes	GUTTERSNIPE: a child who spends most of his time in the streets esp
 gutting	GUT: the part of the alimentary canal between the stomach and the anus
 guttural	like the sounds of frogs and crows
 gutturals	GUTTURAL: like the sounds of frogs and crows
+guv	an informal address for a man in authority
 guvnor	boss
 guvnors	GUVNOR: boss
+guvs	GUV: an informal address for a man in authority
 guy	an informal term for a youth or man
 guyed	GUY: an informal term for a youth or man
 guying	GUY: an informal term for a youth or man
@@ -2414,6 +2765,7 @@ gybing	GYBE: shift from one side of the ship to the other
 gym	athletic facility equipped for sports or physical training
 gymkhana	a meet at which riders and horses display a range of skills and aptitudes
 gymkhanas	GYMKHANA: a meet at which riders and horses display a range of skills and aptitudes
+gymnasia	GYMNASIUM: a room equipped for exercise
 gymnasium	a school for students intermediate between elementary school and college; usually grades 9 to 12
 gymnasiums	GYMNASIUM: a school for students intermediate between elementary school and college; usually grades 9 to 12
 gymnast	an athlete who is skilled in gymnastics
@@ -2425,10 +2777,12 @@ gymnosperms	GYMNOSPERM: plants of the class Gymnospermae having seeds not enclos
 gyms	GYM: athletic facility equipped for sports or physical training
 gymslip	a sleeveless tunic worn by English girls as part of a school uniform
 gymslips	GYMSLIP: a sleeveless tunic worn by English girls as part of a school uniform
+gynaecologic	relating to women's reproductive health
 gynaecological	of or relating to or practicing gynecology
 gynaecologist	a specialist in gynecology
 gynaecologists	GYNAECOLOGIST: a specialist in gynecology
 gynaecology	the branch of medicine that deals with the diseases and hygiene of women
+gynaecomastia	enlargement of breast tissue in men
 gynecologic	of or relating to or practicing gynecology
 gynecological	of or relating to or practicing gynecology
 gynecologist	a specialist in gynecology

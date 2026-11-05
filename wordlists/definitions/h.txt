@@ -35,12 +35,16 @@ hackneys	HACKNEY: a carriage for hire
 hacks	HACK: one who works hard at boring tasks
 hacksaw	saw used with one hand for cutting metal
 hacksaws	HACKSAW: saw used with one hand for cutting metal
+hacktivist	a person who breaks into computers to make a political point
+hacktivists	HACKTIVIST: a person who breaks into computers to make a political point
 had	HAVE: have or possess, either in a concrete or an abstract sense
 haddock	lean white flesh of fish similar to but smaller than cod; usually baked or poached or as fillets sauteed or fried
 haddocks	HADDOCK: lean white flesh of fish similar to but smaller than cod; usually baked or poached or as fillets sauteed or fried
 hades	the god of the underworld in ancient mythology; brother of Zeus and husband of Persephone
 hadron	any elementary particle that interacts strongly with other particles
+hadst	HAVE: possess
 haematite	the principal form of iron ore; consists of ferric oxide in crystalline form; occurs in a red earthy form
+haematologic	relating to the study of blood
 haematological	of or relating to or involved in hematology
 haematologist	a doctor who specializes in diseases of the blood and blood-forming organs
 haematologists	HAEMATOLOGIST: a doctor who specializes in diseases of the blood and blood-forming organs
@@ -53,8 +57,10 @@ haemophilia	congenital tendency to uncontrolled bleeding; usually affects males 
 haemophiliac	someone who has hemophilia and is subject to uncontrollable bleeding
 haemophiliacs	HAEMOPHILIAC: someone who has hemophilia and is subject to uncontrollable bleeding
 haemorrhage	the flow of blood from a ruptured blood vessel
+haemorrhaged	HAEMORRHAGE: bleed heavily
 haemorrhages	HAEMORRHAGE: the flow of blood from a ruptured blood vessel
 haemorrhagic	of or relating to a hemorrhage
+haemorrhaging	HAEMORRHAGE: bleed heavily
 haemorrhoid	venous swelling external or internal to the anal sphincter
 haemorrhoids	HAEMORRHOID: venous swelling external or internal to the anal sphincter
 haemostasis	surgical procedure of stopping the flow of blood (as with a hemostat)
@@ -76,14 +82,18 @@ haggles	HAGGLE: wrangle (over a price, terms of an agreement, etc.)
 haggling	HAGGLE: wrangle (over a price, terms of an agreement, etc.)
 hagiographies	HAGIOGRAPHY: a biography that idealizes or idolizes the person (especially a person who is a saint)
 hagiography	a biography that idealizes or idolizes the person (especially a person who is a saint)
+hagiological	relating to the lives of saints
 hagiologist	the author of a worshipful or idealizing biography
 hagiologists	HAGIOLOGIST: the author of a worshipful or idealizing biography
 hagiology	literature narrating the lives (and legends) of the saints
 hags	HAG: an ugly evil-looking old woman
+hah	an exclamation of surprise or triumph
 haiku	an epigrammatic Japanese verse form of three short lines
 haikus	HAIKU: an epigrammatic Japanese verse form of three short lines
 hail	praise vociferously
 hailed	HAIL: praise vociferously
+hailer	one who hails
+hailers	HAILER: one who hails
 hailing	HAIL: praise vociferously
 hails	HAIL: praise vociferously
 hailstone	small pellet of ice that falls during a hailstorm
@@ -93,6 +103,10 @@ hailstorms	HAILSTORM: a storm during which hail falls
 hair	a covering for the body (or parts of it) consisting of a dense growth of threadlike structures (as on the human head); helps to prevent heat loss
 hairball	a compact mass of hair that forms in the alimentary canal (especially in the stomach of animals as a result of licking fur)
 hairballs	HAIRBALL: a compact mass of hair that forms in the alimentary canal (especially in the stomach of animals as a result of licking fur)
+hairband	a band that holds hair back
+hairbands	HAIRBAND: a band that holds hair back
+hairbreadth	a very small distance
+hairbreadths	HAIRBREADTH: a very small distance
 hairbrush	a brush used to groom a person's hair
 hairbrushes	HAIRBRUSH: a brush used to groom a person's hair
 haircare	care for the hair: the activity of washing or cutting or curling or arranging the hair
@@ -103,6 +117,10 @@ hairdos	HAIRDO: the arrangement of the hair (especially a woman's hair)
 hairdresser	someone who cuts or beautifies hair
 hairdressers	HAIRDRESSER: someone who cuts or beautifies hair
 hairdressing	a toiletry for the hair
+hairdrier	a device for drying hair with hot air
+hairdriers	HAIRDRIER: a device for drying hair with hot air
+hairdryer	a device for drying hair with hot air
+hairdryers	HAIRDRYER: a device for drying hair with hot air
 haired	having or covered with hair
 hairgrip	a flat wire hairpin whose prongs press tightly together; used to hold bobbed hair in place
 hairgrips	HAIRGRIP: a flat wire hairpin whose prongs press tightly together; used to hold bobbed hair in place
@@ -121,17 +139,23 @@ hairpins	HAIRPIN: a double pronged pin used to hold women's hair in place
 hairs	HAIR: a covering for the body (or parts of it) consisting of a dense growth of threadlike structures (as on the human head); helps to prevent heat loss
 hairsbreadth	a very small distance or space
 hairsbreadths	HAIRSBREADTH: a very small distance or space
+hairslide	a clip for holding hair in place
+hairslides	HAIRSLIDE: a clip for holding hair in place
 hairsplitting	making too fine distinctions of little importance
+hairspray	a spray for holding hair in place
+hairsprays	HAIRSPRAY: a spray for holding hair in place
 hairspring	a fine spiral spring that regulates the movement of the balance wheel in a timepiece
 hairsprings	HAIRSPRING: a fine spiral spring that regulates the movement of the balance wheel in a timepiece
 hairstreak	small butterflies having striped markings under the wings
 hairstreaks	HAIRSTREAK: small butterflies having striped markings under the wings
 hairstyle	the arrangement of the hair (especially a woman's hair)
 hairstyles	HAIRSTYLE: the arrangement of the hair (especially a woman's hair)
+hairstyling	the shaping of hair
 hairstylist	someone who cuts or beautifies hair
 hairstylists	HAIRSTYLIST: someone who cuts or beautifies hair
 hairy	having or covered with hair
 hajj	the fifth pillar of Islam is a pilgrimage to Mecca during the month of Dhu al-Hijja; at least once in a lifetime a Muslim is expected to make a religious journey to Mecca and the Kaaba
+hajjes	HAJJ: the Muslim pilgrimage to Mecca
 hajji	a general term used by foreign soldiers to refer to the Iraqi people
 hajjis	HAJJI: a general term used by foreign soldiers to refer to the Iraqi people
 hake	the lean flesh of a fish similar to cod
@@ -152,6 +176,7 @@ halfbeak	tropical and subtropical marine and freshwater fishes having an elongat
 halfhearted	feeling or showing little interest or enthusiasm
 halfheartedly	in a halfhearted way
 halfheartedness	the quality of being halfhearted
+halfpence	HALFPENNY: a coin worth half a penny
 halfpennies	HALFPENNY: an English coin worth half a penny
 halfpenny	an English coin worth half a penny
 halftime	an intermission between the first and second half of a game
@@ -159,6 +184,8 @@ halftimes	HALFTIME: an intermission between the first and second half of a game
 halftone	a print obtained from photoengraving
 halftones	HALFTONE: a print obtained from photoengraving
 halfway	equally distant from the extremes
+halfwit	a stupid person
+halfwits	HALFWIT: a stupid person
 halibut	lean flesh of very large flatfish of Atlantic or Pacific
 halibuts	HALIBUT: lean flesh of very large flatfish of Atlantic or Pacific
 halide	a salt of any halogen acid
@@ -166,13 +193,21 @@ halides	HALIDE: a salt of any halogen acid
 haling	HALE: a soldier of the American Revolution who was hanged as a spy by the British; his last words were supposed to have been `I only regret that I have but one life to give for my country' (1755-1776)
 halitosis	offensive breath
 hall	an interior passage or corridor onto which rooms open
+halleluiah	an expression of praise to God
+halleluiahs	HALLELUIAH: an expression of praise to God
 hallelujah	a shout or song of praise to God
 hallelujahs	HALLELUJAH: a shout or song of praise to God
 hallmark	a distinctive characteristic or attribute
+hallmarked	HALLMARK: stamp a mark on gold or silver to certify its purity
+hallmarking	HALLMARK: stamp a mark on gold or silver to certify its purity
 hallmarks	HALLMARK: a distinctive characteristic or attribute
+hallo	a greeting
+hallos	HALLO: a greeting
 hallow	render holy by means of religious rites
 hallowed	worthy of religious veneration
 halloween	the evening before All Saints' Day; often devoted to pranks played by young people
+hallower	one who hallows
+hallowers	HALLOWER: one who hallows
 hallowing	HALLOW: render holy by means of religious rites
 hallows	HALLOW: render holy by means of religious rites
 halls	HALL: an interior passage or corridor onto which rooms open
@@ -185,12 +220,18 @@ hallucinations	HALLUCINATION: illusory perception; a common symptom of severe me
 hallucinatory	characterized by or characteristic of hallucination
 hallucinogen	a psychoactive drug that induces hallucinations or altered sensory experiences
 hallucinogenic	capable of producing hallucinations
+hallucinogenics	HALLUCINOGENIC: a drug that causes hallucinations
 hallucinogens	HALLUCINOGEN: a psychoactive drug that induces hallucinations or altered sensory experiences
 hallway	an interior passage or corridor onto which rooms open
 hallways	HALLWAY: an interior passage or corridor onto which rooms open
 halo	an indication of radiant light drawn around the head of a saint
+halocline	a layer of water where salt content changes sharply
+haloclines	HALOCLINE: a layer of water where salt content changes sharply
+haloed	HALO: surround with a ring of light
+haloes	HALO: a ring of light around a head or object
 halogen	any of five related nonmetallic elements (fluorine or chlorine or bromine or iodine or astatine) that are all monovalent and readily form negative ions
 halogens	HALOGEN: any of five related nonmetallic elements (fluorine or chlorine or bromine or iodine or astatine) that are all monovalent and readily form negative ions
+haloing	HALO: surround with a ring of light
 halon	a compound in which the hydrogen atoms of a hydrocarbon have been replaced by bromine and other halogen atoms; very stable; used in fire extinguishers although it is thought to release bromine that depletes the ozone layer
 halos	HALO: an indication of radiant light drawn around the head of a saint
 halt	the state of inactivity following an interruption
@@ -202,6 +243,7 @@ halters	HALTER: rope or canvas headgear for a horse, with a rope for leading
 halting	HALT: the state of inactivity following an interruption
 haltingly	in a halting manner
 halts	HALT: the state of inactivity following an interruption
+halva	a sweet made from ground sesame seeds
 halve	divide by two; divide into halves
 halved	HALVE: divide by two; divide into halves
 halves	HALVE: divide by two; divide into halves
@@ -209,13 +251,17 @@ halving	HALVE: divide by two; divide into halves
 halyard	a rope for raising or lowering a sail or flag
 halyards	HALYARD: a rope for raising or lowering a sail or flag
 ham	meat cut from the thigh of a hog (usually smoked)
+hamantaschen	triangular filled pastries eaten at Purim
 hamburger	a sandwich consisting of a fried cake of minced beef served on a bun, often with other ingredients
 hamburgers	HAMBURGER: a sandwich consisting of a fried cake of minced beef served on a bun, often with other ingredients
+hamfisted	clumsy
 hamlet	a community of people smaller than a village
 hamlets	HAMLET: a community of people smaller than a village
 hammed	HAM: meat cut from the thigh of a hog (usually smoked)
 hammer	the part of a gunlock that strikes the percussion cap when the trigger is pulled
 hammered	HAMMER: the part of a gunlock that strikes the percussion cap when the trigger is pulled
+hammerer	one who hammers
+hammerers	HAMMERER: one who hammers
 hammerhead	a stupid person; these words are used to express a low opinion of someone's intelligence
 hammerheads	HAMMERHEAD: a stupid person; these words are used to express a low opinion of someone's intelligence
 hammering	HAMMER: the part of a gunlock that strikes the percussion cap when the trigger is pulled
@@ -223,6 +269,7 @@ hammerings	HAMMERING: the act of pounding (delivering repeated heavy blows)
 hammers	HAMMER: the part of a gunlock that strikes the percussion cap when the trigger is pulled
 hammier	HAMMY: affectedly dramatic; overacted
 hammiest	HAMMY: affectedly dramatic; overacted
+hammily	in an overacted way
 hamminess	the quality of being hammy
 hamming	poor acting by a ham actor
 hammock	a small natural hill
@@ -238,6 +285,8 @@ hamsters	HAMSTER: short-tailed Old World burrowing rodent with large cheek pouch
 hamstring	one of the tendons at the back of the knee
 hamstringing	HAMSTRING: one of the tendons at the back of the knee
 hamstrings	HAMSTRING: one of the tendons at the back of the knee
+hamstrung	HAMSTRING: severely restrict
+hanafuda	a Japanese card game played with flower cards
 hand	the (prehensile) extremity of the superior limb
 handbag	a container used for carrying money and small personal items or accessories (especially by women)
 handbags	HANDBAG: a container used for carrying money and small personal items or accessories (especially by women)
@@ -247,6 +296,8 @@ handbill	an advertisement (usually printed on a page or in a leaflet) intended f
 handbills	HANDBILL: an advertisement (usually printed on a page or in a leaflet) intended for wide distribution
 handbook	a concise reference book providing specific information about a subject or location
 handbooks	HANDBOOK: a concise reference book providing specific information about a subject or location
+handbrake	a brake worked by hand
+handbrakes	HANDBRAKE: a brake worked by hand
 handcar	a small railroad car propelled by hand or by a small motor
 handcars	HANDCAR: a small railroad car propelled by hand or by a small motor
 handcart	wheeled vehicle that can be pushed by a person; may have one or two or four wheels
@@ -266,6 +317,7 @@ handfuls	HANDFUL: a small number or amount
 handgun	a firearm that is held and fired with one hand
 handguns	HANDGUN: a firearm that is held and fired with one hand
 handheld	small and light enough to be operated while you hold it in your hands
+handhelds	HANDHELD: a device small enough to hold in the hand
 handhold	an appendage to hold onto
 handholds	HANDHOLD: an appendage to hold onto
 handicap	the condition of being unable to perform as a consequence of physical or mental unfitness
@@ -282,8 +334,11 @@ handily	in a convenient manner
 handiness	skillfulness with the hands
 handing	HAND: the (prehensile) extremity of the superior limb
 handiwork	a work produced by hand labor
+handjob	manual stimulation of the genitals
+handjobs	HANDJOB: manual stimulation of the genitals
 handkerchief	a square piece of cloth used for wiping the eyes or nose or as a costume accessory
 handkerchiefs	HANDKERCHIEF: a square piece of cloth used for wiping the eyes or nose or as a costume accessory
+handkerchieves	HANDKERCHIEF: a small cloth for wiping the nose
 handle	be in charge of, act on, or dispose of
 handlebar	the shaped bar used to steer a bicycle
 handlebars	HANDLEBAR: the shaped bar used to steer a bicycle
@@ -302,6 +357,12 @@ handout	an announcement distributed to members of the press in order to suppleme
 handouts	HANDOUT: an announcement distributed to members of the press in order to supplement or replace an oral presentation
 handover	act of relinquishing property or authority etc
 handovers	HANDOVER: act of relinquishing property or authority etc
+handpick	select carefully by hand
+handpicked	HANDPICK: select carefully by hand
+handpicking	HANDPICK: select carefully by hand
+handpicks	HANDPICK: select carefully by hand
+handprint	a mark left by a hand
+handprints	HANDPRINT: a mark left by a hand
 handrail	a railing at the side of a staircase or balcony to prevent people from falling
 handrails	HANDRAIL: a railing at the side of a staircase or balcony to prevent people from falling
 hands	(with `in') guardianship over; in divorce cases it is the right to house and care for and discipline a child
@@ -309,6 +370,7 @@ handsaw	a saw used with one hand for cutting wood
 handsaws	HANDSAW: a saw used with one hand for cutting wood
 handset	telephone set with the mouthpiece and earpiece mounted on a single handle
 handsets	HANDSET: telephone set with the mouthpiece and earpiece mounted on a single handle
+handsful	HANDFUL: as much as a hand can hold
 handshake	grasping and shaking a person's hand (as to acknowledge an introduction or to agree on a contract)
 handshakes	HANDSHAKE: grasping and shaking a person's hand (as to acknowledge an introduction or to agree on a contract)
 handshaking	grasping and shaking a person's hand (as to acknowledge an introduction or to agree on a contract)
@@ -325,6 +387,7 @@ handstands	HANDSTAND: the act of supporting yourself by your hands alone in an u
 handstitched	sewn by hand rather than machine
 handwork	a work produced by hand labor
 handwoven	made on a handloom
+handwringing	anxious fretting without taking action
 handwriting	something written by hand
 handwritten	written by hand
 handy	easy to reach
@@ -348,9 +411,13 @@ hangouts	HANGOUT: a frequently visited place
 hangover	disagreeable aftereffects from the use of drugs (especially alcohol)
 hangovers	HANGOVER: disagreeable aftereffects from the use of drugs (especially alcohol)
 hangs	HANG: be suspended or hanging
+hangup	an emotional difficulty
+hangups	HANGUP: an emotional difficulty
 hank	a coil of rope or wool or yarn
 hanker	desire strongly or persistently
 hankered	HANKER: desire strongly or persistently
+hankerer	one who hankers
+hankerers	HANKERER: one who hankers
 hankering	HANKER: desire strongly or persistently
 hankerings	HANKERING: a yearning for something or to do something
 hankers	HANKER: desire strongly or persistently
@@ -401,12 +468,20 @@ harbingers	HARBINGER: something that precedes and indicates the approach of some
 harbor	maintain (a theory, thoughts, or feelings)
 harborage	a place of refuge (as for a ship)
 harbored	HARBOR: maintain (a theory, thoughts, or feelings)
+harborer	one who gives shelter
+harborers	HARBORER: one who gives shelter
 harboring	HARBOR: maintain (a theory, thoughts, or feelings)
+harbormaster	an official in charge of a harbour
+harbormasters	HARBORMASTER: an official in charge of a harbour
 harbors	HARBOR: maintain (a theory, thoughts, or feelings)
+harborside	the area next to a harbour
 harbour	a sheltered port where ships can take on or discharge cargo
 harbourage	a place of refuge (as for a ship)
 harboured	HARBOUR: a sheltered port where ships can take on or discharge cargo
+harbourer	one who gives shelter
 harbouring	HARBOUR: a sheltered port where ships can take on or discharge cargo
+harbourmaster	an official in charge of a harbour
+harbourmasters	HARBOURMASTER: an official in charge of a harbour
 harbours	HARBOUR: a sheltered port where ships can take on or discharge cargo
 hard	not easy; requiring great physical or mental effort to accomplish or comprehend or endure
 hardback	a book with cardboard or cloth or leather covers
@@ -419,10 +494,14 @@ hardcover	a book with cardboard or cloth or leather covers
 hardcovers	HARDCOVER: a book with cardboard or cloth or leather covers
 harden	become hard or harder
 hardened	used of persons; emotionally hardened
+hardener	something that hardens
+hardeners	HARDENER: something that hardens
 hardening	HARDEN: become hard or harder
 hardens	HARDEN: become hard or harder
 harder	HARD: not easy; requiring great physical or mental effort to accomplish or comprehend or endure
 hardest	HARD: not easy; requiring great physical or mental effort to accomplish or comprehend or endure
+hardhat	a protective helmet worn on building sites
+hardhats	HARDHAT: a protective helmet worn on building sites
 hardheaded	unreasonably rigid in the face of argument or entreaty or attack
 hardheadedly	in a hardheaded way
 hardheadedness	the quality of being hardheaded
@@ -431,12 +510,15 @@ hardheartedly	in a hardhearted way
 hardheartedness	an absence of concern for the welfare of others
 hardier	HARDY: having rugged physical strength; inured to fatigue or hardships
 hardiest	HARDY: having rugged physical strength; inured to fatigue or hardships
+hardily	in a tough way
 hardiness	the property of being strong and healthy in constitution
 hardline	firm and uncompromising
 hardliner	a conservative who is uncompromising
 hardliners	HARDLINER: a conservative who is uncompromising
 hardly	only a very short time before
 hardness	the property of being rigid and resistant to pressure; not easily scratched; measured on Mohs scale
+hardnosed	tough, shrewd and practical
+hardpressed	under heavy pressure
 hardscrabble	barely satisfying a lower standard
 hardship	a state of misfortune or affliction
 hardships	HARDSHIP: a state of misfortune or affliction
@@ -444,6 +526,7 @@ hardtack	very hard unsalted biscuit or bread; a former ship's staple
 hardtop	a car that resembles a convertible but has a fixed rigid top
 hardtops	HARDTOP: a car that resembles a convertible but has a fixed rigid top
 hardware	major items of military weaponry (as tanks or missile)
+hardwired	built in permanently
 hardwood	the wood of broad-leaved dicotyledonous trees (as distinguished from the wood of conifers)
 hardwoods	HARDWOOD: the wood of broad-leaved dicotyledonous trees (as distinguished from the wood of conifers)
 hardworking	characterized by hard work and perseverance
@@ -476,6 +559,8 @@ harlots	HARLOT: a woman who engages in sexual intercourse for money
 harm	any physical damage to the body caused by violence or accident or fracture etc.
 harmattan	a dusty wind from the Sahara that blows toward the western coast of Africa during the winter
 harmed	HARM: any physical damage to the body caused by violence or accident or fracture etc.
+harmer	one who harms
+harmers	HARMER: one who harms
 harmful	causing or capable of causing harm
 harmfully	in a detrimental manner
 harmfulness	destructiveness that causes harm or injury
@@ -508,6 +593,8 @@ harmony	compatibility in opinion and action
 harms	HARM: any physical damage to the body caused by violence or accident or fracture etc.
 harness	a support consisting of an arrangement of straps for holding something to the body (especially one supporting a person suspended from a parachute)
 harnessed	HARNESS: a support consisting of an arrangement of straps for holding something to the body (especially one supporting a person suspended from a parachute)
+harnesser	one who harnesses
+harnessers	HARNESSER: one who harnesses
 harnesses	HARNESS: a support consisting of an arrangement of straps for holding something to the body (especially one supporting a person suspended from a parachute)
 harnessing	HARNESS: a support consisting of an arrangement of straps for holding something to the body (especially one supporting a person suspended from a parachute)
 harp	a chordophone that has a triangular frame consisting of a sounding board and a pillar and a curved neck; the strings stretched between the neck and the soundbox are plucked with the fingers
@@ -531,16 +618,22 @@ harpsichords	HARPSICHORD: a clavier with strings that are plucked by plectra mou
 harpy	a malicious woman with a fierce temper
 harridan	a scolding (even vicious) old woman
 harridans	HARRIDAN: a scolding (even vicious) old woman
-harried	troubled persistently especially with petty annoyances
+harried	HARRY: annoy continually or chronically
 harrier	a persistent attacker
 harriers	HARRIER: a persistent attacker
 harries	HARRY: annoy continually or chronically
 harrow	draw a harrow over (land)
 harrowed	HARROW: draw a harrow over (land)
+harrower	one who distresses
+harrowers	HARROWER: one who distresses
 harrowing	HARROW: draw a harrow over (land)
 harrowingly	in a harrowing way
 harrowingness	the quality of being harrowing
 harrows	HARROW: draw a harrow over (land)
+harrumph	clear the throat noisily in disapproval
+harrumphed	HARRUMPH: clear the throat noisily in disapproval
+harrumphing	HARRUMPH: clear the throat noisily in disapproval
+harrumphs	HARRUMPH: clear the throat noisily in disapproval
 harry	annoy continually or chronically
 harrying	HARRY: annoy continually or chronically
 harsh	unpleasantly stern
@@ -550,6 +643,8 @@ harshly	in a harsh or unkind manner
 harshness	the roughness of a substance that causes abrasions
 hart	United States playwright who collaborated with George S. Kaufman (1904-1961)
 harts	HART: United States playwright who collaborated with George S. Kaufman (1904-1961)
+haruspex	a priest in ancient Rome who foretold events from animal entrails
+haruspices	HARUSPEX: a priest in ancient Rome who foretold events from animal entrails
 harvest	the yield from plants in a single growing season
 harvested	HARVEST: the yield from plants in a single growing season
 harvester	someone who helps to gather the harvest
@@ -563,6 +658,8 @@ hasheesh	purified resinous extract of the hemp plant; used as a hallucinogen
 hashes	HASH: chopped meat mixed with potatoes and browned
 hashing	HASH: chopped meat mixed with potatoes and browned
 hashish	purified resinous extract of the hemp plant; used as a hallucinogen
+hashtag	a word preceded by a hash sign used to label online posts
+hashtags	HASHTAG: a word preceded by a hash sign used to label online posts
 hasp	a fastener for a door or lid; a hinged metal plate is fitted over a staple and is locked with a pin or padlock
 hasps	HASP: a fastener for a door or lid; a hinged metal plate is fitted over a staple and is locked with a pin or padlock
 hassle	an angry disturbance
@@ -571,16 +668,21 @@ hassles	HASSLE: an angry disturbance
 hassling	HASSLE: an angry disturbance
 hassock	thick cushion used as a seat
 hassocks	HASSOCK: thick cushion used as a seat
+hast	HAVE: possess
 haste	overly eager speed (and possible carelessness)
+hasted	HAST: HAVE: possess
 hasten	act or move at high speed
 hastened	HASTEN: act or move at high speed
+hastener	one who speeds something up
+hasteners	HASTENER: one who speeds something up
 hastening	HASTEN: act or move at high speed
 hastens	HASTEN: act or move at high speed
-hastes	HASTE: overly eager speed (and possible carelessness)
+hastes	HAST: HAVE: possess
 hastier	HASTY: excessively quick
 hastiest	HASTY: excessively quick
 hastily	in a hurried or hasty manner
 hastiness	overly eager speed (and possible carelessness)
+hasting	HAST: HAVE: possess
 hasty	excessively quick
 hat	headdress that protects the head from bad weather; has shaped crown and usually a brim
 hatband	a band around the crown of a hat just above the brim
@@ -591,7 +693,9 @@ hatch	emerge from the eggs
 hatchback	a car having a hatchback door
 hatchbacks	HATCHBACK: a car having a hatchback door
 hatched	HATCH: emerge from the eggs
+hatcher	one who hatches
 hatcheries	HATCHERY: a place where eggs are hatched under artificial conditions (especially fish eggs)
+hatchers	HATCHER: one who hatches
 hatchery	a place where eggs are hatched under artificial conditions (especially fish eggs)
 hatches	HATCH: emerge from the eggs
 hatchet	weapon consisting of a fighting ax; used by North American Indians
@@ -609,12 +713,15 @@ hatefulness	the quality of being hateful
 hater	a person who hates
 haters	HATER: a person who hates
 hates	HATE: the emotion of intense dislike; a feeling of dislike so strong that it demands action
+hath	HAVE: possess
 hating	HATE: the emotion of intense dislike; a feeling of dislike so strong that it demands action
 hatpin	a long sturdy pin used by women to secure a hat to their hair
 hatpins	HATPIN: a long sturdy pin used by women to secure a hat to their hair
 hatred	the emotion of intense dislike; a feeling of dislike so strong that it demands action
 hatreds	HATRED: the emotion of intense dislike; a feeling of dislike so strong that it demands action
 hats	HAT: headdress that protects the head from bad weather; has shaped crown and usually a brim
+hatstand	a stand for hanging hats on
+hatstands	HATSTAND: a stand for hanging hats on
 hatted	HAT: headdress that protects the head from bad weather; has shaped crown and usually a brim
 hatter	HAT: headdress that protects the head from bad weather; has shaped crown and usually a brim
 hatters	HATTER: someone who makes and sells hats
@@ -637,6 +744,8 @@ haunch	the hip and buttock and upper thigh in human beings
 haunches	HAUNCH: the hip and buttock and upper thigh in human beings
 haunt	follow stealthily or recur constantly and spontaneously to
 haunted	having or showing excessive or compulsive concern with something
+haunter	one who haunts
+haunters	HAUNTER: one who haunts
 haunting	continually recurring to the mind
 hauntingly	in a haunting way
 haunts	HAUNT: follow stealthily or recur constantly and spontaneously to
@@ -682,6 +791,8 @@ haymow	a mass of hay piled up in a barn for preservation
 haymows	HAYMOW: a mass of hay piled up in a barn for preservation
 hayrick	a stack of hay
 hayricks	HAYRICK: a stack of hay
+hayride	a ride on a cart loaded with hay
+hayrides	HAYRIDE: a ride on a cart loaded with hay
 hays	HAY: grass mowed and cured for use as fodder
 hayseed	a person who is not very intelligent or interested in culture
 hayseeds	HAYSEED: a person who is not very intelligent or interested in culture
@@ -705,6 +816,7 @@ haziest	HAZY: filled or abounding with fog or mist
 hazily	through a haze
 haziness	vagueness attributable to being not clearly defined
 hazing	HAZE: atmospheric moisture or dust or smoke that causes reduced visibility
+hazings	HAZING: a harassing initiation ritual
 hazmat	an abbreviation for `hazardous material' used on warning signs
 hazy	filled or abounding with fog or mist
 he	a very light colorless element that is one of the six inert gasses; the most difficult gas to liquefy; occurs in economically extractable amounts in certain natural gases (as those found in Texas and Kansas)
@@ -713,12 +825,17 @@ headache	something or someone that causes anxiety; a source of unhappiness
 headaches	HEADACHE: something or someone that causes anxiety; a source of unhappiness
 headband	a band worn around or over the head
 headbands	HEADBAND: a band worn around or over the head
+headbanger	a fan of heavy metal who shakes the head to the music
+headbangers	HEADBANGER: a fan of heavy metal who shakes the head to the music
+headbanging	shaking the head violently to music
 headboard	a vertical board or panel forming the head of a bedstead
 headboards	HEADBOARD: a vertical board or panel forming the head of a bedstead
 headbutt	butt with the head
 headbutted	HEADBUTT: butt with the head
 headbutting	HEADBUTT: butt with the head
 headbutts	HEADBUTT: butt with the head
+headcase	a mad or reckless person
+headcases	HEADCASE: a mad or reckless person
 headcheese	sausage or jellied loaf made of chopped parts of the head meat and sometimes feet and tongue of a calf or pig
 headcount	number of people in a particular group
 headcounts	HEADCOUNT: number of people in a particular group
@@ -729,8 +846,12 @@ header	a line of text serving to indicate what the passage below it is about
 headers	HEADER: a line of text serving to indicate what the passage below it is about
 headfirst	with the head foremost
 headgear	clothing for the head
-headhunter	a recruiter of personnel (especially for corporations)
+headhunt	recruit people for senior jobs
+headhunted	HEADHUNT: recruit people for senior jobs
+headhunter	HEADHUNT: recruit people for senior jobs
 headhunters	HEADHUNTER: a recruiter of personnel (especially for corporations)
+headhunting	HEADHUNT: recruit people for senior jobs
+headhunts	HEADHUNT: recruit people for senior jobs
 headier	HEADY: marked by the exercise of good judgment or common sense in practical matters
 headiest	HEADY: marked by the exercise of good judgment or common sense in practical matters
 heading	a line of text serving to indicate what the passage below it is about
@@ -771,6 +892,7 @@ headroom	vertical space available to allow easy passage under something
 heads	HEAD: the upper part of the human body or the front part of the body in animals; contains the face and brains
 headsail	any sail set forward of the foremast of a vessel
 headscarf	a kerchief worn over the head and tied under the chin
+headscarves	HEADSCARF: a scarf worn over the head
 headset	receiver consisting of a pair of headphones
 headsets	HEADSET: receiver consisting of a pair of headphones
 headship	the position of headmaster or headmistress
@@ -783,6 +905,8 @@ headstones	HEADSTONE: the central building block at the top of an arch or vault
 headstrong	habitually disposed to disobedience and opposition
 headstrongly	in a headstrong way
 headstrongness	the quality of being headstrong
+headteacher	the principal of a school
+headteachers	HEADTEACHER: the principal of a school
 headwaiter	a dining-room attendant who is in charge of the waiters and the seating of customers
 headwaiters	HEADWAITER: a dining-room attendant who is in charge of the waiters and the seating of customers
 headwater	the source of a river
@@ -803,6 +927,7 @@ heals	HEAL: heal or recover
 health	a healthy state of wellbeing free from disease
 healthcare	the preservation of mental and physical health by preventing or treating illness through services offered by the health profession
 healthful	conducive to good health of body or mind
+healthfully	in a healthy way
 healthfulness	the quality of promoting good health
 healthier	HEALTHY: having or indicating good health in body or mind; free from infirmity or disease
 healthiest	HEALTHY: having or indicating good health in body or mind; free from infirmity or disease
@@ -839,6 +964,7 @@ heartbreakingly	in a heartbreaking way
 heartbreaks	HEARTBREAK: intense sorrow caused by loss of a loved one (especially by death)
 heartbroken	full of sorrow
 heartburn	a painful burning sensation in the chest caused by gastroesophageal reflux (backflow from the stomach irritating the esophagus); symptomatic of an ulcer or a diaphragmatic hernia or other disorder
+hearted	having a given kind of heart
 hearten	give encouragement to
 heartened	HEARTEN: give encouragement to
 heartening	cheerfully encouraging
@@ -848,9 +974,12 @@ hearth	an open recess in a wall at the base of a chimney where a fire can be bui
 hearthrug	a rug spread out in front of a fireplace
 hearthrugs	HEARTHRUG: a rug spread out in front of a fireplace
 hearths	HEARTH: an open recess in a wall at the base of a chimney where a fire can be built
+hearthside	the area next to a fireplace
+hearthsides	HEARTHSIDE: the area next to a fireplace
 hearthstone	a stone that forms a hearth
 hearthstones	HEARTHSTONE: a stone that forms a hearth
 heartier	HEARTY: showing warm and heartfelt friendliness
+hearties	HEARTY: a boisterous cheerful person
 heartiest	HEARTY: showing warm and heartfelt friendliness
 heartily	with gusto and without reservation
 heartiness	active strength of body or mind
@@ -863,11 +992,13 @@ heartrending	causing or marked by grief or anguish
 hearts	HEART: the locus of feelings and intuitions
 heartsease	a common and long cultivated European herb from which most common garden pansies are derived
 heartsick	full of sorrow
+heartsore	sad and grieving
 heartstrings	your deepest feelings of love and compassion
 heartthrob	an object of infatuation
 heartthrobs	HEARTTHROB: an object of infatuation
 heartwarming	causing gladness and pleasure
 heartwood	the older inactive central wood of a tree or woody plant; usually darker and denser than the surrounding sapwood
+heartworm	a parasitic worm that infects the hearts of dogs
 hearty	showing warm and heartfelt friendliness
 heat	a form of energy that is transferred by a difference in temperature
 heated	made warm or hot (`het' is a dialectal variant of `heated')
@@ -883,8 +1014,11 @@ heathers	HEATHER: common Old World heath represented by many varieties; low ever
 heathland	a tract of level wasteland; uncultivated land with sandy soil and scrubby vegetation
 heaths	HEATH: a low evergreen shrub of the family Ericaceae; has small bell-shaped pink or purple flowers
 heating	the process of becoming warmer; a rising temperature
+heatproof	able to withstand heat
 heats	HEAT: a form of energy that is transferred by a difference in temperature
 heatstroke	collapse caused by exposure to excessive heat
+heatwave	a spell of unusually hot weather
+heatwaves	HEATWAVE: a spell of unusually hot weather
 heave	utter a sound, as with obvious effort
 heaved	HEAVE: utter a sound, as with obvious effort
 heaven	any place of complete bliss and delight and peace
@@ -905,6 +1039,7 @@ heavy	of comparatively great physical weight or density
 heavyset	having a short and solid form or stature
 heavyweight	an amateur boxer who weighs no more than 201 pounds
 heavyweights	HEAVYWEIGHT: an amateur boxer who weighs no more than 201 pounds
+heck	a mild exclamation
 heckle	a comb for separating flax fibers
 heckled	HECKLE: a comb for separating flax fibers
 heckler	someone who tries to embarrass you with gibes and questions and objections
@@ -917,12 +1052,15 @@ hectic	marked by intense agitation or emotion
 hectically	in a frenzied manner
 hector	a mythical Trojan who was killed by Achilles during the Trojan War
 hectored	HECTOR: a mythical Trojan who was killed by Achilles during the Trojan War
+hectorer	one who bullies by talking
 hectoring	HECTOR: a mythical Trojan who was killed by Achilles during the Trojan War
 hectors	HECTOR: a mythical Trojan who was killed by Achilles during the Trojan War
 hedge	a fence formed by a row of closely planted shrubs or bushes
 hedged	HEDGE: a fence formed by a row of closely planted shrubs or bushes
 hedgehog	relatively large rodents with sharp erectile bristles mingled with the fur
 hedgehogs	HEDGEHOG: relatively large rodents with sharp erectile bristles mingled with the fur
+hedgepig	an old name for the hedgehog
+hedgepigs	HEDGEPIG: an old name for the hedgehog
 hedgerow	a fence formed by a row of closely planted shrubs or bushes
 hedgerows	HEDGEROW: a fence formed by a row of closely planted shrubs or bushes
 hedges	HEDGE: a fence formed by a row of closely planted shrubs or bushes
@@ -934,23 +1072,34 @@ hedonistic	devoted to pleasure
 hedonists	HEDONIST: someone motivated by desires for sensual pleasures
 heed	paying particular notice (as to children or helpless people)
 heeded	HEED: paying particular notice (as to children or helpless people)
+heeder	one who pays attention
+heeders	HEEDER: one who pays attention
 heedful	taking heed; giving close and thoughtful attention
 heeding	HEED: paying particular notice (as to children or helpless people)
 heedless	marked by or paying little heed or attention
 heedlessly	without care or concern
 heedlessness	a lack of attentiveness (as to children or helpless people)
 heeds	HEED: paying particular notice (as to children or helpless people)
+heehaw	the bray of a donkey
+heehawed	HEEHAW: the bray of a donkey
+heehawing	HEEHAW: the bray of a donkey
+heehaws	HEEHAW: the bray of a donkey
 heel	the bottom of a shoe or boot; the back part of a shoe or boot that touches the ground and provides elevation
 heeled	HEEL: the bottom of a shoe or boot; the back part of a shoe or boot that touches the ground and provides elevation
+heeler	a dog that herds cattle by nipping their heels
+heelers	HEELER: a dog that herds cattle by nipping their heels
 heeling	HEEL: the bottom of a shoe or boot; the back part of a shoe or boot that touches the ground and provides elevation
 heels	HEEL: the bottom of a shoe or boot; the back part of a shoe or boot that touches the ground and provides elevation
 heft	lift or elevate
 hefted	HEFT: lift or elevate
+hefter	one who lifts or weighs by hand
+hefters	HEFTER: one who lifts or weighs by hand
 heftier	HEFTY: (of a person) possessing physical strength and weight; rugged and powerful
 heftiest	HEFTY: (of a person) possessing physical strength and weight; rugged and powerful
 hefting	HEFT: lift or elevate
 hefts	HEFT: lift or elevate
 hefty	(of a person) possessing physical strength and weight; rugged and powerful
+hegemonic	relating to dominance of one group over others
 hegemony	the dominance or leadership of one social group or nation over others
 hegira	the flight of Muhammad from Mecca to Medina in 622 which marked the beginning of the Muslim era; the Muslim calendar begins in that year
 hegiras	HEGIRA: the flight of Muhammad from Mecca to Medina in 622 which marked the beginning of the Muslim era; the Muslim calendar begins in that year
@@ -973,21 +1122,31 @@ heirlooms	HEIRLOOM: any property that is considered by law or custom as insepara
 heirs	HEIR: a person who is entitled by law or by the terms of a will to inherit the estate of another
 heist	commit a burglary; enter and rob a dwelling
 heisted	HEIST: commit a burglary; enter and rob a dwelling
+heister	a robber
+heisters	HEISTER: a robber
 heisting	HEIST: commit a burglary; enter and rob a dwelling
 heists	HEIST: commit a burglary; enter and rob a dwelling
 held	occupied or in the control of; often used in combination
 helical	in the shape of a coil
+helices	HELIX: a spiral shape
 helicopter	an aircraft without wings that obtains its lift from the rotation of overhead blades
+helicoptered	HELICOPTER: transport by helicopter
+helicoptering	HELICOPTER: transport by helicopter
 helicopters	HELICOPTER: an aircraft without wings that obtains its lift from the rotation of overhead blades
 heliocentric	having the sun as the center
 heliotrope	green chalcedony with red spots that resemble blood
 heliotropes	HELIOTROPE: green chalcedony with red spots that resemble blood
+helipad	a landing pad for helicopters
+helipads	HELIPAD: a landing pad for helicopters
 heliport	an airport for helicopters
 heliports	HELIPORT: an airport for helicopters
 helium	a very light colorless element that is one of the six inert gasses; the most difficult gas to liquefy; occurs in economically extractable amounts in certain natural gases (as those found in Texas and Kansas)
 helix	a curve that lies on the surface of a cylinder or cone and cuts the element at a constant angle
 helixes	HELIX: a curve that lies on the surface of a cylinder or cone and cuts the element at a constant angle
 hell	any place of pain and turmoil
+hellacious	extremely bad or intense
+hellbent	determined at all costs
+hellborn	born in hell
 hellcat	a malicious woman with a fierce temper
 hellcats	HELLCAT: a malicious woman with a fierce temper
 hellebore	perennial herbs of the lily family having thick toxic rhizomes
@@ -1003,11 +1162,18 @@ hellishly	extremely
 hellishness	the quality of being hellish
 hello	an expression of greeting
 hellos	HELLO: an expression of greeting
+hellraiser	a person who behaves wildly
+hellraisers	HELLRAISER: a person who behaves wildly
 hells	HELL: any place of pain and turmoil
+helluva	a great deal of
 helm	steering mechanism for a vessel; a mechanical device by which a vessel is steered
 helmet	armor plate that protects the head
 helmeted	equipped with or wearing a helmet
 helmets	HELMET: armor plate that protects the head
+helminthological	relating to the study of parasitic worms
+helminthologist	a scientist who studies parasitic worms
+helminthologists	HELMINTHOLOGIST: a scientist who studies parasitic worms
+helminthology	the study of parasitic worms
 helms	HELM: steering mechanism for a vessel; a mechanical device by which a vessel is steered
 helmsman	the person who steers a ship
 helmsmen	HELMSMAN: the person who steers a ship
@@ -1025,6 +1191,8 @@ helpings	HELPING: an individual quantity of food or drink taken as part of a mea
 helpless	lacking in or deprived of strength or power
 helplessly	in a helpless manner
 helplessness	powerlessness revealed by an inability to act
+helpline	a telephone service giving advice or support
+helplines	HELPLINE: a telephone service giving advice or support
 helpmate	a helpful partner
 helpmates	HELPMATE: a helpful partner
 helpmeet	a helpful partner
@@ -1083,16 +1251,30 @@ henna	a reddish brown dye used especially on hair
 hennaed	HENNA: a reddish brown dye used especially on hair
 hennaing	HENNA: a reddish brown dye used especially on hair
 hennas	HENNA: a reddish brown dye used especially on hair
+henpeck	nag and criticise a husband constantly
 henpecked	harassed by persistent nagging
+henpecker	HENPECK: nag and criticise a husband constantly
+henpeckers	HENPECKER: a spouse who nags and bosses their partner
+henpecking	HENPECK: nag and criticise a husband constantly
+henpecks	HENPECK: nag and criticise a husband constantly
 hens	HEN: adult female chicken
 hep	informed about the latest trends
 heparin	a polysaccharide produced in basophils (especially in the lung and liver) and that inhibits the activity of thrombin in coagulation of the blood; it (trade names Lipo-Hepin and Liquaemin) is used as an anticoagulant in the treatment of thrombosis and in heart surgery
 hepatic	any of numerous small green nonvascular plants of the class Hepaticopsida growing in wet places and resembling green seaweeds or leafy mosses
 hepatitis	inflammation of the liver caused by a virus or a toxin
+hepatocyte	a liver cell
+hepatocytes	HEPATOCYTE: a liver cell
+hepatologist	a doctor who specialises in the liver
+hepatologists	HEPATOLOGIST: a doctor who specialises in the liver
+hepatology	the study of the liver and its diseases
 hepper	HEP: informed about the latest trends
 heppest	HEP: informed about the latest trends
 heptagon	a seven-sided polygon
+heptagonal	having seven sides
 heptagons	HEPTAGON: a seven-sided polygon
+heptathlon	an athletic contest of seven events
+heptathlons	HEPTATHLON: an athletic contest of seven events
+her	belonging to or referring to a female
 herald	foreshadow or presage
 heralded	HERALD: foreshadow or presage
 heraldic	indicative of or announcing something to come
@@ -1103,6 +1285,7 @@ herb	a plant lacking a permanent woody stem; many are flowering garden plants or
 herbaceous	characteristic of a nonwoody herb or plant part
 herbage	succulent herbaceous vegetation of pasture land
 herbal	tea-like drink made of leaves of various herbs
+herbalism	the use of plants in medicine
 herbalist	a therapist who heals by the use of herbs
 herbalists	HERBALIST: a therapist who heals by the use of herbs
 herbals	HERBAL: tea-like drink made of leaves of various herbs
@@ -1137,12 +1320,14 @@ heresies	HERESY: any opinions or doctrines at variance with the official or orth
 heresy	any opinions or doctrines at variance with the official or orthodox position
 heretic	a person who holds religious beliefs in conflict with the dogma of the Roman Catholic Church
 heretical	characterized by departure from accepted beliefs or standards
+heretically	in a way that goes against accepted belief
 heretics	HERETIC: a person who holds religious beliefs in conflict with the dogma of the Roman Catholic Church
 hereto	to this writing or document
 heretofore	used in negative statement to describe a situation that has existed up to this point or up to the present time
 hereunder	in a subsequent part of this document or statement or matter etc.
 hereupon	immediately after this
 herewith	by means of this
+heritability	the degree to which a trait can be inherited
 heritable	capable of being inherited
 heritage	practices that are handed down from the past by tradition
 heritages	HERITAGE: practices that are handed down from the past by tradition
@@ -1156,11 +1341,18 @@ hermetically	in an airtight manner
 hermit	one retired from society for religious reasons
 hermitage	the abode of a hermit
 hermitages	HERMITAGE: the abode of a hermit
+hermitian	of a matrix equal to its own conjugate transpose
 hermits	HERMIT: one retired from society for religious reasons
 hernia	rupture in smooth muscle tissue through which a bodily structure protrudes
+herniae	HERNIA: a bulge of an organ through the wall that holds it
 hernias	HERNIA: rupture in smooth muscle tissue through which a bodily structure protrudes
+herniate	bulge out through a weak spot in surrounding tissue
+herniated	HERNIATE: bulge out through a weak spot in surrounding tissue
+herniates	HERNIATE: bulge out through a weak spot in surrounding tissue
+herniating	HERNIATE: bulge out through a weak spot in surrounding tissue
 herniation	rupture in smooth muscle tissue through which a bodily structure protrudes
 hero	a man distinguished by exceptional courage and nobility and strength
+heroes	HERO: a person admired for courage or achievements
 heroic	very imposing or impressive; surpassing the ordinary (especially in size or scale)
 heroically	in a heroic manner
 heroics	ostentatious or vainglorious or extravagant or melodramatic conduct
@@ -1173,12 +1365,15 @@ heron	Greek mathematician and inventor who devised a way to determine the area o
 herons	HERON: Greek mathematician and inventor who devised a way to determine the area of a triangle and who described various mechanical devices (first century)
 heros	HERO: a man distinguished by exceptional courage and nobility and strength
 herpes	viral diseases causing eruptions of the skin or mucous membrane
+herpetological	relating to the study of reptiles and amphibians
 herpetologist	a zoologist who studies reptiles and amphibians
 herpetologists	HERPETOLOGIST: a zoologist who studies reptiles and amphibians
 herpetology	the branch of zoology concerned with reptiles and amphibians
-herring	valuable flesh of fatty fish from shallow waters of northern Atlantic or Pacific; usually salted or pickled
+herring	HER: belonging to or referring to a female
 herringbone	a twilled fabric with a herringbone pattern
 herrings	HERRING: valuable flesh of fatty fish from shallow waters of northern Atlantic or Pacific; usually salted or pickled
+hers	HER: belonging to or referring to a female
+herself	that female person, as the object or for emphasis
 hertz	the unit of frequency; one hertz has a periodic interval of one second (named for Heinrich Rudolph Hertz)
 hertzes	HERTZ: the unit of frequency; one hertz has a periodic interval of one second (named for Heinrich Rudolph Hertz)
 hes	HE: a very light colorless element that is one of the six inert gasses; the most difficult gas to liquefy; occurs in economically extractable amounts in certain natural gases (as those found in Texas and Kansas)
@@ -1194,11 +1389,13 @@ hesitatingly	with hesitation; in a hesitant manner
 hesitation	indecision in speech or action
 hesitations	HESITATION: indecision in speech or action
 hessian	a man's high tasseled boot
+hetero	heterosexual
 heterocyclic	a compound containing a heterocyclic ring
 heterodox	characterized by departure from accepted beliefs or standards
 heterodoxy	any opinions or doctrines at variance with the official or orthodox position
 heterogeneity	the quality of being diverse and not comparable in kind
 heterogeneous	consisting of elements that are not of the same kind or nature
+heteros	HETERO: heterosexual
 heterosexual	a person having a sexual orientation to persons of the opposite sex
 heterosexuality	a sexual attraction to (or sexual relations with) persons of the opposite sex
 heterosexuals	HETEROSEXUAL: a person having a sexual orientation to persons of the opposite sex
@@ -1214,6 +1411,7 @@ hewn	cut or shaped with hard blows of a heavy cutting instrument like an ax or c
 hews	HEW: make or shape as with an axe
 hex	an evil spell
 hexadecimal	of or pertaining to a number system having 16 as its base
+hexadecimals	HEXADECIMAL: a number system with base sixteen
 hexagon	a six-sided polygon
 hexagonal	having six sides or divided into hexagons
 hexagons	HEXAGON: a six-sided polygon
@@ -1225,6 +1423,7 @@ hexed	HEX: an evil spell
 hexer	HEX: an evil spell
 hexes	HEX: an evil spell
 hexing	HEX: an evil spell
+hey	used to attract attention or express surprise
 heyday	the period of greatest prosperity or productivity
 heydays	HEYDAY: the period of greatest prosperity or productivity
 hi	an expression of greeting
@@ -1252,6 +1451,7 @@ hiccups	HICCUP: (usually plural) the state of having reflex spasms of the diaphr
 hick	a person who is not very intelligent or interested in culture
 hickey	a small inflamed elevation of the skin; a pustule or papule; common symptom in acne
 hickeys	HICKEY: a small inflamed elevation of the skin; a pustule or papule; common symptom in acne
+hickish	unsophisticated, like a country bumpkin
 hickories	HICKORY: valuable tough heavy hardwood from various hickory trees
 hickory	valuable tough heavy hardwood from various hickory trees
 hicks	HICK: a person who is not very intelligent or interested in culture
@@ -1267,6 +1467,8 @@ hideously	in a hideous manner
 hideousness	dreadful ugliness; horrible repulsiveness
 hideout	a hiding place; usually a remote place used by outlaws
 hideouts	HIDEOUT: a hiding place; usually a remote place used by outlaws
+hider	a person who hides something
+hiders	HIDER: a person who hides something
 hides	HIDE: the dressed skin of an animal (especially a large animal)
 hiding	the activity of keeping something secret
 hidings	HIDING: the activity of keeping something secret
@@ -1282,6 +1484,8 @@ hieroglyph	writing that resembles hieroglyphics (usually by being illegible)
 hieroglyphic	writing that resembles hieroglyphics (usually by being illegible)
 hieroglyphics	HIEROGLYPHIC: writing that resembles hieroglyphics (usually by being illegible)
 hieroglyphs	HIEROGLYPH: writing that resembles hieroglyphics (usually by being illegible)
+hierophant	a priest who explains sacred mysteries
+hierophants	HIEROPHANT: a priest who explains sacred mysteries
 hies	HIE: move hurridly
 hifalutin	affectedly genteel
 high	greater than normal in degree or intensity or amount
@@ -1295,6 +1499,7 @@ highbrows	HIGHBROW: a person of intellectual or erudite tastes
 highchair	a chair for feeding a very young child; has four long legs and a footrest and a detachable tray
 highchairs	HIGHCHAIR: a chair for feeding a very young child; has four long legs and a footrest and a detachable tray
 higher	advanced in complexity or elaboration
+highers	HIGHER: a more advanced qualification
 highest	HIGH: greater than normal in degree or intensity or amount
 highfalutin	affectedly genteel
 highfaluting	affectedly genteel
@@ -1316,8 +1521,12 @@ highlighter	a cosmetic used to highlight the eyes or cheekbones
 highlighters	HIGHLIGHTER: a cosmetic used to highlight the eyes or cheekbones
 highlighting	HIGHLIGHT: move into the foreground to make more visible or prominent
 highlights	HIGHLIGHT: move into the foreground to make more visible or prominent
+highline	a rope or cable strung high up for crossing or carrying loads
 highly	to a high degree or extent; favorably or with much respect
 highness	title used to address a royal person
+highpoint	the best or most memorable part
+highrise	a tall building with many floors
+highrises	HIGHRISE: a tall building with many floors
 highroad	a highway
 highroads	HIGHROAD: a highway
 highs	HIGH: greater than normal in degree or intensity or amount
@@ -1362,10 +1571,14 @@ hilltops	HILLTOP: the peak of a hill
 hilly	having hills and crags
 hilt	the handle of a sword or dagger
 hilts	HILT: the handle of a sword or dagger
+him	that male person, as the object of a verb
+hims	HIM: that male person, as the object of a verb
+himself	that male person, as the object or for emphasis
 hind	any of several mostly spotted fishes that resemble groupers
 hinder	be a hindrance or obstacle to
 hindered	HINDER: be a hindrance or obstacle to
 hinderer	HINDER: be a hindrance or obstacle to
+hinderers	HINDERER: a person who gets in the way of progress
 hindering	HINDER: be a hindrance or obstacle to
 hinders	HINDER: be a hindrance or obstacle to
 hindmost	located farthest to the rear
@@ -1375,17 +1588,23 @@ hindrance	something immaterial that interferes with or delays action or progress
 hindrances	HINDRANCE: something immaterial that interferes with or delays action or progress
 hinds	HIND: any of several mostly spotted fishes that resemble groupers
 hindsight	understanding the nature of an event after it has happened
+hing	a strong-smelling spice used in Indian cooking
 hinge	a joint that holds two parts together so that one can swing relative to the other
-hinged	HINGE: a joint that holds two parts together so that one can swing relative to the other
-hinges	HINGE: a joint that holds two parts together so that one can swing relative to the other
-hinging	HINGE: a joint that holds two parts together so that one can swing relative to the other
+hinged	HING: a strong-smelling spice used in Indian cooking
+hinges	HING: a strong-smelling spice used in Indian cooking
+hinging	HING: a strong-smelling spice used in Indian cooking
+hings	HING: a strong-smelling spice used in Indian cooking
 hint	an indirect suggestion
 hinted	HINT: an indirect suggestion
+hinter	a person who suggests something indirectly
 hinterland	a remote and undeveloped area
 hinterlands	HINTERLAND: a remote and undeveloped area
+hinters	HINTER: a person who suggests something indirectly
 hinting	HINT: an indirect suggestion
 hints	HINT: an indirect suggestion
 hip	either side of the body below the waist and above the thigh
+hiphop	a style of music and culture with rapping and beats
+hiphuggers	HIPHUGGER: trousers that sit low on the hips
 hipped	HIP: either side of the body below the waist and above the thigh
 hipper	HIP: either side of the body below the waist and above the thigh
 hippest	HIP: either side of the body below the waist and above the thigh
@@ -1396,6 +1615,7 @@ hippo	an ancient Numidian town in northwestern Africa adjoining present-day Anna
 hippocampus	a complex neural structure (shaped like a sea horse) consisting of grey matter and located on the floor of each lateral ventricle; intimately involved in motivation and emotion as part of the limbic system; has a central role in the formation of memories
 hippodrome	a stadium for horse shows or horse races
 hippodromes	HIPPODROME: a stadium for horse shows or horse races
+hippopotami	HIPPOPOTAMUS: a large African river mammal with a huge mouth
 hippopotamus	massive thick-skinned herbivorous animal living in or around rivers of tropical Africa
 hippopotamuses	HIPPOPOTAMUS: massive thick-skinned herbivorous animal living in or around rivers of tropical Africa
 hippos	HIPPO: an ancient Numidian town in northwestern Africa adjoining present-day Annaba in northeastern Algeria
@@ -1403,6 +1623,7 @@ hippy	someone who rejects the established culture; advocates extreme liberalism 
 hips	HIP: either side of the body below the waist and above the thigh
 hipster	someone who rejects the established culture; advocates extreme liberalism in politics and lifestyle
 hipsters	a youth subculture (mostly from the middle class) originating in San Francisco in the 1960s; advocated universal love and peace and communes and long hair and soft drugs; favored acid rock and progressive rock music
+hiragana	a Japanese syllabic script
 hire	engage or hire for work
 hired	having services engaged for a fee
 hireling	a person who works only for money
@@ -1431,20 +1652,29 @@ histologists	HISTOLOGIST: anatomist who specializes in the microscopic study of 
 histology	the branch of biology that studies the microscopic structure of animal or plant tissues
 histone	a simple protein containing mainly basic amino acids; present in cell nuclei in association with nucleic acids
 histones	HISTONE: a simple protein containing mainly basic amino acids; present in cell nuclei in association with nucleic acids
+histopathological	relating to the study of diseased tissue
+histopathologist	a doctor who examines diseased tissue
+histopathologists	HISTOPATHOLOGIST: a doctor who examines diseased tissue
+histopathology	the study of diseased tissue under a microscope
 historian	a person who is an authority on history and who studies it and writes about it
 historians	HISTORIAN: a person who is an authority on history and who studies it and writes about it
 historic	belonging to the past; of what is important or famous in the past
 historical	of or relating to the study of history
 historically	throughout history
 historicism	a theory that social and cultural events are determined by history
+historicity	historical truth or authenticity
 histories	HISTORY: the aggregate of past events
+historiographical	relating to the writing of history
 historiography	a body of historical literature
 history	the aggregate of past events
 histrionic	characteristic of acting or a stage performance; often affected
+histrionically	in an overly dramatic way
 histrionics	a performance of a play
 hit	cause to move by striking
 hitch	to hook or entangle
 hitched	HITCH: to hook or entangle
+hitcher	a hitchhiker
+hitchers	HITCHER: a hitchhiker
 hitches	HITCH: to hook or entangle
 hitchhike	travel by getting free rides from motorists
 hitchhiked	HITCHHIKE: travel by getting free rides from motorists
@@ -1464,9 +1694,14 @@ hitters	HITTER: a ballplayer who is batting
 hitting	HIT: cause to move by striking
 hive	a teeming multitude
 hived	HIVE: a teeming multitude
+hivemind	a shared collective mind or way of thinking
+hiveminds	HIVEMIND: a shared collective mind or way of thinking
 hives	HIVE: a teeming multitude
 hiving	HIVE: a teeming multitude
+hiya	informal greeting
 hm	a metric unit of length equal to 100 meters
+hmm	sound made when thinking or hesitating
+hmph	sound expressing disapproval or annoyance
 ho	a trivalent metallic element of the rare earth group; occurs together with yttrium; forms highly magnetic compounds
 hoagie	a large sandwich made of a long crusty roll split lengthwise and filled with meats and cheese (and tomato and onion and lettuce and condiments); different names are used in different sections of the United States
 hoagies	HOAGIE: a large sandwich made of a long crusty roll split lengthwise and filled with meats and cheese (and tomato and onion and lettuce and condiments); different names are used in different sections of the United States
@@ -1523,6 +1758,7 @@ hobnobbed	HOBNOB: rub elbows with
 hobnobbing	HOBNOB: rub elbows with
 hobnobs	HOBNOB: rub elbows with
 hobo	a vagrant
+hoboes	HOBO: a homeless wandering worker
 hobos	HOBO: a vagrant
 hobs	HOB: a small grotesque supernatural creature that makes trouble for human beings
 hock	leave as a guarantee in return for money
@@ -1530,12 +1766,16 @@ hocked	HOCK: leave as a guarantee in return for money
 hockey	a game resembling ice hockey that is played on an open field; two opposing teams use curved hockey sticks try to drive a ball into the opponents' net
 hocking	HOCK: leave as a guarantee in return for money
 hocks	HOCK: leave as a guarantee in return for money
+hockshop	a pawnshop
+hockshops	HOCKSHOP: a pawnshop
 hod	an open box attached to a long pole handle; bricks or mortar are carried on the shoulder
 hodgepodge	a motley assortment of things
 hodgepodges	HODGEPODGE: a motley assortment of things
 hods	HOD: an open box attached to a long pole handle; bricks or mortar are carried on the shoulder
 hoe	a tool with a flat blade attached at right angles to a long handle
 hoed	HOE: a tool with a flat blade attached at right angles to a long handle
+hoedown	a lively country dance party
+hoedowns	HOEDOWN: a lively country dance party
 hoeing	HOE: a tool with a flat blade attached at right angles to a long handle
 hoes	HOE: a tool with a flat blade attached at right angles to a long handle
 hog	take greedily; take more than one's share
@@ -1550,7 +1790,12 @@ hoggishness	an excessive desire for food
 hogs	HOG: take greedily; take more than one's share
 hogshead	a British unit of capacity for alcoholic beverages
 hogsheads	HOGSHEAD: a British unit of capacity for alcoholic beverages
+hogtied	tied with hands and feet bound together
 hogwash	unacceptable behavior (especially ludicrously false statements)
+hoick	pull or lift sharply
+hoicked	HOICK: pull or lift sharply
+hoicking	HOICK: pull or lift sharply
+hoicks	HOICK: pull or lift sharply
 hoist	raise or haul up with or as if with mechanical help
 hoisted	HOIST: raise or haul up with or as if with mechanical help
 hoister	an operator of a hoist
@@ -1558,6 +1803,8 @@ hoisters	HOISTER: an operator of a hoist
 hoisting	HOIST: raise or haul up with or as if with mechanical help
 hoists	HOIST: raise or haul up with or as if with mechanical help
 hokey	effusively or insincerely emotional
+hokier	HOKY: more corny or contrived
+hokiest	HOKY: most corny or contrived
 hokum	a message that seems to convey no meaning
 hold	cause to continue in a certain state, position, or activity; e.g., `keep clean'
 holdall	a capacious bag or basket
@@ -1589,6 +1836,7 @@ holiness	the quality of being holy
 holing	HOLE: an opening into or through something
 holism	the theory that the parts of any whole cannot exist and cannot be understood except in their relation to the whole
 holistic	emphasizing the organic or functional relation between parts and the whole
+holistically	in a way that treats something as a whole
 hollandaise	eggs and butter with lemon juice
 holler	shout out
 hollered	HOLLER: shout out
@@ -1614,9 +1862,13 @@ holograph	handwritten book or document
 holographic	of or relating to holography or holograms
 holographs	HOLOGRAPH: handwritten book or document
 holography	the branch of optics that deals with the use of coherent light from a laser in order to make a hologram that can then be used to create a three-dimensional image
+holomorphic	of a complex function that is differentiable everywhere in its domain
 holothurian	echinoderm having a flexible sausage-shaped body, tentacles surrounding the mouth and tube feet; free-living mud feeders
 holotype	the original specimen from which the description of a new species is made
+hols	holidays
 holster	a sheath (usually leather) for carrying a handgun
+holstered	HOLSTER: put a gun into its case
+holstering	HOLSTER: put a gun into its case
 holsters	HOLSTER: a sheath (usually leather) for carrying a handgun
 holy	a sacred place of pilgrimage
 homage	respectful deference
@@ -1630,6 +1882,8 @@ homebodies	HOMEBODY: a person who seldom goes anywhere; one not given to wanderi
 homebody	a person who seldom goes anywhere; one not given to wandering or travel
 homeboy	a fellow male member of a youth gang
 homeboys	HOMEBOY: a fellow male member of a youth gang
+homebuyer	a person buying a house
+homebuyers	HOMEBUYER: a person buying a house
 homecoming	an annual school or university reunion for graduates
 homecomings	HOMECOMING: an annual school or university reunion for graduates
 homed	HOME: where you live at a particular time
@@ -1659,6 +1913,7 @@ homeowner	someone who owns a home
 homeowners	HOMEOWNER: someone who owns a home
 homepage	the opening page of a web site
 homepages	HOMEPAGE: the opening page of a web site
+homeport	the port where a ship is based
 homer	a base hit on which the batter scores a run
 homered	HOMER: a base hit on which the batter scores a run
 homering	HOMER: a base hit on which the batter scores a run
@@ -1666,6 +1921,10 @@ homeroom	a classroom in which all students in a particular grade (or in a divisi
 homerooms	HOMEROOM: a classroom in which all students in a particular grade (or in a division of a grade) meet at certain times under the supervision of a teacher who takes attendance and does other administrative business
 homers	HOMER: a base hit on which the batter scores a run
 homes	HOME: where you live at a particular time
+homeschool	teach children at home instead of at school
+homeschooled	HOMESCHOOL: teach children at home instead of at school
+homeschooling	HOMESCHOOL: teach children at home instead of at school
+homeschools	HOMESCHOOL: teach children at home instead of at school
 homesick	longing to return home
 homesickness	a longing to return home
 homespun	a rough loosely woven fabric originally made with yarn that was spun at home
@@ -1682,13 +1941,18 @@ hometowns	HOMETOWN: the town (or city) where you grew up or where you have your 
 homeward	toward home
 homewards	toward home
 homework	preparatory school work done outside school (especially at home)
+homewrecker	a person who breaks up a marriage or family
+homewreckers	HOMEWRECKER: a person who breaks up a marriage or family
 homey	having a feeling of home; cozy and comfortable
 homeyness	the quality of being homey
+homeys	HOMEY: cosy and comfortable
 homicidal	characteristic of or capable of or having a tendency toward killing another human being
 homicide	the killing of a human being by another human being
 homicides	HOMICIDE: the killing of a human being by another human being
-homier	HOMY: having a feeling of home; cozy and comfortable
-homiest	HOMY: having a feeling of home; cozy and comfortable
+homie	a close friend
+homier	HOMIE: a close friend
+homies	HOMIE: a close friend
+homiest	HOMIE: a close friend
 homilies	HOMILY: a sermon on a moral or religious topic
 homily	a sermon on a moral or religious topic
 hominess	the quality of being homy
@@ -1697,6 +1961,7 @@ hominid	a primate of the family Hominidae
 hominids	HOMINID: a primate of the family Hominidae
 hominy	hulled corn with the bran and germ removed
 homoeopath	a practitioner of homeopathy
+homoeopathic	relating to treating illness with tiny doses of substances
 homoeopaths	HOMOEOPATH: a practitioner of homeopathy
 homoeopathy	a method of treating disease with small amounts of remedies that, in large amounts in healthy people, produce symptoms similar to those being treated
 homoerotic	of or concerning homosexual love
@@ -1733,13 +1998,16 @@ homosexual	someone who is sexually attracted to persons of the same sex
 homosexuality	a sexual attraction to (or sexual relations with) persons of the same sex
 homosexuals	HOMOSEXUAL: someone who is sexually attracted to persons of the same sex
 homozygous	having identical alleles at corresponding chromosomal loci
+homuncular	relating to a tiny human figure
+homunculi	HOMUNCULUS: a tiny human figure
 homunculus	a person who is very small but who is not otherwise deformed or abnormal
 homy	having a feeling of home; cozy and comfortable
+hon	short for honey, used as a term of endearment
 honcho	a person who exercises control over workers
 honchos	HONCHO: a person who exercises control over workers
 hone	a whetstone made of fine gritstone; used for sharpening razors
-honed	HONE: a whetstone made of fine gritstone; used for sharpening razors
-hones	HONE: a whetstone made of fine gritstone; used for sharpening razors
+honed	HON: short for honey, used as a term of endearment
+hones	HON: short for honey, used as a term of endearment
 honest	not disposed to cheat or defraud; not deceptive or fraudulent
 honester	HONEST: not disposed to cheat or defraud; not deceptive or fraudulent
 honestest	HONEST: not disposed to cheat or defraud; not deceptive or fraudulent
@@ -1756,6 +2024,8 @@ honeycreeper	small to medium-sized finches of the Hawaiian islands
 honeycreepers	HONEYCREEPER: small to medium-sized finches of the Hawaiian islands
 honeydew	the fruit of a variety of winter melon vine; a large smooth greenish-white melon with pale green flesh
 honeydews	HONEYDEW: the fruit of a variety of winter melon vine; a large smooth greenish-white melon with pale green flesh
+honeyeater	a nectar-feeding bird of Australia and nearby regions
+honeyeaters	HONEYEATER: a nectar-feeding bird of Australia and nearby regions
 honeyed	HONEY: a sweet yellow liquid produced by bees
 honeying	HONEY: a sweet yellow liquid produced by bees
 honeymoon	a holiday taken by a newly married couple
@@ -1769,7 +2039,7 @@ honeys	HONEY: a sweet yellow liquid produced by bees
 honeysuckle	shrub or vine of the genus Lonicera
 honeysuckles	HONEYSUCKLE: shrub or vine of the genus Lonicera
 honied	with honey added
-honing	HONE: a whetstone made of fine gritstone; used for sharpening razors
+honing	HON: short for honey, used as a term of endearment
 honk	the cry of a goose (or any sound resembling this)
 honked	HONK: the cry of a goose (or any sound resembling this)
 honker	a driver who causes his car's horn to make a loud honking sound
@@ -1781,12 +2051,15 @@ honky	offensive names for a White man
 honor	a tangible symbol signifying approval or distinction
 honorable	not disposed to cheat or defraud; not deceptive or fraudulent
 honorably	in an honorable manner
+honoraria	HONORARIUM: a payment for a service given without a fee
 honorarium	a fee paid for a nominally free service
 honorariums	HONORARIUM: a fee paid for a nominally free service
 honorary	given as an honor without the normal duties
 honored	having an illustrious reputation; respected
 honoree	a recipient of honors in recognition of noteworthy accomplishments
 honorees	HONOREE: a recipient of honors in recognition of noteworthy accomplishments
+honorer	a person who honours
+honorers	HONORER: a person who honours
 honorific	an expression of respect
 honorifics	HONORIFIC: an expression of respect
 honoring	HONOR: a tangible symbol signifying approval or distinction
@@ -1794,13 +2067,21 @@ honors	HONOR: a tangible symbol signifying approval or distinction
 honour	the state of being honored
 honourable	worthy of being honored; entitled to honor and respect
 honourably	with honor
+honourary	given as an honour without the usual requirements
 honoured	HONOUR: the state of being honored
+honouree	a person who is honoured
+honourees	HONOUREE: a person who is honoured
+honourer	a person who honours
+honourers	HONOURER: a person who honours
 honouring	HONOUR: the state of being honored
 honours	HONOUR: the state of being honored
 hooch	an illicitly distilled (and usually inferior) alcoholic liquor
 hood	an aggressive and violent young criminal
 hooded	HOOD: an aggressive and violent young criminal
+hoodie	a sweatshirt with a hood
+hoodies	HOODIE: a sweatshirt with a hood
 hooding	HOOD: an aggressive and violent young criminal
+hoodlike	resembling a hood
 hoodlum	an aggressive and violent young criminal
 hoodlums	HOODLUM: an aggressive and violent young criminal
 hoodoo	a column of weathered and unusually shaped rock
@@ -1810,8 +2091,11 @@ hoodoos	HOODOO: a column of weathered and unusually shaped rock
 hoods	HOOD: an aggressive and violent young criminal
 hoodwink	influence by slyness
 hoodwinked	HOODWINK: influence by slyness
+hoodwinker	a person who deceives
+hoodwinkers	HOODWINKER: a person who deceives
 hoodwinking	HOODWINK: influence by slyness
 hoodwinks	HOODWINK: influence by slyness
+hoody	a sweatshirt with a hood
 hooey	senseless talk
 hoof	the foot of an ungulate mammal
 hoofed	HOOF: the foot of an ungulate mammal
@@ -1835,20 +2119,32 @@ hooky	failure to attend (especially school)
 hooligan	a cruel and brutal fellow
 hooliganism	willful wanton and malicious destruction of the property of others
 hooligans	HOOLIGAN: a cruel and brutal fellow
+hoon	a reckless, loutish driver
+hooned	HOON: a reckless, loutish driver
+hooning	HOON: a reckless, loutish driver
+hoons	HOON: a reckless, loutish driver
 hoop	a light curved skeleton to spread out a skirt
 hooped	HOOP: a light curved skeleton to spread out a skirt
+hooper	a person who plays basketball
+hoopers	HOOPER: a person who plays basketball
 hooping	HOOP: a light curved skeleton to spread out a skirt
 hoopla	blatant or sensational promotion
 hoopoe	any of several crested Old World birds with a slender downward-curved bill
 hoopoes	HOOPOE: any of several crested Old World birds with a slender downward-curved bill
 hoops	HOOP: a light curved skeleton to spread out a skirt
+hoorah	a shout of joy or approval
+hoorahs	HOORAH: a shout of joy or approval
 hooray	a victory cheer
+hoorayed	HOORAY: shouted in joy or approval
+hooraying	HOORAY: shout in joy or approval
 hoorays	HOORAY: a victory cheer
 hoosegow	slang for a jail
 hoosegows	HOOSEGOW: slang for a jail
 hoot	a loud raucous cry (as of an owl)
 hootch	an illicitly distilled (and usually inferior) alcoholic liquor
 hooted	HOOT: a loud raucous cry (as of an owl)
+hootenannies	HOOTENANNY: an informal gathering with folk music
+hootenanny	an informal gathering with folk music
 hooter	informal terms for the nose
 hooters	HOOTER: informal terms for the nose
 hooting	HOOT: a loud raucous cry (as of an owl)
@@ -1858,6 +2154,7 @@ hoover	United States industrialist who manufactured vacuum cleaners (1849-1932)
 hoovered	HOOVER: United States industrialist who manufactured vacuum cleaners (1849-1932)
 hoovering	HOOVER: United States industrialist who manufactured vacuum cleaners (1849-1932)
 hoovers	HOOVER: United States industrialist who manufactured vacuum cleaners (1849-1932)
+hooves	HOOF: the hard covering on the foot of a horse or similar animal
 hop	jump lightly
 hope	a specific instance of feeling hopeful
 hoped	HOPE: a specific instance of feeling hopeful
@@ -1876,9 +2173,13 @@ hoppers	HOPPER: funnel-shaped receptacle; contents pass by gravity into a recept
 hopping	HOP: jump lightly
 hops	HOP: jump lightly
 hopscotch	a game in which a child tosses a stone into an area drawn on the ground and then hops through it and back to regain the stone
+hopscotched	HOPSCOTCH: hopped or moved in a zigzag way
 hopscotches	HOPSCOTCH: a game in which a child tosses a stone into an area drawn on the ground and then hops through it and back to regain the stone
+hopscotching	HOPSCOTCH: hop or move in a zigzag way
 horde	a vast multitude
+horded	HOARD: gather and store away
 hordes	HORDE: a vast multitude
+hording	HOARD: gather and store away
 horizon	the line at which the sky and Earth appear to meet
 horizons	HORIZON: the line at which the sky and Earth appear to meet
 horizontal	parallel to or in the plane of the horizon or a base line
@@ -1905,6 +2206,7 @@ hornpipe	a British solo dance performed by sailors
 hornpipes	HORNPIPE: a British solo dance performed by sailors
 horns	HORN: a noisemaker (as at parties or games) that makes a loud noise when you blow through it
 horny	feeling great sexual desire
+horological	relating to clocks and watches
 horologist	someone who makes or repairs watches
 horologists	HOROLOGIST: someone who makes or repairs watches
 horology	the art of designing and making clocks
@@ -1919,6 +2221,8 @@ horrid	exceedingly bad
 horridly	in a hideous manner
 horridness	a quality of extreme unpleasantness
 horrific	grossly offensive to decency or morality; causing horror
+horrifically	in a shocking and terrible way
+horrification	the act of causing horror
 horrified	stricken with horror
 horrifies	HORRIFY: fill with apprehension or alarm; cause to be unpleasantly surprised
 horrify	fill with apprehension or alarm; cause to be unpleasantly surprised
@@ -1931,6 +2235,7 @@ horseback	the back of a horse
 horsebox	a conveyance (railroad car or trailer) for transporting racehorses
 horseboxes	HORSEBOX: a conveyance (railroad car or trailer) for transporting racehorses
 horsed	HORSE: solid-hoofed herbivorous quadruped domesticated since prehistoric times
+horsedrawn	pulled by horses
 horseflesh	the flesh of horses as food
 horseflies	HORSEFLY: winged fly parasitic on horses
 horsefly	winged fly parasitic on horses
@@ -1942,7 +2247,10 @@ horsemanship	skill in handling and riding horses
 horsemeat	the flesh of horses as food
 horsemen	HORSEMAN: a man skilled in equitation
 horseplay	rowdy or boisterous play
+horseplayer	a person who bets on horse races
+horseplayers	HORSEPLAYER: a person who bets on horse races
 horsepower	a unit of power equal to 746 watts
+horseracing	the sport of racing horses
 horseradish	the root of the horseradish plant; it is grated or ground and used for seasoning
 horseradishes	HORSERADISH: the root of the horseradish plant; it is grated or ground and used for seasoning
 horses	HORSE: solid-hoofed herbivorous quadruped domesticated since prehistoric times
@@ -1953,14 +2261,21 @@ horseshoeing	HORSESHOE: game equipment consisting of an open ring of iron used i
 horseshoes	a game in which iron rings (or open iron rings) are thrown at a stake in the ground in the hope of encircling it
 horsetail	perennial rushlike flowerless herbs with jointed hollow stems and narrow toothlike leaves that spread by creeping rhizomes; tend to become weedy; common in northern hemisphere; some in Africa and South America
 horsetails	HORSETAIL: perennial rushlike flowerless herbs with jointed hollow stems and narrow toothlike leaves that spread by creeping rhizomes; tend to become weedy; common in northern hemisphere; some in Africa and South America
+horsetrading	hard bargaining
 horsewhip	a whip for controlling horses
 horsewhipped	HORSEWHIP: a whip for controlling horses
 horsewhipping	the act of whipping with a horsewhip
 horsewhips	HORSEWHIP: a whip for controlling horses
 horsewoman	a woman horseman
 horsewomen	HORSEWOMAN: a woman horseman
+horsey	like a horse, or fond of horses
+horsier	HORSY: like a horse, or fond of horses
+horsiest	HORSY: like a horse, or fond of horses
 horsing	HORSE: solid-hoofed herbivorous quadruped domesticated since prehistoric times
+horsy	like a horse, or fond of horses
 horticultural	of or relating to the cultivation of plants
+horticulturalist	a person who studies or practises gardening
+horticulturalists	HORTICULTURALIST: a person who studies or practises gardening
 horticulture	the cultivation of plants
 horticulturist	an expert in the science of cultivating plants (fruit or flowers or vegetables or ornamental plants)
 horticulturists	HORTICULTURIST: an expert in the science of cultivating plants (fruit or flowers or vegetables or ornamental plants)
@@ -1998,13 +2313,19 @@ hostage	a prisoner who is held by one party to insure that another party will me
 hostages	HOSTAGE: a prisoner who is held by one party to insure that another party will meet specified terms
 hosted	HOST: a person who invites guests to a social event (such as a party in his or her own home) and who is responsible for them while they are there
 hostel	a hotel providing overnight lodging for travelers
+hosteled	HOSTEL: stayed in cheap lodgings
+hosteler	a traveller staying in a hostel
+hostelers	HOSTELER: a traveller staying in a hostel
+hosteling	HOSTEL: staying in cheap lodgings
 hostelled	HOSTEL: a hotel providing overnight lodging for travelers
 hostelling	HOSTEL: a hotel providing overnight lodging for travelers
 hostelries	HOSTELRY: a hotel providing overnight lodging for travelers
 hostelry	a hotel providing overnight lodging for travelers
 hostels	HOSTEL: a hotel providing overnight lodging for travelers
 hostess	a woman host
+hostessed	HOSTESS: acted as a woman hosting guests
 hostesses	HOSTESS: a woman host
+hostessing	HOSTESS: acting as a woman hosting guests
 hostile	characterized by enmity or ill will
 hostilely	with hostility; in a belligerent hostile manner
 hostiles	HOSTILE: characterized by enmity or ill will
@@ -2028,6 +2349,8 @@ hotel	a building where travelers can pay for lodging and meals and other service
 hotelier	an owner or manager of hotels
 hoteliers	HOTELIER: an owner or manager of hotels
 hotels	HOTEL: a building where travelers can pay for lodging and meals and other services
+hotfix	a quick software repair applied to a live system
+hotfixes	HOTFIX: a quick software repair applied to a live system
 hotfoot	a practical joke that involves inserting a match surreptitiously between the sole and upper of the victim's shoe and then lighting it
 hotfooted	HOTFOOT: a practical joke that involves inserting a match surreptitiously between the sole and upper of the victim's shoe and then lighting it
 hotfooting	HOTFOOT: a practical joke that involves inserting a match surreptitiously between the sole and upper of the victim's shoe and then lighting it
@@ -2038,13 +2361,24 @@ hotheadedly	in a hotheaded way
 hotheadedness	the quality of being hotheaded
 hotheads	HOTHEAD: a belligerent grouch
 hothouse	a greenhouse in which plants are arranged in a pleasing manner
+hothoused	HOTHOUSE: raised in a heated greenhouse or intensively nurtured
 hothouses	HOTHOUSE: a greenhouse in which plants are arranged in a pleasing manner
+hothousing	HOTHOUSE: raising in a heated greenhouse or intensively nurturing
+hotkey	a keyboard shortcut
+hotkeys	HOTKEY: a keyboard shortcut
+hotline	a direct phone line for urgent contact
+hotlines	HOTLINE: a direct phone line for urgent contact
+hotlink	a clickable link on a web page
+hotlinks	HOTLINK: a clickable link on a web page
 hotly	in a heated manner
 hotness	the presence of heat
 hotplate	a portable electric appliance for heating or cooking or keeping food warm
 hotplates	HOTPLATE: a portable electric appliance for heating or cooking or keeping food warm
 hotpot	a stew of meat and potatoes cooked in a tightly covered pot
 hotpots	HOTPOT: a stew of meat and potatoes cooked in a tightly covered pot
+hotrod	a car modified for speed
+hotrods	HOTROD: a car modified for speed
+hots	strong sexual desire
 hotshot	someone who is dazzlingly skilled in any field
 hotshots	HOTSHOT: someone who is dazzlingly skilled in any field
 hotspot	a place of political unrest and potential violence
@@ -2052,7 +2386,11 @@ hotspots	HOTSPOT: a place of political unrest and potential violence
 hotted	HOT: used of physical heat; having a high or higher than desirable temperature or giving off heat or feeling or causing a sensation of heat or burning
 hotter	HOT: used of physical heat; having a high or higher than desirable temperature or giving off heat or feeling or causing a sensation of heat or burning
 hottest	HOT: used of physical heat; having a high or higher than desirable temperature or giving off heat or feeling or causing a sensation of heat or burning
+hottie	an attractive person
+hotties	HOTTIE: an attractive person
 hotting	HOT: used of physical heat; having a high or higher than desirable temperature or giving off heat or feeling or causing a sensation of heat or burning
+houmous	a Middle Eastern dip of mashed chickpeas
+houmus	a Middle Eastern dip of mashed chickpeas
 hound	any of several breeds of dog used for hunting typically having large drooping ears
 hounded	HOUND: any of several breeds of dog used for hunting typically having large drooping ears
 hounding	HOUND: any of several breeds of dog used for hunting typically having large drooping ears
@@ -2066,11 +2404,14 @@ house	a dwelling that serves as living quarters for one or more families
 houseboat	a barge that is designed and equipped for use as a dwelling
 houseboats	HOUSEBOAT: a barge that is designed and equipped for use as a dwelling
 housebound	confined usually by illness
+houseboy	a male domestic servant
+houseboys	HOUSEBOY: a male domestic servant
 housebreak	train (a pet) to live cleanly in a house
 housebreaker	a burglar who unlawfully breaks into and enters another person's house
 housebreakers	HOUSEBREAKER: a burglar who unlawfully breaks into and enters another person's house
 housebreaking	trespassing for an unlawful purpose; illegal entrance into premises with criminal intent
 housebreaks	HOUSEBREAK: train (a pet) to live cleanly in a house
+housebroke	HOUSEBREAK: trained a pet to live indoors
 housebroken	(of pets) trained to urinate and defecate outside or in a special place
 houseclean	clean and tidy up the house
 housecleaned	HOUSECLEAN: clean and tidy up the house
@@ -2102,28 +2443,45 @@ housemasters	HOUSEMASTER: teacher in charge of a school boardinghouse
 housemate	someone who resides in the same house with you
 housemates	HOUSEMATE: someone who resides in the same house with you
 housemen	HOUSEMAN: an advanced student or graduate in medicine gaining supervised practical experience (`houseman' is a British term)
+housemistress	a woman in charge of a boarding house at a school
+housemistresses	HOUSEMISTRESS: a woman in charge of a boarding house at a school
 housemother	a woman employed as a chaperon in a residence for young people
 housemothers	HOUSEMOTHER: a woman employed as a chaperon in a residence for young people
 houseplant	any of a variety of plants grown indoors for decorative purposes
 houseplants	HOUSEPLANT: any of a variety of plants grown indoors for decorative purposes
+houseproud	very careful about keeping a home tidy
 houseroom	space for accommodation in a house
 houses	HOUSE: a dwelling that serves as living quarters for one or more families
+housesat	HOUSESIT: looked after someone's home while they were away
+housesit	look after someone's home while they are away
+housesits	HOUSESIT: look after someone's home while they are away
+housesitter	HOUSESIT: look after someone's home while they are away
+housesitters	HOUSESITTER: someone who looks after a home while its owner is away
+housesitting	HOUSESIT: look after someone's home while they are away
 housetop	the roof of a house
 housetops	HOUSETOP: the roof of a house
+housewares	household goods such as kitchen items
 housewarming	a party of people assembled to celebrate moving into a new home
 housewarmings	HOUSEWARMING: a party of people assembled to celebrate moving into a new home
 housewife	a wife who manages a household while her husband earns the family income
+housewives	HOUSEWIFE: a woman who manages her home and family
 housework	the work of cleaning and running a house
 housing	structures collectively in which people are housed
 housings	HOUSING: structures collectively in which people are housed
+hove	HEAVE: lifted or pulled with effort
 hovel	small crude shelter used as a dwelling
 hovels	HOVEL: small crude shelter used as a dwelling
 hover	be undecided about something; waver between conflicting positions or courses of action
+hoverboard	a board that glides above the ground
+hoverboards	HOVERBOARD: a board that glides above the ground
 hovercraft	a craft capable of moving over water or land on a cushion of air created by jet engines
 hovercrafts	HOVERCRAFT: a craft capable of moving over water or land on a cushion of air created by jet engines
 hovered	HOVER: be undecided about something; waver between conflicting positions or courses of action
+hoverer	a person or thing that hovers
+hoverers	HOVERER: a person or thing that hovers
 hovering	HOVER: be undecided about something; waver between conflicting positions or courses of action
 hovers	HOVER: be undecided about something; waver between conflicting positions or courses of action
+how	in what way
 howdah	a (usually canopied) seat for riding on the back of a camel or elephant
 howdahs	HOWDAH: a (usually canopied) seat for riding on the back of a camel or elephant
 howdy	an expression of greeting
@@ -2137,6 +2495,10 @@ howlers	HOWLER: a joke that seems extremely funny
 howling	a long loud emotional utterance
 howlingly	in a howling way
 howls	HOWL: a long loud emotional utterance
+hows	HOW: in what way
+howsoever	in whatever way
+howzat	a cricket appeal to the umpire for a dismissal
+howzit	informal greeting asking how someone is
 huarache	a sandal with flat heels and an upper of woven leather straps
 huaraches	a sandal with flat heels and an upper of woven leather straps
 hub	the central part of a car wheel (or fan or propeller etc) through which the shaft or axle passes
@@ -2160,9 +2522,12 @@ huddles	HUDDLE: crowd or draw together
 huddling	HUDDLE: crowd or draw together
 hue	the quality of a color as determined by its dominant wavelength
 hued	HUE: the quality of a color as determined by its dominant wavelength
+huemul	a deer of the southern Andes
+huemuls	HUEMUL: a deer of the southern Andes
 hues	HUE: the quality of a color as determined by its dominant wavelength
 huff	a state of irritation or annoyance
 huffed	HUFF: a state of irritation or annoyance
+huffer	a person who huffs
 huffier	HUFFY: quick to take offense
 huffiest	HUFFY: quick to take offense
 huffily	in a huffy manner
@@ -2183,6 +2548,7 @@ hugged	HUG: hold (someone) tightly in your arms, usually with fondness
 hugger	HUG: hold (someone) tightly in your arms, usually with fondness
 hugging	affectionate play (or foreplay without contact with the genital organs)
 hugs	HUG: hold (someone) tightly in your arms, usually with fondness
+huh	sound expressing surprise or asking for repetition
 hula	a Polynesian rain dance performed by a woman
 hulas	HULA: a Polynesian rain dance performed by a woman
 hulk	a very large person; impressive in size or qualities
@@ -2192,6 +2558,8 @@ hull	dry outer covering of a fruit or seed or nut
 hullabaloo	disturbance usually in protest
 hullabaloos	HULLABALOO: disturbance usually in protest
 hulled	HULL: dry outer covering of a fruit or seed or nut
+huller	a machine or person that removes hulls from grain
+hullers	HULLER: a machine or person that removes hulls from grain
 hulling	HULL: dry outer covering of a fruit or seed or nut
 hullo	an expression of greeting
 hullos	HULLO: an expression of greeting
@@ -2206,6 +2574,8 @@ humanest	HUMAN: characteristic of humanity
 humanisation	the act of making more human
 humanise	make more humane
 humanised	HUMANISE: make more humane
+humaniser	something that makes things more humane
+humanisers	HUMANISER: something that makes things more humane
 humanises	HUMANISE: make more humane
 humanising	HUMANISE: make more humane
 humanism	the doctrine that people's duty is to promote human welfare
@@ -2220,6 +2590,8 @@ humanity	the quality of being humane
 humanization	the act of making more human
 humanize	make more humane
 humanized	HUMANIZE: make more humane
+humanizer	something that makes things more humane
+humanizers	HUMANIZER: something that makes things more humane
 humanizes	HUMANIZE: make more humane
 humanizing	HUMANIZE: make more humane
 humankind	all of the living human inhabitants of the earth
@@ -2235,23 +2607,31 @@ humbler	HUMBLE: cause to be unpretentious
 humbles	HUMBLE: cause to be unpretentious
 humblest	HUMBLE: cause to be unpretentious
 humbling	HUMBLE: cause to be unpretentious
+humblings	HUMBLING: an experience that makes one feel less proud
 humbly	in a humble manner
 humbug	pretentious or silly talk or writing
 humbugged	HUMBUG: pretentious or silly talk or writing
 humbugger	HUMBUG: pretentious or silly talk or writing
+humbuggers	HUMBUGGER: a person who deceives
 humbugging	HUMBUG: pretentious or silly talk or writing
 humbugs	HUMBUG: pretentious or silly talk or writing
 humdinger	someone of remarkable excellence
 humdingers	HUMDINGER: someone of remarkable excellence
 humdrum	the quality of wearisome constancy, routine, and lack of variety
+humeral	relating to the upper arm bone
+humeri	HUMERUS: the bone of the upper arm
 humerus	bone extending from the shoulder to the elbow
 humid	containing or characterized by a great deal of water vapor
+humidification	the process of making air moister
+humidified	HUMIDIFY: made the air moister
 humidifier	an appliance designed to add moisture to the air in a building
 humidifiers	HUMIDIFIER: an appliance designed to add moisture to the air in a building
 humidifies	HUMIDIFY: make (more) humid
 humidify	make (more) humid
 humidifying	HUMIDIFY: make (more) humid
 humidity	wetness in the atmosphere
+humidor	a box for keeping cigars at the right moisture
+humidors	HUMIDOR: a box for keeping cigars at the right moisture
 humiliate	cause to feel shame; hurt the pride of
 humiliated	HUMILIATE: cause to feel shame; hurt the pride of
 humiliates	HUMILIATE: cause to feel shame; hurt the pride of
@@ -2272,6 +2652,8 @@ humongous	(used informally) very large
 humor	a message whose ingenuity or verbal skill or incongruity has the power to evoke laughter
 humoral	of or relating to bodily fluids
 humored	HUMOR: a message whose ingenuity or verbal skill or incongruity has the power to evoke laughter
+humorer	a person who goes along with another's wishes
+humorers	HUMORER: a person who goes along with another's wishes
 humoring	HUMOR: a message whose ingenuity or verbal skill or incongruity has the power to evoke laughter
 humorist	someone who acts speaks or writes in an amusing way
 humorists	HUMORIST: someone who acts speaks or writes in an amusing way
@@ -2292,9 +2674,14 @@ humpback	an abnormal backward curve to the vertebral column
 humpbacked	characteristic of or suffering from kyphosis, an abnormality of the vertebral column
 humpbacks	HUMPBACK: an abnormal backward curve to the vertebral column
 humped	characteristic of or suffering from kyphosis, an abnormality of the vertebral column
+humph	sound of doubt or annoyance
+humphed	HUMPH: sound of doubt or annoyance
+humphing	HUMPH: sound of doubt or annoyance
+humphs	HUMPH: sound of doubt or annoyance
 humping	HUMP: something that bulges out or is protuberant or projects from its surroundings
 humps	HUMP: something that bulges out or is protuberant or projects from its surroundings
 hums	HUM: sing with closed lips
+humungous	extremely large
 humus	partially decomposed organic matter; the organic component of soil
 hunch	an impression that something might be the case
 hunchback	an abnormal backward curve to the vertebral column
@@ -2316,6 +2703,7 @@ hungered	HUNGER: a physiological need for food; the consequence of food deprivat
 hungering	HUNGER: a physiological need for food; the consequence of food deprivation
 hungeringly	in a hungering way
 hungers	HUNGER: a physiological need for food; the consequence of food deprivation
+hungover	suffering the effects of too much alcohol
 hungrier	HUNGRY: feeling hunger; feeling a need or desire to eat food
 hungriest	HUNGRY: feeling hunger; feeling a need or desire to eat food
 hungrily	in the manner of someone who is very hungry
@@ -2327,6 +2715,7 @@ hunkered	HUNKER: sit on one's heels
 hunkering	HUNKER: sit on one's heels
 hunkers	HUNKER: sit on one's heels
 hunks	HUNK: a well-built sexually attractive man
+hunky	strong and good-looking
 hunt	pursue for food or sport (as of wild animals)
 hunted	reflecting the fear or terror of one who is hunted
 hunter	someone who hunts game
@@ -2353,6 +2742,10 @@ hurrah	a victory cheer
 hurrahed	HURRAH: a victory cheer
 hurrahing	HURRAH: a victory cheer
 hurrahs	HURRAH: a victory cheer
+hurray	a shout of joy or approval
+hurrayed	HURRAY: a shout of joy or approval
+hurraying	HURRAY: a shout of joy or approval
+hurrays	HURRAY: a shout of joy or approval
 hurricane	a severe tropical cyclone usually with heavy rains and winds moving at 63-136 knots (12 on the Beaufort scale)
 hurricanes	HURRICANE: a severe tropical cyclone usually with heavy rains and winds moving at 63-136 knots (12 on the Beaufort scale)
 hurried	moving rapidly or performed quickly or in great haste
@@ -2362,7 +2755,9 @@ hurry	a condition of urgency making it necessary to hurry
 hurrying	moving with great haste
 hurt	be the source of pain
 hurter	HURT: be the source of pain
+hurters	HURTER: a person who causes harm
 hurtful	causing hurt
+hurtfully	in a way that causes pain or upset
 hurting	HURT: be the source of pain
 hurtle	move with or as if with a rushing sound
 hurtled	HURTLE: move with or as if with a rushing sound
@@ -2378,9 +2773,12 @@ hush	become quiet or still; fall silent
 hushed	HUSH: become quiet or still; fall silent
 hushedly	in a hushed way
 hushes	HUSH: become quiet or still; fall silent
+hushful	quiet and silent
 hushing	HUSH: become quiet or still; fall silent
 husk	material consisting of seed coverings and small pieces of stem or leaves that have been separated from the seeds
 husked	HUSK: material consisting of seed coverings and small pieces of stem or leaves that have been separated from the seeds
+husker	a person or machine that removes husks
+huskers	HUSKER: a person or machine that removes husks
 huskier	HUSKY: muscular and heavily built
 huskies	HUSKY: muscular and heavily built
 huskiest	HUSKY: muscular and heavily built
@@ -2403,8 +2801,15 @@ hustling	HUSTLE: cause to move furtively and hurriedly
 hut	temporary military shelter
 hutch	a cage (usually made of wood and wire mesh) for small animals
 hutches	HUTCH: a cage (usually made of wood and wire mesh) for small animals
+hutia	a rodent of the Caribbean islands
+hutias	HUTIA: a rodent of the Caribbean islands
 huts	HUT: temporary military shelter
+hutzpa	shameless audacity
 hutzpah	unbelievable gall; insolence; audacity
+huzzah	a shout of joy or triumph
+huzzahed	HUZZAH: a shout of joy or triumph
+huzzahing	HUZZAH: a shout of joy or triumph
+huzzahs	HUZZAH: a shout of joy or triumph
 hyacinth	a red transparent variety of zircon used as a gemstone
 hyacinths	HYACINTH: a red transparent variety of zircon used as a gemstone
 hyaena	doglike nocturnal mammal of Africa and southern Asia that feeds chiefly on carrion
@@ -2423,6 +2828,7 @@ hybridizes	HYBRIDIZE: breed animals or plants using parents of different races a
 hybridizing	the act of mixing different species or varieties of animals or plants and thus to produce hybrids
 hybrids	HYBRID: a word that is composed of parts from different languages (e.g., `monolingual' has a Greek prefix and a Latin root)
 hydra	monster with nine heads; when struck off each head was replaced by two new ones
+hydrae	HYDRA: a tiny freshwater animal with tentacles
 hydrangea	any of various deciduous or evergreen shrubs of the genus Hydrangea
 hydrangeas	HYDRANGEA: any of various deciduous or evergreen shrubs of the genus Hydrangea
 hydrant	a faucet for drawing water from a pipe or cask
@@ -2438,15 +2844,18 @@ hydraulically	in a hydraulic manner
 hydraulics	study of the mechanics of fluids
 hydrazine	a colorless fuming corrosive liquid; a powerful reducing agent; used chiefly in rocket fuels
 hydride	any binary compound formed by the union of hydrogen and other elements
+hydro	a hydroelectric power plant
 hydrocarbon	an organic compound containing only carbon and hydrogen
 hydrocarbons	HYDROCARBON: an organic compound containing only carbon and hydrogen
 hydrocephalus	an abnormal condition in which cerebrospinal fluid collects in the ventricles of the brain; in infants it can cause abnormally rapid growth of the head and bulging fontanelles and a small face; in adults the symptoms are primarily neurological
+hydrochloric	of a strong acid made of hydrogen and chlorine
 hydrochloride	a complex consisting of an organic base in association with hydrogen chloride
 hydrocortisone	an adrenal-cortex hormone (trade names Hydrocortone or Cortef) that is active in carbohydrate and protein metabolism
 hydrodynamic	of or relating to hydrodynamics
 hydrodynamics	study of fluids in motion
 hydroelectric	of or relating to or used in the production of electricity by waterpower
 hydroelectricity	electricity produced by water power
+hydrofluoric	of a very corrosive acid made of hydrogen and fluorine
 hydrofoil	a device consisting of a flat or curved piece (as a metal plate) so that its surface reacts to the water it is passing through
 hydrofoils	HYDROFOIL: a device consisting of a flat or curved piece (as a metal plate) so that its surface reacts to the water it is passing through
 hydrogen	a nonmetallic univalent element that is normally a colorless and odorless highly flammable diatomic gas; the simplest and lightest and most abundant element in the universe
@@ -2455,8 +2864,15 @@ hydrogenated	HYDROGENATE: combine or treat with or expose to hydrogen; add hydro
 hydrogenates	HYDROGENATE: combine or treat with or expose to hydrogen; add hydrogen to the molecule of (an unsaturated organic compound)
 hydrogenating	HYDROGENATE: combine or treat with or expose to hydrogen; add hydrogen to the molecule of (an unsaturated organic compound)
 hydrogenation	a chemical process that adds hydrogen atoms to an unsaturated oil
+hydrogeological	relating to underground water
+hydrogeologist	a scientist who studies underground water
+hydrogeologists	HYDROGEOLOGIST: a scientist who studies underground water
+hydrogeology	the study of underground water
+hydrographer	a person who surveys and maps bodies of water
 hydrographic	of or relating to the science of hydrography
 hydrography	the science of the measurement and description and mapping of the surface waters of the earth with special reference to navigation
+hydrologic	relating to water and its movement on Earth
+hydrological	relating to water and its movement on Earth
 hydrologist	a geologist skilled in hydrology
 hydrologists	HYDROLOGIST: a geologist skilled in hydrology
 hydrology	the branch of geology that studies water on the earth and in the atmosphere: its distribution and uses and conservation
@@ -2473,15 +2889,20 @@ hydrometers	HYDROMETER: a measuring instrument for determining the specific grav
 hydrophilic	having a strong affinity for water; tending to dissolve in, mix with, or be wetted by water
 hydrophobia	a symptom of rabies in humans consisting of an aversion to swallowing liquids
 hydrophobic	lacking affinity for water; tending to repel and not absorb water; tending not to dissolve in or mix with or be wetted by water
+hydrophone	an underwater microphone
+hydrophones	HYDROPHONE: an underwater microphone
 hydroplane	an airplane that can land on or take off from water
 hydroplaned	HYDROPLANE: an airplane that can land on or take off from water
 hydroplanes	HYDROPLANE: an airplane that can land on or take off from water
 hydroplaning	HYDROPLANE: an airplane that can land on or take off from water
 hydroponic	of or relating to aquiculture
 hydroponics	a technique of growing plants (without soil) in water containing dissolved nutrients
+hydropower	power obtained from moving water
+hydroquinone	a chemical used in photography and skin lightening
 hydrosphere	the watery layer of the earth's surface; includes water vapor
 hydrostatic	relating to fluids at rest or to the pressures they exert or transmit
 hydrotherapy	the internal and external use of water in the treatment of disease
+hydrothermal	relating to hot water within the earth
 hydrous	containing combined water (especially water of crystallization as in a hydrate)
 hydroxide	a compound of an oxide with water
 hydroxides	HYDROXIDE: a compound of an oxide with water
@@ -2497,6 +2918,7 @@ hygienists	HYGIENIST: a medical specialist in hygiene
 hygrometer	measuring instrument for measuring the relative humidity of the atmosphere
 hygrometers	HYGROMETER: measuring instrument for measuring the relative humidity of the atmosphere
 hygroscopic	absorbing moisture (as from the air)
+hying	HIE: hurrying
 hymen	the god of marriage
 hymens	HYMEN: the god of marriage
 hymn	a song of praise (to God or to a saint or to a nation)
@@ -2509,31 +2931,44 @@ hymning	HYMN: a song of praise (to God or to a saint or to a nation)
 hymns	HYMN: a song of praise (to God or to a saint or to a nation)
 hype	blatant or sensational promotion
 hyped	HYPE: blatant or sensational promotion
+hyper	overexcited
 hyperactive	more active than normal
 hyperactivity	a condition characterized by excessive restlessness and movement
+hyperbaric	at pressure higher than normal
 hyperbola	an open curve formed by a plane that cuts the base of a right circular cone
+hyperbolae	HYPERBOLA: a curve formed by cutting a cone at a steep angle
 hyperbolas	HYPERBOLA: an open curve formed by a plane that cuts the base of a right circular cone
 hyperbole	extravagant exaggeration
 hyperboles	HYPERBOLE: extravagant exaggeration
 hyperbolic	enlarged beyond truth or reasonableness
 hypercritical	inclined to judge too severely
+hypercritically	in an excessively critical way
+hypercube	a cube-like shape in four or more dimensions
 hyperglycemia	abnormally high blood sugar usually associated with diabetes
+hyperinflation	extremely rapid rise in prices
 hyperlink	a link from a hypertext file to another location or file; typically activated by clicking on a highlighted word or icon at a particular location on the screen
+hyperlinked	HYPERLINK: connected by a clickable link
+hyperlinking	HYPERLINK: connecting by a clickable link
 hyperlinks	HYPERLINK: a link from a hypertext file to another location or file; typically activated by clicking on a highlighted word or icon at a particular location on the screen
 hypermarket	a huge supermarket (usually built on the outskirts of a town)
 hypermarkets	HYPERMARKET: a huge supermarket (usually built on the outskirts of a town)
 hypermedia	a multimedia system in which related items of information are connected and can be presented together
 hyperparathyroidism	excessive secretion of parathyroid hormone resulting in abnormally high levels of calcium in the blood; can affect many systems of the body (especially causing bone resorption and osteoporosis)
+hyperplane	a flat surface one dimension lower than its surrounding space
 hyperplasia	abnormal increase in number of cells
 hypersensitive	having an allergy or peculiar or excessive susceptibility (especially to a specific factor)
 hypersensitivities	HYPERSENSITIVITY: pathological sensitivity
 hypersensitivity	pathological sensitivity
+hypersonic	faster than five times the speed of sound
+hyperspace	space of more than three dimensions
+hyperspaces	HYPERSPACE: space of more than three dimensions
 hypertension	a common disorder in which blood pressure remains abnormally high (a reading of 140/90 mm Hg or greater)
 hypertensive	a person who has abnormally high blood pressure
 hypertensives	HYPERTENSIVE: a person who has abnormally high blood pressure
 hypertext	machine-readable text that is not sequential but is organized so that related items of information are connected
 hyperthermia	abnormally high body temperature; sometimes induced (as in treating some forms of cancer)
 hyperthyroidism	an overactive thyroid gland; pathologically excessive production of thyroid hormones or the condition resulting from excessive production of thyroid hormones
+hypertrophic	relating to abnormal enlargement of an organ or tissue
 hypertrophied	(of an organ or body part) excessively enlarged as a result of increased size in the constituent cells
 hypertrophies	HYPERTROPHY: abnormal enlargement of a body part or organ
 hypertrophy	abnormal enlargement of a body part or organ
@@ -2543,7 +2978,9 @@ hyperventilated	HYPERVENTILATE: produce hyperventilation in
 hyperventilates	HYPERVENTILATE: produce hyperventilation in
 hyperventilating	HYPERVENTILATE: produce hyperventilation in
 hyperventilation	an increased depth and rate of breathing greater than demanded by the body needs; can cause dizziness and tingling of the fingers and toes and chest pain if continued
+hypervisor	software that runs virtual computers
 hypes	HYPE: blatant or sensational promotion
+hyphae	HYPHA: a threadlike strand of a fungus
 hyphen	a punctuation mark (-) used between parts of a compound word or between the syllables of a word when the word is divided at the end of a line of text
 hyphenate	divide or connect with a hyphen
 hyphenated	HYPHENATE: divide or connect with a hyphen
@@ -2557,6 +2994,8 @@ hyphens	HYPHEN: a punctuation mark (-) used between parts of a compound word or 
 hyping	HYPE: blatant or sensational promotion
 hypnoses	HYPNOS: the Greek god of sleep; the son of Nyx
 hypnosis	a state that resembles sleep but that is induced by suggestion
+hypnotherapist	a person who treats people using hypnosis
+hypnotherapists	HYPNOTHERAPIST: a person who treats people using hypnosis
 hypnotherapy	the use of hypnosis in psychotherapy
 hypnotic	a drug that induces sleep
 hypnotically	by means of hypnotism
@@ -2573,6 +3012,7 @@ hypnotized	HYPNOTIZE: induce hypnosis in
 hypnotizes	HYPNOTIZE: induce hypnosis in
 hypnotizing	HYPNOTIZE: induce hypnosis in
 hypo	a compound used as a fixing agent in photographic developing
+hypoallergenic	unlikely to cause an allergic reaction
 hypochlorite	any salt or ester of hypochlorous acid
 hypochondria	chronic and abnormal anxiety about imaginary symptoms and ailments
 hypochondriac	a patient with imaginary symptoms and ailments
@@ -2588,15 +3028,18 @@ hypodermics	HYPODERMIC: a piston syringe that is fitted with a hypodermic needle
 hypoglycaemia	abnormally low blood sugar usually resulting from excessive insulin or a poor diet
 hypoglycemia	abnormally low blood sugar usually resulting from excessive insulin or a poor diet
 hypoglycemic	of or relating to hypoglycemia
+hypoglycemics	HYPOGLYCEMIC: drugs or people with low blood sugar
 hypoplasia	underdevelopment of an organ because of a decrease in the number of cells
 hypos	HYPO: a compound used as a fixing agent in photographic developing
 hypotension	abnormally low blood pressure
 hypotenuse	the side of a right triangle opposite the right angle
 hypotenuses	HYPOTENUSE: the side of a right triangle opposite the right angle
+hypothalami	HYPOTHALAMUS: a brain region controlling temperature, hunger and hormones
 hypothalamic	of or relating to the hypothalamus
 hypothalamus	a basal part of the diencephalon governing autonomic nervous system
 hypothermia	subnormal body temperature
 hypothermic	of or relating to or affected by hypothermia
+hypotheses	HYPOTHESIS: a proposed explanation to be tested
 hypothesis	a proposal intended to explain certain facts or observations
 hypothesise	to believe especially on uncertain or tentative grounds
 hypothesised	HYPOTHESISE: to believe especially on uncertain or tentative grounds
@@ -2609,6 +3052,7 @@ hypothesizing	HYPOTHESIZE: to believe especially on uncertain or tentative groun
 hypothetical	based primarily on surmise rather than adequate evidence
 hypothetically	by hypothesis
 hypotheticals	HYPOTHETICAL: based primarily on surmise rather than adequate evidence
+hypothyroid	having an underactive thyroid gland
 hypothyroidism	an underactive thyroid gland; a glandular disorder resulting from insufficient production of thyroid hormones
 hypoxia	oxygen deficiency causing a very strong drive to correct the deficiency
 hyrax	any of several small ungulate mammals of Africa and Asia with rodent-like incisors and feet with hooflike toes
