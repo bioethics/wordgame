@@ -1,5 +1,8 @@
-// The field, drawn: every word the case could set, best first, as one curve —
-// score against place — with the printed word marked on it.
+// The field, drawn: every word the case could set as one curve — score
+// against place — with the printed word marked on it. The best word is at the
+// RIGHT, so the curve climbs as the words get better and a better word sits
+// further along, the way a reader expects "more" to go (it ran best-first,
+// left to right, until 5 November, and a good word looked like a retreat).
 //
 // The place runs on a log axis anchored at the top 1%: log(1 + place ÷ one
 // per cent of the field). Below the 1% mark it is an ordinary log axis, fine
@@ -51,14 +54,15 @@ export function drawField(host, ranked, you, { onFocusRank, xLabel = '' } = {}) 
 
   const c = Math.max(1, N / 100);
   const span = Math.log1p(Math.max(1, N - 1) / c);
-  const x = rank => m.l + (Math.log1p((rank - 1) / c) / span) * iw;
+  // Place 1 at the right edge, the last place at the left.
+  const x = rank => m.l + iw - (Math.log1p((rank - 1) / c) / span) * iw;
   const y = s => m.t + ih - (s / yTop) * ih;
-  const rankAt = px => Math.min(N, Math.max(1, Math.round(1 + c * Math.expm1(((px - m.l) / iw) * span))));
+  const rankAt = px => Math.min(N, Math.max(1, Math.round(1 + c * Math.expm1(((m.l + iw - px) / iw) * span))));
 
   const svg = el('svg', {
     viewBox: `0 0 ${W} ${H}`, width: W, height: H, class: 'field-svg',
     role: 'img', tabindex: '0',
-    'aria-label': `${N} settings, best first. Yours is ${you.label} at place ${you.rank}.`,
+    'aria-label': `${N} settings, the best at the right. Yours is ${you.label} at place ${you.rank}.`,
   }, host);
 
   // Gridlines and y ticks — hairline, recessive.
@@ -70,18 +74,18 @@ export function drawField(host, ranked, you, { onFocusRank, xLabel = '' } = {}) 
   }
 
   // The brackets the field is reported in, where they fall inside it, from
-  // the top 1% down. 50% and 100% sit close, and 100%'s label hangs left of
-  // its line, so a guide with no room for its label after the one before is
-  // left out rather than printed over it: on a phone that is the 100%, and
-  // the curve meeting the edge says as much.
+  // the top 1% (near the right) down. 50% and 100% sit close, and 100%'s
+  // label hangs right of its line (the left edge), so a guide with no room for
+  // its label after the one before is left out rather than printed over it:
+  // on a phone that is the 100%, and the curve meeting the edge says as much.
   const marks = [1, 10, 50, 100].filter(p => (p / 100) * N >= 1);
-  let lastGuide = -Infinity;
+  let lastGuide = Infinity;
   for (const p of marks) {
     const px = x(Math.max(1, (p / 100) * N));
-    if (px - lastGuide < (p === 100 ? 52 : 34)) continue;
+    if (lastGuide - px < (p === 100 ? 52 : 34)) continue;
     lastGuide = px;
     el('line', { x1: px, x2: px, y1: m.t, y2: m.t + ih, class: 'field-guide' }, svg);
-    const t = el('text', { x: px, y: H - m.b + 15, class: 'field-tick', 'text-anchor': p === 100 ? 'end' : 'middle' }, svg);
+    const t = el('text', { x: px, y: H - m.b + 15, class: 'field-tick', 'text-anchor': p === 100 ? 'start' : 'middle' }, svg);
     t.textContent = `${p}%`;
   }
   if (xLabel) el('text', { x: m.l, y: H - 4, class: 'field-axis' }, svg).textContent = xLabel;
@@ -148,11 +152,12 @@ export function drawField(host, ranked, you, { onFocusRank, xLabel = '' } = {}) 
   svg.addEventListener('blur', hide);
   svg.addEventListener('keydown', e => {
     // A step is one place near the top and a growing stride further down,
-    // so the arrows cross the log axis at an even pace.
+    // so the arrows cross the log axis at an even pace. Right is better, and
+    // Home and End are the left and right edges, as the arrows are.
     const stride = Math.max(1, Math.round(focus * 0.08));
-    if (e.key === 'ArrowRight') { show(Math.min(N, focus + stride)); e.preventDefault(); }
-    if (e.key === 'ArrowLeft')  { show(Math.max(1, focus - stride)); e.preventDefault(); }
-    if (e.key === 'Home')       { show(1); e.preventDefault(); }
-    if (e.key === 'End')        { show(N); e.preventDefault(); }
+    if (e.key === 'ArrowLeft')  { show(Math.min(N, focus + stride)); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { show(Math.max(1, focus - stride)); e.preventDefault(); }
+    if (e.key === 'Home')       { show(N); e.preventDefault(); }
+    if (e.key === 'End')        { show(1); e.preventDefault(); }
   });
 }

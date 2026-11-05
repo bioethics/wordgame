@@ -1885,10 +1885,11 @@ spacing by place would. On a two-word day the pairs are too many to keep, so
 `solvePairs` remembers the first pair to reach each score as it counts, and a
 stone names that pair.
 
-The field is drawn as one curve, score against place. The place runs on a
+The field is drawn as one curve, score against place, the best word at the
+right, so the curve climbs as the words improve. The place runs on a
 log axis anchored at the top 1%, log(1 + place ÷ one per cent of the field).
 Below 1% it reads like a log axis, fine at the top and broad underneath;
-above it, it turns linear, so the top 1% takes about a sixth of the width.
+above it, it turns linear, so the top 1% takes about the right-hand sixth.
 On a plain log axis that 1% took two fifths, so a word in the top 1.5% sat
 halfway along and looked far down the field. The marks are 1%, 10%, 50% and
 100%; the slip's grade keeps its finer brackets. The field is gray,
