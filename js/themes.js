@@ -26,6 +26,7 @@ export const THEME_FILES = {
   verbs:      'wordlists/verbs.txt',
   names:      'wordlists/names.txt',
   borrowed:   'wordlists/names-borrowed.txt',
+  cards:      'wordlists/playing-cards.txt',
   common:     'wordlists/common.txt',
 };
 

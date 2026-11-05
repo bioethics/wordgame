@@ -140,8 +140,12 @@ export const PATRON_CARDS = {
   // hand it holds is in the tap-through (`tally`), not here.
   joker: {
     name: 'The Joker', emoji: '🃏', rarity: 'uncommon', cost: 5, guild: 'jade',
+    // "Card-table word" covers a list that runs from BLACKJACK to TAROT to
+    // PRESTIDIGITATION; the live preview lights the seat on any of them, so
+    // the card names the place and leaves the inventory to play.
     desc: 'Does nothing by default. Print a card (TWO to TEN, JACK, QUEEN, KING or ACE) and it gains '
-        + 'that many Points for good, faces {JOKER_FACE} and aces {JOKER_ACE}, paid on every word.',
+        + 'that many Points for good, faces {JOKER_FACE} and aces {JOKER_ACE}; any other card-table '
+        + 'word adds {JOKER_THEME}. Paid on every word.',
   },
   abecedarian: {
     name: 'The Abecedarian', emoji: '🔠', rarity: 'rare', cost: 8, guild: 'jade',

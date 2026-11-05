@@ -173,7 +173,7 @@ import {
   CENTURION_STEP, isRomanNumeral, RIPPER_GHOST_WORDS, wordListText,
   APPRENTICE_LENGTH, APPRENTICE_STEP,
   TWINS_POINTS, CHILD_STEP, ABECEDARIAN_MULT, ABECEDARIAN_CASE, abecedarianMult, caseGlyphs, MEDIEVAL,
-  JOKER_CARDS, jokerRank, ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS, PURVEYOR,
+  JOKER_CARDS, JOKER_THEME, jokerRank, ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS, PURVEYOR,
   BABY_STAGES, babyStage, babyGrown, titleCase,
   sesquipedalianMult,
   SHORTHAIR_MULT, RATCATCHER_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
@@ -225,6 +225,12 @@ const princeCrowned = data => princeMult(data?.solved ?? 0) >= PRINCE.crown;
 // What The Usurer is still owed. A ghost is owed nothing: being murdered
 // settles the account, and a dead lender will not open a new one either.
 const usurerOwed = data => (data?.ghost ? 0 : data?.debt ?? 0);
+
+// ─── The Joker's take ─────────────────────────────────────────────────────────
+// What printing `word` adds to his total: a card name its value, any other
+// word on the playing-card table JOKER_THEME, anything else nothing.
+const jokerGain = word =>
+  JOKER_CARDS[word] ?? (word && inTheme('cards', word) ? JOKER_THEME : 0);
 
 // ─── The Rubricator's letters ─────────────────────────────────────────────────
 // Every initial is equally likely, whatever it costs: S and X are one roll
@@ -1565,8 +1571,9 @@ const PATRON_BEHAVIOURS = [
   {
     // Holds the cards you have named and pays what they add up to, at its own
     // seat, on every word: so it wants to sit in front of the multipliers.
-    // `data.points` is the running total and `data.hand` the ranks in the
-    // order they were dealt, kept only to be shown.
+    // `data.points` is the running total, `data.hand` the ranks in the order
+    // they were dealt and `data.table` how many other card-table words have
+    // added JOKER_THEME each; the last two are kept only to be shown.
     //
     // The card being named pays on its own print: the effect counts it in
     // before onPrinted writes it down, as the Abecedarian pays the first sort
@@ -1576,22 +1583,25 @@ const PATRON_BEHAVIOURS = [
     id: 'joker',
     when: 'score',
     effect({ word, data, addPoints }) {
-      const held = (data?.points ?? 0) + (JOKER_CARDS[word] ?? 0);
+      const held = (data?.points ?? 0) + jokerGain(word);
       if (held) addPoints(held);
     },
     onPrinted({ script, data }) {
       const word = script?.letters;
-      const value = JOKER_CARDS[word];
+      const value = jokerGain(word);
       if (!value) return null;
       data.points = (data.points ?? 0) + value;
-      data.hand = [...(data.hand ?? []), jokerRank(word)];
+      if (JOKER_CARDS[word]) data.hand = [...(data.hand ?? []), jokerRank(word)];
+      else data.table = (data.table ?? 0) + 1;
       return { note: `+${value} for good — +${data.points} on every word` };
     },
     tally(data) {
       const hand = data?.hand ?? [];
-      if (!hand.length) return 'No cards yet.';
-      const shown = hand.length > 13 ? `${hand.length} cards` : hand.join(' ');
-      return `Holding ${shown}: +${data.points} Points on every word.`;
+      const table = data?.table ?? 0;
+      if (!hand.length && !table) return 'No cards yet.';
+      const cards = hand.length > 13 ? `${hand.length} cards` : hand.join(' ');
+      const words = table ? `${table} card-table word${table === 1 ? '' : 's'}` : '';
+      return `Holding ${[cards, words].filter(Boolean).join(' and ')}: +${data.points} Points on every word.`;
     },
   },
   {

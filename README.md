@@ -631,14 +631,25 @@ keeps for good, at Balatro's own counting (the pips at face value, the court at
 10, the ace at 11), and the whole total is paid in Points at its seat on every
 word, so it wants to sit in front of the multipliers. The card being named pays
 on its own print, so KING shows +10 from the Joker on KING itself, which is how
-a player learns what the seat does. Tap it for the hand it holds ("Holding 10 A
-K: +31 Points on every word").
+a player learns what the seat does.
+
+Any other word from the card table adds +3 (`JOKER_THEME`): the games, the
+gambling, the tarot, the fortune-telling and the conjuring, from ANTE and
+BLACKJACK to HIEROPHANT and PRESTIDIGITATION, about 2,100 words in
+`wordlists/playing-cards.txt`. A card name pays its value and not the +3 as
+well, so the court stays at ten. The list is not named `theme-*.txt` because
+`tools/theme-list.mjs` reads those as the ×3 registers' lists and would strike
+its words from the pool the registers are read from. Tap the seat for what it
+holds ("Holding 10 A K and 4 card-table words: +43 Points on every word").
 
 What it costs is words. A card name is rarely a word worth printing for its own
 sake, and racks seldom offer one: of fresh ten-tile racks from the starting bag,
 37% can spell any card, TEN alone 20%, ACE and NINE 6%, the court 1% or less.
 The mean best card on a rack is worth 3.3, and 1.8 with TEN taken out, so TEN is
-the card that makes the seat go. The values are `JOKER_CARDS` in
+the card that makes the seat go. The table is the other way round: 96% of racks
+can spell some word on it, but it is the best word on only 4% of them and within
+80% of the best on 8%, because what a rack offers is SET, RED or RAN. Either way
+the seat grows on words you would not otherwise have printed. The values are `JOKER_CARDS` in
 `js/constants.js`; the card quotes the court and the ace as knobs, since a
 player might count them 11-12-13.
 
@@ -1454,7 +1465,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Everything the Generic can roll — triggers, weights, effects, epithets, faces, price | `js/patron-generic.js`, the whole file. `GENERIC_TRIGGERS_A/B` carry the weights, `GENERIC_EFFECTS` the `cost` each must be paired against |
 | The Lye Boy's ramp — what a scrubbed coat is worth, and where it should slow | `js/constants.js` → `LYE_BOY_BANDS` (one band today; add a row to slow it, and `lyeBoySteps()` rewrites the card with it) |
 | The Rubricator — his ×Mult, what each letter adds, and the toll | `js/constants.js` → `RUBRICATOR` (`base`, `step`, `price`, a flat Coin a letter). The spike is the editors' own `SPIKE_MULT`, so retuning theirs retunes his. The solver's figures for what the letters cost are in the comment beside the knobs |
-| The Joker's cards and what each is worth | `js/constants.js` → `JOKER_CARDS` (a word and its value; add DEUCE or KNAVE here and the seat reads them). The card quotes `{JOKER_FACE}` and `{JOKER_ACE}` from it |
+| The Joker's cards and what each is worth | `js/constants.js` → `JOKER_CARDS` (a word and its value; add DEUCE or KNAVE here and the seat reads them), and `JOKER_THEME` for any other word on `wordlists/playing-cards.txt`. The card quotes `{JOKER_FACE}`, `{JOKER_ACE}` and `{JOKER_THEME}` |
 | The Quoin's lock | `js/constants.js` → `QUOIN_MULT`. Set against the colour engine: ×3 makes stacking a colour pull level with spreading it |
 | The Goldsmith's purse — the Points, the odds and the prize | `js/constants.js` → `GOLDSMITH_POINTS`, `GOLDSMITH_ODDS` (rolled **per amber tile**, so the seat scales with commitment), `GOLDSMITH_PURSE`. The run-level arithmetic is in the comment beside them; if a run stops caring about Coins by chapter seven, the odds are the knob, not the purse |
 | The Serpent — what an S is worth, and how often he swallows the last one | `js/constants.js` → `SERPENT_POINTS` (paid on every S in the word, written onto the tile so a nick reads it and his own ×2 doubles it), `SERPENT_EAT_ODDS`. The ×2 is paid either way, so this is the whole of the bet; the card quotes it through the `SERPENT_EAT_CHANCE` knob and can never drift from it |
@@ -1464,7 +1475,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | How far a patron's asking price can drift | `js/constants.js` → `PATRON_HAGGLE` (`spread` Coins each way, `chance` per side) |
 | How long a line stays up to be read | `js/anim.js` → `READ_BASE` / `READ_PER_CHAR` / `READ_MAX`. Every bubble, floater and bar message holds for a span measured off its own length, so a long line is given longer, not read faster |
 | Words / discards / seats per page | `js/constants.js` |
-| Where every word list lives | `wordlists/` — the dictionary (`wordlist.txt`), all ten themed lists, the dummy-letter list (`silent.txt`) and `excluded-slurs.txt`, in one folder. The paths are `THEME_FILES` and `SILENT_FILE` in `js/themes.js`, which is also where `tools/build-single.mjs` reads the folder name from, so moving them is a change to that one file (plus `js/dict.js` and `js/excluded.js`, which fetch their own). The dictionary descends from 12dicts' `3of6game` list (version 6.0.2), the one 12dicts list whose entries carry exactly these five marks, as its README defines them: `+` a signature word, added though fewer than three of the six source dictionaries list it; `!` a neologism; `&` the British spelling of an American word or the reverse, admitted because its counterpart is in three sources; `^` one of a set of close variants (hyphenated, spaced or capitalised forms) none of which reached three sources; `$` any other word in fewer than three sources — uncommon inflections, plurals and comparatives only two sources allow. The game matches entries exactly, so a marked entry was never playable; all five marks have been stripped, and `wordlist.txt` should hold plain a–z only |
+| Where every word list lives | `wordlists/` — the dictionary (`wordlist.txt`), every themed list, the dummy-letter list (`silent.txt`) and `excluded-slurs.txt`, in one folder. The paths are `THEME_FILES` and `SILENT_FILE` in `js/themes.js`, which is also where `tools/build-single.mjs` reads the folder name from, so moving them is a change to that one file (plus `js/dict.js` and `js/excluded.js`, which fetch their own). The dictionary descends from 12dicts' `3of6game` list (version 6.0.2), the one 12dicts list whose entries carry exactly these five marks, as its README defines them: `+` a signature word, added though fewer than three of the six source dictionaries list it; `!` a neologism; `&` the British spelling of an American word or the reverse, admitted because its counterpart is in three sources; `^` one of a set of close variants (hyphenated, spaced or capitalised forms) none of which reached three sources; `$` any other word in fewer than three sources — uncommon inflections, plurals and comparatives only two sources allow. The game matches entries exactly, so a marked entry was never playable; all five marks have been stripped, and `wordlist.txt` should hold plain a–z only. Added by hand since, kept in `LC_ALL=C sort` order: 125 words of the card table that 3of6game lacked (EUCHRE, FARO, CROSSRUFF, CARTOMANCY, THIMBLERIG), for the Joker |
 | The Silent Knight's dummy letters | `wordlists/silent.txt` — one `word index` pair per line, the index naming the letter that is written and not spoken (`knot 0`). Read into a Map by `adoptSilent` in `js/themes.js` |
 | The Ripper's watchwords | `js/constants.js` → `RIPPER_WORDS`. Matching is exact and the Ripper's card quotes the whole list, so a long one is a long card |
 | Patron names, emoji, rarities, costs, guilds and card text | `js/patron-cards.js` — one flat table keyed by patron id; `{KNOB}` braces in a `desc` are filled from the `KNOBS` object at the top of the file |

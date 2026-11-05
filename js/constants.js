@@ -1361,6 +1361,15 @@ export const JOKER_CARDS = {
   TWO: 2, THREE: 3, FOUR: 4, FIVE: 5, SIX: 6, SEVEN: 7, EIGHT: 8, NINE: 9, TEN: 10,
   JACK: 10, QUEEN: 10, KING: 10, ACE: 11,
 };
+// Any other word on the playing-card table (wordlists/playing-cards.txt: the
+// games, the gambling, the tarot, the conjuring) adds this much instead. A card
+// name pays its value and not this as well, so the court stays at ten.
+//
+// Measured the same way as the cards: 96% of racks can spell some word on the
+// table, but it is the best word on only 4% of them and within 80% of the best
+// on 8%. What a rack offers is SET, RED or RAN, so each +3 is usually paid for
+// with a weaker word, as a card name is.
+export const JOKER_THEME = 3;
 // The corner of the card, for the hand he shows on tap: K, not KING.
 export const jokerRank = word =>
   ({ JACK: 'J', QUEEN: 'Q', KING: 'K', ACE: 'A' })[word] ?? String(JOKER_CARDS[word] ?? '');
@@ -1751,7 +1760,7 @@ export const KNOBS = {
   PURVEYOR_PROPOSALS: PURVEYOR.proposals,
   STOKER_BASE, STOKER_STEP, RAGMAN_COINS, RAGMAN_ODDS, DEVIL_STEP,
   RUBRICATOR_BASE: RUBRICATOR.base,
-  JOKER_FACE: JOKER_CARDS.KING, JOKER_ACE: JOKER_CARDS.ACE,
+  JOKER_FACE: JOKER_CARDS.KING, JOKER_ACE: JOKER_CARDS.ACE, JOKER_THEME,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, DIPPER_PAINT_CHANCE, REVENANT_ODDS,
   MAGPIE_WEIGHT, MAKO_WEIGHT, TWINS_POINTS,
   PRINCE_STEP:   PRINCE.step,
