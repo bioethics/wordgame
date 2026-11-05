@@ -25,7 +25,7 @@ Hence the rule every round so far has run on, in the original brief's words:
 *"a low barrier for additional admissions, but a high barrier against removal;
 just get rid of the really glaring mistakes."*
 
-How big a list is decides how often its patron fires. The five cover 5.5–13%
+How big a list is decides how often its patron fires. The five cover 6.1–13%
 of the playable dictionary (`node tools/theme-list.mjs check`), cute the
 least since its noise came out on 5 November. At that coverage the register
 patrons change the Daily Proof's best word on 71–88% of cases
@@ -348,11 +348,13 @@ What the session history, the commits and the author's Drive show:
   the list marked it. `daily/main.js` now marks a seat only where it paid,
   as it already did on patron days. The list itself was read top to bottom,
   then the cuts, then what was left.
-  - **3,708 cut, from 7,759.** Most came from three places. A 518-word
+  - **3,229 cut, from 7,759.** A first pass cut 3,708; the author's rulings
+    below sent 479 of them back, to the places they had held. Most of the
+    cuts came from three places. A 518-word
     associative drift sat right after the seed clusters (GRANITE, CYRILLIC,
     UVULAR, WIDOW, TRANSLITERATION), and an 84-word one further down
     (SAVOURY, WORN, SOUND, PETTY). The alphabetical generator batch carried
-    misfires among its finds (CELLULAR, CACHED, DEPTH, BUTT, GHOSTS). And the
+    misfires among its finds (CELLULAR, CACHED, DEPTH, FINGERPRINT). And the
     4 November inflection pass had faithfully inflected every noise base:
     SMOOTH came with SMOOTHER, SMOOTHEST, SMOOTHING, SMOOTHLY and SMOOTHNESS,
     and UNIQUE with UNIQUER, UNIQUEST, UNIQUELY and UNIQUENESS. Day 4's top
@@ -360,19 +362,36 @@ What the session history, the commits and the author's Drive show:
     NUTTINESS. The read also found function words (DOES, DOING) and
     clangers: COTTAGING (cruising slang), NECKLACING (the execution), COLOUREDS,
     GOLLIES.
-  - **The rulings, for the next sweep.** Cute is small, young, soft, round,
-    sweet, cosy, playful, silly, shy, whimsical, or fond in the innocent way.
-    Chic is not cute: CHIC, SUAVE, COUTURE, BESPOKE, DEBONAIR and the rest of
-    the seed's fashion cluster went, and DAINTY, FRILLY, SPIFFY and FETCHING
-    stayed. Neither are beauty (GORGEOUS, HANDSOME, STUNNING), calm (SERENE,
-    PEACEFUL, TRANQUIL), adult kin (FATHER, WIFE, WIDOW, STEPSON, though
+  - **The rulings, for the next sweep.** The list embraces the word's
+    polysemy, in the author's words. Cute is small, young, soft, round, sweet,
+    cosy, playful, silly, shy, whimsical, or fond in the innocent way. It is
+    also pretty or handsome (a cute guy): BEAUTIFUL, GORGEOUS, DASHING,
+    PHOTOGENIC, HEARTTHROB. And it is chic (a cute outfit, a cute café). The
+    seed's fashion cluster is the author's own (CHIC, SUAVE, COUTURE, BESPOKE),
+    and words of its kind join it: STYLISH, CLASSY, KICKY, PREPPY, the fabrics
+    (TAFFETA, ORGANDIE, SEERSUCKER), hats and hair (PILLBOX, FASCINATOR,
+    BOUFFANT, QUIFF), and CAFES, BISTROS, BOUTIQUES. A word that also names
+    something cute is in on that sense, whatever its other one: TITS, BOOBY and
+    DICKY the birds, VIXEN and FOXY the fox, WIENER the dog, MUFF the
+    hand-warmer. Sexual vocabulary proper stays off (NUBILE, BUXOM, SEDUCTIVE,
+    TITTIES, WILLY), as do toilet words (WEES). Love's giddy end is cute as
+    well as romantic; desire is romantic only. Not cute in any sense: calm
+    (SERENE, TRANQUIL), adult kin (FATHER, WIFE, WIDOW, though GRANDMOTHER,
     GRANNIE, MAMA and NIECE stay), plant anatomy (STAMEN, RHIZOME, UMBEL),
-    herbs and spices (BASIL, THYME, CARDAMOM), or animals nobody coos at
-    (BISON, IBEX, CORMORANT, PELICAN, MULE). A sexual or toilet sense strong
-    enough to be read first puts a word off, even a second sense (TITS, BOOTY,
-    WILLY, WIENER, SQUIRTING, WEES); SQUIRT, WEE and TART stay. Love's giddy end
-    is cute as well as romantic; desire is romantic only.
-  - **518 added, by facet.** Infatuation: SMITTEN, BESOTTED, ENAMOURED, CRUSH,
+    herbs and spices (BASIL, THYME, CARDAMOM), animals nobody coos at (BISON,
+    IBEX, CORMORANT), and function words. Every duck, small deer and
+    aquarium fish is in (SMEW, TEAL, SIKA, BROCKET, RASBORA), as are fruit and
+    nuts (GUAVA, PECAN), nursery puddings (JUNKET, POSSET, SAGO), cottagecore
+    (RUSTIC, COBBLESTONE, SAMPLER, POMANDER), and baby animals' names (SQUAB,
+    ELVER).
+  - **Read and left out, with a thinner case** (next to read if the list wants
+    more): cute's clever sense (CLEVERNESS, GUILE), more of fashion (SHARP,
+    SNAPPY, SPORTY, MULES, STOLE, PERFUME), quaint things (SUNDIAL,
+    WEATHERVANE, MILLPOND, DORMER), more birds and beasts (SWIFT, SPOONBILL,
+    HORNBILL, CURLEW, NYALA, CHAMOIS, SAIGA, FRY), family and school (MOTHER,
+    BROTHER, SCHOOL, TEACHER), and CHANGELING, STARLIGHT, FROSTY, GUFFAW,
+    SNICKER, COUNTESS.
+  - **519 added, by facet.** Infatuation: SMITTEN, BESOTTED, ENAMOURED, CRUSH,
     SWOON, SMOOCH, CANOODLE, SWEETHEART, MUSHY, SOPPY, LOVESICK, GAGA. Shyness:
     SHY, COY, DEMURE, SHEEPISH, GIDDY, AFLUTTER. Silliness: SILLY, GOOFY,
     DORKY, KLUTZ, CLUMSY, DOPEY, ZANY, NINCOMPOOP. Mischief: MISCHIEF, NAUGHTY,
@@ -386,11 +405,12 @@ What the session history, the commits and the author's Drive show:
     FLOWER, MERMAID, OOPS, YIPPEE and WHEE. Most came from a brainstorm by
     facet; the Foundry's link ranking, run on the cleaned list, found COMFY,
     TOASTY, SONGBIRD and the rest of its last 61.
-  - **Measured** (`daily-table.mjs 1-48`): the Poppet moves the best word on
-    71% of cases (85% before), fires on it on 75% (90%), and is dead on none.
-    That puts her level with the Seadog. Some of the old figure was noise paying.
-  - **Left for the author:** PANSY (the flower, and a slur), PAPOOSE, PIGMY,
-    which stay on cute; GOLLIWOG, playable and on no list; DADDY, added.
+  - **Measured** (`daily-table.mjs 1-48`): at 5,049 words (6.1% of the
+    dictionary) the Poppet moves the best word on 71% of cases (85% before),
+    fires on it on 75% (90%), and is dead on none. That puts her level with the
+    Seadog. Some of the old figure was noise paying.
+  - **The author's calls.** PANSY (the flower, and a slur), PAPOOSE, PIGMY and
+    DADDY stay on cute. GOLLIWOG, GOLLIWOGS and GOLLIES are on the block list.
 
 Not found anywhere these sessions can reach: the tool or chat that produced
 the ranked lists and the later batches. The ranking, the drift into
