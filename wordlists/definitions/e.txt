@@ -2055,6 +2055,7 @@ espy	catch sight of
 espying	ESPY: catch sight of
 esquire	an attendant and shield bearer to a knight; a candidate for knighthood
 esquires	ESQUIRE: an attendant and shield bearer to a knight; a candidate for knighthood
+esquivalience	the deliberate dodging of your official duties; a fake word, planted in a dictionary to catch anyone copying it
 essay	an analytic or interpretive literary composition
 essayed	ESSAY: an analytic or interpretive literary composition
 essayer	one who tries

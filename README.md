@@ -1978,9 +1978,9 @@ take their turns on a seed of their own.
 
 ### Definitions
 
-Each word in the results list carries its definition beneath it, a line cut
-short until the row is opened (a pair's two are written out when it is), and
-the Expectant Parents' names read "a given name". They come from
+A word in the results list shows its definition, in full, once its row is
+opened (a pair's two beneath it), and the Expectant Parents' names read "a
+given name". They come from
 `wordlists/definitions/a.txt` … `z.txt`, "word<TAB>definition", built by
 `tools/build-definitions.mjs` from, first match winning:
 

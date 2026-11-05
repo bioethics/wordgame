@@ -24864,6 +24864,7 @@ espy
 espying
 esquire
 esquires
+esquivalience
 essay
 essayed
 essayer

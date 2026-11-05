@@ -1490,9 +1490,8 @@ function renderResult() {
 }
 
 // One row of a best-of list: place, name, score, and a setting under it when open.
-// `words` are what the row's name is made of: one word's definition rides
-// under it, a line cut short until the row is opened; a pair's two are written
-// out when it is.
+// `words` are what the row's name is made of. Their definitions show only once
+// the row is opened, in full: one word's under it, a pair's two beneath.
 function bestRow({ key, place, name, score, yours, stone, open, fillSet, words = [] }) {
   const li = document.createElement('li');
   li.className = `best-row${yours ? ' best-row--yours' : ''}${stone ? ' best-row--stone' : ''}${open ? ' best-row--open' : ''}`;
@@ -1504,7 +1503,7 @@ function bestRow({ key, place, name, score, yours, stone, open, fillSet, words =
   const sc = document.createElement('b'); sc.className = 'best-score'; sc.textContent = fmtN(score);
   const cell = document.createElement('span'); cell.className = 'best-name';
   cell.appendChild(w);
-  if (words.length === 1) cell.appendChild(defSpan(words[0]));
+  if (open && words.length === 1) cell.appendChild(defSpan(words[0]));
   btn.append(pl, cell, sc);
   btn.addEventListener('click', () => {
     if (S.open.has(key)) S.open.delete(key); else S.open.add(key);
