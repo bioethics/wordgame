@@ -366,7 +366,8 @@ export function dayOf(n) {
 //             which a tenth of cases left him nothing.
 //   pairs   — at least so many letters held twice (none asks for it now: dealing
 //             the Herald pairs moved him from 3% of good words to 5%).
-//   rare    — at least so many of J, X, Z and QU between them: the Antiquary's.
+//   rare    — at least so many of J, X, Z and QU between them: the Antiquary's
+//             two, on any day he is seated or offered (one until 5 November).
 //   ligatures — so many consonants recast as ligatures: the Typesetter's, who
 //             otherwise found nothing to pay for on two cases in five.
 //   paint   — at least so many tiles of a colour, painted after the features:
@@ -379,7 +380,7 @@ export function dayOf(n) {
 const SEAT_SHAPES = {
   bookbinder: { letters: { V: 1, O: 2 } },
   serpent:    { letters: { S: 1 } },
-  antiquary:  { rare: 1 },
+  antiquary:  { rare: 2 },
   typesetter: { ligatures: 2 },
   siren:      { paint: { azure: 2, azureVowel: 1 } },
   firebrand:  { paint: { crimson: 3 } },

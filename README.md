@@ -1857,7 +1857,8 @@ between two words to look for:
   adapted for the daily (`adapted: true` in `daily/table.js`, which
   `daily-check` names and does not hold to the game): The Herald (the first
   letter again, anywhere after it), The Stammerer (a doubled letter), The
-  Antiquary (a J, Q, X or Z; his day deals one, `SEAT_SHAPES`), and The
+  Antiquary (a J, Q, X or Z; a day that seats or offers him deals two,
+  `SEAT_SHAPES`), and The
   Commoner, the daily's own (the 8,000
   commonest words and their plurals and tenses, `wordlists/commoner.txt`,
   built by `tools/build-commoner.mjs`).
