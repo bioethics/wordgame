@@ -85,11 +85,12 @@ export const LUCK = {
   dressed: 0.42,
   chain: 0.4,
   maxFeatures: 3,
-  // A floor, on a plain day only (since 5 November): with no one seated, the
-  // dressing is the whole of what makes the case this game's rather than
-  // Scrabble's, so a plain case dressed on fewer sorts than this is dressed up
-  // to it, one feature on each sort added. Thin is the author's word for under
-  // three; a seated day may be as thin as the dice deal it.
+  // A floor, on the days no patron sits (plain days and two-word days, since 5
+  // November): with no one seated, the dressing is the whole of what makes the
+  // case this game's rather than Scrabble's, so such a case dressed on fewer
+  // sorts than this is dressed up to it, one feature on each sort added. One or
+  // two dressed sorts is what the author found too thin; a day with a patron
+  // or an editor may be as thin as the dice deal it.
   plainFloor: 3,
   // Which feature a roll lands on. Paint leads because colour is the game's
   // multiplicative engine — a case without it plays like Scrabble.
@@ -207,9 +208,9 @@ export function dealChallenge(n, opts = {}) {
       dress(rng, t, pickWeighted(rng, open));
     }
   }
-  // 3¼. The plain day's floor. A case already at it draws nothing here, so
+  // 3¼. The unseated day's floor. A case already at it draws nothing here, so
   //     every case at or over it is dealt exactly as it was before the floor.
-  if (day.kind === 'plain') {
+  if (day.kind === 'plain' || pair) {
     const isDressed = t => t.colour || t.trim || t.nick || t.letterType === 'dual' || t.material;
     const bare = tiles.filter(t => !isDressed(t) && Object.keys(weights).some(f => canTake(t, f)));
     while (tiles.filter(isDressed).length < LUCK.plainFloor && bare.length) {

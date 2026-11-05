@@ -1719,13 +1719,16 @@ the piece; "lean" was the reverse. The almanac uses them the same way.)
 **The sorts.** Then each tile rolls for itself, the way the Market dresses its
 tiles: a 42% chance of one feature, and while a 40% chain holds, another, up
 to three, never two of a kind (`LUCK`). So most of the case is plain lead, a
-handful is dressed, and once in a while one sort comes up loaded. On a plain
-day, with no one seated, the dressing is all that makes the case this game's,
-so it has a floor (`LUCK.plainFloor`, since 5 November): a plain case dressed
-on fewer than three sorts is dressed up to three, one feature on each sort
-added. A case at the floor or over it draws nothing for it, so it is dealt as
-it was; in a year of cases the floor moves two (№ 138 and № 147, a Lean
-Matter page that had dealt one dressed sort and none). The letters
+handful is dressed, and once in a while one sort comes up loaded. On the days
+no patron sits (plain days and two-word days), the dressing is all that makes
+the case this game's, so it has a floor (`LUCK.plainFloor`, since 5
+November): such a case dressed on fewer than three sorts is dressed up to
+three, one feature on each sort added. One or two dressed sorts on an
+unseated day is what felt thin in play; a seated day may be as thin as the
+dice deal it. A case at the floor or over it draws nothing for it, so it is
+dealt as it was; in a year of cases the floor moves four, all Lean Matter
+pages (№ 10 and № 38, two-word days with two dressed sorts and one; № 138 and
+№ 147, plain days with one and none). The letters
 are drawn without replacement from one press's bag (`BAG_COUNTS`), redrawn
 until five to seven of them are vowels, so every case can spell without the
 deal ever consulting the dictionary — the same number deals the same case
