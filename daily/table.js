@@ -203,6 +203,18 @@ export const PATRONS = {
   antiquary: { adapted: true, effect({ letters, xMult }) { if (/[JQXZ]/.test(letters)) xMult(2); } },
   // The daily's own: no such seat in the game.
   commoner: { adapted: true, lists: ['commoner'], effect({ letters, xMult }) { if (inList('commoner', letters)) xMult(2); } },
+  // The daily's own (since 5 November), for the Sunday choice: ×3 for a word
+  // beginning with the day's letter (limnerLetter in daily/deal.js). The limner
+  // painted the ornate initial at the head of a manuscript; the game's
+  // Rubricator and Illuminator work there too and pay otherwise, so he has a
+  // name of his own. `bind` reads the day's letter once, at compile time.
+  limner: {
+    adapted: true,
+    bind: data => {
+      const L = data?.letters?.[0];
+      return ({ letters, xMult }) => { if (L && letters[0] === L) xMult(3); };
+    },
+  },
   serpent: {
     tileBonus: t => (glyph(t) === 'S' ? SERPENT_POINTS : 0),
     effect({ letters, xMult }) { if (letters.length > 1 && letters.endsWith('S')) xMult(2); },
@@ -387,7 +399,7 @@ export function compileTable(seat, desk, has) {
     paint: p?.paint ?? null,
     echo: p?.echo ? t => p.echo(t, pdata) : null,
     tileBonus: p?.tileBonus ?? null,
-    effect: p?.effect ?? null,
+    effect: p?.bind ? p.bind(pdata) : p?.effect ?? null,
     spell: p?.spell ?? null,
     judge: e?.judge ? (L, tiles) => e.judge(L, tiles, edata) : null,
   };

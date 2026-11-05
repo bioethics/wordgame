@@ -1012,6 +1012,19 @@ function seatCard(cls, emoji, name, rule = null) {
   return b;
 }
 
+// The Limner's card carries his letter on its face, as an illuminated initial:
+// it is the whole of his rule, and a reader choosing between him and another
+// patron should not have to tap to learn it.
+function withInitial(card, p) {
+  const L = p.id === 'limner' ? p.data?.letters?.[0] : null;
+  if (!L) return card;
+  const i = document.createElement('span');
+  i.className = 'seat-initial';
+  i.textContent = L;
+  card.querySelector('.seat-name').append(' ', i);
+  return card;
+}
+
 function renderSeats(sc) {
   const host = $('seats');
   const day = S.deal.day;
@@ -1021,13 +1034,13 @@ function renderSeats(sc) {
   const lit = !!sc && (!!sc.seat || sc.perTile.some(p => p.echo > 1 || p.bonus) || byLicence(wordAndRest(S.active).word));
   if (day.kind === 'patron') {
     const p = day.patron;
-    const card = seatCard(`seat--only${lit ? ' seat--lit' : ''}`, patronEmoji(p.id), patronName(p.id));
+    const card = withInitial(seatCard(`seat--only${lit ? ' seat--lit' : ''}`, patronEmoji(p.id), patronName(p.id)), p);
     card.addEventListener('click', () => readSeat(card, patronName(p.id), patronRule(p)));
     host.appendChild(card);
   } else if (day.kind === 'choice') {
     day.choices.forEach((p, i) => {
       const on = i === S.seat;
-      const card = seatCard(`seat--choice${on ? ' seat--on' : ''}${on && lit ? ' seat--lit' : ''}`, patronEmoji(p.id), patronName(p.id));
+      const card = withInitial(seatCard(`seat--choice${on ? ' seat--on' : ''}${on && lit ? ' seat--lit' : ''}`, patronEmoji(p.id), patronName(p.id)), p);
       card.setAttribute('aria-pressed', on ? 'true' : 'false');
       card.disabled = locked() && !on;
       card.addEventListener('click', () => {

@@ -315,8 +315,13 @@ export const DAY_PATRONS = [
 // the Serpent and the Monogrammist, whose pay is Points or a tile's own value,
 // moved to Tuesday then.)
 export const CHOICE_TIERS = {
-  // ×3 for a word on a themed list.
-  rich:  ['sexton', 'paramour', 'poppet', 'vulgarian', 'seadog'],
+  // ×3 for a word on a themed list — or, the Limner's (since 5 November), for a
+  // word beginning with the day's letter: the one choice on Sunday a reader can
+  // search for rather than guess at. Over a year of cases, with his letter from
+  // LIMNER_LETTERS, the best word with him seated is worth ×1.65 the best
+  // unseated (the registers ×1.44–1.92), and his best beats a register's
+  // best on 49% of cases.
+  rich:  ['sexton', 'paramour', 'poppet', 'vulgarian', 'seadog', 'limner'],
   // ×2 for a word of a given form. Four are the daily's own ×2 versions of
   // patrons that pay otherwise in the game (adapted in daily/table.js), and
   // the Herald's and the Antiquary's days are dealt what they read
@@ -507,6 +512,7 @@ function shapeLetters(letters, shape, rng) {
 function seatFor(id, deal, rng) {
   const seat = { id, data: {} };
   if (id === 'monogrammist') seat.data.letters = monogramFor(deal, rng);
+  if (id === 'limner') seat.data.letters = [limnerLetter(deal, rng)];
   if (id === 'counterfeiter') seat.adds = { letter: '_', counterfeit: true, blank: true };
   return seat;
 }
@@ -645,6 +651,21 @@ export function withAdded(tiles, adds) {
 
 // The Monogrammist's three letters, drawn from the case so that all three can
 // be set: plain single letters only, likelier the more of them the case holds.
+// The Limner's letter: one of the case's, from a middle band. A letter freely
+// drawn made him the weakest choice on Sunday (his best beat a register's on
+// 42% of cases, and on a third added nothing): C, P, M and S open so many of a
+// case's words that they won 58–67%, while K, N, X, Y and Z opened so few that
+// they won 11–28%. Of the band, 49%, and every case in a year holds one of
+// them. The deal reads no dictionary, so the band is a fixed set of letters,
+// chosen by what each did over a year of cases, not by how many English words
+// it begins.
+export const LIMNER_LETTERS = 'ABDEFGHMRSTVW';
+export function limnerLetter(deal, rng) {
+  const singles = [...new Set(deal.tiles.map(t => t.letter).filter(L => /^[A-Z]$/.test(L)))];
+  const banded = singles.filter(L => LIMNER_LETTERS.includes(L));
+  return pick(rng, banded.length ? banded : singles);
+}
+
 export function monogramFor(deal, rng) {
   const pool = deal.tiles.map(t => t.letter).filter(L => /^[A-Z]$/.test(L));
   const out = [];

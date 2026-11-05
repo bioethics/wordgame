@@ -1802,7 +1802,7 @@ challenge (`WEEK` in `daily/deal.js`; № 1 is a Thursday):
 
 | Day | Case |
 | --- | --- |
-| Sunday | **A choice of two patrons**, from the rich tier. Tap a card to seat it (and read it); the readout re-prices the word under whoever is seated. In the results, a word either patron would pay the same carries both their emoji. |
+| Sunday | **A choice of two patrons**, from the rich tier (the five registers and the Limner). Tap a card to seat it (and read it); the readout re-prices the word under whoever is seated. In the results, a word either patron would pay the same carries both their emoji. |
 | Monday, Wednesday | Plain. |
 | Tuesday | **The day's patron**, seated for everyone. |
 | Thursday | **An editor at the desk.** The card carries the day's rule on its face; a word that breaks it is spiked — scored at ×0.2, exactly as at a Deadline, never refused. The card is not a patron's: it is the bench's editor slab (black ink, a red edge, the name in red), and it runs hot while the word in hand would be spiked. |
@@ -1857,8 +1857,23 @@ which the figure doesn't see. None is ever dead.
 can weigh it, so a tier is patrons that pay the same way, and the choice is
 between two words to look for:
 
-- *rich*, on Sundays — The Sexton, The Paramour, The Poppet, The Vulgarian:
-  ×3 for a word on a themed list.
+- *rich*, on Sundays — The Sexton, The Paramour, The Poppet, The Vulgarian,
+  The Seadog: ×3 for a word on a themed list. And, since 5 November, the
+  daily's own *Limner* (🖌️): ×3 for a word beginning with the day's letter,
+  the one Sunday choice a reader can search for rather than guess at. The
+  limner painted the ornate initial at the head of a manuscript; the game's
+  Rubricator and Illuminator, who work there too, pay otherwise, so the name
+  is his own. His card shows the letter on its face as an illuminated initial,
+  since it is the whole of his rule. The letter is one of the case's, from a
+  fixed band, `LIMNER_LETTERS` (A B D E F G H M R S T V W). Over a year of
+  cases, a letter freely drawn from the case made him the weakest Sunday
+  choice: his best word beat a register's on 42% of cases and on a third
+  added nothing, because C, P, M and S open so many of a case's words that
+  they won 58–67%, and K, N, X, Y and Z so few that they won 11–28%. From the
+  band, his best beats a register's on 49% of cases, and the best word with
+  him seated is worth ×1.65 the best unseated (the registers ×1.44–1.92).
+  Every case in a year held a letter of the band. With him the tier is six,
+  and he is offered on a third of Sundays.
 - *plain*, on Fridays — ×2 for a word of a given form: The Cartographer
   (vowels in order), The Poet (an adjective or adverb),
   The Yodeller (as many vowels as consonants — made for this, and seated in the

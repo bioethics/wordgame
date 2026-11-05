@@ -53,7 +53,8 @@ function seatingsFor(deal, rng) {
   const out = [{ key: '—', seat: null, desk: null }];
   for (const id of Object.keys(TB.PATRONS)) {
     if (TB.PATRONS[id].adds) continue;
-    const data = id === 'monogrammist' ? { letters: D.monogramFor(deal, rng) } : {};
+    const data = id === 'monogrammist' ? { letters: D.monogramFor(deal, rng) }
+      : id === 'limner' ? { letters: [D.limnerLetter(deal, rng)] } : {};
     out.push({ key: id, seat: { id, data }, desk: null });
   }
   for (const n of [4, 5, 6, 7, 8]) out.push({ key: `columnist ${n}`, seat: null, desk: { id: 'columnist', data: { n } } });

@@ -70,6 +70,7 @@ export const SORT_TEXT = {
 // The daily's own patrons, who have no card in the game to take a name from.
 export const DAILY_CARDS = {
   commoner: { name: 'The Commoner', emoji: '🍺' },
+  limner:   { name: 'The Limner', emoji: '🖌️' },
 };
 
 export const PATRON_TEXT = {
@@ -101,6 +102,7 @@ export const PATRON_TEXT = {
   serpent:       'Every S is worth +3 Points. A word ending in S gets ×2 Mult.',
   twins:         'Every doubled letter (LL, OO…) pays +5 Points, and the second tile takes every feature of the first.',
   monogrammist:  'A tile showing {0} prints twice — Points, trim and paint alike.',
+  limner:        '×3 Mult for words beginning with {0}.',
   counterfeiter: 'A blank joins the case: any letter, worth 0.',
 };
 
