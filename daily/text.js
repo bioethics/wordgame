@@ -15,6 +15,7 @@ export const TRAIT_TEXT = {
   patron:   { name: 'A Patron Calls',       desc: 'Seated for every reader.' },
   deadline: { name: 'Deadline',             desc: 'An editor at the desk, with the day’s rule on the card.' },
   hellbox:  { name: 'From the Hellbox',     desc: 'One tile is cast in Hellbox iron.' },
+  lean:     { name: 'Lean Matter',          desc: 'Most of the case is plain.' },
   fat:      { name: 'Fat Matter',           desc: 'Most of the case is dressed.' },
   ratchet:  { name: 'The Ratchet',          desc: 'A ratchet on the bench.' },
   loupe:    { name: 'The Loupe',            desc: 'A loupe on the bench.' },

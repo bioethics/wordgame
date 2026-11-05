@@ -1707,25 +1707,25 @@ never shown: the label under the masthead names what the case turned out to
 be (*What the day is*, below), and most of the time that is the page's own
 trait, under the page's own name. Most nudge the odds
 — *Wet Ink* paints more of it, *A Fresh Blade* nicks more, *Purple Passage*
-trims more in purple, *Double-Struck* cuts more second faces, *Fat Matter*
-dresses far more tiles and its quieter neighbour (`ample`) somewhat more. A
-few put something in the case outright — *Tied Letters* three ligatures, *Old
-Stock* two medieval sorts, *From the Hellbox* a sort in Hellbox iron, *The
-Tool Chest* a tool on the bench. *Fair Copy*, the commonest, does nothing at
-all. (A "fat" take, in the trade, was easy copy that paid the compositor well
-by the piece; "lean" was the reverse. *Lean Matter* dressed far fewer tiles
-until 5 November, and its page is `ample` now, in the same place, so no other
-day drew a different page.)
+trims more in purple, *Double-Struck* cuts more second faces, *Fat Matter* and
+*Lean Matter* dress far more or far fewer tiles. A few put something in the
+case outright — *Tied Letters* three ligatures, *Old Stock* two medieval sorts,
+*From the Hellbox* a sort in Hellbox iron, *The Tool Chest* a tool on the
+bench. *Fair Copy*, the
+commonest, does nothing at all, and a plain case is a perfectly good puzzle.
+(A "fat" take, in the trade, was easy copy that paid the compositor well by
+the piece; "lean" was the reverse. The almanac uses them the same way.)
 
 **The sorts.** Then each tile rolls for itself, the way the Market dresses its
 tiles: a 42% chance of one feature, and while a 40% chain holds, another, up
 to three, never two of a kind (`LUCK`). So most of the case is plain lead, a
-handful is dressed, and once in a while one sort comes up loaded. Under that,
-a floor (`LUCK.floor`, since 5 November): a case dressed on fewer than six
-sorts in sixteen is dressed up to six, one feature on each sort it adds. A
-Fair Copy deals a median of seven, but one case in five came up with four or
-fewer, and a bare case plays like Scrabble, which is not this game. A case at
-the floor or over it draws nothing for it, so it is dealt as it was. The letters
+handful is dressed, and once in a while one sort comes up loaded. On a plain
+day, with no one seated, the dressing is all that makes the case this game's,
+so it has a floor (`LUCK.plainFloor`, since 5 November): a plain case dressed
+on fewer than three sorts is dressed up to three, one feature on each sort
+added. A case at the floor or over it draws nothing for it, so it is dealt as
+it was; in a year of cases the floor moves two (№ 138 and № 147, a Lean
+Matter page that had dealt one dressed sort and none). The letters
 are drawn without replacement from one press's bag (`BAG_COUNTS`), redrawn
 until five to seven of them are vowels, so every case can spell without the
 deal ever consulting the dictionary — the same number deals the same case
@@ -1748,13 +1748,13 @@ mechanics rather than bolted on.
 
 The label under the masthead names the one thing most worth knowing about the
 case before a sort is set, read off the case as dealt rather than off the
-almanac page that tilted the dice — a Fair Copy page can deal a fat case, and
+almanac page that tilted the dice — a Fair Copy page can deal a lean case, and
 a Purple Passage page an ordinary one. `traitsOf` in `daily/deal.js` lists
 every trait the case has, most salient first; the label shows the first and a
 tap lists the rest. The order is how much each changes the way a case is
 played: who sits (*Two-Up*, *A Choice of Patrons*, *A Patron Calls*,
 *Deadline*), then Hellbox iron (a letter every good word must hold), then how
-dressed the case is (*Fat Matter*; *Lean Matter* went with the floor), then a tool, then strange
+dressed the case is (*Lean Matter*, *Fat Matter*), then a tool, then strange
 letterforms (*Old Stock*, *Tied Letters*), then one dressing far commoner than
 usual (*Wet Ink* and the rest), and *Fair Copy* when none of those holds. The
 bars (`TRAIT_BARS`) sit at about the tenth and ninetieth percentile of a Fair
@@ -1800,7 +1800,8 @@ challenge (`WEEK` in `daily/deal.js`; № 1 is a Thursday):
 | Day | Case |
 | --- | --- |
 | Sunday | **A choice of two patrons**, from the rich tier. Tap a card to seat it (and read it); the readout re-prices the word under whoever is seated. In the results, a word either patron would pay the same carries both their emoji. |
-| Monday, Tuesday, Wednesday | **The day's patron**, seated for everyone. Monday and Wednesday were plain, no one seated, until 5 November; their patrons come from Tuesday's roster on a rotation of their own, never that week's Tuesday patron and never each other. |
+| Monday, Wednesday | Plain. |
+| Tuesday | **The day's patron**, seated for everyone. |
 | Thursday | **An editor at the desk.** The card carries the day's rule on its face; a word that breaks it is spiked — scored at ×0.2, exactly as at a Deadline, never refused. The card is not a patron's: it is the bench's editor slab (black ink, a red edge, the name in red), and it runs hot while the word in hand would be spiked. |
 | Friday | **A choice of two patrons**, from the plain tier. |
 | Saturday | **Two words** from a case of twenty, each five letters or more, their scores added. |
