@@ -192,6 +192,20 @@ function openChallenge(n) {
   });
 
   render({ fresh: true });
+  if (deal.tool && !S.result) helloTool();
+}
+
+// A tool on the bench is easy to miss. When a day opens with one, unprinted,
+// the tool lights and pulses three times once the case is dealt, then rests;
+// picking it up stops it. With reduced motion it holds a still ring a moment.
+let helloTimer = 0;
+function helloTool() {
+  const btn = $('toolBtn');
+  clearTimeout(helloTimer);
+  btn.classList.remove('tool--hello');
+  void btn.offsetWidth;   // so a second day's greeting starts from the top
+  btn.classList.add('tool--hello');
+  helloTimer = setTimeout(() => btn.classList.remove('tool--hello'), reducedMotion() ? 2400 : 3200);
 }
 
 function countWords(deal, signal) {
@@ -385,6 +399,7 @@ function refuse(id) {
 // ─── The tool ─────────────────────────────────────────────────────────────────
 function toolTap() {
   if (locked() || !S.deal.tool) return;
+  $('toolBtn').classList.remove('tool--hello');
   hidePop();
   if (S.applied) { S.applied = null; S.armed = false; sfx.disarm(); render(); return; }
   S.armed = !S.armed;

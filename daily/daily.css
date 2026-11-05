@@ -556,6 +556,17 @@ a.mode-item:hover, a.mode-item:focus-visible { background: rgba(217, 166, 75, 0.
   user-select: none;
 }
 .tool[hidden] { display: none; }
+/* A day that opens with a tool greets you with it: three pulses of brass once
+   the case is dealt (helloTool). The glow keeps the resting shadow's layers and
+   adds two outer ones, so it tweens rather than blinks. */
+.tool--hello { animation: toolHello 0.75s ease-in-out 0.7s 3; }
+@keyframes toolHello {
+  50% {
+    transform: scale(1.14);
+    box-shadow: inset 0 -3px 5px rgba(40, 50, 60, 0.4), inset 0 2px 3px rgba(255, 255, 255, 0.7), 0 2px 0 #24170f,
+                0 0 0 3px var(--brass-hi), 0 0 18px 4px rgba(235, 201, 137, 0.85);
+  }
+}
 .tool--armed { animation: armed 1.1s ease-in-out infinite; box-shadow: 0 0 0 2px var(--brass-hi), 0 0 14px rgba(235, 201, 137, 0.6); }
 @keyframes armed { 50% { transform: rotate(-10deg); } }
 .tool--used { box-shadow: 0 0 0 2px #8fdfae, inset 0 -3px 5px rgba(40, 50, 60, 0.4), inset 0 2px 3px rgba(255, 255, 255, 0.7); }
@@ -1037,4 +1048,5 @@ a.mode-item:hover, a.mode-item:focus-visible { background: rgba(217, 166, 75, 0.
   *, *::before, *::after { animation: none !important; transition: none !important; }
   /* The tool's targets still have to show: the ring holds still. */
   .halo, .socket--halo { box-shadow: var(--target-glow); }
+  .tool--hello { box-shadow: 0 0 0 3px var(--brass-hi), 0 0 18px 4px rgba(235, 201, 137, 0.85); }
 }
