@@ -1542,6 +1542,14 @@ toss to wherever they are going and the sounds are the game's own
 (`snapTiles`/`flipTiles` and `sfx` from `js/anim.js`), following the full
 game's sound setting where the two share a site.
 
+The ❦ before the title opens the modes menu (the Daily Proof, the Campaign)
+and **How to play**: a short sheet with the gesture, Points × Mult, length and
+paint, and one worked example, GARDEN with two crimson sorts and one azure,
+set in real sorts and scored by `scoreWord`, so its chips and its sum (10 ×
+12 = 120) are the game's own and move if the arithmetic does (`openHowto`;
+the words are `HOWTO` in `daily/text.js`). In the artifact build there is no
+Campaign to go to, so the menu keeps the Daily Proof and How to play.
+
 The board is the bench's, cut down to one word. Each sort in the stick wears
 what it pays in the word being set — its own figure plus whatever its nick
 reads, in brass when that beats its resting value, popping when it changes —
@@ -1656,7 +1664,9 @@ others do not: the tongs would be a flat +8 on every word, the ink wash free
 paint on everything, the laurel and the potion need patrons, and the bodkin
 reaches into a bag this mode doesn't have. Until you print, tapping the tool
 again takes it back, so it is something to think with rather than something
-to spend.
+to spend. A tool is easy to miss, so a day that opens with one, unprinted,
+greets you with it: three pulses of brass once the case is dealt
+(`helloTool`), or a still ring for a moment with reduced motion.
 
 The ranking takes the tool into account, which is what makes it fair. The
 field is every word the case could set *with the tool used as well as it can
@@ -1960,7 +1970,7 @@ same page as a claude.ai artifact (contents only — the host supplies the
 skeleton), which is the quickest way to playtest from a phone: publish it and
 open the link. A republish mid-game keeps the case being set (the
 `window.claude.hot` snapshot in `daily/main.js`). The masthead's fleuron
-points back at the full game. `.github/workflows/daily-subdomain.yml` rebuilds and
+opens the modes menu, which points back at the full game. `.github/workflows/daily-subdomain.yml` rebuilds and
 publishes it whenever the daily or anything it reads changes; it does nothing
 until it is told where to publish. To switch it on:
 

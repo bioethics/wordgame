@@ -21,6 +21,7 @@ import { tablesForDay, seatIdsOfDay, listsNeeded, LISTS, LIST_FILES, adoptList, 
 import {
   COLOURS, TRIMS, NICKS, MEDIEVAL, letterGlyph, colourDesc, SPIKE_MULT,
   LOUPE_CAP, CURSED_MULT, CURSED_PENALTY, LENGTH_MULT_MIN, lengthMult, lengthFlourish,
+  makeTileTemplate,
 } from '../js/constants.js';
 import { PATRON_CARDS } from '../js/patron-cards.js';
 import { BOSS_CARDS } from '../js/boss-cards.js';
@@ -32,6 +33,7 @@ import {
 } from '../js/anim.js';
 import {
   TRAIT_TEXT, TOOL_TEXT, SORT_TEXT, UI, RESULT, PATRON_TEXT, EDITOR_TEXT, SPIKE_TEXT, PAIR_TEXT, fill, COUNT_WORDS,
+  HOWTO,
   DAILY_CARDS,
 } from './text.js';
 import { drawField } from './chart.js';
@@ -1866,8 +1868,9 @@ async function start(carried = {}) {
   // On its own subdomain the full game is somewhere else entirely; the build
   // says where (tools/build-daily.mjs, --home).
   if (window.DAILY_HOME) $('modeHome').href = window.DAILY_HOME;
-  // Framed as an artifact there is no other mode to go to: the ❦ is only a ❦.
-  if (window.DAILY_NO_LINK) { $('modeBtn').disabled = true; $('modeList').remove(); }
+  // Framed as an artifact there is no other mode to go to; the menu keeps
+  // How to play.
+  if (window.DAILY_NO_LINK) $('modeHome').remove();
   wire();
   try {
     await loadWords();
@@ -1884,6 +1887,69 @@ async function start(carried = {}) {
 if (window.claude?.hot?.ready) window.claude.hot.ready(start);
 else start(window.claude?.hot?.data ?? {});
 
+// ─── How to play ──────────────────────────────────────────────────────────────
+// A short sheet from the ❦ menu: the gesture, Points × Mult, length and paint,
+// and one worked example set in real sorts and scored by the scorer, so its
+// chips and sum are the game's own. Built the first time it opens.
+const HOWTO_WORD = { letters: 'GARDEN', paint: { 1: 'crimson', 4: 'crimson', 2: 'azure' } };
+function openHowto() {
+  const dlg = $('howto');
+  if (!dlg.firstChild) {
+    const body = document.createElement('div');
+    body.className = 'howto-body';
+    const head = document.createElement('div');
+    head.className = 'howto-head';
+    const h = document.createElement('h2');
+    h.id = 'howtoTitle';
+    h.textContent = HOWTO.title;
+    const x = document.createElement('button');
+    x.className = 'howto-close';
+    x.type = 'button';
+    x.textContent = '×';
+    x.setAttribute('aria-label', HOWTO.close);
+    x.addEventListener('click', () => dlg.close());
+    head.append(h, x);
+    const para = text => { const p = document.createElement('p'); p.textContent = text; return p; };
+    body.append(head, para(HOWTO.set), para(HOWTO.score), para(HOWTO.mult));
+
+    const tiles = [...HOWTO_WORD.letters].map((L, id) =>
+      ({ ...makeTileTemplate(L), id: 900 + id, colour: HOWTO_WORD.paint[id] ?? null }));
+    const sc = scoreWord(tiles, [], has, null);
+    const fig = document.createElement('figure');
+    fig.className = 'howto-example';
+    const cap = document.createElement('figcaption');
+    cap.textContent = fill(HOWTO.example, HOWTO_WORD.letters);
+    const chips = document.createElement('div');
+    chips.className = 'howto-chips';
+    for (const ch of sc.chips) {
+      const c = document.createElement('span');
+      c.className = `chip chip--${ch.kind} chip--on`;
+      const sw = document.createElement('i');
+      const v = document.createElement('b');
+      v.textContent = `×${fmtMult(ch.mult)}`;
+      c.append(sw, v);
+      const name = document.createElement('span');
+      name.className = 'howto-chip-name';
+      name.textContent = ch.kind === 'length' ? fill(UI.letters, ch.count) : COLOURS[ch.kind]?.label ?? '';
+      const pair = document.createElement('span');
+      pair.className = 'howto-chip';
+      pair.append(name, c);
+      chips.appendChild(pair);
+    }
+    const sum = document.createElement('p');
+    sum.className = 'howto-sum';
+    sum.textContent = fill(HOWTO.sum, fmtN(sc.shownPoints), fmtMult(sc.shownMult), fmtN(sc.total));
+    fig.append(cap, miniWord(tiles, null), chips, sum);
+    body.appendChild(fig);
+    for (const line of HOWTO.more) body.appendChild(para(line));
+    dlg.appendChild(body);
+    // A tap on the dimmed page around the sheet puts it away.
+    dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+  }
+  hidePop();
+  dlg.showModal();
+}
+
 // ─── The two ways to play ─────────────────────────────────────────────────────
 // The name in the corner opens a short list of the modes, the one you are in
 // marked; a tap anywhere else, or Escape, puts it away. (The same menu sits
@@ -1894,4 +1960,5 @@ else start(window.claude?.hot?.data ?? {});
   btn?.addEventListener('click', e => { e.stopPropagation(); show(list.hidden); });
   document.addEventListener('click', e => { if (list && !list.hidden && !list.contains(e.target)) show(false); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && list && !list.hidden) { show(false); btn.focus(); } });
+  document.getElementById('howtoBtn')?.addEventListener('click', e => { e.stopPropagation(); show(false); openHowto(); });
 }

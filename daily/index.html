@@ -21,6 +21,7 @@
       <nav class="mode-list" id="modeList" aria-label="Modes" hidden>
         <span class="mode-item mode-item--here" aria-current="page">Daily mode <span class="mode-tag">beta</span></span>
         <a class="mode-item" id="modeHome" href="../">Campaign <span class="mode-tag">alpha</span></a>
+        <button class="mode-item mode-item--help" id="howtoBtn" type="button">How to play</button>
       </nav>
       <button class="almanac" id="almanac" type="button"></button>
       <nav class="mast-nav" aria-label="Challenges">
@@ -85,6 +86,7 @@
   <!-- Where the print's floaters and sparkles rise (js/anim.js draws into it). -->
   <div id="fx" aria-hidden="true"></div>
 
+  <dialog class="howto" id="howto" aria-labelledby="howtoTitle"></dialog>
   <script type="module" src="main.js"></script>
 </body>
 </html>

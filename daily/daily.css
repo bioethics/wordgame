@@ -120,6 +120,11 @@ button.mast-house:disabled { cursor: default; }
 }
 a.mode-item:hover, a.mode-item:focus-visible { background: rgba(217, 166, 75, 0.16); outline: none; }
 .mode-item::before { content: '✓'; width: 1em; color: transparent; }
+/* How to play: a button among the links, below a rule. */
+button.mode-item { width: 100%; background: none; border: 0; cursor: pointer; text-align: left; }
+button.mode-item:hover, button.mode-item:focus-visible { background: rgba(217, 166, 75, 0.16); outline: none; }
+.mode-item--help { margin-top: 3px; box-shadow: 0 -1px 0 rgba(217, 166, 75, 0.25); border-radius: 0 0 7px 7px; }
+.mode-item--help::before { content: '?'; color: var(--brass); font-weight: 900; text-align: center; }
 .mode-item--here, .mode-item--here::before { color: #f6d68a; }
 .mode-tag {
   margin-left: auto;
@@ -1050,3 +1055,44 @@ a.mode-item:hover, a.mode-item:focus-visible { background: rgba(217, 166, 75, 0.
   .halo, .socket--halo { box-shadow: var(--target-glow); }
   .tool--hello { box-shadow: 0 0 0 3px var(--brass-hi), 0 0 18px 4px rgba(235, 201, 137, 0.85); }
 }
+
+/* ─── How to play ──────────────────────────────────────────────────────────── */
+/* A sheet of the paper, over the dimmed page; the example sits in a well of its
+   own with the readout's own chips. */
+.howto {
+  width: min(440px, calc(100vw - 24px));
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #f7efdc, #efe3c6);
+  color: var(--ink);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.6);
+}
+.howto::backdrop { background: rgba(14, 9, 6, 0.62); }
+.howto-body { padding: 14px 18px 18px; font: 15px/1.45 var(--sans); }
+.howto-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+.howto-head h2 { margin: 0; font: 900 22px var(--serif); letter-spacing: 0.01em; }
+.howto-close {
+  width: 34px; height: 34px; margin-right: -6px;
+  border: 0; border-radius: 50%; background: none;
+  font: 400 26px/1 var(--serif); color: var(--dim); cursor: pointer;
+}
+.howto-close:hover, .howto-close:focus-visible { background: rgba(120, 95, 60, 0.12); outline: none; }
+.howto-body p { margin: 8px 0; }
+.howto-example {
+  margin: 12px -6px;
+  padding: 10px 10px 8px;
+  border: 1px dashed rgba(60, 42, 22, 0.38);
+  border-radius: 8px;
+  background: rgba(120, 95, 60, 0.08);
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+}
+.howto-example figcaption { justify-self: start; font-size: 14px; color: var(--dim); }
+.howto-example .tile--mini { --tfs: 11px; }
+.howto-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 12px; }
+.howto-chip { display: inline-flex; align-items: center; gap: 5px; }
+.howto-chip-name { font-size: 13px; color: var(--dim); }
+.howto-sum { margin: 0 !important; font: 900 18px var(--serif); font-variant-numeric: tabular-nums; }
