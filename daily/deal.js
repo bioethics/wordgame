@@ -85,6 +85,11 @@ export const LUCK = {
   dressed: 0.42,
   chain: 0.4,
   maxFeatures: 3,
+  // And a floor, per sixteen sorts (since 5 November): a case dressed thinner
+  // than this is dressed up to it, one feature on each of so many more sorts.
+  // A Fair Copy deals a median of seven; one case in five used to come up with
+  // four or fewer, and a bare case is a game of Scrabble, not this one.
+  floor: 6,
   // Which feature a roll lands on. Paint leads because colour is the game's
   // multiplicative engine — a case without it plays like Scrabble.
   weights: { paint: 4, silver: 2, purple: 1.5, nick: 2, dual: 1.5 },
@@ -127,7 +132,10 @@ export const OMENS = {
   oldstock:   { odds: 1.5, force: { medieval: 1 } },
   hellbox:    { odds: 1.5, force: { cursed: 1 } },
   fat:        { odds: 1.5, dressed: 1.7 },
-  lean:       { odds: 1.5, dressed: 0.35 },
+  // Where the Lean page was (×0.35 dressed) until 5 November, in its place so
+  // that no other day draws a different page: a case under the floor is
+  // dressed up to it now, which left Lean nothing to do but deal the floor.
+  ample:      { odds: 1.5, dressed: 1.3 },
   toolchest:  { odds: 2, force: { tool: true } },
 };
 
@@ -201,6 +209,16 @@ export function dealChallenge(n, opts = {}) {
       dress(rng, t, pickWeighted(rng, open));
     }
   }
+  // 3¼. The floor: sorts left bare are dressed, one feature each, until the
+  //     case holds LUCK.floor dressed sorts per sixteen. A case already there
+  //     draws nothing here, so it is dealt exactly as it was before the floor.
+  const isDressed = t => t.colour || t.trim || t.nick || t.letterType === 'dual' || t.material;
+  const floor = Math.ceil((LUCK.floor * tiles.length) / 16);
+  const bare = tiles.filter(t => !isDressed(t) && Object.keys(weights).some(f => canTake(t, f)));
+  while (tiles.filter(isDressed).length < floor && bare.length) {
+    const t = bare.splice(Math.floor(rng() * bare.length), 1)[0];
+    dress(rng, t, pickWeighted(rng, Object.entries(weights).filter(([f]) => canTake(t, f))));
+  }
 
   // 3½. Paint the seat reads, dealt in when the features above left it short.
   paintFor(tiles, shape.paint, rng);
@@ -259,9 +277,10 @@ export function dealChallenge(n, opts = {}) {
 
 // ─── The week ─────────────────────────────────────────────────────────────────
 // Each day of the week has its own kind of case, by the calendar date of the
-// challenge (№ 1 was a Tuesday). Three plain days; one with a patron seated for
-// everyone; one with an editor at the desk; one of two words; and one where the
-// reader picks a patron from two.
+// challenge (№ 1 was a Thursday). Three days with a patron seated for everyone;
+// one with an editor at the desk; one of two words; and two where the reader
+// picks a patron from two. Monday and Wednesday were plain, no one seated,
+// until 5 November: the patrons are half of what the game is.
 //
 // Who sits is chosen by turn rather than by chance: each roster is shuffled
 // once per lap of it, so every patron and every editor comes round before any
@@ -271,7 +290,7 @@ export function dealChallenge(n, opts = {}) {
 // game has against sixty cases, and a patron is here only if it changes WHICH
 // word is best on a good share of them — README.md, "The table", has the
 // figures and the reasons for each one left out.
-export const WEEK = ['choice', 'plain', 'patron', 'plain', 'editor', 'choice', 'pair'];   // Sunday first
+export const WEEK = ['choice', 'patron', 'patron', 'patron', 'editor', 'choice', 'pair'];   // Sunday first
 
 // Seated for everyone: each moves the best word to a different word on three
 // cases in ten to nearly all, and none is ever without a word to fire on.
@@ -350,10 +369,26 @@ function turn(list, k, key) {
   return order[k % list.length];
 }
 
+// Monday's and Wednesday's patrons: two more from Tuesday's roster, on a
+// rotation of their own, never that week's Tuesday patron and never each
+// other. (Tuesday's turn is as it was, so no Tuesday changed with them.)
+function midweekPatrons(w) {
+  const tuesday = turn(DAY_PATRONS, w, 'patron');
+  const out = [];
+  for (let k = 2 * w; out.length < 2; k++) {
+    const id = turn(DAY_PATRONS, k, 'patron:midweek');
+    if (id !== tuesday && !out.includes(id)) out.push(id);
+  }
+  return out;
+}
+
 export function dayOf(n) {
   const kind = WEEK[weekdayOf(n)];
   const w = turnOf(n);
-  if (kind === 'patron') return { kind, id: turn(DAY_PATRONS, w, 'patron') };
+  if (kind === 'patron') {
+    const wd = weekdayOf(n);
+    return { kind, id: wd === 2 ? turn(DAY_PATRONS, w, 'patron') : midweekPatrons(w)[wd === 1 ? 0 : 1] };
+  }
   if (kind === 'editor') {
     return n < REDACTOR_FROM ? { kind, id: turn(EDITOR_DAYS_BEFORE, w, 'editor') }
       : { kind, id: turn(EDITOR_DAYS, turnOf(n) - turnOf(REDACTOR_FROM), 'editor:6') };
@@ -565,7 +600,7 @@ function dress(rng, t, f) {
 // ─── What the day is, at a glance ─────────────────────────────────────────────
 // The masthead names a case by what is most worth knowing about it before a
 // sort is set — read off the case as dealt, not off the almanac page that
-// tilted the dice, since a fair page can deal a lean case and a wet-ink page a
+// tilted the dice, since a fair page can deal a fat case and a wet-ink page a
 // dry one. In order of how much each changes the way the case is played:
 //
 //   1. who sits — two words, a choice of patrons, a patron, an editor
@@ -580,7 +615,7 @@ function dress(rng, t, f) {
 // about the tenth and ninetieth percentile of a Fair Copy deal, so a label
 // marks a case that looks unusual rather than one the omen merely nudged.
 export const TRAIT_BARS = {
-  lean: 4, fat: 11,                                  // dressed sorts, per sixteen
+  fat: 11,                                           // dressed sorts, per sixteen (no lean: the floor is six)
   paint: 7, silver: 5, purple: 4, nick: 5, dual: 4,  // one dressing, per sixteen
   ligatures: 2, medieval: 1,
 };
@@ -596,7 +631,6 @@ export function traitsOf(deal) {
   if (day === 'editor') out.push('deadline');
   if (t.some(x => x.material === 'cursed')) out.push('hellbox');
   const dressed = per16(count(x => x.colour || x.trim || x.nick || x.letterType === 'dual' || x.material));
-  if (dressed <= TRAIT_BARS.lean) out.push('lean');
   if (dressed >= TRAIT_BARS.fat) out.push('fat');
   if (deal.tool) out.push(deal.tool);
   if (count(x => MEDIEVAL_SORTS.includes(x.letter)) >= TRAIT_BARS.medieval) out.push('oldstock');
