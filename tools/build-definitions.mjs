@@ -128,6 +128,28 @@ function gloss({ pos, offset }) {
 }
 const bestSense = senses => senses.reduce((a, b) => (b.tagged > a.tagged ? b : a));
 
+// Picked senses. Where the corpus never met a word in any part of speech, its
+// senses (and which part of speech comes first) are in no particular order;
+// wordlists/definitions-senses.txt names the one to use, "word<TAB>pos<TAB>
+// offset<TAB># the gloss's start", offsets as in WordNet 3.1's data files.
+const picks = new Map();
+if (fs.existsSync(path.join(root, 'wordlists/definitions-senses.txt'))) {
+  for (const l of read('definitions-senses.txt')) {
+    if (!l.trim() || l.startsWith('#')) continue;
+    const [w, pos, offset] = l.split('\t').map(x => x.trim());
+    if (!index.get(w)?.some(sn => sn.pos === pos && sn.offsets.includes(offset))) {
+      console.error(`definitions-senses.txt: ${w} has no ${pos} sense ${offset}`); process.exit(1);
+    }
+    picks.set(w, { pos, offset });
+  }
+}
+const arbitrary = w => {
+  const s = index.get(w);
+  return !!s && s.every(sn => sn.tagged === 0) && s.reduce((n, sn) => n + sn.offsets.length, 0) > 1;
+};
+const used = new Set();   // every word whose WordNet gloss went into a definition
+const senseOf = w => { used.add(w); return picks.get(w) ?? bestSense(index.get(w)); };
+
 // Base forms. WordNet's own endings, and the irregulars (its exception lists
 // are not in the npm package, so the common ones are here).
 const ENDINGS = {
@@ -193,7 +215,7 @@ const source = { own: 0, wordnet: 0, base: 0, made: 0 };
 const ownOrWordNet = w => {
   if (own.has(w)) return own.get(w);
   const senses = index.get(w);
-  return senses ? gloss(bestSense(senses)) : null;
+  return senses ? gloss(senseOf(w)) : null;
 };
 for (const w of dict) {
   if (own.has(w)) { defs.set(w, own.get(w)); source.own++; continue; }
@@ -201,7 +223,7 @@ for (const w of dict) {
   const base = baseOf(w);
   const met = senses && bestSense(senses).tagged > 0;
   if (senses && (met || !base || (index.has(base) && bestSense(senses).tagged >= bestSense(index.get(base)).tagged))) {
-    defs.set(w, gloss(bestSense(senses))); source.wordnet++; continue;
+    defs.set(w, gloss(senseOf(w))); source.wordnet++; continue;
   }
   if (base) { defs.set(w, `${base.toUpperCase()}: ${ownOrWordNet(base)}`); source.base++; continue; }
 }
@@ -247,4 +269,11 @@ for (const [k, lines] of byLetter) fs.writeFileSync(path.join(dir, `${k}.txt`), 
 const missing = dict.filter(w => !defs.has(w));
 fs.writeFileSync(path.join(root, 'wordlists/definitions-missing.txt'),
   `# Dictionary words with no definition yet: write theirs into definitions-own.txt\n# and run tools/build-definitions.mjs again. Built by that tool; don't edit.\n#\n${missing.join('\n')}\n`);
+// The words still to pick a sense for, each with its senses to choose from.
+const unpicked = [...used].filter(w => arbitrary(w) && !picks.has(w)).sort();
+const flat = g => g.replace(/\s+/g, ' ');
+fs.writeFileSync(path.join(root, 'wordlists/definitions-unpicked.txt'),
+  `# Words whose WordNet senses come in no particular order, with no pick yet in\n# definitions-senses.txt. Each: the word, then every sense as pos<TAB>offset<TAB>gloss.\n# Built by tools/build-definitions.mjs; don't edit.\n#\n${
+    unpicked.map(w => [w, ...index.get(w).flatMap(sn => sn.offsets.map(o => `  ${sn.pos}\t${o}\t${flat(synset(sn.pos, o).text.split('"')[0].replace(/[;:\s]+$/, ''))}`))].join('\n')).join('\n')}\n`);
+console.log(`${picks.size} senses picked by hand, ${unpicked.length} words still to pick (definitions-unpicked.txt)`);
 console.log(`${dict.length} words: ${source.own} from definitions-own.txt, ${source.wordnet} from WordNet, ${source.base} by a base form, ${source.made} made from a defined word, ${missing.length} still missing`);
