@@ -1956,7 +1956,8 @@ a re-dealt case never reopens on an old proof.
 
 Both games live on one site, from this one repository: the Campaign at the
 root, the Daily Proof at `/daily/` (`/daily/#12` for a given number). Opened at
-its root, the site asks which, every time, with what each has waiting
+its root, the site asks which, every time (*Daily*, alpha, and *Campaign*,
+pre-alpha), with what each has waiting
 (`js/door.js`, drawn in `index.html` so it is up before the board paints):
 today's number and whether it is printed, and the run in hand, *Continue:
 Chapter II, page 3*, or *Begin a run*. The Campaign boots behind it, so
