@@ -467,12 +467,14 @@ export const PATRON_CARDS = {
   },
   expectants: {
     name: 'The Expectant Parents', emoji: '🤰', rarity: 'uncommon', cost: 4,
-    // "Places" rather than a list of kinds: the register holds countries,
-    // states, cities and the places that were only ever in stories, and a
-    // player told "countries and cities" would never try TUSCANY or AVALON.
-    desc: 'Baby names count as words, and so do gods, saints, places, stars, and characters from myth and fiction. '
-        + '+{EXPECTANTS_BONUS} Points for any of them, and the baby is named after the last one '
-        + 'printed — the child then looks for a seat of its own at the Market.',
+    // "Baby names", and no list of kinds: ZEUS, TUSCANY and HEATHCLIFF are on
+    // the register because a parent could name a child after them, so they
+    // are baby names, and the player is trusted to think the same way. Not
+    // "common" baby names any more, which would warn a player off exactly
+    // those.
+    desc: 'Baby names count as words. +{EXPECTANTS_BONUS} Points for baby names, '
+        + 'and the baby is named after the last one printed — the child then looks for '
+        + 'a seat of its own at the Market.',
   },
   baby: {
     // Dressed on the board rather than here: the whole card is a placeholder
