@@ -1188,6 +1188,10 @@ button.sundry:hover { transform: translateY(-2px); }
 }
 /* An armed ratchet picks the same way, so the picked letter wears the tool. */
 .zone--stepping .tile--selected::after { content: '⇅'; }
+/* The same, worn by a nicked tile's halo (.halo, further down). */
+.zone--painting .halo { box-shadow: 0 0 0 2.5px var(--paintcol, var(--warn)), 0 0 18px var(--paintcol, var(--warn)); }
+.zone--painting .halo::after { content: '🖌'; font-size: 13px; }
+.zone--stepping .halo::after { content: '⇅'; }
 
 /* ── The table, waiting on the tool ───────────────────────────────────────────
    Everything the gesture no longer involves steps back. Dimming is per-element
@@ -1937,6 +1941,30 @@ button.sundry:hover { transform: translateY(-2px); }
     0 12px 20px rgba(0, 0, 0, 0.5);
 }
 .tile--selected::after {
+  content: '⇄';
+  position: absolute;
+  top: -19px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--warn);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+}
+/* A selected NICKED tile: its mask would clip the ring and the mark, so it
+   stands in a halo (haloed() in js/render.js) that wears both, and the lift,
+   in its place. The halo's transform makes it the mark's containing block, so
+   it needs no position of its own — and, unpositioned, it leaves the stick's
+   scale measuring from the groove as before. */
+.halo {
+  flex-shrink: 0;
+  border-radius: 9px;
+  transform: translateY(-7px) rotate(-1.5deg);
+  box-shadow: 0 0 0 2.5px var(--warn), 0 0 18px rgba(255, 193, 105, 0.55);
+}
+.halo > .tile--selected { transform: none; }
+.halo > .tile--selected::after { display: none; }
+.halo::after {
   content: '⇄';
   position: absolute;
   top: -19px;
