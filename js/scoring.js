@@ -586,7 +586,17 @@ export function computeScore(wordTiles) {
     word: letters, tiles: wordTiles, state, data: null,
     addPoints(v) { points += v;                step({ text: `+${v} Points`, points: v }); },
     addMult(v)   { pmult += v;                 step({ text: `+${v} Mult`,   mult: v }); },
-    xMult(v)     { pmult *= v; fold();         step({ text: `×${v} Mult`,   xmult: v }); },
+    xMult(v, why) {
+      pmult *= v; fold();
+      step({ text: `×${v} Mult${why ? ` — ${why}` : ''}`, xmult: v });
+    },
+    // A seat's own spike: a ×Mult at its seat like any other, worded and
+    // marked the way the editor's is, so the print sounds and floats it the
+    // same (the Rubricator's struck initials).
+    spike(v, why) {
+      pmult *= v; fold();
+      step({ text: `Spiked — ${why}. ×${v} Mult`, xmult: v, spiked: true });
+    },
     addCoins(v)  {
       coins += v;
       step({ text: `+${v} Coin${v > 1 ? 's' : ''}`, coins: v });

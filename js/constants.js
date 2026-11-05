@@ -1315,6 +1315,33 @@ export const wordListText = words =>
   words.length < 2 ? (words[0] ?? '') : `${words.slice(0, -1).join(', ')} or ${words.at(-1)}`;
 // The Headsman: permanent ×Mult per patron dismissed while he is seated.
 export const HEADSMAN_STEP = 0.2;
+
+// ─── The Rubricator's initials ────────────────────────────────────────────────
+// The rubricator painted a manuscript's initials in red; this one refuses some.
+// He arrives with one letter struck (rolled at the Market, so the card shows
+// it) and pays ×base on every word that does not begin with a struck letter.
+// A word that does is spiked — the editors' ×SPIKE_MULT, taken at his seat in
+// place of his own. Tap his card to strike another letter, at random, for
+// +step on the ×Mult.
+//
+// The PRICE is what makes the button a decision. Measured on plain ten-tile
+// racks against the whole dictionary, the best word avoiding a banned initial
+// is worth 97–100% of the best word overall (S costs most, X and Y nothing), so
+// a free upgrade was a reflex: every press paid until about fifteen letters,
+// ×3.3 on the card and ×2.6 in effect. A banned initial almost never strands a
+// rack; it just sends you to the next-best word, which is nearly as good. So
+// the letters are the flavour and the Coins are the cost: the second letter is
+// `price`, and every one after asks a Coin more than the last. The first step
+// (×1.2 → ×1.35, +12%) is priced like a postnom's ×1.2; by the fifth letter the
+// same Coin buys a third as much.
+export const RUBRICATOR = {
+  base:  1.2,    // ×Mult with his first letter struck
+  step:  0.15,   // ×Mult added by every letter struck after the first
+  price: 2,      // Coins to strike the second letter; +1 for each after
+};
+// What he pays with `n` letters struck, and what the next letter costs.
+export const rubricatorMult  = n => Math.round((RUBRICATOR.base + RUBRICATOR.step * Math.max(0, n - 1)) * 100) / 100;
+export const rubricatorPrice = n => RUBRICATOR.price + Math.max(0, n - 1);
 // The Gambler's coin, tossed once per word, not per keystroke: scoring runs on
 // every letter laid to drive the live preview, so a roll inside the score effect
 // would flicker and then disagree with what printed (rollGamble in state.js).
@@ -1701,6 +1728,7 @@ export const KNOBS = {
   PURVEYOR_PAINT:     PURVEYOR.paint,
   PURVEYOR_PROPOSALS: PURVEYOR.proposals,
   STOKER_BASE, STOKER_STEP, RAGMAN_COINS, RAGMAN_ODDS, DEVIL_STEP,
+  RUBRICATOR_BASE: RUBRICATOR.base, RUBRICATOR_STEP: RUBRICATOR.step, SPIKE_MULT,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, DIPPER_PAINT_CHANCE, REVENANT_ODDS,
   MAGPIE_WEIGHT, MAKO_WEIGHT, TWINS_POINTS,
   PRINCE_STEP:   PRINCE.step,

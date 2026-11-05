@@ -18,8 +18,11 @@
 //       'meta'  — handled explicitly elsewhere (page start, page reward,
 //                 discards, the dictionary check), or via the hooks below.
 //
-// Score ctx: { word, tiles, state, data, addPoints(n), addMult(n), xMult(n),
-//              addCoins(n) }. The add/x helpers record an animation step.
+// Score ctx: { word, tiles, state, data, addPoints(n), addMult(n), xMult(n, why),
+//              spike(n, why), addCoins(n) }. The add/x helpers record an
+// animation step; xMult's optional `why` is appended to the step's text.
+// spike() is xMult marked as a spike, so the print reads it the way it reads
+// an editor's (the Rubricator's struck initials).
 // `data` is the seat's memory and is READ-ONLY here: scoring runs on every
 // keystroke to draw the live preview, so counters advance in onPrinted only.
 //
@@ -166,7 +169,7 @@ import {
   PACKAGE_ODDS, PACKAGES, PACKAGE_OF_PATRON,
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, isMark,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
-  HEADSMAN_STEP, ESPALIER_STEP, HONORIFIC_STEP, LAUREATE_MULT_STEP, RIPPER_WORDS, splitMarks, isImmutable,
+  HEADSMAN_STEP, RUBRICATOR, rubricatorMult, rubricatorPrice, SPIKE_MULT, ESPALIER_STEP, HONORIFIC_STEP, LAUREATE_MULT_STEP, RIPPER_WORDS, splitMarks, isImmutable,
   CENTURION_STEP, isRomanNumeral, RIPPER_GHOST_WORDS, wordListText,
   APPRENTICE_LENGTH, APPRENTICE_STEP,
   TWINS_POINTS, CHILD_STEP, ABECEDARIAN_MULT, ABECEDARIAN_CASE, abecedarianMult, caseGlyphs, MEDIEVAL,
@@ -222,6 +225,25 @@ const princeCrowned = data => princeMult(data?.solved ?? 0) >= PRINCE.crown;
 // What The Usurer is still owed. A ghost is owed nothing: being murdered
 // settles the account, and a dead lender will not open a new one either.
 const usurerOwed = data => (data?.ghost ? 0 : data?.debt ?? 0);
+
+// ─── The Rubricator's letters ─────────────────────────────────────────────────
+// Every initial is equally likely, whatever it costs: S and X are one roll
+// each. Q is in the alphabet though no bag holds a lone one — a QU word still
+// opens on Q, and a struck Q is the luckiest roll he has.
+const INITIALS = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
+const rollInitial = struck => {
+  const left = INITIALS.filter(L => !struck.includes(L));
+  return left.length ? left[Math.floor(Math.random() * left.length)] : null;
+};
+
+// The upgrade, minus the money: one more letter onto the seat, returned so
+// the caller can say which. null when the alphabet is spent. The Coins are
+// taken by rubricatorUpgrade in js/main.js, which calls this.
+export function rubricatorStrike(data) {
+  const letter = rollInitial(data.struck ?? []);
+  if (letter) data.struck = [...(data.struck ?? []), letter];
+  return letter;
+}
 
 // ─── The Wordler's marking ────────────────────────────────────────────────────
 // Wordle's own rule, duplicates and all: greens are claimed first, then yellows
@@ -2017,6 +2039,59 @@ const PATRON_BEHAVIOURS = [
     effect({ data, xMult }) {
       const heads = data?.heads ?? 0;
       if (heads) xMult(Math.round((1 + heads * HEADSMAN_STEP) * 100) / 100);
+    },
+  },
+  {
+    // Reads one thing about a word, its initial, and has two answers: his
+    // ×Mult, or the editors' spike in its place. Both are taken AT HIS SEAT,
+    // so seat order cuts both ways — sat in front, his ×1.2 multiplies only
+    // the tiles, and so does a spike; sat behind, both reach the whole table.
+    // The letters are `data.struck`, oldest first, and they never come back.
+    //
+    // `word` is the reading the dictionary passed, so a QU tile opens on Q and
+    // a thorn on T. A word carrying a blind sort is never spiked, by him or by
+    // anyone: the metal's tooltip promises that much, and a seat that broke
+    // the promise would make the tooltip a lie.
+    //
+    // The upgrade is bought from his card (`act`, then rubricatorUpgrade in
+    // js/main.js), at a price that climbs a Coin a letter — see RUBRICATOR in
+    // constants.js for why the Coins and not the letters are the real cost.
+    id: 'rubricator',
+    when: 'score',
+    onOffer: () => ({ struck: [rollInitial([])] }),
+    // A seat that came by a door with no offer (the Testing Chamber) has no
+    // letter yet. It takes one as the next page is dealt, and sits silent
+    // until then rather than paying a ×Mult with nothing struck.
+    onPageStart({ data }) {
+      if (!data.struck?.length) data.struck = [rollInitial([])];
+      return null;
+    },
+    effect({ word, tiles, data, xMult, spike }) {
+      const struck = data?.struck ?? [];
+      if (!struck.length || !word) return;
+      const mult = rubricatorMult(struck.length);
+      if (!struck.includes(word[0])) return xMult(mult);
+      if (tiles.some(t => t.material === 'blind')) return xMult(mult, `a blind sort, so ${word[0]} goes unread`);
+      spike(SPIKE_MULT, `words beginning with ${word[0]} are struck`);
+    },
+    instDesc(data) {
+      const struck = data?.struck ?? [];
+      if (!struck.length) return PATRON_CARDS.rubricator.desc;
+      const more = struck.length < INITIALS.length
+        ? ` Can be upgraded: each upgrade strikes another random letter and raises the ×Mult by ${RUBRICATOR.step}.`
+        : '';
+      return `×${rubricatorMult(struck.length)} Mult, but words beginning with ${wordListText(struck)} `
+           + `are spiked to ×${SPIKE_MULT} instead.${more}`;
+    },
+    // The price and the next ×Mult are on the button, so the card never has to
+    // carry a number that moves.
+    act: ({ seat, data }) => {
+      if (!seat || data?.ghost) return '';
+      const n = data?.struck?.length ?? 0;
+      if (!n || n >= INITIALS.length) return '';
+      const price = rubricatorPrice(n);
+      return `<button class="btn btn-quiet tip-btn" data-patron-act="rubricator"${
+        state.coins < price ? ' disabled' : ''}>Upgrade to ×${rubricatorMult(n + 1)} — strike a random letter (${price} Coins)</button>`;
     },
   },
   {

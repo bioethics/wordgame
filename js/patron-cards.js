@@ -240,6 +240,16 @@ export const PATRON_CARDS = {
     name: 'The Headsman', emoji: '🪓', rarity: 'uncommon', cost: 7, guild: 'crimson',
     desc: '×1 Mult to begin with, raised by {HEADSMAN_STEP} for good with every patron you dismiss.',
   },
+  rubricator: {
+    // The rubricator was the hand that went through a finished manuscript
+    // painting the initials red — crimson's trade, at the one place in a word
+    // he ever looks. This card is the fallback for a seat that arrived with no
+    // letter rolled; every seat that has one says it (instDesc in patrons.js).
+    // The upgrade's price is on the button, live, so the card leaves it out.
+    name: 'The Rubricator', emoji: '🅰️', rarity: 'uncommon', cost: 5, guild: 'crimson',
+    desc: '×{RUBRICATOR_BASE} Mult, but words beginning with one random letter are spiked to ×{SPIKE_MULT} instead. '
+        + 'Can be upgraded: each upgrade strikes another random letter and raises the ×Mult by {RUBRICATOR_STEP}.',
+  },
   lyeboy: {
     name: 'The Lye Boy', emoji: '🧼', rarity: 'uncommon', cost: 6, guild: 'crimson',
     desc: 'Strips the paint from every painted tile in the word, permanently, and keeps {LYE_BOY_STEPS} Mult for each coat.',

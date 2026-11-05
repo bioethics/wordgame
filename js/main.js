@@ -27,7 +27,7 @@ import {
   EXPLOSIVE_SPREAD_ODDS,
   PACKAGES, APPLICATORS, SILVER_BONUS, BAG_COUNTS,
   lengthFlourish, medievalExpansions, USURER, BRIBRARIAN, bribeMult, isRule, RULE,
-  RATCHET_RANGE,
+  RATCHET_RANGE, rubricatorMult, rubricatorPrice,
   DOUBLOON_PRICE,
 } from './constants.js';
 import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
@@ -71,6 +71,7 @@ import {
 } from './appearance.js';
 import {
   PATRON_DEFS, patronById, doubledReading, boundNouns, patronName, patronEmoji, patronShelf, guildSeats,
+  rubricatorStrike,
 } from './patrons.js';
 import { randomQuip } from './quips.js';
 import { logLine } from './text.js';
@@ -1224,7 +1225,7 @@ async function submitWord() {
     const card = patronCard(p);
     if (card) {
       pulse(card, 'patron--firing', 520);
-      const cls = p.coins ? 'fl-coin' : p.points ? 'fl-points' : 'fl-mult';
+      const cls = p.coins ? 'fl-coin' : p.points ? 'fl-points' : p.spiked ? 'fl-spike' : 'fl-mult';
       floatText(card, p.coins ? `+${coinHTML(p.coins)}` : p.text, cls, { dy: -44 });
     } else {
       // A step with no seat of its own — the curse's toll, the editor's verdict
@@ -2370,6 +2371,31 @@ function usurerRepay() {
   renderAll(); if (state.inMarket) renderMarket(); persist();
 }
 
+// ─── The Rubricator's upgrade ─────────────────────────────────────────────────
+// Paid first, rolled second: the Coins are the decision, the letter is what
+// the decision turns out to have cost. The letter rises over his card in the
+// spike's colour, so what was struck is seen where it now lives.
+function rubricatorUpgrade() {
+  const seat = state.patrons.find(p => p.id === 'rubricator');
+  if (!seat || seat.data?.ghost) return;
+  seat.data ??= {};
+  const n = seat.data.struck?.length ?? 0;
+  if (!n) return;
+  const price = rubricatorPrice(n);
+  if (state.coins < price) { log(logLine('rubricatorShort', price, state.coins), 'warn'); return; }
+  const letter = rubricatorStrike(seat.data);
+  if (!letter) return;
+  spendCoins(price);
+  sfx.bad();
+  const card = patronCard(seat);
+  if (card) {
+    pulse(card, 'patron--firing', 520);
+    floatText(card, letter, 'fl-spike', { dy: -44 });
+  }
+  log(logLine('rubricatorStrikes', letter, rubricatorMult(n + 1)), 'good');
+  renderAll(); if (state.inMarket) renderMarket(); persist();
+}
+
 // ─── The Bribrarian's consideration ───────────────────────────────────────────
 // Blocks the page until it is settled, because settling it is the first move of
 // the page and there is no sensible default: taking nothing is a choice as much
@@ -2483,6 +2509,7 @@ $('popover')?.addEventListener('click', e => {
       if (act.dataset.patronAct === 'counterfeiter') openCounterfeitPlate();
       if (act.dataset.patronAct === 'usurer-borrow') usurerBorrow();
       if (act.dataset.patronAct === 'usurer-repay')  usurerRepay();
+      if (act.dataset.patronAct === 'rubricator')    rubricatorUpgrade();
     }
     return;
   }
