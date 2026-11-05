@@ -25,11 +25,13 @@ Hence the rule every round so far has run on, in the original brief's words:
 *"a low barrier for additional admissions, but a high barrier against removal;
 just get rid of the really glaring mistakes."*
 
-How big a list is decides how often its patron fires. The four cover 9–13% of
-the playable dictionary (`node tools/theme-list.mjs check`). At that coverage
-the register patrons change the Daily Proof's best word on 68–82% of cases
-(`tools/daily-table.mjs`), the most of any patron measured. A list of 1–2%
-would be a patron that rarely fires; one of 30% would be a ×3 on every word.
+How big a list is decides how often its patron fires. The five cover 6–13%
+of the playable dictionary (`node tools/theme-list.mjs check`). At that
+coverage the register patrons change the Daily Proof's best word on 73–88% of
+cases
+(`tools/daily-table.mjs`, 48 cases), the most of any patron measured. A list
+of 1–2% would be a patron that rarely fires; one of 30% would be a ×3 on every
+word.
 
 ## The recipe
 
@@ -357,6 +359,98 @@ What the session history, the commits and the author's Drive show:
   through `noun-extras.txt`, since WordNet knows few of them. PARCHMENTED was
   weighed and kept: rarer than UNMELTED, but attested, regularly formed,
   readable on sight, and one of the Sexton's.
+- **5 November: cute, read whole.** In play SMITTEN didn't pay the Poppet,
+  while UNIQUEST did, and the Daily Proof's best-of list showed her bear
+  beside SUBSEQUENT. SUBSEQUENT was a display fault, not the list: on a
+  choice day a word neither patron pays is filed under the first seat, and
+  the list marked it. `daily/main.js` now marks a seat only where it paid,
+  as it already did on patron days. The list itself was read top to bottom,
+  then the cuts, then what was left.
+  - **2,917 cut, from 7,759.** A first pass cut 3,708; the author's rulings
+    below sent 791 of them back over three rounds, to the places they had held.
+    Most of the cuts came from three places. A 518-word
+    associative drift sat right after the seed clusters (GRANITE, CYRILLIC,
+    UVULAR, WIDOW, TRANSLITERATION), and an 84-word one further down
+    (SAVOURY, WORN, SOUND, PETTY). The alphabetical generator batch carried
+    misfires among its finds (CELLULAR, CACHED, DEPTH, FINGERPRINT). And the
+    4 November inflection pass had faithfully inflected every noise base:
+    SMOOTH came with SMOOTHER, SMOOTHEST, SMOOTHING, SMOOTHLY and SMOOTHNESS,
+    and UNIQUE with UNIQUER, UNIQUEST, UNIQUELY and UNIQUENESS. Day 4's top
+    five under the Poppet were QUIETNESS, UNIQUENESS, SUBTEENS, SUBTEEN and
+    NUTTINESS. The read also found function words (DOING; DOES came back later) and
+    clangers: COTTAGING (cruising slang), NECKLACING (the execution), COLOUREDS,
+    GOLLIES.
+  - **The rulings, for the next sweep.** The list embraces the word's
+    polysemy, in the author's words. Cute is small, young, soft, round, sweet,
+    cosy, playful, silly, shy, whimsical, or fond in the innocent way. It is
+    also pretty or handsome (a cute guy): BEAUTIFUL, GORGEOUS, DASHING,
+    PHOTOGENIC, HEARTTHROB. And it is chic (a cute outfit, a cute café). The
+    seed's fashion cluster is the author's own (CHIC, SUAVE, COUTURE, BESPOKE),
+    and words of its kind join it: STYLISH, CLASSY, KICKY, PREPPY, the fabrics
+    (TAFFETA, ORGANDIE, SEERSUCKER), hats and hair (PILLBOX, FASCINATOR,
+    BOUFFANT, QUIFF), and CAFES, BISTROS, BOUTIQUES. The rough synonyms for
+    cute-as-fashionable are in (SHARP, SNAPPY, DRESSY, SWISH, JAZZY, DANDY);
+    SPORTY is not. Where a word is ambiguous, the author's rule is to err on
+    inclusion if one sense supports it: TITS, BOOBY and DICKY the birds, PUSSY
+    and COUGAR the cats, MULE the animal, COCK the rooster, FOXY the fox, WIENER
+    the dog, MUFF the hand-warmer, SAUCY the cheeky, NUTTY the kooky, POP the
+    dad, MINT the sweet, FIT the attractive, FRY as in small fry. The rule
+    reaches function words too: DOES the deer, DOWN the feathers (DOING, with
+    no such sense, stays off). Two exceptions: VIXEN (the author's call, made
+    before the rule), and slurs, which are the author's to rule on one by one
+    (COON is waiting). Words with no cute sense at all stay off however rude
+    their other one: TITTIES, WILLY, NUBILE, BUXOM, SEDUCTIVE, WEES. Love's giddy end is cute as
+    well as romantic; desire is romantic only. Cute is also clever, in the
+    old sense (a cute trick): CLEVER, CUNNING (which in older American usage
+    meant cute outright), CRAFTY, WILY, SLY, CANNY, WITTY, DROLL, QUIP, PUN,
+    PRANK, and the cute contraption (GADGET, GIZMO, THINGAMAJIG). It stops at
+    the playful end of cunning; DEVIOUS, SCHEMING and DUPLICITOUS stay off.
+    Birds and beasts are in down to the borderline: every duck, small deer and
+    aquarium fish, and the goofy, the woolly and the merely furry (DODO, EMU,
+    FROGMOUTH, SKUNK, WARTHOG, YAK, BISON, DINOSAUR). Birds of prey, snakes and
+    spiders are out. Quaint things are in (QUAINT, THATCHED, SUNDIAL,
+    WEATHERVANE, MAYPOLE, LYCHGATE, TEAROOM, GRAMOPHONE), as are fruit and
+    nuts (GUAVA, PECAN), nursery puddings (JUNKET, POSSET, SAGO), cottagecore
+    (RUSTIC, COBBLESTONE, SAMPLER, POMANDER), and baby animals' names (SQUAB,
+    ELVER). Not cute in any sense: calm (SERENE, TRANQUIL), adult kin (FATHER,
+    WIFE, WIDOW, though GRANDMOTHER, GRANNIE, MAMA and NIECE stay), plant
+    anatomy (STAMEN, RHIZOME, UMBEL), herbs and spices (BASIL, THYME,
+    CARDAMOM), and function words.
+  - **Read and left out, with a thinner case** (next to read if the list wants
+    more): STOLE, PERFUME, family and school (MOTHER, BROTHER, SCHOOL,
+    TEACHER), CHANGELING, STARLIGHT, FROSTY, GUFFAW, SNICKER, COUNTESS.
+  - **1,424 added that the list never had.** The first 519, by facet.
+    Infatuation: SMITTEN, BESOTTED, ENAMOURED, CRUSH,
+    SWOON, SMOOCH, CANOODLE, SWEETHEART, MUSHY, SOPPY, LOVESICK, GAGA. Shyness:
+    SHY, COY, DEMURE, SHEEPISH, GIDDY, AFLUTTER. Silliness: SILLY, GOOFY,
+    DORKY, KLUTZ, CLUMSY, DOPEY, ZANY, NINCOMPOOP. Mischief: MISCHIEF, NAUGHTY,
+    SCALLYWAG, RAPSCALLION. Baby talk: TUMMY, HORSEY, KIDDO, MOMMY, DADDY,
+    GRANDMA, NANA. What small things do: WAG, WIGGLE, POUNCE, PLOP, HICCUP,
+    SNEEZE, POUT, MUNCH, SQUISH. Their noises: MOO, QUACK, OINK, NEIGH, CLUCK,
+    HOOT, BOWWOW. Animals the list had somehow missed: OWL, MONKEY, DONKEY,
+    GOAT, PUG, CORGI, DACHSHUND, GOLDFISH, LEMMING, GROUNDHOG. Parties and
+    play: BIRTHDAY, CAKE, CONFETTI, PINATA, SANDCASTLE, TRAMPOLINE. Cosiness:
+    COMFY, TOASTY, KNITTED, EARMUFFS, NIGHTLIGHT. And RAINBOW, SUNSHINE,
+    FLOWER, MERMAID, OOPS, YIPPEE and WHEE. Most came from a brainstorm by
+    facet; the Foundry's link ranking, run on the cleaned list, found COMFY,
+    TOASTY, SONGBIRD and the rest of its last 61. Then 905 on the author's
+    rulings. Birds and beasts were swept from WordNet's animal file
+    (`noun.animal`, lexicographer file 05, read class by class against the
+    dictionary): SWAN, PIGEON, QUAIL, KITTIWAKE, BULLDOG, LAPDOG, GUERNSEY,
+    BOXFISH, ISOPOD, CRITTER. The clever and quaint facets came from a
+    brainstorm, then the link ranking seeded with each facet alone
+    (SLYBOOTS, MONKEYSHINES, CRACKERJACK; GRANGE, HAYRICK, HEARTHSTONE).
+    The fashion synonyms were brainstormed (DRESSY, SWISH, SPIFFING). The
+    ambiguity rule was applied to every word dropped for a second sense and
+    to the whole cut list once more (PICKLE, HOTTIE, STOCKING, BLUSHER, NANNY,
+    WEAN, GOBBLE, HONK, ROLLER, SKATE, CAFES).
+  - **Measured** (`daily-table.mjs 1-48`): at 6,264 words (7.6% of the
+    dictionary, down from 9.4%) the Poppet moves the best word on 73% of cases
+    (85% before), fires on it on 79% (90%), and is dead on none; at the
+    first round's 4,569 words it was 71% and 75%. Some of the old figure was
+    noise paying.
+  - **The author's calls.** PANSY (the flower, and a slur), PAPOOSE, PIGMY and
+    DADDY stay on cute. GOLLIWOG, GOLLIWOGS and GOLLIES are on the block list.
 
 Not found anywhere these sessions can reach: the tool or chat that produced
 the ranked lists and the later batches. The ranking, the drift into
