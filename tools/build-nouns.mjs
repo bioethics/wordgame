@@ -14,7 +14,8 @@
 //   is a form of BE, not the hundredth of a hectare). Plurals are made by the
 //   regular rules, the Latin and Greek ones (DATA, CRISES, LARVAE, INDICES)
 //   and a short table of the rest (CHILDREN, GEESE), each one only if the
-//   dictionary holds it.
+//   dictionary holds it. Nouns WordNet doesn't know at all (BRUMBY, GOANNA)
+//   are kept by hand in wordlists/noun-extras.txt and taken as they stand.
 //
 // wordlists/nouns.txt — The Binder's: what he stacks two of into a word, so
 //   singular, three letters or more, and recognisable: the entries the list
@@ -38,6 +39,7 @@ const slurs = new Set(read('excluded-slurs.txt'));
 const verbs = new Set(read('verbs.txt'));
 const adjs = new Set(read('adjectives.txt'));
 const oldNouns = read('nouns.txt');
+const extras = read('noun-extras.txt');
 
 // lemma → tagged-sense count, per part of speech. An index line is
 // "lemma pos synset_cnt p_cnt [p_cnt pointers] sense_cnt tagsense_cnt offsets…".
@@ -61,7 +63,10 @@ const isNoun = w => {
   if (n > 0) return n >= other;
   return other < 0 && !verbs.has(w) && !adjs.has(w);
 };
-const singulars = [...dict].filter(w => !slurs.has(w) && w.length >= 2 && isNoun(w));
+const singulars = [...new Set([
+  ...[...dict].filter(w => !slurs.has(w) && w.length >= 2 && isNoun(w)),
+  ...extras.filter(w => dict.has(w) && !slurs.has(w)),   // what WordNet doesn't know
+])];
 
 // Plurals. A plural is only taken if the dictionary holds it.
 const IRREGULAR = {
@@ -94,9 +99,10 @@ const write = (file, head, words) =>
   fs.writeFileSync(path.join(root, 'wordlists', file), head + words.map(w => w.toUpperCase()).join('\n') + '\n');
 write('noun-forms.txt', `# Nouns and their plurals — The Sculptor's list. A word whose ordinary meaning
 # is a noun (WordNet's tagged-corpus counts, noun at least as often as anything
-# else), and its plurals: regular, Latin and Greek (DATA, CRISES, LARVAE,
-# INDICES) and the rest (CHILDREN, GEESE). Built by tools/build-nouns.mjs; edit
-# the sources and re-run it rather than editing this file.
+# else), the nouns WordNet doesn't know (noun-extras.txt), and their plurals:
+# regular, Latin and Greek (DATA, CRISES, LARVAE, INDICES) and the rest
+# (CHILDREN, GEESE). Built by tools/build-nouns.mjs; edit the sources and re-run
+# it rather than editing this file.
 #
 `, forms);
 write('nouns.txt', `# Nouns — The Binder's list. Two of these stacked together count as a word
