@@ -1344,6 +1344,26 @@ export const RUBRICATOR = {
 };
 // What he pays with `n` letters struck.
 export const rubricatorMult = n => Math.round((RUBRICATOR.base + RUBRICATOR.step * Math.max(0, n - 1)) * 100) / 100;
+
+// ─── The Joker's hand ─────────────────────────────────────────────────────────
+// What each card is worth when its name is printed, at the values Balatro
+// counts them: the pips at face value, the court at ten, the ace at eleven.
+// The court at 11, 12 and 13 is the other convention a player might bring,
+// which is why the card quotes the faces and the ace as {KNOBS}.
+//
+// TEN is the card that makes him go. Measured on fresh ten-tile racks from the
+// starting bag, 37% can spell some card, and TEN alone is 20% of racks (ACE and
+// NINE 6%, the court 1% or less); the mean best card on a rack is worth 3.3, and
+// 1.8 with TEN taken out. He grows about as fast as you will spend a word on a
+// small one, which is the cost of the seat — a card name is rarely a word worth
+// printing for its own sake.
+export const JOKER_CARDS = {
+  TWO: 2, THREE: 3, FOUR: 4, FIVE: 5, SIX: 6, SEVEN: 7, EIGHT: 8, NINE: 9, TEN: 10,
+  JACK: 10, QUEEN: 10, KING: 10, ACE: 11,
+};
+// The corner of the card, for the hand he shows on tap: K, not KING.
+export const jokerRank = word =>
+  ({ JACK: 'J', QUEEN: 'Q', KING: 'K', ACE: 'A' })[word] ?? String(JOKER_CARDS[word] ?? '');
 // The Gambler's coin, tossed once per word, not per keystroke: scoring runs on
 // every letter laid to drive the live preview, so a roll inside the score effect
 // would flicker and then disagree with what printed (rollGamble in state.js).
@@ -1731,6 +1751,7 @@ export const KNOBS = {
   PURVEYOR_PROPOSALS: PURVEYOR.proposals,
   STOKER_BASE, STOKER_STEP, RAGMAN_COINS, RAGMAN_ODDS, DEVIL_STEP,
   RUBRICATOR_BASE: RUBRICATOR.base,
+  JOKER_FACE: JOKER_CARDS.KING, JOKER_ACE: JOKER_CARDS.ACE,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, DIPPER_PAINT_CHANCE, REVENANT_ODDS,
   MAGPIE_WEIGHT, MAKO_WEIGHT, TWINS_POINTS,
   PRINCE_STEP:   PRINCE.step,

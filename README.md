@@ -622,6 +622,26 @@ turn at the table should come well before that, the way the Obscurantist's bar
 is set by playing rather than simulating. If players run him to sixteen,
 `RUBRICATOR.step` is the knob.
 
+### The Joker — a hand of named cards
+
+A nod to Balatro, where the jokers begin with one called Joker. **The Joker**
+(jade, uncommon, 5 Coins) does nothing until you print the name of a card: TWO
+to TEN, JACK, QUEEN, KING or ACE. Each one adds its value to a total the seat
+keeps for good, at Balatro's own counting (the pips at face value, the court at
+10, the ace at 11), and the whole total is paid in Points at its seat on every
+word, so it wants to sit in front of the multipliers. The card being named pays
+on its own print, so KING shows +10 from the Joker on KING itself, which is how
+a player learns what the seat does. Tap it for the hand it holds ("Holding 10 A
+K: +31 Points on every word").
+
+What it costs is words. A card name is rarely a word worth printing for its own
+sake, and racks seldom offer one: of fresh ten-tile racks from the starting bag,
+37% can spell any card, TEN alone 20%, ACE and NINE 6%, the court 1% or less.
+The mean best card on a rack is worth 3.3, and 1.8 with TEN taken out, so TEN is
+the card that makes the seat go. The values are `JOKER_CARDS` in
+`js/constants.js`; the card quotes the court and the ace as knobs, since a
+player might count them 11-12-13.
+
 ### The Expectant Parents' child
 
 *The Expectant Parents* (uncommon, 4 Coins) pay +15 Points for a name and
@@ -1428,6 +1448,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Everything the Generic can roll — triggers, weights, effects, epithets, faces, price | `js/patron-generic.js`, the whole file. `GENERIC_TRIGGERS_A/B` carry the weights, `GENERIC_EFFECTS` the `cost` each must be paired against |
 | The Lye Boy's ramp — what a scrubbed coat is worth, and where it should slow | `js/constants.js` → `LYE_BOY_BANDS` (one band today; add a row to slow it, and `lyeBoySteps()` rewrites the card with it) |
 | The Rubricator — his ×Mult, what each letter adds, and the toll | `js/constants.js` → `RUBRICATOR` (`base`, `step`, `price`, a flat Coin a letter). The spike is the editors' own `SPIKE_MULT`, so retuning theirs retunes his. The solver's figures for what the letters cost are in the comment beside the knobs |
+| The Joker's cards and what each is worth | `js/constants.js` → `JOKER_CARDS` (a word and its value; add DEUCE or KNAVE here and the seat reads them). The card quotes `{JOKER_FACE}` and `{JOKER_ACE}` from it |
 | The Quoin's lock | `js/constants.js` → `QUOIN_MULT`. Set against the colour engine: ×3 makes stacking a colour pull level with spreading it |
 | The Goldsmith's purse — the Points, the odds and the prize | `js/constants.js` → `GOLDSMITH_POINTS`, `GOLDSMITH_ODDS` (rolled **per amber tile**, so the seat scales with commitment), `GOLDSMITH_PURSE`. The run-level arithmetic is in the comment beside them; if a run stops caring about Coins by chapter seven, the odds are the knob, not the purse |
 | The Serpent — what an S is worth, and how often he swallows the last one | `js/constants.js` → `SERPENT_POINTS` (paid on every S in the word, written onto the tile so a nick reads it and his own ×2 doubles it), `SERPENT_EAT_ODDS`. The ×2 is paid either way, so this is the whole of the bet; the card quotes it through the `SERPENT_EAT_CHANCE` knob and can never drift from it |

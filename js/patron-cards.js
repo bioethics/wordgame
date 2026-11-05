@@ -134,6 +134,15 @@ export const PATRON_CARDS = {
     name: 'The Child', emoji: '🐣', rarity: 'common', cost: 5, guild: 'jade',
     desc: 'Print a 3-letter word: every tile in it permanently gains +{CHILD_STEP} Point before scoring.',
   },
+  // A nod to Balatro, where the deck of jokers began with one called Joker.
+  // Jade because the seat is all growth: it starts at nothing and only gains.
+  // The values are quoted because a player may count the court 11-12-13. The
+  // hand it holds is in the tap-through (`tally`), not here.
+  joker: {
+    name: 'The Joker', emoji: '🤡', rarity: 'uncommon', cost: 5, guild: 'jade',
+    desc: 'Does nothing by default. Print a card (TWO to TEN, JACK, QUEEN, KING or ACE) and it gains '
+        + 'that many Points for good, faces {JOKER_FACE} and aces {JOKER_ACE}, paid on every word.',
+  },
   abecedarian: {
     name: 'The Abecedarian', emoji: '🔠', rarity: 'rare', cost: 8, guild: 'jade',
     desc: 'Gains Mult, for good, the first time you print each different sort — up to a max of +{ABECEDARIAN_CASE_MULT} Mult total.',

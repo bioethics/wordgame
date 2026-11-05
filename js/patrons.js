@@ -173,7 +173,7 @@ import {
   CENTURION_STEP, isRomanNumeral, RIPPER_GHOST_WORDS, wordListText,
   APPRENTICE_LENGTH, APPRENTICE_STEP,
   TWINS_POINTS, CHILD_STEP, ABECEDARIAN_MULT, ABECEDARIAN_CASE, abecedarianMult, caseGlyphs, MEDIEVAL,
-  ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS, PURVEYOR,
+  JOKER_CARDS, jokerRank, ASTRONOMER_STEP, GLOVER_STEP, TYPESETTER_STEP, EXPECTANTS_BONUS, PURVEYOR,
   BABY_STAGES, babyStage, babyGrown, titleCase,
   sesquipedalianMult,
   SHORTHAIR_MULT, RATCATCHER_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
@@ -1560,6 +1560,38 @@ const PATRON_BEHAVIOURS = [
       const grown = tiles.filter(t => grow(t, CHILD_STEP));
       if (!grown.length) return null;
       return { note: `${grown.map(getActiveLetter).join(', ')} grown +${CHILD_STEP}` };
+    },
+  },
+  {
+    // Holds the cards you have named and pays what they add up to, at its own
+    // seat, on every word: so it wants to sit in front of the multipliers.
+    // `data.points` is the running total and `data.hand` the ranks in the
+    // order they were dealt, kept only to be shown.
+    //
+    // The card being named pays on its own print: the effect counts it in
+    // before onPrinted writes it down, as the Abecedarian pays the first sort
+    // it keeps. Printing KING shows +10 from the Joker on KING itself, which is
+    // the moment a player learns what the seat does. `word` is the reading the
+    // dictionary passed, so a QU tile still spells QUEEN.
+    id: 'joker',
+    when: 'score',
+    effect({ word, data, addPoints }) {
+      const held = (data?.points ?? 0) + (JOKER_CARDS[word] ?? 0);
+      if (held) addPoints(held);
+    },
+    onPrinted({ script, data }) {
+      const word = script?.letters;
+      const value = JOKER_CARDS[word];
+      if (!value) return null;
+      data.points = (data.points ?? 0) + value;
+      data.hand = [...(data.hand ?? []), jokerRank(word)];
+      return { note: `+${value} for good — +${data.points} on every word` };
+    },
+    tally(data) {
+      const hand = data?.hand ?? [];
+      if (!hand.length) return 'No cards yet.';
+      const shown = hand.length > 13 ? `${hand.length} cards` : hand.join(' ');
+      return `Holding ${shown}: +${data.points} Points on every word.`;
     },
   },
   {
