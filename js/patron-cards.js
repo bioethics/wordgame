@@ -139,7 +139,7 @@ export const PATRON_CARDS = {
   // The values are quoted because a player may count the court 11-12-13. The
   // hand it holds is in the tap-through (`tally`), not here.
   joker: {
-    name: 'The Joker', emoji: '🤡', rarity: 'uncommon', cost: 5, guild: 'jade',
+    name: 'The Joker', emoji: '🃏', rarity: 'uncommon', cost: 5, guild: 'jade',
     desc: 'Does nothing by default. Print a card (TWO to TEN, JACK, QUEEN, KING or ACE) and it gains '
         + 'that many Points for good, faces {JOKER_FACE} and aces {JOKER_ACE}, paid on every word.',
   },
@@ -538,7 +538,7 @@ export const PATRON_CARDS = {
     desc: '×3 Mult on the final word of each page.',
   },
   harlequin: {
-    name: 'The Harlequin', emoji: '🃏', rarity: 'uncommon', cost: 7,
+    name: 'The Harlequin', emoji: '🎭', rarity: 'uncommon', cost: 7,
     desc: '×2 Mult for words containing all four colours.',
   },
   novelist: {
