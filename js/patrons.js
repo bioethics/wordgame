@@ -169,7 +169,7 @@ import {
   PACKAGE_ODDS, PACKAGES, PACKAGE_OF_PATRON,
   DYE_TILES_PER_CHAPTER, COLOURS, TRIMS, LIGATURES, isMark,
   BAG_COUNTS, FRONTISPIECE, DIPPER_PAINT_CHANCE,
-  HEADSMAN_STEP, RUBRICATOR, rubricatorMult, rubricatorPrice, SPIKE_MULT, ESPALIER_STEP, HONORIFIC_STEP, LAUREATE_MULT_STEP, RIPPER_WORDS, splitMarks, isImmutable,
+  HEADSMAN_STEP, RUBRICATOR, rubricatorMult, SPIKE_MULT, ESPALIER_STEP, HONORIFIC_STEP, LAUREATE_MULT_STEP, RIPPER_WORDS, splitMarks, isImmutable,
   CENTURION_STEP, isRomanNumeral, RIPPER_GHOST_WORDS, wordListText,
   APPRENTICE_LENGTH, APPRENTICE_STEP,
   TWINS_POINTS, CHILD_STEP, ABECEDARIAN_MULT, ABECEDARIAN_CASE, abecedarianMult, caseGlyphs, MEDIEVAL,
@@ -2054,8 +2054,8 @@ const PATRON_BEHAVIOURS = [
     // the promise would make the tooltip a lie.
     //
     // The upgrade is bought from his card (`act`, then rubricatorUpgrade in
-    // js/main.js), at a price that climbs a Coin a letter — see RUBRICATOR in
-    // constants.js for why the Coins and not the letters are the real cost.
+    // js/main.js) for a flat Coin a letter. The letters are the real cost —
+    // see RUBRICATOR in constants.js.
     id: 'rubricator',
     when: 'score',
     onOffer: () => ({ struck: [rollInitial([])] }),
@@ -2072,26 +2072,25 @@ const PATRON_BEHAVIOURS = [
       const mult = rubricatorMult(struck.length);
       if (!struck.includes(word[0])) return xMult(mult);
       if (tiles.some(t => t.material === 'blind')) return xMult(mult, `a blind sort, so ${word[0]} goes unread`);
-      spike(SPIKE_MULT, `words beginning with ${word[0]} are struck`);
+      spike(SPIKE_MULT, `words starting with ${word[0]} are struck`);
     },
     instDesc(data) {
       const struck = data?.struck ?? [];
       if (!struck.length) return PATRON_CARDS.rubricator.desc;
-      const more = struck.length < INITIALS.length
-        ? ` Can be upgraded: each upgrade strikes another random letter and raises the ×Mult by ${RUBRICATOR.step}.`
-        : '';
-      return `×${rubricatorMult(struck.length)} Mult, but words beginning with ${wordListText(struck)} `
-           + `are spiked to ×${SPIKE_MULT} instead.${more}`;
+      const more = struck.length < INITIALS.length ? ' Can be upgraded.' : '';
+      return `×${rubricatorMult(struck.length)} Mult, but words starting with ${wordListText(struck)} `
+           + `are spiked.${more}`;
     },
-    // The price and the next ×Mult are on the button, so the card never has to
-    // carry a number that moves.
+    // What an upgrade does and costs lives on the button, so the card says
+    // only that there is one.
     act: ({ seat, data }) => {
       if (!seat || data?.ghost) return '';
       const n = data?.struck?.length ?? 0;
       if (!n || n >= INITIALS.length) return '';
-      const price = rubricatorPrice(n);
+      const price = RUBRICATOR.price;
       return `<button class="btn btn-quiet tip-btn" data-patron-act="rubricator"${
-        state.coins < price ? ' disabled' : ''}>Upgrade to ×${rubricatorMult(n + 1)} — strike a random letter (${price} Coins)</button>`;
+        state.coins < price ? ' disabled' : ''}>Upgrade to ×${rubricatorMult(n + 1)} — strike a random letter (${
+        price} Coin${price === 1 ? '' : 's'})</button>`;
     },
   },
   {

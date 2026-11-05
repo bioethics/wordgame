@@ -27,7 +27,7 @@ import {
   EXPLOSIVE_SPREAD_ODDS,
   PACKAGES, APPLICATORS, SILVER_BONUS, BAG_COUNTS,
   lengthFlourish, medievalExpansions, USURER, BRIBRARIAN, bribeMult, isRule, RULE,
-  RATCHET_RANGE, rubricatorMult, rubricatorPrice,
+  RATCHET_RANGE, RUBRICATOR, rubricatorMult,
   DOUBLOON_PRICE,
 } from './constants.js';
 import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
@@ -2372,17 +2372,20 @@ function usurerRepay() {
 }
 
 // ─── The Rubricator's upgrade ─────────────────────────────────────────────────
-// Paid first, rolled second: the Coins are the decision, the letter is what
-// the decision turns out to have cost. The letter rises over his card in the
-// spike's colour, so what was struck is seen where it now lives.
+// A Coin down, then the roll: which letter it cost you is the gamble. The
+// letter rises over his card in the spike's colour, so what was struck is seen
+// where it now lives.
 function rubricatorUpgrade() {
   const seat = state.patrons.find(p => p.id === 'rubricator');
   if (!seat || seat.data?.ghost) return;
   seat.data ??= {};
   const n = seat.data.struck?.length ?? 0;
   if (!n) return;
-  const price = rubricatorPrice(n);
-  if (state.coins < price) { log(logLine('rubricatorShort', price, state.coins), 'warn'); return; }
+  const price = RUBRICATOR.price;
+  if (state.coins < price) {
+    log(logLine('rubricatorShort', `${price} Coin${price === 1 ? '' : 's'}`, state.coins), 'warn');
+    return;
+  }
   const letter = rubricatorStrike(seat.data);
   if (!letter) return;
   spendCoins(price);

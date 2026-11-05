@@ -1324,24 +1324,26 @@ export const HEADSMAN_STEP = 0.2;
 // place of his own. Tap his card to strike another letter, at random, for
 // +step on the ×Mult.
 //
-// The PRICE is what makes the button a decision. Measured on plain ten-tile
-// racks against the whole dictionary, the best word avoiding a banned initial
-// is worth 97–100% of the best word overall (S costs most, X and Y nothing), so
-// a free upgrade was a reflex: every press paid until about fifteen letters,
-// ×3.3 on the card and ×2.6 in effect. A banned initial almost never strands a
-// rack; it just sends you to the next-best word, which is nearly as good. So
-// the letters are the flavour and the Coins are the cost: the second letter is
-// `price`, and every one after asks a Coin more than the last. The first step
-// (×1.2 → ×1.35, +12%) is priced like a postnom's ×1.2; by the fifth letter the
-// same Coin buys a third as much.
+// The letters are the cost; the Coin is a toll. Every letter struck is a door
+// shut for the rest of the run, and strike the whole alphabet and every word is
+// spiked, so the seat prices itself: how far to take him is how much of the
+// alphabet you can live without. One Coin a letter, flat, keeps the button from
+// being pressed absent-mindedly and asks nothing more.
+//
+// For the record, what a perfect solver says the letters cost: on plain
+// ten-tile racks against the whole dictionary, the best word avoiding one
+// banned initial is worth 97–100% of the best word overall (S costs most, X and
+// Y nothing). At +0.1 a letter, every press still pays it until about sixteen
+// letters (×2.7 on the card, ×2.1 in effect), then turns. A player is not a
+// solver and has to THINK of the word that starts elsewhere, so the stopping
+// point at the table will come sooner; if it doesn't, `step` is the knob.
 export const RUBRICATOR = {
   base:  1.2,    // ×Mult with his first letter struck
-  step:  0.15,   // ×Mult added by every letter struck after the first
-  price: 2,      // Coins to strike the second letter; +1 for each after
+  step:  0.1,    // ×Mult added by every letter struck after the first
+  price: 1,      // Coins per letter struck, every time
 };
-// What he pays with `n` letters struck, and what the next letter costs.
-export const rubricatorMult  = n => Math.round((RUBRICATOR.base + RUBRICATOR.step * Math.max(0, n - 1)) * 100) / 100;
-export const rubricatorPrice = n => RUBRICATOR.price + Math.max(0, n - 1);
+// What he pays with `n` letters struck.
+export const rubricatorMult = n => Math.round((RUBRICATOR.base + RUBRICATOR.step * Math.max(0, n - 1)) * 100) / 100;
 // The Gambler's coin, tossed once per word, not per keystroke: scoring runs on
 // every letter laid to drive the live preview, so a roll inside the score effect
 // would flicker and then disagree with what printed (rollGamble in state.js).
@@ -1728,7 +1730,7 @@ export const KNOBS = {
   PURVEYOR_PAINT:     PURVEYOR.paint,
   PURVEYOR_PROPOSALS: PURVEYOR.proposals,
   STOKER_BASE, STOKER_STEP, RAGMAN_COINS, RAGMAN_ODDS, DEVIL_STEP,
-  RUBRICATOR_BASE: RUBRICATOR.base, RUBRICATOR_STEP: RUBRICATOR.step, SPIKE_MULT,
+  RUBRICATOR_BASE: RUBRICATOR.base,
   NUDIST_TRIM_CHANCE, NUDIST_PAINT_CHANCE, DIPPER_PAINT_CHANCE, REVENANT_ODDS,
   MAGPIE_WEIGHT, MAKO_WEIGHT, TWINS_POINTS,
   PRINCE_STEP:   PRINCE.step,

@@ -589,39 +589,38 @@ readout. Nothing writes to `data` during scoring, either — every roll in the l
 above is thrown in an `onPrinted` or at a page turn, never in the live preview,
 which is what makes counting from inside `luckyRoll` safe.
 
-### The Rubricator — a ×Mult you pay to narrow
+### The Rubricator — a ×Mult you pay for in letters
 
 The rubricator was the hand that went through a finished manuscript painting
 the initials red. **The Rubricator** (crimson, uncommon, 5 Coins) reads one
 thing about a word, its first letter, and arrives with one letter he refuses,
 rolled at the Market so the calling card names it. Every other word gets
-**×1.2** at his seat; a word beginning with a struck letter is **spiked** there
+**×1.2** at his seat; a word starting with a struck letter is **spiked** there
 instead, at the editors' own ×0.2 (`SPIKE_MULT`). Both answers are taken at his
 seat, so seat order cuts both ways: sat in front, his ×1.2 multiplies only the
 tiles, and so does his spike.
 
-Tap his card to **upgrade**: another random letter is struck and his ×Mult
-rises by 0.15. The letters never come back. A blind sort in the word means he
-never reads the initial, as it means for every editor — the metal's tooltip
-says its word can't be spiked, and he keeps that promise rather than breaking
-it.
+Tap his card to **upgrade**: a Coin, and another random letter is struck, and
+his ×Mult rises by 0.1. The letters never come back. The Coin is a toll, flat
+on purpose; the real price is the alphabet. Strike all twenty-six and every word
+is spiked, so the seat prices itself, and how far to take him is how much of
+the alphabet you can live without. Which letter each Coin costs you is the
+gamble: an X is nothing, an S is felt every page.
 
-The upgrade costs Coins — 2 for the second letter, a Coin more for each after —
-because the letters alone are nearly free. Measured on plain ten-tile racks
-against the whole dictionary, the best word that avoids one banned initial is
-worth 97–100% of the best word overall: S costs most (about 2½%), X and Y
-nothing. A rack almost never depends on its initial; banning one sends you to
-the next-best word, which is nearly as good. A free upgrade therefore paid on
-every press until about fifteen letters (×3.3 on the card, ×2.6 in effect), and
-the button was a reflex rather than a question. Priced, the first step (+12%,
-for 2 Coins) is a postnom's bargain and the fifth buys a third as much per
-Coin, which is where the decision lives. Against only the 8,000 commonest words,
-a fairer stand-in for what a person reaches for, the picture is the same.
+A blind sort in the word means he never reads the initial, as it means for every
+editor. The metal's tooltip says its word can't be spiked, and he keeps that
+promise rather than breaking it.
 
-A player is not a solver, and the friction of remembering "not S, not C, not B"
-is real in a way the measurement does not see — which is the case for keeping
-the letters at all. If they turn out to bite harder at the table than on paper,
-`RUBRICATOR.price` is the knob to lower.
+What a solver says the letters cost, for whoever tunes him next: on plain
+ten-tile racks against the whole dictionary, the best word avoiding one banned
+initial is worth 97–100% of the best word overall (S costs most, about 2½%; X
+and Y nothing), because a rack almost always holds another word nearly as good
+that starts elsewhere. At +0.1 a letter every press still pays a solver until
+about sixteen letters (×2.7 on the card, ×2.1 in effect). A player has to
+*think of* the word that starts elsewhere, which a solver never does, so the
+turn at the table should come well before that, the way the Obscurantist's bar
+is set by playing rather than simulating. If players run him to sixteen,
+`RUBRICATOR.step` is the knob.
 
 ### The Expectant Parents' child
 
@@ -1428,7 +1427,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Colophon roster, offer count, repeat cap, skip grant | `js/constants.js` → `UPGRADE_OFFERS`, `MAX_UPGRADE_REPEATS`, `SKIP_COIN_GRANT`; definitions in `js/upgrades.js` |
 | Everything the Generic can roll — triggers, weights, effects, epithets, faces, price | `js/patron-generic.js`, the whole file. `GENERIC_TRIGGERS_A/B` carry the weights, `GENERIC_EFFECTS` the `cost` each must be paired against |
 | The Lye Boy's ramp — what a scrubbed coat is worth, and where it should slow | `js/constants.js` → `LYE_BOY_BANDS` (one band today; add a row to slow it, and `lyeBoySteps()` rewrites the card with it) |
-| The Rubricator — his ×Mult, what each letter adds, and what the next one costs | `js/constants.js` → `RUBRICATOR` (`base`, `step`, `price`; the climb is `rubricatorPrice`). The spike is the editors' own `SPIKE_MULT`, so retuning theirs retunes his. The Coins are the real cost, not the letters — the measurement is in the comment beside the knobs |
+| The Rubricator — his ×Mult, what each letter adds, and the toll | `js/constants.js` → `RUBRICATOR` (`base`, `step`, `price`, a flat Coin a letter). The spike is the editors' own `SPIKE_MULT`, so retuning theirs retunes his. The solver's figures for what the letters cost are in the comment beside the knobs |
 | The Quoin's lock | `js/constants.js` → `QUOIN_MULT`. Set against the colour engine: ×3 makes stacking a colour pull level with spreading it |
 | The Goldsmith's purse — the Points, the odds and the prize | `js/constants.js` → `GOLDSMITH_POINTS`, `GOLDSMITH_ODDS` (rolled **per amber tile**, so the seat scales with commitment), `GOLDSMITH_PURSE`. The run-level arithmetic is in the comment beside them; if a run stops caring about Coins by chapter seven, the odds are the knob, not the purse |
 | The Serpent — what an S is worth, and how often he swallows the last one | `js/constants.js` → `SERPENT_POINTS` (paid on every S in the word, written onto the tile so a nick reads it and his own ×2 doubles it), `SERPENT_EAT_ODDS`. The ×2 is paid either way, so this is the whole of the bet; the card quotes it through the `SERPENT_EAT_CHANCE` knob and can never drift from it |

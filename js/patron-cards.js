@@ -244,11 +244,11 @@ export const PATRON_CARDS = {
     // The rubricator was the hand that went through a finished manuscript
     // painting the initials red — crimson's trade, at the one place in a word
     // he ever looks. This card is the fallback for a seat that arrived with no
-    // letter rolled; every seat that has one says it (instDesc in patrons.js).
-    // The upgrade's price is on the button, live, so the card leaves it out.
+    // letter rolled; every seat that has one names them (instDesc in
+    // patrons.js). What an upgrade does and costs is on the button itself, so
+    // the card only says that there is one.
     name: 'The Rubricator', emoji: '🅰️', rarity: 'uncommon', cost: 5, guild: 'crimson',
-    desc: '×{RUBRICATOR_BASE} Mult, but words beginning with one random letter are spiked to ×{SPIKE_MULT} instead. '
-        + 'Can be upgraded: each upgrade strikes another random letter and raises the ×Mult by {RUBRICATOR_STEP}.',
+    desc: '×{RUBRICATOR_BASE} Mult, but words starting with one random letter are spiked. Can be upgraded.',
   },
   lyeboy: {
     name: 'The Lye Boy', emoji: '🧼', rarity: 'uncommon', cost: 6, guild: 'crimson',
