@@ -182,9 +182,9 @@ button.mode-item:hover, button.mode-item:focus-visible { background: rgba(217, 1
 
 /* ─── The seats ────────────────────────────────────────────────────────────── */
 /* Who sits today (renderSeats in main.js). A card per patron, gold-edged when
-   it is the one seated and lit while the word in hand is one it rules on; the
-   editor's card carries the day's rule on its face and goes red when the word
-   in hand would be spiked. */
+   it is the one seated and lit while the word in hand is one it rules on. The
+   editor's card (below) carries the day's rule on its face and runs hot when
+   the word in hand would be spiked. */
 .seats { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
 .seats[hidden] { display: none; }
 .seat {
@@ -218,6 +218,45 @@ button.mode-item:hover, button.mode-item:focus-visible { background: rgba(217, 1
 .seat:disabled { cursor: default; opacity: 0.35; }
 .seat--firing { animation: seatFire calc(0.62s / var(--aspd)) ease; }
 @keyframes seatFire { 40% { transform: scale(1.06); box-shadow: 0 0 0 2px #ffe6a6, 0 0 26px rgba(255, 220, 140, 0.8); } }
+
+/* The editor is no patron. Patrons are brass on wood; the editor's card is the
+   Campaign bench's editor slab (css/bench.css, .boss-bar): a block of black
+   ink with a red edge, lit from within, its name in red and its rule in Fell.
+   Spiking, the edge and the glow go hot. */
+.seat--desk {
+  border: 1px solid rgba(178, 58, 30, 0.75);
+  border-left: 5px solid var(--red);
+  border-radius: 2px;
+  padding: 8px 14px 8px 12px;
+  color: #e6d6b8;
+  background:
+    radial-gradient(120% 140% at 0% 50%, rgba(178, 58, 30, 0.28), transparent 55%),
+    radial-gradient(60% 100% at 100% 100%, rgba(120, 20, 10, 0.35), transparent 60%),
+    linear-gradient(170deg, #241012 0%, #150809 55%, #0c0405 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.7),
+    inset 0 0 28px rgba(0, 0, 0, 0.6),
+    0 1px 0 rgba(255, 120, 90, 0.12),
+    0 12px 24px -10px rgba(0, 0, 0, 0.9);
+}
+.seat--desk .seat-emoji {
+  font-size: 24px;
+  filter: grayscale(0.35) contrast(1.15) drop-shadow(0 0 8px rgba(178, 58, 30, 0.7)) drop-shadow(0 3px 3px rgba(0, 0, 0, 0.8));
+}
+.seat--desk .seat-name { font-size: 17px; letter-spacing: 0.12em; color: #ff7a5c; text-shadow: 0 0 10px rgba(178, 58, 30, 0.6), 0 1px 0 #000; }
+.seat--desk .seat-rule { font-family: var(--fell); font-weight: 400; font-size: 16px; color: #e6d6b8; text-shadow: 0 1px 0 rgba(0, 0, 0, 0.8); }
+.seat--desk.seat--spiked {
+  border-color: #e0553a;
+  border-left-color: #e0553a;
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.7),
+    inset 0 0 28px rgba(178, 58, 30, 0.45),
+    0 0 22px rgba(178, 58, 30, 0.4),
+    0 12px 24px -10px rgba(0, 0, 0, 0.9);
+}
+.seat--desk.seat--spiked .seat-rule { color: #ffb4a6; }
+.seat--desk.seat--firing { animation-name: deskFire; }
+@keyframes deskFire { 40% { transform: scale(1.03); box-shadow: 0 0 0 2px #e0553a, 0 0 26px rgba(224, 85, 58, 0.7); } }
 .seat-pair {
   margin: 0;
   font-family: var(--fell);

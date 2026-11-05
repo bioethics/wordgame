@@ -1793,10 +1793,10 @@ challenge (`WEEK` in `daily/deal.js`; № 1 is a Thursday):
 
 | Day | Case |
 | --- | --- |
-| Sunday | **A choice of two patrons**, from the rich tier. Tap a card to seat it (and read it); the readout re-prices the word under whoever is seated. |
+| Sunday | **A choice of two patrons**, from the rich tier. Tap a card to seat it (and read it); the readout re-prices the word under whoever is seated. In the results, a word either patron would pay the same carries both their emoji. |
 | Monday, Wednesday | Plain. |
 | Tuesday | **The day's patron**, seated for everyone. |
-| Thursday | **An editor at the desk.** The card carries the day's rule on its face; a word that breaks it is spiked — scored at ×0.2, exactly as at a Deadline, never refused. |
+| Thursday | **An editor at the desk.** The card carries the day's rule on its face; a word that breaks it is spiked — scored at ×0.2, exactly as at a Deadline, never refused. The card is not a patron's: it is the bench's editor slab (black ink, a red edge, the name in red), and it runs hot while the word in hand would be spiked. |
 | Friday | **A choice of two patrons**, from the plain tier. |
 | Saturday | **Two words** from a case of twenty, each five letters or more, their scores added. |
 

@@ -1399,19 +1399,24 @@ function miniPair(a, b) {
 // word neither patron pays for is filed under the first seat only because a
 // tie has to go somewhere; marked, it read as the first patron paying for it
 // (SUBSEQUENT wore the Poppet's bear on № 4, at 1,728 under both seats).
+// On a choice day a word either patron would pay the same carries both, in the
+// order they sit: the setting is as good under one as the other.
 const patronMark = (tiles, seat = 0) => {
   const day = S.deal.day;
   const choice = day.kind === 'choice';
   const p = choice ? day.choices[seat] : day.kind === 'patron' ? day.patron : null;
   const T = S.tables[choice ? seat : 0];
   if (!p || !T) return null;
-  const paid = tiles.some(t => t.blank) || byLicence(tiles)
-    || scoreWord(tiles, [], has, T).total !== scoreWord(tiles, [], has, null).total;
+  const plain = scoreWord(tiles, [], has, null).total;
+  const total = scoreWord(tiles, [], has, T).total;
+  const paid = tiles.some(t => t.blank) || byLicence(tiles) || total !== plain;
   if (!paid) return null;
+  const by = !choice ? [p] : day.choices.filter((q, i) => i === seat
+    || (S.tables[i] && scoreWord(tiles, [], has, S.tables[i]).total === total));
   const m = document.createElement('span');
   m.className = 'best-seat';
-  m.textContent = patronEmoji(p.id);
-  m.title = patronName(p.id);
+  m.textContent = by.map(q => patronEmoji(q.id)).join('');
+  m.title = by.map(q => patronName(q.id)).join(' or ');
   return m;
 };
 
