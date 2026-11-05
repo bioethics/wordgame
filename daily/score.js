@@ -83,6 +83,8 @@ export function withTool(tiles, applied) {
       const grow = v === 1 ? 'altBonusPoints' : 'bonusPoints';
       return { ...t, [grow]: (t[grow] ?? 0) + loupeDelta(t, v), louped: v };
     }
+    // A tube paints the whole sort, both faces: paint is the tile's, not a face's.
+    if (applied.kind === 'tube') return { ...t, colour: applied.colour, painted: true };
     return t;
   });
 }
@@ -293,8 +295,9 @@ function core(word, letters, restCurses, T, full) {
 // ligature, or a medieval reading) matches what comes next. Tiles identical in
 // every respect are tried once per step, not once each.
 
+// A tile the day's tube offers is not the same as its twin that it doesn't.
 const sigOf = t => [t.letter, t.letterType, t.altLetter, t.colour, t.trim, t.nick,
-  t.material, t.bonusPoints ?? 0, t.altBonusPoints ?? 0].join('|');
+  t.material, t.bonusPoints ?? 0, t.altBonusPoints ?? 0, t.paintOffer ?? ''].join('|');
 
 // What a face can stand for in a word, in the order the game would try it.
 function readsOf(letter) {
@@ -320,6 +323,8 @@ export function prepareCase(tiles, item = null, tables = []) {
       t, faces, sig: sigOf(t), blank: !!t.blank,
       mark: isMark(t.letter) ? t.letter : null,
       colour: t.colour ?? null, purple: t.trim === 'purple' ? 1 : 0,
+      // The colour the day's tube would paint it, if it is one the tube offers.
+      paint: item === 'tube' && t.paintOffer && !t.colour ? t.paintOffer : null,
       nick: t.nick === 'right' ? 1 : t.nick === 'left' ? -1 : 0,
       cursed: t.material === 'cursed' ? 1 : 0, squib: t.material === 'explosive' ? 1 : 0,
     };
@@ -353,11 +358,13 @@ export function prepareCase(tiles, item = null, tables = []) {
 
 // Score a placement fast. `seq` is [{ p (prepared tile), pts, ... }] in word
 // order; `len` the letters the measure counts. Mirrors scoreWord exactly.
+// `extra` is the tool on one place: { at, delta } a loupe's growth, or
+// { at, colour } a tube's paint.
 function fastTotal(seq, len, cursesLeft, extra = null) {
   const n = seq.length;
   let base = 0;
   const own = new Array(n);
-  for (let i = 0; i < n; i++) { own[i] = seq[i].pts + (extra && extra.at === i ? extra.delta : 0); base += own[i]; }
+  for (let i = 0; i < n; i++) { own[i] = seq[i].pts + (extra && extra.at === i && extra.delta ? extra.delta : 0); base += own[i]; }
   let points = base;
   // Nick readings off prefix sums.
   let left = 0;
@@ -371,7 +378,7 @@ function fastTotal(seq, len, cursesLeft, extra = null) {
   let cr = 0, az = 0, jd = 0, am = 0, pu = 0, cu = 0, sq = 0;
   for (let i = 0; i < n; i++) {
     const p = seq[i].p;
-    const c = p.colour;
+    const c = extra && extra.at === i && extra.colour ? extra.colour : p.colour;
     if (c === 'crimson') cr++; else if (c === 'azure') az++; else if (c === 'jade') jd++; else if (c === 'amber') am++;
     pu += p.purple; cu += p.cursed; sq += p.squib;
   }
@@ -422,15 +429,17 @@ export function bestFor(cs, word, has) {
   const seq = [];
   const tiles = cs.letterTiles;
 
-  const offer = (total, full, ratchet, loupeAt, k) => {
+  // `at` is where a loupe or a tube was used in `full`, or -1.
+  const offer = (total, full, ratchet, at, k) => {
     if (tops && total > tops[k]) tops[k] = total;
     if (!best || total > best.score) {
       best = {
         score: total,
         plan: full.map(s => (s.blankAs ? { id: s.p.t.id, face: 0, letter: s.blankAs } : { id: s.p.t.id, face: s.v })),
         tool: ratchet ? { kind: 'ratchet', id: ratchet.id, face: ratchet.face, offset: ratchet.offset }
-            : loupeAt >= 0 ? { kind: 'loupe', id: full[loupeAt].p.t.id, face: full[loupeAt].v }
-            : null,
+            : at < 0 ? null
+            : cs.item === 'loupe' ? { kind: 'loupe', id: full[at].p.t.id, face: full[at].v }
+            : { kind: 'tube', id: full[at].p.t.id, colour: full[at].p.paint },
       };
       if (nT) best.seat = k;
     }
@@ -451,19 +460,25 @@ export function bestFor(cs, word, has) {
         tile: p.faces[0].tile, loupe: cs.item === 'loupe' ? p.faces[0].loupe : 0 }))) : seq;
       if (!nT) {
         let total = fastTotal(full, word.length, cs.curses);
-        let loupeAt = -1;
+        let at = -1;
         if (cs.item === 'loupe') {
           for (let i = 0; i < full.length; i++) {
             if (!full[i].loupe) continue;
             const t = fastTotal(full, word.length, cs.curses, { at: i, delta: full[i].loupe });
-            if (t > total) { total = t; loupeAt = i; }
+            if (t > total) { total = t; at = i; }
+          }
+        } else if (cs.item === 'tube') {
+          for (let i = 0; i < full.length; i++) {
+            if (!full[i].p.paint) continue;
+            const t = fastTotal(full, word.length, cs.curses, { at: i, colour: full[i].p.paint });
+            if (t > total) { total = t; at = i; }
           }
         }
-        offer(total, full, ratchet, loupeAt, 0);
+        offer(total, full, ratchet, at, 0);
         continue;
       }
       // Seated: every table prices the same placement, through the game's
-      // own passes (core), loupe or none.
+      // own passes (core), with the tool on each place it could go, or none.
       const word0 = full.map(s => s.tile);
       let inWord = 0;
       for (const s of full) inWord += s.p.cursed;
@@ -478,15 +493,22 @@ export function bestFor(cs, word, has) {
           w[i] = { ...t, [field]: (t[field] ?? 0) + full[i].loupe };
           grown.push([i, w]);
         }
+      } else if (cs.item === 'tube') {
+        for (let i = 0; i < full.length; i++) {
+          if (!full[i].p.paint) continue;
+          const w = word0.slice();
+          w[i] = { ...word0[i], colour: full[i].p.paint };
+          grown.push([i, w]);
+        }
       }
       for (let k = 0; k < nT; k++) {
         let total = core(word0, word, rest, tables[k], false);
-        let loupeAt = -1;
+        let at = -1;
         for (const [i, w] of grown) {
           const t = core(w, word, rest, tables[k], false);
-          if (t > total) { total = t; loupeAt = i; }
+          if (t > total) { total = t; at = i; }
         }
-        offer(total, full, ratchet, loupeAt, k);
+        offer(total, full, ratchet, at, k);
       }
     }
   };

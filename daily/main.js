@@ -12,7 +12,7 @@
 // sort makes on its way somewhere are the game's own (js/anim.js), and they
 // follow the game's sound setting.
 
-import { dealChallenge, todaysNumber, traitsOf, EPOCH } from './deal.js';
+import { dealChallenge, todaysNumber, traitsOf, EPOCH, TUBE_OFFER } from './deal.js';
 import {
   scoreWord, judge, withTool, solveCase, rankOf, bracketOf, BRACKETS, activeLetter, faceLetter,
   restingOf, ringStep, shiftable, loupeDelta, settingOf, solveWords, solvePairs, pairBest, RING,
@@ -31,7 +31,7 @@ import {
   sparkleBurst, fmtMult, flourishTime,
 } from '../js/anim.js';
 import {
-  TRAIT_TEXT, TOOL_TEXT, SORT_TEXT, UI, RESULT, PATRON_TEXT, EDITOR_TEXT, SPIKE_TEXT, PAIR_TEXT, fill,
+  TRAIT_TEXT, TOOL_TEXT, SORT_TEXT, UI, RESULT, PATRON_TEXT, EDITOR_TEXT, SPIKE_TEXT, PAIR_TEXT, fill, COUNT_WORDS,
   DAILY_CARDS,
 } from './text.js';
 import { drawField } from './chart.js';
@@ -241,7 +241,8 @@ const facesNow = () => S.tiles.filter(t => t.letterType === 'dual' || t.blank)
 // stamps, css/bench.css), and ink in as the word lights them.
 function tracksOf(tiles) {
   const out = ['length'];
-  for (const c of Object.keys(COLOURS)) if (tiles.some(t => t.colour === c)) out.push(c);
+  // A colour the day's tube holds has its stamp too, before it is poured.
+  for (const c of Object.keys(COLOURS)) if (tiles.some(t => t.colour === c) || S.deal.tube === c) out.push(c);
   if (tiles.some(t => t.trim === 'purple')) out.push('purple');
   if (tiles.some(t => t.material === 'cursed')) out.push('cursed');
   // A seat that rules ×Mult on the word has a stamp of its own; the editor's
@@ -395,6 +396,15 @@ function useToolOn(id) {
   const t = S.tiles.find(x => x.id === id);
   const face = t.activeVariant ?? 0;
   if (t.blank || t.ephemeral) { refuse(id); return; }
+  // The tube paints one of the tiles it offers, and only those.
+  if (S.deal.tool === 'tube') {
+    if (!t.paintOffer || t.colour) { refuse(id); return; }
+    S.applied = { kind: 'tube', id, colour: S.deal.tube };
+    S.armed = false;
+    sfx.select();
+    render();
+    return;
+  }
   if (S.deal.tool === 'loupe') {
     if (!loupeDelta(t, face)) { refuse(id); return; }
     S.applied = { kind: 'loupe', id, face };
@@ -756,6 +766,7 @@ function tileLines(t) {
   if (t.nick) out.push({ head: NICKS[t.nick].label, body: NICKS[t.nick].desc });
   if (t.ratcheted != null && t.ratcheted === t.activeVariant) out.push({ head: fill(SORT_TEXT.ratcheted, t.ratchetFrom) });
   if (t.louped != null && t.louped === t.activeVariant) out.push({ head: SORT_TEXT.louped });
+  if (t.painted) out.push({ head: SORT_TEXT.painted });
   return out;
 }
 
@@ -848,12 +859,17 @@ function renderHeader() {
 }
 
 // The day's label: the case's most salient trait, and on a tap all of them.
+// A tube's trait names its paint; a two-word day's, its minimum.
+const traitArgs = k => (k === 'tube'
+  ? [COLOURS[S.deal.tube].label, COLOURS[S.deal.tube].label.toLowerCase()]
+  : [S.deal.day.min ?? '']);
+const traitName = k => fill(TRAIT_TEXT[k].name, ...traitArgs(k));
 const traitLines = () => S.traits.map(k => ({
-  head: TRAIT_TEXT[k].name, body: fill(TRAIT_TEXT[k].desc, S.deal.day.min ?? ''),
+  head: traitName(k), body: fill(TRAIT_TEXT[k].desc, ...traitArgs(k)),
 }));
 function renderAlmanac() {
   const el = $('almanac');
-  el.textContent = TRAIT_TEXT[S.traits[0]].name;
+  el.textContent = traitName(S.traits[0]);
   el.title = traitLines().map(l => `${l.head}: ${l.body}`).join('\n');
 }
 
@@ -947,7 +963,26 @@ function renderCase(fresh) {
 }
 
 const toolFits = t => !t.blank && !t.ephemeral
-  && (S.deal.tool === 'loupe' ? loupeDelta(t, t.activeVariant) > 0 : shiftable(t, t.activeVariant));
+  && (S.deal.tool === 'tube' ? !!t.paintOffer && !t.colour
+    : S.deal.tool === 'loupe' ? loupeDelta(t, t.activeVariant) > 0 : shiftable(t, t.activeVariant));
+
+// The day's tool in words, and its glyph: a tube is drawn in its own paint.
+const toolWords = (kind = S.deal.tool, colour = S.deal.tube) => {
+  const tt = TOOL_TEXT[kind];
+  const label = colour ? COLOURS[colour].label : '';
+  return {
+    name: fill(tt.name, label),
+    desc: fill(tt.desc, kind === 'loupe' ? LOUPE_CAP : label, label.toLowerCase(), COUNT_WORDS[TUBE_OFFER] ?? TUBE_OFFER),
+  };
+};
+function toolGlyph(kind, colour) {
+  const g = document.createElement('span');
+  if (kind === 'tube') {
+    g.className = 'tool-tube';
+    g.style.setProperty('--paint', COLOURS[colour].glyph);
+  } else g.textContent = TOOL_TEXT[kind].glyph;
+  return g;
+}
 
 // The armed tool's ring is drawn by what holds a target, never by the target
 // itself: its socket in the case, a halo wrapped round it in the stick. A
@@ -1192,9 +1227,9 @@ function renderBench() {
   const btn = $('toolBtn');
   btn.hidden = !tool;
   if (tool) {
-    const tt = TOOL_TEXT[tool];
-    btn.textContent = tt.glyph;
-    btn.title = `${tt.name}: ${fill(tt.desc, LOUPE_CAP)}`;
+    const tt = toolWords();
+    btn.replaceChildren(toolGlyph(tool, S.deal.tube));
+    btn.title = `${tt.name}: ${tt.desc}`;
     btn.setAttribute('aria-label', tt.name);
     btn.classList.toggle('tool--armed', S.armed);
     btn.classList.toggle('tool--used', !!S.applied);
@@ -1323,7 +1358,7 @@ function renderResult() {
   share.textContent = RESULT.share;
   share.addEventListener('click', async () => {
     const lines = [
-      fill(RESULT.shareHead, S.n, TRAIT_TEXT[S.traits[0]].name),
+      fill(RESULT.shareHead, S.n, traitName(S.traits[0])),
       `${label} — ${fmtN(r.score)}`,
       `${r.rank === 1 ? RESULT.best : gradeLabel(r)} (${fill(pairs ? RESULT.placePairs : RESULT.place, fmtN(r.rank), fmtN(r.size))})`,
       // Inside a frame the page's own address is not one anybody could open.
@@ -1372,8 +1407,8 @@ function bestRow({ key, place, name, score, yours, stone, open, fillSet }) {
 const toolMark = tool => {
   const note = document.createElement('span');
   note.className = 'best-tool';
-  note.textContent = TOOL_TEXT[tool.kind].glyph;
-  note.title = TOOL_TEXT[tool.kind].name;
+  note.appendChild(toolGlyph(tool.kind, tool.colour));
+  note.title = toolWords(tool.kind, tool.colour).name;
   return note;
 };
 
@@ -1711,8 +1746,8 @@ function wireReading(el, lines) {
 function wire() {
   wireHands();
   wireReading($('toolBtn'), () => {
-    const tt = TOOL_TEXT[S.deal.tool];
-    return [{ head: tt.name, body: fill(tt.desc, LOUPE_CAP) }];
+    const tt = toolWords();
+    return [{ head: tt.name, body: tt.desc }];
   });
   // The almanac's day has nothing to do but be read, so a tap reads it.
   $('almanac').addEventListener('click', e => {

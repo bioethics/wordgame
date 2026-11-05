@@ -19,6 +19,7 @@ export const TRAIT_TEXT = {
   fat:      { name: 'Fat Matter',           desc: 'Most of the case is dressed.' },
   ratchet:  { name: 'The Ratchet',          desc: 'A ratchet on the bench.' },
   loupe:    { name: 'The Loupe',            desc: 'A loupe on the bench.' },
+  tube:     { name: 'A Tube of {0}',        desc: 'A tube of {1} paint on the bench.' },   // {0} Crimson, {1} crimson
   oldstock: { name: 'Old Stock',            desc: 'A medieval sort in the case.' },
   tied:     { name: 'Tied Letters',         desc: 'Ligatures in the case.' },
   wetink:   { name: 'Wet Ink',              desc: 'More paint than usual.' },
@@ -41,7 +42,13 @@ export const TOOL_TEXT = {
     name: 'Loupe', glyph: '🔍',
     desc: 'Double a tile’s value (max {0}). Tap again to undo.',
   },
+  // No glyph: the bench draws the tube itself, in its paint.
+  tube: {
+    name: 'Tube of {0}',               // {0} Crimson
+    desc: 'Paint one of {2} offered tiles {1}. Tap again to undo.',   // {1} crimson, {2} three
+  },
 };
+export const COUNT_WORDS = ['none', 'one', 'two', 'three', 'four', 'five'];
 
 // ─── The sorts, held ──────────────────────────────────────────────────────────
 export const SORT_TEXT = {
@@ -51,6 +58,7 @@ export const SORT_TEXT = {
   cursed: { head: 'Hellbox iron', body: '×{0} Mult. A word set without it loses {1} Points.' },
   ratcheted: 'Stepped from {0}',
   louped: 'Doubled by the loupe',
+  painted: 'Painted from the tube',
 };
 
 // ─── The table ────────────────────────────────────────────────────────────────

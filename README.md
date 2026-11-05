@@ -1638,14 +1638,25 @@ share line carries the label.
 
 About a third of cases (`LUCK.tool`) put one tool on the bench, on the days
 without a choice of patrons (a choice day, Friday or Sunday, has its decision
-already, and a two-word day has no tool either) — the
+already, and a two-word day has no tool either): the
 **Ratchet** (the wrench: step one letter to its neighbour in the alphabet,
-either way, A round to Z) or the **Loupe** (double one tile's value, to 30).
-Those two are the sundries that pose a *decision* inside a single word. The
+either way, A round to Z) half the time, and otherwise, a tenth each, the
+**Loupe** (double one tile's value, to 30) or a **tube** of crimson, azure,
+jade or amber paint. A tube offers three unpainted tiles (`TUBE_OFFER`; the
+game's offers two) and paints the one you pick. The offer is dealt with the
+case, so every reader is offered the same three, of different letters where
+the case allows, and the decision is where the colour goes: on a word that
+already holds that paint it lifts the chip a step (×2 to ×3), on one that
+doesn't it starts a chip (×1 to ×2), and only a word that uses an offered
+tile can have it at all. (Until 5 November there were only the ratchet and
+the loupe, 55 to 45.)
+
+Those are the sundries that pose a *decision* inside a single word. The
 others do not: the tongs would be a flat +8 on every word, the ink wash free
-paint, the laurel and the potion need patrons, and the bodkin reaches into a
-bag this mode doesn't have. Until you print, tapping the tool again takes it
-back, so it is something to think with rather than something to spend.
+paint on everything, the laurel and the potion need patrons, and the bodkin
+reaches into a bag this mode doesn't have. Until you print, tapping the tool
+again takes it back, so it is something to think with rather than something
+to spend.
 
 The ranking takes the tool into account, which is what makes it fair. The
 field is every word the case could set *with the tool used as well as it can
