@@ -2553,7 +2553,8 @@ const PATRON_BEHAVIOURS = [
     // less a name for being a word. Two files, read as one through isName:
     // wordlists/names.txt, rebuilt from the birth charts with
     // tools/build-names-list.mjs, and wordlists/names-borrowed.txt, the gods,
-    // places and stars children are named after, written by hand.
+    // saints, places, stars and characters in books children are named after,
+    // written by hand.
     id: 'expectants',
     when: 'score',
     effect({ word, addPoints }) {

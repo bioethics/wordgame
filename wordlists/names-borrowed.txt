@@ -1,5 +1,5 @@
-# Borrowed names — the gods, heroes, places and stars that parents name
-# children after. The Expectant Parents vouch these beside wordlists/names.txt
+# Borrowed names — the gods, saints, places, stars and characters in books
+# that parents name children after. The Expectant Parents vouch these beside wordlists/names.txt
 # and pay for them the same way; the two are one register to the player.
 #
 # Kept apart from names.txt for two reasons. That file is GENERATED from the US
@@ -11,13 +11,22 @@
 # Names here are left out of this file when the charts already hold them (PARIS,
 # ATHENA, SYDNEY, FREYA are in names.txt), so the two never disagree about a
 # word. The rule for what belongs: a country, a region, a city a reader would
-# know, a god or a figure of myth, a body in the sky. Struck on purpose, because
-# the everyday word swamps the name and would turn the +15 on for ordinary
-# play: TYRE, CANTON, OPS, BALDER (more bald; BALDR and BALDUR stay), ARCTIC,
-# and MALE, the Maldives' capital. Kept although they are also words, because
-# the name is the first reading or the set is a promise (every one-word
-# country counts): OXFORD, MERCURY, MARS, MEDUSA, TURKEY, CHILE, GUINEA,
-# PANAMA, COLOGNE.
+# know, a god or a figure of myth, a saint, a character in a book a reader
+# would know, a body in the sky. A saint or a character goes in by the name
+# they are known by, surname or not: AQUINAS, BECKET, HOLMES, KARENINA.
+#
+# Struck on purpose, because the everyday word swamps the name and would turn
+# the +15 on for ordinary play: TYRE, CANTON, OPS, BALDER (more bald; BALDR
+# and BALDUR stay), ARCTIC, MALE (the Maldives' capital), MORE and FISHER (the
+# two English martyrs), HERO (Much Ado's), and BOO and ROO, which are three
+# easy letters each. FANNY, because in British and Australian English the
+# everyday word is rude. Left out altogether: SHYLOCK and FAGIN, whose names
+# carry their authors' antisemitism into the language.
+#
+# Kept although they are also words, because the name is the first reading or
+# the set is a promise (every one-word country counts): OXFORD, MERCURY, MARS,
+# MEDUSA, TURKEY, CHILE, GUINEA, PANAMA, COLOGNE, VALENTINE, HAMLET, SCROOGE,
+# SCOUT, PUCK, PIP, POOH.
 # Anything matching a barred word is struck at load, as for every list.
 #
 # Spellable only: A to Z, two to twelve letters, so QUETZALCOATL just fits and
@@ -1150,3 +1159,272 @@ URSA
 VEGA
 VELA
 VIRGO
+
+# ── Saints, by the name the calendar gives them ──
+ADALBERT
+ALBAN
+ALOYSIUS
+AMBROSE
+AMBROSIUS
+ANSELM
+ANSGAR
+AQUINAS
+ATHANASIUS
+BAKHITA
+BARNABAS
+BATHILD
+BECKET
+BEDE
+BIRGITTA
+BONAVENTURE
+BONIFACE
+CAJETAN
+CAMILLUS
+CANUTE
+CASIMIR
+CEDD
+CHRYSOSTOM
+CLOTILDE
+COLMCILLE
+COLUMBANUS
+CONSTANTINE
+CUNIGUNDE
+CUTHBERT
+DUNSTAN
+DYMPHNA
+ELIGIUS
+EPHREM
+ERASMUS
+ETHELDREDA
+EULALIA
+FIACRE
+FRIDESWIDE
+GENNARO
+GLEB
+HEDWIG
+HILDEGARD
+IGNATIUS
+IRENAEUS
+ISIDORE
+ISIDRO
+JANUARIUS
+KATERI
+KENTIGERN
+KILIAN
+LEOCADIA
+LIOBA
+LOYOLA
+LUDMILA
+MACARIUS
+MECHTILD
+MENAS
+METHODIUS
+MUNGO
+NAZARIUS
+NECTARIOS
+NINIAN
+NINO
+ODILE
+OSWALD
+OSWIN
+OTTILIA
+PACHOMIUS
+PANCRAS
+PARASKEVA
+PELAGIA
+PERPETUA
+PETROC
+PIO
+PIRAN
+POLYCARP
+RADEGUND
+REMIGIUS
+ROCH
+ROSALIA
+SAVA
+SCHOLASTICA
+SERAPHIM
+SERGIUS
+SIGFRID
+SPYRIDON
+STANISLAUS
+SWITHIN
+THECLA
+VALENTINE
+VITUS
+WALBURGA
+WENCESLAS
+WILFRID
+WILLIBRORD
+ZITA
+
+# ── Characters in books — Shakespeare ──
+BANQUO
+BASSANIO
+BENEDICK
+BENVOLIO
+BRUTUS
+CALIBAN
+CASSIO
+CLAUDIO
+CLAUDIUS
+CLEOPATRA
+CORIOLANUS
+CRESSIDA
+DESDEMONA
+FALSTAFF
+FESTE
+FLORIZEL
+GONERIL
+HAMLET
+HERMIA
+HORATIO
+IAGO
+LAERTES
+LEAR
+LYSANDER
+MACBETH
+MACDUFF
+MALVOLIO
+MERCUTIO
+ORSINO
+OTHELLO
+PERDITA
+PERICLES
+POLONIUS
+PROSPERO
+PUCK
+ROSALINE
+TIMON
+TROILUS
+TYBALT
+YORICK
+
+# ── Characters in books — Arthur, Dante, Cervantes, the old books ──
+ALADDIN
+BEDIVERE
+BEOWULF
+CANDIDE
+CRUSOE
+DULCINEA
+FAUST
+GALAHAD
+GAWAIN
+GRENDEL
+GUINEVERE
+GULLIVER
+ISOLDE
+KRIEMHILD
+LANCELOT
+MEPHISTO
+MORDRED
+MORGANA
+NIMUE
+PARSIFAL
+PERCIVAL
+QUIXOTE
+ROCINANTE
+SANCHO
+SCHEHERAZADE
+SINBAD
+VIVIANE
+WERTHER
+WIGLAF
+
+# ── Characters in books — English and American novels ──
+AHAB
+ARAGORN
+ASLAN
+BAGHEERA
+BALOO
+BATHSHEBA
+BILBO
+BINGLEY
+BOROMIR
+COPPERFIELD
+DORRIT
+DRACULA
+EARNSHAW
+EEYORE
+ELROND
+EOWYN
+EYRE
+FARAMIR
+FRANKENSTEIN
+FRODO
+GALADRIEL
+GANDALF
+GATSBY
+GIMLI
+GOLLUM
+HARETON
+HARKER
+HAVISHAM
+HEATHCLIFF
+HEEP
+HOLMES
+HUCK
+HUCKLEBERRY
+HYDE
+JARNDYCE
+JEKYLL
+KANGA
+KNIGHTLEY
+LEGOLAS
+LINTON
+MAGWITCH
+MARILLA
+MARMEE
+MICAWBER
+MORIARTY
+MOWGLI
+NICKLEBY
+PADDINGTON
+PEVENSIE
+PICKWICK
+PIP
+PIPPI
+POOH
+QUEEQUEG
+ROCHESTER
+SAMWISE
+SAURON
+SCOUT
+SCROOGE
+SEPTIMUS
+SHANDY
+SMIKE
+STARBUCK
+TIGGER
+TILNEY
+TINKERBELL
+TRISTRAM
+WATSON
+WENTWORTH
+WICKHAM
+WILLOUGHBY
+
+# ── Characters in books — French, Russian, German ──
+ALYOSHA
+ARAMIS
+ATHOS
+BOVARY
+CHERUBINO
+COSETTE
+CYRANO
+DMITRI
+EPONINE
+FANTINE
+FIGARO
+JAVERT
+KARENINA
+LENSKY
+LEVIN
+MARIUS
+OBLOMOV
+ONEGIN
+PORTHOS
+QUASIMODO
+RASKOLNIKOV
+VALJEAN
+VRONSKY

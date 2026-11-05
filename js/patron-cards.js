@@ -470,7 +470,7 @@ export const PATRON_CARDS = {
     // "Places" rather than a list of kinds: the register holds countries,
     // states, cities and the places that were only ever in stories, and a
     // player told "countries and cities" would never try TUSCANY or AVALON.
-    desc: 'Baby names count as words, and so do gods, heroes, places and stars. '
+    desc: 'Baby names count as words, and so do gods, saints, places, stars, and characters from myth and fiction. '
         + '+{EXPECTANTS_BONUS} Points for any of them, and the baby is named after the last one '
         + 'printed — the child then looks for a seat of its own at the Market.',
   },

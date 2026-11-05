@@ -280,7 +280,7 @@ export const PATRONS = {
   // the licence admits beyond the dictionary, for the page to accept and the
   // solver to try; the case's tiles bound the ones that need a V or an O.
   // Two files, one register, as isName in js/themes.js reads them: the birth
-  // charts, and the gods, places and stars written in by hand.
+  // charts, and the gods, saints, places, stars and characters written in by hand.
   expectants: {
     lists: ['names', 'borrowed'],
     spell: (words, has) => [...new Set([...LISTS.names.keys(), ...LISTS.borrowed.keys()])]

@@ -86,7 +86,8 @@ export const inTheme = (key, word) => THEME_SETS[key]?.has(word) ?? false;
 
 // Is `word` a name The Expectant Parents answer to? Two files, one register:
 // names.txt is generated from the birth charts and borrowed is written by hand
-// (the gods, places and stars children are named after), kept apart so a
+// (the gods, saints, places, stars and characters in books children are
+// named after), kept apart so a
 // rebuild of the first never loses the second, and so The Generic, who takes
 // his names from `names` alone, stays called Doreen. Every reader of the
 // register comes through here, so the two can never be asked separately.
