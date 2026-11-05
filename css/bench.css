@@ -1111,6 +1111,10 @@ html[data-look="bench"] .chip--cursed    { --stamp: #6d1a15; background: none; }
 html[data-look="bench"] .chip--explosive { --stamp: #9a4210; background: none; }
 html[data-look="bench"] .chip--bold      { --stamp: var(--bn-ink); background: none; }
 html[data-look="bench"] .chip--primed    { --stamp: #2f6357; background: none; }
+/* A seat's stamp, in the ink the slip is written in; a seat's spike in red. */
+html[data-look="bench"] .chip--seat       { --stamp: var(--bn-ink); background: none; }
+html[data-look="bench"] .chip--seat-spike { --stamp: #b23a2e; background: none; }
+html[data-look="bench"] .chip--seat .chip-face { mix-blend-mode: normal; }
 /* Due: the stamp is set in its colour but not yet struck — the outline is
    there, waiting for the print to reach it. The transition on .chip is what
    inks it, so a counted track fills rather than appears. */

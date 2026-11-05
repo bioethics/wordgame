@@ -512,6 +512,10 @@ export function computeScore(wordTiles) {
   // Both land BEFORE the patrons speak: the patron pass below is sequential, so
   // anything a ×Mult seat should multiply must be on the table first.
 
+  // What the Points stood at before anything at or around the table spoke —
+  // the readout's figure when every seat that speaks is a stamp (below).
+  const seatsFrom = points;
+
   // Points armed against this word before it was set — a tile fed to the tongs,
   // a discard the Winnower approved of. Read here so the preview shows them,
   // cleared when the word commits; this runs on every keystroke. The step is
@@ -649,6 +653,37 @@ export function computeScore(wordTiles) {
   current = null;
   currentUid = null;
 
+  // ── The stamps: ×Mult seats the readout can show as multipliers ────────────
+  // Seat order is arithmetic, so a ×Mult folds into the running Points at its
+  // seat (above) and the readout has always shown it there. But the seats at
+  // the END of the shelf that only multiply — nothing adding Points behind
+  // them — multiply the finished figure, which is exactly what a stamp in the
+  // multiplier row says. So that trailing run comes out of the Points and
+  // stands among the colours, one stamp per seat (its own ×Mult and its
+  // postnom's together), the way the Daily Proof shows its seat; the Points
+  // figure stops where they begin, and Points × stamps still makes the total.
+  // A ×Mult with an adder sat behind it is not a factor of the total and stays
+  // folded in, as before, which is itself the lesson of seat order: the
+  // multipliers you seat last are the ones that multiply everything.
+  // Presentation only: `points` and `total` are untouched.
+  const spoken = patronSteps.filter(s => s.running != null);
+  let from = spoken.length;
+  while (from > 0 && spoken[from - 1].xmult) from--;
+  const stamps = [];
+  for (const s of spoken.slice(from)) {
+    s.stamped = true;
+    const key = String(s.uid ?? s.id);
+    const last = stamps.at(-1);
+    if (last?.key === key) {
+      last.mult = Math.round(last.mult * s.xmult * 1000) / 1000;
+      last.spiked ||= !!s.spiked;
+    } else {
+      stamps.push({ key, id: s.id, uid: s.uid ?? null, mult: s.xmult, spiked: !!s.spiked });
+    }
+  }
+  const stampedPoints = !stamps.length ? null
+                      : from > 0 ? spoken[from - 1].running : seatsFrom;
+
   // ── Pass 4½: the Alderman counts the guilds at his table ───────────────────
   // +ALDERMAN_STEP per guild represented on the shelf, ADDED once each rather
   // than multiplied — four liveries are +2 Mult, not ×5. Whether those patrons
@@ -752,6 +787,7 @@ export function computeScore(wordTiles) {
 
   return {
     word, letters, points, mult, total, coins, refresh, spiked, plainTotal, adjusted, bold,
+    stamps, stampedPoints,
     tileSteps, tilePaintSteps, tilePaint, tileBoostSteps, tileGrowth, nickSteps, nickGains,
     colourSteps, patronSteps, perTile, at: snapOf(state),
     twinSteps: twin.steps, twinCloned: twin.cloned, twinSummons: twin.summons,

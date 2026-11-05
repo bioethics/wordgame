@@ -7,7 +7,7 @@ import {
   effectivePatronSlots, effectiveSundrySlots, effectiveGhostSlots,
   effectiveWordsPerPage, effectiveRackSize, chapterTitle,
   sundrySelected, restingPoints, getActiveGrowth, isWrapped, shiftPreview, isSquib,
-  runDifficulty,
+  runDifficulty, allSeats,
 } from './state.js';
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
@@ -1422,10 +1422,12 @@ export function updateReadoutPreview(script) {
   const ro = $('readout');
   if (!ro) return;
   ro.classList.toggle('readout--idle', !script);
-  setNum($('roPoints'), script ? script.points : 0);
+  // Where the last seats are stamps, the Points figure stops where they begin
+  // (pass 4's stamps, js/scoring.js) — Points × every chip and stamp = total.
+  setNum($('roPoints'), script ? (script.stampedPoints ?? script.points) : 0);
   setNum($('roTotal'), script ? script.total : 0);
   showStruckTotal(script?.adjusted ? script.plainTotal : null);
-  renderChips(script?.colourSteps);
+  renderChips(script?.colourSteps, false, script?.stamps);
 }
 
 // One ×N chip per colour (and purple trim); dim while ×1. `due` marks a chip
@@ -1433,13 +1435,46 @@ export function updateReadoutPreview(script) {
 // applying chip due, so the row the projection showed stays on the slip and
 // each one fills as its turn comes, rather than the lot going out and coming
 // back a chip at a time.
-export function renderChips(colourSteps = null, due = false) {
+export function renderChips(colourSteps = null, due = false, stamps = null) {
   for (const c of CHIP_COLOURS) {
     const el = $(`chip-${c}`);
     if (!el) continue;
     const step = colourSteps?.find(s => s.colour === c);
     setChip(el, step ? step.mult : 1, due);
   }
+  renderSeatStamps(stamps, due);
+}
+
+// ─── The seats' stamps ────────────────────────────────────────────────────────
+// A ×Mult seat at the end of the shelf, standing in the multiplier row after
+// the colours: the patron's face and its figure, inked like the rest and
+// struck red when it is a spike (the Rubricator's). Only ever the trailing run
+// of ×Mult seats — the ones that multiply the whole word — so the row is never
+// asked to say something the arithmetic doesn't (see pass 4 in js/scoring.js).
+// Drawn afresh each time: there are rarely more than two, and which seats
+// stand here changes with the word.
+const seatOfStamp = st =>
+  allSeats().find(p => String(p.uid ?? p.id) === st.key) ?? allSeats().find(p => p.id === st.id);
+
+export const seatStampEl = key =>
+  $('chipSeats')?.querySelector(`[data-seat="${CSS.escape(String(key))}"]`) ?? null;
+
+function renderSeatStamps(stamps, due) {
+  const host = $('chipSeats');
+  if (!host) return;
+  host.replaceChildren(...(stamps ?? []).map(st => {
+    const seat = seatOfStamp(st);
+    const def = patronById(st.id);
+    const el = document.createElement('span');
+    el.className = `chip chip--seat chip--on${st.spiked ? ' chip--seat-spike' : ''}${due ? ' chip--due' : ''}`;
+    el.dataset.seat = st.key;
+    el.title = `${patronName(def, seat?.data)} — ×${fmtMult(st.mult)} Mult${st.spiked ? ', spiked' : ''}`;
+    const face = document.createElement('i');
+    face.className = 'chip-face';
+    face.textContent = patronEmoji(def, seat?.data);
+    el.append(face, `×${fmtMult(st.mult)}`);
+    return el;
+  }));
 }
 
 export function setChip(el, mult, due = false) {

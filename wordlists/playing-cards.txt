@@ -8,6 +8,15 @@
 # the registers are read from. Check it by path:
 #   node tools/theme-list.mjs check wordlists/playing-cards.txt
 #
+# Struck, because they were inflected from the wrong word: the list grew by
+# taking each base's forms, and a base's forms are not all on the table. WINED,
+# WINES and WINING are WINE's, not WIN's; STARING is STARE's, SKATING SKATE's,
+# TENSED TENSE's, CUTEST CUTE's, WARES WARE's, DIED and DYING a death's, not a
+# die's (and some forty like them). RAN, RANG, RUNG and TOLD went for the
+# milder version of the same mistake: RUN, RING and TELL are on the table as
+# nouns (a run of cards, a ringer's ring, a poker tell), and these are only the
+# verbs. PASSED, SUITED and GAFFED stay; they are what they look like.
+#
 # Some entries are not in the dictionary (BEZIQUE, PIQUET, TAROCK and about
 # ninety more). They are harmless: a list entry only counts once the dictionary
 # lets the word through, so they wait here until it does.
@@ -105,9 +114,6 @@ bidden
 bidder
 bidders
 bidding
-bided
-bides
-biding
 bids
 bilk
 bilked
@@ -332,13 +338,10 @@ comps
 con
 concentration
 concentrations
-coned
-cones
 confederate
 confederated
 confederates
 confederating
-coning
 conjure
 conjured
 conjurer
@@ -373,7 +376,6 @@ counters
 counting
 counts
 coup
-coupes
 coups
 court
 courted
@@ -390,7 +392,6 @@ craftiest
 craftiness
 crafty
 crap
-crapes
 crapped
 crapping
 craps
@@ -442,7 +443,6 @@ curses
 cursing
 curst
 cut
-cutest
 cuts
 cutting
 cuttings
@@ -505,8 +505,6 @@ diced
 dices
 dicing
 die
-died
-dies
 discard
 discarded
 discarding
@@ -557,7 +555,6 @@ duplicates
 duplicating
 duplicitous
 duplicity
-dying
 ecarte
 ecartes
 echo
@@ -724,7 +721,6 @@ fulling
 fulls
 gaff
 gaffed
-gaffes
 gaffing
 gaffs
 gambit
@@ -1079,10 +1075,6 @@ muggins
 mulligan
 mulligans
 mus
-mused
-muses
-musing
-musings
 muss
 mussed
 mussing
@@ -1094,7 +1086,6 @@ mystical
 mysticism
 mystics
 nap
-napes
 napoleon
 napoleons
 napped
@@ -1114,7 +1105,6 @@ nimblest
 nine
 nines
 nit
-nites
 nits
 nitty
 nob
@@ -1255,9 +1245,6 @@ pinochle
 pinocle
 pinocles
 pip
-piped
-pipes
-piping
 pipped
 pipping
 pips
@@ -1431,11 +1418,8 @@ raffled
 raffles
 raffling
 rag
-raged
-rages
 ragged
 ragging
-raging
 rags
 rails
 rainbow
@@ -1452,10 +1436,8 @@ rakeoff
 rakeoffs
 rakes
 raking
-ran
 random
 randoms
-rang
 rank
 ranked
 rankest
@@ -1578,7 +1560,6 @@ rummy
 rums
 run
 runes
-rung
 running
 runs
 ruse
@@ -1681,7 +1662,6 @@ shillings
 shills
 shiner
 shiners
-shod
 shoe
 shoed
 shoeing
@@ -1722,10 +1702,6 @@ singletons
 six
 sixes
 skat
-skated
-skates
-skating
-skatings
 skats
 skim
 skimmed
@@ -1796,7 +1772,6 @@ speakeasy
 spectator
 spectators
 spin
-spines
 spinning
 spins
 spiritualist
@@ -1834,9 +1809,6 @@ standing
 standings
 stands
 star
-stared
-stares
-staring
 starred
 starring
 stars
@@ -1884,9 +1856,6 @@ stringed
 stringing
 strings
 strip
-striped
-stripes
-striping
 stripped
 stripper
 strippers
@@ -1908,7 +1877,6 @@ suit
 suited
 suiter
 suiters
-suites
 suiting
 suits
 sun
@@ -1986,9 +1954,6 @@ tenace
 tenaces
 tend
 tens
-tensed
-tenses
-tensing
 thimblerig
 thimblerigged
 thimblerigging
@@ -2012,7 +1977,6 @@ tipster
 tipsters
 token
 tokens
-told
 took
 toss
 tossed
@@ -2133,9 +2097,6 @@ vulnerable
 wad
 wadded
 wadding
-waded
-wades
-wading
 wads
 wager
 wagered
@@ -2147,7 +2108,6 @@ wand
 wands
 war
 ward
-wares
 warred
 warring
 wars
@@ -2187,9 +2147,6 @@ win
 wind
 windfall
 windfalls
-wined
-wines
-wining
 winner
 winners
 winning

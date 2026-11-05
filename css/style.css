@@ -1660,6 +1660,15 @@ button.sundry:hover { transform: translateY(-2px); }
 .chip--on.chip--cursed  { box-shadow: 0 0 12px rgba(201, 60, 45, 0.75); }
 .chip--on.chip--primed  { box-shadow: 0 0 10px rgba(63, 122, 109, 0.7); }
 .chip--on.chip--explosive { box-shadow: 0 0 12px rgba(217, 111, 31, 0.75); }
+/* A seat's stamp: a ×Mult patron at the end of the shelf, wearing its face
+   (renderSeatStamps, js/render.js). Only ever drawn when it applies, so it
+   needs no dim state; the holder lays its stamps into the row like chips. */
+.ro-seats { display: contents; }
+.chip--seat { background: #e9dcbc; color: #2a1d10; white-space: nowrap; }
+.chip--seat .chip-face { font-style: normal; margin-right: 2px; }
+.chip--on.chip--seat { box-shadow: 0 0 10px rgba(233, 220, 188, 0.6); }
+.chip--seat-spike { background: #6d1a15; color: #ffd9cf; }
+.chip--on.chip--seat-spike { box-shadow: 0 0 12px rgba(201, 60, 45, 0.75); }
 .ro-total {
   font-family: var(--serif);
   font-weight: 900;

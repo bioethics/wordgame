@@ -223,6 +223,20 @@ behind. Drag a card along the shelf to reseat it, on the board or on **Your
 table** at the top of the Market. (Additive Mult and ×Mult commute; it is the
 Points that care.)
 
+**The seats that multiply last are stamped.** The readout reads Points × Mult =
+total, and a ×Mult seat folds into the Points at its turn — but the seats at
+the *end* of the shelf that only multiply, with nothing adding Points behind
+them, multiply the finished figure. Those stand in the multiplier row after the
+colours, one stamp each wearing the patron's face (the Rubricator's spike in
+red), the way the Daily Proof shows its seat; the Points figure stops where they
+begin, and they ink in after the colours as the word prints. A ×Mult with an
+adder seated behind it isn't a factor of the total, so it stays folded into the
+Points as before — which is the seat-order rule made visible: the multipliers
+you seat last are the ones that multiply everything. Presentation only (pass 4
+in `js/scoring.js` marks the steps `stamped`; `renderSeatStamps` in
+`js/render.js` draws them). Each seat still rounds as it speaks, so with a
+fractional ×Mult the sheet can sit a point off the total.
+
 The one documented exception is a seat that **cleans up after the table**
 (`speaksLast` on its behaviour — currently only *The Lye Boy*). Its `onPrinted`
 runs after every other seat's, wherever you sit it: it would otherwise be
@@ -633,14 +647,19 @@ word, so it wants to sit in front of the multipliers. The card being named pays
 on its own print, so KING shows +10 from the Joker on KING itself, which is how
 a player learns what the seat does.
 
-Any other word from the card table adds +3 (`JOKER_THEME`): the games, the
+Any other word from the card table adds +1 (`JOKER_THEME`): the games, the
 gambling, the tarot, the fortune-telling and the conjuring, from ANTE and
-BLACKJACK to HIEROPHANT and PRESTIDIGITATION, about 2,100 words in
-`wordlists/playing-cards.txt`. A card name pays its value and not the +3 as
-well, so the court stays at ten. The list is not named `theme-*.txt` because
+BLACKJACK to HIEROPHANT and PRESTIDIGITATION, 2,143 words in
+`wordlists/playing-cards.txt`. A card name pays its value and not the +1 as
+well, so the court stays at ten. It was +3: a table word costs about 20 Points
+the turn you take it (the best one on a rack scores 42% of the best word), and
++3 on every word after paid that back eighteen times over, so every run's first
+pages were SET and RED. The list was also struck of some fifty forms inflected
+from the wrong word (WINED is WINE's, not WIN's; RAN is the verb, and RUN is on
+the table as a noun); its header says which. The list is not named `theme-*.txt` because
 `tools/theme-list.mjs` reads those as the ×3 registers' lists and would strike
 its words from the pool the registers are read from. Tap the seat for what it
-holds ("Holding 10 A K and 4 card-table words: +43 Points on every word").
+holds ("Holding 10 A K and 4 card-table words: +35 Points on every word").
 
 What it costs is words. A card name is rarely a word worth printing for its own
 sake, and racks seldom offer one: of fresh ten-tile racks from the starting bag,
@@ -648,7 +667,7 @@ sake, and racks seldom offer one: of fresh ten-tile racks from the starting bag,
 The mean best card on a rack is worth 3.3, and 1.8 with TEN taken out, so TEN is
 the card that makes the seat go. The table is the other way round: 96% of racks
 can spell some word on it, but it is the best word on only 4% of them and within
-80% of the best on 8%, because what a rack offers is SET, RED or RAN. Either way
+80% of the best on 8%, because what a rack offers is SET, RED or BET. Either way
 the seat grows on words you would not otherwise have printed. The values are `JOKER_CARDS` in
 `js/constants.js`; the card quotes the court and the ace as knobs, since a
 player might count them 11-12-13.

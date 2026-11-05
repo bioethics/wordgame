@@ -1367,9 +1367,13 @@ export const JOKER_CARDS = {
 //
 // Measured the same way as the cards: 96% of racks can spell some word on the
 // table, but it is the best word on only 4% of them and within 80% of the best
-// on 8%. What a rack offers is SET, RED or RAN, so each +3 is usually paid for
-// with a weaker word, as a card name is.
-export const JOKER_THEME = 3;
+// on 8%; where there is one, the best of them scores 42% of the best word (14
+// base Points against 34). So a table word costs about 20 Points that turn and
+// pays this much on every word after it, a hundred-odd words in a run. At 3
+// that was 360 Points for 20, and the seat had one strategy, SET and RED on
+// every early word. At 1 it is still worth taking when it is close to your
+// best word, and a TEN is ten table words rather than three.
+export const JOKER_THEME = 1;
 // The corner of the card, for the hand he shows on tap: K, not KING.
 export const jokerRank = word =>
   ({ JACK: 'J', QUEEN: 'Q', KING: 'K', ACE: 'A' })[word] ?? String(JOKER_CARDS[word] ?? '');

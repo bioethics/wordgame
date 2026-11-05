@@ -42,7 +42,7 @@ import {
 } from './colophon.js';
 import {
   renderAll, renderRack, renderWord, renderCounts, renderButtons, persist,
-  renderDictStatus, readoutEls, renderChips, setChip,
+  renderDictStatus, readoutEls, renderChips, setChip, seatStampEl,
   log, showBanner, hideOverlay,
   showGameOver, showVictory, openInspector, closeInspector, openBagPicker, coinHTML,
   showPatronPopover, hidePopover, showRatchetPopover, updateRatchetPopover,
@@ -1099,7 +1099,7 @@ async function submitWord() {
   // them, due rather than counted, and each fills in as the print reaches it.
   setNum(ro.points, 0); setNum(ro.total, 0);
   showStruckTotal(null);
-  renderChips(script.colourSteps, true);
+  renderChips(script.colourSteps, true, script.stamps);
   ro.root.classList.remove('readout--idle');
   ro.root.classList.add('readout--live');
 
@@ -1222,6 +1222,9 @@ async function submitWord() {
   // print now shows that: the Points column finishes, THEN the multiplier lands
   // on it.
   for (const p of script.patronSteps) {
+    // A seat standing in the multiplier row as a stamp speaks there instead,
+    // after the colours (pass 4, below), so its ×Mult is never seen twice.
+    if (p.stamped) continue;
     const card = patronCard(p);
     if (card) {
       pulse(card, 'patron--firing', 520);
@@ -1278,6 +1281,23 @@ async function submitWord() {
     setChip(ro.chip(step.colour), step.mult);
     pulse(ro.chip(step.colour), 'chip--pop', 420);
     await sleep(ANIM.stepColour);
+  }
+
+  // ── Pass 4½: the seats that stand as stamps ─────────────────────────────────
+  // The ×Mult seats at the end of the shelf, inked after the colours: their
+  // card fires, the figure rises off it, and the stamp in the readout fills.
+  // A spike (the Rubricator's) sounds and floats like the editor's.
+  for (const st of script.stamps ?? []) {
+    const card = patronCard(st);
+    if (card) {
+      pulse(card, 'patron--firing', 520);
+      floatText(card, `×${fmtMult(st.mult)} Mult`, st.spiked ? 'fl-spike' : 'fl-mult', { dy: -44 });
+    }
+    if (st.spiked) sfx.bad(); else sfx.mult();
+    const el = seatStampEl(st.key);
+    el?.classList.remove('chip--due');
+    pulse(el, 'chip--pop', 420);
+    await sleep(ANIM.stepPatron);
   }
 
   // ── Finale: the total lands ────────────────────────────────────────────────
