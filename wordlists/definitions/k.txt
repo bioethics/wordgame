@@ -407,10 +407,10 @@ kitties	KITTY: the combined stakes of the betters
 kitting	KIT: a case for containing a set of articles
 kittiwake	small pearl-grey gull of northern regions; nests on cliffs and has a rudimentary hind toe
 kitty	the combined stakes of the betters
-kiwi	climbing vine native to China; cultivated in New Zealand for its fuzzy edible fruit with green meat
+kiwi	fuzzy brown egg-shaped fruit with slightly tart green flesh
 kiwifruit	a green fruit with brown fuzzy skin
 kiwifruits	KIWIFRUIT: a green fruit with brown fuzzy skin
-kiwis	KIWI: climbing vine native to China; cultivated in New Zealand for its fuzzy edible fruit with green meat
+kiwis	KIWI: fuzzy brown egg-shaped fruit with slightly tart green flesh
 klaxon	a kind of loud horn formerly used on motor vehicles
 klaxons	KLAXON: a kind of loud horn formerly used on motor vehicles
 kleptocracies	KLEPTOCRACY: a government run by thieves
@@ -570,7 +570,7 @@ koalas	KOALA: sluggish tailless Australian arboreal marsupial with grey furry ea
 koan	a paradoxical anecdote or a riddle that has no solution; used in Zen Buddhism to show the inadequacy of logical reasoning
 koans	KOAN: a paradoxical anecdote or a riddle that has no solution; used in Zen Buddhism to show the inadequacy of logical reasoning
 kohl	a cosmetic preparation used by women in Egypt and Arabia to darken the edges of their eyelids
-kohlrabi	plant cultivated for its enlarged fleshy turnip-shaped edible stem
+kohlrabi	fleshy turnip-shaped edible stem of the kohlrabi plant
 kohlrabies	KOHLRABI: a vegetable with a swollen edible stem
 kokanee	a freshwater form of sockeye salmon
 kombi	a Volkswagen van
@@ -615,8 +615,8 @@ kudzu	fast-growing vine from eastern Asia having tuberous starchy roots and hair
 kudzus	KUDZU: fast-growing vine from eastern Asia having tuberous starchy roots and hairy trifoliate leaves and racemes of purple flowers followed by long hairy pods containing many seeds; grown for fodder and forage and root starch; widespread in the southern United States
 kultarr	a small hopping marsupial of the Australian outback
 kultarrs	KULTARR: a small hopping marsupial of the Australian outback
-kumquat	any of several trees or shrubs of the genus Fortunella bearing small orange-colored edible fruits with thick sweet-flavored skin and sour pulp
-kumquats	KUMQUAT: any of several trees or shrubs of the genus Fortunella bearing small orange-colored edible fruits with thick sweet-flavored skin and sour pulp
+kumquat	small oval citrus fruit with thin sweet rind and very acid pulp
+kumquats	KUMQUAT: small oval citrus fruit with thin sweet rind and very acid pulp
 kurta	a loose collarless shirt worn by many people on the Indian subcontinent (usually with a salwar or churidars or pyjama)
 kurtas	KURTA: a loose collarless shirt worn by many people on the Indian subcontinent (usually with a salwar or churidars or pyjama)
 kvetch	a constant complainer

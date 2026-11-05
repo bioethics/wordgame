@@ -237,7 +237,7 @@ absentmindedly	in an absentminded or preoccupied manner
 absentmindedness	preoccupation so great that the ordinary demands on attention are ignored
 absents	ABSENT: go away or leave
 absinth	strong green liqueur flavored with wormwood and anise
-absinthe	aromatic herb of temperate Eurasia and North Africa having a bitter taste used in making the liqueur absinthe
+absinthe	strong green liqueur flavored with wormwood and anise
 absolute	perfect or complete or pure
 absolutely	completely and without qualification; used informally as intensifiers
 absolutes	ABSOLUTE: perfect or complete or pure
@@ -1645,7 +1645,7 @@ alertness	the process of paying close and continuous attention
 alerts	ALERT: warn or arouse to a sense of danger or call to a state of preparedness
 ales	ALE: a general name for beer made with a top fermenting yeast; in some of the United States an ale is (by law) a brew of more than 4% alcohol by volume
 alewife	flesh of shad-like fish abundant along the Atlantic coast or in coastal streams
-alfalfa	important European leguminous forage plant with trifoliate leaves and blue-violet flowers grown widely as a pasture and hay crop
+alfalfa	leguminous plant grown for hay or forage
 alfresco	in the open air
 alga	primitive chlorophyll-containing mainly aquatic eukaryotic organisms lacking true stems and roots and leaves
 algae	primitive chlorophyll-containing mainly aquatic eukaryotic organisms lacking true stems and roots and leaves
@@ -1807,7 +1807,7 @@ alloy	a mixture containing two or more metallic elements or metallic and nonmeta
 alloyed	(used of metals) debased by mixture with an inferior element
 alloying	ALLOY: a mixture containing two or more metallic elements or metallic and nonmetallic elements usually fused together or dissolving into each other when molten
 alloys	ALLOY: a mixture containing two or more metallic elements or metallic and nonmetallic elements usually fused together or dissolving into each other when molten
-allspice	aromatic West Indian tree that produces allspice berries
+allspice	ground dried berrylike fruit of a West Indian allspice tree; suggesting combined flavors of cinnamon and nutmeg and cloves
 allude	make a more or less disguised reference to
 alluded	ALLUDE: make a more or less disguised reference to
 alludes	ALLUDE: make a more or less disguised reference to
@@ -1832,8 +1832,8 @@ almanack	a yearly calendar with astronomical and other information
 almanacks	ALMANACK: a yearly calendar with astronomical and other information
 almanacs	ALMANAC: an annual publication including weather forecasts and other miscellaneous information arranged according to the calendar of a given year
 almighty	terms referring to the Judeo-Christian God
-almond	small bushy deciduous tree native to Asia and North Africa having pretty pink blossoms and highly prized edible nuts enclosed in a hard green hull; cultivated in southern Australia and California
-almonds	ALMOND: small bushy deciduous tree native to Asia and North Africa having pretty pink blossoms and highly prized edible nuts enclosed in a hard green hull; cultivated in southern Australia and California
+almond	oval-shaped edible seed of the almond tree
+almonds	ALMOND: oval-shaped edible seed of the almond tree
 almoner	an official in a British hospital who looks after the social and material needs of the patients
 almost	(of actions or states) slightly short of or not quite accomplished; all but
 alms	money or goods contributed to the poor
@@ -2350,7 +2350,7 @@ angel	spiritual being attendant upon God
 angelfish	a butterfly fish of the genus Pomacanthus
 angelfishes	ANGELFISH: a butterfly fish of the genus Pomacanthus
 angelic	marked by utter benignity; resembling or befitting an angel or saint
-angelica	any of various tall and stout herbs of the genus Angelica having pinnately compound leaves and small white or greenish flowers in compound umbels
+angelica	candied stalks of the angelica plant
 angelically	like an angel
 angelologist	a student of beliefs about angels
 angelologists	ANGELOLOGIST: a student of beliefs about angels
@@ -2442,7 +2442,7 @@ animus	a feeling of ill will arousing active hostility
 anion	a negatively charged ion
 anionic	a class of synthetic detergents in which the molecules do not ionize in aqueous solutions
 anions	ANION: a negatively charged ion
-anise	native to Egypt but cultivated widely for its aromatic seeds and the oil from them used medicinally and as a flavoring in cookery
+anise	liquorice-flavored seeds, used medicinally and in cooking and liquors
 aniseed	liquorice-flavored seeds, used medicinally and in cooking and liquors
 aniseeds	ANISEED: liquorice-flavored seeds, used medicinally and in cooking and liquors
 anisotropic	not invariant with respect to direction
@@ -3106,8 +3106,8 @@ approximations	APPROXIMATION: an approximate calculation of quantity or degree o
 apps	APP: a program for a phone or computer
 appurtenance	equipment consisting of miscellaneous articles needed for a particular operation or sport etc.
 appurtenances	APPURTENANCE: equipment consisting of miscellaneous articles needed for a particular operation or sport etc.
-apricot	Asian tree having clusters of usually white blossoms and edible fruit resembling the peach
-apricots	APRICOT: Asian tree having clusters of usually white blossoms and edible fruit resembling the peach
+apricot	downy yellow to rosy-colored fruit resembling a small peach
+apricots	APRICOT: downy yellow to rosy-colored fruit resembling a small peach
 apron	a garment of cloth or leather or plastic that is tied about the waist and worn to protect your clothing
 aprons	APRON: a garment of cloth or leather or plastic that is tied about the waist and worn to protect your clothing
 apropos	of an appropriate or pertinent nature
@@ -3500,8 +3500,8 @@ arthroscope	a type of endoscope that is inserted into a joint for visual examina
 arthroscopes	ARTHROSCOPE: a type of endoscope that is inserted into a joint for visual examination
 arthroscopic	relating to examining a joint with a small camera
 arthroscopy	a minimally invasive operation to repair a damaged joint; the surgeon examines the joint with an arthroscope while making repairs through a small incision
-artichoke	Mediterranean thistlelike plant widely cultivated for its large edible flower head
-artichokes	ARTICHOKE: Mediterranean thistlelike plant widely cultivated for its large edible flower head
+artichoke	a thistlelike flower head with edible fleshy leaves and heart
+artichokes	ARTICHOKE: a thistlelike flower head with edible fleshy leaves and heart
 article	nonfictional prose forming an independent part of a publication
 articled	ARTICLE: nonfictional prose forming an independent part of a publication
 articles	ARTICLE: nonfictional prose forming an independent part of a publication
@@ -3627,8 +3627,8 @@ asks	ASK: make a request or demand for something to somebody
 aslant	having an oblique or slanted direction
 asleep	in a state of sleep
 asocial	given to avoiding association with others
-asp	of southern Europe; similar to but smaller than the adder
-asparagus	plant whose succulent young shoots are cooked and eaten as a vegetable
+asp	a viper of southern Europe; similar to but smaller than the adder
+asparagus	edible young shoots of the asparagus plant
 aspartame	an artificial sweetener made from aspartic acid; used as a calorie-free sweetener
 aspect	a distinct feature or element in a problem
 aspects	ASPECT: a distinct feature or element in a problem
@@ -3671,7 +3671,7 @@ aspires	ASPIRE: have an ambitious plan or a lofty goal
 aspirin	the acetylated derivative of salicylic acid; used as an analgesic anti-inflammatory drug (trade names Bayer, Empirin, and St. Joseph) usually taken in tablet form; used as an antipyretic; slows clotting of the blood by poisoning platelets
 aspiring	ASPIRE: have an ambitious plan or a lofty goal
 aspirins	ASPIRIN: the acetylated derivative of salicylic acid; used as an analgesic anti-inflammatory drug (trade names Bayer, Empirin, and St. Joseph) usually taken in tablet form; used as an antipyretic; slows clotting of the blood by poisoning platelets
-asps	ASP: of southern Europe; similar to but smaller than the adder
+asps	ASP: a viper of southern Europe; similar to but smaller than the adder
 ass	the fleshy part of the human body that you sit on
 assail	attack someone physically or emotionally
 assailable	not defended or capable of being defended
@@ -4091,8 +4091,8 @@ atypical	not representative of a group, class, or type
 atypically	in a manner that is not typical
 aubade	a morning love song or poem
 aubades	AUBADE: a morning love song or poem
-aubergine	hairy upright herb native to southeastern Asia but widely cultivated for its large glossy edible fruit commonly used as a vegetable
-aubergines	AUBERGINE: hairy upright herb native to southeastern Asia but widely cultivated for its large glossy edible fruit commonly used as a vegetable
+aubergine	egg-shaped vegetable having a shiny skin typically dark purple but occasionally white or yellow
+aubergines	AUBERGINE: egg-shaped vegetable having a shiny skin typically dark purple but occasionally white or yellow
 auburn	(of hair) colored a moderate reddish-brown
 auction	a variety of bridge in which tricks made in excess of the contract are scored toward game; now generally superseded by contract bridge
 auctioned	AUCTION: a variety of bridge in which tricks made in excess of the contract are scored toward game; now generally superseded by contract bridge

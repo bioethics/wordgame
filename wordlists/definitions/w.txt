@@ -369,7 +369,7 @@ warts	WART: any small rounded protuberance (as on certain plants or animals)
 warty	(of skin) covered with warts or projections that resemble warts
 wary	marked by keen caution and watchful prudence
 was	BE: have the quality of being; (copula, used with an adjective or a predicate noun)
-wasabi	a Japanese plant of the family Cruciferae with a thick green root
+wasabi	the thick green root of the wasabi plant that the Japanese use in cooking and that tastes like strong horseradish; in powder or paste form it is often eaten with raw fish
 wash	clean with some chemical process
 washable	capable of being washed without injury
 washables	garments or white goods that can be cleaned by laundering
@@ -473,7 +473,7 @@ watercolours	WATERCOLOUR: water-soluble pigment
 watercourse	natural or artificial channel through which water flows
 watercourses	WATERCOURSE: natural or artificial channel through which water flows
 watercraft	skill in the management of boats
-watercress	any of several water-loving cresses
+watercress	cresses that grow in clear ponds and streams
 watered	WATER: binary compound that occurs at room temperature as a clear colorless odorless tasteless liquid; freezes into ice below 0 degrees centigrade and boils above 100 degrees centigrade; widely used as a solvent
 waterer	someone who waters plants or crops
 waterers	WATERER: someone who waters plants or crops
@@ -503,8 +503,8 @@ watermark	a line marking the level reached by a body of water
 watermarked	WATERMARK: mark with a faint design in paper
 watermarking	WATERMARK: mark with a faint design in paper
 watermarks	WATERMARK: a line marking the level reached by a body of water
-watermelon	an African melon
-watermelons	WATERMELON: an African melon
+watermelon	large oblong or roundish melon with a hard green rind and sweet watery red or occasionally yellowish pulp
+watermelons	WATERMELON: large oblong or roundish melon with a hard green rind and sweet watery red or occasionally yellowish pulp
 watermill	a mill driven by flowing water
 watermills	WATERMILL: a mill driven by flowing water
 waterpark	an amusement park with water rides
@@ -1601,7 +1601,7 @@ winter	the coldest season of the year; in the northern hemisphere it extends fro
 wintered	WINTER: the coldest season of the year; in the northern hemisphere it extends from the winter solstice to the vernal equinox
 winterer	a person who spends the winter somewhere
 winterers	WINTERER: a person who spends the winter somewhere
-wintergreen	any of several evergreen perennials of the genus Pyrola
+wintergreen	spicy red berrylike fruit; source of wintergreen oil
 winterier	WINTERY: characteristic of or occurring in winter
 winteriest	WINTERY: characteristic of or occurring in winter
 wintering	WINTER: the coldest season of the year; in the northern hemisphere it extends from the winter solstice to the vernal equinox

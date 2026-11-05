@@ -27,14 +27,14 @@ yakka	hard work
 yakked	YAK: noisy talk
 yakking	YAK: noisy talk
 yaks	YAK: noisy talk
-yam	edible tuber of any of several yams
+yam	the starchy tuber of a tropical climbing plant, eaten as a vegetable
 yammer	cry loudly, as of animals
 yammered	YAMMER: cry loudly, as of animals
 yammerer	a person who complains loudly
 yammerers	YAMMERER: a person who complains loudly
 yammering	YAMMER: cry loudly, as of animals
 yammers	YAMMER: cry loudly, as of animals
-yams	YAM: edible tuber of any of several yams
+yams	YAM: the starchy tuber of a tropical climbing plant, eaten as a vegetable
 yang	the bright positive masculine principle in Chinese dualistic cosmology
 yank	an American who lives in the North (especially during the American Civil War)
 yanked	YANK: an American who lives in the North (especially during the American Civil War)
@@ -106,7 +106,7 @@ yellow	of the color intermediate between green and orange in the color spectrum;
 yellowed	YELLOW: of the color intermediate between green and orange in the color spectrum; of something resembling the color of an egg yolk
 yellower	YELLOW: of the color intermediate between green and orange in the color spectrum; of something resembling the color of an egg yolk
 yellowest	YELLOW: of the color intermediate between green and orange in the color spectrum; of something resembling the color of an egg yolk
-yellowfin	may reach 400 pounds; worldwide in tropics
+yellowfin	a tuna; may reach 400 pounds; worldwide in tropics
 yellowing	YELLOW: of the color intermediate between green and orange in the color spectrum; of something resembling the color of an egg yolk
 yellowish	of the color intermediate between green and orange in the color spectrum; of something resembling the color of an egg yolk
 yellowjacket	a wasp with yellow and black stripes

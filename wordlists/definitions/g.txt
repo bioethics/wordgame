@@ -265,8 +265,8 @@ garb	clothing of a distinctive style or for a particular occasion
 garbage	food that is discarded (as from a kitchen)
 garbageman	someone employed to collect and dispose of refuse
 garbagemen	GARBAGEMAN: someone employed to collect and dispose of refuse
-garbanzo	the seed of the chickpea plant
-garbanzos	GARBANZO: the seed of the chickpea plant
+garbanzo	large white roundish Asiatic legume; usually dried
+garbanzos	GARBANZO: large white roundish Asiatic legume; usually dried
 garbed	dressed or clothed especially in fine attire; often used in combination
 garbing	GARB: clothing of a distinctive style or for a particular occasion
 garble	make false by mutilation or addition; as of a message or story
@@ -303,7 +303,7 @@ garland	adorn with bands of flowers or leaves
 garlanded	GARLAND: adorn with bands of flowers or leaves
 garlanding	GARLAND: adorn with bands of flowers or leaves
 garlands	GARLAND: adorn with bands of flowers or leaves
-garlic	bulbous herb of southern Europe widely naturalized; bulb breaks up into separate strong-flavored cloves
+garlic	aromatic bulb used as seasoning
 garlicky	relating to or tasting or smelling of garlic
 garment	an article of clothing
 garments	GARMENT: an article of clothing
@@ -987,13 +987,13 @@ gimp	disability of walking due to crippling of the legs or feet
 gimps	GIMP: disability of walking due to crippling of the legs or feet
 gimpy	disabled in the feet or legs
 gin	strong liquor flavored with juniper berries
-ginger	perennial plants having thick branching aromatic rhizomes and leafy reedlike stems
+ginger	dried ground gingerroot
 gingerbread	cake flavored with ginger
 gingerbreads	GINGERBREAD: cake flavored with ginger
-gingered	GINGER: perennial plants having thick branching aromatic rhizomes and leafy reedlike stems
-gingering	GINGER: perennial plants having thick branching aromatic rhizomes and leafy reedlike stems
+gingered	GINGER: dried ground gingerroot
+gingering	GINGER: dried ground gingerroot
 gingerly	with extreme care or delicacy
-gingers	GINGER: perennial plants having thick branching aromatic rhizomes and leafy reedlike stems
+gingers	GINGER: dried ground gingerroot
 gingersnap	a crisp round cookie flavored with ginger
 gingersnaps	GINGERSNAP: a crisp round cookie flavored with ginger
 gingery	having a taste like that of ginger
@@ -1641,8 +1641,8 @@ goon	an awkward stupid person
 goons	GOON: an awkward stupid person
 goop	any thick, viscous matter
 goose	web-footed long-necked typically gregarious migratory aquatic birds usually larger and less aquatic than ducks
-gooseberries	GOOSEBERRY: spiny Eurasian shrub having greenish purple-tinged flowers and ovoid yellow-green or red-purple berries
-gooseberry	spiny Eurasian shrub having greenish purple-tinged flowers and ovoid yellow-green or red-purple berries
+gooseberries	GOOSEBERRY: currant-like berry used primarily in jams and jellies
+gooseberry	currant-like berry used primarily in jams and jellies
 goosebumps	GOOSEBUMP: reflex erection of hairs of the skin in response to cold or emotional stress or skin irritation
 goosed	GOOSE: web-footed long-necked typically gregarious migratory aquatic birds usually larger and less aquatic than ducks
 goosefish	fishes having large mouths with a wormlike filament attached for luring prey
@@ -1915,8 +1915,8 @@ granule	a tiny grain
 granules	GRANULE: a tiny grain
 granuloma	a tumor composed of granulation tissue resulting from injury or inflammation or infection
 grape	any of various juicy fruit of the genus Vitis with green or purple skins; grow in clusters
-grapefruit	citrus tree bearing large round edible fruit having a thick yellow rind and juicy somewhat acid pulp
-grapefruits	GRAPEFRUIT: citrus tree bearing large round edible fruit having a thick yellow rind and juicy somewhat acid pulp
+grapefruit	large yellow fruit with somewhat acid juicy pulp; usual serving consists of a half
+grapefruits	GRAPEFRUIT: large yellow fruit with somewhat acid juicy pulp; usual serving consists of a half
 grapes	GRAPE: any of various juicy fruit of the genus Vitis with green or purple skins; grow in clusters
 grapeshot	a cluster of small projectiles fired together from a cannon to produce a hail of shot
 grapevine	gossip spread by spoken communication
@@ -2354,8 +2354,8 @@ grounding	GROUND: the solid part of the earth's surface
 groundings	GROUNDING: education or instruction in the fundamentals of a field of knowledge
 groundless	without a basis in reason or fact
 groundlessly	in a groundless way
-groundnut	a North American vine with fragrant blossoms and edible tubers; important food crop of Native Americans
-groundnuts	GROUNDNUT: a North American vine with fragrant blossoms and edible tubers; important food crop of Native Americans
+groundnut	nutlike tuber; important food of Native Americans
+groundnuts	GROUNDNUT: nutlike tuber; important food of Native Americans
 grounds	your basis for belief or disbelief; knowledge on which to base belief
 groundsheet	a waterproofed piece of cloth spread on the ground (as under a tent) to protect from moisture
 groundsheets	GROUNDSHEET: a waterproofed piece of cloth spread on the ground (as under a tent) to protect from moisture
@@ -2523,8 +2523,8 @@ guardrooms	GUARDROOM: a cell in which soldiers who are prisoners are confined
 guards	GUARD: a person who keeps watch over something or someone
 guardsman	a soldier who is a member of a unit called `the guard' or `guards'
 guardsmen	GUARDSMAN: a soldier who is a member of a unit called `the guard' or `guards'
-guava	small tropical shrubby tree bearing small yellowish fruit
-guavas	GUAVA: small tropical shrubby tree bearing small yellowish fruit
+guava	tropical fruit having yellow skin and pink pulp; eaten fresh or used for e.g. jellies
+guavas	GUAVA: tropical fruit having yellow skin and pink pulp; eaten fresh or used for e.g. jellies
 gubbins	something unspecified whose name is either forgotten or not known
 gubernatorial	relating to a governor
 gudgeon	small spiny-finned fish of coastal or brackish waters having a large head and elongated tapering body having the ventral fins modified as a sucker

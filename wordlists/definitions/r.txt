@@ -489,8 +489,8 @@ rashest	RASH: any red eruption of the skin
 rashly	in a hasty and foolhardy manner
 rashness	the trait of acting rashly and without prudence
 rasp	uttering in an irritated tone
-raspberries	RASPBERRY: woody brambles bearing usually red but sometimes black or yellow fruits that separate from the receptacle when ripe and are rounder and smaller than blackberries
-raspberry	woody brambles bearing usually red but sometimes black or yellow fruits that separate from the receptacle when ripe and are rounder and smaller than blackberries
+raspberries	RASPBERRY: red or black edible aggregate berries usually smaller than the related blackberries
+raspberry	red or black edible aggregate berries usually smaller than the related blackberries
 rasped	RASP: uttering in an irritated tone
 rasper	a person or thing that makes a harsh sound
 raspers	RASPER: a person or thing that makes a harsh sound
@@ -4349,7 +4349,7 @@ rosehip	the fruit of a rose plant
 rosehips	ROSEHIP: the fruit of a rose plant
 rosella	a colourful Australian parrot
 rosellas	ROSELLA: a colourful Australian parrot
-rosemary	widely cultivated for its fragrant grey-green leaves used in cooking and in perfumery
+rosemary	extremely pungent leaves used fresh or dried as seasoning for especially meats
 roses	ROSE: any of many shrubs of the genus Rosa that bear roses
 rosette	an ornament or pattern resembling a rose that is worn as a badge of office or as recognition of having won an honor
 rosettes	ROSETTE: an ornament or pattern resembling a rose that is worn as a badge of office or as recognition of having won an honor
@@ -4615,12 +4615,12 @@ rudest	RUDE: socially incorrect in behavior
 rudiment	the remains of a body part that was functional at an earlier stage of life
 rudimentary	being or involving basic facts or principles
 rudiments	a statement of fundamental facts or principles
-rue	European strong-scented perennial herb with grey-green bitter-tasting leaves; an irritant similar to poison ivy
-rued	RUE: European strong-scented perennial herb with grey-green bitter-tasting leaves; an irritant similar to poison ivy
+rue	to regret bitterly; also a bitter-smelling herb
+rued	RUE: to regret bitterly; also a bitter-smelling herb
 rueful	feeling or expressing pain or sorrow for sins or offenses
 ruefully	in a rueful manner
-rueing	RUE: European strong-scented perennial herb with grey-green bitter-tasting leaves; an irritant similar to poison ivy
-rues	RUE: European strong-scented perennial herb with grey-green bitter-tasting leaves; an irritant similar to poison ivy
+rueing	RUE: to regret bitterly; also a bitter-smelling herb
+rues	RUE: to regret bitterly; also a bitter-smelling herb
 ruff	an external body part consisting of feathers or hair about the neck of a bird or other animal
 ruffed	RUF: a terrorist group formed in the 1980s in Sierra Leone; seeks to overthrow the government and gain control of the diamond producing regions; responsible for attacks on civilians and children, widespread torture and murder and using children to commit atrocities; sponsored by the president of Liberia
 ruffian	a cruel and brutal fellow
@@ -4649,7 +4649,7 @@ ruination	an irrecoverable state of devastation and destruction
 ruined	destroyed physically or morally
 ruiner	a person who destroys or ruins or lays waste to
 ruiners	RUINER: a person who destroys or ruins or lays waste to
-ruing	RUE: European strong-scented perennial herb with grey-green bitter-tasting leaves; an irritant similar to poison ivy
+ruing	RUE: to regret bitterly; also a bitter-smelling herb
 ruining	RUIN: an irrecoverable state of devastation and destruction
 ruinous	extremely harmful; bringing physical or financial ruin
 ruinously	in a ruinous manner or to a ruinous degree
@@ -4802,5 +4802,5 @@ ruthlessness	mercilessness characterized by a lack of pity
 ruts	RUT: a groove or furrow (especially one in soft earth caused by wheels)
 rutted	full of ruts
 rutting	RUT: a groove or furrow (especially one in soft earth caused by wheels)
-rye	the seed of the cereal grass
+rye	a cereal grass, or its grain, used for flour and whisky
 ryegrass	any of several annual or perennial Eurasian grasses

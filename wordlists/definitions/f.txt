@@ -760,10 +760,10 @@ fenland	low-lying wet land with grassy vegetation; usually is a transition zone 
 fenlands	FENLAND: low-lying wet land with grassy vegetation; usually is a transition zone between land and water
 fennec	a small desert fox with large ears
 fennecs	FENNEC: a small desert fox with large ears
-fennel	any of several aromatic herbs having edible seeds and leaves and stems
+fennel	aromatic bulbous stem base eaten cooked or raw in salads
 fens	FEN: 100 fen equal 1 yuan in China
 fentanyl	trade names of a narcotic analgesic that can be inhaled and that acts on the central nervous system and may become addictive; used as a veterinary anesthetic and with other drugs before, during, and after surgery; also used as a nonlethal gas to incapacitate people in hostage situations; also abused as a recreational drug
-fenugreek	annual herb or southern Europe and eastern Asia having off-white flowers and aromatic seeds used medicinally and in curry
+fenugreek	aromatic seeds used as seasoning especially in curry
 feral	wild and menacing
 feringhee	a European, in old Indian usage
 feringhees	FERINGHEE: a European, in old Indian usage
@@ -1052,8 +1052,8 @@ figuring	problem solving that involves numbers or quantities
 filament	a very slender natural or synthetic fiber
 filamentous	thin in diameter; resembling a thread
 filaments	FILAMENT: a very slender natural or synthetic fiber
-filbert	small nut-bearing tree much grown in Europe
-filberts	FILBERT: small nut-bearing tree much grown in Europe
+filbert	nut of any of several trees of the genus Corylus
+filberts	FILBERT: nut of any of several trees of the genus Corylus
 filch	make off with belongings of others
 filched	FILCH: make off with belongings of others
 filcher	a petty thief

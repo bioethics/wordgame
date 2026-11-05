@@ -1989,7 +1989,14 @@ given name". They come from
    November, for words like ARVO, CRINGEWORTHY, BIOFILM and CLAFOUTIS, plus
    the function words: THE, THAT, THAN, THEY);
 2. WordNet's gloss of the word's commonest sense, examples and field labels
-   cut;
+   cut. "Commonest" is WordNet's own order, by how often its tagged corpus
+   met each sense; for the words it never met, the order means nothing, and
+   the plant often comes first (PEACH was "cultivated in temperate regions",
+   TUNA "tropical American prickly pear of Jamaica"), so an untagged noun
+   whose first sense is a plant takes its food sense instead. A few animal
+   and plant glosses leave the kind of thing to the hypernym ("may reach 400
+   pounds; worldwide in tropics"); those get it read back in ("a tuna; may
+   reach…");
 3. a base form, by WordNet's endings and a table of irregulars, written "STOP:
    come to a halt, stop moving" for STOPPED, and reaching the hand-written
    ones too (TONIER, "TONY: stylish and fashionable");
@@ -1998,8 +2005,9 @@ given name". They come from
    embellishes".
 
 On 5 November that defined all but 273 of the 83,191 words, mostly specialist
-or junk; they wait in `wordlists/definitions-missing.txt`, the list to write
-next. WordNet's definitions are Princeton's, under the WordNet licence, whose
+or junk; those were written (or the junk cut) the same day, and
+`wordlists/definitions-missing.txt`, where the next unwritten ones wait, is
+empty. WordNet's definitions are Princeton's, under the WordNet licence, whose
 notice travels with them (`wordlists/definitions/WORDNET-LICENSE.txt`). The page
 fetches a letter's file the first time a result needs it; the artifact build
 embeds them all.

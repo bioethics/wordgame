@@ -505,16 +505,16 @@ oinking	OINK: the short low gruff noise of the kind made by hogs
 oinks	OINK: the short low gruff noise of the kind made by hogs
 ointment	semisolid preparation (usually containing a medicine) applied externally as a remedy or for soothing an irritation
 ointments	OINTMENT: semisolid preparation (usually containing a medicine) applied externally as a remedy or for soothing an irritation
-okapi	similar to the giraffe but smaller with much shorter neck and stripe on the legs
-okapis	OKAPI: similar to the giraffe but smaller with much shorter neck and stripe on the legs
+okapi	an African animal related to the giraffe, with a shorter neck and striped legs
+okapis	OKAPI: an African animal related to the giraffe, with a shorter neck and striped legs
 okay	being satisfactory or in satisfactory condition
 okayed	OKAY: being satisfactory or in satisfactory condition
 okaying	OKAY: being satisfactory or in satisfactory condition
 okays	OKAY: being satisfactory or in satisfactory condition
 okeydoke	okay
 okeydokey	okay
-okra	long green edible beaked pods of the okra plant
-okras	OKRA: long green edible beaked pods of the okra plant
+okra	long mucilaginous green pods; may be simmered or sauteed but used especially in soups and stews
+okras	OKRA: long mucilaginous green pods; may be simmered or sauteed but used especially in soups and stews
 old	(used especially of persons) having lived for a relatively long time or attained a specific age
 olde	old, in a fake archaic spelling
 olden	relating to time long past
@@ -606,8 +606,8 @@ onesie	a one-piece garment for babies or adults
 onesies	ONESIE: a one-piece garment for babies or adults
 onetime	belonging to some prior time
 ongoing	currently happening
-onion	the bulb of an onion plant
-onions	ONION: the bulb of an onion plant
+onion	an aromatic flavorful vegetable
+onions	ONION: an aromatic flavorful vegetable
 onionskin	a thin strong lightweight translucent paper used especially for making carbon copies
 online	on a regular route of a railroad or bus or airline system
 onlooker	someone who looks on
@@ -915,7 +915,7 @@ ordinations	ORDINATION: the status of being ordained to a sacred office
 ordnance	military supplies
 ordure	solid excretory product evacuated from the bowels
 ore	a mineral that contains metal that is valuable enough to be mined
-oregano	aromatic Eurasian perennial
+oregano	pungent leaves used as seasoning with meats and fowl and in stews and soups and omelets
 ores	ORE: a mineral that contains metal that is valuable enough to be mined
 organ	a fully differentiated structural and functional unit in an animal that is specialized for some particular function
 organdie	a sheer stiff muslin

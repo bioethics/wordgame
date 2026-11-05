@@ -131,8 +131,8 @@ zooms	ZOOM: move along very quickly
 zooplankton	animal constituent of plankton; mainly small crustaceans and fish larvae
 zoos	ZOO: the facility where wild animals are housed for exhibition
 zoster	eruptions along a nerve path often accompanied by severe neuralgia
-zucchini	marrow squash plant whose fruit are eaten when small
-zucchinis	ZUCCHINI: marrow squash plant whose fruit are eaten when small
+zucchini	small cucumber-shaped vegetable marrow; typically dark green
+zucchinis	ZUCCHINI: small cucumber-shaped vegetable marrow; typically dark green
 zwieback	slice of sweet raised bread baked again until it is brown and hard and crisp
 zydeco	music of southern Louisiana that combines French dance melodies with Caribbean music and blues
 zygote	the diploid cell resulting from the union of a haploid spermatozoon and ovum (including the organism that develops from that cell)

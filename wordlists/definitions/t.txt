@@ -232,8 +232,8 @@ tamales	TAMALE: a city in northern Ghana
 tamarack	medium-sized larch of Canada and northern United States including Alaska having a broad conic crown and rust-brown scaly bark
 tamaracks	TAMARACK: medium-sized larch of Canada and northern United States including Alaska having a broad conic crown and rust-brown scaly bark
 tamarin	small South American marmoset with silky fur and long nonprehensile tail
-tamarind	long-lived tropical evergreen tree with a spreading crown and feathery evergreen foliage and fragrant flowers yielding hard yellowish wood and long pods with edible chocolate-colored acidic pulp
-tamarinds	TAMARIND: long-lived tropical evergreen tree with a spreading crown and feathery evergreen foliage and fragrant flowers yielding hard yellowish wood and long pods with edible chocolate-colored acidic pulp
+tamarind	large tropical seed pod with very tangy pulp that is eaten fresh or cooked with rice and fish or preserved for curries and chutneys
+tamarinds	TAMARIND: large tropical seed pod with very tangy pulp that is eaten fresh or cooked with rice and fish or preserved for curries and chutneys
 tamarins	TAMARIN: small South American marmoset with silky fur and long nonprehensile tail
 tambourine	a shallow drum with a single drumhead and with metallic disks in the sides
 tambourines	TAMBOURINE: a shallow drum with a single drumhead and with metallic disks in the sides
@@ -269,14 +269,14 @@ tandem	an arrangement of two or more objects or persons one behind another
 tandems	TANDEM: an arrangement of two or more objects or persons one behind another
 tandoori	cooked in a clay oven in the Indian style
 tang	a tart spicy quality
-tangelo	hybrid between grapefruit and mandarin orange; cultivated especially in Florida
-tangelos	TANGELO: hybrid between grapefruit and mandarin orange; cultivated especially in Florida
+tangelo	large sweet juicy hybrid between tangerine and grapefruit having a thick wrinkled skin
+tangelos	TANGELO: large sweet juicy hybrid between tangerine and grapefruit having a thick wrinkled skin
 tangent	a straight line or plane that touches a curve or curved surface at a point but does not intersect it at that point
 tangential	of superficial relevance if any
 tangentially	peripherally
 tangents	TANGENT: a straight line or plane that touches a curve or curved surface at a point but does not intersect it at that point
-tangerine	a variety of mandarin orange
-tangerines	TANGERINE: a variety of mandarin orange
+tangerine	any of various deep orange mandarins grown in the United States and southern Africa
+tangerines	TANGERINE: any of various deep orange mandarins grown in the United States and southern Africa
 tangibility	the quality of being perceivable by touch
 tangible	perceptible by the senses especially the sense of touch
 tangibles	TANGIBLE: something that can be touched or physically held
@@ -397,9 +397,9 @@ tarnished	TARNISH: make dirty or spotty, as by exposure to air; also used metaph
 tarnishes	TARNISH: make dirty or spotty, as by exposure to air; also used metaphorically
 tarnishing	TARNISH: make dirty or spotty, as by exposure to air; also used metaphorically
 tarns	TARN: a mountain lake (especially one formed by glaciers)
-taro	edible starchy tuberous root of taro plants
+taro	tropical starchy tuberous root
 tarocchi	a card game played with tarot cards
-taros	TARO: edible starchy tuberous root of taro plants
+taros	TARO: tropical starchy tuberous root
 tarot	any of a set of (usually 78) cards that include 22 cards representing virtues and vices and death and fortune etc.; used for playing card games and for divination by fortunetellers
 tarots	TAROT: any of a set of (usually 78) cards that include 22 cards representing virtues and vices and death and fortune etc.; used for playing card games and for divination by fortunetellers
 tarp	waterproofed canvas
@@ -408,8 +408,8 @@ tarpaulins	TARPAULIN: waterproofed canvas
 tarpon	large silvery game fish of warm Atlantic coastal waters especially off Florida
 tarpons	TARPON: large silvery game fish of warm Atlantic coastal waters especially off Florida
 tarps	TARP: waterproofed canvas
-tarragon	aromatic perennial of southeastern Russia
-tarragons	TARRAGON: aromatic perennial of southeastern Russia
+tarragon	fresh leaves (or leaves preserved in vinegar) used as seasoning
+tarragons	TARRAGON: fresh leaves (or leaves preserved in vinegar) used as seasoning
 tarred	TAR: any of various dark heavy viscid substances obtained as a residue
 tarried	TARRY: stay or linger longer than expected
 tarrier	TARRY: be about
@@ -1751,7 +1751,7 @@ thwarts	THWART: a crosspiece spreading the gunnels of a boat; used as a seat in 
 thy	your, in old-fashioned speech
 thylacine	rare doglike carnivorous marsupial of Tasmania having stripes on its back; probably extinct
 thylacines	THYLACINE: rare doglike carnivorous marsupial of Tasmania having stripes on its back; probably extinct
-thyme	any of various mints of the genus Thymus
+thyme	a low aromatic herb whose small leaves are used in cooking
 thymi	THYMUS: a gland in the neck involved in immunity
 thymine	a base found in DNA (but not in RNA) and derived from pyrimidine; pairs with adenine
 thymus	large genus of Old World mints: thyme
@@ -3678,8 +3678,8 @@ trueing	TRUE: consistent with fact or reality; not false
 truer	TRUE: consistent with fact or reality; not false
 trues	TRUE: consistent with fact or reality; not false
 truest	TRUE: consistent with fact or reality; not false
-truffle	any of various highly prized edible subterranean fungi of the genus Tuber; grow naturally in southwestern Europe
-truffles	TRUFFLE: any of various highly prized edible subterranean fungi of the genus Tuber; grow naturally in southwestern Europe
+truffle	edible subterranean fungus of the genus Tuber
+truffles	TRUFFLE: edible subterranean fungus of the genus Tuber
 trug	a shallow garden basket
 trugs	TRUG: a shallow garden basket
 truing	TRUE: consistent with fact or reality; not false
@@ -3861,9 +3861,9 @@ tumultuous	characterized by unrest or disorder or insubordination
 tumultuously	in a tumultuous and riotous manner
 tumulus	a heap of earth placed over prehistoric tombs
 tun	a large cask especially one holding a volume equivalent to 2 butts or 252 gals
-tuna	tropical American prickly pear of Jamaica
+tuna	important warm-water fatty fish of the genus Thunnus of the family Scombridae; usually served as steaks
 tunable	able to be tuned
-tunas	TUNA: tropical American prickly pear of Jamaica
+tunas	TUNA: important warm-water fatty fish of the genus Thunnus of the family Scombridae; usually served as steaks
 tundra	a vast treeless plain in the Arctic regions where the subsoil is permanently frozen
 tundras	TUNDRA: a vast treeless plain in the Arctic regions where the subsoil is permanently frozen
 tune	a succession of notes forming a distinctive sequence
@@ -3943,8 +3943,8 @@ turgidly	in a turgid manner
 turista	traveller's diarrhoea
 turkey	large gallinaceous bird with fan-shaped tail; widely domesticated for food
 turkeys	TURKEY: large gallinaceous bird with fan-shaped tail; widely domesticated for food
-turmeric	widely cultivated tropical plant of India having yellow flowers and a large aromatic deep yellow rhizome; source of a condiment and a yellow dye
-turmerics	TURMERIC: widely cultivated tropical plant of India having yellow flowers and a large aromatic deep yellow rhizome; source of a condiment and a yellow dye
+turmeric	ground dried rhizome of the turmeric plant used as seasoning
+turmerics	TURMERIC: ground dried rhizome of the turmeric plant used as seasoning
 turmoil	a violent disturbance
 turmoils	TURMOIL: a violent disturbance
 turn	change orientation or direction, also in the abstract sense
@@ -3961,8 +3961,8 @@ turner	United States slave and insurrectionist who in 1831 led a rebellion of sl
 turners	TURNER: United States slave and insurrectionist who in 1831 led a rebellion of slaves in Virginia; he was captured and executed (1800-1831)
 turning	the act of changing or reversing the direction of the course
 turnings	TURNING: the act of changing or reversing the direction of the course
-turnip	widely cultivated plant having a large fleshy edible white or yellow root
-turnips	TURNIP: widely cultivated plant having a large fleshy edible white or yellow root
+turnip	root of any of several members of the mustard family
+turnips	TURNIP: root of any of several members of the mustard family
 turnkey	someone who guards prisoners
 turnkeys	TURNKEY: someone who guards prisoners
 turnoff	something causing antagonism or loss of interest

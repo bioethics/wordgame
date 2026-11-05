@@ -846,7 +846,7 @@ bashing	BASH: a vigorous blow
 basic	pertaining to or constituting a base or basis
 basically	in essence; at bottom or by one's (or its) very nature
 basics	BASIC: pertaining to or constituting a base or basis
-basil	any of several Old World tropical aromatic annual or perennial herbs of the genus Ocimum
+basil	an aromatic herb whose leaves are used in cooking
 basilar	of or relating to or located at the base
 basilica	an early Christian church designed like a Roman basilica; or a Roman Catholic church or cathedral accorded certain privileges
 basilicas	BASILICA: an early Christian church designed like a Roman basilica; or a Roman Catholic church or cathedral accorded certain privileges
@@ -1305,14 +1305,14 @@ beers	BEER: a general name for alcoholic beverages made by fermenting a cereal (
 beery	smelling of beer
 bees	BE: have the quality of being; (copula, used with an adjective or a predicate noun)
 beeswax	a yellow to brown wax secreted by honeybees to build honeycombs
-beet	biennial Eurasian plant usually having a swollen edible root; widely cultivated as a food crop
+beet	round red root vegetable
 beetle	insect having biting mouthparts and front wings modified to form horny covers overlying the membranous rear wings
 beetled	BEETLE: insect having biting mouthparts and front wings modified to form horny covers overlying the membranous rear wings
 beetles	BEETLE: insect having biting mouthparts and front wings modified to form horny covers overlying the membranous rear wings
 beetling	BEETLE: insect having biting mouthparts and front wings modified to form horny covers overlying the membranous rear wings
-beetroot	beet having a massively swollen red root; widely grown for human consumption
-beetroots	BEETROOT: beet having a massively swollen red root; widely grown for human consumption
-beets	BEET: biennial Eurasian plant usually having a swollen edible root; widely cultivated as a food crop
+beetroot	round red root vegetable
+beetroots	BEETROOT: round red root vegetable
+beets	BEET: round red root vegetable
 beeves	BEEF: cattle raised for meat
 befall	become of; happen to
 befallen	BEFALL: happen to
@@ -2003,8 +2003,8 @@ bilabial	a consonant that is articulated using both lips; /p/ or /b/ or /w/
 bilabials	BILABIAL: a consonant that is articulated using both lips; /p/ or /b/ or /w/
 bilateral	having identical parts on each side of an axis
 bilaterally	with the involvement of two parties or governments
-bilberries	BILBERRY: erect European blueberry having solitary flowers and blue-black berries
-bilberry	erect European blueberry having solitary flowers and blue-black berries
+bilberries	BILBERRY: blue-black berries similar to American blueberries
+bilberry	blue-black berries similar to American blueberries
 bilbies	BILBY: bandicoot with leathery ears like a rabbit
 bilby	bandicoot with leathery ears like a rabbit
 bile	a digestive juice secreted by the liver and stored in the gallbladder; aids in the digestion of fats
@@ -2861,10 +2861,10 @@ bludgeons	BLUDGEON: a club used as a weapon
 bludger	a person who avoids work and relies on others
 bludgers	BLUDGER: a person who avoids work and relies on others
 blue	blue color or pigment; resembling the color of the clear sky in the daytime
-bluebell	sometimes placed in genus Scilla
-bluebells	BLUEBELL: sometimes placed in genus Scilla
-blueberries	BLUEBERRY: any of numerous shrubs of the genus Vaccinium bearing blueberries
-blueberry	any of numerous shrubs of the genus Vaccinium bearing blueberries
+bluebell	a liliaceous plant; sometimes placed in genus Scilla
+bluebells	BLUEBELL: a liliaceous plant; sometimes placed in genus Scilla
+blueberries	BLUEBERRY: sweet edible dark-blue berries of either low-growing or high-growing blueberry plants
+blueberry	sweet edible dark-blue berries of either low-growing or high-growing blueberry plants
 bluebird	fruit-eating mostly brilliant blue songbird of the East Indies
 bluebirds	BLUEBIRD: fruit-eating mostly brilliant blue songbird of the East Indies
 bluebonnet	low-growing annual herb of southwestern United States (Texas) having silky foliage and blue flowers; a leading cause of livestock poisoning in the southwestern United States
@@ -3429,7 +3429,7 @@ bopper	BOP: the law enforcement agency of the Justice Department that operates a
 boppers	BOPPER: a person who dances to pop music
 bopping	BOP: the law enforcement agency of the Justice Department that operates a nationwide system of prisons and detention facilities to incarcerate inmates sentenced to imprisonment for federal crimes
 bops	BOP: the law enforcement agency of the Justice Department that operates a nationwide system of prisons and detention facilities to incarcerate inmates sentenced to imprisonment for federal crimes
-borage	hairy blue-flowered European annual herb long used in herbal medicine and eaten raw as salad greens or cooked like spinach
+borage	an herb whose leaves are used to flavor sauces and punches; young leaves can be eaten in salads or cooked
 borax	an ore of boron consisting of hydrated sodium borate; used as a flux or cleansing agent
 bordello	a building where prostitutes are available
 bordellos	BORDELLO: a building where prostitutes are available
@@ -3661,8 +3661,8 @@ boyish	befitting or characteristic of a young boy
 boyishly	like a boy
 boyishness	being characteristic of a boy
 boys	BOY: a youthful male person
-boysenberries	BOYSENBERRY: cultivated hybrid bramble of California having large dark wine-red fruit with a flavor resembling raspberries
-boysenberry	cultivated hybrid bramble of California having large dark wine-red fruit with a flavor resembling raspberries
+boysenberries	BOYSENBERRY: large raspberry-flavored fruit; cross between blackberries and raspberries
+boysenberry	large raspberry-flavored fruit; cross between blackberries and raspberries
 bozo	a man who is a stupid incompetent fool
 bozos	BOZO: a man who is a stupid incompetent fool
 bra	an undergarment worn by women to support their breasts
@@ -3871,8 +3871,8 @@ breadboxes	BREADBOX: a container used to keep bread or cake in
 breadcrumb	crumb of bread; used especially for coating or thickening
 breadcrumbs	BREADCRUMB: crumb of bread; used especially for coating or thickening
 breaded	BREAD: food made from dough of flour or meal and usually raised with yeast or baking powder and then baked
-breadfruit	native to Pacific islands and having edible fruit with a texture like bread
-breadfruits	BREADFRUIT: native to Pacific islands and having edible fruit with a texture like bread
+breadfruit	a large round seedless or seeded fruit with a texture like bread; eaten boiled or baked or roasted or ground into flour; the roasted seeds resemble chestnuts
+breadfruits	BREADFRUIT: a large round seedless or seeded fruit with a texture like bread; eaten boiled or baked or roasted or ground into flour; the roasted seeds resemble chestnuts
 breading	BREAD: food made from dough of flour or meal and usually raised with yeast or baking powder and then baked
 breadline	a queue of people waiting for free food
 breadlines	BREADLINE: a queue of people waiting for free food
@@ -4188,7 +4188,7 @@ brocade	thick heavy expensive material with a raised pattern
 brocaded	embellished with a raised pattern created by pressure or embroidery
 brocades	BROCADE: thick heavy expensive material with a raised pattern
 brocading	BROCADE: thick heavy expensive material with a raised pattern
-broccoli	plant with dense clusters of tight green flower buds
+broccoli	branched green undeveloped flower heads
 brochure	a small book usually having a paper cover
 brochures	BROCHURE: a small book usually having a paper cover
 brocket	small South American deer with unbranched antlers
@@ -4436,7 +4436,7 @@ buckteeth	BUCKTOOTH: front teeth that stick out
 buckthorn	a shrub or shrubby tree of the genus Rhamnus; fruits are source of yellow dyes or pigments
 bucktooth	a large projecting front tooth
 bucktoothed	having front teeth that stick out
-buckwheat	a member of the genus Fagopyrum; annual Asian plant with clusters of small pinkish white flowers and small edible triangular seeds which are used whole or ground into flour
+buckwheat	grain ground into flour
 buckyball	a spheroidal fullerene; the first known example of a fullerene
 buckyballs	BUCKYBALL: a spheroidal fullerene; the first known example of a fullerene
 bucolic	(used with regard to idealized country life) idyllically rustic
@@ -4980,8 +4980,8 @@ butteries	BUTTERY: a small storeroom for storing foods or wines
 butteriest	BUTTERY: a small storeroom for storing foods or wines
 buttering	BUTTER: an edible emulsion of fat globules made by churning milk or cream; for cooking and table use
 buttermilk	residue from making butter from sour raw milk; or pasteurized milk curdled by adding a culture
-butternut	North American walnut tree having light-brown wood and edible nuts; source of a light-brown dye
-butternuts	BUTTERNUT: North American walnut tree having light-brown wood and edible nuts; source of a light-brown dye
+butternut	oily egg-shaped nut of an American tree of the walnut family
+butternuts	BUTTERNUT: oily egg-shaped nut of an American tree of the walnut family
 butters	BUTTER: an edible emulsion of fat globules made by churning milk or cream; for cooking and table use
 butterscotch	a hard brittle candy made with butter and brown sugar
 buttery	a small storeroom for storing foods or wines

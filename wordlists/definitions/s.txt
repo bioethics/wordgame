@@ -115,8 +115,8 @@ safeties	SAFETY: the state of being certain that adverse effects will not be cau
 safety	the state of being certain that adverse effects will not be caused by some agent under defined conditions
 safflower	thistlelike Eurasian plant widely grown for its red or orange flower heads and seeds that yield a valuable oil
 safflowers	SAFFLOWER: thistlelike Eurasian plant widely grown for its red or orange flower heads and seeds that yield a valuable oil
-saffron	Old World crocus having purple or white flowers with aromatic pungent orange stigmas used in flavoring food
-saffrons	SAFFRON: Old World crocus having purple or white flowers with aromatic pungent orange stigmas used in flavoring food
+saffron	dried pungent stigmas of the Old World saffron crocus
+saffrons	SAFFRON: dried pungent stigmas of the Old World saffron crocus
 sag	droop, sink, or settle from or as if from pressure or loss of tautness
 saga	a narrative telling the adventures of a hero or a family; originally (12th to 14th centuries) a story of the families that settled Iceland and their descendants but now any prose narrative that resembles such an account
 sagacious	acutely insightful and wise
@@ -497,8 +497,8 @@ sarnie	sandwich
 sarnies	SARNIE: sandwich
 sarong	a loose skirt consisting of brightly colored fabric wrapped around the body; worn by both women and men in the South Pacific
 sarongs	SARONG: a loose skirt consisting of brightly colored fabric wrapped around the body; worn by both women and men in the South Pacific
-sarsaparilla	any of various prickly climbing plants of the tropical American genus Smilax having aromatic roots and heart-shaped leaves
-sarsaparillas	SARSAPARILLA: any of various prickly climbing plants of the tropical American genus Smilax having aromatic roots and heart-shaped leaves
+sarsaparilla	carbonated drink flavored with an extract from sarsaparilla root or with birch oil and sassafras
+sarsaparillas	SARSAPARILLA: carbonated drink flavored with an extract from sarsaparilla root or with birch oil and sassafras
 sartorial	of or relating to the sartorius muscle
 sartorially	in matters of clothing
 sartorius	a muscle in the thigh that helps to rotate the leg into the sitting position assumed by a tailor; the longest muscle in the human body
@@ -511,8 +511,8 @@ sashed	SASH: provided with a wide decorative band
 sashes	SASH: a framework that holds the panes of a window in the window frame
 sashimi	very thinly sliced raw fish
 sass	an impudent or insolent rejoinder
-sassafras	yellowwood tree with brittle wood and aromatic leaves and bark; source of sassafras oil; widely distributed in eastern North America
-sassafrases	SASSAFRAS: yellowwood tree with brittle wood and aromatic leaves and bark; source of sassafras oil; widely distributed in eastern North America
+sassafras	dried root bark of the sassafras tree
+sassafrases	SASSAFRAS: dried root bark of the sassafras tree
 sassed	SAS: a specialist regiment of the British army that is trained in commando techniques of warfare and used in clandestine operations (especially against terrorist groups)
 sasses	SASS: an impudent or insolent rejoinder
 sassier	SASSY: improperly forward or bold
@@ -580,8 +580,8 @@ satnavs	SATNAV: a vehicle navigation system using satellites
 satori	a state of sudden spiritual enlightenment
 satrap	a governor of a province in ancient Persia
 satraps	SATRAP: a governor of a province in ancient Persia
-satsuma	a variety of mandarin orange
-satsumas	SATSUMA: a variety of mandarin orange
+satsuma	medium-sized largely seedless mandarin orange with thin smooth skin
+satsumas	SATSUMA: medium-sized largely seedless mandarin orange with thin smooth skin
 saturate	cause (a chemical compound, vapour, solution, magnetic material) to unite with the greatest possible amount of another substance
 saturated	being the most concentrated solution possible at a given temperature; unable to dissolve still more of a substance
 saturates	SATURATE: cause (a chemical compound, vapour, solution, magnetic material) to unite with the greatest possible amount of another substance
@@ -752,8 +752,8 @@ scaliest	SCALY: rough to the touch; covered with scales or scurf
 scaliness	the property of being scaly
 scaling	SCALE: an ordered reference standard
 scallies	SCALLY: a rascal
-scallion	plant having a large slender white bulb and flat overlapping dark green leaves; used in cooking; believed derived from the wild Allium ampeloprasum
-scallions	SCALLION: plant having a large slender white bulb and flat overlapping dark green leaves; used in cooking; believed derived from the wild Allium ampeloprasum
+scallion	a young onion before the bulb has enlarged; eaten in salads
+scallions	SCALLION: a young onion before the bulb has enlarged; eaten in salads
 scallop	one of a series of rounded projections (or the notches between them) formed by curves along an edge (as the edge of a leaf or piece of cloth or the margin of a shell or a shriveled red blood cell observed in a hypertonic solution etc.)
 scalloped	having a margin with rounded scallops
 scalloper	a person who gathers or fishes for scallops
@@ -2487,8 +2487,8 @@ shaking	the act of causing something to move up and down (or back and forth) wit
 shaky	inclined to shake as from weakness or defect
 shale	a sedimentary rock formed by the deposition of successive layers of clay
 shall	expresses future action or obligation
-shallot	aggregate bulb of the multiplier onion
-shallots	SHALLOT: aggregate bulb of the multiplier onion
+shallot	small mild-flavored onion-like or garlic-like clustered bulbs used for seasoning
+shallots	SHALLOT: small mild-flavored onion-like or garlic-like clustered bulbs used for seasoning
 shallow	lacking physical depth; having little spatial extension downward or inward from an outer surface or backward or outward from a center
 shallower	SHALLOW: lacking physical depth; having little spatial extension downward or inward from an outer surface or backward or outward from a center
 shallowest	SHALLOW: lacking physical depth; having little spatial extension downward or inward from an outer surface or backward or outward from a center
@@ -5530,7 +5530,7 @@ soreness	a pain that is felt (as when the area is touched)
 sorer	SORE: hurting
 sores	SORE: hurting
 sorest	SORE: hurting
-sorghum	economically important Old World tropical cereal grass
+sorghum	a tropical cereal grass grown for grain, syrup and fodder
 sororities	SORORITY: a social club for female undergraduates
 sorority	a social club for female undergraduates
 sorption	the process in which one substance takes up or holds another (by either absorption or adsorption)
@@ -5696,10 +5696,10 @@ sowing	SOW: place (seeds) in or on the ground for future growth
 sown	sprinkled with seed
 sows	SOW: place (seeds) in or on the ground for future growth
 sox	SOCKS: foot coverings
-soy	a source of oil; used for forage and soil improvement and as food
-soya	erect bushy hairy annual herb having trifoliate leaves and purple to pink flowers; extensively cultivated for food and forage and soil improvement but especially for its nutritious oil-rich seeds; native to Asia
-soybean	a source of oil; used for forage and soil improvement and as food
-soybeans	SOYBEAN: a source of oil; used for forage and soil improvement and as food
+soy	thin sauce made of fermented soy beans
+soya	the most highly proteinaceous vegetable known; the fruit of the soybean plant is used in a variety of foods and as fodder (especially as a replacement for animal protein)
+soybean	the most highly proteinaceous vegetable known; the fruit of the soybean plant is used in a variety of foods and as fodder (especially as a replacement for animal protein)
+soybeans	SOYBEAN: the most highly proteinaceous vegetable known; the fruit of the soybean plant is used in a variety of foods and as fodder (especially as a replacement for animal protein)
 sozzled	very drunk
 spa	a health resort near a spring or at the seaside
 space	the unlimited expanse in which everything is located
@@ -6127,7 +6127,7 @@ spillway	a channel that carries excess water over or around a dam or other obstr
 spillways	SPILLWAY: a channel that carries excess water over or around a dam or other obstruction
 spilt	SPILL: cause or allow (a liquid substance) to run or flow from a container
 spin	revolve quickly and repeatedly around one's own axis
-spinach	southwestern Asian plant widely cultivated for its succulent edible dark green leaves
+spinach	dark green leaves; eaten cooked or raw in salads
 spinal	anesthesia of the lower half of the body; caused by injury to the spinal cord or by injecting an anesthetic beneath the arachnoid membrane that surrounds the spinal cord
 spinals	SPINAL: anesthesia of the lower half of the body; caused by injury to the spinal cord or by injecting an anesthetic beneath the arachnoid membrane that surrounds the spinal cord
 spindle	tiny fibers that are seen in cell division; the fibers radiate from two poles and meet at the equator in the middle

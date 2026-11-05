@@ -537,8 +537,8 @@ hardwoods	HARDWOOD: the wood of broad-leaved dicotyledonous trees (as distinguis
 hardworking	characterized by hard work and perseverance
 hardy	having rugged physical strength; inured to fatigue or hardships
 hare	swift timid long-eared mammal larger than a rabbit having a divided upper lip and long hind legs; young born furred and with open eyes
-harebell	sometimes placed in genus Scilla
-harebells	HAREBELL: sometimes placed in genus Scilla
+harebell	a liliaceous plant; sometimes placed in genus Scilla
+harebells	HAREBELL: a liliaceous plant; sometimes placed in genus Scilla
 harebrained	very foolish
 hared	HARE: swift timid long-eared mammal larger than a rabbit having a divided upper lip and long hind legs; young born furred and with open eyes
 harelip	a congenital cleft in the middle of the upper lip
@@ -546,8 +546,8 @@ harelips	HARELIP: a congenital cleft in the middle of the upper lip
 harem	living quarters reserved for wives and concubines and female relatives in a Muslim household
 harems	HAREM: living quarters reserved for wives and concubines and female relatives in a Muslim household
 hares	HARE: swift timid long-eared mammal larger than a rabbit having a divided upper lip and long hind legs; young born furred and with open eyes
-haricot	a French variety of green bean plant bearing light-colored beans
-haricots	HARICOT: a French variety of green bean plant bearing light-colored beans
+haricot	a French bean variety with light-colored seeds; usually dried
+haricots	HARICOT: a French bean variety with light-colored seeds; usually dried
 haring	HARE: swift timid long-eared mammal larger than a rabbit having a divided upper lip and long hind legs; young born furred and with open eyes
 hark	listen; used mostly in the imperative
 harked	HARK: listen; used mostly in the imperative
@@ -817,8 +817,8 @@ hazards	HAZARD: a source of danger; a possibility of incurring loss or misfortun
 haze	atmospheric moisture or dust or smoke that causes reduced visibility
 hazed	HAZE: atmospheric moisture or dust or smoke that causes reduced visibility
 hazel	of a light brown or yellowish brown color
-hazelnut	any of several shrubs or small trees of the genus Corylus bearing edible nuts enclosed in a leafy husk
-hazelnuts	HAZELNUT: any of several shrubs or small trees of the genus Corylus bearing edible nuts enclosed in a leafy husk
+hazelnut	nut of any of several trees of the genus Corylus
+hazelnuts	HAZELNUT: nut of any of several trees of the genus Corylus
 hazels	HAZEL: of a light brown or yellowish brown color
 hazes	HAZE: atmospheric moisture or dust or smoke that causes reduced visibility
 hazier	HAZY: filled or abounding with fog or mist
@@ -2266,8 +2266,8 @@ horseplayer	a person who bets on horse races
 horseplayers	HORSEPLAYER: a person who bets on horse races
 horsepower	a unit of power equal to 746 watts
 horseracing	the sport of racing horses
-horseradish	the root of the horseradish plant; it is grated or ground and used for seasoning
-horseradishes	HORSERADISH: the root of the horseradish plant; it is grated or ground and used for seasoning
+horseradish	grated horseradish root
+horseradishes	HORSERADISH: grated horseradish root
 horses	HORSE: solid-hoofed herbivorous quadruped domesticated since prehistoric times
 horseshit	obscene words for unacceptable behavior
 horseshoe	game equipment consisting of an open ring of iron used in playing horseshoes
@@ -2525,8 +2525,8 @@ hubcap	cap that fits over the hub of a wheel
 hubcaps	HUBCAP: cap that fits over the hub of a wheel
 hubris	overbearing pride or presumption
 hubs	HUB: the central part of a car wheel (or fan or propeller etc) through which the shaft or axle passes
-huckleberries	HUCKLEBERRY: any of various dark-fruited as distinguished from blue-fruited blueberries
-huckleberry	any of various dark-fruited as distinguished from blue-fruited blueberries
+huckleberries	HUCKLEBERRY: blue-black berry similar to blueberries and bilberries of the eastern United States
+huckleberry	blue-black berry similar to blueberries and bilberries of the eastern United States
 huckster	a seller of shoddy goods
 huckstered	HUCKSTER: a seller of shoddy goods
 huckstering	HUCKSTER: a seller of shoddy goods

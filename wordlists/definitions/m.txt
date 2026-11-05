@@ -494,8 +494,8 @@ mandala	any of various geometric designs (usually circular) symbolizing the univ
 mandalas	MANDALA: any of various geometric designs (usually circular) symbolizing the universe; used chiefly in Hinduism and Buddhism as an aid to meditation
 mandamus	an extraordinary writ commanding an official to perform a ministerial act that the law recognizes as an absolute duty and not a matter for the official's discretion; used only when all other judicial remedies fail
 mandamuses	MANDAMUS: an extraordinary writ commanding an official to perform a ministerial act that the law recognizes as an absolute duty and not a matter for the official's discretion; used only when all other judicial remedies fail
-mandarin	shrub or small tree having flattened globose fruit with very sweet aromatic pulp and thin yellow-orange to flame-orange rind that is loose and easily removed; native to southeastern Asia
-mandarins	MANDARIN: shrub or small tree having flattened globose fruit with very sweet aromatic pulp and thin yellow-orange to flame-orange rind that is loose and easily removed; native to southeastern Asia
+mandarin	a somewhat flat reddish-orange loose skinned citrus of China
+mandarins	MANDARIN: a somewhat flat reddish-orange loose skinned citrus of China
 mandate	a document giving an official instruction or command
 mandated	MANDATE: a document giving an official instruction or command
 mandates	MANDATE: a document giving an official instruction or command
@@ -544,9 +544,9 @@ mangler	a person who mutilates or destroys or disfigures or cripples
 manglers	MANGLER: a person who mutilates or destroys or disfigures or cripples
 mangles	MANGLE: clothes dryer for drying and ironing laundry by passing it between two heavy heated rollers
 mangling	MANGLE: clothes dryer for drying and ironing laundry by passing it between two heavy heated rollers
-mango	large evergreen tropical tree cultivated for its large oval fruit
+mango	large oval tropical fruit having smooth skin, juicy aromatic pulp, and a large hairy seed
 mangoes	MANGO: a sweet tropical fruit
-mangos	MANGO: large evergreen tropical tree cultivated for its large oval fruit
+mangos	MANGO: large oval tropical fruit having smooth skin, juicy aromatic pulp, and a large hairy seed
 mangrove	a tropical tree or shrub bearing fruit that germinates while still on the tree and having numerous prop roots that eventually form an impenetrable mass and are important in land building
 mangroves	MANGROVE: a tropical tree or shrub bearing fruit that germinates while still on the tree and having numerous prop roots that eventually form an impenetrable mass and are important in land building
 mangy	having many worn or threadbare spots in the nap
@@ -612,7 +612,7 @@ manliest	MANLY: possessing qualities befitting a man
 manliness	the trait of being manly; having the characteristics of an adult male
 manly	possessing qualities befitting a man
 manmade	made by people, not natural
-manna	hardened sugary exudation of various trees
+manna	food that God gave the Israelites during the Exodus
 manned	having a crew
 mannequin	a woman who wears clothes to display fashions
 mannequins	MANNEQUIN: a woman who wears clothes to display fashions
@@ -793,7 +793,7 @@ marionette	a small figure of a person operated from above with strings by a pupp
 marionettes	MARIONETTE: a small figure of a person operated from above with strings by a puppeteer
 marital	of or relating to the state of marriage
 maritime	relating to or involving ships or shipping or navigation or seamen
-marjoram	aromatic Eurasian perennial
+marjoram	pungent leaves used as seasoning with meats and fowl and in stews and soups and omelets
 mark	attach a tag or label to
 markdown	a reduction in price
 markdowns	MARKDOWN: a reduction in price
@@ -1717,10 +1717,10 @@ merrymaking	a boisterous celebration; a merry festivity
 mes	ME: a state in New England
 mesa	flat tableland with steep edges
 mesas	MESA: flat tableland with steep edges
-mescal	a small spineless globe-shaped cactus; source of mescal buttons
+mescal	a colorless Mexican liquor distilled from fermented juices of certain desert plants of the genus Agavaceae (especially the century plant)
 mescalin	a hallucinogenic drug from the peyote cactus
 mescaline	the hallucinatory alkaloid that is the active agent in mescal buttons
-mescals	MESCAL: a small spineless globe-shaped cactus; source of mescal buttons
+mescals	MESCAL: a colorless Mexican liquor distilled from fermented juices of certain desert plants of the genus Agavaceae (especially the century plant)
 mesdames	MADAME: a title for a French-speaking married woman
 mesdemoiselles	MADEMOISELLE: a title for an unmarried French-speaking woman
 mesh	keep engaged
@@ -2226,7 +2226,7 @@ millepede	any of numerous herbivorous nonpoisonous arthropods having a cylindric
 millepedes	MILLEPEDE: any of numerous herbivorous nonpoisonous arthropods having a cylindrical body of 20 to 100 or more segments most with two pairs of legs
 miller	United States bandleader of a popular big band (1909-1944)
 millers	MILLER: United States bandleader of a popular big band (1909-1944)
-millet	any of various small-grained annual cereal and forage grasses of the genera Panicum, Echinochloa, Setaria, Sorghum, and Eleusine
+millet	small seed of any of various annual cereal grasses especially Setaria italica
 millibar	a unit of atmospheric pressure equal to one thousandth of a bar
 millibars	MILLIBAR: a unit of atmospheric pressure equal to one thousandth of a bar
 milligram	one thousandth (1/1,000) gram
@@ -2288,8 +2288,8 @@ mimicries	MIMICRY: the act of mimicking; imitative behavior
 mimicry	the act of mimicking; imitative behavior
 mimics	MIMIC: someone who mimics (especially an actor or actress)
 miming	MIME: an actor who communicates entirely by gesture and facial expression
-mimosa	evergreen Australasian tree having white or silvery bark and young leaves and yellow flowers
-mimosas	MIMOSA: evergreen Australasian tree having white or silvery bark and young leaves and yellow flowers
+mimosa	a wattle or similar tree with fluffy yellow flowers; also champagne mixed with orange juice
+mimosas	MIMOSA: a wattle or similar tree with fluffy yellow flowers; also champagne mixed with orange juice
 minaret	slender tower with balconies
 minarets	MINARET: slender tower with balconies
 minatory	threatening or foreshadowing evil or tragic developments
@@ -3483,7 +3483,7 @@ mordantly	in a mordant way
 mordants	MORDANT: a substance used to treat leather or other materials before dyeing; aids in dyeing process
 more	a quantifier meaning greater in size or amount or extent or degree
 moreish	so tasty that you want more
-morello	any of several cultivated sour cherry trees bearing fruit with dark skin and juice
+morello	cultivated sour cherry with dark-colored skin and juice
 moreover	in addition
 mores	the conventions that embody the fundamental values of a group
 morgue	a building (or room) where dead bodies are kept before burial or cremation
@@ -3885,8 +3885,8 @@ mudpuppies	MUDPUPPY: a large aquatic North American salamander
 mudpuppy	a large aquatic North American salamander
 mudroom	a room for removing muddy boots and coats
 mudrooms	MUDROOM: a room for removing muddy boots and coats
-mudskipper	found in tropical coastal regions of Africa and Asia; able to move on land on strong pectoral fins
-mudskippers	MUDSKIPPER: found in tropical coastal regions of Africa and Asia; able to move on land on strong pectoral fins
+mudskipper	a goby found in tropical coastal regions of Africa and Asia; able to move on land on strong pectoral fins
+mudskippers	MUDSKIPPER: a goby found in tropical coastal regions of Africa and Asia; able to move on land on strong pectoral fins
 mudslide	a landslide of mud
 mudslides	MUDSLIDE: a landslide of mud
 mudsling	MUDSLINGING: make insulting charges against
@@ -3938,8 +3938,8 @@ mukluks	MUKLUK: a soft Arctic boot
 mulatto	an offspring of a black and a white parent
 mulattoes	MULATTO: a person of mixed Black and white ancestry
 mulattos	MULATTO: an offspring of a black and a white parent
-mulberries	MULBERRY: any of several trees of the genus Morus having edible fruit that resembles the blackberry
-mulberry	any of several trees of the genus Morus having edible fruit that resembles the blackberry
+mulberries	MULBERRY: sweet usually dark purple blackberry-like fruit of any of several mulberry trees of the genus Morus
+mulberry	sweet usually dark purple blackberry-like fruit of any of several mulberry trees of the genus Morus
 mulch	a protective covering of rotting vegetable matter spread to reduce evaporation and soil erosion
 mulched	MULCH: a protective covering of rotting vegetable matter spread to reduce evaporation and soil erosion
 mulches	MULCH: a protective covering of rotting vegetable matter spread to reduce evaporation and soil erosion
@@ -4093,10 +4093,10 @@ munchkins	MUNCHKIN: a small child or person
 mundane	found in the ordinary course of events
 mundanely	in a worldly manner
 mundanes	MUNDANE: an ordinary, non-magical person
-mung	seed of the mung bean plant; used for food
+mung	seed of the mung bean plant used for food
 munged	MUNGE: alter or corrupt data
 munging	MUNGE: alter or corrupt data
-mungs	MUNG: seed of the mung bean plant; used for food
+mungs	MUNG: seed of the mung bean plant used for food
 municipal	relating or belonging to or characteristic of a municipality
 municipalities	MUNICIPALITY: an urban district having corporate status and powers of self-government
 municipality	an urban district having corporate status and powers of self-government
@@ -4147,7 +4147,7 @@ murmurs	MURMUR: a low continuous indistinct sound; often accompanied by movement
 murre	black-and-white diving bird of northern seas
 murrelet	a small seabird of the auk family
 murres	MURRE: black-and-white diving bird of northern seas
-muscat	any of several cultivated grapevines that produce sweet white grapes
+muscat	wine from muscat grapes
 muscatel	wine from muscat grapes
 muscatels	MUSCATEL: wine from muscat grapes
 muscle	one of the contractile organs of the body
@@ -4179,10 +4179,10 @@ mushier	MUSHY: having the consistency of mush
 mushiest	MUSHY: having the consistency of mush
 mushiness	a mushy pulpy softness
 mushing	MUSH: any soft or soggy mass
-mushroom	common name for an edible agaric (contrasting with the inedible toadstool)
-mushroomed	MUSHROOM: common name for an edible agaric (contrasting with the inedible toadstool)
-mushrooming	MUSHROOM: common name for an edible agaric (contrasting with the inedible toadstool)
-mushrooms	MUSHROOM: common name for an edible agaric (contrasting with the inedible toadstool)
+mushroom	fleshy body of any of numerous edible fungi
+mushroomed	MUSHROOM: fleshy body of any of numerous edible fungi
+mushrooming	MUSHROOM: fleshy body of any of numerous edible fungi
+mushrooms	MUSHROOM: fleshy body of any of numerous edible fungi
 mushy	having the consistency of mush
 music	an artistic form of auditory communication incorporating instrumental or vocal tones in a structured and continuous manner
 musical	characterized by or capable of producing music
@@ -4214,8 +4214,8 @@ muskier	MUSKIE: a large North American pike
 muskies	MUSKIE: a large North American pike
 muskiest	MUSKIE: a large North American pike
 muskiness	having the olfactory properties of musk
-muskmelon	any of several varieties of vine whose fruit has a netted rind and edible flesh and a musky smell
-muskmelons	MUSKMELON: any of several varieties of vine whose fruit has a netted rind and edible flesh and a musky smell
+muskmelon	the fruit of a muskmelon vine; any of several sweet melons related to cucumbers
+muskmelons	MUSKMELON: the fruit of a muskmelon vine; any of several sweet melons related to cucumbers
 muskrat	the brown fur of a muskrat
 muskrats	MUSKRAT: the brown fur of a muskrat
 musky	resembling the smell of musk
@@ -4239,8 +4239,8 @@ mustaches	MUSTACHE: an unshaved growth of hair on the upper lip
 mustachioed	having a moustache
 mustang	small hardy range horse of the western plains descended from horses brought by the Spanish
 mustangs	MUSTANG: small hardy range horse of the western plains descended from horses brought by the Spanish
-mustard	any of several cruciferous plants of the genus Brassica
-mustards	MUSTARD: any of several cruciferous plants of the genus Brassica
+mustard	pungent powder or paste prepared from ground mustard seeds
+mustards	MUSTARD: pungent powder or paste prepared from ground mustard seeds
 muster	gather or bring together
 mustered	MUSTER: gather or bring together
 mustering	MUSTER: gather or bring together
@@ -4349,8 +4349,8 @@ myrmecologist	an expert in ants
 myrmecologists	MYRMECOLOGIST: an expert in ants
 myrmecology	the study of ants
 myrrh	aromatic resin that is burned as incense and used in perfume
-myrtle	widely cultivated as a groundcover for its dark green shiny leaves and usually blue-violet flowers
-myrtles	MYRTLE: widely cultivated as a groundcover for its dark green shiny leaves and usually blue-violet flowers
+myrtle	a periwinkle widely cultivated as a groundcover for its dark green shiny leaves and usually blue-violet flowers
+myrtles	MYRTLE: a periwinkle widely cultivated as a groundcover for its dark green shiny leaves and usually blue-violet flowers
 myself	me, used when I am the object or for emphasis
 mysteries	MYSTERY: something that baffles understanding and cannot be explained
 mysterious	of an obscure nature

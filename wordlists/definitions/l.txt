@@ -822,8 +822,8 @@ leecher	a person who takes without giving back
 leeches	LEECH: carnivorous or bloodsucking aquatic or terrestrial worms typically having a sucker at each end
 leeching	LEECH: carnivorous or bloodsucking aquatic or terrestrial worms typically having a sucker at each end
 leechlike	of plants or persons; having the nature or habits of a parasite or leech; living off another
-leek	plant having a large slender white bulb and flat overlapping dark green leaves; used in cooking; believed derived from the wild Allium ampeloprasum
-leeks	LEEK: plant having a large slender white bulb and flat overlapping dark green leaves; used in cooking; believed derived from the wild Allium ampeloprasum
+leek	a vegetable of the onion family with a long white stem and flat green leaves
+leeks	LEEK: a vegetable of the onion family with a long white stem and flat green leaves
 leer	look suggestively or obliquely; look or gaze with a sly, immodest, or malign expression
 leered	LEER: look suggestively or obliquely; look or gaze with a sly, immodest, or malign expression
 leerier	LEERY: openly distrustful and unwilling to confide
@@ -1239,8 +1239,8 @@ licentious	lacking moral discipline; especially sexually unrestrained
 licentiously	in a licentious and promiscuous manner
 licentiousness	the quality of being lewd and lascivious
 lich	an undead sorcerer in fantasy stories; also an old word for a corpse
-lichee	Chinese tree cultivated especially in Philippines and India for its edible fruit; sometimes placed in genus Nephelium
-lichees	LICHEE: Chinese tree cultivated especially in Philippines and India for its edible fruit; sometimes placed in genus Nephelium
+lichee	Chinese fruit having a thin brittle shell enclosing a sweet jellylike pulp and a single seed; often dried
+lichees	LICHEE: Chinese fruit having a thin brittle shell enclosing a sweet jellylike pulp and a single seed; often dried
 lichen	any of several eruptive skin diseases characterized by hard thick lesions grouped together and resembling lichens growing on rocks
 lichenological	relating to the study of lichens
 lichenologist	a person who studies lichens
@@ -1261,8 +1261,8 @@ lickings	LICKING: an unsuccessful ending to a struggle or contest
 licks	LICK: beat thoroughly and conclusively in a competition or fight
 lickspittle	a grovelling flatterer
 lickspittles	LICKSPITTLE: a grovelling flatterer
-licorice	deep-rooted coarse-textured plant native to the Mediterranean region having blue flowers and pinnately compound leaves; widely cultivated in Europe for its long thick sweet roots
-licorices	LICORICE: deep-rooted coarse-textured plant native to the Mediterranean region having blue flowers and pinnately compound leaves; widely cultivated in Europe for its long thick sweet roots
+licorice	a black candy flavored with the dried root of the licorice plant
+licorices	LICORICE: a black candy flavored with the dried root of the licorice plant
 lid	either of two folds of skin that can be moved to cover or open the eye
 lidded	LID: either of two folds of skin that can be moved to cover or open the eye
 lido	a recreational facility including a swimming pool for water sports
@@ -1513,8 +1513,8 @@ lingerings	LINGERING: the act of tarrying
 lingers	LINGER: remain present although waning or gradually dying
 lingo	a characteristic language of a particular group (as among thieves)
 lingoes	LINGO: language, especially specialised jargon
-lingonberries	LINGONBERRY: low evergreen shrub of high north temperate regions of Europe and Asia and America bearing red edible berries
-lingonberry	low evergreen shrub of high north temperate regions of Europe and Asia and America bearing red edible berries
+lingonberries	LINGONBERRY: tart red berries similar to American cranberries but smaller
+lingonberry	tart red berries similar to American cranberries but smaller
 lingos	LINGO: a characteristic language of a particular group (as among thieves)
 lings	LING: water chestnut whose spiny fruit has two rather than 4 prongs
 lingua	a mobile mass of muscular tissue covered with mucous membrane and located in the oral cavity
@@ -1629,7 +1629,7 @@ liquify	make (a solid substance) liquid, as by heating
 liquifying	LIQUIFY: make (a solid substance) liquid, as by heating
 liquor	an alcoholic beverage that is distilled rather than fermented
 liquored	LIQUOR: supplied with strong drink
-liquorice	deep-rooted coarse-textured plant native to the Mediterranean region having blue flowers and pinnately compound leaves; widely cultivated in Europe for its long thick sweet roots
+liquorice	a black candy flavored with the dried root of the licorice plant
 liquoring	LIQUOR: supplying with strong drink
 liquors	LIQUOR: an alcoholic beverage that is distilled rather than fermented
 lira	the basic unit of money on Malta; equal to 100 cents
@@ -1664,8 +1664,8 @@ lists	LIST: a database containing an ordered array of items (names or topics)
 lit	provided with artificial light
 litanies	LITANY: any long and tedious address or recital
 litany	any long and tedious address or recital
-litchi	Chinese tree cultivated especially in Philippines and India for its edible fruit; sometimes placed in genus Nephelium
-litchis	LITCHI: Chinese tree cultivated especially in Philippines and India for its edible fruit; sometimes placed in genus Nephelium
+litchi	Chinese fruit having a thin brittle shell enclosing a sweet jellylike pulp and a single seed; often dried
+litchis	LITCHI: Chinese fruit having a thin brittle shell enclosing a sweet jellylike pulp and a single seed; often dried
 lite	having relatively few calories
 liter	a metric unit of capacity, formerly defined as the volume of one kilogram of pure water under standard conditions; now equal to 1,000 cubic centimeters (or approximately 1.75 pints)
 literacy	the ability to read and write
@@ -1939,8 +1939,8 @@ lofting	LOFT: floor consisting of a large unpartitioned space over a factory or 
 lofts	LOFT: floor consisting of a large unpartitioned space over a factory or warehouse or other commercial space
 lofty	of high moral or intellectual value; elevated in nature or style
 log	enter into a log, as on ships and planes
-loganberries	LOGANBERRY: red-fruited bramble native from Oregon to Baja California
-loganberry	red-fruited bramble native from Oregon to Baja California
+loganberries	LOGANBERRY: large red variety of the dewberry
+loganberry	large red variety of the dewberry
 logarithm	the exponent required to produce a given number
 logarithmic	of or relating to or using logarithms
 logarithms	LOGARITHM: the exponent required to produce a given number
@@ -2174,8 +2174,8 @@ lotteries	LOTTERY: something that is regarded as a chance event
 lottery	something that is regarded as a chance event
 lotto	a game in which numbered balls are drawn at random and players cover the corresponding numbers on their cards
 lottos	LOTTO: a game in which numbered balls are drawn at random and players cover the corresponding numbers on their cards
-lotus	native to eastern Asia; widely cultivated for its large pink or white flowers
-lotuses	LOTUS: native to eastern Asia; widely cultivated for its large pink or white flowers
+lotus	a water lily native to eastern Asia; widely cultivated for its large pink or white flowers
+lotuses	LOTUS: a water lily native to eastern Asia; widely cultivated for its large pink or white flowers
 louche	disreputable and dissolute, somewhat agreeably
 loud	characterized by or producing sound of great volume or intensity
 louder	LOUD: characterized by or producing sound of great volume or intensity

@@ -16,7 +16,10 @@
 //   2. WordNet, the word itself — the gloss of its commonest sense, in the part
 //      of speech its tagged corpus met most often (HOME, a noun; RUN, a verb).
 //      Example sentences are cut. Used when WordNet's corpus met the word, or
-//      when the word has no base form to fall back on.
+//      when the word has no base form to fall back on. An untagged noun whose
+//      first-listed sense is a plant takes its food sense (PEACH, CHERRY), and
+//      an animal or plant gloss with no head noun gets its hypernym (YELLOWFIN
+//      "a tuna; may reach 400 pounds…").
 //   3. A base form, by WordNet's rules for endings and a short table of
 //      irregulars — STOPPED gives "STOP: come to a halt…", GEESE "GOOSE: …".
 //      The base's own definition comes from 1 or 2.
@@ -63,17 +66,56 @@ for (const pos of POS) {
     if (!/^[a-z]+$/.test(f[0])) continue;
     const p = +f[3];
     const tagged = +f[5 + p];
-    const offset = f[6 + p];
+    const offsets = f.slice(6 + p, 6 + p + +f[4 + p]);
     if (!index.has(f[0])) index.set(f[0], []);
-    index.get(f[0]).push({ pos, tagged, offset });
+    index.get(f[0]).push({ pos, tagged, offset: offsets[0], offsets });
   }
 }
 const data = Object.fromEntries(POS.map(pos => [pos, fs.readFileSync(path.join(wn, `data.${pos}`), 'latin1')]));
-function gloss({ pos, offset }) {
+// A synset's line: "offset lexfile pos w_cnt word lex_id… p_cnt pointers… | gloss".
+function synset(pos, offset) {
   const s = data[pos];
   const at = +offset;
   const line = s.slice(at, s.indexOf('\n', at));
-  let g = line.slice(line.indexOf('| ') + 2).trim();
+  const f = line.split(' ');
+  const w = parseInt(f[3], 16);
+  const words = Array.from({ length: w }, (_, i) => f[4 + 2 * i].replace(/\(.*\)$/, '').replace(/_/g, ' '));
+  const pAt = 4 + 2 * w;
+  const pointers = Array.from({ length: +f[pAt] }, (_, i) => ({ sym: f[pAt + 1 + 4 * i], offset: f[pAt + 2 + 4 * i], pos: f[pAt + 3 + 4 * i] }));
+  return { lexfile: +f[1], words, pointers, text: line.slice(line.indexOf('| ') + 2).trim() };
+}
+// Where WordNet's corpus never met a word, its senses come in no particular
+// order, and the first is often the plant: PEACH "cultivated in temperate
+// regions", CHERRY "wood of any of various cherry trees". For those, the food.
+const PLANT = 20, FOOD = 13;
+for (const senses of index.values()) {
+  for (const sn of senses) {
+    if (sn.pos !== 'noun' || sn.tagged > 0 || sn.offsets.length < 2) continue;
+    if (synset('noun', sn.offset).lexfile !== PLANT) continue;
+    const food = sn.offsets.find(o => synset('noun', o).lexfile === FOOD);
+    if (food) sn.offset = food;
+  }
+}
+// Some animal and plant glosses leave the kind of thing to the synset's
+// hypernym and start straight in on the difference: YELLOWFIN "may reach 400
+// pounds; worldwide in tropics" (a tuna), ASP "of southern Europe; similar to
+// but smaller than the adder" (a viper). Those get the hypernym read back in.
+const ANIMAL = 5;
+const HEADLESS = /^(may|of|native to|found in|similar to|related to|distinguished from|sometimes placed|usually coiled|(widely |often )?(cultivated|grown) (in|for|as))\b/;
+const RUNS_ON = /^(of|native to|found in|similar to|related to|distinguished from|(widely |often )?(cultivated|grown) (in|for|as))\b/;
+const article = w => (/^[aeiou]/i.test(w) ? 'an' : 'a');
+function withHead(pos, offset, g) {
+  if (pos !== 'noun' || !HEADLESS.test(g)) return g;
+  const at = synset(pos, offset);
+  if (at.lexfile !== ANIMAL && at.lexfile !== PLANT) return g;
+  const up = at.pointers.find(p => p.sym === '@' || p.sym === '@i');
+  if (!up) return g;
+  const kind = synset('noun', up.offset).words[0];
+  if (g.includes(kind)) return g;   // OKAPI "similar to the giraffe": no "a giraffe" in front of that
+  return `${article(kind)} ${kind}${RUNS_ON.test(g) ? ' ' : '; '}${g}`;
+}
+function gloss({ pos, offset }) {
+  let g = synset(pos, offset).text;
   const ex = g.indexOf('"');            // examples are quoted; cut from the first
   if (ex >= 0) g = g.slice(0, ex);
   g = g.replace(/[;:\s]+$/, '').trim();
@@ -82,7 +124,7 @@ function gloss({ pos, offset }) {
   // blocked", is kept.
   const label = g.match(/^\(([^)]*)\)\s*/);
   if (label && !/^(of|used|in|as|with|especially|usually|often|sometimes|chiefly)\b/.test(label[1])) g = g.slice(label[0].length);
-  return g;
+  return withHead(pos, offset, g);
 }
 const bestSense = senses => senses.reduce((a, b) => (b.tagged > a.tagged ? b : a));
 

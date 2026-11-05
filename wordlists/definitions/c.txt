@@ -524,10 +524,10 @@ cans	CAN: preserve in a can or tin
 canst	CAN: second person singular, old form
 cant	stock phrases that have become nonsense through endless repetition
 cantabile	smooth and flowing
-cantaloup	a variety of muskmelon vine having fruit with a tan rind and orange flesh
-cantaloupe	a variety of muskmelon vine having fruit with a tan rind and orange flesh
-cantaloupes	CANTALOUPE: a variety of muskmelon vine having fruit with a tan rind and orange flesh
-cantaloups	CANTALOUP: a variety of muskmelon vine having fruit with a tan rind and orange flesh
+cantaloup	the fruit of a cantaloup vine; small to medium-sized melon with yellowish flesh
+cantaloupe	the fruit of a cantaloup vine; small to medium-sized melon with yellowish flesh
+cantaloupes	CANTALOUPE: the fruit of a cantaloup vine; small to medium-sized melon with yellowish flesh
+cantaloups	CANTALOUP: the fruit of a cantaloup vine; small to medium-sized melon with yellowish flesh
 cantankerous	stubbornly obstructive and unwilling to cooperate
 cantankerously	in a bad mood
 cantankerousness	the quality of being cantankerous
@@ -696,8 +696,8 @@ capybara	pig-sized tailless South American amphibious rodent with partly webbed 
 car	a motor vehicle with four wheels; usually propelled by an internal combustion engine
 carabao	water buffalo of the Philippines
 carabiner	an oblong metal ring with a spring clip; used in mountaineering to attach a rope to a piton or to connect two ropes
-caracal	of deserts of northern Africa and southern Asia
-caracals	CARACAL: of deserts of northern Africa and southern Asia
+caracal	a lynx of deserts of northern Africa and southern Asia
+caracals	CARACAL: a lynx of deserts of northern Africa and southern Asia
 caracul	hardy coarse-haired sheep of central Asia; lambs are valued for their soft curly black fur
 carafe	a bottle with a stopper; for serving wine or water
 carafes	CARAFE: a bottle with a stopper; for serving wine or water
@@ -723,8 +723,8 @@ caravanning	CARAVAN: a procession (of wagons or mules or camels) traveling toget
 caravans	CARAVAN: a procession (of wagons or mules or camels) traveling together in single file
 caravel	a small fast sailing ship of the fifteenth century
 caravels	CARAVEL: a small fast sailing ship of the fifteenth century
-caraway	a Eurasian plant with small white flowers yielding caraway seed
-caraways	CARAWAY: a Eurasian plant with small white flowers yielding caraway seed
+caraway	a plant of the carrot family whose aromatic seeds flavour bread and cheese
+caraways	CARAWAY: a plant of the carrot family whose aromatic seeds flavour bread and cheese
 carb	carbohydrate
 carbide	a binary compound of carbon with a more electropositive element
 carbides	CARBIDE: a binary compound of carbon with a more electropositive element
@@ -776,8 +776,8 @@ carcinoma	any malignant tumor derived from epithelial tissue; one of the four ma
 carcinomas	CARCINOMA: any malignant tumor derived from epithelial tissue; one of the four major types of cancer
 carcinomata	CARCINOMA: a cancer of the skin or lining of organs
 card	one of a set of small pieces of stiff paper marked in various ways and used for playing games or for telling fortunes
-cardamom	rhizomatous herb of India having aromatic seeds used as seasoning
-cardamoms	CARDAMOM: rhizomatous herb of India having aromatic seeds used as seasoning
+cardamom	aromatic seeds used as seasoning like cinnamon and cloves especially in pickles and barbecue sauces
+cardamoms	CARDAMOM: aromatic seeds used as seasoning like cinnamon and cloves especially in pickles and barbecue sauces
 cardboard	a stiff moderately thick paper
 carded	CARD: one of a set of small pieces of stiff paper marked in various ways and used for playing games or for telling fortunes
 carder	one who combs wool
@@ -896,8 +896,8 @@ carnivore	a terrestrial or aquatic flesh-eating mammal
 carnivores	CARNIVORE: a terrestrial or aquatic flesh-eating mammal
 carnivorous	relating to or characteristic of carnivores
 carny	a worker at a travelling fair
-carob	long pod containing small beans and sweetish edible pulp; used as animal feed and source of a chocolate substitute
-carobs	CAROB: long pod containing small beans and sweetish edible pulp; used as animal feed and source of a chocolate substitute
+carob	powder from the ground seeds and pods of the carob tree; used as a chocolate substitute
+carobs	CAROB: powder from the ground seeds and pods of the carob tree; used as a chocolate substitute
 carol	joyful religious song celebrating the birth of Christ
 caroled	CAROL: joyful religious song celebrating the birth of Christ
 caroler	a singer of carols
@@ -980,8 +980,8 @@ carries	CARRY: move while supporting, either in a vehicle or in one's hands or o
 carrion	the dead and rotting body of an animal; unfit for human food
 carrions	CARRION: the dead and rotting body of an animal; unfit for human food
 carronade	a short heavy naval cannon
-carrot	deep orange edible root of the cultivated carrot plant
-carrots	CARROT: deep orange edible root of the cultivated carrot plant
+carrot	orange root; important source of carotene
+carrots	CARROT: orange root; important source of carotene
 carrousel	a conveyer belt that carries luggage to be claimed by air travelers
 carrousels	CARROUSEL: a conveyer belt that carries luggage to be claimed by air travelers
 carry	move while supporting, either in a vehicle or in one's hands or on one's body
@@ -1072,8 +1072,8 @@ cashcard	a credit card that entitles the holder to receive cash
 cashcards	CASHCARD: a credit card that entitles the holder to receive cash
 cashed	CASH: money in the form of bills or coins
 cashes	CASH: money in the form of bills or coins
-cashew	tropical American evergreen tree bearing kidney-shaped nuts that are edible only when roasted
-cashews	CASHEW: tropical American evergreen tree bearing kidney-shaped nuts that are edible only when roasted
+cashew	kidney-shaped nut edible only when roasted
+cashews	CASHEW: kidney-shaped nut edible only when roasted
 cashflow	the movement of money in and out of a business
 cashier	an employee of a bank who receives and pays out money
 cashiered	CASHIER: an employee of a bank who receives and pays out money
@@ -1344,8 +1344,8 @@ caudal	constituting or relating to a tail
 caught	CATCH: discover or come upon accidentally, suddenly, or unexpectedly; catch somebody doing something or in a certain state
 cauldron	a very large pot that is used for boiling
 cauldrons	CAULDRON: a very large pot that is used for boiling
-cauliflower	a plant having a large edible head of crowded white flower buds
-cauliflowers	CAULIFLOWER: a plant having a large edible head of crowded white flower buds
+cauliflower	compact head of white undeveloped flowers
+cauliflowers	CAULIFLOWER: compact head of white undeveloped flowers
 caulk	a waterproof filler and sealant that is used in building and repair to make watertight
 caulked	having cracks and crevices stopped up with a filler
 caulker	one who seals seams
@@ -1443,7 +1443,7 @@ caw	utter a cry, characteristic of crows, rooks, or ravens
 cawed	CAW: utter a cry, characteristic of crows, rooks, or ravens
 cawing	CAW: utter a cry, characteristic of crows, rooks, or ravens
 caws	CAW: utter a cry, characteristic of crows, rooks, or ravens
-cayenne	plant bearing very hot and finely tapering long peppers; usually red
+cayenne	ground pods and seeds of pungent red peppers of the genus Capsicum
 cease	put an end to a state or an activity
 ceased	CEASE: put an end to a state or an activity
 ceasefire	a halt in fighting
@@ -1481,9 +1481,9 @@ celebratory	used for celebrating
 celebrities	CELEBRITY: a widely known person
 celebrity	a widely known person
 celebs	CELEB: a celebrity
-celeriac	grown for its thickened edible aromatic root
+celeriac	thickened edible aromatic root of a variety of celery plant
 celerity	a rate that is rapid
-celery	widely cultivated herb with aromatic leaf stalks that are eaten raw or cooked
+celery	stalks eaten raw or cooked or used as seasoning
 celesta	a musical instrument consisting of graduated steel plates that are struck by hammers activated by a keyboard
 celestas	CELESTA: a musical instrument consisting of graduated steel plates that are struck by hammers activated by a keyboard
 celestial	of or relating to the sky
@@ -1634,8 +1634,8 @@ ceramic	of or relating to or made from a ceramic
 ceramicist	a craftsman who shapes pottery on a potter's wheel and bakes them it a kiln
 ceramicists	CERAMICIST: a craftsman who shapes pottery on a potter's wheel and bakes them it a kiln
 ceramics	CERAMIC: of or relating to or made from a ceramic
-cereal	grass whose starchy grains are used as food: wheat; rice; rye; oats; maize; buckwheat; millet
-cereals	CEREAL: grass whose starchy grains are used as food: wheat; rice; rye; oats; maize; buckwheat; millet
+cereal	foodstuff prepared from the starchy grains of cereal grasses
+cereals	CEREAL: foodstuff prepared from the starchy grains of cereal grasses
 cerebella	CEREBELLUM: the part of the brain controlling balance
 cerebellar	relating to or associated with the cerebellum
 cerebellum	a major division of the vertebrate brain; situated above the medulla oblongata and beneath the cerebrum in humans
@@ -1938,7 +1938,7 @@ charbroils	CHARBROIL: grill over charcoal
 charcoal	a carbonaceous material obtained by heating wood or other organic matter in the absence of air
 charcoals	CHARCOAL: a carbonaceous material obtained by heating wood or other organic matter in the absence of air
 charcuterie	a delicatessen that specializes in meats
-chard	beet lacking swollen root; grown as a vegetable for its edible leaves and stalks
+chard	long succulent whitish stalks with large green leaves
 charge	to make a rush at or sudden attack upon, as in battle
 chargeable	liable to be accused, or cause for such liability
 chargecard	a card for buying goods on credit
@@ -2216,8 +2216,8 @@ cherishes	CHERISH: be fond of; be attached to
 cherishing	CHERISH: be fond of; be attached to
 cheroot	a cigar with both ends cut flat
 cheroots	CHEROOT: a cigar with both ends cut flat
-cherries	CHERRY: wood of any of various cherry trees especially the black cherry
-cherry	wood of any of various cherry trees especially the black cherry
+cherries	CHERRY: a red fruit with a single hard stone
+cherry	a red fruit with a single hard stone
 cherrypick	select only the best or most desirable items
 cherrypicked	CHERRYPICK: select only the best or most desirable items
 cherrypicking	CHERRYPICK: select only the best or most desirable items
@@ -2229,7 +2229,7 @@ cherubic	having a sweet nature befitting an angel or cherub
 cherubim	CHERUB: an angelic being, often shown as a winged child
 cherubims	CHERUBIM: CHERUB: an angelic being, often shown as a winged child
 cherubs	CHERUB: a sweet innocent baby
-chervil	aromatic annual Old World herb cultivated for its finely divided and often curly leaves for use especially in soups and salads
+chervil	fresh ferny parsley-like leaves used as a garnish with chicken and veal and omelets and green salads and spinach
 chess	weedy annual native to Europe but widely distributed as a weed especially in wheat
 chessboard	a checkerboard used to play chess
 chessboards	CHESSBOARD: a checkerboard used to play chess
@@ -2279,13 +2279,13 @@ chickenpox	an acute contagious disease caused by herpes varicella zoster virus; 
 chickens	CHICKEN: the flesh of a chicken used for food
 chickenshit	a false statement that is considered to indicate timidity or fear
 chickenshits	CHICKENSHIT: a false statement that is considered to indicate timidity or fear
-chickpea	the seed of the chickpea plant
-chickpeas	CHICKPEA: the seed of the chickpea plant
+chickpea	large white roundish Asiatic legume; usually dried
+chickpeas	CHICKPEA: large white roundish Asiatic legume; usually dried
 chicks	CHICK: young bird especially of domestic fowl
 chickweed	any of various plants of the genus Stellaria
 chicle	gum-like substance from the sapodilla
-chicories	CHICORY: the dried root of the chicory plant: used as a coffee substitute
-chicory	the dried root of the chicory plant: used as a coffee substitute
+chicories	CHICORY: root of the chicory plant roasted and ground to substitute for or adulterate coffee
+chicory	root of the chicory plant roasted and ground to substitute for or adulterate coffee
 chid	CHIDE: scold or rebuke
 chidden	CHIDE: scold or rebuke
 chide	censure severely or angrily
@@ -2470,7 +2470,7 @@ chivalrous	being attentive to women like an ideal knight
 chivalrously	in a gallant manner
 chivalry	courtesy towards women
 chive	perennial having hollow cylindrical leaves used for seasoning
-chives	perennial having hollow cylindrical leaves used for seasoning
+chives	cylindrical leaves used fresh as a mild onion-flavored seasoning
 chivied	CHIVVY: harass or nag
 chivies	CHIVY: annoy continually or chronically
 chivvied	CHIVVY: harass or nag
@@ -2781,7 +2781,7 @@ cigars	CIGAR: a roll of tobacco for smoking
 ciggie	a cigarette
 ciggies	CIGGIE: a cigarette
 ciggy	a cigarette
-cilantro	Old World herb with aromatic leaves and seed resembling parsley
+cilantro	parsley-like herb used as seasoning or garnish
 cilia	CILIUM: a tiny hairlike structure on a cell
 ciliary	relating to the ciliary body and associated structures of the eye
 cilium	a hairlike projection from the surface of a cell; provides locomotion in free-swimming unicellular organisms
@@ -2808,7 +2808,7 @@ cinematographers	CINEMATOGRAPHER: a photographer who operates a movie camera
 cinematographic	relating to filming and the art of motion pictures
 cinematography	the act of making a film
 cinnabar	a heavy reddish mineral consisting of mercuric sulfide; the chief source of mercury
-cinnamon	aromatic bark used as a spice
+cinnamon	spice from the dried aromatic bark of the Ceylon cinnamon tree; used as rolled strips or ground
 cinnamony	tasting or smelling of cinnamon
 cinque	the cardinal number that is the sum of four and one
 cipher	a message written in a secret code
@@ -2898,7 +2898,7 @@ circuses	CIRCUS: a travelling company of entertainers; including trained animals
 cirque	a steep-walled semicircular basin in a mountain; may contain a lake
 cirques	CIRQUE: a steep-walled semicircular basin in a mountain; may contain a lake
 cirrhosis	a chronic disease interfering with the normal functioning of the liver; the major cause is chronic alcoholism
-cirrus	usually coiled
+cirrus	a high, thin, wispy cloud
 cis	an alliance made up of states that had been Soviet Socialist Republics in the Soviet Union prior to its dissolution in Dec 1991
 cisco	cold-water fish caught in Lake Superior and northward
 ciscoes	CISCO: a North American freshwater whitefish
@@ -3199,8 +3199,8 @@ clematis	any of various ornamental climbing plants of the genus Clematis usually
 clematises	CLEMATIS: any of various ornamental climbing plants of the genus Clematis usually having showy flowers
 clemency	good weather with comfortable temperatures
 clement	(of weather or climate) physically mild
-clementine	a variety of mandarin orange that is grown around the Mediterranean and in South Africa
-clementines	CLEMENTINE: a variety of mandarin orange that is grown around the Mediterranean and in South Africa
+clementine	a mandarin orange of a deep reddish orange color and few seeds
+clementines	CLEMENTINE: a mandarin orange of a deep reddish orange color and few seeds
 clench	hold in a tight grasp
 clenched	CLENCH: hold in a tight grasp
 clencher	something that settles a matter decisively
@@ -3449,14 +3449,14 @@ clouter	one who hits hard
 clouters	CLOUTER: one who hits hard
 clouting	CLOUT: a target used in archery
 clouts	CLOUT: a target used in archery
-clove	aromatic flower bud of a clove tree; yields a spice
+clove	a dried flower bud used as a spice; also one section of a bulb of garlic
 cloven	(used of hooves) split, divided
 clover	a plant of the genus Trifolium
 cloverleaf	an interchange that does not require left-hand turns
 cloverleafs	CLOVERLEAF: an interchange that does not require left-hand turns
 cloverleaves	CLOVERLEAF: a road junction with looping ramps
 clovers	CLOVER: a plant of the genus Trifolium
-cloves	CLOVE: aromatic flower bud of a clove tree; yields a spice
+cloves	CLOVE: a dried flower bud used as a spice; also one section of a bulb of garlic
 clown	a rude or vulgar fool
 clowned	CLOWN: a rude or vulgar fool
 clowneries	CLOWNERY: clownish behaviour
@@ -3631,8 +3631,8 @@ cobblestone	rectangular paving stone with curved top; once used to make roads
 cobblestones	COBBLESTONE: rectangular paving stone with curved top; once used to make roads
 cobbling	the shoemaker's trade
 cobia	large dark-striped tropical food and game fish related to remoras; found worldwide in coastal to open waters
-cobnut	small nut-bearing tree much grown in Europe
-cobnuts	COBNUT: small nut-bearing tree much grown in Europe
+cobnut	nut of any of several trees of the genus Corylus
+cobnuts	COBNUT: nut of any of several trees of the genus Corylus
 cobra	venomous Asiatic and African elapid snakes that can expand the skin of the neck into a hood
 cobras	COBRA: venomous Asiatic and African elapid snakes that can expand the skin of the neck into a hood
 cobs	COB: nut of any of several trees of the genus Corylus
@@ -3716,11 +3716,11 @@ cocoon	silky envelope spun by the larvae of many insects to protect pupas and by
 cocooned	COCOON: silky envelope spun by the larvae of many insects to protect pupas and by spiders to protect eggs
 cocooning	COCOON: silky envelope spun by the larvae of many insects to protect pupas and by spiders to protect eggs
 cocoons	COCOON: silky envelope spun by the larvae of many insects to protect pupas and by spiders to protect eggs
-cod	the vessel that contains the seeds of a plant (not the seeds themselves)
+cod	lean white flesh of important North Atlantic food fish; usually baked or poached
 coda	the closing section of a musical composition
 codas	CODA: the closing section of a musical composition
-codded	COD: the vessel that contains the seeds of a plant (not the seeds themselves)
-codding	COD: the vessel that contains the seeds of a plant (not the seeds themselves)
+codded	COD: lean white flesh of important North Atlantic food fish; usually baked or poached
+codding	COD: lean white flesh of important North Atlantic food fish; usually baked or poached
 coddle	treat with excessive indulgence
 coddled	CODDLE: treat with excessive indulgence
 coddles	CODDLE: treat with excessive indulgence
@@ -3760,7 +3760,7 @@ codon	a specific sequence of three adjacent nucleotides on a strand of DNA or RN
 codons	CODON: a specific sequence of three adjacent nucleotides on a strand of DNA or RNA that specifies the genetic code information for synthesizing a particular amino acid
 codpiece	a flap for the crotch of men's tight-fitting breeches
 codpieces	CODPIECE: a flap for the crotch of men's tight-fitting breeches
-cods	COD: the vessel that contains the seeds of a plant (not the seeds themselves)
+cods	COD: lean white flesh of important North Atlantic food fish; usually baked or poached
 codswallop	nonsensical talk or writing
 coed	a school or college that teaches both sexes
 coeds	COED: a school or college that teaches both sexes
@@ -3897,10 +3897,10 @@ cokehead	a person addicted to cocaine
 cokeheads	COKEHEAD: a person addicted to cocaine
 cokes	COKE: carbon fuel produced by distillation of coal
 coking	COKE: carbon fuel produced by distillation of coal
-cola	large genus of African trees bearing kola nuts
+cola	carbonated drink flavored with extract from kola nuts (`dope' is a southernism in the United States)
 colander	bowl-shaped strainer; used to wash or drain foods
 colanders	COLANDER: bowl-shaped strainer; used to wash or drain foods
-colas	COLA: large genus of African trees bearing kola nuts
+colas	COLA: carbonated drink flavored with extract from kola nuts (`dope' is a southernism in the United States)
 colchicine	an analgesic drug derived from the saffron plant and used to treat gout
 cold	having a low or inadequate temperature or feeling a sensation of coldness or having been made cold by e.g. ice or refrigeration
 coldblooded	cruel and without feeling
@@ -6036,7 +6036,7 @@ corespondent	the codefendant charged with adultery with the estranged spouse in 
 corespondents	CORESPONDENT: the codefendant charged with adultery with the estranged spouse in a divorce proceeding
 corgi	either of two Welsh breeds of long-bodied short-legged dogs with erect ears and a fox-like head
 corgis	CORGI: either of two Welsh breeds of long-bodied short-legged dogs with erect ears and a fox-like head
-coriander	Old World herb with aromatic leaves and seed resembling parsley
+coriander	dried coriander seeds used whole or ground
 coring	COR: an exclamation of surprise
 cork	outer bark of the cork oak; used for stoppers for bottles etc.
 corkage	a charge added at a restaurant for every bottle of wine served that was not bought on the premises
@@ -6530,8 +6530,8 @@ coups	COUP: a sudden and decisive change of government illegally or by force
 courage	a quality of spirit that enables you to face danger or pain without showing fear
 courageous	possessing or displaying courage; able to face and deal with danger or fear without flinching
 courageously	in a courageous manner
-courgette	marrow squash plant whose fruit are eaten when small
-courgettes	COURGETTE: marrow squash plant whose fruit are eaten when small
+courgette	small cucumber-shaped vegetable marrow; typically dark green
+courgettes	COURGETTE: small cucumber-shaped vegetable marrow; typically dark green
 courier	a person who carries a message
 couriered	COURIER: send by messenger
 couriering	COURIER: send by messenger
@@ -6784,8 +6784,8 @@ crampon	a hinged pair of curved iron bars; used to raise heavy objects
 crampons	CRAMPON: a hinged pair of curved iron bars; used to raise heavy objects
 cramps	CRAMP: a painful and involuntary muscular contraction
 crams	CRAM: crowd or pack to capacity
-cranberries	CRANBERRY: any of numerous shrubs of genus Vaccinium bearing cranberries
-cranberry	any of numerous shrubs of genus Vaccinium bearing cranberries
+cranberries	CRANBERRY: very tart red berry used for sauce or juice
+cranberry	very tart red berry used for sauce or juice
 crane	stretch (the neck) so as to see better
 craned	CRANE: stretch (the neck) so as to see better
 craneflies	CRANEFLY: a long-legged flying insect, also called a daddy longlegs
@@ -7032,7 +7032,7 @@ crescendoes	CRESCENDO: a gradual increase in loudness
 crescendos	CRESCENDO: a gradual increase in loudness
 crescent	any shape resembling the curved shape of the moon in its first or last quarters
 crescents	CRESCENT: any shape resembling the curved shape of the moon in its first or last quarters
-cress	any of various plants of the family Cruciferae with edible leaves that have a pungent taste
+cress	pungent leaves of any of numerous cruciferous herbs
 crest	the top line of a hill, mountain, or wave
 crested	bearing an heraldic device
 crestfallen	brought low in spirit
@@ -7548,8 +7548,8 @@ cuckolding	CUCKOLD: a man whose wife committed adultery
 cuckolds	CUCKOLD: a man whose wife committed adultery
 cuckoo	a man who is a stupid incompetent fool
 cuckoos	CUCKOO: a man who is a stupid incompetent fool
-cucumber	a melon vine of the genus Cucumis; cultivated from earliest times for its cylindrical green fruit
-cucumbers	CUCUMBER: a melon vine of the genus Cucumis; cultivated from earliest times for its cylindrical green fruit
+cucumber	cylindrical green fruit with thin green rind and white flesh eaten as a vegetable; related to melons
+cucumbers	CUCUMBER: cylindrical green fruit with thin green rind and white flesh eaten as a vegetable; related to melons
 cud	food of a ruminant regurgitated to be chewed again
 cuddle	move or arrange oneself in a comfortable and cozy position
 cuddled	CUDDLE: move or arrange oneself in a comfortable and cozy position
@@ -7634,7 +7634,7 @@ culvert	a transverse and totally enclosed drain under a road or railway
 culverts	CULVERT: a transverse and totally enclosed drain under a road or railway
 cum	the thick white fluid containing spermatozoa that is ejaculated by the male genital tract
 cumbersome	difficult to handle or use especially because of size or weight
-cumin	dwarf Mediterranean annual long cultivated for its aromatic seeds
+cumin	aromatic seeds of the cumin herb of the carrot family
 cummerbund	a broad pleated sash worn as formal dress with a tuxedo
 cummerbunds	CUMMERBUND: a broad pleated sash worn as formal dress with a tuxedo
 cumming	CUM: the thick white fluid containing spermatozoa that is ejaculated by the male genital tract

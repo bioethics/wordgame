@@ -449,10 +449,10 @@ papal	proceeding from or ordered by or subject to a pope or the papacy regarded 
 paparazzi	photographers who pursue celebrities for pictures
 paparazzo	a freelance photographer who pursues celebrities trying to take candid photographs of them to sell to newspapers or magazines
 papas	PAPA: an informal term for a father; probably derived from baby talk
-papaw	small tree native to the eastern United States having oblong leaves and fleshy fruit
-papaws	PAPAW: small tree native to the eastern United States having oblong leaves and fleshy fruit
-papaya	tropical American shrub or small tree having huge deeply palmately cleft leaves and large oblong yellow fruit
-papayas	PAPAYA: tropical American shrub or small tree having huge deeply palmately cleft leaves and large oblong yellow fruit
+papaw	fruit with yellow flesh; related to custard apples
+papaws	PAPAW: fruit with yellow flesh; related to custard apples
+papaya	large oval melon-like tropical fruit with yellowish flesh
+papayas	PAPAYA: large oval melon-like tropical fruit with yellowish flesh
 paper	a material made of cellulose pulp derived mainly from wood or rags or certain grasses
 paperback	a book with paper covers
 paperbacks	PAPERBACK: a book with paper covers
@@ -488,7 +488,7 @@ papoose	an American Indian infant
 papooses	PAPOOSE: an American Indian infant
 pappies	PAPPY: soft and mushy
 pappy	soft and mushy
-paprika	plant bearing large mild thick-walled usually bell-shaped fruits; the principal salad peppers
+paprika	a mild powdered seasoning made from dried pimientos
 paps	PAP: worthless or oversimplified ideas
 papyri	PAPYRUS: a writing material made from a reed
 papyrological	relating to the study of ancient papyrus texts
@@ -803,9 +803,9 @@ parsimonious	excessively unwilling to spend
 parsimoniously	in a parsimonious way
 parsimony	extreme care in spending money; reluctance to spend money unnecessarily
 parsing	PARSE: analyze syntactically by assigning a constituent structure to (a sentence)
-parsley	annual or perennial herb with aromatic leaves
-parsnip	the whitish root of cultivated parsnip
-parsnips	PARSNIP: the whitish root of cultivated parsnip
+parsley	aromatic herb with flat or crinkly leaves that are cut finely and used to garnish food
+parsnip	whitish edible root; eaten cooked
+parsnips	PARSNIP: whitish edible root; eaten cooked
 parson	a person authorized to conduct religious worship
 parsonage	an official residence provided by a church for its parson or vicar or rector
 parsonages	PARSONAGE: an official residence provided by a church for its parson or vicar or rector
@@ -998,7 +998,7 @@ pastrami	highly seasoned cut of smoked beef
 pastries	PASTRY: a dough of flour and water and shortening
 pastry	a dough of flour and water and shortening
 pasts	PAST: the time that has elapsed
-pasturage	succulent herbaceous vegetation of pasture land
+pasturage	bulky food like grass or hay for browsing or grazing horses or cattle
 pasture	a field covered with grass or herbage and suitable for grazing by livestock
 pastured	PASTURE: a field covered with grass or herbage and suitable for grazing by livestock
 pastureland	a field covered with grass or herbage and suitable for grazing by livestock
@@ -1208,8 +1208,8 @@ pawning	PAWN: an article deposited as security
 pawns	PAWN: an article deposited as security
 pawnshop	a shop where loans are made with personal property as security
 pawnshops	PAWNSHOP: a shop where loans are made with personal property as security
-pawpaw	tropical American shrub or small tree having huge deeply palmately cleft leaves and large oblong yellow fruit
-pawpaws	PAWPAW: tropical American shrub or small tree having huge deeply palmately cleft leaves and large oblong yellow fruit
+pawpaw	fruit with yellow flesh; related to custard apples
+pawpaws	PAWPAW: fruit with yellow flesh; related to custard apples
 pawprint	the mark left by an animal's paw
 pawprints	PAWPRINT: the mark left by an animal's paw
 paws	PAW: scrape with the paws
@@ -1272,8 +1272,8 @@ peacenik	someone who prefers negotiations to armed conflict in the conduct of fo
 peaceniks	PEACENIK: someone who prefers negotiations to armed conflict in the conduct of foreign relations
 peaces	PEACE: the state prevailing during the absence of war
 peacetime	a period of time during which there is no war
-peach	cultivated in temperate regions
-peaches	PEACH: cultivated in temperate regions
+peach	downy juicy fruit with sweet yellowish or whitish flesh
+peaches	PEACH: downy juicy fruit with sweet yellowish or whitish flesh
 peachy	very good
 peacock	European butterfly having reddish-brown wings each marked with a purple eyespot
 peacocked	PEACOCK: strut or show off
@@ -1293,7 +1293,7 @@ pealed	PEAL: a deep prolonged sound (as of thunder or large bells)
 pealer	something that rings out loudly, such as a bell
 pealing	a deep prolonged sound (as of thunder or large bells)
 peals	PEAL: a deep prolonged sound (as of thunder or large bells)
-peanut	underground pod of the peanut vine
+peanut	pod of the peanut vine containing usually 2 nuts or seeds; `groundnut' and `monkey nut' are British terms
 peanuts	an insignificant sum of money; a trifling amount
 pear	sweet juicy gritty-textured fruit available in many varieties
 pearl	a smooth lustrous round structure inside the shell of a clam or oyster; much valued as a jewel
@@ -1321,8 +1321,8 @@ pebbled	covered with small stones, or having a rough texture
 pebbles	PEBBLE: a small smooth rounded rock
 pebbling	a rough, pebble-like surface texture
 pebbly	abounding in small stones
-pecan	wood of a pecan tree
-pecans	PECAN: wood of a pecan tree
+pecan	smooth brown oval nut of south central United States
+pecans	PECAN: smooth brown oval nut of south central United States
 peccadillo	a petty misdeed
 peccadilloes	PECCADILLO: a small, minor fault
 peccadillos	PECCADILLO: a petty misdeed
@@ -1650,8 +1650,8 @@ peppered	PEPPER: add pepper to
 peppering	PEPPER: add pepper to
 peppermill	a hand device for grinding peppercorns
 peppermills	PEPPERMILL: a hand device for grinding peppercorns
-peppermint	herb with downy leaves and small purple or white flowers that yields a pungent oil used as a flavoring
-peppermints	PEPPERMINT: herb with downy leaves and small purple or white flowers that yields a pungent oil used as a flavoring
+peppermint	a candy flavored with peppermint oil
+peppermints	PEPPERMINT: a candy flavored with peppermint oil
 pepperoni	a pork and beef sausage (or a thin slice of this sausage)
 pepperonis	PEPPERONI: a pork and beef sausage (or a thin slice of this sausage)
 pepperpot	a small container with holes for sprinkling pepper
@@ -1963,8 +1963,8 @@ persevered	PERSEVERE: be persistent, refuse to stop
 perseveres	PERSEVERE: be persistent, refuse to stop
 persevering	PERSEVERE: be persistent, refuse to stop
 persiflage	light teasing
-persimmon	any of several tropical trees of the genus Diospyros
-persimmons	PERSIMMON: any of several tropical trees of the genus Diospyros
+persimmon	orange fruit resembling a plum; edible when fully ripe
+persimmons	PERSIMMON: orange fruit resembling a plum; edible when fully ripe
 persist	continue to exist
 persisted	PERSIST: continue to exist
 persistence	the property of a continuous and connected period of time
@@ -2308,8 +2308,8 @@ philistine	a person who is uninterested in intellectual pursuits
 philistines	PHILISTINE: a person who is uninterested in intellectual pursuits
 philistinism	a desire for wealth and material possessions with little interest in ethical or spiritual matters
 philodendra	PHILODENDRON: a climbing plant with glossy leaves, grown indoors
-philodendron	often grown as a houseplant
-philodendrons	PHILODENDRON: often grown as a houseplant
+philodendron	a liana often grown as a houseplant
+philodendrons	PHILODENDRON: a liana often grown as a houseplant
 philological	of or relating to or dealing with philology
 philologist	a humanist specializing in classical scholarship
 philologists	PHILOLOGIST: a humanist specializing in classical scholarship
@@ -2785,10 +2785,10 @@ pilothouse	an enclosed compartment from which a vessel can be navigated
 pilothouses	PILOTHOUSE: an enclosed compartment from which a vessel can be navigated
 piloting	PILOT: operate an airplane
 pilots	PILOT: operate an airplane
-pimento	plant bearing large mild thick-walled usually bell-shaped fruits; the principal salad peppers
-pimentos	PIMENTO: plant bearing large mild thick-walled usually bell-shaped fruits; the principal salad peppers
-pimiento	plant bearing large mild thick-walled usually bell-shaped fruits; the principal salad peppers
-pimientos	PIMIENTO: plant bearing large mild thick-walled usually bell-shaped fruits; the principal salad peppers
+pimento	fully ripened sweet red pepper; usually cooked
+pimentos	PIMENTO: fully ripened sweet red pepper; usually cooked
+pimiento	fully ripened sweet red pepper; usually cooked
+pimientos	PIMIENTO: fully ripened sweet red pepper; usually cooked
 pimp	someone who procures customers for whores (in England they call a pimp a ponce)
 pimped	PIMP: someone who procures customers for whores (in England they call a pimp a ponce)
 pimpernel	European garden herb with purple-tinged flowers and leaves that are sometimes used for salads
@@ -2822,8 +2822,8 @@ pincushion	a small stiff cushion into which pins are stuck ready for use
 pincushions	PINCUSHION: a small stiff cushion into which pins are stuck ready for use
 pine	a coniferous tree
 pineal	relating to the pineal body
-pineapple	a tropical American plant bearing a large fleshy edible fruit with a terminal tuft of stiff leaves; widely cultivated in the tropics
-pineapples	PINEAPPLE: a tropical American plant bearing a large fleshy edible fruit with a terminal tuft of stiff leaves; widely cultivated in the tropics
+pineapple	large sweet fleshy tropical fruit with a terminal tuft of stiff leaves; widely cultivated
+pineapples	PINEAPPLE: large sweet fleshy tropical fruit with a terminal tuft of stiff leaves; widely cultivated
 pinecone	the seed-producing cone of a pine tree
 pinecones	PINECONE: the seed-producing cone of a pine tree
 pined	PINE: a coniferous tree
@@ -2950,8 +2950,8 @@ piss	eliminate urine
 pissed	PISS: eliminate urine
 pisses	PISS: eliminate urine
 pissing	PISS: eliminate urine
-pistachio	small tree of southern Europe and Asia Minor bearing small hard-shelled nuts
-pistachios	PISTACHIO: small tree of southern Europe and Asia Minor bearing small hard-shelled nuts
+pistachio	nut of Mediterranean trees having an edible green kernel
+pistachios	PISTACHIO: nut of Mediterranean trees having an edible green kernel
 piste	a flat rectangular area for fencing bouts
 pistes	PISTE: a flat rectangular area for fencing bouts
 pistil	the female ovule-bearing part of a flower composed of ovary and style and stigma
@@ -3161,8 +3161,8 @@ planning	an act of formulating a program for a definite course of action
 plannings	PLANNING: an act of formulating a program for a definite course of action
 plans	PLAN: have the will and intention to carry out some action
 plant	put or set (seeds, seedlings, or plants) into the ground
-plantain	any of numerous plants of the genus Plantago; mostly small roadside or dooryard weeds with elliptic leaves and small spikes of very small flowers; seeds of some used medicinally
-plantains	PLANTAIN: any of numerous plants of the genus Plantago; mostly small roadside or dooryard weeds with elliptic leaves and small spikes of very small flowers; seeds of some used medicinally
+plantain	starchy banana-like fruit; eaten (always cooked) as a staple vegetable throughout the tropics
+plantains	PLANTAIN: starchy banana-like fruit; eaten (always cooked) as a staple vegetable throughout the tropics
 plantar	relating to or occurring on the undersurface of the foot
 plantation	an estate where cash crops are grown on a large scale (especially in tropical areas)
 plantations	PLANTATION: an estate where cash crops are grown on a large scale (especially in tropical areas)
@@ -3866,8 +3866,8 @@ pomades	POMADE: hairdressing consisting of a perfumed oil or ointment
 pomading	POMADE: hairdressing consisting of a perfumed oil or ointment
 pomander	a ball of sweet-smelling substances
 pomanders	POMANDER: a ball of sweet-smelling substances
-pomegranate	shrub or small tree native to southwestern Asia having large red many-seeded fruit
-pomegranates	POMEGRANATE: shrub or small tree native to southwestern Asia having large red many-seeded fruit
+pomegranate	large globular fruit having many seeds with juicy red pulp in a tough brownish-red rind
+pomegranates	POMEGRANATE: large globular fruit having many seeds with juicy red pulp in a tough brownish-red rind
 pommel	strike, usually with the fist
 pommeled	POMMEL: strike, usually with the fist
 pommeling	POMMEL: strike, usually with the fist
@@ -3983,7 +3983,7 @@ pootled	POOTLE: move along in a leisurely way
 pootles	POOTLE: move along in a leisurely way
 pootling	POOTLE: move along in a leisurely way
 pop	bulge outward
-popcorn	corn having small ears and kernels that burst when exposed to dry heat
+popcorn	small kernels of corn exploded by heat
 pope	the head of the Roman Catholic Church
 popes	POP: bulge outward
 popgun	plaything consisting of a toy gun that makes a popping sound
@@ -6386,8 +6386,8 @@ pumper	a person or machine that pumps
 pumpernickel	bread made of coarse rye flour
 pumpers	PUMPER: a person or machine that pumps
 pumping	PUMP: operate like a pump; move up and down, like a handle or a pedal
-pumpkin	a coarse vine widely cultivated for its large pulpy round orange fruit with firm orange skin and numerous seeds; subspecies of Cucurbita pepo include the summer squashes and a few autumn squashes
-pumpkins	PUMPKIN: a coarse vine widely cultivated for its large pulpy round orange fruit with firm orange skin and numerous seeds; subspecies of Cucurbita pepo include the summer squashes and a few autumn squashes
+pumpkin	usually large pulpy deep-yellow round fruit of the squash family maturing in late summer or early autumn
+pumpkins	PUMPKIN: usually large pulpy deep-yellow round fruit of the squash family maturing in late summer or early autumn
 pumps	PUMP: operate like a pump; move up and down, like a handle or a pedal
 pun	a humorous play on words
 punch	deliver a quick blow to

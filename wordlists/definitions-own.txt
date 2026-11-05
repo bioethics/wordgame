@@ -7,6 +7,9 @@
 #
 # 5 November: 6,645 written for the words the first build left undefined,
 # and the function words and a few more by hand.
+# 5 November, later: where WordNet's commonest sense is unknown it now takes
+# the food over the plant (PEACH, CHERRY, TUNA); these are the few where its
+# food sense was circular or the lesser one, and two whose glosses lacked a head.
 #
 abaci	ABACUS: a frame with beads used for counting
 abandoner	one who abandons or gives something up
@@ -375,6 +378,7 @@ basally	at the base
 baseman	a baseball fielder stationed at a base
 basemen	BASEMAN: a baseball fielder stationed at a base
 basher	one who hits hard
+basil	an aromatic herb whose leaves are used in cooking
 basketwork	baskets or things woven like them
 basmati	a long-grained fragrant rice
 bassi	BASSO: a bass singer
@@ -782,6 +786,7 @@ caperer	one who leaps about playfully
 capita	CAPUT: a head; as in per capita, for each person
 caplet	a coated tablet shaped like a capsule
 caravel	a small fast sailing ship of the fifteenth century
+caraway	a plant of the carrot family whose aromatic seeds flavour bread and cheese
 carb	carbohydrate
 carbolic	a disinfectant derived from coal tar
 carburetters	CARBURETTER: devices that mix air and fuel in an engine
@@ -969,6 +974,7 @@ circler	one that moves in or forms a circle
 circulator	one that moves something round, or a device that does so
 circumstanced	situated in a particular way
 circumstancing	CIRCUMSTANCE: place in particular circumstances
+cirrus	a high, thin, wispy cloud
 ciscoes	CISCO: a North American freshwater whitefish
 cisgender	having a gender identity that matches the sex recorded at birth
 cissies	CISSY: a timid or weak person
@@ -1012,6 +1018,7 @@ clodpoll	a stupid person
 clonk	a dull heavy sound, or to strike with one
 cloudland	an imaginary place of dreams
 clouter	one who hits hard
+clove	a dried flower bud used as a spice; also one section of a bulb of garlic
 cloverleaves	CLOVERLEAF: a road junction with looping ramps
 clownery	clownish behaviour
 clownfish	a small brightly coloured reef fish that lives among anemones
@@ -1833,6 +1840,7 @@ enamellers	ENAMELLER: a person who coats or decorates with enamel
 enamellings	ENAMELLING: the art of coating or decorating with enamel
 encoder	a device or person that converts information into code
 ender	one who or that which ends something
+endive	a leafy plant of the chicory family, eaten in salads
 endnote	a note placed at the end of a text
 endocrinological	relating to hormones and the glands that make them
 endoplasmic	relating to the inner part of a cell's cytoplasm
@@ -3278,6 +3286,7 @@ leching	LECH: behaving lustfully
 lectionary	a book of Bible readings for church services
 leeboard	a board on the side of a sailing boat that stops it drifting
 leecher	a person who takes without giving back
+leek	a vegetable of the onion family with a long white stem and flat green leaves
 leerily	in a suspicious way
 leftie	a person with left-wing views
 leftward	towards the left
@@ -3631,6 +3640,7 @@ millennials	MILLENNIAL: a person born roughly between 1981 and 1996
 milligramme	one thousandth of a gram
 mimicked	MIMIC: imitate closely
 mimicking	MIMIC: imitate closely
+mimosa	a wattle or similar tree with fluffy yellow flowers; also champagne mixed with orange juice
 mindbogglingly	in a way that is astonishing or hard to comprehend
 mineralisation	the process of turning into a mineral
 mineralization	the process of turning into a mineral
@@ -3885,6 +3895,7 @@ narratological	relating to the study of narrative
 narratologist	a student of narrative
 narratology	the study of narrative
 nasties	NASTY: unpleasant things
+nasturtium	a garden plant with round leaves and bright orange or yellow flowers, all of it edible
 natch	naturally
 natured	having a particular disposition
 naturopathic	relating to treating illness by natural means
@@ -4103,6 +4114,7 @@ oftenest	OFTEN: most frequently
 oho	exclamation of surprise or discovery
 oi	exclamation to attract attention
 oik	a rude, uncouth person
+okapi	an African animal related to the giraffe, with a shorter neck and striped legs
 okeydoke	okay
 okeydokey	okay
 olde	old, in a fake archaic spelling
@@ -5281,6 +5293,7 @@ roweling	ROWEL: prick with a small spiked wheel
 rowhouse	one of a row of joined houses
 ruched	RUCHE: gathered into pleats or folds
 ruddock	the European robin
+rue	to regret bitterly; also a bitter-smelling herb
 rugrat	a small child
 rulebook	a book of the rules of a game or organisation
 runaround	evasive or misleading treatment
@@ -5290,6 +5303,7 @@ runtime	the period during which a program is running
 rustically	in a simple countrified way
 rustproofing	treatment that protects against rust
 rustproofs	RUSTPROOF: treat to protect against rust
+rye	a cereal grass, or its grain, used for flour and whisky
 sabbatically	in the manner of a sabbatical
 sacker	a person who bags goods or dismisses workers
 sacrificially	in the manner of a sacrifice
@@ -5727,6 +5741,7 @@ soothsay	predict the future
 sootily	in a sooty way
 sophomoric	immature and overconfident
 sorbitol	a sweet alcohol used as a sugar substitute
+sorghum	a tropical cereal grass grown for grain, syrup and fodder
 sorta	sort of
 sortied	SORTIE: made a sudden attack from a position
 sortieing	SORTIE: making a sudden attack from a position
@@ -6219,6 +6234,7 @@ thunked	THUNK: make a dull, heavy sound
 thunking	THUNK: make a dull, heavy sound
 thwacker	a person or thing that hits with a sharp smack
 thy	your, in old-fashioned speech
+thyme	a low aromatic herb whose small leaves are used in cooking
 thymi	THYMUS: a gland in the neck involved in immunity
 thyself	yourself, in old-fashioned speech
 tibiae	TIBIA: the shinbone
@@ -6931,6 +6947,7 @@ yabbie	a small freshwater crayfish
 yabby	a small freshwater crayfish
 yachter	a person who sails a yacht
 yakka	hard work
+yam	the starchy tuber of a tropical climbing plant, eaten as a vegetable
 yammerer	a person who complains loudly
 yappers	YAPPER: a noisy small dog or talkative person
 ye	you, in old-fashioned speech

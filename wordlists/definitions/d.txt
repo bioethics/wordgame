@@ -838,8 +838,8 @@ deeply	to a great depth psychologically or emotionally
 deepness	the intellectual ability to penetrate deeply into ideas
 deeps	DEEP: relatively deep or strong; affecting one deeply
 deepwater	in or relating to deep seas
-deer	distinguished from Bovidae by the male's having solid deciduous antlers
-deers	DEER: distinguished from Bovidae by the male's having solid deciduous antlers
+deer	a ruminant distinguished from Bovidae by the male's having solid deciduous antlers
+deers	DEER: a ruminant distinguished from Bovidae by the male's having solid deciduous antlers
 deerskin	leather from the hide of a deer
 deerstalker	a tight-fitting hat with visors front and back; formerly worn by hunters
 deerstalkers	DEERSTALKER: a tight-fitting hat with visors front and back; formerly worn by hunters
@@ -2272,8 +2272,8 @@ devoutest	DEVOUT: deeply religious
 devoutly	in a devout and pious manner
 devoutness	piety by virtue of being devout
 dew	water that has condensed on a cool surface overnight from water vapor in the air
-dewberries	DEWBERRY: any of several trailing blackberry brambles especially of North America
-dewberry	any of several trailing blackberry brambles especially of North America
+dewberries	DEWBERRY: blackberry-like fruits of any of several trailing blackberry bushes
+dewberry	blackberry-like fruits of any of several trailing blackberry bushes
 dewclaw	a small toe on the side of a dog's leg
 dewclaws	DEWCLAW: a small toe on the side of a dog's leg
 dewdrop	a drop of dew
@@ -2621,9 +2621,9 @@ dilettantism	casual, shallow interest in a subject
 diligence	conscientiousness in paying proper attention to a task; giving the degree of care required in a given situation
 diligent	quietly and steadily persevering especially in detail or exactness
 diligently	with diligence; in a diligent manner
-dill	aromatic Old World herb having aromatic threadlike foliage and seeds used as seasoning
+dill	aromatic threadlike foliage of the dill plant used as seasoning
 dillies	DILLY: something remarkable
-dills	DILL: aromatic Old World herb having aromatic threadlike foliage and seeds used as seasoning
+dills	DILL: aromatic threadlike foliage of the dill plant used as seasoning
 dilly	something remarkable
 dillydallied	DILLYDALLY: waste time
 dillydallies	DILLYDALLY: postpone doing what one should be doing
@@ -5129,7 +5129,7 @@ durably	in a long-lasting way
 duration	the period of time during which something continues
 durations	DURATION: the period of time during which something continues
 duress	compulsory force or threat
-durian	tree of southeastern Asia having edible oval fruit with a hard spiny rind
+durian	huge fruit native to southeastern Asia `smelling like Hell and tasting like Heaven'; seeds are roasted and eaten like nuts
 during	throughout the course of
 dusk	the time of day immediately following sunset
 duskier	DUSKY: lighted by or as if by twilight

@@ -35,7 +35,7 @@ jacked	JACK: a small worthless amount
 jacket	a short coat
 jacketed	JACKET: a short coat
 jackets	JACKET: a short coat
-jackfruit	East Indian tree cultivated for its immense edible fruit and seeds
+jackfruit	immense East Indian fruit resembling breadfruit; it contains an edible pulp and nutritious seeds that are commonly roasted
 jackhammer	a hammer driven by compressed air
 jackhammers	JACKHAMMER: a hammer driven by compressed air
 jacking	JACK: a small worthless amount
@@ -84,8 +84,8 @@ jailing	JAIL: a correctional institution used to detain persons who are in the l
 jailor	someone who guards prisoners
 jailors	JAILOR: someone who guards prisoners
 jails	JAIL: a correctional institution used to detain persons who are in the lawful custody of the government (either accused persons awaiting trial or convicted persons serving a sentence)
-jalapeno	plant bearing very hot and finely tapering long peppers; usually red
-jalapenos	JALAPENO: plant bearing very hot and finely tapering long peppers; usually red
+jalapeno	hot green or red pepper of southwestern United States and Mexico
+jalapenos	JALAPENO: hot green or red pepper of southwestern United States and Mexico
 jalopies	JALOPY: a car that is old and unreliable
 jalopy	a car that is old and unreliable
 jalousie	a window with glass louvers
@@ -622,8 +622,8 @@ juiciness	a juicy appetizingness
 juicing	JUICE: extracting the liquid from fruit
 juicy	full of juice
 jujitsu	a method of self-defense without weapons that was developed in China and Japan; holds and blows are supplemented by clever use of the attacker's own weight and strength
-jujube	spiny tree having dark red edible fruits
-jujubes	JUJUBE: spiny tree having dark red edible fruits
+jujube	dark red plumlike fruit of Old World buckthorn trees
+jujubes	JUJUBE: dark red plumlike fruit of Old World buckthorn trees
 jujutsu	a method of self-defense without weapons that was developed in China and Japan; holds and blows are supplemented by clever use of the attacker's own weight and strength
 jukebox	a cabinet containing an automatic record player; records are played by inserting a coin
 jukeboxes	JUKEBOX: a cabinet containing an automatic record player; records are played by inserting a coin

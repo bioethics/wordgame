@@ -508,8 +508,8 @@ elbowing	ELBOW: hinge joint between the forearm and upper arm and the correspond
 elbowroom	enough space to move freely
 elbows	ELBOW: hinge joint between the forearm and upper arm and the corresponding joint in the forelimb of a quadruped
 elder	a person who is older than you are
-elderberries	ELDERBERRY: a common shrub with black fruit or a small tree of Europe and Asia; fruit used for wines and jellies
-elderberry	a common shrub with black fruit or a small tree of Europe and Asia; fruit used for wines and jellies
+elderberries	ELDERBERRY: berrylike fruit of an elder used for e.g. wines and jellies
+elderberry	berrylike fruit of an elder used for e.g. wines and jellies
 eldercare	care for elderly people
 elderflower	the white flower of the elder tree, used in cordial
 elderly	advanced in years; (`aged' is pronounced as two syllables)
@@ -1196,8 +1196,8 @@ endgame	the final stages of an extended process of negotiation
 endgames	ENDGAME: the final stages of an extended process of negotiation
 ending	the end of a word (a suffix or inflectional ending or final morpheme)
 endings	ENDING: the end of a word (a suffix or inflectional ending or final morpheme)
-endive	widely cultivated herb with leaves valued as salad green; either curly serrated leaves or broad flat ones that are usually blanched
-endives	ENDIVE: widely cultivated herb with leaves valued as salad green; either curly serrated leaves or broad flat ones that are usually blanched
+endive	a leafy plant of the chicory family, eaten in salads
+endives	ENDIVE: a leafy plant of the chicory family, eaten in salads
 endless	tiresomely long; seemingly without end
 endlessly	continuing forever without end
 endlessness	the property of being (or seeming to be) without end

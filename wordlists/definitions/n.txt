@@ -172,8 +172,8 @@ nasties	NASTY: unpleasant things
 nastiest	NASTY: offensive or even (of persons) malicious
 nastily	in a nasty ill-tempered manner
 nastiness	a state characterized by foul or disgusting dirt and refuse
-nasturtium	any tropical American plant of the genus Tropaeolum having pungent juice and long-spurred yellow to red flowers
-nasturtiums	NASTURTIUM: any tropical American plant of the genus Tropaeolum having pungent juice and long-spurred yellow to red flowers
+nasturtium	a garden plant with round leaves and bright orange or yellow flowers, all of it edible
+nasturtiums	NASTURTIUM: a garden plant with round leaves and bright orange or yellow flowers, all of it edible
 nasty	offensive or even (of persons) malicious
 natal	relating to or accompanying birth
 natch	naturally
@@ -377,8 +377,8 @@ necrotizes	NECROTIZE: cause tissue to die
 necrotizing	NECROTIZE: cause tissue to die
 nectar	a sweet liquid secretion that is attractive to pollinators
 nectaries	NECTARY: a gland (often a protuberance or depression) that secretes nectar
-nectarine	variety or mutation of the peach bearing fruit with smooth skin and (usually) yellow flesh
-nectarines	NECTARINE: variety or mutation of the peach bearing fruit with smooth skin and (usually) yellow flesh
+nectarine	a variety or mutation of the peach that has a smooth skin
+nectarines	NECTARINE: a variety or mutation of the peach that has a smooth skin
 nectars	NECTAR: a sweet liquid secretion that is attractive to pollinators
 nectary	a gland (often a protuberance or depression) that secretes nectar
 nee	used to indicate the maiden or family name of a married woman
@@ -1582,8 +1582,8 @@ nuthouse	pejorative terms for an insane asylum
 nuthouses	NUTHOUSE: pejorative terms for an insane asylum
 nutmeat	the edible kernel of a nut
 nutmeats	NUTMEAT: the edible kernel of a nut
-nutmeg	East Indian tree widely cultivated in the tropics for its aromatic seed; source of two spices: nutmeg and mace
-nutmegs	NUTMEG: East Indian tree widely cultivated in the tropics for its aromatic seed; source of two spices: nutmeg and mace
+nutmeg	hard aromatic seed of the nutmeg tree used as spice when grated or ground
+nutmegs	NUTMEG: hard aromatic seed of the nutmeg tree used as spice when grated or ground
 nutraceutical	a food with a claimed health benefit
 nutraceuticals	NUTRACEUTICAL: a food with a claimed health benefit
 nutria	aquatic South American rodent resembling a small beaver; bred for its fur

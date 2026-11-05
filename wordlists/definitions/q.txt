@@ -298,8 +298,8 @@ quilters	QUILTER: a person who makes padded stitched covers
 quilting	QUILT: bedding made of two layers of cloth filled with stuffing and stitched together
 quilts	QUILT: bedding made of two layers of cloth filled with stuffing and stitched together
 quin	one of five children born at the same time from the same pregnancy
-quince	small Asian tree with pinkish flowers and pear-shaped fruit; widely cultivated
-quinces	QUINCE: small Asian tree with pinkish flowers and pear-shaped fruit; widely cultivated
+quince	aromatic acid-tasting pear-shaped fruit used in preserves
+quinces	QUINCE: aromatic acid-tasting pear-shaped fruit used in preserves
 quine	United States philosopher and logician who championed an empirical view of knowledge that depended on language (1908-2001)
 quines	QUINE: United States philosopher and logician who championed an empirical view of knowledge that depended on language (1908-2001)
 quinine	a bitter alkaloid extracted from chinchona bark; used in malaria therapy
