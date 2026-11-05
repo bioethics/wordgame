@@ -934,7 +934,10 @@ function renderCase(fresh) {
     socket.className = 'socket';
     if (!placed(id)) {
       const el = tileEl(eff.get(id), 'case');
-      if (S.armed && toolFits(eff.get(id))) el.classList.add('tile--target');
+      if (S.armed && toolFits(eff.get(id))) {
+        el.classList.add('tile--target');
+        if (nicked(el)) socket.classList.add('socket--halo');
+      }
       if (fresh && !reducedMotion()) { el.classList.add('tile--dealt'); el.style.animationDelay = `${i * 28}ms`; }
       socket.appendChild(el);
     }
@@ -945,6 +948,21 @@ function renderCase(fresh) {
 
 const toolFits = t => !t.blank && !t.ephemeral
   && (S.deal.tool === 'loupe' ? loupeDelta(t, t.activeVariant) > 0 : shiftable(t, t.activeVariant));
+
+// A nicked sort is cut by a mask, and the mask cuts away everything drawn
+// outside the sort as well, the armed tool's ring with it (Safari has no
+// mask-clip: no-clip to stop it). So a nicked target's ring is drawn by what
+// holds it: its socket in the case, a halo wrapped round it in the stick.
+const nicked = el => el.classList.contains('tile--nick-left') || el.classList.contains('tile--nick-right');
+function withHalo(el) {
+  if (!el.classList.contains('tile--target') || !nicked(el)) return el;
+  const halo = document.createElement('div');
+  halo.className = 'halo';
+  halo.appendChild(el);
+  return halo;
+}
+// A stick's sorts, the haloed one included.
+const stickTiles = k => [...stickEl(k).querySelectorAll(':scope > .tile, :scope > .halo > .tile')];
 
 // The stick's corner figures are live: each sort shows what it pays in THIS
 // word, so a nick's reach is read off the tiles as the word is built, and a
@@ -974,7 +992,7 @@ function renderStick(k, sc) {
       ptsEl.style.animationDelay = `${popped++ * 60}ms`;
     }
     if (now !== restingOf(t)) el.title += `\n${fill(UI.inWord, now)}`;
-    host.appendChild(el);
+    host.appendChild(withHalo(el));
   }
   for (const [id, v] of pays) lastPays.set(id, v);
   fitStick(k);
@@ -1044,7 +1062,7 @@ function renderRule(k, word, sc) {
   const cs = getComputedStyle(stick);
   const gap = parseFloat(cs.columnGap) || 0;
   const padL = parseFloat(cs.paddingLeft) || 0;
-  const tiles = [...stick.querySelectorAll(':scope > .tile')];
+  const tiles = stickTiles(k);
   const tfs = parseFloat(cs.getPropertyValue('--tfs')) || 16;
   const origin = stick.offsetLeft + stick.clientLeft;
   const room = origin + stick.clientWidth - 4;
@@ -1555,7 +1573,7 @@ function moveGhost(x, y) {
 
 // Where in a stick a drop lands: before the nearest sort's centre, or after it.
 function stickIndex(x, k) {
-  const tiles = [...stickEl(k).querySelectorAll(':scope > .tile')];
+  const tiles = stickTiles(k);
   let best = tiles.length, bestDist = Infinity;
   tiles.forEach((t, i) => {
     const b = t.getBoundingClientRect();
