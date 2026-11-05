@@ -348,8 +348,8 @@ What the session history, the commits and the author's Drive show:
   the list marked it. `daily/main.js` now marks a seat only where it paid,
   as it already did on patron days. The list itself was read top to bottom,
   then the cuts, then what was left.
-  - **2,919 cut, from 7,759.** A first pass cut 3,708; the author's rulings
-    below sent 789 of them back over three rounds, to the places they had held.
+  - **2,917 cut, from 7,759.** A first pass cut 3,708; the author's rulings
+    below sent 791 of them back over three rounds, to the places they had held.
     Most of the cuts came from three places. A 518-word
     associative drift sat right after the seed clusters (GRANITE, CYRILLIC,
     UVULAR, WIDOW, TRANSLITERATION), and an 84-word one further down
@@ -359,7 +359,7 @@ What the session history, the commits and the author's Drive show:
     SMOOTH came with SMOOTHER, SMOOTHEST, SMOOTHING, SMOOTHLY and SMOOTHNESS,
     and UNIQUE with UNIQUER, UNIQUEST, UNIQUELY and UNIQUENESS. Day 4's top
     five under the Poppet were QUIETNESS, UNIQUENESS, SUBTEENS, SUBTEEN and
-    NUTTINESS. The read also found function words (DOES, DOING) and
+    NUTTINESS. The read also found function words (DOING; DOES came back later) and
     clangers: COTTAGING (cruising slang), NECKLACING (the execution), COLOUREDS,
     GOLLIES.
   - **The rulings, for the next sweep.** The list embraces the word's
@@ -376,9 +376,10 @@ What the session history, the commits and the author's Drive show:
     inclusion if one sense supports it: TITS, BOOBY and DICKY the birds, PUSSY
     and COUGAR the cats, MULE the animal, COCK the rooster, FOXY the fox, WIENER
     the dog, MUFF the hand-warmer, SAUCY the cheeky, NUTTY the kooky, POP the
-    dad, MINT the sweet, FIT the attractive, FRY as in small fry. Three
-    exceptions: VIXEN (the author's call, made before the rule), function
-    words (DOES, DOWN), and slurs, which are the author's to rule on one by one
+    dad, MINT the sweet, FIT the attractive, FRY as in small fry. The rule
+    reaches function words too: DOES the deer, DOWN the feathers (DOING, with
+    no such sense, stays off). Two exceptions: VIXEN (the author's call, made
+    before the rule), and slurs, which are the author's to rule on one by one
     (COON is waiting). Words with no cute sense at all stay off however rude
     their other one: TITTIES, WILLY, NUBILE, BUXOM, SEDUCTIVE, WEES. Love's giddy end is cute as
     well as romantic; desire is romantic only. Cute is also clever, in the
