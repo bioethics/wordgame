@@ -1730,11 +1730,10 @@ between two words to look for:
 - *plain*, on Fridays — ×2 for a word of a given form: The Cartographer
   (vowels in order), The Poet (an adjective or adverb),
   The Yodeller (as many vowels as consonants — made for this, and seated in the
-  game as well), and four
+  game as well), and three
   adapted for the daily (`adapted: true` in `daily/table.js`, which
   `daily-check` names and does not hold to the game): The Herald (the first
-  letter again, anywhere after it), The Stammerer (a doubled letter), The
-  Antiquary (a J, Q, X or Z; his day deals one, `SEAT_SHAPES`), and The
+  letter again, anywhere after it), The Stammerer (a doubled letter), and The
   Commoner, the daily's own (the 8,000
   commonest words and their plurals and tenses, `wordlists/commoner.txt`,
   built by `tools/build-commoner.mjs`).
@@ -1742,8 +1741,9 @@ between two words to look for:
 A tier is a choice only if a player would hesitate, so its members should
 pay on a like share of the words a player actually finds. Measured as
 *reach* — the share of each day's top 5% of words a patron pays on, over
-sixty cases on its own days — the Friday seven run 9–18%: Cartographer 9,
-Commoner 14, Stammerer 14, Antiquary 16, Herald, Poet and Yodeller 18. The
+sixty cases on its own days — the Friday six run 9–18%: Cartographer 9,
+Commoner 14, Stammerer 14, Herald, Poet and Yodeller 18. (The Antiquary, 16 at
+×2 for a rare letter, left for Tuesday on 5 November; see below.) The
 Athlete reaches 33% (half of all good words are verbs) and sits on Tuesday,
 and so does the Sculptor, at 43% once his list became every word whose
 ordinary meaning is a noun; the game's own Herald (first and last the same) reached 3%, and
@@ -1773,6 +1773,16 @@ two ligatures for the Typesetter; a J, X, Z or QU for the Jeweller. Measured on
 their own days, every one has something to pay on, and they pay on 8–100% of
 the top 5% of words, except the Apprentice, whose four-letter words are never
 among the best: he is there for the player who sets one.
+
+**The Antiquary** joined them on 5 November, paying Points now rather than
+Mult: every J, Q, X or Z is worth +12 (`ANTIQUARY_POINTS`, his day dealt one
+of them). As ×2 for a word holding one, he made the rare letter all but
+compulsory. Over forty of his days, the best word held one on 80% of them,
+against 48% with nobody seated; +8 a tile made it 58%, +12 63%, +16 70%, +20
+75%. At +12 the best rare word pays about half as much again as it would
+plain (×2 doubled it), so on more days it is a word to weigh rather than the
+only word. Paying Points, he can't sit in the Friday tier beside patrons who
+pay ×2.
 
 **Licences** (4 November), on the Tuesday rotation: three patrons that change
 what counts as a word rather than what it scores, as the game's pardons and
