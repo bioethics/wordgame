@@ -25,11 +25,13 @@ Hence the rule every round so far has run on, in the original brief's words:
 *"a low barrier for additional admissions, but a high barrier against removal;
 just get rid of the really glaring mistakes."*
 
-How big a list is decides how often its patron fires. The four cover 9–13% of
-the playable dictionary (`node tools/theme-list.mjs check`). At that coverage
-the register patrons change the Daily Proof's best word on 68–82% of cases
-(`tools/daily-table.mjs`), the most of any patron measured. A list of 1–2%
-would be a patron that rarely fires; one of 30% would be a ×3 on every word.
+How big a list is decides how often its patron fires. The five cover 5.5–13%
+of the playable dictionary (`node tools/theme-list.mjs check`), cute the
+least since its noise came out on 5 November. At that coverage the register
+patrons change the Daily Proof's best word on 71–88% of cases
+(`tools/daily-table.mjs`, 48 cases), the most of any patron measured. A list
+of 1–2% would be a patron that rarely fires; one of 30% would be a ×3 on every
+word.
 
 ## The recipe
 
@@ -338,6 +340,57 @@ What the session history, the commits and the author's Drive show:
   6.2% of the dictionary, the smallest list, so the Seadog is priced like the
   Poppet. 306 of the author's nautical words (AFTERDECK to YELLOWFIN, with
   CTHULHU and JABBERWOCKY) joined the dictionary with it.
+
+- **5 November: cute, read whole.** In play SMITTEN didn't pay the Poppet,
+  while UNIQUEST did, and the Daily Proof's best-of list showed her bear
+  beside SUBSEQUENT. SUBSEQUENT was a display fault, not the list: on a
+  choice day a word neither patron pays is filed under the first seat, and
+  the list marked it. `daily/main.js` now marks a seat only where it paid,
+  as it already did on patron days. The list itself was read top to bottom,
+  then the cuts, then what was left.
+  - **3,708 cut, from 7,759.** Most came from three places. A 518-word
+    associative drift sat right after the seed clusters (GRANITE, CYRILLIC,
+    UVULAR, WIDOW, TRANSLITERATION), and an 84-word one further down
+    (SAVOURY, WORN, SOUND, PETTY). The alphabetical generator batch carried
+    misfires among its finds (CELLULAR, CACHED, DEPTH, BUTT, GHOSTS). And the
+    4 November inflection pass had faithfully inflected every noise base:
+    SMOOTH came with SMOOTHER, SMOOTHEST, SMOOTHING, SMOOTHLY and SMOOTHNESS,
+    and UNIQUE with UNIQUER, UNIQUEST, UNIQUELY and UNIQUENESS. Day 4's top
+    five under the Poppet were QUIETNESS, UNIQUENESS, SUBTEENS, SUBTEEN and
+    NUTTINESS. The read also found function words (DOES, DOING) and
+    clangers: COTTAGING (cruising slang), NECKLACING (the execution), COLOUREDS,
+    GOLLIES.
+  - **The rulings, for the next sweep.** Cute is small, young, soft, round,
+    sweet, cosy, playful, silly, shy, whimsical, or fond in the innocent way.
+    Chic is not cute: CHIC, SUAVE, COUTURE, BESPOKE, DEBONAIR and the rest of
+    the seed's fashion cluster went, and DAINTY, FRILLY, SPIFFY and FETCHING
+    stayed. Neither are beauty (GORGEOUS, HANDSOME, STUNNING), calm (SERENE,
+    PEACEFUL, TRANQUIL), adult kin (FATHER, WIFE, WIDOW, STEPSON, though
+    GRANNIE, MAMA and NIECE stay), plant anatomy (STAMEN, RHIZOME, UMBEL),
+    herbs and spices (BASIL, THYME, CARDAMOM), or animals nobody coos at
+    (BISON, IBEX, CORMORANT, PELICAN, MULE). A sexual or toilet sense strong
+    enough to be read first puts a word off, even a second sense (TITS, BOOTY,
+    WILLY, WIENER, SQUIRTING, WEES); SQUIRT, WEE and TART stay. Love's giddy end
+    is cute as well as romantic; desire is romantic only.
+  - **518 added, by facet.** Infatuation: SMITTEN, BESOTTED, ENAMOURED, CRUSH,
+    SWOON, SMOOCH, CANOODLE, SWEETHEART, MUSHY, SOPPY, LOVESICK, GAGA. Shyness:
+    SHY, COY, DEMURE, SHEEPISH, GIDDY, AFLUTTER. Silliness: SILLY, GOOFY,
+    DORKY, KLUTZ, CLUMSY, DOPEY, ZANY, NINCOMPOOP. Mischief: MISCHIEF, NAUGHTY,
+    SCALLYWAG, RAPSCALLION. Baby talk: TUMMY, HORSEY, KIDDO, MOMMY, DADDY,
+    GRANDMA, NANA. What small things do: WAG, WIGGLE, POUNCE, PLOP, HICCUP,
+    SNEEZE, POUT, MUNCH, SQUISH. Their noises: MOO, QUACK, OINK, NEIGH, CLUCK,
+    HOOT, BOWWOW. Animals the list had somehow missed: OWL, MONKEY, DONKEY,
+    GOAT, PUG, CORGI, DACHSHUND, GOLDFISH, LEMMING, GROUNDHOG. Parties and
+    play: BIRTHDAY, CAKE, CONFETTI, PINATA, SANDCASTLE, TRAMPOLINE. Cosiness:
+    COMFY, TOASTY, KNITTED, EARMUFFS, NIGHTLIGHT. And RAINBOW, SUNSHINE,
+    FLOWER, MERMAID, OOPS, YIPPEE and WHEE. Most came from a brainstorm by
+    facet; the Foundry's link ranking, run on the cleaned list, found COMFY,
+    TOASTY, SONGBIRD and the rest of its last 61.
+  - **Measured** (`daily-table.mjs 1-48`): the Poppet moves the best word on
+    71% of cases (85% before), fires on it on 75% (90%), and is dead on none.
+    That puts her level with the Seadog. Some of the old figure was noise paying.
+  - **Left for the author:** PANSY (the flower, and a slur), PAPOOSE, PIGMY,
+    which stay on cute; GOLLIWOG, playable and on no list; DADDY, added.
 
 Not found anywhere these sessions can reach: the tool or chat that produced
 the ranked lists and the later batches. The ranking, the drift into
