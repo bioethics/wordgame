@@ -1492,7 +1492,8 @@ function renderResult() {
 // One row of a best-of list: place, name, score, and a setting under it when open.
 // `words` are what the row's name is made of. Their definitions show only once
 // the row is opened, in full: one word's under it, a pair's two beneath.
-function bestRow({ key, place, name, score, yours, stone, open, fillSet, words = [] }) {
+function bestRow(row) {
+  const { key, place, name, score, yours, stone, open, fillSet, words = [] } = row;
   const li = document.createElement('li');
   li.className = `best-row${yours ? ' best-row--yours' : ''}${stone ? ' best-row--stone' : ''}${open ? ' best-row--open' : ''}`;
   const btn = document.createElement('button');
@@ -1505,9 +1506,14 @@ function bestRow({ key, place, name, score, yours, stone, open, fillSet, words =
   cell.appendChild(w);
   if (open && words.length === 1) cell.appendChild(defSpan(words[0]));
   btn.append(pl, cell, sc);
+  // Opened and closed where it stands: rebuilding the whole result would empty
+  // the page for a moment and drop the reader back at the top of it.
   btn.addEventListener('click', () => {
-    if (S.open.has(key)) S.open.delete(key); else S.open.add(key);
-    renderResult();
+    const now = !S.open.has(key);
+    if (now) S.open.add(key); else S.open.delete(key);
+    const fresh = bestRow({ ...row, open: now });
+    li.replaceWith(fresh);
+    fresh.querySelector('.best-head').focus({ preventScroll: true });
   });
   li.appendChild(btn);
   if (open && words.length > 1) {
