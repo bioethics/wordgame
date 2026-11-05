@@ -625,10 +625,32 @@ the letters at all. If they turn out to bite harder at the table than on paper,
 
 ### The Expectant Parents' child
 
-*The Expectant Parents* (uncommon, 4 Coins) pay +15 Points for a common baby
-name and vouch for names at the dictionary check, so ELSIE and MILO are words
-while they are seated. They now do one thing more: **they name the baby after
-the last name you print**, and the child goes looking for a seat of its own.
+*The Expectant Parents* (uncommon, 4 Coins) pay +15 Points for a name and
+vouch for names at the dictionary check, so ELSIE and MILO are words while they
+are seated. They now do one thing more: **they name the baby after the last
+name you print**, and the child goes looking for a seat of its own.
+
+**What counts as a name** is two files read as one (`isName` in
+`js/themes.js`). `wordlists/names.txt` is the birth charts: some 5,000 names
+that reached the top thousand in the US or England & Wales for three years or
+more, regenerated with `tools/build-names-list.mjs`. Parents also name children
+after things that never chart, so `wordlists/names-borrowed.txt` adds about
+1,100 more by hand: every country whose name is one word, the capitals that
+are, states and regions (Dakota had charted already; Tuscany, Avalon and Siberia
+had not), the cities a reader would know, the gods and heroes of some twenty
+traditions, from Zeus and Anubis to Oshun, Inti and Ukko, and the bright stars,
+moons, planets and constellations. The charts had already let in
+whatever was fashionable (ATHENA, FREYA, PARIS, BROOKLYN, ORION, INDIA), so the
+second file is mostly the rest of the pantheon and the atlas.
+
+They are kept apart for two reasons. A rebuild of `names.txt` from the charts
+would erase anything written into it by hand; and **The Generic** takes his first
+name from `names.txt` alone, because "Doreen the Nondescript" is the joke and
+"Quetzalcoatl the Middling" is a different one. The borrowed list's header says
+what was struck and why — a handful of names whose everyday word would turn the
++15 on for ordinary play (TYRE, OPS, BALDER, MALE) — and what was kept although
+it is also a word, because the set is a promise: every one-word country counts,
+TURKEY included. The Daily Proof's port reads both files too.
 
 The register is `state.babyName`, and it holds exactly one child. Print another
 name and the parents change their minds — the name in the register is replaced,
@@ -1440,7 +1462,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Chapter titles | `js/chapters.js` — a flat array, add as many as you like; each run draws its own and won't repeat until the list runs out |
 | The Stenographer's acronyms | `wordlists/acronyms.txt` — one per line, `#` comments; letters only. A lone Q is settable now (the ratchet makes one), but it is rare enough that an acronym leaning on it will mostly go unset |
 | Finding words the dictionary is MISSING | `tools/find-dictionary-gaps.mjs` — three modes, none of which writes anything. `derived` (we hold PULMONOLOGY but not PULMONOLOGIST) is the highest-yield; `paradigm` finds a word whose rhyme-neighbours all inflect where it doesn't; `frequency` wants a corpus and is the only one that can find a word with no foothold here at all, but its head is thick with proper nouns. Every mode prints candidates for a human to read, never a list to paste |
-| The Expectant Parents' baby names | `wordlists/names.txt` — same format; regenerate from the US and England & Wales charts with `tools/build-names-list.mjs` |
+| The Expectant Parents' baby names | `wordlists/names.txt` — same format; regenerate from the US and England & Wales charts with `tools/build-names-list.mjs`. The gods, places and stars are `wordlists/names-borrowed.txt`, written by hand; add a line to it, and leave out anything `names.txt` already holds |
 | Words barred from the game entirely | `wordlists/excluded-slurs.txt` — one per line, `#` comments. Enforced at load by `js/excluded.js` against the dictionary, every themed list, and The Neologist's coining sheet, so an entry here can't come back through a word list, a custom dictionary or a coined word. Whole-word matches only |
 | The five registers' word lists (the Sexton, the Paramour, the Poppet, the Vulgarian, the Seadog) | `wordlists/theme-*.txt` — one word per line, edit freely; loading in `js/themes.js`. How to make a new one or grow these: `wordlists/MAKING-LISTS.md`, with `tools/theme-list.mjs` for the mechanical steps, or the Register Foundry page (`tools/foundry/`), which runs the whole recipe through Claude from a phone |
 | The three parts of speech (the Sculptor, the Poet, the Athlete) | `wordlists/noun-forms.txt` (the Sculptor's: every word whose ordinary meaning is a noun, by WordNet's tagged-corpus counts, and its plurals — regular, Latin and Greek, irregular), `adjectives.txt`, `verbs.txt`. `wordlists/nouns.txt` is The Binder's: singular, recognisable nouns (any word WordNet's corpus has met as a noun) for him to stack two of, so MUSICWORLD and PENNYECHO. Both noun lists are built by `tools/build-nouns.mjs` from WordNet 3.1 (the `wordnet-db` npm package) |

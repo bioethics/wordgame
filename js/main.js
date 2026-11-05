@@ -32,7 +32,7 @@ import {
 } from './constants.js';
 import { bossById, bossOnPrinted, bossReplenish } from './bosses.js';
 import { DICT, dictLoaded, loadDict, loadCustom, coinWord, scrambleMatch } from './dict.js';
-import { THEME_SETS, loadThemes } from './themes.js';
+import { THEME_SETS, loadThemes, isName } from './themes.js';
 import { loadExclusions, exclusionsLoaded, isExcluded } from './excluded.js';
 
 import { computeScore, computeReward } from './scoring.js';
@@ -1071,7 +1071,7 @@ async function submitWord() {
     // The lexicon patrons are checked before the pardons: their entries are
     // legitimate in their own right, not misspellings of something else.
     const stenographed = owns('stenographer') && readings.find(r => THEME_SETS.acronyms.has(r));
-    const named        = owns('expectants')   && readings.find(r => THEME_SETS.names.has(r));
+    const named        = owns('expectants')   && readings.find(r => isName(r));
     const numbered     = owns('centurion')    && readings.find(r => isRomanNumeral(r));
     if (stenographed)      { vouched = 'stenographer'; parts.letters = stenographed; }
     else if (named)        { vouched = 'expectants';   parts.letters = named; }

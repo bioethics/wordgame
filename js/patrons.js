@@ -191,7 +191,7 @@ import {
   paintRandomTiles, restingPoints, shuffle, owns, allSeats, effectiveSundrySlots,
   strikeMaterial, primeMult, spendCoins, growTile, totalQuotaRelief,
 } from './state.js';
-import { inTheme, themeSize, THEME_SETS, silentAt, SILENT } from './themes.js';
+import { inTheme, themeSize, THEME_SETS, silentAt, SILENT, isName } from './themes.js';
 import { DICT } from './dict.js';
 import { PATRON_CARDS } from './patron-cards.js';
 // The Generic's whole roster of triggers, effects and names — one file, meant
@@ -2519,12 +2519,14 @@ const PATRON_BEHAVIOURS = [
     // Names are vouched through the dictionary check in main.js, like the
     // Stenographer's acronyms — legitimate, not misspellings. Unlike his, the
     // list also PAYS whether or not the word is in the dictionary: GRACE is no
-    // less a name for being a word. wordlists/names.txt, rebuilt with
-    // tools/build-names-list.mjs.
+    // less a name for being a word. Two files, read as one through isName:
+    // wordlists/names.txt, rebuilt from the birth charts with
+    // tools/build-names-list.mjs, and wordlists/names-borrowed.txt, the gods,
+    // places and stars children are named after, written by hand.
     id: 'expectants',
     when: 'score',
     effect({ word, addPoints }) {
-      if (themeSize('names') && inTheme('names', word)) addPoints(EXPECTANTS_BONUS);
+      if (isName(word)) addPoints(EXPECTANTS_BONUS);
     },
     // …and they take the name. The register (state.babyName) holds one child at
     // a time, so printing a second name is the parents changing their minds
@@ -2533,7 +2535,7 @@ const PATRON_BEHAVIOURS = [
     // running is one baby, announced once.
     onPrinted({ script, state }) {
       const word = script?.letters;
-      if (!word || !themeSize('names') || !inTheme('names', word)) return null;
+      if (!word || !isName(word)) return null;
       if (state.babyName === word) return null;
       const renamed = !!state.babyName;
       state.babyName = word;
