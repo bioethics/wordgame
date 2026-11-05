@@ -33,7 +33,7 @@ import {
 } from '../js/anim.js';
 import {
   TRAIT_TEXT, TOOL_TEXT, SORT_TEXT, UI, RESULT, PATRON_TEXT, EDITOR_TEXT, SPIKE_TEXT, PAIR_TEXT, fill, COUNT_WORDS,
-  HOWTO,
+  HOWTO, DEF_TEXT,
   DAILY_CARDS,
 } from './text.js';
 import { drawField } from './chart.js';
@@ -97,6 +97,45 @@ function loadLists(keys) {
     }
     return listLoads.get(key);
   }));
+}
+
+// ─── Definitions ──────────────────────────────────────────────────────────────
+// What each word in the results means, from wordlists/definitions/ (built by
+// tools/build-definitions.mjs): one file a letter, fetched the first time a
+// result needs a word that starts with it. An embedded bundle carries them in
+// FOLIO_DEFS. A row asks with defSpan, and is filled when its letter lands.
+const DEFS = new Map();
+const defLoads = new Map();
+function loadDefs(letter) {
+  const L = letter.toLowerCase();
+  if (!/^[a-z]$/.test(L)) return Promise.resolve();
+  if (!defLoads.has(L)) {
+    const embedded = window.FOLIO_DEFS?.[L];
+    defLoads.set(L, (embedded != null ? Promise.resolve(embedded)
+      : fetch(`../wordlists/definitions/${L}.txt`).then(r => (r.ok ? r.text() : '')))
+      .then(text => {
+        for (const line of text.split('\n')) {
+          const tab = line.indexOf('\t');
+          if (tab > 0) DEFS.set(line.slice(0, tab).toUpperCase(), line.slice(tab + 1));
+        }
+      })
+      .catch(() => {}));
+  }
+  return defLoads.get(L);
+}
+// A word's definition, or a name's: the Expectant Parents' licence admits names
+// the dictionary doesn't hold.
+const defOf = word => DEFS.get(word)
+  ?? (LISTS.names?.has(word) || LISTS.borrowed?.has(word) ? DEF_TEXT.name : null);
+const showDef = d => (d ? d[0].toUpperCase() + d.slice(1) : '');
+function defSpan(word, cls = 'best-def') {
+  const s = document.createElement('span');
+  s.className = cls;
+  const fill = () => { s.textContent = showDef(defOf(word)); s.hidden = !s.textContent; };
+  s.hidden = true;
+  if (defLoads.has(word[0]?.toLowerCase())) defLoads.get(word[0].toLowerCase()).then(fill);
+  else loadDefs(word[0] ?? '').then(fill);
+  return s;
 }
 
 // ─── Saved proofs ─────────────────────────────────────────────────────────────
@@ -1451,21 +1490,38 @@ function renderResult() {
 }
 
 // One row of a best-of list: place, name, score, and a setting under it when open.
-function bestRow({ key, place, name, score, yours, stone, open, fillSet }) {
+// `words` are what the row's name is made of: one word's definition rides
+// under it, a line cut short until the row is opened; a pair's two are written
+// out when it is.
+function bestRow({ key, place, name, score, yours, stone, open, fillSet, words = [] }) {
   const li = document.createElement('li');
-  li.className = `best-row${yours ? ' best-row--yours' : ''}${stone ? ' best-row--stone' : ''}`;
+  li.className = `best-row${yours ? ' best-row--yours' : ''}${stone ? ' best-row--stone' : ''}${open ? ' best-row--open' : ''}`;
   const btn = document.createElement('button');
   btn.className = 'best-head';
   btn.setAttribute('aria-expanded', open ? 'true' : 'false');
   const pl = document.createElement('span'); pl.className = 'best-place'; pl.textContent = fmtN(place);
   const w = document.createElement('span'); w.className = 'best-word'; w.textContent = name;
   const sc = document.createElement('b'); sc.className = 'best-score'; sc.textContent = fmtN(score);
-  btn.append(pl, w, sc);
+  const cell = document.createElement('span'); cell.className = 'best-name';
+  cell.appendChild(w);
+  if (words.length === 1) cell.appendChild(defSpan(words[0]));
+  btn.append(pl, cell, sc);
   btn.addEventListener('click', () => {
     if (S.open.has(key)) S.open.delete(key); else S.open.add(key);
     renderResult();
   });
   li.appendChild(btn);
+  if (open && words.length > 1) {
+    const defs = document.createElement('div');
+    defs.className = 'best-defs';
+    for (const word of words) {
+      const line = document.createElement('p');
+      const b = document.createElement('b'); b.textContent = word;
+      line.append(b, ' ', defSpan(word, 'best-def best-def--pair'));
+      defs.appendChild(line);
+    }
+    li.appendChild(defs);
+  }
   if (open) fillSet(li);
   return li;
 }
@@ -1550,7 +1606,7 @@ function bestWords(r, field) {
     if (e.mark) { into = e.mark === 'open' ? stonePanel(list) : list; continue; }
     const key = e.yours ? '\u0000yours' : e.word;
     into.appendChild(bestRow({
-      key, name: e.word, score: e.score, yours: e.yours, stone: e.stone, open: S.open.has(key),
+      key, name: e.word, words: [e.word], score: e.score, yours: e.yours, stone: e.stone, open: S.open.has(key),
       place: e.yours ? r.rank : rankOf(e.score, field.scores).rank,
       fillSet: li => {
         const set = document.createElement('div');
@@ -1623,7 +1679,7 @@ function bestPairs(r, field) {
     if (e.mark) { into = e.mark === 'open' ? stonePanel(list) : list; continue; }
     const key = e.yours ? '\u0000yours' : name(e.words);
     into.appendChild(bestRow({
-      key, name: name(e.words), score: e.score, yours: e.yours, stone: e.stone, open: S.open.has(key),
+      key, name: name(e.words), words: e.words, score: e.score, yours: e.yours, stone: e.stone, open: S.open.has(key),
       place: e.yours ? r.rank : rankOf(e.score, field.scores).rank,
       fillSet: li => {
         const set = document.createElement('div');

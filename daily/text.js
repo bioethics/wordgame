@@ -131,6 +131,9 @@ export const PAIR_TEXT = {
 };
 
 // ─── The board ────────────────────────────────────────────────────────────────
+// ─── Definitions (in the results list) ────────────────────────────────────────
+export const DEF_TEXT = { name: 'a given name' };
+
 // ─── How to play (in the ❦ menu) ──────────────────────────────────────────────
 // The worked example is drawn from real sorts and scored by the scorer, so its
 // figures and chips are computed; only the sentence introducing it is fixed.

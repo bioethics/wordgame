@@ -70,6 +70,17 @@ for (const file of Object.values(LIST_FILES)) {
     .filter(w => w && (lexicon.has(name) ? /^[A-Z]+$/.test(w) && !excludedSet.has(w) : playable.has(w))).join('\n');
 }
 
+// The definitions the results show (tools/build-definitions.mjs), a file a
+// letter, keyed by the letter, cut to the words the dictionary holds.
+const defs = {};
+const defDir = path.join(root, 'wordlists/definitions');
+for (const f of fs.existsSync(defDir) ? fs.readdirSync(defDir) : []) {
+  const m = f.match(/^([a-z])\.txt$/);
+  if (!m) continue;
+  defs[m[1]] = fs.readFileSync(path.join(defDir, f), 'utf8').split('\n')
+    .filter(l => playable.has(l.slice(0, l.indexOf('\t')).toUpperCase())).join('\n');
+}
+
 let html = fs.readFileSync(path.join(root, 'daily/index.html'), 'utf8');
 const swap = (from, to) => {
   if (!html.includes(from)) throw new Error(`daily/index.html no longer contains: ${from}`);
@@ -79,6 +90,7 @@ swap('<link rel="stylesheet" href="daily.css" />', `<style>\n${css}\n</style>`);
 swap('<script type="module" src="main.js"></script>',
   `<script>window.FOLIO_WORDLIST = ${JSON.stringify(wordlist)};
 window.FOLIO_THEMES = ${JSON.stringify({ 'excluded-slurs': excluded, ...lists })};
+window.FOLIO_DEFS = ${JSON.stringify(defs)};
 ${home ? `window.DAILY_HOME = ${JSON.stringify(home)};` : ''}</script>
 <script>\n${js}\n</script>`);
 
