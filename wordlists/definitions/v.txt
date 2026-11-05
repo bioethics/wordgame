@@ -277,6 +277,7 @@ vaster	VAST: unusually great in size or amount or degree or especially extent or
 vastest	VAST: unusually great in size or amount or degree or especially extent or scope
 vastly	to an exceedingly great extent or degree
 vastness	unusual largeness in size or extent or number
+vasts	VAST: a vast expanse
 vat	a tax levied on the difference between a commodity's price before taxes and its cost of production
 vaticinator	an authoritative person who divines the future
 vaticinators	VATICINATOR: an authoritative person who divines the future

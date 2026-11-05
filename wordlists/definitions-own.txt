@@ -14,6 +14,7 @@ abductee	a person who has been abducted
 abiotic	not involving or produced by living things
 ableist	discriminating against people with disabilities
 abolisher	one who abolishes something
+abraxas	a mystical word or charm, once engraved on gems as an amulet
 abscessing	ABSCESS: form a painful swelling filled with pus
 abscissae	ABSCISSA: the horizontal coordinate of a point on a graph
 absurdist	a person who sees or portrays life as meaningless or ridiculous
@@ -31,12 +32,14 @@ accomplisher	one who achieves or completes something
 acerbically	in a sharp, bitter way
 achoo	the sound of a sneeze
 acidified	ACIDIFY: make or become acid
+acolytic	relating to an acolyte or assistant
 acrobatically	in the manner of an acrobat
 acupuncturist	a person who treats illness by inserting fine needles into the skin
 addenda	ADDENDUM: an extra item added to a book or document
 addlepate	a muddled or foolish person
 addresser	one who addresses something, such as an envelope
 adieux	ADIEU: a goodbye
+adjoint	in mathematics, a matrix or operator paired with another in a set way
 admin	administrative work
 adorner	one who decorates or adorns
 adventurist	a person who takes reckless risks, especially in politics
@@ -69,6 +72,7 @@ agritourism	tourism based on visiting farms
 agrobiologist	a scientist who studies plant life and soil nutrition
 agrochemical	a chemical used in farming
 agrologist	a scientist who studies soils and crops
+agrostological	relating to the study of grasses
 agrostologist	a scientist who studies grasses
 agrostology	the study of grasses
 ah	an exclamation of surprise, relief or understanding
@@ -107,6 +111,7 @@ almanack	a yearly calendar with astronomical and other information
 almshouse	a house built with charity money for poor people
 aloo	potato
 alpines	ALPINE: a plant that grows in mountain regions
+altared	furnished with an altar
 alterer	one who changes something
 altho	though
 although	despite the fact that
@@ -144,6 +149,7 @@ anecdotally	based on personal accounts rather than evidence
 angelologist	a student of beliefs about angels
 anglophone	an English-speaking person
 ankh	an ancient Egyptian cross with a loop on top, symbolising life
+anmitsu	a Japanese dessert of agar jelly cubes with sweet bean paste and fruit
 annualised	ANNUALISE: calculate as a yearly rate
 annualized	ANNUALIZE: calculate as a yearly rate
 anons	ANON: anonymous people
@@ -156,6 +162,7 @@ anthropologically	in a way that relates to the study of humankind
 antiabortion	opposed to abortion
 antichoice	opposed to the right to choose abortion
 anticked	ANTIC: behaved in a playful or odd way
+anticking	ANTIC: behave in a clownish or playful way
 anticlerical	opposed to the power of the clergy
 anticline	an arch-shaped fold of rock layers
 anticommunist	opposed to communism
@@ -196,6 +203,7 @@ appointer	one who appoints
 appositives	APPOSITIVE: a noun placed beside another to rename it
 approacher	one who comes near
 approx	approximately
+aquae	AQUA: water
 aquaria	AQUARIUM: a tank for keeping fish and water plants
 arachnological	relating to the study of spiders
 arachnologist	a scientist who studies spiders
@@ -210,6 +218,8 @@ archeologically	in a way relating to the study of ancient remains
 archipelagoes	ARCHIPELAGO: a group of many islands
 archon	a chief magistrate in ancient Athens
 archrival	a chief rival
+arcked	ARC: form an electric arc
+arcking	ARC: form an electric arc
 ardency	intense passion or enthusiasm
 armsful	ARMFUL: as much as the arms can hold
 aromatherapist	a person who treats people with scented oils
@@ -224,12 +234,14 @@ artsy	showily artistic
 arvo	afternoon
 ascertainment	the act of finding something out for certain
 ascorbic	relating to vitamin C
+ashily	in an ashy, pale way
 aspirational	driven by hopes of higher status or achievement
 assailer	one who attacks
 asshat	a stupid or annoying person
 assigner	one who assigns
 assister	one who helps
 assoc	association
+assureds	ASSURED: a person whose life or property is insured
 astrobiological	relating to the study of life beyond the earth
 astrobiologist	a scientist who studies life beyond Earth
 astrophotography	the photographing of stars and other space objects
@@ -238,6 +250,7 @@ athletically	in a way that shows physical strength or skill
 atishoo	the sound of a sneeze
 atmospherically	in a way relating to the air or mood
 atomically	in a way relating to atoms
+atomics	the science and technology of atomic energy
 atria	ATRIUM: a central hall or open space in a building
 attaboy	an exclamation of praise for a boy or man
 attacher	one who attaches
@@ -265,6 +278,7 @@ autecology	the study of one species and its environment
 autocorrelation	the matching of a signal with a delayed copy of itself
 autocross	a motor race over rough ground
 automata	AUTOMATON: a machine that acts as if on its own
+automatonic	like an automaton; mechanical
 autopsied	AUTOPSY: examine a dead body to find the cause of death
 autoworker	a person who works in car manufacturing
 avast	a sailor's command to stop
@@ -281,6 +295,7 @@ axiologist	a philosopher who studies values
 ay	yes
 aye	yes
 babied	BABY: treat as if helpless
+babiest	BABY: most babyish
 babygrow	a one-piece stretchy suit for a baby
 babysat	BABYSIT: look after a child while the parents are out
 babysbreath	a plant with tiny white flowers used in bouquets
@@ -323,6 +338,7 @@ ballboy	a boy who retrieves balls during a match
 baller	a person who plays ball sports
 ballgirl	a girl who retrieves balls during a match
 ballgown	a long formal dress
+ballon	in ballet, the light, floating quality of a dancer's leaps
 balloter	one who votes by ballot
 ballsed	BALLS: messed up
 ballses	BALLS: messes up
@@ -335,6 +351,7 @@ bandager	one who applies bandages
 bander	one who fits bands, especially to birds
 bandied	BANDY: pass from person to person
 banditti	BANDIT: a group of robbers
+bani	BAN: a coin of Romania and Moldova, a hundredth of a leu
 banjoes	BANJO: a stringed instrument with a round body
 banjoist	a person who plays the banjo
 bankcard	a card issued by a bank for buying things
@@ -349,6 +366,7 @@ barhop	go from bar to bar
 barista	a person who makes and serves coffee
 barkentine	a sailing ship with three or more masts
 barnacled	covered with barnacles
+barnet	hair (rhyming slang)
 barney	a noisy argument
 barquentine	a sailing ship with three or more masts
 barra	barramundi
@@ -359,6 +377,7 @@ basemen	BASEMAN: a baseball fielder stationed at a base
 basher	one who hits hard
 basketwork	baskets or things woven like them
 basmati	a long-grained fragrant rice
+bassi	BASSO: a bass singer
 bassline	the lowest musical part in a piece
 batboy	a boy who looks after bats and equipment for a team
 batcher	one who prepares things in batches
@@ -430,6 +449,7 @@ bethought	BETHINK: remember or reflect
 betook	BETAKE: go
 betta	a colourful freshwater fighting fish
 beveler	one who cuts a sloping edge
+bevellings	BEVELLING: a sloping edge or surface
 bevvy	an alcoholic drink
 bewailer	one who mourns loudly
 bewailment	loud mourning
@@ -460,6 +480,7 @@ bikkie	a biscuit
 bilker	one who cheats someone of what they are owed
 billable	able to be charged to a client
 biller	one who sends out bills
+billetdoux	a love letter
 billeter	one who provides lodging for soldiers
 billycan	a metal pot for boiling water over a campfire
 bimboes	BIMBO: attractive but unintelligent people
@@ -483,6 +504,7 @@ biometric	relating to measurement of body features for identification
 biophysical	relating to the physics of living things
 biopic	a film about a real person's life
 biopsied	BIOPSY: remove tissue for medical examination
+biopsychological	relating to how biology shapes behaviour
 biopsychology	the study of how biology shapes behaviour
 biopsying	BIOPSY: remove tissue for medical examination
 bioreactor	a vessel for growing cells or microbes
@@ -494,7 +516,9 @@ biotechnologist	a person who uses living organisms in technology
 bipartisanship	cooperation between two political parties
 birdbrained	silly or foolish
 birdlike	resembling a bird
+birdman	a man who keeps or studies birds; also an aviator
 birdwatcher	a person who observes wild birds as a hobby
+birdying	BIRDIE: score one under par on a golf hole
 birthstone	a gem linked to the month of one's birth
 biscotti	BISCOTTO: crisp twice-baked Italian biscuits
 bisector	a line that divides something into two equal parts
@@ -507,7 +531,9 @@ blackener	one who makes black
 blacklight	a lamp giving ultraviolet light
 blacksmithing	the craft of shaping iron by heating and hammering
 blackspot	a dangerous place, especially on a road
+blading	BLADE: skate on inline skates
 blag	obtain by persuasion or trickery
+blammo	an exclamation imitating a sudden blow or explosion
 blancher	one who briefly boils food
 blatherer	one who talks nonsense
 blazoner	one who proclaims widely
@@ -520,9 +546,12 @@ blesser	one who blesses
 bletch	an exclamation of disgust
 blimey	an exclamation of surprise
 blissed	BLISS: filled with great happiness
+blissing	BLISS: be or make blissfully happy
+blivet	something impossible or overstuffed; also a drawing of an impossible object
 bloatware	unwanted software that takes up space and slows a device down
 blobby	shaped like a soft lump
 blobfish	a pinkish deep-sea fish with a soft jelly-like body
+blockbusting	hugely successful
 blockchain	a digital record of transactions shared across many computers
 blogosphere	the community of blogs and bloggers
 blokeish	hearty and blunt in the way of a stereotypical man
@@ -532,6 +561,8 @@ bloodied	BLOODY: stained with blood
 bloodsport	a sport involving killing animals
 bloop	a short, soft, liquid sound
 blotchily	in an uneven patchy way
+bloused	BLOUSE: puff out loosely over a waistband
+blousing	BLOUSE: puff out loosely over a waistband
 blowie	a blowfly
 bludger	a person who avoids work and relies on others
 bluejay	a North American bird with blue feathers
@@ -541,16 +572,21 @@ blurter	one who speaks without thinking
 boardgames	BOARDGAME: a game played on a marked board
 boatbuilding	the craft of making boats
 boathook	a pole with a hook for moving boats
+boatsman	a boatman
+bodement	an omen or portent
 bodger	a person who does shoddy work
 bodyboard	a short board for riding waves lying down
 bodysuit	a close-fitting one-piece garment
 bodysurf	ride a wave without a board
 bodywarmer	a sleeveless padded jacket
 boerewors	a South African spiced sausage
+boga	a small silvery fish of the Mediterranean, the bogue
 bogan	an unsophisticated person of lower social class
 boggart	a mischievous household spirit
 bogied	BOGEY: scored one over par at golf
+bogieing	BOGIE: score one over par on a golf hole
 bogle	a ghost or scarecrow
+bogon	in computing, a bogus or unassigned network address
 bogong	a large brown Australian moth
 bogosity	the quality of being fake or absurd
 boilermaker	a beer served with a shot of spirits
@@ -583,6 +619,7 @@ bossyboots	a person who orders others about
 botanically	in a way relating to plants
 botnet	a network of hijacked computers
 bowwow	a dog's bark
+boxen	BOX: computers (a jokey plural)
 boxroom	a small room for storage
 braai	a South African barbecue
 braggadocious	boastful
@@ -597,6 +634,8 @@ brandisher	one who waves something threateningly
 brandying	BRANDY: flavouring with brandy
 brassily	in a loud, flashy way
 brayer	a donkey or one who makes a harsh cry
+brazenface	a shameless, impudent person
+brazenfaced	shameless and impudent
 breacher	one who breaks through
 breakdancing	an acrobatic street dance
 breakeven	the point where income equals costs
@@ -678,6 +717,7 @@ burnout	exhaustion from prolonged stress
 burpcloth	a cloth put over a shoulder when burping a baby
 burrower	an animal that digs tunnels
 bushcraft	skills for surviving in the bush
+bushellings	BUSHELLING: mending or altering clothes
 bushfire	a fire in grass or forest
 bushmaster	a large venomous snake of Central and South America
 bushranger	an outlaw living in the Australian bush
@@ -710,11 +750,13 @@ calculi	CALCULUS: a hard mass such as a kidney stone
 calibrator	a device or person that adjusts instruments for accuracy
 calicoes	CALICO: plain cotton cloth
 calker	one who seals gaps against leaks
+calkings	CALKING: sealing the seams of a boat
 callisthenic	relating to exercises for fitness and grace
 callout	a request for help or service
 calyces	CALYX: the outer ring of a flower's leaves
 calzone	a folded pizza
 cambia	CAMBIUM: a growth layer in plant stems
+cambogia	a tropical fruit whose rind is used in diet supplements
 camelback	a back curved like a camel's hump, as on a sofa
 camerawoman	a woman who operates a camera
 camerawomen	CAMERAWOMAN: a woman who operates a camera
@@ -737,6 +779,7 @@ cantina	a bar or wine shop
 canzone	an Italian song or lyric poem
 canzoni	CANZONE: an Italian song or lyric poem
 caperer	one who leaps about playfully
+capita	CAPUT: a head; as in per capita, for each person
 caplet	a coated tablet shaped like a capsule
 caravel	a small fast sailing ship of the fifteenth century
 carb	carbohydrate
@@ -920,10 +963,13 @@ cindered	CINDER: burn to ash
 cindering	CINDER: burn to ash
 cindery	full of or like cinders
 cinematographic	relating to filming and the art of motion pictures
+cinnamony	tasting or smelling of cinnamon
 circa	approximately, used with dates
 circler	one that moves in or forms a circle
 circulator	one that moves something round, or a device that does so
 circumstanced	situated in a particular way
+circumstancing	CIRCUMSTANCE: place in particular circumstances
+ciscoes	CISCO: a North American freshwater whitefish
 cisgender	having a gender identity that matches the sex recorded at birth
 cissies	CISSY: a timid or weak person
 citronella	a fragrant oil used in candles to repel insects
@@ -959,6 +1005,7 @@ clipt	CLIP: cut or trim
 cliquey	inclined to form exclusive groups
 clitorides	CLITORIS: a small sensitive organ of the female genitals
 clocker	one who times races or workers
+clockworked	moved or run as if by clockwork
 clodhopping	clumsy and awkward
 clodpate	a stupid person
 clodpoll	a stupid person
@@ -1053,6 +1100,7 @@ compounders	COMPOUNDER: one who mixes or combines
 comprehensibly	in a way that can be understood
 compressive	tending to squeeze or press together
 compulsories	COMPULSORY: required exercise in a contest
+computerate	able to use computers
 computerisation	the act of equipping with or controlling by computers
 concealable	able to be hidden
 concealer	cosmetic used to cover blemishes
@@ -1084,12 +1132,14 @@ congenitally	from birth
 congrats	congratulations
 congressionally	by or relating to a congress
 conidia	CONIDIUM: a spore of a fungus
+conjuncts	CONJUNCT: something joined or combined with another
 conman	a man who tricks people out of money
 conmen	CONMAN: a man who tricks people out of money
 conniver	one who schemes secretly
 conquistadores	CONQUISTADOR: a Spanish conqueror of the Americas
 consed	CONS: swindle
 consenter	one who agrees
+conservatorship	legal control of the affairs of a person unable to manage them
 consolidator	one who combines things into one
 consortia	CONSORTIUM: a group of companies or bodies working together
 conspiratorially	in a secretive, scheming way
@@ -1159,6 +1209,7 @@ cosplay	dressing up as a fictional character
 cossie	a swimming costume
 costar	to appear as one of the leading actors
 cosying	COSY: make comfortable and warm
+cotta	a short white surplice worn by choristers and clergy
 cottaging	seeking sex in a public toilet
 cougher	one who coughs
 could	COULD: past tense of can, or expressing possibility
@@ -1196,6 +1247,7 @@ craniofacial	relating to the skull and face
 craniological	relating to the study of skulls
 crankily	in a grumpy way
 crapola	nonsense
+craquelin	a crisp sugar crust baked on top of choux pastry
 cratered	CRATER: pitted with bowl-shaped hollows
 cratering	CRATER: form bowl-shaped hollows
 crawlier	CRAWLY: creeping, or having a creepy feeling
@@ -1221,6 +1273,7 @@ crikey	an exclamation of surprise
 crimplene	a crease-resistant synthetic fabric
 cringeworthy	so awkward or embarrassing that it makes you wince
 cripes	an exclamation of surprise
+crippleware	software with features disabled until it is paid for
 crises	CRISIS: a time of great danger or difficulty
 crispbread	a thin dry cracker-like bread
 criteria	CRITERION: a standard for judging
@@ -1256,6 +1309,8 @@ cryptozoological	relating to the study of unproven animals
 cryptozoologist	a person who searches for unproven animals
 cryptozoology	the study of animals whose existence is unproven
 crystallographic	relating to the structure of crystals
+cthulhu	a monstrous sea deity in the fiction of H. P. Lovecraft
+cuck	an insult
 cuddler	one who hugs affectionately
 cudgeler	one who beats with a short thick stick
 cudgellings	CUDGELLING: a beating with a short thick stick
@@ -1299,6 +1354,7 @@ cyclically	in repeating cycles
 cyclosporine	a drug that suppresses the immune system
 cytopathology	the study of disease through changes in cells
 czarists	CZARIST: a supporter of rule by a czar
+dacnis	a small, brightly coloured tanager of the American tropics
 dacquoise	a dessert of nut meringue layers with cream
 dactylics	DACTYLIC: verse made of long-short-short feet
 daffy	silly or slightly crazy
@@ -1572,6 +1628,8 @@ dogeared	having corners folded or worn from use
 doggier	DOGGY: like a dog
 doggiest	DOGGY: like a dog
 doggone	a mild expression of annoyance
+doggoneder	DOGGONED: confounded; damned
+doggonedest	DOGGONED: confounded; damned
 doggoner	DOGGONE: more damned
 doggonest	DOGGONE: most damned
 dogmata	DOGMA: a firmly held belief
@@ -1582,6 +1640,7 @@ dollishly	in a manner like a doll
 dollishness	the quality of being like a doll
 dolloped	DOLLOP: put down in a soft lump
 dolloping	DOLLOP: put down in a soft lump
+domaine	a wine-producing estate, especially in France
 dominator	one who rules over others
 dominatrices	DOMINATRIX: a woman who takes the controlling role in sex play
 doming	DOME: covering with a rounded roof
@@ -1747,6 +1806,7 @@ electrophysiologist	a scientist who studies the electrical activity of living ti
 electrophysiology	the study of the electrical activity of living tissue
 electroweak	uniting the electromagnetic and weak nuclear forces
 elegiacally	in a mournful, reflective way
+elegiacs	ELEGIAC: verse written in elegiac metre
 elevenses	a light snack in mid-morning
 elliptically	in an oval way, or in a deliberately vague way
 else	otherwise, or in addition
@@ -1822,6 +1882,7 @@ etailing	selling goods online
 etc	and so on
 ethereality	the quality of being light, delicate and heavenly
 ethereally	in a light, delicate, heavenly way
+ethnomethodologist	a sociologist who studies how people make sense of everyday life
 ethnomethodology	the study of how people make sense of everyday social life
 ethnomusicological	relating to the study of music in its cultural setting
 ethnomusicologist	a person who studies music in its cultural setting
@@ -1832,11 +1893,13 @@ eucalypti	EUCALYPTUS: a tall Australian tree with aromatic leaves
 euchred	EUCHRE: defeat or cheat by cunning
 euchring	EUCHRE: defeat or cheat by cunning
 eugenicist	a supporter of selective breeding of humans
+euphonia	a small, colourful finch-like bird of the American tropics
 euphorically	in an intensely happy way
 euroland	the countries that use the euro
 eurozone	the countries that use the euro
 euthanize	put to death painlessly
 evader	one who avoids or escapes something
+evangelic	evangelical
 evangelicals	EVANGELICAL: a member of a Protestant movement stressing the Bible and personal conversion
 evangelisation	the spreading of Christianity
 evangelization	the spreading of Christianity
@@ -1850,6 +1913,8 @@ everyone	every person
 everything	all things
 eww	an expression of disgust
 exalter	one who praises or raises up
+exampled	EXAMPLE: give an example of
+exampling	EXAMPLE: give an example of
 exceptionalism	the belief that something is unique and exempt from the usual rules
 exciter	one who or that which excites
 exciton	a bound pair of an electron and a hole in a solid
@@ -1882,6 +1947,9 @@ exsanguinate	drain of blood
 exsanguination	the draining or loss of blood
 extender	something that extends
 extensibility	the capacity to be extended
+extincted	EXTINCT: make extinct
+extincting	EXTINCT: make extinct
+extincts	EXTINCT: make extinct
 extoll	praise highly
 extorter	one who obtains something by threats
 extractive	involving the removal of resources from the ground
@@ -1899,6 +1967,7 @@ facecloth	a small cloth for washing the face
 facedown	with the face downward
 facepalm	the gesture of putting a hand to the face in dismay
 faceting	the cutting of small flat faces on a gem
+facies	the overall look of a rock, or of a patient's face, that marks its kind
 factional	relating to a faction
 factionalism	division into rival groups
 fader	a control that gradually raises or lowers volume
@@ -1942,8 +2011,11 @@ featherlight	extremely light
 featurette	a short film or documentary item
 feelgood	producing a cheerful feeling
 feigner	one who pretends
+fem	a woman or lesbian presenting in a feminine way
+femme	feminine in style; also a lesbian presenting in a feminine way
 femora	FEMUR: the thigh bone
 fennec	a small desert fox with large ears
+feringhee	a European, in old Indian usage
 ferreter	one who searches things out
 ferroelectric	having an electric polarisation that can be reversed
 ferruginous	containing iron, or rust-coloured
@@ -1983,6 +2055,7 @@ firefight	an exchange of gunfire
 firelit	lit by a fire
 firescreen	a screen placed in front of a fireplace
 firetruck	a fire engine
+fiscals	FISCAL: a public prosecutor, as in Scotland
 fishcake	a fried cake of fish and potato
 fishfinger	a breaded finger-shaped piece of fish
 fishwives	FISHWIFE: a woman who sells fish
@@ -1998,7 +2071,9 @@ flamer	a person who sends abusive messages online
 flamingoes	FLAMINGO: a tall pink wading bird
 flammables	FLAMMABLE: easily set on fire
 flanged	having a projecting rim
+flanneled	FLANNEL: talk evasively; also wash with a flannel
 flannelet	a soft cotton fabric with a brushed surface
+flanneling	FLANNEL: talk evasively; also wash with a flannel
 flareup	a sudden outbreak
 flashmob	a crowd that gathers suddenly for a brief performance
 flatfeet	FLATFOOT: a condition of fallen arches in the foot
@@ -2036,6 +2111,8 @@ flyby	a flight past a target
 flyleaves	FLYLEAF: a blank page at the front of a book
 flyposting	the illegal sticking up of posters
 flysheet	the outer waterproof layer of a tent
+flyspecked	marked with tiny spots, like the specks left by flies
+flyspecking	FLYSPECK: mark with tiny spots
 foamily	in a frothy way
 focaccia	flat Italian bread with olive oil
 foci	FOCUS: the centre of activity or attention
@@ -2066,15 +2143,21 @@ forenamed	named earlier
 forensically	by scientific methods used in solving crime
 foresaw	FORESEE: see beforehand
 foreseen	FORESEE: see beforehand
+foresheet	a rope controlling a ship's foresail
 forestation	the planting of trees
+forestaysail	a triangular sail set on a ship's forestay
 forestland	land covered with forest
 foreswore	FORSWEAR: promise to give up
 foresworn	FORSWEAR: promise to give up
 foretasted	FORETASTE: give a sample of what is to come
 foretasting	FORETASTE: give a sample of what is to come
 foreteller	one who predicts
+foretokened	FORETOKEN: foreshadow or give warning of
+foretokening	FORETOKEN: foreshadow or give warning of
 foretold	FORETELL: predict
+foretopman	a sailor stationed in a ship's foretop
 forewent	FOREGO: go before
+foreyard	the lowest yard on a ship's foremast
 forgone	FORGO: do without
 forkful	as much as a fork holds
 formalist	one who values form over content
@@ -2089,6 +2172,7 @@ forsakenness	the state of being abandoned
 forsook	FORSAKE: abandon
 forswore	FORSWEAR: promise to give up
 forsworn	FORSWEAR: promise to give up
+fortis	of a consonant, pronounced with more force
 fortyish	about forty
 forwarders	FORWARDER: one who sends goods on
 forwent	FORGO: do without
@@ -2124,7 +2208,9 @@ friending	FRIEND: add as a connection on social media
 frigatebird	a large tropical seabird with a forked tail
 frigging	a mild swear word used for emphasis
 fritterer	one who wastes time or money
+fritz	on the fritz: broken or not working properly
 fro	away
+froggings	FROGGING: ornamental braid fastenings on a coat
 froggy	like a frog
 froglike	like a frog
 frogspawn	a mass of frog eggs
@@ -2149,6 +2235,10 @@ fuhrer	a leader
 fulcra	FULCRUM: the pivot point of a lever
 fulness	FULLNESS: the state of being full
 fulvetta	a small babbler bird of Asia
+fum	a phoenix in Chinese legend
+fumier	FUMY: full of fumes
+fumiest	FUMY: full of fumes
+functor	in mathematics and programming, a mapping between structures that keeps their form
 funder	one who provides money
 funereally	in a gloomy manner
 funhouse	an amusement building with trick attractions
@@ -2160,8 +2250,11 @@ fustily	in a stale, musty way
 futurological	relating to the study of the future
 futurologist	one who predicts the future
 futz	waste time or tinker
+fuzed	FUZE: fit with a detonating fuse
+fuzing	FUZE: fit with a detonating fuse
 fuzzball	a ball of fluff
 fuzzily	in a blurry way
+fuzzing	FUZZ: make or become fuzzy; also test software with random input
 gabbers	GABBER: a chatterer
 gabbler	one who talks fast and unclearly
 gadwall	a grey dabbling duck
@@ -2193,6 +2286,8 @@ gastroenterological	relating to the stomach and intestines
 gastropub	a pub serving high-quality food
 gateaux	GATEAU: a rich cake
 gatecrash	attend a party uninvited
+gauzed	covered or veiled with gauze
+gauzily	in a gauzy, filmy way
 gawd	an exclamation, God
 gawkily	clumsily
 gawper	one who stares
@@ -2231,6 +2326,7 @@ geoengineering	large-scale deliberate alteration of the Earth's climate
 geomagnetic	relating to the Earth's magnetism
 geomorphologist	a scientist who studies landforms
 gesundheit	said after someone sneezes
+getout	a way of escaping a commitment or difficulty
 gharial	a long-snouted crocodile-like reptile of India
 ghastlily	in a ghastly way
 ghettoes	GHETTO: a poor area where a minority group lives
@@ -2238,11 +2334,15 @@ ghostlily	in a ghostly way
 ghostwritten	GHOSTWRITE: write for someone else who is credited as author
 ghostwrote	GHOSTWRITE: write for someone else who is credited as author
 gianduja	a chocolate and hazelnut paste
+giber	one who gibes or jeers
 giftwrap	wrap a present attractively
 gigapixel	a billion pixels
 gigawatt	a billion watts
 giggly	inclined to giggle
+gillion	a thousand million
 gillnet	a net that traps fish by their gills
+gimleted	GIMLET: bore with a gimlet
+gimleting	GIMLET: bore with a gimlet
 gimme	give me
 gimmicky	relying on attention-getting devices
 gingkoes	GINKGO: a Chinese tree with fan-shaped leaves
@@ -2252,11 +2352,15 @@ girlie	girlish
 girly	girlish
 girt	GIRD: encircle with a belt
 giveback	a benefit given back, as by workers in a bargain
+glaceing	GLACE: preserve fruit in sugar syrup
+glaces	GLACE: preserve fruit in sugar syrup
 glaciological	relating to the study of glaciers
 glaciologist	a scientist who studies glaciers
 glaciology	the study of glaciers
 gladioli	GLADIOLUS: a plant with sword-shaped leaves and tall spikes of flowers
 glam	glamorous
+glamored	GLAMOUR: make glamorous
+glamoring	GLAMOUR: make glamorous
 glandes	GLANS: the rounded tip of the penis or clitoris
 glassblowing	shaping molten glass by blowing
 glassfrog	a small translucent tree frog of Central and South America
@@ -2272,11 +2376,16 @@ glitzy	showy and glamorous
 gloater	one who gloats
 globalism	the policy of treating the whole world as one's sphere of influence
 globalist	a supporter of treating the whole world as one's sphere of influence
+globby	full of globs; lumpy
+globed	GLOBE: form into a globe
 globetrotting	travelling widely
+globing	GLOBE: form into a globe
+gloomed	GLOOM: look or feel gloomy
 gloop	a thick, sticky liquid
 gloppy	thick and sticky
 gloried	GLORY: rejoice proudly
 glottides	GLOTTIS: the opening between the vocal cords
+gloving	GLOVE: put a glove on
 gluconeogenesis	the making of glucose in the body from non-carbohydrates
 gluier	GLUEY: sticky
 gluiest	GLUEY: sticky
@@ -2293,11 +2402,13 @@ gobby	loud-mouthed
 gobstopper	a large hard round sweet
 godawful	extremely bad
 godchildren	GODCHILD: a child one sponsors at baptism
+goddamed	GODDAMN: damned
 goddammit	an exclamation of anger
 godhood	the state of being a god
 goggas	GOGGA: an insect or creepy-crawly
 goldbricker	a person who avoids work
 golly	an exclamation of surprise
+gonk	a soft, round, egg-shaped toy
 gonna	going to
 goodhearted	kind
 goodie	a pleasing thing, or a hero
@@ -2353,6 +2464,7 @@ groundswell	a gathering wave of public feeling
 groundwater	water held underground
 grouser	a complainer
 grouter	one who fills gaps between tiles
+grue	a shiver of horror
 gruelings	GRUELING: exhausting
 gruellings	GRUELLING: exhausting
 grumping	complaining
@@ -2372,6 +2484,8 @@ gulley	GULLY: a narrow channel cut by water
 gullibly	in an easily fooled way
 gumball	a ball of chewing gum
 gumboot	a waterproof rubber boot
+gumshoed	GUMSHOE: move stealthily; work as a detective
+gumshoeing	GUMSHOE: move stealthily; work as a detective
 gumtree	a eucalyptus tree
 gundi	a small rodent of North Africa
 gundog	a dog trained to find game for hunters
@@ -2382,6 +2496,7 @@ gunky	sticky and dirty
 gunship	a heavily armed helicopter
 gurdwara	a Sikh place of worship
 gurn	pull a distorted face
+gusseting	GUSSET: fit with a gusset
 gussy	smarten up
 gusted	GUST: blow in sudden bursts
 gusting	GUST: blow in sudden bursts
@@ -2390,6 +2505,9 @@ guv	an informal address for a man in authority
 gymnasia	GYMNASIUM: a room equipped for exercise
 gynaecologic	relating to women's reproductive health
 gynaecomastia	enlargement of breast tissue in men
+habilitation	training to gain the skills for everyday life or work
+hackish	in the manner of a hack or a hacker
+hackneying	HACKNEY: make commonplace through overuse
 hacktivist	a person who breaks into computers to make a political point
 hadst	HAVE: possess
 haematologic	relating to the study of blood
@@ -2418,6 +2536,7 @@ haloes	HALO: a ring of light around a head or object
 haloing	HALO: surround with a ring of light
 halva	a sweet made from ground sesame seeds
 hamantaschen	triangular filled pastries eaten at Purim
+hamartiology	the branch of theology that studies sin
 hamfisted	clumsy
 hammily	in an overacted way
 hamstrung	HAMSTRING: severely restrict
@@ -2439,6 +2558,7 @@ harbourmaster	an official in charge of a harbour
 hardener	something that hardens
 hardhat	a protective helmet worn on building sites
 hardily	in a tough way
+hardnose	a tough, shrewd and practical person
 hardnosed	tough, shrewd and practical
 hardpressed	under heavy pressure
 hardwired	built in permanently
@@ -2455,6 +2575,8 @@ hatcher	one who hatches
 hath	HAVE: possess
 hatstand	a stand for hanging hats on
 haunter	one who haunts
+haver	talk nonsense; dither
+haverer	someone who talks nonsense or dithers
 hayride	a ride on a cart loaded with hay
 hazings	HAZING: a harassing initiation ritual
 headbanger	a fan of heavy metal who shakes the head to the music
@@ -2503,6 +2625,7 @@ heptathlon	an athletic contest of seven events
 her	belonging to or referring to a female
 herbalism	the use of plants in medicine
 heretically	in a way that goes against accepted belief
+heriot	a payment due to a feudal lord on a tenant's death
 heritability	the degree to which a trait can be inherited
 hermitian	of a matrix equal to its own conjugate transpose
 herniae	HERNIA: a bulge of an organ through the wall that holds it
@@ -2512,6 +2635,8 @@ herpetological	relating to the study of reptiles and amphibians
 herself	that female person, as the object or for emphasis
 hetero	heterosexual
 hexadecimals	HEXADECIMAL: a number system with base sixteen
+hexagrammic	relating to a hexagram
+hexers	HEXER: someone who casts hexes
 hey	used to attract attention or express surprise
 hickish	unsophisticated, like a country bumpkin
 hider	a person who hides something
@@ -2542,6 +2667,7 @@ hmm	sound made when thinking or hesitating
 hmph	sound expressing disapproval or annoyance
 hoboes	HOBO: a homeless wandering worker
 hockshop	a pawnshop
+hocus	trick or deceive
 hoedown	a lively country dance party
 hogtied	tied with hands and feet bound together
 hoick	pull or lift sharply
@@ -2572,6 +2698,7 @@ hoodie	a sweatshirt with a hood
 hoodlike	resembling a hood
 hoodwinker	a person who deceives
 hoody	a sweatshirt with a hood
+hookey	truancy, as in playing hookey
 hoon	a reckless, loutish driver
 hooper	a person who plays basketball
 hoorah	a shout of joy or approval
@@ -2714,6 +2841,12 @@ immersive	deeply absorbing
 immobiliser	a device that stops a vehicle from being started
 immobilizer	a device that stops a vehicle from being started
 immortally	in a way that lasts forever
+immunohematological	relating to the study of blood groups and the immune reactions to them
+immunohematologist	a specialist in blood groups and the immune reactions to them
+immunohematology	the study of blood groups and the immune reactions to them
+immunopathological	relating to the immune system's part in disease
+immunopathologist	a specialist in the immune system's part in disease
+immunopathology	the study of the immune system's part in disease
 impacter	something that strikes with force
 impaler	a person who pierces with a sharp stake
 imparter	a person who passes on information
@@ -2815,6 +2948,7 @@ inseam	the inner leg length of trousers
 inseparability	the state of being impossible to part
 inseparables	INSEPARABLE: people or things always together
 inserter	a person or device that puts something in
+insigne	a badge or emblem of office
 installers	INSTALLER: a person who fits equipment
 instate	put in a position or office
 instillers	INSTILLER: a person who gradually introduces ideas or feelings
@@ -2910,6 +3044,7 @@ janitorial	relating to cleaning and caretaking
 japed	JAPE: joked or played tricks
 japer	a person who plays tricks or jokes
 japing	JAPE: joking or playing tricks
+japonaise	cooked or served in the Japanese style
 jawline	the shape of the lower edge of the face
 jeepers	exclamation of surprise
 jeez	exclamation of surprise or annoyance
@@ -2919,6 +3054,7 @@ jemmying	JEMMY: forcing open with a crowbar
 jerrycan	a sturdy container for fuel or water
 jetfoil	a fast passenger boat that rides on underwater wings
 jetlag	tiredness after flying across time zones
+jiber	one who gibes or jeers
 jiff	a very short time
 jiggering	JIGGER: fiddling with or damaging
 jiggly	shaking with small quick movements
@@ -2932,6 +3068,7 @@ jimmied	JIMMY: forced open with a crowbar
 jink	move quickly with sudden turns
 jinn	spirits in Islamic tradition
 jinricksha	a light two-wheeled carriage pulled by a person
+jobbie	a lump of excrement (slang)
 jobseeker	a person looking for work
 jobsworth	a petty official who rigidly sticks to rules
 joey	a young kangaroo or other marsupial
@@ -2971,6 +3108,7 @@ kabuki	traditional Japanese theatre with stylised acting
 kaffeeklatsch	an informal social gathering over coffee
 kahuna	an important or powerful person
 kaizen	a philosophy of continuous gradual improvement
+kamala	an orange powder from the fruit of an Asian tree, used as a dye
 kanji	Chinese characters used in Japanese writing
 karmic	relating to the effects of one's actions on one's fate
 kart	a small low racing vehicle
@@ -3159,6 +3297,7 @@ lemme	let me
 lengthener	something that makes things longer
 lensing	the bending of light by a lens or gravity
 lepidopterological	relating to the study of butterflies and moths
+lept	LEAP: jumped
 leptin	a hormone that helps regulate appetite
 lesioned	LESION: damaged with an injury or wound
 lest	for fear that
@@ -3186,6 +3325,8 @@ lichenous	covered with lichen
 licker	a person or thing that licks
 lickspittle	a grovelling flatterer
 lieder	German songs for voice and piano
+liefer	LIEF: more gladly
+liefest	LIEF: most gladly
 lifebelt	a ring that keeps a person afloat
 lifebuoy	a ring that keeps a person afloat
 lifeforms	LIFEFORM: a living organism
@@ -3302,8 +3443,10 @@ mage	a magician
 magicked	MAGIC: made to happen as if by magic
 magicking	MAGIC: making happen as if by magic
 magmatic	relating to molten rock beneath the earth
+magnon	a unit of a spin wave in a magnetic material
 maharishi	a Hindu spiritual teacher
 mahjongg	a Chinese tile game for four players
+maidan	an open space in an Indian town, used for parades or as a park
 mailbomb	an explosive sent through the post
 mailroom	a room where mail is sorted
 mailshot	advertising sent to many people by post
@@ -3332,6 +3475,7 @@ manhandler	a person who treats others roughly
 manically	in a wildly excited way
 manics	MANIC: people in a state of wild excitement
 manifestoes	MANIFESTO: a public statement of aims
+manjuu	a Japanese steamed bun filled with sweet bean paste
 manmade	made by people, not natural
 mannose	a simple sugar
 manoeuvrings	MANOEUVRING: cunning moves to gain an advantage
@@ -3595,6 +3739,7 @@ moonscape	a barren landscape like the moon's surface
 moonset	the time when the moon sinks below the horizon
 moonshadow	a shadow cast by moonlight
 moonshot	a very ambitious project
+moonwashed	bathed in moonlight
 moper	someone who sulks or feels gloomy
 mopey	gloomy and listless
 mopier	MOPEY: gloomy and listless
@@ -3682,6 +3827,9 @@ multiverse	a hypothetical set of many universes
 multiyear	lasting several years
 mumbly	spoken in a low, unclear way
 mummified	MUMMIFY: preserve a body by drying it
+mumpish	sulky and glum
+mumpishly	in a sulky, glum way
+mumpishness	sulkiness
 munchie	a snack, especially when hungry
 munchkin	a small child or person
 mundanes	MUNDANE: an ordinary, non-magical person
@@ -3882,6 +4030,7 @@ nope	no
 noplace	nowhere
 nor	and not
 nori	dried seaweed used in Japanese cooking
+norland	a land in the north
 northing	distance travelled or measured northwards
 nosedove	NOSEDIVE: plunge steeply downward
 noseprint	the pattern of ridges on an animal's nose
@@ -3899,6 +4048,7 @@ nourisher	something that feeds or sustains
 nouveau	newly arrived, especially newly rich
 novae	NOVA: a star that suddenly brightens
 novelle	NOVELLA: a short novel
+noway	not at all; in no way
 nowt	nothing
 nuanced	showing subtle shades of meaning
 nucleation	the starting of crystal or bubble formation
@@ -4195,6 +4345,7 @@ paraglider	a person who flies using a wing-like canopy launched from a height
 parallelization	the act of making processes run side by side
 parameterised	PARAMETERISE: describe or define using parameters
 parameterized	PARAMETERIZE: describe or define using parameters
+parapeted	having a parapet
 parascending	the sport of being towed aloft under a parachute
 parasitise	live on or at the expense of a host
 parasitize	live on or at the expense of a host
@@ -4203,6 +4354,7 @@ parasitologist	a scientist who studies parasites
 parasitology	the study of parasites
 paratha	a flaky, layered South Asian flatbread
 paratroop	relating to soldiers who parachute into action
+parchmented	dry and wrinkled like parchment
 pardalote	a small, brightly spotted Australian songbird
 parentheses	PARENTHESIS: a curved bracket used to set off text
 parenthesise	put in brackets
@@ -4212,6 +4364,8 @@ parmigiana	a dish of meat or vegetables coated in tomato sauce and melted cheese
 parodic	imitating something in an exaggerated, mocking way
 parodied	PARODY: imitate in a mocking way
 parp	a short, loud honking sound
+parqueted	PARQUET: floor with parquet
+parqueting	PARQUET: floor with parquet
 parried	PARRY: ward off a blow or question
 parrotlet	a very small parrot
 partaken	PARTAKE: take part or have a share
@@ -4219,15 +4373,20 @@ participative	involving people taking part
 participator	a person who takes part
 particleboard	board made from compressed wood chips and glue
 partied	PARTY: attend or hold a social gathering
+parton	a hypothetical particle inside protons and neutrons
 partook	PARTAKE: take part or have a share
 partway	to some point along the way
 pash	a passionate kiss
 pashmina	a fine, soft shawl made of goat wool
 passersby	PASSERBY: a person who happens to pass by
 passionfruit	a tangy, seedy purple fruit of a tropical vine
+passivise	put a verb into the passive voice
+passivize	put a verb into the passive voice
 passphrase	a sequence of words used as a password
+pastie	a small decorative cover worn over a nipple
 pastoralism	the keeping of livestock on grazing land
 pastoralist	a person who raises livestock on grazing land
+patagonian	of or from Patagonia
 patcher	a person who mends with patches
 patellae	PATELLA: the kneecap
 patentable	capable of being protected by a patent
@@ -4237,6 +4396,7 @@ pathogenicity	the ability to cause disease
 pathophysiological	relating to how disease disturbs the body's normal working
 pathophysiology	the study of how disease disturbs the body's normal working
 patinae	PATINA: a thin film that forms on old metal or wood
+patine	cover with a patina
 patresfamilias	PATERFAMILIAS: the male head of a household
 patrolwoman	a woman police officer who patrols an area
 patrolwomen	PATROLWOMAN: a woman police officer who patrols an area
@@ -4248,7 +4408,9 @@ pawprint	the mark left by an animal's paw
 paycheque	a cheque or payment for wages
 payout	a sum of money paid out
 payphone	a public telephone operated by coins or cards
+paystub	a slip showing the details of an employee's pay
 paywall	a barrier requiring payment to view online content
+payware	software that must be paid for
 peabrain	a stupid person
 peacemaking	the work of bringing about peace
 peacocked	PEACOCK: strut or show off
@@ -4279,11 +4441,13 @@ penknives	PENKNIFE: a small folding pocket knife
 penlite	a small pen-shaped torch
 penological	relating to the study of punishment and prisons
 pentacled	marked with a pentacle
+pentagrammic	relating to a pentagram
 peppermill	a hand device for grinding peppercorns
 pepperpot	a small container with holes for sprinkling pepper
 peptics	PEPTIC: relating to digestion
 per	for each
 perentie	the largest Australian monitor lizard
+perfecto	a cigar thick in the middle and tapering at both ends
 performative	relating to an action that is done for show
 pericardia	PERICARDIUM: the membrane enclosing the heart
 perihelia	PERIHELION: the point in an orbit nearest the sun
@@ -4314,11 +4478,13 @@ pfft	a sound expressing dismissal or scorn
 phalanges	PHALANX: a bone of a finger or toe
 phalli	PHALLUS: the penis, or a representation of it
 phantasied	PHANTASY: imagine in fancy
+phantasmagorically	in a fantastic, dreamlike way
 phantasmally	in a ghostly or illusory way
 phantasying	PHANTASY: imagine in fancy
 phantomlike	like a ghost
 pharmacotherapy	treatment of disease with drugs
 pharynges	PHARYNX: the throat cavity behind the mouth
+pharyngology	the medical study of the pharynx
 phaseout	a gradual withdrawal or ending
 phat	excellent or very good
 phenological	relating to the timing of natural seasonal events
@@ -4350,6 +4516,8 @@ phonologically	in terms of the sound system of a language
 phonon	a unit of vibrational energy in a crystal
 phonying	PHONY: make false or fake
 phooey	an exclamation of disbelief or contempt
+phosphodiesterase	an enzyme that breaks down certain phosphate compounds in cells
+phosphorize	treat or combine with phosphorus
 phosphorylation	the addition of a phosphate group to a molecule
 photocall	an occasion arranged for press photographers
 photocopied	PHOTOCOPY: make a copy with a copier
@@ -4414,6 +4582,7 @@ pintuck	a narrow stitched fold in fabric
 pinup	a picture of an attractive person displayed on a wall
 pinwheeled	PINWHEEL: spin like a toy windmill
 pinwheeling	PINWHEEL: spin like a toy windmill
+pionus	a medium-sized parrot of Central and South America
 pipsqueak	a small or unimportant person
 piscina	a stone basin near an altar for washing sacred vessels
 pitapat	a light, rapid tapping sound
@@ -4557,6 +4726,7 @@ prekindergarten	schooling for children before kindergarten
 preliminarily	as an early first step
 premed	a student preparing for medical school
 premixed	mixed in advance
+premonitorily	as a warning beforehand
 prenatally	before birth
 prenup	an agreement made before marriage about property
 preorder	order before release
@@ -4634,6 +4804,7 @@ prolifically	in a way that produces abundantly
 proofers	PROOFER: a person who checks printed text for errors
 propers	PROPER: a part of a church service that varies by day
 prophesied	PROPHESY: predict the future
+propheticalness	the quality of being prophetic
 propositional	relating to a statement put forward
 propounder	a person who puts forward an idea
 propranolol	a drug used to treat high blood pressure and anxiety
@@ -4659,6 +4830,9 @@ psychobiological	relating to the biological basis of behaviour
 psychobiologist	a scientist who studies the biology of behaviour
 psychobiology	the study of the biological basis of behaviour
 psychodrama	a therapy in which people act out their problems
+psychoneuroimmunological	relating to how the mind, nerves and immune system affect one another
+psychoneuroimmunologist	a scientist who studies how the mind, nerves and immune system affect one another
+psychoneuroimmunology	the study of how the mind, nerves and immune system affect one another
 psychopathologist	a specialist in mental disorders
 psychopharmacologist	a specialist in the effects of drugs on the mind
 psychophysiological	relating to the link between mind and bodily functions
@@ -4906,6 +5080,7 @@ reintegration	the act of combining again
 reinvention	the act of changing completely
 reinvest	invest again
 reinvestment	the act of investing again
+reis	REAL: an old coin of Portugal and Brazil
 rejecter	a person who refuses
 rejiggered	REJIGGER: rearrange
 rejiggering	REJIGGER: rearrange
@@ -5096,6 +5271,7 @@ roughnecked	ROUGHNECK: work as a labourer on an oil rig
 roughnecking	ROUGHNECK: work as a labourer on an oil rig
 roundtrip	a journey to a place and back again
 roust	rouse or drive out roughly
+rousters	ROUSTER: a roustabout; a labourer
 routinise	make into a regular routine
 routinize	make into a regular routine
 roweled	ROWEL: prick with a small spiked wheel
@@ -5149,6 +5325,7 @@ sanitizer	a substance that kills germs
 sans	without
 sanserif	a typeface without small strokes at letter ends
 sarcomata	SARCOMA: a cancer of connective tissue
+sarcophagal	relating to a sarcophagus
 sarcophagi	SARCOPHAGUS: a stone coffin
 sarge	sergeant
 sarky	sarcastic
@@ -5176,6 +5353,7 @@ scampies	SCAMPI: large prawns, cooked in garlic butter
 scampish	mischievous
 scampishly	in a mischievous way
 scampishness	mischievousness
+scandalmonging	spreading scandal
 scapegoated	SCAPEGOAT: blame for the faults of others
 scapegoating	SCAPEGOAT: blame for the faults of others
 scapulae	SCAPULA: the shoulder blade
@@ -5220,6 +5398,7 @@ scribal	relating to scribes
 scried	SCRY: foretell by gazing into a crystal
 scrimshawed	SCRIMSHAW: carve or engrave on bone or ivory
 scrimshawing	SCRIMSHAW: carve or engrave on bone or ivory
+scrog	a stunted bush; brushwood
 scrota	SCROTUM: the pouch of skin holding the testicles
 scroungy	shabby or dirty
 scruffily	in a messy, untidy way
@@ -5345,6 +5524,7 @@ shoon	SHOE: footwear
 shopfloor	the area where workers produce goods
 shoppe	a shop, written in an old-fashioned style
 shoptalk	conversation about work
+shortall	a pair of dungarees with short legs
 shortchange	give too little change to
 shorthair	a cat or dog with short fur
 shorthanded	lacking enough workers
@@ -5569,6 +5749,7 @@ sparky	an electrician
 sparrowhawk	a small hawk that preys on small birds
 spasmed	SPASM: contracted suddenly and involuntarily
 spasming	SPASM: contracting suddenly and involuntarily
+spazas	SPAZA: a small informal shop in a South African township
 spearer	a person who spears
 spearfishing	fishing with a spear
 spectra	SPECTRUM: a band of colours or a range
@@ -5933,6 +6114,7 @@ tealight	a small flat candle in a metal cup
 tearer	a person or thing that rips
 teargasses	TEARGAS: a gas that makes the eyes water
 teaspoonsful	TEASPOONFUL: the amount a teaspoon holds
+teazle	a teasel, a prickly plant whose dried heads raise the nap on cloth
 technic	technique
 technicolour	vivid and bright in colour
 technocratic	relating to rule by technical experts
@@ -5940,6 +6122,7 @@ teenybopper	a young teenage girl who follows pop music and fashion
 telecommute	work from home using phone and internet links
 telecommuter	a person who works from home using phone and internet links
 teleconferenced	TELECONFERENCE: hold a meeting among distant people by phone or video link
+telecottage	a rural centre offering shared computers and communications to local people
 telegenic	looking attractive on television
 telekinetic	relating to moving objects by mind power alone
 telekinetically	by moving objects with the mind alone
@@ -5974,6 +6157,7 @@ terrane	a block of the earth's crust bounded by faults
 terraria	TERRARIUM: a glass case for keeping plants or small land animals
 terrazzo	flooring made of chips of marble set in cement and polished
 terrestrials	TERRESTRIAL: an inhabitant of the earth
+terrification	the act of terrifying
 terroristic	using or threatening terror
 testable	able to be tested
 testbed	a platform or setting for trying out new technology
@@ -6115,6 +6299,7 @@ torqued	TORQUE: apply a twisting force to
 torquing	TORQUE: apply a twisting force to
 torsi	TORSO: the trunk of the body
 torsional	relating to twisting
+tost	TOSS: tossed
 totemically	in the manner of a totem
 totty	attractive young people seen as objects of desire
 touche	an acknowledgement of a good point made against you
@@ -6135,6 +6320,7 @@ toyboy	a woman's much younger male lover
 toyland	an imaginary land of toys
 traceability	the ability to be followed back to its origin
 tracheae	TRACHEA: the windpipe
+trackage	the railway tracks of a system; the right to run trains on another's track
 tracksuit	a loose warm outfit worn for exercise
 tradable	able to be traded
 trafficked	TRAFFIC: deal in illegal goods
@@ -6197,6 +6383,7 @@ tribological	relating to friction and wear between surfaces
 trichological	relating to the study of hair
 trichologist	a specialist in hair and scalp problems
 trichology	the study of hair and scalp problems
+tricksterism	the behaviour of a trickster
 trifecta	a bet picking the first three finishers in order
 trifocals	glasses with lenses for near, middle and far vision
 triller	a person or thing that sings with a quavering sound
@@ -6207,6 +6394,7 @@ trivialisation	making something seem less important than it is
 trivialization	making something seem less important than it is
 trolly	a small wheeled cart
 tromp	walk with heavy steps
+tron	a public weighing machine in an old Scottish market
 tropospheric	of the lowest layer of the atmosphere
 troppo	mentally unhinged from tropical heat
 troublemaking	causing trouble
@@ -6235,6 +6423,7 @@ tuile	a thin curved crisp biscuit
 tumbledown	falling to pieces
 tumuli	TUMULUS: an ancient burial mound
 tunable	able to be tuned
+tungara	a small frog of Central America
 tunneler	a person or animal that digs tunnels
 tunnelings	TUNNELING: the digging of tunnels
 tunnellers	TUNNELLER: a person or animal that digs tunnels
@@ -6402,6 +6591,7 @@ vaporware	software announced but never released
 vapourware	software announced but never released
 variational	relating to variation
 vasculature	the system of blood vessels in a body part
+vasts	VAST: a vast expanse
 vectored	VECTOR: direct along a course
 vectoring	VECTOR: direct along a course
 veejay	a person who plays video clips at an event
@@ -6489,6 +6679,7 @@ vulcanologist	a person who studies volcanoes
 vulvae	VULVA: the external female genitals
 vuvuzela	a long plastic horn blown at football matches
 vying	VIE: compete for superiority
+wabbit	exhausted
 wack	eccentric or bad
 wackoes	WACKO: an eccentric or crazy person
 wafter	a person or thing that carries gently through the air
@@ -6498,6 +6689,7 @@ waisted	having a waist of a particular kind
 waitlist	a list of people waiting for something to become available
 waitstaff	the waiters and waitresses in a restaurant
 wakener	a person who rouses others from sleep
+waldo	a remote-controlled mechanical hand
 waled	WALE: mark with raised streaks
 waling	WALE: mark with raised streaks
 walkable	close enough to reach on foot
@@ -6618,6 +6810,7 @@ whitelist	a list of approved people or items
 whitespace	blank areas on a page or screen
 whitewall	a tyre with a white band on the side
 whither	to where
+whities	white underpants, as in tighty-whities
 whizkid	a young person who is remarkably clever
 whizzkid	a young person who is remarkably clever
 whoa	a command to stop
@@ -6676,6 +6869,7 @@ wising	WISE: become aware
 wisped	WISP: form into a thin strand
 wispily	in a thin, light way
 wisping	WISP: form into a thin strand
+wist	WIT: knew
 witchetty	a large edible grub from Australia
 witchy	like a witch
 with	accompanied by
@@ -6692,6 +6886,7 @@ wizzes	WIZ: an expert
 wobbegong	an Australian shark with a flat body and mottled skin
 wodge	a thick lump or chunk
 wolves	WOLF: a wild dog that hunts in packs
+womble	walk in an aimless, ambling way
 womenfolk	the women of a family or community
 wonderstruck	filled with amazement
 wonga	money
@@ -6753,6 +6948,7 @@ yipe	an exclamation of fright
 yippee	an exclamation of joy
 yo	a greeting or call for attention
 yobbism	loutish behaviour
+yock	a loud laugh
 yodeler	a singer who switches rapidly between chest and head voice
 yogin	a person who practises yoga
 yolked	YOLK: having a yellow part of an egg

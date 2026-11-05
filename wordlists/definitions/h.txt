@@ -3,6 +3,7 @@ haberdasher	a merchant who sells men's clothing
 haberdasheries	HABERDASHERY: a store where men's clothes are sold
 haberdashers	HABERDASHER: a merchant who sells men's clothing
 haberdashery	a store where men's clothes are sold
+habilitation	training to gain the skills for everyday life or work
 habit	an established custom
 habitability	suitability for living in or on
 habitable	fit for habitation
@@ -27,10 +28,12 @@ hacked	HACK: one who works hard at boring tasks
 hacker	someone who plays golf poorly
 hackers	HACKER: someone who plays golf poorly
 hacking	HACK: one who works hard at boring tasks
+hackish	in the manner of a hack or a hacker
 hackle	long slender feather on the necks of e.g. turkeys and pheasants
 hackles	a feeling of anger and animosity
 hackney	a carriage for hire
 hackneyed	repeated too often; overfamiliar through overuse
+hackneying	HACKNEY: make commonplace through overuse
 hackneys	HACKNEY: a carriage for hire
 hacks	HACK: one who works hard at boring tasks
 hacksaw	saw used with one hand for cutting metal
@@ -252,6 +255,7 @@ halyard	a rope for raising or lowering a sail or flag
 halyards	HALYARD: a rope for raising or lowering a sail or flag
 ham	meat cut from the thigh of a hog (usually smoked)
 hamantaschen	triangular filled pastries eaten at Purim
+hamartiology	the branch of theology that studies sin
 hamburger	a sandwich consisting of a fried cake of minced beef served on a bun, often with other ingredients
 hamburgers	HAMBURGER: a sandwich consisting of a fried cake of minced beef served on a bun, often with other ingredients
 hamfisted	clumsy
@@ -517,6 +521,7 @@ hardliner	a conservative who is uncompromising
 hardliners	HARDLINER: a conservative who is uncompromising
 hardly	only a very short time before
 hardness	the property of being rigid and resistant to pressure; not easily scratched; measured on Mohs scale
+hardnose	a tough, shrewd and practical person
 hardnosed	tough, shrewd and practical
 hardpressed	under heavy pressure
 hardscrabble	barely satisfying a lower standard
@@ -753,6 +758,11 @@ hauteur	overbearing pride evidenced by a superior manner toward inferiors
 have	have or possess, either in a concrete or an abstract sense
 haven	a shelter serving as a place of safety or sanctuary
 havens	HAVEN: a shelter serving as a place of safety or sanctuary
+haver	talk nonsense; dither
+havered	HAVER: talk nonsense; dither
+haverer	someone who talks nonsense or dithers
+havering	HAVER: talk nonsense; dither
+havers	HAVER: talk nonsense; dither
 haversack	a bag carried by a strap on your back or shoulder
 haversacks	HAVERSACK: a bag carried by a strap on your back or shoulder
 haves	HAVE: have or possess, either in a concrete or an abstract sense
@@ -1327,6 +1337,7 @@ heretofore	used in negative statement to describe a situation that has existed u
 hereunder	in a subsequent part of this document or statement or matter etc.
 hereupon	immediately after this
 herewith	by means of this
+heriot	a payment due to a feudal lord on a tenant's death
 heritability	the degree to which a trait can be inherited
 heritable	capable of being inherited
 heritage	practices that are handed down from the past by tradition
@@ -1416,11 +1427,13 @@ hexagon	a six-sided polygon
 hexagonal	having six sides or divided into hexagons
 hexagons	HEXAGON: a six-sided polygon
 hexagram	a regular polygon formed by extending each of the sides of a regular hexagon to form two equilateral triangles
+hexagrammic	relating to a hexagram
 hexagrams	HEXAGRAM: a regular polygon formed by extending each of the sides of a regular hexagon to form two equilateral triangles
 hexameter	a verse line having six metrical feet
 hexameters	HEXAMETER: a verse line having six metrical feet
 hexed	HEX: an evil spell
 hexer	HEX: an evil spell
+hexers	HEXER: someone who casts hexes
 hexes	HEX: an evil spell
 hexing	HEX: an evil spell
 hey	used to attract attention or express surprise
@@ -1768,6 +1781,7 @@ hocking	HOCK: leave as a guarantee in return for money
 hocks	HOCK: leave as a guarantee in return for money
 hockshop	a pawnshop
 hockshops	HOCKSHOP: a pawnshop
+hocus	trick or deceive
 hod	an open box attached to a long pole handle; bricks or mortar are carried on the shoulder
 hodgepodge	a motley assortment of things
 hodgepodges	HODGEPODGE: a motley assortment of things
@@ -2109,6 +2123,7 @@ hookahs	HOOKAH: an oriental tobacco pipe with a long flexible tube connected to 
 hooked	curved down like an eagle's beak
 hooker	United States general in the Union Army who was defeated at Chancellorsville by Robert E. Lee (1814-1879)
 hookers	HOOKER: United States general in the Union Army who was defeated at Chancellorsville by Robert E. Lee (1814-1879)
+hookey	truancy, as in playing hookey
 hooking	HOOK: fasten with a hook
 hooks	HOOK: fasten with a hook
 hookup	a device providing a connection between a power source and a user

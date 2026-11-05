@@ -195,6 +195,7 @@ magnitude	the property of relative size or extent (whether large or small)
 magnitudes	MAGNITUDE: the property of relative size or extent (whether large or small)
 magnolia	dried bark of various magnolias; used in folk medicine
 magnolias	MAGNOLIA: dried bark of various magnolias; used in folk medicine
+magnon	a unit of a spin wave in a magnetic material
 magnum	a large wine bottle for liquor or wine
 magnums	MAGNUM: a large wine bottle for liquor or wine
 magpie	long-tailed black-and-white crow that utters a raucous chattering call
@@ -220,6 +221,7 @@ mahjongg	a Chinese tile game for four players
 mahoganies	MAHOGANY: wood of any of various mahogany trees; much used for cabinetwork and furniture
 mahogany	wood of any of various mahogany trees; much used for cabinetwork and furniture
 maid	a female domestic
+maidan	an open space in an Indian town, used for parades or as a park
 maiden	an unmarried girl (especially a virgin)
 maidenhair	any of various small to large terrestrial ferns of the genus Adiantum having delicate palmately branched fronds
 maidenhairs	MAIDENHAIR: any of various small to large terrestrial ferns of the genus Adiantum having delicate palmately branched fronds
@@ -602,6 +604,7 @@ manipulations	MANIPULATION: exerting shrewd or devious influence especially for 
 manipulative	skillful in influencing or controlling others to your own advantage
 manipulator	an agent that operates some apparatus or machine
 manipulators	MANIPULATOR: an agent that operates some apparatus or machine
+manjuu	a Japanese steamed bun filled with sweet bean paste
 mankind	all of the living human inhabitants of the earth
 manky	inferior and worthless
 manlier	MANLY: possessing qualities befitting a man
@@ -3407,6 +3410,7 @@ moonstones	MOONSTONE: a transparent or translucent gemstone with a pearly luster
 moonstruck	insane and believed to be affected by the phases of the moon
 moonwalk	a kind of dance step in which the dancer seems to be sliding on the spot
 moonwalks	MOONWALK: a kind of dance step in which the dancer seems to be sliding on the spot
+moonwashed	bathed in moonlight
 moor	one of the Muslim people of north Africa; of mixed Arab and Berber descent; converted to Islam in the 8th century; conqueror of Spain in the 8th century
 moorage	a fee for mooring
 moored	MOOR: one of the Muslim people of north Africa; of mixed Arab and Berber descent; converted to Islam in the 8th century; conqueror of Spain in the 8th century
@@ -4071,6 +4075,9 @@ mummifies	MUMMIFY: preserve while making lifeless
 mummify	preserve while making lifeless
 mummifying	MUMMIFY: preserve while making lifeless
 mummy	informal terms for a mother
+mumpish	sulky and glum
+mumpishly	in a sulky, glum way
+mumpishness	sulkiness
 mumps	an acute contagious viral disease characterized by fever and by swelling of the parotid glands
 mums	MUM: failing to speak or communicate etc when expected to
 munch	Norwegian painter (1863-1944)

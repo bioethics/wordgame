@@ -16,6 +16,7 @@ babes	BABE: a very young child (birth to 1 year) who has not yet begun to walk o
 babied	BABY: treat as if helpless
 babier	one who babies
 babies	BABY: a very young child (birth to 1 year) who has not yet begun to walk or talk
+babiest	BABY: most babyish
 baboon	large terrestrial monkeys having doglike muzzles
 baboons	BABOON: large terrestrial monkeys having doglike muzzles
 babushka	a woman's headscarf folded into a triangle and tied under the chin; worn by Russian peasant women
@@ -385,6 +386,7 @@ balling	BALL: round object that is hit or thrown or kicked in games
 ballista	an engine that provided medieval artillery used during sieges; a heavy war engine for hurling large stones and other missiles
 ballistic	relating to or characteristic of the motion of objects moving under their own momentum and the force of gravity
 ballistics	the trajectory of an object in free flight
+ballon	in ballet, the light, floating quality of a dancer's leaps
 balloon	large tough nonrigid bag filled with gas or heated air
 ballooned	BALLOON: large tough nonrigid bag filled with gas or heated air
 ballooning	BALLOON: large tough nonrigid bag filled with gas or heated air
@@ -511,6 +513,7 @@ banging	a continuing very loud noise
 bangle	jewelry worn around the wrist for decoration
 bangles	BANGLE: jewelry worn around the wrist for decoration
 bangs	BANG: strike violently
+bani	BAN: a coin of Romania and Moldova, a hundredth of a leu
 banish	expel from a community or group
 banished	BANISH: expel from a community or group
 banisher	one who banishes
@@ -722,6 +725,8 @@ barn	an outlying farm building for storing grain or animal feed and housing farm
 barnacle	marine crustaceans with feathery food-catching appendages; free-swimming as larvae; as adults form a hard shell and live attached to submerged surfaces
 barnacled	covered with barnacles
 barnacles	BARNACLE: marine crustaceans with feathery food-catching appendages; free-swimming as larvae; as adults form a hard shell and live attached to submerged surfaces
+barnet	hair (rhyming slang)
+barnets	BARNET: hair (rhyming slang)
 barney	a noisy argument
 barneys	BARNEY: a noisy argument
 barns	BARN: an outlying farm building for storing grain or animal feed and housing farm animals
@@ -870,6 +875,7 @@ bass	the lowest part of the musical range
 basses	BASS: the lowest part of the musical range
 basset	smooth-haired breed of hound with short legs and long ears
 bassets	BASSET: smooth-haired breed of hound with short legs and long ears
+bassi	BASSO: a bass singer
 bassinet	a basket (usually hooded) used as a baby's bed
 bassinets	BASSINET: a basket (usually hooded) used as a baby's bed
 bassist	a musician who play the bass viol
@@ -1799,6 +1805,7 @@ bevelled	BEVEL: cut a bevel on; shape to a bevel
 beveller	BEVEL: cut a bevel on; shape to a bevel
 bevellers	BEVELLER: one who bevels
 bevelling	BEVEL: cut a bevel on; shape to a bevel
+bevellings	BEVELLING: a sloping edge or surface
 bevels	BEVEL: cut a bevel on; shape to a bevel
 beverage	any liquid suitable for drinking
 beverages	BEVERAGE: any liquid suitable for drinking
@@ -2032,6 +2039,7 @@ billed	BILL: a statute in draft before it becomes law
 biller	one who sends out bills
 billers	BILLER: one who sends out bills
 billet	a short personal letter
+billetdoux	a love letter
 billeted	BILLET: a short personal letter
 billeter	one who provides lodging for soldiers
 billeters	BILLETER: one who provides lodging for soldiers
@@ -2171,6 +2179,7 @@ biopics	BIOPIC: a film about a real person's life
 biopsied	BIOPSY: remove tissue for medical examination
 biopsies	BIOPSY: examination of tissues or liquids from the living body to determine the existence or cause of a disease
 biopsy	examination of tissues or liquids from the living body to determine the existence or cause of a disease
+biopsychological	relating to how biology shapes behaviour
 biopsychology	the study of how biology shapes behaviour
 biopsying	BIOPSY: remove tissue for medical examination
 bioreactor	a vessel for growing cells or microbes
@@ -2233,6 +2242,7 @@ birdieing	BIRDIE: shoot in one stroke under par
 birdies	BIRDIE: shoot in one stroke under par
 birding	BIRD: warm-blooded egg-laying vertebrates characterized by feathers and forelimbs modified as wings
 birdlike	resembling a bird
+birdman	a man who keeps or studies birds; also an aviator
 birds	BIRD: warm-blooded egg-laying vertebrates characterized by feathers and forelimbs modified as wings
 birdseed	food given to birds; usually mixed seeds
 birdseeds	BIRDSEED: food given to birds; usually mixed seeds
@@ -2240,6 +2250,7 @@ birdsong	the characteristic sound produced by a bird
 birdwatcher	a person who observes wild birds as a hobby
 birdwatchers	BIRDWATCHER: a person who observes wild birds as a hobby
 birdwatching	BIRDWATCH: watch and study birds in their natural habitat
+birdying	BIRDIE: score one under par on a golf hole
 biretta	a stiff cap with ridges across the crown; worn by Roman Catholic clergy
 birettas	BIRETTA: a stiff cap with ridges across the crown; worn by Roman Catholic clergy
 birth	the time when something begins (especially life)
@@ -2420,6 +2431,7 @@ bladders	BLADDER: a distensible membranous sac (usually containing liquid or gas
 blade	especially a leaf of grass or the broad portion of a leaf as distinct from the petiole
 bladed	bearing or characterized by a blade or sword; often used in combination
 blades	BLADE: especially a leaf of grass or the broad portion of a leaf as distinct from the petiole
+blading	BLADE: skate on inline skates
 blag	obtain by persuasion or trickery
 blagged	BLAG: obtain by persuasion or trickery
 blagging	BLAG: obtain by persuasion or trickery
@@ -2434,6 +2446,7 @@ blamer	BLAME: put or pin the blame on
 blames	BLAME: put or pin the blame on
 blameworthy	deserving blame or censure as being wrong or evil or injurious
 blaming	BLAME: put or pin the blame on
+blammo	an exclamation imitating a sudden blow or explosion
 blanch	turn pale, as if in fear
 blanched	anemic looking from illness or emotion
 blancher	one who briefly boils food
@@ -2634,6 +2647,7 @@ blisses	BLISS: a state of extreme happiness
 blissful	completely happy and contented
 blissfully	in a blissful manner
 blissfulness	a state of extreme happiness
+blissing	BLISS: be or make blissfully happy
 blister	get blistered
 blistered	BLISTER: get blistered
 blistering	harsh or corrosive in tone
@@ -2651,6 +2665,8 @@ blitzes	BLITZ: defensive players try to break through the offensive line
 blitzing	BLITZ: defensive players try to break through the offensive line
 blitzkrieg	a swift and violent military offensive with intensive aerial bombardment
 blitzkriegs	BLITZKRIEG: a swift and violent military offensive with intensive aerial bombardment
+blivet	something impossible or overstuffed; also a drawing of an impossible object
+blivets	BLIVET: something impossible or overstuffed; also a drawing of an impossible object
 blizzard	a storm with widespread snowfall accompanied by strong winds
 blizzards	BLIZZARD: a storm with widespread snowfall accompanied by strong winds
 bloat	swelling of the rumen or intestinal tract of domestic animals caused by excessive gas
@@ -2676,6 +2692,7 @@ blockage	the physical condition of blocking or filling a passage with an obstruc
 blockages	BLOCKAGE: the physical condition of blocking or filling a passage with an obstruction
 blockbuster	a large bomb used to demolish extensive areas (as a city block)
 blockbusters	BLOCKBUSTER: a large bomb used to demolish extensive areas (as a city block)
+blockbusting	hugely successful
 blockchain	a digital record of transactions shared across many computers
 blockchains	BLOCKCHAIN: a digital record of transactions shared across many computers
 blocked	BLOCK: a solid piece of something (usually having flat rectangular sides)
@@ -2785,7 +2802,9 @@ blotters	BLOTTER: absorbent paper used to dry ink
 blotting	BLOT: a blemish made by dirt
 blotto	very drunk
 blouse	a top worn by women
+bloused	BLOUSE: puff out loosely over a waistband
 blouses	BLOUSE: a top worn by women
+blousing	BLOUSE: puff out loosely over a waistband
 blow	exhale hard
 blower	a device that produces a current of air
 blowers	BLOWER: a device that produces a current of air
@@ -2979,6 +2998,7 @@ boatloads	BOATLOAD: the amount of cargo that can be held by a boat or ship or a 
 boatman	someone who drives or rides in a boat
 boatmen	BOATMAN: someone who drives or rides in a boat
 boats	BOAT: a small vessel for travel on water
+boatsman	a boatman
 boatswain	a petty officer on a merchant ship who controls the work of other seamen
 boatswains	BOATSWAIN: a petty officer on a merchant ship who controls the work of other seamen
 boatyard	a place where boats are built or maintained or stored
@@ -3017,6 +3037,8 @@ bode	indicate, as with a sign or an omen
 boded	BODE: indicate, as with a sign or an omen
 bodega	a small Hispanic shop selling wine and groceries
 bodegas	BODEGA: a small Hispanic shop selling wine and groceries
+bodement	an omen or portent
+bodements	BODEMENT: an omen or portent
 bodes	BODE: indicate, as with a sign or an omen
 bodge	make a mess of, destroy or ruin
 bodged	BODGE: make a mess of, destroy or ruin
@@ -3052,6 +3074,7 @@ boffin	a scientist or technician engaged in military research
 boffins	BOFFIN: a scientist or technician engaged in military research
 boffo	resoundingly successful and popular
 bog	wet spongy ground of decomposing vegetation; has poorer drainage than a swamp; soil is unfit for cultivation but can be cut and dried and used for fuel
+boga	a small silvery fish of the Mediterranean, the bogue
 bogan	an unsophisticated person of lower social class
 bogans	BOGAN: an unsophisticated person of lower social class
 bogey	an evil spirit
@@ -3074,9 +3097,11 @@ boggling	BOGGLE: startle with amazement or fear
 boggy	(of soil) soft and watery
 bogie	an evil spirit
 bogied	BOGEY: scored one over par at golf
+bogieing	BOGIE: score one over par on a golf hole
 bogies	BOGY: an unidentified (and possibly enemy) aircraft
 bogle	a ghost or scarecrow
 bogles	BOGLE: a ghost or scarecrow
+bogon	in computing, a bogus or unassigned network address
 bogong	a large brown Australian moth
 bogongs	BOGONG: a large brown Australian moth
 bogosity	the quality of being fake or absurd
@@ -3612,6 +3637,7 @@ box	a (usually rectangular) container; may have a lid
 boxcar	a freight car with roof and sliding doors in the sides
 boxcars	BOXCAR: a freight car with roof and sliding doors in the sides
 boxed	enclosed in or set off by a border or box
+boxen	BOX: computers (a jokey plural)
 boxer	someone who fights with his fists for sport
 boxers	BOXER: someone who fights with his fists for sport
 boxes	BOX: a (usually rectangular) container; may have a lid
@@ -3818,6 +3844,8 @@ braying	BRAY: the cry of an ass
 brays	BRAY: the cry of an ass
 brazen	unrestrained by convention or propriety
 brazened	BRAZEN: unrestrained by convention or propriety
+brazenface	a shameless, impudent person
+brazenfaced	shameless and impudent
 brazening	BRAZEN: unrestrained by convention or propriety
 brazenly	in a brazen manner
 brazenness	behavior marked by a bold defiance of the proprieties and lack of shame
@@ -4840,6 +4868,7 @@ busheled	BUSHEL: a United States dry measure equal to 4 pecks or 2152.42 cubic i
 busheling	BUSHEL: a United States dry measure equal to 4 pecks or 2152.42 cubic inches
 bushelled	BUSHEL: a United States dry measure equal to 4 pecks or 2152.42 cubic inches
 bushelling	BUSHEL: a United States dry measure equal to 4 pecks or 2152.42 cubic inches
+bushellings	BUSHELLING: mending or altering clothes
 bushels	BUSHEL: a United States dry measure equal to 4 pecks or 2152.42 cubic inches
 busher	BUSH: a low woody perennial plant usually having several major stems
 bushers	BUSHER: one who bushes

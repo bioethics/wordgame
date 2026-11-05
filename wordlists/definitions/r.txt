@@ -2103,6 +2103,7 @@ reinvigorate	impart vigor, strength, or vitality to
 reinvigorated	with restored energy
 reinvigorates	REINVIGORATE: impart vigor, strength, or vitality to
 reinvigorating	REINVIGORATE: impart vigor, strength, or vitality to
+reis	REAL: an old coin of Portugal and Brazil
 reissue	a publication (such as a book) that is reprinted without changes or editing and offered again for sale
 reissued	REISSUE: a publication (such as a book) that is reprinted without changes or editing and offered again for sale
 reissues	REISSUE: a publication (such as a book) that is reprinted without changes or editing and offered again for sale
@@ -4478,6 +4479,7 @@ roustabout	a member of a ship's crew who performs manual labor
 roustabouts	ROUSTABOUT: a member of a ship's crew who performs manual labor
 rousted	ROUST: rouse or drive out roughly
 rouster	ROUST: rouse or drive out roughly
+rousters	ROUSTER: a roustabout; a labourer
 rousting	ROUST: rouse or drive out roughly
 rousts	ROUST: rouse or drive out roughly
 rout	cause to flee

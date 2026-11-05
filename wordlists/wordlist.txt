@@ -2172,7 +2172,6 @@ amputation
 amputations
 amputee
 amputees
-amt
 amuck
 amulet
 amuletic
@@ -2244,7 +2243,6 @@ analyst
 analysts
 analytic
 analytical
-analyticalally
 analytically
 analytics
 analyze
@@ -11263,7 +11261,6 @@ cesspool
 cesspools
 cetacean
 cetaceans
-ceteris
 cetological
 cetologist
 cetologists
@@ -11466,7 +11463,6 @@ chaplets
 chapped
 chapping
 chaps
-chapt
 chapter
 chapters
 char
@@ -14869,7 +14865,6 @@ conserve
 conserved
 conserves
 conserving
-conses
 consider
 considerable
 considerably
@@ -14890,7 +14885,6 @@ consignments
 consignor
 consignors
 consigns
-consing
 consist
 consisted
 consistence
@@ -16455,8 +16449,6 @@ craws
 cray
 crayfish
 crayfishes
-crayola
-crayolas
 crayon
 crayoned
 crayoning
@@ -17900,7 +17892,6 @@ dazzler
 dazzles
 dazzling
 dazzlingly
-dding
 deacon
 deaconess
 deaconesses
@@ -24873,7 +24864,6 @@ espy
 espying
 esquire
 esquires
-esquivalience
 essay
 essayed
 essayer
@@ -26824,7 +26814,6 @@ fennel
 fens
 fentanyl
 fenugreek
-fer
 feral
 feringhee
 feringhees
@@ -28292,8 +28281,6 @@ fondues
 fondus
 font
 fonts
-foo
-foobar
 food
 foodie
 foodies
@@ -29399,7 +29386,6 @@ fry
 fryer
 fryers
 frying
-ftpers
 ftping
 fuchsia
 fuchsias
@@ -34322,7 +34308,6 @@ hobo
 hoboes
 hobos
 hobs
-hoc
 hock
 hocked
 hockey
@@ -37440,7 +37425,6 @@ initiatives
 initiator
 initiators
 initiatory
-initio
 inject
 injected
 injecting
@@ -38055,7 +38039,6 @@ intergovernmental
 interim
 interior
 interiors
-interj
 interject
 interjected
 interjecting
@@ -38167,7 +38150,6 @@ internecine
 interned
 internee
 internees
-internement
 internes
 interneship
 interneships
@@ -38572,7 +38554,6 @@ invulnerably
 inward
 inwardly
 inwards
-ioctl
 iodide
 iodides
 iodine
@@ -48531,8 +48512,6 @@ notoriety
 notorious
 notoriously
 notwithstanding
-notwork
-notworks
 nougat
 nougatine
 nougatines
@@ -51516,7 +51495,6 @@ parfait
 parfaits
 pariah
 pariahs
-paribus
 parietal
 parimutuel
 paring
@@ -59934,7 +59912,6 @@ reheater
 reheaters
 reheating
 reheats
-rehi
 rehire
 rehired
 rehires
@@ -62059,7 +62036,6 @@ robbery
 robbing
 robe
 robed
-rober
 robes
 robin
 robing
@@ -63381,7 +63357,6 @@ savagest
 savaging
 savanna
 savannah
-savannahes
 savannahs
 savannas
 savant
@@ -75865,7 +75840,6 @@ treadling
 treadmill
 treadmills
 treads
-treas
 treason
 treasonable
 treasonous
@@ -82132,7 +82106,6 @@ wipes
 wiping
 wire
 wired
-wireds
 wirehaired
 wireless
 wirelesses
@@ -83217,7 +83190,6 @@ zooming
 zooms
 zooplankton
 zoos
-zorch
 zoster
 zucchini
 zucchinis

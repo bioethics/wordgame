@@ -666,6 +666,8 @@ teatimes	TEATIME: a light midafternoon meal of tea and sandwiches or cakes
 teats	TEAT: the small projection of a mammary gland
 teazel	any of several herbs of the genus Dipsacus native to the Old World having flower heads surrounded by spiny bracts
 teazels	TEAZEL: any of several herbs of the genus Dipsacus native to the Old World having flower heads surrounded by spiny bracts
+teazle	a teasel, a prickly plant whose dried heads raise the nap on cloth
+teazles	TEAZLE: a teasel, a prickly plant whose dried heads raise the nap on cloth
 tech	a school teaching mechanical and industrial arts and the applied sciences
 techie	a technician who is highly proficient and enthusiastic about some technical field (especially computing)
 techies	TECHIE: a technician who is highly proficient and enthusiastic about some technical field (especially computing)
@@ -772,6 +774,8 @@ teleconference	a conference of people who are in different locations that is mad
 teleconferenced	TELECONFERENCE: hold a meeting among distant people by phone or video link
 teleconferences	TELECONFERENCE: a conference of people who are in different locations that is made possible by the use of such telecommunications equipment as closed-circuit television
 teleconferencing	a conference of people who are in different locations that is made possible by the use of such telecommunications equipment as closed-circuit television
+telecottage	a rural centre offering shared computers and communications to local people
+telecottages	TELECOTTAGE: a rural centre offering shared computers and communications to local people
 telegenic	looking attractive on television
 telegram	a message transmitted by telegraph
 telegrams	TELEGRAM: a message transmitted by telegraph
@@ -1121,6 +1125,7 @@ terrier	any of several usually small short-bodied breeds originally trained to h
 terriers	TERRIER: any of several usually small short-bodied breeds originally trained to hunt animals living underground
 terrific	very great or intense
 terrifically	(used as an intensifier) extremely well
+terrification	the act of terrifying
 terrified	thrown into a state of intense fear or desperation
 terrifies	TERRIFY: fill with terror; frighten greatly
 terrify	fill with terror; frighten greatly
@@ -2513,6 +2518,7 @@ tosses	TOSS: throw or toss with a light motion
 tossing	TOSS: throw or toss with a light motion
 tossup	an unpredictable phenomenon
 tossups	TOSSUP: an unpredictable phenomenon
+tost	TOSS: tossed
 tot	a small amount (especially of a drink)
 total	the whole amount
 totaled	TOTAL: the whole amount
@@ -2708,6 +2714,7 @@ tracheotomy	a surgical operation that creates an opening into the trachea with a
 tracing	the act of drawing a plan or diagram or outline
 tracings	TRACING: the act of drawing a plan or diagram or outline
 track	a line or route along which something travels or moves
+trackage	the railway tracks of a system; the right to run trains on another's track
 trackball	an electronic device consisting of a rotatable ball in a housing; used to position the cursor and move images on a computer screen
 trackballs	TRACKBALL: an electronic device consisting of a rotatable ball in a housing; used to position the cursor and move images on a computer screen
 tracked	TRACK: a line or route along which something travels or moves
@@ -3371,6 +3378,7 @@ tricks	TRICK: a cunning or deceitful action or device
 tricksier	TRICKSY: marked by skill in deception
 tricksiest	TRICKSY: marked by skill in deception
 trickster	someone who plays practical jokes on others
+tricksterism	the behaviour of a trickster
 tricksters	TRICKSTER: someone who plays practical jokes on others
 tricksy	marked by skill in deception
 tricky	not to be trusted
@@ -3551,6 +3559,8 @@ tromp	walk with heavy steps
 tromped	TROMP: walk with heavy steps
 tromping	TROMP: walk with heavy steps
 tromps	TROMP: walk with heavy steps
+tron	a public weighing machine in an old Scottish market
+trons	TRON: a public weighing machine in an old Scottish market
 troop	a group of soldiers
 trooped	TROOP: a group of soldiers
 trooper	a soldier in a motorized army unit
@@ -3866,6 +3876,8 @@ tunelessly	in a tuneless fashion
 tuner	someone who tunes pianos
 tuners	TUNER: someone who tunes pianos
 tunes	TUNE: a succession of notes forming a distinctive sequence
+tungara	a small frog of Central America
+tungaras	TUNGARA: a small frog of Central America
 tungsten	a heavy grey-white metallic element; the pure form is used mainly in electrical applications; it is found in several ores including wolframite and scheelite
 tunic	an enveloping or covering membrane or layer of body tissue
 tunicate	primitive marine animal having a saclike unsegmented body and a urochord that is conspicuous in the larva

@@ -119,6 +119,7 @@ japer	a person who plays tricks or jokes
 japers	JAPER: a person who plays tricks or jokes
 japes	JAPE: a humorous anecdote or remark intended to provoke laughter
 japing	JAPE: joking or playing tricks
+japonaise	cooked or served in the Japanese style
 japonica	greenhouse shrub with glossy green leaves and showy fragrant rose-like flowers; cultivated in many varieties
 jar	be incompatible; be or come into conflict
 jarful	the quantity contained in a jar
@@ -292,6 +293,8 @@ jibbed	JIB: any triangular fore-and-aft sail (set forward of the foremast)
 jibbing	JIB: any triangular fore-and-aft sail (set forward of the foremast)
 jibe	an aggressive remark directed at a person like a missile and intended to have a telling effect
 jibed	JIBE: an aggressive remark directed at a person like a missile and intended to have a telling effect
+jiber	one who gibes or jeers
+jibers	JIBER: one who gibes or jeers
 jibes	JIBE: an aggressive remark directed at a person like a missile and intended to have a telling effect
 jibing	JIBE: an aggressive remark directed at a person like a missile and intended to have a telling effect
 jibs	JIB: any triangular fore-and-aft sail (set forward of the foremast)
@@ -382,6 +385,8 @@ job	the principal activity in your life that you do to earn money
 jobbed	JOB: the principal activity in your life that you do to earn money
 jobber	JOB: the principal activity in your life that you do to earn money
 jobbers	JOBBER: someone who buys large quantities of goods and resells to merchants rather than to the ultimate customers
+jobbie	a lump of excrement (slang)
+jobbies	JOBBIE: a lump of excrement (slang)
 jobbing	JOB: the principal activity in your life that you do to earn money
 jobcentre	a government office in a town where information about available jobs is displayed and where unemployment benefits are administered
 jobcentres	JOBCENTRE: a government office in a town where information about available jobs is displayed and where unemployment benefits are administered

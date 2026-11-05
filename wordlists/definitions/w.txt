@@ -1,3 +1,5 @@
+wabbit	exhausted
+wabbits	WABBIT: exhausted
 wack	eccentric or bad
 wacker	WACK: eccentric or bad
 wackest	WACK: eccentric or bad
@@ -134,6 +136,9 @@ wakening	the act of waking
 wakens	WAKEN: cause to become awake or conscious
 wakes	WAKE: be awake, be alert, be there
 waking	WAKE: be awake, be alert, be there
+waldo	a remote-controlled mechanical hand
+waldoes	WALDO: a remote-controlled mechanical hand
+waldos	WALDO: a remote-controlled mechanical hand
 wale	a raised mark on the skin (as produced by the blow of a whip); characteristic of many allergic reactions
 waled	WALE: mark with raised streaks
 wales	one of the four countries that make up the United Kingdom of Great Britain and Northern Ireland; during Roman times the region was known as Cambria
@@ -1226,6 +1231,7 @@ whitewater	frothy water as in rapids or waterfalls
 whitey	offensive names for a White man
 whiteys	WHITEY: offensive names for a White man
 whither	to where
+whities	white underpants, as in tighty-whities
 whiting	WHITE: a Caucasian
 whitings	WHITING: flesh of a cod-like fish of the Atlantic waters of Europe
 whitish	resembling milk in color; not clear
@@ -1681,6 +1687,7 @@ wispiness	the quality of being wispy
 wisping	WISP: form into a thin strand
 wisps	WISP: a small tuft or lock
 wispy	thin and weak
+wist	WIT: knew
 wistaria	any flowering vine of the genus Wisteria
 wistarias	WISTARIA: any flowering vine of the genus Wisteria
 wisteria	any flowering vine of the genus Wisteria
@@ -1836,6 +1843,8 @@ womanly	befitting or characteristic of a woman especially a mature woman
 womb	a hollow muscular organ in the pelvic cavity of females; contains the developing fetus
 wombat	burrowing herbivorous Australian marsupials about the size of a badger
 wombats	WOMBAT: burrowing herbivorous Australian marsupials about the size of a badger
+womble	walk in an aimless, ambling way
+wombles	WOMBLE: walk in an aimless, ambling way
 wombs	WOMB: a hollow muscular organ in the pelvic cavity of females; contains the developing fetus
 women	WOMAN: an adult female person (as opposed to a man)
 womenfolk	the women of a family or community

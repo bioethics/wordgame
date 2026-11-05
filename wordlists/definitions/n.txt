@@ -1238,6 +1238,7 @@ noplace	nowhere
 nor	and not
 norepinephrine	a catecholamine precursor of epinephrine that is secreted by the adrenal medulla and also released at synapses
 nori	dried seaweed used in Japanese cooking
+norland	a land in the north
 norm	a standard or model or pattern regarded as typical
 normal	conforming with or constituting a norm or standard or level or type or social norm; not abnormal
 normalcy	being within certain limits that define the range of normal functioning
@@ -1432,6 +1433,7 @@ novitiates	NOVITIATE: the period during which you are a novice (especially in a 
 novocaine	procaine administered as a hydrochloride (trade name Novocain)
 now	in the historical present; at this point in the narration of a series of past events
 nowadays	the period of time that is happening now; any continuous stretch of time including the moment of speech
+noway	not at all; in no way
 nowhere	an insignificant place
 nowise	in no manner
 nowt	nothing

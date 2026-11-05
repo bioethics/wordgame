@@ -13,6 +13,7 @@ dacha	Russian country house
 dachas	DACHA: Russian country house
 dachshund	small long-bodied short-legged German breed of dog having a short sleek coat and long drooping ears; suited for following game into burrows
 dachshunds	DACHSHUND: small long-bodied short-legged German breed of dog having a short sleek coat and long drooping ears; suited for following game into burrows
+dacnis	a small, brightly coloured tanager of the American tropics
 dacoit	a member of an armed gang of robbers
 dacoits	DACOIT: a member of an armed gang of robbers
 dacquoise	a dessert of nut meringue layers with cream
@@ -4039,6 +4040,8 @@ dogging	relentless and indefatigable in pursuit or as if in pursuit
 doggo	quietly in concealment
 doggone	a mild expression of annoyance
 doggoned	DOGGONE: a mild expression of annoyance
+doggoneder	DOGGONED: confounded; damned
+doggonedest	DOGGONED: confounded; damned
 doggoner	DOGGONE: more damned
 doggones	DOGGONE: a mild expression of annoyance
 doggonest	DOGGONE: most damned
@@ -4116,6 +4119,7 @@ doltishly	in a stupid manner
 doltishness	the quality of being doltish
 dolts	DOLT: a person who is not very bright
 domain	a particular environment or walk of life
+domaine	a wine-producing estate, especially in France
 domains	DOMAIN: a particular environment or walk of life
 dome	a concave shape whose distinguishing characteristic is that the concavity faces downward
 domed	having a hemispherical vault or dome

@@ -1018,6 +1018,7 @@ leprosy	chronic granulomatous communicable disease occurring in tropical and sub
 leprous	relating to or resembling or having leprosy
 leprously	in a leprous way
 leprousness	the quality of being leprous
+lept	LEAP: jumped
 leptin	a hormone that helps regulate appetite
 lepton	100 lepta equal 1 drachma in Greece
 leptons	LEPTON: 100 lepta equal 1 drachma in Greece
@@ -1272,6 +1273,8 @@ lie	be located or situated somewhere; occupy a certain position
 lied	LIE: be located or situated somewhere; occupy a certain position
 lieder	German songs for voice and piano
 lief	in a willing manner
+liefer	LIEF: more gladly
+liefest	LIEF: most gladly
 liege	a person holding a fief; a person who owes allegiance and service to a feudal lord
 lieges	LIEGE: a person holding a fief; a person who owes allegiance and service to a feudal lord
 lien	the right to take another's property if an obligation is not discharged

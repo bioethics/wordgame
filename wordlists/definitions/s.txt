@@ -473,6 +473,7 @@ sarcastically	in a sarcastic manner
 sarcoma	a usually malignant tumor arising from connective tissue (bone or muscle etc.); one of the four major types of cancer
 sarcomas	SARCOMA: a usually malignant tumor arising from connective tissue (bone or muscle etc.); one of the four major types of cancer
 sarcomata	SARCOMA: a cancer of connective tissue
+sarcophagal	relating to a sarcophagus
 sarcophagi	SARCOPHAGUS: a stone coffin
 sarcophagus	a stone coffin (usually bearing sculpture or inscriptions)
 sarcophaguses	SARCOPHAGUS: a stone coffin (usually bearing sculpture or inscriptions)
@@ -800,6 +801,7 @@ scandalizes	SCANDALIZE: strike with disgust or revulsion
 scandalizing	SCANDALIZE: strike with disgust or revulsion
 scandalmonger	a person who spreads malicious gossip
 scandalmongers	SCANDALMONGER: a person who spreads malicious gossip
+scandalmonging	spreading scandal
 scandalous	giving offense to moral sensibilities and injurious to reputation
 scandalously	in a scandalous manner
 scandals	SCANDAL: disgraceful gossip about the private lives of other people
@@ -1371,6 +1373,8 @@ scrivener	someone employed to make written copies of documents and manuscripts
 scrod	flesh of young Atlantic cod weighing up to 2 pounds; also young haddock and pollock; often broiled
 scrods	SCROD: flesh of young Atlantic cod weighing up to 2 pounds; also young haddock and pollock; often broiled
 scrofula	a form of tuberculosis characterized by swellings of the lymphatic glands
+scrog	a stunted bush; brushwood
+scrogs	SCROG: a stunted bush; brushwood
 scroll	a round shape formed by a series of concentric circles (as formed by leaves or flower petals)
 scrolled	SCROLL: a round shape formed by a series of concentric circles (as formed by leaves or flower petals)
 scrolling	SCROLL: a round shape formed by a series of concentric circles (as formed by leaves or flower petals)
@@ -3011,6 +3015,8 @@ shorn	having the hair or wool cut or clipped off as if with shears or clippers
 short	primarily temporal sense; indicating or being or seeming to be limited in duration
 shortage	the property of being an amount by which something is less than expected or required
 shortages	SHORTAGE: the property of being an amount by which something is less than expected or required
+shortall	a pair of dungarees with short legs
+shortalls	SHORTALL: a pair of dungarees with short legs
 shortbread	very rich thick butter cookie
 shortbreads	SHORTBREAD: very rich thick butter cookie
 shortcake	very short biscuit dough baked as individual biscuits or a round loaf; served with sweetened fruit and usually whipped cream
@@ -5848,6 +5854,7 @@ spay	remove the ovaries of
 spayed	(of a female animal) having the ovaries removed
 spaying	neutering a female by removing the ovaries
 spays	SPAY: remove the ovaries of
+spazas	SPAZA: a small informal shop in a South African township
 speak	express in speech
 speakeasies	SPEAKEASY: an illegal barroom
 speakeasy	an illegal barroom

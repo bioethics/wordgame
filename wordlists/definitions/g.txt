@@ -465,9 +465,11 @@ gauntlets	GAUNTLET: to offer or accept a challenge
 gauntly	in a gaunt way
 gauntness	extreme leanness (usually caused by starvation or disease)
 gauze	bleached cotton cloth of plain weave used for bandages and dressings
+gauzed	covered or veiled with gauze
 gauzes	GAUZE: bleached cotton cloth of plain weave used for bandages and dressings
 gauzier	GAUZY: so thin as to transmit light
 gauziest	GAUZY: so thin as to transmit light
+gauzily	in a gauzy, filmy way
 gauziness	the quality of being gauzy
 gauzy	so thin as to transmit light
 gave	GIVE: cause to have, in the abstract sense or physical sense
@@ -837,6 +839,8 @@ gesundheit	said after someone sneezes
 get	come into the possession of something concrete or abstract
 getaway	the attribute of being capable of rapid acceleration
 getaways	GETAWAY: the attribute of being capable of rapid acceleration
+getout	a way of escaping a commitment or difficulty
+getouts	GETOUT: a way of escaping a commitment or difficulty
 gets	GET: come into the possession of something concrete or abstract
 getting	GET: come into the possession of something concrete or abstract
 getup	a set of clothing (with accessories)
@@ -911,6 +915,8 @@ gibbons	GIBBON: English historian best known for his history of the Roman Empire
 gibbous	characteristic of or suffering from kyphosis, an abnormality of the vertebral column
 gibe	an aggressive remark directed at a person like a missile and intended to have a telling effect
 gibed	GIBE: an aggressive remark directed at a person like a missile and intended to have a telling effect
+giber	one who gibes or jeers
+gibers	GIBER: one who gibes or jeers
 gibes	GIBE: an aggressive remark directed at a person like a missile and intended to have a telling effect
 gibing	GIBE: an aggressive remark directed at a person like a missile and intended to have a telling effect
 giblet	edible viscera of a fowl
@@ -957,6 +963,8 @@ gilding	GILD: decorate with, or as if with, gold leaf or liquid gold
 gilds	GILD: decorate with, or as if with, gold leaf or liquid gold
 gill	a British imperial capacity unit (liquid or dry) equal to 5 fluid ounces or 142.066 cubic centimeters
 gillies	GILLIE: a young male attendant on a Scottish Highlander chief
+gillion	a thousand million
+gillions	GILLION: a thousand million
 gillnet	a net that traps fish by their gills
 gills	GILL: a British imperial capacity unit (liquid or dry) equal to 5 fluid ounces or 142.066 cubic centimeters
 gilt	having the deep slightly brownish color of gold
@@ -966,6 +974,8 @@ gimbals	GIMBAL: an appliance that allows an object (such as a ship's compass) to
 gimcrack	ornamental objects of no great value
 gimcracks	GIMCRACK: ornamental objects of no great value
 gimlet	a cocktail made of gin or vodka and lime juice
+gimleted	GIMLET: bore with a gimlet
+gimleting	GIMLET: bore with a gimlet
 gimlets	GIMLET: a cocktail made of gin or vodka and lime juice
 gimme	give me
 gimmes	GIMME: give me
@@ -1055,6 +1065,8 @@ gizzard	thick-walled muscular pouch below the crop in many birds and reptiles fo
 gizzards	GIZZARD: thick-walled muscular pouch below the crop in many birds and reptiles for grinding food
 glabrous	having no hair or similar growth; smooth
 glace	(used especially of fruits) preserved by coating with or allowing to absorb sugar
+glaceing	GLACE: preserve fruit in sugar syrup
+glaces	GLACE: preserve fruit in sugar syrup
 glacial	relating to or derived from a glacier
 glacially	by a glacier
 glaciate	cover with ice or snow or a glacier
@@ -1091,6 +1103,8 @@ gladness	experiencing joy and pleasure
 glads	GLAD: showing or causing joy and pleasure; especially made happy
 glam	glamorous
 glamor	alluring beauty or charm (often with sex-appeal)
+glamored	GLAMOUR: make glamorous
+glamoring	GLAMOUR: make glamorous
 glamorise	make glamorous and attractive
 glamorised	GLAMORISE: make glamorous and attractive
 glamorises	GLAMORISE: make glamorous and attractive
@@ -1247,11 +1261,14 @@ globalized	GLOBALIZE: make world-wide in scope or application
 globalizes	GLOBALIZE: make world-wide in scope or application
 globalizing	GLOBALIZE: make world-wide in scope or application
 globally	with respect to the whole earth
+globby	full of globs; lumpy
 globe	the 3rd planet from the sun; the planet we live on
+globed	GLOBE: form into a globe
 globes	GLOBE: the 3rd planet from the sun; the planet we live on
 globetrotter	someone who travels widely and often
 globetrotters	GLOBETROTTER: someone who travels widely and often
 globetrotting	travelling widely
+globing	GLOBE: form into a globe
 globose	having the shape of a sphere or ball
 globs	GLOB: a compact mass
 globular	having the shape of a sphere or ball
@@ -1265,6 +1282,7 @@ glommed	GLOM: take by theft
 glomming	GLOM: take by theft
 gloms	GLOM: take by theft
 gloom	a state of partial or total darkness
+gloomed	GLOOM: look or feel gloomy
 gloomier	GLOOMY: depressingly dark
 gloomiest	GLOOMY: depressingly dark
 gloomily	with gloom
@@ -1311,6 +1329,7 @@ glottochronology	the determination of how long ago different languages evolved f
 glove	the handwear used by fielders in playing baseball
 gloved	having the hands covered with gloves
 gloves	GLOVE: the handwear used by fielders in playing baseball
+gloving	GLOVE: put a glove on
 glow	an alert and refreshed state
 glowed	GLOW: an alert and refreshed state
 glower	look at with a fixed gaze
@@ -1469,6 +1488,7 @@ godawful	extremely bad
 godchild	an infant who is sponsored by an adult (the godparent) at baptism
 godchildren	GODCHILD: a child one sponsors at baptism
 goddam	expletives used informally as intensifiers
+goddamed	GODDAMN: damned
 goddammit	an exclamation of anger
 goddamn	used as expletives
 goddamned	expletives used informally as intensifiers
@@ -1567,6 +1587,8 @@ gong	a percussion instrument consisting of a metal plate that is struck with a s
 gonged	GONG: a percussion instrument consisting of a metal plate that is struck with a softheaded drumstick
 gonging	GONG: a percussion instrument consisting of a metal plate that is struck with a softheaded drumstick
 gongs	GONG: a percussion instrument consisting of a metal plate that is struck with a softheaded drumstick
+gonk	a soft, round, egg-shaped toy
+gonks	GONK: a soft, round, egg-shaped toy
 gonna	going to
 gonorrhea	a common venereal disease caused by the bacterium Neisseria gonorrhoeae; symptoms are painful urination and pain around the urethra
 gonorrhoea	a common venereal disease caused by the bacterium Neisseria gonorrhoeae; symptoms are painful urination and pain around the urethra
@@ -2419,11 +2441,13 @@ grudgers	GRUDGER: one who grudges
 grudges	GRUDGE: a resentment strong enough to justify retaliation
 grudging	GRUDGE: a resentment strong enough to justify retaliation
 grudgingly	in a grudging manner
+grue	a shiver of horror
 gruel	a thin porridge (usually oatmeal or cornmeal)
 grueling	characterized by effort to the point of exhaustion; especially physical effort
 gruelings	GRUELING: exhausting
 gruelling	characterized by effort to the point of exhaustion; especially physical effort
 gruellings	GRUELLING: exhausting
+grues	GRUE: a shiver of horror
 gruesome	shockingly repellent; inspiring horror
 gruesomely	in a gruesome manner
 gruesomeness	the quality of being ghastly
@@ -2629,6 +2653,8 @@ gummy	having the sticky properties of an adhesive
 gumption	sound practical judgment
 gums	GUM: a preparation (usually made of sweetened chicle) for chewing
 gumshoe	someone who is a detective
+gumshoed	GUMSHOE: move stealthily; work as a detective
+gumshoeing	GUMSHOE: move stealthily; work as a detective
 gumshoes	GUMSHOE: someone who is a detective
 gumtree	a eucalyptus tree
 gun	a weapon that discharges a missile at high velocity (especially from a metal tube or barrel)
@@ -2711,6 +2737,7 @@ gushingly	in a gushing manner
 gushy	extravagantly demonstrative
 gusset	a piece of chain mail covering a place unprotected by armor plate
 gusseted	provided or reinforced with gussets
+gusseting	GUSSET: fit with a gusset
 gussets	GUSSET: a piece of chain mail covering a place unprotected by armor plate
 gussied	GUSSY: smarten up
 gussies	GUSSY: smarten up

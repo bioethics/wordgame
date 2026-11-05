@@ -416,12 +416,19 @@ immunocompromised	unable to develop a normal immune response usually because of 
 immunodeficiency	immunological disorder in which some part of the body's immune system is inadequate and resistance to infectious diseases is reduced
 immunoglobulin	a class of proteins produced in lymph tissue in vertebrates and that function as antibodies in the immune response
 immunoglobulins	IMMUNOGLOBULIN: a class of proteins produced in lymph tissue in vertebrates and that function as antibodies in the immune response
+immunohematological	relating to the study of blood groups and the immune reactions to them
+immunohematologist	a specialist in blood groups and the immune reactions to them
+immunohematologists	IMMUNOHEMATOLOGIST: a specialist in blood groups and the immune reactions to them
+immunohematology	the study of blood groups and the immune reactions to them
 immunologic	of or relating to immunology
 immunological	of or relating to immunology
 immunologist	a medical scientist who specializes in immunology
 immunologists	IMMUNOLOGIST: a medical scientist who specializes in immunology
 immunology	the branch of medical science that studies the body's immune system
-immunopathology	the branch of immunology that deals with pathologies of the immune system
+immunopathological	relating to the immune system's part in disease
+immunopathologist	a specialist in the immune system's part in disease
+immunopathologists	IMMUNOPATHOLOGIST: a specialist in the immune system's part in disease
+immunopathology	the study of the immune system's part in disease
 immunosuppression	lowering the body's normal immune response to invasion by foreign substances; can be deliberate (as in lowering the immune response to prevent rejection of a transplanted organ) or incidental (as a side effect of radiotherapy or chemotherapy for cancer)
 immunosuppressive	a drug that lowers the body's normal immune response
 immunotherapy	therapy designed to produce immunity to a disease or to enhance resistance by the immune system
@@ -2022,6 +2029,8 @@ insidiousness	subtle and cumulative harmfulness (especially of a disease)
 insight	clear or deep perception of a situation
 insightful	exhibiting insight or clear and deep perception
 insights	INSIGHT: clear or deep perception of a situation
+insigne	a badge or emblem of office
+insignes	INSIGNE: a badge or emblem of office
 insignia	a badge worn to show official position
 insignias	INSIGNIA: a badge worn to show official position
 insignificance	the quality of having little or no significance

@@ -591,6 +591,7 @@ paranoid	suffering from paranoia
 paranoids	PARANOID: suffering from paranoia
 paranormal	seemingly outside normal sensory channels
 parapet	a low wall along the edge of a roof or balcony
+parapeted	having a parapet
 parapets	PARAPET: a low wall along the edge of a roof or balcony
 paraphernalia	equipment consisting of miscellaneous articles needed for a particular operation or sport etc.
 paraphrase	rewording for the purpose of clarification
@@ -654,6 +655,7 @@ parched	dried out by heat or excessive exposure to sunlight
 parches	PARCH: cause to wither or parch from exposure to heat
 parching	PARCH: cause to wither or parch from exposure to heat
 parchment	a superior paper resembling sheepskin
+parchmented	dry and wrinkled like parchment
 parchments	PARCHMENT: a superior paper resembling sheepskin
 pardalote	a small, brightly spotted Australian songbird
 pardalotes	PARDALOTE: a small, brightly spotted Australian songbird
@@ -766,6 +768,8 @@ parped	PARP: a short, loud honking sound
 parping	PARP: a short, loud honking sound
 parps	PARP: a short, loud honking sound
 parquet	a floor made of parquetry
+parqueted	PARQUET: floor with parquet
+parqueting	PARQUET: floor with parquet
 parquetry	a patterned wood inlay used to cover a floor
 parquets	PARQUET: a floor made of parquetry
 parrakeet	any of numerous small slender long-tailed parrots
@@ -875,6 +879,7 @@ partnering	PARTNER: a person's partner in marriage
 partners	PARTNER: a person's partner in marriage
 partnership	the members of a business venture created by contract
 partnerships	PARTNERSHIP: the members of a business venture created by contract
+parton	a hypothetical particle inside protons and neutrons
 partook	PARTAKE: take part or have a share
 partridge	flesh of either quail or grouse
 partridges	PARTRIDGE: flesh of either quail or grouse
@@ -932,7 +937,15 @@ passions	PASSION: a strong feeling or emotion
 passive	lacking in energy or will
 passively	in a passive manner
 passives	PASSIVE: lacking in energy or will
+passivise	put a verb into the passive voice
+passivised	PASSIVISE: put a verb into the passive voice
+passivises	PASSIVISE: put a verb into the passive voice
+passivising	PASSIVISE: put a verb into the passive voice
 passivity	the trait of remaining inactive; a lack of initiative
+passivize	put a verb into the passive voice
+passivized	PASSIVIZE: put a verb into the passive voice
+passivizes	PASSIVIZE: put a verb into the passive voice
+passivizing	PASSIVIZE: put a verb into the passive voice
 passkey	key that secures entrance everywhere
 passkeys	PASSKEY: key that secures entrance everywhere
 passphrase	a sequence of words used as a password
@@ -963,9 +976,10 @@ pasteurizes	PASTEURIZE: heat food in order to kill harmful microorganisms
 pasteurizing	PASTEURIZE: heat food in order to kill harmful microorganisms
 pastiche	a musical composition consisting of a series of songs or other musical pieces from various sources
 pastiches	PASTICHE: a musical composition consisting of a series of songs or other musical pieces from various sources
-pastier	PASTY: resembling paste in color; pallid
-pasties	PASTY: resembling paste in color; pallid
-pastiest	PASTY: resembling paste in color; pallid
+pastie	a small decorative cover worn over a nipple
+pastier	PASTIE: a small decorative cover worn over a nipple
+pasties	PASTIE: a small decorative cover worn over a nipple
+pastiest	PASTIE: a small decorative cover worn over a nipple
 pastille	a medicated lozenge used to soothe the throat
 pastilles	PASTILLE: a medicated lozenge used to soothe the throat
 pastime	a diversion that occupies one's time and thoughts (usually pleasantly)
@@ -993,6 +1007,7 @@ pastures	PASTURE: a field covered with grass or herbage and suitable for grazing
 pasturing	PASTURE: a field covered with grass or herbage and suitable for grazing by livestock
 pasty	resembling paste in color; pallid
 pat	pat or squeeze fondly or playfully, especially under the chin
+patagonian	of or from Patagonia
 patch	a small contrasting part of something
 patched	mended usually clumsily by covering a hole with a patch
 patcher	a person who mends with patches
@@ -1066,6 +1081,7 @@ patients	PATIENT: a person who requires medical care
 patina	a fine coating of oxide (produced by oxidation over a long period of time) on the surface of a metal (particularly copper)
 patinae	PATINA: a thin film that forms on old metal or wood
 patinas	PATINA: a fine coating of oxide (produced by oxidation over a long period of time) on the surface of a metal (particularly copper)
+patine	cover with a patina
 patio	usually paved outdoor area adjoining a residence
 patios	PATIO: usually paved outdoor area adjoining a residence
 patisserie	a bakery specializing in French pastry
@@ -1232,8 +1248,11 @@ payrolls	PAYROLL: a list of employees and their salaries
 pays	PAY: give money, usually in exchange for goods or services
 payslip	a slip of paper included with your pay that records how much money you have earned and how much tax or insurance etc. has been taken out
 payslips	PAYSLIP: a slip of paper included with your pay that records how much money you have earned and how much tax or insurance etc. has been taken out
+paystub	a slip showing the details of an employee's pay
+paystubs	PAYSTUB: a slip showing the details of an employee's pay
 paywall	a barrier requiring payment to view online content
 paywalls	PAYWALL: a barrier requiring payment to view online content
+payware	software that must be paid for
 pea	seed of a pea plant used for food
 peabrain	a stupid person
 peabrains	PEABRAIN: a stupid person
@@ -1594,6 +1613,7 @@ pentagon	a government building with five sides that serves as the headquarters o
 pentagonal	of or relating to or shaped like a pentagon
 pentagons	PENTAGON: a government building with five sides that serves as the headquarters of the United States Department of Defense
 pentagram	a star with 5 points; formed by 5 straight lines between the vertices of a pentagon and enclosing another pentagon
+pentagrammic	relating to a pentagram
 pentagrams	PENTAGRAM: a star with 5 points; formed by 5 straight lines between the vertices of a pentagon and enclosing another pentagon
 pentameter	a verse line having five metrical feet
 pentameters	PENTAMETER: a verse line having five metrical feet
@@ -1730,6 +1750,7 @@ perfectionist	a person who is displeased by anything that does not meet very hig
 perfectionists	PERFECTIONIST: a person who is displeased by anything that does not meet very high standards
 perfections	PERFECTION: the state of being without a flaw or defect
 perfectly	completely and without qualification; used informally as intensifiers
+perfecto	a cigar thick in the middle and tapering at both ends
 perfects	PERFECT: make perfect or complete
 perfidies	PERFIDY: betrayal of a trust
 perfidious	tending to betray; especially having a treacherous character as attributed to the Carthaginians by the Romans
@@ -2188,6 +2209,7 @@ phantasmagoria	a constantly changing medley of real or imagined images (as in a 
 phantasmagorias	PHANTASMAGORIA: a constantly changing medley of real or imagined images (as in a dream)
 phantasmagoric	characterized by fantastic imagery and incongruous juxtapositions
 phantasmagorical	characterized by fantastic imagery and incongruous juxtapositions
+phantasmagorically	in a fantastic, dreamlike way
 phantasmal	resembling or characteristic of a phantom
 phantasmally	in a ghostly or illusory way
 phantasms	PHANTASM: a ghostly appearing figure
@@ -2218,6 +2240,7 @@ pharmacy	the art and science of preparing and dispensing drugs and medicines,
 pharyngeal	a consonant articulated in the back of the mouth or throat
 pharynges	PHARYNX: the throat cavity behind the mouth
 pharyngitis	inflammation of the fauces and pharynx
+pharyngology	the medical study of the pharynx
 pharynx	the passage to the stomach and lungs; in the front part of the neck below the chin and above the collarbone
 pharynxes	PHARYNX: the passage to the stomach and lungs; in the front part of the neck below the chin and above the collarbone
 phascogale	pouched mice
@@ -2379,6 +2402,7 @@ phosphatase	any of a group of enzymes that act as a catalyst in the hydrolysis o
 phosphate	a salt of phosphoric acid
 phosphates	PHOSPHATE: a salt of phosphoric acid
 phosphine	a colorless gas with a strong fishy smell; used as a pesticide
+phosphodiesterase	an enzyme that breaks down certain phosphate compounds in cells
 phospholipid	any of various compounds composed of fatty acids and phosphoric acid and a nitrogenous base; an important constituent of membranes
 phospholipids	PHOSPHOLIPID: any of various compounds composed of fatty acids and phosphoric acid and a nitrogenous base; an important constituent of membranes
 phosphor	a synthetic substance that is fluorescent or phosphorescent; used to coat the screens of cathode ray tubes
@@ -2390,6 +2414,10 @@ phosphorescently	in a phosphorescent way
 phosphoresces	PHOSPHORESCE: to exhibit phosphorescence
 phosphorescing	PHOSPHORESCE: to exhibit phosphorescence
 phosphoric	containing or characteristic of phosphorus
+phosphorize	treat or combine with phosphorus
+phosphorized	PHOSPHORIZE: treat or combine with phosphorus
+phosphorizes	PHOSPHORIZE: treat or combine with phosphorus
+phosphorizing	PHOSPHORIZE: treat or combine with phosphorus
 phosphorous	containing or characteristic of phosphorus
 phosphors	PHOSPHOR: a synthetic substance that is fluorescent or phosphorescent; used to coat the screens of cathode ray tubes
 phosphorus	a multivalent nonmetallic element of the nitrogen family that occurs commonly in inorganic phosphate rocks and as organic phosphates in all living cells; is highly reactive and occurs in several allotropic forms
@@ -2871,6 +2899,7 @@ pioneer	someone who helps to open up a new line of research or technology or art
 pioneered	PIONEER: someone who helps to open up a new line of research or technology or art
 pioneering	PIONEER: someone who helps to open up a new line of research or technology or art
 pioneers	PIONEER: someone who helps to open up a new line of research or technology or art
+pionus	a medium-sized parrot of Central and South America
 pious	having or showing or expressing reverence for a deity
 piously	in a devout and pious manner
 pip	a disease of poultry
@@ -4793,6 +4822,7 @@ premolar	a tooth having two cusps or points; located between the incisors and th
 premolars	PREMOLAR: a tooth having two cusps or points; located between the incisors and the molars
 premonition	a feeling of evil to come
 premonitions	PREMONITION: a feeling of evil to come
+premonitorily	as a warning beforehand
 premonitory	warning of future misfortune
 prenatal	occurring or existing before birth
 prenatally	before birth
@@ -5744,6 +5774,7 @@ prophetess	a woman prophet
 prophetesses	PROPHETESS: a woman prophet
 prophetic	foretelling events as if by supernatural intervention
 prophetically	in a prophetic manner
+propheticalness	the quality of being prophetic
 prophets	PROPHET: an authoritative person who divines the future
 prophylactic	remedy that prevents or slows the course of an illness or disease
 prophylactics	PROPHYLACTIC: remedy that prevents or slows the course of an illness or disease
@@ -6137,6 +6168,10 @@ psychologists	PSYCHOLOGIST: a scientist trained in psychology
 psychology	the science of mental life
 psychometric	of or relating to psychometrics
 psychomotor	of or relating to or characterizing mental events that have motor consequences or vice versa
+psychoneuroimmunological	relating to how the mind, nerves and immune system affect one another
+psychoneuroimmunologist	a scientist who studies how the mind, nerves and immune system affect one another
+psychoneuroimmunologists	PSYCHONEUROIMMUNOLOGIST: a scientist who studies how the mind, nerves and immune system affect one another
+psychoneuroimmunology	the study of how the mind, nerves and immune system affect one another
 psychopath	someone with a sociopathic personality; a person with an antisocial personality disorder (`psychopath' was once widely used but has now been superseded by `sociopath')
 psychopathic	suffering from an undiagnosed mental disorder
 psychopathological	suffering from an undiagnosed mental disorder

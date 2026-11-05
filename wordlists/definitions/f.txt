@@ -45,6 +45,7 @@ facetting	FACET: a distinct feature or element in a problem
 facial	cranial nerve that supplies facial muscles
 facially	with respect to the face
 facials	FACIAL: cranial nerve that supplies facial muscles
+facies	the overall look of a rock, or of a patient's face, that marks its kind
 facile	superficially impressive, but lacking depth and attention to the true complexities of a subject
 facilitate	make easier
 facilitated	FACILITATE: make easier
@@ -715,6 +716,7 @@ felt	FEEL: undergo an emotional sensation or be in a particular state of mind
 felted	made by combining fibers with a binder using heat and pressure
 felting	FELT: a fabric made of compressed matted animal fibers
 felts	FELT: a fabric made of compressed matted animal fibers
+fem	a woman or lesbian presenting in a feminine way
 female	an animal that produces gametes (ova) that can be fertilized by male gametes (spermatozoa)
 femaleness	the properties characteristic of the female sex
 females	FEMALE: an animal that produces gametes (ova) that can be fertilized by male gametes (spermatozoa)
@@ -734,6 +736,7 @@ feminize	assume (more) feminine characteristics
 feminized	FEMINIZE: assume (more) feminine characteristics
 feminizes	FEMINIZE: assume (more) feminine characteristics
 feminizing	FEMINIZE: assume (more) feminine characteristics
+femme	feminine in style; also a lesbian presenting in a feminine way
 femora	FEMUR: the thigh bone
 femoral	of or relating to or near the femur or thigh
 femtosecond	one quadrillionth (10^-15) of a second; one thousandth of a picosecond
@@ -762,6 +765,8 @@ fens	FEN: 100 fen equal 1 yuan in China
 fentanyl	trade names of a narcotic analgesic that can be inhaled and that acts on the central nervous system and may become addictive; used as a veterinary anesthetic and with other drugs before, during, and after surgery; also used as a nonlethal gas to incapacitate people in hostage situations; also abused as a recreational drug
 fenugreek	annual herb or southern Europe and eastern Asia having off-white flowers and aromatic seeds used medicinally and in curry
 feral	wild and menacing
+feringhee	a European, in old Indian usage
+feringhees	FERINGHEE: a European, in old Indian usage
 ferment	a state of agitation or turbulent change or development
 fermentation	a state of agitation or turbulent change or development
 fermented	FERMENT: a state of agitation or turbulent change or development
@@ -1324,6 +1329,7 @@ firth	English linguist who contributed to linguistic semantics and to prosodic p
 firths	FIRTH: English linguist who contributed to linguistic semantics and to prosodic phonology and who was noted for his insistence on studying both sound and meaning in context (1890-1960)
 fiscal	involving financial matters
 fiscally	in financial matters
+fiscals	FISCAL: a public prosecutor, as in Scotland
 fish	any of various mostly cold-blooded aquatic vertebrates usually having scales and breathing through gills
 fishbowl	a state of affairs in which you have no privacy
 fishbowls	FISHBOWL: a state of affairs in which you have no privacy
@@ -1521,8 +1527,10 @@ flankers	FLANKER: a back stationed wide of the scrimmage line; used as a pass re
 flanking	FLANK: the side of military or naval formation
 flanks	FLANK: the side of military or naval formation
 flannel	a soft light woolen fabric; used for clothing
+flanneled	FLANNEL: talk evasively; also wash with a flannel
 flannelet	a soft cotton fabric with a brushed surface
 flannelette	a cotton fabric imitating flannel
+flanneling	FLANNEL: talk evasively; also wash with a flannel
 flannelled	FLANNEL: a soft light woolen fabric; used for clothing
 flannelling	FLANNEL: a soft light woolen fabric; used for clothing
 flannels	FLANNEL: a soft light woolen fabric; used for clothing
@@ -2076,6 +2084,8 @@ flyposting	the illegal sticking up of posters
 flysheet	the outer waterproof layer of a tent
 flysheets	FLYSHEET: the outer waterproof layer of a tent
 flyspeck	a tiny dark speck made by the excrement of a fly
+flyspecked	marked with tiny spots, like the specks left by flies
+flyspecking	FLYSPECK: mark with tiny spots
 flyspecks	FLYSPECK: a tiny dark speck made by the excrement of a fly
 flyswatter	an implement with a flat part (of mesh or plastic) and a long handle; used to kill insects
 flyswatters	FLYSWATTER: an implement with a flat part (of mesh or plastic) and a long handle; used to kill insects
@@ -2458,6 +2468,7 @@ foreshadower	one who foreshadows
 foreshadowers	FORESHADOWER: one who foreshadows
 foreshadowing	the act of providing vague advance indications; representing beforehand
 foreshadows	FORESHADOW: indicate, as with a sign or an omen
+foresheet	a rope controlling a ship's foresail
 foreshore	the part of the seashore between the highwater mark and the low-water mark
 foreshores	FORESHORE: the part of the seashore between the highwater mark and the low-water mark
 foreshorten	reduce in scope while retaining essential elements
@@ -2475,6 +2486,7 @@ forestalling	FORESTALL: keep from happening or arising; make impossible
 forestalls	FORESTALL: keep from happening or arising; make impossible
 forestation	the planting of trees
 forestay	an adjustable stay from the foremast to the deck or bowsprit; controls the bending of the mast
+forestaysail	a triangular sail set on a ship's forestay
 forested	FOREST: the trees and other plants in a large densely wooded area
 forester	English writer of adventure novels featuring Captain Horatio Hornblower (1899-1966)
 foresters	FORESTER: English writer of adventure novels featuring Captain Horatio Hornblower (1899-1966)
@@ -2498,8 +2510,11 @@ foretelling	a statement made about the future
 foretells	FORETELL: foreshadow or presage
 forethought	planning or plotting in advance of acting
 foretoken	an event that is experienced as indicating important things to come
+foretokened	FORETOKEN: foreshadow or give warning of
+foretokening	FORETOKEN: foreshadow or give warning of
 foretokens	FORETOKEN: an event that is experienced as indicating important things to come
 foretold	FORETELL: predict
+foretopman	a sailor stationed in a ship's foretop
 forever	for a limitless time
 forevermore	at any future time; in the future
 forewarn	warn in advance or beforehand; give an early warning
@@ -2512,6 +2527,7 @@ forewoman	a woman who is foreperson of a jury
 forewomen	FOREWOMAN: a woman who is foreperson of a jury
 foreword	a short introductory essay preceding the text of a book
 forewords	FOREWORD: a short introductory essay preceding the text of a book
+foreyard	the lowest yard on a ship's foremast
 forfeit	lose (s.th.) or lose the right to (s.th.) by some error, offense, or crime
 forfeited	FORFEIT: lose (s.th.) or lose the right to (s.th.) by some error, offense, or crime
 forfeiting	FORFEIT: lose (s.th.) or lose the right to (s.th.) by some error, offense, or crime
@@ -2658,6 +2674,7 @@ fortified	secured with bastions or fortifications
 fortifies	FORTIFY: make strong or stronger
 fortify	make strong or stronger
 fortifying	FORTIFY: make strong or stronger
+fortis	of a consonant, pronounced with more force
 fortissimo	a musical composition or musical passage to be performed very loudly
 fortitude	strength of mind that enables one to endure adversity with courage
 fortnight	a period of fourteen consecutive days
@@ -3147,6 +3164,7 @@ fritterer	one who wastes time or money
 fritterers	FRITTERER: one who wastes time or money
 frittering	FRITTER: small quantity of fried batter containing fruit or meat or vegetables
 fritters	FRITTER: small quantity of fried batter containing fruit or meat or vegetables
+fritz	on the fritz: broken or not working properly
 frivolities	FRIVOLITY: the trait of being frivolous; not serious or sensible
 frivolity	the trait of being frivolous; not serious or sensible
 frivolous	not serious in content or attitude or behavior
@@ -3169,6 +3187,7 @@ frocks	FROCK: a long, loose outer garment
 frog	any of various tailless stout-bodied amphibians with long hind limbs for leaping; semiaquatic and terrestrial species
 frogfish	fish having a frog-like mouth with a lure on the snout
 frogging	FROG: any of various tailless stout-bodied amphibians with long hind limbs for leaping; semiaquatic and terrestrial species
+froggings	FROGGING: ornamental braid fastenings on a coat
 froggy	like a frog
 froglike	like a frog
 frogman	someone who works underwater
@@ -3386,6 +3405,7 @@ fulsome	unpleasantly and excessively suave or ingratiating in manner or speech
 fulsomely	in an unctuous manner
 fulvetta	a small babbler bird of Asia
 fulvettas	FULVETTA: a small babbler bird of Asia
+fum	a phoenix in Chinese legend
 fumble	feel about uncertainly or blindly
 fumbled	FUMBLE: feel about uncertainly or blindly
 fumbler	someone who makes mistakes because of incompetence
@@ -3393,8 +3413,10 @@ fumblers	FUMBLER: someone who makes mistakes because of incompetence
 fumbles	FUMBLE: feel about uncertainly or blindly
 fumbling	showing lack of skill or aptitude
 fume	be mad, angry, or furious
-fumed	FUME: be mad, angry, or furious
+fumed	FUM: a phoenix in Chinese legend
 fumes	gases ejected from an engine as waste products
+fumier	FUMY: full of fumes
+fumiest	FUMY: full of fumes
 fumigate	treat with fumes, expose to fumes, especially with the aim of disinfecting or eradicating pests
 fumigated	FUMIGATE: treat with fumes, expose to fumes, especially with the aim of disinfecting or eradicating pests
 fumigates	FUMIGATE: treat with fumes, expose to fumes, especially with the aim of disinfecting or eradicating pests
@@ -3402,7 +3424,8 @@ fumigating	FUMIGATE: treat with fumes, expose to fumes, especially with the aim 
 fumigation	the application of a gas or smoke to something for the purpose of disinfecting it
 fumigator	someone whose job is to fumigate
 fumigators	FUMIGATOR: someone whose job is to fumigate
-fuming	FUME: be mad, angry, or furious
+fuming	FUM: a phoenix in Chinese legend
+fums	FUM: a phoenix in Chinese legend
 fun	activities that are enjoyable or amusing
 function	a mathematical relation such that each element of a given set (the domain of the function) is associated with an element of another set (the range of the function)
 functional	designed for or capable of a particular function or use
@@ -3417,6 +3440,7 @@ functionary	a worker who holds or is invested with an office
 functioned	FUNCTION: a mathematical relation such that each element of a given set (the domain of the function) is associated with an element of another set (the range of the function)
 functioning	performing or able to perform its regular function
 functions	FUNCTION: a mathematical relation such that each element of a given set (the domain of the function) is associated with an element of another set (the range of the function)
+functor	in mathematics and programming, a mapping between structures that keeps their form
 fund	a reserve of money set aside for some purpose
 fundamental	serving as an essential component
 fundamentalism	a form of Protestantism that takes the interpretation of every word in the sacred texts as literal truth
@@ -3597,7 +3621,9 @@ futzed	FUTZ: waste time or tinker
 futzes	FUTZ: waste time or tinker
 futzing	FUTZ: waste time or tinker
 fuze	any igniter that is used to initiate the burning of a propellant
+fuzed	FUZE: fit with a detonating fuse
 fuzes	FUZE: any igniter that is used to initiate the burning of a propellant
+fuzing	FUZE: fit with a detonating fuse
 fuzz	filamentous hairlike growth on a plant
 fuzzball	a ball of fluff
 fuzzballs	FUZZBALL: a ball of fluff
@@ -3607,4 +3633,5 @@ fuzzier	FUZZY: covering with fine light hairs
 fuzziest	FUZZY: covering with fine light hairs
 fuzzily	in a blurry way
 fuzziness	the quality of being indistinct and without sharp outlines
+fuzzing	FUZZ: make or become fuzzy; also test software with random input
 fuzzy	covering with fine light hairs

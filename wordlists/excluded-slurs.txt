@@ -68,3 +68,7 @@ gollies
 # word carrying a live, sourced defence (squaw's Algonquian "woman", the
 # reclamation debate) or another life outside the slur (redskin was a Nestlé
 # lolly until a 2020 rename over this same objection) clears it.
+negress
+negresses
+bulldyke
+bulldykes

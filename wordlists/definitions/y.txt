@@ -173,6 +173,8 @@ yobbism	loutish behaviour
 yobbo	a cruel and brutal fellow
 yobbos	YOBBO: a cruel and brutal fellow
 yobs	YOB: a cruel and brutal fellow
+yock	a loud laugh
+yocks	YOCK: a loud laugh
 yodel	a songlike cry in which the voice fluctuates rapidly between the normal voice and falsetto
 yodeled	YODEL: a songlike cry in which the voice fluctuates rapidly between the normal voice and falsetto
 yodeler	a singer who switches rapidly between chest and head voice

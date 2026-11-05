@@ -606,6 +606,7 @@ elegant	refined and tasteful in appearance or behavior or style
 elegantly	with elegance; in a tastefully elegant manner
 elegiac	resembling or characteristic of or appropriate to an elegy
 elegiacally	in a mournful, reflective way
+elegiacs	ELEGIAC: verse written in elegiac metre
 elegies	ELEGY: a mournful poem; a lament for the dead
 elegist	the author of a mournful poem lamenting the dead
 elegists	ELEGIST: the author of a mournful poem lamenting the dead
@@ -2157,6 +2158,8 @@ ethnological	of or relating to ethnology
 ethnologist	an anthropologist who studies ethnology
 ethnologists	ETHNOLOGIST: an anthropologist who studies ethnology
 ethnology	the branch of anthropology that deals with the division of humankind into races and with their origins and distribution and distinctive characteristics
+ethnomethodologist	a sociologist who studies how people make sense of everyday life
+ethnomethodologists	ETHNOMETHODOLOGIST: a sociologist who studies how people make sense of everyday life
 ethnomethodology	the study of how people make sense of everyday social life
 ethnomusicological	relating to the study of music in its cultural setting
 ethnomusicologist	a person who studies music in its cultural setting
@@ -2213,6 +2216,8 @@ euphemism	an inoffensive or indirect expression that is substituted for one that
 euphemisms	EUPHEMISM: an inoffensive or indirect expression that is substituted for one that is considered offensive or too harsh
 euphemistic	of or the nature of euphemism
 euphemistically	in a euphemistic manner
+euphonia	a small, colourful finch-like bird of the American tropics
+euphonias	EUPHONIA: a small, colourful finch-like bird of the American tropics
 euphonious	having a pleasant sound
 euphonium	a bass horn (brass wind instrument) that is the tenor of the tuba family
 euphoniums	EUPHONIUM: a bass horn (brass wind instrument) that is the tenor of the tuba family
@@ -2260,6 +2265,7 @@ evaluator	an authority who is able to estimate worth or quality
 evaluators	EVALUATOR: an authority who is able to estimate worth or quality
 evanescence	the event of fading and gradually vanishing from sight
 evanescent	tending to vanish like vapor
+evangelic	evangelical
 evangelical	relating to or being a Christian church believing in personal conversion and the inerrancy of the Bible especially the 4 Gospels
 evangelicalism	stresses the importance of personal conversion and faith as the means of salvation
 evangelicals	EVANGELICAL: a member of a Protestant movement stressing the Bible and personal conversion
@@ -2432,7 +2438,9 @@ examiners	EXAMINER: someone who administers a test to determine your qualificati
 examines	EXAMINE: consider in detail and subject to an analysis in order to discover essential features or meaning
 examining	EXAMINE: consider in detail and subject to an analysis in order to discover essential features or meaning
 example	an item of information that is typical of a class or group
+exampled	EXAMPLE: give an example of
 examples	EXAMPLE: an item of information that is typical of a class or group
+exampling	EXAMPLE: give an example of
 exams	EXAM: a set of questions or exercises evaluating skill or knowledge
 exasperate	exasperate or irritate
 exasperated	greatly annoyed; out of patience
@@ -3046,8 +3054,11 @@ externalizing	EXTERNALIZE: regard as objective
 externally	on or from the outside
 externals	EXTERNAL: happening or arising or located outside or beyond some limits or especially surface
 extinct	no longer in existence; lost or especially having died out leaving no living representatives
+extincted	EXTINCT: make extinct
+extincting	EXTINCT: make extinct
 extinction	no longer active; extinguished
 extinctions	EXTINCTION: no longer active; extinguished
+extincts	EXTINCT: make extinct
 extinguish	put an end to; kill
 extinguishable	capable of being extinguished or killed
 extinguished	of a conditioned response; caused to die out because of the absence or withdrawal of reinforcement

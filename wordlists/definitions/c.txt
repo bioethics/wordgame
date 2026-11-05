@@ -231,6 +231,7 @@ calked	CALK: a metal cleat on the bottom front of a horseshoe to prevent slippin
 calker	one who seals gaps against leaks
 calkers	CALKER: one who seals gaps against leaks
 calking	CALK: a metal cleat on the bottom front of a horseshoe to prevent slipping
+calkings	CALKING: sealing the seams of a boat
 calks	CALK: a metal cleat on the bottom front of a horseshoe to prevent slipping
 call	assign a specified (usually proper) proper name to
 callable	subject to a demand for payment before due date
@@ -309,6 +310,7 @@ cambers	CAMBER: a slight convexity (as of the surface of a road)
 cambia	CAMBIUM: a growth layer in plant stems
 cambium	a formative one-cell layer of tissue between xylem and phloem in most vascular plants that is responsible for secondary growth
 cambiums	CAMBIUM: a formative one-cell layer of tissue between xylem and phloem in most vascular plants that is responsible for secondary growth
+cambogia	a tropical fruit whose rind is used in diet supplements
 cambric	a finely woven white linen
 camcorder	a portable television camera and videocassette recorder
 camcorders	CAMCORDER: a portable television camera and videocassette recorder
@@ -604,6 +606,7 @@ capers	CAPER: jump about playfully
 capes	CAP: a tight-fitting headdress
 capillaries	CAPILLARY: a tube of small internal diameter; holds liquid by capillary action
 capillary	a tube of small internal diameter; holds liquid by capillary action
+capita	CAPUT: a head; as in per capita, for each person
 capital	assets available for use in the production of further assets
 capitalisation	writing in capital letters
 capitalise	supply with capital, as of a business by using a combination of capital used by investors and debt capital provided by lenders
@@ -2806,6 +2809,7 @@ cinematographic	relating to filming and the art of motion pictures
 cinematography	the act of making a film
 cinnabar	a heavy reddish mineral consisting of mercuric sulfide; the chief source of mercury
 cinnamon	aromatic bark used as a spice
+cinnamony	tasting or smelling of cinnamon
 cinque	the cardinal number that is the sum of four and one
 cipher	a message written in a secret code
 ciphered	CIPHER: a message written in a secret code
@@ -2881,6 +2885,7 @@ circumspectly	in a cagey manner
 circumstance	a condition that accompanies or influences some event or activity
 circumstanced	situated in a particular way
 circumstances	your overall circumstances or condition in life (including everything that happens to you)
+circumstancing	CIRCUMSTANCE: place in particular circumstances
 circumstantial	fully detailed and specific about particulars
 circumstantially	according to circumstances
 circumvent	surround so as to force to give up
@@ -2896,6 +2901,7 @@ cirrhosis	a chronic disease interfering with the normal functioning of the liver
 cirrus	usually coiled
 cis	an alliance made up of states that had been Soviet Socialist Republics in the Soviet Union prior to its dissolution in Dec 1991
 cisco	cold-water fish caught in Lake Superior and northward
+ciscoes	CISCO: a North American freshwater whitefish
 cisgender	having a gender identity that matches the sex recorded at birth
 cissies	CISSY: a timid or weak person
 cissy	having unsuitable feminine qualities
@@ -3341,6 +3347,7 @@ clocking	the time taken to traverse a measured course
 clocks	CLOCK: a timepiece that shows the time of day
 clockwise	in the same direction as the rotating hands of a clock
 clockwork	any mechanism of geared wheels that is driven by a coiled spring; resembles the works of a mechanical clock
+clockworked	moved or run as if by clockwork
 clockworks	CLOCKWORK: any mechanism of geared wheels that is driven by a coiled spring; resembles the works of a mechanical clock
 clod	a compact mass
 clodhopper	a thick and heavy shoe
@@ -4659,6 +4666,7 @@ computations	COMPUTATION: the procedure of calculating; determining something by
 compute	make a mathematical calculation or computation
 computed	COMPUTE: make a mathematical calculation or computation
 computer	a machine for performing calculations automatically
+computerate	able to use computers
 computerisation	the act of equipping with or controlling by computers
 computerise	provide with computers
 computerised	COMPUTERISE: provide with computers
@@ -5165,6 +5173,7 @@ conjunctivas	CONJUNCTIVA: a transparent lubricating mucous membrane that covers 
 conjunctive	an uninflected function word that serves to conjoin words or phrases or clauses or sentences
 conjunctives	CONJUNCTIVE: an uninflected function word that serves to conjoin words or phrases or clauses or sentences
 conjunctivitis	inflammation of the conjunctiva of the eye
+conjuncts	CONJUNCT: something joined or combined with another
 conjuncture	a critical combination of events or circumstances
 conjunctures	CONJUNCTURE: a critical combination of events or circumstances
 conjuration	a ritual recitation of words or sounds believed to have a magical effect
@@ -5290,6 +5299,7 @@ conservatoires	CONSERVATOIRE: a schoolhouse with special facilities for fine art
 conservator	the custodian of a collection (as a museum or library)
 conservatories	CONSERVATORY: the faculty and students of a school specializing in one of the fine arts
 conservators	CONSERVATOR: the custodian of a collection (as a museum or library)
+conservatorship	legal control of the affairs of a person unable to manage them
 conservatory	the faculty and students of a school specializing in one of the fine arts
 conserve	fruit preserved by cooking with sugar
 conserved	protected from harm or loss
@@ -6322,6 +6332,7 @@ cotes	COTE: a small shelter for domestic animals (as sheep or pigeons)
 cotillion	a ball at which young ladies are presented to society
 cotillions	COTILLION: a ball at which young ladies are presented to society
 cots	COT: a sheath worn to protect a finger
+cotta	a short white surplice worn by choristers and clergy
 cottage	a small house with a single story
 cottager	someone who lives in a cottage
 cottagers	COTTAGER: someone who lives in a cottage
@@ -6823,6 +6834,7 @@ crapshoot	a risky and uncertain venture
 crapshooter	a gambler who plays the game of craps
 crapshooters	CRAPSHOOTER: a gambler who plays the game of craps
 crapshoots	CRAPSHOOT: a risky and uncertain venture
+craquelin	a crisp sugar crust baked on top of choux pastry
 crash	fall or come down violently
 crashed	CRASH: fall or come down violently
 crasher	someone who gets in (to a party) without an invitation or without paying
@@ -7114,6 +7126,7 @@ cripes	an exclamation of surprise
 cripple	someone who is unable to walk normally because of an injury or disability to the legs or back
 crippled	disabled in the feet or legs
 cripples	CRIPPLE: someone who is unable to walk normally because of an injury or disability to the legs or back
+crippleware	software with features disabled until it is paid for
 crippling	that cripples or disables or incapacitates
 cripplingly	in a crippling way
 crises	CRISIS: a time of great danger or difficulty
@@ -7506,6 +7519,7 @@ crystallizing	CRYSTALLIZE: cause to take on a definite and clear shape
 crystallographic	relating to the structure of crystals
 crystallography	the branch of science that studies the formation and structure of crystals
 crystals	CRYSTAL: a solid formed by the solidification of a chemical and having a highly regular atomic structure
+cthulhu	a monstrous sea deity in the fiction of H. P. Lovecraft
 cub	an awkward and inexperienced youth
 cubbies	CUBBY: a small secluded room
 cubby	a small secluded room
@@ -7527,6 +7541,7 @@ cubits	CUBIT: an ancient unit of length based on the length of the forearm
 cuboid	a rectangular parallelepiped
 cuboids	CUBOID: a rectangular parallelepiped
 cubs	CUB: an awkward and inexperienced youth
+cuck	an insult
 cuckold	a man whose wife committed adultery
 cuckolded	CUCKOLD: a man whose wife committed adultery
 cuckolding	CUCKOLD: a man whose wife committed adultery

@@ -183,6 +183,7 @@ abrasive	a substance that abrades or wears down
 abrasively	in a abrasive way
 abrasiveness	the roughness of a substance that causes abrasions
 abrasives	ABRASIVE: a substance that abrades or wears down
+abraxas	a mystical word or charm, once engraved on gems as an amulet
 abreast	being up to particular standard or level especially in being up to date in knowledge
 abridge	reduce in scope while retaining essential elements
 abridged	ABRIDGE: reduce in scope while retaining essential elements
@@ -589,6 +590,7 @@ acmes	ACME: the highest level or degree attainable; the highest stage of develop
 acne	an inflammatory disease involving the sebaceous glands of the skin; characterized by papules or pustules or comedones
 acolyte	someone who assists a priest or minister in a liturgical service; a cleric ordained in the highest of the minor orders in the Roman Catholic Church but not in the Anglican Church or the Eastern Orthodox Churches
 acolytes	ACOLYTE: someone who assists a priest or minister in a liturgical service; a cleric ordained in the highest of the minor orders in the Roman Catholic Church but not in the Anglican Church or the Eastern Orthodox Churches
+acolytic	relating to an acolyte or assistant
 aconite	any of various usually poisonous plants of the genus Aconitum having tuberous roots and palmately lobed leaves and blue or white flowers
 aconites	ACONITE: any of various usually poisonous plants of the genus Aconitum having tuberous roots and palmately lobed leaves and blue or white flowers
 acorn	fruit of the oak tree: a smooth thin-walled nut in a woody cup-shaped base
@@ -835,6 +837,7 @@ adjoin	lie adjacent to another or share a boundary
 adjoined	ADJOIN: lie adjacent to another or share a boundary
 adjoining	ADJOIN: lie adjacent to another or share a boundary
 adjoins	ADJOIN: lie adjacent to another or share a boundary
+adjoint	in mathematics, a matrix or operator paired with another in a set way
 adjourn	close at the end of a session
 adjourned	ADJOURN: close at the end of a session
 adjourning	ADJOURN: close at the end of a session
@@ -1437,6 +1440,7 @@ agronomic	of or relating to or promoting agronomy
 agronomist	an expert in soil management and field-crop production
 agronomists	AGRONOMIST: an expert in soil management and field-crop production
 agronomy	the application of soil and plant sciences to land management and crop production
+agrostological	relating to the study of grasses
 agrostologist	a scientist who studies grasses
 agrostologists	AGROSTOLOGIST: a scientist who studies grasses
 agrostology	the study of grasses
@@ -1873,6 +1877,7 @@ alright	nonstandard usage
 also	in addition
 alt	angular distance above the horizon (especially of a celestial object)
 altar	the table in Christian churches where communion is given
+altared	furnished with an altar
 altarpiece	a painted or carved screen placed above and behind an altar or communion table
 altarpieces	ALTARPIECE: a painted or carved screen placed above and behind an altar or communion table
 altars	ALTAR: the table in Christian churches where communion is given
@@ -2449,6 +2454,7 @@ ankles	ANKLE: a gliding joint between the distal ends of the tibia and fibula an
 anklet	a shoe for a child or woman that has a strap around the ankle
 anklets	a sock that reaches just above the ankle
 ankylosing	ANKYLOSE: produce ankylosis by surgery
+anmitsu	a Japanese dessert of agar jelly cubes with sweet bean paste and fruit
 annals	reports of the work of a society or learned body etc
 anneal	bring to a desired consistency, texture, or hardness by a process of gradually heating and cooling
 annealed	ANNEAL: bring to a desired consistency, texture, or hardness by a process of gradually heating and cooling
@@ -2660,6 +2666,7 @@ anticipation	an expectation
 anticipations	ANTICIPATION: an expectation
 anticipatory	in anticipation
 anticked	ANTIC: behaved in a playful or odd way
+anticking	ANTIC: behave in a clownish or playful way
 anticlerical	opposed to the power of the clergy
 anticlimactic	of or relating to a sudden change from an impressive to a ludicrous style
 anticlimax	a disappointing decline after a previous rise
@@ -3115,6 +3122,7 @@ aptly	with competence; in a competent capable manner
 aptness	a disposition to behave in a certain way
 aqua	a shade of blue tinged with green
 aquaculture	rearing aquatic animals or cultivating aquatic plants for food
+aquae	AQUA: water
 aqualung	a device (trade name Aqua-Lung) that lets divers breathe under water; scuba is an acronym for self-contained underwater breathing apparatus
 aqualungs	AQUALUNG: a device (trade name Aqua-Lung) that lets divers breathe under water; scuba is an acronym for self-contained underwater breathing apparatus
 aquamarine	a transparent variety of beryl that is blue green in color
@@ -3271,6 +3279,8 @@ archrivals	ARCHRIVAL: a chief rival
 archway	a passageway under a curved masonry construction
 archways	ARCHWAY: a passageway under a curved masonry construction
 arcing	ARC: electrical conduction through a gas in an applied electric field
+arcked	ARC: form an electric arc
+arcking	ARC: form an electric arc
 arcs	ARC: electrical conduction through a gas in an applied electric field
 arctic	the regions to the north of the Arctic Circle centered on the North Pole
 arctics	ARCTIC: the regions to the north of the Arctic Circle centered on the North Pole
@@ -3592,6 +3602,7 @@ ashen	anemic looking from illness or emotion
 ashes	ASH: the residue that remains when something is burned
 ashier	ASHY: of a light grey
 ashiest	ASHY: of a light grey
+ashily	in an ashy, pale way
 ashiness	the quality of being ashy
 ashing	ASH: the residue that remains when something is burned
 ashore	towards the shore from the water
@@ -3805,6 +3816,7 @@ assurances	ASSURANCE: freedom from doubt; belief in yourself and your abilities
 assure	make certain of
 assured	marked by assurance; exhibiting confidence
 assuredly	without a doubt
+assureds	ASSURED: a person whose life or property is insured
 assures	ASSURE: make certain of
 assuring	ASSURE: make certain of
 assyriology	archeology of the ancient Assyrians
@@ -3925,6 +3937,7 @@ atolls	ATOLL: an island consisting of a circular coral reef surrounding a lagoon
 atom	the smallest component of an element having the chemical properties of the element
 atomic	of or relating to or comprising atoms
 atomically	in a way relating to atoms
+atomics	the science and technology of atomic energy
 atomise	spray very finely
 atomised	ATOMISE: spray very finely
 atomiser	a dispenser that turns a liquid (such as perfume) into a fine mist
@@ -4276,6 +4289,7 @@ automating	AUTOMATE: make automatic or control or operate automatically
 automation	the act of implementing the control of equipment with advanced technology; usually involving electronic hardware
 automatism	any reaction that occurs automatically without conscious thought or reflection (especially the undirected behavior seen in psychomotor epilepsy)
 automaton	someone who acts or responds in a mechanical or apathetic way
+automatonic	like an automaton; mechanical
 automatons	AUTOMATON: someone who acts or responds in a mechanical or apathetic way
 automobile	a motor vehicle with four wheels; usually propelled by an internal combustion engine
 automobiled	AUTOMOBILE: a motor vehicle with four wheels; usually propelled by an internal combustion engine
