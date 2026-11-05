@@ -42837,7 +42837,6 @@ madrassa
 madrassas
 madrigal
 madrigals
-mads
 maduro
 madwoman
 madwomen
@@ -43396,7 +43395,6 @@ mantlepiece
 mantlepieces
 mantles
 mantling
-mantoes
 mantra
 mantras
 manual

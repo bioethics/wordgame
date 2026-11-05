@@ -1803,7 +1803,9 @@ flipped	FLIP: lightly throw to see which side comes up
 flipper	FLIP: lightly throw to see which side comes up
 flippers	FLIPPER: a shoe for swimming; the paddle-like front is an aid in swimming (especially underwater)
 flippest	FLIP: lightly throw to see which side comes up
+flippies	FLIPPY: loose and swinging as you move, as a flippy skirt; also flippant
 flipping	FLIP: lightly throw to see which side comes up
+flippy	loose and swinging as you move, as a flippy skirt; also flippant
 flips	FLIP: lightly throw to see which side comes up
 flirt	talk or behave amorously, without serious intentions
 flirtation	playful behavior intended to arouse sexual interest

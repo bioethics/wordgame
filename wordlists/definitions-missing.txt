@@ -1,7 +1,4 @@
 # Dictionary words with no definition yet: write theirs into definitions-own.txt
 # and run tools/build-definitions.mjs again. Built by that tool; don't edit.
 #
-flippies
-flippy
-mads
-mantoes
+
