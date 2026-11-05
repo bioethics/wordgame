@@ -339,6 +339,25 @@ What the session history, the commits and the author's Drive show:
   Poppet. 306 of the author's nautical words (AFTERDECK to YELLOWFIN, with
   CTHULHU and JABBERWOCKY) joined the dictionary with it.
 
+- **5 November.** The dictionary measured against SCOWL (wordlist-english
+  1.2.1 on npm, read as data), which grades English by size: it held almost
+  all of sizes 10–50, then 87% of 55, 44% of 60, 10% of 70. The gaps were
+  sorted into families and read word by word, and 513 words joined: 127
+  British and Australian spellings of words already playable (COLOURWAY,
+  SANITISER, HAEMATOMA); 242 UN- words on a playable base (UNWORN, UNFUSSY,
+  UNSEASONAL, UNCLENCH, and the UNMELTED that started it), never where the
+  language has the standard negative with another prefix (UNPOLITE beside
+  IMPOLITE, UNADVISABLE, UNEATABLE), nor archaic, jargon or merely possible
+  (UNMEET, UNLIMBER, UNATTENUATED), nor UNCHARTERED, mostly a slip for
+  UNCHARTED; twelve -LY words a reader meets often (DEAFENINGLY,
+  CRIPPLINGLY, GRANDMOTHERLY), most of that family having a standard noun
+  instead (BRAVENESS, CRUELNESS); and 132 of SCOWL's commonest Australian
+  words (ARVO, ESKY, SMOKO, SHONKY, STICKYBEAK, FOSSICK, YOUSE). Each went to
+  the Poet's, the Athlete's or the Sculptor's list as it reads; the Sculptor's
+  through `noun-extras.txt`, since WordNet knows few of them. PARCHMENTED was
+  weighed and kept: rarer than UNMELTED, but attested, regularly formed,
+  readable on sight, and one of the Sexton's.
+
 Not found anywhere these sessions can reach: the tool or chat that produced
 the ranked lists and the later batches. The ranking, the drift into
 association and the noisy tails look like a word-similarity tool. The

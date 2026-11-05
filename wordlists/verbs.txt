@@ -786,6 +786,8 @@ annul
 annulled
 annulling
 annuls
+anodised
+anodising
 anodized
 anodizing
 anoint
@@ -3727,6 +3729,10 @@ carjack
 carjacked
 carjacking
 carjacks
+cark
+carked
+carking
+carks
 carmine
 carmines
 carnies
@@ -4060,6 +4066,7 @@ changing
 channel
 channeled
 channeling
+channelised
 channelized
 channelled
 channelling
@@ -4927,6 +4934,7 @@ colors
 colour
 coloured
 colouring
+colourised
 colourized
 colours
 comb
@@ -5597,6 +5605,10 @@ convulses
 convulsing
 coo
 cooed
+cooee
+cooeed
+cooeeing
+cooees
 cooing
 cook
 cooked
@@ -7068,6 +7080,7 @@ demolish
 demolished
 demolishes
 demolishing
+demonetised
 demonetized
 demonise
 demonised
@@ -7195,6 +7208,8 @@ deploy
 deployed
 deploying
 deploys
+depolarised
+depolarising
 depolarized
 depolarizing
 depopulate
@@ -10267,6 +10282,7 @@ featured
 features
 featuring
 fed
+federalised
 federalized
 federate
 federated
@@ -10821,6 +10837,7 @@ fluff
 fluffed
 fluffing
 fluffs
+fluidised
 fluidized
 fluke
 flukes
@@ -13219,6 +13236,10 @@ hook
 hooked
 hooking
 hooks
+hoon
+hooned
+hooning
+hoons
 hoop
 hooped
 hooping
@@ -13511,7 +13532,10 @@ hydrating
 hydraulic
 hydraulics
 hydrogenated
+hydrolyse
+hydrolysed
 hydrolyses
+hydrolysing
 hydrolyze
 hydrolyzed
 hydrolyzes
@@ -14607,6 +14631,8 @@ jabbing
 jabs
 jack
 jackaroo
+jackarooed
+jackarooing
 jackaroos
 jacked
 jacket
@@ -14760,6 +14786,10 @@ jigsaw
 jigsawed
 jigsawing
 jigsaws
+jillaroo
+jillarooed
+jillarooing
+jillaroos
 jilt
 jilted
 jilting
@@ -18896,6 +18926,7 @@ paralyze
 paralyzed
 paralyzes
 paralyzing
+parameterised
 parameterized
 paraphrase
 paraphrased
@@ -19759,6 +19790,7 @@ plaster
 plastered
 plastering
 plasters
+plasticised
 plasticized
 plate
 plateau
@@ -20001,6 +20033,7 @@ polygraph
 polygraphed
 polygraphing
 polygraphs
+polymerised
 polymerized
 pomade
 pomaded
@@ -21127,6 +21160,7 @@ quantified
 quantifies
 quantify
 quantifying
+quantised
 quantized
 quarantine
 quarantined
@@ -21665,6 +21699,8 @@ reattach
 reattached
 reattaches
 reattaching
+reauthorise
+reauthorises
 reauthorize
 reauthorized
 reauthorizes
@@ -21811,6 +21847,10 @@ recolor
 recolored
 recoloring
 recolors
+recolour
+recoloured
+recolouring
+recolours
 recombine
 recombined
 recombines
@@ -26201,6 +26241,7 @@ spirit
 spirited
 spiriting
 spirits
+spiritualised
 spiritualized
 spit
 spite
@@ -26766,6 +26807,10 @@ stickies
 sticking
 sticks
 sticky
+stickybeak
+stickybeaked
+stickybeaking
+stickybeaks
 sties
 stiff
 stiffed
@@ -27408,7 +27453,10 @@ summonses
 summonsing
 sums
 sun
+sunbake
 sunbaked
+sunbakes
+sunbaking
 sunbathe
 sunbathed
 sunbathes
@@ -28902,6 +28950,7 @@ transgress
 transgressed
 transgresses
 transgressing
+transistorised
 transistorized
 transit
 transited
@@ -29431,6 +29480,7 @@ unbalance
 unbalanced
 unbalances
 unbalancing
+unbaptised
 unbaptized
 unbelieving
 unbend
@@ -29450,6 +29500,10 @@ unborn
 unbound
 unboxed
 unboxing
+unbraid
+unbraided
+unbraiding
+unbraids
 unbridled
 unbuckle
 unbuckled
@@ -29464,13 +29518,20 @@ unbutton
 unbuttoned
 unbuttoning
 unbuttons
+uncap
 uncapped
+uncapping
+uncaps
 unchain
 unchained
 unchaining
 unchains
 uncharged
 uncle
+unclench
+unclenched
+unclenches
+unclenching
 uncles
 unclog
 unclogged
@@ -29689,6 +29750,10 @@ unhand
 unhanded
 unhanding
 unhands
+unharness
+unharnessed
+unharnesses
+unharnessing
 unhinge
 unhinged
 unhinges
@@ -29727,6 +29792,10 @@ united
 unites
 uniting
 units
+unjam
+unjammed
+unjamming
+unjams
 unlace
 unlaced
 unlaces
@@ -29744,6 +29813,10 @@ unleashed
 unleashes
 unleashing
 unlined
+unlink
+unlinked
+unlinking
+unlinks
 unload
 unloaded
 unloading
@@ -29804,6 +29877,10 @@ unravelling
 unravels
 unrealized
 unreasoning
+unreel
+unreeled
+unreeling
+unreels
 unrest
 unroll
 unrolled
@@ -29845,6 +29922,10 @@ unsteadied
 unsteadies
 unsteady
 unsteadying
+unstrap
+unstrapped
+unstrapping
+unstraps
 unstuck
 unsuited
 untamed
@@ -29864,6 +29945,10 @@ untied
 unties
 until
 untrimmed
+untuck
+untucked
+untucking
+untucks
 unturned
 untying
 unveil
@@ -29883,6 +29968,10 @@ unwrapped
 unwrapping
 unwraps
 unwritten
+unyoke
+unyoked
+unyokes
+unyoking
 unzip
 unzipped
 unzipping
@@ -31310,6 +31399,10 @@ xerox
 xeroxed
 xeroxes
 xeroxing
+yabber
+yabbered
+yabbering
+yabbers
 yacht
 yachted
 yachting
