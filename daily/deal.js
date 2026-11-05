@@ -285,9 +285,6 @@ export const DAY_PATRONS = [
   // move the best word, only pay — and the deal gives each what it reads.
   'apprentice', 'jeweller', 'novelist', 'typesetter', 'stammerer',
   'romeo', 'juliet', 'siren', 'firebrand',
-  // Out of the Friday tier, 5 November: +12 Points on each J, Q, X or Z now,
-  // not ×2 Mult, so his pay can't be weighed against the others' there.
-  'antiquary',
 ];
 // Offered two at a time, from one tier. A tier is patrons that pay the SAME
 // WAY, so the choice is between two words to look for, never between two kinds
@@ -300,14 +297,14 @@ export const DAY_PATRONS = [
 export const CHOICE_TIERS = {
   // ×3 for a word on a themed list.
   rich:  ['sexton', 'paramour', 'poppet', 'vulgarian', 'seadog'],
-  // ×2 for a word of a given form. Three are the daily's own ×2 versions of
-  // patrons that pay otherwise in the game (adapted in daily/table.js). The
-  // Athlete pays on twice as many good words as the most generous of these, so
-  // he sits on Tuesday instead — and so, since the noun list grew (4 November)
-  // to every word whose ordinary meaning is a noun, does the Sculptor, at 43%;
-  // and so, since he pays Points on rare letters (5 November), does the
-  // Antiquary.
-  plain: ['herald', 'cartographer', 'poet', 'stammerer', 'yodeller', 'commoner'],
+  // ×2 for a word of a given form. Four are the daily's own ×2 versions of
+  // patrons that pay otherwise in the game (adapted in daily/table.js), and
+  // the Herald's and the Antiquary's days are dealt what they read
+  // (SEAT_SHAPES). The Athlete pays on twice as many good words as the most
+  // generous of these, so he sits on Tuesday instead — and so, since the noun
+  // list grew (4 November) to every word whose ordinary meaning is a noun, does
+  // the Sculptor, at 43%.
+  plain: ['herald', 'cartographer', 'poet', 'stammerer', 'yodeller', 'antiquary', 'commoner'],
 };
 // Each bites: the best word unseated is spiked on a quarter to all of cases,
 // and the best word under them is a different one on two-fifths or more.

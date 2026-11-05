@@ -36,9 +36,6 @@ import {
 } from '../js/constants.js';
 import { isExcluded } from '../js/excluded.js';
 
-// The daily Antiquary's Points on each J, Q, X or Z (his game card pays Coins).
-export const ANTIQUARY_POINTS = 12;
-
 // ─── The lists ────────────────────────────────────────────────────────────────
 // The same flat files the game reads (THEME_FILES in js/themes.js), parsed the
 // same way: comments skipped, upper-cased, the excluded words struck. `common`
@@ -201,11 +198,7 @@ export const PATRONS = {
       if (letters.length > 1 && v * 2 >= letters.length) xMult(2);
     },
   },
-  // +Points on the rare letters themselves rather than ×2 for a word holding
-  // one (5 November): under ×2 the day's best word held a rare letter on 80% of
-  // his days, against 48% with nobody seated, so it was hardly a choice; at
-  // +12 a tile it is 63%, and the best such word pays about half as much again.
-  antiquary: { adapted: true, tileBonus: t => (/^(J|QU?|X|Z)$/.test(glyph(t)) ? ANTIQUARY_POINTS : 0) },
+  antiquary: { adapted: true, effect({ letters, xMult }) { if (/[JQXZ]/.test(letters)) xMult(2); } },
   // The daily's own: no such seat in the game.
   commoner: { adapted: true, lists: ['commoner'], effect({ letters, xMult }) { if (inList('commoner', letters)) xMult(2); } },
   serpent: {

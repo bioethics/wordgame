@@ -92,7 +92,7 @@ export const PATRON_TEXT = {
   juliet:        '×1.5 Mult when the word has a jade tile and no amber one.',
   siren:         'Vowels gain +2 Points, or +6 if they are azure.',
   firebrand:     'Words with 2 or more crimson tiles score +15 Points.',
-  antiquary:     'Every J, Q, X or Z is worth +12 Points.',
+  antiquary:     '×2 Mult for words with a J, Q, X or Z.',
   commoner:      '×2 Mult for everyday words: the 8,000 commonest in English, with their plurals and tenses.',
   sculptor:      '×2 Mult when the word is a noun.',
   cartographer:  '×2 Mult for words whose vowels run in alphabetical order. A repeated vowel breaks the run.',
