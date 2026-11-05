@@ -1947,7 +1947,8 @@ game.
   need the solver to search a different dictionary.
 
 **The editors** (`EDITOR_DAYS`), with how often the best word under them is a
-different word: The Populist 87% (common words only), The Columnist 78–92%
+different word: The Populist 87% (common words only), The Redactor 55% (five
+sorts dealt as drafts; below), The Columnist 78–92%
 (an exact measure, rolled 6, 7 or 8), The Serialist 80% (open with a rolled
 letter), the #1 Specific Letter Enthusiast 45% (use a rolled letter, lent as
 an extra tile), The Minimalist 28% (no adjectives or adverbs). Two of them
@@ -1961,6 +1962,19 @@ often he bites (45% against 23%), since the long words a case can set mostly
 hold its cheap letters already. The Padder and the Obscurantist never bit
 once (long words are seldom short or common), and the rest of the masthead
 reshapes a page or a run rather than a word.
+
+**The Redactor** joined on 5 November, the masthead's one editor who changes
+the case rather than judging the word: five of the sixteen sorts, a third as
+in the game, are dealt as drafts (`REDACTOR_WRAPS`, `deskFor`), wrapped in
+grey paper with the letter written by hand. A draft spells and nothing else,
+as the game's wrapped tile does (`spellsOnly`): no Points, paint, trim, nick
+or metal, and no tool takes it. He never wraps a metal or a tile the tube is
+offering, and spikes nothing, so his day is priced as a plain one over a
+wrapped case. Wrapping three sorts moved the best word on 43% of forty
+measured cases, four on 48%, five on 55%, six on 68%; at five, among his
+fellows, the best word is worth about half what it was. He sits from № 8, so
+№ 1 kept the roster it was dealt (`REDACTOR_FROM`); from there the six editors
+take their turns on a seed of their own.
 
 ### Two words
 

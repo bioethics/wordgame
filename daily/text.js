@@ -13,7 +13,7 @@ export const TRAIT_TEXT = {
   twoUp:    { name: 'Two-Up',               desc: 'Play two words of at least {0} letters.' },
   choice:   { name: 'A Choice of Patrons',  desc: 'Seat one of two.' },
   patron:   { name: 'A Patron Calls',       desc: 'Seated for every reader.' },
-  deadline: { name: 'Deadline',             desc: 'An editor at the desk. A word that breaks the rule is spiked.' },
+  deadline: { name: 'Deadline',             desc: 'An editor at the desk, with the day’s rule on the card.' },
   hellbox:  { name: 'From the Hellbox',     desc: 'One tile is cast in Hellbox iron.' },
   lean:     { name: 'Lean Matter',          desc: 'Most of the case is plain.' },
   fat:      { name: 'Fat Matter',           desc: 'Most of the case is dressed.' },
@@ -59,6 +59,7 @@ export const SORT_TEXT = {
   ratcheted: 'Stepped from {0}',
   louped: 'Doubled by the loupe',
   painted: 'Painted from the tube',
+  wrapped: { head: 'A draft', body: 'Wrapped by The Redactor: it spells, and scores nothing.' },
 };
 
 // ─── The table ────────────────────────────────────────────────────────────────
@@ -115,6 +116,8 @@ export const EDITOR_TEXT = {
                 voice: 'I really love {0}. Here is a copy of it — but a word without one is spiked.' },
   populist:   { rule: 'Common words only.',
                 voice: 'Popular fiction is profitable fiction. Anything outside the 8,000 commonest words in English is spiked.' },
+  redactor:   { rule: '{0} sorts are drafts: they spell, and score nothing.',
+                voice: 'This is just the first draft. {0} of your sorts are drafts: they spell, and score nothing.' },
   minimalist: { rule: 'No adjectives or adverbs.',
                 voice: 'Adjectives are the enemy of clean modern prose. Adjectives and adverbs are spiked.' },
 };

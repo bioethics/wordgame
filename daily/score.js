@@ -40,9 +40,10 @@ const growthOf = (t, v = t.activeVariant) =>
   (v === 1 ? t.altBonusPoints : t.bonusPoints) ?? 0;
 
 // What the tile is worth at rest — the corner figure. restingPoints in state.js.
-// A counterfeit (The Counterfeiter's blank) spells and is worth nothing.
+// A counterfeit (The Counterfeiter's blank) spells and is worth nothing, and
+// so does a tile The Redactor has wrapped.
 export const restingOf = (t, v = t.activeVariant) =>
-  (t.counterfeit ? 0
+  (t.counterfeit || t.wrapped ? 0
     : (TILE_POINTS[faceLetter(t, v)] ?? 1) + growthOf(t, v) + (t.trim === 'silver' ? SILVER_BONUS : 0));
 
 // ─── The two tools ────────────────────────────────────────────────────────────
@@ -135,8 +136,14 @@ export function judge(wordTiles, has) {
 // `rest` is every tile of the case NOT in the word — the rack, in the game's
 // terms — which is where a curse takes its toll from. `T` is the day's table
 // (compileTable in daily/table.js), or null for a day with nobody seated.
+// A wrapped tile spells and nothing else: computeScore's pass 0 takes its
+// paint, trim, nick and metal off a copy, and so does this. (The deal wraps
+// sorts bare already; this is for anything else that hands one over.)
+const paper = t => (t.wrapped ? { ...t, colour: null, wash: null, trim: null, nick: null, material: null } : t);
+
 export function scoreWord(wordTiles, rest, has, T = null) {
   if (!wordTiles.length) return null;
+  if (wordTiles.some(t => t.wrapped)) wordTiles = wordTiles.map(paper);
   const set = wordTiles.map(activeLetter).join('');
   const letters = readLetters(set, has) ?? set;
   const restCurses = rest.filter(t => t.material === 'cursed').length;
@@ -297,7 +304,7 @@ function core(word, letters, restCurses, T, full) {
 
 // A tile the day's tube offers is not the same as its twin that it doesn't.
 const sigOf = t => [t.letter, t.letterType, t.altLetter, t.colour, t.trim, t.nick,
-  t.material, t.bonusPoints ?? 0, t.altBonusPoints ?? 0, t.paintOffer ?? ''].join('|');
+  t.material, t.bonusPoints ?? 0, t.altBonusPoints ?? 0, t.paintOffer ?? '', t.wrapped ? 'w' : ''].join('|');
 
 // What a face can stand for in a word, in the order the game would try it.
 function readsOf(letter) {
@@ -309,12 +316,12 @@ function readsOf(letter) {
 // none on a plain day, one when a patron or an editor is seated, several when
 // the reader chooses between patrons — every word is then priced under each.
 export function prepareCase(tiles, item = null, tables = []) {
-  const prepared = tiles.map(t => {
+  const prepared = tiles.map(paper).map(t => {
     const faces = [0, ...(t.letterType === 'dual' && t.altLetter ? [1] : [])].map(v => {
       const L = faceLetter(t, v);
       return {
         v, L, reads: readsOf(L), medieval: !!MEDIEVAL[L],
-        pts: restingOf(t, v), shiftable: item === 'ratchet' && !t.ephemeral && !t.counterfeit && shiftable(t, v),
+        pts: restingOf(t, v), shiftable: item === 'ratchet' && !t.ephemeral && !t.counterfeit && !t.wrapped && shiftable(t, v),
         loupe: item === 'loupe' && !t.ephemeral && !t.counterfeit ? loupeDelta(t, v) : 0,
         tile: (t.activeVariant ?? 0) === v ? t : { ...t, activeVariant: v },
       };

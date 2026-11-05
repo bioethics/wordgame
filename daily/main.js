@@ -17,7 +17,7 @@ import {
   scoreWord, judge, withTool, solveCase, rankOf, bracketOf, BRACKETS, activeLetter, faceLetter,
   restingOf, ringStep, shiftable, loupeDelta, settingOf, solveWords, solvePairs, pairBest, RING,
 } from './score.js';
-import { tablesForDay, seatIdsOfDay, listsNeeded, LISTS, LIST_FILES, adoptList, PATRONS, spellingsFor } from './table.js';
+import { tablesForDay, seatIdsOfDay, listsNeeded, LISTS, LIST_FILES, adoptList, PATRONS, EDITORS, spellingsFor } from './table.js';
 import {
   COLOURS, TRIMS, NICKS, MEDIEVAL, letterGlyph, colourDesc, SPIKE_MULT,
   LOUPE_CAP, CURSED_MULT, CURSED_PENALTY, LENGTH_MULT_MIN, lengthMult, lengthFlourish,
@@ -269,7 +269,7 @@ function tracksOf(tiles) {
   // spike waits blind until a word breaks the rule.
   if (S.deal.day.patron && stamps(S.deal.day.patron.id)) out.push('seat');
   if (S.deal.day.choices?.some(c => stamps(c.id))) out.push('seat');
-  if (S.deal.day.editor) out.push('spike');
+  if (S.deal.day.editor && EDITORS[S.deal.day.editor.id]?.judge) out.push('spike');
   return out;
 }
 // The patrons whose ruling is a ×Mult on the word, rather than Points on tiles.
@@ -416,7 +416,7 @@ function toolTap() {
 function useToolOn(id) {
   const t = S.tiles.find(x => x.id === id);
   const face = t.activeVariant ?? 0;
-  if (t.blank || t.ephemeral) { refuse(id); return; }
+  if (t.blank || t.ephemeral || t.wrapped) { refuse(id); return; }
   // The tube paints one of the tiles it offers, and only those.
   if (S.deal.tool === 'tube') {
     if (!t.paintOffer || t.colour) { refuse(id); return; }
@@ -744,6 +744,7 @@ function tileEl(t, zone, { mini = false, pays = null } = {}) {
   const L = activeLetter(t);
   if (t.blank) div.classList.add('tile--blank');
   if (t.ephemeral) div.classList.add('tile--lent');
+  if (t.wrapped) div.classList.add('tile--wrapped');
   if (t.recast) div.classList.add('tile--recast');
   if (t.trim) div.classList.add(`tile--trim-${t.trim}`);
   if (t.nick) div.classList.add(`tile--nick-${t.nick}`);
@@ -813,6 +814,7 @@ function tileLines(t) {
   if (t.ratcheted != null && t.ratcheted === t.activeVariant) out.push({ head: fill(SORT_TEXT.ratcheted, t.ratchetFrom) });
   if (t.louped != null && t.louped === t.activeVariant) out.push({ head: SORT_TEXT.louped });
   if (t.painted) out.push({ head: SORT_TEXT.painted });
+  if (t.wrapped) out.push(SORT_TEXT.wrapped);
   return out;
 }
 
@@ -991,7 +993,7 @@ function renderSeats(sc) {
   } else if (day.kind === 'editor') {
     const d = day.editor;
     const card = seatCard(`seat--desk${sc?.spiked ? ' seat--spiked' : ''}`, BOSS_CARDS[d.id]?.emoji ?? '', BOSS_CARDS[d.id]?.name ?? d.id, editorRule(d));
-    card.addEventListener('click', () => readSeat(card, BOSS_CARDS[d.id]?.name, `${editorVoice(d)} ${fill(SPIKE_TEXT, SPIKE_MULT)}`));
+    card.addEventListener('click', () => readSeat(card, BOSS_CARDS[d.id]?.name, `${editorVoice(d)}${EDITORS[d.id]?.judge ? ` ${fill(SPIKE_TEXT, SPIKE_MULT)}` : ''}`));
     host.appendChild(card);
   } else if (day.kind === 'pair') {
     const r = document.createElement('p');
@@ -1030,7 +1032,7 @@ function renderCase(fresh) {
   host.classList.toggle('case--locked', locked());
 }
 
-const toolFits = t => !t.blank && !t.ephemeral
+const toolFits = t => !t.blank && !t.ephemeral && !t.wrapped
   && (S.deal.tool === 'tube' ? !!t.paintOffer && !t.colour
     : S.deal.tool === 'loupe' ? loupeDelta(t, t.activeVariant) > 0 : shiftable(t, t.activeVariant));
 

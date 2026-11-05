@@ -355,6 +355,9 @@ export const PATRONS = {
 export const EDITORS = {
   padder:       { judge: L => (L.length < 5 ? 'spike' : null) },
   columnist:    { judge: (L, tiles, d) => (L.length !== d.n ? 'spike' : null) },
+  // The Redactor spikes nothing: his drafts are in the case (deskFor in
+  // daily/deal.js), so his day is priced as a plain one over a wrapped case.
+  redactor:     {},
   serialist:    { judge: (L, tiles, d) => (L[0] !== d.letter ? 'spike' : null) },
   enthusiast:   { judge: (L, tiles, d) => (!L.includes(d.letter) ? 'spike' : null) },
   populist: {
@@ -386,7 +389,7 @@ export function compileTable(seat, desk, has) {
     tileBonus: p?.tileBonus ?? null,
     effect: p?.effect ?? null,
     spell: p?.spell ?? null,
-    judge: e ? (L, tiles) => e.judge(L, tiles, edata) : null,
+    judge: e?.judge ? (L, tiles) => e.judge(L, tiles, edata) : null,
   };
 }
 
@@ -403,7 +406,7 @@ export function spellingsFor(tables, words, has, tiles, tool = null) {
 // of the patrons on offer, in the order the page shows them.
 export function tablesForDay(day, has) {
   if (day?.kind === 'patron') return [compileTable(day.patron, null, has)];
-  if (day?.kind === 'editor') return [compileTable(null, day.editor, has)];
+  if (day?.kind === 'editor') return EDITORS[day.editor.id]?.judge ? [compileTable(null, day.editor, has)] : [];
   if (day?.kind === 'choice') return day.choices.map(c => compileTable(c, null, has));
   return [];
 }

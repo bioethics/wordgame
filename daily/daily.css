@@ -1097,3 +1097,20 @@ button.mode-item:hover, button.mode-item:focus-visible { background: rgba(217, 1
 .howto-chip { display: inline-flex; align-items: center; gap: 5px; }
 .howto-chip-name { font-size: 13px; color: var(--dim); }
 .howto-sum { margin: 0 !important; font: 900 18px var(--serif); font-variant-numeric: tabular-nums; }
+
+/* The Redactor's drafts: the game's wrapped tile (css/style.css), a sheet of
+   grey paper over the sort with the letter written on it by hand. Nothing
+   shows through, and the corner reads 0. */
+.tile--wrapped {
+  background:
+    repeating-linear-gradient(101deg, rgba(140, 130, 118, 0.05) 0 0.19em, rgba(140, 130, 118, 0) 0.19em 0.44em),
+    linear-gradient(168deg, #d9d4ca 0%, #cdc7bb 55%, #c3bcaf 100%);
+  background-blend-mode: multiply, normal;
+  border-color: rgba(70, 66, 60, 0.45);
+  --trim-ring: 0 0 rgba(0, 0, 0, 0);
+  --tile-lift: #8d877c;
+}
+.tile--wrapped .tile-letter { font-family: 'Caveat', 'Segoe Script', cursive; font-weight: 700; font-size: 2.5em; color: #4a4741; }
+.tile--wrapped .tile-letter[data-len='2'] { font-size: 1.9em; }
+.tile--wrapped .tile-letter[data-len='3'] { font-size: 1.45em; }
+.tile--wrapped .tile-pts { opacity: 0.4; }

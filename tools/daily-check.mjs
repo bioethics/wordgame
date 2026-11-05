@@ -76,6 +76,12 @@ for (let n = from; n <= to; n++) {
         : { kind: 'loupe', id: t.id, face: t.activeVariant };
       tiles = S.withTool(tiles, applied);
     }
+    // Sometimes a tile The Redactor has wrapped, still dressed underneath, as
+    // the game would hand it over: both must read it as spelling only.
+    if (rand() < 0.3) {
+      const i = Math.floor(rand() * tiles.length);
+      if (!tiles[i].material) tiles = tiles.map((t, j) => (j === i ? { ...t, wrapped: true } : t));
+    }
     const order = shuffled(tiles);
     const len = 1 + Math.floor(rand() * Math.min(12, order.length));
     const word = order.slice(0, len);
@@ -177,7 +183,7 @@ function naiveBest(tiles, tool, word, T = null) {
   if (tool === 'tube') {
     for (const t of tiles) if (t.paintOffer && !t.colour) uses.push({ kind: 'tube', id: t.id, colour: t.paintOffer });
   } else if (tool) for (const t of tiles) for (const v of [0, ...(t.letterType === 'dual' ? [1] : [])]) {
-    if (t.ephemeral || t.counterfeit) continue;
+    if (t.ephemeral || t.counterfeit || t.wrapped) continue;   // as isImmutable: no tool takes them
     if (tool === 'ratchet') { for (const off of [-1, 1]) if (S.shiftable(t, v)) uses.push({ kind: 'ratchet', id: t.id, face: v, offset: off }); }
     else if (S.loupeDelta(t, v) > 0) uses.push({ kind: 'loupe', id: t.id, face: v });
   }

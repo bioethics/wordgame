@@ -311,7 +311,17 @@ export const CHOICE_TIERS = {
 };
 // Each bites: the best word unseated is spiked on a quarter to all of cases,
 // and the best word under them is a different one on two-fifths or more.
-export const EDITOR_DAYS = ['columnist', 'populist', 'serialist', 'enthusiast', 'minimalist'];
+export const EDITOR_DAYS = ['columnist', 'populist', 'serialist', 'enthusiast', 'minimalist', 'redactor'];
+// The Redactor joined on 5 November, from the next Thursday (№ 8): the days
+// before keep the roster they were dealt, and the new one counts its turns
+// from there, on a seed of its own, so its first lap seats every editor.
+const EDITOR_DAYS_BEFORE = EDITOR_DAYS.filter(id => id !== 'redactor');
+const REDACTOR_FROM = 8;
+// The Redactor's drafts: so many of the case's sorts are wrapped, and spell
+// and nothing else, as the game's wrapped tiles do (spellsOnly in
+// js/state.js). The game wraps a third of the collection (REDACTOR_SHARE in
+// js/bosses.js); a third of sixteen is five.
+export const REDACTOR_WRAPS = 5;
 
 // A two-word day: a bigger case, and both words at least five letters, so
 // neither can be a scrap left over from the other. Added together, the sum of
@@ -344,7 +354,10 @@ export function dayOf(n) {
   const kind = WEEK[weekdayOf(n)];
   const w = turnOf(n);
   if (kind === 'patron') return { kind, id: turn(DAY_PATRONS, w, 'patron') };
-  if (kind === 'editor') return { kind, id: turn(EDITOR_DAYS, w, 'editor') };
+  if (kind === 'editor') {
+    return n < REDACTOR_FROM ? { kind, id: turn(EDITOR_DAYS_BEFORE, w, 'editor') }
+      : { kind, id: turn(EDITOR_DAYS, turnOf(n) - turnOf(REDACTOR_FROM), 'editor:6') };
+  }
   if (kind === 'choice') {
     // Sunday offers two of the rich tier, Friday two of the plain, so the
     // choice days alternate. (Until 4 November there was only Sunday, and the
@@ -495,6 +508,17 @@ function deskFor(id, deal, rng) {
     const dear = singles.filter(L => TILE_POINTS[L] >= 3);
     desk.data.letter = pick(rng, dear.length ? dear : singles);
     desk.adds = { letter: desk.data.letter, ephemeral: true };
+  }
+  if (id === 'redactor') {
+    // Never a metal, whose rules would outlive the paper, nor a tile the tube
+    // is offering. A wrapped sort is dealt bare: nothing shows through.
+    const open = deal.tiles.filter(t => !t.material && !t.paintOffer && !t.blank && !t.ephemeral);
+    for (let i = open.length - 1; i > 0; i--) {
+      const j = Math.floor(rng() * (i + 1));
+      [open[i], open[j]] = [open[j], open[i]];
+    }
+    for (const t of open.slice(0, REDACTOR_WRAPS)) Object.assign(t, { wrapped: true, colour: null, trim: null, nick: null });
+    desk.data.n = Math.min(REDACTOR_WRAPS, open.length);
   }
   return desk;
 }
