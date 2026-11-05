@@ -32,7 +32,10 @@ long-press any tile or patron for its details — also how you flip a dual tile 
 touch. The narrow board puts the patrons above the page and Print hard right of
 the verbs, and it spends whatever height the phone has **between** its rows
 (`align-content: space-between`) rather than centring the board and leaving a
-band of bare bench under the sign.
+band of bare bench under the sign. It only ever spends height it has: the board
+grows to the screen but never shrinks below its own rows, so a phone shorter
+than the board (about 850px of page, on a 390px-wide phone) scrolls rather than
+sliding the stick and the case up under the readout, as it once did.
 
 **Nothing on it resizes as you compose.** The case holds every row the hand
 fills, from the first frame, so moving a sort into the stick never collapses it
