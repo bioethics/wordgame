@@ -1,6 +1,6 @@
 baa	the cry made by sheep
-baaed	BA: a soft silvery metallic element of the alkali earth group; found in barite
-baaing	BA: a soft silvery metallic element of the alkali earth group; found in barite
+baaed	BA: a bachelor's degree in arts and sciences
+baaing	BA: a bachelor's degree in arts and sciences
 baas	South African term for `boss'
 baba	a small cake leavened with yeast
 babble	utter meaningless sounds, like a baby, or utter in an incoherent way
@@ -10,8 +10,8 @@ babblers	BABBLER: an obnoxious and foolish and loquacious talker
 babbles	BABBLE: utter meaningless sounds, like a baby, or utter in an incoherent way
 babbling	BABBLE: utter meaningless sounds, like a baby, or utter in an incoherent way
 babe	a very young child (birth to 1 year) who has not yet begun to walk or talk
-babel	a tower built by Noah's descendants (probably in Babylon) who intended it to reach up to heaven; God foiled them by confusing their language so they could no longer understand one another
-babels	BABEL: a tower built by Noah's descendants (probably in Babylon) who intended it to reach up to heaven; God foiled them by confusing their language so they could no longer understand one another
+babel	a confusion of voices and other sounds
+babels	BABEL: a confusion of voices and other sounds
 babes	BABE: a very young child (birth to 1 year) who has not yet begun to walk or talk
 babied	BABY: treat as if helpless
 babier	one who babies
@@ -24,23 +24,23 @@ babushkas	BABUSHKA: a woman's headscarf folded into a triangle and tied under th
 baby	a very young child (birth to 1 year) who has not yet begun to walk or talk
 babygrow	a one-piece stretchy suit for a baby
 babygrows	BABYGROW: a one-piece stretchy suit for a baby
-babyhood	the early stage of growth or development
+babyhood	the earliest state of immaturity
 babying	BABY: a very young child (birth to 1 year) who has not yet begun to walk or talk
 babyish	characteristic of a baby
 babysat	BABYSIT: look after a child while the parents are out
 babysbreath	a plant with tiny white flowers used in bouquets
-babysit	take watchful responsibility for
-babysits	BABYSIT: take watchful responsibility for
+babysit	work or act as a baby-sitter
+babysits	BABYSIT: work or act as a baby-sitter
 babysitter	a person engaged to care for children when the parents are not home
 babysitters	BABYSITTER: a person engaged to care for children when the parents are not home
 babysitting	the work of a baby sitter; caring for children when their parents are not home
-baccalaureate	a farewell sermon to a graduating class at their commencement ceremonies
-baccalaureates	BACCALAUREATE: a farewell sermon to a graduating class at their commencement ceremonies
+baccalaureate	an academic degree conferred on someone who has successfully completed undergraduate studies
+baccalaureates	BACCALAUREATE: an academic degree conferred on someone who has successfully completed undergraduate studies
 baccarat	a card game played in casinos in which two or more punters gamble against the banker; the player wins who holds 2 or 3 cards that total closest to nine
-bacchanal	someone who engages in drinking bouts
+bacchanal	a wild gathering involving excessive drinking and promiscuity
 bacchanalian	used of riotously drunken merrymaking
 bacchanalians	BACCHANALIAN: a person who takes part in drunken revelry
-bacchanals	BACCHANAL: someone who engages in drinking bouts
+bacchanals	BACCHANAL: a wild gathering involving excessive drinking and promiscuity
 baccy	leaves of the tobacco plant dried and prepared for smoking or ingestion
 bachelor	a man who has never been married
 bachelorette	a young unmarried woman who lives alone
@@ -83,7 +83,7 @@ backdate	make effective from an earlier date
 backdated	BACKDATE: make effective from an earlier date
 backdates	BACKDATE: make effective from an earlier date
 backdating	BACKDATE: make effective from an earlier date
-backdoor	an undocumented way to get access to a computer system or the data it contains
+backdoor	an entrance at the rear of a building
 backdrop	scenery hung at back of stage
 backdrops	BACKDROP: scenery hung at back of stage
 backed	BACK: in or to or toward a former location
@@ -92,10 +92,10 @@ backers	BACKER: invests in a theatrical production
 backfield	the offensive football players who line up behind the linemen
 backfields	BACKFIELD: the offensive football players who line up behind the linemen
 backfill	refill an excavation with earth
-backfire	the backward escape of gases and unburned gunpowder after a gun is fired
-backfired	BACKFIRE: the backward escape of gases and unburned gunpowder after a gun is fired
-backfires	BACKFIRE: the backward escape of gases and unburned gunpowder after a gun is fired
-backfiring	BACKFIRE: the backward escape of gases and unburned gunpowder after a gun is fired
+backfire	come back to the originator of an action with an undesired effect
+backfired	BACKFIRE: come back to the originator of an action with an undesired effect
+backfires	BACKFIRE: come back to the originator of an action with an undesired effect
+backfiring	BACKFIRE: come back to the originator of an action with an undesired effect
 backflip	a backward somersault
 backflips	BACKFLIP: a backward somersault
 backgammon	a board game for two players; pieces move according to throws of the dice
@@ -103,7 +103,7 @@ background	a person's social heritage: previous experience or training
 backgrounder	a press conference or interview in which a government official explains to reporters the background of an action or policy
 backgrounds	BACKGROUND: a person's social heritage: previous experience or training
 backhand	a return made with the back of the hand facing the direction of the stroke
-backhanded	(of racket strokes) made across the body with back of hand facing direction of stroke
+backhanded	roundabout or ambiguous
 backhandedly	in a backhanded way
 backhandedness	the quality of being backhanded
 backhander	a backhanded blow
@@ -115,8 +115,8 @@ backhoes	BACKHOE: an excavator whose shovel bucket is attached to a hinged boom 
 backhouse	an outdoor toilet
 backing	the act of providing approval and support
 backings	BACKING: the act of providing approval and support
-backlash	a movement back from an impact
-backlashes	BACKLASH: a movement back from an impact
+backlash	an adverse reaction to some political or social occurrence
+backlashes	BACKLASH: an adverse reaction to some political or social occurrence
 backless	lacking a back
 backlight	light placed behind a subject
 backlist	a publisher's older books still in print
@@ -132,21 +132,21 @@ backpacker	a hiker who wears a backpack
 backpackers	BACKPACKER: a hiker who wears a backpack
 backpacking	carrying something in a pack on the back
 backpacks	BACKPACK: a bag carried by a strap on your back or shoulder
-backpedal	pedal backwards on a bicycle
-backpedaled	BACKPEDAL: pedal backwards on a bicycle
-backpedaling	BACKPEDAL: pedal backwards on a bicycle
-backpedalled	BACKPEDAL: pedal backwards on a bicycle
-backpedalling	BACKPEDAL: pedal backwards on a bicycle
-backpedals	BACKPEDAL: pedal backwards on a bicycle
+backpedal	modify one's opinion, make it less strong
+backpedaled	BACKPEDAL: modify one's opinion, make it less strong
+backpedaling	BACKPEDAL: modify one's opinion, make it less strong
+backpedalled	BACKPEDAL: modify one's opinion, make it less strong
+backpedalling	BACKPEDAL: modify one's opinion, make it less strong
+backpedals	BACKPEDAL: modify one's opinion, make it less strong
 backrest	a support that you can lean against while sitting
 backrests	BACKREST: a support that you can lean against while sitting
 backroom	the meeting place of a group of leaders who make their decisions via private negotiations
 backrooms	BACKROOM: the meeting place of a group of leaders who make their decisions via private negotiations
 backs	BACK: in or to or toward a former location
-backseat	a secondary or inferior position or status
-backseats	BACKSEAT: a secondary or inferior position or status
-backside	the side of an object that is opposite its front
-backsides	BACKSIDE: the side of an object that is opposite its front
+backseat	a seat at the back of a vehicle (especially the seat at the back of an automobile)
+backseats	BACKSEAT: a seat at the back of a vehicle (especially the seat at the back of an automobile)
+backside	the fleshy part of the human body that you sit on
+backsides	BACKSIDE: the fleshy part of the human body that you sit on
 backslapper	someone who demonstrates enthusiastic or excessive cordiality
 backslappers	BACKSLAPPER: someone who demonstrates enthusiastic or excessive cordiality
 backslapping	BACKSLAP: display excessive cordiality (towards)
@@ -173,10 +173,10 @@ backstabs	BACKSTAB: attack someone treacherously
 backstage	a stage area out of sight of the audience
 backstairs	a second staircase at the rear of a building
 backstay	a stay that supports the back of something
-backstop	the person who plays the position of catcher
-backstopped	BACKSTOP: the person who plays the position of catcher
-backstopping	BACKSTOP: the person who plays the position of catcher
-backstops	BACKSTOP: the person who plays the position of catcher
+backstop	a fence or screen (as behind home plate) to prevent the ball from traveling out of the playing field
+backstopped	BACKSTOP: a fence or screen (as behind home plate) to prevent the ball from traveling out of the playing field
+backstopping	BACKSTOP: a fence or screen (as behind home plate) to prevent the ball from traveling out of the playing field
+backstops	BACKSTOP: a fence or screen (as behind home plate) to prevent the ball from traveling out of the playing field
 backstories	BACKSTORY: the history leading up to a story's events
 backstory	the history leading up to a story's events
 backstreet	a minor street away from main roads
@@ -195,12 +195,12 @@ backtracker	one who retraces their steps or reverses a position
 backtrackers	BACKTRACKER: one who retraces their steps or reverses a position
 backtracking	BACKTRACK: retrace one's course
 backtracks	BACKTRACK: retrace one's course
-backup	an accumulation caused by clogging or a stoppage
-backups	BACKUP: an accumulation caused by clogging or a stoppage
+backup	a copy of a file or directory on a separate storage device
+backups	BACKUP: a copy of a file or directory on a separate storage device
 backward	at or to or toward the back or rear
 backwardness	lack of normal development of intellectual capacities
 backwards	at or to or toward the back or rear
-backwash	the flow of air that is driven backwards by an aircraft propeller
+backwash	the wave that spreads behind a boat as it moves forward
 backwater	a body of water that was created by a flood or tide or by being held or forced back by a dam
 backwaters	BACKWATER: a body of water that was created by a flood or tide or by being held or forced back by a dam
 backwoods	a remote and undeveloped area
@@ -252,8 +252,8 @@ bafflement	confusion resulting from failure to understand
 baffles	BAFFLE: be a mystery or bewildering to
 baffling	making great mental demands; hard to comprehend or solve or believe
 bag	a flexible container with a single opening
-bagatelle	a light piece of music for piano
-bagatelles	BAGATELLE: a light piece of music for piano
+bagatelle	something of little value or significance
+bagatelles	BAGATELLE: something of little value or significance
 bagel	glazed yeast-raised doughnut-shaped roll with hard crust
 bagels	BAGEL: glazed yeast-raised doughnut-shaped roll with hard crust
 baggage	cases used to carry belongings when traveling
@@ -276,17 +276,17 @@ bah	an exclamation of contempt
 baht	the basic unit of money in Thailand
 bahts	BAHT: the basic unit of money in Thailand
 bail	money that must be forfeited by the bondsman if an accused person fails to appear in court for trial
-bailable	admitting of bail
+bailable	eligible for bail
 bailed	BAIL: money that must be forfeited by the bondsman if an accused person fails to appear in court for trial
 bailer	one who scoops water from a boat
 bailers	BAILER: one who scoops water from a boat
-bailey	United States singer (1918-1990)
-baileys	BAILEY: United States singer (1918-1990)
+bailey	the outer courtyard of a castle
+baileys	BAILEY: the outer courtyard of a castle
 bailiff	an officer of the court who is employed to execute writs and processes and make arrests etc.
 bailiffs	BAILIFF: an officer of the court who is employed to execute writs and processes and make arrests etc.
 bailing	BAIL: money that must be forfeited by the bondsman if an accused person fails to appear in court for trial
-bailiwick	the area over which a bailiff has jurisdiction
-bailiwicks	BAILIWICK: the area over which a bailiff has jurisdiction
+bailiwick	a branch of knowledge
+bailiwicks	BAILIWICK: a branch of knowledge
 bailout	financial help given to a failing business
 bailouts	BAILOUT: financial help given to a failing business
 bails	BAIL: money that must be forfeited by the bondsman if an accused person fails to appear in court for trial
@@ -301,9 +301,9 @@ baits	BAIT: anything that serves as an enticement
 baize	a bright green fabric napped to resemble felt; used to cover gaming tables
 bake	cook and make edible by putting in a hot oven
 baked	dried out by heat or excessive exposure to sunlight
-baker	someone who bakes commercially
+baker	someone who bakes bread or cake
 bakeries	BAKERY: a workplace where baked goods (breads and cakes and pastries) are produced or sold
-bakers	BAKER: someone who bakes commercially
+bakers	BAKER: someone who bakes bread or cake
 bakery	a workplace where baked goods (breads and cakes and pastries) are produced or sold
 bakes	BAKE: cook and make edible by putting in a hot oven
 bakeshop	a workplace where baked goods (breads and cakes and pastries) are produced or sold
@@ -322,8 +322,8 @@ balanced	being in a state of proper equilibrium
 balancer	an acrobat who balances himself in difficult positions
 balances	BALANCE: bring into balance or equilibrium
 balancing	BALANCE: bring into balance or equilibrium
-balconies	BALCONY: an upper floor projecting from the rear over the main floor in an auditorium
-balcony	an upper floor projecting from the rear over the main floor in an auditorium
+balconies	BALCONY: a platform projecting from the wall of a building and surrounded by a balustrade or railing or parapet
+balcony	a platform projecting from the wall of a building and surrounded by a balustrade or railing or parapet
 bald	with no effort to conceal
 balded	BALD: with no effort to conceal
 balder	BALD: with no effort to conceal
@@ -376,8 +376,8 @@ ballers	BALLER: a person who plays ball sports
 ballet	a theatrical representation of a story that is performed to music by trained dancers
 balletic	characteristic of or resembling or suitable for ballet
 ballets	BALLET: a theatrical representation of a story that is performed to music by trained dancers
-ballgame	a particular situation that is radically different from the preceding situation
-ballgames	BALLGAME: a particular situation that is radically different from the preceding situation
+ballgame	a field game played with a ball (especially baseball)
+ballgames	BALLGAME: a field game played with a ball (especially baseball)
 ballgirl	a girl who retrieves balls during a match
 ballgirls	BALLGIRL: a girl who retrieves balls during a match
 ballgown	a long formal dress
@@ -385,7 +385,7 @@ ballgowns	BALLGOWN: a long formal dress
 balling	BALL: round object that is hit or thrown or kicked in games
 ballista	an engine that provided medieval artillery used during sieges; a heavy war engine for hurling large stones and other missiles
 ballistic	relating to or characteristic of the motion of objects moving under their own momentum and the force of gravity
-ballistics	the trajectory of an object in free flight
+ballistics	the science of flight dynamics
 ballon	in ballet, the light, floating quality of a dancer's leaps
 balloon	large tough nonrigid bag filled with gas or heated air
 ballooned	BALLOON: large tough nonrigid bag filled with gas or heated air
@@ -418,14 +418,14 @@ ballyhoo	blatant or sensational promotion
 ballyhooed	BALLYHOO: blatant or sensational promotion
 ballyhooing	BALLYHOO: blatant or sensational promotion
 ballyhoos	BALLYHOO: blatant or sensational promotion
-balm	any of various aromatic resinous substances used for healing and soothing
-balmier	BALMY: informal or slang terms for mentally irregular
-balmiest	BALMY: informal or slang terms for mentally irregular
+balm	semisolid preparation (usually containing a medicine) applied externally as a remedy or for soothing an irritation
+balmier	BALMY: mild and pleasant
+balmiest	BALMY: mild and pleasant
 balminess	the quality of weather that is deliciously mild and soothing
-balmoral	a sturdy laced walking shoe
-balmorals	BALMORAL: a sturdy laced walking shoe
-balms	BALM: any of various aromatic resinous substances used for healing and soothing
-balmy	informal or slang terms for mentally irregular
+balmoral	a brimless dark blue Scottish cap with a flat top and a plume on one side
+balmorals	BALMORAL: a brimless dark blue Scottish cap with a flat top and a plume on one side
+balms	BALM: semisolid preparation (usually containing a medicine) applied externally as a remedy or for soothing an irritation
+balmy	mild and pleasant
 baloney	pretentious or silly talk or writing
 balsa	strong lightweight wood of the balsa tree used especially for floats
 balsam	any seed plant yielding balsam
@@ -439,8 +439,8 @@ balusters	a railing at the side of a staircase or balcony to prevent people from
 balustrade	a railing at the side of a staircase or balcony to prevent people from falling
 balustrades	BALUSTRADE: a railing at the side of a staircase or balcony to prevent people from falling
 bambino	a young child
-bamboo	the hard woody stems of bamboo plants; used in construction and crafts and fishing poles
-bamboos	BAMBOO: the hard woody stems of bamboo plants; used in construction and crafts and fishing poles
+bamboo	woody tropical grass having hollow woody stems; mature canes used for construction and furniture
+bamboos	BAMBOO: woody tropical grass having hollow woody stems; mature canes used for construction and furniture
 bamboozle	conceal one's true motives from especially by elaborately feigning good intentions so as to gain an end
 bamboozled	BAMBOOZLE: conceal one's true motives from especially by elaborately feigning good intentions so as to gain an end
 bamboozler	one who confuses or tricks
@@ -520,8 +520,8 @@ banisher	one who banishes
 banishers	BANISHER: one who banishes
 banishes	BANISH: expel from a community or group
 banishing	BANISH: expel from a community or group
-banishment	the state of being banished or ostracized (excluded from society by general consent)
-banishments	BANISHMENT: the state of being banished or ostracized (excluded from society by general consent)
+banishment	rejection by means of an act of banishing or proscribing someone
+banishments	BANISHMENT: rejection by means of an act of banishing or proscribing someone
 banister	a railing at the side of a staircase or balcony to prevent people from falling
 banisters	BANISTER: a railing at the side of a staircase or balcony to prevent people from falling
 banjo	a stringed instrument of the guitar family that has long neck and circular body
@@ -541,10 +541,10 @@ bankers	BANKER: a financier who owns or is an executive in a bank
 banking	BANK: sloping land (especially the slope beside a body of water)
 banknote	a piece of paper money (especially one issued by a central bank)
 banknotes	BANKNOTE: a piece of paper money (especially one issued by a central bank)
-bankroll	a roll of currency notes (often taken as the resources of a person or business etc.)
-bankrolled	BANKROLL: a roll of currency notes (often taken as the resources of a person or business etc.)
-bankrolling	BANKROLL: a roll of currency notes (often taken as the resources of a person or business etc.)
-bankrolls	BANKROLL: a roll of currency notes (often taken as the resources of a person or business etc.)
+bankroll	provide with sufficient funds; finance
+bankrolled	BANKROLL: provide with sufficient funds; finance
+bankrolling	BANKROLL: provide with sufficient funds; finance
+bankrolls	BANKROLL: provide with sufficient funds; finance
 bankrupt	reduce to bankruptcy
 bankruptcies	BANKRUPTCY: a state of complete lack of some abstract property
 bankruptcy	a state of complete lack of some abstract property
@@ -556,8 +556,8 @@ banned	BAN: forbid the public distribution of ( a movie or a newspaper)
 banner	long strip of cloth or paper used for decoration or advertising
 banners	BANNER: long strip of cloth or paper used for decoration or advertising
 banning	BAN: forbid the public distribution of ( a movie or a newspaper)
-bannister	English runner who in 1954 became the first person to run a mile in less than four minutes (born in 1929)
-bannisters	BANNISTER: English runner who in 1954 became the first person to run a mile in less than four minutes (born in 1929)
+bannister	a railing at the side of a staircase or balcony to prevent people from falling
+bannisters	BANNISTER: a railing at the side of a staircase or balcony to prevent people from falling
 banns	a public announcement of a proposed marriage
 banquet	a ceremonial dinner party for many people
 banqueted	BANQUET: a ceremonial dinner party for many people
@@ -572,8 +572,8 @@ banshee	a female spirit who wails to warn of impending death
 banshees	BANSHEE: a female spirit who wails to warn of impending death
 bantam	any of various small breeds of fowl
 bantams	BANTAM: any of various small breeds of fowl
-bantamweight	weighs 115-126 pounds
-bantamweights	BANTAMWEIGHT: weighs 115-126 pounds
+bantamweight	an amateur boxer who weighs no more than 119 pounds
+bantamweights	BANTAMWEIGHT: an amateur boxer who weighs no more than 119 pounds
 banteng	wild ox of the Malay Archipelago
 bantengs	BANTENG: wild ox of the Malay Archipelago
 banter	light teasing repartee
@@ -616,9 +616,9 @@ barbaric	without civilizing influences
 barbarically	in a cruel or uncivilised way
 barbarism	a brutal barbarous savage act
 barbarisms	BARBARISM: a brutal barbarous savage act
-barbarities	BARBARITY: the quality of being shockingly cruel and inhumane
-barbarity	the quality of being shockingly cruel and inhumane
-barbarous	(of persons or their actions) able or disposed to inflict pain or suffering
+barbarities	BARBARITY: a brutal barbarous savage act
+barbarity	a brutal barbarous savage act
+barbarous	primitive in customs and culture
 barbarously	in a barbarous manner
 barbecue	cook outdoors on a barbecue grill
 barbecued	BARBECUE: cook outdoors on a barbecue grill
@@ -629,16 +629,16 @@ barbel	slender tactile process on the jaws of a fish
 barbell	a bar to which heavy discs are attached at each end; used in weightlifting
 barbells	BARBELL: a bar to which heavy discs are attached at each end; used in weightlifting
 barbels	BARBEL: slender tactile process on the jaws of a fish
-barbeque	meat that has been barbecued or grilled in a highly seasoned sauce
-barbequed	BARBEQUE: meat that has been barbecued or grilled in a highly seasoned sauce
-barbeques	BARBEQUE: meat that has been barbecued or grilled in a highly seasoned sauce
-barbequing	BARBEQUE: meat that has been barbecued or grilled in a highly seasoned sauce
-barber	United States composer (1910-1981)
-barbered	BARBER: United States composer (1910-1981)
-barbering	BARBER: United States composer (1910-1981)
+barbeque	a cookout in which food is cooked over an open fire; especially a whole animal carcass roasted on a spit
+barbequed	BARBEQUE: a cookout in which food is cooked over an open fire; especially a whole animal carcass roasted on a spit
+barbeques	BARBEQUE: a cookout in which food is cooked over an open fire; especially a whole animal carcass roasted on a spit
+barbequing	BARBEQUE: a cookout in which food is cooked over an open fire; especially a whole animal carcass roasted on a spit
+barber	a hairdresser who cuts hair and shaves beards as a trade
+barbered	BARBER: a hairdresser who cuts hair and shaves beards as a trade
+barbering	BARBER: a hairdresser who cuts hair and shaves beards as a trade
 barberries	BARBERRY: any of numerous plants of the genus Berberis having prickly stems and yellow flowers followed by small red berries
 barberry	any of numerous plants of the genus Berberis having prickly stems and yellow flowers followed by small red berries
-barbers	BARBER: United States composer (1910-1981)
+barbers	BARBER: a hairdresser who cuts hair and shaves beards as a trade
 barbershop	a shop where men can get their hair cut
 barbershops	BARBERSHOP: a shop where men can get their hair cut
 barbet	small brightly colored stout-billed tropical bird having short weak wings
@@ -670,20 +670,20 @@ barefooted	without shoes
 barehanded	with bare hands
 bareheaded	having the head uncovered
 barely	only a very short time before
-bareness	a bleak and desolate atmosphere
+bareness	an extreme lack of furnishings or ornamentation
 barer	BARE: completely unclothed
 bares	BAR: a room or establishment where alcoholic drinks are served over a counter
 barest	BARE: completely unclothed
-barf	the matter ejected in vomiting
-barfed	BARF: the matter ejected in vomiting
-barfing	BARF: the matter ejected in vomiting
+barf	eject the contents of the stomach through the mouth
+barfed	BARF: eject the contents of the stomach through the mouth
+barfing	BARF: eject the contents of the stomach through the mouth
 barflies	BARFLY: a person who spends much time in bars
 barfly	in a barf way
-barfs	BARF: the matter ejected in vomiting
+barfs	BARF: eject the contents of the stomach through the mouth
 bargain	an agreement between parties (usually arrived at after discussion) fixing obligations of each
 bargained	BARGAIN: an agreement between parties (usually arrived at after discussion) fixing obligations of each
-bargainer	someone who purchases and maintains an inventory of goods to be sold
-bargainers	BARGAINER: someone who purchases and maintains an inventory of goods to be sold
+bargainer	negotiator of the terms of a transaction
+bargainers	BARGAINER: negotiator of the terms of a transaction
 bargaining	the negotiation of the terms of a transaction or agreement
 bargains	BARGAIN: an agreement between parties (usually arrived at after discussion) fixing obligations of each
 barge	a flatbottom boat for carrying heavy loads (especially on canals)
@@ -699,8 +699,8 @@ barhops	BARHOP: go from bar to bar
 baring	BAR: a room or establishment where alcoholic drinks are served over a counter
 barista	a person who makes and serves coffee
 baristas	BARISTA: a person who makes and serves coffee
-baritone	a male singer
-baritones	BARITONE: a male singer
+baritone	the second lowest adult male singing voice
+baritones	BARITONE: the second lowest adult male singing voice
 barium	a soft silvery metallic element of the alkali earth group; found in barite
 bark	tough protective covering of the woody stems and roots of trees and other woody plants
 barked	BARK: tough protective covering of the woody stems and roots of trees and other woody plants
@@ -718,9 +718,9 @@ barmaid	a female bartender
 barmaids	BARMAID: a female bartender
 barman	an employee who mixes and serves alcoholic drinks at a bar
 barmen	BARMAN: an employee who mixes and serves alcoholic drinks at a bar
-barmier	BARMY: marked by spirited enjoyment
-barmiest	BARMY: marked by spirited enjoyment
-barmy	marked by spirited enjoyment
+barmier	BARMY: informal or slang terms for mentally irregular
+barmiest	BARMY: informal or slang terms for mentally irregular
+barmy	informal or slang terms for mentally irregular
 barn	an outlying farm building for storing grain or animal feed and housing farm animals
 barnacle	marine crustaceans with feathery food-catching appendages; free-swimming as larvae; as adults form a hard shell and live attached to submerged surfaces
 barnacled	covered with barnacles
@@ -730,12 +730,12 @@ barnets	BARNET: hair (rhyming slang)
 barney	a noisy argument
 barneys	BARNEY: a noisy argument
 barns	BARN: an outlying farm building for storing grain or animal feed and housing farm animals
-barnstorm	appear at county fairs and carnivals as a stunt flier and parachute jumper
-barnstormed	BARNSTORM: appear at county fairs and carnivals as a stunt flier and parachute jumper
-barnstormer	an actor who travels around the country presenting plays
-barnstormers	BARNSTORMER: an actor who travels around the country presenting plays
-barnstorming	BARNSTORM: appear at county fairs and carnivals as a stunt flier and parachute jumper
-barnstorms	BARNSTORM: appear at county fairs and carnivals as a stunt flier and parachute jumper
+barnstorm	tour the country making political speeches, giving lectures, or presenting plays
+barnstormed	BARNSTORM: tour the country making political speeches, giving lectures, or presenting plays
+barnstormer	a pilot who travels around the country giving exhibits of stunt flying and parachuting
+barnstormers	BARNSTORMER: a pilot who travels around the country giving exhibits of stunt flying and parachuting
+barnstorming	BARNSTORM: tour the country making political speeches, giving lectures, or presenting plays
+barnstorms	BARNSTORM: tour the country making political speeches, giving lectures, or presenting plays
 barnyard	a yard adjoining a barn
 barnyards	BARNYARD: a yard adjoining a barn
 barometer	an instrument that measures atmospheric pressure
@@ -777,11 +777,11 @@ barreling	BARREL: a tube through which a bullet travels when a gun is fired
 barrelled	BARREL: a tube through which a bullet travels when a gun is fired
 barrelling	BARREL: a tube through which a bullet travels when a gun is fired
 barrels	BARREL: a tube through which a bullet travels when a gun is fired
-barren	an uninhabited wilderness that is worthless for cultivation
-barrener	BARREN: an uninhabited wilderness that is worthless for cultivation
-barrenest	BARREN: an uninhabited wilderness that is worthless for cultivation
-barrenness	the state (usually of a woman) of having no children or being unable to have children
-barrens	BARREN: an uninhabited wilderness that is worthless for cultivation
+barren	providing no shelter or sustenance
+barrener	BARREN: providing no shelter or sustenance
+barrenest	BARREN: providing no shelter or sustenance
+barrenness	the quality of yielding nothing of value
+barrens	BARREN: providing no shelter or sustenance
 barrette	a pin for holding women's hair in place
 barrettes	BARRETTE: a pin for holding women's hair in place
 barricade	a barrier set up by police to stop traffic on a street or road in order to catch a fugitive or inspect traffic etc.
@@ -798,20 +798,20 @@ barrister	a British or Canadian lawyer who speaks in the higher courts of law on
 barristers	BARRISTER: a British or Canadian lawyer who speaks in the higher courts of law on behalf of either the defense or prosecution
 barroom	a room or establishment where alcoholic drinks are served over a counter
 barrooms	BARROOM: a room or establishment where alcoholic drinks are served over a counter
-barrow	the quantity that a barrow will hold
-barrows	BARROW: the quantity that a barrow will hold
+barrow	a cart for carrying small loads; has handles and one or more wheels
+barrows	BARROW: a cart for carrying small loads; has handles and one or more wheels
 bars	BAR: a room or establishment where alcoholic drinks are served over a counter
 bartender	an employee who mixes and serves alcoholic drinks at a bar
 bartenders	BARTENDER: an employee who mixes and serves alcoholic drinks at a bar
-barter	an equal exchange
-bartered	BARTER: an equal exchange
+barter	exchange goods without involving money
+bartered	BARTER: exchange goods without involving money
 barterer	a trader who exchanges goods and not money
 barterers	BARTERER: a trader who exchanges goods and not money
-bartering	BARTER: an equal exchange
-barters	BARTER: an equal exchange
+bartering	BARTER: exchange goods without involving money
+barters	BARTER: exchange goods without involving money
 baryon	any of the elementary particles having a mass equal to or greater than that of a proton and that participate in strong interactions; a hadron with a baryon number of +1
 baryons	BARYON: any of the elementary particles having a mass equal to or greater than that of a proton and that participate in strong interactions; a hadron with a baryon number of +1
-basal	especially of leaves; located at the base of a plant or stem; especially arising directly from the root or rootstock or a root-like stem
+basal	serving as or forming a base
 basally	at the base
 basalt	the commonest type of solidified lava; a dense dark grey fine-grained igneous rock that is composed chiefly of plagioclase feldspar and pyroxene
 basaltic	of or relating to or containing basalt
@@ -926,8 +926,8 @@ bathed	BATHE: cleanse the entire body
 bather	a person who travels through the water by swimming
 bathers	BATHER: a person who travels through the water by swimming
 bathes	BATHE: cleanse the entire body
-bathhouse	a building containing dressing rooms for bathers
-bathhouses	BATHHOUSE: a building containing dressing rooms for bathers
+bathhouse	a building containing public baths
+bathhouses	BATHHOUSE: a building containing public baths
 bathing	immersing the body in water or sunshine
 bathmat	a mat to stand on after a bath
 bathmats	BATHMAT: a mat to stand on after a bath
@@ -960,10 +960,10 @@ batsmen	BATSMAN: a ballplayer who is batting
 battalion	an army unit usually consisting of a headquarters and three or more companies
 battalions	BATTALION: an army unit usually consisting of a headquarters and three or more companies
 batted	BAT: nocturnal mouselike mammal with forelimbs modified to form membranous wings and anatomical adaptations for echolocation by which they navigate
-batten	stuffing made of rolls or sheets of cotton wool or synthetic fiber
-battened	BATTEN: stuffing made of rolls or sheets of cotton wool or synthetic fiber
-battening	BATTEN: stuffing made of rolls or sheets of cotton wool or synthetic fiber
-battens	BATTEN: stuffing made of rolls or sheets of cotton wool or synthetic fiber
+batten	a strip fixed to something to hold it firm
+battened	BATTEN: a strip fixed to something to hold it firm
+battening	BATTEN: a strip fixed to something to hold it firm
+battens	BATTEN: a strip fixed to something to hold it firm
 batter	a ballplayer who is batting
 battered	damaged by blows or hard usage
 batterer	one who beats violently
@@ -1002,14 +1002,14 @@ battlewagon	large and heavily armoured warship
 battling	BATTLE: a hostile meeting of opposing military forces in the course of a war
 batty	informal or slang terms for mentally irregular
 batwing	one of a pair of swinging doors (as at the entrance to a western saloon)
-bauble	a mock scepter carried by a court jester
-baubles	BAUBLE: a mock scepter carried by a court jester
+bauble	cheap showy jewelry or ornament on clothing
+baubles	BAUBLE: cheap showy jewelry or ornament on clothing
 baud	a data transmission rate (bits/second) for modems
 bauds	BAUD: a data transmission rate (bits/second) for modems
-baulk	the area on a billiard table behind the balkline
-baulked	BAULK: the area on a billiard table behind the balkline
-baulking	BAULK: the area on a billiard table behind the balkline
-baulks	BAULK: the area on a billiard table behind the balkline
+baulk	refuse to comply
+baulked	BAULK: refuse to comply
+baulking	BAULK: refuse to comply
+baulks	BAULK: refuse to comply
 bauxite	a clay-like mineral; the chief ore of aluminum; composed of aluminum oxides and aluminum hydroxides; used as an abrasive and catalyst
 bavarian	a native or an inhabitant of Bavaria
 bawd	a woman who engages in sexual intercourse for money
@@ -1021,13 +1021,13 @@ bawds	BAWD: a woman who engages in sexual intercourse for money
 bawdy	humorously vulgar
 bawl	shout loudly and without restraint
 bawled	BAWL: shout loudly and without restraint
-bawler	someone who communicates vocally in a very loud voice
-bawlers	BAWLER: someone who communicates vocally in a very loud voice
+bawler	a loud weeper
+bawlers	BAWLER: a loud weeper
 bawling	BAWL: shout loudly and without restraint
 bawls	BAWL: shout loudly and without restraint
 bay	an indentation of a shoreline larger than a cove but smaller than a gulf
-bayberries	BAYBERRY: West Indian tree; source of bay rum
-bayberry	West Indian tree; source of bay rum
+bayberries	BAYBERRY: deciduous aromatic shrub of eastern North America with grey-green wax-coated berries
+bayberry	deciduous aromatic shrub of eastern North America with grey-green wax-coated berries
 bayed	BAY: an indentation of a shoreline larger than a cove but smaller than a gulf
 baying	BAY: an indentation of a shoreline larger than a cove but smaller than a gulf
 bayonet	a knife that can be fixed to the end of a rifle and used as a weapon
@@ -1115,13 +1115,13 @@ bearing	relevant relation or interconnection
 bearings	BEARING: relevant relation or interconnection
 bearish	expecting prices to fall
 bears	BEAR: have
-bearskin	the pelt of a bear (sometimes used as a rug)
-bearskins	BEARSKIN: the pelt of a bear (sometimes used as a rug)
+bearskin	tall hat; worn by some British soldiers on ceremonial occasions
+bearskins	BEARSKIN: tall hat; worn by some British soldiers on ceremonial occasions
 beast	a living organism characterized by voluntary movement
 beastie	a small animal
 beastlier	BEASTLY: very unpleasant
 beastliest	BEASTLY: very unpleasant
-beastliness	the quality of being deliberately mean
+beastliness	unpleasant nastiness; used especially of nasty weather
 beastly	very unpleasant
 beasts	BEAST: a living organism characterized by voluntary movement
 beat	come out better in a competition, race, or conflict
@@ -1132,15 +1132,15 @@ beatboxes	BEATBOX: make drum sounds with the mouth
 beatboxing	BEATBOX: make drum sounds with the mouth
 beaten	BEAT: come out better in a competition, race, or conflict
 beater	BEAT: come out better in a competition, race, or conflict
-beaters	BEATER: a worker who rouses wild game from under cover for a hunter
-beatific	experiencing or bestowing celestial joy
+beaters	BEATER: an implement for beating
+beatific	marked by utter benignity; resembling or befitting an angel or saint
 beatifically	in a blissfully serene way
-beatification	a state of supreme happiness
-beatifications	BEATIFICATION: a state of supreme happiness
+beatification	an act of the Pope who declares that a deceased person lived a holy life and is worthy of public veneration; a first step toward canonization
+beatifications	BEATIFICATION: an act of the Pope who declares that a deceased person lived a holy life and is worthy of public veneration; a first step toward canonization
 beatified	Roman Catholic; proclaimed one of the blessed and thus worthy of veneration
-beatifies	BEATIFY: fill with sublime emotion
-beatify	fill with sublime emotion
-beatifying	BEATIFY: fill with sublime emotion
+beatifies	BEATIFY: declare (a dead person) to be blessed; the first step of achieving sainthood
+beatify	declare (a dead person) to be blessed; the first step of achieving sainthood
+beatifying	BEATIFY: declare (a dead person) to be blessed; the first step of achieving sainthood
 beating	the act of overcoming or outdoing
 beatings	BEATING: the act of overcoming or outdoing
 beatitude	a state of supreme happiness
@@ -1168,10 +1168,10 @@ beautifying	BEAUTIFY: make more beautiful
 beauts	BEAUT: an outstanding example of its kind
 beauty	the qualities that give pleasure to the senses
 beaux	BEAU: boyfriends or admirers
-beaver	the soft brown fur of the beaver
-beavered	BEAVER: the soft brown fur of the beaver
-beavering	BEAVER: the soft brown fur of the beaver
-beavers	BEAVER: the soft brown fur of the beaver
+beaver	large semiaquatic rodent with webbed hind feet and a broad flat tail; construct complex dams and underwater lodges
+beavered	BEAVER: large semiaquatic rodent with webbed hind feet and a broad flat tail; construct complex dams and underwater lodges
+beavering	BEAVER: large semiaquatic rodent with webbed hind feet and a broad flat tail; construct complex dams and underwater lodges
+beavers	BEAVER: large semiaquatic rodent with webbed hind feet and a broad flat tail; construct complex dams and underwater lodges
 bebop	an early form of modern jazz (originating around 1940)
 bebops	BEBOP: an early form of modern jazz (originating around 1940)
 becalm	make steady
@@ -1212,15 +1212,15 @@ bedeck	decorate
 bedecked	BEDECK: decorate
 bedecking	BEDECK: decorate
 bedecks	BEDECK: decorate
-bedevil	treat cruelly
-bedeviled	BEDEVIL: treat cruelly
-bedeviling	BEDEVIL: treat cruelly
-bedevilled	BEDEVIL: treat cruelly
-bedevilling	BEDEVIL: treat cruelly
+bedevil	be confusing or perplexing to; cause to be unable to think clearly
+bedeviled	BEDEVIL: be confusing or perplexing to; cause to be unable to think clearly
+bedeviling	BEDEVIL: be confusing or perplexing to; cause to be unable to think clearly
+bedevilled	BEDEVIL: be confusing or perplexing to; cause to be unable to think clearly
+bedevilling	BEDEVIL: be confusing or perplexing to; cause to be unable to think clearly
 bedevilment	the act of harassing someone
-bedevils	BEDEVIL: treat cruelly
-bedfellow	a temporary associate
-bedfellows	BEDFELLOW: a temporary associate
+bedevils	BEDEVIL: be confusing or perplexing to; cause to be unable to think clearly
+bedfellow	a person with whom you share a bed
+bedfellows	BEDFELLOW: a person with whom you share a bed
 bedhead	untidy hair after sleeping
 bedheads	BEDHEAD: untidy hair after sleeping
 bedjacket	a short jacket worn in bed
@@ -1329,7 +1329,7 @@ befogged	BEFOG: make less visible or unclear
 befogging	BEFOG: make less visible or unclear
 befogs	BEFOG: make less visible or unclear
 before	earlier in time; previously
-beforehand	being ahead of time or need
+beforehand	ahead of time; in anticipation
 befoul	spot, stain, or pollute
 befouled	made dirty or foul
 befouler	one who makes dirty
@@ -1371,16 +1371,16 @@ begonia	any of numerous plants of the genus Begonia grown for their attractive g
 begonias	BEGONIA: any of numerous plants of the genus Begonia grown for their attractive glossy asymmetrical leaves and colorful flowers in usually terminal cymes or racemes
 begot	BEGET: cause or bring into being
 begotten	(of offspring) generated by procreation
-begrudge	be envious of; set one's heart on
-begrudged	BEGRUDGE: be envious of; set one's heart on
-begrudges	BEGRUDGE: be envious of; set one's heart on
-begrudging	BEGRUDGE: be envious of; set one's heart on
+begrudge	wish ill or allow unwillingly
+begrudged	BEGRUDGE: wish ill or allow unwillingly
+begrudges	BEGRUDGE: wish ill or allow unwillingly
+begrudging	BEGRUDGE: wish ill or allow unwillingly
 begrudgingly	in a begrudging way
 begs	BEG: call upon in supplication; entreat
 beguile	influence by slyness
 beguiled	BEGUILE: influence by slyness
-beguilement	magnetic personal charm
-beguilements	BEGUILEMENT: magnetic personal charm
+beguilement	an entertainment that provokes pleased interest and distracts you from worries and vexations
+beguilements	BEGUILEMENT: an entertainment that provokes pleased interest and distracts you from worries and vexations
 beguiler	someone who leads you to believe something that is not true
 beguilers	BEGUILER: someone who leads you to believe something that is not true
 beguiles	BEGUILE: influence by slyness
@@ -1401,17 +1401,17 @@ behaviorism	an approach to psychology that emphasizes observable measurable beha
 behaviorist	a psychologist who subscribes to behaviorism
 behaviorists	BEHAVIORIST: a psychologist who subscribes to behaviorism
 behaviors	BEHAVIOR: manner of acting or controlling yourself
-behaviour	the action or reaction of something (as a machine or substance) under specified circumstances
+behaviour	manner of acting or controlling yourself
 behavioural	of or relating to behavior
 behaviourally	in a way relating to behaviour
 behaviourism	an approach to psychology that emphasizes observable measurable behavior
 behaviourist	a psychologist who subscribes to behaviorism
 behaviourists	BEHAVIOURIST: a psychologist who subscribes to behaviorism
-behaviours	BEHAVIOUR: the action or reaction of something (as a machine or substance) under specified circumstances
+behaviours	BEHAVIOUR: manner of acting or controlling yourself
 behead	cut the head of
 beheaded	BEHEAD: cut the head of
 beheading	BEHEAD: cut the head of
-beheadings	BEHEADING: execution by cutting off the victim's head
+beheadings	BEHEADING: killing by cutting off the head
 beheads	BEHEAD: cut the head of
 beheld	BEHOLD: see
 behemoth	someone or something that is abnormally large and powerful
@@ -1456,20 +1456,20 @@ belabouring	BELABOUR: to work at or to absurd length
 belabours	BELABOUR: to work at or to absurd length
 belated	after the expected or usual time; delayed
 belatedly	later than usual or than expected
-belay	something to which a mountain climber's rope can be secured
-belayed	BELAY: something to which a mountain climber's rope can be secured
-belaying	BELAY: something to which a mountain climber's rope can be secured
-belays	BELAY: something to which a mountain climber's rope can be secured
+belay	turn a rope round an object or person in order to secure it or him
+belayed	BELAY: turn a rope round an object or person in order to secure it or him
+belaying	BELAY: turn a rope round an object or person in order to secure it or him
+belays	BELAY: turn a rope round an object or person in order to secure it or him
 belch	a reflex that expels gas noisily from the stomach through the mouth
 belched	BELCH: a reflex that expels gas noisily from the stomach through the mouth
 belcher	one who burps
 belchers	BELCHER: one who burps
 belches	BELCH: a reflex that expels gas noisily from the stomach through the mouth
 belching	the forceful expulsion of something from inside
-beleaguer	annoy persistently
-beleaguered	BELEAGUER: annoy persistently
+beleaguer	surround so as to force to give up
+beleaguered	BELEAGUER: surround so as to force to give up
 beleaguering	the action of an armed force that surrounds a fortified place and isolates it while continuing to attack
-beleaguers	BELEAGUER: annoy persistently
+beleaguers	BELEAGUER: surround so as to force to give up
 belfries	BELFRY: a bell tower; usually stands alone unattached to a building
 belfry	a bell tower; usually stands alone unattached to a building
 belie	be in contradiction with
@@ -1486,16 +1486,16 @@ believer	a supporter who accepts something as true
 believers	BELIEVER: a supporter who accepts something as true
 believes	BELIEVE: accept as true; take to be true
 believing	BELIEVE: accept as true; take to be true
-belittle	cause to seem less serious; play down
+belittle	express a negative opinion of
 belittled	made to seem smaller or less (especially in worth)
 belittler	one who makes others seem unimportant
 belittlers	BELITTLER: one who makes others seem unimportant
-belittles	BELITTLE: cause to seem less serious; play down
-belittling	a belittling comment
+belittles	BELITTLE: express a negative opinion of
+belittling	tending to diminish or disparage
 bell	a hollow device made of metal that makes a ringing sound when struck
 belladonna	perennial Eurasian herb with reddish bell-shaped flowers and shining black berries; extensively grown in United States; roots and leaves yield atropine
 belladonnas	BELLADONNA: perennial Eurasian herb with reddish bell-shaped flowers and shining black berries; extensively grown in United States; roots and leaves yield atropine
-bellarmine	Italian cardinal and theologian (1542-1621)
+bellarmine	a stoneware drinking jug with a long neck; decorated with a caricature of Cardinal Bellarmine (17th century)
 bellbird	any of several tropical American birds of the genus Procnias having a bell-like call
 bellbirds	BELLBIRD: any of several tropical American birds of the genus Procnias having a bell-like call
 bellboy	someone employed as an errand boy and luggage carrier around hotels
@@ -1527,12 +1527,12 @@ belltower	a tower containing bells
 bellwether	someone who assumes leadership of a movement or activity
 bellwethers	BELLWETHER: someone who assumes leadership of a movement or activity
 belly	the region of the body of a vertebrate between the thorax and the pelvis
-bellyache	an ache localized in the stomach or abdominal region
-bellyached	BELLYACHE: an ache localized in the stomach or abdominal region
+bellyache	complain
+bellyached	BELLYACHE: complain
 bellyacher	a person given to excessive complaints and crying and whining
 bellyachers	BELLYACHER: a person given to excessive complaints and crying and whining
-bellyaches	BELLYACHE: an ache localized in the stomach or abdominal region
-bellyaching	BELLYACHE: an ache localized in the stomach or abdominal region
+bellyaches	BELLYACHE: complain
+bellyaching	BELLYACHE: complain
 bellybutton	a scar where the umbilical cord was attached
 bellybuttons	BELLYBUTTON: a scar where the umbilical cord was attached
 bellyflop	a clumsy dive landing flat on the stomach
@@ -1554,15 +1554,15 @@ belting	BELT: endless loop of flexible material between two rotating shafts or p
 belts	BELT: endless loop of flexible material between two rotating shafts or pulleys
 beltway	a highway that encircles an urban area so that traffic does not have to pass through the center
 beltways	BELTWAY: a highway that encircles an urban area so that traffic does not have to pass through the center
-beluga	valuable source of caviar and isinglass; found in Black and Caspian seas
-belugas	BELUGA: valuable source of caviar and isinglass; found in Black and Caspian seas
+beluga	small northern whale that is white when adult
+belugas	BELUGA: small northern whale that is white when adult
 belying	BELIE: give a false impression of
 bemoan	regret strongly
 bemoaned	BEMOAN: regret strongly
 bemoaning	BEMOAN: regret strongly
 bemoans	BEMOAN: regret strongly
 bemuse	cause to be confused emotionally
-bemused	deeply absorbed in thought
+bemused	perplexed by many conflicting situations or statements; filled with bewilderment
 bemusedly	in a bemused way
 bemusement	confusion resulting from failure to understand
 bemuses	BEMUSE: cause to be confused emotionally
@@ -1579,8 +1579,8 @@ benchmarking	BENCHMARK: measure against a standard
 benchmarks	BENCHMARK: a standard by which something can be measured or judged
 bend	form a curve
 bendable	capable of being bent or flexed or twisted without breaking
-bender	a tool for bending
-benders	BENDER: a tool for bending
+bender	revelry in drinking; a merry drinking party
+benders	BENDER: revelry in drinking; a merry drinking party
 bendier	BENDY: able to bend easily
 bendiest	BENDY: able to bend easily
 bending	BEND: form a curve
@@ -1596,7 +1596,7 @@ benefactors	BENEFACTOR: a person who helps people or institutions (especially wi
 benefactress	a woman benefactor
 benefactresses	BENEFACTRESS: a woman benefactor
 benefice	an endowed church office giving income to its holder
-beneficence	doing good; feeling beneficent
+beneficence	the quality of being kind or helpful or generous
 beneficent	doing or producing good
 beneficently	in a beneficent way
 benefices	BENEFICE: an endowed church office giving income to its holder
@@ -1610,11 +1610,11 @@ benefiting	BENEFIT: financial assistance in time of need
 benefits	BENEFIT: financial assistance in time of need
 benefitted	BENEFIT: financial assistance in time of need
 benefitting	BENEFIT: financial assistance in time of need
-benevolence	disposition to do good
-benevolences	BENEVOLENCE: disposition to do good
+benevolence	an inclination to do kind or charitable acts
+benevolences	BENEVOLENCE: an inclination to do kind or charitable acts
 benevolent	intending or showing kindness
 benevolently	in a benevolent manner
-benighted	overtaken by night or darkness
+benighted	lacking enlightenment or knowledge or culture
 benightedly	in a benighted way
 benightedness	the quality of being benighted
 benign	not dangerous to health; not recurrent or progressive (especially of a tumor)
@@ -1643,12 +1643,12 @@ berated	BERATE: censure severely or angrily
 berates	BERATE: censure severely or angrily
 berating	BERATE: censure severely or angrily
 bereave	deprive through death
-bereaved	a person who has suffered the death of someone they loved
+bereaved	sorrowful through loss or deprivation
 bereavement	state of sorrow over the death or departure of a loved one
 bereavements	BEREAVEMENT: state of sorrow over the death or departure of a loved one
 bereaves	BEREAVE: deprive through death
 bereaving	BEREAVE: deprive through death
-bereft	unhappy in love; suffering from unrequited love
+bereft	sorrowful through loss or deprivation
 beret	a cap with no brim or bill; made of soft cloth
 berets	BERET: a cap with no brim or bill; made of soft cloth
 berg	a large mass of ice floating at sea; usually broken off of a polar glacier
@@ -1659,13 +1659,13 @@ beribboned	decorated with ribbons
 beriberi	avitaminosis caused by lack of thiamine (vitamin B1)
 berk	a stupid person who is easy to take advantage of
 berks	BERK: a stupid person who is easy to take advantage of
-berm	a narrow ledge or shelf typically at the top or bottom of a slope
-berms	BERM: a narrow ledge or shelf typically at the top or bottom of a slope
+berm	a narrow edge of land (usually unpaved) along the side of a road
+berms	BERM: a narrow edge of land (usually unpaved) along the side of a road
 berried	BERRY: any of numerous small and pulpy edible fruits; used as desserts or in making jams and jellies and preserves
 berries	BERRY: any of numerous small and pulpy edible fruits; used as desserts or in making jams and jellies and preserves
 berry	any of numerous small and pulpy edible fruits; used as desserts or in making jams and jellies and preserves
 berrying	BERRY: any of numerous small and pulpy edible fruits; used as desserts or in making jams and jellies and preserves
-berserk	one of the ancient Norse warriors legendary for working themselves into a frenzy before a battle and fighting with reckless savagery and insane fury
+berserk	wildly frenzied and out of control
 berth	a job in an organization
 berthed	BERTH: a job in an organization
 berthing	BERTH: a job in an organization
@@ -1719,7 +1719,7 @@ bespoken	(of clothing) custom-made
 best	the supreme effort one can make
 bested	BEST: the supreme effort one can make
 bestial	resembling a beast; showing lack of human sensibility
-bestiality	the stupid brutal quality of a beast
+bestiality	sexual activity between a person and an animal
 bestiaries	BESTIARY: a medieval book (usually illustrated) with allegorical and amusing descriptions of real and fabled animals
 bestiary	a medieval book (usually illustrated) with allegorical and amusing descriptions of real and fabled animals
 besting	BEST: the supreme effort one can make
@@ -1761,17 +1761,17 @@ betide	become of; happen to
 betided	BETIDE: become of; happen to
 betides	BETIDE: become of; happen to
 betiding	BETIDE: become of; happen to
-betoken	be a signal for or a symptom of
-betokened	BETOKEN: be a signal for or a symptom of
-betokening	BETOKEN: be a signal for or a symptom of
-betokens	BETOKEN: be a signal for or a symptom of
+betoken	indicate, as with a sign or an omen
+betokened	BETOKEN: indicate, as with a sign or an omen
+betokening	BETOKEN: indicate, as with a sign or an omen
+betokens	BETOKEN: indicate, as with a sign or an omen
 betook	BETAKE: go
 betray	reveal unintentionally
 betrayal	an act of deliberate betrayal
 betrayals	BETRAYAL: an act of deliberate betrayal
 betrayed	BETRAY: reveal unintentionally
-betrayer	one who reveals confidential information in return for money
-betrayers	BETRAYER: one who reveals confidential information in return for money
+betrayer	a person who betrays someone's trust or deserts a cause
+betrayers	BETRAYER: a person who betrays someone's trust or deserts a cause
 betraying	BETRAY: reveal unintentionally
 betrays	BETRAY: reveal unintentionally
 betroth	give to in marriage
@@ -1861,7 +1861,7 @@ biassed	BIAS: a partiality that prevents objective consideration of an issue or 
 biassing	BIAS: a partiality that prevents objective consideration of an issue or situation
 biathlon	a sport combining skiing and rifle shooting
 biathlons	BIATHLON: a sport combining skiing and rifle shooting
-bib	top part of an apron; covering the chest
+bib	a napkin tied under the chin of a child while eating
 bibbed	having a bib
 bible	the sacred writings of the Christian religions
 bibles	BIBLE: the sacred writings of the Christian religions
@@ -1879,7 +1879,7 @@ bibliology	the study of books
 bibliophile	someone who loves (and usually collects) books
 bibliophiles	BIBLIOPHILE: someone who loves (and usually collects) books
 bibliotheca	a collection of books
-bibs	BIB: top part of an apron; covering the chest
+bibs	BIB: a napkin tied under the chin of a child while eating
 bibulous	given to or marked by the consumption of alcohol
 bicameral	composed of two legislative bodies
 bicarb	bicarbonate of soda
@@ -1930,13 +1930,13 @@ bidets	BIDET: a basin for washing genitals and anal area
 biding	BID: propose a payment
 bidirectional	reactive or functioning or allowing movement in two usually opposite directions
 bids	BID: propose a payment
-biennial	a plant having a life cycle that normally takes two seasons from germination to death to complete; flowering biennials usually bloom and fruit in the second season
+biennial	occurring every second year
 biennially	every two years
-biennials	BIENNIAL: a plant having a life cycle that normally takes two seasons from germination to death to complete; flowering biennials usually bloom and fruit in the second season
+biennials	BIENNIAL: occurring every second year
 biennium	a period of two years
 bienniums	BIENNIUM: a period of two years
-bier	a coffin along with its stand
-biers	BIER: a coffin along with its stand
+bier	a stand to support a corpse or a coffin prior to burial
+biers	BIER: a stand to support a corpse or a coffin prior to burial
 biff	a blow with the fist
 biffed	BIFF: a blow with the fist
 biffing	BIFF: a blow with the fist
@@ -1949,8 +1949,8 @@ bifurcate	split or divide into two
 bifurcated	divided into or made up of two parts
 bifurcates	BIFURCATE: split or divide into two
 bifurcating	BIFURCATE: split or divide into two
-bifurcation	a bifurcating branch (one or both of them)
-bifurcations	BIFURCATION: a bifurcating branch (one or both of them)
+bifurcation	the place where something divides into two branches
+bifurcations	BIFURCATION: the place where something divides into two branches
 big	above average in size or number or quantity or magnitude or extent
 bigamist	someone who marries one person while already legally married to another
 bigamists	BIGAMIST: someone who marries one person while already legally married to another
@@ -1969,10 +1969,10 @@ bighead	any of various diseases of animals characterized by edema of the head an
 bigheaded	(used colloquially) overly conceited or arrogant
 bigheads	BIGHEAD: any of various diseases of animals characterized by edema of the head and neck
 bighearted	given or giving freely
-bighorn	a river that flows from central Wyoming to the Yellowstone River in southern Montana
-bighorns	BIGHORN: a river that flows from central Wyoming to the Yellowstone River in southern Montana
-bight	a loop in a rope
-bights	BIGHT: a loop in a rope
+bighorn	wild sheep of mountainous regions of western North America having massive curled horns
+bighorns	BIGHORN: wild sheep of mountainous regions of western North America having massive curled horns
+bight	a bend or curve (especially in a coastline)
+bights	BIGHT: a bend or curve (especially in a coastline)
 bigmouth	a person who talks too much
 bigmouthed	BIGMOUTH: a person who talks too much
 bigmouths	BIGMOUTH: a person who talks too much
@@ -1986,40 +1986,40 @@ bigs	BIG: large things
 bigwig	the most important person in a group or undertaking
 bigwigs	BIGWIG: the most important person in a group or undertaking
 bijou	a small and delicately worked piece
-bike	a motor vehicle with two wheels and a strong frame
-biked	BIKE: a motor vehicle with two wheels and a strong frame
+bike	a wheeled vehicle that has two wheels and is moved by foot pedals
+biked	BIKE: a wheeled vehicle that has two wheels and is moved by foot pedals
 biker	a person who rides a bicycle
 bikers	originally a British youth subculture that evolved out of the teddy boys in the 1960s; wore black leather jackets and jeans and boots; had greased hair and rode motorcycles and listened to rock'n'roll; were largely unskilled manual laborers
-bikes	BIKE: a motor vehicle with two wheels and a strong frame
+bikes	BIKE: a wheeled vehicle that has two wheels and is moved by foot pedals
 bikeway	a path for cyclists
 bikie	a member of a motorcycle gang
 bikies	BIKIE: a member of a motorcycle gang
-biking	BIKE: a motor vehicle with two wheels and a strong frame
-bikini	an atoll in the Marshall Islands; formerly used by the United States as a site for testing nuclear weapons
-bikinis	BIKINI: an atoll in the Marshall Islands; formerly used by the United States as a site for testing nuclear weapons
+biking	BIKE: a wheeled vehicle that has two wheels and is moved by foot pedals
+bikini	a woman's very brief bathing suit
+bikinis	BIKINI: a woman's very brief bathing suit
 bikkie	a biscuit
 bikkies	BIKKIE: a biscuit
 bilabial	a consonant that is articulated using both lips; /p/ or /b/ or /w/
 bilabials	BILABIAL: a consonant that is articulated using both lips; /p/ or /b/ or /w/
 bilateral	having identical parts on each side of an axis
-bilaterally	with the involvement of two parties or governments
+bilaterally	so as to involve two sides or parts
 bilberries	BILBERRY: blue-black berries similar to American blueberries
 bilberry	blue-black berries similar to American blueberries
 bilbies	BILBY: bandicoot with leathery ears like a rabbit
 bilby	bandicoot with leathery ears like a rabbit
 bile	a digestive juice secreted by the liver and stored in the gallbladder; aids in the digestion of fats
-bilge	water accumulated in the bilge of a ship
-bilged	BILGE: water accumulated in the bilge of a ship
+bilge	where the sides of the vessel curve in to form the bottom
+bilged	BILGE: where the sides of the vessel curve in to form the bottom
 bilges	in a vessel with two hulls, an enclosed area between the frames at each side
 bilgewater	pretentious or silly talk or writing
-bilging	BILGE: water accumulated in the bilge of a ship
+bilging	BILGE: where the sides of the vessel curve in to form the bottom
 bilharzia	an infestation with or a resulting infection caused by a parasite of the genus Schistosoma; common in the tropics and Far East; symptoms depend on the part of the body infected
-biliary	relating to or containing bile
+biliary	relating to the bile ducts or the gallbladder
 bilinear	linear with respect to each of two variables or positions
 bilingual	using or knowing two languages
 bilingualism	the ability to speak two languages colloquially
 bilinguals	BILINGUAL: using or knowing two languages
-bilious	relating to or containing bile
+bilious	suffering from or suggesting a liver disorder or gastric distress
 biliously	in a bilious way
 biliousness	gastric distress caused by a disorder of the liver or gall bladder
 bilirubin	an orange-yellow pigment in the bile that forms as a product of hemoglobin; excess amounts in the blood produce the yellow appearance observed in jaundice
@@ -2038,48 +2038,48 @@ billboards	BILLBOARD: large outdoor signboard
 billed	BILL: a statute in draft before it becomes law
 biller	one who sends out bills
 billers	BILLER: one who sends out bills
-billet	a short personal letter
+billet	lodging for military personnel (especially in a private home)
 billetdoux	a love letter
-billeted	BILLET: a short personal letter
+billeted	BILLET: lodging for military personnel (especially in a private home)
 billeter	one who provides lodging for soldiers
 billeters	BILLETER: one who provides lodging for soldiers
-billeting	BILLET: a short personal letter
-billets	BILLET: a short personal letter
-billfish	primitive predaceous North American fish covered with hard scales and having long jaws with needlelike teeth
+billeting	BILLET: lodging for military personnel (especially in a private home)
+billets	BILLET: lodging for military personnel (especially in a private home)
+billfish	giant warm-water game fish having a prolonged and rounded toothless upper jaw
 billfold	a pocket-size case for holding papers and paper money
 billfolds	BILLFOLD: a pocket-size case for holding papers and paper money
 billiard	of or relating to billiards
 billiards	any of several games played on rectangular cloth-covered table (with cushioned edges) in which long tapering cue sticks are used to propel ivory (or composition) balls
-billies	BILLY: a short stout club used primarily by policemen
+billies	BILLY: male goat
 billing	BILL: a statute in draft before it becomes law
 billings	the largest city in Montana; located in southern Montana on the Yellowstone river
 billion	the number that is represented as a one followed by 12 zeros; in the United Kingdom the usage followed in the United States is frequently seen
 billionaire	a very rich person whose material wealth is valued at more than a billion dollars
 billionaires	BILLIONAIRE: a very rich person whose material wealth is valued at more than a billion dollars
 billions	BILLION: the number that is represented as a one followed by 12 zeros; in the United Kingdom the usage followed in the United States is frequently seen
-billionth	position 1,000,000,000 in a countable series of things
-billionths	BILLIONTH: position 1,000,000,000 in a countable series of things
+billionth	one part in a billion equal parts
+billionths	BILLIONTH: one part in a billion equal parts
 billow	rise up as if in waves
 billowed	BILLOW: rise up as if in waves
 billowing	BILLOW: rise up as if in waves
 billows	BILLOW: rise up as if in waves
 billowy	characterized by great swelling waves or surges
 bills	BILL: a statute in draft before it becomes law
-billy	a short stout club used primarily by policemen
+billy	male goat
 billycan	a metal pot for boiling water over a campfire
 billycans	BILLYCAN: a metal pot for boiling water over a campfire
 biltong	meat that is salted and cut into strips and dried in the sun
 bimbo	a young woman indulged by rich and powerful older men
 bimboes	BIMBO: attractive but unintelligent people
 bimbos	BIMBO: a young woman indulged by rich and powerful older men
-bimetallic	pertaining to a monetary system based on two metals
+bimetallic	formed of two different metals or alloys; especially in sheets bonded together
 bimetallics	BIMETALLIC: a strip or coin made of two metals
 bimodal	of a distribution; having or occurring with two modes
-bimonthlies	BIMONTHLY: a periodical that is published twice a month or every two months (either 24 or 6 issues per year)
-bimonthly	a periodical that is published twice a month or every two months (either 24 or 6 issues per year)
+bimonthlies	BIMONTHLY: occurring twice a month
+bimonthly	occurring twice a month
 bin	a container; usually has a lid
-binaries	BINARY: a system of two stars that revolve around each other under their mutual gravitation
-binary	a system of two stars that revolve around each other under their mutual gravitation
+binaries	BINARY: of or pertaining to a number system have 2 as its base
+binary	of or pertaining to a number system have 2 as its base
 binational	involving two nations
 binaural	relating to or having or hearing with two ears
 bind	stick to firmly
@@ -2093,11 +2093,11 @@ bindings	BINDING: the capacity to attract and hold something
 bindis	BINDI: a decorative dot worn on the forehead
 binds	BIND: stick to firmly
 bindweed	any of several vines of the genera Convolvulus and Calystegia having a twining habit
-binge	any act of immoderate indulgence
-binged	BINGE: any act of immoderate indulgence
-bingeing	BINGE: any act of immoderate indulgence
-binges	BINGE: any act of immoderate indulgence
-binging	BINGE: any act of immoderate indulgence
+binge	an occasion for excessive eating or drinking
+binged	BINGE: an occasion for excessive eating or drinking
+bingeing	BINGE: an occasion for excessive eating or drinking
+binges	BINGE: an occasion for excessive eating or drinking
+binging	BINGE: an occasion for excessive eating or drinking
 bingle	a base hit on which the batter stops safely at first base
 bingles	BINGLE: a base hit on which the batter stops safely at first base
 bingo	a game in which numbered balls are drawn at random and players cover the corresponding numbers on their cards
@@ -2139,7 +2139,7 @@ biofilms	BIOFILM: a thin layer of microbes clinging to a surface
 biofuel	fuel made from plants or other living matter
 biofuels	BIOFUEL: fuel made from plants or other living matter
 biogas	gas produced by rotting organic matter
-biogenesis	production of a chemical compound by a living organism
+biogenesis	the production of living organisms from other living organisms
 biogenic	produced by living organisms or biological processes
 biogeography	dealing with the geographical distribution of animals and plants
 biographer	someone who writes an account of a person's life
@@ -2159,7 +2159,7 @@ biology	the science that studies living organisms
 bioluminescence	luminescence produced by physiological processes (as in the firefly)
 biomarker	a measurable sign of a biological state
 biomarkers	BIOMARKER: a measurable sign of a biological state
-biomass	plant materials and animal waste used as fuel
+biomass	the total mass of living matter in a given unit area
 biome	a major biotic community characterized by the dominant forms of plant life and the prevailing climate
 biomechanical	relating to the mechanics of living bodies
 biomechanics	the study of the mechanics of living bodies
@@ -2168,7 +2168,7 @@ biomedicine	the branch of medical science that applies biological and physiologi
 biomes	BIOME: a major biotic community characterized by the dominant forms of plant life and the prevailing climate
 biometric	relating to measurement of body features for identification
 biometrics	BIOMETRIC: relating to measurement of body features for identification
-bionic	of or relating to bionics
+bionic	having particular physiological functions augmented or replaced by electronic or electromechanical components
 bionics	application of biological principles to the study and design of engineering systems (especially electronic systems)
 biophysical	relating to the physics of living things
 biophysicist	a physicist who applies the methods of physics to biology
@@ -2184,7 +2184,7 @@ biopsychology	the study of how biology shapes behaviour
 biopsying	BIOPSY: remove tissue for medical examination
 bioreactor	a vessel for growing cells or microbes
 bioreactors	BIOREACTOR: a vessel for growing cells or microbes
-bioremediation	the branch of biotechnology that uses biological process to overcome environmental problems
+bioremediation	the act of treating waste or pollutants by the use of microorganisms (as bacteria) that can break down the undesirable substances
 biorhythm	a regular cycle in a living thing's body
 biorhythms	BIORHYTHM: a regular cycle in a living thing's body
 bioscience	any of the branches of natural science dealing with the structure and behavior of living organisms
@@ -2207,7 +2207,7 @@ biotin	a B vitamin that aids in body growth
 biotite	dark brown to black mica found in igneous and metamorphic rock
 bipartisan	supported by both sides
 bipartisanship	cooperation between two political parties
-bipartite	divided into two portions almost to the base
+bipartite	involving two parts or elements
 biped	an animal with two feet
 bipedal	having two feet
 bipeds	BIPED: an animal with two feet
@@ -2215,12 +2215,12 @@ biplane	old fashioned airplane; has two wings one above the other
 biplanes	BIPLANE: old fashioned airplane; has two wings one above the other
 bipolar	of or relating to manic depressive illness
 biracial	consisting of or combining two races
-birch	hard close-grained wood of any of various birch trees; used especially in furniture and interior finishes and plywood
-birched	BIRCH: hard close-grained wood of any of various birch trees; used especially in furniture and interior finishes and plywood
-bircher	BIRCH: hard close-grained wood of any of various birch trees; used especially in furniture and interior finishes and plywood
+birch	any betulaceous tree or shrub of the genus Betula having a thin peeling bark
+birched	BIRCH: any betulaceous tree or shrub of the genus Betula having a thin peeling bark
+bircher	BIRCH: any betulaceous tree or shrub of the genus Betula having a thin peeling bark
 birchers	BIRCHER: one who birches
-birches	BIRCH: hard close-grained wood of any of various birch trees; used especially in furniture and interior finishes and plywood
-birching	BIRCH: hard close-grained wood of any of various birch trees; used especially in furniture and interior finishes and plywood
+birches	BIRCH: any betulaceous tree or shrub of the genus Betula having a thin peeling bark
+birching	BIRCH: any betulaceous tree or shrub of the genus Betula having a thin peeling bark
 bird	warm-blooded egg-laying vertebrates characterized by feathers and forelimbs modified as wings
 birdbath	an ornamental basin (usually in a garden) for birds to bathe in
 birdbaths	BIRDBATH: an ornamental basin (usually in a garden) for birds to bathe in
@@ -2282,9 +2282,9 @@ bisections	BISECTION: dividing into two equal parts
 bisector	a line that divides something into two equal parts
 bisectors	BISECTOR: a line that divides something into two equal parts
 bisects	BISECT: cut in half or cut in two
-bisexual	a person who is sexually attracted to both sexes
-bisexuality	showing characteristics of both sexes
-bisexuals	BISEXUAL: a person who is sexually attracted to both sexes
+bisexual	sexually attracted to both sexes
+bisexuality	sexual attraction to both men and women
+bisexuals	BISEXUAL: sexually attracted to both sexes
 bishop	a senior member of the Christian clergy having spiritual and administrative authority; appointed in Christian churches to oversee priests or ministers; considered in some churches to be successors of the twelve Apostles of Christ
 bishopric	the territorial jurisdiction of a bishop
 bishoprics	BISHOPRIC: the territorial jurisdiction of a bishop
@@ -2297,14 +2297,14 @@ bisques	BISQUE: a thick cream soup made from shellfish
 bistro	a small informal restaurant; serves wine
 bistros	BISTRO: a small informal restaurant; serves wine
 bit	a small piece or quantity of something
-bitch	an unpleasant difficulty
-bitched	BITCH: an unpleasant difficulty
-bitches	BITCH: an unpleasant difficulty
+bitch	female of any member of the dog family
+bitched	BITCH: female of any member of the dog family
+bitches	BITCH: female of any member of the dog family
 bitchier	BITCHY: marked by or arising from malice
 bitchiest	BITCHY: marked by or arising from malice
 bitchily	in a spiteful way
 bitchiness	malevolence by virtue of being malicious or spiteful or nasty
-bitching	BITCH: an unpleasant difficulty
+bitching	BITCH: female of any member of the dog family
 bitchy	marked by or arising from malice
 bitcoin	a digital currency
 bitcoins	BITCOIN: a digital currency
@@ -2342,8 +2342,8 @@ bivouac	temporary living quarters specially built by the army for soldiers
 bivouacked	BIVOUAC: camp temporarily without proper shelter
 bivouacking	the act of encamping and living in tents in a camp
 bivouacs	BIVOUAC: temporary living quarters specially built by the army for soldiers
-biweeklies	BIWEEKLY: a periodical that is published twice a week or every two weeks (either 104 or 26 issues per year)
-biweekly	a periodical that is published twice a week or every two weeks (either 104 or 26 issues per year)
+biweeklies	BIWEEKLY: occurring every two weeks
+biweekly	occurring every two weeks
 biz	your occupation or line of work
 bizarre	conspicuously or grossly unconventional or unusual
 bizarrely	in a bizarre way
@@ -2351,23 +2351,23 @@ bizarreness	strikingly out of the ordinary
 blab	divulge confidential information or secrets
 blabbed	BLAB: divulge confidential information or secrets
 blabber	BLAB: divulge confidential information or secrets
-blabbered	BLABBER: one who reveals confidential information in return for money
-blabbering	BLABBER: one who reveals confidential information in return for money
+blabbered	BLABBER: speak (about unimportant matters) rapidly and incessantly
+blabbering	BLABBER: speak (about unimportant matters) rapidly and incessantly
 blabbermouth	someone who gossips indiscreetly
 blabbermouths	BLABBERMOUTH: someone who gossips indiscreetly
-blabbers	BLABBER: one who reveals confidential information in return for money
+blabbers	BLABBER: speak (about unimportant matters) rapidly and incessantly
 blabbing	BLAB: divulge confidential information or secrets
 blabs	BLAB: divulge confidential information or secrets
 black	being of the achromatic color of maximum darkness; having little or no hue owing to absorption of almost all incident light
-blackball	the act of excluding someone by a negative vote or veto
-blackballed	BLACKBALL: the act of excluding someone by a negative vote or veto
-blackballing	BLACKBALL: the act of excluding someone by a negative vote or veto
-blackballs	BLACKBALL: the act of excluding someone by a negative vote or veto
+blackball	expel from a community or group
+blackballed	BLACKBALL: expel from a community or group
+blackballing	BLACKBALL: expel from a community or group
+blackballs	BLACKBALL: expel from a community or group
 blackberries	BLACKBERRY: large sweet black or very dark purple edible aggregate fruit of any of various bushes of the genus Rubus
 blackberry	large sweet black or very dark purple edible aggregate fruit of any of various bushes of the genus Rubus
 blackberrying	BLACKBERRY: large sweet black or very dark purple edible aggregate fruit of any of various bushes of the genus Rubus
-blackbird	any bird of the family Icteridae whose male is black or predominantly black
-blackbirds	BLACKBIRD: any bird of the family Icteridae whose male is black or predominantly black
+blackbird	common black European thrush
+blackbirds	BLACKBIRD: common black European thrush
 blackboard	sheet of slate; for writing with chalk
 blackboards	BLACKBOARD: sheet of slate; for writing with chalk
 blackcurrant	a small dark purple berry
@@ -2382,7 +2382,7 @@ blackens	BLACKEN: make or become black
 blacker	BLACK: being of the achromatic color of maximum darkness; having little or no hue owing to absorption of almost all incident light
 blackest	BLACK: being of the achromatic color of maximum darkness; having little or no hue owing to absorption of almost all incident light
 blackface	the makeup (usually burnt cork) used by a performer in order to imitate a Negro
-blackfish	large dark-colored food fish of the Atlantic coast of North America
+blackfish	small dark-colored whale of the Atlantic coast of the United States; the largest male acts as pilot or leader for the school
 blackflies	BLACKFLY: blackish aphid that infests e.g. beans and sugar beets
 blackfly	blackish aphid that infests e.g. beans and sugar beets
 blackguard	someone who is morally reprehensible
@@ -2391,10 +2391,10 @@ blackhead	a black-tipped plug clogging a pore of the skin
 blackheads	BLACKHEAD: a black-tipped plug clogging a pore of the skin
 blacking	BLACK: being of the achromatic color of maximum darkness; having little or no hue owing to absorption of almost all incident light
 blackish	of something that is somewhat black
-blackjack	a common scrubby deciduous tree of central and southeastern United States having dark bark and broad three-lobed (club-shaped) leaves; tends to form dense thickets
-blackjacked	BLACKJACK: a common scrubby deciduous tree of central and southeastern United States having dark bark and broad three-lobed (club-shaped) leaves; tends to form dense thickets
-blackjacking	BLACKJACK: a common scrubby deciduous tree of central and southeastern United States having dark bark and broad three-lobed (club-shaped) leaves; tends to form dense thickets
-blackjacks	BLACKJACK: a common scrubby deciduous tree of central and southeastern United States having dark bark and broad three-lobed (club-shaped) leaves; tends to form dense thickets
+blackjack	a gambling game using cards; the object is to hold cards having a higher count than those dealt to the banker up to but not exceeding 21
+blackjacked	BLACKJACK: a gambling game using cards; the object is to hold cards having a higher count than those dealt to the banker up to but not exceeding 21
+blackjacking	BLACKJACK: a gambling game using cards; the object is to hold cards having a higher count than those dealt to the banker up to but not exceeding 21
+blackjacks	BLACKJACK: a gambling game using cards; the object is to hold cards having a higher count than those dealt to the banker up to but not exceeding 21
 blackleg	someone who works (or provides workers) during a strike
 blacklegs	BLACKLEG: someone who works (or provides workers) during a strike
 blacklight	a lamp giving ultraviolet light
@@ -2424,8 +2424,8 @@ blacktop	a black bituminous material used for paving roads or other areas; usual
 blacktopped	BLACKTOP: a black bituminous material used for paving roads or other areas; usually spread over crushed rock
 blacktopping	a black bituminous material used for paving roads or other areas; usually spread over crushed rock
 blacktops	BLACKTOP: a black bituminous material used for paving roads or other areas; usually spread over crushed rock
-blackwood	very dark wood of any of several blackwood trees
-blackwoods	BLACKWOOD: very dark wood of any of several blackwood trees
+blackwood	any of several hardwood trees yielding very dark-colored wood
+blackwoods	BLACKWOOD: any of several hardwood trees yielding very dark-colored wood
 bladder	a distensible membranous sac (usually containing liquid or gas)
 bladders	BLADDER: a distensible membranous sac (usually containing liquid or gas)
 blade	especially a leaf of grass or the broad portion of a leaf as distinct from the petiole
@@ -2485,7 +2485,7 @@ blarney	flattery designed to gain favor
 blarneyed	BLARNEY: flattery designed to gain favor
 blarneying	BLARNEY: flattery designed to gain favor
 blarneys	BLARNEY: flattery designed to gain favor
-blase	very sophisticated especially because of surfeit; versed in the ways of the world
+blase	uninterested because of frequent exposure or indulgence
 blaspheme	utter obscenities or profanities
 blasphemed	BLASPHEME: utter obscenities or profanities
 blasphemer	a person who speaks disrespectfully of sacred things
@@ -2605,8 +2605,8 @@ blighters	BLIGHTER: a persistently annoying person
 blighting	BLIGHT: a state or condition being blighted
 blights	BLIGHT: a state or condition being blighted
 blimey	an exclamation of surprise
-blimp	any elderly pompous reactionary ultranationalistic person (after the cartoon character created by Sir David Low)
-blimps	BLIMP: any elderly pompous reactionary ultranationalistic person (after the cartoon character created by Sir David Low)
+blimp	a small nonrigid airship used for observation or as a barrage balloon
+blimps	BLIMP: a small nonrigid airship used for observation or as a barrage balloon
 blind	people who have severe visual impairments, considered as a group
 blinded	deprived of sight
 blinder	BLIND: people who have severe visual impairments, considered as a group
@@ -2653,16 +2653,16 @@ blistered	BLISTER: get blistered
 blistering	harsh or corrosive in tone
 blisteringly	in a blistering way
 blisters	BLISTER: get blistered
-blistery	hot enough to raise (or as if to raise) blisters
+blistery	covered with small blisters
 blithe	lacking or showing a lack of due concern
 blithely	in a joyous manner
 blither	BLITHE: lacking or showing a lack of due concern
 blithering	BLITHER: to talk foolishly
 blithest	BLITHE: lacking or showing a lack of due concern
-blitz	defensive players try to break through the offensive line
-blitzed	BLITZ: defensive players try to break through the offensive line
-blitzes	BLITZ: defensive players try to break through the offensive line
-blitzing	BLITZ: defensive players try to break through the offensive line
+blitz	a swift and violent military offensive with intensive aerial bombardment
+blitzed	BLITZ: a swift and violent military offensive with intensive aerial bombardment
+blitzes	BLITZ: a swift and violent military offensive with intensive aerial bombardment
+blitzing	BLITZ: a swift and violent military offensive with intensive aerial bombardment
 blitzkrieg	a swift and violent military offensive with intensive aerial bombardment
 blitzkriegs	BLITZKRIEG: a swift and violent military offensive with intensive aerial bombardment
 blivet	something impossible or overstuffed; also a drawing of an impossible object
@@ -2688,10 +2688,10 @@ blockade	a war measure that isolates some area of importance to the enemy
 blockaded	BLOCKADE: a war measure that isolates some area of importance to the enemy
 blockades	BLOCKADE: a war measure that isolates some area of importance to the enemy
 blockading	blocking entrance to and exit from seaports and harbors
-blockage	the physical condition of blocking or filling a passage with an obstruction
-blockages	BLOCKAGE: the physical condition of blocking or filling a passage with an obstruction
-blockbuster	a large bomb used to demolish extensive areas (as a city block)
-blockbusters	BLOCKBUSTER: a large bomb used to demolish extensive areas (as a city block)
+blockage	an obstruction in a pipe or tube
+blockages	BLOCKAGE: an obstruction in a pipe or tube
+blockbuster	an unusually successful hit with widespread popularity and huge sales (especially a movie or play or recording or novel)
+blockbusters	BLOCKBUSTER: an unusually successful hit with widespread popularity and huge sales (especially a movie or play or recording or novel)
 blockbusting	hugely successful
 blockchain	a digital record of transactions shared across many computers
 blockchains	BLOCKCHAIN: a digital record of transactions shared across many computers
@@ -2771,7 +2771,7 @@ bloody	having or covered with or accompanied by blood
 bloodying	BLOODY: having or covered with or accompanied by blood
 bloom	the organic process of bearing flowers
 bloomed	BLOOM: the organic process of bearing flowers
-bloomer	a flower that blooms in a particular way
+bloomer	an embarrassing mistake
 bloomers	(used in the plural) underpants worn by women
 blooming	the organic process of bearing flowers
 blooms	BLOOM: the organic process of bearing flowers
@@ -2827,10 +2827,10 @@ blowjobs	BLOWJOB: slang for fellatio
 blowlamp	a burner that mixes air and gas to produce a very hot flame
 blowlamps	BLOWLAMP: a burner that mixes air and gas to produce a very hot flame
 blown	being moved or acted upon by moving air or vapor
-blowout	an easy victory
-blowouts	BLOWOUT: an easy victory
-blowpipe	a tube that directs air or gas into a flame to concentrate heat
-blowpipes	BLOWPIPE: a tube that directs air or gas into a flame to concentrate heat
+blowout	a sudden malfunction of a part or apparatus
+blowouts	BLOWOUT: a sudden malfunction of a part or apparatus
+blowpipe	a tube through which darts can be shot by blowing
+blowpipes	BLOWPIPE: a tube through which darts can be shot by blowing
 blows	BLOW: exhale hard
 blowsier	BLOWSY: characteristic of or befitting a slut or slattern; used especially of women
 blowsiest	BLOWSY: characteristic of or befitting a slut or slattern; used especially of women
@@ -2861,23 +2861,23 @@ bludgeons	BLUDGEON: a club used as a weapon
 bludger	a person who avoids work and relies on others
 bludgers	BLUDGER: a person who avoids work and relies on others
 blue	blue color or pigment; resembling the color of the clear sky in the daytime
-bluebell	a liliaceous plant; sometimes placed in genus Scilla
-bluebells	BLUEBELL: a liliaceous plant; sometimes placed in genus Scilla
+bluebell	perennial of northern hemisphere with slender stems and bell-shaped blue flowers
+bluebells	BLUEBELL: perennial of northern hemisphere with slender stems and bell-shaped blue flowers
 blueberries	BLUEBERRY: sweet edible dark-blue berries of either low-growing or high-growing blueberry plants
 blueberry	sweet edible dark-blue berries of either low-growing or high-growing blueberry plants
-bluebird	fruit-eating mostly brilliant blue songbird of the East Indies
-bluebirds	BLUEBIRD: fruit-eating mostly brilliant blue songbird of the East Indies
+bluebird	blue North American songbird
+bluebirds	BLUEBIRD: blue North American songbird
 bluebonnet	low-growing annual herb of southwestern United States (Texas) having silky foliage and blue flowers; a leading cause of livestock poisoning in the southwestern United States
 bluebonnets	BLUEBONNET: low-growing annual herb of southwestern United States (Texas) having silky foliage and blue flowers; a leading cause of livestock poisoning in the southwestern United States
-bluebottle	an annual Eurasian plant cultivated in North America having showy heads of blue or purple or pink or white flowers
-bluebottles	BLUEBOTTLE: an annual Eurasian plant cultivated in North America having showy heads of blue or purple or pink or white flowers
+bluebottle	blowfly with iridescent blue body; makes a loud buzzing noise in flight
+bluebottles	BLUEBOTTLE: blowfly with iridescent blue body; makes a loud buzzing noise in flight
 blued	BLUE: blue color or pigment; resembling the color of the clear sky in the daytime
-bluefin	flesh of very large tuna
+bluefin	largest tuna; to 1500 pounds; of mostly temperate seas: feed in polar regions but breed in tropics
 bluefish	bluish warm-water marine food and game fish that follow schools of small fishes into shallow waters
 bluefishes	BLUEFISH: bluish warm-water marine food and game fish that follow schools of small fishes into shallow waters
 bluegill	important edible sunfish of eastern and central United States
 bluegills	BLUEGILL: important edible sunfish of eastern and central United States
-bluegrass	any of various grasses of the genus Poa
+bluegrass	a type of country music played at a rapid tempo on banjos and guitars
 blueing	BLUE: blue color or pigment; resembling the color of the clear sky in the daytime
 blueish	of the color intermediate between green and violet; having a color similar to that of a clear unclouded sky
 bluejacket	a serviceman in the navy
@@ -2945,8 +2945,8 @@ blurting	BLURT: utter impulsively
 blurts	BLURT: utter impulsively
 blush	turn red, as if in embarrassment or shame
 blushed	BLUSH: turn red, as if in embarrassment or shame
-blusher	yellowish edible agaric that usually turns red when touched
-blushers	BLUSHER: yellowish edible agaric that usually turns red when touched
+blusher	makeup consisting of a pink or red powder applied to the cheeks
+blushers	BLUSHER: makeup consisting of a pink or red powder applied to the cheeks
 blushes	BLUSH: turn red, as if in embarrassment or shame
 blushing	having a red face from embarrassment or shame or agitation or emotional upset
 bluster	noisy confusion and turbulence
@@ -2957,8 +2957,8 @@ blustering	BLUSTER: noisy confusion and turbulence
 blusterous	blowing in violent and abrupt bursts
 blusters	BLUSTER: noisy confusion and turbulence
 blustery	blowing in violent and abrupt bursts
-boa	a long thin fluffy scarf of feathers or fur
-boar	Old World wild swine having a narrow body and prominent tusks from which most domestic swine come; introduced in United States
+boa	any of several chiefly tropical constrictors with vestigial hind limbs
+boar	an uncastrated male hog
 board	a committee having supervisory powers
 boarded	BOARD: a committee having supervisory powers
 boarder	a tenant in someone's house
@@ -2973,8 +2973,8 @@ boards	BOARD: a committee having supervisory powers
 boardwalk	a walkway made of wooden boards; usually at seaside
 boardwalks	BOARDWALK: a walkway made of wooden boards; usually at seaside
 boarfish	fish with large eyes and long snouts
-boars	BOAR: Old World wild swine having a narrow body and prominent tusks from which most domestic swine come; introduced in United States
-boas	BOA: a long thin fluffy scarf of feathers or fur
+boars	BOAR: an uncastrated male hog
+boas	BOA: any of several chiefly tropical constrictors with vestigial hind limbs
 boast	show off
 boasted	BOAST: show off
 boaster	a very boastful and talkative person
@@ -3010,29 +3010,29 @@ bobbies	BOBBY: an informal term for a British policeman
 bobbin	a winder around which thread or tape or film or other flexible materials can be wound
 bobbing	BOB: move up and down repeatedly
 bobbins	BOBBIN: a winder around which thread or tape or film or other flexible materials can be wound
-bobble	the momentary juggling of a batted or thrown baseball
-bobbled	BOBBLE: the momentary juggling of a batted or thrown baseball
-bobbles	BOBBLE: the momentary juggling of a batted or thrown baseball
-bobbling	BOBBLE: the momentary juggling of a batted or thrown baseball
+bobble	make a mess of, destroy or ruin
+bobbled	BOBBLE: make a mess of, destroy or ruin
+bobbles	BOBBLE: make a mess of, destroy or ruin
+bobbling	BOBBLE: make a mess of, destroy or ruin
 bobby	an informal term for a British policeman
 bobcat	small lynx of North America
 bobcats	BOBCAT: small lynx of North America
 bobolink	migratory American songbird
 bobolinks	BOBOLINK: migratory American songbird
 bobs	BOB: move up and down repeatedly
-bobsled	formerly two short sleds coupled together
-bobsledded	BOBSLED: formerly two short sleds coupled together
-bobsledder	BOBSLED: formerly two short sleds coupled together
+bobsled	a long racing sled (for 2 or more people) with a steering mechanism
+bobsledded	BOBSLED: a long racing sled (for 2 or more people) with a steering mechanism
+bobsledder	BOBSLED: a long racing sled (for 2 or more people) with a steering mechanism
 bobsledding	riding on a bobsled
-bobsleds	BOBSLED: formerly two short sleds coupled together
-bobsleigh	formerly two short sleds coupled together
-bobsleighs	BOBSLEIGH: formerly two short sleds coupled together
+bobsleds	BOBSLED: a long racing sled (for 2 or more people) with a steering mechanism
+bobsleigh	a long racing sled (for 2 or more people) with a steering mechanism
+bobsleighs	BOBSLEIGH: a long racing sled (for 2 or more people) with a steering mechanism
 bobtail	a short or shortened tail of certain animals
 bobtails	BOBTAIL: a short or shortened tail of certain animals
 bobwhite	a popular North American game bird; named for its call
 bobwhites	BOBWHITE: a popular North American game bird; named for its call
 bod	alternative names for the body of a human being
-bodacious	incorrigible
+bodacious	unrestrained by convention or propriety
 bode	indicate, as with a sign or an omen
 boded	BODE: indicate, as with a sign or an omen
 bodega	a small Hispanic shop selling wine and groceries
@@ -3052,8 +3052,8 @@ bodies	BODY: the entire physical structure of an organism (an animal, plant, or 
 bodily	in bodily form
 boding	BODE: indicate, as with a sign or an omen
 bodingly	in a boding way
-bodkin	a dagger with a slender blade
-bodkins	BODKIN: a dagger with a slender blade
+bodkin	a small sharp-pointed tool for punching holes in leather or fabric
+bodkins	BODKIN: a small sharp-pointed tool for punching holes in leather or fabric
 bods	BOD: alternative names for the body of a human being
 body	the entire physical structure of an organism (an animal, plant, or human being)
 bodyboard	a short board for riding waves lying down
@@ -3108,8 +3108,8 @@ bogosity	the quality of being fake or absurd
 bogs	BOG: wet spongy ground of decomposing vegetation; has poorer drainage than a swamp; soil is unfit for cultivation but can be cut and dried and used for fuel
 bogus	fraudulent; having a misleading appearance
 bogy	an unidentified (and possibly enemy) aircraft
-bohemian	a member of a people with dark skin and hair who speak Romany and who traditionally live by seasonal work and fortunetelling; they are believed to have originated in northern India but now are living on all continents (but mostly in Europe, North Africa, and North America)
-bohemians	BOHEMIAN: a member of a people with dark skin and hair who speak Romany and who traditionally live by seasonal work and fortunetelling; they are believed to have originated in northern India but now are living on all continents (but mostly in Europe, North Africa, and North America)
+bohemian	a nonconformist writer or artist who lives an unconventional life
+bohemians	BOHEMIAN: a nonconformist writer or artist who lives an unconventional life
 boil	come to the boiling point and change from a liquid to vapor
 boiled	BOIL: come to the boiling point and change from a liquid to vapor
 boiler	sealed vessel where water is converted to steam
@@ -3130,9 +3130,9 @@ boinking	BOINK: a short bouncing sound
 boinks	BOINK: a short bouncing sound
 boisterous	noisy and lacking in restraint or discipline
 boisterously	in a carefree manner
-boisterousness	a turbulent and stormy state of the sea
-bola	a cord fastened around the neck with an ornamental clasp and worn as a necktie
-bolas	BOLA: a cord fastened around the neck with an ornamental clasp and worn as a necktie
+boisterousness	the property of being noisy and lively and unrestrained
+bola	a rope with weights attached to the ends; is thrown to entangle the legs of an animal; of South American origin
+bolas	BOLA: a rope with weights attached to the ends; is thrown to entangle the legs of an animal; of South American origin
 bold	fearless and daring
 bolder	BOLD: fearless and daring
 boldest	BOLD: fearless and daring
@@ -3142,10 +3142,10 @@ boldfacedly	in a boldfaced way
 boldfacedness	the quality of being boldfaced
 boldly	with boldness, in a bold manner
 boldness	the trait of being willing to undertake things that involve risk or danger
-bole	a soft oily clay used as a pigment (especially a reddish brown pigment)
-bolero	music written in the rhythm of the bolero dance
-boleros	BOLERO: music written in the rhythm of the bolero dance
-boles	BOLE: a soft oily clay used as a pigment (especially a reddish brown pigment)
+bole	the main stem of a tree; usually covered with bark; the bole is usually the part that is commercially useful for lumber
+bolero	a Spanish dance in triple time accompanied by guitar and castanets
+boleros	BOLERO: a Spanish dance in triple time accompanied by guitar and castanets
+boles	BOLE: the main stem of a tree; usually covered with bark; the bole is usually the part that is commercially useful for lumber
 boll	the rounded seed-bearing capsule of a cotton or flax plant
 bollard	a strong post (as on a wharf or quay or ship for attaching mooring lines)
 bollards	BOLLARD: a strong post (as on a wharf or quay or ship for attaching mooring lines)
@@ -3157,13 +3157,13 @@ bollocking	a severe telling-off
 bollockings	BOLLOCKING: a severe telling-off
 bollocks	make a mess of, destroy or ruin
 bolls	BOLL: the rounded seed-bearing capsule of a cotton or flax plant
-bologna	the capital of Emilia-Romagna; located in northern Italy to the east of the Apennines
+bologna	large smooth-textured smoked sausage of beef and veal and pork
 boloney	pretentious or silly talk or writing
 bolshevik	emotionally charged terms used to refer to extreme radicals or revolutionaries
 bolsheviki	BOLSHEVIK: a member of the Russian revolutionary party
 bolsheviks	BOLSHEVIK: emotionally charged terms used to refer to extreme radicals or revolutionaries
 bolshie	emotionally charged terms used to refer to extreme radicals or revolutionaries
-bolshy	emotionally charged terms used to refer to extreme radicals or revolutionaries
+bolshy	obstreperous
 bolster	a pillow that is often put across a bed underneath the regular pillows
 bolstered	BOLSTER: a pillow that is often put across a bed underneath the regular pillows
 bolsterer	one who supports or strengthens
@@ -3180,17 +3180,17 @@ bolting	BOLT: a discharge of lightning accompanied by thunder
 bolts	BOLT: a discharge of lightning accompanied by thunder
 bolus	a small round soft mass (as of chewed food)
 bomb	an explosive device fused to explode under specific conditions
-bombard	a large shawm; the bass member of the shawm family
-bombarded	BOMBARD: a large shawm; the bass member of the shawm family
-bombardier	a noncommissioned officer in the British artillery
-bombardiers	BOMBARDIER: a noncommissioned officer in the British artillery
-bombarding	BOMBARD: a large shawm; the bass member of the shawm family
-bombardment	the rapid and continuous delivery of linguistic communication (spoken or written)
-bombardments	BOMBARDMENT: the rapid and continuous delivery of linguistic communication (spoken or written)
-bombards	BOMBARD: a large shawm; the bass member of the shawm family
+bombard	throw bombs at or attack with bombs
+bombarded	BOMBARD: throw bombs at or attack with bombs
+bombardier	the member of a bomber crew responsible for using the bombsight and releasing the bombs on the target
+bombardiers	BOMBARDIER: the member of a bomber crew responsible for using the bombsight and releasing the bombs on the target
+bombarding	BOMBARD: throw bombs at or attack with bombs
+bombardment	an attack by dropping bombs
+bombardments	BOMBARDMENT: an attack by dropping bombs
+bombards	BOMBARD: throw bombs at or attack with bombs
 bombast	pompous or pretentious talk or writing
 bombastic	ostentatiously lofty in style
-bombastically	in a turgid manner
+bombastically	in a grandiose manner
 bombed	BOMB: an explosive device fused to explode under specific conditions
 bomber	a military aircraft that drops bombs during flight
 bombers	BOMBER: a military aircraft that drops bombs during flight
@@ -3198,18 +3198,18 @@ bombing	an attack by dropping bombs
 bombings	BOMBING: an attack by dropping bombs
 bombproof	a chamber (often underground) reinforced against bombing and provided with food and living facilities; used during air raids
 bombs	BOMB: an explosive device fused to explode under specific conditions
-bombshell	an entertainer who has a sensational effect
-bombshells	BOMBSHELL: an entertainer who has a sensational effect
+bombshell	a shocking surprise
+bombshells	BOMBSHELL: a shocking surprise
 bombsite	an area devastated by bombing
 bombsites	BOMBSITE: an area devastated by bombing
-bonanza	an especially rich vein of precious ore
-bonanzas	BONANZA: an especially rich vein of precious ore
+bonanza	a sudden happening that brings good fortune (as a sudden opportunity to make money)
+bonanzas	BONANZA: a sudden happening that brings good fortune (as a sudden opportunity to make money)
 bonbon	a candy that usually has a center of fondant or fruit or nuts coated in chocolate
 bonbons	BONBON: a candy that usually has a center of fondant or fruit or nuts coated in chocolate
 bonce	informal terms for a human head
 bonces	BONCE: informal terms for a human head
 bond	an electrical force linking atoms
-bondage	the state of being under the control of a force or influence or abstract power
+bondage	the state of being under the control of another person
 bonded	BOND: an electrical force linking atoms
 bonder	one who bonds
 bonders	BONDER: one who bonds
@@ -3250,16 +3250,16 @@ bonier	BONY: being very thin
 boniest	BONY: being very thin
 boniness	extreme leanness (usually caused by starvation or disease)
 boning	BONE: rigid connective tissue that makes up the skeleton of vertebrates
-bonito	flesh of mostly Pacific food fishes of the genus Sarda of the family Scombridae; related to but smaller than tuna
+bonito	any of various scombroid fishes intermediate in size and characteristics between mackerels and tunas
 bonitoes	BONITO: a fish of the tuna family
-bonitos	BONITO: flesh of mostly Pacific food fishes of the genus Sarda of the family Scombridae; related to but smaller than tuna
-bonk	have sexual intercourse with
+bonitos	BONITO: any of various scombroid fishes intermediate in size and characteristics between mackerels and tunas
+bonk	hit hard
 bonkbuster	a racy popular novel
 bonkbusters	BONKBUSTER: a racy popular novel
-bonked	BONK: have sexual intercourse with
+bonked	BONK: hit hard
 bonkers	informal or slang terms for mentally irregular
-bonking	BONK: have sexual intercourse with
-bonks	BONK: have sexual intercourse with
+bonking	BONK: hit hard
+bonks	BONK: hit hard
 bonnet	a hat tied under the chin
 bonnets	BONNET: a hat tied under the chin
 bonnie	very pleasing to the eye
@@ -3276,25 +3276,25 @@ bony	being very thin
 bonza	excellent
 bonzer	remarkable or wonderful
 boo	show displeasure, as after a performance or speech
-boob	an ignorant or foolish person
-boobed	BOOB: an ignorant or foolish person
+boob	either of two soft fleshy milk-secreting glandular organs on the chest of a woman
+boobed	BOOB: either of two soft fleshy milk-secreting glandular organs on the chest of a woman
 boobies	BOOBY: an ignorant or foolish person
-boobing	BOOB: an ignorant or foolish person
+boobing	BOOB: either of two soft fleshy milk-secreting glandular organs on the chest of a woman
 boobook	a small brown Australian owl
 boobooks	BOOBOOK: a small brown Australian owl
-boobs	BOOB: an ignorant or foolish person
+boobs	BOOB: either of two soft fleshy milk-secreting glandular organs on the chest of a woman
 booby	an ignorant or foolish person
 boodle	informal terms for money
 boodles	BOODLE: informal terms for money
 booed	BOO: show displeasure, as after a performance or speech
-booger	an imaginary monster used to frighten children
-boogers	BOOGER: an imaginary monster used to frighten children
+booger	dried nasal mucus
+boogers	BOOGER: dried nasal mucus
 boogeyman	an imaginary monster used to frighten children
 boogeymen	BOOGEYMAN: an imaginary monster used to frighten children
-boogie	an instrumental version of the blues (especially for piano)
-boogied	BOOGIE: an instrumental version of the blues (especially for piano)
-boogieing	BOOGIE: an instrumental version of the blues (especially for piano)
-boogies	BOOGIE: an instrumental version of the blues (especially for piano)
+boogie	dance to boogie music
+boogied	BOOGIE: dance to boogie music
+boogieing	BOOGIE: dance to boogie music
+boogies	BOOGIE: dance to boogie music
 boohoo	the sound of loud crying
 boohooed	BOOHOO: the sound of loud crying
 boohooing	BOOHOO: the sound of loud crying
@@ -3322,8 +3322,8 @@ bookkeepers	BOOKKEEPER: someone who records the transactions of a business
 bookkeeping	the activity of recording business transactions
 booklet	a small book usually having a paper cover
 booklets	BOOKLET: a small book usually having a paper cover
-bookmaker	a maker of books; someone who edits or publishes or binds books
-bookmakers	BOOKMAKER: a maker of books; someone who edits or publishes or binds books
+bookmaker	a gambler who accepts and pays off bets (especially on horse races)
+bookmakers	BOOKMAKER: a gambler who accepts and pays off bets (especially on horse races)
 bookmaking	the taking of bets
 bookmark	a marker (a piece of paper or ribbon) placed between the pages of a book to mark the reader's place
 bookmarked	BOOKMARK: save a place to find again
@@ -3344,8 +3344,8 @@ bookstall	a shop where books are sold
 bookstalls	BOOKSTALL: a shop where books are sold
 bookstore	a shop where books are sold
 bookstores	BOOKSTORE: a shop where books are sold
-bookworm	a person who pays more attention to formal rules and book learning than they merit
-bookworms	BOOKWORM: a person who pays more attention to formal rules and book learning than they merit
+bookworm	someone who spends a great deal of time reading
+bookworms	BOOKWORM: someone who spends a great deal of time reading
 boom	make a resonant sound, like artillery
 boombox	a large portable stereo
 boomboxes	BOOMBOX: a large portable stereo
@@ -3377,8 +3377,8 @@ boors	BOOR: a crude uncouth ill-bred person lacking culture or refinement
 boos	BOO: show displeasure, as after a performance or speech
 boost	increase
 boosted	BOOST: increase
-booster	a person who backs a politician or a team etc.
-boosters	BOOSTER: a person who backs a politician or a team etc.
+booster	someone who is an active supporter and advocate
+boosters	BOOSTER: someone who is an active supporter and advocate
 boosting	BOOST: increase
 boosts	BOOST: increase
 boot	footwear that covers the whole foot and lower leg
@@ -3395,18 +3395,18 @@ booties	BOOTY: goods or money obtained illegally
 booting	BOOT: footwear that covers the whole foot and lower leg
 bootlace	a long lace for fastening boots
 bootlaces	BOOTLACE: a long lace for fastening boots
-bootleg	whiskey illegally distilled from a corn mash
-bootlegged	BOOTLEG: whiskey illegally distilled from a corn mash
+bootleg	produce or distribute illegally
+bootlegged	BOOTLEG: produce or distribute illegally
 bootlegger	someone who makes or sells illegal liquor
 bootleggers	BOOTLEGGER: someone who makes or sells illegal liquor
 bootlegging	the act of making or transporting alcoholic liquor for sale illegally
-bootlegs	BOOTLEG: whiskey illegally distilled from a corn mash
+bootlegs	BOOTLEG: produce or distribute illegally
 bootless	unproductive of success
 bootlick	try to gain favor by cringing or flattering
 bootlicked	BOOTLICK: try to gain favor by cringing or flattering
 bootlicker	someone who humbles himself as a sign of respect; who behaves as if he had no self-respect
 bootlickers	BOOTLICKER: someone who humbles himself as a sign of respect; who behaves as if he had no self-respect
-bootlicking	attempting to win favor from influential people by flattery
+bootlicking	attempting to win favor by flattery
 bootlicks	BOOTLICK: try to gain favor by cringing or flattering
 boots	BOOT: footwear that covers the whole foot and lower leg
 bootstrap	a strap that is looped and sewn to the top of a boot for pulling it on
@@ -3423,12 +3423,12 @@ boozier	BOOZY: given to or marked by the consumption of alcohol
 booziest	BOOZY: given to or marked by the consumption of alcohol
 boozing	BOOZE: an alcoholic beverage that is distilled rather than fermented
 boozy	given to or marked by the consumption of alcohol
-bop	the law enforcement agency of the Justice Department that operates a nationwide system of prisons and detention facilities to incarcerate inmates sentenced to imprisonment for federal crimes
-bopped	BOP: the law enforcement agency of the Justice Department that operates a nationwide system of prisons and detention facilities to incarcerate inmates sentenced to imprisonment for federal crimes
-bopper	BOP: the law enforcement agency of the Justice Department that operates a nationwide system of prisons and detention facilities to incarcerate inmates sentenced to imprisonment for federal crimes
+bop	hit hard
+bopped	BOP: hit hard
+bopper	BOP: hit hard
 boppers	BOPPER: a person who dances to pop music
-bopping	BOP: the law enforcement agency of the Justice Department that operates a nationwide system of prisons and detention facilities to incarcerate inmates sentenced to imprisonment for federal crimes
-bops	BOP: the law enforcement agency of the Justice Department that operates a nationwide system of prisons and detention facilities to incarcerate inmates sentenced to imprisonment for federal crimes
+bopping	BOP: hit hard
+bops	BOP: hit hard
 borage	an herb whose leaves are used to flavor sauces and punches; young leaves can be eaten in salads or cooked
 borax	an ore of boron consisting of hydrated sodium borate; used as a flux or cleansing agent
 bordello	a building where prostitutes are available
@@ -3489,18 +3489,18 @@ bosun	a petty officer on a merchant ship who controls the work of other seamen
 bosuns	BOSUN: a petty officer on a merchant ship who controls the work of other seamen
 bot	botfly larva; typically develops inside the body of a horse or sheep or human
 botanic	of or relating to plants or botany
-botanical	a drug made from part of a plant (as the bark or root or leaves)
+botanical	of or relating to plants or botany
 botanically	in a way relating to plants
-botanicals	BOTANICAL: a drug made from part of a plant (as the bark or root or leaves)
+botanicals	BOTANICAL: of or relating to plants or botany
 botanist	a biologist specializing in the study of plants
 botanists	BOTANIST: a biologist specializing in the study of plants
-botany	all the plant life in a particular region or period
-botch	an embarrassing mistake
+botany	the branch of biology that studies plants
+botch	make a mess of, destroy or ruin
 botched	spoiled through incompetence or clumsiness
 botcher	someone who makes mistakes because of incompetence
 botchers	BOTCHER: someone who makes mistakes because of incompetence
-botches	BOTCH: an embarrassing mistake
-botching	BOTCH: an embarrassing mistake
+botches	BOTCH: make a mess of, destroy or ruin
+botching	BOTCH: make a mess of, destroy or ruin
 both	(used with count nouns) two considered together; the two
 bother	take the trouble to do something; concern oneself
 botheration	the psychological state of being irritated or annoyed
@@ -3569,7 +3569,7 @@ boundless	seemingly boundless in amount, number, degree, or especially extent
 bounds	the line or plane indicating the limit or extent of something
 bounteous	given or giving freely
 bounties	BOUNTY: payment or reward (especially from a government) for acts such as catching criminals or killing predatory animals or enlisting in the military
-bountiful	given or giving freely
+bountiful	producing in abundance
 bountifully	in a bountiful manner
 bounty	payment or reward (especially from a government) for acts such as catching criminals or killing predatory animals or enlisting in the military
 bouquet	an arrangement of flowers that is usually given as a present
@@ -3577,7 +3577,7 @@ bouquets	BOUQUET: an arrangement of flowers that is usually given as a present
 bourbon	a reactionary politician in the United States (usually from the South)
 bourbons	BOURBON: a reactionary politician in the United States (usually from the South)
 bourdon	a pipe of the bagpipe that is tuned to produce a single continuous tone
-bourgeois	a capitalist who engages in industrial commercial enterprise
+bourgeois	a member of the middle class
 bourgeoisie	the social class between the lower and upper classes
 bourse	the stock exchange in Paris
 bourses	BOURSE: the stock exchange in Paris
@@ -3670,20 +3670,20 @@ braai	a South African barbecue
 braais	BRAAI: a South African barbecue
 brace	prepare (oneself) for something unpleasant or difficult
 braced	positioned so as to be ready for confrontation or danger
-bracelet	a band of cloth or leather or metal links attached to a wristwatch and wrapped around the wrist
-bracelets	BRACELET: a band of cloth or leather or metal links attached to a wristwatch and wrapped around the wrist
+bracelet	jewelry worn around the wrist for decoration
+bracelets	BRACELET: jewelry worn around the wrist for decoration
 braces	BRACE: prepare (oneself) for something unpleasant or difficult
 brachial	of or relating to an arm
 brachiopod	marine animal with bivalve shell having a pair of arms bearing tentacles for capturing food; found worldwide
 brachiopods	BRACHIOPOD: marine animal with bivalve shell having a pair of arms bearing tentacles for capturing food; found worldwide
 bracing	a structural member used to stiffen a framework
-bracken	fern of southeastern Asia; not hardy in cold temperate regions
-brackens	BRACKEN: fern of southeastern Asia; not hardy in cold temperate regions
-bracket	a category falling within certain defined limits
-bracketed	BRACKET: a category falling within certain defined limits
-bracketing	BRACKET: a category falling within certain defined limits
-brackets	BRACKET: a category falling within certain defined limits
-brackish	distasteful and unpleasant; spoiled by mixture
+bracken	large coarse fern often several feet high; essentially weed ferns; cosmopolitan
+brackens	BRACKEN: large coarse fern often several feet high; essentially weed ferns; cosmopolitan
+bracket	a support projecting from a wall (as to hold a shelf)
+bracketed	BRACKET: a support projecting from a wall (as to hold a shelf)
+bracketing	BRACKET: a support projecting from a wall (as to hold a shelf)
+brackets	BRACKET: a support projecting from a wall (as to hold a shelf)
+brackish	slightly salty (especially from containing a mixture of seawater and fresh water)
 brackishness	the quality of being salty, as the saltiness of water
 bract	a modified leaf or leaflike part just below and protecting an inflorescence
 bracts	BRACT: a modified leaf or leaflike part just below and protecting an inflorescence
@@ -3712,7 +3712,7 @@ braider	one who braids
 braiders	BRAIDER: one who braids
 braiding	BRAID: a hairdo formed by braiding or twisting the hair
 braids	BRAID: a hairdo formed by braiding or twisting the hair
-braille	French educator who lost his sight at the age of three and who invented a system of writing and printing for sightless people (1809-1852)
+braille	a point system of writing in which patterns of raised dots represent letters and numerals
 brain	that part of the central nervous system that includes all the higher nervous centers; enclosed within the skull; continuous with the spinal cord
 brainchild	a product of your creative thinking and work
 brainchildren	BRAINCHILD: an idea or invention of one person
@@ -3728,10 +3728,10 @@ brainlessly	in a brainless way
 brainlessness	the quality of being brainless
 brainpower	mental ability
 brains	BRAIN: that part of the central nervous system that includes all the higher nervous centers; enclosed within the skull; continuous with the spinal cord
-brainstorm	the clear (and often sudden) understanding of a complex situation
-brainstormed	BRAINSTORM: the clear (and often sudden) understanding of a complex situation
+brainstorm	try to solve a problem by thinking intensely about it
+brainstormed	BRAINSTORM: try to solve a problem by thinking intensely about it
 brainstorming	a group problem-solving technique in which members spontaneously share ideas and solutions
-brainstorms	BRAINSTORM: the clear (and often sudden) understanding of a complex situation
+brainstorms	BRAINSTORM: try to solve a problem by thinking intensely about it
 brainteaser	a puzzle that needs thought to solve
 brainteasers	BRAINTEASER: a puzzle that needs thought to solve
 brainwash	persuade completely, often through coercion
@@ -3740,8 +3740,8 @@ brainwasher	one who forces a change of belief
 brainwashers	BRAINWASHER: one who forces a change of belief
 brainwashes	BRAINWASH: persuade completely, often through coercion
 brainwashing	forcible indoctrination into a new set of attitudes and beliefs
-brainwave	rapid fluctuations of voltage between parts of the cerebral cortex that are detectable with an electroencephalograph
-brainwaves	BRAINWAVE: rapid fluctuations of voltage between parts of the cerebral cortex that are detectable with an electroencephalograph
+brainwave	the clear (and often sudden) understanding of a complex situation
+brainwaves	BRAINWAVE: the clear (and often sudden) understanding of a complex situation
 brainy	having or marked by unusual and impressive intelligence
 braise	cook in liquid
 braised	cooked by browning in fat and then simmering in a closed container
@@ -3789,7 +3789,7 @@ brash	offensively bold
 brasher	BRASH: offensively bold
 brashest	BRASH: offensively bold
 brashly	in a brash cheeky manner
-brashness	tasteless showiness
+brashness	the trait of being rash and hasty
 brass	an alloy of copper and zinc
 brassard	armor plate that protects the arm
 brasserie	a small restaurant serving beer and wine as well as food; usually cheap
@@ -3821,16 +3821,16 @@ bravery	a quality of spirit that enables you to face danger or pain without show
 braves	BRAVE: possessing or displaying courage; able to face and deal with danger or fear without flinching
 bravest	BRAVE: possessing or displaying courage; able to face and deal with danger or fear without flinching
 braving	BRAVE: possessing or displaying courage; able to face and deal with danger or fear without flinching
-bravo	a murderer (especially one who kills a prominent political figure) who kills by a surprise attack and often is hired to do the deed
-bravos	BRAVO: a murderer (especially one who kills a prominent political figure) who kills by a surprise attack and often is hired to do the deed
+bravo	a cry of approval as from an audience at the end of great performance
+bravos	BRAVO: a cry of approval as from an audience at the end of great performance
 bravura	brilliant and showy technical skill
 bravuras	BRAVURA: brilliant and showy technical skill
-brawl	an uproarious party
-brawled	BRAWL: an uproarious party
+brawl	a noisy fight in a crowd
+brawled	BRAWL: a noisy fight in a crowd
 brawler	a fighter (especially one who participates in brawls)
 brawlers	BRAWLER: a fighter (especially one who participates in brawls)
-brawling	BRAWL: an uproarious party
-brawls	BRAWL: an uproarious party
+brawling	BRAWL: a noisy fight in a crowd
+brawls	BRAWL: a noisy fight in a crowd
 brawn	possessing muscular strength
 brawnier	BRAWNY: (of a person) possessing physical strength and weight; rugged and powerful
 brawniest	BRAWNY: (of a person) possessing physical strength and weight; rugged and powerful
@@ -3862,8 +3862,8 @@ breachers	BREACHER: one who breaks through
 breaches	BREACH: act in disregard of laws, rules, contracts, or promises
 breaching	BREACH: act in disregard of laws, rules, contracts, or promises
 bread	food made from dough of flour or meal and usually raised with yeast or baking powder and then baked
-breadbasket	a geographic region serving as the principal source of grain
-breadbaskets	BREADBASKET: a geographic region serving as the principal source of grain
+breadbasket	a basket for serving bread
+breadbaskets	BREADBASKET: a basket for serving bread
 breadboard	a wooden or plastic board on which dough is kneaded or bread is sliced
 breadboards	BREADBOARD: a wooden or plastic board on which dough is kneaded or bread is sliced
 breadbox	a container used to keep bread or cake in
@@ -3885,14 +3885,14 @@ breadwinners	BREADWINNER: one whose earnings are the primary source of support f
 break	terminate
 breakable	an article that is fragile and easily broken
 breakables	BREAKABLE: an article that is fragile and easily broken
-breakage	the quantity broken
-breakages	BREAKAGE: the quantity broken
+breakage	damage or loss caused by things being broken
+breakages	BREAKAGE: damage or loss caused by things being broken
 breakaway	the act of breaking away or withdrawing from
 breakaways	BREAKAWAY: the act of breaking away or withdrawing from
 breakdancing	an acrobatic street dance
 breakdown	the act of disrupting an established order so it fails to continue
 breakdowns	BREAKDOWN: the act of disrupting an established order so it fails to continue
-breaker	a quarry worker who splits off blocks of stone
+breaker	waves breaking on the shore
 breakers	waves breaking on the shore
 breakeven	the point where income equals costs
 breakfast	the first meal of the day (usually in the morning)
@@ -3913,8 +3913,8 @@ breakup	the termination or disintegration of a relationship (between persons or 
 breakups	BREAKUP: the termination or disintegration of a relationship (between persons or nations)
 breakwater	a protective structure of stone or concrete; extends from shore into the water to prevent a beach from washing away
 breakwaters	BREAKWATER: a protective structure of stone or concrete; extends from shore into the water to prevent a beach from washing away
-bream	flesh of various freshwater fishes of North America or of Europe
-breams	BREAM: flesh of various freshwater fishes of North America or of Europe
+bream	any of numerous marine percoid fishes especially (but not exclusively) of the family Sparidae
+breams	BREAM: any of numerous marine percoid fishes especially (but not exclusively) of the family Sparidae
 breast	the front of the trunk from the neck to the abdomen
 breastbone	the flat bone that articulates with the clavicles and the first seven pairs of ribs
 breastbones	BREASTBONE: the flat bone that articulates with the clavicles and the first seven pairs of ribs
@@ -3974,12 +3974,12 @@ breezed	BREEZE: a slight wind (usually refreshing)
 breezes	BREEZE: a slight wind (usually refreshing)
 breezeway	a covered passage between two buildings
 breezeways	BREEZEWAY: a covered passage between two buildings
-breezier	BREEZY: fresh and animated
-breeziest	BREEZY: fresh and animated
+breezier	BREEZY: abounding in or exposed to the wind or breezes
+breeziest	BREEZY: abounding in or exposed to the wind or breezes
 breezily	in a breezy manner
 breeziness	a mildly windy state of the air
 breezing	BREEZE: a slight wind (usually refreshing)
-breezy	fresh and animated
+breezy	abounding in or exposed to the wind or breezes
 brekkie	breakfast
 brekkies	BREKKIE: breakfast
 brekky	breakfast
@@ -3993,10 +3993,10 @@ brevetting	BREVET: a document entitling a commissioned officer to hold a higher 
 breviaries	BREVIARY: a book of prayers to be recited daily certain priests and members of religious orders
 breviary	a book of prayers to be recited daily certain priests and members of religious orders
 brevity	the use of brief expressions
-brew	drink made by steeping and boiling and fermenting rather than distilling
+brew	sit or let sit in boiling water so as to extract the flavor
 brewage	drink made by steeping and boiling and fermenting rather than distilling
 brewages	BREWAGE: drink made by steeping and boiling and fermenting rather than distilling
-brewed	BREW: drink made by steeping and boiling and fermenting rather than distilling
+brewed	BREW: sit or let sit in boiling water so as to extract the flavor
 brewer	someone who brews beer or ale from malt and hops and water
 breweries	BREWERY: a plant where beer is brewed by fermentation
 brewers	BREWER: someone who brews beer or ale from malt and hops and water
@@ -4004,7 +4004,7 @@ brewery	a plant where beer is brewed by fermentation
 brewhouse	a building where beer is brewed
 brewing	the production of malt beverages (as beer or ale) from malt and hops by grinding and boiling them and fermenting the result with yeast
 brewpub	a combination brewery and restaurant; beer is brewed for consumption on the premises and served along with food
-brews	BREW: drink made by steeping and boiling and fermenting rather than distilling
+brews	BREW: sit or let sit in boiling water so as to extract the flavor
 briar	Eurasian rose with prickly stems and fragrant leaves and bright pink flowers followed by scarlet hips
 briars	BRIAR: Eurasian rose with prickly stems and fragrant leaves and bright pink flowers followed by scarlet hips
 bribe	payment made to a person in a position of trust to corrupt his judgment
@@ -4013,8 +4013,8 @@ bribery	the practice of offering something (usually money) in order to gain an i
 bribes	BRIBE: payment made to a person in a position of trust to corrupt his judgment
 bribing	BRIBE: payment made to a person in a position of trust to corrupt his judgment
 brick	rectangular block of clay baked by the sun or in a kiln; used as a building or paving material
-brickbat	a fragment of brick used as a weapon
-brickbats	BRICKBAT: a fragment of brick used as a weapon
+brickbat	blunt criticism
+brickbats	BRICKBAT: blunt criticism
 bricked	BRICK: built or blocked with bricks
 brickie	a bricklayer
 brickies	BRICKIE: a bricklayer
@@ -4026,8 +4026,8 @@ bricks	BRICK: rectangular block of clay baked by the sun or in a kiln; used as a
 brickwork	masonry done with bricks and mortar
 brickyard	a place where bricks are made and sold
 brickyards	BRICKYARD: a place where bricks are made and sold
-bridal	archaic terms for a wedding or wedding feast
-bridals	BRIDAL: archaic terms for a wedding or wedding feast
+bridal	of or relating to a wedding
+bridals	BRIDAL: of or relating to a wedding
 bride	a woman who has recently been married
 bridegroom	a man who has recently been married
 bridegrooms	BRIDEGROOM: a man who has recently been married
@@ -4056,7 +4056,7 @@ briefest	BRIEF: of short duration or distance
 briefing	detailed instructions, as for a military operation
 briefings	BRIEFING: detailed instructions, as for a military operation
 briefly	for a short time
-briefness	the temporal property of being very short
+briefness	the attribute of being brief or fleeting
 briefs	BRIEF: of short duration or distance
 brier	tangled mass of prickly plants
 briers	BRIER: tangled mass of prickly plants
@@ -4100,21 +4100,21 @@ brimstone	an old name for sulfur
 brimstones	BRIMSTONE: an old name for sulfur
 brimstony	like sulphur
 brindled	having a grey or brown streak or a pattern or a patchy coloring; used especially of the patterned fur of cats
-brine	water containing salts
+brine	a strong solution of salt and water used for pickling
 bring	take something or somebody with oneself somewhere
 bringer	one who brings
 bringers	BRINGER: one who brings
 bringing	the act of delivering or distributing something (as goods or mail)
 brings	BRING: take something or somebody with oneself somewhere
-brinier	BRINY: any very large body of (salt) water
-briniest	BRINY: any very large body of (salt) water
+brinier	BRINY: slightly salty (especially from containing a mixture of seawater and fresh water)
+briniest	BRINY: slightly salty (especially from containing a mixture of seawater and fresh water)
 brinjal	hairy upright herb native to southeastern Asia but widely cultivated for its large glossy edible fruit commonly used as a vegetable
 brinjals	BRINJAL: hairy upright herb native to southeastern Asia but widely cultivated for its large glossy edible fruit commonly used as a vegetable
 brink	a region marking a boundary
 brinkmanship	the policy of pushing a dangerous situation to the brink of disaster (to the limits of safety)
 brinks	BRINK: a region marking a boundary
 brinksmanship	taking a dangerous situation to the edge of disaster
-briny	any very large body of (salt) water
+briny	slightly salty (especially from containing a mixture of seawater and fresh water)
 brio	quality of being active or spirited or alive and vigorous
 brioche	a light roll rich with eggs and butter and somewhat sweet
 brioches	BRIOCHE: a light roll rich with eggs and butter and somewhat sweet
@@ -4132,27 +4132,27 @@ brisking	BRISK: quick and energetic
 briskly	in a brisk manner
 briskness	liveliness and eagerness
 brisks	BRISK: quick and energetic
-brisling	small fatty European fish; usually smoked or canned like sardines
+brisling	small herring processed like a sardine
 bristle	a stiff fiber (coarse hair or filament); natural or synthetic
 bristled	BRISTLE: a stiff fiber (coarse hair or filament); natural or synthetic
 bristles	BRISTLE: a stiff fiber (coarse hair or filament); natural or synthetic
-bristlier	BRISTLY: very irritable
-bristliest	BRISTLY: very irritable
+bristlier	BRISTLY: having or covered with protective barbs or quills or spines or thorns or setae etc.
+bristliest	BRISTLY: having or covered with protective barbs or quills or spines or thorns or setae etc.
 bristliness	the quality of being covered with prickly thorns or spines
 bristling	BRISTLE: a stiff fiber (coarse hair or filament); natural or synthetic
-bristly	very irritable
+bristly	having or covered with protective barbs or quills or spines or thorns or setae etc.
 britches	(used in the plural) informal term for breeches
 brittle	having little elasticity; hence easily cracked or fractured or snapped
 brittleness	firm but easily broken
 brittler	BRITTLE: having little elasticity; hence easily cracked or fractured or snapped
 brittlest	BRITTLE: having little elasticity; hence easily cracked or fractured or snapped
 bro	a brother or male friend
-broach	a decorative pin worn by women
+broach	bring up a topic for discussion
 broached	of a cask or barrel
 broacher	one who first raises a subject
 broachers	BROACHER: one who first raises a subject
-broaches	BROACH: a decorative pin worn by women
-broaching	BROACH: a decorative pin worn by women
+broaches	BROACH: bring up a topic for discussion
+broaching	BROACH: bring up a topic for discussion
 broad	having great (or a certain) extent from one side to the other
 broadband	of or relating to or being a communications network in which the bandwidth can be divided and shared by multiple simultaneous signals (as for voice or data or video)
 broadcast	message that is transmitted by radio or television
@@ -4219,8 +4219,8 @@ brolga	a large grey Australian crane
 brolgas	BROLGA: a large grey Australian crane
 brollies	BROLLY: colloquial terms for an umbrella
 brolly	colloquial terms for an umbrella
-bromide	any of the salts of hydrobromic acid; formerly used as a sedative but now generally replaced by safer drugs
-bromides	BROMIDE: any of the salts of hydrobromic acid; formerly used as a sedative but now generally replaced by safer drugs
+bromide	a trite or obvious remark
+bromides	BROMIDE: a trite or obvious remark
 bromine	a nonmetallic heavy volatile corrosive dark brown liquid element belonging to the halogens; found in sea water
 bronc	an unbroken or imperfectly broken mustang
 bronchi	BRONCHUS: a main air passage to the lungs
@@ -4247,15 +4247,15 @@ brood	think moodily or anxiously about something
 brooded	BROOD: think moodily or anxiously about something
 brooder	apparatus consisting of a box designed to maintain a constant temperature by the use of a thermostat; used for chicks or premature infants
 brooders	BROODER: apparatus consisting of a box designed to maintain a constant temperature by the use of a thermostat; used for chicks or premature infants
-broodier	BROODY: a domestic hen ready to brood
-broodiest	BROODY: a domestic hen ready to brood
+broodier	BROODY: deeply or seriously thoughtful
+broodiest	BROODY: deeply or seriously thoughtful
 broodiness	the quality of being broody
 brooding	sitting on eggs so as to hatch them by the warmth of the body
 broodingly	in a brooding way
 broodmare	a female horse used for breeding
 broodmares	BROODMARE: a female horse used for breeding
 broods	BROOD: think moodily or anxiously about something
-broody	a domestic hen ready to brood
+broody	deeply or seriously thoughtful
 brook	a natural stream of water smaller than a river (and often a tributary of a river)
 brooked	BROOK: a natural stream of water smaller than a river (and often a tributary of a river)
 brooking	BROOK: a natural stream of water smaller than a river (and often a tributary of a river)
@@ -4267,7 +4267,7 @@ brooms	BROOM: a cleaning implement for sweeping; bundle of straws or twigs attac
 broomstick	the handle of a broom
 broomsticks	BROOMSTICK: the handle of a broom
 bros	BRO: a brother or male friend
-broth	liquid in which meat and vegetables are simmered; used as a basis for e.g. soups or sauces
+broth	a thin soup of meat or fish or vegetable stock
 brothel	a building where prostitutes are available
 brothels	BROTHEL: a building where prostitutes are available
 brother	a male with the same parents as someone else
@@ -4276,7 +4276,7 @@ brotherhoods	BROTHERHOOD: the kinship relation between a male offspring and the 
 brotherliness	the quality of being brotherly
 brotherly	like or characteristic of or befitting a brother
 brothers	BROTHER: a male with the same parents as someone else
-broths	BROTH: liquid in which meat and vegetables are simmered; used as a basis for e.g. soups or sauces
+broths	BROTH: a thin soup of meat or fish or vegetable stock
 brougham	light carriage; pulled by a single horse
 broughams	BROUGHAM: light carriage; pulled by a single horse
 brought	BRING: take something or somebody with oneself somewhere
@@ -4294,8 +4294,8 @@ browned	BROWN: an orange of low brightness and saturation
 browner	BROWN: an orange of low brightness and saturation
 brownest	BROWN: an orange of low brightness and saturation
 brownfield	of land, previously built on
-brownie	a junior Girl Scout
-brownies	BROWNIE: a junior Girl Scout
+brownie	square or bar of very rich chocolate cake usually with nuts
+brownies	BROWNIE: square or bar of very rich chocolate cake usually with nuts
 browning	BROWN: an orange of low brightness and saturation
 brownish	of a color similar to that of wood or earth
 brownnose	flatter someone to gain favour
@@ -4306,19 +4306,19 @@ brownnosing	BROWNNOSE: flatter someone to gain favour
 brownout	darkness resulting from the extinction of lights (as in a city invisible to enemy aircraft)
 brownouts	BROWNOUT: darkness resulting from the extinction of lights (as in a city invisible to enemy aircraft)
 browns	BROWN: an orange of low brightness and saturation
-brownstone	a reddish brown sandstone; used in buildings
-brownstones	BROWNSTONE: a reddish brown sandstone; used in buildings
+brownstone	a row house built of brownstone; reddish brown in color
+brownstones	BROWNSTONE: a row house built of brownstone; reddish brown in color
 brows	BROW: the part of the face above the eyes
-browse	vegetation (such as young shoots, twigs, and leaves) that is suitable for animals to eat
-browsed	BROWSE: vegetation (such as young shoots, twigs, and leaves) that is suitable for animals to eat
-browser	a viewer who looks around casually without seeking anything in particular
-browsers	BROWSER: a viewer who looks around casually without seeking anything in particular
-browses	BROWSE: vegetation (such as young shoots, twigs, and leaves) that is suitable for animals to eat
+browse	look around casually and randomly, without seeking anything in particular
+browsed	BROWSE: look around casually and randomly, without seeking anything in particular
+browser	a program used to view HTML documents
+browsers	BROWSER: a program used to view HTML documents
+browses	BROWSE: look around casually and randomly, without seeking anything in particular
 browsing	reading superficially or at random
 brr	an exclamation of feeling cold
 brucellosis	infectious bacterial disease of human beings transmitted by contact with infected animals or infected meat or milk products; characterized by fever and headache
-bruin	a conventional name for a bear used in tales following usage in the old epic `Reynard the Fox'
-bruins	BRUIN: a conventional name for a bear used in tales following usage in the old epic `Reynard the Fox'
+bruin	large ferocious bear of Eurasia
+bruins	BRUIN: large ferocious bear of Eurasia
 bruise	an injury that doesn't break the skin but results in some discoloration
 bruised	BRUISE: an injury that doesn't break the skin but results in some discoloration
 bruiser	a large and strong and heavyset man
@@ -4359,14 +4359,14 @@ brusqueness	an abrupt discourteous manner
 brusquer	BRUSQUE: marked by rude or peremptory shortness
 brusquest	BRUSQUE: marked by rude or peremptory shortness
 brutal	(of persons or their actions) able or disposed to inflict pain or suffering
-brutalisation	the condition of being treated in a cruel and savage manner
+brutalisation	the activity of treating someone savagely or viciously
 brutalise	treat brutally
 brutalised	BRUTALISE: treat brutally
 brutalises	BRUTALISE: treat brutally
 brutalising	BRUTALISE: treat brutally
 brutalities	BRUTALITY: the trait of extreme cruelty
 brutality	the trait of extreme cruelty
-brutalization	the condition of being treated in a cruel and savage manner
+brutalization	the activity of treating someone savagely or viciously
 brutalize	treat brutally
 brutalized	BRUTALIZE: treat brutally
 brutalizer	one who brutalizes
@@ -4416,8 +4416,8 @@ bucketfuls	BUCKETFUL: the quantity contained in a bucket
 bucketing	BUCKET: a roughly cylindrical vessel that is open at the top
 buckets	BUCKET: a roughly cylindrical vessel that is open at the top
 bucketsful	BUCKETFUL: as much as a bucket holds
-buckeye	the inedible nutlike seed of the horse chestnut
-buckeyes	BUCKEYE: the inedible nutlike seed of the horse chestnut
+buckeye	tree having palmate leaves and large clusters of white to red flowers followed by brown shiny inedible seeds
+buckeyes	BUCKEYE: tree having palmate leaves and large clusters of white to red flowers followed by brown shiny inedible seeds
 bucking	BUCK: to strive with determination
 buckle	fasten with a buckle or buckles
 buckled	BUCKLE: fasten with a buckle or buckles
@@ -4447,7 +4447,7 @@ buddhology	the study of Buddhism
 buddied	BUDDY: became friends
 buddies	BUDDY: a close friend who accompanies his buddies in their activities
 budding	BUD: a partially opened flower
-buddings	BUDDING: reproduction of some unicellular organisms (such as yeasts) by growth and specialization followed by the separation by constriction of a part of the parent
+buddings	BUDDING: beginning to develop
 buddy	a close friend who accompanies his buddies in their activities
 buddying	BUDDY: becoming friends
 budge	move very slightly
@@ -4494,10 +4494,10 @@ buffoonishness	the quality of being buffoonish
 buffoons	BUFFOON: a rude or vulgar fool
 buffs	BUFF: an ardent follower and admirer
 bug	general term for any insect or similar creeping or crawling invertebrate
-bugaboo	an imaginary monster used to frighten children
-bugaboos	BUGABOO: an imaginary monster used to frighten children
-bugbear	an imaginary monster used to frighten children
-bugbears	BUGBEAR: an imaginary monster used to frighten children
+bugaboo	a source of concern
+bugaboos	BUGABOO: a source of concern
+bugbear	an object of dread or apprehension
+bugbears	BUGBEAR: an object of dread or apprehension
 bugged	BUG: general term for any insect or similar creeping or crawling invertebrate
 bugger	BUG: general term for any insect or similar creeping or crawling invertebrate
 buggered	BUGGER: someone who engages in anal copulation (especially a male who engages in anal copulation with another male)
@@ -4538,8 +4538,8 @@ bulging	curving or bulging outward
 bulgur	parched crushed wheat
 bulgy	curving outward
 bulimia	a disorder of eating seen among young women who go on eating binges and then feel guilt and depression and self-condemnation
-bulimic	a person suffering from bulimia
-bulimics	BULIMIC: a person suffering from bulimia
+bulimic	suffering from bulimia
+bulimics	BULIMIC: suffering from bulimia
 bulk	the property resulting from being or relating to the greater in number of two parts; the main part
 bulked	BULK: the property resulting from being or relating to the greater in number of two parts; the main part
 bulkhead	a partition that divides a ship or plane into compartments
@@ -4571,35 +4571,35 @@ bulletin	a brief report (especially an official statement issued for immediate p
 bulletined	BULLETIN: a brief report (especially an official statement issued for immediate publication or broadcast)
 bulletining	BULLETIN: a brief report (especially an official statement issued for immediate publication or broadcast)
 bulletins	BULLETIN: a brief report (especially an official statement issued for immediate publication or broadcast)
-bulletproof	make bulletproof
-bulletproofed	BULLETPROOF: make bulletproof
-bulletproofing	BULLETPROOF: make bulletproof
-bulletproofs	BULLETPROOF: make bulletproof
+bulletproof	not penetrable by bullets
+bulletproofed	BULLETPROOF: not penetrable by bullets
+bulletproofing	BULLETPROOF: not penetrable by bullets
+bulletproofs	BULLETPROOF: not penetrable by bullets
 bullets	BULLET: a projectile that is fired from a gun
 bullfight	a Spanish or Portuguese or Latin American spectacle; a matador baits and (usually) kills a bull in an arena before many spectators
 bullfighter	someone who fights bulls
 bullfighters	BULLFIGHTER: someone who fights bulls
 bullfighting	the activity at a bullfight
 bullfights	BULLFIGHT: a Spanish or Portuguese or Latin American spectacle; a matador baits and (usually) kills a bull in an arena before many spectators
-bullfinch	United States architect who designed the Capitol Building in Washington which served as a model for state capitols throughout the United States (1763-1844)
-bullfinches	BULLFINCH: United States architect who designed the Capitol Building in Washington which served as a model for state capitols throughout the United States (1763-1844)
+bullfinch	common European finch mostly black and white with red throat and breast
+bullfinches	BULLFINCH: common European finch mostly black and white with red throat and breast
 bullfrog	largest North American frog; highly aquatic with a deep-pitched voice
 bullfrogs	BULLFROG: largest North American frog; highly aquatic with a deep-pitched voice
-bullhead	freshwater sculpin with a large flattened bony-plated head with hornlike spines
+bullhead	any of several common freshwater catfishes of the United States
 bullheaded	obstinate and stupid
 bullheadedness	resolute adherence to your own ideas or desires
-bullheads	BULLHEAD: freshwater sculpin with a large flattened bony-plated head with hornlike spines
+bullheads	BULLHEAD: any of several common freshwater catfishes of the United States
 bullhorn	a portable loudspeaker with built-in microphone and amplifier
 bullhorns	BULLHORN: a portable loudspeaker with built-in microphone and amplifier
 bullied	BULLY: frighten or hurt someone weaker
 bullies	BULLY: a cruel and brutal fellow
 bulling	BULL: uncastrated adult male of domestic cattle
-bullion	a mass of precious metal
+bullion	gold or silver in bars or ingots
 bullish	expecting a rise in prices
-bullock	young bull
-bullocks	BULLOCK: young bull
-bullpen	a place on a baseball field where relief pitchers can warm up during a game
-bullpens	BULLPEN: a place on a baseball field where relief pitchers can warm up during a game
+bullock	castrated bull
+bullocks	BULLOCK: castrated bull
+bullpen	a large cell where prisoners (people awaiting trial or sentence or refugees or illegal immigrants) are confined together temporarily
+bullpens	BULLPEN: a large cell where prisoners (people awaiting trial or sentence or refugees or illegal immigrants) are confined together temporarily
 bullring	a stadium where bullfights take place
 bullrings	BULLRING: a stadium where bullfights take place
 bulls	BULL: uncastrated adult male of domestic cattle
@@ -4644,11 +4644,11 @@ bummest	BUM: a person who is deemed to be despicable or contemptible
 bumming	BUM: a person who is deemed to be despicable or contemptible
 bump	knock against with force or violence
 bumped	BUMP: knock against with force or violence
-bumper	a glass filled to the brim (especially as a toast)
-bumpers	BUMPER: a glass filled to the brim (especially as a toast)
+bumper	a mechanical device consisting of bars at either end of a vehicle to absorb shock and prevent serious damage
+bumpers	BUMPER: a mechanical device consisting of bars at either end of a vehicle to absorb shock and prevent serious damage
 bumph	reading materials (documents, written information) that you must read and deal with but that you think are extremely boring
-bumpier	BUMPY: causing or characterized by jolts and irregular movements
-bumpiest	BUMPY: causing or characterized by jolts and irregular movements
+bumpier	BUMPY: covered with or full of bumps
+bumpiest	BUMPY: covered with or full of bumps
 bumping	BUMP: knock against with force or violence
 bumpkin	a person who is not very intelligent or interested in culture
 bumpkinish	like a clumsy country person
@@ -4657,7 +4657,7 @@ bumps	BUMP: knock against with force or violence
 bumptious	offensively self-assertive
 bumptiously	in a bumptious manner
 bumptiousness	offensive boldness and assertiveness
-bumpy	causing or characterized by jolts and irregular movements
+bumpy	covered with or full of bumps
 bums	BUM: a person who is deemed to be despicable or contemptible
 bun	small rounded bread either plain or sweet
 bunch	a grouping of a number of similar things
@@ -4675,14 +4675,14 @@ bungalows	BUNGALOW: a small house with a single story
 bunged	BUNG: a plug used to close a hole in a barrel or flask
 bungee	an elasticized rope
 bungees	BUNGEE: an elasticized rope
-bunghole	vulgar slang for anus
-bungholes	BUNGHOLE: vulgar slang for anus
+bunghole	a hole in a barrel or cask; used to fill or empty it
+bungholes	BUNGHOLE: a hole in a barrel or cask; used to fill or empty it
 bunging	BUNG: a plug used to close a hole in a barrel or flask
-bungle	an embarrassing mistake
+bungle	make a mess of, destroy or ruin
 bungled	spoiled through incompetence or clumsiness
 bungler	someone who makes mistakes because of incompetence
 bunglers	BUNGLER: someone who makes mistakes because of incompetence
-bungles	BUNGLE: an embarrassing mistake
+bungles	BUNGLE: make a mess of, destroy or ruin
 bungling	showing lack of skill or aptitude
 bungs	BUNG: a plug used to close a hole in a barrel or flask
 bunion	a painful swelling of the bursa of the first joint of the big toe
@@ -4696,8 +4696,8 @@ bunkhouses	BUNKHOUSE: a building with bunk beds for workers
 bunking	BUNK: a long trough for feeding cattle
 bunks	BUNK: a long trough for feeding cattle
 bunkum	unacceptable behavior (especially ludicrously false statements)
-bunnies	BUNNY: a young waitress in a nightclub whose costume includes the tail and ears of a rabbit
-bunny	a young waitress in a nightclub whose costume includes the tail and ears of a rabbit
+bunnies	BUNNY: (usually informal) especially a young rabbit
+bunny	(usually informal) especially a young rabbit
 bunnykins	a pet name for a rabbit
 buns	the fleshy part of the human body that you sit on
 bunt	the act of hitting a baseball lightly without swinging the bat
@@ -4711,7 +4711,7 @@ bunyip	a mythical Australian swamp creature
 bunyips	BUNYIP: a mythical Australian swamp creature
 buoy	bright-colored; a float attached by rope to the seabed to mark channels in a harbor or underwater hazards
 buoyage	a system of buoys
-buoyancy	cheerfulness that bubbles to the surface
+buoyancy	the tendency to float in water or other liquid
 buoyant	tending to float on a liquid or rise in air or gas
 buoyantly	in a cheerfully buoyant manner
 buoyed	BUOY: bright-colored; a float attached by rope to the seabed to mark channels in a harbor or underwater hazards
@@ -4738,7 +4738,7 @@ bureaucracies	BUREAUCRACY: nonelective government officials
 bureaucracy	nonelective government officials
 bureaucrat	an official of a bureaucracy
 bureaucratic	of or relating to or resembling a bureaucrat or bureaucracy
-bureaucratically	in a bureaucratic manner
+bureaucratically	in a way typical of bureaucracy, with rigid rules and red tape
 bureaucrats	BUREAUCRAT: an official of a bureaucracy
 bureaus	BUREAU: an administrative unit of government
 bureaux	BUREAU: an office or a writing desk
@@ -4750,9 +4750,9 @@ burgeon	grow and flourish
 burgeoned	BURGEON: grow and flourish
 burgeoning	BURGEON: grow and flourish
 burgeons	BURGEON: grow and flourish
-burger	United States jurist appointed chief justice of the United States Supreme Court by Richard Nixon (1907-1995)
-burgers	BURGER: United States jurist appointed chief justice of the United States Supreme Court by Richard Nixon (1907-1995)
-burgesses	BURGESS: English writer of satirical novels (1917-1993)
+burger	a sandwich consisting of a fried cake of minced beef served on a bun, often with other ingredients
+burgers	BURGER: a sandwich consisting of a fried cake of minced beef served on a bun, often with other ingredients
+burgesses	BURGESS: a citizen of an English borough
 burgh	a borough in Scotland
 burgher	a citizen of an English borough
 burghers	BURGHER: a citizen of an English borough
@@ -4775,8 +4775,8 @@ burgles	BURGLE: commit a burglary; enter and rob a dwelling
 burgling	BURGLE: commit a burglary; enter and rob a dwelling
 burgomaster	a mayor of a municipality in Germany or Holland or Flanders or Austria
 burgs	BURG: colloquial American term for a town
-burgundies	BURGUNDY: a former province of eastern France that is famous for its wines
-burgundy	a former province of eastern France that is famous for its wines
+burgundies	BURGUNDY: a dark purplish-red to blackish-red color
+burgundy	a dark purplish-red to blackish-red color
 burial	the ritual placing of a corpse in a grave
 burials	BURIAL: the ritual placing of a corpse in a grave
 buried	BURY: cover from sight
@@ -4786,10 +4786,10 @@ burkas	BURKA: a loose garment (usually with veiled holes for the eyes) worn by M
 burkha	a long garment covering the whole body and face
 burkhas	BURKHA: a long garment covering the whole body and face
 burlap	coarse jute fabric
-burlesque	a theatrical entertainment of broad and earthy humor; consists of comic skits and short turns (and sometimes striptease)
-burlesqued	BURLESQUE: a theatrical entertainment of broad and earthy humor; consists of comic skits and short turns (and sometimes striptease)
-burlesques	BURLESQUE: a theatrical entertainment of broad and earthy humor; consists of comic skits and short turns (and sometimes striptease)
-burlesquing	BURLESQUE: a theatrical entertainment of broad and earthy humor; consists of comic skits and short turns (and sometimes striptease)
+burlesque	a composition that imitates or misrepresents somebody's style, usually in a humorous way
+burlesqued	BURLESQUE: a composition that imitates or misrepresents somebody's style, usually in a humorous way
+burlesques	BURLESQUE: a composition that imitates or misrepresents somebody's style, usually in a humorous way
+burlesquing	BURLESQUE: a composition that imitates or misrepresents somebody's style, usually in a humorous way
 burlier	BURLY: muscular and heavily built
 burliest	BURLY: muscular and heavily built
 burliness	the quality of being burly
@@ -4800,12 +4800,12 @@ burner	an apparatus for burning fuel (or refuse)
 burners	BURNER: an apparatus for burning fuel (or refuse)
 burning	the act of burning something
 burnings	BURNING: the act of burning something
-burnish	the property of being smooth and shiny
+burnish	polish and make shiny
 burnished	made smooth and bright by or as if by rubbing; reflecting a sheen or glow
 burnisher	one who polishes by rubbing
 burnishers	BURNISHER: one who polishes by rubbing
-burnishes	BURNISH: the property of being smooth and shiny
-burnishing	BURNISH: the property of being smooth and shiny
+burnishes	BURNISH: polish and make shiny
+burnishing	BURNISH: polish and make shiny
 burnoose	a long hooded cloak woven of wool in one piece; worn by Arabs and Moors
 burnooses	BURNOOSE: a long hooded cloak woven of wool in one piece; worn by Arabs and Moors
 burnous	a long hooded cloak woven of wool in one piece; worn by Arabs and Moors
@@ -4814,11 +4814,11 @@ burnout	exhaustion from prolonged stress
 burnouts	BURNOUT: exhaustion from prolonged stress
 burns	BURN: destroy by fire
 burnt	ruined by overcooking
-burp	a reflex that expels gas noisily from the stomach through the mouth
+burp	expel gas from the stomach
 burpcloth	a cloth put over a shoulder when burping a baby
-burped	BURP: a reflex that expels gas noisily from the stomach through the mouth
+burped	BURP: expel gas from the stomach
 burping	a reflex that expels gas noisily from the stomach through the mouth
-burps	BURP: a reflex that expels gas noisily from the stomach through the mouth
+burps	BURP: expel gas from the stomach
 burqa	a loose garment (usually with veiled holes for the eyes) worn by Muslim women especially in India and Pakistan
 burqas	BURQA: a loose garment (usually with veiled holes for the eyes) worn by Muslim women especially in India and Pakistan
 burr	seed vessel having hooks or prickles
@@ -4879,10 +4879,10 @@ bushier	BUSHY: used of hair; thick and poorly groomed
 bushiest	BUSHY: used of hair; thick and poorly groomed
 bushiness	the quality of being bushy
 bushing	BUSH: a low woody perennial plant usually having several major stems
-bushings	BUSHING: an insulating liner in an opening through which conductors pass
-bushman	nomadic hunters and gatherers who live in southern Africa
+bushings	BUSHING: a cylindrical metal lining used to reduce friction
+bushman	a dweller in the Australian bush country
 bushmaster	a large venomous snake of Central and South America
-bushmen	BUSHMAN: nomadic hunters and gatherers who live in southern Africa
+bushmen	BUSHMAN: a dweller in the Australian bush country
 bushranger	an outlaw living in the Australian bush
 bushrangers	BUSHRANGER: an outlaw living in the Australian bush
 bushwhack	wait in hiding to attack
@@ -4943,16 +4943,16 @@ busywork	active work of little value
 but	and nothing more
 butadiene	a gaseous hydrocarbon C4H6; used in making synthetic rubbers
 butane	occurs in natural gas; used in the manufacture of rubber and fuels
-butch	offensive term for a lesbian who is noticeably masculine
+butch	a closely cropped haircut; usually for men or boys
 butcher	kill (animals) usually for food consumption
-butcherbird	shrikes that impale their prey on thorns
-butcherbirds	BUTCHERBIRD: shrikes that impale their prey on thorns
+butcherbird	large carnivorous Australian bird with the shrike-like habit of impaling prey on thorns
+butcherbirds	BUTCHERBIRD: large carnivorous Australian bird with the shrike-like habit of impaling prey on thorns
 butchered	BUTCHER: kill (animals) usually for food consumption
-butcheries	BUTCHERY: a building where animals are butchered
+butcheries	BUTCHERY: the savage and excessive killing of many people
 butchering	BUTCHER: kill (animals) usually for food consumption
 butchers	BUTCHER: kill (animals) usually for food consumption
-butchery	a building where animals are butchered
-butches	BUTCH: offensive term for a lesbian who is noticeably masculine
+butchery	the savage and excessive killing of many people
+butches	BUTCH: a closely cropped haircut; usually for men or boys
 butler	a manservant (usually the head servant of a household) who has charge of wines and the table
 butlers	BUTLER: a manservant (usually the head servant of a household) who has charge of wines and the table
 buts	BUT: objections
@@ -4970,21 +4970,21 @@ butterer	one who spreads butter
 butterers	BUTTERER: one who spreads butter
 butterfat	the fatty substance of milk from which butter is made
 butterfingers	someone who drops things (especially one who cannot catch a ball)
-butterfish	any of numerous small flat Atlantic food fish having smooth skin
+butterfish	slippery scaleless food fish of the northern Atlantic coastal waters
 butterflied	BUTTERFLY: cut and spread open flat
 butterflies	BUTTERFLY: diurnal insect typically having a slender body with knobbed antennae and broad colorful wings
 butterfly	diurnal insect typically having a slender body with knobbed antennae and broad colorful wings
 butterflying	BUTTERFLY: diurnal insect typically having a slender body with knobbed antennae and broad colorful wings
-butterier	BUTTERY: a small storeroom for storing foods or wines
-butteries	BUTTERY: a small storeroom for storing foods or wines
-butteriest	BUTTERY: a small storeroom for storing foods or wines
+butterier	BUTTERY: resembling or containing or spread with butter
+butteries	BUTTERY: resembling or containing or spread with butter
+butteriest	BUTTERY: resembling or containing or spread with butter
 buttering	BUTTER: an edible emulsion of fat globules made by churning milk or cream; for cooking and table use
 buttermilk	residue from making butter from sour raw milk; or pasteurized milk curdled by adding a culture
 butternut	oily egg-shaped nut of an American tree of the walnut family
 butternuts	BUTTERNUT: oily egg-shaped nut of an American tree of the walnut family
 butters	BUTTER: an edible emulsion of fat globules made by churning milk or cream; for cooking and table use
 butterscotch	a hard brittle candy made with butter and brown sugar
-buttery	a small storeroom for storing foods or wines
+buttery	resembling or containing or spread with butter
 buttes	BUTT: lie adjacent to another or share a boundary
 butties	BUTTY: a sandwich
 butting	BUTT: lie adjacent to another or share a boundary
@@ -5020,11 +5020,11 @@ buyout	acquisition of a company by purchasing a controlling percentage of its st
 buyouts	BUYOUT: acquisition of a company by purchasing a controlling percentage of its stock
 buys	BUY: obtain by purchase; acquire by means of a financial transaction
 buzz	make a buzzing sound
-buzzard	a New World vulture that is common in South America and Central America and the southern United States
-buzzards	BUZZARD: a New World vulture that is common in South America and Central America and the southern United States
+buzzard	the common European short-winged hawk
+buzzards	BUZZARD: the common European short-winged hawk
 buzzed	BUZZ: make a buzzing sound
-buzzer	a push button at an outer door that gives a ringing or buzzing signal when pushed
-buzzers	BUZZER: a push button at an outer door that gives a ringing or buzzing signal when pushed
+buzzer	a signaling device that makes a buzzing sound
+buzzers	BUZZER: a signaling device that makes a buzzing sound
 buzzes	BUZZ: make a buzzing sound
 buzzing	noisy like the sound of a bee
 buzzkill	something that spoils a mood
@@ -5034,10 +5034,10 @@ buzzsaws	BUZZSAW: a circular power saw
 buzzword	stock phrases that have become nonsense through endless repetition
 buzzwords	BUZZWORD: stock phrases that have become nonsense through endless repetition
 by	so as to pass a given point
-bye	an automatic advance to the next round in a tournament without playing an opponent
+bye	a farewell remark
 byelaw	a local rule
 byelaws	BYELAW: a local rule
-byes	BYE: an automatic advance to the next round in a tournament without playing an opponent
+byes	BYE: a farewell remark
 bygone	past events to be put aside
 bygones	BYGONE: past events to be put aside
 bylaw	a rule adopted by an organization in order to regulate its own affairs and the behavior of its members
@@ -5050,8 +5050,8 @@ bypasses	BYPASS: a highway that encircles an urban area so that traffic does not
 bypassing	BYPASS: a highway that encircles an urban area so that traffic does not have to pass through the center
 bypast	well in the past; former
 byplay	incidental activity performed by an actor for dramatic effect
-byproduct	a secondary and sometimes unexpected consequence
-byproducts	BYPRODUCT: a secondary and sometimes unexpected consequence
+byproduct	a product made during the manufacture of something else
+byproducts	BYPRODUCT: a product made during the manufacture of something else
 byre	a barn for cows
 byres	BYRE: a barn for cows
 byronic	brooding, romantic and moody
@@ -5064,4 +5064,4 @@ byway	a side road little traveled (as in the countryside)
 byways	BYWAY: a side road little traveled (as in the countryside)
 byword	a condensed but memorable saying embodying some important fact of experience that is taken as true by many people
 bywords	BYWORD: a condensed but memorable saying embodying some important fact of experience that is taken as true by many people
-byzantine	a native or inhabitant of Byzantium or of the Byzantine Empire
+byzantine	highly complex or intricate and occasionally devious

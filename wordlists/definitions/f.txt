@@ -1,13 +1,13 @@
 fa	the syllable naming the fourth (subdominant) note of the diatonic scale in solmization
 fab	extremely pleasing
-fable	a deliberately false or improbable account
+fable	a short moral story (often with animal characters)
 fabled	celebrated in fable or legend
-fables	FABLE: a deliberately false or improbable account
+fables	FABLE: a short moral story (often with animal characters)
 fabric	artifact made by weaving or felting or knitting or crocheting natural or synthetic fibers
-fabricate	put together out of artificial or natural components or parts
+fabricate	concoct something artificial or untrue
 fabricated	formed or conceived by the imagination
-fabricates	FABRICATE: put together out of artificial or natural components or parts
-fabricating	FABRICATE: put together out of artificial or natural components or parts
+fabricates	FABRICATE: concoct something artificial or untrue
+fabricating	FABRICATE: concoct something artificial or untrue
 fabrication	a deliberately false or improbable account
 fabrications	FABRICATION: a deliberately false or improbable account
 fabricator	someone who tells lies
@@ -42,16 +42,16 @@ facetiousness	playful humor
 facets	FACET: a distinct feature or element in a problem
 facetted	FACET: a distinct feature or element in a problem
 facetting	FACET: a distinct feature or element in a problem
-facial	cranial nerve that supplies facial muscles
+facial	of or concerning the face
 facially	with respect to the face
-facials	FACIAL: cranial nerve that supplies facial muscles
+facials	FACIAL: of or concerning the face
 facies	the overall look of a rock, or of a patient's face, that marks its kind
 facile	superficially impressive, but lacking depth and attention to the true complexities of a subject
 facilitate	make easier
 facilitated	FACILITATE: make easier
 facilitates	FACILITATE: make easier
 facilitating	FACILITATE: make easier
-facilitation	the condition of being made easy (or easier)
+facilitation	act of assisting or making easier the progress or improvement of something
 facilitator	someone who makes progress easier
 facilitators	FACILITATOR: someone who makes progress easier
 facilities	FACILITY: a building or place that provides a particular service or is used for a particular industry
@@ -93,7 +93,7 @@ factotums	FACTOTUM: a servant employed to do a variety of jobs
 facts	FACT: a piece of information about circumstances that exist or events that have occurred
 factual	existing in act or fact
 factually	as a fact or based on fact
-facultative	of or relating to the mental faculties
+facultative	able to exist under more than one set of conditions
 faculties	FACULTY: one of the inherent cognitive or perceptual powers of the mind
 faculty	one of the inherent cognitive or perceptual powers of the mind
 fad	an interest followed with exaggerated zeal
@@ -116,11 +116,11 @@ faff	waste time on trivial matters
 faffed	FAFF: waste time on trivial matters
 faffing	FAFF: waste time on trivial matters
 faffs	FAFF: waste time on trivial matters
-fag	offensive term for a homosexual man
+fag	finely ground tobacco wrapped in paper; for smoking
 fagged	drained of energy or effectiveness; extremely tired; completely exhausted
-fagging	FAG: offensive term for a homosexual man
+fagging	FAG: finely ground tobacco wrapped in paper; for smoking
 faggoting	embroidery in which groups of parallel threads are tied together with fagot stitches
-fags	FAG: offensive term for a homosexual man
+fags	FAG: finely ground tobacco wrapped in paper; for smoking
 fah	the fourth note of the scale
 fail	fail to do something; leave something undone
 failed	FAIL: fail to do something; leave something undone
@@ -130,9 +130,9 @@ fails	FAIL: fail to do something; leave something undone
 failsafe	designed to remain safe if it fails
 failure	an act that fails
 failures	FAILURE: an act that fails
-fain	having made preparations
-fainer	FAIN: having made preparations
-fainest	FAIN: having made preparations
+fain	in a willing manner
+fainer	FAIN: in a willing manner
+fainest	FAIN: in a willing manner
 faint	deficient in magnitude; barely perceptible; lacking clarity or brightness or loudness etc
 fainted	FAINT: deficient in magnitude; barely perceptible; lacking clarity or brightness or loudness etc
 fainter	FAINT: deficient in magnitude; barely perceptible; lacking clarity or brightness or loudness etc
@@ -198,8 +198,8 @@ fallacy	a misconception resulting from incorrect reasoning
 fallback	to break off a military action with an enemy
 fallbacks	FALLBACK: to break off a military action with an enemy
 fallen	having dropped by the force of gravity
-faller	a person who fells trees
-fallers	FALLER: a person who fells trees
+faller	a person who falls
+fallers	FALLER: a person who falls
 fallibility	the likelihood of making errors
 fallible	likely to fail or make errors
 fallibly	in a way liable to error
@@ -215,7 +215,7 @@ falls	FALL: descend in free fall under the influence of gravity
 false	not in accordance with the fact or reality or actuality
 falsehood	a false statement
 falsehoods	FALSEHOOD: a false statement
-falsely	in an insincerely false manner
+falsely	in an incorrect manner
 falseness	the state of being false or untrue
 falser	FALSE: not in accordance with the fact or reality or actuality
 falsest	FALSE: not in accordance with the fact or reality or actuality
@@ -224,8 +224,8 @@ falsettos	FALSETTO: a male singing voice with artificially high tones in an uppe
 falsie	padding that is worn inside a brassiere
 falsies	FALSIE: padding that is worn inside a brassiere
 falsifiable	capable of being tested (verified or falsified) by experiment or observation
-falsification	any evidence that helps to establish the falsity of something
-falsifications	FALSIFICATION: any evidence that helps to establish the falsity of something
+falsification	the act of rendering something false as by fraudulent changes (of documents or measures etc.) or counterfeiting
+falsifications	FALSIFICATION: the act of rendering something false as by fraudulent changes (of documents or measures etc.) or counterfeiting
 falsified	FALSIFY: alter in order to deceive
 falsifies	FALSIFY: make false by mutilation or addition; as of a message or story
 falsify	make false by mutilation or addition; as of a message or story
@@ -260,8 +260,8 @@ familiarness	the quality of being familiar
 familiars	FAMILIAR: well known or easily recognized
 families	FAMILY: a social unit living together
 family	a social unit living together
-famine	an acute insufficiency
-famines	FAMINE: an acute insufficiency
+famine	a severe shortage of food (as through crop failure) resulting in violent hunger and starvation and death
+famines	FAMINE: a severe shortage of food (as through crop failure) resulting in violent hunger and starvation and death
 famish	be hungry; go without food
 famished	extremely hungry
 famishes	FAMISH: be hungry; go without food
@@ -297,16 +297,16 @@ fanfare	a gaudy outward display
 fanfares	FANFARE: a gaudy outward display
 fanfic	stories written by fans about existing characters
 fanfics	FANFIC: stories written by fans about existing characters
-fang	a Bantu language spoken in Cameroon
+fang	canine tooth of a carnivorous animal; used to seize and tear its prey
 fanged	having fangs
 fanglike	resembling a fang
-fangs	FANG: a Bantu language spoken in Cameroon
-fanlight	a window above a door that is usually hinged to a horizontal crosspiece over the door
-fanlights	FANLIGHT: a window above a door that is usually hinged to a horizontal crosspiece over the door
+fangs	FANG: canine tooth of a carnivorous animal; used to seize and tear its prey
+fanlight	a semicircular window over a door or window; usually has sash bars like the ribs of a fan
+fanlights	FANLIGHT: a semicircular window over a door or window; usually has sash bars like the ribs of a fan
 fanned	FAN: a device for creating a current of air by movement of a surface or surfaces
-fannies	FANNY: the fleshy part of the human body that you sit on
+fannies	FANNY: the vagina, in British and Australian use; the buttocks, in American
 fanning	FAN: a device for creating a current of air by movement of a surface or surfaces
-fanny	the fleshy part of the human body that you sit on
+fanny	the vagina, in British and Australian use; the buttocks, in American
 fans	FAN: a device for creating a current of air by movement of a surface or surfaces
 fantabulous	very good; of the highest quality
 fantail	an overhang consisting of the fan-shaped part of the deck extending aft of the sternpost of a ship
@@ -363,8 +363,8 @@ farmings	FARMING: the practice of cultivating the land or raising stock
 farmland	a rural area where farming is practiced
 farmlands	FARMLAND: a rural area where farming is practiced
 farms	FARM: workplace consisting of farm buildings and cultivated land as a unit
-farmstead	the buildings and adjacent grounds of a farm
-farmsteads	FARMSTEAD: the buildings and adjacent grounds of a farm
+farmstead	a farm together with its buildings
+farmsteads	FARMSTEAD: a farm together with its buildings
 farmyard	an area adjacent to farm buildings
 farmyards	FARMYARD: an area adjacent to farm buildings
 faro	a card game in which players bet against the dealer on the cards he will draw from a dealing box
@@ -374,12 +374,12 @@ farragoes	FARRAGO: a confused mixture
 farragos	FARRAGO: a motley assortment of things
 farrier	a person who shoes horses
 farriers	FARRIER: a person who shoes horses
-farrow	the production of a litter of pigs
-farrowed	FARROW: the production of a litter of pigs
+farrow	give birth to (piglets)
+farrowed	FARROW: give birth to (piglets)
 farrowing	the production of a litter of pigs
-farrows	FARROW: the production of a litter of pigs
-farsighted	able to see distant objects clearly
-farsightedness	a reduced ability to focus on near objects caused by loss of elasticity of the crystalline lens after age 45
+farrows	FARROW: give birth to (piglets)
+farsighted	planning prudently for the future
+farsightedness	abnormal condition in which vision for distant objects is better than for near objects
 fart	a reflex that expels intestinal gas through the anus
 farted	FART: a reflex that expels intestinal gas through the anus
 farther	more distant in especially space or time
@@ -423,23 +423,23 @@ fastballs	FASTBALL: a pitch thrown with maximum velocity
 fasted	FAST: quickly or rapidly (often used as a combining form)
 fasten	cause to be firmly attached
 fastened	firmly closed or secured
-fastener	a person who fastens or makes fast
-fasteners	FASTENER: a person who fastens or makes fast
+fastener	restraint that attaches to something or holds something in place
+fasteners	FASTENER: restraint that attaches to something or holds something in place
 fastening	FASTEN: cause to be firmly attached
 fastenings	FASTENING: restraint that attaches to something or holds something in place
 fastens	FASTEN: cause to be firmly attached
 faster	more quickly
 fastest	FAST: quickly or rapidly (often used as a combining form)
 fastidious	giving careful attention to detail; hard to please; excessively concerned with cleanliness
-fastidiously	in a fastidious and painstaking manner
+fastidiously	in a fastidious manner
 fastidiousness	the trait of being meticulous about matters of taste or style
 fasting	FAST: quickly or rapidly (often used as a combining form)
-fastness	a rate (usually rapid) at which something happens
-fastnesses	FASTNESS: a rate (usually rapid) at which something happens
+fastness	a strongly fortified defensive structure
+fastnesses	FASTNESS: a strongly fortified defensive structure
 fasts	FAST: quickly or rapidly (often used as a combining form)
 fat	a soft greasy substance occurring in organic tissue and consisting of a mixture of lipids (mostly triglycerides)
 fatal	bringing death
-fatalism	a submissive mental attitude resulting from acceptance of the doctrine that everything that happens is predetermined and inevitable
+fatalism	a philosophical doctrine holding that all events are predetermined in advance for all time and human beings are powerless to change them
 fatalist	anyone who submits to the belief that they are powerless to change their destiny
 fatalistic	of or relating to fatalism
 fatalistically	in a way that accepts events as fixed
@@ -460,7 +460,7 @@ fatheadedness	the quality of being fatheaded
 fatheads	FATHEAD: a man who is a stupid incompetent fool
 father	a male parent (also used as a term of address to your father)
 fathered	FATHER: a male parent (also used as a term of address to your father)
-fatherhood	the kinship relation between an offspring and the father
+fatherhood	the status of a father
 fathering	FATHER: a male parent (also used as a term of address to your father)
 fatherland	the country where you were born
 fatherlands	FATHERLAND: the country where you were born
@@ -468,7 +468,7 @@ fatherless	having no living father
 fatherly	like or befitting a father or fatherhood; kind and protective
 fathers	FATHER: a male parent (also used as a term of address to your father)
 fathom	come to understand
-fathomable	(of depth) capable of being sounded or measured for depth
+fathomable	(of meaning) capable of being penetrated or comprehended
 fathomed	FATHOM: come to understand
 fathoming	FATHOM: come to understand
 fathomless	without fathom
@@ -537,17 +537,17 @@ favorite	something regarded with special favor or liking
 favorites	FAVORITE: something regarded with special favor or liking
 favoritism	an inclination to favor some person or group
 favors	FAVOR: promote over another
-favour	a feeling of favorable regard
+favour	an act of gracious kindness
 favourable	encouraging or approving or pleasing
 favourably	showing approval
-favoured	FAVOUR: a feeling of favorable regard
+favoured	FAVOUR: an act of gracious kindness
 favourer	one who favours
 favourers	FAVOURER: one who favours
-favouring	FAVOUR: a feeling of favorable regard
-favourite	a competitor thought likely to win
-favourites	FAVOURITE: a competitor thought likely to win
+favouring	FAVOUR: an act of gracious kindness
+favourite	something regarded with special favor or liking
+favourites	FAVOURITE: something regarded with special favor or liking
 favouritism	an inclination to favor some person or group
-favours	FAVOUR: a feeling of favorable regard
+favours	FAVOUR: an act of gracious kindness
 fawn	a color or pigment varying around a light grey-brown color
 fawned	FAWN: a color or pigment varying around a light grey-brown color
 fawner	someone who humbles himself as a sign of respect; who behaves as if he had no self-respect
@@ -567,11 +567,11 @@ fear	be afraid or feel anxious or apprehensive about a possible or probable situ
 feared	FEAR: be afraid or feel anxious or apprehensive about a possible or probable situation or event
 fearful	experiencing or showing fear
 fearfully	in fear
-fearfulness	an emotion experienced in anticipation of some specific pain or danger (usually accompanied by a desire to flee or fight)
+fearfulness	the trait of being afraid
 fearing	FEAR: be afraid or feel anxious or apprehensive about a possible or probable situation or event
 fearless	oblivious of dangers or perils or calmly resolute in facing them
 fearlessly	without fear
-fearlessness	feeling no fear
+fearlessness	the trait of feeling no fear
 fears	FEAR: be afraid or feel anxious or apprehensive about a possible or probable situation or event
 fearsome	causing fear or dread or terror
 feasibility	the quality of being doable
@@ -595,8 +595,8 @@ featheriness	a light softness
 feathering	FEATHER: the light horny waterproof structure forming the external covering of birds
 featherlight	extremely light
 feathers	FEATHER: the light horny waterproof structure forming the external covering of birds
-featherweight	an amateur boxer who weighs no more than 126 pounds
-featherweights	FEATHERWEIGHT: an amateur boxer who weighs no more than 126 pounds
+featherweight	weighs 126-139 pounds
+featherweights	FEATHERWEIGHT: weighs 126-139 pounds
 feathery	resembling or suggesting a feather or feathers
 feats	FEAT: a notable achievement
 feature	a prominent attribute or aspect of something
@@ -608,8 +608,8 @@ featuring	FEATURE: a prominent attribute or aspect of something
 febrile	of or relating to or characterized by fever
 fecal	of or relating to feces
 feces	solid excretory product evacuated from the bowels
-feckless	not fit to assume responsibility
-fecklessly	with ineptitude; in an incompetent manner
+feckless	generally incompetent and ineffectual
+fecklessly	in a feckless manner; irresponsibly and incompetently
 fecklessness	worthlessness due to being feeble and ineffectual
 fecund	capable of producing offspring or vegetation
 fecundity	the intellectual productivity of a creative imagination
@@ -618,18 +618,18 @@ federal	national; especially in reference to the government of the United States
 federalisation	the state of being under federal control
 federalised	FEDERALISE: put under the control and authority of a federal government
 federalism	the idea of a federal organization of more or less self-governing units
-federalist	a member of a former political party in the United States that favored a strong centralized federal government
-federalists	FEDERALIST: a member of a former political party in the United States that favored a strong centralized federal government
+federalist	an advocate of federalism
+federalists	FEDERALIST: an advocate of federalism
 federalization	the state of being under federal control
 federalized	FEDERALIZE: unite on a federal basis or band together as a league
 federally	by federal government
 federals	FEDERAL: national; especially in reference to the government of the United States as distinct from that of its member units
-federate	enter into a league for a common purpose
+federate	unite on a federal basis or band together as a league
 federated	united under a central government
-federates	FEDERATE: enter into a league for a common purpose
-federating	FEDERATE: enter into a league for a common purpose
-federation	an organization formed by merging several groups or parties
-federations	FEDERATION: an organization formed by merging several groups or parties
+federates	FEDERATE: unite on a federal basis or band together as a league
+federating	FEDERATE: unite on a federal basis or band together as a league
+federation	a union of political organizations
+federations	FEDERATION: a union of political organizations
 fedora	a hat made of felt with a creased crown
 fedoras	FEDORA: a hat made of felt with a creased crown
 feds	FED: any federal law-enforcement officer
@@ -699,7 +699,7 @@ fellas	FELLA: a boy or man
 fellatio	oral stimulation of the penis
 felled	FELL: cause to fall by or as if by delivering a blow
 feller	FELL: cause to fall by or as if by delivering a blow
-fellers	FELLER: a person who fells trees
+fellers	FELLER: a boy or man
 fellest	FELL: cause to fall by or as if by delivering a blow
 felling	FELL: cause to fall by or as if by delivering a blow
 fellow	a boy or man
@@ -724,25 +724,25 @@ feminine	associated with women and not with men
 feminines	FEMININE: associated with women and not with men
 femininity	the trait of behaving in ways considered typical for women
 feminisation	the process of becoming feminized; the development of female characteristics (loss of facial hair or breast enlargement) in a male because of hormonal disorders or castration
-feminise	assume (more) feminine characteristics
-feminised	FEMINISE: assume (more) feminine characteristics
-feminises	FEMINISE: assume (more) feminine characteristics
-feminising	FEMINISE: assume (more) feminine characteristics
+feminise	to give a (more) feminine, effeminate, or womanly quality or appearance to
+feminised	FEMINISE: to give a (more) feminine, effeminate, or womanly quality or appearance to
+feminises	FEMINISE: to give a (more) feminine, effeminate, or womanly quality or appearance to
+feminising	FEMINISE: to give a (more) feminine, effeminate, or womanly quality or appearance to
 feminism	a doctrine that advocates equal rights for women
 feminist	a supporter of feminism
 feminists	FEMINIST: a supporter of feminism
 feminization	the process of becoming feminized; the development of female characteristics (loss of facial hair or breast enlargement) in a male because of hormonal disorders or castration
-feminize	assume (more) feminine characteristics
-feminized	FEMINIZE: assume (more) feminine characteristics
-feminizes	FEMINIZE: assume (more) feminine characteristics
-feminizing	FEMINIZE: assume (more) feminine characteristics
+feminize	to give a (more) feminine, effeminate, or womanly quality or appearance to
+feminized	FEMINIZE: to give a (more) feminine, effeminate, or womanly quality or appearance to
+feminizes	FEMINIZE: to give a (more) feminine, effeminate, or womanly quality or appearance to
+feminizing	FEMINIZE: to give a (more) feminine, effeminate, or womanly quality or appearance to
 femme	feminine in style; also a lesbian presenting in a feminine way
 femora	FEMUR: the thigh bone
 femoral	of or relating to or near the femur or thigh
 femtosecond	one quadrillionth (10^-15) of a second; one thousandth of a picosecond
 femur	the longest and thickest bone of the human skeleton; extends from the pelvis to the knee
 femurs	FEMUR: the longest and thickest bone of the human skeleton; extends from the pelvis to the knee
-fen	100 fen equal 1 yuan in China
+fen	low-lying wet land with grassy vegetation; usually is a transition zone between land and water
 fence	a barrier that serves to enclose an area
 fenced	FENCE: a barrier that serves to enclose an area
 fencer	someone skilled at fencing
@@ -760,10 +760,10 @@ fenland	low-lying wet land with grassy vegetation; usually is a transition zone 
 fenlands	FENLAND: low-lying wet land with grassy vegetation; usually is a transition zone between land and water
 fennec	a small desert fox with large ears
 fennecs	FENNEC: a small desert fox with large ears
-fennel	aromatic bulbous stem base eaten cooked or raw in salads
-fens	FEN: 100 fen equal 1 yuan in China
+fennel	any of several aromatic herbs having edible seeds and leaves and stems
+fens	FEN: low-lying wet land with grassy vegetation; usually is a transition zone between land and water
 fentanyl	trade names of a narcotic analgesic that can be inhaled and that acts on the central nervous system and may become addictive; used as a veterinary anesthetic and with other drugs before, during, and after surgery; also used as a nonlethal gas to incapacitate people in hostage situations; also abused as a recreational drug
-fenugreek	aromatic seeds used as seasoning especially in curry
+fenugreek	annual herb or southern Europe and eastern Asia having off-white flowers and aromatic seeds used medicinally and in curry
 feral	wild and menacing
 feringhee	a European, in old Indian usage
 feringhees	FERINGHEE: a European, in old Indian usage
@@ -780,12 +780,12 @@ ferocious	marked by extreme and violent energy
 ferociously	in a physically fierce manner
 ferociousness	the trait of extreme cruelty
 ferocity	the property of being wild or turbulent
-ferret	musteline mammal of prairie regions of United States; nearly extinct
-ferreted	FERRET: musteline mammal of prairie regions of United States; nearly extinct
+ferret	domesticated albino variety of the European polecat bred for hunting rats and rabbits
+ferreted	FERRET: domesticated albino variety of the European polecat bred for hunting rats and rabbits
 ferreter	one who searches things out
 ferreters	FERRETER: one who searches things out
-ferreting	FERRET: musteline mammal of prairie regions of United States; nearly extinct
-ferrets	FERRET: musteline mammal of prairie regions of United States; nearly extinct
+ferreting	FERRET: domesticated albino variety of the European polecat bred for hunting rats and rabbits
+ferrets	FERRET: domesticated albino variety of the European polecat bred for hunting rats and rabbits
 ferric	of or relating to or containing iron
 ferried	FERRY: transport from one place to another
 ferries	FERRY: transport from one place to another
@@ -805,13 +805,13 @@ ferryman	a man who operates a ferry
 ferrymen	FERRYMAN: a man who operates a ferry
 fertile	capable of reproducing
 fertilisation	creation by the physical union of male and female gametes; of sperm and ova in an animal or pollen and ovule in a plant
-fertilise	make fertile or productive
-fertilised	FERTILISE: make fertile or productive
+fertilise	provide with fertilizers or add nutrients to
+fertilised	FERTILISE: provide with fertilizers or add nutrients to
 fertiliser	any substance such as manure or a mixture of nitrates used to make soil more fertile
 fertilisers	FERTILISER: any substance such as manure or a mixture of nitrates used to make soil more fertile
-fertilises	FERTILISE: make fertile or productive
-fertilising	FERTILISE: make fertile or productive
-fertility	the ratio of live births in an area to the population of that area; expressed per 1000 population per year
+fertilises	FERTILISE: provide with fertilizers or add nutrients to
+fertilising	FERTILISE: provide with fertilizers or add nutrients to
+fertility	the state of being fertile; capable of producing offspring
 fertilization	creation by the physical union of male and female gametes; of sperm and ova in an animal or pollen and ovule in a plant
 fertilize	provide with fertilizers or add nutrients to
 fertilized	FERTILIZE: provide with fertilizers or add nutrients to
@@ -825,7 +825,7 @@ fervently	with passionate fervor
 fervid	characterized by intense emotion
 fervidly	with passionate fervor
 fervor	feelings of great warmth and intensity
-fervour	the state of being emotionally aroused and worked up
+fervour	feelings of great warmth and intensity
 fess	an ordinary consisting of a broad horizontal band across a shield
 fessed	FES: a city in north central Morocco; religious center
 fesses	FESSE: an ordinary consisting of a broad horizontal band across a shield
@@ -833,19 +833,19 @@ fessing	FES: a city in north central Morocco; religious center
 fest	a gathering or festival
 festal	offering fun and gaiety
 fester	FEST: a gathering or festival
-festered	FESTER: a sore that has become inflamed and formed pus
+festered	FESTER: ripen and generate pus
 festering	the formation of morbific matter in an abscess or a vesicle and the discharge of pus
-festers	FESTER: a sore that has become inflamed and formed pus
+festers	FESTER: ripen and generate pus
 festival	a day or period of time set aside for feasting and celebration
 festivals	FESTIVAL: a day or period of time set aside for feasting and celebration
 festive	offering fun and gaiety
 festively	in a festive way
 festivities	FESTIVITY: any joyous diversion
 festivity	any joyous diversion
-festoon	a curtain of fabric draped and bound at intervals to form graceful curves
-festooned	FESTOON: a curtain of fabric draped and bound at intervals to form graceful curves
-festooning	FESTOON: a curtain of fabric draped and bound at intervals to form graceful curves
-festoons	FESTOON: a curtain of fabric draped and bound at intervals to form graceful curves
+festoon	flower chains suspended in curves between points as a decoration
+festooned	FESTOON: flower chains suspended in curves between points as a decoration
+festooning	FESTOON: flower chains suspended in curves between points as a decoration
+festoons	FESTOON: flower chains suspended in curves between points as a decoration
 fests	FEST: a gathering or festival
 feta	a white, crumbly, salty Greek cheese
 fetal	of or relating to a fetus
@@ -867,13 +867,13 @@ fetidness	the attribute of having a strong offensive smell
 feting	FETE: have a celebration
 fetish	a form of sexual desire in which gratification depends to an abnormal degree on some object or item of clothing or part of the body
 fetishes	FETISH: a form of sexual desire in which gratification depends to an abnormal degree on some object or item of clothing or part of the body
-fetishism	a belief in the magical power of fetishes (or the worship of a fetish)
+fetishism	sexual arousal or gratification resulting from handling a fetish (or a specific part of the body other than the sexual organs)
 fetishist	one who engages in fetishism (especially of a sexual nature)
 fetishistic	relating to a fetish
 fetishistically	in a way relating to a fetish
 fetishists	FETISHIST: one who engages in fetishism (especially of a sexual nature)
-fetlock	the joint between the cannon bone and the pastern
-fetlocks	FETLOCK: the joint between the cannon bone and the pastern
+fetlock	projection behind and above a horse's hoof
+fetlocks	FETLOCK: projection behind and above a horse's hoof
 fetter	a shackle for the ankles or feet
 fettered	bound by chains fastened around the ankles
 fettering	FETTER: a shackle for the ankles or feet
@@ -897,9 +897,9 @@ fevers	FEVER: a rise in the temperature of the body; frequently a symptom of inf
 few	a quantifier that can be used with count nouns and is often preceded by `a'; a small but indefinite number
 fewer	quantifier meaning a smaller number of
 fewest	FEW: a quantifier that can be used with count nouns and is often preceded by `a'; a small but indefinite number
-fey	slightly insane
-fez	a city in north central Morocco; religious center
-fezes	FEZ: a city in north central Morocco; religious center
+fey	suggestive of an elf in strangeness and otherworldliness
+fez	a felt cap (usually red) for a man; shaped like a flat-topped cone with a tassel that hangs from the crown
+fezes	FEZ: a felt cap (usually red) for a man; shaped like a flat-topped cone with a tassel that hangs from the crown
 fezzes	FEZ: a red felt hat shaped like a flat-topped cone
 fiance	a man who is engaged to be married
 fiancee	a woman who is engaged to be married
@@ -941,10 +941,10 @@ fibulae	FIBULA: the outer bone of the lower leg
 fibulas	FIBULA: the outer and thinner of the two bones of the human leg between the knee and ankle
 fiche	a sheet of microfilm
 fiches	FICHE: a sheet of microfilm
-fickle	marked by erratic changeableness in affections or attachments
+fickle	liable to sudden unpredictable change
 fickleness	unfaithfulness by virtue of being unreliable or treacherous
-fickler	FICKLE: marked by erratic changeableness in affections or attachments
-ficklest	FICKLE: marked by erratic changeableness in affections or attachments
+fickler	FICKLE: liable to sudden unpredictable change
+ficklest	FICKLE: liable to sudden unpredictable change
 fiction	a literary work based on the imagination and not necessarily on fact
 fictional	related to or involving literary fiction
 fictionalisation	a literary work based partly or wholly on fact but written as if it were fiction
@@ -1009,7 +1009,7 @@ fiercer	FIERCE: marked by extreme and violent energy
 fiercest	FIERCE: marked by extreme and violent energy
 fierier	FIERY: characterized by intense emotion
 fieriest	FIERY: characterized by intense emotion
-fieriness	the heat or the color of fire
+fieriness	a passionate and quick-tempered nature
 fiery	characterized by intense emotion
 fiesta	an elaborate party (often outdoors)
 fiestas	FIESTA: an elaborate party (often outdoors)
@@ -1043,15 +1043,15 @@ figurative	(used of the meanings of words or text) not literal; using figures of
 figuratively	in a figurative sense
 figure	a diagram or picture illustrating textual material
 figured	FIGURE: a diagram or picture illustrating textual material
-figurehead	a person used as a cover for some questionable activity
-figureheads	FIGUREHEAD: a person used as a cover for some questionable activity
+figurehead	a leader in name only, with no real power
+figureheads	FIGUREHEAD: a leader in name only, with no real power
 figures	FIGURE: a diagram or picture illustrating textual material
 figurine	a small carved or molded figure
 figurines	FIGURINE: a small carved or molded figure
 figuring	problem solving that involves numbers or quantities
-filament	a very slender natural or synthetic fiber
+filament	a thin wire (usually tungsten) that is heated white hot by the passage of an electric current
 filamentous	thin in diameter; resembling a thread
-filaments	FILAMENT: a very slender natural or synthetic fiber
+filaments	FILAMENT: a thin wire (usually tungsten) that is heated white hot by the passage of an electric current
 filbert	nut of any of several trees of the genus Corylus
 filberts	FILBERT: nut of any of several trees of the genus Corylus
 filch	make off with belongings of others
@@ -1064,19 +1064,19 @@ file	record in a public office or in a court of law
 filed	FILE: record in a public office or in a court of law
 filename	the name given to a computer file in order to distinguish it from other files; may contain an extension that indicates the type of file
 filenames	FILENAME: the name given to a computer file in order to distinguish it from other files; may contain an extension that indicates the type of file
-filers	FILER: a party who files a notice with a law court
+filers	FILER: a clerk who is employed to maintain the files of an organization
 files	FILE: record in a public office or in a court of law
 filet	a boneless steak cut from the tenderloin of beef
 fileted	FILET: a boneless steak cut from the tenderloin of beef
 fileting	FILET: a boneless steak cut from the tenderloin of beef
 filets	FILET: a boneless steak cut from the tenderloin of beef
-filial	designating the generation or the sequence of generations following the parental generation
-filibuster	a legislator who gives long speeches in an effort to delay or obstruct legislation that he (or she) opposes
-filibustered	FILIBUSTER: a legislator who gives long speeches in an effort to delay or obstruct legislation that he (or she) opposes
+filial	relating to or characteristic of or befitting an offspring
+filibuster	a tactic for delaying or obstructing legislation by making long speeches
+filibustered	FILIBUSTER: a tactic for delaying or obstructing legislation by making long speeches
 filibusterer	a legislator who gives long speeches in an effort to delay or obstruct legislation that he (or she) opposes
 filibusterers	FILIBUSTERER: a legislator who gives long speeches in an effort to delay or obstruct legislation that he (or she) opposes
-filibustering	FILIBUSTER: a legislator who gives long speeches in an effort to delay or obstruct legislation that he (or she) opposes
-filibusters	FILIBUSTER: a legislator who gives long speeches in an effort to delay or obstruct legislation that he (or she) opposes
+filibustering	FILIBUSTER: a tactic for delaying or obstructing legislation by making long speeches
+filibusters	FILIBUSTER: a tactic for delaying or obstructing legislation by making long speeches
 filigree	delicate and intricate ornamentation (usually in gold or silver or other fine twisted wire)
 filigreed	FILIGREE: delicate and intricate ornamentation (usually in gold or silver or other fine twisted wire)
 filigreeing	FILIGREE: delicate and intricate ornamentation (usually in gold or silver or other fine twisted wire)
@@ -1085,12 +1085,12 @@ filing	the entering of a legal document into the public record
 filings	FILING: the entering of a legal document into the public record
 fill	make full, also in a metaphorical sense
 filled	(usually followed by `with' or used as a combining form) generously supplied with
-filler	used for filling cracks or holes in a surface
-fillers	FILLER: used for filling cracks or holes in a surface
-fillet	a boneless steak cut from the tenderloin of beef
-filleted	FILLET: a boneless steak cut from the tenderloin of beef
-filleting	FILLET: a boneless steak cut from the tenderloin of beef
-fillets	FILLET: a boneless steak cut from the tenderloin of beef
+filler	anything added to fill out a whole
+fillers	FILLER: anything added to fill out a whole
+fillet	a longitudinal slice or boned side of a fish
+filleted	FILLET: a longitudinal slice or boned side of a fish
+filleting	FILLET: a longitudinal slice or boned side of a fish
+fillets	FILLET: a longitudinal slice or boned side of a fish
 fillies	FILLY: a young female horse under the age of four
 filling	any material that fills a space or container
 fillings	FILLING: any material that fills a space or container
@@ -1134,8 +1134,8 @@ filtrate	the product of filtration; a gas or liquid that has been passed through
 filtrated	FILTRATE: the product of filtration; a gas or liquid that has been passed through a filter
 filtrates	FILTRATE: the product of filtration; a gas or liquid that has been passed through a filter
 filtrating	FILTRATE: the product of filtration; a gas or liquid that has been passed through a filter
-filtration	the process whereby fluids pass through a filter or a filtering medium
-fin	the cardinal number that is the sum of four and one
+filtration	the act of changing a fluid by passing it through a filter
+fin	organ of locomotion and balance in fishes and some other aquatic animals
 finagle	achieve something by means of trickery or devious methods
 finagled	FINAGLE: achieve something by means of trickery or devious methods
 finagler	a deceiver who uses crafty misleading methods
@@ -1192,8 +1192,8 @@ finessing	FINESSE: handle with subtle skill
 finest	FINE: being satisfactory or in satisfactory condition
 finfish	a fish, as distinct from shellfish
 finger	feel or handle with the fingers
-fingerboard	a guidepost resembling a hand with a pointing index finger
-fingerboards	FINGERBOARD: a guidepost resembling a hand with a pointing index finger
+fingerboard	a narrow strip of wood on the neck of some stringed instruments (violin or cello or guitar etc) where the strings are held against the wood with the fingers
+fingerboards	FINGERBOARD: a narrow strip of wood on the neck of some stringed instruments (violin or cello or guitar etc) where the strings are held against the wood with the fingers
 fingered	having or resembling a finger or fingers; often used in combination
 fingerer	one who fingers
 fingerers	FINGERER: one who fingers
@@ -1223,8 +1223,8 @@ finis	the temporal end; the concluding time
 finises	FINIS: the temporal end; the concluding time
 finish	come or bring to a finish or an end
 finished	(of materials or goods) brought to the desired final state
-finisher	a relief pitcher who can protect a lead in the last inning or two of the game
-finishers	FINISHER: a relief pitcher who can protect a lead in the last inning or two of the game
+finisher	a worker who performs the last step in a manufacturing process
+finishers	FINISHER: a worker who performs the last step in a manufacturing process
 finishes	FINISH: come or bring to a finish or an end
 finishing	a decorative texture or appearance of a surface (or the substance that gives it that appearance)
 finite	bounded or limited in magnitude or spatial or temporal extent
@@ -1234,20 +1234,20 @@ fink	someone acting as an informer or decoy for the police
 finked	FINK: someone acting as an informer or decoy for the police
 finking	FINK: someone acting as an informer or decoy for the police
 finks	FINK: someone acting as an informer or decoy for the police
-finned	FIN: the cardinal number that is the sum of four and one
-finning	FIN: the cardinal number that is the sum of four and one
+finned	FIN: organ of locomotion and balance in fishes and some other aquatic animals
+finning	FIN: organ of locomotion and balance in fishes and some other aquatic animals
 finny	having fins
-fins	FIN: the cardinal number that is the sum of four and one
+fins	FIN: organ of locomotion and balance in fishes and some other aquatic animals
 fiord	a long narrow inlet of the sea between steep cliffs; common in Norway
 fiords	FIORD: a long narrow inlet of the sea between steep cliffs; common in Norway
-fir	nonresinous wood of a fir tree
+fir	any of various evergreen trees of the genus Abies; chiefly of upland areas
 fire	start firing a weapon
 firearm	a portable gun
 firearms	FIREARM: a portable gun
-fireball	an especially luminous meteor (sometimes exploding)
-fireballs	FIREBALL: an especially luminous meteor (sometimes exploding)
-firebird	the male is bright red with black wings and tail
-firebirds	FIREBIRD: the male is bright red with black wings and tail
+fireball	a ball of fire (such as the sun or a ball-shaped discharge of lightning)
+fireballs	FIREBALL: a ball of fire (such as the sun or a ball-shaped discharge of lightning)
+firebird	a fiery bird of Slavic folklore with glowing plumage
+firebirds	FIREBIRD: a fiery bird of Slavic folklore with glowing plumage
 fireboat	a boat equipped to fight fires on ships or along a waterfront
 firebomb	a bomb that is designed to start fires; is most effective against flammable targets (such as fuel)
 firebombed	FIREBOMB: a bomb that is designed to start fires; is most effective against flammable targets (such as fuel)
@@ -1255,8 +1255,8 @@ firebombing	FIREBOMB: a bomb that is designed to start fires; is most effective 
 firebombs	FIREBOMB: a bomb that is designed to start fires; is most effective against flammable targets (such as fuel)
 firebox	a furnace (as on a steam locomotive) in which fuel is burned
 fireboxes	FIREBOX: a furnace (as on a steam locomotive) in which fuel is burned
-firebrand	a piece of wood that has been burned or is burning
-firebrands	FIREBRAND: a piece of wood that has been burned or is burning
+firebrand	someone who deliberately foments trouble
+firebrands	FIREBRAND: someone who deliberately foments trouble
 firebreak	a narrow field that has been cleared to check the spread of a prairie fire or forest fire
 firebreaks	FIREBREAK: a narrow field that has been cleared to check the spread of a prairie fire or forest fire
 firebug	a criminal who illegally sets fire to property
@@ -1269,10 +1269,10 @@ firefighter	FIREFIGHT: an exchange of gunfire
 firefighters	FIREFIGHTER: a member of a fire department who tries to extinguish fires
 firefighting	FIREFIGHT: an exchange of gunfire
 firefights	FIREFIGHT: an exchange of gunfire
-fireflies	FIREFLY: tropical American click beetle having bright luminous spots
-firefly	tropical American click beetle having bright luminous spots
-fireguard	a narrow field that has been cleared to check the spread of a prairie fire or forest fire
-fireguards	FIREGUARD: a narrow field that has been cleared to check the spread of a prairie fire or forest fire
+fireflies	FIREFLY: nocturnal beetle common in warm regions having luminescent abdominal organs
+firefly	nocturnal beetle common in warm regions having luminescent abdominal organs
+fireguard	a metal screen before an open fire for protection (especially against flying sparks)
+fireguards	FIREGUARD: a metal screen before an open fire for protection (especially against flying sparks)
 firehouse	a station housing fire apparatus and firemen
 firehouses	FIREHOUSE: a station housing fire apparatus and firemen
 firelight	the light of a fire (especially in a fireplace)
@@ -1284,10 +1284,10 @@ fireplaces	FIREPLACE: an open recess in a wall at the base of a chimney where a 
 fireplug	an upright hydrant for drawing water to use in fighting a fire
 fireplugs	FIREPLUG: an upright hydrant for drawing water to use in fighting a fire
 firepower	the relative capacity for delivering fire on a target
-fireproof	make resistant to fire
-fireproofed	FIREPROOF: make resistant to fire
-fireproofing	FIREPROOF: make resistant to fire
-fireproofs	FIREPROOF: make resistant to fire
+fireproof	impervious to damage by fire
+fireproofed	FIREPROOF: impervious to damage by fire
+fireproofing	FIREPROOF: impervious to damage by fire
+fireproofs	FIREPROOF: impervious to damage by fire
 fires	FIRE: start firing a weapon
 firescreen	a screen placed in front of a fireplace
 firescreens	FIRESCREEN: a screen placed in front of a fireplace
@@ -1318,21 +1318,21 @@ firmly	with resolute determination
 firmness	the muscle tone of healthy tissue
 firms	FIRM: marked by firm determination or resolution; not shakable
 firmware	coded instructions that are stored permanently in read-only memory
-firs	FIR: nonresinous wood of a fir tree
+firs	FIR: any of various evergreen trees of the genus Abies; chiefly of upland areas
 first	preceding all others in time or space or degree
 firstborn	the offspring who came first in the order of birth
 firstborns	FIRSTBORN: the offspring who came first in the order of birth
 firsthand	received directly from a source
 firstly	before anything else
 firsts	FIRST: preceding all others in time or space or degree
-firth	English linguist who contributed to linguistic semantics and to prosodic phonology and who was noted for his insistence on studying both sound and meaning in context (1890-1960)
-firths	FIRTH: English linguist who contributed to linguistic semantics and to prosodic phonology and who was noted for his insistence on studying both sound and meaning in context (1890-1960)
+firth	a long narrow estuary (especially in Scotland)
+firths	FIRTH: a long narrow estuary (especially in Scotland)
 fiscal	involving financial matters
 fiscally	in financial matters
 fiscals	FISCAL: a public prosecutor, as in Scotland
 fish	any of various mostly cold-blooded aquatic vertebrates usually having scales and breathing through gills
-fishbowl	a state of affairs in which you have no privacy
-fishbowls	FISHBOWL: a state of affairs in which you have no privacy
+fishbowl	a transparent bowl in which small fish are kept
+fishbowls	FISHBOWL: a transparent bowl in which small fish are kept
 fishcake	a fried cake of fish and potato
 fishcakes	FISHCAKE: a fried cake of fish and potato
 fished	FISH: any of various mostly cold-blooded aquatic vertebrates usually having scales and breathing through gills
@@ -1348,8 +1348,8 @@ fishfinger	a breaded finger-shaped piece of fish
 fishfingers	FISHFINGER: a breaded finger-shaped piece of fish
 fishhook	a sharp barbed hook for catching fish
 fishhooks	FISHHOOK: a sharp barbed hook for catching fish
-fishier	FISHY: of or relating to or resembling fish
-fishiest	FISHY: of or relating to or resembling fish
+fishier	FISHY: not as expected
+fishiest	FISHY: not as expected
 fishing	the act of someone who fishes as a diversion
 fishmonger	someone who sells fish
 fishmongers	FISHMONGER: someone who sells fish
@@ -1363,9 +1363,9 @@ fishtailing	FISHTAIL: slow down by moving the tail sideways
 fishtails	FISHTAIL: slow down by moving the tail sideways
 fishwife	someone who sells fish
 fishwives	FISHWIFE: a woman who sells fish
-fishy	of or relating to or resembling fish
+fishy	not as expected
 fissile	capable of undergoing nuclear fission
-fission	reproduction of some unicellular organisms by division of the cell into two more or less equal parts
+fission	a nuclear reaction in which a massive nucleus splits into smaller nuclei with the simultaneous release of energy
 fissionable	capable of undergoing nuclear fission
 fissure	a long narrow depression in a surface
 fissures	FISSURE: a long narrow depression in a surface
@@ -1376,8 +1376,8 @@ fistful	the quantity that can be held in the hand
 fistfuls	FISTFUL: the quantity that can be held in the hand
 fisticuffs	a fight with bare fists
 fists	FIST: a hand with the fingers clenched in the palm (as for hitting)
-fistula	a chronic inflammation of the withers of a horse
-fistulas	FISTULA: a chronic inflammation of the withers of a horse
+fistula	an abnormal passage leading from a suppurating cavity to the body surface
+fistulas	FISTULA: an abnormal passage leading from a suppurating cavity to the body surface
 fit	be agreeable or acceptable to
 fitful	occurring in spells and often abruptly
 fitfully	in a fitful manner
@@ -1387,8 +1387,8 @@ fitments	FITMENT: any of the items furnishing or equipping a room (especially bu
 fitness	the quality of being suitable
 fits	FIT: be agreeable or acceptable to
 fitted	FIT: be agreeable or acceptable to
-fitter	FIT: be agreeable or acceptable to
-fitters	FITTER: someone who fits a garment to a particular person
+fitter	a tradesperson who assembles, installs or repairs machinery or fittings
+fitters	FITTER: a tradesperson who assembles, installs or repairs machinery or fittings
 fittest	FIT: be agreeable or acceptable to
 fitting	in harmony with the spirit of particular persons or occasion
 fittingly	in accordance with what is appropriate or suitable for the circumstances
@@ -1400,14 +1400,14 @@ fivers	FIVER: a United States bill worth 5 dollars
 fives	FIVE: the cardinal number that is the sum of four and one
 fix	restore by replacing a part or putting together what is torn or broken
 fixable	able to be repaired
-fixate	attach (oneself) to a person or thing in a neurotic way
-fixated	FIXATE: attach (oneself) to a person or thing in a neurotic way
-fixates	FIXATE: attach (oneself) to a person or thing in a neurotic way
-fixating	FIXATE: attach (oneself) to a person or thing in a neurotic way
-fixation	an abnormal state in which development has stopped prematurely
-fixations	FIXATION: an abnormal state in which development has stopped prematurely
-fixative	a compound (such as ethanol or formaldehyde) that fixes tissues and cells for microscopic study
-fixatives	FIXATIVE: a compound (such as ethanol or formaldehyde) that fixes tissues and cells for microscopic study
+fixate	pay attention to exclusively and obsessively
+fixated	FIXATE: pay attention to exclusively and obsessively
+fixates	FIXATE: pay attention to exclusively and obsessively
+fixating	FIXATE: pay attention to exclusively and obsessively
+fixation	an unhealthy and compulsive preoccupation with something or someone
+fixations	FIXATION: an unhealthy and compulsive preoccupation with something or someone
+fixative	a varnish dissolved in alcohol and sprayed over pictures to prevent smudging
+fixatives	FIXATIVE: a varnish dissolved in alcohol and sprayed over pictures to prevent smudging
 fixed	(of a number) having a fixed and unchanging value
 fixedly	in a fixed manner
 fixer	someone who intervenes with authorities for a person in trouble (usually using underhand or illegal methods for a fee)
@@ -1418,11 +1418,11 @@ fixings	FIXING: the act of putting something in working order again
 fixity	the quality of being fixed in place as by some firm attachment
 fixture	an object firmly fixed in place (especially in a household)
 fixtures	FIXTURE: an object firmly fixed in place (especially in a household)
-fizz	an effervescent beverage (usually alcoholic)
-fizzed	FIZZ: an effervescent beverage (usually alcoholic)
+fizz	become bubbly or frothy or foaming
+fizzed	FIZZ: become bubbly or frothy or foaming
 fizzer	something that fails to live up to expectations
 fizzers	FIZZER: something that fails to live up to expectations
-fizzes	FIZZ: an effervescent beverage (usually alcoholic)
+fizzes	FIZZ: become bubbly or frothy or foaming
 fizzier	FIZZY: hissing and bubbling
 fizziest	FIZZY: hissing and bubbling
 fizzing	hissing and bubbling
@@ -1444,30 +1444,30 @@ flabbily	in a flabby manner
 flabbiness	a flabby softness
 flabby	out of condition; not strong or robust; incapable of exertion or endurance
 flaccid	drooping without elasticity; wanting in stiffness
-flack	a slick spokesperson who can turn any criticism to the advantage of their employer
-flacks	FLACK: a slick spokesperson who can turn any criticism to the advantage of their employer
+flack	intense adverse criticism
+flacks	FLACK: intense adverse criticism
 flag	emblem usually consisting of a rectangular piece of cloth of distinctive design
 flagella	FLAGELLUM: a whiplike part of a cell used for movement
-flagellate	a usually nonphotosynthetic free-living protozoan with whiplike appendages; some are pathogens of humans and other animals
+flagellate	whip
 flagellated	having or resembling a lash or whip (as does a flagellum)
-flagellates	FLAGELLATE: a usually nonphotosynthetic free-living protozoan with whiplike appendages; some are pathogens of humans and other animals
-flagellating	FLAGELLATE: a usually nonphotosynthetic free-living protozoan with whiplike appendages; some are pathogens of humans and other animals
-flagellation	beating as a source of erotic or religious stimulation
-flagellum	a whip used to inflict punishment (often used for pedantic humor)
-flagellums	FLAGELLUM: a whip used to inflict punishment (often used for pedantic humor)
+flagellates	FLAGELLATE: whip
+flagellating	FLAGELLATE: whip
+flagellation	beating with a whip or strap or rope as a form of punishment
+flagellum	a lash-like appendage used for locomotion (e.g., in sperm cells and some bacteria and protozoa)
+flagellums	FLAGELLUM: a lash-like appendage used for locomotion (e.g., in sperm cells and some bacteria and protozoa)
 flagged	FLAG: emblem usually consisting of a rectangular piece of cloth of distinctive design
 flagging	FLAG: emblem usually consisting of a rectangular piece of cloth of distinctive design
 flagon	a large metal or pottery vessel with a handle and spout; used to hold alcoholic beverages (usually wine)
 flagons	FLAGON: a large metal or pottery vessel with a handle and spout; used to hold alcoholic beverages (usually wine)
-flagpole	surveying instrument consisting of a straight rod painted in bands of alternate red and white each one foot wide; used for sightings by surveyors
-flagpoles	FLAGPOLE: surveying instrument consisting of a straight rod painted in bands of alternate red and white each one foot wide; used for sightings by surveyors
+flagpole	a tall staff or pole on which a flag is raised
+flagpoles	FLAGPOLE: a tall staff or pole on which a flag is raised
 flagrant	conspicuously and outrageously bad or reprehensible
 flagrantly	in a flagrant manner
 flags	FLAG: emblem usually consisting of a rectangular piece of cloth of distinctive design
 flagship	the chief one of a related group
 flagships	FLAGSHIP: the chief one of a related group
-flagstaff	a town in north central Arizona; site of an important observatory
-flagstaffs	FLAGSTAFF: a town in north central Arizona; site of an important observatory
+flagstaff	a tall staff or pole on which a flag is raised
+flagstaffs	FLAGSTAFF: a tall staff or pole on which a flag is raised
 flagstone	stratified stone that splits into pieces suitable as paving stones
 flagstones	FLAGSTONE: stratified stone that splits into pieces suitable as paving stones
 flail	an implement consisting of handle with a free swinging stick at the end; used in manual threshing
@@ -1476,16 +1476,16 @@ flailing	FLAIL: an implement consisting of handle with a free swinging stick at 
 flails	FLAIL: an implement consisting of handle with a free swinging stick at the end; used in manual threshing
 flair	a natural talent
 flairs	FLAIR: a natural talent
-flak	a slick spokesperson who can turn any criticism to the advantage of their employer
+flak	intense adverse criticism
 flake	form into flakes
 flaked	FLAKE: form into flakes
 flakes	FLAKE: form into flakes
-flakier	FLAKY: made of or resembling flakes
-flakiest	FLAKY: made of or resembling flakes
+flakier	FLAKY: made of or easily forming flakes
+flakiest	FLAKY: made of or easily forming flakes
 flakily	in an unreliable or scatty way
-flakiness	informal terms for insanity
+flakiness	having or breaking into thin crisp flakes
 flaking	FLAKE: form into flakes
-flaky	made of or resembling flakes
+flaky	made of or easily forming flakes
 flamage	hostile or abusive messages online
 flambe	pour liquor over and ignite (a dish)
 flambeau	a flaming torch (such as are used in processions at night)
@@ -1493,12 +1493,12 @@ flambeed	FLAMBE: pour liquor over and ignite (a dish)
 flambeing	FLAMBE: pour liquor over and ignite (a dish)
 flambes	FLAMBE: pour liquor over and ignite (a dish)
 flamboyance	extravagant elaborateness
-flamboyant	showy tropical tree or shrub native to Madagascar; widely planted in tropical regions for its immense racemes of scarlet and orange flowers; sometimes placed in genus Poinciana
+flamboyant	marked by ostentation but often tasteless
 flamboyantly	in a fancy colorful manner
 flame	the process of combustion of inflammable materials producing heat and light and (often) smoke
 flamed	FLAME: the process of combustion of inflammable materials producing heat and light and (often) smoke
-flamenco	guitar music composed for dancing the flamenco
-flamencos	FLAMENCO: guitar music composed for dancing the flamenco
+flamenco	a style of dancing characteristic of the Andalusian Gypsies; vigorous and rhythmic with clapping and stamping of feet
+flamencos	FLAMENCO: a style of dancing characteristic of the Andalusian Gypsies; vigorous and rhythmic with clapping and stamping of feet
 flameproof	resistant to catching fire
 flameproofed	FLAMEPROOF: make resistant to fire
 flameproofing	FLAMEPROOF: make resistant to fire
@@ -1512,7 +1512,7 @@ flaming	FLAME: the process of combustion of inflammable materials producing heat
 flamingo	large pink to scarlet web-footed wading bird with down-bent bill; inhabits brackish lakes
 flamingoes	FLAMINGO: a tall pink wading bird
 flamingos	FLAMINGO: large pink to scarlet web-footed wading bird with down-bent bill; inhabits brackish lakes
-flamings	FLAMING: the process of combustion of inflammable materials producing heat and light and (often) smoke
+flamings	FLAMING: very intense
 flammability	the quality of being easily ignited and burning rapidly
 flammable	easily ignited
 flammables	FLAMMABLE: easily set on fire
@@ -1565,7 +1565,7 @@ flashgun	a lamp for providing momentary light to take a photograph
 flashguns	FLASHGUN: a lamp for providing momentary light to take a photograph
 flashier	FLASHY: tastelessly showy
 flashiest	FLASHY: tastelessly showy
-flashily	in a meretricious manner
+flashily	in a fancy colorful manner
 flashiness	tasteless showiness
 flashing	a short vivid experience
 flashlight	a small portable battery-powered electric lamp
@@ -1578,16 +1578,16 @@ flashy	tastelessly showy
 flask	bottle that has a narrow neck
 flasks	FLASK: bottle that has a narrow neck
 flat	having a surface without slope, tilt in which no part is higher or lower than another
-flatbed	freight car without permanent sides or roof
-flatbeds	FLATBED: freight car without permanent sides or roof
+flatbed	an open truck bed or trailer with no sides; used to carry large heavy objects
+flatbeds	FLATBED: an open truck bed or trailer with no sides; used to carry large heavy objects
 flatboat	a flatbottom boat for carrying heavy loads (especially on canals)
 flatboats	FLATBOAT: a flatbottom boat for carrying heavy loads (especially on canals)
 flatbread	any of various breads made from usually unleavened dough
 flatcar	freight car without permanent sides or roof
 flatcars	FLATCAR: freight car without permanent sides or roof
 flatfeet	FLATFOOT: a condition of fallen arches in the foot
-flatfish	sweet lean whitish flesh of any of numerous thin-bodied fish; usually served as thin fillets
-flatfishes	FLATFISH: sweet lean whitish flesh of any of numerous thin-bodied fish; usually served as thin fillets
+flatfish	any of several families of fishes having flattened bodies that swim along the sea floor on one side of the body with both eyes on the upper side
+flatfishes	FLATFISH: any of several families of fishes having flattened bodies that swim along the sea floor on one side of the body with both eyes on the upper side
 flatfoot	a policeman who patrols a given region
 flatfooted	unprepared and unable to react quickly
 flatfoots	FLATFOOT: a policeman who patrols a given region
@@ -1630,9 +1630,9 @@ flattish	somewhat flat
 flattop	a closely cropped haircut; usually for men or boys
 flattops	FLATTOP: a closely cropped haircut; usually for men or boys
 flatulence	a state of excessive gas in the alimentary canal
-flatulent	generating excessive gas in the alimentary canal
+flatulent	suffering from excessive gas in the alimentary canal
 flatulently	in a flatulent way
-flatware	tableware that is relatively flat and fashioned as a single piece
+flatware	silverware eating utensils
 flatworm	parasitic or free-living worms having a flattened body
 flatworms	FLATWORM: parasitic or free-living worms having a flattened body
 flaunt	display proudly; act ostentatiously or pretentiously
@@ -1651,13 +1651,13 @@ flavorings	FLAVORING: something added to food primarily for the savor it imparts
 flavorless	lacking taste or flavor or tang
 flavors	FLAVOR: the general atmosphere of a place or situation and the effect that it has on people
 flavorsome	full of flavor
-flavour	the general atmosphere of a place or situation and the effect that it has on people
-flavoured	FLAVOUR: the general atmosphere of a place or situation and the effect that it has on people
+flavour	the taste experience when a savoury condiment is taken into the mouth
+flavoured	FLAVOUR: the taste experience when a savoury condiment is taken into the mouth
 flavourful	full of flavor
 flavouring	something added to food primarily for the savor it imparts
 flavourings	FLAVOURING: something added to food primarily for the savor it imparts
 flavourless	lacking taste or flavor or tang
-flavours	FLAVOUR: the general atmosphere of a place or situation and the effect that it has on people
+flavours	FLAVOUR: the taste experience when a savoury condiment is taken into the mouth
 flavoursome	full of flavor
 flaw	an imperfection in an object or machine
 flawed	FLAW: an imperfection in an object or machine
@@ -1665,7 +1665,7 @@ flawing	FLAW: an imperfection in an object or machine
 flawless	without a flaw
 flawlessly	smoothly and without difficulty; precisely and deftly
 flaws	FLAW: an imperfection in an object or machine
-flax	fiber of the flax plant that is made into thread and woven into linen fabric
+flax	plant of the genus Linum that is cultivated for its seeds and for the fibers of its stem
 flaxen	of hair color; pale yellowish to yellowish brown
 flaxseed	the seed of flax used as a source of oil
 flay	strip the skin off
@@ -1686,11 +1686,11 @@ flecked	having a pattern of dots
 flecking	FLECK: a small fragment of something broken off from the whole
 flecks	FLECK: a small fragment of something broken off from the whole
 fled	FLEE: run away quickly
-fledge	feed, care for, and rear young birds for flight
+fledge	grow feathers
 fledged	(of birds) having developed feathers or plumage; often used in combination
-fledgeling	any new participant in some activity
-fledgelings	FLEDGELING: any new participant in some activity
-fledging	FLEDGE: feed, care for, and rear young birds for flight
+fledgeling	young bird that has just fledged or become capable of flying
+fledgelings	FLEDGELING: young bird that has just fledged or become capable of flying
+fledging	FLEDGE: grow feathers
 fledgling	(of a young bird) having acquired its flight feathers
 fledglings	FLEDGLING: (of a young bird) having acquired its flight feathers
 flee	run away quickly
@@ -1733,7 +1733,7 @@ flexibility	the property of being flexible; easily bent or shaped
 flexible	capable of being changed
 flexibly	with flexibility
 flexing	FLEX: contract
-flexion	the state of being flexed (as of a joint)
+flexion	act of bending a joint; especially a joint between the bones of a limb so that the angle between them is decreased
 flexitime	a system of flexible working hours
 flexor	a skeletal muscle whose contraction bends a joint
 flexors	FLEXOR: a skeletal muscle whose contraction bends a joint
@@ -1780,7 +1780,7 @@ flinchers	FLINCHER: one who flinches
 flinches	FLINCH: draw back, as with fear or pain
 flinching	FLINCH: draw back, as with fear or pain
 flinchingly	in a flinching way
-flinders	British explorer who mapped the Australian coast (1774-1814)
+flinders	bits and splinters and fragments
 fling	throw with force or recklessness
 flinger	one who throws
 flingers	FLINGER: one who throws
@@ -1801,7 +1801,7 @@ flippant	showing inappropriate levity
 flippantly	in a flippant manner
 flipped	FLIP: lightly throw to see which side comes up
 flipper	FLIP: lightly throw to see which side comes up
-flippers	FLIPPER: a shoe for swimming; the paddle-like front is an aid in swimming (especially underwater)
+flippers	FLIPPER: the flat broad limb of aquatic animals specialized for swimming
 flippest	FLIP: lightly throw to see which side comes up
 flippies	FLIPPY: loose and swinging as you move, as a flippy skirt; also flippant
 flipping	FLIP: lightly throw to see which side comes up
@@ -1827,8 +1827,8 @@ float	be in motion due to some air or water current
 floatation	the phenomenon of floating (remaining on the surface of a liquid without sinking)
 floatations	FLOATATION: the phenomenon of floating (remaining on the surface of a liquid without sinking)
 floated	FLOAT: be in motion due to some air or water current
-floater	spots before the eyes caused by opaque cell fragments in the vitreous humor and lens
-floaters	FLOATER: spots before the eyes caused by opaque cell fragments in the vitreous humor and lens
+floater	a swimmer who floats in the water
+floaters	FLOATER: a swimmer who floats in the water
 floating	borne up by or suspended in a liquid
 floats	FLOAT: be in motion due to some air or water current
 floaty	tending to float on a liquid or rise in air or gas
@@ -1848,8 +1848,8 @@ flood	the rising of a body of water and its overflowing onto normally dry land
 flooded	covered with water
 flooder	one who or that which floods
 flooders	FLOODER: one who or that which floods
-floodgate	something that restrains a flood or outpouring
-floodgates	FLOODGATE: something that restrains a flood or outpouring
+floodgate	regulator consisting of a valve or gate that controls the rate of water flow through a sluice
+floodgates	FLOODGATE: regulator consisting of a valve or gate that controls the rate of water flow through a sluice
 flooding	FLOOD: the rising of a body of water and its overflowing onto normally dry land
 floodlight	light that is a source of artificial illumination having a broad beam; used in photography
 floodlighted	illuminated by means of floodlights
@@ -1879,12 +1879,12 @@ flop	fall loosely
 flophouse	a cheap lodging house
 flophouses	FLOPHOUSE: a cheap lodging house
 flopped	FLOP: fall loosely
-floppier	FLOPPY: a small plastic magnetic disk enclosed in a stiff envelope with a radial slit; used to store data or programs for a microcomputer
-floppies	FLOPPY: a small plastic magnetic disk enclosed in a stiff envelope with a radial slit; used to store data or programs for a microcomputer
-floppiest	FLOPPY: a small plastic magnetic disk enclosed in a stiff envelope with a radial slit; used to store data or programs for a microcomputer
+floppier	FLOPPY: hanging limply
+floppies	FLOPPY: hanging limply
+floppiest	FLOPPY: hanging limply
 floppiness	the quality of being floppy
 flopping	FLOP: fall loosely
-floppy	a small plastic magnetic disk enclosed in a stiff envelope with a radial slit; used to store data or programs for a microcomputer
+floppy	hanging limply
 flops	FLOP: fall loosely
 flora	all the plant life in a particular region or period
 florae	FLORA: the plants of a region
@@ -1897,19 +1897,19 @@ floret	a diminutive flower (especially one that is part of a composite flower)
 florets	FLORET: a diminutive flower (especially one that is part of a composite flower)
 florid	elaborately or excessively ornamented
 floridly	in a florid manner
-florin	the basic unit of money in Suriname; equal to 100 cents
-florins	FLORIN: the basic unit of money in Suriname; equal to 100 cents
+florin	formerly the basic unit of money in the Netherlands; equal to 100 cents
+florins	FLORIN: formerly the basic unit of money in the Netherlands; equal to 100 cents
 florist	someone who grows and deals in flowers
 florists	FLORIST: someone who grows and deals in flowers
-floss	a soft loosely twisted thread used in embroidery
-flossed	FLOSS: a soft loosely twisted thread used in embroidery
-flosses	FLOSS: a soft loosely twisted thread used in embroidery
-flossing	FLOSS: a soft loosely twisted thread used in embroidery
+floss	a soft thread for cleaning the spaces between the teeth
+flossed	FLOSS: a soft thread for cleaning the spaces between the teeth
+flosses	FLOSS: a soft thread for cleaning the spaces between the teeth
+flossing	FLOSS: a soft thread for cleaning the spaces between the teeth
 flossy	like down or as soft as down
 flotation	the phenomenon of floating (remaining on the surface of a liquid without sinking)
 flotations	FLOTATION: the phenomenon of floating (remaining on the surface of a liquid without sinking)
-flotilla	a United States Navy fleet consisting of two or more squadrons of small warships
-flotillas	FLOTILLA: a United States Navy fleet consisting of two or more squadrons of small warships
+flotilla	a fleet of small craft
+flotillas	FLOTILLA: a fleet of small craft
 flotsam	the floating wreckage of a ship
 flounce	walk emphatically
 flounced	FLOUNCE: walk emphatically
@@ -1961,17 +1961,17 @@ flub	make a mess of, destroy or ruin
 flubbed	FLUB: make a mess of, destroy or ruin
 flubbing	FLUB: make a mess of, destroy or ruin
 flubs	FLUB: make a mess of, destroy or ruin
-fluctuate	cause to fluctuate or move in a wavelike pattern
-fluctuated	FLUCTUATE: cause to fluctuate or move in a wavelike pattern
-fluctuates	FLUCTUATE: cause to fluctuate or move in a wavelike pattern
+fluctuate	move or sway in a rising and falling or wavelike pattern
+fluctuated	FLUCTUATE: move or sway in a rising and falling or wavelike pattern
+fluctuates	FLUCTUATE: move or sway in a rising and falling or wavelike pattern
 fluctuating	having unpredictable ups and downs
-fluctuation	a wave motion
-fluctuations	FLUCTUATION: a wave motion
-flue	flat bladelike projection on the arm of an anchor
-fluency	powerful and effective language
-fluent	smooth and unconstrained in movement
+fluctuation	an instance of change; the rate or magnitude of change
+fluctuations	FLUCTUATION: an instance of change; the rate or magnitude of change
+flue	a conduit to carry off smoke
+fluency	skillfulness in speaking or writing
+fluent	expressing yourself readily, clearly, effectively
 fluently	in a fluent manner
-flues	FLUE: flat bladelike projection on the arm of an anchor
+flues	FLUE: a conduit to carry off smoke
 fluff	any light downy material
 fluffed	FLUFF: any light downy material
 fluffier	FLUFFY: like down or as soft as down
@@ -1992,23 +1992,23 @@ flukey	subject to accident or chance or change
 flukier	FLUKY: subject to accident or chance or change
 flukiest	FLUKY: subject to accident or chance or change
 fluky	subject to accident or chance or change
-flume	a narrow gorge with a stream running through it
-flumes	FLUME: a narrow gorge with a stream running through it
+flume	watercourse that consists of an open artificial chute filled with water for power or for carrying logs
+flumes	FLUME: watercourse that consists of an open artificial chute filled with water for power or for carrying logs
 flummox	be a mystery or bewildering to
 flummoxed	FLUMMOX: be a mystery or bewildering to
 flummoxes	FLUMMOX: be a mystery or bewildering to
 flummoxing	FLUMMOX: be a mystery or bewildering to
 flung	FLING: throw with force or recklessness
-flunk	failure to reach a minimum required performance
-flunked	FLUNK: failure to reach a minimum required performance
+flunk	fail to get a passing grade
+flunked	FLUNK: fail to get a passing grade
 flunker	one who flunks
 flunkers	FLUNKER: one who flunks
 flunkey	a male servant (especially a footman)
 flunkeys	FLUNKEY: a male servant (especially a footman)
 flunkie	a servile follower
 flunkies	FLUNKIE: a servile follower
-flunking	FLUNK: failure to reach a minimum required performance
-flunks	FLUNK: failure to reach a minimum required performance
+flunking	FLUNK: fail to get a passing grade
+flunks	FLUNK: fail to get a passing grade
 flunky	a male servant (especially a footman)
 fluoresce	exhibit or undergo fluorescence
 fluoresced	FLUORESCE: exhibit or undergo fluorescence
@@ -2065,7 +2065,7 @@ fluxes	FLUX: the rate of flow of energy or particles across a given surface
 fluxing	FLUX: the rate of flow of energy or particles across a given surface
 fly	travel through the air; be airborne
 flyable	able to be flown
-flyaway	guided by whim and fancy
+flyaway	(of hair or clothing) worn loose
 flyblown	spoiled and covered with eggs and larvae of flies
 flyby	a flight past a target
 flybys	FLYBY: a flight past a target
@@ -2093,8 +2093,8 @@ flyswatter	an implement with a flat part (of mesh or plastic) and a long handle;
 flyswatters	FLYSWATTER: an implement with a flat part (of mesh or plastic) and a long handle; used to kill insects
 flytrap	a trap for catching flies
 flytraps	FLYTRAP: a trap for catching flies
-flyweight	weighs no more than 115 pounds
-flyweights	FLYWEIGHT: weighs no more than 115 pounds
+flyweight	an amateur boxer who weighs no more than 112 pounds
+flyweights	FLYWEIGHT: an amateur boxer who weighs no more than 112 pounds
 flywheel	regulator consisting of a heavy wheel that stores kinetic energy and smooths the operation of a reciprocating engine
 flywheels	FLYWHEEL: regulator consisting of a heavy wheel that stores kinetic energy and smooths the operation of a reciprocating engine
 foal	a young horse
@@ -2112,10 +2112,10 @@ foaminess	the property of being foamy
 foaming	FOAM: a mass of small bubbles formed in or on a liquid
 foams	FOAM: a mass of small bubbles formed in or on a liquid
 foamy	producing or covered with lathery sweat or saliva from exhaustion or disease
-fob	a vest pocket to hold a pocket watch
-fobbed	FOB: a vest pocket to hold a pocket watch
-fobbing	FOB: a vest pocket to hold a pocket watch
-fobs	FOB: a vest pocket to hold a pocket watch
+fob	short chain or ribbon attaching a pocket watch to a man's vest
+fobbed	FOB: short chain or ribbon attaching a pocket watch to a man's vest
+fobbing	FOB: short chain or ribbon attaching a pocket watch to a man's vest
+fobs	FOB: short chain or ribbon attaching a pocket watch to a man's vest
 focaccia	flat Italian bread with olive oil
 focal	having or localized centrally at a focus
 foci	FOCUS: the centre of activity or attention
@@ -2128,8 +2128,8 @@ focusing	the concentration of attention or energy on something
 focussed	FOCUS: the concentration of attention or energy on something
 focusses	FOCUS: concentrate attention on something
 focussing	FOCUS: the concentration of attention or energy on something
-fodder	soldiers who are regarded as expendable in the face of artillery fire
-fodders	FODDER: soldiers who are regarded as expendable in the face of artillery fire
+fodder	coarse food (especially for livestock) composed of entire plants or the leaves and stalks of a cereal crop
+fodders	FODDER: coarse food (especially for livestock) composed of entire plants or the leaves and stalks of a cereal crop
 foe	an armed adversary (especially a member of an opposing military force)
 foes	FOE: an armed adversary (especially a member of an opposing military force)
 foetal	of or relating to a fetus
@@ -2141,14 +2141,14 @@ fogbound	enveloped in fog
 fogey	someone whose style is out of fashion
 fogeys	FOGEY: someone whose style is out of fashion
 fogged	FOG: droplets of water vapor suspended in the air near the ground
-foggier	FOGGY: stunned or confused and slow to react (as from blows or drunkenness or exhaustion)
-foggiest	FOGGY: stunned or confused and slow to react (as from blows or drunkenness or exhaustion)
+foggier	FOGGY: obscured by fog
+foggiest	FOGGY: obscured by fog
 foggily	in a misty or unclear way
 fogginess	an atmosphere in which visibility is reduced because of a cloud of some substance
 fogging	FOG: droplets of water vapor suspended in the air near the ground
-foggy	stunned or confused and slow to react (as from blows or drunkenness or exhaustion)
-foghorn	a loud low warning signal that can be heard by fogbound ships
-foghorns	FOGHORN: a loud low warning signal that can be heard by fogbound ships
+foggy	obscured by fog
+foghorn	a warning device consisting of a horn that generates a loud low tone
+foghorns	FOGHORN: a warning device consisting of a horn that generates a loud low tone
 fogies	FOGY: someone whose style is out of fashion
 fogs	FOG: droplets of water vapor suspended in the air near the ground
 fogy	someone whose style is out of fashion
@@ -2166,16 +2166,16 @@ fold	an angular or rounded shape made by folding
 foldable	capable of being folded up and stored
 foldaway	capable of being folded up and stored
 folded	FOLD: an angular or rounded shape made by folding
-folder	a small book usually having a paper cover
-folders	FOLDER: a small book usually having a paper cover
+folder	covering that is folded over to protect the contents
+folders	FOLDER: covering that is folded over to protect the contents
 folding	FOLD: an angular or rounded shape made by folding
 foldout	an oversize page that is folded in to a book or magazine
 foldouts	FOLDOUT: an oversize page that is folded in to a book or magazine
 folds	FOLD: an angular or rounded shape made by folding
 foliage	the main organ of photosynthesis and transpiration in higher plants
 folic	relating to folic acid, a B vitamin
-folio	the system of numbering pages
-folios	FOLIO: the system of numbering pages
+folio	a book (or manuscript) consisting of large sheets of paper folded in the middle to make two leaves or four pages
+folios	FOLIO: a book (or manuscript) consisting of large sheets of paper folded in the middle to make two leaves or four pages
 folk	people in general (often used in the plural)
 folklore	the unwritten lore (stories and proverbs and riddles and songs) of a culture
 folkloric	relating to folklore
@@ -2204,11 +2204,11 @@ followers	FOLLOWER: a person who accepts the leadership of another
 following	about to be mentioned or specified
 followings	FOLLOWING: about to be mentioned or specified
 follows	FOLLOW: to travel behind, go after, come after
-followup	a piece of work that exploits or builds on earlier work
-followups	FOLLOWUP: a piece of work that exploits or builds on earlier work
+followup	an activity that continues something that has already begun or that repeats something that has already been done
+followups	FOLLOWUP: an activity that continues something that has already begun or that repeats something that has already been done
 folly	the trait of acting stupidly or rashly
 foment	try to stir up public opinion
-fomentation	a substance used as a warm moist medicinal compress or poultice
+fomentation	deliberate and intentional triggering (of trouble or discord)
 fomented	FOMENT: try to stir up public opinion
 fomenter	one who agitates; a political troublemaker
 fomenters	FOMENTER: one who agitates; a political troublemaker
@@ -2225,10 +2225,10 @@ fondles	FONDLE: touch or stroke lightly in a loving or endearing manner
 fondling	affectionate play (or foreplay without contact with the genital organs)
 fondly	with fondness; with love
 fondness	a predisposition to like something
-fondu	cubes of meat or seafood cooked in hot oil and then dipped in any of various sauces
-fondue	cubes of meat or seafood cooked in hot oil and then dipped in any of various sauces
-fondues	FONDUE: cubes of meat or seafood cooked in hot oil and then dipped in any of various sauces
-fondus	FONDU: cubes of meat or seafood cooked in hot oil and then dipped in any of various sauces
+fondu	hot cheese or chocolate melted to the consistency of a sauce into which bread or fruits are dipped
+fondue	hot cheese or chocolate melted to the consistency of a sauce into which bread or fruits are dipped
+fondues	FONDUE: hot cheese or chocolate melted to the consistency of a sauce into which bread or fruits are dipped
+fondus	FONDU: hot cheese or chocolate melted to the consistency of a sauce into which bread or fruits are dipped
 font	a specific size and style of type within a type family
 fonts	FONT: a specific size and style of type within a type family
 food	any substance that can be metabolized by an animal to give energy and build tissue
@@ -2267,22 +2267,22 @@ footbridge	a bridge designed for pedestrians
 footbridges	FOOTBRIDGE: a bridge designed for pedestrians
 footdragging	deliberate slowness
 footed	FOOT: the part of the leg of a human being below the ankle joint
-footer	(used only in combinations) the height or length of something in feet
-footers	FOOTER: (used only in combinations) the height or length of something in feet
+footer	a printed note placed below the text on a printed page
+footers	FOOTER: a printed note placed below the text on a printed page
 footfall	the sound of a step of someone walking
 footfalls	FOOTFALL: the sound of a step of someone walking
 footfault	a fault that occurs when the server in tennis fails to keep both feet behind the baseline
 footfaults	FOOTFAULT: a fault that occurs when the server in tennis fails to keep both feet behind the baseline
 foothill	a relatively low hill on the lower slope of a mountain
 foothills	FOOTHILL: a relatively low hill on the lower slope of a mountain
-foothold	an area in hostile territory that has been captured and is held awaiting further troops and supplies
-footholds	FOOTHOLD: an area in hostile territory that has been captured and is held awaiting further troops and supplies
+foothold	a place providing support for the foot in standing or climbing
+footholds	FOOTHOLD: a place providing support for the foot in standing or climbing
 footie	football
 footing	status with respect to the relations between people or groups
 footings	FOOTING: status with respect to the relations between people or groups
-footle	be about
-footled	FOOTLE: be about
-footles	FOOTLE: be about
+footle	act foolishly, as by talking nonsense
+footled	FOOTLE: act foolishly, as by talking nonsense
+footles	FOOTLE: act foolishly, as by talking nonsense
 footlights	theater light at the front of a stage that illuminate the set and actors
 footling	small and of little importance
 footlocker	a trunk for storing personal possessions; usually kept at the foot of a bed (as in a barracks)
@@ -2323,11 +2323,11 @@ foppishness	the manner and dress of a fop or dandy
 fops	FOP: a man who is much concerned with his dress and appearance
 for	intended to go to, or because of
 fora	FORUM: a place for public discussion
-forage	bulky food like grass or hay for browsing or grazing horses or cattle
-foraged	FORAGE: bulky food like grass or hay for browsing or grazing horses or cattle
+forage	collect or look around for (food)
+foraged	FORAGE: collect or look around for (food)
 forager	someone who hunts for food and provisions
 foragers	FORAGER: someone who hunts for food and provisions
-forages	FORAGE: bulky food like grass or hay for browsing or grazing horses or cattle
+forages	FORAGE: collect or look around for (food)
 foraging	the act of searching for food and provisions
 foramen	a natural opening or perforation through a bone or a membranous structure
 foraminifera	foraminifers
@@ -2337,18 +2337,18 @@ foraying	FORAY: a sudden short attack
 forays	FORAY: a sudden short attack
 forbad	FORBID: order someone not to do something
 forbade	FORBID: command against
-forbear	a person from whom you are descended
+forbear	refrain from doing
 forbearance	good-natured tolerance of delay or incompetence
 forbearer	an ancestor (a variant of forebear)
 forbearers	FORBEARER: an ancestor (a variant of forebear)
 forbearing	showing patient and unruffled self-control and restraint under adversity; slow to retaliate or express resentment
-forbears	FORBEAR: a person from whom you are descended
+forbears	FORBEAR: refrain from doing
 forbid	command against
 forbidden	excluded from use or mention
 forbidding	FORBID: command against
 forbiddingly	in an unpleasant or menacing manner
 forbiddingness	the quality of being forbidding
-forbiddings	FORBIDDING: an official prohibition or edict against something
+forbiddings	FORBIDDING: harshly uninviting or formidable in manner or appearance
 forbids	FORBID: command against
 forbore	FORBEAR: hold back from doing something
 forborne	FORBEAR: hold back from doing something
@@ -2362,10 +2362,10 @@ forces	FORCE: a powerful effect or influence
 forcible	impelled by physical force especially against resistance
 forcibly	in a forcible manner
 forcing	FORCE: a powerful effect or influence
-ford	United States film maker (1896-1973)
-forded	FORD: United States film maker (1896-1973)
+ford	a shallow area in a stream that can be forded
+forded	FORD: a shallow area in a stream that can be forded
 fording	the act of crossing a stream or river by wading or in a car or on a horse
-fords	FORD: United States film maker (1896-1973)
+fords	FORD: a shallow area in a stream that can be forded
 fore	front part of a vessel or aircraft
 forearm	the part of the superior limb between the elbow and the wrist
 forearmed	FOREARM: the part of the superior limb between the elbow and the wrist
@@ -2448,10 +2448,10 @@ forenoons	FORENOON: the time period between dawn and noon
 forensic	of, relating to, or used in public debate or argument
 forensically	by scientific methods used in solving crime
 forensics	scientific tests or techniques used in the investigation of crimes
-foreordain	foreordain by divine will or decree
+foreordain	foreordain or determine beforehand
 foreordained	established or prearranged unalterably
-foreordaining	FOREORDAIN: foreordain by divine will or decree
-foreordains	FOREORDAIN: foreordain by divine will or decree
+foreordaining	FOREORDAIN: foreordain or determine beforehand
+foreordains	FOREORDAIN: foreordain or determine beforehand
 foreplay	mutual sexual fondling prior to sexual intercourse
 forerunner	a person who goes before or announces the coming of another
 forerunners	FORERUNNER: a person who goes before or announces the coming of another
@@ -2479,8 +2479,8 @@ foreshortening	FORESHORTEN: reduce in scope while retaining essential elements
 foreshortens	FORESHORTEN: reduce in scope while retaining essential elements
 foresight	providence by virtue of planning prudently for the future
 foresighted	planning prudently for the future
-foreskin	a fold of skin covering the tip of the clitoris
-foreskins	FORESKIN: a fold of skin covering the tip of the clitoris
+foreskin	a fold of skin covering the tip of the penis
+foreskins	FORESKIN: a fold of skin covering the tip of the penis
 forest	the trees and other plants in a large densely wooded area
 forestall	keep from happening or arising; make impossible
 forestalled	FORESTALL: keep from happening or arising; make impossible
@@ -2490,26 +2490,26 @@ forestation	the planting of trees
 forestay	an adjustable stay from the foremast to the deck or bowsprit; controls the bending of the mast
 forestaysail	a triangular sail set on a ship's forestay
 forested	FOREST: the trees and other plants in a large densely wooded area
-forester	English writer of adventure novels featuring Captain Horatio Hornblower (1899-1966)
-foresters	FORESTER: English writer of adventure novels featuring Captain Horatio Hornblower (1899-1966)
+forester	someone trained in forestry
+foresters	FORESTER: someone trained in forestry
 foresting	FOREST: the trees and other plants in a large densely wooded area
 forestland	land covered with forest
 forestry	the science of planting and caring for forests and the management of growing timber
 forests	FOREST: the trees and other plants in a large densely wooded area
-foreswear	do without or cease to hold or adhere to
-foreswearing	FORESWEAR: do without or cease to hold or adhere to
-foreswears	FORESWEAR: do without or cease to hold or adhere to
+foreswear	turn away from; give up
+foreswearing	FORESWEAR: turn away from; give up
+foreswears	FORESWEAR: turn away from; give up
 foreswore	FORSWEAR: promise to give up
 foresworn	FORSWEAR: promise to give up
 foretaste	an early limited awareness of something yet to occur
 foretasted	FORETASTE: give a sample of what is to come
 foretastes	FORETASTE: an early limited awareness of something yet to occur
 foretasting	FORETASTE: give a sample of what is to come
-foretell	foreshadow or presage
+foretell	make a prediction about; tell in advance
 foreteller	one who predicts
 foretellers	FORETELLER: one who predicts
 foretelling	a statement made about the future
-foretells	FORETELL: foreshadow or presage
+foretells	FORETELL: make a prediction about; tell in advance
 forethought	planning or plotting in advance of acting
 foretoken	an event that is experienced as indicating important things to come
 foretokened	FORETOKEN: foreshadow or give warning of
@@ -2525,8 +2525,8 @@ forewarning	an early warning about a future event
 forewarns	FOREWARN: warn in advance or beforehand; give an early warning
 forewent	FOREGO: go before
 forewing	either of the anterior pair of wings on an insect that has four wings
-forewoman	a woman who is foreperson of a jury
-forewomen	FOREWOMAN: a woman who is foreperson of a jury
+forewoman	a woman in charge of a group of workers
+forewomen	FOREWOMAN: a woman in charge of a group of workers
 foreword	a short introductory essay preceding the text of a book
 forewords	FOREWORD: a short introductory essay preceding the text of a book
 foreyard	the lowest yard on a ship's foremast
@@ -2534,8 +2534,8 @@ forfeit	lose (s.th.) or lose the right to (s.th.) by some error, offense, or cri
 forfeited	FORFEIT: lose (s.th.) or lose the right to (s.th.) by some error, offense, or crime
 forfeiting	FORFEIT: lose (s.th.) or lose the right to (s.th.) by some error, offense, or crime
 forfeits	FORFEIT: lose (s.th.) or lose the right to (s.th.) by some error, offense, or crime
-forfeiture	something that is lost or surrendered as a penalty
-forfeitures	FORFEITURE: something that is lost or surrendered as a penalty
+forfeiture	a penalty for a fault or mistake that involves losing or giving up something
+forfeitures	FORFEITURE: a penalty for a fault or mistake that involves losing or giving up something
 forgather	collect in one place
 forgathered	FORGATHER: collect in one place
 forgathering	FORGATHER: collect in one place
@@ -2543,9 +2543,9 @@ forgathers	FORGATHER: collect in one place
 forgave	FORGIVE: stop blaming or grant forgiveness
 forge	create by hammering
 forged	FORGE: create by hammering
-forger	someone who operates a forge
+forger	someone who makes copies illegally
 forgeries	FORGERY: a copy that is represented as the original
-forgers	FORGER: someone who operates a forge
+forgers	FORGER: someone who makes copies illegally
 forgery	a copy that is represented as the original
 forges	FORGE: create by hammering
 forget	dismiss from the mind; stop remembering
@@ -2560,7 +2560,7 @@ forgings	FORGING: shaping metal by heating and hammering
 forgivable	easily excused or forgiven
 forgive	stop blaming or grant forgiveness
 forgiven	FORGIVE: stop blaming or grant forgiveness
-forgiveness	compassionate feelings that support a willingness to forgive
+forgiveness	the act of excusing a mistake or offense
 forgives	FORGIVE: stop blaming or grant forgiveness
 forgiving	FORGIVE: stop blaming or grant forgiveness
 forgo	do without or cease to hold or adhere to
@@ -2587,7 +2587,7 @@ formal	being in accord with established forms and conventions and requirements (
 formaldehyde	a colorless poisonous gas; made by the oxidation of methanol
 formalisation	the act of making formal (as by stating formal rules governing classes of expressions)
 formalise	make formal or official
-formalised	concerned with or characterized by rigorous adherence to recognized forms (especially in religion or art)
+formalised	given formal standing or endorsement; made official or legitimate by the observance of proper procedures
 formalises	FORMALISE: make formal or official
 formalising	FORMALISE: make formal or official
 formalism	the doctrine that formal structure rather than content is what should be represented
@@ -2662,14 +2662,14 @@ fort	a fortified military post where troops are stationed
 forte	an asset of special worth or utility
 fortes	FORT: a fortified military post where troops are stationed
 forth	from a particular thing or place or position (`forth' is obsolete)
-forthcoming	at ease in talking to others
+forthcoming	of the relatively near future
 forthright	characterized by directness in manner or speech; without subtlety or evasion
 forthrightly	directly and without evasion; not roundabout
 forthrightness	the quality of being honest and straightforward in attitude and speech
 forthwith	without delay or hesitation; with no time intervening
 forties	the time of life between 40 and 50
-fortieth	position 40 in a countable series of things
-fortieths	FORTIETH: position 40 in a countable series of things
+fortieth	the ordinal number of forty in counting order
+fortieths	FORTIETH: the ordinal number of forty in counting order
 fortification	defensive structure consisting of walls or mounds built around a stronghold to strengthen it
 fortifications	FORTIFICATION: defensive structure consisting of walls or mounds built around a stronghold to strengthen it
 fortified	secured with bastions or fortifications
@@ -2677,7 +2677,7 @@ fortifies	FORTIFY: make strong or stronger
 fortify	make strong or stronger
 fortifying	FORTIFY: make strong or stronger
 fortis	of a consonant, pronounced with more force
-fortissimo	a musical composition or musical passage to be performed very loudly
+fortissimo	(chiefly a direction or description in music) very loud and strong
 fortitude	strength of mind that enables one to endure adversity with courage
 fortnight	a period of fourteen consecutive days
 fortnightly	occurring every two weeks
@@ -2685,7 +2685,7 @@ fortnights	FORTNIGHT: a period of fourteen consecutive days
 fortress	a fortified defensive structure
 fortresses	FORTRESS: a fortified defensive structure
 forts	FORT: a fortified military post where troops are stationed
-fortuitous	having no cause or apparent cause
+fortuitous	occurring by happy chance
 fortuitously	by good fortune
 fortunate	having unexpected good fortune
 fortunately	by good fortune
@@ -2717,7 +2717,7 @@ fossicker	someone who searches for gold or gems by rummaging
 fossickers	FOSSICKER: someone who searches for gold or gems by rummaging
 fossicking	FOSSICK: search for gold or gems, or rummage
 fossicks	FOSSICK: search for gold or gems, or rummage
-fossil	someone whose style is out of fashion
+fossil	the remains (or an impression) of a plant or animal that existed in a past geological age and that has been excavated from the soil
 fossiliferous	bearing or containing fossils
 fossilisation	the process of fossilizing a plant or animal that existed in some earlier age; the process of being turned to stone
 fossilise	convert to a fossil
@@ -2729,7 +2729,7 @@ fossilize	convert to a fossil
 fossilized	set in a rigidly conventional pattern of behavior, habits, or beliefs
 fossilizes	FOSSILIZE: convert to a fossil
 fossilizing	FOSSILIZE: convert to a fossil
-fossils	FOSSIL: someone whose style is out of fashion
+fossils	FOSSIL: the remains (or an impression) of a plant or animal that existed in a past geological age and that has been excavated from the soil
 foster	promote the growth of
 fostered	FOSTER: promote the growth of
 fosterer	FOSTER: promote the growth of
@@ -2742,9 +2742,9 @@ fouled	made dirty or foul
 fouler	FOUL: highly offensive; arousing aversion or disgust
 foulest	FOUL: highly offensive; arousing aversion or disgust
 fouling	FOUL: highly offensive; arousing aversion or disgust
-foully	in an unfair and insulting manner
+foully	in a wicked and shameful manner
 foulmouthed	using obscene language
-foulness	disgusting wickedness and immorality
+foulness	a state characterized by foul or disgusting dirt and refuse
 fouls	FOUL: highly offensive; arousing aversion or disgust
 found	set up or found
 foundation	the basis on which something is grounded
@@ -2761,12 +2761,12 @@ foundlings	FOUNDLING: a child who has been abandoned and whose parents are unkno
 foundries	FOUNDRY: factory where metal castings are produced
 foundry	factory where metal castings are produced
 founds	FOUND: set up or found
-fount	a specific size and style of type within a type family
+fount	a plumbing fixture that provides a flow of water
 fountain	a structure from which an artificially produced jet of water arises
 fountainhead	an abundant source
 fountainheads	FOUNTAINHEAD: an abundant source
 fountains	FOUNTAIN: a structure from which an artificially produced jet of water arises
-founts	FOUNT: a specific size and style of type within a type family
+founts	FOUNT: a plumbing fixture that provides a flow of water
 four	the cardinal number that is the sum of three and one
 fourfold	four times as great or many
 fourposter	a bed with four tall posts
@@ -2785,8 +2785,8 @@ fourthly	in the fourth place
 fourths	FOURTH: following the third position; number four in a countable series
 fowl	a domesticated gallinaceous bird thought to be descended from the red jungle fowl
 fowled	FOWL: a domesticated gallinaceous bird thought to be descended from the red jungle fowl
-fowler	English lexicographer who wrote a well-known book on English usage (1858-1933)
-fowlers	FOWLER: English lexicographer who wrote a well-known book on English usage (1858-1933)
+fowler	someone who hunts wild birds for food
+fowlers	FOWLER: someone who hunts wild birds for food
 fowling	FOWL: a domesticated gallinaceous bird thought to be descended from the red jungle fowl
 fowls	FOWL: a domesticated gallinaceous bird thought to be descended from the red jungle fowl
 fox	alert carnivorous mammal with pointed muzzle and ears and a bushy tail; most are predators that do not hunt in packs
@@ -2827,8 +2827,8 @@ fractionally	by a very small amount
 fractionated	FRACTIONATE: separate into constituents or fractions containing concentrated constituents
 fractionation	a process that uses heat to separate a substance into its components
 fractions	FRACTION: a component of a mixture that has been separated by a fractional process
-fractious	stubbornly resistant to authority or control
-fractiously	in a peevish manner
+fractious	easily irritated or annoyed
+fractiously	in a fractious manner
 fractiousness	the trait of being prone to disobedience and lack of discipline
 fracture	violate or abuse
 fractured	FRACTURE: violate or abuse
@@ -2892,10 +2892,10 @@ frankness	the quality of being honest and straightforward in attitude and speech
 franks	FRANK: characterized by directness in manner or speech; without subtlety or evasion
 frantic	excessively agitated; distraught with fear or other violent emotion
 frantically	in an uncontrolled manner
-frappe	liqueur poured over shaved ice
-frappes	FRAPPE: liqueur poured over shaved ice
+frappe	thick milkshake containing ice cream
+frappes	FRAPPE: thick milkshake containing ice cream
 frat	a social club for male undergraduates
-fraternal	of or relating to a fraternity or society of usually men
+fraternal	like or characteristic of or befitting a brother
 fraternally	in a brotherly manner
 fraternisation	associating with others in a brotherly or friendly way; especially with an enemy
 fraternise	be on friendly terms with someone, as if with a brother, especially with an enemy
@@ -2910,33 +2910,33 @@ fraternized	FRATERNIZE: be on friendly terms with someone, as if with a brother,
 fraternizes	FRATERNIZE: be on friendly terms with someone, as if with a brother, especially with an enemy
 fraternizing	FRATERNIZE: be on friendly terms with someone, as if with a brother, especially with an enemy
 fratricidal	relating to the killing of a brother or fellow countryman
-fratricide	a person who murders their brother or sister
-fratricides	FRATRICIDE: a person who murders their brother or sister
+fratricide	the murder of your sibling
+fratricides	FRATRICIDE: the murder of your sibling
 frats	FRAT: a social club for male undergraduates
 fraud	intentional deception resulting in injury to another person
 frauds	FRAUD: intentional deception resulting in injury to another person
 fraudster	a person who commits fraud
 fraudsters	FRAUDSTER: a person who commits fraud
-fraudulence	a fraudulent or duplicitous representation
+fraudulence	the quality of being fraudulent
 fraudulent	intended to deceive
 fraudulently	in a dishonest and fraudulent manner
 fraught	marked by distress
-fray	a noisy fight
+fray	wear away by rubbing
 frayed	worn away or tattered along the edges
 frayedly	in a frayed way
 frayedness	the quality of being frayed
-fraying	FRAY: a noisy fight
-frays	FRAY: a noisy fight
-frazzle	a state of extreme exhaustion
-frazzled	FRAZZLE: a state of extreme exhaustion
-frazzles	FRAZZLE: a state of extreme exhaustion
-frazzling	FRAZZLE: a state of extreme exhaustion
+fraying	FRAY: wear away by rubbing
+frays	FRAY: wear away by rubbing
+frazzle	exhaust physically or emotionally
+frazzled	FRAZZLE: exhaust physically or emotionally
+frazzles	FRAZZLE: exhaust physically or emotionally
+frazzling	FRAZZLE: exhaust physically or emotionally
 freak	a person or animal that is markedly unusual or deformed
 freaked	FREAK: a person or animal that is markedly unusual or deformed
 freakier	FREAKY: strange and somewhat frightening
 freakiest	FREAKY: strange and somewhat frightening
 freaking	FREAK: a person or animal that is markedly unusual or deformed
-freakish	changeable
+freakish	conspicuously or grossly unconventional or unusual
 freakishly	unpredictably
 freaks	FREAK: a person or animal that is markedly unusual or deformed
 freaky	strange and somewhat frightening
@@ -2966,10 +2966,10 @@ freedoms	FREEDOM: the condition of being free; the power to act or speak or thin
 freefone	a phone number that is free to call
 freeform	not following a set pattern
 freehand	done by hand without mechanical aids or devices
-freehold	an estate held in fee simple or for life
+freehold	tenure by which land is held in fee simple or for life
 freeholder	the owner of a freehold
 freeholders	FREEHOLDER: the owner of a freehold
-freeholds	FREEHOLD: an estate held in fee simple or for life
+freeholds	FREEHOLD: tenure by which land is held in fee simple or for life
 freeing	FREE: grant freedom to; free from confinement
 freelance	a writer or artist who sells services to different employers without a long-term contract with any of them
 freelanced	FREELANCE: a writer or artist who sells services to different employers without a long-term contract with any of them
@@ -2985,7 +2985,7 @@ freeloading	FREELOAD: live off somebody's generosity
 freeloads	FREELOAD: live off somebody's generosity
 freely	in a free manner
 freeman	a person who is not a serf or a slave
-freemasonry	a natural or instinctive fellowship between people of similar interests
+freemasonry	Freemasons collectively
 freemen	FREEMAN: a person who is not a serf or a slave
 freephone	a phone number that is free to call
 freepost	a postal service where the recipient pays
@@ -3005,12 +3005,12 @@ freethinking	the doctrine that reason is the right basis for regulating conduct
 freeware	software that is provided without charge
 freeway	a broad highway designed for high-speed traffic
 freeways	FREEWAY: a broad highway designed for high-speed traffic
-freewheel	a clutch (as on the rear wheel of a bicycle) that allows wheels to turn freely (as in coasting)
-freewheeled	FREEWHEEL: a clutch (as on the rear wheel of a bicycle) that allows wheels to turn freely (as in coasting)
+freewheel	coast in a vehicle using the freewheel
+freewheeled	FREEWHEEL: coast in a vehicle using the freewheel
 freewheeler	someone acting freely or even irresponsibly
 freewheelers	FREEWHEELER: someone acting freely or even irresponsibly
 freewheeling	free of restraints or rules
-freewheels	FREEWHEEL: a clutch (as on the rear wheel of a bicycle) that allows wheels to turn freely (as in coasting)
+freewheels	FREEWHEEL: coast in a vehicle using the freewheel
 freewill	done of your own accord
 freeze	stop moving or become immobilized
 freezer	electric refrigerator (trade name Deepfreeze) in which food is frozen and stored for long periods of time
@@ -3045,12 +3045,12 @@ fresco	a mural done with watercolors on wet plaster
 frescoes	FRESCO: a mural done with watercolors on wet plaster
 frescos	FRESCO: a mural done with watercolors on wet plaster
 fresh	recently made, produced, or harvested
-freshen	make (to feel) fresh
-freshened	FRESHEN: make (to feel) fresh
+freshen	make fresh again
+freshened	FRESHEN: make fresh again
 freshener	anything that freshens
 fresheners	FRESHENER: anything that freshens
-freshening	FRESHEN: make (to feel) fresh
-freshens	FRESHEN: make (to feel) fresh
+freshening	FRESHEN: make fresh again
+freshens	FRESHEN: make fresh again
 fresher	FRESH: recently made, produced, or harvested
 freshers	FRESHER: a first-year undergraduate
 freshest	FRESH: recently made, produced, or harvested
@@ -3130,13 +3130,13 @@ frightfulness	the quality of being frightful
 frighting	FRIGHT: an emotion experienced in anticipation of some specific pain or danger (usually accompanied by a desire to flee or fight)
 frights	FRIGHT: an emotion experienced in anticipation of some specific pain or danger (usually accompanied by a desire to flee or fight)
 frigid	sexually unresponsive
-frigidity	sexual unresponsiveness (especially of women) and inability to achieve orgasm during intercourse
+frigidity	the absence of heat
 frigidly	without warmth or enthusiasm
-frill	a bony plate that curves upward behind the skull of many ceratopsian dinosaurs
+frill	a strip of pleated material used as a decoration or a trim
 frilled	having decorative ruffles or frills
 frillier	FRILLY: having decorative ruffles or frills
 frilliest	FRILLY: having decorative ruffles or frills
-frills	FRILL: a bony plate that curves upward behind the skull of many ceratopsian dinosaurs
+frills	FRILL: a strip of pleated material used as a decoration or a trim
 frilly	having decorative ruffles or frills
 fringe	the outside boundary or surface of something
 fringed	surrounded as with a border or fringe; sometimes used in combination
@@ -3144,8 +3144,8 @@ fringes	FRINGE: the outside boundary or surface of something
 fringing	FRINGE: the outside boundary or surface of something
 fripperies	FRIPPERY: something of little value or significance
 frippery	something of little value or significance
-frisk	the act of searching someone for concealed weapons or illegal drugs
-frisked	FRISK: the act of searching someone for concealed weapons or illegal drugs
+frisk	search as for concealed weapons by running the hands rapidly over the clothing and through the pockets
+frisked	FRISK: search as for concealed weapons by running the hands rapidly over the clothing and through the pockets
 frisker	one who frisks
 friskers	FRISKER: one who frisks
 friskier	FRISKY: playful like a lively kitten
@@ -3153,39 +3153,39 @@ friskiest	FRISKY: playful like a lively kitten
 friskily	in a playfully frisky manner
 friskiness	lively high-spirited playfulness
 frisking	the act of searching someone for concealed weapons or illegal drugs
-frisks	FRISK: the act of searching someone for concealed weapons or illegal drugs
+frisks	FRISK: search as for concealed weapons by running the hands rapidly over the clothing and through the pockets
 frisky	playful like a lively kitten
 frisson	an almost pleasurable sensation of fright
 frissons	FRISSON: an almost pleasurable sensation of fright
 fritillaries	FRITILLARY: any liliaceous plant of the genus Fritillaria having nodding variously colored flowers
 fritillary	any liliaceous plant of the genus Fritillaria having nodding variously colored flowers
 frittata	Italian omelet with diced vegetables and meats; cooked until bottom is set then inverted into another pan to cook the top
-fritter	small quantity of fried batter containing fruit or meat or vegetables
-frittered	FRITTER: small quantity of fried batter containing fruit or meat or vegetables
+fritter	spend frivolously and unwisely
+frittered	FRITTER: spend frivolously and unwisely
 fritterer	one who wastes time or money
 fritterers	FRITTERER: one who wastes time or money
-frittering	FRITTER: small quantity of fried batter containing fruit or meat or vegetables
-fritters	FRITTER: small quantity of fried batter containing fruit or meat or vegetables
+frittering	FRITTER: spend frivolously and unwisely
+fritters	FRITTER: spend frivolously and unwisely
 fritz	on the fritz: broken or not working properly
 frivolities	FRIVOLITY: the trait of being frivolous; not serious or sensible
 frivolity	the trait of being frivolous; not serious or sensible
 frivolous	not serious in content or attitude or behavior
 frivolously	in a frivolous manner
 frivolousness	the trait of being frivolous; not serious or sensible
-frizz	the condition of being formed into small tight curls
-frizzed	FRIZZ: the condition of being formed into small tight curls
-frizzes	FRIZZ: the condition of being formed into small tight curls
+frizz	curl tightly
+frizzed	FRIZZ: curl tightly
+frizzes	FRIZZ: curl tightly
 frizzier	FRIZZY: (of hair) in small tight curls
 frizziest	FRIZZY: (of hair) in small tight curls
-frizzing	FRIZZ: the condition of being formed into small tight curls
+frizzing	FRIZZ: curl tightly
 frizzle	fry something until it curls and becomes crisp
 frizzled	FRIZZLE: fry something until it curls and becomes crisp
 frizzles	FRIZZLE: fry something until it curls and becomes crisp
 frizzling	FRIZZLE: fry something until it curls and becomes crisp
 frizzy	(of hair) in small tight curls
 fro	away
-frock	a long, loose outer garment
-frocks	FROCK: a long, loose outer garment
+frock	a one-piece garment for a woman; has skirt and bodice
+frocks	FROCK: a one-piece garment for a woman; has skirt and bodice
 frog	any of various tailless stout-bodied amphibians with long hind limbs for leaping; semiaquatic and terrestrial species
 frogfish	fish having a frog-like mouth with a lure on the snout
 frogging	FROG: any of various tailless stout-bodied amphibians with long hind limbs for leaping; semiaquatic and terrestrial species
@@ -3227,8 +3227,8 @@ frontiers	FRONTIER: a wilderness at the edge of a settled area of a country
 frontiersman	a man who lives on the frontier
 frontiersmen	FRONTIERSMAN: a man who lives on the frontier
 fronting	FRONT: the side that is forward or prominent
-frontispiece	an ornamental facade
-frontispieces	FRONTISPIECE: an ornamental facade
+frontispiece	front illustration facing the title page of a book
+frontispieces	FRONTISPIECE: front illustration facing the title page of a book
 frontline	the position closest to the conflict
 frontman	the lead singer or spokesman of a group
 frontmen	FRONTMAN: the lead singer or spokesman of a group
@@ -3243,14 +3243,14 @@ frostbites	FROSTBIT: FROSTBITE: damage body tissue by freezing
 frostbiting	FROSTBIT: FROSTBITE: damage body tissue by freezing
 frostbitten	injured by freezing or partial freezing
 frosted	FROST: ice crystals forming a white deposit (especially on objects outside)
-frostier	FROSTY: devoid of warmth and cordiality; expressive of unfriendliness or disdain
-frostiest	FROSTY: devoid of warmth and cordiality; expressive of unfriendliness or disdain
+frostier	FROSTY: covered with frost
+frostiest	FROSTY: covered with frost
 frostily	without warmth or enthusiasm
 frostiness	coldness as evidenced by frost
 frosting	FROST: ice crystals forming a white deposit (especially on objects outside)
 frostings	FROSTING: a flavored sugar topping used to coat and decorate cakes
 frosts	FROST: ice crystals forming a white deposit (especially on objects outside)
-frosty	devoid of warmth and cordiality; expressive of unfriendliness or disdain
+frosty	covered with frost
 froth	a mass of small bubbles formed in or on a liquid
 frothed	FROTH: a mass of small bubbles formed in or on a liquid
 frothier	FROTHY: emitting or filled with bubbles as from carbonation or fermentation
@@ -3289,9 +3289,9 @@ frozen	turned into ice; affected by freezing or by long and severe cold
 frozenly	in a frozen way
 frozenness	the quality of being frozen
 fructified	FRUCTIFY: bear fruit
-fructifies	FRUCTIFY: become productive or fruitful
-fructify	become productive or fruitful
-fructifying	FRUCTIFY: become productive or fruitful
+fructifies	FRUCTIFY: bear fruit
+fructify	bear fruit
+fructifying	FRUCTIFY: bear fruit
 fructose	a simple sugar found in honey and in many ripe fruits
 frugal	avoiding waste
 frugality	prudence in avoiding waste
@@ -3299,8 +3299,8 @@ frugally	in a frugal manner
 fruit	the ripened reproductive body of a seed plant
 fruitbat	a bat that eats fruit
 fruitbats	FRUITBAT: a bat that eats fruit
-fruitcake	a whimsically eccentric person
-fruitcakes	FRUITCAKE: a whimsically eccentric person
+fruitcake	a rich cake containing dried fruit and nuts and citrus peel and so on
+fruitcakes	FRUITCAKE: a rich cake containing dried fruit and nuts and citrus peel and so on
 fruited	FRUIT: the ripened reproductive body of a seed plant
 fruiterer	a person who sells fruit
 fruiterers	FRUITERER: a person who sells fruit
@@ -3311,10 +3311,10 @@ fruitier	FRUITY: tasting or smelling richly of or as of fruit
 fruitiest	FRUITY: tasting or smelling richly of or as of fruit
 fruitiness	the quality of being fruity
 fruiting	FRUIT: the ripened reproductive body of a seed plant
-fruition	the condition of bearing fruit
+fruition	something that is made real or concrete
 fruitless	unproductive of success
 fruitlessly	in an unproductive manner
-fruitlessness	a lack of creative imagination
+fruitlessness	the quality of yielding nothing of value
 fruits	FRUIT: the ripened reproductive body of a seed plant
 fruity	tasting or smelling richly of or as of fruit
 frump	a dull unattractive unpleasant girl or woman
@@ -3339,18 +3339,18 @@ frying	FRY: be excessively hot
 ftping	FTP: protocol that allows users to copy files between their local system and any system they can reach on the network
 fuchsia	any of various tropical shrubs widely cultivated for their showy drooping purplish or reddish or white flowers; Central and South America and New Zealand and Tahiti
 fuchsias	FUCHSIA: any of various tropical shrubs widely cultivated for their showy drooping purplish or reddish or white flowers; Central and South America and New Zealand and Tahiti
-fuck	slang for sexual intercourse
-fucked	FUCK: slang for sexual intercourse
+fuck	have sexual intercourse with
+fucked	FUCK: have sexual intercourse with
 fucker	a stupid despised man
 fuckers	FUCKER: a stupid despised man
 fuckhead	a stupid person; these words are used to express a low opinion of someone's intelligence
 fuckheads	FUCKHEAD: a stupid person; these words are used to express a low opinion of someone's intelligence
-fucking	slang for sexual intercourse
-fucks	FUCK: slang for sexual intercourse
-fuddle	a confused multitude of things
+fucking	informal intensifiers
+fucks	FUCK: have sexual intercourse with
+fuddle	be confusing or perplexing to; cause to be unable to think clearly
 fuddled	very drunk
-fuddles	FUDDLE: a confused multitude of things
-fuddling	FUDDLE: a confused multitude of things
+fuddles	FUDDLE: be confusing or perplexing to; cause to be unable to think clearly
+fuddling	FUDDLE: be confusing or perplexing to; cause to be unable to think clearly
 fudge	soft creamy candy
 fudged	FUDGE: soft creamy candy
 fudger	one who fudges
@@ -3369,8 +3369,8 @@ fuels	FUEL: a substance that can be consumed to produce energy
 fug	an airless smoky smelly atmosphere
 fugitive	someone who flees from an uncongenial situation
 fugitives	FUGITIVE: someone who flees from an uncongenial situation
-fugue	dissociative disorder in which a person forgets who they are and leaves home to create a new life; during the fugue there is no memory of the former life; after recovering there is no memory for events during the dissociative state
-fugues	FUGUE: dissociative disorder in which a person forgets who they are and leaves home to create a new life; during the fugue there is no memory of the former life; after recovering there is no memory for events during the dissociative state
+fugue	a musical form consisting of a theme repeated a fifth above or a fourth below its first statement
+fugues	FUGUE: a musical form consisting of a theme repeated a fifth above or a fourth below its first statement
 fuhrer	a leader
 fulcra	FULCRUM: the pivot point of a lever
 fulcrum	the pivot about which a lever turns
@@ -3390,7 +3390,7 @@ fullback	the running back who plays the fullback position on the offensive team
 fullbacks	FULLBACK: the running back who plays the fullback position on the offensive team
 fulled	FULL: containing as much or as many as is possible or normal
 fuller	FULL: containing as much or as many as is possible or normal
-fullers	FULLER: United States jurist and chief justice of the United States Supreme Court (1833-1910)
+fullers	FULLER: a workman who fulls (cleans and thickens) freshly woven cloth for a living
 fullest	FULL: containing as much or as many as is possible or normal
 fulling	FULL: containing as much or as many as is possible or normal
 fullness	completeness over a broad scope
@@ -3431,7 +3431,7 @@ fums	FUM: a phoenix in Chinese legend
 fun	activities that are enjoyable or amusing
 function	a mathematical relation such that each element of a given set (the domain of the function) is associated with an element of another set (the range of the function)
 functional	designed for or capable of a particular function or use
-functionalism	a psychology based on the assumption that all mental process are useful to an organism in adapting to the environment
+functionalism	any doctrine that stresses utility or purpose
 functionalist	an adherent of functionalism
 functionalists	FUNCTIONALIST: an adherent of functionalism
 functionalities	FUNCTIONALITY: capable of serving a purpose well
@@ -3445,7 +3445,7 @@ functions	FUNCTION: a mathematical relation such that each element of a given se
 functor	in mathematics and programming, a mapping between structures that keeps their form
 fund	a reserve of money set aside for some purpose
 fundamental	serving as an essential component
-fundamentalism	a form of Protestantism that takes the interpretation of every word in the sacred texts as literal truth
+fundamentalism	the strict adherence to the basic principles or doctrines of a religion, ideology, etc.
 fundamentalist	of or relating to or characteristic of Protestant fundamentalism or its adherents
 fundamentalists	FUNDAMENTALIST: of or relating to or characteristic of Protestant fundamentalism or its adherents
 fundamentally	in essence; at bottom or by one's (or its) very nature
@@ -3454,8 +3454,8 @@ funded	FUND: a reserve of money set aside for some purpose
 funder	one who provides money
 funders	FUNDER: one who provides money
 funding	FUND: a reserve of money set aside for some purpose
-fundraiser	someone who solicits financial contributions
-fundraisers	FUNDRAISER: someone who solicits financial contributions
+fundraiser	a social function that is held for the purpose of raising money
+fundraisers	FUNDRAISER: a social function that is held for the purpose of raising money
 fundraising	FUNDRAISE: raise money for a cause or project
 funds	assets in the form of money
 funeral	a ceremony at which a dead person is buried or cremated
@@ -3463,12 +3463,12 @@ funerals	FUNERAL: a ceremony at which a dead person is buried or cremated
 funerary	of or for or relating to a funeral
 funereal	suited to or suggestive of a grave or burial
 funereally	in a gloomy manner
-funfair	a commercially operated park with stalls and shows for amusement
-funfairs	FUNFAIR: a commercially operated park with stalls and shows for amusement
+funfair	a traveling show; having sideshows and rides and games of skill etc.
+funfairs	FUNFAIR: a traveling show; having sideshows and rides and games of skill etc.
 fungal	of or relating to fungi
 fungi	the taxonomic kingdom including yeast, molds, smuts, mushrooms, and toadstools; distinct from the green plants
-fungible	a commodity that is freely interchangeable with another in satisfying an obligation
-fungibles	FUNGIBLE: a commodity that is freely interchangeable with another in satisfying an obligation
+fungible	of goods or commodities; freely exchangeable for or replaceable by another of like nature or kind in the satisfaction of an obligation
+fungibles	FUNGIBLE: of goods or commodities; freely exchangeable for or replaceable by another of like nature or kind in the satisfaction of an obligation
 fungicidal	capable of destroying fungi
 fungicide	any agent that destroys or prevents the growth of fungi
 fungicides	FUNGICIDE: any agent that destroys or prevents the growth of fungi
@@ -3482,11 +3482,11 @@ funicular	a railway up the side of a mountain pulled by a moving cable and havin
 funiculars	FUNICULAR: a railway up the side of a mountain pulled by a moving cable and having counterbalancing ascending and descending cars
 funk	a state of nervous depression
 funked	FUNK: a state of nervous depression
-funkier	FUNKY: offensively malodorous
-funkiest	FUNKY: offensively malodorous
+funkier	FUNKY: stylish and modern in an unconventional way
+funkiest	FUNKY: stylish and modern in an unconventional way
 funking	FUNK: a state of nervous depression
 funks	FUNK: a state of nervous depression
-funky	offensively malodorous
+funky	stylish and modern in an unconventional way
 funnel	a conical shape with a wider and a narrower opening at the two ends
 funneled	FUNNEL: a conical shape with a wider and a narrower opening at the two ends
 funneling	FUNNEL: a conical shape with a wider and a narrower opening at the two ends
@@ -3530,11 +3530,11 @@ furnish	give something useful or necessary to
 furnished	provided with whatever is necessary for a purpose (as furniture or equipment or authority)
 furnishes	FURNISH: give something useful or necessary to
 furnishing	FURNISH: give something useful or necessary to
-furnishings	FURNISHING: (usually plural) accessory wearing apparel
+furnishings	FURNISHING: (usually plural) the instrumentalities (furniture and appliances and other movable accessories including curtains and rugs) that make a home (or other area) livable
 furniture	furnishings that make a room or other area ready for occupancy
 furor	an interest followed with exaggerated zeal
-furore	an interest followed with exaggerated zeal
-furores	FURORE: an interest followed with exaggerated zeal
+furore	a sudden outburst (as of protest)
+furores	FURORE: a sudden outburst (as of protest)
 furors	FUROR: an interest followed with exaggerated zeal
 furosemide	commonly used diuretic (trade name Lasix) used to treat hypertension and edema
 furphies	FURPHY: a rumour or false story
@@ -3553,7 +3553,7 @@ furrows	FURROW: a long shallow trench in the ground (especially one made by a pl
 furry	covered with a dense coat of fine silky hairs
 furs	FUR: the dressed hairy coat of a mammal
 further	to or at a greater extent or degree or a more advanced stage (`further' is used more often than `farther' in this abstract sense)
-furtherance	encouragement of the progress or growth or acceptance of something
+furtherance	the advancement of some enterprise
 furthered	FURTHER: to or at a greater extent or degree or a more advanced stage (`further' is used more often than `farther' in this abstract sense)
 furthering	FURTHER: to or at a greater extent or degree or a more advanced stage (`further' is used more often than `farther' in this abstract sense)
 furthermore	in addition
@@ -3590,7 +3590,7 @@ fusses	FUSS: worry unnecessarily or excessively
 fussier	FUSSY: annoyed and irritable
 fussiest	FUSSY: annoyed and irritable
 fussily	in a fussy manner
-fussiness	an irritable petulant feeling
+fussiness	unnecessary elaborateness in details
 fussing	FUSS: worry unnecessarily or excessively
 fusspot	thinks about unfortunate things that might happen
 fusspots	FUSSPOT: thinks about unfortunate things that might happen
@@ -3609,9 +3609,9 @@ futons	FUTON: mattress consisting of a pad of cotton batting that is used for sl
 future	yet to be or coming
 futures	FUTURE: yet to be or coming
 futurism	an artistic movement in Italy around 1910 that tried to express the energy and values of the machine age
-futurist	a theologian who believes that the Scripture prophecies of the Apocalypse (the Book of Revelation) will be fulfilled in the future
+futurist	someone who predicts the future
 futuristic	of or relating to futurism
-futurists	FUTURIST: a theologian who believes that the Scripture prophecies of the Apocalypse (the Book of Revelation) will be fulfilled in the future
+futurists	FUTURIST: someone who predicts the future
 futurities	FUTURITY: the time yet to come
 futurity	the time yet to come
 futurological	relating to the study of the future

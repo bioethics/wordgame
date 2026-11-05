@@ -75,7 +75,10 @@ strings are in `daily/text.js` and follow the card-copy rules above. README.md â
 **After adding words to the dictionary**, rebuild the definitions the daily
 shows (`node tools/build-definitions.mjs <wordnet dict dir>`) and write any it
 lists in `wordlists/definitions-missing.txt` into
-`wordlists/definitions-own.txt`, plainly, in your own words.
+`wordlists/definitions-own.txt`, plainly, in your own words. For any it lists
+in `wordlists/definitions-unpicked.txt` (senses in no meaningful order), choose
+the everyday sense into `wordlists/definitions-senses.txt`, or write one into
+definitions-own.txt if none of WordNet's is it.
 
 ## Elsewhere
 

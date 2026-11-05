@@ -3,9 +3,9 @@ aah	express admiration and pleasure by uttering `ooh' or `aah'
 aardvark	nocturnal burrowing mammal of the grasslands of Africa that feeds on termites; sole extant representative of the order Tubulidentata
 aardvarks	AARDVARK: nocturnal burrowing mammal of the grasslands of Africa that feeds on termites; sole extant representative of the order Tubulidentata
 abaci	ABACUS: a frame with beads used for counting
-aback	having the wind against the forward side of the sails
-abacus	a tablet placed horizontally on top of the capital of a column as an aid in supporting the architrave
-abacuses	ABACUS: a tablet placed horizontally on top of the capital of a column as an aid in supporting the architrave
+aback	by surprise
+abacus	a calculator that performs arithmetic functions by manually sliding counters on rods or in grooves
+abacuses	ABACUS: a calculator that performs arithmetic functions by manually sliding counters on rods or in grooves
 abaft	at or near or toward the stern of a ship or tail of an airplane
 abalone	any of various large edible marine gastropods of the genus Haliotis having an ear-shaped shell with pearly interior
 abalones	ABALONE: any of various large edible marine gastropods of the genus Haliotis having an ear-shaped shell with pearly interior
@@ -28,7 +28,7 @@ abashing	ABASH: cause to be embarrassed; cause to feel self-conscious
 abasing	ABASE: cause to feel shame; hurt the pride of
 abate	make less active or intense
 abated	ABATE: make less active or intense
-abatement	an interruption in the intensity or amount of something
+abatement	a lessening or easing of something
 abates	ABATE: make less active or intense
 abating	ABATE: make less active or intense
 abattoir	a building where animals are butchered
@@ -39,10 +39,10 @@ abbey	a church associated with a monastery or convent
 abbeys	ABBEY: a church associated with a monastery or convent
 abbot	the superior of an abbey of monks
 abbots	ABBOT: the superior of an abbey of monks
-abbreviate	reduce in scope while retaining essential elements
+abbreviate	shorten
 abbreviated	(of clothing) very short
-abbreviates	ABBREVIATE: reduce in scope while retaining essential elements
-abbreviating	ABBREVIATE: reduce in scope while retaining essential elements
+abbreviates	ABBREVIATE: shorten
+abbreviating	ABBREVIATE: shorten
 abbreviation	a shortened form of a word or phrase
 abbreviations	ABBREVIATION: a shortened form of a word or phrase
 abdicate	give up, such as power, as of monarchs and emperors, or duties and obligations
@@ -60,8 +60,8 @@ abducted	ABDUCT: take away to an undisclosed location against their will and usu
 abductee	a person who has been abducted
 abductees	ABDUCTEE: a person who has been abducted
 abducting	especially of muscles; drawing away from the midline of the body or from an adjacent part
-abduction	the criminal act of capturing and carrying away by force a family member; if a man's wife is abducted it is a crime against the family relationship and against the wife
-abductions	ABDUCTION: the criminal act of capturing and carrying away by force a family member; if a man's wife is abducted it is a crime against the family relationship and against the wife
+abduction	the act of carrying someone off by force; kidnapping
+abductions	ABDUCTION: the act of carrying someone off by force; kidnapping
 abductor	someone who unlawfully seizes and detains a victim (usually for ransom)
 abductors	ABDUCTOR: someone who unlawfully seizes and detains a victim (usually for ransom)
 abducts	ABDUCT: take away to an undisclosed location against their will and usually in order to extract a ransom
@@ -123,7 +123,7 @@ abnegate	deny oneself (something); restrain, especially from indulging in some p
 abnegated	ABNEGATE: deny oneself (something); restrain, especially from indulging in some pleasure
 abnegates	ABNEGATE: deny oneself (something); restrain, especially from indulging in some pleasure
 abnegating	ABNEGATE: deny oneself (something); restrain, especially from indulging in some pleasure
-abnegation	the denial and rejection of a doctrine or belief
+abnegation	renunciation of your own interests in favor of the interests of others
 abnormal	not normal; not typical or usual or regular or conforming to a norm
 abnormalities	ABNORMALITY: an abnormal physical condition resulting from defective genes or developmental deficiencies
 abnormality	an abnormal physical condition resulting from defective genes or developmental deficiencies
@@ -144,26 +144,26 @@ abolitionist	a reformer who favors abolishing slavery
 abolitionists	ABOLITIONIST: a reformer who favors abolishing slavery
 abominable	unequivocally detestable
 abominableness	the quality of being abominable
-abominably	in an offensive and hateful manner
+abominably	in a terrible manner
 abominate	find repugnant
 abominated	ABOMINATE: find repugnant
 abominates	ABOMINATE: find repugnant
 abominating	ABOMINATE: find repugnant
-abomination	a person who is loathsome or disgusting
-abominations	ABOMINATION: a person who is loathsome or disgusting
+abomination	an action that is vicious or vile; an action that arouses disgust or abhorrence
+abominations	ABOMINATION: an action that is vicious or vile; an action that arouses disgust or abhorrence
 aboriginal	an indigenous person who was born in a particular place
 aboriginals	ABORIGINAL: an indigenous person who was born in a particular place
 aborigine	an indigenous person who was born in a particular place
 aborigines	ABORIGINE: an indigenous person who was born in a particular place
-abort	the act of terminating a project or procedure before it is completed
-aborted	ABORT: the act of terminating a project or procedure before it is completed
-aborting	ABORT: the act of terminating a project or procedure before it is completed
+abort	terminate before completion
+aborted	ABORT: terminate before completion
+aborting	ABORT: terminate before completion
 abortion	termination of pregnancy
 abortionist	a person (who should be a doctor) who terminates pregnancies
 abortionists	ABORTIONIST: a person (who should be a doctor) who terminates pregnancies
 abortions	ABORTION: termination of pregnancy
 abortive	failing to accomplish an intended result
-aborts	ABORT: the act of terminating a project or procedure before it is completed
+aborts	ABORT: terminate before completion
 abound	be abundant or plentiful; exist in large quantities
 abounded	ABOUND: be abundant or plentiful; exist in large quantities
 abounding	existing in abundance
@@ -179,12 +179,12 @@ abrades	ABRADE: wear away
 abrading	ABRADE: wear away
 abrasion	an abraded area where the skin is torn or worn off
 abrasions	ABRASION: an abraded area where the skin is torn or worn off
-abrasive	a substance that abrades or wears down
+abrasive	causing abrasion
 abrasively	in a abrasive way
-abrasiveness	the roughness of a substance that causes abrasions
-abrasives	ABRASIVE: a substance that abrades or wears down
+abrasiveness	the quality of being sharply disagreeable
+abrasives	ABRASIVE: causing abrasion
 abraxas	a mystical word or charm, once engraved on gems as an amulet
-abreast	being up to particular standard or level especially in being up to date in knowledge
+abreast	alongside each other, facing in the same direction
 abridge	reduce in scope while retaining essential elements
 abridged	ABRIDGE: reduce in scope while retaining essential elements
 abridgement	a shortened version of a written work
@@ -219,10 +219,10 @@ absconder	a fugitive who runs away and hides to avoid arrest or prosecution
 absconders	ABSCONDER: a fugitive who runs away and hides to avoid arrest or prosecution
 absconding	ABSCOND: run away; usually includes taking something or somebody along
 absconds	ABSCOND: run away; usually includes taking something or somebody along
-abseil	a descent of a vertical cliff or wall made by using a doubled rope that is fixed to a higher point and wrapped around the body
-abseiled	ABSEIL: a descent of a vertical cliff or wall made by using a doubled rope that is fixed to a higher point and wrapped around the body
-abseiling	ABSEIL: a descent of a vertical cliff or wall made by using a doubled rope that is fixed to a higher point and wrapped around the body
-abseils	ABSEIL: a descent of a vertical cliff or wall made by using a doubled rope that is fixed to a higher point and wrapped around the body
+abseil	to descend a cliff or wall by sliding down a fixed rope
+abseiled	ABSEIL: to descend a cliff or wall by sliding down a fixed rope
+abseiling	ABSEIL: to descend a cliff or wall by sliding down a fixed rope
+abseils	ABSEIL: to descend a cliff or wall by sliding down a fixed rope
 absence	the state of being absent
 absences	ABSENCE: the state of being absent
 absent	go away or leave
@@ -242,21 +242,21 @@ absolute	perfect or complete or pure
 absolutely	completely and without qualification; used informally as intensifiers
 absolutes	ABSOLUTE: perfect or complete or pure
 absolutest	ABSOLUTE: perfect or complete or pure
-absolution	the condition of being formally forgiven by a priest in the sacrament of penance
-absolutism	dominance through threat of punishment and violence
+absolution	the act of absolving or remitting; formal redemption as pronounced by a priest in the sacrament of penance
+absolutism	a form of government in which the ruler is an absolute dictator (not restricted by a constitution or laws or opposition etc.)
 absolutist	one who advocates absolutism
 absolutists	ABSOLUTIST: one who advocates absolutism
-absolve	grant remission of a sin to
+absolve	let off the hook
 absolved	freed from any question of guilt
-absolves	ABSOLVE: grant remission of a sin to
-absolving	ABSOLVE: grant remission of a sin to
+absolves	ABSOLVE: let off the hook
+absolving	ABSOLVE: let off the hook
 absorb	become imbued
 absorbable	capable of being absorbed or taken in through the pores of a surface
 absorbance	a measure of the extent to which a substance transmits light or other electromagnetic radiation
 absorbed	giving or marked by complete attention to
 absorbency	the property of being absorbent
-absorbent	a material having capacity or tendency to absorb another substance
-absorbents	ABSORBENT: a material having capacity or tendency to absorb another substance
+absorbent	having power or capacity or tendency to absorb or soak up something (liquids or energy etc.)
+absorbents	ABSORBENT: having power or capacity or tendency to absorb or soak up something (liquids or energy etc.)
 absorber	material in a nuclear reactor that absorbs radiation
 absorbers	ABSORBER: material in a nuclear reactor that absorbs radiation
 absorbing	ABSORB: become imbued
@@ -265,15 +265,15 @@ absorption	a process in which one substance permeates another; a fluid permeates
 absorptive	having power or capacity or tendency to absorb or soak up something (liquids or energy etc.)
 abstain	refrain from voting
 abstained	ABSTAIN: refrain from voting
-abstainer	someone who practices self denial as a spiritual discipline
-abstainers	ABSTAINER: someone who practices self denial as a spiritual discipline
+abstainer	a person who refrains from drinking intoxicating beverages
+abstainers	ABSTAINER: a person who refrains from drinking intoxicating beverages
 abstaining	ABSTAIN: refrain from voting
 abstains	ABSTAIN: refrain from voting
 abstemious	sparing in consumption of especially food and drink
 abstention	the trait of abstaining (especially from alcohol)
 abstentions	ABSTENTION: the trait of abstaining (especially from alcohol)
-abstinence	the trait of abstaining (especially from alcohol)
-abstinent	a person who refrains from drinking intoxicating beverages
+abstinence	act or practice of refraining from indulging an appetite
+abstinent	self-restraining; not indulging an appetite especially for food or drink
 abstract	consider a concept without thinking of a specific example; consider abstractly or theoretically
 abstracted	ABSTRACT: consider a concept without thinking of a specific example; consider abstractly or theoretically
 abstractedly	in an absentminded or preoccupied manner
@@ -309,13 +309,13 @@ abusive	expressing offensive reproach
 abusively	in an abusive manner
 abusiveness	the quality of being abusive
 abut	lie adjacent to another or share a boundary
-abutment	point of contact between two objects or parts
-abutments	ABUTMENT: point of contact between two objects or parts
+abutment	a masonry support that touches and directly receives thrust or pressure of an arch or bridge
+abutments	ABUTMENT: a masonry support that touches and directly receives thrust or pressure of an arch or bridge
 abuts	ABUT: lie adjacent to another or share a boundary
 abutted	ABUT: lie adjacent to another or share a boundary
 abutting	ABUT: lie adjacent to another or share a boundary
 abuzz	noisy like the sound of a bee
-abysmal	very great; limitless
+abysmal	extremely bad; appallingly poor
 abysmally	in a terrible manner
 abyss	a bottomless gulf or pit; any unfathomable (or apparently unfathomable) cavity or chasm or void extending below (often used figuratively)
 abyssal	relating to ocean depths from 2000 to 5000 meters
@@ -327,8 +327,8 @@ academia	the academic world
 academic	associated with academia or an academy
 academical	of or relating to a school, college or university
 academically	in regard to academic matters
-academician	someone elected to honorary membership in an academy
-academicians	ACADEMICIAN: someone elected to honorary membership in an academy
+academician	an educator who works at a college or university
+academicians	ACADEMICIAN: an educator who works at a college or university
 academics	ACADEMIC: associated with academia or an academy
 academies	ACADEMY: a secondary school (usually private)
 academy	a secondary school (usually private)
@@ -363,7 +363,7 @@ accentuate	to stress, single out as important
 accentuated	ACCENTUATE: to stress, single out as important
 accentuates	ACCENTUATE: to stress, single out as important
 accentuating	ACCENTUATE: to stress, single out as important
-accentuation	the use or application of an accent; the relative prominence of syllables in a phrase or utterance
+accentuation	the act of giving special importance or significance to something
 accept	consider or hold as true
 acceptability	satisfactoriness by virtue of conforming to approved standards
 acceptable	worthy of acceptance or satisfactory
@@ -374,8 +374,8 @@ accepted	generally approved or compelling recognition
 accepter	one who accepts
 accepters	ACCEPTER: one who accepts
 accepting	tolerating without protest
-acceptor	in the formation of a coordinate bond it is the compound to which electrons are donated
-acceptors	ACCEPTOR: in the formation of a coordinate bond it is the compound to which electrons are donated
+acceptor	the person (or institution) who accepts a check or draft and becomes responsible for paying the party named in the draft when it matures
+acceptors	ACCEPTOR: the person (or institution) who accepts a check or draft and becomes responsible for paying the party named in the draft when it matures
 accepts	ACCEPT: consider or hold as true
 access	the right to enter
 accessed	ACCESS: the right to enter
@@ -384,10 +384,10 @@ accessibility	the quality of being at hand when needed
 accessible	capable of being reached
 accessibly	in a way that is easy to reach or use
 accessing	ACCESS: the right to enter
-accession	a process of increasing by addition (as to a collection or group)
-accessioned	ACCESSION: a process of increasing by addition (as to a collection or group)
-accessioning	ACCESSION: a process of increasing by addition (as to a collection or group)
-accessions	ACCESSION: a process of increasing by addition (as to a collection or group)
+accession	the act of attaining or gaining access to a new office or right or position (especially the throne)
+accessioned	ACCESSION: the act of attaining or gaining access to a new office or right or position (especially the throne)
+accessioning	ACCESSION: the act of attaining or gaining access to a new office or right or position (especially the throne)
+accessions	ACCESSION: the act of attaining or gaining access to a new office or right or position (especially the throne)
 accessories	ACCESSORY: clothing that is worn or carried, but not part of your main clothing
 accessorise	add extra items to an outfit or object
 accessorised	ACCESSORISE: add extra items to an outfit or object
@@ -399,9 +399,9 @@ accessorizes	ACCESSORIZE: add extra items to an outfit or object
 accessorizing	ACCESSORIZE: add extra items to an outfit or object
 accessory	clothing that is worn or carried, but not part of your main clothing
 accident	an unfortunate mishap; especially one causing damage or injury
-accidental	a musical notation that makes a note sharp or flat or natural although that is not part of the key signature
+accidental	happening by chance or unexpectedly or unintentionally
 accidentally	without advance planning
-accidentals	ACCIDENTAL: a musical notation that makes a note sharp or flat or natural although that is not part of the key signature
+accidentals	ACCIDENTAL: happening by chance or unexpectedly or unintentionally
 accidents	ACCIDENT: an unfortunate mishap; especially one causing damage or injury
 acclaim	praise vociferously
 acclaimed	ACCLAIM: praise vociferously
@@ -432,9 +432,9 @@ accommodate	be agreeable or acceptable to
 accommodated	ACCOMMODATE: be agreeable or acceptable to
 accommodates	ACCOMMODATE: be agreeable or acceptable to
 accommodating	ACCOMMODATE: be agreeable or acceptable to
-accommodation	making or becoming suitable; adjusting to circumstances
-accommodations	ACCOMMODATION: making or becoming suitable; adjusting to circumstances
-accommodative	helpful in bringing about a harmonious adaptation
+accommodation	living quarters provided for public convenience
+accommodations	ACCOMMODATION: living quarters provided for public convenience
+accommodative	willing to adjust to differences in order to obtain agreement
 accompanied	having companions or an escort
 accompanies	ACCOMPANY: be present or associated with an event or entity
 accompaniment	an event or situation that happens at the same time as or in connection with another
@@ -503,8 +503,8 @@ accumulating	ACCUMULATE: get or gather together
 accumulation	an increase by natural growth or addition
 accumulations	ACCUMULATION: an increase by natural growth or addition
 accumulative	increasing by successive addition
-accumulator	a person who is employed to collect payments (as for rent or taxes)
-accumulators	ACCUMULATOR: a person who is employed to collect payments (as for rent or taxes)
+accumulator	a voltaic battery that stores electric charge
+accumulators	ACCUMULATOR: a voltaic battery that stores electric charge
 accuracy	the quality of being near to the true value
 accurate	conforming exactly or almost exactly to fact or to a standard or performing with total accuracy
 accurately	with few mistakes
@@ -531,15 +531,15 @@ accustoming	ACCUSTOM: make psychologically or physically used (to something)
 accustoms	ACCUSTOM: make psychologically or physically used (to something)
 ace	the smallest whole number or a numeral representing this number
 aced	ACE: the smallest whole number or a numeral representing this number
-acerbic	sour or bitter in taste
+acerbic	harsh or corrosive in tone
 acerbically	in a sharp, bitter way
-acerbity	a sharp bitterness
+acerbity	a rough and bitter manner
 aces	ACE: the smallest whole number or a numeral representing this number
 acetaldehyde	a colorless volatile water-soluble liquid aldehyde used chiefly in the manufacture of acetic acid and perfumes and drugs
 acetaminophen	an analgesic for mild pain but not for inflammation; also used as an antipyretic; (Datril, Tylenol, Panadol, Phenaphen, Tempra, and Anacin III are trademarks of brands of acetaminophen tablets)
 acetaminophens	ACETAMINOPHEN: an analgesic for mild pain but not for inflammation; also used as an antipyretic; (Datril, Tylenol, Panadol, Phenaphen, Tempra, and Anacin III are trademarks of brands of acetaminophen tablets)
-acetate	a salt or ester of acetic acid
-acetates	ACETATE: a salt or ester of acetic acid
+acetate	a fabric made from fibers of cellulose acetate
+acetates	ACETATE: a fabric made from fibers of cellulose acetate
 acetic	relating to or containing acetic acid
 acetone	the simplest ketone; a highly flammable liquid widely used as an organic solvent and as material for making plastics
 acetyl	the organic group of acetic acid (CH3CO-)
@@ -565,7 +565,7 @@ achoo	the sound of a sneeze
 achromatic	having no hue
 achy	causing a dull and steady pain
 acid	any of various water-soluble compounds having a sour taste and capable of turning litmus red and reacting with a base to form a salt
-acidic	being or containing an acid; of a solution having an excess of hydrogen atoms (having a pH of less than 7)
+acidic	being sour to the taste
 acidification	the process of becoming acid or being converted into an acid
 acidified	ACIDIFY: make or become acid
 acidifies	ACIDIFY: make sour or more sour
@@ -579,14 +579,14 @@ acidulous	being sour to the taste
 acing	ACE: the smallest whole number or a numeral representing this number
 acknowledge	declare to be true or admit the existence or reality or truth of
 acknowledged	ACKNOWLEDGE: declare to be true or admit the existence or reality or truth of
-acknowledgement	the state or quality of being recognized or acknowledged
-acknowledgements	ACKNOWLEDGEMENT: the state or quality of being recognized or acknowledged
+acknowledgement	a statement acknowledging something or someone
+acknowledgements	ACKNOWLEDGEMENT: a statement acknowledging something or someone
 acknowledges	ACKNOWLEDGE: declare to be true or admit the existence or reality or truth of
 acknowledging	ACKNOWLEDGE: declare to be true or admit the existence or reality or truth of
-acknowledgment	the state or quality of being recognized or acknowledged
-acknowledgments	ACKNOWLEDGMENT: the state or quality of being recognized or acknowledged
-acme	the highest level or degree attainable; the highest stage of development
-acmes	ACME: the highest level or degree attainable; the highest stage of development
+acknowledgment	a statement acknowledging something or someone
+acknowledgments	ACKNOWLEDGMENT: a statement acknowledging something or someone
+acme	the highest point (of something)
+acmes	ACME: the highest point (of something)
 acne	an inflammatory disease involving the sebaceous glands of the skin; characterized by papules or pustules or comedones
 acolyte	someone who assists a priest or minister in a liturgical service; a cleric ordained in the highest of the minor orders in the Roman Catholic Church but not in the Anglican Church or the Eastern Orthodox Churches
 acolytes	ACOLYTE: someone who assists a priest or minister in a liturgical service; a cleric ordained in the highest of the minor orders in the Roman Catholic Church but not in the Anglican Church or the Eastern Orthodox Churches
@@ -595,7 +595,7 @@ aconite	any of various usually poisonous plants of the genus Aconitum having tub
 aconites	ACONITE: any of various usually poisonous plants of the genus Aconitum having tuberous roots and palmately lobed leaves and blue or white flowers
 acorn	fruit of the oak tree: a smooth thin-walled nut in a woody cup-shaped base
 acorns	ACORN: fruit of the oak tree: a smooth thin-walled nut in a woody cup-shaped base
-acoustic	a remedy for hearing loss or deafness
+acoustic	of or relating to the science of acoustics
 acoustical	of or relating to the science of acoustics
 acoustically	with respect to acoustics
 acoustics	the study of the physical properties of sound
@@ -649,11 +649,11 @@ acrobats	ACROBAT: an athlete who performs acts requiring skill and agility and c
 acronym	a word formed from the initial letters of the several words in the name and pronounced as one word
 acronyms	ACRONYM: a word formed from the initial letters of the several words in the name and pronounced as one word
 across	to the opposite side
-acrostic	a puzzle where you fill a square grid with words reading the same down as across
-acrostics	ACROSTIC: a puzzle where you fill a square grid with words reading the same down as across
+acrostic	verse in which certain letters such as the first in each line form a word or message
+acrostics	ACROSTIC: verse in which certain letters such as the first in each line form a word or message
 acrylamide	a white crystalline amide of propenoic acid can damage the nervous system and is carcinogenic in laboratory animals
-acrylic	polymerized from acrylonitrile
-acrylics	ACRYLIC: polymerized from acrylonitrile
+acrylic	a synthetic fabric
+acrylics	ACRYLIC: a synthetic fabric
 acrylonitrile	a colorless liquid unsaturated nitrile made from propene
 act	perform an action, or work out or perform (an action)
 acted	ACT: perform an action, or work out or perform (an action)
@@ -670,8 +670,8 @@ activate	put in motion or move to act
 activated	(of sewage) treated with aeration and bacteria to aid decomposition
 activates	ACTIVATE: put in motion or move to act
 activating	ACTIVATE: put in motion or move to act
-activation	stimulation of activity in an organism or chemical
-activations	ACTIVATION: stimulation of activity in an organism or chemical
+activation	the activity of causing to have energy and be active
+activations	ACTIVATION: the activity of causing to have energy and be active
 activator	any agency bringing about activation; a molecule that increases the activity of an enzyme or a protein that increases the production of a gene product in DNA transcription
 activators	ACTIVATOR: any agency bringing about activation; a molecule that increases the activity of an enzyme or a protein that increases the production of a gene product in DNA transcription
 active	tending to become more severe or wider in scope
@@ -712,7 +712,7 @@ actuation	the act of propelling
 actuator	a mechanism that puts something into automatic action
 actuators	ACTUATOR: a mechanism that puts something into automatic action
 acuity	sharpness of vision; the visual ability to resolve fine detail (usually measured by a Snellen chart)
-acumen	a tapering point
+acumen	shrewdness shown by keen insight
 acupressure	treatment of symptoms by applying pressure with the fingers to specific pressure points on the body
 acupuncture	treatment of pain or disease by inserting the tips of needles at specific points on the skin
 acupuncturist	a person who treats illness by inserting fine needles into the skin
@@ -723,7 +723,7 @@ acuteness	a sensitivity that is keen and highly developed
 acuter	ACUTE: having or experiencing a rapid onset and short but severe course
 acutes	ACUTE: having or experiencing a rapid onset and short but severe course
 acutest	ACUTE: having or experiencing a rapid onset and short but severe course
-acyclic	not cyclic; especially having parts arranged in spirals rather than whorls
+acyclic	having an open chain structure
 acyclovir	an oral antiviral drug (trade name Zovirax) used to treat genital herpes; does not cure the disease but relieves the symptoms
 ad	a public promotion of some product or service
 adage	a condensed but memorable saying embodying some important fact of experience that is taken as true by many people
@@ -731,7 +731,7 @@ adages	ADAGE: a condensed but memorable saying embodying some important fact of 
 adagio	a composition played in adagio tempo (slowly and gracefully)
 adagios	ADAGIO: a composition played in adagio tempo (slowly and gracefully)
 adamant	impervious to pleas, persuasion, requests, reason
-adamantine	consisting of or having the hardness of adamant
+adamantine	having the hardness of a diamond
 adamantly	inflexibly; unshakably
 adapt	make fit for, or change to suit a new purpose
 adaptability	the ability to change (or be changed) to fit changed circumstances
@@ -739,8 +739,8 @@ adaptable	capable of adapting (of becoming or being made suitable) to a particul
 adaptation	a written work (as a novel) that has been recast in a new form
 adaptations	ADAPTATION: a written work (as a novel) that has been recast in a new form
 adapted	changed in order to improve or made more fit for a particular purpose
-adapter	a musician who adapts a composition for particular voices or instruments or for another style of performance
-adapters	ADAPTER: a musician who adapts a composition for particular voices or instruments or for another style of performance
+adapter	device that enables something to be used in a way different from that for which it was intended or makes different pieces of apparatus compatible
+adapters	ADAPTER: device that enables something to be used in a way different from that for which it was intended or makes different pieces of apparatus compatible
 adapting	ADAPT: make fit for, or change to suit a new purpose
 adaption	the process of adapting to something (such as environmental conditions)
 adaptions	ADAPTION: the process of adapting to something (such as environmental conditions)
@@ -756,14 +756,14 @@ addends	ADDEND: a number that is added to another number (the augend)
 addendum	textual matter that is added onto a publication; usually at the end
 addendums	ADDENDUM: textual matter that is added onto a publication; usually at the end
 adder	AD: a public promotion of some product or service
-adders	ADDER: a person who adds numbers
-addict	someone who is so ardently devoted to something that it resembles an addiction
+adders	ADDER: small terrestrial viper common in northern Eurasia
+addict	someone who is physiologically dependent on a substance; abrupt deprivation of the substance produces withdrawal symptoms
 addicted	compulsively or physiologically dependent on something habit-forming
-addicting	ADDICT: someone who is so ardently devoted to something that it resembles an addiction
+addicting	ADDICT: someone who is physiologically dependent on a substance; abrupt deprivation of the substance produces withdrawal symptoms
 addiction	being abnormally tolerant to and dependent on something that is psychologically or physically habit-forming (especially alcohol or narcotic drugs)
 addictions	ADDICTION: being abnormally tolerant to and dependent on something that is psychologically or physically habit-forming (especially alcohol or narcotic drugs)
 addictive	causing or characterized by addiction
-addicts	ADDICT: someone who is so ardently devoted to something that it resembles an addiction
+addicts	ADDICT: someone who is physiologically dependent on a substance; abrupt deprivation of the substance produces withdrawal symptoms
 adding	ADD: make an addition (to); join or combine or unite with others; increase the quality, quantity, size or scope of
 addition	a component that is added to something to improve it
 additional	further or added
@@ -773,7 +773,7 @@ additive	something added to enhance food or gasoline or paint or medicine
 additives	ADDITIVE: something added to enhance food or gasoline or paint or medicine
 addle	mix up or confuse
 addlebrained	stupid and confused
-addled	(of eggs) no longer edible
+addled	confused and vague; used especially of thinking
 addlepate	a muddled or foolish person
 addlepated	ADDLEPATE: a muddled or foolish person
 addles	ADDLE: mix up or confuse
@@ -793,11 +793,11 @@ adduced	ADDUCE: advance evidence for
 adduces	ADDUCE: advance evidence for
 adducing	citing as evidence or proof
 adductor	a muscle that draws a body part toward the median line
-adducts	ADDUCT: a compound formed by an addition reaction
+adducts	ADDUCT: draw a limb towards the body
 adenine	purine base found in DNA and RNA; pairs with thymine in DNA and with uracil in RNA
 adenocarcinoma	malignant tumor originating in glandular epithelium
 adenoid	a collection of lymphatic tissue in the throat behind the uvula (on the posterior wall and roof of the nasopharynx)
-adenoidal	of or pertaining to the adenoids
+adenoidal	sounding as if the nose were pinched
 adenoids	ADENOID: a collection of lymphatic tissue in the throat behind the uvula (on the posterior wall and roof of the nasopharynx)
 adenoma	a benign epithelial tumor of glandular origin
 adenomas	ADENOMA: a benign epithelial tumor of glandular origin
@@ -817,7 +817,7 @@ adherent	someone who believes and helps to spread the doctrine of another
 adherents	ADHERENT: someone who believes and helps to spread the doctrine of another
 adheres	ADHERE: be compatible or in accordance with
 adhering	ADHERE: be compatible or in accordance with
-adhesion	abnormal union of bodily tissues; most common in the abdomen
+adhesion	the property of sticking together (as of glue and wood) or the joining of surfaces of different composition
 adhesive	a substance that unites or bonds surfaces together
 adhesives	ADHESIVE: a substance that unites or bonds surfaces together
 adiabatic	occurring without loss or gain of heat
@@ -862,10 +862,10 @@ adjunctive	joining; forming an adjunct
 adjuncts	ADJUNCT: something added to another thing but not an essential part of it
 adjuration	a solemn and earnest appeal to someone to do something
 adjurations	ADJURATION: a solemn and earnest appeal to someone to do something
-adjure	ask for or request earnestly
-adjured	ADJURE: ask for or request earnestly
-adjures	ADJURE: ask for or request earnestly
-adjuring	ADJURE: ask for or request earnestly
+adjure	command solemnly
+adjured	ADJURE: command solemnly
+adjures	ADJURE: command solemnly
+adjuring	ADJURE: command solemnly
 adjust	alter or regulate so as to achieve accuracy or conform to a standard
 adjustable	capable of being changed so as to match or fit
 adjusted	altered to accommodate to certain requirements or bring into a proper relation
@@ -922,8 +922,8 @@ admittance	the right to enter
 admitted	ADMIT: declare to be true or admit the existence or reality or truth of
 admittedly	as acknowledged
 admitting	ADMIT: declare to be true or admit the existence or reality or truth of
-admixture	the state of impairing the quality or reducing the value of something
-admixtures	ADMIXTURE: the state of impairing the quality or reducing the value of something
+admixture	an additional ingredient that is added by mixing with the base
+admixtures	ADMIXTURE: an additional ingredient that is added by mixing with the base
 admonish	advise or counsel in terms of someone's behavior
 admonished	ADMONISH: advise or counsel in terms of someone's behavior
 admonishes	ADMONISH: advise or counsel in terms of someone's behavior
@@ -934,8 +934,8 @@ admonition	cautionary advice about something imminent (especially imminent dange
 admonitions	ADMONITION: cautionary advice about something imminent (especially imminent danger or other unpleasantness)
 admonitory	serving to warn
 ado	a rapid active commotion
-adobe	the clay from which adobe bricks are made
-adobes	ADOBE: the clay from which adobe bricks are made
+adobe	sun-dried brick; used in hot dry climates
+adobes	ADOBE: sun-dried brick; used in hot dry climates
 adolescence	the time period between the beginning of puberty and adulthood
 adolescences	ADOLESCENCE: the time period between the beginning of puberty and adulthood
 adolescent	a juvenile between the onset of puberty and maturity
@@ -972,7 +972,7 @@ adrenal	of or pertaining to the adrenal glands or their secretions
 adrenalin	a catecholamine secreted by the adrenal medulla in response to stress (trade name Adrenalin); stimulates autonomic nerve action
 adrenaline	a catecholamine secreted by the adrenal medulla in response to stress (trade name Adrenalin); stimulates autonomic nerve action
 adrenals	ADRENAL: of or pertaining to the adrenal glands or their secretions
-adrenergic	drug that has the effects of epinephrine
+adrenergic	relating to epinephrine (its release or action)
 adrift	aimlessly drifting
 adroit	quick or skillful or adept in action or thought
 adroitly	with adroitness; in an adroit manner
@@ -996,13 +996,13 @@ adulterate	corrupt, debase, or make impure by adding a foreign or inferior subst
 adulterated	mixed with impurities
 adulterates	ADULTERATE: corrupt, debase, or make impure by adding a foreign or inferior substance; often by replacing valuable ingredients with inferior ones
 adulterating	making impure or corrupt by adding extraneous materials
-adulteration	being mixed with extraneous material; the product of adulterating
+adulteration	the act of adulterating (especially the illicit substitution of one substance for another)
 adulterer	someone who commits adultery or fornication
 adulterers	ADULTERER: someone who commits adultery or fornication
 adulteress	a woman adulterer
 adulteresses	ADULTERESS: a woman adulterer
 adulteries	ADULTERY: extramarital sex that willfully and maliciously interferes with marriage relations
-adulterous	characterized by adultery
+adulterous	not faithful to a spouse or lover
 adultery	extramarital sex that willfully and maliciously interferes with marriage relations
 adulthood	the period of time in your life after your physical growth has stopped and you are fully developed
 adults	ADULT: a fully developed person from maturity onward
@@ -1010,11 +1010,11 @@ adumbrate	describe roughly or briefly or give the main points or summary of
 adumbrated	ADUMBRATE: describe roughly or briefly or give the main points or summary of
 adumbrates	ADUMBRATE: describe roughly or briefly or give the main points or summary of
 adumbrating	ADUMBRATE: describe roughly or briefly or give the main points or summary of
-adumbration	the act of providing vague advance indications; representing beforehand
+adumbration	a sketchy or imperfect or faint representation
 advance	move forward, also in the metaphorical sense
 advanced	farther along in physical or mental development
-advancement	encouragement of the progress or growth or acceptance of something
-advancements	ADVANCEMENT: encouragement of the progress or growth or acceptance of something
+advancement	gradual improvement or growth or development
+advancements	ADVANCEMENT: gradual improvement or growth or development
 advances	ADVANCE: move forward, also in the metaphorical sense
 advancing	ADVANCE: move forward, also in the metaphorical sense
 advantage	the quality of having a superior or more favorable position
@@ -1095,10 +1095,10 @@ adzes	ADZE: an edge tool used to cut and shape wood
 aegis	kindly endorsement and guidance
 aeon	a divine power or nature emanating from the Supreme Being and playing various roles in the operation of the universe
 aeons	AEON: a divine power or nature emanating from the Supreme Being and playing various roles in the operation of the universe
-aerate	expose to fresh air
+aerate	impregnate, combine, or supply with oxygen
 aerated	(of a liquid) treated by having air passed or bubbled through it for purification
-aerates	AERATE: expose to fresh air
-aerating	AERATE: expose to fresh air
+aerates	AERATE: impregnate, combine, or supply with oxygen
+aerating	AERATE: impregnate, combine, or supply with oxygen
 aeration	the process of exposing to air (so as to purify)
 aerator	an apparatus for exposing something to the air (as sewage)
 aerators	AERATOR: an apparatus for exposing something to the air (as sewage)
@@ -1148,8 +1148,8 @@ aesthetic	relating to or dealing with the subject of aesthetics
 aesthetically	in a tasteful way
 aestheticism	devotion to beauty and art
 aesthetics	AESTHETIC: relating to or dealing with the subject of aesthetics
-aether	personification of the sky or upper air breathed by the Olympians; son of Erebus and night or of Chaos and darkness
-aetiological	of or relating to the philosophical study of causation
+aether	a medium that was once supposed to fill all space and to support the propagation of electromagnetic waves
+aetiological	relating to the etiology of a disease
 aetiologies	AETIOLOGY: the cause of a disease
 aetiologist	a specialist in the etiology of diseases
 aetiology	the cause of a disease
@@ -1176,10 +1176,10 @@ affects	AFFECT: have an effect upon
 afferent	of nerves and nerve impulses; conveying sensory information from the sense organs to the CNS
 affidavit	written declaration made under oath; a written statement sworn to be true before someone legally authorized to administer an oath
 affidavits	AFFIDAVIT: written declaration made under oath; a written statement sworn to be true before someone legally authorized to administer an oath
-affiliate	a subordinate or subsidiary associate; a person who is affiliated with another or with an organization
+affiliate	a subsidiary or subordinate organization that is affiliated with another organization
 affiliated	being joined in close association
-affiliates	AFFILIATE: a subordinate or subsidiary associate; a person who is affiliated with another or with an organization
-affiliating	AFFILIATE: a subordinate or subsidiary associate; a person who is affiliated with another or with an organization
+affiliates	AFFILIATE: a subsidiary or subordinate organization that is affiliated with another organization
+affiliating	AFFILIATE: a subsidiary or subordinate organization that is affiliated with another organization
 affiliation	a social or business relationship
 affiliations	AFFILIATION: a social or business relationship
 affine	kin by marriage
@@ -1188,9 +1188,9 @@ affinity	the attraction between an antigen and an antibody
 affirm	establish or strengthen as with new evidence or facts
 affirmation	a statement asserting the existence or the truth of something
 affirmations	AFFIRMATION: a statement asserting the existence or the truth of something
-affirmative	a reply of affirmation
+affirmative	affirming or giving assent
 affirmatively	in an affirmative manner
-affirmatives	AFFIRMATIVE: a reply of affirmation
+affirmatives	AFFIRMATIVE: affirming or giving assent
 affirmed	AFFIRM: establish or strengthen as with new evidence or facts
 affirmer	someone who claims to speak the truth
 affirmers	AFFIRMER: someone who claims to speak the truth
@@ -1210,7 +1210,7 @@ affliction	a state of great suffering and distress due to adversity
 afflictions	AFFLICTION: a state of great suffering and distress due to adversity
 afflicts	AFFLICT: cause great unhappiness for; distress
 affluence	abundant wealth
-affluent	an affluent person; a person who is financially well off
+affluent	having an abundant supply of money or possessions of value
 affluently	in a affluent way
 afford	be able to spare or give up
 affordability	the quality of being cheap enough to buy
@@ -1224,8 +1224,8 @@ afforestation	the conversion of bare or cultivated land into forest (originally 
 afforested	AFFOREST: establish a forest on previously unforested land
 afforesting	AFFOREST: establish a forest on previously unforested land
 afforests	AFFOREST: establish a forest on previously unforested land
-affray	noisy quarrel
-affrays	AFFRAY: noisy quarrel
+affray	a noisy fight
+affrays	AFFRAY: a noisy fight
 affricate	a composite speech sound consisting of a stop and a fricative articulated at the same point (as `ch' in `chair' and `j' in `joy')
 affricates	AFFRICATE: a composite speech sound consisting of a stop and a fricative articulated at the same point (as `ch' in `chair' and `j' in `joy')
 affront	a deliberately offensive act or something producing the effect of deliberate disrespect
@@ -1234,8 +1234,8 @@ affronting	AFFRONT: a deliberately offensive act or something producing the effe
 affronts	AFFRONT: a deliberately offensive act or something producing the effect of deliberate disrespect
 afghan	a blanket knitted or crocheted in strips or squares; sometimes used as a shawl
 afghans	AFGHAN: a blanket knitted or crocheted in strips or squares; sometimes used as a shawl
-aficionado	a fan of bull fighting
-aficionados	AFICIONADO: a fan of bull fighting
+aficionado	a serious devotee of some particular music genre or musical performer
+aficionados	AFICIONADO: a serious devotee of some particular music genre or musical performer
 afield	far away from home or one's usual surroundings
 afire	lighted up by or as by fire or flame
 aflame	keenly excited (especially sexually) or indicating excitement
@@ -1280,8 +1280,8 @@ aftershock	a tremor (or one of a series of tremors) occurring after the main sho
 aftershocks	AFTERSHOCK: a tremor (or one of a series of tremors) occurring after the main shock of an earthquake
 aftertaste	an afterimage of a taste
 aftertastes	AFTERTASTE: an afterimage of a taste
-afterthought	thinking again about a choice previously made
-afterthoughts	AFTERTHOUGHT: thinking again about a choice previously made
+afterthought	an addition that was not included in the original plan
+afterthoughts	AFTERTHOUGHT: an addition that was not included in the original plan
 afterward	happening at a time subsequent to a reference time
 afterwards	happening at a time subsequent to a reference time
 afterword	a short piece of writing at the end of a book
@@ -1289,7 +1289,7 @@ afterwords	AFTERWORD: a short piece of writing at the end of a book
 again	anew
 against	in opposition to; also touching or leaning on
 agape	with the mouth wide open as in wonder or awe
-agar	any culture medium that uses agar as the gelling agent
+agar	a colloidal extract of algae; used especially in culture media and as a gelling agent in foods
 agate	an impure form of quartz consisting of banded chalcedony; used as a gemstone and for making mortars and pestles
 agates	AGATE: an impure form of quartz consisting of banded chalcedony; used as a gemstone and for making mortars and pestles
 agave	tropical American plants with basal rosettes of fibrous sword-shaped leaves and flowers in tall spikes; some cultivated for ornament or for fiber
@@ -1298,7 +1298,7 @@ age	how long something has existed
 aged	advanced in years; (`aged' is pronounced as two syllables)
 agedness	the property characteristic of old age
 ageing	AGE: how long something has existed
-ageings	AGEING: acquiring desirable qualities by being left undisturbed for some time
+ageings	AGEING: the organic process of growing older and showing the effects of increasing age
 ageism	discrimination on the basis of a person's age
 ageist	discriminating against people because of their age
 ageists	AGEIST: discriminating against people because of their age
@@ -1318,10 +1318,10 @@ agglomerates	AGGLOMERATE: form into one cluster
 agglomerating	AGGLOMERATE: form into one cluster
 agglomeration	a jumbled collection or mass
 agglomerations	AGGLOMERATION: a jumbled collection or mass
-agglutinate	string together (morphemes in an agglutinating language)
-agglutinated	AGGLUTINATE: string together (morphemes in an agglutinating language)
-agglutinates	AGGLUTINATE: string together (morphemes in an agglutinating language)
-agglutinating	AGGLUTINATE: string together (morphemes in an agglutinating language)
+agglutinate	clump together; as of bacteria, red blood cells, etc.
+agglutinated	AGGLUTINATE: clump together; as of bacteria, red blood cells, etc.
+agglutinates	AGGLUTINATE: clump together; as of bacteria, red blood cells, etc.
+agglutinating	AGGLUTINATE: clump together; as of bacteria, red blood cells, etc.
 agglutination	a clumping of bacteria or red cells when held together by antibodies (agglutinins)
 agglutinations	AGGLUTINATION: a clumping of bacteria or red cells when held together by antibodies (agglutinins)
 aggrandise	add details to
@@ -1356,17 +1356,17 @@ aggressively	in an aggressive manner
 aggressiveness	the quality of being bold and enterprising
 aggressor	someone who attacks
 aggressors	AGGRESSOR: someone who attacks
-aggrieve	infringe on the rights of
-aggrieved	AGGRIEVE: infringe on the rights of
-aggrieves	AGGRIEVE: infringe on the rights of
-aggrieving	AGGRIEVE: infringe on the rights of
+aggrieve	cause to feel sorrow
+aggrieved	AGGRIEVE: cause to feel sorrow
+aggrieves	AGGRIEVE: cause to feel sorrow
+aggrieving	AGGRIEVE: cause to feel sorrow
 aggro	aggravation or aggression
 aghast	struck with fear, dread, or consternation
 agile	moving quickly and lightly
 agilely	in a nimble or agile manner; with quickness and lightness and ease
 agility	the gracefulness of a person or animal that is quick and nimble
 aging	AGE: how long something has existed
-agings	AGING: acquiring desirable qualities by being left undisturbed for some time
+agings	AGING: the organic process of growing older and showing the effects of increasing age
 agism	discrimination on the basis of a person's age
 agitate	try to stir up public opinion
 agitated	troubled emotionally and usually deeply
@@ -1380,26 +1380,26 @@ agitprop	political propaganda (especially communist propaganda) communicated via
 agleam	bright with a steady but subdued shining
 aglitter	having brief brilliant points or flashes of light
 aglow	softly bright or radiant
-agnostic	someone who is doubtful or noncommittal about something
+agnostic	a person who claims that they cannot have true knowledge about the existence of God (but does not deny that God might exist)
 agnosticism	a religious orientation of doubt; a denial of ultimate knowledge of the existence of God
-agnostics	AGNOSTIC: someone who is doubtful or noncommittal about something
+agnostics	AGNOSTIC: a person who claims that they cannot have true knowledge about the existence of God (but does not deny that God might exist)
 ago	in the past
 agog	highly excited by eagerness, curiosity, etc.
 agonies	AGONY: intense feelings of suffering; acute mental or physical pain
-agonise	cause to agonize
+agonise	suffer agony or anguish
 agonised	expressing pain or agony
-agonises	AGONISE: cause to agonize
+agonises	AGONISE: suffer agony or anguish
 agonising	extremely painful
 agonisingly	in a agonising way
-agonist	the principal character in a work of fiction
-agonists	AGONIST: the principal character in a work of fiction
-agonize	cause to agonize
+agonist	someone involved in a contest or battle (as in an agon)
+agonists	AGONIST: someone involved in a contest or battle (as in an agon)
+agonize	suffer agony or anguish
 agonized	expressing pain or agony
-agonizes	AGONIZE: cause to agonize
+agonizes	AGONIZE: suffer agony or anguish
 agonizing	extremely painful
 agonizingly	in a very painful manner
 agony	intense feelings of suffering; acute mental or physical pain
-agora	100 agorot equal 1 shekel in Israel
+agora	the marketplace in ancient Greece
 agoraphobia	a morbid fear of open spaces (as fear of being caught alone in some public place)
 agoraphobic	suffering from agoraphobia; abnormally afraid of open or public places
 agoraphobics	AGORAPHOBIC: a person with a fear of open or public places
@@ -1409,7 +1409,7 @@ agrarian	relating to farming or agriculture
 agrarians	AGRARIAN: a person who favours farming and land reform
 agree	be in accord; be in agreement
 agreeable	conforming to your own liking or feelings or nature
-agreeableness	pleasantness resulting from agreeable conditions
+agreeableness	a temperamental disposition to be agreeable
 agreeably	in an enjoyable manner
 agreed	AGREE: be in accord; be in agreement
 agreeing	AGREE: be in accord; be in agreement
@@ -1461,14 +1461,14 @@ aides	AID: a person or thing that is a resource that helps make something easier
 aiding	AID: a person or thing that is a resource that helps make something easier or possible to do
 aids	AID: a person or thing that is a resource that helps make something easier or possible to do
 aikido	a Japanese martial art employing principles similar to judo
-ail	aromatic bulb used as seasoning
-ailed	AIL: aromatic bulb used as seasoning
+ail	be ill or unwell
+ailed	AIL: be ill or unwell
 aileron	an airfoil that controls lateral motion
 ailerons	AILERON: an airfoil that controls lateral motion
 ailing	somewhat ill or prone to illness
 ailment	an often persistent bodily disorder or disease; a cause for complaining
 ailments	AILMENT: an often persistent bodily disorder or disease; a cause for complaining
-ails	AIL: aromatic bulb used as seasoning
+ails	AIL: be ill or unwell
 aim	point or cause to go (blows, weapons, or objects such as photographic equipment) towards
 aimed	AIM: point or cause to go (blows, weapons, or objects such as photographic equipment) towards
 aimer	one who aims
@@ -1525,7 +1525,7 @@ airiest	AIRY: open to or abounding in fresh air
 airily	in a flippant manner
 airiness	the property of something spacious and abounding in fresh air
 airing	AIR: a mixture of gases (especially oxygen) required for breathing; the stuff that the wind consists of
-airings	AIRING: the opening of a subject to widespread discussion and debate
+airings	AIRING: the act of supplying fresh air and getting rid of foul air
 airless	lacking fresh air
 airlessly	in a airless way
 airlessness	the quality of being airless
@@ -1533,10 +1533,10 @@ airlift	transportation of people or goods by air (especially when other means of
 airlifted	AIRLIFT: transportation of people or goods by air (especially when other means of access are unavailable)
 airlifting	AIRLIFT: transportation of people or goods by air (especially when other means of access are unavailable)
 airlifts	AIRLIFT: transportation of people or goods by air (especially when other means of access are unavailable)
-airline	a hose that carries air under pressure
+airline	a commercial enterprise that provides scheduled flights for passengers
 airliner	a commercial airplane that carries passengers
 airliners	AIRLINER: a commercial airplane that carries passengers
-airlines	AIRLINE: a hose that carries air under pressure
+airlines	AIRLINE: a commercial enterprise that provides scheduled flights for passengers
 airlock	a chamber that provides access to space where air is under pressure
 airlocks	AIRLOCK: a chamber that provides access to space where air is under pressure
 airmail	letters and packages that are transported by aircraft
@@ -1558,7 +1558,7 @@ airshow	a public display of flying aircraft
 airshows	AIRSHOW: a public display of flying aircraft
 airsick	experiencing motion sickness
 airsickness	motion sickness experienced while traveling by air (especially during turbulence)
-airspace	the space in the atmosphere immediately above the earth
+airspace	the atmosphere above a nation that is deemed to be under its jurisdiction
 airspeed	the speed of an aircraft relative to the air in which it is flying
 airspeeds	AIRSPEED: the speed of an aircraft relative to the air in which it is flying
 airstream	a relatively well-defined prevailing wind
@@ -1566,7 +1566,7 @@ airstrike	an attack by military aircraft
 airstrikes	AIRSTRIKE: an attack by military aircraft
 airstrip	an airfield without normal airport facilities
 airstrips	AIRSTRIP: an airfield without normal airport facilities
-airtight	having no weak points
+airtight	not allowing air or gas to pass in or out
 airtime	time during which something is broadcast
 airwaves	AIRWAVE: medium for radio and television broadcasting
 airway	a duct that provides ventilation (as in mines)
@@ -1581,7 +1581,7 @@ aisles	AISLE: a long narrow passage (as in a cave or woods)
 aitch	the letter h
 aitches	AITCH: the letter h
 ajar	slightly open
-akimbo	(used of arms and legs) bent outward with the joint away from the body
+akimbo	with hands on hips and elbows extending outward
 akin	similar in quality or character
 alabaster	a compact fine-textured, usually white gypsum used for carving
 alacrity	liveliness and eagerness
@@ -1596,10 +1596,10 @@ alarmists	ALARMIST: a person who alarms others needlessly
 alarms	ALARM: fear resulting from the awareness of danger
 alas	by bad luck
 alb	a white linen liturgical vestment with sleeves; worn by priests
-albacore	relatively small tuna with choice white flesh; major source of canned tuna
-albacores	ALBACORE: relatively small tuna with choice white flesh; major source of canned tuna
-albatross	something that hinders or handicaps
-albatrosses	ALBATROSS: something that hinders or handicaps
+albacore	a kind of tuna with long fins, the main source of canned tuna
+albacores	ALBACORE: a kind of tuna with long fins, the main source of canned tuna
+albatross	large web-footed birds of the southern hemisphere having long narrow wings; noted for powerful gliding flight
+albatrosses	ALBATROSS: large web-footed birds of the southern hemisphere having long narrow wings; noted for powerful gliding flight
 albedo	the ratio of reflected to incident light
 albeit	even though
 albinism	the congenital absence of pigmentation in the eyes and skin and hair
@@ -1607,13 +1607,13 @@ albino	a person with congenital albinism: white hair and milky skin; eyes are us
 albinos	ALBINO: a person with congenital albinism: white hair and milky skin; eyes are usually pink
 albs	ALB: a white linen liturgical vestment with sleeves; worn by priests
 album	one or more recordings issued together; originally released on 12-inch phonograph records (usually with attractive record covers) and later on cassette audiotape and compact disc
-albumen	a simple water-soluble protein found in many animal tissues and liquids
+albumen	the white part of an egg; the nutritive and protective gelatinous substance surrounding the yolk consisting mainly of albumin dissolved in water
 albumin	a simple water-soluble protein found in many animal tissues and liquids
 albums	ALBUM: one or more recordings issued together; originally released on 12-inch phonograph records (usually with attractive record covers) and later on cassette audiotape and compact disc
 alchemical	related to or concerned with alchemy
 alchemist	one who was versed in the practice of alchemy and who sought an elixir of life and a panacea and an alkahest and the philosopher's stone
 alchemists	ALCHEMIST: one who was versed in the practice of alchemy and who sought an elixir of life and a panacea and an alkahest and the philosopher's stone
-alchemy	the way two individuals relate to each other
+alchemy	a pseudoscientific forerunner of chemistry in medieval times
 alcohol	a liquor or brew containing alcohol as the active agent
 alcoholic	a person who drinks alcohol to excess habitually
 alcoholics	ALCOHOLIC: a person who drinks alcohol to excess habitually
@@ -1625,10 +1625,10 @@ alcove	a small recess opening off a larger room
 alcoves	ALCOVE: a small recess opening off a larger room
 aldehyde	any of a class of highly reactive chemical compounds; used in making resins and dyes and organic acids
 aldehydes	ALDEHYDE: any of a class of highly reactive chemical compounds; used in making resins and dyes and organic acids
-alder	wood of any of various alder trees; resistant to underwater rot; used for bridges etc
+alder	north temperate shrubs or trees having toothed leaves and conelike fruit; bark is used in tanning and dyeing and the wood is rot-resistant
 alderman	a member of a municipal legislative body (as a city council)
 aldermen	ALDERMAN: a member of a municipal legislative body (as a city council)
-alders	ALDER: wood of any of various alder trees; resistant to underwater rot; used for bridges etc
+alders	ALDER: north temperate shrubs or trees having toothed leaves and conelike fruit; bark is used in tanning and dyeing and the wood is rot-resistant
 alderwoman	a woman who is a member of a city council
 alderwomen	ALDERWOMAN: a woman who is a member of a city council
 aldosterone	a corticosteroid hormone that is secreted by the cortex of the adrenal gland; regulates salt (sodium and potassium) and water balance
@@ -1644,8 +1644,8 @@ alertly	in mentally perceptive and responsive way
 alertness	the process of paying close and continuous attention
 alerts	ALERT: warn or arouse to a sense of danger or call to a state of preparedness
 ales	ALE: a general name for beer made with a top fermenting yeast; in some of the United States an ale is (by law) a brew of more than 4% alcohol by volume
-alewife	flesh of shad-like fish abundant along the Atlantic coast or in coastal streams
-alfalfa	leguminous plant grown for hay or forage
+alewife	shad-like food fish that runs rivers to spawn; often salted or smoked; sometimes placed in genus Pomolobus
+alfalfa	important European leguminous forage plant with trifoliate leaves and blue-violet flowers grown widely as a pasture and hay crop
 alfresco	in the open air
 alga	primitive chlorophyll-containing mainly aquatic eukaryotic organisms lacking true stems and roots and leaves
 algae	primitive chlorophyll-containing mainly aquatic eukaryotic organisms lacking true stems and roots and leaves
@@ -1707,8 +1707,8 @@ alining	ALINE: place in a line or arrange so as to be parallel or straight
 aliphatic	having carbon atoms linked in open chains
 alit	ALIGHT: get down from or land on something
 alive	possessing life
-aliyah	the honor of being called up to the reading desk in the synagogue to read from the Torah
-aliyahs	ALIYAH: the honor of being called up to the reading desk in the synagogue to read from the Torah
+aliyah	immigration of Jews to Israel
+aliyahs	ALIYAH: immigration of Jews to Israel
 alkali	any of various water-soluble compounds capable of turning litmus blue and reacting with an acid to form a salt and water
 alkalies	ALKALI: a substance that neutralises acids
 alkaline	relating to or containing an alkali; having a pH greater than 7
@@ -1753,7 +1753,7 @@ alleluias	ALLELUIA: a shout of praise to God
 allergen	any substance that can cause an allergy
 allergenic	relating to or having the effect of an allergen
 allergens	ALLERGEN: any substance that can cause an allergy
-allergic	characterized by or caused by allergy
+allergic	having an allergy or peculiar or excessive susceptibility (especially to a specific factor)
 allergies	ALLERGY: hypersensitivity reaction to a particular allergen; symptoms can vary greatly in intensity
 allergist	a physician skilled in the diagnosis and treatment of allergies
 allergists	ALLERGIST: a physician skilled in the diagnosis and treatment of allergies
@@ -1762,13 +1762,13 @@ alleviate	provide physical relief, as from pain
 alleviated	ALLEVIATE: provide physical relief, as from pain
 alleviates	ALLEVIATE: provide physical relief, as from pain
 alleviating	ALLEVIATE: provide physical relief, as from pain
-alleviation	the feeling that comes when something burdensome is removed or reduced
+alleviation	the act of reducing something unpleasant (as pain or annoyance)
 alley	a narrow street with walls on both sides
 alleys	ALLEY: a narrow street with walls on both sides
 alleyway	a narrow street with walls on both sides
 alleyways	ALLEYWAY: a narrow street with walls on both sides
-alliance	the state of being allied or confederated
-alliances	ALLIANCE: the state of being allied or confederated
+alliance	an organization of people (or countries) involved in a pact or treaty
+alliances	ALLIANCE: an organization of people (or countries) involved in a pact or treaty
 allied	related by common characteristics or ancestry
 allies	ALLY: a friendly nation
 alligator	leather made from alligator's hide
@@ -1804,7 +1804,7 @@ allowed	ALLOW: make it possible through a specific action or lack of action for 
 allowing	ALLOW: make it possible through a specific action or lack of action for something to happen
 allows	ALLOW: make it possible through a specific action or lack of action for something to happen
 alloy	a mixture containing two or more metallic elements or metallic and nonmetallic elements usually fused together or dissolving into each other when molten
-alloyed	(used of metals) debased by mixture with an inferior element
+alloyed	(used of metals) blended to obtain a desired property
 alloying	ALLOY: a mixture containing two or more metallic elements or metallic and nonmetallic elements usually fused together or dissolving into each other when molten
 alloys	ALLOY: a mixture containing two or more metallic elements or metallic and nonmetallic elements usually fused together or dissolving into each other when molten
 allspice	ground dried berrylike fruit of a West Indian allspice tree; suggesting combined flavors of cinnamon and nutmeg and cloves
@@ -1831,7 +1831,7 @@ almanac	an annual publication including weather forecasts and other miscellaneou
 almanack	a yearly calendar with astronomical and other information
 almanacks	ALMANACK: a yearly calendar with astronomical and other information
 almanacs	ALMANAC: an annual publication including weather forecasts and other miscellaneous information arranged according to the calendar of a given year
-almighty	terms referring to the Judeo-Christian God
+almighty	having unlimited power
 almond	oval-shaped edible seed of the almond tree
 almonds	ALMOND: oval-shaped edible seed of the almond tree
 almoner	an official in a British hospital who looks after the social and material needs of the patients
@@ -1841,7 +1841,7 @@ almshouse	a house built with charity money for poor people
 almshouses	ALMSHOUSE: a house built with charity money for poor people
 aloe	succulent plants having rosettes of leaves usually with fiber like hemp and spikes of showy flowers; found chiefly in Africa
 aloes	a purgative made from the leaves of aloe
-aloft	at or on or to the masthead or upper rigging of a ship
+aloft	at or to great height; high up in or into the air
 aloha	an acknowledgment that can be used to say hello or goodbye (aloha is Hawaiian and ciao is Italian)
 alohas	ALOHA: an acknowledgment that can be used to say hello or goodbye (aloha is Hawaiian and ciao is Italian)
 alone	isolated from others
@@ -1852,12 +1852,12 @@ aloof	remote in manner
 aloofness	indifference by personal withdrawal
 alopecia	loss of hair (especially on the head) or loss of wool or feathers; in humans it can result from heredity or hormonal imbalance or certain diseases or drugs and treatments (chemotherapy for cancer)
 aloud	using the voice; not silently
-alpaca	wool of the alpaca
-alpacas	ALPACA: wool of the alpaca
+alpaca	domesticated llama with long silky fleece; believed to be a domesticated variety of the guanaco
+alpacas	ALPACA: domesticated llama with long silky fleece; believed to be a domesticated variety of the guanaco
 alpha	the 1st letter of the Greek alphabet
 alphabet	a character set that includes letters and is used to write a language
-alphabetic	relating to or expressed by a writing system that uses an alphabet
-alphabetical	relating to or expressed by a writing system that uses an alphabet
+alphabetic	arranged in order according to the alphabet
+alphabetical	arranged in order according to the alphabet
 alphabetically	in alphabetical order
 alphabetise	arrange in alphabetical order
 alphabetised	having been put in alphabetical order
@@ -1873,14 +1873,14 @@ alphas	ALPHA: the 1st letter of the Greek alphabet
 alpine	relating to or characteristic of alps
 alpines	ALPINE: a plant that grows in mountain regions
 already	prior to a specified or implied time
-alright	nonstandard usage
+alright	in a satisfactory or adequate manner
 also	in addition
 alt	angular distance above the horizon (especially of a celestial object)
-altar	the table in Christian churches where communion is given
+altar	a raised structure on which gifts or sacrifices to a god are made
 altared	furnished with an altar
 altarpiece	a painted or carved screen placed above and behind an altar or communion table
 altarpieces	ALTARPIECE: a painted or carved screen placed above and behind an altar or communion table
-altars	ALTAR: the table in Christian churches where communion is given
+altars	ALTAR: a raised structure on which gifts or sacrifices to a god are made
 alter	cause to change; make different; cause a transformation
 alterable	capable of being changed or altered in some characteristic
 alteration	an event that occurs when something passes from one state or phase to another
@@ -1910,16 +1910,16 @@ altimeter	an instrument that measures the height above ground; used in navigatio
 altimeters	ALTIMETER: an instrument that measures the height above ground; used in navigation
 altitude	elevation especially above sea level or above the earth's surface
 altitudes	ALTITUDE: elevation especially above sea level or above the earth's surface
-alto	a singer whose voice lies in the alto clef
+alto	the lowest female singing voice
 altogether	to a complete degree or to the full or entire extent (`whole' is often used informally for `wholly')
-altos	ALTO: a singer whose voice lies in the alto clef
+altos	ALTO: the lowest female singing voice
 altruism	the quality of unselfish concern for the welfare of others
 altruist	someone who makes charitable donations intended to increase human well-being
 altruistic	showing unselfish concern for the welfare of others
 altruistically	in an altruistic manner
 altruists	ALTRUIST: someone who makes charitable donations intended to increase human well-being
 alts	ALT: angular distance above the horizon (especially of a celestial object)
-alum	a white crystalline double sulfate of aluminum: the ammonium double sulfate of aluminum
+alum	a person who has received a degree from a school (high school or college or university)
 alumina	any of various forms of aluminum oxide occurring naturally as corundum
 aluminium	a silvery ductile metallic element found primarily in bauxite
 aluminum	a silvery ductile metallic element found primarily in bauxite
@@ -1927,26 +1927,26 @@ alumna	a person who has received a degree from a school (high school or college 
 alumnae	ALUMNA: a woman who is a former student of a school or college
 alumni	ALUMNUS: a former student of a school or college
 alumnus	a person who has received a degree from a school (high school or college or university)
-alums	ALUM: a white crystalline double sulfate of aluminum: the ammonium double sulfate of aluminum
+alums	ALUM: a person who has received a degree from a school (high school or college or university)
 alveolar	pertaining to the tiny air sacs of the lungs
 alveolars	ALVEOLAR: pertaining to the tiny air sacs of the lungs
 alveoli	ALVEOLUS: a tiny air sac in the lungs
 always	at all times; all the time and on every occasion
 alyssum	any garden plant of the genus Alyssum having clusters of small yellow or white flowers
 alyssums	ALYSSUM: any garden plant of the genus Alyssum having clusters of small yellow or white flowers
-am	a radioactive transuranic metallic element; discovered by bombarding uranium with helium atoms
-amalgam	an alloy of mercury with another metal (usually silver) used by dentists to fill cavities in teeth; except for iron and platinum all metals dissolve in mercury and chemists refer to the resulting mercury mixtures as amalgams
+am	the form of "be" used with "I", as in "I am"
+amalgam	a combination or blend of diverse things
 amalgamate	to bring or combine together or with something else
 amalgamated	joined together into a whole
 amalgamates	AMALGAMATE: to bring or combine together or with something else
 amalgamating	AMALGAMATE: to bring or combine together or with something else
 amalgamation	the combination of two or more commercial companies
 amalgamations	AMALGAMATION: the combination of two or more commercial companies
-amalgams	AMALGAM: an alloy of mercury with another metal (usually silver) used by dentists to fill cavities in teeth; except for iron and platinum all metals dissolve in mercury and chemists refer to the resulting mercury mixtures as amalgams
+amalgams	AMALGAM: a combination or blend of diverse things
 amanuenses	AMANUENSIS: a person who writes down what another dictates
 amanuensis	someone skilled in the transcription of speech (especially dictation)
-amaranth	seed of amaranth plants used as a native cereal in Central and South America
-amaranths	AMARANTH: seed of amaranth plants used as a native cereal in Central and South America
+amaranth	any of various plants of the genus Amaranthus having dense plumes of green or red flowers; often cultivated for food
+amaranths	AMARANTH: any of various plants of the genus Amaranthus having dense plumes of green or red flowers; often cultivated for food
 amaryllis	bulbous plant having showy white to reddish flowers
 amaryllises	AMARYLLIS: bulbous plant having showy white to reddish flowers
 amass	collect or gather
@@ -1981,8 +1981,8 @@ ambiance	a particular environment or surrounding influence
 ambiances	AMBIANCE: a particular environment or surrounding influence
 ambidextrous	equally skillful with each hand
 ambidextrously	in a ambidextrous way
-ambience	a particular environment or surrounding influence
-ambiences	AMBIENCE: a particular environment or surrounding influence
+ambience	the atmosphere of an environment
+ambiences	AMBIENCE: the atmosphere of an environment
 ambient	completely enveloping
 ambiguities	AMBIGUITY: an expression whose meaning cannot be determined from its context
 ambiguity	an expression whose meaning cannot be determined from its context
@@ -2005,12 +2005,12 @@ ambles	AMBLE: walk leisurely
 ambling	AMBLE: walk leisurely
 ambo	a platform raised above the surrounding level to give prominence to the person on it
 ambos	AMBO: a platform raised above the surrounding level to give prominence to the person on it
-ambrosia	a mixture of nectar and pollen prepared by worker bees and fed to larvae
+ambrosia	the food and drink of the gods; mortals who ate it became immortal
 ambulance	a vehicle that takes people to and from hospitals
 ambulances	AMBULANCE: a vehicle that takes people to and from hospitals
 ambulant	able to walk about
-ambulatories	AMBULATORY: a covered walkway (as in a cloister)
-ambulatory	a covered walkway (as in a cloister)
+ambulatories	AMBULATORY: able to walk about
+ambulatory	able to walk about
 ambush	wait in hiding to attack
 ambushed	AMBUSH: wait in hiding to attack
 ambusher	an attacker who waits in a concealed position to launch a surprise attack
@@ -2045,23 +2045,23 @@ amenity	pleasantness resulting from agreeable conditions
 americium	a radioactive transuranic metallic element; discovered by bombarding uranium with helium atoms
 amethyst	a transparent purple variety of quartz; used as a gemstone
 amethysts	AMETHYST: a transparent purple variety of quartz; used as a gemstone
-amiability	a cheerful and agreeable mood
+amiability	a disposition to be friendly and approachable (easy to talk to)
 amiable	disposed to please
 amiably	in an affable manner
-amicability	a disinclination to quarrel
+amicability	having a disposition characterized by warmth and friendliness
 amicable	characterized by friendship and good will
 amicably	in an amicable manner
 amid	in the middle of
 amide	any organic compound containing the group -CONH2
 amides	AMID: in the middle of
-amidship	located in the middle part of a ship or aircraft
+amidship	at or near or toward the middle
 amidships	at or near or toward the center of a ship
 amidst	in the middle of
 amigo	a friend or comrade
 amigos	AMIGO: a friend or comrade
 amine	a compound derived from ammonia by replacing hydrogen atoms by univalent hydrocarbon radicals
 amines	AMINE: a compound derived from ammonia by replacing hydrogen atoms by univalent hydrocarbon radicals
-amino	the radical -NH2
+amino	pertaining to or containing any of a group of organic compounds of nitrogen derived from ammonia
 amir	an independent ruler or chieftain (especially in Africa or Arabia)
 amirs	AMIR: an independent ruler or chieftain (especially in Africa or Arabia)
 amiss	not functioning properly
@@ -2070,7 +2070,7 @@ amity	a cordial disposition
 ammeter	a meter that measures the flow of electrical current in amperes
 ammeters	AMMETER: a meter that measures the flow of electrical current in amperes
 ammo	projectiles to be fired from a gun
-ammonia	a water solution of ammonia
+ammonia	a pungent gas compounded of nitrogen and hydrogen (NH3)
 ammonite	one of the coiled chambered fossil shells of extinct mollusks
 ammonites	AMMONITE: one of the coiled chambered fossil shells of extinct mollusks
 ammonium	the ion NH4 derived from ammonia; behaves in many respects like an alkali metal ion
@@ -2082,9 +2082,9 @@ amnesiacs	AMNESIAC: a person suffering from amnesia
 amnesic	a person suffering from amnesia
 amnesics	AMNESIC: a person suffering from amnesia
 amnestied	AMNESTY: grant an official pardon to
-amnesties	AMNESTY: a period during which offenders are exempt from punishment
-amnesty	a period during which offenders are exempt from punishment
-amnestying	AMNESTY: a period during which offenders are exempt from punishment
+amnesties	AMNESTY: a warrant granting release from punishment for an offense
+amnesty	a warrant granting release from punishment for an offense
+amnestying	AMNESTY: a warrant granting release from punishment for an offense
 amniocenteses	AMNIOCENTESIS: a test of the fluid around an unborn baby
 amniocentesis	extraction by centesis of amniotic fluid from a pregnant woman (after the 15th week of pregnancy) to aid in the diagnosis of fetal abnormalities
 amniotic	of or related to the amnion or characterized by developing an amnion
@@ -2127,20 +2127,20 @@ amours	AMOUR: a usually secretive or illicit sexual relationship
 amoxicillin	an antibiotic; a semisynthetic oral penicillin (trade names Amoxil and Larotid and Polymox and Trimox and Augmentin) used to treat bacterial infections
 amp	the basic unit of electric current adopted under the Systeme International d'Unites
 amperage	the strength of an electrical current measured in amperes
-ampere	a former unit of electric current (slightly smaller than the SI ampere)
-amperes	AMPERE: a former unit of electric current (slightly smaller than the SI ampere)
+ampere	the basic unit of electric current adopted under the Systeme International d'Unites
+amperes	AMPERE: the basic unit of electric current adopted under the Systeme International d'Unites
 ampersand	a punctuation mark (&) used to represent conjunction (and)
 ampersands	AMPERSAND: a punctuation mark (&) used to represent conjunction (and)
 amphetamine	a central nervous system stimulant that increases energy and decreases appetite; used to treat narcolepsy and some forms of depression
 amphetamines	AMPHETAMINE: a central nervous system stimulant that increases energy and decreases appetite; used to treat narcolepsy and some forms of depression
-amphibian	a flat-bottomed motor vehicle that can travel on land or water
-amphibians	AMPHIBIAN: a flat-bottomed motor vehicle that can travel on land or water
-amphibious	relating to or characteristic of animals of the class Amphibia
+amphibian	cold-blooded vertebrate typically living on land but breeding in water; aquatic larvae undergo metamorphosis into adult form
+amphibians	AMPHIBIAN: cold-blooded vertebrate typically living on land but breeding in water; aquatic larvae undergo metamorphosis into adult form
+amphibious	operating or living on land and in water
 amphipod	a kind of malacostracan crustacean
-amphitheater	a sloping gallery with seats for spectators (as in an operating room or theater)
-amphitheaters	AMPHITHEATER: a sloping gallery with seats for spectators (as in an operating room or theater)
-amphitheatre	a sloping gallery with seats for spectators (as in an operating room or theater)
-amphitheatres	AMPHITHEATRE: a sloping gallery with seats for spectators (as in an operating room or theater)
+amphitheater	an oval large stadium with tiers of seats; an arena in which contests and spectacles are held
+amphitheaters	AMPHITHEATER: an oval large stadium with tiers of seats; an arena in which contests and spectacles are held
+amphitheatre	an oval large stadium with tiers of seats; an arena in which contests and spectacles are held
+amphitheatres	AMPHITHEATRE: an oval large stadium with tiers of seats; an arena in which contests and spectacles are held
 amphora	an ancient jar with two handles and a narrow neck; used to hold oil or wine
 amphorae	AMPHORA: a tall ancient jar with two handles
 ample	more than enough in size or scope or capacity
@@ -2168,8 +2168,8 @@ amputate	remove surgically
 amputated	AMPUTATE: remove surgically
 amputates	AMPUTATE: remove surgically
 amputating	AMPUTATE: remove surgically
-amputation	a condition of disability resulting from the loss of one or more limbs
-amputations	AMPUTATION: a condition of disability resulting from the loss of one or more limbs
+amputation	a surgical removal of all or part of a limb
+amputations	AMPUTATION: a surgical removal of all or part of a limb
 amputee	someone who has had a limb removed by amputation
 amputees	AMPUTEE: someone who has had a limb removed by amputation
 amuck	wildly frenzied and out of control
@@ -2185,9 +2185,9 @@ amusing	AMUSE: occupy in an agreeable, entertaining or pleasant fashion
 amusingly	in an entertaining and amusing manner
 amygdala	an almond-shaped neural structure in the anterior part of the temporal lobe of the cerebrum; intimately connected with the hypothalamus and the hippocampus and the cingulate gyrus; as part of the limbic system it plays an important role in motivation and emotional behavior
 amylase	any of a group of proteins found in saliva and pancreatic juice and parts of plants; help convert starch to sugar
-amyloid	a non-nitrogenous food substance consisting chiefly of starch; any substance resembling starch
+amyloid	a waxy translucent complex protein resembling starch that results from degeneration of tissue
 an	an associate degree in nursing
-anabolic	of or related to the synthetic phase of metabolism
+anabolic	characterized by or promoting constructive metabolism
 anachronism	something located at a time when it could not have existed or occurred
 anachronisms	ANACHRONISM: something located at a time when it could not have existed or occurred
 anachronistic	chronologically misplaced
@@ -2195,7 +2195,7 @@ anachronistically	in an anachronistic manner
 anaconda	large arboreal boa of tropical South America
 anacondas	ANACONDA: large arboreal boa of tropical South America
 anadromous	migrating from the sea to fresh water to spawn
-anaemia	a lack of vitality
+anaemia	a deficiency of red blood cells
 anaemic	relating to anemia or suffering from anemia
 anaerobe	an organism (especially a bacterium) that does not require air or free oxygen to live
 anaerobes	ANAEROBE: an organism (especially a bacterium) that does not require air or free oxygen to live
@@ -2223,12 +2223,12 @@ analgesia	absence of the sense of pain without loss of consciousness
 analgesic	a medicine used to relieve pain
 analgesics	ANALGESIC: a medicine used to relieve pain
 anally	in a way relating to the anus
-analog	something having the property of being analogous to something else
+analog	of a circuit or device having an output that is proportional to the input
 analogical	expressing, composed of, or based on an analogy
 analogies	ANALOGY: an inference that if things agree in some respects they probably agree in others
 analogous	similar or equivalent in some respects though otherwise dissimilar
 analogously	in an analogous manner
-analogs	ANALOG: something having the property of being analogous to something else
+analogs	ANALOG: of a circuit or device having an output that is proportional to the input
 analogue	something having the property of being analogous to something else
 analogues	ANALOGUE: something having the property of being analogous to something else
 analogy	an inference that if things agree in some respects they probably agree in others
@@ -2251,7 +2251,7 @@ analyzer	an instrument that performs analyses
 analyzers	ANALYZER: an instrument that performs analyses
 analyzes	ANALYZE: consider in detail and subject to an analysis in order to discover essential features or meaning
 analyzing	ANALYZE: consider in detail and subject to an analysis in order to discover essential features or meaning
-anamorphic	pertaining to gradual evolution from one type of organism to another
+anamorphic	pertaining to a kind of distorting optical system
 anapest	a metrical unit with unstressed-unstressed-stressed syllables
 anapests	ANAPEST: a metrical unit with unstressed-unstressed-stressed syllables
 anaphylaxis	hypersensitivity reaction to the ingestion or injection of a substance (a protein or drug) resulting from prior contact with a substance
@@ -2280,8 +2280,8 @@ ancestresses	ANCESTRESS: a woman ancestor
 ancestries	ANCESTRY: the descendants of one individual
 ancestry	the descendants of one individual
 anchor	a mechanical device that prevents a vessel from moving
-anchorage	the condition of being secured to a base
-anchorages	ANCHORAGE: the condition of being secured to a base
+anchorage	place for vessels to anchor
+anchorages	ANCHORAGE: place for vessels to anchor
 anchored	ANCHOR: a mechanical device that prevents a vessel from moving
 anchoring	ANCHOR: a mechanical device that prevents a vessel from moving
 anchorite	one retired from society for religious reasons
@@ -2311,7 +2311,7 @@ andiron	metal supports for logs in a fireplace
 andirons	ANDIRON: metal supports for logs in a fireplace
 androgen	male sex hormone that is produced in the testes and responsible for typical male sexual characteristics
 androgenic	of or related to the male hormone androgen
-androgynous	relating to or exhibiting both female and male sex organs but with a predominantly female appearance
+androgynous	having both male and female characteristics
 androgyny	showing characteristics of both sexes
 android	an automaton that resembles a human being
 androids	ANDROID: an automaton that resembles a human being
@@ -2347,10 +2347,10 @@ aneurysm	a cardiovascular disease characterized by a saclike widening of an arte
 aneurysms	ANEURYSM: a cardiovascular disease characterized by a saclike widening of an artery resulting from weakening of the artery wall
 anew	again but in a new or different way
 angel	spiritual being attendant upon God
-angelfish	a butterfly fish of the genus Pomacanthus
-angelfishes	ANGELFISH: a butterfly fish of the genus Pomacanthus
+angelfish	a flat-bodied tropical fish with long fins, often kept in aquariums
+angelfishes	ANGELFISH: a flat-bodied tropical fish with long fins, often kept in aquariums
 angelic	marked by utter benignity; resembling or befitting an angel or saint
-angelica	candied stalks of the angelica plant
+angelica	a tall aromatic herb whose stalks are candied for decoration
 angelically	like an angel
 angelologist	a student of beliefs about angels
 angelologists	ANGELOLOGIST: a student of beliefs about angels
@@ -2360,7 +2360,7 @@ anger	a strong emotion; a feeling that is oriented toward some real or supposed 
 angered	ANGER: a strong emotion; a feeling that is oriented toward some real or supposed grievance
 angering	ANGER: a strong emotion; a feeling that is oriented toward some real or supposed grievance
 angers	ANGER: a strong emotion; a feeling that is oriented toward some real or supposed grievance
-angina	any disease of the throat or fauces marked by spasmodic attacks of intense suffocative pain
+angina	a heart condition marked by paroxysms of chest pain due to reduced oxygen to the heart
 angiogenesis	the formation of new blood vessels
 angiogram	an X-ray representation of blood vessels made after the injection of a radiopaque substance
 angiography	roentgenographic examination of blood vessels after injection of a radiopaque contrast medium; produces an angiogram
@@ -2372,9 +2372,9 @@ angiosperms	ANGIOSPERM: plants having seeds in a closed ovary
 angiotensin	any of several vasoconstrictor substances (trade name Hypertensin) that cause narrowing of blood vessels
 angle	the space between two lines or planes that intersect; the inclination of one line to another; measured in degrees or radians
 angled	ANGLE: the space between two lines or planes that intersect; the inclination of one line to another; measured in degrees or radians
-angler	a scheming person; someone who schemes to gain an advantage
+angler	a fisherman who uses a hook and line
 anglerfish	fishes having large mouths with a wormlike filament attached for luring prey
-anglers	ANGLER: a scheming person; someone who schemes to gain an advantage
+anglers	ANGLER: a fisherman who uses a hook and line
 angles	ANGLE: the space between two lines or planes that intersect; the inclination of one line to another; measured in degrees or radians
 angleworm	terrestrial worm that burrows into and helps aerate soil; often surfaces when the ground is cool or wet; used as bait by anglers
 angleworms	ANGLEWORM: terrestrial worm that burrows into and helps aerate soil; often surfaces when the ground is cool or wet; used as bait by anglers
@@ -2395,8 +2395,8 @@ anglophobe	a person who hates England and everything English
 anglophobes	ANGLOPHOBE: a person who hates England and everything English
 anglophone	an English-speaking person
 anglophones	ANGLOPHONE: an English-speaking person
-angora	the capital of Turkey; located in west-central Turkey; it was formerly known as Angora and is the home of Angora goats
-angoras	ANGORA: the capital of Turkey; located in west-central Turkey; it was formerly known as Angora and is the home of Angora goats
+angora	a domestic breed of goat raised for its long silky hair which is the true mohair
+angoras	ANGORA: a domestic breed of goat raised for its long silky hair which is the true mohair
 angostura	the bitter bark of a South American tree; used in medicines and liqueurs and bitters
 angrier	ANGRY: feeling or showing anger
 angriest	ANGRY: feeling or showing anger
@@ -2410,8 +2410,8 @@ anguished	experiencing intense pain especially mental pain
 anguishes	ANGUISH: extreme mental distress
 anguishing	ANGUISH: extreme mental distress
 angular	measured by an angle or by the rate of change of an angle
-angularities	ANGULARITY: a shape having one or more sharp angles
-angularity	a shape having one or more sharp angles
+angularities	ANGULARITY: the property possessed by a shape that has angles
+angularity	the property possessed by a shape that has angles
 angulation	the precise measurement of angles
 anhinga	fish-eating bird of warm inland waters having a long flexible neck and slender sharp-pointed bill
 anhingas	ANHINGA: fish-eating bird of warm inland waters having a long flexible neck and slender sharp-pointed bill
@@ -2426,12 +2426,12 @@ animated	having life or vigor or spirit
 animatedly	in an animated manner
 animates	ANIMATE: heighten or intensify
 animating	ANIMATE: heighten or intensify
-animation	the condition of living or the state of being alive
-animations	ANIMATION: the condition of living or the state of being alive
-animator	someone who imparts energy and vitality and spirit to other people
-animators	ANIMATOR: someone who imparts energy and vitality and spirit to other people
+animation	the making of animated cartoons
+animations	ANIMATION: the making of animated cartoons
+animator	the technician who produces animated cartoons
+animators	ANIMATOR: the technician who produces animated cartoons
 animatronics	the construction of robots to look like animals (developed for Disneyland)
-anime	a hard copal derived from an African tree
+anime	a style of animation developed in Japan, characterized by stylized colorful art and often adult themes
 animism	the doctrine that all natural objects and the universe itself have souls
 animist	one who accepts the doctrine of animism
 animistic	of or pertaining to the doctrine of animism
@@ -2451,11 +2451,11 @@ ankh	an ancient Egyptian cross with a loop on top, symbolising life
 ankhs	ANKH: an ancient Egyptian cross with a loop on top, symbolising life
 ankle	a gliding joint between the distal ends of the tibia and fibula and the proximal end of the talus
 ankles	ANKLE: a gliding joint between the distal ends of the tibia and fibula and the proximal end of the talus
-anklet	a shoe for a child or woman that has a strap around the ankle
+anklet	an ornament worn around the ankle
 anklets	a sock that reaches just above the ankle
-ankylosing	ANKYLOSE: produce ankylosis by surgery
+ankylosing	ANKYLOSE: undergo ankylosis
 anmitsu	a Japanese dessert of agar jelly cubes with sweet bean paste and fruit
-annals	reports of the work of a society or learned body etc
+annals	a chronological account of events in successive years
 anneal	bring to a desired consistency, texture, or hardness by a process of gradually heating and cooling
 annealed	ANNEAL: bring to a desired consistency, texture, or hardness by a process of gradually heating and cooling
 annealer	one who anneals
@@ -2464,13 +2464,13 @@ annealing	hardening something by heat treatment
 anneals	ANNEAL: bring to a desired consistency, texture, or hardness by a process of gradually heating and cooling
 annelid	worms with cylindrical bodies segmented both internally and externally
 annelids	ANNELID: worms with cylindrical bodies segmented both internally and externally
-annex	an addition that extends a main building
-annexation	incorporation by joining or uniting
-annexations	ANNEXATION: incorporation by joining or uniting
+annex	take (territory) as if by conquest
+annexation	the formal act of acquiring something (especially territory) by conquest or occupation
+annexations	ANNEXATION: the formal act of acquiring something (especially territory) by conquest or occupation
 annexe	an addition that extends a main building
-annexed	ANNEX: an addition that extends a main building
+annexed	ANNEX: take (territory) as if by conquest
 annexes	ANNEXE: an addition that extends a main building
-annexing	ANNEX: an addition that extends a main building
+annexing	ANNEX: take (territory) as if by conquest
 annihilate	kill in large numbers
 annihilated	ANNIHILATE: kill in large numbers
 annihilates	ANNIHILATE: kill in large numbers
@@ -2490,8 +2490,8 @@ announce	make known; make an announcement
 announced	ANNOUNCE: make known; make an announcement
 announcement	a formal public statement
 announcements	ANNOUNCEMENT: a formal public statement
-announcer	someone who proclaims a message publicly
-announcers	ANNOUNCER: someone who proclaims a message publicly
+announcer	reads news, commercials on radio or television
+announcers	ANNOUNCER: reads news, commercials on radio or television
 announces	ANNOUNCE: make known; make an announcement
 announcing	ANNOUNCE: make known; make an announcement
 annoy	cause annoyance in; disturb, especially by minor irritations
@@ -2514,8 +2514,8 @@ annul	declare invalid
 annular	shaped like a ring
 annulled	ANNUL: declare invalid
 annulling	ANNUL: declare invalid
-annulment	the state of being cancelled or annulled
-annulments	ANNULMENT: the state of being cancelled or annulled
+annulment	the act of abrogating; an official or legal cancellation
+annulments	ANNULMENT: the act of abrogating; an official or legal cancellation
 annuls	ANNUL: declare invalid
 annulus	a toroidal shape
 anode	a positively charged electrode by which electrons leave an electrical device
@@ -2530,21 +2530,21 @@ anodizes	ANODIZE: coat a metal with an oxide coat
 anodizing	ANODIZE: coat a metal with an oxide coat
 anodyne	a medicine used to relieve pain
 anodynes	ANODYNE: a medicine used to relieve pain
-anoint	choose by or as if by divine intervention
-anointed	ANOINT: choose by or as if by divine intervention
+anoint	administer an oil or ointment to; often in a religious ceremony of blessing
+anointed	ANOINT: administer an oil or ointment to; often in a religious ceremony of blessing
 anointer	one who anoints as a religious ceremony
 anointers	ANOINTER: one who anoints as a religious ceremony
 anointing	the act of applying oil or an oily liquid
 anointment	the act of applying oil or an oily liquid
 anointments	ANOINTMENT: the act of applying oil or an oily liquid
-anoints	ANOINT: choose by or as if by divine intervention
+anoints	ANOINT: administer an oil or ointment to; often in a religious ceremony of blessing
 anole	small arboreal tropical American insectivorous lizards with the ability to change skin color
 anoles	ANOLE: small arboreal tropical American insectivorous lizards with the ability to change skin color
 anomalies	ANOMALY: deviation from the normal or common order or form or rule
 anomalous	deviating from the general or common order or type
 anomalously	in an anomalous manner
 anomaly	deviation from the normal or common order or form or rule
-anon	at another time
+anon	in a little while
 anons	ANON: anonymous people
 anonymity	the state of being anonymous
 anonymous	having no known name or identity or known source
@@ -2557,7 +2557,7 @@ anorexic	a person suffering from anorexia nervosa
 anorexics	ANOREXIC: a person suffering from anorexia nervosa
 another	any of various alternatives; some other
 answer	react verbally
-answerable	capable of being answered
+answerable	morally or legally responsible to a higher authority
 answered	ANSWER: react verbally
 answerer	someone who responds
 answerers	ANSWERER: someone who responds
@@ -2572,8 +2572,8 @@ antagonise	act in opposition to
 antagonised	ANTAGONISE: act in opposition to
 antagonises	ANTAGONISE: act in opposition to
 antagonising	ANTAGONISE: act in opposition to
-antagonism	a state of deep-seated ill-will
-antagonisms	ANTAGONISM: a state of deep-seated ill-will
+antagonism	an actively expressed feeling of dislike and hostility
+antagonisms	ANTAGONISM: an actively expressed feeling of dislike and hostility
 antagonist	someone who offers opposition
 antagonistic	indicating opposition or resistance
 antagonistically	in an antagonistic manner
@@ -2582,7 +2582,7 @@ antagonize	provoke the hostility of
 antagonized	ANTAGONIZE: provoke the hostility of
 antagonizes	ANTAGONIZE: provoke the hostility of
 antagonizing	ANTAGONIZE: provoke the hostility of
-antarctic	the region around the south pole: Antarctica and surrounding waters
+antarctic	at or near the south pole
 ante	the initial contribution that each player makes to the pot
 anteater	toothless mammal of southern Africa and Asia having a body covered with horny scales and a long snout for feeding on ants and termites
 anteaters	ANTEATER: toothless mammal of southern Africa and Asia having a body covered with horny scales and a long snout for feeding on ants and termites
@@ -2597,7 +2597,7 @@ antedate	be earlier in time; go back further
 antedated	ANTEDATE: be earlier in time; go back further
 antedates	ANTEDATE: be earlier in time; go back further
 antedating	ANTEDATE: be earlier in time; go back further
-antediluvian	any of the early patriarchs who lived prior to the Noachian deluge
+antediluvian	so extremely old as seeming to belong to an earlier period
 anteed	ANTE: the initial contribution that each player makes to the pot
 anteing	ANTE: the initial contribution that each player makes to the pot
 antelope	graceful Old World ruminant with long legs and horns directed upward and backward; includes gazelles; springboks; impalas; addax; gerenuks; blackbucks; dik-diks
@@ -2632,11 +2632,11 @@ anthologizes	ANTHOLOGIZE: compile an anthology
 anthologizing	ANTHOLOGIZE: compile an anthology
 anthology	a collection of selected literary passages
 anthracite	a hard natural coal that burns slowly and gives intense heat
-anthrax	a highly infectious animal disease (especially cattle and sheep); it can be transmitted to people
+anthrax	a disease of humans that is not communicable; caused by infection with Bacillus anthracis followed by septicemia
 anthropocentric	human-centered
 anthropogenic	of or relating to the study of the origins and development of human beings
-anthropoid	person who resembles a nonhuman primate
-anthropoids	ANTHROPOID: person who resembles a nonhuman primate
+anthropoid	resembling apes
+anthropoids	ANTHROPOID: resembling apes
 anthropological	of or concerned with the science of anthropology
 anthropologically	in a way that relates to the study of humankind
 anthropologist	a social scientist who specializes in anthropology
@@ -2647,9 +2647,9 @@ anthropomorphic	suggesting human characteristics for animals or inanimate things
 anthropomorphism	the representation of objects (especially a god) as having human form or traits
 anti	not in favor of (an action or proposal etc.)
 antiabortion	opposed to abortion
-antiaircraft	artillery designed to shoot upward at airplanes
-antibacterial	any drug that destroys bacteria or inhibits their growth
-antibacterials	ANTIBACTERIAL: any drug that destroys bacteria or inhibits their growth
+antiaircraft	designed for defense from a surface position against air attack
+antibacterial	destroying bacteria or inhibiting their growth
+antibacterials	ANTIBACTERIAL: destroying bacteria or inhibiting their growth
 antibiotic	of or relating to antibiotic drugs
 antibiotics	ANTIBIOTIC: of or relating to antibiotic drugs
 antibodies	ANTIBODY: any of a large variety of proteins normally present in the body or produced in response to an antigen which it neutralizes, thus producing an immune response
@@ -2657,7 +2657,7 @@ antibody	any of a large variety of proteins normally present in the body or prod
 antic	ludicrously odd
 anticancer	used in the treatment of cancer
 antichoice	opposed to the right to choose abortion
-anticholinergic	a substance that opposes or blocks the action of acetylcholine
+anticholinergic	inhibiting or blocking the action of acetylcholine at a receptor site
 anticipate	regard something as probable or likely
 anticipated	expected hopefully
 anticipates	ANTICIPATE: regard something as probable or likely
@@ -2668,7 +2668,7 @@ anticipatory	in anticipation
 anticked	ANTIC: behaved in a playful or odd way
 anticking	ANTIC: behave in a clownish or playful way
 anticlerical	opposed to the power of the clergy
-anticlimactic	of or relating to a sudden change from an impressive to a ludicrous style
+anticlimactic	coming after the climax especially of a dramatic or narrative plot
 anticlimax	a disappointing decline after a previous rise
 anticlimaxes	ANTICLIMAX: a disappointing decline after a previous rise
 anticline	an arch-shaped fold of rock layers
@@ -2689,7 +2689,7 @@ antifascist	opposed to fascism
 antifascists	ANTIFASCIST: opposed to fascism
 antifouling	preventing the build-up of marine growth on a hull
 antifreeze	a liquid added to the water in a cooling system to lower its freezing point
-antifungal	any agent that destroys or prevents the growth of fungi
+antifungal	capable of destroying fungi
 antigen	any substance (as a toxin or enzyme) that stimulates an immune response in the body (especially the production of antibodies)
 antigenic	of or relating to antigens
 antigens	ANTIGEN: any substance (as a toxin or enzyme) that stimulates an immune response in the body (especially the production of antibodies)
@@ -2702,7 +2702,7 @@ antiknock	any of various compounds that are added to gasoline to reduce engine k
 antilock	designed to stop wheels locking when braking
 antimalarial	a medicinal drug used to prevent or treat malaria
 antimatter	matter consisting of elementary particles that are the antiparticles of those making up normal substances
-antimicrobial	an agent (as heat or radiation or a chemical) that destroys microorganisms that might carry disease
+antimicrobial	capable of destroying or inhibiting the growth of disease-causing microorganisms
 antimony	a metallic element having four allotropic forms; used in a wide variety of alloys; found in stibnite
 antinuclear	opposed to nuclear weapons or power
 antioxidant	substance that inhibits oxidation or inhibits reactions promoted by oxygen or peroxides
@@ -2712,18 +2712,18 @@ antiparticles	ANTIPARTICLE: a particle that has the same mass as another particl
 antipasti	ANTIPASTO: an Italian starter of cold meats and vegetables
 antipasto	a course of appetizers in an Italian meal
 antipastos	ANTIPASTO: a course of appetizers in an Italian meal
-antipathetic	(usually followed by `to') strongly opposed
+antipathetic	characterized by antagonism or antipathy
 antipathies	ANTIPATHY: a feeling of intense dislike
 antipathy	a feeling of intense dislike
 antipersonnel	designed to inflict death or personal injury rather than material destruction
 antiperspirant	an astringent substance applied to the skin to reduce perspiration
 antiperspirants	ANTIPERSPIRANT: an astringent substance applied to the skin to reduce perspiration
 antiphon	a verse or song to be chanted or sung in response
-antiphonal	bound collection of antiphons
-antiphonals	ANTIPHONAL: bound collection of antiphons
+antiphonal	containing or using responses; alternating
+antiphonals	ANTIPHONAL: containing or using responses; alternating
 antiphons	ANTIPHON: a verse or song to be chanted or sung in response
-antipodal	the relation of opposition along a diameter
-antipodals	ANTIPODAL: the relation of opposition along a diameter
+antipodal	relating to the antipodes or situated at opposite sides of the earth
+antipodals	ANTIPODAL: relating to the antipodes or situated at opposite sides of the earth
 antipodean	relating to the antipodes or situated at opposite sides of the earth
 antipodeans	ANTIPODEAN: a person from Australia or New Zealand
 antipodes	any two places or regions on diametrically opposite sides of the Earth
@@ -2757,7 +2757,7 @@ antiseptics	ANTISEPTIC: thoroughly clean and free of or destructive to disease-c
 antiserum	blood serum containing antibodies against specific antigens; provides immunity to a disease
 antiserums	ANTISERUM: blood serum containing antibodies against specific antigens; provides immunity to a disease
 antislavery	opposed to slavery
-antisocial	shunning contact with others
+antisocial	hostile to or disruptive of normal standards of social behavior
 antisubmarine	defensive against enemy submarines
 antitank	designed for defense against armored vehicles
 antiterrorism	measures aimed at preventing terrorism
@@ -2770,8 +2770,8 @@ antitoxins	ANTITOXIN: an antibody that can neutralize a specific toxin
 antitrust	of laws and regulations; designed to protect trade and commerce from unfair business practices
 antitumor	used in the treatment of cancer
 antivenom	a medicine that counteracts venom
-antiviral	any drug that destroys viruses
-antivirals	ANTIVIRAL: any drug that destroys viruses
+antiviral	inhibiting or stopping the growth and reproduction of viruses
+antivirals	ANTIVIRAL: inhibiting or stopping the growth and reproduction of viruses
 antivirus	software that detects and removes computer viruses
 antiwar	opposed to war
 antler	deciduous horn of a member of the deer family
@@ -2791,7 +2791,7 @@ anxieties	ANXIETY: a relatively permanent state of worry and nervousness occurri
 anxiety	a relatively permanent state of worry and nervousness occurring in a variety of mental disorders, usually accompanied by compulsive behavior or attacks of panic
 anxious	eagerly desirous
 anxiously	with anxiety or apprehension
-anxiousness	a relatively permanent state of worry and nervousness occurring in a variety of mental disorders, usually accompanied by compulsive behavior or attacks of panic
+anxiousness	a feeling of mild anxiety about possible developments
 any	one or some or every or all without specification
 anybodies	ANYBODY: any person
 anybody	any person
@@ -2809,12 +2809,12 @@ aorta	the large trunk artery that carries blood from the left ventricle of the h
 aortae	AORTA: the main artery carrying blood from the heart
 aortas	AORTA: the large trunk artery that carries blood from the left ventricle of the heart to branch arteries
 aortic	of or relating to the aorta
-apace	quickly
+apace	with speed
 apart	separated or at a distance in place or position or time
 apartheid	a social policy or racial segregation involving political and economic and legal discrimination against people who are not Whites; the former official policy in South Africa
 apartment	a suite of rooms usually on one floor of an apartment house
 apartments	APARTMENT: a suite of rooms usually on one floor of an apartment house
-apathetic	showing little or no emotion or animation
+apathetic	marked by a lack of interest
 apathetically	in an apathetic manner
 apathy	an absence of emotion or enthusiasm
 apatite	a common complex mineral consisting of calcium fluoride phosphate or calcium chloride phosphate; a source of phosphorus
@@ -2828,8 +2828,8 @@ apes	APE: any of various primates with short tails or no tail at all
 apex	the highest point (of something)
 apexes	APEX: the highest point (of something)
 aphasia	inability to use or understand language (spoken or written) because of a brain lesion
-aphasic	someone affected by aphasia or inability to use or understand language
-aphasics	APHASIC: someone affected by aphasia or inability to use or understand language
+aphasic	unable to speak because of a brain lesion
+aphasics	APHASIC: unable to speak because of a brain lesion
 aphelia	APHELION: the point in an orbit farthest from the sun
 aphelion	apoapsis in solar orbit; the point in the orbit of a planet or comet that is at the greatest distance from the sun
 aphelions	APHELION: apoapsis in solar orbit; the point in the orbit of a planet or comet that is at the greatest distance from the sun
@@ -2837,7 +2837,7 @@ aphid	any of various small plant-sucking insects
 aphids	APHID: any of various small plant-sucking insects
 aphorism	a short pithy instructive saying
 aphorisms	APHORISM: a short pithy instructive saying
-aphoristic	containing aphorisms or maxims
+aphoristic	terse and witty and like a maxim
 aphrodisiac	a drug or other agent that stimulates sexual desire
 aphrodisiacs	APHRODISIAC: a drug or other agent that stimulates sexual desire
 apiaries	APIARY: a shed containing a number of beehives
@@ -2865,10 +2865,10 @@ apologetics	the branch of theology that is concerned with the defense of Christi
 apologia	a formal written defense of something you believe in strongly
 apologias	APOLOGIA: a formal written defense of something you believe in strongly
 apologies	APOLOGY: an expression of regret at having caused trouble for someone
-apologise	defend, explain, clear away, or make excuses for by reasoning
-apologised	APOLOGISE: defend, explain, clear away, or make excuses for by reasoning
-apologises	APOLOGISE: defend, explain, clear away, or make excuses for by reasoning
-apologising	APOLOGISE: defend, explain, clear away, or make excuses for by reasoning
+apologise	acknowledge faults or shortcomings or failing
+apologised	APOLOGISE: acknowledge faults or shortcomings or failing
+apologises	APOLOGISE: acknowledge faults or shortcomings or failing
+apologising	APOLOGISE: acknowledge faults or shortcomings or failing
 apologist	a person who argues to defend or justify some policy or institution
 apologists	APOLOGIST: a person who argues to defend or justify some policy or institution
 apologize	acknowledge faults or shortcomings or failing
@@ -2889,8 +2889,8 @@ apostle	an ardent early supporter of a cause or reform
 apostles	APOSTLE: an ardent early supporter of a cause or reform
 apostolate	the office or mission of an apostle
 apostolic	of or relating to or deriving from the Apostles or their teachings
-apostrophe	address to an absent or imaginary person
-apostrophes	APOSTROPHE: address to an absent or imaginary person
+apostrophe	the mark (') used to indicate the omission of one or more letters from a printed word
+apostrophes	APOSTROPHE: the mark (') used to indicate the omission of one or more letters from a printed word
 apothecaries	APOTHECARY: a health professional trained in the art of preparing and dispensing drugs
 apothecary	a health professional trained in the art of preparing and dispensing drugs
 apotheoses	APOTHEOSE: deify or glorify
@@ -2986,8 +2986,8 @@ apples	APPLE: fruit with red or yellow or green skin and sweet to tart crisp whi
 applesauce	puree of stewed apples usually sweetened and spiced
 applet	a Java application; an application program that uses the client's web browser to provide a user interface
 applets	APPLET: a Java application; an application program that uses the client's web browser to provide a user interface
-appliance	a device or control that is very useful for a particular job
-appliances	APPLIANCE: a device or control that is very useful for a particular job
+appliance	durable goods for home or office use
+appliances	APPLIANCE: durable goods for home or office use
 applicability	relevance by virtue of being applicable to the matter at hand
 applicable	capable of being applied; having relevance
 applicant	a person who requests or seeks something such as assistance or employment or admission
@@ -3012,7 +3012,7 @@ appointees	APPOINTEE: an official who is appointed
 appointer	one who appoints
 appointers	APPOINTER: one who appoints
 appointing	APPOINT: create and charge with a task or function
-appointive	relating to the act of appointing
+appointive	subject to appointment
 appointment	the act of putting a person into a non-elective position
 appointments	APPOINTMENT: the act of putting a person into a non-elective position
 appoints	APPOINT: create and charge with a task or function
@@ -3052,7 +3052,7 @@ apprehending	APPREHEND: get the meaning of something
 apprehends	APPREHEND: get the meaning of something
 apprehension	fearful expectation or anticipation
 apprehensions	APPREHENSION: fearful expectation or anticipation
-apprehensive	quick to understand
+apprehensive	mentally upset over possible misfortune or danger etc
 apprehensively	with anxiety or apprehension
 apprehensiveness	fearful expectation or anticipation
 apprentice	works for an expert to learn a trade
@@ -3081,7 +3081,7 @@ approbations	APPROBATION: official approval
 appropriate	give or assign a resource to a particular person or cause
 appropriated	APPROPRIATE: give or assign a resource to a particular person or cause
 appropriately	in accordance with what is appropriate or suitable for the circumstances
-appropriateness	appropriate conduct; doing the right thing
+appropriateness	the quality of being specially suitable
 appropriates	APPROPRIATE: give or assign a resource to a particular person or cause
 appropriating	APPROPRIATE: give or assign a resource to a particular person or cause
 appropriation	money set aside (as by a legislature) for a specific purpose
@@ -3104,8 +3104,8 @@ approximating	APPROXIMATE: be close or similar
 approximation	an approximate calculation of quantity or degree or worth
 approximations	APPROXIMATION: an approximate calculation of quantity or degree or worth
 apps	APP: a program for a phone or computer
-appurtenance	equipment consisting of miscellaneous articles needed for a particular operation or sport etc.
-appurtenances	APPURTENANCE: equipment consisting of miscellaneous articles needed for a particular operation or sport etc.
+appurtenance	a supplementary component that improves capability
+appurtenances	APPURTENANCE: a supplementary component that improves capability
 apricot	downy yellow to rosy-colored fruit resembling a small peach
 apricots	APRICOT: downy yellow to rosy-colored fruit resembling a small peach
 apron	a garment of cloth or leather or plastic that is tied about the waist and worn to protect your clothing
@@ -3119,7 +3119,7 @@ aptest	APT: (usually followed by `to') naturally disposed toward
 aptitude	inherent ability
 aptitudes	APTITUDE: inherent ability
 aptly	with competence; in a competent capable manner
-aptness	a disposition to behave in a certain way
+aptness	appropriateness for the occasion
 aqua	a shade of blue tinged with green
 aquaculture	rearing aquatic animals or cultivating aquatic plants for food
 aquae	AQUA: water
@@ -3127,17 +3127,17 @@ aqualung	a device (trade name Aqua-Lung) that lets divers breathe under water; s
 aqualungs	AQUALUNG: a device (trade name Aqua-Lung) that lets divers breathe under water; scuba is an acronym for self-contained underwater breathing apparatus
 aquamarine	a transparent variety of beryl that is blue green in color
 aquamarines	AQUAMARINE: a transparent variety of beryl that is blue green in color
-aquanaut	an underwater swimmer equipped with a face mask and foot fins and either a snorkel or an air cylinder
-aquanauts	AQUANAUT: an underwater swimmer equipped with a face mask and foot fins and either a snorkel or an air cylinder
-aquaplane	a board that is pulled by a speedboat as a person stands on it and skims over the top of the water
-aquaplaned	AQUAPLANE: a board that is pulled by a speedboat as a person stands on it and skims over the top of the water
-aquaplanes	AQUAPLANE: a board that is pulled by a speedboat as a person stands on it and skims over the top of the water
-aquaplaning	AQUAPLANE: a board that is pulled by a speedboat as a person stands on it and skims over the top of the water
+aquanaut	a skilled worker who can live in underwater installations and participate in scientific research
+aquanauts	AQUANAUT: a skilled worker who can live in underwater installations and participate in scientific research
+aquaplane	rise up onto a thin film of water between the tires and road so that there is no more contact with the road
+aquaplaned	AQUAPLANE: rise up onto a thin film of water between the tires and road so that there is no more contact with the road
+aquaplanes	AQUAPLANE: rise up onto a thin film of water between the tires and road so that there is no more contact with the road
+aquaplaning	AQUAPLANE: rise up onto a thin film of water between the tires and road so that there is no more contact with the road
 aquaria	AQUARIUM: a tank for keeping fish and water plants
 aquarium	a tank or pool or bowl filled with water for keeping live fish and underwater animals
 aquariums	AQUARIUM: a tank or pool or bowl filled with water for keeping live fish and underwater animals
 aquas	AQUA: a shade of blue tinged with green
-aquatic	a plant that lives in or on water
+aquatic	operating or living or growing in water
 aquatics	sports that involve bodies of water
 aquatint	an etching made by a process that makes it resemble a water color
 aquatints	AQUATINT: an etching made by a process that makes it resemble a water color
@@ -3149,8 +3149,8 @@ aquiculture	a technique of growing plants (without soil) in water containing dis
 aquifer	underground bed or layer yielding ground water for wells and springs etc
 aquifers	AQUIFER: underground bed or layer yielding ground water for wells and springs etc
 aquiline	curved down like an eagle's beak
-arabesque	position in which the dancer has one leg raised behind and arms outstretched in a conventional pose
-arabesques	ARABESQUE: position in which the dancer has one leg raised behind and arms outstretched in a conventional pose
+arabesque	an ornament that interlaces simulated foliage in an intricate design
+arabesques	ARABESQUE: an ornament that interlaces simulated foliage in an intricate design
 arable	(of farmland) capable of being farmed productively
 arachnid	air-breathing arthropods characterized by simple eyes and four pairs of legs
 arachnids	ARACHNID: air-breathing arthropods characterized by simple eyes and four pairs of legs
@@ -3160,8 +3160,8 @@ arachnologists	ARACHNOLOGIST: a scientist who studies spiders
 arachnology	the study of spiders
 arachnophobia	a morbid fear of spiders
 aragonite	a mineral form of crystalline calcium carbonate; dimorphic with calcite
-arbiter	someone with the power to settle matters at will
-arbiters	ARBITER: someone with the power to settle matters at will
+arbiter	someone chosen to judge and decide a disputed issue
+arbiters	ARBITER: someone chosen to judge and decide a disputed issue
 arbitrage	a kind of hedged investment meant to capture slight differences in price; when there is a difference in the price of something on two different markets the arbitrageur simultaneously buys at the lower price and sells at the higher price
 arbitraged	ARBITRAGE: a kind of hedged investment meant to capture slight differences in price; when there is a difference in the price of something on two different markets the arbitrageur simultaneously buys at the lower price and sells at the higher price
 arbitrager	someone who engages in arbitrage (who purchases securities in one market for immediate resale in another in the hope of profiting from the price differential)
@@ -3181,12 +3181,12 @@ arbitrating	ARBITRATE: act between parties with a view to reconciling difference
 arbitration	the hearing and determination of a dispute by an impartial referee agreed to by both parties (often used to settle disputes between labor and management)
 arbitrator	someone chosen to judge and decide a disputed issue
 arbitrators	ARBITRATOR: someone chosen to judge and decide a disputed issue
-arbor	tree (as opposed to shrub)
+arbor	a framework that supports climbing plants
 arboreal	of or relating to or formed by trees
 arboreta	ARBORETUM: a garden for growing trees
 arboretum	a facility where trees and shrubs are cultivated for exhibition
 arboretums	ARBORETUM: a facility where trees and shrubs are cultivated for exhibition
-arbors	ARBOR: tree (as opposed to shrub)
+arbors	ARBOR: a framework that supports climbing plants
 arborvitae	any of several Asian and North American conifers of the genera Thuja and Thujopsis
 arborvitaes	ARBORVITAE: any of several Asian and North American conifers of the genera Thuja and Thujopsis
 arbour	a framework that supports climbing plants
@@ -3197,7 +3197,7 @@ arc	electrical conduction through a gas in an applied electric field
 arcade	a covered passageway with shops and stalls on either side
 arcades	ARCADE: a covered passageway with shops and stalls on either side
 arcadia	a department of Greece in the central Peloponnese
-arcadian	an inhabitant of Arcadia
+arcadian	(used with regard to idealized country life) idyllically rustic
 arcana	ARCANUM: secrets or mysteries
 arcane	requiring secret or mysterious knowledge
 arcanum	information known only to a special group
@@ -3311,7 +3311,7 @@ argosies	ARGOSY: one or more large merchant ships
 argosy	one or more large merchant ships
 argot	a characteristic language of a particular group (as among thieves)
 argots	ARGOT: a characteristic language of a particular group (as among thieves)
-arguable	capable of being supported by argument
+arguable	open to argument or debate
 arguably	as can be shown by argument
 argue	present reasons and arguments
 argued	ARGUE: present reasons and arguments
@@ -3322,8 +3322,8 @@ argumentation	a discussion in which reasons are advanced for and against some pr
 argumentative	given to or characterized by argument
 argumentatively	in a disputatious manner
 arguments	ARGUMENT: a fact or assertion offered as evidence that something is true
-argyle	a covered gravy holder of silver or other metal containing a detachable central vessel for hot water to keep the gravy warm
-argyles	ARGYLE: a covered gravy holder of silver or other metal containing a detachable central vessel for hot water to keep the gravy warm
+argyle	a design consisting of a pattern of varicolored diamonds on a solid background (originally for knitted articles); patterned after the tartan of a clan in western Scotland
+argyles	ARGYLE: a design consisting of a pattern of varicolored diamonds on a solid background (originally for knitted articles); patterned after the tartan of a clan in western Scotland
 aria	an elaborate song for solo voice
 arias	ARIA: an elaborate song for solo voice
 arid	lacking sufficient water or rainfall
@@ -3344,8 +3344,8 @@ aristocrats	ARISTOCRAT: a member of the aristocracy
 arithmetic	the branch of pure mathematics dealing with the theory of numerical calculations
 arithmetical	relating to or involving arithmetic
 arithmetically	with respect to arithmetic
-ark	sacred chest where the ancient Hebrews kept the two tablets containing the Ten Commandments
-arks	ARK: sacred chest where the ancient Hebrews kept the two tablets containing the Ten Commandments
+ark	a boat built by Noah to save his family and animals from the flood
+arks	ARK: a boat built by Noah to save his family and animals from the flood
 arm	a human limb; technically the part of the superior limb between the shoulder and the elbow but commonly used to refer to the whole superior limb
 armada	a large fleet
 armadas	ARMADA: a large fleet
@@ -3355,8 +3355,8 @@ armament	weaponry used by military or naval force
 armaments	ARMAMENT: weaponry used by military or naval force
 armature	coil in which voltage is induced by motion through a magnetic field
 armatures	ARMATURE: coil in which voltage is induced by motion through a magnetic field
-armband	worn around arm as identification or to indicate mourning
-armbands	ARMBAND: worn around arm as identification or to indicate mourning
+armband	a band worn around the upper arm
+armbands	ARMBAND: a band worn around the upper arm
 armchair	chair with a support on each side for arms
 armchairs	ARMCHAIR: chair with a support on each side for arms
 armed	(used of persons or the military) characterized by having or bearing arms
@@ -3377,18 +3377,18 @@ armored	protected by armor (used of persons or things military)
 armorer	a worker skilled in making armor or arms
 armorers	ARMORER: a worker skilled in making armor or arms
 armorial	of or relating to heraldry or heraldic arms
-armories	ARMORY: a collection of resources
+armories	ARMORY: a military structure where arms and ammunition and other military equipment are stored and training is given in the use of arms
 armoring	ARMOR: protective covering made of metal and used in combat
 armors	ARMOR: protective covering made of metal and used in combat
-armory	a collection of resources
-armour	a military unit consisting of armored fighting vehicles
-armoured	used of animals; provided with protective covering
+armory	a military structure where arms and ammunition and other military equipment are stored and training is given in the use of arms
+armour	protective covering made of metal and used in combat
+armoured	protected by armor (used of persons or things military)
 armourer	a worker skilled in making armor or arms
 armourers	ARMOURER: a worker skilled in making armor or arms
-armouries	ARMOURY: a collection of resources
-armouring	ARMOUR: a military unit consisting of armored fighting vehicles
-armours	ARMOUR: a military unit consisting of armored fighting vehicles
-armoury	a collection of resources
+armouries	ARMOURY: a military structure where arms and ammunition and other military equipment are stored and training is given in the use of arms
+armouring	ARMOUR: protective covering made of metal and used in combat
+armours	ARMOUR: protective covering made of metal and used in combat
+armoury	a military structure where arms and ammunition and other military equipment are stored and training is given in the use of arms
 armpit	the hollow under the arm where it is joined to the shoulder
 armpits	ARMPIT: the hollow under the arm where it is joined to the shoulder
 armrest	a support for the arm
@@ -3401,7 +3401,7 @@ aromas	AROMA: any property detected by the olfactory system
 aromatherapist	a person who treats people with scented oils
 aromatherapists	AROMATHERAPIST: a person who treats people with scented oils
 aromatherapy	the therapeutic use of aromatic plant extracts and essential oils in baths or massage
-aromatic	of or relating to or containing one or more benzene rings
+aromatic	having a strong pleasant odor
 aromatics	AROMATIC: a fragrant plant or substance
 arose	ARISE: come into existence; take on form or shape
 around	in the area or vicinity
@@ -3422,8 +3422,8 @@ arrange	put into a proper or systematic order
 arranged	disposed or placed in a particular kind of order
 arrangement	the thing arranged or agreed to
 arrangements	ARRANGEMENT: the thing arranged or agreed to
-arranger	a person who brings order and organization to an enterprise
-arrangers	ARRANGER: a person who brings order and organization to an enterprise
+arranger	a musician who adapts a composition for particular voices or instruments or for another style of performance
+arrangers	ARRANGER: a musician who adapts a composition for particular voices or instruments or for another style of performance
 arranges	ARRANGE: put into a proper or systematic order
 arranging	ARRANGE: put into a proper or systematic order
 arrant	without qualification; used informally as (often pejorative) intensifiers
@@ -3469,8 +3469,8 @@ arse	the fleshy part of the human body that you sit on
 arsed	ARSE: bothered or troubled to do something
 arsehole	vulgar slang for anus
 arseholes	ARSEHOLE: vulgar slang for anus
-arsenal	all the weapons and equipment that a country has
-arsenals	ARSENAL: all the weapons and equipment that a country has
+arsenal	a military structure where arms and ammunition and other military equipment are stored and training is given in the use of arms
+arsenals	ARSENAL: a military structure where arms and ammunition and other military equipment are stored and training is given in the use of arms
 arsenic	a white powdered poisonous trioxide of arsenic; used in manufacturing glass and as a pesticide (rat poison) and weed killer
 arsenide	a compound of arsenic with a more positive element
 arses	ARSE: the fleshy part of the human body that you sit on
@@ -3487,12 +3487,12 @@ arteriole	one of the small thin-walled arteries that end in capillaries
 arterioles	ARTERIOLE: one of the small thin-walled arteries that end in capillaries
 arteriosclerosis	sclerosis of the arterial walls
 artery	a blood vessel that carries blood from the heart to the body
-artful	not straightforward or candid; giving a false appearance of frankness
+artful	marked by skill in achieving a desired end especially with cunning or craft
 artfully	in an artful manner
 artfulness	the quality of being adroit in taking unfair advantage
 arthouse	relating to films made for a niche artistic audience
-arthritic	a person afflicted with arthritis
-arthritics	ARTHRITIC: a person afflicted with arthritis
+arthritic	of or pertaining to arthritis
+arthritics	ARTHRITIC: of or pertaining to arthritis
 arthritis	inflammation of a joint or joints
 arthropod	invertebrate having jointed limbs and a segmented body with an exoskeleton made of chitin
 arthropods	ARTHROPOD: invertebrate having jointed limbs and a segmented body with an exoskeleton made of chitin
@@ -3519,8 +3519,8 @@ artiest	ARTY: showily imitative of art or artists
 artifact	a man-made object taken as a whole
 artifacts	ARTIFACT: a man-made object taken as a whole
 artifice	a deceptive maneuver (especially to avoid capture)
-artificer	someone who is the first to think of or make something
-artificers	ARTIFICER: someone who is the first to think of or make something
+artificer	a skilled worker who practices some trade or handicraft
+artificers	ARTIFICER: a skilled worker who practices some trade or handicraft
 artifices	ARTIFICE: a deceptive maneuver (especially to avoid capture)
 artificial	contrived by art rather than nature
 artificiality	the quality of being produced by people and not occurring naturally
@@ -3537,9 +3537,9 @@ artistic	relating to or characteristic of art or artists
 artistically	in an artistic manner
 artistry	a superior skill that you can learn by study and practice and observation
 artists	ARTIST: a person whose creative work shows sensitivity and imagination
-artless	characterized by an inability to mask your feelings; not devious
-artlessly	in a crude and unskilled manner
-artlessness	the quality of innocent naivete
+artless	simple and natural; without cunning or deceit
+artlessly	in an ingenuous manner
+artlessness	ingenuousness by virtue of being free from artful deceit
 arts	studies intended to provide general knowledge and intellectual skills (rather than occupational or professional skills)
 artsier	ARTSY: showily artistic
 artsiest	ARTSY: showily artistic
@@ -3561,14 +3561,14 @@ ascended	ASCEND: travel up
 ascendency	the state that exists when one person or group has power over another
 ascendent	position or state of being dominant or in control
 ascendents	ASCENDENT: position or state of being dominant or in control
-ascender	someone who ascends
-ascenders	ASCENDER: someone who ascends
+ascender	a lowercase letter that has a part extending above other lowercase letters
+ascenders	ASCENDER: a lowercase letter that has a part extending above other lowercase letters
 ascending	moving or going or growing upward
 ascends	ASCEND: travel up
-ascension	celebration of the Ascension of Christ into heaven; observed on the 40th day after Easter
-ascensions	ASCENSION: celebration of the Ascension of Christ into heaven; observed on the 40th day after Easter
-ascent	an upward slope or grade (as in a road)
-ascents	ASCENT: an upward slope or grade (as in a road)
+ascension	the act of changing location in an upward direction
+ascensions	ASCENSION: the act of changing location in an upward direction
+ascent	a movement upward
+ascents	ASCENT: a movement upward
 ascertain	establish after a calculation, investigation, experiment, survey, or study
 ascertainable	capable of being ascertained or found out
 ascertained	ASCERTAIN: establish after a calculation, investigation, experiment, survey, or study
@@ -3576,7 +3576,7 @@ ascertaining	ASCERTAIN: establish after a calculation, investigation, experiment
 ascertainment	the act of finding something out for certain
 ascertains	ASCERTAIN: establish after a calculation, investigation, experiment, survey, or study
 ascetic	someone who practices self denial as a spiritual discipline
-asceticism	the doctrine that through renunciation of worldly pleasures it is possible to achieve a high spiritual or intellectual state
+asceticism	rigorous self-denial and active self-restraint
 ascetics	ASCETIC: someone who practices self denial as a spiritual discipline
 ascites	accumulation of serous fluid in peritoneal cavity
 ascorbic	relating to vitamin C
@@ -3587,7 +3587,7 @@ ascribe	attribute or credit to
 ascribed	ASCRIBE: attribute or credit to
 ascribes	ASCRIBE: attribute or credit to
 ascribing	ASCRIBE: attribute or credit to
-ascription	assigning some quality or character to a person or thing
+ascription	assigning to a cause or source
 aseptic	free of or using methods to keep free of pathological microorganisms
 asexual	not having or involving sex
 asexuality	having no evident sex or sex organs
@@ -3606,8 +3606,8 @@ ashily	in an ashy, pale way
 ashiness	the quality of being ashy
 ashing	ASH: the residue that remains when something is burned
 ashore	towards the shore from the water
-ashram	a place of religious retreat modeled after the Indian ashram
-ashrams	ASHRAM: a place of religious retreat modeled after the Indian ashram
+ashram	a place of religious retreat for Hindus
+ashrams	ASHRAM: a place of religious retreat for Hindus
 ashtray	a receptacle for the ash from smokers' cigars or cigarettes
 ashtrays	ASHTRAY: a receptacle for the ash from smokers' cigars or cigarettes
 ashy	of a light grey
@@ -3617,17 +3617,17 @@ asinine	extremely silly or stupid
 asininities	ASININITY: the quality of being asinine; stupidity combined with stubbornness
 asininity	the quality of being asinine; stupidity combined with stubbornness
 ask	make a request or demand for something to somebody
-askance	(used especially of glances) directed to one side with or as if with doubt or suspicion or envy
+askance	with suspicion or disapproval
 asked	ASK: make a request or demand for something to somebody
 asker	someone who asks a question
 askers	ASKER: someone who asks a question
 askew	turned or twisted toward one side
 asking	ASK: make a request or demand for something to somebody
 asks	ASK: make a request or demand for something to somebody
-aslant	having an oblique or slanted direction
+aslant	at an oblique angle
 asleep	in a state of sleep
 asocial	given to avoiding association with others
-asp	a viper of southern Europe; similar to but smaller than the adder
+asp	cobra used by the Pharaohs as a symbol of their power over life and death
 asparagus	edible young shoots of the asparagus plant
 aspartame	an artificial sweetener made from aspartic acid; used as a calorie-free sweetener
 aspect	a distinct feature or element in a problem
@@ -3635,8 +3635,8 @@ aspects	ASPECT: a distinct feature or element in a problem
 aspen	any of several trees of the genus Populus having leaves on flattened stalks so that they flutter in the lightest wind
 aspens	ASPEN: any of several trees of the genus Populus having leaves on flattened stalks so that they flutter in the lightest wind
 aspergillus	genus of common molds causing food spoilage and some pathogenic to plants and animals
-asperities	ASPERITY: something hard to endure
-asperity	something hard to endure
+asperities	ASPERITY: harshness of manner
+asperity	harshness of manner
 aspersion	a disparaging remark
 aspersions	ASPERSION: a disparaging remark
 asphalt	mixed asphalt and crushed gravel or sand; used especially for paving but also for roofing
@@ -3658,10 +3658,10 @@ aspidistra	evergreen perennial with large handsome basal leaves; grown primarily
 aspidistras	ASPIDISTRA: evergreen perennial with large handsome basal leaves; grown primarily as a foliage houseplant
 aspirant	an ambitious and aspiring young person
 aspirants	ASPIRANT: an ambitious and aspiring young person
-aspirate	a consonant pronounced with aspiration
-aspirated	ASPIRATE: a consonant pronounced with aspiration
-aspirates	ASPIRATE: a consonant pronounced with aspiration
-aspirating	ASPIRATE: a consonant pronounced with aspiration
+aspirate	remove by suction
+aspirated	ASPIRATE: remove by suction
+aspirates	ASPIRATE: remove by suction
+aspirating	ASPIRATE: remove by suction
 aspiration	a will to succeed
 aspirational	driven by hopes of higher status or achievement
 aspirations	ASPIRATION: a will to succeed
@@ -3671,7 +3671,7 @@ aspires	ASPIRE: have an ambitious plan or a lofty goal
 aspirin	the acetylated derivative of salicylic acid; used as an analgesic anti-inflammatory drug (trade names Bayer, Empirin, and St. Joseph) usually taken in tablet form; used as an antipyretic; slows clotting of the blood by poisoning platelets
 aspiring	ASPIRE: have an ambitious plan or a lofty goal
 aspirins	ASPIRIN: the acetylated derivative of salicylic acid; used as an analgesic anti-inflammatory drug (trade names Bayer, Empirin, and St. Joseph) usually taken in tablet form; used as an antipyretic; slows clotting of the blood by poisoning platelets
-asps	ASP: a viper of southern Europe; similar to but smaller than the adder
+asps	ASP: cobra used by the Pharaohs as a symbol of their power over life and death
 ass	the fleshy part of the human body that you sit on
 assail	attack someone physically or emotionally
 assailable	not defended or capable of being defended
@@ -3687,8 +3687,8 @@ assassinate	murder; especially of socially prominent persons
 assassinated	murdered by surprise attack for political reasons
 assassinates	ASSASSINATE: murder; especially of socially prominent persons
 assassinating	ASSASSINATE: murder; especially of socially prominent persons
-assassination	an attack intended to ruin someone's reputation
-assassinations	ASSASSINATION: an attack intended to ruin someone's reputation
+assassination	murder of a public figure by surprise attack
+assassinations	ASSASSINATION: murder of a public figure by surprise attack
 assassins	ASSASSIN: a murderer (especially one who kills a prominent political figure) who kills by a surprise attack and often is hired to do the deed
 assault	close fighting during the culmination of a military attack
 assaulted	ASSAULT: close fighting during the culmination of a military attack
@@ -3771,7 +3771,7 @@ assimilate	take up mentally
 assimilated	ASSIMILATE: take up mentally
 assimilates	ASSIMILATE: take up mentally
 assimilating	ASSIMILATE: take up mentally
-assimilation	the state of being assimilated; people of different backgrounds come to see themselves as part of a larger national family
+assimilation	the social process of absorbing one cultural group into harmony with another
 assist	the activity of contributing to the fulfillment of a need or furtherance of an effort or purpose
 assistance	the activity of contributing to the fulfillment of a need or furtherance of an effort or purpose
 assistant	a person who contributes to the fulfillment of a need or furtherance of an effort or purpose
@@ -3782,7 +3782,7 @@ assisters	ASSISTER: one who helps
 assisting	ASSIST: the activity of contributing to the fulfillment of a need or furtherance of an effort or purpose
 assistive	giving assistance
 assists	ASSIST: the activity of contributing to the fulfillment of a need or furtherance of an effort or purpose
-assize	the regulation of weights and measures of articles offered for sale
+assize	a court session held in a county in England and Wales in former times
 assizes	the county courts of England (replaced in 1971 by Crown courts)
 assoc	association
 associate	make a logical or causal connection
@@ -3793,18 +3793,18 @@ association	a formal organization of people or groups of people
 associations	ASSOCIATION: a formal organization of people or groups of people
 associative	characterized by or causing or resulting from the process of bringing ideas or events together in memory or imagination
 assonance	the repetition of similar vowels in the stressed syllables of successive words
-assort	keep company with; hang out with
+assort	arrange or order by classes or categories
 assorted	consisting of a haphazard assortment of different kinds
 assorter	one who assorts
 assorters	ASSORTER: one who assorts
-assorting	ASSORT: keep company with; hang out with
+assorting	ASSORT: arrange or order by classes or categories
 assortment	a collection containing a variety of sorts of things
 assortments	ASSORTMENT: a collection containing a variety of sorts of things
-assorts	ASSORT: keep company with; hang out with
-assuage	cause to be more favorably inclined; gain the good will of
-assuaged	ASSUAGE: cause to be more favorably inclined; gain the good will of
-assuages	ASSUAGE: cause to be more favorably inclined; gain the good will of
-assuaging	ASSUAGE: cause to be more favorably inclined; gain the good will of
+assorts	ASSORT: arrange or order by classes or categories
+assuage	provide physical relief, as from pain
+assuaged	ASSUAGE: provide physical relief, as from pain
+assuages	ASSUAGE: provide physical relief, as from pain
+assuaging	ASSUAGE: provide physical relief, as from pain
 assume	take to be the case or to be true; accept without verification or proof
 assumed	ASSUME: take to be the case or to be true; accept without verification or proof
 assumes	ASSUME: take to be the case or to be true; accept without verification or proof
@@ -3825,7 +3825,7 @@ asterisk	a star-shaped character * used in printing
 asterisked	ASTERISK: a star-shaped character * used in printing
 asterisking	ASTERISK: a star-shaped character * used in printing
 asterisks	ASTERISK: a star-shaped character * used in printing
-astern	stern foremost or backward
+astern	at or near or toward the stern of a ship or tail of an airplane
 asteroid	any of numerous small celestial bodies composed of rock and metal that move around the sun (mainly between the orbits of Mars and Jupiter)
 asteroids	ASTEROID: any of numerous small celestial bodies composed of rock and metal that move around the sun (mainly between the orbits of Mars and Jupiter)
 asters	ASTER: any of various chiefly fall-blooming herbs of the genus Aster with showy daisylike flowers
@@ -3835,7 +3835,7 @@ asthmatics	ASTHMATIC: a person suffering from asthma
 astigmatic	of or relating to a defect in the eye or in a lens caused by a deviation from spherical curvature which prevents light rays from meeting at a common focus and so results in distorted images
 astigmatism	impaired eyesight resulting usually from irregular conformation of the cornea; common in nearsighted people
 astigmatisms	ASTIGMATISM: impaired eyesight resulting usually from irregular conformation of the cornea; common in nearsighted people
-astir	out of bed
+astir	on the move
 astonish	affect with wonder
 astonished	filled with the emotional impact of overwhelming surprise or shock
 astonishes	ASTONISH: affect with wonder
@@ -3875,7 +3875,7 @@ astronautics	the theory and practice of navigation through air or space
 astronauts	ASTRONAUT: a person trained to travel in a spacecraft
 astronomer	a physicist who studies astronomy
 astronomers	ASTRONOMER: a physicist who studies astronomy
-astronomic	relating or belonging to the science of astronomy
+astronomic	inconceivably large
 astronomical	relating or belonging to the science of astronomy
 astronomically	enormously
 astronomy	the branch of physics that studies celestial bodies and the universe as a whole
@@ -3889,7 +3889,7 @@ astutely	in a shrewd manner
 astuteness	intelligence manifested by being astute (as in business dealings)
 astuter	ASTUTE: marked by practical hardheaded intelligence
 astutest	ASTUTE: marked by practical hardheaded intelligence
-asunder	widely separated especially in space
+asunder	into parts or pieces
 asylum	a shelter from danger or hardship
 asylums	ASYLUM: a shelter from danger or hardship
 asymmetric	characterized by asymmetry in the spatial arrangement or placement of parts or components
@@ -3900,9 +3900,9 @@ asymmetry	a lack of symmetry
 asymptomatic	having no symptoms of illness or disease
 asymptotic	relating to or of the nature of an asymptote
 asymptotically	toward an asymptote
-asynchronous	pertaining to a transmission technique that does not require a common clock between the communicating devices; timing signals are derived from special characters in the data stream itself
+asynchronous	not synchronous; not occurring or existing at the same time or having the same period or phase
 asynchronously	in a asynchronous way
-at	a highly unstable radioactive element (the heaviest of the halogen series); a decay product of uranium and thorium
+at	a word showing place or time, as in "at home" or "at noon"
 atavism	a reappearance of an earlier characteristic
 atavistic	characteristic of an atavist
 ataxia	inability to coordinate voluntary muscle movements; unsteady movements and staggering gait
@@ -3925,8 +3925,8 @@ athleticism	intense energy
 athletics	an active diversion requiring physical exertion and competition
 athwart	at right angles to the center line of a ship
 atishoo	the sound of a sneeze
-atlas	a Titan who was forced by Zeus to bear the sky on his shoulders
-atlases	ATLAS: a Titan who was forced by Zeus to bear the sky on his shoulders
+atlas	a collection of maps in book form
+atlases	ATLAS: a collection of maps in book form
 atmosphere	a particular environment or surrounding influence
 atmospheres	ATMOSPHERE: a particular environment or surrounding influence
 atmospheric	relating to or located in the atmosphere
@@ -3955,20 +3955,20 @@ atonal	characterized by avoidance of traditional western tonality
 atonality	the absence of a key; alternative to the diatonic system
 atone	make amends for
 atoned	ATONE: make amends for
-atonement	compensation for a wrong
+atonement	the act of atoning for sin or wrongdoing (especially appeasing a deity)
 atones	ATONE: make amends for
 atoning	ATONE: make amends for
 atop	on, to, or at the top
 atria	ATRIUM: a central hall or open space in a building
 atrial	of or relating to a cavity or chamber in the body (especially one of the upper chambers of the heart)
 atrioventricular	relating to or affecting the atria and ventricles of the heart
-atrium	any chamber that is connected to other chambers or passageways (especially one of the two upper chambers of the heart)
-atriums	ATRIUM: any chamber that is connected to other chambers or passageways (especially one of the two upper chambers of the heart)
-atrocious	shockingly brutal or cruel
+atrium	the central area in a building; open to the sky
+atriums	ATRIUM: the central area in a building; open to the sky
+atrocious	exceptionally bad or displeasing
 atrociously	in a terrible manner
 atrociousness	the quality of being shockingly cruel and inhumane
-atrocities	ATROCITY: the quality of being shockingly cruel and inhumane
-atrocity	the quality of being shockingly cruel and inhumane
+atrocities	ATROCITY: an act of atrocious cruelty
+atrocity	an act of atrocious cruelty
 atrophied	(of an organ or body part) diminished in size or strength as a result of disease or injury or lack of use
 atrophies	ATROPHY: a decrease in size of an organ caused by disease or disuse
 atrophy	a decrease in size of an organ caused by disease or disuse
@@ -4015,8 +4015,8 @@ attendants	ATTENDANT: someone who waits on or tends to or attends to the needs o
 attended	ATTEND: be present at (meetings, church services, university), etc.
 attendee	a person who is present and participates in a meeting
 attendees	ATTENDEE: a person who is present and participates in a meeting
-attender	someone who listens attentively
-attenders	ATTENDER: someone who listens attentively
+attender	a person who is present and participates in a meeting
+attenders	ATTENDER: a person who is present and participates in a meeting
 attending	ATTEND: be present at (meetings, church services, university), etc.
 attends	ATTEND: be present at (meetings, church services, university), etc.
 attention	the process whereby a person concentrates on some features of the environment to the (relative) exclusion of others
@@ -4024,11 +4024,11 @@ attentional	of or relating to attention
 attentions	ATTENTION: the process whereby a person concentrates on some features of the environment to the (relative) exclusion of others
 attentive	(often followed by `to') giving care or attention
 attentively	with attention; in an attentive manner
-attentiveness	paying particular notice (as to children or helpless people)
-attenuate	weaken the consistency of (a chemical substance)
-attenuated	of an electrical signal; reduced in amplitude with little or no distortion
-attenuates	ATTENUATE: weaken the consistency of (a chemical substance)
-attenuating	ATTENUATE: weaken the consistency of (a chemical substance)
+attentiveness	the trait of being observant and paying attention
+attenuate	become weaker, in strength, value, or magnitude
+attenuated	reduced in strength
+attenuates	ATTENUATE: become weaker, in strength, value, or magnitude
+attenuating	ATTENUATE: become weaker, in strength, value, or magnitude
 attenuation	weakening in force or intensity
 attenuator	an electrical device for attenuating the strength of an electrical signal
 attest	provide evidence for; stand as proof of; show by one's behavior, attitude, or external attributes
@@ -4068,19 +4068,19 @@ attractions	ATTRACTION: the force by which one object attracts another
 attractive	pleasing to the eye or mind especially through beauty or charm
 attractively	in a beautiful manner
 attractiveness	the quality of arousing interest; being attractive or something that attracts
-attractor	an entertainer who attracts large audiences
+attractor	a characteristic that provides pleasure and attracts
 attracts	ATTRACT: direct toward itself or oneself by means of some psychological power or physical attributes
 attributable	capable of being attributed
 attribute	a construct whereby objects or individuals can be distinguished
 attributed	ATTRIBUTE: a construct whereby objects or individuals can be distinguished
 attributes	ATTRIBUTE: a construct whereby objects or individuals can be distinguished
 attributing	ATTRIBUTE: a construct whereby objects or individuals can be distinguished
-attribution	assigning some quality or character to a person or thing
-attributions	ATTRIBUTION: assigning some quality or character to a person or thing
+attribution	assigning to a cause or source
+attributions	ATTRIBUTION: assigning to a cause or source
 attributive	of adjectives; placed before the nouns they modify
 attributively	in an attributive manner
 attributives	ATTRIBUTIVE: a word placed before a noun to describe it
-attrition	erosion by friction
+attrition	a wearing down to weaken or destroy
 attune	adjust or accustom to; bring into harmony with
 attuned	ATTUNE: adjust or accustom to; bring into harmony with
 attunement	the state of being in harmony
@@ -4094,12 +4094,12 @@ aubades	AUBADE: a morning love song or poem
 aubergine	egg-shaped vegetable having a shiny skin typically dark purple but occasionally white or yellow
 aubergines	AUBERGINE: egg-shaped vegetable having a shiny skin typically dark purple but occasionally white or yellow
 auburn	(of hair) colored a moderate reddish-brown
-auction	a variety of bridge in which tricks made in excess of the contract are scored toward game; now generally superseded by contract bridge
-auctioned	AUCTION: a variety of bridge in which tricks made in excess of the contract are scored toward game; now generally superseded by contract bridge
+auction	the public sale of something to the highest bidder
+auctioned	AUCTION: the public sale of something to the highest bidder
 auctioneer	an agent who conducts an auction
 auctioneers	AUCTIONEER: an agent who conducts an auction
-auctioning	AUCTION: a variety of bridge in which tricks made in excess of the contract are scored toward game; now generally superseded by contract bridge
-auctions	AUCTION: a variety of bridge in which tricks made in excess of the contract are scored toward game; now generally superseded by contract bridge
+auctioning	AUCTION: the public sale of something to the highest bidder
+auctions	AUCTION: the public sale of something to the highest bidder
 audacious	invulnerable to fear or intimidation
 audaciously	in an audacious manner
 audaciousness	fearless daring
@@ -4124,8 +4124,8 @@ audiotape	a tape recording of sound
 audiotapes	AUDIOTAPE: a tape recording of sound
 audiotypist	a typist who types from a recording
 audiotypists	AUDIOTYPIST: a typist who types from a recording
-audiovisual	materials using sight or sound to present information
-audiovisuals	AUDIOVISUAL: materials using sight or sound to present information
+audiovisual	involving both hearing and seeing (usually relating to teaching aids)
+audiovisuals	AUDIOVISUAL: involving both hearing and seeing (usually relating to teaching aids)
 audit	an inspection of the accounting procedures and records by a trained accountant or CPA
 audited	AUDIT: an inspection of the accounting procedures and records by a trained accountant or CPA
 auditing	AUDIT: an inspection of the accounting procedures and records by a trained accountant or CPA
@@ -4133,15 +4133,15 @@ audition	perform in order to get a role
 auditioned	AUDITION: perform in order to get a role
 auditioning	AUDITION: perform in order to get a role
 auditions	AUDITION: perform in order to get a role
-auditor	someone who listens attentively
+auditor	a qualified accountant who inspects the accounting records and practices of a business or other organization
 auditoria	AUDITORIUM: a large hall for an audience
 auditorium	the area of a theater or concert hall where the audience sits
 auditoriums	AUDITORIUM: the area of a theater or concert hall where the audience sits
-auditors	AUDITOR: someone who listens attentively
+auditors	AUDITOR: a qualified accountant who inspects the accounting records and practices of a business or other organization
 auditory	of or relating to the process of hearing
 audits	AUDIT: an inspection of the accounting procedures and records by a trained accountant or CPA
-auger	a long flexible steel coil for dislodging stoppages in curved pipes
-augers	AUGER: a long flexible steel coil for dislodging stoppages in curved pipes
+auger	hand tool for boring holes
+augers	AUGER: hand tool for boring holes
 aught	a quantity of no importance
 aughts	AUGHT: a quantity of no importance
 augment	enlarge or increase
@@ -4174,23 +4174,23 @@ auntie	the sister of your father or mother; the wife of your uncle
 aunties	AUNTIE: the sister of your father or mother; the wife of your uncle
 aunts	AUNT: the sister of your father or mother; the wife of your uncle
 aunty	the sister of your father or mother; the wife of your uncle
-aura	a sensation (as of a cold breeze or bright light) that precedes the onset of certain disorders such as a migraine attack or epileptic seizure
+aura	a distinctive but intangible quality surrounding a person or thing
 aurae	AURA: a distinctive atmosphere around a person or thing
 aural	of or pertaining to hearing or the ear
 aurally	with regard to sound or the ear
-auras	AURA: a sensation (as of a cold breeze or bright light) that precedes the onset of certain disorders such as a migraine attack or epileptic seizure
+auras	AURA: a distinctive but intangible quality surrounding a person or thing
 aureola	a halo or glowing ring
 aureolas	AUREOLA: a halo or glowing ring
-aureole	the outermost region of the sun's atmosphere; visible as a white halo during a solar eclipse
-aureoles	AUREOLE: the outermost region of the sun's atmosphere; visible as a white halo during a solar eclipse
+aureole	an indication of radiant light drawn around the head of a saint
+aureoles	AUREOLE: an indication of radiant light drawn around the head of a saint
 aureus	a gold coin of ancient Rome
-auricle	a small conical pouch projecting from the upper anterior part of each atrium of the heart
-auricles	AURICLE: a small conical pouch projecting from the upper anterior part of each atrium of the heart
-auricular	of or relating to near the ear
-aurora	the first light of day
+auricle	the externally visible cartilaginous structure of the external ear
+auricles	AURICLE: the externally visible cartilaginous structure of the external ear
+auricular	relating to or perceived by or shaped like the organ of hearing
+aurora	an atmospheric phenomenon consisting of bands of light caused by charged solar particles following the earth's magnetic lines of force
 aurorae	AURORA: a display of coloured lights in the night sky
 auroral	of or relating to the atmospheric phenomenon auroras
-auroras	AURORA: the first light of day
+auroras	AURORA: an atmospheric phenomenon consisting of bands of light caused by charged solar particles following the earth's magnetic lines of force
 auscultation	listening to sounds within the body (usually with a stethoscope)
 auscultations	AUSCULTATION: listening to sounds within the body (usually with a stethoscope)
 auspice	a favorable omen
@@ -4214,8 +4214,8 @@ authenticate	establish the authenticity of something
 authenticated	AUTHENTICATE: establish the authenticity of something
 authenticates	AUTHENTICATE: establish the authenticity of something
 authenticating	AUTHENTICATE: establish the authenticity of something
-authentication	a mark on an article of trade to indicate its origin and authenticity
-authentications	AUTHENTICATION: a mark on an article of trade to indicate its origin and authenticity
+authentication	validating the authenticity of something or someone
+authentications	AUTHENTICATION: validating the authenticity of something or someone
 authenticator	one who determines authenticity (as of works of art) or who guarantees validity
 authenticity	undisputed credibility
 author	writes (books or stories or articles or the like) professionally (for pay)
@@ -4224,12 +4224,12 @@ authoress	a woman author
 authoresses	AUTHORESS: a woman author
 authorial	of or by or typical of an author
 authoring	AUTHOR: writes (books or stories or articles or the like) professionally (for pay)
-authorisation	a document giving an official instruction or command
-authorisations	AUTHORISATION: a document giving an official instruction or command
-authorise	give or delegate power or authority to
-authorised	endowed with authority
-authorises	AUTHORISE: give or delegate power or authority to
-authorising	AUTHORISE: give or delegate power or authority to
+authorisation	official permission or approval
+authorisations	AUTHORISATION: official permission or approval
+authorise	grant authorization or clearance for
+authorised	sanctioned by established authority
+authorises	AUTHORISE: grant authorization or clearance for
+authorising	AUTHORISE: grant authorization or clearance for
 authoritarian	characteristic of an absolute ruler or absolute rule; having absolute sovereignty
 authoritarianism	a form of government in which the ruler is an absolute dictator (not restricted by a constitution or laws or opposition etc.)
 authoritarians	AUTHORITARIAN: characteristic of an absolute ruler or absolute rule; having absolute sovereignty
@@ -4251,17 +4251,17 @@ autistic	characteristic of or affected with autism
 auto	a motor vehicle with four wheels; usually propelled by an internal combustion engine
 autobiographer	someone who writes their own biography
 autobiographers	AUTOBIOGRAPHER: someone who writes their own biography
-autobiographical	of or relating to or characteristic of an autobiographer
+autobiographical	relating to or in the style of an autobiography
 autobiographies	AUTOBIOGRAPHY: a biography of yourself
 autobiography	a biography of yourself
-autochthonous	of rocks, deposits, etc.; found where they and their constituents were formed
+autochthonous	originating where it is found
 autoclave	a device for heating substances above their boiling point; used to manufacture chemicals or to sterilize surgical instruments
 autoclaves	AUTOCLAVE: a device for heating substances above their boiling point; used to manufacture chemicals or to sterilize surgical instruments
 autocorrelation	the matching of a signal with a delayed copy of itself
 autocracies	AUTOCRACY: a political system governed by a single individual
 autocracy	a political system governed by a single individual
 autocrat	a cruel and oppressive dictator
-autocratic	offensively self-assured or given to exercising usually unwarranted power
+autocratic	characteristic of an absolute ruler or absolute rule; having absolute sovereignty
 autocratically	in an overbearingly domineering manner; as a dictator
 autocrats	AUTOCRAT: a cruel and oppressive dictator
 autocross	a motor race over rough ground
@@ -4270,10 +4270,10 @@ autodidacts	AUTODIDACT: a person who has taught himself
 autoerotic	sexually satisfying yourself (as by masturbation)
 autofocus	an optical device for focussing a camera or other instrument automatically
 autofocuses	AUTOFOCUS: an optical device for focussing a camera or other instrument automatically
-autograph	something written by one's own hand
+autograph	a person's own signature
 autographed	bearing an autograph
-autographing	AUTOGRAPH: something written by one's own hand
-autographs	AUTOGRAPH: something written by one's own hand
+autographing	AUTOGRAPH: a person's own signature
+autographs	AUTOGRAPH: a person's own signature
 autoimmune	of or relating to the immune response of the body against substance normally present in the body
 autoimmunity	production of antibodies against the tissues of your own body; produces autoimmune disease or hypersensitivity reactions
 automaker	a business engaged in the manufacture of automobiles
@@ -4288,20 +4288,20 @@ automatics	AUTOMATIC: operating with minimal human intervention; independent of 
 automating	AUTOMATE: make automatic or control or operate automatically
 automation	the act of implementing the control of equipment with advanced technology; usually involving electronic hardware
 automatism	any reaction that occurs automatically without conscious thought or reflection (especially the undirected behavior seen in psychomotor epilepsy)
-automaton	someone who acts or responds in a mechanical or apathetic way
+automaton	a mechanism that can move automatically
 automatonic	like an automaton; mechanical
-automatons	AUTOMATON: someone who acts or responds in a mechanical or apathetic way
+automatons	AUTOMATON: a mechanism that can move automatically
 automobile	a motor vehicle with four wheels; usually propelled by an internal combustion engine
 automobiled	AUTOMOBILE: a motor vehicle with four wheels; usually propelled by an internal combustion engine
 automobiles	AUTOMOBILE: a motor vehicle with four wheels; usually propelled by an internal combustion engine
 automobiling	AUTOMOBILE: a motor vehicle with four wheels; usually propelled by an internal combustion engine
 automotive	of or relating to motor vehicles
 autonomic	relating to or controlled by the autonomic nervous system
-autonomous	(of political bodies) not controlled by outside forces
+autonomous	(of persons) free from external control and constraint in e.g. action and judgment
 autonomously	in a autonomous way
 autonomy	immunity from arbitrary exercise of authority: political independence
-autopilot	a cognitive state in which you act without self-awareness
-autopilots	AUTOPILOT: a cognitive state in which you act without self-awareness
+autopilot	a navigational device that automatically keeps ships or planes or spacecraft on a steady course
+autopilots	AUTOPILOT: a navigational device that automatically keeps ships or planes or spacecraft on a steady course
 autopsied	AUTOPSY: examine a dead body to find the cause of death
 autopsies	AUTOPSY: an examination and dissection of a dead body to determine cause of death or the changes produced by disease
 autopsy	an examination and dissection of a dead body to determine cause of death or the changes produced by disease
@@ -4327,8 +4327,8 @@ avarice	reprehensible acquisitiveness; insatiable desire for wealth (personified
 avaricious	immoderately desirous of acquiring e.g. wealth
 avariciously	in a greedy manner
 avast	a sailor's command to stop
-avatar	a new personification of a familiar idea
-avatars	AVATAR: a new personification of a familiar idea
+avatar	a figure or image that represents a person in a game or online
+avatars	AVATAR: a figure or image that represents a person in a game or online
 avenge	take revenge for a perceived wrong
 avenged	AVENGE: take revenge for a perceived wrong
 avenger	someone who takes vengeance
@@ -4337,15 +4337,15 @@ avenges	AVENGE: take revenge for a perceived wrong
 avenging	AVENGE: take revenge for a perceived wrong
 avenue	a line of approach
 avenues	AVENUE: a line of approach
-aver	report or maintain
+aver	to declare or affirm solemnly and formally as true
 average	approximating the statistical norm or average or expected value
 averaged	AVERAGE: approximating the statistical norm or average or expected value
 averagely	in a average way
 averages	AVERAGE: approximating the statistical norm or average or expected value
 averaging	AVERAGE: approximating the statistical norm or average or expected value
-averred	AVER: report or maintain
-averring	AVER: report or maintain
-avers	AVER: report or maintain
+averred	AVER: to declare or affirm solemnly and formally as true
+averring	AVER: to declare or affirm solemnly and formally as true
+avers	AVER: to declare or affirm solemnly and formally as true
 averse	(usually followed by `to') strongly opposed
 aversion	a feeling of intense dislike
 aversions	AVERSION: a feeling of intense dislike
@@ -4363,7 +4363,7 @@ aviators	AVIATOR: someone who operates an aircraft
 aviatrices	AVIATRIX: a woman pilot
 aviatrix	a woman aviator
 aviatrixes	AVIATRIX: a woman aviator
-avid	(often followed by `for') ardently or excessively desirous
+avid	marked by active interest and enthusiasm
 avidity	a positive feeling of wanting to push ahead with something
 avidly	in an avid manner
 avionic	of or relating to avionics
@@ -4428,7 +4428,7 @@ awash	covered with water
 away	from a particular thing or place or position (`forth' is obsolete)
 awe	an overwhelming feeling of wonder or admiration
 awed	inspired by a feeling of fearful wonderment or reverence
-aweigh	(used of an anchor) hanging clear of the bottom
+aweigh	(of an anchor) just clear of the bottom
 awes	AW: an exclamation of sympathy or disappointment
 awesome	inspiring awe or admiration or wonder
 awesomely	in a awesome way
@@ -4446,14 +4446,14 @@ awkward	causing inconvenience
 awkwarder	AWKWARD: causing inconvenience
 awkwardest	AWKWARD: causing inconvenience
 awkwardly	in an awkward manner
-awkwardness	unskillfulness resulting from a lack of training
+awkwardness	the quality of an embarrassing situation
 awl	a pointed tool for marking surfaces or for punching small holes
 awls	AWL: a pointed tool for marking surfaces or for punching small holes
 awning	a canopy made of canvas to shelter people or things from rain or sun
 awnings	AWNING: a canopy made of canvas to shelter people or things from rain or sun
 awoke	AWAKE: stop sleeping
 awoken	AWAKE: stop sleeping
-awol	one who is away or absent without leave
+awol	absent without permission
 awry	turned or twisted toward one side
 ax	an edge tool with a heavy bladed head mounted across a handle
 axe	an edge tool with a heavy bladed head mounted across a handle
@@ -4461,7 +4461,7 @@ axed	AXE: an edge tool with a heavy bladed head mounted across a handle
 axes	AXE: an edge tool with a heavy bladed head mounted across a handle
 axial	of or relating to or resembling an axis of rotation
 axially	with respect to an axis
-axillary	of or relating to the axil
+axillary	of or relating to the armpit
 axing	AXE: an edge tool with a heavy bladed head mounted across a handle
 axiological	of or relating to the study of values
 axiologist	a philosopher who studies values

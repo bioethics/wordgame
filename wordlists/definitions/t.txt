@@ -1,12 +1,12 @@
 ta	a hard grey lustrous metallic element that is highly resistant to corrosion; occurs in niobite and fergusonite and tantalite
-tab	the bill in a restaurant
+tab	a short strip of material attached to or projecting from something in order to facilitate opening or identifying or handling it
 tabard	a short sleeveless outer tunic emblazoned with a coat of arms; worn by a knight over his armor or by a herald
 tabards	TABARD: a short sleeveless outer tunic emblazoned with a coat of arms; worn by a knight over his armor or by a herald
-tabbed	TAB: the bill in a restaurant
+tabbed	TAB: a short strip of material attached to or projecting from something in order to facilitate opening or identifying or handling it
 tabbies	TABBY: a cat with a grey or tawny coat mottled with black
-tabbing	TAB: the bill in a restaurant
+tabbing	TAB: a short strip of material attached to or projecting from something in order to facilitate opening or identifying or handling it
 tabby	a cat with a grey or tawny coat mottled with black
-tabernacle	the Mormon temple
+tabernacle	a portable sanctuary in which the Jews carried the Ark of the Covenant on their exodus
 tabernacles	a major Jewish festival beginning on the eve of the 15th of Tishri and commemorating the shelter of the Israelites during their 40 years in the wilderness
 tabla	a pair of small Indian hand drums
 tablas	TABLA: a pair of small Indian hand drums
@@ -21,10 +21,10 @@ tabled	TABLE: a set of data arranged in rows and columns
 tableland	a relatively flat highland
 tablelands	TABLELAND: a relatively flat highland
 tables	TABLE: a set of data arranged in rows and columns
-tablespoon	as much as a tablespoon will hold
+tablespoon	a spoon larger than a dessert spoon; used for serving
 tablespoonful	as much as a tablespoon will hold
 tablespoonfuls	TABLESPOONFUL: as much as a tablespoon will hold
-tablespoons	TABLESPOON: as much as a tablespoon will hold
+tablespoons	TABLESPOON: a spoon larger than a dessert spoon; used for serving
 tablespoonsful	TABLESPOONFUL: the amount a tablespoon holds
 tablet	a slab of stone or wood suitable for bearing an inscription
 tabletop	the top horizontal work surface of a table
@@ -32,14 +32,14 @@ tabletops	TABLETOP: the top horizontal work surface of a table
 tablets	TABLET: a slab of stone or wood suitable for bearing an inscription
 tableware	articles for use at the table (dishes and silverware and glassware)
 tabling	TABLE: a set of data arranged in rows and columns
-tabloid	sensationalist journalism
-tabloids	TABLOID: sensationalist journalism
+tabloid	newspaper with half-size pages
+tabloids	TABLOID: newspaper with half-size pages
 taboo	excluded from use or mention
 tabooed	TABOO: excluded from use or mention
 tabooing	TABOO: excluded from use or mention
 taboos	TABOO: excluded from use or mention
-tabs	TAB: the bill in a restaurant
-tabu	a prejudice (especially in Polynesia and other South Pacific islands) that prohibits the use or mention of something because of its sacred nature
+tabs	TAB: a short strip of material attached to or projecting from something in order to facilitate opening or identifying or handling it
+tabu	an inhibition or ban resulting from social custom or emotional aversion
 tabued	TABU: forbid or prohibit as taboo
 tabuing	TABU: forbid or prohibit as taboo
 tabular	of or pertaining to or arranged in table form
@@ -51,7 +51,7 @@ tabulation	information set out in tabular form
 tabulations	TABULATION: information set out in tabular form
 tabulator	a calculator that keeps a record of the number of times something happens
 tabulators	TABULATOR: a calculator that keeps a record of the number of times something happens
-tabus	TABU: a prejudice (especially in Polynesia and other South Pacific islands) that prohibits the use or mention of something because of its sacred nature
+tabus	TABU: an inhibition or ban resulting from social custom or emotional aversion
 tachograph	a tachometer that produces a graphical record of its readings; used to record the speed and duration of trips in a motor vehicle
 tachographs	TACHOGRAPH: a tachometer that produces a graphical record of its readings; used to record the speed and duration of trips in a motor vehicle
 tachometer	measuring instrument for indicating speed of rotation
@@ -71,7 +71,7 @@ tackie	a rubber-soled canvas sports shoe
 tackier	TACKIE: a rubber-soled canvas sports shoe
 tackies	TACKIE: a rubber-soled canvas sports shoe
 tackiest	TACKIE: a rubber-soled canvas sports shoe
-tackiness	the property of being cohesive and sticky
+tackiness	tastelessness by virtue of being cheap and vulgar
 tacking	TACK: fasten with tacks
 tackle	the person who plays that position on a football team
 tackled	TACKLE: the person who plays that position on a football team
@@ -80,9 +80,9 @@ tacklers	TACKLER: a football player who tackles the ball carrier
 tackles	TACKLE: the person who plays that position on a football team
 tackling	TACKLE: the person who plays that position on a football team
 tacks	TACK: fasten with tacks
-tacky	(of a glutinous liquid such as paint) not completely dried and slightly sticky to the touch
-taco	offensive term for a person of Mexican descent
-tacos	TACO: offensive term for a person of Mexican descent
+tacky	tastelessly showy
+taco	a tortilla rolled cupped around a filling
+tacos	TACO: a tortilla rolled cupped around a filling
 tact	consideration in dealing with others and avoiding giving offense
 tactful	having or showing a sense of what is fitting and considerate in dealing with others
 tactfully	showing tact or tactfulness; in a tactful manner
@@ -107,7 +107,7 @@ taffy	chewy candy of sugar or syrup boiled until thick and pulled until glossy
 tag	attach a tag or label to
 tagged	bearing or marked with a label or tag
 tagger	TAG: attach a tag or label to
-taggers	TAGGER: someone who assigns labels to the grammatical constituents of textual matter
+taggers	TAGGER: someone who appends or joins one thing to another
 tagging	TAG: attach a tag or label to
 tagliatelle	pasta cut in narrow ribbons
 tagline	a short catchy phrase used in advertising to sum up a product or brand
@@ -147,8 +147,8 @@ tailpieces	TAILPIECE: appendage added to extend the length of something
 tailpipe	a pipe carrying fumes from the muffler to the rear of a car
 tailpipes	TAILPIPE: a pipe carrying fumes from the muffler to the rear of a car
 tails	TAIL: the posterior part of the body of a vertebrate especially when elongated and extending beyond the trunk or main part of the body
-tailspin	loss of emotional control often resulting in emotional collapse
-tailspins	TAILSPIN: loss of emotional control often resulting in emotional collapse
+tailspin	rapid descent of an aircraft in a steep spiral
+tailspins	TAILSPIN: rapid descent of an aircraft in a steep spiral
 tailwind	wind blowing in the same direction as the path of a ship or aircraft
 tailwinds	TAILWIND: wind blowing in the same direction as the path of a ship or aircraft
 taint	the state of being contaminated
@@ -179,7 +179,7 @@ takins	TAKIN: large heavily built goat antelope of eastern Himalayan area
 takkie	a rubber-soled canvas sports shoe
 takkies	TAKKIE: a rubber-soled canvas sports shoe
 talc	a fine grained mineral having a soft soapy feel and consisting of hydrated magnesium silicate; used in a variety of products including talcum powder
-talcum	a fine grained mineral having a soft soapy feel and consisting of hydrated magnesium silicate; used in a variety of products including talcum powder
+talcum	a toilet powder made of purified talc and usually scented; absorbs excess moisture
 tale	a message that tells the particulars of an act or occurrence or course of events; presented in writing or drama or cinema or as a radio or television program
 talent	natural abilities or qualities
 talented	endowed with talent or talents
@@ -227,8 +227,8 @@ talus	a sloping mass of loose rocks at the base of a cliff
 taluses	TALUS: a sloping mass of loose rocks at the base of a cliff
 tam	a woolen cap of Scottish origin
 tamable	capable of being tamed
-tamale	a city in northern Ghana
-tamales	TAMALE: a city in northern Ghana
+tamale	dough stuffed with a meat mixture and sometimes wrapped in corn husks and steamed
+tamales	TAMALE: dough stuffed with a meat mixture and sometimes wrapped in corn husks and steamed
 tamarack	medium-sized larch of Canada and northern United States including Alaska having a broad conic crown and rust-brown scaly bark
 tamaracks	TAMARACK: medium-sized larch of Canada and northern United States including Alaska having a broad conic crown and rust-brown scaly bark
 tamarin	small South American marmoset with silky fur and long nonprehensile tail
@@ -241,15 +241,15 @@ tame	correct by punishment or discipline
 tameable	capable of being tamed
 tamed	TAME: correct by punishment or discipline
 tamely	in a tame manner
-tameness	the quality of being vapid and unsophisticated
+tameness	the attribute of having been domesticated
 tamer	TAME: correct by punishment or discipline
 tamers	TAMER: an animal trainer who tames wild animals
 tames	TAME: correct by punishment or discipline
 tamest	TAME: correct by punishment or discipline
 taming	TAME: correct by punishment or discipline
 tamoxifen	an antagonist for estrogen that is used in the treatment of breast cancer
-tamp	a tool for tamping (e.g., for tamping tobacco into a pipe bowl or a charge into a drill hole etc.)
-tamped	TAMP: a tool for tamping (e.g., for tamping tobacco into a pipe bowl or a charge into a drill hole etc.)
+tamp	press down tightly
+tamped	TAMP: press down tightly
 tamper	play around with or alter or falsify, usually secretively or dishonestly
 tampered	TAMPER: play around with or alter or falsify, usually secretively or dishonestly
 tamperer	a person who interferes with something without permission
@@ -257,16 +257,16 @@ tamperers	TAMPERER: a person who interferes with something without permission
 tampering	the act of altering something secretly or improperly
 tamperproof	designed so it cannot be interfered with
 tampers	TAMPER: play around with or alter or falsify, usually secretively or dishonestly
-tamping	TAMP: a tool for tamping (e.g., for tamping tobacco into a pipe bowl or a charge into a drill hole etc.)
+tamping	TAMP: press down tightly
 tampon	plug of cotton or other absorbent material; inserted into wound or body cavity to absorb exuded fluids (especially blood)
 tampons	TAMPON: plug of cotton or other absorbent material; inserted into wound or body cavity to absorb exuded fluids (especially blood)
-tamps	TAMP: a tool for tamping (e.g., for tamping tobacco into a pipe bowl or a charge into a drill hole etc.)
+tamps	TAMP: press down tightly
 tams	TAM: a woolen cap of Scottish origin
 tan	a browning of the skin resulting from exposure to the rays of the sun
 tanager	any of numerous New World woodland birds having brightly colored males
 tanagers	TANAGER: any of numerous New World woodland birds having brightly colored males
-tandem	an arrangement of two or more objects or persons one behind another
-tandems	TANDEM: an arrangement of two or more objects or persons one behind another
+tandem	a bicycle with two sets of pedals and two seats
+tandems	TANDEM: a bicycle with two sets of pedals and two seats
 tandoori	cooked in a clay oven in the Indian style
 tang	a tart spicy quality
 tangelo	large sweet juicy hybrid between tangerine and grapefruit having a thick wrinkled skin
@@ -306,7 +306,7 @@ tanks	TANK: an enclosed armored military vehicle; has a cannon and moves on cate
 tanned	(of skin) having a tan color from exposure to the sun
 tanner	TAN: a browning of the skin resulting from exposure to the rays of the sun
 tanneries	TANNERY: workplace where skins and hides are tanned
-tanners	TANNER: a small coin of the United Kingdom worth six pennies; not minted since 1970
+tanners	TANNER: a craftsman who tans skins and hides
 tannery	workplace where skins and hides are tanned
 tannest	TAN: a browning of the skin resulting from exposure to the rays of the sun
 tannin	any of various complex phenolic substances of plant origin; used in tanning and in medicine
@@ -329,7 +329,7 @@ tantamount	being essentially equal to something
 tantrum	a display of bad temper
 tantrums	TANTRUM: a display of bad temper
 tap	cut a female screw thread with a tap
-tapas	TAPA: the thin fibrous bark of the paper mulberry and Pipturus albidus
+tapas	TAPA: a paperlike cloth made in the South Pacific by pounding tapa bark
 tapdance	dance and make rhythmic clicking sounds by means of metal plates nailed to the sole of the dance shoes
 tapdanced	TAPDANCE: dance and make rhythmic clicking sounds by means of metal plates nailed to the sole of the dance shoes
 tapdances	TAPDANCE: dance and make rhythmic clicking sounds by means of metal plates nailed to the sole of the dance shoes
@@ -353,7 +353,7 @@ tapir	large inoffensive chiefly nocturnal ungulate of tropical America and south
 tapirs	TAPIR: large inoffensive chiefly nocturnal ungulate of tropical America and southeast Asia having a heavy body and fleshy snout
 tapped	TAP: cut a female screw thread with a tap
 tapper	TAP: cut a female screw thread with a tap
-tappers	TAPPER: a tavern keeper who taps kegs or casks
+tappers	TAPPER: a person who strikes a surface lightly and usually repeatedly
 tapping	the sound of light blow or knock
 taproom	a room or establishment where alcoholic drinks are served over a counter
 taprooms	TAPROOM: a room or establishment where alcoholic drinks are served over a counter
@@ -362,16 +362,16 @@ taproots	TAPROOT: main root of a plant growing straight downward from the stem
 taps	TAP: cut a female screw thread with a tap
 tar	any of various dark heavy viscid substances obtained as a residue
 taramasalata	a creamy pink Greek dip made from fish roe
-tarantella	music composed in six-eight time for dancing the tarantella
-tarantellas	TARANTELLA: music composed in six-eight time for dancing the tarantella
-tarantula	large southern European spider once thought to be the cause of tarantism (uncontrollable bodily movement)
+tarantella	a lively whirling Italian dance for two persons
+tarantellas	TARANTELLA: a lively whirling Italian dance for two persons
+tarantula	large hairy tropical spider with fangs that can inflict painful but not highly venomous bites
 tarantulae	TARANTULA: a large hairy spider
-tarantulas	TARANTULA: large southern European spider once thought to be the cause of tarantism (uncontrollable bodily movement)
+tarantulas	TARANTULA: large hairy tropical spider with fangs that can inflict painful but not highly venomous bites
 tarball	a single file that bundles many files together
 tarballs	TARBALL: a single file that bundles many files together
 tardier	TARDY: after the expected or usual time; delayed
 tardiest	TARDY: after the expected or usual time; delayed
-tardily	without speed (`slow' is sometimes used informally for `slowly')
+tardily	later than usual or than expected
 tardiness	the quality or habit of not adhering to a correct or usual or expected time
 tardy	after the expected or usual time; delayed
 tare	an adjustment made for the weight of the packaging in order to determine the net weight of the goods
@@ -386,10 +386,10 @@ targetting	TARGET: a reference point to shoot at
 tariff	a government tax on imports or exports
 tariffs	TARIFF: a government tax on imports or exports
 taring	TAR: any of various dark heavy viscid substances obtained as a residue
-tarmac	a paving material of tar and broken stone; mixed in a factory and shaped during paving
+tarmac	a paved surface having compressed layers of broken rocks held together with tar
 tarmacked	TARMAC: surface a road with tar and crushed stone
 tarmacking	TARMAC: surface a road with tar and crushed stone
-tarmacs	TARMAC: a paving material of tar and broken stone; mixed in a factory and shaped during paving
+tarmacs	TARMAC: a paved surface having compressed layers of broken rocks held together with tar
 tarn	a mountain lake (especially one formed by glaciers)
 tarnation	a mild exclamation of annoyance
 tarnish	make dirty or spotty, as by exposure to air; also used metaphorically
@@ -424,14 +424,14 @@ tarsiers	TARSIER: nocturnal arboreal primate of Indonesia and the Philippines ha
 tart	tasting sour like a lemon
 tartan	a cloth having a crisscross design
 tartans	TARTAN: a cloth having a crisscross design
-tartar	a salt used especially in baking powder
-tartars	TARTAR: a salt used especially in baking powder
+tartar	an incrustation that forms on the teeth and gums
+tartars	TARTAR: an incrustation that forms on the teeth and gums
 tarted	TART: dress up in a showy or gaudy way
 tarter	TART: tasting sour like a lemon
 tartest	TART: tasting sour like a lemon
 tarting	TART: dress up in a showy or gaudy way
 tartly	in a tart manner
-tartness	the taste experience when vinegar or lemon juice is taken into the mouth
+tartness	a sharp sour taste
 tartrate	a salt or ester of tartaric acid
 tarts	TART: tasting sour like a lemon
 tarty	cheap, showy or sexually provocative in appearance
@@ -471,7 +471,7 @@ tastier	TASTY: pleasing to the sense of taste
 tastiest	TASTY: pleasing to the sense of taste
 tastiness	a pleasing palatability
 tasting	TASTE: the sensation that results when taste buds in the tongue and throat convey information about the chemical composition of a soluble stimulus
-tastings	TASTING: a small amount (especially of food or wine)
+tastings	TASTING: taking a small amount into the mouth to test its quality
 tasty	pleasing to the sense of taste
 tat	make lacework by knotting or looping
 tatami	a woven straw mat used as flooring in Japanese rooms
@@ -493,22 +493,22 @@ tattiest	TATTIE: a potato
 tattily	in a cheap manner
 tattiness	the quality of being tatty
 tatting	TAT: make lacework by knotting or looping
-tattle	disclosing information or giving evidence about another
-tattled	TATTLE: disclosing information or giving evidence about another
+tattle	divulge confidential information or secrets
+tattled	TATTLE: divulge confidential information or secrets
 tattler	someone who gossips indiscreetly
 tattlers	TATTLER: someone who gossips indiscreetly
-tattles	TATTLE: disclosing information or giving evidence about another
+tattles	TATTLE: divulge confidential information or secrets
 tattletale	someone who gossips indiscreetly
 tattletales	TATTLETALE: someone who gossips indiscreetly
 tattling	prone to communicate confidential information
-tattoo	a drumbeat or bugle call that signals the military to return to their quarters
-tattooed	TATTOO: a drumbeat or bugle call that signals the military to return to their quarters
+tattoo	a design on the skin made by tattooing
+tattooed	TATTOO: a design on the skin made by tattooing
 tattooer	a person who tattoos skin
 tattooers	TATTOOER: a person who tattoos skin
-tattooing	TATTOO: a drumbeat or bugle call that signals the military to return to their quarters
+tattooing	TATTOO: a design on the skin made by tattooing
 tattooist	a person who tattoos skin
 tattooists	TATTOOIST: a person who tattoos skin
-tattoos	TATTOO: a drumbeat or bugle call that signals the military to return to their quarters
+tattoos	TATTOO: a design on the skin made by tattooing
 tatty	showing signs of wear and tear
 taught	TEACH: impart skills or knowledge to
 taunt	aggravation by deriding or mocking or criticizing
@@ -521,10 +521,10 @@ taunts	TAUNT: aggravation by deriding or mocking or criticizing
 taupe	a greyish brown
 taurine	a colorless crystalline substance obtained from the bile of mammals
 taut	pulled or drawn tight
-tauten	become taut or tauter
-tautened	TAUTEN: become taut or tauter
-tautening	TAUTEN: become taut or tauter
-tautens	TAUTEN: become taut or tauter
+tauten	make taut or tauter
+tautened	TAUTEN: make taut or tauter
+tautening	TAUTEN: make taut or tauter
+tautens	TAUTEN: make taut or tauter
 tauter	TAUT: pulled or drawn tight
 tautest	TAUT: pulled or drawn tight
 tautly	in a taut manner
@@ -532,11 +532,11 @@ tautness	the physical condition of being stretched or strained
 tautog	large dark-colored food fish of the Atlantic coast of North America
 tautogs	TAUTOG: large dark-colored food fish of the Atlantic coast of North America
 tautological	repetition of same sense in different words
-tautologies	TAUTOLOGY: a statement that is necessarily true
+tautologies	TAUTOLOGY: useless repetition
 tautologist	a person who says the same thing twice over in different words
 tautologists	TAUTOLOGIST: a person who says the same thing twice over in different words
 tautologous	repeating the same idea in different words
-tautology	a statement that is necessarily true
+tautology	useless repetition
 tavern	a building with a bar that is licensed to sell alcoholic drinks
 taverna	a small Greek restaurant
 taverns	TAVERN: a building with a bar that is licensed to sell alcoholic drinks
@@ -585,8 +585,8 @@ tea	a beverage made by steeping tea leaves in water
 teabag	a small porous pouch of tea leaves for brewing
 teabags	TEABAG: a small porous pouch of tea leaves for brewing
 teabread	a sweet bread containing dried fruit, eaten sliced and buttered
-teacake	flat semisweet cookie or biscuit usually served with tea
-teacakes	TEACAKE: flat semisweet cookie or biscuit usually served with tea
+teacake	any of various small cakes or cookies often served with tea
+teacakes	TEACAKE: any of various small cakes or cookies often served with tea
 teach	impart skills or knowledge to
 teachable	ready and willing to be taught
 teacher	a person whose occupation is teaching
@@ -594,8 +594,8 @@ teachers	TEACHER: a person whose occupation is teaching
 teaches	TEACH: impart skills or knowledge to
 teaching	the profession of a teacher
 teachings	TEACHING: the profession of a teacher
-teacup	as much as a teacup will hold
-teacups	TEACUP: as much as a teacup will hold
+teacup	a cup from which tea is drunk
+teacups	TEACUP: a cup from which tea is drunk
 teahouse	a restaurant where tea and light meals are available
 teahouses	TEAHOUSE: a restaurant where tea and light meals are available
 teak	hard strong durable yellowish-brown wood of teak trees; resistant to insects and to warping; used for furniture and in shipbuilding
@@ -621,8 +621,8 @@ teapots	TEAPOT: pot for brewing tea; usually has a spout and handle
 tear	separate or cause to separate abruptly
 tearaway	a reckless and impetuous person
 tearaways	TEARAWAY: a reckless and impetuous person
-teardrop	anything shaped like a falling drop (as a pendant gem on an earring)
-teardrops	TEARDROP: anything shaped like a falling drop (as a pendant gem on an earring)
+teardrop	a drop of the clear salty saline solution secreted by the lacrimal glands
+teardrops	TEARDROP: a drop of the clear salty saline solution secreted by the lacrimal glands
 teared	TEAR: separate or cause to separate abruptly
 tearer	a person or thing that rips
 tearers	TEARER: a person or thing that rips
@@ -648,17 +648,17 @@ tease	annoy persistently
 teased	TEASE: annoy persistently
 teasel	any of several herbs of the genus Dipsacus native to the Old World having flower heads surrounded by spiny bracts
 teasels	TEASEL: any of several herbs of the genus Dipsacus native to the Old World having flower heads surrounded by spiny bracts
-teaser	a worker who teases wool
-teasers	TEASER: a worker who teases wool
+teaser	someone given to teasing (as by mocking or stirring curiosity)
+teasers	TEASER: someone given to teasing (as by mocking or stirring curiosity)
 teases	TEASE: annoy persistently
 teashop	a restaurant where tea and light meals are available
 teashops	TEASHOP: a restaurant where tea and light meals are available
 teasing	the act of harassing someone playfully or maliciously (especially by ridicule); provoking someone with persistent annoyances
 teasingly	in a playfully teasing manner
-teaspoon	as much as a teaspoon will hold
+teaspoon	a small spoon used for stirring tea or coffee; holds about one fluid dram
 teaspoonful	as much as a teaspoon will hold
 teaspoonfuls	TEASPOONFUL: as much as a teaspoon will hold
-teaspoons	TEASPOON: as much as a teaspoon will hold
+teaspoons	TEASPOON: a small spoon used for stirring tea or coffee; holds about one fluid dram
 teaspoonsful	TEASPOONFUL: the amount a teaspoon holds
 teat	the small projection of a mammary gland
 teatime	a light midafternoon meal of tea and sandwiches or cakes
@@ -674,8 +674,8 @@ techies	TECHIE: a technician who is highly proficient and enthusiastic about som
 technetium	a crystalline metallic element not found in nature; occurs as one of the fission products of uranium
 technic	technique
 technical	of or relating to technique or proficiency in a practical skill
-technicalities	TECHNICALITY: the state of being technical as in the use of technical terms or methods
-technicality	the state of being technical as in the use of technical terms or methods
+technicalities	TECHNICALITY: a specific detail in a set of rules or terms belonging to a particular field
+technicality	a specific detail in a set of rules or terms belonging to a particular field
 technically	with regard to technique
 technician	someone whose occupation involves training in a specific technical process
 technicians	TECHNICIAN: someone whose occupation involves training in a specific technical process
@@ -704,7 +704,7 @@ technophobes	TECHNOPHOBE: a person who dislikes or avoids new technology
 techs	TECH: a school teaching mechanical and industrial arts and the applied sciences
 techy	easily irritated or annoyed
 tectonic	pertaining to the structure or movement of the earth's crust
-tectonics	the science of architecture
+tectonics	the branch of geology studying the folding and faulting of the earth's crust
 ted	a tough youth of 1950's and 1960's wearing Edwardian style clothes
 teddies	TEDDY: plaything consisting of a child's toy bear (usually plush and stuffed with soft materials)
 teddy	plaything consisting of a child's toy bear (usually plush and stuffed with soft materials)
@@ -750,7 +750,7 @@ teethe	grow teeth; cut the baby teeth
 teethed	TEETHE: grow teeth; cut the baby teeth
 teethes	TEETHE: grow teeth; cut the baby teeth
 teething	the eruption through the gums of baby teeth
-teetotal	practice teetotalism and abstain from the consumption of alcoholic beverages
+teetotal	practicing complete abstinence from alcoholic beverages
 teetotaler	a total abstainer
 teetotalers	TEETOTALER: a total abstainer
 teetotaller	a total abstainer
@@ -858,8 +858,8 @@ telexed	TELEX: a character printer connected to a telegraph that operates like a
 telexes	TELEX: a character printer connected to a telegraph that operates like a typewriter
 telexing	TELEX: a character printer connected to a telegraph that operates like a typewriter
 tell	express in words
-teller	United States physicist (born in Hungary) who worked on the first atom bomb and the first hydrogen bomb (1908-2003)
-tellers	TELLER: United States physicist (born in Hungary) who worked on the first atom bomb and the first hydrogen bomb (1908-2003)
+teller	an employee of a bank who receives and pays out money
+tellers	TELLER: an employee of a bank who receives and pays out money
 tellies	TELLY: an electronic device that receives television signals and displays them on a screen
 telling	disclosing unintentionally something concealed
 tellingly	in a telling manner
@@ -877,7 +877,7 @@ temped	TEMP: work as a temporary employee
 temper	a sudden outburst of anger
 tempera	pigment mixed with water-soluble glutinous materials such as size and egg yolk
 temperament	your usual mood
-temperamental	relating to or caused by temperament
+temperamental	subject to sharply varying moods
 temperamentally	by temperament
 temperaments	TEMPERAMENT: your usual mood
 temperance	the trait of avoiding excesses
@@ -932,7 +932,7 @@ tempura	vegetables and seafood dipped in batter and deep-fried
 ten	the cardinal number that is the sum of nine and one; the base of the decimal system
 tenability	the quality of being plausible or acceptable to a reasonable person
 tenable	based on sound reasoning or evidence
-tenacious	good at remembering
+tenacious	stubbornly unyielding
 tenaciously	with obstinate determination
 tenacity	persistent determination
 tenancies	TENANCY: an act of being a tenant or occupant
@@ -956,7 +956,7 @@ tenderest	TENDER: given to sympathy or gentleness or sentimentality
 tenderfeet	TENDERFOOT: a newcomer unused to hard conditions
 tenderfoot	an inexperienced person (especially someone inexperienced in outdoor living)
 tenderfoots	TENDERFOOT: an inexperienced person (especially someone inexperienced in outdoor living)
-tenderhearted	easily moved to love
+tenderhearted	easily moved by another's distress
 tendering	TENDER: given to sympathy or gentleness or sentimentality
 tenderise	make tender or more tender as by marinating, pounding, or applying a tenderizer
 tenderised	made tender as by marinating or pounding
@@ -970,8 +970,8 @@ tenderizer	a substance (as the plant enzyme papain) applied to meat to make it t
 tenderizers	TENDERIZER: a substance (as the plant enzyme papain) applied to meat to make it tender
 tenderizes	TENDERIZE: make tender or more tender as by marinating, pounding, or applying a tenderizer
 tenderizing	TENDERIZE: make tender or more tender as by marinating, pounding, or applying a tenderizer
-tenderloin	a city district known for its vice and high crime rate
-tenderloins	TENDERLOIN: a city district known for its vice and high crime rate
+tenderloin	the tender meat of the loin muscle on each side of the vertebral column
+tenderloins	TENDERLOIN: the tender meat of the loin muscle on each side of the vertebral column
 tenderly	with tenderness; in a tender manner
 tenderness	a tendency to express warm and affectionate feeling
 tenders	TENDER: given to sympathy or gentleness or sentimentality
@@ -994,8 +994,8 @@ tenements	TENEMENT: a run-down apartment house barely meeting minimal standards
 tenet	a religious doctrine that is proclaimed as true without proof
 tenets	TENET: a religious doctrine that is proclaimed as true without proof
 tenfold	by ten times as much
-tenner	TEN: the cardinal number that is the sum of nine and one; the base of the decimal system
-tenners	TENNER: the cardinal number that is the sum of nine and one; the base of the decimal system
+tenner	a ten-dollar or ten-pound note
+tenners	TENNER: a ten-dollar or ten-pound note
 tennis	a game played with rackets by two or four players who hit a ball back and forth over a net that divides the court
 tenon	a projection at the end of a piece of wood that is shaped to fit into a mortise and form a mortise joint
 tenoned	TENON: join with a projecting wooden peg fitted into a slot
@@ -1013,7 +1013,7 @@ tens	TEN: the cardinal number that is the sum of nine and one; the base of the d
 tense	a grammatical category of verbs used to express distinctions of time
 tensed	TENSE: a grammatical category of verbs used to express distinctions of time
 tensely	in a tense manner
-tenseness	the physical condition of being stretched or strained
+tenseness	a state of mental or emotional strain or suspense
 tenser	TENSE: a grammatical category of verbs used to express distinctions of time
 tenses	TENSE: a grammatical category of verbs used to express distinctions of time
 tensest	TENSE: a grammatical category of verbs used to express distinctions of time
@@ -1041,7 +1041,7 @@ tenth	a tenth part; one part in ten equal parts
 tenths	TENTH: a tenth part; one part in ten equal parts
 tenting	the act of encamping and living in tents in a camp
 tents	TENT: a portable shelter (usually of canvas stretched over supporting poles and fastened to the ground with ropes and pegs)
-tenuous	having thin consistency
+tenuous	lacking substance or significance
 tenuously	in a tenuous manner
 tenuousness	the quality of being tenuous
 tenure	the term during which some position is held
@@ -1090,15 +1090,15 @@ terminologies	TERMINOLOGY: a system of words used to name things in a particular
 terminologist	a person who studies or sets the terms used in a field
 terminologists	TERMINOLOGIST: a person who studies or sets the terms used in a field
 terminology	a system of words used to name things in a particular discipline
-terminus	a place where something ends or is complete
-terminuses	TERMINUS: a place where something ends or is complete
+terminus	station where transport vehicles load or unload passengers or goods
+terminuses	TERMINUS: station where transport vehicles load or unload passengers or goods
 termite	whitish soft-bodied ant-like social insect that feeds on wood
 termites	TERMITE: whitish soft-bodied ant-like social insect that feeds on wood
 termly	in a term way
 terms	status with respect to the relations between people or groups
 tern	small slender gull having narrow wings and a forked tail
-ternaries	TERNARY: the cardinal number that is the sum of one and one and one
-ternary	the cardinal number that is the sum of one and one and one
+ternaries	TERNARY: having three units or components or elements
+ternary	having three units or components or elements
 terns	TERN: small slender gull having narrow wings and a forked tail
 terpenes	TERPENE: an unsaturated hydrocarbon obtained from plants
 terrace	usually paved outdoor area adjoining a residence
@@ -1140,10 +1140,10 @@ territorials	TERRITORIAL: of or relating to a territory
 territories	TERRITORY: a region marked off for administrative or other purposes
 territory	a region marked off for administrative or other purposes
 terror	an overwhelming feeling of fear and anxiety
-terrorise	coerce by violence or with threats
-terrorised	TERRORISE: coerce by violence or with threats
-terrorises	TERRORISE: coerce by violence or with threats
-terrorising	TERRORISE: coerce by violence or with threats
+terrorise	fill with terror; frighten greatly
+terrorised	TERRORISE: fill with terror; frighten greatly
+terrorises	TERRORISE: fill with terror; frighten greatly
+terrorising	TERRORISE: fill with terror; frighten greatly
 terrorism	the calculated use of violence (or the threat of violence) against civilians in order to attain goals that are political or religious or ideological in nature; this is done through intimidation or coercion or instilling fear
 terrorist	a radical who employs terror as a political weapon; usually organizes with other terrorists in small cells; often uses religion as a cover for terrorist activities
 terroristic	using or threatening terror
@@ -1153,16 +1153,16 @@ terrorized	TERRORIZE: coerce by violence or with threats
 terrorizes	TERRORIZE: coerce by violence or with threats
 terrorizing	TERRORIZE: coerce by violence or with threats
 terrors	TERROR: an overwhelming feeling of fear and anxiety
-terry	English actress (1847-1928)
+terry	a pile fabric (usually cotton) with uncut loops on both sides; used to make bath towels and bath robes
 terrycloth	a pile fabric (usually cotton) with uncut loops on both sides; used to make bath towels and bath robes
 terse	brief and to the point; effectively cut short
 tersely	in a short and concise manner
 terseness	a neatly short and concise expressive style
 terser	TERSE: brief and to the point; effectively cut short
 tersest	TERSE: brief and to the point; effectively cut short
-tertiary	from 63 million to 2 million years ago
+tertiary	coming next after the second and just before the fourth in position
 tessellate	fit together exactly, of identical shapes
-tessellated	having a checkered or mottled appearance
+tessellated	decorated with small pieces of colored glass or stone fitted together in a mosaic
 tessellates	TESSELLATE: fit together exactly, of identical shapes
 tessellating	TESSELLATE: fit together exactly, of identical shapes
 tessellation	the careful juxtaposition of shapes in a pattern
@@ -1172,8 +1172,8 @@ testable	able to be tested
 testament	a profession of belief
 testamentary	of or relating to a will or testament or bequeathed by a will or testament
 testaments	TESTAMENT: a profession of belief
-testate	a person who makes a will
-testates	TESTATE: a person who makes a will
+testate	having made a legally valid will before death
+testates	TESTATE: having made a legally valid will before death
 testator	a person who makes a will
 testators	TESTATOR: a person who makes a will
 testbed	a platform or setting for trying out new technology
@@ -1254,10 +1254,10 @@ thanes	THAN: introduces the second part of a comparison
 thank	express gratitude or show appreciation to
 thanked	THANK: express gratitude or show appreciation to
 thankful	feeling or showing gratitude
-thankfully	in a thankful manner; with thanks
+thankfully	let us be thankful that
 thankfulness	warm friendly feelings of gratitude
 thanking	THANK: express gratitude or show appreciation to
-thankless	not feeling or showing gratitude
+thankless	not likely to be rewarded
 thanklessly	in a thankless way
 thanklessness	the quality of being thankless
 thanks	an acknowledgment of appreciation
@@ -1268,8 +1268,8 @@ thankyous	THANKYOU: an expression of gratitude
 that	the one there, or the one already mentioned
 thatch	hair resembling thatched roofing material
 thatched	THATCH: hair resembling thatched roofing material
-thatcher	British stateswoman; first woman to serve as Prime Minister (born in 1925)
-thatchers	THATCHER: British stateswoman; first woman to serve as Prime Minister (born in 1925)
+thatcher	someone skilled in making a roof from plant stalks or foliage
+thatchers	THATCHER: someone skilled in making a roof from plant stalks or foliage
 thatches	THATCH: hair resembling thatched roofing material
 thatching	THATCH: hair resembling thatched roofing material
 thaw	the process whereby heat changes something from a solid to a liquid
@@ -1355,8 +1355,8 @@ therapist	a person skilled in a particular type of therapy
 therapists	THERAPIST: a person skilled in a particular type of therapy
 therapy	the act of caring for someone (as by medication or remedial training etc.)
 there	in or at that place or location
-thereabout	near that time or date
-thereabouts	near that time or date
+thereabout	near that place
+thereabouts	near that place
 thereafter	from that time on
 thereby	by that means or because of that
 therefor	(in formal usage, especially legal usage) for that or for it
@@ -1442,14 +1442,14 @@ thigh	the part of the leg between the hip and the knee
 thighbone	the longest and thickest bone of the human skeleton; extends from the pelvis to the knee
 thighbones	THIGHBONE: the longest and thickest bone of the human skeleton; extends from the pelvis to the knee
 thighs	THIGH: the part of the leg between the hip and the knee
-thimble	as much as a thimble will hold
+thimble	a small metal cap to protect the finger while sewing; can be used as a small container
 thimbleful	as much as a thimble will hold
 thimblefuls	THIMBLEFUL: as much as a thimble will hold
 thimblerig	a swindling sleight-of-hand game; victim guesses which of three things a pellet is under
 thimblerigged	THIMBLERIG: a swindling sleight-of-hand game; victim guesses which of three things a pellet is under
 thimblerigging	THIMBLERIG: a swindling sleight-of-hand game; victim guesses which of three things a pellet is under
 thimblerigs	THIMBLERIG: a swindling sleight-of-hand game; victim guesses which of three things a pellet is under
-thimbles	THIMBLE: as much as a thimble will hold
+thimbles	THIMBLE: a small metal cap to protect the finger while sewing; can be used as a small container
 thin	of relatively small extent from one surface to the opposite or in cross section
 thine	belonging to you, in old-fashioned speech
 thing	a special situation
@@ -1506,20 +1506,20 @@ thongs	THONG: leather strip that forms the flexible part of a whip
 thoraces	THORAX: the chest
 thoracic	of or relating to the chest or thorax
 thoracotomy	surgical incision into the chest walls opening up the pleural cavity
-thorax	the middle region of the body of an arthropod between the head and the abdomen
-thoraxes	THORAX: the middle region of the body of an arthropod between the head and the abdomen
+thorax	the part of the human torso between the neck and the diaphragm or the corresponding part in other vertebrates
+thoraxes	THORAX: the part of the human torso between the neck and the diaphragm or the corresponding part in other vertebrates
 thorium	a soft silvery-white tetravalent radioactive metallic element; isotope 232 is used as a power source in nuclear reactors; occurs in thorite and in monazite sands
 thorn	something that causes irritation and annoyance
 thorned	having thorns
-thornier	THORNY: bristling with perplexities
-thorniest	THORNY: bristling with perplexities
+thornier	THORNY: having or covered with protective barbs or quills or spines or thorns or setae etc.
+thorniest	THORNY: having or covered with protective barbs or quills or spines or thorns or setae etc.
 thornily	in a prickly or difficult way
 thorniness	the quality of being covered with prickly thorns or spines
 thorns	THORN: something that causes irritation and annoyance
-thorny	bristling with perplexities
+thorny	having or covered with protective barbs or quills or spines or thorns or setae etc.
 thorough	painstakingly careful and accurate
-thoroughbred	a well-bred person
-thoroughbreds	THOROUGHBRED: a well-bred person
+thoroughbred	a racehorse belonging to a breed that originated from a cross between Arabian stallions and English mares
+thoroughbreds	THOROUGHBRED: a racehorse belonging to a breed that originated from a cross between Arabian stallions and English mares
 thorougher	THOROUGH: painstakingly careful and accurate
 thoroughest	THOROUGH: painstakingly careful and accurate
 thoroughfare	a public road from one place to another
@@ -1533,7 +1533,7 @@ though	however
 thought	the content of cognition; the main thing you are thinking about
 thoughtful	having intellectual depth
 thoughtfully	in a thoughtful manner
-thoughtfulness	a calm, lengthy, intent consideration
+thoughtfulness	kind and considerate regard for others
 thoughtless	showing lack of careful thought
 thoughtlessly	in a thoughtless manner
 thoughtlessness	the quality of failing to be considerate of others
@@ -1541,21 +1541,21 @@ thoughts	THOUGHT: the content of cognition; the main thing you are thinking abou
 thous	THOU: the cardinal number that is the product of 10 and 100
 thousand	the cardinal number that is the product of 10 and 100
 thousands	THOUSAND: the cardinal number that is the product of 10 and 100
-thousandth	position 1,000 in a countable series of things
-thousandths	THOUSANDTH: position 1,000 in a countable series of things
+thousandth	one part in a thousand equal parts
+thousandths	THOUSANDTH: one part in a thousand equal parts
 thraldom	the state of being under the control of another person
-thrall	the state of being under the control of another person
+thrall	someone held in bondage
 thralldom	the state of being under the control of another person
 thralled	THRALL: hold in bondage or fascination
 thralling	THRALL: hold in bondage or fascination
-thralls	THRALL: the state of being under the control of another person
+thralls	THRALL: someone held in bondage
 thrash	give a thrashing to; beat hard
 thrashed	THRASH: give a thrashing to; beat hard
 thrasher	a farm machine for separating seeds or grain from the husks and straw
 thrashers	THRASHER: a farm machine for separating seeds or grain from the husks and straw
 thrashes	THRASH: give a thrashing to; beat hard
 thrashing	THRASH: give a thrashing to; beat hard
-thrashings	THRASHING: a sound defeat
+thrashings	THRASHING: the act of inflicting corporal punishment with repeated blows
 thread	to move or cause to move in a sinuous, spiral, or circular course
 threadbare	repeated too often; overfamiliar through overuse
 threadbareness	the quality of being threadbare
@@ -1578,12 +1578,12 @@ threats	THREAT: something that is a source of danger
 three	the cardinal number that is the sum of one and one and one
 threefold	three times as great or many
 threepence	former cupronickel coin of the United Kingdom equal to three pennies
-threepenny	used of nail size; 1 1/8 in long
+threepenny	of trifling worth
 threes	THREE: the cardinal number that is the sum of one and one and one
 threescore	a set with 3 times 20 members
 threescores	THREESCORE: a set with 3 times 20 members
-threesome	the cardinal number that is the sum of one and one and one
-threesomes	THREESOME: the cardinal number that is the sum of one and one and one
+threesome	three people considered as a unit
+threesomes	THREESOME: three people considered as a unit
 threnodies	THRENODY: a song or hymn of mourning composed or performed as a memorial to a dead person
 threnody	a song or hymn of mourning composed or performed as a memorial to a dead person
 threonine	a colorless crystalline amino acid found in protein; occurs in the hydrolysates of certain proteins; an essential component of human nutrition
@@ -1597,12 +1597,12 @@ threshold	the starting point for a new state or experience
 thresholds	THRESHOLD: the starting point for a new state or experience
 threw	THROW: propel through the air
 thrice	three times
-thrift	any of numerous sun-loving low-growing evergreens of the genus Armeria having round heads of pink or white flowers
+thrift	extreme care in spending money; reluctance to spend money unnecessarily
 thriftier	THRIFTY: careful and diligent in the use of resources
 thriftiest	THRIFTY: careful and diligent in the use of resources
 thriftily	in a thrifty manner
 thriftiness	frugality in the expenditure of money or resources
-thrifts	THRIFT: any of numerous sun-loving low-growing evergreens of the genus Armeria having round heads of pink or white flowers
+thrifts	THRIFT: extreme care in spending money; reluctance to spend money unnecessarily
 thrifty	careful and diligent in the use of resources
 thrill	the swift release of a store of affective force
 thrilled	THRILL: the swift release of a store of affective force
@@ -1656,25 +1656,25 @@ throughway	a broad highway designed for high-speed traffic
 throughways	THROUGHWAY: a broad highway designed for high-speed traffic
 throve	THRIVE: grow or do well
 throw	propel through the air
-throwaway	(sometimes offensive) a homeless boy who has been abandoned and roams the streets
-throwaways	THROWAWAY: (sometimes offensive) a homeless boy who has been abandoned and roams the streets
-throwback	an organism that has the characteristics of a more primitive type of that organism
-throwbacks	THROWBACK: an organism that has the characteristics of a more primitive type of that organism
-thrower	a person who twists silk or rayon filaments into a thread or yarn
-throwers	THROWER: a person who twists silk or rayon filaments into a thread or yarn
+throwaway	intended to be thrown away after use
+throwaways	THROWAWAY: intended to be thrown away after use
+throwback	a reappearance of an earlier characteristic
+throwbacks	THROWBACK: a reappearance of an earlier characteristic
+thrower	someone who projects something (especially by a rapid motion of the arm)
+throwers	THROWER: someone who projects something (especially by a rapid motion of the arm)
 throwing	THROW: propel through the air
 thrown	THROW: propel through the air
 throws	THROW: propel through the air
 thru	through
-thrum	a thrumming sound
-thrummed	THRUM: a thrumming sound
-thrumming	THRUM: a thrumming sound
-thrums	THRUM: a thrumming sound
-thrush	candidiasis of the oral cavity; seen mostly in infants or debilitated adults
-thrushes	THRUSH: candidiasis of the oral cavity; seen mostly in infants or debilitated adults
+thrum	sound the strings of (a stringed instrument)
+thrummed	THRUM: sound the strings of (a stringed instrument)
+thrumming	THRUM: sound the strings of (a stringed instrument)
+thrums	THRUM: sound the strings of (a stringed instrument)
+thrush	songbirds characteristically having brownish upper plumage with a spotted breast
+thrushes	THRUSH: songbirds characteristically having brownish upper plumage with a spotted breast
 thrust	push forcefully
-thruster	one who intrudes or pushes himself forward
-thrusters	THRUSTER: one who intrudes or pushes himself forward
+thruster	a small rocket engine that provides the thrust needed to maneuver a spacecraft
+thrusters	THRUSTER: a small rocket engine that provides the thrust needed to maneuver a spacecraft
 thrusting	THRUST: push forcefully
 thrusts	THRUST: push forcefully
 thruway	a broad highway designed for high-speed traffic
@@ -1715,8 +1715,8 @@ thunderclaps	THUNDERCLAP: a single sharp crash of thunder
 thundercloud	a dark cloud of great vertical extent charged with electricity; associated with thunderstorms
 thunderclouds	THUNDERCLOUD: a dark cloud of great vertical extent charged with electricity; associated with thunderstorms
 thundered	THUNDER: a deep prolonged loud noise
-thunderer	an epithet for Jupiter
-thunderers	THUNDERER: an epithet for Jupiter
+thunderer	a noisemaker that makes a sound like thunder
+thunderers	THUNDERER: a noisemaker that makes a sound like thunder
 thunderhead	a rounded projecting mass of a cumulus cloud with shining edges; often appears before a thunderstorm
 thunderheads	THUNDERHEAD: a rounded projecting mass of a cumulus cloud with shining edges; often appears before a thunderstorm
 thundering	sounding like thunder
@@ -1728,7 +1728,7 @@ thundershowers	THUNDERSHOWER: a short rainstorm accompanied by thunder and light
 thunderstorm	a storm resulting from strong rising air currents; heavy rain or hail along with thunder and lightning
 thunderstorms	THUNDERSTORM: a storm resulting from strong rising air currents; heavy rain or hail along with thunder and lightning
 thunderstruck	as if struck dumb with astonishment and surprise
-thundery	loud enough to cause (temporary) hearing loss
+thundery	accompanied with thunder
 thunk	a dull hollow sound
 thunked	THUNK: make a dull, heavy sound
 thunking	THUNK: make a dull, heavy sound
@@ -1754,14 +1754,14 @@ thylacines	THYLACINE: rare doglike carnivorous marsupial of Tasmania having stri
 thyme	a low aromatic herb whose small leaves are used in cooking
 thymi	THYMUS: a gland in the neck involved in immunity
 thymine	a base found in DNA (but not in RNA) and derived from pyrimidine; pairs with adenine
-thymus	large genus of Old World mints: thyme
-thymuses	THYMUS: large genus of Old World mints: thyme
+thymus	a ductless glandular organ at the base of the neck that produces lymphocytes and aids in producing immunity; atrophies with age
+thymuses	THYMUS: a ductless glandular organ at the base of the neck that produces lymphocytes and aids in producing immunity; atrophies with age
 thyroid	located near the base of the neck
 thyroiditis	inflammation of the thyroid gland
 thyroids	THYROID: located near the base of the neck
 thyroxine	hormone produced by the thyroid glands to regulate metabolism by controlling the rate of oxidation in cells
 thyself	yourself, in old-fashioned speech
-ti	a light strong grey lustrous corrosion-resistant metallic element used in strong lightweight alloys (as for airplane parts); the main sources are rutile and ilmenite
+ti	the syllable naming the seventh (subtonic) note of any musical scale in solmization
 tiara	a jeweled headdress worn by women on formal occasions
 tiaras	TIARA: a jeweled headdress worn by women on formal occasions
 tibia	the inner and thicker of the two bones of the human leg between the knee and ankle
@@ -1778,10 +1778,10 @@ ticketed	TICKET: a commercial document showing that the holder is entitled to so
 ticketing	TICKET: a commercial document showing that the holder is entitled to something (as to ride on public transportation or to enter a public entertainment)
 tickets	TICKET: a commercial document showing that the holder is entitled to something (as to ride on public transportation or to enter a public entertainment)
 ticking	TICK: a metallic tapping sound
-tickle	a cutaneous sensation often resulting from light stroking
-tickled	TICKLE: a cutaneous sensation often resulting from light stroking
+tickle	touch (a body part) lightly so as to excite the surface nerves and cause uneasiness, laughter, or spasmodic movements
+tickled	TICKLE: touch (a body part) lightly so as to excite the surface nerves and cause uneasiness, laughter, or spasmodic movements
 tickler	a file of memoranda or notices that remind of things to be done
-tickles	TICKLE: a cutaneous sensation often resulting from light stroking
+tickles	TICKLE: touch (a body part) lightly so as to excite the surface nerves and cause uneasiness, laughter, or spasmodic movements
 tickling	the act of tickling
 ticklish	difficult to handle; requiring great tact
 ticks	TICK: a metallic tapping sound
@@ -1808,15 +1808,15 @@ tidewaters	TIDEWATER: low-lying coastal land drained by tidal streams
 tideway	a channel in which a tidal current runs
 tideways	TIDEWAY: a channel in which a tidal current runs
 tidied	TIDY: make neat
-tidier	TIDY: receptacle that holds odds and ends (as sewing materials)
-tidies	TIDY: receptacle that holds odds and ends (as sewing materials)
-tidiest	TIDY: receptacle that holds odds and ends (as sewing materials)
+tidier	TIDY: marked by order and cleanliness in appearance or habits
+tidies	TIDY: marked by order and cleanliness in appearance or habits
+tidiest	TIDY: marked by order and cleanliness in appearance or habits
 tidily	in a tidy manner
-tidiness	the habit of being tidy
+tidiness	the trait of being neat and orderly
 tiding	TIDE: the periodic rise and fall of the sea level under the gravitational pull of the moon
 tidings	information about recent and important events
-tidy	receptacle that holds odds and ends (as sewing materials)
-tidying	TIDY: receptacle that holds odds and ends (as sewing materials)
+tidy	marked by order and cleanliness in appearance or habits
+tidying	TIDY: marked by order and cleanliness in appearance or habits
 tie	neckwear consisting of a long narrow piece of material worn (mostly by men) under a collar and tied in knot at the front
 tiebreak	a extra contest to decide a winner after a draw
 tiebreaker	TIEBREAK: a extra contest to decide a winner after a draw
@@ -1826,9 +1826,9 @@ tied	bound or secured closely
 tieing	TIE: neckwear consisting of a long narrow piece of material worn (mostly by men) under a collar and tied in knot at the front
 tiepin	a pin used to hold the tie in place
 tiepins	TIEPIN: a pin used to hold the tie in place
-tier	a relative position or degree of value in a graded group
+tier	one of two or more layers one atop another
 tiered	having or arranged in tiers
-tiers	TIER: a relative position or degree of value in a graded group
+tiers	TIER: one of two or more layers one atop another
 ties	TIE: neckwear consisting of a long narrow piece of material worn (mostly by men) under a collar and tied in knot at the front
 tiff	a quarrel about petty points
 tiffed	TIFF: have a minor quarrel
@@ -1850,7 +1850,7 @@ tightest	TIGHT: closely constrained or constricted or constricting
 tightfisted	unwilling to part with money
 tightknit	closely bound together
 tightly	in a tight or constricted manner
-tightness	a state occasioned by scarcity of money and a shortage of credit
+tightness	a tight feeling in some part of the body
 tightrope	tightly stretched rope or wire on which acrobats perform high above the ground
 tightropes	TIGHTROPE: tightly stretched rope or wire on which acrobats perform high above the ground
 tights	skintight knit hose covering the body from the waist to the feet worn by acrobats and dancers and as stockings by women and girls
@@ -1858,8 +1858,8 @@ tightwad	a miserly person
 tightwads	TIGHTWAD: a miserly person
 tigress	a female tiger
 tigresses	TIGRESS: a female tiger
-tike	a crude uncouth ill-bred person lacking culture or refinement
-tikes	TIKE: a crude uncouth ill-bred person lacking culture or refinement
+tike	a young person of either sex
+tikes	TIKE: a young person of either sex
 tikka	pieces of meat marinated in spices and cooked in a tandoor
 tikkas	TIKKA: pieces of meat marinated in spices and cooked in a tandoor
 til	until
@@ -1869,19 +1869,19 @@ tilde	a diacritical mark (~) placed over the letter n in Spanish to indicate a p
 tildes	TILDE: a diacritical mark (~) placed over the letter n in Spanish to indicate a palatal nasal sound or over a vowel in Portuguese to indicate nasalization
 tile	a flat thin rectangular slab (as of fired clay or rubber or linoleum) used to cover surfaces
 tiled	covered or furnished with tiles
-tilefish	important marine food fishes
+tilefish	yellow-spotted violet food fish of warm deep waters
 tiler	TIL: until
 tilers	TILER: a worker who lays tile
 tiles	TIL: until
 tiling	TIL: until
-till	unstratified soil deposited by a glacier; consists of sand and clay and gravel and boulders mixed together
+till	a strongbox for holding cash
 tillable	(of farmland) capable of being farmed productively
-tillage	arable land that is worked by plowing and sowing and raising crops
+tillage	the cultivation of soil for raising crops
 tilled	turned or stirred by plowing or harrowing or hoeing
 tiller	TIL: until
-tillers	TILLER: a shoot that sprouts from the base of a grass
+tillers	TILLER: lever used to turn the rudder on a boat
 tilling	TIL: until
-tills	TILL: unstratified soil deposited by a glacier; consists of sand and clay and gravel and boulders mixed together
+tills	TILL: a strongbox for holding cash
 tilt	to incline or bend from a vertical position
 tilted	departing or being caused to depart from the true vertical or horizontal
 tilter	someone who engages in a tilt or joust
@@ -1946,29 +1946,29 @@ timing	the time when something happens
 timings	TIMING: the time when something happens
 timorous	timid by nature or revealing timidity
 timorously	in a timorous and trepid manner
-timorousness	fear of the unknown or unfamiliar or fear of making decisions
+timorousness	fearfulness in venturing into new and unknown places or activities
 timpani	a large hemispherical brass or copper percussion instrument with a drumhead that can be tuned by adjusting the tension on it
 timpanist	a person who plays the kettledrums
 timpanists	TIMPANIST: a person who plays the kettledrums
 tin	a silvery malleable metallic element that resists corrosion; used in many alloys and to coat other metals to prevent corrosion; obtained chiefly from cassiterite where it occurs as tin oxide
-tincture	a substance that colors or dyes
-tinctured	TINCTURE: a substance that colors or dyes
-tinctures	TINCTURE: a substance that colors or dyes
-tincturing	TINCTURE: a substance that colors or dyes
+tincture	a medicine consisting of an extract in an alcohol solution
+tinctured	TINCTURE: a medicine consisting of an extract in an alcohol solution
+tinctures	TINCTURE: a medicine consisting of an extract in an alcohol solution
+tincturing	TINCTURE: a medicine consisting of an extract in an alcohol solution
 tinder	material for starting a fire
-tinderbox	a dangerous state of affairs; a situation that is a potential source of violence
-tinderboxes	TINDERBOX: a dangerous state of affairs; a situation that is a potential source of violence
+tinderbox	a box for holding tinder
+tinderboxes	TINDERBOX: a box for holding tinder
 tine	prong on a fork or pitchfork or antler
 tines	TINE: prong on a fork or pitchfork or antler
 tinfoil	foil made of tin or an alloy of tin and lead
 tinful	the amount a tin holds
 tinfuls	TINFUL: the amount a tin holds
 ting	a light clear metallic sound as of a small bell
-tinge	a slight but appreciable amount
-tinged	TINGE: a slight but appreciable amount
-tingeing	TINGE: a slight but appreciable amount
-tinges	TINGE: a slight but appreciable amount
-tinging	TINGE: a slight but appreciable amount
+tinge	a pale or subdued color
+tinged	TINGE: a pale or subdued color
+tingeing	TINGE: a pale or subdued color
+tinges	TINGE: a pale or subdued color
+tinging	TINGE: a pale or subdued color
 tingle	cause a stinging or tingling sensation
 tingled	TINGLE: cause a stinging or tingling sensation
 tingler	something that causes a prickling feeling
@@ -1984,8 +1984,8 @@ tinier	TINY: very small
 tiniest	TINY: very small
 tinker	do random, unplanned work or activities or spend time idly
 tinkered	TINKER: do random, unplanned work or activities or spend time idly
-tinkerer	an unskilled person who tries to fix or mend
-tinkerers	TINKERER: an unskilled person who tries to fix or mend
+tinkerer	a person who enjoys fixing and experimenting with machines and their parts
+tinkerers	TINKERER: a person who enjoys fixing and experimenting with machines and their parts
 tinkering	TINKER: do random, unplanned work or activities or spend time idly
 tinkers	TINKER: do random, unplanned work or activities or spend time idly
 tinkle	a light clear metallic sound as of a small bell
@@ -1999,7 +1999,7 @@ tinnies	TINNIE: a can of beer
 tinniest	TINNIE: a can of beer
 tinning	TIN: a silvery malleable metallic element that resists corrosion; used in many alloys and to coat other metals to prevent corrosion; obtained chiefly from cassiterite where it occurs as tin oxide
 tinnitus	a ringing or booming sensation in one or both ears; a symptom of an ear infection or Meniere's disease
-tinny	of or containing tin
+tinny	thin and metallic in sound; lacking resonance
 tinplate	a thin sheet of metal (iron or steel) coated with tin to prevent rusting; used especially for cans, pots, and tins
 tinpot	inferior (especially of a country's leadership)
 tins	TIN: a silvery malleable metallic element that resists corrosion; used in many alloys and to coat other metals to prevent corrosion; obtained chiefly from cassiterite where it occurs as tin oxide
@@ -2029,12 +2029,12 @@ tipped	having a tip; or having a tip as specified (used in combination)
 tipper	TIP: the extreme end of something; especially something pointed
 tippers	TIPPER: a person who leaves a tip
 tipping	TIP: the extreme end of something; especially something pointed
-tipple	a serving of drink (usually alcoholic) drawn from a keg
-tippled	TIPPLE: a serving of drink (usually alcoholic) drawn from a keg
+tipple	drink moderately but regularly
+tippled	TIPPLE: drink moderately but regularly
 tippler	someone who drinks liquor repeatedly in small quantities
 tipplers	TIPPLER: someone who drinks liquor repeatedly in small quantities
-tipples	TIPPLE: a serving of drink (usually alcoholic) drawn from a keg
-tippling	TIPPLE: a serving of drink (usually alcoholic) drawn from a keg
+tipples	TIPPLE: drink moderately but regularly
+tippling	TIPPLE: drink moderately but regularly
 tippy	(used of boats) inclined to heel over easily under sail
 tips	TIP: the extreme end of something; especially something pointed
 tipsier	TIPSY: slightly intoxicated
@@ -2047,8 +2047,8 @@ tiptoe	walk on one's toes
 tiptoed	TIPTOE: walk on one's toes
 tiptoeing	TIPTOE: walk on one's toes
 tiptoes	TIPTOE: walk on one's toes
-tiptop	the highest level or degree attainable; the highest stage of development
-tiptops	TIPTOP: the highest level or degree attainable; the highest stage of development
+tiptop	of the highest quality
+tiptops	TIPTOP: of the highest quality
 tirade	a speech of violent denunciation
 tirades	TIRADE: a speech of violent denunciation
 tiramisu	an Italian dessert consisting of layers of sponge cake soaked with coffee and brandy or liqueur layered with mascarpone cheese and topped with grated chocolate
@@ -2069,7 +2069,7 @@ tiresomeness	dullness owing to length or slowness
 tiring	producing exhaustion
 tiro	someone new to a field or activity
 tiros	TIRO: someone new to a field or activity
-tis	TI: a light strong grey lustrous corrosion-resistant metallic element used in strong lightweight alloys (as for airplane parts); the main sources are rutile and ilmenite
+tis	TI: the syllable naming the seventh (subtonic) note of any musical scale in solmization
 tisane	infusion of e.g. dried or fresh flowers or leaves
 tisanes	TISANE: infusion of e.g. dried or fresh flowers or leaves
 tissue	part of an organism consisting of an aggregate of cells having a similar structure and function
@@ -2088,9 +2088,9 @@ tithe	a levy of one tenth of something
 tithed	TITHE: a levy of one tenth of something
 tithes	TITHE: a levy of one tenth of something
 tithing	TITHE: a levy of one tenth of something
-titillate	touch (a body part) lightly so as to excite the surface nerves and cause uneasiness, laughter, or spasmodic movements
+titillate	excite pleasurably or erotically
 titillated	feeling mild pleasurable excitement
-titillates	TITILLATE: touch (a body part) lightly so as to excite the surface nerves and cause uneasiness, laughter, or spasmodic movements
+titillates	TITILLATE: excite pleasurably or erotically
 titillating	pleasantly and superficially exciting
 titillation	a tingling feeling of excitement (as from teasing or tickling)
 titivate	make neat, smart, or trim
@@ -2122,7 +2122,7 @@ tittletattler	a gossip
 tittletattlers	TITTLETATTLER: a gossip
 tittletattling	TITTLETATTLE: idle gossip
 titty	either of two soft fleshy milk-secreting glandular organs on the chest of a woman
-titular	of or relating to a legal title to something
+titular	of or bearing a title signifying status or function
 tizz	a state of flustered agitation
 tizzies	TIZZY: an excited state of agitation
 tizzy	an excited state of agitation
@@ -2140,12 +2140,12 @@ toadstool	common name for an inedible or poisonous agaric (contrasting with the 
 toadstools	TOADSTOOL: common name for an inedible or poisonous agaric (contrasting with the edible mushroom)
 toady	a person who tries to please someone in order to gain a personal advantage
 toadying	TOADY: a person who tries to please someone in order to gain a personal advantage
-toadyish	attempting to win favor from influential people by flattery
+toadyish	attempting to win favor by flattery
 toadyism	servile flattery
 toast	make brown and crisp by heating
 toasted	TOAST: make brown and crisp by heating
-toaster	someone who proposes a toast; someone who drinks to the health of success of someone or some venture
-toasters	TOASTER: someone who proposes a toast; someone who drinks to the health of success of someone or some venture
+toaster	a kitchen appliance (usually electric) for toasting bread
+toasters	TOASTER: a kitchen appliance (usually electric) for toasting bread
 toastie	a toasted sandwich
 toastier	TOASTIE: a toasted sandwich
 toasties	TOASTIE: a toasted sandwich
@@ -2169,7 +2169,7 @@ toccatas	TOCCATA: a baroque musical composition (usually for a keyboard instrume
 tocopherol	a fat-soluble vitamin that is essential for normal reproduction; an important antioxidant that neutralizes free radicals in the body
 tocsin	the sound of an alarm (usually a bell)
 tocsins	TOCSIN: the sound of an alarm (usually a bell)
-tod	a unit of weight for wool equal to about 28 pounds
+tod	alone and on your own
 today	the present time or age
 toddies	TODDY: a mixed drink made of liquor and water with sugar and spices and served hot
 toddle	walk unsteadily
@@ -2184,8 +2184,8 @@ toecap	a protective leather or steel cover for the toe of a boot or shoe, reinfo
 toecaps	TOECAP: a protective leather or steel cover for the toe of a boot or shoe, reinforcing or decorating it
 toecurling	extremely embarrassing
 toed	TO: towards; also marks the plain form of a verb
-toehold	a relatively insignificant position from which future progress might be made
-toeholds	TOEHOLD: a relatively insignificant position from which future progress might be made
+toehold	a small foothold used in climbing
+toeholds	TOEHOLD: a small foothold used in climbing
 toeing	TOE: one of the digits of the foot
 toenail	the nail at the end of a toe
 toenails	TOENAIL: the nail at the end of a toe
@@ -2210,10 +2210,10 @@ together	in contact with each other or in proximity
 togetherness	affectionate closeness
 togged	dressed especially in smart clothes
 togging	TOG: provide with clothes or put clothes on
-toggle	any instruction that works first one way and then the other; it turns something on the first time it is used and then turns it off the next time
-toggled	TOGGLE: any instruction that works first one way and then the other; it turns something on the first time it is used and then turns it off the next time
-toggles	TOGGLE: any instruction that works first one way and then the other; it turns something on the first time it is used and then turns it off the next time
-toggling	TOGGLE: any instruction that works first one way and then the other; it turns something on the first time it is used and then turns it off the next time
+toggle	a hinged switch that can assume either of two positions
+toggled	TOGGLE: a hinged switch that can assume either of two positions
+toggles	TOGGLE: a hinged switch that can assume either of two positions
+toggling	TOGGLE: a hinged switch that can assume either of two positions
 togs	informal terms for clothing
 toil	work hard
 toiled	TOIL: work hard
@@ -2240,7 +2240,7 @@ tokes	TOKE: a puff of a marijuana or hashish cigarette
 toking	TOKE: draw on a cannabis cigarette
 told	TELL: express in words
 tolerability	the quality of being bearable
-tolerable	capable of being borne or endured
+tolerable	about average; acceptable
 tolerably	in an acceptable (but not outstanding) manner
 tolerance	the power or capacity of an organism to tolerate unfavorable environmental conditions
 tolerances	TOLERANCE: the power or capacity of an organism to tolerate unfavorable environmental conditions
@@ -2255,8 +2255,8 @@ toll	a fee levied for the use of roads or bridges (used for maintenance)
 tollbooth	a booth at a tollgate where the toll collector collects tolls
 tollbooths	TOLLBOOTH: a booth at a tollgate where the toll collector collects tolls
 tolled	TOLL: a fee levied for the use of roads or bridges (used for maintenance)
-toller	a person who rings church bells (as for summoning the congregation)
-tollers	TOLLER: a person who rings church bells (as for summoning the congregation)
+toller	someone employed to collect tolls
+tollers	TOLLER: someone employed to collect tolls
 tollgate	a gate or bar across a toll bridge or toll road which is lifted when the toll is paid
 tollgates	TOLLGATE: a gate or bar across a toll bridge or toll road which is lifted when the toll is paid
 tolling	TOLL: a fee levied for the use of roads or bridges (used for maintenance)
@@ -2303,8 +2303,8 @@ tone	the quality of a person's voice
 toned	having or characterized or distinguished by tone or a specific tone; often used in combination
 toneless	lacking in tone or expression
 tonelessly	in a monotone
-toner	a solution containing chemicals that can change the color of a photographic print
-toners	TONER: a solution containing chemicals that can change the color of a photographic print
+toner	a black or colored powder used in a printer to develop a xerographic image
+toners	TONER: a black or colored powder used in a printer to develop a xerographic image
 tones	TONE: the quality of a person's voice
 tong	a secret Chinese society
 tongs	TONG: a secret Chinese society
@@ -2370,34 +2370,34 @@ toothpaste	a dentifrice in the form of a paste
 toothpastes	TOOTHPASTE: a dentifrice in the form of a paste
 toothpick	pick consisting of a small strip of wood or plastic; used to pick food from between the teeth
 toothpicks	TOOTHPICK: pick consisting of a small strip of wood or plastic; used to pick food from between the teeth
-toothsome	acceptable to the taste or mind
+toothsome	extremely pleasing to the sense of taste
 toothy	having or showing prominent teeth
 tooting	TOOT: a blast of a horn
-tootle	the sound of casual playing on a musical instrument
-tootled	TOOTLE: the sound of casual playing on a musical instrument
-tootles	TOOTLE: the sound of casual playing on a musical instrument
-tootling	TOOTLE: the sound of casual playing on a musical instrument
+tootle	play (a musical instrument) casually
+tootled	TOOTLE: play (a musical instrument) casually
+tootles	TOOTLE: play (a musical instrument) casually
+tootling	TOOTLE: play (a musical instrument) casually
 toots	TOOT: a blast of a horn
 tootsies	TOOTSIE: a foot
 top	the upper part of anything
-topaz	a yellow quartz
-topazes	TOPAZ: a yellow quartz
+topaz	a mineral (fluosilicate of aluminum) that occurs in crystals of various colors and is used as a gemstone
+topazes	TOPAZ: a mineral (fluosilicate of aluminum) that occurs in crystals of various colors and is used as a gemstone
 topcoat	a heavy coat worn over clothes in winter
 topcoats	TOPCOAT: a heavy coat worn over clothes in winter
 topee	a lightweight hat worn in tropical countries for protection from the sun
 topees	TOPEE: a lightweight hat worn in tropical countries for protection from the sun
 topflight	of the highest quality
-topgallant	a sail set on a yard of a topgallant mast
-topiaries	TOPIARY: a garden having shrubs clipped or trimmed into decorative shapes especially of animals
-topiary	a garden having shrubs clipped or trimmed into decorative shapes especially of animals
+topgallant	a mast fixed to the head of a topmast on a square-rigged vessel
+topiaries	TOPIARY: making decorative shapes by trimming shrubs or trees
+topiary	making decorative shapes by trimming shrubs or trees
 topic	the subject matter of a conversation or discussion
 topical	pertaining to the surface of a body part
 topicality	the attribute of being of interest at the present time
 topically	to a restricted area of the body
 topics	TOPIC: the subject matter of a conversation or discussion
-topknot	headdress consisting of a decorative ribbon or bow worn in the hair
-topknots	TOPKNOT: headdress consisting of a decorative ribbon or bow worn in the hair
-topless	having no top
+topknot	showy crest or knot of hair or feathers
+topknots	TOPKNOT: showy crest or knot of hair or feathers
+topless	having the breasts uncovered or featuring such nudity
 topmast	the mast next above a lower mast and topmost in a fore-and-aft rig
 topmasts	TOPMAST: the mast next above a lower mast and topmost in a fore-and-aft rig
 topmost	at or nearest to the top
@@ -2411,13 +2411,13 @@ topographies	TOPOGRAPHY: the configuration of a surface and the relations among 
 topography	the configuration of a surface and the relations among its man-made and natural features
 topological	of or relating to topology
 topologically	from the point of view of topology
-topologies	TOPOLOGY: topographic study of a given place (especially the history of the place as indicated by its topography)
+topologies	TOPOLOGY: the branch of pure mathematics that deals only with the properties of a figure X that hold for every figure into which X can be transformed with a one-to-one correspondence that is continuous in both directions
 topologist	a mathematician who studies shapes under continuous deformation
 topologists	TOPOLOGIST: a mathematician who studies shapes under continuous deformation
-topology	topographic study of a given place (especially the history of the place as indicated by its topography)
+topology	the branch of pure mathematics that deals only with the properties of a figure X that hold for every figure into which X can be transformed with a one-to-one correspondence that is continuous in both directions
 topped	having a top of a specified character
 topper	TOP: the upper part of anything
-toppers	TOPPER: a worker who makes or adds the top to something
+toppers	TOPPER: a man's hat with a tall crown; usually covered with silk or with beaver fur
 topping	TOP: the upper part of anything
 toppings	TOPPING: a flavorful addition on top of a dish
 topple	fall down, as if collapsing
@@ -2461,25 +2461,25 @@ tornado	a localized and violently destructive windstorm occurring over land char
 tornadoes	TORNADO: a violently rotating column of air
 tornados	TORNADO: a localized and violently destructive windstorm occurring over land characterized by a funnel-shaped cloud extending toward the ground
 toroidal	of or relating to or shaped like a toroid; doughnut shaped
-torpedo	a professional killer who uses a gun
-torpedoed	TORPEDO: a professional killer who uses a gun
-torpedoes	TORPEDO: a professional killer who uses a gun
-torpedoing	TORPEDO: a professional killer who uses a gun
-torpedos	TORPEDO: a professional killer who uses a gun
+torpedo	armament consisting of a long cylindrical self-propelled underwater projectile that detonates on contact with a target
+torpedoed	TORPEDO: armament consisting of a long cylindrical self-propelled underwater projectile that detonates on contact with a target
+torpedoes	TORPEDO: armament consisting of a long cylindrical self-propelled underwater projectile that detonates on contact with a target
+torpedoing	TORPEDO: armament consisting of a long cylindrical self-propelled underwater projectile that detonates on contact with a target
+torpedos	TORPEDO: armament consisting of a long cylindrical self-propelled underwater projectile that detonates on contact with a target
 torpid	slow and apathetic
-torpidity	a state of motor and mental inactivity with a partial suspension of sensibility
+torpidity	inactivity resulting from lethargy and lack of vigor or energy
 torpor	a state of motor and mental inactivity with a partial suspension of sensibility
 torque	a twisting force
 torqued	TORQUE: apply a twisting force to
 torques	TORQUE: a twisting force
 torquing	TORQUE: apply a twisting force to
 torrent	a heavy rain
-torrential	relating to or resulting from the action of a torrent
+torrential	resembling a torrent in force and abundance
 torrents	TORRENT: a heavy rain
-torrid	characterized by intense emotion
+torrid	extremely hot and dry
 tors	TOR: a prominent rock or pile of rocks on a hill
 torsi	TORSO: the trunk of the body
-torsion	a tortuous and twisted shape or position
+torsion	a twisting force
 torsional	relating to twisting
 torso	the body excluding the head and neck and limbs
 torsos	TORSO: the body excluding the head and neck and limbs
@@ -2519,7 +2519,7 @@ tossing	TOSS: throw or toss with a light motion
 tossup	an unpredictable phenomenon
 tossups	TOSSUP: an unpredictable phenomenon
 tost	TOSS: tossed
-tot	a small amount (especially of a drink)
+tot	a young child
 total	the whole amount
 totaled	TOTAL: the whole amount
 totaling	TOTAL: the whole amount
@@ -2534,16 +2534,16 @@ totally	to a complete degree or to the full or entire extent (`whole' is often u
 totals	TOTAL: the whole amount
 tote	a capacious bag or basket
 toted	TOTE: a capacious bag or basket
-totem	a clan or tribe identified by their kinship to a common totemic object
+totem	emblem consisting of an object such as an animal or plant; serves as the symbol of a family or clan (especially among American Indians)
 totemic	relating to totemism
 totemically	in the manner of a totem
 totemism	belief in the kinship of a group of people with a common totem
 totemisms	TOTEMISM: belief in the kinship of a group of people with a common totem
-totems	TOTEM: a clan or tribe identified by their kinship to a common totemic object
+totems	TOTEM: emblem consisting of an object such as an animal or plant; serves as the symbol of a family or clan (especially among American Indians)
 totes	TOTE: a capacious bag or basket
 toting	TOTE: a capacious bag or basket
-tots	TOT: a small amount (especially of a drink)
-totted	TOT: a small amount (especially of a drink)
+tots	TOT: a young child
+totted	TOT: a young child
 totter	move without being stable, as if threatening to fall
 tottered	TOTTER: move without being stable, as if threatening to fall
 totterer	someone who walks unsteadily as if about to fall
@@ -2551,7 +2551,7 @@ totterers	TOTTERER: someone who walks unsteadily as if about to fall
 tottering	unsteady in gait as from infirmity or old age
 totteringly	in a tottering way
 totters	TOTTER: move without being stable, as if threatening to fall
-totting	TOT: a small amount (especially of a drink)
+totting	TOT: a young child
 totty	attractive young people seen as objects of desire
 toucan	brilliantly colored arboreal fruit-eating bird of tropical America having a very large thin-walled beak
 toucans	TOUCAN: brilliantly colored arboreal fruit-eating bird of tropical America having a very large thin-walled beak
@@ -2585,15 +2585,15 @@ touchy	quick to take offense
 tough	not given to gentleness or sentimentality
 toughed	TOUGH: endure
 toughen	make tough or tougher
-toughened	physically toughened
+toughened	made hard or flexible or resilient especially by heat treatment
 toughener	something that makes a thing harder or stronger
 tougheners	TOUGHENER: something that makes a thing harder or stronger
 toughening	TOUGHEN: make tough or tougher
 toughens	TOUGHEN: make tough or tougher
 tougher	TOUGH: not given to gentleness or sentimentality
 toughest	TOUGH: not given to gentleness or sentimentality
-toughie	an aggressive and violent young criminal
-toughies	TOUGHIE: an aggressive and violent young criminal
+toughie	a particularly difficult or baffling question or problem
+toughies	TOUGHIE: a particularly difficult or baffling question or problem
 toughing	TOUGH: endure
 toughly	in a ruggedly tough manner
 toughness	enduring strength and energy
@@ -2622,10 +2622,10 @@ tousle	disarrange or rumple; dishevel
 tousled	in disarray; extremely disorderly
 tousles	TOUSLE: disarrange or rumple; dishevel
 tousling	TOUSLE: disarrange or rumple; dishevel
-tout	someone who buys tickets to an event in order to resell them at a profit
-touted	TOUT: someone who buys tickets to an event in order to resell them at a profit
-touting	TOUT: someone who buys tickets to an event in order to resell them at a profit
-touts	TOUT: someone who buys tickets to an event in order to resell them at a profit
+tout	advertize in strongly positive terms
+touted	TOUT: advertize in strongly positive terms
+touting	TOUT: advertize in strongly positive terms
+touts	TOUT: advertize in strongly positive terms
 tow	the act of hauling something (as a vehicle) by means of a hitch or rope
 toward	in the direction of
 towards	TOWARD: in the direction of
@@ -2674,8 +2674,8 @@ towpaths	TOWPATH: a path along a canal or river used by animals towing boats
 towrope	a rope used in towing
 towropes	TOWROPE: a rope used in towing
 tows	TOW: the act of hauling something (as a vehicle) by means of a hitch or rope
-toxaemia	an abnormal condition of pregnancy characterized by hypertension and edema and protein in the urine
-toxemia	an abnormal condition of pregnancy characterized by hypertension and edema and protein in the urine
+toxaemia	blood poisoning caused by bacterial toxic substances in the blood
+toxemia	blood poisoning caused by bacterial toxic substances in the blood
 toxic	of or relating to or caused by a toxin or poison
 toxically	in a poisonous way
 toxicities	TOXICITY: the degree to which something is poisonous
@@ -2699,9 +2699,9 @@ trace	a just detectable amount
 traceability	the ability to be followed back to its origin
 traceable	(usually followed by `to') able to be traced to
 traced	TRACE: a just detectable amount
-tracer	an investigator who is employed to find missing persons or missing goods
+tracer	ammunition whose flight can be observed by a trail of smoke
 traceries	TRACERY: decoration consisting of an open pattern of interlacing ribs
-tracers	TRACER: an investigator who is employed to find missing persons or missing goods
+tracers	TRACER: ammunition whose flight can be observed by a trail of smoke
 tracery	decoration consisting of an open pattern of interlacing ribs
 traces	TRACE: a just detectable amount
 trachea	membranous tube with cartilaginous rings that conveys inhaled air from the larynx to the bronchi
@@ -2776,12 +2776,12 @@ tragicomedies	TRAGICOMEDY: a dramatic composition involving elements of both tra
 tragicomedy	a dramatic composition involving elements of both tragedy and comedy usually with the tragic predominating
 tragicomic	of or relating to or characteristic of tragicomedy
 trail	a track or mark left by something that has passed
-trailblazer	someone who marks a trail by leaving blazes on trees
-trailblazers	TRAILBLAZER: someone who marks a trail by leaving blazes on trees
+trailblazer	someone who helps to open up a new line of research or technology or art
+trailblazers	TRAILBLAZER: someone who helps to open up a new line of research or technology or art
 trailblazing	pioneering and leading the way
 trailed	TRAIL: a track or mark left by something that has passed
-trailer	someone who takes more time than necessary; someone who lags behind
-trailers	TRAILER: someone who takes more time than necessary; someone who lags behind
+trailer	an unpowered vehicle towed behind a car or truck; also a short preview of a film
+trailers	TRAILER: an unpowered vehicle towed behind a car or truck; also a short preview of a film
 trailing	TRAIL: a track or mark left by something that has passed
 trails	TRAIL: a track or mark left by something that has passed
 train	create by training and teaching
@@ -2810,22 +2810,22 @@ traitors	TRAITOR: someone who betrays his country by committing treason
 traits	TRAIT: a distinguishing feature of your personal nature
 trajectories	TRAJECTORY: the path followed by an object moving through space
 trajectory	the path followed by an object moving through space
-tram	a conveyance that transports passengers or freight in carriers suspended from cables and supported by a series of towers
-tramcar	a four-wheeled wagon that runs on tracks in a mine
-tramcars	TRAMCAR: a four-wheeled wagon that runs on tracks in a mine
+tram	a wheeled vehicle that runs on rails and is propelled by electricity
+tramcar	a wheeled vehicle that runs on rails and is propelled by electricity
+tramcars	TRAMCAR: a wheeled vehicle that runs on rails and is propelled by electricity
 tramlines	TRAMLINE: the track on which trams or streetcars run
-trammed	TRAM: a conveyance that transports passengers or freight in carriers suspended from cables and supported by a series of towers
-trammel	a fishing net with three layers; the outer two are coarse mesh and the loose inner layer is fine mesh
-trammeled	TRAMMEL: a fishing net with three layers; the outer two are coarse mesh and the loose inner layer is fine mesh
-trammeling	TRAMMEL: a fishing net with three layers; the outer two are coarse mesh and the loose inner layer is fine mesh
-trammelled	TRAMMEL: a fishing net with three layers; the outer two are coarse mesh and the loose inner layer is fine mesh
-trammelling	TRAMMEL: a fishing net with three layers; the outer two are coarse mesh and the loose inner layer is fine mesh
-trammels	TRAMMEL: a fishing net with three layers; the outer two are coarse mesh and the loose inner layer is fine mesh
-tramming	TRAM: a conveyance that transports passengers or freight in carriers suspended from cables and supported by a series of towers
+trammed	TRAM: a wheeled vehicle that runs on rails and is propelled by electricity
+trammel	a restraint that confines or restricts freedom (especially something used to tie down or restrain a prisoner)
+trammeled	TRAMMEL: a restraint that confines or restricts freedom (especially something used to tie down or restrain a prisoner)
+trammeling	TRAMMEL: a restraint that confines or restricts freedom (especially something used to tie down or restrain a prisoner)
+trammelled	TRAMMEL: a restraint that confines or restricts freedom (especially something used to tie down or restrain a prisoner)
+trammelling	TRAMMEL: a restraint that confines or restricts freedom (especially something used to tie down or restrain a prisoner)
+trammels	TRAMMEL: a restraint that confines or restricts freedom (especially something used to tie down or restrain a prisoner)
+tramming	TRAM: a wheeled vehicle that runs on rails and is propelled by electricity
 tramp	a vagrant
 tramped	TRAMP: a vagrant
-tramper	someone who walks with a heavy noisy gait or who stamps on the ground
-trampers	TRAMPER: someone who walks with a heavy noisy gait or who stamps on the ground
+tramper	a foot traveler; someone who goes on an extended walk (for pleasure)
+trampers	TRAMPER: a foot traveler; someone who goes on an extended walk (for pleasure)
 tramping	TRAMP: a vagrant
 trample	tread or stomp heavily or roughly
 trampled	TRAMPLE: tread or stomp heavily or roughly
@@ -2835,9 +2835,9 @@ trampoline	gymnastic apparatus consisting of a strong canvas sheet attached with
 trampolines	TRAMPOLINE: gymnastic apparatus consisting of a strong canvas sheet attached with springs to a metal frame; used for tumbling
 trampolining	the sport of bouncing on a trampoline
 tramps	TRAMP: a vagrant
-trams	TRAM: a conveyance that transports passengers or freight in carriers suspended from cables and supported by a series of towers
-tramway	a conveyance that transports passengers or freight in carriers suspended from cables and supported by a series of towers
-tramways	TRAMWAY: a conveyance that transports passengers or freight in carriers suspended from cables and supported by a series of towers
+trams	TRAM: a wheeled vehicle that runs on rails and is propelled by electricity
+tramway	the track on which trams or streetcars run
+tramways	TRAMWAY: the track on which trams or streetcars run
 trance	a psychological state induced by (or as if induced by) a magical incantation
 trances	TRANCE: a psychological state induced by (or as if induced by) a magical incantation
 tranche	a portion of something (especially money)
@@ -2846,26 +2846,26 @@ tranquil	(of a body of water) free from disturbance by heavy waves
 tranquiler	TRANQUIL: (of a body of water) free from disturbance by heavy waves
 tranquilest	TRANQUIL: (of a body of water) free from disturbance by heavy waves
 tranquility	a disposition free from stress or emotion
-tranquilize	make calm or still
-tranquilized	TRANQUILIZE: make calm or still
+tranquilize	cause to be calm or quiet as by administering a sedative to
+tranquilized	TRANQUILIZE: cause to be calm or quiet as by administering a sedative to
 tranquilizer	a drug used to reduce stress or tension without reducing mental clarity
 tranquilizers	TRANQUILIZER: a drug used to reduce stress or tension without reducing mental clarity
-tranquilizes	TRANQUILIZE: make calm or still
+tranquilizes	TRANQUILIZE: cause to be calm or quiet as by administering a sedative to
 tranquilizing	tending to soothe or tranquilize
 tranquiller	TRANQUIL: (of a body of water) free from disturbance by heavy waves
 tranquillest	TRANQUIL: (of a body of water) free from disturbance by heavy waves
-tranquillise	make calm or still
-tranquillised	TRANQUILLISE: make calm or still
+tranquillise	cause to be calm or quiet as by administering a sedative to
+tranquillised	TRANQUILLISE: cause to be calm or quiet as by administering a sedative to
 tranquilliser	a drug used to reduce stress or tension without reducing mental clarity
 tranquillisers	TRANQUILLISER: a drug used to reduce stress or tension without reducing mental clarity
-tranquillises	TRANQUILLISE: make calm or still
+tranquillises	TRANQUILLISE: cause to be calm or quiet as by administering a sedative to
 tranquillising	tending to soothe or tranquilize
-tranquillity	an untroubled state; free from disturbances
-tranquillize	make calm or still
-tranquillized	TRANQUILLIZE: make calm or still
+tranquillity	a state of peace and quiet
+tranquillize	cause to be calm or quiet as by administering a sedative to
+tranquillized	TRANQUILLIZE: cause to be calm or quiet as by administering a sedative to
 tranquillizer	a drug used to reduce stress or tension without reducing mental clarity
 tranquillizers	TRANQUILLIZER: a drug used to reduce stress or tension without reducing mental clarity
-tranquillizes	TRANQUILLIZE: make calm or still
+tranquillizes	TRANQUILLIZE: cause to be calm or quiet as by administering a sedative to
 tranquillizing	tending to soothe or tranquilize
 tranquilly	without emotional agitation
 trans	relating to a gender different from the one assigned at birth
@@ -2881,7 +2881,7 @@ transceiver	a device that both sends and receives radio signals
 transceivers	TRANSCEIVER: a device that both sends and receives radio signals
 transcend	be greater in scope or size than some standard
 transcended	TRANSCEND: be greater in scope or size than some standard
-transcendence	a state of being or existence above and beyond the limits of material experience
+transcendence	the state of excelling or surpassing or going beyond usual limits
 transcendent	exceeding or surpassing usual limits especially in excellence
 transcendental	existing outside of or not in accordance with nature
 transcendentalism	any system of philosophy emphasizing the intuitive and spiritual above the empirical and material
@@ -2893,7 +2893,7 @@ transcends	TRANSCEND: be greater in scope or size than some standard
 transcontinental	spanning or crossing or on the farther side of a continent
 transcribe	write out from speech, notes, etc.
 transcribed	TRANSCRIBE: write out from speech, notes, etc.
-transcriber	a person who translates written messages from one language to another
+transcriber	someone who makes a written version of spoken material
 transcribes	TRANSCRIBE: write out from speech, notes, etc.
 transcribing	TRANSCRIBE: write out from speech, notes, etc.
 transcript	something that has been transcribed; a written record (usually typewritten) of dictated or recorded speech
@@ -2904,7 +2904,7 @@ transcripts	TRANSCRIPT: something that has been transcribed; a written record (u
 transdermal	through the unbroken skin; refers to medications applied directly to the skin (creams or ointments) or in time-release forms (skin patches)
 transducer	an electrical device that converts one form of energy into another
 transducers	TRANSDUCER: an electrical device that converts one form of energy into another
-transduction	the process of transfering genetic material from one cell to another by a plasmid or bacteriophage
+transduction	the process whereby a transducer accepts energy in one form and gives back related energy in a different form
 transect	cut across or divide transversely
 transected	TRANSECT: cut across or divide transversely
 transecting	TRANSECT: cut across or divide transversely
@@ -2916,16 +2916,16 @@ transferable	capable of being moved or conveyed from one place to another
 transferal	the act of moving something to another place or person
 transferals	TRANSFERAL: the act of moving something to another place or person
 transferase	any of various enzymes that move a chemical group from one compound to another compound
-transferee	someone to whom a title or property is conveyed
-transference	the process whereby emotions are passed on or displaced from one person to another; during psychoanalysis the displacement of feelings toward others (usually the parents) is onto the analyst
+transferee	someone who transfers or is transferred from one position to another
+transference	the act of transfering something from one form to another
 transferred	TRANSFER: transfer somebody to a different position or location of work
 transferring	TRANSFER: transfer somebody to a different position or location of work
 transfers	TRANSFER: transfer somebody to a different position or location of work
-transfiguration	a church festival held in commemoration of the Transfiguration of Jesus
-transfigure	elevate or idealize, in allusion to Christ's transfiguration
-transfigured	TRANSFIGURE: elevate or idealize, in allusion to Christ's transfiguration
-transfigures	TRANSFIGURE: elevate or idealize, in allusion to Christ's transfiguration
-transfiguring	TRANSFIGURE: elevate or idealize, in allusion to Christ's transfiguration
+transfiguration	a striking change in appearance or character or circumstances
+transfigure	change completely the nature or appearance of
+transfigured	TRANSFIGURE: change completely the nature or appearance of
+transfigures	TRANSFIGURE: change completely the nature or appearance of
+transfiguring	TRANSFIGURE: change completely the nature or appearance of
 transfinite	beyond any finite number
 transfix	to render motionless, as with a fixed stare or by arousing terror or awe
 transfixed	TRANSFIX: to render motionless, as with a fixed stare or by arousing terror or awe
@@ -2942,14 +2942,14 @@ transformer	an electrical device by which alternating current of one voltage is 
 transformers	TRANSFORMER: an electrical device by which alternating current of one voltage is changed to another voltage
 transforming	TRANSFORM: subject to a mathematical transformation
 transforms	TRANSFORM: subject to a mathematical transformation
-transfuse	impart gradually
-transfused	TRANSFUSE: impart gradually
-transfuses	TRANSFUSE: impart gradually
-transfusing	TRANSFUSE: impart gradually
+transfuse	give a transfusion (e.g., of blood) to
+transfused	TRANSFUSE: give a transfusion (e.g., of blood) to
+transfuses	TRANSFUSE: give a transfusion (e.g., of blood) to
+transfusing	TRANSFUSE: give a transfusion (e.g., of blood) to
 transfusion	the introduction of blood or blood plasma into a vein or artery
 transfusions	TRANSFUSION: the introduction of blood or blood plasma into a vein or artery
 transgender	involving a partial or full reversal of gender
-transgendered	a person who has undergone a sex change operation
+transgendered	involving a partial or full reversal of gender
 transgenders	TRANSGENDER: a person whose gender differs from the one assigned at birth
 transgenic	containing genes from another species
 transgress	act in disregard of laws, rules, contracts, or promises
@@ -2963,9 +2963,9 @@ transgressor	someone who transgresses; someone who violates a law or command
 transgressors	TRANSGRESSOR: someone who transgresses; someone who violates a law or command
 transience	an impermanence that suggests the inevitability of ending or dying
 transiency	an impermanence that suggests the inevitability of ending or dying
-transient	one who stays for only a short time
+transient	lasting a very short time
 transiently	for a very short time
-transients	TRANSIENT: one who stays for only a short time
+transients	TRANSIENT: lasting a very short time
 transistor	a semiconductor device capable of amplification
 transistorised	(of an electronic device) equipped with transistors
 transistorized	(of an electronic device) equipped with transistors
@@ -2978,10 +2978,10 @@ transitional	of or relating to or characterized by transition
 transitioned	TRANSITION: the act of passing from one state or place to the next
 transitioning	TRANSITION: the act of passing from one state or place to the next
 transitions	TRANSITION: the act of passing from one state or place to the next
-transitive	a verb (or verb construction) that requires an object in order to be grammatical
+transitive	designating a verb that requires a direct object to complete the meaning
 transitively	in a transitive manner
-transitives	TRANSITIVE: a verb (or verb construction) that requires an object in order to be grammatical
-transitivity	a relation between three elements such that if it holds between the first and second and it also holds between the second and third it must necessarily hold between the first and third
+transitives	TRANSITIVE: designating a verb that requires a direct object to complete the meaning
+transitivity	the grammatical relation created by a transitive verb
 transitory	lasting a very short time
 transits	TRANSIT: a surveying instrument for measuring horizontal and vertical angles, consisting of a small telescope mounted on a tripod
 transitted	TRANSIT: a surveying instrument for measuring horizontal and vertical angles, consisting of a small telescope mounted on a tripod
@@ -3002,8 +3002,8 @@ transliterates	TRANSLITERATE: rewrite in a different script
 transliterating	TRANSLITERATE: rewrite in a different script
 transliteration	a transcription from one alphabet to another
 transliterations	TRANSLITERATION: a transcription from one alphabet to another
-translocation	the transport of dissolved material within a plant
-translocations	TRANSLOCATION: the transport of dissolved material within a plant
+translocation	an exchange of chromosome parts
+translocations	TRANSLOCATION: an exchange of chromosome parts
 translucence	the quality of allowing light to pass diffusely
 translucency	the quality of allowing light to pass diffusely
 translucent	allowing light to pass through diffusely
@@ -3022,7 +3022,7 @@ transmittal	the act of sending a message; causing a message to be transmitted
 transmittance	the fraction of radiant energy that passes through a substance
 transmitted	TRANSMIT: transfer to another
 transmitter	TRANSMIT: transfer to another
-transmitters	TRANSMITTER: someone who transmits a message
+transmitters	TRANSMITTER: set used to broadcast radio or tv signals
 transmitting	the act of sending a message; causing a message to be transmitted
 transmogrified	TRANSMOGRIFY: change into something strange
 transmogrifies	TRANSMOGRIFY: change completely the nature or appearance of
@@ -3040,16 +3040,16 @@ transoceanic	on or from the other side of an ocean
 transom	a window above a door that is usually hinged to a horizontal crosspiece over the door
 transoms	TRANSOM: a window above a door that is usually hinged to a horizontal crosspiece over the door
 transpacific	across the Pacific Ocean
-transparencies	TRANSPARENCY: permitting the free passage of electromagnetic radiation
-transparency	permitting the free passage of electromagnetic radiation
+transparencies	TRANSPARENCY: the quality of being clear and transparent
+transparency	the quality of being clear and transparent
 transparent	transmitting light; able to be seen through with clarity
 transparently	so as to be easily understood or seen through
 transphobia	prejudice against transgender people
 transphobic	prejudiced against transgender people
 transpiration	the passage of gases through fine tubes because of differences in pressure or temperature
-transpire	pass through the tissue or substance or its pores or interstices, as of gas
-transpired	TRANSPIRE: pass through the tissue or substance or its pores or interstices, as of gas
-transpires	TRANSPIRE: pass through the tissue or substance or its pores or interstices, as of gas
+transpire	come about, happen, or occur
+transpired	TRANSPIRE: come about, happen, or occur
+transpires	TRANSPIRE: come about, happen, or occur
 transpiring	that is passing through
 transplant	lift and reset in another soil or situation
 transplantation	an operation moving an organ from one organism (the donor) to another (the recipient)
@@ -3072,11 +3072,11 @@ transpose	change the order or arrangement of
 transposed	TRANSPOSE: change the order or arrangement of
 transposes	TRANSPOSE: change the order or arrangement of
 transposing	TRANSPOSE: change the order or arrangement of
-transposition	any abnormal position of the organs of the body
-transpositions	TRANSPOSITION: any abnormal position of the organs of the body
-transsexual	a person who has undergone a sex change operation
+transposition	the act of reversing the order or place of
+transpositions	TRANSPOSITION: the act of reversing the order or place of
+transsexual	a person whose sexual identification is entirely with the opposite sex
 transsexualism	condition in which a person identifies with a gender different from his or her physical gender
-transsexuals	TRANSSEXUAL: a person who has undergone a sex change operation
+transsexuals	TRANSSEXUAL: a person whose sexual identification is entirely with the opposite sex
 transship	transfer for further transportation from one ship or conveyance to another
 transshipment	the transfer from one conveyance to another for shipment
 transshipped	TRANSSHIP: transfer for further transportation from one ship or conveyance to another
@@ -3122,10 +3122,10 @@ trashiness	the quality of being cheaply imitative of something better
 trashing	TRASH: worthless material that is to be disposed of
 trashy	cheap and inferior; of no value
 trattoria	an informal Italian restaurant
-trauma	any physical damage to the body caused by violence or accident or fracture etc.
-traumas	TRAUMA: any physical damage to the body caused by violence or accident or fracture etc.
+trauma	an emotional wound or shock often having long-lasting effects
+traumas	TRAUMA: an emotional wound or shock often having long-lasting effects
 traumata	TRAUMA: a deep shock or a serious injury
-traumatic	of or relating to a physical injury or wound to the body
+traumatic	psychologically painful
 traumatically	in a deeply distressing way
 traumatise	inflict a trauma upon
 traumatised	TRAUMATISE: inflict a trauma upon
@@ -3139,10 +3139,10 @@ traumatological	relating to the study of injuries
 traumatologist	a doctor who treats serious injuries
 traumatologists	TRAUMATOLOGIST: a doctor who treats serious injuries
 traumatology	the branch of medicine that deals with the surgical repair of injuries and wounds arising from accidents
-travail	concluding state of pregnancy; from the onset of contractions to the birth of a child
-travailed	TRAVAIL: concluding state of pregnancy; from the onset of contractions to the birth of a child
-travailing	TRAVAIL: concluding state of pregnancy; from the onset of contractions to the birth of a child
-travails	TRAVAIL: concluding state of pregnancy; from the onset of contractions to the birth of a child
+travail	use of physical or mental energy; hard work
+travailed	TRAVAIL: use of physical or mental energy; hard work
+travailing	TRAVAIL: use of physical or mental energy; hard work
+travails	TRAVAIL: use of physical or mental energy; hard work
 travel	change location; move, travel, or proceed, also metaphorically
 traveled	traveled over or through; sometimes used as a combining term
 traveler	a person who changes location
@@ -3159,24 +3159,24 @@ travelogs	TRAVELOG: a film or illustrated lecture on traveling
 travelogue	a film or illustrated lecture on traveling
 travelogues	TRAVELOGUE: a film or illustrated lecture on traveling
 travels	TRAVEL: change location; move, travel, or proceed, also metaphorically
-traversal	taking a zigzag path on skis
-traversals	TRAVERSAL: taking a zigzag path on skis
+traversal	travel across
+traversals	TRAVERSAL: travel across
 traverse	travel across or pass over
 traversed	TRAVERSE: travel across or pass over
 traverses	TRAVERSE: travel across or pass over
 traversing	TRAVERSE: travel across or pass over
 travertine	a pale porous limestone used in building
 travestied	TRAVESTY: mock by a grotesque imitation
-travesties	TRAVESTY: a comedy characterized by broad satire and improbable situations
-travesty	a comedy characterized by broad satire and improbable situations
-travestying	TRAVESTY: a comedy characterized by broad satire and improbable situations
-trawl	a long fishing line with many shorter lines and hooks attached to it (usually suspended between buoys)
-trawled	TRAWL: a long fishing line with many shorter lines and hooks attached to it (usually suspended between buoys)
-trawler	a fisherman who use a trawl net
+travesties	TRAVESTY: a composition that imitates or misrepresents somebody's style, usually in a humorous way
+travesty	a composition that imitates or misrepresents somebody's style, usually in a humorous way
+travestying	TRAVESTY: a composition that imitates or misrepresents somebody's style, usually in a humorous way
+trawl	a conical fishnet dragged through the water at great depths
+trawled	TRAWL: a conical fishnet dragged through the water at great depths
+trawler	a fishing boat that uses a trawl net or dragnet to catch fish
 trawlerman	a person who fishes from a trawler
-trawlers	TRAWLER: a fisherman who use a trawl net
-trawling	TRAWL: a long fishing line with many shorter lines and hooks attached to it (usually suspended between buoys)
-trawls	TRAWL: a long fishing line with many shorter lines and hooks attached to it (usually suspended between buoys)
+trawlers	TRAWLER: a fishing boat that uses a trawl net or dragnet to catch fish
+trawling	TRAWL: a conical fishnet dragged through the water at great depths
+trawls	TRAWL: a conical fishnet dragged through the water at great depths
 tray	an open receptacle for holding or displaying or serving articles or food
 trays	TRAY: an open receptacle for holding or displaying or serving articles or food
 treacheries	TREACHERY: betrayal of a trust
@@ -3240,14 +3240,14 @@ treeline	the altitude above which trees do not grow
 trees	TREE: a tall perennial woody plant having a main trunk and branches forming a distinct elevated crown; includes both gymnosperms and angiosperms
 treetop	the upper branches and leaves of a tree or other plant
 treetops	TREETOP: the upper branches and leaves of a tree or other plant
-trefoil	any of several Old World herbs of the genus Medicago having small flowers and trifoliate compound leaves
-trefoils	TREFOIL: any of several Old World herbs of the genus Medicago having small flowers and trifoliate compound leaves
-trek	a journey by ox wagon (especially an organized migration by a group of settlers)
-trekked	TREK: a journey by ox wagon (especially an organized migration by a group of settlers)
+trefoil	an architectural ornament in the form of three arcs arranged in a circle
+trefoils	TREFOIL: an architectural ornament in the form of three arcs arranged in a circle
+trek	any long and difficult trip
+trekked	TREK: any long and difficult trip
 trekker	a traveler who makes a long arduous journey (as hiking through mountainous country)
 trekkers	TREKKER: a traveler who makes a long arduous journey (as hiking through mountainous country)
-trekking	TREK: a journey by ox wagon (especially an organized migration by a group of settlers)
-treks	TREK: a journey by ox wagon (especially an organized migration by a group of settlers)
+trekking	TREK: any long and difficult trip
+treks	TREK: any long and difficult trip
 trellis	latticework used to support climbing plants
 trellised	TRELLIS: latticework used to support climbing plants
 trellises	TRELLIS: latticework used to support climbing plants
@@ -3275,8 +3275,8 @@ trenchantly	in a vigorous and effective manner
 trenchcoat	a belted waterproof coat
 trenchcoats	TRENCHCOAT: a belted waterproof coat
 trenched	TRENCH: a ditch dug as a fortification having a parapet of the excavated earth
-trencher	someone who digs trenches
-trenchers	TRENCHER: someone who digs trenches
+trencher	a wooden board or platter on which food is served or carved
+trenchers	TRENCHER: a wooden board or platter on which food is served or carved
 trenches	TRENCH: a ditch dug as a fortification having a parapet of the excavated earth
 trenching	TRENCH: a ditch dug as a fortification having a parapet of the excavated earth
 trend	a general direction in which something tends to move
@@ -3304,10 +3304,10 @@ tresses	TRESS: a hairdo formed by braiding or twisting the hair
 trestle	a supporting tower used to support a bridge
 trestles	TRESTLE: a supporting tower used to support a bridge
 trews	(used in the plural) tight-fitting trousers; usually of tartan
-trey	the cardinal number that is the sum of one and one and one
-treys	TREY: the cardinal number that is the sum of one and one and one
-triad	the cardinal number that is the sum of one and one and one
-triads	TRIAD: the cardinal number that is the sum of one and one and one
+trey	one of four playing cards in a deck having three pips
+treys	TREY: one of four playing cards in a deck having three pips
+triad	a set of three similar things considered as a unit
+triads	TRIAD: a set of three similar things considered as a unit
 triage	sorting and allocating aid on the basis of need for or likely benefit from medical treatment or food
 triaged	TRIAGE: sort patients by urgency of need
 trial	the act of testing something
@@ -3362,11 +3362,11 @@ trichologists	TRICHOLOGIST: a specialist in hair and scalp problems
 trichology	the study of hair and scalp problems
 trick	a cunning or deceitful action or device
 tricked	TRICK: a cunning or deceitful action or device
-trickeries	TRICKERY: verbal misrepresentation intended to take advantage of you in some way
-trickery	verbal misrepresentation intended to take advantage of you in some way
-trickier	TRICKY: not to be trusted
-trickiest	TRICKY: not to be trusted
-trickiness	the quality of being a slippery rascal
+trickeries	TRICKERY: the use of tricks to deceive someone (usually to extract money from them)
+trickery	the use of tricks to deceive someone (usually to extract money from them)
+trickier	TRICKY: having concealed difficulty
+trickiest	TRICKY: having concealed difficulty
+trickiness	the quality of requiring skill or caution
 tricking	TRICK: a cunning or deceitful action or device
 trickingly	in a tricking way
 trickle	run or flow slowly, as in drops or in an unsteady stream
@@ -3377,11 +3377,11 @@ tricklingly	in a trickling way
 tricks	TRICK: a cunning or deceitful action or device
 tricksier	TRICKSY: marked by skill in deception
 tricksiest	TRICKSY: marked by skill in deception
-trickster	someone who plays practical jokes on others
+trickster	someone who leads you to believe something that is not true
 tricksterism	the behaviour of a trickster
-tricksters	TRICKSTER: someone who plays practical jokes on others
+tricksters	TRICKSTER: someone who leads you to believe something that is not true
 tricksy	marked by skill in deception
-tricky	not to be trusted
+tricky	having concealed difficulty
 tricolor	having or involving three colors
 tricolors	TRICOLOR: having or involving three colors
 tricolour	a flag having three colored stripes (especially the French flag)
@@ -3394,19 +3394,19 @@ tricyclic	an antidepressant drug that acts by blocking the reuptake of norepinep
 trident	a spear with three prongs
 tridents	TRIDENT: a spear with three prongs
 tried	TRY: make an effort or attempt
-triennial	the 300th anniversary (or the celebration of it)
-triennials	TRIENNIAL: the 300th anniversary (or the celebration of it)
-trier	one (as a judge) who examines and settles a case
-triers	TRIER: one (as a judge) who examines and settles a case
+triennial	occurring every third year or lasting 3 years
+triennials	TRIENNIAL: occurring every third year or lasting 3 years
+trier	one who tries
+triers	TRIER: one who tries
 tries	TRY: make an effort or attempt
 trifecta	a bet picking the first three finishers in order
 trifectas	TRIFECTA: a bet picking the first three finishers in order
-trifle	a cold pudding made of layers of sponge cake spread with fruit or jelly; may be decorated with nuts, cream, or chocolate
-trifled	TRIFLE: a cold pudding made of layers of sponge cake spread with fruit or jelly; may be decorated with nuts, cream, or chocolate
+trifle	something of small importance
+trifled	TRIFLE: something of small importance
 trifler	one who behaves lightly or not seriously
 triflers	TRIFLER: one who behaves lightly or not seriously
-trifles	TRIFLE: a cold pudding made of layers of sponge cake spread with fruit or jelly; may be decorated with nuts, cream, or chocolate
-trifling	the deliberate act of delaying and playing instead of working
+trifles	TRIFLE: something of small importance
+trifling	not worth considering
 triflingly	in a trifling way
 trifocals	glasses with lenses for near, middle and far vision
 trig	the mathematics of triangles and trigonometric functions
@@ -3421,18 +3421,18 @@ trigonometric	of or relating to or according to the principles of trigonometry
 trigonometry	the mathematics of triangles and trigonometric functions
 trike	a vehicle with three wheels that is moved by foot pedals
 trikes	TRIKE: a vehicle with three wheels that is moved by foot pedals
-trilateral	a three-sided polygon
-trilaterals	TRILATERAL: a three-sided polygon
-trilbies	TRILBY: singer in a novel by George du Maurier who was under the control of the hypnotist Svengali
-trilby	singer in a novel by George du Maurier who was under the control of the hypnotist Svengali
+trilateral	involving three parties
+trilaterals	TRILATERAL: involving three parties
+trilbies	TRILBY: a hat made of felt with a creased crown
+trilby	a hat made of felt with a creased crown
 trilingual	using or knowing three languages
 trill	a note that alternates rapidly with another note a semitone above it
 trilled	TRILL: a note that alternates rapidly with another note a semitone above it
 triller	a person or thing that sings with a quavering sound
 trillers	TRILLER: a person or thing that sings with a quavering sound
 trilling	TRILL: a note that alternates rapidly with another note a semitone above it
-trillion	a very large indefinite number (usually hyperbole)
-trillions	TRILLION: a very large indefinite number (usually hyperbole)
+trillion	the number that is represented as a one followed by 12 zeros
+trillions	TRILLION: the number that is represented as a one followed by 12 zeros
 trillionth	one part in a trillion equal parts
 trillionths	TRILLIONTH: one part in a trillion equal parts
 trills	TRILL: a note that alternates rapidly with another note a semitone above it
@@ -3454,8 +3454,8 @@ trimming	the act of adding decoration
 trimmings	TRIMMING: the act of adding decoration
 trimness	a state of arrangement or appearance
 trims	TRIM: remove the edges from and cut down to the desired size
-trinities	TRINITY: the cardinal number that is the sum of one and one and one
-trinity	the cardinal number that is the sum of one and one and one
+trinities	TRINITY: three people considered as a unit
+trinity	three people considered as a unit
 trinket	cheap showy jewelry or ornament on clothing
 trinkets	TRINKET: cheap showy jewelry or ornament on clothing
 trio	the cardinal number that is the sum of one and one and one
@@ -3463,12 +3463,12 @@ trios	TRIO: the cardinal number that is the sum of one and one and one
 trioxide	an oxide containing three atoms of oxygen in the molecule
 trip	a journey for some purpose (usually including the return)
 tripartite	involving three parties or elements
-tripe	lining of the stomach of a ruminant (especially a bovine) used as food
+tripe	nonsensical talk or writing
 triple	increase threefold
 tripled	TRIPLE: increase threefold
 triples	TRIPLE: increase threefold
-triplet	the cardinal number that is the sum of one and one and one
-triplets	TRIPLET: the cardinal number that is the sum of one and one and one
+triplet	one of three offspring born at the same time from the same pregnancy
+triplets	TRIPLET: one of three offspring born at the same time from the same pregnancy
 triplicate	one of three copies; any of three things that correspond to one another exactly
 triplicated	TRIPLICATE: one of three copies; any of three things that correspond to one another exactly
 triplicates	TRIPLICATE: one of three copies; any of three things that correspond to one another exactly
@@ -3480,7 +3480,7 @@ tripods	TRIPOD: a three-legged rack used for support
 tripos	final honors degree examinations at Cambridge University
 tripped	TRIP: a journey for some purpose (usually including the return)
 tripper	TRIP: a journey for some purpose (usually including the return)
-trippers	TRIPPER: someone who has taken a psychedelic drug and is undergoing hallucinations
+trippers	TRIPPER: a tourist who is visiting sights of interest
 tripping	TRIP: a journey for some purpose (usually including the return)
 trips	TRIP: a journey for some purpose (usually including the return)
 triptych	art consisting of a painting or carving (especially an altarpiece) on three panels (usually hinged together)
@@ -3498,7 +3498,7 @@ triteness	unoriginality as a result of being dull and hackneyed
 triter	TRITE: repeated too often; overfamiliar through overuse
 tritest	TRITE: repeated too often; overfamiliar through overuse
 tritium	a radioactive isotope of hydrogen; atoms of tritium have three times the mass of ordinary hydrogen atoms
-triton	a sea god; son of Poseidon
+triton	tropical marine gastropods having beautifully colored spiral shells
 triumph	a successful ending of a struggle or contest
 triumphal	relating to or celebrating a triumph
 triumphalism	excessive celebration of one's own success
@@ -3511,8 +3511,8 @@ triumphs	TRIUMPH: a successful ending of a struggle or contest
 triumvirate	a group of three men responsible for public administration or civil authority
 triumvirates	TRIUMVIRATE: a group of three men responsible for public administration or civil authority
 trivalent	having a valence of three
-trivet	a three-legged metal stand for supporting a cooking vessel in a hearth
-trivets	TRIVET: a three-legged metal stand for supporting a cooking vessel in a hearth
+trivet	a stand with short feet used under a hot dish on a table
+trivets	TRIVET: a stand with short feet used under a hot dish on a table
 trivia	something of small importance
 trivial	small and of little importance
 trivialisation	making something seem less important than it is
@@ -3527,13 +3527,13 @@ trivialize	make trivial or insignificant
 trivialized	TRIVIALIZE: make trivial or insignificant
 trivializes	TRIVIALIZE: make trivial or insignificant
 trivializing	TRIVIALIZE: make trivial or insignificant
-trivially	with little effort
+trivially	in a frivolously trivial manner
 trivium	an introductory curriculum at a medieval university involving grammar and logic and rhetoric; considered to be a triple way to eloquence
 trochee	a metrical unit with stressed-unstressed syllables
 trochees	TROCHEE: a metrical unit with stressed-unstressed syllables
 trod	TREAD: put down or press the foot, place the foot
 trodden	TREAD: put down or press the foot, place the foot
-troglodyte	one who lives in solitude
+troglodyte	someone who lives in a cave
 troglodytes	type genus of the Troglodytidae
 troika	a Russian carriage pulled by three horses abreast
 troikas	TROIKA: a Russian carriage pulled by three horses abreast
@@ -3547,8 +3547,8 @@ trolleybuses	TROLLEYBUS: a passenger bus with an electric motor that draws power
 trolleys	TROLLEY: a wheeled vehicle that runs on rails and is propelled by electricity
 trollies	TROLLY: a small wheeled cart
 trolling	TROLL: a supernatural creature (either a dwarf or a giant) that is supposed to live in caves or in the mountains
-trollop	a dirty untidy woman
-trollops	TROLLOP: a dirty untidy woman
+trollop	a woman thought to be sexually promiscuous (dated, insulting)
+trollops	TROLLOP: a woman thought to be sexually promiscuous (dated, insulting)
 trolls	TROLL: a supernatural creature (either a dwarf or a giant) that is supposed to live in caves or in the mountains
 trolly	a small wheeled cart
 trombone	a brass instrument consisting of a long tube whose length can be varied by a U-shaped slide
@@ -3572,9 +3572,9 @@ troopships	TROOPSHIP: ship for transporting troops
 trope	language used in a figurative or nonliteral sense
 tropes	TROPE: language used in a figurative or nonliteral sense
 trophic	of or relating to nutrition
-trophies	TROPHY: an award for success in war or hunting
-trophy	an award for success in war or hunting
-tropic	either of two parallels of latitude about 23.5 degrees to the north and south of the equator representing the points farthest north and south at which the sun can shine directly overhead and constituting the boundaries of the Torrid Zone or tropics
+trophies	TROPHY: something given as a token of victory
+trophy	something given as a token of victory
+tropic	relating to or situated in or characteristic of the tropics (the region on either side of the equator)
 tropical	relating to or situated in or characteristic of the tropics (the region on either side of the equator)
 tropicbird	mostly white web-footed tropical seabird often found far from land
 tropicbirds	TROPICBIRD: mostly white web-footed tropical seabird often found far from land
@@ -3586,8 +3586,8 @@ tropospheres	TROPOSPHERE: the lowest atmospheric layer; from 4 to 11 miles high 
 tropospheric	of the lowest layer of the atmosphere
 troppo	mentally unhinged from tropical heat
 trot	run at a moderately swift pace
-troth	a mutual promise to marry
-troths	TROTH: a mutual promise to marry
+troth	a solemn pledge of fidelity
+troths	TROTH: a solemn pledge of fidelity
 trotline	a long fishing line with many shorter lines and hooks attached to it (usually suspended between buoys)
 trots	TROT: run at a moderately swift pace
 trotted	TROT: run at a moderately swift pace
@@ -3613,9 +3613,9 @@ troublesome	causing difficulty or annoyance
 troubling	TROUBLE: a source of difficulty
 trough	a narrow depression (as in the earth or between ocean waves or in the ocean bed)
 troughs	TROUGH: a narrow depression (as in the earth or between ocean waves or in the ocean bed)
-trounce	beat severely with a whip or rod
-trounced	TROUNCE: beat severely with a whip or rod
-trounces	TROUNCE: beat severely with a whip or rod
+trounce	come out better in a competition, race, or conflict
+trounced	TROUNCE: come out better in a competition, race, or conflict
+trounces	TROUNCE: come out better in a competition, race, or conflict
 trouncing	a sound defeat
 troupe	organization of performers and associated personnel (especially theatrical)
 trouped	TROUPE: travel as part of a group of performers
@@ -3628,8 +3628,8 @@ trousers	(usually in the plural) a garment extending from the waist to the knee 
 trousseau	the personal outfit of a bride; clothes and accessories and linens
 trousseaus	TROUSSEAU: the personal outfit of a bride; clothes and accessories and linens
 trousseaux	TROUSSEAU: a bride's collection of clothes and linen
-trout	flesh of any of several primarily freshwater game and food fishes
-trouts	TROUT: flesh of any of several primarily freshwater game and food fishes
+trout	any of various game and food fishes of cool fresh waters mostly smaller than typical salmons
+trouts	TROUT: any of various game and food fishes of cool fresh waters mostly smaller than typical salmons
 trove	treasure of unknown ownership found hidden (usually in the earth)
 troves	TROVE: treasure of unknown ownership found hidden (usually in the earth)
 trowel	a small hand tool with a handle and flat metal blade; used for scooping or spreading plaster or similar materials
@@ -3657,9 +3657,9 @@ truckers	TRUCKER: someone who drives a truck as an occupation
 truckie	a truck driver
 truckies	TRUCKIE: a truck driver
 trucking	the activity of transporting goods by truck
-truckle	a low bed to be slid under a higher bed
-truckled	TRUCKLE: a low bed to be slid under a higher bed
-truckles	TRUCKLE: a low bed to be slid under a higher bed
+truckle	yield to out of weakness
+truckled	TRUCKLE: yield to out of weakness
+truckles	TRUCKLE: yield to out of weakness
 truckling	the act of obeying meanly (especially obeying in a humble manner or for unworthy reasons)
 truckload	the amount a truck carries
 truckloads	TRUCKLOAD: the amount a truck carries
@@ -3686,10 +3686,10 @@ truing	TRUE: consistent with fact or reality; not false
 truism	an obvious truth
 truisms	TRUISM: an obvious truth
 truly	in accordance with truth or fact or reality
-trump	a playing card in the suit that has been declared trumps
-trumped	TRUMP: a playing card in the suit that has been declared trumps
+trump	the suit that has been declared to rank above all other suits for the duration of the hand
+trumped	TRUMP: the suit that has been declared to rank above all other suits for the duration of the hand
 trumper	a person who plays the trumpet
-trumpery	nonsensical talk or writing
+trumpery	ornamental objects of no great value
 trumpet	a brass musical instrument with a brilliant tone; has a narrow tube and a flared bell and is played by means of valves
 trumpeted	TRUMPET: a brass musical instrument with a brilliant tone; has a narrow tube and a flared bell and is played by means of valves
 trumpeter	a musician who plays the trumpet or cornet
@@ -3697,13 +3697,13 @@ trumpeters	TRUMPETER: a musician who plays the trumpet or cornet
 trumpeting	TRUMPET: a brass musical instrument with a brilliant tone; has a narrow tube and a flared bell and is played by means of valves
 trumpets	TRUMPET: a brass musical instrument with a brilliant tone; has a narrow tube and a flared bell and is played by means of valves
 trumping	the act of taking a trick with a trump when unable to follow suit
-trumps	TRUMP: a playing card in the suit that has been declared trumps
-truncate	replace a corner by a plane
+trumps	TRUMP: the suit that has been declared to rank above all other suits for the duration of the hand
+truncate	make shorter as if by cutting off
 truncated	cut short in duration
-truncates	TRUNCATE: replace a corner by a plane
-truncating	TRUNCATE: replace a corner by a plane
-truncation	the property of being truncated or short
-truncations	TRUNCATION: the property of being truncated or short
+truncates	TRUNCATE: make shorter as if by cutting off
+truncating	TRUNCATE: make shorter as if by cutting off
+truncation	the act of cutting short
+truncations	TRUNCATION: the act of cutting short
 truncheon	a short stout club used primarily by policemen
 truncheons	TRUNCHEON: a short stout club used primarily by policemen
 trundle	move heavily
@@ -3713,33 +3713,33 @@ trundling	TRUNDLE: move heavily
 trunk	the main stem of a tree; usually covered with bark; the bole is usually the part that is commercially useful for lumber
 trunking	a system of large conduits or main routes
 trunks	TRUNK: the main stem of a tree; usually covered with bark; the bole is usually the part that is commercially useful for lumber
-truss	a bandage consisting of a pad and belt; worn to hold a hernia in place by pressure
+truss	a framework of beams (rafters, posts, struts) forming a rigid structure that supports a roof or bridge or other structure
 trussed	bound or secured closely
 trusser	a person who ties up or supports with a frame
 trussers	TRUSSER: a person who ties up or supports with a frame
-trusses	TRUSS: a bandage consisting of a pad and belt; worn to hold a hernia in place by pressure
-trussing	TRUSS: a bandage consisting of a pad and belt; worn to hold a hernia in place by pressure
+trusses	TRUSS: a framework of beams (rafters, posts, struts) forming a rigid structure that supports a roof or bridge or other structure
+trussing	TRUSS: a framework of beams (rafters, posts, struts) forming a rigid structure that supports a roof or bridge or other structure
 trust	something (as property) held by one party (the trustee) for the benefit of another (the beneficiary)
 trusted	(of persons) worthy of trust or confidence
 trustee	a person (or institution) to whom legal title to property is entrusted to use for another's benefit
 trustees	TRUSTEE: a person (or institution) to whom legal title to property is entrusted to use for another's benefit
-trusteeship	a dependent country; administered by another country under the supervision of the United Nations
-trusteeships	TRUSTEESHIP: a dependent country; administered by another country under the supervision of the United Nations
+trusteeship	the position of trustee
+trusteeships	TRUSTEESHIP: the position of trustee
 truster	a supporter who accepts something as true
 trusters	TRUSTER: a supporter who accepts something as true
 trustful	inclined to believe or confide readily; full of trust
 trustfully	with trust; in a trusting manner
 trustfulness	the trait of believing in the honesty and reliability of others
-trustier	TRUSTY: a convict who is considered trustworthy and granted special privileges
-trusties	TRUSTY: a convict who is considered trustworthy and granted special privileges
-trustiest	TRUSTY: a convict who is considered trustworthy and granted special privileges
+trustier	TRUSTY: worthy of trust or belief
+trusties	TRUSTY: worthy of trust or belief
+trustiest	TRUSTY: worthy of trust or belief
 trusting	TRUST: something (as property) held by one party (the trustee) for the benefit of another (the beneficiary)
 trusts	TRUST: something (as property) held by one party (the trustee) for the benefit of another (the beneficiary)
 trustworthier	TRUSTWORTHY: worthy of trust or belief
 trustworthiest	TRUSTWORTHY: worthy of trust or belief
 trustworthiness	the trait of deserving trust and confidence
 trustworthy	worthy of trust or belief
-trusty	a convict who is considered trustworthy and granted special privileges
+trusty	worthy of trust or belief
 truth	a fact that has been verified
 truther	a person who believes in a conspiracy theory
 truthers	TRUTHER: a person who believes in a conspiracy theory
@@ -3750,14 +3750,14 @@ truthiness	the quality of seeming true without evidence
 truths	TRUTH: a fact that has been verified
 try	make an effort or attempt
 trying	hard to endure
-tryout	trying something to find out about it
-tryouts	TRYOUT: trying something to find out about it
+tryout	a test of the suitability of a performer
+tryouts	TRYOUT: a test of the suitability of a performer
 trypsin	an enzyme of pancreatic origin; catalyzes the hydrolysis of proteins to smaller polypeptide units
 tryptophan	an amino acid that occurs in proteins; is essential for growth and normal metabolism; a precursor of niacin
-tryst	a date; usually with a member of the opposite sex
+tryst	a secret rendezvous (especially between lovers)
 trysted	TRYST: meet in secret
 trysting	TRYST: meet in secret
-trysts	TRYST: a date; usually with a member of the opposite sex
+trysts	TRYST: a secret rendezvous (especially between lovers)
 tsar	a male monarch or emperor (especially of Russia prior to 1917)
 tsarina	the wife or widow of a czar
 tsarinas	TSARINA: the wife or widow of a czar
@@ -3781,11 +3781,11 @@ tubbiest	TUBBY: short and plump
 tubby	short and plump
 tube	conduit consisting of a long hollow object (usually cylindrical) used to hold and conduct objects or liquids or gases
 tubed	TUBE: conduit consisting of a long hollow object (usually cylindrical) used to hold and conduct objects or liquids or gases
-tubeless	pneumatic tire not needing an inner tube to be airtight
+tubeless	of a tire; not needing an inner tube
 tuber	a fleshy underground stem or root serving for reproductive and food storage
 tubercle	a swelling that is the characteristic lesion of tuberculosis
 tubercles	TUBERCLE: a swelling that is the characteristic lesion of tuberculosis
-tubercular	a person with pulmonary tuberculosis
+tubercular	relating to tuberculosis or those suffering from it
 tuberculin	a sterile liquid containing a purified protein derivative of the tuberculosis bacterium; used in the diagnosis of tuberculosis
 tuberculosis	infection transmitted by inhalation or ingestion of tubercle bacilli and manifested in fever and small lesions (usually in the lungs but in various other parts of the body in acute stages)
 tuberculous	constituting or afflicted with or caused by tuberculosis or the tubercle bacillus
@@ -3801,16 +3801,16 @@ tubule	a small tube
 tubules	TUBULE: a small tube
 tuck	fit snugly into
 tucked	TUCK: fit snugly into
-tucker	United States anarchist influential before World War I (1854-1939)
-tuckered	TUCKER: United States anarchist influential before World War I (1854-1939)
-tuckering	TUCKER: United States anarchist influential before World War I (1854-1939)
-tuckers	TUCKER: United States anarchist influential before World War I (1854-1939)
+tucker	food (Australian informal)
+tuckered	TUCKER: food (Australian informal)
+tuckering	TUCKER: food (Australian informal)
+tuckers	TUCKER: food (Australian informal)
 tucking	TUCK: fit snugly into
 tucks	TUCK: fit snugly into
 tuffet	a low seat or a stool to rest the feet of a seated person
 tuffets	TUFFET: a low seat or a stool to rest the feet of a seated person
 tuft	a bunch of hair or feathers or growing grass
-tufted	(of plants) growing in small dense clumps or tufts
+tufted	having or adorned with tufts
 tufter	a person or machine that makes tufts
 tufters	TUFTER: a person or machine that makes tufts
 tufting	TUFT: form into clumps
@@ -3846,9 +3846,9 @@ tumbril	a farm dumpcart for carrying dung; carts of this type were used to carry
 tumbrils	TUMBRIL: a farm dumpcart for carrying dung; carts of this type were used to carry prisoners to the guillotine during the French Revolution
 tumescence	tumidity resulting from the presence of blood or other fluid in the tissues
 tumescent	abnormally distended especially by fluids or gas
-tumid	ostentatiously lofty in style
-tummies	TUMMY: slang for a paunch
-tummy	slang for a paunch
+tumid	abnormally distended especially by fluids or gas
+tummies	TUMMY: an enlarged and muscular saclike organ of the alimentary canal; the principal organ of digestion
+tummy	an enlarged and muscular saclike organ of the alimentary canal; the principal organ of digestion
 tumor	an abnormal new mass of tissue that serves no purpose
 tumors	TUMOR: an abnormal new mass of tissue that serves no purpose
 tumour	an abnormal new mass of tissue that serves no purpose
@@ -3861,9 +3861,9 @@ tumultuous	characterized by unrest or disorder or insubordination
 tumultuously	in a tumultuous and riotous manner
 tumulus	a heap of earth placed over prehistoric tombs
 tun	a large cask especially one holding a volume equivalent to 2 butts or 252 gals
-tuna	important warm-water fatty fish of the genus Thunnus of the family Scombridae; usually served as steaks
+tuna	any very large marine food and game fish of the genus Thunnus; related to mackerel; chiefly of warm waters
 tunable	able to be tuned
-tunas	TUNA: important warm-water fatty fish of the genus Thunnus of the family Scombridae; usually served as steaks
+tunas	TUNA: any very large marine food and game fish of the genus Thunnus; related to mackerel; chiefly of warm waters
 tundra	a vast treeless plain in the Arctic regions where the subsoil is permanently frozen
 tundras	TUNDRA: a vast treeless plain in the Arctic regions where the subsoil is permanently frozen
 tune	a succession of notes forming a distinctive sequence
@@ -3879,9 +3879,9 @@ tunes	TUNE: a succession of notes forming a distinctive sequence
 tungara	a small frog of Central America
 tungaras	TUNGARA: a small frog of Central America
 tungsten	a heavy grey-white metallic element; the pure form is used mainly in electrical applications; it is found in several ores including wolframite and scheelite
-tunic	an enveloping or covering membrane or layer of body tissue
+tunic	any of a variety of loose fitting cloaks extending to the hips or knees
 tunicate	primitive marine animal having a saclike unsegmented body and a urochord that is conspicuous in the larva
-tunics	TUNIC: an enveloping or covering membrane or layer of body tissue
+tunics	TUNIC: any of a variety of loose fitting cloaks extending to the hips or knees
 tuning	calibrating something (an instrument or electronic circuit) to a standard frequency
 tunings	TUNING: calibrating something (an instrument or electronic circuit) to a standard frequency
 tunnel	move through by or as by digging
@@ -3896,8 +3896,8 @@ tunnellers	TUNNELLER: a person or animal that digs tunnels
 tunnelling	TUNNEL: move through by or as by digging
 tunnellings	TUNNELLING: the digging of tunnels
 tunnels	TUNNEL: move through by or as by digging
-tunnies	TUNNY: important warm-water fatty fish of the genus Thunnus of the family Scombridae; usually served as steaks
-tunny	important warm-water fatty fish of the genus Thunnus of the family Scombridae; usually served as steaks
+tunnies	TUNNY: any very large marine food and game fish of the genus Thunnus; related to mackerel; chiefly of warm waters
+tunny	any very large marine food and game fish of the genus Thunnus; related to mackerel; chiefly of warm waters
 tuns	TUN: a large cask especially one holding a volume equivalent to 2 butts or 252 gals
 tuple	an ordered list of values
 tuples	TUPLE: an ordered list of values
@@ -3915,15 +3915,15 @@ turbocharged	fitted with a turbocharger
 turbocharger	an engine device that uses exhaust gas to boost power
 turbochargers	TURBOCHARGER: an engine device that uses exhaust gas to boost power
 turbocharging	TURBOCHARGE: boost power with a turbocharger
-turbofan	an airplane propelled by a fanjet engine
-turbofans	TURBOFAN: an airplane propelled by a fanjet engine
-turbojet	an airplane propelled by a fanjet engine
-turbojets	TURBOJET: an airplane propelled by a fanjet engine
+turbofan	a jet engine in which a fan driven by a turbine provides extra air to the burner and gives extra thrust
+turbofans	TURBOFAN: a jet engine in which a fan driven by a turbine provides extra air to the burner and gives extra thrust
+turbojet	a jet engine in which a fan driven by a turbine provides extra air to the burner and gives extra thrust
+turbojets	TURBOJET: a jet engine in which a fan driven by a turbine provides extra air to the burner and gives extra thrust
 turboprop	an airplane with an external propeller that is driven by a turbojet engine
 turboprops	TURBOPROP: an airplane with an external propeller that is driven by a turbojet engine
 turbos	TURBO: a turbocharger
-turbot	flesh of a large European flatfish
-turbots	TURBOT: flesh of a large European flatfish
+turbot	a large brownish European flatfish
+turbots	TURBOT: a large brownish European flatfish
 turbulence	unstable flow of a liquid or gas
 turbulent	characterized by unrest or disorder or insubordination
 turbulently	in a turbulent manner; with turbulence
@@ -3937,7 +3937,7 @@ turf	surface layer of ground containing a mat of grass and grass roots
 turfed	TURF: surface layer of ground containing a mat of grass and grass roots
 turfing	TURF: surface layer of ground containing a mat of grass and grass roots
 turfs	TURF: surface layer of ground containing a mat of grass and grass roots
-turgid	ostentatiously lofty in style
+turgid	abnormally distended especially by fluids or gas
 turgidity	pompously embellished language
 turgidly	in a turgid manner
 turista	traveller's diarrhoea
@@ -3950,25 +3950,25 @@ turmoils	TURMOIL: a violent disturbance
 turn	change orientation or direction, also in the abstract sense
 turnabout	a decision to reverse an earlier decision
 turnabouts	TURNABOUT: a decision to reverse an earlier decision
-turnaround	time need to prepare a vessel or ship for a return trip
-turnarounds	TURNAROUND: time need to prepare a vessel or ship for a return trip
+turnaround	a decision to reverse an earlier decision
+turnarounds	TURNAROUND: a decision to reverse an earlier decision
 turnbuckle	an oblong metal coupling with a swivel at one end and an internal thread at the other into which a threaded rod can be screwed in order to form a unit that can be adjusted for length or tension
 turnbuckles	TURNBUCKLE: an oblong metal coupling with a swivel at one end and an internal thread at the other into which a threaded rod can be screwed in order to form a unit that can be adjusted for length or tension
 turncoat	a disloyal person who betrays or deserts his cause or religion or political party or friend etc.
 turncoats	TURNCOAT: a disloyal person who betrays or deserts his cause or religion or political party or friend etc.
 turned	moved around an axis or center
-turner	United States slave and insurrectionist who in 1831 led a rebellion of slaves in Virginia; he was captured and executed (1800-1831)
-turners	TURNER: United States slave and insurrectionist who in 1831 led a rebellion of slaves in Virginia; he was captured and executed (1800-1831)
+turner	a lathe operator
+turners	TURNER: a lathe operator
 turning	the act of changing or reversing the direction of the course
 turnings	TURNING: the act of changing or reversing the direction of the course
-turnip	root of any of several members of the mustard family
-turnips	TURNIP: root of any of several members of the mustard family
+turnip	widely cultivated plant having a large fleshy edible white or yellow root
+turnips	TURNIP: widely cultivated plant having a large fleshy edible white or yellow root
 turnkey	someone who guards prisoners
 turnkeys	TURNKEY: someone who guards prisoners
-turnoff	something causing antagonism or loss of interest
-turnoffs	TURNOFF: something causing antagonism or loss of interest
-turnout	the group that gathers together for a particular occasion
-turnouts	TURNOUT: the group that gathers together for a particular occasion
+turnoff	a side road where you can turn off
+turnoffs	TURNOFF: a side road where you can turn off
+turnout	attendance for a particular event or purpose (as to vote in an election)
+turnouts	TURNOUT: attendance for a particular event or purpose (as to vote in an election)
 turnover	the ratio of the number of workers that had to be replaced in a given time period to the average number of workers
 turnovers	TURNOVER: the ratio of the number of workers that had to be replaced in a given time period to the average number of workers
 turnpike	gates set across a road to prevent passage until a toll had been paid
@@ -3982,29 +3982,29 @@ turnstone	migratory shorebirds of the plover family that turn over stones in sea
 turnstones	TURNSTONE: migratory shorebirds of the plover family that turn over stones in searching for food
 turntable	a circular horizontal platform that rotates a phonograph record while it is being played
 turntables	TURNTABLE: a circular horizontal platform that rotates a phonograph record while it is being played
-turpentine	obtained from conifers (especially pines)
+turpentine	volatile liquid distilled from turpentine oleoresin; used as paint thinner and solvent and medicinally
 turpitude	a corrupt or depraved or degenerate act or practice
 turps	volatile liquid distilled from turpentine oleoresin; used as paint thinner and solvent and medicinally
-turquoise	a blue to grey green mineral consisting of copper aluminum phosphate
-turquoises	TURQUOISE: a blue to grey green mineral consisting of copper aluminum phosphate
+turquoise	a shade of blue tinged with green
+turquoises	TURQUOISE: a shade of blue tinged with green
 turret	a small tower extending above a building
 turreted	having small towers
 turrets	TURRET: a small tower extending above a building
-turtle	a sweater or jersey with a high close-fitting collar
+turtle	any of various aquatic and land reptiles having a bony shell and flipper-like limbs for swimming
 turtleback	having a rounded arched top
-turtledove	small Australian dove
-turtledoves	TURTLEDOVE: small Australian dove
+turtledove	any of several Old World wild doves
+turtledoves	TURTLEDOVE: any of several Old World wild doves
 turtleneck	a sweater or jersey with a high close-fitting collar
 turtlenecked	wearing a high, close-fitting collar
 turtlenecks	TURTLENECK: a sweater or jersey with a high close-fitting collar
-turtles	TURTLE: a sweater or jersey with a high close-fitting collar
+turtles	TURTLE: any of various aquatic and land reptiles having a bony shell and flipper-like limbs for swimming
 turves	TURF: squares of grass cut with soil
 tush	the fleshy part of the human body that you sit on
 tushes	TUSH: the fleshy part of the human body that you sit on
-tusk	a hard smooth ivory colored dentine that makes up most of the tusks of elephants and walruses
+tusk	a long pointed tooth specialized for fighting or digging; especially in an elephant or walrus or hog
 tusked	having tusks
 tusklike	like a tusk
-tusks	TUSK: a hard smooth ivory colored dentine that makes up most of the tusks of elephants and walruses
+tusks	TUSK: a long pointed tooth specialized for fighting or digging; especially in an elephant or walrus or hog
 tussle	disorderly fighting
 tussled	TUSSLE: disorderly fighting
 tussles	TUSSLE: disorderly fighting
@@ -4023,8 +4023,8 @@ tutors	TUTOR: a person who gives private instruction (as in singing, acting, etc
 tuts	TUT: utter `tsk,' `tut,' or `tut-tut,' as in disapproval
 tutted	TUT: utter `tsk,' `tut,' or `tut-tut,' as in disapproval
 tutting	TUT: utter `tsk,' `tut,' or `tut-tut,' as in disapproval
-tutu	South African prelate and leader of the antiapartheid struggle (born in 1931)
-tutus	TUTU: South African prelate and leader of the antiapartheid struggle (born in 1931)
+tutu	very short skirt worn by ballerinas
+tutus	TUTU: very short skirt worn by ballerinas
 tux	semiformal evening dress for men
 tuxedo	semiformal evening dress for men
 tuxedoes	TUXEDO: a man's formal dinner jacket
@@ -4044,10 +4044,10 @@ twangs	TWANG: a sharp vibrating sound (as of a plucked string)
 twas	it was
 twat	a man who is a stupid incompetent fool
 twats	TWAT: a man who is a stupid incompetent fool
-tweak	a squeeze with the fingers
-tweaked	TWEAK: a squeeze with the fingers
-tweaking	TWEAK: a squeeze with the fingers
-tweaks	TWEAK: a squeeze with the fingers
+tweak	adjust finely
+tweaked	TWEAK: adjust finely
+tweaking	TWEAK: adjust finely
+tweaks	TWEAK: adjust finely
 twee	affectedly dainty or refined
 tweed	thick woolen fabric used for clothing; originated in Scotland
 tweedier	TWEEDY: of textiles; having a rough surface
@@ -4093,7 +4093,7 @@ twigs	TWIG: a small branch or division of a branch (especially a terminal divisi
 twilight	the time of day immediately following sunset
 twilights	TWILIGHT: the time of day immediately following sunset
 twilit	lighted by or as if by twilight
-twill	a weave used to produce the effect of parallel diagonal ribs
+twill	a cloth with parallel diagonal lines or ribs
 twilled	of textiles; having parallel raised lines
 twin	either of two offspring born at the same time from the same pregnancy
 twine	spin, wind, or twist together
@@ -4159,18 +4159,18 @@ twopence	a former United Kingdom silver coin; United Kingdom bronze decimal coin
 twopences	TWOPENCE: a former United Kingdom silver coin; United Kingdom bronze decimal coin worth two pennies
 twopenny	of trifling worth
 twos	TWO: the cardinal number that is the sum of one and one or a numeral representing this number
-twosome	two items of the same kind
-twosomes	TWOSOME: two items of the same kind
+twosome	a pair who associate with one another
+twosomes	TWOSOME: a pair who associate with one another
 tycoon	a very wealthy or powerful businessman
 tycoons	TYCOON: a very wealthy or powerful businessman
 tying	the act of tying or binding things together
-tyke	a native of Yorkshire
-tykes	TYKE: a native of Yorkshire
+tyke	a small child, especially a mischievous one
+tykes	TYKE: a small child, especially a mischievous one
 tympana	TYMPANUM: the eardrum
 tympani	a large hemispherical brass or copper percussion instrument with a drumhead that can be tuned by adjusting the tension on it
-tympanic	resembling a drum
-tympanum	the main cavity of the ear; between the eardrum and the inner ear
-tympanums	TYMPANUM: the main cavity of the ear; between the eardrum and the inner ear
+tympanic	associated with the eardrum
+tympanum	the membrane in the ear that vibrates to sound
+tympanums	TYMPANUM: the membrane in the ear that vibrates to sound
 type	a subdivision of a particular kind of thing
 typecast	cast repeatedly in the same kind of role
 typecasting	TYPECAST: cast repeatedly in the same kind of role
@@ -4223,14 +4223,14 @@ tyrannic	characteristic of an absolute ruler or absolute rule; having absolute s
 tyrannical	marked by unjust severity or arbitrary behavior
 tyrannically	in a harsh and oppressive way
 tyrannies	TYRANNY: a form of government in which the ruler is an absolute dictator (not restricted by a constitution or laws or opposition etc.)
-tyrannise	rule a country as a tyrant
-tyrannised	TYRANNISE: rule a country as a tyrant
-tyrannises	TYRANNISE: rule a country as a tyrant
-tyrannising	TYRANNISE: rule a country as a tyrant
-tyrannize	rule a country as a tyrant
-tyrannized	TYRANNIZE: rule a country as a tyrant
-tyrannizes	TYRANNIZE: rule a country as a tyrant
-tyrannizing	TYRANNIZE: rule a country as a tyrant
+tyrannise	rule or exercise power over (somebody) in a cruel and autocratic manner
+tyrannised	TYRANNISE: rule or exercise power over (somebody) in a cruel and autocratic manner
+tyrannises	TYRANNISE: rule or exercise power over (somebody) in a cruel and autocratic manner
+tyrannising	TYRANNISE: rule or exercise power over (somebody) in a cruel and autocratic manner
+tyrannize	rule or exercise power over (somebody) in a cruel and autocratic manner
+tyrannized	TYRANNIZE: rule or exercise power over (somebody) in a cruel and autocratic manner
+tyrannizes	TYRANNIZE: rule or exercise power over (somebody) in a cruel and autocratic manner
+tyrannizing	TYRANNIZE: rule or exercise power over (somebody) in a cruel and autocratic manner
 tyrannosaur	large carnivorous bipedal dinosaur having enormous teeth with knifelike serrations; may have been a scavenger rather than an active predator; later Cretaceous period in North America
 tyrannosaurs	TYRANNOSAUR: large carnivorous bipedal dinosaur having enormous teeth with knifelike serrations; may have been a scavenger rather than an active predator; later Cretaceous period in North America
 tyrannosaurus	large carnivorous bipedal dinosaur having enormous teeth with knifelike serrations; may have been a scavenger rather than an active predator; later Cretaceous period in North America
@@ -4239,8 +4239,8 @@ tyrannous	marked by unjust severity or arbitrary behavior
 tyranny	a form of government in which the ruler is an absolute dictator (not restricted by a constitution or laws or opposition etc.)
 tyrant	a cruel and oppressive dictator
 tyrants	TYRANT: a cruel and oppressive dictator
-tyre	a port in southern Lebanon on the Mediterranean Sea; formerly a major Phoenician seaport famous for silks
-tyres	TYRE: a port in southern Lebanon on the Mediterranean Sea; formerly a major Phoenician seaport famous for silks
+tyre	hoop that covers a wheel
+tyres	TYRE: hoop that covers a wheel
 tyro	someone new to a field or activity
 tyroes	TYRO: a beginner
 tyros	TYRO: someone new to a field or activity

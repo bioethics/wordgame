@@ -16,10 +16,11 @@
 //   2. WordNet, the word itself — the gloss of its commonest sense, in the part
 //      of speech its tagged corpus met most often (HOME, a noun; RUN, a verb).
 //      Example sentences are cut. Used when WordNet's corpus met the word, or
-//      when the word has no base form to fall back on. An untagged noun whose
-//      first-listed sense is a plant takes its food sense (PEACH, CHERRY), and
-//      an animal or plant gloss with no head noun gets its hypernym (YELLOWFIN
-//      "a tuna; may reach 400 pounds…").
+//      when the word has no base form to fall back on. Where the corpus never
+//      met the word, the sense named in definitions-senses.txt; until one is,
+//      an untagged noun whose first-listed sense is a plant takes its food
+//      sense (PEACH, CHERRY). An animal or plant gloss with no head noun gets
+//      its hypernym (YELLOWFIN "a tuna; may reach 400 pounds…").
 //   3. A base form, by WordNet's rules for endings and a short table of
 //      irregulars — STOPPED gives "STOP: come to a halt…", GEESE "GOOSE: …".
 //      The base's own definition comes from 1 or 2.
@@ -33,6 +34,9 @@
 // AFTER ADDING WORDS TO THE DICTIONARY: re-run this. Anything it can't define
 // lands in definitions-missing.txt; write those into definitions-own.txt (one
 // short definition each, in the plain style of the rest) and run it again.
+// Anything whose definition rests on WordNet's arbitrary order lands in
+// definitions-unpicked.txt with its senses; pick each one's everyday sense into
+// definitions-senses.txt (or write it into definitions-own.txt) and run again.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

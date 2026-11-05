@@ -1,4 +1,4 @@
-la	a white soft metallic element that tarnishes readily; occurs in rare earth minerals and is usually classified as a rare earth
+la	the syllable naming the sixth (submediant) note of a major or minor scale in solmization
 lab	a workplace for the conduct of scientific research
 label	a brief description given for purposes of identification
 labeled	bearing or marked with a label or tag
@@ -11,8 +11,8 @@ labellers	LABELLER: a person or device that attaches labels
 labelling	LABEL: a brief description given for purposes of identification
 labels	LABEL: a brief description given for purposes of identification
 labia	the folds of skin around the opening of the vagina
-labial	a consonant whose articulation involves movement of the lips
-labials	LABIAL: a consonant whose articulation involves movement of the lips
+labial	of or relating to the lips of the mouth
+labials	LABIAL: of or relating to the lips of the mouth
 labiodental	a consonant whose articulation involves the lips and teeth
 labiodentals	LABIODENTAL: a consonant whose articulation involves the lips and teeth
 labium	a liplike structure that bounds a bodily orifice (especially any of the four labiate folds of a woman's vulva)
@@ -40,7 +40,7 @@ labs	LAB: a workplace for the conduct of scientific research
 laburnum	flowering shrubs or trees having bright yellow flowers; all parts of the plant are poisonous
 laburnums	LABURNUM: flowering shrubs or trees having bright yellow flowers; all parts of the plant are poisonous
 labyrinth	complex system of paths or tunnels in which it is easy to get lost
-labyrinthine	relating to or affecting or originating in the inner ear
+labyrinthine	resembling a labyrinth in form or complexity
 labyrinths	LABYRINTH: complex system of paths or tunnels in which it is easy to get lost
 lace	spin, wind, or twist together
 laced	closed with a lace
@@ -71,20 +71,20 @@ lacklustre	lacking brilliance or vitality
 lacks	LACK: the state of needing something that is absent or unavailable
 laconic	brief and to the point; effectively cut short
 laconically	in a dry laconic manner
-lacquer	a black resinous substance obtained from certain trees and used as a natural varnish
-lacquered	LACQUER: a black resinous substance obtained from certain trees and used as a natural varnish
+lacquer	a hard glossy coating
+lacquered	LACQUER: a hard glossy coating
 lacquerer	a person who applies lacquer
 lacquerers	LACQUERER: a person who applies lacquer
-lacquering	LACQUER: a black resinous substance obtained from certain trees and used as a natural varnish
-lacquers	LACQUER: a black resinous substance obtained from certain trees and used as a natural varnish
+lacquering	LACQUER: a hard glossy coating
+lacquers	LACQUER: a hard glossy coating
 lacrimal	of or relating to tears
 lacrosse	a game invented by American Indians; now played by two teams who use long-handled rackets to catch and carry and throw the ball toward the opponents' goal
 lactase	any of a group of enzymes (trade name Lactaid) that hydrolyze lactose to glucose and galactose
-lactate	a salt or ester of lactic acid
-lactated	LACTATE: a salt or ester of lactic acid
-lactates	LACTATE: a salt or ester of lactic acid
+lactate	give suck to
+lactated	LACTATE: give suck to
+lactates	LACTATE: give suck to
 lactating	producing or secreting milk
-lactation	the period following birth during which milk is secreted
+lactation	the production and secretion of milk by the mammary glands
 lactic	of or relating to or obtained from milk (especially sour milk or whey)
 lactose	a sugar comprising one glucose molecule linked to a galactose molecule; occurs only in milk
 lacuna	a blank gap or missing part
@@ -101,10 +101,10 @@ laddie	a male child (a familiar term of address to a boy)
 laddies	LADDIE: a male child (a familiar term of address to a boy)
 laddish	boisterous and macho, like young men
 laddishness	boisterous, macho behaviour
-lade	remove with or as if with a ladle
-laded	LADE: remove with or as if with a ladle
+lade	fill or place a load on
+laded	LADE: fill or place a load on
 laden	filled with a great quantity
-lades	LADE: remove with or as if with a ladle
+lades	LADE: fill or place a load on
 ladette	a young woman who behaves in a rowdy way
 ladettes	LADETTE: a young woman who behaves in a rowdy way
 ladies	LADY: a polite name for any woman
@@ -168,12 +168,12 @@ lamasery	a monastery for lamas
 lamb	young sheep
 lambada	a fast Brazilian dance
 lambadas	LAMBADA: a fast Brazilian dance
-lambast	beat with a cane
-lambaste	beat with a cane
-lambasted	LAMBASTE: beat with a cane
-lambastes	LAMBASTE: beat with a cane
-lambasting	LAMBASTE: beat with a cane
-lambasts	LAMBAST: beat with a cane
+lambast	censure severely or angrily
+lambaste	censure severely or angrily
+lambasted	LAMBASTE: censure severely or angrily
+lambastes	LAMBASTE: censure severely or angrily
+lambasting	LAMBASTE: censure severely or angrily
+lambasts	LAMBAST: censure severely or angrily
 lambda	the 11th letter of the Greek alphabet
 lambdas	LAMBDA: the 11th letter of the Greek alphabet
 lambed	LAMB: young sheep
@@ -187,7 +187,7 @@ lambs	LAMB: young sheep
 lambskin	the skin of a lamb with the wool still on
 lambskins	LAMBSKIN: the skin of a lamb with the wool still on
 lambswool	soft wool from a young sheep
-lame	someone who doesn't understand what is going on
+lame	disabled in the feet or legs
 lamebrain	a stupid person
 lamebrained	LAMEBRAIN: a stupid person
 lamebrains	LAMEBRAIN: a stupid person
@@ -208,10 +208,10 @@ lamenters	LAMENTER: a person who is feeling grief (as grieving over someone who 
 lamenting	LAMENT: express grief verbally
 lamentingly	in a lamenting way
 laments	LAMENT: express grief verbally
-lamer	LAME: someone who doesn't understand what is going on
+lamer	LAME: disabled in the feet or legs
 lamers	LAMER: a person seen as inept or contemptible
 lames	LAM: flee; take to one's heels; cut and run
-lamest	LAME: someone who doesn't understand what is going on
+lamest	LAME: disabled in the feet or legs
 lamia	a corpse that rises at night to drink the blood of the living
 lamias	LAMIA: a corpse that rises at night to drink the blood of the living
 lamina	a thin plate or layer (especially of bone or mineral)
@@ -252,17 +252,17 @@ lanceolate	(of a leaf shape) shaped like a lance head; narrow and tapering to a 
 lancer	a cavalryman armed with a lance
 lancers	a quadrille for 8 or 16 couples
 lances	LANCE: a long pointed rod used as a tool or weapon
-lancet	an acutely pointed Gothic arch, like a lance
-lancets	LANCET: an acutely pointed Gothic arch, like a lance
+lancet	a surgical knife with a pointed double-edged blade; used for punctures and small incisions
+lancets	LANCET: a surgical knife with a pointed double-edged blade; used for punctures and small incisions
 lancing	LANCE: a long pointed rod used as a tool or weapon
 land	the land on which real estate is located
-landau	Soviet physicist who worked on low temperature physics (1908-1968)
-landaus	LANDAU: Soviet physicist who worked on low temperature physics (1908-1968)
+landau	a four-wheel covered carriage with a roof divided into two parts (front and back) that can be let down separately
+landaus	LANDAU: a four-wheel covered carriage with a roof divided into two parts (front and back) that can be let down separately
 landed	LAND: the land on which real estate is located
-lander	a town in central Wyoming
-landers	LANDER: a town in central Wyoming
-landfall	the seacoast first sighted on a voyage (or flight over water)
-landfalls	LANDFALL: the seacoast first sighted on a voyage (or flight over water)
+lander	a space vehicle that is designed to land on the moon or another planet
+landers	LANDER: a space vehicle that is designed to land on the moon or another planet
+landfall	the first sighting of land from the sea after a voyage (or flight over water)
+landfalls	LANDFALL: the first sighting of land from the sea after a voyage (or flight over water)
 landfill	a low area that has been filled in
 landfills	LANDFILL: a low area that has been filled in
 landform	a natural feature of the earth's surface
@@ -314,7 +314,7 @@ lane	a narrow way or road
 lanes	LANE: a narrow way or road
 laneway	a narrow lane between buildings
 laneways	LANEWAY: a narrow lane between buildings
-langouste	warm-water lobsters without claws; those from Australia and South Africa usually marketed as frozen tails; caught also in Florida and California
+langouste	large edible marine crustacean having a spiny carapace but lacking the large pincers of true lobsters
 langoustine	caught in European waters; slenderer than American lobster
 langoustines	LANGOUSTINE: caught in European waters; slenderer than American lobster
 language	a systematic means of communicating by the use of sounds or conventional symbols
@@ -343,8 +343,8 @@ lanterns	LANTERN: light in a transparent protective case
 lanthanum	a white soft metallic element that tarnishes readily; occurs in rare earth minerals and is usually classified as a rare earth
 lanthorn	old word for lantern
 lanthorns	LANTHORN: old word for lantern
-lanyard	a cord with an attached hook that is used to fire certain types of cannon
-lanyards	LANYARD: a cord with an attached hook that is used to fire certain types of cannon
+lanyard	a cord worn around the neck to hold a knife or whistle
+lanyards	LANYARD: a cord worn around the neck to hold a knife or whistle
 lap	lie partly over or alongside of something or of one another
 laparoscopic	involving surgery through small cuts using a camera
 laparoscopy	laparotomy performed with a laparoscope that makes a small incision to examine the abdominal cavity (especially the ovaries and Fallopian tubes)
@@ -360,8 +360,8 @@ lapel	lap at the front of a coat; continuation of the coat collar
 lapels	LAPEL: lap at the front of a coat; continuation of the coat collar
 lapful	the quantity that can be held in the lap
 lapfuls	LAPFUL: the quantity that can be held in the lap
-lapidaries	LAPIDARY: an expert on precious stones and the art of cutting and engraving them
-lapidary	an expert on precious stones and the art of cutting and engraving them
+lapidaries	LAPIDARY: a skilled worker who cuts and engraves precious stones
+lapidary	a skilled worker who cuts and engraves precious stones
 lapped	LAP: lie partly over or alongside of something or of one another
 lapping	LAP: lie partly over or alongside of something or of one another
 laps	LAP: lie partly over or alongside of something or of one another
@@ -378,18 +378,18 @@ larboards	LARBOARD: the left side of a ship or aircraft to someone who is aboard
 larcenies	LARCENY: the act of taking something from someone unlawfully
 larcenous	having a disposition to steal
 larceny	the act of taking something from someone unlawfully
-larch	wood of a larch tree
-larches	LARCH: wood of a larch tree
+larch	any of numerous conifers of the genus Larix all having deciduous needlelike leaves
+larches	LARCH: any of numerous conifers of the genus Larix all having deciduous needlelike leaves
 lard	soft white semisolid fat obtained by rendering the fatty tissue of the hog
 larded	LARD: soft white semisolid fat obtained by rendering the fatty tissue of the hog
-larder	a supply of food especially for a household
-larders	LARDER: a supply of food especially for a household
+larder	a small storeroom for storing foods or wines
+larders	LARDER: a small storeroom for storing foods or wines
 larding	LARD: soft white semisolid fat obtained by rendering the fatty tissue of the hog
 lards	LARD: soft white semisolid fat obtained by rendering the fatty tissue of the hog
 large	above average in size or number or quantity or magnitude or extent
 larged	LARGE: behaved in a boisterous way
 largely	in large part; mainly or chiefly
-largeness	the capacity to understand a broad range of topics
+largeness	the property of having a relatively great size
 larger	large or big relative to something else
 larges	LARGE: above average in size or number or quantity or magnitude or extent
 largess	a gift or money given (as for service or out of benevolence); usually given ostentatiously
@@ -397,16 +397,16 @@ largesse	a gift or money given (as for service or out of benevolence); usually g
 largest	LARGE: above average in size or number or quantity or magnitude or extent
 larging	LARGE: behaving in a boisterous way
 largish	somewhat large
-largo	a composition or passage that is to be performed in a slow and dignified manner
-largos	LARGO: a composition or passage that is to be performed in a slow and dignified manner
+largo	very slow in tempo and broad in manner
+largos	LARGO: very slow in tempo and broad in manner
 lariat	a long noosed rope used to catch animals
 lariats	LARIAT: a long noosed rope used to catch animals
-lark	North American songbirds having a yellow breast
-larked	LARK: North American songbirds having a yellow breast
+lark	a songbird that lives mainly on the ground in open country; has streaky brown plumage
+larked	LARK: a songbird that lives mainly on the ground in open country; has streaky brown plumage
 larker	a person who plays about for fun
 larkers	LARKER: a person who plays about for fun
-larking	LARK: North American songbirds having a yellow breast
-larks	LARK: North American songbirds having a yellow breast
+larking	LARK: a songbird that lives mainly on the ground in open country; has streaky brown plumage
+larks	LARK: a songbird that lives mainly on the ground in open country; has streaky brown plumage
 larkspur	any of numerous cultivated plants of the genus Delphinium
 larkspurs	LARKSPUR: any of numerous cultivated plants of the genus Delphinium
 larrikin	a mischievous, irreverent person
@@ -425,7 +425,7 @@ laryngologists	LARYNGOLOGIST: a doctor who treats the throat and voice box
 laryngology	the study of the throat and voice box
 larynx	a cartilaginous structure at the top of the trachea; contains elastic vocal cords that are the source of the vocal tone in speech
 larynxes	LARYNX: a cartilaginous structure at the top of the trachea; contains elastic vocal cords that are the source of the vocal tone in speech
-las	LA: a white soft metallic element that tarnishes readily; occurs in rare earth minerals and is usually classified as a rare earth
+las	LA: the syllable naming the sixth (submediant) note of a major or minor scale in solmization
 lasagna	baked dish of layers of lasagna pasta with sauce and cheese and meat or vegetables
 lasagnas	LASAGNA: baked dish of layers of lasagna pasta with sauce and cheese and meat or vegetables
 lasagne	baked dish of layers of lasagna pasta with sauce and cheese and meat or vegetables
@@ -455,14 +455,14 @@ lasses	LASS: a girl or young woman who is unmarried
 lassi	a yoghurt drink from India
 lassie	a girl or young woman who is unmarried
 lassies	LASSI: a yoghurt drink from India
-lassitude	a state of comatose torpor (as found in sleeping sickness)
-lasso	Belgian composer (1532-1594)
-lassoed	LASSO: Belgian composer (1532-1594)
+lassitude	weakness characterized by a lack of vitality or energy
+lasso	a long noosed rope used to catch animals
+lassoed	LASSO: a long noosed rope used to catch animals
 lassoer	a person who catches animals with a rope loop
 lassoers	LASSOER: a person who catches animals with a rope loop
-lassoes	LASSO: Belgian composer (1532-1594)
-lassoing	LASSO: Belgian composer (1532-1594)
-lassos	LASSO: Belgian composer (1532-1594)
+lassoes	LASSO: a long noosed rope used to catch animals
+lassoing	LASSO: a long noosed rope used to catch animals
+lassos	LASSO: a long noosed rope used to catch animals
 last	immediately past
 lasted	LAST: immediately past
 lasting	continuing or enduring without marked change in status or condition or place
@@ -479,18 +479,18 @@ late	being or occurring at an advanced period of time or after a usual or expect
 latecomer	someone who arrives late
 latecomers	LATECOMER: someone who arrives late
 lately	in the recent past
-latencies	LATENCY: the time it takes for a specific block of data on a data track to rotate around to the read/write head
-latency	the time it takes for a specific block of data on a data track to rotate around to the read/write head
+latencies	LATENCY: the state of being not yet evident or active
+latency	the state of being not yet evident or active
 lateness	quality of coming late or later in time
 latent	potentially existing but not presently evident or realized
 later	happening at a time subsequent to a reference time
-lateral	a pass to a receiver upfield from the passer
+lateral	situated at or extending to the side
 lateraled	LATERAL: passed sideways in football
 lateraling	LATERAL: passing sideways in football
-lateralled	LATERAL: a pass to a receiver upfield from the passer
-lateralling	LATERAL: a pass to a receiver upfield from the passer
-laterally	to or by or from the side
-laterals	LATERAL: a pass to a receiver upfield from the passer
+lateralled	LATERAL: situated at or extending to the side
+lateralling	LATERAL: situated at or extending to the side
+laterally	in a lateral direction or location
+laterals	LATERAL: situated at or extending to the side
 laterite	a red soil produced by rock decay; contains insoluble deposits of ferric and aluminum oxides
 latest	up to the immediate present; most recent or most up-to-date
 latex	a milky exudate from certain plants that coagulates on exposure to air
@@ -517,9 +517,9 @@ latte	strong espresso coffee with a topping of frothed steamed milk
 latter	referring to the second of two things or persons mentioned (or the last one or ones of several)
 latterly	in the recent past
 lattes	LATTE: strong espresso coffee with a topping of frothed steamed milk
-lattice	an arrangement of points or particles or objects in a regular periodic pattern in 2 or 3 dimensions
+lattice	framework consisting of an ornamental design made of strips of wood or metal
 latticed	having a pattern of fretwork or latticework
-lattices	LATTICE: an arrangement of points or particles or objects in a regular periodic pattern in 2 or 3 dimensions
+lattices	LATTICE: framework consisting of an ornamental design made of strips of wood or metal
 latticework	framework consisting of an ornamental design made of strips of wood or metal
 latticeworks	LATTICEWORK: framework consisting of an ornamental design made of strips of wood or metal
 laud	praise, glorify, or honor
@@ -528,8 +528,8 @@ laudably	in an admirable manner
 laudanum	narcotic consisting of an alcohol solution of opium or any preparation in which opium is the main ingredient
 laudatory	full of or giving praise
 lauded	LAUD: praise, glorify, or honor
-lauder	Scottish ballad singer and music hall comedian (1870-1950)
-lauders	LAUDER: Scottish ballad singer and music hall comedian (1870-1950)
+lauder	someone who communicates high praise
+lauders	LAUDER: someone who communicates high praise
 lauding	LAUD: praise, glorify, or honor
 lauds	LAUD: praise, glorify, or honor
 laugh	the sound of laughing
@@ -591,20 +591,20 @@ lavishes	LAVISH: expend profusely; also used with abstract nouns
 lavishest	LAVISH: expend profusely; also used with abstract nouns
 lavishing	LAVISH: expend profusely; also used with abstract nouns
 lavishly	in a wasteful manner
-lavishness	the quality possessed by something that is excessively expensive
+lavishness	excessive spending
 lavs	LAV: a room or building equipped with one or more toilets
 law	the collection of rules imposed by authority
 lawbreaker	someone who violates the law
 lawbreakers	LAWBREAKER: someone who violates the law
 lawbreaking	the act of breaking the law
-lawful	conformable to or allowed by law
-lawfully	in a manner acceptable to common custom
+lawful	authorized, sanctioned by, or in accordance with law
+lawfully	by law; conforming to the law
 lawfulness	the quality of conforming to law
 lawgiver	a maker of laws; someone who gives a code of laws
 lawgivers	LAWGIVER: a maker of laws; someone who gives a code of laws
 lawless	without law or control
 lawlessly	in an illegal manner
-lawlessness	a state of lawlessness and disorder (usually resulting from a failure of government)
+lawlessness	illegality as a consequence of unlawful acts; defiance of the law
 lawmaker	a maker of laws; someone who gives a code of laws
 lawmakers	LAWMAKER: a maker of laws; someone who gives a code of laws
 lawmaking	the act of making or enacting laws
@@ -625,7 +625,7 @@ laxative	a mild cathartic
 laxatives	LAXATIVE: a mild cathartic
 laxer	LAX: lacking in rigor or strictness
 laxest	LAX: lacking in rigor or strictness
-laxity	the condition of being physiologically lax
+laxity	the quality of being lax and neglectful
 laxly	in a permissively lenient manner
 laxness	the quality of being lax and neglectful
 lay	put into a certain place or abstract location
@@ -669,12 +669,12 @@ lazuli	an azure blue semiprecious stone
 lazy	moving slowly and gently
 lazybones	a lazy person
 lazying	LAZY: idling
-lea	a unit of length of thread or yarn
-leach	the process of leaching
-leached	LEACH: the process of leaching
+lea	a field covered with grass or herbage and suitable for grazing by livestock
+leach	remove substances from by a percolating liquid
+leached	LEACH: remove substances from by a percolating liquid
 leacher	a person who is lecherous
 leachers	LEACHER: a person who is lecherous
-leaches	LEACH: the process of leaching
+leaches	LEACH: remove substances from by a percolating liquid
 leaching	the process of leaching
 lead	take somebody somewhere
 leaded	(of panes of glass) fixed in place by means of thin strips of lead
@@ -725,7 +725,7 @@ leaner	LEAN: to incline or bend from a vertical position
 leanest	LEAN: to incline or bend from a vertical position
 leaning	departing or being caused to depart from the true vertical or horizontal
 leanings	LEANING: departing or being caused to depart from the true vertical or horizontal
-leanness	the quality of being meager
+leanness	the property of having little body fat
 leans	LEAN: to incline or bend from a vertical position
 leant	LEAN: rested against something
 leap	a light, self-propelled movement upwards or forwards
@@ -747,7 +747,7 @@ learners	LEARNER: someone (especially a child) who learns (as from a teacher) or
 learning	the cognitive process of acquiring skill or knowledge
 learns	LEARN: gain knowledge or skills
 learnt	LEARN: gain knowledge or skills
-leas	LEA: a unit of length of thread or yarn
+leas	LEA: a field covered with grass or herbage and suitable for grazing by livestock
 lease	property that is leased or rented out or let
 leaseback	selling a property and renting it back
 leasebacks	LEASEBACK: selling a property and renting it back
@@ -814,7 +814,7 @@ ledge	a projecting ridge on a mountain or submerged under water
 ledger	a record in which commercial accounts are recorded
 ledgers	LEDGER: a record in which commercial accounts are recorded
 ledges	LEDGE: a projecting ridge on a mountain or submerged under water
-lee	United States filmmaker whose works explore the richness of black culture in America (born in 1957)
+lee	the side of something that is sheltered from the wind
 leeboard	a board on the side of a sailing boat that stops it drifting
 leech	carnivorous or bloodsucking aquatic or terrestrial worms typically having a sucker at each end
 leeched	LEECH: carnivorous or bloodsucking aquatic or terrestrial worms typically having a sucker at each end
@@ -835,9 +835,9 @@ leeringly	in a leering way
 leers	LEER: look suggestively or obliquely; look or gaze with a sly, immodest, or malign expression
 leery	openly distrustful and unwilling to confide
 lees	the sediment from fermentation of an alcoholic beverage
-leeward	the direction in which the wind is blowing
-leewards	LEEWARD: the direction in which the wind is blowing
-leeway	(of a ship or plane) sideways drift
+leeward	on the side away from the wind
+leewards	LEEWARD: on the side away from the wind
+leeway	a permissible difference; allowing some freedom to move within limits
 left	location near or direction toward the left side; i.e. the side to the north when a person or object faces east
 lefter	LEFT: location near or direction toward the left side; i.e. the side to the north when a person or object faces east
 leftest	LEFT: location near or direction toward the left side; i.e. the side to the north when a person or object faces east
@@ -902,8 +902,8 @@ legibly	in a legible manner
 legion	archaic terms for army
 legionaries	LEGIONARY: a soldier who is a member of a legion (especially the French Foreign Legion)
 legionary	a soldier who is a member of a legion (especially the French Foreign Legion)
-legionnaire	a member of the American Legion
-legionnaires	LEGIONNAIRE: a member of the American Legion
+legionnaire	a soldier who is a member of a legion (especially the French Foreign Legion)
+legionnaires	LEGIONNAIRE: a soldier who is a member of a legion (especially the French Foreign Legion)
 legions	LEGION: archaic terms for army
 legislate	make laws, bills, etc. or bring into effect by legislation
 legislated	LEGISLATE: make laws, bills, etc. or bring into effect by legislation
@@ -923,7 +923,7 @@ legitimated	LEGITIMATE: of marriages and offspring; recognized as lawful
 legitimately	in a manner acceptable to common custom
 legitimates	LEGITIMATE: of marriages and offspring; recognized as lawful
 legitimating	LEGITIMATE: of marriages and offspring; recognized as lawful
-legitimation	the act of rendering a person legitimate
+legitimation	the act of making lawful
 legitimisation	the act of making something lawful or acceptable
 legitimise	make legal
 legitimised	LEGITIMISE: make legal
@@ -965,7 +965,7 @@ lemmings	LEMMING: any of various short-tailed furry-footed rodents of circumpola
 lemon	yellow oval fruit with juicy acidic flesh
 lemonade	sweetened beverage of diluted lemon juice
 lemonades	LEMONADE: sweetened beverage of diluted lemon juice
-lemongrass	an aromatic oil that smells like lemon and is widely used in Asian cooking and in perfumes and medicines
+lemongrass	a tropical grass native to India and Sri Lanka
 lemons	LEMON: yellow oval fruit with juicy acidic flesh
 lemony	tasting sour like a lemon
 lemur	large-eyed arboreal prosimian having foxy faces and long furry tails
@@ -986,12 +986,12 @@ lengthier	LENGTHY: relatively long in duration; tediously protracted
 lengthiest	LENGTHY: relatively long in duration; tediously protracted
 lengthily	in a lengthy or prolix manner
 lengths	LENGTH: the linear extent in space from one end to the other; the longest dimension of something that is fixed in place
-lengthways	running or extending in the direction of the length of a thing
+lengthways	in the direction of the length
 lengthwise	in the direction of the length
 lengthy	relatively long in duration; tediously protracted
 lenience	mercifulness as a consequence of being lenient or tolerant
 leniency	mercifulness as a consequence of being lenient or tolerant
-lenient	tolerant or lenient
+lenient	not strict
 leniently	in a permissively lenient manner
 lens	a transparent optical device used to converge or diverge transmitted light and to form images
 lenses	LENS: a transparent optical device used to converge or diverge transmitted light and to form images
@@ -1002,8 +1002,8 @@ lentil	round flat seed of the lentil plant used for food
 lentils	LENTIL: round flat seed of the lentil plant used for food
 lento	(of tempo) slow
 leonine	of or characteristic of or resembling a lion
-leopard	the pelt of a leopard
-leopards	LEOPARD: the pelt of a leopard
+leopard	large feline of African and Asian forests usually having a tawny coat with black spots
+leopards	LEOPARD: large feline of African and Asian forests usually having a tawny coat with black spots
 leotard	a tight-fitting garment of stretchy material that covers the body from the shoulders to the thighs (and may have long sleeves or legs reaching down to the ankles); worn by ballet dancers and acrobats for practice or performance
 leotards	skintight knit hose covering the body from the waist to the feet worn by acrobats and dancers and as stockings by women and girls
 leper	a person afflicted with leprosy
@@ -1020,8 +1020,8 @@ leprously	in a leprous way
 leprousness	the quality of being leprous
 lept	LEAP: jumped
 leptin	a hormone that helps regulate appetite
-lepton	100 lepta equal 1 drachma in Greece
-leptons	LEPTON: 100 lepta equal 1 drachma in Greece
+lepton	an elementary particle that participates in weak interactions; has a baryon number of 0
+leptons	LEPTON: an elementary particle that participates in weak interactions; has a baryon number of 0
 leptospirosis	an infectious disease cause by leptospira and transmitted to humans from domestic animals; characterized by jaundice and fever
 lesbian	a female homosexual
 lesbianism	female homosexuality
@@ -1073,8 +1073,8 @@ letterpress	printing from a plate with raised characters
 letters	the literary culture
 letting	LET: make it possible through a specific action or lack of action for something to happen
 lettings	LETTING: property that is leased or rented out or let
-lettuce	informal terms for money
-lettuces	LETTUCE: informal terms for money
+lettuce	leaves of any of various plants of Lactuca sativa
+lettuces	LETTUCE: leaves of any of various plants of Lactuca sativa
 letup	a pause during which things are calm or activities are diminished
 letups	LETUP: a pause during which things are calm or activities are diminished
 leucine	a white crystalline amino acid occurring in proteins that is essential for nutrition; obtained by the hydrolysis of most dietary proteins
@@ -1086,9 +1086,9 @@ leukemic	relating to cancer of the blood
 leukemics	LEUKEMIC: relating to cancer of the blood
 leukocyte	blood cells that engulf and digest bacteria and fungi; an important part of the body's defense system
 leukocytes	LEUKOCYTE: blood cells that engulf and digest bacteria and fungi; an important part of the body's defense system
-levee	a formal reception of visitors or guests (as at a royal court)
+levee	an embankment that is built in order to prevent a river from overflowing
 leveeing	LEVEE: building a bank to hold back water
-levees	LEVEE: a formal reception of visitors or guests (as at a royal court)
+levees	LEVEE: an embankment that is built in order to prevent a river from overflowing
 level	a position on a scale of intensity or amount or quality
 leveled	LEVEL: a position on a scale of intensity or amount or quality
 leveler	LEVEL: a position on a scale of intensity or amount or quality
@@ -1116,10 +1116,10 @@ leviathan	the largest or most massive thing of its kind
 leviathans	LEVIATHAN: the largest or most massive thing of its kind
 levied	LEVY: imposed a tax or charge
 levies	LEVY: impose and collect
-levitate	cause to rise in the air and float, as if in defiance of gravity
-levitated	LEVITATE: cause to rise in the air and float, as if in defiance of gravity
-levitates	LEVITATE: cause to rise in the air and float, as if in defiance of gravity
-levitating	LEVITATE: cause to rise in the air and float, as if in defiance of gravity
+levitate	be suspended in the air, as if in defiance of gravity
+levitated	LEVITATE: be suspended in the air, as if in defiance of gravity
+levitates	LEVITATE: be suspended in the air, as if in defiance of gravity
+levitating	LEVITATE: be suspended in the air, as if in defiance of gravity
 levitation	the phenomenon of a person or thing rising into the air by apparently supernatural means
 levitations	LEVITATION: the phenomenon of a person or thing rising into the air by apparently supernatural means
 levity	feeling an inappropriate lack of seriousness
@@ -1159,8 +1159,8 @@ liaisons	LIAISON: a usually secretive or illicit sexual relationship
 liar	a person who has lied or who lies repeatedly
 liars	LIAR: a person who has lied or who lies repeatedly
 lib	liberation
-libation	a serving of an alcoholic beverage
-libations	LIBATION: a serving of an alcoholic beverage
+libation	a serving (of wine) poured out in honor of a deity
+libations	LIBATION: a serving (of wine) poured out in honor of a deity
 libber	LIB: liberation
 libbers	LIBBER: a supporter of feminism
 libel	a false and malicious publication printed for the purpose of defaming a living person
@@ -1178,12 +1178,12 @@ libels	LIBEL: a false and malicious publication printed for the purpose of defam
 liberal	showing or characterized by broad-mindedness
 liberalisation	the act of making less strict
 liberalisations	LIBERALISATION: the act of making less strict
-liberalise	become more liberal
-liberalised	LIBERALISE: become more liberal
-liberalises	LIBERALISE: become more liberal
-liberalising	LIBERALISE: become more liberal
+liberalise	make liberal or more liberal, of laws and rules
+liberalised	LIBERALISE: make liberal or more liberal, of laws and rules
+liberalises	LIBERALISE: make liberal or more liberal, of laws and rules
+liberalising	LIBERALISE: make liberal or more liberal, of laws and rules
 liberalism	a political orientation that favors social progress by reform and by changing laws rather than by revolution
-liberality	an inclination to favor progress and individual freedom
+liberality	the trait of being generous in behavior and temperament
 liberalization	the act of making less strict
 liberalizations	LIBERALIZATION: the act of making less strict
 liberalize	make liberal or more liberal, of laws and rules
@@ -1221,12 +1221,12 @@ librettists	LIBRETTIST: author of words to be set to music in an opera or operet
 libretto	the words of an opera or musical play
 librettos	LIBRETTO: the words of an opera or musical play
 lice	LOUSE: wingless usually flattened bloodsucking insect parasitic on warm-blooded animals
-licence	excessive freedom; lack of due restraint
+licence	a legal document giving official permission to do something
 licenced	given official approval to act
 licencee	a person holding a licence
 licencees	LICENCEE: a person holding a licence
-licences	LICENCE: excessive freedom; lack of due restraint
-licencing	LICENCE: excessive freedom; lack of due restraint
+licences	LICENCE: a legal document giving official permission to do something
+licencing	LICENCE: a legal document giving official permission to do something
 license	a legal document giving official permission to do something
 licensed	given official approval to act
 licensee	someone to whom a license is granted
@@ -1241,17 +1241,17 @@ licentiousness	the quality of being lewd and lascivious
 lich	an undead sorcerer in fantasy stories; also an old word for a corpse
 lichee	Chinese fruit having a thin brittle shell enclosing a sweet jellylike pulp and a single seed; often dried
 lichees	LICHEE: Chinese fruit having a thin brittle shell enclosing a sweet jellylike pulp and a single seed; often dried
-lichen	any of several eruptive skin diseases characterized by hard thick lesions grouped together and resembling lichens growing on rocks
+lichen	any thallophytic plant of the division Lichenes; occur as crusty patches or bushy growths on tree trunks or rocks or bare ground etc.
 lichenological	relating to the study of lichens
 lichenologist	a person who studies lichens
 lichenologists	LICHENOLOGIST: a person who studies lichens
 lichenology	the study of lichens
 lichenous	covered with lichen
-lichens	LICHEN: any of several eruptive skin diseases characterized by hard thick lesions grouped together and resembling lichens growing on rocks
+lichens	LICHEN: any thallophytic plant of the division Lichenes; occur as crusty patches or bushy growths on tree trunks or rocks or bare ground etc.
 liches	LICH: an undead sorcerer in fantasy stories; also an old word for a corpse
 lichgate	a roofed gate to a churchyard, formerly used as a temporary shelter for the bier during funerals
 lichgates	LICHGATE: a roofed gate to a churchyard, formerly used as a temporary shelter for the bier during funerals
-licit	sanctioned by custom or morality especially sexual morality
+licit	authorized, sanctioned by, or in accordance with law
 lick	beat thoroughly and conclusively in a competition or fight
 licked	having been got the better of
 licker	a person or thing that licks
@@ -1275,8 +1275,8 @@ lieder	German songs for voice and piano
 lief	in a willing manner
 liefer	LIEF: more gladly
 liefest	LIEF: most gladly
-liege	a person holding a fief; a person who owes allegiance and service to a feudal lord
-lieges	LIEGE: a person holding a fief; a person who owes allegiance and service to a feudal lord
+liege	a feudal lord entitled to allegiance and service
+lieges	LIEGE: a feudal lord entitled to allegiance and service
 lien	the right to take another's property if an obligation is not discharged
 liens	LIEN: the right to take another's property if an obligation is not discharged
 lies	LIE: be located or situated somewhere; occupy a certain position
@@ -1287,7 +1287,7 @@ lieutenants	LIEUTENANT: a commissioned military officer
 life	a characteristic state or mode of living
 lifebelt	a ring that keeps a person afloat
 lifebelts	LIFEBELT: a ring that keeps a person afloat
-lifeblood	the blood considered as the seat of vitality
+lifeblood	an essential or life-giving force
 lifeboat	a strong sea boat designed to rescue people from a sinking ship
 lifeboats	LIFEBOAT: a strong sea boat designed to rescue people from a sinking ship
 lifebuoy	a ring that keeps a person afloat
@@ -1298,11 +1298,11 @@ lifeguards	LIFEGUARD: an attendant employed at a beach or pool to protect swimme
 lifejacket	a jacket that keeps a person afloat
 lifejackets	LIFEJACKET: a jacket that keeps a person afloat
 lifeless	deprived of life; no longer living
-lifelessly	without animation or vitality
-lifelessness	a state of no motion or movement
+lifelessly	in a lifeless manner
+lifelessness	not having life
 lifelike	evoking lifelike images within the mind
-lifeline	a crease on the palm; its length is said by palmists to indicate how long you will live
-lifelines	LIFELINE: a crease on the palm; its length is said by palmists to indicate how long you will live
+lifeline	support that enables people to survive or to continue doing something (often by providing an essential connection)
+lifelines	LIFELINE: support that enables people to survive or to continue doing something (often by providing an essential connection)
 lifelong	continuing through life
 lifer	a prisoner serving a term of life imprisonment
 lifers	LIFER: a prisoner serving a term of life imprisonment
@@ -1329,14 +1329,14 @@ ligament	a sheet or band of tough fibrous tissue connecting bones or cartilages 
 ligaments	LIGAMENT: a sheet or band of tough fibrous tissue connecting bones or cartilages or supporting muscles or organs
 ligand	a substance (an atom or molecule or radical or ion) that forms a complex around a central atom
 ligands	LIGAND: a substance (an atom or molecule or radical or ion) that forms a complex around a central atom
-ligate	join letters in a ligature when writing
-ligated	LIGATE: join letters in a ligature when writing
-ligates	LIGATE: join letters in a ligature when writing
-ligating	LIGATE: join letters in a ligature when writing
+ligate	bind with a bandage or ligature
+ligated	LIGATE: bind with a bandage or ligature
+ligates	LIGATE: bind with a bandage or ligature
+ligating	LIGATE: bind with a bandage or ligature
 ligation	tying a duct or blood vessel with a ligature (as to prevent bleeding during surgery)
-ligature	a group of notes connected by a slur
+ligature	something used to tie or bind
 ligatured	LIGATURE: tied up or bound
-ligatures	LIGATURE: a group of notes connected by a slur
+ligatures	LIGATURE: something used to tie or bind
 ligaturing	LIGATURE: tying up or binding
 light	electromagnetic radiation that can produce a visual sensation
 lighted	set afire or burning
@@ -1347,7 +1347,7 @@ lighteners	LIGHTENER: something that makes things lighter
 lightening	LIGHTEN: make more cheerful
 lightens	LIGHTEN: make more cheerful
 lighter	LIGHT: electromagnetic radiation that can produce a visual sensation
-lighters	LIGHTER: a substance used to ignite or kindle a fire
+lighters	LIGHTER: a device for lighting or igniting fuel or charges or fires
 lightest	LIGHT: electromagnetic radiation that can produce a visual sensation
 lightheaded	weak and likely to lose consciousness
 lighthearted	carefree and happy and lighthearted
@@ -1356,10 +1356,10 @@ lightheartedness	the cheerful feeling you have when nothing is troubling you
 lighthouse	a tower with a light that gives warning of shoals to passing ships
 lighthouses	LIGHTHOUSE: a tower with a light that gives warning of shoals to passing ships
 lighting	having abundant light or illumination
-lightless	giving no light
+lightless	without illumination
 lightlessness	total absence of light
 lightly	without good reason
-lightness	a feeling of joy and pride
+lightness	the property of being comparatively small in weight
 lightning	abrupt electric discharge from cloud to cloud or from cloud to earth accompanied by the emission of light
 lightninged	LIGHTNING: struck by or flashed like lightning
 lightnings	LIGHTNING: abrupt electric discharge from cloud to cloud or from cloud to earth accompanied by the emission of light
@@ -1372,10 +1372,10 @@ lightyear	the distance light travels in a year
 lignin	a complex polymer; the chief constituent of wood other than carbohydrates; binds to cellulose fibers to harden and strengthen cell walls of plants
 lignite	intermediate between peat and bituminous coal
 likability	the quality of being easy to like
-likable	(of characters in literature or drama) evoking empathic or sympathetic feelings
+likable	easy to like; agreeable
 likableness	the quality of being likable
 like	prefer or wish to do something
-likeable	(of characters in literature or drama) evoking empathic or sympathetic feelings
+likeable	easy to like; agreeable
 likeableness	the quality of being likeable
 liked	LIKE: prefer or wish to do something
 likelier	LIKELY: has a good chance of being the case or of coming about
@@ -1404,23 +1404,23 @@ lilting	LILT: a jaunty rhythm in music
 lilts	LILT: a jaunty rhythm in music
 lily	any liliaceous plant of the genus Lilium having showy pendulous flowers
 limb	one of the jointed appendages of an animal used for locomotion or grasping: arm; leg; wing; flipper
-limber	a two-wheeled horse-drawn vehicle used to pull a field gun or caisson
-limbered	LIMBER: a two-wheeled horse-drawn vehicle used to pull a field gun or caisson
-limbering	LIMBER: a two-wheeled horse-drawn vehicle used to pull a field gun or caisson
+limber	(used of persons' bodies) capable of moving or bending freely
+limbered	LIMBER: (used of persons' bodies) capable of moving or bending freely
+limbering	LIMBER: (used of persons' bodies) capable of moving or bending freely
 limbers	a channel or gutter on either side of a ship's keelson; carries bilge water into the pump well
 limbic	of or relating to or forming a limbus
 limbless	having no limbs
 limbo	the state of being disregarded or forgotten
 limbos	LIMBO: the state of being disregarded or forgotten
 limbs	LIMB: one of the jointed appendages of an animal used for locomotion or grasping: arm; leg; wing; flipper
-lime	a caustic substance produced by heating limestone
+lime	the green acidic fruit of any of various lime trees
 limeade	sweetened beverage of lime juice and water
 limeades	LIMEADE: sweetened beverage of lime juice and water
-limed	LIME: a caustic substance produced by heating limestone
+limed	LIME: the green acidic fruit of any of various lime trees
 limelight	a focus of public attention
-limerick	port city in southwestern Ireland
-limericks	LIMERICK: port city in southwestern Ireland
-limes	LIME: a caustic substance produced by heating limestone
+limerick	a humorous verse form of 5 anapestic lines with a rhyme scheme aabba
+limericks	LIMERICK: a humorous verse form of 5 anapestic lines with a rhyme scheme aabba
+limes	LIME: the green acidic fruit of any of various lime trees
 limescale	a hard chalky deposit left by water
 limestone	a sedimentary rock consisting mainly of calcium that was deposited by the remains of marine animals
 limey	a man of English descent
@@ -1428,7 +1428,7 @@ limeys	LIMEY: a man of English descent
 limier	LIMY: containing lime
 limiest	LIMY: containing lime
 liminal	on the threshold between two states
-liming	LIME: a caustic substance produced by heating limestone
+liming	LIME: the green acidic fruit of any of various lime trees
 limit	the greatest possible degree of something
 limitation	a principle that limits the extent of something
 limitations	LIMITATION: a principle that limits the extent of something
@@ -1439,8 +1439,8 @@ limiting	restricting the scope or freedom of action
 limitings	LIMITING: restricting the scope or freedom of action
 limitless	without limits in extent or size or quantity
 limits	LIMIT: the greatest possible degree of something
-limn	trace the shape of
-limned	LIMN: trace the shape of
+limn	make a portrait of
+limned	LIMN: make a portrait of
 limner	a painter or drawer of portraits
 limners	LIMNER: a painter or drawer of portraits
 limning	a drawing of the outlines of forms or objects
@@ -1448,7 +1448,7 @@ limnological	of or relating to limnology
 limnologist	a specialist in the study of freshwater ponds and lakes
 limnologists	LIMNOLOGIST: a specialist in the study of freshwater ponds and lakes
 limnology	the scientific study of bodies of fresh water for their biological and physical and geological properties
-limns	LIMN: trace the shape of
+limns	LIMN: make a portrait of
 limo	large luxurious car; usually driven by a chauffeur
 limos	LIMO: large luxurious car; usually driven by a chauffeur
 limousine	large luxurious car; usually driven by a chauffeur
@@ -1457,10 +1457,10 @@ limp	walk impeded by some physical limitation or injury
 limped	LIMP: walk impeded by some physical limitation or injury
 limper	LIMP: walk impeded by some physical limitation or injury
 limpest	LIMP: walk impeded by some physical limitation or injury
-limpet	mollusk with a low conical shell
-limpets	LIMPET: mollusk with a low conical shell
-limpid	clear and bright
-limpidity	free from obscurity and easy to understand; the comprehensibility of clear expression
+limpet	any of various usually marine gastropods with low conical shells; found clinging to rocks in littoral areas
+limpets	LIMPET: any of various usually marine gastropods with low conical shells; found clinging to rocks in littoral areas
+limpid	transmitting light; able to be seen through with clarity
+limpidity	passing light without diffusion or distortion
 limpidly	in a clear and lucid manner
 limping	LIMP: walk impeded by some physical limitation or injury
 limpingly	in a limping way
@@ -1478,8 +1478,8 @@ lineage	the descendants of one individual
 lineages	LINEAGE: the descendants of one individual
 lineal	in a straight unbroken line of descent from parent to child
 lineally	by an unbroken line of descent
-lineament	a characteristic property that defines the apparent individual nature of something
-lineaments	LINEAMENT: a characteristic property that defines the apparent individual nature of something
+lineament	the characteristic parts of a person's face: eyes and nose and mouth and chin
+lineaments	LINEAMENT: the characteristic parts of a person's face: eyes and nose and mouth and chin
 linear	designating or involving an equation whose terms are of the first degree
 linearity	the property of having one dimension
 linearly	in a linear manner
@@ -1500,8 +1500,8 @@ linesman	official (in tennis, soccer, football, etc.) who assists the referee in
 linesmen	LINESMAN: official (in tennis, soccer, football, etc.) who assists the referee in some way (especially by watching for out of bounds or offside)
 lineup	a list of batters in the order in which they will bat
 lineups	LINEUP: a list of batters in the order in which they will bat
-ling	water chestnut whose spiny fruit has two rather than 4 prongs
-lingcod	the lean flesh of a fish caught off the Pacific coast of the United States
+ling	elongated marine food fish of Greenland and northern Europe; often salted and dried
+lingcod	food fish of the northern Pacific related to greenlings
 linger	remain present although waning or gradually dying
 lingered	LINGER: remain present although waning or gradually dying
 lingerer	someone who lingers aimlessly in or about a place
@@ -1516,7 +1516,7 @@ lingoes	LINGO: language, especially specialised jargon
 lingonberries	LINGONBERRY: tart red berries similar to American cranberries but smaller
 lingonberry	tart red berries similar to American cranberries but smaller
 lingos	LINGO: a characteristic language of a particular group (as among thieves)
-lings	LING: water chestnut whose spiny fruit has two rather than 4 prongs
+lings	LING: elongated marine food fish of Greenland and northern Europe; often salted and dried
 lingua	a mobile mass of muscular tissue covered with mucous membrane and located in the oral cavity
 lingual	consisting of or related to language
 linguine	pasta in long slender flat strips
@@ -1529,10 +1529,10 @@ linguists	LINGUIST: a specialist in linguistics
 liniment	a medicinal liquid that is rubbed into the skin to relieve muscular stiffness and pain
 liniments	LINIMENT: a medicinal liquid that is rubbed into the skin to relieve muscular stiffness and pain
 lining	LINE: a formation of people or things one beside another
-linings	LINING: a protective covering that protects an inside surface
+linings	LINING: a piece of cloth that is used as the inside surface of a garment
 link	make a logical or causal connection
-linkage	an associative relation
-linkages	LINKAGE: an associative relation
+linkage	the act of linking things together
+linkages	LINKAGE: the act of linking things together
 linked	LINK: make a logical or causal connection
 linker	a program that joins pieces of code together
 linkers	LINKER: a program that joins pieces of code together
@@ -1540,8 +1540,8 @@ linking	LINK: make a logical or causal connection
 links	a golf course that is built on sandy ground near a shore
 linkup	a fastener that serves to join or connect
 linkups	LINKUP: a fastener that serves to join or connect
-linnet	small finch originally of the western United States and Mexico
-linnets	LINNET: small finch originally of the western United States and Mexico
+linnet	small Old World finch whose male has a red breast and forehead
+linnets	LINNET: small Old World finch whose male has a red breast and forehead
 lino	a floor covering
 linoleum	a floor covering
 linseed	the seed of flax used as a source of oil
@@ -1594,10 +1594,10 @@ lipsticked	LIPSTICK: makeup that is used to color the lips
 lipsticking	LIPSTICK: makeup that is used to color the lips
 lipsticks	LIPSTICK: makeup that is used to color the lips
 liquefaction	the conversion of a solid or a gas into a liquid
-liquefied	reduced to a liquid state
-liquefies	LIQUEFY: become liquid
-liquefy	become liquid
-liquefying	LIQUEFY: become liquid
+liquefied	reduced to liquid form by heating
+liquefies	LIQUEFY: make (a solid substance) liquid, as by heating
+liquefy	make (a solid substance) liquid, as by heating
+liquefying	LIQUEFY: make (a solid substance) liquid, as by heating
 liqueur	strong highly flavored sweet liquor usually drunk after a meal
 liqueurs	LIQUEUR: strong highly flavored sweet liquor usually drunk after a meal
 liquid	a substance that is liquid at room temperature and pressure
@@ -1607,21 +1607,21 @@ liquidates	LIQUIDATE: get rid of (someone who may be a threat) by killing
 liquidating	LIQUIDATE: get rid of (someone who may be a threat) by killing
 liquidation	termination of a business operation by using its assets to discharge its liabilities
 liquidations	LIQUIDATION: termination of a business operation by using its assets to discharge its liabilities
-liquidator	a criminal who commits homicide (who performs the unlawful premeditated killing of another human being)
-liquidators	LIQUIDATOR: a criminal who commits homicide (who performs the unlawful premeditated killing of another human being)
+liquidator	a person (usually appointed by a court of law) who liquidates assets or preserves them for the benefit of affected parties
+liquidators	LIQUIDATOR: a person (usually appointed by a court of law) who liquidates assets or preserves them for the benefit of affected parties
 liquidise	make (a solid substance) liquid, as by heating
 liquidised	LIQUIDISE: make (a solid substance) liquid, as by heating
 liquidiser	an electrically powered mixer with whirling blades that mix or chop or liquefy foods
 liquidisers	LIQUIDISER: an electrically powered mixer with whirling blades that mix or chop or liquefy foods
 liquidises	LIQUIDISE: make (a solid substance) liquid, as by heating
 liquidising	LIQUIDISE: make (a solid substance) liquid, as by heating
-liquidity	the state in which a substance exhibits a characteristic readiness to flow with little or no tendency to disperse and relatively high incompressibility
-liquidize	sell or get rid of all one's merchandise
-liquidized	LIQUIDIZE: sell or get rid of all one's merchandise
+liquidity	being in cash or easily convertible to cash; debt paying ability
+liquidize	make (a solid substance) liquid, as by heating
+liquidized	LIQUIDIZE: make (a solid substance) liquid, as by heating
 liquidizer	an electrically powered mixer with whirling blades that mix or chop or liquefy foods
 liquidizers	LIQUIDIZER: an electrically powered mixer with whirling blades that mix or chop or liquefy foods
-liquidizes	LIQUIDIZE: sell or get rid of all one's merchandise
-liquidizing	LIQUIDIZE: sell or get rid of all one's merchandise
+liquidizes	LIQUIDIZE: make (a solid substance) liquid, as by heating
+liquidizing	LIQUIDIZE: make (a solid substance) liquid, as by heating
 liquids	LIQUID: a substance that is liquid at room temperature and pressure
 liquified	changed from a solid to a liquid state
 liquifies	LIQUIFY: make (a solid substance) liquid, as by heating
@@ -1632,10 +1632,10 @@ liquored	LIQUOR: supplied with strong drink
 liquorice	a black candy flavored with the dried root of the licorice plant
 liquoring	LIQUOR: supplying with strong drink
 liquors	LIQUOR: an alcoholic beverage that is distilled rather than fermented
-lira	the basic unit of money on Malta; equal to 100 cents
-liras	LIRA: the basic unit of money on Malta; equal to 100 cents
+lira	formerly the basic unit of money in Italy; equal to 100 centesimi
+liras	LIRA: formerly the basic unit of money in Italy; equal to 100 centesimi
 lire	LIRA: the former currency of Italy
-lisle	a fabric woven with lisle thread
+lisle	a strong tightly twisted cotton thread (usually made of long-staple cotton)
 lisp	a speech defect that involves pronouncing `s' like voiceless `th' and `z' like voiced `th'
 lisped	LISP: a speech defect that involves pronouncing `s' like voiceless `th' and `z' like voiced `th'
 lisper	a speaker who lisps
@@ -1654,7 +1654,7 @@ listeners	LISTENER: someone who listens attentively
 listening	LISTEN: hear with intention
 listens	LISTEN: hear with intention
 listeria	any species of the genus Listeria
-listers	LISTER: English surgeon who was the first to use antiseptics (1827-1912)
+listers	LISTER: assessor who makes out the tax lists
 listing	LIST: a database containing an ordered array of items (names or topics)
 listings	LISTING: a database containing an ordered array of items (names or topics)
 listless	lacking zest or vivacity
@@ -1709,7 +1709,7 @@ litigating	LITIGATE: engage in legal proceedings
 litigation	a legal proceeding in a court; a judicial contest to determine and enforce legal rights
 litigator	a party to a lawsuit; someone involved in litigation
 litigators	LITIGATOR: a party to a lawsuit; someone involved in litigation
-litigious	of or relating to litigation
+litigious	inclined or showing an inclination to dispute or disagree, even to engage in law suits
 litigiousness	a quarrelsome disposition to engage in or carry on lawsuits
 litmus	a coloring material (obtained from lichens) that turns red in acid solutions and blue in alkaline solutions; used as a very rough acid-base indicator
 litre	a metric unit of capacity, formerly defined as the volume of one kilogram of pure water under standard conditions; now equal to 1,000 cubic centimeters (or approximately 1.75 pints)
@@ -1730,8 +1730,8 @@ littlest	LITTLE: limited or below average in number or quantity or magnitude or 
 littoral	the region of the shore of a lake or sea or ocean
 littorals	LITTORAL: the region of the shore of a lake or sea or ocean
 liturgical	of or relating to or in accord with liturgy
-liturgies	LITURGY: a Christian sacrament commemorating the Last Supper by consecrating bread and wine
-liturgy	a Christian sacrament commemorating the Last Supper by consecrating bread and wine
+liturgies	LITURGY: a rite or body of rites prescribed for public worship
+liturgy	a rite or body of rites prescribed for public worship
 livability	the quality of being fit to live in
 livable	fit or suitable to live in or with
 live	be an inhabitant of or reside in
@@ -1742,8 +1742,8 @@ liveliest	LIVELY: full of life and energy
 livelihood	the financial means whereby one lives
 livelihoods	LIVELIHOOD: the financial means whereby one lives
 liveliness	general activity and motion
-livelong	perennial northern temperate plant with toothed leaves and heads of small purplish-white flowers
-livelongs	LIVELONG: perennial northern temperate plant with toothed leaves and heads of small purplish-white flowers
+livelong	(of time) constituting the full extent or duration
+livelongs	LIVELONG: (of time) constituting the full extent or duration
 lively	full of life and energy
 liven	make lively
 livened	LIVEN: make lively
@@ -1788,8 +1788,8 @@ loadstone	a permanent magnet consisting of magnetite that possess polarity and h
 loadstones	LOADSTONE: a permanent magnet consisting of magnetite that possess polarity and has the power to attract as well as to be attracted magnetically
 loaf	a shaped mass of baked bread that is usually sliced before eating
 loafed	LOAF: a shaped mass of baked bread that is usually sliced before eating
-loafer	person who does no work
-loafers	LOAFER: person who does no work
+loafer	a low leather step-in shoe; the top resembles a moccasin but it has a broad flat heel
+loafers	LOAFER: a low leather step-in shoe; the top resembles a moccasin but it has a broad flat heel
 loafing	LOAF: a shaped mass of baked bread that is usually sliced before eating
 loafs	LOAF: a shaped mass of baked bread that is usually sliced before eating
 loam	a rich soil consisting of a mixture of sand and clay and decaying organic materials
@@ -1798,8 +1798,8 @@ loamiest	LOAMY: consisting of or having the character of loam
 loamy	consisting of or having the character of loam
 loan	the temporary provision of money (usually at interest)
 loaned	LOAN: the temporary provision of money (usually at interest)
-loaner	someone who lends money or gives credit in business matters
-loaners	LOANER: someone who lends money or gives credit in business matters
+loaner	a car that is lent as a replacement for one that is under repair
+loaners	LOANER: a car that is lent as a replacement for one that is under repair
 loaning	LOAN: the temporary provision of money (usually at interest)
 loans	LOAN: the temporary provision of money (usually at interest)
 loanword	a word borrowed from another language; e.g. `blitz' is a German word borrowed into modern English
@@ -1842,15 +1842,15 @@ lobotomizes	LOBOTOMIZE: perform surgery cutting brain connections
 lobotomizing	LOBOTOMIZE: perform surgery cutting brain connections
 lobotomy	surgical interruption of nerve tracts to and from the frontal lobe of the brain; often results in marked cognitive and personality changes
 lobs	LOB: propel in a high arc
-lobster	flesh of a lobster
+lobster	any of several edible marine crustaceans of the families Homaridae and Nephropsidae and Palinuridae
 lobsterman	a person whose occupation is catching lobsters
 lobsterpot	a trap for catching lobsters
 lobsterpots	LOBSTERPOT: a trap for catching lobsters
-lobsters	LOBSTER: flesh of a lobster
+lobsters	LOBSTER: any of several edible marine crustaceans of the families Homaridae and Nephropsidae and Palinuridae
 local	relating to or applicable to or concerned with the administration of a city or town or district rather than a larger area
 locale	the scene of any event or action (especially the place of a meeting)
 locales	LOCALE: the scene of any event or action (especially the place of a meeting)
-localisation	the principle that specific functions have relatively circumscribed locations in some particular part or organ of the body
+localisation	a determination of the place where something is
 localise	identify the location or place of
 localised	confined or restricted to a particular location
 localises	LOCALISE: identify the location or place of
@@ -1877,8 +1877,8 @@ locator	a person who fixes the boundaries of land claims
 locators	LOCATOR: a person who fixes the boundaries of land claims
 locavore	a person who eats locally produced food
 locavores	LOCAVORE: a person who eats locally produced food
-loch	a long narrow inlet of the sea in Scotland (especially when it is nearly landlocked)
-lochs	LOCH: a long narrow inlet of the sea in Scotland (especially when it is nearly landlocked)
+loch	Scottish word for a lake
+lochs	LOCH: Scottish word for a lake
 loci	LOCUS: a place or position
 lock	fasten with a lock
 lockable	able to be locked
@@ -1900,7 +1900,7 @@ lockstep	a standard procedure that is followed mindlessly
 lockup	jail in a local police station
 lockups	LOCKUP: jail in a local police station
 loco	informal or slang terms for mentally irregular
-locomotion	the power or ability to move
+locomotion	self-propelled movement
 locomotive	a wheeled vehicle consisting of a self-propelled engine that is used to draw trains along railway tracks
 locomotives	LOCOMOTIVE: a wheeled vehicle consisting of a self-propelled engine that is used to draw trains along railway tracks
 locomotor	of or relating to locomotion
@@ -1946,12 +1946,12 @@ logarithmic	of or relating to or using logarithms
 logarithms	LOGARITHM: the exponent required to produce a given number
 logbook	a book in which the log is written
 logbooks	LOGBOOK: a book in which the log is written
-loge	balcony consisting of the forward section of a theater mezzanine
+loge	private area in a theater or grandstand where a small group can watch the performance
 loges	LOG: enter into a log, as on ships and planes
 logged	LOG: enter into a log, as on ships and planes
 logger	a person who fells trees
-loggerhead	a stupid person; these words are used to express a low opinion of someone's intelligence
-loggerheads	LOGGERHEAD: a stupid person; these words are used to express a low opinion of someone's intelligence
+loggerhead	very large carnivorous sea turtle; wide-ranging in warm open seas
+loggerheads	LOGGERHEAD: very large carnivorous sea turtle; wide-ranging in warm open seas
 loggers	LOGGER: a person who fells trees
 loggia	a roofed arcade or gallery with open sides stretching along the front or side of a building; often at an upper level
 loggias	LOGGIA: a roofed arcade or gallery with open sides stretching along the front or side of a building; often at an upper level
@@ -1994,22 +1994,22 @@ loiters	LOITER: be about
 lokum	Turkish delight
 lolcat	a humorous cat picture with a caption
 lolcats	LOLCAT: a humorous cat picture with a caption
-loll	hang loosely or laxly
+loll	be lazy or idle
 lollapalooza	an outstanding example of something
-lolled	LOLL: hang loosely or laxly
+lolled	LOLL: be lazy or idle
 loller	a person who lounges about
 lollers	LOLLER: a person who lounges about
-lollies	LOLLY: informal terms for money
-lolling	LOLL: hang loosely or laxly
+lollies	LOLLY: a sweet; also a frozen fruit or ice treat on a stick
+lolling	LOLL: be lazy or idle
 lollingly	in a lolling way
-lollipop	ice cream or water ice on a small wooden stick
-lollipops	LOLLIPOP: ice cream or water ice on a small wooden stick
+lollipop	hard candy on a stick
+lollipops	LOLLIPOP: hard candy on a stick
 lollop	walk clumsily and with a bounce
 lolloped	LOLLOP: walk clumsily and with a bounce
 lolloping	LOLLOP: walk clumsily and with a bounce
 lollops	LOLLOP: walk clumsily and with a bounce
-lolls	LOLL: hang loosely or laxly
-lolly	informal terms for money
+lolls	LOLL: be lazy or idle
+lolly	a sweet; also a frozen fruit or ice treat on a stick
 lollygag	be about
 lollygagged	LOLLYGAG: be about
 lollygagging	LOLLYGAG: be about
@@ -2023,7 +2023,7 @@ loneliness	the state of being alone in solitary isolation
 lonely	lacking companions or companionship
 loner	LONE: lacking companions or companionship
 loners	LONER: a person who avoids the company or assistance of others
-lonesome	being the only one; single and isolated from others
+lonesome	marked by dejection from being alone
 long	primarily temporal sense; being or indicating a relatively great or greater than average duration or passage of time or a duration as specified
 longboat	the largest boat carried by a merchant sailing vessel
 longboats	LONGBOAT: the largest boat carried by a merchant sailing vessel
@@ -2046,8 +2046,8 @@ longings	LONGING: prolonged unfulfilled desire or need
 longish	somewhat long
 longitude	the angular distance between a point on any meridian and the prime meridian at Greenwich
 longitudes	LONGITUDE: the angular distance between a point on any meridian and the prime meridian at Greenwich
-longitudinal	of or relating to lines of longitude
-longitudinally	across time
+longitudinal	running lengthwise
+longitudinally	in the direction of the length
 longline	a fishing line with many baited hooks
 longs	LONG: primarily temporal sense; being or indicating a relatively great or greater than average duration or passage of time or a duration as specified
 longship	a long narrow Viking warship
@@ -2058,7 +2058,7 @@ longstanding	having existed for a long time
 longtime	having existed or persisted or continued in a particular role or state for a long time
 longueur	a period of dullness or boredom (especially in a work of literature or performing art)
 longueurs	LONGUEUR: a period of dullness or boredom (especially in a work of literature or performing art)
-longways	country dancing performed with couples in two long lines facing each other
+longways	in the direction of the length
 longwinded	speaking or writing at tiresome length
 loo	a toilet in Britain
 loofah	the dried fibrous part of the fruit of a plant of the genus Luffa; used as a washing sponge or strainer
@@ -2067,8 +2067,8 @@ look	perceive with attention; direct one's gaze towards
 lookalike	a person who closely resembles another
 lookalikes	LOOKALIKE: a person who closely resembles another
 looked	LOOK: perceive with attention; direct one's gaze towards
-looker	a close observer; someone who looks at something (such as an exhibition of some kind)
-lookers	LOOKER: a close observer; someone who looks at something (such as an exhibition of some kind)
+looker	a very attractive or seductive looking woman
+lookers	LOOKER: a very attractive or seductive looking woman
 looking	the act of directing the eyes toward something and perceiving it visually
 lookout	a person employed to keep watch for some anticipated event
 lookouts	LOOKOUT: a person employed to keep watch for some anticipated event
@@ -2096,11 +2096,11 @@ looper	small hairless caterpillar having legs on only its front and rear segment
 loopers	LOOPER: small hairless caterpillar having legs on only its front and rear segments; mostly larvae of moths of the family Geometridae
 loophole	an ambiguity (especially one in the text of a law or contract) that makes it possible to evade a difficulty or obligation
 loopholes	LOOPHOLE: an ambiguity (especially one in the text of a law or contract) that makes it possible to evade a difficulty or obligation
-loopier	LOOPY: consisting of or covered with or having loops
-loopiest	LOOPY: consisting of or covered with or having loops
+loopier	LOOPY: slightly mad or silly
+loopiest	LOOPY: slightly mad or silly
 looping	LOOP: move in loops
 loops	LOOP: move in loops
-loopy	consisting of or covered with or having loops
+loopy	slightly mad or silly
 loos	Austrian architect (1870-1933)
 loose	not compact or dense in structure or arrangement
 loosed	LOOSE: not compact or dense in structure or arrangement
@@ -2109,7 +2109,7 @@ loosen	make loose or looser
 loosened	LOOSEN: make loose or looser
 loosener	something that makes things less tight
 looseners	LOOSENER: something that makes things less tight
-looseness	frequent and watery bowel movements; can be a symptom of infection or food poisoning or colitis or a gastrointestinal tumor
+looseness	freedom from restraint
 loosening	LOOSEN: make loose or looser
 loosens	LOOSEN: make loose or looser
 looser	LOOSE: not compact or dense in structure or arrangement
@@ -2153,8 +2153,8 @@ lorikeet	any of various small lories
 lorikeets	LORIKEET: any of various small lories
 loris	a small slow-moving nocturnal primate
 lorn	forsaken and lonely
-lorries	LORRY: a large low horse-drawn wagon without sides
-lorry	a large low horse-drawn wagon without sides
+lorries	LORRY: a large truck designed to carry heavy loads; usually without sides
+lorry	a large truck designed to carry heavy loads; usually without sides
 lose	fail to keep or to maintain; cease to have, either physically or in an abstract sense
 loser	a contestant who loses the contest
 losers	LOSER: a contestant who loses the contest
@@ -2170,8 +2170,8 @@ loth	unwillingness to do something contrary to your custom
 lotion	any of various cosmetic preparations that are applied to the skin
 lotions	LOTION: any of various cosmetic preparations that are applied to the skin
 lots	a large number or amount
-lotteries	LOTTERY: something that is regarded as a chance event
-lottery	something that is regarded as a chance event
+lotteries	LOTTERY: players buy (or are given) chances and prizes are distributed by casting lots
+lottery	players buy (or are given) chances and prizes are distributed by casting lots
 lotto	a game in which numbered balls are drawn at random and players cover the corresponding numbers on their cards
 lottos	LOTTO: a game in which numbered balls are drawn at random and players cover the corresponding numbers on their cards
 lotus	a water lily native to eastern Asia; widely cultivated for its large pink or white flowers
@@ -2189,12 +2189,12 @@ loudmouths	LOUDMOUTH: a person who causes trouble by speaking indiscreetly
 loudness	the magnitude of sound (usually in a specified direction)
 loudspeaker	electro-acoustic transducer that converts electrical signals into sounds loud enough to be heard at a distance
 loudspeakers	LOUDSPEAKER: electro-acoustic transducer that converts electrical signals into sounds loud enough to be heard at a distance
-lough	a long narrow (nearly landlocked) cove in Ireland
-loughs	LOUGH: a long narrow (nearly landlocked) cove in Ireland
+lough	Irish word for a lake
+loughs	LOUGH: Irish word for a lake
 lounge	sit or recline comfortably
 lounged	LOUNGE: sit or recline comfortably
-lounger	someone who wastes time
-loungers	LOUNGER: someone who wastes time
+lounger	an armchair whose back can be lowered and foot can be raised to allow the sitter to recline in it
+loungers	LOUNGER: an armchair whose back can be lowered and foot can be raised to allow the sitter to recline in it
 lounges	LOUNGE: sit or recline comfortably
 lounging	LOUNGE: sit or recline comfortably
 louse	wingless usually flattened bloodsucking insect parasitic on warm-blooded animals
@@ -2214,14 +2214,14 @@ louts	LOUT: an awkward stupid person
 louver	one of a set of parallel slats in a door or window to admit air and reject rain
 louvered	supplied with louvers for ventilation
 louvers	LOUVER: one of a set of parallel slats in a door or window to admit air and reject rain
-louvre	an art museum that is a famous tourist attraction in Paris
+louvre	one of a set of parallel slats in a door or window to admit air and reject rain
 louvred	fitted with slanted slats
-louvres	LOUVRE: an art museum that is a famous tourist attraction in Paris
+louvres	LOUVRE: one of a set of parallel slats in a door or window to admit air and reject rain
 lovable	having characteristics that attract love or affection
 love	a strong positive emotion of regard and affection
 loveable	having characteristics that attract love or affection
-lovebird	small Australian parakeet usually light green with black and yellow markings in the wild but bred in many colors
-lovebirds	LOVEBIRD: small Australian parakeet usually light green with black and yellow markings in the wild but bred in many colors
+lovebird	small African parrot noted for showing affection for their mates
+lovebirds	LOVEBIRD: small African parrot noted for showing affection for their mates
 lovebite	a mark left on the skin by kissing hard
 lovebites	LOVEBITE: a mark left on the skin by kissing hard
 lovechild	a child born to unmarried parents
@@ -2249,12 +2249,12 @@ lowball	make a deliberately low estimate
 lowballed	LOWBALL: make a deliberately low estimate
 lowballing	LOWBALL: make a deliberately low estimate
 lowballs	LOWBALL: make a deliberately low estimate
-lowbrow	a person who is uninterested in intellectual pursuits
-lowbrows	LOWBROW: a person who is uninterested in intellectual pursuits
+lowbrow	characteristic of a person who is not cultivated or does not have intellectual tastes
+lowbrows	LOWBROW: characteristic of a person who is not cultivated or does not have intellectual tastes
 lowdown	the inside facts about something
 lowed	LOW: less than normal in degree or intensity or amount
 lower	move something or somebody to a lower position
-lowercase	the characters that were once kept in bottom half of a compositor's type case
+lowercase	relating to small (not capitalized) letters that were kept in the lower half of a compositor's type case
 lowered	below the surround or below the normal position
 lowering	darkened by clouds
 lowermost	farthest down
@@ -2271,10 +2271,10 @@ lowlifes	LOWLIFE: a person who is deemed to be despicable or contemptible
 lowlights	LOWLIGHT: the worst moments
 lowliness	the state of being humble and unimportant
 lowly	low or inferior in station or quality
-lowness	a position of inferior status; low in station or rank or fortune or estimation
+lowness	the quality of being low; lacking height
 lows	LOW: less than normal in degree or intensity or amount
-lox	a bluish translucent magnetic liquid obtained by compressing gaseous oxygen and then cooling it below its boiling point; used as an oxidizer in rocket propellants
-loxes	LOX: a bluish translucent magnetic liquid obtained by compressing gaseous oxygen and then cooling it below its boiling point; used as an oxidizer in rocket propellants
+lox	brine-cured salmon that is lightly smoked
+loxes	LOX: brine-cured salmon that is lightly smoked
 loyal	steadfast in allegiance or duty
 loyaler	LOYAL: steadfast in allegiance or duty
 loyalest	LOYAL: steadfast in allegiance or duty
@@ -2297,11 +2297,11 @@ lubes	LUBE: a substance capable of reducing friction by making surfaces smooth o
 lubing	LUBE: a substance capable of reducing friction by making surfaces smooth or slippery
 lubricant	a substance capable of reducing friction by making surfaces smooth or slippery
 lubricants	LUBRICANT: a substance capable of reducing friction by making surfaces smooth or slippery
-lubricate	have lubricating properties
+lubricate	apply a lubricant to
 lubricated	smeared with oil or grease to reduce friction
-lubricates	LUBRICATE: have lubricating properties
-lubricating	LUBRICATE: have lubricating properties
-lubrication	the condition of having been made smooth or slippery by the application of a lubricant
+lubricates	LUBRICATE: apply a lubricant to
+lubricating	LUBRICATE: apply a lubricant to
+lubrication	an application of a lubricant to something
 lubricator	a substance capable of reducing friction by making surfaces smooth or slippery
 lubricators	LUBRICATOR: a substance capable of reducing friction by making surfaces smooth or slippery
 lubricious	having a smooth or slippery quality
@@ -2323,7 +2323,7 @@ lucks	LUCK: your overall circumstances or condition in life (including everythin
 lucky	occurring by chance
 lucrative	producing a sizeable profit
 lucratively	in a lucrative way
-lucre	informal terms for money
+lucre	money, especially when thought of as sordid or dishonest gain
 ludicrous	broadly or extravagantly humorous; resembling farce
 ludicrously	so as to arouse or deserve laughter
 ludicrousness	the quality of being ludicrous
@@ -2384,15 +2384,15 @@ lumped	LUMP: a compact mass
 lumpen	mentally sluggish
 lumper	a laborer who loads and unloads vessels in a port
 lumpers	LUMPER: a laborer who loads and unloads vessels in a port
-lumpier	LUMPY: like or containing small sticky lumps
-lumpiest	LUMPY: like or containing small sticky lumps
+lumpier	LUMPY: having lumps; not smooth and even in texture
+lumpiest	LUMPY: having lumps; not smooth and even in texture
 lumpiness	the quality of being lumpy
 lumping	LUMP: a compact mass
 lumpish	mentally sluggish
 lumps	LUMP: a compact mass
-lumpy	like or containing small sticky lumps
-lunacies	LUNACY: obsolete terms for legal insanity
-lunacy	obsolete terms for legal insanity
+lumpy	having lumps; not smooth and even in texture
+lunacies	LUNACY: foolish or senseless behavior
+lunacy	foolish or senseless behavior
 lunar	of or relating to or associated with the moon
 lunatic	insane and believed to be affected by the phases of the moon
 lunatics	LUNATIC: insane and believed to be affected by the phases of the moon
@@ -2428,8 +2428,8 @@ lunkhead	a stupid person; these words are used to express a low opinion of someo
 lunkheaded	stupid
 lunkheads	LUNKHEAD: a stupid person; these words are used to express a low opinion of someone's intelligence
 lupin	any plant of the genus Lupinus; bearing erect spikes of usually purplish-blue flowers
-lupine	any plant of the genus Lupinus; bearing erect spikes of usually purplish-blue flowers
-lupines	LUPINE: any plant of the genus Lupinus; bearing erect spikes of usually purplish-blue flowers
+lupine	of or relating to or characteristic of wolves
+lupines	LUPINE: of or relating to or characteristic of wolves
 lupins	LUPIN: any plant of the genus Lupinus; bearing erect spikes of usually purplish-blue flowers
 lupus	any of several forms of ulcerative skin disease
 lurch	walk as if unable to control one's movements
@@ -2445,7 +2445,7 @@ lures	LURE: qualities that attract by seeming to promise some kind of reward
 lurgy	an imaginary or minor illness
 lurid	horrible in fierceness or savagery
 luridly	in a lurid manner
-luridness	the journalistic use of subject matter that appeals to vulgar tastes
+luridness	the quality of being ghastly
 luring	LURE: qualities that attract by seeming to promise some kind of reward
 lurk	lie in wait, lie in ambush, behave in a sneaky and secretive manner
 lurked	LURK: lie in wait, lie in ambush, behave in a sneaky and secretive manner
@@ -2466,7 +2466,7 @@ lust	a strong sexual desire
 lusted	LUST: a strong sexual desire
 luster	a quality that outshines the usual
 lusters	LUSTER: a quality that outshines the usual
-lustful	characterized by lust
+lustful	driven by lust; preoccupied with or exhibiting lustful desires
 lustfully	in a lustful manner
 lustier	LUSTY: vigorously passionate
 lustiest	LUSTY: vigorously passionate
@@ -2477,21 +2477,21 @@ lustre	a surface coating for ceramics or porcelain
 lustrous	made smooth and bright by or as if by rubbing; reflecting a sheen or glow
 lusts	LUST: a strong sexual desire
 lusty	vigorously passionate
-lute	a substance for packing a joint or coating a porous surface to make it impervious to gas or liquid
+lute	chordophone consisting of a plucked instrument having a pear-shaped body, a usually bent neck, and a fretted fingerboard
 lutenist	a musician who plays the lute
 lutenists	LUTENIST: a musician who plays the lute
-lutes	LUTE: a substance for packing a joint or coating a porous surface to make it impervious to gas or liquid
+lutes	LUTE: chordophone consisting of a plucked instrument having a pear-shaped body, a usually bent neck, and a fretted fingerboard
 luv	love, as a term of address
 luvs	LUV: love, as a term of address
 luvvie	a theatrical person given to showy behaviour
 luvvies	LUVVIE: a theatrical person given to showy behaviour
 luxuriance	the property of being lush and abundant and a pleasure to the senses
-luxuriant	marked by complexity and richness of detail
+luxuriant	produced or growing in extreme abundance
 luxuriantly	in an abundant and luxuriant manner
-luxuriate	become extravagant; indulge (oneself) luxuriously
-luxuriated	LUXURIATE: become extravagant; indulge (oneself) luxuriously
-luxuriates	LUXURIATE: become extravagant; indulge (oneself) luxuriously
-luxuriating	LUXURIATE: become extravagant; indulge (oneself) luxuriously
+luxuriate	enjoy to excess
+luxuriated	LUXURIATE: enjoy to excess
+luxuriates	LUXURIATE: enjoy to excess
+luxuriating	LUXURIATE: enjoy to excess
 luxuries	LUXURY: something that is an indulgence rather than a necessity
 luxurious	displaying luxury and furnishing gratification to the senses
 luxuriously	in an indulgently luxurious manner
@@ -2501,8 +2501,8 @@ lycanthrope	a monster able to change appearance from human to wolf and back agai
 lycanthropes	LYCANTHROPE: a monster able to change appearance from human to wolf and back again
 lycanthropic	relating to turning into a wolf
 lycanthropy	the magical ability of a person to assume the characteristics of a wolf
-lyceum	a school for students intermediate between elementary school and college; usually grades 9 to 12
-lyceums	LYCEUM: a school for students intermediate between elementary school and college; usually grades 9 to 12
+lyceum	a public hall for lectures and concerts
+lyceums	LYCEUM: a public hall for lectures and concerts
 lychee	Chinese fruit having a thin brittle shell enclosing a sweet jellylike pulp and a single seed; often dried
 lychees	LYCHEE: Chinese fruit having a thin brittle shell enclosing a sweet jellylike pulp and a single seed; often dried
 lychgate	a roofed gate to a churchyard, formerly used as a temporary shelter for the bier during funerals
@@ -2527,8 +2527,8 @@ lynching	putting a person to death by mob action without due process of law
 lynchings	LYNCHING: putting a person to death by mob action without due process of law
 lynchpin	a central cohesive source of support and stability
 lynchpins	LYNCHPIN: a central cohesive source of support and stability
-lynx	a text browser
-lynxes	LYNX: a text browser
+lynx	short-tailed wildcats with usually tufted ears; valued for their fur
+lynxes	LYNX: short-tailed wildcats with usually tufted ears; valued for their fur
 lyre	a harp used by ancient Greeks for accompaniment
 lyrebird	Australian bird that resembles a pheasant; the courting male displays long tail feathers in a lyre shape
 lyrebirds	LYREBIRD: Australian bird that resembles a pheasant; the courting male displays long tail feathers in a lyre shape
@@ -2541,6 +2541,6 @@ lyricist	a person who writes the words for songs
 lyricists	LYRICIST: a person who writes the words for songs
 lyrics	LYRIC: expressing deep emotion
 lysine	an essential amino acid found in proteins; occurs especially in gelatin and casein
-lysis	recuperation in which the symptoms of an acute disease gradually subside
+lysis	dissolution or destruction of cells such as blood cells or bacteria
 lysosomal	relating to cell parts that digest waste
 lysosomes	LYSOSOME: an organelle found in the cytoplasm of most cells (especially in leukocytes and liver and kidney cells)

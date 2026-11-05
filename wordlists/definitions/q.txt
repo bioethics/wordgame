@@ -4,14 +4,14 @@ quacked	QUACK: an untrained person who pretends to be a physician and who dispen
 quackery	medical practice and advice based on observation and experience in ignorance of scientific findings
 quacking	QUACK: an untrained person who pretends to be a physician and who dispenses medical advice
 quacks	QUACK: an untrained person who pretends to be a physician and who dispenses medical advice
-quad	one of four children born at the same time from the same pregnancy
-quadrangle	a four-sided polygon
-quadrangles	QUADRANGLE: a four-sided polygon
+quad	a rectangular area surrounded on all sides by buildings
+quadrangle	a rectangular area surrounded on all sides by buildings
+quadrangles	QUADRANGLE: a rectangular area surrounded on all sides by buildings
 quadrangular	of or relating to or shaped like a quadrangle
 quadrant	a quarter of the circumference of a circle
 quadrants	QUADRANT: a quarter of the circumference of a circle
 quadraphonic	of or relating to quadraphony
-quadratic	an equation in which the highest power of an unknown quantity is a square
+quadratic	involving the second and no higher power of a quantity or degree
 quadratics	a branch of algebra dealing with quadratic equations
 quadrature	the construction of a square having the same area as some other figure
 quadrennial	happening every four years
@@ -19,10 +19,10 @@ quadriceps	a muscle of the thigh that extends the leg
 quadricepses	QUADRICEPS: a muscle of the thigh that extends the leg
 quadrilateral	a four-sided polygon
 quadrilaterals	QUADRILATERAL: a four-sided polygon
-quadrille	music for dancing the quadrille
-quadrilles	QUADRILLE: music for dancing the quadrille
-quadrillion	the number that is represented as a one followed by 24 zeros
-quadrillions	QUADRILLION: the number that is represented as a one followed by 24 zeros
+quadrille	a square dance of 5 or more figures for 4 or more couples
+quadrilles	QUADRILLE: a square dance of 5 or more figures for 4 or more couples
+quadrillion	the number that is represented as a one followed by 15 zeros
+quadrillions	QUADRILLION: the number that is represented as a one followed by 15 zeros
 quadriphonic	of or relating to quadraphony
 quadriplegia	paralysis of both arms and both legs
 quadriplegic	a person who is paralyzed in both arms and both legs
@@ -33,27 +33,27 @@ quadrupeds	QUADRUPED: an animal especially a mammal having four limbs specialize
 quadruple	increase fourfold
 quadrupled	QUADRUPLE: increase fourfold
 quadruples	QUADRUPLE: increase fourfold
-quadruplet	the cardinal number that is the sum of three and one
-quadruplets	QUADRUPLET: the cardinal number that is the sum of three and one
-quadruplicate	any four copies; any of four things that correspond to one another exactly
-quadruplicated	QUADRUPLICATE: any four copies; any of four things that correspond to one another exactly
-quadruplicates	QUADRUPLICATE: any four copies; any of four things that correspond to one another exactly
-quadruplicating	QUADRUPLICATE: any four copies; any of four things that correspond to one another exactly
+quadruplet	one of four children born at the same time from the same pregnancy
+quadruplets	QUADRUPLET: one of four children born at the same time from the same pregnancy
+quadruplicate	having four units or components
+quadruplicated	QUADRUPLICATE: having four units or components
+quadruplicates	QUADRUPLICATE: having four units or components
+quadruplicating	QUADRUPLICATE: having four units or components
 quadrupling	increase by a factor of four
 quadrupole	a set of four electric or magnetic poles
-quads	QUAD: one of four children born at the same time from the same pregnancy
-quaff	a hearty draft
-quaffed	QUAFF: a hearty draft
+quads	QUAD: a rectangular area surrounded on all sides by buildings
+quaff	to swallow hurriedly or greedily or in one draught
+quaffed	QUAFF: to swallow hurriedly or greedily or in one draught
 quaffer	a person who drinks heartily
 quaffers	QUAFFER: a person who drinks heartily
-quaffing	QUAFF: a hearty draft
-quaffs	QUAFF: a hearty draft
+quaffing	QUAFF: to swallow hurriedly or greedily or in one draught
+quaffs	QUAFF: to swallow hurriedly or greedily or in one draught
 quagmire	a soft wet area of low-lying land that sinks underfoot
 quagmires	QUAGMIRE: a soft wet area of low-lying land that sinks underfoot
-quahaug	Atlantic coast round clams with hard shells; large clams usually used for chowders or other clam dishes
-quahaugs	QUAHAUG: Atlantic coast round clams with hard shells; large clams usually used for chowders or other clam dishes
-quahog	Atlantic coast round clams with hard shells; large clams usually used for chowders or other clam dishes
-quahogs	QUAHOG: Atlantic coast round clams with hard shells; large clams usually used for chowders or other clam dishes
+quahaug	an edible American clam; the heavy shells were used as money by some American Indians
+quahaugs	QUAHAUG: an edible American clam; the heavy shells were used as money by some American Indians
+quahog	an edible American clam; the heavy shells were used as money by some American Indians
+quahogs	QUAHOG: an edible American clam; the heavy shells were used as money by some American Indians
 quail	draw back, as with fear or pain
 quailed	QUAIL: draw back, as with fear or pain
 quailing	QUAIL: draw back, as with fear or pain
@@ -61,7 +61,7 @@ quails	QUAIL: draw back, as with fear or pain
 quaint	strange in an interesting or pleasing way
 quainter	QUAINT: strange in an interesting or pleasing way
 quaintest	QUAINT: strange in an interesting or pleasing way
-quaintly	in a strange but not unpleasant manner
+quaintly	in a quaint old-fashioned manner
 quaintness	the quality of being quaint and old-fashioned
 quake	shaking and vibration at the surface of the earth resulting from underground movement along a fault plane or from volcanic activity
 quaked	QUAKE: shaking and vibration at the surface of the earth resulting from underground movement along a fault plane or from volcanic activity
@@ -84,19 +84,19 @@ qualities	QUALITY: an essential and distinguishing attribute of something or som
 quality	an essential and distinguishing attribute of something or someone
 qualm	uneasiness about the fitness of an action
 qualms	QUALM: uneasiness about the fitness of an action
-quandaries	QUANDARY: a situation from which extrication is difficult especially an unpleasant or trying one
-quandary	a situation from which extrication is difficult especially an unpleasant or trying one
+quandaries	QUANDARY: state of uncertainty or perplexity especially as requiring a choice between equally unfavorable options
+quandary	state of uncertainty or perplexity especially as requiring a choice between equally unfavorable options
 quango	a quasi nongovernmental organization; an organization that is financed by the government yet acts independently of the government
 quangos	QUANGO: a quasi nongovernmental organization; an organization that is financed by the government yet acts independently of the government
 quanta	QUANTUM: a discrete amount of energy
 quantifiable	capable of being quantified
-quantification	a limitation imposed on the variables of a proposition (as by the quantifiers `some' or `all' or `no')
+quantification	the act of discovering or expressing the quantity of something
 quantified	QUANTIFY: express as an amount
-quantifier	a word (such as `some' or `all' or `no') that binds the variables in a logical proposition
-quantifiers	QUANTIFIER: a word (such as `some' or `all' or `no') that binds the variables in a logical proposition
-quantifies	QUANTIFY: use as a quantifier
-quantify	use as a quantifier
-quantifying	QUANTIFY: use as a quantifier
+quantifier	a word that expresses a quantity (as `fifteen' or `many')
+quantifiers	QUANTIFIER: a word that expresses a quantity (as `fifteen' or `many')
+quantifies	QUANTIFY: express as a number or measure or quantity
+quantify	express as a number or measure or quantity
+quantifying	QUANTIFY: express as a number or measure or quantity
 quantisation	the act of dividing into quanta or expressing in terms of quantum theory
 quantised	QUANTISE: approximate (a signal varying continuously in amplitude) by one whose amplitude is restricted to a prescribed set of discrete values
 quantitation	the measuring of an amount
@@ -106,11 +106,11 @@ quantities	QUANTITY: how much there is or how many there are of something that y
 quantity	how much there is or how many there are of something that you can quantify
 quantization	the act of dividing into quanta or expressing in terms of quantum theory
 quantized	of or relating to a quantum or capable of existing in only one of two states
-quantum	a discrete amount of something that is analogous to the quantities in quantum theory
-quarantine	enforced isolation of patients suffering from a contagious disease in order to prevent the spread of disease
+quantum	the smallest discrete quantity of some physical property that a system can possess (according to quantum theory)
+quarantine	isolation to prevent the spread of infectious disease
 quarantined	under forced isolation especially for health reasons
-quarantines	QUARANTINE: enforced isolation of patients suffering from a contagious disease in order to prevent the spread of disease
-quarantining	QUARANTINE: enforced isolation of patients suffering from a contagious disease in order to prevent the spread of disease
+quarantines	QUARANTINE: isolation to prevent the spread of infectious disease
+quarantining	QUARANTINE: isolation to prevent the spread of infectious disease
 quark	hypothetical truly fundamental particle in mesons and baryons; there are supposed to be six flavors of quarks (and their antiquarks), which come in pairs; each has an electric charge of +2/3 or -1/3
 quarks	QUARK: hypothetical truly fundamental particle in mesons and baryons; there are supposed to be six flavors of quarks (and their antiquarks), which come in pairs; each has an electric charge of +2/3 or -1/3
 quarrel	an angry dispute
@@ -127,8 +127,8 @@ quarrelsome	given to quarreling
 quarrelsomely	in a quarrelsome way
 quarrelsomeness	an inclination to be quarrelsome and contentious
 quarried	QUARRY: dig stone from the ground
-quarries	QUARRY: a person who is the aim of an attack (especially a victim of ridicule or exploitation) by some hostile person or influence
-quarry	a person who is the aim of an attack (especially a victim of ridicule or exploitation) by some hostile person or influence
+quarries	QUARRY: a surface excavation for extracting stone or slate
+quarry	a surface excavation for extracting stone or slate
 quarrying	the extraction of building stone or slate from an open surface quarry
 quart	a United States liquid unit equal to 32 fluid ounces; four quarts equal one gallon
 quarter	one of four equal parts
@@ -147,8 +147,8 @@ quarterly	of or relating to or consisting of a quarter
 quartermaster	an army officer who provides clothing and subsistence for troops
 quartermasters	QUARTERMASTER: an army officer who provides clothing and subsistence for troops
 quarters	housing available for people to live in
-quartet	the cardinal number that is the sum of three and one
-quartets	QUARTET: the cardinal number that is the sum of three and one
+quartet	four performers or singers who perform together
+quartets	QUARTET: four performers or singers who perform together
 quartette	four performers or singers who perform together
 quartettes	QUARTETTE: four performers or singers who perform together
 quartile	any of three points that divide an ordered distribution into four parts each containing one quarter of the scores
@@ -176,11 +176,11 @@ quay	wharf usually built parallel to the shoreline
 quays	QUAY: wharf usually built parallel to the shoreline
 quayside	the edge of a wharf
 quaysides	QUAYSIDE: the edge of a wharf
-queasier	QUEASY: causing or able to cause nausea
-queasiest	QUEASY: causing or able to cause nausea
+queasier	QUEASY: feeling nausea; feeling about to vomit
+queasiest	QUEASY: feeling nausea; feeling about to vomit
 queasily	in a queasy manner
 queasiness	a mild state of nausea
-queasy	causing or able to cause nausea
+queasy	feeling nausea; feeling about to vomit
 queen	the only fertile female in a colony of social insects such as bees and ants and termites; its function is to lay eggs
 queened	QUEEN: the only fertile female in a colony of social insects such as bees and ants and termites; its function is to lay eggs
 queening	QUEEN: the only fertile female in a colony of social insects such as bees and ants and termites; its function is to lay eggs
@@ -235,20 +235,20 @@ questionnaire	a form containing a set of questions; submitted to people to gain 
 questionnaires	QUESTIONNAIRE: a form containing a set of questions; submitted to people to gain statistical information
 questions	QUESTION: challenge the accuracy, probity, or propriety of
 quests	QUEST: a search for an alternative that meets cognitive criteria
-quetzal	the basic unit of money in Guatemala; equal to 100 centavos
+quetzal	large trogon of Central America and South America having golden-green and scarlet plumage
 queue	a line of people or vehicles waiting for something
 queued	QUEUE: a line of people or vehicles waiting for something
 queueing	QUEUE: a line of people or vehicles waiting for something
 queues	QUEUE: a line of people or vehicles waiting for something
 queuing	QUEUE: a line of people or vehicles waiting for something
-quibble	an evasion of the point of an argument by raising irrelevant distinctions or objections
-quibbled	QUIBBLE: an evasion of the point of an argument by raising irrelevant distinctions or objections
+quibble	argue over petty things
+quibbled	QUIBBLE: argue over petty things
 quibbler	a disputant who quibbles; someone who raises annoying petty objections
 quibblers	QUIBBLER: a disputant who quibbles; someone who raises annoying petty objections
-quibbles	QUIBBLE: an evasion of the point of an argument by raising irrelevant distinctions or objections
-quibbling	QUIBBLE: an evasion of the point of an argument by raising irrelevant distinctions or objections
-quiche	a member of the Mayan people of south central Guatemala
-quiches	QUICHE: a member of the Mayan people of south central Guatemala
+quibbles	QUIBBLE: argue over petty things
+quibbling	QUIBBLE: argue over petty things
+quiche	a tart filled with rich unsweetened custard; often contains other ingredients (as cheese or ham or seafood or vegetables)
+quiches	QUICHE: a tart filled with rich unsweetened custard; often contains other ingredients (as cheese or ham or seafood or vegetables)
 quick	accomplished rapidly and without delay
 quicken	move faster
 quickened	QUICKEN: move faster
@@ -262,8 +262,8 @@ quickies	QUICKIE: hurried repair
 quicklime	a white crystalline oxide used in the production of calcium hydroxide
 quickly	with speed
 quickness	skillful performance or ability without difficulty
-quicksand	a treacherous situation that tends to entrap and destroy
-quicksands	QUICKSAND: a treacherous situation that tends to entrap and destroy
+quicksand	a pit filled with loose wet sand into which objects are sucked down
+quicksands	QUICKSAND: a pit filled with loose wet sand into which objects are sucked down
 quicksilver	liable to sudden unpredictable change
 quickstep	perform a quickstep
 quicksteps	QUICKSTEP: perform a quickstep
@@ -305,21 +305,21 @@ quines	QUINE: United States philosopher and logician who championed an empirical
 quinine	a bitter alkaloid extracted from chinchona bark; used in malaria therapy
 quinoa	a grain-like seed eaten as a food
 quins	QUIN: one of five children born at the same time from the same pregnancy
-quint	the cardinal number that is the sum of four and one
+quint	one of five children born at the same time from the same pregnancy
 quintal	a unit of weight equal to 100 kilograms
-quintessence	the fifth and highest element after air and earth and fire and water; was believed to be the substance composing all heavenly bodies
-quintessences	QUINTESSENCE: the fifth and highest element after air and earth and fire and water; was believed to be the substance composing all heavenly bodies
+quintessence	the most typical example or representative of a type
+quintessences	QUINTESSENCE: the most typical example or representative of a type
 quintessential	representing the perfect example of a class or quality
 quintessentially	in the most typical way
 quintet	a musical composition for five performers
 quintets	QUINTET: a musical composition for five performers
 quintile	one of five equal groups in a statistical range
-quints	QUINT: the cardinal number that is the sum of four and one
-quintuple	a set of five similar things considered as a unit
-quintupled	QUINTUPLE: a set of five similar things considered as a unit
-quintuples	QUINTUPLE: a set of five similar things considered as a unit
-quintuplet	the cardinal number that is the sum of four and one
-quintuplets	QUINTUPLET: the cardinal number that is the sum of four and one
+quints	QUINT: one of five children born at the same time from the same pregnancy
+quintuple	having five units or components
+quintupled	QUINTUPLE: having five units or components
+quintuples	QUINTUPLE: having five units or components
+quintuplet	one of five children born at the same time from the same pregnancy
+quintuplets	QUINTUPLET: one of five children born at the same time from the same pregnancy
 quintupling	increasing by a factor of five
 quip	make jokes or quips
 quipped	QUIP: make jokes or quips
@@ -360,7 +360,7 @@ quizmaster	the host or chairman of a radio or tv quiz show or panel game
 quizmasters	QUIZMASTER: the host or chairman of a radio or tv quiz show or panel game
 quizzed	QUIZ: an examination consisting of a few short questions
 quizzes	QUIZ: a test of knowledge
-quizzical	playfully vexing (especially by ridicule)
+quizzical	perplexed (as if being expected to know something that you do not know)
 quizzically	in a quizzical and questioning manner
 quizzing	QUIZ: an examination consisting of a few short questions
 quo	a thing, as in status quo
@@ -386,7 +386,7 @@ quoted	QUOTE: repeat a passage from
 quotes	QUOTE: repeat a passage from
 quoth	said
 quotidian	found in the ordinary course of events
-quotient	the ratio of two quantities to be divided
-quotients	QUOTIENT: the ratio of two quantities to be divided
+quotient	the number obtained by division
+quotients	QUOTIENT: the number obtained by division
 quoting	QUOTE: repeat a passage from
 qwerty	the standard layout of an English keyboard

@@ -32,7 +32,7 @@ vacillation	indecision in speech or action
 vacillations	VACILLATION: indecision in speech or action
 vacs	VAC: informal term for vacation
 vacua	VACUUM: a space with no air
-vacuity	the absence of matter
+vacuity	total lack of meaning or ideas
 vacuole	a tiny cavity filled with fluid in the cytoplasm of a cell
 vacuoles	VACUOLE: a tiny cavity filled with fluid in the cytoplasm of a cell
 vacuous	devoid of intelligence or thought
@@ -75,18 +75,18 @@ vainness	the quality of being vain
 valance	a decorative framework to conceal curtain fixtures at the top of a window casing
 valances	VALANCE: a decorative framework to conceal curtain fixtures at the top of a window casing
 vale	a long depression in the surface of the land that usually contains a river
-valediction	a farewell oration (especially one delivered during graduation exercises by an outstanding member of a graduating class)
-valedictions	VALEDICTION: a farewell oration (especially one delivered during graduation exercises by an outstanding member of a graduating class)
+valediction	the act of saying farewell
+valedictions	VALEDICTION: the act of saying farewell
 valedictorian	the student with the best grades who usually delivers the valedictory address at commencement
 valedictorians	VALEDICTORIAN: the student with the best grades who usually delivers the valedictory address at commencement
-valedictories	VALEDICTORY: a farewell oration (especially one delivered during graduation exercises by an outstanding member of a graduating class)
-valedictory	a farewell oration (especially one delivered during graduation exercises by an outstanding member of a graduating class)
-valence	a relative capacity to unite or react or interact as with antigens or a biological substrate
-valences	VALENCE: a relative capacity to unite or react or interact as with antigens or a biological substrate
-valencies	VALENCY: the phenomenon of forming chemical bonds
-valency	the phenomenon of forming chemical bonds
-valentine	a sweetheart chosen to receive a greeting on Saint Valentine's Day
-valentines	VALENTINE: a sweetheart chosen to receive a greeting on Saint Valentine's Day
+valedictories	VALEDICTORY: of or relating to an occasion or expression of farewell
+valedictory	of or relating to an occasion or expression of farewell
+valence	a property of atoms or radicals; their combining power given in terms of the number of hydrogen atoms (or the equivalent)
+valences	VALENCE: a property of atoms or radicals; their combining power given in terms of the number of hydrogen atoms (or the equivalent)
+valencies	VALENCY: a property of atoms or radicals; their combining power given in terms of the number of hydrogen atoms (or the equivalent)
+valency	a property of atoms or radicals; their combining power given in terms of the number of hydrogen atoms (or the equivalent)
+valentine	a card sent or given (as to a sweetheart) on Saint Valentine's Day
+valentines	VALENTINE: a card sent or given (as to a sweetheart) on Saint Valentine's Day
 vales	VALE: a long depression in the surface of the land that usually contains a river
 valet	a manservant who acts as a personal attendant to his employer
 valeted	VALET: a manservant who acts as a personal attendant to his employer
@@ -147,7 +147,7 @@ vampirized	VAMPIRIZE: prey on like a vampire
 vampirizes	VAMPIRIZE: prey on like a vampire
 vampirizing	VAMPIRIZE: prey on like a vampire
 vamps	VAMP: a seductive woman who uses her sex appeal to exploit men
-van	any creative group active in the innovation and application of new concepts and techniques in a given field (especially in the arts)
+van	a truck with an enclosed cargo space
 vanadium	a soft silvery white toxic metallic element used in steel alloys; it occurs in several complex minerals including carnotite and vanadinite
 vandal	someone who willfully destroys or defaces property
 vandalise	destroy wantonly, as through acts of vandalism
@@ -171,50 +171,50 @@ vanished	having passed out of existence
 vanishes	VANISH: get lost, as without warning or explanation
 vanishing	VANISH: get lost, as without warning or explanation
 vanishingly	so as to disappear or approach zero
-vanishings	VANISHING: a sudden or mysterious disappearance
+vanishings	VANISHING: a sudden disappearance from sight
 vanishment	the act of disappearing
 vanities	VANITY: feelings of excessive pride
 vanity	feelings of excessive pride
-vanned	VAN: any creative group active in the innovation and application of new concepts and techniques in a given field (especially in the arts)
-vanning	VAN: any creative group active in the innovation and application of new concepts and techniques in a given field (especially in the arts)
+vanned	VAN: a truck with an enclosed cargo space
+vanning	VAN: a truck with an enclosed cargo space
 vanquish	come out better in a competition, race, or conflict
 vanquished	VANQUISH: come out better in a competition, race, or conflict
 vanquisher	someone who is victorious by force of arms
 vanquishers	VANQUISHER: someone who is victorious by force of arms
 vanquishes	VANQUISH: come out better in a competition, race, or conflict
 vanquishing	VANQUISH: come out better in a competition, race, or conflict
-vans	VAN: any creative group active in the innovation and application of new concepts and techniques in a given field (especially in the arts)
+vans	VAN: a truck with an enclosed cargo space
 vantage	place or situation affording some advantage (especially a comprehensive view or commanding perspective)
 vantages	VANTAGE: place or situation affording some advantage (especially a comprehensive view or commanding perspective)
 vape	inhale vapour from an electronic cigarette
 vaped	VAPE: inhale vapour from an electronic cigarette
 vapes	VAPE: inhale vapour from an electronic cigarette
-vapid	lacking taste or flavor or tang
+vapid	lacking significance or liveliness or spirit or zest
 vapidity	the quality of being vapid and unsophisticated
 vapidness	the quality of being vapid and unsophisticated
 vaping	VAPE: inhale vapour from an electronic cigarette
 vapor	a visible suspension in the air of particles of some substance
 vaporisation	the process of becoming a vapor
-vaporise	cause to change into a vapor
-vaporised	VAPORISE: cause to change into a vapor
+vaporise	change into a vapor
+vaporised	VAPORISE: change into a vapor
 vaporiser	a device that puts out a substance in the form of a vapor (especially for medicinal inhalation)
 vaporisers	VAPORISER: a device that puts out a substance in the form of a vapor (especially for medicinal inhalation)
-vaporises	VAPORISE: cause to change into a vapor
-vaporising	VAPORISE: cause to change into a vapor
+vaporises	VAPORISE: change into a vapor
+vaporising	VAPORISE: change into a vapor
 vaporization	annihilation by vaporizing something
-vaporize	kill with or as if with a burst of gunfire or electric current or as if by shooting
+vaporize	turn into gas
 vaporized	converted into a gas or vapor
 vaporizer	a device that puts out a substance in the form of a vapor (especially for medicinal inhalation)
 vaporizers	VAPORIZER: a device that puts out a substance in the form of a vapor (especially for medicinal inhalation)
-vaporizes	VAPORIZE: kill with or as if with a burst of gunfire or electric current or as if by shooting
-vaporizing	VAPORIZE: kill with or as if with a burst of gunfire or electric current or as if by shooting
-vaporous	so thin as to transmit light
+vaporizes	VAPORIZE: turn into gas
+vaporizing	VAPORIZE: turn into gas
+vaporous	resembling or characteristic of vapor
 vaporously	in a vaporous way
 vaporousness	cloudiness resulting from haze or mist or vapor
 vapors	VAPOR: a visible suspension in the air of particles of some substance
 vaporware	software announced but never released
 vapour	a visible suspension in the air of particles of some substance
-vapourous	so thin as to transmit light
+vapourous	resembling or characteristic of vapor
 vapourously	in a vapourous way
 vapours	a state of depression
 vapourware	software announced but never released
@@ -224,8 +224,8 @@ variability	the quality of being subject to variation
 variable	liable to or capable of change
 variables	VARIABLE: liable to or capable of change
 variably	with variation; in a variable manner or to a variable degree
-variance	an event that departs from expectations
-variances	VARIANCE: an event that departs from expectations
+variance	a difference between conflicting facts or claims or opinions
+variances	VARIANCE: a difference between conflicting facts or claims or opinions
 variant	an event that departs from expectations
 variants	VARIANT: an event that departs from expectations
 variate	a variable quantity that is random
@@ -250,8 +250,8 @@ various	of many different kinds purposefully arranged but lacking any uniformity
 variously	in diverse ways
 varlet	a deceitful and unreliable scoundrel
 varlets	VARLET: a deceitful and unreliable scoundrel
-varmint	an irritating or obnoxious person
-varmints	VARMINT: an irritating or obnoxious person
+varmint	any usually predatory wild animal considered undesirable; e.g., coyote
+varmints	VARMINT: any usually predatory wild animal considered undesirable; e.g., coyote
 varnish	a coating that provides a hard, lustrous, transparent finish to a surface
 varnished	having a coating of stain or varnish
 varnishes	VARNISH: a coating that provides a hard, lustrous, transparent finish to a surface
@@ -278,12 +278,12 @@ vastest	VAST: unusually great in size or amount or degree or especially extent o
 vastly	to an exceedingly great extent or degree
 vastness	unusual largeness in size or extent or number
 vasts	VAST: a vast expanse
-vat	a tax levied on the difference between a commodity's price before taxes and its cost of production
+vat	a large open vessel for holding or storing liquids
 vaticinator	an authoritative person who divines the future
 vaticinators	VATICINATOR: an authoritative person who divines the future
-vats	VAT: a tax levied on the difference between a commodity's price before taxes and its cost of production
-vatted	VAT: a tax levied on the difference between a commodity's price before taxes and its cost of production
-vatting	VAT: a tax levied on the difference between a commodity's price before taxes and its cost of production
+vats	VAT: a large open vessel for holding or storing liquids
+vatted	VAT: a large open vessel for holding or storing liquids
+vatting	VAT: a large open vessel for holding or storing liquids
 vaudeville	a variety show with songs and comic acts etc.
 vaudevillian	a performer who works in vaudeville
 vaudevillians	VAUDEVILLIAN: a performer who works in vaudeville
@@ -293,12 +293,12 @@ vaulter	an athlete who jumps over a high crossbar with the aid of a long pole
 vaulters	VAULTER: an athlete who jumps over a high crossbar with the aid of a long pole
 vaulting	VAULT: a burial chamber (usually underground)
 vaults	VAULT: a burial chamber (usually underground)
-vaunt	extravagant self-praise
-vaunted	VAUNT: extravagant self-praise
+vaunt	show off
+vaunted	VAUNT: show off
 vaunter	a very boastful and talkative person
 vaunters	VAUNTER: a very boastful and talkative person
-vaunting	VAUNT: extravagant self-praise
-vaunts	VAUNT: extravagant self-praise
+vaunting	VAUNT: show off
+vaunts	VAUNT: show off
 veal	meat from a calf
 vector	a variable quantity that can be resolved into components
 vectored	VECTOR: direct along a course
@@ -329,7 +329,7 @@ vegetated	VEGETATE: lead a passive existence without using one's body or mind
 vegetates	VEGETATE: lead a passive existence without using one's body or mind
 vegetating	VEGETATE: lead a passive existence without using one's body or mind
 vegetation	all the plant life in a particular region or period
-vegetative	composed of vegetation or plants
+vegetative	of or relating to an activity that is passive and monotonous
 vegged	VEG: edible seeds or roots or stems or leaves or bulbs or tubers or nonsweet fruits of any of numerous herbaceous plant
 vegges	VEGGIE: a vegetable
 veggie	edible seeds or roots or stems or leaves or bulbs or tubers or nonsweet fruits of any of numerous herbaceous plant
@@ -405,7 +405,7 @@ venereology	the study of sexually transmitted diseases
 vengeance	the act of taking revenge (harming someone in retaliation for something harmful that they have done) especially in the next life
 vengeful	disposed to seek revenge or intended for revenge
 vengefully	in a vindictive, revengeful manner
-venial	warranting only temporal punishment
+venial	easily excused or forgiven
 venison	meat from a deer used as food
 venom	toxin secreted by animals; secreted by certain snakes and poisonous insects (e.g., spiders and scorpions)
 venomed	full of malice or hate
@@ -417,8 +417,8 @@ venoms	VENOM: toxin secreted by animals; secreted by certain snakes and poisonou
 venous	of or contained in or performing the function of the veins
 vent	a hole for the escape of gas or air
 vented	VENT: a hole for the escape of gas or air
-venter	a speaker who expresses or gives vent to a personal opinion or grievance
-venters	VENTER: a speaker who expresses or gives vent to a personal opinion or grievance
+venter	the region of the body of a vertebrate between the thorax and the pelvis
+venters	VENTER: the region of the body of a vertebrate between the thorax and the pelvis
 ventilate	expose to cool or cold air so as to cool or freshen
 ventilated	VENTILATE: expose to cool or cold air so as to cool or freshen
 ventilates	VENTILATE: expose to cool or cold air so as to cool or freshen
@@ -430,8 +430,8 @@ ventilatory	provided with ventilation or involving pulmonary ventilation
 venting	VENT: a hole for the escape of gas or air
 ventral	toward or on or near the belly (front of a primate or lower surface of a lower animal)
 ventrally	in a ventral location or direction
-ventricle	one of four connected cavities in the brain; is continuous with the central canal of the spinal cord and contains cerebrospinal fluid
-ventricles	VENTRICLE: one of four connected cavities in the brain; is continuous with the central canal of the spinal cord and contains cerebrospinal fluid
+ventricle	a chamber of the heart that receives blood from an atrium and pumps it to the arteries
+ventricles	VENTRICLE: a chamber of the heart that receives blood from an atrium and pumps it to the arteries
 ventricular	of or relating to a ventricle (of the heart or brain)
 ventriloquism	the art of projecting your voice so that it seems to come from another source (as from a ventriloquist's dummy)
 ventriloquist	a performer who projects the voice into a wooden dummy
@@ -454,17 +454,17 @@ verandas	VERANDA: a porch along the outside of a building (sometimes partly encl
 verapamil	a drug (trade names Calan and Isoptin) used as an oral or parenteral calcium blocker in cases of hypertension or congestive heart failure or angina or migraine
 verb	the word class that serves as the predicate of a sentence
 verbal	communicated in the form of words
-verbalise	be verbose
+verbalise	express in speech
 verbalised	communicated in words
-verbalises	VERBALISE: be verbose
-verbalising	VERBALISE: be verbose
-verbalize	be verbose
+verbalises	VERBALISE: express in speech
+verbalising	VERBALISE: express in speech
+verbalize	express in speech
 verbalized	communicated in words
-verbalizes	VERBALIZE: be verbose
-verbalizing	VERBALIZE: be verbose
-verbally	as a verb
+verbalizes	VERBALIZE: express in speech
+verbalizing	VERBALIZE: express in speech
+verbally	by means of language
 verbals	VERBAL: a word formed from a verb
-verbatim	in precisely the same words used by a writer or speaker
+verbatim	using exactly the same words
 verbena	any of numerous tropical or subtropical American plants of the genus Verbena grown for their showy spikes of variously colored flowers
 verbenas	VERBENA: any of numerous tropical or subtropical American plants of the genus Verbena grown for their showy spikes of variously colored flowers
 verbiage	overabundance of words
@@ -476,10 +476,10 @@ verbs	VERB: the word class that serves as the predicate of a sentence
 verdant	characterized by abundance of verdure
 verdict	the findings of a jury on issues of fact submitted to it for decision; can be used in formulating a judgment
 verdicts	VERDICT: the findings of a jury on issues of fact submitted to it for decision; can be used in formulating a judgment
-verdigris	a blue or green powder used as a paint pigment
-verdigrised	VERDIGRIS: a blue or green powder used as a paint pigment
-verdigrises	VERDIGRIS: a blue or green powder used as a paint pigment
-verdigrising	VERDIGRIS: a blue or green powder used as a paint pigment
+verdigris	a green patina that forms on copper or brass or bronze that has been exposed to the air or water for long periods of time
+verdigrised	VERDIGRIS: a green patina that forms on copper or brass or bronze that has been exposed to the air or water for long periods of time
+verdigrises	VERDIGRIS: a green patina that forms on copper or brass or bronze that has been exposed to the air or water for long periods of time
+verdigrising	VERDIGRIS: a green patina that forms on copper or brass or bronze that has been exposed to the air or water for long periods of time
 verdure	green foliage
 verge	a region marking a boundary
 verged	VERGE: a region marking a boundary
@@ -508,22 +508,22 @@ vermicelli	pasta in strings thinner than spaghetti
 vermiculite	any of a group of yellow or brown hydrous silicate minerals having a micaceous structure
 vermilion	of a vivid red to reddish-orange color
 vermillion	of a vivid red to reddish-orange color
-vermin	an irritating or obnoxious person
+vermin	any of various small animals or insects that are pests; e.g. cockroaches or rats
 verminous	of the nature of vermin; very offensive or repulsive
 vermouth	any of several white wines flavored with aromatic herbs; used as aperitifs or in mixed drinks
-vernacular	a characteristic language of a particular group (as among thieves)
-vernaculars	VERNACULAR: a characteristic language of a particular group (as among thieves)
+vernacular	the everyday speech of the people (as distinguished from literary language)
+vernaculars	VERNACULAR: the everyday speech of the people (as distinguished from literary language)
 vernal	suggestive of youth; vigorous and fresh
 verruca	a firm abnormal elevated blemish on the skin; caused by a virus
 verrucae	VERRUCA: a wart on the sole of the foot
 verrucas	VERRUCA: a firm abnormal elevated blemish on the skin; caused by a virus
 versa	the other way round
-versatile	having great diversity or variety
+versatile	competent in many areas and able to turn with ease from one thing to another
 versatility	having a wide variety of skills
 verse	literature in metrical form
 versed	VERSE: literature in metrical form
 verses	VERSE: literature in metrical form
-versification	a metrical adaptation of something (e.g., of a prose text)
+versification	the art or practice of writing verse
 versified	VERSIFY: turn into verse
 versifies	VERSIFY: compose verses or put into verse
 versify	compose verses or put into verse
@@ -553,7 +553,7 @@ very	precisely as stated
 vesicle	a small anatomically normal sac or bladderlike structure (especially one containing fluid)
 vesicles	VESICLE: a small anatomically normal sac or bladderlike structure (especially one containing fluid)
 vesicular	of or relating to or involving vesicles
-vesper	a planet (usually Venus) seen at sunset in the western sky
+vesper	a late afternoon or evening worship service
 vespers	the sixth of the seven canonical hours of the divine office; early evening; now often made a public service on Sundays
 vespertine	relating to the evening
 vespertines	VESPERTINE: relating to the evening
@@ -573,8 +573,8 @@ vestigially	as a small remaining trace
 vesting	VEST: a man's sleeveless garment worn underneath a coat
 vestment	gown (especially ceremonial garments) worn by the clergy
 vestments	VESTMENT: gown (especially ceremonial garments) worn by the clergy
-vestries	VESTRY: in the Protestant Episcopal Church: a committee elected by the congregation to work with the churchwardens in managing the temporal affairs of the church
-vestry	in the Protestant Episcopal Church: a committee elected by the congregation to work with the churchwardens in managing the temporal affairs of the church
+vestries	VESTRY: a room in a church where sacred vessels and vestments are kept or meetings are held
+vestry	a room in a church where sacred vessels and vestments are kept or meetings are held
 vests	VEST: a man's sleeveless garment worn underneath a coat
 vet	a doctor who practices veterinary medicine
 vetch	any of various climbing plants of the genus Vicia having pinnately compound leaves that terminate in tendrils and small variously colored flowers; includes valuable forage and soil-building plants
@@ -635,8 +635,8 @@ vibration	the act of vibrating
 vibrational	of or relating to or characterized by vibration
 vibrations	VIBRATION: the act of vibrating
 vibrato	a pulsating effect in an instrumental or vocal tone produced by slight and rapid variations in pitch
-vibrator	a mechanical device that vibrates
-vibrators	VIBRATOR: a mechanical device that vibrates
+vibrator	mechanical device that produces vibratory motion; used for massage
+vibrators	VIBRATOR: mechanical device that produces vibratory motion; used for massage
 vibratory	moving very rapidly to and fro or up and down
 vibratos	VIBRATO: a pulsating effect in an instrumental or vocal tone produced by slight and rapid variations in pitch
 viburnum	deciduous or evergreen shrubs or small trees: arrow-wood; wayfaring tree
@@ -693,9 +693,9 @@ victualled	VICTUAL: any substance that can be used as food
 victualler	an innkeeper (especially British)
 victuallers	VICTUALLER: an innkeeper (especially British)
 victualling	VICTUAL: any substance that can be used as food
-victuals	a stock or supply of foods
-vicuna	the wool of the vicuna
-vicunas	VICUNA: the wool of the vicuna
+victuals	any substance that can be used as food
+vicuna	small wild cud-chewing Andean animal similar to the guanaco but smaller; valued for its fleecy undercoat
+vicunas	VICUNA: small wild cud-chewing Andean animal similar to the guanaco but smaller; valued for its fleecy undercoat
 video	the visible part of a television transmission
 videocassette	a cassette for videotape
 videocassettes	VIDEOCASSETTE: a cassette for videotape
@@ -730,14 +730,14 @@ viewings	VIEWING: the display of a motion picture
 viewpoint	a mental position from which things are viewed
 viewpoints	VIEWPOINT: a mental position from which things are viewed
 views	VIEW: a way of regarding situations or topics etc.
-vigil	a period of sleeplessness
+vigil	a purposeful surveillance to guard or observe
 vigilance	the process of paying close and continuous attention
 vigilant	carefully observant or attentive; on the lookout for possible danger
 vigilante	member of a vigilance committee
 vigilantes	VIGILANTE: member of a vigilance committee
 vigilantism	the actions of a vigilance committee in trying to enforce the laws
 vigilantly	in a watchful manner
-vigils	VIGIL: a period of sleeplessness
+vigils	VIGIL: a purposeful surveillance to guard or observe
 vignette	a brief literary description
 vignetted	VIGNETTE: fade at the edges
 vignettes	VIGNETTE: a brief literary description
@@ -745,11 +745,11 @@ vignetting	VIGNETTE: fade at the edges
 vigor	forceful exertion
 vigorous	characterized by forceful and energetic action or activity
 vigorously	with vigor; in a vigorous manner
-vigour	forceful exertion
+vigour	active strength of body or mind
 viking	any of the Scandinavian people who raided the coasts of Europe from the 8th to the 11th centuries
 vile	morally reprehensible
 vilely	in a vile manner
-vileness	the quality of being wicked
+vileness	the quality of being disgusting to the senses or emotions
 viler	VILE: morally reprehensible
 vilest	VILE: morally reprehensible
 vilification	slanderous defamation
@@ -759,7 +759,7 @@ vilifiers	VILIFIER: one who attacks the reputation of another by slander or libe
 vilifies	VILIFY: spread negative information about
 vilify	spread negative information about
 vilifying	VILIFY: spread negative information about
-villa	Mexican revolutionary leader (1877-1923)
+villa	pretentious and luxurious country residence with extensive grounds
 village	a community of people smaller than a town
 villager	one who has lived in a village most of their life
 villagers	VILLAGER: one who has lived in a village most of their life
@@ -773,7 +773,7 @@ villains	VILLAIN: a wicked or evil person; someone who does evil deliberately
 villainy	the quality of evil by virtue of villainous behavior
 villanelle	a nineteen-line poem with two repeated rhymes
 villanelles	VILLANELLE: a nineteen-line poem with two repeated rhymes
-villas	VILLA: Mexican revolutionary leader (1877-1923)
+villas	VILLA: pretentious and luxurious country residence with extensive grounds
 villein	a person who is bound to the land and owned by the feudal lord
 villeins	VILLEIN: a person who is bound to the land and owned by the feudal lord
 villi	VILLUS: a tiny finger-like projection lining the gut
@@ -807,9 +807,9 @@ vintners	VINTNER: someone who sells wine
 vinyl	a univalent chemical radical derived from ethylene
 vinyls	VINYL: a univalent chemical radical derived from ethylene
 viol	any of a family of bowed stringed instruments that preceded the violin family
-viola	any of the numerous plants of the genus Viola
+viola	a bowed stringed instrument slightly larger than a violin, tuned a fifth lower
 violable	capable of being violated
-violas	VIOLA: any of the numerous plants of the genus Viola
+violas	VIOLA: a bowed stringed instrument slightly larger than a violin, tuned a fifth lower
 violate	fail to agree with; be in violation of; as of rules or patterns
 violated	VIOLATE: fail to agree with; be in violation of; as of rules or patterns
 violates	VIOLATE: fail to agree with; be in violation of; as of rules or patterns
@@ -846,15 +846,15 @@ viral	relating to or caused by a virus
 vireo	any of various small insectivorous American birds chiefly olive-grey in color
 vireos	VIREO: any of various small insectivorous American birds chiefly olive-grey in color
 virgin	a person who has never had sex
-virginal	a legless rectangular harpsichord; played (usually by women) in the 16th and 17th centuries
-virginals	VIRGINAL: a legless rectangular harpsichord; played (usually by women) in the 16th and 17th centuries
+virginal	characteristic of a virgin or virginity
+virginals	VIRGINAL: characteristic of a virgin or virginity
 virginity	the condition or quality of being a virgin
 virgins	VIRGIN: a person who has never had sex
 virgule	a punctuation mark (/) used to separate related items of information
 virgules	VIRGULE: a punctuation mark (/) used to separate related items of information
 viridian	a bluish-green pigment
 virile	characterized by energy and vigor
-virility	the masculine property of being capable of copulation and procreation
+virility	the trait of being manly; having the characteristics of an adult male
 virions	VIRION: a complete viral particle; nucleic acid and capsid (and a lipid envelope in some viruses)
 virological	of or relating to the science of virology
 virologist	a specialist in virology
@@ -892,12 +892,12 @@ viscera	internal organs collectively (especially those in the abdominal cavity)
 visceral	relating to or affecting the viscera
 viscerally	in an unreasoning visceral manner
 viscid	having the sticky properties of an adhesive
-viscose	a cellulose ester obtained by treating cellulose with caustic soda
+viscose	a rayon fabric made from viscose (cellulose xanthate) fibers
 viscosity	resistance of a liquid to shear forces (and hence to flow)
-viscount	(in various countries) a son or younger brother or a count
+viscount	a British peer who ranks below an earl and above a baron
 viscountess	a wife or widow of a viscount
 viscountesses	VISCOUNTESS: a wife or widow of a viscount
-viscounts	VISCOUNT: (in various countries) a son or younger brother or a count
+viscounts	VISCOUNT: a British peer who ranks below an earl and above a baron
 viscous	having a relatively high resistance to flow
 viscously	in a viscous way
 viscousness	resistance of a liquid to shear forces (and hence to flow)
@@ -919,25 +919,25 @@ visioned	VISION: imagine
 visioning	VISION: imagine
 visions	VISION: a vivid mental image
 visit	go to see a place, as for entertainment
-visitation	an annoying or frustrating or catastrophic event
-visitations	VISITATION: an annoying or frustrating or catastrophic event
+visitation	an official visit for inspection or supervision
+visitations	VISITATION: an official visit for inspection or supervision
 visited	VISIT: go to see a place, as for entertainment
 visiting	VISIT: go to see a place, as for entertainment
 visitor	someone who visits
 visitors	VISITOR: someone who visits
 visits	VISIT: go to see a place, as for entertainment
-visor	a piece of armor plate (with eye slits) fixed or hinged to a medieval helmet to protect the face
-visors	VISOR: a piece of armor plate (with eye slits) fixed or hinged to a medieval helmet to protect the face
+visor	a brim that projects to the front to shade the eyes
+visors	VISOR: a brim that projects to the front to shade the eyes
 vista	the visual percept of a region
 vistas	VISTA: the visual percept of a region
 visual	relating to or using sight
 visualisation	a mental image that is similar to a visual perception
 visualisations	VISUALISATION: a mental image that is similar to a visual perception
-visualise	view the outline of by means of an X-ray
+visualise	imagine; conceive of; see in one's mind
 visualised	seen in the mind as a mental image
 visualiser	one whose prevailing mental imagery is visual
-visualises	VISUALISE: view the outline of by means of an X-ray
-visualising	VISUALISE: view the outline of by means of an X-ray
+visualises	VISUALISE: imagine; conceive of; see in one's mind
+visualising	VISUALISE: imagine; conceive of; see in one's mind
 visualization	a mental image that is similar to a visual perception
 visualizations	VISUALIZATION: a mental image that is similar to a visual perception
 visualize	imagine; conceive of; see in one's mind
@@ -950,30 +950,30 @@ visuals	VISUAL: a picture or image
 vita	a short account of someone's career
 vitae	VITA: a short account of someone's career
 vital	urgently needed; absolutely necessary
-vitalise	give life to
-vitalised	VITALISE: give life to
-vitalises	VITALISE: give life to
-vitalising	VITALISE: give life to
+vitalise	make more lively or vigorous
+vitalised	VITALISE: make more lively or vigorous
+vitalises	VITALISE: make more lively or vigorous
+vitalising	VITALISE: make more lively or vigorous
 vitality	an energetic style
-vitalize	give life to
-vitalized	VITALIZE: give life to
-vitalizes	VITALIZE: give life to
+vitalize	make more lively or vigorous
+vitalized	VITALIZE: make more lively or vigorous
+vitalizes	VITALIZE: make more lively or vigorous
 vitalizing	giving or having the power to give life and spirit
 vitally	to a vital degree
 vitals	a bodily organ that is essential for life
 vitamin	any of a group of organic substances essential in small quantities to normal metabolism
 vitamins	VITAMIN: any of a group of organic substances essential in small quantities to normal metabolism
-vitiate	corrupt morally or by intemperance or sensuality
-vitiated	impaired by diminution
-vitiates	VITIATE: corrupt morally or by intemperance or sensuality
-vitiating	VITIATE: corrupt morally or by intemperance or sensuality
+vitiate	make imperfect
+vitiated	ruined in character or quality
+vitiates	VITIATE: make imperfect
+vitiating	VITIATE: make imperfect
 vitiation	nullification by the destruction of the legal force; rendering null
 viticulture	the cultivation of grapes and grape vines; grape growing
 vitiligo	an acquired skin disease characterized by patches of unpigmented skin (often surrounded by a heavily pigmented border)
-vitreous	of or relating to or constituting the vitreous humor of the eye
-vitrification	a vitrified substance; the glassy result of being vitrified
+vitreous	relating to or resembling or derived from or containing glass
+vitrification	the process of becoming vitreous
 vitrified	(of ceramics) having the surface made shiny and nonporous by fusing a vitreous solution to it
-vitriol	a highly corrosive acid made from sulfur dioxide; widely used in the chemical industry
+vitriol	abusive or venomous language used to express blame or censure or bitter deep-seated ill will
 vitriolic	harsh or corrosive in tone
 vittles	food
 vituperate	spread negative information about
@@ -1003,13 +1003,13 @@ vivify	give new life or energy to
 vivifying	VIVIFY: give new life or energy to
 viviparous	producing living young (not eggs)
 vivisection	the act of operating on living animals (especially in scientific research)
-vixen	a malicious woman with a fierce temper
+vixen	a female fox
 vixenish	shrewish and malicious
-vixens	VIXEN: a malicious woman with a fierce temper
+vixens	VIXEN: a female fox
 vizier	a high official in a Muslim government (especially in the Ottoman Empire)
 viziers	VIZIER: a high official in a Muslim government (especially in the Ottoman Empire)
-vizor	a piece of armor plate (with eye slits) fixed or hinged to a medieval helmet to protect the face
-vizors	VIZOR: a piece of armor plate (with eye slits) fixed or hinged to a medieval helmet to protect the face
+vizor	a brim that projects to the front to shade the eyes
+vizors	VIZOR: a brim that projects to the front to shade the eyes
 vocab	vocabulary
 vocabularies	VOCABULARY: a listing of the words used in some enterprise
 vocabulary	a listing of the words used in some enterprise
@@ -1017,14 +1017,14 @@ vocal	relating to or designed for or using the singing voice
 vocalic	being or containing or characterized by vowels
 vocalisation	the sound made by the vibration of vocal folds modified by the resonance of the vocal tract
 vocalisations	VOCALISATION: the sound made by the vibration of vocal folds modified by the resonance of the vocal tract
-vocalise	sing (each note a scale or in a melody) with the same vowel
-vocalised	VOCALISE: sing (each note a scale or in a melody) with the same vowel
-vocalises	VOCALISE: sing (each note a scale or in a melody) with the same vowel
-vocalising	VOCALISE: sing (each note a scale or in a melody) with the same vowel
+vocalise	utter speech sounds
+vocalised	VOCALISE: utter speech sounds
+vocalises	VOCALISE: utter speech sounds
+vocalising	VOCALISE: utter speech sounds
 vocalist	a person who sings
 vocalists	VOCALIST: a person who sings
-vocalization	the sound made by the vibration of vocal folds modified by the resonance of the vocal tract
-vocalizations	VOCALIZATION: the sound made by the vibration of vocal folds modified by the resonance of the vocal tract
+vocalization	the use of uttered sounds for auditory communication
+vocalizations	VOCALIZATION: the use of uttered sounds for auditory communication
 vocalize	utter with vibrating vocal chords
 vocalized	VOCALIZE: utter with vibrating vocal chords
 vocalizes	VOCALIZE: utter with vibrating vocal chords
@@ -1064,14 +1064,14 @@ void	lacking any legal or binding force
 voidable	capable of being rescinded or voided
 voided	VOID: lacking any legal or binding force
 voider	VOID: lacking any legal or binding force
-voiders	VOIDER: an official who can invalidate or nullify
+voiders	VOIDER: a hamper that holds dirty clothes to be washed or wet clothes to be dried
 voiding	VOID: lacking any legal or binding force
 voids	VOID: lacking any legal or binding force
 voila	an exclamation presenting a result
 voile	a light semitransparent fabric
 volatile	evaporating readily at normal temperatures and pressures
 volatiles	VOLATILE: evaporating readily at normal temperatures and pressures
-volatility	the property of changing readily from a solid or liquid to a vapor
+volatility	the trait of being unpredictably irresolute
 volcanic	relating to or produced by or consisting of volcanoes
 volcanism	the phenomena associated with volcanic activity
 volcano	a fissure in the earth's crust (or in the surface of some other planet) through which molten lava and gases erupt
@@ -1121,7 +1121,7 @@ voluptuaries	VOLUPTUARY: a person addicted to luxury and pleasures of the senses
 voluptuary	a person addicted to luxury and pleasures of the senses
 voluptuous	having strong sexual appeal
 voluptuously	in a shapely and voluptuous manner
-voluptuousness	the quality of being attractive and exciting (especially sexually exciting)
+voluptuousness	the quality of having a well-rounded body
 vomit	eject the contents of the stomach through the mouth
 vomited	VOMIT: eject the contents of the stomach through the mouth
 vomiter	a person who vomits
@@ -1133,16 +1133,16 @@ voodooed	VOODOO: a charm superstitiously believed to embody magical powers
 voodooing	VOODOO: a charm superstitiously believed to embody magical powers
 voodooism	a religious cult practiced chiefly in Caribbean countries (especially Haiti); involves witchcraft and animistic deities
 voodoos	VOODOO: a charm superstitiously believed to embody magical powers
-voracious	excessively greedy and grasping
+voracious	devouring or craving food in great quantities
 voraciously	in an eagerly voracious manner
-voraciousness	excessive desire to eat
+voraciousness	extreme gluttony
 voracity	excessive desire to eat
-vortex	the shape of something rotating rapidly
-vortexes	VORTEX: the shape of something rotating rapidly
+vortex	a powerful circular current of water (usually the result of conflicting tides)
+vortexes	VORTEX: a powerful circular current of water (usually the result of conflicting tides)
 vortices	VORTEX: a whirling mass of liquid or air
 vorticity	a measure of how strongly a fluid spins
-votaries	VOTARY: one bound by vows to a religion or life of worship or service
-votary	one bound by vows to a religion or life of worship or service
+votaries	VOTARY: a devoted (almost religiously so) adherent of a cause or person or activity
+votary	a devoted (almost religiously so) adherent of a cause or person or activity
 vote	a choice that is made by counting the number of people in favor of each alternative
 voted	VOTE: a choice that is made by counting the number of people in favor of each alternative
 voter	a citizen who has a legal right to vote
@@ -1152,8 +1152,8 @@ voting	a choice that is made by counting the number of people in favor of each a
 votive	dedicated in fulfillment of a vow
 vouch	give personal assurance; guarantee
 vouched	VOUCH: give personal assurance; guarantee
-voucher	someone who vouches for another or for the correctness of a statement
-vouchers	VOUCHER: someone who vouches for another or for the correctness of a statement
+voucher	a negotiable certificate that can be detached and redeemed as needed
+vouchers	VOUCHER: a negotiable certificate that can be detached and redeemed as needed
 vouches	VOUCH: give personal assurance; guarantee
 vouching	VOUCH: give personal assurance; guarantee
 vouchsafe	grant in a condescending manner
@@ -1182,15 +1182,15 @@ voyeuristic	of or relating to voyeurs or voyeurism
 voyeurs	VOYEUR: a viewer who enjoys seeing the sex acts or sex organs of others
 vroom	the roaring sound made by a motor that is running at high speed
 vulcanisation	process of treating rubber or rubberlike materials with sulphur at great heat to improve elasticity and strength or to harden them
-vulcanise	undergo vulcanization
+vulcanise	subject to vulcanization
 vulcanised	(used of rubber) treated by a chemical or physical process to improve its properties (hardness and strength and odor and elasticity)
-vulcanises	VULCANISE: undergo vulcanization
-vulcanising	VULCANISE: undergo vulcanization
+vulcanises	VULCANISE: subject to vulcanization
+vulcanising	VULCANISE: subject to vulcanization
 vulcanization	process of treating rubber or rubberlike materials with sulphur at great heat to improve elasticity and strength or to harden them
-vulcanize	undergo vulcanization
+vulcanize	subject to vulcanization
 vulcanized	(used of rubber) treated by a chemical or physical process to improve its properties (hardness and strength and odor and elasticity)
-vulcanizes	VULCANIZE: undergo vulcanization
-vulcanizing	VULCANIZE: undergo vulcanization
+vulcanizes	VULCANIZE: subject to vulcanization
+vulcanizing	VULCANIZE: subject to vulcanization
 vulcanological	relating to the study of volcanoes
 vulcanologist	a person who studies volcanoes
 vulcanologists	VULCANOLOGIST: a person who studies volcanoes
@@ -1199,19 +1199,19 @@ vulgar	lacking refinement or cultivation or taste
 vulgarer	VULGAR: lacking refinement or cultivation or taste
 vulgarest	VULGAR: lacking refinement or cultivation or taste
 vulgarisation	the act of rendering something coarse and unrefined
-vulgarise	cater to popular taste to make popular and present to the general public; bring into general or common use
-vulgarised	VULGARISE: cater to popular taste to make popular and present to the general public; bring into general or common use
-vulgarises	VULGARISE: cater to popular taste to make popular and present to the general public; bring into general or common use
-vulgarising	VULGARISE: cater to popular taste to make popular and present to the general public; bring into general or common use
+vulgarise	debase and make vulgar
+vulgarised	VULGARISE: debase and make vulgar
+vulgarises	VULGARISE: debase and make vulgar
+vulgarising	VULGARISE: debase and make vulgar
 vulgarism	an offensive or indecent word or phrase
 vulgarisms	VULGARISM: an offensive or indecent word or phrase
 vulgarities	VULGARITY: the quality of lacking taste and refinement
 vulgarity	the quality of lacking taste and refinement
 vulgarization	the act of rendering something coarse and unrefined
-vulgarize	cater to popular taste to make popular and present to the general public; bring into general or common use
-vulgarized	VULGARIZE: cater to popular taste to make popular and present to the general public; bring into general or common use
-vulgarizes	VULGARIZE: cater to popular taste to make popular and present to the general public; bring into general or common use
-vulgarizing	VULGARIZE: cater to popular taste to make popular and present to the general public; bring into general or common use
+vulgarize	debase and make vulgar
+vulgarized	VULGARIZE: debase and make vulgar
+vulgarizes	VULGARIZE: debase and make vulgar
+vulgarizing	VULGARIZE: debase and make vulgar
 vulgarly	in a smutty manner
 vulgarness	the quality of being vulgar
 vulnerabilities	VULNERABILITY: the state of being vulnerable or exposed

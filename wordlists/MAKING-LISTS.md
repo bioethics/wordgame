@@ -458,6 +458,14 @@ What the session history, the commits and the author's Drive show:
   formation, or one written for the game in `definitions-own.txt`. **After
   adding words, re-run it**, and write whatever it lists in
   `definitions-missing.txt` into `definitions-own.txt`.
+- **5 November, senses.** For the 8,094 words WordNet's tagged corpus never
+  met, its senses come in no meaningful order, and the first was often the
+  wrong one (ABACUS the column slab, WREN the architect). Each now has its
+  everyday sense picked in `definitions-senses.txt` (4,512 changed), proper
+  nouns passed over for the playable word (SURREY the carriage, COKE the
+  fuel), and 68 written by hand where WordNet lacks the everyday sense (AM,
+  OR, UTE, TUCKER). New words needing a pick appear in
+  `definitions-unpicked.txt`.
 
 Not found anywhere these sessions can reach: the tool or chat that produced
 the ranked lists and the later batches. The ranking, the drift into

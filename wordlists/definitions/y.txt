@@ -22,18 +22,18 @@ yacking	YACK: noisy talk
 yacks	YACK: noisy talk
 yahoo	a person who is not very intelligent or interested in culture
 yahoos	YAHOO: a person who is not very intelligent or interested in culture
-yak	noisy talk
+yak	large long-haired wild ox of Tibet often domesticated
 yakka	hard work
-yakked	YAK: noisy talk
-yakking	YAK: noisy talk
-yaks	YAK: noisy talk
+yakked	YAK: large long-haired wild ox of Tibet often domesticated
+yakking	YAK: large long-haired wild ox of Tibet often domesticated
+yaks	YAK: large long-haired wild ox of Tibet often domesticated
 yam	the starchy tuber of a tropical climbing plant, eaten as a vegetable
-yammer	cry loudly, as of animals
-yammered	YAMMER: cry loudly, as of animals
+yammer	complain whiningly
+yammered	YAMMER: complain whiningly
 yammerer	a person who complains loudly
 yammerers	YAMMERER: a person who complains loudly
-yammering	YAMMER: cry loudly, as of animals
-yammers	YAMMER: cry loudly, as of animals
+yammering	YAMMER: complain whiningly
+yammers	YAMMER: complain whiningly
 yams	YAM: the starchy tuber of a tropical climbing plant, eaten as a vegetable
 yang	the bright positive masculine principle in Chinese dualistic cosmology
 yank	an American who lives in the North (especially during the American Civil War)
@@ -56,14 +56,14 @@ yardstick	a measure or standard used for comparison
 yardsticks	YARDSTICK: a measure or standard used for comparison
 yarmulke	a skullcap worn by religious Jews (especially at prayer)
 yarmulkes	YARMULKE: a skullcap worn by religious Jews (especially at prayer)
-yarn	the act of giving an account describing incidents or a course of events
-yarns	YARN: the act of giving an account describing incidents or a course of events
+yarn	a fine cord of twisted fibers (of cotton or silk or wool or nylon etc.) used in sewing and weaving
+yarns	YARN: a fine cord of twisted fibers (of cotton or silk or wool or nylon etc.) used in sewing and weaving
 yarrow	ubiquitous strong-scented mat-forming Eurasian herb of wasteland, hedgerow or pasture having narrow serrate leaves and small usually white florets; widely naturalized in North America
-yaw	an erratic deflection from an intended course
-yawed	YAW: an erratic deflection from an intended course
-yawing	YAW: an erratic deflection from an intended course
-yawl	a ship's small boat (usually rowed by 4 or 6 oars)
-yawls	YAWL: a ship's small boat (usually rowed by 4 or 6 oars)
+yaw	deviate erratically from a set course
+yawed	YAW: deviate erratically from a set course
+yawing	YAW: deviate erratically from a set course
+yawl	a sailing vessel with two masts; a small mizzen is aft of the rudderpost
+yawls	YAWL: a sailing vessel with two masts; a small mizzen is aft of the rudderpost
 yawn	an involuntary intake of breath through a wide open mouth; usually triggered by fatigue or boredom
 yawned	YAWN: an involuntary intake of breath through a wide open mouth; usually triggered by fatigue or boredom
 yawner	a person who yawns
@@ -77,13 +77,13 @@ yea	an affirmative
 yeah	not only so, but
 yeahs	YEAH: an affirmative reply
 year	a period of time containing 365 (or 366) days
-yearbook	a book published annually by the graduating class of a high school or college usually containing photographs of faculty and graduating students
-yearbooks	YEARBOOK: a book published annually by the graduating class of a high school or college usually containing photographs of faculty and graduating students
-yearlies	YEARLY: a reference book that is published regularly once every year
-yearling	a young child
-yearlings	YEARLING: a young child
+yearbook	a reference book that is published regularly once every year
+yearbooks	YEARBOOK: a reference book that is published regularly once every year
+yearlies	YEARLY: occurring or payable every year
+yearling	an animal in its second year
+yearlings	YEARLING: an animal in its second year
 yearlong	lasting through a year
-yearly	a reference book that is published regularly once every year
+yearly	occurring or payable every year
 yearn	desire strongly or persistently
 yearned	YEARN: desire strongly or persistently
 yearning	prolonged unfulfilled desire or need
@@ -112,7 +112,7 @@ yellowish	of the color intermediate between green and orange in the color spectr
 yellowjacket	a wasp with yellow and black stripes
 yellowjackets	YELLOWJACKET: a wasp with yellow and black stripes
 yellows	YELLOW: of the color intermediate between green and orange in the color spectrum; of something resembling the color of an egg yolk
-yellowtail	superior food fish of the tropical Atlantic and Caribbean with broad yellow stripe along the sides and on the tail
+yellowtail	game fish of southern California and Mexico having a yellow tail fin
 yellowy	somewhat yellow
 yells	YELL: a loud utterance; often in protest or opposition
 yelp	a sharp high-pitched cry (especially by a dog)
@@ -123,9 +123,9 @@ yelping	a sharp high-pitched cry (especially by a dog)
 yelps	YELP: a sharp high-pitched cry (especially by a dog)
 yen	a yearning for something or to do something
 yens	YEN: a yearning for something or to do something
-yeoman	officer in the (ceremonial) bodyguard of the British monarch
+yeoman	in former times was free and cultivated his own land
 yeomanry	class of small freeholders who cultivated their own land
-yeomen	YEOMAN: officer in the (ceremonial) bodyguard of the British monarch
+yeomen	YEOMAN: in former times was free and cultivated his own land
 yeow	an exclamation of pain
 yep	yes
 yeps	YEP: yes
@@ -148,8 +148,8 @@ yesteryear	the time that has elapsed
 yet	up to the present time
 yeti	a large hairy humanoid creature said to live in the Himalayas
 yetis	YETI: a large hairy humanoid creature said to live in the Himalayas
-yew	wood of a yew; especially the durable fine-grained light brown or red wood of the English yew valued for cabinetwork and archery bows
-yews	YEW: wood of a yew; especially the durable fine-grained light brown or red wood of the English yew valued for cabinetwork and archery bows
+yew	any of numerous evergreen trees or shrubs having red cup-shaped berries and flattened needlelike leaves
+yews	YEW: any of numerous evergreen trees or shrubs having red cup-shaped berries and flattened needlelike leaves
 yid	offensive term for a Jew
 yids	YID: offensive term for a Jew
 yield	be the cause or source of
@@ -190,10 +190,10 @@ yoghourt	a custard-like food made from curdled milk
 yoghourts	YOGHOURT: a custard-like food made from curdled milk
 yoghurt	a custard-like food made from curdled milk
 yoghurts	YOGHURT: a custard-like food made from curdled milk
-yogi	United States baseball player (born 1925)
+yogi	one who practices yoga and has achieved a high level of spiritual insight
 yogin	a person who practises yoga
 yogins	YOGIN: a person who practises yoga
-yogis	YOGI: United States baseball player (born 1925)
+yogis	YOGI: one who practices yoga and has achieved a high level of spiritual insight
 yogurt	a custard-like food made from curdled milk
 yogurts	YOGURT: a custard-like food made from curdled milk
 yoke	fabric comprising a fitted part at the top of a garment

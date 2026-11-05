@@ -1987,14 +1987,23 @@ given name". They come from
 1. `wordlists/definitions-own.txt`, written for the game: overrides of
    WordNet's choice, and the words WordNet doesn't know (6,600 written on 5
    November, for words like ARVO, CRINGEWORTHY, BIOFILM and CLAFOUTIS, plus
-   the function words: THE, THAT, THAN, THEY);
+   the function words: THE, THAT, THAN, THEY), and the words whose WordNet
+   senses all miss the everyday one (AM, AT, OR; AVATAR, FIGUREHEAD; UTE,
+   TUCKER, LOLLY);
 2. WordNet's gloss of the word's commonest sense, examples and field labels
    cut. "Commonest" is WordNet's own order, by how often its tagged corpus
-   met each sense; for the words it never met, the order means nothing, and
-   the plant often comes first (PEACH was "cultivated in temperate regions",
-   TUNA "tropical American prickly pear of Jamaica"), so an untagged noun
-   whose first sense is a plant takes its food sense instead. A few animal
-   and plant glosses leave the kind of thing to the hypernym ("may reach 400
+   met each sense. For the 8,094 words it never met at all, that order (and
+   which part of speech comes first) means nothing: ABACUS came out as the
+   slab on a column's capital, SARTORIAL as "of or relating to the sartorius
+   muscle", WREN as the architect, PEACH as "cultivated in temperate
+   regions". Each of those has its sense chosen in
+   `wordlists/definitions-senses.txt`, the everyday one for an Australian or
+   British reader, across parts of speech (RUE the verb, NICK a small cut,
+   SURREY the carriage, not the county); 4,512 of them differ from the
+   first-listed. Words added later that need one are listed, senses and all,
+   in `wordlists/definitions-unpicked.txt`; until they're picked, an untagged
+   noun whose first sense is a plant takes its food sense. A few animal and
+   plant glosses leave the kind of thing to the hypernym ("may reach 400
    pounds; worldwide in tropics"); those get it read back in ("a tuna; may
    reach…");
 3. a base form, by WordNet's endings and a table of irregulars, written "STOP:

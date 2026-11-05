@@ -50,8 +50,8 @@ obfuscate	make obscure or unclear
 obfuscated	OBFUSCATE: make obscure or unclear
 obfuscates	OBFUSCATE: make obscure or unclear
 obfuscating	OBFUSCATE: make obscure or unclear
-obfuscation	confusion resulting from failure to understand
-obfuscations	OBFUSCATION: confusion resulting from failure to understand
+obfuscation	the activity of obscuring people's understanding, leaving them baffled or bewildered
+obfuscations	OBFUSCATION: the activity of obscuring people's understanding, leaving them baffled or bewildered
 obit	a notice of someone's death; usually includes a short biography
 obits	OBIT: a notice of someone's death; usually includes a short biography
 obituaries	OBITUARY: a notice of someone's death; usually includes a short biography
@@ -62,9 +62,9 @@ object	a tangible and visible entity; an entity that can cast a shadow
 objected	OBJECT: a tangible and visible entity; an entity that can cast a shadow
 objectification	the act of representing an abstraction as a physical thing
 objectified	OBJECTIFY: treat as a mere object
-objectifies	OBJECTIFY: make external or objective, or give reality to
-objectify	make external or objective, or give reality to
-objectifying	OBJECTIFY: make external or objective, or give reality to
+objectifies	OBJECTIFY: make impersonal or present as an object
+objectify	make impersonal or present as an object
+objectifying	OBJECTIFY: make impersonal or present as an object
 objecting	OBJECT: a tangible and visible entity; an entity that can cast a shadow
 objection	the act of expressing earnest opposition or protest
 objectionable	causing disapproval or protest
@@ -82,7 +82,7 @@ objector	a person who dissents from some established policy
 objectors	OBJECTOR: a person who dissents from some established policy
 objects	OBJECT: a tangible and visible entity; an entity that can cast a shadow
 oblast	an administrative region in Russia
-oblate	a lay person dedicated to religious work or the religious life
+oblate	having the equatorial diameter greater than the polar diameter; being flattened at the poles
 oblation	the act of contributing to the funds of a church or charity
 oblations	OBLATION: the act of contributing to the funds of a church or charity
 obligate	force somebody to do something
@@ -91,17 +91,17 @@ obligates	OBLIGATE: force somebody to do something
 obligating	OBLIGATE: force somebody to do something
 obligation	the social force that binds you to the courses of action demanded by that force
 obligations	OBLIGATION: the social force that binds you to the courses of action demanded by that force
-obligatory	morally or legally constraining or binding
+obligatory	required by obligation or compulsion or convention
 oblige	force somebody to do something
 obliged	under a moral obligation to do something
 obliges	OBLIGE: force somebody to do something
 obliging	OBLIGE: force somebody to do something
 obligingly	in accommodation
 oblique	slanting or inclined in direction or course or position--neither parallel nor perpendicular nor right-angled
-obliquely	to, toward or at one side
+obliquely	at an oblique angle
 obliqueness	the property of being neither parallel nor perpendicular, but at a slanting angle
 obliques	OBLIQUE: slanting or inclined in direction or course or position--neither parallel nor perpendicular nor right-angled
-obliquity	the presentation during labor of the head of the fetus at an abnormal angle
+obliquity	the quality of being deceptive
 obliterate	mark for deletion, rub off, or erase
 obliterated	OBLITERATE: mark for deletion, rub off, or erase
 obliterates	OBLITERATE: mark for deletion, rub off, or erase
@@ -111,8 +111,8 @@ oblivion	the state of being disregarded or forgotten
 oblivious	lacking conscious awareness of
 obliviously	in a oblivious way
 obliviousness	total forgetfulness
-oblong	a plane figure that deviates from a square or circle due to elongation
-oblongs	OBLONG: a plane figure that deviates from a square or circle due to elongation
+oblong	deviating from a square or circle or sphere by being elongated in one direction
+oblongs	OBLONG: deviating from a square or circle or sphere by being elongated in one direction
 obloquy	state of disgrace resulting from public abuse
 obnoxious	causing disapproval or protest
 obnoxiously	in an obnoxious manner
@@ -123,7 +123,7 @@ oboist	a musician who plays the oboe
 oboists	OBOIST: a musician who plays the oboe
 obovate	(of a leaf shape) egg-shaped with the narrower end at the base
 obscene	designed to incite to indecency or lust
-obscenely	to an obscene degree
+obscenely	in a lewd and obscene manner
 obscener	OBSCENE: designed to incite to indecency or lust
 obscenest	OBSCENE: designed to incite to indecency or lust
 obscenities	OBSCENITY: the trait of behaving in an obscene manner
@@ -134,7 +134,7 @@ obscurantists	OBSCURANTIST: a person who is deliberately vague
 obscure	make less visible or unclear
 obscured	OBSCURE: make less visible or unclear
 obscurely	in an obscure manner
-obscureness	the state of being humble and unimportant
+obscureness	the quality of being unclear or abstruse and hard to understand
 obscurer	OBSCURE: make less visible or unclear
 obscures	OBSCURE: make less visible or unclear
 obscurest	OBSCURE: make less visible or unclear
@@ -168,12 +168,12 @@ obsess	haunt like a ghost; pursue
 obsessed	having or showing excessive or compulsive concern with something
 obsesses	OBSESS: haunt like a ghost; pursue
 obsessing	OBSESS: haunt like a ghost; pursue
-obsession	an irrational motive for performing trivial or repetitive actions, even against your will
+obsession	an unhealthy and compulsive preoccupation with something or someone
 obsessional	characterized by or constituting an obsession
-obsessions	OBSESSION: an irrational motive for performing trivial or repetitive actions, even against your will
-obsessive	a person who has obsessions
+obsessions	OBSESSION: an unhealthy and compulsive preoccupation with something or someone
+obsessive	characterized by or constituting an obsession
 obsessively	in a compulsive manner
-obsessives	OBSESSIVE: a person who has obsessions
+obsessives	OBSESSIVE: characterized by or constituting an obsession
 obsidian	acid or granitic glass formed by the rapid cooling of lava without crystallization; usually dark, but transparent in thin pieces
 obsolescence	the process of becoming obsolete; falling into disuse or becoming out of date
 obsolescent	becoming obsolete
@@ -188,10 +188,10 @@ obstetrical	of or relating to or used in or practicing obstetrics
 obstetrician	a physician specializing in obstetrics
 obstetricians	OBSTETRICIAN: a physician specializing in obstetrics
 obstetrics	the branch of medicine dealing with childbirth and care of the mother
-obstinacy	the trait of being difficult to handle or overcome
-obstinate	persist stubbornly
+obstinacy	resolute adherence to your own ideas or desires
+obstinate	tenaciously unwilling or marked by tenacious unwillingness to yield
 obstinately	in a stubborn unregenerate manner
-obstreperous	noisily and stubbornly defiant
+obstreperous	boisterously and noisily aggressive
 obstreperously	in manner that attracts attention
 obstreperousness	noisy defiance
 obstruct	hinder or prevent the progress or accomplishment of
@@ -215,23 +215,23 @@ obtainer	someone who gets or acquires something
 obtainers	OBTAINER: someone who gets or acquires something
 obtaining	OBTAIN: come into possession of
 obtains	OBTAIN: come into possession of
-obtrude	push to thrust outward
-obtruded	OBTRUDE: push to thrust outward
-obtrudes	OBTRUDE: push to thrust outward
-obtruding	OBTRUDE: push to thrust outward
-obtrusive	sticking out; protruding
+obtrude	thrust oneself in as if by force
+obtruded	OBTRUDE: thrust oneself in as if by force
+obtrudes	OBTRUDE: thrust oneself in as if by force
+obtruding	OBTRUDE: thrust oneself in as if by force
+obtrusive	undesirably noticeable
 obtrusively	in an obtrusive manner
 obtrusiveness	an unwelcome conspicuousness
-obtuse	of an angle; between 90 and 180 degrees
+obtuse	slow to learn or understand; lacking intellectual acuity
 obtusely	in a stupid manner
 obtuseness	the quality of being slow to understand
-obtuser	OBTUSE: of an angle; between 90 and 180 degrees
-obtusest	OBTUSE: of an angle; between 90 and 180 degrees
+obtuser	OBTUSE: slow to learn or understand; lacking intellectual acuity
+obtusest	OBTUSE: slow to learn or understand; lacking intellectual acuity
 obverse	the more conspicuous of two alternatives or cases or sides
 obverses	OBVERSE: the more conspicuous of two alternatives or cases or sides
-obviate	do away with
-obviated	OBVIATE: do away with
-obviates	OBVIATE: do away with
+obviate	prevent the occurrence of; prevent from happening
+obviated	OBVIATE: prevent the occurrence of; prevent from happening
+obviates	OBVIATE: prevent the occurrence of; prevent from happening
 obviating	made impossible
 obvious	easily perceived by the senses or grasped by the mind
 obviously	unmistakably (`plain' is often used informally for `plainly')
@@ -256,8 +256,8 @@ occlusions	OCCLUSION: closure or blockage (as of a blood vessel)
 occlusive	tending to occlude
 occult	supernatural forces and events and beings collectively
 occultation	one celestial body obscures another
-occultism	the study of the supernatural
-occultisms	OCCULTISM: the study of the supernatural
+occultism	a belief in supernatural powers and the possibility of bringing them under human control
+occultisms	OCCULTISM: a belief in supernatural powers and the possibility of bringing them under human control
 occultist	a believer in occultism; someone versed in the occult arts
 occultists	OCCULTIST: a believer in occultism; someone versed in the occult arts
 occupancy	an act of being a tenant or occupant
@@ -285,7 +285,7 @@ oceanariums	OCEANARIUM: a large seawater aquarium
 oceanfront	land bordering an ocean
 oceanfronts	OCEANFRONT: land bordering an ocean
 oceangoing	used on the high seas
-oceanic	an eastern subfamily of Malayo-Polynesian languages
+oceanic	relating to or occurring or living in or frequenting the open ocean
 oceanographer	a scientist who studies physical and biological aspects of the seas
 oceanographers	OCEANOGRAPHER: a scientist who studies physical and biological aspects of the seas
 oceanographic	relating to the study of the oceans
@@ -299,7 +299,7 @@ ocelot	nocturnal wildcat of Central America and South America having a dark-spot
 ocelots	OCELOT: nocturnal wildcat of Central America and South America having a dark-spotted buff-brown coat
 och	Scottish exclamation of regret or surprise
 ocher	a moderate yellow-orange to orange color
-ochre	any of various earths containing silica and alumina and ferric oxide; used as a pigment
+ochre	a moderate yellow-orange to orange color
 ocker	a rough, uncultured Australian man
 ockers	OCKER: a rough, uncultured Australian man
 octagon	an eight-sided polygon
@@ -314,19 +314,19 @@ octave	a feast day and the seven days following it
 octaves	OCTAVE: a feast day and the seven days following it
 octavo	the size of a book whose pages are made by folding a sheet of paper three times to form eight leaves
 octavos	OCTAVO: the size of a book whose pages are made by folding a sheet of paper three times to form eight leaves
-octet	the cardinal number that is the sum of seven and one
-octets	OCTET: the cardinal number that is the sum of seven and one
-octette	eight performers or singers who perform together
-octettes	OCTETTE: eight performers or singers who perform together
+octet	a set of eight similar things considered as a unit
+octets	OCTET: a set of eight similar things considered as a unit
+octette	a set of eight similar things considered as a unit
+octettes	OCTETTE: a set of eight similar things considered as a unit
 octogenarian	someone whose age is in the eighties
 octogenarians	OCTOGENARIAN: someone whose age is in the eighties
 octopi	OCTOPUS: a sea creature with eight arms
-octopus	tentacles of octopus prepared as food
-octopuses	OCTOPUS: tentacles of octopus prepared as food
+octopus	bottom-living cephalopod having a soft oval body with eight long tentacles
+octopuses	OCTOPUS: bottom-living cephalopod having a soft oval body with eight long tentacles
 ocular	of or relating to or resembling the eye
 oculars	OCULAR: of or relating to or resembling the eye
-oculist	a person skilled in testing for defects of vision in order to prescribe corrective glasses
-oculists	OCULIST: a person skilled in testing for defects of vision in order to prescribe corrective glasses
+oculist	a medical doctor specializing in the diagnosis and treatment of diseases of the eye
+oculists	OCULIST: a medical doctor specializing in the diagnosis and treatment of diseases of the eye
 oculomotor	supplies extrinsic muscles of the eye
 oculus	the organ of sight
 odd	not divisible by two
@@ -334,12 +334,12 @@ oddball	a person with an unusual or odd personality
 oddballs	ODDBALL: a person with an unusual or odd personality
 odder	ODD: not divisible by two
 oddest	ODD: not divisible by two
-oddities	ODDITY: eccentricity that is not easily explained
-oddity	eccentricity that is not easily explained
+oddities	ODDITY: something unusual -- perhaps worthy of collecting
+oddity	something unusual -- perhaps worthy of collecting
 oddly	in a manner differing from the usual or expected
 oddment	a piece of cloth that is left over after the rest has been used or sold
 oddments	a motley assortment of things
-oddness	the parity of odd numbers (not divisible by two)
+oddness	eccentricity that is not easily explained
 odds	the likelihood of a thing occurring rather than not occurring
 oddsmaker	a person who sets betting odds
 oddsmakers	ODDSMAKER: a person who sets betting odds
@@ -435,10 +435,10 @@ officiousness	aggressiveness as evidenced by intruding; by advancing yourself or
 offing	OF: belonging to or coming from
 offings	OFFING: the near or foreseeable future
 offline	not connected to the internet
-offload	transfer to a peripheral device, of computer data
-offloaded	OFFLOAD: transfer to a peripheral device, of computer data
-offloading	OFFLOAD: transfer to a peripheral device, of computer data
-offloads	OFFLOAD: transfer to a peripheral device, of computer data
+offload	remove the load from (a container or vehicle)
+offloaded	OFFLOAD: remove the load from (a container or vehicle)
+offloading	OFFLOAD: remove the load from (a container or vehicle)
+offloads	OFFLOAD: remove the load from (a container or vehicle)
 offprint	a separately printed article that originally appeared in a larger publication
 offprints	OFFPRINT: a separately printed article that originally appeared in a larger publication
 offs	OFF: from a particular thing or place or position (`forth' is obsolete)
@@ -450,7 +450,7 @@ offshoot	a natural consequence of development
 offshoots	OFFSHOOT: a natural consequence of development
 offshore	away from shore; away from land
 offshoring	moving business operations overseas
-offside	the mistake of occupying an illegal position on the playing field (in football, soccer, ice hockey, field hockey, etc.)
+offside	illegally beyond a prescribed line or area or ahead of the ball or puck
 offsides	illegally beyond a prescribed line or area or ahead of the ball or puck
 offsite	away from the main location
 offspring	the immediate descendants of a person
@@ -468,8 +468,8 @@ ogler	a viewer who gives a flirtatious or lewd look at another person
 oglers	OGLER: a viewer who gives a flirtatious or lewd look at another person
 ogles	OGLE: look at with amorous intentions
 ogling	OGLE: look at with amorous intentions
-ogre	a cruel wicked and inhuman person
-ogres	OGRE: a cruel wicked and inhuman person
+ogre	a giant who likes to eat human beings
+ogres	OGRE: a giant who likes to eat human beings
 ogress	a female ogre
 oh	a midwestern state in north central United States in the Great Lakes region
 ohm	a unit of electrical resistance equal to the resistance between two points on a conductor when a potential difference of one volt between them produces a current of one ampere
@@ -526,7 +526,7 @@ oldish	somewhat elderly
 oldster	an elderly person
 oldsters	OLDSTER: an elderly person
 ole	old, in a folksy way
-oleaginous	unpleasantly and excessively suave or ingratiating in manner or speech
+oleaginous	containing an unusual amount of grease or oil
 oleander	an ornamental but poisonous flowering shrub having narrow evergreen leaves and clusters of fragrant white to pink or red flowers: native to East Indies but widely cultivated in warm regions
 oleanders	OLEANDER: an ornamental but poisonous flowering shrub having narrow evergreen leaves and clusters of fragrant white to pink or red flowers: native to East Indies but widely cultivated in warm regions
 oleo	a spread made chiefly from vegetable oils and used as a substitute for butter
@@ -550,8 +550,8 @@ olm	European aquatic salamander with permanent external gills that lives in cave
 olms	OLM: European aquatic salamander with permanent external gills that lives in caves
 ombudsman	a government appointee who investigates complaints by private persons against the government
 ombudsmen	OMBUDSMAN: a government appointee who investigates complaints by private persons against the government
-omega	the ending of a series or sequence
-omegas	OMEGA: the ending of a series or sequence
+omega	the last (24th) letter of the Greek alphabet
+omegas	OMEGA: the last (24th) letter of the Greek alphabet
 omelet	beaten eggs or an egg mixture cooked until just set; may be folded around e.g. ham or cheese or jelly
 omelets	OMELET: beaten eggs or an egg mixture cooked until just set; may be folded around e.g. ham or cheese or jelly
 omelette	beaten eggs or an egg mixture cooked until just set; may be folded around e.g. ham or cheese or jelly
@@ -571,8 +571,8 @@ omit	prevent from being included or considered or accepted
 omits	OMIT: prevent from being included or considered or accepted
 omitted	OMIT: prevent from being included or considered or accepted
 omitting	OMIT: prevent from being included or considered or accepted
-omnibus	an anthology of articles on a related subject or an anthology of the works of a single author
-omnibuses	OMNIBUS: an anthology of articles on a related subject or an anthology of the works of a single author
+omnibus	a vehicle carrying many passengers; used for public transport
+omnibuses	OMNIBUS: a vehicle carrying many passengers; used for public transport
 omnibusses	OMNIBUS: a bus
 omnidirectional	not directional
 omnipotence	the state of being omnipotent; having unlimited power
@@ -581,8 +581,8 @@ omnipresence	the state of being everywhere at once (or seeming to be everywhere 
 omnipresent	being present everywhere at once
 omniscience	the state of being omniscient; having infinite knowledge
 omniscient	infinitely wise
-omnivore	a person who eats all kinds of foods
-omnivores	OMNIVORE: a person who eats all kinds of foods
+omnivore	an animal that feeds on both animal and vegetable substances
+omnivores	OMNIVORE: an animal that feeds on both animal and vegetable substances
 omnivorous	feeding on both plants and animals
 on	with a forward motion
 onboard	carried on a vehicle or device
@@ -609,12 +609,12 @@ ongoing	currently happening
 onion	an aromatic flavorful vegetable
 onions	ONION: an aromatic flavorful vegetable
 onionskin	a thin strong lightweight translucent paper used especially for making carbon copies
-online	on a regular route of a railroad or bus or airline system
+online	connected to a computer network or accessible by computer
 onlooker	someone who looks on
 onlookers	ONLOOKER: someone who looks on
 only	and nothing more
 onomatopoeia	using words that imitate the sound they denote
-onomatopoeic	of or relating to or characterized by onomatopoeia
+onomatopoeic	(of words) formed in imitation of a natural sound
 onrush	an offensive against an enemy (using weapons)
 onrushes	ONRUSH: an offensive against an enemy (using weapons)
 onrushing	rushing forward
@@ -632,10 +632,10 @@ ontogeny	the process of an individual organism growing organically; a purely bio
 ontological	of or relating to ontology
 ontologist	a student of the nature of existence
 ontologists	ONTOLOGIST: a student of the nature of existence
-ontology	a rigorous and exhaustive organization of some knowledge domain that is usually hierarchical and contains all the relevant entities and their relations
+ontology	the metaphysical study of the nature of being and existence
 onus	an onerous or difficult concern
 onuses	ONUS: an onerous or difficult concern
-onward	forward in time or order or degree
+onward	in a forward direction
 onwards	in a forward direction
 onyx	a chalcedony with alternating black and white bands; used in making cameos
 onyxes	ONYX: a chalcedony with alternating black and white bands; used in making cameos
@@ -649,19 +649,19 @@ oological	relating to the study of eggs
 oologist	a student of birds' eggs
 oologists	OOLOGIST: a student of birds' eggs
 oology	the branch of zoology that studies eggs (especially birds' eggs and their size, shape, coloration, and number)
-oomph	attractiveness to the opposite sex
+oomph	the activeness of an energetic personality
 oops	exclamation of a small mistake
-ooze	any thick, viscous matter
-oozed	OOZE: any thick, viscous matter
-oozes	OOZE: any thick, viscous matter
+ooze	pass gradually or leak through or as if through small openings
+oozed	OOZE: pass gradually or leak through or as if through small openings
+oozes	OOZE: pass gradually or leak through or as if through small openings
 oozier	OOZY: leaking out slowly
 ooziest	OOZY: leaking out slowly
 oozily	in a slowly seeping way
 ooziness	the quality of being oozy
-oozing	the process of seeping
+oozing	leaking out slowly
 oozy	leaking out slowly
 op	operation; also a style of abstract art
-opacity	the phenomenon of not permitting the passage of electromagnetic radiation
+opacity	the quality of being opaque to a degree; the degree to which something reduces the passage of light
 opah	large elliptical brightly colored deep-sea fish of Atlantic and Pacific and Mediterranean
 opal	a translucent mineral consisting of hydrated silica of variable color; some varieties are used as gemstones
 opalescence	the visual property of something having a milky brightness and a play of colors from the surface
@@ -671,7 +671,7 @@ opals	OPAL: a translucent mineral consisting of hydrated silica of variable colo
 opaque	not transmitting or reflecting light or radiant energy; impenetrable to sight
 opaqued	OPAQUE: made impossible to see through
 opaquely	in an opaque manner
-opaqueness	incomprehensibility resulting from obscurity of meaning
+opaqueness	the quality of being opaque to a degree; the degree to which something reduces the passage of light
 opaquer	OPAQUE: not transmitting or reflecting light or radiant energy; impenetrable to sight
 opaques	OPAQUE: make impossible to see through
 opaquest	OPAQUE: not transmitting or reflecting light or radiant energy; impenetrable to sight
@@ -687,12 +687,12 @@ opening	an open or empty space in or between things
 openings	OPENING: an open or empty space in or between things
 openly	in an open way
 openmouthed	with eyes or mouth open in surprise
-openness	without obstructions to passage or view
+openness	characterized by an attitude of ready accessibility (especially about one's actions or purposes); without concealment; not secretive
 opens	OPEN: affording unobstructed entrance and exit; not shut or closed
 openwork	ornamental work (such as embroidery or latticework) having a pattern of openings
 opera	a drama set to music; consists of singing with orchestral accompaniment and an orchestral overture and interludes
 operability	the quality of being able to work or be operated
-operable	capable of being treated by surgical operation
+operable	fit or ready for use or service
 operand	a quantity upon which a mathematical operation is performed
 operands	OPERAND: a quantity upon which a mathematical operation is performed
 operant	having influence or producing an effect
@@ -714,17 +714,17 @@ operators	OPERATOR: a symbol or function representing a mathematical operation
 operculum	a hard flap serving as a cover for (a) the gill slits in fishes or (b) the opening of the shell in certain gastropods when the body is retracted
 operetta	a short amusing opera
 operettas	OPERETTA: a short amusing opera
-ophthalmic	of or relating to ophthalmology
+ophthalmic	of or relating to or resembling the eye
 ophthalmological	relating to the study of eyes
 ophthalmologist	a medical doctor specializing in the diagnosis and treatment of diseases of the eye
 ophthalmologists	OPHTHALMOLOGIST: a medical doctor specializing in the diagnosis and treatment of diseases of the eye
 ophthalmology	the branch of medicine concerned with the eye and its diseases
 opiate	a narcotic drug that contains opium or an opium derivative
 opiates	OPIATE: a narcotic drug that contains opium or an opium derivative
-opine	express one's opinion openly and without fear or hesitation
-opined	OPINE: express one's opinion openly and without fear or hesitation
-opines	OPINE: express one's opinion openly and without fear or hesitation
-opining	OPINE: express one's opinion openly and without fear or hesitation
+opine	expect, believe, or suppose
+opined	OPINE: expect, believe, or suppose
+opines	OPINE: expect, believe, or suppose
+opining	OPINE: expect, believe, or suppose
 opinion	a personal belief or judgment that is not founded on proof or certainty
 opinionated	obstinate in your opinions
 opinionatedly	in a opinionated way
@@ -733,8 +733,8 @@ opinions	OPINION: a personal belief or judgment that is not founded on proof or 
 opioid	a drug that acts like opium
 opioids	OPIOID: a drug that acts like opium
 opium	an addictive narcotic extracted from seed capsules of the opium poppy
-opossum	small furry Australian arboreal marsupials having long usually prehensile tails
-opossums	OPOSSUM: small furry Australian arboreal marsupials having long usually prehensile tails
+opossum	nocturnal arboreal marsupial having a naked prehensile tail found from southern North America to northern South America
+opossums	OPOSSUM: nocturnal arboreal marsupial having a naked prehensile tail found from southern North America to northern South America
 opponent	a contestant that you are matched against
 opponents	OPPONENT: a contestant that you are matched against
 opportune	suitable or at a time that is suitable or advantageous especially for a particular purpose
@@ -763,17 +763,17 @@ oppresses	OPPRESS: come down on or keep down by unjust use of one's authority
 oppressing	OPPRESS: come down on or keep down by unjust use of one's authority
 oppression	the act of subjugating by cruelty
 oppressions	OPPRESSION: the act of subjugating by cruelty
-oppressive	weighing heavily on the senses or spirit
+oppressive	marked by unjust severity or arbitrary behavior
 oppressively	in a heavy and oppressive way
 oppressiveness	a feeling of being oppressed
 oppressor	a person of authority who subjects others to undue pressures
 oppressors	OPPRESSOR: a person of authority who subjects others to undue pressures
 opprobrious	expressing offensive reproach
-opprobrium	state of disgrace resulting from public abuse
+opprobrium	a state of extreme dishonor
 ops	OP: operation; also a style of abstract art
 opt	select as an alternative over another
 opted	OPT: select as an alternative over another
-optic	the organ of sight
+optic	of or relating to or resembling the eye
 optical	of or relating to or involving light or optics
 optically	in an optical manner
 optician	a worker who makes glasses for remedying defects of vision
@@ -806,12 +806,12 @@ optimizing	OPTIMIZE: make optimal; get the most out of; use best
 optimum	most favorable conditions or greatest degree or amount possible under given circumstances
 optimums	OPTIMUM: most favorable conditions or greatest degree or amount possible under given circumstances
 opting	OPT: select as an alternative over another
-option	the right to buy or sell property at an agreed price; the right is purchased and if it is not exercised by a stated date the money is forfeited
+option	one of a number of things from which only one can be chosen
 optional	possible but not necessary; left to personal choice
 optionally	in an optional manner
 optioned	OPTION: buy the right to later purchase
 optioning	OPTION: buying the right to later purchase
-options	OPTION: the right to buy or sell property at an agreed price; the right is purchased and if it is not exercised by a stated date the money is forfeited
+options	OPTION: one of a number of things from which only one can be chosen
 optoelectronic	combining light and electronics
 optometric	relating to eye testing
 optometrist	a person skilled in testing for defects of vision in order to prescribe corrective glasses
@@ -823,10 +823,10 @@ opulent	ostentatiously rich and superior in quality
 opulently	in a sumptuous and opulent manner
 opus	a musical work that has been created
 opuses	OPUS: a musical work that has been created
-or	a state in northwestern United States on the Pacific
+or	a word joining alternatives, as in "tea or coffee"
 oracle	an authoritative person who divines the future
 oracles	ORACLE: an authoritative person who divines the future
-oracular	of or relating to an oracle
+oracular	obscurely prophetic
 oral	using speech rather than writing
 orally	(of drugs) through the mouth rather than through injection; by mouth
 orals	ORAL: using speech rather than writing
@@ -872,10 +872,10 @@ orchards	ORCHARD: garden consisting of a small cultivated wood without undergrow
 orchestra	a musical organization consisting of a group of instrumentalists including string players
 orchestral	relating to or composed for an orchestra
 orchestras	ORCHESTRA: a musical organization consisting of a group of instrumentalists including string players
-orchestrate	write an orchestra score for
+orchestrate	plan and direct (a complex undertaking)
 orchestrated	arranged for performance by an orchestra
-orchestrates	ORCHESTRATE: write an orchestra score for
-orchestrating	ORCHESTRATE: write an orchestra score for
+orchestrates	ORCHESTRATE: plan and direct (a complex undertaking)
+orchestrating	ORCHESTRATE: plan and direct (a complex undertaking)
 orchestration	an arrangement of a piece of music for performance by an orchestra or band
 orchestrations	ORCHESTRATION: an arrangement of a piece of music for performance by an orchestra or band
 orchestrator	an arranger who writes for orchestras
@@ -910,13 +910,13 @@ ordinariness	the quality of being commonplace and ordinary
 ordinary	a judge of a probate court
 ordinate	the value of a coordinate on the vertical axis
 ordinates	ORDINATE: the value of a coordinate on the vertical axis
-ordination	the status of being ordained to a sacred office
-ordinations	ORDINATION: the status of being ordained to a sacred office
+ordination	the act of ordaining; the act of conferring (or receiving) holy orders
+ordinations	ORDINATION: the act of ordaining; the act of conferring (or receiving) holy orders
 ordnance	military supplies
 ordure	solid excretory product evacuated from the bowels
 ore	a mineral that contains metal that is valuable enough to be mined
 oregano	pungent leaves used as seasoning with meats and fowl and in stews and soups and omelets
-ores	ORE: a mineral that contains metal that is valuable enough to be mined
+ores	OR: a word joining alternatives, as in "tea or coffee"
 organ	a fully differentiated structural and functional unit in an animal that is specialized for some particular function
 organdie	a sheer stiff muslin
 organdies	ORGANDIE: a sheer stiff muslin
@@ -928,14 +928,14 @@ organically	as an important constituent
 organics	ORGANIC: relating or belonging to the class of chemical compounds having a carbon basis
 organigram	a chart showing an organisation's structure
 organigrams	ORGANIGRAM: a chart showing an organisation's structure
-organisation	the persons (or committees or departments etc.) who make up a body for the purpose of administering something
+organisation	a group of people who work together
 organisational	of or relating to an organization
 organisationally	in terms of organisation
-organisations	ORGANISATION: the persons (or committees or departments etc.) who make up a body for the purpose of administering something
+organisations	ORGANISATION: a group of people who work together
 organise	bring order and organization to
 organised	ORGANISE: bring order and organization to
-organiser	someone who enlists workers to join a union
-organisers	ORGANISER: someone who enlists workers to join a union
+organiser	a person who brings order and organization to an enterprise
+organisers	ORGANISER: a person who brings order and organization to an enterprise
 organises	ORGANISE: bring order and organization to
 organising	ORGANISE: bring order and organization to
 organism	a living thing that has (or can develop) the ability to act or function independently
@@ -968,7 +968,7 @@ orgasmed	ORGASM: reach sexual climax
 orgasmic	relating to sexual climax
 orgasming	ORGASM: reaching sexual climax
 orgasms	ORGASM: the moment of most intense pleasure in sexual intercourse
-orgiastic	used of frenzied sexual activity
+orgiastic	used of riotously drunken merrymaking
 orgies	ORGY: any act of immoderate indulgence
 orgy	any act of immoderate indulgence
 oribi	a small African antelope
@@ -1000,7 +1000,7 @@ originate	come into existence; take on form or shape
 originated	ORIGINATE: come into existence; take on form or shape
 originates	ORIGINATE: come into existence; take on form or shape
 originating	ORIGINATE: come into existence; take on form or shape
-origination	an event that is a beginning; a first part or stage of subsequent events
+origination	the act of starting something for the first time; introducing something new
 originator	someone who creates new things
 originators	ORIGINATOR: someone who creates new things
 origins	ORIGIN: the place where something begins, where it springs into being
@@ -1008,14 +1008,14 @@ oriole	mostly tropical songbird; the male is usually bright orange and black
 orioles	ORIOLE: mostly tropical songbird; the male is usually bright orange and black
 ormolu	brass that looks like gold; used to decorate furniture
 ornament	something used to beautify
-ornamental	any plant grown for its beauty or ornamental value
-ornamentation	the state of being ornamented
+ornamental	serving an esthetic rather than a useful purpose
+ornamentation	something used to beautify
 ornamented	ORNAMENT: something used to beautify
 ornamenting	ORNAMENT: something used to beautify
 ornaments	ORNAMENT: something used to beautify
 ornate	marked by elaborate rhetoric and elaborated with decorative details
 ornately	in an ornate manner
-ornateness	high-flown style; excessive use of verbal ornamentation
+ornateness	an ornate appearance; being elaborately (even excessively) decorated
 ornerier	ORNERY: having a difficult and contrary disposition
 orneriest	ORNERY: having a difficult and contrary disposition
 ornerily	in a stubborn, bad-tempered way
@@ -1027,10 +1027,10 @@ ornithologists	ORNITHOLOGIST: a zoologist who studies birds
 ornithology	the branch of zoology that studies birds
 orogenic	relating to mountain building
 orogeny	the process of mountain formation (especially by the upward displacement of the earth's crust)
-orotund	ostentatiously lofty in style
+orotund	(of sounds) full and rich
 orphan	a child who has lost both parents
-orphanage	the condition of being a child without living parents
-orphanages	ORPHANAGE: the condition of being a child without living parents
+orphanage	a public institution for the care of orphans
+orphanages	ORPHANAGE: a public institution for the care of orphans
 orphaned	ORPHAN: a child who has lost both parents
 orphaning	ORPHAN: a child who has lost both parents
 orphans	ORPHAN: a child who has lost both parents
@@ -1042,8 +1042,8 @@ orthodontists	ORTHODONTIST: a dentist specializing in the prevention or correcti
 orthodox	of or pertaining to or characteristic of Judaism
 orthodoxies	ORTHODOXY: the quality of being orthodox (especially in religion)
 orthodoxy	the quality of being orthodox (especially in religion)
-orthogonal	not pertinent to the matter under consideration
-orthogonality	the relation of opposition between things at right angles
+orthogonal	having a set of mutually perpendicular axes; meeting at right angles
+orthogonality	the quality of lying or intersecting at right angles
 orthographic	of or relating to or expressed in orthography
 orthographies	ORTHOGRAPHY: a method of representing the sounds of a language by written or printed symbols
 orthography	a method of representing the sounds of a language by written or printed symbols
@@ -1058,9 +1058,9 @@ orthopedist	a specialist in correcting deformities of the skeletal system (espec
 orthopedists	ORTHOPEDIST: a specialist in correcting deformities of the skeletal system (especially in children)
 orthorhombic	of a crystal with three unequal perpendicular axes
 orthotics	supports worn in shoes to correct foot problems
-oscillate	be undecided about something; waver between conflicting positions or courses of action
-oscillated	OSCILLATE: be undecided about something; waver between conflicting positions or courses of action
-oscillates	OSCILLATE: be undecided about something; waver between conflicting positions or courses of action
+oscillate	move or swing from side to side regularly
+oscillated	OSCILLATE: move or swing from side to side regularly
+oscillates	OSCILLATE: move or swing from side to side regularly
 oscillating	having periodic vibrations
 oscillation	the process of oscillating between states
 oscillations	OSCILLATION: the process of oscillating between states
@@ -1069,8 +1069,8 @@ oscillators	OSCILLATOR: generator that produces sonic oscillations or alternatin
 oscillatory	having periodic vibrations
 oscilloscope	electronic equipment that provides visual images of varying electrical quantities
 oscilloscopes	OSCILLOSCOPE: electronic equipment that provides visual images of varying electrical quantities
-osier	flexible twig of a willow tree
-osiers	OSIER: flexible twig of a willow tree
+osier	any of various willows having pliable twigs used in basketry and furniture
+osiers	OSIER: any of various willows having pliable twigs used in basketry and furniture
 osmosis	diffusion of molecules through a semipermeable membrane from a place of higher concentration to a place of lower concentration until the concentration on both sides is equal
 osmotic	of or relating to osmosis
 osprey	large harmless hawk found worldwide that feeds on fish and builds a bulky nest often occupied for years
@@ -1083,9 +1083,9 @@ ossify	become bony
 ossifying	OSSIFY: become bony
 ossuaries	OSSUARY: any receptacle for the burial of human bones
 ossuary	any receptacle for the burial of human bones
-ostensible	appearing as such but not necessarily so
+ostensible	represented or appearing as such; pretended
 ostensibly	from appearances alone
-ostentation	a gaudy outward display
+ostentation	pretentious or showy or vulgar display
 ostentatious	intended to attract notice and impress others
 ostentatiously	with ostentation; in an ostentatious manner
 osteoarthritis	chronic breakdown of cartilage in the joints; the most common form of arthritis occurring usually after middle age
@@ -1104,13 +1104,13 @@ ostracise	expel from a community or group
 ostracised	OSTRACISE: expel from a community or group
 ostracises	OSTRACISE: expel from a community or group
 ostracising	OSTRACISE: expel from a community or group
-ostracism	the state of being banished or ostracized (excluded from society by general consent)
+ostracism	the act of excluding someone from society by general consent
 ostracize	expel from a community or group
 ostracized	OSTRACIZE: expel from a community or group
 ostracizes	OSTRACIZE: expel from a community or group
 ostracizing	OSTRACIZE: expel from a community or group
-ostrich	a person who refuses to face reality or recognize the truth (a reference to the popular notion that the ostrich hides from danger by burying its head in the sand)
-ostriches	OSTRICH: a person who refuses to face reality or recognize the truth (a reference to the popular notion that the ostrich hides from danger by burying its head in the sand)
+ostrich	fast-running African flightless bird with two-toed feet; largest living bird
+ostriches	OSTRICH: fast-running African flightless bird with two-toed feet; largest living bird
 other	not the same one or ones already mentioned or implied
 otherness	the quality of being not alike; being distinct or different from that otherwise experienced or known
 others	OTHER: the remaining ones
@@ -1131,10 +1131,10 @@ otorhinolaryngological	relating to ear, nose and throat medicine
 otorhinolaryngologist	a specialist in the disorders of the ear or nose or throat
 otorhinolaryngologists	OTORHINOLARYNGOLOGIST: a specialist in the disorders of the ear or nose or throat
 otorhinolaryngology	the medical specialty that deals with diseases of the ear, nose and throat
-otter	the fur of an otter
-otters	OTTER: the fur of an otter
-ottoman	a Turk (especially a Turk who is a member of the tribe of Osman I)
-ottomans	OTTOMAN: a Turk (especially a Turk who is a member of the tribe of Osman I)
+otter	freshwater carnivorous mammal having webbed and clawed feet and dark brown fur
+otters	OTTER: freshwater carnivorous mammal having webbed and clawed feet and dark brown fur
+ottoman	thick cushion used as a seat
+ottomans	OTTOMAN: thick cushion used as a seat
 oubliette	a dungeon with the only entrance or exit being a trap door in the ceiling
 oubliettes	OUBLIETTE: a dungeon with the only entrance or exit being a trap door in the ceiling
 ouch	exclamation of sudden pain
@@ -1147,24 +1147,24 @@ ourself	myself, used by a monarch
 ourselves	us, used when we are the object or for emphasis
 oust	remove from a position or office
 ousted	OUST: remove from a position or office
-ouster	a person who ousts or supplants someone else
-ousters	OUSTER: a person who ousts or supplants someone else
+ouster	the act of ejecting someone or forcing them out
+ousters	OUSTER: the act of ejecting someone or forcing them out
 ousting	OUST: remove from a position or office
 ousts	OUST: remove from a position or office
 out	not allowed to continue to bat or run
-outage	the amount of something (as whiskey or oil) lost in storage or transportation
-outages	OUTAGE: the amount of something (as whiskey or oil) lost in storage or transportation
+outage	a temporary suspension of operation (as of computers)
+outages	OUTAGE: a temporary suspension of operation (as of computers)
 outback	the bush country of the interior of Australia
 outbacks	OUTBACK: the bush country of the interior of Australia
 outbalance	weigh more heavily
 outbalanced	OUTBALANCE: weigh more heavily
 outbalances	OUTBALANCE: weigh more heavily
 outbalancing	OUTBALANCE: weigh more heavily
-outbid	bid over an opponent's bid when one's partner has not bid or doubled
-outbidding	OUTBID: bid over an opponent's bid when one's partner has not bid or doubled
-outbids	OUTBID: bid over an opponent's bid when one's partner has not bid or doubled
-outboard	a motorboat with an outboard motor
-outboards	OUTBOARD: a motorboat with an outboard motor
+outbid	bid higher than others
+outbidding	OUTBID: bid higher than others
+outbids	OUTBID: bid higher than others
+outboard	internal-combustion engine that mounts at stern of small boat
+outboards	OUTBOARD: internal-combustion engine that mounts at stern of small boat
 outbound	that is going out or leaving
 outbox	where outgoing messages are stored
 outboxes	OUTBOX: where outgoing messages are stored
@@ -1221,7 +1221,7 @@ outfit	any cohesive unit such as a military company
 outfits	OUTFIT: any cohesive unit such as a military company
 outfitted	OUTFIT: any cohesive unit such as a military company
 outfitter	OUTFIT: any cohesive unit such as a military company
-outfitters	OUTFITTER: someone who sells men's clothes
+outfitters	OUTFITTER: a shop that provides equipment for some specific purpose
 outfitting	OUTFIT: any cohesive unit such as a military company
 outflank	go around the flank of (an opposing army)
 outflanked	OUTFLANK: go around the flank of (an opposing army)
@@ -1231,10 +1231,10 @@ outflow	the discharge of a fluid from some container
 outflowed	OUTFLOW: flowed out
 outflowing	that is flowing outward
 outflows	OUTFLOW: the discharge of a fluid from some container
-outfox	outdo someone in trickery
-outfoxed	OUTFOX: outdo someone in trickery
-outfoxes	OUTFOX: outdo someone in trickery
-outfoxing	OUTFOX: outdo someone in trickery
+outfox	beat through cleverness and wit
+outfoxed	OUTFOX: beat through cleverness and wit
+outfoxes	OUTFOX: beat through cleverness and wit
+outfoxing	OUTFOX: beat through cleverness and wit
 outgo	money paid out; an amount spent
 outgoes	OUTGO: money paid out; an amount spent
 outgoing	leaving a place or a position
@@ -1272,8 +1272,8 @@ outlaying	OUTLAY: spending
 outlays	OUTLAY: the act of spending or disbursing money
 outlet	a place of business for retailing goods
 outlets	OUTLET: a place of business for retailing goods
-outlier	a person who lives away from his place of work
-outliers	OUTLIER: a person who lives away from his place of work
+outlier	an extreme deviation from the mean
+outliers	OUTLIER: an extreme deviation from the mean
 outline	the line that appears to bound an object
 outlined	showing clearly the outline or profile or boundary
 outlines	OUTLINE: the line that appears to bound an object
@@ -1314,14 +1314,14 @@ outplay	excel or defeat in a game
 outplayed	OUTPLAY: excel or defeat in a game
 outplaying	OUTPLAY: excel or defeat in a game
 outplays	OUTPLAY: excel or defeat in a game
-outpoint	sail closer to the wind than
-outpointed	OUTPOINT: sail closer to the wind than
-outpointing	OUTPOINT: sail closer to the wind than
-outpoints	OUTPOINT: sail closer to the wind than
+outpoint	score more points than one's opponents
+outpointed	OUTPOINT: score more points than one's opponents
+outpointing	OUTPOINT: score more points than one's opponents
+outpoints	OUTPOINT: score more points than one's opponents
 outpost	a station in a remote or sparsely populated location
 outposts	OUTPOST: a station in a remote or sparsely populated location
-outpouring	a natural flow of ground water
-outpourings	OUTPOURING: a natural flow of ground water
+outpouring	a sudden rapid flow (as of water)
+outpourings	OUTPOURING: a sudden rapid flow (as of water)
 output	final product; the things produced
 outputs	OUTPUT: final product; the things produced
 outputted	OUTPUT: final product; the things produced
@@ -1329,8 +1329,8 @@ outputting	OUTPUT: final product; the things produced
 outrage	a feeling of righteous anger
 outraged	angered at something unjust or wrong
 outrageous	grossly offensive to decency or morality; causing horror
-outrageously	in a very offensive manner
-outrageousness	excessive excess
+outrageously	to an extravagant or immoderate degree
+outrageousness	the quality of being outrageous
 outrager	someone who commits an outrage
 outrages	OUTRAGE: a feeling of righteous anger
 outraging	OUTRAGE: a feeling of righteous anger
@@ -1357,23 +1357,23 @@ outscore	score more points than one's opponents
 outscored	OUTSCORE: score more points than one's opponents
 outscores	OUTSCORE: score more points than one's opponents
 outscoring	OUTSCORE: score more points than one's opponents
-outsell	be sold more often than other, similar products
-outselling	OUTSELL: be sold more often than other, similar products
-outsells	OUTSELL: be sold more often than other, similar products
+outsell	sell more than others
+outselling	OUTSELL: sell more than others
+outsells	OUTSELL: sell more than others
 outset	the time at which something is supposed to begin
 outsets	OUTSET: the time at which something is supposed to begin
-outshine	shine brighter than
-outshined	OUTSHINE: shine brighter than
-outshines	OUTSHINE: shine brighter than
-outshining	OUTSHINE: shine brighter than
+outshine	attract more attention and praise than others
+outshined	OUTSHINE: attract more attention and praise than others
+outshines	OUTSHINE: attract more attention and praise than others
+outshining	OUTSHINE: attract more attention and praise than others
 outshone	OUTSHINE: shine brighter than
 outside	relating to or being on or near the outer side or limit
 outsider	someone who is excluded from or is not a member of a group
 outsiders	OUTSIDER: someone who is excluded from or is not a member of a group
 outsides	OUTSIDE: relating to or being on or near the outer side or limit
-outsize	an unusual garment size (especially one that is very large)
+outsize	larger than normal for its kind
 outsized	larger than normal for its kind
-outsizes	OUTSIZE: an unusual garment size (especially one that is very large)
+outsizes	OUTSIZE: larger than normal for its kind
 outskirt	a part of the city far removed from the center
 outskirts	outlying areas (as of a city or town)
 outsmart	beat through cleverness and wit
@@ -1448,9 +1448,9 @@ ova	OVUM: a female egg cell
 oval	a closed plane curve resulting from the intersection of a circular cone and a plane cutting completely through it
 ovals	OVAL: a closed plane curve resulting from the intersection of a circular cone and a plane cutting completely through it
 ovarian	of or involving the ovaries
-ovaries	OVARY: the organ that bears the ovules of a flower
-ovary	the organ that bears the ovules of a flower
-ovate	of a leaf shape; egg-shaped with the broader end at the base
+ovaries	OVARY: one of usually two organs that produce ova and secrete estrogen and progesterone
+ovary	one of usually two organs that produce ova and secrete estrogen and progesterone
+ovate	rounded like an egg
 ovation	enthusiastic recognition (especially one accompanied by loud applause)
 ovations	OVATION: enthusiastic recognition (especially one accompanied by loud applause)
 oven	kitchen appliance used for baking or roasting
@@ -1458,7 +1458,7 @@ ovenproof	able to withstand oven heat
 ovens	OVEN: kitchen appliance used for baking or roasting
 ovenware	heat-resistant dishware in which food can be cooked as well as served
 over	at or to a point across intervening space etc.
-overabundance	the state of being more than full
+overabundance	a quantity that is more than what is appropriate
 overabundant	excessively abundant
 overachieve	perform better or achieve a greater degree of success than expected
 overachieved	OVERACHIEVE: perform better or achieve a greater degree of success than expected
@@ -1471,32 +1471,32 @@ overacted	OVERACT: exaggerate one's acting
 overacting	poor acting by a ham actor
 overactive	more active than normal
 overacts	OVERACT: exaggerate one's acting
-overage	a surplus or excess of money or merchandise that is actually on hand and that exceeds expectations
-overages	OVERAGE: a surplus or excess of money or merchandise that is actually on hand and that exceeds expectations
+overage	too old to be useful
+overages	OVERAGE: too old to be useful
 overall	involving only main features
 overalls	OVERALL: involving only main features
 overambitious	excessively ambitious
 overanxious	anxious or nervous to an excessive degree
-overarching	OVERARCH: be central or dominant
+overarching	OVERARCH: form an arch over
 overarm	with hand brought forward and down from above shoulder level
 overate	OVEREAT: eat too much
 overawe	subdue, restrain, or overcome by affecting with a feeling of awe; frighten (as with threats)
 overawed	overcome by a feeling of awe
 overawes	OVERAWE: subdue, restrain, or overcome by affecting with a feeling of awe; frighten (as with threats)
 overawing	OVERAWE: subdue, restrain, or overcome by affecting with a feeling of awe; frighten (as with threats)
-overbalance	weigh more heavily
-overbalanced	OVERBALANCE: weigh more heavily
-overbalances	OVERBALANCE: weigh more heavily
-overbalancing	OVERBALANCE: weigh more heavily
+overbalance	cause to be off balance
+overbalanced	OVERBALANCE: cause to be off balance
+overbalances	OVERBALANCE: cause to be off balance
+overbalancing	OVERBALANCE: cause to be off balance
 overbear	overcome
 overbearing	expecting unquestioning obedience
 overbearingly	in an overbearing manner
 overbearingness	the trait of being imperious and overbearing
 overbears	OVERBEAR: overcome
-overbid	a bid that is higher than preceding bids
+overbid	bid more than the object is worth
 overbidden	OVERBID: bid more than the value
-overbidding	OVERBID: a bid that is higher than preceding bids
-overbids	OVERBID: a bid that is higher than preceding bids
+overbidding	OVERBID: bid more than the object is worth
+overbids	OVERBID: bid more than the object is worth
 overbite	malocclusion in which the upper teeth extend abnormally far over the lower teeth
 overbites	OVERBITE: malocclusion in which the upper teeth extend abnormally far over the lower teeth
 overblown	puffed up with vanity
@@ -1526,10 +1526,10 @@ overcast	the state of the sky when it is covered by clouds
 overcasting	OVERCAST: the state of the sky when it is covered by clouds
 overcasts	OVERCAST: the state of the sky when it is covered by clouds
 overcautious	unnecessarily cautious
-overcharge	a price that is too high
-overcharged	OVERCHARGE: a price that is too high
-overcharges	OVERCHARGE: a price that is too high
-overcharging	OVERCHARGE: a price that is too high
+overcharge	rip off; ask an unreasonable price
+overcharged	OVERCHARGE: rip off; ask an unreasonable price
+overcharges	OVERCHARGE: rip off; ask an unreasonable price
+overcharging	OVERCHARGE: rip off; ask an unreasonable price
 overclock	run a computer faster than its rated speed
 overclocked	OVERCLOCK: run a computer faster than its rated speed
 overclocking	OVERCLOCK: run a computer faster than its rated speed
@@ -1542,7 +1542,7 @@ overcompensate	make up for shortcomings or a feeling of inferiority by exaggerat
 overcompensated	OVERCOMPENSATE: make up for shortcomings or a feeling of inferiority by exaggerating good qualities
 overcompensates	OVERCOMPENSATE: make up for shortcomings or a feeling of inferiority by exaggerating good qualities
 overcompensating	OVERCOMPENSATE: make up for shortcomings or a feeling of inferiority by exaggerating good qualities
-overcompensation	an attempt to overcome a real or imagined defect or unwanted trait by overly exaggerating its opposite
+overcompensation	excessive compensation
 overconfidence	total certainty or greater certainty than circumstances warrant
 overconfident	marked by excessive confidence
 overconfidently	in a overconfident way
@@ -1550,10 +1550,10 @@ overcook	cook too long
 overcooked	OVERCOOK: cook too long
 overcooking	OVERCOOK: cook too long
 overcooks	OVERCOOK: cook too long
-overcrowd	cause to crowd together too much
-overcrowded	OVERCROWD: cause to crowd together too much
-overcrowding	OVERCROWD: cause to crowd together too much
-overcrowds	OVERCROWD: cause to crowd together too much
+overcrowd	crowd together too much
+overcrowded	OVERCROWD: crowd together too much
+overcrowding	OVERCROWD: crowd together too much
+overcrowds	OVERCROWD: crowd together too much
 overdeveloped	developed too much
 overdid	OVERDO: do to excess
 overdo	do something to an excessive degree
@@ -1570,10 +1570,10 @@ overdraw	draw more money from than is available
 overdrawing	OVERDRAW: draw more money from than is available
 overdrawn	having withdrawn more than the bank balance
 overdraws	OVERDRAW: draw more money from than is available
-overdress	dress too warmly
+overdress	put on special clothes to appear particularly appealing and attractive
 overdressed	dressed too elaborately
-overdresses	OVERDRESS: dress too warmly
-overdressing	OVERDRESS: dress too warmly
+overdresses	OVERDRESS: put on special clothes to appear particularly appealing and attractive
+overdressing	OVERDRESS: put on special clothes to appear particularly appealing and attractive
 overdrew	OVERDRAW: take out more than the account holds
 overdrive	drive or work too hard
 overdrives	OVERDRIVE: drive or work too hard
@@ -1608,7 +1608,7 @@ overexpose	expose to too much light
 overexposed	OVEREXPOSE: expose to too much light
 overexposes	OVEREXPOSE: expose to too much light
 overexposing	OVEREXPOSE: expose to too much light
-overexposure	the act of exposing film to too much light or for too long a time
+overexposure	the act of exposing someone excessively to an influencing experience
 overextend	strain excessively
 overextended	OVEREXTEND: strain excessively
 overextending	OVEREXTEND: strain excessively
@@ -1644,11 +1644,11 @@ overgenerous	very generous
 overgrazing	damage from too many animals feeding on land
 overgrew	OVERGROW: grow over
 overground	above the surface of the ground
-overgrow	grow too large
-overgrowing	OVERGROW: grow too large
+overgrow	grow beyond or across
+overgrowing	OVERGROW: grow beyond or across
 overgrown	covered with growing plants
-overgrows	OVERGROW: grow too large
-overgrowth	excessive size; usually caused by excessive secretion of growth hormone from the pituitary gland
+overgrows	OVERGROW: grow beyond or across
+overgrowth	a profusion of growth on or over something else
 overhand	with hand brought forward and down from above shoulder level
 overhanded	with hand brought forward and down from above shoulder level
 overhands	OVERHAND: a throw or stroke made above the shoulder
@@ -1680,7 +1680,7 @@ overjoy	cause to feel extremely joyful or happy
 overjoyed	extremely joyful
 overjoying	OVERJOY: cause to feel extremely joyful or happy
 overjoys	OVERJOY: cause to feel extremely joyful or happy
-overkill	the capability to obliterate a target with more weapons (especially nuclear weapons) than are required
+overkill	any effort that seems to go farther than would be necessary to achieve its goal
 overlaid	OVERLAY: cover with a layer
 overlain	OVERLIE: lie on top of
 overland	traveling or passing over land
@@ -1713,8 +1713,8 @@ overlying	placed on or over something else
 overman	supply with too many staff
 overmanned	OVERMAN: supply with too many staff
 overmanning	OVERMAN: supply with too many staff
-overmuch	a quantity that is more than what is appropriate
-overmuches	OVERMUCH: a quantity that is more than what is appropriate
+overmuch	more than necessary
+overmuches	OVERMUCH: more than necessary
 overnight	lasting, open, or operating through the whole night
 overnighted	OVERNIGHT: stay or send during the night
 overnighter	a guest who stays overnight
@@ -1748,10 +1748,10 @@ overprice	price excessively high
 overpriced	too costly for the value
 overprices	OVERPRICE: price excessively high
 overpricing	OVERPRICE: price excessively high
-overprint	something added by overprinting
-overprinted	OVERPRINT: something added by overprinting
-overprinting	OVERPRINT: something added by overprinting
-overprints	OVERPRINT: something added by overprinting
+overprint	print (additional text or colors) onto an already imprinted paper
+overprinted	OVERPRINT: print (additional text or colors) onto an already imprinted paper
+overprinting	OVERPRINT: print (additional text or colors) onto an already imprinted paper
+overprints	OVERPRINT: print (additional text or colors) onto an already imprinted paper
 overproduce	produce in excess; produce more than needed or wanted
 overproduced	OVERPRODUCE: produce in excess; produce more than needed or wanted
 overproduces	OVERPRODUCE: produce in excess; produce more than needed or wanted
@@ -1820,14 +1820,14 @@ overshoot	shoot beyond or over (a target)
 overshooting	OVERSHOOT: shoot beyond or over (a target)
 overshoots	OVERSHOOT: shoot beyond or over (a target)
 overshot	having an upper part projecting beyond the lower
-oversight	an unintentional omission resulting from failure to notice something
-oversights	OVERSIGHT: an unintentional omission resulting from failure to notice something
+oversight	a mistake resulting from inattention
+oversights	OVERSIGHT: a mistake resulting from inattention
 oversimplification	an act of excessive simplification; the act of making something seem simpler than it really is
 oversimplifications	OVERSIMPLIFICATION: an act of excessive simplification; the act of making something seem simpler than it really is
 oversimplified	OVERSIMPLIFY: make too simple
-oversimplifies	OVERSIMPLIFY: simplify to an excessive degree
-oversimplify	simplify to an excessive degree
-oversimplifying	OVERSIMPLIFY: simplify to an excessive degree
+oversimplifies	OVERSIMPLIFY: make too simple
+oversimplify	make too simple
+oversimplifying	OVERSIMPLIFY: make too simple
 oversize	larger than normal for its kind
 oversized	larger than normal for its kind
 oversleep	sleep longer than intended
@@ -1847,7 +1847,7 @@ overspend	spend more than available of (a budget)
 overspending	OVERSPEND: spend more than available of (a budget)
 overspends	OVERSPEND: spend more than available of (a budget)
 overspent	OVERSPEND: spend too much
-overspill	the relocation of people from overcrowded cities; they are accommodated in new houses or apartments in smaller towns
+overspill	the occurrence of surplus liquid (as water) exceeding the limit or capacity
 overspread	spread across or over
 overspreading	OVERSPREAD: spread across or over
 overspreads	OVERSPREAD: spread across or over
@@ -1882,9 +1882,9 @@ overstretching	OVERSTRETCH: strain abnormally
 overstuffed	upholstered thickly and deeply
 oversubscribed	sold in excess of available supply especially season tickets
 oversupplied	OVERSUPPLY: provide too much
-oversupplies	OVERSUPPLY: the quality of being so overabundant that prices fall
-oversupply	the quality of being so overabundant that prices fall
-oversupplying	OVERSUPPLY: the quality of being so overabundant that prices fall
+oversupplies	OVERSUPPLY: supply with an excess of
+oversupply	supply with an excess of
+oversupplying	OVERSUPPLY: supply with an excess of
 overt	open and observable; not secret or hidden
 overtake	catch up with and possibly overtake
 overtaken	OVERTAKE: pass a moving vehicle
@@ -1924,10 +1924,10 @@ overturn	turn from an upright or normal position
 overturned	having been turned so that the bottom is no longer the bottom
 overturning	OVERTURN: turn from an upright or normal position
 overturns	OVERTURN: turn from an upright or normal position
-overuse	exploitation to the point of diminishing returns
-overused	OVERUSE: exploitation to the point of diminishing returns
-overuses	OVERUSE: exploitation to the point of diminishing returns
-overusing	OVERUSE: exploitation to the point of diminishing returns
+overuse	make use of too often or too extensively
+overused	OVERUSE: make use of too often or too extensively
+overuses	OVERUSE: make use of too often or too extensively
+overusing	OVERUSE: make use of too often or too extensively
 overvaluation	an appraisal that is too high
 overvaluations	OVERVALUATION: an appraisal that is too high
 overvalue	assign too high a value to
@@ -1936,7 +1936,7 @@ overvalues	OVERVALUE: assign too high a value to
 overvaluing	OVERVALUE: assign too high a value to
 overview	a general summary of a subject
 overviews	OVERVIEW: a general summary of a subject
-overweening	unrestrained, especially with regard to feelings
+overweening	presumptuously arrogant
 overweeningly	in a overweening way
 overweeningness	the quality of being overweening
 overweight	usually describes a large person who is fat but has a large frame to carry it
@@ -1963,8 +1963,8 @@ overzealous	marked by excessive enthusiasm for and intense devotion to a cause o
 oviduct	either of a pair of tubes conducting the egg from the ovary to the uterus
 oviducts	OVIDUCT: either of a pair of tubes conducting the egg from the ovary to the uterus
 oviparous	egg-laying
-ovoid	an egg-shaped object
-ovoids	OVOID: an egg-shaped object
+ovoid	rounded like an egg
+ovoids	OVOID: rounded like an egg
 ovulate	produce and discharge eggs
 ovulated	OVULATE: produce and discharge eggs
 ovulates	OVULATE: produce and discharge eggs
@@ -1995,8 +1995,8 @@ owns	OWN: have ownership or possession of
 ox	an adult castrated bull of the genus Bos; especially Bos taurus
 oxalate	a salt or ester of oxalic acid
 oxblood	a deep dark red colour
-oxbow	the land inside an oxbow bend in a river
-oxbows	OXBOW: the land inside an oxbow bend in a river
+oxbow	a U-shaped curve in a stream
+oxbows	OXBOW: a U-shaped curve in a stream
 oxen	domesticated bovine animals as a group regardless of sex or age
 oxford	a city in southern England to the northwest of London; site of Oxford University
 oxfords	OXFORD: a city in southern England to the northwest of London; site of Oxford University
@@ -2013,12 +2013,12 @@ oxidiser	a substance that oxidizes another substance
 oxidisers	OXIDISER: a substance that oxidizes another substance
 oxidises	OXIDISE: add oxygen to or combine with oxygen
 oxidising	OXIDISE: add oxygen to or combine with oxygen
-oxidize	enter into a combination with oxygen or become converted into an oxide
+oxidize	add oxygen to or combine with oxygen
 oxidized	combined with or having undergone a chemical reaction with oxygen
 oxidizer	a substance that oxidizes another substance
 oxidizers	OXIDIZER: a substance that oxidizes another substance
-oxidizes	OXIDIZE: enter into a combination with oxygen or become converted into an oxide
-oxidizing	OXIDIZE: enter into a combination with oxygen or become converted into an oxide
+oxidizes	OXIDIZE: add oxygen to or combine with oxygen
+oxidizing	OXIDIZE: add oxygen to or combine with oxygen
 oxtail	the skinned tail of cattle; used especially for soups
 oxtails	OXTAIL: the skinned tail of cattle; used especially for soups
 oxyacetylene	a mixture of oxygen and acetylene; used to create high temperatures for cutting or welding metals

@@ -39,12 +39,12 @@ ultimatum	a final peremptory demand
 ultimatums	ULTIMATUM: a final peremptory demand
 ultimo	in or of the month preceding the present one
 ultra	(used of opinions and actions) far beyond the norm
-ultraconservative	an extreme conservative; an opponent of progress or liberalism
-ultraconservatives	ULTRACONSERVATIVE: an extreme conservative; an opponent of progress or liberalism
+ultraconservative	extremely conservative
+ultraconservatives	ULTRACONSERVATIVE: extremely conservative
 ultrahigh	extremely high
 ultralight	extremely light
 ultralights	ULTRALIGHT: extremely light
-ultramarine	blue pigment made of powdered lapis lazuli
+ultramarine	a vivid blue to purple-blue color
 ultramodern	extremely modern
 ultras	ULTRA: an extremist
 ultrashort	extremely short
@@ -65,7 +65,7 @@ um	a sound of hesitation
 umami	the savoury taste found in meat and mushrooms
 umbel	flat-topped or rounded inflorescence characteristic of the family Umbelliferae in which the individual flower stalks arise from about the same point; youngest flowers are at the center
 umbels	UMBEL: flat-topped or rounded inflorescence characteristic of the family Umbelliferae in which the individual flower stalks arise from about the same point; youngest flowers are at the center
-umber	an earth pigment
+umber	a medium brown to dark-brown color
 umbilical	membranous duct connecting the fetus with the placenta
 umbilici	UMBILICUS: the navel
 umbilicus	a scar where the umbilical cord was attached
@@ -84,10 +84,10 @@ umlauts	UMLAUT: a diacritical mark (two dots) placed over a vowel to indicate a 
 ump	an official at a baseball game
 umped	UMP: act as umpire
 umping	UMP: act as umpire
-umpire	an official at a baseball game
-umpired	UMPIRE: an official at a baseball game
-umpires	UMPIRE: an official at a baseball game
-umpiring	UMPIRE: an official at a baseball game
+umpire	someone chosen to judge and decide a disputed issue
+umpired	UMPIRE: someone chosen to judge and decide a disputed issue
+umpires	UMPIRE: someone chosen to judge and decide a disputed issue
+umpiring	UMPIRE: someone chosen to judge and decide a disputed issue
 umps	UMP: an official at a baseball game
 umpteen	innumerable but many
 umpteenth	last in an indefinitely numerous series
@@ -96,15 +96,15 @@ unabashedly	in an unabashed manner
 unabated	continuing at full strength or intensity
 unabbreviated	not abbreviated
 unable	(usually followed by `to') not having the necessary means or skill or know-how
-unabridged	a dictionary that has not been shortened by the omitting terms or definitions; a comprehensive dictionary
-unabridgeds	UNABRIDGED: a dictionary that has not been shortened by the omitting terms or definitions; a comprehensive dictionary
+unabridged	(used of texts) not shortened
+unabridgeds	UNABRIDGED: (used of texts) not shortened
 unabsorbed	not absorbed
 unaccented	(used of syllables) carrying no stress
 unacceptability	unsatisfactoriness by virtue of not conforming to approved standards
 unacceptable	not adequate to give satisfaction
 unacceptably	to an unacceptable degree
 unaccepted	not conforming to standard usage
-unaccommodating	not accommodating
+unaccommodating	offering no assistance
 unaccompanied	being without an escort
 unaccomplished	not accomplished
 unaccountable	not to be accounted for or explained
@@ -114,7 +114,7 @@ unaccredited	lacking official approval
 unaccustomed	unusual or unfamiliar
 unachievable	impossible to achieve
 unacknowledged	not recognized or admitted
-unacquainted	not knowledgeable about something specified
+unacquainted	having little or no knowledge of
 unaddressed	not addressed
 unadjusted	not altered to fit certain requirements
 unadorned	not decorated with something to increase its beauty or distinction
@@ -153,11 +153,11 @@ unanswerable	impossible to answer
 unanswered	not returned in kind
 unanticipated	not anticipated
 unapologetic	unwilling to make or express an apology
-unappealing	(of characters in literature or drama) tending to evoke antipathetic feelings
+unappealing	not able to attract favorable attention
 unappealingly	in an unappealing manner
 unappetising	not appetizing in appearance, aroma, or taste
 unappetizing	not appetizing in appearance, aroma, or taste
-unappreciated	not likely to be rewarded
+unappreciated	having value that is not acknowledged
 unappreciative	not feeling or expressing gratitude
 unapproachable	discouraging intimacies; reserved
 unappropriated	not appropriated
@@ -165,13 +165,13 @@ unapproved	not approved
 unarguable	against which no argument can be made
 unarguably	in an unarguable and undisputed manner
 unarmed	(used of persons or the military) not having or using arms
-unarmored	used of animals; without protective covering
-unarmoured	used of animals; without protective covering
+unarmored	(used of persons or things military) without protective armor
+unarmoured	(used of persons or things military) without protective armor
 unartistic	lacking aesthetic sensibility
 unashamed	used of persons or their behavior; feeling no shame
 unashamedly	without shame
 unasked	uninvited
-unassailable	immune to attack; incapable of being tampered with
+unassailable	impossible to assail
 unassertive	inclined to timidity or lack of self-confidence
 unassigned	not assigned
 unassisted	unsupported by other people
@@ -187,7 +187,7 @@ unattractiveness	an ugliness of appearance that is not appealing to viewers
 unattributed	not attributed
 unaudited	not audited
 unauthenticated	not authenticated
-unauthorised	not endowed with authority
+unauthorised	without official authorization
 unauthorized	not endowed with authority
 unavailability	the quality of not being available when needed
 unavailable	not available or accessible or at hand
@@ -223,13 +223,13 @@ unbelievable	beyond belief or understanding
 unbelievably	not easy to believe
 unbeliever	not believer
 unbelievers	not believers
-unbelieving	rejecting any belief in gods
-unbend	straighten up or out; make straight
+unbelieving	denying or questioning the tenets of especially a religion
+unbend	release from mental strain, tension, or formality
 unbending	incapable of adapting or changing to meet circumstances
-unbends	UNBEND: straighten up or out; make straight
+unbends	UNBEND: release from mental strain, tension, or formality
 unbent	not bent
-unbiased	characterized by a lack of partiality
-unbiassed	characterized by a lack of partiality
+unbiased	without bias
+unbiassed	without bias
 unbidden	not asked for
 unbind	untie or unfasten
 unbinding	UNBIND: untie or unfasten
@@ -254,9 +254,9 @@ unbosomed	UNBOSOM: relieve oneself of troubling information
 unbosoming	UNBOSOM: relieve oneself of troubling information
 unbosoms	UNBOSOM: relieve oneself of troubling information
 unbothered	not bothered
-unbound	not secured within a cover
+unbound	not restrained or tied down by bonds
 unbounded	seemingly boundless in amount, number, degree, or especially extent
-unbowed	erect in posture
+unbowed	not forced to bow down to a conqueror
 unbox	remove from a box
 unboxed	UNBOX: remove from a box
 unboxes	UNBOX: remove from a box
@@ -299,12 +299,12 @@ uncap	not cap
 uncapped	used especially of front teeth
 uncapping	not capping
 uncaps	not caps
-uncaring	lacking affection or warm feeling
+uncaring	without care or thought for others
 uncased	UNCASE: get undressed
 uncashed	not cashed
 uncatalogued	not catalogued
 uncaught	not caught
-unceasing	continuing forever or indefinitely
+unceasing	uninterrupted in time and indefinitely long continuing
 unceasingly	with unflagging resolve
 uncensored	not subject to censorship
 unceremonious	without ceremony or formality
@@ -321,7 +321,7 @@ unchains	UNCHAIN: remove the chains from
 unchallenged	generally agreed upon; not subject to dispute
 unchangeable	not changeable or subject to change
 unchanged	not made or become different
-unchanging	conforming to the same principles or course of action over time
+unchanging	showing little if any change
 unchaperoned	not chaperoned
 uncharacteristic	distinctive and not typical
 uncharacteristically	in uncharacteristic manner
@@ -348,7 +348,7 @@ unclasped	UNCLASP: release from a clasp
 unclasping	UNCLASP: release from a clasp
 unclasps	UNCLASP: release from a clasp
 unclassifiable	not possible to classify
-unclassified	not subject to a security classification
+unclassified	not arranged in any specific grouping
 uncle	the brother of your father or mother; the husband of your aunt
 unclean	soiled or likely to soil with dirt or grime
 uncleaned	not cleaned
@@ -359,10 +359,10 @@ uncleanliest	UNCLEANLY: habitually unclean
 uncleanliness	lack of cleanly habits
 uncleanly	habitually unclean
 uncleanness	the state of being unsanitary
-unclear	poorly stated or described
+unclear	not clear to the mind
 uncleared	not cleared; not rid of objects or obstructions
-unclearer	UNCLEAR: poorly stated or described
-unclearest	UNCLEAR: poorly stated or described
+unclearer	UNCLEAR: not clear to the mind
+unclearest	UNCLEAR: not clear to the mind
 unclench	not clench
 unclenched	not clenched
 unclenches	not clenches
@@ -373,10 +373,10 @@ unclog	become or cause to become unobstructed
 unclogged	freed of obstructions
 unclogging	UNCLOG: become or cause to become unobstructed
 unclogs	UNCLOG: become or cause to become unobstructed
-unclothe	strip
+unclothe	get undressed
 unclothed	not wearing clothing
-unclothes	UNCLOTHE: strip
-unclothing	UNCLOTHE: strip
+unclothes	UNCLOTHE: get undressed
+unclothing	UNCLOTHE: get undressed
 unclouded	(of sound or color) free from anything that dulls or dims
 uncluttered	having nothing extraneous
 uncoated	not having a coating
@@ -402,8 +402,8 @@ uncompetitive	not inclined to compete
 uncomplaining	not complaining
 uncomplainingly	without complaining
 uncompleted	not yet finished
-uncomplicated	lacking complexity
-uncomplimentary	showing or representing unfavorably
+uncomplicated	easy and not involved or complicated
+uncomplimentary	tending to (or intended to) detract or disparage
 uncomprehending	lacking understanding
 uncomprehendingly	in a uncomprehending way
 uncompressed	UNCOMPRESS: restore to its uncompressed form
@@ -415,14 +415,14 @@ unconcerned	lacking in interest or care or feeling
 unconcernedly	in an unconcerned manner
 unconditional	not conditional
 unconditionally	not subject to a condition
-unconditioned	not established by conditioning or learning
-unconfined	not confined
+unconditioned	not conditional
+unconfined	free from confinement or physical restraint
 unconfirmed	not finally established or settled
 uncongenial	not suitable to your tastes or needs
 unconnected	not joined or linked together
 unconquerable	not capable of being conquered or vanquished or overcome
 unconquered	not conquered
-unconscionable	lacking a conscience
+unconscionable	greatly exceeding bounds of reason or moderation
 unconscionably	to an unreasonable or unfair degree
 unconscious	not conscious; lacking awareness and the capacity for sensory perception as if asleep or dead
 unconsciously	without awareness
@@ -436,7 +436,7 @@ unconstitutionally	in an unconstitutional manner
 unconstrained	free from constraint
 unconsumed	not consumed
 unconsummated	not consummated (especially of a marriage)
-uncontaminated	not corrupted by contact or association
+uncontaminated	free from admixture with noxious elements; clean
 uncontentious	not contentious
 uncontested	not disputed and not made the object of contention or competition
 uncontrollable	difficult to solve or alleviate
@@ -444,7 +444,7 @@ uncontrollably	in an uncontrolled manner
 uncontrolled	not being under control; out of control
 uncontroversial	not likely to arouse controversy
 unconventional	not conforming to accepted rules or standards
-unconventionality	originality by virtue of being unconventional
+unconventionality	unorthodoxy by virtue of being unconventional
 unconventionally	in an unconventional manner
 unconverted	not converted
 unconvinced	lacking conviction
@@ -453,7 +453,7 @@ unconvincingly	in an unconvincing manner
 uncooked	not cooked
 uncool	unfashionable and boring
 uncooperative	unwilling to cooperate
-uncoordinated	lacking in cooperative planning and organization
+uncoordinated	lacking the skillful and effective interaction of muscle movements
 uncork	release
 uncorked	UNCORK: release
 uncorking	UNCORK: release
@@ -461,7 +461,7 @@ uncorks	UNCORK: release
 uncorrected	left faulty or wrong
 uncorrelated	not varying together
 uncorroborated	unsupported by other evidence
-uncorrupted	(of language) not having its purity or excellence debased
+uncorrupted	not debased
 uncountable	not countable
 uncounted	too numerous to be counted
 uncouple	disconnect or separate
@@ -481,13 +481,13 @@ uncritical	marked by disregard for critical standards or procedures
 uncritically	in an uncritical manner
 uncropped	not used for growing crops
 uncross	change from a crossed to an uncrossed position
-uncrossed	(of a check) not crossed
+uncrossed	not crossed
 uncrosses	UNCROSS: change from a crossed to an uncrossed position
 uncrossing	UNCROSS: change from a crossed to an uncrossed position
 uncrowded	having or allowing sufficient room
-uncrowned	not having an (artificial) crown on a tooth; used especially of molars and bicuspids
-unction	excessive but superficial compliments given with affected charm
-unctions	UNCTION: excessive but superficial compliments given with affected charm
+uncrowned	not (especially not yet) provided with a crown
+unction	anointing as part of a religious ceremony or healing ritual
+unctions	UNCTION: anointing as part of a religious ceremony or healing ritual
 unctuous	unpleasantly and excessively suave or ingratiating in manner or speech
 unctuously	in an unctuous manner
 unctuousness	smug self-serving earnestness
@@ -499,7 +499,7 @@ uncurled	UNCURL: move out of a curled position
 uncurling	UNCURL: move out of a curled position
 uncurls	UNCURL: move out of a curled position
 uncustomary	not customary
-uncut	not trimmed
+uncut	not cut
 undamaged	not harmed or spoiled; sound
 undated	not bearing a date
 undaunted	unshaken in purpose
@@ -510,7 +510,7 @@ undeceived	freed of a mistaken or misguided notion
 undeceives	UNDECEIVE: free from deception or illusion
 undeceiving	UNDECEIVE: free from deception or illusion
 undecidable	impossible to settle one way or the other
-undecided	not brought to a conclusion; subject to further thought
+undecided	not yet having made a commitment
 undecideds	UNDECIDED: a person who has not made up their mind
 undecipherable	not easily deciphered
 undeclared	not announced or openly acknowledged
@@ -550,28 +550,28 @@ underaged	below the legal age
 underappreciated	not valued enough
 underarm	with hand brought forward and up from below shoulder level
 underarms	UNDERARM: the armpit
-underbellies	UNDERBELLY: lower side
-underbelly	lower side
-underbid	bid (a hand of cards) at less than the strength of the hand warrants
-underbidding	UNDERBID: bid (a hand of cards) at less than the strength of the hand warrants
-underbids	UNDERBID: bid (a hand of cards) at less than the strength of the hand warrants
+underbellies	UNDERBELLY: the soft belly or underside of an animal's body
+underbelly	the soft belly or underside of an animal's body
+underbid	bid lower than a competing bidder
+underbidding	UNDERBID: bid lower than a competing bidder
+underbids	UNDERBID: bid lower than a competing bidder
 underbrush	the brush (small trees and bushes and ferns etc.) growing beneath taller trees in a wood or forest
 undercarriage	framework that serves as a support for the body of a vehicle
 undercarriages	UNDERCARRIAGE: framework that serves as a support for the body of a vehicle
-undercharge	a price that is too low
-undercharged	UNDERCHARGE: a price that is too low
-undercharges	UNDERCHARGE: a price that is too low
-undercharging	UNDERCHARGE: a price that is too low
+undercharge	charge (someone) too little money
+undercharged	UNDERCHARGE: charge (someone) too little money
+undercharges	UNDERCHARGE: charge (someone) too little money
+undercharging	UNDERCHARGE: charge (someone) too little money
 underclass	the social class lowest in the social hierarchy
 underclasses	UNDERCLASS: the social class lowest in the social hierarchy
 underclassman	an undergraduate who is not yet a senior
 underclassmen	UNDERCLASSMAN: an undergraduate who is not yet a senior
 underclothes	undergarment worn next to the skin and under the outer garments
 underclothing	undergarment worn next to the skin and under the outer garments
-undercoat	seal consisting of a coating of a tar or rubberlike material on the underside of a motor vehicle to retard corrosion
+undercoat	the first or preliminary coat of paint or size applied to a surface
 undercoated	(of motor vehicles) having a coating of tar or other rustproof material applied to the underside
-undercoating	UNDERCOAT: seal consisting of a coating of a tar or rubberlike material on the underside of a motor vehicle to retard corrosion
-undercoats	UNDERCOAT: seal consisting of a coating of a tar or rubberlike material on the underside of a motor vehicle to retard corrosion
+undercoating	UNDERCOAT: the first or preliminary coat of paint or size applied to a surface
+undercoats	UNDERCOAT: the first or preliminary coat of paint or size applied to a surface
 undercook	cook for too short a time
 undercooked	UNDERCOOK: cook for too short a time
 undercooking	UNDERCOOK: cook for too short a time
@@ -581,9 +581,9 @@ undercroft	a vaulted room under a church
 undercrofts	UNDERCROFT: a vaulted room under a church
 undercurrent	a subdued emotional quality underlying an utterance; implicit meaning
 undercurrents	UNDERCURRENT: a subdued emotional quality underlying an utterance; implicit meaning
-undercut	the material removed by a cut made underneath
-undercuts	UNDERCUT: the material removed by a cut made underneath
-undercutting	UNDERCUT: the material removed by a cut made underneath
+undercut	sell cheaper than one's competition
+undercuts	UNDERCUT: sell cheaper than one's competition
+undercutting	UNDERCUT: sell cheaper than one's competition
 underdeveloped	relating to societies in which capital needed to industrialize is in short supply
 underdevelopment	state of inadequate development
 underdog	one at a disadvantage and expected to lose
@@ -598,10 +598,10 @@ underestimates	UNDERESTIMATE: assign too low a value to
 underestimating	UNDERESTIMATE: assign too low a value to
 underestimation	an estimation that is too low; an estimate that is less than the true or actual value
 underestimations	UNDERESTIMATION: an estimation that is too low; an estimate that is less than the true or actual value
-underexpose	expose to too little light
-underexposed	UNDEREXPOSE: expose to too little light
-underexposes	UNDEREXPOSE: expose to too little light
-underexposing	UNDEREXPOSE: expose to too little light
+underexpose	expose insufficiently
+underexposed	UNDEREXPOSE: expose insufficiently
+underexposes	UNDEREXPOSE: expose insufficiently
+underexposing	UNDEREXPOSE: expose insufficiently
 underfed	not getting adequate food
 underfeed	give too little food
 underfeeding	UNDERFEED: give too little food
@@ -624,7 +624,7 @@ undergraduates	UNDERGRADUATE: a university student who has not yet received a fi
 underground	under the level of the ground
 undergrounds	UNDERGROUND: under the level of the ground
 undergrowth	the brush (small trees and bushes and ferns etc.) growing beneath taller trees in a wood or forest
-underhand	with hand brought forward and up from below shoulder level
+underhand	marked by deception
 underhanded	marked by deception
 underhandedly	slyly and secretly
 underhandedness	the quality of being underhanded
@@ -648,7 +648,7 @@ underminer	a person who weakens something gradually
 undermines	UNDERMINE: destroy property or hinder normal operations
 undermining	UNDERMINE: destroy property or hinder normal operations
 undermost	lowest
-underneath	on the lower or downward side; on the underside of
+underneath	under or below an object or a surface; at a lower place or level; directly beneath
 underneaths	UNDERNEATH: the lower surface
 undernourished	not getting adequate food
 undernourishment	not having enough food to develop or function normally
@@ -694,9 +694,9 @@ undersells	UNDERSELL: sell cheaper than one's competition
 underserved	not given enough service
 undershirt	a collarless men's undergarment for the upper part of the body
 undershirts	UNDERSHIRT: a collarless men's undergarment for the upper part of the body
-undershoot	fall short of (the runway) in a landing
-undershooting	UNDERSHOOT: fall short of (the runway) in a landing
-undershoots	UNDERSHOOT: fall short of (the runway) in a landing
+undershoot	shoot short of or below (a target)
+undershooting	UNDERSHOOT: shoot short of or below (a target)
+undershoots	UNDERSHOOT: shoot short of or below (a target)
 undershorts	men's underpants
 undershot	having a lower part projecting beyond the upper
 underside	the lower side of anything
@@ -744,8 +744,8 @@ undertakings	UNDERTAKING: any piece of work that is undertaken or attempted
 undertone	a quiet or hushed tone of voice
 undertones	UNDERTONE: a quiet or hushed tone of voice
 undertook	UNDERTAKE: take on a task
-undertow	an inclination contrary to the strongest or prevailing feeling
-undertows	UNDERTOW: an inclination contrary to the strongest or prevailing feeling
+undertow	the seaward undercurrent created after waves have broken on the shore
+undertows	UNDERTOW: the seaward undercurrent created after waves have broken on the shore
 undertrick	a trick short of the number bid in bridge
 undertricks	UNDERTRICK: a trick short of the number bid in bridge
 underused	not used enough
@@ -769,8 +769,8 @@ underwired	UNDERWIRE: a wire support sewn into a bra
 underworld	the criminal class
 underworlds	UNDERWORLD: the criminal class
 underwrite	guarantee financial support of
-underwriter	a banker who deals chiefly in underwriting new securities
-underwriters	UNDERWRITER: a banker who deals chiefly in underwriting new securities
+underwriter	an agent who sells insurance
+underwriters	UNDERWRITER: an agent who sells insurance
 underwrites	UNDERWRITE: guarantee financial support of
 underwriting	UNDERWRITE: guarantee financial support of
 underwritten	UNDERWRITE: guarantee financially
@@ -804,7 +804,7 @@ undiplomatic	not skilled in dealing with others
 undirected	aimlessly drifting
 undiscerning	lacking discernment
 undischarged	owed as a debt
-undisciplined	not subjected to discipline
+undisciplined	lacking in discipline or control
 undisclosed	not made known
 undiscovered	not discovered
 undiscriminating	not discriminating
@@ -816,12 +816,12 @@ undistinguished	not special in any way; lacking distinction
 undistorted	without alteration or misrepresentation
 undistributed	(of investments) not distributed among a variety of securities
 undisturbed	untroubled by interference or disturbance
-undivided	not parted by conflict of opinion
+undivided	not separated into parts or shares; constituting an undivided unit
 undo	cancel, annul, or reverse an action or its effect
 undock	move out of a dock
 undocumented	lacking necessary documents (as for e.g. permission to live or work in a country)
-undoer	a seducer who ruins a woman
-undoers	UNDOER: a seducer who ruins a woman
+undoer	a person who unfastens or unwraps or opens
+undoers	UNDOER: a person who unfastens or unwraps or opens
 undoes	UNDO: cancel, annul, or reverse an action or its effect
 undoing	an act that makes a previous act of no effect (as if not done)
 undoings	UNDOING: an act that makes a previous act of no effect (as if not done)
@@ -842,8 +842,8 @@ undulate	stir up (water) so as to form ripples
 undulated	UNDULATE: stir up (water) so as to form ripples
 undulates	UNDULATE: stir up (water) so as to form ripples
 undulating	UNDULATE: stir up (water) so as to form ripples
-undulation	an undulating curve
-undulations	UNDULATION: an undulating curve
+undulation	wavelike motion; a gentle rising and falling in the manner of waves
+undulations	UNDULATION: wavelike motion; a gentle rising and falling in the manner of waves
 unduly	to an undue degree
 undyed	not artificially colored or bleached
 undying	never dying
@@ -852,9 +852,9 @@ unearth	bring to light
 unearthed	UNEARTH: bring to light
 unearthing	UNEARTH: bring to light
 unearthliness	the quality of being unearthly
-unearthly	concerned with or affecting the spirit or soul
+unearthly	suggesting the operation of supernatural influences
 unearths	UNEARTH: bring to light
-unease	physical discomfort (as mild sickness or depression)
+unease	the trait of seeming ill at ease
 uneasier	UNEASY: lacking a sense of security or affording no ease or reassurance
 uneasiest	UNEASY: lacking a sense of security or affording no ease or reassurance
 uneasily	with anxiety or apprehension
@@ -888,7 +888,7 @@ unenlightened	not enlightened; ignorant
 unenterprising	lacking in enterprise; not bold or venturesome
 unenthusiastic	not enthusiastic; lacking excitement or ardor
 unenthusiastically	without enthusiasm; showing no enthusiasm
-unenviable	hard to deal with; especially causing pain or embarrassment
+unenviable	so undesirable as to be incapable of arousing envy
 unequal	poorly balanced or matched in quantity or value or measure
 unequaled	radically distinctive and without equal
 unequalled	radically distinctive and without equal
@@ -912,7 +912,7 @@ unexceptionable	completely acceptable; not open to exception or reproach
 unexceptional	not special in any way; lacking distinction
 unexceptionally	not exceptionally
 unexcited	not excited
-unexciting	not stimulating
+unexciting	not exciting
 unexcused	not excused
 unexpected	not expected or anticipated
 unexpectedly	in a way that was not expected
@@ -932,7 +932,7 @@ unfair	not fair; marked by injustice or partiality or deception
 unfairer	UNFAIR: not fair; marked by injustice or partiality or deception
 unfairest	UNFAIR: not fair; marked by injustice or partiality or deception
 unfairly	in an unfair manner
-unfairness	partiality that is not fair or equitable
+unfairness	injustice by virtue of not conforming with rules or standards
 unfaithful	not true to duty or obligation or promises
 unfaithfully	in an unfaithful undependable unreliable manner
 unfaithfulness	the quality of being unfaithful
@@ -945,7 +945,7 @@ unfasten	cause to become undone
 unfastened	not closed or secured
 unfastening	UNFASTEN: cause to become undone
 unfastens	UNFASTEN: cause to become undone
-unfathomable	of depth; not capable of being sounded or measured
+unfathomable	incapable of being fully understood
 unfathomably	in a way too deep to understand
 unfavorable	not encouraging or approving or pleasing
 unfavorably	showing disapproval; in a disparaging way
@@ -955,7 +955,7 @@ unfazed	not fazed
 unfeasible	not capable of being carried out or put into practice
 unfed	not fed
 unfeeling	devoid of feeling for others
-unfeelingly	without compassionate feelings
+unfeelingly	in a callous way
 unfeigned	not pretended; sincerely felt or expressed
 unfeminine	not suitable for a woman
 unfenced	not enclosed by a fence
@@ -968,9 +968,9 @@ unfettering	not fettering
 unfetters	not fetters
 unfilled	of purchase orders that have not been filled
 unfiltered	not filtered
-unfinished	not brought to the desired final state
+unfinished	not brought to an end or conclusion
 unfit	below the required standards for a purpose
-unfitness	poor physical condition; being out of shape or out of condition (as from a life of ease and luxury)
+unfitness	the quality of not being suitable
 unfits	UNFIT: below the required standards for a purpose
 unfitted	UNFIT: below the required standards for a purpose
 unfitting	not in keeping with what is correct or proper
@@ -990,7 +990,7 @@ unfold	develop or come to a promising stage
 unfolded	UNFOLD: develop or come to a promising stage
 unfolding	a developmental process
 unfolds	UNFOLD: develop or come to a promising stage
-unforced	not brought about by coercion or force
+unforced	not resulting from undue effort; not forced
 unforeseeable	incapable of being anticipated
 unforeseen	not anticipated
 unforgettable	impossible to forget
@@ -1015,10 +1015,10 @@ unfrequented	devoid of creatures
 unfriend	not friend
 unfriended	UNFRIEND: remove someone from your online friends
 unfriending	UNFRIEND: remove someone from your online friends
-unfriendlier	UNFRIENDLY: not easy to understand or use
-unfriendliest	UNFRIENDLY: not easy to understand or use
-unfriendliness	dislike experienced as an absence of friendliness
-unfriendly	not easy to understand or use
+unfriendlier	UNFRIENDLY: not disposed to friendship or friendliness
+unfriendliest	UNFRIENDLY: not disposed to friendship or friendliness
+unfriendliness	an unfriendly disposition
+unfriendly	not disposed to friendship or friendliness
 unfriends	not friends
 unfrock	divest of the frock; of church officials
 unfrocked	UNFROCK: divest of the frock; of church officials
@@ -1041,7 +1041,7 @@ ungainlier	UNGAINLY: lacking grace in movement or posture
 ungainliest	UNGAINLY: lacking grace in movement or posture
 ungainliness	the carriage of someone whose movements and posture are extremely ungainly and inelegant
 ungainly	lacking grace in movement or posture
-ungenerous	lacking in magnanimity
+ungenerous	unwilling to spend (money, time, resources, etc.)
 ungenerously	not generously
 ungentle	not of the nobility
 ungentlemanly	not befitting a gentleman
@@ -1056,9 +1056,9 @@ ungovernable	incapable of being controlled
 ungoverned	not restrained or controlled
 ungraceful	lacking grace; clumsy
 ungracefully	without grace; rigidly
-ungracious	lacking charm and good taste
+ungracious	lacking social graces
 ungraciously	without grace; rigidly
-ungraded	(of roads) not leveled or drained; unsuitable for all year travel
+ungraded	not arranged in order hierarchically
 ungrammatical	not grammatical; not conforming to the rules of grammar or accepted usage
 ungrammatically	in an ungrammatical manner
 ungrateful	not feeling or showing gratitude
@@ -1083,7 +1083,7 @@ unhanding	UNHAND: remove the hand from
 unhands	UNHAND: remove the hand from
 unhappier	UNHAPPY: experiencing or marked by or causing sadness or sorrow or discontent
 unhappiest	UNHAPPY: experiencing or marked by or causing sadness or sorrow or discontent
-unhappily	in an unpleasant way
+unhappily	in an unfortunate way
 unhappiness	emotions experienced when not in a state of well-being
 unhappy	experiencing or marked by or causing sadness or sorrow or discontent
 unhardened	not brought to a proper consistency or hardness
@@ -1095,7 +1095,7 @@ unharnessing	UNHARNESS: remove the harness from
 unharvested	not harvested
 unhatched	not yet emerged from an egg
 unhealed	not healed
-unhealthful	not sanitary or healthful
+unhealthful	detrimental to good health
 unhealthier	UNHEALTHY: not in or exhibiting good health in body or mind
 unhealthiest	UNHEALTHY: not in or exhibiting good health in body or mind
 unhealthily	not healthily
@@ -1167,7 +1167,7 @@ unilaterally	in a unilateral manner; by means of one part or party
 unimaginable	totally unlikely
 unimaginably	to an unimaginable extent
 unimaginative	deficient in originality or creativity; lacking powers of invention
-unimaginatively	in a matter-of-fact manner
+unimaginatively	without imagination
 unimagined	not imagined even in a dream
 unimpaired	not damaged or diminished in any respect
 unimpeachable	beyond doubt or reproach
@@ -1192,7 +1192,7 @@ uninitialised	not initialised
 uninitialized	not initialized
 uninitiated	not initiated; deficient in relevant experience
 uninjured	not injured physically or mentally
-uninspired	having no intellectual or emotional or spiritual excitement
+uninspired	deficient in originality or creativity; lacking powers of invention
 uninspiring	depressing to the spirit
 uninstall	not install
 uninstallable	unable to be removed from a computer
@@ -1206,12 +1206,12 @@ uninsulated	not insulated
 uninsurable	not capable of being insured or not eligible to be insured
 uninsured	not covered by insurance
 unintelligent	lacking intelligence
-unintelligible	poorly articulated or enunciated, or drowned by noise
+unintelligible	hard or impossible to understand
 unintelligibly	in an unintelligible manner
 unintended	not deliberate
-unintentional	done or made or performed with purpose and intent
+unintentional	not done with purpose or intent
 unintentionally	without intention; in an unintentional manner
-uninterested	not having or showing interest
+uninterested	having no care or interest in knowing
 uninteresting	arousing no interest or attention or curiosity or excitement
 uninterpreted	not interpreted
 uninterrupted	having undisturbed continuity
@@ -1223,13 +1223,13 @@ uninvolved	not involved
 union	an organization of employees formed to bargain with the employer
 unionisation	act of forming labor unions
 unionise	recruit for a union or organize into a union
-unionised	not converted into ions
+unionised	being a member of or formed into a labor union
 unionises	UNIONISE: recruit for a union or organize into a union
 unionising	UNIONISE: recruit for a union or organize into a union
 unionism	the system or principles and theory of labor unions
 unionization	act of forming labor unions
 unionize	recruit for a union or organize into a union
-unionized	not converted into ions
+unionized	being a member of or formed into a labor union
 unionizes	UNIONIZE: recruit for a union or organize into a union
 unionizing	UNIONIZE: recruit for a union or organize into a union
 unions	UNION: an organization of employees formed to bargain with the employer
@@ -1242,10 +1242,10 @@ uniquest	UNIQUE: radically distinctive and without equal
 unironed	(of linens or clothes) not ironed
 unis	UNI: a university
 unisex	not distinguished on the basis of sex
-unison	corresponding exactly
+unison	two or more sounds or tones at the same pitch or in octaves
 unissued	not issued
 unit	any division of quantity accepted as a standard of measurement or exchange
-unitary	relating to or characterized by or aiming toward unity
+unitary	having the indivisible character of a unit
 unite	act in concert or unite in a common purpose or belief
 united	characterized by unity; being or joined into a single entity
 unites	UNITE: act in concert or unite in a common purpose or belief
@@ -1283,9 +1283,9 @@ unkindly	lacking in sympathy and kindness
 unkindness	lack of sympathy
 unkindnesses	UNKINDNESS: lack of sympathy
 unknowable	not knowable
-unknowing	ignorance (especially of orthodox beliefs)
+unknowing	unaware because of a lack of relevant information or knowledge
 unknowingly	without knowledge or intention
-unknowings	UNKNOWING: ignorance (especially of orthodox beliefs)
+unknowings	UNKNOWING: unaware because of a lack of relevant information or knowledge
 unknowledgeable	unaware because of a lack of relevant information or knowledge
 unknown	not known
 unknowns	UNKNOWN: not known
@@ -1305,10 +1305,10 @@ unlawful	not conforming to legality, moral law, or social convention
 unlawfully	not conforming to the law
 unlawfulness	the quality of failing to conform to law
 unleaded	not treated with lead
-unlearn	try to forget; put out of one's memory or knowledge
-unlearned	not established by conditioning or learning
-unlearning	UNLEARN: try to forget; put out of one's memory or knowledge
-unlearns	UNLEARN: try to forget; put out of one's memory or knowledge
+unlearn	discard something previously learnt, like an old habit
+unlearned	uneducated in general; lacking knowledge or sophistication
+unlearning	UNLEARN: discard something previously learnt, like an old habit
+unlearns	UNLEARN: discard something previously learnt, like an old habit
 unlearnt	not learnt
 unleash	release or vent
 unleashed	UNLEASH: release or vent
@@ -1316,11 +1316,11 @@ unleashes	UNLEASH: release or vent
 unleashing	UNLEASH: release or vent
 unleavened	made without leavening
 unless	not less
-unlettered	having little acquaintance with writing
+unlettered	uneducated in general; lacking knowledge or sophistication
 unlicensed	lacking official approval
-unlikable	(of characters in literature or drama) tending to evoke antipathetic feelings
+unlikable	difficult or impossible to like
 unlike	marked by dissimilarity
-unlikeable	(of characters in literature or drama) tending to evoke antipathetic feelings
+unlikeable	difficult or impossible to like
 unlikelier	UNLIKELY: not likely to be true or to occur or to have occurred
 unlikeliest	UNLIKELY: not likely to be true or to occur or to have occurred
 unlikelihood	the improbability of a specified outcome
@@ -1334,7 +1334,7 @@ unlinked	not linked
 unlinking	not linking
 unlinks	not links
 unlisted	not on a list
-unlit	not set afire or burning
+unlit	without illumination
 unlivable	unfit or unsuitable to live in or with
 unload	remove (cargo, people, etc.) from and leave
 unloaded	(of weapons) not charged with ammunition
@@ -1346,10 +1346,10 @@ unlock	open the lock of
 unlocked	not firmly fastened or secured
 unlocking	UNLOCK: open the lock of
 unlocks	UNLOCK: open the lock of
-unloose	grant freedom to; free from confinement
-unloosed	UNLOOSE: grant freedom to; free from confinement
-unlooses	UNLOOSE: grant freedom to; free from confinement
-unloosing	UNLOOSE: grant freedom to; free from confinement
+unloose	loosen the ties of
+unloosed	UNLOOSE: loosen the ties of
+unlooses	UNLOOSE: loosen the ties of
+unloosing	UNLOOSE: loosen the ties of
 unlovable	incapable of inspiring love or affection
 unloved	not loved
 unlovely	without beauty or charm
@@ -1365,7 +1365,7 @@ unmake	deprive of certain characteristics
 unmakes	UNMAKE: deprive of certain characteristics
 unmaking	UNMAKE: deprive of certain characteristics
 unman	cause to lose one's nerve
-unmanageable	difficult to use or handle or manage because of size or weight or shape
+unmanageable	incapable of being controlled or managed
 unmanlier	UNMANLY: not possessing qualities befitting a man
 unmanliest	UNMANLY: not possessing qualities befitting a man
 unmanly	not possessing qualities befitting a man
@@ -1376,7 +1376,7 @@ unmanning	UNMAN: cause to lose one's nerve
 unmans	UNMAN: cause to lose one's nerve
 unmapped	(of unknown regions) not yet surveyed or investigated
 unmarked	not having an identifying mark
-unmarketable	not fit for sale
+unmarketable	not capable of being sold
 unmarred	free from physical or moral spots or stains
 unmarried	not married or related to the unmarried state
 unmask	reveal the true nature of
@@ -1385,13 +1385,13 @@ unmasker	not masker
 unmaskers	not maskers
 unmasking	UNMASK: reveal the true nature of
 unmasks	UNMASK: reveal the true nature of
-unmatched	of the remaining member of a pair
-unmeasured	not composed of measured syllables; not metrical
+unmatched	eminent beyond or above comparison
+unmeasured	without limits in extent or size or quantity
 unmediated	having no intervening persons, agents, conditions
 unmelted	not melted
 unmemorable	not worth remembering
-unmentionable	a garment worn under other garments
-unmentionables	UNMENTIONABLE: a garment worn under other garments
+unmentionable	unsuitable or forbidden as a topic of conversation
+unmentionables	UNMENTIONABLE: unsuitable or forbidden as a topic of conversation
 unmentioned	not mentioned
 unmerciful	having or showing no mercy
 unmercifully	without pity; in a merciless manner
@@ -1429,10 +1429,10 @@ unnerved	deprived of courage and strength
 unnerves	UNNERVE: disturb the composure of
 unnerving	inspiring fear
 unnervingly	in a unnerving way
-unnoticeable	not noticeable; not drawing attention
+unnoticeable	not drawing attention
 unnoticed	not noticed
 unnumbered	too numerous to be counted
-unobjectionable	(of behavior or especially language) free from objectionable elements; fit for all observers
+unobjectionable	not objectionable
 unobservable	not accessible to direct observation
 unobservant	not consciously observing
 unobserved	not seen or observed
@@ -1444,7 +1444,7 @@ unobtrusiveness	the quality of not sticking out in an unwelcome way
 unoccupied	not held or filled or in use
 unoffensive	not offensive
 unofficial	not having official authority or sanction
-unofficially	without official authorization
+unofficially	not in an official capacity
 unopened	not yet opened or unsealed
 unopposed	not having opposition or an opponent
 unordered	not arranged in order
@@ -1459,7 +1459,7 @@ unpackers	not packers
 unpacking	UNPACK: remove from its packing
 unpacks	UNPACK: remove from its packing
 unpaid	not paid
-unpainted	not having makeup on
+unpainted	not having a coat of paint or badly in need of a fresh coat
 unpaired	of the remaining member of a pair
 unpalatable	not pleasant or acceptable to the taste or mind
 unparalleled	radically distinctive and without equal
@@ -1478,10 +1478,10 @@ unpersons	UNPERSON: a person regarded as nonexistent and having no rights; a per
 unpersuaded	not converted
 unpersuasive	not capable of persuading
 unperturbed	free from emotional agitation or nervous tension
-unpick	become or cause to become undone by separating the fibers or threads of
-unpicked	UNPICK: become or cause to become undone by separating the fibers or threads of
-unpicking	UNPICK: become or cause to become undone by separating the fibers or threads of
-unpicks	UNPICK: become or cause to become undone by separating the fibers or threads of
+unpick	undo (the stitches) of (a piece of sewing)
+unpicked	UNPICK: undo (the stitches) of (a piece of sewing)
+unpicking	UNPICK: undo (the stitches) of (a piece of sewing)
+unpicks	UNPICK: undo (the stitches) of (a piece of sewing)
 unpin	remove the pins from; unfasten the pins of
 unpinned	UNPIN: remove the pins from; unfasten the pins of
 unpinning	UNPIN: remove the pins from; unfasten the pins of
@@ -1491,7 +1491,7 @@ unplanned	without apparent forethought or prompting or planning
 unplayable	not capable of or suitable for being played or played on
 unpleasant	offensive or disagreeable; causing discomfort or unhappiness
 unpleasantly	in an unpleasant manner
-unpleasantness	the feeling caused by disagreeable stimuli; one pole of a continuum of states of feeling
+unpleasantness	the quality of giving displeasure
 unpleasing	unpleasant or disagreeable to the senses
 unplug	pull the plug of (electrical appliances) and render inoperable
 unplugged	UNPLUG: pull the plug of (electrical appliances) and render inoperable
@@ -1524,7 +1524,7 @@ unprintable	unfit for print because morally or legally objectionable or offensiv
 unprivileged	not privileged
 unproblematic	easy and not involved or complicated
 unprocessed	not refined or processed
-unproductive	not producing or capable of producing
+unproductive	not producing desired results
 unproductively	in an unproductive manner
 unprofessional	not characteristic of or befitting a profession or one engaged in a profession
 unprofessionally	not professionally
@@ -1549,10 +1549,10 @@ unputdownable	so gripping that you cannot stop reading
 unqualified	not limited or restricted
 unquantifiable	not quantifiable
 unquenchable	impossible to quench
-unquestionable	incapable of being questioned
+unquestionable	not open to question
 unquestionably	without question
 unquestioned	generally agreed upon; not subject to dispute
-unquestioning	not inclined to ask questions
+unquestioning	being without doubt or reserve
 unquestioningly	in an unquestioning manner
 unquiet	characterized by unrest or disorder
 unquote	not quote
@@ -1583,7 +1583,7 @@ unreasonably	not in a reasonable or intelligent manner
 unreasoning	not based on reason or evidence
 unreceptive	not receptive
 unrecognisable	defying recognition as e.g. because of damage or alteration
-unrecognised	not having a secure reputation
+unrecognised	not recognized
 unrecognizable	defying recognition as e.g. because of damage or alteration
 unrecognized	not recognized
 unreconstructed	adhering to an attitude or position widely held to be outmoded
@@ -1594,16 +1594,16 @@ unreel	unwind from or as if from a reel
 unreeled	UNREEL: unwind from or as if from a reel
 unreeling	UNREEL: unwind from or as if from a reel
 unreels	UNREEL: unwind from or as if from a reel
-unrefined	not refined or processed
+unrefined	(used of persons and their behavior) not refined; uncouth
 unreformed	unaffected by the Reformation
 unrefrigerated	not refrigerated
-unregenerate	tenaciously unwilling or marked by tenacious unwillingness to yield
-unregistered	(of animals) not recorded with or certified by an official breed association
+unregenerate	not reformed morally or spiritually
+unregistered	not registered
 unregulated	not regulated; not subject to rule or discipline
 unrehearsed	with little or no preparation or forethought
 unrelated	lacking a logical or causal relation
 unreleased	not (or not yet) made available for distribution or publication
-unrelenting	not to be placated or appeased or moved by entreaty
+unrelenting	never-ceasing
 unrelentingly	in a relentless manner
 unreliability	the trait of not being dependable or reliable
 unreliable	liable to be erroneous or misleading
@@ -1621,10 +1621,10 @@ unreported	not reported
 unrepresentative	not exemplifying a class
 unrepresented	not represented
 unrequited	not returned in kind
-unreserved	not reserved
+unreserved	not cautious or reticent
 unreservedly	without reservation
 unresistant	(often followed by `to') likely to be affected with
-unresolvable	not easily solved
+unresolvable	not capable of being resolved
 unresolved	not solved
 unresponsive	not responding to some influence or stimulus
 unresponsively	not responsively
@@ -1645,10 +1645,10 @@ unriper	UNRIPE: not fully developed or mature; not ripe
 unripest	UNRIPE: not fully developed or mature; not ripe
 unrivaled	eminent beyond or above comparison
 unrivalled	eminent beyond or above comparison
-unroll	reverse the winding or twisting of
-unrolled	UNROLL: reverse the winding or twisting of
-unrolling	UNROLL: reverse the winding or twisting of
-unrolls	UNROLL: reverse the winding or twisting of
+unroll	unroll, unfold, or spread out or be unrolled, unfolded, or spread out from a furled state
+unrolled	UNROLL: unroll, unfold, or spread out or be unrolled, unfolded, or spread out from a furled state
+unrolling	UNROLL: unroll, unfold, or spread out or be unrolled, unfolded, or spread out from a furled state
+unrolls	UNROLL: unroll, unfold, or spread out or be unrolled, unfolded, or spread out from a furled state
 unromantic	neither expressive of nor exciting sexual love or romance
 unruffled	free from emotional agitation or nervous tension
 unrulier	UNRULY: noisy and lacking in restraint or discipline
@@ -1660,10 +1660,10 @@ unsaddle	remove the saddle from
 unsaddled	with no saddle
 unsaddles	UNSADDLE: remove the saddle from
 unsaddling	UNSADDLE: remove the saddle from
-unsafe	lacking in security or safety
+unsafe	involving or causing danger or risk; liable to hurt or harm
 unsafely	not safely
-unsafer	UNSAFE: lacking in security or safety
-unsafest	UNSAFE: lacking in security or safety
+unsafer	UNSAFE: involving or causing danger or risk; liable to hurt or harm
+unsafest	UNSAFE: involving or causing danger or risk; liable to hurt or harm
 unsaid	not made explicit
 unsalable	impossible to sell
 unsaleable	impossible to sell
@@ -1705,14 +1705,14 @@ unscrupulous	without scruples or principles
 unscrupulously	without scruples
 unscrupulousness	the quality of unscrupulous dishonesty
 unseal	break the seal of
-unsealed	not established or confirmed
+unsealed	not closed or secured with or as if with a seal
 unsealing	UNSEAL: break the seal of
 unseals	UNSEAL: break the seal of
 unsearchable	impossible to search
 unseasonable	not in keeping with (and usually undesirable for) the season
 unseasonably	not in accordance with the season
 unseasonal	not seasonal
-unseasoned	not aged or processed
+unseasoned	without salt or seasoning
 unseat	remove from political office
 unseated	UNSEAT: remove from political office
 unseating	UNSEAT: remove from political office
@@ -1757,7 +1757,7 @@ unsheathed	UNSHEATHE: draw from a sheath or scabbard
 unsheathes	UNSHEATHE: draw from a sheath or scabbard
 unsheathing	UNSHEATHE: draw from a sheath or scabbard
 unshelled	of animals or fruits that have no shell
-unshod	(used of certain religious orders) barefoot or wearing only sandals
+unshod	not shod
 unshorn	not sheared
 unsifted	not sifted
 unsightlier	UNSIGHTLY: unpleasant to look at
@@ -1788,14 +1788,14 @@ unsolicited	not requested or sought
 unsolvable	not easily solved
 unsolved	not solved
 unsophisticated	not wise in the ways of the world
-unsorted	not arranged according to size
+unsorted	not categorized or sorted
 unsought	not desired
 unsound	not in good condition; damaged or decayed
 unsounder	UNSOUND: not in good condition; damaged or decayed
 unsoundest	UNSOUND: not in good condition; damaged or decayed
 unsoundly	not soundly
 unsoundness	a condition of damage or decay
-unsparing	very generous
+unsparing	not forbearing; ruthless
 unsparingly	in a scathing and unsparing manner
 unspeakable	defying expression or description
 unspeakableness	the quality of being unspeakable
@@ -1813,11 +1813,11 @@ unstable	lacking stability or fixity or firmness
 unstably	not stably
 unstained	not stained
 unstated	not made explicit
-unsteadier	UNSTEADY: subject to change or variation
-unsteadiest	UNSTEADY: subject to change or variation
+unsteadier	UNSTEADY: not firmly or solidly positioned
+unsteadiest	UNSTEADY: not firmly or solidly positioned
 unsteadily	in an unsteady manner
 unsteadiness	the quality of not being steady or securely fixed in place
-unsteady	subject to change or variation
+unsteady	not firmly or solidly positioned
 unstinting	very generous
 unstop	not stop
 unstoppable	not capable of being stopped
@@ -1853,8 +1853,8 @@ unsullied	spotlessly clean and fresh
 unsung	not famous or acclaimed
 unsupervised	not supervised or under constant observation
 unsupportable	not able to be supported or defended
-unsupported	not sustained or maintained by nonmaterial aid
-unsure	lacking self-confidence
+unsupported	not held up or borne
+unsure	lacking or indicating lack of confidence or assurance
 unsurpassed	not capable of being improved on
 unsurprised	not surprised or expressing surprise
 unsurprising	not causing surprise
@@ -1865,7 +1865,7 @@ unsuspectingly	without suspicions
 unsustainable	not sustainable
 unswayed	not influenced or affected
 unsweetened	not made sweet
-unswerving	going directly ahead from one point to another without veering or turning aside
+unswerving	firm and dependable especially in loyalty
 unsympathetic	not sympathetic or disposed toward
 unsympathetically	without sympathy; in an unsympathetic manner
 unsystematic	lacking systematic arrangement or method or organization
@@ -1878,7 +1878,7 @@ untangled	not tangled
 untangles	UNTANGLE: release from entanglement of difficulty
 untangling	the act of releasing from a snarled or tangled condition
 untanned	not converted to leather by a tanning agent
-untapped	not subjected to tapping
+untapped	not drawn upon or used
 untarnished	(of reputation) free from blemishes
 untasted	still full
 untaught	lacking in schooling
@@ -1904,15 +1904,15 @@ unties	UNTIE: undo the ties of
 until	up to the time of
 untimelier	UNTIMELY: badly timed
 untimeliest	UNTIMELY: badly timed
-untimeliness	being at an inappropriate time
+untimeliness	the quality of occurring at an inconvenient time
 untimely	badly timed
 untiring	characterized by hard work and perseverance
 untiringly	in a untiring way
 untitled	not of the nobility
 unto	to
 untold	too much to be measured
-untouchable	belongs to lowest social and ritual class in India
-untouchables	UNTOUCHABLE: belongs to lowest social and ritual class in India
+untouchable	beyond the reach of criticism or attack or impeachment
+untouchables	UNTOUCHABLE: beyond the reach of criticism or attack or impeachment
 untouched	still full
 untoward	not in keeping with accepted standards of what is right or proper in polite society
 untraceable	incapable of being traced or tracked down
@@ -1921,13 +1921,13 @@ untrammeled	not confined or limited
 untrammelled	not confined or limited
 untranslatable	not capable of being put into another form or style or language
 untranslated	not translated
-untraveled	not traveled over or through
+untraveled	not having traveled much, especially to foreign lands; not having gained experience by travel
 untreatable	unable to be treated
 untreated	not given medical care or treatment
 untried	not tried or tested by experience
 untrimmed	not trimmed
 untrodden	lacking pathways
-untroubled	not beset by troubles or disturbance or distress
+untroubled	free from fear or doubt; easy in mind
 untrue	not according with the facts
 untruer	UNTRUE: not according with the facts
 untruest	UNTRUE: not according with the facts
@@ -1954,10 +1954,10 @@ unusable	not capable of being used
 unused	not yet used or soiled
 unusual	not usual or common or ordinary
 unusually	to a remarkable degree or extent
-unutterable	too sacred to be uttered
+unutterable	defying expression or description
 unutterably	to an inexpressible degree
 unvaried	lacking variety
-unvarnished	not having a coating of stain or varnish
+unvarnished	free from any effort to soften to disguise
 unvarying	unvarying in nature
 unveil	remove the veil from
 unveiled	UNVEIL: remove the veil from
@@ -1978,7 +1978,7 @@ unwarily	without heed or caution
 unwariness	the trait of not being cautious and watchful
 unwarranted	incapable of being justified or explained
 unwary	not alert to danger or deception
-unwashed	of or associated with the great masses of people
+unwashed	not cleaned with or as if with soap and water
 unwatchable	too bad or disturbing to watch
 unwatched	not watched
 unwavering	marked by firm determination or resolution; not shakable
@@ -1994,7 +1994,7 @@ unwholesome	detrimental to physical or moral well-being
 unwholesomeness	the quality of being unhealthful and generally bad for you
 unwieldier	UNWIELDY: difficult to use or handle or manage because of size or weight or shape
 unwieldiest	UNWIELDY: difficult to use or handle or manage because of size or weight or shape
-unwieldiness	the quality of being difficult to direct or control by reason of complexity
+unwieldiness	trouble in carrying or managing caused by bulk or shape
 unwieldy	difficult to use or handle or manage because of size or weight or shape
 unwilling	not disposed or inclined toward
 unwillingly	in an unwilling manner
@@ -2048,8 +2048,8 @@ upbraider	someone who finds fault or imputes blame
 upbraiders	UPBRAIDER: someone who finds fault or imputes blame
 upbraiding	a severe scolding
 upbraids	UPBRAID: express criticism towards
-upbringing	properties acquired during a person's formative years
-upbringings	UPBRINGING: properties acquired during a person's formative years
+upbringing	helping someone grow up to be an accepted member of the community
+upbringings	UPBRINGING: helping someone grow up to be an accepted member of the community
 upchuck	eject the contents of the stomach through the mouth
 upchucked	UPCHUCK: eject the contents of the stomach through the mouth
 upchucking	UPCHUCK: eject the contents of the stomach through the mouth
@@ -2065,10 +2065,10 @@ updraft	a strong upward air current
 updrafts	UPDRAFT: a strong upward air current
 updraught	an upward current of air
 updraughts	UPDRAUGHT: an upward current of air
-upend	become turned or set on end
+upend	set, turn, or stand on end
 upended	turned up on end
 upending	turning upside down; setting on end
-upends	UPEND: become turned or set on end
+upends	UPEND: set, turn, or stand on end
 upfront	frank and honest
 upgrade	rate higher; raise in value or esteem
 upgraded	UPGRADE: rate higher; raise in value or esteem
@@ -2077,8 +2077,8 @@ upgrading	UPGRADE: rate higher; raise in value or esteem
 upheaval	a state of violent disturbance and disorder (as in politics or social conditions generally)
 upheavals	UPHEAVAL: a state of violent disturbance and disorder (as in politics or social conditions generally)
 upheld	UPHOLD: support or confirm
-uphill	the upward slope of a hill
-uphills	UPHILL: the upward slope of a hill
+uphill	sloping upward
+uphills	UPHILL: sloping upward
 uphold	keep or maintain in unaltered condition; cause to remain or last
 upholder	someone who upholds or maintains
 upholders	UPHOLDER: someone who upholds or maintains
@@ -2131,13 +2131,13 @@ upraised	held up in the air
 upraises	UPRAISE: cause to become alive again
 upraising	UPRAISE: cause to become alive again
 upright	in a vertical position; not sloping
-uprightness	the property of being upright in posture
+uprightness	righteousness as a consequence of being honorable and honest
 uprights	UPRIGHT: in a vertical position; not sloping
 uprising	organized opposition to authority; a conflict in which one faction tries to wrest control from another
 uprisings	UPRISING: organized opposition to authority; a conflict in which one faction tries to wrest control from another
 upriver	toward the source or against the current
 uproar	a state of commotion and noise and confusion
-uproarious	uncontrollably noisy
+uproarious	marked by or causing boisterous merriment or convulsive laughter
 uproariously	in a hilarious manner
 uproars	UPROAR: a state of commotion and noise and confusion
 uproot	move (people) forcibly from their homeland into a new and foreign environment
@@ -2173,9 +2173,9 @@ upstarting	UPSTART: spring up suddenly
 upstarts	UPSTART: an arrogant or presumptuous person
 upstate	in or toward the northern parts of a state
 upstream	in the direction against a stream's current
-upsurge	a sudden forceful flow
+upsurge	a sudden or abrupt strong increase
 upsurged	UPSURGE: rise suddenly
-upsurges	UPSURGE: a sudden forceful flow
+upsurges	UPSURGE: a sudden or abrupt strong increase
 upsurging	UPSURGE: rise suddenly
 upswing	an upward trend
 upswings	UPSWING: an upward trend
@@ -2198,21 +2198,21 @@ upwardly	spatially or metaphorically from a lower to a higher position
 upwards	spatially or metaphorically from a lower to a higher position
 upwell	rise to the surface
 upwelling	UPWELL: rise to the surface
-upwind	towards the side exposed to wind
+upwind	in the direction opposite to the direction the wind is blowing
 uranium	a heavy toxic silvery-white radioactive metallic element; occurs in many isotopes; used for nuclear fuels and nuclear weapons
 urban	relating to or concerned with a city or densely populated area
 urbane	showing a high degree of refinement and the assurance that comes from wide social experience
 urbanely	in an urbane manner
 urbaner	URBAN: relating to or concerned with a city or densely populated area
 urbanest	URBAN: relating to or concerned with a city or densely populated area
-urbanisation	the condition of being urbanized
-urbanise	impart urban habits, ways of life, or responsibilities upon
+urbanisation	the social process whereby cities grow and societies become more urban
+urbanise	make more industrial or city-like
 urbanised	made urban in nature; taking on urban characteristics
-urbanises	URBANISE: impart urban habits, ways of life, or responsibilities upon
-urbanising	URBANISE: impart urban habits, ways of life, or responsibilities upon
+urbanises	URBANISE: make more industrial or city-like
+urbanising	URBANISE: make more industrial or city-like
 urbanism	city life or the study of cities
 urbanity	polished courtesy; elegance of manner
-urbanization	the condition of being urbanized
+urbanization	the social process whereby cities grow and societies become more urban
 urbanize	make more industrial or city-like
 urbanized	made urban in nature; taking on urban characteristics
 urbanizes	URBANIZE: make more industrial or city-like
@@ -2245,10 +2245,10 @@ urinals	URINAL: a plumbing fixture (usually attached to the wall) used by men to
 urinalyses	URINALYSIS: laboratory testing of urine
 urinalysis	the chemical analysis of urine (for medical diagnosis)
 urinary	of or relating to the function or production or secretion of urine
-urinate	pass after the manner of urine
-urinated	URINATE: pass after the manner of urine
-urinates	URINATE: pass after the manner of urine
-urinating	URINATE: pass after the manner of urine
+urinate	eliminate urine
+urinated	URINATE: eliminate urine
+urinates	URINATE: eliminate urine
+urinating	URINATE: eliminate urine
 urination	the discharge of urine
 urine	liquid excretory product
 urn	a large vase that usually has a pedestal or feet
@@ -2293,21 +2293,21 @@ usurer	someone who lends money at excessive rates of interest
 usurers	USURER: someone who lends money at excessive rates of interest
 usurious	greatly exceeding bounds of reason or moderation
 usurp	seize and take control without authority and possibly with force; take as one's right or possession
-usurpation	entry to another's property without right or permission
+usurpation	wrongfully seizing and holding (an office or powers) by force (especially the seizure of a throne or supreme authority)
 usurped	USURP: seize and take control without authority and possibly with force; take as one's right or possession
 usurper	one who wrongfully or illegally seizes and holds the place of another
 usurpers	USURPER: one who wrongfully or illegally seizes and holds the place of another
 usurping	USURP: seize and take control without authority and possibly with force; take as one's right or possession
 usurps	USURP: seize and take control without authority and possibly with force; take as one's right or possession
 usury	an exorbitant or unlawful rate of interest
-ute	a member of the Shoshonean people of Utah and Colorado and New Mexico
+ute	a utility vehicle with an open tray at the back (Australian)
 utensil	an implement for practical use (especially in a household)
 utensils	UTENSIL: an implement for practical use (especially in a household)
 uteri	UTERUS: the womb
 uterine	of or involving the uterus
 uterus	a hollow muscular organ in the pelvic cavity of females; contains the developing fetus
 uteruses	UTERUS: a hollow muscular organ in the pelvic cavity of females; contains the developing fetus
-utes	UTE: a member of the Shoshonean people of Utah and Colorado and New Mexico
+utes	UTE: a utility vehicle with an open tray at the back (Australian)
 utilisation	the act of using
 utilise	put into service; make work or employ for a particular purpose or for its inherent or natural purpose
 utilised	put to use
@@ -2333,10 +2333,10 @@ utterance	the use of uttered sounds for auditory communication
 utterances	UTTERANCE: the use of uttered sounds for auditory communication
 uttered	UTTER: articulate; either verbally or with a cry, shout, or noise
 utterer	UTTER: articulate; either verbally or with a cry, shout, or noise
-utterers	UTTERER: an organism that can utter vocal sounds
+utterers	UTTERER: someone who expresses in language; someone who talks (especially someone who delivers a public speech or someone especially garrulous)
 uttering	UTTER: articulate; either verbally or with a cry, shout, or noise
 utterly	completely and without qualification; used informally as intensifiers
-uttermost	the greatest possible degree
+uttermost	of the greatest possible degree or extent or intensity
 utters	UTTER: articulate; either verbally or with a cry, shout, or noise
 uveitis	inflammation of the uvea of the eye
 uvula	a small pendant fleshy lobe at the back of the soft palate

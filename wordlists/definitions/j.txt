@@ -15,7 +15,7 @@ jabots	JABOT: a ruffle on the front of a woman's blouse or a man's shirt
 jabs	JAB: a sharp hand gesture (resembling a blow)
 jacana	a long-toed wading bird that walks on floating plants
 jacanas	JACANA: a long-toed wading bird that walks on floating plants
-jack	a small worthless amount
+jack	tool for exerting pressure or lifting
 jackal	Old World nocturnal canine mammal closely related to the dog; smaller than a wolf; sometimes hunts in a pack but usually singly or as a member of a pair
 jackals	JACKAL: Old World nocturnal canine mammal closely related to the dog; smaller than a wolf; sometimes hunts in a pack but usually singly or as a member of a pair
 jackanapes	someone who is unimportant but cheeky and presumptuous
@@ -31,14 +31,14 @@ jackbooted	wearing heavy boots, or harsh and oppressive
 jackboots	JACKBOOT: a man's high tasseled boot
 jackdaw	common black-and-grey Eurasian bird noted for thievery
 jackdaws	JACKDAW: common black-and-grey Eurasian bird noted for thievery
-jacked	JACK: a small worthless amount
+jacked	JACK: tool for exerting pressure or lifting
 jacket	a short coat
 jacketed	JACKET: a short coat
 jackets	JACKET: a short coat
 jackfruit	immense East Indian fruit resembling breadfruit; it contains an edible pulp and nutritious seeds that are commonly roasted
 jackhammer	a hammer driven by compressed air
 jackhammers	JACKHAMMER: a hammer driven by compressed air
-jacking	JACK: a small worthless amount
+jacking	JACK: tool for exerting pressure or lifting
 jackknife	a large knife with one or more folding blades
 jackknifed	JACKKNIFE: a large knife with one or more folding blades
 jackknifes	JACKKNIFE: a large knife with one or more folding blades
@@ -54,7 +54,7 @@ jaded	exhausted
 jadeite	a hard green mineral consisting of sodium aluminum silicate in monoclinic crystalline form; a source of jade; found principally in Burma
 jades	JADE: a semiprecious gemstone that takes a high polish; is usually green but sometimes whitish; consists of jadeite or nephrite
 jading	JADE: a semiprecious gemstone that takes a high polish; is usually green but sometimes whitish; consists of jadeite or nephrite
-jag	a sharp projection on an edge or surface
+jag	a bout of drinking or drug taking
 jagged	having a sharply uneven surface or outline
 jaggeder	JAGGED: having a sharply uneven surface or outline
 jaggedest	JAGGED: having a sharply uneven surface or outline
@@ -64,7 +64,7 @@ jagger	English rock star (born in 1943)
 jaggers	JAGGER: English rock star (born in 1943)
 jaggery	unrefined brown sugar made from palm sap
 jaggies	jagged edges on a pixelated image
-jags	JAG: a sharp projection on an edge or surface
+jags	JAG: a bout of drinking or drug taking
 jaguar	a large spotted feline of tropical America similar to the leopard; in some classifications considered a member of the genus Felis
 jaguars	JAGUAR: a large spotted feline of tropical America similar to the leopard; in some classifications considered a member of the genus Felis
 jail	a correctional institution used to detain persons who are in the lawful custody of the government (either accused persons awaiting trial or convicted persons serving a sentence)
@@ -88,8 +88,8 @@ jalapeno	hot green or red pepper of southwestern United States and Mexico
 jalapenos	JALAPENO: hot green or red pepper of southwestern United States and Mexico
 jalopies	JALOPY: a car that is old and unreliable
 jalopy	a car that is old and unreliable
-jalousie	a window with glass louvers
-jalousies	JALOUSIE: a window with glass louvers
+jalousie	a shutter made of angled slats
+jalousies	JALOUSIE: a shutter made of angled slats
 jam	press tightly together or cram
 jamb	upright consisting of a vertical side member of a door or window frame
 jambalaya	spicy Creole dish of rice and ham, sausage, chicken, or shellfish with tomatoes, peppers, onions, and celery
@@ -120,7 +120,7 @@ japers	JAPER: a person who plays tricks or jokes
 japes	JAPE: a humorous anecdote or remark intended to provoke laughter
 japing	JAPE: joking or playing tricks
 japonaise	cooked or served in the Japanese style
-japonica	greenhouse shrub with glossy green leaves and showy fragrant rose-like flowers; cultivated in many varieties
+japonica	deciduous thorny shrub native to Japan having red blossoms
 jar	be incompatible; be or come into conflict
 jarful	the quantity contained in a jar
 jarfuls	JARFUL: the quantity contained in a jar
@@ -134,7 +134,7 @@ jasmine	any of several shrubs and vines of the genus Jasminum chiefly native to 
 jasmines	JASMINE: any of several shrubs and vines of the genus Jasminum chiefly native to Asia
 jasper	an opaque form of quartz; red or yellow or brown or dark green in color; used for ornamentation or as a gemstone
 jaundice	yellowing of the skin and the whites of the eyes caused by an accumulation of bile pigment (bilirubin) in the blood; can be a symptom of gallstones or liver infection or anemia
-jaundiced	affected by jaundice which causes yellowing of skin etc
+jaundiced	showing or affected by prejudice or envy or distaste
 jaundices	JAUNDICE: yellowing of the skin and the whites of the eyes caused by an accumulation of bile pigment (bilirubin) in the blood; can be a symptom of gallstones or liver infection or anemia
 jaundicing	JAUNDICE: yellowing of the skin and the whites of the eyes caused by an accumulation of bile pigment (bilirubin) in the blood; can be a symptom of gallstones or liver infection or anemia
 jaunt	a journey taken for pleasure
@@ -142,13 +142,13 @@ jaunted	JAUNT: a journey taken for pleasure
 jauntier	JAUNTY: marked by up-to-dateness in dress and manners
 jauntiest	JAUNTY: marked by up-to-dateness in dress and manners
 jauntily	in a jaunty fashionable manner
-jauntiness	stylishness as evidenced by a smart appearance
+jauntiness	a breezy liveliness
 jaunting	JAUNT: a journey taken for pleasure
 jaunts	JAUNT: a journey taken for pleasure
 jaunty	marked by up-to-dateness in dress and manners
 java	an island in Indonesia to the south of Borneo; one of the world's most densely populated regions
-javelin	an athletic competition in which a javelin is thrown as far as possible
-javelins	JAVELIN: an athletic competition in which a javelin is thrown as far as possible
+javelin	a spear thrown as a weapon or in competitive field events
+javelins	JAVELIN: a spear thrown as a weapon or in competitive field events
 jaw	talk socially without exchanging too much information
 jawbone	the jaw in vertebrates that is hinged to open the mouth
 jawboned	JAWBONE: the jaw in vertebrates that is hinged to open the mouth
@@ -162,26 +162,26 @@ jawless	of animals having no jaw
 jawline	the shape of the lower edge of the face
 jawlines	JAWLINE: the shape of the lower edge of the face
 jaws	JAW: talk socially without exchanging too much information
-jay	United States diplomat and jurist who negotiated peace treaties with Britain and served as the first chief justice of the United States Supreme Court (1745-1829)
+jay	crested largely blue bird
 jaybird	common jay of eastern North America; bright blue with grey breast
 jaybirds	JAYBIRD: common jay of eastern North America; bright blue with grey breast
-jays	JAY: United States diplomat and jurist who negotiated peace treaties with Britain and served as the first chief justice of the United States Supreme Court (1745-1829)
+jays	JAY: crested largely blue bird
 jaywalk	cross the road at a red light
 jaywalked	JAYWALK: cross the road at a red light
 jaywalker	a reckless pedestrian who crosses a street illegally
 jaywalkers	JAYWALKER: a reckless pedestrian who crosses a street illegally
 jaywalking	JAYWALK: cross the road at a red light
 jaywalks	JAYWALK: cross the road at a red light
-jazz	empty rhetoric or insincere or exaggerated talk
-jazzed	JAZZ: empty rhetoric or insincere or exaggerated talk
-jazzes	JAZZ: empty rhetoric or insincere or exaggerated talk
+jazz	a genre of popular music that originated in New Orleans around 1900 and developed through increasingly complex styles
+jazzed	JAZZ: a genre of popular music that originated in New Orleans around 1900 and developed through increasingly complex styles
+jazzes	JAZZ: a genre of popular music that originated in New Orleans around 1900 and developed through increasingly complex styles
 jazzier	JAZZY: resembling jazz (especially in its rhythm)
 jazziest	JAZZY: resembling jazz (especially in its rhythm)
-jazzing	JAZZ: empty rhetoric or insincere or exaggerated talk
+jazzing	JAZZ: a genre of popular music that originated in New Orleans around 1900 and developed through increasingly complex styles
 jazzy	resembling jazz (especially in its rhythm)
 jealous	showing extreme cupidity; painfully desirous of another's advantages
 jealousies	JEALOUSY: a feeling of jealous envy (especially of a rival)
-jealously	with jealousy
+jealously	with jealousy; in an envious manner
 jealousy	a feeling of jealous envy (especially of a rival)
 jeans	(used in the plural) close-fitting trousers of heavy denim for manual work or casual wear
 jeep	a car suitable for traveling over rough terrain
@@ -197,7 +197,7 @@ jeers	JEER: laugh at with contempt and derision
 jeez	exclamation of surprise or annoyance
 jehad	a holy struggle or striving by a Muslim for a moral or spiritual or political goal
 jehads	JEHAD: a holy struggle or striving by a Muslim for a moral or spiritual or political goal
-jejune	of insufficient quantity to meet a need
+jejune	lacking interest or significance or impact
 jejunum	the part of the small intestine between the duodenum and the ileum
 jell	become gelatinous
 jelled	congealed into jelly; solidified by cooling
@@ -210,8 +210,8 @@ jells	JELL: become gelatinous
 jelly	an edible jelly (sweet or pungent) made with gelatin and used as a dessert or salad base or a coating for foods
 jellybean	a bean-shaped chewy sweet
 jellybeans	JELLYBEAN: a bean-shaped chewy sweet
-jellyfish	large siphonophore having a bladderlike float and stinging tentacles
-jellyfishes	JELLYFISH: large siphonophore having a bladderlike float and stinging tentacles
+jellyfish	any of numerous usually marine and free-swimming coelenterates that constitute the sexually reproductive forms of hydrozoans and scyphozoans
+jellyfishes	JELLYFISH: any of numerous usually marine and free-swimming coelenterates that constitute the sexually reproductive forms of hydrozoans and scyphozoans
 jellying	JELLY: an edible jelly (sweet or pungent) made with gelatin and used as a dessert or salad base or a coating for foods
 jemmied	JEMMY: forced open with a crowbar
 jemmies	JEMMY: a short crowbar
@@ -236,19 +236,19 @@ jerker	someone who gives a strong sudden pull
 jerkers	JERKER: someone who gives a strong sudden pull
 jerkier	JERKY: meat (especially beef) cut in strips and dried in the sun
 jerkiest	JERKY: meat (especially beef) cut in strips and dried in the sun
-jerkily	with spasms
+jerkily	with jerking motions
 jerkin	a tight sleeveless and collarless jacket (often made of leather) worn by men in former times
 jerking	an abrupt spasmodic movement
 jerkins	JERKIN: a tight sleeveless and collarless jacket (often made of leather) worn by men in former times
 jerks	JERK: pull, or move with a sudden movement
 jerkwater	small and remote and insignificant
 jerky	meat (especially beef) cut in strips and dried in the sun
-jeroboam	first king of the northern kingdom of Israel who led Israel into sin (10th century BC)
-jeroboams	JEROBOAM: first king of the northern kingdom of Israel who led Israel into sin (10th century BC)
+jeroboam	a large wine bottle (holds 4/5 of a gallon)
+jeroboams	JEROBOAM: a large wine bottle (holds 4/5 of a gallon)
 jerrycan	a sturdy container for fuel or water
 jerrycans	JERRYCAN: a sturdy container for fuel or water
-jersey	a Mid-Atlantic state on the Atlantic; one of the original 13 colonies
-jerseys	JERSEY: a Mid-Atlantic state on the Atlantic; one of the original 13 colonies
+jersey	a close-fitting pullover shirt
+jerseys	JERSEY: a close-fitting pullover shirt
 jessamine	a climbing deciduous shrub with fragrant white or yellow or red flowers used in perfume and to flavor tea
 jessamines	JESSAMINE: a climbing deciduous shrub with fragrant white or yellow or red flowers used in perfume and to flavor tea
 jest	a humorous anecdote or remark intended to provoke laughter
@@ -280,14 +280,14 @@ jewelers	JEWELER: someone who makes jewelry
 jeweling	JEWEL: a precious or semiprecious stone incorporated into a piece of jewelry
 jewelled	JEWEL: a precious or semiprecious stone incorporated into a piece of jewelry
 jeweller	JEWEL: a precious or semiprecious stone incorporated into a piece of jewelry
-jewellers	JEWELLER: someone who makes jewelry
+jewellers	JEWELLER: someone in the business of selling jewelry
 jewellery	an adornment (as a bracelet or ring or necklace) made of precious metals and set with gems (or imitation gems)
 jewelling	JEWEL: a precious or semiprecious stone incorporated into a piece of jewelry
 jewelries	JEWELRY: an adornment (as a bracelet or ring or necklace) made of precious metals and set with gems (or imitation gems)
 jewelry	an adornment (as a bracelet or ring or necklace) made of precious metals and set with gems (or imitation gems)
 jewels	JEWEL: a precious or semiprecious stone incorporated into a piece of jewelry
-jezebel	wife of Ahab who was king of Israel; according to the Old Testament she was a cruel immoral queen who fostered the worship of Baal and tried to kill Elijah and other prophets of Israel (9th century BC)
-jezebels	JEZEBEL: wife of Ahab who was king of Israel; according to the Old Testament she was a cruel immoral queen who fostered the worship of Baal and tried to kill Elijah and other prophets of Israel (9th century BC)
+jezebel	a shameless impudent scheming woman
+jezebels	JEZEBEL: a shameless impudent scheming woman
 jib	any triangular fore-and-aft sail (set forward of the foremast)
 jibbed	JIB: any triangular fore-and-aft sail (set forward of the foremast)
 jibbing	JIB: any triangular fore-and-aft sail (set forward of the foremast)
@@ -309,17 +309,17 @@ jiggered	surprised
 jiggering	JIGGER: fiddling with or damaging
 jiggers	JIGGER: a small glass adequate to hold a single swallow of whiskey
 jigging	JIG: dance a quick dance with leaping and kicking motions
-jiggle	a slight irregular shaking motion
-jiggled	JIGGLE: a slight irregular shaking motion
-jiggles	JIGGLE: a slight irregular shaking motion
-jiggling	JIGGLE: a slight irregular shaking motion
+jiggle	move to and fro
+jiggled	JIGGLE: move to and fro
+jiggles	JIGGLE: move to and fro
+jiggling	JIGGLE: move to and fro
 jiggly	shaking with small quick movements
 jigs	JIG: dance a quick dance with leaping and kicking motions
-jigsaw	a portable power saw with a reciprocating blade; can be used with a variety of blades depending on the application and kind of cut; generally have a plate that rides on the surface that is being cut
+jigsaw	a puzzle of cut-out pieces to be fitted back together into a picture
 jigsawed	JIGSAW: cut with a jigsaw
 jigsawing	JIGSAW: cutting with a jigsaw
 jigsawn	JIGSAW: cut with a jigsaw
-jigsaws	JIGSAW: a portable power saw with a reciprocating blade; can be used with a variety of blades depending on the application and kind of cut; generally have a plate that rides on the surface that is being cut
+jigsaws	JIGSAW: a puzzle of cut-out pieces to be fitted back together into a picture
 jihad	a holy struggle or striving by a Muslim for a moral or spiritual or political goal
 jihadist	a Muslim who is involved in a jihad
 jihadists	JIHADIST: a Muslim who is involved in a jihad
@@ -343,7 +343,7 @@ jingle	make a sound typical of metallic objects
 jingled	JINGLE: make a sound typical of metallic objects
 jingles	JINGLE: make a sound typical of metallic objects
 jingling	having a series of high-pitched ringing sounds like many small bells
-jingoism	an appeal intended to arouse patriotic emotions
+jingoism	fanatical patriotism
 jingoist	an extreme bellicose nationalist
 jingoistic	fanatically patriotic
 jingoists	JINGOIST: an extreme bellicose nationalist
@@ -367,15 +367,15 @@ jird	gerbil of northern Africa
 jirds	JIRD: gerbil of northern Africa
 jitney	a vehicle carrying many passengers; used for public transport
 jitneys	JITNEY: a vehicle carrying many passengers; used for public transport
-jitter	small rapid variations in a waveform resulting from fluctuations in the voltage supply or mechanical vibrations or other sources
+jitter	a small irregular movement
 jitterbug	a jerky American dance that was popular in the 1940s
 jitterbugged	JITTERBUG: a jerky American dance that was popular in the 1940s
 jitterbugging	JITTERBUG: a jerky American dance that was popular in the 1940s
 jitterbugs	JITTERBUG: a jerky American dance that was popular in the 1940s
-jitterier	JITTERY: characterized by jerky movements
-jitteriest	JITTERY: characterized by jerky movements
+jitterier	JITTERY: being in a tense state
+jitteriest	JITTERY: being in a tense state
 jitters	extreme nervousness
-jittery	characterized by jerky movements
+jittery	being in a tense state
 jiujitsu	a method of self-defense without weapons that was developed in China and Japan; holds and blows are supplemented by clever use of the attacker's own weight and strength
 jive	dance to jive music; dance the jive
 jived	JIVE: dance to jive music; dance the jive
@@ -409,7 +409,7 @@ jocose	characterized by jokes and good humor
 jocosely	with humor
 jocosity	fun characterized by humor
 jocular	characterized by jokes and good humor
-jocularity	a feeling facetious merriment
+jocularity	fun characterized by humor
 jocularly	in a jocular way
 jocund	full of or showing high-spirited merriment
 jocundity	a feeling facetious merriment
@@ -434,9 +434,9 @@ johnny	`Johnny' was applied as a nickname for Confederate soldiers by the Federa
 johns	JOHN: a room or building equipped with one or more toilets
 join	become part of; become a member of a group or organization
 joined	of or relating to two people who are married to each other
-joiner	a person who likes to join groups
-joiners	JOINER: a person who likes to join groups
-joinery	fine woodwork done by a joiner
+joiner	a woodworker whose work involves making things by joining pieces of wood
+joiners	JOINER: a woodworker whose work involves making things by joining pieces of wood
+joinery	the craft of a joiner
 joining	JOIN: become part of; become a member of a group or organization
 joins	JOIN: become part of; become a member of a group or organization
 joint	the point of connection between two bones or elements of a skeleton (especially if it allows motion)
@@ -559,8 +559,8 @@ joyrides	JOYRIDE: a ride in a car taken solely for pleasure
 joyriding	JOYRIDE: a ride in a car taken solely for pleasure
 joyrode	JOYRIDE: took a reckless drive in a stolen car
 joys	JOY: the emotion of great happiness
-joystick	a lever used by a pilot to control the ailerons and elevators of an airplane
-joysticks	JOYSTICK: a lever used by a pilot to control the ailerons and elevators of an airplane
+joystick	a manual control consisting of a vertical handle that can move freely in two directions; used as an input device to computers or to devices controlled by computers
+joysticks	JOYSTICK: a manual control consisting of a vertical handle that can move freely in two directions; used as an input device to computers or to devices controlled by computers
 jubilant	joyful and proud especially because of triumph or success
 jubilantly	in a joyous manner
 jubilation	a feeling of extreme joy
@@ -572,9 +572,9 @@ juddering	JUDDER: shake or vibrate rapidly and intensively
 judders	JUDDER: shake or vibrate rapidly and intensively
 judge	determine the result of (a competition)
 judged	JUDGE: determine the result of (a competition)
-judgement	the legal document stating the reasons for a judicial decision
+judgement	an opinion formed by judging something
 judgemental	too quick to criticise others
-judgements	JUDGEMENT: the legal document stating the reasons for a judicial decision
+judgements	JUDGEMENT: an opinion formed by judging something
 judges	JUDGE: determine the result of (a competition)
 judgeship	the position of judge
 judging	JUDGE: determine the result of (a competition)
@@ -582,9 +582,9 @@ judgment	an opinion formed by judging something
 judgmental	depending on judgment
 judgmentally	in a way that criticises others harshly
 judgments	JUDGMENT: an opinion formed by judging something
-judicature	an assembly (including one or more judges) to conduct judicial business
+judicature	the system of law courts that administer justice and constitute the judicial branch of government
 judicial	decreed by or proceeding from a court of justice
-judicially	as ordered by a court
+judicially	in a judicial manner
 judiciaries	JUDICIARY: persons who administer justice
 judiciary	persons who administer justice
 judicious	marked by the exercise of good judgment or common sense in practical matters
@@ -598,22 +598,22 @@ jugged	JUG: a large bottle with a narrow mouth
 juggernaut	a massive inexorable force that seems to crush everything in its way
 juggernauts	JUGGERNAUT: a massive inexorable force that seems to crush everything in its way
 jugging	JUG: a large bottle with a narrow mouth
-juggle	the act of rearranging things to give a misleading impression
-juggled	JUGGLE: the act of rearranging things to give a misleading impression
+juggle	throw, catch, and keep in the air several things simultaneously
+juggled	JUGGLE: throw, catch, and keep in the air several things simultaneously
 juggler	a performer who juggles objects and performs tricks of manual dexterity
-juggleries	JUGGLERY: artful trickery designed to achieve an end
+juggleries	JUGGLERY: the performance of a juggler
 jugglers	JUGGLER: a performer who juggles objects and performs tricks of manual dexterity
-jugglery	artful trickery designed to achieve an end
-juggles	JUGGLE: the act of rearranging things to give a misleading impression
-juggling	the act of rearranging things to give a misleading impression
+jugglery	the performance of a juggler
+juggles	JUGGLE: throw, catch, and keep in the air several things simultaneously
+juggling	throwing and catching several objects simultaneously
 jughead	a stupid person
 jugs	JUG: a large bottle with a narrow mouth
 jugular	veins in the neck that return blood from the head
 jugulars	JUGULAR: veins in the neck that return blood from the head
 juice	the liquid part that can be extracted from plant or animal tissue by squeezing or cooking
 juiced	JUICE: extracted the liquid from fruit
-juicer	a person who drinks alcoholic beverages (especially to excess)
-juicers	JUICER: a person who drinks alcoholic beverages (especially to excess)
+juicer	a squeezer with a conical ridged center that is used for squeezing juice from citrus fruit
+juicers	JUICER: a squeezer with a conical ridged center that is used for squeezing juice from citrus fruit
 juices	JUICE: the liquid part that can be extracted from plant or animal tissue by squeezing or cooking
 juicier	JUICY: full of juice
 juiciest	JUICY: full of juice
@@ -622,8 +622,8 @@ juiciness	a juicy appetizingness
 juicing	JUICE: extracting the liquid from fruit
 juicy	full of juice
 jujitsu	a method of self-defense without weapons that was developed in China and Japan; holds and blows are supplemented by clever use of the attacker's own weight and strength
-jujube	dark red plumlike fruit of Old World buckthorn trees
-jujubes	JUJUBE: dark red plumlike fruit of Old World buckthorn trees
+jujube	chewy fruit-flavored jellied candy (sometimes medicated to soothe a sore throat)
+jujubes	JUJUBE: chewy fruit-flavored jellied candy (sometimes medicated to soothe a sore throat)
 jujutsu	a method of self-defense without weapons that was developed in China and Japan; holds and blows are supplemented by clever use of the attacker's own weight and strength
 jukebox	a cabinet containing an automatic record player; records are played by inserting a coin
 jukeboxes	JUKEBOX: a cabinet containing an automatic record player; records are played by inserting a coin
@@ -640,8 +640,8 @@ jumbuck	a sheep
 jumbucks	JUMBUCK: a sheep
 jump	move forward by leaps and bounds
 jumped	JUMP: move forward by leaps and bounds
-jumper	a person who jumps
-jumpers	JUMPER: a person who jumps
+jumper	a crocheted or knitted garment covering the upper part of the body
+jumpers	JUMPER: a crocheted or knitted garment covering the upper part of the body
 jumpier	JUMPY: being in a tense state
 jumpiest	JUMPY: being in a tense state
 jumpiness	the anxious feeling you have when you have the jitters
@@ -657,22 +657,22 @@ junction	the place where two or more things come together
 junctions	JUNCTION: the place where two or more things come together
 juncture	an event that occurs at a critical time
 junctures	JUNCTURE: an event that occurs at a critical time
-jungle	a location marked by an intense competition and struggle for survival
-jungles	JUNGLE: a location marked by an intense competition and struggle for survival
+jungle	an impenetrable equatorial forest
+jungles	JUNGLE: an impenetrable equatorial forest
 junior	term of address for a disrespectful and annoying male
 juniors	JUNIOR: term of address for a disrespectful and annoying male
-juniper	desert shrub of Syria and Arabia having small white flowers; constitutes the juniper of the Old Testament; sometimes placed in genus Genista
-junipers	JUNIPER: desert shrub of Syria and Arabia having small white flowers; constitutes the juniper of the Old Testament; sometimes placed in genus Genista
+juniper	coniferous shrub or small tree with berrylike cones
+junipers	JUNIPER: coniferous shrub or small tree with berrylike cones
 junk	the remains of something that has been destroyed or broken up
 junked	JUNK: the remains of something that has been destroyed or broken up
 junker	member of the Prussian aristocracy noted especially for militarism
 junkers	German aircraft engineer who designed the first all-metal airplane (1859-1935)
-junket	dessert made of sweetened milk coagulated with rennet
-junketed	JUNKET: dessert made of sweetened milk coagulated with rennet
+junket	a trip taken by an official at public expense
+junketed	JUNKET: a trip taken by an official at public expense
 junketer	someone who goes on junkets
 junketers	JUNKETER: someone who goes on junkets
 junketing	taking an excursion for pleasure
-junkets	JUNKET: dessert made of sweetened milk coagulated with rennet
+junkets	JUNKET: a trip taken by an official at public expense
 junkie	a narcotics addict
 junkier	JUNKY: more worthless or poor in quality
 junkies	JUNKIE: a narcotics addict
@@ -712,10 +712,10 @@ justify	show to be right by providing justification or proof
 justifying	JUSTIFY: show to be right by providing justification or proof
 justly	with honesty
 justness	conformity with some esthetic standard of correctness or propriety
-jut	something that bulges out or is protuberant or projects from its surroundings
+jut	extend out or project in space
 jute	a plant fiber used in making rope or sacks
-juts	JUT: something that bulges out or is protuberant or projects from its surroundings
-jutted	JUT: something that bulges out or is protuberant or projects from its surroundings
+juts	JUT: extend out or project in space
+jutted	JUT: extend out or project in space
 jutting	extending out above or beyond a surface or boundary
 juvenile	of or relating to or characteristic of or appropriate for children or young people
 juveniles	JUVENILE: of or relating to or characteristic of or appropriate for children or young people

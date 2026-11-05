@@ -3,38 +3,38 @@ mac	a waterproof raincoat made of rubberized fabric
 macabre	shockingly repellent; inspiring horror
 macabrely	in a macabre way
 macabreness	the quality of being macabre
-macadam	broken stone used in macadamized roadways
+macadam	a paved surface having compressed layers of broken rocks held together with tar
 macadamia	any tree of the genus Macadamia
 macadamias	MACADAMIA: any tree of the genus Macadamia
 macaque	short-tailed monkey of rocky regions of Asia and Africa
 macaques	MACAQUE: short-tailed monkey of rocky regions of Asia and Africa
 macarena	a pop dance with set arm movements
 macaron	a small sandwich biscuit of almond meringue
-macaroni	a British dandy in the 18th century who affected Continental mannerisms
+macaroni	pasta in the form of slender tubes
 macaronies	MACARONI: tube-shaped pasta
-macaronis	MACARONI: a British dandy in the 18th century who affected Continental mannerisms
+macaronis	MACARONI: pasta in the form of slender tubes
 macarons	MACARON: a small sandwich biscuit of almond meringue
 macaroon	chewy cookie usually containing almond paste
 macaroons	MACAROON: chewy cookie usually containing almond paste
 macaw	long-tailed brilliantly colored parrot of Central America and South America; among the largest and showiest of parrots
 macaws	MACAW: long-tailed brilliantly colored parrot of Central America and South America; among the largest and showiest of parrots
-mace	a liquid that temporarily disables a person; prepared as an aerosol and sprayed in the face, it irritates the eyes and causes dizziness and immobilization
+mace	a ceremonial staff carried as a symbol of office or authority
 maced	MACE: sprayed with irritant spray
-macerate	separate into constituents by soaking
-macerated	MACERATE: separate into constituents by soaking
-macerates	MACERATE: separate into constituents by soaking
-macerating	MACERATE: separate into constituents by soaking
+macerate	soften, usually by steeping in liquid, and cause to disintegrate as a result
+macerated	MACERATE: soften, usually by steeping in liquid, and cause to disintegrate as a result
+macerates	MACERATE: soften, usually by steeping in liquid, and cause to disintegrate as a result
+macerating	MACERATE: soften, usually by steeping in liquid, and cause to disintegrate as a result
 maceration	softening due to soaking or steeping
-maces	MACE: a liquid that temporarily disables a person; prepared as an aerosol and sprayed in the face, it irritates the eyes and causes dizziness and immobilization
+maces	MACE: a ceremonial staff carried as a symbol of office or authority
 machete	a large heavy knife used in Central and South America as a weapon or for cutting vegetation
 machetes	MACHETE: a large heavy knife used in Central and South America as a weapon or for cutting vegetation
 machicolation	a projecting parapet supported by corbels on a medieval castle; has openings through which stones or boiling water could be dropped on an enemy
 machicolations	MACHICOLATION: a projecting parapet supported by corbels on a medieval castle; has openings through which stones or boiling water could be dropped on an enemy
 machinable	able to be shaped by machine tools
-machinate	arrange by systematic planning and united effort
-machinated	MACHINATE: arrange by systematic planning and united effort
-machinates	MACHINATE: arrange by systematic planning and united effort
-machinating	MACHINATE: arrange by systematic planning and united effort
+machinate	engage in plotting or enter into a conspiracy, swear together
+machinated	MACHINATE: engage in plotting or enter into a conspiracy, swear together
+machinates	MACHINATE: engage in plotting or enter into a conspiracy, swear together
+machinating	MACHINATE: engage in plotting or enter into a conspiracy, swear together
 machination	a crafty and involved plot to achieve your (usually sinister) ends
 machinations	MACHINATION: a crafty and involved plot to achieve your (usually sinister) ends
 machine	any mechanical or electrical device that transmits or modifies energy to perform or assist in the performance of human tasks
@@ -45,17 +45,17 @@ machining	MACHINE: any mechanical or electrical device that transmits or modifie
 machinist	a craftsman skilled in operating machine tools
 machinists	MACHINIST: a craftsman skilled in operating machine tools
 machismo	exaggerated masculinity
-macho	a male exhibiting or characterized by machismo
+macho	used of men; markedly masculine in appearance or manner
 macing	MACE: spraying with irritant spray
-macintosh	a lightweight waterproof (usually rubberized) fabric
-macintoshes	MACINTOSH: a lightweight waterproof (usually rubberized) fabric
+macintosh	a waterproof raincoat made of rubberized fabric
+macintoshes	MACINTOSH: a waterproof raincoat made of rubberized fabric
 mack	a waterproof raincoat made of rubberized fabric
-mackerel	flesh of very important usually small (to 18 in) fatty Atlantic fish
-mackerels	MACKEREL: flesh of very important usually small (to 18 in) fatty Atlantic fish
+mackerel	any of various fishes of the family Scombridae
+mackerels	MACKEREL: any of various fishes of the family Scombridae
 mackinaw	a short plaid coat made of made of thick woolen material
 mackinaws	MACKINAW: a short plaid coat made of made of thick woolen material
-mackintosh	a lightweight waterproof (usually rubberized) fabric
-mackintoshes	MACKINTOSH: a lightweight waterproof (usually rubberized) fabric
+mackintosh	a waterproof raincoat made of rubberized fabric
+mackintoshes	MACKINTOSH: a waterproof raincoat made of rubberized fabric
 macrame	a relatively coarse lace; made by weaving and knotting cords
 macro	a single computer instruction that results in a series of instructions in machine language
 macrobiotic	of or relating to the theory or practice of macrobiotics
@@ -73,7 +73,7 @@ macrons	MACRON: a diacritical mark (-) placed above a vowel to indicate a long s
 macrophage	a large phagocyte; some are fixed and other circulate in the blood stream
 macrophages	MACROPHAGE: a large phagocyte; some are fixed and other circulate in the blood stream
 macros	MACRO: a single computer instruction that results in a series of instructions in machine language
-macroscopic	visible to the naked eye; using the naked eye
+macroscopic	large enough to be visible with the naked eye
 macs	MAC: a waterproof raincoat made of rubberized fabric
 mad	roused to anger
 madam	a woman of refinement
@@ -81,11 +81,11 @@ madame	title used for a married Frenchwoman
 madams	MADAM: a woman of refinement
 madcap	a reckless impetuous irresponsible person
 madcaps	MADCAP: a reckless impetuous irresponsible person
-madden	cause to go crazy; cause to lose one's mind
+madden	drive up the wall; go on someone's nerves
 maddened	marked by extreme anger
 maddening	extremely annoying or displeasing
 maddeningly	in a maddening way
-maddens	MADDEN: cause to go crazy; cause to lose one's mind
+maddens	MADDEN: drive up the wall; go on someone's nerves
 madder	MAD: roused to anger
 madders	MADDER: Eurasian herb having small yellow flowers and red roots formerly an important source of the dye alizarin
 maddest	MAD: roused to anger
@@ -103,12 +103,12 @@ madmen	MADMAN: an insane person
 madness	obsolete terms for legal insanity
 madonna	the mother of Jesus; Christians refer to her as the Virgin Mary; she is especially honored by Roman Catholics
 madonnas	MADONNA: the mother of Jesus; Christians refer to her as the Virgin Mary; she is especially honored by Roman Catholics
-madras	a state in southeastern India on the Bay of Bengal (south of Andhra Pradesh); formerly Madras
+madras	a light patterned cotton cloth
 madrasa	Muslim schools in Bangladesh and Pakistan
 madrasah	Muslim schools in Bangladesh and Pakistan
 madrasahs	MADRASAH: Muslim schools in Bangladesh and Pakistan
 madrasas	MADRASA: Muslim schools in Bangladesh and Pakistan
-madrases	MADRAS: a state in southeastern India on the Bay of Bengal (south of Andhra Pradesh); formerly Madras
+madrases	MADRAS: a light patterned cotton cloth
 madrassa	a school for Islamic study
 madrassas	MADRASSA: a school for Islamic study
 madrigal	sing madrigals
@@ -121,8 +121,8 @@ maelstroms	MAELSTROM: a powerful circular current of water (usually the result o
 maestri	MAESTRO: a master musician or conductor
 maestro	an artist of consummate skill
 maestros	MAESTRO: an artist of consummate skill
-mafia	a crime syndicate in the United States; organized in families; believed to have important relations to the Sicilian Mafia
-mafias	MAFIA: a crime syndicate in the United States; organized in families; believed to have important relations to the Sicilian Mafia
+mafia	a secret terrorist group in Sicily; originally opposed tyranny but evolved into a criminal organization in the middle of the 19th century
+mafias	MAFIA: a secret terrorist group in Sicily; originally opposed tyranny but evolved into a criminal organization in the middle of the 19th century
 mafiosi	MAFIOSO: a member of the mafia
 mafioso	a member of the Sicilian Mafia
 mafiosos	MAFIOSO: a member of the Sicilian Mafia
@@ -130,7 +130,7 @@ mag	a periodic publication containing pictures and stories and articles of inter
 magazine	a periodic publication containing pictures and stories and articles of interest to those who purchase it or subscribe to it
 magazines	MAGAZINE: a periodic publication containing pictures and stories and articles of interest to those who purchase it or subscribe to it
 mage	a magician
-magenta	a primary subtractive color for light; a dark purple-red color; the dye for magenta was discovered in 1859, the year of the battle of Magenta
+magenta	of deep purplish red
 maggot	the larva of the housefly and blowfly commonly found in decaying organic matter
 maggotiness	the quality of being maggoty
 maggots	MAGGOT: the larva of the housefly and blowfly commonly found in decaying organic matter
@@ -143,8 +143,8 @@ magicians	MAGICIAN: someone who performs magic tricks to amuse an audience
 magicked	MAGIC: made to happen as if by magic
 magicking	MAGIC: making happen as if by magic
 magics	MAGIC: any art that invokes supernatural powers
-magisterial	of or relating to a magistrate
-magisterially	in an overbearingly domineering manner; as a dictator
+magisterial	used of a person's appearance or behavior; befitting an eminent person
+magisterially	in an authoritative and magisterial manner
 magistracy	the position of magistrate
 magistrate	a lay judge or civil authority who administers the law (especially one who conducts a court dealing with minor offenses)
 magistrates	MAGISTRATE: a lay judge or civil authority who administers the law (especially one who conducts a court dealing with minor offenses)
@@ -161,14 +161,14 @@ magnet	a device that attracts iron and produces a magnetic field
 magnetic	of or relating to or caused by magnetism
 magnetically	by the use of magnetism
 magnetics	the branch of science that studies magnetism
-magnetisation	the extent or degree to which something is magnetized
-magnetise	attract strongly, as if with a magnet
+magnetisation	the process that makes a substance magnetic (temporarily or permanently)
+magnetise	make magnetic
 magnetised	having the properties of a magnet; i.e. of attracting iron or steel
-magnetises	MAGNETISE: attract strongly, as if with a magnet
-magnetising	MAGNETISE: attract strongly, as if with a magnet
+magnetises	MAGNETISE: make magnetic
+magnetising	MAGNETISE: make magnetic
 magnetism	attraction for iron; associated with electric currents as well as magnets; characterized by fields of force
 magnetite	an oxide of iron that is strongly attracted by magnets
-magnetization	the extent or degree to which something is magnetized
+magnetization	the process that makes a substance magnetic (temporarily or permanently)
 magnetize	make magnetic
 magnetized	MAGNETIZE: make magnetic
 magnetizes	MAGNETIZE: make magnetic
@@ -193,8 +193,8 @@ magnify	increase in size, volume or significance
 magnifying	MAGNIFY: increase in size, volume or significance
 magnitude	the property of relative size or extent (whether large or small)
 magnitudes	MAGNITUDE: the property of relative size or extent (whether large or small)
-magnolia	dried bark of various magnolias; used in folk medicine
-magnolias	MAGNOLIA: dried bark of various magnolias; used in folk medicine
+magnolia	any shrub or tree of the genus Magnolia; valued for their longevity and exquisite fragrant blooms
+magnolias	MAGNOLIA: any shrub or tree of the genus Magnolia; valued for their longevity and exquisite fragrant blooms
 magnon	a unit of a spin wave in a magnetic material
 magnum	a large wine bottle for liquor or wine
 magnums	MAGNUM: a large wine bottle for liquor or wine
@@ -214,8 +214,8 @@ maharishi	a Hindu spiritual teacher
 maharishis	MAHARISHI: a Hindu spiritual teacher
 mahatma	term of respect for a brahmin sage
 mahatmas	MAHATMA: term of respect for a brahmin sage
-mahimahi	the lean flesh of a saltwater fish found in warm waters (especially in Hawaii)
-mahimahis	MAHIMAHI: the lean flesh of a saltwater fish found in warm waters (especially in Hawaii)
+mahimahi	large slender food and game fish widely distributed in warm seas (especially around Hawaii)
+mahimahis	MAHIMAHI: large slender food and game fish widely distributed in warm seas (especially around Hawaii)
 mahjong	Chinese game played by 4 people with 144 tiles
 mahjongg	a Chinese tile game for four players
 mahoganies	MAHOGANY: wood of any of various mahogany trees; much used for cabinetwork and furniture
@@ -243,8 +243,8 @@ mailbombs	MAILBOMB: an explosive sent through the post
 mailbox	a private box for delivery of mail
 mailboxes	MAILBOX: a private box for delivery of mail
 mailed	MAIL: the bags of letters and packages that are transported by the postal service
-mailer	United States writer (born in 1923)
-mailers	MAILER: United States writer (born in 1923)
+mailer	a container for something to be mailed
+mailers	MAILER: a container for something to be mailed
 mailing	MAIL: the bags of letters and packages that are transported by the postal service
 mailings	MAILING: mail sent by a sender at one time
 maillot	a woman's one-piece bathing suit
@@ -280,8 +280,8 @@ mainsails	MAINSAIL: the lowermost sail on the mainmast
 mainsheet	a line (rope or chain) that regulates the angle at which a sail is set in relation to the wind
 mainspring	the most important spring in a mechanical device (especially a clock or watch); as it uncoils it drives the mechanism
 mainsprings	MAINSPRING: the most important spring in a mechanical device (especially a clock or watch); as it uncoils it drives the mechanism
-mainstay	a prominent supporter
-mainstays	MAINSTAY: a prominent supporter
+mainstay	a central cohesive source of support and stability
+mainstays	MAINSTAY: a central cohesive source of support and stability
 mainstream	the prevailing current of thought
 mainstreamed	(of the handicapped) placed in regular school classes
 mainstreaming	including people in ordinary schools or society
@@ -390,7 +390,7 @@ malicious	having the nature of or resulting from malice
 maliciously	with malice; in a malicious manner
 maliciousness	feeling a need to see others suffer
 malign	evil or harmful in nature or influence
-malignance	a malignant state; progressive and resistant to treatment and tending to cause death
+malignance	quality of being disposed to evil; intense ill will
 malignancies	MALIGNANCY: a malignant state; progressive and resistant to treatment and tending to cause death
 malignancy	a malignant state; progressive and resistant to treatment and tending to cause death
 malignant	dangerous to health; characterized by progressive and uncontrolled growth (especially of a tumor)
@@ -399,7 +399,7 @@ maligned	MALIGN: evil or harmful in nature or influence
 maligner	MALIGN: evil or harmful in nature or influence
 maligners	MALIGNER: one who attacks the reputation of another by slander or libel
 maligning	MALIGN: evil or harmful in nature or influence
-malignity	wishing evil to others
+malignity	quality of being disposed to evil; intense ill will
 malignly	in a malign and evil manner
 maligns	MALIGN: evil or harmful in nature or influence
 malinger	avoid responsibilities and duties, e.g., by pretending to be ill
@@ -408,19 +408,19 @@ malingerer	someone shirking their duty by feigning illness or incapacity
 malingerers	MALINGERER: someone shirking their duty by feigning illness or incapacity
 malingering	evading duty or work by pretending to be incapacitated
 malingers	MALINGER: avoid responsibilities and duties, e.g., by pretending to be ill
-mall	a public area set aside as a pedestrian walk
+mall	mercantile establishment consisting of a carefully landscaped complex of shops representing leading merchandisers; usually includes restaurants and a convenient parking area; a modern version of the traditional marketplace
 mallard	wild dabbling duck from which domestic ducks are descended; widely distributed
 mallards	MALLARD: wild dabbling duck from which domestic ducks are descended; widely distributed
 malleability	the property of being physically malleable; the property of something that can be worked or hammered or shaped without breaking
-malleable	easily influenced
+malleable	capable of being shaped or bent or drawn out
 malleefowl	a ground-dwelling Australian bird that incubates eggs in a mound
-mallet	a sports implement with a long handle and a head like a hammer; used in sports (polo or croquet) to hit a ball
-mallets	MALLET: a sports implement with a long handle and a head like a hammer; used in sports (polo or croquet) to hit a ball
+mallet	a tool resembling a hammer but with a large head (usually wooden); used to drive wedges or ram down paving stones or for crushing or beating or flattening or smoothing
+mallets	MALLET: a tool resembling a hammer but with a large head (usually wooden); used to drive wedges or ram down paving stones or for crushing or beating or flattening or smoothing
 mallow	any of various plants of the family Malvaceae
 mallows	MALLOW: any of various plants of the family Malvaceae
 mallrat	a young person who spends time at shopping centres
 mallrats	MALLRAT: a young person who spends time at shopping centres
-malls	MALL: a public area set aside as a pedestrian walk
+malls	MALL: mercantile establishment consisting of a carefully landscaped complex of shops representing leading merchandisers; usually includes restaurants and a convenient parking area; a modern version of the traditional marketplace
 malnourished	not being provided with adequate nourishment
 malnourishment	not having enough food to develop or function normally
 malnutrition	a state of poor nutrition; can result from insufficient or excessive or unbalanced diet or from inability to absorb foods
@@ -431,19 +431,19 @@ malodorousness	the attribute of having a strong offensive smell
 malodourousness	the quality of smelling bad
 malpractice	professional wrongdoing that results in injury or damage
 malpractices	MALPRACTICE: professional wrongdoing that results in injury or damage
-malt	a milkshake made with malt powder
-malted	a milkshake made with malt powder
-malteds	MALTED: a milkshake made with malt powder
-malting	MALT: a milkshake made with malt powder
+malt	a cereal grain (usually barley) that is kiln-dried after having been germinated by soaking in water; used especially in brewing and distilling
+malted	of grain that has been converted into malt
+malteds	MALTED: of grain that has been converted into malt
+malting	MALT: a cereal grain (usually barley) that is kiln-dried after having been germinated by soaking in water; used especially in brewing and distilling
 maltose	a white crystalline sugar formed during the digestion of starches
 maltreat	treat badly
 maltreated	MALTREAT: treat badly
 maltreating	MALTREAT: treat badly
 maltreatment	cruel or inhumane treatment
 maltreats	MALTREAT: treat badly
-malts	MALT: a milkshake made with malt powder
+malts	MALT: a cereal grain (usually barley) that is kiln-dried after having been germinated by soaking in water; used especially in brewing and distilling
 malware	malicious software, designed to break into a system
-mam	a member of a Mayan people of southwestern Guatemala
+mam	mother, in informal speech
 mama	informal terms for a mother
 mamas	MAMA: informal terms for a mother
 mamba	arboreal snake of central and southern Africa whose bite is often fatal
@@ -459,15 +459,15 @@ mammalians	MAMMALIAN: of or relating to the class Mammalia
 mammals	MAMMAL: any warm-blooded vertebrate having the skin more or less covered with hair; young are born alive except for the small subclass of monotremes and nourished with milk
 mammary	of or relating to the milk-giving gland of the female
 mammas	MAMMA: informal terms for a mother
-mammies	MAMMY: an offensive term for a Black nursemaid in the southern U.S.
+mammies	MAMMY: informal terms for a mother
 mammogram	X-ray film of the soft tissue of the breast
 mammograms	MAMMOGRAM: X-ray film of the soft tissue of the breast
 mammography	a diagnostic procedure to detect breast tumors by the use of X rays
 mammon	wealth regarded as an evil influence
 mammoth	so exceedingly large or extensive as to suggest a giant or mammoth
 mammoths	MAMMOTH: so exceedingly large or extensive as to suggest a giant or mammoth
-mammy	an offensive term for a Black nursemaid in the southern U.S.
-mams	MAM: a member of a Mayan people of southwestern Guatemala
+mammy	informal terms for a mother
+mams	MAM: mother, in informal speech
 man	an adult person who is male (as opposed to a woman)
 manacle	shackle that consists of a metal loop that can be locked around the wrist; usually used in pairs
 manacled	MANACLE: shackle that consists of a metal loop that can be locked around the wrist; usually used in pairs
@@ -506,8 +506,8 @@ mandibles	MANDIBLE: the jaw in vertebrates that is hinged to open the mouth
 mandibular	relating to the lower jaw
 mandolin	a stringed instrument related to the lute, usually played with a plectrum
 mandolins	MANDOLIN: a stringed instrument related to the lute, usually played with a plectrum
-mandrake	the root of the mandrake plant; used medicinally or as a narcotic
-mandrakes	MANDRAKE: the root of the mandrake plant; used medicinally or as a narcotic
+mandrake	a plant of southern Europe and North Africa having purple flowers, yellow fruits and a forked root formerly thought to have magical powers
+mandrakes	MANDRAKE: a plant of southern Europe and North Africa having purple flowers, yellow fruits and a forked root formerly thought to have magical powers
 mandrel	any of various rotating shafts that serve as axes for larger rotating parts
 mandrels	MANDREL: any of various rotating shafts that serve as axes for larger rotating parts
 mandrill	baboon of west Africa with a bright red and blue muzzle and blue hindquarters
@@ -538,12 +538,12 @@ mangier	MANGY: having many worn or threadbare spots in the nap
 mangiest	MANGY: having many worn or threadbare spots in the nap
 mangily	in a mangy manner
 manginess	a lack of elegance as a consequence of wearing threadbare or dirty clothing
-mangle	clothes dryer for drying and ironing laundry by passing it between two heavy heated rollers
+mangle	destroy or injure severely
 mangled	having edges that are jagged from injury
 mangler	a person who mutilates or destroys or disfigures or cripples
 manglers	MANGLER: a person who mutilates or destroys or disfigures or cripples
-mangles	MANGLE: clothes dryer for drying and ironing laundry by passing it between two heavy heated rollers
-mangling	MANGLE: clothes dryer for drying and ironing laundry by passing it between two heavy heated rollers
+mangles	MANGLE: destroy or injure severely
+mangling	MANGLE: destroy or injure severely
 mango	large oval tropical fruit having smooth skin, juicy aromatic pulp, and a large hairy seed
 mangoes	MANGO: a sweet tropical fruit
 mangos	MANGO: large oval tropical fruit having smooth skin, juicy aromatic pulp, and a large hairy seed
@@ -589,12 +589,12 @@ manifold	a pipe that has several lateral outlets to or from other pipes
 manifolded	MANIFOLD: a pipe that has several lateral outlets to or from other pipes
 manifolding	MANIFOLD: a pipe that has several lateral outlets to or from other pipes
 manifolds	MANIFOLD: a pipe that has several lateral outlets to or from other pipes
-manikin	a person who is very small but who is not otherwise deformed or abnormal
-manikins	MANIKIN: a person who is very small but who is not otherwise deformed or abnormal
+manikin	a life-size dummy used to display clothes
+manikins	MANIKIN: a life-size dummy used to display clothes
 manila	a strong paper or thin cardboard with a smooth light brown finish made from e.g. Manila hemp
 manilla	a strong paper or thin cardboard with a smooth light brown finish made from e.g. Manila hemp
-manioc	a starch made by leaching and drying the root of the cassava plant; the source of tapioca; a staple food in the tropics
-maniocs	MANIOC: a starch made by leaching and drying the root of the cassava plant; the source of tapioca; a staple food in the tropics
+manioc	cassava root eaten as a staple food after drying and leaching; source of tapioca
+maniocs	MANIOC: cassava root eaten as a staple food after drying and leaching; source of tapioca
 manipulate	influence or control shrewdly or deviously
 manipulated	MANIPULATE: influence or control shrewdly or deviously
 manipulates	MANIPULATE: influence or control shrewdly or deviously
@@ -602,8 +602,8 @@ manipulating	MANIPULATE: influence or control shrewdly or deviously
 manipulation	exerting shrewd or devious influence especially for one's own advantage
 manipulations	MANIPULATION: exerting shrewd or devious influence especially for one's own advantage
 manipulative	skillful in influencing or controlling others to your own advantage
-manipulator	an agent that operates some apparatus or machine
-manipulators	MANIPULATOR: an agent that operates some apparatus or machine
+manipulator	a person who handles things manually
+manipulators	MANIPULATOR: a person who handles things manually
 manjuu	a Japanese steamed bun filled with sweet bean paste
 mankind	all of the living human inhabitants of the earth
 manky	inferior and worthless
@@ -614,8 +614,8 @@ manly	possessing qualities befitting a man
 manmade	made by people, not natural
 manna	food that God gave the Israelites during the Exodus
 manned	having a crew
-mannequin	a woman who wears clothes to display fashions
-mannequins	MANNEQUIN: a woman who wears clothes to display fashions
+mannequin	a life-size dummy used to display clothes
+mannequins	MANNEQUIN: a life-size dummy used to display clothes
 manner	how something is done or how it happens
 mannered	having unnatural mannerisms
 mannerism	a behavioral attribute that is distinctive and peculiar to an individual
@@ -624,8 +624,8 @@ mannerless	without manner
 mannerlessness	the quality of being mannerless
 mannerly	socially correct in behavior
 manners	social deportment
-mannikin	a person who is very small but who is not otherwise deformed or abnormal
-mannikins	MANNIKIN: a person who is very small but who is not otherwise deformed or abnormal
+mannikin	a life-size dummy used to display clothes
+mannikins	MANNIKIN: a life-size dummy used to display clothes
 manning	MAN: an adult person who is male (as opposed to a woman)
 mannish	resembling or imitative of or suggestive of a man rather than a woman
 mannishly	in a mannish way
@@ -633,10 +633,10 @@ mannishness	the quality of being mannish
 mannose	a simple sugar
 manoeuvrability	the quality of being maneuverable
 manoeuvrable	capable of maneuvering or changing position
-manoeuvre	a plan for attaining a particular goal
-manoeuvred	MANOEUVRE: a plan for attaining a particular goal
-manoeuvres	MANOEUVRE: a plan for attaining a particular goal
-manoeuvring	MANOEUVRE: a plan for attaining a particular goal
+manoeuvre	a deliberate coordinated movement requiring dexterity and skill
+manoeuvred	MANOEUVRE: a deliberate coordinated movement requiring dexterity and skill
+manoeuvres	MANOEUVRE: a deliberate coordinated movement requiring dexterity and skill
+manoeuvring	MANOEUVRE: a deliberate coordinated movement requiring dexterity and skill
 manoeuvrings	MANOEUVRING: cunning moves to gain an advantage
 manor	the mansion of a lord or wealthy person
 manorial	of or relating to or based on the manor
@@ -649,11 +649,11 @@ mansards	MANSARD: a hip roof having two slopes on each side
 manse	a large and imposing house
 manservant	a man servant
 manses	MANSE: a large and imposing house
-mansion	one of 12 equal areas into which the zodiac is divided
-mansions	MANSION: one of 12 equal areas into which the zodiac is divided
+mansion	a large and imposing house
+mansions	MANSION: a large and imposing house
 manslaughter	homicide without malice aforethought
-manta	a blanket that is used as a cloak or shawl
-mantas	MANTA: a blanket that is used as a cloak or shawl
+manta	extremely large pelagic tropical ray that feeds on plankton and small fishes; usually harmless but its size make it dangerous if harpooned
+mantas	MANTA: extremely large pelagic tropical ray that feeds on plankton and small fishes; usually harmless but its size make it dangerous if harpooned
 mantel	shelf that projects from wall above fireplace
 mantelpiece	shelf that projects from wall above fireplace
 mantelpieces	MANTELPIECE: shelf that projects from wall above fireplace
@@ -709,32 +709,32 @@ mapping	MAP: make a map of; show or establish the features of details of
 mappings	MAPPING: a mathematical relation such that each element of a given set (the domain of the function) is associated with an element of another set (the range of the function)
 maps	MAP: make a map of; show or establish the features of details of
 mar	make imperfect
-mara	Hindu god of death; opposite of Kama
+mara	hare-like rodent of the pampas of Argentina
 marabou	large African black-and-white carrion-eating stork; its downy underwing feathers are used to trim garments
 marabous	MARABOU: large African black-and-white carrion-eating stork; its downy underwing feathers are used to trim garments
 maraca	a percussion instrument consisting of a hollow gourd containing pebbles or beans; often played in pairs
 maracas	MARACA: a percussion instrument consisting of a hollow gourd containing pebbles or beans; often played in pairs
-maras	MARA: Hindu god of death; opposite of Kama
-maraschino	distilled from fermented juice of bitter wild marasca cherries
-maraschinos	MARASCHINO: distilled from fermented juice of bitter wild marasca cherries
+maras	MARA: hare-like rodent of the pampas of Argentina
+maraschino	cherry preserved in true or imitation maraschino liqueur
+maraschinos	MARASCHINO: cherry preserved in true or imitation maraschino liqueur
 marathon	any long and arduous undertaking
 marathoner	someone who participates in long-distance races (especially in marathons)
 marathoners	MARATHONER: someone who participates in long-distance races (especially in marathons)
 marathons	MARATHON: any long and arduous undertaking
-maraud	a sudden short attack
-marauded	MARAUD: a sudden short attack
+maraud	raid and rove in search of booty
+marauded	MARAUD: raid and rove in search of booty
 marauder	someone who attacks in search of booty
 marauders	MARAUDER: someone who attacks in search of booty
 marauding	characterized by plundering or pillaging or marauding
-marauds	MARAUD: a sudden short attack
+marauds	MARAUD: raid and rove in search of booty
 marble	a hard crystalline metamorphic rock that takes a high polish; used for sculpture and as building material
 marbled	MARBLE: a hard crystalline metamorphic rock that takes a high polish; used for sculpture and as building material
 marbles	a children's game played with little balls made of a hard substance (as glass)
 marbling	MARBLE: a hard crystalline metamorphic rock that takes a high polish; used for sculpture and as building material
 march	march in a procession
 marched	MARCH: march in a procession
-marcher	an inhabitant of a border district
-marchers	MARCHER: an inhabitant of a border district
+marcher	walks with regular or stately step
+marchers	MARCHER: walks with regular or stately step
 marches	MARCH: march in a procession
 marchesa	an Italian noblewoman
 marching	the act of marching; walking with regular steps (especially in a procession of some kind)
@@ -763,14 +763,14 @@ marginalizing	MARGINALIZE: relegate to a lower or outer edge, as of specific gro
 marginally	in a marginal manner
 marginals	MARGINAL: seats won by a narrow margin
 margins	MARGIN: the boundary line or the area immediately inside the boundary
-margrave	the military governor of a frontier province in medieval Germany
+margrave	a German nobleman ranking above a count (corresponding in rank to a British marquess)
 maria	a dark region of considerable extent on the surface of the moon
 mariachi	a group of street musicians in Mexico
 mariachis	MARIACHI: a group of street musicians in Mexico
 marigold	any of various tropical American plants of the genus Tagetes widely cultivated for their showy yellow or orange flowers
 marigolds	MARIGOLD: any of various tropical American plants of the genus Tagetes widely cultivated for their showy yellow or orange flowers
-marihuana	a strong-smelling plant whose dried leaves can be smoked for a pleasant effect or pain reduction
-marijuana	a strong-smelling plant whose dried leaves can be smoked for a pleasant effect or pain reduction
+marihuana	the most commonly used illicit drug; considered a soft drug, it consists of the dried leaves of the hemp plant; smoked or chewed for euphoric effect
+marijuana	the most commonly used illicit drug; considered a soft drug, it consists of the dried leaves of the hemp plant; smoked or chewed for euphoric effect
 marimba	a percussion instrument with wooden bars tuned to produce a chromatic scale and with resonators; played with small mallets
 marimbas	MARIMBA: a percussion instrument with wooden bars tuned to produce a chromatic scale and with resonators; played with small mallets
 marina	a fancy dock for small yachts and cabin cruisers
@@ -840,10 +840,10 @@ marque	a name given to a product or service
 marquee	large and often sumptuous tent
 marquees	MARQUEE: large and often sumptuous tent
 marques	MARQUE: a name given to a product or service
-marquess	nobleman (in various countries) ranking above a count
-marquesses	MARQUESS: nobleman (in various countries) ranking above a count
+marquess	a British peer ranking below a duke and above an earl
+marquesses	MARQUESS: a British peer ranking below a duke and above an earl
 marquetry	inlaid veneers are fitted together to form a design or picture that is then used to ornament furniture
-marquis	humorist who wrote about the imaginary life of cockroaches (1878-1937)
+marquis	nobleman (in various countries) ranking above a count
 marquise	a noblewoman ranking below a duchess and above a countess
 marquises	MARQUISE: a noblewoman ranking below a duchess and above a countess
 marred	MAR: make imperfect
@@ -888,14 +888,14 @@ martens	MARTEN: agile slender-bodied arboreal mustelids somewhat larger than wea
 martial	(of persons) befitting a warrior
 martian	imaginary people who live on the planet Mars
 martians	MARTIAN: imaginary people who live on the planet Mars
-martin	French bishop who is a patron saint of France (died in 397)
+martin	any of various swallows with squarish or slightly forked tail and long pointed wings; migrate around Martinmas
 martinet	someone who demands exact conformity to rules and forms
 martinets	MARTINET: someone who demands exact conformity to rules and forms
 martingale	a harness strap that connects the nose piece to the girth; prevents the horse from throwing back its head
 martingales	MARTINGALE: a harness strap that connects the nose piece to the girth; prevents the horse from throwing back its head
 martini	a cocktail made of gin (or vodka) with dry vermouth
 martinis	MARTINI: a cocktail made of gin (or vodka) with dry vermouth
-martins	MARTIN: French bishop who is a patron saint of France (died in 397)
+martins	MARTIN: any of various swallows with squarish or slightly forked tail and long pointed wings; migrate around Martinmas
 marts	MART: an area in a town where a public mercantile establishment is set up
 martyr	one who suffers for the sake of principle
 martyrdom	death that is imposed because of the person's adherence of a religious faith or cause
@@ -929,8 +929,8 @@ masculines	MASCULINE: of grammatical gender
 masculinity	the properties characteristic of the male sex
 mash	to compress with violence, out of natural shape or condition
 mashed	MASH: to compress with violence, out of natural shape or condition
-masher	a man who is aggressive in making amorous advances to women
-mashers	MASHER: a man who is aggressive in making amorous advances to women
+masher	a kitchen utensil used for mashing (e.g. potatoes)
+mashers	MASHER: a kitchen utensil used for mashing (e.g. potatoes)
 mashes	MASH: to compress with violence, out of natural shape or condition
 mashing	MASH: to compress with violence, out of natural shape or condition
 mashup	a mix of different works combined into one
@@ -946,10 +946,10 @@ masochism	sexual pleasure obtained from receiving punishment (physical or psycho
 masochist	someone who obtains pleasure from receiving punishment
 masochistic	deriving pleasure or sexual gratification from being abused or dominated
 masochists	MASOCHIST: someone who obtains pleasure from receiving punishment
-mason	American Revolutionary leader from Virginia whose objections led to the drafting of the Bill of Rights (1725-1792)
-masonic	of or relating to stonemasons or masonry
+mason	a craftsman who works with stone or brick
+masonic	of or relating to Freemasons or Freemasonry
 masonry	structure built of stone or brick by a mason
-masons	MASON: American Revolutionary leader from Virginia whose objections led to the drafting of the Bill of Rights (1725-1792)
+masons	MASON: a craftsman who works with stone or brick
 masque	a party of guests wearing costumes and masks
 masquerade	take part in a masquerade
 masqueraded	MASQUERADE: take part in a masquerade
@@ -1004,12 +1004,12 @@ masterstrokes	MASTERSTROKE: an achievement demonstrating great skill or mastery
 masterwork	a person's finest piece of work
 masterworks	MASTERWORK: a person's finest piece of work
 mastery	great skillfulness and knowledge of some subject or activity
-masthead	a listing printed in all issues of a newspaper or magazine (usually on the editorial page) that gives the name of the publication and the names of the editorial staff, etc.
-mastheads	MASTHEAD: a listing printed in all issues of a newspaper or magazine (usually on the editorial page) that gives the name of the publication and the names of the editorial staff, etc.
-masticate	grind and knead
-masticated	MASTICATE: grind and knead
-masticates	MASTICATE: grind and knead
-masticating	MASTICATE: grind and knead
+masthead	the title of a newspaper or magazine; usually printed on the front page and on the editorial page
+mastheads	MASTHEAD: the title of a newspaper or magazine; usually printed on the front page and on the editorial page
+masticate	chew (food); to bite and grind with the teeth
+masticated	MASTICATE: chew (food); to bite and grind with the teeth
+masticates	MASTICATE: chew (food); to bite and grind with the teeth
+masticating	MASTICATE: chew (food); to bite and grind with the teeth
 mastication	biting and grinding food in your mouth so it becomes soft enough to swallow
 mastiff	an old breed of powerful deep-chested smooth-coated dog used chiefly as a watchdog and guard dog
 mastiffs	MASTIFF: an old breed of powerful deep-chested smooth-coated dog used chiefly as a watchdog and guard dog
@@ -1019,10 +1019,10 @@ mastodons	MASTODON: extinct elephant-like mammal that flourished worldwide from 
 mastoid	process of the temporal bone behind the ear at the base of the skull
 mastoids	MASTOID: process of the temporal bone behind the ear at the base of the skull
 masts	MAST: a vertical spar for supporting sails
-masturbate	stimulate sexually
-masturbated	MASTURBATE: stimulate sexually
-masturbates	MASTURBATE: stimulate sexually
-masturbating	MASTURBATE: stimulate sexually
+masturbate	get sexual gratification through self-stimulation
+masturbated	MASTURBATE: get sexual gratification through self-stimulation
+masturbates	MASTURBATE: get sexual gratification through self-stimulation
+masturbating	MASTURBATE: get sexual gratification through self-stimulation
 masturbation	manual stimulation of the genital organs (of yourself or another) for sexual pleasure
 masturbator	a person who practices masturbation
 masturbatory	relating to stimulating one's own genitals; self-indulgent
@@ -1062,7 +1062,7 @@ materialist	someone with great regard for material possessions
 materialistic	marked by materialism
 materialistically	in a materialistic manner
 materialists	MATERIALIST: someone with great regard for material possessions
-materiality	relevance requiring careful consideration
+materiality	the quality of being physical; consisting of matter
 materialization	the process of coming into being; becoming reality
 materialize	come into being; become reality
 materialized	MATERIALIZE: come into being; become reality
@@ -1099,8 +1099,8 @@ matriarchies	MATRIARCHY: a form of social organization in which a female is the 
 matriarchs	MATRIARCH: a female head of a family or tribe
 matriarchy	a form of social organization in which a female is the family head and title is traced through the female line
 matrices	MATRIX: a grid of numbers or symbols in rows and columns
-matricide	a person who murders their mother
-matricides	MATRICIDE: a person who murders their mother
+matricide	the murder of your mother
+matricides	MATRICIDE: the murder of your mother
 matriculate	enroll as a student
 matriculated	MATRICULATE: enroll as a student
 matriculates	MATRICULATE: enroll as a student
@@ -1115,8 +1115,8 @@ matron	a married woman (usually middle-aged with children) who is staid and dign
 matronly	befitting or characteristic of a fully mature woman
 matrons	MATRON: a married woman (usually middle-aged with children) who is staid and dignified
 mats	MAT: a thick flat pad used as a floor covering
-matt	the property of having little or no contrast; lacking highlights or gloss
-matte	a mixture of sulfides that forms when sulfide metal ores are smelted
+matt	not reflecting light; not glossy
+matte	not reflecting light; not glossy
 matted	tangled in a dense mass
 mattedly	in a matted way
 mattedness	the quality of being matted
@@ -1124,13 +1124,13 @@ matter	a vaguely specified concern
 mattered	MATTER: a vaguely specified concern
 mattering	MATTER: a vaguely specified concern
 matters	MATTER: a vaguely specified concern
-mattes	MATTE: a mixture of sulfides that forms when sulfide metal ores are smelted
+mattes	MATTE: not reflecting light; not glossy
 matting	a covering of coarse fabric (usually of straw or hemp)
 mattock	a kind of pick that is used for digging; has a flat blade set at right angles to the handle
 mattocks	MATTOCK: a kind of pick that is used for digging; has a flat blade set at right angles to the handle
 mattress	a large thick pad filled with resilient material and often incorporating coiled springs, used as a bed or part of a bed
 mattresses	MATTRESS: a large thick pad filled with resilient material and often incorporating coiled springs, used as a bed or part of a bed
-matts	MATT: the property of having little or no contrast; lacking highlights or gloss
+matts	MATT: not reflecting light; not glossy
 maturation	coming to full development; becoming mature
 mature	characteristic of maturity
 matured	MATURE: characteristic of maturity
@@ -1148,18 +1148,18 @@ matzos	MATZO: brittle flat bread eaten at Passover
 matzot	MATZO: a thin flat unleavened bread eaten at Passover
 matzoth	MATZO: a thin flat unleavened bread eaten at Passover
 maudlin	effusively or insincerely emotional
-maul	a heavy long-handled hammer used to drive stakes or wedges
-mauled	MAUL: a heavy long-handled hammer used to drive stakes or wedges
+maul	injure badly by beating
+mauled	MAUL: injure badly by beating
 mauler	a fighter who batters the opponent
 maulers	large strong hand (as of a fighter)
-mauling	MAUL: a heavy long-handled hammer used to drive stakes or wedges
-mauls	MAUL: a heavy long-handled hammer used to drive stakes or wedges
-maunder	wander aimlessly
-maundered	MAUNDER: wander aimlessly
+mauling	MAUL: injure badly by beating
+mauls	MAUL: injure badly by beating
+maunder	speak (about unimportant matters) rapidly and incessantly
+maundered	MAUNDER: speak (about unimportant matters) rapidly and incessantly
 maunderer	someone who talks or wanders aimlessly
 maunderers	MAUNDERER: someone who talks or wanders aimlessly
-maundering	MAUNDER: wander aimlessly
-maunders	MAUNDER: wander aimlessly
+maundering	MAUNDER: speak (about unimportant matters) rapidly and incessantly
+maunders	MAUNDER: speak (about unimportant matters) rapidly and incessantly
 mausolea	MAUSOLEUM: a large building housing tombs
 mausoleal	relating to a mausoleum
 mausoleum	a large burial chamber, usually above ground
@@ -1183,18 +1183,18 @@ maxes	MAX: street names for gamma hydroxybutyrate
 maxi	a long skirt ending below the calf
 maxilla	the jaw in vertebrates that is fused to the cranium
 maxillae	MAXILLA: the upper jaw bone
-maxillary	the jaw in vertebrates that is fused to the cranium
+maxillary	of or relating to the upper jaw
 maxillas	MAXILLA: the jaw in vertebrates that is fused to the cranium
 maxim	a saying that is widely accepted on its own merits
 maxima	MAXIMUM: the greatest amount or degree
 maximal	the greatest or most complete or best possible
 maximally	to a maximal degree
 maximisation	the act of raising to the highest possible point or condition or position
-maximise	make the most of
-maximised	MAXIMISE: make the most of
-maximises	MAXIMISE: make the most of
+maximise	make as big or large as possible
+maximised	MAXIMISE: make as big or large as possible
+maximises	MAXIMISE: make as big or large as possible
 maximising	making as great as possible
-maximization	the mathematical process of finding the maximum value of a function
+maximization	the act of raising to the highest possible point or condition or position
 maximize	make as big or large as possible
 maximized	MAXIMIZE: make as big or large as possible
 maximizes	MAXIMIZE: make as big or large as possible
@@ -1214,7 +1214,7 @@ mayflies	MAYFLY: slender insect with delicate membranous wings having an aquatic
 mayflower	the ship in which the Pilgrim Fathers sailed from England to Massachusetts in 1620
 mayflowers	MAYFLOWER: the ship in which the Pilgrim Fathers sailed from England to Massachusetts in 1620
 mayfly	slender insect with delicate membranous wings having an aquatic larval stage and terrestrial adult stage usually lasting less than two days
-mayhem	the willful and unlawful crippling or mutilation of another person
+mayhem	violent and needless disturbance
 mayo	egg yolks and oil and vinegar
 mayonnaise	egg yolks and oil and vinegar
 mayor	the head of a city government
@@ -1230,29 +1230,29 @@ maze	complex system of paths or tunnels in which it is easy to get lost
 mazes	MAZE: complex system of paths or tunnels in which it is easy to get lost
 mazourka	mazurka: a lively Polish dance
 mazourkas	MAZOURKA: mazurka: a lively Polish dance
-mazurka	music composed for dancing the mazurka
-mazurkas	MAZURKA: music composed for dancing the mazurka
+mazurka	a Polish national dance in triple time
+mazurkas	MAZURKA: a Polish national dance in triple time
 me	a state in New England
-mead	United States anthropologist noted for her claims about adolescence and sexual behavior in Polynesian cultures (1901-1978)
+mead	made of fermented honey and water
 meadow	a field where grass or alfalfa are grown to be made into hay
 meadowlark	North American songbirds having a yellow breast
 meadowlarks	MEADOWLARK: North American songbirds having a yellow breast
 meadows	MEADOW: a field where grass or alfalfa are grown to be made into hay
 meager	deficient in amount or quality or extent
-meagerly	deficient in amount or quality or extent
+meagerly	to a meager degree or in a meager manner
 meagerness	the quality of being meager
 meagre	deficient in amount or quality or extent
 meagrely	to a meager degree or in a meager manner
 meagreness	the quality of being meager
 meal	the food served and eaten at one time
-mealier	MEALY: containing meal or made of meal
-mealiest	MEALY: containing meal or made of meal
+mealier	MEALY: composed of or covered with particles resembling meal in texture or consistency
+mealiest	MEALY: composed of or covered with particles resembling meal in texture or consistency
 mealiness	the quality of being mealy
 meals	MEAL: the food served and eaten at one time
 mealtime	the hour at which a meal is habitually or customarily eaten
 mealtimes	MEALTIME: the hour at which a meal is habitually or customarily eaten
 mealworms	MEALWORM: the larva of beetles of the family Tenebrionidae
-mealy	containing meal or made of meal
+mealy	composed of or covered with particles resembling meal in texture or consistency
 mealymouthed	hesitant to state facts or opinions simply and directly as from e.g. timidity or hypocrisy
 mean	mean or intend to express or convey
 meander	to move or cause to move in a sinuous, spiral, or circular course
@@ -1272,7 +1272,7 @@ meaningfully	in a meaningful manner; so as to be meaningful
 meaningfulness	the quality of having great value or significance
 meaningless	having no meaning or direction or purpose
 meaninglessly	in a meaningless way
-meaninglessness	a message that seems to convey no meaning
+meaninglessness	the quality of having no value or significance
 meanings	MEANING: the message that is intended or expressed or signified
 meanly	in a nasty ill-tempered manner
 meanness	the quality of being deliberately mean
@@ -1280,7 +1280,7 @@ means	thing or person that acts to produce a particular effect or achieve an end
 meant	MEAN: mean or intend to express or convey
 meantime	the time between one event, process, or period and another
 meanwhile	at the same time but in another place
-meany	United States labor leader who was the first president of the AFL-CIO (1894-1980)
+meany	a person of mean disposition
 measles	an acute and highly contagious viral disease marked by distinct red spots followed by a rash; occurs primarily in children
 measlier	MEASLY: contemptibly small in amount
 measliest	MEASLY: contemptibly small in amount
@@ -1307,26 +1307,26 @@ meatloaves	MEATLOAF: minced meat baked in a loaf shape
 meatpacking	wholesale packaging of meat for future sale (including slaughtering and processing and distribution to retailers)
 meats	MEAT: the flesh of animals (including fishes and birds and snails) used as food
 meaty	like or containing meat
-mecca	joint capital (with Riyadh) of Saudi Arabia; located in western Saudi Arabia; as the birthplace of Muhammad it is the holiest city of Islam
-meccas	MECCA: joint capital (with Riyadh) of Saudi Arabia; located in western Saudi Arabia; as the birthplace of Muhammad it is the holiest city of Islam
+mecca	a place that attracts many visitors
+meccas	MECCA: a place that attracts many visitors
 mechanic	a craftsman skilled in operating machine tools
 mechanical	using (or as if using) mechanisms or tools or devices
 mechanically	in a mechanical manner; by a mechanism
 mechanics	the branch of physics concerned with the motion of bodies in a frame of reference
-mechanisation	the condition of having a highly technical implementation
-mechanise	equip with armed and armored motor vehicles
-mechanised	using vehicles
-mechanises	MECHANISE: equip with armed and armored motor vehicles
-mechanising	MECHANISE: equip with armed and armored motor vehicles
+mechanisation	the act of implementing the control of equipment with advanced technology; usually involving electronic hardware
+mechanise	make mechanical
+mechanised	equipped with machinery
+mechanises	MECHANISE: make mechanical
+mechanising	MECHANISE: make mechanical
 mechanism	the atomic process that occurs during a chemical reaction
 mechanisms	MECHANISM: the atomic process that occurs during a chemical reaction
 mechanistic	explained in terms of physical forces
 mechanistically	in a mechanistic manner
-mechanization	the condition of having a highly technical implementation
-mechanize	equip with armed and armored motor vehicles
+mechanization	the act of implementing the control of equipment with advanced technology; usually involving electronic hardware
+mechanize	make mechanical
 mechanized	equipped with machinery
-mechanizes	MECHANIZE: equip with armed and armored motor vehicles
-mechanizing	MECHANIZE: equip with armed and armored motor vehicles
+mechanizes	MECHANIZE: make mechanical
+mechanizing	MECHANIZE: make mechanical
 med	a master's degree in education
 medal	an award for winning a championship or commemorating some other event
 medaled	MEDAL: win or be awarded a medal
@@ -1335,8 +1335,8 @@ medalist	someone who has won a medal
 medalists	MEDALIST: someone who has won a medal
 medalled	MEDAL: an award for winning a championship or commemorating some other event
 medalling	MEDAL: an award for winning a championship or commemorating some other event
-medallion	any of various large ancient Greek coins
-medallions	MEDALLION: any of various large ancient Greek coins
+medallion	an award for winning a championship or commemorating some other event
+medallions	MEDALLION: an award for winning a championship or commemorating some other event
 medallist	someone who has won a medal
 medallists	MEDALLIST: someone who has won a medal
 medals	MEDAL: an award for winning a championship or commemorating some other event
@@ -1350,7 +1350,7 @@ meddling	the act of altering something secretly or improperly
 medevac	the evacuation of persons (usually by air transportation) to a place where they can receive medical care
 media	means of mass communication such as newspapers and television
 mediaeval	relating to or belonging to the Middle Ages
-medial	dividing an animal into right and left halves
+medial	relating to or situated in or extending toward the middle
 medially	in a medial position
 median	relating to or constituting the middle value of an ordered set of values (or the average of the middle two in a set with an even number of values)
 medians	MEDIAN: relating to or constituting the middle value of an ordered set of values (or the average of the middle two in a set with an even number of values)
@@ -1362,25 +1362,25 @@ mediating	MEDIATE: act between parties with a view to reconciling differences
 mediation	a negotiation to resolve differences that is conducted by some impartial party
 mediator	a negotiator who acts as a link between parties
 mediators	MEDIATOR: a negotiator who acts as a link between parties
-medic	any of several Old World herbs of the genus Medicago having small flowers and trifoliate compound leaves
+medic	a medical practitioner in the armed forces
 medical	relating to the study or practice of medicine
 medically	involving medical practice
 medicals	MEDICAL: relating to the study or practice of medicine
-medicate	impregnate with a medicinal substance
-medicated	MEDICATE: impregnate with a medicinal substance
-medicates	MEDICATE: impregnate with a medicinal substance
-medicating	MEDICATE: impregnate with a medicinal substance
+medicate	treat medicinally, treat with medicine
+medicated	MEDICATE: treat medicinally, treat with medicine
+medicates	MEDICATE: treat medicinally, treat with medicine
+medicating	MEDICATE: treat medicinally, treat with medicine
 medication	something that treats or prevents or alleviates the symptoms of disease
 medications	MEDICATION: something that treats or prevents or alleviates the symptoms of disease
 medicinal	having the properties of medicine
 medicinally	in a medicinal manner
 medicine	the branches of medical science that deal with nonsurgical techniques
 medicines	MEDICINE: the branches of medical science that deal with nonsurgical techniques
-medico	a student in medical school
-medicos	MEDICO: a student in medical school
-medics	MEDIC: any of several Old World herbs of the genus Medicago having small flowers and trifoliate compound leaves
+medico	a licensed medical practitioner
+medicos	MEDICO: a licensed medical practitioner
+medics	MEDIC: a medical practitioner in the armed forces
 medieval	relating to or belonging to the Middle Ages
-mediocre	moderate to inferior in quality
+mediocre	lacking exceptional quality or ability
 mediocrities	MEDIOCRITY: ordinariness as a consequence of being average and not outstanding
 mediocrity	ordinariness as a consequence of being average and not outstanding
 meditate	reflect deeply on a subject
@@ -1397,10 +1397,10 @@ mediums	MEDIUM: a means or instrumentality for storing or communicating informat
 mediumship	the practice of a spiritualist medium
 medley	a musical composition consisting of a series of songs or other musical pieces from various sources
 medleys	MEDLEY: a musical composition consisting of a series of songs or other musical pieces from various sources
-medulla	a white fatty substance that forms a medullary sheath around the axis cylinder of some nerve fibers
+medulla	lower or hindmost part of the brain; continuous with spinal cord; (`bulb' is an old term for medulla oblongata)
 medullae	MEDULLA: the inner part of an organ or the marrow of a bone
-medullary	containing or consisting of or resembling bone marrow
-medullas	MEDULLA: a white fatty substance that forms a medullary sheath around the axis cylinder of some nerve fibers
+medullary	of or relating to the medulla of any body part
+medullas	MEDULLA: lower or hindmost part of the brain; continuous with spinal cord; (`bulb' is an old term for medulla oblongata)
 medusa	a woman transformed into a Gorgon by Athena; she was slain by Perseus
 medusae	MEDUSA: a jellyfish
 meek	humble in spirit or manner; suggesting retiring mildness or even cowed submissiveness
@@ -1460,8 +1460,8 @@ meiosis	cell division that produces reproductive cells in sexually reproducing o
 meiotic	of or relating to meiosis
 melamine	a white crystalline organic base; used mainly in making melamine resins
 melancholia	extreme depression characterized by tearful sadness and irrational fears
-melancholic	someone subject to melancholia
-melancholics	MELANCHOLIC: someone subject to melancholia
+melancholic	characterized by or causing or expressing sadness
+melancholics	MELANCHOLIC: characterized by or causing or expressing sadness
 melancholy	a feeling of thoughtful sadness
 melange	a motley assortment of things
 melanges	MELANGE: a motley assortment of things
@@ -1470,23 +1470,23 @@ melanoma	any of several malignant neoplasms (usually of the skin) consisting of 
 melanomas	MELANOMA: any of several malignant neoplasms (usually of the skin) consisting of melanocytes
 melanomata	MELANOMA: a dark skin tumour
 melatonin	hormone secreted by the pineal gland
-meld	a form of rummy using two decks of cards and four jokers; jokers and deuces are wild; the object is to form groups of the same rank
-melded	MELD: a form of rummy using two decks of cards and four jokers; jokers and deuces are wild; the object is to form groups of the same rank
+meld	mix together different elements
+melded	MELD: mix together different elements
 melder	someone who blends or merges things
 melders	MELDER: someone who blends or merges things
-melding	MELD: a form of rummy using two decks of cards and four jokers; jokers and deuces are wild; the object is to form groups of the same rank
-melds	MELD: a form of rummy using two decks of cards and four jokers; jokers and deuces are wild; the object is to form groups of the same rank
+melding	MELD: mix together different elements
+melds	MELD: mix together different elements
 melee	a noisy riotous fight
 melees	MELEE: a noisy riotous fight
 mellifluous	pleasing to the ear
 mellifluously	in a mellifluous way
-mellow	soften, make mellow
-mellowed	having a full and pleasing flavor through proper aging
-mellower	MELLOW: soften, make mellow
-mellowest	MELLOW: soften, make mellow
+mellow	unhurried and relaxed
+mellowed	softened through age or experience
+mellower	MELLOW: unhurried and relaxed
+mellowest	MELLOW: unhurried and relaxed
 mellowing	the process of becoming mellow
 mellowness	a feeling of good humor and sympathy through maturity or intoxication or a relaxed state
-mellows	MELLOW: soften, make mellow
+mellows	MELLOW: unhurried and relaxed
 melodic	containing or constituting or characterized by pleasing melody
 melodically	with respect to melody
 melodies	MELODY: a succession of notes forming a distinctive sequence
@@ -1496,14 +1496,14 @@ melodiousness	the property of having a melody
 melodrama	an extravagant comedy in which action is more salient than characterization
 melodramas	MELODRAMA: an extravagant comedy in which action is more salient than characterization
 melodramatic	having the excitement and emotional appeal of melodrama
-melodramatically	as in a melodrama
+melodramatically	in an overly emotional manner
 melodramatics	exaggerated emotional behaviour
 melody	a succession of notes forming a distinctive sequence
 melon	any of numerous fruits of the gourd family having a hard rind and sweet juicy flesh
 melons	MELON: any of numerous fruits of the gourd family having a hard rind and sweet juicy flesh
 melt	reduce or cause to be reduced from a solid to a liquid state, usually by heating
-meltdown	severe overheating of the core of a nuclear reactor resulting in the core melting and radiation escaping
-meltdowns	MELTDOWN: severe overheating of the core of a nuclear reactor resulting in the core melting and radiation escaping
+meltdown	a disaster comparable to a nuclear meltdown
+meltdowns	MELTDOWN: a disaster comparable to a nuclear meltdown
 melted	MELT: reduce or cause to be reduced from a solid to a liquid state, usually by heating
 melter	a worker who melts substances (metal or wax etc.)
 melters	MELTER: a worker who melts substances (metal or wax etc.)
@@ -1532,14 +1532,14 @@ memoranda	a written proposal or reminder
 memorandum	a written proposal or reminder
 memorandums	MEMORANDUM: a written proposal or reminder
 memorial	a recognition of meritorious service
-memorialise	address in a memorial
-memorialised	MEMORIALISE: address in a memorial
-memorialises	MEMORIALISE: address in a memorial
-memorialising	MEMORIALISE: address in a memorial
-memorialize	address in a memorial
-memorialized	MEMORIALIZE: address in a memorial
-memorializes	MEMORIALIZE: address in a memorial
-memorializing	MEMORIALIZE: address in a memorial
+memorialise	be or provide a memorial to a person or an event
+memorialised	MEMORIALISE: be or provide a memorial to a person or an event
+memorialises	MEMORIALISE: be or provide a memorial to a person or an event
+memorialising	MEMORIALISE: be or provide a memorial to a person or an event
+memorialize	be or provide a memorial to a person or an event
+memorialized	MEMORIALIZE: be or provide a memorial to a person or an event
+memorializes	MEMORIALIZE: be or provide a memorial to a person or an event
+memorializing	MEMORIALIZE: be or provide a memorial to a person or an event
 memorials	MEMORIAL: a recognition of meritorious service
 memories	MEMORY: something that is remembered
 memorisation	learning so as to be able to remember verbatim
@@ -1573,8 +1573,8 @@ mendacity	the tendency to be untruthful
 mended	MEND: restore by replacing a part or putting together what is torn or broken
 mender	a skilled worker who mends or repairs things
 menders	MENDER: a skilled worker who mends or repairs things
-mendicant	a male member of a religious order that originally relied solely on alms
-mendicants	MENDICANT: a male member of a religious order that originally relied solely on alms
+mendicant	a pauper who lives by begging
+mendicants	MENDICANT: a pauper who lives by begging
 mending	MEND: restore by replacing a part or putting together what is torn or broken
 mends	MEND: restore by replacing a part or putting together what is torn or broken
 menfolk	the men of a family or community
@@ -1588,12 +1588,12 @@ meningeal	relating to the meninges
 meninges	a membrane (one of 3) that envelops the brain and spinal cord
 meningitis	infectious disease characterized by inflammation of the meninges (the tissues that surround the brain or spinal cord) usually caused by a bacterial infection; symptoms include headache and stiff neck and fever and nausea
 menisci	MENISCUS: the curved surface of a liquid in a tube
-meniscus	a disk of cartilage that serves as a cushion between the ends of bones that meet at a joint
-meniscuses	MENISCUS: a disk of cartilage that serves as a cushion between the ends of bones that meet at a joint
+meniscus	the curved upper surface of a nonturbulent liquid in a vertical tube
+meniscuses	MENISCUS: the curved upper surface of a nonturbulent liquid in a vertical tube
 menopausal	of or relating to the menopause
 menopause	the time in a woman's life in which the menstrual cycle ends
-menorah	a candelabrum with seven branches used in ceremonies to symbolize the seven days of Creation
-menorahs	MENORAH: a candelabrum with seven branches used in ceremonies to symbolize the seven days of Creation
+menorah	a candelabrum with nine branches; used during the Hanukkah festival
+menorahs	MENORAH: a candelabrum with nine branches; used during the Hanukkah festival
 menschen	MENSCH: a person of integrity and honour
 menservants	MANSERVANT: a male domestic servant
 menses	the monthly discharge of blood from the uterus of nonpregnant women from puberty to menopause
@@ -1629,7 +1629,7 @@ meow	the sound made by a cat (or any sound resembling this)
 meowed	MEOW: the sound made by a cat (or any sound resembling this)
 meowing	MEOW: the sound made by a cat (or any sound resembling this)
 meows	MEOW: the sound made by a cat (or any sound resembling this)
-mercantile	of or relating to the economic system of mercantilism
+mercantile	relating to or characteristic of trade or traders
 mercantilism	an economic system (Europe in 18th century) to increase a nation's wealth by government regulation of all of the nation's commercial interests
 mercenaries	MERCENARY: a person hired to fight for another country than their own
 mercenary	a person hired to fight for another country than their own
@@ -1674,7 +1674,7 @@ mereologist	a student of the logic of parts and wholes
 mereology	the study of parts and their wholes
 meres	MERE: being nothing more than specified
 merest	MERE: being nothing more than specified
-meretricious	like or relating to a prostitute
+meretricious	tastelessly showy
 merganser	large crested fish-eating diving duck having a slender hooked bill with serrated edges
 mergansers	MERGANSER: large crested fish-eating diving duck having a slender hooked bill with serrated edges
 merge	become one
@@ -1683,8 +1683,8 @@ merger	the combination of two or more commercial companies
 mergers	MERGER: the combination of two or more commercial companies
 merges	MERGE: become one
 merging	the act of joining together as one
-meridian	the highest level or degree attainable; the highest stage of development
-meridians	MERIDIAN: the highest level or degree attainable; the highest stage of development
+meridian	an imaginary great circle on the surface of the earth passing through the north and south poles at right angles to the equator
+meridians	MERIDIAN: an imaginary great circle on the surface of the earth passing through the north and south poles at right angles to the equator
 meringue	sweet topping especially for pies made of beaten egg whites and sugar
 meringues	MERINGUE: sweet topping especially for pies made of beaten egg whites and sugar
 merino	white sheep originating in Spain and producing a heavy fleece of exceptional quality
@@ -1703,8 +1703,8 @@ merlon	a solid section between two crenels in a crenelated battlement
 merlons	MERLON: a solid section between two crenels in a crenelated battlement
 mermaid	half woman and half fish; lives in the sea
 mermaids	MERMAID: half woman and half fish; lives in the sea
-merman	United States singer who appeared in several musical comedies (1909-1984)
-mermen	MERMAN: United States singer who appeared in several musical comedies (1909-1984)
+merman	half man and half fish; lives in the sea
+mermen	MERMAN: half man and half fish; lives in the sea
 merrier	MERRY: full of or showing high-spirited merriment
 merriest	MERRY: full of or showing high-spirited merriment
 merrily	in a joyous manner
@@ -1776,8 +1776,8 @@ metabolise	produce by metabolism
 metabolised	METABOLISE: produce by metabolism
 metabolises	METABOLISE: produce by metabolism
 metabolising	METABOLISE: produce by metabolism
-metabolism	the marked and rapid transformation of a larva into an adult that occurs in some animals
-metabolisms	METABOLISM: the marked and rapid transformation of a larva into an adult that occurs in some animals
+metabolism	the organic processes (in a cell or organism) that are necessary for life
+metabolisms	METABOLISM: the organic processes (in a cell or organism) that are necessary for life
 metabolite	any substance involved in metabolism (either as a product of metabolism or as necessary for metabolism)
 metabolites	METABOLITE: any substance involved in metabolism (either as a product of metabolism or as necessary for metabolism)
 metabolize	produce by metabolism
@@ -1802,7 +1802,7 @@ metallurgist	an engineer trained in the extraction and refining and alloying and
 metallurgists	METALLURGIST: an engineer trained in the extraction and refining and alloying and fabrication of metals
 metallurgy	the science and technology of metals
 metals	METAL: any of several chemical elements that are usually shiny solids that conduct heat or electricity and can be formed into sheets etc.
-metalwork	the metal parts of something
+metalwork	the activity of making things out of metal in a skillful manner
 metalworker	someone who works metal (especially by hammering it when it is hot and malleable)
 metalworkers	METALWORKER: someone who works metal (especially by hammering it when it is hot and malleable)
 metalworking	the activity of making things out of metal in a skillful manner
@@ -1812,7 +1812,7 @@ metamorphose	change completely the nature or appearance of
 metamorphosed	METAMORPHOSE: change completely the nature or appearance of
 metamorphoses	METAMORPHOSE: change completely the nature or appearance of
 metamorphosing	METAMORPHOSE: change completely the nature or appearance of
-metamorphosis	the marked and rapid transformation of a larva into an adult that occurs in some animals
+metamorphosis	a striking change in appearance or character or circumstances
 metaphor	a figure of speech in which an expression is used to refer to something that it does not literally denote in order to suggest a similarity
 metaphoric	expressing one thing in terms normally denoting another
 metaphorical	expressing one thing in terms normally denoting another
@@ -1839,7 +1839,7 @@ metathesis	a linguistic process of transposition of sounds or syllables within a
 mete	a line that indicates a boundary
 meted	METE: dole out or allot
 meteor	any of the small solid extraterrestrial bodies that hits the earth's atmosphere
-meteoric	of or pertaining to atmospheric phenomena, especially weather and weather conditions
+meteoric	like a meteor in speed or brilliance or transience
 meteorite	stony or metallic object that is the remains of a meteoroid that has reached the earth's surface
 meteorites	METEORITE: stony or metallic object that is the remains of a meteoroid that has reached the earth's surface
 meteoroid	any of the small solid extraterrestrial bodies that hits the earth's atmosphere
@@ -1847,7 +1847,7 @@ meteoroids	METEOROID: any of the small solid extraterrestrial bodies that hits t
 meteorological	of or pertaining to atmospheric phenomena, especially weather and weather conditions
 meteorologist	a specialist who studies processes in the earth's atmosphere that cause weather conditions
 meteorologists	METEOROLOGIST: a specialist who studies processes in the earth's atmosphere that cause weather conditions
-meteorology	predicting what the weather will be
+meteorology	the earth science dealing with phenomena of the atmosphere (especially weather)
 meteors	METEOR: any of the small solid extraterrestrial bodies that hits the earth's atmosphere
 meter	the basic unit of length adopted under the Systeme International d'Unites (approximately 1.094 yards)
 metered	METER: the basic unit of length adopted under the Systeme International d'Unites (approximately 1.094 yards)
@@ -1869,10 +1869,10 @@ methodical	characterized by method and orderliness
 methodically	in a methodical manner
 methodological	relating to the methodology of some discipline
 methodologically	in a methodical manner
-methodologies	METHODOLOGY: the branch of philosophy that analyzes the principles and procedures of inquiry in a particular discipline
+methodologies	METHODOLOGY: the system of methods followed in a particular discipline
 methodologist	an expert in methods
 methodologists	METHODOLOGIST: an expert in methods
-methodology	the branch of philosophy that analyzes the principles and procedures of inquiry in a particular discipline
+methodology	the system of methods followed in a particular discipline
 methods	METHOD: a way of doing something, especially a systematic way; implies an orderly logical arrangement (usually in steps)
 methotrexate	toxic antimetabolite that limits cellular reproduction by acting as an antagonist to folic acid; used to treat certain cancers and psoriasis and rheumatoid arthritis
 methought	METHINKS: it seemed to me
@@ -1881,18 +1881,18 @@ methyl	the univalent radical CH3- derived from methane
 methylated	having received a methyl group
 methylation	the addition of a methyl group to a molecule
 methylene	the bivalent radical CH2 derived from methane
-meticulous	marked by precise accordance with details
+meticulous	marked by extreme care in treatment of details
 meticulously	in a meticulous manner
 meticulousness	strict attention to minute details
-metier	an asset of special worth or utility
-metiers	METIER: an asset of special worth or utility
+metier	an occupation for which you are especially well suited
+metiers	METIER: an occupation for which you are especially well suited
 meting	METE: dole out or allot
 metonymy	substituting the name of an attribute or feature for the name of the thing itself (as in `they counted heads')
 metre	the basic unit of length adopted under the Systeme International d'Unites (approximately 1.094 yards)
 metred	METRE: measured or arranged in metre
 metres	METRE: the basic unit of length adopted under the Systeme International d'Unites (approximately 1.094 yards)
-metric	a function of a topological space that gives, for any two points in the space, a value equal to the distance between them
-metrical	based on the meter as a standard of measurement
+metric	based on the meter as a standard of measurement
+metrical	the rhythmic arrangement of syllables
 metrically	with regard to meter
 metrication	the act of changing from imperial units of measurement to metric units: meters, grams, seconds
 metrics	the study of poetic meter and the art of versification
@@ -1911,7 +1911,7 @@ metros	METRO: an electric railway operating below the surface of the ground (usu
 metrosexual	a fashion-conscious, groomed urban man
 metrosexuals	METROSEXUAL: a fashion-conscious, groomed urban man
 mettle	the courage to carry on
-mettlesome	having a proud and unbroken spirit
+mettlesome	willing to face danger
 mew	cry like a cat
 mewed	MEW: cry like a cat
 mewing	MEW: cry like a cat
@@ -1920,19 +1920,19 @@ mewled	MEWL: cry weakly or softly
 mewling	MEWL: cry weakly or softly
 mewls	MEWL: cry weakly or softly
 mews	MEW: cry like a cat
-mezzanine	first or lowest balcony
-mezzanines	MEZZANINE: first or lowest balcony
+mezzanine	intermediate floor just above the ground floor
+mezzanines	MEZZANINE: intermediate floor just above the ground floor
 mezzo	a soprano with a voice between soprano and contralto
 mezzos	MEZZO: a soprano with a voice between soprano and contralto
 mhm	sound expressing agreement
-mi	destruction of heart tissue resulting from obstruction of the blood supply to the heart muscle
+mi	a unit of length equal to 1,760 yards or 5,280 feet; exactly 1609.344 meters
 miaow	the sound made by a cat (or any sound resembling this)
 miaowed	MIAOW: the sound made by a cat (or any sound resembling this)
 miaowing	MIAOW: the sound made by a cat (or any sound resembling this)
 miaows	MIAOW: the sound made by a cat (or any sound resembling this)
-miasma	an unwholesome atmosphere
+miasma	unhealthy vapors rising from the ground or other sources
 miasmal	filled with vapor
-miasmas	MIASMA: an unwholesome atmosphere
+miasmas	MIASMA: unhealthy vapors rising from the ground or other sources
 miasmata	MIASMA: an unpleasant or unhealthy vapour
 miasmatic	relating to a foul, unhealthy vapour
 miasmatically	in a way that suggests a foul, unhealthy vapour
@@ -2000,8 +2000,8 @@ micromanager	someone who controls every small detail
 micromanagers	MICROMANAGER: someone who controls every small detail
 micromanages	MICROMANAGE: control every small detail of someone's work
 micromanaging	MICROMANAGE: control every small detail of someone's work
-micrometer	a metric unit of length equal to one millionth of a meter
-micrometers	MICROMETER: a metric unit of length equal to one millionth of a meter
+micrometer	caliper for measuring small distances
+micrometers	MICROMETER: caliper for measuring small distances
 micrometre	one millionth of a metre
 micrometres	MICROMETRE: one millionth of a metre
 micron	a metric unit of length equal to one millionth of a meter
@@ -2023,7 +2023,7 @@ micros	MICRO: a microcomputer or microprocessor
 microscope	magnifier of the image of small objects
 microscopes	MICROSCOPE: magnifier of the image of small objects
 microscopic	of or relating to or used in microscopy
-microscopical	of or relating to or used in microscopy
+microscopical	so small as to be invisible without a microscope
 microscopically	by using a microscope; so as to be visible only with a microscope; as seen with a microscope
 microscopy	research with the use of microscopes
 microsecond	one millionth (10^-6) of a second; one thousandth of a millisecond
@@ -2042,8 +2042,8 @@ midafternoon	the middle part of the afternoon
 midair	some point in the air; above ground level
 midbrain	the middle portion of the brain
 midday	the middle of the day
-midden	a mound of domestic refuse containing shells and animal bones marking the site of a prehistoric settlement
-middens	MIDDEN: a mound of domestic refuse containing shells and animal bones marking the site of a prehistoric settlement
+midden	a heap of dung or refuse
+middens	MIDDEN: a heap of dung or refuse
 middies	MIDDY: blouse with a sailor collar
 middle	an area that is approximately central within some larger region
 middlebrow	someone who is neither a highbrow nor a lowbrow
@@ -2051,8 +2051,8 @@ middlebrows	MIDDLEBROW: someone who is neither a highbrow nor a lowbrow
 middleman	someone who buys large quantities of goods and resells to merchants rather than to the ultimate customers
 middlemen	MIDDLEMAN: someone who buys large quantities of goods and resells to merchants rather than to the ultimate customers
 middles	MIDDLE: an area that is approximately central within some larger region
-middleweight	an amateur boxer who weighs no more than 165 pounds
-middleweights	MIDDLEWEIGHT: an amateur boxer who weighs no more than 165 pounds
+middleweight	a professional boxer who weighs between 155 and 160 pounds
+middleweights	MIDDLEWEIGHT: a professional boxer who weighs between 155 and 160 pounds
 middling	MIDDLE: an area that is approximately central within some larger region
 middy	blouse with a sailor collar
 midfield	the middle part of a playing field (as in football or lacrosse)
@@ -2063,8 +2063,8 @@ midge	minute two-winged mosquito-like fly lacking biting mouthparts; appear in d
 midges	MIDGE: minute two-winged mosquito-like fly lacking biting mouthparts; appear in dancing swarms especially near water
 midget	a person who is markedly small
 midgets	MIDGET: a person who is markedly small
-midland	a town in west central Texas
-midlands	MIDLAND: a town in west central Texas
+midland	the interior part of a country
+midlands	MIDLAND: the interior part of a country
 midlife	the middle years of a person's life
 midline	the median plane of the body (or some part of the body)
 midmorning	the middle of the morning
@@ -2087,17 +2087,17 @@ midsized	MIDSIZE: of medium size
 midst	the location of something surrounded by other things
 midstream	the middle of a stream
 midsummer	June 21, when the sun is at its northernmost point
-midterm	the middle of the gestation period
-midterms	MIDTERM: the middle of the gestation period
+midterm	middle of an academic term or a political term in office
+midterms	MIDTERM: middle of an academic term or a political term in office
 midtown	the central part of a city between uptown and downtown
 midway	equally distant from the extremes
 midways	MIDWAY: equally distant from the extremes
-midweek	the fourth day of the week; the third working day
-midweeks	MIDWEEK: the fourth day of the week; the third working day
+midweek	the middle of a week
+midweeks	MIDWEEK: the middle of a week
 midwife	a woman skilled in aiding the delivery of babies
 midwifed	MIDWIFE: assist at a birth, or help bring into being
-midwiferies	MIDWIFERY: the branch of medicine dealing with childbirth and care of the mother
-midwifery	the branch of medicine dealing with childbirth and care of the mother
+midwiferies	MIDWIFERY: assisting women at childbirth
+midwifery	assisting women at childbirth
 midwifes	MIDWIFE: a woman skilled in aiding the delivery of babies
 midwifing	MIDWIFE: assist at a birth, or help bring into being
 midwinter	the middle of winter
@@ -2108,10 +2108,10 @@ midyear	the middle of the year
 midyears	MIDYEAR: the middle of the year
 mien	dignified manner or conduct
 miens	MIEN: dignified manner or conduct
-miff	a state of irritation or annoyance
+miff	cause to be annoyed
 miffed	aroused to impatience or anger
-miffing	MIFF: a state of irritation or annoyance
-miffs	MIFF: a state of irritation or annoyance
+miffing	MIFF: cause to be annoyed
+miffs	MIFF: cause to be annoyed
 might	physical strength
 mightier	MIGHTY: having or showing great strength or force or intensity
 mightiest	MIGHTY: having or showing great strength or force or intensity
@@ -2133,20 +2133,20 @@ mike	device for converting sound waves into electrical energy
 miked	MIKE: fit or record with a microphone
 mikes	MIKE: device for converting sound waves into electrical energy
 miking	MIKE: fit or record with a microphone
-mil	a Cypriot monetary unit equal to one thousandth of a pound
+mil	a unit of length equal to one thousandth of an inch; used to specify thickness (e.g., of sheets or wire)
 miladies	MILADY: an English noblewoman
 milady	an English noblewoman
 milch	giving milk; bred or suitable primarily for milk production
 mild	moderate in type or degree or effect or force; far from extreme
 milder	MILD: moderate in type or degree or effect or force; far from extreme
 mildest	MILD: moderate in type or degree or effect or force; far from extreme
-mildew	the process of becoming mildewed
-mildewed	MILDEW: the process of becoming mildewed
-mildewing	MILDEW: the process of becoming mildewed
-mildews	MILDEW: the process of becoming mildewed
+mildew	a fungus that produces a superficial (usually white) growth on organic matter
+mildewed	MILDEW: a fungus that produces a superficial (usually white) growth on organic matter
+mildewing	MILDEW: a fungus that produces a superficial (usually white) growth on organic matter
+mildews	MILDEW: a fungus that produces a superficial (usually white) growth on organic matter
 mildewy	covered with or smelling of mildew
 mildly	to a moderate degree
-mildness	good weather with comfortable temperatures
+mildness	acting in a manner that is gentle and mild and even-tempered
 mile	a unit of length equal to 1,760 yards or 5,280 feet; exactly 1609.344 meters
 mileage	distance measured in miles
 mileages	MILEAGE: distance measured in miles
@@ -2154,8 +2154,8 @@ mileometer	a meter that shows mileage traversed
 mileometers	MILEOMETER: a meter that shows mileage traversed
 milepost	stone post at side of a road to show distances
 mileposts	MILEPOST: stone post at side of a road to show distances
-miler	(used only in combinations) the length of something in miles
-milers	MILER: (used only in combinations) the length of something in miles
+miler	a runner in a one-mile race
+milers	MILER: a runner in a one-mile race
 miles	MILE: a unit of length equal to 1,760 yards or 5,280 feet; exactly 1609.344 meters
 milestone	stone post at side of a road to show distances
 milestones	MILESTONE: stone post at side of a road to show distances
@@ -2224,8 +2224,8 @@ millennium	a span of 1000 years
 millenniums	MILLENNIUM: a span of 1000 years
 millepede	any of numerous herbivorous nonpoisonous arthropods having a cylindrical body of 20 to 100 or more segments most with two pairs of legs
 millepedes	MILLEPEDE: any of numerous herbivorous nonpoisonous arthropods having a cylindrical body of 20 to 100 or more segments most with two pairs of legs
-miller	United States bandleader of a popular big band (1909-1944)
-millers	MILLER: United States bandleader of a popular big band (1909-1944)
+miller	someone who works in a mill (especially a grain mill)
+millers	MILLER: someone who works in a mill (especially a grain mill)
 millet	small seed of any of various annual cereal grasses especially Setaria italica
 millibar	a unit of atmospheric pressure equal to one thousandth of a bar
 millibars	MILLIBAR: a unit of atmospheric pressure equal to one thousandth of a bar
@@ -2243,7 +2243,7 @@ millimetre	a metric unit of length equal to one thousandth of a meter
 millimetres	MILLIMETRE: a metric unit of length equal to one thousandth of a meter
 milliner	someone who makes and sells hats
 milliners	MILLINER: someone who makes and sells hats
-millinery	shop selling women's hats
+millinery	hats for women; the wares sold by a milliner
 milling	MILL: move about in a confused manner
 million	the number that is represented as a one followed by 6 zeros
 millionaire	a person whose material wealth is valued at more than a million dollars
@@ -2251,8 +2251,8 @@ millionaires	MILLIONAIRE: a person whose material wealth is valued at more than 
 millionairess	a woman millionaire
 millionairesses	MILLIONAIRESS: a woman millionaire
 millions	MILLION: the number that is represented as a one followed by 6 zeros
-millionth	position 1,000,000 in a countable series of things
-millionths	MILLIONTH: position 1,000,000 in a countable series of things
+millionth	one part in a million equal parts
+millionths	MILLIONTH: one part in a million equal parts
 millipede	any of numerous herbivorous nonpoisonous arthropods having a cylindrical body of 20 to 100 or more segments most with two pairs of legs
 millipedes	MILLIPEDE: any of numerous herbivorous nonpoisonous arthropods having a cylindrical body of 20 to 100 or more segments most with two pairs of legs
 millisecond	one thousandth (10^-3) of a second
@@ -2262,8 +2262,8 @@ millponds	MILLPOND: a pond formed by damming a stream to provide a head of water
 millrace	a channel for the water current that turns a millwheel
 millraces	MILLRACE: a channel for the water current that turns a millwheel
 mills	MILL: move about in a confused manner
-millstone	something that hinders or handicaps
-millstones	MILLSTONE: something that hinders or handicaps
+millstone	one of a pair of heavy flat disk-shaped stones that are rotated against one another to grind the grain
+millstones	MILLSTONE: one of a pair of heavy flat disk-shaped stones that are rotated against one another to grind the grain
 millwork	woodwork that has been machined at a mill
 millwright	a workman who designs or erects mills and milling machinery
 millwrights	MILLWRIGHT: a workman who designs or erects mills and milling machinery
@@ -2271,23 +2271,23 @@ milometer	a meter that shows mileage traversed
 milometers	MILOMETER: a meter that shows mileage traversed
 milquetoast	a timid man or boy considered childish or unassertive
 milquetoasts	MILQUETOAST: a timid man or boy considered childish or unassertive
-mils	MIL: a Cypriot monetary unit equal to one thousandth of a pound
-mime	an actor who communicates entirely by gesture and facial expression
-mimed	MIME: an actor who communicates entirely by gesture and facial expression
+mils	MIL: a unit of length equal to one thousandth of an inch; used to specify thickness (e.g., of sheets or wire)
+mime	act out without words but with gestures and bodily movements only
+mimed	MIME: act out without words but with gestures and bodily movements only
 mimeograph	a rotary duplicator that uses a stencil through which ink is pressed (trade mark Roneo)
 mimeographed	MIMEOGRAPH: a rotary duplicator that uses a stencil through which ink is pressed (trade mark Roneo)
 mimeographing	MIMEOGRAPH: a rotary duplicator that uses a stencil through which ink is pressed (trade mark Roneo)
 mimeographs	MIMEOGRAPH: a rotary duplicator that uses a stencil through which ink is pressed (trade mark Roneo)
-mimes	MIME: an actor who communicates entirely by gesture and facial expression
+mimes	MIME: act out without words but with gestures and bodily movements only
 mimesis	the imitative representation of nature and human behavior in art and literature
 mimetic	characterized by or of the nature of or using mimesis
-mimic	someone who mimics (especially an actor or actress)
+mimic	imitate (a person or manner), especially for satirical effect
 mimicked	MIMIC: imitate closely
 mimicking	MIMIC: imitate closely
 mimicries	MIMICRY: the act of mimicking; imitative behavior
 mimicry	the act of mimicking; imitative behavior
-mimics	MIMIC: someone who mimics (especially an actor or actress)
-miming	MIME: an actor who communicates entirely by gesture and facial expression
+mimics	MIMIC: imitate (a person or manner), especially for satirical effect
+miming	MIME: act out without words but with gestures and bodily movements only
 mimosa	a wattle or similar tree with fluffy yellow flowers; also champagne mixed with orange juice
 mimosas	MIMOSA: a wattle or similar tree with fluffy yellow flowers; also champagne mixed with orange juice
 minaret	slender tower with balconies
@@ -2305,14 +2305,14 @@ mind	that which is responsible for one's thoughts, feelings, and conscious brain
 mindbogglingly	in a way that is astonishing or hard to comprehend
 minded	(used in combination) mentally oriented toward something specified
 mindedness	the quality of being minded
-minder	someone (usually in totalitarian countries) who is assigned to watch over foreign visitors
-minders	MINDER: someone (usually in totalitarian countries) who is assigned to watch over foreign visitors
+minder	a person who looks after babies (usually in the person's own home) while the babys' parents are working
+minders	MINDER: a person who looks after babies (usually in the person's own home) while the babys' parents are working
 mindful	bearing in mind; attentive to
 mindfully	in a careful deliberate manner
 mindfulness	the trait of staying aware of (paying close attention to) your responsibilities
 minding	MIND: that which is responsible for one's thoughts, feelings, and conscious brain functions; the seat of the faculty of reason
 mindless	lacking the thinking capacity characteristic of a conscious being
-mindlessly	without intellectual involvement
+mindlessly	in an unreasonably senseless manner
 mindlessness	total lack of meaning or ideas
 minds	MIND: that which is responsible for one's thoughts, feelings, and conscious brain functions; the seat of the faculty of reason
 mindset	a habitual or characteristic mental attitude that determines how you will interpret and respond to situations
@@ -2384,24 +2384,24 @@ minidiscs	MINIDISC: a small recordable optical disc
 minifloppies	MINIFLOPPY: a small floppy computer disk
 minikin	a tiny or delicate thing
 minikins	MINIKIN: a tiny or delicate thing
-minim	a British imperial capacity measure (liquid or dry) equal to 1/60th fluid dram or 0.059194 cubic centimeters
+minim	a musical note having the time value of half a whole note
 minima	MINIMUM: the smallest amount or degree
 minimal	the least possible
 minimalism	an art movement in sculpture and painting that began in the 1950s and emphasized extreme simplification of form and color
-minimalist	a conservative who advocates only minor reforms in government or politics
-minimalists	MINIMALIST: a conservative who advocates only minor reforms in government or politics
+minimalist	a practitioner or advocate of artistic minimalism
+minimalists	MINIMALIST: a practitioner or advocate of artistic minimalism
 minimally	to a minimal degree
 minimisation	the act of reducing something to the least possible amount or degree or position
-minimise	represent as less significant or important
-minimised	MINIMISE: represent as less significant or important
-minimises	MINIMISE: represent as less significant or important
-minimising	MINIMISE: represent as less significant or important
+minimise	make small or insignificant
+minimised	MINIMISE: make small or insignificant
+minimises	MINIMISE: make small or insignificant
+minimising	MINIMISE: make small or insignificant
 minimization	the act of reducing something to the least possible amount or degree or position
 minimize	make small or insignificant
 minimized	reduced to the smallest possible size or amount or degree
 minimizes	MINIMIZE: make small or insignificant
 minimizing	MINIMIZE: make small or insignificant
-minims	MINIM: a British imperial capacity measure (liquid or dry) equal to 1/60th fluid dram or 0.059194 cubic centimeters
+minims	MINIM: a musical note having the time value of half a whole note
 minimum	the smallest possible quantity
 minimums	MINIMUM: the smallest possible quantity
 minimus	the fifth digit; the little finger or little toe
@@ -2427,9 +2427,9 @@ ministries	MINISTRY: religious ministers collectively (especially Presbyterian)
 ministry	religious ministers collectively (especially Presbyterian)
 minivan	a small box-shaped passenger van; usually has removable seats; used as a family car
 minivans	MINIVAN: a small box-shaped passenger van; usually has removable seats; used as a family car
-mink	the expensive fur of a mink
+mink	slender-bodied semiaquatic mammal having partially webbed feet; valued for its fur
 minke	a small baleen whale
-minks	MINK: the expensive fur of a mink
+minks	MINK: slender-bodied semiaquatic mammal having partially webbed feet; valued for its fur
 minnow	very small European freshwater fish common in gravelly streams
 minnows	MINNOW: very small European freshwater fish common in gravelly streams
 minor	of lesser importance or stature or rank
@@ -2443,24 +2443,24 @@ minster	any of certain cathedrals and large churches; originally connected to a 
 minsters	MINSTER: any of certain cathedrals and large churches; originally connected to a monastery
 minstrel	a singer of folk songs
 minstrels	MINSTREL: a singer of folk songs
-minstrelsy	a troupe of minstrels
+minstrelsy	the art of a minstrel
 mint	(often followed by `of') a large number or amount or extent
 mintage	coins collectively
 minted	MINT: (often followed by `of') a large number or amount or extent
 minter	MINT: (often followed by `of') a large number or amount or extent
 minters	MINTER: a skilled worker who coins or stamps money
-mintier	MINTY: relating to or suggestive of mint
-mintiest	MINTY: relating to or suggestive of mint
+mintier	MINTY: of the flavor of mint, particularly peppermint
+mintiest	MINTY: of the flavor of mint, particularly peppermint
 minting	MINT: (often followed by `of') a large number or amount or extent
 mints	MINT: (often followed by `of') a large number or amount or extent
-minty	relating to or suggestive of mint
+minty	of the flavor of mint, particularly peppermint
 minuend	the number from which the subtrahend is subtracted
 minuends	MINUEND: the number from which the subtrahend is subtracted
 minuet	a stately court dance in the 17th century
 minuets	MINUET: a stately court dance in the 17th century
 minus	an arithmetic operation in which the difference between two numbers is calculated
-minuscule	the characters that were once kept in bottom half of a compositor's type case
-minuscules	MINUSCULE: the characters that were once kept in bottom half of a compositor's type case
+minuscule	extremely small
+minuscules	MINUSCULE: extremely small
 minuses	MINUS: an arithmetic operation in which the difference between two numbers is calculated
 minute	a unit of time equal to 60 seconds or 1/60th of an hour
 minuted	MINUTE: record in the official notes of a meeting
@@ -2513,7 +2513,7 @@ misalliance	an unsuitable alliance (especially with regard to marriage)
 misalliances	MISALLIANCE: an unsuitable alliance (especially with regard to marriage)
 misanthrope	someone who dislikes people in general
 misanthropes	MISANTHROPE: someone who dislikes people in general
-misanthropic	believing the worst of human nature and motives; having a sneering disbelief in e.g. selflessness of others
+misanthropic	hating mankind in general
 misanthropist	someone who dislikes people in general
 misanthropists	MISANTHROPIST: someone who dislikes people in general
 misanthropy	hatred of mankind
@@ -2552,8 +2552,8 @@ miscall	assign in incorrect name to
 miscalled	MISCALL: assign in incorrect name to
 miscalling	MISCALL: assign in incorrect name to
 miscalls	MISCALL: assign in incorrect name to
-miscarriage	failure of a plan
-miscarriages	MISCARRIAGE: failure of a plan
+miscarriage	a natural loss of the products of conception
+miscarriages	MISCARRIAGE: a natural loss of the products of conception
 miscarried	MISCARRY: lose a pregnancy, or go wrong
 miscarries	MISCARRY: be unsuccessful
 miscarry	be unsuccessful
@@ -2565,12 +2565,12 @@ miscegenation	reproduction by parents of different races (especially by white an
 miscellaneous	consisting of a haphazard assortment of different kinds
 miscellanies	MISCELLANY: a collection containing a variety of sorts of things
 miscellany	a collection containing a variety of sorts of things
-mischance	an unpredictable outcome that is unfortunate
-mischances	MISCHANCE: an unpredictable outcome that is unfortunate
+mischance	an instance of misfortune
+mischances	MISCHANCE: an instance of misfortune
 mischief	reckless or malicious behavior that causes discomfort or annoyance in others
 mischievous	naughtily or annoyingly playful
 mischievously	in a disobedient or naughty way
-mischievousness	an attribute of mischievous children
+mischievousness	the trait of behaving like an imp
 miscible	capable of being mixed
 misclassified	MISCLASSIFY: put into the wrong category
 miscommunication	failure to communicate clearly
@@ -2581,10 +2581,10 @@ misconceives	MISCONCEIVE: interpret in the wrong way
 misconceiving	MISCONCEIVE: interpret in the wrong way
 misconception	an incorrect conception
 misconceptions	MISCONCEPTION: an incorrect conception
-misconduct	bad or dishonest management by persons supposed to act on another's behalf
-misconducted	MISCONDUCT: bad or dishonest management by persons supposed to act on another's behalf
-misconducting	MISCONDUCT: bad or dishonest management by persons supposed to act on another's behalf
-misconducts	MISCONDUCT: bad or dishonest management by persons supposed to act on another's behalf
+misconduct	activity that transgresses moral or civil law
+misconducted	MISCONDUCT: activity that transgresses moral or civil law
+misconducting	MISCONDUCT: activity that transgresses moral or civil law
+misconducts	MISCONDUCT: activity that transgresses moral or civil law
 misconstruction	a kind of misinterpretation resulting from putting a wrong construction on words or actions (often deliberately)
 misconstructions	MISCONSTRUCTION: a kind of misinterpretation resulting from putting a wrong construction on words or actions (often deliberately)
 misconstrue	interpret in the wrong way
@@ -2597,9 +2597,9 @@ miscounting	MISCOUNT: an inaccurate count
 miscounts	MISCOUNT: an inaccurate count
 miscreant	a person without moral scruples
 miscreants	MISCREANT: a person without moral scruples
-miscue	a faulty shot in billiards; the cue tip slips off the cue ball
+miscue	a minor inadvertent mistake usually observed in speech or writing or in small accidents or memory lapses etc.
 miscued	MISCUE: make a mistake in striking a ball or in a signal
-miscues	MISCUE: a faulty shot in billiards; the cue tip slips off the cue ball
+miscues	MISCUE: a minor inadvertent mistake usually observed in speech or writing or in small accidents or memory lapses etc.
 miscuing	MISCUE: make a mistake in striking a ball or in a signal
 misdeal	an incorrect deal
 misdealing	MISDEAL: an incorrect deal
@@ -2617,11 +2617,11 @@ misdiagnoses	MISDIAGNOSE: identify an illness wrongly
 misdiagnosing	MISDIAGNOSE: identify an illness wrongly
 misdiagnosis	a wrong identification of an illness
 misdid	MISDO: do wrongly
-misdirect	corrupt morally or by intemperance or sensuality
-misdirected	MISDIRECT: corrupt morally or by intemperance or sensuality
-misdirecting	MISDIRECT: corrupt morally or by intemperance or sensuality
-misdirection	an incorrect charge to a jury given by a judge
-misdirects	MISDIRECT: corrupt morally or by intemperance or sensuality
+misdirect	lead someone in the wrong direction or give someone wrong directions
+misdirected	MISDIRECT: lead someone in the wrong direction or give someone wrong directions
+misdirecting	MISDIRECT: lead someone in the wrong direction or give someone wrong directions
+misdirection	incorrect directions or instructions
+misdirects	MISDIRECT: lead someone in the wrong direction or give someone wrong directions
 misdo	do wrongly or improperly
 misdoer	someone who does wrong
 misdoers	MISDOER: someone who does wrong
@@ -2656,17 +2656,17 @@ misgovern	govern badly
 misgoverned	MISGOVERN: govern badly
 misgoverning	MISGOVERN: govern badly
 misgoverns	MISGOVERN: govern badly
-misguide	lead someone in the wrong direction or give someone wrong directions
+misguide	give bad advice to
 misguided	poorly conceived or thought out
 misguidedly	in a misguided way
-misguides	MISGUIDE: lead someone in the wrong direction or give someone wrong directions
-misguiding	MISGUIDE: lead someone in the wrong direction or give someone wrong directions
-mishandle	make a mess of, destroy or ruin
-mishandled	MISHANDLE: make a mess of, destroy or ruin
-mishandles	MISHANDLE: make a mess of, destroy or ruin
-mishandling	MISHANDLE: make a mess of, destroy or ruin
-mishap	an unpredictable outcome that is unfortunate
-mishaps	MISHAP: an unpredictable outcome that is unfortunate
+misguides	MISGUIDE: give bad advice to
+misguiding	MISGUIDE: give bad advice to
+mishandle	manage badly or incompetently
+mishandled	MISHANDLE: manage badly or incompetently
+mishandles	MISHANDLE: manage badly or incompetently
+mishandling	MISHANDLE: manage badly or incompetently
+mishap	an instance of misfortune
+mishaps	MISHAP: an instance of misfortune
 mishear	hear something wrongly
 misheard	MISHEAR: hear wrongly
 mishearing	MISHEAR: hear something wrongly
@@ -2737,10 +2737,10 @@ misplace	place (something) where one cannot find it again
 misplaced	put in the wrong place or position
 misplaces	MISPLACE: place (something) where one cannot find it again
 misplacing	MISPLACE: place (something) where one cannot find it again
-misplay	a failure of a defensive player to make an out when normal play would have sufficed
-misplayed	MISPLAY: a failure of a defensive player to make an out when normal play would have sufficed
-misplaying	MISPLAY: a failure of a defensive player to make an out when normal play would have sufficed
-misplays	MISPLAY: a failure of a defensive player to make an out when normal play would have sufficed
+misplay	play wrong or in an unskillful manner
+misplayed	MISPLAY: play wrong or in an unskillful manner
+misplaying	MISPLAY: play wrong or in an unskillful manner
+misplays	MISPLAY: play wrong or in an unskillful manner
 misprint	a mistake in printed matter resulting from mechanical failures of some kind
 misprinted	MISPRINT: a mistake in printed matter resulting from mechanical failures of some kind
 misprinting	MISPRINT: a mistake in printed matter resulting from mechanical failures of some kind
@@ -2803,9 +2803,9 @@ misspelling	a spelling that is incorrect
 misspellings	MISSPELLING: a spelling that is incorrect
 misspells	MISSPELL: spell incorrectly
 misspelt	MISSPELL: spell wrongly
-misspend	spend time badly or unwisely
-misspending	MISSPEND: spend time badly or unwisely
-misspends	MISSPEND: spend time badly or unwisely
+misspend	spend (money or other resources) unwisely
+misspending	MISSPEND: spend (money or other resources) unwisely
+misspends	MISSPEND: spend (money or other resources) unwisely
 misspent	MISSPEND: wasted
 misspoke	MISSPEAK: say something wrongly
 misspoken	MISSPEAK: say something wrongly
@@ -2837,7 +2837,7 @@ mistimes	MISTIME: time incorrectly
 mistiming	something located at a time when it could not have existed or occurred
 mistiness	cloudiness resulting from haze or mist or vapor
 misting	MIST: a thin fog with condensation near the ground
-mistletoe	American plants closely resembling Old World mistletoe
+mistletoe	Old World parasitic shrub having branching greenish stems with leathery leaves and waxy white glutinous berries; the traditional mistletoe of Christmas
 mistook	MISTAKE: get something wrong
 mistral	a strong north wind that blows in France during the winter
 mistranslated	MISTRANSLATE: translate incorrectly
@@ -2888,19 +2888,19 @@ mitochondrion	an organelle containing enzymes responsible for producing energy
 mitosis	cell division in which the nucleus divides into nuclei containing the same number of chromosomes
 mitotic	of or relating to or undergoing mitosis
 mitral	of or relating to or located in or near the mitral valve
-mitre	joint that forms a corner; usually both sides are bevelled at a 45-degree angle to form a 90-degree corner
+mitre	a liturgical headdress worn by bishops on formal occasions
 mitred	MITRE: join with a diagonal cut
-mitres	MITRE: joint that forms a corner; usually both sides are bevelled at a 45-degree angle to form a 90-degree corner
+mitres	MITRE: a liturgical headdress worn by bishops on formal occasions
 mitring	MITRE: join with a diagonal cut
-mitt	the (prehensile) extremity of the superior limb
+mitt	the handwear used by fielders in playing baseball
 mitten	glove that encases the thumb separately and the other four fingers together
 mittens	MITTEN: glove that encases the thumb separately and the other four fingers together
-mitts	MITT: the (prehensile) extremity of the superior limb
-mitzvah	a precept or commandment of the Jewish law
+mitts	MITT: the handwear used by fielders in playing baseball
+mitzvah	a good deed performed out of religious duty
 mix	mix together different elements
 mixed	consisting of a haphazard assortment of different kinds
-mixer	a party of people assembled to promote sociability and communal activity
-mixers	MIXER: a party of people assembled to promote sociability and communal activity
+mixer	a kitchen utensil that is used for mixing foods
+mixers	MIXER: a kitchen utensil that is used for mixing foods
 mixes	MIX: mix together different elements
 mixing	the act of mixing together
 mixologist	an employee who mixes and serves alcoholic drinks at a bar
@@ -2935,10 +2935,10 @@ mobile	migratory
 mobiles	MOBILE: migratory
 mobilisation	act of marshaling and organizing and making ready for use or action
 mobilisations	MOBILISATION: act of marshaling and organizing and making ready for use or action
-mobilise	call to arms; of military personnel
-mobilised	MOBILISE: call to arms; of military personnel
-mobilises	MOBILISE: call to arms; of military personnel
-mobilising	MOBILISE: call to arms; of military personnel
+mobilise	make ready for action or use
+mobilised	MOBILISE: make ready for action or use
+mobilises	MOBILISE: make ready for action or use
+mobilising	MOBILISE: make ready for action or use
 mobility	the quality of moving freely
 mobilization	act of assembling and putting into readiness for war or other emergency
 mobilizations	MOBILIZATION: act of assembling and putting into readiness for war or other emergency
@@ -2951,8 +2951,8 @@ mobster	a criminal who is a member of gang
 mobsters	MOBSTER: a criminal who is a member of gang
 moccasin	soft leather shoe; originally worn by Native Americans
 moccasins	MOCCASIN: soft leather shoe; originally worn by Native Americans
-mocha	soft suede glove leather from goatskin
-mochas	MOCHA: soft suede glove leather from goatskin
+mocha	a flavoring made from coffee mixed with chocolate
+mochas	MOCHA: a flavoring made from coffee mixed with chocolate
 mochi	a Japanese sticky rice cake
 mock	treat with contempt
 mocked	MOCK: treat with contempt
@@ -2963,29 +2963,29 @@ mockery	showing your contempt by derision
 mocking	abusing vocally; expressing contempt or ridicule
 mockingbird	long-tailed grey-and-white songbird of the southern United States able to mimic songs of other birds
 mockingbirds	MOCKINGBIRD: long-tailed grey-and-white songbird of the southern United States able to mimic songs of other birds
-mockingly	in a disrespectful jeering manner
+mockingly	in a disrespectful and mocking manner
 mocks	MOCK: treat with contempt
 mockup	a full-size model used for testing or display
 mockups	MOCKUP: a full-size model used for testing or display
-mod	a British teenager or young adult in the 1960s; noted for their clothes consciousness and opposition to the rockers
+mod	relating to a recently developed fashion or style
 modal	relating to or constituting the most frequent value in a distribution
-modalities	MODALITY: a classification of propositions on the basis of whether they claim necessity or possibility or impossibility
-modality	a classification of propositions on the basis of whether they claim necessity or possibility or impossibility
+modalities	MODALITY: a particular sense
+modality	a particular sense
 modals	MODAL: relating to or constituting the most frequent value in a distribution
-modded	MOD: a British teenager or young adult in the 1960s; noted for their clothes consciousness and opposition to the rockers
-modding	MOD: a British teenager or young adult in the 1960s; noted for their clothes consciousness and opposition to the rockers
+modded	MOD: relating to a recently developed fashion or style
+modding	MOD: relating to a recently developed fashion or style
 mode	how something is done or how it happens
 model	a hypothetical description of a complex entity or process
 modeled	resembling sculpture
 modeler	MODEL: a hypothetical description of a complex entity or process
 modelers	MODELER: a person who creates models
 modeling	MODEL: a hypothetical description of a complex entity or process
-modelings	MODELING: sculpture produced by molding
+modelings	MODELING: the act of representing something (usually on a smaller scale)
 modelled	MODEL: a hypothetical description of a complex entity or process
 modeller	MODEL: a hypothetical description of a complex entity or process
 modellers	MODELLER: a person who creates models
 modelling	MODEL: a hypothetical description of a complex entity or process
-modellings	MODELLING: a preliminary sculpture in wax or clay from which a finished work can be copied
+modellings	MODELLING: the act of representing something (usually on a smaller scale)
 models	MODEL: a hypothetical description of a complex entity or process
 modem	electronic equipment consisting of a device used to connect computers by a telephone line
 modems	MODEM: electronic equipment consisting of a device used to connect computers by a telephone line
@@ -2996,17 +2996,17 @@ moderates	MODERATE: preside over
 moderating	MODERATE: preside over
 moderation	quality of being moderate and avoiding extremes
 moderato	(of tempo) moderate
-moderator	any substance used to slow down neutrons in nuclear reactors
-moderators	MODERATOR: any substance used to slow down neutrons in nuclear reactors
+moderator	someone who presides over a forum or debate
+moderators	MODERATOR: someone who presides over a forum or debate
 moderatos	MODERATO: a piece played at moderate speed
 modern	belonging to the modern era; since the Middle Ages
 modernisation	making modern in appearance or behavior
-modernise	become technologically advanced
+modernise	make repairs, renovations, revisions or adjustments to
 modernised	brought up to date
 moderniser	someone who brings things up to date
 modernisers	MODERNISER: someone who brings things up to date
-modernises	MODERNISE: become technologically advanced
-modernising	MODERNISE: become technologically advanced
+modernises	MODERNISE: make repairs, renovations, revisions or adjustments to
+modernising	MODERNISE: make repairs, renovations, revisions or adjustments to
 modernism	genre of art and literature that makes a self-conscious break with previous genres
 modernist	an artist who makes a deliberate break with previous styles
 modernistic	relating to a recently developed fashion or style
@@ -3041,26 +3041,26 @@ modishness	elegance by virtue of being fashionable
 mods	a youth subculture that began in London in the early 1960s; a working-class movement with highly stylized dress and short hair; listened to rhythm and blues music and travelled on motor scooters
 modular	constructed with standardized units or dimensions allowing flexibility and variety in use
 modularity	the quality of being made of separate units
-modulate	change the key of, in music
+modulate	fix or adjust the time, amount, degree, or rate of
 modulated	changed or adjusted in pitch, tone, or volume
-modulates	MODULATE: change the key of, in music
-modulating	MODULATE: change the key of, in music
+modulates	MODULATE: fix or adjust the time, amount, degree, or rate of
+modulating	MODULATE: fix or adjust the time, amount, degree, or rate of
 modulation	a musical passage moving from one key to another
 modulations	MODULATION: a musical passage moving from one key to another
 modulator	a device that varies a signal
 modulators	MODULATOR: a device that varies a signal
-module	one of the inherent cognitive or perceptual powers of the mind
-modules	MODULE: one of the inherent cognitive or perceptual powers of the mind
+module	a self-contained component (unit or item) that is used in combination with other components
+modules	MODULE: a self-contained component (unit or item) that is used in combination with other components
 modulo	with respect to a given divisor in arithmetic
-modulus	an integer that can be divided without remainder into the difference between two other integers
+modulus	the absolute value of a complex number
 moggie	a cat
 moggies	MOGGIE: a cat
 moggy	a cat
-mogul	a bump on a ski slope
-moguls	MOGUL: a bump on a ski slope
+mogul	a very wealthy or powerful businessman
+moguls	MOGUL: a very wealthy or powerful businessman
 mohair	fabric made with yarn made from the silky hair of the Angora goat
-mohawk	a member of the Iroquoian people formerly living along the Mohawk River in New York State
-mohawks	MOHAWK: a member of the Iroquoian people formerly living along the Mohawk River in New York State
+mohawk	haircut in which the head is shaved except for a band of hair down the middle of the scalp
+mohawks	MOHAWK: haircut in which the head is shaved except for a band of hair down the middle of the scalp
 mohican	a member of the Algonquian people formerly living in the Hudson valley and eastward to the Housatonic
 mohicans	MOHICAN: a member of the Algonquian people formerly living in the Hudson valley and eastward to the Housatonic
 moi	me, used jokingly
@@ -3111,13 +3111,13 @@ molding	the act of creating something by casting it in a mold
 moldings	MOLDING: the act of creating something by casting it in a mold
 molds	MOLD: the distinctive form in which a thing is made
 moldy	covered with or smelling of mold
-mole	the molecular weight of a substance expressed in grams; the basic unit of amount of substance adopted under the Systeme International d'Unites
+mole	small velvety-furred burrowing mammal having small eyes and fossorial forefeet
 molecular	relating to or produced by or consisting of molecules
 molecule	the simplest structural unit of an element or compound
 molecules	MOLECULE: the simplest structural unit of an element or compound
 molehill	a mound of earth made by moles while burrowing
 molehills	MOLEHILL: a mound of earth made by moles while burrowing
-moles	MOLE: the molecular weight of a substance expressed in grams; the basic unit of amount of substance adopted under the Systeme International d'Unites
+moles	MOLE: small velvety-furred burrowing mammal having small eyes and fossorial forefeet
 moleskin	a durable cotton fabric with a velvety nap
 molest	harass or assault sexually; make indecent advances to
 molestation	the act of subjecting someone to unwanted or improper sexual advances or activity (especially women or children)
@@ -3127,7 +3127,7 @@ molesters	MOLESTER: someone who subjects others to unwanted or improper sexual a
 molesting	MOLEST: harass or assault sexually; make indecent advances to
 molests	MOLEST: harass or assault sexually; make indecent advances to
 moll	the girlfriend of a gangster
-mollification	a state of being appeased or ameliorated or tempered
+mollification	the act of appeasing someone or causing someone to be more favorably inclined
 mollified	MOLLIFY: calm the anger of
 mollifies	MOLLIFY: cause to be more favorably inclined; gain the good will of
 mollify	cause to be more favorably inclined; gain the good will of
@@ -3139,15 +3139,15 @@ molluscs	MOLLUSC: invertebrate having a soft unsegmented body usually enclosed i
 mollusk	invertebrate having a soft unsegmented body usually enclosed in a shell
 mollusks	MOLLUSK: invertebrate having a soft unsegmented body usually enclosed in a shell
 molly	popular aquarium fish
-mollycoddle	a pampered darling; an effeminate man
-mollycoddled	MOLLYCODDLE: a pampered darling; an effeminate man
-mollycoddles	MOLLYCODDLE: a pampered darling; an effeminate man
-mollycoddling	MOLLYCODDLE: a pampered darling; an effeminate man
-molt	periodic shedding of the cuticle in arthropods or the outer skin in reptiles
-molted	MOLT: periodic shedding of the cuticle in arthropods or the outer skin in reptiles
+mollycoddle	treat with excessive indulgence
+mollycoddled	MOLLYCODDLE: treat with excessive indulgence
+mollycoddles	MOLLYCODDLE: treat with excessive indulgence
+mollycoddling	MOLLYCODDLE: treat with excessive indulgence
+molt	cast off hair, skin, horn, or feathers
+molted	MOLT: cast off hair, skin, horn, or feathers
 molten	reduced to liquid form by heating
 molting	periodic shedding of the cuticle in arthropods or the outer skin in reptiles
-molts	MOLT: periodic shedding of the cuticle in arthropods or the outer skin in reptiles
+molts	MOLT: cast off hair, skin, horn, or feathers
 molybdenum	a polyvalent metallic element that resembles chromium and tungsten in its properties; used to strengthen and harden steel
 mom	informal terms for a mother
 moment	a particular point in time
@@ -3164,11 +3164,11 @@ mommas	MOMMA: informal terms for a mother
 mommies	MOMMY: informal terms for a mother
 mommy	informal terms for a mother
 moms	MOM: informal terms for a mother
-monad	an atom having a valence of one
+monad	a singular metaphysical entity from which material properties are said to derive
 monadnock	an isolated hill rising above a plain
 monarch	a nation's ruler or head of state usually by hereditary right
 monarchic	ruled by or having the supreme power resting with a monarch
-monarchical	having the characteristics of or befitting or worthy of a monarch
+monarchical	ruled by or having the supreme power resting with a monarch
 monarchies	MONARCHY: an autocracy governed by a monarch who usually inherits the authority
 monarchism	a belief in and advocacy of monarchy as a political system
 monarchist	an advocate of the principles of monarchy
@@ -3202,7 +3202,7 @@ moneybag	a drawstring bag for holding money
 moneybags	MONEYBAG: a drawstring bag for holding money
 moneybox	a container for saving coins
 moneyboxes	MONEYBOX: a container for saving coins
-moneyed	based on or arising from the possession of money or wealth
+moneyed	having an abundant supply of money or possessions of value
 moneygrubbing	greedily seeking wealth
 moneylender	someone who lends money at excessive rates of interest
 moneylenders	MONEYLENDER: someone who lends money at excessive rates of interest
@@ -3220,8 +3220,8 @@ mongers	MONGER: someone who purchases and maintains an inventory of goods to be 
 mongolism	a congenital disorder caused by having an extra 21st chromosome; results in a flat face and short stature and mental retardation
 mongoose	agile grizzled Old World viverrine; preys on snakes and rodents
 mongooses	MONGOOSE: agile grizzled Old World viverrine; preys on snakes and rodents
-mongrel	derogatory term for a variation that is not genuine; something irregular or inferior or of dubious origin
-mongrels	MONGREL: derogatory term for a variation that is not genuine; something irregular or inferior or of dubious origin
+mongrel	an inferior dog or one of mixed breed
+mongrels	MONGREL: an inferior dog or one of mixed breed
 monicker	a name or nickname
 monickers	MONICKER: a name or nickname
 monied	based on or arising from the possession of money or wealth
@@ -3240,19 +3240,19 @@ monkeying	MONKEY: any of various long-tailed primates (excluding the prosimians)
 monkeys	MONKEY: any of various long-tailed primates (excluding the prosimians)
 monkeyshine	a mischievous trick
 monkeyshines	MONKEYSHINE: a mischievous trick
-monkfish	flesh of a large-headed anglerfish of the Atlantic waters of North America
+monkfish	fishes having large mouths with a wormlike filament attached for luring prey
 monkish	befitting a monk; inclined to self-denial
 monks	MONK: a male religious living in a cloister and devoting himself to contemplation and prayer and work
 monkshood	a poisonous herb native to northern Europe having hooded blue-purple flowers; the dried leaves and roots yield aconite
 monkshoods	MONKSHOOD: a poisonous herb native to northern Europe having hooded blue-purple flowers; the dried leaves and roots yield aconite
-mono	an acute disease characterized by fever and swollen lymph nodes and an abnormal increase of mononuclear leucocytes or monocytes in the bloodstream; not highly contagious; some believe it can be transmitted by kissing
-monochromatic	of or relating to monochromatism
+mono	designating sound transmission or recording or reproduction over a single channel
+monochromatic	having or appearing to have only one color
 monochrome	painting done in a range of tones of a single color
 monochromes	MONOCHROME: painting done in a range of tones of a single color
 monocle	lens for correcting defective vision in one eye; held in place by facial muscles
 monocled	wearing, or having the face adorned with, eyeglasses or an eyeglass
 monocles	MONOCLE: lens for correcting defective vision in one eye; held in place by facial muscles
-monoclonal	any of a class of antibodies produced in the laboratory by a single clone of cells or a cell line and consisting of identical antibody molecules
+monoclonal	forming or derived from a single clone
 monocotyledon	a monocotyledonous flowering plant; the stem grows by deposits on its inside
 monocotyledons	MONOCOTYLEDON: a monocotyledonous flowering plant; the stem grows by deposits on its inside
 monocular	using or having one eye
@@ -3268,8 +3268,8 @@ monograms	MONOGRAM: a graphic symbol consisting of 2 or more letters combined (u
 monograph	a detailed and documented treatise on a particular subject
 monographs	MONOGRAPH: a detailed and documented treatise on a particular subject
 monolayer	a layer one molecule thick
-monolingual	a person who knows only one language
-monolinguals	MONOLINGUAL: a person who knows only one language
+monolingual	using or knowing only one language
+monolinguals	MONOLINGUAL: using or knowing only one language
 monolith	a single great stone (often in the form of a column or obelisk)
 monolithic	imposing in size or bulk or solidity
 monoliths	MONOLITH: a single great stone (often in the form of a column or obelisk)
@@ -3315,7 +3315,7 @@ monotheistic	believing that there is only one god
 monotheists	MONOTHEIST: a believer in one god
 monotone	an unchanging intonation
 monotones	MONOTONE: an unchanging intonation
-monotonic	of a sequence or function; consistently increasing and never decreasing or consistently decreasing and never increasing in value
+monotonic	sounded or spoken in a tone unvarying in pitch
 monotonically	in a way that never reverses direction
 monotonous	tediously repetitious or lacking in variety
 monotonously	in a monotonous manner
@@ -3334,8 +3334,8 @@ monsoonal	relating to the seasonal rain winds
 monsoons	MONSOON: a seasonal wind in southern Asia; blows from the southwest (bringing rain) in summer and from the northeast in winter
 monster	an imaginary creature usually having various human and animal parts
 monsters	MONSTER: an imaginary creature usually having various human and animal parts
-monstrance	proof by a process of argument or a series of proposition proving an asserted conclusion
-monstrances	MONSTRANCE: proof by a process of argument or a series of proposition proving an asserted conclusion
+monstrance	a vessel (usually of gold or silver) in which the consecrated Host is exposed for adoration
+monstrances	MONSTRANCE: a vessel (usually of gold or silver) in which the consecrated Host is exposed for adoration
 monstrosities	MONSTROSITY: a person or animal that is markedly unusual or deformed
 monstrosity	a person or animal that is markedly unusual or deformed
 monstrous	abnormally large
@@ -3348,28 +3348,28 @@ monte	a gambling card game of Spanish origin; 3 or 4 cards are dealt face up and
 montero	a hunter's cap
 montes	MONTE: a gambling card game of Spanish origin; 3 or 4 cards are dealt face up and players bet that one of them will be matched before the others as the cards are dealt from the pack one at a time
 month	one of the twelve divisions of the calendar year
-monthlies	MONTHLY: a periodical that is published every month (or 12 issues per year)
+monthlies	MONTHLY: of or occurring or payable every month
 monthlong	last through a month
-monthly	a periodical that is published every month (or 12 issues per year)
+monthly	of or occurring or payable every month
 months	MONTH: one of the twelve divisions of the calendar year
 monument	a structure erected to commemorate persons or events
 monumental	relating or belonging to or serving as a monument
 monumentally	to a huge degree
 monuments	MONUMENT: a structure erected to commemorate persons or events
 moo	make a low noise, characteristic of bovines
-mooch	someone who mooches or cadges (tries to get something free)
-mooched	MOOCH: someone who mooches or cadges (tries to get something free)
+mooch	ask for and get free; be a parasite
+mooched	MOOCH: ask for and get free; be a parasite
 moocher	someone who mooches or cadges (tries to get something free)
 moochers	MOOCHER: someone who mooches or cadges (tries to get something free)
-mooches	MOOCH: someone who mooches or cadges (tries to get something free)
-mooching	MOOCH: someone who mooches or cadges (tries to get something free)
+mooches	MOOCH: ask for and get free; be a parasite
+mooching	MOOCH: ask for and get free; be a parasite
 mood	a characteristic (habitual or relatively temporary) state of feeling
-moodier	MOODY: United States tennis player who dominated women's tennis in the 1920s and 1930s (1905-1998)
-moodiest	MOODY: United States tennis player who dominated women's tennis in the 1920s and 1930s (1905-1998)
+moodier	MOODY: subject to sharply varying moods
+moodiest	MOODY: subject to sharply varying moods
 moodily	in a moody manner
-moodiness	a sullen gloomy feeling
+moodiness	having temperamental and changeable moods
 moods	MOOD: a characteristic (habitual or relatively temporary) state of feeling
-moody	United States tennis player who dominated women's tennis in the 1920s and 1930s (1905-1998)
+moody	subject to sharply varying moods
 mooed	MOO: make a low noise, characteristic of bovines
 mooing	MOO: make a low noise, characteristic of bovines
 moon	the natural satellite of the Earth
@@ -3398,11 +3398,11 @@ moonset	the time when the moon sinks below the horizon
 moonsets	MOONSET: the time when the moon sinks below the horizon
 moonshadow	a shadow cast by moonlight
 moonshadows	MOONSHADOW: a shadow cast by moonlight
-moonshine	the light of the Moon
+moonshine	whiskey illegally distilled from a corn mash
 moonshiner	someone who makes or sells illegal liquor
 moonshiners	MOONSHINER: someone who makes or sells illegal liquor
-moonshines	MOONSHINE: the light of the Moon
-moonshining	MOONSHINE: the light of the Moon
+moonshines	MOONSHINE: whiskey illegally distilled from a corn mash
+moonshining	MOONSHINE: whiskey illegally distilled from a corn mash
 moonshot	a very ambitious project
 moonshots	MOONSHOT: a very ambitious project
 moonstone	a transparent or translucent gemstone with a pearly luster; some specimens are orthoclase feldspar and others are plagioclase feldspar
@@ -3411,24 +3411,24 @@ moonstruck	insane and believed to be affected by the phases of the moon
 moonwalk	a kind of dance step in which the dancer seems to be sliding on the spot
 moonwalks	MOONWALK: a kind of dance step in which the dancer seems to be sliding on the spot
 moonwashed	bathed in moonlight
-moor	one of the Muslim people of north Africa; of mixed Arab and Berber descent; converted to Islam in the 8th century; conqueror of Spain in the 8th century
-moorage	a fee for mooring
-moored	MOOR: one of the Muslim people of north Africa; of mixed Arab and Berber descent; converted to Islam in the 8th century; conqueror of Spain in the 8th century
+moor	open land usually with peaty soil covered with heather and bracken and moss
+moorage	a place where a craft can be made fast
+moored	MOOR: open land usually with peaty soil covered with heather and bracken and moss
 moorhen	black gallinule that inhabits ponds and lakes
 moorhens	MOORHEN: black gallinule that inhabits ponds and lakes
 mooring	a place where a craft can be made fast
 moorings	MOORING: a place where a craft can be made fast
 moorland	open land usually with peaty soil covered with heather and bracken and moss
 moorlands	MOORLAND: open land usually with peaty soil covered with heather and bracken and moss
-moors	MOOR: one of the Muslim people of north Africa; of mixed Arab and Berber descent; converted to Islam in the 8th century; conqueror of Spain in the 8th century
+moors	MOOR: open land usually with peaty soil covered with heather and bracken and moss
 moos	MOO: make a low noise, characteristic of bovines
 moose	large northern deer with enormous flattened antlers in the male; called `elk' in Europe and `moose' in North America
-moot	a hypothetical case that law students argue as an exercise
-mooted	MOOT: a hypothetical case that law students argue as an exercise
-mooting	MOOT: a hypothetical case that law students argue as an exercise
-moots	MOOT: a hypothetical case that law students argue as an exercise
+moot	open to argument or debate
+mooted	MOOT: open to argument or debate
+mooting	MOOT: open to argument or debate
+moots	MOOT: open to argument or debate
 mop	to wash or wipe with or as if with a mop
-mope	someone who wastes time
+mope	be apathetic, gloomy, or dazed
 moped	MOP: to wash or wipe with or as if with a mop
 mopeds	MOPED: a motorbike that can be pedaled or driven by a low-powered gasoline engine
 moper	someone who sulks or feels gloomy
@@ -3447,40 +3447,40 @@ moraine	accumulated earth and stones deposited by a glacier
 moraines	MORAINE: accumulated earth and stones deposited by a glacier
 moral	the significance of a story or event
 morale	a state of individual psychological well-being based upon a sense of confidence and usefulness and purpose
-moralise	interpret the moral meaning of
-moralised	MORALISE: interpret the moral meaning of
+moralise	speak as if delivering a sermon; express moral judgements
+moralised	MORALISE: speak as if delivering a sermon; express moral judgements
 moraliser	someone who lectures about right and wrong
 moralisers	MORALISER: someone who lectures about right and wrong
-moralises	MORALISE: interpret the moral meaning of
-moralising	MORALISE: interpret the moral meaning of
-moralism	a moral maxim
+moralises	MORALISE: speak as if delivering a sermon; express moral judgements
+moralising	MORALISE: speak as if delivering a sermon; express moral judgements
+moralism	judgments about another person's morality
 moralist	a philosopher who specializes in morals and moral problems
 moralistic	narrowly and conventionally moral
 moralists	MORALIST: a philosopher who specializes in morals and moral problems
 moralities	MORALITY: concern with the distinction between good and evil or right and wrong; right or good conduct
 morality	concern with the distinction between good and evil or right and wrong; right or good conduct
-moralize	interpret the moral meaning of
-moralized	MORALIZE: interpret the moral meaning of
+moralize	speak as if delivering a sermon; express moral judgements
+moralized	MORALIZE: speak as if delivering a sermon; express moral judgements
 moralizer	someone who lectures about right and wrong
 moralizers	MORALIZER: someone who lectures about right and wrong
-moralizes	MORALIZE: interpret the moral meaning of
+moralizes	MORALIZE: speak as if delivering a sermon; express moral judgements
 moralizing	indulgence in moral pronouncements; the exposition (often superficially) of a particular moral code
 morally	with respect to moral principles
 morals	motivation based on ideas of right and wrong
 morass	a soft wet area of low-lying land that sinks underfoot
 morasses	MORASS: a soft wet area of low-lying land that sinks underfoot
 moratoria	MORATORIUM: a temporary ban or pause
-moratorium	a legally authorized postponement before some obligation must be discharged
-moratoriums	MORATORIUM: a legally authorized postponement before some obligation must be discharged
+moratorium	suspension of an ongoing activity
+moratoriums	MORATORIUM: suspension of an ongoing activity
 moray	family of brightly colored voracious eels of warm coastal waters; generally nonaggressive to humans but larger species are dangerous if provoked
 morays	MORAY: family of brightly colored voracious eels of warm coastal waters; generally nonaggressive to humans but larger species are dangerous if provoked
-morbid	suggesting an unhealthy mental state
-morbidity	the relative incidence of a particular disease
+morbid	suggesting the horror of death and decay
+morbidity	an abnormally gloomy or unhealthy state of mind
 morbidly	in a morbid manner or to a morbid degree
 morbidness	an abnormally gloomy or unhealthy state of mind
-mordant	a substance used to treat leather or other materials before dyeing; aids in dyeing process
+mordant	harshly ironic or sinister
 mordantly	in a mordant way
-mordants	MORDANT: a substance used to treat leather or other materials before dyeing; aids in dyeing process
+mordants	MORDANT: harshly ironic or sinister
 more	a quantifier meaning greater in size or amount or extent or degree
 moreish	so tasty that you want more
 morello	cultivated sour cherry with dark-colored skin and juice
@@ -3488,7 +3488,7 @@ moreover	in addition
 mores	the conventions that embody the fundamental values of a group
 morgue	a building (or room) where dead bodies are kept before burial or cremation
 morgues	MORGUE: a building (or room) where dead bodies are kept before burial or cremation
-moribund	not growing or changing; without force or vitality
+moribund	being on the point of death; breathing your last
 moribundly	in a moribund way
 morn	the time period between dawn and noon
 morning	the time period between dawn and noon
@@ -3502,23 +3502,23 @@ morons	MORON: a person of subnormal intelligence
 morose	showing a brooding ill humor
 morosely	in a morose manner
 moroseness	a gloomy ill-tempered feeling
-morph	cause to change shape in a computer animation
-morphed	MORPH: cause to change shape in a computer animation
+morph	change shape as via computer animation
+morphed	MORPH: change shape as via computer animation
 morpheme	minimal meaningful language unit; it cannot be divided into smaller meaningful units
 morphemes	MORPHEME: minimal meaningful language unit; it cannot be divided into smaller meaningful units
 morphia	an alkaloid narcotic drug extracted from opium; a powerful, habit-forming narcotic used to relieve pain
 morphine	an alkaloid narcotic drug extracted from opium; a powerful, habit-forming narcotic used to relieve pain
-morphing	MORPH: cause to change shape in a computer animation
+morphing	MORPH: change shape as via computer animation
 morpho	a large, shiny blue tropical butterfly
 morphogenesis	differentiation and growth of the structure of an organism (or a part of an organism)
-morphological	relating to or concerned with the formation of admissible words in a language
+morphological	relating to or concerned with the morphology of plants and animals
 morphologically	in a morphological manner; with regard to morphology
 morphologies	MORPHOLOGY: the branch of biology that deals with the structure of animals and plants
 morphologist	an expert in the form and structure of things
 morphologists	MORPHOLOGIST: an expert in the form and structure of things
 morphology	the branch of biology that deals with the structure of animals and plants
 morphos	MORPHO: a large, shiny blue tropical butterfly
-morphs	MORPH: cause to change shape in a computer animation
+morphs	MORPH: change shape as via computer animation
 morrow	the next day
 morrows	MORROW: the next day
 morsel	a small quantity of anything
@@ -3530,8 +3530,8 @@ mortally	in such a manner that death ensues (also in reference to hatred, jealou
 mortalness	the quality of being mortal
 mortals	MORTAL: subject to death
 mortar	a muzzle-loading high-angle gun with a short barrel that fires shells at high elevations for a short range
-mortarboard	a square board with a handle underneath; used by masons to hold or carry mortar
-mortarboards	MORTARBOARD: a square board with a handle underneath; used by masons to hold or carry mortar
+mortarboard	an academic cap with a flat square with a tassel on top
+mortarboards	MORTARBOARD: an academic cap with a flat square with a tassel on top
 mortared	MORTAR: a muzzle-loading high-angle gun with a short barrel that fires shells at high elevations for a short range
 mortaring	MORTAR: a muzzle-loading high-angle gun with a short barrel that fires shells at high elevations for a short range
 mortars	MORTAR: a muzzle-loading high-angle gun with a short barrel that fires shells at high elevations for a short range
@@ -3552,9 +3552,9 @@ mortician	one whose business is the management of funerals
 morticians	MORTICIAN: one whose business is the management of funerals
 morticing	MORTICE: a square hole made to receive a tenon and so to form a joint
 mortification	strong feelings of embarrassment
-mortified	suffering from tissue death
-mortifies	MORTIFY: practice self-denial of one's body and appetites
-mortify	practice self-denial of one's body and appetites
+mortified	made to feel uncomfortable because of shame or wounded pride
+mortifies	MORTIFY: cause to feel shame; hurt the pride of
+mortify	cause to feel shame; hurt the pride of
 mortifying	causing to feel shame or chagrin or vexation
 mortise	a square hole made to receive a tenon and so to form a joint
 mortised	MORTISE: a square hole made to receive a tenon and so to form a joint
@@ -3618,8 +3618,8 @@ mothers	MOTHER: a woman who has given birth to a child (also used as a term of a
 moths	MOTH: typically crepuscular or nocturnal insect having a stout body and feathery or hairlike antennae
 motif	a design or figure that consists of recurring shapes or colors, as in architecture or decoration
 motifs	MOTIF: a design or figure that consists of recurring shapes or colors, as in architecture or decoration
-motile	one whose prevailing mental imagery takes the form of inner feelings of action
-motiles	MOTILE: one whose prevailing mental imagery takes the form of inner feelings of action
+motile	(of spores or microorganisms) capable of movement
+motiles	MOTILE: (of spores or microorganisms) capable of movement
 motility	ability to move spontaneously and independently
 motion	the use of movements (especially of the hands) to communicate familiar or prearranged signals
 motioned	MOTION: the use of movements (especially of the hands) to communicate familiar or prearranged signals
@@ -3640,8 +3640,8 @@ motivators	MOTIVATOR: a positive motivational influence
 motive	the psychological feature that arouses an organism to action toward a desired goal; the reason for the action; that which gives purpose and direction to behavior
 motiveless	occurring without motivation or provocation
 motives	MOTIVE: the psychological feature that arouses an organism to action toward a desired goal; the reason for the action; that which gives purpose and direction to behavior
-motley	a collection containing a variety of sorts of things
-motleys	MOTLEY: a collection containing a variety of sorts of things
+motley	consisting of a haphazard assortment of different kinds
+motleys	MOTLEY: consisting of a haphazard assortment of different kinds
 motlier	MOTLEY: made up of mixed parts
 motliest	MOTLEY: made up of mixed parts
 motocross	motorcycle racing over rough ground
@@ -3673,10 +3673,10 @@ motorises	MOTORISE: equip with armed and armored motor vehicles
 motorising	MOTORISE: equip with armed and armored motor vehicles
 motorist	someone who drives (or travels in) an automobile
 motorists	MOTORIST: someone who drives (or travels in) an automobile
-motorize	equip with a motor vehicle
+motorize	equip with a motor
 motorized	equipped with a motor or motors
-motorizes	MOTORIZE: equip with a motor vehicle
-motorizing	MOTORIZE: equip with a motor vehicle
+motorizes	MOTORIZE: equip with a motor
+motorizing	MOTORIZE: equip with a motor
 motorman	the operator of streetcar
 motormen	MOTORMAN: the operator of streetcar
 motormouth	someone who talks incessantly
@@ -3709,10 +3709,10 @@ mouldings	MOULDING: a decorative strip used for ornamentation or finishing
 moulds	MOULD: form in clay, wax, etc
 mouldy	covered with or smelling of mold
 moulin	a chute through which supraglacial water enters a glacier, boring either to the bedrock or to the depth of common crevasse formation
-moult	periodic shedding of the cuticle in arthropods or the outer skin in reptiles
-moulted	MOULT: periodic shedding of the cuticle in arthropods or the outer skin in reptiles
+moult	cast off hair, skin, horn, or feathers
+moulted	MOULT: cast off hair, skin, horn, or feathers
 moulting	periodic shedding of the cuticle in arthropods or the outer skin in reptiles
-moults	MOULT: periodic shedding of the cuticle in arthropods or the outer skin in reptiles
+moults	MOULT: cast off hair, skin, horn, or feathers
 mound	the slight elevation on which the pitcher stands
 mounded	MOUND: the slight elevation on which the pitcher stands
 mounding	MOUND: the slight elevation on which the pitcher stands
@@ -3737,7 +3737,7 @@ mounted	assembled for use; especially by being attached to a support
 mounter	a skilled worker who mounts pictures or jewels etc.
 mounters	MOUNTER: a skilled worker who mounts pictures or jewels etc.
 mounting	MOUNT: attach to a support
-mountings	MOUNTING: an event that involves rising to a higher point (as in altitude or temperature or intensity etc.)
+mountings	MOUNTING: framework used for support or display
 mounts	MOUNT: attach to a support
 mourn	feel sadness
 mourned	MOURN: feel sadness
@@ -3764,7 +3764,7 @@ mousetrap	a trap for catching mice
 mousetrapped	MOUSETRAP: a trap for catching mice
 mousetrapping	MOUSETRAP: a trap for catching mice
 mousetraps	MOUSETRAP: a trap for catching mice
-mousey	infested with mice
+mousey	quiet and timid and ineffectual
 mousier	MOUSY: quiet and timid and ineffectual
 mousiest	MOUSY: quiet and timid and ineffectual
 mousiness	the quality of being mousy
@@ -3802,8 +3802,8 @@ mouthwash	a medicated solution used for gargling and rinsing the mouth
 mouthwashes	MOUTHWASH: a medicated solution used for gargling and rinsing the mouth
 mouthwatering	very appetising
 mouthy	inclined to talk too much or cheekily
-movable	personal as opposed to real property; any tangible movable property (furniture or domestic animals or a car etc)
-movables	MOVABLE: personal as opposed to real property; any tangible movable property (furniture or domestic animals or a car etc)
+movable	capable of being moved or conveyed from one place to another
+movables	MOVABLE: capable of being moved or conveyed from one place to another
 move	change location; move, travel, or proceed, also metaphorically
 moveable	capable of being moved or conveyed from one place to another
 moveables	MOVEABLE: items that can be moved
@@ -3834,14 +3834,14 @@ mozzie	mosquito
 mozzies	MOZZIE: mosquito
 much	to a great degree or extent
 muchness	greatness of quantity or measure or extent
-mucilage	a gelatinous substance secreted by plants
+mucilage	cement consisting of a sticky substance that is used as an adhesive
 mucilaginous	having the sticky properties of an adhesive
 muck	remove muck, clear away muck, as in a mine
 mucked	MUCK: remove muck, clear away muck, as in a mine
 mucker	a friend
 muckers	MUCKER: a friend
-muckier	MUCKY: (of soil) soft and watery
-muckiest	MUCKY: (of soil) soft and watery
+muckier	MUCKY: dirty and messy; covered with mud or muck
+muckiest	MUCKY: dirty and messy; covered with mud or muck
 muckily	in a dirty way
 muckiness	the quality of being mucky
 mucking	MUCK: remove muck, clear away muck, as in a mine
@@ -3852,7 +3852,7 @@ muckrakers	MUCKRAKER: one who spreads real or alleged scandal about another (usu
 muckrakes	MUCKRAKE: explore and expose misconduct and scandals concerning public figures
 muckraking	the exposure of scandal (especially about public figures)
 mucks	MUCK: remove muck, clear away muck, as in a mine
-mucky	(of soil) soft and watery
+mucky	dirty and messy; covered with mud or muck
 mucosa	mucus-secreting membrane lining all body cavities or passages that communicate with the exterior
 mucous	of or secreting or covered with or resembling mucus
 mucus	protective secretion of the mucous membranes; in the gut it lubricates the passage of food and protects the epithelial cells; in the nose and throat and lungs it can make it difficult for bacteria to penetrate the body through the epithelium
@@ -3862,7 +3862,7 @@ muddier	MUDDY: (of soil) soft and watery
 muddies	MUDDY: (of soil) soft and watery
 muddiest	MUDDY: (of soil) soft and watery
 muddily	in a muddy way
-muddiness	the wetness of ground that is covered or soaked with water
+muddiness	the quality of being cloudy
 muddle	a confused multitude of things
 muddled	MUDDLE: a confused multitude of things
 muddlehead	a confused person
@@ -3910,12 +3910,12 @@ mufflers	MUFFLER: a tubular acoustic device inserted in the exhaust system that 
 muffles	MUFFLE: suppress in order to conceal or hide
 muffling	MUFFLE: suppress in order to conceal or hide
 muffs	MUFF: a warm tubular covering for the hands
-mufti	a jurist who interprets Muslim religious law
-muftis	MUFTI: a jurist who interprets Muslim religious law
-mug	the quantity that can be held in a mug
+mufti	civilian dress worn by a person who is entitled to wear a military uniform
+muftis	MUFTI: civilian dress worn by a person who is entitled to wear a military uniform
+mug	a large cylindrical cup with a handle
 mugful	the quantity that can be held in a mug
 mugfuls	MUGFUL: the quantity that can be held in a mug
-mugged	MUG: the quantity that can be held in a mug
+mugged	MUG: a large cylindrical cup with a handle
 mugger	a robber who takes property by threatening or performing violence on the person who is robbed (usually on the street)
 muggers	MUGGER: a robber who takes property by threatening or performing violence on the person who is robbed (usually on the street)
 muggier	MUGGY: hot or warm and humid
@@ -3928,7 +3928,7 @@ muggins	a person who lacks good judgment
 muggle	in Harry Potter, a person without magical powers
 muggles	MUGGLE: in Harry Potter, a person without magical powers
 muggy	hot or warm and humid
-mugs	MUG: the quantity that can be held in a mug
+mugs	MUG: a large cylindrical cup with a handle
 mugshot	a photograph of someone's face (especially one made for police records)
 mugshots	MUGSHOT: a photograph of someone's face (especially one made for police records)
 mujahedin	a military force of Muslim guerilla warriors engaged in a jihad
@@ -3957,10 +3957,10 @@ mull	reflect deeply on a subject
 mullah	a Muslim trained in the doctrine and law of Islam; the head of a mosque
 mullahs	MULLAH: a Muslim trained in the doctrine and law of Islam; the head of a mosque
 mulled	MULL: reflect deeply on a subject
-muller	Swiss chemist who synthesized DDT and discovered its use as an insecticide (1899-1965)
-mullers	MULLER: Swiss chemist who synthesized DDT and discovered its use as an insecticide (1899-1965)
-mullet	highly valued lean flesh of marine or freshwater mullet
-mullets	MULLET: highly valued lean flesh of marine or freshwater mullet
+muller	a heavy tool of stone or iron (usually with a flat base and a handle) that is used to grind and mix material (as grain or drugs or pigments) against a slab of stone
+mullers	MULLER: a heavy tool of stone or iron (usually with a flat base and a handle) that is used to grind and mix material (as grain or drugs or pigments) against a slab of stone
+mullet	a haircut short at the front and sides and long at the back
+mullets	MULLET: a haircut short at the front and sides and long at the back
 mulligan	Irish version of burgoo
 mulligans	MULLIGAN: Irish version of burgoo
 mulligatawny	a soup of eastern India that is flavored with curry; prepared with a meat or chicken base
@@ -4010,11 +4010,11 @@ multiphase	of an electrical system that uses or generates two or more alternatin
 multiplayer	involving many players
 multiple	having or involving or consisting of more than one part or entity or individual
 multiples	MULTIPLE: having or involving or consisting of more than one part or entity or individual
-multiplex	communicates two or more signals over a common channel
+multiplex	a movie theater than has several different auditoriums in the same building
 multiplexed	MULTIPLEX: combine several signals into one
 multiplexer	a device that can interleave two or more activities
 multiplexers	MULTIPLEXER: a device that can interleave two or more activities
-multiplexes	MULTIPLEX: communicates two or more signals over a common channel
+multiplexes	MULTIPLEX: a movie theater than has several different auditoriums in the same building
 multiplexing	MULTIPLEX: combine several signals into one
 multiplexor	a device combining several signals into one
 multiplexors	MULTIPLEXOR: a device combining several signals into one
@@ -4067,31 +4067,31 @@ mumbly	spoken in a low, unclear way
 mummer	MUM: failing to speak or communicate etc when expected to
 mummers	MUMMER: an actor who communicates entirely by gesture and facial expression
 mummery	meaningless ceremonies and flattery
-mummies	MUMMY: informal terms for a mother
-mummification	a condition resembling that of a mummy
-mummifications	MUMMIFICATION: a condition resembling that of a mummy
+mummies	MUMMY: a body embalmed and dried and wrapped for burial (as in ancient Egypt)
+mummification	embalmment and drying a dead body and wrapping it as a mummy
+mummifications	MUMMIFICATION: embalmment and drying a dead body and wrapping it as a mummy
 mummified	MUMMIFY: preserve a body by drying it
-mummifies	MUMMIFY: preserve while making lifeless
-mummify	preserve while making lifeless
-mummifying	MUMMIFY: preserve while making lifeless
-mummy	informal terms for a mother
+mummifies	MUMMIFY: remove the organs and dry out (a dead body) in order to preserve it
+mummify	remove the organs and dry out (a dead body) in order to preserve it
+mummifying	MUMMIFY: remove the organs and dry out (a dead body) in order to preserve it
+mummy	a body embalmed and dried and wrapped for burial (as in ancient Egypt)
 mumpish	sulky and glum
 mumpishly	in a sulky, glum way
 mumpishness	sulkiness
 mumps	an acute contagious viral disease characterized by fever and by swelling of the parotid glands
 mums	MUM: failing to speak or communicate etc when expected to
-munch	Norwegian painter (1863-1944)
-munched	MUNCH: Norwegian painter (1863-1944)
+munch	chew noisily
+munched	MUNCH: chew noisily
 muncher	a chewer who makes a munching noise
 munchers	MUNCHER: a chewer who makes a munching noise
-munches	MUNCH: Norwegian painter (1863-1944)
+munches	MUNCH: chew noisily
 munchie	a snack, especially when hungry
 munchies	MUNCHIE: a snack, especially when hungry
-munching	MUNCH: Norwegian painter (1863-1944)
+munching	MUNCH: chew noisily
 munchkin	a small child or person
 munchkins	MUNCHKIN: a small child or person
 mundane	found in the ordinary course of events
-mundanely	in a worldly manner
+mundanely	in a mundane manner
 mundanes	MUNDANE: an ordinary, non-magical person
 mung	seed of the mung bean plant used for food
 munged	MUNGE: alter or corrupt data
@@ -4126,7 +4126,7 @@ murdering	MURDER: kill intentionally and with premeditation
 murderingly	in a murdering way
 murderous	characteristic of or capable of or having a tendency toward killing another human being
 murderously	as if bent on murder
-murderousness	a bloodthirsty hatred arousing murderous impulses
+murderousness	cruelty evidence by a capability to commit murder
 murders	MURDER: kill intentionally and with premeditation
 murk	an atmosphere in which visibility is reduced because of a cloud of some substance
 murked	MURK: an atmosphere in which visibility is reduced because of a cloud of some substance
@@ -4147,7 +4147,7 @@ murmurs	MURMUR: a low continuous indistinct sound; often accompanied by movement
 murre	black-and-white diving bird of northern seas
 murrelet	a small seabird of the auk family
 murres	MURRE: black-and-white diving bird of northern seas
-muscat	wine from muscat grapes
+muscat	sweet aromatic grape used for raisins and wine
 muscatel	wine from muscat grapes
 muscatels	MUSCATEL: wine from muscat grapes
 muscle	one of the contractile organs of the body
@@ -4158,7 +4158,7 @@ musclemen	MUSCLEMAN: a bully employed as a thug or bodyguard
 muscles	MUSCLE: one of the contractile organs of the body
 muscling	MUSCLE: one of the contractile organs of the body
 muscular	of or relating to or consisting of muscle
-muscularity	the physiological state of having or consisting of muscle
+muscularity	possessing muscular strength
 musculature	the muscular system of an organism
 musculoskeletal	relating to muscles and skeleton
 muse	in ancient Greek mythology any of 9 daughters of Zeus and Mnemosyne; protector of an art or science
@@ -4201,9 +4201,9 @@ musicology	the scholarly and scientific study of music
 musics	MUSIC: an artistic form of auditory communication incorporating instrumental or vocal tones in a structured and continuous manner
 musing	a calm, lengthy, intent consideration
 musings	MUSING: a calm, lengthy, intent consideration
-musk	an odorous glandular secretion from the male musk deer; used as a perfume fixative
-muskellunge	flesh of very large North American pike; a game fish
-muskellunges	MUSKELLUNGE: flesh of very large North American pike; a game fish
+musk	the scent of a greasy glandular secretion from the male musk deer
+muskellunge	large (60 to 80 pounds) sport fish of North America
+muskellunges	MUSKELLUNGE: large (60 to 80 pounds) sport fish of North America
 musket	a muzzle-loading shoulder gun with a long barrel; formerly used by infantrymen
 musketeer	a foot soldier armed with a musket
 musketeers	MUSKETEER: a foot soldier armed with a musket
@@ -4216,18 +4216,18 @@ muskiest	MUSKIE: a large North American pike
 muskiness	having the olfactory properties of musk
 muskmelon	the fruit of a muskmelon vine; any of several sweet melons related to cucumbers
 muskmelons	MUSKMELON: the fruit of a muskmelon vine; any of several sweet melons related to cucumbers
-muskrat	the brown fur of a muskrat
-muskrats	MUSKRAT: the brown fur of a muskrat
+muskrat	beaver-like aquatic rodent of North America with dark glossy brown fur
+muskrats	MUSKRAT: beaver-like aquatic rodent of North America with dark glossy brown fur
 musky	resembling the smell of musk
 muslin	plain-woven cotton fabric
 muslins	MUSLIN: plain-woven cotton fabric
 muso	a musician
 musos	MUSO: a musician
-muss	a state of confusion and disorderliness
+muss	make messy or untidy
 mussed	MUS: type genus of the Muridae: common house mice; the tips of the upper incisors have a square notch
-mussel	black marine bivalves usually steamed in wine
-mussels	MUSSEL: black marine bivalves usually steamed in wine
-musses	MUSS: a state of confusion and disorderliness
+mussel	marine or freshwater bivalve mollusk that lives attached to rocks etc.
+mussels	MUSSEL: marine or freshwater bivalve mollusk that lives attached to rocks etc.
+musses	MUSS: make messy or untidy
 mussier	MUSSY: dirty and disorderly
 mussiest	MUSSY: dirty and disorderly
 mussing	MUS: type genus of the Muridae: common house mice; the tips of the upper incisors have a square notch
@@ -4263,9 +4263,9 @@ mutate	undergo mutation
 mutated	MUTATE: undergo mutation
 mutates	MUTATE: undergo mutation
 mutating	MUTATE: undergo mutation
-mutation	an organism that has characteristics resulting from chromosomal alteration
+mutation	a change or alteration in form or qualities
 mutational	of or relating to or resulting from mutation
-mutations	MUTATION: an organism that has characteristics resulting from chromosomal alteration
+mutations	MUTATION: a change or alteration in form or qualities
 mute	expressed without speech
 muted	in a softened tone
 mutely	without speaking
@@ -4315,9 +4315,9 @@ muzzle	the open circular discharging end of a gun
 muzzled	MUZZLE: the open circular discharging end of a gun
 muzzles	MUZZLE: the open circular discharging end of a gun
 muzzling	MUZZLE: the open circular discharging end of a gun
-muzzy	indistinct or hazy in outline
+muzzy	confused and vague; used especially of thinking
 my	belonging to me
-myasthenia	a chronic progressive disease characterized by chronic fatigue and muscular weakness (especially in the face and neck); caused by a deficiency of acetylcholine at the neuromuscular junctions
+myasthenia	any muscular weakness
 mycelium	the vegetative part of a fungus consisting of a mass of branching threadlike hyphae
 mycological	relating to the study of fungi
 mycologist	a botanist who specializes in the study of fungi
@@ -4373,16 +4373,16 @@ mythic	relating to or having the nature of myth
 mythical	based on or told of in traditional stories; lacking factual basis or historical validity
 mythological	based on or told of in traditional stories; lacking factual basis or historical validity
 mythologies	MYTHOLOGY: myths collectively; the body of stories associated with a culture or institution or person
-mythologise	construct a myth
-mythologised	MYTHOLOGISE: construct a myth
-mythologises	MYTHOLOGISE: construct a myth
-mythologising	MYTHOLOGISE: construct a myth
+mythologise	make into a myth
+mythologised	MYTHOLOGISE: make into a myth
+mythologises	MYTHOLOGISE: make into a myth
+mythologising	MYTHOLOGISE: make into a myth
 mythologist	an expert on mythology
 mythologists	MYTHOLOGIST: an expert on mythology
-mythologize	construct a myth
-mythologized	MYTHOLOGIZE: construct a myth
-mythologizes	MYTHOLOGIZE: construct a myth
-mythologizing	MYTHOLOGIZE: construct a myth
+mythologize	make into a myth
+mythologized	MYTHOLOGIZE: make into a myth
+mythologizes	MYTHOLOGIZE: make into a myth
+mythologizing	MYTHOLOGIZE: make into a myth
 mythology	myths collectively; the body of stories associated with a culture or institution or person
 mythos	a set of beliefs or stories of a culture
 myths	MYTH: a traditional story accepted as history; serves to explain the world view of a people

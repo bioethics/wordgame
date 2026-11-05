@@ -16,8 +16,8 @@ earbud	a small earphone that fits in the ear
 earbuds	EARBUD: a small earphone that fits in the ear
 eardrum	the membrane in the ear that vibrates to sound
 eardrums	EARDRUM: the membrane in the ear that vibrates to sound
-earful	an outpouring of gossip
-earfuls	EARFUL: an outpouring of gossip
+earful	a severe scolding
+earfuls	EARFUL: a severe scolding
 earl	a British peer ranking below a marquess and above a viscount
 earldom	the dignity or rank or position of an earl or countess
 earldoms	EARLDOM: the dignity or rank or position of an earl or countess
@@ -28,10 +28,10 @@ earlobe	the fleshy pendulous part of the external human ear
 earlobes	EARLOBE: the fleshy pendulous part of the external human ear
 earls	EARL: a British peer ranking below a marquess and above a viscount
 early	at or near the beginning of a period of time or course of events or before the usual or expected time
-earmark	identification mark on the ear of a domestic animal
-earmarked	EARMARK: identification mark on the ear of a domestic animal
-earmarking	EARMARK: identification mark on the ear of a domestic animal
-earmarks	EARMARK: identification mark on the ear of a domestic animal
+earmark	give or assign a resource to a particular person or cause
+earmarked	EARMARK: give or assign a resource to a particular person or cause
+earmarking	EARMARK: give or assign a resource to a particular person or cause
+earmarks	EARMARK: give or assign a resource to a particular person or cause
 earmuff	either of a pair of ear coverings (usually connected by a headband) that are worn to keep the ears warm in cold weather
 earmuffs	EARMUFF: either of a pair of ear coverings (usually connected by a headband) that are worn to keep the ears warm in cold weather
 earn	earn on some commercial or business transaction; earn as salary or wages
@@ -49,8 +49,8 @@ earphone	electro-acoustic transducer for converting electric signals into sounds
 earphones	EARPHONE: electro-acoustic transducer for converting electric signals into sounds; it is held over or inserted into the ear
 earpiece	electro-acoustic transducer for converting electric signals into sounds; it is held over or inserted into the ear
 earpieces	EARPIECE: electro-acoustic transducer for converting electric signals into sounds; it is held over or inserted into the ear
-earplug	an earphone that is inserted into the ear canal
-earplugs	EARPLUG: an earphone that is inserted into the ear canal
+earplug	a plug of cotton, wax, or rubber that is fitted into the ear canal for protection against the entry of water or loud noise
+earplugs	EARPLUG: a plug of cotton, wax, or rubber that is fitted into the ear canal for protection against the entry of water or loud noise
 earring	EAR: the sense organ for hearing and equilibrium
 earrings	EARRING: jewelry to ornament the ear; usually clipped to the earlobe or fastened through a hole in the lobe
 ears	EAR: the sense organ for hearing and equilibrium
@@ -99,12 +99,12 @@ eases	EASE: move gently or carefully
 easier	EASY: posing no difficulty; requiring little effort
 easiest	EASY: posing no difficulty; requiring little effort
 easily	with ease (`easy' is sometimes used informally for `easily')
-easiness	a feeling of refreshing tranquility and an absence of tension or worry
+easiness	freedom from difficulty or hardship or effort
 easing	EASE: move gently or carefully
 east	the cardinal compass point that is at 90 degrees
 eastbound	moving toward the east
-easterlies	EASTERLY: a wind from the east
-easterly	a wind from the east
+easterlies	EASTERLY: lying in or toward the east
+easterly	lying in or toward the east
 eastern	lying toward or situated in the east
 easterner	EASTERN: lying toward or situated in the east
 easterners	EASTERNER: an inhabitant of an eastern area; especially of the U.S.
@@ -113,7 +113,7 @@ easting	distance travelled east
 eastward	moving toward the east
 eastwards	EASTWARD: moving toward the east
 easy	posing no difficulty; requiring little effort
-easygoing	not hurried or forced
+easygoing	relaxed and informal in attitude or standards
 eat	take in solid food
 eatable	suitable for use as food
 eatables	EATABLE: suitable for use as food
@@ -157,8 +157,8 @@ ecclesiologists	ECCLESIOLOGIST: a person who studies church architecture and doc
 ecclesiology	the branch of theology concerned with the nature and the constitution and the functions of a church
 echelon	status in a society or organization
 echelons	ECHELON: status in a society or organization
-echidna	a burrowing monotreme mammal covered with spines and having a long snout and claws for hunting ants and termites; native to New Guinea
-echidnas	ECHIDNA: a burrowing monotreme mammal covered with spines and having a long snout and claws for hunting ants and termites; native to New Guinea
+echidna	a burrowing monotreme mammal covered with spines and having a long snout and claws for hunting ants and termites; native to Australia
+echidnas	ECHIDNA: a burrowing monotreme mammal covered with spines and having a long snout and claws for hunting ants and termites; native to Australia
 echinacea	small genus of North American coarse perennial herbs
 echinoderm	marine invertebrates with tube feet and five-part radially symmetrical bodies
 echinoderms	ECHINODERM: marine invertebrates with tube feet and five-part radially symmetrical bodies
@@ -184,12 +184,12 @@ eclipser	something that eclipses another
 eclipses	ECLIPSE: be greater in significance than
 eclipsing	ECLIPSE: be greater in significance than
 ecliptic	the great circle representing the apparent annual path of the sun; the plane of the Earth's orbit around the sun; makes an angle of about 23 degrees with the equator
-ecologic	characterized by the interdependence of living organisms in an environment
+ecologic	of or relating to the science of ecology
 ecological	characterized by the interdependence of living organisms in an environment
 ecologically	with respect to ecology
 ecologist	a biologist who studies the relation between organisms and their environment
 ecologists	ECOLOGIST: a biologist who studies the relation between organisms and their environment
-ecology	the environment as it relates to living organisms
+ecology	the branch of biology concerned with the relations between organisms and their environment
 econometric	of or relating to econometrics
 econometrics	the application of mathematics and statistics to the study of economic and financial data
 economic	of or relating to an economy, the system of production and management of material wealth
@@ -236,9 +236,9 @@ edema	swelling from excessive accumulation of watery fluid in cells, tissues, or
 edemas	EDEMA: swelling from excessive accumulation of watery fluid in cells, tissues, or serous cavities
 edge	the boundary of a surface
 edged	having a specified kind of border or edge
-edger	a person who puts finishing edges on a garment
+edger	garden tool for cutting grass around the edges of a yard
 edges	EDGE: the boundary of a surface
-edgeways	as if by an edge; barely
+edgeways	with the edge forward or on, by, or toward the edge
 edgewise	with the edge forward or on, by, or toward the edge
 edgier	EDGY: being in a tense state
 edgiest	EDGY: being in a tense state
@@ -248,8 +248,8 @@ edging	EDGE: the boundary of a surface
 edgings	EDGING: border consisting of anything placed on the edge to finish something (such as a fringe on clothing or on a rug)
 edgy	being in a tense state
 edibility	the property of being fit to eat
-edible	any substance that can be used as food
-edibles	EDIBLE: any substance that can be used as food
+edible	suitable for use as food
+edibles	EDIBLE: suitable for use as food
 edict	a formal or authoritative proclamation
 edicts	EDICT: a formal or authoritative proclamation
 edification	uplifting enlightenment
@@ -298,19 +298,19 @@ educator	someone who educates young people
 educators	EDUCATOR: someone who educates young people
 edutainment	entertainment that is intended to be educational
 eek	an exclamation of fright or surprise
-eel	the fatty flesh of eel; an elongate fish found in fresh water in Europe and America; large eels are usually smoked or pickled
+eel	voracious snakelike marine or freshwater fishes with smooth slimy usually scaleless skin and having a continuous vertical fin but no ventral fins
 eelgrass	submerged marine plant with very long narrow leaves found in abundance along North Atlantic coasts
-eels	EEL: the fatty flesh of eel; an elongate fish found in fresh water in Europe and America; large eels are usually smoked or pickled
-eerie	suggestive of the supernatural; mysterious
-eerier	EERIE: suggestive of the supernatural; mysterious
-eeriest	EERIE: suggestive of the supernatural; mysterious
+eels	EEL: voracious snakelike marine or freshwater fishes with smooth slimy usually scaleless skin and having a continuous vertical fin but no ventral fins
+eerie	inspiring a feeling of fear; strange and frightening
+eerier	EERIE: inspiring a feeling of fear; strange and frightening
+eeriest	EERIE: inspiring a feeling of fear; strange and frightening
 eerily	in an unnatural eery manner
 eeriness	strangeness by virtue of being mysterious and inspiring fear
 eery	inspiring a feeling of fear; strange and frightening
 eff	have sexual intercourse with
 efface	remove completely from recognition or memory
 effaced	EFFACE: remove completely from recognition or memory
-effacement	shortening of the uterine cervix and thinning of its walls as it is dilated during labor
+effacement	withdrawing into the background; making yourself inconspicuous
 effaces	EFFACE: remove completely from recognition or memory
 effacing	EFFACE: remove completely from recognition or memory
 effect	a phenomenon that follows and is caused by some previous phenomenon
@@ -333,14 +333,14 @@ effeminacy	the trait of being effeminate (derogatory of a man)
 effeminate	having unsuitable feminine qualities
 effendi	a former Turkish term of respect; especially for government officials
 effendis	EFFENDI: a former Turkish term of respect; especially for government officials
-efferent	a nerve that conveys impulses toward or to muscles or glands
+efferent	of nerves and nerve impulses; conveying information away from the CNS
 effervesce	become bubbly or frothy or foaming
 effervesced	EFFERVESCE: become bubbly or frothy or foaming
 effervescence	the process of bubbling as gas escapes
-effervescent	used of wines and waters; charged naturally or artificially with carbon dioxide
+effervescent	(of a liquid) giving off bubbles
 effervesces	EFFERVESCE: become bubbly or frothy or foaming
 effervescing	emitting or filled with bubbles as from carbonation or fermentation
-effete	affected, overrefined, and effeminate
+effete	deprived of vigor and the ability to be effective
 efficacious	marked by qualities giving the power to produce an intended effect
 efficaciously	in an effective manner
 efficacy	capacity or power to produce a desired effect
@@ -377,12 +377,12 @@ effusions	EFFUSION: an unrestrained expression of emotion
 effusive	uttered with unrestrained enthusiasm
 effusively	in an effusive manner
 effusiveness	a friendly open trait of a talkative person
-egalitarian	a person who believes in the equality of all people
+egalitarian	favoring social equality
 egalitarianism	the doctrine of the equality of mankind and the desirability of political and economic and social equality
-egalitarians	EGALITARIAN: a person who believes in the equality of all people
+egalitarians	EGALITARIAN: favoring social equality
 egg	animal reproductive body consisting of an ovum or embryo together with nutritive and protective envelopes; especially the thin-shelled reproductive body laid by e.g. female birds
-eggbeater	an aircraft without wings that obtains its lift from the rotation of overhead blades
-eggbeaters	EGGBEATER: an aircraft without wings that obtains its lift from the rotation of overhead blades
+eggbeater	a mixer for beating eggs or whipping cream
+eggbeaters	EGGBEATER: a mixer for beating eggs or whipping cream
 eggcup	dishware consisting of a small cup for serving a boiled egg
 eggcups	EGGCUP: dishware consisting of a small cup for serving a boiled egg
 egged	EGG: animal reproductive body consisting of an ovum or embryo together with nutritive and protective envelopes; especially the thin-shelled reproductive body laid by e.g. female birds
@@ -402,9 +402,9 @@ egis	armor plate that protects the chest; the front part of a cuirass
 eglantine	Eurasian rose with prickly stems and fragrant leaves and bright pink flowers followed by scarlet hips
 eglantines	EGLANTINE: Eurasian rose with prickly stems and fragrant leaves and bright pink flowers followed by scarlet hips
 ego	an inflated feeling of pride in your superiority to others
-egocentric	a self-centered person with little regard for others
-egocentrics	EGOCENTRIC: a self-centered person with little regard for others
-egoism	the theory that the pursuit of your own welfare in the basis of morality
+egocentric	limited to or caring only about yourself and your own needs
+egocentrics	EGOCENTRIC: limited to or caring only about yourself and your own needs
+egoism	concern for your own interests and welfare
 egoist	a conceited and self-centered person
 egoistic	limited to or caring only about yourself and your own needs
 egoists	EGOIST: a conceited and self-centered person
@@ -422,8 +422,8 @@ egotistically	in an egotistical manner
 egotists	EGOTIST: a conceited and self-centered person
 egregious	conspicuously and outrageously bad or reprehensible
 egregiously	in a egregious way
-egress	the reappearance of a celestial body after an eclipse
-egresses	EGRESS: the reappearance of a celestial body after an eclipse
+egress	the act of coming (or going) out; becoming apparent
+egresses	EGRESS: the act of coming (or going) out; becoming apparent
 egret	any of various usually white herons having long plumes during breeding season
 egrets	EGRET: any of various usually white herons having long plumes during breeding season
 egyptology	archeology of ancient Egyptian artifacts
@@ -447,8 +447,8 @@ eightfold	having eight units or components
 eighth	coming next after the seventh and just before the ninth in position
 eighths	EIGHTH: coming next after the seventh and just before the ninth in position
 eighties	EIGHTY: being ten more than seventy
-eightieth	position 80 in a countable series of things
-eightieths	EIGHTIETH: position 80 in a countable series of things
+eightieth	the ordinal number of eighty in counting order
+eightieths	EIGHTIETH: the ordinal number of eighty in counting order
 eights	EIGHT: being one more than seven
 eighty	being ten more than seventy
 eisteddfod	any of several annual Welsh festivals involving artistic competitions (especially in singing)
@@ -466,8 +466,8 @@ ejected	EJECT: put out or expel from a place
 ejecting	EJECT: put out or expel from a place
 ejection	the act of expelling or projecting or ejecting
 ejections	EJECTION: the act of expelling or projecting or ejecting
-ejector	a person who ousts or supplants someone else
-ejectors	EJECTOR: a person who ousts or supplants someone else
+ejector	a mechanism in a firearm that ejects the empty shell case after firing
+ejectors	EJECTOR: a mechanism in a firearm that ejects the empty shell case after firing
 ejects	EJECT: put out or expel from a place
 eke	make a small supply last by careful use
 eked	EKE: make a small supply last by careful use
@@ -476,12 +476,12 @@ eking	EKE: make a small supply last by careful use
 elaborate	marked by complexity and richness of detail
 elaborated	ELABORATE: marked by complexity and richness of detail
 elaborately	with elaboration
-elaborateness	marked by elaborately complex detail
+elaborateness	an ornate appearance; being elaborately (even excessively) decorated
 elaborates	ELABORATE: marked by complexity and richness of detail
 elaborating	ELABORATE: marked by complexity and richness of detail
 elaboration	addition of extra material or illustration or clarifying detail
 elaborations	ELABORATION: addition of extra material or illustration or clarifying detail
-elan	a feeling of strong eagerness (usually in favor of a person or cause)
+elan	enthusiastic and assured vigor and liveliness
 elapse	pass by
 elapsed	(of time) having passed or slipped by
 elapses	ELAPSE: pass by
@@ -523,11 +523,11 @@ electing	ELECT: select by a vote for an office or membership
 election	a vote to select the winner of a position or political office
 electioneer	work actively for a political candidate or a party
 electioneered	ELECTIONEER: work actively for a political candidate or a party
-electioneering	persuasion of voters in a political campaign
+electioneering	the campaign of a candidate to be elected
 electioneers	ELECTIONEER: work actively for a political candidate or a party
 elections	ELECTION: a vote to select the winner of a position or political office
-elective	a course that the student can select from among alternatives
-electives	ELECTIVE: a course that the student can select from among alternatives
+elective	not compulsory
+electives	ELECTIVE: not compulsory
 elector	a citizen who has a legal right to vote
 electoral	of or relating to elections
 electorally	in terms of elections
@@ -541,10 +541,10 @@ electrician	a person who installs or repairs electrical or telephone lines
 electricians	ELECTRICIAN: a person who installs or repairs electrical or telephone lines
 electricity	a physical phenomenon associated with stationary or moving electrons and protons
 electrics	ELECTRIC: using or providing or producing or transmitting or operated by electricity
-electrification	the activity of thrilling or markedly exciting some person or group
+electrification	the act of providing electricity
 electrified	ELECTRIFY: supply with electric power
-electrifies	ELECTRIFY: excite suddenly and intensely
-electrify	excite suddenly and intensely
+electrifies	ELECTRIFY: charge (a conductor) with electricity
+electrify	charge (a conductor) with electricity
 electrifying	causing a surge of emotion or excitement
 electro	a style of dance music built on electronic beats
 electrocardiogram	a graphical recording of the cardiac cycle produced by an electrocardiograph
@@ -554,12 +554,12 @@ electrocardiographs	ELECTROCARDIOGRAPH: medical instrument that records electric
 electrocardiography	diagnostic procedure consisting of recording the activity of the heart electronically with a cardiograph (and producing a cardiogram)
 electrochemical	of or involving electrochemistry
 electrochemistry	branch of chemistry that deals with the chemical action of electricity and the production of electricity by chemical reactions
-electrocute	kill by electric shock
-electrocuted	ELECTROCUTE: kill by electric shock
-electrocutes	ELECTROCUTE: kill by electric shock
-electrocuting	ELECTROCUTE: kill by electric shock
-electrocution	execution by electricity
-electrocutions	ELECTROCUTION: execution by electricity
+electrocute	kill by electrocution, as in the electric chair
+electrocuted	ELECTROCUTE: kill by electrocution, as in the electric chair
+electrocutes	ELECTROCUTE: kill by electrocution, as in the electric chair
+electrocuting	ELECTROCUTE: kill by electrocution, as in the electric chair
+electrocution	killing by electric shock
+electrocutions	ELECTROCUTION: killing by electric shock
 electrode	a conductor used to make electrical contact with some part of a circuit
 electrodes	ELECTRODE: a conductor used to make electrical contact with some part of a circuit
 electrodynamics	the study of electric charges and currents in motion
@@ -571,7 +571,7 @@ electroencephalography	the recording of the brain's electrical activity
 electrolysis	a chemical decomposition reaction produced by passing an electric current through a solution containing ions
 electrolyte	a solution that conducts electricity
 electrolytes	ELECTROLYTE: a solution that conducts electricity
-electrolytic	a fixed capacitor consisting of two electrodes separated by an electrolyte
+electrolytic	of or concerned with or produced by electrolysis
 electromagnet	a temporary magnet made by coiling wire around an iron core; when current flows in the coil the iron becomes a magnet
 electromagnetic	pertaining to or exhibiting magnetism produced by electric charge in motion
 electromagnetically	by means of electromagnetism
@@ -592,10 +592,10 @@ electrophysiological	relating to the electrical activity of living tissue
 electrophysiologist	a scientist who studies the electrical activity of living tissue
 electrophysiologists	ELECTROPHYSIOLOGIST: a scientist who studies the electrical activity of living tissue
 electrophysiology	the study of the electrical activity of living tissue
-electroplate	any artifact that has been plated with a thin coat of metal by electrolysis
-electroplated	ELECTROPLATE: any artifact that has been plated with a thin coat of metal by electrolysis
-electroplates	ELECTROPLATE: any artifact that has been plated with a thin coat of metal by electrolysis
-electroplating	ELECTROPLATE: any artifact that has been plated with a thin coat of metal by electrolysis
+electroplate	coat with metal by electrolysis
+electroplated	ELECTROPLATE: coat with metal by electrolysis
+electroplates	ELECTROPLATE: coat with metal by electrolysis
+electroplating	ELECTROPLATE: coat with metal by electrolysis
 electroshock	the administration of a strong electric current that passes through the brain to induce convulsions and coma
 electrostatic	concerned with or producing or caused by static electricity
 electrostatics	the branch of physics that deals with static electricity
@@ -603,8 +603,8 @@ electroweak	uniting the electromagnetic and weak nuclear forces
 elects	ELECT: select by a vote for an office or membership
 elegance	a refined quality of gracefulness and good taste
 elegant	refined and tasteful in appearance or behavior or style
-elegantly	with elegance; in a tastefully elegant manner
-elegiac	resembling or characteristic of or appropriate to an elegy
+elegantly	in a gracefully elegant manner
+elegiac	expressing sorrow often for something past
 elegiacally	in a mournful, reflective way
 elegiacs	ELEGIAC: verse written in elegiac metre
 elegies	ELEGY: a mournful poem; a lament for the dead
@@ -660,8 +660,8 @@ elites	ELITE: a group or class of persons enjoying superior intellectual or soci
 elitism	the attitude that society should be governed by an elite group of individuals
 elitist	someone who believes in rule by an elite group
 elitists	ELITIST: someone who believes in rule by an elite group
-elixir	a sweet flavored liquid (usually containing a small amount of alcohol) used in compounding medicines to be taken by mouth in order to mask an unpleasant taste
-elixirs	ELIXIR: a sweet flavored liquid (usually containing a small amount of alcohol) used in compounding medicines to be taken by mouth in order to mask an unpleasant taste
+elixir	a substance believed to cure all ills
+elixirs	ELIXIR: a substance believed to cure all ills
 elk	large northern deer with enormous flattened antlers in the male; called `elk' in Europe and `moose' in North America
 elks	ELK: large northern deer with enormous flattened antlers in the male; called `elk' in Europe and `moose' in North America
 ell	an extension at the end and at right angles to the main building
@@ -684,8 +684,8 @@ elongate	make long or longer by pulling and stretching
 elongated	drawn out or made longer spatially
 elongates	ELONGATE: make long or longer by pulling and stretching
 elongating	ELONGATE: make long or longer by pulling and stretching
-elongation	the quality of being elongated
-elongations	ELONGATION: the quality of being elongated
+elongation	the act of lengthening something
+elongations	ELONGATION: the act of lengthening something
 elope	run away secretly with one's beloved
 eloped	ELOPE: run away secretly with one's beloved
 elopement	the act of running away with a lover (usually to get married)
@@ -711,19 +711,19 @@ elusive	difficult to describe
 elusively	in a elusive way
 elusiveness	the quality of being difficult to grasp or pin down
 elution	the process of extracting one material from another by washing with a solvent to remove adsorbed material from an adsorbent (as in washing of loaded ion-exchange resins to remove captured ions); used to obtain uranium ions
-elver	young eel; may be sauteed or batter-fried
-elvers	ELVER: young eel; may be sauteed or batter-fried
+elver	young eel
+elvers	ELVER: young eel
 elves	an acronym for emissions of light and very low frequency perturbations due to electromagnetic pulse sources; extremely bright extremely short (less than a msec) electrical flashes forming a huge ring (up to 400 km diameter) in the ionosphere
 elvish	usually good-naturedly mischievous
-emaciate	cause to grow thin or weak
+emaciate	grow weak and thin or waste away physically
 emaciated	very thin especially from disease or hunger or cold
-emaciates	EMACIATE: cause to grow thin or weak
-emaciating	EMACIATE: cause to grow thin or weak
+emaciates	EMACIATE: grow weak and thin or waste away physically
+emaciating	EMACIATE: grow weak and thin or waste away physically
 emaciation	extreme leanness (usually caused by starvation or disease)
-email	a system of world-wide electronic communication in which a computer user can compose a message at one terminal that can be regenerated at the recipient's terminal when the recipient logs in
-emailed	EMAIL: a system of world-wide electronic communication in which a computer user can compose a message at one terminal that can be regenerated at the recipient's terminal when the recipient logs in
-emailing	EMAIL: a system of world-wide electronic communication in which a computer user can compose a message at one terminal that can be regenerated at the recipient's terminal when the recipient logs in
-emails	EMAIL: a system of world-wide electronic communication in which a computer user can compose a message at one terminal that can be regenerated at the recipient's terminal when the recipient logs in
+email	a message sent electronically from one computer user to another
+emailed	EMAIL: a message sent electronically from one computer user to another
+emailing	EMAIL: a message sent electronically from one computer user to another
+emails	EMAIL: a message sent electronically from one computer user to another
 emanate	proceed or issue forth, as from a source
 emanated	EMANATE: proceed or issue forth, as from a source
 emanates	EMANATE: proceed or issue forth, as from a source
@@ -789,8 +789,8 @@ embellisher	one who embellishes
 embellishers	EMBELLISHER: one who embellishes
 embellishes	EMBELLISH: add details to
 embellishing	EMBELLISH: add details to
-embellishment	elaboration of an interpretation by the use of decorative (sometimes fictitious) detail
-embellishments	EMBELLISHMENT: elaboration of an interpretation by the use of decorative (sometimes fictitious) detail
+embellishment	a superfluous ornament
+embellishments	EMBELLISHMENT: a superfluous ornament
 ember	a hot fragment of wood or coal that is left from a fire and is glowing or smoldering
 embers	EMBER: a hot fragment of wood or coal that is left from a fire and is glowing or smoldering
 embezzle	appropriate (as property entrusted to one's care) fraudulently to one's own use
@@ -822,8 +822,8 @@ emboldened	made bold or courageous
 emboldening	EMBOLDEN: give encouragement to
 emboldens	EMBOLDEN: give encouragement to
 embolisation	the blocking of a blood vessel, sometimes done deliberately to treat disease
-embolism	an insertion into a calendar
-embolisms	EMBOLISM: an insertion into a calendar
+embolism	occlusion of a blood vessel by an embolus (a loose clot or air bubble or other particle)
+embolisms	EMBOLISM: occlusion of a blood vessel by an embolus (a loose clot or air bubble or other particle)
 embolization	the blocking of a blood vessel, sometimes done deliberately to treat disease
 emboss	raise in a relief
 embossed	EMBOSS: raise in a relief
@@ -844,21 +844,21 @@ embroider	decorate with needlework
 embroidered	EMBROIDER: decorate with needlework
 embroiderer	someone who ornaments with needlework
 embroiderers	EMBROIDERER: someone who ornaments with needlework
-embroideries	EMBROIDERY: elaboration of an interpretation by the use of decorative (sometimes fictitious) detail
+embroideries	EMBROIDERY: decorative needlework
 embroidering	EMBROIDER: decorate with needlework
 embroiders	EMBROIDER: decorate with needlework
-embroidery	elaboration of an interpretation by the use of decorative (sometimes fictitious) detail
+embroidery	decorative needlework
 embroil	force into some kind of situation, condition, or course of action
 embroiled	EMBROIL: force into some kind of situation, condition, or course of action
 embroiling	EMBROIL: force into some kind of situation, condition, or course of action
 embroils	EMBROIL: force into some kind of situation, condition, or course of action
-embryo	a minute rudimentary plant contained within a seed or an archegonium
+embryo	an animal organism in the early stages of growth and differentiation that in higher forms merge into fetal stages but in lower forms terminate in commencement of larval life
 embryological	relating to the study of embryos
 embryologist	a physician who specializes in embryology
 embryologists	EMBRYOLOGIST: a physician who specializes in embryology
 embryology	the branch of biology that studies the formation and early development of living organisms
-embryonic	of an organism prior to birth or hatching
-embryos	EMBRYO: a minute rudimentary plant contained within a seed or an archegonium
+embryonic	in an early stage of development
+embryos	EMBRYO: an animal organism in the early stages of growth and differentiation that in higher forms merge into fetal stages but in lower forms terminate in commencement of larval life
 emcee	a person who acts as host at formal occasions (makes an introductory speech and introduces other speakers)
 emceed	EMCEE: a person who acts as host at formal occasions (makes an introductory speech and introduces other speakers)
 emceeing	EMCEE: a person who acts as host at formal occasions (makes an introductory speech and introduces other speakers)
@@ -878,7 +878,7 @@ emerged	EMERGE: come out into view, as from concealment
 emergence	the gradual beginning or coming forth
 emergencies	EMERGENCY: a sudden unforeseen crisis (usually involving danger) that requires immediate action
 emergency	a sudden unforeseen crisis (usually involving danger) that requires immediate action
-emergent	occurring unexpectedly and requiring urgent action
+emergent	coming into existence
 emerges	EMERGE: come out into view, as from concealment
 emerging	EMERGE: come out into view, as from concealment
 emeritus	honorably retired from assigned duties and retaining your title along with the additional title `emeritus' as in `professor emeritus'
@@ -958,10 +958,10 @@ emperor	the male ruler of an empire
 emperors	EMPEROR: the male ruler of an empire
 emphases	EMPHASIS: special importance or stress given to something
 emphasis	special importance or significance
-emphasise	give extra weight to (a communication)
+emphasise	to stress, single out as important
 emphasised	spoken with emphasis
 emphasises	EMPHASIS: special importance or significance
-emphasising	EMPHASISE: give extra weight to (a communication)
+emphasising	EMPHASISE: to stress, single out as important
 emphasize	to stress, single out as important
 emphasized	EMPHASIZE: to stress, single out as important
 emphasizes	EMPHASIZE: to stress, single out as important
@@ -971,7 +971,7 @@ emphatically	without question and beyond doubt
 emphysema	an abnormal condition of the lungs marked by decreased respiratory function; associated with smoking or chronic bronchitis or old age
 empire	the domain ruled by an emperor or empress; the region over which imperial dominion is exercised
 empires	EMPIRE: the domain ruled by an emperor or empress; the region over which imperial dominion is exercised
-empiric	relying on medical quackery
+empiric	derived from experiment and observation rather than theory
 empirical	derived from experiment and observation rather than theory
 empirically	in an empirical manner
 empiricism	the doctrine that knowledge derives from experience
@@ -981,7 +981,7 @@ emplacement	military installation consisting of a prepared position for siting a
 emplacements	EMPLACEMENT: military installation consisting of a prepared position for siting a weapon
 employ	put into service; make work or employ for a particular purpose or for its inherent or natural purpose
 employability	the quality of being suitable for a job
-employable	a person who is qualified and ready to work
+employable	physically and mentally capable of working at a regular job and available
 employe	EMPLOYEE: a person paid to work for another
 employed	having your services engaged for; or having a job especially one that pays wages or a salary
 employee	a worker who is hired to perform a job
@@ -1011,15 +1011,15 @@ emptily	in a hollow, meaningless way
 emptiness	the state of containing nothing
 empty	make void or empty of contents
 emptying	EMPTY: make void or empty of contents
-empyrean	the apparent surface of the imaginary sphere on which celestial bodies appear to be projected
-ems	EM: a quad with a square body
-emu	any of various systems of units for measuring electricity and magnetism
+empyrean	of or relating to the sky or heavens
+ems	EM: a linear unit (1/6 inch) used in printing
+emu	large Australian flightless bird similar to the ostrich but smaller
 emulate	strive to equal or match, especially by imitating
 emulated	EMULATE: strive to equal or match, especially by imitating
 emulates	EMULATE: strive to equal or match, especially by imitating
 emulating	EMULATE: strive to equal or match, especially by imitating
-emulation	ambition to equal or excel
-emulations	EMULATION: ambition to equal or excel
+emulation	effort to equal or surpass another
+emulations	EMULATION: effort to equal or surpass another
 emulator	someone who copies the words or behavior of another
 emulators	EMULATOR: someone who copies the words or behavior of another
 emulsification	the mixing of liquids that normally separate into a smooth blend
@@ -1031,7 +1031,7 @@ emulsify	cause to become an emulsion; make into an emulsion
 emulsifying	EMULSIFY: cause to become an emulsion; make into an emulsion
 emulsion	a colloid in which both phases are liquids
 emulsions	EMULSION: a colloid in which both phases are liquids
-emus	EMU: any of various systems of units for measuring electricity and magnetism
+emus	EMU: large Australian flightless bird similar to the ostrich but smaller
 enable	render capable or able for some task
 enabled	ENABLE: render capable or able for some task
 enabler	one who makes something possible, or lets harmful behaviour continue
@@ -1073,8 +1073,8 @@ encapsulate	enclose in a capsule or other small container
 encapsulated	ENCAPSULATE: enclose in a capsule or other small container
 encapsulates	ENCAPSULATE: enclose in a capsule or other small container
 encapsulating	ENCAPSULATE: enclose in a capsule or other small container
-encapsulation	the condition of being enclosed (as in a capsule)
-encapsulations	ENCAPSULATION: the condition of being enclosed (as in a capsule)
+encapsulation	the process of enclosing (as in a capsule)
+encapsulations	ENCAPSULATION: the process of enclosing (as in a capsule)
 encase	enclose in, or as if in, a case
 encased	ENCASE: enclose in, or as if in, a case
 encasement	the act of enclosing something in a case
@@ -1090,8 +1090,8 @@ enchanting	ENCHANT: hold spellbound
 enchantingly	in a bewitching manner
 enchantment	a feeling of great liking for something wonderful and unusual
 enchantments	ENCHANTMENT: a feeling of great liking for something wonderful and unusual
-enchantress	a woman who is considered to be dangerously seductive
-enchantresses	ENCHANTRESS: a woman who is considered to be dangerously seductive
+enchantress	a female sorcerer or magician
+enchantresses	ENCHANTRESS: a female sorcerer or magician
 enchants	ENCHANT: hold spellbound
 enchilada	tortilla with meat filling baked in tomato sauce seasoned with chili
 enchiladas	ENCHILADA: tortilla with meat filling baked in tomato sauce seasoned with chili
@@ -1142,8 +1142,8 @@ encroaching	ENCROACH: advance beyond the usual limit
 encroachment	any entry into an area not previously occupied
 encroachments	ENCROACHMENT: any entry into an area not previously occupied
 encrust	cover or coat with a crust
-encrustation	the formation of a crust
-encrustations	ENCRUSTATION: the formation of a crust
+encrustation	a hard outer layer that covers something
+encrustations	ENCRUSTATION: a hard outer layer that covers something
 encrusted	ENCRUST: cover or coat with a crust
 encrusting	ENCRUST: cover or coat with a crust
 encrusts	ENCRUST: cover or coat with a crust
@@ -1183,17 +1183,17 @@ endeavor	a purposeful or industrious undertaking (especially one that requires e
 endeavored	ENDEAVOR: a purposeful or industrious undertaking (especially one that requires effort or boldness)
 endeavoring	ENDEAVOR: a purposeful or industrious undertaking (especially one that requires effort or boldness)
 endeavors	ENDEAVOR: a purposeful or industrious undertaking (especially one that requires effort or boldness)
-endeavour	a purposeful or industrious undertaking (especially one that requires effort or boldness)
-endeavoured	ENDEAVOUR: a purposeful or industrious undertaking (especially one that requires effort or boldness)
-endeavouring	ENDEAVOUR: a purposeful or industrious undertaking (especially one that requires effort or boldness)
-endeavours	ENDEAVOUR: a purposeful or industrious undertaking (especially one that requires effort or boldness)
+endeavour	attempt by employing effort
+endeavoured	ENDEAVOUR: attempt by employing effort
+endeavouring	ENDEAVOUR: attempt by employing effort
+endeavours	ENDEAVOUR: attempt by employing effort
 ended	END: either extremity of something that has length
-endemic	a disease that is constantly present to a greater or lesser degree in people of a certain class or in people living in a particular location
-endemics	ENDEMIC: a disease that is constantly present to a greater or lesser degree in people of a certain class or in people living in a particular location
+endemic	native to or confined to a certain region
+endemics	ENDEMIC: native to or confined to a certain region
 ender	one who or that which ends something
 enders	ENDER: one who or that which ends something
-endgame	the final stages of an extended process of negotiation
-endgames	ENDGAME: the final stages of an extended process of negotiation
+endgame	the final stages of a chess game after most of the pieces have been removed from the board
+endgames	ENDGAME: the final stages of a chess game after most of the pieces have been removed from the board
 ending	the end of a word (a suffix or inflectional ending or final morpheme)
 endings	ENDING: the end of a word (a suffix or inflectional ending or final morpheme)
 endive	a leafy plant of the chicory family, eaten in salads
@@ -1204,13 +1204,13 @@ endlessness	the property of being (or seeming to be) without end
 endnote	a note placed at the end of a text
 endnotes	ENDNOTE: a note placed at the end of a text
 endocarditis	inflammation of the endocardium and heart valves
-endocrine	the secretion of an endocrine gland that is transmitted by the blood to the tissue on which it has a specific effect
-endocrines	ENDOCRINE: the secretion of an endocrine gland that is transmitted by the blood to the tissue on which it has a specific effect
+endocrine	of or belonging to endocrine glands or their secretions
+endocrines	ENDOCRINE: of or belonging to endocrine glands or their secretions
 endocrinological	relating to hormones and the glands that make them
 endocrinologist	physician who specializes in the diagnosis and treatment of conditions affecting the endocrine system
 endocrinologists	ENDOCRINOLOGIST: physician who specializes in the diagnosis and treatment of conditions affecting the endocrine system
 endocrinology	the branch of medicine dealing with the endocrine glands and their secretions
-endogenous	of or resembling an endogen
+endogenous	derived or originating internally
 endometrial	of or relating to the endometrium
 endometriosis	the presence of endometrium elsewhere than in the lining of the uterus; causes premenstrual pain and dysmenorrhea
 endometrium	the mucous membrane that lines the uterus; thickens under hormonal control and (if pregnancy does not occur) is shed in menstruation; if pregnancy occurs it is shed along with the placenta at parturition
@@ -1219,8 +1219,8 @@ endorphin	a neurochemical occurring naturally in the brain and having analgesic 
 endorphins	ENDORPHIN: a neurochemical occurring naturally in the brain and having analgesic properties
 endorse	be behind; approve of
 endorsed	ENDORSE: be behind; approve of
-endorsement	a promotional statement (as found on the dust jackets of books)
-endorsements	ENDORSEMENT: a promotional statement (as found on the dust jackets of books)
+endorsement	formal and explicit approval
+endorsements	ENDORSEMENT: formal and explicit approval
 endorser	someone who expresses strong approval
 endorsers	ENDORSER: someone who expresses strong approval
 endorses	ENDORSE: be behind; approve of
@@ -1259,8 +1259,8 @@ endured	ENDURE: put up with something or somebody unpleasant
 endures	ENDURE: put up with something or somebody unpleasant
 enduring	lasting a long time
 enduringly	in an enduring manner
-endways	on end or upright
-endwise	on end or upright
+endways	in or toward the direction of the ends; lengthwise
+endwise	in or toward the direction of the ends; lengthwise
 enema	an injection of a liquid through the anus to stimulate evacuation; sometimes used for diagnostic purposes
 enemas	ENEMA: an injection of a liquid through the anus to stimulate evacuation; sometimes used for diagnostic purposes
 enemata	ENEMA: liquid injected into the rectum
@@ -1270,11 +1270,11 @@ energetic	possessing or exerting or displaying energy
 energetically	in an energetic manner
 energetics	the study of energy and its transformations
 energies	ENERGY: a thermodynamic quantity equivalent to the capacity of a physical system to do work; the units of energy are joules or ergs
-energise	raise to a higher energy level
-energised	ENERGISE: raise to a higher energy level
+energise	cause to be alert and energetic
+energised	ENERGISE: cause to be alert and energetic
 energiser	someone who imparts energy and vitality and spirit to other people
 energisers	ENERGISER: someone who imparts energy and vitality and spirit to other people
-energises	ENERGISE: raise to a higher energy level
+energises	ENERGISE: cause to be alert and energetic
 energising	supplying motive force
 energize	cause to be alert and energetic
 energized	ENERGIZE: cause to be alert and energetic
@@ -1305,11 +1305,11 @@ enforcer	one whose job it is to execute unpleasant tasks for a superior
 enforcers	ENFORCER: one whose job it is to execute unpleasant tasks for a superior
 enforces	ENFORCE: ensure observance of laws and rules
 enforcing	ENFORCE: ensure observance of laws and rules
-enfranchise	grant freedom to; as from slavery or servitude
+enfranchise	grant voting rights
 enfranchised	endowed with the rights of citizenship especially the right to vote
-enfranchisement	freedom from political subjugation or servitude
-enfranchises	ENFRANCHISE: grant freedom to; as from slavery or servitude
-enfranchising	ENFRANCHISE: grant freedom to; as from slavery or servitude
+enfranchisement	a statutory right or privilege granted to a person or group by a government (especially the rights of citizenship and the right to vote)
+enfranchises	ENFRANCHISE: grant voting rights
+enfranchising	ENFRANCHISE: grant voting rights
 engage	carry out or participate in an activity; be involved in
 engaged	having ones attention or mind or energy engaged
 engagement	a hostile meeting of opposing military forces in the course of a war
@@ -1330,7 +1330,7 @@ engineers	ENGINEER: a person who uses scientific knowledge to solve practical pr
 engines	ENGINE: motor that converts thermal energy to mechanical work
 engorge	overeat or eat immodestly; make a pig of oneself
 engorged	overfull as with blood
-engorgement	congestion with blood
+engorgement	eating ravenously or voraciously to satiation
 engorges	ENGORGE: overeat or eat immodestly; make a pig of oneself
 engorging	ENGORGE: overeat or eat immodestly; make a pig of oneself
 engrams	ENGRAM: a postulated biochemical change (presumably in neural tissue) that represents a memory
@@ -1401,8 +1401,8 @@ enlistees	ENLISTEE: any new member or supporter (as in the armed forces)
 enlister	one who enlists
 enlisters	ENLISTER: one who enlists
 enlisting	ENLIST: join the military
-enlistment	a period of time spent in military service
-enlistments	ENLISTMENT: a period of time spent in military service
+enlistment	the act of enlisting (as in a military service)
+enlistments	ENLISTMENT: the act of enlisting (as in a military service)
 enlists	ENLIST: join the military
 enliven	heighten or intensify
 enlivened	ENLIVEN: heighten or intensify
@@ -1416,7 +1416,7 @@ enmities	ENMITY: a state of deep-seated ill-will
 enmity	a state of deep-seated ill-will
 ennoble	confer dignity or honor upon
 ennobled	ENNOBLE: confer dignity or honor upon
-ennoblement	the state of being noble
+ennoblement	the act of raising someone to the nobility
 ennobles	ENNOBLE: confer dignity or honor upon
 ennobling	investing with dignity or honor
 ennui	the feeling of being bored by something tedious
@@ -1480,11 +1480,11 @@ enshroud	cover as if with a shroud
 enshrouded	ENSHROUD: cover as if with a shroud
 enshrouding	ENSHROUD: cover as if with a shroud
 enshrouds	ENSHROUD: cover as if with a shroud
-ensign	a person who holds a commissioned rank in the United States Navy or the United States Coast Guard; below lieutenant junior grade
-ensigns	ENSIGN: a person who holds a commissioned rank in the United States Navy or the United States Coast Guard; below lieutenant junior grade
+ensign	an emblem flown as a symbol of nationality
+ensigns	ENSIGN: an emblem flown as a symbol of nationality
 enslave	make a slave of; bring into servitude
 enslaved	ENSLAVE: make a slave of; bring into servitude
-enslavement	the state of being a slave
+enslavement	the act of making slaves of your captives
 enslaves	ENSLAVE: make a slave of; bring into servitude
 enslaving	ENSLAVE: make a slave of; bring into servitude
 ensnare	take or catch as if in a snare or trap
@@ -1508,18 +1508,18 @@ entail	have as a logical consequence
 entailed	ENTAIL: have as a logical consequence
 entailing	ENTAIL: have as a logical consequence
 entails	ENTAIL: have as a logical consequence
-entangle	entrap
+entangle	twist together or entwine into a confusing mass
 entangled	deeply involved especially in something complicated
 entanglement	an intricate trap that entangles or ensnares its victim
 entanglements	ENTANGLEMENT: an intricate trap that entangles or ensnares its victim
-entangles	ENTANGLE: entrap
-entangling	ENTANGLE: entrap
-entente	an informal alliance between countries
-ententes	ENTENTE: an informal alliance between countries
+entangles	ENTANGLE: twist together or entwine into a confusing mass
+entangling	ENTANGLE: twist together or entwine into a confusing mass
+entente	a friendly understanding between political powers
+ententes	ENTENTE: a friendly understanding between political powers
 enter	to come or go into
-enteral	of or relating to the enteron
+enteral	of or relating to or inside the intestines
 entered	ENTER: to come or go into
-enteric	of or relating to the enteron
+enteric	of or relating to or inside the intestines
 entering	ENTER: to come or go into
 enteritis	inflammation of the intestine (especially the small intestine); usually characterized by diarrhea
 enterprise	a purposeful or industrious undertaking (especially one that requires effort or boldness)
@@ -1550,16 +1550,16 @@ enthronement	the ceremony of installing a new monarch
 enthronements	ENTHRONEMENT: the ceremony of installing a new monarch
 enthrones	ENTHRONE: provide with power and authority
 enthroning	ENTHRONE: provide with power and authority
-enthuse	cause to feel enthusiasm
-enthused	ENTHUSE: cause to feel enthusiasm
-enthuses	ENTHUSE: cause to feel enthusiasm
+enthuse	utter with enthusiasm
+enthused	ENTHUSE: utter with enthusiasm
+enthuses	ENTHUSE: utter with enthusiasm
 enthusiasm	a feeling of excitement
 enthusiasms	ENTHUSIASM: a feeling of excitement
 enthusiast	an ardent and enthusiastic supporter of some person or activity
 enthusiastic	having or showing great excitement and interest
 enthusiastically	with enthusiasm; in an enthusiastic manner
 enthusiasts	ENTHUSIAST: an ardent and enthusiastic supporter of some person or activity
-enthusing	ENTHUSE: cause to feel enthusiasm
+enthusing	ENTHUSE: utter with enthusiasm
 entice	provoke someone to do something through (often false or exaggerated) promises or persuasion
 enticed	ENTICE: provoke someone to do something through (often false or exaggerated) promises or persuasion
 enticement	something that seduces or has the quality to seduce
@@ -1623,12 +1623,12 @@ entrenching	ENTRENCH: fix firmly or securely
 entrenchment	an entrenched fortification; a position protected by trenches
 entrenchments	ENTRENCHMENT: an entrenched fortification; a position protected by trenches
 entrepreneur	someone who organizes a business venture and assumes the risk for it
-entrepreneurial	of or relating to an entrepreneur
+entrepreneurial	willing to take risks in order to make a profit
 entrepreneurs	ENTREPRENEUR: someone who organizes a business venture and assumes the risk for it
 entrepreneurship	the activity of starting and running businesses
 entries	ENTRY: an item inserted in a written record
 entropic	relating to entropy, the measure of disorder
-entropy	a numerical measure of the uncertainty of an outcome
+entropy	a thermodynamic quantity representing the amount of energy in a system that is no longer available for doing mechanical work
 entrust	confer a trust upon
 entrusted	ENTRUST: confer a trust upon
 entrusting	ENTRUST: confer a trust upon
@@ -1638,10 +1638,10 @@ entryphone	an intercom at a building's door for letting visitors in
 entryphones	ENTRYPHONE: an intercom at a building's door for letting visitors in
 entryway	something that provides access (to get in or get out)
 entryways	ENTRYWAY: something that provides access (to get in or get out)
-entwine	tie or link together
-entwined	ENTWINE: tie or link together
-entwines	ENTWINE: tie or link together
-entwining	ENTWINE: tie or link together
+entwine	spin, wind, or twist together
+entwined	ENTWINE: spin, wind, or twist together
+entwines	ENTWINE: spin, wind, or twist together
+entwining	ENTWINE: spin, wind, or twist together
 enumerable	that can be counted
 enumerate	specify individually
 enumerated	ENUMERATE: specify individually
@@ -1678,7 +1678,7 @@ enviousness	a feeling of grudging admiration and desire to have something that i
 environ	extend on all sides of simultaneously; encircle
 environment	the totality of surrounding conditions
 environmental	of or relating to the external conditions or surroundings
-environmentalism	the philosophical doctrine that environment is more important than heredity in determining intellectual growth
+environmentalism	the activity of protecting the environment from pollution or destruction
 environmentalist	someone who works to protect the environment from destruction or pollution
 environmentalists	ENVIRONMENTALIST: someone who works to protect the environment from destruction or pollution
 environmentally	for the environment
@@ -1692,8 +1692,8 @@ envision	imagine; conceive of; see in one's mind
 envisioned	ENVISION: imagine; conceive of; see in one's mind
 envisioning	ENVISION: imagine; conceive of; see in one's mind
 envisions	ENVISION: imagine; conceive of; see in one's mind
-envoy	a diplomat having less authority than an ambassador
-envoys	ENVOY: a diplomat having less authority than an ambassador
+envoy	someone sent on a mission to represent the interests of someone else
+envoys	ENVOY: someone sent on a mission to represent the interests of someone else
 envy	a feeling of grudging admiration and desire to have something that is possessed by another
 envying	ENVY: a feeling of grudging admiration and desire to have something that is possessed by another
 enzymatic	of or relating to or produced by an enzyme
@@ -1702,8 +1702,8 @@ enzymes	ENZYME: any of several complex proteins that are produced by cells and a
 enzymologist	a person who is trained in or engaged in enzymology
 enzymologists	ENZYMOLOGIST: a person who is trained in or engaged in enzymology
 enzymology	the branch of biochemistry dealing with the chemical nature and biological activity of enzymes
-eon	the longest division of geological time
-eons	EON: the longest division of geological time
+eon	an immeasurably long period of time
+eons	EON: an immeasurably long period of time
 eosinophil	a leukocyte readily stained with eosin
 eosinophilic	of or relating to eosinophil
 eosinophils	EOSINOPHIL: a leukocyte readily stained with eosin
@@ -1752,16 +1752,16 @@ epigraphy	the study of ancient inscriptions
 epilepsy	a disorder of the central nervous system characterized by loss of consciousness and convulsions
 epileptic	of or relating to or characteristic of epilepsy
 epileptics	EPILEPTIC: of or relating to or characteristic of epilepsy
-epilog	a short speech (often in verse) addressed directly to the audience by an actor at the end of a play
-epilogs	EPILOG: a short speech (often in verse) addressed directly to the audience by an actor at the end of a play
-epilogue	a short speech (often in verse) addressed directly to the audience by an actor at the end of a play
-epilogues	EPILOGUE: a short speech (often in verse) addressed directly to the audience by an actor at the end of a play
+epilog	a short passage added at the end of a literary work
+epilogs	EPILOG: a short passage added at the end of a literary work
+epilogue	a short passage added at the end of a literary work
+epilogues	EPILOGUE: a short passage added at the end of a literary work
 epinephrine	a catecholamine secreted by the adrenal medulla in response to stress (trade name Adrenalin); stimulates autonomic nerve action
 epiphanies	EPIPHANY: a divine manifestation
 epiphany	a divine manifestation
 episcopacy	the collective body of bishops
-episcopal	of or pertaining to or characteristic of the Episcopal church
-episcopate	the term of office of a bishop
+episcopal	denoting or governed by or relating to a bishop or bishops
+episcopate	the office and dignity of a bishop
 episode	a happening that is distinctive in a series of related events
 episodes	EPISODE: a happening that is distinctive in a series of related events
 episodic	of writing or narration; divided into or composed of episodes
@@ -1812,21 +1812,21 @@ equal	be identical or equivalent to
 equaled	EQUAL: be identical or equivalent to
 equaling	EQUAL: be identical or equivalent to
 equalisation	the act of making equal or uniform
-equalise	compensate; make the score equal
-equalised	EQUALISE: compensate; make the score equal
-equaliser	electronic equipment that reduces frequency distortion
-equalisers	EQUALISER: electronic equipment that reduces frequency distortion
-equalises	EQUALISE: compensate; make the score equal
-equalising	EQUALISE: compensate; make the score equal
+equalise	make equal, uniform, corresponding, or matching
+equalised	EQUALISE: make equal, uniform, corresponding, or matching
+equaliser	a goal or score that makes the match level
+equalisers	EQUALISER: a goal or score that makes the match level
+equalises	EQUALISE: make equal, uniform, corresponding, or matching
+equalising	EQUALISE: make equal, uniform, corresponding, or matching
 equalities	EQUALITY: the quality of being the same in quantity or measure or value or status
 equality	the quality of being the same in quantity or measure or value or status
 equalization	the act of making equal or uniform
-equalize	compensate; make the score equal
-equalized	EQUALIZE: compensate; make the score equal
-equalizer	electronic equipment that reduces frequency distortion
-equalizers	EQUALIZER: electronic equipment that reduces frequency distortion
-equalizes	EQUALIZE: compensate; make the score equal
-equalizing	EQUALIZE: compensate; make the score equal
+equalize	make equal, uniform, corresponding, or matching
+equalized	EQUALIZE: make equal, uniform, corresponding, or matching
+equalizer	a score that makes the match even
+equalizers	EQUALIZER: a score that makes the match even
+equalizes	EQUALIZE: make equal, uniform, corresponding, or matching
+equalizing	EQUALIZE: make equal, uniform, corresponding, or matching
 equalled	EQUAL: be identical or equivalent to
 equalling	EQUAL: be identical or equivalent to
 equally	to the same degree (often followed by `as')
@@ -1839,28 +1839,28 @@ equating	EQUATE: consider or describe as similar, equal, or analogous
 equation	a mathematical statement that two expressions are equal
 equations	EQUATION: a mathematical statement that two expressions are equal
 equator	an imaginary line around the Earth forming the great circle that is equidistant from the north and south poles
-equatorial	a telescope whose mounting has only two axes of motion, one parallel to the Earth's axis and the other one at right angles to it
+equatorial	of or relating to conditions at the geographical equator
 equators	EQUATOR: an imaginary line around the Earth forming the great circle that is equidistant from the north and south poles
-equerries	EQUERRY: an official charged with the care of the horses of princes or nobles
-equerry	an official charged with the care of the horses of princes or nobles
-equestrian	a man skilled in equitation
-equestrians	EQUESTRIAN: a man skilled in equitation
+equerries	EQUERRY: a personal attendant of the British royal family
+equerry	a personal attendant of the British royal family
+equestrian	of or relating to or featuring horseback riding
+equestrians	EQUESTRIAN: of or relating to or featuring horseback riding
 equestrienne	a woman who rides horses
 equestriennes	EQUESTRIENNE: a woman who rides horses
 equidistant	the same distance apart at every point
-equilateral	a figure whose sides are all equal
-equilaterals	EQUILATERAL: a figure whose sides are all equal
+equilateral	having all sides or faces equal
+equilaterals	EQUILATERAL: having all sides or faces equal
 equilibria	EQUILIBRIUM: a state of balance
 equilibrium	a stable situation in which forces cancel one another
 equilibriums	EQUILIBRIUM: a stable situation in which forces cancel one another
-equine	hoofed mammals having slender legs and a flat coat with a narrow mane along the back of the neck
-equines	EQUINE: hoofed mammals having slender legs and a flat coat with a narrow mane along the back of the neck
-equinoctial	the great circle on the celestial sphere midway between the celestial poles
+equine	resembling a horse
+equines	EQUINE: resembling a horse
+equinoctial	relating to an equinox (when the lengths of night and day are equal)
 equinox	either of two times of the year when the sun crosses the plane of the earth's equator and day and night are of equal length
 equinoxes	EQUINOX: either of two times of the year when the sun crosses the plane of the earth's equator and day and night are of equal length
 equip	provide with (something) usually for a specific purpose
-equipage	equipment and supplies of a military force
-equipages	EQUIPAGE: equipment and supplies of a military force
+equipage	a vehicle with wheels drawn by one or more horses
+equipages	EQUIPAGE: a vehicle with wheels drawn by one or more horses
 equipment	an instrumentality needed for an undertaking or to perform a service
 equipments	EQUIPMENT: an instrumentality needed for an undertaking or to perform a service
 equipoise	equality of distribution
@@ -1885,11 +1885,11 @@ equivocate	be deliberately ambiguous or unclear in order to mislead or withhold 
 equivocated	EQUIVOCATE: be deliberately ambiguous or unclear in order to mislead or withhold information
 equivocates	EQUIVOCATE: be deliberately ambiguous or unclear in order to mislead or withhold information
 equivocating	EQUIVOCATE: be deliberately ambiguous or unclear in order to mislead or withhold information
-equivocation	a statement that is not literally false but that cleverly avoids an unpleasant truth
-equivocations	EQUIVOCATION: a statement that is not literally false but that cleverly avoids an unpleasant truth
+equivocation	falsification by means of vague or ambiguous language
+equivocations	EQUIVOCATION: falsification by means of vague or ambiguous language
 equivoque	a word or phrase with a double meaning
 equivoques	EQUIVOQUE: a word or phrase with a double meaning
-er	a trivalent metallic element of the rare earth group; occurs with yttrium
+er	a room in a hospital or clinic staffed and equipped to provide emergency care to persons requiring immediate medical treatment
 era	a period marked by distinctive character or reckoned from a fixed point or event
 eradicate	kill in large numbers
 eradicated	ERADICATE: kill in large numbers
@@ -1904,8 +1904,8 @@ eraser	an implement used to erase something
 erasers	ERASER: an implement used to erase something
 erases	ERASE: remove from memory or existence
 erasing	ERASE: remove from memory or existence
-erasure	a correction made by erasing
-erasures	ERASURE: a correction made by erasing
+erasure	deletion by an act of expunging or erasing
+erasures	ERASURE: deletion by an act of expunging or erasing
 ere	before
 erect	construct, build, or erect
 erected	ERECT: construct, build, or erect
@@ -1913,8 +1913,8 @@ erecter	ERECT: construct, build, or erect
 erecters	ERECTER: one who erects
 erectile	capable of being raised to an upright position
 erecting	ERECT: construct, build, or erect
-erection	an erect penis
-erections	ERECTION: an erect penis
+erection	the act of building or putting up
+erections	ERECTION: the act of building or putting up
 erectly	in a straight-backed manner
 erectness	the property of being upright in posture
 erects	ERECT: construct, build, or erect
@@ -1926,8 +1926,8 @@ ergonomic	of or relating to ergonomics
 ergonomically	in a way designed for comfort and efficiency in use
 ergonomics	the branch of engineering science in which biological science is used to study the relation between workers and their environments
 ergs	ERG: a cgs unit of work or energy; the work done by a force of one dyne acting over a distance of one centimeter
-ermine	the expensive white fur of the ermine
-ermines	ERMINE: the expensive white fur of the ermine
+ermine	mustelid of northern hemisphere in its white winter coat
+ermines	ERMINE: mustelid of northern hemisphere in its white winter coat
 erode	become ground down or deteriorate
 eroded	worn away as by water or ice or wind
 erodes	ERODE: become ground down or deteriorate
@@ -1938,7 +1938,7 @@ erosive	wearing away by friction
 erotic	giving sexual pleasure; sexually arousing
 erotica	creative activity (writing or pictures or films etc.) of no literary or artistic value other than to stimulate sexual desire
 erotically	in an erotic manner
-eroticism	a state of anticipation of sexuality
+eroticism	the arousal of feelings of sexual desire
 erotics	EROTIC: giving sexual pleasure; sexually arousing
 err	to make a mistake or be incorrect
 errand	a short trip that is taken in the performance of a necessary task or mission
@@ -1980,8 +1980,8 @@ escalates	ESCALATE: increase in extent or intensity
 escalating	ESCALATE: increase in extent or intensity
 escalation	an increase to counteract a perceived discrepancy
 escalations	ESCALATION: an increase to counteract a perceived discrepancy
-escalator	a clause in a contract that provides for an increase or a decrease in wages or prices or benefits etc. depending on certain conditions (as a change in the cost of living index)
-escalators	ESCALATOR: a clause in a contract that provides for an increase or a decrease in wages or prices or benefits etc. depending on certain conditions (as a change in the cost of living index)
+escalator	a stairway whose steps move continuously on a circulating belt
+escalators	ESCALATOR: a stairway whose steps move continuously on a circulating belt
 escalope	a thin slice of meat, usually breaded and fried
 escalopes	ESCALOPE: a thin slice of meat, usually breaded and fried
 escapade	a wild and exciting undertaking (not necessarily lawful)
@@ -2024,8 +2024,8 @@ escrow	a written agreement (or property or money) delivered to a third party or 
 escrows	ESCROW: a written agreement (or property or money) delivered to a third party or put in trust by one party to a contract to be returned after fulfillment of some condition
 escudo	formerly the basic monetary unit of Portugal; equal to 100 centavo
 escudos	ESCUDO: formerly the basic monetary unit of Portugal; equal to 100 centavo
-escutcheon	a flat protective covering (on a door or wall etc) to prevent soiling by dirty fingers
-escutcheons	ESCUTCHEON: a flat protective covering (on a door or wall etc) to prevent soiling by dirty fingers
+escutcheon	a shield; especially one displaying a coat of arms
+escutcheons	ESCUTCHEON: a shield; especially one displaying a coat of arms
 eskies	ESKY: a portable insulated box for keeping food and drink cold
 esky	a portable insulated box for keeping food and drink cold
 esophageal	relating to the esophagus
@@ -2043,7 +2043,7 @@ espies	ESPY: catch sight of
 espionage	the systematic use of spies to get military or political secrets
 esplanade	a long stretch of open level ground (paved or grassy) for walking beside the seashore
 esplanades	ESPLANADE: a long stretch of open level ground (paved or grassy) for walking beside the seashore
-espousal	archaic terms for a wedding or wedding feast
+espousal	the act of accepting with approval; favorable reception
 espouse	choose and follow; as of theories, ideas, policies, strategies or plans
 espoused	ESPOUSE: choose and follow; as of theories, ideas, policies, strategies or plans
 espouses	ESPOUSE: choose and follow; as of theories, ideas, policies, strategies or plans
@@ -2053,8 +2053,8 @@ espressos	ESPRESSO: strong black coffee brewed by forcing hot water under pressu
 esprit	liveliness of mind or spirit
 espy	catch sight of
 espying	ESPY: catch sight of
-esquire	an attendant and shield bearer to a knight; a candidate for knighthood
-esquires	ESQUIRE: an attendant and shield bearer to a knight; a candidate for knighthood
+esquire	a title of respect for a member of the English gentry ranking just below a knight; placed after the name
+esquires	ESQUIRE: a title of respect for a member of the English gentry ranking just below a knight; placed after the name
 esquivalience	the deliberate dodging of your official duties; a fake word, planted in a dictionary to catch anyone copying it
 essay	an analytic or interpretive literary composition
 essayed	ESSAY: an analytic or interpretive literary composition
@@ -2096,17 +2096,17 @@ estimate	an approximate calculation of quantity or degree or worth
 estimated	ESTIMATE: an approximate calculation of quantity or degree or worth
 estimates	ESTIMATE: an approximate calculation of quantity or degree or worth
 estimating	ESTIMATE: an approximate calculation of quantity or degree or worth
-estimation	a document appraising the value of something (as for insurance or taxation)
-estimations	ESTIMATION: a document appraising the value of something (as for insurance or taxation)
+estimation	an approximate calculation of quantity or degree or worth
+estimations	ESTIMATION: an approximate calculation of quantity or degree or worth
 estimator	an expert at calculation (or at operating calculating machines)
 estimators	ESTIMATOR: an expert at calculation (or at operating calculating machines)
 estoppel	a rule of evidence whereby a person is barred from denying the truth of a fact that has already been settled
 estradiol	the most powerful female hormone that occurs naturally; synthesized and used to treat estrogen deficiency and breast cancer
-estrange	remove from customary environment or associations
+estrange	arouse hostility or indifference in where there had formerly been love, affection, or friendliness
 estranged	caused to be unloved
 estrangement	separation resulting from hostility
 estrangements	ESTRANGEMENT: separation resulting from hostility
-estranges	ESTRANGE: remove from customary environment or associations
+estranges	ESTRANGE: arouse hostility or indifference in where there had formerly been love, affection, or friendliness
 estranging	making one feel out of place or alienated
 estrogen	a general term for female steroid sex hormones that are secreted by the ovary and responsible for typical female sexual characteristics
 estrogenic	relating to or caused by estrogen
@@ -2115,7 +2115,7 @@ estuarial	of or relating to or found in estuaries
 estuaries	ESTUARY: the wide part of a river where it nears the sea; fresh and salt water mix
 estuarine	of or relating to or found in estuaries
 estuary	the wide part of a river where it nears the sea; fresh and salt water mix
-eta	a terrorist organization organized in 1959 by student activists who were dissatisfied with the moderate nationalism of the traditional Basque party; want to create an independent homeland in Spain's western Pyrenees
+eta	the 7th letter of the Greek alphabet
 etailer	a retailer that sells online
 etailers	ETAILER: a retailer that sells online
 etailing	selling goods online
@@ -2134,7 +2134,7 @@ eternity	time without end
 ethane	a colorless odorless alkane gas used as fuel
 ethanol	the intoxicating agent in fermented and distilled liquors; used pure or denatured as a solvent or in medicines and colognes and cleaning solutions and rocket fuel; proposed as a renewable clean-burning additive to gasoline
 ethene	a flammable colorless gaseous alkene; obtained from petroleum and natural gas and used in manufacturing many other chemicals; sometimes used as an anesthetic
-ether	the fifth and highest element after air and earth and fire and water; was believed to be the substance composing all heavenly bodies
+ether	a colorless volatile highly flammable liquid formerly used as an inhalation anesthetic
 ethereal	characterized by lightness and insubstantiality; as impalpable or intangible as air
 ethereality	the quality of being light, delicate and heavenly
 ethereally	in a light, delicate, heavenly way
@@ -2173,7 +2173,7 @@ ethology	the branch of zoology that studies the behavior of animals in their nat
 ethos	the distinctive spirit of a culture or an era
 ethylene	a flammable colorless gaseous alkene; obtained from petroleum and natural gas and used in manufacturing many other chemicals; sometimes used as an anesthetic
 etiolated	(especially of plants) developed without chlorophyll by being deprived of light
-etiological	of or relating to the philosophical study of causation
+etiological	relating to the etiology of a disease
 etiologies	ETIOLOGY: the cause of a disease
 etiologist	a specialist in the etiology of diseases
 etiologists	ETIOLOGIST: a specialist in the etiology of diseases
@@ -2181,13 +2181,13 @@ etiology	the cause of a disease
 etiquette	rules governing socially acceptable behavior
 etymological	based on or belonging to etymology
 etymologically	in terms of word origins
-etymologies	ETYMOLOGY: a history of a word
+etymologies	ETYMOLOGY: the study of the sources and development of words
 etymologist	a lexicographer who specializes in etymology
 etymologists	ETYMOLOGIST: a lexicographer who specializes in etymology
-etymology	a history of a word
+etymology	the study of the sources and development of words
 eucalypti	EUCALYPTUS: a tall Australian tree with aromatic leaves
-eucalyptus	wood of any of various eucalyptus trees valued as timber
-eucalyptuses	EUCALYPTUS: wood of any of various eucalyptus trees valued as timber
+eucalyptus	a tree of the genus Eucalyptus
+eucalyptuses	EUCALYPTUS: a tree of the genus Eucalyptus
 eucharistic	of or relating to the sacrament of the Eucharist
 euchre	a card game similar to ecarte; each player is dealt 5 cards and the player making trump must take 3 tricks to win a hand
 euchred	EUCHRE: defeat or cheat by cunning
@@ -2226,7 +2226,7 @@ euphony	any agreeable (pleasing and harmonious) sounds
 euphoria	a feeling of great (usually exaggerated) elation
 euphoric	exaggerated feeling of well-being or elation
 euphorically	in an intensely happy way
-eureka	an alloy of copper and nickel with high electrical resistance and a low temperature coefficient; used as resistance wire
+eureka	an exclamation of triumph on finding or realising something
 euro	the basic monetary unit of most members of the European Union (introduced in 1999); in 2002 twelve European nations (Germany, France, Belgium, Luxembourg, the Netherlands, Italy, Spain, Portugal, Ireland, Greece, Austria, Finland) adopted the euro as their basic unit of money and abandoned their traditional currencies
 euroland	the countries that use the euro
 europium	a bivalent and trivalent metallic element of the rare earth group
@@ -2293,8 +2293,8 @@ evaporative	relating to or causing or being caused by evaporation
 evaporator	a device that turns liquid into vapour
 evaporators	EVAPORATOR: a device that turns liquid into vapour
 evapotranspiration	the combined loss of water from soil and plants into the air
-evasion	a statement that is not literally false but that cleverly avoids an unpleasant truth
-evasions	EVASION: a statement that is not literally false but that cleverly avoids an unpleasant truth
+evasion	the act of physically escaping from something (an opponent or a pursuer or an unpleasant situation) by some adroit maneuver
+evasions	EVASION: the act of physically escaping from something (an opponent or a pursuer or an unpleasant situation) by some adroit maneuver
 evasive	deliberately vague or ambiguous
 evasively	with evasion; in an evasive manner
 evasiveness	intentionally vague or ambiguous
@@ -2307,7 +2307,7 @@ evenhanded	without partiality
 evening	the latter part of the day (the period of decreasing daylight from late afternoon until nightfall)
 evenings	EVENING: the latter part of the day (the period of decreasing daylight from late afternoon until nightfall)
 evenly	in equal amounts or shares; in a balanced or impartial way
-evenness	the parity of even numbers (divisible by two)
+evenness	a quality of uniformity and lack of variation
 evens	EVEN: divisible by two
 evensong	the sixth of the seven canonical hours of the divine office; early evening; now often made a public service on Sundays
 event	something that happens at a given place and time
@@ -2332,7 +2332,7 @@ evergreen	a plant having foliage that persists and remains green throughout the 
 evergreens	EVERGREEN: a plant having foliage that persists and remains green throughout the year
 everlasting	continuing forever or indefinitely
 everlastings	EVERLASTING: continuing forever or indefinitely
-evermore	at any future time; in the future
+evermore	for a limitless time
 every	(used of count nouns) each and all of the members of a group considered singly and without exception
 everybody	every person
 everyday	found in the ordinary course of events
@@ -2341,19 +2341,19 @@ everyplace	to or in any or all places
 everything	all things
 everywhere	to or in any or all places
 eves	EVE: Adam's wife in Judeo-Christian mythology: the first woman and mother of the human race; God created Eve from Adam's rib and placed Adam and Eve in the Garden of Eden
-evict	expel or eject without recourse to legal process
-evicted	EVICT: expel or eject without recourse to legal process
-evicting	EVICT: expel or eject without recourse to legal process
-eviction	action by a landlord that compels a tenant to leave the premises (as by rendering the premises unfit for occupancy); no physical expulsion or legal process is involved
-evictions	EVICTION: action by a landlord that compels a tenant to leave the premises (as by rendering the premises unfit for occupancy); no physical expulsion or legal process is involved
-evicts	EVICT: expel or eject without recourse to legal process
+evict	expel from one's property or force to move out by a legal process
+evicted	EVICT: expel from one's property or force to move out by a legal process
+evicting	EVICT: expel from one's property or force to move out by a legal process
+eviction	the expulsion of someone (such as a tenant) from the possession of land by process of law
+evictions	EVICTION: the expulsion of someone (such as a tenant) from the possession of land by process of law
+evicts	EVICT: expel from one's property or force to move out by a legal process
 evidence	your basis for belief or disbelief; knowledge on which to base belief
 evidenced	EVIDENCE: your basis for belief or disbelief; knowledge on which to base belief
 evidences	EVIDENCE: your basis for belief or disbelief; knowledge on which to base belief
 evidencing	EVIDENCE: your basis for belief or disbelief; knowledge on which to base belief
 evident	clearly revealed to the mind or the senses or judgment
 evidential	serving as or based on evidence
-evidentiary	pertaining to or constituting evidence
+evidentiary	serving as or based on evidence
 evidently	unmistakably (`plain' is often used informally for `plainly')
 evil	morally objectionable behavior
 evildoer	a person who sins (without repenting)
@@ -2369,11 +2369,11 @@ evince	give expression to
 evinced	EVINCE: give expression to
 evinces	EVINCE: give expression to
 evincing	EVINCE: give expression to
-eviscerate	surgically remove a part of a structure or an organ
-eviscerated	EVISCERATE: surgically remove a part of a structure or an organ
-eviscerates	EVISCERATE: surgically remove a part of a structure or an organ
-eviscerating	EVISCERATE: surgically remove a part of a structure or an organ
-evisceration	surgical removal of an organ (or the contents of an organ) from a patient
+eviscerate	remove the entrails of
+eviscerated	EVISCERATE: remove the entrails of
+eviscerates	EVISCERATE: remove the entrails of
+eviscerating	EVISCERATE: remove the entrails of
+evisceration	the act of removing the bowels or viscera; the act of cutting so as to cause the viscera to protrude
 evocation	imaginative re-creation
 evocations	EVOCATION: imaginative re-creation
 evocative	serving to bring to mind
@@ -2392,10 +2392,10 @@ evolved	EVOLVE: work out
 evolves	EVOLVE: work out
 evolving	EVOLVE: work out
 ew	military action involving the use of electromagnetic energy to determine or exploit or reduce or prevent hostile use of the electromagnetic spectrum
-ewe	a member of a people living in southern Benin and Togo and southeastern Ghana
+ewe	female sheep
 ewer	an open vessel with a handle and a spout for pouring
 ewers	EWER: an open vessel with a handle and a spout for pouring
-ewes	EWE: a member of a people living in southern Benin and Togo and southeastern Ghana
+ewes	EWE: female sheep
 eww	an expression of disgust
 ex	a man who was formerly a certain woman's husband
 exacerbate	make worse
@@ -2450,14 +2450,14 @@ exasperates	EXASPERATE: exasperate or irritate
 exasperating	extremely annoying or displeasing
 exasperatingly	in an exasperating manner
 exasperation	an exasperated feeling of annoyance
-excavate	recover through digging
-excavated	EXCAVATE: recover through digging
-excavates	EXCAVATE: recover through digging
-excavating	EXCAVATE: recover through digging
+excavate	find by digging in the ground
+excavated	EXCAVATE: find by digging in the ground
+excavates	EXCAVATE: find by digging in the ground
+excavating	EXCAVATE: find by digging in the ground
 excavation	the act of digging
 excavations	EXCAVATION: the act of digging
-excavator	a workman who excavates for foundations of buildings or for quarrying
-excavators	EXCAVATOR: a workman who excavates for foundations of buildings or for quarrying
+excavator	a machine for excavating
+excavators	EXCAVATOR: a machine for excavating
 exceed	be greater in scope or size than some standard
 exceeded	EXCEED: be greater in scope or size than some standard
 exceeding	EXCEED: be greater in scope or size than some standard
@@ -2489,7 +2489,7 @@ excesses	EXCESS: a quantity much larger than is needed
 excessive	beyond normal limits
 excessively	to a degree exceeding normal or proper limits
 exchange	chemical process in which one atom or ion or group changes places with another
-exchangeable	suitable to be exchanged
+exchangeable	capable of being exchanged for or replaced by something of equal value
 exchanged	EXCHANGE: chemical process in which one atom or ion or group changes places with another
 exchanger	one whose business is to exchange the money of one country for that of another country
 exchangers	EXCHANGER: one whose business is to exchange the money of one country for that of another country
@@ -2501,8 +2501,8 @@ excise	remove by erasing or crossing out or as if by drawing a line
 excised	EXCISE: remove by erasing or crossing out or as if by drawing a line
 excises	EXCISE: remove by erasing or crossing out or as if by drawing a line
 excising	EXCISE: remove by erasing or crossing out or as if by drawing a line
-excision	the omission that is made when an editorial change shortens a written passage
-excisions	EXCISION: the omission that is made when an editorial change shortens a written passage
+excision	surgical removal of a body part or tissue
+excisions	EXCISION: surgical removal of a body part or tissue
 excitability	excessive sensitivity of an organ or body part
 excitable	easily excited
 excitation	the state of being emotionally aroused and worked up
@@ -2542,14 +2542,14 @@ excommunicate	exclude from a church or a religious community
 excommunicated	EXCOMMUNICATE: exclude from a church or a religious community
 excommunicates	EXCOMMUNICATE: exclude from a church or a religious community
 excommunicating	EXCOMMUNICATE: exclude from a church or a religious community
-excommunication	the state of being excommunicated
-excommunications	EXCOMMUNICATION: the state of being excommunicated
+excommunication	the act of banishing a member of a church from the communion of believers and the privileges of the church; cutting a person off from a religious society
+excommunications	EXCOMMUNICATION: the act of banishing a member of a church from the communion of believers and the privileges of the church; cutting a person off from a religious society
 excoriate	express strong disapproval of
 excoriated	EXCORIATE: express strong disapproval of
 excoriates	EXCORIATE: express strong disapproval of
 excoriating	EXCORIATE: express strong disapproval of
-excoriation	an abraded area where the skin is torn or worn off
-excoriations	EXCORIATION: an abraded area where the skin is torn or worn off
+excoriation	severe censure
+excoriations	EXCORIATION: severe censure
 excrement	waste matter (as urine or sweat but especially feces) discharged from the body
 excrescence	something that bulges out or is protuberant or projects from its surroundings
 excrescences	EXCRESCENCE: something that bulges out or is protuberant or projects from its surroundings
@@ -2570,7 +2570,7 @@ exculpating	EXCULPATE: pronounce not guilty of criminal charges
 exculpatory	clearing of guilt or blame
 excursion	a journey taken for pleasure
 excursions	EXCURSION: a journey taken for pleasure
-excusable	capable of being overlooked
+excusable	easily excused or forgiven
 excuse	accept an excuse for
 excused	EXCUSE: accept an excuse for
 excuses	EXCUSE: accept an excuse for
@@ -2631,13 +2631,13 @@ exertion	use of physical or mental energy; hard work
 exertions	EXERTION: use of physical or mental energy; hard work
 exerts	EXERT: put to use
 exes	EX: a man who was formerly a certain woman's husband
-exfoliate	spread by opening the leaves of
-exfoliated	EXFOLIATE: spread by opening the leaves of
-exfoliates	EXFOLIATE: spread by opening the leaves of
-exfoliating	EXFOLIATE: spread by opening the leaves of
+exfoliate	remove the surface, in scales or laminae
+exfoliated	EXFOLIATE: remove the surface, in scales or laminae
+exfoliates	EXFOLIATE: remove the surface, in scales or laminae
+exfoliating	EXFOLIATE: remove the surface, in scales or laminae
 exfoliation	the peeling off in flakes or scales of bark or dead skin
-exhalation	exhaled breath
-exhalations	EXHALATION: exhaled breath
+exhalation	the act of expelling air from the lungs
+exhalations	EXHALATION: the act of expelling air from the lungs
 exhale	expel air
 exhaled	EXHALE: expel air
 exhales	EXHALE: expel air
@@ -2657,8 +2657,8 @@ exhibiters	EXHIBITER: one who shows something publicly
 exhibiting	EXHIBIT: show an attribute, property, knowledge, or skill
 exhibition	the act of exhibiting
 exhibitionism	extravagant and conspicuous behavior intended to attract attention to yourself
-exhibitionist	someone with a compulsive desire to expose the genitals
-exhibitionists	EXHIBITIONIST: someone with a compulsive desire to expose the genitals
+exhibitionist	someone who deliberately behaves in such a way as to attract attention
+exhibitionists	EXHIBITIONIST: someone who deliberately behaves in such a way as to attract attention
 exhibitions	EXHIBITION: the act of exhibiting
 exhibitor	someone who organizes an exhibit for others to see
 exhibitors	EXHIBITOR: someone who organizes an exhibit for others to see
@@ -2732,8 +2732,8 @@ exorcises	EXORCISE: expel through adjuration or prayers
 exorcising	EXORCISE: expel through adjuration or prayers
 exorcism	freeing from evil spirits
 exorcisms	EXORCISM: freeing from evil spirits
-exorcist	one of the minor orders in the unreformed Western Church but now suppressed in the Roman Catholic Church
-exorcists	EXORCIST: one of the minor orders in the unreformed Western Church but now suppressed in the Roman Catholic Church
+exorcist	someone who practices exorcism
+exorcists	EXORCIST: someone who practices exorcism
 exorcize	expel through adjuration or prayers
 exorcized	EXORCIZE: expel through adjuration or prayers
 exorcizes	EXORCIZE: expel through adjuration or prayers
@@ -2773,7 +2773,7 @@ expatriate	a person who is voluntarily absent from home or country
 expatriated	EXPATRIATE: a person who is voluntarily absent from home or country
 expatriates	EXPATRIATE: a person who is voluntarily absent from home or country
 expatriating	EXPATRIATE: a person who is voluntarily absent from home or country
-expatriation	the act of expelling a person from their native land
+expatriation	migration from a place (especially migration from your native country in order to settle in another)
 expats	EXPAT: a person who is voluntarily absent from home or country
 expect	regard something as probable or likely
 expectancies	EXPECTANCY: an expectation
@@ -2786,11 +2786,11 @@ expected	considered likely or probable to happen or arrive
 expecting	EXPECT: regard something as probable or likely
 expectorant	a medicine promoting expectoration
 expectorants	EXPECTORANT: a medicine promoting expectoration
-expectorate	clear out the chest and lungs
-expectorated	EXPECTORATE: clear out the chest and lungs
-expectorates	EXPECTORATE: clear out the chest and lungs
-expectorating	EXPECTORATE: clear out the chest and lungs
-expectoration	the process of coughing up and spitting out
+expectorate	discharge (phlegm or sputum) from the lungs and out of the mouth
+expectorated	EXPECTORATE: discharge (phlegm or sputum) from the lungs and out of the mouth
+expectorates	EXPECTORATE: discharge (phlegm or sputum) from the lungs and out of the mouth
+expectorating	EXPECTORATE: discharge (phlegm or sputum) from the lungs and out of the mouth
+expectoration	the act of spitting (forcefully expelling saliva)
 expects	EXPECT: regard something as probable or likely
 expedience	the quality of being suited to the end in view
 expediences	EXPEDIENCE: the quality of being suited to the end in view
@@ -2853,7 +2853,7 @@ expiate	make amends for
 expiated	EXPIATE: make amends for
 expiates	EXPIATE: make amends for
 expiating	EXPIATE: make amends for
-expiation	compensation for a wrong
+expiation	the act of atoning for sin or wrongdoing (especially appeasing a deity)
 expiration	a coming to an end of a contract period
 expire	lose validity
 expired	EXPIRE: lose validity
@@ -2877,8 +2877,8 @@ explicate	make plain and comprehensible
 explicated	EXPLICATE: make plain and comprehensible
 explicates	EXPLICATE: make plain and comprehensible
 explicating	EXPLICATE: make plain and comprehensible
-explication	the act of making clear or removing obscurity from the meaning of a word or symbol or expression etc.
-explications	EXPLICATION: the act of making clear or removing obscurity from the meaning of a word or symbol or expression etc.
+explication	a detailed explanation of the meaning of something
+explications	EXPLICATION: a detailed explanation of the meaning of something
 explicit	precisely and clearly expressed or readily observable; leaving nothing to implication
 explicitly	in an explicit manner
 explicitness	clarity as a consequence of being explicit
@@ -2912,13 +2912,13 @@ explosiveness	the quality of being explosive
 explosives	EXPLOSIVE: serving to explode or characterized by explosion or sudden outburst
 expo	a collection of things (goods or works of art etc.) for public display
 exponent	a person who pleads for a cause or propounds an idea
-exponential	a function in which an independent variable appears as an exponent
+exponential	of or involving exponents
 exponentially	in an exponential manner
 exponentiation	the process of raising a quantity to some assigned power
 exponents	EXPONENT: a person who pleads for a cause or propounds an idea
 export	commodities (goods or services) sold to a foreign country
 exportable	suitable for export
-exportation	commodities (goods or services) sold to a foreign country
+exportation	the commercial activity of selling and shipping goods to a foreign country
 exported	EXPORT: commodities (goods or services) sold to a foreign country
 exporter	a businessperson who transports goods abroad (for sale)
 exporters	EXPORTER: a businessperson who transports goods abroad (for sale)
@@ -2999,10 +2999,10 @@ extemporise	perform without preparation
 extemporised	EXTEMPORISE: perform without preparation
 extemporises	EXTEMPORISE: perform without preparation
 extemporising	EXTEMPORISE: perform without preparation
-extemporize	manage in a makeshift way; do with whatever is at hand
-extemporized	EXTEMPORIZE: manage in a makeshift way; do with whatever is at hand
-extemporizes	EXTEMPORIZE: manage in a makeshift way; do with whatever is at hand
-extemporizing	EXTEMPORIZE: manage in a makeshift way; do with whatever is at hand
+extemporize	perform without preparation
+extemporized	EXTEMPORIZE: perform without preparation
+extemporizes	EXTEMPORIZE: perform without preparation
+extemporizing	EXTEMPORIZE: perform without preparation
 extend	extend in scope or range or area
 extendable	capable of being lengthened
 extended	relatively long in duration; tediously protracted
@@ -3038,27 +3038,27 @@ exterminations	EXTERMINATION: complete annihilation
 exterminator	someone who exterminates (especially someone whose occupation is the extermination of troublesome rodents and insects)
 exterminators	EXTERMINATOR: someone who exterminates (especially someone whose occupation is the extermination of troublesome rodents and insects)
 external	happening or arising or located outside or beyond some limits or especially surface
-externalisation	attributing to outside causes
-externalisations	EXTERNALISATION: attributing to outside causes
-externalise	regard as objective
-externalised	EXTERNALISE: regard as objective
-externalises	EXTERNALISE: regard as objective
-externalising	EXTERNALISE: regard as objective
+externalisation	embodying in an outward form
+externalisations	EXTERNALISATION: embodying in an outward form
+externalise	make external or objective, or give reality to
+externalised	EXTERNALISE: make external or objective, or give reality to
+externalises	EXTERNALISE: make external or objective, or give reality to
+externalising	EXTERNALISE: make external or objective, or give reality to
 externalities	EXTERNALITY: the quality or state of being outside or directed toward or relating to the outside or exterior
 externality	the quality or state of being outside or directed toward or relating to the outside or exterior
-externalization	attributing to outside causes
-externalizations	EXTERNALIZATION: attributing to outside causes
-externalize	regard as objective
-externalized	EXTERNALIZE: regard as objective
-externalizes	EXTERNALIZE: regard as objective
-externalizing	EXTERNALIZE: regard as objective
+externalization	embodying in an outward form
+externalizations	EXTERNALIZATION: embodying in an outward form
+externalize	make external or objective, or give reality to
+externalized	EXTERNALIZE: make external or objective, or give reality to
+externalizes	EXTERNALIZE: make external or objective, or give reality to
+externalizing	EXTERNALIZE: make external or objective, or give reality to
 externally	on or from the outside
 externals	EXTERNAL: happening or arising or located outside or beyond some limits or especially surface
 extinct	no longer in existence; lost or especially having died out leaving no living representatives
 extincted	EXTINCT: make extinct
 extincting	EXTINCT: make extinct
-extinction	no longer active; extinguished
-extinctions	EXTINCTION: no longer active; extinguished
+extinction	no longer in existence
+extinctions	EXTINCTION: no longer in existence
 extincts	EXTINCT: make extinct
 extinguish	put an end to; kill
 extinguishable	capable of being extinguished or killed
@@ -3071,7 +3071,7 @@ extirpate	destroy completely, as if down to the roots
 extirpated	EXTIRPATE: destroy completely, as if down to the roots
 extirpates	EXTIRPATE: destroy completely, as if down to the roots
 extirpating	EXTIRPATE: destroy completely, as if down to the roots
-extirpation	surgical removal of a body part or tissue
+extirpation	the act of pulling up or out; uprooting; cutting off from existence
 extol	praise, glorify, or honor
 extoll	praise highly
 extolled	EXTOLL: praise highly
@@ -3080,24 +3080,24 @@ extollers	EXTOLLER: someone who communicates high praise
 extolling	EXTOLL: praise highly
 extolls	EXTOLL: praise highly
 extols	EXTOL: praise, glorify, or honor
-extort	obtain through intimidation
-extorted	EXTORT: obtain through intimidation
+extort	obtain by coercion or intimidation
+extorted	EXTORT: obtain by coercion or intimidation
 extorter	one who obtains something by threats
 extorters	EXTORTER: one who obtains something by threats
-extorting	EXTORT: obtain through intimidation
-extortion	an exorbitant charge
+extorting	EXTORT: obtain by coercion or intimidation
+extortion	the felonious act of extorting money (as by threats of violence)
 extortionate	greatly exceeding bounds of reason or moderation
 extortionately	to an exorbitant degree
 extortionist	a criminal who extorts money from someone by threatening to expose embarrassing information about them
 extortionists	EXTORTIONIST: a criminal who extorts money from someone by threatening to expose embarrassing information about them
-extorts	EXTORT: obtain through intimidation
+extorts	EXTORT: obtain by coercion or intimidation
 extra	more than is needed, desired, or required
 extracellular	located or occurring outside a cell or cells
 extract	remove, usually with some force or effort; also used in an abstract sense
 extracted	EXTRACT: remove, usually with some force or effort; also used in an abstract sense
 extracting	EXTRACT: remove, usually with some force or effort; also used in an abstract sense
-extraction	the process of obtaining something from a mixture or compound by chemical or physical or mechanical means
-extractions	EXTRACTION: the process of obtaining something from a mixture or compound by chemical or physical or mechanical means
+extraction	the action of taking out something (especially using effort or force)
+extractions	EXTRACTION: the action of taking out something (especially using effort or force)
 extractive	involving the removal of resources from the ground
 extractor	an instrument for extracting tight-fitting components
 extractors	EXTRACTOR: an instrument for extracting tight-fitting components
@@ -3131,16 +3131,16 @@ extrasensory	seemingly outside normal sensory channels
 extraterrestrial	originating or located or occurring outside Earth or its atmosphere
 extraterrestrials	EXTRATERRESTRIAL: originating or located or occurring outside Earth or its atmosphere
 extraterritorial	outside territorial limits or jurisdiction
-extravagance	the quality of exceeding the appropriate limits of decorum or probability or truth
-extravagances	EXTRAVAGANCE: the quality of exceeding the appropriate limits of decorum or probability or truth
+extravagance	excessive spending
+extravagances	EXTRAVAGANCE: excessive spending
 extravagant	unrestrained, especially with regard to feelings
 extravagantly	in an abundant manner
 extravaganza	any lavishly staged or spectacular entertainment
 extravaganzas	EXTRAVAGANZA: any lavishly staged or spectacular entertainment
 extravehicular	outside a spacecraft
-extravert	a person concerned more with practical realities than with inner thoughts and feelings
+extravert	an outgoing, sociable person
 extraverted	being concerned with the social and physical environment
-extraverts	EXTRAVERT: a person concerned more with practical realities than with inner thoughts and feelings
+extraverts	EXTRAVERT: an outgoing, sociable person
 extreme	of the greatest possible degree or extent or intensity
 extremely	to a high degree or extent; favorably or with much respect
 extremer	EXTREME: of the greatest possible degree or extent or intensity
@@ -3159,16 +3159,16 @@ extrication	the act of releasing from a snarled or tangled condition
 extrinsic	not forming an essential part of a thing or arising or originating from the outside
 extrinsically	from outside, not as an inherent part
 extroversion	an extroverted disposition; concern with what is outside the self
-extrovert	a person concerned more with practical realities than with inner thoughts and feelings
-extroverted	not introspective; examining what is outside yourself
-extroverts	EXTROVERT: a person concerned more with practical realities than with inner thoughts and feelings
+extrovert	an outgoing, sociable person
+extroverted	at ease in talking to others
+extroverts	EXTROVERT: an outgoing, sociable person
 extrude	form or shape by forcing through an opening
 extruded	EXTRUDE: form or shape by forcing through an opening
 extruder	a machine that forces material through a shaped opening
 extrudes	EXTRUDE: form or shape by forcing through an opening
 extruding	EXTRUDE: form or shape by forcing through an opening
-extrusion	something that bulges out or is protuberant or projects from its surroundings
-extrusions	EXTRUSION: something that bulges out or is protuberant or projects from its surroundings
+extrusion	squeezing out by applying pressure
+extrusions	EXTRUSION: squeezing out by applying pressure
 exuberance	joyful enthusiasm
 exuberant	joyously unrestrained
 exuberantly	in an exuberant manner
@@ -3195,14 +3195,14 @@ eyebrows	EYEBROW: the arch of hair above each eye
 eyed	having an eye or eyes or eyelike feature especially as specified; often used in combination
 eyedropper	EYEDROP: a drop from an eye dropper
 eyedroppers	EYEDROPPER: a small tube for dispensing liquid in drops
-eyeful	a strikingly beautiful woman
-eyefuls	EYEFUL: a strikingly beautiful woman
+eyeful	a full view; a good look
+eyefuls	EYEFUL: a full view; a good look
 eyeglass	lens for correcting defective vision in one eye; held in place by facial muscles
 eyeglasses	optical instrument consisting of a frame that holds a pair of lenses for correcting defective vision
 eyeing	EYE: the organ of sight
 eyelash	any of the short curved hairs that grow from the edges of the eyelids
 eyelashes	EYELASH: any of the short curved hairs that grow from the edges of the eyelids
-eyeless	lacking eyes or eyelike features
+eyeless	lacking sight
 eyelet	a small hole (usually round and finished around the edges) in cloth or leather for the passage of a cord or hook or bar
 eyelets	EYELET: a small hole (usually round and finished around the edges) in cloth or leather for the passage of a cord or hook or bar
 eyelid	either of two folds of skin that can be moved to cover or open the eye

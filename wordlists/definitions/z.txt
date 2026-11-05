@@ -1,20 +1,20 @@
 zaibatsu	a large Japanese business conglomerate
-zanier	ZANY: a buffoon in one of the old comedies; imitates others for ludicrous effect
-zanies	ZANY: a buffoon in one of the old comedies; imitates others for ludicrous effect
-zaniest	ZANY: a buffoon in one of the old comedies; imitates others for ludicrous effect
+zanier	ZANY: ludicrous, foolish
+zanies	ZANY: ludicrous, foolish
+zaniest	ZANY: ludicrous, foolish
 zaniness	the quality of being zany
-zany	a buffoon in one of the old comedies; imitates others for ludicrous effect
-zap	a sudden event that imparts energy or excitement, usually with a dramatic impact
-zapped	ZAP: a sudden event that imparts energy or excitement, usually with a dramatic impact
+zany	ludicrous, foolish
+zap	strike suddenly and with force
+zapped	ZAP: strike suddenly and with force
 zapper	an electrical device that can injure or kill by means of electric currents
 zappers	ZAPPER: an electrical device that can injure or kill by means of electric currents
-zapping	ZAP: a sudden event that imparts energy or excitement, usually with a dramatic impact
+zapping	ZAP: strike suddenly and with force
 zappy	lively and energetic
-zaps	ZAP: a sudden event that imparts energy or excitement, usually with a dramatic impact
+zaps	ZAP: strike suddenly and with force
 zeal	a feeling of strong eagerness (usually in favor of a person or cause)
-zealot	a member of an ancient Jewish sect in Judea in the first century who fought to the death against the Romans and who killed or persecuted Jews who collaborated with the Romans
+zealot	a fervent and even militant proponent of something
 zealotry	excessive intolerance of opposing views
-zealots	ZEALOT: a member of an ancient Jewish sect in Judea in the first century who fought to the death against the Romans and who killed or persecuted Jews who collaborated with the Romans
+zealots	ZEALOT: a fervent and even militant proponent of something
 zealous	marked by active interest and enthusiasm
 zealously	in a zealous manner
 zealousness	the quality of being zealous
@@ -35,8 +35,8 @@ zeolite	any of a family of glassy minerals analogous to feldspar containing hydr
 zeolites	ZEOLITE: any of a family of glassy minerals analogous to feldspar containing hydrated aluminum silicates of calcium or sodium or potassium; formed in cavities in lava flows and in plutonic rocks
 zephyr	a slight wind (usually refreshing)
 zephyrs	ZEPHYR: a slight wind (usually refreshing)
-zeppelin	German inventor who designed and built the first rigid motorized dirigible (1838-1917)
-zeppelins	ZEPPELIN: German inventor who designed and built the first rigid motorized dirigible (1838-1917)
+zeppelin	a large rigid dirigible designed to carry passengers or bombs
+zeppelins	ZEPPELIN: a large rigid dirigible designed to carry passengers or bombs
 zeppole	a deep-fried Italian doughnut
 zeppoles	ZEPPOLE: a deep-fried Italian doughnut
 zero	indicating the absence of any or all units under consideration
@@ -70,12 +70,12 @@ zincking	ZINC: coat with zinc
 zincs	ZINC: a bluish-white lustrous metallic element; brittle at ordinary temperatures but malleable when heated; used in a wide variety of alloys and in galvanizing iron; it occurs naturally as zinc sulphide in zinc blende
 zine	a small self-published magazine
 zines	ZINE: a small self-published magazine
-zing	a brief high-pitched buzzing or humming sound
+zing	the activeness of an energetic personality
 zinged	ZING: move with a sharp humming sound
 zinger	a striking or amusing or caustic remark
 zingers	ZINGER: a striking or amusing or caustic remark
 zinging	ZING: move with a sharp humming sound
-zings	ZING: a brief high-pitched buzzing or humming sound
+zings	ZING: the activeness of an energetic personality
 zingy	lively and refreshing in taste
 zinnia	any of various plants of the genus Zinnia cultivated for their variously and brightly colored flower heads
 zinnias	ZINNIA: any of various plants of the genus Zinnia cultivated for their variously and brightly colored flower heads
@@ -101,7 +101,7 @@ zitty	covered in pimples
 zodiac	a belt-shaped region in the heavens on either side to the ecliptic; divided into 12 constellations or signs for astrological purposes
 zodiacal	relating to or included in the zodiac
 zodiacs	ZODIAC: a belt-shaped region in the heavens on either side to the ecliptic; divided into 12 constellations or signs for astrological purposes
-zombi	a spirit or supernatural force that reanimates a dead body
+zombi	a dead body that has been brought back to life by a supernatural force
 zombie	a dead body that has been brought back to life by a supernatural force
 zombielike	like a mindless walking corpse
 zombies	ZOMBIE: a dead body that has been brought back to life by a supernatural force
@@ -110,7 +110,7 @@ zombified	ZOMBIFY: turn into a mindless zombie
 zombifies	ZOMBIFY: turn into a mindless zombie
 zombify	turn into a mindless zombie
 zombifying	ZOMBIFY: turn into a mindless zombie
-zombis	ZOMBI: a spirit or supernatural force that reanimates a dead body
+zombis	ZOMBI: a dead body that has been brought back to life by a supernatural force
 zonal	relating to or of the nature of a zone
 zone	a locally circumscribed place characterized by some distinctive features
 zoned	ZONE: a locally circumscribed place characterized by some distinctive features
@@ -123,7 +123,7 @@ zookeepers	ZOOKEEPER: a person who looks after animals in a zoo
 zoological	concerning the study of animals and their classification and properties
 zoologist	a specialist in the branch of biology dealing with animals
 zoologists	ZOOLOGIST: a specialist in the branch of biology dealing with animals
-zoology	all the animal life in a particular region or period
+zoology	the branch of biology that studies animals
 zoom	move along very quickly
 zoomed	ZOOM: move along very quickly
 zooming	ZOOM: move along very quickly

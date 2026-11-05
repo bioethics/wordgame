@@ -14,12 +14,12 @@ wacky	ludicrous, foolish
 wad	compress into a wad
 wadded	WAD: compress into a wad
 wadding	WAD: compress into a wad
-waddle	walking with short steps and the weight tilting from one foot to the other
-waddled	WADDLE: walking with short steps and the weight tilting from one foot to the other
+waddle	walk unsteadily
+waddled	WADDLE: walk unsteadily
 waddler	someone who walks with a waddling gait
 waddlers	WADDLER: someone who walks with a waddling gait
-waddles	WADDLE: walking with short steps and the weight tilting from one foot to the other
-waddling	WADDLE: walking with short steps and the weight tilting from one foot to the other
+waddles	WADDLE: walk unsteadily
+waddling	WADDLE: walk unsteadily
 wade	walk (through relatively shallow water)
 waded	WADE: walk (through relatively shallow water)
 wader	any of many long-legged birds that wade in water in search of food
@@ -75,7 +75,7 @@ wagons	WAGON: any of various kinds of wheeled vehicles drawn by an animal or a t
 wags	WAG: a witty amusing person who makes jokes
 wagtail	Old World bird having a very long tail that jerks up and down as it walks
 wagtails	WAGTAIL: Old World bird having a very long tail that jerks up and down as it walks
-wahoo	upright deciduous plant with crimson pods and seeds; the eastern United States from New York to Florida and Texas
+wahoo	large fast-moving predacious food and game fish; found worldwide
 waif	a homeless child especially one forsaken or orphaned
 waiflike	thin and delicate like a neglected child
 waifs	WAIF: a homeless child especially one forsaken or orphaned
@@ -88,12 +88,12 @@ wailingly	in a wailing way
 wails	WAIL: emit long loud cries
 wainscot	panel forming the lower part of an interior wall when it is finished differently from the rest of the wall
 wainscoted	fitted or decorated with panels or wainscoting
-wainscoting	a wainscoted wall (or wainscoted walls collectively)
-wainscotings	WAINSCOTING: a wainscoted wall (or wainscoted walls collectively)
+wainscoting	wooden panels that can be used to line the walls of a room
+wainscotings	WAINSCOTING: wooden panels that can be used to line the walls of a room
 wainscots	WAINSCOT: panel forming the lower part of an interior wall when it is finished differently from the rest of the wall
 wainscotted	WAINSCOT: panel forming the lower part of an interior wall when it is finished differently from the rest of the wall
-wainscotting	a wainscoted wall (or wainscoted walls collectively)
-wainscottings	WAINSCOTTING: a wainscoted wall (or wainscoted walls collectively)
+wainscotting	wooden panels that can be used to line the walls of a room
+wainscottings	WAINSCOTTING: wooden panels that can be used to line the walls of a room
 waist	the narrowing of the body between the ribs and hips
 waistband	a band of material around the waist that strengthens a skirt or trousers
 waistbands	WAISTBAND: a band of material around the waist that strengthens a skirt or trousers
@@ -145,13 +145,13 @@ wales	one of the four countries that make up the United Kingdom of Great Britain
 waling	WALE: mark with raised streaks
 walk	the act of traveling by foot
 walkable	close enough to reach on foot
-walkabout	a walking trip or tour
-walkabouts	WALKABOUT: a walking trip or tour
+walkabout	nomadic excursions into the bush made by an Aborigine
+walkabouts	WALKABOUT: nomadic excursions into the bush made by an Aborigine
 walkaway	an easy victory
 walkaways	WALKAWAY: an easy victory
 walked	WALK: the act of traveling by foot
-walker	New Zealand runner who in 1975 became the first person to run a mile in less that 3 minutes and 50 seconds (born in 1952)
-walkers	WALKER: New Zealand runner who in 1975 became the first person to run a mile in less that 3 minutes and 50 seconds (born in 1952)
+walker	a person who travels by foot
+walkers	WALKER: a person who travels by foot
 walkies	a walk taken by a dog
 walking	close enough to be walked to
 walkingstick	any of various mostly tropical insects having long twiglike bodies
@@ -180,9 +180,9 @@ wallcoverings	WALLCOVERING: material such as wallpaper used to cover walls
 walled	WALL: an architectural partition with a height and length greater than its thickness; used to divide or enclose an area or to support another structure
 wallet	a pocket-size case for holding papers and paper money
 wallets	WALLET: a pocket-size case for holding papers and paper money
-walleye	strabismus in which one or both eyes are directed outward
+walleye	pike-like freshwater perches
 walleyed	having divergent strabismus
-walleyes	WALLEYE: strabismus in which one or both eyes are directed outward
+walleyes	WALLEYE: pike-like freshwater perches
 wallflower	any of numerous plants of the genus Erysimum having fragrant yellow or orange or brownish flowers
 wallflowers	WALLFLOWER: any of numerous plants of the genus Erysimum having fragrant yellow or orange or brownish flowers
 wallies	WALLY: a silly and inept person; someone who is regarded as stupid
@@ -210,13 +210,13 @@ walnut	nut of any of various walnut trees having a wrinkled two-lobed seed with 
 walnuts	WALNUT: nut of any of various walnut trees having a wrinkled two-lobed seed with a hard shell
 walrus	either of two large northern marine mammals having ivory tusks and tough hide over thick blubber
 walruses	WALRUS: either of two large northern marine mammals having ivory tusks and tough hide over thick blubber
-waltz	an assured victory (especially in an election)
-waltzed	WALTZ: an assured victory (especially in an election)
+waltz	a ballroom dance in triple time with a strong accent on the first beat
+waltzed	WALTZ: a ballroom dance in triple time with a strong accent on the first beat
 waltzer	a dancer who waltzes
 waltzers	WALTZER: a dancer who waltzes
-waltzes	WALTZ: an assured victory (especially in an election)
-waltzing	WALTZ: an assured victory (especially in an election)
-wampum	informal terms for money
+waltzes	WALTZ: a ballroom dance in triple time with a strong accent on the first beat
+waltzing	WALTZ: a ballroom dance in triple time with a strong accent on the first beat
+wampum	small cylindrical beads made from polished shells and fashioned into strings or belts; used by certain Native American peoples as jewelry or currency
 wan	(of light) lacking in intensity or brightness; dim or feeble
 wand	a rod used by a magician or water diviner
 wander	move about aimlessly or without any destination, often in search of food or employment
@@ -256,20 +256,20 @@ want	a state of extreme poverty
 wantage	a shortage
 wanted	WANT: a state of extreme poverty
 wanting	WANT: a state of extreme poverty
-wanton	lewd or lascivious woman
-wantoned	WANTON: lewd or lascivious woman
-wantoning	WANTON: lewd or lascivious woman
+wanton	occurring without motivation or provocation
+wantoned	WANTON: occurring without motivation or provocation
+wantoning	WANTON: occurring without motivation or provocation
 wantonly	in a wanton manner
 wantonness	the trait of lacking restraint or control; reckless freedom from inhibition or worry
-wantons	WANTON: lewd or lascivious woman
+wantons	WANTON: occurring without motivation or provocation
 wants	WANT: a state of extreme poverty
 wapiti	large North American deer with large much-branched antlers in the male
 wapitis	WAPITI: large North American deer with large much-branched antlers in the male
 war	the waging of armed conflict against an enemy
 warble	sing or play with trills, alternating with the half note above or below
 warbled	WARBLE: sing or play with trills, alternating with the half note above or below
-warbler	a singer; usually a singer who adds embellishments to the song
-warblers	WARBLER: a singer; usually a singer who adds embellishments to the song
+warbler	a small active songbird
+warblers	WARBLER: a small active songbird
 warbles	WARBLE: sing or play with trills, alternating with the half note above or below
 warbling	WARBLE: sing or play with trills, alternating with the half note above or below
 ward	a person who is under the protection or in the custody of another
@@ -284,7 +284,7 @@ wardrobes	WARDROBE: a tall piece of furniture that provides storage space for cl
 wardroom	military quarters for dining and recreation for officers of a warship (except the captain)
 wardrooms	WARDROOM: military quarters for dining and recreation for officers of a warship (except the captain)
 wards	WARD: a person who is under the protection or in the custody of another
-ware	articles of the same kind or material; usually used in combination: `silverware', `software'
+ware	commodities offered for sale
 warehouse	a storehouse for goods and merchandise
 warehoused	WAREHOUSE: a storehouse for goods and merchandise
 warehouses	WAREHOUSE: a storehouse for goods and merchandise
@@ -324,15 +324,15 @@ warmup	a period of preparation before exercise
 warmups	WARMUP: a period of preparation before exercise
 warn	notify of danger, potential harm, or risk
 warned	WARN: notify of danger, potential harm, or risk
-warner	United States filmmaker who with his brothers founded the movie studio that produced the first talking picture (1881-1958)
-warners	WARNER: United States filmmaker who with his brothers founded the movie studio that produced the first talking picture (1881-1958)
+warner	someone who gives a warning to others
+warners	WARNER: someone who gives a warning to others
 warning	a message informing of danger
 warnings	WARNING: a message informing of danger
 warns	WARN: notify of danger, potential harm, or risk
 warp	make false by mutilation or addition; as of a message or story
 warpaint	paint applied to the face before battle
-warpath	hostile or belligerent mood
-warpaths	WARPATH: hostile or belligerent mood
+warpath	a course leading to warfare or battle
+warpaths	WARPATH: a course leading to warfare or battle
 warped	used especially of timbers or boards; bent out of shape usually by moisture
 warper	a person or thing that bends out of shape
 warpers	WARPER: a person or thing that bends out of shape
@@ -349,8 +349,8 @@ warrants	WARRANT: a writ from a court commanding police to perform specified act
 warranty	a written assurance that some product or service will be provided or will meet certain specifications
 warrantying	WARRANTY: cover with a guarantee
 warred	WAR: the waging of armed conflict against an enemy
-warren	United States writer and poet (1905-1989)
-warrens	WARREN: United States writer and poet (1905-1989)
+warren	a series of connected underground tunnels occupied by rabbits
+warrens	WARREN: a series of connected underground tunnels occupied by rabbits
 warring	WAR: the waging of armed conflict against an enemy
 warrior	someone engaged in or experienced in warfare
 warriors	WARRIOR: someone engaged in or experienced in warfare
@@ -384,15 +384,15 @@ washcloths	WASHCLOTH: bath linen consisting of a piece of cloth used to wash the
 washday	a day set aside for doing household laundry
 washdays	WASHDAY: a day set aside for doing household laundry
 washed	clean by virtue of having been washed in water
-washer	someone who washes things for a living
-washers	WASHER: someone who washes things for a living
+washer	a home appliance for washing clothes and linens automatically
+washers	WASHER: a home appliance for washing clothes and linens automatically
 washerwoman	a working woman who takes in washing
 washerwomen	WASHERWOMAN: a working woman who takes in washing
 washes	WASH: clean with some chemical process
 washing	the work of cleansing (usually with soap and water)
 washings	WASHING: the work of cleansing (usually with soap and water)
-washout	the channel or break produced by erosion of relatively soft soil by water
-washouts	WASHOUT: the channel or break produced by erosion of relatively soft soil by water
+washout	someone who is unsuccessful
+washouts	WASHOUT: someone who is unsuccessful
 washrag	bath linen consisting of a piece of cloth used to wash the face and body
 washrags	WASHRAG: bath linen consisting of a piece of cloth used to wash the face and body
 washroom	a lavatory (particularly a lavatory in a public place)
@@ -401,10 +401,10 @@ washstand	furniture consisting of a table or stand to hold a basin and pitcher o
 washstands	WASHSTAND: furniture consisting of a table or stand to hold a basin and pitcher of water for washing: `wash-hand stand' is a British term
 washtub	a tub in which clothes or linens can be washed
 washtubs	WASHTUB: a tub in which clothes or linens can be washed
-wasp	a white person of Anglo-Saxon ancestry who belongs to a Protestant denomination
+wasp	social or solitary hymenopterans typically having a slender body with the abdomen attached by a narrow stalk and having a formidable sting
 waspish	very irritable
 waspishly	in a waspish way
-wasps	WASP: a white person of Anglo-Saxon ancestry who belongs to a Protestant denomination
+wasps	WASP: social or solitary hymenopterans typically having a slender body with the abdomen attached by a narrow stalk and having a formidable sting
 wassail	a punch made of sweetened ale or wine heated with spices and roasted apples; especially at Christmas
 wassailed	WASSAIL: a punch made of sweetened ale or wine heated with spices and roasted apples; especially at Christmas
 wassailer	someone who enjoys riotous drinking
@@ -412,7 +412,7 @@ wassailers	WASSAILER: someone who enjoys riotous drinking
 wassailing	WASSAIL: a punch made of sweetened ale or wine heated with spices and roasted apples; especially at Christmas
 wassails	WASSAIL: a punch made of sweetened ale or wine heated with spices and roasted apples; especially at Christmas
 wast	were, in old-fashioned speech
-wastage	the process of wasting
+wastage	anything lost by wear or waste
 waste	any materials unused and rejected as worthless or unwanted
 wastebasket	a container with an open top; for discarded paper and other rubbish
 wastebaskets	WASTEBASKET: a container with an open top; for discarded paper and other rubbish
@@ -434,15 +434,15 @@ watch	look attentively
 watchable	pleasant to watch
 watchband	a band of cloth or leather or metal links attached to a wristwatch and wrapped around the wrist
 watchbands	WATCHBAND: a band of cloth or leather or metal links attached to a wristwatch and wrapped around the wrist
-watchdog	a guardian or defender against theft or illegal practices or waste
-watchdogs	WATCHDOG: a guardian or defender against theft or illegal practices or waste
+watchdog	a dog trained to guard property
+watchdogs	WATCHDOG: a dog trained to guard property
 watched	WATCH: look attentively
 watcher	a close observer; someone who looks at something (such as an exhibition of some kind)
 watchers	WATCHER: a close observer; someone who looks at something (such as an exhibition of some kind)
 watches	WATCH: look attentively
 watchful	engaged in or accustomed to close observation
 watchfully	in a watchful manner
-watchfulness	the process of paying close and continuous attention
+watchfulness	vigilant attentiveness
 watching	the act of observing; taking a patient look
 watchmaker	someone who makes or repairs watches
 watchmakers	WATCHMAKER: someone who makes or repairs watches
@@ -468,11 +468,11 @@ waterboards	WATERBOARD: torture by pouring water over a person's face
 waterborne	transported by water
 watercolor	a painting produced with watercolors
 watercolors	WATERCOLOR: a painting produced with watercolors
-watercolour	water-soluble pigment
-watercolours	WATERCOLOUR: water-soluble pigment
+watercolour	a water-base paint (with water-soluble pigments); used by artists
+watercolours	WATERCOLOUR: a water-base paint (with water-soluble pigments); used by artists
 watercourse	natural or artificial channel through which water flows
 watercourses	WATERCOURSE: natural or artificial channel through which water flows
-watercraft	skill in the management of boats
+watercraft	a craft designed for water transportation
 watercress	cresses that grow in clear ponds and streams
 watered	WATER: binary compound that occurs at room temperature as a clear colorless odorless tasteless liquid; freezes into ice below 0 degrees centigrade and boils above 100 degrees centigrade; widely used as a solvent
 waterer	someone who waters plants or crops
@@ -530,10 +530,10 @@ waterspouts	WATERSPOUT: a tornado passing over water and picking up a column of 
 watertight	not allowing water to pass in or out
 waterway	a navigable body of water
 waterways	WATERWAY: a navigable body of water
-waterwheel	a wheel with buckets attached to its rim; raises water from a stream or pond
-waterwheels	WATERWHEEL: a wheel with buckets attached to its rim; raises water from a stream or pond
+waterwheel	a wheel that rotates by direct action of water; a simple turbine
+waterwheels	WATERWHEEL: a wheel that rotates by direct action of water; a simple turbine
 waterwings	inflatable bands worn on the arms by learners to swim
-waterworks	a public utility that provides water
+waterworks	workplace where water is stored and purified and distributed for a community
 watery	filled with water
 watt	a unit of power equal to 1 joule per second; the power dissipated by a current of 1 ampere flowing across a resistance of 1 ohm
 wattage	the product of voltage and current
@@ -566,7 +566,7 @@ wavers	WAVER: pause or hold back in uncertainty or unwillingness
 waves	WAVE: one of a series of ridges that moves across the surface of a liquid (especially across a large body of water)
 wavier	WAVY: (of hair) having waves
 waviest	WAVY: (of hair) having waves
-waviness	(of hair) a tendency to curl
+waviness	unevenness produced by waves or wrinkles
 waving	WAVE: one of a series of ridges that moves across the surface of a liquid (especially across a large body of water)
 wavy	(of hair) having waves
 wax	cover with wax
@@ -582,16 +582,16 @@ waxiness	the quality of being made of wax or covered with wax
 waxing	the application of wax to a surface
 waxwing	brown velvety-plumaged songbirds of the northern hemisphere having crested heads and red waxy wing tips
 waxwings	WAXWING: brown velvety-plumaged songbirds of the northern hemisphere having crested heads and red waxy wing tips
-waxwork	twining shrub of North America having yellow capsules enclosing scarlet seeds
+waxwork	an effigy (usually of a famous person) made of wax
 waxworker	a person who makes wax figures
-waxworks	WAXWORK: twining shrub of North America having yellow capsules enclosing scarlet seeds
+waxworks	WAXWORK: an effigy (usually of a famous person) made of wax
 waxy	made of or covered with wax
 way	how something is done or how it happens
 waybill	a receipt given by the carrier to the shipper acknowledging receipt of the goods being shipped and specifying the terms of delivery
-wayfarer	a pedestrian who walks from place to place
-wayfarers	WAYFARER: a pedestrian who walks from place to place
-wayfaring	traveling (especially on foot)
-wayfarings	WAYFARING: traveling (especially on foot)
+wayfarer	a traveler going on a trip
+wayfarers	WAYFARER: a traveler going on a trip
+wayfaring	traveling especially on foot
+wayfarings	WAYFARING: traveling especially on foot
 waylaid	WAYLAY: ambush
 waylay	wait in hiding to attack
 waylayer	a person who lies in wait to ambush
@@ -616,8 +616,8 @@ weakening	becoming weaker
 weakens	WEAKEN: lessen the strength of
 weaker	WEAK: wanting in physical strength
 weakest	WEAK: wanting in physical strength
-weakfish	lean flesh of food and game fishes of the Atlantic coast of the United States
-weakfishes	WEAKFISH: lean flesh of food and game fishes of the Atlantic coast of the United States
+weakfish	food and game fish of North American coastal waters with a mouth from which hooks easily tear out
+weakfishes	WEAKFISH: food and game fish of North American coastal waters with a mouth from which hooks easily tear out
 weakling	a person who is physically weak and ineffectual
 weaklings	WEAKLING: a person who is physically weak and ineffectual
 weakly	in a weak or feeble manner or to a minor degree
@@ -649,7 +649,7 @@ weaponless	without a weapon
 weaponry	weapons considered collectively
 weapons	WEAPON: any instrument or instrumentality used in fighting or hunting
 wear	be dressed in
-wearable	a covering designed to be worn on a person's body
+wearable	suitable for wear or able to be worn
 wearer	a person who wears or carries or displays something as a body covering or accessory
 wearers	WEARER: a person who wears or carries or displays something as a body covering or accessory
 wearied	exhausted
@@ -663,13 +663,13 @@ wearisome	so lacking in interest as to cause mental weariness
 wears	WEAR: be dressed in
 weary	exhaust or get tired through overuse or great strain or stress
 wearying	producing exhaustion
-weasel	a person who is regarded as treacherous or sneaky
+weasel	small carnivorous mammal with short legs and elongated body and neck
 weaseled	WEASEL: act evasively
 weaseling	WEASEL: act evasively
-weaselled	WEASEL: a person who is regarded as treacherous or sneaky
-weaselling	WEASEL: a person who is regarded as treacherous or sneaky
+weaselled	WEASEL: small carnivorous mammal with short legs and elongated body and neck
+weaselling	WEASEL: small carnivorous mammal with short legs and elongated body and neck
 weaselly	sly and untrustworthy
-weasels	WEASEL: a person who is regarded as treacherous or sneaky
+weasels	WEASEL: small carnivorous mammal with short legs and elongated body and neck
 weather	the atmospheric conditions that comprise the state of the atmosphere in terms of temperature and wind and clouds and precipitation
 weatherbeaten	worn by exposure to the weather
 weatherboard	a long thin board with one edge thicker than the other; used as siding by lapping one board over the board below
@@ -693,10 +693,10 @@ weatherizing	WEATHERIZE: protect against bad weather
 weatherly	(of a sailing vessel) making very little leeway when close-hauled
 weatherman	predicts the weather
 weathermen	WEATHERMAN: predicts the weather
-weatherproof	make resistant to bad weather
-weatherproofed	WEATHERPROOF: make resistant to bad weather
-weatherproofing	WEATHERPROOF: make resistant to bad weather
-weatherproofs	WEATHERPROOF: make resistant to bad weather
+weatherproof	able to withstand exposure to weather without damage
+weatherproofed	WEATHERPROOF: able to withstand exposure to weather without damage
+weatherproofing	WEATHERPROOF: able to withstand exposure to weather without damage
+weatherproofs	WEATHERPROOF: able to withstand exposure to weather without damage
 weathers	WEATHER: the atmospheric conditions that comprise the state of the atmosphere in terms of temperature and wind and clouds and precipitation
 weatherstrip	provide with weatherstripping
 weatherstripped	WEATHERSTRIP: provide with weatherstripping
@@ -755,8 +755,8 @@ weds	WED: take in marriage
 wee	(used informally) very small
 weed	any plant that crowds out cultivated plants
 weeded	WEED: any plant that crowds out cultivated plants
-weeder	a farmhand hired to remove weeds
-weeders	WEEDER: a farmhand hired to remove weeds
+weeder	a hand tool for removing weeds
+weeders	WEEDER: a hand tool for removing weeds
 weedier	WEEDY: abounding with or resembling weeds
 weediest	WEEDY: abounding with or resembling weeds
 weeding	WEED: any plant that crowds out cultivated plants
@@ -820,7 +820,7 @@ weight	the vertical force exerted by a mass as a result of gravity
 weighted	made heavy or weighted down with weariness
 weightier	WEIGHTY: having relatively great weight; heavy
 weightiest	WEIGHTY: having relatively great weight; heavy
-weightiness	the relative importance granted to something
+weightiness	the property of being comparatively great in weight
 weighting	a coefficient assigned to elements of a frequency distribution in order to represent their relative importance
 weightings	WEIGHTING: a coefficient assigned to elements of a frequency distribution in order to represent their relative importance
 weightless	having little or no weight or apparent gravitational pull; light
@@ -864,34 +864,34 @@ well	(often used as a combining form) in a good or proper or satisfactory manner
 wellbeing	a contented state of being happy and healthy and prosperous
 wellborn	of good or upper-class lineage
 welled	WELL: (often used as a combining form) in a good or proper or satisfactory manner or to a high standard (`good' is a nonstandard dialectal variant for `well')
-wellhead	the source of water for a well
-wellheads	WELLHEAD: the source of water for a well
+wellhead	a structure built over a well
+wellheads	WELLHEAD: a structure built over a well
 wellie	a waterproof rubber boot
 wellies	WELLIE: a waterproof rubber boot
 welling	WELL: (often used as a combining form) in a good or proper or satisfactory manner or to a high standard (`good' is a nonstandard dialectal variant for `well')
-wellington	British general and statesman; he defeated Napoleon at Waterloo; subsequently served as Prime Minister (1769-1852)
-wellingtons	WELLINGTON: British general and statesman; he defeated Napoleon at Waterloo; subsequently served as Prime Minister (1769-1852)
+wellington	a waterproof rubber boot reaching to the knee
+wellingtons	WELLINGTON: a waterproof rubber boot reaching to the knee
 wellness	a healthy state of wellbeing free from disease
 wells	WELL: (often used as a combining form) in a good or proper or satisfactory manner or to a high standard (`good' is a nonstandard dialectal variant for `well')
-wellspring	the source of water for a well
-wellsprings	WELLSPRING: the source of water for a well
+wellspring	an abundant source
+wellsprings	WELLSPRING: an abundant source
 wellwisher	a person who offers good wishes
 wellwishers	WELLWISHER: a person who offers good wishes
 welly	a waterproof rubber boot
-welsh	a native or resident of Wales
-welshed	WELSH: a native or resident of Wales
+welsh	cheat by avoiding payment of a gambling debt
+welshed	WELSH: cheat by avoiding payment of a gambling debt
 welsher	someone who swindles you by not repaying a debt or wager
 welshers	WELSHER: someone who swindles you by not repaying a debt or wager
-welshes	WELSH: a native or resident of Wales
-welshing	WELSH: a native or resident of Wales
+welshes	WELSH: cheat by avoiding payment of a gambling debt
+welshing	WELSH: cheat by avoiding payment of a gambling debt
 welt	a raised mark on the skin (as produced by the blow of a whip); characteristic of many allergic reactions
 welted	WELT: a raised mark on the skin (as produced by the blow of a whip); characteristic of many allergic reactions
 welter	a confused multitude of things
 weltered	WELTER: a confused multitude of things
 weltering	WELTER: a confused multitude of things
 welters	WELTER: a confused multitude of things
-welterweight	a weight of 28 pounds; sometimes imposed as a handicap in a horse race (such as a steeplechase)
-welterweights	WELTERWEIGHT: a weight of 28 pounds; sometimes imposed as a handicap in a horse race (such as a steeplechase)
+welterweight	a professional boxer who weighs between 141 and 147 pounds
+welterweights	WELTERWEIGHT: a professional boxer who weighs between 141 and 147 pounds
 welting	WELT: a raised mark on the skin (as produced by the blow of a whip); characteristic of many allergic reactions
 welts	WELT: a raised mark on the skin (as produced by the blow of a whip); characteristic of many allergic reactions
 wen	a common cyst of the skin; filled with fatty matter (sebum) that is secreted by a sebaceous gland that has been blocked
@@ -1011,8 +1011,8 @@ wheelbases	WHEELBASE: the distance from the center of a car's front wheel to the
 wheelchair	a movable chair mounted on large wheels; for invalids or those who cannot walk; frequently propelled by the occupant
 wheelchairs	WHEELCHAIR: a movable chair mounted on large wheels; for invalids or those who cannot walk; frequently propelled by the occupant
 wheeled	WHEEL: change directions as if revolving on a pivot
-wheeler	Scottish archaeologist (1890-1976)
-wheelers	WHEELER: Scottish archaeologist (1890-1976)
+wheeler	a person who rides a bicycle
+wheelers	WHEELER: a person who rides a bicycle
 wheelhouse	an enclosed compartment from which a vessel can be navigated
 wheelhouses	WHEELHOUSE: an enclosed compartment from which a vessel can be navigated
 wheelie	a stunt of riding on only the back wheel
@@ -1027,13 +1027,13 @@ wheelwrights	WHEELWRIGHT: someone who makes and repairs wooden wheels
 wheeze	breathing with a husky or whistling sound
 wheezed	WHEEZE: breathing with a husky or whistling sound
 wheezes	WHEEZE: breathing with a husky or whistling sound
-wheezier	WHEEZY: having a tone of a reed instrument
-wheeziest	WHEEZY: having a tone of a reed instrument
+wheezier	WHEEZY: relating to breathing with a whistling sound
+wheeziest	WHEEZY: relating to breathing with a whistling sound
 wheezing	relating to breathing with a whistling sound
-wheezy	having a tone of a reed instrument
-whelk	large marine snail much used as food in Europe
-whelked	WHELK: large marine snail much used as food in Europe
-whelks	WHELK: large marine snail much used as food in Europe
+wheezy	relating to breathing with a whistling sound
+whelk	large carnivorous marine gastropods of coastal waters and intertidal regions having a strong snail-like shell
+whelked	WHELK: large carnivorous marine gastropods of coastal waters and intertidal regions having a strong snail-like shell
+whelks	WHELK: large carnivorous marine gastropods of coastal waters and intertidal regions having a strong snail-like shell
 whelm	overcome, as with emotions or perceptual stimuli
 whelmed	WHELM: overcome, as with emotions or perceptual stimuli
 whelming	WHELM: overcome, as with emotions or perceptual stimuli
@@ -1071,7 +1071,7 @@ whetstones	WHETSTONE: a flat stone for sharpening edged tools or knives
 whetted	WHET: make keen or more acute
 whetting	WHET: make keen or more acute
 whew	an exclamation of relief
-whey	the serum or watery part of milk that is separated from the curd in making cheese
+whey	watery part of milk produced when raw milk sours and coagulates
 which	what particular one
 whichever	any one of several
 whiff	a short light gust of air
@@ -1126,7 +1126,7 @@ whiny	habitually complaining
 whip	beat severely with a whip or rod
 whipbird	a bird of Australian forests with a whip-crack call
 whipbirds	WHIPBIRD: a bird of Australian forests with a whip-crack call
-whipcord	closely twisted hard cord used for the lashes of whips
+whipcord	a strong worsted or cotton fabric with a diagonal rib
 whiplash	an injury to the neck (the cervical vertebrae) resulting from rapid acceleration or deceleration (as in an automobile accident)
 whiplashes	WHIPLASH: an injury to the neck (the cervical vertebrae) resulting from rapid acceleration or deceleration (as in an automobile accident)
 whipped	WHIP: beat severely with a whip or rod
@@ -1144,8 +1144,8 @@ whiptail	any of numerous very agile and alert New World lizards
 whir	sound of something in rapid motion
 whirl	turn in a twisting or spinning motion
 whirled	WHIRL: turn in a twisting or spinning motion
-whirler	a dervish whose actions include ecstatic dancing and whirling
-whirlers	WHIRLER: a dervish whose actions include ecstatic dancing and whirling
+whirler	a revolving mechanism
+whirlers	WHIRLER: a revolving mechanism
 whirligig	a conical child's plaything tapering to a steel point on which it can be made to spin
 whirligigs	WHIRLIGIG: a conical child's plaything tapering to a steel point on which it can be made to spin
 whirling	WHIRL: turn in a twisting or spinning motion
@@ -1161,7 +1161,7 @@ whirrs	WHIRR: sound of something in rapid motion
 whirs	WHIR: sound of something in rapid motion
 whisk	move somewhere quickly
 whisked	WHISK: move somewhere quickly
-whisker	a very small distance or space
+whisker	a long stiff hair growing from the snout or brow of most mammals as e.g. a cat
 whiskered	having hair on the cheeks and chin
 whiskers	the hair growing on the lower part of a man's face
 whiskery	having hair on the cheeks and chin
@@ -1178,7 +1178,7 @@ whisperer	one who speaks in a whisper
 whisperers	WHISPERER: one who speaks in a whisper
 whispering	WHISPER: speaking softly without vibration of the vocal cords
 whisperingly	in a whispering way
-whisperings	WHISPERING: a light noise, like the noise of silk clothing or leaves blowing in the wind
+whisperings	WHISPERING: speaking softly without vibration of the vocal cords
 whispers	WHISPER: speaking softly without vibration of the vocal cords
 whist	a card game for four players who form two partnerships; a pack of 52 cards is dealt and each side scores one point for each trick it takes in excess of six
 whistle	make whistling sounds
@@ -1186,22 +1186,22 @@ whistleblower	an informant who exposes wrongdoing within an organization in the 
 whistleblowers	WHISTLEBLOWER: an informant who exposes wrongdoing within an organization in the hope of stopping it
 whistleblowing	exposing wrongdoing within an organisation
 whistled	WHISTLE: make whistling sounds
-whistler	United States painter (1834-1903)
-whistlers	WHISTLER: United States painter (1834-1903)
+whistler	someone who makes a loud high sound
+whistlers	WHISTLER: someone who makes a loud high sound
 whistles	WHISTLE: make whistling sounds
 whistling	the sound made by something moving rapidly or by steam coming out of a small aperture
 whit	a tiny or scarcely detectable amount
 white	a Caucasian
-whitebait	minnows or other small fresh- or saltwater fish (especially herring); usually cooked whole
-whitebaits	WHITEBAIT: minnows or other small fresh- or saltwater fish (especially herring); usually cooked whole
+whitebait	the edible young of especially herrings and sprats and smelts
+whitebaits	WHITEBAIT: the edible young of especially herrings and sprats and smelts
 whiteboard	a white board written on with markers
 whiteboards	WHITEBOARD: a white board written on with markers
 whitecap	a wave that is blown by the wind so its crest is broken and appears white
 whitecaps	WHITECAP: a wave that is blown by the wind so its crest is broken and appears white
 whited	WHITE: a Caucasian
-whitefish	any market fish--edible saltwater fish or shellfish--except herring
-whitefishes	WHITEFISH: any market fish--edible saltwater fish or shellfish--except herring
-whiteheads	WHITEHEAD: English philosopher and mathematician who collaborated with Bertrand Russell (1861-1947)
+whitefish	silvery herring-like freshwater food fish of cold lakes of the northern hemisphere
+whitefishes	WHITEFISH: silvery herring-like freshwater food fish of cold lakes of the northern hemisphere
+whiteheads	WHITEHEAD: a small whitish lump in the skin due to a clogged sebaceous gland
 whitelist	a list of approved people or items
 whitelisted	WHITELIST: a list of approved people or items
 whitelisting	WHITELIST: a list of approved people or items
@@ -1223,31 +1223,31 @@ whitetail	common North American deer; tail has a white underside
 whitetails	WHITETAIL: common North American deer; tail has a white underside
 whitewall	a tyre with a white band on the side
 whitewalls	WHITEWALL: a tyre with a white band on the side
-whitewash	a defeat in which the losing person or team fails to score
+whitewash	wash consisting of lime and size in water; used for whitening walls and other surfaces
 whitewashed	coated with whitewash
-whitewashes	WHITEWASH: a defeat in which the losing person or team fails to score
-whitewashing	WHITEWASH: a defeat in which the losing person or team fails to score
+whitewashes	WHITEWASH: wash consisting of lime and size in water; used for whitening walls and other surfaces
+whitewashing	WHITEWASH: wash consisting of lime and size in water; used for whitening walls and other surfaces
 whitewater	frothy water as in rapids or waterfalls
 whither	to where
 whities	white underpants, as in tighty-whities
 whiting	WHITE: a Caucasian
-whitings	WHITING: flesh of a cod-like fish of the Atlantic waters of Europe
-whitish	resembling milk in color; not clear
+whitings	WHITING: a food fish of the Atlantic waters of Europe resembling the cod; sometimes placed in genus Gadus
+whitish	of something having a color tending toward white
 whits	WHIT: a tiny or scarcely detectable amount
-whittle	English aeronautical engineer who invented the jet aircraft engine (1907-1996)
-whittled	WHITTLE: English aeronautical engineer who invented the jet aircraft engine (1907-1996)
+whittle	cut small bits or pare shavings from
+whittled	WHITTLE: cut small bits or pare shavings from
 whittler	someone who whittles (usually as an idle pastime)
 whittlers	WHITTLER: someone who whittles (usually as an idle pastime)
-whittles	WHITTLE: English aeronautical engineer who invented the jet aircraft engine (1907-1996)
-whittling	WHITTLE: English aeronautical engineer who invented the jet aircraft engine (1907-1996)
+whittles	WHITTLE: cut small bits or pare shavings from
+whittling	WHITTLE: cut small bits or pare shavings from
 whiz	someone who is dazzlingly skilled in any field
 whizkid	a young person who is remarkably clever
 whizkids	WHIZKID: a young person who is remarkably clever
-whizz	someone who is dazzlingly skilled in any field
+whizz	move along very quickly
 whizzed	WHIZ: someone who is dazzlingly skilled in any field
 whizzer	WHIZ: someone who is dazzlingly skilled in any field
 whizzers	WHIZZER: one who whizzes
-whizzes	WHIZZ: someone who is dazzlingly skilled in any field
+whizzes	WHIZZ: move along very quickly
 whizzing	WHIZ: someone who is dazzlingly skilled in any field
 whizzkid	a young person who is remarkably clever
 whizzkids	WHIZZKID: a young person who is remarkably clever
@@ -1284,8 +1284,8 @@ whoop	shout, as if with joy or enthusiasm
 whooped	WHOOP: shout, as if with joy or enthusiasm
 whoopee	noisy and boisterous revelry
 whoopees	WHOOPEE: noisy and boisterous revelry
-whooper	rare North American crane having black-and-white plumage and a trumpeting call
-whoopers	WHOOPER: rare North American crane having black-and-white plumage and a trumpeting call
+whooper	common Old World swan noted for its whooping call
+whoopers	WHOOPER: common Old World swan noted for its whooping call
 whooping	WHOOP: shout, as if with joy or enthusiasm
 whoops	WHOOP: shout, as if with joy or enthusiasm
 whoosh	the noise produced by the sudden rush of a fluid (a gas or liquid)
@@ -1294,8 +1294,8 @@ whooshes	WHOOSH: the noise produced by the sudden rush of a fluid (a gas or liqu
 whooshing	WHOOSH: the noise produced by the sudden rush of a fluid (a gas or liquid)
 whop	hit hard
 whopped	WHOP: hit hard
-whopper	a gross untruth; a blatant lie
-whoppers	WHOPPER: a gross untruth; a blatant lie
+whopper	something especially big or impressive of its kind
+whoppers	WHOPPER: something especially big or impressive of its kind
 whopping	(used informally) very large
 whops	WHOP: hit hard
 whore	a woman who engages in sexual intercourse for money
@@ -1310,7 +1310,7 @@ whorls	WHORL: a round shape formed by a series of concentric circles (as formed 
 whose	belonging to which person
 whosoever	whoever
 why	the cause or intention underlying an action or situation, especially in the phrase `the whys and wherefores'
-wick	any piece of cord that conveys liquid by capillary action
+wick	a loosely woven cord (in a candle or oil lamp) that draws fuel by capillary action up into the flame
 wicked	morally bad in principle or practice
 wickeder	WICKED: morally bad in principle or practice
 wickedest	WICKED: morally bad in principle or practice
@@ -1324,7 +1324,7 @@ wicketkeeper	the cricketer who stands behind the stumps
 wicketkeepers	WICKETKEEPER: the cricketer who stands behind the stumps
 wickets	WICKET: cricket equipment consisting of a set of three stumps topped by crosspieces; used in playing cricket
 wicking	WICK: draw moisture away by absorption
-wicks	WICK: any piece of cord that conveys liquid by capillary action
+wicks	WICK: a loosely woven cord (in a candle or oil lamp) that draws fuel by capillary action up into the flame
 wide	having great (or a certain) extent from one side to the other
 widely	to a great degree
 widen	become broader or wider or more extensive
@@ -1358,8 +1358,8 @@ wielder	a person who handles a weapon or power
 wielders	WIELDER: a person who handles a weapon or power
 wielding	WIELD: have and exercise
 wields	WIELD: have and exercise
-wiener	United States mathematician and founder of cybernetics (1894-1964)
-wieners	WIENER: United States mathematician and founder of cybernetics (1894-1964)
+wiener	a smooth-textured sausage of minced beef or pork usually smoked; often served on a bread roll
+wieners	WIENER: a smooth-textured sausage of minced beef or pork usually smoked; often served on a bread roll
 wienie	a frankfurter
 wienies	WIENIE: a frankfurter
 wife	a married woman; a man's partner in marriage
@@ -1399,8 +1399,8 @@ wildcatting	WILDCAT: an exploratory oil well drilled in land not known to be an 
 wildebeest	large African antelope having a head with horns like an ox and a long tufted tail
 wildebeests	WILDEBEEST: large African antelope having a head with horns like an ox and a long tufted tail
 wilder	WILD: marked by extreme lack of restraint or control
-wilderness	a state of disfavor
-wildernesses	WILDERNESS: a state of disfavor
+wilderness	a wild and uninhabited area left in its natural condition
+wildernesses	WILDERNESS: a wild and uninhabited area left in its natural condition
 wildest	WILD: marked by extreme lack of restraint or control
 wildfire	a raging and rapidly spreading conflagration
 wildfires	WILDFIRE: a raging and rapidly spreading conflagration
@@ -1483,10 +1483,10 @@ windcheater	a kind of heavy jacket (`windcheater' is a British term)
 windcheaters	WINDCHEATER: a kind of heavy jacket (`windcheater' is a British term)
 windchill	the cooling effect of wind on the air temperature
 winded	WIND: air moving (sometimes with considerable force) from an area of high pressure to an area of low pressure
-winder	a worker who winds (e.g., a winch or clock or other mechanism)
-winders	WINDER: a worker who winds (e.g., a winch or clock or other mechanism)
-windfall	fruit that has fallen from the tree
-windfalls	WINDFALL: fruit that has fallen from the tree
+winder	mechanical device around which something can be wound
+winders	WINDER: mechanical device around which something can be wound
+windfall	a sudden happening that brings good fortune (as a sudden opportunity to make money)
+windfalls	WINDFALL: a sudden happening that brings good fortune (as a sudden opportunity to make money)
 windier	WINDY: abounding in or exposed to the wind or breezes
 windiest	WINDY: abounding in or exposed to the wind or breezes
 windily	in a verbose manner
@@ -1535,7 +1535,7 @@ windsurfs	WINDSURF: ride standing on a surfboard with an attached sail, on water
 windswept	open to or swept by wind
 windup	a concluding action
 windups	WINDUP: a concluding action
-windward	the direction from which the wind is coming
+windward	the side of something that is toward the wind
 windy	abounding in or exposed to the wind or breezes
 wine	fermented juice (of grapes especially)
 wined	WIN: be the winner in a contest or competition; be victorious
@@ -1569,8 +1569,8 @@ wingtips	WINGTIP: the outer end of a wing
 wining	WIN: be the winner in a contest or competition; be victorious
 wink	signal by winking
 winked	WINK: signal by winking
-winker	a person who winks
-winkers	WINKER: a person who winks
+winker	blind consisting of a leather eyepatch sewn to the side of the halter that prevents a horse from seeing something on either side
+winkers	WINKER: blind consisting of a leather eyepatch sewn to the side of the halter that prevents a horse from seeing something on either side
 winking	WINK: signal by winking
 winkle	small edible marine snail; steamed in wine or baked
 winkled	WINKLE: small edible marine snail; steamed in wine or baked
@@ -1601,7 +1601,7 @@ winter	the coldest season of the year; in the northern hemisphere it extends fro
 wintered	WINTER: the coldest season of the year; in the northern hemisphere it extends from the winter solstice to the vernal equinox
 winterer	a person who spends the winter somewhere
 winterers	WINTERER: a person who spends the winter somewhere
-wintergreen	spicy red berrylike fruit; source of wintergreen oil
+wintergreen	creeping shrub of eastern North America having white bell-shaped flowers followed by spicy red berrylike fruit and shiny aromatic leaves that yield wintergreen oil
 winterier	WINTERY: characteristic of or occurring in winter
 winteriest	WINTERY: characteristic of or occurring in winter
 wintering	WINTER: the coldest season of the year; in the northern hemisphere it extends from the winter solstice to the vernal equinox
@@ -1623,17 +1623,17 @@ wintriness	the quality of being wintry
 wintry	characteristic of or occurring in winter
 wipe	rub with a circular motion
 wiped	WIPE: rub with a circular motion
-wipeout	an event (or the result of an event) that completely destroys something
-wipeouts	WIPEOUT: an event (or the result of an event) that completely destroys something
-wiper	a worker who wipes
-wipers	WIPER: a worker who wipes
+wipeout	a spill in some sport (as a fall from a bicycle or while skiing or being capsized on a surfboard)
+wipeouts	WIPEOUT: a spill in some sport (as a fall from a bicycle or while skiing or being capsized on a surfboard)
+wiper	a mechanical device that cleans the windshield
+wipers	WIPER: a mechanical device that cleans the windshield
 wipes	WIPE: rub with a circular motion
 wiping	WIPE: rub with a circular motion
 wire	ligament made of metal and used to fasten things or make cages or fences etc
 wired	equipped with wire or wires especially for electric or telephone service
 wirehaired	having a coarse stiff coat
-wireless	medium for communication
-wirelesses	WIRELESS: medium for communication
+wireless	a communication system based on broadcasting electromagnetic waves
+wirelesses	WIRELESS: a communication system based on broadcasting electromagnetic waves
 wires	WIRE: ligament made of metal and used to fasten things or make cages or fences etc
 wiretap	the act of tapping a telephone or telegraph line to get information
 wiretapped	WIRETAP: the act of tapping a telephone or telegraph line to get information
@@ -1738,7 +1738,7 @@ withstand	resist or confront with resistance
 withstanding	WITHSTAND: resist or confront with resistance
 withstands	WITHSTAND: resist or confront with resistance
 withstood	WITHSTAND: resist
-witless	(used as complement) to the utmost degree
+witless	(of especially persons) lacking sense or understanding or judgment
 witlessly	in a witless way
 witlessness	the quality of being witless
 witness	someone who sees an event and reports what happened
@@ -1762,10 +1762,10 @@ wittiness	a message whose ingenuity or verbal skill or incongruity has the power
 witting	WIT: a message whose ingenuity or verbal skill or incongruity has the power to evoke laughter
 wittingly	with full knowledge and deliberation
 witty	combining clever conception and facetious expression
-wive	take (someone) as a wife
-wived	WIVE: take (someone) as a wife
-wives	WIVE: take (someone) as a wife
-wiving	WIVE: take (someone) as a wife
+wive	marry a woman, take a wife
+wived	WIVE: marry a woman, take a wife
+wives	WIVE: marry a woman, take a wife
+wiving	WIVE: marry a woman, take a wife
 wiz	someone who is dazzlingly skilled in any field
 wizard	someone who is dazzlingly skilled in any field
 wizardly	possessing or using or characteristic of or appropriate to supernatural powers
@@ -1793,7 +1793,7 @@ wobbly	inclined to shake as from weakness or defect
 wodge	a thick lump or chunk
 wodges	WODGE: a thick lump or chunk
 woe	misery resulting from affliction
-woebegone	worn and broken down by hard use
+woebegone	affected by or full of grief or woe
 woeful	affected by or full of grief or woe
 woefuller	WOEFUL: affected by or full of grief or woe
 woefullest	WOEFUL: affected by or full of grief or woe
@@ -1814,8 +1814,8 @@ wolfish	resembling or characteristic (or considered characteristic) of a wolf
 wolfram	a heavy grey-white metallic element; the pure form is used mainly in electrical applications; it is found in several ores including wolframite and scheelite
 wolfs	WOLF: any of various predatory carnivorous canine mammals of North America and Eurasia that usually hunt in packs
 wolfsbane	poisonous Eurasian perennial herb with broad rounded leaves and yellow flowers and fibrous rootstock
-wolverine	a native or resident of Michigan
-wolverines	WOLVERINE: a native or resident of Michigan
+wolverine	stocky shaggy-coated North American carnivorous mammal
+wolverines	WOLVERINE: stocky shaggy-coated North American carnivorous mammal
 wolves	WOLF: a wild dog that hunts in packs
 woman	an adult female person (as opposed to a man)
 womanhood	the state of being an adult woman
@@ -1835,7 +1835,7 @@ womanizing	WOMANIZE: have amorous affairs; of men
 womankind	women as distinguished from men
 womanlier	WOMANLY: befitting or characteristic of a woman especially a mature woman
 womanliest	WOMANLY: befitting or characteristic of a woman especially a mature woman
-womanlike	the trait of being womanly; having the characteristics of an adult female
+womanlike	resembling a woman
 womanliness	the trait of being womanly; having the characteristics of an adult female
 womanly	befitting or characteristic of a woman especially a mature woman
 womb	a hollow muscular organ in the pelvic cavity of females; contains the developing fetus
@@ -1874,7 +1874,7 @@ wonton	a Chinese dumpling filled with spiced minced pork; usually served in soup
 wontons	WONTON: a Chinese dumpling filled with spiced minced pork; usually served in soup
 woo	seek someone's favor
 wood	the hard fibrous lignified substance under the bark of trees
-woodbine	common North American vine with compound leaves and bluish-black berrylike fruit
+woodbine	European twining honeysuckle with fragrant red and yellow-white flowers
 woodblock	a block of wood engraved for printing
 woodblocks	WOODBLOCK: a block of wood engraved for printing
 woodcarving	a carving created by carving wood
@@ -1884,11 +1884,11 @@ woodchucks	WOODCHUCK: reddish brown North American marmot
 woodcock	game bird of the sandpiper family that resembles a snipe
 woodcocks	WOODCOCK: game bird of the sandpiper family that resembles a snipe
 woodcraft	skill and experience in matters relating to the woods (as hunting or fishing or camping)
-woodcut	a print made from a woodcut
-woodcuts	WOODCUT: a print made from a woodcut
+woodcut	engraving consisting of a block of wood with a design cut into it; used to make prints
+woodcuts	WOODCUT: engraving consisting of a block of wood with a design cut into it; used to make prints
 woodcutter	cuts down trees and chops wood as a job
 woodcutters	WOODCUTTER: cuts down trees and chops wood as a job
-woodcutting	WOODCUT: a print made from a woodcut
+woodcutting	WOODCUT: engraving consisting of a block of wood with a design cut into it; used to make prints
 wooded	covered with growing trees and bushes etc
 wooden	made or consisting of (entirely or in part) or employing wood
 woodener	WOODEN: made or consisting of (entirely or in part) or employing wood
@@ -1898,7 +1898,7 @@ woodenness	the quality of being wooden and awkward
 woodier	WOODY: made of or containing or resembling wood
 woodies	WOODIE: a wood-panelled station wagon
 woodiest	WOODY: made of or containing or resembling wood
-woodiness	the quality of abounding in trees
+woodiness	texture produced by the fibers in wood
 wooding	WOOD: supply with timber
 woodland	land that is covered with trees and shrubs
 woodlands	WOODLAND: land that is covered with trees and shrubs
@@ -1946,8 +1946,8 @@ woolier	WOOLIE: a woollen garment
 woolies	WOOLIE: a woollen garment
 wooliest	WOOLIE: a woollen garment
 wooliness	the quality of being wooly
-woollen	a fabric made from the hair of sheep
-woollens	WOOLLEN: a fabric made from the hair of sheep
+woollen	of or related to or made of wool
+woollens	WOOLLEN: of or related to or made of wool
 woollier	WOOLLY: having a fluffy character or appearance
 woollies	WOOLLY: a woollen garment
 woolliest	WOOLLY: having a fluffy character or appearance
@@ -1998,8 +1998,8 @@ workflow	progress (or rate of progress) in work being done
 workflows	WORKFLOW: progress (or rate of progress) in work being done
 workforce	the force of workers available
 workforces	WORKFORCE: the force of workers available
-workhorse	machine that performs dependably under heavy use
-workhorses	WORKHORSE: machine that performs dependably under heavy use
+workhorse	a horse used for plowing and hauling and other heavy labor
+workhorses	WORKHORSE: a horse used for plowing and hauling and other heavy labor
 workhouse	a poorhouse where able-bodied poor are compelled to labor
 workhouses	WORKHOUSE: a poorhouse where able-bodied poor are compelled to labor
 working	actively engaged in paid work
@@ -2070,11 +2070,11 @@ worriedly	in a worried manner
 worrier	thinks about unfortunate things that might happen
 worriers	WORRIER: thinks about unfortunate things that might happen
 worries	WORRY: be worried, concerned, anxious, troubled, or uneasy
-worrisome	not reassuring; tending to cause anxiety
+worrisome	causing distress or worry or anxiety
 worry	be worried, concerned, anxious, troubled, or uneasy
 worrying	WORRY: be worried, concerned, anxious, troubled, or uneasy
 worryingly	in a manner to cause worry
-worryings	WORRYING: the act of harassing someone
+worryings	WORRYING: causing distress or worry or anxiety
 worrywart	thinks about unfortunate things that might happen
 worrywarts	WORRYWART: thinks about unfortunate things that might happen
 worse	something inferior in quality or condition or effect
@@ -2084,8 +2084,8 @@ worsening	WORSEN: grow worse
 worsens	WORSEN: grow worse
 worship	love unquestioningly and uncritically or to excess; venerate as an idol
 worshiped	WORSHIP: love unquestioningly and uncritically or to excess; venerate as an idol
-worshiper	someone who admires too much to recognize faults
-worshipers	WORSHIPER: someone who admires too much to recognize faults
+worshiper	a person who has religious faith
+worshipers	WORSHIPER: a person who has religious faith
 worshipful	showing adoration
 worshiping	WORSHIP: love unquestioningly and uncritically or to excess; venerate as an idol
 worshipped	WORSHIP: love unquestioningly and uncritically or to excess; venerate as an idol
@@ -2120,10 +2120,10 @@ woundingly	in a wounding way
 wounds	WOUND: an injury to living tissue (especially an injury involving a cut or break in the skin)
 wove	WEAVE: interlace by or as if by weaving
 woven	made or constructed by interlacing threads or strips of material or other elements into a whole
-wow	a joke that seems extremely funny
-wowed	WOW: a joke that seems extremely funny
-wowing	WOW: a joke that seems extremely funny
-wows	WOW: a joke that seems extremely funny
+wow	impress greatly
+wowed	WOW: impress greatly
+wowing	WOW: impress greatly
+wows	WOW: impress greatly
 wowser	a prudish killjoy
 wowsers	WOWSER: a prudish killjoy
 woylie	a small kangaroo-like marsupial of Western Australia
@@ -2176,12 +2176,12 @@ wrecker	someone who demolishes or dismantles buildings as a job
 wreckers	WRECKER: someone who demolishes or dismantles buildings as a job
 wrecking	WRECK: something or someone that has suffered ruin or dilapidation
 wrecks	WRECK: something or someone that has suffered ruin or dilapidation
-wren	English architect who designed more than fifty London churches (1632-1723)
+wren	any of several small active brown birds of the northern hemisphere with short upright tails; they feed on insects
 wrench	twist or pull violently or suddenly, especially so as to remove (something) from that to which it is attached or from where it originates
 wrenched	WRENCH: twist or pull violently or suddenly, especially so as to remove (something) from that to which it is attached or from where it originates
 wrenches	WRENCH: twist or pull violently or suddenly, especially so as to remove (something) from that to which it is attached or from where it originates
 wrenching	causing great physical or mental suffering
-wrens	WREN: English architect who designed more than fifty London churches (1632-1723)
+wrens	WREN: any of several small active brown birds of the northern hemisphere with short upright tails; they feed on insects
 wrest	obtain by seizing forcibly or violently, also metaphorically
 wrested	WREST: obtain by seizing forcibly or violently, also metaphorically
 wrester	someone who obtains something by pulling it violently with twisting movements
@@ -2213,7 +2213,7 @@ wriggliest	WRIGGLY: moving in a twisting or snake-like or wormlike fashion
 wriggling	WRIGGLE: to move in a twisting or contorted motion, (especially when struggling)
 wrigglingly	in a wriggling way
 wriggly	moving in a twisting or snake-like or wormlike fashion
-wright	United States writer of detective novels (1888-1939)
+wright	someone who makes or repairs something (usually used in combination)
 wring	twist and press out of shape
 wringer	a clothes dryer consisting of two rollers between which the wet clothes are squeezed
 wringers	WRINGER: a clothes dryer consisting of two rollers between which the wet clothes are squeezed
@@ -2257,7 +2257,7 @@ wrongdoings	WRONGDOING: departure from what is ethically acceptable
 wronged	WRONG: not correct; not in conformity with fact or truth
 wronger	WRONG: not correct; not in conformity with fact or truth
 wrongest	WRONG: not correct; not in conformity with fact or truth
-wrongful	having no legally established claim
+wrongful	unlawfully violating the rights of others
 wrongfully	in an unjust or unfair manner
 wrongfulness	that which is contrary to the principles of justice or law
 wrongheaded	obstinately perverse in judgment or opinion
@@ -2265,7 +2265,7 @@ wrongheadedly	in a wrongheaded manner
 wrongheadedness	the quality of being wrongheaded
 wronging	WRONG: not correct; not in conformity with fact or truth
 wrongly	without justice or fairness
-wrongness	inappropriate conduct
+wrongness	contrary to conscience or morality
 wrongs	WRONG: not correct; not in conformity with fact or truth
 wrote	WRITE: produce a literary work
 wroth	vehemently incensed and condemnatory
