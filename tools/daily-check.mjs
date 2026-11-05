@@ -67,9 +67,12 @@ for (let n = from; n <= to; n++) {
     // compared too.
     let tiles = deal.tiles.map(t => ({ ...t, activeVariant: t.letterType === 'dual' && rand() < 0.5 ? 1 : 0 }));
     if (deal.tool && rand() < 0.5) {
-      const t = tiles[Math.floor(rand() * tiles.length)];
+      const offered = tiles.filter(x => x.paintOffer);
+      const t = deal.tool === 'tube' ? offered[Math.floor(rand() * offered.length)]
+        : tiles[Math.floor(rand() * tiles.length)];
       const applied = deal.tool === 'ratchet'
         ? { kind: 'ratchet', id: t.id, face: t.activeVariant, offset: rand() < 0.5 ? -1 : 1 }
+        : deal.tool === 'tube' ? { kind: 'tube', id: t.id, colour: deal.tube }
         : { kind: 'loupe', id: t.id, face: t.activeVariant };
       tiles = S.withTool(tiles, applied);
     }
@@ -171,7 +174,9 @@ console.log(`seated: ${seatedCompared} arrangements under ${seatings.length} sea
 // every letter a blank could be. Scored by scoreWord under the table given.
 function naiveBest(tiles, tool, word, T = null) {
   const uses = [null];
-  if (tool) for (const t of tiles) for (const v of [0, ...(t.letterType === 'dual' ? [1] : [])]) {
+  if (tool === 'tube') {
+    for (const t of tiles) if (t.paintOffer && !t.colour) uses.push({ kind: 'tube', id: t.id, colour: t.paintOffer });
+  } else if (tool) for (const t of tiles) for (const v of [0, ...(t.letterType === 'dual' ? [1] : [])]) {
     if (t.ephemeral || t.counterfeit) continue;
     if (tool === 'ratchet') { for (const off of [-1, 1]) if (S.shiftable(t, v)) uses.push({ kind: 'ratchet', id: t.id, face: v, offset: off }); }
     else if (S.loupeDelta(t, v) > 0) uses.push({ kind: 'loupe', id: t.id, face: v });

@@ -12,7 +12,7 @@
 // sort makes on its way somewhere are the game's own (js/anim.js), and they
 // follow the game's sound setting.
 
-import { dealChallenge, todaysNumber, traitsOf, EPOCH } from './deal.js';
+import { dealChallenge, todaysNumber, traitsOf, EPOCH, TUBE_OFFER, PROOF_STORE } from './deal.js';
 import {
   scoreWord, judge, withTool, solveCase, rankOf, bracketOf, BRACKETS, activeLetter, faceLetter,
   restingOf, ringStep, shiftable, loupeDelta, settingOf, solveWords, solvePairs, pairBest, RING,
@@ -21,6 +21,7 @@ import { tablesForDay, seatIdsOfDay, listsNeeded, LISTS, LIST_FILES, adoptList, 
 import {
   COLOURS, TRIMS, NICKS, MEDIEVAL, letterGlyph, colourDesc, SPIKE_MULT,
   LOUPE_CAP, CURSED_MULT, CURSED_PENALTY, LENGTH_MULT_MIN, lengthMult, lengthFlourish,
+  makeTileTemplate,
 } from '../js/constants.js';
 import { PATRON_CARDS } from '../js/patron-cards.js';
 import { BOSS_CARDS } from '../js/boss-cards.js';
@@ -31,7 +32,8 @@ import {
   sparkleBurst, fmtMult, flourishTime,
 } from '../js/anim.js';
 import {
-  TRAIT_TEXT, TOOL_TEXT, SORT_TEXT, UI, RESULT, PATRON_TEXT, EDITOR_TEXT, SPIKE_TEXT, PAIR_TEXT, fill,
+  TRAIT_TEXT, TOOL_TEXT, SORT_TEXT, UI, RESULT, PATRON_TEXT, EDITOR_TEXT, SPIKE_TEXT, PAIR_TEXT, fill, COUNT_WORDS,
+  HOWTO,
   DAILY_CARDS,
 } from './text.js';
 import { drawField } from './chart.js';
@@ -41,7 +43,7 @@ import { drawField } from './chart.js';
 const PLAYTEST = true;
 
 // Keyed to the deal's salt: a re-dealt case must not reopen on an old proof.
-const STORE = 'great-work-daily-v4';
+const STORE = PROOF_STORE;
 const $ = id => document.getElementById(id);
 const fmtN = n => n.toLocaleString('en-GB');
 const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -152,6 +154,9 @@ function openChallenge(n) {
   try { if (location.hash !== `#${n}`) history.replaceState(null, '', `#${n}`); } catch { /* framed */ }
   solveAbort?.abort();
   hidePop();
+  // A word left half-set on this day comes back (read before the first render,
+  // which would otherwise file the empty stick over it).
+  const draft = loadDrafts()[n];
 
   const deal = dealChallenge(n);
   Object.assign(S, {
@@ -192,6 +197,21 @@ function openChallenge(n) {
   });
 
   render({ fresh: true });
+  if (draft && !S.result) resume(draft);
+  if (deal.tool && !S.result && !S.applied) helloTool();
+}
+
+// A tool on the bench is easy to miss. When a day opens with one, unprinted,
+// the tool lights and pulses three times once the case is dealt, then rests;
+// picking it up stops it. With reduced motion it holds a still ring a moment.
+let helloTimer = 0;
+function helloTool() {
+  const btn = $('toolBtn');
+  clearTimeout(helloTimer);
+  btn.classList.remove('tool--hello');
+  void btn.offsetWidth;   // so a second day's greeting starts from the top
+  btn.classList.add('tool--hello');
+  helloTimer = setTimeout(() => btn.classList.remove('tool--hello'), reducedMotion() ? 2400 : 3200);
 }
 
 function countWords(deal, signal) {
@@ -241,7 +261,8 @@ const facesNow = () => S.tiles.filter(t => t.letterType === 'dual' || t.blank)
 // stamps, css/bench.css), and ink in as the word lights them.
 function tracksOf(tiles) {
   const out = ['length'];
-  for (const c of Object.keys(COLOURS)) if (tiles.some(t => t.colour === c)) out.push(c);
+  // A colour the day's tube holds has its stamp too, before it is poured.
+  for (const c of Object.keys(COLOURS)) if (tiles.some(t => t.colour === c) || S.deal.tube === c) out.push(c);
   if (tiles.some(t => t.trim === 'purple')) out.push('purple');
   if (tiles.some(t => t.material === 'cursed')) out.push('cursed');
   // A seat that rules ×Mult on the word has a stamp of its own; the editor's
@@ -384,6 +405,7 @@ function refuse(id) {
 // ─── The tool ─────────────────────────────────────────────────────────────────
 function toolTap() {
   if (locked() || !S.deal.tool) return;
+  $('toolBtn').classList.remove('tool--hello');
   hidePop();
   if (S.applied) { S.applied = null; S.armed = false; sfx.disarm(); render(); return; }
   S.armed = !S.armed;
@@ -395,6 +417,15 @@ function useToolOn(id) {
   const t = S.tiles.find(x => x.id === id);
   const face = t.activeVariant ?? 0;
   if (t.blank || t.ephemeral) { refuse(id); return; }
+  // The tube paints one of the tiles it offers, and only those.
+  if (S.deal.tool === 'tube') {
+    if (!t.paintOffer || t.colour) { refuse(id); return; }
+    S.applied = { kind: 'tube', id, colour: S.deal.tube };
+    S.armed = false;
+    sfx.select();
+    render();
+    return;
+  }
   if (S.deal.tool === 'loupe') {
     if (!loupeDelta(t, face)) { refuse(id); return; }
     S.applied = { kind: 'loupe', id, face };
@@ -756,6 +787,7 @@ function tileLines(t) {
   if (t.nick) out.push({ head: NICKS[t.nick].label, body: NICKS[t.nick].desc });
   if (t.ratcheted != null && t.ratcheted === t.activeVariant) out.push({ head: fill(SORT_TEXT.ratcheted, t.ratchetFrom) });
   if (t.louped != null && t.louped === t.activeVariant) out.push({ head: SORT_TEXT.louped });
+  if (t.painted) out.push({ head: SORT_TEXT.painted });
   return out;
 }
 
@@ -837,6 +869,23 @@ function render({ fresh = false } = {}) {
   renderResult();
   $('status').textContent = S.note;
   if (before.size) for (const z of zones()) flipTiles(z, before);
+  saveDraft();
+}
+
+// A word being set is kept, day by day, until it is printed: step across to
+// the Campaign, or to another day, and it is waiting when you come back. The
+// last few days' drafts are kept; a printed day's goes, the proof standing in
+// its place.
+const DRAFTS = `${STORE}-drafts`;
+function loadDrafts() { try { return JSON.parse(localStorage.getItem(DRAFTS) || '{}'); } catch { return {}; } }
+function saveDraft() {
+  if (!S.deal || S.printing) return;
+  const drafts = loadDrafts();
+  const empty = !S.words.some(w => w.length) && !S.applied;
+  if (S.result || empty) delete drafts[S.n];
+  else drafts[S.n] = snapshot();
+  for (const k of Object.keys(drafts).map(Number).sort((a, b) => b - a).slice(7)) delete drafts[k];
+  try { localStorage.setItem(DRAFTS, JSON.stringify(drafts)); } catch { /* private window */ }
 }
 
 function renderHeader() {
@@ -848,12 +897,17 @@ function renderHeader() {
 }
 
 // The day's label: the case's most salient trait, and on a tap all of them.
+// A tube's trait names its paint; a two-word day's, its minimum.
+const traitArgs = k => (k === 'tube'
+  ? [COLOURS[S.deal.tube].label, COLOURS[S.deal.tube].label.toLowerCase()]
+  : [S.deal.day.min ?? '']);
+const traitName = k => fill(TRAIT_TEXT[k].name, ...traitArgs(k));
 const traitLines = () => S.traits.map(k => ({
-  head: TRAIT_TEXT[k].name, body: fill(TRAIT_TEXT[k].desc, S.deal.day.min ?? ''),
+  head: traitName(k), body: fill(TRAIT_TEXT[k].desc, ...traitArgs(k)),
 }));
 function renderAlmanac() {
   const el = $('almanac');
-  el.textContent = TRAIT_TEXT[S.traits[0]].name;
+  el.textContent = traitName(S.traits[0]);
   el.title = traitLines().map(l => `${l.head}: ${l.body}`).join('\n');
 }
 
@@ -934,7 +988,10 @@ function renderCase(fresh) {
     socket.className = 'socket';
     if (!placed(id)) {
       const el = tileEl(eff.get(id), 'case');
-      if (S.armed && toolFits(eff.get(id))) el.classList.add('tile--target');
+      if (S.armed && toolFits(eff.get(id))) {
+        el.classList.add('tile--target');
+        socket.classList.add('socket--halo');
+      }
       if (fresh && !reducedMotion()) { el.classList.add('tile--dealt'); el.style.animationDelay = `${i * 28}ms`; }
       socket.appendChild(el);
     }
@@ -944,7 +1001,44 @@ function renderCase(fresh) {
 }
 
 const toolFits = t => !t.blank && !t.ephemeral
-  && (S.deal.tool === 'loupe' ? loupeDelta(t, t.activeVariant) > 0 : shiftable(t, t.activeVariant));
+  && (S.deal.tool === 'tube' ? !!t.paintOffer && !t.colour
+    : S.deal.tool === 'loupe' ? loupeDelta(t, t.activeVariant) > 0 : shiftable(t, t.activeVariant));
+
+// The day's tool in words, and its glyph: a tube is drawn in its own paint.
+const toolWords = (kind = S.deal.tool, colour = S.deal.tube) => {
+  const tt = TOOL_TEXT[kind];
+  const label = colour ? COLOURS[colour].label : '';
+  return {
+    name: fill(tt.name, label),
+    desc: fill(tt.desc, kind === 'loupe' ? LOUPE_CAP : label, label.toLowerCase(), COUNT_WORDS[TUBE_OFFER] ?? TUBE_OFFER),
+  };
+};
+function toolGlyph(kind, colour) {
+  const g = document.createElement('span');
+  if (kind === 'tube') {
+    g.className = 'tool-tube';
+    g.style.setProperty('--paint', COLOURS[colour].glyph);
+  } else g.textContent = TOOL_TEXT[kind].glyph;
+  return g;
+}
+
+// The armed tool's ring is drawn by what holds a target, never by the target
+// itself: its socket in the case, a halo wrapped round it in the stick. A
+// nicked sort is cut by a mask that cuts away anything drawn outside it, the
+// ring included (Safari has no mask-clip: no-clip to stop it); and a ring in
+// the sort's own shadow could not pulse, only blink, because the shadow it
+// sits in has inset layers where the ring has outer ones and a browser only
+// tweens shadows whose layers pair up. A socket or a halo has nothing in the
+// way, so every target pulses the same.
+function withHalo(el) {
+  if (!el.classList.contains('tile--target')) return el;
+  const halo = document.createElement('div');
+  halo.className = 'halo';
+  halo.appendChild(el);
+  return halo;
+}
+// A stick's sorts, the haloed one included.
+const stickTiles = k => [...stickEl(k).querySelectorAll(':scope > .tile, :scope > .halo > .tile')];
 
 // The stick's corner figures are live: each sort shows what it pays in THIS
 // word, so a nick's reach is read off the tiles as the word is built, and a
@@ -974,7 +1068,7 @@ function renderStick(k, sc) {
       ptsEl.style.animationDelay = `${popped++ * 60}ms`;
     }
     if (now !== restingOf(t)) el.title += `\n${fill(UI.inWord, now)}`;
-    host.appendChild(el);
+    host.appendChild(withHalo(el));
   }
   for (const [id, v] of pays) lastPays.set(id, v);
   fitStick(k);
@@ -1044,7 +1138,7 @@ function renderRule(k, word, sc) {
   const cs = getComputedStyle(stick);
   const gap = parseFloat(cs.columnGap) || 0;
   const padL = parseFloat(cs.paddingLeft) || 0;
-  const tiles = [...stick.querySelectorAll(':scope > .tile')];
+  const tiles = stickTiles(k);
   const tfs = parseFloat(cs.getPropertyValue('--tfs')) || 16;
   const origin = stick.offsetLeft + stick.clientLeft;
   const room = origin + stick.clientWidth - 4;
@@ -1171,9 +1265,9 @@ function renderBench() {
   const btn = $('toolBtn');
   btn.hidden = !tool;
   if (tool) {
-    const tt = TOOL_TEXT[tool];
-    btn.textContent = tt.glyph;
-    btn.title = `${tt.name}: ${fill(tt.desc, LOUPE_CAP)}`;
+    const tt = toolWords();
+    btn.replaceChildren(toolGlyph(tool, S.deal.tube));
+    btn.title = `${tt.name}: ${tt.desc}`;
     btn.setAttribute('aria-label', tt.name);
     btn.classList.toggle('tool--armed', S.armed);
     btn.classList.toggle('tool--used', !!S.applied);
@@ -1217,6 +1311,7 @@ function miniPair(a, b) {
   row.className = 'mini-pair';
   const plus = document.createElement('span'); plus.className = 'mini-plus'; plus.textContent = '+';
   row.append(miniWord(a, null), plus, miniWord(b, null));
+  row.style.setProperty('--n', Math.max(a.length, b.length));   // the CSS sizes the sorts to fit
   return row;
 }
 const seatMark = idx => {
@@ -1301,7 +1396,7 @@ function renderResult() {
   share.textContent = RESULT.share;
   share.addEventListener('click', async () => {
     const lines = [
-      fill(RESULT.shareHead, S.n, TRAIT_TEXT[S.traits[0]].name),
+      fill(RESULT.shareHead, S.n, traitName(S.traits[0])),
       `${label} — ${fmtN(r.score)}`,
       `${r.rank === 1 ? RESULT.best : gradeLabel(r)} (${fill(pairs ? RESULT.placePairs : RESULT.place, fmtN(r.rank), fmtN(r.size))})`,
       // Inside a frame the page's own address is not one anybody could open.
@@ -1350,8 +1445,8 @@ function bestRow({ key, place, name, score, yours, stone, open, fillSet }) {
 const toolMark = tool => {
   const note = document.createElement('span');
   note.className = 'best-tool';
-  note.textContent = TOOL_TEXT[tool.kind].glyph;
-  note.title = TOOL_TEXT[tool.kind].name;
+  note.appendChild(toolGlyph(tool.kind, tool.colour));
+  note.title = toolWords(tool.kind, tool.colour).name;
   return note;
 };
 
@@ -1555,7 +1650,7 @@ function moveGhost(x, y) {
 
 // Where in a stick a drop lands: before the nearest sort's centre, or after it.
 function stickIndex(x, k) {
-  const tiles = [...stickEl(k).querySelectorAll(':scope > .tile')];
+  const tiles = stickTiles(k);
   let best = tiles.length, bestDist = Infinity;
   tiles.forEach((t, i) => {
     const b = t.getBoundingClientRect();
@@ -1689,8 +1784,8 @@ function wireReading(el, lines) {
 function wire() {
   wireHands();
   wireReading($('toolBtn'), () => {
-    const tt = TOOL_TEXT[S.deal.tool];
-    return [{ head: tt.name, body: fill(tt.desc, LOUPE_CAP) }];
+    const tt = toolWords();
+    return [{ head: tt.name, body: tt.desc }];
   });
   // The almanac's day has nothing to do but be read, so a tap reads it.
   $('almanac').addEventListener('click', e => {
@@ -1794,8 +1889,9 @@ async function start(carried = {}) {
   // On its own subdomain the full game is somewhere else entirely; the build
   // says where (tools/build-daily.mjs, --home).
   if (window.DAILY_HOME) $('modeHome').href = window.DAILY_HOME;
-  // Framed as an artifact there is no other mode to go to: the ❦ is only a ❦.
-  if (window.DAILY_NO_LINK) { $('modeBtn').disabled = true; $('modeList').remove(); }
+  // Framed as an artifact there is no other mode to go to; the menu keeps
+  // How to play.
+  if (window.DAILY_NO_LINK) $('modeHome').remove();
   wire();
   try {
     await loadWords();
@@ -1812,6 +1908,69 @@ async function start(carried = {}) {
 if (window.claude?.hot?.ready) window.claude.hot.ready(start);
 else start(window.claude?.hot?.data ?? {});
 
+// ─── How to play ──────────────────────────────────────────────────────────────
+// A short sheet from the ❦ menu: Points × Mult, length and paint, one worked
+// example set in real sorts and scored by the scorer, so its
+// chips and sum are the game's own. Built the first time it opens.
+const HOWTO_WORD = { letters: 'GARDEN', paint: { 1: 'crimson', 4: 'crimson', 2: 'azure' } };
+function openHowto() {
+  const dlg = $('howto');
+  if (!dlg.firstChild) {
+    const body = document.createElement('div');
+    body.className = 'howto-body';
+    const head = document.createElement('div');
+    head.className = 'howto-head';
+    const h = document.createElement('h2');
+    h.id = 'howtoTitle';
+    h.textContent = HOWTO.title;
+    const x = document.createElement('button');
+    x.className = 'howto-close';
+    x.type = 'button';
+    x.textContent = '×';
+    x.setAttribute('aria-label', HOWTO.close);
+    x.addEventListener('click', () => dlg.close());
+    head.append(h, x);
+    const para = text => { const p = document.createElement('p'); p.textContent = text; return p; };
+    body.append(head, para(HOWTO.score), para(HOWTO.mult));
+
+    const tiles = [...HOWTO_WORD.letters].map((L, id) =>
+      ({ ...makeTileTemplate(L), id: 900 + id, colour: HOWTO_WORD.paint[id] ?? null }));
+    const sc = scoreWord(tiles, [], has, null);
+    const fig = document.createElement('figure');
+    fig.className = 'howto-example';
+    const cap = document.createElement('figcaption');
+    cap.textContent = fill(HOWTO.example, HOWTO_WORD.letters);
+    const chips = document.createElement('div');
+    chips.className = 'howto-chips';
+    for (const ch of sc.chips) {
+      const c = document.createElement('span');
+      c.className = `chip chip--${ch.kind} chip--on`;
+      const sw = document.createElement('i');
+      const v = document.createElement('b');
+      v.textContent = `×${fmtMult(ch.mult)}`;
+      c.append(sw, v);
+      const name = document.createElement('span');
+      name.className = 'howto-chip-name';
+      name.textContent = ch.kind === 'length' ? fill(UI.letters, ch.count) : COLOURS[ch.kind]?.label ?? '';
+      const pair = document.createElement('span');
+      pair.className = 'howto-chip';
+      pair.append(name, c);
+      chips.appendChild(pair);
+    }
+    const sum = document.createElement('p');
+    sum.className = 'howto-sum';
+    sum.textContent = fill(HOWTO.sum, fmtN(sc.shownPoints), fmtMult(sc.shownMult), fmtN(sc.total));
+    fig.append(cap, miniWord(tiles, null), chips, sum);
+    body.appendChild(fig);
+    body.appendChild(para(HOWTO.hold));
+    dlg.appendChild(body);
+    // A tap on the dimmed page around the sheet puts it away.
+    dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+  }
+  hidePop();
+  dlg.showModal();
+}
+
 // ─── The two ways to play ─────────────────────────────────────────────────────
 // The name in the corner opens a short list of the modes, the one you are in
 // marked; a tap anywhere else, or Escape, puts it away. (The same menu sits
@@ -1822,4 +1981,5 @@ else start(window.claude?.hot?.data ?? {});
   btn?.addEventListener('click', e => { e.stopPropagation(); show(list.hidden); });
   document.addEventListener('click', e => { if (list && !list.hidden && !list.contains(e.target)) show(false); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && list && !list.hidden) { show(false); btn.focus(); } });
+  document.getElementById('howtoBtn')?.addEventListener('click', e => { e.stopPropagation(); show(false); openHowto(); });
 }

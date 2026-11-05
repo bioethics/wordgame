@@ -19,6 +19,7 @@ export const TRAIT_TEXT = {
   fat:      { name: 'Fat Matter',           desc: 'Most of the case is dressed.' },
   ratchet:  { name: 'The Ratchet',          desc: 'A ratchet on the bench.' },
   loupe:    { name: 'The Loupe',            desc: 'A loupe on the bench.' },
+  tube:     { name: 'A Tube of {0}',        desc: 'A tube of {1} paint on the bench.' },   // {0} Crimson, {1} crimson
   oldstock: { name: 'Old Stock',            desc: 'A medieval sort in the case.' },
   tied:     { name: 'Tied Letters',         desc: 'Ligatures in the case.' },
   wetink:   { name: 'Wet Ink',              desc: 'More paint than usual.' },
@@ -41,7 +42,13 @@ export const TOOL_TEXT = {
     name: 'Loupe', glyph: '🔍',
     desc: 'Double a tile’s value (max {0}). Tap again to undo.',
   },
+  // No glyph: the bench draws the tube itself, in its paint.
+  tube: {
+    name: 'Tube of {0}',               // {0} Crimson
+    desc: 'Paint one of {2} offered tiles {1}. Tap again to undo.',   // {1} crimson, {2} three
+  },
 };
+export const COUNT_WORDS = ['none', 'one', 'two', 'three', 'four', 'five'];
 
 // ─── The sorts, held ──────────────────────────────────────────────────────────
 export const SORT_TEXT = {
@@ -51,6 +58,7 @@ export const SORT_TEXT = {
   cursed: { head: 'Hellbox iron', body: '×{0} Mult. A word set without it loses {1} Points.' },
   ratcheted: 'Stepped from {0}',
   louped: 'Doubled by the loupe',
+  painted: 'Painted from the tube',
 };
 
 // ─── The table ────────────────────────────────────────────────────────────────
@@ -120,6 +128,19 @@ export const PAIR_TEXT = {
 };
 
 // ─── The board ────────────────────────────────────────────────────────────────
+// ─── How to play (in the ❦ menu) ──────────────────────────────────────────────
+// The worked example is drawn from real sorts and scored by the scorer, so its
+// figures and chips are computed; only the sentence introducing it is fixed.
+export const HOWTO = {
+  title: 'How to play',
+  close: 'Close',
+  score: 'A word scores Points × Mult. Points are the figures in the sorts’ corners, added up.',
+  mult: 'Mult comes from length (×2 at six letters, +0.5 for each letter after) and from paint. Each colour in the word is a multiplier of its own: one crimson sort is ×2, two are ×3, three ×4. Different colours multiply together.',
+  example: 'For example, {0} with two crimson sorts and one azure:',
+  sum: '{0} Points × {1} Mult = {2}',
+  hold: 'Hold a sort to read what its trim or nick does.',
+};
+
 export const UI = {
   number: '№ {0}',
   flipTo: 'Flip to {0}',

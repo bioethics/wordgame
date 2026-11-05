@@ -1197,6 +1197,19 @@ function fitWord(el) {
   el.style.setProperty('--word-tile-h', `${Math.floor(tileH * fit)}px`);
 }
 
+// A nick is cut by a mask, and the mask clips everything drawn outside the
+// tile as well: a selected tile's ring and its mark (⇄, 🖌, ⇅) went with it,
+// so a nicked tile picked to discard or for a tool showed only its tilt. A
+// selected nicked tile is set in a halo instead, which wears the lift, the
+// ring and the mark in its place (css/style.css → .halo).
+function haloed(tileEl, tile) {
+  if (!tile.selected || !tile.nick) return tileEl;
+  const halo = document.createElement('div');
+  halo.className = 'halo';
+  halo.appendChild(tileEl);
+  return halo;
+}
+
 export function renderRack(ghostIds = null) {
   const el = $('rack');
   if (!el) return;
@@ -1206,7 +1219,7 @@ export function renderRack(ghostIds = null) {
   state.rack.forEach(t => {
     const tileEl = makeTileEl(t, 'rack');
     if (ghostIds?.has(t.id)) tileEl.classList.add('tile--ghost');
-    el.appendChild(tileEl);
+    el.appendChild(haloed(tileEl, t));
   });
   // The bench's type case cuts one place per sort the hand holds, so a wider
   // hand is more compartments (css/bench.css reads this). Harmless in retro.
@@ -1387,9 +1400,14 @@ export function renderWord(script = computeScore(state.word)) {
 
   // A phantom takes the place it was struck into, which may be the end of the
   // word — hence the extra turn past the last tile. `placed` keeps each tile
-  // beside its element, in groove order, for the stick's scale.
+  // beside its element, in groove order, for the stick's scale — the halo, for
+  // a tile that has one, since that is the box standing in the groove.
   const placed = [];
-  const place = (tile, tileEl) => { el.appendChild(tileEl); placed.push({ tile, el: tileEl }); };
+  const place = (tile, tileEl) => {
+    const box = haloed(tileEl, tile);
+    el.appendChild(box);
+    placed.push({ tile, el: box });
+  };
   for (let i = 0; i <= state.word.length; i++) {
     const su = summonsAt.get(i);
     if (su) place(su, phantomTwinEl(su));

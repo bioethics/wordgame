@@ -30,7 +30,7 @@
 // so the same number deals the same case even if the word list is changed.
 
 import {
-  BAG_COUNTS, TILE_POINTS, COLOURS, CURSED_MAX_POINTS, dualPairsFor, makeTileTemplate,
+  BAG_COUNTS, TILE_POINTS, COLOURS, CURSED_MAX_POINTS, dualPairsFor, makeTileTemplate, isImmutable,
 } from '../js/constants.js';
 
 // Bump the salt and every challenge is re-dealt — for when the tuning below
@@ -39,6 +39,9 @@ import {
 // v3: the week — patrons, editors and two-word days.
 // v4: № 1 moved to 5 November, and Tuesday's patrons dealt what they read.
 export const DEAL_SALT = 'great-work-daily-v4';
+// Printed proofs are kept under the salt (daily/main.js), so a re-dealt case
+// never reopens on an old proof; the front door (js/door.js) reads them too.
+export const PROOF_STORE = DEAL_SALT;
 export const CASE_SIZE = 16;
 
 // ─── Seeded randomness ────────────────────────────────────────────────────────
@@ -89,11 +92,19 @@ export const LUCK = {
   // plain letter. Small — these are finds.
   ligature: 0.03,
   medieval: 0.01,
-  // The chance a tool is on the bench.
+  // The chance a tool is on the bench, and which: half the time the ratchet,
+  // otherwise the loupe or a tube of one of the four paints, evenly (since 5
+  // November; until then the ratchet and the loupe, 55 to 45).
   tool: 0.35,
-  tools: [['ratchet', 55], ['loupe', 45]],
+  tools: [['ratchet', 50], ['loupe', 10],
+    ['tube-crimson', 10], ['tube-azure', 10], ['tube-jade', 10], ['tube-amber', 10]],
   vowels: [5, 7],          // the case holds between these many vowels, inclusive
 };
+
+// A tube offers this many tiles, and you paint one of them. The game's tube
+// offers two (TUBE_CHOICES in js/constants.js); a day's case is all you have,
+// so the daily's offers three, for the choice of which colour to stack where.
+export const TUBE_OFFER = 3;
 
 const LIGATURE_WEIGHTS = [['TH', 3], ['CH', 3], ['ING', 2], ['CK', 1], ['WH', 1]];
 const MEDIEVAL_WEIGHTS = [['Þ', 3], ['Ȝ', 2], ['Æ', 2], ['Ƿ', 1]];
@@ -124,12 +135,16 @@ export const OMENS = {
 export function dealChallenge(n, opts = {}) {
   const day = opts.day ?? dayOf(n);
   const pair = day.kind === 'pair';
+  // A day with a choice of patrons has its decision already: no tool joins
+  // it (since 5 November), so the almanac's Toolchest is off its pages too.
+  const choice = day.kind === 'choice';
   const { size = pair ? PAIR.size : CASE_SIZE, vowels = pair ? PAIR.vowels : LUCK.vowels, salt = '' } = opts;
   const rng = rngFor(`${DEAL_SALT}:${salt}${n}`);
   // A two-word day draws from the almanac's quieter pages: no tool and no
   // cursed iron, whose rules are written for one word (the toll is charged to
   // "a word set without it", and a case of two words always sets one).
-  const omens = Object.entries(OMENS).filter(([id]) => !pair || !PAIR.noOmens.includes(id));
+  const omens = Object.entries(OMENS).filter(([id]) =>
+    !(pair && PAIR.noOmens.includes(id)) && !(choice && id === 'toolchest'));
   const omenId = pickWeighted(rng, omens.map(([id, o]) => [id, o.odds]));
   const omen = OMENS[omenId];
   const force = omen.force ?? {};
@@ -200,12 +215,32 @@ export function dealChallenge(n, opts = {}) {
 
   // 5. The bench.
   const toolRoll = rng();
-  const tool = !pair && (force.tool || toolRoll < LUCK.tool) ? pickWeighted(rng, LUCK.tools) : null;
+  let tool = !pair && !choice && (force.tool || toolRoll < LUCK.tool) ? pickWeighted(rng, LUCK.tools) : null;
+  // A tube's offer is dealt with the case, so every reader is offered the same
+  // tiles: unpainted ones the game would let a tube take, of different letters
+  // where the case has them, drawn after everything else so that no other
+  // day's case moves. Each offered tile carries the tube's colour.
+  let tube = null;
+  if (tool?.startsWith('tube-')) {
+    tube = tool.slice(5);
+    tool = 'tube';
+    const open = tiles.filter(t => !t.colour && !isImmutable(t) && !t.blank);
+    for (let i = open.length - 1; i > 0; i--) {
+      const j = Math.floor(rng() * (i + 1));
+      [open[i], open[j]] = [open[j], open[i]];
+    }
+    const letters = new Set(), offer = [];
+    for (const t of open) if (offer.length < TUBE_OFFER && !letters.has(t.letter)) { offer.push(t); letters.add(t.letter); }
+    for (const t of open) if (offer.length < TUBE_OFFER && !offer.includes(t)) offer.push(t);
+    for (const t of offer) t.paintOffer = tube;
+    if (!offer.length) { tool = null; tube = null; }
+  }
 
   // 6. The table: who sits today, rolled on a stream of its own so the case
   //    above is the same whoever is seated.
   const srng = rngFor(`${DEAL_SALT}:seat:${n}`);
   const deal = { n, omen: omenId, tiles, tool, day: { kind: day.kind } };
+  if (tube) deal.tube = tube;
   if (day.kind === 'patron') {
     deal.day.patron = seatFor(day.id, deal, srng);
   } else if (day.kind === 'choice') {

@@ -30,6 +30,16 @@
         ui = Math.min(ui, Math.max(1, innerWidth / 1180));
         de.style.setProperty('--ui', String(Math.round(ui * 1000) / 1000));
       } catch (e) { /* first visit, or storage denied — the defaults hold */ }
+      // The front door (js/door.js) asks which game whenever the site opens at
+      // its root; ?play=campaign, which the daily's menu sends, walks past it.
+      // Settled here so the door never flashes up on the way through, and the
+      // address is tidied back to the root.
+      try {
+        if (/(^|[?&])play=campaign(&|$)/.test(location.search.slice(1))) {
+          document.documentElement.dataset.door = 'skip';
+          history.replaceState(null, '', location.pathname + location.hash);
+        }
+      } catch (e) { /* an address we can't rewrite is still a game */ }
     })();
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,12 +52,31 @@
 </head>
 <body>
 
+  <!-- The front door: which game, whenever the site is opened at its root.
+       js/door.js fills in today's number and the run in hand. -->
+  <div class="door" id="door" role="dialog" aria-modal="true" aria-labelledby="doorTitle">
+    <div class="door-inner">
+      <h1 class="door-title" id="doorTitle">Great Work <span class="door-mark">❦</span></h1>
+      <p class="door-sub">A word-forging game</p>
+      <a class="door-card" id="doorDaily" href="daily/">
+        <span class="door-card-head">Daily <span class="mode-tag">alpha</span></span>
+        <span class="door-card-body">One word from today’s case of sorts, ranked against every word the case could set.</span>
+        <span class="door-card-meta" id="doorDailyMeta"></span>
+      </a>
+      <button class="door-card" id="doorCampaign" type="button">
+        <span class="door-card-head">Campaign <span class="mode-tag">pre-alpha</span></span>
+        <span class="door-card-body">A word a page, patrons hired between pages, and quotas that climb chapter by chapter.</span>
+        <span class="door-card-meta" id="doorCampaignMeta"></span>
+      </button>
+    </div>
+  </div>
+
   <header>
     <!-- The name opens the modes: this one, and the Daily Proof (daily/). -->
     <button class="logo mode-btn" id="modeBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="modeList">Great Work <span class="logo-mark">❦</span><span class="mode-caret" aria-hidden="true">▾</span></button>
     <nav class="mode-list" id="modeList" aria-label="Modes" hidden>
-      <a class="mode-item" href="daily/">Daily mode <span class="mode-tag">beta</span></a>
-      <span class="mode-item mode-item--here" aria-current="page">Campaign <span class="mode-tag">alpha</span></span>
+      <a class="mode-item" href="daily/">Daily mode <span class="mode-tag">alpha</span></a>
+      <span class="mode-item mode-item--here" aria-current="page">Campaign <span class="mode-tag">pre-alpha</span></span>
     </nav>
     <div class="header-spacer"></div>
     <div class="coin-purse" title="Coins"><span class="coin coin--lg"></span><span id="coinCount">0</span></div>
@@ -338,6 +367,7 @@
     </div>
   </div>
 
+  <script type="module" src="js/door.js"></script>
   <script type="module" src="js/main.js"></script>
 </body>
 </html>

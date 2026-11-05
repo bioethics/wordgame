@@ -40,7 +40,7 @@ let sundryPicked = () => {};
 // The held tile stays in the DOM (dimmed), so indices line up with the state
 // arrays — reorderRack/reorderWord compensate for the removal themselves.
 function insertIndex(container, clientX) {
-  const tiles = [...container.querySelectorAll(':scope > .tile')];
+  const tiles = [...container.querySelectorAll(':scope > .tile, :scope > .halo > .tile')];
   if (!tiles.length) return 0;
   let best = tiles.length, bestDist = Infinity;
   for (let i = 0; i < tiles.length; i++) {

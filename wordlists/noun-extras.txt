@@ -1,0 +1,47 @@
+# Nouns WordNet doesn't know, for the Sculptor's list (noun-forms.txt), which
+# tools/build-nouns.mjs otherwise builds from WordNet alone. Each word here is
+# taken as a noun if the dictionary holds it, with its dictionary plurals. Add
+# words the dictionary gains after WordNet's day: Australian animals, for a
+# start, since 5 November.
+#
+# Mammals
+brumby
+wallaroo
+woylie
+quenda
+mulgara
+jumbuck
+# Birds
+brolga
+honeyeater
+pardalote
+wattlebird
+whipbird
+friarbird
+spinebill
+boobook
+wedgetail
+malleefowl
+cockies
+# Reptiles
+goanna
+perentie
+dugite
+saltie
+freshie
+# In the water
+yabby
+marron
+barra
+wobbegong
+irukandji
+# Insects and spiders
+redback
+mozzie
+blowie
+bogong
+witchetty
+bullant
+# Not quite animals
+bunyip
+yowie

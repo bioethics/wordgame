@@ -32,7 +32,10 @@ long-press any tile or patron for its details — also how you flip a dual tile 
 touch. The narrow board puts the patrons above the page and Print hard right of
 the verbs, and it spends whatever height the phone has **between** its rows
 (`align-content: space-between`) rather than centring the board and leaving a
-band of bare bench under the sign.
+band of bare bench under the sign. It only ever spends height it has: the board
+grows to the screen but never shrinks below its own rows, so a phone shorter
+than the board (about 850px of page, on a 390px-wide phone) scrolls rather than
+sliding the stick and the case up under the readout, as it once did.
 
 **Nothing on it resizes as you compose.** The case holds every row the hand
 fills, from the first frame, so moving a sort into the stick never collapses it
@@ -1652,6 +1655,14 @@ toss to wherever they are going and the sounds are the game's own
 (`snapTiles`/`flipTiles` and `sfx` from `js/anim.js`), following the full
 game's sound setting where the two share a site.
 
+The ❦ before the title opens the modes menu (the Daily Proof, the Campaign)
+and **How to play**: a short sheet with Points × Mult, length and paint, and
+one worked example, GARDEN with two crimson sorts and one azure,
+set in real sorts and scored by `scoreWord`, so its chips and its sum (10 ×
+12 = 120) are the game's own and move if the arithmetic does (`openHowto`;
+the words are `HOWTO` in `daily/text.js`). In the artifact build there is no
+Campaign to go to, so the menu keeps the Daily Proof and How to play.
+
 The board is the bench's, cut down to one word. Each sort in the stick wears
 what it pays in the word being set — its own figure plus whatever its nick
 reads, in brass when that beats its resting value, popping when it changes —
@@ -1746,14 +1757,29 @@ share line carries the label.
 
 ### The tool
 
-About a third of cases (`LUCK.tool`) put one tool on the bench — the
+About a third of cases (`LUCK.tool`) put one tool on the bench, on the days
+without a choice of patrons (a choice day, Friday or Sunday, has its decision
+already, and a two-word day has no tool either): the
 **Ratchet** (the wrench: step one letter to its neighbour in the alphabet,
-either way, A round to Z) or the **Loupe** (double one tile's value, to 30).
-Those two are the sundries that pose a *decision* inside a single word. The
+either way, A round to Z) half the time, and otherwise, a tenth each, the
+**Loupe** (double one tile's value, to 30) or a **tube** of crimson, azure,
+jade or amber paint. A tube offers three unpainted tiles (`TUBE_OFFER`; the
+game's offers two) and paints the one you pick. The offer is dealt with the
+case, so every reader is offered the same three, of different letters where
+the case allows, and the decision is where the colour goes: on a word that
+already holds that paint it lifts the chip a step (×2 to ×3), on one that
+doesn't it starts a chip (×1 to ×2), and only a word that uses an offered
+tile can have it at all. (Until 5 November there were only the ratchet and
+the loupe, 55 to 45.)
+
+Those are the sundries that pose a *decision* inside a single word. The
 others do not: the tongs would be a flat +8 on every word, the ink wash free
-paint, the laurel and the potion need patrons, and the bodkin reaches into a
-bag this mode doesn't have. Until you print, tapping the tool again takes it
-back, so it is something to think with rather than something to spend.
+paint on everything, the laurel and the potion need patrons, and the bodkin
+reaches into a bag this mode doesn't have. Until you print, tapping the tool
+again takes it back, so it is something to think with rather than something
+to spend. A tool is easy to miss, so a day that opens with one, unprinted,
+greets you with it: three pulses of brass once the case is dealt
+(`helloTool`), or a still ring for a moment with reduced motion.
 
 The ranking takes the tool into account, which is what makes it fair. The
 field is every word the case could set *with the tool used as well as it can
@@ -1995,10 +2021,11 @@ spacing by place would. On a two-word day the pairs are too many to keep, so
 `solvePairs` remembers the first pair to reach each score as it counts, and a
 stone names that pair.
 
-The field is drawn as one curve, score against place. The place runs on a
+The field is drawn as one curve, score against place, the best word at the
+right, so the curve climbs as the words improve. The place runs on a
 log axis anchored at the top 1%, log(1 + place ÷ one per cent of the field).
 Below 1% it reads like a log axis, fine at the top and broad underneath;
-above it, it turns linear, so the top 1% takes about a sixth of the width.
+above it, it turns linear, so the top 1% takes about the right-hand sixth.
 On a plain log axis that 1% took two fifths, so a word in the top 1.5% sat
 halfway along and looked far down the field. The marks are 1%, 10%, 50% and
 100%; the slip's grade keeps its finer brackets. The field is gray,
@@ -2038,49 +2065,43 @@ numbers shouldn't keep their old cases. Printed proofs are kept in
 `localStorage` under `great-work-daily-v4`, the number moving with the salt so
 a re-dealt case never reopens on an old proof.
 
-### On its own subdomain
+### One site, one front door
 
-GitHub Pages serves one custom domain per repository, and this one already
-answers to `great.julianandliesl.xyz` — so a subdomain is a second, tiny Pages
-site holding nothing but the daily, bundled into one page:
+Both games live on one site, from this one repository: the Campaign at the
+root, the Daily Proof at `/daily/` (`/daily/#12` for a given number). Opened at
+its root, the site asks which, every time (*Daily*, alpha, and *Campaign*,
+pre-alpha), with what each has waiting
+(`js/door.js`, drawn in `index.html` so it is up before the board paints):
+today's number and whether it is printed, and the run in hand, *Continue:
+Chapter II, page 3*, or *Begin a run*. The Campaign boots behind it, so
+choosing it is instant.
 
-```
-node tools/build-daily.mjs --cname daily.julianandliesl.xyz
-```
+Each game's menu crosses straight to the other, and neither loses its place.
+The daily's sends `?play=campaign`, which the head of `index.html` reads to keep
+the door shut, tidying the address back to the root. The Campaign saves its run
+as it goes (`saveState`), and the daily keeps a word being set, day by day,
+until it is printed (`saveDraft`, under the proofs' key plus `-drafts`; the last
+few days are kept).
 
-writes `dist-daily/index.html` (the dictionary and the seats' lists embedded
-already filtered, so the exclusion list itself never ships; nothing fetched
-but the fonts) and its
-`CNAME`. With `--artifact` instead it writes `dist-daily/daily-proof.html`, the
-same page as a claude.ai artifact (contents only — the host supplies the
-skeleton), which is the quickest way to playtest from a phone: publish it and
-open the link. A republish mid-game keeps the case being set (the
-`window.claude.hot` snapshot in `daily/main.js`). The masthead's fleuron
-points back at the full game. `.github/workflows/daily-subdomain.yml` rebuilds and
-publishes it whenever the daily or anything it reads changes; it does nothing
-until it is told where to publish. To switch it on:
-
-1. Create an empty repository for the site (say `bioethics/daily-proof`) and
-   turn on Pages for it, deploying from its `main` branch.
-2. Make a deploy key (`ssh-keygen -t ed25519 -f daily_key -N ""`). Add the
-   public half to the site's repository under *Deploy keys*, with write
-   access; add the private half to THIS repository as the secret
-   `DAILY_DEPLOY_KEY`.
-3. On this repository, set the variables `DAILY_PAGES_REPO`
-   (`bioethics/daily-proof`) and `DAILY_DOMAIN` (`daily.julianandliesl.xyz`).
-4. At the DNS host, add a CNAME record for `daily` pointing at
-   `bioethics.github.io`.
-5. Run the workflow once from the Actions tab; after that it runs itself.
+`node tools/build-daily.mjs` still bundles the daily into one page: with
+`--artifact`, `dist-daily/daily-proof.html`, the page as a claude.ai artifact
+(contents only, the host supplies the skeleton), the quickest way to playtest
+from a phone. A republish mid-game keeps the case being set (the
+`window.claude.hot` snapshot in `daily/main.js`). There, with no Campaign to go
+to, the ❦ menu keeps the Daily Proof and How to play. (Until 5 November a
+workflow could also publish the bundle to a subdomain of its own, from a second
+repository; it was never switched on, and one site with a front door replaced
+it.)
 
 | File | Role |
 | --- | --- |
 | `daily/deal.js` | the seeded deal: the almanac, the per-sort luck, the tool, the week and who sits, the numbering |
 | `daily/score.js` | the scorer, the tools' effects, the solver, the pair search, the ranking and its brackets |
 | `daily/table.js` | the patrons and editors a day can seat, and the lists they read |
-| `daily/main.js` | the page: composing, the tool, printing, the slip, the saved proofs |
+| `daily/main.js` | the page: composing, the tool, printing, the slip, the saved proofs and drafts |
 | `daily/chart.js` | the field, drawn |
 | `daily/text.js` | every word the page shows a player |
 | `daily/daily.css` | the page, and the game's sorts re-cut in em |
 | `tools/daily-check.mjs` | the daily held to the game |
 | `tools/daily-table.mjs` | every candidate seat measured against real cases — the evidence for the rosters |
-| `tools/build-daily.mjs` | the one-page bundle for the subdomain |
+| `tools/build-daily.mjs` | the one-page bundle: the artifact for playtesting |
