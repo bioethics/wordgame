@@ -692,8 +692,7 @@ button.mode-item:hover, button.mode-item:focus-visible { background: rgba(217, 1
 .best-def { font: 13px/1.35 var(--sans); color: var(--dim); }
 .best-def[hidden] { display: none; }
 .best-defs { padding: 0 4px 6px 3.2em; }
-.best-defs p { margin: 0 0 4px; font: 13px/1.35 var(--sans); color: var(--dim); }
-.best-defs b { font-family: var(--fell-sc); font-weight: 400; font-size: 15px; letter-spacing: 0.04em; color: var(--ink); }
+.best-def--pair { display: block; margin: 0 0 4px; }
 .best-score { font-family: var(--serif); font-weight: 900; font-size: 17px; font-variant-numeric: tabular-nums; }
 .best-row--yours .best-head { background: rgba(184, 50, 26, 0.09); box-shadow: inset 3px 0 0 var(--you-ink); }
 .best-set { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 2px 4px 10px 3.2em; }

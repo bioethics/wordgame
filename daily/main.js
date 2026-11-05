@@ -128,10 +128,18 @@ function loadDefs(letter) {
 const defOf = word => DEFS.get(word)
   ?? (LISTS.names?.has(word) || LISTS.borrowed?.has(word) ? DEF_TEXT.name : null);
 const showDef = d => (d ? d[0].toUpperCase() + d.slice(1) : '');
-function defSpan(word, cls = 'best-def') {
+// `headed`: the definition names its word, once. An inflection's already does
+// (EMBARKATIONS gives "EMBARKATION: the act of…"); any other is given its own
+// ("URIAL: bearded reddish sheep…").
+const HEADED = /^[A-Z][A-Z'-]*: /;
+function defSpan(word, cls = 'best-def', headed = false) {
   const s = document.createElement('span');
   s.className = cls;
-  const fill = () => { s.textContent = showDef(defOf(word)); s.hidden = !s.textContent; };
+  const fill = () => {
+    const d = defOf(word);
+    s.textContent = !d ? '' : headed && !HEADED.test(d) ? `${word}: ${d}` : showDef(d);
+    s.hidden = !s.textContent;
+  };
   s.hidden = true;
   if (defLoads.has(word[0]?.toLowerCase())) defLoads.get(word[0].toLowerCase()).then(fill);
   else loadDefs(word[0] ?? '').then(fill);
@@ -1491,7 +1499,8 @@ function renderResult() {
 
 // One row of a best-of list: place, name, score, and a setting under it when open.
 // `words` are what the row's name is made of. Their definitions show only once
-// the row is opened, in full: one word's under it, a pair's two beneath.
+// the row is opened, in full: one word's under it, a pair's two beneath, each
+// headed by the word it defines (or that word's root), in the definition's type.
 function bestRow(row) {
   const { key, place, name, score, yours, stone, open, fillSet, words = [] } = row;
   const li = document.createElement('li');
@@ -1519,12 +1528,7 @@ function bestRow(row) {
   if (open && words.length > 1) {
     const defs = document.createElement('div');
     defs.className = 'best-defs';
-    for (const word of words) {
-      const line = document.createElement('p');
-      const b = document.createElement('b'); b.textContent = word;
-      line.append(b, ' ', defSpan(word, 'best-def best-def--pair'));
-      defs.appendChild(line);
-    }
+    for (const word of words) defs.appendChild(defSpan(word, 'best-def best-def--pair', true));
     li.appendChild(defs);
   }
   if (open) fillSet(li);
