@@ -1909,8 +1909,8 @@ if (window.claude?.hot?.ready) window.claude.hot.ready(start);
 else start(window.claude?.hot?.data ?? {});
 
 // ─── How to play ──────────────────────────────────────────────────────────────
-// A short sheet from the ❦ menu: the gesture, Points × Mult, length and paint,
-// and one worked example set in real sorts and scored by the scorer, so its
+// A short sheet from the ❦ menu: Points × Mult, length and paint, one worked
+// example set in real sorts and scored by the scorer, so its
 // chips and sum are the game's own. Built the first time it opens.
 const HOWTO_WORD = { letters: 'GARDEN', paint: { 1: 'crimson', 4: 'crimson', 2: 'azure' } };
 function openHowto() {
@@ -1931,7 +1931,7 @@ function openHowto() {
     x.addEventListener('click', () => dlg.close());
     head.append(h, x);
     const para = text => { const p = document.createElement('p'); p.textContent = text; return p; };
-    body.append(head, para(HOWTO.set), para(HOWTO.score), para(HOWTO.mult));
+    body.append(head, para(HOWTO.score), para(HOWTO.mult));
 
     const tiles = [...HOWTO_WORD.letters].map((L, id) =>
       ({ ...makeTileTemplate(L), id: 900 + id, colour: HOWTO_WORD.paint[id] ?? null }));
@@ -1962,7 +1962,7 @@ function openHowto() {
     sum.textContent = fill(HOWTO.sum, fmtN(sc.shownPoints), fmtMult(sc.shownMult), fmtN(sc.total));
     fig.append(cap, miniWord(tiles, null), chips, sum);
     body.appendChild(fig);
-    for (const line of HOWTO.more) body.appendChild(para(line));
+    body.appendChild(para(HOWTO.hold));
     dlg.appendChild(body);
     // A tap on the dimmed page around the sheet puts it away.
     dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });

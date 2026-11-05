@@ -1543,8 +1543,8 @@ toss to wherever they are going and the sounds are the game's own
 game's sound setting where the two share a site.
 
 The ❦ before the title opens the modes menu (the Daily Proof, the Campaign)
-and **How to play**: a short sheet with the gesture, Points × Mult, length and
-paint, and one worked example, GARDEN with two crimson sorts and one azure,
+and **How to play**: a short sheet with Points × Mult, length and paint, and
+one worked example, GARDEN with two crimson sorts and one azure,
 set in real sorts and scored by `scoreWord`, so its chips and its sum (10 ×
 12 = 120) are the game's own and move if the arithmetic does (`openHowto`;
 the words are `HOWTO` in `daily/text.js`). In the artifact build there is no

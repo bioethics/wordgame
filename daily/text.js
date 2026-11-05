@@ -134,16 +134,11 @@ export const PAIR_TEXT = {
 export const HOWTO = {
   title: 'How to play',
   close: 'Close',
-  set: 'Set one word from the sorts in the case: tap a sort to set it, tap it again to take it back. Print when you’re ready.',
   score: 'A word scores Points × Mult. Points are the figures in the sorts’ corners, added up.',
   mult: 'Mult comes from length (×2 at six letters, +0.5 for each letter after) and from paint. Each colour in the word is a multiplier of its own: one crimson sort is ×2, two are ×3, three ×4. Different colours multiply together.',
   example: 'For example, {0} with two crimson sorts and one azure:',
   sum: '{0} Points × {1} Mult = {2}',
-  more: [
-    'Hold a sort to read what its trim or nick does. Purple trims multiply too.',
-    'Some days a patron or an editor sits at the table and changes what pays, and some put a tool on the bench. Tap the day’s name at the top to read what it holds.',
-    'Your printed word is ranked against every word the case could set.',
-  ],
+  hold: 'Hold a sort to read what its trim or nick does.',
 };
 
 export const UI = {
