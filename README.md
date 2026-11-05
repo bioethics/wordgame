@@ -1871,9 +1871,8 @@ Athlete reaches 33% (half of all good words are verbs) and sits on Tuesday,
 and so does the Sculptor, at 43% once his list became every word whose
 ordinary meaning is a noun; the game's own Herald (first and last the same) reached 3%, and
 dealing him doubled letters only 5%, hence the daily's ear for the first
-letter anywhere. The Sunday registers run 5–13% (the Seadog's list was the
-smallest until the Poppet's was cut to its cute words, 5 November:
-`wordlists/MAKING-LISTS.md`).
+letter anywhere. The Sunday registers run 5–13% (the Seadog's list is the
+smallest).
 
 Until 4 November the tiers were cut by measurement instead: over sixty cases,
 which patron of a pair gave the better *best* word, a tier admitting a

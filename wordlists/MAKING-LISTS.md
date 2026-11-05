@@ -25,10 +25,10 @@ Hence the rule every round so far has run on, in the original brief's words:
 *"a low barrier for additional admissions, but a high barrier against removal;
 just get rid of the really glaring mistakes."*
 
-How big a list is decides how often its patron fires. The five cover 6.1–13%
-of the playable dictionary (`node tools/theme-list.mjs check`), cute the
-least since its noise came out on 5 November. At that coverage the register
-patrons change the Daily Proof's best word on 71–88% of cases
+How big a list is decides how often its patron fires. The five cover 6–13%
+of the playable dictionary (`node tools/theme-list.mjs check`). At that
+coverage the register patrons change the Daily Proof's best word on 73–88% of
+cases
 (`tools/daily-table.mjs`, 48 cases), the most of any patron measured. A list
 of 1–2% would be a patron that rarely fires; one of 30% would be a ×3 on every
 word.
@@ -348,9 +348,9 @@ What the session history, the commits and the author's Drive show:
   the list marked it. `daily/main.js` now marks a seat only where it paid,
   as it already did on patron days. The list itself was read top to bottom,
   then the cuts, then what was left.
-  - **3,229 cut, from 7,759.** A first pass cut 3,708; the author's rulings
-    below sent 479 of them back, to the places they had held. Most of the
-    cuts came from three places. A 518-word
+  - **2,999 cut, from 7,759.** A first pass cut 3,708; the author's rulings
+    below sent 709 of them back over two rounds, to the places they had held.
+    Most of the cuts came from three places. A 518-word
     associative drift sat right after the seed clusters (GRANITE, CYRILLIC,
     UVULAR, WIDOW, TRANSLITERATION), and an 84-word one further down
     (SAVOURY, WORN, SOUND, PETTY). The alphabetical generator batch carried
@@ -370,28 +370,33 @@ What the session history, the commits and the author's Drive show:
     seed's fashion cluster is the author's own (CHIC, SUAVE, COUTURE, BESPOKE),
     and words of its kind join it: STYLISH, CLASSY, KICKY, PREPPY, the fabrics
     (TAFFETA, ORGANDIE, SEERSUCKER), hats and hair (PILLBOX, FASCINATOR,
-    BOUFFANT, QUIFF), and CAFES, BISTROS, BOUTIQUES. A word that also names
-    something cute is in on that sense, whatever its other one: TITS, BOOBY and
-    DICKY the birds, VIXEN and FOXY the fox, WIENER the dog, MUFF the
-    hand-warmer. Sexual vocabulary proper stays off (NUBILE, BUXOM, SEDUCTIVE,
+    BOUFFANT, QUIFF), and CAFES, BISTROS, BOUTIQUES. The rough synonyms for
+    cute-as-fashionable are in (SHARP, SNAPPY, DRESSY, SWISH, JAZZY, DANDY);
+    SPORTY and MULES are not. A word that also names something cute is in on
+    that sense, whatever its other one: TITS, BOOBY and DICKY the birds, FOXY
+    the fox, WIENER the dog, MUFF the hand-warmer. VIXEN is out: its other
+    sense wins. Sexual vocabulary proper stays off (NUBILE, BUXOM, SEDUCTIVE,
     TITTIES, WILLY), as do toilet words (WEES). Love's giddy end is cute as
-    well as romantic; desire is romantic only. Not cute in any sense: calm
-    (SERENE, TRANQUIL), adult kin (FATHER, WIFE, WIDOW, though GRANDMOTHER,
-    GRANNIE, MAMA and NIECE stay), plant anatomy (STAMEN, RHIZOME, UMBEL),
-    herbs and spices (BASIL, THYME, CARDAMOM), animals nobody coos at (BISON,
-    IBEX, CORMORANT), and function words. Every duck, small deer and
-    aquarium fish is in (SMEW, TEAL, SIKA, BROCKET, RASBORA), as are fruit and
+    well as romantic; desire is romantic only. Cute is also clever, in the
+    old sense (a cute trick): CLEVER, CUNNING (which in older American usage
+    meant cute outright), CRAFTY, WILY, SLY, CANNY, WITTY, DROLL, QUIP, PUN,
+    PRANK, and the cute contraption (GADGET, GIZMO, THINGAMAJIG). It stops at
+    the playful end of cunning; DEVIOUS, SCHEMING and DUPLICITOUS stay off.
+    Birds and beasts are in down to the borderline: every duck, small deer and
+    aquarium fish, and the goofy, the woolly and the merely furry (DODO, EMU,
+    FROGMOUTH, SKUNK, WARTHOG, YAK, BISON, DINOSAUR). Birds of prey, snakes and
+    spiders are out. Quaint things are in (QUAINT, THATCHED, SUNDIAL,
+    WEATHERVANE, MAYPOLE, LYCHGATE, TEAROOM, GRAMOPHONE), as are fruit and
     nuts (GUAVA, PECAN), nursery puddings (JUNKET, POSSET, SAGO), cottagecore
     (RUSTIC, COBBLESTONE, SAMPLER, POMANDER), and baby animals' names (SQUAB,
-    ELVER).
+    ELVER). Not cute in any sense: calm (SERENE, TRANQUIL), adult kin (FATHER,
+    WIFE, WIDOW, though GRANDMOTHER, GRANNIE, MAMA and NIECE stay), plant
+    anatomy (STAMEN, RHIZOME, UMBEL), herbs and spices (BASIL, THYME,
+    CARDAMOM), and function words.
   - **Read and left out, with a thinner case** (next to read if the list wants
-    more): cute's clever sense (CLEVERNESS, GUILE), more of fashion (SHARP,
-    SNAPPY, SPORTY, MULES, STOLE, PERFUME), quaint things (SUNDIAL,
-    WEATHERVANE, MILLPOND, DORMER), more birds and beasts (SWIFT, SPOONBILL,
-    HORNBILL, CURLEW, NYALA, CHAMOIS, SAIGA, FRY), family and school (MOTHER,
-    BROTHER, SCHOOL, TEACHER), and CHANGELING, STARLIGHT, FROSTY, GUFFAW,
-    SNICKER, COUNTESS.
-  - **519 added, by facet.** Infatuation: SMITTEN, BESOTTED, ENAMOURED, CRUSH,
+    more): STOLE, PERFUME, family and school (MOTHER, BROTHER, SCHOOL,
+    TEACHER), FRY, CHANGELING, STARLIGHT, FROSTY, GUFFAW, SNICKER, COUNTESS.
+  - **1,342 added that the list never had.** The first 519, by facet. Infatuation: SMITTEN, BESOTTED, ENAMOURED, CRUSH,
     SWOON, SMOOCH, CANOODLE, SWEETHEART, MUSHY, SOPPY, LOVESICK, GAGA. Shyness:
     SHY, COY, DEMURE, SHEEPISH, GIDDY, AFLUTTER. Silliness: SILLY, GOOFY,
     DORKY, KLUTZ, CLUMSY, DOPEY, ZANY, NINCOMPOOP. Mischief: MISCHIEF, NAUGHTY,
@@ -404,11 +409,19 @@ What the session history, the commits and the author's Drive show:
     COMFY, TOASTY, KNITTED, EARMUFFS, NIGHTLIGHT. And RAINBOW, SUNSHINE,
     FLOWER, MERMAID, OOPS, YIPPEE and WHEE. Most came from a brainstorm by
     facet; the Foundry's link ranking, run on the cleaned list, found COMFY,
-    TOASTY, SONGBIRD and the rest of its last 61.
-  - **Measured** (`daily-table.mjs 1-48`): at 5,049 words (6.1% of the
-    dictionary) the Poppet moves the best word on 71% of cases (85% before),
-    fires on it on 75% (90%), and is dead on none. That puts her level with the
-    Seadog. Some of the old figure was noise paying.
+    TOASTY, SONGBIRD and the rest of its last 61. Then 823 on the author's
+    rulings. Birds and beasts were swept from WordNet's animal file
+    (`noun.animal`, lexicographer file 05, read class by class against the
+    dictionary): SWAN, PIGEON, QUAIL, KITTIWAKE, BULLDOG, LAPDOG, GUERNSEY,
+    BOXFISH, ISOPOD, CRITTER. The clever and quaint facets came from a
+    brainstorm, then the link ranking seeded with each facet alone
+    (SLYBOOTS, MONKEYSHINES, CRACKERJACK; GRANGE, HAYRICK, HEARTHSTONE).
+    The fashion synonyms were brainstormed (DRESSY, SWISH, SPIFFING).
+  - **Measured** (`daily-table.mjs 1-48`): at 6,102 words (7.4% of the
+    dictionary, down from 9.4%) the Poppet moves the best word on 73% of cases
+    (85% before), fires on it on 79% (90%), and is dead on none; at the
+    first round's 4,569 words it was 71% and 75%. Some of the old figure was
+    noise paying.
   - **The author's calls.** PANSY (the flower, and a slur), PAPOOSE, PIGMY and
     DADDY stay on cute. GOLLIWOG, GOLLIWOGS and GOLLIES are on the block list.
 
