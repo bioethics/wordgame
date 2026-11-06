@@ -1528,7 +1528,7 @@ thoroughgoing	performed comprehensively and completely; not superficial or parti
 thoroughly	in an exhaustive manner
 thoroughness	conscientiousness in performing all aspects of a task
 those	the ones there, or the ones already mentioned
-thou	the cardinal number that is the product of 10 and 100
+thou	you, in old-fashioned speech
 though	however
 thought	the content of cognition; the main thing you are thinking about
 thoughtful	having intellectual depth
@@ -1538,7 +1538,7 @@ thoughtless	showing lack of careful thought
 thoughtlessly	in a thoughtless manner
 thoughtlessness	the quality of failing to be considerate of others
 thoughts	THOUGHT: the content of cognition; the main thing you are thinking about
-thous	THOU: the cardinal number that is the product of 10 and 100
+thous	THOU: you, in old-fashioned speech
 thousand	the cardinal number that is the product of 10 and 100
 thousands	THOUSAND: the cardinal number that is the product of 10 and 100
 thousandth	one part in a thousand equal parts
@@ -1874,14 +1874,14 @@ tiler	TIL: until
 tilers	TILER: a worker who lays tile
 tiles	TIL: until
 tiling	TIL: until
-till	a strongbox for holding cash
+till	until; also a cash drawer in a shop
 tillable	(of farmland) capable of being farmed productively
 tillage	the cultivation of soil for raising crops
 tilled	turned or stirred by plowing or harrowing or hoeing
 tiller	TIL: until
 tillers	TILLER: lever used to turn the rudder on a boat
 tilling	TIL: until
-tills	TILL: a strongbox for holding cash
+tills	TILL: until; also a cash drawer in a shop
 tilt	to incline or bend from a vertical position
 tilted	departing or being caused to depart from the true vertical or horizontal
 tilter	someone who engages in a tilt or joust

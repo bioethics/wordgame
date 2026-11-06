@@ -373,7 +373,7 @@ campy	providing sophisticated amusement by virtue of having artificially (and vu
 cams	CAM: a rotating disk shaped to convert circular into linear motion
 camshaft	an engine shaft with cams attached to it
 camshafts	CAMSHAFT: an engine shaft with cams attached to it
-can	preserve in a can or tin
+can	be able to; also a metal container
 canal	long and narrow strip of water made for boats or for irrigation
 canals	CANAL: long and narrow strip of water made for boats or for irrigation
 canape	an appetizer consisting usually of a thin slice of bread or toast spread with caviar or cheese or other savory food
@@ -436,8 +436,8 @@ candy	a rich sweet made of flavored sugar and often combined with fruit or nuts
 candyfloss	a candy made by spinning sugar that has been boiled to a high temperature
 candying	CANDY: a rich sweet made of flavored sugar and often combined with fruit or nuts
 cane	a stick that people can lean on to help them walk
-caned	CAN: preserve in a can or tin
-canes	CAN: preserve in a can or tin
+caned	CAN: be able to; also a metal container
+canes	CAN: be able to; also a metal container
 canfield	a form of solitaire that involves gambling
 canfields	CANFIELD: a form of solitaire that involves gambling
 canine	any of various fissiped mammals with nonretractile claws and typically long muzzles
@@ -452,9 +452,9 @@ cankerous	having an ulcer or canker
 cankers	CANKER: an ulceration (especially of the lips or lining of the mouth)
 cannabis	the most commonly used illicit drug; considered a soft drug, it consists of the dried leaves of the hemp plant; smoked or chewed for euphoric effect
 cannabises	CANNABIS: the most commonly used illicit drug; considered a soft drug, it consists of the dried leaves of the hemp plant; smoked or chewed for euphoric effect
-canned	CAN: preserve in a can or tin
+canned	CAN: be able to; also a metal container
 cannelloni	tubular pasta filled with meat or cheese
-canner	CAN: preserve in a can or tin
+canner	CAN: be able to; also a metal container
 canneries	CANNERY: a factory where food is canned
 canners	CANNER: people who preserve food in cans
 cannery	a factory where food is canned
@@ -474,7 +474,7 @@ cannier	CANNY: showing self-interest and shrewdness in dealing with others
 canniest	CANNY: showing self-interest and shrewdness in dealing with others
 cannily	with foresight
 canniness	the quality of being canny
-canning	CAN: preserve in a can or tin
+canning	CAN: be able to; also a metal container
 cannoli	Italian pastry tubes filled with sweet cream
 cannon	a large artillery gun that is usually on wheels
 cannonade	intense and continuous artillery fire
@@ -520,7 +520,7 @@ canopied	covered with or as with a canopy
 canopies	CANOPY: a covering (usually of cloth) that serves as a roof to shelter an area from the weather
 canopy	a covering (usually of cloth) that serves as a roof to shelter an area from the weather
 canopying	CANOPY: a covering (usually of cloth) that serves as a roof to shelter an area from the weather
-cans	CAN: preserve in a can or tin
+cans	CAN: be able to; also a metal container
 canst	CAN: second person singular, old form
 cant	stock phrases that have become nonsense through endless repetition
 cantabile	smooth and flowing

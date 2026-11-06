@@ -318,7 +318,7 @@ daylights	DAYLIGHT: the time after sunrise and before sunset while it is light o
 daylong	lasting through an entire day
 dayroom	a communal sitting room in an institution
 dayrooms	DAYROOM: a communal sitting room in an institution
-days	the time during which someone's life continues
+days	DAY: a period of twenty-four hours
 daytime	the time after sunrise and before sunset while it is light outside
 daze	confusion characterized by lack of clarity
 dazed	in a state of mental numbness especially as resulting from shock
@@ -2068,7 +2068,7 @@ detailed	developed or executed with care and in minute detail
 detailer	one who cleans a vehicle thoroughly
 detailers	DETAILER: one who cleans a vehicle thoroughly
 detailing	DETAIL: an isolated fact that is considered separately from the whole
-details	true confidential information
+details	DETAIL: a small individual fact or feature
 detain	deprive of freedom; take into confinement
 detained	DETAIN: deprive of freedom; take into confinement
 detainee	some held in custody

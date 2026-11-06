@@ -948,7 +948,7 @@ nix	a quantity of no importance
 nixed	NIX: a quantity of no importance
 nixes	NIX: a quantity of no importance
 nixing	NIX: a quantity of no importance
-no	referring to the degree to which a certain quality is present
+no	not any; also a word of refusal or denial
 nob	informal term for an upper-class or wealthy person
 nobble	deprive of by deceit
 nobbled	NOBBLE: deprive of by deceit
@@ -966,8 +966,8 @@ noblest	NOBLE: impressive in appearance
 noblewoman	a woman of the peerage in Britain
 noblewomen	NOBLEWOMAN: a woman of the peerage in Britain
 nobly	in a noble manner
-nobodies	NOBODY: a person of no influence
-nobody	a person of no influence
+nobodies	NOBODY: no person
+nobody	no person
 nobs	NOB: informal term for an upper-class or wealthy person
 noctilucent	shining or glowing by night
 nocturnal	belonging to or active during the night
@@ -1257,7 +1257,7 @@ normally	under normal conditions
 normals	NORMAL: conforming with or constituting a norm or standard or level or type or social norm; not abnormal
 normative	pertaining to giving directives or rules
 norms	NORM: a standard or model or pattern regarded as typical
-north	the region of the United States lying to the north of the Mason-Dixon line
+north	the direction to the left of someone facing the sunrise
 northbound	moving toward the north
 northeast	the compass point midway between north and east; at 45 degrees
 northeaster	NORTHEAST: the compass point midway between north and east; at 45 degrees
@@ -1266,7 +1266,7 @@ northeastern	situated in or oriented toward the northeast
 northeasters	NORTHEASTER: a storm blowing from the northeast
 northeastward	in a northeastward direction
 northeastwards	NORTHEASTWARD: in a northeastward direction
-norther	NORTH: the region of the United States lying to the north of the Mason-Dixon line
+norther	NORTH: the direction to the left of someone facing the sunrise
 northerlies	NORTHERLY: situated in or oriented toward the north
 northerly	situated in or oriented toward the north
 northern	in or characteristic of a region of the United States north of (approximately) the Mason-Dixon line
@@ -1282,7 +1282,7 @@ northwesterly	coming from the northwest
 northwestern	situated in or oriented toward the northwest
 northwestward	in a northwestward direction
 northwestwards	NORTHWESTWARD: in a northwestward direction
-nos	NO: referring to the degree to which a certain quality is present
+nos	NO: not any; also a word of refusal or denial
 nose	the organ of smell and entrance to the respiratory tract; the prominent part of the face of man or other mammals
 nosebag	a canvas bag that is used to feed an animal (such as a horse); covers the muzzle and fastens at the top of the head
 nosebags	NOSEBAG: a canvas bag that is used to feed an animal (such as a horse); covers the muzzle and fastens at the top of the head
@@ -1361,9 +1361,9 @@ notepads	NOTEPAD: a pad of paper for keeping notes
 notepaper	writing paper intended for writing short notes or letters
 notes	NOTE: a brief written record
 noteworthy	worthy of attention because interesting, significant, or unusual
-nothing	a quantity of no importance
+nothing	not anything
 nothingness	the state of nonexistence
-nothings	NOTHING: a quantity of no importance
+nothings	NOTHING: not anything
 notice	an announcement containing information about an event
 noticeable	capable or worthy of being noticed
 noticeably	in a noticeable manner

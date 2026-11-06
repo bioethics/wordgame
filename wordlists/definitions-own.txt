@@ -13,7 +13,13 @@
 # 5 November, later still: 68 for words whose WordNet senses all miss the
 # everyday one (AM, AT, OR, HE; AVATAR, FIGUREHEAD; UTE, TUCKER, LOLLY, DAG),
 # written while picking the senses in definitions-senses.txt.
+# 6 November: 51 of the commonest words, where WordNet has no pronoun,
+# article or auxiliary (IT was information technology, ME Maine, WHO the World
+# Health Organization, A an angstrom) or its sense was the rarer one (WHITE "a
+# Caucasian", MAY the month), and where a plural took the wrong base (HIS
+# from HI, SITES from SIT, STATES from STAT).
 #
+a	one; any (the indefinite article)
 abaci	ABACUS: a frame with beads used for counting
 abandoner	one who abandons or gives something up
 abatement	a lessening or easing of something
@@ -22,6 +28,7 @@ abduction	the act of carrying someone off by force; kidnapping
 abiotic	not involving or produced by living things
 ableist	discriminating against people with disabilities
 abolisher	one who abolishes something
+above	higher than; over
 abraxas	a mystical word or charm, once engraved on gems as an amulet
 abscessing	ABSCESS: form a painful swelling filled with pus
 abscissae	ABSCISSA: the horizontal coordinate of a point on a graph
@@ -133,6 +140,7 @@ am	the form of "be" used with "I", as in "I am"
 amanuenses	AMANUENSIS: a person who writes down what another dictates
 amasser	one who gathers or piles up
 amebae	AMEBA: a single-celled organism that moves by changing shape
+amen	said at the end of a prayer: so be it
 amender	one who amends or corrects
 amid	in the middle of
 amidst	in the middle of
@@ -145,6 +153,7 @@ amoral	having no sense of right and wrong
 amphorae	AMPHORA: a tall ancient jar with two handles
 amplified	AMPLIFY: make louder or stronger
 amuletic	relating to a lucky charm
+an	one; any (the indefinite article, before a vowel sound)
 anaesthesiologist	a doctor who specialises in anaesthetics
 anaesthesiology	the medical study of anaesthetics
 anally	in a way relating to the anus
@@ -235,6 +244,7 @@ archrival	a chief rival
 arcked	ARC: form an electric arc
 arcking	ARC: form an electric arc
 ardency	intense passion or enthusiasm
+are	the form of "be" used with "you", "we" and "they"
 armsful	ARMFUL: as much as the arms can hold
 aromatherapist	a person who treats people with scented oils
 aromatics	AROMATIC: a fragrant plant or substance
@@ -456,6 +466,7 @@ beside	next to
 besmircher	one who stains another's reputation
 besmirchment	the act of damaging someone's reputation
 besought	BESEECH: beg earnestly
+best	better than all others
 bestrid	BESTRIDE: stand or sit astride
 bestridden	BESTRIDE: stand or sit astride
 bestrode	BESTRIDE: stand or sit astride
@@ -789,6 +800,7 @@ campanili	CAMPANILE: a bell tower
 campanological	relating to bell-ringing
 campanologist	a person who rings bells as an art
 campanology	the art or study of bell-ringing
+can	be able to; also a metal container
 cancelation	the act of calling off
 canceler	one who calls something off
 cancellers	CANCELLER: one who calls something off
@@ -1417,6 +1429,7 @@ datebook	a diary for appointments
 daunter	one who discourages
 daydreamt	DAYDREAM: have pleasant thoughts while awake
 dayroom	a communal sitting room in an institution
+days	DAY: a period of twenty-four hours
 dazzler	one who or that which dazzles
 deadener	something that reduces sound or feeling
 deadheaded	DEADHEAD: remove withered flowers from a plant
@@ -1550,6 +1563,7 @@ destructor	a furnace for burning rubbish
 desultorily	in a halfhearted, aimless way
 detacher	one who separates
 detailer	one who cleans a vehicle thoroughly
+details	DETAIL: a small individual fact or feature
 detainer	a person who holds another in custody
 detester	one who hates
 detoxified	DETOXIFY: remove poisons from
@@ -1903,6 +1917,7 @@ equestrienne	a woman who rides horses
 equilibria	EQUILIBRIUM: a state of balance
 equivalency	the state of being equal in value
 equivoque	a word or phrase with a double meaning
+er	a sound of hesitation
 ere	before
 ergative	of a verb whose object when transitive becomes its subject when intransitive
 ergonomically	in a way designed for comfort and efficiency in use
@@ -1945,6 +1960,7 @@ evangelisation	the spreading of Christianity
 evangelization	the spreading of Christianity
 evaporator	a device that turns liquid into vapour
 evapotranspiration	the combined loss of water from soil and plants into the air
+even	flat and level; also used to stress something surprising
 eventfully	in a way full of notable happenings
 eventing	a horse-riding contest of dressage, cross-country and jumping
 everglade	a marshy area of tall grass
@@ -2227,6 +2243,7 @@ fossick	search for gold or gems, or rummage
 fossicker	someone who searches for gold or gems by rummaging
 fosterers	FOSTERER: one who fosters
 foulmouthed	using obscene language
+found	FIND: come upon or discover
 foundational	basic
 fourposter	a bed with four tall posts
 foxfire	the glow of rotting wood
@@ -2618,6 +2635,7 @@ harrower	one who distresses
 harrumph	clear the throat noisily in disapproval
 haruspex	a priest in ancient Rome who foretold events from animal entrails
 haruspices	HARUSPEX: a priest in ancient Rome who foretold events from animal entrails
+has	HAVE: possess or hold
 hashtag	a word preceded by a hash sign used to label online posts
 hast	HAVE: possess
 hastener	one who speeds something up
@@ -2705,6 +2723,7 @@ hiphop	a style of music and culture with rapping and beats
 hiphuggers	HIPHUGGER: trousers that sit low on the hips
 hippopotami	HIPPOPOTAMUS: a large African river mammal with a huge mouth
 hiragana	a Japanese syllabic script
+his	belonging to him
 histopathological	relating to the study of diseased tissue
 histopathologist	a doctor who examines diseased tissue
 histopathology	the study of diseased tissue under a microscope
@@ -2714,8 +2733,10 @@ histrionically	in an overly dramatic way
 hitcher	a hitchhiker
 hivemind	a shared collective mind or way of thinking
 hiya	informal greeting
+hm	a sound of thinking or doubt
 hmm	sound made when thinking or hesitating
 hmph	sound expressing disapproval or annoyance
+ho	an exclamation to attract attention or show surprise
 hoboes	HOBO: a homeless wandering worker
 hockshop	a pawnshop
 hocus	trick or deceive
@@ -2923,6 +2944,7 @@ impugner	a person who challenges something as false
 impulsed	IMPULSE: driven by a sudden urge
 impulsing	IMPULSE: driving by a sudden urge
 impulsivity	the tendency to act without thinking
+in	inside; within
 inasmuch	to the degree that
 inboards	INBOARD: engines or boats with motors inside the hull
 inbox	the folder where new email arrives
@@ -3082,7 +3104,9 @@ is	third person singular of be
 isolator	a switch or device that cuts off a supply
 isopropyl	a chemical group found in rubbing alcohol
 isthmi	ISTHMUS: a narrow strip of land joining two larger areas
+it	the thing already mentioned
 iterator	something that repeats a process step by step
+its	belonging to it
 itself	that thing, as the object or for emphasis
 itsy	tiny
 jacana	a long-toed wading bird that walks on floating plants
@@ -3574,10 +3598,12 @@ maxed	MAX: bring to the maximum
 maxillae	MAXILLA: the upper jaw bone
 maxima	MAXIMUM: the greatest amount or degree
 maxing	MAX: bring to the maximum
+may	be allowed to, or might; also the fifth month
 maybes	MAYBE: a possibility
 mayest	archaic form of may used with thou
 mayst	archaic form of may used with thou
 mazourka	mazurka: a lively Polish dance
+me	the speaker, as the object of a sentence
 meanderer	someone who wanders or winds along aimlessly
 meanderings	MEANDERING: a winding or aimless course
 meathead	a stupid person
@@ -3691,6 +3717,7 @@ mimicked	MIMIC: imitate closely
 mimicking	MIMIC: imitate closely
 mimosa	a wattle or similar tree with fluffy yellow flowers; also champagne mixed with orange juice
 mindbogglingly	in a way that is astonishing or hard to comprehend
+mine	belonging to me; also a pit for digging out coal or ore
 mineralisation	the process of turning into a mineral
 mineralization	the process of turning into a mineral
 mineralogical	relating to the study of minerals
@@ -3888,6 +3915,7 @@ multitask	do several things at once
 multiuser	usable by several people at once
 multiverse	a hypothetical set of many universes
 multiyear	lasting several years
+mum	mother; also silent, as in "keep mum"
 mumbly	spoken in a low, unclear way
 mummified	MUMMIFY: preserve a body by drying it
 mumpish	sulky and glum
@@ -3908,6 +3936,7 @@ museology	the study of museums
 musicale	a social gathering with music
 muskie	a large North American pike
 muso	a musician
+must	have to; be obliged to
 mustily	in a stale, damp-smelling way
 muti	traditional medicine in southern Africa
 mutinied	MUTINY: rebel against authority
@@ -4031,6 +4060,8 @@ ningaui	a small mouselike Australian marsupial
 nite	night
 nitpicky	overly concerned with trivial faults
 nitty	full of nits
+no	not any; also a word of refusal or denial
+nobody	no person
 nocturnals	NOCTURNAL: an animal active at night
 nodal	relating to a node
 noddy	a fool; also a tropical tern
@@ -4095,6 +4126,7 @@ noplace	nowhere
 nor	and not
 nori	dried seaweed used in Japanese cooking
 norland	a land in the north
+north	the direction to the left of someone facing the sunrise
 northing	distance travelled or measured northwards
 nosedove	NOSEDIVE: plunge steeply downward
 noseprint	the pattern of ridges on an animal's nose
@@ -4103,6 +4135,7 @@ nosily	in an inquisitive way
 notarial	relating to a notary
 notcher	something or someone that cuts notches
 notelet	a small folded card for short letters
+nothing	not anything
 noticeboard	a board for posting notices
 notified	NOTIFY: inform formally
 notionally	in theory rather than in practice
@@ -4125,6 +4158,7 @@ nurturer	someone who cares for and encourages growth
 nutmeat	the edible kernel of a nut
 nutraceutical	a food with a claimed health benefit
 nuzzler	someone who gently rubs with the nose
+o	an exclamation of surprise, longing or address
 oakmoss	lichen used in perfumery
 oared	OAR: rowed
 oaring	OAR: rowing
@@ -4162,6 +4196,7 @@ offscreen	out of view of the screen
 offshoring	moving business operations overseas
 offsite	away from the main location
 oftenest	OFTEN: most frequently
+oh	an exclamation of surprise, pain or understanding
 oho	exclamation of surprise or discovery
 oi	exclamation to attract attention
 oik	a rude, uncouth person
@@ -4235,6 +4270,7 @@ ought	expressing duty or what is advisable
 our	belonging to us
 ourself	myself, used by a monarch
 ourselves	us, used when we are the object or for emphasis
+out	away from the inside; not in
 outbox	where outgoing messages are stored
 outbrag	exceed in boasting
 outdid	OUTDO: do better than
@@ -4848,6 +4884,7 @@ primetime	the evening hours of highest viewing
 prioritisation	the act of ranking things by importance
 prioritization	the act of ranking things by importance
 prithee	please
+private	belonging to or for one person or group; not public
 privateering	the use of armed private ships to attack enemy shipping
 prizegiving	a ceremony awarding prizes
 prizewinner	a person who wins a prize
@@ -4868,6 +4905,7 @@ prognoses	PROGNOSIS: a forecast of the likely course of an illness
 programer	a person who writes computer programs
 programmable	able to be set to carry out instructions
 programmatic	relating to a programme or plan
+project	a planned piece of work
 projective	relating to projection
 proliferative	growing or multiplying rapidly
 prolifically	in a way that produces abundantly
@@ -5223,6 +5261,7 @@ resat	RESIT: sit an exam again
 resealable	able to be closed tightly again
 reseller	a person who sells goods bought from others
 resend	send again
+reserved	slow to share feelings or opinions; also set aside for someone
 resigner	a person who gives up a job
 resit	take an exam again
 reskill	train in new skills
@@ -5295,7 +5334,9 @@ riddler	a person who poses riddles
 ridership	the number of people who use a public transport service
 rifted	RIFT: split or break apart
 rifting	RIFT: split or break apart
+right	correct; also on the side opposite the left
 righto	all right; okay
+rights	RIGHT: a fair claim to have or do something
 rightsize	adjust a business to its most suitable size
 rightward	towards the right
 ringtone	the sound a mobile phone makes when called
@@ -5374,6 +5415,7 @@ sadistically	in a way that takes pleasure in cruelty
 safaried	SAFARI: go on an expedition to see wildlife
 safariing	SAFARI: go on an expedition to see wildlife
 saggy	sagging or drooping
+said	SAY: put into words; speak
 sailboard	a board with a sail, used for windsurfing
 sailer	a vessel considered by how it sails
 saith	SAY: speak words
@@ -5660,6 +5702,7 @@ sinfully	in a wicked way
 sinological	relating to the study of China
 siree	emphatic word added to yes or no
 sitatunga	a swamp-dwelling African antelope
+sites	SITE: a piece of land where something is or will be
 situ	in the original place
 situational	relating to a particular situation
 situp	an exercise lifting the trunk from lying down
@@ -5790,6 +5833,8 @@ solaria	SOLARIUM: a room with large windows for sunlight
 soli	SOLO: a piece performed by one person
 solipsistic	holding that only your own mind is sure to exist
 solubles	SOLUBLE: a substance that dissolves
+somebody	some person
+someone	some person
 something	a thing that is not named or not known
 somewhats	SOMEWHAT: to some extent
 songfest	an informal gathering for singing
@@ -5819,6 +5864,7 @@ soundscape	the sounds that make up an environment
 soundstage	a studio designed for filming with sound
 soundwave	a wave that carries sound
 sourpussed	SOURPUSS: sullen and sour-faced
+south	the direction to the right of someone facing the sunrise
 southerns	SOUTHERN: a person from the south
 sox	SOCKS: foot coverings
 spaceport	a base for launching spacecraft
@@ -5920,6 +5966,7 @@ starver	a person who suffers hunger
 stat	a statistic
 statehood	the status of being a state
 statelet	a small state
+states	STATE: a condition something is in; also a nation or its government
 stateside	in or to the United States
 statically	in a fixed or unchanging way
 statism	political control by the state
@@ -6283,6 +6330,7 @@ thoraces	THORAX: the chest
 thorned	having thorns
 thornily	in a prickly or difficult way
 those	the ones there, or the ones already mentioned
+thou	you, in old-fashioned speech
 thralled	THRALL: hold in bondage or fascination
 thralling	THRALL: hold in bondage or fascination
 threatener	a person who threatens
@@ -6314,6 +6362,7 @@ tightener	a device or person that makes something tighter
 tightknit	closely bound together
 tikka	pieces of meat marinated in spices and cooked in a tandoor
 til	until
+till	until; also a cash drawer in a shop
 timbering	timber used for building
 timeout	a short break in play or activity
 timesaving	reducing the time needed
@@ -6661,6 +6710,7 @@ urethrae	URETHRA: the tube that carries urine out of the body
 urinalyses	URINALYSIS: laboratory testing of urine
 urologic	relating to the urinary system
 urological	relating to the urinary system
+us	the speaker and others, as the object of a sentence
 useability	the quality of being easy to use
 username	the name by which a person is known on a computer system
 ute	a utility vehicle with an open tray at the back (Australian)
@@ -6704,6 +6754,7 @@ versioning	assigning numbers to successive editions of software
 versus	against
 vertebrae	VERTEBRA: one of the bones of the spine
 vertices	VERTEX: the point where lines or edges meet
+very	to a high degree; extremely
 vespertine	relating to the evening
 vestibuled	VESTIBULE: provided with a small entrance hall
 vestigially	as a small remaining trace
@@ -6788,6 +6839,7 @@ wallchart	a large chart displayed on a wall
 wallcovering	material such as wallpaper used to cover walls
 wallower	a person who rolls about or indulges in something
 wanna	want to
+want	wish to have or do
 wantage	a shortage
 warez	pirated software
 warlockry	the practice of sorcery
@@ -6801,6 +6853,7 @@ wast	were, in old-fashioned speech
 wastepaper	paper thrown away as rubbish
 watchable	pleasant to watch
 watchmaking	the craft of making watches
+water	the clear liquid of rain, rivers and seas
 waterbed	a mattress filled with water
 waterboard	torture by pouring water over a person's face
 waterboardings	WATERBOARDING: torture by simulated drowning
@@ -6894,6 +6947,7 @@ whinger	a person who complains a lot
 whinnied	WHINNY: make a gentle neigh
 whipbird	a bird of Australian forests with a whip-crack call
 whistleblowing	exposing wrongdoing within an organisation
+white	the colour of milk or fresh snow
 whiteboard	a white board written on with markers
 whitelist	a list of approved people or items
 whitespace	blank areas on a page or screen
@@ -6902,6 +6956,7 @@ whither	to where
 whities	white underpants, as in tighty-whities
 whizkid	a young person who is remarkably clever
 whizzkid	a young person who is remarkably clever
+who	which person
 whoa	a command to stop
 whodunnit	a detective story
 whoever	any person who
@@ -7023,6 +7078,7 @@ yammerer	a person who complains loudly
 yappers	YAPPER: a noisy small dog or talkative person
 ye	you, in old-fashioned speech
 yeahs	YEAH: an affirmative reply
+years	YEAR: a period of 365 (or 366) days
 yecch	an expression of disgust
 yellowjacket	a wasp with yellow and black stripes
 yellowy	somewhat yellow

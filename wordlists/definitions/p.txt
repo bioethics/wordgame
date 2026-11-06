@@ -5294,14 +5294,14 @@ prissy	exaggeratedly proper
 pristine	immaculately clean and unused
 prithee	please
 privacy	the quality of being secluded from the presence or view of others
-private	an enlisted man of the lowest rank in the Army or Marines
-privateer	PRIVATE: an enlisted man of the lowest rank in the Army or Marines
+private	belonging to or for one person or group; not public
+privateer	PRIVATE: belonging to or for one person or group; not public
 privateering	the use of armed private ships to attack enemy shipping
 privateers	PRIVATEER: a privately owned warship commissioned to prey on the commercial shipping or warships of an enemy nation
 privately	kept private or confined to those intimately concerned
-privater	PRIVATE: an enlisted man of the lowest rank in the Army or Marines
-privates	PRIVATE: an enlisted man of the lowest rank in the Army or Marines
-privatest	PRIVATE: an enlisted man of the lowest rank in the Army or Marines
+privater	PRIVATE: belonging to or for one person or group; not public
+privates	PRIVATE: belonging to or for one person or group; not public
+privatest	PRIVATE: belonging to or for one person or group; not public
 privation	a state of extreme poverty
 privations	PRIVATION: a state of extreme poverty
 privatisation	changing something from state to private ownership or control
@@ -5597,11 +5597,11 @@ prohibitive	tending to discourage (especially of prices)
 prohibitively	to a prohibitive degree
 prohibitory	tending to discourage (especially of prices)
 prohibits	PROHIBIT: command against
-project	communicate vividly
+project	a planned piece of work
 projected	extending out above or beyond a surface or boundary
 projectile	a weapon that is forcibly thrown or projected at a targets but is not self-propelled
 projectiles	PROJECTILE: a weapon that is forcibly thrown or projected at a targets but is not self-propelled
-projecting	PROJECT: communicate vividly
+projecting	PROJECT: a planned piece of work
 projection	a prediction made by extrapolating from past observations
 projectionist	the person who operates the projector in a movie house
 projectionists	PROJECTIONIST: the person who operates the projector in a movie house
@@ -5609,7 +5609,7 @@ projections	PROJECTION: a prediction made by extrapolating from past observation
 projective	relating to projection
 projector	an optical instrument that projects an enlarged image onto a screen
 projectors	PROJECTOR: an optical instrument that projects an enlarged image onto a screen
-projects	PROJECT: communicate vividly
+projects	PROJECT: a planned piece of work
 prokaryote	a unicellular organism having cells lacking membrane-bound nuclei; bacteria are the prime example but also included are blue-green algae and actinomycetes and mycoplasma
 prokaryotes	PROKARYOTE: a unicellular organism having cells lacking membrane-bound nuclei; bacteria are the prime example but also included are blue-green algae and actinomycetes and mycoplasma
 prokaryotic	having cells that lack membrane-bound nuclei

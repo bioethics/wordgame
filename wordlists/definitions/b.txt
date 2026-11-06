@@ -1716,13 +1716,13 @@ bespeaks	BESPEAK: be a signal for or a symptom of
 bespectacled	wearing, or having the face adorned with, eyeglasses or an eyeglass
 bespoke	(of clothing) custom-made
 bespoken	(of clothing) custom-made
-best	the supreme effort one can make
-bested	BEST: the supreme effort one can make
+best	better than all others
+bested	BEST: better than all others
 bestial	resembling a beast; showing lack of human sensibility
 bestiality	sexual activity between a person and an animal
 bestiaries	BESTIARY: a medieval book (usually illustrated) with allegorical and amusing descriptions of real and fabled animals
 bestiary	a medieval book (usually illustrated) with allegorical and amusing descriptions of real and fabled animals
-besting	BEST: the supreme effort one can make
+besting	BEST: better than all others
 bestir	become active
 bestirred	BESTIR: become active
 bestirring	BESTIR: become active
@@ -1739,7 +1739,7 @@ bestride	get up on the back of
 bestrides	BESTRID: BESTRIDE: stand or sit astride
 bestriding	BESTRID: BESTRIDE: stand or sit astride
 bestrode	BESTRIDE: stand or sit astride
-bests	BEST: the supreme effort one can make
+bests	BEST: better than all others
 bestseller	a book that has had a large and rapid sale
 bestsellers	BESTSELLER: a book that has had a large and rapid sale
 bestselling	selling in very large numbers

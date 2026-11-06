@@ -1204,7 +1204,7 @@ maximum	the largest possible quantity
 maximums	MAXIMUM: the largest possible quantity
 maxing	MAX: bring to the maximum
 maxis	MAXI: a long skirt ending below the calf
-may	the month following April and preceding June
+may	be allowed to, or might; also the fifth month
 maybe	by chance
 maybes	MAYBE: a possibility
 mayday	an internationally recognized distress signal via radiotelephone (from the French m'aider)
@@ -1232,7 +1232,7 @@ mazourka	mazurka: a lively Polish dance
 mazourkas	MAZOURKA: mazurka: a lively Polish dance
 mazurka	a Polish national dance in triple time
 mazurkas	MAZURKA: a Polish national dance in triple time
-me	a state in New England
+me	the speaker, as the object of a sentence
 mead	made of fermented honey and water
 meadow	a field where grass or alfalfa are grown to be made into hay
 meadowlark	North American songbirds having a yellow breast
@@ -1714,7 +1714,7 @@ merry	full of or showing high-spirited merriment
 merrymaker	a celebrant who shares in a noisy party
 merrymakers	MERRYMAKER: a celebrant who shares in a noisy party
 merrymaking	a boisterous celebration; a merry festivity
-mes	ME: a state in New England
+mes	ME: the speaker, as the object of a sentence
 mesa	flat tableland with steep edges
 mesas	MESA: flat tableland with steep edges
 mescal	a colorless Mexican liquor distilled from fermented juices of certain desert plants of the genus Agavaceae (especially the century plant)
@@ -2317,8 +2317,8 @@ mindlessness	total lack of meaning or ideas
 minds	MIND: that which is responsible for one's thoughts, feelings, and conscious brain functions; the seat of the faculty of reason
 mindset	a habitual or characteristic mental attitude that determines how you will interpret and respond to situations
 mindsets	MINDSET: a habitual or characteristic mental attitude that determines how you will interpret and respond to situations
-mine	excavation in the earth from which ores and minerals are extracted
-mined	MINE: excavation in the earth from which ores and minerals are extracted
+mine	belonging to me; also a pit for digging out coal or ore
+mined	MINE: belonging to me; also a pit for digging out coal or ore
 minefield	a region in which explosives mines have been placed
 minefields	MINEFIELD: a region in which explosives mines have been placed
 minelayer	ship equipped for laying marine mines
@@ -2332,7 +2332,7 @@ mineralogists	MINERALOGIST: a scientist trained in mineralogy
 mineralogy	the branch of geology that studies minerals: their structure and properties and the ways of distinguishing them
 minerals	MINERAL: solid homogeneous inorganic substances occurring in nature having a definite chemical composition
 miners	MINER: laborer who works in a mine
-mines	MINE: excavation in the earth from which ores and minerals are extracted
+mines	MINE: belonging to me; also a pit for digging out coal or ore
 mineshaft	excavation consisting of a vertical or sloping passageway for finding or mining ore or for ventilating a mine
 mineshafts	MINESHAFT: excavation consisting of a vertical or sloping passageway for finding or mining ore or for ventilating a mine
 minestrone	soup made with a variety of vegetables
@@ -4054,7 +4054,7 @@ multiverses	MULTIVERSE: a hypothetical set of many universes
 multivitamin	a pill or tablet containing several vitamins
 multivitamins	MULTIVITAMIN: a pill or tablet containing several vitamins
 multiyear	lasting several years
-mum	failing to speak or communicate etc when expected to
+mum	mother; also silent, as in "keep mum"
 mumble	talk indistinctly; usually in a low voice
 mumbled	MUMBLE: talk indistinctly; usually in a low voice
 mumbler	a person who speaks softly and indistinctly
@@ -4064,7 +4064,7 @@ mumbling	MUMBLE: talk indistinctly; usually in a low voice
 mumblingly	in a mumbling way
 mumblings	MUMBLING: indistinct enunciation
 mumbly	spoken in a low, unclear way
-mummer	MUM: failing to speak or communicate etc when expected to
+mummer	MUM: mother; also silent, as in "keep mum"
 mummers	MUMMER: an actor who communicates entirely by gesture and facial expression
 mummery	meaningless ceremonies and flattery
 mummies	MUMMY: a body embalmed and dried and wrapped for burial (as in ancient Egypt)
@@ -4079,7 +4079,7 @@ mumpish	sulky and glum
 mumpishly	in a sulky, glum way
 mumpishness	sulkiness
 mumps	an acute contagious viral disease characterized by fever and by swelling of the parotid glands
-mums	MUM: failing to speak or communicate etc when expected to
+mums	MUM: mother; also silent, as in "keep mum"
 munch	chew noisily
 munched	MUNCH: chew noisily
 muncher	a chewer who makes a munching noise
@@ -4232,7 +4232,7 @@ mussier	MUSSY: dirty and disorderly
 mussiest	MUSSY: dirty and disorderly
 mussing	MUS: type genus of the Muridae: common house mice; the tips of the upper incisors have a square notch
 mussy	dirty and disorderly
-must	a necessary or essential thing
+must	have to; be obliged to
 mustache	an unshaved growth of hair on the upper lip
 mustached	having a moustache
 mustaches	MUSTACHE: an unshaved growth of hair on the upper lip
@@ -4249,7 +4249,7 @@ mustier	MUSTY: covered with or smelling of mold
 mustiest	MUSTY: covered with or smelling of mold
 mustily	in a stale, damp-smelling way
 mustiness	the quality of smelling or tasting old or stale or mouldy
-musts	MUST: a necessary or essential thing
+musts	MUST: have to; be obliged to
 musty	covered with or smelling of mold
 mutability	the quality of being capable of mutation
 mutable	capable of or tending to change in form or quality or nature

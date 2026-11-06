@@ -1,4 +1,4 @@
-o	a nonmetallic bivalent element that is normally a colorless odorless tasteless nonflammable diatomic gas; constitutes 21 percent of the atmosphere by volume; the most abundant element in the earth's crust
+o	an exclamation of surprise, longing or address
 oaf	an awkward stupid person
 oafish	ill-mannered and coarse and contemptible in behavior or appearance
 oafishly	in a oafish way
@@ -471,11 +471,11 @@ ogling	OGLE: look at with amorous intentions
 ogre	a giant who likes to eat human beings
 ogres	OGRE: a giant who likes to eat human beings
 ogress	a female ogre
-oh	a midwestern state in north central United States in the Great Lakes region
+oh	an exclamation of surprise, pain or understanding
 ohm	a unit of electrical resistance equal to the resistance between two points on a conductor when a potential difference of one volt between them produces a current of one ampere
 ohms	OHM: a unit of electrical resistance equal to the resistance between two points on a conductor when a potential difference of one volt between them produces a current of one ampere
 oho	exclamation of surprise or discovery
-ohs	OH: a midwestern state in north central United States in the Great Lakes region
+ohs	OH: an exclamation of surprise, pain or understanding
 oi	exclamation to attract attention
 oik	a rude, uncouth person
 oiks	OIK: a rude, uncouth person
@@ -1151,7 +1151,7 @@ ouster	the act of ejecting someone or forcing them out
 ousters	OUSTER: the act of ejecting someone or forcing them out
 ousting	OUST: remove from a position or office
 ousts	OUST: remove from a position or office
-out	not allowed to continue to bat or run
+out	away from the inside; not in
 outage	a temporary suspension of operation (as of computers)
 outages	OUTAGE: a temporary suspension of operation (as of computers)
 outback	the bush country of the interior of Australia
@@ -1206,7 +1206,7 @@ outdone	OUTDO: do better than
 outdoor	located, suited for, or taking place in the open air
 outdoors	outside a building
 outdoorsy	characteristic of or suitable to outdoor life
-outed	OUT: not allowed to continue to bat or run
+outed	OUT: away from the inside; not in
 outer	being on the outside or further from a center
 outermost	situated at the farthest possible point from a center
 outers	OUTER: the parts outside
@@ -1352,7 +1352,7 @@ outright	without reservation or exception
 outrun	run faster than
 outrunning	OUTRUN: run faster than
 outruns	OUTRUN: run faster than
-outs	OUT: not allowed to continue to bat or run
+outs	OUT: away from the inside; not in
 outscore	score more points than one's opponents
 outscored	OUTSCORE: score more points than one's opponents
 outscores	OUTSCORE: score more points than one's opponents

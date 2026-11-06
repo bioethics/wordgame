@@ -656,7 +656,7 @@ harvester	farm machine that gathers a food crop from the fields
 harvesters	HARVESTER: farm machine that gathers a food crop from the fields
 harvesting	HARVEST: the yield from plants in a single growing season
 harvests	HARVEST: the yield from plants in a single growing season
-has	HA: the angular distance of a celestial point measured westward along the celestial equator from the zenith crossing; the right ascension for an observer at a particular location and time of day
+has	HAVE: possess or hold
 hash	chopped meat mixed with potatoes and browned
 hashed	HASH: chopped meat mixed with potatoes and browned
 hasheesh	purified resinous extract of the hemp plant; used as a hallucinogen
@@ -1644,10 +1644,10 @@ hirelings	HIRELING: a person who works only for money
 hires	HIRE: engage or hire for work
 hiring	HIRE: engage or hire for work
 hirsute	having or covered with hair
-his	HI: an expression of greeting
+his	belonging to him
 hiss	make a sharp hissing sound, as if to show disapproval
-hissed	HISS: make a sharp hissing sound, as if to show disapproval
-hisser	someone who communicates disapproval by hissing
+hissed	HIS: belonging to him
+hisser	HIS: belonging to him
 hissers	HISSER: someone who communicates disapproval by hissing
 hisses	HISS: make a sharp hissing sound, as if to show disapproval
 hissing	a fricative sound (especially as an expression of disapproval)
@@ -1712,10 +1712,10 @@ hiveminds	HIVEMIND: a shared collective mind or way of thinking
 hives	HIVE: a teeming multitude
 hiving	HIVE: a teeming multitude
 hiya	informal greeting
-hm	a metric unit of length equal to 100 meters
+hm	a sound of thinking or doubt
 hmm	sound made when thinking or hesitating
 hmph	sound expressing disapproval or annoyance
-ho	a trivalent metallic element of the rare earth group; occurs together with yttrium; forms highly magnetic compounds
+ho	an exclamation to attract attention or show surprise
 hoagie	a large sandwich made of a long crusty roll split lengthwise and filled with meats and cheese (and tomato and onion and lettuce and condiments); different names are used in different sections of the United States
 hoagies	HOAGIE: a large sandwich made of a long crusty roll split lengthwise and filled with meats and cheese (and tomato and onion and lettuce and condiments); different names are used in different sections of the United States
 hoagy	a large sandwich made of a long crusty roll split lengthwise and filled with meats and cheese (and tomato and onion and lettuce and condiments); different names are used in different sections of the United States
@@ -1787,11 +1787,11 @@ hodgepodge	a motley assortment of things
 hodgepodges	HODGEPODGE: a motley assortment of things
 hods	HOD: an open box attached to a long pole handle; bricks or mortar are carried on the shoulder
 hoe	a tool with a flat blade attached at right angles to a long handle
-hoed	HOE: a tool with a flat blade attached at right angles to a long handle
+hoed	HO: an exclamation to attract attention or show surprise
 hoedown	a lively country dance party
 hoedowns	HOEDOWN: a lively country dance party
 hoeing	HOE: a tool with a flat blade attached at right angles to a long handle
-hoes	HOE: a tool with a flat blade attached at right angles to a long handle
+hoes	HO: an exclamation to attract attention or show surprise
 hog	take greedily; take more than one's share
 hogan	a Navajo lodge covered with earth; traditionally built with the entrance facing east
 hogans	HOGAN: a Navajo lodge covered with earth; traditionally built with the entrance facing east
@@ -2294,7 +2294,7 @@ horticulturalists	HORTICULTURALIST: a person who studies or practises gardening
 horticulture	the cultivation of plants
 horticulturist	an expert in the science of cultivating plants (fruit or flowers or vegetables or ornamental plants)
 horticulturists	HORTICULTURIST: an expert in the science of cultivating plants (fruit or flowers or vegetables or ornamental plants)
-hos	HO: a trivalent metallic element of the rare earth group; occurs together with yttrium; forms highly magnetic compounds
+hos	HO: an exclamation to attract attention or show surprise
 hosanna	a cry of praise or adoration (to God)
 hosannas	HOSANNA: a cry of praise or adoration (to God)
 hose	a flexible pipe for conveying a liquid or gas

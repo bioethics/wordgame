@@ -1889,7 +1889,7 @@ equivocation	falsification by means of vague or ambiguous language
 equivocations	EQUIVOCATION: falsification by means of vague or ambiguous language
 equivoque	a word or phrase with a double meaning
 equivoques	EQUIVOQUE: a word or phrase with a double meaning
-er	a room in a hospital or clinic staffed and equipped to provide emergency care to persons requiring immediate medical treatment
+er	a sound of hesitation
 era	a period marked by distinctive character or reckoned from a fixed point or event
 eradicate	kill in large numbers
 eradicated	ERADICATE: kill in large numbers
@@ -1949,8 +1949,8 @@ erratas	ERRATA: ERRATUM: an error in printing or writing
 erratic	liable to sudden unpredictable change
 erratically	in an erratic unpredictable manner
 erratum	a mistake in printed matter resulting from mechanical failures of some kind
-erred	ERR: to make a mistake or be incorrect
-erring	ERR: to make a mistake or be incorrect
+erred	ER: a sound of hesitation
+erring	capable of making an error
 erroneous	containing or characterized by error
 erroneously	in a mistaken or erroneous manner
 error	a wrong action attributable to bad judgment or ignorance or inattention
@@ -2299,16 +2299,16 @@ evasive	deliberately vague or ambiguous
 evasively	with evasion; in an evasive manner
 evasiveness	intentionally vague or ambiguous
 eve	Adam's wife in Judeo-Christian mythology: the first woman and mother of the human race; God created Eve from Adam's rib and placed Adam and Eve in the Garden of Eden
-even	divisible by two
-evened	EVEN: divisible by two
-evener	EVEN: divisible by two
-evenest	EVEN: divisible by two
+even	flat and level; also used to stress something surprising
+evened	EVEN: flat and level; also used to stress something surprising
+evener	EVEN: flat and level; also used to stress something surprising
+evenest	EVEN: flat and level; also used to stress something surprising
 evenhanded	without partiality
 evening	the latter part of the day (the period of decreasing daylight from late afternoon until nightfall)
 evenings	EVENING: the latter part of the day (the period of decreasing daylight from late afternoon until nightfall)
 evenly	in equal amounts or shares; in a balanced or impartial way
 evenness	a quality of uniformity and lack of variation
-evens	EVEN: divisible by two
+evens	EVEN: flat and level; also used to stress something surprising
 evensong	the sixth of the seven canonical hours of the divine office; early evening; now often made a public service on Sundays
 event	something that happens at a given place and time
 eventful	full of events or incidents

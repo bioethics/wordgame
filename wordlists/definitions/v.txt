@@ -487,8 +487,8 @@ verger	a church officer who takes care of the interior of the building and acts 
 vergers	VERGER: a church officer who takes care of the interior of the building and acts as an attendant (carries the verge) during ceremonies
 verges	VERGE: a region marking a boundary
 verging	VERGE: a region marking a boundary
-verier	VERY: precisely as stated
-veriest	VERY: precisely as stated
+verier	VERY: to a high degree; extremely
+veriest	VERY: to a high degree; extremely
 verifiable	capable of being verified
 verification	additional proof that something that was believed (some fact or hypothesis or theory) is correct
 verifications	VERIFICATION: additional proof that something that was believed (some fact or hypothesis or theory) is correct
@@ -549,7 +549,7 @@ vertices	VERTEX: the point where lines or edges meet
 vertiginous	having or causing a whirling sensation; liable to falling
 vertigo	a reeling sensation; a feeling that you are about to fall
 verve	an energetic style
-very	precisely as stated
+very	to a high degree; extremely
 vesicle	a small anatomically normal sac or bladderlike structure (especially one containing fluid)
 vesicles	VESICLE: a small anatomically normal sac or bladderlike structure (especially one containing fluid)
 vesicular	of or relating to or involving vesicles

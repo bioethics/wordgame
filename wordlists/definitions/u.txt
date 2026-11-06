@@ -2260,7 +2260,7 @@ urologist	a specialist in urology
 urologists	UROLOGIST: a specialist in urology
 urology	the branch of medicine that deals with the diagnosis and treatment of disorders of the urinary tract or urogenital system
 urticaria	an itchy skin eruption characterized by weals with pale interiors and well-defined red margins; usually the result of an allergic response to insect bites or food or drugs
-us	North American republic containing 50 states - 48 conterminous states in North America plus Alaska in northwest North America and the Hawaiian Islands in the Pacific Ocean; achieved independence in 1776
+us	the speaker and others, as the object of a sentence
 usability	the quality of being able to provide good service
 usable	capable of being put to use
 usage	the act of using
@@ -2279,14 +2279,14 @@ user	a person who makes use of a thing; someone who uses or employs something
 username	the name by which a person is known on a computer system
 usernames	USERNAME: the name by which a person is known on a computer system
 users	USER: a person who makes use of a thing; someone who uses or employs something
-uses	USE: the act of using
+uses	US: the speaker and others, as the object of a sentence
 usher	take (someone) to their seats, as in theaters or auditoriums
 ushered	USHER: take (someone) to their seats, as in theaters or auditoriums
 usherette	a female usher
 usherettes	USHERETTE: a female usher
 ushering	USHER: take (someone) to their seats, as in theaters or auditoriums
 ushers	USHER: take (someone) to their seats, as in theaters or auditoriums
-using	USE: the act of using
+using	US: the speaker and others, as the object of a sentence
 usual	occurring or encountered or experienced or observed frequently or in accordance with regular practice or procedure
 usually	under normal conditions
 usurer	someone who lends money at excessive rates of interest

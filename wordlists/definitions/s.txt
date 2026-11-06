@@ -142,7 +142,7 @@ saguaro	extremely large treelike cactus of desert regions of southwestern United
 saguaros	SAGUARO: extremely large treelike cactus of desert regions of southwestern United States having a thick columnar sparsely branched trunk bearing white flowers and edible red pulpy fruit
 sahib	formerly a term of respect for important white Europeans in colonial India; used after the name
 sahibs	SAHIB: formerly a term of respect for important white Europeans in colonial India; used after the name
-said	being the one previously mentioned or spoken of
+said	SAY: put into words; speak
 saiga	goat-like antelope of central Eurasia having a stubby nose like a proboscis
 saigas	SAIGA: goat-like antelope of central Eurasia having a stubby nose like a proboscis
 sail	traverse or travel on (a body of water)
@@ -3768,7 +3768,7 @@ sitcom	a humorous television program based on situations that could arise in eve
 sitcoms	SITCOM: a humorous television program based on situations that could arise in everyday life
 site	the piece of land on which something is located (or is to be located)
 sited	SIT: be seated
-sites	SIT: be seated
+sites	SITE: a piece of land where something is or will be
 siting	SIT: be seated
 sits	SIT: be seated
 sitter	SIT: be seated
@@ -5395,12 +5395,12 @@ sombreness	a manner that is serious and solemn
 sombrero	a straw hat with a tall crown and broad brim; worn in American southwest and in Mexico
 sombreros	SOMBRERO: a straw hat with a tall crown and broad brim; worn in American southwest and in Mexico
 some	used with either mass nouns or plural count nouns to indicate an unspecified number or quantity
-somebodies	SOMEBODY: a human being
-somebody	a human being
+somebodies	SOMEBODY: some person
+somebody	some person
 someday	some unspecified time in the future
 somehow	in some unspecified way or manner; or by some unspecified means
-someone	a human being
-someones	SOMEONE: a human being
+someone	some person
+someones	SOMEONE: some person
 someplace	in or at or to some place
 somersault	an acrobatic feat in which the feet roll over the head (either forward or backward) and return
 somersaulted	SOMERSAULT: an acrobatic feat in which the feet roll over the head (either forward or backward) and return
@@ -5654,7 +5654,7 @@ souse	cover with liquid; pour liquid onto
 soused	SOUSE: cover with liquid; pour liquid onto
 souses	SOUSE: cover with liquid; pour liquid onto
 sousing	SOUSE: cover with liquid; pour liquid onto
-south	the region of the United States lying to the south of the Mason-Dixon line
+south	the direction to the right of someone facing the sunrise
 southbound	moving toward the south
 southeast	the compass point midway between south and east; at 135 degrees
 southeaster	SOUTHEAST: the compass point midway between south and east; at 135 degrees
@@ -5662,7 +5662,7 @@ southeasterly	situated in or oriented toward the southeast
 southeastern	situated in or oriented toward the southeast
 southeastward	toward the southeast
 southeastwards	SOUTHEASTWARD: toward the southeast
-souther	SOUTH: the region of the United States lying to the south of the Mason-Dixon line
+souther	SOUTH: the direction to the right of someone facing the sunrise
 southerlies	SOUTHERLY: situated in or oriented toward the south
 southerly	situated in or oriented toward the south
 southern	in or characteristic of a region of the United States south of (approximately) the Mason-Dixon line
@@ -7085,7 +7085,7 @@ stater	STAT: a statistic
 stateroom	a guest cabin
 staterooms	STATEROOM: a guest cabin
 staters	STATER: any of the various silver or gold coins of ancient Greece
-states	STAT: a statistic
+states	STATE: a condition something is in; also a nation or its government
 stateside	in or to the United States
 statesman	a man who is a respected leader in national or international affairs
 statesmanlike	marked by the qualities of or befitting a statesman

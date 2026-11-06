@@ -252,17 +252,17 @@ wannabes	WANNABE: an ambitious and aspiring young person
 wanner	WAN: (of light) lacking in intensity or brightness; dim or feeble
 wanness	unnatural lack of color in the skin (as from bruising or sickness or emotional distress)
 wannest	WAN: (of light) lacking in intensity or brightness; dim or feeble
-want	a state of extreme poverty
+want	wish to have or do
 wantage	a shortage
-wanted	WANT: a state of extreme poverty
-wanting	WANT: a state of extreme poverty
+wanted	WANT: wish to have or do
+wanting	WANT: wish to have or do
 wanton	occurring without motivation or provocation
 wantoned	WANTON: occurring without motivation or provocation
 wantoning	WANTON: occurring without motivation or provocation
 wantonly	in a wanton manner
 wantonness	the trait of lacking restraint or control; reckless freedom from inhibition or worry
 wantons	WANTON: occurring without motivation or provocation
-wants	WANT: a state of extreme poverty
+wants	WANT: wish to have or do
 wapiti	large North American deer with large much-branched antlers in the male
 wapitis	WAPITI: large North American deer with large much-branched antlers in the male
 war	the waging of armed conflict against an enemy
@@ -455,7 +455,7 @@ watchtower	an observation tower for a lookout to watch over prisoners or watch f
 watchtowers	WATCHTOWER: an observation tower for a lookout to watch over prisoners or watch for fires or enemies
 watchword	a slogan used to rally support for a cause
 watchwords	WATCHWORD: a slogan used to rally support for a cause
-water	binary compound that occurs at room temperature as a clear colorless odorless tasteless liquid; freezes into ice below 0 degrees centigrade and boils above 100 degrees centigrade; widely used as a solvent
+water	the clear liquid of rain, rivers and seas
 waterbed	a mattress filled with water
 waterbeds	WATERBED: a mattress filled with water
 waterbird	freshwater aquatic bird
@@ -474,8 +474,8 @@ watercourse	natural or artificial channel through which water flows
 watercourses	WATERCOURSE: natural or artificial channel through which water flows
 watercraft	a craft designed for water transportation
 watercress	cresses that grow in clear ponds and streams
-watered	WATER: binary compound that occurs at room temperature as a clear colorless odorless tasteless liquid; freezes into ice below 0 degrees centigrade and boils above 100 degrees centigrade; widely used as a solvent
-waterer	someone who waters plants or crops
+watered	WATER: the clear liquid of rain, rivers and seas
+waterer	WATER: the clear liquid of rain, rivers and seas
 waterers	WATERER: someone who waters plants or crops
 waterfall	a steep descent of the water of a river
 waterfalls	WATERFALL: a steep descent of the water of a river
@@ -487,7 +487,7 @@ waterhole	a pool where animals drink
 waterholes	WATERHOLE: a pool where animals drink
 waterier	WATERY: filled with water
 wateriest	WATERY: filled with water
-watering	WATER: binary compound that occurs at room temperature as a clear colorless odorless tasteless liquid; freezes into ice below 0 degrees centigrade and boils above 100 degrees centigrade; widely used as a solvent
+watering	WATER: the clear liquid of rain, rivers and seas
 waterless	lacking sufficient water or rainfall
 waterlilies	WATERLILY: an aquatic plant with floating flowers
 waterlily	an aquatic plant with floating flowers
@@ -514,7 +514,7 @@ waterproof	not permitting the passage of water
 waterproofed	WATERPROOF: not permitting the passage of water
 waterproofing	the act of treating something to make it repel water
 waterproofs	WATERPROOF: not permitting the passage of water
-waters	WATER: binary compound that occurs at room temperature as a clear colorless odorless tasteless liquid; freezes into ice below 0 degrees centigrade and boils above 100 degrees centigrade; widely used as a solvent
+waters	WATER: the clear liquid of rain, rivers and seas
 watershed	a ridge of land that separates two adjacent river systems
 watersheds	WATERSHED: a ridge of land that separates two adjacent river systems
 waterside	land bordering a body of water
@@ -1191,14 +1191,14 @@ whistlers	WHISTLER: someone who makes a loud high sound
 whistles	WHISTLE: make whistling sounds
 whistling	the sound made by something moving rapidly or by steam coming out of a small aperture
 whit	a tiny or scarcely detectable amount
-white	a Caucasian
+white	the colour of milk or fresh snow
 whitebait	the edible young of especially herrings and sprats and smelts
 whitebaits	WHITEBAIT: the edible young of especially herrings and sprats and smelts
 whiteboard	a white board written on with markers
 whiteboards	WHITEBOARD: a white board written on with markers
 whitecap	a wave that is blown by the wind so its crest is broken and appears white
 whitecaps	WHITECAP: a wave that is blown by the wind so its crest is broken and appears white
-whited	WHITE: a Caucasian
+whited	WHITE: the colour of milk or fresh snow
 whitefish	silvery herring-like freshwater food fish of cold lakes of the northern hemisphere
 whitefishes	WHITEFISH: silvery herring-like freshwater food fish of cold lakes of the northern hemisphere
 whiteheads	WHITEHEAD: a small whitish lump in the skin due to a clogged sebaceous gland
@@ -1215,10 +1215,10 @@ whitenings	WHITENING: changing to a lighter color
 whitens	WHITEN: turn white
 whiteout	an arctic atmospheric condition with clouds over snow produce a uniform whiteness and objects are difficult to see; occurs when the light reflected off the snow equals the light coming through the clouds
 whiteouts	WHITEOUT: an arctic atmospheric condition with clouds over snow produce a uniform whiteness and objects are difficult to see; occurs when the light reflected off the snow equals the light coming through the clouds
-whiter	WHITE: a Caucasian
-whites	WHITE: a Caucasian
+whiter	WHITE: the colour of milk or fresh snow
+whites	WHITE: the colour of milk or fresh snow
 whitespace	blank areas on a page or screen
-whitest	WHITE: a Caucasian
+whitest	WHITE: the colour of milk or fresh snow
 whitetail	common North American deer; tail has a white underside
 whitetails	WHITETAIL: common North American deer; tail has a white underside
 whitewall	a tyre with a white band on the side
@@ -1230,7 +1230,7 @@ whitewashing	WHITEWASH: wash consisting of lime and size in water; used for whit
 whitewater	frothy water as in rapids or waterfalls
 whither	to where
 whities	white underpants, as in tighty-whities
-whiting	WHITE: a Caucasian
+whiting	WHITE: the colour of milk or fresh snow
 whitings	WHITING: a food fish of the Atlantic waters of Europe resembling the cod; sometimes placed in genus Gadus
 whitish	of something having a color tending toward white
 whits	WHIT: a tiny or scarcely detectable amount
@@ -1251,7 +1251,7 @@ whizzes	WHIZZ: move along very quickly
 whizzing	WHIZ: someone who is dazzlingly skilled in any field
 whizzkid	a young person who is remarkably clever
 whizzkids	WHIZZKID: a young person who is remarkably clever
-who	a United Nations agency to coordinate international health activities and to help governments improve health services
+who	which person
 whoa	a command to stop
 whodunit	a story about a crime (usually murder) presented as a novel or play or movie
 whodunits	WHODUNIT: a story about a crime (usually murder) presented as a novel or play or movie

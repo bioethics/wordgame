@@ -1,4 +1,4 @@
-a	a metric unit of length equal to one ten billionth of a meter (or 0.0001 micron); used to specify wavelengths of electromagnetic radiation
+a	one; any (the indefinite article)
 aah	express admiration and pleasure by uttering `ooh' or `aah'
 aardvark	nocturnal burrowing mammal of the grasslands of Africa that feeds on termites; sole extant representative of the order Tubulidentata
 aardvarks	AARDVARK: nocturnal burrowing mammal of the grasslands of Africa that feeds on termites; sole extant representative of the order Tubulidentata
@@ -169,7 +169,7 @@ abounded	ABOUND: be abundant or plentiful; exist in large quantities
 abounding	existing in abundance
 abounds	ABOUND: be abundant or plentiful; exist in large quantities
 about	(of quantities) imprecise but fairly close to correct
-above	(in writing) at an earlier place
+above	higher than; over
 aboveboard	without concealment or deception; honest
 aboveground	on or above the surface of the ground
 abracadabra	gibberish and nonsense
@@ -2028,7 +2028,7 @@ ameliorated	AMELIORATE: to make better
 ameliorates	AMELIORATE: to make better
 ameliorating	tending to ameliorate
 amelioration	the act of relieving ills and changing for the better
-amen	a primeval Egyptian personification of air and breath; worshipped especially at Thebes
+amen	said at the end of a prayer: so be it
 amenable	disposed or willing to conform
 amend	make amendments to
 amendable	capable of being corrected by additions
@@ -2186,7 +2186,7 @@ amusingly	in an entertaining and amusing manner
 amygdala	an almond-shaped neural structure in the anterior part of the temporal lobe of the cerebrum; intimately connected with the hypothalamus and the hippocampus and the cingulate gyrus; as part of the limbic system it plays an important role in motivation and emotional behavior
 amylase	any of a group of proteins found in saliva and pancreatic juice and parts of plants; help convert starch to sugar
 amyloid	a waxy translucent complex protein resembling starch that results from degeneration of tissue
-an	an associate degree in nursing
+an	one; any (the indefinite article, before a vowel sound)
 anabolic	characterized by or promoting constructive metabolism
 anachronism	something located at a time when it could not have existed or occurred
 anachronisms	ANACHRONISM: something located at a time when it could not have existed or occurred
@@ -3296,7 +3296,7 @@ ardours	ARDOUR: a feeling of strong eagerness (usually in favor of a person or c
 arduous	characterized by effort to the point of exhaustion; especially physical effort
 arduously	in an arduous manner
 arduousness	extreme effortfulness
-are	a unit of surface area equal to 100 square meters
+are	the form of "be" used with "you", "we" and "they"
 area	a particular geographical region of indefinite boundary (usually serving some special purpose or distinguished by its people or culture or geography)
 areas	AREA: a particular geographical region of indefinite boundary (usually serving some special purpose or distinguished by its people or culture or geography)
 arena	a particular environment or walk of life

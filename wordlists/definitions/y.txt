@@ -89,7 +89,7 @@ yearned	YEARN: desire strongly or persistently
 yearning	prolonged unfulfilled desire or need
 yearnings	YEARNING: prolonged unfulfilled desire or need
 yearns	YEARN: desire strongly or persistently
-years	a late time of life
+years	YEAR: a period of 365 (or 366) days
 yeas	YEA: an affirmative
 yeast	a commercial leavening agent containing yeast cells; used to raise the dough in making bread and for fermenting beer or whiskey
 yeastier	YEASTY: of or resembling or containing yeast

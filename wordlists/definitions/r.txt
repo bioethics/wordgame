@@ -2959,7 +2959,7 @@ resents	RESENT: feel bitter or indignant about
 reservation	a district that is reserved for particular purpose
 reservations	RESERVATION: a district that is reserved for particular purpose
 reserve	formality and propriety of manner
-reserved	RESERVE: formality and propriety of manner
+reserved	slow to share feelings or opinions; also set aside for someone
 reservedly	with reserve; in a reserved manner
 reserves	civilians trained as soldiers but not part of the regular army
 reserving	RESERVE: formality and propriety of manner
@@ -3869,24 +3869,24 @@ rigged	RIG: arrange the outcome of by means of deceit
 rigger	someone who rigs ships
 riggers	RIGGER: someone who rigs ships
 rigging	RIG: arrange the outcome of by means of deceit
-right	precisely, exactly
-righted	RIGHT: precisely, exactly
+right	correct; also on the side opposite the left
+righted	RIGHT: correct; also on the side opposite the left
 righteous	characterized by or proceeding from accepted standards of morality or justice
 righteously	in a righteous manner
 righteousness	adhering to moral principles
-righter	RIGHT: precisely, exactly
-rightest	RIGHT: precisely, exactly
+righter	RIGHT: correct; also on the side opposite the left
+rightest	RIGHT: correct; also on the side opposite the left
 rightful	legally valid
 rightfully	by right
 rightfulness	anything in accord with principles of justice
-righting	RIGHT: precisely, exactly
+righting	RIGHT: correct; also on the side opposite the left
 rightist	a member of a right wing political party
 rightists	RIGHTIST: a member of a right wing political party
 rightly	with honesty
 rightmost	farthest to the right
 rightness	according with conscience or morality
 righto	all right; okay
-rights	RIGHT: precisely, exactly
+rights	RIGHT: a fair claim to have or do something
 rightsize	adjust a business to its most suitable size
 rightsized	RIGHTSIZE: adjust a business to its most suitable size
 rightsizes	RIGHTSIZE: adjust a business to its most suitable size

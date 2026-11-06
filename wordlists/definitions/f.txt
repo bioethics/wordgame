@@ -2746,11 +2746,11 @@ foully	in a wicked and shameful manner
 foulmouthed	using obscene language
 foulness	a state characterized by foul or disgusting dirt and refuse
 fouls	FOUL: highly offensive; arousing aversion or disgust
-found	set up or found
+found	FIND: come upon or discover
 foundation	the basis on which something is grounded
 foundational	basic
 foundations	FOUNDATION: the basis on which something is grounded
-founded	FOUND: set up or found
+founded	FOUND: FIND: come upon or discover
 founder	inflammation of the laminated tissue that attaches the hoof to the foot of a horse
 foundered	FOUNDER: inflammation of the laminated tissue that attaches the hoof to the foot of a horse
 foundering	FOUNDER: inflammation of the laminated tissue that attaches the hoof to the foot of a horse
@@ -2760,7 +2760,7 @@ foundling	a child who has been abandoned and whose parents are unknown
 foundlings	FOUNDLING: a child who has been abandoned and whose parents are unknown
 foundries	FOUNDRY: factory where metal castings are produced
 foundry	factory where metal castings are produced
-founds	FOUND: set up or found
+founds	FOUND: FIND: come upon or discover
 fount	a plumbing fixture that provides a flow of water
 fountain	a structure from which an artificially produced jet of water arises
 fountainhead	an abundant source
