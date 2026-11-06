@@ -415,7 +415,6 @@ behaviour
 behaviours
 bell
 belled
-belles
 belling
 bellringer
 bellringers
@@ -599,7 +598,6 @@ bus
 bused
 buses
 busing
-buss
 bussed
 busses
 bussing
@@ -694,7 +692,6 @@ cartwheeled
 cartwheeling
 cartwheels
 cast
-castes
 casting
 castings
 casts
@@ -956,7 +953,6 @@ colloquia
 colloquium
 colloquiums
 colon
-colones
 colons
 colophon
 colophons
@@ -1406,9 +1402,6 @@ dimwit
 dimwits
 dimwitted
 din
-dined
-dines
-dining
 dinned
 dinnertime
 dinning
@@ -1926,7 +1919,6 @@ fallacy
 farewell
 farewells
 fee
-feed
 fees
 fellow
 fellows
@@ -1954,7 +1946,6 @@ fidgets
 fidgety
 fieldwork
 final
-finales
 finalist
 finalists
 finals
@@ -2672,11 +2663,8 @@ juxtapositions
 kaleidoscope
 kaleidoscopes
 keen
-keened
 keener
 keenest
-keening
-keens
 keyboard
 keyboarded
 keyboarding
@@ -3194,7 +3182,6 @@ museum
 museums
 music
 musical
-musicales
 musicals
 musicologist
 musicologists
@@ -3208,7 +3195,6 @@ nannies
 nanny
 nannying
 nap
-napes
 napped
 nappier
 nappies
@@ -3531,15 +3517,12 @@ pencilled
 pencilling
 pencillings
 pencils
-pend
-penes
 penmanship
 pennant
 pennants
 penned
 penning
 pens
-pent
 pentagon
 pentagons
 pep
@@ -4656,13 +4639,8 @@ shyest
 shying
 shyness
 sic
-sicced
-siccing
 sickbay
 sickbays
-sicked
-sicking
-sics
 sigh
 sighed
 sighing
@@ -4714,8 +4692,6 @@ skimming
 skims
 skipping
 skit
-skited
-skiting
 skits
 skive
 skived
@@ -5189,7 +5165,6 @@ termly
 terms
 test
 tested
-testes
 testing
 testings
 tests
@@ -5311,9 +5286,6 @@ toponymy
 torah
 torahs
 tot
-toted
-totes
-toting
 tots
 totted
 totting
@@ -5581,11 +5553,8 @@ volumes
 vowel
 vowels
 wag
-waged
-wages
 wagged
 wagging
-waging
 wagon
 wagons
 wags

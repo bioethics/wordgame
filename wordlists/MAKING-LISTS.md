@@ -467,14 +467,21 @@ What the session history, the commits and the author's Drive show:
 
 - **6 November, the sixth.** `theme-education.txt`, the author's own, for the
   Schoolmarm (🍎): school from kindy to uni, its people, rooms, games,
-  subjects and scholarship, 5,671 words, 6.8% of the dictionary, 28 of them
+  subjects and scholarship, 5,671 words (5,640 after the cut below), 6.8% of the dictionary, 28 of them
   not yet in it (CHEDER, EXEAT, FERULE, SIZAR, STEMMA…). 242 of the author's
   education words joined the dictionary with it (KINDY, TUCKSHOP, DUX,
   CHALKFACE, SCHOOLIES, SCRIPTORIUM, VARIORUM), each defined (59 written for
-  `definitions-own.txt`, 12 senses picked). Read as the author gave it; a few
-  inflections are built on another word than the school one (TESTES and PENES
-  from TEST and PEN, CASTES, COLONES, BELLES, NAPES), the kind the 5 November
-  read kept or cut one by one.
+  `definitions-own.txt`, 12 senses picked). Then 31 cut on the author's
+  rule for forms built on the wrong base, "if PENIS isn't in there by itself
+  it shouldn't get in via PEN": an inflection stays only if its own base is
+  on the list. Out went TESTES and PENES (from TEST and PEN), CASTES,
+  COLONES, BELLES, NAPES, FINALES, MUSICALES, FEED (from FEE), DINED, DINES
+  and DINING (from DIN), WAGED, WAGES and WAGING (WAG, the truant's), TOTED,
+  TOTES and TOTING (TOT), SKITED and SKITING, SICCED, SICCING, SICS, SICKED
+  and SICKING ([SIC]), KEENED, KEENING and KEENS (the wailing KEEN, beside
+  the eager one), PEND, PENT and BUSS. Spellings of a word on the list
+  stayed (NEURONES, INTERNES, PROTEGEES, ALKALIES), and TEXTILES, a school
+  subject.
 
 - **5 November, definitions.** Every dictionary word now has a definition
   for the daily's results (`tools/build-definitions.mjs`; README → "The Daily
