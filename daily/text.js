@@ -178,7 +178,7 @@ export const RESULT = {
   copied: 'Copied',
   again: 'Again',
   next: 'Next ›',
-  shareHead: 'Great Work · Daily Proof № {0}',
+  shareHead: 'Daily #{0}',
   shareSum: '{0} letters: {1} × {2} = {3}',
 };
 
