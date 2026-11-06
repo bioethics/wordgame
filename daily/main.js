@@ -187,7 +187,7 @@ function wordAndRest(k = S.active) {
   const eff = effective();
   const byId = new Map(eff.map(t => [t.id, t]));
   const inAny = new Set(S.words.flat());
-  return { word: (S.words[k] ?? []).map(id => byId.get(id)), rest: eff.filter(t => !inAny.has(t.id)), byId };
+  return { word: (S.words[k] ?? []).map(id => byId.get(id)), rest: eff.filter(t => !inAny.has(t.id) && !t.locked), byId };
 }
 const scoreOf = k => {
   const { word, rest } = wordAndRest(k);
@@ -218,7 +218,8 @@ function openChallenge(n) {
   S.tables = tablesForDay(deal.day, has);
   S.traits = traitsOf(deal);
   S.tiles = deal.tiles.map(t => ({ ...t }));
-  S.order = S.tiles.map(t => t.id);
+  // The Turnkey's locked sorts stand together at the end of the case.
+  S.order = [...S.tiles.filter(t => !t.locked), ...S.tiles.filter(t => t.locked)].map(t => t.id);
   S.tracks = tracksOf(S.tiles);
 
   // A proof already printed comes back as it was printed.
@@ -329,7 +330,7 @@ const stamps = id => !!(PATRONS[id]?.effect || PATRONS[id]?.bind) && id !== 'twi
 const locked = () => !!S.result || S.printing;
 
 function place(id, at = S.words[S.active].length) {
-  if (locked() || placed(id)) return;
+  if (locked() || placed(id) || S.tiles.find(t => t.id === id)?.locked) return;
   S.words[S.active].splice(at, 0, id);
   S.note = '';
   sfx.place();
@@ -436,12 +437,14 @@ function clearWord() {
 // ones, whose sorts are on the stick, go to the end.
 function shuffle() {
   if (locked()) return;
-  const loose = S.order.filter(id => !placed(id));
+  const barred = new Set(S.tiles.filter(t => t.locked).map(t => t.id));
+  const loose = S.order.filter(id => !placed(id) && !barred.has(id));
   for (let i = loose.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [loose[i], loose[j]] = [loose[j], loose[i]];
   }
-  S.order = [...loose, ...S.order.filter(id => placed(id))];
+  // Locked sorts stay together at the end, whatever the shuffle does to the rest.
+  S.order = [...loose, ...S.order.filter(id => barred.has(id)), ...S.order.filter(id => placed(id))];
   sfx.shuffle();
   render();
 }
@@ -795,6 +798,7 @@ function tileEl(t, zone, { mini = false, pays = null } = {}) {
   if (t.blank) div.classList.add('tile--blank');
   if (t.ephemeral) div.classList.add('tile--lent');
   if (t.wrapped) div.classList.add('tile--wrapped');
+  if (t.locked) { div.classList.add('tile--locked'); div.setAttribute('aria-disabled', 'true'); }
   if (t.recast) div.classList.add('tile--recast');
   if (t.trim) div.classList.add(`tile--trim-${t.trim}`);
   if (t.nick) div.classList.add(`tile--nick-${t.nick}`);
@@ -834,7 +838,7 @@ function tileEl(t, zone, { mini = false, pays = null } = {}) {
   if (!mini) {
     div.setAttribute('role', 'button');
     div.tabIndex = 0;
-    div.setAttribute('aria-label', `${L === '_' ? UI.blankHead : L}, ${restingOf(t)}`);
+    div.setAttribute('aria-label', t.locked ? SORT_TEXT.locked.head : `${L === '_' ? UI.blankHead : L}, ${restingOf(t)}`);
     // A head that is already a sentence ("Thorn — reads as TH.") takes no colon.
     div.title = tileLines(t).map(f => (f.body ? `${f.head}${/[.!?]$/.test(f.head) ? '' : ':'} ${f.body}` : f.head)).join('\n');
   }
@@ -865,6 +869,7 @@ function tileLines(t) {
   if (t.louped != null && t.louped === t.activeVariant) out.push({ head: SORT_TEXT.louped });
   if (t.painted) out.push({ head: SORT_TEXT.painted });
   if (t.wrapped) out.push(SORT_TEXT.wrapped);
+  if (t.locked) return [SORT_TEXT.locked];
   return out;
 }
 
@@ -1100,7 +1105,7 @@ function renderCase(fresh) {
   host.classList.toggle('case--locked', locked());
 }
 
-const toolFits = t => !t.blank && !t.ephemeral && !t.wrapped
+const toolFits = t => !t.blank && !t.ephemeral && !t.wrapped && !t.locked
   && (S.deal.tool === 'tube' ? !!t.paintOffer && !t.colour
     : S.deal.tool === 'loupe' ? loupeDelta(t, t.activeVariant) > 0 : shiftable(t, t.activeVariant));
 
@@ -1884,6 +1889,8 @@ function wireHands() {
       if (e.button !== undefined && e.button !== 0) return;   // primary only
       e.preventDefault();   // no text selection, no native gesture on a sort
       hidePop();
+      // A locked sort neither sets nor drags: a tap says why.
+      if (el.classList.contains('tile--locked')) { showTileInfo(Number(el.dataset.id), el); return; }
       press = { pointerId: e.pointerId, id: Number(el.dataset.id), zone: el.dataset.zone, el,
         x0: e.clientX, y0: e.clientY, dragging: false, popped: false, timer: null };
       el.setPointerCapture?.(e.pointerId);

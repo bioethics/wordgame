@@ -303,6 +303,8 @@ export const DAY_PATRONS = [
   'seadog', 'sculptor',
   // The Schoolmarm, 6 November: the sixth register, school from kindy to uni.
   'schoolmarm',
+  // The Turnkey, 6 November: ×3 on every word, four sorts locked (turnkeyLocks).
+  'turnkey',
   // The weaker seats, 4 November: on a day nobody chooses, a patron need not
   // move the best word, only pay — and the deal gives each what it reads.
   'apprentice', 'jeweller', 'novelist', 'typesetter', 'stammerer',
@@ -515,6 +517,10 @@ function seatFor(id, deal, rng) {
   const seat = { id, data: {} };
   if (id === 'monogrammist') seat.data.letters = monogramFor(deal, rng);
   if (id === 'limner') seat.data.letters = [limnerLetter(deal, rng)];
+  if (id === 'turnkey') {
+    const ids = turnkeyLocks(deal, rng);
+    for (const t of deal.tiles) if (ids.has(t.id)) t.locked = true;
+  }
   if (id === 'counterfeiter') seat.adds = { letter: '_', counterfeit: true, blank: true };
   return seat;
 }
@@ -653,6 +659,36 @@ export function withAdded(tiles, adds) {
 
 // The Monogrammist's three letters, drawn from the case so that all three can
 // be set: plain single letters only, likelier the more of them the case holds.
+// The Turnkey's locks: four sorts nobody may set. Three are plain lead and the
+// fourth any open sort, so the case keeps nearly all its dressing: locked at
+// random, four sorts cost the best word two-thirds of its worth and his ×3
+// broke even; sparing the dressing, about a third, and ×3 pays ×1.85 (over 240
+// cases). The reader is told only that four are locked. Never Hellbox iron (a
+// locked one would charge its toll on every word), a sort the tube offers, a
+// lent sort, nor more than two vowels. Drawn on the seat's stream, so the case
+// is the same case whoever sits.
+export const TURNKEY_LOCKS = 4;
+const LOCK_VOWELS = new Set(['A', 'E', 'I', 'O', 'U', 'Æ']);
+export function turnkeyLocks(deal, rng) {
+  const open = deal.tiles.filter(t => !t.material && !t.paintOffer && !t.ephemeral && !t.blank);
+  const bare = t => !(t.colour || t.trim || t.nick || t.letterType === 'dual');
+  const shuffled = list => {
+    const a = [...list];
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rng() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    return a;
+  };
+  const picks = [];
+  let vowels = 0;
+  const take = t => {
+    if (picks.includes(t) || (LOCK_VOWELS.has(t.letter) && vowels >= 2)) return;
+    picks.push(t);
+    if (LOCK_VOWELS.has(t.letter)) vowels++;
+  };
+  for (const t of shuffled(open.filter(bare))) { if (picks.length >= TURNKEY_LOCKS - 1) break; take(t); }
+  for (const t of shuffled(open)) { if (picks.length >= TURNKEY_LOCKS) break; take(t); }
+  return new Set(picks.map(t => t.id));
+}
+
 // The Limner's letter: one of the case's, from a middle band. A letter freely
 // drawn made him the weakest choice on Sunday (his best beat a register's on
 // 42% of cases, and on a third added nothing): C, P, M and S open so many of a

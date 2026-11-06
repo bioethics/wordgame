@@ -1855,6 +1855,21 @@ and The Monogrammist 25% — low, but it fires on every case and changes *which
 tiles* the best word is set from (its letters print twice, paint and all),
 which the figure doesn't see. None is ever dead.
 
+**The Turnkey** (🔐, the daily's own, 6 November, on Tuesday's roster): ×3
+Mult on every word, and four sorts of the case locked. A locked sort is in the
+case and in no word: drawn as a sort turned over (dark iron, no face, a brass
+keyhole), it neither sets nor drags, a tap says why, and the locked four stand
+together at the end of the case, shuffle as you like. The solver never sees
+them (`prepareCase` passes them by). Three of the four are plain lead and the
+fourth any open sort (`turnkeyLocks`): locked at random, four sorts cost the
+best word two-thirds of its worth and his ×3 broke even, where sparing the
+dressing they cost about a third. Over 240 cases, with his locks as dealt, the
+best word with him seated is worth ×1.64 the best unseated, he helps on 81%,
+moves the best word on 90%, and leaves a third of the field: an easier puzzle,
+which is the point of him. His card says only that four sorts are locked.
+Never Hellbox iron (a locked one would charge its toll on every word), a sort
+the tube offers, a lent sort, or more than two vowels.
+
 **The choice of two** (`CHOICE_TIERS`). A pair is only a choice if a player
 can weigh it, so a tier is patrons that pay the same way, and the choice is
 between two words to look for:

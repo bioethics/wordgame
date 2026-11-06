@@ -205,6 +205,9 @@ export const PATRONS = {
   antiquary: { adapted: true, effect({ letters, xMult }) { if (/[JQXZ]/.test(letters)) xMult(2); } },
   // The daily's own: no such seat in the game.
   commoner: { adapted: true, lists: ['commoner'], effect({ letters, xMult }) { if (inList('commoner', letters)) xMult(2); } },
+  // The daily's own (since 6 November): ×3 on every word, and four sorts of the
+  // case locked (turnkeyLocks in daily/deal.js; the solver never sees them).
+  turnkey: { adapted: true, effect({ xMult }) { xMult(3); } },
   // The daily's own (since 5 November), for the Sunday choice: ×3 for a word
   // beginning with the day's letter (limnerLetter in daily/deal.js). The limner
   // painted the ornate initial at the head of a manuscript; the game's

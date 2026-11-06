@@ -1187,6 +1187,36 @@ button.mode-item:hover, button.mode-item:focus-visible { background: rgba(217, 1
 /* The Redactor's drafts: the game's wrapped tile (css/style.css), a sheet of
    grey paper over the sort with the letter written on it by hand. Nothing
    shows through, and the corner reads 0. */
+/* The Turnkey's locks: the sort turned over, its foot up, as a compositor
+   turned one when the letter he wanted was out — dark iron with no face to
+   print — and a keyhole in brass. A sort you can't set, at a glance. */
+.tile--locked {
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0 0.12em, rgba(255, 255, 255, 0) 0.12em 0.36em),
+    linear-gradient(165deg, #45413b 0%, #2e2b27 55%, #1f1d1a 100%);
+  border-color: rgba(0, 0, 0, 0.65);
+  --trim-ring: 0 0 rgba(0, 0, 0, 0);
+  --tile-lift: #141210;
+  cursor: not-allowed;
+}
+.tile--locked .tile-letter, .tile--locked .tile-pts, .tile--locked .tile-alt { visibility: hidden; }
+.tile--locked::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0.95em;
+  height: 1.55em;
+  transform: translate(-50%, -52%);
+  background:
+    radial-gradient(circle at 50% 0.45em, var(--brass) 0 0.4em, transparent 0.42em),
+    linear-gradient(var(--brass), var(--brass)) 50% 100% / 0.46em 1em no-repeat;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 74% 100%, 26% 100%, 0 45%);
+  opacity: 0.85;
+}
+@media (hover: hover) {
+  .tile--locked:not(.tile--mini):hover { transform: none; }
+}
 .tile--wrapped {
   background:
     repeating-linear-gradient(101deg, rgba(140, 130, 118, 0.05) 0 0.19em, rgba(140, 130, 118, 0) 0.19em 0.44em),

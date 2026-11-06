@@ -316,7 +316,8 @@ function readsOf(letter) {
 // none on a plain day, one when a patron or an editor is seated, several when
 // the reader chooses between patrons — every word is then priced under each.
 export function prepareCase(tiles, item = null, tables = []) {
-  const prepared = tiles.map(paper).map(t => {
+  // A sort the Turnkey has locked is in the case and in no word.
+  const prepared = tiles.filter(t => !t.locked).map(paper).map(t => {
     const faces = [0, ...(t.letterType === 'dual' && t.altLetter ? [1] : [])].map(v => {
       const L = faceLetter(t, v);
       return {
