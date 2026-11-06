@@ -2062,8 +2062,8 @@ failing both the text itself laid out to copy) gives the day the way Wordle
 does, in coloured squares: each word a row of them, a sort to a square in the
 order it was set, each in its paint (⬜, the cream of the type, if it wore
 none). How the word was set, without a letter of it. Beside each row its
-total and the emoji of any patron who paid for it; then the grade and the
-place, after the pair's sum on a two-word day:
+total, the emoji of any patron who paid for it, and ✂️ if an editor spiked
+it; then the grade and the place, after the pair's sum on a two-word day:
 
 ```
 Great Work Daily #2

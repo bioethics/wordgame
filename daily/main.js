@@ -1452,8 +1452,9 @@ const patronMark = (tiles, seat = 0) => {
 
 // The share, Wordle's way: each word as a row of squares, a sort to a square in
 // the order it was set, each in its paint (⬜, the cream of the type, if it wore
-// none) — how it was set, without a letter of it — and beside it its total and
-// the emoji of a patron who paid for it; then the place.
+// none) — how it was set, without a letter of it — and beside it its total, the
+// emoji of a patron who paid for it and an editor's scissors if it was spiked;
+// then the place.
 const SHARE_SQUARE = { crimson: '🟥', azure: '🟦', jade: '🟩', amber: '🟨' };
 function shareText(r, pairs) {
   const rows = S.words.map((_, k) => {
@@ -1461,7 +1462,7 @@ function shareText(r, pairs) {
     const sc = scoreOf(k);
     if (!sc) return null;
     const squares = word.map(t => SHARE_SQUARE[t.colour] ?? '⬜').join('');
-    const marks = paidBy(word, r.seat ?? 0).map(p => patronEmoji(p.id)).filter(Boolean).join('');
+    const marks = [...paidBy(word, r.seat ?? 0).map(p => patronEmoji(p.id)).filter(Boolean), ...(sc.spiked ? ['✂️'] : [])].join('');
     return `${squares} ${fmtN(sc.total)}${marks ? ` ${marks}` : ''}`;
   }).filter(Boolean);
   return [
@@ -2120,6 +2121,7 @@ function openHowto() {
     sum.textContent = fill(HOWTO.sum, fmtN(sc.shownPoints), fmtMult(sc.shownMult), fmtN(sc.total));
     fig.append(cap, miniWord(tiles, null), chips, sum);
     body.appendChild(fig);
+    body.appendChild(para(HOWTO.patrons));
     body.appendChild(para(HOWTO.hold));
     dlg.appendChild(body);
     // A tap on the dimmed page around the sheet puts it away.

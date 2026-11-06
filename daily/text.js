@@ -147,6 +147,7 @@ export const HOWTO = {
   mult: 'Mult comes from length (×2 at six letters, +0.5 for each letter after) and from paint. Each colour in the word is a multiplier of its own: one crimson sort is ×2, two are ×3, three ×4. Different colours multiply together.',
   example: 'For example, {0} with two crimson sorts and one azure:',
   sum: '{0} Points × {1} Mult = {2}',
+  patrons: 'Some days seat a patron, or offer two to choose between. A patron changes the score in its own way, often with ×Mult for a kind of word, and its card lights up while your word pays. Tap a patron to read its rule.',
   hold: 'Hold a sort to read what its trim or nick does.',
 };
 
