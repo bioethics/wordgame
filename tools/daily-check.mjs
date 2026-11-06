@@ -180,7 +180,7 @@ console.log(`seated: ${seatedCompared} arrangements under ${seatings.length} sea
 // then every assignment of tiles to the word, every face, every legal tail, and
 // every letter a blank could be. Scored by scoreWord under the table given.
 function naiveBest(tiles, tool, word, T = null) {
-  tiles = tiles.filter(t => !t.locked);   // the Turnkey's: in the case, in no word
+  tiles = tiles.filter(t => !TB.barred(T, t.id));   // the Turnkey's locks: in the case, in no word
   const uses = [null];
   if (tool === 'tube') {
     for (const t of tiles) if (t.paintOffer && !t.colour) uses.push({ kind: 'tube', id: t.id, colour: t.paintOffer });
@@ -257,6 +257,7 @@ for (let n = from; n <= to; n++) {
     const sc = S.scoreWord(set, rest, has, tables.length ? tables[r.seat] : null);
     if (!j.ok || j.letters !== w) fail(`№${n} plan for ${w} reads as ${j.letters ?? j.why}`);
     if (sc.total !== r.score) fail(`№${n} plan for ${w} replays to ${sc.total}, solver said ${r.score}`);
+    if (tables.length && TB.barsAny(tables[r.seat], set)) fail(`№${n} plan for ${w} sets a sort its seat locks`);
   }
 
   // A sample of words, found or not, against the naive search — under every

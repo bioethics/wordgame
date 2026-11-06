@@ -206,7 +206,8 @@ export const PATRONS = {
   // The daily's own: no such seat in the game.
   commoner: { adapted: true, lists: ['commoner'], effect({ letters, xMult }) { if (inList('commoner', letters)) xMult(2); } },
   // The daily's own (since 6 November): ×3 on every word, and four sorts of the
-  // case locked (turnkeyLocks in daily/deal.js; the solver never sees them).
+  // case locked while he is seated (turnkeyLocks in daily/deal.js; his table's
+  // `bars`, which the solver prices no word under).
   turnkey: { adapted: true, effect({ xMult }) { xMult(3); } },
   // The daily's own (since 5 November), for the Sunday choice: ×3 for a word
   // beginning with the day's letter (limnerLetter in daily/deal.js). The limner
@@ -412,8 +413,15 @@ export function compileTable(seat, desk, has) {
     effect: p?.bind ? p.bind(pdata) : p?.effect ?? null,
     spell: p?.spell ?? null,
     judge: e?.judge ? (L, tiles) => e.judge(L, tiles, edata) : null,
+    // The sorts nobody may set under this seat, as a bitmask of tile ids: the
+    // Turnkey's locks (turnkeyLocks in daily/deal.js).
+    bars: (pdata.locks ?? []).reduce((m, id) => m | (1 << id), 0),
   };
 }
+
+// Whether a table bars a tile, or any of a set of tiles.
+export const barred = (T, id) => !!T?.bars && (T.bars & (1 << id)) !== 0;
+export const barsAny = (T, tiles) => !!T?.bars && tiles.some(t => barred(T, t.id));
 
 // The spellings the day's licences admit beyond the dictionary (none on most days).
 export function spellingsFor(tables, words, has, tiles, tool = null) {

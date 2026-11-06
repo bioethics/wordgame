@@ -316,8 +316,16 @@ function readsOf(letter) {
 // none on a plain day, one when a patron or an editor is seated, several when
 // the reader chooses between patrons — every word is then priced under each.
 export function prepareCase(tiles, item = null, tables = []) {
-  // A sort the Turnkey has locked is in the case and in no word.
-  const prepared = tiles.filter(t => !t.locked).map(paper).map(t => {
+  // A sort barred under every table (the Turnkey's locks, when he is the only
+  // seat) is in the case and in no word; one barred under some tables only is
+  // walked, and priced under the others (bestFor).
+  const everywhere = tables.length ? tables.reduce((m, T) => m & (T.bars ?? 0), ~0) : 0;
+  // Identical sorts are tried once (the walk's `sig`), so a sort locked under
+  // some table is no longer identical to its free twin: which tables bar it
+  // joins its signature.
+  const barSig = id => (tables.some(T => (T.bars ?? 0) & (1 << id))
+    ? `|${tables.map(T => ((T.bars ?? 0) >> id) & 1).join('')}` : '');
+  const prepared = tiles.filter(t => !(everywhere & (1 << t.id))).map(paper).map(t => {
     const faces = [0, ...(t.letterType === 'dual' && t.altLetter ? [1] : [])].map(v => {
       const L = faceLetter(t, v);
       return {
@@ -328,7 +336,7 @@ export function prepareCase(tiles, item = null, tables = []) {
       };
     });
     return {
-      t, faces, sig: sigOf(t), blank: !!t.blank,
+      t, faces, sig: sigOf(t) + barSig(t.id), blank: !!t.blank,
       mark: isMark(t.letter) ? t.letter : null,
       colour: t.colour ?? null, purple: t.trim === 'purple' ? 1 : 0,
       // The colour the day's tube would paint it, if it is one the tube offers.
@@ -417,7 +425,7 @@ function tailsFor(cs, usedMask) {
 //
 // Returns { score, plan: [{ id, face, letter? }], tool }, and on a seated day
 // also `seat` (which table the best setting was under) and `scores` (the best
-// under each table, in order). A plan's `letter` is what a blank was set as.
+// under each table, in order; null under a table that bars every setting). A plan's `letter` is what a blank was set as.
 export function bestFor(cs, word, has) {
   if (word.length > cs.reach) return null;
   // The count: letters the case cannot supply, beyond what a ratchet or a
@@ -509,7 +517,10 @@ export function bestFor(cs, word, has) {
           grown.push([i, w]);
         }
       }
+      let mask = used;
+      for (const p of tail) mask |= 1 << p.t.id;
       for (let k = 0; k < nT; k++) {
+        if (tables[k].bars & mask) continue;   // a sort this seat locks
         let total = core(word0, word, rest, tables[k], false);
         let at = -1;
         for (const [i, w] of grown) {
@@ -569,7 +580,9 @@ export function bestFor(cs, word, has) {
     }
   };
   walk(0, 0, null);
-  if (best && tops) best.scores = tops;
+  // A table that could set the word no way (every setting uses a sort it
+  // locks) scores it null.
+  if (best && tops) best.scores = tops.map(x => (x < 0 ? null : x));
   return best;
 }
 

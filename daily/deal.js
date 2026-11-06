@@ -310,8 +310,6 @@ export const DAY_PATRONS = [
   'seadog', 'sculptor',
   // The Schoolmarm, 6 November: the sixth register, school from kindy to uni.
   'schoolmarm',
-  // The Turnkey, 6 November: ×3 on every word, four sorts locked (turnkeyLocks).
-  'turnkey',
   // The weaker seats, 4 November: on a day nobody chooses, a patron need not
   // move the best word, only pay — and the deal gives each what it reads.
   'apprentice', 'jeweller', 'novelist', 'typesetter', 'stammerer',
@@ -331,8 +329,10 @@ export const CHOICE_TIERS = {
   // search for rather than guess at. Over a year of cases, with his letter from
   // LIMNER_LETTERS, the best word with him seated is worth ×1.65 the best
   // unseated (the registers ×1.44–1.92), and his best beats a register's
-  // best on 49% of cases.
-  rich:  ['sexton', 'paramour', 'poppet', 'vulgarian', 'seadog', 'schoolmarm', 'limner'],
+  // best on 49% of cases. The Turnkey (6 November) pays ×3 on every word, for
+  // four of the case's sorts: the choice is then sixteen sorts for a themed
+  // word or twelve for any word, and his locks hold only while he is seated.
+  rich:  ['sexton', 'paramour', 'poppet', 'vulgarian', 'seadog', 'schoolmarm', 'limner', 'turnkey'],
   // ×2 for a word of a given form. Four are the daily's own ×2 versions of
   // patrons that pay otherwise in the game (adapted in daily/table.js), and
   // the Herald's and the Antiquary's days are dealt what they read
@@ -525,10 +525,9 @@ function seatFor(id, deal, rng) {
   const seat = { id, data: {} };
   if (id === 'monogrammist') seat.data.letters = monogramFor(deal, rng);
   if (id === 'limner') seat.data.letters = [limnerLetter(deal, rng)];
-  if (id === 'turnkey') {
-    const ids = turnkeyLocks(deal, rng);
-    for (const t of deal.tiles) if (ids.has(t.id)) t.locked = true;
-  }
+  // The Turnkey's locks are his seat's, not the case's: on a Sunday the other
+  // patron on offer has all sixteen sorts (bars in daily/table.js).
+  if (id === 'turnkey') seat.data.locks = [...turnkeyLocks(deal, rng)].sort((a, b) => a - b);
   if (id === 'counterfeiter') seat.adds = { letter: '_', counterfeit: true, blank: true };
   return seat;
 }

@@ -71,8 +71,8 @@ export const SORT_TEXT = {
 // The daily's own patrons, who have no card in the game to take a name from.
 export const DAILY_CARDS = {
   commoner: { name: 'The Commoner', emoji: '🍺' },
-  limner:   { name: 'The Limner', emoji: '🖌️' },
-  turnkey:  { name: 'The Turnkey', emoji: '🔐' },   // his card shows the day's letter instead (patronFace in main.js)
+  limner:   { name: 'The Limner', emoji: '🖌️' },   // his card shows the day's letter instead (patronFace in main.js)
+  turnkey:  { name: 'The Turnkey', emoji: '🔐' },
 };
 
 export const PATRON_TEXT = {
@@ -106,7 +106,7 @@ export const PATRON_TEXT = {
   twins:         'Every doubled letter (LL, OO…) pays +5 Points, and the second tile takes every feature of the first.',
   monogrammist:  'A tile showing {0} prints twice — Points, trim and paint alike.',
   limner:        '×3 Mult for words beginning with {0}.',
-  turnkey:       '×3 Mult. Four sorts in the case are locked: they can’t be set.',
+  turnkey:       '×3 Mult. While he is seated, four sorts in the case are locked and can’t be set.',
   counterfeiter: 'A blank joins the case: any letter, worth 0.',
 };
 

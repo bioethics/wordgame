@@ -1804,7 +1804,7 @@ challenge (`WEEK` in `daily/deal.js`; № 1 is a Friday):
 
 | Day | Case |
 | --- | --- |
-| Sunday | **A choice of two patrons**, from the rich tier (the six registers and the Limner). Tap a card to seat it (and read it); the readout re-prices the word under whoever is seated. In the results, a word either patron would pay the same carries both their emoji. |
+| Sunday | **A choice of two patrons**, from the rich tier (the six registers, the Limner and the Turnkey). Tap a card to seat it (and read it); the readout re-prices the word under whoever is seated. In the results, a word either patron would pay the same carries both their emoji. |
 | Monday, Wednesday | Plain. |
 | Tuesday | **The day's patron**, seated for everyone. |
 | Thursday | **An editor at the desk.** The card carries the day's rule on its face; a word that breaks it is spiked — scored at ×0.2, exactly as at a Deadline, never refused. The card is not a patron's: it is the bench's editor slab (black ink, a red edge, the name in red), and it runs hot while the word in hand would be spiked. |
@@ -1855,18 +1855,31 @@ and The Monogrammist 25% — low, but it fires on every case and changes *which
 tiles* the best word is set from (its letters print twice, paint and all),
 which the figure doesn't see. None is ever dead.
 
-**The Turnkey** (🔐, the daily's own, 6 November, on Tuesday's roster): ×3
-Mult on every word, and four sorts of the case locked. A locked sort is in the
-case and in no word: drawn as a sort turned over (dark iron, no face, a brass
-keyhole), it neither sets nor drags, a tap says why, and the locked four stand
-together at the end of the case, shuffle as you like. The solver never sees
-them (`prepareCase` passes them by). Three of the four are plain lead and the
+**The Turnkey** (🔐, the daily's own, 6 November, offered on Sundays): ×3 Mult on every word, and four sorts of
+the case locked while he is seated. A locked sort is in the case and in no
+word: drawn as a sort turned over (dark iron, no face, a brass keyhole), it
+neither sets nor drags, a tap says why, and the locked four stand together at
+the end of the case, shuffle as you like. The locks are his seat's, not the
+case's (`seat.data.locks`, compiled into his table's `bars`): seat the other
+patron on a Sunday and they lift where they stand; seat him and they lock,
+go to the end, come off the stick if a word held them, and hand back a tool
+used on one (`syncLocks`, `locksToEnd` in daily/main.js). The solver walks a
+locked sort but prices no setting that uses it under his table (`bestFor`),
+and passes it by entirely when he is the only seat (`prepareCase`); a word no
+setting of which he allows scores `null` under him. Three of the four are plain lead and the
 fourth any open sort (`turnkeyLocks`): locked at random, four sorts cost the
 best word two-thirds of its worth and his ×3 broke even, where sparing the
 dressing they cost about a third. Over 240 cases, with his locks as dealt, the
 best word with him seated is worth ×1.64 the best unseated, he helps on 81%,
 moves the best word on 90%, and leaves a third of the field: an easier puzzle,
-which is the point of him. His card says only that four sorts are locked.
+which is the point of him. His card says only that four sorts are locked
+while he is seated. On a Sunday he is the choice between sixteen sorts for a
+themed word and twelve for any word: over 205 cases his best beats the other
+patron's on 44%, from 29% against the Paramour to 57% against the Schoolmarm,
+near the Limner's 49%, so neither half of the pair is the answer in advance.
+(A locked sort is no longer the twin of a free one the same: the solver,
+which tries identical sorts once, folds which tables bar a sort into its
+signature, or it would miss every word set from the free twin.)
 Never Hellbox iron (a locked one would charge its toll on every word), a sort
 the tube offers, a lent sort, or more than two vowels.
 
@@ -1893,8 +1906,9 @@ between two words to look for:
   they won 58–67%, and K, N, X, Y and Z so few that they won 11–28%. From the
   band, his best beats a register's on 49% of cases, and the best word with
   him seated is worth ×1.65 the best unseated (the registers ×1.44–1.92).
-  Every case in a year held a letter of the band. With him the tier is six,
-  and he is offered on a third of Sundays.
+  Every case in a year held a letter of the band. And since 6 November the
+  Turnkey (above): ×3 on every word, for four sorts locked while he is
+  seated. The tier is eight, and each is offered on a quarter of Sundays.
 - *plain*, on Fridays — ×2 for a word of a given form: The Cartographer
   (vowels in order), The Poet (an adjective or adverb),
   The Yodeller (as many vowels as consonants — made for this, and seated in the

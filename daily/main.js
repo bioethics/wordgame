@@ -17,7 +17,7 @@ import {
   scoreWord, judge, withTool, solveCase, rankOf, bracketOf, BRACKETS, activeLetter, faceLetter,
   restingOf, ringStep, shiftable, loupeDelta, settingOf, solveWords, solvePairs, pairBest, RING,
 } from './score.js';
-import { tablesForDay, seatIdsOfDay, listsNeeded, LISTS, LIST_FILES, adoptList, PATRONS, EDITORS, spellingsFor } from './table.js';
+import { tablesForDay, seatIdsOfDay, listsNeeded, LISTS, LIST_FILES, adoptList, PATRONS, EDITORS, spellingsFor, barred, barsAny } from './table.js';
 import {
   COLOURS, TRIMS, NICKS, MEDIEVAL, letterGlyph, colourDesc, SPIKE_MULT,
   LOUPE_CAP, CURSED_MULT, CURSED_PENALTY, LENGTH_MULT_MIN, lengthMult, lengthFlourish,
@@ -183,6 +183,23 @@ const placed = id => placedIn(id) >= 0;
 const tableNow = () => (S.tables.length ? S.tables[S.deal.day.kind === 'choice' ? S.seat : 0] : null);
 const seatNow = () => (S.deal.day.kind === 'choice' ? S.deal.day.choices[S.seat] : S.deal.day.patron) ?? null;
 
+// The Turnkey's locks are his seat's, not the case's: they hold while he is
+// seated, and lift when a reader on a Sunday seats the other patron. Synced at
+// every render: a sort he locks comes off the stick, and a tool used on it is
+// handed back.
+function syncLocks() {
+  const T = tableNow();
+  for (const t of S.tiles) t.locked = barred(T, t.id);
+  if (S.result || !T?.bars) return;
+  S.words = S.words.map(w => w.filter(id => !barred(T, id)));
+  if (S.applied && barred(T, S.applied.id)) S.applied = null;
+}
+// ...and stand together at the end of the case, as they do after a shuffle.
+function locksToEnd() {
+  const T = tableNow();
+  if (T?.bars) S.order = [...S.order.filter(id => !barred(T, id)), ...S.order.filter(id => barred(T, id))];
+}
+
 function wordAndRest(k = S.active) {
   const eff = effective();
   const byId = new Map(eff.map(t => [t.id, t]));
@@ -219,7 +236,8 @@ function openChallenge(n) {
   S.traits = traitsOf(deal);
   S.tiles = deal.tiles.map(t => ({ ...t }));
   // The Turnkey's locked sorts stand together at the end of the case.
-  S.order = [...S.tiles.filter(t => !t.locked), ...S.tiles.filter(t => t.locked)].map(t => t.id);
+  S.order = S.tiles.map(t => t.id);
+  locksToEnd();
   S.tracks = tracksOf(S.tiles);
 
   // A proof already printed comes back as it was printed.
@@ -935,6 +953,7 @@ const kneeEl  = k => $(k ? 'knee1' : 'knee');
 const zones = () => [$('case'), stickEl(0), stickEl(1)];
 
 function render({ fresh = false } = {}) {
+  syncLocks();
   const before = fresh ? new Map() : new Map(zones().flatMap(z => [...snapTiles(z)]));
   if (fresh) lastPays = new Map();
   const scs = S.words.map((_, k) => scoreOf(k));
@@ -1059,7 +1078,7 @@ function renderSeats(sc) {
       card.setAttribute('aria-pressed', on ? 'true' : 'false');
       card.disabled = locked() && !on;
       card.addEventListener('click', () => {
-        if (!on && !locked()) { S.seat = i; S.tracks = tracksOf(S.tiles); sfx.select(); render(); }
+        if (!on && !locked()) { S.seat = i; locksToEnd(); S.tracks = tracksOf(S.tiles); sfx.select(); render(); }
         const now = $('seats').children[i];
         readSeat(now, patronName(p.id), patronRule(p));
       });
@@ -1445,7 +1464,7 @@ function paidBy(tiles, seat = 0) {
   const paid = tiles.some(t => t.blank) || byLicence(tiles) || total !== plain;
   if (!paid) return [];
   return !choice ? [p] : day.choices.filter((q, i) => i === seat
-    || (S.tables[i] && scoreWord(tiles, [], has, S.tables[i]).total === total));
+    || (S.tables[i] && !barsAny(S.tables[i], tiles) && scoreWord(tiles, [], has, S.tables[i]).total === total));
 }
 const patronMark = (tiles, seat = 0) => {
   const by = paidBy(tiles, seat);
@@ -2096,6 +2115,7 @@ function restoreBest() {
   S.words = b.words.map(w => [...w]);
   S.seat = b.seat ?? 0;
   S.applied = b.applied ?? null;
+  locksToEnd();
   S.armed = false;
   S.active = 0;
   S.note = '';
