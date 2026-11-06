@@ -1452,8 +1452,10 @@ const patronMark = (tiles, seat = 0) => {
 
 // The share, Wordle's way: the case as it was dealt, in rows, every sort you set
 // in its paint (⬜, the cream of the type, if it wore none) and the rest dark —
-// the puzzle and how you set it, without a letter of the word — then the
-// score, who paid for it, the tool you used, and the place.
+// the puzzle and how you set it, without a letter of the word. Then each word
+// as the readout summed it, its length and Points × Mult = total, with the
+// emoji of a patron who paid for it, a spike's scissors and the tool used on
+// it; then the place.
 const SHARE_SQUARE = { crimson: '🟥', azure: '🟦', jade: '🟩', amber: '🟨' };
 const SHARE_TOOL = { ratchet: '🔧', loupe: '🔍', tube: '🎨' };
 function shareText(r, pairs) {
@@ -1464,19 +1466,26 @@ function shareText(r, pairs) {
   const cells = tiles.map(t => (used.has(t.id) ? SHARE_SQUARE[used.get(t.id).colour] ?? '⬜' : '⬛'));
   const grid = [];
   for (let i = 0; i < cells.length; i += cols) grid.push(cells.slice(i, i + cols).join(''));
-  const marks = [];
-  for (let k = 0; k < S.words.length; k++) {
-    for (const p of paidBy(wordAndRest(k).word, r.seat ?? 0)) {
-      const e = patronEmoji(p.id);
-      if (e && !marks.includes(e)) marks.push(e);
-    }
-  }
-  if (S.words.some((_, k) => scoreOf(k)?.spiked)) marks.push('✂️');
-  if (r.applied && SHARE_TOOL[r.applied.kind]) marks.push(SHARE_TOOL[r.applied.kind]);
+  const sums = S.words.map((_, k) => {
+    const { word } = wordAndRest(k);
+    const sc = scoreOf(k);
+    if (!sc) return null;
+    const marks = paidBy(word, r.seat ?? 0).map(p => patronEmoji(p.id)).filter(Boolean);
+    if (sc.spiked) marks.push('✂️');
+    if (r.applied && SHARE_TOOL[r.applied.kind] && word.some(t => t.id === r.applied.id)) marks.push(SHARE_TOOL[r.applied.kind]);
+    // The readout's Points and Mult (a seat's ×Mult shown on the Mult side), where
+    // they multiply out to the total; where a seat's rounding keeps them from it
+    // (Romeo's ×1.5 on 17 Points is 25.5, paid as 26), the engine's own pair,
+    // which always does (26 × 3 = 78, not 17 × 4.5).
+    const [pts, mult] = Math.abs(sc.shownPoints * sc.shownMult - sc.total) < 1
+      ? [sc.shownPoints, sc.shownMult] : [sc.points, sc.mult];
+    return `${fill(RESULT.shareSum, sc.letters.length, fmtN(pts), +(mult ?? 1).toFixed(2), fmtN(sc.total))}${marks.length ? ` ${marks.join('')}` : ''}`;
+  }).filter(Boolean);
   return [
-    fill(RESULT.shareHead, S.n, traitName(S.traits[0])),
+    fill(RESULT.shareHead, S.n),
     ...grid,
-    [`${fmtN(r.score)}${marks.length ? ` ${marks.join('')}` : ''}`,
+    ...sums,
+    [...(sums.length > 1 ? [fmtN(r.score)] : []),
       r.rank === 1 ? RESULT.best : gradeLabel(r),
       fill(pairs ? RESULT.placePairs : RESULT.place, fmtN(r.rank), fmtN(r.size))].join(' · '),
     // Inside a frame the page's own address is not one anybody could open.

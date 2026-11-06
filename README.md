@@ -2062,17 +2062,25 @@ failing both the text itself laid out to copy) gives the day the way Wordle
 does, as a grid of squares: the case as it was dealt, four to a row (five on a
 two-word day), each sort you set in its paint (⬜, the cream of the type, if it
 wore none) and the others dark. The puzzle and how you set it, with no letter
-of the word. Under the grid, the score, the emoji of any patron who paid for it
-(a spiked word ✂️, a tool used 🔧 🔍 🎨), the grade and the place:
+of the word. Under the grid, each word as the readout summed it — its length,
+Points × Mult = total — with the emoji of any patron who paid for it (a spiked
+word ✂️, a tool used on it 🔧 🔍 🎨); then the grade and the place, after the
+pair's sum on a two-word day:
 
 ```
-Great Work · Daily Proof № 2 · A Choice of Patrons
+Great Work · Daily Proof № 2
 🟥⬛⬜⬜
 ⬜⬛⬛⬛
 🟨⬛⬛⬛
 ⬛⬛⬛🟦
-1,950 · Top 40% · #874 of 2,624
+7 letters: 65 × 30 = 1,950
+Top 40% · #874 of 2,624
 ```
+
+The Points and Mult are the readout's, a seat's ×Mult on the Mult side, where
+they multiply out to the total. Where a seat's rounding keeps them from it —
+Romeo's ×1.5 on 17 Points is 25.5, paid as 26, so the readout's 17 × 4.5 makes
+76.5 of a 78 — the share gives the engine's own pair instead, 26 × 3 = 78.
 
 ### Two words
 
