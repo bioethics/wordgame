@@ -157,6 +157,7 @@ export const HOWTO = {
 };
 
 export const UI = {
+  best: 'Best: {0} · {1}',
   number: '№ {0}',
   flipTo: 'Flip to {0}',
   letters: '{0} letters',

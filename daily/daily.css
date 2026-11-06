@@ -533,6 +533,29 @@ button.mode-item:hover, button.mode-item:focus-visible { background: rgba(217, 1
   font-size: 13.5px;
   color: var(--red);
 }
+/* Under the stick: the note on the left and, on the right, your best of the
+   day, to set again with a tap — quiet, a line of small type, there only while
+   what is on the stick is not it. */
+.sheet-foot { display: flex; align-items: baseline; gap: 10px; }
+.sheet-foot .status { flex: 1 1 auto; min-width: 0; }
+.best-so-far {
+  flex: 0 1 auto;
+  min-width: 0;
+  margin: 5px 2px 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: 600 12.5px/1.45 var(--sans);
+  color: var(--dim);
+  text-decoration: underline dotted rgba(109, 92, 69, 0.55);
+  text-underline-offset: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.best-so-far:hover { color: var(--ink); }
+.best-so-far[hidden] { display: none; }
 
 /* ─── The case ─────────────────────────────────────────────────────────────── */
 .case {

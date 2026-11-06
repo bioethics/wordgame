@@ -2080,6 +2080,15 @@ build embeds them all. (Until 6 November there was a file a letter, fetched on
 the first tap that needed it: the tap waited on as much as 640 KB, the S's. The
 largest now is ST's, 98 KB, and most are a few tens.)
 
+### Your best
+
+The day keeps the highest-scoring setting you have made on it — a word, or
+on a two-word day a pair, each a word and long enough — with its faces, the
+seat you chose and the tool you used (`noteBest`, kept in the day's draft, so
+a reload or a cleared stick doesn't lose it). While the stick holds anything
+else, a line of small type under it on the right reads *Best: BLUEFIN · 450*,
+and a tap sets that again (`restoreBest`). It goes once the day is printed.
+
 ### The share
 
 The Share button (the share sheet on a phone, the clipboard elsewhere, and

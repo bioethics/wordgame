@@ -211,7 +211,7 @@ function openChallenge(n) {
   const deal = dealChallenge(n);
   Object.assign(S, {
     n, deal, words: deal.day.kind === 'pair' ? [[], []] : [[]], active: 0, seat: 0,
-    applied: null, armed: false, result: null,
+    applied: null, armed: false, result: null, best: null,
     field: null, note: '', printing: false, open: new Set(), openInit: false,
   });
   EXTRA = new Set();
@@ -946,6 +946,8 @@ function render({ fresh = false } = {}) {
   for (let k = 0; k < 2; k++) renderStick(k, scs[k]);
   renderSticksActive();
   renderPairSum(scs);
+  noteBest();
+  renderBest();
   if (!S.printing) renderReadout(sc);
   renderBench();
   renderResult();
@@ -968,7 +970,7 @@ function loadDrafts() { try { return JSON.parse(localStorage.getItem(DRAFTS) || 
 function saveDraft() {
   if (!S.deal || S.printing) return;
   const drafts = loadDrafts();
-  const empty = !S.words.some(w => w.length) && !S.applied;
+  const empty = !S.words.some(w => w.length) && !S.applied && !S.best;
   if (S.result || empty) delete drafts[S.n];
   else drafts[S.n] = snapshot();
   for (const k of Object.keys(drafts).map(Number).sort((a, b) => b - a).slice(7)) delete drafts[k];
@@ -1202,7 +1204,7 @@ function renderPairSum(scs) {
     line.id = 'pairSum';
     line.className = 'pair-sum';
     line.innerHTML = '<span></span> <b>0</b>';
-    $('status').before(line);
+    $('status').parentElement.before(line);
   }
   line.hidden = !pairDay();
   if (!pairDay() || S.printing) return;
@@ -2010,6 +2012,7 @@ function wire() {
   $('printBtn').addEventListener('click', print);
   $('clearBtn').addEventListener('click', clearWord);
   $('shuffleBtn').addEventListener('click', shuffle);
+  $('bestBtn').addEventListener('click', restoreBest);
   $('toolBtn').addEventListener('click', toolTap);
   $('prevBtn').addEventListener('click', () => openChallenge(S.n - 1));
   $('nextBtn').addEventListener('click', () => openChallenge(S.n + 1));
@@ -2035,6 +2038,7 @@ function wire() {
 // it was being set. Everything printed is in localStorage already.
 const snapshot = () => ({
   n: S.n, words: S.words, active: S.active, seat: S.seat, applied: S.applied, order: S.order, faces: facesNow(),
+  best: S.best,
 });
 function resume(data) {
   if (!data || data.n !== S.n || S.result || !Array.isArray(data.words) || data.words.length !== S.words.length) return;
@@ -2045,6 +2049,58 @@ function resume(data) {
   S.active = Math.min(data.active ?? 0, S.words.length - 1);
   S.seat = data.seat ?? 0;
   S.applied = data.applied ?? null;
+  const b = data.best;
+  S.best = b && Array.isArray(b.words) && b.words.length === S.words.length
+    && b.words.every(w => w.every(id => ids.has(id))) ? b : null;
+  render();
+}
+
+// ─── Your best ────────────────────────────────────────────────────────────────
+// The highest-scoring setting made on the day — a word, or on a two-word day a
+// pair of them, each a word and long enough — kept with the day's draft, and
+// set again, faces, seat and tool alike, by a tap on the line under the stick.
+function settingNow() {
+  if (S.result || S.printing) return null;
+  let total = 0;
+  const letters = [];
+  for (let k = 0; k < S.words.length; k++) {
+    const { word, rest } = wordAndRest(k);
+    if (!word.length) return null;
+    const j = judge(word, has);
+    if (!j.ok || (pairDay() && j.letters.length < S.deal.day.min)) return null;
+    total += scoreWord(word, rest, has, tableNow()).total;
+    letters.push(j.letters);
+  }
+  return { total, letters };
+}
+const sameSetting = b => JSON.stringify([S.words, S.seat, S.applied ?? null, facesNow()])
+  === JSON.stringify([b.words, b.seat, b.applied ?? null, b.faces]);
+function noteBest() {
+  const now = settingNow();
+  if (now && (!S.best || now.total > S.best.total)) {
+    S.best = { ...now, words: S.words.map(w => [...w]), seat: S.seat, applied: S.applied ?? null, faces: facesNow() };
+  }
+}
+function renderBest() {
+  const btn = $('bestBtn');
+  const b = S.best;
+  btn.hidden = !b || !!S.result || S.printing || sameSetting(b);
+  if (btn.hidden) return;
+  btn.textContent = fill(UI.best, b.letters.join(' + '), fmtN(b.total));
+}
+function restoreBest() {
+  const b = S.best;
+  if (!b || locked()) return;
+  hidePop();
+  restoreFaces(b);
+  S.words = b.words.map(w => [...w]);
+  S.seat = b.seat ?? 0;
+  S.applied = b.applied ?? null;
+  S.armed = false;
+  S.active = 0;
+  S.note = '';
+  S.tracks = tracksOf(S.tiles);
+  sfx.place();
   render();
 }
 
