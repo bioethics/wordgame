@@ -847,6 +847,7 @@ festooned	FESTOON: flower chains suspended in curves between points as a decorat
 festooning	FESTOON: flower chains suspended in curves between points as a decoration
 festoons	FESTOON: flower chains suspended in curves between points as a decoration
 fests	FEST: a gathering or festival
+festschrift	a collection of writings published in honor of a scholar
 feta	a white, crumbly, salty Greek cheese
 fetal	of or relating to a fetus
 fetch	go or come after and bring or take back
@@ -1872,6 +1873,7 @@ floorings	FLOORING: the inside lower horizontal surface (as of a room, hallway, 
 floors	FLOOR: the inside lower horizontal surface (as of a room, hallway, tent, or other structure)
 floorshow	a series of acts at a night club
 floorshows	FLOORSHOW: a series of acts at a night club
+floorwax	a polish for floors
 floozie	a prostitute who attracts customers by walking the streets
 floozies	FLOOZIE: a prostitute who attracts customers by walking the streets
 floozy	a prostitute who attracts customers by walking the streets

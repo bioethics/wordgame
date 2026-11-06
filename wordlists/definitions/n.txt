@@ -581,6 +581,8 @@ neuralgia	acute spasmodic pain along the course of one or more nerves
 neuralgic	of or relating to or suffering from neuralgia
 neurasthenia	nervous breakdown (not in technical use)
 neuritis	inflammation of a nerve accompanied by pain and sometimes loss of function
+neuroanatomies	NEUROANATOMY: the anatomy of the nervous system
+neuroanatomy	the anatomy of the nervous system
 neurobiological	of or relating to the biological study of the nervous system
 neurobiologist	a specialist in neurobiology
 neurobiologists	NEUROBIOLOGIST: a specialist in neurobiology
@@ -1015,6 +1017,8 @@ nomads	NOMAD: a member of a people who have no permanent home but move about acc
 nomenclature	a system of words used to name things in a particular discipline
 nomenclatures	NOMENCLATURE: a system of words used to name things in a particular discipline
 nominal	relating to or constituting or bearing or giving a name
+nominalist	a philosopher who has adopted the doctrine of nominalism
+nominalists	NOMINALIST: a philosopher who has adopted the doctrine of nominalism
 nominally	in name only
 nominate	propose as a candidate for some honor
 nominated	NOMINATE: propose as a candidate for some honor
@@ -1562,6 +1566,7 @@ nurser	a person who treats something carefully
 nurseries	NURSERY: a child's room for a baby
 nursers	NURSER: a person who treats something carefully
 nursery	a child's room for a baby
+nurserymaid	a woman employed to look after young children
 nurseryman	someone who takes care of a garden
 nurserymen	NURSERYMAN: someone who takes care of a garden
 nurses	NURSE: one skilled in caring for young children or the sick (usually under the supervision of a physician)

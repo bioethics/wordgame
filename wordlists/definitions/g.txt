@@ -1309,7 +1309,11 @@ glory	a state of high honor
 glorying	GLORY: a state of high honor
 gloss	the property of being smooth and shiny
 glossaries	GLOSSARY: an alphabetical list of technical terms in some specialized field of knowledge; usually published as an appendix to a text on that field
+glossarist	a scholiast who writes glosses or glossaries
+glossarists	GLOSSARIST: a scholiast who writes glosses or glossaries
 glossary	an alphabetical list of technical terms in some specialized field of knowledge; usually published as an appendix to a text on that field
+glossator	a medieval scholar who wrote commentaries on texts
+glossators	GLOSSATOR: a medieval scholar who wrote commentaries on texts
 glossed	GLOSS: the property of being smooth and shiny
 glosser	one who glosses
 glossers	GLOSSER: one who glosses
@@ -1750,6 +1754,7 @@ gown	a woman's dress, usually with a close-fitting bodice and a long flared skir
 gowned	wearing a gown
 gowning	GOWN: a woman's dress, usually with a close-fitting bodice and a long flared skirt, often worn on formal occasions
 gowns	GOWN: a woman's dress, usually with a close-fitting bodice and a long flared skirt, often worn on formal occasions
+gownsman	a member of a university, as opposed to a townsman
 grab	take hold of so as to seize or restrain or stop the motion of
 grabbed	GRAB: take hold of so as to seize or restrain or stop the motion of
 grabber	GRAB: take hold of so as to seize or restrain or stop the motion of
@@ -1783,6 +1788,7 @@ gradating	GRADATE: arrange according to grades
 gradation	relative position in a graded series
 gradations	GRADATION: relative position in a graded series
 grade	a body of students who are taught together
+gradebook	a teacher's record of students' marks
 graded	arranged in a sequence of grades or ranks
 grader	a judge who assigns grades to something
 graders	GRADER: a judge who assigns grades to something
@@ -1794,6 +1800,8 @@ grads	GRAD: a person who has received a degree from a school (high school or col
 gradual	proceeding in small stages
 gradualism	the belief in slow change
 gradually	in a gradual manner
+graduand	a person about to receive a degree
+graduands	GRADUAND: a person about to receive a degree
 graduate	receive an academic degree upon completion of one's studies
 graduated	GRADUATE: receive an academic degree upon completion of one's studies
 graduates	GRADUATE: receive an academic degree upon completion of one's studies

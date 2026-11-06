@@ -465,6 +465,17 @@ What the session history, the commits and the author's Drive show:
   `theme-review-5-november.md`. Six entries the dictionary had dropped as
   junk went too (CRAYOLA, MADS, ROBER…).
 
+- **6 November, the sixth.** `theme-education.txt`, the author's own, for the
+  Schoolmarm (🍎): school from kindy to uni, its people, rooms, games,
+  subjects and scholarship, 5,671 words, 6.8% of the dictionary, 28 of them
+  not yet in it (CHEDER, EXEAT, FERULE, SIZAR, STEMMA…). 242 of the author's
+  education words joined the dictionary with it (KINDY, TUCKSHOP, DUX,
+  CHALKFACE, SCHOOLIES, SCRIPTORIUM, VARIORUM), each defined (59 written for
+  `definitions-own.txt`, 12 senses picked). Read as the author gave it; a few
+  inflections are built on another word than the school one (TESTES and PENES
+  from TEST and PEN, CASTES, COLONES, BELLES, NAPES), the kind the 5 November
+  read kept or cut one by one.
+
 - **5 November, definitions.** Every dictionary word now has a definition
   for the daily's results (`tools/build-definitions.mjs`; README → "The Daily
   Proof" → *Definitions*): WordNet's first sense, a base form's, a transparent

@@ -220,6 +220,7 @@ tallyhoed	TALLYHO: a huntsman's cry on sighting the fox
 tallyhoing	TALLYHO: a huntsman's cry on sighting the fox
 tallyhos	TALLYHO: a huntsman's cry on sighting the fox
 tallying	TALLY: a score in baseball made by a runner touching all four bases safely
+talmudic	of or relating to the Talmud
 talon	a sharp hooked claw especially on a bird of prey
 taloned	(of predatory animals) armed with claws or talons
 talons	TALON: a sharp hooked claw especially on a bird of prey
@@ -448,6 +449,8 @@ taskforces	TASKFORCE: a group assembled for a specific job
 tasking	TASK: any piece of work that is undertaken or attempted
 taskmaster	someone who imposes hard or continuous work
 taskmasters	TASKMASTER: someone who imposes hard or continuous work
+taskmistress	a woman taskmaster
+taskmistresses	TASKMISTRESS: a woman taskmaster
 tasks	TASK: any piece of work that is undertaken or attempted
 tassel	adornment consisting of a bunch of cords fastened at one end
 tasseled	fringed or adorned with tassels
@@ -590,6 +593,7 @@ teacakes	TEACAKE: any of various small cakes or cookies often served with tea
 teach	impart skills or knowledge to
 teachable	ready and willing to be taught
 teacher	a person whose occupation is teaching
+teacherly	in a teacher way
 teachers	TEACHER: a person whose occupation is teaching
 teaches	TEACH: impart skills or knowledge to
 teaching	the profession of a teacher
@@ -742,6 +746,8 @@ teepee	a Native American tent; usually of conical shape
 teepees	TEEPEE: a Native American tent; usually of conical shape
 tees	TEE: the starting place for each hole on a golf course
 teeter	move unsteadily, with a rocking motion
+teeterboard	a plaything consisting of a board balanced on a fulcrum; the board is ridden up and down by children at either end
+teeterboards	TEETERBOARD: a plaything consisting of a board balanced on a fulcrum; the board is ridden up and down by children at either end
 teetered	TEETER: move unsteadily, with a rocking motion
 teetering	TEETER: move unsteadily, with a rocking motion
 teeters	TEETER: move unsteadily, with a rocking motion
@@ -1223,6 +1229,8 @@ tetrahydrocannabinol	psychoactive substance present in marijuana
 tetralogy	a series of four related works (plays or operas or novels)
 tetras	TETRA: brightly colored tropical freshwater fishes
 text	the words of something written
+texta	a felt-tip pen (Australian)
+textas	TEXTA: a felt-tip pen (Australian)
 textbook	a book prepared for use in schools or colleges
 textbooks	TEXTBOOK: a book prepared for use in schools or colleges
 texted	TEXT: send a message by mobile phone
@@ -1838,6 +1846,7 @@ tiffs	TIFF: a quarrel about petty points
 tiger	a fierce or audacious person
 tigerish	resembling a tiger in fierceness and lack of mercy
 tigers	TIGER: a fierce or audacious person
+tiggy	a children's chasing game; tag (Australian)
 tight	closely constrained or constricted or constricting
 tighten	make tight or tighter
 tightened	TIGHTEN: make tight or tighter
@@ -1934,6 +1943,7 @@ timetable	a schedule listing events and the times at which they will take place
 timetabled	TIMETABLE: schedule at a particular time
 timetables	TIMETABLE: a schedule listing events and the times at which they will take place
 timetabling	TIMETABLE: schedule at a particular time
+timewaster	a person or thing that wastes time
 timeworn	repeated too often; overfamiliar through overuse
 timezone	a region that keeps the same standard time
 timezones	TIMEZONE: a region that keeps the same standard time
@@ -2415,6 +2425,8 @@ topologies	TOPOLOGY: the branch of pure mathematics that deals only with the pro
 topologist	a mathematician who studies shapes under continuous deformation
 topologists	TOPOLOGIST: a mathematician who studies shapes under continuous deformation
 topology	the branch of pure mathematics that deals only with the properties of a figure X that hold for every figure into which X can be transformed with a one-to-one correspondence that is continuous in both directions
+toponymies	TOPONYMY: the branch of lexicology that studies the place names of a region or a language
+toponymy	the branch of lexicology that studies the place names of a region or a language
 topped	having a top of a specified character
 topper	TOP: the upper part of anything
 toppers	TOPPER: a man's hat with a tall crown; usually covered with silk or with beaver fur
@@ -2434,6 +2446,8 @@ topspin	forward spin (usually of a moving ball) that is imparted by an upward st
 toque	a tall white hat with a pouched crown; worn by chefs
 toques	TOQUE: a tall white hat with a pouched crown; worn by chefs
 tor	a prominent rock or pile of rocks on a hill
+torah	the first of three divisions of the Hebrew Scriptures comprising the first five books of the Hebrew Bible considered as a unit
+torahs	TORAH: the first of three divisions of the Hebrew Scriptures comprising the first five books of the Hebrew Bible considered as a unit
 torch	a light usually carried in the hand; consists of some flammable substance
 torchbearer	a leader in a campaign or movement
 torchbearers	TORCHBEARER: a leader in a campaign or movement
@@ -2789,6 +2803,8 @@ trainable	able to be taught
 trained	shaped or conditioned or disciplined by training; often used as a combining form
 trainee	someone who is being trained
 trainees	TRAINEE: someone who is being trained
+traineeship	financial aid that enables you to get trained for a specified job
+traineeships	TRAINEESHIP: financial aid that enables you to get trained for a specified job
 trainer	one who trains other persons or animals
 trainers	TRAINER: one who trains other persons or animals
 training	activity leading to skilled behavior
@@ -3807,6 +3823,8 @@ tuckering	TUCKER: food (Australian informal)
 tuckers	TUCKER: food (Australian informal)
 tucking	TUCK: fit snugly into
 tucks	TUCK: fit snugly into
+tuckshop	a school canteen (Australian)
+tuckshops	TUCKSHOP: a school canteen (Australian)
 tuffet	a low seat or a stool to rest the feet of a seated person
 tuffets	TUFFET: a low seat or a stool to rest the feet of a seated person
 tuft	a bunch of hair or feathers or growing grass
@@ -4012,6 +4030,8 @@ tussling	TUSSLE: disorderly fighting
 tussock	a bunch of hair or feathers or growing grass
 tussocks	TUSSOCK: a bunch of hair or feathers or growing grass
 tut	utter `tsk,' `tut,' or `tut-tut,' as in disapproval
+tutee	learns from a tutor
+tutees	TUTEE: learns from a tutor
 tutelage	teaching pupils individually (usually by a tutor hired privately)
 tutelary	providing protective supervision; watching over or safeguarding
 tutor	a person who gives private instruction (as in singing, acting, etc.)
@@ -4020,6 +4040,8 @@ tutorial	a session of intensive tuition given by a tutor to an individual or to 
 tutorials	TUTORIAL: a session of intensive tuition given by a tutor to an individual or to a small number of students
 tutoring	TUTOR: a person who gives private instruction (as in singing, acting, etc.)
 tutors	TUTOR: a person who gives private instruction (as in singing, acting, etc.)
+tutorship	teaching pupils individually (usually by a tutor hired privately)
+tutorships	TUTORSHIP: teaching pupils individually (usually by a tutor hired privately)
 tuts	TUT: utter `tsk,' `tut,' or `tut-tut,' as in disapproval
 tutted	TUT: utter `tsk,' `tut,' or `tut-tut,' as in disapproval
 tutting	TUT: utter `tsk,' `tut,' or `tut-tut,' as in disapproval

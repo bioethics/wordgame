@@ -66,6 +66,8 @@ abductor	someone who unlawfully seizes and detains a victim (usually for ransom)
 abductors	ABDUCTOR: someone who unlawfully seizes and detains a victim (usually for ransom)
 abducts	ABDUCT: take away to an undisclosed location against their will and usually in order to extract a ransom
 abeam	at right angles to the length of a ship or airplane
+abecedarian	alphabetically arranged (as for beginning readers)
+abecedarians	ABECEDARIAN: alphabetically arranged (as for beginning readers)
 abed	in bed
 aberrant	markedly different from an accepted norm
 aberration	a state or condition markedly different from the norm
@@ -329,6 +331,8 @@ academical	of or relating to a school, college or university
 academically	in regard to academic matters
 academician	an educator who works at a college or university
 academicians	ACADEMICIAN: an educator who works at a college or university
+academicism	orthodoxy of a scholastic variety
+academicisms	ACADEMICISM: orthodoxy of a scholastic variety
 academics	ACADEMIC: associated with academia or an academy
 academies	ACADEMY: a secondary school (usually private)
 academy	a secondary school (usually private)
@@ -1146,6 +1150,8 @@ aesthete	one who professes great sensitivity to the beauty of art and nature
 aesthetes	AESTHETE: one who professes great sensitivity to the beauty of art and nature
 aesthetic	relating to or dealing with the subject of aesthetics
 aesthetically	in a tasteful way
+aesthetician	a worker skilled in giving beauty treatments (manicures and facials etc.)
+aestheticians	AESTHETICIAN: a worker skilled in giving beauty treatments (manicures and facials etc.)
 aestheticism	devotion to beauty and art
 aesthetics	AESTHETIC: relating to or dealing with the subject of aesthetics
 aether	a medium that was once supposed to fill all space and to support the propagation of electromagnetic waves
@@ -2455,6 +2461,8 @@ anklet	an ornament worn around the ankle
 anklets	a sock that reaches just above the ankle
 ankylosing	ANKYLOSE: undergo ankylosis
 anmitsu	a Japanese dessert of agar jelly cubes with sweet bean paste and fruit
+annalist	a historian who writes annals
+annalists	ANNALIST: a historian who writes annals
 annals	a chronological account of events in successive years
 anneal	bring to a desired consistency, texture, or hardness by a process of gradually heating and cooling
 annealed	ANNEAL: bring to a desired consistency, texture, or hardness by a process of gradually heating and cooling
@@ -2486,6 +2494,8 @@ annotates	ANNOTATE: add explanatory notes to or supply with critical comments
 annotating	the act of adding notes
 annotation	a comment or instruction (usually added)
 annotations	ANNOTATION: a comment or instruction (usually added)
+annotator	a commentator who writes notes to a text
+annotators	ANNOTATOR: a commentator who writes notes to a text
 announce	make known; make an announcement
 announced	ANNOUNCE: make known; make an announcement
 announcement	a formal public statement
@@ -4266,6 +4276,7 @@ autocratically	in an overbearingly domineering manner; as a dictator
 autocrats	AUTOCRAT: a cruel and oppressive dictator
 autocross	a motor race over rough ground
 autodidact	a person who has taught himself
+autodidactic	relating to or having the characteristics of an autodidact
 autodidacts	AUTODIDACT: a person who has taught himself
 autoerotic	sexually satisfying yourself (as by masturbation)
 autofocus	an optical device for focussing a camera or other instrument automatically

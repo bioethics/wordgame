@@ -451,6 +451,8 @@ eightieth	the ordinal number of eighty in counting order
 eightieths	EIGHTIETH: the ordinal number of eighty in counting order
 eights	EIGHT: being one more than seven
 eighty	being ten more than seventy
+einstein	someone who has exceptional intellectual ability and originality
+einsteins	EINSTEIN: someone who has exceptional intellectual ability and originality
 eisteddfod	any of several annual Welsh festivals involving artistic competitions (especially in singing)
 eisteddfods	EISTEDDFOD: any of several annual Welsh festivals involving artistic competitions (especially in singing)
 either	after a negative statement used as an intensive meaning something like `likewise' or `also'
@@ -1095,6 +1097,9 @@ enchantresses	ENCHANTRESS: a female sorcerer or magician
 enchants	ENCHANT: hold spellbound
 enchilada	tortilla with meat filling baked in tomato sauce seasoned with chili
 enchiladas	ENCHILADA: tortilla with meat filling baked in tomato sauce seasoned with chili
+enchiridia	ENCHIRIDION: a handbook or manual
+enchiridion	a concise reference book providing specific information about a subject or location
+enchiridions	ENCHIRIDION: a concise reference book providing specific information about a subject or location
 encircle	form or draw a circle around
 encircled	confined on all sides
 encirclement	a war measure that isolates some area of importance to the enemy
@@ -1166,6 +1171,8 @@ encyclopaedic	comprehensive in scope or content (as an encyclopedia)
 encyclopedia	a reference work (often in several volumes) containing articles on various topics (often arranged in alphabetical order) dealing with the entire range of human knowledge or with some particular specialty
 encyclopedias	ENCYCLOPEDIA: a reference work (often in several volumes) containing articles on various topics (often arranged in alphabetical order) dealing with the entire range of human knowledge or with some particular specialty
 encyclopedic	comprehensive in scope or content (as an encyclopedia)
+encyclopedist	a person who compiles information for encyclopedias
+encyclopedists	ENCYCLOPEDIST: a person who compiles information for encyclopedias
 end	either extremity of something that has length
 endanger	pose a threat to; present a danger to
 endangered	ENDANGER: pose a threat to; present a danger to
@@ -1245,6 +1252,8 @@ endowing	ENDOW: give qualities or abilities to
 endowment	natural abilities or qualities
 endowments	ENDOWMENT: natural abilities or qualities
 endows	ENDOW: give qualities or abilities to
+endpaper	a sheet pasted inside the cover of a book, joining it to the pages
+endpapers	ENDPAPER: a sheet pasted inside the cover of a book, joining it to the pages
 endpoint	a place where something ends or is complete
 endpoints	ENDPOINT: a place where something ends or is complete
 ends	END: either extremity of something that has length
@@ -1454,6 +1463,7 @@ enrobed	ENROBE: provide with a coating
 enrol	register formally as a participant or member
 enroll	register formally as a participant or member
 enrolled	ENROL: register formally as a participant or member
+enrollee	a person who enrolls in (or is enrolled in) a class or course of study
 enrollees	ENROLLEE: a person who enrolls in (or is enrolled in) a class or course of study
 enroller	ENROL: register formally as a participant or member
 enrollers	ENROLLER: one who enrolls
@@ -2434,6 +2444,8 @@ examination	the act of examining something closely (as for mistakes)
 examinations	EXAMINATION: the act of examining something closely (as for mistakes)
 examine	consider in detail and subject to an analysis in order to discover essential features or meaning
 examined	EXAMINE: consider in detail and subject to an analysis in order to discover essential features or meaning
+examinee	someone who is tested (as by an intelligence test or an academic examination)
+examinees	EXAMINE: consider in detail and subject to an analysis in order to discover essential features or meaning
 examiner	someone who administers a test to determine your qualifications
 examiners	EXAMINER: someone who administers a test to determine your qualifications
 examines	EXAMINE: consider in detail and subject to an analysis in order to discover essential features or meaning
@@ -2570,6 +2582,8 @@ exculpating	EXCULPATE: pronounce not guilty of criminal charges
 exculpatory	clearing of guilt or blame
 excursion	a journey taken for pleasure
 excursions	EXCURSION: a journey taken for pleasure
+excursus	a message that departs from the main subject
+excursuses	EXCURSUS: a message that departs from the main subject
 excusable	easily excused or forgiven
 excuse	accept an excuse for
 excused	EXCUSE: accept an excuse for
@@ -2602,6 +2616,8 @@ executrix	a woman executor
 executrixes	EXECUTRIX: a woman executor
 exegeses	EXEGESIS: a critical explanation of a text
 exegesis	an explanation or critical interpretation (especially of the Bible)
+exegete	a person skilled in exegesis (especially of religious texts)
+exegetes	EXEGETE: a person skilled in exegesis (especially of religious texts)
 exegetical	relating to exegesis
 exemplar	something to be imitated
 exemplars	EXEMPLAR: something to be imitated
@@ -2837,6 +2853,8 @@ experiencing	EXPERIENCE: undergo or live through a difficult experience
 experiential	relating to or resulting from experience
 experiment	the act of conducting a controlled test or investigation
 experimental	relating to or based on experiment
+experimentalist	a person who carries out experiments, or works in experimental science
+experimentalists	EXPERIMENTALIST: a person who carries out experiments, or works in experimental science
 experimentally	in an experimental fashion
 experimentation	the testing of an idea
 experimented	EXPERIMENT: the act of conducting a controlled test or investigation

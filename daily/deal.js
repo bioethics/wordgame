@@ -301,6 +301,8 @@ export const DAY_PATRONS = [
   // value, which can't be weighed against another patron's ×Mult.
   'serpent', 'twins',
   'seadog', 'sculptor',
+  // The Schoolmarm, 6 November: the sixth register, school from kindy to uni.
+  'schoolmarm',
   // The weaker seats, 4 November: on a day nobody chooses, a patron need not
   // move the best word, only pay — and the deal gives each what it reads.
   'apprentice', 'jeweller', 'novelist', 'typesetter', 'stammerer',
@@ -321,7 +323,7 @@ export const CHOICE_TIERS = {
   // LIMNER_LETTERS, the best word with him seated is worth ×1.65 the best
   // unseated (the registers ×1.44–1.92), and his best beats a register's
   // best on 49% of cases.
-  rich:  ['sexton', 'paramour', 'poppet', 'vulgarian', 'seadog', 'limner'],
+  rich:  ['sexton', 'paramour', 'poppet', 'vulgarian', 'seadog', 'schoolmarm', 'limner'],
   // ×2 for a word of a given form. Four are the daily's own ×2 versions of
   // patrons that pay otherwise in the game (adapted in daily/table.js), and
   // the Herald's and the Antiquary's days are dealt what they read

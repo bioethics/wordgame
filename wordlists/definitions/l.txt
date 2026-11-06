@@ -222,6 +222,8 @@ laminated	LAMINATE: create laminate by bonding sheets of material with a bonding
 laminates	LAMINATE: create laminate by bonding sheets of material with a bonding material
 laminating	LAMINATE: create laminate by bonding sheets of material with a bonding material
 lamination	a layered structure
+laminator	a person who makes laminates (especially plastic laminates)
+laminators	LAMINATOR: a person who makes laminates (especially plastic laminates)
 laming	LAM: flee; take to one's heels; cut and run
 lamington	an Australian sponge cake coated in chocolate and coconut
 lamingtons	LAMINGTON: an Australian sponge cake coated in chocolate and coconut
@@ -505,6 +507,7 @@ lathes	LATHE: machine tool for shaping metal or wood; the workpiece turns about 
 lathing	LATHE: shaping on a turning machine
 lathis	LATHI: club consisting of a heavy stick (often bamboo) bound with iron; used by police in India
 laths	LATH: a narrow thin strip of wood used as backing for plaster or to make latticework
+latin	any dialect of the language of ancient Rome
 latino	a native of Latin America
 latinos	LATINO: a native of Latin America
 latitude	the angular distance between an imaginary line around a heavenly body parallel to its equator and the equator itself
@@ -594,6 +597,8 @@ lavishly	in a wasteful manner
 lavishness	excessive spending
 lavs	LAV: a room or building equipped with one or more toilets
 law	the collection of rules imposed by authority
+lawbook	a book about the law
+lawbooks	LAWBOOK: a book about the law
 lawbreaker	someone who violates the law
 lawbreakers	LAWBREAKER: someone who violates the law
 lawbreaking	the act of breaking the law
@@ -800,6 +805,8 @@ lecithin	a yellow phospholipid essential for the metabolism of fats; found in eg
 lectern	desk or stand with a slanted top used to hold a text at the proper height for a lecturer
 lecterns	LECTERN: desk or stand with a slanted top used to hold a text at the proper height for a lecturer
 lectionary	a book of Bible readings for church services
+lector	someone who reads the lessons in a church service; someone ordained in a minor order of the Roman Catholic Church
+lectors	LECTOR: someone who reads the lessons in a church service; someone ordained in a minor order of the Roman Catholic Church
 lecture	deliver a lecture or talk
 lectured	LECTURE: deliver a lecture or talk
 lecturer	a public lecturer at certain universities
@@ -1008,6 +1015,8 @@ leotard	a tight-fitting garment of stretchy material that covers the body from t
 leotards	skintight knit hose covering the body from the waist to the feet worn by acrobats and dancers and as stockings by women and girls
 leper	a person afflicted with leprosy
 lepers	LEPER: a person afflicted with leprosy
+lepidopterist	an entomologist who specializes in the collection and study of butterflies and moths
+lepidopterists	LEPIDOPTERIST: an entomologist who specializes in the collection and study of butterflies and moths
 lepidopterological	relating to the study of butterflies and moths
 lepidopterologist	an entomologist who specializes in the collection and study of butterflies and moths
 lepidopterologists	LEPIDOPTEROLOGIST: an entomologist who specializes in the collection and study of butterflies and moths
@@ -1715,6 +1724,8 @@ litmus	a coloring material (obtained from lichens) that turns red in acid soluti
 litre	a metric unit of capacity, formerly defined as the volume of one kilogram of pure water under standard conditions; now equal to 1,000 cubic centimeters (or approximately 1.75 pints)
 litres	LITRE: a metric unit of capacity, formerly defined as the volume of one kilogram of pure water under standard conditions; now equal to 1,000 cubic centimeters (or approximately 1.75 pints)
 litter	the offspring at one birth of a multiparous mammal
+litterateur	a writer of literary works
+litterateurs	LITTERATEUR: a writer of literary works
 litterbug	a person who litters public places with refuse
 litterbugs	LITTERBUG: a person who litters public places with refuse
 littered	filled or scattered with a disorderly accumulation of objects or rubbish
@@ -1972,6 +1983,8 @@ logjams	LOGJAM: any stoppage attributable to unusual activity
 logo	a company emblem or device
 logoff	the process of signing out of a computer system
 logoffs	LOGOFF: the process of signing out of a computer system
+logogram	a single written symbol that represents an entire word or phrase without indicating its pronunciation
+logograms	LOGOGRAM: a single written symbol that represents an entire word or phrase without indicating its pronunciation
 logon	the process of signing in to a computer system
 logons	LOGON: the process of signing in to a computer system
 logos	the divine word of God; the second person in the Trinity (incarnate in Jesus)

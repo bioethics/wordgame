@@ -1917,6 +1917,7 @@ woodsier	WOODSY: characteristic or suggestive of woods
 woodsiest	WOODSY: characteristic or suggestive of woods
 woodsman	someone who lives in the woods
 woodsmen	WOODSMAN: someone who lives in the woods
+woodsmoke	smoke from a wood fire
 woodsy	characteristic or suggestive of woods
 woodwind	any wind instrument other than the brass instruments
 woodwinds	WOODWIND: any wind instrument other than the brass instruments
@@ -1960,6 +1961,8 @@ wooziest	WOOZY: having or causing a whirling sensation; liable to falling
 wooziness	the quality of being woozy
 woozy	having or causing a whirling sensation; liable to falling
 word	a unit of language that native speakers can identify
+wordbook	a reference book containing words (usually with their meanings)
+wordbooks	WORDBOOK: a reference book containing words (usually with their meanings)
 worded	WORD: a unit of language that native speakers can identify
 wordier	WORDY: using or containing too many words
 wordiest	WORDY: using or containing too many words

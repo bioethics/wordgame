@@ -81,6 +81,7 @@ export const PATRON_TEXT = {
   paramour:      '×3 Mult for words The Paramour finds romantic.',
   poppet:        '×3 Mult for words The Poppet finds cute.',
   seadog:        '×3 Mult for words The Seadog finds nautical.',
+  schoolmarm:    '×3 Mult for words The Schoolmarm finds educational.',
   vulgarian:     '×3 Mult for words The Vulgarian finds rude.',
   poet:          '×2 Mult when the word is an adjective or an adverb.',
   athlete:       '×2 Mult when the word is a verb.',

@@ -499,6 +499,10 @@ export const PACKAGE_TEXT = {
     label: 'A message in a bottle',
     body: 'Washed up on the tide. Contains one of three possible nautical rewards.',
   },
+  education: {
+    label: 'A school satchel',
+    body: 'Left on the bus. Contains one of three possible educational rewards.',
+  },
 };
 
 // ─── The stalls at the Market ─────────────────────────────────────────────────

@@ -387,6 +387,10 @@ export const PACKAGES = {
   // own `odds`; none does, so every one comes at PACKAGE_ODDS.)
   nautical: { ...PACKAGE_TEXT.nautical, patron: 'seadog',     emoji: '🍾',
               loot: [['tube-azure', 3], ['wash', 3], ['doubloon', 3]] },
+  // A stand-in until the Schoolmarm has prizes of her own: the gold star (a
+  // laurel), the magnifying glass (a loupe) and the paint pot (ink wash).
+  education: { ...PACKAGE_TEXT.education, patron: 'schoolmarm', emoji: '🎒',
+              loot: [['laurel', 3], ['loupe', 3], ['wash', 3]] },
 };
 
 // theme → the patron who sends it, and back again.
@@ -1795,6 +1799,7 @@ export const KNOBS = {
   PARCEL_CUTE:     PACKAGES.cute.label,
   PARCEL_RUDE:     PACKAGES.rude.label,
   PARCEL_NAUTICAL: PACKAGES.nautical.label,
+  PARCEL_EDUCATION: PACKAGES.education.label,
   DOUBLOON_PRICE,
 };
 

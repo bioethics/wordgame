@@ -316,6 +316,7 @@ kindness	the quality of being warmhearted and considerate and humane and sympath
 kindnesses	KINDNESS: the quality of being warmhearted and considerate and humane and sympathetic
 kindred	similar in quality or character
 kinds	KIND: a category of things distinguished by some common characteristic or quality
+kindy	kindergarten (Australian)
 kinematic	relating to motion without regard to its causes
 kinematics	KINEMATIC: relating to motion without regard to its causes
 kinesiological	relating to the study of body movement
@@ -557,6 +558,7 @@ knowledgeably	in a well-informed way
 known	apprehended with certainty
 knows	KNOW: be cognizant or aware of a fact or a specific piece of information; possess knowledge or information about
 knuckle	a joint of a finger when the fist is closed
+knucklebones	a game in which jackstones are thrown and picked up in various groups between bounces of a small rubber ball
 knuckled	KNUCKLE: a joint of a finger when the fist is closed
 knuckleduster	a metal weapon worn over the knuckles
 knuckledusters	KNUCKLEDUSTER: a metal weapon worn over the knuckles

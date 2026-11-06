@@ -121,6 +121,8 @@ radiobiologist	a biologist who studies the effects of radiation on living organi
 radiobiologists	RADIOBIOLOGIST: a biologist who studies the effects of radiation on living organisms
 radiobiology	the branch of biology that studies the effects of radiation on living organisms
 radiocarbon	a radioactive isotope of carbon
+radiochemistries	RADIOCHEMISTRY: the chemistry of radioactive substances
+radiochemistry	the chemistry of radioactive substances
 radioed	RADIO: medium for communication
 radiogram	a message transmitted by wireless telegraphy
 radiograms	RADIOGRAM: a message transmitted by wireless telegraphy
@@ -1031,6 +1033,8 @@ receivership	the state of property that is in the hands of a receiver
 receives	RECEIVE: get something; come into possession of
 receiving	RECEIVE: get something; come into possession of
 recency	the property of having happened or appeared not long ago
+recension	a revised edition of a text
+recensions	RECENSION: a revised edition of a text
 recent	new
 recenter	RECENT: new
 recentest	RECENT: new
@@ -1519,6 +1523,10 @@ redrew	REDRAW: draw again
 reds	RED: red color or pigment; the chromatic color resembling the hue of blood
 redshank	a common Old World wading bird with long red legs
 redshanks	REDSHANK: a common Old World wading bird with long red legs
+redshirt	hold a student back a year, as from school or college sport
+redshirted	REDSHIRT: hold a student back a year, as from school or college sport
+redshirting	REDSHIRT: hold a student back a year, as from school or college sport
+redshirts	REDSHIRT: hold a student back a year, as from school or college sport
 redskin	offensive term for Native Americans
 redskins	REDSKIN: offensive term for Native Americans
 redstart	European songbird with a reddish breast and tail; related to Old World robins
@@ -4771,7 +4779,10 @@ rustbelt	urban areas in New England and Midwest characterized by concentrations 
 rusted	having accumulated rust
 rustic	characteristic of rural life
 rustically	in a simple countrified way
+rusticate	live in the country and lead a rustic life
 rusticated	RUSTICATE: live in the country and lead a rustic life
+rusticates	RUSTICATE: live in the country and lead a rustic life
+rusticating	RUSTICATE: live in the country and lead a rustic life
 rusticity	the quality of being rustic or gauche
 rustics	RUSTIC: characteristic of rural life
 rustier	RUSTY: covered with or consisting of rust

@@ -270,6 +270,8 @@ async function openPackage(prize, pkg) {
     }
     case 'wash':  benchPut('wash');  return 'a pot of ink wash for the workbench.';
     case 'tongs': benchPut('tongs'); return 'a pair of tongs for the workbench.';
+    case 'laurel': benchPut('laurel'); return 'a laurel for the workbench.';
+    case 'loupe':  benchPut('loupe');  return 'a loupe for the workbench.';
     case 'applicator-rainbow': case 'applicator-cursed': {
       const material = prize.slice(11);
       benchPut({ kind: 'applicator', material });

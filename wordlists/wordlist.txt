@@ -66,6 +66,8 @@ abductor
 abductors
 abducts
 abeam
+abecedarian
+abecedarians
 abed
 aberrant
 aberration
@@ -329,6 +331,8 @@ academical
 academically
 academician
 academicians
+academicism
+academicisms
 academics
 academies
 academy
@@ -1146,6 +1150,8 @@ aesthete
 aesthetes
 aesthetic
 aesthetically
+aesthetician
+aestheticians
 aestheticism
 aesthetics
 aether
@@ -2455,6 +2461,8 @@ anklet
 anklets
 ankylosing
 anmitsu
+annalist
+annalists
 annals
 anneal
 annealed
@@ -2486,6 +2494,8 @@ annotates
 annotating
 annotation
 annotations
+annotator
+annotators
 announce
 announced
 announcement
@@ -4266,6 +4276,7 @@ autocratically
 autocrats
 autocross
 autodidact
+autodidactic
 autodidacts
 autoerotic
 autofocus
@@ -5559,6 +5570,7 @@ beaded
 beadier
 beadiest
 beading
+beadle
 beadles
 beads
 beady
@@ -6013,6 +6025,8 @@ bellower
 bellowers
 bellowing
 bellows
+bellringer
+bellringers
 bells
 belltower
 bellwether
@@ -6605,6 +6619,7 @@ binomials
 bins
 binturong
 binturongs
+bio
 biochemical
 biochemically
 biochemicals
@@ -6659,6 +6674,8 @@ biomedicine
 biomes
 biometric
 biometrics
+biometries
+biometry
 bionic
 bionics
 biophysical
@@ -6678,6 +6695,7 @@ bioreactors
 bioremediation
 biorhythm
 biorhythms
+bios
 bioscience
 biosciences
 biosecurity
@@ -10800,6 +10818,7 @@ catchup
 catchword
 catchwords
 catchy
+catechesis
 catechise
 catechised
 catechises
@@ -10812,6 +10831,8 @@ catechize
 catechized
 catechizes
 catechizing
+catechumen
+catechumens
 categoric
 categorical
 categorically
@@ -11326,6 +11347,7 @@ chalk
 chalkboard
 chalkboards
 chalked
+chalkface
 chalkier
 chalkiest
 chalkiness
@@ -11571,6 +11593,7 @@ chased
 chaser
 chasers
 chases
+chasey
 chasing
 chasm
 chasms
@@ -11742,6 +11765,7 @@ cheetahs
 chef
 chefs
 chelating
+chem
 chemical
 chemically
 chemicals
@@ -13308,6 +13332,8 @@ codgers
 codices
 codicil
 codicils
+codicologies
+codicology
 codification
 codifications
 codified
@@ -13629,6 +13655,8 @@ colonoscopies
 colonoscopy
 colons
 colony
+colophon
+colophons
 color
 colorant
 colorants
@@ -15001,6 +15029,8 @@ constructionists
 constructions
 constructive
 constructively
+constructivism
+constructivisms
 constructor
 constructors
 constructs
@@ -15602,6 +15632,8 @@ coriander
 coring
 cork
 corkage
+corkboard
+corkboards
 corked
 corker
 corkers
@@ -15738,6 +15770,7 @@ correspondingly
 corresponds
 corridor
 corridors
+corrigendum
 corroborate
 corroborated
 corroborates
@@ -17087,6 +17120,7 @@ cubbies
 cubby
 cubbyhole
 cubbyholes
+cubbyhouse
 cube
 cubed
 cubes
@@ -17506,6 +17540,8 @@ cyclists
 cyclone
 cyclones
 cyclonic
+cyclopaedia
+cyclopaedias
 cyclopedia
 cyclopedias
 cyclops
@@ -17539,6 +17575,7 @@ cystic
 cystitis
 cysts
 cytochrome
+cytogenetics
 cytokines
 cytological
 cytologist
@@ -17866,6 +17903,8 @@ dawns
 day
 daybed
 daybeds
+daybook
+daybooks
 daybreak
 daycare
 daydream
@@ -17966,6 +18005,8 @@ dean
 deaneries
 deanery
 deans
+deanship
+deanships
 dear
 dearer
 dearest
@@ -20017,6 +20058,7 @@ dictums
 did
 didactic
 didactically
+didactics
 diddle
 diddled
 diddles
@@ -21641,6 +21683,8 @@ doilies
 doily
 doing
 doings
+dojo
+dojos
 dolce
 doldrums
 dole
@@ -22141,6 +22185,9 @@ dramatize
 dramatized
 dramatizes
 dramatizing
+dramaturgical
+dramaturgies
+dramaturgy
 drams
 drank
 drape
@@ -22385,6 +22432,7 @@ dropkick
 dropkicks
 droplet
 droplets
+dropoff
 dropout
 dropouts
 dropped
@@ -22735,6 +22783,7 @@ dutifully
 duty
 duvet
 duvets
+dux
 dwarf
 dwarfed
 dwarfing
@@ -23260,6 +23309,8 @@ eightieth
 eightieths
 eights
 eighty
+einstein
+einsteins
 eisteddfod
 eisteddfods
 either
@@ -23904,6 +23955,9 @@ enchantresses
 enchants
 enchilada
 enchiladas
+enchiridia
+enchiridion
+enchiridions
 encircle
 encircled
 encirclement
@@ -23975,6 +24029,8 @@ encyclopaedic
 encyclopedia
 encyclopedias
 encyclopedic
+encyclopedist
+encyclopedists
 end
 endanger
 endangered
@@ -24054,6 +24110,8 @@ endowing
 endowment
 endowments
 endows
+endpaper
+endpapers
 endpoint
 endpoints
 ends
@@ -24263,6 +24321,7 @@ enrobed
 enrol
 enroll
 enrolled
+enrollee
 enrollees
 enroller
 enrollers
@@ -25243,6 +25302,8 @@ examination
 examinations
 examine
 examined
+examinee
+examinees
 examiner
 examiners
 examines
@@ -25379,6 +25440,8 @@ exculpating
 exculpatory
 excursion
 excursions
+excursus
+excursuses
 excusable
 excuse
 excused
@@ -25411,6 +25474,8 @@ executrix
 executrixes
 exegeses
 exegesis
+exegete
+exegetes
 exegetical
 exemplar
 exemplars
@@ -25646,6 +25711,8 @@ experiencing
 experiential
 experiment
 experimental
+experimentalist
+experimentalists
 experimentally
 experimentation
 experimented
@@ -26898,6 +26965,7 @@ festooned
 festooning
 festoons
 fests
+festschrift
 feta
 fetal
 fetch
@@ -27923,6 +27991,7 @@ floorings
 floors
 floorshow
 floorshows
+floorwax
 floozie
 floozies
 floozy
@@ -30999,7 +31068,11 @@ glory
 glorying
 gloss
 glossaries
+glossarist
+glossarists
 glossary
+glossator
+glossators
 glossed
 glosser
 glossers
@@ -31445,6 +31518,7 @@ gown
 gowned
 gowning
 gowns
+gownsman
 grab
 grabbed
 grabber
@@ -31478,6 +31552,7 @@ gradating
 gradation
 gradations
 grade
+gradebook
 graded
 grader
 graders
@@ -31489,6 +31564,8 @@ grads
 gradual
 gradualism
 gradually
+graduand
+graduands
 graduate
 graduated
 graduates
@@ -32831,6 +32908,8 @@ handbag
 handbags
 handball
 handballs
+handbell
+handbells
 handbill
 handbills
 handbook
@@ -33420,6 +33499,8 @@ headlong
 headman
 headmaster
 headmasters
+headmastership
+headmasterships
 headmen
 headmistress
 headmistresses
@@ -34053,6 +34134,8 @@ highfalutin
 highfaluting
 highflier
 highfliers
+highflyer
+highflyers
 highjack
 highjacked
 highjacker
@@ -34212,6 +34295,8 @@ historically
 historicism
 historicity
 histories
+historiographer
+historiographers
 historiographical
 historiography
 history
@@ -34485,6 +34570,7 @@ homesteading
 homesteads
 homestretch
 homestretches
+hometime
 hometown
 hometowns
 homeward
@@ -34502,6 +34588,7 @@ homie
 homier
 homies
 homiest
+homiletics
 homilies
 homily
 hominess
@@ -34743,6 +34830,8 @@ hornbeam
 hornbill
 hornbills
 hornblende
+hornbook
+hornbooks
 horned
 hornet
 hornets
@@ -37462,6 +37551,8 @@ inkling
 inklings
 inkpad
 inkpads
+inkpot
+inkpots
 inks
 inkwell
 inkwells
@@ -37797,6 +37888,8 @@ instructive
 instructively
 instructor
 instructors
+instructress
+instructresses
 instructs
 instrument
 instrumental
@@ -38061,6 +38154,8 @@ interleaving
 interleukin
 interline
 interlinear
+interlineation
+interlineations
 interlined
 interlines
 interlining
@@ -39466,6 +39561,7 @@ jumpier
 jumpiest
 jumpiness
 jumping
+jumprope
 jumps
 jumpsuit
 jumpsuits
@@ -39866,6 +39962,7 @@ kindness
 kindnesses
 kindred
 kinds
+kindy
 kinematic
 kinematics
 kinesiological
@@ -40107,6 +40204,7 @@ knowledgeably
 known
 knows
 knuckle
+knucklebones
 knuckled
 knuckleduster
 knuckledusters
@@ -40400,6 +40498,8 @@ laminated
 laminates
 laminating
 lamination
+laminator
+laminators
 laming
 lamington
 lamingtons
@@ -40683,6 +40783,7 @@ lathes
 lathing
 lathis
 laths
+latin
 latino
 latinos
 latitude
@@ -40772,6 +40873,8 @@ lavishly
 lavishness
 lavs
 law
+lawbook
+lawbooks
 lawbreaker
 lawbreakers
 lawbreaking
@@ -40978,6 +41081,8 @@ lecithin
 lectern
 lecterns
 lectionary
+lector
+lectors
 lecture
 lectured
 lecturer
@@ -41186,6 +41291,8 @@ leotard
 leotards
 leper
 lepers
+lepidopterist
+lepidopterists
 lepidopterological
 lepidopterologist
 lepidopterologists
@@ -41893,6 +42000,8 @@ litmus
 litre
 litres
 litter
+litterateur
+litterateurs
 litterbug
 litterbugs
 littered
@@ -42150,6 +42259,8 @@ logjams
 logo
 logoff
 logoffs
+logogram
+logograms
 logon
 logons
 logos
@@ -43180,6 +43291,10 @@ mamma
 mammal
 mammalian
 mammalians
+mammalogies
+mammalogist
+mammalogists
+mammalogy
 mammals
 mammary
 mammas
@@ -43723,6 +43838,8 @@ masterminds
 masterpiece
 masterpieces
 masters
+mastership
+masterships
 masterstroke
 masterstrokes
 masterwork
@@ -43775,6 +43892,7 @@ matchups
 matchwood
 mate
 mated
+mater
 material
 materialisation
 materialise
@@ -43825,6 +43943,8 @@ matriarchy
 matrices
 matricide
 matricides
+matriculant
+matriculants
 matriculate
 matriculated
 matriculates
@@ -44104,6 +44224,8 @@ medico
 medicos
 medics
 medieval
+medievalist
+medievalists
 mediocre
 mediocrities
 mediocrity
@@ -44274,6 +44396,8 @@ memorising
 memorization
 memorize
 memorized
+memorizer
+memorizers
 memorizes
 memorizing
 memory
@@ -44530,6 +44654,7 @@ metalwork
 metalworker
 metalworkers
 metalworking
+metamathematics
 metamorphic
 metamorphism
 metamorphose
@@ -44666,6 +44791,7 @@ mic
 mica
 mice
 micelles
+michaelmas
 mickey
 mickeys
 micra
@@ -44998,10 +45124,14 @@ milquetoasts
 mils
 mime
 mimed
+mimeo
+mimeoed
 mimeograph
 mimeographed
 mimeographing
 mimeographs
+mimeoing
+mimeos
 mimes
 mimesis
 mimetic
@@ -47699,6 +47829,8 @@ neuralgia
 neuralgic
 neurasthenia
 neuritis
+neuroanatomies
+neuroanatomy
 neurobiological
 neurobiologist
 neurobiologists
@@ -48138,6 +48270,8 @@ nomads
 nomenclature
 nomenclatures
 nominal
+nominalist
+nominalists
 nominally
 nominate
 nominated
@@ -48685,6 +48819,7 @@ nurser
 nurseries
 nursers
 nursery
+nurserymaid
 nurseryman
 nurserymen
 nurses
@@ -51006,6 +51141,8 @@ paleobiological
 paleobiologist
 paleobiologists
 paleobiology
+paleobotanies
+paleobotany
 paleoclimatologist
 paleoclimatologists
 paleoclimatology
@@ -51013,6 +51150,8 @@ paleoecological
 paleoecologist
 paleoecologists
 paleoecology
+paleographies
+paleography
 paleolithic
 paleontological
 paleontologist
@@ -52146,6 +52285,7 @@ pedagog
 pedagogic
 pedagogical
 pedagogically
+pedagogics
 pedagogs
 pedagogue
 pedagogues
@@ -53326,6 +53466,8 @@ physio
 physiognomies
 physiognomy
 physiographic
+physiographies
+physiography
 physiologic
 physiological
 physiologically
@@ -53338,6 +53480,8 @@ physiotherapists
 physiotherapy
 physique
 physiques
+phytochemistries
+phytochemistry
 phytoplankton
 pi
 pianissimi
@@ -53605,6 +53749,7 @@ pinafores
 pinata
 pinatas
 pinball
+pinboard
 pincer
 pincers
 pinch
@@ -54051,9 +54196,12 @@ playboy
 playboys
 playdate
 playdates
+playdough
 played
 player
 players
+playfellow
+playfellows
 playful
 playfully
 playfulness
@@ -54070,7 +54218,9 @@ playhouses
 playing
 playlist
 playlists
+playlunch
 playmaker
+playmat
 playmate
 playmates
 playoff
@@ -54130,6 +54280,7 @@ pleaters
 pleating
 pleats
 pleb
+plebe
 plebeian
 plebeians
 plebes
@@ -54390,6 +54541,7 @@ poetically
 poetics
 poetry
 poets
+pogo
 pogrom
 pogroms
 pogy
@@ -55059,7 +55211,10 @@ postscript
 postscripts
 postseason
 postseasons
+postsecondary
 postsynaptic
+postulant
+postulants
 postulate
 postulated
 postulates
@@ -55211,6 +55366,7 @@ powering
 powerless
 powerlessly
 powerlessness
+powerpoint
 powers
 powertrain
 powwow
@@ -55223,6 +55379,7 @@ poxes
 poxier
 poxiest
 poxy
+prac
 practicability
 practicable
 practicably
@@ -55335,6 +55492,8 @@ prearranges
 prearranging
 prebend
 prebendary
+precalculus
+precalculuses
 precancerous
 precarious
 precariously
@@ -55623,6 +55782,10 @@ premonitorily
 premonitory
 prenatal
 prenatally
+prentice
+prenticed
+prentices
+prenticing
 prenup
 prenups
 prenuptial
@@ -55691,6 +55854,10 @@ preppiest
 prepping
 preppy
 preprandial
+preprint
+preprinted
+preprinting
+preprints
 preps
 prepubescent
 prepubescents
@@ -55769,6 +55936,7 @@ preserved
 preserver
 preservers
 preserves
+preservice
 preserving
 preset
 presets
@@ -56037,6 +56205,8 @@ principalities
 principality
 principally
 principals
+principalship
+principalships
 principle
 principled
 principles
@@ -56091,6 +56261,8 @@ prissy
 pristine
 prithee
 privacy
+privatdozent
+privatdozents
 private
 privateer
 privateering
@@ -56292,6 +56464,8 @@ professionally
 professionals
 professions
 professor
+professorate
+professorates
 professorial
 professors
 professorship
@@ -56519,6 +56693,8 @@ proofreading
 proofreads
 proofs
 prop
+propaedeutic
+propaedeutics
 propaganda
 propagandise
 propagandised
@@ -57264,6 +57440,8 @@ pupae
 pupal
 pupas
 pupil
+pupilage
+pupilages
 pupillary
 pupils
 pupped
@@ -57543,6 +57721,8 @@ quadriphonic
 quadriplegia
 quadriplegic
 quadriplegics
+quadrivium
+quadriviums
 quadrophonic
 quadruped
 quadrupeds
@@ -57656,6 +57836,8 @@ quarterdeck
 quarterdecks
 quartered
 quarterfinal
+quarterfinalist
+quarterfinalists
 quarterfinals
 quartering
 quarterlies
@@ -58029,6 +58211,8 @@ radiobiologist
 radiobiologists
 radiobiology
 radiocarbon
+radiochemistries
+radiochemistry
 radioed
 radiogram
 radiograms
@@ -58939,6 +59123,8 @@ receivership
 receives
 receiving
 recency
+recension
+recensions
 recent
 recenter
 recentest
@@ -59427,6 +59613,10 @@ redrew
 reds
 redshank
 redshanks
+redshirt
+redshirted
+redshirting
+redshirts
 redskin
 redskins
 redstart
@@ -62679,7 +62869,10 @@ rustbelt
 rusted
 rustic
 rustically
+rusticate
 rusticated
+rusticates
+rusticating
 rusticity
 rustics
 rustier
@@ -63108,6 +63301,8 @@ sandpaper
 sandpapered
 sandpapering
 sandpapers
+sandpile
+sandpiles
 sandpiper
 sandpipers
 sandpit
@@ -63716,6 +63911,13 @@ scholarship
 scholarships
 scholastic
 scholastically
+scholasticism
+scholasticisms
+scholastics
+scholiast
+scholiasts
+scholium
+scholiums
 school
 schoolbag
 schoolbags
@@ -63735,6 +63937,7 @@ schoolgirl
 schoolgirls
 schoolhouse
 schoolhouses
+schoolies
 schooling
 schoolkid
 schoolkids
@@ -63755,6 +63958,7 @@ schoolteachers
 schoolwork
 schoolyard
 schoolyards
+schoolyear
 schooner
 schooners
 schrod
@@ -64077,6 +64281,8 @@ scrips
 script
 scripted
 scripting
+scriptoria
+scriptorium
 scripts
 scriptural
 scripture
@@ -64670,6 +64876,8 @@ semifinal
 semifinalist
 semifinalists
 semifinals
+semiliterate
+semiliterates
 semimonthlies
 semimonthly
 seminal
@@ -64755,6 +64963,7 @@ sensationally
 sensations
 sense
 sensed
+sensei
 senseless
 senselessly
 senselessness
@@ -68348,6 +68557,8 @@ soupspoons
 soupy
 sour
 source
+sourcebook
+sourcebooks
 sourced
 sources
 sourcing
@@ -69524,6 +69735,7 @@ staffed
 staffer
 staffers
 staffing
+staffroom
 staffs
 stag
 stage
@@ -72425,6 +72637,8 @@ sycophant
 sycophantic
 sycophantically
 sycophants
+syllabaries
+syllabary
 syllabi
 syllabic
 syllabication
@@ -72860,6 +73074,7 @@ tallyhoed
 tallyhoing
 tallyhos
 tallying
+talmudic
 talon
 taloned
 talons
@@ -73088,6 +73303,8 @@ taskforces
 tasking
 taskmaster
 taskmasters
+taskmistress
+taskmistresses
 tasks
 tassel
 tasseled
@@ -73230,6 +73447,7 @@ teacakes
 teach
 teachable
 teacher
+teacherly
 teachers
 teaches
 teaching
@@ -73382,6 +73600,8 @@ teepee
 teepees
 tees
 teeter
+teeterboard
+teeterboards
 teetered
 teetering
 teeters
@@ -73863,6 +74083,8 @@ tetrahydrocannabinol
 tetralogy
 tetras
 text
+texta
+textas
 textbook
 textbooks
 texted
@@ -74478,6 +74700,7 @@ tiffs
 tiger
 tigerish
 tigers
+tiggy
 tight
 tighten
 tightened
@@ -74574,6 +74797,7 @@ timetable
 timetabled
 timetables
 timetabling
+timewaster
 timeworn
 timezone
 timezones
@@ -75055,6 +75279,8 @@ topologies
 topologist
 topologists
 topology
+toponymies
+toponymy
 topped
 topper
 toppers
@@ -75074,6 +75300,8 @@ topspin
 toque
 toques
 tor
+torah
+torahs
 torch
 torchbearer
 torchbearers
@@ -75429,6 +75657,8 @@ trainable
 trained
 trainee
 trainees
+traineeship
+traineeships
 trainer
 trainers
 training
@@ -76449,6 +76679,8 @@ tuckering
 tuckers
 tucking
 tucks
+tuckshop
+tuckshops
 tuffet
 tuffets
 tuft
@@ -76654,6 +76886,8 @@ tussling
 tussock
 tussocks
 tut
+tutee
+tutees
 tutelage
 tutelary
 tutor
@@ -76662,6 +76896,8 @@ tutorial
 tutorials
 tutoring
 tutors
+tutorship
+tutorships
 tuts
 tutted
 tutting
@@ -79488,6 +79724,8 @@ varietal
 varietals
 varieties
 variety
+variorum
+variorums
 various
 variously
 varlet
@@ -82393,6 +82631,7 @@ woodsier
 woodsiest
 woodsman
 woodsmen
+woodsmoke
 woodsy
 woodwind
 woodwinds
@@ -82438,6 +82677,8 @@ woozy
 wop
 wops
 word
+wordbook
+wordbooks
 worded
 wordier
 wordiest
@@ -83021,6 +83262,7 @@ yowler
 yowlers
 yowling
 yowls
+yoyo
 ytterbium
 yttrium
 yuan

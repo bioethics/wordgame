@@ -246,6 +246,8 @@ varietal	a wine made principally from one grape and carrying the name of that gr
 varietals	VARIETAL: a wine made principally from one grape and carrying the name of that grape
 varieties	VARIETY: a collection containing a variety of sorts of things
 variety	a collection containing a variety of sorts of things
+variorum	an edition containing various versions of a text or notes by various scholars or editors
+variorums	VARIORUM: an edition containing various versions of a text or notes by various scholars or editors
 various	of many different kinds purposefully arranged but lacking any uniformity
 variously	in diverse ways
 varlet	a deceitful and unreliable scoundrel

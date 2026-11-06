@@ -296,6 +296,8 @@ handbag	a container used for carrying money and small personal items or accessor
 handbags	HANDBAG: a container used for carrying money and small personal items or accessories (especially by women)
 handball	a game played in a walled court or against a single wall by two or four players who strike a rubber ball with their hands
 handballs	HANDBALL: a game played in a walled court or against a single wall by two or four players who strike a rubber ball with their hands
+handbell	a bell that is held in the hand
+handbells	HANDBELL: a bell that is held in the hand
 handbill	an advertisement (usually printed on a page or in a leaflet) intended for wide distribution
 handbills	HANDBILL: an advertisement (usually printed on a page or in a leaflet) intended for wide distribution
 handbook	a concise reference book providing specific information about a subject or location
@@ -885,6 +887,8 @@ headlong	with the head foremost
 headman	the head of a tribe or clan
 headmaster	presiding officer of a school
 headmasters	HEADMASTER: presiding officer of a school
+headmastership	the position of headmaster
+headmasterships	HEADMASTERSHIP: the position of headmaster
 headmen	HEADMAN: the head of a tribe or clan
 headmistress	a woman headmaster
 headmistresses	HEADMISTRESS: a woman headmaster
@@ -1518,6 +1522,8 @@ highfalutin	affectedly genteel
 highfaluting	affectedly genteel
 highflier	a person of great ability and ambition
 highfliers	HIGHFLIER: a person of great ability and ambition
+highflyer	a person of great ability and ambition
+highflyers	HIGHFLYER: a person of great ability and ambition
 highjack	take arbitrarily or by force
 highjacked	HIGHJACK: take arbitrarily or by force
 highjacker	someone who uses force to take over a vehicle (especially an airplane) in order to reach an alternative destination
@@ -1677,6 +1683,8 @@ historically	throughout history
 historicism	a theory that social and cultural events are determined by history
 historicity	historical truth or authenticity
 histories	HISTORY: the aggregate of past events
+historiographer	a person who is an authority on history and who studies it and writes about it
+historiographers	HISTORIOGRAPHER: a person who is an authority on history and who studies it and writes about it
 historiographical	relating to the writing of history
 historiography	the writing of history
 history	the aggregate of past events
@@ -1950,6 +1958,7 @@ homesteading	HOMESTEAD: dwelling that is usually a farmhouse and adjoining land
 homesteads	HOMESTEAD: dwelling that is usually a farmhouse and adjoining land
 homestretch	the straight stretch of a racetrack leading to the finish line
 homestretches	HOMESTRETCH: the straight stretch of a racetrack leading to the finish line
+hometime	the end of the school day
 hometown	the town (or city) where you grew up or where you have your principal residence
 hometowns	HOMETOWN: the town (or city) where you grew up or where you have your principal residence
 homeward	toward home
@@ -1967,6 +1976,7 @@ homie	a close friend
 homier	HOMIE: a close friend
 homies	HOMIE: a close friend
 homiest	HOMIE: a close friend
+homiletics	the art of preaching
 homilies	HOMILY: a sermon on a moral or religious topic
 homily	a sermon on a moral or religious topic
 hominess	the quality of being homy
@@ -2208,6 +2218,8 @@ hornbeam	any of several trees or shrubs of the genus Carpinus
 hornbill	bird of tropical Africa and Asia having a very large bill surmounted by a bony protuberance; related to kingfishers
 hornbills	HORNBILL: bird of tropical Africa and Asia having a very large bill surmounted by a bony protuberance; related to kingfishers
 hornblende	a green to black mineral of the amphibole group; consists of silicates of calcium and sodium and magnesium and iron
+hornbook	a primer that provides instruction in the rudiments or basic skills of a branch of knowledge
+hornbooks	HORNBOOK: a primer that provides instruction in the rudiments or basic skills of a branch of knowledge
 horned	HORN: a noisemaker (as at parties or games) that makes a loud noise when you blow through it
 hornet	large stinging paper wasp
 hornets	HORNET: large stinging paper wasp

@@ -27,6 +27,8 @@ quadriphonic	of or relating to quadraphony
 quadriplegia	paralysis of both arms and both legs
 quadriplegic	a person who is paralyzed in both arms and both legs
 quadriplegics	QUADRIPLEGIC: a person who is paralyzed in both arms and both legs
+quadrivium	a higher division of the curriculum in a medieval university involving arithmetic and music and geometry and astronomy
+quadriviums	QUADRIVIUM: a higher division of the curriculum in a medieval university involving arithmetic and music and geometry and astronomy
 quadrophonic	using four channels of sound
 quadruped	an animal especially a mammal having four limbs specialized for walking
 quadrupeds	QUADRUPED: an animal especially a mammal having four limbs specialized for walking
@@ -140,6 +142,8 @@ quarterdeck	the stern area of a ship's upper deck
 quarterdecks	QUARTERDECK: the stern area of a ship's upper deck
 quartered	QUARTER: one of four equal parts
 quarterfinal	one of the four competitions in an elimination tournament whose winners go on to play in the semifinals
+quarterfinalist	a competitor in a quarterfinal
+quarterfinalists	QUARTERFINALIST: a competitor in a quarterfinal
 quarterfinals	QUARTERFINAL: one of the four competitions in an elimination tournament whose winners go on to play in the semifinals
 quartering	QUARTER: one of four equal parts
 quarterlies	QUARTERLY: of or relating to or consisting of a quarter

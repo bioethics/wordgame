@@ -586,6 +586,13 @@ export const PATRON_CARDS = {
     name: 'The Seadog', emoji: '⚓', rarity: 'rare', cost: 7, guild: 'azure',
     desc: '×3 Mult for words The Seadog finds nautical — and a {PACKAGE_CHANCE} chance of {PARCEL_NAUTICAL} for the workbench.',
   },
+  // School from kindy to the dons' high table, the author's list
+  // (wordlists/theme-education.txt, 6 November). Priced like the Seadog and the
+  // Poppet, whose lists are the size of hers.
+  schoolmarm: {
+    name: 'The Schoolmarm', emoji: '🍎', rarity: 'rare', cost: 7,
+    desc: '×3 Mult for words The Schoolmarm finds educational — and a {PACKAGE_CHANCE} chance of {PARCEL_EDUCATION} for the workbench.',
+  },
   vulgarian: {
     name: 'The Vulgarian', emoji: '🍑', rarity: 'rare', cost: 8,
     desc: '×3 Mult for words The Vulgarian finds rude — and a {PACKAGE_CHANCE} chance of {PARCEL_RUDE} for the workbench.',

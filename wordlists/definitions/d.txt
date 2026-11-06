@@ -304,6 +304,8 @@ dawns	DAWN: the first light of day
 day	time for Earth to make a complete rotation on its axis
 daybed	an armless couch; a seat by day and a bed by night
 daybeds	DAYBED: an armless couch; a seat by day and a bed by night
+daybook	a ledger in which transactions have been recorded as they occurred
+daybooks	DAYBOOK: a ledger in which transactions have been recorded as they occurred
 daybreak	the first light of day
 daycare	childcare during the day while parents work
 daydream	have a daydream; indulge in a fantasy
@@ -404,6 +406,8 @@ dean	an administrator in charge of a division of a university or college
 deaneries	DEANERY: the official residence of a dean
 deanery	the official residence of a dean
 deans	DEAN: an administrator in charge of a division of a university or college
+deanship	the position or office of a dean
+deanships	DEANSHIP: the position or office of a dean
 dear	dearly loved
 dearer	DEAR: dearly loved
 dearest	DEAR: dearly loved
@@ -2455,6 +2459,7 @@ dictums	DICTUM: an authoritative declaration
 did	DO: engage in
 didactic	instructive (especially excessively)
 didactically	in a didactic manner
+didactics	the activities of educating or instructing; activities that impart knowledge or skill
 diddle	deprive of by deceit
 diddled	DIDDLE: deprive of by deceit
 diddles	DIDDLE: deprive of by deceit
@@ -4079,6 +4084,8 @@ doilies	DOILY: a small round piece of linen placed under a dish or bowl
 doily	a small round piece of linen placed under a dish or bowl
 doing	DO: engage in
 doings	manner of acting or controlling yourself
+dojo	a hall where martial arts are taught
+dojos	DOJO: a hall where martial arts are taught
 dolce	gently and sweetly
 doldrums	a state of inactivity (in business or art etc)
 dole	money received from the state
@@ -4579,6 +4586,9 @@ dramatize	put into dramatic form
 dramatized	DRAMATIZE: put into dramatic form
 dramatizes	DRAMATIZE: put into dramatic form
 dramatizing	DRAMATIZE: put into dramatic form
+dramaturgical	relating to the technical aspects of drama
+dramaturgies	DRAMATURGY: the art of writing and producing plays
+dramaturgy	the art of writing and producing plays
 drams	DRAM: a small drink of spirits, especially whisky
 drank	DRINK: take in liquids
 drape	arrange in a particular way
@@ -4823,6 +4833,7 @@ dropkick	drop and kick (a ball) as it touches the ground, as for a field goal
 dropkicks	DROPKICK: drop and kick (a ball) as it touches the ground, as for a field goal
 droplet	a tiny drop
 droplets	DROPLET: a tiny drop
+dropoff	the place or time where children are left, as at school
 dropout	someone who quits school before graduation
 dropouts	DROPOUT: someone who quits school before graduation
 dropped	DROP: let fall to the ground
@@ -5173,6 +5184,7 @@ dutifully	out of a sense of duty; in a dutiful manner
 duty	the social force that binds you to the courses of action demanded by that force
 duvet	a soft quilt usually filled with the down of the eider
 duvets	DUVET: a soft quilt usually filled with the down of the eider
+dux	the top student in a class or school
 dwarf	a person who is markedly small
 dwarfed	DWARF: a person who is markedly small
 dwarfing	DWARF: a person who is markedly small

@@ -456,6 +456,10 @@ mamma	informal terms for a mother
 mammal	any warm-blooded vertebrate having the skin more or less covered with hair; young are born alive except for the small subclass of monotremes and nourished with milk
 mammalian	of or relating to the class Mammalia
 mammalians	MAMMALIAN: of or relating to the class Mammalia
+mammalogies	MAMMALOGY: the branch of zoology that studies mammals
+mammalogist	one skilled in the study of mammals
+mammalogists	MAMMALOGIST: one skilled in the study of mammals
+mammalogy	the branch of zoology that studies mammals
 mammals	MAMMAL: any warm-blooded vertebrate having the skin more or less covered with hair; young are born alive except for the small subclass of monotremes and nourished with milk
 mammary	of or relating to the milk-giving gland of the female
 mammas	MAMMA: informal terms for a mother
@@ -999,6 +1003,8 @@ masterminds	MASTERMIND: plan and direct (a complex undertaking)
 masterpiece	the most outstanding work of a creative artist or craftsman
 masterpieces	MASTERPIECE: the most outstanding work of a creative artist or craftsman
 masters	MASTER: an artist of consummate skill
+mastership	the skill of a master
+masterships	MASTERSHIP: the skill of a master
 masterstroke	an achievement demonstrating great skill or mastery
 masterstrokes	MASTERSTROKE: an achievement demonstrating great skill or mastery
 masterwork	a person's finest piece of work
@@ -1051,6 +1057,7 @@ matchups	MATCHUP: the pairing of people or things as for comparison or competiti
 matchwood	wood in small pieces or splinters
 mate	the officer below the master on a commercial ship
 mated	MATE: the officer below the master on a commercial ship
+mater	MAT: a thick flat pad used as a floor covering
 material	the tangible substance that goes into the makeup of a physical object
 materialisation	the process of coming into being; becoming reality
 materialise	come into being; become reality
@@ -1101,6 +1108,8 @@ matriarchy	a form of social organization in which a female is the family head an
 matrices	MATRIX: a grid of numbers or symbols in rows and columns
 matricide	the murder of your mother
 matricides	MATRICIDE: the murder of your mother
+matriculant	a student enrolling at a university
+matriculants	MATRICULANT: a student enrolling at a university
 matriculate	enroll as a student
 matriculated	MATRICULATE: enroll as a student
 matriculates	MATRICULATE: enroll as a student
@@ -1380,6 +1389,8 @@ medico	a licensed medical practitioner
 medicos	MEDICO: a licensed medical practitioner
 medics	MEDIC: a medical practitioner in the armed forces
 medieval	relating to or belonging to the Middle Ages
+medievalist	a scholar of the Middle Ages
+medievalists	MEDIEVALIST: a scholar of the Middle Ages
 mediocre	lacking exceptional quality or ability
 mediocrities	MEDIOCRITY: ordinariness as a consequence of being average and not outstanding
 mediocrity	ordinariness as a consequence of being average and not outstanding
@@ -1550,6 +1561,8 @@ memorising	MEMORISE: commit to memory; learn by heart
 memorization	learning so as to be able to remember verbatim
 memorize	commit to memory; learn by heart
 memorized	MEMORIZE: commit to memory; learn by heart
+memorizer	a person who learns by rote
+memorizers	MEMORIZER: a person who learns by rote
 memorizes	MEMORIZE: commit to memory; learn by heart
 memorizing	MEMORIZE: commit to memory; learn by heart
 memory	something that is remembered
@@ -1806,6 +1819,7 @@ metalwork	the activity of making things out of metal in a skillful manner
 metalworker	someone who works metal (especially by hammering it when it is hot and malleable)
 metalworkers	METALWORKER: someone who works metal (especially by hammering it when it is hot and malleable)
 metalworking	the activity of making things out of metal in a skillful manner
+metamathematics	the logical analysis of mathematical reasoning
 metamorphic	of or relating to metamorphosis (especially of rocks)
 metamorphism	change in the structure of rock by natural agencies such as pressure or heat or introduction of new chemical substances
 metamorphose	change completely the nature or appearance of
@@ -1942,6 +1956,7 @@ mic	device for converting sound waves into electrical energy
 mica	any of various minerals consisting of hydrous silicates of aluminum or potassium etc. that crystallize in forms that allow perfect cleavage into very thin leaves; used as dielectrics because of their resistance to electricity
 mice	MOUSE: any of numerous small rodents typically resembling diminutive rats having pointed snouts and small ears on elongated bodies with slender usually hairless tails
 micelles	MICELLE: an electrically charged particle built up from polymeric molecules or ions and occurring in certain colloidal electrolytic solutions like soaps and detergents
+michaelmas	honoring the archangel Michael; a quarter day in England, Wales, and Ireland
 mickey	offensive term for a person of Irish descent
 mickeys	MICKEY: offensive term for a person of Irish descent
 micra	MICRON: one millionth of a metre
@@ -2274,10 +2289,14 @@ milquetoasts	MILQUETOAST: a timid man or boy considered childish or unassertive
 mils	MIL: a unit of length equal to one thousandth of an inch; used to specify thickness (e.g., of sheets or wire)
 mime	act out without words but with gestures and bodily movements only
 mimed	MIME: act out without words but with gestures and bodily movements only
+mimeo	a rotary duplicator that uses a stencil through which ink is pressed (trade mark Roneo)
+mimeoed	MIMEO: a rotary duplicator that uses a stencil through which ink is pressed (trade mark Roneo)
 mimeograph	a rotary duplicator that uses a stencil through which ink is pressed (trade mark Roneo)
 mimeographed	MIMEOGRAPH: a rotary duplicator that uses a stencil through which ink is pressed (trade mark Roneo)
 mimeographing	MIMEOGRAPH: a rotary duplicator that uses a stencil through which ink is pressed (trade mark Roneo)
 mimeographs	MIMEOGRAPH: a rotary duplicator that uses a stencil through which ink is pressed (trade mark Roneo)
+mimeoing	MIMEO: a rotary duplicator that uses a stencil through which ink is pressed (trade mark Roneo)
+mimeos	MIMEO: a rotary duplicator that uses a stencil through which ink is pressed (trade mark Roneo)
 mimes	MIME: act out without words but with gestures and bodily movements only
 mimesis	the imitative representation of nature and human behavior in art and literature
 mimetic	characterized by or of the nature of or using mimesis

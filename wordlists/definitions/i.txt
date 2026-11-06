@@ -1845,6 +1845,8 @@ inkling	a slight suggestion or vague understanding
 inklings	INKLING: a slight suggestion or vague understanding
 inkpad	a block of absorbent material saturated with ink; used to transfer ink evenly to a rubber stamp
 inkpads	INKPAD: a block of absorbent material saturated with ink; used to transfer ink evenly to a rubber stamp
+inkpot	a bottle of ink
+inkpots	INKPOT: a bottle of ink
 inks	INK: a liquid used for printing or writing or drawing
 inkwell	a small well holding writing ink into which a pen can be dipped
 inkwells	INKWELL: a small well holding writing ink into which a pen can be dipped
@@ -2180,6 +2182,8 @@ instructive	serving to instruct or enlighten or inform
 instructively	in an informative manner
 instructor	a person whose occupation is teaching
 instructors	INSTRUCTOR: a person whose occupation is teaching
+instructress	a woman instructor
+instructresses	INSTRUCTRESS: a woman instructor
 instructs	INSTRUCT: impart skills or knowledge to
 instrument	a device that requires skill for proper use
 instrumental	relating to or designed for or performed on musical instruments
@@ -2444,6 +2448,8 @@ interleaving	INTERLEAVE: intersperse alternately, as of protective covers for bo
 interleukin	any of several lymphokines that promote macrophages and killer T cells and B cells and other components of the immune system
 interline	insert between lines
 interlinear	written between lines of text
+interlineation	writing inserted between the lines of a text
+interlineations	INTERLINEATION: writing inserted between the lines of a text
 interlined	INTERLINE: insert between lines
 interlines	INTERLINE: insert between lines
 interlining	INTERLINE: insert between lines

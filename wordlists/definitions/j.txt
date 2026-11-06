@@ -646,6 +646,7 @@ jumpier	JUMPY: being in a tense state
 jumpiest	JUMPY: being in a tense state
 jumpiness	the anxious feeling you have when you have the jitters
 jumping	JUMP: move forward by leaps and bounds
+jumprope	a skipping rope
 jumps	JUMP: move forward by leaps and bounds
 jumpsuit	one-piece garment fashioned after a parachutist's uniform
 jumpsuits	JUMPSUIT: one-piece garment fashioned after a parachutist's uniform

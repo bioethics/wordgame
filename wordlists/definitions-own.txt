@@ -18,6 +18,8 @@
 # Health Organization, A an angstrom) or its sense was the rarer one (WHITE "a
 # Caucasian", MAY the month), and where a plural took the wrong base (HIS
 # from HI, SITES from SIT, STATES from STAT).
+# 6 November: 59 for the education list's additions to the dictionary
+# (KINDY, TUCKSHOP, DUX, CHALKFACE, SCHOOLIES…), their plurals borrowing them.
 #
 a	one; any (the indefinite article)
 abaci	ABACUS: a frame with beads used for counting
@@ -452,6 +454,7 @@ behaviourally	in a way relating to behaviour
 beheld	BEHOLD: see
 belcher	one who burps
 belittler	one who makes others seem unimportant
+bellringer	a person who rings church bells or a handbell
 belltower	a tower containing bells
 bellyflop	a clumsy dive landing flat on the stomach
 belying	BELIE: give a false impression of
@@ -519,6 +522,7 @@ binational	involving two nations
 bindi	a decorative dot worn on the forehead
 binman	a person who collects rubbish
 binmen	BINMAN: a person who collects rubbish
+bio	a short account of someone's life; also biology, as a school subject
 biochemicals	BIOCHEMICAL: a chemical made by a living thing
 biodata	biographical information
 biodegradation	the breakdown of material by living organisms
@@ -911,6 +915,7 @@ ceviche	raw fish marinated in citrus juice
 chainsawed	CHAINSAW: cut with a power saw with a toothed chain
 chainsawing	CHAINSAW: cutting with a power saw with a toothed chain
 chakra	a centre of energy in the body in yoga
+chalkface	the classroom, as the place where teaching actually happens
 chamoix	chamois
 champers	champagne
 chancers	CHANCER: people who take risks to get ahead
@@ -927,6 +932,7 @@ charismatics	CHARISMATIC: people with great personal charm
 charlie	a fool
 charry	like charcoal
 charterer	one who hires a vehicle or vessel
+chasey	a children's chasing game; tag (Australian)
 chastener	one who corrects or humbles
 chateaux	CHATEAU: a French country house or castle
 chatline	a telephone service for talking with strangers
@@ -936,6 +942,7 @@ cheapo	cheap or inferior
 checkbox	a small box ticked on a computer form
 cheeper	a young bird that chirps
 cheesesteak	a sandwich of sliced steak and melted cheese
+chem	chemistry, as a school subject
 chemo	chemotherapy
 cheongsam	a fitted Chinese dress with a high collar
 chequerboard	a board of alternating squares
@@ -1079,6 +1086,7 @@ codependency	an unhealthy reliance on another person's needs
 codependent	relying unhealthily on another person's needs
 codeword	a word or phrase with a secret meaning
 codices	CODEX: an ancient manuscript in book form
+codicology	the study of manuscripts as physical books
 coed	a school or college that teaches both sexes
 coequals	COEQUAL: a person or thing equal to another
 coffeemaker	a machine for brewing coffee
@@ -1352,6 +1360,7 @@ cryptozoologist	a person who searches for unproven animals
 cryptozoology	the study of animals whose existence is unproven
 crystallographic	relating to the structure of crystals
 cthulhu	a monstrous sea deity in the fiction of H. P. Lovecraft
+cubbyhouse	a children's playhouse (Australian)
 cuck	an insult
 cuddler	one who hugs affectionately
 cudgeler	one who beats with a short thick stick
@@ -1681,6 +1690,7 @@ doggonedest	DOGGONED: confounded; damned
 doggoner	DOGGONE: more damned
 doggonest	DOGGONE: most damned
 dogmata	DOGMA: a firmly held belief
+dojo	a hall where martial arts are taught
 doled	DOLE: hand out
 doling	DOLE: hand out
 dollish	like a doll
@@ -1760,6 +1770,7 @@ drongo	a fool
 droolier	DROOLY: dribbling saliva
 drooliest	DROOLY: dribbling saliva
 droopily	in a limp, hanging way
+dropoff	the place or time where children are left, as at school
 drouthes	DROUTH: a long dry spell
 drowner	one who submerges
 drownings	DROWNING: death by suffocation in water
@@ -1797,6 +1808,7 @@ duskily	in a dim or darkish way
 dustily	in a dusty manner
 dustings	DUSTING: a light covering of powder
 dustsheet	a cloth that protects furniture from dust
+dux	the top student in a class or school
 dwarves	DWARF: a very small person or creature
 dwelt	DWELL: live in a place
 dystonia	a disorder of involuntary muscle contractions
@@ -1881,6 +1893,7 @@ enabler	one who makes something possible, or lets harmful behaviour continue
 enameler	a person who coats or decorates with enamel
 enamellers	ENAMELLER: a person who coats or decorates with enamel
 enamellings	ENAMELLING: the art of coating or decorating with enamel
+enchiridia	ENCHIRIDION: a handbook or manual
 encoder	a device or person that converts information into code
 ender	one who or that which ends something
 endive	a leafy plant of the chicory family, eaten in salads
@@ -1888,6 +1901,7 @@ endnote	a note placed at the end of a text
 endocrinological	relating to hormones and the glands that make them
 endoplasmic	relating to the inner part of a cell's cytoplasm
 endotracheal	within or through the windpipe
+endpaper	a sheet pasted inside the cover of a book, joining it to the pages
 enemata	ENEMA: liquid injected into the rectum
 energetics	the study of energy and its transformations
 enforceability	the quality of being able to be enforced
@@ -1997,6 +2011,7 @@ expansionists	EXPANSIONIST: one who favours enlarging territory or influence
 expediter	one who speeds up a process
 expeditor	one who speeds up a process
 expendables	EXPENDABLE: a thing that can be sacrificed or used up
+experimentalist	a person who carries out experiments, or works in experimental science
 explainer	one who explains
 exploitable	able to be used to advantage
 exsanguinate	drain of blood
@@ -2161,6 +2176,7 @@ flirter	one who flirts
 flirty	playfully suggestive
 flooder	one who or that which floods
 floodwater	water from a flood
+floorwax	a polish for floors
 florae	FLORA: the plants of a region
 florescent	in bloom; flowering
 flowerpecker	a small fruit- and nectar-eating bird of Asia and Australasia
@@ -2449,6 +2465,7 @@ gloomed	GLOOM: look or feel gloomy
 gloop	a thick, sticky liquid
 gloppy	thick and sticky
 gloried	GLORY: rejoice proudly
+glossator	a medieval scholar who wrote commentaries on texts
 glottides	GLOTTIS: the opening between the vocal cords
 gloving	GLOVE: put a glove on
 gluconeogenesis	the making of glucose in the body from non-carbohydrates
@@ -2490,7 +2507,10 @@ gossamery	light and delicate
 gotcha	I understand, or caught you
 gotta	got to
 gourami	a freshwater fish of southeast Asia
+gownsman	a member of a university, as opposed to a townsman
+gradebook	a teacher's record of students' marks
 gradualism	the belief in slow change
+graduand	a person about to receive a degree
 grafter	a hard worker
 grandaddy	grandfather
 grandchildren	GRANDCHILD: a child of your son or daughter
@@ -2753,6 +2773,7 @@ holstering	HOLSTER: put a gun into its case
 homebuyer	a person buying a house
 homeport	the port where a ship is based
 homeschool	teach children at home instead of at school
+hometime	the end of the school day
 homewrecker	a person who breaks up a marriage or family
 homeys	HOMEY: cosy and comfortable
 homie	a close friend
@@ -3061,6 +3082,7 @@ intergenerational	between different generations
 interglacial	the warmer period between ice ages
 intergovernmental	between governments
 interline	insert between lines
+interlineation	writing inserted between the lines of a text
 intermarried	INTERMARRY: married someone from a different group
 intermezzi	INTERMEZZO: a short piece of music between sections
 internals	INTERNAL: inner parts
@@ -3176,6 +3198,7 @@ juicily	in a moist and succulent way
 juicing	JUICE: extracting the liquid from fruit
 jumbos	JUMBO: very large things
 jumbuck	a sheep
+jumprope	a skipping rope
 juncoes	JUNCO: a small North American finch
 junketer	someone who goes on junkets
 junkier	JUNKY: more worthless or poor in quality
@@ -3233,6 +3256,7 @@ kilogramme	KILOGRAM: a unit of mass equal to a thousand grams
 kilted	wearing a kilt
 kimchi	a Korean dish of spicy fermented vegetables
 kindler	something that lights a fire or stirs feelings
+kindy	kindergarten (Australian)
 kinematic	relating to motion without regard to its causes
 kinesiological	relating to the study of body movement
 kinesiologist	a person who studies body movement
@@ -3332,6 +3356,7 @@ laughingthrush	a noisy Asian songbird
 launderer	a person who washes clothes
 laundrette	a shop with coin-operated washing machines
 lavatorial	relating to toilets
+lawbook	a book about the law
 lawbreaking	the act of breaking the law
 lawnmower	a machine for cutting grass
 layaway	a scheme where goods are held until paid for
@@ -3589,6 +3614,7 @@ matier	MATEY: friendly, sociable
 matiest	MATEY: friendly, sociable
 matinal	of or relating to the morning
 matrices	MATRIX: a grid of numbers or symbols in rows and columns
+matriculant	a student enrolling at a university
 matzot	MATZO: a thin flat unleavened bread eaten at Passover
 matzoth	MATZO: a thin flat unleavened bread eaten at Passover
 maunderer	someone who talks or wanders aimlessly
@@ -3611,6 +3637,7 @@ meatloaves	MEATLOAF: minced meat baked in a loaf shape
 medaled	MEDAL: win or be awarded a medal
 medaling	MEDAL: win or be awarded a medal
 media	means of mass communication such as newspapers and television
+medievalist	a scholar of the Middle Ages
 mediumship	the practice of a spiritualist medium
 medullae	MEDULLA: the inner part of an organ or the marrow of a bone
 medusae	MEDUSA: a jellyfish
@@ -4154,6 +4181,7 @@ nucleic	relating to the nucleus of a cell
 nuggety	short, stocky and tough
 numbskull	a stupid person
 numismatic	relating to coins
+nurserymaid	a woman employed to look after young children
 nurturer	someone who cares for and encourages growth
 nutmeat	the edible kernel of a nut
 nutraceutical	a food with a claimed health benefit
@@ -4676,6 +4704,7 @@ pilling	PILL: form small balls of fibre on fabric
 pilloried	PILLORY: expose to public ridicule
 pillowslip	a removable cover for a pillow
 pillowy	soft and plump like a pillow
+pinboard	a board for pinning up notices
 pincher	a person or thing that nips
 piney	smelling or looking like pine trees
 pinfeather	an undeveloped feather
@@ -4717,8 +4746,11 @@ platypi	PLATYPUS: an egg-laying Australian mammal with a duck-like bill
 playa	a flat dry desert basin
 playability	the quality of being suitable to play
 playdate	a prearranged time for children to play together
+playdough	a soft modelling dough for children
 playgirl	a woman who pursues pleasure
 playgroup	a regular gathering of young children to play
+playlunch	a mid-morning snack at school; recess (Australian)
+playmat	a soft mat for a baby or child to play on
 playwriting	the writing of plays
 pleasured	PLEASURE: give enjoyment to
 pleasuring	PLEASURE: give enjoyment to
@@ -4736,6 +4768,7 @@ pocketknives	POCKETKNIFE: a small folding knife
 pocketsful	POCKETFUL: as much as a pocket holds
 podia	PODIUM: a small raised platform
 podiatric	relating to the care of the feet
+pogo	to jump up and down on the spot; also a pogo stick
 pointy	having a sharp end
 pokie	a poker machine, a gambling machine
 polariser	a filter that lets through light vibrating in one direction
@@ -4802,21 +4835,25 @@ posthaste	with great speed
 postie	a person who delivers mail
 postmodernists	POSTMODERNIST: a follower of the movement that questions modernism
 postseason	the games played after the regular season
+postsecondary	of education after secondary school
 postsynaptic	coming after the junction between two nerve cells
 potatoes	POTATO: a starchy tuber eaten as a vegetable
 pottymouth	a person who uses coarse language
 poult	a young game bird
 pourer	a person or thing that pours
 pouty	tending to push out the lips in sulking
+powerpoint	a slide presentation; also a power socket (Australian)
 powertrain	the parts of a vehicle that produce and deliver power to the wheels
 poxed	POX: infected with a disease that causes pustules
 poxy	of poor quality
+prac	a practical class, or practical training (Australian)
 practicals	PRACTICAL: an exam or lesson of hands-on work
 practicum	a course of practical experience
 pranker	a person who plays tricks
 prayerfully	in a manner of prayer
 preachily	in a moralising way
 preapproved	approved in advance
+precalculus	the mathematics studied before calculus
 preciseness	exactness and accuracy
 precolonial	existing before colonial rule
 predawn	the time before dawn
@@ -4834,6 +4871,8 @@ premed	a student preparing for medical school
 premixed	mixed in advance
 premonitorily	as a warning beforehand
 prenatally	before birth
+prenticed	PRENTICE: bind as an apprentice
+prenticing	PRENTICE: bind as an apprentice
 prenup	an agreement made before marriage about property
 preorder	order before release
 preowned	previously owned
@@ -4843,6 +4882,7 @@ preplanned	planned in advance
 prepone	bring forward to an earlier time
 preppie	a student of or person like a private school
 preppy	neat and conventional in a smart, privileged style
+preprint	a version of a paper shared before formal publication
 prepubescents	PREPUBESCENT: a child not yet at puberty
 prequel	a work set before an earlier one in a story
 preregister	register in advance
@@ -4851,6 +4891,7 @@ presager	a person who foretells
 prescriber	a person who prescribes medicine
 preselected	PRESELECT: choose in advance
 presenteeism	the habit of staying at work longer than needed
+preservice	before starting in a profession, as in teacher training
 presets	PRESET: a setting fixed in advance
 preshrank	PRESHRINK: shrink fabric before sale
 preshrink	shrink fabric before it is made into clothes
@@ -4884,6 +4925,7 @@ primetime	the evening hours of highest viewing
 prioritisation	the act of ranking things by importance
 prioritization	the act of ranking things by importance
 prithee	please
+privatdozent	a university lecturer paid from students' fees rather than a salary, in German-speaking countries
 private	belonging to or for one person or group; not public
 privateering	the use of armed private ships to attack enemy shipping
 prizegiving	a ceremony awarding prizes
@@ -4898,6 +4940,7 @@ proclaimers	PROCLAIMER: a person who announces publicly
 proctological	relating to the rectum and anus
 prodders	PRODDER: a person who pokes or urges
 profaners	PROFANER: a person who treats sacred things with disrespect
+professorate	the professors of a university, or the office of professor
 profferer	a person who offers something
 proficients	PROFICIENT: a person skilled at something
 proforma	a standard form or invoice sent in advance
@@ -4966,6 +5009,7 @@ puncturer	a person or thing that makes a small hole
 punditry	opinions given as an expert commentator
 punisher	a person who inflicts a penalty
 pupae	PUPA: an insect in the stage between larva and adult
+pupilage	the state or period of being a pupil
 puppeteering	the operating of puppets
 purified	PURIFY: make clean and free of impurities
 purloiner	a thief
@@ -4991,6 +5035,7 @@ quanta	QUANTUM: a discrete amount of energy
 quantified	QUANTIFY: express as an amount
 quantitation	the measuring of an amount
 quarried	QUARRY: dig stone from the ground
+quarterfinalist	a competitor in a quarterfinal
 quatre	four
 quavery	trembling or shaky in sound
 quayside	the edge of a wharf
@@ -5096,6 +5141,7 @@ recalibration	adjustment again for accuracy
 recanter	a person who withdraws a statement
 recapitalisation	the restructuring of a firm's finances
 recapitalization	the restructuring of a firm's finances
+recension	a revised edition of a text
 recheck	check again
 rechristened	RECHRISTEN: give a new name to
 recirculate	circulate again
@@ -5141,6 +5187,7 @@ redrafting	REDRAFT: write again
 redraw	draw again
 redrawn	REDRAW: draw again
 redrew	REDRAW: draw again
+redshirt	hold a student back a year, as from school or college sport
 reedbuck	an African antelope living near reeds
 reeducate	teach again
 reeducation	the act of teaching again
@@ -5490,8 +5537,10 @@ schlocky	cheap and of poor quality
 schmoe	a foolish or unlucky person
 schoolchildren	SCHOOLCHILD: a child who attends school
 schooler	a person who attends school
+schoolies	a holiday taken by school leavers after their final exams (Australian)
 schoolkid	a child who attends school
 schoolmarmish	prim and strict like a stern teacher
+schoolyear	the part of the year when schools are in session
 scientism	excessive belief in the power of science
 scientologist	a follower of the Church of Scientology
 sclerae	SCLERA: the white of the eye
@@ -5517,6 +5566,7 @@ scribal	relating to scribes
 scried	SCRY: foretell by gazing into a crystal
 scrimshawed	SCRIMSHAW: carve or engrave on bone or ivory
 scrimshawing	SCRIMSHAW: carve or engrave on bone or ivory
+scriptoria	SCRIPTORIUM: a room in a monastery where manuscripts were copied
 scrog	a stunted bush; brushwood
 scrota	SCROTUM: the pouch of skin holding the testicles
 scroungy	shabby or dirty
@@ -5560,6 +5610,7 @@ selfie	a photograph you take of yourself
 selkie	a seal that can take human form in folklore
 selves	SELF: a person's own identity
 semidetacheds	SEMIDETACHED: a house joined to another on one side
+semiliterates	people who can read and write only a little
 semiological	relating to the study of signs
 semiologist	a person who studies signs and symbols
 semiretired	working less than before retirement
@@ -5569,6 +5620,7 @@ sendoff	a farewell gathering
 sengi	an African mammal with a long snout, also called an elephant shrew
 sensationalise	present in a way that shocks or excites
 sensationalize	present in a way that shocks or excites
+sensei	a teacher, especially of a martial art
 septa	SEPTUM: a dividing wall between cavities
 sepulchered	SEPULCHER: placed in a tomb
 sepulchering	SEPULCHER: place in a tomb
@@ -5863,6 +5915,7 @@ soundcheck	a test of audio equipment before a performance
 soundscape	the sounds that make up an environment
 soundstage	a studio designed for filming with sound
 soundwave	a wave that carries sound
+sourcebook	a book of original documents for study
 sourpussed	SOURPUSS: sullen and sour-faced
 south	the direction to the right of someone facing the sunrise
 southerns	SOUTHERN: a person from the south
@@ -5948,6 +6001,7 @@ stabbings	STABBING: an attack with a knife
 staccati	STACCATO: in short detached notes
 staccatos	STACCATO: in short detached notes
 stadia	STADIUM: a large sports arena
+staffroom	a room for the teachers of a school
 stagestruck	obsessed with the theatre
 stairlift	a motorised chair on a staircase rail
 stallholder	a person who runs a market stall
@@ -6206,6 +6260,7 @@ talismanically	in the manner of a lucky charm
 talkback	a broadcast in which listeners phone in to take part
 tallied	TALLY: count up or record a score or total
 tallyho	a huntsman's cry on sighting the fox
+talmudic	of or relating to the Talmud
 tamperer	a person who interferes with something without permission
 tamperproof	designed so it cannot be interfered with
 tandoori	cooked in a clay oven in the Indian style
@@ -6293,6 +6348,7 @@ testbed	a platform or setting for trying out new technology
 testified	TESTIFY: give evidence, especially in court
 tetrahedra	TETRAHEDRON: a solid with four triangular faces
 tetrahedral	shaped like a solid with four triangular faces
+texta	a felt-tip pen (Australian)
 texted	TEXT: send a message by mobile phone
 texting	TEXT: send a message by mobile phone
 textually	in terms of the written words
@@ -6358,6 +6414,7 @@ tidied	TIDY: make neat
 tiebreak	a extra contest to decide a winner after a draw
 tiffed	TIFF: have a minor quarrel
 tiffing	TIFF: have a minor quarrel
+tiggy	a children's chasing game; tag (Australian)
 tightener	a device or person that makes something tighter
 tightknit	closely bound together
 tikka	pieces of meat marinated in spices and cooked in a tandoor
@@ -6372,6 +6429,7 @@ timesheet	a record of the hours worked
 timestamp	a record of the time something happened
 timetabled	TIMETABLE: schedule at a particular time
 timetabling	TIMETABLE: schedule at a particular time
+timewaster	a person or thing that wastes time
 timezone	a region that keeps the same standard time
 tinful	the amount a tin holds
 tingler	something that causes a prickling feeling
@@ -6551,6 +6609,7 @@ trysted	TRYST: meet in secret
 trysting	TRYST: meet in secret
 tsarists	TSARIST: a supporter of rule by tsars
 tucker	food (Australian informal)
+tuckshop	a school canteen (Australian)
 tufter	a person or machine that makes tufts
 tufting	TUFT: form into clumps
 tufty	growing in small clumps
@@ -7038,6 +7097,7 @@ woodblock	a block of wood engraved for printing
 woodies	WOODIE: a wood-panelled station wagon
 wooding	WOOD: supply with timber
 woodlice	WOODLOUSE: a small crustacean found under logs
+woodsmoke	smoke from a wood fire
 woofed	WOOF: bark
 woofing	WOOF: bark
 woolie	a woollen garment
@@ -7108,6 +7168,7 @@ yourselves	you and nobody else
 youse	you, used for more than one person
 yowie	a legendary ape-like creature of Australia
 yowler	an animal or person that howls loudly
+yoyo	a toy that spins down and back up a string; also to go up and down repeatedly
 yuck	an exclamation of disgust
 yuhina	a small Asian songbird with a crest
 yuk	an exclamation of disgust

@@ -51,6 +51,7 @@ export const LIST_FILES = {
   rude:       'wordlists/theme-rude.txt',
   commoner:   'wordlists/commoner.txt',
   nautical:   'wordlists/theme-nautical.txt',
+  education:  'wordlists/theme-education.txt',
   names:      'wordlists/names.txt',
   borrowed:   'wordlists/names-borrowed.txt',
 };
@@ -153,12 +154,13 @@ const register = theme => ({
 });
 
 export const PATRONS = {
-  // The four registers: ×3 for a word on a themed list.
+  // The registers: ×3 for a word on a themed list.
   sexton:    register('spooky'),
   paramour:  register('romantic'),
   poppet:    register('cute'),
   vulgarian: register('rude'),
   seadog:    register('nautical'),
+  schoolmarm: register('education'),
 
   // The parts of speech: ×2.
   poet:     { lists: ['adjectives'], effect({ letters, xMult }) { if (inList('adjectives', letters)) xMult(2); } },

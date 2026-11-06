@@ -1068,6 +1068,7 @@ beaded	covered with beads of liquid
 beadier	BEADY: small and round and shiny like a shiny bead or button
 beadiest	BEADY: small and round and shiny like a shiny bead or button
 beading	BEAD: a small ball with a hole through the middle
+beadle	a minor parish official who serves a ceremonial function
 beadles	BEADLE: a minor parish official who serves a ceremonial function
 beads	BEAD: a small ball with a hole through the middle
 beady	small and round and shiny like a shiny bead or button
@@ -1522,6 +1523,8 @@ bellower	someone who communicates vocally in a very loud voice
 bellowers	BELLOWER: someone who communicates vocally in a very loud voice
 bellowing	BELLOW: a very loud utterance (like the sound of an animal)
 bellows	BELLOW: a very loud utterance (like the sound of an animal)
+bellringer	a person who rings church bells or a handbell
+bellringers	BELLRINGER: a person who rings church bells or a handbell
 bells	BELL: a hollow device made of metal that makes a ringing sound when struck
 belltower	a tower containing bells
 bellwether	someone who assumes leadership of a movement or activity
@@ -2114,6 +2117,7 @@ binomials	BINOMIAL: a quantity expressed as a sum or difference of two terms; a 
 bins	BIN: a container; usually has a lid
 binturong	arboreal civet of Asia having a long prehensile tail and shaggy black hair
 binturongs	BINTURONG: arboreal civet of Asia having a long prehensile tail and shaggy black hair
+bio	a short account of someone's life; also biology, as a school subject
 biochemical	of or relating to biochemistry; involving chemical processes in living organisms
 biochemically	with respect to biochemistry
 biochemicals	BIOCHEMICAL: a chemical made by a living thing
@@ -2168,6 +2172,8 @@ biomedicine	the branch of medical science that applies biological and physiologi
 biomes	BIOME: a major biotic community characterized by the dominant forms of plant life and the prevailing climate
 biometric	relating to measurement of body features for identification
 biometrics	BIOMETRIC: relating to measurement of body features for identification
+biometries	BIOMETRY: a branch of biology that studies biological phenomena and observations by means of statistical analysis
+biometry	a branch of biology that studies biological phenomena and observations by means of statistical analysis
 bionic	having particular physiological functions augmented or replaced by electronic or electromechanical components
 bionics	application of biological principles to the study and design of engineering systems (especially electronic systems)
 biophysical	relating to the physics of living things
@@ -2187,6 +2193,7 @@ bioreactors	BIOREACTOR: a vessel for growing cells or microbes
 bioremediation	the act of treating waste or pollutants by the use of microorganisms (as bacteria) that can break down the undesirable substances
 biorhythm	a regular cycle in a living thing's body
 biorhythms	BIORHYTHM: a regular cycle in a living thing's body
+bios	BIO: a short account of someone's life; also biology, as a school subject
 bioscience	any of the branches of natural science dealing with the structure and behavior of living organisms
 biosciences	BIOSCIENCE: any of the branches of natural science dealing with the structure and behavior of living organisms
 biosecurity	measures to protect against harmful organisms

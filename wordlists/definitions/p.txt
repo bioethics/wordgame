@@ -209,6 +209,8 @@ paleobiological	relating to the study of ancient life
 paleobiologist	a student of ancient life
 paleobiologists	PALEOBIOLOGIST: a student of ancient life
 paleobiology	a branch of paleontology that deals with the origin and growth and structure of fossil animals and plants as living organisms
+paleobotanies	PALEOBOTANY: the study of fossil plants
+paleobotany	the study of fossil plants
 paleoclimatologist	a student of ancient climates
 paleoclimatologists	PALEOCLIMATOLOGIST: a student of ancient climates
 paleoclimatology	the study of the climate of past ages
@@ -216,6 +218,8 @@ paleoecological	relating to the ecology of past ages
 paleoecologist	a student of the ecology of past ages
 paleoecologists	PALEOECOLOGIST: a student of the ecology of past ages
 paleoecology	the branch of ecology that studies ancient ecology
+paleographies	PALEOGRAPHY: the study of ancient forms of writing (and the deciphering of them)
+paleography	the study of ancient forms of writing (and the deciphering of them)
 paleolithic	of or relating to the second period of the Stone Age (following the eolithic)
 paleontological	of or relating to paleontology
 paleontologist	a specialist in paleontology
@@ -1349,6 +1353,7 @@ pedagog	someone who educates young people
 pedagogic	of or relating to pedagogy
 pedagogical	of or relating to pedagogy
 pedagogically	in a didactic manner
+pedagogics	the principles and methods of instruction
 pedagogs	PEDAGOG: someone who educates young people
 pedagogue	someone who educates young people
 pedagogues	PEDAGOGUE: someone who educates young people
@@ -2529,6 +2534,8 @@ physio	a physiotherapist
 physiognomies	PHYSIOGNOMY: the human face (`kisser' and `smiler' and `mug' are informal terms for `face' and `phiz' is British)
 physiognomy	the human face (`kisser' and `smiler' and `mug' are informal terms for `face' and `phiz' is British)
 physiographic	relating to the description of natural landforms
+physiographies	PHYSIOGRAPHY: the study of physical features of the earth's surface
+physiography	the study of physical features of the earth's surface
 physiologic	of or consistent with an organism's normal functioning
 physiological	of or relating to the biological study of physiology
 physiologically	of or relating to physiological processes; with respect to physiology
@@ -2541,6 +2548,8 @@ physiotherapists	PHYSIOTHERAPIST: therapist who treats injury or dysfunction wit
 physiotherapy	therapy that uses physical agents: exercise and massage and other modalities
 physique	constitution of the human body
 physiques	PHYSIQUE: constitution of the human body
+phytochemistries	PHYTOCHEMISTRY: the branch of organic chemistry dealing with the chemistry of plants
+phytochemistry	the branch of organic chemistry dealing with the chemistry of plants
 phytoplankton	photosynthetic or plant constituent of plankton; mainly unicellular algae
 pi	the ratio of the circumference to the diameter of a circle; approximately equal to 3.14159265358979323846...
 pianissimi	PIANISSIMO: a passage played very softly
@@ -2808,6 +2817,7 @@ pinafores	PINAFORE: a sleeveless dress resembling an apron; worn over other clot
 pinata	plaything consisting of a container filled with toys and candy; suspended from a height for blindfolded children to break with sticks
 pinatas	PINATA: plaything consisting of a container filled with toys and candy; suspended from a height for blindfolded children to break with sticks
 pinball	a game played on a sloping board; the object is to propel marbles against pins or into pockets
+pinboard	a board for pinning up notices
 pincer	a hand tool for holding consisting of a compound lever for grasping
 pincers	PINCER: a hand tool for holding consisting of a compound lever for grasping
 pinch	squeeze tightly between the fingers
@@ -3254,9 +3264,12 @@ playboy	a man devoted to the pursuit of pleasure
 playboys	PLAYBOY: a man devoted to the pursuit of pleasure
 playdate	a prearranged time for children to play together
 playdates	PLAYDATE: a prearranged time for children to play together
+playdough	a soft modelling dough for children
 played	(of games) engaged in
 player	a person who participates in or is skilled at some game
 players	PLAYER: a person who participates in or is skilled at some game
+playfellow	a companion at play
+playfellows	PLAYFELLOW: a companion at play
 playful	full of fun and high spirits
 playfully	in a playful manner
 playfulness	a disposition to find (or make) causes for amusement
@@ -3273,9 +3286,11 @@ playhouses	PLAYHOUSE: plaything consisting of a small model of a house that chil
 playing	the act of playing a musical instrument
 playlist	a list of musical selections for performance or for broadcast by radio
 playlists	PLAYLIST: a list of musical selections for performance or for broadcast by radio
+playlunch	a mid-morning snack at school; recess (Australian)
 playmaker	a player in a team sport who leads attacks or maneuvers in such a way that a teammate can score
+playmat	a soft mat for a baby or child to play on
 playmate	a companion at play
-playmates	PLAYMATE: a companion at play
+playmates	PLAYMAT: a soft mat for a baby or child to play on
 playoff	any final competition to determine a championship
 playoffs	PLAYOFF: any final competition to determine a championship
 playpen	a portable enclosure in which babies may be left to play
@@ -3333,6 +3348,7 @@ pleaters	PLEATER: a person or device that folds cloth into pleats
 pleating	PLEAT: any of various types of fold formed by doubling fabric back upon itself and then pressing or stitching into shape
 pleats	PLEAT: any of various types of fold formed by doubling fabric back upon itself and then pressing or stitching into shape
 pleb	one of the common people
+plebe	a military trainee (as at a military academy)
 plebeian	one of the common people
 plebeians	PLEBEIAN: one of the common people
 plebes	PLEBE: a military trainee (as at a military academy)
@@ -3593,6 +3609,7 @@ poetically	in a poetic manner
 poetics	study of poetic works
 poetry	literature in metrical form
 poets	POET: a writer of poems (the term is usually reserved for writers of good poetry)
+pogo	to jump up and down on the spot; also a pogo stick
 pogrom	organized persecution of an ethnic group (especially Jews)
 pogroms	POGROM: organized persecution of an ethnic group (especially Jews)
 pogy	money received from the state
@@ -4262,7 +4279,10 @@ postscript	a note appended to a letter after the signature
 postscripts	POSTSCRIPT: a note appended to a letter after the signature
 postseason	the games played after the regular season
 postseasons	POSTSEASON: the games played after the regular season
+postsecondary	of education after secondary school
 postsynaptic	coming after the junction between two nerve cells
+postulant	one submitting a request or application especially one seeking admission into a religious order
+postulants	POSTULANT: one submitting a request or application especially one seeking admission into a religious order
 postulate	maintain or assert
 postulated	POSTULATE: maintain or assert
 postulates	POSTULATE: maintain or assert
@@ -4414,6 +4434,7 @@ powering	POWER: possession of controlling influence
 powerless	lacking power
 powerlessly	in a powerless manner
 powerlessness	the quality of lacking strength or power; being weak and feeble
+powerpoint	a slide presentation; also a power socket (Australian)
 powers	POWER: possession of controlling influence
 powertrain	the parts of a vehicle that produce and deliver power to the wheels
 powwow	a quick private conference
@@ -4426,6 +4447,7 @@ poxes	POX: a contagious disease characterized by purulent skin eruptions that ma
 poxier	POXY: of poor quality
 poxiest	POXY: of poor quality
 poxy	of poor quality
+prac	a practical class, or practical training (Australian)
 practicability	the quality of being usable
 practicable	usable for a specific purpose
 practicably	in a practicable manner; so as to be feasible
@@ -4538,6 +4560,8 @@ prearranges	PREARRANGE: arrange beforehand
 prearranging	PREARRANGE: arrange beforehand
 prebend	the stipend assigned by a cathedral to a canon
 prebendary	a canon who receives a prebend for serving the church
+precalculus	the mathematics studied before calculus
+precalculuses	PRECALCULUS: the mathematics studied before calculus
 precancerous	of or relating to a growth that is not malignant but is likely to become so if not treated
 precarious	affording no ease or reassurance
 precariously	in a precarious manner
@@ -4826,6 +4850,10 @@ premonitorily	as a warning beforehand
 premonitory	warning of future misfortune
 prenatal	occurring or existing before birth
 prenatally	before birth
+prentice	works for an expert to learn a trade
+prenticed	PRENTICE: bind as an apprentice
+prentices	PRENTICE: works for an expert to learn a trade
+prenticing	PRENTICE: bind as an apprentice
 prenup	an agreement made before marriage about property
 prenups	PRENUP: an agreement made before marriage about property
 prenuptial	relating to events before a marriage
@@ -4894,6 +4922,10 @@ preppiest	PREPPIE: a student of or person like a private school
 prepping	PREP: preparatory school work done outside school (especially at home)
 preppy	neat and conventional in a smart, privileged style
 preprandial	preceding a meal (especially dinner)
+preprint	a version of a paper shared before formal publication
+preprinted	PREPRINT: a version of a paper shared before formal publication
+preprinting	PREPRINT: a version of a paper shared before formal publication
+preprints	PREPRINT: a version of a paper shared before formal publication
 preps	PREP: preparatory school work done outside school (especially at home)
 prepubescent	(especially of human beings) at the age immediately before puberty; often marked by accelerated growth
 prepubescents	PREPUBESCENT: a child not yet at puberty
@@ -4972,6 +5004,7 @@ preserved	prevented from decaying or spoiling and prepared for future use
 preserver	someone who keeps safe from harm or danger
 preservers	PRESERVER: someone who keeps safe from harm or danger
 preserves	PRESERVE: keep or maintain in unaltered condition; cause to remain or last
+preservice	before starting in a profession, as in teacher training
 preserving	PRESERVE: keep or maintain in unaltered condition; cause to remain or last
 preset	set in advance
 presets	PRESET: a setting fixed in advance
@@ -5240,6 +5273,8 @@ principalities	PRINCIPALITY: territory ruled by a prince
 principality	territory ruled by a prince
 principally	for the most part
 principals	PRINCIPAL: the original amount of a debt on which interest is calculated
+principalship	the post of principal
+principalships	PRINCIPALSHIP: the post of principal
 principle	a basic generalization that is accepted as true and that can be used as a basis for reasoning or conduct
 principled	based on or manifesting objectively defined standards of rightness or morality
 principles	PRINCIPLE: a basic generalization that is accepted as true and that can be used as a basis for reasoning or conduct
@@ -5294,6 +5329,8 @@ prissy	exaggeratedly proper
 pristine	immaculately clean and unused
 prithee	please
 privacy	the quality of being secluded from the presence or view of others
+privatdozent	a university lecturer paid from students' fees rather than a salary, in German-speaking countries
+privatdozents	PRIVATDOZENT: a university lecturer paid from students' fees rather than a salary, in German-speaking countries
 private	belonging to or for one person or group; not public
 privateer	PRIVATE: belonging to or for one person or group; not public
 privateering	the use of armed private ships to attack enemy shipping
@@ -5495,6 +5532,8 @@ professionally	in a professional manner
 professionals	PROFESSIONAL: engaged in a profession or engaging in as a profession or means of livelihood
 professions	PROFESSION: the body of people in a learned occupation
 professor	someone who is a member of the faculty at a college or university
+professorate	the professors of a university, or the office of professor
+professorates	PROFESSORATE: the professors of a university, or the office of professor
 professorial	relating to or characteristic of professors
 professors	PROFESSOR: someone who is a member of the faculty at a college or university
 professorship	the position of professor
@@ -5722,6 +5761,8 @@ proofreading	PROOFREAD: read for errors
 proofreads	PROOFREAD: read for errors
 proofs	PROOF: any factual evidence that helps to establish the truth of something
 prop	a support placed beneath or against something to keep it from shaking or falling
+propaedeutic	a course that provides an introduction to an art or science (or to more advanced study generally)
+propaedeutics	a course that provides an introduction to an art or science (or to more advanced study generally)
 propaganda	information that is spread for the purpose of promoting some cause
 propagandise	spread by propaganda
 propagandised	PROPAGANDISE: spread by propaganda
@@ -6467,6 +6508,8 @@ pupae	PUPA: an insect in the stage between larva and adult
 pupal	of the insects in the chrysalis (cocoon) or post larval stage
 pupas	PUPA: an insect in the inactive stage of development (when it is not feeding) intermediate between larva and adult
 pupil	a learner who is enrolled in an educational institution
+pupilage	the state or period of being a pupil
+pupilages	PUPILAGE: the state or period of being a pupil
 pupillary	of or relating to the pupil of the eye
 pupils	PUPIL: a learner who is enrolled in an educational institution
 pupped	PUP: young of any of various canines such as a dog or wolf

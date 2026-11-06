@@ -1118,9 +1118,10 @@ confirming tap on itself, because they destroy the tile.
 The **reshuffle** is banked until spent, on the Market's own offers (free, and
 it doesn't touch the escalating reroll price) or on a Colophon pick.
 
-**The registers' packages.** The five register patrons — *the Sexton* (spooky),
+**The registers' packages.** The six register patrons — *the Sexton* (spooky),
 *the Paramour* (romantic), *the Poppet* (cute), *the Vulgarian* (rude), *the
-Seadog* (nautical, the author's own list, 4 November) — pay ×3
+Seadog* (nautical, the author's own list, 4 November), *the Schoolmarm*
+(education, the author's own list, 6 November) — pay ×3
 Mult for a word on their list, which plays like a lottery ticket: their lists
 run 3–9% of the dictionary, so a seat fires by accident about one word in
 fourteen. So the ×3 has a parcel behind it. Print a word one of them likes and
@@ -1136,6 +1137,7 @@ sold back for a Coin, and opens on a tap:
 | 🎁 **A party bag** | a tile struck in **rose metal** (weighted highest — the Poppet's list is the smallest of the four) · a **rainbow applicator** · a pot of ink wash |
 | 📦 **A plain brown wrapper** | a pair of tongs · a **curse applicator** · a silver-trimmed **FU** |
 | 🍾 **A message in a bottle** | a tube of azure · a pot of ink wash · a gold **doubloon**, which does nothing but sell: the Market buys it for 3 Coins (`DOUBLOON_PRICE`) |
+| 🎒 **A school satchel** | a laurel · a loupe · a pot of ink wash (a stand-in, until the Schoolmarm has prizes of her own) |
 
 The **applicators** are the tube's gesture pointed at the metal: each lays out
 two tiles from your hand and strikes the one you pick in rainbow or hellbox
@@ -1523,7 +1525,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | Finding words the dictionary is MISSING | `tools/find-dictionary-gaps.mjs` — three modes, none of which writes anything. `derived` (we hold PULMONOLOGY but not PULMONOLOGIST) is the highest-yield; `paradigm` finds a word whose rhyme-neighbours all inflect where it doesn't; `frequency` wants a corpus and is the only one that can find a word with no foothold here at all, but its head is thick with proper nouns. Every mode prints candidates for a human to read, never a list to paste |
 | The Expectant Parents' baby names | `wordlists/names.txt` — same format; regenerate from the US and England & Wales charts with `tools/build-names-list.mjs`. The gods, saints, places, stars and characters in books are `wordlists/names-borrowed.txt`, written by hand; add a line to it, and leave out anything `names.txt` already holds |
 | Words barred from the game entirely | `wordlists/excluded-slurs.txt` — one per line, `#` comments. Enforced at load by `js/excluded.js` against the dictionary, every themed list, and The Neologist's coining sheet, so an entry here can't come back through a word list, a custom dictionary or a coined word. Whole-word matches only |
-| The five registers' word lists (the Sexton, the Paramour, the Poppet, the Vulgarian, the Seadog) | `wordlists/theme-*.txt` — one word per line, edit freely; loading in `js/themes.js`. How to make a new one or grow these: `wordlists/MAKING-LISTS.md`, with `tools/theme-list.mjs` for the mechanical steps, or the Register Foundry page (`tools/foundry/`), which runs the whole recipe through Claude from a phone |
+| The six registers' word lists (the Sexton, the Paramour, the Poppet, the Vulgarian, the Seadog, the Schoolmarm) | `wordlists/theme-*.txt` — one word per line, edit freely; loading in `js/themes.js`. How to make a new one or grow these: `wordlists/MAKING-LISTS.md`, with `tools/theme-list.mjs` for the mechanical steps, or the Register Foundry page (`tools/foundry/`), which runs the whole recipe through Claude from a phone |
 | The three parts of speech (the Sculptor, the Poet, the Athlete) | `wordlists/noun-forms.txt` (the Sculptor's: every word whose ordinary meaning is a noun, by WordNet's tagged-corpus counts, and its plurals — regular, Latin and Greek, irregular), `adjectives.txt`, `verbs.txt`. `wordlists/nouns.txt` is The Binder's: singular, recognisable nouns (any word WordNet's corpus has met as a noun) for him to stack two of, so MUSICWORLD and PENNYECHO. Both noun lists are built by `tools/build-nouns.mjs` from WordNet 3.1 (the `wordnet-db` npm package) |
 | The Frontispiece's opening multiplier & growth | `js/constants.js` → `FRONTISPIECE` |
 | The star-crossed lovers — who marries whom, and for how much | `js/constants.js` → `LOVERS` (`pair`, `merged`, `apart`, `united`); the wedding itself is `marryLovers` in `js/state.js` |
@@ -1802,7 +1804,7 @@ challenge (`WEEK` in `daily/deal.js`; № 1 is a Thursday):
 
 | Day | Case |
 | --- | --- |
-| Sunday | **A choice of two patrons**, from the rich tier (the five registers and the Limner). Tap a card to seat it (and read it); the readout re-prices the word under whoever is seated. In the results, a word either patron would pay the same carries both their emoji. |
+| Sunday | **A choice of two patrons**, from the rich tier (the six registers and the Limner). Tap a card to seat it (and read it); the readout re-prices the word under whoever is seated. In the results, a word either patron would pay the same carries both their emoji. |
 | Monday, Wednesday | Plain. |
 | Tuesday | **The day's patron**, seated for everyone. |
 | Thursday | **An editor at the desk.** The card carries the day's rule on its face; a word that breaks it is spiked — scored at ×0.2, exactly as at a Deadline, never refused. The card is not a patron's: it is the bench's editor slab (black ink, a red edge, the name in red), and it runs hot while the word in hand would be spiked. |
@@ -1858,7 +1860,10 @@ can weigh it, so a tier is patrons that pay the same way, and the choice is
 between two words to look for:
 
 - *rich*, on Sundays — The Sexton, The Paramour, The Poppet, The Vulgarian,
-  The Seadog: ×3 for a word on a themed list. And, since 5 November, the
+  The Seadog, The Schoolmarm (since 6 November; on sixty cases she lifts the
+  best word ×1.53 and moves it on 73%, between the Seadog and the Poppet,
+  whose lists are her list's size): ×3 for a word on a themed list. She sits
+  on Tuesdays too. And, since 5 November, the
   daily's own *Limner*: ×3 for a word beginning with the day's letter,
   the one Sunday choice a reader can search for rather than guess at. The
   limner painted the ornate initial at the head of a manuscript; the game's

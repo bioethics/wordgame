@@ -394,6 +394,8 @@ sandpaper	stiff paper coated with powdered emery or sand
 sandpapered	SANDPAPER: stiff paper coated with powdered emery or sand
 sandpapering	SANDPAPER: stiff paper coated with powdered emery or sand
 sandpapers	SANDPAPER: stiff paper coated with powdered emery or sand
+sandpile	a plaything consisting of a pile of sand or a box filled with sand for children to play in
+sandpiles	SANDPILE: a plaything consisting of a pile of sand or a box filled with sand for children to play in
 sandpiper	any of numerous usually small wading birds having a slender bill and piping call; closely related to the plovers
 sandpipers	SANDPIPER: any of numerous usually small wading birds having a slender bill and piping call; closely related to the plovers
 sandpit	a plaything consisting of a pile of sand or a box filled with sand for children to play in
@@ -1002,6 +1004,13 @@ scholarship	financial aid provided to a student on the basis of academic merit
 scholarships	SCHOLARSHIP: financial aid provided to a student on the basis of academic merit
 scholastic	of or relating to schools
 scholastically	with respect to scholastic activities
+scholasticism	the system of philosophy dominant in medieval Europe; based on Aristotle and the Church Fathers
+scholasticisms	SCHOLASTICISM: the system of philosophy dominant in medieval Europe; based on Aristotle and the Church Fathers
+scholastics	SCHOLASTIC: of or relating to schools
+scholiast	a scholar who writes explanatory notes on an author (especially an ancient commentator on a classical author)
+scholiasts	SCHOLIAST: a scholar who writes explanatory notes on an author (especially an ancient commentator on a classical author)
+scholium	a marginal note written by a scholiast (a commentator on ancient or classical literature)
+scholiums	SCHOLIUM: a marginal note written by a scholiast (a commentator on ancient or classical literature)
 school	an educational institution
 schoolbag	a bag for carrying school books and supplies
 schoolbags	SCHOOLBAG: a bag for carrying school books and supplies
@@ -1021,6 +1030,7 @@ schoolgirl	a girl attending school
 schoolgirls	SCHOOLGIRL: a girl attending school
 schoolhouse	a building where young people receive education
 schoolhouses	SCHOOLHOUSE: a building where young people receive education
+schoolies	a holiday taken by school leavers after their final exams (Australian)
 schooling	the act of teaching at school
 schoolkid	a child who attends school
 schoolkids	SCHOOLKID: a child who attends school
@@ -1041,6 +1051,7 @@ schoolteachers	SCHOOLTEACHER: a teacher in a school below the college level
 schoolwork	a school task performed by a student to satisfy the teacher
 schoolyard	the yard associated with a school
 schoolyards	SCHOOLYARD: the yard associated with a school
+schoolyear	the part of the year when schools are in session
 schooner	a large beer glass
 schooners	SCHOONER: a large beer glass
 schrod	young Atlantic cod or haddock especially one split and boned for cooking
@@ -1363,6 +1374,8 @@ scrips	SCRIP: a certificate whose value is recognized by the payer and payee; sc
 script	a written version of a play or other dramatic composition; used in preparing for a performance
 scripted	SCRIPT: a written version of a play or other dramatic composition; used in preparing for a performance
 scripting	SCRIPT: a written version of a play or other dramatic composition; used in preparing for a performance
+scriptoria	SCRIPTORIUM: a room in a monastery where manuscripts were copied
+scriptorium	a room in a monastery that is set aside for writing or copying manuscripts
 scripts	SCRIPT: a written version of a play or other dramatic composition; used in preparing for a performance
 scriptural	of or pertaining to or contained in or in accordance with the Bible
 scripture	the sacred writings of the Christian religions
@@ -1956,6 +1969,8 @@ semifinal	one of the two competitions in the next to the last round of an elimin
 semifinalist	one of four competitors remaining in a tournament by elimination
 semifinalists	SEMIFINALIST: one of four competitors remaining in a tournament by elimination
 semifinals	SEMIFINAL: one of the two competitions in the next to the last round of an elimination tournament
+semiliterate	literate but poorly informed
+semiliterates	people who can read and write only a little
 semimonthlies	SEMIMONTHLY: occurring twice a month
 semimonthly	occurring twice a month
 seminal	containing seeds of later development
@@ -2041,6 +2056,7 @@ sensationally	in a sensational manner
 sensations	SENSATION: an unelaborated elementary awareness of stimulation
 sense	a general conscious awareness
 sensed	SENSE: a general conscious awareness
+sensei	a teacher, especially of a martial art
 senseless	not marked by the use of reason
 senselessly	in a meaningless and purposeless manner
 senselessness	total lack of meaning or ideas
@@ -5634,6 +5650,8 @@ soupspoons	SOUPSPOON: a spoon with a rounded bowl for eating soup
 soupy	having the consistency and appearance of soup
 sour	go sour or spoil
 source	the place where something begins, where it springs into being
+sourcebook	a book of original documents for study
+sourcebooks	SOURCEBOOK: a book of original documents for study
 sourced	SOURCE: the place where something begins, where it springs into being
 sources	SOURCE: the place where something begins, where it springs into being
 sourcing	SOURCE: the place where something begins, where it springs into being
@@ -6808,6 +6826,7 @@ staffed	STAFF: personnel who assist their superior in carrying out an assigned t
 staffer	an employee who is a member of a staff of workers (especially a member of the staff that works for the President of the United States)
 staffers	STAFFER: an employee who is a member of a staff of workers (especially a member of the staff that works for the President of the United States)
 staffing	STAFF: personnel who assist their superior in carrying out an assigned task
+staffroom	a room for the teachers of a school
 staffs	STAFF: personnel who assist their superior in carrying out an assigned task
 stag	adult male deer
 stage	any distinct time period in a sequence of events
@@ -9709,6 +9728,8 @@ sycophant	a person who tries to please someone in order to gain a personal advan
 sycophantic	attempting to win favor by flattery
 sycophantically	in a way that flatters servilely
 sycophants	SYCOPHANT: a person who tries to please someone in order to gain a personal advantage
+syllabaries	SYLLABARY: a writing system whose characters represent syllables
+syllabary	a writing system whose characters represent syllables
 syllabi	SYLLABUS: an outline of a course of study
 syllabic	of or relating to syllables
 syllabication	forming or dividing words into syllables

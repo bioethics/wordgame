@@ -1240,6 +1240,7 @@ catchup	the act of getting up to date
 catchword	a favorite saying of a sect or political group
 catchwords	CATCHWORD: a favorite saying of a sect or political group
 catchy	likely to attract attention
+catechesis	oral religious instruction (as before baptism or confirmation)
 catechise	examine through questioning and answering
 catechised	CATECHISE: examine through questioning and answering
 catechises	CATECHISE: examine through questioning and answering
@@ -1252,6 +1253,8 @@ catechize	examine through questioning and answering
 catechized	CATECHIZE: examine through questioning and answering
 catechizes	CATECHIZE: examine through questioning and answering
 catechizing	CATECHIZE: examine through questioning and answering
+catechumen	a new convert being taught the principles of Christianity by a catechist
+catechumens	CATECHUMEN: a new convert being taught the principles of Christianity by a catechist
 categoric	not modified or restricted by reservations
 categorical	not modified or restricted by reservations
 categorically	in an unqualified manner
@@ -1766,6 +1769,7 @@ chalk	a piece of calcite or a similar substance, usually in the shape of a crayo
 chalkboard	sheet of slate; for writing with chalk
 chalkboards	CHALKBOARD: sheet of slate; for writing with chalk
 chalked	CHALK: a piece of calcite or a similar substance, usually in the shape of a crayon, that is used to write or draw on blackboards or other flat surfaces
+chalkface	the classroom, as the place where teaching actually happens
 chalkier	CHALKY: composed of or containing or resembling calcium carbonate or calcite or chalk
 chalkiest	CHALKY: composed of or containing or resembling calcium carbonate or calcite or chalk
 chalkiness	the quality of being chalky
@@ -2011,6 +2015,7 @@ chased	CHASE: the act of pursuing in an effort to overtake or capture
 chaser	a drink to follow immediately after another drink
 chasers	CHASER: a drink to follow immediately after another drink
 chases	CHASE: the act of pursuing in an effort to overtake or capture
+chasey	a children's chasing game; tag (Australian)
 chasing	CHASE: the act of pursuing in an effort to overtake or capture
 chasm	a deep opening in the earth's surface
 chasms	CHASM: a deep opening in the earth's surface
@@ -2182,6 +2187,7 @@ cheetahs	CHEETAH: long-legged spotted cat of Africa and southwestern Asia having
 chef	a professional cook
 chefs	CHEF: a professional cook
 chelating	CHELATE: a heterocyclic compound having a metal ion attached by coordinate bonds to at least two nonmetal ions
+chem	chemistry, as a school subject
 chemical	relating to or used in chemistry
 chemically	with chemicals
 chemicals	CHEMICAL: relating to or used in chemistry
@@ -3748,6 +3754,8 @@ codgers	CODGER: used affectionately to refer to an eccentric but amusing old man
 codices	CODEX: an ancient manuscript in book form
 codicil	a supplement to a will; a testamentary instrument intended to alter an already executed will
 codicils	CODICIL: a supplement to a will; a testamentary instrument intended to alter an already executed will
+codicologies	CODICOLOGY: the study of manuscripts as physical books
+codicology	the study of manuscripts as physical books
 codification	the act of codifying; arranging in a systematic order
 codifications	CODIFICATION: the act of codifying; arranging in a systematic order
 codified	CODIFY: organize into a code or system, such as a body of law
@@ -4069,6 +4077,8 @@ colonoscopies	COLONOSCOPY: visual examination of the colon (with a colonoscope) 
 colonoscopy	visual examination of the colon (with a colonoscope) from the cecum to the rectum; requires sedation
 colons	COLON: the part of the large intestine between the cecum and the rectum; it extracts moisture from food residues before they are excreted
 colony	a body of people who settle far from home but maintain ties with their homeland; inhabitants remain nationals of their home state but are not literally under the home state's system of government
+colophon	a publisher's emblem printed in a book (usually on the title page)
+colophons	COLOPHON: a publisher's emblem printed in a book (usually on the title page)
 color	a visual attribute of things that results from the light they emit or transmit or reflect
 colorant	a substance used to give colour
 colorants	COLORANT: a substance used to give colour
@@ -5441,6 +5451,8 @@ constructionists	CONSTRUCTIONIST: a person who interprets laws strictly or build
 constructions	CONSTRUCTION: the act of constructing something
 constructive	constructing or tending to construct or improve or promote development
 constructively	in a constructive manner
+constructivism	an abstractionist artistic movement in Russia after World War I; industrial materials were used to construct nonrepresentational objects
+constructivisms	CONSTRUCTIVISM: an abstractionist artistic movement in Russia after World War I; industrial materials were used to construct nonrepresentational objects
 constructor	someone who contracts for and supervises construction (as of a building)
 constructors	CONSTRUCTOR: someone who contracts for and supervises construction (as of a building)
 constructs	CONSTRUCT: make by combining materials and parts
@@ -6040,6 +6052,8 @@ coriander	parsley-like herb used as seasoning or garnish
 coring	COR: an exclamation of surprise
 cork	outer bark of the cork oak; used for stoppers for bottles etc.
 corkage	a charge added at a restaurant for every bottle of wine served that was not bought on the premises
+corkboard	a heat-insulating building material consisting of cork granules that are made into sheets by compressing and baking
+corkboards	CORKBOARD: a heat-insulating building material consisting of cork granules that are made into sheets by compressing and baking
 corked	CORK: outer bark of the cork oak; used for stoppers for bottles etc.
 corker	a remarkable or excellent thing or person
 corkers	CORKER: a remarkable or excellent thing or person
@@ -6176,6 +6190,7 @@ correspondingly	in a corresponding manner
 corresponds	CORRESPOND: be compatible, similar or consistent; coincide in their characteristics
 corridor	an enclosed passageway; rooms usually open onto it
 corridors	CORRIDOR: an enclosed passageway; rooms usually open onto it
+corrigendum	a printer's error; to be corrected
 corroborate	establish or strengthen as with new evidence or facts
 corroborated	CORROBORATE: establish or strengthen as with new evidence or facts
 corroborates	CORROBORATE: establish or strengthen as with new evidence or facts
@@ -7525,6 +7540,7 @@ cubbies	CUBBY: a small secluded room
 cubby	a small secluded room
 cubbyhole	a small compartment
 cubbyholes	CUBBYHOLE: a small compartment
+cubbyhouse	a children's playhouse (Australian)
 cube	a hexahedron with six equal squares as faces
 cubed	CUBE: a hexahedron with six equal squares as faces
 cubes	CUBE: a hexahedron with six equal squares as faces
@@ -7944,6 +7960,8 @@ cyclists	CYCLIST: a person who rides a bicycle
 cyclone	a violent rotating windstorm
 cyclones	CYCLONE: a violent rotating windstorm
 cyclonic	of or relating to or characteristic of a violent tropical storm
+cyclopaedia	a reference work (often in several volumes) containing articles on various topics (often arranged in alphabetical order) dealing with the entire range of human knowledge or with some particular specialty
+cyclopaedias	CYCLOPAEDIA: a reference work (often in several volumes) containing articles on various topics (often arranged in alphabetical order) dealing with the entire range of human knowledge or with some particular specialty
 cyclopedia	a reference work (often in several volumes) containing articles on various topics (often arranged in alphabetical order) dealing with the entire range of human knowledge or with some particular specialty
 cyclopedias	CYCLOPEDIA: a reference work (often in several volumes) containing articles on various topics (often arranged in alphabetical order) dealing with the entire range of human knowledge or with some particular specialty
 cyclops	one of a group of giants having a single eye in the middle of their forehead
@@ -7977,6 +7995,7 @@ cystic	of or relating to or resembling a cyst
 cystitis	inflammation of the urinary bladder and ureters
 cysts	CYST: a closed sac that develops abnormally in some body structure
 cytochrome	a class of hemoprotein whose principal biological function is electron transfer (especially in cellular respiration)
+cytogenetics	the branch of biology that studies the cellular aspects of heredity (especially the chromosomes)
 cytokines	CYTOKINE: any of various protein molecules secreted by cells of the immune system that serve to regulate the immune system
 cytological	of or relating to the science of cytology
 cytologist	a biologist who studies the structure and function of cells

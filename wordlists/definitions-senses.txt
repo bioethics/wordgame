@@ -16,6 +16,7 @@ abdication	noun	07269124	# a formal resignation and renunciation of powers
 abduct	verb	01473673	# take away to an undisclosed location against their will and 
 abduction	noun	00776957	# the criminal act of capturing and carrying away by force a f
 abductor	noun	10250498	# someone who unlawfully seizes and detains a victim (usually 
+abecedarian	adj	00101642	# alphabetically arranged (as for beginning readers)
 ablate	verb	00276265	# wear away through erosion or vaporization
 ablative	noun	06323408	# the case indicating the agent in passive sentences or the in
 abnegate	verb	02217856	# deny oneself (something); restrain, especially from indulgin
@@ -119,6 +120,7 @@ advisory	noun	06759721	# an announcement that usually advises or warns the publi
 aerate	verb	00185610	# impregnate, combine, or supply with oxygen
 aerie	noun	09212054	# the lofty nest of a bird of prey (such as a hawk or eagle)
 aery	noun	09212054	# the lofty nest of a bird of prey (such as a hawk or eagle)
+aesthetician	noun	10084638	# a worker skilled in giving beauty treatments (manicures and 
 aether	noun	06265492	# a medium that was once supposed to fill all space and to sup
 aetiological	adj	02952290	# relating to the etiology of a disease
 aetiology	noun	07342208	# the cause of a disease
@@ -1767,6 +1769,7 @@ dateline	noun	06360400	# a line at the beginning of a news article giving the da
 daub	verb	01235951	# cover (a surface) by smearing (a substance) over it
 davenport	noun	03169271	# a large sofa usually convertible into a bed
 dawdle	verb	02062514	# take one's time; proceed slowly
+daybook	noun	13426339	# a ledger in which transactions have been recorded as they oc
 daylong	adj	01441946	# lasting through an entire day
 daze	noun	05692366	# confusion characterized by lack of clarity
 deactivate	verb	00191849	# make inactive
@@ -2275,6 +2278,7 @@ egotistical	adj	02105974	# characteristic of those having an inflated idea of th
 egress	noun	00045193	# the act of coming (or going) out; becoming apparent
 eiderdown	noun	03271660	# a soft quilt usually filled with the down of the eider
 eightieth	adj	02216640	# the ordinal number of eighty in counting order
+einstein	noun	10146463	# someone who has exceptional intellectual ability and origina
 ejector	noun	02975992	# a mechanism in a firearm that ejects the empty shell case af
 elaborateness	noun	04705460	# an ornate appearance; being elaborately (even excessively) d
 elan	noun	04640927	# enthusiastic and assured vigor and liveliness
@@ -3332,6 +3336,7 @@ homeliness	noun	04698999	# an appearance that is not attractive or beautiful
 homespun	noun	03534624	# a rough loosely woven fabric originally made with yarn that 
 homestead	noun	03534809	# dwelling that is usually a farmhouse and adjoining land
 homestretch	noun	03534920	# the straight stretch of a racetrack leading to the finish li
+homiletics	noun	05643609	# the art of preaching
 hominid	noun	02474393	# a primate of the family Hominidae
 homogenise	verb	00458524	# break up the fat globules of
 homogenised	adj	01204160	# made homogeneous
@@ -3974,6 +3979,7 @@ leach	verb	00489553	# remove substances from by a percolating liquid
 leaky	adj	01400390	# permitting the unwanted passage of fluids or gases
 leanness	noun	05008647	# the property of having little body fat
 leaven	noun	14958169	# a substance used to produce fermentation in dough or a liqui
+lector	noun	10272051	# someone who reads the lessons in a church service; someone o
 lee	noun	08609908	# the side of something that is sheltered from the wind
 leeward	adj	01403102	# on the side away from the wind
 leeway	noun	04757264	# a permissible difference; allowing some freedom to move with
@@ -4263,6 +4269,7 @@ masher	noun	03729908	# a kitchen utensil used for mashing (e.g. potatoes)
 mason	noun	10317198	# a craftsman who works with stone or brick
 masonic	adj	02906520	# of or relating to Freemasons or Freemasonry
 massiveness	noun	05111721	# an unwieldy largeness
+mastership	noun	05646545	# the skill of a master
 masthead	noun	06356216	# the title of a newspaper or magazine; usually printed on the
 masticate	verb	01203727	# chew (food); to bite and grind with the teeth
 mastoid	noun	05549826	# process of the temporal bone behind the ear at the base of t
@@ -4397,6 +4404,7 @@ millinery	noun	03771857	# hats for women; the wares sold by a milliner
 millionth	noun	13761647	# one part in a million equal parts
 millstone	noun	03772470	# one of a pair of heavy flat disk-shaped stones that are rota
 mime	verb	01728062	# act out without words but with gestures and bodily movements
+mimeo	noun	03772994	# a rotary duplicator that uses a stencil through which ink is
 mimeograph	noun	03772994	# a rotary duplicator that uses a stencil through which ink is
 mimic	verb	01747412	# imitate (a person or manner), especially for satirical effec
 minder	noun	09848368	# a person who looks after babies (usually in the person's own
@@ -5476,6 +5484,7 @@ promulgation	noun	06739688	# the official announcement of a new law or ordinance
 pronged	adj	02492187	# having prongs or tines; usually used in combination
 pronominal	adj	02948770	# relating to pronouns
 pronunciation	noun	07143400	# the way a word or a language is customarily spoken
+propaedeutic	noun	00893322	# a course that provides an introduction to an art or science 
 propagandise	verb	00972764	# spread by propaganda
 propagandize	verb	00972764	# spread by propaganda
 propagate	verb	00055281	# multiply sexually or asexually
@@ -6153,6 +6162,7 @@ schema	noun	05900179	# a schematic or preliminary plan
 schizoid	adj	03126945	# of or relating to or characteristic of schizophrenia
 schlep	verb	01456329	# pull along heavily, like a heavy load against a resistance
 schmooze	verb	01041034	# talk idly or casually and in a friendly way
+scholasticism	noun	05984932	# the system of philosophy dominant in medieval Europe; based 
 schooner	noun	04154356	# a large beer glass
 schrod	noun	02526248	# young Atlantic cod or haddock especially one split and boned
 schtick	noun	00551582	# (Yiddish) a contrived and often used bit of business that a 
@@ -7228,10 +7238,12 @@ topiary	noun	00939950	# making decorative shapes by trimming shrubs or trees
 topknot	noun	01328839	# showy crest or knot of hair or feathers
 topless	adj	00460521	# having the breasts uncovered or featuring such nudity
 topology	noun	06026943	# the branch of pure mathematics that deals only with the prop
+toponymy	noun	06188861	# the branch of lexicology that studies the place names of a r
 topper	noun	03242119	# a man's hat with a tall crown; usually covered with silk or 
 topping	noun	07637385	# a flavorful addition on top of a dish
 toque	noun	04463282	# a tall white hat with a pouched crown; worn by chefs
 tor	noun	09483176	# a prominent rock or pile of rocks on a hill
+torah	noun	06463561	# the first of three divisions of the Hebrew Scriptures compri
 tormenter	noun	10735654	# someone who torments
 torpedo	noun	04463707	# armament consisting of a long cylindrical self-propelled und
 torpidity	noun	04644238	# inactivity resulting from lethargy and lack of vigor or ener

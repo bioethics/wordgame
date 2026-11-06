@@ -238,6 +238,7 @@ yowler	an animal or person that howls loudly
 yowlers	YOWLER: an animal or person that howls loudly
 yowling	YOWL: a very loud utterance (like the sound of an animal)
 yowls	YOWL: a very loud utterance (like the sound of an animal)
+yoyo	a toy that spins down and back up a string; also to go up and down repeatedly
 ytterbium	a soft silvery metallic element; a rare earth of the lanthanide series; it occurs in gadolinite and monazite and xenotime
 yttrium	a silvery metallic element that is common in rare-earth minerals; used in magnesium and aluminum alloys
 yuan	the basic unit of money in China
