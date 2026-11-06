@@ -2128,8 +2128,8 @@ function openHowto() {
     sum.textContent = fill(HOWTO.sum, fmtN(sc.shownPoints), fmtMult(sc.shownMult), fmtN(sc.total));
     fig.append(cap, miniWord(tiles, null), chips, sum);
     body.appendChild(fig);
-    body.appendChild(para(HOWTO.patrons));
     body.appendChild(para(HOWTO.hold));
+    body.appendChild(para(HOWTO.patrons));
     dlg.appendChild(body);
     // A tap on the dimmed page around the sheet puts it away.
     dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });

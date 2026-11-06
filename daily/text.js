@@ -122,6 +122,8 @@ export const EDITOR_TEXT = {
                 voice: 'I really love {0}. Here is a copy of it — but a word without one is spiked.' },
   populist:   { rule: 'Common words only.',
                 voice: 'Popular fiction is profitable fiction. Anything outside the 8,000 commonest words in English is spiked.' },
+  eeeditor:   { rule: 'Use an E.',
+                voice: 'E is a good letter. Here: I saved four especially for you, at the front of your case. A word without one is spiked.' },
   redactor:   { rule: '{0} sorts are drafts: they spell, and score nothing.',
                 voice: 'This is just the first draft. {0} of your sorts are drafts: they spell, and score nothing.' },
   minimalist: { rule: 'No adjectives or adverbs.',

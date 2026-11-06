@@ -377,6 +377,11 @@ export const EDITORS = {
   redactor:     {},
   serialist:    { judge: (L, tiles, d) => (L[0] !== d.letter ? 'spike' : null) },
   enthusiast:   { judge: (L, tiles, d) => (!L.includes(d.letter) ? 'spike' : null) },
+  // Adapted: the game's Eeeditor lends E's and spikes nothing. The daily's deals
+  // the case's first four sorts as E's (EDITOR_SHAPES in daily/deal.js) and
+  // spikes a word with none; daily-check names him and does not hold him to
+  // the game.
+  eeeditor:     { adapted: true, judge: L => (!L.includes('E') ? 'spike' : null) },
   populist: {
     lists: ['common'],
     judge: L => { const r = LISTS.common.get(L); return r == null || r >= 8000 ? 'spike' : null; },

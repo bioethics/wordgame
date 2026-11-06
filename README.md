@@ -2018,8 +2018,18 @@ offering, and spikes nothing, so his day is priced as a plain one over a
 wrapped case. Wrapping three sorts moved the best word on 43% of forty
 measured cases, four on 48%, five on 55%, six on 68%; at five, among his
 fellows, the best word is worth about half what it was. He sits from № 8, so
-№ 1 kept the roster it was dealt (`REDACTOR_FROM`); from there the six editors
+№ 1 kept the roster it was dealt (`REDACTOR_FROM`); from there the editors
 take their turns on a seed of their own.
+
+**The Eeeditor** joined on 6 November, into that rotation (his first day is
+№ 36). The game's Eeeditor lends E's to the hand and spikes nothing; the
+daily's deals the case's first four sorts as E's, dressed like any others
+(`EDITOR_SHAPES`, the band of five to seven vowels counting them), and spikes
+a word with no E. He is adapted, so `daily-check` names him and does not hold
+him to the game. Four E's in hand, the best word has one anyway: over 120
+cases he moves the best word on 5%, though he spikes 29% of the field. At
+"two E's" he would move it on 30% (and spike 76% of the field), at three on
+66% (96%).
 
 ### Definitions
 

@@ -108,11 +108,12 @@ const GAME_DESK = {
 };
 // The daily's own ×2 versions (adapted: true in daily/table.js) are not the
 // game's patrons and are not held to computeScore; they are counted, below.
-const adapted = Object.keys(TB.PATRONS).filter(id => TB.PATRONS[id].adapted);
+const adapted = [...Object.keys(TB.PATRONS).filter(id => TB.PATRONS[id].adapted),
+  ...Object.keys(TB.EDITORS).filter(id => TB.EDITORS[id].adapted)];
 const seatings = [
   ...Object.keys(TB.PATRONS).filter(id => !TB.PATRONS[id].adapted).map(id => ({
     seat: { id, data: id === 'monogrammist' ? { letters: ['E', 'S', 'T'] } : {} }, desk: null })),
-  ...Object.keys(TB.EDITORS).map(id => ({
+  ...Object.keys(TB.EDITORS).filter(id => !TB.EDITORS[id].adapted).map(id => ({
     seat: null, desk: { id, data: { n: 6, letter: 'S', band: 500 } } })),
 ];
 let seatedCompared = 0;

@@ -160,13 +160,18 @@ export function dealChallenge(n, opts = {}) {
   const dressed = Math.min(0.95, LUCK.dressed * (omen.dressed ?? 1));
 
   // 1. Letters, drawn without replacement from one press's bag, until the
-  //    vowels land inside the band.
+  //    vowels land inside the band. A desk that sets the case's first sorts
+  //    (EDITOR_SHAPES: the Eeeditor's four E's) has them taken from the bag
+  //    first, and the band counts them; any other day draws as it always did.
+  const shape = shapeFor(day);
+  const lead = shape.lead;
   const bag = Object.entries(BAG_COUNTS).flatMap(([L, k]) => Array(k).fill(L));
   let letters;
   for (let tries = 0; tries < 200; tries++) {
     const pool = [...bag];
-    letters = [];
-    for (let i = 0; i < size; i++) letters.push(pool.splice(Math.floor(rng() * pool.length), 1)[0]);
+    for (const L of lead) pool.splice(pool.indexOf(L), 1);
+    letters = [...lead];
+    for (let i = lead.length; i < size; i++) letters.push(pool.splice(Math.floor(rng() * pool.length), 1)[0]);
     const v = letters.filter(L => VOWELS.has(L)).length;
     if (v >= vowels[0] && v <= vowels[1]) break;
   }
@@ -174,8 +179,8 @@ export function dealChallenge(n, opts = {}) {
   // dealt in takes the place of one of its own kind, vowel for vowel, so the
   // vowel band holds, and what is dealt in is set aside from the letterforms
   // below, so no ligature or medieval sort takes it.
-  const shape = shapeFor(day);
   const keep = shapeLetters(letters, shape, rng);
+  lead.forEach((_, i) => keep.add(i));
   const tiles = letters.map((L, id) => ({ ...makeTileTemplate(L), id }));
   const consonants = () => tiles.filter(t => !keep.has(t.id) && !VOWELS.has(t.letter) && t.letter.length === 1
     && TILE_POINTS[t.letter] != null && /^[A-Z]$/.test(t.letter));
@@ -337,11 +342,12 @@ export const CHOICE_TIERS = {
 };
 // Each bites: the best word unseated is spiked on a quarter to all of cases,
 // and the best word under them is a different one on two-fifths or more.
-export const EDITOR_DAYS = ['columnist', 'populist', 'serialist', 'enthusiast', 'minimalist', 'redactor'];
+export const EDITOR_DAYS = ['columnist', 'populist', 'serialist', 'enthusiast', 'minimalist', 'redactor', 'eeeditor'];
 // The Redactor joined on 5 November, from the next Thursday (№ 8): the days
 // before keep the roster they were dealt, and the new one counts its turns
 // from there, on a seed of its own, so its first lap seats every editor.
-const EDITOR_DAYS_BEFORE = EDITOR_DAYS.filter(id => id !== 'redactor');
+// The Eeeditor joined on 6 November, into the same rotation from № 8.
+const EDITOR_DAYS_BEFORE = EDITOR_DAYS.filter(id => id !== 'redactor' && id !== 'eeeditor');
 const REDACTOR_FROM = 8;
 // The Redactor's drafts: so many of the case's sorts are wrapped, and spell
 // and nothing else, as the game's wrapped tiles do (spellsOnly in
@@ -428,9 +434,14 @@ const SEAT_SHAPES = {
   jeweller:   { rare: 1 },
 };
 const RARE = ['J', 'X', 'Z', 'QU'];
+// What a desk sets in the case: the Eeeditor's first four sorts are E's, to be
+// dressed like any others. (The game's Eeeditor lends E's to the hand and
+// spikes nothing; the daily's spikes a word without an E, so it deals them.)
+const EDITOR_SHAPES = { eeeditor: { lead: ['E', 'E', 'E', 'E'] } };
 function shapeFor(day) {
   const ids = day.kind === 'patron' ? [day.id] : day.kind === 'choice' ? day.ids : [];
-  const out = { letters: {}, pairs: 0, rare: 0, ligatures: 0, paint: {} };
+  const out = { letters: {}, pairs: 0, rare: 0, ligatures: 0, paint: {}, lead: [] };
+  if (day.kind === 'editor') out.lead = EDITOR_SHAPES[day.id]?.lead ?? [];
   for (const id of ids) {
     const s = SEAT_SHAPES[id] ?? {};
     for (const [L, k] of Object.entries(s.letters ?? {})) out.letters[L] = Math.max(out.letters[L] ?? 0, k);
