@@ -1012,16 +1012,17 @@ function seatCard(cls, emoji, name, rule = null) {
   return b;
 }
 
-// The Limner's card carries his letter on its face, as an illuminated initial:
-// it is the whole of his rule, and a reader choosing between him and another
-// patron should not have to tap to learn it.
+// The Limner's card carries his letter on its face, a small illuminated initial
+// at his brush: it is the whole of his rule, and a reader choosing between him
+// and another patron should not have to tap to learn it. On the portrait, not
+// the name, so the name line stays the size and shape of every other card's.
 function withInitial(card, p) {
   const L = p.id === 'limner' ? p.data?.letters?.[0] : null;
   if (!L) return card;
   const i = document.createElement('span');
   i.className = 'seat-initial';
   i.textContent = L;
-  card.querySelector('.seat-name').append(' ', i);
+  card.querySelector('.seat-emoji').appendChild(i);
   return card;
 }
 

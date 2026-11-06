@@ -210,15 +210,19 @@ button.mode-item:hover, button.mode-item:focus-visible { background: rgba(217, 1
 .seat--choice { flex: 1 1 0; min-width: 0; grid-template-areas: "emoji" "name"; grid-template-columns: 1fr; justify-items: center; text-align: center; row-gap: 2px; padding: 7px 6px; }
 .seat--choice .seat-name { font-size: 14px; }
 /* The Limner's letter, as an illuminated initial: a versal in Fell on a red
-   ground, edged in gold leaf. */
+   ground, edged in gold leaf, set at the foot of his brush like a badge on the
+   portrait (a little over half the portrait's size), so the name line is left
+   alone. */
+.seat-emoji:has(.seat-initial) { position: relative; }
 .seat-initial {
-  display: inline-block;
-  min-width: 1.3em;
-  margin-left: 0.15em;
-  padding: 0.05em 0.18em 0;
+  position: absolute;
+  right: -0.6em;
+  bottom: -0.2em;
+  min-width: 1.2em;
+  padding: 0.08em 0.12em 0;
   font-family: var(--fell);
-  font-size: 1.3em;
-  line-height: 1.05;
+  font-size: 0.6em;
+  line-height: 1;
   text-align: center;
   color: #fff1d0;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
@@ -226,7 +230,6 @@ button.mode-item:hover, button.mode-item:focus-visible { background: rgba(217, 1
   border: 1px solid var(--brass-hi);
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px rgba(255, 220, 150, 0.35), 0 1px 2px rgba(0, 0, 0, 0.45);
-  vertical-align: 0.02em;
 }
 .seat--choice:not(.seat--on) { opacity: 0.62; }
 .seat--choice:not(.seat--on):hover { opacity: 0.9; }

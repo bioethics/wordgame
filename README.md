@@ -1864,7 +1864,8 @@ between two words to look for:
   limner painted the ornate initial at the head of a manuscript; the game's
   Rubricator and Illuminator, who work there too, pay otherwise, so the name
   is his own. His card shows the letter on its face as an illuminated initial,
-  since it is the whole of his rule. The letter is one of the case's, from a
+  since it is the whole of his rule: a small red-and-gold initial at the foot
+of his brush, so his name sits like every other patron's. The letter is one of the case's, from a
   fixed band, `LIMNER_LETTERS` (A B D E F G H M R S T V W). Over a year of
   cases, a letter freely drawn from the case made him the weakest Sunday
   choice: his best word beat a register's on 42% of cases and on a third
