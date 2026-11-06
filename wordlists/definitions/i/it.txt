@@ -1,0 +1,48 @@
+it	the thing already mentioned
+italic	a style of handwriting with the letters slanting to the right
+italicise	print in italics
+italicised	ITALICISE: print in italics
+italicises	ITALICISE: print in italics
+italicising	ITALICISE: print in italics
+italicize	print in italics
+italicized	ITALICIZE: print in italics
+italicizes	ITALICIZE: print in italics
+italicizing	ITALICIZE: print in italics
+italics	ITALIC: a style of handwriting with the letters slanting to the right
+itch	scrape or rub as if to relieve itching
+itched	ITCH: scrape or rub as if to relieve itching
+itches	ITCH: scrape or rub as if to relieve itching
+itchier	ITCHY: causing an irritating cutaneous sensation; being affect with an itch
+itchiest	ITCHY: causing an irritating cutaneous sensation; being affect with an itch
+itchiness	an irritating cutaneous sensation that produces a desire to scratch
+itching	ITCH: scrape or rub as if to relieve itching
+itchy	causing an irritating cutaneous sensation; being affect with an itch
+item	a distinct part that can be specified separately in a group of things that could be enumerated on a list
+itemisation	the act of making a list of items
+itemise	specify individually
+itemised	ITEMISE: specify individually
+itemises	ITEMISE: specify individually
+itemising	ITEMISE: specify individually
+itemization	the act of making a list of items
+itemize	specify individually
+itemized	ITEMIZE: specify individually
+itemizes	ITEMIZE: specify individually
+itemizing	ITEMIZE: specify individually
+items	ITEM: a distinct part that can be specified separately in a group of things that could be enumerated on a list
+iterate	to say, state, or perform again
+iterated	ITERATE: to say, state, or perform again
+iterates	ITERATE: to say, state, or perform again
+iterating	ITERATE: to say, state, or perform again
+iteration	doing or saying again; a repeated performance
+iterations	ITERATION: doing or saying again; a repeated performance
+iterative	marked by iteration
+iteratively	in a iterative way
+iterator	something that repeats a process step by step
+iterators	ITERATOR: something that repeats a process step by step
+itinerant	traveling from place to place to work
+itinerants	ITINERANT: traveling from place to place to work
+itineraries	ITINERARY: a proposed route of travel
+itinerary	a proposed route of travel
+its	belonging to it
+itself	that thing, as the object or for emphasis
+itsy	tiny

@@ -1,0 +1,4 @@
+iamb	a metrical unit with unstressed-stressed syllables
+iambic	of or consisting of iambs
+iambics	IAMBIC: of or consisting of iambs
+iambs	IAMB: a metrical unit with unstressed-stressed syllables

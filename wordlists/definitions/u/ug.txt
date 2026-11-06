@@ -1,0 +1,5 @@
+ugh	an expression of disgust
+uglier	UGLY: displeasing to the senses
+ugliest	UGLY: displeasing to the senses
+ugliness	qualities of appearance that do not give pleasure to the senses
+ugly	displeasing to the senses

@@ -1,0 +1,2 @@
+mnemonic	a device (such as a rhyme or acronym) used to aid recall
+mnemonics	a method or system for improving the memory

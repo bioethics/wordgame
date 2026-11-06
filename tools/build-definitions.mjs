@@ -5,8 +5,9 @@
 //     e.g. node tools/build-definitions.mjs ~/sources/wordnet-db-3.1.14/package/dict
 //
 // (WordNet 3.1 as the npm package wordnet-db@3.1.14; see wordlists/MAKING-LISTS.md
-// → "The Register Foundry" for fetching it.) Writes wordlists/definitions/a.txt
-// … z.txt, one "word<TAB>definition" per line, and wordlists/definitions-missing.txt,
+// → "The Register Foundry" for fetching it.) Writes wordlists/definitions/a/ab.txt
+// … z/zy.txt (a file per first two letters, in a folder per first letter), one
+// "word<TAB>definition" per line, and wordlists/definitions-missing.txt,
 // the dictionary words that still have none.
 //
 // Where each definition comes from, first match wins:
@@ -260,16 +261,28 @@ for (const w of dict) {
 }
 
 // ─── Out ──────────────────────────────────────────────────────────────────────
+// A file per first two letters (a one-letter word has its own), in a folder
+// per first letter: definitions/s/st.txt. The daily fetches the file a word
+// needs when the results show it; a file a letter made a tap wait on up to
+// 640 KB (S), where one of these is a few tens. (daily/main.js, defKey.)
 const dir = path.join(root, 'wordlists/definitions');
 fs.mkdirSync(dir, { recursive: true });
-const byLetter = new Map();
+for (const f of fs.readdirSync(dir)) {   // the last build's files, either shape
+  const at = path.join(dir, f);
+  if (/^[a-z]\.txt$/.test(f)) fs.rmSync(at);
+  else if (/^[a-z]$/.test(f) && fs.statSync(at).isDirectory()) fs.rmSync(at, { recursive: true });
+}
+const byKey = new Map();
 for (const w of dict) {
   if (!defs.has(w)) continue;
-  const k = w[0];
-  if (!byLetter.has(k)) byLetter.set(k, []);
-  byLetter.get(k).push(`${w}\t${defs.get(w).replace(/\s+/g, ' ')}`);
+  const k = w.slice(0, 2);
+  if (!byKey.has(k)) byKey.set(k, []);
+  byKey.get(k).push(`${w}\t${defs.get(w).replace(/\s+/g, ' ')}`);
 }
-for (const [k, lines] of byLetter) fs.writeFileSync(path.join(dir, `${k}.txt`), lines.join('\n') + '\n');
+for (const [k, lines] of byKey) {
+  fs.mkdirSync(path.join(dir, k[0]), { recursive: true });
+  fs.writeFileSync(path.join(dir, k[0], `${k}.txt`), lines.join('\n') + '\n');
+}
 const missing = dict.filter(w => !defs.has(w));
 fs.writeFileSync(path.join(root, 'wordlists/definitions-missing.txt'),
   `# Dictionary words with no definition yet: write theirs into definitions-own.txt\n# and run tools/build-definitions.mjs again. Built by that tool; don't edit.\n#\n${missing.join('\n')}\n`);

@@ -1,0 +1,32 @@
+by	so as to pass a given point
+bye	a farewell remark
+byelaw	a local rule
+byelaws	BYELAW: a local rule
+byes	BYE: a farewell remark
+bygone	past events to be put aside
+bygones	BYGONE: past events to be put aside
+bylaw	a rule adopted by an organization in order to regulate its own affairs and the behavior of its members
+bylaws	BYLAW: a rule adopted by an organization in order to regulate its own affairs and the behavior of its members
+byline	a line naming the writer of an article
+bylines	BYLINE: a line naming the writer of an article
+bypass	a highway that encircles an urban area so that traffic does not have to pass through the center
+bypassed	BYPASS: a highway that encircles an urban area so that traffic does not have to pass through the center
+bypasses	BYPASS: a highway that encircles an urban area so that traffic does not have to pass through the center
+bypassing	BYPASS: a highway that encircles an urban area so that traffic does not have to pass through the center
+bypast	well in the past; former
+byplay	incidental activity performed by an actor for dramatic effect
+byproduct	a product made during the manufacture of something else
+byproducts	BYPRODUCT: a product made during the manufacture of something else
+byre	a barn for cows
+byres	BYRE: a barn for cows
+byronic	brooding, romantic and moody
+bystander	a nonparticipant spectator
+bystanders	BYSTANDER: a nonparticipant spectator
+byte	a sequence of 8 bits (enough to represent one character of alphanumeric data) processed as a single unit of information
+bytecode	code produced for a virtual machine
+bytes	BYTE: a sequence of 8 bits (enough to represent one character of alphanumeric data) processed as a single unit of information
+byway	a side road little traveled (as in the countryside)
+byways	BYWAY: a side road little traveled (as in the countryside)
+byword	a condensed but memorable saying embodying some important fact of experience that is taken as true by many people
+bywords	BYWORD: a condensed but memorable saying embodying some important fact of experience that is taken as true by many people
+byzantine	highly complex or intricate and occasionally devious

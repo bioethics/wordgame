@@ -1,0 +1,170 @@
+vocab	vocabulary
+vocabularies	VOCABULARY: a listing of the words used in some enterprise
+vocabulary	a listing of the words used in some enterprise
+vocal	relating to or designed for or using the singing voice
+vocalic	being or containing or characterized by vowels
+vocalisation	the sound made by the vibration of vocal folds modified by the resonance of the vocal tract
+vocalisations	VOCALISATION: the sound made by the vibration of vocal folds modified by the resonance of the vocal tract
+vocalise	utter speech sounds
+vocalised	VOCALISE: utter speech sounds
+vocalises	VOCALISE: utter speech sounds
+vocalising	VOCALISE: utter speech sounds
+vocalist	a person who sings
+vocalists	VOCALIST: a person who sings
+vocalization	the use of uttered sounds for auditory communication
+vocalizations	VOCALIZATION: the use of uttered sounds for auditory communication
+vocalize	utter with vibrating vocal chords
+vocalized	VOCALIZE: utter with vibrating vocal chords
+vocalizes	VOCALIZE: utter with vibrating vocal chords
+vocalizing	VOCALIZE: utter with vibrating vocal chords
+vocally	in a vocal manner
+vocals	VOCAL: relating to or designed for or using the singing voice
+vocation	the particular occupation for which you are trained
+vocational	of or relating to a vocation or occupation; especially providing or undergoing training in special skills
+vocationally	affecting the pursuit of a vocation or occupation
+vocations	VOCATION: the particular occupation for which you are trained
+vocative	the case (in some inflected languages) used when the referent of the noun is being addressed
+vocatives	VOCATIVE: the case (in some inflected languages) used when the referent of the noun is being addressed
+vociferate	utter in a very loud voice
+vociferated	VOCIFERATE: utter in a very loud voice
+vociferates	VOCIFERATE: utter in a very loud voice
+vociferating	VOCIFERATE: utter in a very loud voice
+vociferation	a loud utterance; often in protest or opposition
+vociferous	conspicuously and offensively loud; given to vehement outcry
+vociferously	in a vociferous manner
+vodka	unaged colorless liquor originating in Russia
+vodkas	VODKA: unaged colorless liquor originating in Russia
+vogue	the popular taste at a given time
+vogues	VOGUE: the popular taste at a given time
+voguish	elegant and stylish
+voice	the distinctive quality or pitch or condition of a person's speech
+voiced	produced with vibration of the vocal cords
+voiceless	produced without vibration of the vocal cords
+voicemail	a computerized system for answering and routing telephone calls; telephone messages can be recorded and stored and relayed
+voicemails	VOICEMAIL: a computerized system for answering and routing telephone calls; telephone messages can be recorded and stored and relayed
+voiceover	narration heard over a film or video
+voiceovers	VOICEOVER: narration heard over a film or video
+voiceprint	biometric identification by electronically recording and graphically representing a person's voice
+voiceprints	VOICEPRINT: biometric identification by electronically recording and graphically representing a person's voice
+voices	VOICE: the distinctive quality or pitch or condition of a person's speech
+voicing	VOICE: the distinctive quality or pitch or condition of a person's speech
+void	lacking any legal or binding force
+voidable	capable of being rescinded or voided
+voided	VOID: lacking any legal or binding force
+voider	VOID: lacking any legal or binding force
+voiders	VOIDER: a hamper that holds dirty clothes to be washed or wet clothes to be dried
+voiding	VOID: lacking any legal or binding force
+voids	VOID: lacking any legal or binding force
+voila	an exclamation presenting a result
+voile	a light semitransparent fabric
+volatile	evaporating readily at normal temperatures and pressures
+volatiles	VOLATILE: evaporating readily at normal temperatures and pressures
+volatility	the trait of being unpredictably irresolute
+volcanic	relating to or produced by or consisting of volcanoes
+volcanism	the phenomena associated with volcanic activity
+volcano	a fissure in the earth's crust (or in the surface of some other planet) through which molten lava and gases erupt
+volcanoes	VOLCANO: a mountain that erupts lava and ash
+volcanological	relating to the study of volcanoes
+volcanologist	a person who studies volcanoes
+volcanologists	VOLCANOLOGIST: a person who studies volcanoes
+volcanology	the branch of geology that studies volcanoes
+volcanos	VOLCANO: a fissure in the earth's crust (or in the surface of some other planet) through which molten lava and gases erupt
+vole	any of various small mouselike rodents of the family Cricetidae (especially of genus Microtus) having a stout short-tailed body and inconspicuous ears and inhabiting fields or meadows
+voles	VOLE: any of various small mouselike rodents of the family Cricetidae (especially of genus Microtus) having a stout short-tailed body and inconspicuous ears and inhabiting fields or meadows
+volition	the capability of conscious choice and decision and intention
+volitional	with deliberate intention
+volley	rapid simultaneous discharge of firearms
+volleyball	a game in which two teams hit an inflated ball over a high net using their hands
+volleyballs	VOLLEYBALL: a game in which two teams hit an inflated ball over a high net using their hands
+volleyed	VOLLEY: rapid simultaneous discharge of firearms
+volleyer	a player who hits the ball before it bounces
+volleyers	VOLLEYER: a player who hits the ball before it bounces
+volleying	VOLLEY: rapid simultaneous discharge of firearms
+volleys	VOLLEY: rapid simultaneous discharge of firearms
+volt	a unit of potential equal to the potential difference between two points on a conductor carrying a current of 1 ampere when the power dissipated between the two points is 1 watt; equivalent to the potential difference across a resistance of 1 ohm when 1 ampere of current flows through it
+voltage	the rate at which energy is drawn from a source that produces a flow of electricity in a circuit; expressed in volts
+voltages	VOLTAGE: the rate at which energy is drawn from a source that produces a flow of electricity in a circuit; expressed in volts
+voltaic	pertaining to or producing electric current by chemical action
+voltmeter	meter that measures the potential difference between two points
+voltmeters	VOLTMETER: meter that measures the potential difference between two points
+volts	VOLT: a unit of potential equal to the potential difference between two points on a conductor carrying a current of 1 ampere when the power dissipated between the two points is 1 watt; equivalent to the potential difference across a resistance of 1 ohm when 1 ampere of current flows through it
+volubility	the quality of being facile in speech and writing
+voluble	marked by a ready flow of speech
+volubly	in a chatty manner
+volume	the amount of 3-dimensional space occupied by an object
+volumes	VOLUME: the amount of 3-dimensional space occupied by an object
+volumetric	of or relating to measurement by volume
+voluminous	large in volume or bulk
+voluminously	in a voluminous manner
+voluntaries	VOLUNTARY: of your own free will or design; done by choice; not forced or compelled
+voluntarily	out of your own free will
+voluntarism	reliance on voluntary action
+voluntary	of your own free will or design; done by choice; not forced or compelled
+volunteer	tell voluntarily
+volunteered	VOLUNTEER: tell voluntarily
+volunteering	VOLUNTEER: tell voluntarily
+volunteerism	the practice of doing unpaid community work
+volunteers	VOLUNTEER: tell voluntarily
+voluptuaries	VOLUPTUARY: a person addicted to luxury and pleasures of the senses
+voluptuary	a person addicted to luxury and pleasures of the senses
+voluptuous	having strong sexual appeal
+voluptuously	in a shapely and voluptuous manner
+voluptuousness	the quality of having a well-rounded body
+vomit	eject the contents of the stomach through the mouth
+vomited	VOMIT: eject the contents of the stomach through the mouth
+vomiter	a person who vomits
+vomiters	VOMITER: a person who vomits
+vomiting	the reflex act of ejecting the contents of the stomach through the mouth
+vomits	VOMIT: eject the contents of the stomach through the mouth
+voodoo	a charm superstitiously believed to embody magical powers
+voodooed	VOODOO: a charm superstitiously believed to embody magical powers
+voodooing	VOODOO: a charm superstitiously believed to embody magical powers
+voodooism	a religious cult practiced chiefly in Caribbean countries (especially Haiti); involves witchcraft and animistic deities
+voodoos	VOODOO: a charm superstitiously believed to embody magical powers
+voracious	devouring or craving food in great quantities
+voraciously	in an eagerly voracious manner
+voraciousness	extreme gluttony
+voracity	excessive desire to eat
+vortex	a powerful circular current of water (usually the result of conflicting tides)
+vortexes	VORTEX: a powerful circular current of water (usually the result of conflicting tides)
+vortices	VORTEX: a whirling mass of liquid or air
+vorticity	a measure of how strongly a fluid spins
+votaries	VOTARY: a devoted (almost religiously so) adherent of a cause or person or activity
+votary	a devoted (almost religiously so) adherent of a cause or person or activity
+vote	a choice that is made by counting the number of people in favor of each alternative
+voted	VOTE: a choice that is made by counting the number of people in favor of each alternative
+voter	a citizen who has a legal right to vote
+voters	VOTER: a citizen who has a legal right to vote
+votes	VOTE: a choice that is made by counting the number of people in favor of each alternative
+voting	a choice that is made by counting the number of people in favor of each alternative
+votive	dedicated in fulfillment of a vow
+vouch	give personal assurance; guarantee
+vouched	VOUCH: give personal assurance; guarantee
+voucher	a negotiable certificate that can be detached and redeemed as needed
+vouchers	VOUCHER: a negotiable certificate that can be detached and redeemed as needed
+vouches	VOUCH: give personal assurance; guarantee
+vouching	VOUCH: give personal assurance; guarantee
+vouchsafe	grant in a condescending manner
+vouchsafed	VOUCHSAFE: grant in a condescending manner
+vouchsafes	VOUCHSAFE: grant in a condescending manner
+vouchsafing	VOUCHSAFE: grant in a condescending manner
+vow	make a vow; promise
+vowed	VOW: make a vow; promise
+vowel	a speech sound made with the vocal tract open
+vowels	VOWEL: a speech sound made with the vocal tract open
+vower	someone who makes a solemn promise to do something or behave in a certain way
+vowers	VOWER: someone who makes a solemn promise to do something or behave in a certain way
+vowing	VOW: make a vow; promise
+vows	VOW: make a vow; promise
+voyage	an act of traveling by water
+voyaged	VOYAGE: an act of traveling by water
+voyager	a traveler to a distant land (especially one who travels by sea)
+voyagers	VOYAGER: a traveler to a distant land (especially one who travels by sea)
+voyages	VOYAGE: an act of traveling by water
+voyageur	a boatman in the Canadian fur trade
+voyageurs	VOYAGEUR: a boatman in the Canadian fur trade
+voyaging	VOYAGE: an act of traveling by water
+voyeur	a viewer who enjoys seeing the sex acts or sex organs of others
+voyeurism	a perversion in which a person receives sexual gratification from seeing the genitalia of others or witnessing others' sexual behavior
+voyeuristic	of or relating to voyeurs or voyeurism
+voyeurs	VOYEUR: a viewer who enjoys seeing the sex acts or sex organs of others

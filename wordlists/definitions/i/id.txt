@@ -1,0 +1,101 @@
+id	primitive instincts and energies underlying all psychic activity
+idea	the content of cognition; the main thing you are thinking about
+ideal	the idea of something that is perfect; something that one hopes to attain
+idealisation	a portrayal of something as ideal
+idealisations	IDEALISATION: a portrayal of something as ideal
+idealise	consider or render as ideal
+idealised	exalted to an ideal perfection or excellence
+idealises	IDEALISE: consider or render as ideal
+idealising	IDEALISE: consider or render as ideal
+idealism	elevated ideals or conduct; the quality of believing that ideals should be pursued
+idealist	someone guided more by ideals than by practical considerations
+idealistic	of high moral or intellectual value; elevated in nature or style
+idealistically	in a way based on high ideals
+idealists	IDEALIST: someone guided more by ideals than by practical considerations
+idealization	a portrayal of something as ideal
+idealizations	IDEALIZATION: a portrayal of something as ideal
+idealize	consider or render as ideal
+idealized	exalted to an ideal perfection or excellence
+idealizes	IDEALIZE: consider or render as ideal
+idealizing	IDEALIZE: consider or render as ideal
+ideally	in an ideal manner
+ideals	IDEAL: the idea of something that is perfect; something that one hopes to attain
+ideas	IDEA: the content of cognition; the main thing you are thinking about
+ideation	the process of forming and relating ideas
+idempotent	unchanged in value following multiplication by itself
+identical	exactly alike; incapable of being perceived as different
+identically	with complete identity; in an identical manner
+identifiable	capable of being identified
+identification	the act of designating or identifying something
+identifications	IDENTIFICATION: the act of designating or identifying something
+identified	having the identity known or established
+identifier	a symbol that establishes the identity of the one bearing it
+identifiers	IDENTIFIER: a symbol that establishes the identity of the one bearing it
+identifies	IDENTIFY: recognize as being; establish the identity of someone or something
+identify	recognize as being; establish the identity of someone or something
+identifying	IDENTIFY: recognize as being; establish the identity of someone or something
+identities	IDENTITY: the distinct personality of an individual regarded as a persisting entity
+identity	the distinct personality of an individual regarded as a persisting entity
+ideogram	a graphic character that indicates the meaning of a thing without indicating the sounds used to say it
+ideograms	IDEOGRAM: a graphic character that indicates the meaning of a thing without indicating the sounds used to say it
+ideograph	a graphic character that indicates the meaning of a thing without indicating the sounds used to say it
+ideographs	IDEOGRAPH: a graphic character that indicates the meaning of a thing without indicating the sounds used to say it
+ideological	of or pertaining to or characteristic of an orientation that characterizes the thinking of a group or nation
+ideologically	with respect to ideology
+ideologies	IDEOLOGY: an orientation that characterizes the thinking of a group or nation
+ideologist	an advocate of some ideology
+ideologists	IDEOLOGIST: an advocate of some ideology
+ideologue	an advocate of some ideology
+ideologues	IDEOLOGUE: an advocate of some ideology
+ideology	an orientation that characterizes the thinking of a group or nation
+ides	in the Roman calendar: the 15th of March or May or July or October or the 13th of any other month
+idiocies	IDIOCY: extreme mental retardation
+idiocy	extreme mental retardation
+idiom	a manner of speaking that is natural to native speakers of a language
+idiomatic	of or relating to or conforming to idiom
+idiomatically	in an idiomatic manner
+idioms	IDIOM: a manner of speaking that is natural to native speakers of a language
+idiopathic	(of diseases) arising from an unknown cause
+idiosyncrasies	IDIOSYNCRASY: a behavioral attribute that is distinctive and peculiar to an individual
+idiosyncrasy	a behavioral attribute that is distinctive and peculiar to an individual
+idiosyncratic	peculiar to the individual
+idiot	a person of subnormal intelligence
+idiotic	insanely irresponsible
+idiotically	in an idiotic manner
+idiots	IDIOT: a person of subnormal intelligence
+idle	not in action or at work
+idled	IDLE: not in action or at work
+idleness	having no employment
+idler	person who does no work
+idlers	IDLER: person who does no work
+idles	IDLE: not in action or at work
+idlest	IDLE: not in action or at work
+idling	IDLE: not in action or at work
+idly	in an idle manner
+idol	a material effigy that is worshipped
+idolater	a person who worships idols
+idolaters	IDOLATER: a person who worships idols
+idolatrous	blindly or excessively devoted or adoring
+idolatry	the worship of idols; the worship of physical objects or images as gods
+idolisation	the act of admiring strongly
+idolise	love unquestioningly and uncritically or to excess; venerate as an idol
+idolised	regarded with deep or rapturous love (especially as if for a god)
+idoliser	a person who worships idols
+idolises	IDOLISE: love unquestioningly and uncritically or to excess; venerate as an idol
+idolising	IDOLISE: love unquestioningly and uncritically or to excess; venerate as an idol
+idolization	the act of admiring strongly
+idolizations	IDOLIZATION: the act of admiring strongly
+idolize	love unquestioningly and uncritically or to excess; venerate as an idol
+idolized	regarded with deep or rapturous love (especially as if for a god)
+idolizer	a person who worships idols
+idolizers	IDOLIZER: a person who worships idols
+idolizes	IDOLIZE: love unquestioningly and uncritically or to excess; venerate as an idol
+idolizing	IDOLIZE: love unquestioningly and uncritically or to excess; venerate as an idol
+idols	IDOL: a material effigy that is worshipped
+ids	ID: primitive instincts and energies underlying all psychic activity
+idyl	a short poem descriptive of rural or pastoral life
+idyll	a short poem descriptive of rural or pastoral life
+idyllic	excellent and delightful in all respects
+idyllically	in an idyllic manner
+idylls	IDYLL: a short poem descriptive of rural or pastoral life
+idyls	IDYL: a short poem descriptive of rural or pastoral life

@@ -1,0 +1,7 @@
+pneumatic	of or relating to or using air (or a similar gas)
+pneumatically	in a pneumatic manner
+pneumatics	the branch of mechanics that deals with the mechanical properties of gases
+pneumococcal	of or derived from or caused by bacteria of the genus pneumococcus
+pneumonia	respiratory disease characterized by inflammation of the lung parenchyma (excluding the bronchi) with congestion caused by viruses or bacteria or irritants
+pneumonic	pertaining to or characterized by or affected by pneumonia
+pneumothorax	abnormal presence of air in the pleural cavity resulting in the collapse of the lung; may be spontaneous (due to injury to the chest) or induced (as a treatment for tuberculosis)

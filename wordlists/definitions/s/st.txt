@@ -1,0 +1,1493 @@
+stab	use a knife on
+stabbed	STAB: use a knife on
+stabber	STAB: use a knife on
+stabbing	STAB: use a knife on
+stabbingly	in a stabbing way
+stabbings	STABBING: an attack with a knife
+stabilisation	the act of stabilizing something or making it more stable
+stabilise	become stable or more stable
+stabilised	made stable or firm
+stabiliser	a device for making something stable
+stabilisers	STABILISER: a device for making something stable
+stabilises	STABILISE: become stable or more stable
+stabilising	causing to become stable
+stability	the quality or attribute of being firm and steadfast
+stabilization	the act of stabilizing something or making it more stable
+stabilize	make stable and keep from fluctuating or put into an equilibrium
+stabilized	made stable or firm
+stabilizer	a device for making something stable
+stabilizers	STABILIZER: a device for making something stable
+stabilizes	STABILIZE: make stable and keep from fluctuating or put into an equilibrium
+stabilizing	causing to become stable
+stable	resistant to change of position or condition
+stableboy	someone employed in a stable to take care of the horses
+stableboys	STABLEBOY: someone employed in a stable to take care of the horses
+stabled	STABLE: resistant to change of position or condition
+stablemate	a horse stabled with another or one of several horses owned by the same person
+stablemates	STABLEMATE: a horse stabled with another or one of several horses owned by the same person
+stabler	STABLE: resistant to change of position or condition
+stables	STABLE: resistant to change of position or condition
+stablest	STABLE: resistant to change of position or condition
+stabling	STABLE: resistant to change of position or condition
+stably	in a stable unchanging manner
+stabs	STAB: use a knife on
+staccati	STACCATO: in short detached notes
+staccato	marked by or composed of disconnected parts or sounds; cut short crisply
+staccatos	STACCATO: in short detached notes
+stack	an orderly pile
+stacked	arranged in a stack
+stacker	a laborer who builds up a stack or pile
+stackers	STACKER: a laborer who builds up a stack or pile
+stacking	STACK: an orderly pile
+stacks	STACK: an orderly pile
+stadia	STADIUM: a large sports arena
+stadium	a large structure for open-air sports or entertainments
+stadiums	STADIUM: a large structure for open-air sports or entertainments
+staff	personnel who assist their superior in carrying out an assigned task
+staffed	STAFF: personnel who assist their superior in carrying out an assigned task
+staffer	an employee who is a member of a staff of workers (especially a member of the staff that works for the President of the United States)
+staffers	STAFFER: an employee who is a member of a staff of workers (especially a member of the staff that works for the President of the United States)
+staffing	STAFF: personnel who assist their superior in carrying out an assigned task
+staffroom	a room for the teachers of a school
+staffs	STAFF: personnel who assist their superior in carrying out an assigned task
+stag	adult male deer
+stage	any distinct time period in a sequence of events
+stagecoach	a large coach-and-four formerly used to carry passengers and mail on regular routes between towns
+stagecoaches	STAGECOACH: a large coach-and-four formerly used to carry passengers and mail on regular routes between towns
+stagecraft	skill in writing or staging plays
+staged	STAGE: any distinct time period in a sequence of events
+stagehand	an employee of a theater who performs work involved in putting on a theatrical production
+stagehands	STAGEHAND: an employee of a theater who performs work involved in putting on a theatrical production
+stages	STAGE: any distinct time period in a sequence of events
+stagestruck	obsessed with the theatre
+stagey	having characteristics of the stage especially an artificial and mannered quality
+stagflation	a period of slow economic growth and high unemployment (stagnation) while prices rise (inflation)
+stagger	walk as if unable to control one's movements
+staggered	STAGGER: walk as if unable to control one's movements
+staggerer	someone who walks unsteadily as if about to fall
+staggerers	STAGGERER: someone who walks unsteadily as if about to fall
+staggering	so surprisingly impressive as to stun or overwhelm
+staggeringly	extremely
+staggers	STAGGER: walk as if unable to control one's movements
+staging	STAGE: any distinct time period in a sequence of events
+stagings	STAGING: the production of a drama on the stage
+stagnant	not circulating or flowing
+stagnantly	in a stagnant way
+stagnantness	the quality of being stagnant
+stagnate	be idle; exist in a changeless situation
+stagnated	STAGNATE: be idle; exist in a changeless situation
+stagnates	STAGNATE: be idle; exist in a changeless situation
+stagnating	STAGNATE: be idle; exist in a changeless situation
+stagnation	a state of inactivity (in business or art etc)
+stags	STAG: adult male deer
+stagy	having characteristics of the stage especially an artificial and mannered quality
+staid	characterized by dignity and propriety
+staider	STAID: characterized by dignity and propriety
+staidest	STAID: characterized by dignity and propriety
+staidly	in a grave and sober manner
+stain	a soiled or discolored appearance
+stained	marked or dyed or discolored with foreign matter
+stainer	a worker who stains (wood or fabric)
+stainers	STAINER: a worker who stains (wood or fabric)
+staining	the use of a dye to color specimens for microscopic study
+stainless	steel containing chromium that makes it resistant to corrosion
+stains	STAIN: a soiled or discolored appearance
+stair	support consisting of a place to rest the foot while ascending or descending a stairway
+staircase	a way of access (upward and downward) consisting of a set of steps
+staircases	STAIRCASE: a way of access (upward and downward) consisting of a set of steps
+stairlift	a motorised chair on a staircase rail
+stairlifts	STAIRLIFT: a motorised chair on a staircase rail
+stairs	a flight of stairs or a flight of steps
+stairway	a way of access (upward and downward) consisting of a set of steps
+stairways	STAIRWAY: a way of access (upward and downward) consisting of a set of steps
+stairwell	a vertical well around which there is a stairway
+stairwells	STAIRWELL: a vertical well around which there is a stairway
+stake	a right or legal share of something; a financial involvement with something
+staked	STAKE: a right or legal share of something; a financial involvement with something
+stakeholder	someone entrusted to hold the stakes for two or more persons betting against one another; must deliver the stakes to the winner
+stakeholders	STAKEHOLDER: someone entrusted to hold the stakes for two or more persons betting against one another; must deliver the stakes to the winner
+stakeout	surveillance of some place or some person by the police (as in anticipation of a crime)
+stakeouts	STAKEOUT: surveillance of some place or some person by the police (as in anticipation of a crime)
+stakes	STAKE: a right or legal share of something; a financial involvement with something
+staking	STAKE: a right or legal share of something; a financial involvement with something
+stalactite	a cylinder of calcium carbonate hanging from the roof of a limestone cave
+stalactites	STALACTITE: a cylinder of calcium carbonate hanging from the roof of a limestone cave
+stalagmite	a cylinder of calcium carbonate projecting upward from the floor of a limestone cave
+stalagmites	STALAGMITE: a cylinder of calcium carbonate projecting upward from the floor of a limestone cave
+stale	lacking freshness, palatability, or showing deterioration from age
+staled	STALE: lacking freshness, palatability, or showing deterioration from age
+stalemate	a situation in which no progress can be made or no advancement is possible
+stalemated	at a complete standstill because of opposition of two unrelenting forces or factions
+stalemates	STALEMATE: a situation in which no progress can be made or no advancement is possible
+stalemating	STALEMATE: a situation in which no progress can be made or no advancement is possible
+staleness	having lost purity and freshness as a consequence of aging
+staler	STALE: lacking freshness, palatability, or showing deterioration from age
+stales	STALE: lacking freshness, palatability, or showing deterioration from age
+stalest	STALE: lacking freshness, palatability, or showing deterioration from age
+staling	STALE: lacking freshness, palatability, or showing deterioration from age
+stalk	walk stiffly
+stalked	having or growing on or from a peduncle or stalk
+stalker	someone who prowls or sneaks about; usually with unlawful intentions
+stalkers	STALKER: someone who prowls or sneaks about; usually with unlawful intentions
+stalking	STALK: walk stiffly
+stalkingly	in a stalking way
+stalkings	STALKING: the act of following prey stealthily
+stalks	STALK: walk stiffly
+stall	a compartment in a stable where a single animal is confined and fed
+stalled	STALL: a compartment in a stable where a single animal is confined and fed
+stallholder	a person who runs a market stall
+stallholders	STALLHOLDER: a person who runs a market stall
+stalling	STALL: a compartment in a stable where a single animal is confined and fed
+stallion	uncastrated adult male horse
+stallions	STALLION: uncastrated adult male horse
+stalls	STALL: a compartment in a stable where a single animal is confined and fed
+stalwart	dependable
+stalwarts	STALWART: dependable
+stamen	the male reproductive organ of a flower
+stamens	STAMEN: the male reproductive organ of a flower
+stamina	enduring strength and energy
+stammer	speak haltingly
+stammered	STAMMER: speak haltingly
+stammerer	someone who speaks with involuntary pauses and repetitions
+stammerers	STAMMERER: someone who speaks with involuntary pauses and repetitions
+stammering	STAMMER: speak haltingly
+stammeringly	in a stammering way
+stammers	STAMMER: speak haltingly
+stamp	walk heavily
+stamped	STAMP: walk heavily
+stampede	a headlong rush of people on a common impulse
+stampeded	STAMPEDE: a headlong rush of people on a common impulse
+stampedes	STAMPEDE: a headlong rush of people on a common impulse
+stampeding	STAMPEDE: a headlong rush of people on a common impulse
+stamper	someone who walks with a heavy noisy gait or who stamps on the ground
+stampers	STAMPER: someone who walks with a heavy noisy gait or who stamps on the ground
+stamping	STAMP: walk heavily
+stamps	STAMP: walk heavily
+stance	standing posture
+stances	STANCE: standing posture
+stanch	stop the flow of a liquid
+stanched	STANCH: stop the flow of a liquid
+stancher	a person or thing that stops a flow
+stanches	STANCH: stop the flow of a liquid
+stanchest	STAUNCH: most loyal
+stanching	STANCH: stop the flow of a liquid
+stanchion	any vertical post or rod used as a support
+stanchions	STANCHION: any vertical post or rod used as a support
+stand	be standing; be upright
+standalone	able to operate independently
+standard	conforming to or constituting a standard of measurement or value; or of the usual or regularized or accepted kind
+standardisation	the imposition of standards or regulations
+standardise	cause to conform to standard or norm
+standardised	brought into conformity with a standard
+standardises	STANDARDISE: cause to conform to standard or norm
+standardising	STANDARDISE: cause to conform to standard or norm
+standardization	the imposition of standards or regulations
+standardize	cause to conform to standard or norm
+standardized	brought into conformity with a standard
+standardizes	STANDARDIZE: cause to conform to standard or norm
+standardizing	STANDARDIZE: cause to conform to standard or norm
+standards	STANDARD: conforming to or constituting a standard of measurement or value; or of the usual or regularized or accepted kind
+standby	something that can be relied on when needed
+standbys	STANDBY: something that can be relied on when needed
+standee	someone who stands in a place where one might otherwise sit (as a spectator who uses standing room in a theater or a passenger on a crowded bus or train)
+standees	STANDEE: someone who stands in a place where one might otherwise sit (as a spectator who uses standing room in a theater or a passenger on a crowded bus or train)
+standers	STANDER: an organism (person or animal) that stands
+standing	having a supporting base
+standings	STANDING: having a supporting base
+standoff	the finish of a contest in which the score is tied and the winner is undecided
+standoffish	lacking cordiality; unfriendly
+standoffs	STANDOFF: the finish of a contest in which the score is tied and the winner is undecided
+standout	a person or thing that is excellent
+standouts	STANDOUT: a person or thing that is excellent
+standpipe	a vertical pipe
+standpipes	STANDPIPE: a vertical pipe
+standpoint	a mental position from which things are viewed
+standpoints	STANDPOINT: a mental position from which things are viewed
+stands	STAND: be standing; be upright
+standstill	a situation in which no progress can be made or no advancement is possible
+standstills	STANDSTILL: a situation in which no progress can be made or no advancement is possible
+standup	comedy performed by one person on stage
+standups	STANDUP: comedy performed by one person on stage
+stank	STINK: be extremely bad in quality or in one's performance
+stanza	a fixed number of lines of verse forming a unit of a poem
+stanzas	STANZA: a fixed number of lines of verse forming a unit of a poem
+staph	spherical Gram-positive parasitic bacteria that tend to form irregular colonies; some cause boils or septicemia or infections
+staphylococcal	of or relating to the staphylococcus bacteria
+staphylococci	spherical Gram-positive parasitic bacteria that tend to form irregular colonies; some cause boils or septicemia or infections
+staphylococcus	spherical Gram-positive parasitic bacteria that tend to form irregular colonies; some cause boils or septicemia or infections
+staple	(usually in the plural) a necessary commodity for which demand is constant
+stapled	STAPLE: (usually in the plural) a necessary commodity for which demand is constant
+stapler	STAPLE: (usually in the plural) a necessary commodity for which demand is constant
+staplers	STAPLER: a machine that inserts staples into sheets of paper in order to fasten them together
+staples	STAPLE: (usually in the plural) a necessary commodity for which demand is constant
+stapling	STAPLE: (usually in the plural) a necessary commodity for which demand is constant
+star	a celestial body of hot gases that radiates energy derived from thermonuclear reactions in the interior
+starboard	the right side of a ship or aircraft to someone who is aboard and facing the bow or nose
+starburst	a pattern radiating from a centre
+starbursts	STARBURST: a pattern radiating from a centre
+starch	a complex carbohydrate found chiefly in seeds, fruits, tubers, roots and stem pith of plants, notably in corn, potatoes, wheat, and rice; an important foodstuff and used otherwise especially in adhesives and as fillers and stiffeners for paper and textiles
+starched	STARCH: a complex carbohydrate found chiefly in seeds, fruits, tubers, roots and stem pith of plants, notably in corn, potatoes, wheat, and rice; an important foodstuff and used otherwise especially in adhesives and as fillers and stiffeners for paper and textiles
+starches	foodstuff rich in natural starch (especially potatoes, rice, bread)
+starchier	STARCHY: consisting of or containing starch
+starchiest	STARCHY: consisting of or containing starch
+starchily	in a stiff, formal way
+starchiness	the quality of being starchy
+starching	STARCH: a complex carbohydrate found chiefly in seeds, fruits, tubers, roots and stem pith of plants, notably in corn, potatoes, wheat, and rice; an important foodstuff and used otherwise especially in adhesives and as fillers and stiffeners for paper and textiles
+starchy	consisting of or containing starch
+stardom	the status of being acknowledged as a star
+stardust	a dreamy romantic or sentimental quality
+stare	look at with fixed eyes
+stared	STAR: a celestial body of hot gases that radiates energy derived from thermonuclear reactions in the interior
+starer	STAR: a celestial body of hot gases that radiates energy derived from thermonuclear reactions in the interior
+starers	STARER: a viewer who gazes fixedly (often with hostility)
+stares	STAR: a celestial body of hot gases that radiates energy derived from thermonuclear reactions in the interior
+starfall	a shower of meteors
+starfish	echinoderms characterized by five arms extending from a central disk
+starfishes	STARFISH: echinoderms characterized by five arms extending from a central disk
+starfruit	a yellow tropical fruit with a star-shaped cross-section
+starfruits	STARFRUIT: a yellow tropical fruit with a star-shaped cross-section
+stargaze	observe the stars
+stargazed	STARGAZE: observe the stars
+stargazer	a physicist who studies astronomy
+stargazers	STARGAZER: a physicist who studies astronomy
+stargazes	STARGAZE: observe the stars
+stargazing	observation of the stars
+staring	STAR: a celestial body of hot gases that radiates energy derived from thermonuclear reactions in the interior
+staringly	in a staring way
+stark	devoid of any qualifications or disguise or adornment
+starker	STARK: devoid of any qualifications or disguise or adornment
+starkers	stark naked
+starkest	STARK: devoid of any qualifications or disguise or adornment
+starkly	in sharp outline or contrast
+starkness	an extreme lack of furnishings or ornamentation
+starless	not starry; having no stars or starlike objects
+starlet	a young (film) actress who is publicized as a future star
+starlets	STARLET: a young (film) actress who is publicized as a future star
+starlight	the light of the stars
+starlights	STARLIGHT: the light of the stars
+starling	gregarious birds native to the Old World
+starlings	STARLING: gregarious birds native to the Old World
+starlit	lighted only by stars
+starred	STAR: a celestial body of hot gases that radiates energy derived from thermonuclear reactions in the interior
+starrier	STARRY: abounding with or resembling stars
+starriest	STARRY: abounding with or resembling stars
+starring	STAR: a celestial body of hot gases that radiates energy derived from thermonuclear reactions in the interior
+starry	abounding with or resembling stars
+stars	STAR: a celestial body of hot gases that radiates energy derived from thermonuclear reactions in the interior
+starshine	the light of the stars
+starship	a spacecraft designed to carry a crew into interstellar space (especially in science fiction)
+starships	STARSHIP: a spacecraft designed to carry a crew into interstellar space (especially in science fiction)
+starstruck	overawed by celebrity
+start	take the first step or steps in carrying out an action
+started	START: take the first step or steps in carrying out an action
+starter	an electric motor for starting an engine
+starters	STARTER: an electric motor for starting an engine
+starting	(especially of eyes) bulging or protruding as with fear
+startle	to stimulate to action
+startled	excited by sudden surprise or alarm and making a quick involuntary movement
+startles	STARTLE: to stimulate to action
+startling	so remarkably different or sudden as to cause momentary shock or alarm
+startlingly	in a startling manner
+startlingness	the quality of being startling
+starts	START: take the first step or steps in carrying out an action
+startup	the act of setting in operation
+startups	STARTUP: the act of setting in operation
+starvation	a state of extreme hunger resulting from lack of essential nutrients over a prolonged period
+starve	be hungry; go without food
+starved	suffering from lack of food
+starver	a person who suffers hunger
+starvers	STARVER: a person who suffers hunger
+starves	STARVE: be hungry; go without food
+starving	suffering from lack of food
+starvings	STARVING: suffering from lack of food
+stash	a secret store of valuables or money
+stashed	STASH: a secret store of valuables or money
+stashes	STASH: a secret store of valuables or money
+stashing	STASH: a secret store of valuables or money
+stasis	inactivity resulting from a static balance between opposing forces
+stat	a statistic
+state	the territory occupied by one of the constituent administrative districts of a nation
+statecraft	wisdom in the management of public affairs
+stated	STAT: a statistic
+statehood	the status of being a state
+statehouse	a government building in which a state legislature meets
+statehouses	STATEHOUSE: a government building in which a state legislature meets
+stateless	without nationality or citizenship
+statelessness	the quality of being stateless
+statelet	a small state
+statelets	STATELET: a small state
+statelier	STATELY: impressive in appearance
+stateliest	STATELY: impressive in appearance
+stateliness	impressiveness in scale or proportion
+stately	impressive in appearance
+statement	a message that is stated or declared; a communication (oral or written) setting forth particulars or facts etc
+statements	STATEMENT: a message that is stated or declared; a communication (oral or written) setting forth particulars or facts etc
+stater	STAT: a statistic
+stateroom	a guest cabin
+staterooms	STATEROOM: a guest cabin
+staters	STATER: any of the various silver or gold coins of ancient Greece
+states	STATE: a condition something is in; also a nation or its government
+stateside	in or to the United States
+statesman	a man who is a respected leader in national or international affairs
+statesmanlike	marked by the qualities of or befitting a statesman
+statesmanship	wisdom in the management of public affairs
+statesmen	STATESMAN: a man who is a respected leader in national or international affairs
+statewide	occurring or extending throughout a state
+static	not in physical motion
+statically	in a fixed or unchanging way
+statics	STATIC: not in physical motion
+statin	a medicine that lowers blood cholesterol levels by inhibiting HMG-CoA reductase
+stating	STAT: a statistic
+statins	STATIN: a medicine that lowers blood cholesterol levels by inhibiting HMG-CoA reductase
+station	a facility equipped with special equipment and personnel for a particular purpose
+stationary	standing still
+stationed	STATION: a facility equipped with special equipment and personnel for a particular purpose
+stationer	a merchant who sells writing materials and office supplies
+stationers	STATIONER: a merchant who sells writing materials and office supplies
+stationery	paper cut to an appropriate size for writing letters; usually with matching envelopes
+stationing	STATION: a facility equipped with special equipment and personnel for a particular purpose
+stationmaster	the person in charge of a railway station
+stationmasters	STATIONMASTER: the person in charge of a railway station
+stations	STATION: a facility equipped with special equipment and personnel for a particular purpose
+statism	political control by the state
+statist	a supporter of state control
+statistic	a datum that can be represented numerically
+statistical	of or relating to statistics
+statistically	with respect to statistics
+statistician	a mathematician who specializes in statistics
+statisticians	STATISTICIAN: a mathematician who specializes in statistics
+statistics	STATISTIC: a datum that can be represented numerically
+stator	mechanical device consisting of the stationary part of a motor or generator in or around which the rotor revolves
+stats	STAT: a statistic
+statuary	statues collectively
+statue	a sculpture representing a human or animal
+statues	STATUE: a sculpture representing a human or animal
+statuesque	of size and dignity suggestive of a statue
+statuette	a small carved or molded figure
+statuettes	STATUETTE: a small carved or molded figure
+stature	high level of respect gained by impressive development or achievement
+statures	STATURE: high level of respect gained by impressive development or achievement
+status	the relative position or standing of things or especially persons in a society
+statuses	STATUS: the relative position or standing of things or especially persons in a society
+statute	an act passed by a legislative body
+statutes	STATUTE: an act passed by a legislative body
+statutorily	according to statute
+statutory	relating to or created by statutes
+staunch	firm and dependable especially in loyalty
+staunched	STAUNCH: firm and dependable especially in loyalty
+stauncher	STAUNCH: firm and dependable especially in loyalty
+staunches	STAUNCH: firm and dependable especially in loyalty
+staunchest	STAUNCH: firm and dependable especially in loyalty
+staunching	STAUNCH: firm and dependable especially in loyalty
+staunchly	in a staunch manner
+stave	one of several thin slats of wood forming the sides of a barrel or bucket
+staved	STAVE: one of several thin slats of wood forming the sides of a barrel or bucket
+staves	STAVE: one of several thin slats of wood forming the sides of a barrel or bucket
+staving	STAVE: one of several thin slats of wood forming the sides of a barrel or bucket
+stay	stay the same; remain in a certain state
+staycation	a holiday spent at home
+staycations	STAYCATION: a holiday spent at home
+stayed	STAY: stay the same; remain in a certain state
+stayer	a person or other animal having powers of endurance or perseverance
+stayers	STAYER: a person or other animal having powers of endurance or perseverance
+staying	STAY: stay the same; remain in a certain state
+stays	STAY: stay the same; remain in a certain state
+staysail	a fore-and-aft sail set on a stay (as between two masts)
+stdio	standard input and output in programming
+stead	the post or function properly or customarily occupied or served by another
+steadfast	firm and dependable especially in loyalty
+steadfastly	with resolute determination
+steadfastness	loyalty in the face of trouble and difficulty
+steadied	made steady or constant
+steadier	STEADY: make steady
+steadies	STEADY: make steady
+steadiest	STEADY: make steady
+steadily	at a steady rate or pace
+steadiness	the quality of being steady--regular and unvarying
+steads	STEAD: the post or function properly or customarily occupied or served by another
+steady	make steady
+steadying	STEADY: make steady
+steak	a slice of meat cut from the fleshy part of an animal or large fish
+steakhouse	a restaurant that specializes in steaks
+steakhouses	STEAKHOUSE: a restaurant that specializes in steaks
+steaks	STEAK: a slice of meat cut from the fleshy part of an animal or large fish
+steal	take without the owner's consent
+stealer	a criminal who takes property belonging to someone else with the intention of keeping it or selling it
+stealers	STEALER: a criminal who takes property belonging to someone else with the intention of keeping it or selling it
+stealing	the act of taking something from someone unlawfully
+steals	STEAL: take without the owner's consent
+stealth	avoiding detection by moving carefully
+stealthier	STEALTHY: marked by quiet and caution and secrecy; taking pains to avoid being observed
+stealthiest	STEALTHY: marked by quiet and caution and secrecy; taking pains to avoid being observed
+stealthily	in a stealthy manner
+stealthiness	a disposition to be sly and stealthy and to do things surreptitiously
+stealthy	marked by quiet and caution and secrecy; taking pains to avoid being observed
+steam	travel by means of steam power
+steamboat	a boat propelled by a steam engine
+steamboats	STEAMBOAT: a boat propelled by a steam engine
+steamed	cooked in steam
+steamer	a ship powered by one or more steam engines
+steamers	STEAMER: a ship powered by one or more steam engines
+steamier	STEAMY: hot or warm and humid
+steamiest	STEAMY: hot or warm and humid
+steaming	filled with steam or emitting moisture in the form of vapor or mist
+steampunk	science fiction with Victorian steam-powered technology
+steamroll	overwhelm by using great force
+steamrolled	STEAMROLL: overwhelm by using great force
+steamroller	vehicle equipped with heavy wide smooth rollers for compacting roads and pavements
+steamrollered	STEAMROLLER: vehicle equipped with heavy wide smooth rollers for compacting roads and pavements
+steamrollering	STEAMROLLER: vehicle equipped with heavy wide smooth rollers for compacting roads and pavements
+steamrollers	STEAMROLLER: vehicle equipped with heavy wide smooth rollers for compacting roads and pavements
+steamrolling	STEAMROLL: overwhelm by using great force
+steamrolls	STEAMROLL: overwhelm by using great force
+steams	STEAM: travel by means of steam power
+steamship	a ship powered by one or more steam engines
+steamships	STEAMSHIP: a ship powered by one or more steam engines
+steamy	hot or warm and humid
+steed	a spirited horse for state of war
+steeds	STEED: a spirited horse for state of war
+steel	an alloy of iron with small amounts of carbon; widely used in construction; mechanical properties can be varied over a wide range
+steeled	STEEL: an alloy of iron with small amounts of carbon; widely used in construction; mechanical properties can be varied over a wide range
+steelhead	a sea-going rainbow trout
+steelier	STEELY: resembling steel as in hardness
+steeliest	STEELY: resembling steel as in hardness
+steeling	STEEL: an alloy of iron with small amounts of carbon; widely used in construction; mechanical properties can be varied over a wide range
+steelmaker	a worker engaged in making steel
+steelmakers	STEELMAKER: a worker engaged in making steel
+steels	STEEL: an alloy of iron with small amounts of carbon; widely used in construction; mechanical properties can be varied over a wide range
+steelworker	a worker engaged in making steel
+steelworkers	STEELWORKER: a worker engaged in making steel
+steelworks	a factory where steel is made
+steely	resembling steel as in hardness
+steenbok	small plains antelope of southeastern Africa
+steenboks	STEENBOK: small plains antelope of southeastern Africa
+steep	devote (oneself) fully to
+steeped	STEEP: devote (oneself) fully to
+steepen	become steeper
+steepened	STEEPEN: become steeper
+steepening	STEEPEN: become steeper
+steepens	STEEPEN: become steeper
+steeper	STEEP: devote (oneself) fully to
+steepest	STEEP: devote (oneself) fully to
+steeping	STEEP: devote (oneself) fully to
+steeple	a tall tower that forms the superstructure of a building (usually a church or temple) and that tapers to a point at the top
+steeplechase	a horse race over an obstructed course
+steeplechases	STEEPLECHASE: a horse race over an obstructed course
+steeplejack	someone who builds or maintains very tall structures
+steeplejacks	STEEPLEJACK: someone who builds or maintains very tall structures
+steeples	STEEPLE: a tall tower that forms the superstructure of a building (usually a church or temple) and that tapers to a point at the top
+steeply	in a steep manner
+steepness	the property possessed by a slope that is very steep
+steeps	STEEP: devote (oneself) fully to
+steer	direct the course; determine the direction of travelling
+steerable	capable of being steered or directed
+steerage	the cheapest accommodations on a passenger ship
+steered	STEER: direct the course; determine the direction of travelling
+steerer	the person who steers a ship
+steerers	STEERER: the person who steers a ship
+steering	STEER: direct the course; determine the direction of travelling
+steers	STEER: direct the course; determine the direction of travelling
+steersman	the person who steers a ship
+stegosaurus	herbivorous ornithischian dinosaur with a row of bony plates along its back and a spiked tail probably used as a weapon
+stegosauruses	STEGOSAURUS: herbivorous ornithischian dinosaur with a row of bony plates along its back and a spiked tail probably used as a weapon
+stein	a mug intended for serving beer
+steins	STEIN: a mug intended for serving beer
+stellar	indicating the most important performer or role
+stellate	arranged like rays or radii; radiating from a common center
+stem	the form of a word after all affixes are removed
+stemless	not having a stem
+stemmed	having a stem or stems or having a stem as specified; often used in combination
+stemming	STEM: the form of a word after all affixes are removed
+stems	STEM: the form of a word after all affixes are removed
+stemware	glasses that have stems
+stench	a distinctive odor that is offensively unpleasant
+stenches	STENCH: a distinctive odor that is offensively unpleasant
+stenchy	foul-smelling
+stencil	a sheet of material (metal, plastic, cardboard, waxed paper, silk, etc.) that has been perforated with a pattern (printing or a design); ink or paint can pass through the perforations to create the printed pattern on the surface below
+stenciled	STENCIL: a sheet of material (metal, plastic, cardboard, waxed paper, silk, etc.) that has been perforated with a pattern (printing or a design); ink or paint can pass through the perforations to create the printed pattern on the surface below
+stenciling	STENCIL: a sheet of material (metal, plastic, cardboard, waxed paper, silk, etc.) that has been perforated with a pattern (printing or a design); ink or paint can pass through the perforations to create the printed pattern on the surface below
+stencilled	STENCIL: a sheet of material (metal, plastic, cardboard, waxed paper, silk, etc.) that has been perforated with a pattern (printing or a design); ink or paint can pass through the perforations to create the printed pattern on the surface below
+stencilling	STENCIL: a sheet of material (metal, plastic, cardboard, waxed paper, silk, etc.) that has been perforated with a pattern (printing or a design); ink or paint can pass through the perforations to create the printed pattern on the surface below
+stencils	STENCIL: a sheet of material (metal, plastic, cardboard, waxed paper, silk, etc.) that has been perforated with a pattern (printing or a design); ink or paint can pass through the perforations to create the printed pattern on the surface below
+steno	a stenographer
+stenographer	someone skilled in the transcription of speech (especially dictation)
+stenographers	STENOGRAPHER: someone skilled in the transcription of speech (especially dictation)
+stenographic	of or relating to or employing stenography
+stenography	a method of writing rapidly using an abbreviated symbolic system
+stenos	STENO: a stenographer
+stenosis	abnormal narrowing of a bodily canal or passageway
+stent	a slender tube inserted inside a tubular body part (as a blood vessel) to provide support during and after surgical anastomosis
+stentorian	(used of the voice or sound) deep and resonant
+stents	STENT: a slender tube inserted inside a tubular body part (as a blood vessel) to provide support during and after surgical anastomosis
+step	any maneuver made as part of progress toward a goal
+stepbrother	a brother who has only one parent in common with you
+stepbrothers	STEPBROTHER: a brother who has only one parent in common with you
+stepchild	a child of your spouse by a former marriage
+stepchildren	STEPCHILD: a child of your spouse from another relationship
+stepdad	the husband of your parent who is not your father
+stepdads	STEPDAD: the husband of your parent who is not your father
+stepdaughter	a daughter of your spouse by a former marriage
+stepdaughters	STEPDAUGHTER: a daughter of your spouse by a former marriage
+stepfather	the husband of your mother by a subsequent marriage
+stepfathers	STEPFATHER: the husband of your mother by a subsequent marriage
+stephanotis	any of various evergreen climbing shrubs of the genus Stephanotis having fragrant waxy flowers
+stephanotises	STEPHANOTIS: any of various evergreen climbing shrubs of the genus Stephanotis having fragrant waxy flowers
+stepladder	a folding portable ladder hinged at the top
+stepladders	STEPLADDER: a folding portable ladder hinged at the top
+stepmom	the wife of your parent who is not your mother
+stepmoms	STEPMOM: the wife of your parent who is not your mother
+stepmother	the wife of your father by a subsequent marriage
+stepmothers	STEPMOTHER: the wife of your father by a subsequent marriage
+stepmum	the wife of your parent who is not your mother
+stepmums	STEPMUM: the wife of your parent who is not your mother
+stepparent	the spouse of your parent by a subsequent marriage
+stepparents	STEPPARENT: the spouse of your parent by a subsequent marriage
+steppe	extensive plain without trees (associated with eastern Russia and Siberia)
+stepped	STEP: any maneuver made as part of progress toward a goal
+stepper	STEP: any maneuver made as part of progress toward a goal
+steppers	STEPPER: a professional dancer
+steppes	STEPPE: extensive plain without trees (associated with eastern Russia and Siberia)
+stepping	STEP: any maneuver made as part of progress toward a goal
+steppingstone	a stone to step on or a means of progress
+steppingstones	STEPPINGSTONE: a stone to step on or a means of progress
+steps	a flight of stairs or a flight of steps
+stepsister	a sister who has only one parent in common with you
+stepsisters	STEPSISTER: a sister who has only one parent in common with you
+stepson	the son your spouse by a former marriage
+stepsons	STEPSON: the son your spouse by a former marriage
+stepwise	one thing at a time
+stereo	reproducer in which two microphones feed two or more loudspeakers to give a three-dimensional effect to the sound
+stereochemistry	the study of the spatial arrangement of atoms
+stereophonic	designating the reproduction of sound using two or more independent audio channels
+stereos	STEREO: reproducer in which two microphones feed two or more loudspeakers to give a three-dimensional effect to the sound
+stereoscope	an optical device for viewing stereoscopic photographs
+stereoscopes	STEREOSCOPE: an optical device for viewing stereoscopic photographs
+stereoscopic	of or relating to a stereoscope
+stereotype	a conventional or formulaic conception or image
+stereotyped	lacking spontaneity or originality or individuality
+stereotypes	STEREOTYPE: a conventional or formulaic conception or image
+stereotypical	lacking spontaneity or originality or individuality
+stereotypically	in a stereotypical manner
+stereotyping	STEREOTYPE: a conventional or formulaic conception or image
+sterile	free of or using methods to keep free of pathological microorganisms
+sterilisation	the procedure of making some object free of live bacteria or other microorganisms (usually by heat or chemical means)
+sterilisations	STERILISATION: the procedure of making some object free of live bacteria or other microorganisms (usually by heat or chemical means)
+sterilise	make free from bacteria
+sterilised	made infertile
+steriliser	a device for heating substances above their boiling point; used to manufacture chemicals or to sterilize surgical instruments
+sterilisers	STERILISER: a device for heating substances above their boiling point; used to manufacture chemicals or to sterilize surgical instruments
+sterilises	STERILISE: make free from bacteria
+sterilising	STERILISE: make free from bacteria
+sterility	the state of being unable to produce offspring; in a woman it is an inability to conceive; in a man it is an inability to impregnate
+sterilization	the procedure of making some object free of live bacteria or other microorganisms (usually by heat or chemical means)
+sterilizations	STERILIZATION: the procedure of making some object free of live bacteria or other microorganisms (usually by heat or chemical means)
+sterilize	make free from bacteria
+sterilized	STERILIZE: make free from bacteria
+sterilizer	a device for heating substances above their boiling point; used to manufacture chemicals or to sterilize surgical instruments
+sterilizers	STERILIZER: a device for heating substances above their boiling point; used to manufacture chemicals or to sterilize surgical instruments
+sterilizes	STERILIZE: make free from bacteria
+sterilizing	STERILIZE: make free from bacteria
+sterlet	a small sturgeon
+sterlets	STERLET: a small sturgeon
+sterling	highest in quality
+stern	of a stern or strict bearing or demeanor; forbidding in aspect
+sterna	a genus of Sterninae
+sterner	STERN: of a stern or strict bearing or demeanor; forbidding in aspect
+sternest	STERN: of a stern or strict bearing or demeanor; forbidding in aspect
+sternly	with sternness; in a severe manner
+sternness	uncompromising resolution
+sternpost	the principal upright timber at the stern of a vessel
+sterns	STERN: of a stern or strict bearing or demeanor; forbidding in aspect
+sternum	the flat bone that articulates with the clavicles and the first seven pairs of ribs
+sternums	STERNUM: the flat bone that articulates with the clavicles and the first seven pairs of ribs
+steroid	any of several fat-soluble organic compounds having as a basis 17 carbon atoms in four rings; many have important physiological effects
+steroidal	of or relating to steroid hormones or their effects
+steroids	STEROID: any of several fat-soluble organic compounds having as a basis 17 carbon atoms in four rings; many have important physiological effects
+stethoscope	a medical instrument for listening to the sounds generated inside the body
+stethoscopes	STETHOSCOPE: a medical instrument for listening to the sounds generated inside the body
+stevedore	a laborer who loads and unloads vessels in a port
+stevedores	STEVEDORE: a laborer who loads and unloads vessels in a port
+stew	food prepared by stewing especially meat or fish with vegetables
+steward	someone who manages property or other affairs for someone else
+stewarded	STEWARD: managed or looked after
+stewardess	a woman steward on an airplane
+stewardesses	STEWARDESS: a woman steward on an airplane
+stewarding	STEWARD: managing or looking after
+stewards	STEWARD: someone who manages property or other affairs for someone else
+stewardship	the position of steward
+stewed	cooked in hot water
+stewing	an extreme state of worry and agitation
+stews	STEW: food prepared by stewing especially meat or fish with vegetables
+stick	an implement consisting of a length of wood
+stickball	a form of baseball played in the streets with a rubber ball and broomstick handle
+sticker	an adhesive label
+stickers	STICKER: an adhesive label
+stickier	STICKY: having the sticky properties of an adhesive
+stickies	STICKY: a sticky note
+stickiest	STICKY: having the sticky properties of an adhesive
+stickiness	the property of sticking to a surface
+sticking	extending out above or beyond a surface or boundary
+stickleback	small (2-4 inches) pugnacious mostly scaleless spiny-backed fishes of northern fresh and littoral waters having elaborate courtship; subjects of much research
+sticklebacks	STICKLEBACK: small (2-4 inches) pugnacious mostly scaleless spiny-backed fishes of northern fresh and littoral waters having elaborate courtship; subjects of much research
+stickler	someone who insists on something
+sticklers	STICKLER: someone who insists on something
+stickpin	a decorative pin that is worn in a necktie
+stickpins	STICKPIN: a decorative pin that is worn in a necktie
+sticks	STICK: an implement consisting of a length of wood
+stickup	robbery at gunpoint
+stickups	STICKUP: robbery at gunpoint
+sticky	having the sticky properties of an adhesive
+stickybeak	a nosy person
+stickybeaked	STICKYBEAK: a nosy person
+stickybeaking	STICKYBEAK: a nosy person
+stickybeaks	STICKYBEAK: a nosy person
+sties	STY: a pen for swine
+stiff	not moving or operating freely
+stiffed	STIFF: failed to pay or tip
+stiffen	become stiff or stiffer
+stiffened	STIFFEN: become stiff or stiffer
+stiffener	material used for stiffening something
+stiffeners	STIFFENER: material used for stiffening something
+stiffening	the act of becoming stiff
+stiffens	STIFFEN: become stiff or stiffer
+stiffer	STIFF: not moving or operating freely
+stiffest	STIFF: not moving or operating freely
+stiffing	STIFF: failing to pay or tip
+stiffly	in a stiff manner
+stiffness	the physical property of being inflexible and hard to bend
+stiffs	STIFF: not moving or operating freely
+stifle	suppress in order to conceal or hide
+stifled	STIFLE: suppress in order to conceal or hide
+stifles	STIFLE: suppress in order to conceal or hide
+stifling	STIFLE: suppress in order to conceal or hide
+stiflingly	in a stifling way
+stiflings	STIFLING: characterized by oppressive heat and humidity
+stigma	a symbol of disgrace or infamy
+stigmas	STIGMA: a symbol of disgrace or infamy
+stigmata	marks resembling the wounds on the crucified body of Christ
+stigmatisation	the act of stigmatizing
+stigmatise	to accuse or condemn or openly or formally or brand as disgraceful
+stigmatised	STIGMATISE: to accuse or condemn or openly or formally or brand as disgraceful
+stigmatises	STIGMATISE: to accuse or condemn or openly or formally or brand as disgraceful
+stigmatising	STIGMATISE: to accuse or condemn or openly or formally or brand as disgraceful
+stigmatization	the act of stigmatizing
+stigmatize	to accuse or condemn or openly or formally or brand as disgraceful
+stigmatized	STIGMATIZE: to accuse or condemn or openly or formally or brand as disgraceful
+stigmatizes	STIGMATIZE: to accuse or condemn or openly or formally or brand as disgraceful
+stigmatizing	STIGMATIZE: to accuse or condemn or openly or formally or brand as disgraceful
+stile	an upright that is a member in a door or window frame
+stiles	STILE: an upright that is a member in a door or window frame
+stiletto	a small dagger with a tapered blade
+stilettoes	STILETTO: a woman's shoe with a thin high heel
+stilettos	STILETTO: a small dagger with a tapered blade
+still	not in physical motion
+stillbirth	a natural loss of the products of conception
+stillbirths	STILLBIRTH: a natural loss of the products of conception
+stillborn	(of newborn infant) showing no signs of life at birth; not liveborn
+stilled	STILL: not in physical motion
+stiller	STILL: not in physical motion
+stillest	STILL: not in physical motion
+stilling	STILL: not in physical motion
+stillness	tranquil silence
+stills	STILL: not in physical motion
+stilly	still or calm
+stilt	a column of wood or steel or concrete that is driven into the ground to provide support for a structure
+stilted	artificially formal
+stilts	STILT: a column of wood or steel or concrete that is driven into the ground to provide support for a structure
+stimulant	any stimulating information or event; acts to arouse action
+stimulants	STIMULANT: any stimulating information or event; acts to arouse action
+stimulate	act as a stimulant
+stimulated	STIMULATE: act as a stimulant
+stimulates	STIMULATE: act as a stimulant
+stimulating	rousing or quickening activity or the senses
+stimulation	the act of arousing an organism to action
+stimulative	capable of arousing or accelerating physiological or psychological activity or response by a chemical agent
+stimulator	something that stimulates
+stimulatory	causing stimulation
+stimuli	STIMULUS: something that prompts a reaction
+stimulus	any stimulating information or event; acts to arouse action
+sting	cause a sharp or stinging pain or discomfort
+stinger	a sharp organ of offense or defense (as of a wasp or stingray or scorpion) often connected with a poison gland
+stingers	STINGER: a sharp organ of offense or defense (as of a wasp or stingray or scorpion) often connected with a poison gland
+stingier	STINGY: unwilling to spend (money, time, resources, etc.)
+stingiest	STINGY: unwilling to spend (money, time, resources, etc.)
+stingily	in a stingy manner
+stinginess	a lack of generosity; a general unwillingness to part with money
+stinging	STING: cause a sharp or stinging pain or discomfort
+stingingly	in a stinging way
+stingray	large venomous ray with large barbed spines near the base of a thin whiplike tail capable of inflicting severe wounds
+stingrays	STINGRAY: large venomous ray with large barbed spines near the base of a thin whiplike tail capable of inflicting severe wounds
+stings	STING: cause a sharp or stinging pain or discomfort
+stingy	unwilling to spend (money, time, resources, etc.)
+stink	be extremely bad in quality or in one's performance
+stinker	a person who is deemed to be despicable or contemptible
+stinkers	STINKER: a person who is deemed to be despicable or contemptible
+stinkier	STINKY: having an unpleasant smell
+stinkiest	STINKY: having an unpleasant smell
+stinking	very bad
+stinkingly	in a stinking way
+stinks	STINK: be extremely bad in quality or in one's performance
+stinky	having an unpleasant smell
+stint	an unbroken period of time during which you do something
+stinted	STINT: an unbroken period of time during which you do something
+stinting	avoiding waste
+stints	STINT: an unbroken period of time during which you do something
+stipe	supporting stalk or stem-like structure especially of a pistil or fern frond or supporting a mushroom cap
+stipend	a sum of money allotted on a regular basis; usually for some specific purpose
+stipendiaries	STIPENDIARY: pertaining to or of the nature of a stipend or allowance
+stipendiary	pertaining to or of the nature of a stipend or allowance
+stipends	STIPEND: a sum of money allotted on a regular basis; usually for some specific purpose
+stipple	apply (paint) in small dots or strokes
+stippled	having a pattern of dots
+stipples	STIPPLE: apply (paint) in small dots or strokes
+stippling	STIPPLE: apply (paint) in small dots or strokes
+stipulate	specify as a condition or requirement in a contract or agreement; make an express demand or provision in an agreement
+stipulated	STIPULATE: specify as a condition or requirement in a contract or agreement; make an express demand or provision in an agreement
+stipulates	STIPULATE: specify as a condition or requirement in a contract or agreement; make an express demand or provision in an agreement
+stipulating	STIPULATE: specify as a condition or requirement in a contract or agreement; make an express demand or provision in an agreement
+stipulation	a restriction that is insisted upon as a condition for an agreement
+stipulations	STIPULATION: a restriction that is insisted upon as a condition for an agreement
+stipule	a small leafy outgrowth at the base of a leaf or its stalk; usually occurring in pairs and soon shed
+stipules	STIPULE: a small leafy outgrowth at the base of a leaf or its stalk; usually occurring in pairs and soon shed
+stir	move an implement through
+stirred	STIR: move an implement through
+stirrer	STIR: move an implement through
+stirrers	STIRRER: an implement used for stirring
+stirring	agitating a liquid with an implement
+stirrings	STIRRING: agitating a liquid with an implement
+stirrup	support consisting of metal loops into which rider's feet go
+stirrups	STIRRUP: support consisting of metal loops into which rider's feet go
+stirs	STIR: move an implement through
+stitch	a link or loop or knot made by an implement in knitting, crocheting, embroidery, or sewing
+stitched	STITCH: a link or loop or knot made by an implement in knitting, crocheting, embroidery, or sewing
+stitcher	a garmentmaker who performs the finishing steps
+stitchers	STITCHER: a garmentmaker who performs the finishing steps
+stitches	STITCH: a link or loop or knot made by an implement in knitting, crocheting, embroidery, or sewing
+stitching	STITCH: a link or loop or knot made by an implement in knitting, crocheting, embroidery, or sewing
+stoat	the ermine in its brown summer coat with black-tipped tail
+stoats	STOAT: the ermine in its brown summer coat with black-tipped tail
+stochastic	being or having a random variable
+stock	the capital raised by a corporation through the issue of shares entitling holders to an ownership interest (equity)
+stockade	fortification consisting of a fence made of a line of stout posts set firmly for defense
+stockaded	STOCKADE: fortification consisting of a fence made of a line of stout posts set firmly for defense
+stockades	STOCKADE: fortification consisting of a fence made of a line of stout posts set firmly for defense
+stockading	STOCKADE: fortification consisting of a fence made of a line of stout posts set firmly for defense
+stockbroker	an agent in the buying and selling of stocks and bonds
+stockbrokers	STOCKBROKER: an agent in the buying and selling of stocks and bonds
+stockbroking	buying and selling shares for clients
+stocked	STOCK: the capital raised by a corporation through the issue of shares entitling holders to an ownership interest (equity)
+stocker	STOCK: the capital raised by a corporation through the issue of shares entitling holders to an ownership interest (equity)
+stockers	STOCKER: a domestic animal (especially a young steer or heifer) kept as stock until fattened or matured and suitable for a breeding establishment
+stockfish	fish cured by being split and air-dried without salt
+stockholder	someone who holds shares of stock in a corporation
+stockholders	STOCKHOLDER: someone who holds shares of stock in a corporation
+stockier	STOCKY: having a short and solid form or stature
+stockiest	STOCKY: having a short and solid form or stature
+stockily	so as to be stocky
+stockiness	the quality of being stocky
+stocking	close-fitting hosiery to cover the foot and leg; come in matched pairs (usually used in the plural)
+stockings	STOCKING: close-fitting hosiery to cover the foot and leg; come in matched pairs (usually used in the plural)
+stockist	one (as a retailer or distributor) that stocks goods
+stockists	STOCKIST: one (as a retailer or distributor) that stocks goods
+stockman	farmer who breed or raises livestock
+stockmen	STOCKMAN: farmer who breed or raises livestock
+stockpile	a storage pile accumulated for future use
+stockpiled	STOCKPILE: a storage pile accumulated for future use
+stockpiles	STOCKPILE: a storage pile accumulated for future use
+stockpiling	accumulating and storing a reserve supply
+stockpot	a pot used for preparing soup stock
+stockpots	STOCKPOT: a pot used for preparing soup stock
+stockroom	storeroom for storing goods and supplies used in a business
+stockrooms	STOCKROOM: storeroom for storing goods and supplies used in a business
+stocks	STOCK: the capital raised by a corporation through the issue of shares entitling holders to an ownership interest (equity)
+stocktaking	making an itemized list of merchandise or supplies on hand
+stocky	having a short and solid form or stature
+stockyard	enclosed yard where cattle, pigs, horses, or sheep are kept temporarily
+stockyards	STOCKYARD: enclosed yard where cattle, pigs, horses, or sheep are kept temporarily
+stodge	heavy and filling (and usually starchy) food
+stodgier	STODGY: heavy and starchy and hard to digest
+stodgiest	STODGY: heavy and starchy and hard to digest
+stodginess	dull and pompous gravity
+stodgy	heavy and starchy and hard to digest
+stoeps	STOEP: small porch or set of steps at the front entrance of a house
+stogie	a cheap cigar
+stogies	STOGIE: a cheap cigar
+stogy	a cheap cigar
+stoic	a member of the ancient Greek school of philosophy founded by Zeno
+stoical	seeming unaffected by pleasure or pain; impassive
+stoically	without emotion; in a stoic manner
+stoichiometric	of or relating to stoichiometry
+stoichiometry	the relation between the quantities of substances that take part in a reaction or form a compound (typically a ratio of whole integers)
+stoicism	an indifference to pleasure or pain
+stoics	STOIC: a member of the ancient Greek school of philosophy founded by Zeno
+stoke	stir up or tend; of a fire
+stoked	STOKE: stir up or tend; of a fire
+stoker	a laborer who tends fires (as on a coal-fired train or steamship)
+stokers	STOKER: a laborer who tends fires (as on a coal-fired train or steamship)
+stokes	STOKE: stir up or tend; of a fire
+stoking	STOKE: stir up or tend; of a fire
+stole	STEAL: take without the owner's consent
+stolen	STEAL: take without the owner's consent
+stoles	STOLE: a wide scarf worn about their shoulders by women
+stolid	having or revealing little emotion or sensibility; not easily aroused or excited
+stolider	STOLID: having or revealing little emotion or sensibility; not easily aroused or excited
+stolidest	STOLID: having or revealing little emotion or sensibility; not easily aroused or excited
+stolidity	apathy demonstrated by an absence of emotional reactions
+stolidly	in a stolid manner
+stolidness	an indifference to pleasure or pain
+stolon	a horizontal branch from the base of plant that produces new plants from buds at its tips
+stolons	STOLON: a horizontal branch from the base of plant that produces new plants from buds at its tips
+stomach	an enlarged and muscular saclike organ of the alimentary canal; the principal organ of digestion
+stomachache	an ache localized in the stomach or abdominal region
+stomachaches	STOMACHACHE: an ache localized in the stomach or abdominal region
+stomached	STOMACH: an enlarged and muscular saclike organ of the alimentary canal; the principal organ of digestion
+stomacher	garment consisting of a V-shaped panel of stiff material worn over the chest and stomach in the 16th century
+stomachers	STOMACHER: garment consisting of a V-shaped panel of stiff material worn over the chest and stomach in the 16th century
+stomaching	STOMACH: an enlarged and muscular saclike organ of the alimentary canal; the principal organ of digestion
+stomachs	STOMACH: an enlarged and muscular saclike organ of the alimentary canal; the principal organ of digestion
+stomata	STOMA: a small pore in a leaf
+stomatal	relating to or constituting plant stomata
+stomatological	relating to the study of the mouth
+stomatologist	a specialist in diseases of the mouth
+stomatologists	STOMATOLOGIST: a specialist in diseases of the mouth
+stomatology	the study of the mouth and its diseases
+stomp	walk heavily
+stomped	STOMP: walk heavily
+stomper	someone who walks with a heavy noisy gait or who stamps on the ground
+stompers	STOMPER: someone who walks with a heavy noisy gait or who stamps on the ground
+stomping	STOMP: walk heavily
+stomps	STOMP: walk heavily
+stone	a lump or mass of hard consolidated mineral matter
+stonechat	common European chat with black plumage and a reddish-brown breast
+stonechats	STONECHAT: common European chat with black plumage and a reddish-brown breast
+stoned	STONE: a lump or mass of hard consolidated mineral matter
+stonefish	venomous tropical marine fish resembling a piece of rock
+stoneground	ground between millstones
+stonemason	a craftsman who works with stone or brick
+stonemasons	STONEMASON: a craftsman who works with stone or brick
+stoner	STONE: a lump or mass of hard consolidated mineral matter
+stoners	STONER: an attacker who pelts the victim with stones (especially with intent to kill)
+stones	STONE: a lump or mass of hard consolidated mineral matter
+stonewall	engage in delaying tactics or refuse to cooperate
+stonewalled	STONEWALL: engage in delaying tactics or refuse to cooperate
+stonewalling	stalling or delaying especially by refusing to answer questions or cooperate
+stonewalls	STONEWALL: engage in delaying tactics or refuse to cooperate
+stoneware	ceramic ware that is fired in high heat and vitrified and nonporous
+stonewashed	STONEWASH: wash with stones to achieve a worn appearance
+stonework	masonry done with stone
+stoney	STONY: full of stones
+stonier	STONY: abounding in rocks or stones
+stoniest	STONY: abounding in rocks or stones
+stonily	in a stony manner
+stoning	STONE: a lump or mass of hard consolidated mineral matter
+stonker	something outstanding
+stonkers	STONKER: something outstanding
+stonking	very great or excellent
+stony	abounding in rocks or stones
+stood	STAND: be standing; be upright
+stooge	a person of unquestioning obedience
+stooges	STOOGE: a person of unquestioning obedience
+stool	a simple seat without a back or arms
+stools	STOOL: a simple seat without a back or arms
+stoop	an inclination of the top half of the body forward and downward
+stooped	having the back and shoulders rounded; not erect
+stooping	STOOP: an inclination of the top half of the body forward and downward
+stoops	STOOP: an inclination of the top half of the body forward and downward
+stop	come to a halt, stop moving
+stopcock	faucet consisting of a rotating device for regulating flow of a liquid
+stopcocks	STOPCOCK: faucet consisting of a rotating device for regulating flow of a liquid
+stopgap	something contrived to meet an urgent need or emergency
+stopgaps	STOPGAP: something contrived to meet an urgent need or emergency
+stoplight	a visual signal to control the flow of traffic at intersections
+stoplights	STOPLIGHT: a visual signal to control the flow of traffic at intersections
+stopover	a brief stay in the course of a journey
+stopovers	STOPOVER: a brief stay in the course of a journey
+stoppable	capable of being stopped
+stoppage	the act of stopping something
+stoppages	STOPPAGE: the act of stopping something
+stopped	STOP: come to a halt, stop moving
+stopper	STOP: come to a halt, stop moving
+stoppered	(of a container) having a stopper in the opening
+stoppering	STOPPER: blockage consisting of an object designed to fill a hole tightly
+stoppers	STOPPER: blockage consisting of an object designed to fill a hole tightly
+stopping	STOP: come to a halt, stop moving
+stops	STOP: come to a halt, stop moving
+stopwatch	a timepiece that can be started or stopped for exact timing (as of a race)
+stopwatches	STOPWATCH: a timepiece that can be started or stopped for exact timing (as of a race)
+storage	the act of storing something
+store	a mercantile establishment for the retail sale of goods or services
+storecard	a credit card issued by a shop
+storecards	STORECARD: a credit card issued by a shop
+stored	STORE: a mercantile establishment for the retail sale of goods or services
+storefront	the front side of a store facing the street; usually contains display windows
+storefronts	STOREFRONT: the front side of a store facing the street; usually contains display windows
+storehouse	a depository for goods
+storehouses	STOREHOUSE: a depository for goods
+storekeeper	a merchant who owns or manages a shop
+storekeepers	STOREKEEPER: a merchant who owns or manages a shop
+storeroom	a room in which things are stored
+storerooms	STOREROOM: a room in which things are stored
+stores	STORE: a mercantile establishment for the retail sale of goods or services
+storeship	a ship carrying supplies
+storewide	throughout a shop
+storey	a structure consisting of a room or set of rooms at a single position along a vertical scale
+storeyed	having stories as indicated
+storeys	STOREY: a structure consisting of a room or set of rooms at a single position along a vertical scale
+storied	having an illustrious past
+stories	STORY: a message that tells the particulars of an act or occurrence or course of events; presented in writing or drama or cinema or as a radio or television program
+storing	STORE: a mercantile establishment for the retail sale of goods or services
+stork	large mostly Old World wading birds typically having white-and-black plumage
+storks	STORK: large mostly Old World wading birds typically having white-and-black plumage
+storm	a violent weather condition with winds 64-72 knots (11 on the Beaufort scale) and precipitation and thunder and lightning
+stormcloud	a dark cloud bringing a storm
+stormclouds	STORMCLOUD: a dark cloud bringing a storm
+stormed	STORM: a violent weather condition with winds 64-72 knots (11 on the Beaufort scale) and precipitation and thunder and lightning
+stormier	STORMY: (especially of weather) affected or characterized by storms or commotion
+stormiest	STORMY: (especially of weather) affected or characterized by storms or commotion
+stormily	in a stormy or violent manner
+storminess	the state of being stormy
+storming	STORM: a violent weather condition with winds 64-72 knots (11 on the Beaufort scale) and precipitation and thunder and lightning
+storms	STORM: a violent weather condition with winds 64-72 knots (11 on the Beaufort scale) and precipitation and thunder and lightning
+stormtrooper	a member of a violent Nazi militia
+stormtroopers	STORMTROOPER: a member of a violent Nazi militia
+stormy	(especially of weather) affected or characterized by storms or commotion
+story	a message that tells the particulars of an act or occurrence or course of events; presented in writing or drama or cinema or as a radio or television program
+storyboard	a series of sketches planning a film
+storyboarded	STORYBOARD: a series of sketches planning a film
+storyboarding	STORYBOARD: a series of sketches planning a film
+storyboards	STORYBOARD: a series of sketches planning a film
+storybook	a book containing a collection of stories (usually for children)
+storybooks	STORYBOOK: a book containing a collection of stories (usually for children)
+storyline	the plot of a book or play or film
+storylines	STORYLINE: the plot of a book or play or film
+storyteller	someone who tells a story
+storytellers	STORYTELLER: someone who tells a story
+storytelling	the telling of tales
+storytime	a time for reading stories aloud
+stoup	basin for holy water
+stoups	STOUP: basin for holy water
+stout	dependable
+stouter	STOUT: dependable
+stoutest	STOUT: dependable
+stouthearted	used especially of persons
+stoutly	in a resolute manner
+stoutness	the property of excessive fatness
+stouts	STOUT: dependable
+stove	a kitchen appliance used for cooking food
+stovepipe	chimney consisting of a metal pipe of large diameter that is used to connect a stove to a flue
+stovepipes	STOVEPIPE: chimney consisting of a metal pipe of large diameter that is used to connect a stove to a flue
+stoves	STOVE: a kitchen appliance used for cooking food
+stovetop	the cooking surface of a stove
+stovetops	STOVETOP: the cooking surface of a stove
+stow	fill by packing tightly
+stowage	a room in which things are stored
+stowaway	a person who hides aboard a ship or plane in the hope of getting free passage
+stowaways	STOWAWAY: a person who hides aboard a ship or plane in the hope of getting free passage
+stowed	STOW: fill by packing tightly
+stowing	STOW: fill by packing tightly
+stows	STOW: fill by packing tightly
+strabismus	abnormal alignment of one or both eyes
+straddle	sit or stand astride of
+straddled	STRADDLE: sit or stand astride of
+straddles	STRADDLE: sit or stand astride of
+straddling	STRADDLE: sit or stand astride of
+strafe	attack with machine guns or cannon fire from a low-flying plane
+strafed	STRAFE: attack with machine guns or cannon fire from a low-flying plane
+strafes	STRAFE: attack with machine guns or cannon fire from a low-flying plane
+strafing	STRAFE: attack with machine guns or cannon fire from a low-flying plane
+straggle	wander from a direct or straight course
+straggled	STRAGGLE: wander from a direct or straight course
+straggler	someone who strays or falls behind
+stragglers	STRAGGLER: someone who strays or falls behind
+straggles	STRAGGLE: wander from a direct or straight course
+stragglier	STRAGGLY: growing or spreading sparsely or irregularly
+straggliest	STRAGGLY: growing or spreading sparsely or irregularly
+straggling	spreading out in different directions or distributed irregularly
+straggly	growing or spreading sparsely or irregularly
+straight	successive (without a break)
+straightaway	a straight segment of a roadway or racecourse
+straightaways	STRAIGHTAWAY: a straight segment of a roadway or racecourse
+straightedge	hand tool consisting of a flat rigid rectangular bar (metal or wood) that can be used to draw straight lines (or test their straightness)
+straightedges	STRAIGHTEDGE: hand tool consisting of a flat rigid rectangular bar (metal or wood) that can be used to draw straight lines (or test their straightness)
+straighten	straighten up or out; make straight
+straightened	STRAIGHTEN: straighten up or out; make straight
+straightener	a device for straightening
+straighteners	STRAIGHTENER: a device for straightening
+straightening	STRAIGHTEN: straighten up or out; make straight
+straightens	STRAIGHTEN: straighten up or out; make straight
+straighter	STRAIGHT: successive (without a break)
+straightest	STRAIGHT: successive (without a break)
+straightforward	free from ambiguity
+straightforwardly	with firmness and conviction; without compromise
+straightforwardness	the quality of being direct and straightforward
+straightjacket	a garment similar to a jacket that is used to bind the arms tightly against the body as a means of restraining a violent person
+straightjacketed	STRAIGHTJACKET: restrained in a jacket that binds the arms
+straightjacketing	STRAIGHTJACKET: restraining in a jacket that binds the arms
+straightjackets	STRAIGHTJACKET: a garment similar to a jacket that is used to bind the arms tightly against the body as a means of restraining a violent person
+straightness	freedom from crooks or curves or bends or angles
+straights	STRAIGHT: successive (without a break)
+straightway	at once
+strain	deformation of a physical body under the action of applied forces
+strained	lacking natural ease
+strainer	a filter to retain larger pieces while smaller pieces and liquids pass through
+strainers	STRAINER: a filter to retain larger pieces while smaller pieces and liquids pass through
+straining	an intense or violent exertion
+strains	STRAIN: deformation of a physical body under the action of applied forces
+strait	a narrow channel of the sea joining two larger bodies of water
+straiten	bring into difficulties or distress, especially financial hardship
+straitened	STRAITEN: bring into difficulties or distress, especially financial hardship
+straitening	STRAITEN: bring into difficulties or distress, especially financial hardship
+straitens	STRAITEN: bring into difficulties or distress, especially financial hardship
+straitjacket	a garment similar to a jacket that is used to bind the arms tightly against the body as a means of restraining a violent person
+straitjacketed	STRAITJACKET: restrained in a jacket that binds the arms
+straitjacketing	STRAITJACKET: restraining in a jacket that binds the arms
+straitjackets	STRAITJACKET: a garment similar to a jacket that is used to bind the arms tightly against the body as a means of restraining a violent person
+straitlaced	exaggeratedly proper
+straits	STRAIT: a narrow channel of the sea joining two larger bodies of water
+strand	a pattern forming a unity within a larger structural whole
+stranded	cut off or left behind
+stranding	STRAND: a pattern forming a unity within a larger structural whole
+strands	STRAND: a pattern forming a unity within a larger structural whole
+strange	being definitely out of the ordinary and unexpected; slightly odd or even a bit weird
+strangely	in a strange manner
+strangeness	unusualness as a consequence of not being well known
+stranger	anyone who does not belong in the environment in which they are found
+strangers	STRANGER: anyone who does not belong in the environment in which they are found
+strangest	STRANGE: being definitely out of the ordinary and unexpected; slightly odd or even a bit weird
+strangle	kill by squeezing the throat of so as to cut off the air
+strangled	held in check with difficulty
+stranglehold	complete power over a person or situation
+strangleholds	STRANGLEHOLD: complete power over a person or situation
+strangler	someone who kills by strangling
+stranglers	STRANGLER: someone who kills by strangling
+strangles	STRANGLE: kill by squeezing the throat of so as to cut off the air
+strangling	STRANGLE: kill by squeezing the throat of so as to cut off the air
+stranglingly	in a strangling way
+strangulate	kill by squeezing the throat of so as to cut off the air
+strangulated	STRANGULATE: kill by squeezing the throat of so as to cut off the air
+strangulates	STRANGULATE: kill by squeezing the throat of so as to cut off the air
+strangulating	STRANGULATE: kill by squeezing the throat of so as to cut off the air
+strangulation	the act of suffocating (someone) by constricting the windpipe
+strap	an elongated leather strip (or a strip of similar material) for binding things together or holding something in position
+strapless	having no straps
+straplesses	STRAPLESS: having no straps
+strapped	STRAP: an elongated leather strip (or a strip of similar material) for binding things together or holding something in position
+strapping	STRAP: an elongated leather strip (or a strip of similar material) for binding things together or holding something in position
+strappy	having straps
+straps	STRAP: an elongated leather strip (or a strip of similar material) for binding things together or holding something in position
+strata	STRATUM: a layer of rock or society
+stratagem	a maneuver in a game or conversation
+stratagems	STRATAGEM: a maneuver in a game or conversation
+strategic	relating to or concerned with strategy
+strategical	relating to or concerned with strategy
+strategically	with regard to strategy
+strategies	STRATEGY: an elaborate and systematic plan of action
+strategist	an expert in strategy (especially in warfare)
+strategists	STRATEGIST: an expert in strategy (especially in warfare)
+strategy	an elaborate and systematic plan of action
+stratification	the act or process or arranging persons into classes or social strata
+stratifications	STRATIFICATION: the act or process or arranging persons into classes or social strata
+stratified	arranged in a sequence of grades or ranks
+stratifies	STRATIFY: divide society into social classes or castes
+stratify	divide society into social classes or castes
+stratifying	STRATIFY: divide society into social classes or castes
+stratigraphic	relating to the order of rock layers
+stratigraphy	the branch of geology that studies the arrangement and succession of strata
+stratosphere	the atmospheric layer between the troposphere and the mesosphere
+stratospheres	STRATOSPHERE: the atmospheric layer between the troposphere and the mesosphere
+stratospheric	relating to the upper atmosphere or extremely high
+stratum	one of several parallel layers of material arranged one on top of another (such as a layer of tissue or cells in an organism or a layer of sedimentary rock)
+stratums	STRATUM: one of several parallel layers of material arranged one on top of another (such as a layer of tissue or cells in an organism or a layer of sedimentary rock)
+stratus	a large dark low cloud
+straw	plant fiber used e.g. for making baskets and hats or as fodder
+strawberries	STRAWBERRY: sweet fleshy red fruit
+strawberry	sweet fleshy red fruit
+strawed	STRAW: plant fiber used e.g. for making baskets and hats or as fodder
+strawing	STRAW: plant fiber used e.g. for making baskets and hats or as fodder
+straws	STRAW: plant fiber used e.g. for making baskets and hats or as fodder
+stray	move about aimlessly or without any destination, often in search of food or employment
+strayed	STRAY: move about aimlessly or without any destination, often in search of food or employment
+strayer	STRAY: move about aimlessly or without any destination, often in search of food or employment
+strayers	STRAYER: someone who strays or falls behind
+straying	STRAY: move about aimlessly or without any destination, often in search of food or employment
+strays	STRAY: move about aimlessly or without any destination, often in search of food or employment
+streak	an unbroken series of events
+streaked	marked with or as if with stripes or linear discolorations
+streaker	someone who takes off all their clothes and runs naked through a public place
+streakers	STREAKER: someone who takes off all their clothes and runs naked through a public place
+streakier	STREAKY: marked with or as if with stripes or linear discolorations
+streakiest	STREAKY: marked with or as if with stripes or linear discolorations
+streakily	in a way marked with streaks
+streakiness	the quality of being streaky
+streaking	STREAK: an unbroken series of events
+streaks	STREAK: an unbroken series of events
+streaky	marked with or as if with stripes or linear discolorations
+stream	a natural body of running water flowing on or under the earth
+streamed	STREAM: a natural body of running water flowing on or under the earth
+streamer	long strip of cloth or paper used for decoration or advertising
+streamers	STREAMER: long strip of cloth or paper used for decoration or advertising
+streaming	exuding a bodily fluid in profuse amounts
+streamlet	a small stream
+streamlets	STREAMLET: a small stream
+streamline	contour economically or efficiently
+streamlined	made efficient by stripping off nonessentials
+streamlines	STREAMLINE: contour economically or efficiently
+streamlining	STREAMLINE: contour economically or efficiently
+streams	STREAM: a natural body of running water flowing on or under the earth
+street	a thoroughfare (usually including sidewalks) that is lined with buildings
+streetcar	a wheeled vehicle that runs on rails and is propelled by electricity
+streetcars	STREETCAR: a wheeled vehicle that runs on rails and is propelled by electricity
+streetlamp	a light on a street
+streetlamps	STREETLAMP: a light on a street
+streetlight	a lamp supported on a lamppost; for illuminating a street
+streetlights	STREETLIGHT: a lamp supported on a lamppost; for illuminating a street
+streets	STREET: a thoroughfare (usually including sidewalks) that is lined with buildings
+streetwalker	a prostitute who attracts customers by walking the streets
+streetwalkers	STREETWALKER: a prostitute who attracts customers by walking the streets
+streetwise	having the shrewd resourcefulness needed to survive in an urban environment
+strength	the property of being physically or mentally strong
+strengthen	make strong or stronger
+strengthened	STRENGTHEN: make strong or stronger
+strengthener	a device designed to provide additional strength
+strengtheners	STRENGTHENER: a device designed to provide additional strength
+strengthening	STRENGTHEN: make strong or stronger
+strengthens	STRENGTHEN: make strong or stronger
+strengths	STRENGTH: the property of being physically or mentally strong
+strenuous	characterized by or performed with much energy or force
+strenuously	in a strenuous manner; strongly or vigorously
+strenuousness	extreme effortfulness
+strep	spherical Gram-positive bacteria occurring in pairs or chains; cause e.g. scarlet fever and tonsillitis
+streps	STREP: spherical Gram-positive bacteria occurring in pairs or chains; cause e.g. scarlet fever and tonsillitis
+streptococcal	of or relating to or caused by streptococci
+streptococci	spherical Gram-positive bacteria occurring in pairs or chains; cause e.g. scarlet fever and tonsillitis
+streptococcus	spherical Gram-positive bacteria occurring in pairs or chains; cause e.g. scarlet fever and tonsillitis
+streptomycin	an antibiotic produced by the actinomycete Streptomyces griseus and used to treat tuberculosis
+stress	the relative prominence of a syllable or musical note (especially with regard to stress or pitch)
+stressed	suffering severe physical strain or distress
+stresses	STRESS: the relative prominence of a syllable or musical note (especially with regard to stress or pitch)
+stressful	extremely irritating to the nerves
+stressing	STRESS: the relative prominence of a syllable or musical note (especially with regard to stress or pitch)
+stressor	any agent that causes stress to an organism
+stressors	STRESSOR: any agent that causes stress to an organism
+stretch	occupy a large, elongated area
+stretchable	capable of being easily stretched and resuming former size or shape
+stretched	(of muscles) relieved of stiffness by stretching
+stretcher	STRETCH: occupy a large, elongated area
+stretchered	STRETCHER: carried on a stretcher
+stretchering	STRETCHER: carrying on a stretcher
+stretchers	STRETCHER: a litter for transporting people who are ill or wounded or dead; usually consists of a sheet of canvas stretched between two poles
+stretches	STRETCH: occupy a large, elongated area
+stretchier	STRETCHY: capable of being easily stretched and resuming former size or shape
+stretchiest	STRETCHY: capable of being easily stretched and resuming former size or shape
+stretching	act of expanding by lengthening or widening
+stretchmarks	STRETCHMARK: a streak on the skin from stretching
+stretchy	capable of being easily stretched and resuming former size or shape
+streusel	a crumbly topping for a pastry
+streusels	STREUSEL: a crumbly topping for a pastry
+strew	spread by scattering (
+strewed	STREW: spread by scattering (
+strewer	a person who scatters things
+strewers	STREWER: a person who scatters things
+strewing	STREW: spread by scattering (
+strewn	STREW: scatter
+strews	STREW: spread by scattering (
+strewth	an exclamation of surprise
+striae	STRIA: a narrow groove or streak
+striated	STRIATE: marked with stria or striations
+striation	any of a number of tiny parallel grooves such as: the scratches left by a glacier on rocks or the streaks or ridges in muscle tissue
+striations	STRIATION: any of a number of tiny parallel grooves such as: the scratches left by a glacier on rocks or the streaks or ridges in muscle tissue
+stricken	grievously affected especially by disease
+strict	rigidly accurate; allowing no deviation from a standard
+stricter	STRICT: rigidly accurate; allowing no deviation from a standard
+strictest	STRICT: rigidly accurate; allowing no deviation from a standard
+strictly	restricted to something
+strictness	conscientious attention to rules and details
+stricture	severe criticism
+strictures	STRICTURE: severe criticism
+stridden	STRIDE: walk with long steps
+stride	a step in walking or running
+stridency	having the timbre of a loud high-pitched sound
+strident	unpleasantly loud and harsh
+stridently	in a strident manner
+strider	a person who walks rapidly with long steps
+strides	STRIDE: a step in walking or running
+striding	STRIDE: a step in walking or running
+strife	lack of agreement or harmony
+strigoi	a vampire in Romanian folklore
+strike	deliver a sharp blow, as with the hand, fist, or weapon
+strikebreaker	someone who works (or provides workers) during a strike
+strikebreakers	STRIKEBREAKER: someone who works (or provides workers) during a strike
+strikebreaking	confrontational activities intended to break up a strike by workers
+strikeout	an out resulting from the batter getting three strikes
+strikeouts	STRIKEOUT: an out resulting from the batter getting three strikes
+striker	a forward on a soccer team
+strikers	STRIKER: a forward on a soccer team
+strikes	STRIKE: deliver a sharp blow, as with the hand, fist, or weapon
+striking	sensational in appearance or thrilling in effect
+strikingly	in a striking manner
+strikings	STRIKING: sensational in appearance or thrilling in effect
+strine	Australian English
+string	a lightweight cord
+stringed	STRING: a lightweight cord
+stringency	conscientious attention to rules and details
+stringent	demanding strict attention to rules and procedures
+stringently	in a stringent manner
+stringer	a worker who strings
+stringers	STRINGER: a worker who strings
+stringier	STRINGY: lean and sinewy
+stringiest	STRINGY: lean and sinewy
+stringing	STRING: a lightweight cord
+strings	STRING: a lightweight cord
+stringy	lean and sinewy
+strip	take away possessions from someone
+stripe	an adornment consisting of a strip of a contrasting color or material
+striped	marked or decorated with stripes
+striper	marine food and game fish with dark longitudinal stripes; migrates upriver to spawn; sometimes placed in the genus Morone
+stripers	STRIPER: marine food and game fish with dark longitudinal stripes; migrates upriver to spawn; sometimes placed in the genus Morone
+stripes	STRIP: take away possessions from someone
+stripey	striped
+stripier	STRIPY: marked or decorated with stripes
+stripiest	STRIPY: marked or decorated with stripes
+striping	STRIP: take away possessions from someone
+stripling	a juvenile between the onset of puberty and maturity
+striplings	STRIPLING: a juvenile between the onset of puberty and maturity
+stripped	STRIP: take away possessions from someone
+stripper	STRIP: take away possessions from someone
+strippers	STRIPPER: a performer who provides erotic entertainment by undressing to music
+stripping	STRIP: take away possessions from someone
+strips	STRIP: take away possessions from someone
+stript	STRIP: removed the covering from
+striptease	a form of erotic entertainment in which a dancer gradually undresses to music
+stripteased	STRIPTEASE: take off clothes in an erotic show
+stripteases	STRIPTEASE: a form of erotic entertainment in which a dancer gradually undresses to music
+stripteasing	STRIPTEASE: taking off clothes in an erotic show
+stripy	marked or decorated with stripes
+strive	attempt by employing effort
+strived	STRIVE: attempt by employing effort
+striven	STRIVE: try hard
+strives	STRIVE: attempt by employing effort
+striving	an effortful attempt to attain a goal
+strobe	scientific instrument that provides a flashing light synchronized with the periodic movement of an object; can make moving object appear stationary
+strobes	STROBE: scientific instrument that provides a flashing light synchronized with the periodic movement of an object; can make moving object appear stationary
+strode	STRIDE: a step in walking or running
+stroke	the act of swinging or striking at a ball with a club or racket or bat or cue or hand
+stroked	STROKE: the act of swinging or striking at a ball with a club or racket or bat or cue or hand
+strokes	STROKE: the act of swinging or striking at a ball with a club or racket or bat or cue or hand
+stroking	STROKE: the act of swinging or striking at a ball with a club or racket or bat or cue or hand
+stroll	a leisurely walk (usually in some public place)
+strolled	STROLL: a leisurely walk (usually in some public place)
+stroller	a small vehicle with four wheels in which a baby or child is pushed around
+strollers	STROLLER: a small vehicle with four wheels in which a baby or child is pushed around
+strolling	STROLL: a leisurely walk (usually in some public place)
+strolls	STROLL: a leisurely walk (usually in some public place)
+strong	having strength or power greater than average or expected
+strongbox	a strongly made box for holding money or valuables; can be locked
+strongboxes	STRONGBOX: a strongly made box for holding money or valuables; can be locked
+stronger	STRONG: having strength or power greater than average or expected
+strongest	STRONG: having strength or power greater than average or expected
+stronghold	a strongly fortified defensive structure
+strongholds	STRONGHOLD: a strongly fortified defensive structure
+strongly	with strength or in a strong manner
+strongman	a man who performs feats of strength at a fair or circus
+strongmen	STRONGMAN: a man who performs feats of strength at a fair or circus
+strongroom	a burglarproof and fireproof room in which valuables are kept
+strongrooms	STRONGROOM: a burglarproof and fireproof room in which valuables are kept
+strontium	a soft silver-white or yellowish metallic element of the alkali metal group; turns yellow in air; occurs in celestite and strontianite
+strop	sharpen on a strop
+strophe	one section of a lyric poem or choral ode in classical Greek drama
+strophes	STROPHE: one section of a lyric poem or choral ode in classical Greek drama
+stropped	STROP: sharpen on a strop
+stropper	STROP: sharpen on a strop
+stroppers	STROPPER: a bad-tempered person
+stroppier	STROPPY: obstreperous
+stroppiest	STROPPY: obstreperous
+stroppily	in a bad-tempered way
+stroppiness	the quality of being stroppy
+stropping	STROP: sharpen on a strop
+stroppy	obstreperous
+strops	STROP: sharpen on a strop
+strove	STRIVE: attempt by employing effort
+struck	STRIKE: deliver a sharp blow, as with the hand, fist, or weapon
+structural	relating to or caused by structure, especially political or economic structure
+structuralism	an anthropological theory that there are unobservable social structures that generate observable social phenomena
+structuralist	a person who studies underlying structures
+structuralists	STRUCTURALIST: a person who studies underlying structures
+structurally	with respect to structure
+structure	a thing constructed; a complex entity constructed of many parts
+structured	having definite and highly organized structure
+structures	STRUCTURE: a thing constructed; a complex entity constructed of many parts
+structuring	STRUCTURE: a thing constructed; a complex entity constructed of many parts
+strudel	thin sheet of filled dough rolled and baked
+strudels	STRUDEL: thin sheet of filled dough rolled and baked
+struggle	make a strenuous or labored effort
+struggled	STRUGGLE: make a strenuous or labored effort
+struggles	STRUGGLE: make a strenuous or labored effort
+struggling	engaged in a struggle to overcome especially poverty or obscurity
+strum	sound the strings of (a stringed instrument)
+strummed	STRUM: sound the strings of (a stringed instrument)
+strumming	STRUM: sound the strings of (a stringed instrument)
+strumpet	a woman adulterer
+strumpets	STRUMPET: a woman adulterer
+strums	STRUM: sound the strings of (a stringed instrument)
+strung	that is on a string
+strut	a proud stiff pompous gait
+struts	STRUT: a proud stiff pompous gait
+strutted	STRUT: a proud stiff pompous gait
+strutter	STRUT: a proud stiff pompous gait
+strutters	STRUTTER: a person who walks proudly
+strutting	STRUT: a proud stiff pompous gait
+strychnine	an alkaloid plant toxin extracted chiefly from nux vomica; formerly used as a stimulant
+stub	a short piece remaining on a trunk or stem where a branch is lost
+stubbed	STUB: a short piece remaining on a trunk or stem where a branch is lost
+stubbier	STUBBY: short and blunt
+stubbiest	STUBBY: short and blunt
+stubbing	STUB: a short piece remaining on a trunk or stem where a branch is lost
+stubble	short stiff hairs growing on a man's face when he has not shaved for a few days
+stubbly	having a short growth of beard
+stubborn	tenaciously unwilling or marked by tenacious unwillingness to yield
+stubborner	STUBBORN: tenaciously unwilling or marked by tenacious unwillingness to yield
+stubbornest	STUBBORN: tenaciously unwilling or marked by tenacious unwillingness to yield
+stubbornly	in a stubborn unregenerate manner
+stubbornness	the trait of being difficult to handle or overcome
+stubby	short and blunt
+stubs	STUB: a short piece remaining on a trunk or stem where a branch is lost
+stucco	a plaster now made mostly from Portland cement and sand and lime; applied while soft to cover exterior walls or surfaces
+stuccoed	STUCCO: a plaster now made mostly from Portland cement and sand and lime; applied while soft to cover exterior walls or surfaces
+stuccoes	STUCCO: a plaster now made mostly from Portland cement and sand and lime; applied while soft to cover exterior walls or surfaces
+stuccoing	STUCCO: a plaster now made mostly from Portland cement and sand and lime; applied while soft to cover exterior walls or surfaces
+stuccos	STUCCO: a plaster now made mostly from Portland cement and sand and lime; applied while soft to cover exterior walls or surfaces
+stuck	STICK: an implement consisting of a length of wood
+stud	scatter or intersperse like dots or studs
+studded	dotted or adorned with or as with studs or nailheads; usually used in combination
+studding	STUD: scatter or intersperse like dots or studs
+student	a learner who is enrolled in an educational institution
+students	STUDENT: a learner who is enrolled in an educational institution
+studentship	the position of student
+studentships	STUDENTSHIP: the position of student
+studied	STUDY: a detailed critical inspection
+studies	STUDY: a detailed critical inspection
+studio	workplace for the teaching or practice of an art
+studios	STUDIO: workplace for the teaching or practice of an art
+studious	marked by care and effort
+studiously	in a studious manner
+studlier	STUDLY: more muscular and masculine
+studliest	STUDLY: most muscular and masculine
+studly	in a stud way
+studs	STUD: scatter or intersperse like dots or studs
+study	a detailed critical inspection
+studying	STUDY: a detailed critical inspection
+stuff	the tangible substance that goes into the makeup of a physical object
+stuffed	filled with something
+stuffer	a craftsman who stuffs and mounts the skins of animals for display
+stuffers	STUFFER: a craftsman who stuffs and mounts the skins of animals for display
+stuffier	STUFFY: lacking fresh air
+stuffiest	STUFFY: lacking fresh air
+stuffily	in a stuffy manner
+stuffiness	the quality of being close and poorly ventilated
+stuffing	STUFF: the tangible substance that goes into the makeup of a physical object
+stuffings	STUFFING: a mixture of seasoned ingredients used to stuff meats and vegetables
+stuffs	STUFF: the tangible substance that goes into the makeup of a physical object
+stuffy	lacking fresh air
+stultification	the act of making something futile and useless (as by routine)
+stultified	STULTIFY: make dull or useless
+stultifies	STULTIFY: deprive of strength or efficiency; make useless or worthless
+stultify	deprive of strength or efficiency; make useless or worthless
+stultifying	STULTIFY: deprive of strength or efficiency; make useless or worthless
+stultifyingly	in a stultifying way
+stumble	walk unsteadily
+stumbled	STUMBLE: walk unsteadily
+stumbler	a walker or runner who trips and almost falls
+stumblers	STUMBLER: a walker or runner who trips and almost falls
+stumbles	STUMBLE: walk unsteadily
+stumbling	STUMBLE: walk unsteadily
+stump	the base part of a tree that remains standing after the tree has been felled
+stumped	STUMP: the base part of a tree that remains standing after the tree has been felled
+stumper	a particularly difficult or baffling question or problem
+stumpers	STUMPER: a particularly difficult or baffling question or problem
+stumpier	STUMPY: short and thick; as e.g. having short legs and heavy musculature
+stumpiest	STUMPY: short and thick; as e.g. having short legs and heavy musculature
+stumping	campaigning for something by making political speeches (stump speeches)
+stumps	STUMP: the base part of a tree that remains standing after the tree has been felled
+stumpy	short and thick; as e.g. having short legs and heavy musculature
+stun	make senseless or dizzy by or as if by a blow
+stung	aroused to impatience or anger
+stunk	STINK: be extremely bad in quality or in one's performance
+stunned	filled with the emotional impact of overwhelming surprise or shock
+stunner	STUN: make senseless or dizzy by or as if by a blow
+stunners	STUNNER: a very attractive or seductive looking woman
+stunning	commanding attention
+stunningly	in a spectacular manner
+stuns	STUN: make senseless or dizzy by or as if by a blow
+stunt	a difficult or unusual or dangerous feat; usually done to gain attention
+stunted	STUNT: a difficult or unusual or dangerous feat; usually done to gain attention
+stunting	STUNT: a difficult or unusual or dangerous feat; usually done to gain attention
+stuntman	a man who performs dangerous acts in films
+stuntmen	STUNTMAN: a man who performs dangerous acts in films
+stunts	STUNT: a difficult or unusual or dangerous feat; usually done to gain attention
+stuntwoman	a woman who performs dangerous acts in films
+stuntwomen	STUNTWOMAN: a woman who performs dangerous acts in films
+stupefaction	a feeling of stupefied astonishment
+stupefied	in a state of mental numbness especially as resulting from shock
+stupefies	STUPEFY: make dull or stupid or muddle with drunkenness or infatuation
+stupefy	make dull or stupid or muddle with drunkenness or infatuation
+stupefying	so surprisingly impressive as to stun or overwhelm
+stupefyingly	in a stupefying way
+stupendous	so great in size or force or extent as to elicit awe
+stupendously	to a stupendous degree
+stupid	lacking or marked by lack of intellectual acuity
+stupider	STUPID: lacking or marked by lack of intellectual acuity
+stupidest	STUPID: lacking or marked by lack of intellectual acuity
+stupidities	STUPIDITY: a poor ability to understand or to profit from experience
+stupidity	a poor ability to understand or to profit from experience
+stupidly	in a stupid manner
+stupids	STUPID: lacking or marked by lack of intellectual acuity
+stupor	the feeling of distress and disbelief that you have when something bad happens accidentally
+stupors	STUPOR: the feeling of distress and disbelief that you have when something bad happens accidentally
+sturdier	STURDY: having rugged physical strength; inured to fatigue or hardships
+sturdiest	STURDY: having rugged physical strength; inured to fatigue or hardships
+sturdily	in a sturdy manner
+sturdiness	the property of something that is strongly built
+sturdy	having rugged physical strength; inured to fatigue or hardships
+sturgeon	large primitive fishes valued for their flesh and roe; widely distributed in the North Temperate Zone
+sturgeons	STURGEON: large primitive fishes valued for their flesh and roe; widely distributed in the North Temperate Zone
+stutter	speak haltingly
+stuttered	STUTTER: speak haltingly
+stutterer	someone who speaks with involuntary pauses and repetitions
+stutterers	STUTTERER: someone who speaks with involuntary pauses and repetitions
+stuttering	STUTTER: speak haltingly
+stutters	STUTTER: speak haltingly
+sty	a pen for swine
+stye	an infection of the sebaceous gland of the eyelid
+styes	STYE: an infection of the sebaceous gland of the eyelid
+stygian	dark and dismal as of the rivers Acheron and Styx in Hades
+style	how something is done or how it happens
+styled	STYLE: how something is done or how it happens
+styles	STYLE: how something is done or how it happens
+styli	STYLUS: a pointed instrument for writing or playing records
+styling	STYLE: how something is done or how it happens
+stylise	represent according to a conventional style
+stylised	using artistic forms and conventions to create effects; not natural or spontaneous
+stylises	STYLISE: represent according to a conventional style
+stylish	having elegance or taste or refinement in manners or dress
+stylishly	in a stylish manner
+stylishness	elegance by virtue of being fashionable
+stylising	STYLISE: represent according to a conventional style
+stylist	an artist who is a master of a particular style
+stylistic	of or relating to style (especially in the use of language)
+stylistically	in a rhetorically stylistic manner
+stylistics	the study of style in language
+stylists	STYLIST: an artist who is a master of a particular style
+stylize	represent according to a conventional style
+stylized	using artistic forms and conventions to create effects; not natural or spontaneous
+stylizes	STYLIZE: represent according to a conventional style
+stylizing	STYLIZE: represent according to a conventional style
+stylus	a pointed tool for writing or drawing or engraving
+styluses	STYLUS: a pointed tool for writing or drawing or engraving
+stymie	hinder or prevent the progress or accomplishment of
+stymied	STYMY: hinder or prevent the progress or accomplishment of
+stymieing	STYMIE: hinder or prevent the progress or accomplishment of
+stymies	STYMIE: hinder or prevent the progress or accomplishment of
+stymying	STYMY: hinder or prevent the progress or accomplishment of
+styptic	tending to check bleeding by contracting the tissues or blood vessels
+styptics	STYPTIC: tending to check bleeding by contracting the tissues or blood vessels
+styrene	a colorless oily liquid; the monomer for polystyrene

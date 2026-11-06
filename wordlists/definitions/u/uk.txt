@@ -1,0 +1,4 @@
+ukelele	a small four-stringed guitar
+ukeleles	UKELELE: a small four-stringed guitar
+ukulele	a small guitar having four strings
+ukuleles	UKULELE: a small guitar having four strings

@@ -70,15 +70,19 @@ for (const file of Object.values(LIST_FILES)) {
     .filter(w => w && (lexicon.has(name) ? /^[A-Z]+$/.test(w) && !excludedSet.has(w) : playable.has(w))).join('\n');
 }
 
-// The definitions the results show (tools/build-definitions.mjs), a file a
-// letter, keyed by the letter, cut to the words the dictionary holds.
+// The definitions the results show (tools/build-definitions.mjs), a file per
+// first two letters in a folder per letter, keyed by the two letters, cut to
+// the words the dictionary holds.
 const defs = {};
 const defDir = path.join(root, 'wordlists/definitions');
-for (const f of fs.existsSync(defDir) ? fs.readdirSync(defDir) : []) {
-  const m = f.match(/^([a-z])\.txt$/);
-  if (!m) continue;
-  defs[m[1]] = fs.readFileSync(path.join(defDir, f), 'utf8').split('\n')
-    .filter(l => playable.has(l.slice(0, l.indexOf('\t')).toUpperCase())).join('\n');
+for (const d of fs.existsSync(defDir) ? fs.readdirSync(defDir) : []) {
+  if (!/^[a-z]$/.test(d)) continue;
+  for (const f of fs.readdirSync(path.join(defDir, d))) {
+    const m = f.match(/^([a-z]{1,2})\.txt$/);
+    if (!m) continue;
+    defs[m[1]] = fs.readFileSync(path.join(defDir, d, f), 'utf8').split('\n')
+      .filter(l => playable.has(l.slice(0, l.indexOf('\t')).toUpperCase())).join('\n');
+  }
 }
 
 let html = fs.readFileSync(path.join(root, 'daily/index.html'), 'utf8');

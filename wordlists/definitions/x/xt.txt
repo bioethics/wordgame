@@ -1,0 +1,1 @@
+xterm	a terminal window program in a graphical interface

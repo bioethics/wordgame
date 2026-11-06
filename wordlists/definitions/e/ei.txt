@@ -1,0 +1,28 @@
+eider	duck of the northern hemisphere much valued for the fine soft down of the females
+eiderdown	a soft quilt usually filled with the down of the eider
+eiderdowns	EIDERDOWN: a soft quilt usually filled with the down of the eider
+eiders	EIDER: duck of the northern hemisphere much valued for the fine soft down of the females
+eidolon	a ghostly image or phantom
+eidolons	EIDOLON: a ghostly image or phantom
+eigenvalue	any number such that a given square matrix minus that number times the identity matrix has a zero determinant
+eigenvalues	EIGENVALUE: any number such that a given square matrix minus that number times the identity matrix has a zero determinant
+eigenvector	a vector that is only scaled when a given linear transformation is applied
+eigenvectors	EIGENVECTOR: a vector that is only scaled when a given linear transformation is applied
+eight	being one more than seven
+eighteen	being one more than seventeen
+eighteens	EIGHTEEN: being one more than seventeen
+eighteenth	coming next after the seventeenth in position
+eighteenths	EIGHTEENTH: coming next after the seventeenth in position
+eightfold	having eight units or components
+eighth	coming next after the seventh and just before the ninth in position
+eighths	EIGHTH: coming next after the seventh and just before the ninth in position
+eighties	EIGHTY: being ten more than seventy
+eightieth	the ordinal number of eighty in counting order
+eightieths	EIGHTIETH: the ordinal number of eighty in counting order
+eights	EIGHT: being one more than seven
+eighty	being ten more than seventy
+einstein	someone who has exceptional intellectual ability and originality
+einsteins	EINSTEIN: someone who has exceptional intellectual ability and originality
+eisteddfod	any of several annual Welsh festivals involving artistic competitions (especially in singing)
+eisteddfods	EISTEDDFOD: any of several annual Welsh festivals involving artistic competitions (especially in singing)
+either	after a negative statement used as an intensive meaning something like `likewise' or `also'

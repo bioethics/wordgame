@@ -1,0 +1,4 @@
+aorta	the large trunk artery that carries blood from the left ventricle of the heart to branch arteries
+aortae	AORTA: the main artery carrying blood from the heart
+aortas	AORTA: the large trunk artery that carries blood from the left ventricle of the heart to branch arteries
+aortic	of or relating to the aorta

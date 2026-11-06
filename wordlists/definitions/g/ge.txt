@@ -1,0 +1,322 @@
+gear	a toothed wheel that engages another toothed mechanism in order to change the speed or direction of transmitted motion
+gearbox	the shell (metal casing) in which a train of gears is sealed
+gearboxes	GEARBOX: the shell (metal casing) in which a train of gears is sealed
+geared	GEAR: a toothed wheel that engages another toothed mechanism in order to change the speed or direction of transmitted motion
+gearing	GEAR: a toothed wheel that engages another toothed mechanism in order to change the speed or direction of transmitted motion
+gears	GEAR: a toothed wheel that engages another toothed mechanism in order to change the speed or direction of transmitted motion
+gearshift	a mechanical device for engaging and disengaging gears
+gearshifts	GEARSHIFT: a mechanical device for engaging and disengaging gears
+gearstick	a mechanical device for engaging and disengaging gears
+gearsticks	GEARSTICK: a mechanical device for engaging and disengaging gears
+gearwheel	a toothed wheel
+gearwheels	GEARWHEEL: a toothed wheel
+gecko	any of various small chiefly tropical and usually nocturnal insectivorous terrestrial lizards typically with immovable eyelids; completely harmless
+geckoes	GECKO: a small climbing lizard
+geckos	GECKO: any of various small chiefly tropical and usually nocturnal insectivorous terrestrial lizards typically with immovable eyelids; completely harmless
+geddit	do you understand
+gee	a unit of force equal to the force exerted by gravity; used to indicate the force to which a body is subjected when it is accelerated
+geed	GEE: a unit of force equal to the force exerted by gravity; used to indicate the force to which a body is subjected when it is accelerated
+geegaw	a showy trinket
+geegaws	GEEGAW: a showy trinket
+geeing	GEE: a unit of force equal to the force exerted by gravity; used to indicate the force to which a body is subjected when it is accelerated
+geek	a person with an unusual or odd personality
+geekier	GEEKY: socially awkward and obsessively keen on technical things
+geekiest	GEEKY: socially awkward and obsessively keen on technical things
+geeks	GEEK: a person with an unusual or odd personality
+geeky	socially awkward and obsessively keen on technical things
+gees	GEE: a unit of force equal to the force exerted by gravity; used to indicate the force to which a body is subjected when it is accelerated
+geese	GOOSE: web-footed long-necked typically gregarious migratory aquatic birds usually larger and less aquatic than ducks
+geez	an exclamation of surprise
+geezer	GEEZ: an exclamation of surprise
+geezers	GEEZER: a man who is (usually) old and/or eccentric
+geisha	a Japanese woman trained to entertain men with conversation and singing and dancing
+geishas	GEISHA: a Japanese woman trained to entertain men with conversation and singing and dancing
+gel	jellylike substance used in hair styling
+gelatin	a colorless water-soluble glutinous protein obtained from animal tissues such as bone and skin
+gelatine	a colorless water-soluble glutinous protein obtained from animal tissues such as bone and skin
+gelatinous	thick like gelatin
+gelatinously	in a gelatinous way
+gelatinousness	the property of having a viscosity like jelly
+gelato	Italian ice cream
+gelatos	GELATO: Italian ice cream
+geld	cut off the testicles (of male animals such as horses)
+gelded	(of a male animal) having the testicles removed
+gelder	one who castrates animals
+gelders	GELDER: one who castrates animals
+gelding	castrated male horse
+geldings	GELDING: castrated male horse
+gelds	GELD: cut off the testicles (of male animals such as horses)
+gelid	extremely cold
+gelignite	a type of dynamite in which the nitroglycerin is absorbed in a base of wood pulp and sodium or potassium nitrate
+gelled	GEL: jellylike substance used in hair styling
+gelling	GEL: jellylike substance used in hair styling
+gels	GEL: jellylike substance used in hair styling
+gelt	informal terms for money
+gem	art highly prized for its beauty or perfection
+gemmological	relating to the study of gems
+gemmologist	a person who studies gems
+gemmologists	GEMMOLOGIST: a person who studies gems
+gemmology	the study of gemstones
+gemological	relating to the study of gems
+gemologist	a person who studies gems
+gemologists	GEMOLOGIST: a person who studies gems
+gemology	the study of gemstones
+gems	GEM: art highly prized for its beauty or perfection
+gemstone	a crystalline rock that can be cut and polished for jewelry
+gemstones	GEMSTONE: a crystalline rock that can be cut and polished for jewelry
+gen	informal term for information
+gendarme	a French policeman
+gendarmerie	French police force; a group of gendarmes or gendarmes collectively
+gendarmes	GENDARME: a French policeman
+gender	a grammatical category in inflected languages governing the agreement between nouns and pronouns and adjectives; in some languages it is quite arbitrary but in Indo-European languages it is usually based on sex or animateness
+gendered	marked by or relating to gender
+genderless	without gender
+genders	GENDER: a grammatical category in inflected languages governing the agreement between nouns and pronouns and adjectives; in some languages it is quite arbitrary but in Indo-European languages it is usually based on sex or animateness
+gene	a segment of DNA that is involved in producing a polypeptide chain; it can include regions preceding and following the coding DNA as well as introns between the exons; it is considered a unit of heredity
+genealogical	of or relating to genealogy
+genealogies	GENEALOGY: the study or investigation of ancestry and family history
+genealogist	an expert in genealogy
+genealogists	GENEALOGIST: an expert in genealogy
+genealogy	the study or investigation of ancestry and family history
+genera	GENUS: a group of related species
+general	applying to all or most members of a category or group
+generalisation	an idea or conclusion having general application
+generalisations	GENERALISATION: an idea or conclusion having general application
+generalise	draw from specific cases for more general cases
+generalised	not biologically differentiated or adapted to a specific function or environment
+generalises	GENERALISE: draw from specific cases for more general cases
+generalising	GENERALISE: draw from specific cases for more general cases
+generalissimo	the officer who holds the supreme command
+generalissimos	GENERALISSIMO: the officer who holds the supreme command
+generalist	a modern scholar who is in a position to acquire more than superficial knowledge about many different interests
+generalists	GENERALIST: a modern scholar who is in a position to acquire more than superficial knowledge about many different interests
+generalities	GENERALITY: an idea or conclusion having general application
+generality	an idea or conclusion having general application
+generalization	reasoning from detailed facts to general principles
+generalizations	GENERALIZATION: reasoning from detailed facts to general principles
+generalize	draw from specific cases for more general cases
+generalized	not biologically differentiated or adapted to a specific function or environment
+generalizes	GENERALIZE: draw from specific cases for more general cases
+generalizing	GENERALIZE: draw from specific cases for more general cases
+generally	usually; as a rule
+generals	GENERAL: applying to all or most members of a category or group
+generalship	the leadership ability of a military general
+generate	bring into existence
+generated	GENERATE: bring into existence
+generates	GENERATE: bring into existence
+generating	GENERATE: bring into existence
+generation	all the people living at the same time or of approximately the same age
+generational	of or relating to a generation
+generations	GENERATION: all the people living at the same time or of approximately the same age
+generative	having the ability to produce or originate
+generator	an apparatus that produces a vapor or gas
+generators	GENERATOR: an apparatus that produces a vapor or gas
+generic	applicable to an entire class or group
+generically	as sharing a common genus
+generics	GENERIC: applicable to an entire class or group
+generosities	GENEROSITY: the trait of being willing to give your money or time
+generosity	the trait of being willing to give your money or time
+generous	willing to give and share unstintingly
+generously	in a generous manner
+genes	GENE: a segment of DNA that is involved in producing a polypeptide chain; it can include regions preceding and following the coding DNA as well as introns between the exons; it is considered a unit of heredity
+geneses	GENESIS: the origin of something
+genesis	a coming into being
+genet	agile Old World viverrine having a spotted coat and long ringed tail
+genetic	occurring among members of a family usually by heredity
+genetically	by genetic mechanisms
+geneticist	a biologist who specializes in genetics
+geneticists	GENETICIST: a biologist who specializes in genetics
+genetics	the branch of biology that studies heredity and variation in organisms
+genets	GENET: agile Old World viverrine having a spotted coat and long ringed tail
+genial	diffusing warmth and friendliness
+geniality	a disposition to be friendly and approachable (easy to talk to)
+genially	in an affable manner
+genie	an invisible spirit mentioned in the Koran and believed by Muslims to inhabit the earth and influence mankind by appearing in the form of humans or animals
+genies	GENIE: an invisible spirit mentioned in the Koran and believed by Muslims to inhabit the earth and influence mankind by appearing in the form of humans or animals
+genii	GENIUS: an attendant spirit of a person or place
+genital	of or relating to the external sex organs
+genitalia	external sex organ
+genitals	external sex organ
+genitive	the case expressing ownership
+genitives	GENITIVE: the case expressing ownership
+genitourinary	of or related to the genital and urinary organs or their functions
+genius	someone who has exceptional intellectual ability and originality
+geniuses	GENIUS: someone who has exceptional intellectual ability and originality
+genned	GEN: informal term for information
+genning	GEN: informal term for information
+genocidal	relating to the mass killing of a people
+genocide	systematic killing of a racial or cultural group
+genocides	GENOCIDE: systematic killing of a racial or cultural group
+genome	the ordering of genes in a haploid set of chromosomes of a particular organism; the full DNA sequence of an organism
+genomes	GENOME: the ordering of genes in a haploid set of chromosomes of a particular organism; the full DNA sequence of an organism
+genomic	relating to genomes
+genomics	GENOMIC: relating to genomes
+genotype	the particular alleles at specified loci present in an organism
+genotypes	GENOTYPE: the particular alleles at specified loci present in an organism
+genre	a kind of literary or artistic work
+genres	GENRE: a kind of literary or artistic work
+gens	family based on male descent
+gent	informal abbreviation of `gentleman'
+genteel	marked by refinement in taste and manners
+genteelly	in a genteel manner
+gentian	any of various plants of the family Gentianaceae especially the genera Gentiana and Gentianella and Gentianopsis
+gentians	GENTIAN: any of various plants of the family Gentianaceae especially the genera Gentiana and Gentianella and Gentianopsis
+gentile	belonging to or characteristic of non-Jewish peoples
+gentiles	GENTILE: belonging to or characteristic of non-Jewish peoples
+gentility	elegance by virtue of fineness of manner and expression
+gentle	soft and mild; not harsh or stern or severe
+gentled	GENTLE: soft and mild; not harsh or stern or severe
+gentlefolk	people of good family and breeding and high social status
+gentlefolks	GENTLEFOLK: people of good family and breeding and high social status
+gentleman	a man of refinement
+gentlemanly	befitting a man of good breeding
+gentlemen	GENTLEMAN: a man of refinement
+gentleness	acting in a manner that is gentle and mild and even-tempered
+gentler	GENTLE: soft and mild; not harsh or stern or severe
+gentles	GENTLE: soft and mild; not harsh or stern or severe
+gentlest	GENTLE: soft and mild; not harsh or stern or severe
+gentlewoman	a woman of refinement
+gentlewomen	GENTLEWOMAN: a woman of refinement
+gentling	GENTLE: soft and mild; not harsh or stern or severe
+gently	in a gradual manner
+gentoo	a penguin with a white patch above each eye
+gentries	GENTRY: the most powerful members of a society
+gentrification	the restoration of run-down urban areas by the middle class (resulting in the displacement of low-income residents)
+gentrified	GENTRIFY: renew a poor area so that wealthier people move in
+gentrifies	GENTRIFY: renovate so as to make it conform to middle-class aspirations
+gentrify	renovate so as to make it conform to middle-class aspirations
+gentrifying	GENTRIFY: renovate so as to make it conform to middle-class aspirations
+gentry	the most powerful members of a society
+gents	GENT: informal abbreviation of `gentleman'
+genuflect	bend the knees and bow in church or before a religious superior or image
+genuflected	GENUFLECT: bend the knees and bow in church or before a religious superior or image
+genuflecting	GENUFLECT: bend the knees and bow in church or before a religious superior or image
+genuflection	the act of bending the knees in worship or reverence
+genuflections	GENUFLECTION: the act of bending the knees in worship or reverence
+genuflects	GENUFLECT: bend the knees and bow in church or before a religious superior or image
+genuine	not fake or counterfeit
+genuinely	in accordance with truth or fact or reality
+genuineness	the state of being genuine
+genus	a general kind of something
+genuses	GENUS: a general kind of something
+geocache	a hidden container found using GPS coordinates
+geocached	GEOCACHE: a hidden container found using GPS coordinates
+geocaches	GEOCACHE: a hidden container found using GPS coordinates
+geocaching	GEOCACHE: a hidden container found using GPS coordinates
+geocentric	having the earth as the center
+geochemical	relating to the chemistry of the Earth
+geochemistry	the chemistry of the earth's crust
+geochronological	relating to the dating of rocks and Earth events
+geochronologist	a scientist who dates rocks and Earth events
+geochronologists	GEOCHRONOLOGIST: a scientist who dates rocks and Earth events
+geochronology	the dating of rocks and Earth events
+geode	a hollow rock or nodule with the cavity usually lined with crystals
+geodes	GEODE: a hollow rock or nodule with the cavity usually lined with crystals
+geodesic	the shortest line between two points on a mathematically defined surface (as a straight line on a plane or an arc of a great circle on a sphere)
+geodesics	GEODESIC: the shortest line between two points on a mathematically defined surface (as a straight line on a plane or an arc of a great circle on a sphere)
+geodesy	the branch of geology that studies the shape of the earth and the determination of the exact position of geographical points
+geodetic	of or relating to or determined by geodesy
+geoengineering	large-scale deliberate alteration of the Earth's climate
+geographer	an expert on geography
+geographers	GEOGRAPHER: an expert on geography
+geographic	of or relating to the science of geography
+geographical	of or relating to the science of geography
+geographically	with respect to geography
+geographies	GEOGRAPHY: study of the earth's surface; includes people's responses to topography and climate and soil and vegetation
+geography	study of the earth's surface; includes people's responses to topography and climate and soil and vegetation
+geologic	of or relating to or based on geology
+geological	of or relating to or based on geology
+geologically	with respect to geology
+geologies	GEOLOGY: a science that deals with the history of the earth as recorded in rocks
+geologist	a specialist in geology
+geologists	GEOLOGIST: a specialist in geology
+geology	a science that deals with the history of the earth as recorded in rocks
+geomagnetic	relating to the Earth's magnetism
+geomancer	one who practices geomancy
+geomancers	GEOMANCER: one who practices geomancy
+geomancies	GEOMANCY: divination by means of signs connected with the earth (as points taken at random or the arrangement of particles thrown down at random or from the configuration of a region and its relation to another)
+geomancy	divination by means of signs connected with the earth (as points taken at random or the arrangement of particles thrown down at random or from the configuration of a region and its relation to another)
+geometer	a mathematician specializing in geometry
+geometric	characterized by simple geometric forms in design and decoration
+geometrical	of or relating to or determined by geometry
+geometrically	in a geometric fashion
+geometries	GEOMETRY: the pure mathematics of points and lines and curves and surfaces
+geometry	the pure mathematics of points and lines and curves and surfaces
+geomorphological	pertaining to geological structure
+geomorphologist	a scientist who studies landforms
+geomorphologists	GEOMORPHOLOGIST: a scientist who studies landforms
+geomorphology	the branch of geology that studies the characteristics and configuration and evolution of rocks and land forms
+geophysical	of or concerned with geophysics
+geophysicist	a geologist who uses physical principles to study the properties of the earth
+geophysicists	GEOPHYSICIST: a geologist who uses physical principles to study the properties of the earth
+geophysics	geology that uses physical principles to study properties of the earth
+geopolitical	of or relating to geopolitics
+geopolitics	the study of the effects of economic geography on the powers of the state
+georgette	a thin silk dress material
+geostationary	of or having a geosynchronous orbit such that the position in such an orbit is fixed with respect to the earth
+geosynchronous	of or having an orbit with a fixed period of 24 hours (although the position in the orbit may not be fixed with respect to the earth)
+geothermal	of or relating to the heat in the interior of the earth
+geranium	any of numerous plants of the family Geraniaceae
+geraniums	GERANIUM: any of numerous plants of the family Geraniaceae
+gerbil	small Old World burrowing desert rodent with long soft pale fur and hind legs adapted for leaping
+gerbils	GERBIL: small Old World burrowing desert rodent with long soft pale fur and hind legs adapted for leaping
+gerenuk	slender East African antelope with slim neck and backward-curving horns
+gerenuks	GERENUK: slender East African antelope with slim neck and backward-curving horns
+geriatric	of or relating to the aged
+geriatrics	the branch of medical science that deals with diseases and problems specific to old people
+germ	anything that provides inspiration for later work
+germane	relevant and appropriate
+germanium	a brittle grey crystalline element that is a semiconducting metalloid (resembling silicon) used in transistors; occurs in germanite and argyrodite
+germicidal	preventing infection by inhibiting the growth or action of microorganisms
+germicide	an agent (as heat or radiation or a chemical) that destroys microorganisms that might carry disease
+germicides	GERMICIDE: an agent (as heat or radiation or a chemical) that destroys microorganisms that might carry disease
+germinal	containing seeds of later development
+germinate	produce buds, branches, or germinate
+germinated	GERMINATE: produce buds, branches, or germinate
+germinates	GERMINATE: produce buds, branches, or germinate
+germinating	GERMINATE: produce buds, branches, or germinate
+germination	the process whereby seeds or spores sprout and begin to grow
+germs	GERM: anything that provides inspiration for later work
+gerontological	of or relating to or practicing geriatrics
+gerontologist	a specialist in gerontology
+gerontologists	GERONTOLOGIST: a specialist in gerontology
+gerontology	the branch of medical science that deals with diseases and problems specific to old people
+gerrymander	divide unfairly and to one's advantage; of voting districts
+gerrymandered	GERRYMANDER: divide unfairly and to one's advantage; of voting districts
+gerrymandering	GERRYMANDER: divide unfairly and to one's advantage; of voting districts
+gerrymanders	GERRYMANDER: divide unfairly and to one's advantage; of voting districts
+gerund	a noun formed from a verb (such as the `-ing' form of an English verb when used as a noun)
+gerunds	GERUND: a noun formed from a verb (such as the `-ing' form of an English verb when used as a noun)
+gestalt	a configuration or pattern of elements so unified as a whole that it cannot be described merely as a sum of its parts
+gestalts	GESTALT: a configuration or pattern of elements so unified as a whole that it cannot be described merely as a sum of its parts
+gestate	be pregnant with
+gestated	GESTATE: be pregnant with
+gestates	GESTATE: be pregnant with
+gestating	GESTATE: be pregnant with
+gestation	the state of being pregnant; the period from conception to birth when a woman carries a developing fetus in her uterus
+gestational	of or relating to gestation
+gesticulate	show, express or direct through movement
+gesticulated	GESTICULATE: show, express or direct through movement
+gesticulates	GESTICULATE: show, express or direct through movement
+gesticulating	making gestures while speaking
+gesticulation	a deliberate and vigorous gesture or motion
+gesticulations	GESTICULATION: a deliberate and vigorous gesture or motion
+gestural	being other than verbal communication
+gesture	motion of hands or body to emphasize or help to express a thought or feeling
+gestured	GESTURE: motion of hands or body to emphasize or help to express a thought or feeling
+gestures	GESTURE: motion of hands or body to emphasize or help to express a thought or feeling
+gesturing	GESTURE: motion of hands or body to emphasize or help to express a thought or feeling
+gesundheit	said after someone sneezes
+get	come into the possession of something concrete or abstract
+getaway	a rapid escape (as by criminals)
+getaways	GETAWAY: a rapid escape (as by criminals)
+getout	a way of escaping a commitment or difficulty
+getouts	GETOUT: a way of escaping a commitment or difficulty
+gets	GET: come into the possession of something concrete or abstract
+getting	GET: come into the possession of something concrete or abstract
+getup	a set of clothing (with accessories)
+getups	GETUP: a set of clothing (with accessories)
+gewgaw	cheap showy jewelry or ornament on clothing
+gewgaws	GEWGAW: cheap showy jewelry or ornament on clothing
+geyser	to overflow like a geyser
+geysers	GEYSER: to overflow like a geyser
