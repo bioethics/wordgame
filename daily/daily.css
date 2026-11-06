@@ -209,21 +209,20 @@ button.mode-item:hover, button.mode-item:focus-visible { background: rgba(217, 1
 .seat--only, .seat--desk { flex: 1 1 auto; }
 .seat--choice { flex: 1 1 0; min-width: 0; grid-template-areas: "emoji" "name"; grid-template-columns: 1fr; justify-items: center; text-align: center; row-gap: 2px; padding: 7px 6px; }
 .seat--choice .seat-name { font-size: 14px; }
-/* The Limner's letter, as an illuminated initial: a versal in Fell on a red
-   ground, edged in gold leaf, set at the foot of his brush like a badge on the
-   portrait (a little over half the portrait's size), so the name line is left
-   alone. */
-.seat-emoji:has(.seat-initial) { position: relative; }
+/* The Limner's face: the day's letter as an illuminated initial, a versal in
+   Fell on a red ground, edged in gold leaf. It stands where another patron's
+   emoji would, at a little under the emoji's size, so it weighs what they do:
+   on the card, in the readout's chip, and after a word in the results. */
 .seat-initial {
-  position: absolute;
-  right: -0.6em;
-  bottom: -0.2em;
-  min-width: 1.2em;
-  padding: 0.08em 0.12em 0;
+  display: inline-block;
+  min-width: 1.25em;
+  padding: 0.12em 0.16em 0.02em;
   font-family: var(--fell);
-  font-size: 0.6em;
+  font-style: normal;
+  font-size: 0.86em;
   line-height: 1;
   text-align: center;
+  vertical-align: middle;
   color: #fff1d0;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
   background: radial-gradient(120% 120% at 30% 25%, #c8492a, var(--red) 55%, var(--red-dk));

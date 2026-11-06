@@ -70,7 +70,7 @@ export const SORT_TEXT = {
 // The daily's own patrons, who have no card in the game to take a name from.
 export const DAILY_CARDS = {
   commoner: { name: 'The Commoner', emoji: '🍺' },
-  limner:   { name: 'The Limner', emoji: '🖌️' },
+  limner:   { name: 'The Limner', emoji: '🖌️' },   // his card shows the day's letter instead (patronFace in main.js)
 };
 
 export const PATRON_TEXT = {

@@ -320,7 +320,7 @@ function tracksOf(tiles) {
   return out;
 }
 // The patrons whose ruling is a ×Mult on the word, rather than Points on tiles.
-const stamps = id => !!PATRONS[id]?.effect && id !== 'twins';
+const stamps = id => !!(PATRONS[id]?.effect || PATRONS[id]?.bind) && id !== 'twins';
 
 // ─── Composing ────────────────────────────────────────────────────────────────
 const locked = () => !!S.result || S.printing;
@@ -997,6 +997,19 @@ function renderAlmanac() {
 // setting a word. A card lights while the word in hand is one it rules on.
 const patronName = id => PATRON_CARDS[id]?.name ?? DAILY_CARDS[id]?.name ?? id;
 const patronEmoji = id => PATRON_CARDS[id]?.emoji ?? DAILY_CARDS[id]?.emoji ?? '';
+// A seated patron's face, wherever it is shown — the card, the readout's chip,
+// the marks in the results: the emoji; or, for the Limner, the day's letter as
+// an illuminated initial. His letter is the whole of his rule, and he wears it
+// as his portrait so that a reader choosing between him and another patron
+// need not tap to learn it.
+function patronFace(p) {
+  const L = p?.id === 'limner' ? p.data?.letters?.[0] : null;
+  if (!L) return document.createTextNode(patronEmoji(p?.id));
+  const i = document.createElement('span');
+  i.className = 'seat-initial';
+  i.textContent = L;
+  return i;
+}
 const patronRule = seat => fill(PATRON_TEXT[seat.id] ?? '', (seat.data?.letters ?? []).join(', ').replace(/, ([^,]*)$/, ' or $1'));
 const editorRule = desk => fill(EDITOR_TEXT[desk.id].rule, desk.data.n ?? desk.data.letter ?? '');
 const editorVoice = desk => fill(EDITOR_TEXT[desk.id].voice, desk.data.n ?? desk.data.letter ?? '');
@@ -1012,17 +1025,8 @@ function seatCard(cls, emoji, name, rule = null) {
   return b;
 }
 
-// The Limner's card carries his letter on its face, a small illuminated initial
-// at his brush: it is the whole of his rule, and a reader choosing between him
-// and another patron should not have to tap to learn it. On the portrait, not
-// the name, so the name line stays the size and shape of every other card's.
-function withInitial(card, p) {
-  const L = p.id === 'limner' ? p.data?.letters?.[0] : null;
-  if (!L) return card;
-  const i = document.createElement('span');
-  i.className = 'seat-initial';
-  i.textContent = L;
-  card.querySelector('.seat-emoji').appendChild(i);
+function withFace(card, p) {
+  card.querySelector('.seat-emoji').replaceChildren(patronFace(p));
   return card;
 }
 
@@ -1035,13 +1039,13 @@ function renderSeats(sc) {
   const lit = !!sc && (!!sc.seat || sc.perTile.some(p => p.echo > 1 || p.bonus) || byLicence(wordAndRest(S.active).word));
   if (day.kind === 'patron') {
     const p = day.patron;
-    const card = withInitial(seatCard(`seat--only${lit ? ' seat--lit' : ''}`, patronEmoji(p.id), patronName(p.id)), p);
+    const card = withFace(seatCard(`seat--only${lit ? ' seat--lit' : ''}`, patronEmoji(p.id), patronName(p.id)), p);
     card.addEventListener('click', () => readSeat(card, patronName(p.id), patronRule(p)));
     host.appendChild(card);
   } else if (day.kind === 'choice') {
     day.choices.forEach((p, i) => {
       const on = i === S.seat;
-      const card = withInitial(seatCard(`seat--choice${on ? ' seat--on' : ''}${on && lit ? ' seat--lit' : ''}`, patronEmoji(p.id), patronName(p.id)), p);
+      const card = withFace(seatCard(`seat--choice${on ? ' seat--on' : ''}${on && lit ? ' seat--lit' : ''}`, patronEmoji(p.id), patronName(p.id)), p);
       card.setAttribute('aria-pressed', on ? 'true' : 'false');
       card.disabled = locked() && !on;
       card.addEventListener('click', () => {
@@ -1341,7 +1345,7 @@ function renderReadout(sc) {
     c.dataset.kind = kind;
     c.title = chipName(kind, ch?.count ?? sc?.letters.length ?? 0);
     const sw = document.createElement('i');
-    if (kind === 'seat') sw.textContent = patronEmoji(seatNow().id);
+    if (kind === 'seat') sw.replaceChildren(patronFace(seatNow()));
     if (kind === 'spike') sw.textContent = '✂';
     const v = document.createElement('b'); v.textContent = `×${fmtMult(ch?.mult ?? 1)}`;
     c.append(sw, v);
@@ -1434,7 +1438,7 @@ const patronMark = (tiles, seat = 0) => {
     || (S.tables[i] && scoreWord(tiles, [], has, S.tables[i]).total === total));
   const m = document.createElement('span');
   m.className = 'best-seat';
-  m.textContent = by.map(q => patronEmoji(q.id)).join('');
+  m.append(...by.map(patronFace));
   m.title = by.map(q => patronName(q.id)).join(' or ');
   return m;
 };
