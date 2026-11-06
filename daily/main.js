@@ -1452,34 +1452,24 @@ const patronMark = (tiles, seat = 0) => {
 
 // The share, Wordle's way: each word as a row of squares, a sort to a square in
 // the order it was set, each in its paint (⬜, the cream of the type, if it wore
-// none) — how it was set, without a letter of it — and beside it the sum the
-// readout made of it, Points × Mult = total, with the emoji of a patron who
-// paid for it, a spike's scissors and the tool used on it; then the place.
+// none) — how it was set, without a letter of it — and beside it its total and
+// the emoji of a patron who paid for it; then the place.
 const SHARE_SQUARE = { crimson: '🟥', azure: '🟦', jade: '🟩', amber: '🟨' };
-const SHARE_TOOL = { ratchet: '🔧', loupe: '🔍', tube: '🎨' };
 function shareText(r, pairs) {
-  const sums = S.words.map((_, k) => {
+  const rows = S.words.map((_, k) => {
     const { word } = wordAndRest(k);
     const sc = scoreOf(k);
     if (!sc) return null;
-    const marks = paidBy(word, r.seat ?? 0).map(p => patronEmoji(p.id)).filter(Boolean);
-    if (sc.spiked) marks.push('✂️');
-    if (r.applied && SHARE_TOOL[r.applied.kind] && word.some(t => t.id === r.applied.id)) marks.push(SHARE_TOOL[r.applied.kind]);
-    // The readout's Points and Mult (a seat's ×Mult shown on the Mult side), where
-    // they multiply out to the total; where a seat's rounding keeps them from it
-    // (Romeo's ×1.5 on 17 Points is 25.5, paid as 26), the engine's own pair,
-    // which always does (26 × 3 = 78, not 17 × 4.5).
-    const [pts, mult] = Math.abs(sc.shownPoints * sc.shownMult - sc.total) < 1
-      ? [sc.shownPoints, sc.shownMult] : [sc.points, sc.mult];
     const squares = word.map(t => SHARE_SQUARE[t.colour] ?? '⬜').join('');
-    return `${fill(RESULT.shareSum, squares, fmtN(pts), +(mult ?? 1).toFixed(2), fmtN(sc.total))}${marks.length ? ` ${marks.join('')}` : ''}`;
+    const marks = paidBy(word, r.seat ?? 0).map(p => patronEmoji(p.id)).filter(Boolean).join('');
+    return `${squares} ${fmtN(sc.total)}${marks ? ` ${marks}` : ''}`;
   }).filter(Boolean);
   return [
     fill(RESULT.shareHead, S.n),
-    ...sums,
-    [...(sums.length > 1 ? [fmtN(r.score)] : []),
+    ...rows,
+    [...(rows.length > 1 ? [fmtN(r.score)] : []),
       r.rank === 1 ? RESULT.best : gradeLabel(r),
-      fill(pairs ? RESULT.placePairs : RESULT.place, fmtN(r.rank), fmtN(r.size))].join(' · '),
+      fill(RESULT.place, fmtN(r.rank), fmtN(r.size))].join(' · '),
     // Inside a frame the page's own address is not one anybody could open.
     ...(window.DAILY_NO_LINK ? [] : [`${location.origin}${location.pathname}#${S.n}`]),
   ].join('\n');

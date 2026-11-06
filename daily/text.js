@@ -178,8 +178,7 @@ export const RESULT = {
   copied: 'Copied',
   again: 'Again',
   next: 'Next ›',
-  shareHead: 'Daily #{0}',
-  shareSum: '{0} {1} × {2} = {3}',
+  shareHead: 'Great Work Daily #{0}',
 };
 
 export const fill = (s, ...v) => s.replace(/\{(\d)\}/g, (_, i) => v[i] ?? '');

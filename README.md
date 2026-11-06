@@ -2061,25 +2061,19 @@ The Share button (the share sheet on a phone, the clipboard elsewhere, and
 failing both the text itself laid out to copy) gives the day the way Wordle
 does, in coloured squares: each word a row of them, a sort to a square in the
 order it was set, each in its paint (⬜, the cream of the type, if it wore
-none). How the word was set, without a letter of it. Beside each row, the sum
-the readout made of it, Points × Mult = total, with the emoji of any patron who
-paid for it (a spiked word ✂️, a tool used on it 🔧 🔍 🎨); then the grade and
-the place, after the pair's sum on a two-word day:
+none). How the word was set, without a letter of it. Beside each row its
+total and the emoji of any patron who paid for it; then the grade and the
+place, after the pair's sum on a two-word day:
 
 ```
-Daily #2
-🟥⬜🟨⬜⬜🟦⬜ 65 × 30 = 1,950
+Great Work Daily #2
+🟦⬜⬜🟥⬜🟨 1,950
 Top 40% · #874 of 2,624
 ```
 
-(Until 6 November the squares were the whole case as dealt, the sorts set in
-their paint and the rest dark; a grid of the case was more than the share
-needed to say.)
-
-The Points and Mult are the readout's, a seat's ×Mult on the Mult side, where
-they multiply out to the total. Where a seat's rounding keeps them from it —
-Romeo's ×1.5 on 17 Points is 25.5, paid as 26, so the readout's 17 × 4.5 makes
-76.5 of a 78 — the share gives the engine's own pair instead, 26 × 3 = 78.
+(It said more on 6 November, and was cut back the same day: the whole case as
+a grid, then each word's Points × Mult, with a spike's scissors and the tool
+used.)
 
 ### Two words
 
