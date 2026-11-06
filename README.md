@@ -2011,7 +2011,8 @@ take their turns on a seed of their own.
 A word in the results list shows its definition, in full, once its row is
 opened (a pair's two beneath it), and the Expectant Parents' names read "a
 given name". They come from
-`wordlists/definitions/a.txt` … `z.txt`, "word<TAB>definition", built by
+`wordlists/definitions/a/aa.txt` … `z/zy.txt`, a file per first two letters in
+a folder per first letter, "word<TAB>definition", built by
 `tools/build-definitions.mjs` from, first match winning:
 
 1. `wordlists/definitions-own.txt`, written for the game: overrides of
@@ -2048,8 +2049,30 @@ or junk; those were written (or the junk cut) the same day, and
 `wordlists/definitions-missing.txt`, where the next unwritten ones wait, is
 empty. WordNet's definitions are Princeton's, under the WordNet licence, whose
 notice travels with them (`wordlists/definitions/WORDNET-LICENSE.txt`). The page
-fetches a letter's file the first time a result needs it; the artifact build
-embeds them all.
+fetches, as soon as the results show, the file for every word they list
+(`prefetchDefs`), so a tap finds its definition already there; the artifact
+build embeds them all. (Until 6 November there was a file a letter, fetched on
+the first tap that needed it: the tap waited on as much as 640 KB, the S's. The
+largest now is ST's, 98 KB, and most are a few tens.)
+
+### The share
+
+The Share button (the share sheet on a phone, the clipboard elsewhere, and
+failing both the text itself laid out to copy) gives the day the way Wordle
+does, as a grid of squares: the case as it was dealt, four to a row (five on a
+two-word day), each sort you set in its paint (⬜, the cream of the type, if it
+wore none) and the others dark. The puzzle and how you set it, with no letter
+of the word. Under the grid, the score, the emoji of any patron who paid for it
+(a spiked word ✂️, a tool used 🔧 🔍 🎨), the grade and the place:
+
+```
+Great Work · Daily Proof № 2 · A Choice of Patrons
+🟥⬛⬜⬜
+⬜⬛⬛⬛
+🟨⬛⬛⬛
+⬛⬛⬛🟦
+1,950 · Top 40% · #874 of 2,624
+```
 
 ### Two words
 

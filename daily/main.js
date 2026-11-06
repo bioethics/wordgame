@@ -101,18 +101,21 @@ function loadLists(keys) {
 
 // ─── Definitions ──────────────────────────────────────────────────────────────
 // What each word in the results means, from wordlists/definitions/ (built by
-// tools/build-definitions.mjs): one file a letter, fetched the first time a
-// result needs a word that starts with it. An embedded bundle carries them in
-// FOLIO_DEFS. A row asks with defSpan, and is filled when its letter lands.
+// tools/build-definitions.mjs): a file per first two letters, a few tens of
+// kilobytes, fetched for every word the results list as soon as they show
+// (prefetchDefs), so a tap finds its definition already here. An embedded
+// bundle carries them in FOLIO_DEFS. A row asks with defSpan, and is filled
+// when its file lands.
 const DEFS = new Map();
 const defLoads = new Map();
-function loadDefs(letter) {
-  const L = letter.toLowerCase();
-  if (!/^[a-z]$/.test(L)) return Promise.resolve();
-  if (!defLoads.has(L)) {
-    const embedded = window.FOLIO_DEFS?.[L];
-    defLoads.set(L, (embedded != null ? Promise.resolve(embedded)
-      : fetch(`../wordlists/definitions/${L}.txt`).then(r => (r.ok ? r.text() : '')))
+const defKey = word => word.slice(0, 2).toLowerCase();
+function loadDefs(word) {
+  const K = defKey(word);
+  if (!/^[a-z]{1,2}$/.test(K)) return Promise.resolve();
+  if (!defLoads.has(K)) {
+    const embedded = window.FOLIO_DEFS?.[K];
+    defLoads.set(K, (embedded != null ? Promise.resolve(embedded)
+      : fetch(`../wordlists/definitions/${K[0]}/${K}.txt`).then(r => (r.ok ? r.text() : '')))
       .then(text => {
         for (const line of text.split('\n')) {
           const tab = line.indexOf('\t');
@@ -121,8 +124,9 @@ function loadDefs(letter) {
       })
       .catch(() => {}));
   }
-  return defLoads.get(L);
+  return defLoads.get(K);
 }
+const prefetchDefs = words => { for (const w of words) loadDefs(w); };
 // A word's definition, or a name's: the Expectant Parents' licence admits names
 // the dictionary doesn't hold.
 const defOf = word => DEFS.get(word)
@@ -141,8 +145,7 @@ function defSpan(word, cls = 'best-def', headed = false) {
     s.hidden = !s.textContent;
   };
   s.hidden = true;
-  if (defLoads.has(word[0]?.toLowerCase())) defLoads.get(word[0].toLowerCase()).then(fill);
-  else loadDefs(word[0] ?? '').then(fill);
+  loadDefs(word).then(fill);
   return s;
 }
 
@@ -1424,24 +1427,62 @@ function miniPair(a, b) {
 // (SUBSEQUENT wore the Poppet's bear on № 4, at 1,728 under both seats).
 // On a choice day a word either patron would pay the same carries both, in the
 // order they sit: the setting is as good under one as the other.
-const patronMark = (tiles, seat = 0) => {
+function paidBy(tiles, seat = 0) {
   const day = S.deal.day;
   const choice = day.kind === 'choice';
   const p = choice ? day.choices[seat] : day.kind === 'patron' ? day.patron : null;
   const T = S.tables[choice ? seat : 0];
-  if (!p || !T) return null;
+  if (!p || !T) return [];
   const plain = scoreWord(tiles, [], has, null).total;
   const total = scoreWord(tiles, [], has, T).total;
   const paid = tiles.some(t => t.blank) || byLicence(tiles) || total !== plain;
-  if (!paid) return null;
-  const by = !choice ? [p] : day.choices.filter((q, i) => i === seat
+  if (!paid) return [];
+  return !choice ? [p] : day.choices.filter((q, i) => i === seat
     || (S.tables[i] && scoreWord(tiles, [], has, S.tables[i]).total === total));
+}
+const patronMark = (tiles, seat = 0) => {
+  const by = paidBy(tiles, seat);
+  if (!by.length) return null;
   const m = document.createElement('span');
   m.className = 'best-seat';
   m.append(...by.map(patronFace));
   m.title = by.map(q => patronName(q.id)).join(' or ');
   return m;
 };
+
+// The share, Wordle's way: the case as it was dealt, in rows, every sort you set
+// in its paint (⬜, the cream of the type, if it wore none) and the rest dark —
+// the puzzle and how you set it, without a letter of the word — then the
+// score, who paid for it, the tool you used, and the place.
+const SHARE_SQUARE = { crimson: '🟥', azure: '🟦', jade: '🟩', amber: '🟨' };
+const SHARE_TOOL = { ratchet: '🔧', loupe: '🔍', tube: '🎨' };
+function shareText(r, pairs) {
+  const used = new Map();
+  S.words.forEach((_, k) => { for (const t of wordAndRest(k).word) used.set(t.id, t); });
+  const tiles = S.deal.tiles;
+  const cols = tiles.length >= 20 ? 5 : 4;
+  const cells = tiles.map(t => (used.has(t.id) ? SHARE_SQUARE[used.get(t.id).colour] ?? '⬜' : '⬛'));
+  const grid = [];
+  for (let i = 0; i < cells.length; i += cols) grid.push(cells.slice(i, i + cols).join(''));
+  const marks = [];
+  for (let k = 0; k < S.words.length; k++) {
+    for (const p of paidBy(wordAndRest(k).word, r.seat ?? 0)) {
+      const e = patronEmoji(p.id);
+      if (e && !marks.includes(e)) marks.push(e);
+    }
+  }
+  if (S.words.some((_, k) => scoreOf(k)?.spiked)) marks.push('✂️');
+  if (r.applied && SHARE_TOOL[r.applied.kind]) marks.push(SHARE_TOOL[r.applied.kind]);
+  return [
+    fill(RESULT.shareHead, S.n, traitName(S.traits[0])),
+    ...grid,
+    [`${fmtN(r.score)}${marks.length ? ` ${marks.join('')}` : ''}`,
+      r.rank === 1 ? RESULT.best : gradeLabel(r),
+      fill(pairs ? RESULT.placePairs : RESULT.place, fmtN(r.rank), fmtN(r.size))].join(' · '),
+    // Inside a frame the page's own address is not one anybody could open.
+    ...(window.DAILY_NO_LINK ? [] : [`${location.origin}${location.pathname}#${S.n}`]),
+  ].join('\n');
+}
 
 let resizeChart = null;
 function renderResult() {
@@ -1489,6 +1530,8 @@ function renderResult() {
   resizeChart = draw;
 
   host.appendChild(pairs ? bestPairs(r, field) : bestWords(r, field));
+  // Every word the list shows, its definition fetched now rather than on a tap.
+  prefetchDefs([...host.querySelectorAll('.best-word')].flatMap(e => e.textContent.split(' + ')));
 
   // The way on.
   const acts = document.createElement('div');
@@ -1496,16 +1539,20 @@ function renderResult() {
   const share = document.createElement('button');
   share.className = 'btn';
   share.textContent = RESULT.share;
+  // On a phone the share sheet, as Wordle does; elsewhere the clipboard; and
+  // where neither will take it, the text itself, laid out to copy by hand.
   share.addEventListener('click', async () => {
-    const lines = [
-      fill(RESULT.shareHead, S.n, traitName(S.traits[0])),
-      `${label} — ${fmtN(r.score)}`,
-      `${r.rank === 1 ? RESULT.best : gradeLabel(r)} (${fill(pairs ? RESULT.placePairs : RESULT.place, fmtN(r.rank), fmtN(r.size))})`,
-      // Inside a frame the page's own address is not one anybody could open.
-      ...(window.DAILY_NO_LINK ? [] : [`${location.origin}${location.pathname}#${S.n}`]),
-    ];
-    try { await navigator.clipboard.writeText(lines.join('\n')); share.textContent = RESULT.copied; }
-    catch { share.textContent = lines.join(' · '); }
+    const text = shareText(r, pairs);
+    if (navigator.share && matchMedia('(pointer: coarse)').matches) {
+      try { await navigator.share({ text }); return; } catch (e) { if (e?.name === 'AbortError') return; }
+    }
+    try { await navigator.clipboard.writeText(text); share.textContent = RESULT.copied; }
+    catch {
+      let pre = acts.querySelector('.share-text');
+      if (!pre) { pre = document.createElement('pre'); pre.className = 'share-text'; acts.appendChild(pre); }
+      pre.textContent = text;
+      getSelection()?.selectAllChildren(pre);
+    }
   });
   acts.appendChild(share);
   if (PLAYTEST) {

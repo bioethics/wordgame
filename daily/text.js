@@ -174,7 +174,7 @@ export const RESULT = {
   bottom: 'Bottom {0}%',
   place: '#{0} of {1}',
   placePairs: '#{0} of {1} pairs',
-  share: 'Copy',
+  share: 'Share',
   copied: 'Copied',
   again: 'Again',
   next: 'Next ›',

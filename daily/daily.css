@@ -769,6 +769,19 @@ button.mode-item:hover, button.mode-item:focus-visible { background: rgba(217, 1
 
 .result-acts { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
 .result-acts .btn-print { margin-left: 0; }
+/* Where neither the share sheet nor the clipboard will take the share, its
+   text is laid out under the buttons, selected, to copy by hand. */
+.share-text {
+  flex-basis: 100%;
+  margin: 4px 0 0;
+  padding: 10px 12px;
+  font: 15px/1.35 var(--sans);
+  white-space: pre-wrap;
+  color: var(--cream);
+  background: rgba(0, 0, 0, 0.28);
+  border-radius: 6px;
+  user-select: all;
+}
 
 /* ─── The popover ──────────────────────────────────────────────────────────── */
 .pop {
