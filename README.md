@@ -1728,9 +1728,9 @@ November): such a case dressed on fewer than three sorts is dressed up to
 three, one feature on each sort added. One or two dressed sorts on an
 unseated day is what felt thin in play; a seated day may be as thin as the
 dice deal it. A case at the floor or over it draws nothing for it, so it is
-dealt as it was; in a year of cases the floor moves four, all Lean Matter
-pages (№ 10 and № 38, two-word days with two dressed sorts and one; № 138 and
-№ 147, plain days with one and none). The letters
+dealt as it was; on the deal of 5 November it moved four days in a year, all
+Lean Matter pages (two two-word days with two dressed sorts and one, two plain
+days with one and none). The letters
 are drawn without replacement from one press's bag (`BAG_COUNTS`), redrawn
 until five to seven of them are vowels, so every case can spell without the
 deal ever consulting the dictionary — the same number deals the same case
@@ -1800,7 +1800,7 @@ letter), and a loupe day's top scores higher.
 ### The week
 
 Each day of the week has its own kind of case, by the calendar date of the
-challenge (`WEEK` in `daily/deal.js`; № 1 is a Thursday):
+challenge (`WEEK` in `daily/deal.js`; № 1 is a Friday):
 
 | Day | Case |
 | --- | --- |
@@ -2017,12 +2017,12 @@ or metal, and no tool takes it. He never wraps a metal or a tile the tube is
 offering, and spikes nothing, so his day is priced as a plain one over a
 wrapped case. Wrapping three sorts moved the best word on 43% of forty
 measured cases, four on 48%, five on 55%, six on 68%; at five, among his
-fellows, the best word is worth about half what it was. He sits from № 8, so
-№ 1 kept the roster it was dealt (`REDACTOR_FROM`); from there the editors
-take their turns on a seed of their own.
+fellows, the best word is worth about half what it was. (Until every day was
+dealt afresh on 6 November he sat from № 8, so that the first № 1 kept the
+roster it had been dealt; now the editors take one rotation from № 1.)
 
 **The Eeeditor** joined on 6 November, into that rotation (his first day is
-№ 36). The game's Eeeditor lends E's to the hand and spikes nothing; the
+№ 28). The game's Eeeditor lends E's to the hand and spikes nothing; the
 daily's deals the case's first four sorts as E's, dressed like any others
 (`EDITOR_SHAPES`, the band of five to seven vowels counting them), and spikes
 a word with no E. He is adapted, so `daily-check` names him and does not hold
@@ -2201,7 +2201,8 @@ old rule.
 
 ### Numbering, and the playtest switch
 
-Challenge № 1 is 5 November 2026 (`EPOCH` in `daily/deal.js`) and every day
+Challenge № 1 is 6 November 2026 (`EPOCH` in `daily/deal.js`; every day was
+dealt afresh then, `DEAL_SALT` v5, and № 1 had been 5 November) and every day
 after is one more; the number is the URL's hash (`/daily/#12`). While the mode
 is being tried out, `PLAYTEST` at the top of `daily/main.js` lets you walk to
 any number and set a printed case again. Turn it off and the page is a daily:

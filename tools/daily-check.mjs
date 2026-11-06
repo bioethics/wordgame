@@ -180,6 +180,7 @@ console.log(`seated: ${seatedCompared} arrangements under ${seatings.length} sea
 // then every assignment of tiles to the word, every face, every legal tail, and
 // every letter a blank could be. Scored by scoreWord under the table given.
 function naiveBest(tiles, tool, word, T = null) {
+  tiles = tiles.filter(t => !t.locked);   // the Turnkey's: in the case, in no word
   const uses = [null];
   if (tool === 'tube') {
     for (const t of tiles) if (t.paintOffer && !t.colour) uses.push({ kind: 'tube', id: t.id, colour: t.paintOffer });

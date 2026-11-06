@@ -38,7 +38,9 @@ import {
 // v2: the marks and squib lead taken out of the case.
 // v3: the week — patrons, editors and two-word days.
 // v4: № 1 moved to 5 November, and Tuesday's patrons dealt what they read.
-export const DEAL_SALT = 'great-work-daily-v4';
+// v5: every day dealt afresh and № 1 moved to 6 November, with the Limner,
+//     the Schoolmarm, the Turnkey and the Eeeditor in their rotations.
+export const DEAL_SALT = 'great-work-daily-v5';
 // Printed proofs are kept under the salt (daily/main.js), so a re-dealt case
 // never reopens on an old proof; the front door (js/door.js) reads them too.
 export const PROOF_STORE = DEAL_SALT;
@@ -281,7 +283,7 @@ export function dealChallenge(n, opts = {}) {
 
 // ─── The week ─────────────────────────────────────────────────────────────────
 // Each day of the week has its own kind of case, by the calendar date of the
-// challenge (№ 1 was a Tuesday). Three plain days; one with a patron seated for
+// challenge (№ 1 was a Friday). Three plain days; one with a patron seated for
 // everyone; one with an editor at the desk; one of two words; and one where the
 // reader picks a patron from two.
 //
@@ -341,14 +343,10 @@ export const CHOICE_TIERS = {
   plain: ['herald', 'cartographer', 'poet', 'stammerer', 'yodeller', 'antiquary', 'commoner'],
 };
 // Each bites: the best word unseated is spiked on a quarter to all of cases,
-// and the best word under them is a different one on two-fifths or more.
+// and the best word under them is a different one on two-fifths or more —
+// but for the Eeeditor (6 November), whose four E's mostly shape the case:
+// he moves the best word on one case in twenty.
 export const EDITOR_DAYS = ['columnist', 'populist', 'serialist', 'enthusiast', 'minimalist', 'redactor', 'eeeditor'];
-// The Redactor joined on 5 November, from the next Thursday (№ 8): the days
-// before keep the roster they were dealt, and the new one counts its turns
-// from there, on a seed of its own, so its first lap seats every editor.
-// The Eeeditor joined on 6 November, into the same rotation from № 8.
-const EDITOR_DAYS_BEFORE = EDITOR_DAYS.filter(id => id !== 'redactor' && id !== 'eeeditor');
-const REDACTOR_FROM = 8;
 // The Redactor's drafts: so many of the case's sorts are wrapped, and spell
 // and nothing else, as the game's wrapped tiles do (spellsOnly in
 // js/state.js). The game wraps a third of the collection (REDACTOR_SHARE in
@@ -387,8 +385,7 @@ export function dayOf(n) {
   const w = turnOf(n);
   if (kind === 'patron') return { kind, id: turn(DAY_PATRONS, w, 'patron') };
   if (kind === 'editor') {
-    return n < REDACTOR_FROM ? { kind, id: turn(EDITOR_DAYS_BEFORE, w, 'editor') }
-      : { kind, id: turn(EDITOR_DAYS, turnOf(n) - turnOf(REDACTOR_FROM), 'editor:6') };
+    return { kind, id: turn(EDITOR_DAYS, w, 'editor') };
   }
   if (kind === 'choice') {
     // Sunday offers two of the rich tier, Friday two of the plain, so the
@@ -730,6 +727,6 @@ export function monogramFor(deal, rng) {
 // Challenge № 1 is the first day of the proof; every day after is one more.
 // While the mode is being tried out the page lets you walk to any number, so
 // "today's" is only where it opens.
-export const EPOCH = Date.UTC(2026, 10, 5);   // 5 November 2026 — № 1
+export const EPOCH = Date.UTC(2026, 10, 6);   // 6 November 2026 — № 1
 export const todaysNumber = (now = new Date()) =>
   Math.max(1, Math.floor((Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) - EPOCH) / 864e5) + 1);
