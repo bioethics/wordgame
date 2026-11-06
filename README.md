@@ -2059,23 +2059,22 @@ largest now is ST's, 98 KB, and most are a few tens.)
 
 The Share button (the share sheet on a phone, the clipboard elsewhere, and
 failing both the text itself laid out to copy) gives the day the way Wordle
-does, as a grid of squares: the case as it was dealt, four to a row (five on a
-two-word day), each sort you set in its paint (⬜, the cream of the type, if it
-wore none) and the others dark. The puzzle and how you set it, with no letter
-of the word. Under the grid, each word as the readout summed it — its length,
-Points × Mult = total — with the emoji of any patron who paid for it (a spiked
-word ✂️, a tool used on it 🔧 🔍 🎨); then the grade and the place, after the
-pair's sum on a two-word day:
+does, in coloured squares: each word a row of them, a sort to a square in the
+order it was set, each in its paint (⬜, the cream of the type, if it wore
+none). How the word was set, without a letter of it. Beside each row, the sum
+the readout made of it, Points × Mult = total, with the emoji of any patron who
+paid for it (a spiked word ✂️, a tool used on it 🔧 🔍 🎨); then the grade and
+the place, after the pair's sum on a two-word day:
 
 ```
 Daily #2
-🟥⬛⬜⬜
-⬜⬛⬛⬛
-🟨⬛⬛⬛
-⬛⬛⬛🟦
-7 letters: 65 × 30 = 1,950
+🟥⬜🟨⬜⬜🟦⬜ 65 × 30 = 1,950
 Top 40% · #874 of 2,624
 ```
+
+(Until 6 November the squares were the whole case as dealt, the sorts set in
+their paint and the rest dark; a grid of the case was more than the share
+needed to say.)
 
 The Points and Mult are the readout's, a seat's ×Mult on the Mult side, where
 they multiply out to the total. Where a seat's rounding keeps them from it —

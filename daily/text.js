@@ -179,7 +179,7 @@ export const RESULT = {
   again: 'Again',
   next: 'Next ›',
   shareHead: 'Daily #{0}',
-  shareSum: '{0} letters: {1} × {2} = {3}',
+  shareSum: '{0} {1} × {2} = {3}',
 };
 
 export const fill = (s, ...v) => s.replace(/\{(\d)\}/g, (_, i) => v[i] ?? '');

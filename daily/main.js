@@ -1450,22 +1450,14 @@ const patronMark = (tiles, seat = 0) => {
   return m;
 };
 
-// The share, Wordle's way: the case as it was dealt, in rows, every sort you set
-// in its paint (⬜, the cream of the type, if it wore none) and the rest dark —
-// the puzzle and how you set it, without a letter of the word. Then each word
-// as the readout summed it, its length and Points × Mult = total, with the
-// emoji of a patron who paid for it, a spike's scissors and the tool used on
-// it; then the place.
+// The share, Wordle's way: each word as a row of squares, a sort to a square in
+// the order it was set, each in its paint (⬜, the cream of the type, if it wore
+// none) — how it was set, without a letter of it — and beside it the sum the
+// readout made of it, Points × Mult = total, with the emoji of a patron who
+// paid for it, a spike's scissors and the tool used on it; then the place.
 const SHARE_SQUARE = { crimson: '🟥', azure: '🟦', jade: '🟩', amber: '🟨' };
 const SHARE_TOOL = { ratchet: '🔧', loupe: '🔍', tube: '🎨' };
 function shareText(r, pairs) {
-  const used = new Map();
-  S.words.forEach((_, k) => { for (const t of wordAndRest(k).word) used.set(t.id, t); });
-  const tiles = S.deal.tiles;
-  const cols = tiles.length >= 20 ? 5 : 4;
-  const cells = tiles.map(t => (used.has(t.id) ? SHARE_SQUARE[used.get(t.id).colour] ?? '⬜' : '⬛'));
-  const grid = [];
-  for (let i = 0; i < cells.length; i += cols) grid.push(cells.slice(i, i + cols).join(''));
   const sums = S.words.map((_, k) => {
     const { word } = wordAndRest(k);
     const sc = scoreOf(k);
@@ -1479,11 +1471,11 @@ function shareText(r, pairs) {
     // which always does (26 × 3 = 78, not 17 × 4.5).
     const [pts, mult] = Math.abs(sc.shownPoints * sc.shownMult - sc.total) < 1
       ? [sc.shownPoints, sc.shownMult] : [sc.points, sc.mult];
-    return `${fill(RESULT.shareSum, sc.letters.length, fmtN(pts), +(mult ?? 1).toFixed(2), fmtN(sc.total))}${marks.length ? ` ${marks.join('')}` : ''}`;
+    const squares = word.map(t => SHARE_SQUARE[t.colour] ?? '⬜').join('');
+    return `${fill(RESULT.shareSum, squares, fmtN(pts), +(mult ?? 1).toFixed(2), fmtN(sc.total))}${marks.length ? ` ${marks.join('')}` : ''}`;
   }).filter(Boolean);
   return [
     fill(RESULT.shareHead, S.n),
-    ...grid,
     ...sums,
     [...(sums.length > 1 ? [fmtN(r.score)] : []),
       r.rank === 1 ? RESULT.best : gradeLabel(r),
