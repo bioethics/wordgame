@@ -313,9 +313,10 @@ export const DAY_PATRONS = [
   // move the best word, only pay — and the deal gives each what it reads.
   'jeweller', 'novelist', 'typesetter', 'romeo', 'juliet', 'siren', 'firebrand',
   // 7 November: the Izzard (the game's, dealt a Z), the Quoin (the game's, at
-  // ×2), and three of the daily's own — the Elegant Variationist, the Bookends
-  // and the Capitalist. README.md, "The table", has what each does to a case.
-  'izzard', 'quoin', 'variationist', 'bookends', 'capitalist',
+  // ×2), the Domestic Shorthair (the game's, at ×3, dealt R, A and T), and three
+  // of the daily's own — the Elegant Variationist, the Bookends and the
+  // Capitalist. README.md, "The table", has what each does to a case.
+  'izzard', 'quoin', 'shorthair', 'variationist', 'bookends', 'capitalist',
 ];
 // Offered two at a time, from one tier. A tier is patrons that pay the SAME
 // WAY, so the choice is between two words to look for, never between two kinds
@@ -435,6 +436,7 @@ const SEAT_SHAPES = {
   juliet:     { paint: { jade: 3, amber: 1 } },
   jeweller:   { rare: 1 },
   izzard:     { letters: { Z: 1 } },
+  shorthair:  { letters: { R: 1, A: 1, T: 1 } },
   bookends:   { paint: { pairs: 2 } },
   quoin:      { paint: { pairs: 2 } },
 };

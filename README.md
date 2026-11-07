@@ -1863,12 +1863,13 @@ whatever you set (near 100%) or seldom matters (near 0):
 | The Counterfeiter | 87% | 87% | The Jeweller | 20% | 53% |
 | The Bookbinder | 80% | 59% | The Typesetter | 18% | 66% |
 | The Bookends | 62% | 59% | The Siren | 18% | 100% |
-| The Elegant Variationist | 58% | 65% | Juliet | 15% | 27% |
-| The Athlete | 57% | 65% | The Haplographer | 10% | 20% |
-| The Sculptor | 52% | 68% | The Expectant Parents | 8% | 18% |
-| The Serpent | 48% | 92% | Romeo | 8% | 30% |
-| The Twins | 45% | 26% | The Firebrand | 8% | 86% |
-| The Quoin | 43% | 71% | The Novelist | 0% | 91% |
+| The Domestic Shorthair | 65% | 13% | Juliet | 15% | 27% |
+| The Elegant Variationist | 58% | 65% | The Haplographer | 10% | 20% |
+| The Athlete | 57% | 65% | The Expectant Parents | 8% | 18% |
+| The Sculptor | 52% | 68% | Romeo | 8% | 30% |
+| The Serpent | 48% | 92% | The Firebrand | 8% | 86% |
+| The Twins | 45% | 26% | The Novelist | 0% | 91% |
+| The Quoin | 43% | 71% | | | |
 | The Capitalist | 43% | 100% | | | |
 
 None is ever dead. The Monogrammist's figure is low, but he changes *which
@@ -1876,7 +1877,7 @@ tiles* the best word is set from (his letters print twice, paint and all),
 which the figure doesn't see. The Counterfeiter lends a blank, any letter,
 worth 0 — the wildcard the ratchet is a cramped version of.
 
-**Five more**, 7 November:
+**Six more**, 7 November:
 
 - *The Izzard* (⚡, the game's): any Z may be set as an S, and keeps its own
   Points — ZHOWGIRLS for SHOWGIRLS, a Z worth 8 where the S was worth 1. His
@@ -1889,6 +1890,12 @@ worth 0 — the wildcard the ratchet is a cramped version of.
   sorts of one colour stand side by side. Dealt two pairs of colours, drawn
   at random each day (`paint.pairs`), without which he found nothing on 45% of
   cases.
+- *The Domestic Shorthair* (🐈, the game's, adapted): ×3 for words containing
+  RAT (PIRATE, GRATIFIED), where the game's cat pays a Coin and a laurel. His
+  day deals an R, an A and a T (`SEAT_SHAPES`): undealt, half of all cases
+  couldn't spell one. Dealing the letters makes the hunt possible without
+  making it obvious: RAT is in 13% of the hundred best words, and when one is
+  there it is the best word two times in three.
 - *The Elegant Variationist* (🦢, the daily's own): ×2 for words with no
   repeated letter. Fowler's elegant variation is the writer's dread of saying
   a word twice; his is of a letter.
@@ -1912,11 +1919,9 @@ words (0–27%, the higher only with a case of four or five vowels), and ×3 for
 word with no sort dressed (0%: a dressed word always won). Dealing a colour
 patron his colours mostly puts them into the best word too, since paint
 already pays, so he pays on nearly every good word and moves few; it helps a
-rule about spelling. The Domestic Shorthair (the game's; ×3 for R-A-T in a
-row, PIRATE, GRATIS), dealt an R, an A and a T, moved 53% and paid on 12% — a
-hunt, not a bonus — and was offered and not taken, as were the Metronome (×3
-for words that alternate consonant and vowel: 55%, 30%) and the Skinflint
-(+10 Points a sort left in the case: 23%, 100%).
+rule about spelling, as the Shorthair's R, A and T show. Offered and not
+taken: the Metronome (×3 for words that alternate consonant and vowel: 55%,
+30%) and the Skinflint (+10 Points a sort left in the case: 23%, 100%).
 
 **The Turnkey** (🔐, the daily's own, 6 November, offered on Sundays): ×3 Mult on every word, and four sorts of
 the case locked while he is seated. A locked sort is in the case and in no
