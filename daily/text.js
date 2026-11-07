@@ -106,7 +106,7 @@ export const PATRON_TEXT = {
   twins:         'Every doubled letter (LL, OO…) pays +5 Points, and the second tile takes every feature of the first.',
   monogrammist:  'A tile showing {0} prints twice — Points, trim and paint alike.',
   limner:        '×3 Mult for words beginning with {0}.',
-  turnkey:       '×3 Mult. While he is seated, four sorts in the case are locked and can’t be set.',
+  turnkey:       '×3 Mult. Four sorts in the case are locked.',
   counterfeiter: 'A blank joins the case: any letter, worth 0.',
 };
 

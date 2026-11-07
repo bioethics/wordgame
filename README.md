@@ -1872,8 +1872,7 @@ best word two-thirds of its worth and his ×3 broke even, where sparing the
 dressing they cost about a third. Over 240 cases, with his locks as dealt, the
 best word with him seated is worth ×1.64 the best unseated, he helps on 81%,
 moves the best word on 90%, and leaves a third of the field: an easier puzzle,
-which is the point of him. His card says only that four sorts are locked
-while he is seated. On a Sunday he is the choice between sixteen sorts for a
+which is the point of him. His card says only that four sorts are locked. On a Sunday he is the choice between sixteen sorts for a
 themed word and twelve for any word: over 205 cases his best beats the other
 patron's on 44%, from 29% against the Paramour to 57% against the Schoolmarm,
 near the Limner's 49%, so neither half of the pair is the answer in advance.
