@@ -648,11 +648,12 @@ async function plop(k, total, sum) {
 //      voiced by its metal;
 //   2. each nick reads its side — every sort it counts flashes its figure —
 //      and the sum lands back on the nick;
-//   3. a curse left in the case takes its toll;
+//   3. (the seat's Points);
 //   4. the multipliers, on the finished Points: each stamp's sorts glow, the
 //      bell rings a step higher, and the stamp inks in — the measure with its
 //      cheer;
-//   5. the press comes down on the total.
+//   5. the press comes down on the total, and a curse left in the case takes
+//      its toll from it.
 // A tap or a key during it hurries the rest through (S.hurry), since the tenth
 // time a player has seen it they know what it says.
 const ANIM = { tile: 300, nick: 430, chip: 560, hold: 820 };   // constants.js ANIM, the game's pace
@@ -740,15 +741,6 @@ async function replay(word, sc, k = 0) {
     seatFire();
   }
 
-  // 3. The curse's toll.
-  if (sc.toll) {
-    if (!S.hurry) floatText(stickEl(k), `−${fmtN(sc.toll)}`, 'fl-curse', { dy: -60 });
-    sfx.bad();
-    running -= sc.toll;
-    tween(ro.points, running);
-    await beat(ANIM.chip);
-  }
-
   // 3½. A seat's Points (The Twins' pairs).
   if (sc.seatPoints) {
     seatFire();
@@ -787,9 +779,17 @@ async function replay(word, sc, k = 0) {
     await beat(ANIM.chip);
   }
 
-  // 5. The press comes down.
+  // 5. The press comes down — and a curse left in the case takes its toll,
+  // last of all, off the finished figure.
   sfx.crank(480);
-  await tween(ro.total, sc.total, { duration: 480 });
+  await tween(ro.total, sc.toll ? sc.gross : sc.total, { duration: 480 });
+  if (sc.toll) {
+    await beat(ANIM.chip);
+    if (!S.hurry) floatText(stickEl(k), `−${fmtN(sc.toll)}`, 'fl-curse', { dy: -60 });
+    sfx.bad();
+    pulse(chipEl('toll'), 'chip--pop', 500);
+    await tween(ro.total, sc.total, { duration: 380 });
+  }
   sfx.total();
   if (!S.hurry) sparkleBurst(ro.total, 12);
   pulse($('readout'), 'readout--slam', 500);
@@ -1381,10 +1381,12 @@ function renderReadout(sc) {
     c.append(sw, v);
     chips.appendChild(c);
   }
-  // A curse's toll is the one subtraction in the game.
+  // A curse's toll is the one subtraction in the game, and the last thing
+  // done: it stands after every multiplier.
   if (sc?.toll) {
     const c = document.createElement('span');
     c.className = 'chip chip--toll';
+    c.dataset.kind = 'toll';
     c.title = SORT_TEXT.cursed.head;
     c.textContent = `−${fmtN(sc.toll)}`;
     chips.appendChild(c);

@@ -1315,11 +1315,16 @@ async function submitWord() {
   pulse(ro.root, 'readout--slam', 500);
   if (script.adjusted) {
     await sleep(ANIM.stepPatron);
+    // A curse left in hand takes its toll last of all, off the finished figure.
+    if (script.toll) {
+      floatText($('word'), `−${script.toll} — ${script.curses > 1 ? 'curses' : 'a curse'} left in hand`, 'fl-curse', { dy: -60 });
+    }
     showStruckTotal(script.plainTotal);
     pulse(ro.plain, 'ro-total--striking', 460);
     setNum(ro.total, script.plainTotal);
     await tweenNum(ro.total, script.total, { duration: 380 });
     if (script.spiked) { sfx.bad(); pulse($('bossBar'), 'boss-bar--spiking', 520); }
+    else if (script.toll) sfx.bad();
     else sfx.mult();
   }
   patronReactions(script);   // fire-and-forget flavour — never blocks the flow

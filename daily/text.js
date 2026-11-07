@@ -55,7 +55,7 @@ export const SORT_TEXT = {
   medievalHead: '{0} — reads as {1}.',
   medievalBody: 'Counts as {0}.',              // "two letters", "one or two letters"
   letterCount: ['', 'one', 'two', 'three'],
-  cursed: { head: 'Hellbox iron', body: '×{0} Mult. A word set without it loses {1} Points.' },
+  cursed: { head: 'Hellbox iron', body: '×{0} Mult. A word set without it loses {1} from its final score.' },
   ratcheted: 'Stepped from {0}',
   louped: 'Doubled by the loupe',
   painted: 'Painted from the tube',
@@ -80,7 +80,7 @@ export const DAILY_CARDS = {
 
 export const PATRON_TEXT = {
   expectants:    'Baby names count as words, and score +15 Points.',
-  haplographer:  'Any doubled letter may be set once: BALOON for BALLOON.',
+  haplographer:  'Single letters can stand for doubled letters: BALOON for BALLOON.',
   bookbinder:    'A V may stand for a W, and an O may repeat any number of times.',
   sexton:        '×3 Mult for spooky words.',
   paramour:      '×3 Mult for romantic words.',

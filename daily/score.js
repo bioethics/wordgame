@@ -162,9 +162,9 @@ const round3 = m => Math.round(m * 1000) / 1000;
 //   2  nicks read their side (a nicked tile is read at its resting value)
 //   2½ The Monogrammist's tiles print twice
 //   3  the measure × each paint × purple × cursed (echoed tiles count twice)
-//   3½ a curse left out takes its toll
 //   4  the patron rules on the word (Points, +Mult, ×Mult — all on Points)
 //   4¾ the editor spikes
+//   5  a curse left out takes its toll, off the finished score
 function core(word, letters, restCurses, T, full) {
   let tiles = word;
   let pairs = null, recasts = null, lit = null;
@@ -237,8 +237,10 @@ function core(word, letters, restCurses, T, full) {
   if (sq) { const m = EXPLOSIVE_MULT ** sq; mult *= m; chips?.push({ kind: 'explosive', count: sq, mult: m }); }
   mult = round3(mult);
 
+  // A curse left in the case takes its toll last of all, from the finished
+  // score (below): the game's rule since 7 November (computeScore in
+  // js/scoring.js).
   const toll = restCurses * CURSED_PENALTY;
-  points -= toll;
 
   // The seat. A ×Mult folds into Points at once (scoring's pass 4), so a
   // patron's ruling is paid on the Points side of the readout.
@@ -266,7 +268,8 @@ function core(word, letters, restCurses, T, full) {
     mult = round3(mult);
   }
 
-  const total = Math.max(0, Math.round(points * mult));
+  const gross = Math.max(0, Math.round(points * mult));
+  const total = Math.max(0, Math.round(points * mult) - toll);
   if (!full) return total;
   // What the readout shows. A seat's ×Mult folds into Points in the arithmetic,
   // but every patron the day can seat pays a whole-number ×Mult (or plain
@@ -279,7 +282,7 @@ function core(word, letters, restCurses, T, full) {
     if (st.mult) seatX *= 1 + st.mult;
   }
   return {
-    points, mult, total, chips, toll, before, seat, spiked, seatX, seatPoints,
+    points, mult, total, gross, chips, toll, before, seat, spiked, seatX, seatPoints,
     shownPoints: seatX === 1 ? points : before + seatPoints,
     shownMult: round3(mult * seatX),
     plainTotal: Math.max(0, Math.round(points * plainMult)),
@@ -401,8 +404,7 @@ function fastTotal(seq, len, cursesLeft, extra = null) {
   mult *= (cr + 1) * (az + 1) * (jd + 1) * (am + 1) * (1 + pu * PURPLE_TRIM_STEP)
         * CURSED_MULT ** cu * EXPLOSIVE_MULT ** sq;
   mult = Math.round(mult * 1000) / 1000;
-  points -= (cursesLeft - cu) * CURSED_PENALTY;
-  return Math.max(0, Math.round(points * mult));
+  return Math.max(0, Math.round(points * mult) - (cursesLeft - cu) * CURSED_PENALTY);
 }
 
 // Every way to finish a set of letters with the marks left over: none, ?, !, ?!.

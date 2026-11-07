@@ -62,7 +62,7 @@ let failures = 0;
 const fail = msg => { failures++; if (failures < 25) console.error('  ✗', msg); };
 
 // ─── 1. Scoring parity ────────────────────────────────────────────────────────
-let compared = 0;
+let compared = 0, cursedLeft = 0, cursedCleared = 0;
 const PLAIN = { day: { kind: 'plain' } };
 for (let n = from; n <= to; n++) {
   const deal = dealChallenge(n, PLAIN);
@@ -94,12 +94,15 @@ for (let n = from; n <= to; n++) {
     const theirs = computeScore(word);
     const ours = S.scoreWord(word, rest, has);
     compared++;
+    // A curse left in hand takes its toll off the finished score (since 7
+    // November), so a big enough word clears it: count both kinds compared.
+    if (rest.some(t => t.material === 'cursed')) { cursedLeft++; if (ours.total > 0) cursedCleared++; }
     if (theirs.total !== ours.total || theirs.mult !== ours.mult || theirs.points !== ours.points) {
       fail(`№${n} ${ours.set}: game ${theirs.points}×${theirs.mult}=${theirs.total}, daily ${ours.points}×${ours.mult}=${ours.total}`);
     }
   }
 }
-console.log(`scoring: ${compared} arrangements compared with computeScore`);
+console.log(`scoring: ${compared} arrangements compared with computeScore (${cursedLeft} with a curse left in hand, ${cursedCleared} of them clearing its toll)`);
 
 // ─── 1½. The same, with each patron and each editor seated ────────────────────
 // The game's own seat for the patron (state.patrons) and its own desk for the

@@ -545,21 +545,6 @@ export function computeScore(wordTiles) {
     }
   }
 
-  // A cursed tile you didn't set takes its due from the word you set instead,
-  // once per curse still in the rack. Points, not Mult, so it lands before the
-  // multipliers. The tile can never be discarded, so the floor at zero (below)
-  // is what stops it stranding a hand: words around it go worth-nothing rather
-  // than impossible, and the rack keeps turning over.
-  const cursesInHand = state.rack.filter(t => t.material === 'cursed').length;
-  if (cursesInHand) {
-    const toll = cursesInHand * CURSED_PENALTY;
-    points -= toll;
-    patronSteps.push({
-      id: 'cursed', text: `−${toll} Points — ${cursesInHand > 1 ? 'curses' : 'a curse'} left in hand`,
-      points: -toll, running: Math.round(points),
-    });
-  }
-
   // ── Pass 4: patrons, in the order you seated them ──────────────────────────
   // The rule fits on a card: A ×MULT MULTIPLIES EVERYTHING THE TABLE HAS SAID
   // IN FRONT OF IT, AND NOTHING BEHIND IT. Adding seats are worth more early,
@@ -766,9 +751,19 @@ export function computeScore(wordTiles) {
     mult = Math.round(mult * 1000) / 1000;
   }
 
-  // Floored at nothing: only a curse left in hand can drive Points below zero,
-  // and a negative word would eat the page you'd already built.
-  const total      = Math.max(0, Math.round(points * mult));
+  // A cursed tile you didn't set takes its due from the word you set instead,
+  // once per curse still in the rack — last of all, from the finished score,
+  // after every multiplier and the desk (since 7 November; it was Points before
+  // the multipliers until then, so that a word with a curse left in hand
+  // almost never scored at all). Now a big enough word clears it. The tile can
+  // never be discarded, so the floor at zero is what stops it stranding a
+  // hand: words around it go worth-nothing rather than impossible, and the
+  // rack keeps turning over; a negative word would eat the page you'd built.
+  // The readout strikes the figure the word made and writes what the curse
+  // left of it beside it, as it does for a spike (`plainTotal`).
+  const cursesInHand = state.rack.filter(t => t.material === 'cursed').length;
+  const toll       = cursesInHand * CURSED_PENALTY;
+  const total      = Math.max(0, Math.round(points * mult) - toll);
   const plainTotal = Math.max(0, Math.round(points * plainMult));
   const adjusted   = plainTotal !== total;
 
@@ -787,6 +782,7 @@ export function computeScore(wordTiles) {
 
   return {
     word, letters, points, mult, total, coins, refresh, spiked, plainTotal, adjusted, bold,
+    toll, curses: cursesInHand,
     stamps, stampedPoints,
     tileSteps, tilePaintSteps, tilePaint, tileBoostSteps, tileGrowth, nickSteps, nickGains,
     colourSteps, patronSteps, perTile, at: snapOf(state),

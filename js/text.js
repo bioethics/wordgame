@@ -344,7 +344,7 @@ export const SOLO_TEXT = {
 export const MATERIAL_TEXT = {
   cursed: {
     label: 'Cursed', metal: 'Hellbox iron',
-    desc: '×{CURSED_MULT} Mult. Can’t be discarded. While it’s in your hand, each word set without it loses {CURSED_PENALTY} Points.',
+    desc: '×{CURSED_MULT} Mult. Can’t be discarded. While it’s in your hand, each word set without it loses {CURSED_PENALTY} from its final score.',
   },
   ghost: {
     label: 'Ghost', metal: 'Ghost metal',

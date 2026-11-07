@@ -250,9 +250,10 @@ seat order, which is a promise to the player.
 Two things happen before the table speaks. Patrons whose promise reads
 *"such-and-such tiles gain +N Points"* write that number onto the tile itself,
 so **the nicks read it and the Monogrammists double it**; where it is written in for
-keeps the groove shows it in **jade** rather than brass. And the tongs' heat and
-the toll for a curse left in hand land first, so any multiplier seated at all
-catches them.
+keeps the groove shows it in **jade** rather than brass. And the tongs' heat
+lands first, so any multiplier seated at all catches it. (The toll for a curse
+left in hand landed there too until 7 November; it now comes off last of all,
+from the finished score — below.)
 
 ### The Quoin — the seat that reads position
 
@@ -770,9 +771,13 @@ paint, trims and nicks.
 
 - **Cursed** (hellbox iron) — ×2 Mult when printed, and never discardable: the
   only way out of your hand is to play it. While it waits, every word set
-  *without* it loses 666 Points, once per curse — enough that such words score
-  nothing (a total never falls below zero), so you can keep printing to turn the
-  rack over. Two in one word compound to ×4.
+  *without* it loses 666 from its final score, once per curse — taken last of
+  all, after every multiplier and the desk, so most such words score nothing (a
+  total never falls below zero) and you can keep printing to turn the rack
+  over, but a big enough word clears it. (Until 7 November the 666 came off the
+  Points, before the multipliers, and almost nothing cleared it.) The readout
+  strikes the figure the word made and writes what the curse left of it
+  beside it, as for a spike. Two in one word compound to ×4.
 - **Ghost** (ghost metal) — holds no place in your hand, so you effectively draw
   one more, but nothing can ever be done to it: no paint, trim, nick, second
   letter or growth, and the Stereotyper can't copy it.
@@ -1468,7 +1473,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | The child's stages — what each is called, wears, and pays | `js/constants.js` → `BABY_STAGES` (the same number is Points every word and Coins at the ✕). The register it waits in is `state.babyName`; the seat is `baby` in `js/patrons.js` |
 | The luck dial, and what rides on it | `js/state.js` → `luckyRoll` and `state.luck`. Every roll a player would want to win goes through it; misfortunes deliberately do not. *The Corrector* is its second branch — one reroll of a failed roll, counted on his own seat |
 | What a laurel is worth in Mult while The Laureate is seated | `js/constants.js` → `LAUREATE_MULT_STEP`. Paid in `js/scoring.js` pass 4 beside the laurel's Points; the badge copy is `laurelWorth` in `js/patrons.js`, which the shelf, the graveyard and the Market's shelf strip all read |
-| Where the patrons' turns happen, and what a ×Mult reaches | `js/scoring.js` → pass 4. Points that must be multiplied by the table have to land before it (the tongs' heat and the curse's toll do, in pass 3½) |
+| Where the patrons' turns happen, and what a ×Mult reaches | `js/scoring.js` → pass 4. Points that must be multiplied by the table have to land before it (the tongs' heat does, in pass 3½). The curse's toll comes off the finished total, after the desk |
 | Patrons that improve the tiles rather than the word | `js/patrons.js` → the `tileBonus` hook (pass 1½ in `js/scoring.js`); the number goes onto the tile, so nicks read it and Monogrammists carry it. The hook's ctx carries `letters` as well as `tiles`, for a seat paying per tile for a property of the word's *shape* |
 | The Apprentice's four | `js/constants.js` → `APPRENTICE_LENGTH`, `APPRENTICE_STEP`. Paid through `tileBonus` per LETTER, so a ligature carries its share and a four-letter word is worth 16 however it is spelled; a mark takes nothing, not being part of the shape |
 | The Wordler — the secret's length, how far down the list its answer may sit, how many guesses his board keeps | `js/constants.js` → `WORDLER`. **Every** word printed is a guess: a short one is marked as far as it reaches, a long one on its first `length` letters with the tail shown unjudged (`markGuess` in `js/patrons.js`, and `WORDLE_MARKS` for the four squares). Only an exact match solves him |
@@ -1682,9 +1687,10 @@ for is on the sheet before a sort is set.
 
 Printing replays the score the way the full game does (`submitWord`'s passes):
 each sort pays in turn, a note higher up the scale and voiced by its metal;
-each nick reads its side and the sum lands back on it; a curse takes its toll;
-the stamps fill one at a time on the finished Points, the measure with its
-cheer (`lengthFlourish`); and the press comes down on the total. A tap or a key
+each nick reads its side and the sum lands back on it; the stamps fill one at
+a time on the finished Points, the measure with its cheer (`lengthFlourish`);
+and the press comes down on the total, and a curse left in the case takes its
+toll from it. A tap or a key
 hurries it through. The floaters and sparkles are `js/anim.js`'s own, drawn
 into a `#fx` layer, with `--aspd` set from the game's speed setting so the
 copied keyframes run at the game's pace. Space shuffles and Escape empties the
@@ -1744,10 +1750,13 @@ marks or squib lead: a mark only rides on the end of a word, so it is a flat
 Point or two whatever you set, and squib lead's game is the blast after the
 print, which one word never sees — leaving a plain ×2 with no decision in it.
 Hellbox
-iron keeps its whole rule, toll and all: it is ×2 in the word and −666 Points
-out of it, which makes a hellbox day the one where a single letter must be in
-whatever you print — a mandatory letter, arrived at by the game's own
-mechanics rather than bolted on.
+iron keeps its whole rule, toll and all: it is ×2 in the word and −666 off the
+score of a word set without it, which makes a hellbox day the one where a
+single letter belongs in whatever you print — a mandatory letter, arrived at
+by the game's own mechanics rather than bolted on. Since the toll moved to the
+end of the sum (7 November) it is mandatory in practice rather than in
+arithmetic: on fourteen hellbox days the best word carried the iron every
+time, but from none to several hundred words a day clear the toll without it.
 
 ### What the day is
 
@@ -1893,7 +1902,7 @@ worth 0 — the wildcard the ratchet is a cramped version of.
   Haplographer's are (`spell`), bounded by the case's Z's. In the results a
   licensed spelling's definition is that of the word it stands for, headed
   by it (`reads` in `daily/table.js`, `headOf` in `daily/main.js`; the
-  Haplographer's too).
+  Haplographer's and the Bookbinder's too: DOOVNFIELD is defined as DOWNFIELD).
 - *The Quoin* (🔩, the game's, adapted): ×2, where the game's pays ×3, when two
   sorts of one colour stand side by side. Dealt two pairs of colours, drawn
   at random each day (`paint.pairs`), without which he found nothing on 45% of

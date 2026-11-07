@@ -106,7 +106,7 @@ export const PATRON_CARDS = {
   },
   romeo: {
     name: 'Romeo', emoji: '🌹', rarity: 'uncommon', cost: 6, guild: 'amber',
-    desc: '×{LOVERS_APART} Mult when the word contains an amber-painted tile, and no jade tiles.',
+    desc: '×{LOVERS_APART} Mult for words with amber but no jade.',
   },
 
   // ── Jade · growth and permanence ────────────────────────────────────────────
@@ -191,7 +191,7 @@ export const PATRON_CARDS = {
   },
   juliet: {
     name: 'Juliet', emoji: '🌷', rarity: 'uncommon', cost: 6, guild: 'jade',
-    desc: '×{LOVERS_APART} Mult when the word contains at least one jade letter, and no amber letters.',
+    desc: '×{LOVERS_APART} Mult for words with jade but no amber.',
   },
   // The seat no Market sells: `unlisted` keeps it out of the pool, and the only
   // way to it is to hold both lovers at once (marryLovers in js/state.js).
@@ -210,7 +210,7 @@ export const PATRON_CARDS = {
   },
   firebrand: {
     name: 'The Firebrand', emoji: '❤️‍🔥', rarity: 'common', cost: 4, guild: 'crimson',
-    desc: 'Words with 2 or more crimson tiles score +15 Points.',
+    desc: '+15 Points for words with 2+ crimson tiles.',
   },
   gambler: {
     name: 'The Gambler', emoji: '🎲', rarity: 'common', cost: 4, guild: 'crimson',
@@ -308,7 +308,7 @@ export const PATRON_CARDS = {
   },
   siren: {
     name: 'The Siren', emoji: '🎶', rarity: 'common', cost: 4, guild: 'azure',
-    desc: 'Vowels gain +2 Points, or +6 if they are azure.',
+    desc: 'Vowels score +2 Points; azure ones +6.',
   },
   yodeller: {
     name: 'The Yodeller', emoji: '🏔️', rarity: 'rare', cost: 9,
@@ -340,7 +340,7 @@ export const PATRON_CARDS = {
   },
   sculptor: {
     name: 'The Sculptor', emoji: '🗿', rarity: 'rare', cost: 9, guild: 'azure',
-    desc: '×2 Mult when the word is a noun.',
+    desc: '×2 Mult for nouns.',
   },
   titivillus: {
     name: 'Titivillus', emoji: '😈', rarity: 'rare', cost: 9, guild: 'azure',
@@ -365,11 +365,11 @@ export const PATRON_CARDS = {
   },
   poet: {
     name: 'The Poet', emoji: '🪶', rarity: 'rare', cost: 10, guild: 'azure',
-    desc: '×2 Mult when the word is an adjective or an adverb.',
+    desc: '×2 Mult for adjectives and adverbs.',
   },
   athlete: {
     name: 'The Athlete', emoji: '🏃', rarity: 'rare', cost: 12, guild: 'azure',
-    desc: '×2 Mult when the word is a verb.',
+    desc: '×2 Mult for verbs.',
   },
   binder: {
     name: 'The Binder', emoji: '🔗', rarity: 'rare', cost: 12, guild: 'azure',
@@ -400,7 +400,7 @@ export const PATRON_CARDS = {
   // where he died.
   bookbinder: {
     name: 'The Bloodless Bohemian Bookbinder', emoji: '🧛', rarity: 'uncommon', cost: 7, guild: 'azure',
-    desc: 'A W may be spelled with a V. An O may repeat any number of times.',
+    desc: 'A V may stand for a W, and an O may repeat any number of times.',
     unlockNote: 'Calls only once a ghost has been seen in the run — a ghost calls a ghost.',
   },
   ditherer: {
@@ -425,7 +425,7 @@ export const PATRON_CARDS = {
   },
   twins: {
     name: 'The Twins', emoji: '👯', rarity: 'common', cost: 4,
-    desc: 'Every doubled letter (LL, OO…) pays +{TWINS_POINTS} Points. Also, all features of the first tile are copied to the second.',
+    desc: 'Each double letter (LL, OO…) scores +{TWINS_POINTS} Points, and its second tile copies the first.',
   },
   silentknight: {
     name: 'The Silent Knight', emoji: '\u2694\ufe0f', rarity: 'rare', cost: 8, guild: 'azure',
@@ -464,7 +464,7 @@ export const PATRON_CARDS = {
   },
   jeweller: {
     name: 'The Jeweller', emoji: '💎', rarity: 'uncommon', cost: 5,
-    desc: 'Tiles worth 8+ Points are worth half as much again.',
+    desc: 'Tiles worth 8+ Points score 50% more.',
   },
   mirror: {
     name: 'The Mirror', emoji: '🪞', rarity: 'uncommon', cost: 5,
@@ -513,7 +513,7 @@ export const PATRON_CARDS = {
   },
   haplographer: {
     name: 'The Haplographer', emoji: '🔂', rarity: 'uncommon', cost: 6,
-    desc: 'Single letters can read as doubled (BALOON counts as BALLOON).',
+    desc: 'Single letters can stand for doubled letters: BALOON for BALLOON.',
   },
   herald: {
     name: 'The Herald', emoji: '📯', rarity: 'uncommon', cost: 6,
@@ -525,7 +525,7 @@ export const PATRON_CARDS = {
   },
   typesetter: {
     name: 'The Typesetter', emoji: '🔣', rarity: 'uncommon', cost: 6,
-    desc: 'Each non-standard tile (e.g., QU, RAT, medieval glyphs) give +{TYPESETTER_STEP} Mult.',
+    desc: '+{TYPESETTER_STEP} Mult per non-standard tile (QU, RAT, medieval glyphs…).',
   },
   alderman: {
     name: 'The Alderman', emoji: '🎩', rarity: 'uncommon', cost: 7,
@@ -607,7 +607,7 @@ export const PATRON_CARDS = {
   },
   cartographer: {
     name: 'The Cartographer', emoji: '🗺️', rarity: 'rare', cost: 12,
-    desc: '×{CARTOGRAPHER_MULT} Mult for words whose vowels run in alphabetical order. A repeated vowel breaks the run, unless one tile spells the pair.',
+    desc: '×{CARTOGRAPHER_MULT} Mult when the word’s vowels (2+) run in alphabetical order, none repeated unless one tile spells the pair.',
   },
   skimmer: {
     name: 'The Skimmer', emoji: '👓', rarity: 'rare', cost: 12,

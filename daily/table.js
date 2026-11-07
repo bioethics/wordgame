@@ -352,6 +352,38 @@ export const PATRONS = {
     },
   },
   bookbinder: {
+    // The word a spelling stands for, for its definition: some V's back to W's,
+    // and each run of O's back to the word's own length (DOOVNFIELD's
+    // DOWNFIELD). Of several, the longest: BOOOOB is BOOB howled, not BOB.
+    reads(s, has) {
+      const vs = [...s].flatMap((c, i) => (c === 'V' ? [i] : []));
+      const runs = [];
+      for (let i = 0; i < s.length; i++) {
+        if (s[i] !== 'O' || s[i - 1] === 'O') continue;
+        let j = i; while (s[j] === 'O') j++;
+        runs.push([i, j - i]);
+      }
+      let best = null;
+      // Every choice of V's and of run lengths (a case holds few of either).
+      const lens = runs.map(([, n]) => n);
+      const walk = (r, cut) => {
+        if (r === runs.length) {
+          for (let m = 0; m < (1 << vs.length); m++) {
+            let out = '';
+            for (let i = 0; i < s.length; i++) {
+              const run = runs.findIndex(([at, n]) => i >= at && i < at + n);
+              if (run >= 0 && i - runs[run][0] >= cut[run]) continue;
+              out += s[i] === 'V' && m & (1 << vs.indexOf(i)) ? 'W' : s[i];
+            }
+            if (out !== s && has(out) && (!best || out.length > best.length)) best = out;
+          }
+          return;
+        }
+        for (let k = lens[r]; k >= 1; k--) walk(r + 1, [...cut, k]);
+      };
+      walk(0, []);
+      return best;
+    },
     // The accent: a V may be read as a W. The howl: a run of O's may be set as
     // long as the case allows and still read as the word's own run.
     spell(words, has, tiles) {
