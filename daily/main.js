@@ -29,7 +29,7 @@ import { adoptExclusions, isExcluded } from '../js/excluded.js';
 import { loadSettings } from '../js/state.js';
 import {
   sfx, snapTiles, flipTiles, applySpeedCSS, sleep, pulse, floatText, tweenNum, setNum,
-  sparkleBurst, fmtMult, flourishTime,
+  sparkleBurst, fmtMult, flourishTime, pacer,
 } from '../js/anim.js';
 import {
   TRAIT_TEXT, TOOL_TEXT, SORT_TEXT, UI, RESULT, PATRON_TEXT, EDITOR_TEXT, SPIKE_TEXT, PAIR_TEXT, fill, COUNT_WORDS,
@@ -695,6 +695,8 @@ async function replay(word, sc, k = 0) {
     return { own: once - p.nick, nick: p.nick, again: p.echo > 1 ? once : 0 };
   });
   let running = 0;
+  // Each beat a little quicker than the last (pacer, js/anim.js).
+  const pace = pacer();
 
   // 1. The sorts.
   for (const [i, t] of word.entries()) {
@@ -704,7 +706,7 @@ async function replay(word, sc, k = 0) {
     sfx.tick(i, t.material ?? null);
     running += parts[i].own;
     tween(ro.points, running);
-    await beat(ANIM.tile);
+    await beat(pace(ANIM.tile));
   }
 
   // 2. The nicks.
@@ -723,7 +725,7 @@ async function replay(word, sc, k = 0) {
     if (!S.hurry) floatText(src, `+${gain}`, 'fl-aura', { dy: -74 });
     running += gain;
     tween(ro.points, running);
-    await beat(ANIM.nick);
+    await beat(pace(ANIM.nick));
   }
 
   // 2½. The tiles that print twice (The Monogrammist).
@@ -736,7 +738,7 @@ async function replay(word, sc, k = 0) {
       sfx.tick(i, null);
       running += parts[i].again;
       tween(ro.points, running);
-      await beat(ANIM.tile);
+      await beat(pace(ANIM.tile));
     }
     seatFire();
   }
@@ -748,7 +750,7 @@ async function replay(word, sc, k = 0) {
     sfx.aura();
     running += sc.seatPoints;
     tween(ro.points, running);
-    await beat(ANIM.chip);
+    await beat(pace(ANIM.chip));
   }
 
   // 4. The multipliers, the seat's among them, and the spike last.
@@ -776,7 +778,7 @@ async function replay(word, sc, k = 0) {
     pulse(chip, 'chip--pop', 500);
     mult *= ch.mult;
     tween(ro.mult, Math.round(mult * 1000) / 1000, { fmt: fmtMult });
-    await beat(ANIM.chip);
+    await beat(pace(ANIM.chip));
   }
 
   // 5. The press comes down — and a curse left in the case takes its toll,

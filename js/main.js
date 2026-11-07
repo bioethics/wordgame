@@ -61,7 +61,7 @@ import { openBlackMarket, restoreBlackMarket } from './blackmarket.js';
 import {
   sleep, dur, flyClone, popReveal, floatText, tweenNum, setNum, fmtMult,
   pulse, sparkleBurst, sfx, applySpeedCSS, speechBubble, flourishTime,
-  snapTiles, flipTiles,
+  snapTiles, flipTiles, pacer,
 } from './anim.js';
 import { initInput, initInspect, initShelfDrag } from './drag.js';
 import {
@@ -1106,6 +1106,8 @@ async function submitWord() {
   ro.root.classList.add('readout--live');
 
   let pointsSoFar = 0;
+  // Each step a little quicker than the last (pacer, js/anim.js).
+  const pace = pacer();
 
   // ── Pass ⅓: The Twins strike the doubles ───────────────────────────────────
   // Before a single thing is counted, and before the brush: a doubled letter is
@@ -1138,7 +1140,7 @@ async function submitWord() {
     if (!shown) continue;
     if (card) pulse(card, 'patron--firing', 520);
     sfx.land();
-    await sleep(ANIM.stepTwin);
+    await sleep(pace(ANIM.stepTwin));
   }
 
   // ── Pass ½: the brush ──────────────────────────────────────────────────────
@@ -1160,7 +1162,7 @@ async function submitWord() {
       floatText(el, `${brush.emoji} ${COLOURS[hit.colour].label}`, `fl-set fl-set--${hit.colour}`, { dy: -52 });
     }
     sfx.chime();
-    await sleep(ANIM.stepColour);
+    await sleep(pace(ANIM.stepColour));
   }
 
   // ── Pass 0: patrons write onto the tiles ───────────────────────────────────
@@ -1178,7 +1180,7 @@ async function submitWord() {
         floatText(el, `${boost.emoji} +${hit.delta}`, 'fl-boost');
       }
     }
-    await sleep(ANIM.stepBoost);
+    await sleep(pace(ANIM.stepBoost));
   }
 
   // ── Pass 1: each tile pops and pays its Points ─────────────────────────────
@@ -1195,7 +1197,7 @@ async function submitWord() {
     sfx.tick(i++, step.material);
     pointsSoFar += step.points;
     tweenNum(ro.points, pointsSoFar);
-    await sleep(ANIM.stepTile);
+    await sleep(pace(ANIM.stepTile));
   }
 
   // ── Pass 2: nicks read one side of the word ────────────────────────────────
@@ -1212,7 +1214,7 @@ async function submitWord() {
     if (src) floatText(src, `+${nick.points}`, 'fl-aura', { dy: -74 });
     pointsSoFar += nick.points;
     tweenNum(ro.points, pointsSoFar);
-    await sleep(ANIM.stepNick);
+    await sleep(pace(ANIM.stepNick));
   }
 
   // ── Pass 3: patrons weigh in ───────────────────────────────────────────────
@@ -1252,7 +1254,7 @@ async function submitWord() {
     if (p.spiked) sfx.bad();
     else if (p.mult || p.xmult) sfx.mult();
     if (p.coins) sfx.coin();
-    await sleep(ANIM.stepPatron);
+    await sleep(pace(ANIM.stepPatron));
   }
 
   // ── Pass 4: colour multipliers ─────────────────────────────────────────────
@@ -1282,7 +1284,7 @@ async function submitWord() {
     }
     setChip(ro.chip(step.colour), step.mult);
     pulse(ro.chip(step.colour), 'chip--pop', 420);
-    await sleep(ANIM.stepColour);
+    await sleep(pace(ANIM.stepColour));
   }
 
   // ── Pass 4½: the seats that stand as stamps ─────────────────────────────────
@@ -1299,7 +1301,7 @@ async function submitWord() {
     const el = seatStampEl(st.key);
     el?.classList.remove('chip--due');
     pulse(el, 'chip--pop', 420);
-    await sleep(ANIM.stepPatron);
+    await sleep(pace(ANIM.stepPatron));
   }
 
   // ── Finale: the total lands ────────────────────────────────────────────────

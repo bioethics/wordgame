@@ -9,6 +9,17 @@ import { uiZoom } from './appearance.js';
 export const dur = ms => ms / (settings.animSpeed || 1);
 export const sleep = ms => new Promise(r => setTimeout(r, dur(ms)));
 
+// The print's pace, which gathers as it goes: each beat of a score's replay a
+// little quicker than the one before (`rate`), never quicker than `floor` of
+// its own length. A short word plays much as it always did; a long one with a
+// busy table stops plodding through its last dozen steps at the first one's
+// speed. One pacer per print, so every word starts unhurried.
+export const PRINT_PACE = { rate: 0.93, floor: 0.45 };
+export function pacer({ rate = PRINT_PACE.rate, floor = PRINT_PACE.floor } = {}) {
+  let k = 1;
+  return ms => { const out = ms * k; k = Math.max(floor, k * rate); return out; };
+}
+
 // CSS animations read the same factor from a custom property
 export function applySpeedCSS() {
   document.documentElement.style.setProperty('--aspd', settings.animSpeed);
@@ -620,12 +631,22 @@ export const sfx = {
     knock(120, { time: 0.12, gain: 0.35, drop: 0.45 });
     grit({ time: 0.09, gain: 0.2, low: 900 });
   },
-  // The hand turned over: one muffled rattle with two bodies inside it, so it
-  // reads as a mass of sorts rather than a count of them.
+  // The hand turned over: a riffle of type, a dozen small wooden clicks, close
+  // and uneven, over the soft slide of sorts across the case. Quiet — it fires
+  // as often as a player likes — and no thump in it, since nothing is set
+  // down. (Until 7 November a hiss with two low knocks, which read as a bump
+  // rather than a shuffle, and too loud for it.)
   shuffle() {
-    grit({ time: 0.24, gain: 0.15, low: 2600, attack: 0.02 });
-    knock(150, { time: 0.06, gain: 0.16, when: 0.05, drop: 0.6 });
-    knock(190, { time: 0.06, gain: 0.14, when: 0.14, drop: 0.6 });
+    grit({ time: 0.36, gain: 0.05, band: 1600, q: 0.7, sweep: 700, attack: 0.05 });
+    let when = 0;
+    for (let i = 0; i < 12; i++) {
+      // Thicker in the middle of the gesture, thinner at its ends.
+      const mid = 1 - Math.abs(i - 5.5) / 6;
+      const g = (0.038 + Math.random() * 0.036) * (0.6 + 0.4 * mid);
+      grit({ time: 0.012 + Math.random() * 0.008, gain: g * 1.5, band: 2400 + Math.random() * 2000, q: 2.4, when });
+      knock(480 + Math.random() * 420, { time: 0.022, gain: g * 0.5, when, drop: 0.75 });
+      when += (0.016 + Math.random() * 0.026) * (1.25 - 0.5 * mid);
+    }
   },
   // A dual tile turned over: the flick of the flip, then the other face landing.
   flip() {
