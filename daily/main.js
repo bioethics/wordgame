@@ -2114,16 +2114,19 @@ function noteBest() {
     S.best = { ...now, words: S.words.map(w => [...w]), seat: S.seat, applied: S.applied ?? null, faces: facesNow() };
   }
 }
+// Shown from the first word made until the day is printed. While the stick
+// holds the best setting itself, the line names it and a tap does nothing.
 function renderBest() {
   const btn = $('bestBtn');
   const b = S.best;
-  btn.hidden = !b || !!S.result || S.printing || sameSetting(b);
+  btn.hidden = !b || !!S.result || S.printing;
   if (btn.hidden) return;
   btn.textContent = fill(UI.best, b.letters.join(' + '), fmtN(b.total));
+  btn.disabled = sameSetting(b);
 }
 function restoreBest() {
   const b = S.best;
-  if (!b || locked()) return;
+  if (!b || locked() || sameSetting(b)) return;
   hidePop();
   restoreFaces(b);
   S.words = b.words.map(w => [...w]);

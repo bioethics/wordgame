@@ -554,7 +554,9 @@ button.mode-item:hover, button.mode-item:focus-visible { background: rgba(217, 1
   text-overflow: ellipsis;
   cursor: pointer;
 }
-.best-so-far:hover { color: var(--ink); }
+.best-so-far:hover:not(:disabled) { color: var(--ink); }
+/* The stick holds it: named, not offered. */
+.best-so-far:disabled { cursor: default; text-decoration: none; }
 .best-so-far[hidden] { display: none; }
 
 /* ─── The case ─────────────────────────────────────────────────────────────── */
