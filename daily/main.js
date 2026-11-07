@@ -802,15 +802,6 @@ function seatFire() {
   if (card) pulse(card, 'seat--firing', 620);
 }
 
-function setAgain() {
-  const store = loadStore();
-  delete store[S.n];
-  saveStore(store);
-  Object.assign(S, { result: null, words: S.words.map(() => []), active: 0, applied: null, open: new Set(), openInit: false });
-  render({ fresh: true });
-  window.scrollTo({ top: 0, behavior: reducedMotion() ? 'auto' : 'smooth' });
-}
-
 // ─── Tiles ────────────────────────────────────────────────────────────────────
 // The game's tile, drawn with the game's class names (makeTileEl in
 // js/render.js), so daily.css can carry the same paint, trims, nicks and metals.
@@ -1507,17 +1498,15 @@ function shareText(r, pairs) {
     [...(rows.length > 1 ? [fmtN(r.score)] : []),
       r.rank === 1 ? RESULT.best : gradeLabel(r),
       fill(RESULT.place, fmtN(r.rank), fmtN(r.size))].join(' · '),
-    // Inside a frame the page's own address is not one anybody could open.
-    ...(window.DAILY_NO_LINK ? [] : [`${location.origin}${location.pathname}#${S.n}`]),
   ].join('\n');
 }
 
-// The share, on the slip: on a phone the share sheet, as Wordle does;
+// The share, beside Next: on a phone the share sheet, as Wordle does;
 // elsewhere the clipboard; and where neither will take it, the text itself,
-// laid out under the button to copy by hand.
-function shareButton(r, pairs, slip) {
+// laid out under the buttons to copy by hand.
+function shareButton(r, pairs, host) {
   const share = document.createElement('button');
-  share.className = 'btn slip-share';
+  share.className = 'btn share-btn';
   share.textContent = RESULT.share;
   share.addEventListener('click', async () => {
     const text = shareText(r, pairs);
@@ -1526,8 +1515,8 @@ function shareButton(r, pairs, slip) {
     }
     try { await navigator.clipboard.writeText(text); share.textContent = RESULT.copied; }
     catch {
-      let pre = slip.querySelector('.share-text');
-      if (!pre) { pre = document.createElement('pre'); pre.className = 'share-text'; slip.appendChild(pre); }
+      let pre = host.querySelector('.share-text');
+      if (!pre) { pre = document.createElement('pre'); pre.className = 'share-text'; host.appendChild(pre); }
       pre.textContent = text;
       getSelection()?.selectAllChildren(pre);
     }
@@ -1563,7 +1552,7 @@ function renderResult() {
   const place = document.createElement('div');
   place.className = 'slip-place';
   place.textContent = fill(pairs ? RESULT.placePairs : RESULT.place, fmtN(r.rank), fmtN(r.size));
-  slip.append(top, grade, place, shareButton(r, pairs, slip));
+  slip.append(top, grade, place);
   host.appendChild(slip);
 
   const field = S.field;
@@ -1585,15 +1574,10 @@ function renderResult() {
   prefetchDefs([...host.querySelectorAll('.best-word')].flatMap(e => e.textContent.split(' + ')));
 
   // The way on.
+  // (No second go: once a day is printed, its best words are on the page.)
   const acts = document.createElement('div');
   acts.className = 'result-acts';
-  if (PLAYTEST) {
-    const again = document.createElement('button');
-    again.className = 'btn';
-    again.textContent = RESULT.again;
-    again.addEventListener('click', setAgain);
-    acts.appendChild(again);
-  }
+  acts.appendChild(shareButton(r, pairs, acts));
   if (PLAYTEST || S.n < todaysNumber()) {
     const next = document.createElement('button');
     next.className = 'btn btn-print';
@@ -1601,7 +1585,7 @@ function renderResult() {
     next.addEventListener('click', () => { openChallenge(S.n + 1); window.scrollTo({ top: 0 }); });
     acts.appendChild(next);
   }
-  if (acts.children.length) host.appendChild(acts);
+  host.appendChild(acts);
 }
 
 // One row of a best-of list: place, name, score, and a setting under it when open.

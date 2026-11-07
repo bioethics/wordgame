@@ -190,9 +190,8 @@ export const RESULT = {
   bottom: 'Bottom {0}%',
   place: '#{0} of {1}',
   placePairs: '#{0} of {1} pairs',
-  share: 'Share',
+  share: 'Share result',
   copied: 'Copied',
-  again: 'Again',
   next: 'Next ›',
   shareHead: 'Great Work Daily #{0}',
 };

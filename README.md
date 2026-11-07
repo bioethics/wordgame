@@ -2183,8 +2183,9 @@ the day is printed.
 
 ### The share
 
-The Share button (the share sheet on a phone, the clipboard elsewhere, and
-failing both the text itself laid out to copy) gives the day the way Wordle
+The Share result button, at the foot of the results beside Next (the share
+sheet on a phone, the clipboard elsewhere, and failing both the text itself
+laid out to copy), gives the day the way Wordle
 does, in coloured squares: each word a row of them, a sort to a square in the
 order it was set, each in its paint (⬜, the cream of the type, if it wore
 none). How the word was set, without a letter of it. Beside each row its
@@ -2197,9 +2198,12 @@ Great Work Daily #2
 Top 40% · #874 of 2,624
 ```
 
-(It said more on 6 November, and was cut back the same day: the whole case as
-a grid, then each word's Points × Mult, with a spike's scissors and the tool
-used.)
+No link: the text is the result, not an advertisement. (It said more on 6
+November, and was cut back the same day: the whole case as a grid, then each
+word's Points × Mult, with a spike's scissors and the tool used.)
+
+A printed day stays printed: there is no second go, since the results set out
+the day's best words.
 
 ### Two words
 
