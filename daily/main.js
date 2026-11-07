@@ -1069,13 +1069,13 @@ function renderSeats(sc) {
   const lit = !!sc && (!!sc.seat || sc.perTile.some(p => p.echo > 1 || p.bonus) || byLicence(wordAndRest(S.active).word));
   if (day.kind === 'patron') {
     const p = day.patron;
-    const card = withFace(seatCard(`seat--only${lit ? ' seat--lit' : ''}`, patronEmoji(p.id), patronName(p.id)), p);
+    const card = withFace(seatCard(`seat--only${lit ? ' seat--lit' : ''}`, patronEmoji(p.id), patronName(p.id), patronRule(p)), p);
     card.addEventListener('click', () => readSeat(card, patronName(p.id), patronRule(p)));
     host.appendChild(card);
   } else if (day.kind === 'choice') {
     day.choices.forEach((p, i) => {
       const on = i === S.seat;
-      const card = withFace(seatCard(`seat--choice${on ? ' seat--on' : ''}${on && lit ? ' seat--lit' : ''}`, patronEmoji(p.id), patronName(p.id)), p);
+      const card = withFace(seatCard(`seat--choice${on ? ' seat--on' : ''}${on && lit ? ' seat--lit' : ''}`, patronEmoji(p.id), patronName(p.id), patronRule(p)), p);
       card.setAttribute('aria-pressed', on ? 'true' : 'false');
       card.disabled = locked() && !on;
       card.addEventListener('click', () => {
