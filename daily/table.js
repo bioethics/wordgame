@@ -30,7 +30,7 @@
 // at a Deadline. Nothing is refused.
 
 import {
-  COLOURS, LOVERS, QUOIN_MULT, GLOVER_STEP, TYPESETTER_STEP, TWINS_POINTS,
+  COLOURS, LOVERS, GLOVER_STEP, TYPESETTER_STEP, TWINS_POINTS,
   SERPENT_POINTS, APPRENTICE_LENGTH, APPRENTICE_STEP, CARTOGRAPHER_MULT,
   CARTOGRAPHER_MIN_VOWELS, isMark, EXPECTANTS_BONUS, MEDIEVAL,
 } from '../js/constants.js';
@@ -183,6 +183,10 @@ export const PATRONS = {
   // a good word does about one time in twenty-five — too seldom to stand in a
   // Friday choice. The daily's hears the first letter again anywhere after it.
   herald:   { adapted: true, effect({ letters, xMult }) { if (/^(.).*\1/.test(letters)) xMult(2); } },
+  // The daily's own (since 7 November): no letter of the word read twice —
+  // Fowler's elegant variation, the writer who will not say a word again,
+  // brought down to the letter.
+  variationist: { adapted: true, effect({ letters, xMult }) { if (new Set(letters).size === letters.length) xMult(2); } },
   novelist: { effect({ letters, xMult }) { if (letters.length >= 7) xMult(2); } },
   cartographer: {
     effect({ tiles, xMult }) {
@@ -238,13 +242,23 @@ export const PATRONS = {
   },
 
   // The colours.
+  // Adapted (since 7 November, for Tuesday): ×2 where the game's pays ×3, and
+  // dealt two pairs of colours (SEAT_SHAPES in daily/deal.js), without which
+  // he found nothing on 45% of cases.
   quoin: {
+    adapted: true,
     effect({ tiles, xMult }) {
       for (let i = 1; i < tiles.length; i++) {
         const c = tiles[i].colour;
-        if (c && c === tiles[i - 1].colour) { xMult(QUOIN_MULT); return; }
+        if (c && c === tiles[i - 1].colour) { xMult(2); return; }
       }
     },
+  },
+  // The daily's own (since 7 November): both ends of the word painted, any
+  // colours (dealt two pairs, as the Quoin is).
+  bookends: {
+    adapted: true,
+    effect({ tiles, xMult }) { if (tiles.length > 1 && tiles[0].colour && tiles.at(-1).colour) xMult(2); },
   },
   harlequin: { effect({ tiles, xMult }) { if (distinctColours(tiles).length >= 4) xMult(2); } },
   illuminator: {
@@ -288,6 +302,9 @@ export const PATRONS = {
     },
   },
   monogrammist: { echo: (t, data) => (data?.letters ?? []).includes(glyph(t)) },
+  // The daily's own (since 7 November): the word's first sort prints twice,
+  // as the Monogrammist's letters do — Points, nick, trim and paint alike.
+  capitalist: { adapted: true, echo: (t, data, i) => i === 0 },
 
   // Patrons who bring a tile instead of a rule.
   scientist:     { adds: { letter: 'OLOGY' } },
@@ -307,6 +324,11 @@ export const PATRONS = {
     effect({ letters, addPoints }) { if (isName(letters)) addPoints(EXPECTANTS_BONUS); },
   },
   haplographer: {
+    // The word a spelling stands for, for its definition: MATE's MATTE.
+    reads(s, has) {
+      for (let i = 0; i < s.length; i++) { const w = s.slice(0, i + 1) + s.slice(i); if (has(w)) return w; }
+      return null;
+    },
     // One letter of a doubled pair may be set once: MATE reads as MATTE.
     spell(words, has) {
       const out = new Set();
@@ -364,6 +386,39 @@ export const PATRONS = {
     },
   },
   counterfeiter: { adds: { letter: '_', counterfeit: true, blank: true } },
+  // A Z may stand for an S, and keeps its own Points: ZEAZONZ reads as SEASONS.
+  // Bounded by the case's Z's (dealt one, SEAT_SHAPES in daily/deal.js).
+  izzard: {
+    // The word a spelling stands for: some Z's back to S's (a Z of its own,
+    // as in SIZES, stays).
+    reads(s, has) {
+      const at = [...s].flatMap((c, i) => (c === 'Z' ? [i] : []));
+      for (let m = 1; m < (1 << at.length); m++) {
+        const a = [...s];
+        at.forEach((p, j) => { if (m & (1 << j)) a[p] = 'S'; });
+        if (has(a.join(''))) return a.join('');
+      }
+      return null;
+    },
+    spell(words, has, tiles) {
+      const nZ = tiles.filter(t => [t.letter, t.altLetter].includes('Z')).length;
+      if (!nZ) return [];
+      const out = new Set();
+      for (const W of words) {
+        if (!W.includes('S')) continue;
+        const at = [...W].flatMap((c, i) => (c === 'S' ? [i] : []));
+        for (let m = 1; m < (1 << at.length); m++) {
+          let k = 0; for (let b = m; b; b &= b - 1) k++;
+          if (k > nZ) continue;
+          const s = [...W];
+          at.forEach((p, j) => { if (m & (1 << j)) s[p] = 'Z'; });
+          const z = s.join('');
+          if (!has(z)) out.add(z);
+        }
+      }
+      return [...out];
+    },
+  },
 };
 
 // ─── The editors ──────────────────────────────────────────────────────────────
@@ -408,10 +463,11 @@ export function compileTable(seat, desk, has) {
     seat, desk, has,
     twins: !!p?.twins,
     paint: p?.paint ?? null,
-    echo: p?.echo ? t => p.echo(t, pdata) : null,
+    echo: p?.echo ? (t, i) => p.echo(t, pdata, i) : null,
     tileBonus: p?.tileBonus ?? null,
     effect: p?.bind ? p.bind(pdata) : p?.effect ?? null,
     spell: p?.spell ?? null,
+    reads: p?.reads ?? null,
     judge: e?.judge ? (L, tiles) => e.judge(L, tiles, edata) : null,
     // The sorts nobody may set under this seat, as a bitmask of tile ids: the
     // Turnkey's locks (turnkeyLocks in daily/deal.js).

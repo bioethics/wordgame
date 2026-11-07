@@ -188,7 +188,7 @@ function core(word, letters, restCurses, T, full) {
 
   const n = tiles.length;
   const own = new Array(n), contrib = new Array(n);
-  const echo = T?.echo ? tiles.map(t => (T.echo(t) ? 2 : 1)) : null;
+  const echo = T?.echo ? tiles.map((t, i) => (T.echo(t, i) ? 2 : 1)) : null;
   const bonus = T?.tileBonus ? new Array(n) : null;
   for (let i = 0; i < n; i++) {
     own[i] = restingOf(tiles[i]);

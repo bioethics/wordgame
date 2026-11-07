@@ -126,7 +126,14 @@ function loadDefs(word) {
   }
   return defLoads.get(K);
 }
-const prefetchDefs = words => { for (const w of words) loadDefs(w); };
+const prefetchDefs = words => { for (const w of words) loadDefs(headOf(w)); };
+// The dictionary word a licensed spelling stands for (ZEAZONZ's SEASONS, under
+// the Izzard; MATE's MATTE, under the Haplographer), whose definition it shows.
+const headOf = word => {
+  if (inDict(word)) return word;
+  for (const T of S.tables ?? []) { const w = T.reads?.(word, inDict); if (w) return w; }
+  return word;
+};
 // A word's definition, or a name's: the Expectant Parents' licence admits names
 // the dictionary doesn't hold.
 const defOf = word => DEFS.get(word)
@@ -139,13 +146,16 @@ const HEADED = /^[A-Z][A-Z'-]*: /;
 function defSpan(word, cls = 'best-def', headed = false) {
   const s = document.createElement('span');
   s.className = cls;
+  // A licensed spelling is always headed, by the word it stands for.
+  const head = headOf(word);
+  if (head !== word) headed = true;
   const fill = () => {
-    const d = defOf(word);
-    s.textContent = !d ? '' : headed && !HEADED.test(d) ? `${word}: ${d}` : showDef(d);
+    const d = defOf(head);
+    s.textContent = !d ? '' : headed && !HEADED.test(d) ? `${head}: ${d}` : showDef(d);
     s.hidden = !s.textContent;
   };
   s.hidden = true;
-  loadDefs(word).then(fill);
+  loadDefs(head).then(fill);
   return s;
 }
 

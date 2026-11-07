@@ -1846,14 +1846,77 @@ the field triggers it (*dead*). The question a daily seat must answer is
 *moved*: a patron that only multiplies the word you were already going to set
 poses no question, however generous it is.
 
-**The day's patron** (`DAY_PATRONS`), with how often each moved the best word:
-The Counterfeiter 88% (a blank, any letter, worth 0 — the wildcard the
-ratchet is a cramped version of), The Poppet 82%, The Paramour 80%, The
-Vulgarian 75%, The Sexton 68% (the four registers: ×3 for a word on a themed
-list), The Athlete 57%, The Poet 47%, The Cartographer 42%, The Herald 32%,
-and The Monogrammist 25% — low, but it fires on every case and changes *which
-tiles* the best word is set from (its letters print twice, paint and all),
-which the figure doesn't see. None is ever dead.
+**The day's patron** (`DAY_PATRONS`). Since 7 November no patron offered on a
+choice day sits on Tuesday too: weighing a patron against another on Friday or
+Sunday is one puzzle, meeting him alone on Tuesday another, and meeting him on
+both was the same puzzle twice a week. As nobody chooses on Tuesday, a Tuesday
+patron need not pay as the others do: Points, ×Mult, a licence and a lent sort
+sit side by side. Measured on sixty cases, each dealt as its own Tuesday deals
+it (`node tools/daily-tuesday.mjs 1-60`), with how often the best word is a different word with him seated
+(*moved*), then the share of the hundred best words he pays on — the first
+says whether he poses a new puzzle, the second whether he is a bonus on
+whatever you set (near 100%) or seldom matters (near 0):
+
+| | moved | pays on | | moved | pays on |
+|---|---|---|---|---|---|
+| The Izzard | 92% | 80% | The Monogrammist | 28% | 98% |
+| The Counterfeiter | 87% | 87% | The Jeweller | 20% | 53% |
+| The Bookbinder | 80% | 59% | The Typesetter | 18% | 66% |
+| The Bookends | 62% | 59% | The Siren | 18% | 100% |
+| The Elegant Variationist | 58% | 65% | Juliet | 15% | 27% |
+| The Athlete | 57% | 65% | The Haplographer | 10% | 20% |
+| The Sculptor | 52% | 68% | The Expectant Parents | 8% | 18% |
+| The Serpent | 48% | 92% | Romeo | 8% | 30% |
+| The Twins | 45% | 26% | The Firebrand | 8% | 86% |
+| The Quoin | 43% | 71% | The Novelist | 0% | 91% |
+| The Capitalist | 43% | 100% | | | |
+
+None is ever dead. The Monogrammist's figure is low, but he changes *which
+tiles* the best word is set from (his letters print twice, paint and all),
+which the figure doesn't see. The Counterfeiter lends a blank, any letter,
+worth 0 — the wildcard the ratchet is a cramped version of.
+
+**Five more**, 7 November:
+
+- *The Izzard* (⚡, the game's): any Z may be set as an S, and keeps its own
+  Points — ZHOWGIRLS for SHOWGIRLS, a Z worth 8 where the S was worth 1. His
+  day deals a Z (`SEAT_SHAPES`), and his spellings are a licence as the
+  Haplographer's are (`spell`), bounded by the case's Z's. In the results a
+  licensed spelling's definition is that of the word it stands for, headed
+  by it (`reads` in `daily/table.js`, `headOf` in `daily/main.js`; the
+  Haplographer's too).
+- *The Quoin* (🔩, the game's, adapted): ×2, where the game's pays ×3, when two
+  sorts of one colour stand side by side. Dealt two pairs of colours, drawn
+  at random each day (`paint.pairs`), without which he found nothing on 45% of
+  cases.
+- *The Elegant Variationist* (🦢, the daily's own): ×2 for words with no
+  repeated letter. Fowler's elegant variation is the writer's dread of saying
+  a word twice; his is of a letter.
+- *The Bookends* (🔖, the daily's own): ×2 when the word's first and last
+  sorts are both painted, any colours. Dealt two pairs of colours at random,
+  as the Quoin is (undealt, nothing to pay on in 18% of cases). The puzzle is
+  where the sorts stand, not only which.
+- *The Capitalist* (🧐, the daily's own): the word's first sort prints twice,
+  as the Monogrammist's letters do — Points, nick, trim and paint alike (an
+  `echo` hears the tile's place as well as the tile since then). He pays on
+  every word and moves the best one on 43%: lead with your dearest sort.
+
+Left Tuesday the same day: the ten patrons offered on Friday or Sunday, and the
+Apprentice (moved 0%, paid on 4%: no four-letter word survives the measure).
+Measured and not taken: the Mirror (2%), the Lexicographer (2%), the Scientist
+(3%), the Marbler, the Alloy and the Lovers (0–5% even dealt their colours),
+the Glover (17% dealt pairs), the Harlequin (0% dealt two of every colour), the
+Illuminator (18% dealt three colours), and of new rules ×3 for letters in
+alphabetical order (2%: almost none past five letters), ×2–3 for one-vowel
+words (0–27%, the higher only with a case of four or five vowels), and ×3 for a
+word with no sort dressed (0%: a dressed word always won). Dealing a colour
+patron his colours mostly puts them into the best word too, since paint
+already pays, so he pays on nearly every good word and moves few; it helps a
+rule about spelling. The Domestic Shorthair (the game's; ×3 for R-A-T in a
+row, PIRATE, GRATIS), dealt an R, an A and a T, moved 53% and paid on 12% — a
+hunt, not a bonus — and was offered and not taken, as were the Metronome (×3
+for words that alternate consonant and vowel: 55%, 30%) and the Skinflint
+(+10 Points a sort left in the case: 23%, 100%).
 
 **The Turnkey** (🔐, the daily's own, 6 November, offered on Sundays): ×3 Mult on every word, and four sorts of
 the case locked while he is seated. A locked sort is in the case and in no
@@ -1889,8 +1952,7 @@ between two words to look for:
 - *rich*, on Sundays — The Sexton, The Paramour, The Poppet, The Vulgarian,
   The Seadog, The Schoolmarm (since 6 November; on sixty cases she lifts the
   best word ×1.53 and moves it on 73%, between the Seadog and the Poppet,
-  whose lists are her list's size): ×3 for a word on a themed list. She sits
-  on Tuesdays too. And, since 5 November, the
+  whose lists are her list's size): ×3 for a word on a themed list. And, since 5 November, the
   daily's own *Limner*: ×3 for a word beginning with the day's letter,
   the one Sunday choice a reader can search for rather than guess at. The
   limner painted the ornate initial at the head of a manuscript; the game's
@@ -1945,16 +2007,15 @@ choosing — the Serpent's Tuesday deals him an S (`SEAT_LETTERS`), since a
 case without one leaves him nothing. Sunday offered three at a time until the
 same day; two is quicker to weigh on a phone.
 
-**The weaker seats**, on Tuesdays since 4 November: the Apprentice, the
-Jeweller, the Novelist, the Typesetter, the Stammerer, Romeo, Juliet, the
-Siren and the Firebrand. On a day nobody chooses, a patron need not move the
+**The weaker seats**, on Tuesdays since 4 November: the Jeweller, the
+Novelist, the Typesetter, Romeo, Juliet, the Siren and the Firebrand (and the
+Apprentice and the Stammerer, until 7 November). On a day nobody chooses, a patron need not move the
 best word, only pay, and each day is dealt what its seat reads
 (`SEAT_SHAPES`): azure for the Siren, one of it on a vowel; three crimson for
 the Firebrand; three amber and one jade for Romeo, and the reverse for Juliet;
 two ligatures for the Typesetter; a J, X, Z or QU for the Jeweller. Measured on
 their own days, every one has something to pay on, and they pay on 8–100% of
-the top 5% of words, except the Apprentice, whose four-letter words are never
-among the best: he is there for the player who sets one.
+the top 5% of words.
 
 **Licences** (4 November), on the Tuesday rotation: three patrons that change
 what counts as a word rather than what it scores, as the game's pardons and
@@ -1974,6 +2035,9 @@ on the measure. Each lists the spellings it admits beyond the dictionary
 Bookbinder, whose day always deals at least two of each — `SEAT_LETTERS` in
 `daily/deal.js`), and on its day the page judges and the solver counts with the
 dictionary and those together, so the field is the one the patron allows.
+`daily-check` counts a licence's day the same way, its spellings in the field
+and in the naive search's sample (since 7 November; until then it checked
+licence days against the dictionary alone).
 Measured over sixty cases the Parents and the Haplographer rarely move the
 single best word (under a tenth) but widen the field by a sixth and a third;
 on his own days, with his letters dealt, the Bookbinder widens it by three
@@ -1996,8 +2060,9 @@ game.
   Apprentice (0%: no four-letter word survives the measure), The Illuminator
   (0%: the word with three colours was already the best word), The Scientist
   (8%: a plain OLOGY tile can't compete with a dressed case).
-- *Lopsided.* The Quoin is dead on 45% of cases and enormous when alive — too
-  unreliable for a Tuesday, too strong for a trio. The Stammerer wins almost
+- *Lopsided.* The Quoin was dead on 45% of cases and enormous when alive — too
+  unreliable for a Tuesday, too strong for a trio — until 7 November, when he
+  came to Tuesday at ×2 with his pairs dealt (above). The Stammerer wins almost
   no trio and makes any it sits in a two-horse race.
 - *Not about one word at all*: everything paid in Coins, re-rolls, hand size,
   discards, chapters, laurels or the Market, and the misspelling licences

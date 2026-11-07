@@ -38,7 +38,11 @@ const words = fs.readFileSync(path.join(root, 'wordlists/wordlist.txt'), 'utf8')
   .replace(/\r/g, '').split('\n').map(w => w.trim().toUpperCase())
   .filter(w => /^[A-Z]+$/.test(w) && !isExcluded(w));
 const wordSet = new Set(words);
-const has = w => wordSet.has(w);
+// On a licence's day, the spellings it admits join the dictionary, as they do
+// on the page (spellingsFor in daily/table.js; EXTRA in daily/main.js).
+let EXTRA = new Set();
+const inDict = w => wordSet.has(w);
+const has = w => wordSet.has(w) || EXTRA.has(w);
 for (const w of words) DICT.add(w);   // so the game's resolveMedieval reads as ours does
 // The lists the patrons and editors read, into the game's themes and the daily's
 // own copy alike, from the same files.
@@ -244,10 +248,13 @@ const stats = [];
 for (let n = from; n <= to; n++) {
   const deal = dealChallenge(n);
   const day = deal.day;
+  EXTRA = new Set();
   if (day.kind === 'pair') { checkPairs(deal); continue; }
   const tables = TB.tablesForDay(day, has);
+  EXTRA = TB.spellingsFor(tables, words, inDict, deal.tiles, deal.tool);
+  const field = EXTRA.size ? words.concat([...EXTRA]) : words;
   const t0 = performance.now();
-  const { results, scores } = S.solveCaseSync(deal.tiles, deal.tool, words, has, tables);
+  const { results, scores } = S.solveCaseSync(deal.tiles, deal.tool, field, has, tables);
   const ms = performance.now() - t0;
 
   // Every plan replays to its own score, and reads as its own word.
@@ -263,7 +270,8 @@ for (let n = from; n <= to; n++) {
   // A sample of words, found or not, against the naive search — under every
   // table the day prices words with.
   const found = [...results.keys()];
-  const sample = [...shuffled(found).slice(0, 40), ...shuffled(words.filter(w => w.length <= 7)).slice(0, 80)];
+  const sample = [...shuffled(found).slice(0, 40), ...shuffled(words.filter(w => w.length <= 7)).slice(0, 80),
+    ...shuffled([...EXTRA].filter(w => w.length <= 7)).slice(0, 30)];
   for (const w of sample) {
     const got = results.get(w);
     if (!tables.length) {

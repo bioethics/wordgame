@@ -73,6 +73,9 @@ export const DAILY_CARDS = {
   commoner: { name: 'The Commoner', emoji: '🍺' },
   limner:   { name: 'The Limner', emoji: '🖌️' },   // his card shows the day's letter instead (patronFace in main.js)
   turnkey:  { name: 'The Turnkey', emoji: '🔐' },
+  variationist: { name: 'The Elegant Variationist', emoji: '🦢' },
+  bookends: { name: 'The Bookends', emoji: '🔖' },
+  capitalist: { name: 'The Capitalist', emoji: '🧐' },
 };
 
 export const PATRON_TEXT = {
@@ -107,6 +110,11 @@ export const PATRON_TEXT = {
   monogrammist:  'A tile showing {0} prints twice — Points, trim and paint alike.',
   limner:        '×3 Mult for words beginning with {0}.',
   turnkey:       '×3 Mult. Four sorts in the case are locked.',
+  izzard:        'Any Z may be set as an S.',
+  quoin:         '×2 Mult when two sorts of one colour stand side by side in the word.',
+  variationist:  '×2 Mult for words with no repeated letter.',
+  bookends:      '×2 Mult when the word’s first and last sorts are both painted.',
+  capitalist:    'The word’s first sort prints twice — Points, trim and paint alike.',
   counterfeiter: 'A blank joins the case: any letter, worth 0.',
 };
 

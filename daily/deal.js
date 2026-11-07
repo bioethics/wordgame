@@ -299,21 +299,23 @@ export const WEEK = ['choice', 'plain', 'patron', 'plain', 'editor', 'choice', '
 
 // Seated for everyone: each moves the best word to a different word on three
 // cases in ten to nearly all, and none is ever without a word to fire on.
+// None of them is offered on a choice day (since 7 November: a patron met on
+// Tuesday is a different puzzle from one weighed against another on Friday or
+// Sunday), and as nobody chooses, they need not pay alike.
 export const DAY_PATRONS = [
-  'sexton', 'counterfeiter', 'paramour', 'athlete', 'poppet', 'cartographer',
-  'vulgarian', 'monogrammist', 'poet', 'herald',
+  'counterfeiter', 'athlete', 'monogrammist', 'sculptor',
   // Licences, 4 November: each changes what counts as a word.
   'expectants', 'haplographer', 'bookbinder',
   // Out of the choice tiers, 4 November: their pay is Points or a tile's own
   // value, which can't be weighed against another patron's ×Mult.
   'serpent', 'twins',
-  'seadog', 'sculptor',
-  // The Schoolmarm, 6 November: the sixth register, school from kindy to uni.
-  'schoolmarm',
   // The weaker seats, 4 November: on a day nobody chooses, a patron need not
   // move the best word, only pay — and the deal gives each what it reads.
-  'apprentice', 'jeweller', 'novelist', 'typesetter', 'stammerer',
-  'romeo', 'juliet', 'siren', 'firebrand',
+  'jeweller', 'novelist', 'typesetter', 'romeo', 'juliet', 'siren', 'firebrand',
+  // 7 November: the Izzard (the game's, dealt a Z), the Quoin (the game's, at
+  // ×2), and three of the daily's own — the Elegant Variationist, the Bookends
+  // and the Capitalist. README.md, "The table", has what each does to a case.
+  'izzard', 'quoin', 'variationist', 'bookends', 'capitalist',
 ];
 // Offered two at a time, from one tier. A tier is patrons that pay the SAME
 // WAY, so the choice is between two words to look for, never between two kinds
@@ -419,6 +421,9 @@ export function dayOf(n) {
 //             on almost no good word: the best words wore both or neither.)
 //             One, not two: with two he paid on 27% of good words, the most of
 //             any ×2 on Friday by half again; with one, 16%.
+//   paint.pairs — so many colours, drawn at random each day, two tiles of
+//             each: the Bookends' (both ends painted) and the Quoin's (one
+//             colour side by side), so that neither always deals the same two.
 const SEAT_SHAPES = {
   bookbinder: { letters: { V: 1, O: 2 } },
   serpent:    { letters: { S: 1 } },
@@ -429,6 +434,9 @@ const SEAT_SHAPES = {
   romeo:      { paint: { amber: 3, jade: 1 } },
   juliet:     { paint: { jade: 3, amber: 1 } },
   jeweller:   { rare: 1 },
+  izzard:     { letters: { Z: 1 } },
+  bookends:   { paint: { pairs: 2 } },
+  quoin:      { paint: { pairs: 2 } },
 };
 const RARE = ['J', 'X', 'Z', 'QU'];
 // What a desk sets in the case: the Eeeditor's first four sorts are E's, to be
@@ -455,6 +463,12 @@ function shapeFor(day) {
 // letter is taken first, and a tile of a colour the shape doesn't mention only
 // when there is no other.
 function paintFor(tiles, paint, rng) {
+  if (paint.pairs) {
+    const cs = Object.keys(COLOURS);
+    for (let i = cs.length - 1; i > 0; i--) { const j = Math.floor(rng() * (i + 1)); [cs[i], cs[j]] = [cs[j], cs[i]]; }
+    paint = { ...paint };
+    for (const c of cs.slice(0, paint.pairs)) paint[c] = Math.max(paint[c] ?? 0, 2);
+  }
   const wants = Object.keys(paint).filter(c => c in COLOURS);
   if (!wants.length) return;
   const pick = a => a[Math.floor(rng() * a.length)];
