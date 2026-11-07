@@ -31,6 +31,7 @@ import {
   sfx, snapTiles, flipTiles, applySpeedCSS, sleep, pulse, floatText, tweenNum, setNum,
   sparkleBurst, fmtMult, flourishTime, pacer,
 } from '../js/anim.js';
+import { loadDefs, lookupDef, HEADED, showDef } from '../js/defs.js';
 import {
   TRAIT_TEXT, TOOL_TEXT, SORT_TEXT, UI, RESULT, PATRON_TEXT, EDITOR_TEXT, SPIKE_TEXT, PAIR_TEXT, fill, COUNT_WORDS,
   HOWTO, DEF_TEXT,
@@ -106,26 +107,7 @@ function loadLists(keys) {
 // (prefetchDefs), so a tap finds its definition already here. An embedded
 // bundle carries them in FOLIO_DEFS. A row asks with defSpan, and is filled
 // when its file lands.
-const DEFS = new Map();
-const defLoads = new Map();
-const defKey = word => word.slice(0, 2).toLowerCase();
-function loadDefs(word) {
-  const K = defKey(word);
-  if (!/^[a-z]{1,2}$/.test(K)) return Promise.resolve();
-  if (!defLoads.has(K)) {
-    const embedded = window.FOLIO_DEFS?.[K];
-    defLoads.set(K, (embedded != null ? Promise.resolve(embedded)
-      : fetch(`../wordlists/definitions/${K[0]}/${K}.txt`).then(r => (r.ok ? r.text() : '')))
-      .then(text => {
-        for (const line of text.split('\n')) {
-          const tab = line.indexOf('\t');
-          if (tab > 0) DEFS.set(line.slice(0, tab).toUpperCase(), line.slice(tab + 1));
-        }
-      })
-      .catch(() => {}));
-  }
-  return defLoads.get(K);
-}
+// (The loader is js/defs.js, which the Campaign shares.)
 const prefetchDefs = words => { for (const w of words) loadDefs(headOf(w)); };
 // The dictionary word a licensed spelling stands for (ZEAZONZ's SEASONS, under
 // the Izzard; BALOON's BALLOON, under the Haplographer), whose definition it shows.
@@ -136,13 +118,11 @@ const headOf = word => {
 };
 // A word's definition, or a name's: the Expectant Parents' licence admits names
 // the dictionary doesn't hold.
-const defOf = word => DEFS.get(word)
+const defOf = word => lookupDef(word)
   ?? (LISTS.names?.has(word) || LISTS.borrowed?.has(word) ? DEF_TEXT.name : null);
-const showDef = d => (d ? d[0].toUpperCase() + d.slice(1) : '');
 // `headed`: the definition names its word, once. An inflection's already does
 // (EMBARKATIONS gives "EMBARKATION: the act of…"); any other is given its own
 // ("URIAL: bearded reddish sheep…").
-const HEADED = /^[A-Z][A-Z'-]*: /;
 function defSpan(word, cls = 'best-def', headed = false) {
   const s = document.createElement('span');
   s.className = cls;

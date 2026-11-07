@@ -1,6 +1,7 @@
 # The Stenographer's lexicon — acronyms and abbreviations that count as words
-# while they are seated. One entry per line; add or strike freely, nothing
-# else needs changing. Keep the bar at "broadly recognisable" — if it needs
+# while they are seated. One entry per line; add or strike freely, and give a
+# new one its spelling-out in js/glosses.js (ACRONYM_GLOSSES), which the stick
+# reads after the print. Keep the bar at "broadly recognisable" — if it needs
 # explaining, it doesn't belong. Letters only (the game has no digit tiles),
 # and no lone Q (the press only carries a QU sort, so it could never be set).
 

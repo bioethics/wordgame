@@ -1193,13 +1193,15 @@ export function mergeTiles(left, right) {
 
 // ─── The manuscript ───────────────────────────────────────────────────────────
 
-export function recordWord(word, score, bold = false) {
+export function recordWord(word, score, bold = false, gloss = null) {
   state.manuscript ??= [];
   // `bold` rides into the manuscript with the word, which is the whole point of
   // the rules: the book keeps its own typography, and a word you paid two sorts
-  // and two places to set stands out in it for the rest of the run.
+  // and two places to set stands out in it for the rest of the run. `gloss` is
+  // where its meaning comes from (js/render.js), so the page can say what it
+  // means long after the print.
   state.manuscript.push({ word, score, chapter: state.chapter, page: state.page,
-                          ...(bold ? { bold: true } : {}) });
+                          ...(bold ? { bold: true } : {}), ...(gloss ? { gloss } : {}) });
 }
 
 // ─── The Gambler's coin ───────────────────────────────────────────────────────

@@ -366,6 +366,12 @@ html[data-look="bench"] .page-word {
   text-overflow: ellipsis;
 }
 html[data-look="bench"] .page-line--bold .page-word { font-weight: 700; }
+/* A printed word answers a tap with its gloss (renderPageLines). */
+html[data-look="bench"] .page-line--set .page-word { cursor: help; }
+html[data-look="bench"] .page-line--set .page-word:hover {
+  text-decoration: underline dotted rgba(60, 40, 20, 0.45);
+  text-underline-offset: 3px;
+}
 html[data-look="bench"] .page-score {
   font-family: var(--serif);
   font-size: 12px;
@@ -921,6 +927,20 @@ html[data-look="bench"] .word-groove[data-placeholder]:not([data-placeholder='']
   font-family: var(--bn-fell);
   font-size: 16px;
   color: rgba(255, 240, 210, 0.45);
+}
+/* The gloss sits where the placeholder does: in the stick's first course,
+   clear of the knee, in Fell. */
+html[data-look="bench"] .word-gloss {
+  inset: 8px 0 auto 0;
+  height: calc(var(--tile-h) + 8px);
+  place-items: center start;
+  padding: 0 18px 0 44px;
+}
+html[data-look="bench"] .word-gloss > span {
+  font-family: var(--bn-fell);
+  font-size: 15px;
+  text-align: left;
+  color: rgba(255, 240, 210, 0.55);
 }
 /* The scale, cut by renderRule — a tick per sort, the measure from the sixth. */
 html[data-look="bench"] .rule-bar {

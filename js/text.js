@@ -141,6 +141,7 @@ export const LOG_TEXT = {
   pardonStands:     '  {0} {1} lets it stand for {2}.',              // ⌐ emoji · name · the word it reads as
   vouchSteno:       '  📟 The Stenographer vouches for it.',         // ⌐
   vouchExpectants:  '  🤰 The Expectant Parents had that very name on their list.',  // ⌐
+  glossName:        'a given name',   // the stick's gloss for a word the Parents let in as a name
 
   // ─── Patrons acting beyond the score ────────────────────────────────────────
   catNotice:        '🐈 Beyond the lamplight, something sits up and takes an interest.',

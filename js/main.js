@@ -51,7 +51,10 @@ import {
   toggleGhostDrawer, closeGhostDrawer, ghostDrawerOpen, peekGhostDrawer,
   closeGhostDrawersExcept,
   showCoinWordSheet, setCoinNote, showCounterfeitSheet, showStruckTotal, showBribeSheet,
+  setStickGloss,
 } from './render.js';
+import { loadDefs } from './defs.js';
+import { ACRONYM_GLOSSES, romanValue, numberWords } from './glosses.js';
 import {
   initSheets, renderMarket, renderColophon, renderChamber, renderBlackMarket, renderStart,
 } from './sheets.js';
@@ -1089,6 +1092,20 @@ async function submitWord() {
     parts.letters = readings.find(r => DICT.has(r));
   }
 
+  // What the word means, by the door it came in at (the gloss, js/render.js):
+  // the dictionary's word, or the one a licence let it stand for; a name, a
+  // numeral's number, an acronym spelled out, the Binder's two nouns. Its
+  // definition is fetched now, so it is in by the time the stick shows it.
+  const gloss = soloAlone || !parts.letters ? null
+    : vouched === 'expectants'   ? { letters: parts.letters, note: logLine('glossName') }
+    : vouched === 'centurion'    ? { letters: parts.letters, upper: true, note: numberWords(romanValue(parts.letters)) }
+    : vouched === 'stenographer' ? (ACRONYM_GLOSSES[parts.letters]
+      ? { letters: parts.letters, upper: true, note: ACRONYM_GLOSSES[parts.letters] } : null)
+    : pardoned?.id === 'binder'  ? { letters: parts.letters, note: pardoned.stands.toLowerCase() }
+    : pardoned                   ? { letters: parts.letters, head: pardoned.stands }
+    :                              { letters: parts.letters, head: parts.letters };
+  if (gloss?.head) loadDefs(gloss.head);
+
   state.isAnimating = true;
   renderButtons();
 
@@ -1349,7 +1366,7 @@ async function submitWord() {
     state.stats.bestScore = script.total;
     state.stats.bestWord  = script.word;
   }
-  recordWord(script.word, script.total, script.bold);
+  recordWord(script.word, script.total, script.bold, gloss);
 
   // This word is spent, so the Gambler's coin goes back in the air — here
   // rather than in the score effect, which re-runs on every keystroke.
@@ -1394,6 +1411,8 @@ async function submitWord() {
   const burnedIds = new Set(burned.map(t => t.id));
   const { toBag, toPile } = retirePrinted(printed.filter(t => !burnedIds.has(t.id)));
   state.word.length = 0;
+  // The stick, emptied, reads what it just printed (the gloss, js/render.js).
+  setStickGloss(gloss);
 
   let msg = logLine('printedWord', script.word, script.points.toLocaleString(),
     fmtMult(script.mult), script.total.toLocaleString());

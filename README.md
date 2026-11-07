@@ -66,6 +66,29 @@ because the measure counts letters where the stick holds tiles: a þ or a CH is
 one sort of two letters, so every tick says what the word would be worth if it
 ended there. The manuscript sheet is the status — chapter, folio, quota, and
 the words of the page on ruled lines, with the word pips as the lines' bullets.
+
+**The gloss** (since 7 November). Once a word is printed and gone to the page,
+the emptied stick reads what it meant, in the placeholder's own faint italic —
+*bluefin: large pelagic game fish…*, an inflection by its root (*bid: propose a
+payment*, for BIDS) — and keeps it until the next sort is set: the definition
+waits for the reader, never the print for it, and costs the board no room it
+wasn't already leaving empty. Two lines at most; a tap on it reads the whole.
+A printed word on the page's ruled lines answers a tap with the same line, for
+as long as the page is open (`glossLine`, `setStickGloss`, `renderPageLines` in
+`js/render.js`). The meaning goes into the manuscript with the word
+(`recordWord`'s `gloss`), by the door the word came in at: the dictionary's
+word, defined from `wordlists/definitions/` through `js/defs.js` (the loader
+the Daily Proof shares); the word a licence let it stand for (DOOVNFIELD is
+glossed as DOWNFIELD); a name (*a given name*); a Roman numeral, as its number
+(*XIV: fourteen*); a Stenographer's acronym, spelled out (`ACRONYM_GLOSSES` in
+`js/glosses.js` — a new acronym wants a line there); the Binder's coinage, as
+its two nouns. A build that carries no definitions (the single-file one) shows
+no gloss, and the stick says *compose a word…* as ever. It was weighed against
+two other places and kept out of both: under the ruler while composing, where
+there is no room on a phone and the line would flicker through every prefix
+under the player's fingers; and in the print, which is already busy and holds
+its total for under a second.
+
 The proof strip is the readout, above the stick: Points, then the measure and
 the four paints as stamps — struck blind while they are ×1, so the eye knows
 what could light, and inked solid in their colour when they apply, with the
@@ -2182,7 +2205,8 @@ empty. WordNet's definitions are Princeton's, under the WordNet licence, whose
 notice travels with them (`wordlists/definitions/WORDNET-LICENSE.txt`). The page
 fetches, as soon as the results show, the file for every word they list
 (`prefetchDefs`), so a tap finds its definition already there; the artifact
-build embeds them all. (Until 6 November there was a file a letter, fetched on
+build embeds them all. The loader is `js/defs.js`, which the Campaign's gloss
+shares (since 7 November). (Until 6 November there was a file a letter, fetched on
 the first tap that needed it: the tap waited on as much as 640 KB, the S's. The
 largest now is ST's, 98 KB, and most are a few tens.)
 

@@ -27,6 +27,7 @@ import { blackMarketSnapshot } from './blackmarket.js';
 import { setNum, sleep, fmtMult, readingTime, sfx } from './anim.js';
 import { uiZoom } from './appearance.js';
 import { logLine, SOLO_TEXT, ratchetLine } from './text.js';
+import { loadDefs, lookupDef } from './defs.js';
 
 const $ = id => document.getElementById(id);
 
@@ -1077,10 +1078,28 @@ function renderPageLines() {
       ? `page-line page-line--set${r.bold ? ' page-line--bold' : ''}${grew && i === rows.length - 1 ? ' page-line--fresh' : ''}`
       : `page-line page-line--open${i === rows.length ? ' page-line--next' : ''}`;
     html += `<span class="${cls}"><span class="pip pip--word${r ? '' : ' pip--on'}"></span>${
-      r ? `<span class="page-word">${r.word.toLowerCase()}</span><span class="page-score">${r.score.toLocaleString()}</span>` : ''
+      r ? `<span class="page-word" data-line="${i}">${r.word.toLowerCase()}</span><span class="page-score">${r.score.toLocaleString()}</span>` : ''
     }</span>`;
   }
   el.innerHTML = html;
+  // A printed word on the page answers a tap (or a hover's click) with its
+  // gloss, the stick's own line, for as long as the page is open.
+  if (!el._glossWired) {
+    el._glossWired = true;
+    el.addEventListener('click', e => {
+      const w = e.target.closest('.page-word');
+      if (!w) return;
+      const page = (state.manuscript ?? []).filter(r => r.chapter === state.chapter && r.page === state.page);
+      const r = page[Number(w.dataset.line)];
+      if (!r) return;
+      const g = glossOfRecord(r);
+      const show = () => {
+        const line = glossLine(g);
+        if (line) showPopover(w, `<div class="tip-line tip-gloss">${escHTML(line)}</div>`);
+      };
+      if (g.head) loadDefs(g.head).then(show); else show();
+    });
+  }
 }
 
 function renderPips(id, total, filled, cls, maxShown = total) {
@@ -1310,6 +1329,47 @@ function renderRule(script, placed) {
   knee.classList.toggle('knee--off', !oneRow);
 }
 
+// ─── The gloss ────────────────────────────────────────────────────────────────
+// What a printed word means, written into the empty stick in the placeholder's
+// own faint italic once the word has gone to the page, and there until the
+// next sort is set: the definition waits for the reader rather than the print
+// waiting for it. A printed word on the page card answers a tap with the same
+// line (renderPageLines). A record's `gloss` (recordWord in js/state.js) says
+// where the meaning comes from: `head`, the dictionary word to define (the
+// word itself, or the one a licence let it stand for — DOOVNFIELD's
+// DOWNFIELD), or `note`, a meaning of its own (a name, a numeral's number, an
+// acronym spelled out, the Binder's two nouns). Definitions are js/defs.js's.
+let _gloss = null;   // { ...gloss, letters, n: the manuscript's length at the print }
+
+const escHTML = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+
+// The line a gloss reads as, or null while its definition is still on the way
+// (or there is none). An inflection's definition names its root, and the line
+// is headed by that ("embarkation: the act of…", for EMBARKATIONS).
+export function glossLine(g) {
+  if (!g) return null;
+  if (g.note) return `${g.upper ? g.letters : g.letters.toLowerCase()}: ${g.note}`;
+  const d = g.head ? lookupDef(g.head) : null;
+  if (!d) return null;
+  const at = /^[A-Z][A-Z'-]*: /.test(d) ? d.indexOf(': ') : -1;
+  return at > 0 ? `${d.slice(0, at).toLowerCase()}: ${d.slice(at + 2)}` : `${g.head.toLowerCase()}: ${d}`;
+}
+
+// After a print: the gloss of the word just printed, shown once its
+// definition is in.
+export function setStickGloss(g) {
+  _gloss = g ? { ...g, n: state.manuscript?.length ?? 0 } : null;
+  if (g?.head) loadDefs(g.head).then(() => { if (_gloss && !state.word.length) renderWord(); });
+}
+
+// A record from the manuscript, glossed: one printed before glosses were kept
+// is defined by its own letters.
+function glossOfRecord(r) {
+  if (r.gloss) return { letters: r.gloss.letters ?? r.word, ...r.gloss };
+  const letters = String(r.word ?? '').replace(/[?!‽]+$/u, '').toUpperCase();
+  return { letters, head: letters };
+}
+
 // Last render's displayed contributions, so changes can be animated.
 let _lastWordPts = new Map();
 const RIPPLE_STEP = 70;   // ms between neighbours as a nick's effect spreads
@@ -1318,7 +1378,22 @@ export function renderWord(script = computeScore(state.word)) {
   const el = $('word');
   if (!el) return;
   el.innerHTML = '';
-  el.dataset.placeholder = state.word.length ? '' : 'compose a word…';
+  // The next sort set puts the last word's gloss away for good; a new run, whose
+  // manuscript starts again, never shows the old one.
+  if (state.word.length) _gloss = null;
+  const gloss = !state.word.length && _gloss && (state.manuscript?.length ?? 0) === _gloss.n
+    ? glossLine(_gloss) : null;
+  el.dataset.placeholder = state.word.length || gloss ? '' : 'compose a word…';
+  if (gloss) {
+    const g = document.createElement('div');
+    g.className = 'word-gloss';
+    const line = document.createElement('span');
+    line.textContent = gloss;
+    g.appendChild(line);
+    // Two lines at most in the stick; a tap reads the whole of it.
+    g.addEventListener('click', () => showPopover(g, `<div class="tip-line tip-gloss">${escHTML(gloss)}</div>`));
+    el.appendChild(g);
+  }
   applyPaintingMode(el);
 
   // Ripple order: distance from the nick that claimed each letter.

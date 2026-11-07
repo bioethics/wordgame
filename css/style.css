@@ -1769,6 +1769,28 @@ button.sundry:hover { transform: translateY(-2px); }
   color: rgba(243, 222, 184, 0.18);
   pointer-events: none;
 }
+/* The gloss: the printed word's meaning, written into the empty groove in the
+   placeholder's own faint italic until the next sort is set (renderWord in
+   js/render.js). Two lines at most; a tap reads the whole of it. */
+.word-gloss {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  padding: 0 18px;
+  cursor: help;
+}
+.word-gloss > span {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.35;
+  text-align: center;
+  color: rgba(243, 222, 184, 0.42);
+}
+.tip-gloss { font-style: italic; }
 .word-groove--reject {
   animation: grooveReject calc(0.42s / var(--aspd)) ease;
 }
