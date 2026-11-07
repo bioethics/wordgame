@@ -184,10 +184,15 @@ export const PATRONS = {
   // Friday choice. The daily's hears the first letter again anywhere after it.
   herald:   { adapted: true, effect({ letters, xMult }) { if (/^(.).*\1/.test(letters)) xMult(2); } },
   // Adapted (since 7 November, for Tuesday): the game's cat pays a Coin and a
-  // laurel for a word with R-A-T in it; the daily's, ×3. His day deals an R,
-  // an A and a T (SEAT_SHAPES in daily/deal.js): undealt, half of all cases
-  // couldn't spell one.
-  shorthair: { adapted: true, effect({ letters, xMult }) { if (letters.includes('RAT')) xMult(3); } },
+  // laurel for a word with R-A-T in it; the daily's, ×2, and he brings the RAT
+  // sort the game's Rat Catcher casts — one sort, three letters, worth 3
+  // (seatFor in daily/deal.js lends it). Undealt, half of all cases couldn't
+  // spell RAT at all.
+  shorthair: {
+    adapted: true,
+    adds: { letter: 'RAT' },
+    effect({ letters, xMult }) { if (letters.includes('RAT')) xMult(2); },
+  },
   // The daily's own (since 7 November): no letter of the word read twice —
   // Fowler's elegant variation, the writer who will not say a word again,
   // brought down to the letter.

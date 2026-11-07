@@ -1863,7 +1863,7 @@ whatever you set (near 100%) or seldom matters (near 0):
 | The Counterfeiter | 87% | 87% | The Jeweller | 20% | 53% |
 | The Bookbinder | 80% | 59% | The Typesetter | 18% | 66% |
 | The Bookends | 62% | 59% | The Siren | 18% | 100% |
-| The Domestic Shorthair | 65% | 13% | Juliet | 15% | 27% |
+| The Domestic Shorthair | 60% | 16% | Juliet | 15% | 27% |
 | The Elegant Variationist | 58% | 65% | The Haplographer | 10% | 20% |
 | The Athlete | 57% | 65% | The Expectant Parents | 8% | 18% |
 | The Sculptor | 52% | 68% | Romeo | 8% | 30% |
@@ -1890,12 +1890,18 @@ worth 0 — the wildcard the ratchet is a cramped version of.
   sorts of one colour stand side by side. Dealt two pairs of colours, drawn
   at random each day (`paint.pairs`), without which he found nothing on 45% of
   cases.
-- *The Domestic Shorthair* (🐈, the game's, adapted): ×3 for words containing
-  RAT (PIRATE, GRATIFIED), where the game's cat pays a Coin and a laurel. His
-  day deals an R, an A and a T (`SEAT_SHAPES`): undealt, half of all cases
-  couldn't spell one. Dealing the letters makes the hunt possible without
-  making it obvious: RAT is in 13% of the hundred best words, and when one is
-  there it is the best word two times in three.
+- *The Domestic Shorthair* (🐈, the game's, adapted): ×2 for words containing
+  RAT (PIRATE, EXHILARATED), where the game's cat pays a Coin and a laurel,
+  and a RAT sort joins the case (`seatFor`), the one the game's Rat Catcher
+  casts: three letters on one sort, worth 3. Undealt, half of all cases
+  couldn't spell RAT. He was ×3 with an R, an A and a T dealt as three sorts
+  for his first afternoon (65% moved, 13% paid on); ×3 with the RAT sort
+  lifted the best word ×1.89 and put RAT in 23% of the hundred best, the sort
+  doing half his work, since the measure counts its three letters; painted a
+  colour, as the Rat Catcher's are, ×2.90, and the best word ran through it on
+  88% of cases. At ×2 with the sort he plays as the hunt he was: RAT is in 16%
+  of the hundred best words, and when one is there it is the best word most
+  of the time.
 - *The Elegant Variationist* (🦢, the daily's own): ×2 for words with no
   repeated letter. Fowler's elegant variation is the writer's dread of saying
   a word twice; his is of a letter.

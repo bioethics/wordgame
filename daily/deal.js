@@ -313,7 +313,7 @@ export const DAY_PATRONS = [
   // move the best word, only pay — and the deal gives each what it reads.
   'jeweller', 'novelist', 'typesetter', 'romeo', 'juliet', 'siren', 'firebrand',
   // 7 November: the Izzard (the game's, dealt a Z), the Quoin (the game's, at
-  // ×2), the Domestic Shorthair (the game's, at ×3, dealt R, A and T), and three
+  // ×2), the Domestic Shorthair (the game's, at ×2, with a RAT sort), and three
   // of the daily's own — the Elegant Variationist, the Bookends and the
   // Capitalist. README.md, "The table", has what each does to a case.
   'izzard', 'quoin', 'shorthair', 'variationist', 'bookends', 'capitalist',
@@ -436,7 +436,6 @@ const SEAT_SHAPES = {
   juliet:     { paint: { jade: 3, amber: 1 } },
   jeweller:   { rare: 1 },
   izzard:     { letters: { Z: 1 } },
-  shorthair:  { letters: { R: 1, A: 1, T: 1 } },
   bookends:   { paint: { pairs: 2 } },
   quoin:      { paint: { pairs: 2 } },
 };
@@ -545,6 +544,8 @@ function seatFor(id, deal, rng) {
   // patron on offer has all sixteen sorts (bars in daily/table.js).
   if (id === 'turnkey') seat.data.locks = [...turnkeyLocks(deal, rng)].sort((a, b) => a - b);
   if (id === 'counterfeiter') seat.adds = { letter: '_', counterfeit: true, blank: true };
+  // The Shorthair's RAT, one sort for three letters, as the game's Rat Catcher casts it.
+  if (id === 'shorthair') seat.adds = { letter: 'RAT' };
   return seat;
 }
 
