@@ -872,8 +872,11 @@ button.mode-item:hover, button.mode-item:focus-visible { background: rgba(217, 1
 .blank-choice:hover { filter: brightness(1.06); }
 
 /* ─── A sort in the hand ───────────────────────────────────────────────────── */
-/* What a drag carries under the pointer, and what it leaves behind. */
-.drag-ghost {
+/* What a drag carries under the pointer, and what it leaves behind. The ghost
+   is a sort (a clone of one), and `.tile` below sets position: relative; at
+   one class each the later rule won, the ghost fell into the page's flow below
+   the fold, and the page grew a scrollbar as it moved. Two classes outrank it. */
+.tile.drag-ghost {
   position: fixed;
   z-index: 100;
   margin: 0;
