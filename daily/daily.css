@@ -207,7 +207,7 @@ button.mode-item:hover, button.mode-item:focus-visible { background: rgba(217, 1
 .seat-name { grid-area: name; font-family: var(--fell-sc); font-size: 16px; letter-spacing: 0.02em; line-height: 1.1; }
 .seat-rule { grid-area: rule; font-size: 13px; font-weight: 600; color: var(--brass-hi); line-height: 1.25; }
 .seat--only, .seat--desk { flex: 1 1 auto; }
-.seat--choice { flex: 1 1 0; min-width: 0; grid-template-areas: "emoji" "name" "rule"; grid-template-columns: 1fr; justify-items: center; text-align: center; row-gap: 2px; padding: 7px 6px; }
+.seat--choice { flex: 1 1 0; min-width: 0; grid-template-areas: "emoji" "name" "rule"; grid-template-columns: 1fr; justify-items: center; align-content: center; text-align: center; row-gap: 2px; padding: 7px 6px; }
 .seat--choice .seat-name { font-size: 14px; }
 /* A patron's rule, in small type under the name: the card's own, so a reader
    needn't tap to learn it. (The editor's, below, is the day's headline.) */

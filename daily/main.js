@@ -128,7 +128,7 @@ function loadDefs(word) {
 }
 const prefetchDefs = words => { for (const w of words) loadDefs(headOf(w)); };
 // The dictionary word a licensed spelling stands for (ZEAZONZ's SEASONS, under
-// the Izzard; MATE's MATTE, under the Haplographer), whose definition it shows.
+// the Izzard; BALOON's BALLOON, under the Haplographer), whose definition it shows.
 const headOf = word => {
   if (inDict(word)) return word;
   for (const T of S.tables ?? []) { const w = T.reads?.(word, inDict); if (w) return w; }

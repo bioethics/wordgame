@@ -1811,6 +1811,14 @@ challenge (`WEEK` in `daily/deal.js`; № 1 is a Friday):
 | Friday | **A choice of two patrons**, from the plain tier. |
 | Saturday | **Two words** from a case of twenty, each five letters or more, their scores added. |
 
+Every patron's card carries its rule in small type under the name (since 7
+November), as the editor's carries the day's: on a Tuesday beside the emoji,
+on a choice day centred under each of the two. The rules were cut down for it
+to the fewest words that still say the whole rule (`PATRON_TEXT` in
+`daily/text.js`): *×3 Mult for cute words*, not *for words The Poppet finds
+cute*, under a name that already says whose words they are. A tap still opens
+the card's popover, which says the same.
+
 Who sits is chosen by turn rather than by chance: each roster is shuffled once
 per lap of it (`turn` in `daily/deal.js`), so every patron and every editor
 comes round before any comes round twice. The seat is rolled on a seed stream
@@ -2033,7 +2041,7 @@ what counts as a word rather than what it scores, as the game's pardons and
 lexicons do (`pardonWord` and the lexicon patrons in `js/main.js`). The
 Expectant Parents let common baby names stand as words and pay +15 Points for
 any name, dictionary word or not; the Haplographer lets one letter of a
-doubled pair be set once (MATE for MATTE); the Bloodless Bohemian Bookbinder
+doubled pair be set once (BALOON for BALLOON; never a word of its own, so MATE stays MATE); the Bloodless Bohemian Bookbinder
 reads a V as a W and lets a run of O's be howled as long as the case allows
 (BOOOOB); and the Binder lets two nouns stacked stand as one word (MUSICWORLD,
 PERSONBUS) in the campaign, but not in the daily: the daily must list every word a

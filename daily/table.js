@@ -334,12 +334,13 @@ export const PATRONS = {
     effect({ letters, addPoints }) { if (isName(letters)) addPoints(EXPECTANTS_BONUS); },
   },
   haplographer: {
-    // The word a spelling stands for, for its definition: MATE's MATTE.
+    // The word a spelling stands for, for its definition: BALOON's BALLOON.
     reads(s, has) {
       for (let i = 0; i < s.length; i++) { const w = s.slice(0, i + 1) + s.slice(i); if (has(w)) return w; }
       return null;
     },
-    // One letter of a doubled pair may be set once: MATE reads as MATTE.
+    // One letter of a doubled pair may be set once: BALOON reads as BALLOON.
+    // (Never as a word of its own: MATE stays MATE, not MATTE.)
     spell(words, has) {
       const out = new Set();
       for (const W of words) for (let i = 0; i < W.length - 1; i++) {
