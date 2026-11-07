@@ -1512,6 +1512,29 @@ function shareText(r, pairs) {
   ].join('\n');
 }
 
+// The share, on the slip: on a phone the share sheet, as Wordle does;
+// elsewhere the clipboard; and where neither will take it, the text itself,
+// laid out under the button to copy by hand.
+function shareButton(r, pairs, slip) {
+  const share = document.createElement('button');
+  share.className = 'btn slip-share';
+  share.textContent = RESULT.share;
+  share.addEventListener('click', async () => {
+    const text = shareText(r, pairs);
+    if (navigator.share && matchMedia('(pointer: coarse)').matches) {
+      try { await navigator.share({ text }); return; } catch (e) { if (e?.name === 'AbortError') return; }
+    }
+    try { await navigator.clipboard.writeText(text); share.textContent = RESULT.copied; }
+    catch {
+      let pre = slip.querySelector('.share-text');
+      if (!pre) { pre = document.createElement('pre'); pre.className = 'share-text'; slip.appendChild(pre); }
+      pre.textContent = text;
+      getSelection()?.selectAllChildren(pre);
+    }
+  });
+  return share;
+}
+
 let resizeChart = null;
 function renderResult() {
   const host = $('result');
@@ -1540,7 +1563,7 @@ function renderResult() {
   const place = document.createElement('div');
   place.className = 'slip-place';
   place.textContent = fill(pairs ? RESULT.placePairs : RESULT.place, fmtN(r.rank), fmtN(r.size));
-  slip.append(top, grade, place);
+  slip.append(top, grade, place, shareButton(r, pairs, slip));
   host.appendChild(slip);
 
   const field = S.field;
@@ -1564,25 +1587,6 @@ function renderResult() {
   // The way on.
   const acts = document.createElement('div');
   acts.className = 'result-acts';
-  const share = document.createElement('button');
-  share.className = 'btn';
-  share.textContent = RESULT.share;
-  // On a phone the share sheet, as Wordle does; elsewhere the clipboard; and
-  // where neither will take it, the text itself, laid out to copy by hand.
-  share.addEventListener('click', async () => {
-    const text = shareText(r, pairs);
-    if (navigator.share && matchMedia('(pointer: coarse)').matches) {
-      try { await navigator.share({ text }); return; } catch (e) { if (e?.name === 'AbortError') return; }
-    }
-    try { await navigator.clipboard.writeText(text); share.textContent = RESULT.copied; }
-    catch {
-      let pre = acts.querySelector('.share-text');
-      if (!pre) { pre = document.createElement('pre'); pre.className = 'share-text'; acts.appendChild(pre); }
-      pre.textContent = text;
-      getSelection()?.selectAllChildren(pre);
-    }
-  });
-  acts.appendChild(share);
   if (PLAYTEST) {
     const again = document.createElement('button');
     again.className = 'btn';
@@ -1597,7 +1601,7 @@ function renderResult() {
     next.addEventListener('click', () => { openChallenge(S.n + 1); window.scrollTo({ top: 0 }); });
     acts.appendChild(next);
   }
-  host.appendChild(acts);
+  if (acts.children.length) host.appendChild(acts);
 }
 
 // One row of a best-of list: place, name, score, and a setting under it when open.
