@@ -512,7 +512,11 @@ What the session history, the commits and the author's Drive show:
   Sculptor's list as it reads, the nouns through `noun-extras.txt`; 54
   definitions were written, LOCKDOWN's moved from the prison riot to the
   everyday sense, and UNFOLLOW and UNMUTE given theirs rather than "not
-  follow".
+  follow". Then RELIT, which showed a second family: RE- verbs whose
+  regular tenses were in but not the irregular ones. RELIT, REGREW, REFROZE,
+  REFROZEN, REBOUGHT and RELEARNT joined (the first three had been on the
+  Athlete's list all along without being playable), with RESHOOT and RETIE
+  in every tense.
 
 Not found anywhere these sessions can reach: the tool or chat that produced
 the ranked lists and the later batches. The ranking, the drift into

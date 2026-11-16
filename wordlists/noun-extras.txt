@@ -208,6 +208,8 @@ yabber
 yabbie
 # Added with the dictionary, 16 November: contemporary words (REWATCHING,
 # LIVESTREAMER, CHATBOT, MICROPLASTIC)
+reshoot
+reshoots
 autocorrect
 binger
 bingers

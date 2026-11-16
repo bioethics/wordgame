@@ -5169,6 +5169,7 @@ reauthorisation	renewed permission
 reauthorise	give official permission again
 reauthorization	renewed permission
 reauthorize	give official permission again
+rebought	REBUY: buy again
 rebuilt	REBUILD: build again
 reburied	REBURY: bury again
 rebuy	buy again
@@ -5250,6 +5251,8 @@ reformat	format again
 reformulation	the act of expressing in a new way
 refractor	something that bends light
 refreeze	freeze again
+refroze	REFREEZE: freeze again
+refrozen	REFREEZE: freeze again
 refundable	able to be paid back
 refunder	a person who pays back
 reg	registration
@@ -5259,6 +5262,7 @@ regexp	a pattern used to match text in computing
 regionals	REGIONAL: a regional contest
 rego	vehicle registration
 regolith	the layer of loose rock covering solid rock
+regrew	REGROW: grow again
 regrown	REGROW: grow again
 regrowth	new growth after cutting or damage
 rehab	treatment for addiction or injury
@@ -5286,12 +5290,14 @@ relaid	RELAY: lay again
 relatable	easy to identify with
 relativist	a person who believes truth depends on context
 relaunch	launch again
+relearnt	RELEARN: learn something again, as after forgetting it
 releasable	able to be freed or issued
 relied	RELY: depend on
 relight	light again
 relinquisher	a person who gives up
 relisted	RELIST: list again
 relisten	listen again
+relit	RELIGHT: light again
 rellie	a relative
 reloader	a person or device that loads again
 relocatable	able to be moved to a new place
@@ -5347,6 +5353,7 @@ resealable	able to be closed tightly again
 reseller	a person who sells goods bought from others
 resend	send again
 reserved	slow to share feelings or opinions; also set aside for someone
+reshot	RESHOOT: shoot again
 resigner	a person who gives up a job
 resit	take an exam again
 reskill	train in new skills
@@ -5378,6 +5385,7 @@ returnables	RETURNABLE: items such as bottles that can be returned for a refund
 returnee	a person who comes back to a place or group
 returner	a person or thing that returns
 retweet	repost another user's message on social media
+retying	RETIE: tie again or anew
 retype	type again
 reunified	REUNIFY: bring back together as one
 reupholster	cover furniture with new fabric and padding

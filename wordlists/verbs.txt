@@ -21786,6 +21786,7 @@ reboot
 rebooted
 rebooting
 reboots
+rebought
 rebound
 rebounded
 rebounding
@@ -22527,6 +22528,7 @@ relearn
 relearned
 relearning
 relearns
+relearnt
 release
 released
 releases
@@ -22562,6 +22564,7 @@ relisten
 relistened
 relistening
 relistens
+relit
 relive
 relived
 relives
@@ -23000,6 +23003,10 @@ reshape
 reshaped
 reshapes
 reshaping
+reshoot
+reshooting
+reshoots
+reshot
 reshuffle
 reshuffled
 reshuffles
@@ -23160,6 +23167,9 @@ rethinking
 rethinks
 rethought
 reticulated
+retie
+retied
+reties
 retire
 retired
 retirees
@@ -23235,6 +23245,7 @@ return
 returned
 returning
 returns
+retying
 reunified
 reunifies
 reunify

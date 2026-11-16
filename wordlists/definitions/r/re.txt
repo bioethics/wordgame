@@ -273,6 +273,7 @@ rebooted	REBOOT: cause to load (an operating system) and start the initial proce
 rebooting	REBOOT: cause to load (an operating system) and start the initial processes
 reboots	REBOOT: cause to load (an operating system) and start the initial processes
 reborn	spiritually reborn or converted
+rebought	REBUY: buy again
 rebound	spring back; spring away from an impact
 rebounded	REBOUND: spring back; spring away from an impact
 rebounding	REBOUND: spring back; spring away from an impact
@@ -1155,6 +1156,8 @@ refrigerating	causing cooling or freezing
 refrigeration	the process of cooling or freezing (e.g., food) for preservative purposes
 refrigerator	white goods in which food can be stored at low temperatures
 refrigerators	REFRIGERATOR: white goods in which food can be stored at low temperatures
+refroze	REFREEZE: freeze again
+refrozen	REFREEZE: freeze again
 refs	REF: the chief official (as in boxing or American football) who is expected to ensure fair play
 refuel	provide with additional fuel, as of aircraft, ships, and cars
 refueled	REFUEL: provide with additional fuel, as of aircraft, ships, and cars
@@ -1281,6 +1284,7 @@ regrettable	deserving regret
 regrettably	by bad luck
 regretted	REGRET: feel remorse for; feel sorry for; be contrite about
 regretting	REGRET: feel remorse for; feel sorry for; be contrite about
+regrew	REGROW: grow again
 regroup	organize anew, as after a setback
 regrouped	REGROUP: organize anew, as after a setback
 regrouping	REGROUP: organize anew, as after a setback
@@ -1549,6 +1553,7 @@ relearn	learn something again, as after having forgotten or neglected it
 relearned	RELEARN: learn something again, as after having forgotten or neglected it
 relearning	RELEARN: learn something again, as after having forgotten or neglected it
 relearns	RELEARN: learn something again, as after having forgotten or neglected it
+relearnt	RELEARN: learn something again, as after forgetting it
 releasable	able to be freed or issued
 release	release, as from one's grip
 released	RELEASE: release, as from one's grip
@@ -1616,6 +1621,7 @@ relisten	listen again
 relistened	RELISTEN: listen again
 relistening	RELISTEN: listen again
 relistens	RELISTEN: listen again
+relit	RELIGHT: light again
 relive	experience again, often in the imagination
 relived	RELIVE: experience again, often in the imagination
 relives	RELIVE: experience again, often in the imagination
@@ -2330,6 +2336,10 @@ reshape	shape anew or differently
 reshaped	RESHAPE: shape anew or differently
 reshapes	RESHAPE: shape anew or differently
 reshaping	RESHAPE: shape anew or differently
+reshoot	shoot again
+reshooting	RESHOOT: shoot again
+reshoots	RESHOOT: shoot again
+reshot	RESHOOT: shoot again
 reshuffle	reorganize and assign posts to different people
 reshuffled	RESHUFFLE: reorganize and assign posts to different people
 reshuffles	RESHUFFLE: reorganize and assign posts to different people
@@ -2650,6 +2660,9 @@ reticular	resembling or forming a network
 reticulated	RETICULATE: resembling or forming a network
 reticulation	an arrangement resembling a net or network
 reticulations	RETICULATION: an arrangement resembling a net or network
+retie	tie again or anew
+retied	RETIE: tie again or anew
+reties	RETIE: tie again or anew
 retina	the innermost light-sensitive membrane covering the back wall of the eyeball; it is continuous with the optic nerve
 retinae	RETINA: the light-sensitive layer at the back of the eye
 retinal	in or relating to the retina of the eye
@@ -2782,6 +2795,7 @@ retweet	repost another user's message on social media
 retweeted	RETWEET: repost another user's message on social media
 retweeting	RETWEET: repost another user's message on social media
 retweets	RETWEET: repost another user's message on social media
+retying	RETIE: tie again or anew
 retype	type again
 retyped	RETYPE: type again
 retypes	RETYPE: type again

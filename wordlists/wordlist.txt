@@ -59121,6 +59121,7 @@ rebooted
 rebooting
 reboots
 reborn
+rebought
 rebound
 rebounded
 rebounding
@@ -60003,6 +60004,8 @@ refrigerating
 refrigeration
 refrigerator
 refrigerators
+refroze
+refrozen
 refs
 refuel
 refueled
@@ -60129,6 +60132,7 @@ regrettable
 regrettably
 regretted
 regretting
+regrew
 regroup
 regrouped
 regrouping
@@ -60397,6 +60401,7 @@ relearn
 relearned
 relearning
 relearns
+relearnt
 releasable
 release
 released
@@ -60464,6 +60469,7 @@ relisten
 relistened
 relistening
 relistens
+relit
 relive
 relived
 relives
@@ -61178,6 +61184,10 @@ reshape
 reshaped
 reshapes
 reshaping
+reshoot
+reshooting
+reshoots
+reshot
 reshuffle
 reshuffled
 reshuffles
@@ -61498,6 +61508,9 @@ reticular
 reticulated
 reticulation
 reticulations
+retie
+retied
+reties
 retina
 retinae
 retinal
@@ -61630,6 +61643,7 @@ retweet
 retweeted
 retweeting
 retweets
+retying
 retype
 retyped
 retypes
