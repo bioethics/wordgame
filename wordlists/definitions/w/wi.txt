@@ -52,6 +52,7 @@ wienie	a frankfurter
 wienies	WIENIE: a frankfurter
 wife	a married woman; a man's partner in marriage
 wifely	befitting or characteristic of a wife
+wifi	a wireless connection to a local network and the internet
 wig	hairpiece covering the head and made of real or synthetic hair
 wigeon	freshwater duck of Eurasia and northern Africa related to mallards and teals
 wigeons	WIGEON: freshwater duck of Eurasia and northern Africa related to mallards and teals

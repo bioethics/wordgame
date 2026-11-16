@@ -1169,6 +1169,7 @@ binary
 binational
 binaural
 binding
+bingeworthy
 binocular
 binomial
 biochemical

@@ -551,6 +551,7 @@ bluestone	bluish-grey sandstone used for paving and building
 bluesy	having the feel of blues music
 bluetongue	a viral disease of sheep and cattle that is transmitted by biting midges
 bluetongues	BLUETONGUE: a viral disease of sheep and cattle that is transmitted by biting midges
+bluetooth	a short-range wireless standard for connecting devices, such as a phone to headphones
 bluey	a blue heeler dog; also a nickname for a red-haired person
 blueys	BLUEY: a blue heeler dog; also a nickname for a red-haired person
 bluff	a high steep bank (usually formed by river erosion)

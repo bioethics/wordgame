@@ -506,9 +506,12 @@ What the session history, the commits and the author's Drive show:
   missing tenses of verbs already on the list (COSPLAYED, SCREENSHOTTED,
   CATFISHED, PREORDERED, GASLIT); nouns (CHATBOT, INFLUENCER, SHOWRUNNER,
   EBOOK, WEBCOMIC, FANFICTION, MICROPLASTIC, RIDESHARE, BROMANCE, GIF,
-  GLAMPING, LOCKDOWNS); and REWATCHABLE, HANGRY, SCROLLABLE, STREAMABLE. No
-  brand names (SKYPE, BLUETOOTH, WIFI) and nothing merely possible
-  (BINGEWORTHY, TEXTABLE). Each went to the Athlete's, the Poet's or the
+  GLAMPING, LOCKDOWNS, and WIFI and BLUETOOTH); and REWATCHABLE, HANGRY,
+  SCROLLABLE, STREAMABLE, BINGEWORTHY. WIFI and BLUETOOTH are trademarks that
+  name standards many makers build to, used of the connection whatever the
+  device; SKYPE stayed out, being one company's product (now closed) that never
+  became the general word for a video call, as GOOGLE did for a search.
+  TEXTABLE stayed out too, possible rather than used. Each went to the Athlete's, the Poet's or the
   Sculptor's list as it reads, the nouns through `noun-extras.txt`; 54
   definitions were written, LOCKDOWN's moved from the prison riot to the
   everyday sense, and UNFOLLOW and UNMUTE given theirs rather than "not

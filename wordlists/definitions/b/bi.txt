@@ -247,6 +247,7 @@ bingeing	BINGE: an occasion for excessive eating or drinking
 binger	someone who binges, especially on a television series
 bingers	BINGER: someone who binges, especially on a television series
 binges	BINGE: an occasion for excessive eating or drinking
+bingeworthy	so compelling you want to watch it all in one sitting
 binging	BINGE: an occasion for excessive eating or drinking
 bingle	a base hit on which the batter stops safely at first base
 bingles	BINGLE: a base hit on which the batter stops safely at first base

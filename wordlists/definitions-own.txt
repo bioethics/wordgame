@@ -524,6 +524,7 @@ bimetallics	BIMETALLIC: a strip or coin made of two metals
 binational	involving two nations
 bindi	a decorative dot worn on the forehead
 binger	someone who binges, especially on a television series
+bingeworthy	so compelling you want to watch it all in one sitting
 binman	a person who collects rubbish
 binmen	BINMAN: a person who collects rubbish
 bio	a short account of someone's life; also biology, as a school subject
@@ -606,6 +607,7 @@ blowie	a blowfly
 bludger	a person who avoids work and relies on others
 bluejay	a North American bird with blue feathers
 bluesy	having the feel of blues music
+bluetooth	a short-range wireless standard for connecting devices, such as a phone to headphones
 bluey	a blue heeler dog; also a nickname for a red-haired person
 blurter	one who speaks without thinking
 boardgames	BOARDGAME: a game played on a marked board
@@ -7098,6 +7100,7 @@ widener	a person or thing that makes something broader
 widescreen	having a broad picture format
 wielder	a person who handles a weapon or power
 wienie	a frankfurter
+wifi	a wireless connection to a local network and the internet
 wiki	a website that users can edit together
 wildcard	a symbol that stands for any characters in a search
 wildling	a wild plant or animal

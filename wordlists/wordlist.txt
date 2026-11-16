@@ -6608,6 +6608,7 @@ bingeing
 binger
 bingers
 binges
+bingeworthy
 binging
 bingle
 bingles
@@ -7416,6 +7417,7 @@ bluestone
 bluesy
 bluetongue
 bluetongues
+bluetooth
 bluey
 blueys
 bluff
@@ -82232,6 +82234,7 @@ wienie
 wienies
 wife
 wifely
+wifi
 wig
 wigeon
 wigeons
