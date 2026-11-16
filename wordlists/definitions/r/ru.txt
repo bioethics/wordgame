@@ -195,9 +195,13 @@ runny	characteristic of a fluid; capable of flowing and easily changing shape
 runoff	the occurrence of surplus liquid (as water) exceeding the limit or capacity
 runoffs	RUNOFF: the occurrence of surplus liquid (as water) exceeding the limit or capacity
 runs	RUN: move fast by using one's feet, with one foot off the ground at any given time
-runt	disparaging terms for small people
+runt	the smallest and weakest animal in a litter; a small, weak person
+runtier	RUNTY: small and weak; undersized
+runtiest	RUNTY: small and weak; undersized
 runtime	the period during which a program is running
-runts	RUNT: disparaging terms for small people
+runtiness	smallness of stature
+runts	RUNT: the smallest and weakest animal in a litter; a small, weak person
+runty	small and weak; undersized
 runway	a strip of level paved surface where planes can take off and land
 runways	RUNWAY: a strip of level paved surface where planes can take off and land
 rupee	the basic unit of money in India; equal to 100 paise

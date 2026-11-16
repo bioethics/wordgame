@@ -5501,7 +5501,9 @@ rulebook	a book of the rules of a game or organisation
 runaround	evasive or misleading treatment
 runestone	a stone carved with runic letters
 runically	in the manner of runes
+runt	the smallest and weakest animal in a litter; a small, weak person
 runtime	the period during which a program is running
+runty	small and weak; undersized
 rustically	in a simple countrified way
 rustproofing	treatment that protects against rust
 rustproofs	RUSTPROOF: treat to protect against rust
