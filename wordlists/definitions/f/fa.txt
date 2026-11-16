@@ -297,6 +297,7 @@ fanfare	a gaudy outward display
 fanfares	FANFARE: a gaudy outward display
 fanfic	stories written by fans about existing characters
 fanfics	FANFIC: stories written by fans about existing characters
+fanfiction	stories written by fans using the characters or world of someone else's work
 fang	canine tooth of a carnivorous animal; used to seize and tear its prey
 fanged	having fangs
 fanglike	resembling a fang

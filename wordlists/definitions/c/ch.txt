@@ -329,6 +329,8 @@ chastity	abstaining from sexual relations (as because of religious vows)
 chasuble	a long sleeveless vestment worn by a priest when celebrating Mass
 chasubles	CHASUBLE: a long sleeveless vestment worn by a priest when celebrating Mass
 chat	talk socially without exchanging too much information
+chatbot	a computer program that holds a conversation with people, in text or speech
+chatbots	CHATBOT: a computer program that holds a conversation with people, in text or speech
 chateau	an impressive country house (or castle) in France
 chateaus	CHATEAU: an impressive country house (or castle) in France
 chateaux	CHATEAU: a French country house or castle

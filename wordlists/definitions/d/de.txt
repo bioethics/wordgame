@@ -1298,6 +1298,10 @@ deplane	get off an airplane
 deplaned	DEPLANE: get off an airplane
 deplanes	DEPLANE: get off an airplane
 deplaning	DEPLANE: get off an airplane
+deplatform	bar someone from a website or forum, denying them a place to speak
+deplatformed	DEPLATFORM: bar someone from a website or forum, denying them a place to speak
+deplatforming	DEPLATFORM: bar someone from a website or forum, denying them a place to speak
+deplatforms	DEPLATFORM: bar someone from a website or forum, denying them a place to speak
 deplete	use up (resources or materials)
 depleted	no longer sufficient
 depletes	DEPLETE: use up (resources or materials)

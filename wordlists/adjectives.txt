@@ -5727,6 +5727,7 @@ handwoven
 handwritten
 handy
 hangdog
+hangry
 haphazard
 hapless
 haploid
@@ -10637,6 +10638,7 @@ revolting
 revolutionary
 revolved
 rewarding
+rewatchable
 rewritable
 rhapsodic
 rhetorical
@@ -11116,6 +11118,7 @@ screwy
 scribal
 scripted
 scriptural
+scrollable
 scrotal
 scrub
 scrubbed
@@ -12491,6 +12494,7 @@ streaked
 streakier
 streakiest
 streaky
+streamable
 streaming
 streamline
 streamlined

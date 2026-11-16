@@ -4,6 +4,8 @@ ebbing	a gradual decline (in size or strength or power or number)
 ebbs	EBB: flow back or recede
 ebonies	EBONY: a very dark black
 ebony	a very dark black
+ebook	a book published in digital form, to be read on a screen
+ebooks	EBOOK: a book published in digital form, to be read on a screen
 ebullience	overflowing with eager enjoyment or approval
 ebullient	joyously unrestrained
 ebulliently	in an ebullient manner

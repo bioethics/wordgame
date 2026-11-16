@@ -416,6 +416,7 @@ hangout	a frequently visited place
 hangouts	HANGOUT: a frequently visited place
 hangover	disagreeable aftereffects from the use of drugs (especially alcohol)
 hangovers	HANGOVER: disagreeable aftereffects from the use of drugs (especially alcohol)
+hangry	irritable because hungry
 hangs	HANG: be suspended or hanging
 hangup	an emotional difficulty
 hangups	HANGUP: an emotional difficulty

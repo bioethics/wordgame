@@ -67,6 +67,9 @@ rider	a traveler who actively rides an animal (as a horse or camel)
 riders	RIDER: a traveler who actively rides an animal (as a horse or camel)
 ridership	the number of people who use a public transport service
 rides	RIDE: sit and travel on the back of animal, usually while controlling its motions
+rideshare	a shared ride, usually booked through an app
+rideshares	RIDESHARE: a shared ride, usually booked through an app
+ridesharing	sharing car rides, usually booked through an app
 ridge	a long narrow natural elevation or striation
 ridged	RIDGE: a long narrow natural elevation or striation
 ridgepole	a beam laid along the edge where two sloping sides of a roof meet at the top; provides an attachment for the upper ends of rafters

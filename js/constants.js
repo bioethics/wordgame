@@ -748,12 +748,13 @@ export const ANIM = {
 // to the save — so a wrapped tile is a parcel you open, not a metal you buy.
 export const CURSED_MULT       = 2;   // ×Mult a cursed tile gives the word
 export const CURSED_MAX_POINTS = 3;   // never cast on a letter worth more than this
-// What a curse takes from any word set without it while it waits in the hand. A
-// curse cannot be discarded — printing it is the only way out of the rack — so
-// this is what keeps it from stranding you: words set around a curse are worth
-// nothing rather than impossible. Points, not Mult, so a strong press can shrug
-// one off and score anyway.
-export const CURSED_PENALTY    = 666;  // Points lost per unplayed curse in hand
+// What any word set without a curse scores while the curse waits in the hand:
+// −666, flat, however many curses and however good the word (since 17
+// November; until then 666 came off the finished score, once per curse, and a
+// big enough word cleared it). A curse cannot be discarded — printing it is the
+// only way out of the rack — so a word around one is still allowed, and costs
+// the page 666.
+export const CURSED_PENALTY    = 666;  // a word set with a curse left in hand scores −this
 export const WRAPPED_PRICE        = 4;
 export const WRAPPED_OFFER_CHANCE = 0.5;  // odds one of a Market's sundry slots holds one
 
@@ -1001,6 +1002,17 @@ export const STOKER_STEP        = 0.25;   // permanent ×Mult per crimson tile b
 // E, then the S's, then the consonant) rather than leave the seat with nothing.
 // Returns two tile ids, or null if fewer than two letters are eligible at all.
 export const GLOSSATOR = { mult: 2, dailyMult: 3, barred: 'S', barredSecond: 'E' };
+
+// ─── The Turnkey's locks ──────────────────────────────────────────────────────
+// The daily's Sunday patron, brought into the game (16 November): ×2 on every
+// word, and three tiles of the hand locked — re-locked whenever the hand
+// changes — which can't be set. (On the daily he is ×3 for four sorts of the
+// case, fixed for the day: TURNKEY_LOCKS in daily/deal.js.) As there, all but
+// one of the locks fall on undressed tiles where the hand has them, and no
+// more than two on vowels: locks thrown at random fell on the best tiles and
+// cost more than the ×Mult paid. Never a curse (it could then never be printed,
+// and every word would score −666) and never a ghost, lent or wrapped tile.
+export const TURNKEY = { mult: 2, locks: 3, maxVowels: 2 };
 export function glossMarks(tiles, { eligible, letterOf = t => t.letter, rng = Math.random }) {
   const pool = tiles.filter(t => eligible(t) && /^[A-Z]$/.test(letterOf(t) ?? ''));
   const pick = a => a[Math.floor(rng() * a.length)];
@@ -1813,6 +1825,8 @@ export const KNOBS = {
   WORDLER_BONUS: WORDLER.bonus,
   WORDLER_LENGTH: WORDLER.length,
   GLOSSATOR_MULT: GLOSSATOR.mult,
+  TURNKEY_MULT: TURNKEY.mult,
+  TURNKEY_LOCKS: TURNKEY.locks,
   USURER_LOAN:    USURER.loan,
   USURER_OWED:    USURER.owed,
   USURER_COLLECT: USURER.collect,

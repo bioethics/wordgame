@@ -255,6 +255,10 @@ geopolitics	the study of the effects of economic geography on the powers of the 
 georgette	a thin silk dress material
 geostationary	of or having a geosynchronous orbit such that the position in such an orbit is fixed with respect to the earth
 geosynchronous	of or having an orbit with a fixed period of 24 hours (although the position in the orbit may not be fixed with respect to the earth)
+geotag	attach the location where it was made to a photo or post; such a tag
+geotagged	GEOTAG: attach the location where it was made to a photo or post; such a tag
+geotagging	GEOTAG: attach the location where it was made to a photo or post; such a tag
+geotags	GEOTAG: attach the location where it was made to a photo or post; such a tag
 geothermal	of or relating to the heat in the interior of the earth
 geranium	any of numerous plants of the family Geraniaceae
 geraniums	GERANIUM: any of numerous plants of the family Geraniaceae

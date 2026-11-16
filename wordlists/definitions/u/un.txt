@@ -897,6 +897,10 @@ unfold	develop or come to a promising stage
 unfolded	UNFOLD: develop or come to a promising stage
 unfolding	a developmental process
 unfolds	UNFOLD: develop or come to a promising stage
+unfollow	stop following someone on social media
+unfollowed	UNFOLLOW: stop following someone on social media
+unfollowing	UNFOLLOW: stop following someone on social media
+unfollows	UNFOLLOW: stop following someone on social media
 unforced	not resulting from undue effort; not forced
 unforeseeable	incapable of being anticipated
 unforeseen	not anticipated
@@ -1323,6 +1327,10 @@ unmoved	emotionally unmoved
 unmoving	not in motion
 unmovingly	not movingly
 unmusical	lacking interest in or talent for music
+unmute	turn the sound back on
+unmuted	UNMUTE: turn the sound back on
+unmutes	UNMUTE: turn the sound back on
+unmuting	UNMUTE: turn the sound back on
 unnamed	being or having an unknown or unnamed source
 unnatural	not in accordance with or determined by nature; contrary to nature
 unnaturally	in an unnatural way

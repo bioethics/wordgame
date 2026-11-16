@@ -842,6 +842,10 @@ redound	have an effect for good or ill
 redounded	REDOUND: have an effect for good or ill
 redounding	REDOUND: have an effect for good or ill
 redounds	REDOUND: have an effect for good or ill
+redownload	download again
+redownloaded	REDOWNLOAD: download again
+redownloading	REDOWNLOAD: download again
+redownloads	REDOWNLOAD: download again
 redraft	a draft for the amount of a dishonored draft plus the costs and charges of drafting again
 redrafted	REDRAFT: write again
 redrafting	REDRAFT: write again
@@ -1608,6 +1612,10 @@ relished	RELISH: vigorous and enthusiastic enjoyment
 relishes	RELISH: vigorous and enthusiastic enjoyment
 relishing	RELISH: vigorous and enthusiastic enjoyment
 relisted	RELIST: list again
+relisten	listen again
+relistened	RELISTEN: listen again
+relistening	RELISTEN: listen again
+relistens	RELISTEN: listen again
 relive	experience again, often in the imagination
 relived	RELIVE: experience again, often in the imagination
 relives	RELIVE: experience again, often in the imagination
@@ -2985,6 +2993,12 @@ rewarder	a person who gives a reward
 rewarders	REWARDER: a person who gives a reward
 rewarding	providing personal satisfaction
 rewards	REWARD: a recompense for worthy acts or retribution for wrongdoing
+rewatch	watch again; a second viewing
+rewatchable	worth watching again
+rewatched	REWATCH: watch again; a second viewing
+rewatches	REWATCH: watch again; a second viewing
+rewatching	watching again; a second or later viewing
+rewatchings	REWATCHING: watching again; a second or later viewing
 rewind	wind (up) again
 rewindable	able to be wound back
 rewinder	a device that winds something back

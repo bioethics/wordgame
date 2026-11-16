@@ -761,9 +761,14 @@ export function computeScore(wordTiles) {
   // rack keeps turning over; a negative word would eat the page you'd built.
   // The readout strikes the figure the word made and writes what the curse
   // left of it beside it, as it does for a spike (`plainTotal`).
+  //
+  // Since 16 November the curse no longer takes a toll from the word: it SETS
+  // the word's score, to −666 flat, while any curse is left in the rack, and
+  // the page's tally goes down by that much. `toll` stays the figure the
+  // readout writes, so the struck figure and the float still say what happened.
   const cursesInHand = state.rack.filter(t => t.material === 'cursed').length;
-  const toll       = cursesInHand * CURSED_PENALTY;
-  const total      = Math.max(0, Math.round(points * mult) - toll);
+  const toll       = cursesInHand ? CURSED_PENALTY : 0;
+  const total      = cursesInHand ? -CURSED_PENALTY : Math.max(0, Math.round(points * mult));
   const plainTotal = Math.max(0, Math.round(points * plainMult));
   const adjusted   = plainTotal !== total;
 
@@ -790,6 +795,10 @@ export function computeScore(wordTiles) {
     twinPairMarks: twin.marks,
   };
 }
+
+// What the readout shows with nothing on the stick: −666 while a curse waits in
+// the hand, since any word set now would score that; otherwise nothing.
+export const idleTotal = () => (state.rack.some(t => t.material === 'cursed') ? -CURSED_PENALTY : 0);
 
 // ─── Page reward breakdown ────────────────────────────────────────────────────
 

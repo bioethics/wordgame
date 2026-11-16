@@ -56,7 +56,8 @@ export function drawField(host, ranked, you, { onFocusRank, xLabel = '' } = {}) 
   const span = Math.log1p(Math.max(1, N - 1) / c);
   // Place 1 at the right edge, the last place at the left.
   const x = rank => m.l + iw - (Math.log1p((rank - 1) / c) / span) * iw;
-  const y = s => m.t + ih - (s / yTop) * ih;
+  // A word set around a curse scores −666; it sits on the floor of the plot.
+  const y = s => m.t + ih - (Math.max(0, s) / yTop) * ih;
   const rankAt = px => Math.min(N, Math.max(1, Math.round(1 + c * Math.expm1(((m.l + iw - px) / iw) * span))));
 
   const svg = el('svg', {

@@ -846,6 +846,11 @@ function tileEl(t, zone, { mini = false, pays = null } = {}) {
     hand.textContent = '☞';
     hand.setAttribute('aria-hidden', 'true');
     div.appendChild(hand);
+    // ...and a slow red pulse around the tile, so a glance finds the pair.
+    const glow = document.createElement('span');
+    glow.className = 'tile-glow';
+    glow.setAttribute('aria-hidden', 'true');
+    div.appendChild(glow);
   }
   if (!mini) {
     div.setAttribute('role', 'button');
@@ -1354,7 +1359,9 @@ const chipEl = kind => $('roChips').querySelector(`.chip[data-kind="${kind}"]`);
 
 function renderReadout(sc) {
   $('roPoints').textContent = fmtN(sc?.shownPoints ?? 0);
-  if (!S.printing) $('roTotal').textContent = fmtN(sc?.total ?? 0);
+  // With nothing on the stick, −666 while the case holds a curse: any word
+  // set without it scores that.
+  if (!S.printing) $('roTotal').textContent = fmtN(sc?.total ?? (S.tiles.some(t => t.material === 'cursed' && !placed(t.id)) ? -CURSED_PENALTY : 0));
   $('roMult').textContent = String(+(sc?.shownMult ?? 1).toFixed(2));
   for (const id of ['roPoints', 'roTotal', 'roMult']) $(id)._val = undefined;
   const chips = $('roChips');

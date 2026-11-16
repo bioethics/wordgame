@@ -30,6 +30,8 @@ giddiest	GIDDY: having or causing a whirling sensation; liable to falling
 giddily	in a giddy light-headed manner
 giddiness	an impulsive scatterbrained manner
 giddy	having or causing a whirling sensation; liable to falling
+gif	a short looping animation; an image file in that format
+gifs	GIF: a short looping animation; an image file in that format
 gift	something acquired without compensation
 gifted	GIFT: something acquired without compensation
 giftedness	the quality of being gifted

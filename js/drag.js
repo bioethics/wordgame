@@ -133,7 +133,7 @@ function endDrag(x, y) {
 
   if (target === wordEl) {
     const idx = insertIndex(wordEl, x);
-    if (press.zone === 'rack') { moveRackToWord(press.id, idx); sfx.place(); }
+    if (press.zone === 'rack') { if (moveRackToWord(press.id, idx)) sfx.place(); }
     else                       { reorderWord(press.id, idx);    sfx.reorder(); }
   } else if (target === rackEl) {
     const idx = insertIndex(rackEl, x);
@@ -192,7 +192,8 @@ function releasePress(commit) {
         if (r === 'lent')   log(logLine('lentNoDiscard'), 'warn');
         markSound(r);
       }
-      else                    { moveRackToWord(press.id); sfx.place(); }
+      else if (moveRackToWord(press.id)) sfx.place();
+      else log(logLine('lockedNoSet'), 'warn');
     } else {
       moveWordToRack(press.id);
       sfx.retrieve();

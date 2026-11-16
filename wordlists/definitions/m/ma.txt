@@ -656,6 +656,12 @@ manses	MANSE: a large and imposing house
 mansion	a large and imposing house
 mansions	MANSION: a large and imposing house
 manslaughter	homicide without malice aforethought
+mansplain	(of a man) explain something to a woman condescendingly, assuming she knows less
+mansplained	MANSPLAIN: (of a man) explain something to a woman condescendingly, assuming she knows less
+mansplainer	a man who explains things condescendingly to women
+mansplainers	MANSPLAINER: a man who explains things condescendingly to women
+mansplaining	MANSPLAIN: (of a man) explain something to a woman condescendingly, assuming she knows less
+mansplains	MANSPLAIN: (of a man) explain something to a woman condescendingly, assuming she knows less
 manta	extremely large pelagic tropical ray that feeds on plankton and small fishes; usually harmless but its size make it dangerous if harpooned
 mantas	MANTA: extremely large pelagic tropical ray that feeds on plankton and small fishes; usually harmless but its size make it dangerous if harpooned
 mantel	shelf that projects from wall above fireplace

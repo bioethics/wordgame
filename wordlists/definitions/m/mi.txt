@@ -45,6 +45,10 @@ microcomputer	a small digital computer based on a microprocessor and designed to
 microcomputers	MICROCOMPUTER: a small digital computer based on a microprocessor and designed to be used by one person at a time
 microcosm	a miniature model of something
 microcosms	MICROCOSM: a miniature model of something
+microdose	take a very small dose of a drug; such a dose
+microdosed	MICRODOSE: take a very small dose of a drug; such a dose
+microdoses	MICRODOSE: take a very small dose of a drug; such a dose
+microdosing	MICRODOSE: take a very small dose of a drug; such a dose
 microeconomic	of or relating to microeconomics
 microeconomics	the branch of economics that studies the economy of consumers or households or individual firms
 microelectronic	of or relating to or consisting of miniature electronic components
@@ -90,6 +94,7 @@ micropaleontologists	MICROPALEONTOLOGIST: a student of microscopic fossils
 micropaleontology	the paleontology of microfossils
 microphone	device for converting sound waves into electrical energy
 microphones	MICROPHONE: device for converting sound waves into electrical energy
+microplastic	a tiny fragment of plastic, polluting water, soil or food
 microplastics	tiny fragments of plastic pollution
 microprocessor	integrated circuit semiconductor chip that performs the bulk of the processing and controls the parts of a system
 microprocessors	MICROPROCESSOR: integrated circuit semiconductor chip that performs the bulk of the processing and controls the parts of a system

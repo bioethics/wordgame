@@ -498,6 +498,22 @@ What the session history, the commits and the author's Drive show:
   OR, UTE, TUCKER). New words needing a pick appear in
   `definitions-unpicked.txt`.
 
+- **16 November.** REWATCHING was refused in play, and with it the family it
+  belongs to: 142 contemporary words joined, every tense of the verbs (REWATCH,
+  RELISTEN, REDOWNLOAD, LIVESTREAM, VLOG, UNFOLLOW, UPVOTE, DOWNVOTE,
+  DOOMSCROLL, PHOTOBOMB, CROWDSOURCE, MANSPLAIN, HUMBLEBRAG, GEOTAG,
+  AUTOCORRECT, DEPLATFORM, DOX and DOXX, UNMUTE, UPCYCLE, MICRODOSE) and the
+  missing tenses of verbs already on the list (COSPLAYED, SCREENSHOTTED,
+  CATFISHED, PREORDERED, GASLIT); nouns (CHATBOT, INFLUENCER, SHOWRUNNER,
+  EBOOK, WEBCOMIC, FANFICTION, MICROPLASTIC, RIDESHARE, BROMANCE, GIF,
+  GLAMPING, LOCKDOWNS); and REWATCHABLE, HANGRY, SCROLLABLE, STREAMABLE. No
+  brand names (SKYPE, BLUETOOTH, WIFI) and nothing merely possible
+  (BINGEWORTHY, TEXTABLE). Each went to the Athlete's, the Poet's or the
+  Sculptor's list as it reads, the nouns through `noun-extras.txt`; 54
+  definitions were written, LOCKDOWN's moved from the prison riot to the
+  everyday sense, and UNFOLLOW and UNMUTE given theirs rather than "not
+  follow".
+
 Not found anywhere these sessions can reach: the tool or chat that produced
 the ranked lists and the later batches. The ranking, the drift into
 association and the noisy tails look like a word-similarity tool. The

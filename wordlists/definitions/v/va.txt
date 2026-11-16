@@ -188,6 +188,8 @@ vantage	place or situation affording some advantage (especially a comprehensive 
 vantages	VANTAGE: place or situation affording some advantage (especially a comprehensive view or commanding perspective)
 vape	inhale vapour from an electronic cigarette
 vaped	VAPE: inhale vapour from an electronic cigarette
+vaper	someone who smokes an electronic cigarette
+vapers	VAPER: someone who smokes an electronic cigarette
 vapes	VAPE: inhale vapour from an electronic cigarette
 vapid	lacking significance or liveliness or spirit or zest
 vapidity	the quality of being vapid and unsophisticated

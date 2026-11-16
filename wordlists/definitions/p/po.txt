@@ -29,6 +29,8 @@ pockmarks	POCKMARK: a scar or pit on the skin that is left by a pustule of small
 pocks	POCK: a pustule in an eruptive disease
 pod	the vessel that contains the seeds of a plant (not the seeds themselves)
 podcast	distribute (multimedia files) over the internet for playback on a mobile device or a personal computer
+podcaster	someone who makes a podcast
+podcasters	PODCASTER: someone who makes a podcast
 podcasting	PODCAST: distribute (multimedia files) over the internet for playback on a mobile device or a personal computer
 podcasts	PODCAST: distribute (multimedia files) over the internet for playback on a mobile device or a personal computer
 podded	POD: the vessel that contains the seeds of a plant (not the seeds themselves)

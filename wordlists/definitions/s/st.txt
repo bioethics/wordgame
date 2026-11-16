@@ -1123,6 +1123,7 @@ streaking	STREAK: an unbroken series of events
 streaks	STREAK: an unbroken series of events
 streaky	marked with or as if with stripes or linear discolorations
 stream	a natural body of running water flowing on or under the earth
+streamable	that can be streamed over the internet
 streamed	STREAM: a natural body of running water flowing on or under the earth
 streamer	long strip of cloth or paper used for decoration or advertising
 streamers	STREAMER: long strip of cloth or paper used for decoration or advertising

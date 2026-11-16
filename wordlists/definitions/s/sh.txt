@@ -738,6 +738,8 @@ showplace	a place that is frequently exhibited and visited for its historical in
 showplaces	SHOWPLACE: a place that is frequently exhibited and visited for its historical interest or natural beauty
 showroom	an area where merchandise (such as cars) can be displayed
 showrooms	SHOWROOM: an area where merchandise (such as cars) can be displayed
+showrunner	the person in overall charge of a television series
+showrunners	SHOWRUNNER: the person in overall charge of a television series
 shows	SHOW: give an exhibition of to an interested audience
 showstopper	an act so striking or impressive that the show must be delayed until the audience quiets down
 showstoppers	SHOWSTOPPER: an act so striking or impressive that the show must be delayed until the audience quiets down

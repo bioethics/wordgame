@@ -7,7 +7,7 @@ import {
   effectivePatronSlots, effectiveSundrySlots, effectiveGhostSlots,
   effectiveWordsPerPage, effectiveRackSize, chapterTitle,
   sundrySelected, restingPoints, getActiveGrowth, isWrapped, shiftPreview, isSquib,
-  runDifficulty, allSeats, isGlossed,
+  runDifficulty, allSeats, isGlossed, isLocked,
 } from './state.js';
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
@@ -19,7 +19,7 @@ import {
 } from './constants.js';
 import { patronById, guildsOf, patronName, patronShelf, patronEmoji, laurelWorth, seatTally } from './patrons.js';
 import { bossById } from './bosses.js';
-import { computeScore } from './scoring.js';
+import { computeScore, idleTotal } from './scoring.js';
 import { marketSnapshot, patronRefund } from './market.js';
 import { chamberSnapshot } from './chamber.js';
 import { colophonSnapshot } from './colophon.js';
@@ -71,6 +71,9 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
   // the CSS covers trim ring, nick and metal alike.
   if (isWrapped(tile)) div.classList.add('tile--wrapped');
   if (tile.counterfeit) div.classList.add('tile--counterfeit');
+  // The Turnkey's lock: the sort turned over, dark iron and a keyhole, as on
+  // the daily — last but one, so it covers whatever the tile is.
+  if (isLocked(tile)) { div.classList.add('tile--locked'); div.setAttribute('aria-disabled', 'true'); }
   if (isRule(getActiveLetter(tile))) div.classList.add('tile--rule');
   if (MEDIEVAL[active]) div.classList.add('tile--medieval');
   if (active === INTERROBANG) div.classList.add('tile--interrobang');
@@ -113,6 +116,11 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
     hand.textContent = '☞';
     hand.setAttribute('aria-hidden', 'true');
     div.appendChild(hand);
+    // ...and a slow red pulse around the tile, so a glance finds the pair.
+    const glow = document.createElement('span');
+    glow.className = 'tile-glow';
+    glow.setAttribute('aria-hidden', 'true');
+    div.appendChild(glow);
   }
 
   // The CSS mask does the cutting; these elements only paint the shaded lip.
@@ -182,6 +190,8 @@ export function tileFeatures(tile) {
     // the player has no way to look up.
     out.push({ head: 'Primed', body: MATERIALS.explosive.desc });
   }
+  // Locked: nothing else on the tile matters while it is, so it is said alone.
+  if (isLocked(tile)) return [{ head: 'Locked', body: 'The Turnkey has locked this tile: it can’t be played.' }];
   if (isGlossed(tile)) out.push({ head: 'Marked', body: `By The Glossator: ×${GLOSSATOR.mult} Mult for a word using both marked tiles.` });
   if (tile.colour) {
     out.push({ head: `${COLOURS[tile.colour].label} paint`, body: colourDesc(tile.colour) });
@@ -979,7 +989,8 @@ function renderStatus() {
   setText('quotaTarget', state.quota.toLocaleString());
   const fill = $('quotaFill');
   if (fill) {
-    fill.style.width = `${Math.min(100, (state.pageScore / state.quota) * 100)}%`;
+    // A curse's −666 can take the tally below nothing; the bar stops at empty.
+    fill.style.width = `${Math.max(0, Math.min(100, (state.pageScore / state.quota) * 100))}%`;
     const done = state.pageScore >= state.quota;
     fill.classList.toggle('quota-fill--done', done);
     quotaCrossed(done);
@@ -1530,7 +1541,7 @@ export function updateReadoutPreview(script) {
   // Where the last seats are stamps, the Points figure stops where they begin
   // (pass 4's stamps, js/scoring.js) — Points × every chip and stamp = total.
   setNum($('roPoints'), script ? (script.stampedPoints ?? script.points) : 0);
-  setNum($('roTotal'), script ? script.total : 0);
+  setNum($('roTotal'), script ? script.total : idleTotal());
   showStruckTotal(script?.adjusted ? script.plainTotal : null);
   renderChips(script?.colourSteps, false, script?.stamps);
 }

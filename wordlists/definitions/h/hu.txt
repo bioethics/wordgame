@@ -100,6 +100,10 @@ humanoid	an automaton that resembles a human being
 humanoids	HUMANOID: an automaton that resembles a human being
 humans	HUMAN: characteristic of humanity
 humble	cause to be unpretentious
+humblebrag	a boast disguised as modesty or complaint; make one
+humblebragged	HUMBLEBRAG: a boast disguised as modesty or complaint; make one
+humblebragging	HUMBLEBRAG: a boast disguised as modesty or complaint; make one
+humblebrags	HUMBLEBRAG: a boast disguised as modesty or complaint; make one
 humbled	HUMBLE: cause to be unpretentious
 humbleness	a disposition to be humble; a lack of false pride
 humbler	HUMBLE: cause to be unpretentious

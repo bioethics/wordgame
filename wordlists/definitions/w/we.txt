@@ -111,6 +111,8 @@ webcams	WEBCAM: a digital camera designed to take digital photographs and transm
 webcast	a broadcast over the internet
 webcasting	WEBCAST: a broadcast over the internet
 webcasts	WEBCAST: a broadcast over the internet
+webcomic	a comic published on the internet
+webcomics	WEBCOMIC: a comic published on the internet
 webfooted	having toes joined by skin
 webinar	a seminar held over the internet
 webinars	WEBINAR: a seminar held over the internet

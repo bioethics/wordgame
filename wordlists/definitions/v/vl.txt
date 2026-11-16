@@ -1,0 +1,6 @@
+vlog	a blog made of videos; keep one
+vlogged	VLOG: a blog made of videos; keep one
+vlogger	someone who keeps a video blog
+vloggers	VLOGGER: someone who keeps a video blog
+vlogging	VLOG: a blog made of videos; keep one
+vlogs	VLOG: a blog made of videos; keep one

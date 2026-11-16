@@ -166,6 +166,10 @@ autobiography	a biography of yourself
 autochthonous	originating where it is found
 autoclave	a device for heating substances above their boiling point; used to manufacture chemicals or to sterilize surgical instruments
 autoclaves	AUTOCLAVE: a device for heating substances above their boiling point; used to manufacture chemicals or to sterilize surgical instruments
+autocorrect	correct a typed word automatically, as a phone or computer does; the feature that does it
+autocorrected	AUTOCORRECT: correct a typed word automatically, as a phone or computer does; the feature that does it
+autocorrecting	AUTOCORRECT: correct a typed word automatically, as a phone or computer does; the feature that does it
+autocorrects	AUTOCORRECT: correct a typed word automatically, as a phone or computer does; the feature that does it
 autocorrelation	the matching of a signal with a delayed copy of itself
 autocracies	AUTOCRACY: a political system governed by a single individual
 autocracy	a political system governed by a single individual

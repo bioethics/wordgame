@@ -235,6 +235,12 @@ phosphors	PHOSPHOR: a synthetic substance that is fluorescent or phosphorescent;
 phosphorus	a multivalent nonmetallic element of the nitrogen family that occurs commonly in inorganic phosphate rocks and as organic phosphates in all living cells; is highly reactive and occurs in several allotropic forms
 phosphorylation	the addition of a phosphate group to a molecule
 photo	a representation of a person or scene in the form of a print or transparent slide or in digital format
+photobomb	spoil a photograph by appearing in it unexpectedly
+photobombed	PHOTOBOMB: spoil a photograph by appearing in it unexpectedly
+photobomber	someone who jumps unexpectedly into another person's photograph
+photobombers	PHOTOBOMBER: someone who jumps unexpectedly into another person's photograph
+photobombing	PHOTOBOMB: spoil a photograph by appearing in it unexpectedly
+photobombs	PHOTOBOMB: spoil a photograph by appearing in it unexpectedly
 photocall	an occasion arranged for press photographers
 photocalls	PHOTOCALL: an occasion arranged for press photographers
 photocell	a transducer used to detect and measure light and other radiations

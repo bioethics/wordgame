@@ -164,7 +164,7 @@ const round3 = m => Math.round(m * 1000) / 1000;
 //   3  the measure × each paint × purple × cursed (echoed tiles count twice)
 //   4  the patron rules on the word (Points, +Mult, ×Mult — all on Points)
 //   4¾ the editor spikes
-//   5  a curse left out takes its toll, off the finished score
+//   5  a curse left out sets the score to −666 (CURSED_PENALTY), whatever the word made
 function core(word, letters, restCurses, T, full) {
   let tiles = word;
   let pairs = null, recasts = null, lit = null;
@@ -237,10 +237,10 @@ function core(word, letters, restCurses, T, full) {
   if (sq) { const m = EXPLOSIVE_MULT ** sq; mult *= m; chips?.push({ kind: 'explosive', count: sq, mult: m }); }
   mult = round3(mult);
 
-  // A curse left in the case takes its toll last of all, from the finished
-  // score (below): the game's rule since 7 November (computeScore in
-  // js/scoring.js).
-  const toll = restCurses * CURSED_PENALTY;
+  // A curse left in the case sets the score to −666, whatever the word made
+  // (below): the game's rule since 16 November (computeScore in js/scoring.js).
+  // `toll` is the figure the readout writes.
+  const toll = restCurses ? CURSED_PENALTY : 0;
 
   // The seat. A ×Mult folds into Points at once (scoring's pass 4), so a
   // patron's ruling is paid on the Points side of the readout.
@@ -269,7 +269,7 @@ function core(word, letters, restCurses, T, full) {
   }
 
   const gross = Math.max(0, Math.round(points * mult));
-  const total = Math.max(0, Math.round(points * mult) - toll);
+  const total = restCurses ? -CURSED_PENALTY : gross;
   if (!full) return total;
   // What the readout shows. A seat's ×Mult folds into Points in the arithmetic,
   // but every patron the day can seat pays a whole-number ×Mult (or plain
@@ -407,7 +407,7 @@ function fastTotal(seq, len, cursesLeft, extra = null) {
   mult *= (cr + 1) * (az + 1) * (jd + 1) * (am + 1) * (1 + pu * PURPLE_TRIM_STEP)
         * CURSED_MULT ** cu * EXPLOSIVE_MULT ** sq;
   mult = Math.round(mult * 1000) / 1000;
-  return Math.max(0, Math.round(points * mult) - (cursesLeft - cu) * CURSED_PENALTY);
+  return cursesLeft > cu ? -CURSED_PENALTY : Math.max(0, Math.round(points * mult));
 }
 
 // Every way to finish a set of letters with the marks left over: none, ?, !, ?!.
@@ -445,7 +445,8 @@ export function bestFor(cs, word, has) {
   }
   const tables = cs.tables;
   const nT = tables.length;
-  const tops = nT ? new Array(nT).fill(-1) : null;
+  // -Infinity, not -1: a word set around a curse scores −666, a real score.
+  const tops = nT ? new Array(nT).fill(-Infinity) : null;
   let best = null;
   const seq = [];
   const tiles = cs.letterTiles;
@@ -587,7 +588,7 @@ export function bestFor(cs, word, has) {
   walk(0, 0, null);
   // A table that could set the word no way (every setting uses a sort it
   // locks) scores it null.
-  if (best && tops) best.scores = tops.map(x => (x < 0 ? null : x));
+  if (best && tops) best.scores = tops.map(x => (x === -Infinity ? null : x));
   return best;
 }
 

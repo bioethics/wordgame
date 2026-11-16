@@ -364,6 +364,7 @@ greenshanks	GREENSHANK: large European sandpiper with greenish legs
 greenstone	a green rock such as jade
 greensward	surface layer of ground containing a mat of grass and grass roots
 greenwash	mislead people about environmental credentials
+greenwashing	GREENWASH: mislead people about environmental credentials
 greet	express greetings upon meeting someone
 greeted	GREET: express greetings upon meeting someone
 greeter	a person who greets

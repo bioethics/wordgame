@@ -15,6 +15,10 @@ upchucking	UPCHUCK: eject the contents of the stomach through the mouth
 upchucks	UPCHUCK: eject the contents of the stomach through the mouth
 upcoming	of the relatively near future
 upcountry	of or coming from the middle of a region or country
+upcycle	make something of greater value out of things thrown away
+upcycled	UPCYCLE: make something of greater value out of things thrown away
+upcycles	UPCYCLE: make something of greater value out of things thrown away
+upcycling	UPCYCLE: make something of greater value out of things thrown away
 update	modernize or bring up to date
 updated	UPDATE: modernize or bring up to date
 updater	a program or person that brings something up to date
@@ -152,6 +156,10 @@ upturn	an upward movement or trend as in business activity
 upturned	having been turned so that the bottom is no longer the bottom
 upturning	UPTURN: turn upside down
 upturns	UPTURN: an upward movement or trend as in business activity
+upvote	vote for an online post or comment; such a vote
+upvoted	UPVOTE: vote for an online post or comment; such a vote
+upvotes	UPVOTE: vote for an online post or comment; such a vote
+upvoting	UPVOTE: vote for an online post or comment; such a vote
 upward	directed up
 upwardly	spatially or metaphorically from a lower to a higher position
 upwards	spatially or metaphorically from a lower to a higher position

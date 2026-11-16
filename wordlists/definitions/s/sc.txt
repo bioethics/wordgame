@@ -609,6 +609,8 @@ screensaver	a computer display that appears when idle
 screensavers	SCREENSAVER: a computer display that appears when idle
 screenshot	an image of what is shown on a screen
 screenshots	SCREENSHOT: an image of what is shown on a screen
+screenshotted	SCREENSHOT: capture an image of what is shown on a screen
+screenshotting	capturing an image of what is shown on a screen
 screenwriter	someone who writes screenplays
 screenwriters	SCREENWRITER: someone who writes screenplays
 screenwriting	the writing of scripts for film or television
@@ -675,6 +677,7 @@ scrofula	a form of tuberculosis characterized by swellings of the lymphatic glan
 scrog	a stunted bush; brushwood
 scrogs	SCROG: a stunted bush; brushwood
 scroll	a document that can be rolled up (as for storage)
+scrollable	that can be scrolled through on a screen
 scrolled	SCROLL: a document that can be rolled up (as for storage)
 scrolling	SCROLL: a document that can be rolled up (as for storage)
 scrolls	SCROLL: a document that can be rolled up (as for storage)

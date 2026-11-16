@@ -798,6 +798,8 @@ inflow	the process of flowing in
 inflows	INFLOW: the process of flowing in
 influence	a power to affect persons or events especially power based on prestige etc
 influenced	INFLUENCE: a power to affect persons or events especially power based on prestige etc
+influencer	someone paid to promote things to their followers on social media
+influencers	INFLUENCER: someone paid to promote things to their followers on social media
 influences	INFLUENCE: a power to affect persons or events especially power based on prestige etc
 influencing	INFLUENCE: a power to affect persons or events especially power based on prestige etc
 influential	having or exercising influence or power

@@ -291,6 +291,10 @@ dooming	DOOM: an unpleasant or disastrous destiny
 dooms	DOOM: an unpleasant or disastrous destiny
 doomsayer	one who predicts disaster
 doomsayers	DOOMSAYER: one who predicts disaster
+doomscroll	keep scrolling through bad news online
+doomscrolled	DOOMSCROLL: keep scrolling through bad news online
+doomscrolling	DOOMSCROLL: keep scrolling through bad news online
+doomscrolls	DOOMSCROLL: keep scrolling through bad news online
 doomsday	day at the end of time following Armageddon when God will decree the fates of all individual humans according to the good and evil of their earthly lives
 doona	a quilt used as a bed cover
 doonas	DOONA: a quilt used as a bed cover
@@ -550,6 +554,10 @@ downtrends	DOWNTREND: a gradual decline
 downtrodden	abused or oppressed by people in power
 downturn	a worsening of business or economic activity
 downturns	DOWNTURN: a worsening of business or economic activity
+downvote	vote against an online post or comment; such a vote
+downvoted	DOWNVOTE: vote against an online post or comment; such a vote
+downvotes	DOWNVOTE: vote against an online post or comment; such a vote
+downvoting	DOWNVOTE: vote against an online post or comment; such a vote
 downward	extending or moving from a higher to a lower place
 downwardly	spatially or metaphorically from a higher to a lower level or position
 downwards	spatially or metaphorically from a higher to a lower level or position
@@ -563,9 +571,17 @@ dowser	someone who uses a divining rod to find underground water
 dowsers	DOWSER: someone who uses a divining rod to find underground water
 dowses	DOWSE: use a divining rod in search of underground water or metal
 dowsing	searching for underground water or minerals by using a dowsing rod
+dox	publish someone's private details online, to harass them
+doxed	DOX: publish someone's private details online, to harass them
+doxes	DOX: publish someone's private details online, to harass them
+doxing	DOX: publish someone's private details online, to harass them
 doxological	relating to a hymn of praise
 doxologies	DOXOLOGY: a hymn or verse in Christian liturgy glorifying God
 doxology	a hymn or verse in Christian liturgy glorifying God
+doxx	publish someone's private details online, to harass them
+doxxed	DOX: publish someone's private details online, to harass them
+doxxes	DOXX: publish someone's private details online, to harass them
+doxxing	DOX: publish someone's private details online, to harass them
 doyen	a man who is the senior member of a group
 doyenne	a woman who is the senior member of a group
 doyennes	DOYENNE: a woman who is the senior member of a group

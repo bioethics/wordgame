@@ -420,6 +420,9 @@ preordained	PREORDAIN: foreordain or determine beforehand
 preordaining	PREORDAIN: foreordain or determine beforehand
 preordains	PREORDAIN: foreordain or determine beforehand
 preorder	order before release
+preordered	PREORDER: order before release
+preordering	PREORDER: order before release
+preorders	PREORDER: order before release
 preowned	previously owned
 prep	preparatory school work done outside school (especially at home)
 prepackage	wrap or package ahead of sale

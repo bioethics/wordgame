@@ -2163,6 +2163,55 @@ button.sundry:hover { transform: translateY(-2px); }
   pointer-events: none;
 }
 .tile--mini .tile-gloss { font-size: 10px; left: 2px; top: 0; }
+/* The Turnkey's lock: the sort turned over — dark iron, no face, a brass
+   keyhole (the daily's .tile--locked, in the game's sizes). */
+.tile--locked {
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0 2px, rgba(255, 255, 255, 0) 2px 6px),
+    linear-gradient(165deg, #45413b 0%, #2e2b27 55%, #1f1d1a 100%) !important;
+  border-color: rgba(0, 0, 0, 0.65);
+  --trim-ring: 0 0 rgba(0, 0, 0, 0);
+  --tile-lift: #141210;
+  cursor: not-allowed;
+}
+.tile--locked .tile-letter, .tile--locked .tile-pts, .tile--locked .tile-alt,
+.tile--locked .tile-nick { visibility: hidden; }
+.tile--locked::before { display: none; }
+.tile--locked::after {
+  content: '';
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 15px; height: 25px;
+  transform: translate(-50%, -52%);
+  background:
+    radial-gradient(circle at 50% 7px, #c9a34e 0 6.5px, transparent 7px),
+    linear-gradient(#c9a34e, #c9a34e) 50% 100% / 7px 16px no-repeat;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 74% 100%, 26% 100%, 0 45%);
+  box-shadow: none;
+  border-radius: 0;
+  animation: none;
+  opacity: 0.85;
+}
+.tile--mini.tile--locked::after { width: 9px; height: 15px; }
+
+/* ...and its pulse: a child of its own, since a tile's ::before and ::after
+   already belong to the gold trim, the fuse and the lock. */
+.tile-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 2px rgba(176, 50, 31, 0.6), 0 0 14px 4px rgba(196, 58, 36, 0.55);
+  animation: glossPulse calc(1.7s / var(--aspd, 1)) ease-in-out infinite;
+}
+@keyframes glossPulse {
+  0%, 100% { opacity: 0.3; }
+  50%      { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tile-glow { animation: none; opacity: 0.75; }
+}
+
 
 /* ── Nicks ─────────────────────────────────────────────────────────────────────
    The mask does the cutting — a disc removed from the edge, taking border, trim

@@ -552,6 +552,8 @@ brolga	a large grey Australian crane
 brolgas	BROLGA: a large grey Australian crane
 brollies	BROLLY: colloquial terms for an umbrella
 brolly	colloquial terms for an umbrella
+bromance	a close friendship between two men
+bromances	BROMANCE: a close friendship between two men
 bromide	a trite or obvious remark
 bromides	BROMIDE: a trite or obvious remark
 bromine	a nonmetallic heavy volatile corrosive dark brown liquid element belonging to the halogens; found in sea water

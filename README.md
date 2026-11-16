@@ -275,8 +275,9 @@ Two things happen before the table speaks. Patrons whose promise reads
 so **the nicks read it and the Monogrammists double it**; where it is written in for
 keeps the groove shows it in **jade** rather than brass. And the tongs' heat
 lands first, so any multiplier seated at all catches it. (The toll for a curse
-left in hand landed there too until 7 November; it now comes off last of all,
-from the finished score — below.)
+left in hand landed there too until 7 November; it then came off last of all,
+from the finished score, and since 16 November a curse left in hand sets the
+score outright — below.)
 
 ### The Quoin — the seat that reads position
 
@@ -794,13 +795,15 @@ paint, trims and nicks.
 
 - **Cursed** (hellbox iron) — ×2 Mult when printed, and never discardable: the
   only way out of your hand is to play it. While it waits, every word set
-  *without* it loses 666 from its final score, once per curse — taken last of
-  all, after every multiplier and the desk, so most such words score nothing (a
-  total never falls below zero) and you can keep printing to turn the rack
-  over, but a big enough word clears it. (Until 7 November the 666 came off the
-  Points, before the multipliers, and almost nothing cleared it.) The readout
-  strikes the figure the word made and writes what the curse left of it
-  beside it, as for a spike. Two in one word compound to ×4.
+  *without* it scores −666, flat — however many curses, however good the word
+  — and the page's tally goes down by 666 (the quota bar stops at empty). The
+  readout shows −666 as soon as a curse is in the hand, before anything is on
+  the stick, and lifts it the moment the curse is set into the word; with a
+  word set around a curse it strikes the figure the word made and writes −666
+  beside it, as for a spike. (Until 7 November the 666 came off the Points,
+  before the multipliers; until 16 November it came off the finished score,
+  once per curse, never below zero, and a big enough word cleared it.) Two in
+  one word compound to ×4.
 - **Ghost** (ghost metal) — holds no place in your hand, so you effectively draw
   one more, but nothing can ever be done to it: no paint, trim, nick, second
   letter or growth, and the Stereotyper can't copy it.
@@ -1712,8 +1715,8 @@ Printing replays the score the way the full game does (`submitWord`'s passes):
 each sort pays in turn, a note higher up the scale and voiced by its metal;
 each nick reads its side and the sum lands back on it; the stamps fill one at
 a time on the finished Points, the measure with its cheer (`lengthFlourish`);
-and the press comes down on the total, and a curse left in the case takes its
-toll from it. A tap or a key
+and the press comes down on the total, and a curse left in the case sets it to
+−666. A tap or a key
 hurries it through. The floaters and sparkles are `js/anim.js`'s own, drawn
 into a `#fx` layer, with `--aspd` set from the game's speed setting so the
 copied keyframes run at the game's pace. Space shuffles and Escape empties the
@@ -1773,13 +1776,13 @@ marks or squib lead: a mark only rides on the end of a word, so it is a flat
 Point or two whatever you set, and squib lead's game is the blast after the
 print, which one word never sees — leaving a plain ×2 with no decision in it.
 Hellbox
-iron keeps its whole rule, toll and all: it is ×2 in the word and −666 off the
-score of a word set without it, which makes a hellbox day the one where a
-single letter belongs in whatever you print — a mandatory letter, arrived at
-by the game's own mechanics rather than bolted on. Since the toll moved to the
-end of the sum (7 November) it is mandatory in practice rather than in
-arithmetic: on fourteen hellbox days the best word carried the iron every
-time, but from none to several hundred words a day clear the toll without it.
+iron keeps its whole rule: it is ×2 in the word, and a word set without it
+scores −666, which makes a hellbox day the one where a single letter belongs
+in whatever you print — a mandatory letter, arrived at by the game's own
+mechanics rather than bolted on. (From 7 to 16 November the 666 came off the
+finished score and a big enough word cleared it, so it was mandatory in
+practice rather than in arithmetic; now it is mandatory outright, and every
+word without the iron ranks together at the foot of the field.)
 
 ### What the day is
 
@@ -1993,7 +1996,11 @@ into its signature (`marks`, beside the Turnkey's `bars`); without that,
 held two plain letters of the kind; on those he marks any two single letters.
 The marks show only while he is seated, as the Turnkey's locks do.
 
-**The Turnkey** (🔐, the daily's own, 6 November, offered on Sundays): ×3 Mult on every word, and four sorts of
+**The Turnkey** (🔐, the daily's own, 6 November, offered on Sundays; in the
+game too since 16 November, at ×2 for three tiles of the hand, re-locked
+whenever the hand changes, `TURNKEY` in js/constants.js — drawn as on the
+daily, refused by `moveRackToWord`, never a curse, and asked before the
+Glossator and the Powdermonkey mark the hand, so neither marks a lock): ×3 Mult on every word, and four sorts of
 the case locked while he is seated. A locked sort is in the case and in no
 word: drawn as a sort turned over (dark iron, no face, a brass keyhole), it
 neither sets nor drags, a tap says why, and the locked four stand together at

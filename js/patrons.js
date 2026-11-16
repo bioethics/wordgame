@@ -179,7 +179,7 @@ import {
   SHORTHAIR_MULT, RATCATCHER_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
   medievalExpansions, POSTNOM, GHOST_HIRE, USURER,
   PRINCE, princeMult,
-  WORDLER, GLOSSATOR,
+  WORDLER, GLOSSATOR, TURNKEY,
   WINNOWER_BONUS, SERPENT_EAT_ODDS, SERPENT_POINTS, lyeBoyMult,
   QUOIN_MULT, GOLDSMITH_POINTS, GOLDSMITH_ODDS, GOLDSMITH_PURSE,
   gardenerRelief, chapelRelief, CHAPEL_BASE,
@@ -1958,6 +1958,17 @@ const PATRON_BEHAVIOURS = [
     tally(data) {
       return data?.primed ? 'One tile of your hand is primed.' : null;
     },
+  },
+  {
+    // The Daily Proof's Sunday Turnkey, in the game since 16 November: a flat
+    // ×Mult on every word, paid for in tiles. Three of the hand are locked
+    // (lockHand in js/state.js, hung off drawUpToRackSize with the other seats
+    // that mark the hand), and moveRackToWord refuses them, so tap, drag and
+    // keyboard all agree. They can still be discarded: a discard only re-deals
+    // the locks.
+    id: 'turnkey',
+    when: 'score',
+    effect({ xMult }) { xMult(TURNKEY.mult); },
   },
   {
     // The glossator wrote in the margin, and pointed: the manicule (☞) is his

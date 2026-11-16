@@ -2761,6 +2761,11 @@ cosmopolitans	COSMOPOLITAN: composed of people from or at home in many parts of 
 cosmos	everything that exists anywhere
 cosmoses	COSMOS: everything that exists anywhere
 cosplay	dressing up as a fictional character
+cosplayed	COSPLAY: dressing up as a fictional character
+cosplayer	someone who dresses up as a character from a film, book, game or comic
+cosplayers	COSPLAYER: someone who dresses up as a character from a film, book, game or comic
+cosplaying	COSPLAY: dressing up as a fictional character
+cosplays	COSPLAY: dressing up as a fictional character
 cosponsor	sponsor together with another sponsor
 cosponsored	COSPONSOR: sponsor together with another sponsor
 cosponsoring	COSPONSOR: sponsor together with another sponsor

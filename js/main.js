@@ -15,7 +15,7 @@ import {
   trashFromCollection, mergeTiles, castMaterialTile, castMarkTile, castTile, castLentTile, lentInHand, chapterTitle,
   castCounterfeit, effectiveRackSize, handCount, pluckFromBag,
   grantRandomPatron,
-  rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost, luckyRoll, isSquib, spendCoins,
+  rollGamble, effectivePatronSlots, nextId, primePoints, makeGhost, luckyRoll, isSquib, isLocked, spendCoins,
   dismissEditor, runDifficulty,
 } from './state.js';
 import {
@@ -1734,7 +1734,7 @@ document.addEventListener('keydown', e => {
   const L = e.key.toUpperCase();
   if (L.length !== 1 || L < 'A' || L > 'Z') return;
   const target = L === 'Q' ? 'QU' : L;
-  const t = state.rack.find(t =>
+  const t = state.rack.find(t => !isLocked(t) &&
     (t.letterType === 'dual' && t.activeVariant === 1 ? t.altLetter : t.letter) === target);
   if (t && TILE_POINTS[target]) { moveRackToWord(t.id); sfx.place(); renderAll(); }
 });

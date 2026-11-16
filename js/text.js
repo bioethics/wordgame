@@ -115,6 +115,7 @@ export const LOG_TEXT = {
   unoffered:       'Only the glowing tiles are on offer.',
   loupeCapped:     'That tile cannot be enhanced further.',
   cursedNoDiscard: 'This tile cannot be discarded.',
+  lockedNoSet:     'The Turnkey has locked this tile: it can’t be played.',
   lentNoDiscard:   'This tile cannot be discarded.',
   seatOrder:       '{0} takes seat {1}.',
 
@@ -345,7 +346,7 @@ export const SOLO_TEXT = {
 export const MATERIAL_TEXT = {
   cursed: {
     label: 'Cursed', metal: 'Hellbox iron',
-    desc: '×{CURSED_MULT} Mult. Can’t be discarded. While it’s in your hand, each word set without it loses {CURSED_PENALTY} from its final score.',
+    desc: '×{CURSED_MULT} Mult. Can’t be discarded. While it’s in your hand, any word set without it scores −{CURSED_PENALTY}.',
   },
   ghost: {
     label: 'Ghost', metal: 'Ghost metal',

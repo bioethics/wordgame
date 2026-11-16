@@ -10,7 +10,7 @@ import {
   MAGPIE_WEIGHT, MAKO_WEIGHT,
   PURVEYOR, TUBE_CHOICES, STALLS_PER_SHOP, MARKET_TILE_OFFERS, PATRON_OFFERS,
   UPGRADE_OFFERS, PROPOSAL_RANGE,
-  LOVERS, glossMarks,
+  LOVERS, glossMarks, TURNKEY,
 } from './constants.js';
 import { CHAPTER_TITLES } from './chapters.js';
 import { BOSS_DEFS, activeBoss, bossConflicts } from './bosses.js';
@@ -353,11 +353,45 @@ export function primeSquib() {
   const seat = primerSeat();
   if (!seat) return null;
   seat.data ??= {};
-  const pool = state.rack.filter(t => !isImmutable(t) && t.material !== 'explosive');
+  const pool = state.rack.filter(t => !isImmutable(t) && t.material !== 'explosive' && !isLocked(t));
   seat.data.primed = pool.length
     ? pool[Math.floor(Math.random() * pool.length)].id
     : null;
   return seat.data.primed;
+}
+
+// ─── The locked tiles (The Turnkey) ───────────────────────────────────────────
+// Tile ids on his seat, re-dealt whenever the hand changes, as the Glossator's
+// marks and the Powdermonkey's charge are; asked first, so neither marks a
+// tile he has locked.
+const turnkeySeat = () => allSeats().find(p => p.id === 'turnkey');
+export const isLocked = (tile) => {
+  const locks = turnkeySeat()?.data?.locks;
+  return !!locks && tile?.id != null && locks.includes(tile.id);
+};
+export function refreshLocks(drew) {
+  const seat = turnkeySeat();
+  if (!seat) return;
+  const held = !!seat.data?.locks && seat.data.locks.every(id => state.rack.some(t => t.id === id));
+  if (drew || !held) lockHand();
+}
+export function lockHand() {
+  const seat = turnkeySeat();
+  if (!seat) return null;
+  seat.data ??= {};
+  const open = state.rack.filter(t => !isImmutable(t) && t.material !== 'cursed' && !isMark(t.letter));
+  const bare = t => !(t.colour || t.trim || t.nick || t.material || t.letterType === 'dual');
+  const shuffled = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const vowel = t => 'AEIOU'.includes(t.letter);
+  const picks = [];
+  const take = t => {
+    if (picks.includes(t) || (vowel(t) && picks.filter(vowel).length >= TURNKEY.maxVowels)) return;
+    picks.push(t);
+  };
+  for (const t of shuffled(open.filter(bare))) { if (picks.length >= TURNKEY.locks - 1) break; take(t); }
+  for (const t of shuffled(open)) { if (picks.length >= TURNKEY.locks) break; take(t); }
+  seat.data.locks = picks.map(t => t.id);
+  return seat.data.locks;
 }
 
 // ─── The marked tiles (The Glossator) ─────────────────────────────────────────
@@ -384,7 +418,7 @@ export function markGloss() {
   if (!seat) return null;
   seat.data ??= {};
   seat.data.marks = glossMarks(state.rack, {
-    eligible: t => !isImmutable(t) && !t.colour && t.letterType !== 'dual',
+    eligible: t => !isImmutable(t) && !t.colour && t.letterType !== 'dual' && !isLocked(t),
   });
   return seat.data.marks;
 }
@@ -800,6 +834,7 @@ export function drawUpToRackSize() {
   }
   // A changed hand gets a fresh charge — and so does a stale mark, which is how
   // an emptied bag would otherwise kill the seat for a page (refreshSquib).
+  refreshLocks(drawn.length > 0);   // first, so the marks below pass over a lock
   refreshSquib(drawn.length > 0);
   refreshGloss(drawn.length > 0);
   return drawn;
@@ -1620,12 +1655,15 @@ export function paintRandomTiles(colour, count) {
 
 // ─── Tile movement ────────────────────────────────────────────────────────────
 
+// Returns false for a tile that can't be set: one the Turnkey has locked.
 export function moveRackToWord(id, insertIdx) {
   const i = state.rack.findIndex(t => t.id === id);
-  if (i < 0) return;
+  if (i < 0) return false;
+  if (isLocked(state.rack[i])) return false;
   const [tile] = state.rack.splice(i, 1);
   tile.selected = false;
   state.word.splice(insertIdx ?? state.word.length, 0, tile);
+  return true;
 }
 
 export function moveWordToRack(id, insertIdx) {

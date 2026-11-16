@@ -60,6 +60,7 @@ glamourizes	GLAMOURIZE: make glamorous and attractive
 glamourizing	GLAMOURIZE: make glamorous and attractive
 glamourous	having an air of allure, romance and excitement
 glamours	GLAMOUR: alluring beauty or charm (often with sex-appeal)
+glamping	camping with the comforts of a hotel
 glance	throw a glance at; take a brief look at
 glanced	GLANCE: throw a glance at; take a brief look at
 glances	GLANCE: throw a glance at; take a brief look at

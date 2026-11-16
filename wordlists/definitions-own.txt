@@ -20,6 +20,8 @@
 # from HI, SITES from SIT, STATES from STAT).
 # 6 November: 59 for the education list's additions to the dictionary
 # (KINDY, TUCKSHOP, DUX, CHALKFACE, SCHOOLIES…), their plurals borrowing them.
+# 16 November: contemporary words (REWATCH, LIVESTREAM, CHATBOT, HANGRY…),
+# their tenses and plurals borrowing them.
 #
 a	one; any (the indefinite article)
 abaci	ABACUS: a frame with beads used for counting
@@ -303,6 +305,7 @@ aureus	a gold coin of ancient Rome
 aurorae	AURORA: a display of coloured lights in the night sky
 autecological	relating to the ecology of a single species
 autecology	the study of one species and its environment
+autocorrect	correct a typed word automatically, as a phone or computer does; the feature that does it
 autocorrelation	the matching of a signal with a delayed copy of itself
 autocross	a motor race over rough ground
 automata	AUTOMATON: a machine that acts as if on its own
@@ -520,6 +523,7 @@ bimboes	BIMBO: attractive but unintelligent people
 bimetallics	BIMETALLIC: a strip or coin made of two metals
 binational	involving two nations
 bindi	a decorative dot worn on the forehead
+binger	someone who binges, especially on a television series
 binman	a person who collects rubbish
 binmen	BINMAN: a person who collects rubbish
 bio	a short account of someone's life; also biology, as a school subject
@@ -703,6 +707,7 @@ broadmindedness	willingness to accept different views
 broderie	white cotton fabric embroidered with eyelet holes
 broking	the business of acting as a broker
 brolga	a large grey Australian crane
+bromance	a close friendship between two men
 bronchi	BRONCHUS: a main air passage to the lungs
 brontosauri	BRONTOSAURUS: a huge long-necked plant-eating dinosaur
 browbeaten	BROWBEAT: bully into doing something
@@ -880,6 +885,8 @@ catcaller	one who whistles or shouts at passers-by
 catchup	the act of getting up to date
 caterwauler	one who howls or screeches
 catfight	a spiteful fight between women
+catfished	CATFISH: lure someone into an online relationship under a false identity
+catfishing	luring someone into an online relationship under a false identity
 catlike	resembling a cat
 catsuit	a tight one-piece garment covering the body and legs
 cattery	a place where cats are boarded or bred
@@ -934,6 +941,7 @@ charry	like charcoal
 charterer	one who hires a vehicle or vessel
 chasey	a children's chasing game; tag (Australian)
 chastener	one who corrects or humbles
+chatbot	a computer program that holds a conversation with people, in text or speech
 chateaux	CHATEAU: a French country house or castle
 chatline	a telephone service for talking with strangers
 chav	a young person of a certain working-class style
@@ -1256,6 +1264,7 @@ cosmetological	relating to beauty treatment
 cosmically	in relation to the universe
 cosmopolitanism	the outlook of feeling at home anywhere in the world
 cosplay	dressing up as a fictional character
+cosplayer	someone who dresses up as a character from a film, book, game or comic
 cossie	a swimming costume
 costar	to appear as one of the leading actors
 cosying	COSY: make comfortable and warm
@@ -1336,6 +1345,7 @@ cropland	land used for growing crops
 crosschecked	CROSSCHECK: verify by a different method
 crosschecking	CROSSCHECK: verify by a different method
 crowdfund	raise money from many people online
+crowdsource	get work, ideas or money from a large number of people, usually online
 crowsnest	a lookout platform high on a ship's mast
 cruces	CRUX: the central or deciding point
 crucified	CRUCIFY: put to death on a cross
@@ -1546,6 +1556,7 @@ deontology	ethics based on duty and rules
 departmentalise	divide into separate sections
 departmentalize	divide into separate sections
 depicter	one who portrays
+deplatform	bar someone from a website or forum, denying them a place to speak
 deployable	able to be put into use
 depoliticise	remove political character from
 depoliticize	remove political character from
@@ -1707,6 +1718,7 @@ doodah	a thing whose name is forgotten
 doodler	one who scribbles absentmindedly
 doolally	crazy
 doomsayer	one who predicts disaster
+doomscroll	keep scrolling through bad news online
 doona	a quilt used as a bed cover
 doozy	something remarkable
 dorayaki	a Japanese pancake sandwich filled with sweet red bean
@@ -1735,7 +1747,10 @@ downspout	a pipe carrying rainwater from a roof
 downstate	in the southern part of a state
 downtempo	music played at a slow pace
 downtrend	a gradual decline
+downvote	vote against an online post or comment; such a vote
+dox	publish someone's private details online, to harass them
 doxological	relating to a hymn of praise
+doxx	publish someone's private details online, to harass them
 drabble	a very short story of exactly one hundred words
 drachmae	DRACHMA: the former currency of Greece
 drachmai	DRACHMA: the former currency of Greece
@@ -1821,6 +1836,7 @@ earthward	toward the earth
 earworm	a catchy tune that repeats in the mind
 easting	distance travelled east
 eave	the overhanging lower edge of a roof
+ebook	a book published in digital form, to be read on a screen
 ecclesia	an assembly of citizens in ancient Athens, or a church
 ecclesial	relating to a church
 ecclesiological	relating to the study of church architecture and doctrine
@@ -2060,6 +2076,7 @@ fanciable	attractive
 fancily	in an elaborate way
 fandangoes	FANDANGO: a lively Spanish dance
 fanfic	stories written by fans about existing characters
+fanfiction	stories written by fans using the characters or world of someone else's work
 fanglike	resembling a fang
 fanny	the vagina, in British and Australian use; the buttocks, in American
 fanzine	an amateur magazine written by fans
@@ -2359,6 +2376,9 @@ gargoylishly	in a way resembling a gargoyle
 garniture	a decoration or trimming
 garote	GARROTE: strangle with a cord
 gasholder	a large tank for storing gas
+gaslighted	GASLIGHT: manipulate someone into doubting their own memory or judgement
+gaslighting	manipulating someone into doubting their own memory or judgement
+gaslit	GASLIGHT: manipulate someone into doubting their own memory or judgement
 gasper	a cheap cigarette
 gasses	GAS: a substance that is neither solid nor liquid
 gassily	in a gassy way
@@ -2405,6 +2425,7 @@ geochronology	the dating of rocks and Earth events
 geoengineering	large-scale deliberate alteration of the Earth's climate
 geomagnetic	relating to the Earth's magnetism
 geomorphologist	a scientist who studies landforms
+geotag	attach the location where it was made to a photo or post; such a tag
 gesundheit	said after someone sneezes
 getout	a way of escaping a commitment or difficulty
 gharial	a long-snouted crocodile-like reptile of India
@@ -2415,6 +2436,7 @@ ghostwritten	GHOSTWRITE: write for someone else who is credited as author
 ghostwrote	GHOSTWRITE: write for someone else who is credited as author
 gianduja	a chocolate and hazelnut paste
 giber	one who gibes or jeers
+gif	a short looping animation; an image file in that format
 giftwrap	wrap a present attractively
 gigapixel	a billion pixels
 gigawatt	a billion watts
@@ -2442,6 +2464,7 @@ gladioli	GLADIOLUS: a plant with sword-shaped leaves and tall spikes of flowers
 glam	glamorous
 glamored	GLAMOUR: make glamorous
 glamoring	GLAMOUR: make glamorous
+glamping	camping with the comforts of a hotel
 glandes	GLANS: the rounded tip of the penis or clitoris
 glassblowing	shaping molten glass by blowing
 glassfrog	a small translucent tree frog of Central and South America
@@ -2636,6 +2659,7 @@ handpick	select carefully by hand
 handprint	a mark left by a hand
 handsful	HANDFUL: as much as a hand can hold
 handwringing	anxious fretting without taking action
+hangry	irritable because hungry
 hangup	an emotional difficulty
 harborer	one who gives shelter
 harbormaster	an official in charge of a harbour
@@ -2851,6 +2875,7 @@ huh	sound expressing surprise or asking for repetition
 huller	a machine or person that removes hulls from grain
 humaniser	something that makes things more humane
 humanizer	something that makes things more humane
+humblebrag	a boast disguised as modesty or complaint; make one
 humblings	HUMBLING: an experience that makes one feel less proud
 humbuggers	HUMBUGGER: a person who deceives
 humeral	relating to the upper arm bone
@@ -3023,6 +3048,7 @@ infill	material used to fill a gap
 infinitesimally	in an extremely small way
 inflatables	INFLATABLE: objects filled with air
 inflight	happening during a flight
+influencer	someone paid to promote things to their followers on social media
 infobahn	the information superhighway
 infrastructural	relating to basic facilities and systems
 infringer	a person who breaks a law or right
@@ -3464,6 +3490,8 @@ listenable	pleasant to listen to
 lithological	relating to the physical character of rocks
 lithologist	a person who studies rocks
 livability	the quality of being fit to live in
+livestream	broadcast live over the internet; such a broadcast
+livestreamer	someone who broadcasts live over the internet
 liveware	the people who use or operate a computer system
 lo	look
 loadable	able to be loaded
@@ -3477,6 +3505,7 @@ locational	relating to a place
 locavore	a person who eats locally produced food
 loci	LOCUS: a place or position
 lockable	able to be locked
+lockdown	an order keeping people in their homes or in a building, for their safety
 locos	LOCO: railway engines
 lofter	a golf club that lifts the ball high
 login	the process of signing in to a computer system
@@ -3588,6 +3617,8 @@ manjuu	a Japanese steamed bun filled with sweet bean paste
 manmade	made by people, not natural
 mannose	a simple sugar
 manoeuvrings	MANOEUVRING: cunning moves to gain an advantage
+mansplain	(of a man) explain something to a woman condescendingly, assuming she knows less
+mansplainer	a man who explains things condescendingly to women
 mantes	MANTIS: an insect that holds its front legs as if praying
 mapmaker	a person who draws maps
 marchesa	an Italian noblewoman
@@ -3699,6 +3730,7 @@ microbiological	relating to the study of microscopic organisms
 microblog	a very short blog post
 microbrew	beer made in a small brewery
 microclimate	the climate of a small, specific area
+microdose	take a very small dose of a drug; such a dose
 microfiber	MICROFIBRE: very fine synthetic fibre
 microfibre	very fine synthetic fibre
 microfinance	small-scale financial services for poor people
@@ -3713,6 +3745,7 @@ micrometre	one millionth of a metre
 micropalaeontology	the study of microscopic fossils
 micropaleontological	relating to the study of microscopic fossils
 micropaleontologist	a student of microscopic fossils
+microplastic	a tiny fragment of plastic, polluting water, soil or food
 microplastics	tiny fragments of plastic pollution
 micros	MICRO: a microcomputer or microprocessor
 microstructure	the structure of a material seen under a microscope
@@ -4650,6 +4683,8 @@ phooey	an exclamation of disbelief or contempt
 phosphodiesterase	an enzyme that breaks down certain phosphate compounds in cells
 phosphorize	treat or combine with phosphorus
 phosphorylation	the addition of a phosphate group to a molecule
+photobomb	spoil a photograph by appearing in it unexpectedly
+photobomber	someone who jumps unexpectedly into another person's photograph
 photocall	an occasion arranged for press photographers
 photocopied	PHOTOCOPY: make a copy with a copier
 photoed	PHOTO: take a picture of
@@ -4766,6 +4801,7 @@ plusses	PLUS: an advantage or a sign for addition
 pocketer	a person who pockets something
 pocketknives	POCKETKNIFE: a small folding knife
 pocketsful	POCKETFUL: as much as a pocket holds
+podcaster	someone who makes a podcast
 podia	PODIUM: a small raised platform
 podiatric	relating to the care of the feet
 pogo	to jump up and down on the spot; also a pogo stick
@@ -5182,6 +5218,7 @@ redistributive	relating to sharing out wealth differently
 redistributor	a person who shares out differently
 redistrict	divide into new districts
 redone	REDO: do again
+redownload	download again
 redrafted	REDRAFT: write again
 redrafting	REDRAFT: write again
 redraw	draw again
@@ -5254,6 +5291,7 @@ relied	RELY: depend on
 relight	light again
 relinquisher	a person who gives up
 relisted	RELIST: list again
+relisten	listen again
 rellie	a relative
 reloader	a person or device that loads again
 relocatable	able to be moved to a new place
@@ -5354,6 +5392,9 @@ reviler	a person who abuses others with harsh words
 revivified	REVIVIFY: bring back to life or vigour
 revolter	a person who rebels
 rewarder	a person who gives a reward
+rewatch	watch again; a second viewing
+rewatchable	worth watching again
+rewatching	watching again; a second or later viewing
 rewindable	able to be wound back
 rewinder	a device that winds something back
 reworkings	REWORKING: a revised version of something
@@ -5379,6 +5420,8 @@ ricepaper	thin edible paper made from rice
 ricketily	in a shaky, unsteady way
 riddler	a person who poses riddles
 ridership	the number of people who use a public transport service
+rideshare	a shared ride, usually booked through an app
+ridesharing	sharing car rides, usually booked through an app
 rifted	RIFT: split or break apart
 rifting	RIFT: split or break apart
 right	correct; also on the side opposite the left
@@ -5559,6 +5602,8 @@ screechily	in a shrill, harsh way
 screenprinting	printing through a stencilled mesh screen
 screensaver	a computer display that appears when idle
 screenshot	an image of what is shown on a screen
+screenshotted	SCREENSHOT: capture an image of what is shown on a screen
+screenshotting	capturing an image of what is shown on a screen
 screenwriting	the writing of scripts for film or television
 screwcap	a bottle cap fastened by screwing
 screwer	a person or device that screws
@@ -5568,6 +5613,7 @@ scrimshawed	SCRIMSHAW: carve or engrave on bone or ivory
 scrimshawing	SCRIMSHAW: carve or engrave on bone or ivory
 scriptoria	SCRIPTORIUM: a room in a monastery where manuscripts were copied
 scrog	a stunted bush; brushwood
+scrollable	that can be scrolled through on a screen
 scrota	SCROTUM: the pouch of skin holding the testicles
 scroungy	shabby or dirty
 scruffily	in a messy, untidy way
@@ -5716,6 +5762,7 @@ showcasing	SHOWCASE: display to best advantage
 showground	an area where shows are held
 showjumper	a rider who jumps horses over obstacles
 showoff	a person who tries to impress others
+showrunner	the person in overall charge of a television series
 showstopping	so impressive that it interrupts the show
 shrieker	a person who shrieks
 shriven	SHRIVE: hear the confession of and absolve
@@ -6076,6 +6123,7 @@ strata	STRATUM: a layer of rock or society
 stratigraphic	relating to the order of rock layers
 stratospheric	relating to the upper atmosphere or extremely high
 streakily	in a way marked with streaks
+streamable	that can be streamed over the internet
 streetlamp	a light on a street
 stretchered	STRETCHER: carried on a stretcher
 stretchering	STRETCHER: carrying on a stretcher
@@ -6724,6 +6772,7 @@ underwritten	UNDERWRITE: guarantee financially
 underwrote	UNDERWRITE: guarantee financially
 unelectable	unlikely to win an election
 unfathomably	in a way too deep to understand
+unfollow	stop following someone on social media
 unfriended	UNFRIEND: remove someone from your online friends
 unfriending	UNFRIEND: remove someone from your online friends
 unheimlich	uncanny
@@ -6733,6 +6782,7 @@ uninstallers	UNINSTALLER: a program that removes software
 uninterruptible	impossible to interrupt
 unis	UNI: a university
 unmissable	too good to miss
+unmute	turn the sound back on
 unputdownable	so gripping that you cannot stop reading
 unrulily	in a disorderly way
 unsavourily	in a distasteful way
@@ -6744,6 +6794,7 @@ unto	to
 untreatable	unable to be treated
 unwatchable	too bad or disturbing to watch
 unwinnable	impossible to win
+upcycle	make something of greater value out of things thrown away
 updater	a program or person that brings something up to date
 updraught	an upward current of air
 upheld	UPHOLD: support or confirm
@@ -6761,6 +6812,7 @@ upswing	an upward trend
 uptempo	fast-paced
 uptrend	an upward movement in prices
 upturning	UPTURN: turn upside down
+upvote	vote for an online post or comment; such a vote
 upwell	rise to the surface
 urbanism	city life or the study of cities
 urbanologist	a person who studies cities
@@ -6784,6 +6836,7 @@ vampiric	like a vampire
 vampirize	prey on like a vampire
 vanishment	the act of disappearing
 vape	inhale vapour from an electronic cigarette
+vaper	someone who smokes an electronic cigarette
 vaporware	software announced but never released
 vapourware	software announced but never released
 variational	relating to variation
@@ -6860,6 +6913,8 @@ vita	a short account of someone's career
 vitae	VITA: a short account of someone's career
 vittles	food
 vivified	VIVIFY: give life to
+vlog	a blog made of videos; keep one
+vlogger	someone who keeps a video blog
 vocab	vocabulary
 voiceover	narration heard over a film or video
 voila	an exclamation presenting a result
@@ -6945,6 +7000,7 @@ weatherise	protect against bad weather
 weatherization	the protection of a building against the weather
 weatherize	protect against bad weather
 webcast	a broadcast over the internet
+webcomic	a comic published on the internet
 webfooted	having toes joined by skin
 webinar	a seminar held over the internet
 webisode	an episode of a series released online

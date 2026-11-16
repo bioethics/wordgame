@@ -55,7 +55,7 @@ export const SORT_TEXT = {
   medievalHead: '{0} — reads as {1}.',
   medievalBody: 'Counts as {0}.',              // "two letters", "one or two letters"
   letterCount: ['', 'one', 'two', 'three'],
-  cursed: { head: 'Hellbox iron', body: '×{0} Mult. A word set without it loses {1} from its final score.' },
+  cursed: { head: 'Hellbox iron', body: '×{0} Mult. A word set without it scores −{1}.' },
   ratcheted: 'Stepped from {0}',
   louped: 'Doubled by the loupe',
   painted: 'Painted from the tube',
@@ -73,7 +73,6 @@ export const SORT_TEXT = {
 export const DAILY_CARDS = {
   commoner: { name: 'The Commoner', emoji: '🍺' },
   limner:   { name: 'The Limner', emoji: '🖌️' },   // his card shows the day's letter instead (patronFace in main.js)
-  turnkey:  { name: 'The Turnkey', emoji: '🔐' },
   variationist: { name: 'The Elegant Variationist', emoji: '🦢' },
   bookends: { name: 'The Bookends', emoji: '🔖' },
   capitalist: { name: 'The Capitalist', emoji: '🧐' },

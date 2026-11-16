@@ -370,7 +370,10 @@ gasholders	GASHOLDER: a large tank for storing gas
 gasket	seal consisting of a ring for packing pistons or sealing a pipe joint
 gaskets	GASKET: seal consisting of a ring for packing pistons or sealing a pipe joint
 gaslight	light yielded by the combustion of illuminating gas
+gaslighted	GASLIGHT: manipulate someone into doubting their own memory or judgement
+gaslighting	manipulating someone into doubting their own memory or judgement
 gaslights	GASLIGHT: light yielded by the combustion of illuminating gas
+gaslit	GASLIGHT: manipulate someone into doubting their own memory or judgement
 gasman	someone employed by a gas company
 gasmen	GASMAN: someone employed by a gas company
 gasohol	a gasoline substitute consisting of 90% gasoline and 10% grain alcohol from corn

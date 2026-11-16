@@ -1289,7 +1289,9 @@ caterwauls	CATERWAUL: utter shrieks, as of cats
 catfight	a spiteful fight between women
 catfights	CATFIGHT: a spiteful fight between women
 catfish	any of numerous mostly freshwater bottom-living fishes of Eurasia and North America with barbels like whiskers around the mouth
+catfished	CATFISH: lure someone into an online relationship under a false identity
 catfishes	CATFISH: any of numerous mostly freshwater bottom-living fishes of Eurasia and North America with barbels like whiskers around the mouth
+catfishing	luring someone into an online relationship under a false identity
 catgut	a strong cord made from the intestines of sheep and used in surgery
 catharses	CATHARS: a Christian religious sect in southern France in the 12th and 13th centuries; believers in Albigensianism
 catharsis	purging of emotional tensions

@@ -272,6 +272,10 @@ export const PATRON_CARDS = {
     name: 'The Powdermonkey', emoji: '🎇', rarity: 'uncommon', cost: 7, guild: 'crimson',
     desc: 'Keeps one tile of your hand primed to act as Squib lead, marking a fresh one whenever the hand changes.',
   },
+  turnkey: {
+    name: 'The Turnkey', emoji: '🔐', rarity: 'uncommon', cost: 6,
+    desc: '×{TURNKEY_MULT} Mult. Locks {TURNKEY_LOCKS} tiles of your hand, afresh whenever it changes; a locked tile can’t be played.',
+  },
   glossator: {
     name: 'The Glossator', emoji: '👉', rarity: 'uncommon', cost: 5,
     desc: 'Marks two tiles of your hand, afresh whenever it changes. ×{GLOSSATOR_MULT} Mult for a word using both.',

@@ -94,15 +94,15 @@ for (let n = from; n <= to; n++) {
     const theirs = computeScore(word);
     const ours = S.scoreWord(word, rest, has);
     compared++;
-    // A curse left in hand takes its toll off the finished score (since 7
-    // November), so a big enough word clears it: count both kinds compared.
-    if (rest.some(t => t.material === 'cursed')) { cursedLeft++; if (ours.total > 0) cursedCleared++; }
+    // A curse left in hand sets the score to −666 (since 16 November): count
+    // how many such arrangements were compared, and that every one did.
+    if (rest.some(t => t.material === 'cursed')) { cursedLeft++; if (ours.total === -666) cursedCleared++; }
     if (theirs.total !== ours.total || theirs.mult !== ours.mult || theirs.points !== ours.points) {
       fail(`№${n} ${ours.set}: game ${theirs.points}×${theirs.mult}=${theirs.total}, daily ${ours.points}×${ours.mult}=${ours.total}`);
     }
   }
 }
-console.log(`scoring: ${compared} arrangements compared with computeScore (${cursedLeft} with a curse left in hand, ${cursedCleared} of them clearing its toll)`);
+console.log(`scoring: ${compared} arrangements compared with computeScore (${cursedLeft} with a curse left in hand, ${cursedCleared} of them at −666)`);
 
 // ─── 1½. The same, with each patron and each editor seated ────────────────────
 // The game's own seat for the patron (state.patrons) and its own desk for the

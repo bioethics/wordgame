@@ -109,7 +109,8 @@ loci	LOCUS: a place or position
 lock	fasten with a lock
 lockable	able to be locked
 lockbox	a fireproof metal strongbox (usually in a bank) for storing valuables
-lockdown	the act of confining prisoners to their cells (usually to regain control during a riot)
+lockdown	an order keeping people in their homes or in a building, for their safety
+lockdowns	LOCKDOWN: an order keeping people in their homes or in a building, for their safety
 locked	LOCK: fasten with a lock
 locker	a storage compartment for clothes and valuables; usually it has a lock
 lockers	LOCKER: a storage compartment for clothes and valuables; usually it has a lock

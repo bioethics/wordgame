@@ -613,6 +613,12 @@ livery	uniform worn by some menservants and chauffeurs
 lives	LIVE: be an inhabitant of or reside in
 livest	LIVE: be an inhabitant of or reside in
 livestock	any animals kept for use or profit
+livestream	broadcast live over the internet; such a broadcast
+livestreamed	LIVESTREAM: broadcast live over the internet; such a broadcast
+livestreamer	someone who broadcasts live over the internet
+livestreamers	LIVESTREAMER: someone who broadcasts live over the internet
+livestreaming	LIVESTREAM: broadcast live over the internet; such a broadcast
+livestreams	LIVESTREAM: broadcast live over the internet; such a broadcast
 liveware	the people who use or operate a computer system
 livid	anemic looking from illness or emotion
 lividly	in a livid manner

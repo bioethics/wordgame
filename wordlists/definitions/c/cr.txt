@@ -620,6 +620,10 @@ crowdfunding	CROWDFUND: raise money from many people online
 crowdfunds	CROWDFUND: raise money from many people online
 crowding	CROWD: cause to herd, drive, or crowd together
 crowds	CROWD: cause to herd, drive, or crowd together
+crowdsource	get work, ideas or money from a large number of people, usually online
+crowdsourced	CROWDSOURCE: get work, ideas or money from a large number of people, usually online
+crowdsources	CROWDSOURCE: get work, ideas or money from a large number of people, usually online
+crowdsourcing	CROWDSOURCE: get work, ideas or money from a large number of people, usually online
 crowed	CROW: dwell on with satisfaction
 crower	one who crows
 crowers	CROWER: one who crows
