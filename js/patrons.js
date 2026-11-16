@@ -179,7 +179,7 @@ import {
   SHORTHAIR_MULT, RATCATCHER_MULT, CARTOGRAPHER_MULT, CARTOGRAPHER_MIN_VOWELS,
   medievalExpansions, POSTNOM, GHOST_HIRE, USURER,
   PRINCE, princeMult,
-  WORDLER,
+  WORDLER, GLOSSATOR,
   WINNOWER_BONUS, SERPENT_EAT_ODDS, SERPENT_POINTS, lyeBoyMult,
   QUOIN_MULT, GOLDSMITH_POINTS, GOLDSMITH_ODDS, GOLDSMITH_PURSE,
   gardenerRelief, chapelRelief, CHAPEL_BASE,
@@ -1957,6 +1957,26 @@ const PATRON_BEHAVIOURS = [
     when: 'meta',   // the ×Mult is scoring's pass 3; the charge is js/main.js
     tally(data) {
       return data?.primed ? 'One tile of your hand is primed.' : null;
+    },
+  },
+  {
+    // The glossator wrote in the margin, and pointed: the manicule (☞) is his
+    // hand, drawn at the line a reader should not miss. He marks two tiles of
+    // the hand — one a consonant, the other any letter, neither an S and the
+    // second not an E, since a word holds those for free and a mark on one
+    // would ask nothing — and pays for a word that sets both. Fresh marks every
+    // time the hand changes (markGloss in js/state.js, hung off
+    // drawUpToRackSize as the Powdermonkey's charge is), so he is a new small
+    // puzzle every word: K and U this hand, B and O the next. The marks are
+    // tile ids on his seat, never a change to the tile.
+    //
+    // The Daily Proof seats him on Sundays at ×3 (daily/table.js), marking two
+    // sorts of the case for the day.
+    id: 'glossator',
+    when: 'score',
+    effect({ tiles, data, xMult }) {
+      const marks = data?.marks;
+      if (marks?.length === 2 && marks.every(id => tiles.some(t => t.id === id))) xMult(GLOSSATOR.mult);
     },
   },
   {

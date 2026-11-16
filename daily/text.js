@@ -61,6 +61,7 @@ export const SORT_TEXT = {
   painted: 'Painted from the tube',
   wrapped: { head: 'A draft', body: 'Wrapped by The Redactor: it spells, and scores nothing.' },
   locked: { head: 'Locked', body: 'The Turnkey has locked this sort: it can’t be set.' },
+  glossed: { head: 'Marked', body: 'By The Glossator: ×3 Mult for a word using both marked sorts.' },
 };
 
 // ─── The table ────────────────────────────────────────────────────────────────
@@ -110,6 +111,7 @@ export const PATRON_TEXT = {
   monogrammist:  'Each {0} prints twice: Points, trim and paint.',
   limner:        '×3 Mult for words beginning with {0}.',
   turnkey:       '×3 Mult. Four sorts in the case are locked.',
+  glossator:     '×3 Mult for words using both marked sorts ({0}).',
   izzard:        'Any Z may be set as an S.',
   shorthair:     '×2 Mult for words containing RAT. A RAT sort joins the case.',
   quoin:         '×2 Mult when two sorts of one colour sit side by side.',

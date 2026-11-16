@@ -2151,6 +2151,19 @@ button.sundry:hover { transform: translateY(-2px); }
   line-height: 1;
 }
 
+/* The Glossator's manicule, in rubric red: top-left, the corner nothing else
+   uses. Rendered in both looks; the bench needs nothing of its own. */
+.tile-gloss {
+  position: absolute;
+  left: 3px; top: 1px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #a3241a;
+  line-height: 1;
+  pointer-events: none;
+}
+.tile--mini .tile-gloss { font-size: 10px; left: 2px; top: 0; }
+
 /* ── Nicks ─────────────────────────────────────────────────────────────────────
    The mask does the cutting — a disc removed from the edge, taking border, trim
    ring and shadow with it — and .tile-nick paints the lip that survives inside

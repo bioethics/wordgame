@@ -327,7 +327,10 @@ export function prepareCase(tiles, item = null, tables = []) {
   // some table is no longer identical to its free twin: which tables bar it
   // joins its signature.
   const barSig = id => (tables.some(T => (T.bars ?? 0) & (1 << id))
-    ? `|${tables.map(T => ((T.bars ?? 0) >> id) & 1).join('')}` : '');
+    ? `|${tables.map(T => ((T.bars ?? 0) >> id) & 1).join('')}` : '')
+    // ...and so is a sort the Glossator has marked, which only it can pay for.
+    + (tables.some(T => (T.marks ?? 0) & (1 << id))
+      ? `|m${tables.map(T => ((T.marks ?? 0) >> id) & 1).join('')}` : '');
   const prepared = tiles.filter(t => !(everywhere & (1 << t.id))).map(paper).map(t => {
     const faces = [0, ...(t.letterType === 'dual' && t.altLetter ? [1] : [])].map(v => {
       const L = faceLetter(t, v);

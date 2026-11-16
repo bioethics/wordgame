@@ -1836,7 +1836,7 @@ challenge (`WEEK` in `daily/deal.js`; № 1 is a Friday):
 
 | Day | Case |
 | --- | --- |
-| Sunday | **A choice of two patrons**, from the rich tier (the six registers, the Limner and the Turnkey). Tap a card to seat it (and read it); the readout re-prices the word under whoever is seated. In the results, a word either patron would pay the same carries both their emoji. |
+| Sunday | **A choice of two patrons**, from the rich tier (the six registers, the Limner, the Turnkey and the Glossator). Tap a card to seat it (and read it); the readout re-prices the word under whoever is seated. In the results, a word either patron would pay the same carries both their emoji. |
 | Monday, Wednesday | Plain. |
 | Tuesday | **The day's patron**, seated for everyone. |
 | Thursday | **An editor at the desk.** The card carries the day's rule on its face; a word that breaks it is spiked — scored at ×0.2, exactly as at a Deadline, never refused. The card is not a patron's: it is the bench's editor slab (black ink, a red edge, the name in red), and it runs hot while the word in hand would be spiked. |
@@ -1969,6 +1969,30 @@ rule about spelling, as the Shorthair's R, A and T show. Offered and not
 taken: the Metronome (×3 for words that alternate consonant and vowel: 55%,
 30%) and the Skinflint (+10 Points a sort left in the case: 23%, 100%).
 
+**The Glossator** (👉, the game's and the daily's, 16 November, offered on
+Sundays): two plain sorts of the case are marked with a manicule, and a word
+that sets both is paid ×3 (×2 in the game, where he marks two tiles of the
+hand afresh whenever it changes, as the Powdermonkey moves his charge). The
+first mark is a consonant, the second any letter; neither is an S and the
+second is not an E. One picker serves both modes (`glossMarks` in
+js/constants.js; `glossFor` in daily/deal.js asks it for plain lead, the game
+for unpainted letters). The rule was measured on the daily before it was
+built, over 364 cases, as beats-the-other-Sunday-patron: a single marked
+letter at ×3 won 80% (an E or an S is in nearly every good word, so the mark
+paid on the word a reader would set anyway and moved it on a quarter of
+cases); a J, X or Z alone won 49% but was on only 148 cases undealt; two
+marks, a consonant and any letter, no S, won 59%, and barring the second's E
+brought it to 57%, level with the Sexton (×1.91, 57%) and over the Limner
+(45%). The second's vowel days run hotter than its consonant days (64% to
+54%), since a vowel costs a good word little. By `daily-table` over 120 cases
+his median power is ×2.09 and he moves the best word on 58%, the fewest of
+the tier: the mark often lands in the word that was best anyway. A marked
+sort is not its plain twin's equal, so the solver folds which tables mark it
+into its signature (`marks`, beside the Turnkey's `bars`); without that,
+`daily-check` fails 18 times in 200 cases. All but two cases in two years
+held two plain letters of the kind; on those he marks any two single letters.
+The marks show only while he is seated, as the Turnkey's locks do.
+
 **The Turnkey** (🔐, the daily's own, 6 November, offered on Sundays): ×3 Mult on every word, and four sorts of
 the case locked while he is seated. A locked sort is in the case and in no
 word: drawn as a sort turned over (dark iron, no face, a brass keyhole), it
@@ -2020,7 +2044,8 @@ between two words to look for:
   him seated is worth ×1.65 the best unseated (the registers ×1.44–1.92).
   Every case in a year held a letter of the band. And since 6 November the
   Turnkey (above): ×3 on every word, for four sorts locked while he is
-  seated. The tier is eight, and each is offered on a quarter of Sundays.
+  seated. And since 16 November the Glossator (below). The tier is nine, and
+  each is offered on two Sundays in nine.
 - *plain*, on Fridays — ×2 for a word of a given form: The Cartographer
   (vowels in order), The Poet (an adjective or adverb),
   The Yodeller (as many vowels as consonants — made for this, and seated in the
@@ -2348,14 +2373,15 @@ old rule.
 ### Numbering, and the playtest switch
 
 Challenge № 1 is 6 November 2026 (`EPOCH` in `daily/deal.js`; every day was
-dealt afresh then, `DEAL_SALT` v5, and № 1 had been 5 November) and every day
+dealt afresh then, `DEAL_SALT` v5, and № 1 had been 5 November; and again on
+16 November, v6, for the Glossator, № 1 staying put) and every day
 after is one more; the number is the URL's hash (`/daily/#12`). While the mode
 is being tried out, `PLAYTEST` at the top of `daily/main.js` lets you walk to
 any number and set a printed case again. Turn it off and the page is a daily:
 today's case and the ones before it, printed once each. Bumping `DEAL_SALT`
 re-deals every challenge, for when the luck's tuning changes enough that old
 numbers shouldn't keep their old cases. Printed proofs are kept in
-`localStorage` under `great-work-daily-v4`, the number moving with the salt so
+`localStorage` under the salt (`PROOF_STORE`, now `great-work-daily-v6`), so
 a re-dealt case never reopens on an old proof.
 
 ### One site, one front door

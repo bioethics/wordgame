@@ -31,6 +31,7 @@
 
 import {
   BAG_COUNTS, TILE_POINTS, COLOURS, CURSED_MAX_POINTS, dualPairsFor, makeTileTemplate, isImmutable,
+  glossMarks,
 } from '../js/constants.js';
 
 // Bump the salt and every challenge is re-dealt — for when the tuning below
@@ -40,7 +41,9 @@ import {
 // v4: № 1 moved to 5 November, and Tuesday's patrons dealt what they read.
 // v5: every day dealt afresh and № 1 moved to 6 November, with the Limner,
 //     the Schoolmarm, the Turnkey and the Eeeditor in their rotations.
-export const DEAL_SALT = 'great-work-daily-v5';
+// v6: every day dealt afresh (№ 1 still 6 November), with the Glossator in
+//     Sunday's rotation.
+export const DEAL_SALT = 'great-work-daily-v6';
 // Printed proofs are kept under the salt (daily/main.js), so a re-dealt case
 // never reopens on an old proof; the front door (js/door.js) reads them too.
 export const PROOF_STORE = DEAL_SALT;
@@ -335,7 +338,10 @@ export const CHOICE_TIERS = {
   // best on 49% of cases. The Turnkey (6 November) pays ×3 on every word, for
   // four of the case's sorts: the choice is then sixteen sorts for a themed
   // word or twelve for any word, and his locks hold only while he is seated.
-  rich:  ['sexton', 'paramour', 'poppet', 'vulgarian', 'seadog', 'schoolmarm', 'limner', 'turnkey'],
+  // The Glossator (16 November) marks two plain sorts and pays ×3 for a word
+  // that sets both (glossFor, below): over 364 cases his best beats the other
+  // Sunday patron's on 57%, level with the Sexton.
+  rich:  ['sexton', 'paramour', 'poppet', 'vulgarian', 'seadog', 'schoolmarm', 'limner', 'turnkey', 'glossator'],
   // ×2 for a word of a given form. Four are the daily's own ×2 versions of
   // patrons that pay otherwise in the game (adapted in daily/table.js), and
   // the Herald's and the Antiquary's days are dealt what they read
@@ -543,6 +549,11 @@ function seatFor(id, deal, rng) {
   // The Turnkey's locks are his seat's, not the case's: on a Sunday the other
   // patron on offer has all sixteen sorts (bars in daily/table.js).
   if (id === 'turnkey') seat.data.locks = [...turnkeyLocks(deal, rng)].sort((a, b) => a - b);
+  // The Glossator's two marked sorts, and their letters for his card.
+  if (id === 'glossator') {
+    seat.data.marks = glossFor(deal, rng);
+    seat.data.letters = seat.data.marks.map(i => deal.tiles.find(t => t.id === i).letter);
+  }
   if (id === 'counterfeiter') seat.adds = { letter: '_', counterfeit: true, blank: true };
   // The Shorthair's RAT, one sort for three letters, as the game's Rat Catcher casts it.
   if (id === 'shorthair') seat.adds = { letter: 'RAT' };
@@ -726,6 +737,21 @@ export function limnerLetter(deal, rng) {
   const singles = [...new Set(deal.tiles.map(t => t.letter).filter(L => /^[A-Z]$/.test(L)))];
   const banded = singles.filter(L => LIMNER_LETTERS.includes(L));
   return pick(rng, banded.length ? banded : singles);
+}
+
+// The Glossator's two sorts: plain lead, by the game's rule (glossMarks in
+// js/constants.js) — a consonant, then any other letter, no S and no second E.
+// Plain, since a dressed sort already pays its own way and a mark on it would
+// only add to that; and never a sort the tube offers, which may not stay plain.
+// All but two cases in two years held two letters of the kind; on those, any
+// two single letters of the case.
+export const glossPlain = t => /^[A-Z]$/.test(t.letter) && t.letterType === 'normal' && !t.colour && !t.trim
+  && !t.nick && !t.material && !t.blank && !t.ephemeral && !t.counterfeit && !t.wrapped
+  && !t.bonusPoints && !t.paintOffer;
+export function glossFor(deal, rng) {
+  return glossMarks(deal.tiles, { eligible: glossPlain, rng })
+    ?? glossMarks(deal.tiles, { eligible: t => /^[A-Z]$/.test(t.letter) && !t.blank && !t.ephemeral, rng })
+    ?? [];
 }
 
 export function monogramFor(deal, rng) {

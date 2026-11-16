@@ -272,6 +272,10 @@ export const PATRON_CARDS = {
     name: 'The Powdermonkey', emoji: '🎇', rarity: 'uncommon', cost: 7, guild: 'crimson',
     desc: 'Keeps one tile of your hand primed to act as Squib lead, marking a fresh one whenever the hand changes.',
   },
+  glossator: {
+    name: 'The Glossator', emoji: '👉', rarity: 'uncommon', cost: 5,
+    desc: 'Marks two tiles of your hand, afresh whenever it changes. ×{GLOSSATOR_MULT} Mult for a word using both.',
+  },
   serpent: {
     name: 'The Serpent', emoji: '🐍', rarity: 'uncommon', cost: 7, guild: 'crimson',
     desc: 'Every S is worth +{SERPENT_POINTS} Points. A word ending in S gets ×2 Mult as well — and then, a {SERPENT_EAT_CHANCE} chance he swallows that last S.',

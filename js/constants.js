@@ -984,6 +984,43 @@ export const ESPALIER_STEP      = 2;      // permanent Points per tile of a two-
 // crimson tile that goes in: his ×Mult is STOKER_BASE + STOKER_STEP per burn.
 export const STOKER_BASE        = 1.25;   // ×Mult the day he sits down, no tiles burned
 export const STOKER_STEP        = 0.25;   // permanent ×Mult per crimson tile burned
+// ─── The Glossator's marks ────────────────────────────────────────────────────
+// Two tiles marked, and a word that sets both is paid: ×2 in the game, ×3 on a
+// Sunday of the Daily Proof. The first mark is a consonant, the second any
+// letter; neither is an S, and the second is not an E either, those being the
+// letters a good word holds anyway. Measured on the daily over 364 cases
+// (README.md, "The Daily Proof"): with S and E barred, his best word beats the
+// other Sunday patron's on 57% of cases, level with the Sexton's; letting the
+// second mark be an E, 59%; any single letter at ×3, 80%.
+//
+// One picker for both modes, so the rule cannot drift: `eligible` says which
+// tiles may carry a mark (unpainted in the game, plain lead on the daily),
+// `letterOf` reads a tile's letter, and `rng` is Math.random or a seeded one.
+// Two DIFFERENT letters, so a mark never asks for a word with two of one. If a
+// hand has no tile the rule allows, the bars are lifted in turn (the second's
+// E, then the S's, then the consonant) rather than leave the seat with nothing.
+// Returns two tile ids, or null if fewer than two letters are eligible at all.
+export const GLOSSATOR = { mult: 2, dailyMult: 3, barred: 'S', barredSecond: 'E' };
+export function glossMarks(tiles, { eligible, letterOf = t => t.letter, rng = Math.random }) {
+  const pool = tiles.filter(t => eligible(t) && /^[A-Z]$/.test(letterOf(t) ?? ''));
+  const pick = a => a[Math.floor(rng() * a.length)];
+  const consonant = t => !'AEIOU'.includes(letterOf(t));
+  const notBarred = t => !GLOSSATOR.barred.includes(letterOf(t));
+  const firsts = [t => consonant(t) && notBarred(t), notBarred, () => true];
+  const seconds = [t => notBarred(t) && !GLOSSATOR.barredSecond.includes(letterOf(t)), notBarred, () => true];
+  for (const f of firsts) {
+    const a = pool.filter(f);
+    if (!a.length) continue;
+    const first = pick(a);
+    const L = letterOf(first);
+    for (const g of seconds) {
+      const b = pool.filter(t => letterOf(t) !== L && g(t));
+      if (b.length) return [first.id, pick(b).id];
+    }
+  }
+  return null;
+}
+
 // ─── The Wordler's secret word ────────────────────────────────────────────────
 // He keeps a five-letter word and marks every five-letter word you print
 // against it, Wordle's way. Print the word itself and he is upgraded for good.
@@ -1775,6 +1812,7 @@ export const KNOBS = {
   PRINCE_CROWN:  PRINCE.crown,
   WORDLER_BONUS: WORDLER.bonus,
   WORDLER_LENGTH: WORDLER.length,
+  GLOSSATOR_MULT: GLOSSATOR.mult,
   USURER_LOAN:    USURER.loan,
   USURER_OWED:    USURER.owed,
   USURER_COLLECT: USURER.collect,

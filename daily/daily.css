@@ -1228,6 +1228,17 @@ button.mode-item:hover, button.mode-item:focus-visible { background: rgba(217, 1
 /* The Turnkey's locks: the sort turned over, its foot up, as a compositor
    turned one when the letter he wanted was out — dark iron with no face to
    print — and a keyhole in brass. A sort you can't set, at a glance. */
+/* The Glossator's manicule, in rubric red, top-left (the game's .tile-gloss). */
+.tile-gloss {
+  position: absolute;
+  left: 0.28em; top: 0.14em;
+  font-size: 1.05em;
+  font-weight: 700;
+  color: #a3241a;
+  line-height: 1;
+  pointer-events: none;
+}
+
 .tile--locked {
   background:
     repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0 0.12em, rgba(255, 255, 255, 0) 0.12em 0.36em),

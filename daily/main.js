@@ -17,7 +17,7 @@ import {
   scoreWord, judge, withTool, solveCase, rankOf, bracketOf, BRACKETS, activeLetter, faceLetter,
   restingOf, ringStep, shiftable, loupeDelta, settingOf, solveWords, solvePairs, pairBest, RING,
 } from './score.js';
-import { tablesForDay, seatIdsOfDay, listsNeeded, LISTS, LIST_FILES, adoptList, PATRONS, EDITORS, spellingsFor, barred, barsAny } from './table.js';
+import { tablesForDay, seatIdsOfDay, listsNeeded, LISTS, LIST_FILES, adoptList, PATRONS, EDITORS, spellingsFor, barred, barsAny, marked } from './table.js';
 import {
   COLOURS, TRIMS, NICKS, MEDIEVAL, letterGlyph, colourDesc, SPIKE_MULT,
   LOUPE_CAP, CURSED_MULT, CURSED_PENALTY, LENGTH_MULT_MIN, lengthMult, lengthFlourish,
@@ -180,6 +180,8 @@ const seatNow = () => (S.deal.day.kind === 'choice' ? S.deal.day.choices[S.seat]
 function syncLocks() {
   const T = tableNow();
   for (const t of S.tiles) t.locked = barred(T, t.id);
+  // The Glossator's marks show while he is seated, as the locks do.
+  for (const t of S.tiles) t.glossed = marked(T, t.id);
   if (S.result || !T?.bars) return;
   S.words = S.words.map(w => w.filter(id => !barred(T, id)));
   if (S.applied && barred(T, S.applied.id)) S.applied = null;
@@ -836,6 +838,15 @@ function tileEl(t, zone, { mini = false, pays = null } = {}) {
     lip.className = `tile-nick tile-nick--${t.nick === 'right' ? 'r' : 'l'}`;
     div.appendChild(lip);
   }
+  // The Glossator's manicule, top-left, as in the game (makeTileEl in js/render.js).
+  if (t.glossed) {
+    div.classList.add('tile--glossed');
+    const hand = document.createElement('span');
+    hand.className = 'tile-gloss';
+    hand.textContent = '☞';
+    hand.setAttribute('aria-hidden', 'true');
+    div.appendChild(hand);
+  }
   if (!mini) {
     div.setAttribute('role', 'button');
     div.tabIndex = 0;
@@ -870,6 +881,7 @@ function tileLines(t) {
   if (t.louped != null && t.louped === t.activeVariant) out.push({ head: SORT_TEXT.louped });
   if (t.painted) out.push({ head: SORT_TEXT.painted });
   if (t.wrapped) out.push(SORT_TEXT.wrapped);
+  if (t.glossed) out.unshift(SORT_TEXT.glossed);
   if (t.locked) return [SORT_TEXT.locked];
   return out;
 }
@@ -1022,7 +1034,9 @@ function patronFace(p) {
   i.textContent = L;
   return i;
 }
-const patronRule = seat => fill(PATRON_TEXT[seat.id] ?? '', (seat.data?.letters ?? []).join(', ').replace(/, ([^,]*)$/, ' or $1'));
+// The day's letters: the Monogrammist's "A, B or C"; the Glossator's "K and U".
+const patronRule = seat => fill(PATRON_TEXT[seat.id] ?? '', (seat.data?.letters ?? []).join(', ')
+  .replace(/, ([^,]*)$/, seat.id === 'glossator' ? ' and $1' : ' or $1'));
 const editorRule = desk => fill(EDITOR_TEXT[desk.id].rule, desk.data.n ?? desk.data.letter ?? '');
 const editorVoice = desk => fill(EDITOR_TEXT[desk.id].voice, desk.data.n ?? desk.data.letter ?? '');
 

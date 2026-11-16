@@ -32,7 +32,7 @@
 import {
   COLOURS, LOVERS, GLOVER_STEP, TYPESETTER_STEP, TWINS_POINTS,
   SERPENT_POINTS, APPRENTICE_LENGTH, APPRENTICE_STEP, CARTOGRAPHER_MULT,
-  CARTOGRAPHER_MIN_VOWELS, isMark, EXPECTANTS_BONUS, MEDIEVAL,
+  CARTOGRAPHER_MIN_VOWELS, isMark, EXPECTANTS_BONUS, MEDIEVAL, GLOSSATOR,
 } from '../js/constants.js';
 import { isExcluded } from '../js/excluded.js';
 
@@ -233,6 +233,20 @@ export const PATRONS = {
     bind: data => {
       const L = data?.letters?.[0];
       return ({ letters, xMult }) => { if (L && letters[0] === L) xMult(3); };
+    },
+  },
+  // The game's (since 16 November), at ×3 for the Sunday choice where the game
+  // pays ×2: a word that sets both of the day's two marked sorts (glossFor in
+  // daily/deal.js). The marks are tile ids, read once at compile time, and also
+  // go into his table's `marks`, so the solver keeps a marked sort apart from
+  // its plain twin (prepareCase in daily/score.js).
+  glossator: {
+    adapted: true,
+    bind: data => {
+      const marks = data?.marks ?? [];
+      return ({ tiles, xMult }) => {
+        if (marks.length === 2 && marks.every(id => tiles.some(t => t.id === id))) xMult(GLOSSATOR.dailyMult);
+      };
     },
   },
   serpent: {
@@ -515,12 +529,15 @@ export function compileTable(seat, desk, has) {
     // The sorts nobody may set under this seat, as a bitmask of tile ids: the
     // Turnkey's locks (turnkeyLocks in daily/deal.js).
     bars: (pdata.locks ?? []).reduce((m, id) => m | (1 << id), 0),
+    // The sorts this seat has MARKED, likewise: the Glossator's two.
+    marks: (pdata.marks ?? []).reduce((m, id) => m | (1 << id), 0),
   };
 }
 
 // Whether a table bars a tile, or any of a set of tiles.
 export const barred = (T, id) => !!T?.bars && (T.bars & (1 << id)) !== 0;
 export const barsAny = (T, tiles) => !!T?.bars && tiles.some(t => barred(T, t.id));
+export const marked = (T, id) => !!T?.marks && (T.marks & (1 << id)) !== 0;
 
 // The spellings the day's licences admit beyond the dictionary (none on most days).
 export function spellingsFor(tables, words, has, tiles, tool = null) {

@@ -10,7 +10,7 @@ import {
   MAGPIE_WEIGHT, MAKO_WEIGHT,
   PURVEYOR, TUBE_CHOICES, STALLS_PER_SHOP, MARKET_TILE_OFFERS, PATRON_OFFERS,
   UPGRADE_OFFERS, PROPOSAL_RANGE,
-  LOVERS,
+  LOVERS, glossMarks,
 } from './constants.js';
 import { CHAPTER_TITLES } from './chapters.js';
 import { BOSS_DEFS, activeBoss, bossConflicts } from './bosses.js';
@@ -358,6 +358,35 @@ export function primeSquib() {
     ? pool[Math.floor(Math.random() * pool.length)].id
     : null;
   return seat.data.primed;
+}
+
+// ─── The marked tiles (The Glossator) ─────────────────────────────────────────
+// Two tiles of the hand, marked afresh whenever it changes, by the same rule
+// the Daily Proof marks its sorts with (glossMarks in js/constants.js). Kept as
+// tile ids on his seat, as the Powdermonkey keeps his charge, and checked for
+// existence before comparing for the same reason (isSquib, above).
+const glossSeat = () => allSeats().find(p => p.id === 'glossator');
+export const isGlossed = (tile) => {
+  const marks = glossSeat()?.data?.marks;
+  return !!marks && tile?.id != null && marks.includes(tile.id);
+};
+export function refreshGloss(drew) {
+  const seat = glossSeat();
+  if (!seat) return;
+  const hand = [...state.rack, ...state.word];
+  const held = !!seat.data?.marks && seat.data.marks.every(id => hand.some(t => t.id === id));
+  if (drew || !held) markGloss();
+}
+// An unpainted letter that will stay the letter it shows: no ghost, no lent or
+// wrapped tile, no ligature, no twofaced sort.
+export function markGloss() {
+  const seat = glossSeat();
+  if (!seat) return null;
+  seat.data ??= {};
+  seat.data.marks = glossMarks(state.rack, {
+    eligible: t => !isImmutable(t) && !t.colour && t.letterType !== 'dual',
+  });
+  return seat.data.marks;
 }
 
 // ─── Chapter titles ───────────────────────────────────────────────────────────
@@ -772,6 +801,7 @@ export function drawUpToRackSize() {
   // A changed hand gets a fresh charge — and so does a stale mark, which is how
   // an emptied bag would otherwise kill the seat for a page (refreshSquib).
   refreshSquib(drawn.length > 0);
+  refreshGloss(drawn.length > 0);
   return drawn;
 }
 

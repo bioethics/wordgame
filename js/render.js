@@ -7,7 +7,7 @@ import {
   effectivePatronSlots, effectiveSundrySlots, effectiveGhostSlots,
   effectiveWordsPerPage, effectiveRackSize, chapterTitle,
   sundrySelected, restingPoints, getActiveGrowth, isWrapped, shiftPreview, isSquib,
-  runDifficulty, allSeats,
+  runDifficulty, allSeats, isGlossed,
 } from './state.js';
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
@@ -15,7 +15,7 @@ import {
   colourDesc, chapterLabel, roman, isDeadline, NEOLOGIST_LENGTH, SPIKE_MULT, SILVER_BONUS,
   sundryTip, FLEURON, BATTER, TOOL_LOOK, PACKAGES, APPLICATORS, MEDIEVAL, letterGlyph,
   INTERROBANG, POSTNOM, BAG_COUNTS, BRIBRARIAN, bribeMult, isRule, RULE, BOLD_MULT,
-  lengthMult, LENGTH_MULT_MIN, RATCHET_RANGE, DEFAULT_DIFFICULTY,
+  lengthMult, LENGTH_MULT_MIN, RATCHET_RANGE, DEFAULT_DIFFICULTY, GLOSSATOR,
 } from './constants.js';
 import { patronById, guildsOf, patronName, patronShelf, patronEmoji, laurelWorth, seatTally } from './patrons.js';
 import { bossById } from './bosses.js';
@@ -104,6 +104,17 @@ export function makeTileEl(tile, zone, { mini = false, pts = null } = {}) {
     div.appendChild(alt);
   }
 
+  // The Glossator's mark: a manicule in the top-left corner, the one corner
+  // nothing else uses (the pseudo-elements are the gold trim's and the fuse's).
+  if (isGlossed(tile)) {
+    div.classList.add('tile--glossed');
+    const hand = document.createElement('span');
+    hand.className = 'tile-gloss';
+    hand.textContent = '☞';
+    hand.setAttribute('aria-hidden', 'true');
+    div.appendChild(hand);
+  }
+
   // The CSS mask does the cutting; these elements only paint the shaded lip.
   if (tile.nick) {
     const a = document.createElement('span');
@@ -171,6 +182,7 @@ export function tileFeatures(tile) {
     // the player has no way to look up.
     out.push({ head: 'Primed', body: MATERIALS.explosive.desc });
   }
+  if (isGlossed(tile)) out.push({ head: 'Marked', body: `By The Glossator: ×${GLOSSATOR.mult} Mult for a word using both marked tiles.` });
   if (tile.colour) {
     out.push({ head: `${COLOURS[tile.colour].label} paint`, body: colourDesc(tile.colour) });
   } else if (tile.wash) {
