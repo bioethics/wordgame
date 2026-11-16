@@ -1175,6 +1175,8 @@ html[data-look="bench"] .ro-total {
   font-variation-settings: 'opsz' 144;
 }
 html[data-look="bench"] .ro-total.ro-total--struck { font-size: 22px; color: #9a8a70; text-shadow: none; }
+html[data-look="bench"] .readout--unword #roTotal { color: #a39883; text-shadow: none; }
+html[data-look="bench"] .readout--word #roTotal { color: #c4531a; text-shadow: none; }
 
 /* ── The type case, the bag and the hellbox ───────────────────────────────── */
 html[data-look="bench"] .rack-row {

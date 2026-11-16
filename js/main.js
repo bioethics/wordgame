@@ -51,7 +51,7 @@ import {
   toggleGhostDrawer, closeGhostDrawer, ghostDrawerOpen, peekGhostDrawer,
   closeGhostDrawersExcept,
   showCoinWordSheet, setCoinNote, showCounterfeitSheet, showStruckTotal, showBribeSheet,
-  setStickGloss,
+  setStickGloss, setWordJudge,
 } from './render.js';
 import { loadDefs } from './defs.js';
 import { ACRONYM_GLOSSES, romanValue, numberWords } from './glosses.js';
@@ -1016,20 +1016,13 @@ const sheetUp = () =>
 
 // ─── Submit (PRINT) ───────────────────────────────────────────────────────────
 
-async function submitWord() {
-  if (state.isAnimating || sheetUp() || state.gameOver) return;
-  if (!state.word.length) return;
-  hidePopover();
-  cancelDiscardMode(true);
-  cancelSundryMode(true);
-
-  if (!dictLoaded) { log(logLine('dictLoading'), 'warn'); return; }
-
-  const reject = msg => {
-    log(msg, 'bad');
-    sfx.bad();
-    pulse($('word'), 'word-groove--reject', 420);
-  };
+// Whether the word on the stick would print, and as what: the one judgement
+// PRINT makes, and the readout shows as you set (grey for a word that would
+// be refused, orange for one that would print). Pure — it reads the stick
+// and the table and changes nothing — so it can run on every keystroke.
+// Returns null for an empty stick, { reject: line } for a word refused, or
+// { parts, pardoned, vouched, soloAlone } for one that prints.
+function judgeWord() {
   // A pair of rules brackets the word, one at each end and nowhere else. Refused
   // rather than ignored, because a rule that quietly did nothing would be a word
   // lost to a mistake the board never mentioned.
@@ -1037,10 +1030,10 @@ async function submitWord() {
   if (rules.length) {
     const ends = isRule(getActiveLetter(state.word[0]))
               && isRule(getActiveLetter(state.word[state.word.length - 1]));
-    if (rules.length === 1) return reject(logLine('ruleNeedsPair'));
-    if (rules.length > 2)   return reject(logLine('ruleTwoMost'));
-    if (!ends)              return reject(logLine('ruleBracket'));
-    if (state.word.length <= 2) return reject(logLine('ruleWantsWord'));
+    if (rules.length === 1) return { reject: logLine('ruleNeedsPair') };
+    if (rules.length > 2)   return { reject: logLine('ruleTwoMost') };
+    if (!ends)              return { reject: logLine('ruleBracket') };
+    if (state.word.length <= 2) return { reject: logLine('ruleWantsWord') };
   }
   // The rules set the word, they don't join it: they are struck from the string
   // before the dictionary — or the marks, or the fleuron — is ever asked, the
@@ -1048,20 +1041,20 @@ async function submitWord() {
   const w = rules.length
     ? state.word.filter(t => !isRule(getActiveLetter(t))).map(t => getActiveLetter(t)).join('')
     : getWordString();
-  if (!w) return;
+  if (!w) return null;
 
   // Marks ride at the end of a word, and only as ?, ! or ?!. The dictionary
   // never sees them — it's the letters in front that have to be a word.
   const parts = splitMarks(w.toUpperCase());
-  if (!parts)          return reject(logLine('marksGoLast'));
-  if (!parts.letters)  return reject(logLine('markNeedsWord'));
+  if (!parts)          return { reject: logLine('marksGoLast') };
+  if (!parts.letters)  return { reject: logLine('markNeedsWord') };
   // The ornament and the ruin decorate the page, never a word: alone they stand,
   // beside anything else they are refused before the dictionary is even asked.
   // One gate for both (SOLO_SORTS in js/constants.js), so a third would need no
   // new law here.
   const soloAlone = isSolo(parts.letters);
   if (!soloAlone && [...parts.letters].some(isSolo)) {
-    return reject(logLine(parts.letters.includes(BATTER) ? 'batterAlone' : 'fleuronAlone'));
+    return { reject: logLine(parts.letters.includes(BATTER) ? 'batterAlone' : 'fleuronAlone') };
   }
   // A medieval sort stands for ordinary letters, so the word is READ before it
   // is judged: every reading is tried, in the sort's own order, and the first
@@ -1086,11 +1079,34 @@ async function submitWord() {
         const excuse = pardonWord(r);
         if (excuse) { pardoned = excuse; parts.letters = r; break; }
       }
-      if (!pardoned) return reject(logLine('notAWord', w));
+      if (!pardoned) return { reject: logLine('notAWord', w) };
     }
   } else if (!soloAlone) {
     parts.letters = readings.find(r => DICT.has(r));
   }
+  return { parts, pardoned, vouched, soloAlone };
+}
+
+setWordJudge(() => (dictLoaded ? judgeWord() : null));
+
+async function submitWord() {
+  if (state.isAnimating || sheetUp() || state.gameOver) return;
+  if (!state.word.length) return;
+  hidePopover();
+  cancelDiscardMode(true);
+  cancelSundryMode(true);
+
+  if (!dictLoaded) { log(logLine('dictLoading'), 'warn'); return; }
+
+  const reject = msg => {
+    log(msg, 'bad');
+    sfx.bad();
+    pulse($('word'), 'word-groove--reject', 420);
+  };
+  const judged = judgeWord();
+  if (!judged) return;
+  if (judged.reject) return reject(judged.reject);
+  const { parts, pardoned, vouched, soloAlone } = judged;
 
   // What the word means, by the door it came in at (the gloss, js/render.js):
   // the dictionary's word, or the one a licence let it stand for; a name, a

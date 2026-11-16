@@ -93,7 +93,11 @@ The proof strip is the readout, above the stick: Points, then the measure and
 the four paints as stamps — struck blind while they are ×1, so the eye knows
 what could light, and inked solid in their colour when they apply, with the
 rarer tracks (purple, cursed, a squib, bold, primed) appearing only when they
-have something to say — then the total at the right. A print does not clear
+have something to say — then the total at the right, in grey while the word on
+the stick would be refused and in orange once it would print (since 16
+November; `judgeWord` in js/main.js, the same judgement PRINT makes, licences
+and pardons included, so the colour never promises a word the press then
+turns away; the daily asks its own `judge` the same way). A print does not clear
 them and light them again one by one: every stamp that will count is on the
 slip from the first frame, **outlined in its colour and not yet struck**, and
 each fills as the print reaches it, its ink blooming into the paper and drying

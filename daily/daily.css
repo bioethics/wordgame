@@ -337,7 +337,11 @@ button.mode-item:hover, button.mode-item:focus-visible { background: rgba(217, 1
 .readout:not(.readout--live) .ro-points,
 .readout:not(.readout--live) .ro-total,
 .readout:not(.readout--live) .ro-mult { color: rgba(34, 28, 22, 0.28); }
-.readout--live .ro-total { color: var(--red); }
+.readout--live .ro-total { color: var(--red); transition: color 0.16s ease-out; }
+/* Grey while the stick holds no word, orange once it does — the same judge
+   PRINT asks (renderReadout in daily/main.js). */
+.readout--live.readout--unword .ro-total { color: rgba(34, 28, 22, 0.36); }
+.readout--live.readout--word .ro-total { color: #c4531a; }
 .ro-op { font-family: var(--serif); font-size: 20px; color: var(--dim); }
 .ro-chips { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
 

@@ -1364,6 +1364,12 @@ function renderReadout(sc) {
   if (!S.printing) $('roTotal').textContent = fmtN(sc?.total ?? (S.tiles.some(t => t.material === 'cursed' && !placed(t.id)) ? -CURSED_PENALTY : 0));
   $('roMult').textContent = String(+(sc?.shownMult ?? 1).toFixed(2));
   for (const id of ['roPoints', 'roTotal', 'roMult']) $(id)._val = undefined;
+  // Grey while the stick holds no word, orange once it would print: the same
+  // judge print() asks. A printed proof was a word, so it stays orange.
+  const set = wordAndRest(S.active).word;
+  const ok = !!S.result || (set.length > 0 && judge(set, has).ok);
+  $('readout').classList.toggle('readout--word', !!sc && ok);
+  $('readout').classList.toggle('readout--unword', !!sc && !ok);
   const chips = $('roChips');
   chips.replaceChildren();
   // One stamp per track the case can light: blind at ×1, inked when lit. The

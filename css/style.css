@@ -1688,6 +1688,15 @@ button.sundry:hover { transform: translateY(-2px); }
    scores. The rule is drawn rather than text-decoration'd, so it can be given
    the editor's red and a weight that survives against 900-weight numerals. */
 .ro-total[hidden] { display: none; }
+/* The standing figure in grey while the word on the stick would be refused,
+   in orange once the dictionary (or a licence) would take it: judgeWord in
+   js/main.js, set as classes by updateReadoutPreview. */
+#roTotal { transition: color calc(0.16s / var(--aspd, 1)) ease-out; }
+.readout--unword #roTotal { color: #8d8576; text-shadow: none; }
+.readout--word #roTotal {
+  color: #f39a3a;
+  text-shadow: 0 0 20px rgba(243, 154, 58, 0.45), 0 2px 4px rgba(0, 0, 0, 0.6);
+}
 .ro-total.ro-total--struck {
   position: relative;
   font-size: 27px;

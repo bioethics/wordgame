@@ -1534,10 +1534,21 @@ export function renderCounts() {
 // Primed likewise — nothing arms one until a seat that does is at the table.
 export const CHIP_COLOURS = ['length', ...Object.keys(COLOURS), 'purple', 'cursed', 'explosive', 'bold', 'primed'];
 
+// Whether the stick holds a word that would print: judgeWord in js/main.js,
+// handed in here (render.js can't import main.js, which imports it). Returns
+// null while there is nothing to judge or no dictionary yet to judge it by.
+let wordJudge = () => null;
+export function setWordJudge(f) { wordJudge = f; }
+
 export function updateReadoutPreview(script) {
   const ro = $('readout');
   if (!ro) return;
   ro.classList.toggle('readout--idle', !script);
+  // The total in grey while the word would be refused, in orange once it would
+  // print — the same judgement PRINT makes, licences and pardons included.
+  const verdict = script ? wordJudge() : null;
+  ro.classList.toggle('readout--word', !!verdict && !verdict.reject);
+  ro.classList.toggle('readout--unword', !!verdict?.reject);
   // Where the last seats are stamps, the Points figure stops where they begin
   // (pass 4's stamps, js/scoring.js) — Points × every chip and stamp = total.
   setNum($('roPoints'), script ? (script.stampedPoints ?? script.points) : 0);
