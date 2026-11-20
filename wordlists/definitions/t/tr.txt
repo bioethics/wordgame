@@ -707,6 +707,8 @@ triers	TRIER: one who tries
 tries	TRY: make an effort or attempt
 trifecta	a bet picking the first three finishers in order
 trifectas	TRIFECTA: a bet picking the first three finishers in order
+triffid	a fictional walking, stinging plant from John Wyndham's novel The Day of the Triffids
+triffids	TRIFFID: a fictional walking, stinging plant from John Wyndham's novel The Day of the Triffids
 trifle	something of small importance
 trifled	TRIFLE: something of small importance
 trifler	one who behaves lightly or not seriously

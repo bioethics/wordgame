@@ -76409,6 +76409,8 @@ triers
 tries
 trifecta
 trifectas
+triffid
+triffids
 trifle
 trifled
 trifler
