@@ -15,7 +15,7 @@ import {
   moveRackToWord, moveWordToRack,
   reorderWord, reorderRack, reorderPatrons,
   toggleSelected, toggleSundrySelect, toggleDualVariant, sundrySelected,
-  caretIndex, setCaret,
+  caretIndex, setCaret, kneeTaken,
 } from './state.js';
 import { renderAll, renderWord, showTilePopover, showPopover, hidePopover, log } from './render.js';
 import { sfx } from './anim.js';
@@ -320,6 +320,8 @@ export function initKneeDrag() {
     kneePress = { pointerId: e.pointerId, el: knee };
     knee.setPointerCapture?.(e.pointerId);
     knee.classList.add('knee--held');
+    knee.classList.remove('knee--new');
+    kneeTaken();
     sfx.lift();
   });
 

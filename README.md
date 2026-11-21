@@ -72,7 +72,8 @@ before it, the knee stepping on after each sort; Backspace lifts the sort
 behind it. It moves only between sorts, a notch at a time, and the word parts
 to let it in. The place is kept as the tile it stands before (`state.caretId`,
 `caretIndex` in `js/state.js`; the gesture is `initKneeDrag` in `js/drag.js`),
-so a print or a clear returns it to the end without being told. Retro has no
+so a print or a clear returns it to the end without being told. Until it has been moved once, ever (`settings.kneeUsed`), it pulses
+beside any word in the stick, since nothing else says it can be taken hold of. Retro has no
 knee and always sets at the end. The manuscript sheet is the status — chapter, folio, quota, and
 the words of the page on ruled lines, with the word pips as the lines' bullets.
 

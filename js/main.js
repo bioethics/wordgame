@@ -8,7 +8,7 @@ import {
   state, settings, loadSettings, saveSettings, loadState, clearSave,
   newRun, startPage, drawUpToRackSize, clearWord, shuffleRack,
   discardSelected, discardSundry, getWordString, moveRackToWord, moveWordToRack,
-  caretIndex, setCaret, owns, allSeats,
+  caretIndex, setCaret, kneeTaken, owns, allSeats,
   effectiveGhostSlots, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected, takePaintEchoes,
   rollTubeOffer, applyWash, washOff, effectiveSundrySlots, takeGhostEchoes,
@@ -1755,7 +1755,7 @@ document.addEventListener('keydown', e => {
     e.preventDefault();
     const at = caretIndex();
     const to = Math.max(0, Math.min(state.word.length, at + step));
-    if (to !== at) { setCaret(to); sfx.reorder(); renderWord(); }
+    if (to !== at) { setCaret(to); kneeTaken(); sfx.reorder(); renderWord(); }
     return;
   }
 

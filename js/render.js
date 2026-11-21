@@ -1358,7 +1358,9 @@ function renderRule(script, placed, kneeAt = placed.length) {
   knee.style.left = `${behind ? origin + behind.offsetLeft + behind.offsetWidth + 4 : origin + padL - 3}px`;
   knee.classList.toggle('knee--off', !oneRow);
   knee.classList.toggle('knee--idle', !placed.length);
-  knee.classList.toggle('knee--back', kneeAt < placed.length);
+  // Until it has been moved once, it asks to be: only beside a word, since an
+  // empty stick gives it nowhere to go.
+  knee.classList.toggle('knee--new', !settings.kneeUsed && placed.length > 0);
 }
 
 // ─── The gloss ────────────────────────────────────────────────────────────────
