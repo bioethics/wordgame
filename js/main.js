@@ -7,7 +7,8 @@
 import {
   state, settings, loadSettings, saveSettings, loadState, clearSave,
   newRun, startPage, drawUpToRackSize, clearWord, shuffleRack,
-  discardSelected, discardSundry, getWordString, moveRackToWord, owns, allSeats,
+  discardSelected, discardSundry, getWordString, moveRackToWord, moveWordToRack,
+  caretIndex, setCaret, owns, allSeats,
   effectiveGhostSlots, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected, takePaintEchoes,
   rollTubeOffer, applyWash, washOff, effectiveSundrySlots, takeGhostEchoes,
@@ -66,7 +67,7 @@ import {
   pulse, sparkleBurst, sfx, applySpeedCSS, speechBubble, flourishTime,
   snapTiles, flipTiles, pacer,
 } from './anim.js';
-import { initInput, initInspect, initShelfDrag } from './drag.js';
+import { initInput, initInspect, initShelfDrag, initKneeDrag } from './drag.js';
 import {
   initAppearance, activeLook,
   setTheme, setLayout, setLook, setUiScale,
@@ -1741,9 +1742,20 @@ document.addEventListener('keydown', e => {
 
   if (e.key === 'Backspace') {
     e.preventDefault();
-    const t = state.word.pop();
-    if (t) { state.rack.push(t); sfx.retrieve(); }
+    // The sort behind the knee, which is the last one unless the knee was moved.
+    const t = state.word[caretIndex() - 1];
+    if (t) { moveWordToRack(t.id); sfx.retrieve(); }
     renderAll();
+    return;
+  }
+
+  // The knee, from the keyboard: a sort at a time, or to either end of the line.
+  const step = { ArrowLeft: -1, ArrowRight: 1, Home: -Infinity, End: Infinity }[e.key];
+  if (step && state.word.length) {
+    e.preventDefault();
+    const at = caretIndex();
+    const to = Math.max(0, Math.min(state.word.length, at + step));
+    if (to !== at) { setCaret(to); sfx.reorder(); renderWord(); }
     return;
   }
 
@@ -2872,6 +2884,7 @@ function openTheChamber() {
   initInput({ spendArmedSundry, spendsOnPick, onSundryPick });
   initInspect();
   initShelfDrag();
+  initKneeDrag();
   initSheets({ nextPage: beginNextPage, beginRun, openMarket: openTheMarket,
              openBlackMarket: openTheBlackMarket, leaveChamber,
              chamberFromStart, backToStart });

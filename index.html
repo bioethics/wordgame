@@ -176,11 +176,12 @@
 
     <!-- Word groove — in the bench look, the composing stick. The scale and
          the knee are drawn by renderRule (js/render.js); the wrap dissolves
-         in retro, which hides both. -->
+         in retro, which hides both. The knee is dragged along the stick
+         (initKneeDrag in js/drag.js); its grip is the room a thumb needs. -->
     <div class="groove-wrap">
       <div id="word" class="word-groove" role="list" aria-label="Current word" data-placeholder="compose a word…"></div>
       <div id="wordRule" class="rule-bar" aria-hidden="true"></div>
-      <div id="wordKnee" class="knee" aria-hidden="true"></div>
+      <div id="wordKnee" class="knee" aria-hidden="true"><span class="knee-grip"></span></div>
     </div>
 
     <!-- Bag · rack · tray -->

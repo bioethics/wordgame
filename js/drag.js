@@ -6,6 +6,7 @@
 //   drag       move/reorder tiles between rack and word
 //   long-press inspect a tile (popover with its effects; flip button for duals)
 //   right-click flip a dual tile directly (desktop)
+//   drag the knee  move where the next sort is set (the bench look)
 //
 // The patron shelf takes the same gesture at the bottom of this file.
 
@@ -14,8 +15,9 @@ import {
   moveRackToWord, moveWordToRack,
   reorderWord, reorderRack, reorderPatrons,
   toggleSelected, toggleSundrySelect, toggleDualVariant, sundrySelected,
+  caretIndex, setCaret,
 } from './state.js';
-import { renderAll, showTilePopover, showPopover, hidePopover, log } from './render.js';
+import { renderAll, renderWord, showTilePopover, showPopover, hidePopover, log } from './render.js';
 import { sfx } from './anim.js';
 import { uiZoom } from './appearance.js';
 import { logLine } from './text.js';
@@ -221,7 +223,7 @@ export function initInput({ spendArmedSundry, spendsOnPick, onSundryPick } = {})
   for (const container of [rackEl, wordEl]) {
     container.addEventListener('pointerdown', e => {
       const tileEl = e.target.closest('.tile');
-      if (!tileEl || press || blocked()) return;
+      if (!tileEl || press || kneePress || blocked()) return;
       if (e.button !== undefined && e.button !== 0) return;   // primary only
 
       e.preventDefault();   // no text selection / native gestures on tiles
@@ -275,6 +277,70 @@ export function initInput({ spendArmedSundry, spendsOnPick, onSundryPick } = {})
     releasePress(false);
     renderAll();
   });
+}
+
+
+// ─── The knee (drag it along the stick to set sorts somewhere else) ────────────
+// The knee marks where a tapped or typed sort goes in (caretIndex in state.js).
+// It does not ride under the finger: it stands only where a sort could be set,
+// so it steps from gap to gap as the pointer passes each tile's middle, and the
+// word parts to let it in — where it is standing mid-drag is where it stays.
+// Parting shifts every later tile right by the knee's width, which moves the
+// middle just crossed further behind the pointer: the step can't chatter.
+
+let kneePress = null;   // { pointerId, el }
+
+// Counted in tiles that are in state.word — the Twins' phantoms carry no id.
+function kneeIndexAt(wordEl, clientX) {
+  const tiles = [...wordEl.querySelectorAll('.tile[data-id]')];
+  let i = 0;
+  for (const t of tiles) {
+    const b = t.getBoundingClientRect();
+    if (clientX > b.left + b.width / 2) i++;
+  }
+  return i;
+}
+
+function endKneePress() {
+  if (!kneePress) return;
+  kneePress.el.classList.remove('knee--held');
+  kneePress = null;
+}
+
+export function initKneeDrag() {
+  const knee = document.getElementById('wordKnee');
+  const wordEl = document.getElementById('word');
+  if (!knee || !wordEl) return;
+
+  knee.addEventListener('pointerdown', e => {
+    if (kneePress || press || blocked() || !state.word.length) return;
+    if (e.button !== undefined && e.button !== 0) return;
+    e.preventDefault();
+    hidePopover();
+    kneePress = { pointerId: e.pointerId, el: knee };
+    knee.setPointerCapture?.(e.pointerId);
+    knee.classList.add('knee--held');
+    sfx.lift();
+  });
+
+  window.addEventListener('pointermove', e => {
+    if (!kneePress || e.pointerId !== kneePress.pointerId) return;
+    if (blocked()) { endKneePress(); return; }
+    const idx = kneeIndexAt(wordEl, e.clientX);
+    if (idx === caretIndex()) return;
+    setCaret(idx);
+    sfx.reorder();
+    if (navigator.vibrate) navigator.vibrate(6);
+    renderWord();
+  });
+
+  const done = e => {
+    if (!kneePress || e.pointerId !== kneePress.pointerId) return;
+    endKneePress();
+    renderAll();        // and the save, which keeps the knee's place
+  };
+  window.addEventListener('pointerup', done);
+  window.addEventListener('pointercancel', done);
 }
 
 

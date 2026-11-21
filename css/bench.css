@@ -977,28 +977,93 @@ html[data-look="bench"] .tick-label.tick--here {
   color: var(--bn-red);
   text-shadow: 0 0 6px rgba(255, 245, 210, 0.6);
 }
-/* The knee: a steel block that closes on the word's end. */
+/* The knee: a steel bar that closes on the word's end, and marks where the
+   next sort is set. It can be drawn back along the stick (initKneeDrag in
+   js/drag.js), and the sort it then stands before is parted from its neighbour
+   by the knee's own width to let it in. */
+html[data-look="bench"] .groove-wrap { --bn-knee-w: 18px; }
+html[data-look="bench"] .word-groove .knee-next { margin-left: var(--bn-knee-w); }
 html[data-look="bench"] .knee {
   display: block;
   position: absolute;
   top: 5px;
-  width: 18px;
+  width: var(--bn-knee-w);
   height: calc(var(--tile-h) + 14px);
-  border-radius: 2px;
-  background: linear-gradient(90deg, #c8cfd6, var(--bn-steel) 45%, var(--bn-steel-dk));
-  box-shadow: 0 0 0 1px rgba(30, 30, 30, 0.6), 2px 3px 8px rgba(0, 0, 0, 0.5);
-  transition: left calc(0.22s / var(--aspd)) cubic-bezier(.2, .8, .3, 1);
-  pointer-events: none;
+  border-radius: 3px 3px 2px 2px;
+  background:
+    /* the chamfer on the face that closes on the type */
+    linear-gradient(90deg, rgba(255, 255, 255, 0.9) 0 1.5px, transparent 1.5px),
+    /* light down its length, and the shade where it meets the stick */
+    linear-gradient(180deg, rgba(255, 255, 255, 0.4), transparent 20%, transparent 68%, rgba(0, 0, 0, 0.28)),
+    /* the bar itself, turned */
+    linear-gradient(90deg, #e3e8ec, #bcc4cb 28%, var(--bn-steel) 55%, var(--bn-steel-dk));
+  box-shadow:
+    0 0 0 1px rgba(24, 26, 30, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    inset -1px 0 0 rgba(0, 0, 0, 0.3),
+    2px 3px 8px rgba(0, 0, 0, 0.5);
+  transition:
+    left calc(0.22s / var(--aspd)) cubic-bezier(.2, .8, .3, 1),
+    transform calc(0.12s / var(--aspd)) ease,
+    box-shadow calc(0.12s / var(--aspd)) ease,
+    filter calc(0.12s / var(--aspd)) ease;
+  cursor: ew-resize;
+  touch-action: none;             /* the gesture draws the knee, not the page */
+  -webkit-user-select: none; user-select: none;
+  -webkit-tap-highlight-color: transparent;
   z-index: 2;
 }
 /* A word wrapped to a second row has no end for the knee to close on. */
 html[data-look="bench"] .knee--off { display: none; }
+/* An empty stick has one place to stand, and nothing to take hold of. */
+html[data-look="bench"] .knee--idle { pointer-events: none; }
+/* The clamp screw at its head, slotted. */
 html[data-look="bench"] .knee::after {
   content: '';
-  position: absolute; left: 5px; top: 8px;
-  width: 8px; height: 8px;
+  position: absolute; left: 50%; top: 7px;
+  width: 10px; height: 10px;
+  margin-left: -5px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #fff, #7a828a 70%);
+  background:
+    linear-gradient(115deg, transparent 43%, rgba(20, 22, 26, 0.75) 43% 57%, transparent 57%),
+    radial-gradient(circle at 35% 30%, #fff, #b3bbc3 45%, #666f78);
+  box-shadow: 0 0 0 1px rgba(20, 22, 26, 0.45), 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+/* Knurling at the waist, where a thumb goes. */
+html[data-look="bench"] .knee::before {
+  content: '';
+  position: absolute; left: 3px; right: 3px; top: 50%;
+  height: 26px;
+  margin-top: -9px;
+  border-radius: 1px;
+  background: repeating-linear-gradient(180deg,
+    rgba(20, 24, 30, 0.6) 0 1px, rgba(255, 255, 255, 0.6) 1px 2px, transparent 2px 4px);
+}
+/* The room a thumb needs: a little either side of the bar, where it gives up
+   a sliver of the sorts beside it, and a good deal more down over the scale,
+   where nothing else answers a touch. */
+html[data-look="bench"] .knee-grip {
+  position: absolute;
+  inset: -5px -8px -6px;
+}
+html[data-look="bench"] .knee-grip::after {
+  content: '';
+  position: absolute;
+  left: -12px; right: -12px; top: 100%;
+  height: 40px;
+}
+/* In the hand: lifted off the brass, and quicker between sorts. */
+html[data-look="bench"] .knee--held {
+  transform: translateY(-2px) scale(1.05);
+  filter: brightness(1.1);
+  box-shadow:
+    0 0 0 1px rgba(24, 26, 30, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset -1px 0 0 rgba(0, 0, 0, 0.3),
+    0 0 0 3px rgba(255, 244, 214, 0.28),
+    4px 9px 14px rgba(0, 0, 0, 0.6);
+  transition-duration: calc(0.1s / var(--aspd));
+  cursor: grabbing;
 }
 
 /* ── The proof strip ──────────────────────────────────────────────────────────
@@ -1479,8 +1544,10 @@ html[data-look="bench"] .log {
     padding: 10px 10px 36px;
     gap: 6px;
   }
-  html[data-look="bench"] .knee { top: 3px; width: 12px; }
-  html[data-look="bench"] .knee::after { left: 3px; width: 6px; height: 6px; }
+  html[data-look="bench"] .groove-wrap { --bn-knee-w: 12px; }
+  html[data-look="bench"] .knee { top: 3px; }
+  html[data-look="bench"] .knee::after { top: 5px; width: 7px; height: 7px; margin-left: -3.5px; }
+  html[data-look="bench"] .knee::before { left: 2px; right: 2px; height: 18px; margin-top: -6px; }
   html[data-look="bench"] .rule-bar { height: 36px; }
   html[data-look="bench"] .tick-label { font-size: 10.5px; bottom: 20px; }
   html[data-look="bench"] .rack-row { grid-template-columns: 1fr 1fr; gap: 6px; }

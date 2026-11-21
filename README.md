@@ -64,7 +64,16 @@ reaches *is* the length multiplier, and the steel knee closes on the word's
 end. The marks are re-cut for the word in the groove rather than engraved once,
 because the measure counts letters where the stick holds tiles: a þ or a CH is
 one sort of two letters, so every tick says what the word would be worth if it
-ended there. The manuscript sheet is the status — chapter, folio, quota, and
+ended there. The knee is also where the next sort is set (since 21 November):
+it rests at the word's end, and it can be taken hold of and drawn back along
+the stick — by a thumb, a mouse, or ← → Home End — so a word can be built from
+its ending. Set IED, draw the knee to the head of the line, and TR goes in
+before it, the knee stepping on after each sort; Backspace lifts the sort
+behind it. It moves only between sorts, a notch at a time, and the word parts
+to let it in. The place is kept as the tile it stands before (`state.caretId`,
+`caretIndex` in `js/state.js`; the gesture is `initKneeDrag` in `js/drag.js`),
+so a print or a clear returns it to the end without being told. Retro has no
+knee and always sets at the end. The manuscript sheet is the status — chapter, folio, quota, and
 the words of the page on ruled lines, with the word pips as the lines' bullets.
 
 **The gloss** (since 7 November). Once a word is printed and gone to the page,
@@ -1588,7 +1597,7 @@ bigger step than the last and a built press has to multiply rather than add:
 | `js/appearance.js` | the look (the Bench or Retro), the room (theme), the table's layout, and the UI scale — `LOOKS`, `THEMES`, `LAYOUTS`, auto-fit, and `uiZoom()`, the factor every rect-to-style write divides by |
 | `css/bench.css`, `css/bench-sheets.css` | the Bench look — the board, and the sheets — every rule scoped to `html[data-look="bench"]` over `css/style.css`, which is Retro whole |
 | `js/main.js` | orchestration: submit cinematic, page/chapter flow, input, settings |
-| `js/drag.js` | pointer input: tap / drag / long-press for rack, word and the patron shelf (where a drag reseats a patron, changing the order effects fire in), mouse and touch alike |
+| `js/drag.js` | pointer input: tap / drag / long-press for rack, word and the patron shelf (where a drag reseats a patron, changing the order effects fire in), and the stick's knee (where a drag moves the place the next sort is set), mouse and touch alike |
 | `js/dict.js` | dictionary loading/caching (also reads a `window.FOLIO_WORDLIST` global, for single-file bundles) |
 | `js/themes.js` | the themed lists in `wordlists/` — registers, parts of speech, acronyms and names — as Sets, and the one table of paths every list is found through (also reads a `window.FOLIO_THEMES` global, for single-file bundles) |
 | `js/excluded.js` | the barred-words list, loaded before any word list and applied by `dict.js` and `themes.js` as they build their Sets |

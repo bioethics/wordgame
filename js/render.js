@@ -8,6 +8,7 @@ import {
   effectiveWordsPerPage, effectiveRackSize, chapterTitle,
   sundrySelected, restingPoints, getActiveGrowth, isWrapped, shiftPreview, isSquib,
   runDifficulty, allSeats, isGlossed, isLocked,
+  caretIndex,
 } from './state.js';
 import {
   TILE_POINTS, TRIMS, NICKS, COLOURS, LIGATURES, isMark, MATERIALS,
@@ -1216,8 +1217,11 @@ function reserveHand() {
 const FIT_FLOOR = 0.4;
 function fitWord(el) {
   const cs = getComputedStyle(el);
+  // A knee standing inside the word parts it by a margin the fit must leave.
+  const parted = el.querySelector('.knee-next');
   const inner = el.clientWidth
-    - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
+    - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0)
+    - (parted ? parseFloat(getComputedStyle(parted).marginLeft) || 0 : 0);
   const root = getComputedStyle(document.documentElement);
   const tileW = parseFloat(root.getPropertyValue('--tile-w')) || 0;
   const tileH = parseFloat(root.getPropertyValue('--tile-h')) || 0;
@@ -1285,8 +1289,9 @@ if (typeof window !== 'undefined') {
 // marks are cut for the word in the groove rather than engraved once, because
 // the measure counts LETTERS where the stick holds tiles: a þ or a CH is one
 // sort of two letters, a mark is a sort of none. Each tick therefore says what
-// the word would be worth if it ended there, and the knee closes on what it is
-// worth now. The scale runs the whole length of the stick — every em that fits,
+// the word would be worth if it ended there, and the lit one is what it is
+// worth now. The knee rests at the word's end and marks where the next sort is
+// set; drawn back along the stick (js/drag.js) it stands inside the word. The scale runs the whole length of the stick — every em that fits,
 // not eight past the word — so the marks a word could reach are all in view
 // before it starts; a sort added lights a tick, it never conjures one. Retro
 // hides the scale and the knee, and nothing here is measured.
@@ -1303,7 +1308,7 @@ const measureOf = tile => {
   return MEDIEVAL[L]?.reads?.[0]?.length ?? L.length;
 };
 
-function renderRule(script, placed) {
+function renderRule(script, placed, kneeAt = placed.length) {
   const bar = $('wordRule'), knee = $('wordKnee'), word = $('word');
   if (!bar || !knee || !word) return;
   if (!benchOn()) { bar.innerHTML = ''; return; }
@@ -1347,9 +1352,13 @@ function renderRule(script, placed) {
   }
   bar.innerHTML = ticks.join('');
 
-  const last = placed[placed.length - 1]?.el;
-  knee.style.left = `${last ? origin + last.offsetLeft + last.offsetWidth + 4 : origin + padL - 3}px`;
+  // The knee closes on the sort it stands behind: the last, until it is drawn
+  // back along the stick. It can only be taken hold of with a word to move in.
+  const behind = placed[kneeAt - 1]?.el;
+  knee.style.left = `${behind ? origin + behind.offsetLeft + behind.offsetWidth + 4 : origin + padL - 3}px`;
   knee.classList.toggle('knee--off', !oneRow);
+  knee.classList.toggle('knee--idle', !placed.length);
+  knee.classList.toggle('knee--back', kneeAt < placed.length);
 }
 
 // ─── The gloss ────────────────────────────────────────────────────────────────
@@ -1505,16 +1514,28 @@ export function renderWord(script = computeScore(state.word)) {
     const box = haloed(tileEl, tile);
     el.appendChild(box);
     placed.push({ tile, el: box });
+    return box;
   };
+  // The knee is the bench's alone: retro has nothing to draw it back with, so
+  // there it rests at the word's end. `kneeAt` is its place among `placed`,
+  // which counts the Twins' phantoms where state.word does not; the box it
+  // stands before is parted from its neighbour to let it in (.knee-next).
+  if (!benchOn()) state.caretId = null;
+  const caret = caretIndex();
+  let kneeAt = -1;
   for (let i = 0; i <= state.word.length; i++) {
     const su = summonsAt.get(i);
     if (su) place(su, phantomTwinEl(su));
-    if (state.word[i]) place(state.word[i], wordTileEl(state.word[i]));
+    if (state.word[i]) {
+      const box = place(state.word[i], wordTileEl(state.word[i]));
+      if (i === caret) { kneeAt = placed.length - 1; box.classList.add('knee-next'); }
+    }
   }
+  if (kneeAt < 0) kneeAt = placed.length;
   _lastWordPts = nowPts;
   if (benchOn()) fitWord(el);
   reserveHand();
-  renderRule(script, placed);
+  renderRule(script, placed, kneeAt);
 
   updateReadoutPreview(script);
 }

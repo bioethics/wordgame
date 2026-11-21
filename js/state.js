@@ -156,6 +156,7 @@ export const state = {
   bag:  [],         // template[] — undrawn tiles this page
   rack: [],         // tile[]
   word: [],         // tile[]
+  caretId: null,    // the word tile the knee stands before; null = the word's end (caretIndex)
   discardPile: [],  // tile[]    — printed or discarded this page
 
   chapter: 1,
@@ -887,6 +888,7 @@ export function castMarkTile() {
 }
 
 export function clearWord() {
+  state.caretId = null;
   state.rack.push(...state.word.splice(0));
 }
 
@@ -1655,21 +1657,50 @@ export function paintRandomTiles(colour, count) {
 
 // ─── Tile movement ────────────────────────────────────────────────────────────
 
+// ─── The knee ─────────────────────────────────────────────────────────────────
+// Where the next sort is set. The bench's knee can be drawn back along the
+// stick (drag.js), so a word can be built from its ending backwards: set IED,
+// draw the knee to the head of the line, and TR goes in before it. The place is
+// kept as the id of the tile the knee stands BEFORE, not as an index, so every
+// hand that touches state.word — a print, a clear, a patron lifting a sort —
+// leaves it somewhere true without being told about it: a sort set at the knee
+// goes in before the anchor, which is the knee stepping on; an anchor that has
+// left the word is the knee back at the end, where it rests (null).
+export function caretIndex() {
+  if (state.caretId == null) return state.word.length;
+  const i = state.word.findIndex(t => t.id === state.caretId);
+  if (i < 0) { state.caretId = null; return state.word.length; }
+  return i;
+}
+
+export function setCaret(idx) {
+  state.caretId = state.word[Math.max(0, idx)]?.id ?? null;
+}
+
 // Returns false for a tile that can't be set: one the Turnkey has locked.
+// With no place named, the sort goes in at the knee.
 export function moveRackToWord(id, insertIdx) {
   const i = state.rack.findIndex(t => t.id === id);
   if (i < 0) return false;
   if (isLocked(state.rack[i])) return false;
+  const at = insertIdx ?? caretIndex();
   const [tile] = state.rack.splice(i, 1);
   tile.selected = false;
-  state.word.splice(insertIdx ?? state.word.length, 0, tile);
+  state.word.splice(at, 0, tile);
   return true;
+}
+
+// The tile the knee stands before is leaving its place: the knee keeps its
+// own, before whatever stood next.
+function unanchor(tile, i) {
+  if (tile.id === state.caretId) state.caretId = state.word[i]?.id ?? null;
 }
 
 export function moveWordToRack(id, insertIdx) {
   const i = state.word.findIndex(t => t.id === id);
   if (i < 0) return;
   const [tile] = state.word.splice(i, 1);
+  unanchor(tile, i);
   state.rack.splice(insertIdx ?? state.rack.length, 0, tile);
 }
 
@@ -1677,6 +1708,7 @@ export function reorderWord(id, insertIdx) {
   const i = state.word.findIndex(t => t.id === id);
   if (i < 0) return;
   const [tile] = state.word.splice(i, 1);
+  unanchor(tile, i);
   state.word.splice(insertIdx > i ? insertIdx - 1 : insertIdx, 0, tile);
 }
 
