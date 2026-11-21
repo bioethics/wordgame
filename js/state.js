@@ -127,9 +127,6 @@ export const settings = {
   // it is fixed once the run begins. This is only what the prospectus opens on,
   // so a player who wants the gentler book is not asked to say so every time.
   difficulty: DEFAULT_DIFFICULTY,   // a key of DIFFICULTIES in js/constants.js
-  // Whether the stick's knee has ever been moved. Until it has, it pulses
-  // beside any word in the stick: nothing else says it can be taken hold of.
-  kneeUsed: false,
 };
 
 export function loadSettings() {
@@ -145,7 +142,6 @@ export function loadSettings() {
     if (typeof s.uiScale === 'number')   settings.uiScale = Math.min(1.75, Math.max(0.85, s.uiScale));
     else if (s.uiScale === 'auto')       settings.uiScale = 'auto';
     if (typeof s.difficulty === 'string') settings.difficulty = difficultyKey(s.difficulty);
-    if (typeof s.kneeUsed === 'boolean') settings.kneeUsed = s.kneeUsed;
   } catch { /* defaults */ }
 }
 
@@ -1675,14 +1671,6 @@ export function caretIndex() {
   const i = state.word.findIndex(t => t.id === state.caretId);
   if (i < 0) { state.caretId = null; return state.word.length; }
   return i;
-}
-
-// The first time the knee is taken up, by hand or by key, is the last time it
-// has to ask (settings.kneeUsed; the pulse is .knee--new in css/bench.css).
-export function kneeTaken() {
-  if (settings.kneeUsed) return;
-  settings.kneeUsed = true;
-  saveSettings();
 }
 
 export function setCaret(idx) {

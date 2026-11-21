@@ -965,6 +965,9 @@ function renderSundries() {
       slot.innerHTML = `<span class="sundry-empty-mark">✒</span>`;
     }
     tagSlot(slot, s);
+    // Never yet tapped (`seen`, set by the workbench's click in main.js): it
+    // breathes until it is, so a tool bought and forgotten says it is there.
+    if (s && !s.seen && slot.dataset.sundry != null) slot.classList.add('sundry--new');
     if (s) tagDiscard(slot, s, i);
     bench.appendChild(slot);
   }
@@ -1358,9 +1361,6 @@ function renderRule(script, placed, kneeAt = placed.length) {
   knee.style.left = `${behind ? origin + behind.offsetLeft + behind.offsetWidth + 4 : origin + padL - 3}px`;
   knee.classList.toggle('knee--off', !oneRow);
   knee.classList.toggle('knee--idle', !placed.length);
-  // Until it has been moved once, it asks to be: only beside a word, since an
-  // empty stick gives it nowhere to go.
-  knee.classList.toggle('knee--new', !settings.kneeUsed && placed.length > 0);
 }
 
 // ─── The gloss ────────────────────────────────────────────────────────────────

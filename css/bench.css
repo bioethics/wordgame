@@ -981,7 +981,7 @@ html[data-look="bench"] .tick-label.tick--here {
    next sort is set. It can be drawn back along the stick (initKneeDrag in
    js/drag.js), and the sort it then stands before is parted from its neighbour
    by the knee's own width to let it in. */
-html[data-look="bench"] .groove-wrap { --bn-knee-w: 18px; }
+html[data-look="bench"] .groove-wrap { --bn-knee-w: 15px; }
 html[data-look="bench"] .word-groove .knee-next { margin-left: var(--bn-knee-w); }
 html[data-look="bench"] .knee {
   display: block;
@@ -1021,8 +1021,8 @@ html[data-look="bench"] .knee--idle { pointer-events: none; }
 html[data-look="bench"] .knee::after {
   content: '';
   position: absolute; left: 50%; top: 7px;
-  width: 10px; height: 10px;
-  margin-left: -5px;
+  width: 9px; height: 9px;
+  margin-left: -4.5px;
   border-radius: 50%;
   background:
     linear-gradient(115deg, transparent 43%, rgba(20, 22, 26, 0.75) 43% 57%, transparent 57%),
@@ -1051,29 +1051,6 @@ html[data-look="bench"] .knee-grip::after {
   position: absolute;
   left: -12px; right: -12px; top: 100%;
   height: 40px;
-}
-/* Never yet moved (settings.kneeUsed), and a word beside it to move in: it
-   breathes a ring of light until it is first taken up, and never again. */
-html[data-look="bench"] .knee--new { animation: bnKneeAsk calc(1.5s / var(--aspd)) ease-in-out infinite; }
-@keyframes bnKneeAsk {
-  0%, 100% {
-    filter: brightness(1);
-    box-shadow:
-      0 0 0 1px rgba(24, 26, 30, 0.7),
-      inset 0 1px 0 rgba(255, 255, 255, 0.65),
-      inset -1px 0 0 rgba(0, 0, 0, 0.3),
-      0 0 0 0 rgba(255, 240, 200, 0),
-      2px 3px 8px rgba(0, 0, 0, 0.5);
-  }
-  50% {
-    filter: brightness(1.18);
-    box-shadow:
-      0 0 0 1px rgba(24, 26, 30, 0.7),
-      inset 0 1px 0 rgba(255, 255, 255, 0.65),
-      inset -1px 0 0 rgba(0, 0, 0, 0.3),
-      0 0 0 4px rgba(255, 240, 200, 0.5),
-      0 0 16px 4px rgba(255, 236, 190, 0.55);
-  }
 }
 /* In the hand: lifted off the brass, and quicker between sorts. */
 html[data-look="bench"] .knee--held {
@@ -1567,9 +1544,9 @@ html[data-look="bench"] .log {
     padding: 10px 10px 36px;
     gap: 6px;
   }
-  html[data-look="bench"] .groove-wrap { --bn-knee-w: 12px; }
+  html[data-look="bench"] .groove-wrap { --bn-knee-w: 10px; }
   html[data-look="bench"] .knee { top: 3px; }
-  html[data-look="bench"] .knee::after { top: 5px; width: 7px; height: 7px; margin-left: -3.5px; }
+  html[data-look="bench"] .knee::after { top: 5px; width: 6px; height: 6px; margin-left: -3px; }
   html[data-look="bench"] .knee::before { left: 2px; right: 2px; height: 18px; margin-top: -6px; }
   html[data-look="bench"] .rule-bar { height: 36px; }
   html[data-look="bench"] .tick-label { font-size: 10.5px; bottom: 20px; }
@@ -1603,11 +1580,6 @@ html[data-look="bench"] .log {
   html[data-look="bench"] .patron--just-armed .patron-take,
   html[data-look="bench"] .patron-take--bump { animation: none; }
   html[data-look="bench"] .knee, html[data-look="bench"] .tick-label { transition: none; }
-  /* The ask is still made, held rather than breathed. */
-  html[data-look="bench"] .knee--new {
-    animation: none;
-    box-shadow: 0 0 0 1px rgba(24, 26, 30, 0.7), 0 0 0 4px rgba(255, 240, 200, 0.5), 2px 3px 8px rgba(0, 0, 0, 0.5);
-  }
   html[data-look="bench"] .ghost-btn { animation: none; }
   /* The stamp still pops (retro's chipPop); only the bloom is stilled. */
   html[data-look="bench"] .chip--pop { animation-name: chipPop; }

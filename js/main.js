@@ -8,7 +8,7 @@ import {
   state, settings, loadSettings, saveSettings, loadState, clearSave,
   newRun, startPage, drawUpToRackSize, clearWord, shuffleRack,
   discardSelected, discardSundry, getWordString, moveRackToWord, moveWordToRack,
-  caretIndex, setCaret, kneeTaken, owns, allSeats,
+  caretIndex, setCaret, owns, allSeats,
   effectiveGhostSlots, clearAllSelected,
   toggleDualVariant, retirePrinted, recordWord, applySundry, sundrySelected, takePaintEchoes,
   rollTubeOffer, applyWash, washOff, effectiveSundrySlots, takeGhostEchoes,
@@ -1755,7 +1755,7 @@ document.addEventListener('keydown', e => {
     e.preventDefault();
     const at = caretIndex();
     const to = Math.max(0, Math.min(state.word.length, at + step));
-    if (to !== at) { setCaret(to); kneeTaken(); sfx.reorder(); renderWord(); }
+    if (to !== at) { setCaret(to); sfx.reorder(); renderWord(); }
     return;
   }
 
@@ -1810,6 +1810,10 @@ $('sundries')?.addEventListener('click', async e => {
   const slot = e.target.closest('[data-sundry]');
   if (!slot) return;
   hidePopover();
+  // A tool breathes on the workbench until it has been taken up once
+  // (.sundry--new); this tap is that once, whatever the tool then does with it.
+  const held = state.sundries?.[Number(slot.dataset.sundry)];
+  if (held && !held.seen) held.seen = true;
   await useSundry(Number(slot.dataset.sundry), e);
 });
 
