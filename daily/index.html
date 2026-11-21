@@ -49,18 +49,19 @@
         <b class="ro-total" id="roTotal">0</b>
       </div>
       <!-- The stick, the measure engraved along its foot, and the knee that
-           closes on the word's end (renderRule in js/render.js). -->
+           closes on the word's end and can be drawn back along it (wireKnees
+           in main.js; renderRule in js/render.js is the bench's own). -->
       <div class="stick-wrap" data-stick="0">
         <div class="stick" id="stick" aria-label="The word"></div>
         <div class="rule-bar" id="rule" aria-hidden="true"></div>
-        <div class="knee" id="knee" aria-hidden="true"></div>
+        <div class="knee" id="knee" aria-hidden="true"><span class="knee-grip"></span></div>
         <b class="stick-sum" id="stickSum0" hidden></b>
       </div>
       <!-- The second word, on a two-word day. -->
       <div class="stick-wrap" data-stick="1" hidden>
         <div class="stick" id="stick1" aria-label="The second word"></div>
         <div class="rule-bar" id="rule1" aria-hidden="true"></div>
-        <div class="knee" id="knee1" aria-hidden="true"></div>
+        <div class="knee" id="knee1" aria-hidden="true"><span class="knee-grip"></span></div>
         <b class="stick-sum" id="stickSum1" hidden></b>
       </div>
       <div class="sheet-foot">

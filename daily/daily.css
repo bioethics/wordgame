@@ -521,22 +521,82 @@ button.mode-item:hover, button.mode-item:focus-visible { background: rgba(217, 1
 .rule-bar--beside .tick-label.tick--here { transform: translateX(4px) scale(1.2); }
 .rule-bar--beside .tick-label--left { transform: translateX(calc(-100% - 4px)); transform-origin: right bottom; }
 .rule-bar--beside .tick-label--left.tick--here { transform: translateX(calc(-100% - 4px)) scale(1.2); }
+/* The knee: a steel bar that closes on the word's end and marks where the next
+   sort is set. It can be drawn back along the stick (wireKnees in main.js),
+   and the sort it then stands before is parted to let it in. The bench's knee
+   (css/bench.css) is the same bar, a little wider. */
+.stick .knee-next { margin-left: 13px; }
 .knee {
   position: absolute;
   width: 12px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, #dde2e7, var(--steel) 45%, var(--steel-dk));
-  box-shadow: 0 0 0 1px rgba(30, 30, 30, 0.55), 2px 3px 7px rgba(0, 0, 0, 0.45);
-  transition: left calc(0.22s / var(--aspd)) cubic-bezier(.2, .8, .3, 1);
-  pointer-events: none;
+  border-radius: 3px 3px 2px 2px;
+  background:
+    /* the chamfer on the face that closes on the type */
+    linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0 1.5px, transparent 1.5px),
+    /* light down its length, and the shade at its foot */
+    linear-gradient(180deg, rgba(255, 255, 255, 0.45), transparent 20%, transparent 68%, rgba(0, 0, 0, 0.3)),
+    /* the bar itself, turned: darker than the stick it stands on */
+    linear-gradient(90deg, #e6eaee, #aab2ba 30%, #868f98 58%, #58616a);
+  box-shadow:
+    0 0 0 1px rgba(24, 26, 30, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    inset -1px 0 0 rgba(0, 0, 0, 0.3),
+    2px 3px 7px rgba(0, 0, 0, 0.5);
+  transition:
+    left calc(0.22s / var(--aspd)) cubic-bezier(.2, .8, .3, 1),
+    transform calc(0.12s / var(--aspd)) ease,
+    box-shadow calc(0.12s / var(--aspd)) ease,
+    filter calc(0.12s / var(--aspd)) ease;
+  cursor: ew-resize;
+  touch-action: none;             /* the gesture draws the knee, not the page */
+  -webkit-user-select: none; user-select: none;
+  -webkit-tap-highlight-color: transparent;
   z-index: 2;
 }
+/* An empty stick has one place to stand; a printed word is not for moving. */
+.knee--idle { pointer-events: none; cursor: default; }
+/* The clamp screw at its head, slotted. */
 .knee::after {
   content: '';
-  position: absolute; left: 3px; top: 7px;
-  width: 6px; height: 6px;
+  position: absolute; left: 50%; top: 6px;
+  width: 7px; height: 7px;
+  margin-left: -3.5px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #fff, #7a828a 70%);
+  background:
+    linear-gradient(115deg, transparent 42%, rgba(20, 22, 26, 0.75) 42% 58%, transparent 58%),
+    radial-gradient(circle at 35% 30%, #fff, #b3bbc3 45%, #666f78);
+  box-shadow: 0 0 0 1px rgba(20, 22, 26, 0.45), 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+/* Knurling at the waist, where a thumb goes. */
+.knee::before {
+  content: '';
+  position: absolute; left: 2px; right: 2px; top: 50%;
+  height: 20px;
+  margin-top: -7px;
+  border-radius: 1px;
+  background: repeating-linear-gradient(180deg,
+    rgba(20, 24, 30, 0.6) 0 1px, rgba(255, 255, 255, 0.6) 1px 2px, transparent 2px 4px);
+}
+/* The room a thumb needs: a little either side of the bar, and a good deal
+   more down over the scale, where nothing else answers a touch. */
+.knee-grip { position: absolute; inset: -5px -8px -4px; }
+.knee-grip::after {
+  content: '';
+  position: absolute;
+  left: -12px; right: -12px; top: 100%;
+  height: 24px;
+}
+/* In the hand: lifted off the steel, and quicker between sorts. */
+.knee--held {
+  transform: translateY(-2px) scale(1.05);
+  filter: brightness(1.1);
+  box-shadow:
+    0 0 0 1px rgba(24, 26, 30, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 0 0 3px rgba(255, 244, 214, 0.4),
+    4px 8px 12px rgba(0, 0, 0, 0.55);
+  transition-duration: calc(0.1s / var(--aspd));
+  cursor: grabbing;
 }
 
 /* Refusals only — and it holds its line, so one appearing moves nothing. */
@@ -667,10 +727,10 @@ button.mode-item:hover, button.mode-item:focus-visible { background: rgba(217, 1
 }
 .tool[hidden] { display: none; }
 .case[hidden], .bench[hidden] { display: none; }
-/* A day that opens with a tool greets you with it: three pulses of brass once
-   the case is dealt (helloTool). The glow keeps the resting shadow's layers and
-   adds two outer ones, so it tweens rather than blinks. */
-.tool--hello { animation: toolHello 0.75s ease-in-out 0.7s 3; }
+/* A day that has a tool says so: it pulses in brass once the case is dealt and
+   until it is first taken up (helloTool). The glow keeps the resting shadow's
+   layers and adds two outer ones, so it tweens rather than blinks. */
+.tool--hello:not(.tool--armed) { animation: toolHello 1.3s ease-in-out 0.7s infinite; }
 @keyframes toolHello {
   50% {
     transform: scale(1.14);

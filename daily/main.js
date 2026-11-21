@@ -151,6 +151,7 @@ const S = {
   order: [],        // socket order (drag and Shuffle rearrange it)
   words: [[]],      // tile ids in each stick, in order — two sticks on a two-word day
   active: 0,        // the stick a tap or a key sets into
+  carets: [null, null],   // per stick, the sort its knee stands before; null = the word's end (caretOf)
   seat: 0,          // on a day with a choice of patrons, the one seated
   tables: [],       // the day's compiled seatings (tablesForDay)
   applied: null,    // the tool's use: { kind, id, face, offset? }
@@ -220,7 +221,7 @@ function openChallenge(n) {
   const deal = dealChallenge(n);
   Object.assign(S, {
     n, deal, words: deal.day.kind === 'pair' ? [[], []] : [[]], active: 0, seat: 0,
-    applied: null, armed: false, result: null, best: null,
+    applied: null, armed: false, result: null, best: null, carets: [null, null],
     field: null, note: '', printing: false, open: new Set(), openInit: false,
   });
   EXTRA = new Set();
@@ -260,20 +261,26 @@ function openChallenge(n) {
   render({ fresh: true });
   if (draft && !S.result) resume(draft);
   if (deal.tool && !S.result && !S.applied) helloTool();
+  else $('toolBtn').classList.remove('tool--hello');
 }
 
-// A tool on the bench is easy to miss. When a day opens with one, unprinted,
-// the tool lights and pulses three times once the case is dealt, then rests;
-// picking it up stops it. With reduced motion it holds a still ring a moment.
-let helloTimer = 0;
+// A tool on the bench is easy to miss. On a day that has one, unprinted and
+// unused, the tool pulses once the case is dealt and goes on pulsing until it
+// is first taken up (toolTap); with reduced motion it wears a still ring
+// instead. Taken up once, it stays quiet on that day for good: the days it was
+// taken up on are kept, the last fortnight of them.
+const TOOL_SEEN = `${STORE}-tool-seen`;
+const toolSeen = () => { try { return JSON.parse(localStorage.getItem(TOOL_SEEN) || '[]'); } catch { return []; } };
 function helloTool() {
-  const btn = $('toolBtn');
-  clearTimeout(helloTimer);
-  btn.classList.remove('tool--hello');
-  void btn.offsetWidth;   // so a second day's greeting starts from the top
-  btn.classList.add('tool--hello');
-  helloTimer = setTimeout(() => btn.classList.remove('tool--hello'), reducedMotion() ? 2400 : 3200);
+  $('toolBtn').classList.toggle('tool--hello', !toolSeen().includes(S.n));
 }
+function toolTaken() {
+  $('toolBtn').classList.remove('tool--hello');
+  const seen = toolSeen();
+  if (seen.includes(S.n)) return;
+  try { localStorage.setItem(TOOL_SEEN, JSON.stringify([...seen, S.n].slice(-14))); } catch { /* private window */ }
+}
+
 
 function countWords(deal, signal) {
   const words = EXTRA.size ? WORDS.concat([...EXTRA]) : WORDS;
@@ -339,7 +346,45 @@ const stamps = id => !!(PATRONS[id]?.effect || PATRONS[id]?.bind) && id !== 'twi
 // ─── Composing ────────────────────────────────────────────────────────────────
 const locked = () => !!S.result || S.printing;
 
-function place(id, at = S.words[S.active].length) {
+// ─── The knee ─────────────────────────────────────────────────────────────────
+// Where the next sort is set: the word's end, until the knee is drawn back
+// along the stick (wireKnees), as on the full board's bench (caretIndex in
+// js/state.js). Each stick keeps the id of the sort its knee stands BEFORE.
+// A sort set at the knee goes in before that one, which is the knee stepping
+// on. When the anchor itself leaves the stick, by whatever hand, syncCarets
+// moves the knee to stand before whichever sort used to follow it, so it keeps
+// its place; with none left to follow, it is back at the end.
+let caretWas = [[], []];   // each stick's sorts as last rendered
+function caretOf(k = S.active) {
+  const w = S.words[k] ?? [];
+  const i = locked() || S.carets[k] == null ? -1 : w.indexOf(S.carets[k]);
+  return i < 0 ? w.length : i;
+}
+function setCaret(k, i) { S.carets[k] = S.words[k][Math.max(0, i)] ?? null; }
+function syncCarets() {
+  for (let k = 0; k < 2; k++) {
+    const w = S.words[k] ?? [], a = S.carets[k];
+    if (a != null && !w.includes(a)) {
+      const was = caretWas[k];
+      S.carets[k] = was.slice(was.indexOf(a) + 1).find(id => was.includes(a) && w.includes(id)) ?? null;
+    }
+    caretWas[k] = [...w];
+  }
+}
+function moveKnee(k, i) {
+  i = Math.max(0, Math.min(S.words[k].length, i));
+  if (locked() || i === caretOf(k)) return false;
+  setCaret(k, i);
+  sfx.reorder();
+  // Only this stick changes, and nothing it scores: it alone is drawn again.
+  const z = stickEl(k);
+  const before = new Map(snapTiles(z));
+  renderStick(k, scoreOf(k));
+  flipTiles(z, before);
+  return true;
+}
+
+function place(id, at = caretOf()) {
   if (locked() || placed(id) || S.tiles.find(t => t.id === id)?.locked) return;
   S.words[S.active].splice(at, 0, id);
   S.note = '';
@@ -468,7 +513,7 @@ function refuse(id) {
 // ─── The tool ─────────────────────────────────────────────────────────────────
 function toolTap() {
   if (locked() || !S.deal.tool) return;
-  $('toolBtn').classList.remove('tool--hello');
+  toolTaken();
   hidePop();
   if (S.applied) { S.applied = null; S.armed = false; sfx.disarm(); render(); return; }
   S.armed = !S.armed;
@@ -954,6 +999,7 @@ const zones = () => [$('case'), stickEl(0), stickEl(1)];
 
 function render({ fresh = false } = {}) {
   syncLocks();
+  syncCarets();
   const before = fresh ? new Map() : new Map(zones().flatMap(z => [...snapTiles(z)]));
   if (fresh) lastPays = new Map();
   const scs = S.words.map((_, k) => scoreOf(k));
@@ -1196,7 +1242,10 @@ function renderStick(k, sc) {
       ptsEl.style.animationDelay = `${popped++ * 60}ms`;
     }
     if (now !== restingOf(t)) el.title += `\n${fill(UI.inWord, now)}`;
-    host.appendChild(withHalo(el));
+    const box = withHalo(el);
+    // The sort the knee stands before is parted from its neighbour to let it in.
+    if (host.children.length === caretOf(k)) box.classList.add('knee-next');
+    host.appendChild(box);
   }
   for (const [id, v] of pays) lastPays.set(id, v);
   fitStick(k);
@@ -1322,10 +1371,16 @@ function renderRule(k, word, sc) {
   }
   bar.innerHTML = ticks.join('');
 
+  // The knee closes on the sort it stands behind: the last, until it is drawn
+  // back along the stick. (A haloed sort's box is the halo, which is what
+  // stands in the stick.)
   const last = tiles[tiles.length - 1];
-  knee.style.left = `${last ? origin + last.offsetLeft + last.offsetWidth + 3 : origin + padL - 4}px`;
+  const behind = stick.children[caretOf(k) - 1];
+  knee.style.left = `${behind ? origin + behind.offsetLeft + behind.offsetWidth + 3 : origin + padL - 4}px`;
   knee.style.top = `${stick.offsetTop + (last?.offsetTop ?? parseFloat(cs.paddingTop)) - 3}px`;
   knee.style.height = `${(last?.offsetHeight ?? tfs * 4.5) + 6}px`;
+  // Nothing to take hold of on an empty stick, or once the word is printed.
+  knee.classList.toggle('knee--idle', !tiles.length || locked());
 }
 
 const KNEE_ROOM = 16;
@@ -1911,11 +1966,47 @@ function releasePress(commit, e) {
   if (commit && !p.popped) tapTile(p.id, p.zone);
 }
 
+// The knee is drawn along its stick by hand. It stands only where a sort could
+// be set, so it steps from gap to gap as the pointer passes each sort's middle
+// and the word parts to let it in (initKneeDrag in js/drag.js is the same).
+let kneePress = null;   // { pointerId, k, el }
+function wireKnees() {
+  for (let k = 0; k < 2; k++) {
+    const knee = kneeEl(k);
+    knee.addEventListener('pointerdown', e => {
+      if (kneePress || press || locked() || !S.words[k]?.length) return;
+      if (e.button !== undefined && e.button !== 0) return;
+      e.preventDefault();
+      hidePop();
+      if (k !== S.active) setActive(k);
+      kneePress = { pointerId: e.pointerId, k, el: knee };
+      knee.setPointerCapture?.(e.pointerId);
+      knee.classList.add('knee--held');
+      sfx.lift();
+    });
+  }
+  addEventListener('pointermove', e => {
+    if (!kneePress || e.pointerId !== kneePress.pointerId) return;
+    const i = stickTiles(kneePress.k).filter(t => {
+      const b = t.getBoundingClientRect();
+      return e.clientX > b.left + b.width / 2;
+    }).length;
+    if (moveKnee(kneePress.k, i)) navigator.vibrate?.(6);
+  });
+  const done = e => {
+    if (!kneePress || e.pointerId !== kneePress.pointerId) return;
+    kneePress.el.classList.remove('knee--held');
+    kneePress = null;
+  };
+  addEventListener('pointerup', done);
+  addEventListener('pointercancel', done);
+}
+
 function wireHands() {
   for (const root of [$('case'), $('stick'), $('stick1')]) {
     root.addEventListener('pointerdown', e => {
       const el = e.target.closest('.tile');
-      if (!el || press) return;
+      if (!el || press || kneePress) return;
       if (e.button !== undefined && e.button !== 0) return;   // primary only
       e.preventDefault();   // no text selection, no native gesture on a sort
       hidePop();
@@ -1979,6 +2070,7 @@ function wireReading(el, lines) {
 
 function wire() {
   wireHands();
+  wireKnees();
   wireReading($('toolBtn'), () => {
     const tt = toolWords();
     return [{ head: tt.name, body: tt.desc }];
@@ -2018,7 +2110,14 @@ function wire() {
       const w = S.words[S.active];
       // On a two-word day an empty second stick hands back to the first.
       if (!w.length && S.active > 0) setActive(S.active - 1);
-      else if (w.length) unplace(w[w.length - 1]);
+      // The sort behind the knee, which is the last unless the knee was moved.
+      else if (caretOf() > 0) unplace(w[caretOf() - 1]);
+      e.preventDefault();
+    }
+    // The knee, from the keyboard: a sort at a time, or to either end.
+    else if (!onControl && { ArrowLeft: 1, ArrowRight: 1, Home: 1, End: 1 }[e.key] && S.words[S.active].length) {
+      const to = { ArrowLeft: caretOf() - 1, ArrowRight: caretOf() + 1, Home: 0, End: Infinity }[e.key];
+      moveKnee(S.active, to);
       e.preventDefault();
     }
     else if (e.key === 'Enter' && !onControl) {
@@ -2125,6 +2224,7 @@ function restoreBest() {
   hidePop();
   restoreFaces(b);
   S.words = b.words.map(w => [...w]);
+  S.carets = [null, null];
   S.seat = b.seat ?? 0;
   S.applied = b.applied ?? null;
   locksToEnd();

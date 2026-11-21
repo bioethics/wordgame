@@ -1715,7 +1715,11 @@ reads, in brass when that beats its resting value, popping when it changes —
 so a nick's reach is read off the tiles as the word is built. The stick is a
 ruler (`renderRule`): a tick per place along its foot, the length multiplier
 each place would earn from the sixth letter, and a steel knee that closes on
-the word's end. Under the word the ticks sit at the sorts' edges; ahead of it
+the word's end. The knee is where the next sort is set, and is drawn back along
+the stick as on the full board (`wireKnees`, `caretOf`, `syncCarets` in
+`daily/main.js`); on a two-word day each stick has its own. A day's tool
+pulses from the deal until it is first taken up, and not again on that day
+(`helloTool`). Under the word the ticks sit at the sorts' edges; ahead of it
 they are a full-size sort apart, where the next sort will land before a long
 word is shrunk to fit, so the stick is ruled from the start. (A phone's stick
 holds four sorts at full size, so there the multipliers, which start at the
