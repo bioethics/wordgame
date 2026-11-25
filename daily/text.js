@@ -195,6 +195,7 @@ export const RESULT = {
   copied: 'Copied',
   next: 'Next ›',
   shareHead: 'Great Work Daily #{0}',
+  spiked: 'Spiked: {0}',
 };
 
 export const fill = (s, ...v) => s.replace(/\{(\d)\}/g, (_, i) => v[i] ?? '');

@@ -862,6 +862,8 @@ button.mode-item:hover, button.mode-item:focus-visible { background: rgba(217, 1
 .best-row--yours .best-head { background: rgba(184, 50, 26, 0.09); box-shadow: inset 3px 0 0 var(--you-ink); }
 .best-set { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 2px 4px 10px 3.2em; }
 .best-tool { font-size: 15px; }
+/* The desk's scissors, before a spiked word's score. */
+.best-spike { font-size: 13px; font-weight: 400; margin-right: 5px; }
 .best-set--better { padding-top: 0; opacity: 0.85; }
 .best-alt-score { font-family: var(--serif); font-weight: 900; font-size: 15px; color: var(--dim); font-variant-numeric: tabular-nums; }
 

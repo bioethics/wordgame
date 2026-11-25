@@ -2362,6 +2362,17 @@ spacing by place would. On a two-word day the pairs are too many to keep, so
 `solvePairs` remembers the first pair to reach each score as it counts, and a
 stone names that pair.
 
+On an editor's day a row whose word the desk spiked carries the share's
+scissors before its score (`spikeMark`, since 25 November), on the head of the
+row rather than in its opened setting, so the ten, the stones and your own
+word can be read for spikes without opening any; the title names the rule it
+broke. Spiked words reach the list more often than you'd guess: a spiked
+word is in the field at a fifth of its worth, and a long one can outscore
+the case's obedient words even so — № 7's Serialist (open with O) let
+POLARIZATION and RATIONALIZE into the ten, and a stone or two on most
+Thursdays below them. The Redactor spikes nothing, so his day shows none;
+his drafts show in the opened settings, wrapped.
+
 The field is drawn as one curve, score against place, the best word at the
 right, so the curve climbs as the words improve. The place runs on a
 log axis anchored at the top 1%, log(1 + place ÷ one per cent of the field).

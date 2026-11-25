@@ -1659,7 +1659,7 @@ function renderResult() {
 // the row is opened, in full: one word's under it, a pair's two beneath, each
 // headed by the word it defines (or that word's root), in the definition's type.
 function bestRow(row) {
-  const { key, place, name, score, yours, stone, open, fillSet, words = [] } = row;
+  const { key, place, name, score, yours, stone, open, fillSet, words = [], spiked = false } = row;
   const li = document.createElement('li');
   li.className = `best-row${yours ? ' best-row--yours' : ''}${stone ? ' best-row--stone' : ''}${open ? ' best-row--open' : ''}`;
   const btn = document.createElement('button');
@@ -1668,6 +1668,7 @@ function bestRow(row) {
   const pl = document.createElement('span'); pl.className = 'best-place'; pl.textContent = fmtN(place);
   const w = document.createElement('span'); w.className = 'best-word'; w.textContent = name;
   const sc = document.createElement('b'); sc.className = 'best-score'; sc.textContent = fmtN(score);
+  if (spiked) sc.prepend(spikeMark());
   const cell = document.createElement('span'); cell.className = 'best-name';
   cell.appendChild(w);
   if (open && words.length === 1) cell.appendChild(defSpan(words[0]));
@@ -1691,6 +1692,18 @@ function bestRow(row) {
   if (open) fillSet(li);
   return li;
 }
+// On an editor's day, the scissors on a row whose word the desk spiked — in
+// the head, beside the score it cut, so a spiked word is plain in the list
+// without opening it, as the share marks it. The title says what it broke.
+const spikeMark = () => {
+  const m = document.createElement('span');
+  m.className = 'best-spike';
+  m.textContent = '✂️';
+  const desk = S.deal.day.editor;
+  m.title = fill(RESULT.spiked, desk ? editorRule(desk) : '');
+  m.setAttribute('aria-label', m.title);
+  return m;
+};
 const toolMark = tool => {
   const note = document.createElement('span');
   note.className = 'best-tool';
@@ -1767,12 +1780,22 @@ function bestWords(r, field) {
     return R[j];
   };
   const stones = stonesBetween(r, R[9]?.score, pickWord, e => e.word === mineWord);
+  // Whether the desk spiked a row's word: your word as you printed it, any
+  // other as the field set it. Only an editor's day has a desk.
+  const desk = S.deal.day.kind === 'editor';
+  const spikedOf = e => {
+    if (!desk) return false;
+    if (e.yours && !e.plan) return !!scoreOf(0)?.spiked;
+    const { tiles, T } = setOut(e);
+    return !!(T?.judge && scoreWord(tiles, [], has, T)?.spiked);
+  };
   let into = list;
   for (const e of withStones(shown, stones)) {
     if (e.mark) { into = e.mark === 'open' ? stonePanel(list) : list; continue; }
     const key = e.yours ? '\u0000yours' : e.word;
     into.appendChild(bestRow({
       key, name: e.word, words: [e.word], score: e.score, yours: e.yours, stone: e.stone, open: S.open.has(key),
+      spiked: spikedOf(e),
       place: e.yours ? r.rank : rankOf(e.score, field.scores).rank,
       fillSet: li => {
         const set = document.createElement('div');
